@@ -32,7 +32,7 @@ Then('query tagging request should be triggered', () => {
   cy.wait('@queryTagging').should('exist');
 });
 
-Then('query tagging request has been triggered', () => {
+Then('query tagging request is triggered', () => {
   cy.get('@queryTagging', { timeout: 0 }).should('exist');
 });
 
@@ -59,7 +59,7 @@ When('pdp add to cart button is clicked', () => {
   cy.getByDataTest('pdp-add-to-cart-button').click();
 });
 
-Then('add product to cart tagging request has been triggered', () => {
+Then('add product to cart tagging request is triggered', () => {
   cy.wait('@addToCartTagging').should('exist');
 });
 

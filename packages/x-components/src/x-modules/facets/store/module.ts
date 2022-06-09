@@ -14,7 +14,8 @@ export const facetsXStoreModule: FacetsXStoreModule = {
   state: () => ({
     filters: {},
     groups: {},
-    facets: {}
+    facets: {},
+    preselectedFilters: []
   }),
   getters: {
     selectedFilters,
@@ -27,6 +28,9 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     },
     setFilters(state, filters) {
       filters.forEach(filter => Vue.set(state.filters, filter.id, Object.freeze(filter)));
+    },
+    setPreselectedFilters(state, filters) {
+      state.preselectedFilters = filters;
     },
     removeFilter(state, { id }) {
       Vue.delete(state.filters, id);

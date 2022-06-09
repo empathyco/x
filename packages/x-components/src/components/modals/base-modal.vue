@@ -7,6 +7,7 @@
       </div>
       <div
         @click="emitOverlayClicked"
+        @keydown="emitOverlayClicked"
         class="x-modal__overlay"
         :class="{ 'x-modal__overlay--is-visible': showOverlay }"
         data-test="modal-overlay"

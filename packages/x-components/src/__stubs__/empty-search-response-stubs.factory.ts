@@ -1,7 +1,7 @@
-import { SearchResponse } from '../../../search-adapter/types/types/response.types';
+import { SearchResponse } from '@empathyco/x-types';
 
 /**
- * Creates an empty {@link @empathyco/x-adapter#SearchResponse | search response} stub.
+ * Creates an empty {@link @empathyco/x-types#SearchResponse | search response} stub.
  *
  * @returns Object of an empty search response stub.
  *

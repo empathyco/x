@@ -3,6 +3,248 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.105](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.104...@empathyco/x-components@3.0.0-alpha.105) (2022-06-08)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.104](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.103...@empathyco/x-components@3.0.0-alpha.104) (2022-06-07)
+
+### Features
+
+- fix rest of warnings for accessibility
+  ([553d5ba](https://github.com/empathyco/x/commit/553d5bac9256871e69de2c3b87dfc99a993d0f1f)),
+  closes [EX-6149](https://searchbroker.atlassian.net/browse/EX-6149)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.103](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.102...@empathyco/x-components@3.0.0-alpha.103) (2022-05-25)
+
+### Documentation
+
+- fix links and minor typos
+  ([e0197d5](https://github.com/empathyco/x/commit/e0197d5bff978048aed39dff5878d60682b7aa9f)),
+  closes [EX-6125](https://searchbroker.atlassian.net/browse/EX-6125)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.102](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.101...@empathyco/x-components@3.0.0-alpha.102) (2022-05-19)
+
+### Features
+
+- **facets:** add `PreselectedFilters` component
+  ([5496d78](https://github.com/empathyco/x/commit/5496d7868c77d8b9211fd532bf964770da1d6a3c)),
+  closes [EX-6023](https://searchbroker.atlassian.net/browse/EX-6023)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.101](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.100...@empathyco/x-components@3.0.0-alpha.101) (2022-05-18)
+
+### Bug Fixes
+
+- **related-tags:** related tags are now kept when navigating back
+  ([db9f875](https://github.com/empathyco/x/commit/db9f87560000bca05ad3fe06fc449e170c3b9d08)),
+  closes [EX-6131](https://searchbroker.atlassian.net/browse/EX-6131)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.100](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.99...@empathyco/x-components@3.0.0-alpha.100) (2022-05-17)
+
+### Bug Fixes
+
+- **build:** supports being built on Windows based machines
+  ([6e760fa](https://github.com/empathyco/x/commit/6e760fab8d39162897574abab95884cadd6252b8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.99](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.98...@empathyco/x-components@3.0.0-alpha.99) (2022-05-17)
+
+### Bug Fixes
+
+- **url:** a `query` is required to store params in the `URL`
+  ([b105da3](https://github.com/empathyco/x/commit/b105da33b35aaa1e3796790d0ec88c74caf856e5)),
+  closes [EX-6134](https://searchbroker.atlassian.net/browse/EX-6134)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.98](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.97...@empathyco/x-components@3.0.0-alpha.98) (2022-05-13)
+
+### Features
+
+- fix form label warnings
+  ([2437b09](https://github.com/empathyco/x/commit/2437b096ca1ddb9b97c3207e338b9fb587bc3ea7)),
+  closes [EX-6025](https://searchbroker.atlassian.net/browse/EX-6025)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.97](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.96...@empathyco/x-components@3.0.0-alpha.97) (2022-05-13)
+
+### Features
+
+- move `response` types to `@empathyco/x-types`
+  ([77fb812](https://github.com/empathyco/x/commit/77fb812b77fe0c84462a4b5b2eb7f0439e2d8061)),
+  closes [EX-6092](https://searchbroker.atlassian.net/browse/EX-6092)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.96](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.95...@empathyco/x-components@3.0.0-alpha.96) (2022-05-13)
+
+### ⚠ BREAKING CHANGES
+
+- **facets:** Renamed method `registerFilterModifier` in `FilterEntityFactory` to
+  `registerModifierByFacetId`.
+- **facets:** Changed `modifiers` parameter of `registerFilterModifier` in `FilterEntityFactory`
+  from a single array in favour of rest parameters.
+
+### Features
+
+- **facets:** add `registerModifierByFilterModelName`
+  ([36956a1](https://github.com/empathyco/x/commit/36956a13b33cc5430381d33ac53cd33b706136da)),
+  closes [EX-6106](https://searchbroker.atlassian.net/browse/EX-6106)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.95](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.94...@empathyco/x-components@3.0.0-alpha.95) (2022-05-11)
+
+### ⚠ BREAKING CHANGES
+
+- Request types moved to `x-types` package. Change the imports from `x-adapter` to `x-type`.
+- Removed `TaggingInfo` type. Use `TaggingRequest` from `@empathyco/x-types` instead.
+
+### Features
+
+- move `Request` types to `x-types` package
+  ([7cc85c1](https://github.com/empathyco/x/commit/7cc85c1d371b604b3188d8cc2076eab5fc9460e4)),
+  closes [EX-6066](https://searchbroker.atlassian.net/browse/EX-6066)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.94](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.93...@empathyco/x-components@3.0.0-alpha.94) (2022-05-09)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.93](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.92...@empathyco/x-components@3.0.0-alpha.93) (2022-05-06)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.92](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.91...@empathyco/x-components@3.0.0-alpha.92) (2022-05-05)
+
+### Features
+
+- **facets:** expose `clickEvents` as a `prop` in filters components using a `RenderlessFilter`
+  ([013d83d](https://github.com/empathyco/x/commit/013d83d93ac734a1365bbf98a19ae15dc2f1a64b)),
+  closes [EX-5986](https://searchbroker.atlassian.net/browse/EX-5986)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.91](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.90...@empathyco/x-components@3.0.0-alpha.91) (2022-05-04)
+
+### Features
+
+- add `alt-text` accessibility
+  ([da5a10a](https://github.com/empathyco/x/commit/da5a10a236aae5fae96943fe0ad54849df15e7f5)),
+  closes [EX-5930](https://searchbroker.atlassian.net/browse/EX-5930)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.90](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.89...@empathyco/x-components@3.0.0-alpha.90) (2022-05-03)
+
+### Features
+
+- **history-queries:** add `MyHistory` component
+  ([9929212](https://github.com/empathyco/x/commit/992921275edcca7a6c14ab6dfeaa2dbacae6a5e8)),
+  closes [EX-5703](https://searchbroker.atlassian.net/browse/EX-5703)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.89](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.88...@empathyco/x-components@3.0.0-alpha.89) (2022-04-29)
+
+### Build System
+
+- **deps:** update eslint-plugin dependencies (#447)
+  ([51d60f0](https://github.com/empathyco/x/commit/51d60f0e11fa9667a784bbdb10ba1f39159b382f)),
+  closes [EX-5383](https://searchbroker.atlassian.net/browse/EX-5383)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.88](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.87...@empathyco/x-components@3.0.0-alpha.88) (2022-04-29)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.86](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.85...@empathyco/x-components@3.0.0-alpha.86) (2022-04-19)
+
+### Features
+
+- **eslint:** add `vuejs-accessibility` plugin (#427)
+  ([6789771](https://github.com/empathyco/x/commit/6789771ab88a909552da74095694a4c2a191a51d)),
+  closes [EX-5845](https://searchbroker.atlassian.net/browse/EX-5845)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.85](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.84...@empathyco/x-components@3.0.0-alpha.85) (2022-04-14)
 
 ### Features

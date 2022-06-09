@@ -1,4 +1,4 @@
-import { RecommendationSchema, TaggingInfoSchema } from '@empathyco/x-types/schemas';
+import { RecommendationSchema, TaggingRequestSchema } from '@empathyco/x-types/schemas';
 import { DiscoveryWallRecommendationsResponse } from '../../__fixtures__/responses/discovery-wall-recommendations.response';
 import { adapter } from '../../__mocks__/adapter.mocks';
 import { getFetchMock } from '../../__mocks__/fetch.mock';
@@ -31,5 +31,5 @@ it('gets result recommendations filtered by section successfully', async () => {
   });
   expect(response.results).toHaveLength(DiscoveryWallRecommendationsResponse.docs.length);
   expect(response.results).everyItemToMatch(RecommendationSchema);
-  expect(response.showTagging).toEqual(TaggingInfoSchema);
+  expect(response.showTagging).toEqual(TaggingRequestSchema);
 });

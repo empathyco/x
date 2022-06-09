@@ -16,6 +16,7 @@
     inputmode="search"
     type="search"
     data-test="search-input"
+    :aria-label="searchInputMessage"
   />
 </template>
 
@@ -44,6 +45,8 @@
   })
   export default class SearchInput extends Vue {
     public $refs!: { input: HTMLInputElement };
+
+    protected searchInputMessage = 'type your query here';
 
     /**
      * Maximum characters allowed in the input search.
@@ -207,8 +210,8 @@
      *
      * @remarks
      * Emitted events are:
-     * * {@link SearchBoxXEvents.UserPressedEnterKey}
-     * * {@link XEventsTypes.UserAcceptedAQuery}
+     * {@link SearchBoxXEvents.UserPressedEnterKey}
+     * {@link XEventsTypes.UserAcceptedAQuery}
      *
      * @internal
      */

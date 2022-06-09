@@ -2,7 +2,7 @@
   <RenderlessFilter
     v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
     :class="cssClasses"
-    :clickEvents="clickEvents"
+    :clickEvents="_clickEvents"
     :filter="filter"
     class="x-simple-filter"
   >
@@ -66,15 +66,23 @@
     public filter!: SimpleFilterModel;
 
     /**
-     * Additional events to emit when the filter is clicked.
+     * Additional events, with their payload, to emit when the filter is clicked.
      *
-     * @returns A dictionary with the events to be emitted when the filter is clicked, and its
-     * payload.
+     * @public
+     */
+    @Prop()
+    public clickEvents?: Partial<XEventsTypes>;
+
+    /**
+     * The {@link XEventsTypes | events} to emit.
+     *
+     * @returns The events to emit when clicked.
      * @internal
      */
-    protected get clickEvents(): Partial<XEventsTypes> {
+    protected get _clickEvents(): Partial<XEventsTypes> {
       return {
-        UserClickedASimpleFilter: this.filter
+        UserClickedASimpleFilter: this.filter,
+        ...this.clickEvents
       };
     }
 
@@ -93,17 +101,60 @@
 </script>
 
 <docs lang="mdx">
-## Examples
+## Events
+
+A list of events that the component will emit:
+
+- [`UserClickedAFilter`](x-components.xeventstypes.userclickedafilter.md): the event is emitted
+  after the user clicks the button, using the `filter` prop as its payload.
+- [`UserClickedASimpleFilter`[(x-components.xeventstypes.userclickedasimplefilter.md): the event is
+  emitted after the user clicks the button, using the `filter` prop as its payload.
+
+## See it in action
 
 This component renders a button, which on clicked emits the `UserClickedAFilter` and the
 `UserClickedASimpleFilter` events. By default, it renders a `button` with the `filter.label`
 property as text.
 
-### Basic usage
+The `filter` prop is required. The `clickEvents` prop is optional and allows configuring the events
+to emit on click.
 
 ```vue
 <template>
   <SimpleFilter :filter="filter" />
+</template>
+
+<script>
+  import { SimpleFilter } from '@empathyco/x-components/facets';
+
+  export default {
+    name: 'SimpleFilterTest',
+    components: {
+      SimpleFilter
+    },
+    data() {
+      return {
+        filter: {
+          modelName: 'SimpleFilter',
+          selected: false,
+          id: 'category:shirts',
+          value: 'category:shirts',
+          facetId: 'category',
+          totalResults: 10
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Playing with props
+
+Configuring the events to emit when the filter is clicked.
+
+```vue
+<template>
+  <SimpleFilter :clickEvents="{ UserClickedASimpleFilter: filter }" :filter="filter" />
 </template>
 
 <script>
@@ -210,11 +261,4 @@ receive the filter data.
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedASimpleFilter`: the event is emitted after the user clicks the button. The event
-  payload is the simple filter.
 </docs>

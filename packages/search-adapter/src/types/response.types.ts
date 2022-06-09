@@ -7,9 +7,9 @@ import {
   Redirection,
   RelatedTag,
   Result,
-  Suggestion,
-  TaggingInfo
+  Suggestion
 } from '@empathyco/x-types';
+import { TrackingRequest } from './requests.types';
 
 /**
  * TODO https://searchbroker.atlassian.net/browse/EX-2163
@@ -44,7 +44,7 @@ export interface SearchByIdResponse {
  * @public
  */
 export interface TrackableShowResponse {
-  showTagging: TaggingInfo;
+  showTagging: TrackingRequest;
 }
 
 /**
@@ -53,14 +53,14 @@ export interface TrackableShowResponse {
  * @public
  */
 export interface SearchResponse {
-  banners: Banner[];
+  banners?: Banner[];
   facets?: Facet[];
-  partialResults: PartialResult[];
-  promoteds: Promoted[];
-  queryTagging: TaggingInfo;
-  redirections: Redirection[];
+  partialResults?: PartialResult[];
+  promoteds?: Promoted[];
+  queryTagging: TrackingRequest;
+  redirections?: Redirection[];
   results: Result[];
-  spellcheck: string;
+  spellcheck?: string;
   totalResults: number;
 }
 

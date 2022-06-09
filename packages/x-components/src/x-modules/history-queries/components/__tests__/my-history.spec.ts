@@ -1,5 +1,5 @@
 import { HistoryQuery } from '@empathyco/x-types';
-import { DeepPartial } from '@empathyco/x-utils';
+import { DeepPartial, forEach } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -7,13 +7,40 @@ import { createHistoryQueries } from '../../../../__stubs__/history-queries-stub
 import { RootXStoreState } from '../../../../store/store.types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
+import { baseSnippetConfig } from '../../../../views/base-config';
+import { SnippetConfig } from '../../../../x-installer/api/api.types';
 import { historyQueriesXModule } from '../../x-module';
 import MyHistory from '../my-history.vue';
 import { resetXHistoryQueriesStateWith } from './utils';
 
+const historyQueries: HistoryQuery[] = [
+  {
+    query: 'lego',
+    timestamp: 1650286901802,
+    modelName: 'HistoryQuery'
+  },
+  {
+    query: 'barbie',
+    timestamp: 1650286895254,
+    modelName: 'HistoryQuery'
+  },
+  {
+    query: 'truck',
+    timestamp: 1649230515242,
+    modelName: 'HistoryQuery'
+  },
+  {
+    query: 'doll',
+    timestamp: 1649230513535,
+    modelName: 'HistoryQuery'
+  }
+];
+
 function renderMyHistory({
-  template = '<MyHistory />',
-  historyQueries = []
+  template = '<MyHistory :locale="locale" />',
+  historyQueries = [],
+  locale,
+  snippetConfig
 }: MyHistoryOptions = {}): MyHistoryAPI {
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -27,11 +54,18 @@ function renderMyHistory({
       template,
       components: {
         MyHistory
-      }
+      },
+      provide: {
+        snippetConfig
+      },
+      props: ['locale']
     },
     {
       localVue,
-      store
+      store,
+      propsData: {
+        locale
+      }
     }
   );
   return {
@@ -44,7 +78,7 @@ function renderMyHistory({
       return wrapper.findAll(getDataTestSelector('suggestion-item'));
     },
     findAllInWrapper(selector) {
-      return wrapper.findAll(getDataTestSelector(selector));
+      return wrapper.findAll(getDataTestSelector(selector)).wrappers;
     }
   };
 }
@@ -61,13 +95,30 @@ describe('testing MyHistory component', () => {
     expect(wrapper.html()).toEqual('');
   });
 
-  it('renders the list of searched queries', async () => {
-    const { search, getListItems } = renderMyHistory();
+  it('renders the list of searched queries group by date', () => {
+    const historyQueriesGroupedByDate = {
+      'Monday, April 18, 2022': [historyQueries[0], historyQueries[1]],
+      'Wednesday, April 6, 2022': [historyQueries[2], historyQueries[3]]
+    };
+    const { findAllInWrapper } = renderMyHistory({
+      historyQueries: historyQueries,
+      snippetConfig: { ...baseSnippetConfig, lang: 'en' }
+    });
 
-    await search('lego');
-    const suggestionsWrappers = getListItems();
-    expect(suggestionsWrappers.wrappers).toHaveLength(1);
-    expect(suggestionsWrappers.at(0).text()).toEqual('lego ✕');
+    expectValidHistoryContent(historyQueriesGroupedByDate, findAllInWrapper);
+  });
+
+  it('renders the date using the locale prop when there is no snippetConfig', () => {
+    const historyQueriesGroupedByDate = {
+      'lunes, 18 de abril de 2022': [historyQueries[0], historyQueries[1]],
+      'miércoles, 6 de abril de 2022': [historyQueries[2], historyQueries[3]]
+    };
+    const locale = 'es';
+    const { findAllInWrapper } = renderMyHistory({
+      historyQueries: historyQueries,
+      locale
+    });
+    expectValidHistoryContent(historyQueriesGroupedByDate, findAllInWrapper, locale);
   });
 
   it('allows changing history query content and render the list of history queries', () => {
@@ -106,11 +157,33 @@ describe('testing MyHistory component', () => {
     expect(suggestionIconWrappers).toHaveLength(historyQueries.length);
     expect(suggestionRemoveIconWrappers).toHaveLength(historyQueries.length);
     expect(suggestionContentWrappers).toHaveLength(historyQueries.length);
-    suggestionContentWrappers.wrappers.forEach((contentWrapper, index) => {
+    suggestionContentWrappers.forEach((contentWrapper, index) => {
       expect(contentWrapper.attributes('data-index')).toEqual(index.toString());
       expect(contentWrapper.text()).toEqual(historyQueries[index].query);
     });
   });
+
+  function expectValidHistoryContent(
+    historyQueriesGroupedByDate: Record<string, HistoryQuery[]>,
+    findAllInWrapper: MyHistoryAPI['findAllInWrapper'],
+    locale: [] | string = []
+  ): void {
+    const historyWrappers = findAllInWrapper('my-history-item');
+    forEach(historyQueriesGroupedByDate, (date, historyQueries, index) => {
+      const groupWrapper = historyWrappers[index];
+      const historyItemWrappers = groupWrapper?.findAll(getDataTestSelector('history-query-item'));
+      expect(groupWrapper?.find(getDataTestSelector('my-history-date')).text()).toBe(date);
+      historyQueries.forEach((historyQuery, historyQueryIndex) => {
+        const hour = new Date(historyQuery.timestamp).toLocaleTimeString(locale, {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        expect(historyItemWrappers?.at(historyQueryIndex).text()).toEqual(
+          `${historyQuery.query} ${hour} ✕`
+        );
+      });
+    });
+  }
 });
 
 /**
@@ -121,6 +194,10 @@ interface MyHistoryOptions {
   template?: string;
   /** List of {@link HistoryQuery} that are going to be rendered. */
   historyQueries?: HistoryQuery[];
+  /** The locale to format the date.*/
+  locale?: string;
+  /** The provided {@link SnippetConfig}.*/
+  snippetConfig?: SnippetConfig;
 }
 
 /**
@@ -135,5 +212,5 @@ interface MyHistoryAPI {
    * component. */
   getListItems: () => WrapperArray<Vue>;
   /** Retrieves the wrapper for the items that matches with the selector. */
-  findAllInWrapper: (selector: string) => WrapperArray<Vue>;
+  findAllInWrapper: (selector: string) => Wrapper<Vue>[];
 }

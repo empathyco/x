@@ -19,7 +19,8 @@ export function createFetchAndSaveActions<
 >({
   fetch,
   onSuccess,
-  onError,
+  // eslint-disable-next-line no-console
+  onError = console.error,
   onCancel
 }: FetchAndSaveHooks<Context, Request, Response>): FetchAndSaveActions<Context, Request> {
   let cancelPreviousRequest: undefined | (() => void);
@@ -60,7 +61,7 @@ export function createFetchAndSaveActions<
   function handleError(context: Context, error: unknown): void {
     if (error !== CancelSymbol) {
       context.commit('setStatus', 'error');
-      onError?.(error);
+      onError(error);
     }
   }
 

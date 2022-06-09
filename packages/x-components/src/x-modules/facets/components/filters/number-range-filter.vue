@@ -2,7 +2,7 @@
   <RenderlessFilter
     v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
     :class="cssClasses"
-    :clickEvents="clickEvents"
+    :clickEvents="_clickEvents"
     :filter="filter"
     class="x-number-range-filter"
   >
@@ -66,15 +66,23 @@
     public filter!: NumberRangeFilterModel;
 
     /**
-     * Additional events to emit when the filter is clicked.
+     * Additional events, with their payload, to emit when the filter is clicked.
      *
-     * @returns A dictionary with the events to be emitted when the filter is clicked, and its
-     * payload.
+     * @public
+     */
+    @Prop()
+    public clickEvents?: Partial<XEventsTypes>;
+
+    /**
+     * The {@link XEventsTypes | events} to emit.
+     *
+     * @returns The events to emit when clicked.
      * @internal
      */
-    protected get clickEvents(): Partial<XEventsTypes> {
+    protected get _clickEvents(): Partial<XEventsTypes> {
       return {
-        UserClickedANumberRangeFilter: this.filter
+        UserClickedANumberRangeFilter: this.filter,
+        ...this.clickEvents
       };
     }
 
@@ -93,30 +101,125 @@
 </script>
 
 <docs lang="mdx">
-## Examples
+## Events
 
-This component renders a button, which on clicked emits the `UserClickedAFilter` and the
+This component emits the following events:
+
+- [`UserClickedAFilter`](x-components.xeventstypes.userclickedafilter.md): the event is emitted
+  after the user clicks the button, using the `filter` prop as its payload.
+- [`UserClickedANumberRangeFilter`](x-components.xeventstypes.userclickedanumberrangefilter.md): the
+  event is emitted after the user clicks the button, using the `filter` prop as its payload.
+
+## See it in action
+
+This component renders a button which, on clicked, emits the `UserClickedAFilter` and the
 `UserClickedANumberRangeFilter` events. By default, it renders the filter label as the button text.
 
-### Basic usage
+The `filter` prop is required. The `clickEvents` prop is optional and allows configuring the events
+to emit on click.
 
 ```vue
-<NumberRangeFilter :filter="filter" />
+<template>
+  <NumberRangeFilter :filter="filter" />
+</template>
+
+<script>
+  import { NumberRangeFilter } from '@empathyco/x-components/facets';
+
+  export default {
+    name: 'NumberRangeFilterTest',
+    components: {
+      NumberRangeFilter
+    },
+    date() {
+      return {
+        filter: {
+          id: `price:1-10`,
+          modelName: 'NumberRangeFilter',
+          label: `From 1 to 10`,
+          facetId: 'price',
+          range: {
+            min: 1,
+            max: 10
+          },
+          selected: false
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Playing with props
+
+Configuring the events to emit when the filter is clicked.
+
+```vue
+<template>
+  <NumberRangeFilter :clickEvents="{ UserClickedANumberRangeFilter: filter }" :filter="filter" />
+</template>
+
+<script>
+  import { NumberRangeFilter } from '@empathyco/x-components/facets';
+
+  export default {
+    name: 'NumberRangeFilterTest',
+    components: {
+      NumberRangeFilter
+    },
+    date() {
+      return {
+        filter: {
+          id: `price:1-10`,
+          modelName: 'NumberRangeFilter',
+          label: `From 1 to 10`,
+          facetId: 'price',
+          range: {
+            min: 1,
+            max: 10
+          },
+          selected: false
+        }
+      };
+    }
+  };
+</script>
 ```
 
 ### Customizing its contents
 
 ```vue
-<NumberRangeFilter :filter="filter" v-slot="{ filter }">
-  <img src="checkbox.png"/>
-  <span>{{ filter.label }}</span>
-</NumberRangeFilter>
+<template>
+  <NumberRangeFilter :filter="filter" v-slot="{ filter }">
+    <img src="checkbox.png" />
+    <span>{{ filter.label }}</span>
+  </NumberRangeFilter>
+</template>
+
+<script>
+  import { NumberRangeFilter } from '@empathyco/x-components/facets';
+
+  export default {
+    name: 'NumberRangeFilterTest',
+    components: {
+      NumberRangeFilter
+    },
+    date() {
+      return {
+        filter: {
+          id: `price:1-10`,
+          modelName: 'NumberRangeFilter',
+          label: `From 1 to 10`,
+          facetId: 'price',
+          range: {
+            min: 1,
+            max: 10
+          },
+          selected: false
+        }
+      };
+    }
+  };
+</script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedANumberRangeFilter`: the event is emitted after the user clicks the button. The event
-  payload is the number range filter.
 </docs>

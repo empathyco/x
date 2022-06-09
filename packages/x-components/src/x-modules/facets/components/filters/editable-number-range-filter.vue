@@ -27,6 +27,7 @@
         "
         :value="min"
         data-test="range-min"
+        :aria-label="rangeFilterMin"
       />
 
       <input
@@ -39,6 +40,7 @@
         "
         :value="max"
         data-test="range-max"
+        :aria-label="rangeFilterMax"
       />
       <!-- eslint-enable max-len -->
 
@@ -281,6 +283,9 @@
         });
       }
     }
+
+    protected rangeFilterMin = 'minimum amount';
+    protected rangeFilterMax = 'maximum amount';
   }
 </script>
 

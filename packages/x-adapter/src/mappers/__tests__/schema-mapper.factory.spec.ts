@@ -1,4 +1,4 @@
-import { Schema } from '../../schemas/schemas.types';
+import { Schema } from '../../schemas/types';
 import { schemaMapperFactory } from '../schema-mapper.factory';
 
 describe('schemaMapperFactory tests', () => {
@@ -232,5 +232,71 @@ describe('schemaMapperFactory tests', () => {
 
     const mapper = schemaMapperFactory(schema);
     expect(mapper(source, { requestParameters: { addNumFound: 2 } })).toStrictEqual(target);
+  });
+
+  it('should resolve the context from the source', () => {
+    interface Facet {
+      facet: string;
+      isParent: boolean;
+      children: Filter[];
+    }
+
+    interface Filter {
+      id: string;
+      value: string;
+    }
+
+    interface TargetFacet {
+      id: string;
+      filters: TargetFilter[];
+    }
+
+    interface TargetFilter {
+      filterId: string;
+      parentId: string;
+      value: string;
+    }
+
+    const filterSchema: Schema<Filter, TargetFilter> = {
+      filterId: 'id',
+      value: 'value',
+      // eslint-disable-next-line @typescript-eslint/no-extra-parens
+      parentId: (_, $context) => ($context?.hasParent ? ($context?.parentId as string) : '')
+    };
+
+    const facetSchema: Schema<Facet, TargetFacet> = {
+      id: 'facet',
+      filters: {
+        $path: 'children',
+        $subSchema: filterSchema,
+        $context: {
+          parentId: 'facet',
+          hasParent: ({ isParent }: Facet) => isParent
+        }
+      }
+    };
+
+    const source: Facet = {
+      facet: 'category',
+      isParent: true,
+      children: [
+        {
+          id: 'category:man',
+          value: 'man'
+        }
+      ]
+    };
+
+    const mapper = schemaMapperFactory(facetSchema);
+    expect(mapper(source, { requestParameters: { addNumFound: 2 } })).toStrictEqual<TargetFacet>({
+      id: 'category',
+      filters: [
+        {
+          filterId: 'category:man',
+          value: 'man',
+          parentId: 'category'
+        }
+      ]
+    });
   });
 });

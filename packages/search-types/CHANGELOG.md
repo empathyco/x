@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.22...@empathyco/x-types@10.0.0-alpha.23) (2022-05-13)
+
+### Features
+
+- move `response` types to `@empathyco/x-types`
+  ([77fb812](https://github.com/empathyco/x/commit/77fb812b77fe0c84462a4b5b2eb7f0439e2d8061)),
+  closes [EX-6092](https://searchbroker.atlassian.net/browse/EX-6092)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.21...@empathyco/x-types@10.0.0-alpha.22) (2022-05-11)
+
+### ⚠ BREAKING CHANGES
+
+- Request types moved to `x-types` package. Change the imports from `x-adapter` to `x-type`.
+- Removed `TaggingInfo` type. Use `TaggingRequest` from `@empathyco/x-types` instead.
+
+### Features
+
+- move `Request` types to `x-types` package
+  ([7cc85c1](https://github.com/empathyco/x/commit/7cc85c1d371b604b3188d8cc2076eab5fc9460e4)),
+  closes [EX-6066](https://searchbroker.atlassian.net/browse/EX-6066)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.20...@empathyco/x-types@10.0.0-alpha.21) (2022-04-29)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.19...@empathyco/x-types@10.0.0-alpha.20) (2022-03-31)
 
 **Note:** Version bump only for package @empathyco/x-types

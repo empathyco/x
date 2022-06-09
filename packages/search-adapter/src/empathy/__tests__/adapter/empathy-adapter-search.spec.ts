@@ -4,9 +4,8 @@ import {
   PromotedSchema,
   RedirectionSchema,
   ResultSchema,
-  TaggingInfoSchema
+  TaggingRequestSchema
 } from '@empathyco/x-types/schemas';
-import { SearchResponse } from '../../../types';
 import { SearchWithPartialsResponse } from '../../__fixtures__/responses/search-with-partials.response';
 import { SearchSimpleResponse } from '../../__fixtures__/responses/search.response';
 import { SpellcheckedResponse } from '../../__fixtures__/responses/spellchecked-search.response';
@@ -25,7 +24,7 @@ it('searches successfully', async () => {
 
   expect(response.totalResults).toEqual(SearchSimpleResponse.content.numFound);
   expect(response).not.toHaveProperty('spellcheck');
-  expect(response.queryTagging).toMatchObject(TaggingInfoSchema);
+  expect(response.queryTagging).toMatchObject(TaggingRequestSchema);
   expect(response.results).everyItemToMatch(ResultSchema);
   expect(response.results.length).toBeGreaterThan(0);
   expect(response.results).toHaveLength(SearchSimpleResponse.content.docs.length);
@@ -43,11 +42,14 @@ it('searches partials successfully', async () => {
 
   const response = await adapter.search(baseRequest);
 
-  expect(response.partialResults.length).toBeGreaterThan(0);
+  expect(response.partialResults!.length).toBeGreaterThan(0);
   expect(response.partialResults).toHaveLength(
     SearchWithPartialsResponse.content.suggestions.length
   );
-  expectEveryPartialResultToMatchSchema(response);
+
+  Object.values(response.partialResults!).forEach(partial => {
+    expect(partial.results).everyItemToMatch(ResultSchema);
+  });
 });
 
 it('search maps spellcheck successfully', async () => {
@@ -79,9 +81,3 @@ it('search maps redirections successfully', async () => {
   expect(response.redirections).toHaveLength(SearchSimpleResponse.direct.length);
   expect(response.redirections).everyItemToMatch(RedirectionSchema);
 });
-
-function expectEveryPartialResultToMatchSchema(response: SearchResponse) {
-  Object.values(response.partialResults).forEach(partial => {
-    expect(partial.results).everyItemToMatch(ResultSchema);
-  });
-}

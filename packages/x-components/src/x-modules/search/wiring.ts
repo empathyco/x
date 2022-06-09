@@ -118,16 +118,9 @@ export const setSearchExtraParams = wireCommit('setParams');
  *
  * @public
  */
-export const increasePageAppendingResults = wireDispatchWithoutPayload(
+export const increasePageAppendingResultsWire = wireDispatchWithoutPayload(
   'increasePageAppendingResults'
 );
-
-/**
- * Sets the search state `pageSize`.
- *
- * @public
- */
-export const setPageSize = wireCommit('setPageSize');
 
 /**
  * Resets the search state `isAppendingResults`.
@@ -177,7 +170,7 @@ export const searchWiring = createWiring({
     saveOriginWire
   },
   UserReachedResultsListEnd: {
-    increasePageAppendingResults
+    increasePageAppendingResultsWire
   },
   SearchRequestChanged: {
     fetchAndSaveSearchResponseWire

@@ -3,6 +3,59 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.1...@empathyco/x-utils@1.0.0-alpha.2) (2022-06-08)
+
+### Features
+
+- add support for `object` params in `httpClients`
+  ([c51760b](https://github.com/empathyco/x/commit/c51760b07b2dac2e83f13964aac614d8fe6e8e8b)),
+  closes [EX-6293](https://searchbroker.atlassian.net/browse/EX-6293)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.0...@empathyco/x-utils@1.0.0-alpha.1) (2022-05-13)
+
+**Note:** Version bump only for package @empathyco/x-utils
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.12...@empathyco/x-utils@1.0.0-alpha.0) (2022-05-11)
+
+### ⚠ BREAKING CHANGES
+
+- Request types moved to `x-types` package. Change the imports from `x-adapter` to `x-type`.
+- Removed `TaggingInfo` type. Use `TaggingRequest` from `@empathyco/x-types` instead.
+
+### Features
+
+- move `Request` types to `x-types` package
+  ([7cc85c1](https://github.com/empathyco/x/commit/7cc85c1d371b604b3188d8cc2076eab5fc9460e4)),
+  closes [EX-6066](https://searchbroker.atlassian.net/browse/EX-6066)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.11...@empathyco/x-utils@0.1.0-alpha.12) (2022-05-06)
+
+### Features
+
+- default implementation
+  ([3df8522](https://github.com/empathyco/x/commit/3df85225375f20c9c2808bdd4d885b3c7a62db6a)),
+  closes [EX-5983](https://searchbroker.atlassian.net/browse/EX-5983)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-utils@0.1.0-alpha.10...@empathyco/x-utils@0.1.0-alpha.11) (2022-04-14)
 
 ### Features
