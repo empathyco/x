@@ -78,6 +78,25 @@ describe('testing Base Suggestions component', () => {
     expect(getSuggestionsItems()).toHaveLength(suggestions.length);
   });
 
+  // eslint-disable-next-line max-len
+  it('renders at most the number of suggestions defined by `maxItemsToRender` prop counting with the facets', async () => {
+    const suggestionsWithoutFacets = getPopularSearchesStub();
+    const { wrapper, getSuggestionsItems, suggestions } = renderBaseSuggestions({
+      customSlot: `<span>{{suggestion.query}}</span>`,
+      showFacets: true,
+      suggestions: [...suggestionWithFacets, ...getPopularSearchesStub()]
+    });
+
+    const filterCount = suggestionWithFacets[0].facets.reduce((acc, act) => {
+      return acc + act.filters.length;
+    }, 0);
+
+    await wrapper.setProps({ maxItemsToRender: filterCount + 1 });
+
+    expect(getSuggestionsItems()).toHaveLength(suggestions.length);
+    expect(getSuggestionsItems().at(-1).text()).toContain(suggestionsWithoutFacets[0].query);
+  });
+
   it('renders all suggestions with facets if showFacets is true', () => {
     const { getSuggestionsItems } = renderBaseSuggestions({
       customSlot:

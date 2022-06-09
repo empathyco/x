@@ -86,10 +86,11 @@
      * @internal
      */
     protected get suggestionsToRender(): Suggestion[] {
-      const suggestions = this.suggestions.slice(0, this.maxItemsToRender);
-      return this.showFacets
-        ? this.mapSuggestionsWithFacets(suggestions)
-        : this.mapSuggestionsWithoutFacets(suggestions);
+      return (
+        this.showFacets
+          ? this.mapSuggestionsWithFacets(this.suggestions)
+          : this.mapSuggestionsWithoutFacets(this.suggestions)
+      ).slice(0, this.maxItemsToRender);
     }
 
     /**
