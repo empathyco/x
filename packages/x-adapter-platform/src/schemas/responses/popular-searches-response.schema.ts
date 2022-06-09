@@ -4,16 +4,11 @@ import { PopularSearchesResponse } from '@empathyco/x-types';
 import { PlatformPopularSearchesResponse } from '../../types/responses/popular-searches-response.model';
 import { suggestionMutableSchema } from '../models/suggestion.schema';
 
-export const popularSearchesResponseSchema: Schema<
-  PlatformPopularSearchesResponse,
-  PopularSearchesResponse
-> = {
+export const popularSearchesResponseMutableSchema = createMutableSchema<
+  Schema<PlatformPopularSearchesResponse, PopularSearchesResponse>
+>({
   suggestions: {
     $path: 'topTrends.content',
     $subSchema: suggestionMutableSchema
   }
-};
-
-export const popularSearchesResponseMutableSchema = createMutableSchema(
-  popularSearchesResponseSchema
-);
+});
