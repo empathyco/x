@@ -9,7 +9,7 @@ import {
   PlatformSearchResponse
 } from '../types/response.types';
 import { getFetchMock } from './__mocks__/fetch.mock';
-import { platformSkuSearchResponse } from './__fixtures__/platform-sku-search.response';
+import { platformIdentifierResultsResponse } from './__fixtures__/identifier-results.response';
 import { platformTopClickedResponse } from './__fixtures__/platform-top-clicked.response';
 
 describe('platformAdapter tests', () => {
@@ -293,28 +293,31 @@ describe('platformAdapter tests', () => {
     });
   });
 
-  it('should call the sku search endpoint', async () => {
-    const skuSearchRequest: BaseRequest = {
-      device: 'mobile',
-      env: 'staging',
-      lang: 'en',
-      query: 'jeans',
-      rows: 24,
-      scope: 'mobile',
-      start: 0,
-      instance: 'empathy',
-      origin: 'search_box:none'
-    };
-
-    const fetchMock = jest.fn(getFetchMock(platformSkuSearchResponse));
+  it('should call the identifier results endpoint', async () => {
+    const fetchMock = jest.fn(getFetchMock(platformIdentifierResultsResponse));
     window.fetch = fetchMock as any;
-    const response = await platformAdapter.skuSearch(skuSearchRequest);
+
+    const response = await platformAdapter.identifierResults({
+      query: 'jeans',
+      start: 0,
+      rows: 24,
+      origin: 'search_box:none',
+      extraParams: {
+        instance: 'empathy',
+        env: 'staging',
+        lang: 'en',
+        device: 'mobile',
+        scope: 'mobile'
+      }
+    });
+
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.staging.empathy.co/search/v1/query/empathy/skusearch?device=mobile&env=staging&lang=en&rows=24&scope=mobile&start=0&query=jeans&origin=search_box%3Anone',
+      'https://api.staging.empathy.co/search/v1/query/empathy/skusearch?query=jeans&origin=search_box%3Anone&start=0&rows=24&instance=empathy&env=staging&lang=en&device=mobile&scope=mobile',
       { signal: expect.anything() }
     );
+
     expect(response).toStrictEqual({
       results: [
         {

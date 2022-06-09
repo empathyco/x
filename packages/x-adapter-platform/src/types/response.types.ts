@@ -91,7 +91,3 @@ export interface PlatformSkuSearchResponse {
     };
   };
 }
-
-export interface SkuSearchResponse {
-  results: Result[];
-}
