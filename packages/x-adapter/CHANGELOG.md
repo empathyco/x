@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.27...@empathyco/x-adapter-next@0.2.0-alpha.28) (2022-06-09)
+
+### Features
+
+- **mappers:** add `combineMappers` util.
+  ([ac41058](https://github.com/empathyco/x/commit/ac410581514bd6c2ae13150036fb0879a14512e1)),
+  closes [EX-6294](https://searchbroker.atlassian.net/browse/EX-6294)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.26...@empathyco/x-adapter-next@0.2.0-alpha.27) (2022-06-08)
 
 ### Features
