@@ -256,7 +256,7 @@ This will render:
 
 ```vue
 <template>
-  <BaseSuggestions :suggestions="suggestions" showFacets />
+  <BaseSuggestions :suggestions="suggestions" showFacets appendSuggestionWithoutFilter />
 </template>
 
 <script>
