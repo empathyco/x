@@ -61,8 +61,8 @@ function renderPopularSearches({
     }
   );
 
-  const findTestDataById = (selector: string): WrapperArray<Vue> =>
-    wrapper.findAll(getDataTestSelector(selector));
+  const findTestDataById = (id: string): WrapperArray<Vue> =>
+    wrapper.findAll(getDataTestSelector(id));
 
   return {
     wrapper: wrapper.findComponent(PopularSearches),
@@ -200,12 +200,18 @@ describe('testing popular searches component', () => {
  * The options for the `renderPopularSearches` function.
  */
 interface PopularSearchesOptions {
+  /** The name of the custom slot to be used. */
   customSlotName?: 'suggestion' | 'suggestion-content';
+  /** The content to be rendered in the custom slot. */
   customSlot?: string;
+  /** The template of the wrapper component. */
   template?: string;
+  /** The suggestions to render. */
   suggestions?: Suggestion[];
   maxItemsToRender?: number;
+  /** Indicates if the suggestion's facets should be rendered. */
   showFacets?: boolean;
+  /** Indicates if the default suggestion must be rendered along the suggestions with facets. */
   appendSuggestionWithoutFilter?: boolean;
 }
 
@@ -213,9 +219,18 @@ interface PopularSearchesOptions {
  * Test API for the {@link  PopularSearches} component.
  */
 interface PopularSearchesAPI {
+  /** The wrapper for PopularSearches component. */
   wrapper: Wrapper<Vue>;
+  /** The rendered suggestions. */
   suggestions: Suggestion[];
+  /** Returns the rendered popular searches items. */
   getPopularSearchItems: () => WrapperArray<Vue>;
-  findTestDataById: (selector: string) => WrapperArray<Vue>;
+  /**
+   * Gets the wrapper components corresponding to the given test id.
+   *
+   * @param id - The data test ID to search.
+   */
+  findTestDataById: (id: string) => WrapperArray<Vue>;
+  /** The local Vue instance where the component is mounted. */
   localVue: typeof Vue;
 }
