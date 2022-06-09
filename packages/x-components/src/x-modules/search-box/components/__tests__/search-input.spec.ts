@@ -176,30 +176,6 @@ describe('testing search input component', () => {
     }
   );
 
-  it('prevents the query pasted from containing special characters.', () => {
-    const queries: string[] = ['wa>ter', '<water', 'w<>ater', 'wa>ter>', '<>water', 'water><'];
-    for (const query of queries) {
-      input.value = query;
-      mockedSearchInput.trigger('keydown');
-      expect(input.value).toEqual('water');
-    }
-  });
-
-  it('prevents the query pasted with spaces from containing special characters.', () => {
-    const queries: string[] = [
-      'star<> wars',
-      'star< wars',
-      '<star wars',
-      'star wars>',
-      'star <wars'
-    ];
-    for (const query of queries) {
-      input.value = query;
-      mockedSearchInput.trigger('keydown');
-      expect(input.value).toEqual('star wars');
-    }
-  });
-
   it('focus the input when UserPressedClearSearchBoxButton event is emitted', () => {
     input.blur();
     expect(input).not.toBe(document.activeElement);
