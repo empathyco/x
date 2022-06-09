@@ -27,6 +27,6 @@ export interface MapperContext {
    * If multiple mappers are in charge of mapping the same property, the partial result of
    * applying them to it.
    */
-  to?: unknown;
+  mappedValue?: unknown;
   [key: string]: unknown;
 }
