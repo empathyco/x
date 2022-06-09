@@ -1,6 +1,6 @@
 import { createMutableSchema, Schema, schemaMapperFactory } from '@empathyco/x-adapter-next';
 import { EmpathizeResponse, PlatformEmpathizeResponse } from '../../types/response.types';
-import { suggestionMutableSchema } from '../../schemas/suggestion.schema';
+import { suggestionMutableSchema } from '../../schemas';
 
 export const empathizeResponseSchema: Schema<PlatformEmpathizeResponse, EmpathizeResponse> = {
   suggestions: {

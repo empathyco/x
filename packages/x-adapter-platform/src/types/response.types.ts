@@ -17,9 +17,9 @@ import {
   PlatformPromoted,
   PlatformRedirection,
   PlatformRelatedTag,
-  PlatformResult,
-  PlatformSuggestion
+  PlatformResult
 } from './models.types';
+import { PlatformSuggestion } from './models';
 
 export interface PlatformSearchResponse {
   banner: Contentable<PlatformBanner>;
