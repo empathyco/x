@@ -1,4 +1,12 @@
-import { cleanUndefined, every, forEach, getNewAndUpdatedKeys, map, reduce } from '../object';
+import {
+  cleanUndefined,
+  every,
+  flatObject,
+  forEach,
+  getNewAndUpdatedKeys,
+  map,
+  reduce
+} from '../object';
 import { Dictionary } from '../types/utils.types';
 
 class Person {
@@ -458,6 +466,40 @@ describe('testing object utils', () => {
     it('returns false when not every entry of the given object passes the condition', () => {
       expect(every({ a: 1, b: '2' }, (_key, value) => typeof value === 'number')).toBe(false);
       expect(every({ a: '1', b: 2 }, (_key, value) => typeof value === 'number')).toBe(false);
+    });
+  });
+
+  describe('flatObject', () => {
+    it('returns a flattened object', () => {
+      const obj = {
+        a: 1,
+        b: '2',
+        c: {
+          d: 3,
+          e: ['4', '4.5'],
+          f: {
+            g: 5,
+            h: {
+              i: 6,
+              j: {},
+              k: null,
+              l: function () {
+                return 'm';
+              }
+            }
+          }
+        }
+      };
+      expect(flatObject(obj)).toStrictEqual({
+        a: 1,
+        b: '2',
+        d: 3,
+        e: ['4', '4.5'],
+        g: 5,
+        i: 6,
+        k: null,
+        l: obj.c.f.h.l
+      });
     });
   });
 });

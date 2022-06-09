@@ -1,6 +1,7 @@
 import { getSafePropertyChain } from '@empathyco/x-get-safe-property-chain';
-import { Result, Tagging, TaggingInfo } from '@empathyco/x-types';
+import { Result, Tagging } from '@empathyco/x-types';
 import { inject, injectable, multiInject } from 'inversify';
+import { TrackingRequest } from '../../../../types/requests.types';
 import {
   EmpathyAdapterConfig,
   TrackingResultConfig
@@ -19,13 +20,13 @@ import { pipeMappers } from '../../pipe-mappers';
 @injectable()
 export class EmpathyResultMapper implements ResponseMapper<EmpathyResult, Result> {
   private readonly logger = Logger.child('EmpathyResultMapper');
-  private readonly mapTagging: MapFn<string, TaggingInfo>;
+  private readonly mapTagging: MapFn<string, TrackingRequest>;
   private readonly trackingResultConfig: TrackingResultConfig;
 
   constructor(
     @inject(DEPENDENCIES.config) config: EmpathyAdapterConfig,
     @multiInject(DEPENDENCIES.ResponseMappers.Helpers.tagging)
-    taggingMappers: ResponseMapper<string, TaggingInfo>[]
+    taggingMappers: ResponseMapper<string, TrackingRequest>[]
   ) {
     this.mapTagging = pipeMappers(...taggingMappers);
     this.trackingResultConfig = config.mappings.tracking.result;
@@ -66,7 +67,7 @@ export class EmpathyResultMapper implements ResponseMapper<EmpathyResult, Result
     return Object.entries(this.trackingResultConfig).reduce((resultTagging, [key, path]) => {
       const rawTagging = getSafePropertyChain(rawResult, path);
       if (rawTagging) {
-        resultTagging[key] = this.mapTagging(rawTagging, {} as TaggingInfo, context);
+        resultTagging[key] = this.mapTagging(rawTagging, {} as TrackingRequest, context);
       } else {
         if (process.env.NODE_ENV !== 'production') {
           this.logger.warn(

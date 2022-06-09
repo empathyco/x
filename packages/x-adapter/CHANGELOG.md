@@ -3,6 +3,150 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.28...@empathyco/x-adapter-next@0.2.0-alpha.29) (2022-06-09)
+
+### Code Refactoring
+
+- reestructure folders organisation
+  ([ec25168](https://github.com/empathyco/x/commit/ec25168327e4a136fe25a226a24c1dd47f721d3a)),
+  closes [EX-6298](https://searchbroker.atlassian.net/browse/EX-6298)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.27...@empathyco/x-adapter-next@0.2.0-alpha.28) (2022-06-09)
+
+### Features
+
+- **mappers:** add `combineMappers` util.
+  ([ac41058](https://github.com/empathyco/x/commit/ac410581514bd6c2ae13150036fb0879a14512e1)),
+  closes [EX-6294](https://searchbroker.atlassian.net/browse/EX-6294)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.26...@empathyco/x-adapter-next@0.2.0-alpha.27) (2022-06-08)
+
+### Features
+
+- Add suppport to interpolate deep paramteres in the endpoint. (#523)
+  ([b01f9e9](https://github.com/empathyco/x/commit/b01f9e94fdbe1cd2b001d77469afc8dd102eb796)),
+  closes [EX-6295](https://searchbroker.atlassian.net/browse/EX-6295)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.25...@empathyco/x-adapter-next@0.2.0-alpha.26) (2022-06-08)
+
+### Features
+
+- add support for `object` params in `httpClients`
+  ([c51760b](https://github.com/empathyco/x/commit/c51760b07b2dac2e83f13964aac614d8fe6e8e8b)),
+  closes [EX-6293](https://searchbroker.atlassian.net/browse/EX-6293)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.24...@empathyco/x-adapter-next@0.2.0-alpha.25) (2022-05-25)
+
+### Features
+
+- **mappers:** allow passing raw values to `subSchema.$context` using functions
+  ([b79f84e](https://github.com/empathyco/x/commit/b79f84e5fdf66d4c84df97c1098206314cbf68ae)),
+  closes [EX-6217](https://searchbroker.atlassian.net/browse/EX-6217)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.23...@empathyco/x-adapter-next@0.2.0-alpha.24) (2022-05-20)
+
+### Features
+
+- split adapter interface into `EndpointAdapter` and `ExtendableEndpointAdapter`
+  ([2e8e287](https://github.com/empathyco/x/commit/2e8e287d00f3fe3c2ef6f02d4cc6a843d84d683b)),
+  closes [EX-6121](https://searchbroker.atlassian.net/browse/EX-6121)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.22...@empathyco/x-adapter-next@0.2.0-alpha.23) (2022-05-13)
+
+**Note:** Version bump only for package @empathyco/x-adapter-next
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.21...@empathyco/x-adapter-next@0.2.0-alpha.22) (2022-05-11)
+
+**Note:** Version bump only for package @empathyco/x-adapter-next
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.20...@empathyco/x-adapter-next@0.2.0-alpha.21) (2022-05-06)
+
+### Features
+
+- default implementation
+  ([3df8522](https://github.com/empathyco/x/commit/3df85225375f20c9c2808bdd4d885b3c7a62db6a)),
+  closes [EX-5983](https://searchbroker.atlassian.net/browse/EX-5983)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.19...@empathyco/x-adapter-next@0.2.0-alpha.20) (2022-04-29)
+
+### Build System
+
+- **deps:** update eslint-plugin dependencies (#447)
+  ([51d60f0](https://github.com/empathyco/x/commit/51d60f0e11fa9667a784bbdb10ba1f39159b382f)),
+  closes [EX-5383](https://searchbroker.atlassian.net/browse/EX-5383)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.18...@empathyco/x-adapter-next@0.2.0-alpha.19) (2022-04-29)
+
+**Note:** Version bump only for package @empathyco/x-adapter-next
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.15...@empathyco/x-adapter-next@0.2.0-alpha.16) (2022-04-19)
+
+### Features
+
+- **schemas:** add `createMutableSchema` utility
+  ([6b505b9](https://github.com/empathyco/x/commit/6b505b9a92e2c9f56c9a2053ea8e1a4f03f9966e)),
+  closes [EX-5435](https://searchbroker.atlassian.net/browse/EX-5435)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.14...@empathyco/x-adapter-next@0.2.0-alpha.15) (2022-04-14)
 
 **Note:** Version bump only for package @empathyco/x-adapter-next

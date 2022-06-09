@@ -100,7 +100,7 @@ export type AnyStoreEmitters = StoreEmitters<AnyXStoreModule>;
 export function createStoreEmitters<
   Module extends AnyXStoreModule,
   Emitters extends StoreEmitters<Module>
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars-experimental
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 >(storeModule: Module, emitters: Emitters): Emitters {
   return emitters;
 }

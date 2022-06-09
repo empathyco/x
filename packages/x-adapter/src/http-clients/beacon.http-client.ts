@@ -1,4 +1,4 @@
-import { HttpClient } from '../types/http-client.types';
+import { HttpClient } from './types';
 import { buildUrl } from './utils';
 
 /**

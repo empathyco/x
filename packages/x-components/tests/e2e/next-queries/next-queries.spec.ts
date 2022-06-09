@@ -65,9 +65,6 @@ Then('next queries contain the history query', function (this: { historicalQuery
 });
 
 // Scenario 3
-When('the page is reloaded', () => {
-  cy.reload();
-});
 
 And('next queries are still displayed', function (this: { nextQueries: string }) {
   cy.getByDataTest('next-query').should('have.text', this.nextQueries);

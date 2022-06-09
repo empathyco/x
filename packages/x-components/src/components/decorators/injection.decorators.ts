@@ -28,7 +28,7 @@ type InjectObjectConfig = Exclude<ComponentOptions<Vue>['inject'], string[] | un
  *
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars-experimental
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface XInjectKey<Type> extends String {}
 
 /**

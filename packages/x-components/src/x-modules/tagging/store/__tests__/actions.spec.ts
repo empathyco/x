@@ -1,6 +1,6 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { TaggingInfo } from '@empathyco/x-types';
+import { TaggingRequest } from '@empathyco/x-types';
 import { getTaggingResponseStub } from '../../../../__stubs__/tagging-response-stubs.factory';
 import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import { installNewXPlugin } from '../../../../__tests__/utils';
@@ -32,7 +32,7 @@ describe('testing tagging module actions', () => {
 
       expect(adapter.track).toHaveBeenCalled();
       expect(adapter.track).toHaveBeenCalledWith(queryTagging);
-      const payload: TaggingInfo = (adapter.track as jest.Mock<any, any>).mock.calls[0][0];
+      const payload: TaggingRequest = (adapter.track as jest.Mock<any, any>).mock.calls[0][0];
       expect('session' in payload.params).toBe(false);
     });
 
@@ -42,7 +42,7 @@ describe('testing tagging module actions', () => {
 
       expect(adapter.track).toHaveBeenCalled();
       expect(adapter.track).toHaveBeenCalledWith(queryTagging);
-      const payload: TaggingInfo = (adapter.track as jest.Mock<any, any>).mock.calls[0][0];
+      const payload: TaggingRequest = (adapter.track as jest.Mock<any, any>).mock.calls[0][0];
       expect('session' in payload.params).toBe(false);
     });
 
