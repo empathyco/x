@@ -1,6 +1,6 @@
 import { querySuggestionsResponseMapper } from '../query-suggestions-response.mapper';
 // eslint-disable-next-line max-len
-import { PlatformQuerySuggestionsResponse } from '../../../types/response/query-suggestions-response.model';
+import { PlatformQuerySuggestionsResponse } from '../../../types/responses/query-suggestions-response.model';
 
 describe('querySuggestionsResponseMapper tests', () => {
   it('should map the response', () => {

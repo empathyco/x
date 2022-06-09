@@ -1,5 +1,5 @@
 import { PlatformRelatedTagsResponse } from '../../../types/response.types';
-import { relatedTagsResponseMapper } from '../../response/related-tags-response.mapper';
+import { relatedTagsResponseMapper } from '../../responses/related-tags-response.mapper';
 
 describe('related tags response mapper', () => {
   it('should map the related tags', () => {

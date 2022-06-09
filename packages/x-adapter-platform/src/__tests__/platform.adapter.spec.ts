@@ -2,7 +2,7 @@ import { DeepPartial } from '@empathyco/x-utils';
 import { Filter } from '@empathyco/x-types';
 import { platformAdapter } from '../platform.adapter';
 // eslint-disable-next-line max-len
-import { PlatformQuerySuggestionsResponse } from '../types/response/query-suggestions-response.model';
+import { PlatformQuerySuggestionsResponse } from '../types/responses/query-suggestions-response.model';
 import { BaseRequest, TaggingRequest } from '../types/request.types';
 import {
   PlatformEmpathizeResponse,

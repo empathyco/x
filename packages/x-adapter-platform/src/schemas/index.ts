@@ -7,5 +7,5 @@ export * from './suggestion.schema';
 export * from './next-query.schema';
 export * from './related-tag.schema';
 export * from './filters';
-export * from './request';
-export * from './response';
+export * from './requests';
+export * from './responses';

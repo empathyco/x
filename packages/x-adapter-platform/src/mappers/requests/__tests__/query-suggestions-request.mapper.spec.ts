@@ -1,5 +1,5 @@
 import { QuerySuggestionsRequest } from '@empathyco/x-types';
-import { querySuggestionsRequestMapper } from '../../request/query-suggestions-request.mapper';
+import { querySuggestionsRequestMapper } from '../query-suggestions-request.mapper';
 
 describe('querySuggestionsRequestMapper tests', () => {
   it('should map the request', () => {

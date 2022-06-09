@@ -1,4 +1,4 @@
-import { PlatformSuggestion } from './models/suggestion.model';
+import { PlatformSuggestion } from '../models/suggestion.model';
 
 /**
  * Response for the `query suggestions` endpoint.
