@@ -1,4 +1,4 @@
-import { RecommendationsRequest } from '@empathyco/x-types';
+import { TopRecommendationsRequest } from '@empathyco/x-adapter';
 import { map } from '@empathyco/x-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -18,7 +18,7 @@ describe('testing recommendations module getters', () => {
         config: { maxItemsToRequest: 3 },
         params: { catalog: 'es' }
       });
-      expect(store.getters[gettersKeys.request]).toEqual<RecommendationsRequest>({
+      expect(store.getters[gettersKeys.request]).toEqual<TopRecommendationsRequest>({
         rows: 3,
         start: 0,
         origin: RECOMMENDATIONS_ORIGIN,

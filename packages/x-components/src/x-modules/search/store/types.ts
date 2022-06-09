@@ -1,6 +1,5 @@
+import { SearchRequest } from '@empathyco/x-adapter';
 import {
-  SearchResponse,
-  SearchRequest,
   Banner,
   Facet,
   Filter,
@@ -9,6 +8,7 @@ import {
   Redirection,
   RelatedTag,
   Result,
+  SearchResponse,
   Sort,
   TaggingRequest
 } from '@empathyco/x-types';
