@@ -245,18 +245,6 @@
       }
     }
 
-    /**
-     * Prevents the user from typing special characters in the input field.
-     * Checks the input query value and replaces special characters with whitespace.
-     *
-     * @internal
-     * @param event - The event that will be checked for special characters.
-     */
-    protected preventTypingSpecialKey(event: InputEvent): void {
-      if (/[<>]/.test(event.data ?? '')) {
-        event.preventDefault();
-      }
-    }
   }
 </script>
 
