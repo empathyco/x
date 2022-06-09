@@ -9,7 +9,10 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/x
 import { RootXStoreState } from '../../../../store/store.types';
 import PopularSearches from '../popular-searches.vue';
 import PopularSearch from '../popular-search.vue';
-import { createSuggestionFacets } from '../../../../__stubs__/base-suggestion-stubs.factory';
+import {
+  createSuggestionFacets,
+  createSuggestionWithFacets
+} from '../../../../__stubs__/base-suggestion-stubs.factory';
 import { getFlattenFilters } from '../../../query-suggestions/components/__tests__/utils';
 import { resetXPopularSearchesStateWith } from './utils';
 
@@ -193,6 +196,30 @@ describe('testing popular searches component', () => {
         index === 0 ? popularSearches[0].query : `${popularSearches[0].query}${filters[index - 1]}`
       );
     });
+  });
+
+  // eslint-disable-next-line max-len
+  it('renders at most the number of suggestions defined by `maxItemsToRender` prop counting with the facets', async () => {
+    const suggestionsWithoutFacets = getPopularSearchesStub();
+    const suggestionWithFacets = createSuggestionWithFacets(
+      'testQuery',
+      'testQuery',
+      'PopularSearch'
+    );
+    const { wrapper, getPopularSearchItems, suggestions } = renderPopularSearches({
+      customSlot: `<span data-test="popular-search">{{suggestion.query}}</span>`,
+      showFacets: true,
+      suggestions: [...suggestionWithFacets, ...getPopularSearchesStub()]
+    });
+
+    const filterCount = suggestionWithFacets[0].facets.reduce((acc, act) => {
+      return acc + act.filters.length;
+    }, 0);
+
+    await wrapper.setProps({ maxItemsToRender: filterCount + 1 });
+
+    expect(getPopularSearchItems()).toHaveLength(suggestions.length);
+    expect(getPopularSearchItems().at(-1).text()).toContain(suggestionsWithoutFacets[0].query);
   });
 });
 
