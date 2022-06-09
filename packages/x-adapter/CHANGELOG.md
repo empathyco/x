@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.28...@empathyco/x-adapter-next@0.2.0-alpha.29) (2022-06-09)
+
+### Code Refactoring
+
+- reestructure folders organisation
+  ([ec25168](https://github.com/empathyco/x/commit/ec25168327e4a136fe25a226a24c1dd47f721d3a)),
+  closes [EX-6298](https://searchbroker.atlassian.net/browse/EX-6298)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.2.0-alpha.27...@empathyco/x-adapter-next@0.2.0-alpha.28) (2022-06-09)
 
 ### Features
