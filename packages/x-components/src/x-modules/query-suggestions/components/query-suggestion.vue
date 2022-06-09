@@ -143,6 +143,52 @@ element.
 </script>
 ```
 
+In this example, the query suggestion is painted in blue and the filter in red.
+
+```vue live
+<template>
+  <QuerySuggestion :suggestion="suggestion" #default="{ queryHTML, filter }">
+    <span v-html="queryHTML" style="color: blue;" />
+    <span style="color: red">{{ filter.label }}</span>
+  </QuerySuggestion>
+</template>
+
+<script>
+  import { QuerySuggestion } from '@empathyco/x-components/query-suggestions';
+  export default {
+    name: 'QuerySuggestionDemo',
+    components: {
+      QuerySuggestion
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'QuerySuggestion',
+          query: 'tshirt',
+          facets: [
+            {
+              id: 'exampleFacet',
+              label: 'exampleFacet',
+              modelName: 'SimpleFacet',
+              filters: [
+                {
+                  facetId: 'exampleFacet',
+                  id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"black"',
+                  label: 'black',
+                  selected: false,
+                  totalResults: 10,
+                  modelName: 'SimpleFilter'
+                }
+              ]
+            }
+          ]
+        }
+      };
+    }
+  };
+</script>
+```
+
 ### Play with events
 
 In this example, when you click on the query suggestion, a message is displayed to illustrate that
