@@ -7,7 +7,7 @@
     @input="emitUserIsTypingAQueryEvents"
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
-    @keydown="preventSpecialKey"
+    @beforeinput="preventSpecialKey"
     :maxlength="maxLength"
     :value="query"
     autocomplete="off"
