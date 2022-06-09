@@ -1,6 +1,5 @@
+import { SearchRequest, SearchResponse } from '@empathyco/x-adapter';
 import {
-  SearchResponse,
-  SearchRequest,
   Banner,
   Facet,
   Filter,

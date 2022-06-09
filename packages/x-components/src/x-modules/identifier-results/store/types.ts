@@ -1,5 +1,6 @@
+import { SearchByIdRequest } from '@empathyco/x-adapter';
+import { Result } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
-import { IdentifierResultsRequest, Result } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
@@ -34,7 +35,7 @@ export interface IdentifierResultsGetters {
    * The adapter request object for retrieving the identifier suggestions, or null if there is not
    * valid data to create a request.
    */
-  identifierResultsRequest: IdentifierResultsRequest | null;
+  identifierResultsRequest: SearchByIdRequest | null;
   /** The RegExp to test against the query. */
   identifierDetectionRegexp: RegExp;
   /**
@@ -93,11 +94,11 @@ export interface IdentifierResultsActions {
    *
    * @returns An array of identifier results.
    */
-  fetchIdentifierResults(request: IdentifierResultsRequest | null): Result[];
+  fetchIdentifierResults(request: SearchByIdRequest | null): Result[];
   /**
    * Requests a new set of identifier results and stores them in the module.
    */
-  fetchAndSaveIdentifierResults(request: IdentifierResultsRequest | null): void;
+  fetchAndSaveIdentifierResults(request: SearchByIdRequest | null): void;
   /**
    * Creates a {@link QueryOrigin} and saves it.
    *
