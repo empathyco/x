@@ -1,8 +1,8 @@
 import { endpointAdapterFactory, EndpointAdapterOptions } from '@empathyco/x-adapter-next';
 import { BaseRequest } from '../types/request.types';
 import { TopClickedResponse } from '../types/response.types';
-import { topClickedResponseMapper } from '../mappers/response/top-clicked-response.mapper';
-import { baseRequestMapper } from '../mappers/request/base-request.mapper';
+import { topClickedResponseMapper } from '../mappers/responses/top-clicked-response.mapper';
+import { baseRequestMapper } from '../mappers/requests/base-request.mapper';
 
 export const topClickedEndpointAdapterOptions: EndpointAdapterOptions<
   BaseRequest,
