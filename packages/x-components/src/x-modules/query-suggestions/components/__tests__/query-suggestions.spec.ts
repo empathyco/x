@@ -12,7 +12,10 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import QuerySuggestions from '../query-suggestions.vue';
 import QuerySuggestion from '../query-suggestion.vue';
-import { createSuggestionFacets } from '../../../../__stubs__/base-suggestion-stubs.factory';
+import {
+  createSuggestionFacets,
+  createSuggestionWithFacets
+} from '../../../../__stubs__/base-suggestion-stubs.factory';
 import { getFlattenFilters, resetXQuerySuggestionsStateWith } from './utils';
 
 const localVue = createLocalVue();
@@ -199,6 +202,30 @@ describe('testing Query Suggestions component', () => {
         index === 0 ? suggestions[0].query : `${suggestions[0].query}${filters[index - 1]}`
       );
     });
+  });
+
+  // eslint-disable-next-line max-len
+  it('renders at most the number of suggestions defined by `maxItemsToRender` prop counting with the facets', async () => {
+    const suggestionsWithoutFacets = getQuerySuggestionsStub('some query');
+    const suggestionWithFacets = createSuggestionWithFacets(
+      'some query',
+      'someQuery',
+      'QuerySuggestion'
+    );
+    const { wrapper, getSuggestionItems, suggestions } = renderQuerySuggestions({
+      customSlot: `<span data-test="query-suggestion">{{suggestion.query}}</span>`,
+      showFacets: true,
+      suggestions: [...suggestionWithFacets, ...suggestionsWithoutFacets]
+    });
+
+    const filterCount = suggestionWithFacets[0].facets.reduce((acc, act) => {
+      return acc + act.filters.length;
+    }, 0);
+
+    await wrapper.setProps({ maxItemsToRender: filterCount + 1 });
+
+    expect(getSuggestionItems()).toHaveLength(suggestions.length);
+    expect(getSuggestionItems().at(-1).text()).toContain(suggestionsWithoutFacets[0].query);
   });
 });
 
