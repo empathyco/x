@@ -2,13 +2,18 @@ import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { Suggestion } from '@empathyco/x-types';
-import Vue, { VueConstructor, ComponentOptions } from 'vue';
-import { getQuerySuggestionsStub } from '../../../../__stubs__/query-suggestions-stubs.factory';
+import Vue from 'vue';
+import {
+  createQuerySuggestion,
+  getQuerySuggestionsStub
+} from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import QuerySuggestions from '../query-suggestions.vue';
-import { resetXQuerySuggestionsStateWith } from './utils';
+import QuerySuggestion from '../query-suggestion.vue';
+import { createSuggestionFacets } from '../../../../__stubs__/base-suggestion-stubs.factory';
+import { getFlattenFilters, resetXQuerySuggestionsStateWith } from './utils';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -16,27 +21,45 @@ localVue.use(Vuex);
 const store = new Store<DeepPartial<RootXStoreState>>({});
 installNewXPlugin({ store }, localVue);
 
-interface QuerySuggestionsOptions {
-  suggestions?: Suggestion[];
-  component?: VueConstructor | ComponentOptions<Vue>;
-}
-
-interface QuerySuggestionsAPI {
-  wrapper: Wrapper<Vue>;
-  suggestions: Suggestion[];
+function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
+  return wrapper.findAll(getDataTestSelector(testDataId));
 }
 
 function renderQuerySuggestions({
+  customSlotName = 'suggestion',
+  customSlot = '',
+  template = `<QuerySuggestions
+                :showFacets="showFacets"
+                :appendSuggestionWithoutFilter="appendSuggestionWithoutFilter">
+                  <template #${customSlotName}="{suggestion, index, filter, queryHTML}">
+                    ${customSlot}
+                  </template>
+              </QuerySuggestions>`,
   suggestions = getQuerySuggestionsStub('gin'),
-  component = QuerySuggestions
+  showFacets = false,
+  appendSuggestionWithoutFilter = false
 }: QuerySuggestionsOptions = {}): QuerySuggestionsAPI {
   resetXQuerySuggestionsStateWith(store, { suggestions });
 
-  const wrapper = mount(<VueConstructor>component, { localVue, store });
+  const wrapper = mount(
+    {
+      template,
+      components: { QuerySuggestions, QuerySuggestion },
+      props: ['showFacets', 'appendSuggestionWithoutFilter']
+    },
+    {
+      localVue,
+      store,
+      propsData: { showFacets, appendSuggestionWithoutFilter }
+    }
+  );
 
   return {
-    wrapper,
-    suggestions
+    wrapper: wrapper.findComponent(QuerySuggestions),
+    suggestions,
+    getSuggestionItems: (suggestionDataTestId = 'query-suggestion') => {
+      return findTestDataById(wrapper, suggestionDataTestId);
+    }
   };
 }
 
@@ -62,29 +85,17 @@ describe('testing Query Suggestions component', () => {
   });
 
   it('renders a custom query suggestion when overriding the suggestion slot', () => {
-    const suggestionSlotOverridden: ComponentOptions<Vue> = {
-      template: `
-        <QuerySuggestions>
-          <template #suggestion="suggestionContentScope">
-            <img
-              class="x-query-suggestion__icon"
-              data-test="icon"
-              src="./query-suggestion-icon.svg"
-            />
-            <span class="x-query-suggestion__query" :data-index="suggestionContentScope.index"
-                  data-test="query">
-              {{ suggestionContentScope.suggestion.query }}
-            </span>
-          </template>
-        </QuerySuggestions>
-      `,
-      components: {
-        QuerySuggestions
-      }
-    };
-
     const { wrapper, suggestions } = renderQuerySuggestions({
-      component: suggestionSlotOverridden
+      customSlot: `<img
+                    class="x-query-suggestion__icon"
+                    data-test="icon"
+                    src="./query-suggestion-icon.svg"
+                  />
+                  <span class="x-query-suggestion__query" :data-index="index"
+                        data-test="query">
+                    {{ suggestion.query }}
+                  </span>`,
+      customSlotName: 'suggestion'
     });
 
     const suggestionsItemWrappers = wrapper.findAll(
@@ -99,34 +110,22 @@ describe('testing Query Suggestions component', () => {
   });
 
   it('renders custom content when overriding the suggestion-content slot', () => {
-    const suggestionContentSlotOverridden: ComponentOptions<Vue> = {
-      template: `
-        <QuerySuggestions>
-          <template #suggestion-content="{ suggestion, queryHTML }">
-            <img
-              class="x-query-suggestion__icon"
-              data-test="icon"
-              src="/query-suggestion-icon.svg"
-            />
-            <span
-              :aria-label="'Select ' + suggestion.query"
-              class="x-query-suggestion__query"
-              data-test="query"
-              v-html="queryHTML"
-            />
-          </template>
-        </QuerySuggestions>
-      `,
-      components: {
-        QuerySuggestions
-      }
-    };
-
-    const { wrapper, suggestions } = renderQuerySuggestions({
-      component: suggestionContentSlotOverridden
+    const { suggestions, getSuggestionItems } = renderQuerySuggestions({
+      customSlot: `<img
+                      class="x-query-suggestion__icon"
+                      data-test="icon"
+                      src="/query-suggestion-icon.svg"
+                    />
+                    <span
+                      :aria-label="'Select ' + suggestion.query"
+                      class="x-query-suggestion__query"
+                      data-test="query"
+                      v-html="queryHTML"
+                    />`,
+      customSlotName: 'suggestion-content'
     });
 
-    const suggestionsItemWrappers = findTestDataById(wrapper, 'query-suggestion').wrappers;
+    const suggestionsItemWrappers = getSuggestionItems().wrappers;
     expect(suggestionsItemWrappers).toHaveLength(suggestions.length);
 
     suggestionsItemWrappers.forEach((slot, index) => {
@@ -152,7 +151,41 @@ describe('testing Query Suggestions component', () => {
     expect(renderedQuerySuggestions()).toHaveLength(suggestions.length);
   });
 
-  function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
-    return wrapper.findAll(getDataTestSelector(testDataId));
-  }
+  it('renders all suggestions with facets if showFacets is true', () => {
+    const suggestions: Suggestion[] = [
+      createQuerySuggestion('gin', {
+        facets: createSuggestionFacets()
+      })
+    ];
+
+    const { getSuggestionItems } = renderQuerySuggestions({
+      customSlot: `<span>{{ suggestion.query }} - {{ filter ? filter.label : '' }}</span>`,
+      showFacets: true,
+      suggestions
+    });
+    const suggestionItems = getSuggestionItems('suggestion-item');
+
+    expect(suggestionItems.wrappers).toHaveLength(3);
+
+    const filters = getFlattenFilters(suggestions[0]);
+
+    suggestionItems.wrappers.forEach((suggestionItemWrapper, index) =>
+      expect(suggestionItemWrapper.text()).toBe(`${suggestions[0].query} - ${filters[index]}`)
+    );
+  });
 });
+
+interface QuerySuggestionsOptions {
+  suggestions?: Suggestion[];
+  customSlotName?: 'suggestion' | 'suggestion-content';
+  customSlot?: string;
+  template?: string;
+  showFacets?: boolean;
+  appendSuggestionWithoutFilter?: boolean;
+}
+
+interface QuerySuggestionsAPI {
+  wrapper: Wrapper<Vue>;
+  suggestions: Suggestion[];
+  getSuggestionItems: (suggestionDataTestId?: string) => WrapperArray<Vue>;
+}
