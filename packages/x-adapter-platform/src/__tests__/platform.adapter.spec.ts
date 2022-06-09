@@ -3,11 +3,12 @@ import { Filter } from '@empathyco/x-types';
 import { platformAdapter } from '../platform.adapter';
 import { BaseRequest, TaggingRequest } from '../types/request.types';
 import {
-  PlatformEmpathizeResponse,
   PlatformNextQueriesResponse,
   PlatformRelatedTagsResponse,
   PlatformSearchResponse
 } from '../types/response.types';
+// eslint-disable-next-line max-len
+import { PlatformPopularSearchesResponse } from '../types/responses/popular-searches-response.model';
 import { getFetchMock } from './__mocks__/fetch.mock';
 import { platformSkuSearchResponse } from './__fixtures__/platform-sku-search.response';
 import { platformTopClickedResponse } from './__fixtures__/platform-top-clicked.response';
@@ -152,35 +153,35 @@ describe('platformAdapter tests', () => {
     ]);
   });
 
-  it('should call the empathize endpoint', async () => {
-    const rawPlatformEmpathizeResponse: PlatformEmpathizeResponse = {
+  it('should call the popular searches endpoint', async () => {
+    const rawPlatformPopularSearchesResponse: PlatformPopularSearchesResponse = {
       topTrends: {
         content: [
           {
             title_raw: 'shoes'
           }
-        ],
-        spellcheck: 'sneakers'
+        ]
       }
     };
-    const fetchMock = jest.fn(getFetchMock(rawPlatformEmpathizeResponse));
+    const fetchMock = jest.fn(getFetchMock(rawPlatformPopularSearchesResponse));
     window.fetch = fetchMock as any;
 
-    const empathizeRequest: BaseRequest = {
-      env: 'test',
-      device: 'tablet',
-      rows: 24,
-      scope: 'tablet',
+    const response = await platformAdapter.popularSearches({
       start: 0,
-      lang: 'en',
-      instance: 'empathy'
-    };
-    const response = await platformAdapter.empathize(empathizeRequest);
+      rows: 24,
+      extraParams: {
+        instance: 'empathy',
+        env: 'test',
+        lang: 'en',
+        device: 'tablet',
+        scope: 'tablet'
+      }
+    });
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.test.empathy.co/search/v1/query/empathy/empathize?device=tablet&env=test&lang=en&rows=24&scope=tablet&start=0',
+      'https://api.test.empathy.co/search/v1/query/empathy/empathize?start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
       { signal: expect.anything() }
     );
 
@@ -193,8 +194,7 @@ describe('platformAdapter tests', () => {
           modelName: 'PopularSearch',
           key: 'shoes'
         }
-      ],
-      spellcheck: 'sneakers'
+      ]
     });
   });
 

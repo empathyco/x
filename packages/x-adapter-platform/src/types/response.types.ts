@@ -5,7 +5,6 @@ import {
   Redirection,
   RelatedTag,
   Result,
-  Suggestion,
   TaggingRequest
 } from '@empathyco/x-types';
 
@@ -17,8 +16,7 @@ import {
   PlatformPromoted,
   PlatformRedirection,
   PlatformRelatedTag,
-  PlatformResult,
-  PlatformSuggestion
+  PlatformResult
 } from './models.types';
 
 export interface PlatformSearchResponse {
@@ -37,18 +35,6 @@ export interface SearchResponse {
   promoted: Promoted[];
   redirections: Redirection[];
   queryTagging: TaggingRequest;
-}
-
-export interface PlatformEmpathizeResponse {
-  topTrends: {
-    content: PlatformSuggestion[];
-    spellcheck?: string;
-  };
-}
-
-export interface EmpathizeResponse {
-  suggestions: Suggestion[];
-  spellcheck?: string;
 }
 
 export interface PlatformTopClickedResponse {
