@@ -1,4 +1,5 @@
-import { RecommendationsRequest, Result } from '@empathyco/x-types';
+import { TopRecommendationsRequest } from '@empathyco/x-adapter';
+import { Result } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
@@ -27,7 +28,7 @@ export interface RecommendationsState extends StatusState {
  */
 export interface RecommendationsGetters {
   /** The adapter request object for retrieving the recommendations. */
-  request: RecommendationsRequest;
+  request: TopRecommendationsRequest;
 }
 
 /**
@@ -64,13 +65,13 @@ export interface RecommendationsActions {
   /**
    * Requests and saves to the state a list of recommendations.
    */
-  fetchAndSaveRecommendations(request: RecommendationsRequest | null): void;
+  fetchAndSaveRecommendations(request: TopRecommendationsRequest | null): void;
   /**
    * Requests and returns a list of recommendations based on the module state.
    *
    * @returns A new list of results.
    */
-  fetchRecommendations(request: RecommendationsRequest | null): Result[];
+  fetchRecommendations(request: TopRecommendationsRequest | null): Result[];
 }
 
 /**

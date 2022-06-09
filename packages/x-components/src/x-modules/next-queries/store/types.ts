@@ -1,4 +1,5 @@
-import { HistoryQuery, NextQueriesRequest, NextQuery } from '@empathyco/x-types';
+import { NextQueriesRequest } from '@empathyco/x-adapter';
+import { HistoryQuery, NextQuery } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';

@@ -1,4 +1,5 @@
-import { RelatedTag, RelatedTagsRequest } from '@empathyco/x-types';
+import { RelatedTagsRequest } from '@empathyco/x-adapter';
+import { RelatedTag } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';

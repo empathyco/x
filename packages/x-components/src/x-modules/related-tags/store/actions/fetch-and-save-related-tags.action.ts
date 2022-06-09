@@ -1,4 +1,5 @@
-import { RelatedTag, RelatedTagsRequest } from '@empathyco/x-types';
+import { RelatedTagsRequest } from '@empathyco/x-adapter';
+import { RelatedTag } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { RelatedTagsActionContext } from '../types';
