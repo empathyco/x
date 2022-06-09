@@ -108,7 +108,7 @@ function applySubSchemaTransformer<Source, Target>(
   const extendedContext: Dictionary = {};
   if ($context) {
     Object.entries($context).forEach(([key, value]) => {
-      if (['requestParameters', 'endpoint', 'to'].includes(key)) {
+      if (['requestParameters', 'endpoint', 'mappedValue'].includes(key)) {
         return;
       }
       extendedContext[key] = isFunction(value)
