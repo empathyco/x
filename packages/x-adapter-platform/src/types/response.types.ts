@@ -14,9 +14,9 @@ import {
   PlatformCatalog,
   PlatformPromoted,
   PlatformRedirection,
-  PlatformRelatedTag,
-  PlatformResult
+  PlatformRelatedTag
 } from './models.types';
+import { PlatformResult } from './models/result.model';
 import { PlatformNextQuery } from './models/next-query.model';
 
 export interface PlatformSearchResponse {
@@ -67,17 +67,4 @@ export interface PlatformRelatedTagsResponse {
     relatedtags: PlatformRelatedTag[];
   };
   status: number;
-}
-
-export interface PlatformSkuSearchResponse {
-  catalog: {
-    content: PlatformResult[];
-    tagging: {
-      query: string;
-    };
-  };
-}
-
-export interface SkuSearchResponse {
-  results: Result[];
 }

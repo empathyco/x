@@ -18,9 +18,9 @@ All notable changes to this project will be documented in this file. See
 
 ## [1.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.9...@empathyco/x-adapter-platform@1.0.0-alpha.10) (2022-06-10)
 
-### Features
+### Code Refactoring
 
-- add query suggestions (#528)
+- query suggestions in platform adapter (#528)
   ([bb9509f](https://github.com/empathyco/x/commit/bb9509f13f5ce6e37328d9c846fdad6278ddc861))
 
 # Change Log
@@ -32,7 +32,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Code Refactoring
 
-- refactor popular searches in platform adapter (#531)
+- popular searches in platform adapter (#531)
   ([df281af](https://github.com/empathyco/x/commit/df281af94114658f4bf9071d859f57ad48ea5f89))
 
 # Change Log

@@ -1,3 +1,5 @@
+import { PlatformResult } from './models/result.model';
+
 export interface Contentable<T> {
   content: T[];
 }
@@ -9,24 +11,6 @@ export interface PlatformCatalog extends Contentable<PlatformResult> {
   tagging: {
     query: string;
   };
-}
-
-export interface PlatformResult {
-  name: string;
-  averageRating?: number;
-  id: string;
-  images?: string[];
-  image: string;
-  price: number;
-  sku?: string;
-  url: string;
-  tagging: PlatformTagging;
-}
-
-export interface PlatformTagging {
-  add2cart: string;
-  checkout: string;
-  click: string;
 }
 
 export interface PlatformPromoted {
