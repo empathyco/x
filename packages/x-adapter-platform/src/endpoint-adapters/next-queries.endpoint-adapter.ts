@@ -1,8 +1,8 @@
 import { endpointAdapterFactory, EndpointAdapterOptions } from '@empathyco/x-adapter-next';
 import { BaseRequest } from '../types/request.types';
 import { NextQueriesResponse } from '../types/response.types';
-import { nextQueriesResponseMapper } from '../mappers/response/next-queries-response.mapper';
-import { baseRequestMapper } from '../mappers/request/base-request.mapper';
+import { nextQueriesResponseMapper } from '../mappers/responses/next-queries-response.mapper';
+import { baseRequestMapper } from '../mappers/requests/base-request.mapper';
 
 export const nextQueriesEndpointAdapterOptions: EndpointAdapterOptions<
   BaseRequest,
