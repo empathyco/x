@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.8...@empathyco/x-adapter-platform@1.0.0-alpha.9) (2022-06-10)
+
+### Code Refactoring
+
+- refactor popular searches in platform adapter (#531)
+  ([df281af](https://github.com/empathyco/x/commit/df281af94114658f4bf9071d859f57ad48ea5f89))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.7...@empathyco/x-adapter-platform@1.0.0-alpha.8) (2022-06-09)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
