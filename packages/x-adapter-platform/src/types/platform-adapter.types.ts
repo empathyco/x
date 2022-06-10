@@ -5,22 +5,20 @@ import {
   PopularSearchesRequest,
   PopularSearchesResponse,
   QuerySuggestionsRequest,
+  NextQueriesRequest,
+  NextQueriesResponse,
   QuerySuggestionsResponse,
-  NextQueriesRequest
+  RecommendationsRequest,
+  RecommendationsResponse
 } from '@empathyco/x-types';
 import { BaseRequest, SearchRequest, TaggingRequest } from './request.types';
-import {
-  NextQueriesResponse,
-  RelatedTagsResponse,
-  SearchResponse,
-  TopClickedResponse
-} from './response.types';
+import { RelatedTagsResponse, SearchResponse } from './response.types';
 
 export interface PlatformAdapter extends Adapter {
   search: EndpointAdapter<SearchRequest, SearchResponse>;
   popularSearches: EndpointAdapter<PopularSearchesRequest, PopularSearchesResponse>;
-  topClicked: EndpointAdapter<BaseRequest, TopClickedResponse>;
   nextQueries: EndpointAdapter<NextQueriesRequest, NextQueriesResponse>;
+  recommendations: EndpointAdapter<RecommendationsRequest, RecommendationsResponse>;
   querySuggestions: EndpointAdapter<QuerySuggestionsRequest, QuerySuggestionsResponse>;
   relatedTags: EndpointAdapter<BaseRequest, RelatedTagsResponse>;
   identifierResults: EndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
