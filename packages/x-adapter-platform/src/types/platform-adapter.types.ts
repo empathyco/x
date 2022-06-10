@@ -1,8 +1,15 @@
 import { Adapter, EndpointAdapter } from '@empathyco/x-adapter-next';
-import { IdentifierResultsRequest, IdentifierResultsResponse } from '@empathyco/x-types';
+import {
+  IdentifierResultsRequest,
+  IdentifierResultsResponse,
+  PopularSearchesRequest,
+  PopularSearchesResponse,
+  QuerySuggestionsRequest,
+  QuerySuggestionsResponse,
+  NextQueriesRequest
+} from '@empathyco/x-types';
 import { BaseRequest, SearchRequest, TaggingRequest } from './request.types';
 import {
-  EmpathizeResponse,
   NextQueriesResponse,
   RelatedTagsResponse,
   SearchResponse,
@@ -11,9 +18,10 @@ import {
 
 export interface PlatformAdapter extends Adapter {
   search: EndpointAdapter<SearchRequest, SearchResponse>;
-  empathize: EndpointAdapter<BaseRequest, EmpathizeResponse>;
+  popularSearches: EndpointAdapter<PopularSearchesRequest, PopularSearchesResponse>;
   topClicked: EndpointAdapter<BaseRequest, TopClickedResponse>;
-  nextQueries: EndpointAdapter<BaseRequest, NextQueriesResponse>;
+  nextQueries: EndpointAdapter<NextQueriesRequest, NextQueriesResponse>;
+  querySuggestions: EndpointAdapter<QuerySuggestionsRequest, QuerySuggestionsResponse>;
   relatedTags: EndpointAdapter<BaseRequest, RelatedTagsResponse>;
   identifierResults: EndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
   tagging: EndpointAdapter<TaggingRequest, void>;

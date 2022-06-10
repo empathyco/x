@@ -1,8 +1,8 @@
-import { PlatformNextQueriesResponse } from '../../../types/response.types';
-import { nextQueriesResponseMapper } from '../../responses/next-queries-response.mapper';
+import { PlatformNextQueriesResponse } from '../../../types/responses/next-queries-response.model';
+import { nextQueriesResponseMapper } from '../next-queries-response.mapper';
 
-describe('next queries response mapper', () => {
-  it('should map the next queries', () => {
+describe('nextQueriesResponseMapper tests', () => {
+  it('should map the response', () => {
     const platformNextQueriesResponse: PlatformNextQueriesResponse = {
       data: {
         nextqueries: [
