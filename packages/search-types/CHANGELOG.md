@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.23...@empathyco/x-types@10.0.0-alpha.24) (2022-06-09)
+
+### Bug Fixes
+
+- fix request types
+  ([7998113](https://github.com/empathyco/x/commit/79981132fc510ee7a313393ad98b67caac2b6c7b)),
+  closes [EX-6302](https://searchbroker.atlassian.net/browse/EX-6302)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.22...@empathyco/x-types@10.0.0-alpha.23) (2022-05-13)
 
 ### Features

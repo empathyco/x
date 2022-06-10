@@ -1,4 +1,4 @@
-export * from './empathize.endpoint-adapter';
+export * from './popular-searches.endpoint-adapter';
 export * from './next-queries.endpoint-adapter';
 export * from './query-suggestions.endpoint-adapter';
 export * from './related-tags.endpoint-adapter';
