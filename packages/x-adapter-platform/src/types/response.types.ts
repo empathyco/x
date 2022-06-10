@@ -16,7 +16,7 @@ import {
   PlatformRedirection,
   PlatformRelatedTag
 } from './models.types';
-import { PlatformResult } from './models/index';
+import { PlatformResult } from './models/result.model';
 import { PlatformNextQuery } from './models/next-query.model';
 
 export interface PlatformSearchResponse {
