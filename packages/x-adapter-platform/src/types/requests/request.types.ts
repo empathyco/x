@@ -10,6 +10,16 @@ export interface PlatformExtraParamsRequest {
 }
 
 /**
+ * Interface for any `request` with `pagination`.
+ *
+ * @public
+ */
+export interface PlatformPageableRequest {
+  rows?: number;
+  start?: number;
+}
+
+/**
  * Interface for any `request` with a `query` parameter.
  *
  * @public

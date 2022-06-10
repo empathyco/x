@@ -5,7 +5,6 @@ import {
   Redirection,
   RelatedTag,
   Result,
-  Suggestion,
   TaggingRequest
 } from '@empathyco/x-types';
 
@@ -13,13 +12,12 @@ import {
   Contentable,
   PlatformBanner,
   PlatformCatalog,
-  PlatformNextQuery,
   PlatformPromoted,
   PlatformRedirection,
   PlatformRelatedTag,
-  PlatformResult,
-  PlatformSuggestion
+  PlatformResult
 } from './models.types';
+import { PlatformNextQuery } from './models/next-query.model';
 
 export interface PlatformSearchResponse {
   banner: Contentable<PlatformBanner>;
@@ -37,18 +35,6 @@ export interface SearchResponse {
   promoted: Promoted[];
   redirections: Redirection[];
   queryTagging: TaggingRequest;
-}
-
-export interface PlatformEmpathizeResponse {
-  topTrends: {
-    content: PlatformSuggestion[];
-    spellcheck?: string;
-  };
-}
-
-export interface EmpathizeResponse {
-  suggestions: Suggestion[];
-  spellcheck?: string;
 }
 
 export interface PlatformTopClickedResponse {

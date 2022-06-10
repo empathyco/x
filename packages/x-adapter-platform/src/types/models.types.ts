@@ -71,19 +71,9 @@ export interface PlatformHierarchicalFilter extends PlatformFacetFilter {
   children: PlatformFacet;
 }
 
-export interface PlatformNextQuery {
-  query: string;
-  source: 'ORGANIC' | 'CURATED';
-  position: number;
-}
-
 export interface PlatformRelatedTag {
   query: string;
   tag: string;
   source: 'ORGANIC' | 'CURATED';
   position: number;
-}
-
-export interface PlatformSuggestion {
-  title_raw: string;
 }
