@@ -21,21 +21,4 @@ export class SuggestionsMixin extends Vue {
    */
   @Prop()
   protected maxItemsToRender?: number;
-
-  /**
-   * Indicates if the suggestions must be rendered along with its facets.
-   *
-   * @public
-   */
-  @Prop({ default: false, type: Boolean })
-  protected showFacets!: boolean;
-
-  /**
-   * When showFacets is true, indicates if the suggestion without filter
-   * must be appended to the list.
-   *
-   * @public
-   */
-  @Prop({ default: false, type: Boolean })
-  protected appendSuggestionWithoutFilter!: boolean;
 }

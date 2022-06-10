@@ -4,13 +4,13 @@
       <div
         class="x-list x-list--horizontal x-list--padding-05 x-list--padding-bottom x-list--gap-06"
       >
-        <PopularSearches max-items-to-render="10" />
-        <HistoryQueries :max-items-to-render="controls.historyQueries.maxItemsToRender" />
+        <PopularSearches maxItemsToRender="10" />
+        <HistoryQueries :maxItemsToRender="controls.historyQueries.maxItemsToRender" />
         <ClearHistoryQueries class="x-button--ghost x-button--ghost-start">
           <CrossTinyIcon />
           <span>Clear previous searches</span>
         </ClearHistoryQueries>
-        <QuerySuggestions max-items-to-render="10" show-facets>
+        <QuerySuggestions maxItemsToRender="10" showFacets>
           <template #suggestion-content="{ suggestion, filter }">
             <span>{{ suggestion.query }}</span>
             <template v-if="filter">
@@ -19,7 +19,7 @@
             </template>
           </template>
         </QuerySuggestions>
-        <NextQueries max-items-to-render="10" />
+        <NextQueries maxItemsToRender="10" />
 
         <!-- IdentifierResults -->
         <IdentifierResults #default="{ identifierResult }">

@@ -30,7 +30,8 @@ function renderQuerySuggestion({
   });
 
   return {
-    wrapper
+    wrapper,
+    suggestion
   };
 }
 
@@ -66,9 +67,8 @@ describe('testing query-suggestion component', () => {
   });
 
   it('emits UserSelectedAQuerySuggestion event on click', async () => {
-    const suggestion = createQuerySuggestion('baileys');
     const listener = jest.fn();
-    const { wrapper } = renderQuerySuggestion();
+    const { wrapper, suggestion } = renderQuerySuggestion();
     const button = wrapper.find(getDataTestSelector('query-suggestion')).element;
     wrapper.vm.$x.on('UserSelectedAQuerySuggestion', true).subscribe(listener);
     await wrapper.trigger('click');
@@ -101,4 +101,5 @@ interface QuerySuggestionOptions {
 interface QuerySuggestionAPI {
   /** The wrapper for query suggestion component. */
   wrapper: Wrapper<Vue>;
+  suggestion: Suggestion;
 }

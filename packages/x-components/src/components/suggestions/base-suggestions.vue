@@ -23,6 +23,7 @@
   import { Suggestion, Facet, Filter } from '@empathyco/x-types';
   import { isArrayEmpty } from '../../utils/array';
   import { SuggestionsMixin } from './suggestions.mixin';
+  import { SuggestionsWithFacetsMixin } from './suggestions-with-facets.mixin';
 
   /**
    * Paints a list of suggestions passed in by prop. Requires a component for a single suggestion
@@ -31,7 +32,10 @@
    * @public
    */
   @Component
-  export default class BaseSuggestions extends mixins(SuggestionsMixin) {
+  export default class BaseSuggestions extends mixins(
+    SuggestionsMixin,
+    SuggestionsWithFacetsMixin
+  ) {
     /**
      * The list of suggestions to render.
      *

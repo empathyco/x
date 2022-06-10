@@ -39,6 +39,8 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { popularSearchesXModule } from '../x-module';
   import { SuggestionsMixin } from '../../../components/suggestions/suggestions.mixin';
+  // eslint-disable-next-line max-len
+  import { SuggestionsWithFacetsMixin } from '../../../components/suggestions/suggestions-with-facets.mixin';
   import PopularSearch from './popular-search.vue';
 
   /**
@@ -51,7 +53,7 @@
    */
   @Component({
     components: { PopularSearch, BaseSuggestions },
-    mixins: [xComponentMixin(popularSearchesXModule), SuggestionsMixin]
+    mixins: [xComponentMixin(popularSearchesXModule), SuggestionsMixin, SuggestionsWithFacetsMixin]
   })
   export default class PopularSearches extends Vue {
     /**

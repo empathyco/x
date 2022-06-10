@@ -42,6 +42,8 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { querySuggestionsXModule } from '../x-module';
   import { SuggestionsMixin } from '../../../components/suggestions/suggestions.mixin';
+  // eslint-disable-next-line max-len
+  import { SuggestionsWithFacetsMixin } from '../../../components/suggestions/suggestions-with-facets.mixin';
   import QuerySuggestion from './query-suggestion.vue';
 
   /**
@@ -53,7 +55,7 @@
    */
   @Component({
     components: { BaseSuggestions, QuerySuggestion },
-    mixins: [xComponentMixin(querySuggestionsXModule), SuggestionsMixin]
+    mixins: [xComponentMixin(querySuggestionsXModule), SuggestionsMixin, SuggestionsWithFacetsMixin]
   })
   export default class QuerySuggestions extends Vue {
     /**
