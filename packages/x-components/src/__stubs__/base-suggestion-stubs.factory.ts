@@ -78,9 +78,10 @@ export function createSuggestionFacets(): Facet[] {
 /**
  * Returns a facet with a filter.
  *
+ * @param filterLabel - Label of the filter.
  * @returns A Facet with a filter.
  */
-export function createFacetWithAFilter(): Facet[] {
+export function createFacetWithAFilter(filterLabel = 'EXAMPLE'): Facet[] {
   return [
     {
       id: 'exampleFacet',
@@ -90,7 +91,7 @@ export function createFacetWithAFilter(): Facet[] {
         {
           facetId: 'exampleFacet',
           id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"EXAMPLE"',
-          label: 'EXAMPLE',
+          label: filterLabel,
           selected: false,
           totalResults: 60,
           modelName: 'SimpleFilter'
