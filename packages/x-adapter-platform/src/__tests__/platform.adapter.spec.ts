@@ -1,5 +1,5 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { Filter } from '@empathyco/x-types';
+import { Filter, NextQueriesRequest } from '@empathyco/x-types';
 import { platformAdapter } from '../platform.adapter';
 // eslint-disable-next-line max-len
 import { PlatformQuerySuggestionsResponse } from '../types/responses/query-suggestions-response.model';
@@ -259,15 +259,17 @@ describe('platformAdapter tests', () => {
         ]
       }
     };
-    const nextQueriesRequest: BaseRequest = {
-      device: 'mobile',
-      env: 'staging',
-      lang: 'en',
+    const nextQueriesRequest: NextQueriesRequest = {
       query: 'makeup',
       rows: 24,
-      scope: 'mobile',
       start: 0,
-      instance: 'empathy'
+      extraParams: {
+        scope: 'mobile',
+        instance: 'empathy',
+        device: 'mobile',
+        env: 'staging',
+        lang: 'en'
+      }
     };
 
     const fetchMock = jest.fn(getFetchMock(platformNextQueriesResponse));
@@ -277,7 +279,7 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.staging.empathy.co/nextqueries/empathy?device=mobile&env=staging&lang=en&rows=24&scope=mobile&start=0&query=makeup',
+      'https://api.staging.empathy.co/nextqueries/empathy?query=makeup&scope=mobile&instance=empathy&device=mobile&env=staging&lang=en',
       { signal: expect.anything() }
     );
     expect(response).toStrictEqual({

@@ -3,7 +3,8 @@ import {
   PopularSearchesRequest,
   PopularSearchesResponse,
   QuerySuggestionsRequest,
-  QuerySuggestionsResponse
+  QuerySuggestionsResponse,
+  NextQueriesRequest
 } from '@empathyco/x-types';
 import {
   NextQueriesResponse,
@@ -18,7 +19,7 @@ export interface PlatformAdapter extends Adapter {
   search: EndpointAdapter<SearchRequest, SearchResponse>;
   popularSearches: EndpointAdapter<PopularSearchesRequest, PopularSearchesResponse>;
   topClicked: EndpointAdapter<BaseRequest, TopClickedResponse>;
-  nextQueries: EndpointAdapter<BaseRequest, NextQueriesResponse>;
+  nextQueries: EndpointAdapter<NextQueriesRequest, NextQueriesResponse>;
   querySuggestions: EndpointAdapter<QuerySuggestionsRequest, QuerySuggestionsResponse>;
   relatedTags: EndpointAdapter<BaseRequest, RelatedTagsResponse>;
   skuSearch: EndpointAdapter<BaseRequest, SkuSearchResponse>;

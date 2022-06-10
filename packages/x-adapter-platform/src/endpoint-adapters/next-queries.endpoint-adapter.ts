@@ -1,16 +1,18 @@
-import { endpointAdapterFactory, EndpointAdapterOptions } from '@empathyco/x-adapter-next';
-import { BaseRequest } from '../types/request.types';
-import { NextQueriesResponse } from '../types/response.types';
+import { endpointAdapterFactory } from '@empathyco/x-adapter-next';
+import { NextQueriesRequest, NextQueriesResponse } from '@empathyco/x-types';
+import { nextQueriesRequestMapper } from '../mappers/requests/next-queries-request.mapper';
 import { nextQueriesResponseMapper } from '../mappers/responses/next-queries-response.mapper';
-import { baseRequestMapper } from '../mappers/requests/base-request.mapper';
 
-export const nextQueriesEndpointAdapterOptions: EndpointAdapterOptions<
-  BaseRequest,
+/**
+ * This endpoint does not support pagination in the request.
+ *
+ * @public
+ */
+export const nextQueriesEndpointAdapter = endpointAdapterFactory<
+  NextQueriesRequest,
   NextQueriesResponse
-> = {
-  endpoint: 'https://api.{env(.)}empathy.co/nextqueries/{instance}',
-  responseMapper: nextQueriesResponseMapper,
-  requestMapper: baseRequestMapper
-};
-
-export const nextQueriesEndpointAdapter = endpointAdapterFactory(nextQueriesEndpointAdapterOptions);
+>({
+  endpoint: 'https://api.{extraParams.env(.)}empathy.co/nextqueries/{extraParams.instance}',
+  requestMapper: nextQueriesRequestMapper,
+  responseMapper: nextQueriesResponseMapper
+});
