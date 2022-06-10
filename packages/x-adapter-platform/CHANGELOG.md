@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.9...@empathyco/x-adapter-platform@1.0.0-alpha.10) (2022-06-10)
+
+### Features
+
+- add query suggestions (#528)
+  ([bb9509f](https://github.com/empathyco/x/commit/bb9509f13f5ce6e37328d9c846fdad6278ddc861))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.8...@empathyco/x-adapter-platform@1.0.0-alpha.9) (2022-06-10)
 
 ### Code Refactoring
