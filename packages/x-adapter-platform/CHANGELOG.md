@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.15...@empathyco/x-adapter-platform@1.0.0-alpha.16) (2022-06-13)
+
+### Code Refactoring
+
+- related tags in platform adapter
+  ([beb1017](https://github.com/empathyco/x/commit/beb1017526aac9983bd1ef2002a3a754d4a0cfe2)),
+  closes [EX-6311](https://searchbroker.atlassian.net/browse/EX-6311)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.14...@empathyco/x-adapter-platform@1.0.0-alpha.15) (2022-06-13)
 
 ### Code Refactoring
