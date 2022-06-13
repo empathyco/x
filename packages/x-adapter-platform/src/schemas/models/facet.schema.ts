@@ -8,7 +8,7 @@ import {
   SimpleFacet
 } from '@empathyco/x-types';
 import { numberFilterMutableSchema } from '../filters/number-filter.schema';
-import { simpleMutableFilterSchema } from '../filters/simple-filter.schema';
+import { simpleFilterMutableSchema } from '../filters/simple-filter.schema';
 import { PlatformFacet, PlatformHierarchicalFilter } from '../../types/models/facet.model';
 
 export const facetMutableSchema = createMutableSchema<
@@ -78,5 +78,5 @@ function getFilterSchemaFromFacetType(facet: string): Schema {
   if (facetType === 'NumberRangeFacet') {
     return numberFilterMutableSchema;
   }
-  return simpleMutableFilterSchema;
+  return simpleFilterMutableSchema;
 }
