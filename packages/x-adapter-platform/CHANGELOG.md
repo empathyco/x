@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.13...@empathyco/x-adapter-platform@1.0.0-alpha.14) (2022-06-13)
+
+### Code Refactoring
+
+- recommendations in platform adapter (#538)
+  ([cc954bc](https://github.com/empathyco/x/commit/cc954bc6f6f6ba04447d382aed9b8f60b15b975b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.12...@empathyco/x-adapter-platform@1.0.0-alpha.13) (2022-06-13)
 
 ### Code Refactoring
