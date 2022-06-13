@@ -20,8 +20,3 @@ export interface PlatformBaseRequest {
   query?: string;
   origin?: string;
 }
-
-export interface TaggingRequest {
-  url: string;
-  params: Record<string, string | number | boolean>;
-}
