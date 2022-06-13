@@ -317,9 +317,7 @@ describe('platformAdapter tests', () => {
         device: 'mobile',
         env: 'staging',
         lang: 'en',
-        rows: 24,
         scope: 'mobile',
-        start: 0,
         instance: 'empathy'
       }
     };
@@ -328,7 +326,7 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.staging.empathy.co/relatedtags/empathy?query=jeans&device=mobile&env=staging&lang=en&rows=24&scope=mobile&start=0&instance=empathy',
+      'https://api.staging.empathy.co/relatedtags/empathy?query=jeans&device=mobile&env=staging&lang=en&scope=mobile&instance=empathy',
       { signal: expect.anything() }
     );
     expect(response).toStrictEqual({

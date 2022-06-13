@@ -6,4 +6,3 @@ export * from './banner.schema';
 export * from './facet.schema';
 export * from './promoted.schema';
 export * from './redirection.schema';
-export * from './related-tag.schema';
