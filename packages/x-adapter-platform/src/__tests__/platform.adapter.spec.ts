@@ -4,13 +4,14 @@ import { platformAdapter } from '../platform.adapter';
 // eslint-disable-next-line max-len
 import { PlatformQuerySuggestionsResponse } from '../types/responses/query-suggestions-response.model';
 import { BaseRequest } from '../types/request.types';
-import { PlatformNextQueriesResponse, PlatformRelatedTagsResponse } from '../types/response.types';
+import { PlatformRelatedTagsResponse } from '../types/response.types';
 import { PlatformSearchResponse } from '../types/responses/search-response.model';
 // eslint-disable-next-line max-len
 import { PlatformPopularSearchesResponse } from '../types/responses/popular-searches-response.model';
+import { PlatformNextQueriesResponse } from '../types/responses/next-queries-response.model';
 import { getFetchMock } from './__mocks__/fetch.mock';
 import { platformIdentifierResultsResponse } from './__fixtures__/identifier-results.response';
-import { platformTopClickedResponse } from './__fixtures__/platform-top-clicked.response';
+import { platformRecommendationsResponse } from './__fixtures__/recommendations.response';
 
 describe('platformAdapter tests', () => {
   beforeEach(jest.clearAllMocks);
@@ -440,28 +441,30 @@ describe('platformAdapter tests', () => {
     });
   });
 
-  it('should call the top clicked endpoint', async () => {
-    const topClickedRequest: BaseRequest = {
-      device: 'desktop',
-      env: 'test',
-      lang: 'en',
-      query: 'jeans',
-      rows: 24,
-      scope: 'desktop',
-      start: 0,
-      instance: 'empathy'
-    };
-
-    const fetchMock = jest.fn(getFetchMock(platformTopClickedResponse));
+  it('should call the recommendations endpoint', async () => {
+    const fetchMock = jest.fn(getFetchMock(platformRecommendationsResponse));
     window.fetch = fetchMock as any;
 
-    const response = await platformAdapter.topClicked(topClickedRequest);
+    const response = await platformAdapter.recommendations({
+      start: 0,
+      rows: 24,
+      origin: 'search_box:none',
+      extraParams: {
+        instance: 'empathy',
+        env: 'test',
+        lang: 'en',
+        device: 'desktop',
+        scope: 'desktop'
+      }
+    });
+
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.test.empathy.co/search/v1/query/empathy/topclicked?device=desktop&env=test&lang=en&rows=24&scope=desktop&start=0&query=jeans',
+      'https://api.test.empathy.co/search/v1/query/empathy/topclicked?start=0&rows=24&origin=search_box%3Anone&instance=empathy&env=test&lang=en&device=desktop&scope=desktop',
       { signal: expect.anything() }
     );
+
     expect(response).toStrictEqual({
       results: [
         {
