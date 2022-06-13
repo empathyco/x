@@ -6,9 +6,10 @@ import {
   PopularSearchesResponse,
   QuerySuggestionsRequest,
   QuerySuggestionsResponse,
-  NextQueriesRequest
+  NextQueriesRequest,
+  TaggingRequest
 } from '@empathyco/x-types';
-import { BaseRequest, SearchRequest, TaggingRequest } from './request.types';
+import { BaseRequest, SearchRequest } from './request.types';
 import {
   NextQueriesResponse,
   RelatedTagsResponse,

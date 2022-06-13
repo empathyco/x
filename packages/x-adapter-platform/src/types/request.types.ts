@@ -39,8 +39,3 @@ export interface PlatformSearchRequest extends PlatformBaseRequest {
   filter?: string[];
   sort?: string;
 }
-
-export interface TaggingRequest {
-  url: string;
-  params: Record<string, string | number | boolean>;
-}

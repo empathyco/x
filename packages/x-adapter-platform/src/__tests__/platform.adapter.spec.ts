@@ -3,7 +3,7 @@ import { Filter, NextQueriesRequest } from '@empathyco/x-types';
 import { platformAdapter } from '../platform.adapter';
 // eslint-disable-next-line max-len
 import { PlatformQuerySuggestionsResponse } from '../types/responses/query-suggestions-response.model';
-import { BaseRequest, TaggingRequest } from '../types/request.types';
+import { BaseRequest } from '../types/request.types';
 import {
   PlatformNextQueriesResponse,
   PlatformRelatedTagsResponse,
@@ -495,7 +495,8 @@ describe('platformAdapter tests', () => {
     const fetchMock = jest.fn(getFetchMock({}));
     window.fetch = fetchMock as any;
     navigator.sendBeacon = beaconMock;
-    const taggingRequest: TaggingRequest = {
+    await platformAdapter.tagging({
+      url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/click',
       params: {
         filtered: 'false',
         follow: false,
@@ -508,10 +509,8 @@ describe('platformAdapter tests', () => {
         scope: 'desktop',
         spellcheck: 'false',
         title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
-      },
-      url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/click'
-    };
-    await platformAdapter.tagging(taggingRequest);
+      }
+    });
     expect(beaconMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
       'https://api.staging.empathy.co/tagging/v1/track/empathy/click?filtered=false&follow=false&lang=en&origin=search_box%3Anone&page=1&position=1&productId=12345-U&q=12345&scope=desktop&spellcheck=false&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree'
