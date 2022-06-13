@@ -11,11 +11,11 @@ import {
   RecommendationsRequest,
   RecommendationsResponse,
   TaggingRequest,
+  RelatedTagsResponse,
+  RelatedTagsRequest,
   SearchRequest,
   SearchResponse
 } from '@empathyco/x-types';
-import { BaseRequest } from './request.types';
-import { RelatedTagsResponse } from './response.types';
 
 export interface PlatformAdapter extends Adapter {
   search: EndpointAdapter<SearchRequest, SearchResponse>;
@@ -23,7 +23,7 @@ export interface PlatformAdapter extends Adapter {
   nextQueries: EndpointAdapter<NextQueriesRequest, NextQueriesResponse>;
   recommendations: EndpointAdapter<RecommendationsRequest, RecommendationsResponse>;
   querySuggestions: EndpointAdapter<QuerySuggestionsRequest, QuerySuggestionsResponse>;
-  relatedTags: EndpointAdapter<BaseRequest, RelatedTagsResponse>;
+  relatedTags: EndpointAdapter<RelatedTagsRequest, RelatedTagsResponse>;
   identifierResults: EndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
   tagging: EndpointAdapter<TaggingRequest, void>;
 }
