@@ -1,5 +1,5 @@
 ---
-title: Interface X browser stored data and purposes
+title: Interface X data privacy and browser local storage
 tags:
   - x components
   - interface x
