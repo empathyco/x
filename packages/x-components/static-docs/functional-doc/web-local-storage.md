@@ -8,7 +8,7 @@ tags:
   - history queries
 ---
 
-# Interface X browser stored data and purposes
+# Interface X data privacy and browser local storage
 
 The X Components _don't use cookies_ for storing data. Instead of that, use Browser Local Storage to
 save technical data to provide the needed services associated to the Search Experience.
