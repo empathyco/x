@@ -13,7 +13,7 @@ tags:
 Interface&nbsp;X for web _doesn't use cookies_ for storing data. The Interface&nbsp;X&nbsp;Components use the web browser's local storage to
 save the technical data required to provide the services associated with the search & discovery experience. The data remains in the shopper's device until the expiration time is reached or the shopper chooses to delete it.
 
-The following table describes the data stored and the purpose of each piece:
+More specifically, Interface&nbsp;X&nbsp;Components store the following elements in the browser's local storage:
 
 | key                  | duration                            | Purpose                                                                                                                                                                                      |
 | -------------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
