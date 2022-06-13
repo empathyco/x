@@ -3,7 +3,6 @@ import {
   NextQuery,
   Promoted,
   Redirection,
-  RelatedTag,
   Result,
   TaggingRequest
 } from '@empathyco/x-types';
@@ -13,8 +12,7 @@ import {
   PlatformBanner,
   PlatformCatalog,
   PlatformPromoted,
-  PlatformRedirection,
-  PlatformRelatedTag
+  PlatformRedirection
 } from './models.types';
 import { PlatformResult } from './models/result.model';
 import { PlatformNextQuery } from './models/next-query.model';
@@ -56,15 +54,4 @@ export interface PlatformNextQueriesResponse {
   data: {
     nextqueries: PlatformNextQuery[];
   };
-}
-
-export interface RelatedTagsResponse {
-  relatedTags: RelatedTag[];
-}
-
-export interface PlatformRelatedTagsResponse {
-  data: {
-    relatedtags: PlatformRelatedTag[];
-  };
-  status: number;
 }

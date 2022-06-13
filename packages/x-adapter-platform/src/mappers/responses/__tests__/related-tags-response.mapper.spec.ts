@@ -1,8 +1,8 @@
-import { relatedTagsResponseMapper } from '../../responses/related-tags-response.mapper';
 import { PlatformRelatedTagsResponse } from '../../../types/responses/related-tags-response.model';
+import { relatedTagsResponseMapper } from '../related-tags-response.mapper';
 
-describe('related tags response mapper', () => {
-  it('should map the related tags', () => {
+describe('relatedTagsResponseMapper tests', () => {
+  it('should map the response', () => {
     const platformRelatedTagsResponse: PlatformRelatedTagsResponse = {
       data: {
         relatedtags: [

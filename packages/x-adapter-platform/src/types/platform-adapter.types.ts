@@ -6,15 +6,12 @@ import {
   PopularSearchesResponse,
   QuerySuggestionsRequest,
   QuerySuggestionsResponse,
-  NextQueriesRequest
+  NextQueriesRequest,
+  RelatedTagsRequest,
+  RelatedTagsResponse
 } from '@empathyco/x-types';
 import { BaseRequest, SearchRequest, TaggingRequest } from './request.types';
-import {
-  NextQueriesResponse,
-  RelatedTagsResponse,
-  SearchResponse,
-  TopClickedResponse
-} from './response.types';
+import { NextQueriesResponse, SearchResponse, TopClickedResponse } from './response.types';
 
 export interface PlatformAdapter extends Adapter {
   search: EndpointAdapter<SearchRequest, SearchResponse>;
@@ -22,7 +19,7 @@ export interface PlatformAdapter extends Adapter {
   topClicked: EndpointAdapter<BaseRequest, TopClickedResponse>;
   nextQueries: EndpointAdapter<NextQueriesRequest, NextQueriesResponse>;
   querySuggestions: EndpointAdapter<QuerySuggestionsRequest, QuerySuggestionsResponse>;
-  relatedTags: EndpointAdapter<BaseRequest, RelatedTagsResponse>;
+  relatedTags: EndpointAdapter<RelatedTagsRequest, RelatedTagsResponse>;
   identifierResults: EndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
   tagging: EndpointAdapter<TaggingRequest, void>;
 }

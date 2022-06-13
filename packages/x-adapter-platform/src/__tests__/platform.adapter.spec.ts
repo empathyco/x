@@ -1,16 +1,13 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { Filter, NextQueriesRequest } from '@empathyco/x-types';
+import { Filter, NextQueriesRequest, RelatedTagsRequest } from '@empathyco/x-types';
 import { platformAdapter } from '../platform.adapter';
 // eslint-disable-next-line max-len
 import { PlatformQuerySuggestionsResponse } from '../types/responses/query-suggestions-response.model';
 import { BaseRequest, TaggingRequest } from '../types/request.types';
-import {
-  PlatformNextQueriesResponse,
-  PlatformRelatedTagsResponse,
-  PlatformSearchResponse
-} from '../types/response.types';
+import { PlatformNextQueriesResponse, PlatformSearchResponse } from '../types/response.types';
 // eslint-disable-next-line max-len
 import { PlatformPopularSearchesResponse } from '../types/responses/popular-searches-response.model';
+import { PlatformRelatedTagsResponse } from '../types/responses/related-tags-response.model';
 import { getFetchMock } from './__mocks__/fetch.mock';
 import { platformIdentifierResultsResponse } from './__fixtures__/identifier-results.response';
 import { platformTopClickedResponse } from './__fixtures__/platform-top-clicked.response';
@@ -314,22 +311,24 @@ describe('platformAdapter tests', () => {
     const fetchMock = jest.fn(getFetchMock(platformRelatedTagsResponse));
     window.fetch = fetchMock as any;
 
-    const relatedTagsRequest: BaseRequest = {
-      device: 'mobile',
-      env: 'staging',
-      lang: 'en',
+    const relatedTagsRequest: RelatedTagsRequest = {
       query: 'jeans',
-      rows: 24,
-      scope: 'mobile',
-      start: 0,
-      instance: 'empathy'
+      extraParams: {
+        device: 'mobile',
+        env: 'staging',
+        lang: 'en',
+        rows: 24,
+        scope: 'mobile',
+        start: 0,
+        instance: 'empathy'
+      }
     };
 
     const response = await platformAdapter.relatedTags(relatedTagsRequest);
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.staging.empathy.co/relatedtags/empathy?device=mobile&env=staging&lang=en&rows=24&scope=mobile&start=0&query=jeans',
+      'https://api.staging.empathy.co/relatedtags/empathy?query=jeans&device=mobile&env=staging&lang=en&rows=24&scope=mobile&start=0&instance=empathy',
       { signal: expect.anything() }
     );
     expect(response).toStrictEqual({

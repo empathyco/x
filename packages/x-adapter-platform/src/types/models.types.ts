@@ -54,10 +54,3 @@ export interface PlatformFacetFilter {
 export interface PlatformHierarchicalFilter extends PlatformFacetFilter {
   children: PlatformFacet;
 }
-
-export interface PlatformRelatedTag {
-  query: string;
-  tag: string;
-  source: 'ORGANIC' | 'CURATED';
-  position: number;
-}
