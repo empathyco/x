@@ -1,4 +1,3 @@
-export * from './base-request.mapper';
 export * from './identifier-results-request.mapper';
 export * from './next-queries-request.mapper';
 export * from './popular-searches-request.mapper';
