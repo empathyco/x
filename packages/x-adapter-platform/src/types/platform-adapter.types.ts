@@ -10,10 +10,12 @@ import {
   QuerySuggestionsResponse,
   RecommendationsRequest,
   RecommendationsResponse,
-  TaggingRequest
+  TaggingRequest,
+  SearchRequest,
+  SearchResponse
 } from '@empathyco/x-types';
-import { BaseRequest, SearchRequest } from './request.types';
-import { RelatedTagsResponse, SearchResponse } from './response.types';
+import { BaseRequest } from './request.types';
+import { RelatedTagsResponse } from './response.types';
 
 export interface PlatformAdapter extends Adapter {
   search: EndpointAdapter<SearchRequest, SearchResponse>;
