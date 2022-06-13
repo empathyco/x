@@ -1,11 +1,4 @@
-import {
-  Banner,
-  NextQuery,
-  Promoted,
-  Redirection,
-  Result,
-  TaggingRequest
-} from '@empathyco/x-types';
+import { Banner, Promoted, Redirection, Result, TaggingRequest } from '@empathyco/x-types';
 
 import {
   Contentable,
@@ -14,8 +7,6 @@ import {
   PlatformPromoted,
   PlatformRedirection
 } from './models.types';
-import { PlatformResult } from './models/result.model';
-import { PlatformNextQuery } from './models/next-query.model';
 
 export interface PlatformSearchResponse {
   banner: Contentable<PlatformBanner>;
@@ -33,25 +24,4 @@ export interface SearchResponse {
   promoted: Promoted[];
   redirections: Redirection[];
   queryTagging: TaggingRequest;
-}
-
-export interface PlatformTopClickedResponse {
-  topclicked: {
-    content: PlatformResult[];
-    numFound: number;
-  };
-}
-
-export interface TopClickedResponse {
-  results: Result[];
-}
-
-export interface NextQueriesResponse {
-  nextQueries: NextQuery[];
-}
-
-export interface PlatformNextQueriesResponse {
-  data: {
-    nextqueries: PlatformNextQuery[];
-  };
 }
