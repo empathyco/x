@@ -1,6 +1,5 @@
 import {
   Banner,
-  NextQuery,
   Promoted,
   Redirection,
   RelatedTag,
@@ -16,8 +15,6 @@ import {
   PlatformRedirection,
   PlatformRelatedTag
 } from './models.types';
-import { PlatformResult } from './models/result.model';
-import { PlatformNextQuery } from './models/next-query.model';
 
 export interface PlatformSearchResponse {
   banner: Contentable<PlatformBanner>;
@@ -35,27 +32,6 @@ export interface SearchResponse {
   promoted: Promoted[];
   redirections: Redirection[];
   queryTagging: TaggingRequest;
-}
-
-export interface PlatformTopClickedResponse {
-  topclicked: {
-    content: PlatformResult[];
-    numFound: number;
-  };
-}
-
-export interface TopClickedResponse {
-  results: Result[];
-}
-
-export interface NextQueriesResponse {
-  nextQueries: NextQuery[];
-}
-
-export interface PlatformNextQueriesResponse {
-  data: {
-    nextqueries: PlatformNextQuery[];
-  };
 }
 
 export interface RelatedTagsResponse {
