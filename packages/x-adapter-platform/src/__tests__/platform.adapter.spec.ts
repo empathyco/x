@@ -3,7 +3,7 @@ import { Filter, NextQueriesRequest, RelatedTagsRequest } from '@empathyco/x-typ
 import { platformAdapter } from '../platform.adapter';
 // eslint-disable-next-line max-len
 import { PlatformQuerySuggestionsResponse } from '../types/responses/query-suggestions-response.model';
-import { PlatformSearchResponse } from '../types/response.types';
+import { PlatformSearchResponse } from '../types/responses/search-response.model';
 // eslint-disable-next-line max-len
 import { PlatformPopularSearchesResponse } from '../types/responses/popular-searches-response.model';
 import { PlatformRelatedTagsResponse } from '../types/responses/related-tags-response.model';
@@ -15,7 +15,7 @@ import { platformRecommendationsResponse } from './__fixtures__/recommendations.
 describe('platformAdapter tests', () => {
   beforeEach(jest.clearAllMocks);
 
-  it('Should call the search endpoint', async () => {
+  it('should call the search endpoint', async () => {
     const rawPlatformSearchResponse: DeepPartial<PlatformSearchResponse> = {
       banner: {
         content: [{ id: '5af08ea2d5d534000bcc27fb', title: 'test' }]
@@ -51,8 +51,11 @@ describe('platformAdapter tests', () => {
     window.fetch = fetchMock as any;
 
     const response = await platformAdapter.search({
-      device: 'mobile',
-      env: 'test',
+      query: 'chips',
+      rows: 0,
+      start: 0,
+      origin: 'popular_search:predictive_layer',
+      sort: 'price asc',
       filters: {
         categoryPaths: [
           {
@@ -100,20 +103,18 @@ describe('platformAdapter tests', () => {
           } as Filter
         ]
       },
-      instance: 'empathy',
-      lang: 'es',
-      origin: 'popular_search:predictive_layer',
-      query: 'chips',
-      relatedTags: [],
-      rows: 0,
-      scope: 'mobile',
-      sort: 'price asc',
-      start: 0
+      extraParams: {
+        instance: 'empathy',
+        env: 'test',
+        lang: 'es',
+        device: 'mobile',
+        scope: 'mobile'
+      }
     });
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.test.empathy.co/search/v1/query/empathy/search?device=mobile&query=chips&env=test&scope=mobile&origin=popular_search%3Apredictive_layer&start=0&rows=0&lang=es&sort=price+asc&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0',
+      'https://api.test.empathy.co/search/v1/query/empathy/search?query=chips&origin=popular_search%3Apredictive_layer&start=0&rows=0&sort=price+asc&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0&instance=empathy&env=test&lang=es&device=mobile&scope=mobile',
       { signal: expect.anything() }
     );
     expect(response.totalResults).toBe(0);
