@@ -54,5 +54,5 @@ export interface AdapterHierarchicalFilter extends BooleanFilter {
   /** A unique id used to reference the parent filter or null if it hasn't. */
   parentId: Filter['id'] | null;
   /** Descendants filters id. */
-  children?: AdapterHierarchicalFacet;
+  children?: AdapterHierarchicalFilter[];
 }

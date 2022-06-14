@@ -10,7 +10,7 @@ import {
   PlatformFacet,
   PlatformHierarchicalFilter
 } from '../../../types/responses/models/facet.model';
-import { getFacetConfig, getFacetId } from './facets/utils';
+import { getFacetConfig } from './facets/utils';
 import { FacetsConfig } from './facets';
 import { numberFilterMutableSchema } from './filters/number-filter.schema';
 import { simpleMutableFilterSchema } from './filters/simple-filter.schema';
@@ -36,7 +36,7 @@ export const facetSchema: Schema<
 export const facetMutableSchema = createMutableSchema(facetSchema);
 
 export const hierarchicalFilterSchema: Schema<PlatformHierarchicalFilter, HierarchicalFilter> = {
-  facetId: (_, $context) => getFacetId($context?.facetId as string),
+  facetId: (_, $context) => $context?.facetId as string,
   label: 'value',
   id: 'filter',
   totalResults: 'count',
@@ -44,8 +44,8 @@ export const hierarchicalFilterSchema: Schema<PlatformHierarchicalFilter, Hierar
   selected: () => false,
   modelName: () => 'HierarchicalFilter',
   children: {
-    $path: 'children',
-    $subSchema: facetMutableSchema as any,
+    $path: 'children.values',
+    $subSchema: '$self',
     $context: {
       parentId: 'filter'
     }

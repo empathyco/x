@@ -61,7 +61,7 @@ function mapHierarchicalFilter(
 ): HierarchicalFilter[] {
   const filter: HierarchicalFilter = {
     ...rawFilter,
-    children: rawFilter.children?.filters.map(rawFilterChild => {
+    children: rawFilter.children?.map(rawFilterChild => {
       mapHierarchicalFilter(rawFilterChild, filters);
       return rawFilterChild.id;
     })
