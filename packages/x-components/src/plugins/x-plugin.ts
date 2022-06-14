@@ -1,8 +1,9 @@
-import { SearchAdapter } from '@empathyco/x-adapter';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { forEach, Dictionary } from '@empathyco/x-utils';
 import { PluginObject, VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
+import { PlatformAdapter } from '@empathyco/x-adapter-platform';
+import { SearchAdapter } from '@empathyco/x-adapter';
 import { FILTERS_REGISTRY } from '../filters/filters.registry';
 import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
@@ -24,8 +25,8 @@ import { assertXPluginOptionsAreValid } from './x-plugin.utils';
  */
 export class XPlugin implements PluginObject<XPluginOptions> {
   /**
-   * {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} Is the middleware between
-   * the components and our API where data can be mapped to client needs.
+   * {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} Is the middleware
+   * between the components and our API where data can be mapped to client needs.
    * This property is only available after installing the plugin.
    *
    * @returns The installed adapter.
@@ -34,6 +35,19 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    */
   public static get adapter(): SearchAdapter {
     return this.getInstance().adapter;
+  }
+
+  /**
+   * {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter} Is the middleware
+   * between the components and our API where data can be mapped to client needs.
+   * This property is only available after installing the plugin.
+   *
+   * @returns The installed adapter.
+   * @throws If this property is accessed before calling `Vue.use(xPlugin)`.
+   * @public
+   */
+  public static get platformAdapter(): PlatformAdapter {
+    return this.getInstance().platformAdapter;
   }
 
   /**
@@ -102,6 +116,13 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @internal
    */
   protected adapter!: SearchAdapter;
+
+  /**
+   * Adapter for the API, responsible for transforming requests and responses.
+   *
+   * @internal
+   */
+  protected platformAdapter!: PlatformAdapter;
 
   /**
    * Set of the already installed {@link XModule | XModules} to avoid re-registering them.
@@ -429,15 +450,13 @@ export class XPlugin implements PluginObject<XPluginOptions> {
  * Minimal installation example. A search adapter is needed for the plugin to work, and connect to
  * the API.
  * ```typescript
- * const adapter = new EmpathyAdapterBuilder()
- *  .withConfiguration({instance: 'my-instance-id'})
- *  .build();
- * Vue.use(xPlugin, { adapter });
+ *  import { platformAdapter } from '@empathyco/x-adapter-platform';
+ *  Vue.use(xPlugin, { adapter: platformAdapter });
  * ```
  *
  * @example
  * If you are using {@link https://vuex.vuejs.org/ | Vuex} in your project you must install its
- *   plugin, and instantiate an store before installing the XPlugin:
+ *   plugin, and instantiate a store before installing the XPlugin:
  * ```typescript
  * Vue.use(Vuex);
  * const store = new Store({ ... });
