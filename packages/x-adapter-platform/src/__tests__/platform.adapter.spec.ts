@@ -125,7 +125,7 @@ describe('platformAdapter tests', () => {
         modelName: 'NumberRangeFacet',
         filters: [
           {
-            facetId: '10.0-20.0',
+            facetId: 'price',
             id: 'price:10.0-20.0',
             label: '10.0-20.0',
             modelName: 'NumberRangeFilter',
@@ -137,7 +137,7 @@ describe('platformAdapter tests', () => {
             totalResults: 97
           },
           {
-            facetId: '20.0-30.0',
+            facetId: 'price',
             id: 'price:20.0-30.0',
             label: '20.0-30.0',
             modelName: 'NumberRangeFilter',
