@@ -222,11 +222,9 @@ export class XInstaller {
    * @internal
    */
   protected getPluginOptions(): XPluginOptions {
-    const { adapter, platformAdapter, store, initialXModules, xModules, __PRIVATE__xModules } =
-      this.options;
+    const { adapter, store, initialXModules, xModules, __PRIVATE__xModules } = this.options;
     return {
       adapter,
-      platformAdapter,
       store,
       xModules,
       initialXModules,

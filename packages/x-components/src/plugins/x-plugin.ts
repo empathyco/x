@@ -406,18 +406,6 @@ export class XPlugin implements PluginObject<XPluginOptions> {
   }
 
   /**
-   * If the received adapter supports it, it registers a listener to emit the
-   * {@link XEventsTypes.AdapterConfigChanged} event whenever the config of it changes.
-   *
-   * @internal
-   */
-  protected createAdapterConfigChangedListener(): void {
-    this.options.adapter.addConfigChangedListener?.(newAdapterConfig => {
-      this.bus.emit('AdapterConfigChanged', newAdapterConfig);
-    });
-  }
-
-  /**
    * Registers the pending {@link XModule | XModules}, that requested to be registered before the
    * installation of the plugin.
    *
@@ -428,6 +416,18 @@ export class XPlugin implements PluginObject<XPluginOptions> {
       this.registerXModule(xModule);
     });
     XPlugin.pendingXModules = {};
+  }
+
+  /**
+   * If the received adapter supports it, it registers a listener to emit the
+   * {@link XEventsTypes.AdapterConfigChanged} event whenever the config of it changes.
+   *
+   * @internal
+   */
+  protected createAdapterConfigChangedListener(): void {
+    this.options.adapter.addConfigChangedListener?.(newAdapterConfig => {
+      this.bus.emit('AdapterConfigChanged', newAdapterConfig);
+    });
   }
 
   /**
