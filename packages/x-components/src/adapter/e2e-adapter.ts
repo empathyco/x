@@ -41,8 +41,8 @@ export const mockedFetchHttpClient: HttpClient = (endpoint, { parameters, proper
  * Mock beacon httpClient.
  *
  * @param endpoint - The endpoint to use.
- * @param options - Additional options to make the request with.
  * @param _
+ * @param options - Additional options to make the request with.
  * @returns A promise wrapped object.
  */
 export const mockedBeaconHttpClient: HttpClient = (

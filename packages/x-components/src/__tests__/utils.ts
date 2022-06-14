@@ -151,8 +151,8 @@ export function getMockedAdapter(
 }
 
 /**
- * Mocks the {@link @empathyco/x-adapter-plaftorm#PlatformAdapter | PlatformAdapter} features with
- * the features responses passes as parameter. Features responses are not passes through the
+ * Mocks the {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter} features with
+ * the features responses passes as parameter. Features responses are not passed through the
  * parameter will resolve the promise as empty.
  *
  * @param responseFeatures - The features responses available to be mocked.
