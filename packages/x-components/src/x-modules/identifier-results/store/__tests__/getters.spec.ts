@@ -25,7 +25,9 @@ describe('testing identifier results module getters', () => {
         query: 'shin chan',
         rows: 10,
         start: 0,
-        store: 'es'
+        extraParams: {
+          store: 'es'
+        }
       });
     });
 

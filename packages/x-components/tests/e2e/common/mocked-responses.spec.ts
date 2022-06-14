@@ -30,7 +30,8 @@ import {
 
 const mockedApiUrl = 'https://api.empathy.co';
 
-const searchByIdEndpoint = `${mockedApiUrl}/searchById`;
+const getIdentifierResultsEndpoint = `${mockedApiUrl}/identifier-results`;
+
 const getNextQueriesEndpoint = `${mockedApiUrl}/getNextQueries`;
 const getRelatedTagsEndpoint = `${mockedApiUrl}/getRelatedTags`;
 const getSuggestionsEndpoint = `${mockedApiUrl}/getSuggestions`;
@@ -40,7 +41,7 @@ const trackEndpoint = `${mockedApiUrl}/track`;
 
 // ID Results
 Given('an ID results API', () => {
-  cy.intercept(searchByIdEndpoint, req => {
+  cy.intercept(getIdentifierResultsEndpoint, req => {
     req.reply(<IdentifierResultsResponse>{
       results: getResultsStub()
     });
@@ -48,7 +49,7 @@ Given('an ID results API', () => {
 });
 
 Given('an ID results API with a known response', () => {
-  cy.intercept(searchByIdEndpoint, req => {
+  cy.intercept(getIdentifierResultsEndpoint, req => {
     req.reply(<IdentifierResultsResponse>{
       results: [
         createResultStub('A0255072 - 9788467577112 - 160000', {
@@ -69,7 +70,7 @@ Given('an ID results API with a known response', () => {
 });
 
 Given('an ID results API with no results', () => {
-  cy.intercept(searchByIdEndpoint, req => {
+  cy.intercept(getIdentifierResultsEndpoint, req => {
     req.reply(<IdentifierResultsResponse>{
       results: []
     });
