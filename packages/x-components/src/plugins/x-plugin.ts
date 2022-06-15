@@ -47,7 +47,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @public
    */
   public static get platformAdapter(): PlatformAdapter {
-    return this.getInstance().platformAdapter;
+    return this.getInstance().platformAdapter!;
   }
 
   /**
@@ -122,7 +122,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    *
    * @internal
    */
-  protected platformAdapter!: PlatformAdapter;
+  protected platformAdapter?: PlatformAdapter;
 
   /**
    * Set of the already installed {@link XModule | XModules} to avoid re-registering them.
@@ -234,6 +234,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     this.vue = vue;
     this.options = options;
     this.adapter = options.adapter;
+    this.platformAdapter = options.platformAdapter;
     this.createAdapterConfigChangedListener();
     this.registerStore();
     this.applyMixins();

@@ -4,6 +4,8 @@ import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import { Store } from 'vuex';
+import { PlatformAdapter } from '@empathyco/x-adapter-platform';
+import { IdentifierResultsResponse } from '@empathyco/x-types';
 import { XPluginOptions } from '../plugins';
 import { BaseXBus } from '../plugins/x-bus';
 import { XPlugin } from '../plugins/x-plugin';
@@ -12,7 +14,7 @@ import { MutationsDictionary } from '../store/mutations.types';
 import { RootXStoreState, XStoreModule } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
 import { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types';
-import { SearchAdapterDummy } from './adapter.dummy';
+import { PlatformAdapterDummy, SearchAdapterDummy } from './adapter.dummy';
 import Mock = jest.Mock;
 
 export type MockedSearchAdapter = {
@@ -21,6 +23,20 @@ export type MockedSearchAdapter = {
     Parameters<Required<SearchAdapter>[Method]>
   >;
 };
+
+export type MockedPlatformAdapter = {
+  [Method in keyof Required<PlatformAdapter>]: jest.Mock<
+    ReturnType<Required<PlatformAdapter>[Method]>,
+    Parameters<Required<PlatformAdapter>[Method]>
+  >;
+};
+
+/**
+ * Interface containing the features responses that can be mocked.
+ */
+interface MockedAdapterFeatures {
+  identifierResults: IdentifierResultsResponse;
+}
 
 /**
  * Creates a selector for a dataTest property.
@@ -135,6 +151,26 @@ export function getMockedAdapter(
 }
 
 /**
+ * Mocks the {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter} features with
+ * the features responses passes as parameter. Features responses are not passed through the
+ * parameter will resolve the promise as empty.
+ *
+ * @param responseFeatures - The features responses available to be mocked.
+ * @returns The {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} with the features
+ * mocked.
+ *
+ * @internal
+ */
+export function getMockedPlatformAdapter(
+  responseFeatures?: Partial<MockedAdapterFeatures>
+): Partial<MockedPlatformAdapter> {
+  return {
+    /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+    identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!)
+  };
+}
+
+/**
  * Function to merge module state with a partial of the module state.
  *
  * @param moduleState - The original module state.
@@ -165,7 +201,11 @@ export function installNewXPlugin(
 ): [XPlugin, typeof Vue] {
   XPlugin.resetInstance();
   const xPlugin = new XPlugin(new BaseXBus());
-  const installOptions: XPluginOptions = { adapter: SearchAdapterDummy, ...options };
+  const installOptions: XPluginOptions = {
+    adapter: SearchAdapterDummy,
+    platformAdapter: PlatformAdapterDummy,
+    ...options
+  };
   localVue.use(xPlugin, installOptions);
   return [xPlugin, localVue];
 }

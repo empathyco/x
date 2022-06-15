@@ -1,7 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
-import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import { getMockedPlatformAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { identifierResultsXStoreModule } from '../module';
 import {
@@ -14,7 +14,9 @@ import { resetIdentifierResultsStateWith } from './utils';
 
 describe('testing identifier results module actions', () => {
   const mockedResults = getResultsStub();
-  const adapter = getMockedAdapter({ searchById: { results: mockedResults } });
+  const adapter = getMockedPlatformAdapter({
+    identifierResults: { results: mockedResults }
+  });
 
   const localVue = createLocalVue();
   localVue.config.productionTip = false; // Silent production console messages.
@@ -26,7 +28,7 @@ describe('testing identifier results module actions', () => {
     IdentifierResultsMutations,
     IdentifierResultsActions
   > = new Store(identifierResultsXStoreModule as any);
-  installNewXPlugin({ adapter, store }, localVue);
+  installNewXPlugin({ platformAdapter: adapter, store } as any, localVue);
 
   beforeEach(() => {
     resetIdentifierResultsStateWith(store);
@@ -58,8 +60,8 @@ describe('testing identifier results module actions', () => {
       resetIdentifierResultsStateWith(store, { query: 'xc', origin: 'search_box:external' });
       await store.dispatch('fetchAndSaveIdentifierResults', store.getters.identifierResultsRequest);
 
-      expect(adapter.searchById).toHaveBeenCalledTimes(1);
-      expect(adapter.searchById).toHaveBeenCalledWith({
+      expect(adapter.identifierResults).toHaveBeenCalledTimes(1);
+      expect(adapter.identifierResults).toHaveBeenCalledWith({
         ...store.getters.identifierResultsRequest,
         origin: 'search_box:external'
       });
@@ -82,7 +84,7 @@ describe('testing identifier results module actions', () => {
     it('should cancel the previous request if it is not yet resolved', async () => {
       resetIdentifierResultsStateWith(store, { query: 'xc' });
       const initialIdentifierResults = store.state.identifierResults;
-      adapter.searchById.mockResolvedValueOnce({ results: mockedResults.slice(0, 1) });
+      adapter.identifierResults?.mockResolvedValueOnce({ results: mockedResults.slice(0, 1) });
 
       const firstRequest = store.dispatch(
         'fetchAndSaveIdentifierResults',
@@ -103,7 +105,7 @@ describe('testing identifier results module actions', () => {
 
     it('should set the status to error when it fails', async () => {
       resetIdentifierResultsStateWith(store, { query: 'xc' });
-      adapter.searchById.mockRejectedValueOnce('Generic error');
+      adapter.identifierResults?.mockRejectedValueOnce('Generic error');
       const identifierResults = store.state.identifierResults;
       await store.dispatch('fetchAndSaveIdentifierResults', store.getters.identifierResultsRequest);
 

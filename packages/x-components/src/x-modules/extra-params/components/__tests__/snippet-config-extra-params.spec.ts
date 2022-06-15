@@ -114,7 +114,7 @@ describe('testing snippet config extra params component', () => {
       })
     );
 
-    await setSnippetConfig({ lang: 'es' });
+    await setSnippetConfig({ searchLang: 'es' });
 
     expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
 
