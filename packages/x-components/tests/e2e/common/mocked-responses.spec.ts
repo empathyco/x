@@ -33,11 +33,10 @@ const mockedApiUrl = 'https://api.empathy.co';
 
 const getIdentifierResultsEndpoint = `${mockedApiUrl}/identifier-results`;
 const getQuerySuggestionsEndpoint = `${mockedApiUrl}/query-suggestions`;
+const getPopularSearchesEndpoint = `${mockedApiUrl}/popular-searches`;
 
 const getNextQueriesEndpoint = `${mockedApiUrl}/getNextQueries`;
 const getRelatedTagsEndpoint = `${mockedApiUrl}/getRelatedTags`;
-const getPopularSearchesEndpoint = `${mockedApiUrl}/popular-searches`;
-const getSuggestionsEndpoint = `${mockedApiUrl}/getSuggestions`;
 const getTopRecommendationsEndpoint = `${mockedApiUrl}/getTopRecommendations`;
 const searchEndpoint = `${mockedApiUrl}/search`;
 const trackEndpoint = `${mockedApiUrl}/track`;
@@ -524,11 +523,11 @@ Given('a results API response for a misspelled word', () => {
   });
 });
 
-// Suggestions
-Given('a suggestions API', () => {
-  cy.intercept(getSuggestionsEndpoint, req => {
+// Query Suggestions
+Given('a query suggestions API', () => {
+  cy.intercept(getQuerySuggestionsEndpoint, req => {
     req.reply(<QuerySuggestionsResponse>{
-      suggestions: req.body.query ? getQuerySuggestionsStub('rum') : getPopularSearchesStub()
+      suggestions: getQuerySuggestionsStub('rum')
     });
   });
 });
