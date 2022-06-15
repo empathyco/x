@@ -32,6 +32,7 @@ import {
 const mockedApiUrl = 'https://api.empathy.co';
 
 const getIdentifierResultsEndpoint = `${mockedApiUrl}/identifier-results`;
+const getQuerySuggestionsEndpoint = `${mockedApiUrl}/query-suggestions`;
 
 const getNextQueriesEndpoint = `${mockedApiUrl}/getNextQueries`;
 const getRelatedTagsEndpoint = `${mockedApiUrl}/getRelatedTags`;
@@ -172,7 +173,7 @@ Given('a popular searches API with a known response', () => {
 
 // Query Suggestions
 Given('a query suggestions API with a known response', () => {
-  cy.intercept(getSuggestionsEndpoint, req => {
+  cy.intercept(getQuerySuggestionsEndpoint, req => {
     req.reply(<QuerySuggestionsResponse>{
       suggestions: [
         createQuerySuggestion('lego'),
@@ -187,7 +188,7 @@ Given('a query suggestions API with a known response', () => {
 });
 
 Given('a query suggestions API with no query suggestions', () => {
-  cy.intercept(getSuggestionsEndpoint, req => {
+  cy.intercept(getQuerySuggestionsEndpoint, req => {
     req.reply(<QuerySuggestionsResponse>{
       suggestions: []
     });
