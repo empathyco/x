@@ -14,6 +14,6 @@ import { RecommendationsXStoreModule } from '../types';
 export const fetchRecommendations: RecommendationsXStoreModule['actions']['fetchRecommendations'] =
   (_context, request) => {
     return request
-      ? XPlugin.adapter.getTopRecommendations(request).then(({ results }) => results)
+      ? XPlugin.platformAdapter.recommendations(request).then(({ results }) => results)
       : [];
   };
