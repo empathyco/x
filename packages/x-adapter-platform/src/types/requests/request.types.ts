@@ -4,7 +4,7 @@
  * @public
  */
 export interface PlatformExtraParamsRequest {
-  extraParams: {
+  extraParams?: {
     [key: string]: unknown;
   };
 }
