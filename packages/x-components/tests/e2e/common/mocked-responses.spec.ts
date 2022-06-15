@@ -6,7 +6,8 @@ import {
   SearchRequest,
   SearchResponse,
   QuerySuggestionsResponse,
-  RecommendationsResponse
+  RecommendationsResponse,
+  PopularSearchesResponse
 } from '@empathyco/x-types';
 import {
   createBannerStub,
@@ -34,6 +35,7 @@ const getIdentifierResultsEndpoint = `${mockedApiUrl}/identifier-results`;
 
 const getNextQueriesEndpoint = `${mockedApiUrl}/getNextQueries`;
 const getRelatedTagsEndpoint = `${mockedApiUrl}/getRelatedTags`;
+const getPopularSearchesEndpoint = `${mockedApiUrl}/popular-searches`;
 const getSuggestionsEndpoint = `${mockedApiUrl}/getSuggestions`;
 const getTopRecommendationsEndpoint = `${mockedApiUrl}/getTopRecommendations`;
 const searchEndpoint = `${mockedApiUrl}/search`;
@@ -155,8 +157,8 @@ Given('a results API with partial results', () => {
 
 // Popular Searches
 Given('a popular searches API with a known response', () => {
-  cy.intercept(getSuggestionsEndpoint, req => {
-    req.reply(<QuerySuggestionsResponse>{
+  cy.intercept(getPopularSearchesEndpoint, req => {
+    req.reply(<PopularSearchesResponse>{
       suggestions: [
         createPopularSearch('playmobil'),
         createPopularSearch('lego'),
@@ -526,6 +528,15 @@ Given('a suggestions API', () => {
   cy.intercept(getSuggestionsEndpoint, req => {
     req.reply(<QuerySuggestionsResponse>{
       suggestions: req.body.query ? getQuerySuggestionsStub('rum') : getPopularSearchesStub()
+    });
+  });
+});
+
+// Popular Searches
+Given('a popular searches API', () => {
+  cy.intercept(getPopularSearchesEndpoint, req => {
+    req.reply(<PopularSearchesResponse>{
+      suggestions: getPopularSearchesStub()
     });
   });
 });
