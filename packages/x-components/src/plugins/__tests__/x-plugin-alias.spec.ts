@@ -64,6 +64,7 @@ describe('testing plugin alias', () => {
       recommendations: [],
       redirections: [],
       relatedTags: [],
+      results: [],
       scroll: {},
       selectedFilters: [],
       selectedRelatedTags: [],
