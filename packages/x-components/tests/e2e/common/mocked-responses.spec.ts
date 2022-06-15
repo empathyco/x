@@ -32,7 +32,7 @@ const mockedApiUrl = 'https://api.empathy.co';
 
 const getIdentifierResultsEndpoint = `${mockedApiUrl}/identifier-results`;
 
-const getNextQueriesEndpoint = `${mockedApiUrl}/getNextQueries`;
+const getNextQueriesEndpoint = `${mockedApiUrl}/next-queries`;
 const getRelatedTagsEndpoint = `${mockedApiUrl}/getRelatedTags`;
 const getSuggestionsEndpoint = `${mockedApiUrl}/getSuggestions`;
 const getTopRecommendationsEndpoint = `${mockedApiUrl}/getTopRecommendations`;
