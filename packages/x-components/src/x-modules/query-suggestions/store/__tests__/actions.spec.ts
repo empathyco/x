@@ -1,7 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getQuerySuggestionsStub } from '../../../../__stubs__/query-suggestions-stubs.factory';
-import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import { getMockedPlatformAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { querySuggestionsXStoreModule } from '../module';
 import {
@@ -15,7 +15,9 @@ import { resetQuerySuggestionsStateWith } from './utils';
 describe('testing query suggestions module actions', () => {
   const mockedSuggestions = getQuerySuggestionsStub('milk');
 
-  const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
+  const adapter = getMockedPlatformAdapter({
+    querySuggestions: { suggestions: mockedSuggestions }
+  });
 
   const localVue = createLocalVue();
   localVue.config.productionTip = false; // Silent production console messages.
@@ -27,7 +29,7 @@ describe('testing query suggestions module actions', () => {
     QuerySuggestionsMutations,
     QuerySuggestionsActions
   > = new Store(querySuggestionsXStoreModule as any);
-  installNewXPlugin({ store, adapter }, localVue);
+  installNewXPlugin({ platformAdapter: adapter, store } as any, localVue);
 
   beforeEach(() => {
     resetQuerySuggestionsStateWith(store, { query: '' });
@@ -66,7 +68,9 @@ describe('testing query suggestions module actions', () => {
     it('should cancel the previous request if it is not yet resolved', async () => {
       resetQuerySuggestionsStateWith(store, { query: 'chorizo' });
       const initialQuerySuggestions = store.state.suggestions;
-      adapter.getSuggestions.mockResolvedValueOnce({ suggestions: mockedSuggestions.slice(0, 1) });
+      adapter.querySuggestions?.mockResolvedValueOnce({
+        suggestions: mockedSuggestions.slice(0, 1)
+      });
 
       const firstRequest = store.dispatch('fetchAndSaveSuggestions', store.getters.request);
       const secondRequest = store.dispatch('fetchAndSaveSuggestions', store.getters.request);
@@ -81,7 +85,7 @@ describe('testing query suggestions module actions', () => {
 
     it('should set the status to error when it fails', async () => {
       resetQuerySuggestionsStateWith(store, { query: 'lego' });
-      adapter.getSuggestions.mockRejectedValueOnce('Generic error');
+      adapter.querySuggestions?.mockRejectedValueOnce('Generic error');
       const suggestions = store.state.suggestions;
       await store.dispatch('fetchAndSaveSuggestions', store.getters.request);
 
