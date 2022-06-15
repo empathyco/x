@@ -8,6 +8,7 @@ import { PlatformAdapter } from '@empathyco/x-adapter-platform';
 import {
   IdentifierResultsResponse,
   QuerySuggestionsResponse,
+  NextQueriesResponse,
   RelatedTagsResponse
 } from '@empathyco/x-types';
 import { XPluginOptions } from '../plugins';
@@ -40,6 +41,7 @@ export type MockedPlatformAdapter = {
  */
 interface MockedAdapterFeatures {
   identifierResults: IdentifierResultsResponse;
+  nextQueries: NextQueriesResponse;
   querySuggestions: QuerySuggestionsResponse;
   relatedTags: RelatedTagsResponse;
 }
@@ -174,7 +176,8 @@ export function getMockedPlatformAdapter(
     /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
     identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
     querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!),
-    relatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!)
+    relatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!),
+    nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!)
   };
 }
 
