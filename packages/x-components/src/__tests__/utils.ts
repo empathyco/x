@@ -8,8 +8,9 @@ import { PlatformAdapter } from '@empathyco/x-adapter-platform';
 import {
   IdentifierResultsResponse,
   RecommendationsResponse,
-  QuerySuggestionsResponse,
   NextQueriesResponse,
+  PopularSearchesResponse,
+  QuerySuggestionsResponse,
   RelatedTagsResponse
 } from '@empathyco/x-types';
 import { XPluginOptions } from '../plugins';
@@ -45,6 +46,7 @@ interface MockedAdapterFeatures {
   nextQueries: NextQueriesResponse;
   querySuggestions: QuerySuggestionsResponse;
   recommendations: RecommendationsResponse;
+  popularSearches: PopularSearchesResponse;
   relatedTags: RelatedTagsResponse;
 }
 
@@ -178,9 +180,11 @@ export function getMockedPlatformAdapter(
     /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
     identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
     querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!),
+    recommendations: getMockedAdapterFunction(responseFeatures?.recommendations!),
+    popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!),
     relatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!),
-    nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
-    recommendations: getMockedAdapterFunction(responseFeatures?.recommendations!)
+    nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!)
+    /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
   };
 }
 
