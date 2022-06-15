@@ -43,9 +43,10 @@ export type MockedPlatformAdapter = {
 interface MockedAdapterFeatures {
   identifierResults: IdentifierResultsResponse;
   nextQueries: NextQueriesResponse;
+  popularSearches: PopularSearchesResponse;
   querySuggestions: QuerySuggestionsResponse;
   recommendations: RecommendationsResponse;
-  popularSearches: PopularSearchesResponse;
+  tagging: void;
 }
 
 /**
