@@ -6,9 +6,9 @@ import {
   SearchRequest,
   SearchResponse,
   QuerySuggestionsResponse,
-  RecommendationsResponse
+  RecommendationsResponse,
+  PopularSearchesResponse
 } from '@empathyco/x-types';
-import { SuggestionsResponse } from '@empathyco/x-adapter';
 import {
   createBannerStub,
   createHierarchicalFacetStub,
@@ -34,10 +34,10 @@ const mockedApiUrl = 'https://api.empathy.co';
 const getIdentifierResultsEndpoint = `${mockedApiUrl}/identifier-results`;
 const getRecommendationsEndpoint = `${mockedApiUrl}/recommendations`;
 const getQuerySuggestionsEndpoint = `${mockedApiUrl}/query-suggestions`;
+const getPopularSearchesEndpoint = `${mockedApiUrl}/popular-searches`;
 
 const getNextQueriesEndpoint = `${mockedApiUrl}/next-queries`;
 const getRelatedTagsEndpoint = `${mockedApiUrl}/getRelatedTags`;
-const getSuggestionsEndpoint = `${mockedApiUrl}/getSuggestions`;
 const searchEndpoint = `${mockedApiUrl}/search`;
 const trackEndpoint = `${mockedApiUrl}/track`;
 
@@ -157,8 +157,8 @@ Given('a results API with partial results', () => {
 
 // Popular Searches
 Given('a popular searches API with a known response', () => {
-  cy.intercept(getSuggestionsEndpoint, req => {
-    req.reply(<SuggestionsResponse>{
+  cy.intercept(getPopularSearchesEndpoint, req => {
+    req.reply(<PopularSearchesResponse>{
       suggestions: [
         createPopularSearch('playmobil'),
         createPopularSearch('lego'),
@@ -523,11 +523,20 @@ Given('a results API response for a misspelled word', () => {
   });
 });
 
-// Suggestions
-Given('a suggestions API', () => {
-  cy.intercept(getSuggestionsEndpoint, req => {
+// Query Suggestions
+Given('a query suggestions API', () => {
+  cy.intercept(getQuerySuggestionsEndpoint, req => {
     req.reply(<QuerySuggestionsResponse>{
-      suggestions: req.body.query ? getQuerySuggestionsStub('rum') : getPopularSearchesStub()
+      suggestions: getQuerySuggestionsStub('rum')
+    });
+  });
+});
+
+// Popular Searches
+Given('a popular searches API', () => {
+  cy.intercept(getPopularSearchesEndpoint, req => {
+    req.reply(<PopularSearchesResponse>{
+      suggestions: getPopularSearchesStub()
     });
   });
 });

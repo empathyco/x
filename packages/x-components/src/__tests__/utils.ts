@@ -9,6 +9,7 @@ import {
   IdentifierResultsResponse,
   RecommendationsResponse,
   NextQueriesResponse,
+  PopularSearchesResponse,
   QuerySuggestionsResponse
 } from '@empathyco/x-types';
 import { XPluginOptions } from '../plugins';
@@ -44,6 +45,7 @@ interface MockedAdapterFeatures {
   nextQueries: NextQueriesResponse;
   querySuggestions: QuerySuggestionsResponse;
   recommendations: RecommendationsResponse;
+  popularSearches: PopularSearchesResponse;
 }
 
 /**
@@ -177,7 +179,9 @@ export function getMockedPlatformAdapter(
     identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
     nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
     querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!),
-    recommendations: getMockedAdapterFunction(responseFeatures?.recommendations!)
+    recommendations: getMockedAdapterFunction(responseFeatures?.recommendations!),
+    popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!)
+    /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
   };
 }
 
