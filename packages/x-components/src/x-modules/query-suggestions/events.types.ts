@@ -1,5 +1,4 @@
-import { SuggestionsRequest } from '@empathyco/x-adapter';
-import { Suggestion } from '@empathyco/x-types';
+import { QuerySuggestionsRequest, Suggestion } from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of QuerySuggestions XModule, where each key is the event name, and the
@@ -23,7 +22,7 @@ export interface QuerySuggestionsXEvents {
    * Payload: The new query suggestions request or `null` if there is not enough data in the state
    * to conform a valid request.
    */
-  QuerySuggestionsRequestChanged: SuggestionsRequest | null;
+  QuerySuggestionsRequestChanged: QuerySuggestionsRequest | null;
   /**
    * User selected a query suggestion
    * Payload: The {@link @empathyco/x-types#Suggestion | query suggestion} that the user
