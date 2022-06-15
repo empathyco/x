@@ -33,9 +33,9 @@ const mockedApiUrl = 'https://api.empathy.co';
 
 const getIdentifierResultsEndpoint = `${mockedApiUrl}/identifier-results`;
 const getQuerySuggestionsEndpoint = `${mockedApiUrl}/query-suggestions`;
+const getRelatedTagsEndpoint = `${mockedApiUrl}/related-tags`;
 
 const getNextQueriesEndpoint = `${mockedApiUrl}/getNextQueries`;
-const getRelatedTagsEndpoint = `${mockedApiUrl}/getRelatedTags`;
 const getSuggestionsEndpoint = `${mockedApiUrl}/getSuggestions`;
 const getTopRecommendationsEndpoint = `${mockedApiUrl}/getTopRecommendations`;
 const searchEndpoint = `${mockedApiUrl}/search`;
