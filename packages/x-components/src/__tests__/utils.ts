@@ -7,6 +7,7 @@ import { Store } from 'vuex';
 import { PlatformAdapter } from '@empathyco/x-adapter-platform';
 import {
   IdentifierResultsResponse,
+  RecommendationsResponse,
   NextQueriesResponse,
   QuerySuggestionsResponse
 } from '@empathyco/x-types';
@@ -42,6 +43,7 @@ interface MockedAdapterFeatures {
   identifierResults: IdentifierResultsResponse;
   nextQueries: NextQueriesResponse;
   querySuggestions: QuerySuggestionsResponse;
+  recommendations: RecommendationsResponse;
 }
 
 /**
@@ -174,7 +176,8 @@ export function getMockedPlatformAdapter(
     /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
     identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
     nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
-    querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!)
+    querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!),
+    recommendations: getMockedAdapterFunction(responseFeatures?.recommendations!)
   };
 }
 
