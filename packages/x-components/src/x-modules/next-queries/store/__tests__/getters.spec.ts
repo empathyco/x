@@ -1,4 +1,4 @@
-import { NextQueriesRequest } from '@empathyco/x-adapter';
+import { NextQueriesRequest } from '@empathyco/x-types';
 import { map } from '@empathyco/x-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -32,7 +32,9 @@ describe('testing next queries module getters', () => {
         query: 'dorito',
         rows: 5,
         start: 0,
-        catalog: 'es'
+        extraParams: {
+          catalog: 'es'
+        }
       });
     });
 
