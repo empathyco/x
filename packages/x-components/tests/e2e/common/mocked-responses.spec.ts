@@ -8,6 +8,7 @@ import {
   QuerySuggestionsResponse,
   RecommendationsResponse
 } from '@empathyco/x-types';
+import { SuggestionsResponse } from '@empathyco/x-adapter';
 import {
   createBannerStub,
   createHierarchicalFacetStub,
@@ -32,8 +33,9 @@ const mockedApiUrl = 'https://api.empathy.co';
 
 const getIdentifierResultsEndpoint = `${mockedApiUrl}/identifier-results`;
 const getRecommendationsEndpoint = `${mockedApiUrl}/recommendations`;
+const getQuerySuggestionsEndpoint = `${mockedApiUrl}/query-suggestions`;
 
-const getNextQueriesEndpoint = `${mockedApiUrl}/getNextQueries`;
+const getNextQueriesEndpoint = `${mockedApiUrl}/next-queries`;
 const getRelatedTagsEndpoint = `${mockedApiUrl}/getRelatedTags`;
 const getSuggestionsEndpoint = `${mockedApiUrl}/getSuggestions`;
 const searchEndpoint = `${mockedApiUrl}/search`;
@@ -156,7 +158,7 @@ Given('a results API with partial results', () => {
 // Popular Searches
 Given('a popular searches API with a known response', () => {
   cy.intercept(getSuggestionsEndpoint, req => {
-    req.reply(<QuerySuggestionsResponse>{
+    req.reply(<SuggestionsResponse>{
       suggestions: [
         createPopularSearch('playmobil'),
         createPopularSearch('lego'),
@@ -170,7 +172,7 @@ Given('a popular searches API with a known response', () => {
 
 // Query Suggestions
 Given('a query suggestions API with a known response', () => {
-  cy.intercept(getSuggestionsEndpoint, req => {
+  cy.intercept(getQuerySuggestionsEndpoint, req => {
     req.reply(<QuerySuggestionsResponse>{
       suggestions: [
         createQuerySuggestion('lego'),
@@ -185,7 +187,7 @@ Given('a query suggestions API with a known response', () => {
 });
 
 Given('a query suggestions API with no query suggestions', () => {
-  cy.intercept(getSuggestionsEndpoint, req => {
+  cy.intercept(getQuerySuggestionsEndpoint, req => {
     req.reply(<QuerySuggestionsResponse>{
       suggestions: []
     });

@@ -5,6 +5,7 @@ Feature: Keyboard navigation component
     And   a recommendations API with a known response
     And   a next queries API
     And   a suggestions API
+    And   a query suggestions API with a known response
     And   a related tags API
     And   a tracking API
     And   no special config for layout view

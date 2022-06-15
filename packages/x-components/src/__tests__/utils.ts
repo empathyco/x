@@ -5,7 +5,12 @@ import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import { Store } from 'vuex';
 import { PlatformAdapter } from '@empathyco/x-adapter-platform';
-import { IdentifierResultsResponse, RecommendationsResponse } from '@empathyco/x-types';
+import {
+  IdentifierResultsResponse,
+  RecommendationsResponse,
+  NextQueriesResponse,
+  QuerySuggestionsResponse
+} from '@empathyco/x-types';
 import { XPluginOptions } from '../plugins';
 import { BaseXBus } from '../plugins/x-bus';
 import { XPlugin } from '../plugins/x-plugin';
@@ -36,6 +41,8 @@ export type MockedPlatformAdapter = {
  */
 interface MockedAdapterFeatures {
   identifierResults: IdentifierResultsResponse;
+  nextQueries: NextQueriesResponse;
+  querySuggestions: QuerySuggestionsResponse;
   recommendations: RecommendationsResponse;
 }
 
@@ -168,7 +175,8 @@ export function getMockedPlatformAdapter(
   return {
     /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
     identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
-    /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+    nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
+    querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!),
     recommendations: getMockedAdapterFunction(responseFeatures?.recommendations!)
   };
 }
