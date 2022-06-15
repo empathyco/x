@@ -1,4 +1,4 @@
-import { NextQueriesRequest } from '@empathyco/x-adapter';
+import { NextQueriesRequest } from '@empathyco/x-types';
 import { map } from '@empathyco/x-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
