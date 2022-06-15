@@ -35,7 +35,7 @@ const getIdentifierResultsEndpoint = `${mockedApiUrl}/identifier-results`;
 const getQuerySuggestionsEndpoint = `${mockedApiUrl}/query-suggestions`;
 const getPopularSearchesEndpoint = `${mockedApiUrl}/popular-searches`;
 
-const getNextQueriesEndpoint = `${mockedApiUrl}/getNextQueries`;
+const getNextQueriesEndpoint = `${mockedApiUrl}/next-queries`;
 const getRelatedTagsEndpoint = `${mockedApiUrl}/getRelatedTags`;
 const getTopRecommendationsEndpoint = `${mockedApiUrl}/getTopRecommendations`;
 const searchEndpoint = `${mockedApiUrl}/search`;

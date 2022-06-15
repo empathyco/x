@@ -7,6 +7,7 @@ import { Store } from 'vuex';
 import { PlatformAdapter } from '@empathyco/x-adapter-platform';
 import {
   IdentifierResultsResponse,
+  NextQueriesResponse,
   PopularSearchesResponse,
   QuerySuggestionsResponse
 } from '@empathyco/x-types';
@@ -40,6 +41,7 @@ export type MockedPlatformAdapter = {
  */
 interface MockedAdapterFeatures {
   identifierResults: IdentifierResultsResponse;
+  nextQueries: NextQueriesResponse;
   querySuggestions: QuerySuggestionsResponse;
   popularSearches: PopularSearchesResponse;
 }
@@ -173,8 +175,9 @@ export function getMockedPlatformAdapter(
   return {
     /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
     identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
-    querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!),
-    popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!)
+    nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
+    popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!),
+    querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!)
     /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
   };
 }

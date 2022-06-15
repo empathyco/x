@@ -19,7 +19,7 @@ export const request: NextQueriesXStoreModule['getters']['request'] = ({
         query,
         rows: config.maxItemsToRequest,
         start: 0,
-        ...params
+        extraParams: params
       }
     : null;
 };
