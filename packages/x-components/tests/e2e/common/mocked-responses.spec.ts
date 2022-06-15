@@ -31,11 +31,11 @@ import {
 const mockedApiUrl = 'https://api.empathy.co';
 
 const getIdentifierResultsEndpoint = `${mockedApiUrl}/identifier-results`;
+const getRecommendationsEndpoint = `${mockedApiUrl}/recommendations`;
 
 const getNextQueriesEndpoint = `${mockedApiUrl}/getNextQueries`;
 const getRelatedTagsEndpoint = `${mockedApiUrl}/getRelatedTags`;
 const getSuggestionsEndpoint = `${mockedApiUrl}/getSuggestions`;
-const getTopRecommendationsEndpoint = `${mockedApiUrl}/getTopRecommendations`;
 const searchEndpoint = `${mockedApiUrl}/search`;
 const trackEndpoint = `${mockedApiUrl}/track`;
 
@@ -194,7 +194,7 @@ Given('a query suggestions API with no query suggestions', () => {
 
 // Recommendations
 Given('a recommendations API with a known response', () => {
-  cy.intercept(getTopRecommendationsEndpoint, req => {
+  cy.intercept(getRecommendationsEndpoint, req => {
     req.reply(<RecommendationsResponse>{
       results: [
         createResultStub('Piscina 3 Anillos'),
