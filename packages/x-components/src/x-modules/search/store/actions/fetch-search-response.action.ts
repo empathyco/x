@@ -16,7 +16,7 @@ export const fetchSearchResponse: SearchXStoreModule['actions']['fetchSearchResp
   request
 ) => {
   return request
-    ? XPlugin.adapter.search(request)
+    ? XPlugin.platformAdapter.search(request)
     : {
         banners: [],
         facets: [],

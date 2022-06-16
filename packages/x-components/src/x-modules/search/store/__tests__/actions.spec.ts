@@ -9,7 +9,7 @@ import { getPromotedsStub } from '../../../../__stubs__/promoteds-stubs.factory'
 import { getRedirectionsStub } from '../../../../__stubs__/redirections-stubs.factory';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import { getSearchResponseStub } from '../../../../__stubs__/search-response-stubs.factory';
-import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import { getMockedPlatformAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { UrlParams } from '../../../../types/url-params';
 import { searchXStoreModule } from '../module';
@@ -26,7 +26,7 @@ describe('testing search module actions', () => {
   const searchResponseStub = getSearchResponseStub();
   const emptySearchResponseStub = getEmptySearchResponseStub();
 
-  const adapter = getMockedAdapter({ search: searchResponseStub });
+  const adapter = getMockedPlatformAdapter({ search: searchResponseStub });
 
   const localVue = createLocalVue();
   localVue.config.productionTip = false; // Silent production console messages.
@@ -35,7 +35,7 @@ describe('testing search module actions', () => {
   const store: SafeStore<SearchState, SearchGetters, SearchMutations, SearchActions> = new Store(
     searchXStoreModule as any
   );
-  installNewXPlugin({ adapter, store }, localVue);
+  installNewXPlugin({ platformAdapter: adapter, store } as any, localVue);
 
   beforeEach(() => {
     resetSearchStateWith(store);
@@ -115,7 +115,7 @@ describe('testing search module actions', () => {
       resetSearchStateWith(store, {
         query: 'lego'
       });
-      adapter.search.mockResolvedValueOnce({
+      adapter.search?.mockResolvedValueOnce({
         ...searchResponseStub,
         banners: undefined,
         partialResults: undefined,
@@ -168,7 +168,7 @@ describe('testing search module actions', () => {
         query: 'lego'
       });
 
-      adapter.search.mockResolvedValueOnce({
+      adapter.search?.mockResolvedValueOnce({
         ...emptySearchResponseStub,
         totalResults: 116
       });
@@ -192,7 +192,7 @@ describe('testing search module actions', () => {
         query: 'coce'
       });
 
-      adapter.search.mockResolvedValueOnce({
+      adapter.search?.mockResolvedValueOnce({
         ...emptySearchResponseStub,
         spellcheck: 'coche'
       });
@@ -219,7 +219,7 @@ describe('testing search module actions', () => {
         promoteds: initialPromoteds,
         redirections: initialRedirections
       } = store.state;
-      adapter.search.mockResolvedValueOnce({
+      adapter.search?.mockResolvedValueOnce({
         ...emptySearchResponseStub,
         results: resultsStub.slice(0, 1),
         facets: facetsStub.slice(0, 1)
@@ -247,7 +247,7 @@ describe('testing search module actions', () => {
 
     it('should set the status to error when it fails', async () => {
       resetSearchStateWith(store, { query: 'lego' });
-      adapter.search.mockRejectedValueOnce('Generic error');
+      adapter.search?.mockRejectedValueOnce('Generic error');
       const { results, facets, banners, promoteds } = store.state;
       await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
 
@@ -365,7 +365,7 @@ describe('testing search module actions', () => {
         isAppendResults: true
       });
 
-      adapter.search.mockResolvedValueOnce({
+      adapter.search?.mockResolvedValueOnce({
         ...emptySearchResponseStub,
         results: resultsStub.slice(1, 2),
         banners: bannersStub.slice(0, 1),
@@ -389,7 +389,7 @@ describe('testing search module actions', () => {
         isAppendResults: false
       });
 
-      adapter.search.mockResolvedValueOnce({
+      adapter.search?.mockResolvedValueOnce({
         ...emptySearchResponseStub,
         results: resultsStub.slice(1, 2),
         banners: bannersStub.slice(1, 2),
@@ -499,29 +499,18 @@ describe('testing search module actions', () => {
 
     it('should reset the page when the related tags change', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2 });
-      await store.dispatch('resetState', {
-        newRequest: {
-          query: 'lego',
-          page: 2,
-          relatedTags: [
-            {
-              query: 'lego star wars',
-              modelName: 'RelatedTag',
-              previous: 'lego',
-              selected: false,
-              tag: 'star wars'
-            }
-          ]
-        },
-        oldRequest: store.getters.request!
-      });
+      const oldRequest = store.getters.request!;
+      store.commit('setRelatedTags', [
+        { query: 'lego star wars', modelName: 'RelatedTag', tag: 'star wars' }
+      ]);
+      const newRequest = store.getters.request!;
+      await store.dispatch('resetState', { oldRequest, newRequest });
 
       expect(store.state).toEqual(
         expect.objectContaining<Partial<SearchState>>({
           page: 1,
           params: {},
           query: 'lego',
-          relatedTags: [],
           selectedFilters: {},
           sort: ''
         })
@@ -594,7 +583,9 @@ describe('testing search module actions', () => {
         newRequest: {
           query: 'lego',
           page: 2,
-          catalog: 'pt'
+          extraParams: {
+            catalog: 'pt'
+          }
         },
         oldRequest: store.getters.request!
       });
