@@ -443,8 +443,8 @@ describe('testing object utils', () => {
     });
 
     it('returns an array with the keys that have different value', () => {
-      const newValue = { a: 2, b: 'fried potatoe', c: 'same value' };
-      const oldValue = { a: 1, b: 'potatoe', c: 'same value' };
+      const newValue = { a: 2, b: 'fried potatoe', c: 'same value', someObject: {} };
+      const oldValue = { a: 1, b: 'potatoe', c: 'same value', someObject: {} };
 
       expect(getNewAndUpdatedKeys(newValue, oldValue)).toEqual(['a', 'b']);
     });

@@ -137,7 +137,9 @@ export function getNewAndUpdatedKeys<ObjectType extends Dictionary>(
     return [];
   }
 
-  return Object.keys(newValue).filter(key => !(key in oldValue) || newValue[key] !== oldValue[key]);
+  return Object.keys(newValue).filter(
+    key => !(key in oldValue) || (!isObject(newValue[key]) && newValue[key] !== oldValue[key])
+  );
 }
 
 /**
