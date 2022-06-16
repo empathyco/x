@@ -273,113 +273,94 @@ export const searchResponse = {
     {
       filters: [
         {
-          children: {
-            filters: [
-              {
-                facetId: 'categoryIds:78d9b7366__8a4e61a33',
-                id: 'categoryIds:78d9b7366__8a4e61a33',
-                label: 'Bottomwear',
-                modelName: 'HierarchicalFilter',
-                parentId: 'categoryPaths_78d9b7366',
-                selected: false,
-                totalResults: 637,
-                children: {
-                  id: 'categoryPaths_78d9b7366__8a4e61a33',
-                  label: 'categoryPaths_78d9b7366__8a4e61a33',
-                  modelName: 'HierarchicalFacet',
-                  filters: [
-                    {
-                      facetId: 'categoryIds:78d9b7366__8a4e61a33_aa',
-                      id: 'categoryIds:78d9b7366__8a4e61a33_aa',
-                      totalResults: 1,
-                      label: 'Added',
-                      selected: false,
-                      modelName: 'HierarchicalFilter',
-                      parentId: 'categoryPaths_78d9b7366__8a4e61a33',
-                      children: {
-                        filters: [
-                          {
-                            facetId: 'categoryIds:78d9b7366__8a4e61a33_aa_bb',
-                            id: 'categoryIds:78d9b7366__8a4e61a33_aa_bb',
-                            label: 'Added 2',
-                            modelName: 'HierarchicalFilter',
-                            parentId: 'categoryPaths_78d9b7366__8a4e61a33_aa',
-                            selected: false,
-                            totalResults: 1
-                          }
-                        ],
-                        id: 'categoryPaths_78d9b7366__8a4e61a33_aa',
-                        label: 'categoryPaths_78d9b7366__8a4e61a33_aa',
-                        modelName: 'HierarchicalFacet'
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                facetId: 'categoryIds:78d9b7366__e2f94a4ea',
-                id: 'categoryIds:78d9b7366__e2f94a4ea',
-                label: 'Topwear',
-                modelName: 'HierarchicalFilter',
-                parentId: 'categoryPaths_78d9b7366',
-                selected: false,
-                totalResults: 99
-              }
-            ],
-            id: 'categoryPaths_78d9b7366',
-            label: 'categoryPaths_78d9b7366',
-            modelName: 'HierarchicalFacet'
-          },
-          facetId: 'categoryIds:78d9b7366',
+          facetId: 'categoryPaths',
+          id: 'categoryIds:78d9b7366__8a4e61a33_aa_bb',
+          label: 'Added 2',
+          modelName: 'HierarchicalFilter',
+          parentId: 'categoryIds:78d9b7366__8a4e61a33_aa',
+          selected: false,
+          totalResults: 1,
+          children: undefined
+        },
+        {
+          facetId: 'categoryPaths',
+          id: 'categoryIds:78d9b7366__8a4e61a33_aa',
+          totalResults: 1,
+          label: 'Added',
+          selected: false,
+          modelName: 'HierarchicalFilter',
+          parentId: 'categoryIds:78d9b7366__8a4e61a33',
+          children: ['categoryIds:78d9b7366__8a4e61a33_aa_bb']
+        },
+        {
+          facetId: 'categoryPaths',
+          id: 'categoryIds:78d9b7366__8a4e61a33',
+          label: 'Bottomwear',
+          modelName: 'HierarchicalFilter',
+          parentId: 'categoryIds:78d9b7366',
+          selected: false,
+          totalResults: 637,
+          children: ['categoryIds:78d9b7366__8a4e61a33_aa']
+        },
+        {
+          facetId: 'categoryPaths',
+          id: 'categoryIds:78d9b7366__e2f94a4ea',
+          label: 'Topwear',
+          modelName: 'HierarchicalFilter',
+          parentId: 'categoryIds:78d9b7366',
+          selected: false,
+          totalResults: 99,
+          children: undefined
+        },
+        {
+          facetId: 'categoryPaths',
           id: 'categoryIds:78d9b7366',
           label: 'Apparel',
           modelName: 'HierarchicalFilter',
-          parentId: 'categoryPaths',
+          parentId: null,
           selected: false,
-          totalResults: 736
+          totalResults: 736,
+          children: ['categoryIds:78d9b7366__8a4e61a33', 'categoryIds:78d9b7366__e2f94a4ea']
         },
         {
-          facetId: 'categoryIds:b08648dbd',
+          facetId: 'categoryPaths',
           id: 'categoryIds:b08648dbd',
           label: 'Accessories',
           modelName: 'HierarchicalFilter',
-          parentId: 'categoryPaths',
+          parentId: null,
           selected: false,
-          totalResults: 43
+          totalResults: 43,
+          children: undefined
         },
         {
-          facetId: 'categoryIds:ffc61e1e9',
+          facetId: 'categoryPaths',
+          id: 'categoryIds:ffc61e1e9_aa',
+          label: 'Added',
+          modelName: 'HierarchicalFilter',
+          parentId: 'categoryIds:ffc61e1e9',
+          selected: false,
+          totalResults: 1,
+          children: undefined
+        },
+        {
+          facetId: 'categoryPaths',
           id: 'categoryIds:ffc61e1e9',
           label: 'Personal Care',
           modelName: 'HierarchicalFilter',
-          parentId: 'categoryPaths',
+          parentId: null,
           selected: false,
           totalResults: 9,
-          children: {
-            filters: [
-              {
-                facetId: 'categoryIds:ffc61e1e9_aa',
-                id: 'categoryIds:ffc61e1e9_aa',
-                label: 'Added',
-                modelName: 'HierarchicalFilter',
-                parentId: 'categoryPaths_ffc61e1e9',
-                selected: false,
-                totalResults: 1
-              }
-            ],
-            id: 'categoryPaths_ffc61e1e9',
-            label: 'categoryPaths_ffc61e1e9',
-            modelName: 'HierarchicalFacet'
-          }
+          children: ['categoryIds:ffc61e1e9_aa']
         },
         {
-          facetId: 'categoryIds:e5eef62d8',
+          facetId: 'categoryPaths',
           id: 'categoryIds:e5eef62d8',
           label: 'Footwear',
           modelName: 'HierarchicalFilter',
-          parentId: 'categoryPaths',
+          parentId: null,
           selected: false,
-          totalResults: 6
+          totalResults: 6,
+          children: undefined
         }
       ],
       id: 'categoryPaths',
@@ -389,7 +370,7 @@ export const searchResponse = {
     {
       filters: [
         {
-          facetId: '10.0-20.0',
+          facetId: 'price',
           id: 'price:10.0-20.0',
           label: '10.0-20.0',
           modelName: 'NumberRangeFilter',
@@ -401,7 +382,7 @@ export const searchResponse = {
           totalResults: 97
         },
         {
-          facetId: '20.0-30.0',
+          facetId: 'price',
           id: 'price:20.0-30.0',
           label: '20.0-30.0',
           modelName: 'NumberRangeFilter',
@@ -413,7 +394,7 @@ export const searchResponse = {
           totalResults: 80
         },
         {
-          facetId: '30.0-40.0',
+          facetId: 'price',
           id: 'price:30.0-40.0',
           label: '30.0-40.0',
           modelName: 'NumberRangeFilter',
@@ -425,7 +406,7 @@ export const searchResponse = {
           totalResults: 85
         },
         {
-          facetId: '40.0-50.0',
+          facetId: 'price',
           id: 'price:40.0-50.0',
           label: '40.0-50.0',
           modelName: 'NumberRangeFilter',
@@ -437,7 +418,7 @@ export const searchResponse = {
           totalResults: 75
         },
         {
-          facetId: '50.0-60.0',
+          facetId: 'price',
           id: 'price:50.0-60.0',
           label: '50.0-60.0',
           modelName: 'NumberRangeFilter',
@@ -449,7 +430,7 @@ export const searchResponse = {
           totalResults: 88
         },
         {
-          facetId: '60.0-70.0',
+          facetId: 'price',
           id: 'price:60.0-70.0',
           label: '60.0-70.0',
           modelName: 'NumberRangeFilter',
@@ -461,7 +442,7 @@ export const searchResponse = {
           totalResults: 62
         },
         {
-          facetId: '70.0-80.0',
+          facetId: 'price',
           id: 'price:70.0-80.0',
           label: '70.0-80.0',
           modelName: 'NumberRangeFilter',
@@ -473,7 +454,7 @@ export const searchResponse = {
           totalResults: 84
         },
         {
-          facetId: '80.0-90.0',
+          facetId: 'price',
           id: 'price:80.0-90.0',
           label: '80.0-90.0',
           modelName: 'NumberRangeFilter',
@@ -485,7 +466,7 @@ export const searchResponse = {
           totalResults: 86
         },
         {
-          facetId: '90.0-100.0',
+          facetId: 'price',
           id: 'price:90.0-100.0',
           label: '90.0-100.0',
           modelName: 'NumberRangeFilter',
@@ -504,7 +485,7 @@ export const searchResponse = {
     {
       filters: [
         {
-          facetId: 'gender:men',
+          facetId: 'gender',
           id: 'gender:men',
           label: 'men',
           modelName: 'SimpleFilter',
@@ -512,7 +493,7 @@ export const searchResponse = {
           totalResults: 421
         },
         {
-          facetId: 'gender:women',
+          facetId: 'gender',
           id: 'gender:women',
           label: 'women',
           modelName: 'SimpleFilter',
@@ -520,7 +501,7 @@ export const searchResponse = {
           totalResults: 247
         },
         {
-          facetId: 'gender:boys',
+          facetId: 'gender',
           id: 'gender:boys',
           label: 'boys',
           modelName: 'SimpleFilter',
@@ -528,7 +509,7 @@ export const searchResponse = {
           totalResults: 35
         },
         {
-          facetId: 'gender:girls',
+          facetId: 'gender',
           id: 'gender:girls',
           label: 'girls',
           modelName: 'SimpleFilter',
@@ -536,7 +517,7 @@ export const searchResponse = {
           totalResults: 28
         },
         {
-          facetId: 'gender:unisex',
+          facetId: 'gender',
           id: 'gender:unisex',
           label: 'unisex',
           modelName: 'SimpleFilter',
