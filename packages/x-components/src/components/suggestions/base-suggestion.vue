@@ -5,24 +5,24 @@
       @slot Button content
           @binding {Suggestion} suggestion - Suggestion data
           @binding {string} queryHTML - Suggestion's query with the matching part inside a `<span>` tag
+          @binding {Filter} filter - Suggestion's filter
     -->
     <!-- eslint-enable max-len -->
-    <slot v-bind="{ suggestion, queryHTML }">
+    <slot v-bind="{ suggestion, queryHTML, filter }">
       <span v-html="queryHTML" :aria-label="suggestion.query" class="x-suggestion__query" />
+      <span v-if="filter" class="x-suggestion__filter">{{ filter.label }}</span>
     </slot>
   </button>
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathyco/x-types';
+  import { BooleanFilter, Suggestion } from '@empathyco/x-types';
   import { forEach } from '@empathyco/x-utils';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { QueryFeature } from '../../types/origin';
-  import { normalizeString } from '../../utils/normalize';
-  import { sanitize } from '../../utils/sanitize';
-  import { VueCSSClasses } from '../../utils/types';
-  import { XEventsTypes } from '../../wiring/events.types';
+  import { QueryFeature } from '../../types';
+  import { sanitize, VueCSSClasses, normalizeString } from '../../utils';
+  import { XEventsTypes } from '../../wiring';
 
   /**
    * Renders a button with a default slot. It receives a query, which should be the query of the
@@ -76,22 +76,37 @@
     protected highlightCurated!: boolean;
 
     /**
+     * Indicates if there are facets available.
+     *
+     * @returns True if there are facets available and false otherwise.
+     * @internal
+     */
+    protected get hasFacets(): boolean {
+      return !!this.suggestion.facets?.length;
+    }
+
+    /**
      * The event handler that will be triggered when clicking on a suggestion.
      *
      * @remarks
-     * * UserAcceptedAQuery: suggestion.query
-     * * UserSelectedASuggestion: suggestion
-     * * Merges the events defined in the suggestionSelectedEvents prop and also emits them
+     * UserAcceptedAQuery: suggestion.query
+     * UserSelectedASuggestion: suggestion
+     * UserClickedAFilter: suggestion.facets[0].filters[0]
+     * Merges the events defined in the suggestionSelectedEvents prop and also emits them
      *
      * @returns The {@link XEvent | XEvents} to emit.
      * @public
      */
     protected get events(): Partial<XEventsTypes> {
-      return {
+      const events = {
         UserAcceptedAQuery: this.suggestion.query,
         UserSelectedASuggestion: this.suggestion,
         ...this.suggestionSelectedEvents
       };
+      if (this.hasFacets) {
+        events.UserClickedAFilter = this.filter;
+      }
+      return events;
     }
 
     /**
@@ -109,7 +124,20 @@
     }
 
     /**
-     * Checks if the normalized suggestion query matches with the module's query so it has a
+     * Returns the suggestion filter object.
+     * It is a BooleanFilter because the label is needed.
+     * It returns only the first element because the facets and filters are being planned
+     * in the BaseSuggestions component.
+     *
+     * @returns The filter.
+     * @public
+     */
+    protected get filter(): BooleanFilter | undefined {
+      return this.hasFacets ? (this.suggestion.facets[0].filters[0] as BooleanFilter) : undefined;
+    }
+
+    /**
+     * Checks if the normalized suggestion query matches with the module's query, so it has a
      * matching part.
      *
      * @returns If the query has a matching part or not.
@@ -200,6 +228,8 @@ This default suggestion component expects a suggestion to render and pass to its
 normalized query to compare with the suggestion's query and highlight its matching parts and events
 to emit when the suggestion is selected.
 
+If the suggestion contains a filter, it is displayed next to the suggestion.
+
 ### Default usage
 
 ```vue
@@ -220,6 +250,21 @@ to emit when the suggestion is selected.
 </BaseSuggestion>
 ```
 
+### Customized usage with filter
+
+```vue
+<BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }">
+  <template #default="{ suggestion, queryHTML, filter }">
+    <span
+      class="my-suggestion"
+      v-html="queryHTML"
+      :aria-label="suggestion.query"
+    />
+    <span>{{ filter.label }}</span>
+  </template>
+</BaseSuggestion>
+```
+
 ## Events
 
 A list of events that the component will emit:
@@ -228,5 +273,7 @@ A list of events that the component will emit:
   the suggestion query data.
 - `UserSelectedASuggestion`: the event is emitted after the user clicks the button. The event
   payload is the suggestion data.
+- `UserClickedAFilter`: the event is emitted after the user clicks the button if the suggestion
+  includes a filter. The event payload is the suggestion filter.
 - The component can emit more events on click using the `suggestionSelectedEvents` prop.
 </docs>
