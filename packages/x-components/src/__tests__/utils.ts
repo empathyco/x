@@ -44,10 +44,11 @@ export type MockedPlatformAdapter = {
 interface MockedAdapterFeatures {
   identifierResults: IdentifierResultsResponse;
   nextQueries: NextQueriesResponse;
+  popularSearches: PopularSearchesResponse;
   querySuggestions: QuerySuggestionsResponse;
   recommendations: RecommendationsResponse;
-  popularSearches: PopularSearchesResponse;
   relatedTags: RelatedTagsResponse;
+  tagging: void;
 }
 
 /**
@@ -179,11 +180,12 @@ export function getMockedPlatformAdapter(
   return {
     /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
     identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
+    nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
+    popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!),
     querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!),
     recommendations: getMockedAdapterFunction(responseFeatures?.recommendations!),
-    popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!),
     relatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!),
-    nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!)
+    tagging: getMockedAdapterFunction(undefined)
     /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
   };
 }
