@@ -15,7 +15,9 @@ export const resetState: SearchXStoreModule['actions']['resetState'] = (
   { commit },
   { newRequest, oldRequest }
 ) => {
-  const changedKeys = getNewAndUpdatedKeys(newRequest, oldRequest);
+  const changedKeys = getNewAndUpdatedKeys(newRequest, oldRequest).filter(
+    value => value !== 'extraParams'
+  );
   const changedExtraParams = getNewAndUpdatedKeys(newRequest.extraParams, oldRequest.extraParams);
 
   if (!isArrayEmpty(changedKeys)) {
