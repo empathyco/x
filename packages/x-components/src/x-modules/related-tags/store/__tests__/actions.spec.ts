@@ -2,7 +2,7 @@ import { RelatedTag } from '@empathyco/x-types';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getRelatedTagsStub } from '../../../../__stubs__/related-tags-stubs.factory';
-import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import { getMockedPlatformAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { UrlParams } from '../../../../types/url-params';
 import { relatedTagsXStoreModule } from '../module';
@@ -16,7 +16,7 @@ import { resetRelatedTagsStateWith } from './utils';
 
 describe('testing related tags module actions', () => {
   const mockedRelatedTags = getRelatedTagsStub();
-  const adapter = getMockedAdapter({ relatedTags: { relatedTags: mockedRelatedTags } });
+  const adapter = getMockedPlatformAdapter({ relatedTags: { relatedTags: mockedRelatedTags } });
 
   const localVue = createLocalVue();
   localVue.config.productionTip = false; // Silent production console messages.
@@ -28,7 +28,7 @@ describe('testing related tags module actions', () => {
     RelatedTagsMutations,
     RelatedTagsActions
   > = new Store(relatedTagsXStoreModule as any);
-  installNewXPlugin({ adapter, store }, localVue);
+  installNewXPlugin({ platformAdapter: adapter, store } as any, localVue);
 
   beforeEach(() => {
     resetRelatedTagsStateWith(store);
@@ -71,7 +71,7 @@ describe('testing related tags module actions', () => {
     it('should cancel the previous request if it is not yet resolved', async () => {
       resetRelatedTagsStateWith(store, { query: 'coffee' });
       const initialRelatedTags = store.state.relatedTags;
-      adapter.getRelatedTags.mockResolvedValueOnce({ relatedTags: mockedRelatedTags.slice(0, 1) });
+      adapter.relatedTags?.mockResolvedValueOnce({ relatedTags: mockedRelatedTags.slice(0, 1) });
 
       const firstRequest = store.dispatch('fetchAndSaveRelatedTags', store.getters.request);
       const secondRequest = store.dispatch('fetchAndSaveRelatedTags', store.getters.request);
@@ -86,7 +86,7 @@ describe('testing related tags module actions', () => {
 
     it('should set the status to error when it fails', async () => {
       resetRelatedTagsStateWith(store, { query: 'lego' });
-      adapter.getRelatedTags.mockRejectedValueOnce('Generic error');
+      adapter.relatedTags?.mockRejectedValueOnce('Generic error');
       const relatedTags = store.state.relatedTags;
       await store.dispatch('fetchAndSaveRelatedTags', store.getters.request);
 
