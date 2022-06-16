@@ -41,10 +41,6 @@
   var(--x-size-border-radius-bottom-right-suggestion-default)
   var(--x-size-border-radius-bottom-left-suggestion-default);
 
-  &__query {
-    // layout
-    flex: 1 1 auto;
-  }
 
   &__matching-part,
   .x-identifier-result__matching-part {
@@ -56,6 +52,17 @@
 
     // color
     color: var(--x-color-text-suggestion-matching-part-default);
+  }
+
+  &__filter {
+    //typography
+    font-family: var(--x-font-family-suggestion-filter-default);
+    font-size: var(--x-size-font-suggestion-filter-default);
+    line-height: var(--x-size-line-height-suggestion-filter-default);
+    font-weight: var(--x-number-font-weight-suggestion-filter-default);
+
+    //color
+    color: var(--x-color-text-suggestion-filter-default);
   }
 
   &--matching {

@@ -31,6 +31,7 @@ export function createNextQueryStub(query: string, nextQuery?: Partial<NextQuery
     totalResults: 10,
     results: [],
     modelName: 'NextQuery',
+    isCurated: false,
     ...nextQuery
   };
 }
