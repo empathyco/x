@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.17...@empathyco/x-adapter-platform@1.0.0-alpha.18) (2022-06-16)
+
+### Code Refactoring
+
+- make extra params optional (#553)
+  ([ef7493a](https://github.com/empathyco/x/commit/ef7493a00a4da73f544f3a32b9e8a1fd68ba23a0)),
+  closes [EX-6335](https://searchbroker.atlassian.net/browse/EX-6335)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.16...@empathyco/x-adapter-platform@1.0.0-alpha.17) (2022-06-16)
+
+### Bug Fixes
+
+- **schemas:** flatten hierarchical filters (#543)
+  ([e5956dd](https://github.com/empathyco/x/commit/e5956dd432a2ae9fb819bc05cde22c0f8ada7424)),
+  closes [EX-6205](https://searchbroker.atlassian.net/browse/EX-6205)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.15...@empathyco/x-adapter-platform@1.0.0-alpha.16) (2022-06-13)
 
 ### Code Refactoring

@@ -6,7 +6,7 @@ export const numberFilterMutableSchema = createMutableSchema<
   Schema<PlatformFilter, NumberRangeFilter>
 >({
   id: 'filter',
-  facetId: 'id',
+  facetId: (_, $context) => $context?.facetId as string,
   label: 'value',
   totalResults: 'count',
   selected: () => false,
