@@ -6,9 +6,9 @@ import {
   SearchRequest,
   SearchResponse,
   QuerySuggestionsResponse,
-  RecommendationsResponse
+  RecommendationsResponse,
+  PopularSearchesResponse
 } from '@empathyco/x-types';
-import { SuggestionsResponse } from '@empathyco/x-adapter';
 import {
   createBannerStub,
   createHierarchicalFacetStub,
@@ -32,12 +32,12 @@ import {
 const mockedApiUrl = 'https://api.empathy.co';
 
 const getIdentifierResultsEndpoint = `${mockedApiUrl}/identifier-results`;
+const getRecommendationsEndpoint = `${mockedApiUrl}/recommendations`;
 const getQuerySuggestionsEndpoint = `${mockedApiUrl}/query-suggestions`;
+const getRelatedTagsEndpoint = `${mockedApiUrl}/related-tags`;
+const getPopularSearchesEndpoint = `${mockedApiUrl}/popular-searches`;
 
-const getNextQueriesEndpoint = `${mockedApiUrl}/getNextQueries`;
-const getRelatedTagsEndpoint = `${mockedApiUrl}/getRelatedTags`;
-const getSuggestionsEndpoint = `${mockedApiUrl}/getSuggestions`;
-const getTopRecommendationsEndpoint = `${mockedApiUrl}/getTopRecommendations`;
+const getNextQueriesEndpoint = `${mockedApiUrl}/next-queries`;
 const searchEndpoint = `${mockedApiUrl}/search`;
 const trackEndpoint = `${mockedApiUrl}/track`;
 
@@ -157,8 +157,8 @@ Given('a results API with partial results', () => {
 
 // Popular Searches
 Given('a popular searches API with a known response', () => {
-  cy.intercept(getSuggestionsEndpoint, req => {
-    req.reply(<SuggestionsResponse>{
+  cy.intercept(getPopularSearchesEndpoint, req => {
+    req.reply(<PopularSearchesResponse>{
       suggestions: [
         createPopularSearch('playmobil'),
         createPopularSearch('lego'),
@@ -196,7 +196,7 @@ Given('a query suggestions API with no query suggestions', () => {
 
 // Recommendations
 Given('a recommendations API with a known response', () => {
-  cy.intercept(getTopRecommendationsEndpoint, req => {
+  cy.intercept(getRecommendationsEndpoint, req => {
     req.reply(<RecommendationsResponse>{
       results: [
         createResultStub('Piscina 3 Anillos'),
@@ -523,11 +523,20 @@ Given('a results API response for a misspelled word', () => {
   });
 });
 
-// Suggestions
-Given('a suggestions API', () => {
-  cy.intercept(getSuggestionsEndpoint, req => {
+// Query Suggestions
+Given('a query suggestions API', () => {
+  cy.intercept(getQuerySuggestionsEndpoint, req => {
     req.reply(<QuerySuggestionsResponse>{
-      suggestions: req.body.query ? getQuerySuggestionsStub('rum') : getPopularSearchesStub()
+      suggestions: getQuerySuggestionsStub('rum')
+    });
+  });
+});
+
+// Popular Searches
+Given('a popular searches API', () => {
+  cy.intercept(getPopularSearchesEndpoint, req => {
+    req.reply(<PopularSearchesResponse>{
+      suggestions: getPopularSearchesStub()
     });
   });
 });

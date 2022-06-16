@@ -18,6 +18,6 @@ export const request: RecommendationsXStoreModule['getters']['request'] = ({
     rows: config.maxItemsToRequest,
     start: 0,
     origin,
-    ...params
+    extraParams: params
   };
 };

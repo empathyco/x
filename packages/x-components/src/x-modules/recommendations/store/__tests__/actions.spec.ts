@@ -1,7 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
-import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import { getMockedPlatformAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { recommendationsXStoreModule } from '../module';
 import {
@@ -14,7 +14,7 @@ import {
 describe('testing recommendations module actions', () => {
   const mockedResults = getResultsStub();
 
-  const adapter = getMockedAdapter({ topRecommendations: { results: mockedResults } });
+  const adapter = getMockedPlatformAdapter({ recommendations: { results: mockedResults } });
 
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -25,7 +25,7 @@ describe('testing recommendations module actions', () => {
     RecommendationsMutations,
     RecommendationsActions
   > = new Store(recommendationsXStoreModule as any);
-  installNewXPlugin({ store, adapter }, localVue);
+  installNewXPlugin({ store, platformAdapter: adapter } as any, localVue);
 
   describe('fetchRecommendations', () => {
     it('should return recommendations', async () => {
@@ -45,7 +45,7 @@ describe('testing recommendations module actions', () => {
 
     it('should cancel the previous request if it is not yet resolved', async () => {
       const initialRecommendations = store.state.recommendations;
-      adapter.getTopRecommendations.mockResolvedValueOnce({ results: mockedResults.slice(0, 1) });
+      adapter.recommendations?.mockResolvedValueOnce({ results: mockedResults.slice(0, 1) });
 
       const firstRequest = store.dispatch('fetchAndSaveRecommendations', store.getters.request);
       const secondRequest = store.dispatch('fetchAndSaveRecommendations', store.getters.request);
@@ -59,7 +59,7 @@ describe('testing recommendations module actions', () => {
     });
 
     it('should set the status to error when it fails', async () => {
-      adapter.getTopRecommendations.mockRejectedValueOnce('Generic error');
+      adapter.recommendations?.mockRejectedValueOnce('Generic error');
       const recommendations = store.state.recommendations;
       await store.dispatch('fetchAndSaveRecommendations', store.getters.request);
 
