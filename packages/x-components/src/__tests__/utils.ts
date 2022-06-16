@@ -184,7 +184,8 @@ export function getMockedPlatformAdapter(
     popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!),
     querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!),
     recommendations: getMockedAdapterFunction(responseFeatures?.recommendations!),
-    relatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!)
+    relatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!),
+    tagging: getMockedAdapterFunction(undefined)
     /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
   };
 }
