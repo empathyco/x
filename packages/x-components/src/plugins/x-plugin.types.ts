@@ -126,6 +126,8 @@ export interface XComponentAliasAPI {
   readonly redirections: ReadonlyArray<Redirection>;
   /** The {@link RelatedTagsXModule} related tags (Both selected and deselected). */
   readonly relatedTags: ReadonlyArray<RelatedTag>;
+  /** The {@link SearchXModule} search results. */
+  readonly results: ReadonlyArray<Result>;
   /** The {@link ScrollXModule} data state. */
   readonly scroll: Record<string, ScrollComponentState>;
   /** The {@link FacetsXModule} selected filters. */
