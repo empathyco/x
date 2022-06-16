@@ -10,7 +10,8 @@ import {
   RecommendationsResponse,
   NextQueriesResponse,
   PopularSearchesResponse,
-  QuerySuggestionsResponse
+  QuerySuggestionsResponse,
+  RelatedTagsResponse
 } from '@empathyco/x-types';
 import { XPluginOptions } from '../plugins';
 import { BaseXBus } from '../plugins/x-bus';
@@ -46,6 +47,7 @@ interface MockedAdapterFeatures {
   popularSearches: PopularSearchesResponse;
   querySuggestions: QuerySuggestionsResponse;
   recommendations: RecommendationsResponse;
+  relatedTags: RelatedTagsResponse;
   tagging: void;
 }
 
@@ -179,9 +181,10 @@ export function getMockedPlatformAdapter(
     /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
     identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
     nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
+    popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!),
     querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!),
     recommendations: getMockedAdapterFunction(responseFeatures?.recommendations!),
-    popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!)
+    relatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!)
     /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
   };
 }

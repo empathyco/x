@@ -1,5 +1,4 @@
-import { RelatedTagsRequest } from '@empathyco/x-adapter';
-import { RelatedTag } from '@empathyco/x-types';
+import { RelatedTag, RelatedTagsRequest } from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of RelatedTags XModule, where each key is the event name, and the
