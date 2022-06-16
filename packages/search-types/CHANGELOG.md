@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.24...@empathyco/x-types@10.0.0-alpha.25) (2022-06-16)
+
+### Code Refactoring
+
+- make extra params optional (#553)
+  ([ef7493a](https://github.com/empathyco/x/commit/ef7493a00a4da73f544f3a32b9e8a1fd68ba23a0)),
+  closes [EX-6335](https://searchbroker.atlassian.net/browse/EX-6335)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.23...@empathyco/x-types@10.0.0-alpha.24) (2022-06-09)
 
 ### Bug Fixes
