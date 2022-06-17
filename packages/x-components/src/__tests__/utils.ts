@@ -49,8 +49,8 @@ interface MockedAdapterFeatures {
   querySuggestions: QuerySuggestionsResponse;
   recommendations: RecommendationsResponse;
   relatedTags: RelatedTagsResponse;
-  tagging: void;
   search: SearchResponse;
+  tagging: void;
 }
 
 /**
@@ -187,8 +187,8 @@ export function getMockedPlatformAdapter(
     querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!),
     recommendations: getMockedAdapterFunction(responseFeatures?.recommendations!),
     relatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!),
-    tagging: getMockedAdapterFunction(undefined),
-    search: getMockedAdapterFunction(responseFeatures?.search!)
+    search: getMockedAdapterFunction(responseFeatures?.search!),
+    tagging: getMockedAdapterFunction(undefined)
     /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
   };
 }
