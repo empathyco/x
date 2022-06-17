@@ -32,7 +32,9 @@ describe('testing search module getters', () => {
         filters: {},
         sort: '',
         page: 3,
-        catalog: 'es'
+        extraParams: {
+          catalog: 'es'
+        }
       });
     });
 
