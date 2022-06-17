@@ -5,7 +5,7 @@ import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
 import { getPopularSearchesStub } from '../../../../__stubs__/popular-searches-stubs.factory';
-import { getMockedPlatformAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { popularSearchesXStoreModule } from '../module';
 import { PopularSearchesState } from '../types';
 import { resetPopularSearchesStateWith } from './utils';
@@ -37,13 +37,13 @@ describe('testing popular searches module getters', () => {
     const searchedQueries = createHistoryQueries('limes');
     const mockedPopularSearches = getPopularSearchesStub();
 
-    const adapter = getMockedPlatformAdapter({
+    const adapter = getMockedAdapter({
       popularSearches: { suggestions: mockedPopularSearches }
     });
     const localVue = createLocalVue();
     localVue.config.productionTip = false; // Silent production console messages.
     localVue.use(Vuex);
-    installNewXPlugin({ store, platformAdapter: adapter } as any, localVue);
+    installNewXPlugin({ store, adapter }, localVue);
 
     it('should return the popular searches without the previously searched queries', () => {
       resetPopularSearchesStateWith(store, {

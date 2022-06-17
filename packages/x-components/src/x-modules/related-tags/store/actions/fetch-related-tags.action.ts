@@ -15,7 +15,5 @@ export const fetchRelatedTags: RelatedTagsXStoreModule['actions']['fetchRelatedT
   _context,
   request
 ) => {
-  return request
-    ? XPlugin.platformAdapter.relatedTags(request).then(({ relatedTags }) => relatedTags)
-    : [];
+  return request ? XPlugin.adapter.relatedTags(request).then(({ relatedTags }) => relatedTags) : [];
 };

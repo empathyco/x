@@ -2,7 +2,7 @@ import { HistoryQuery } from '@empathyco/x-types';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { createHistoryQueries, getNextQueriesStub } from '../../../../__stubs__';
-import { getMockedPlatformAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { nextQueriesXStoreModule } from '../module';
 import {
@@ -15,7 +15,7 @@ import { resetNextQueriesStateWith } from './utils';
 
 describe('testing next queries module actions', () => {
   const mockedNextQueries = getNextQueriesStub();
-  const adapter = getMockedPlatformAdapter({ nextQueries: { nextQueries: mockedNextQueries } });
+  const adapter = getMockedAdapter({ nextQueries: { nextQueries: mockedNextQueries } });
 
   const localVue = createLocalVue();
   localVue.config.productionTip = false; // Silent production console messages.
@@ -27,7 +27,7 @@ describe('testing next queries module actions', () => {
     NextQueriesMutations,
     NextQueriesActions
   > = new Store(nextQueriesXStoreModule as any);
-  installNewXPlugin({ platformAdapter: adapter, store } as any, localVue);
+  installNewXPlugin({ adapter, store }, localVue);
 
   beforeEach(() => {
     resetNextQueriesStateWith(store);
@@ -75,7 +75,7 @@ describe('testing next queries module actions', () => {
     it('should cancel the previous request if it is not yet resolved', async () => {
       resetNextQueriesStateWith(store, { query: 'steak' });
       const initialNextQueries = store.state.nextQueries;
-      adapter.nextQueries?.mockResolvedValueOnce({ nextQueries: mockedNextQueries.slice(0, 1) });
+      adapter.nextQueries.mockResolvedValueOnce({ nextQueries: mockedNextQueries.slice(0, 1) });
 
       const firstRequest = store.dispatch('fetchAndSaveNextQueries', store.getters.request);
       const secondRequest = store.dispatch('fetchAndSaveNextQueries', store.getters.request);
@@ -90,7 +90,7 @@ describe('testing next queries module actions', () => {
 
     it('should set the status to error when it fails', async () => {
       resetNextQueriesStateWith(store, { query: 'milk' });
-      adapter.nextQueries?.mockRejectedValueOnce('Generic error');
+      adapter.nextQueries.mockRejectedValueOnce('Generic error');
       const nextQueries = store.state.nextQueries;
       await store.dispatch('fetchAndSaveNextQueries', store.getters.request);
 

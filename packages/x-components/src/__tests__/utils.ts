@@ -1,4 +1,3 @@
-import { FeaturesResponseTypes, SearchAdapter } from '@empathyco/x-adapter';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { createLocalVue } from '@vue/test-utils';
@@ -22,17 +21,10 @@ import { MutationsDictionary } from '../store/mutations.types';
 import { RootXStoreState, XStoreModule } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
 import { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types';
-import { PlatformAdapterDummy, SearchAdapterDummy } from './adapter.dummy';
+import { SearchAdapterDummy } from './adapter.dummy';
 import Mock = jest.Mock;
 
 export type MockedSearchAdapter = {
-  [Method in keyof Required<SearchAdapter>]: jest.Mock<
-    ReturnType<Required<SearchAdapter>[Method]>,
-    Parameters<Required<SearchAdapter>[Method]>
-  >;
-};
-
-export type MockedPlatformAdapter = {
   [Method in keyof Required<PlatformAdapter>]: jest.Mock<
     ReturnType<Required<PlatformAdapter>[Method]>,
     Parameters<Required<PlatformAdapter>[Method]>
@@ -129,43 +121,6 @@ export function getMockedAdapterFunction<T>(whatReturns: T): Mock<Promise<T>> {
 }
 
 /**
- * Mocks the {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} features with the
- * features responses passes as parameter. Features responses are not passes through the
- * parameter will resolve the promise as empty.
- *
- * @param responseFeatures - The features responses available to be mocked.
- * @returns The {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} with the features
- * mocked.
- *
- * @internal
- */
-export function getMockedAdapter(
-  responseFeatures?: Partial<Omit<FeaturesResponseTypes, 'track'>>
-): MockedSearchAdapter {
-  return {
-    /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-    // Required functions
-    getNextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
-    getTopRecommendations: getMockedAdapterFunction(responseFeatures?.topRecommendations!),
-    getSectionRecommendations: getMockedAdapterFunction(responseFeatures?.sectionRecommendations!),
-    getQueriesRecommendations: getMockedAdapterFunction(responseFeatures?.queriesRecommendations!),
-    getClicksRecommendations: getMockedAdapterFunction(responseFeatures?.clicksRecommendations!),
-    getUserRecommendations: getMockedAdapterFunction(responseFeatures?.userRecommendations!),
-    getRelatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!),
-    getSuggestions: getMockedAdapterFunction(responseFeatures?.suggestions!),
-    search: getMockedAdapterFunction(responseFeatures?.search!),
-    searchById: getMockedAdapterFunction(responseFeatures?.searchById!),
-    track: getMockedAdapterFunction(undefined),
-    /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
-    // Optional functions
-    invalidateCache: jest.fn(),
-    setConfig: jest.fn(),
-    addConfigChangedListener: jest.fn(),
-    removeConfigChangedListener: jest.fn()
-  };
-}
-
-/**
  * Mocks the {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter} features with
  * the features responses passes as parameter. Features responses are not passed through the
  * parameter will resolve the promise as empty.
@@ -176,9 +131,9 @@ export function getMockedAdapter(
  *
  * @internal
  */
-export function getMockedPlatformAdapter(
+export function getMockedAdapter(
   responseFeatures?: Partial<MockedAdapterFeatures>
-): Partial<MockedPlatformAdapter> {
+): MockedSearchAdapter {
   return {
     /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
     identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
@@ -226,7 +181,6 @@ export function installNewXPlugin(
   const xPlugin = new XPlugin(new BaseXBus());
   const installOptions: XPluginOptions = {
     adapter: SearchAdapterDummy,
-    platformAdapter: PlatformAdapterDummy,
     ...options
   };
   localVue.use(xPlugin, installOptions);

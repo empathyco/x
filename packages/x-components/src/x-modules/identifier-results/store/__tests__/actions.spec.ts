@@ -1,7 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
-import { getMockedPlatformAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { identifierResultsXStoreModule } from '../module';
 import {
@@ -14,7 +14,7 @@ import { resetIdentifierResultsStateWith } from './utils';
 
 describe('testing identifier results module actions', () => {
   const mockedResults = getResultsStub();
-  const adapter = getMockedPlatformAdapter({
+  const adapter = getMockedAdapter({
     identifierResults: { results: mockedResults }
   });
 
@@ -28,7 +28,7 @@ describe('testing identifier results module actions', () => {
     IdentifierResultsMutations,
     IdentifierResultsActions
   > = new Store(identifierResultsXStoreModule as any);
-  installNewXPlugin({ platformAdapter: adapter, store } as any, localVue);
+  installNewXPlugin({ adapter, store }, localVue);
 
   beforeEach(() => {
     resetIdentifierResultsStateWith(store);
@@ -84,7 +84,7 @@ describe('testing identifier results module actions', () => {
     it('should cancel the previous request if it is not yet resolved', async () => {
       resetIdentifierResultsStateWith(store, { query: 'xc' });
       const initialIdentifierResults = store.state.identifierResults;
-      adapter.identifierResults?.mockResolvedValueOnce({ results: mockedResults.slice(0, 1) });
+      adapter.identifierResults.mockResolvedValueOnce({ results: mockedResults.slice(0, 1) });
 
       const firstRequest = store.dispatch(
         'fetchAndSaveIdentifierResults',
@@ -105,7 +105,7 @@ describe('testing identifier results module actions', () => {
 
     it('should set the status to error when it fails', async () => {
       resetIdentifierResultsStateWith(store, { query: 'xc' });
-      adapter.identifierResults?.mockRejectedValueOnce('Generic error');
+      adapter.identifierResults.mockRejectedValueOnce('Generic error');
       const identifierResults = store.state.identifierResults;
       await store.dispatch('fetchAndSaveIdentifierResults', store.getters.identifierResultsRequest);
 

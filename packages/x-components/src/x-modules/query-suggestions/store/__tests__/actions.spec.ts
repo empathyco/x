@@ -1,7 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getQuerySuggestionsStub } from '../../../../__stubs__/query-suggestions-stubs.factory';
-import { getMockedPlatformAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { querySuggestionsXStoreModule } from '../module';
 import {
@@ -15,7 +15,7 @@ import { resetQuerySuggestionsStateWith } from './utils';
 describe('testing query suggestions module actions', () => {
   const mockedSuggestions = getQuerySuggestionsStub('milk');
 
-  const adapter = getMockedPlatformAdapter({
+  const adapter = getMockedAdapter({
     querySuggestions: { suggestions: mockedSuggestions }
   });
 
@@ -29,7 +29,7 @@ describe('testing query suggestions module actions', () => {
     QuerySuggestionsMutations,
     QuerySuggestionsActions
   > = new Store(querySuggestionsXStoreModule as any);
-  installNewXPlugin({ platformAdapter: adapter, store } as any, localVue);
+  installNewXPlugin({ adapter, store }, localVue);
 
   beforeEach(() => {
     resetQuerySuggestionsStateWith(store, { query: '' });
@@ -68,7 +68,7 @@ describe('testing query suggestions module actions', () => {
     it('should cancel the previous request if it is not yet resolved', async () => {
       resetQuerySuggestionsStateWith(store, { query: 'chorizo' });
       const initialQuerySuggestions = store.state.suggestions;
-      adapter.querySuggestions?.mockResolvedValueOnce({
+      adapter.querySuggestions.mockResolvedValueOnce({
         suggestions: mockedSuggestions.slice(0, 1)
       });
 
@@ -85,7 +85,7 @@ describe('testing query suggestions module actions', () => {
 
     it('should set the status to error when it fails', async () => {
       resetQuerySuggestionsStateWith(store, { query: 'lego' });
-      adapter.querySuggestions?.mockRejectedValueOnce('Generic error');
+      adapter.querySuggestions.mockRejectedValueOnce('Generic error');
       const suggestions = store.state.suggestions;
       await store.dispatch('fetchAndSaveSuggestions', store.getters.request);
 
