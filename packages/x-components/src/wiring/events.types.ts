@@ -63,11 +63,6 @@ export interface XEventsTypes
     TaggingXEvents,
     UrlXEvents {
   /**
-   * The search adapter configuration has changed
-   * Payload: The new search adapter configuration.
-   */
-  AdapterConfigChanged: unknown;
-  /**
    * The number of columns of a grid has changed.
    * Payload: the columns number.
    */
