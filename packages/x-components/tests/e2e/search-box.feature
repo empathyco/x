@@ -4,7 +4,6 @@ Feature: Search-box component
     Given a next queries API
     And   a query suggestions API
     And   a popular searches API
-    And   a query suggestions API with a known response
     And   a related tags API
     And   a recommendations API with a known response
     And   a results API with a known response
