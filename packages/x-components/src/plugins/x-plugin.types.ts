@@ -12,7 +12,6 @@ import {
 import { DeepPartial } from '@empathyco/x-utils';
 import { Store } from 'vuex';
 import { PlatformAdapter } from '@empathyco/x-adapter-platform';
-import { SearchAdapter } from '@empathyco/x-adapter';
 import { ActionsTree } from '../store/actions.types';
 import { GettersTree } from '../store/getters.types';
 import { MutationsTree } from '../store/mutations.types';
@@ -33,9 +32,7 @@ import { XBus } from './x-bus.types';
  */
 export interface XPluginOptions {
   /** The adapter transforms the request for the the search and tagging APIs and its responses. */
-  adapter: SearchAdapter;
-  /** The adapter transforms the request for the the search and tagging APIs and its responses. */
-  platformAdapter?: PlatformAdapter;
+  adapter: PlatformAdapter;
   /**
    * A Vuex store to install the X module. If not passed a new one will be created and injected
    * into every component.
