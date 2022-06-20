@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.113](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.112...@empathyco/x-components@3.0.0-alpha.113) (2022-06-20)
+
+### Features
+
+- **adapter:** use the `x-adapter-platform` (#565)
+  ([55bccb4](https://github.com/empathyco/x/commit/55bccb4118bc0fd2468b736eb470942aaae2e4ae)),
+  closes [EX-5936](https://searchbroker.atlassian.net/browse/EX-5936)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.112](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.111...@empathyco/x-components@3.0.0-alpha.112) (2022-06-17)
 
 ### Documentation
