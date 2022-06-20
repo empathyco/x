@@ -1,4 +1,3 @@
-import { SearchAdapter } from '@empathyco/x-adapter';
 import {
   Facet,
   Filter,
@@ -12,6 +11,7 @@ import {
 } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
 import { Store } from 'vuex';
+import { PlatformAdapter } from '@empathyco/x-adapter-platform';
 import { ActionsTree } from '../store/actions.types';
 import { GettersTree } from '../store/getters.types';
 import { MutationsTree } from '../store/mutations.types';
@@ -32,15 +32,19 @@ import { XBus } from './x-bus.types';
  */
 export interface XPluginOptions {
   /** The adapter transforms the request for the the search and tagging APIs and its responses. */
-  adapter: SearchAdapter;
+  adapter: PlatformAdapter;
   /**
    * A Vuex store to install the X module. If not passed a new one will be created and injected
    * into every component.
    */
   store?: Store<any>;
-  /** A {@link XModule | XModules} to be registered during the {@link XPlugin} installation. */
+  /**
+   * A {@link XModule | XModules} to be registered during the {@link XPlugin} installation.
+   */
   initialXModules?: AnyXModule[];
-  /** Override the {@link XModule | XModules} config state and its wiring. */
+  /**
+   * Override the {@link XModule | XModules} config state and its wiring.
+   */
   xModules?: XModulesOptions;
   /**
    * Override the {@link XModule | XModules} store module and store emitters. It must be used
@@ -193,9 +197,13 @@ export type XModulesOptions = {
  * @public
  */
 export interface XModuleOptions<ModuleName extends XModuleName> {
-  /** The options to override the default config state for the module. */
+  /**
+   * The options to override the default config state for the module.
+   */
   config?: DeepPartial<ExtractState<ModuleName> extends { config: infer Config } ? Config : never>;
-  /** The options to override the default wiring configuration for the module. */
+  /**
+   * The options to override the default wiring configuration for the module.
+   */
   wiring?: Partial<Wiring>;
 }
 
@@ -218,11 +226,13 @@ export type PrivateXModulesOptions = {
  */
 export interface PrivateXModuleOptions<Module extends AnyXModule> {
   /**
-   * The options to override events that will be emitted when a the getters value or the state
+   * The options to override events that will be emitted when the getters value or the state
    * of the store changes.
    */
   storeEmitters?: Partial<StoreEmitters<Module['storeModule']>>;
-  /** The options to override the default store module configuration. */
+  /**
+   * The options to override the default store module configuration.
+   */
   storeModule?: XStoreModuleOptions<Module['storeModule']>;
 }
 

@@ -211,6 +211,20 @@
                   </SlicedFilters>
                 </BaseHeaderTogglePanel>
               </template>
+              <template #category-paths="{ facet }">
+                <BaseHeaderTogglePanel class="x-facet">
+                  <template #header-content>
+                    <span class="x-ellipsis">{{ facet.label }}</span>
+                    <ChevronDown />
+                  </template>
+                  <!-- Filters -->
+                  <SlicedFilters max="4" :filters="facet.filters">
+                    <FiltersList v-slot="{ filter }">
+                      <HierarchicalFilter :filter="filter" :data-test="`${facet.label}-filter`" />
+                    </FiltersList>
+                  </SlicedFilters>
+                </BaseHeaderTogglePanel>
+              </template>
 
               <!--  Brand Facet    -->
               <template #brand-facet="{ facet }">

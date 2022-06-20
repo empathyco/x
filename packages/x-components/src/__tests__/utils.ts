@@ -1,9 +1,18 @@
-import { FeaturesResponseTypes, SearchAdapter } from '@empathyco/x-adapter';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import { Store } from 'vuex';
+import { PlatformAdapter } from '@empathyco/x-adapter-platform';
+import {
+  IdentifierResultsResponse,
+  RecommendationsResponse,
+  NextQueriesResponse,
+  PopularSearchesResponse,
+  QuerySuggestionsResponse,
+  RelatedTagsResponse,
+  SearchResponse
+} from '@empathyco/x-types';
 import { XPluginOptions } from '../plugins';
 import { BaseXBus } from '../plugins/x-bus';
 import { XPlugin } from '../plugins/x-plugin';
@@ -16,11 +25,25 @@ import { SearchAdapterDummy } from './adapter.dummy';
 import Mock = jest.Mock;
 
 export type MockedSearchAdapter = {
-  [Method in keyof Required<SearchAdapter>]: jest.Mock<
-    ReturnType<Required<SearchAdapter>[Method]>,
-    Parameters<Required<SearchAdapter>[Method]>
+  [Method in keyof Required<PlatformAdapter>]: jest.Mock<
+    ReturnType<Required<PlatformAdapter>[Method]>,
+    Parameters<Required<PlatformAdapter>[Method]>
   >;
 };
+
+/**
+ * Interface containing the features responses that can be mocked.
+ */
+interface MockedAdapterFeatures {
+  identifierResults: IdentifierResultsResponse;
+  nextQueries: NextQueriesResponse;
+  popularSearches: PopularSearchesResponse;
+  querySuggestions: QuerySuggestionsResponse;
+  recommendations: RecommendationsResponse;
+  relatedTags: RelatedTagsResponse;
+  search: SearchResponse;
+  tagging: void;
+}
 
 /**
  * Creates a selector for a dataTest property.
@@ -98,39 +121,30 @@ export function getMockedAdapterFunction<T>(whatReturns: T): Mock<Promise<T>> {
 }
 
 /**
- * Mocks the {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} features with the
- * features responses passes as parameter. Features responses are not passes through the
+ * Mocks the {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter} features with
+ * the features responses passes as parameter. Features responses are not passed through the
  * parameter will resolve the promise as empty.
  *
  * @param responseFeatures - The features responses available to be mocked.
- * @returns The {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} with the features
- * mocked.
+ * @returns The {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter}
+ * with the features mocked.
  *
  * @internal
  */
 export function getMockedAdapter(
-  responseFeatures?: Partial<Omit<FeaturesResponseTypes, 'track'>>
+  responseFeatures?: Partial<MockedAdapterFeatures>
 ): MockedSearchAdapter {
   return {
     /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-    // Required functions
-    getNextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
-    getTopRecommendations: getMockedAdapterFunction(responseFeatures?.topRecommendations!),
-    getSectionRecommendations: getMockedAdapterFunction(responseFeatures?.sectionRecommendations!),
-    getQueriesRecommendations: getMockedAdapterFunction(responseFeatures?.queriesRecommendations!),
-    getClicksRecommendations: getMockedAdapterFunction(responseFeatures?.clicksRecommendations!),
-    getUserRecommendations: getMockedAdapterFunction(responseFeatures?.userRecommendations!),
-    getRelatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!),
-    getSuggestions: getMockedAdapterFunction(responseFeatures?.suggestions!),
+    identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
+    nextQueries: getMockedAdapterFunction(responseFeatures?.nextQueries!),
+    popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!),
+    querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!),
+    recommendations: getMockedAdapterFunction(responseFeatures?.recommendations!),
+    relatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!),
     search: getMockedAdapterFunction(responseFeatures?.search!),
-    searchById: getMockedAdapterFunction(responseFeatures?.searchById!),
-    track: getMockedAdapterFunction(undefined),
+    tagging: getMockedAdapterFunction(undefined)
     /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
-    // Optional functions
-    invalidateCache: jest.fn(),
-    setConfig: jest.fn(),
-    addConfigChangedListener: jest.fn(),
-    removeConfigChangedListener: jest.fn()
   };
 }
 
@@ -165,7 +179,10 @@ export function installNewXPlugin(
 ): [XPlugin, typeof Vue] {
   XPlugin.resetInstance();
   const xPlugin = new XPlugin(new BaseXBus());
-  const installOptions: XPluginOptions = { adapter: SearchAdapterDummy, ...options };
+  const installOptions: XPluginOptions = {
+    adapter: SearchAdapterDummy,
+    ...options
+  };
   localVue.use(xPlugin, installOptions);
   return [xPlugin, localVue];
 }
