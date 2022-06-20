@@ -25,7 +25,7 @@ The main tab is `Home`, pressing start you will see the contents of
 ### Use the X Components in your own project
 
 A documentation about how to install and use X components can be found
-[here](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-x-components-integration-guide.html).
+[here](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-x-components-development-guide.html).
 
 ## Contributing
 
