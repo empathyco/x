@@ -1,7 +1,6 @@
 import { Given, Then, When, And } from 'cypress-cucumber-preprocessor/steps';
 import { PageableRequest } from '@empathyco/x-types';
 import '../global/global-definitions';
-import 'reflect-metadata';
 import { baseSnippetConfig } from '../../../src/views/base-config';
 
 let resultsList: string[] = [];

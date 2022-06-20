@@ -1,5 +1,4 @@
 import { mount } from '@cypress/vue';
-import 'reflect-metadata';
 import Vue from 'vue';
 import StaggeredFadeAndSlide from '../../src/components/animations/staggered-fade-and-slide.vue';
 import { BaseXBus } from '../../src/plugins/x-bus';
