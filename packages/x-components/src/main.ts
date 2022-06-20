@@ -8,10 +8,6 @@ import { SingleSelectModifier } from './x-modules/facets/entities/single-select.
 
 Vue.config.productionTip = false;
 FilterEntityFactory.instance.registerModifierByFacetId('age_facet', SingleSelectModifier);
-FilterEntityFactory.instance.registerModifierByFilterModelName(
-  'HierarchicalFilter',
-  SingleSelectModifier
-);
 
 const installer = new XInstaller({
   ...baseInstallXOptions,
