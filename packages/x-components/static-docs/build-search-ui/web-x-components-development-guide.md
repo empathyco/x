@@ -33,8 +33,8 @@ You can find the X&nbsp;Components library in the
 To integrate the X&nbsp;Components in a frontend UI, you need:
 
 - **Empathy Search API** to retrieve search data (or any other search API)
-- A **search adapter** to communicate with the search API. You can use the Empathy Adapter and
-  configure it with the `EmpathyAdapterBuilder`
+- A **search adapter** to communicate with the search API. You can use the
+  [Empathy Platform Adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform)
 - Your commerce store built on a **Vue** project, or on a **React** project using the
   [React Wrapper](https://github.com/empathyco/x/tree/main/packages/react-wrapper).
 
@@ -56,59 +56,37 @@ To build your search and discovery UI, the following project dependencies are re
   Interface&nbsp;X&nbsp;Components Vue.js library to implement out-of-the-box search UI components
   in a couple of minutes.
 
-- **x-adapter**
-  ([`@empathyco/x-adapter`](https://github.com/empathyco/x/tree/main/packages/search-adapter)): A
-  search adapter connector that tells the app how to communicate with the Empathy Search API you’re
-  using, translating the response into understandable information for X&nbsp;Components. If you are
-  not using the Empathy Search API, you need to build your own search adapter.
+- **x-adapter-platform**
+  ([`@empathyco/x-adapter-platform`](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform)):
+  A search adapter connector that tells the app how to communicate with the Empathy Search API
+  you’re using, translating the response into understandable information for X&nbsp;Components. If
+  you are not using the Empathy Search API, you need to build your own search adapter. In order to
+  build your own search adapter, you can either extend the **x-adapter-platform** or create a new
+  one from scratch using the
+  [`@empathyco/x-adapter-next`](https://github.com/empathyco/x/tree/main/packages/x-adapter-next)
+  package.
 
 - **x-types**
   ([`@empathyco/x-types`](https://github.com/empathyco/x/tree/main/packages/search-types)): The data
   model used in the X&nbsp;Components to define types.
 
-- **reflect-metadata**: Polyfill that allows the internal decorators of X&nbsp;Components to be
-  used. This is only required if you use the Empathy search adapter (`x-adapter`).
-
 Install the project dependencies via `npm` as follows:
 
 ```batch
 //Install the dependencies via npm.
-npm install --save @empathyco/x-components @empathyco/x-types @empathyco/x-adapter reflect-metadata
+npm install --save @empathyco/x-components @empathyco/x-types @empathyco/x-adapter-platform
 ```
 
 ## Configuring the search adapter
 
-::: warning
+You will need the search adapter in the [xPlugin configuration](#3-configure-the-plugin).
 
-If you are using the Empathy search API and the Empathy Search Adapter (`x-adapter`), make sure you
-have imported the `reflect-metadata` polyfill before executing any code of the search adapter.
-
-:::
-
-Next, construct the search adapter. You will need the search adapter in the
-[xPlugin configuration](#configuring-the-plugin).
-
-Empathy Search Adapter is a library for making it easier to consume search APIs. The project
-contains two main parts: an **implementation** to consume the Empathy Search API, and an
-**interface** that you can use to build your own adapter for other APIs.
-
-It contains a specific builder that helps you to configure the Empathy Search Adapter. If you are
-using Empathy Search API, you need to only configure the values for `instance`, `language`, `scope`,
-and `endpoint` properties in the `empathy-adapter.config.ts` file.
-
-```typescript
-// Import the search adapter and metadata
-import 'reflect-metadata';
-import { EmpathyAdapterBuilder } from '@empathyco/x-adapter';
-
-// Construct the EmpathyAdapterBuilder
-export const adapter = new EmpathyAdapterBuilder()
-  .withConfiguration({ instance: 'my-instance-id' })
-  .setLang('es')
-  .setScope('demo')
-  .setFeatureConfig('search', { endpoint: 'http://my-search-API-url' })
-  .build();
-```
+There are two libraries for making it easier to consume search APIs. The
+[`@empathyco/x-adapter`](https://github.com/empathyco/x/tree/main/packages/x-adapter-next), which is
+the interface you can use to build your own adapter for other APIs, and the
+[`@empathyco/x-adapter-platform`](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform),
+which is the implementation to consume the Empathy Search Platform API, and it can be extended in
+case your search API is similar to it.
 
 ::: warning
 
@@ -117,7 +95,7 @@ If you do not use the Empathy Search API, you need to build your own adapter.
 :::
 
 For more information, see
-[Using the Empathy Search Adapter](https://github.com/empathyco/x/tree/main/packages/search-adapter).
+[Using the Empathy Search Adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter).
 
 ## Configuring the plugin
 
@@ -139,16 +117,9 @@ import { store } from './my-store';
 Then, **configure** the xPlugin. It has two key options you need to configure:
 
 1. **Adapter**: A search adapter is required to connect and communicate with the search API. Here
-   you’re using the `EmpathyAdapterBuilder` to communicate specifically with the Empathy Search API.
-   If you are not using the Empathy Search API, you need to build your own adapter. See
-   [Configuring the search adapter](#configuring-the-search-adapter).
-
-   ::: develop
-
-   When using your own adapter, remember to configure the `instance`, `language`, `scope`, and
-   `endpoint` methods.
-
-   :::
+   you’re using the `XAdapterPlatform` to communicate specifically with the Empathy Search Platform
+   API. If you are not using the Empathy Search Platform API, you need to build your own adapter.
+   See [Configure the search adapter](#2-configure-the-search-adapter).
 
 2. **Store**: The Vuex store. If you use a store for Vuex, you need to provide the store you’re
    currently using for your project to the Vue instance.
