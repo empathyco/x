@@ -126,8 +126,8 @@ export function getMockedAdapterFunction<T>(whatReturns: T): Mock<Promise<T>> {
  * parameter will resolve the promise as empty.
  *
  * @param responseFeatures - The features responses available to be mocked.
- * @returns The {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} with the features
- * mocked.
+ * @returns The {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter}
+ * with the features mocked.
  *
  * @internal
  */
