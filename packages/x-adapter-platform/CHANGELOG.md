@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.18...@empathyco/x-adapter-platform@1.0.0-alpha.19) (2022-06-20)
+
+### Documentation
+
+- **api-extractor:** add API extractor to `x-adapter-platform` (#563)
+  ([8391bfb](https://github.com/empathyco/x/commit/8391bfbfa3902492c8b052e47a996869d0240200)),
+  closes [EX-6384](https://searchbroker.atlassian.net/browse/EX-6384)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.17...@empathyco/x-adapter-platform@1.0.0-alpha.18) (2022-06-16)
 
 ### Code Refactoring
