@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.19...@empathyco/x-adapter-platform@1.0.0-alpha.20) (2022-06-21)
+
+### Build System
+
+- sync duplicated dependencies (#567)
+  ([912e968](https://github.com/empathyco/x/commit/912e9687851594871b3296a5fb26129327939d96)),
+  closes [EX-6412](https://searchbroker.atlassian.net/browse/EX-6412)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.18...@empathyco/x-adapter-platform@1.0.0-alpha.19) (2022-06-20)
 
 ### Documentation

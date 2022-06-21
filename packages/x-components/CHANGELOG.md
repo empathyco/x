@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.114](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.113...@empathyco/x-components@3.0.0-alpha.114) (2022-06-21)
+
+### Build System
+
+- sync duplicated dependencies (#567)
+  ([912e968](https://github.com/empathyco/x/commit/912e9687851594871b3296a5fb26129327939d96)),
+  closes [EX-6412](https://searchbroker.atlassian.net/browse/EX-6412)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.113](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.112...@empathyco/x-components@3.0.0-alpha.113) (2022-06-20)
 
 ### Features
