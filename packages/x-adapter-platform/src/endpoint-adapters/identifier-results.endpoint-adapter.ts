@@ -1,4 +1,4 @@
-import { endpointAdapterFactory } from '@empathyco/x-adapter-next';
+import { endpointAdapterFactory } from '@empathyco/x-adapter';
 import { IdentifierResultsRequest, IdentifierResultsResponse } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { identifierResultsRequestMapper } from '../mappers/requests/identifier-results-request.mapper';

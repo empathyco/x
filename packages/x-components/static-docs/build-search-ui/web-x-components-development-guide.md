@@ -63,8 +63,7 @@ To build your search and discovery UI, the following project dependencies are re
   you are not using the Empathy Search API, you need to build your own search adapter. In order to
   build your own search adapter, you can either extend the **x-adapter-platform** or create a new
   one from scratch using the
-  [`@empathyco/x-adapter-next`](https://github.com/empathyco/x/tree/main/packages/x-adapter-next)
-  package.
+  [`@empathyco/x-adapter`](https://github.com/empathyco/x/tree/main/packages/x-adapter) package.
 
 - **x-types**
   ([`@empathyco/x-types`](https://github.com/empathyco/x/tree/main/packages/search-types)): The data

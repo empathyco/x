@@ -1,4 +1,4 @@
-import { schemaMapperFactory } from '@empathyco/x-adapter-next';
+import { schemaMapperFactory } from '@empathyco/x-adapter';
 import { RelatedTagsRequest } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { relatedTagsRequestMutableSchema } from '../../schemas/requests/related-tags-request.schema';

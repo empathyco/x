@@ -1,4 +1,4 @@
-import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
+import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import { Suggestion } from '@empathyco/x-types';
 import { PlatformSuggestion } from '../../types/models/suggestion.model';
 

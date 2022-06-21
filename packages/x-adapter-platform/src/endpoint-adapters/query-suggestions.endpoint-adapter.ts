@@ -1,4 +1,4 @@
-import { endpointAdapterFactory } from '@empathyco/x-adapter-next';
+import { endpointAdapterFactory } from '@empathyco/x-adapter';
 import { QuerySuggestionsRequest, QuerySuggestionsResponse } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { querySuggestionsRequestMapper } from '../mappers/requests/query-suggestions-request.mapper';

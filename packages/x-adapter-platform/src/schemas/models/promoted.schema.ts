@@ -1,5 +1,5 @@
 import { Promoted } from '@empathyco/x-types';
-import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
+import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import { getTaggingInfoFromUrl } from '@empathyco/x-utils';
 import { PlatformPromoted } from '../../types/models/promoted.model';
 

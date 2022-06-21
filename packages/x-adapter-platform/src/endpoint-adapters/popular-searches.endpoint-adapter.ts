@@ -1,4 +1,4 @@
-import { endpointAdapterFactory } from '@empathyco/x-adapter-next';
+import { endpointAdapterFactory } from '@empathyco/x-adapter';
 import { PopularSearchesRequest, PopularSearchesResponse } from '@empathyco/x-types';
 import { popularSearchesRequestMapper } from '../mappers/requests/popular-searches-request.mapper';
 // eslint-disable-next-line max-len

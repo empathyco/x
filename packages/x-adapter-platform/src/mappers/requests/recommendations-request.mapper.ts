@@ -1,4 +1,4 @@
-import { schemaMapperFactory } from '@empathyco/x-adapter-next';
+import { schemaMapperFactory } from '@empathyco/x-adapter';
 import { RecommendationsRequest } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { recommendationsRequestMutableSchema } from '../../schemas/requests/recommendations-request.schema';
