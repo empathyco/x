@@ -1,4 +1,4 @@
-import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
+import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import { RelatedTagsResponse } from '@empathyco/x-types';
 import { PlatformRelatedTagsResponse } from '../../types/responses/related-tags-response.model';
 import { relatedTagMutableSchema } from '../models/related-tag.schema';

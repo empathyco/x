@@ -1,4 +1,4 @@
-import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
+import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import { reduce } from '@empathyco/x-utils';
 import { isHierarchicalFilter, SearchRequest } from '@empathyco/x-types';
 import { PlatformSearchRequest } from '../../types/requests/search-request.model';

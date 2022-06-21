@@ -1,4 +1,4 @@
-import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
+import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import { SimpleFilter } from '@empathyco/x-types';
 import { PlatformFilter } from '../../types/models/facet.model';
 

@@ -1,4 +1,4 @@
-import { beaconHttpClient, endpointAdapterFactory, buildUrl } from '@empathyco/x-adapter-next';
+import { beaconHttpClient, endpointAdapterFactory, buildUrl } from '@empathyco/x-adapter';
 import { TaggingRequest } from '@empathyco/x-types';
 import { taggingRequestMapper } from '../mappers/requests/tagging-request.mapper';
 

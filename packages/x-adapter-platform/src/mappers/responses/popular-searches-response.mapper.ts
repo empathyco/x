@@ -1,4 +1,4 @@
-import { schemaMapperFactory } from '@empathyco/x-adapter-next';
+import { schemaMapperFactory } from '@empathyco/x-adapter';
 import { PopularSearchesResponse } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { popularSearchesResponseMutableSchema } from '../../schemas/responses/popular-searches-response.schema';

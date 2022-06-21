@@ -19,7 +19,7 @@ import {
   endpointAdapterFactory,
   ExtendableEndpointAdapter,
   HttpClient
-} from '@empathyco/x-adapter-next';
+} from '@empathyco/x-adapter';
 import { PlatformAdapter } from '@empathyco/x-adapter-platform';
 
 /**

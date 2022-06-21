@@ -1,4 +1,4 @@
-import { schemaMapperFactory, combineMappers, MapperContext } from '@empathyco/x-adapter-next';
+import { schemaMapperFactory, combineMappers, MapperContext } from '@empathyco/x-adapter';
 import { SearchResponse, HierarchicalFacet, HierarchicalFilter } from '@empathyco/x-types';
 import { PlatformSearchResponse } from '../../types/responses/search-response.model';
 import { searchResponseMutableSchema } from '../../schemas/responses/search-response.schema';

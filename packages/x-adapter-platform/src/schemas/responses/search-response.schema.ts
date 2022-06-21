@@ -1,4 +1,4 @@
-import { Schema, createMutableSchema } from '@empathyco/x-adapter-next';
+import { Schema, createMutableSchema } from '@empathyco/x-adapter';
 import { getTaggingInfoFromUrl } from '@empathyco/x-utils';
 import { SearchResponse } from '@empathyco/x-types';
 import { PlatformSearchResponse } from '../../types/responses/search-response.model';

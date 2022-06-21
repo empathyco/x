@@ -1,4 +1,4 @@
-import { Adapter, EndpointAdapter } from '@empathyco/x-adapter-next';
+import { Adapter, EndpointAdapter } from '@empathyco/x-adapter';
 import {
   IdentifierResultsRequest,
   IdentifierResultsResponse,

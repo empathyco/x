@@ -1,4 +1,4 @@
-import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
+import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import { NextQuery } from '@empathyco/x-types';
 import { PlatformNextQuery } from '../../types/models/next-query.model';
 

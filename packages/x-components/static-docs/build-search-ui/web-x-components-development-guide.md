@@ -63,8 +63,7 @@ To build your search and discovery UI, the following project dependencies are re
   you are not using the Empathy Search API, you need to build your own search adapter. In order to
   build your own search adapter, you can either extend the **x-adapter-platform** or create a new
   one from scratch using the
-  [`@empathyco/x-adapter-next`](https://github.com/empathyco/x/tree/main/packages/x-adapter-next)
-  package.
+  [`@empathyco/x-adapter`](https://github.com/empathyco/x/tree/main/packages/x-adapter) package.
 
 - **x-types**
   ([`@empathyco/x-types`](https://github.com/empathyco/x/tree/main/packages/search-types)): The data
@@ -82,8 +81,8 @@ npm install --save @empathyco/x-components @empathyco/x-types @empathyco/x-adapt
 You will need the search adapter in the [xPlugin configuration](#3-configure-the-plugin).
 
 There are two libraries for making it easier to consume search APIs. The
-[`@empathyco/x-adapter`](https://github.com/empathyco/x/tree/main/packages/x-adapter-next), which is
-the interface you can use to build your own adapter for other APIs, and the
+[`@empathyco/x-adapter`](https://github.com/empathyco/x/tree/main/packages/x-adapter), which is the
+interface you can use to build your own adapter for other APIs, and the
 [`@empathyco/x-adapter-platform`](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform),
 which is the implementation to consume the Empathy Search Platform API, and it can be extended in
 case your search API is similar to it.
