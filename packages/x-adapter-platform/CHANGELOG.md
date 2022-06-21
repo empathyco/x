@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.20...@empathyco/x-adapter-platform@1.0.0-alpha.21) (2022-06-21)
+
+### Features
+
+- remove old adapter package and use the new one (#568)
+  ([1632a59](https://github.com/empathyco/x/commit/1632a594b6905e6403c82b2189300eefd45b3691)),
+  closes [EX-6286](https://searchbroker.atlassian.net/browse/EX-6286)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.19...@empathyco/x-adapter-platform@1.0.0-alpha.20) (2022-06-21)
 
 ### Build System
