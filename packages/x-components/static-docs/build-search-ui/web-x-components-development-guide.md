@@ -81,8 +81,8 @@ npm install --save @empathyco/x-components @empathyco/x-types @empathyco/x-adapt
 You will need the search adapter in the [xPlugin configuration](#3-configure-the-plugin).
 
 There are two libraries for making it easier to consume search APIs. The
-[`@empathyco/x-adapter`](https://github.com/empathyco/x/tree/main/packages/x-adapter-next), which is
-the interface you can use to build your own adapter for other APIs, and the
+[`@empathyco/x-adapter`](https://github.com/empathyco/x/tree/main/packages/x-adapter), which is the
+interface you can use to build your own adapter for other APIs, and the
 [`@empathyco/x-adapter-platform`](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform),
 which is the implementation to consume the Empathy Search Platform API, and it can be extended in
 case your search API is similar to it.
