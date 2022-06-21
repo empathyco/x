@@ -80,7 +80,7 @@
     "@cypress/vue": "~2.2.4",
     "@cypress/webpack-dev-server": "~1.8.4",
     "@microsoft/api-documenter": "~7.15.3",
-    "@microsoft/api-extractor": "~7.20.0",
+    "@microsoft/api-extractor": "~7.19.4",
     "@rollup/plugin-commonjs": "~21.0.1",
     "@testing-library/jest-dom": "~5.11.1",
     "@types/autoprefixer": "~9.6.1",
