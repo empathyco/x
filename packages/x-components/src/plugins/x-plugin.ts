@@ -1,8 +1,25 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
-import { forEach, Dictionary } from '@empathyco/x-utils';
+import { Dictionary, forEach } from '@empathyco/x-utils';
 import { PluginObject, VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
-import { PlatformAdapter } from '@empathyco/x-adapter-platform';
+import { Adapter, EndpointAdapter } from '@empathyco/x-adapter';
+import {
+  IdentifierResultsRequest,
+  IdentifierResultsResponse,
+  NextQueriesRequest,
+  NextQueriesResponse,
+  PopularSearchesRequest,
+  PopularSearchesResponse,
+  QuerySuggestionsRequest,
+  QuerySuggestionsResponse,
+  RecommendationsRequest,
+  RecommendationsResponse,
+  RelatedTagsRequest,
+  RelatedTagsResponse,
+  SearchRequest,
+  SearchResponse,
+  TaggingRequest
+} from '@empathyco/x-types';
 import { FILTERS_REGISTRY } from '../filters/filters.registry';
 import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
@@ -16,6 +33,19 @@ import { createXComponentAPIMixin } from './x-plugin.mixin';
 import { AnyXStoreModuleOption, XModuleOptions, XPluginOptions } from './x-plugin.types';
 import { assertXPluginOptionsAreValid } from './x-plugin.utils';
 
+declare module '@empathyco/x-adapter' {
+  interface Adapter {
+    search: EndpointAdapter<SearchRequest, SearchResponse>;
+    popularSearches: EndpointAdapter<PopularSearchesRequest, PopularSearchesResponse>;
+    nextQueries: EndpointAdapter<NextQueriesRequest, NextQueriesResponse>;
+    recommendations: EndpointAdapter<RecommendationsRequest, RecommendationsResponse>;
+    querySuggestions: EndpointAdapter<QuerySuggestionsRequest, QuerySuggestionsResponse>;
+    relatedTags: EndpointAdapter<RelatedTagsRequest, RelatedTagsResponse>;
+    identifierResults: EndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
+    tagging: EndpointAdapter<TaggingRequest, void>;
+  }
+}
+
 /**
  * Vue plugin that initializes the properties needed by the x-components, and exposes the events bus
  * and the adapter after it has been installed.
@@ -24,7 +54,7 @@ import { assertXPluginOptionsAreValid } from './x-plugin.utils';
  */
 export class XPlugin implements PluginObject<XPluginOptions> {
   /**
-   * {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter} Is the middleware
+   * {@link @empathyco/x-adapter#Adapter | PlatformAdapter} Is the middleware
    * between the components and our API where data can be mapped to client needs.
    * This property is only available after installing the plugin.
    *
@@ -32,7 +62,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @throws If this property is accessed before calling `Vue.use(xPlugin)`.
    * @public
    */
-  public static get adapter(): PlatformAdapter {
+  public static get adapter(): Adapter {
     return this.getInstance().adapter;
   }
 
@@ -101,7 +131,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    *
    * @internal
    */
-  protected adapter!: PlatformAdapter;
+  protected adapter!: Adapter;
 
   /**
    * Set of the already installed {@link XModule | XModules} to avoid re-registering them.

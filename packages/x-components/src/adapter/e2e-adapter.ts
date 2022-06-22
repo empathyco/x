@@ -3,24 +3,24 @@ import {
   IdentifierResultsResponse,
   NextQueriesRequest,
   NextQueriesResponse,
+  PopularSearchesRequest,
+  PopularSearchesResponse,
   QuerySuggestionsRequest,
+  QuerySuggestionsResponse,
   RecommendationsRequest,
   RecommendationsResponse,
   RelatedTagsRequest,
   RelatedTagsResponse,
   SearchRequest,
   SearchResponse,
-  QuerySuggestionsResponse,
-  TaggingRequest,
-  PopularSearchesRequest,
-  PopularSearchesResponse
+  TaggingRequest
 } from '@empathyco/x-types';
 import {
+  Adapter,
   endpointAdapterFactory,
   ExtendableEndpointAdapter,
   HttpClient
 } from '@empathyco/x-adapter';
-import { PlatformAdapter } from '@empathyco/x-adapter-platform';
 
 /**
  * Mock fetch httpClient.
@@ -76,7 +76,7 @@ export function mockEndpointAdapter<Request, Response>(
   return endpointAdapter;
 }
 
-export const e2eAdapter: PlatformAdapter = {
+export const e2eAdapter: Adapter = {
   identifierResults: mockEndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>(
     'identifier-results'
   ),

@@ -11,7 +11,7 @@ import {
 } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
 import { Store } from 'vuex';
-import { PlatformAdapter } from '@empathyco/x-adapter-platform';
+import { Adapter } from '@empathyco/x-adapter';
 import { ActionsTree } from '../store/actions.types';
 import { GettersTree } from '../store/getters.types';
 import { MutationsTree } from '../store/mutations.types';
@@ -32,7 +32,7 @@ import { XBus } from './x-bus.types';
  */
 export interface XPluginOptions {
   /** The adapter transforms the request for the the search and tagging APIs and its responses. */
-  adapter: PlatformAdapter;
+  adapter: Adapter;
   /**
    * A Vuex store to install the X module. If not passed a new one will be created and injected
    * into every component.
@@ -78,14 +78,17 @@ export interface XComponentBusAPI {
   /* eslint-disable jsdoc/require-description-complete-sentence */
   /** {@inheritDoc XBus.(on:1)} */
   on: XBus['on'];
+
   /** {@inheritDoc XBus.(emit:1)} */
   emit(event: PropsWithType<XEventsTypes, void>): void;
+
   /** {@inheritDoc XBus.(emit:2)} */
   emit<Event extends XEvent>(
     event: Event,
     payload: XEventPayload<Event>,
     metadata?: Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>
   ): void;
+
   /* eslint-enable jsdoc/require-description-complete-sentence */
 }
 

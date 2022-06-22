@@ -3,7 +3,7 @@ import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import { Store } from 'vuex';
-import { PlatformAdapter } from '@empathyco/x-adapter-platform';
+import { Adapter } from '@empathyco/x-adapter';
 import {
   IdentifierResultsResponse,
   RecommendationsResponse,
@@ -25,9 +25,9 @@ import { SearchAdapterDummy } from './adapter.dummy';
 import Mock = jest.Mock;
 
 export type MockedSearchAdapter = {
-  [Method in keyof Required<PlatformAdapter>]: jest.Mock<
-    ReturnType<Required<PlatformAdapter>[Method]>,
-    Parameters<Required<PlatformAdapter>[Method]>
+  [Method in keyof Required<Adapter>]: jest.Mock<
+    ReturnType<Required<Adapter>[Method]>,
+    Parameters<Required<Adapter>[Method]>
   >;
 };
 
