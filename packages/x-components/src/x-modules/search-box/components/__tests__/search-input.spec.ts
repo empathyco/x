@@ -43,6 +43,7 @@ interface SearchInputProps {
   instantDebounceInMs: number;
   autocompleteKeyboardKeys: string[];
   autocompleteSuggestionsEvent: string[];
+  blacklistedCharacters: string;
 }
 
 interface TestSearchInputAPI {
@@ -181,5 +182,64 @@ describe('testing search input component', () => {
     expect(input).not.toBe(document.activeElement);
     mockedSearchInput.vm.$x.emit('UserPressedClearSearchBoxButton');
     expect(input).toBe(document.activeElement);
+  });
+
+  describe('input sanitization', () => {
+    describe('with default blacklisted characters', () => {
+      ['a', 'b', '2', '+'].forEach(character => {
+        it(`doesn't filter '${character}'`, () => {
+          const event = new InputEvent('beforeinput', { data: character });
+          const preventDefaultSpy = jest.spyOn(event, 'preventDefault');
+
+          input.dispatchEvent(event);
+
+          expect(preventDefaultSpy).not.toHaveBeenCalled();
+        });
+      });
+
+      ['<', '>'].forEach(character => {
+        it(`filters '${character}'`, () => {
+          const event = new InputEvent('beforeinput', { data: character });
+          const preventDefaultSpy = jest.spyOn(event, 'preventDefault');
+
+          input.dispatchEvent(event);
+
+          expect(preventDefaultSpy).toHaveBeenCalledTimes(1);
+        });
+      });
+    });
+
+    const blacklistedCharacters = 'a1+$#';
+    describe(`with custom blacklisted characters '${blacklistedCharacters}'`, () => {
+      beforeEach(() => {
+        const searchInput = mountNewSearchInput({
+          blacklistedCharacters: blacklistedCharacters
+        });
+        mockedSearchInput = searchInput.wrapper;
+        input = searchInput.input;
+      });
+
+      ['b', '2', '>', '<'].forEach(character => {
+        it(`doesn't filter '${character}'`, () => {
+          const event = new InputEvent('beforeinput', { data: character });
+          const preventDefaultSpy = jest.spyOn(event, 'preventDefault');
+
+          input.dispatchEvent(event);
+
+          expect(preventDefaultSpy).not.toHaveBeenCalled();
+        });
+      });
+
+      blacklistedCharacters.split('').forEach(character => {
+        it(`filters '${character}'`, () => {
+          const event = new InputEvent('beforeinput', { data: character });
+          const preventDefaultSpy = jest.spyOn(event, 'preventDefault');
+
+          input.dispatchEvent(event);
+
+          expect(preventDefaultSpy).toHaveBeenCalledTimes(1);
+        });
+      });
+    });
   });
 });
