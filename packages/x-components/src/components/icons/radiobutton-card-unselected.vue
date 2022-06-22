@@ -10,3 +10,6 @@
     <circle cx="16" cy="16" r="13" stroke="#243D48" stroke-width="2" />
   </svg>
 </template>
+<script lang="ts">
+  export default {};
+</script>
