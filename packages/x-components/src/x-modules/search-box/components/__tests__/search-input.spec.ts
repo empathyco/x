@@ -185,28 +185,41 @@ describe('testing search input component', () => {
   });
 
   describe('input sanitization', () => {
-    describe('with default blacklisted characters', () => {
-      ['a', 'b', '2', '+'].forEach(character => {
-        it(`doesn't filter '${character}'`, () => {
-          const event = new InputEvent('beforeinput', { data: character });
-          const preventDefaultSpy = jest.spyOn(event, 'preventDefault');
+    function createBeforeInputEvent(data: string): InputEvent {
+      const event = new InputEvent('beforeinput', { data });
+      event.preventDefault = jest.fn();
+      return event;
+    }
+
+    function itBlacklists(characters: string[]): void {
+      characters.forEach((character: string) => {
+        it(`blacklists '${character}'`, () => {
+          const event = createBeforeInputEvent(character);
 
           input.dispatchEvent(event);
 
-          expect(preventDefaultSpy).not.toHaveBeenCalled();
+          // eslint-disable-next-line @typescript-eslint/unbound-method
+          expect(event.preventDefault).toHaveBeenCalled();
         });
       });
+    }
 
-      ['<', '>'].forEach(character => {
-        it(`filters '${character}'`, () => {
-          const event = new InputEvent('beforeinput', { data: character });
-          const preventDefaultSpy = jest.spyOn(event, 'preventDefault');
+    function itDoesntBlacklist(characters: string[]): void {
+      characters.forEach((character: string) => {
+        it(`doesn't blacklist '${character}'`, () => {
+          const event = createBeforeInputEvent(character);
 
           input.dispatchEvent(event);
 
-          expect(preventDefaultSpy).toHaveBeenCalledTimes(1);
+          // eslint-disable-next-line @typescript-eslint/unbound-method
+          expect(event.preventDefault).not.toHaveBeenCalled();
         });
       });
+    }
+
+    describe(`with default blacklisted characters '<>'`, () => {
+      itBlacklists(['<', '>']);
+      itDoesntBlacklist(['a', 'b', '2', '+']);
     });
 
     const blacklistedCharacters = 'a1+$#';
@@ -215,31 +228,11 @@ describe('testing search input component', () => {
         const searchInput = mountNewSearchInput({
           blacklistedCharacters: blacklistedCharacters
         });
-        mockedSearchInput = searchInput.wrapper;
         input = searchInput.input;
       });
 
-      ['b', '2', '>', '<'].forEach(character => {
-        it(`doesn't filter '${character}'`, () => {
-          const event = new InputEvent('beforeinput', { data: character });
-          const preventDefaultSpy = jest.spyOn(event, 'preventDefault');
-
-          input.dispatchEvent(event);
-
-          expect(preventDefaultSpy).not.toHaveBeenCalled();
-        });
-      });
-
-      blacklistedCharacters.split('').forEach(character => {
-        it(`filters '${character}'`, () => {
-          const event = new InputEvent('beforeinput', { data: character });
-          const preventDefaultSpy = jest.spyOn(event, 'preventDefault');
-
-          input.dispatchEvent(event);
-
-          expect(preventDefaultSpy).toHaveBeenCalledTimes(1);
-        });
-      });
+      itBlacklists(blacklistedCharacters.split(''));
+      itDoesntBlacklist(['b', '2', '>', '<']);
     });
   });
 });
