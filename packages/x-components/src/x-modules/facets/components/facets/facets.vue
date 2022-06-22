@@ -16,6 +16,7 @@
         @slot Customized Facet rendering. Specifying a slot with the facet's name will result in the
         facet using that slot composition to render.
             @binding {Facet} facet - Facet to render
+            @binding {Filter[]} selectedFilters - List of selected filters of the given facet
       -->
       <slot
         v-if="$scopedSlots[slotNameById]"
@@ -29,6 +30,7 @@
         @slot Customized Facet rendering. Specifying a slot with the facet's modelName will result
         in the facet using that slot composition to render.
             @binding {Facet} facet - Facet to render
+            @binding {Filter[]} selectedFilters - List of selected filters of the given facet
       -->
       <slot
         v-else-if="$scopedSlots[slotNameByModelName]"
@@ -42,6 +44,7 @@
         @slot (required) Default Facet rendering. This slot will be used by default for rendering
         the facets without an specific slot implementation.
             @binding {Facet} facet - Facet to render
+            @binding {Filter[]} selectedFilters - List of selected filters of the given facet
       -->
       <slot
         v-else
