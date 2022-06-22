@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.116](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.115...@empathyco/x-components@3.0.0-alpha.116) (2022-06-22)
+
+### Features
+
+- **facets:** Add slot by Facet ModelName. (#572)
+  ([899515a](https://github.com/empathyco/x/commit/899515a1424bfab9a8d937a1feb9507917173807)),
+  closes [EX-6433](https://searchbroker.atlassian.net/browse/EX-6433)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.115](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.114...@empathyco/x-components@3.0.0-alpha.115) (2022-06-21)
 
 ### Features
