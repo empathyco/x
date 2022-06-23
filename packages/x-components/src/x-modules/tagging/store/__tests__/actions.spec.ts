@@ -2,7 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { TaggingRequest } from '@empathyco/x-types';
 import { getTaggingResponseStub } from '../../../../__stubs__/tagging-response-stubs.factory';
-import { SearchAdapterDummy } from '../../../../__tests__/adapter.dummy';
+import { XComponentsAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { taggingXStoreModule } from '../module';
@@ -11,7 +11,7 @@ import { resetTaggingStateWith } from './utils';
 
 describe('testing tagging module actions', () => {
   const queryTagging = getTaggingResponseStub();
-  const adapter = SearchAdapterDummy;
+  const adapter = XComponentsAdapterDummy;
   const localVue = createLocalVue();
   localVue.config.productionTip = false; // Silent production console messages.
   localVue.use(Vuex);

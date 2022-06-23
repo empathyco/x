@@ -48,7 +48,7 @@ export function extractUrlParameters(url: string): {
     };
   } catch (e) {
     //eslint-disable-next-line no-console
-    console.warn('Invalid url', url);
+    console.warn('Invalid url', url); // TODO Use Empathy's logger
     return {
       url
     };

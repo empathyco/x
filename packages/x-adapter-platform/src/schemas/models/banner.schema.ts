@@ -1,6 +1,6 @@
 import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import { Banner } from '@empathyco/x-types';
-import { getTaggingInfoFromUrl } from '../../mappers/url.util';
+import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
 import { PlatformBanner } from '../../types/models/banner.model';
 
 export const bannerMutableSchema = createMutableSchema<Schema<PlatformBanner, Banner>>({

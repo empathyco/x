@@ -1,3 +1,3 @@
 export * from './requests';
 export * from './responses';
-export * from './url.util';
+export * from './url.utils';

@@ -4,13 +4,13 @@ import VueRouter from 'vue-router';
 import { Store } from 'vuex';
 import { XPlugin } from '../../../plugins/x-plugin';
 import { PrivateXModulesOptions, XModulesOptions } from '../../../plugins/x-plugin.types';
-import { SearchAdapterDummy } from '../../../__tests__/adapter.dummy';
+import { XComponentsAdapterDummy } from '../../../__tests__/adapter.dummy';
 import { AnyXModule } from '../../../x-modules/x-modules.types';
 import { InitWrapper, InstallXOptions } from '../types';
 import { XInstaller } from '../x-installer';
 
 describe('testing `XInstaller` utility', () => {
-  const adapter = SearchAdapterDummy;
+  const adapter = XComponentsAdapterDummy;
   const xPluginMock = { install: jest.fn() };
   const plugin = xPluginMock as unknown as XPlugin;
   const store = {} as unknown as Store<any>;

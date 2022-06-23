@@ -413,8 +413,10 @@ export class XPlugin implements PluginObject<XPluginOptions> {
  * {@link XComponentAPI | X Component API }.
  *
  * @example
- * Minimal installation example. A search adapter is needed for the plugin to work, and connect to
- * the API.
+ * Minimal installation example. An API adapter is needed to connect the X Components with the
+ * suggestions, search, or tagging APIs. In this example we are using the default Empathy's platform
+ * adapter.
+ *
  * ```typescript
  *  import { platformAdapter } from '@empathyco/x-adapter-platform';
  *  Vue.use(xPlugin, { adapter: platformAdapter });

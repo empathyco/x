@@ -1,6 +1,6 @@
 import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import { Result } from '@empathyco/x-types';
-import { getTaggingInfoFromUrl } from '../../mappers/url.util';
+import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
 import { PlatformResult } from '../../types/models/result.model';
 
 export const resultSchema = createMutableSchema<Schema<PlatformResult, Result>>({
