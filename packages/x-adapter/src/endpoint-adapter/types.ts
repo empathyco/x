@@ -2,13 +2,6 @@ import { HttpClient, RequestOptions } from '../http-clients/types';
 import { Mapper } from '../mappers/types';
 
 /**
- * A facade containing all the different {@link EndpointAdapter} methods.
- *
- * @public
- */
-export interface Adapter {}
-
-/**
  * Connects with a given API endpoint. Transforms the request object into something the API
  * can understand, makes the request, and transforms back the API response into the desired shape.
  *

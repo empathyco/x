@@ -3,8 +3,8 @@ import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import { Store } from 'vuex';
-import { PlatformAdapter } from '@empathyco/x-adapter-platform';
 import {
+  XComponentsAdapter,
   IdentifierResultsResponse,
   RecommendationsResponse,
   NextQueriesResponse,
@@ -25,9 +25,9 @@ import { SearchAdapterDummy } from './adapter.dummy';
 import Mock = jest.Mock;
 
 export type MockedSearchAdapter = {
-  [Method in keyof Required<PlatformAdapter>]: jest.Mock<
-    ReturnType<Required<PlatformAdapter>[Method]>,
-    Parameters<Required<PlatformAdapter>[Method]>
+  [Method in keyof Required<XComponentsAdapter>]: jest.Mock<
+    ReturnType<Required<XComponentsAdapter>[Method]>,
+    Parameters<Required<XComponentsAdapter>[Method]>
   >;
 };
 
@@ -121,12 +121,12 @@ export function getMockedAdapterFunction<T>(whatReturns: T): Mock<Promise<T>> {
 }
 
 /**
- * Mocks the {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter} features with
+ * Mocks the {@link @empathyco/x-types#XComponentsAdapter | XComponentsAdapter} features with
  * the features responses passes as parameter. Features responses are not passed through the
  * parameter will resolve the promise as empty.
  *
  * @param responseFeatures - The features responses available to be mocked.
- * @returns The {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter}
+ * @returns The {@link @empathyco/x-types#XComponentsAdapter | XComponentsAdapter}
  * with the features mocked.
  *
  * @internal
