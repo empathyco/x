@@ -91,7 +91,7 @@
 <docs lang="mdx">
 ## Examples
 
-### Adding a IdentifierResult component within a BaseResultLink
+### Play with slot
 
 A IdentifierResult **must** be used inside the IdentifierResults component. In the example below the
 BaseResultLink is used as a wrapper and its default slot is filled with the IdentifierResult
@@ -107,5 +107,29 @@ component.
     </BaseResultLink>
   </template>
 </IdentifierResults>
+```
+
+### Play with props
+
+In this example, the identifier results have been limited to render a maximum of 3 items.
+
+```vue
+<template>
+  <IdentifierResults #default="{ identifierResult }" :maxItemsToRender="3">
+    <IdentifierResult :result="identifierResult" />
+  </IdentifierResults>
+</template>
+
+<script>
+  import { IdentifierResults, IdentifierResult } from '@empathyco/x-components';
+
+  export default {
+    name: 'IdentifierResultsDemo',
+    components: {
+      IdentifierResults,
+      IdentifierResult
+    }
+  };
+</script>
 ```
 </docs>
