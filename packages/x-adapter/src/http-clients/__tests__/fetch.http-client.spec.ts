@@ -1,3 +1,4 @@
+import { flatObject } from '@empathyco/x-utils';
 import { koFetchMock, okFetchMock } from '../__mocks__/fetch.mock';
 import { HttpClient } from '../types';
 
@@ -106,16 +107,33 @@ describe('fetch httpClient testing', () => {
       }
     }).catch(error => expect(error.response.ok).toBeFalsy());
   });
+
+  it('send the data in the body if `sendParamsInBody` is true', async () => {
+    const parameters = {
+      q: 'shirt',
+      filter: ['long sleeve', 'dotted', 'white'],
+      rows: 12,
+      extraParams: {
+        lang: 'en'
+      }
+    };
+    await fetchHttpClient(endpoint, {
+      sendParamsInBody: true,
+      parameters
+    });
+    expectFetchCallWith(endpoint, { body: JSON.stringify(flatObject(parameters)) });
+  });
 });
 
 /**
  * Expects the `fetch` function to be called with the passed `URL`.
  *
  * @param url - The `URL` to check.
+ * @param options - The `options` to check.
  *
  * @internal
  */
-function expectFetchCallWith(url: string): void {
+function expectFetchCallWith(url: string, options = {}): void {
   expect(window.fetch as jest.Mock).toHaveBeenCalledTimes(1);
-  expect(window.fetch as jest.Mock).toHaveBeenCalledWith(url, expect.anything());
+  expect(window.fetch as jest.Mock).toHaveBeenCalledWith(url, expect.objectContaining(options));
 }

@@ -1,3 +1,4 @@
+import { flatObject } from '@empathyco/x-utils';
 import { HttpClient } from './types';
 import { buildUrl } from './utils';
 
@@ -18,8 +19,11 @@ let hasAdBlocker: boolean | undefined = undefined;
  *
  * @public
  */
-export const beaconHttpClient: HttpClient = async (endpoint, { parameters, properties } = {}) => {
-  const url = buildUrl(endpoint, parameters);
+export const beaconHttpClient: HttpClient = async (
+  endpoint,
+  { parameters = {}, properties } = {}
+) => {
+  const url = buildUrl(endpoint, flatObject(parameters));
 
   if (hasAdBlocker === undefined) {
     try {
