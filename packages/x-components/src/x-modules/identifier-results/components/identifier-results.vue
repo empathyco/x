@@ -6,7 +6,7 @@
     class="x-list x-identifier-results"
   >
     <li
-      v-for="identifierResult in identifierResults"
+      v-for="identifierResult in identifierResultsToRender"
       :key="identifierResult.id"
       class="x-identifier-results__item"
       data-test="identifier-results-item"
@@ -50,6 +50,14 @@
     protected animation!: Vue;
 
     /**
+     * Number of identifier results to render.
+     *
+     * @public
+     */
+    @Prop()
+    protected maxItemsToRender?: number;
+
+    /**
      * The module's list of identifier results.
      *
      * @public
@@ -66,13 +74,24 @@
     protected resultClickExtraEvents: PropsWithType<XEventsTypes, Result>[] = [
       'UserClickedAIdentifierResult'
     ];
+
+    /**
+     * Slices the identifier results from the state.
+     *
+     * @returns - The list of identifier results sliced by the number of items to render.
+     *
+     * @internal
+     */
+    public get identifierResultsToRender(): Result[] {
+      return this.identifierResults.slice(0, this.maxItemsToRender);
+    }
   }
 </script>
 
 <docs lang="mdx">
 ## Examples
 
-### Adding a IdentifierResult component within a BaseResultLink
+### Play with slot
 
 A IdentifierResult **must** be used inside the IdentifierResults component. In the example below the
 BaseResultLink is used as a wrapper and its default slot is filled with the IdentifierResult
@@ -88,5 +107,29 @@ component.
     </BaseResultLink>
   </template>
 </IdentifierResults>
+```
+
+### Play with props
+
+In this example, the identifier results have been limited to render a maximum of 3 items.
+
+```vue
+<template>
+  <IdentifierResults #default="{ identifierResult }" :maxItemsToRender="3">
+    <IdentifierResult :result="identifierResult" />
+  </IdentifierResults>
+</template>
+
+<script>
+  import { IdentifierResults, IdentifierResult } from '@empathyco/x-components';
+
+  export default {
+    name: 'IdentifierResultsDemo',
+    components: {
+      IdentifierResults,
+      IdentifierResult
+    }
+  };
+</script>
 ```
 </docs>
