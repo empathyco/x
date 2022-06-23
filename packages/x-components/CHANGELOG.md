@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.117](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.116...@empathyco/x-components@3.0.0-alpha.117) (2022-06-23)
+
+### Features
+
+- **components:** add radio button icons (#574)
+  ([4432d5f](https://github.com/empathyco/x/commit/4432d5f927e5c5cac6cb7481923e32ceb6cb0499)),
+  closes [EX-6439](https://searchbroker.atlassian.net/browse/EX-6439)
+
+### Bug Fixes
+
+- Remove `@empathyco/x-platform-adapter` dependency from library code. (#575)
+  ([104c7e1](https://github.com/empathyco/x/commit/104c7e10855a67b2adfa68d42d82431f9194ee15)),
+  closes [EX-6437](https://searchbroker.atlassian.net/browse/EX-6437)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.116](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.115...@empathyco/x-components@3.0.0-alpha.116) (2022-06-22)
 
 ### Features

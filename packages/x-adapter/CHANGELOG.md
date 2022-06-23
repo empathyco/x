@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.1...@empathyco/x-adapter@8.0.0-alpha.2) (2022-06-23)
+
+### Bug Fixes
+
+- Remove `@empathyco/x-platform-adapter` dependency from library code. (#575)
+  ([104c7e1](https://github.com/empathyco/x/commit/104c7e10855a67b2adfa68d42d82431f9194ee15)),
+  closes [EX-6437](https://searchbroker.atlassian.net/browse/EX-6437)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [8.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.33...@empathyco/x-adapter@8.0.0-alpha.1) (2022-06-21)
 
 ### Features
