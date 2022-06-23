@@ -3,8 +3,8 @@ import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import { Store } from 'vuex';
-import { PlatformAdapter } from '@empathyco/x-adapter-platform';
 import {
+  XComponentsAdapter,
   IdentifierResultsResponse,
   RecommendationsResponse,
   NextQueriesResponse,
@@ -21,13 +21,13 @@ import { MutationsDictionary } from '../store/mutations.types';
 import { RootXStoreState, XStoreModule } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
 import { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types';
-import { SearchAdapterDummy } from './adapter.dummy';
+import { XComponentsAdapterDummy } from './adapter.dummy';
 import Mock = jest.Mock;
 
-export type MockedSearchAdapter = {
-  [Method in keyof Required<PlatformAdapter>]: jest.Mock<
-    ReturnType<Required<PlatformAdapter>[Method]>,
-    Parameters<Required<PlatformAdapter>[Method]>
+export type MockedXComponentsAdapter = {
+  [Method in keyof Required<XComponentsAdapter>]: jest.Mock<
+    ReturnType<Required<XComponentsAdapter>[Method]>,
+    Parameters<Required<XComponentsAdapter>[Method]>
   >;
 };
 
@@ -121,19 +121,19 @@ export function getMockedAdapterFunction<T>(whatReturns: T): Mock<Promise<T>> {
 }
 
 /**
- * Mocks the {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter} features with
+ * Mocks the {@link @empathyco/x-types#XComponentsAdapter | XComponentsAdapter} features with
  * the features responses passes as parameter. Features responses are not passed through the
  * parameter will resolve the promise as empty.
  *
  * @param responseFeatures - The features responses available to be mocked.
- * @returns The {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter}
+ * @returns The {@link @empathyco/x-types#XComponentsAdapter | XComponentsAdapter}
  * with the features mocked.
  *
  * @internal
  */
 export function getMockedAdapter(
   responseFeatures?: Partial<MockedAdapterFeatures>
-): MockedSearchAdapter {
+): MockedXComponentsAdapter {
   return {
     /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
     identifierResults: getMockedAdapterFunction(responseFeatures?.identifierResults!),
@@ -167,8 +167,8 @@ function mergeStates<State extends Dictionary>(
  * Makes a clean install of the's the {@link XPlugin} into the passed Vue object.
  * This also resets the bus, and all the hardcoded dependencies of the XPlugin.
  *
- * @param options - The options for installing the {@link XPlugin}. The {@link SearchAdapterDummy}
- * is added by default.
+ * @param options - The options for installing the {@link XPlugin}. The
+ * {@link XComponentsAdapterDummy}  is added by default.
  * @param localVue - A clone of the Vue constructor to isolate tests.
  * If not provided, one will be created.
  * @returns An array containing the `xPlugin` singleton and the `localVue` and objects.
@@ -180,7 +180,7 @@ export function installNewXPlugin(
   XPlugin.resetInstance();
   const xPlugin = new XPlugin(new BaseXBus());
   const installOptions: XPluginOptions = {
-    adapter: SearchAdapterDummy,
+    adapter: XComponentsAdapterDummy,
     ...options
   };
   localVue.use(xPlugin, installOptions);

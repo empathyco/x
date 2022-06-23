@@ -1,6 +1,24 @@
 import { TaggingRequest } from '@empathyco/x-types';
 
 /**
+ * Extracts the tagging info from a URL.
+ *
+ * @param taggingUrl - The url containing the tagging info.
+ *
+ * @returns The object with the tagging info.
+ */
+export function getTaggingInfoFromUrl(taggingUrl: string): TaggingRequest {
+  const { url, params } = extractUrlParameters(taggingUrl);
+  return {
+    url,
+    params: {
+      ...params,
+      follow: false
+    }
+  };
+}
+
+/**
  * Returns the base url path and an object with the query parameters.
  *
  * @param url - The url string to manipulate.
@@ -30,27 +48,9 @@ export function extractUrlParameters(url: string): {
     };
   } catch (e) {
     //eslint-disable-next-line no-console
-    console.warn('Invalid url', url);
+    console.warn('Invalid url', url); // TODO Use Empathy's logger
     return {
       url
     };
   }
-}
-
-/**
- * Extracts the tagging info from an URL.
- *
- * @param taggingUrl - The url containing the tagging info.
- *
- * @returns The object with the tagging info.
- */
-export function getTaggingInfoFromUrl(taggingUrl: string): TaggingRequest {
-  const { url, params } = extractUrlParameters(taggingUrl);
-  return {
-    url,
-    params: {
-      ...params,
-      follow: false
-    }
-  };
 }

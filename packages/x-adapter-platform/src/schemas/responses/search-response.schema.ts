@@ -1,6 +1,6 @@
-import { Schema, createMutableSchema } from '@empathyco/x-adapter';
-import { getTaggingInfoFromUrl } from '@empathyco/x-utils';
+import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import { SearchResponse } from '@empathyco/x-types';
+import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
 import { PlatformSearchResponse } from '../../types/responses/search-response.model';
 import { bannerMutableSchema } from '../models/banner.schema';
 import { facetMutableSchema } from '../models/facet.schema';

@@ -2,7 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { default as Vue, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createWireFromFunction } from '../../wiring/wires.factory';
-import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
+import { XComponentsAdapterDummy } from '../../__tests__/adapter.dummy';
 import { createXModule } from '../../__tests__/utils';
 import { BaseXBus } from '../x-bus';
 import { XPlugin } from '../x-plugin';
@@ -66,7 +66,7 @@ describe('testing X Plugin emitters', () => {
   describe('install XPlugin overriding store emitters', () => {
     const newSearchBoxQueryChangedSelector = jest.fn();
     const pluginOptions: XPluginOptions = {
-      adapter: SearchAdapterDummy,
+      adapter: XComponentsAdapterDummy,
       __PRIVATE__xModules: {
         searchBox: {
           storeEmitters: {
@@ -118,7 +118,7 @@ describe('testing X Plugin emitters', () => {
     beforeEach(() => {
       XPlugin.registerXModule(xModule);
       localVue.use(plugin, {
-        adapter: SearchAdapterDummy,
+        adapter: XComponentsAdapterDummy,
         __PRIVATE__xModules: {
           searchBox: {
             storeEmitters: {
@@ -158,7 +158,7 @@ describe('testing X Plugin emitters', () => {
     // eslint-disable-next-line max-len
     it('should not execute wires with immediate `false` when the module is registered', async () => {
       const pluginOptions: XPluginOptions = {
-        adapter: SearchAdapterDummy,
+        adapter: XComponentsAdapterDummy,
         xModules: {
           searchBox: {
             wiring
@@ -187,7 +187,7 @@ describe('testing X Plugin emitters', () => {
 
     it('should execute wires with immediate `true` when the module is registered', async () => {
       const pluginOptions: XPluginOptions = {
-        adapter: SearchAdapterDummy,
+        adapter: XComponentsAdapterDummy,
         xModules: {
           searchBox: {
             wiring
@@ -226,7 +226,7 @@ describe('testing X Plugin emitters', () => {
         }
       };
       const pluginOptions: XPluginOptions = {
-        adapter: SearchAdapterDummy,
+        adapter: XComponentsAdapterDummy,
         xModules: {
           searchBox: {
             wiring

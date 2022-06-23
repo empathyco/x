@@ -1,4 +1,4 @@
-import { extractUrlParameters, getTaggingInfoFromUrl } from '../url';
+import { extractUrlParameters, getTaggingInfoFromUrl } from '../url.utils';
 
 describe('url utils methods tests', () => {
   describe('extractUrlParameters', () => {

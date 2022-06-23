@@ -2,7 +2,7 @@ import { deepMerge } from '@empathyco/x-deep-merge';
 import { forEach, Dictionary } from '@empathyco/x-utils';
 import { PluginObject, VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
-import { PlatformAdapter } from '@empathyco/x-adapter-platform';
+import { XComponentsAdapter } from '@empathyco/x-types';
 import { FILTERS_REGISTRY } from '../filters/filters.registry';
 import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
@@ -24,7 +24,7 @@ import { assertXPluginOptionsAreValid } from './x-plugin.utils';
  */
 export class XPlugin implements PluginObject<XPluginOptions> {
   /**
-   * {@link @empathyco/x-adapter-platform#PlatformAdapter | PlatformAdapter} Is the middleware
+   * {@link @empathyco/x-typesm#XComponentsAdapter | XComponentsAdapter} Is the middleware
    * between the components and our API where data can be mapped to client needs.
    * This property is only available after installing the plugin.
    *
@@ -32,7 +32,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @throws If this property is accessed before calling `Vue.use(xPlugin)`.
    * @public
    */
-  public static get adapter(): PlatformAdapter {
+  public static get adapter(): XComponentsAdapter {
     return this.getInstance().adapter;
   }
 
@@ -101,7 +101,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    *
    * @internal
    */
-  protected adapter!: PlatformAdapter;
+  protected adapter!: XComponentsAdapter;
 
   /**
    * Set of the already installed {@link XModule | XModules} to avoid re-registering them.
@@ -413,8 +413,10 @@ export class XPlugin implements PluginObject<XPluginOptions> {
  * {@link XComponentAPI | X Component API }.
  *
  * @example
- * Minimal installation example. A search adapter is needed for the plugin to work, and connect to
- * the API.
+ * Minimal installation example. An API adapter is needed to connect the X Components with the
+ * suggestions, search, or tagging APIs. In this example we are using the default Empathy's platform
+ * adapter.
+ *
  * ```typescript
  *  import { platformAdapter } from '@empathyco/x-adapter-platform';
  *  Vue.use(xPlugin, { adapter: platformAdapter });
