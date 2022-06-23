@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.118](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.117...@empathyco/x-components@3.0.0-alpha.118) (2022-06-23)
+
+### Features
+
+- **identifier-results:** add maxItemsToRender prop (#576)
+  ([c740b8b](https://github.com/empathyco/x/commit/c740b8b8c1a66d25eb8cc2aaa84303cb186ae8ea)),
+  closes [EX-6414](https://searchbroker.atlassian.net/browse/EX-6414)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.117](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.116...@empathyco/x-components@3.0.0-alpha.117) (2022-06-23)
 
 ### Features
