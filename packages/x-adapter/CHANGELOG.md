@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.2...@empathyco/x-adapter@8.0.0-alpha.3) (2022-06-24)
+
+### Features
+
+- **x-adapter:** Add `sendParamsInBody` option to `RequestOptions` (#577)
+  ([9d04e6e](https://github.com/empathyco/x/commit/9d04e6eb7ceed81aeca4215db6e8302f0ab3705a)),
+  closes [EX-6450](https://searchbroker.atlassian.net/browse/EX-6450)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [8.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.1...@empathyco/x-adapter@8.0.0-alpha.2) (2022-06-23)
 
 ### Bug Fixes
