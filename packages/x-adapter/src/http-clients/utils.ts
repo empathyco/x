@@ -1,4 +1,4 @@
-import { Dictionary, flatObject, forEach } from '@empathyco/x-utils';
+import { Dictionary, forEach } from '@empathyco/x-utils';
 import { RequestError } from './errors/request-error';
 
 /**
@@ -31,8 +31,7 @@ export function toJson(response: Response): Promise<any> {
  */
 export function buildUrl(endpoint: string, params: Dictionary<unknown> = {}): URL['href'] {
   const url = new URL(endpoint);
-  const flattenedParams = flatObject(params);
-  forEach(flattenedParams, (key, value) =>
+  forEach(params, (key, value) =>
     (Array.isArray(value) ? value : [value]).forEach(arrayItemValue =>
       url.searchParams.append(key, String(arrayItemValue))
     )
