@@ -31,6 +31,17 @@
         </label>
       </li>
       <li class="x-test-controls__item x-list__item">
+        <label for="searchInput.instant">
+          search-input - blacklisted characters
+          <input
+            v-model="controls.searchInput.blacklistedCharacters"
+            id="searchInput.blackListedCharacters"
+            type="text"
+            data-test="search-input-blacklistedCharacters"
+          />
+        </label>
+      </li>
+      <li class="x-test-controls__item x-list__item">
         <label for="popularSearches.maxItemsToRender">
           popular-searches - maxItemsToRender
           <input
@@ -79,6 +90,7 @@
                   placeholder="Search"
                   :instant="controls.searchInput.instant"
                   :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
+                  :blacklistedCharacters="controls.searchInput.blacklistedCharacters"
                 />
                 <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
                 <SearchButton aria-label="Search" class="x-input-group__action">
@@ -618,7 +630,8 @@
     protected controls = {
       searchInput: {
         instant: true,
-        instantDebounceInMs: 500 // default
+        instantDebounceInMs: 500, // default
+        blacklistedCharacters: '<>' // default
       },
       popularSearches: {
         maxItemsToRender: 10
