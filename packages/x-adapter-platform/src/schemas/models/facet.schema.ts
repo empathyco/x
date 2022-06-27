@@ -12,7 +12,7 @@ import { PlatformFacet, PlatformHierarchicalFilter } from '../../types/models/fa
 import { getFacetConfig } from '../facets/utils';
 import { FacetsConfig } from '../facets/types';
 
-export const facetMutableSchema = createMutableSchema<
+export const facetSchema = createMutableSchema<
   Schema<
     PlatformFacet,
     HierarchicalFacet | NumberRangeFacet | SimpleFacet | EditableNumberRangeFacet

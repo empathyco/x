@@ -3,6 +3,7 @@ import { PlatformBanner } from '../models/banner.model';
 import { PlatformFacet } from '../models/facet.model';
 import { PlatformPromoted } from '../models/promoted.model';
 import { PlatformRedirection } from '../models/redirection.model';
+import { PlatformPartialResult } from '../models/partials.model';
 
 /**
  * Response for the `search` endpoint.
@@ -28,4 +29,5 @@ export interface PlatformSearchResponse {
   promoted: {
     content: PlatformPromoted[];
   };
+  partials: PlatformPartialResult[];
 }

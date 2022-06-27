@@ -3,9 +3,7 @@ import { Redirection } from '@empathyco/x-types';
 import { PlatformRedirection } from '../../types/models/redirection.model';
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
 
-export const redirectionMutableSchema = createMutableSchema<
-  Schema<PlatformRedirection, Redirection>
->({
+export const redirectionSchema = createMutableSchema<Schema<PlatformRedirection, Redirection>>({
   id: 'id',
   url: 'url',
   modelName: () => 'Redirection',
