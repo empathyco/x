@@ -80,7 +80,7 @@
           <!-- Filters -->
           <ExcludeFiltersWithNoResults :filters="facet.filters">
             <SortedFilters>
-              <FiltersSearch>
+              <FiltersSearch :data-test="`filters-search-${facet.id}`">
                 <SlicedFilters
                   :max="controls.slicedFilters.max"
                   :data-test="`${facet.label}-sliced-filters`"
