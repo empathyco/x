@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="$x.totalResults > 0"
     class="
       x-list x-list--padding-05 x-list--padding-top x-list--gap-06 x-list--border x-list--border-top
     "

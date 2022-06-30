@@ -175,7 +175,7 @@
         </template>
 
         <template #main-aside>
-          <Aside />
+          <Aside v-if="$x.totalResults > 0" />
         </template>
 
         <template #main-body>
