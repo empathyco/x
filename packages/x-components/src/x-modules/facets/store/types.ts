@@ -43,6 +43,7 @@ export interface FacetsGetters {
  * @public
  */
 export interface FacetsMutations {
+  mutateFilter(payload: { filter: Filter; newFilterState: Partial<Filter> }): void;
   /**
    * Removes the filter from the {@link FacetsState.filters | filters} record.
    *

@@ -20,7 +20,7 @@ export class NumberRangeFilterEntity implements FilterEntity {
    * @param filter - The filter to deselect.
    */
   deselect(filter: NumberRangeFilter): void {
-    this.store.commit('x/facets/setFilter', { ...filter, selected: false });
+    this.store.commit('x/facets/mutateFilter', { filter, newFilterState: { selected: false } });
     addFacetIfNotPresent(this.store, filter.facetId, 'NumberRangeFacet');
   }
 
@@ -30,7 +30,7 @@ export class NumberRangeFilterEntity implements FilterEntity {
    * @param filter - The filter to select.
    */
   select(filter: NumberRangeFilter): void {
-    this.store.commit('x/facets/setFilter', { ...filter, selected: true });
+    this.store.commit('x/facets/mutateFilter', { filter, newFilterState: { selected: true } });
     addFacetIfNotPresent(this.store, filter.facetId, 'NumberRangeFacet');
   }
 }

@@ -1,4 +1,10 @@
-import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
+import {
+  Facet,
+  Filter,
+  isFacetFilter,
+  HierarchicalFilter,
+  isHierarchicalFacet
+} from '@empathyco/x-types';
 import { Store } from 'vuex';
 import { XPlugin } from '../../../plugins/index';
 import { RootXStoreState } from '../../../store/index';
@@ -103,9 +109,29 @@ export class DefaultFacetsService implements FacetsService {
       this.setFacetGroup({ facetId: facet.id, groupId: facetsGroup.id });
       this.setFacet(facet);
     });
-    const newFilters = facetsGroup.facets.flatMap(facet => facet.filters);
+    const newFilters = this.flatFilters(facetsGroup);
     this.setFilters(newFilters);
     return newFilters;
+  }
+
+  protected flatFilters(facetsGroup: FacetsGroup): Filter[] {
+    return facetsGroup.facets.flatMap(facet =>
+      isHierarchicalFacet(facet) ? this.flatHierarchicalFilters(facet.filters) : facet.filters
+    );
+  }
+
+  protected flatHierarchicalFilters(
+    hierarchicalFilters: HierarchicalFilter[]
+  ): HierarchicalFilter[] {
+    return [
+      ...hierarchicalFilters,
+      ...hierarchicalFilters.reduce((accumulator, value) => {
+        if (value.children != null) {
+          accumulator.push(...this.flatHierarchicalFilters(value.children));
+        }
+        return accumulator;
+      }, [] as HierarchicalFilter[])
+    ];
   }
 
   /**
@@ -158,6 +184,7 @@ export class DefaultFacetsService implements FacetsService {
     this.removeFilters(filtersToRemove);
     return filtersToRemove;
   }
+
   /**
    * Removes the facets that belong to the given group.
    *

@@ -251,8 +251,26 @@ export function getHierarchicalFacetStub(): HierarchicalFacet {
         totalResults: 1,
         modelName: 'HierarchicalFilter',
         children: [
-          'hierarchical_category:"rompecabezas-faciles"',
-          'hierarchical_category:"rompecabezas-dificiles"'
+          {
+            facetId: 'hierarchical_category',
+            parentId: 'hierarchical_category:"rompecabezas"',
+            id: 'hierarchical_category:"rompecabezas-faciles"',
+            label: 'Rompecabezas difíciles',
+            selected: false,
+            totalResults: 1,
+            modelName: 'HierarchicalFilter',
+            children: []
+          },
+          {
+            facetId: 'hierarchical_category',
+            parentId: 'hierarchical_category:"rompecabezas"',
+            id: 'hierarchical_category:"rompecabezas-dificiles"',
+            label: 'Rompecabezas fáciles',
+            selected: false,
+            totalResults: 1,
+            modelName: 'HierarchicalFilter',
+            children: []
+          }
         ]
       },
       {

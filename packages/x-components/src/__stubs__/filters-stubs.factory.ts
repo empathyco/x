@@ -135,7 +135,7 @@ export function createHierarchicalFilter(
   facetId: string,
   label: string,
   selected = false,
-  children: HierarchicalFilter['id'][] = []
+  children: HierarchicalFilter[] = []
 ): HierarchicalFilter {
   return {
     facetId,
@@ -226,9 +226,7 @@ export function createHierarchicalFilterFactory(
       ? createChildren(createHierarchicalFilterFactory(facetId, filter.id))
       : [];
     filter.parentId = parentId;
-    filter.children = children
-      .filter(child => child.parentId === filter.id)
-      .map(filter => filter.id);
+    filter.children = children.filter(child => child.parentId === filter.id);
     return [filter, ...children];
   };
 }
