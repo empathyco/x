@@ -108,7 +108,7 @@
         </template>
 
         <template #header-end>
-          <BaseEventButton class="x-button--ghost" :events="eventsToCloseX">
+          <BaseEventButton class="x-button x-button--ghost" :events="eventsToCloseX">
             <CrossIcon />
           </BaseEventButton>
         </template>
@@ -175,142 +175,7 @@
         </template>
 
         <template #main-aside>
-          <div
-            v-if="$x.totalResults > 0"
-            class="
-              x-list
-              x-list--padding-05
-              x-list--padding-top
-              x-list--gap-06
-              x-list--border
-              x-list--border-top
-            "
-          >
-            <FacetsProvider :facets="staticFacets" />
-            <ClearFilters />
-            <SelectedFiltersList>
-              <template #default="{ filter }">
-                <SimpleFilter :filter="filter" class="x-tag" />
-              </template>
-            </SelectedFiltersList>
-
-            <!-- Facets -->
-            <Facets class="x-list--gap-06" renderable-facets="!rootCategories_facet">
-              <!--  Hierarchical Facet    -->
-              <template #hierarchical-category="{ facet }">
-                <BaseHeaderTogglePanel class="x-facet">
-                  <template #header-content>
-                    <span class="x-ellipsis">{{ facet.label }}</span>
-                    <ChevronDown />
-                  </template>
-                  <!-- Filters -->
-                  <SlicedFilters max="4" :filters="facet.filters">
-                    <FiltersList v-slot="{ filter }">
-                      <HierarchicalFilter :filter="filter" :data-test="`${facet.label}-filter`" />
-                    </FiltersList>
-                  </SlicedFilters>
-                </BaseHeaderTogglePanel>
-              </template>
-              <template #category-paths="{ facet }">
-                <BaseHeaderTogglePanel class="x-facet">
-                  <template #header-content>
-                    <span class="x-ellipsis">{{ facet.label }}</span>
-                    <ChevronDown />
-                  </template>
-                  <!-- Filters -->
-                  <SlicedFilters max="4" :filters="facet.filters">
-                    <FiltersList v-slot="{ filter }">
-                      <HierarchicalFilter :filter="filter" :data-test="`${facet.label}-filter`" />
-                    </FiltersList>
-                  </SlicedFilters>
-                </BaseHeaderTogglePanel>
-              </template>
-
-              <!--  Brand Facet    -->
-              <template #brand-facet="{ facet }">
-                <BaseHeaderTogglePanel class="x-facet">
-                  <template #header-content>
-                    <span :data-test="facet.label" class="x-ellipsis">{{ facet.label }}</span>
-                    <span data-test="total-filters">{{ facet.filters.length }}</span>
-                    <ChevronDown />
-                  </template>
-
-                  <!-- Filters -->
-                  <ExcludeFiltersWithNoResults :filters="facet.filters">
-                    <SortedFilters>
-                      <FiltersSearch>
-                        <SlicedFilters
-                          :max="controls.slicedFilters.max"
-                          :data-test="`${facet.label}-sliced-filters`"
-                        >
-                          <FiltersList
-                            v-slot="{
-                              // eslint-disable-next-line vue/no-unused-vars
-                              filter
-                            }"
-                          >
-                            <SimpleFilter
-                              #label="{ filter }"
-                              :filter="filter"
-                              :data-test="`${facet.label}-filter`"
-                            >
-                              {{ filter.label }}
-                              <span data-test="brand-filter-total-results">
-                                {{ filter.totalResults }}
-                              </span>
-                            </SimpleFilter>
-                          </FiltersList>
-                        </SlicedFilters>
-                      </FiltersSearch>
-                    </SortedFilters>
-                  </ExcludeFiltersWithNoResults>
-                </BaseHeaderTogglePanel>
-              </template>
-
-              <!--  Default Facet    -->
-              <template #default="{ facet }">
-                <BaseHeaderTogglePanel class="x-facet">
-                  <template #header-content>
-                    <span :data-test="facet.label" class="x-ellipsis">{{ facet.label }}</span>
-                    <ChevronDown />
-                  </template>
-
-                  <!-- Filters -->
-                  <ExcludeFiltersWithNoResults :filters="facet.filters">
-                    <SortedFilters>
-                      <SlicedFilters
-                        :max="controls.slicedFilters.max"
-                        :data-test="`${facet.label}-sliced-filters`"
-                      >
-                        <SelectedFilters #default="{ selectedFilters }" :facetsIds="[facet.id]">
-                          <span :data-test="`${facet.label}-selected-filters`">
-                            {{ selectedFilters.length }}
-                          </span>
-                        </SelectedFilters>
-                        <FiltersList v-slot="{ filter }">
-                          <SimpleFilter
-                            #label
-                            :filter="filter"
-                            :data-test="`${facet.label}-filter`"
-                          >
-                            <BasePriceFilterLabel
-                              v-if="facet.id === 'price'"
-                              :filter="filter"
-                              class="x-filter__label"
-                              format="ii.dd €"
-                              lessThan="Less than {max}"
-                              fromTo="From {min} to {max}"
-                              from="More than {min}"
-                            />
-                          </SimpleFilter>
-                        </FiltersList>
-                      </SlicedFilters>
-                    </SortedFilters>
-                  </ExcludeFiltersWithNoResults>
-                </BaseHeaderTogglePanel>
-              </template>
-            </Facets>
-          </div>
+          <Aside v-if="$x.totalResults > 0" />
         </template>
 
         <template #main-body>
@@ -445,7 +310,6 @@
 </template>
 
 <script lang="ts">
-  import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   // eslint-disable-next-line max-len
@@ -457,10 +321,8 @@
   import BaseGrid from '../../components/base-grid.vue';
   import BaseVariableColumnGrid from '../../components/base-variable-column-grid.vue';
   import BaseColumnPickerList from '../../components/column-picker/base-column-picker-list.vue';
-  import BasePriceFilterLabel from '../../components/filters/labels/base-price-filter-label.vue';
   import ArrowRight from '../../components/icons/arrow-right.vue';
   import CheckTiny from '../../components/icons/check-tiny.vue';
-  import ChevronDown from '../../components/icons/chevron-down.vue';
   import ChevronLeft from '../../components/icons/chevron-left.vue';
   import ChevronRight from '../../components/icons/chevron-right.vue';
   import ChevronTinyDown from '../../components/icons/chevron-tiny-down.vue';
@@ -474,14 +336,13 @@
   import Nq1 from '../../components/icons/nq-1.vue';
   import SearchIcon from '../../components/icons/search.vue';
   import BaseEventButton from '../../components/base-event-button.vue';
-  import { BaseKeyboardNavigation } from '../../components/index';
+  import { BaseKeyboardNavigation, XProvide } from '../../components/index';
   // eslint-disable-next-line max-len
   import MultiColumnMaxWidthLayout from '../../components/layouts/multi-column-max-width-layout.vue';
   import LocationProvider from '../../components/location-provider.vue';
   import BaseEventsModalClose from '../../components/modals/base-events-modal-close.vue';
   import BaseEventsModalOpen from '../../components/modals/base-events-modal-open.vue';
   import BaseEventsModal from '../../components/modals/base-events-modal.vue';
-  import BaseHeaderTogglePanel from '../../components/panels/base-header-toggle-panel.vue';
   import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
   import BaseIdTogglePanel from '../../components/panels/base-id-toggle-panel.vue';
   import PreselectedFilters from '../../x-modules/facets/components/preselected-filters.vue';
@@ -495,21 +356,6 @@
   import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue';
   // eslint-disable-next-line max-len
   import SnippetConfigExtraParams from '../../x-modules/extra-params/components/snippet-config-extra-params.vue';
-  import ClearFilters from '../../x-modules/facets/components/clear-filters.vue';
-  import FacetsProvider from '../../x-modules/facets/components/facets/facets-provider.vue';
-  import Facets from '../../x-modules/facets/components/facets/facets.vue';
-  // eslint-disable-next-line max-len
-  import HierarchicalFilter from '../../x-modules/facets/components/filters/hierarchical-filter.vue';
-  import SimpleFilter from '../../x-modules/facets/components/filters/simple-filter.vue';
-  // eslint-disable-next-line max-len
-  import ExcludeFiltersWithNoResults from '../../x-modules/facets/components/lists/exclude-filters-with-no-results.vue';
-  import FiltersList from '../../x-modules/facets/components/lists/filters-list.vue';
-  import FiltersSearch from '../../x-modules/facets/components/lists/filters-search.vue';
-  // eslint-disable-next-line max-len
-  import SelectedFiltersList from '../../x-modules/facets/components/lists/selected-filters-list.vue';
-  import SelectedFilters from '../../x-modules/facets/components/lists/selected-filters.vue';
-  import SlicedFilters from '../../x-modules/facets/components/lists/sliced-filters.vue';
-  import SortedFilters from '../../x-modules/facets/components/lists/sorted-filters.vue';
   import NextQueriesList from '../../x-modules/next-queries/components/next-queries-list.vue';
   import NextQueries from '../../x-modules/next-queries/components/next-queries.vue';
   import { NextQuery } from '../../x-modules/next-queries/index';
@@ -534,53 +380,45 @@
   import Spellcheck from '../../x-modules/search/components/spellcheck.vue';
   import Tagging from '../../x-modules/tagging/components/tagging.vue';
   import UrlHandler from '../../x-modules/url/components/url-handler.vue';
+  import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
+  import { HomeControls } from './types';
 
   @Component({
     directives: {
       infiniteScroll
     },
     components: {
-      BaseEventButton,
-      PreselectedFilters,
       ArrowRight,
+      Aside,
       AutoProgressBar,
       Banner,
       BannersList,
       BaseColumnPickerList,
       BaseDropdown,
+      BaseEventButton,
       BaseEventsModal,
       BaseEventsModalClose,
       BaseEventsModalOpen,
       BaseGrid,
-      BaseHeaderTogglePanel,
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
       BaseKeyboardNavigation,
-      BasePriceFilterLabel,
       BaseResultImage,
       BaseSuggestions,
       BaseVariableColumnGrid,
       CheckTiny,
-      ChevronDown,
       ChevronLeft,
       ChevronRight,
       ChevronTinyDown,
       ChevronTinyLeft,
       ChevronTinyRight,
       ChevronUp,
-      ClearFilters,
       ClearSearchInput,
       CrossIcon,
-      ExcludeFiltersWithNoResults,
-      Facets,
-      FacetsProvider,
-      FiltersList,
-      FiltersSearch,
       Grid1Col,
       Grid2Col,
-      HierarchicalFilter,
       LightBulbOn,
       LocationProvider,
       MainScrollItem,
@@ -592,6 +430,7 @@
       PartialQueryButton,
       PartialResultsList,
       PredictiveLayer,
+      PreselectedFilters,
       Promoted,
       PromotedsList,
       Recommendations,
@@ -604,16 +443,11 @@
       SearchButton,
       SearchIcon,
       SearchInput,
-      SelectedFilters,
-      SelectedFiltersList,
-      SimpleFilter,
-      SlicedFilters,
       SlidingPanel,
       SnippetCallbacks,
       SnippetConfigExtraParams,
       SortDropdown,
       SortList,
-      SortedFilters,
       Spellcheck,
       SpellcheckButton,
       Tagging,
@@ -629,7 +463,9 @@
     protected sortDropdownAnimation = CollapseHeight;
     protected selectedColumns = 4;
     protected sortValues = ['', 'price asc', 'price desc'];
-    protected controls = {
+
+    @XProvide('controls')
+    public controls: HomeControls = {
       searchInput: {
         instant: true,
         instantDebounceInMs: 500 // default
@@ -658,22 +494,6 @@
       'UserClickedOpenEventsModal',
       'UserOpenXProgrammatically',
       'UserClickedOpenX'
-    ];
-    protected staticFacets: Facet[] = [
-      {
-        modelName: 'SimpleFacet',
-        label: 'offer',
-        id: 'offer',
-        filters: [
-          {
-            facetId: 'offer',
-            modelName: 'SimpleFilter',
-            id: 'price:[0 TO 10]',
-            selected: false,
-            label: 'In Offer'
-          } as SimpleFilterModel
-        ]
-      }
     ];
   }
 </script>
