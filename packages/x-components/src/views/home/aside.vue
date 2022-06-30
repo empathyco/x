@@ -13,23 +13,9 @@
     </SelectedFiltersList>
 
     <!-- Facets -->
-    <Facets class="x-list--gap-06" renderable-facets="!rootCategories_facet">
+    <Facets class="x-list--gap-06">
       <!--  Hierarchical Facet    -->
-      <template #hierarchical-category="{ facet }">
-        <BaseHeaderTogglePanel class="x-facet">
-          <template #header-content>
-            <span class="x-ellipsis">{{ facet.label }}</span>
-            <ChevronDown />
-          </template>
-          <!-- Filters -->
-          <SlicedFilters max="4" :filters="facet.filters">
-            <FiltersList v-slot="{ filter }">
-              <HierarchicalFilter :filter="filter" :data-test="`${facet.label}-filter`" />
-            </FiltersList>
-          </SlicedFilters>
-        </BaseHeaderTogglePanel>
-      </template>
-      <template #category-paths="{ facet }">
+      <template #hierarchical-facet="{ facet }">
         <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>
             <span class="x-ellipsis">{{ facet.label }}</span>
@@ -44,8 +30,46 @@
         </BaseHeaderTogglePanel>
       </template>
 
-      <!--  Brand Facet    -->
-      <template #brand-facet="{ facet }">
+      <!--  Range Facet    -->
+      <template #number-range-facet="{ facet }">
+        <BaseHeaderTogglePanel class="x-facet">
+          <template #header-content>
+            <span :data-test="facet.label" class="x-ellipsis">{{ facet.label }}</span>
+            <ChevronDown />
+          </template>
+          <!-- Filters -->
+          <ExcludeFiltersWithNoResults :filters="facet.filters">
+            <SortedFilters>
+              <SlicedFilters
+                :max="controls.slicedFilters.max"
+                :data-test="`${facet.label}-sliced-filters`"
+              >
+                <SelectedFilters #default="{ selectedFilters }" :facetsIds="[facet.id]">
+                  <span :data-test="`${facet.label}-selected-filters`">
+                    {{ selectedFilters.length }}
+                  </span>
+                </SelectedFilters>
+                <FiltersList v-slot="{ filter }">
+                  <SimpleFilter #label :filter="filter" :data-test="`${facet.label}-filter`">
+                    <BasePriceFilterLabel
+                      v-if="facet.id === 'price'"
+                      :filter="filter"
+                      class="x-filter__label"
+                      format="ii.dd €"
+                      lessThan="Less than {max}"
+                      fromTo="From {min} to {max}"
+                      from="More than {min}"
+                    />
+                  </SimpleFilter>
+                </FiltersList>
+              </SlicedFilters>
+            </SortedFilters>
+          </ExcludeFiltersWithNoResults>
+        </BaseHeaderTogglePanel>
+      </template>
+
+      <!--  Default Facet    -->
+      <template #default="{ facet }">
         <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>
             <span :data-test="facet.label" class="x-ellipsis">{{ facet.label }}</span>
@@ -84,45 +108,6 @@
           </ExcludeFiltersWithNoResults>
         </BaseHeaderTogglePanel>
       </template>
-
-      <!--  Default Facet    -->
-      <template #default="{ facet }">
-        <BaseHeaderTogglePanel class="x-facet">
-          <template #header-content>
-            <span :data-test="facet.label" class="x-ellipsis">{{ facet.label }}</span>
-            <ChevronDown />
-          </template>
-
-          <!-- Filters -->
-          <ExcludeFiltersWithNoResults :filters="facet.filters">
-            <SortedFilters>
-              <SlicedFilters
-                :max="controls.slicedFilters.max"
-                :data-test="`${facet.label}-sliced-filters`"
-              >
-                <SelectedFilters #default="{ selectedFilters }" :facetsIds="[facet.id]">
-                  <span :data-test="`${facet.label}-selected-filters`">
-                    {{ selectedFilters.length }}
-                  </span>
-                </SelectedFilters>
-                <FiltersList v-slot="{ filter }">
-                  <SimpleFilter #label :filter="filter" :data-test="`${facet.label}-filter`">
-                    <BasePriceFilterLabel
-                      v-if="facet.id === 'price'"
-                      :filter="filter"
-                      class="x-filter__label"
-                      format="ii.dd €"
-                      lessThan="Less than {max}"
-                      fromTo="From {min} to {max}"
-                      from="More than {min}"
-                    />
-                  </SimpleFilter>
-                </FiltersList>
-              </SlicedFilters>
-            </SortedFilters>
-          </ExcludeFiltersWithNoResults>
-        </BaseHeaderTogglePanel>
-      </template>
     </Facets>
   </div>
 </template>
@@ -150,6 +135,7 @@
   import SelectedFilters from '../../x-modules/facets/components/lists/selected-filters.vue';
   import SlicedFilters from '../../x-modules/facets/components/lists/sliced-filters.vue';
   import SortedFilters from '../../x-modules/facets/components/lists/sorted-filters.vue';
+  import { HomeControls } from './types';
 
   @Component({
     components: {
@@ -172,11 +158,7 @@
   })
   export default class Aside extends Vue {
     @XInject('controls')
-    public controls!: {
-      slicedFilters: {
-        max: number;
-      };
-    };
+    public controls!: HomeControls;
 
     protected staticFacets: Facet[] = [
       {

@@ -383,6 +383,7 @@
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
+  import { HomeControls } from './types';
 
   @Component({
     directives: {
@@ -464,7 +465,7 @@
     protected sortValues = ['', 'price asc', 'price desc'];
 
     @XProvide('controls')
-    public controls = {
+    public controls: HomeControls = {
       searchInput: {
         instant: true,
         instantDebounceInMs: 500 // default
