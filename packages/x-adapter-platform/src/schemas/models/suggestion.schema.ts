@@ -2,7 +2,7 @@ import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import { Suggestion } from '@empathyco/x-types';
 import { PlatformSuggestion } from '../../types/models/suggestion.model';
 
-export const suggestionMutableSchema = createMutableSchema<Schema<PlatformSuggestion, Suggestion>>({
+export const suggestionSchema = createMutableSchema<Schema<PlatformSuggestion, Suggestion>>({
   query: 'title_raw',
   key: 'title_raw',
   modelName: (_, $context) =>

@@ -2,15 +2,15 @@ import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import {
   EditableNumberRangeFacet,
   HierarchicalFacet,
-  HierarchicalFilter,
   NumberRangeFacet,
   SimpleFacet
 } from '@empathyco/x-types';
-import { numberFilterMutableSchema } from '../filters/number-filter.schema';
-import { simpleFilterMutableSchema } from '../filters/simple-filter.schema';
-import { PlatformFacet, PlatformHierarchicalFilter } from '../../types/models/facet.model';
+import { PlatformFacet } from '../../types/models/facet.model';
 import { getFacetConfig } from '../facets/utils';
 import { FacetsConfig } from '../facets/types';
+import { hierarchicalFilterSchema } from './filters/hierarchical-filter.schema';
+import { numberFilterSchema } from './filters/number-filter.schema';
+import { simpleFilterSchema } from './filters/simple-filter.schema';
 
 export const facetSchema = createMutableSchema<
   Schema<
@@ -32,36 +32,17 @@ export const facetSchema = createMutableSchema<
   }
 });
 
-export const hierarchicalFilterMutableSchema = createMutableSchema<
-  Schema<PlatformHierarchicalFilter, HierarchicalFilter>
->({
-  facetId: (_, $context) => $context?.facetId as string,
-  label: 'value',
-  id: 'filter',
-  totalResults: 'count',
-  parentId: (_, $context) => ($context?.parentId as string) ?? null,
-  selected: () => false,
-  modelName: () => 'HierarchicalFilter',
-  children: {
-    $path: 'children.values',
-    $subSchema: '$self',
-    $context: {
-      parentId: 'filter'
-    }
-  }
-});
-
 export const facetsConfig: FacetsConfig = {
   categoryPaths: {
     modelName: 'HierarchicalFacet',
-    schema: hierarchicalFilterMutableSchema
+    schema: hierarchicalFilterSchema
   },
   price: {
     modelName: 'NumberRangeFacet',
-    schema: numberFilterMutableSchema
+    schema: numberFilterSchema
   },
   default: {
     modelName: 'SimpleFacet',
-    schema: simpleFilterMutableSchema
+    schema: simpleFilterSchema
   }
 };

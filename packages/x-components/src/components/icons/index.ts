@@ -26,6 +26,7 @@ export { default as CuratedCheckIcon } from './curated-check.vue';
 export { default as FiltersIcon } from './filters.vue';
 export { default as Grid1ColIcon } from './grid-1-col.vue';
 export { default as Grid2ColIcon } from './grid-2-col.vue';
+export { default as Grid4ColIcon } from './grid-4-col.vue';
 export { default as Grid2RowsIcon } from './grid-2-rows.vue';
 export { default as HideIcon } from './hide.vue';
 export { default as HistoryTinyIcon } from './history-tiny.vue';

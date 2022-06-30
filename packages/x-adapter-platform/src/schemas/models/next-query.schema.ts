@@ -2,7 +2,7 @@ import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import { NextQuery } from '@empathyco/x-types';
 import { PlatformNextQuery } from '../../types/models/next-query.model';
 
-export const nextQueryMutableSchema = createMutableSchema<Schema<PlatformNextQuery, NextQuery>>({
+export const nextQuerySchema = createMutableSchema<Schema<PlatformNextQuery, NextQuery>>({
   query: 'query',
   results: () => [],
   facets: () => [],

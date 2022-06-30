@@ -4,7 +4,7 @@ import { RecommendationsResponse } from '@empathyco/x-types';
 import { PlatformRecommendationsResponse } from '../../types/responses/recommendations-response.model';
 import { resultSchema } from '../models/result.schema';
 
-export const recommendationsResponseMutableSchema = createMutableSchema<
+export const recommendationsResponseSchema = createMutableSchema<
   Schema<PlatformRecommendationsResponse, RecommendationsResponse>
 >({
   results: {
