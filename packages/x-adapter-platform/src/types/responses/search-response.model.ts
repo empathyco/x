@@ -19,6 +19,7 @@ export interface PlatformSearchResponse {
     facets: PlatformFacet[];
     numFound: number;
     spellchecked: string;
+    partials: PlatformPartialResult[];
     tagging: {
       query: string;
     };
@@ -29,5 +30,4 @@ export interface PlatformSearchResponse {
   promoted: {
     content: PlatformPromoted[];
   };
-  partials: PlatformPartialResult[];
 }

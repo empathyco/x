@@ -35,7 +35,7 @@ export const searchResponseSchema = createMutableSchema<
     $subSchema: redirectionSchema
   },
   partialResults: {
-    $path: 'partials',
+    $path: 'catalog.partials',
     $subSchema: partialResultsSchema
   },
   queryTagging: ({ catalog }) => getTaggingInfoFromUrl(catalog?.tagging?.query)
