@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.24...@empathyco/x-adapter-platform@1.0.0-alpha.25) (2022-07-04)
+
+### Features
+
+- **search:** add partial results support (#580)
+  ([68922b8](https://github.com/empathyco/x/commit/68922b8e46495438131ce26b506670f7e7993ea0)),
+  closes [EX-6465](https://searchbroker.atlassian.net/browse/EX-6465)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.23...@empathyco/x-adapter-platform@1.0.0-alpha.24) (2022-06-27)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
