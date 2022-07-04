@@ -7,7 +7,7 @@ import { facetSchema } from '../models/facet.schema';
 import { promotedSchema } from '../models/promoted.schema';
 import { redirectionSchema } from '../models/redirection.schema';
 import { resultSchema } from '../models/result.schema';
-import { partialResultsSchema } from '../models/partia-results.schema';
+import { partialResultsSchema } from '../models/partial-results.schema';
 
 export const searchResponseSchema = createMutableSchema<
   Schema<PlatformSearchResponse, SearchResponse>
