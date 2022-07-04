@@ -7,6 +7,7 @@ import { facetSchema } from '../models/facet.schema';
 import { promotedSchema } from '../models/promoted.schema';
 import { redirectionSchema } from '../models/redirection.schema';
 import { resultSchema } from '../models/result.schema';
+import { partialResultsSchema } from '../models/partial-results.schema';
 
 export const searchResponseSchema = createMutableSchema<
   Schema<PlatformSearchResponse, SearchResponse>
@@ -32,6 +33,10 @@ export const searchResponseSchema = createMutableSchema<
   redirections: {
     $path: 'direct.content',
     $subSchema: redirectionSchema
+  },
+  partialResults: {
+    $path: 'catalog.partials',
+    $subSchema: partialResultsSchema
   },
   queryTagging: ({ catalog }) => getTaggingInfoFromUrl(catalog?.tagging?.query)
 });
