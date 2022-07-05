@@ -13,11 +13,11 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { VueCSSClasses } from '../utils';
+  import { VueCSSClasses } from '../utils/types';
 
   /**
    * Basic switch component to handle boolean values. This component receives
-   * its selected state using a prop, and emits an event whenever the user
+   * its selected state using a prop, and emits a Vue event whenever the user
    * clicks it.
    *
    * @public
@@ -114,7 +114,7 @@ _Try clicking it to see how it changes its state_
 
 ```vue live
 <template>
-  <BaseSwitch :value="value" @change="value = !value" />
+  <BaseSwitch @change="value = !value" :value="value" />
 </template>
 
 <script>
@@ -134,7 +134,7 @@ _Try clicking it to see how it changes its state_
 </script>
 ```
 
-The switch component also supports v-model syntax to reduce to automatically handle its state
+The switch component also supports using the `v-model` directive, to automatically handle its state
 change:
 
 ```vue live
