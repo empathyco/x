@@ -1,7 +1,7 @@
 import { And, Then } from 'cypress-cucumber-preprocessor/steps';
 
 Then('only filters with totalResults undefined or greater than 0 are shown in facet', () => {
-  cy.getByDataTest('brand-filter-total-results')
+  cy.getByDataTest('brand_facet-filter-total-results')
     .should('exist')
     .should($totalResultsElements => {
       $totalResultsElements.each((_, totalResults) => {
