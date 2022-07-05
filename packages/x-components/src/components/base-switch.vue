@@ -60,21 +60,22 @@
 
 <style lang="scss" scoped>
   .x-switch {
-    --x-switch-height: var(--x-size-base-06);
+    --x-switch-height: var(--x-size-base-05);
+    --x-switch-width: calc(2 * (var(--x-switch-height)) + 2 * var(--x-switch-padding));
     --x-switch-background: var(--x-color-base-neutral-70);
     --x-switch-padding: var(--x-size-base-01);
-    box-sizing: border-box;
+    --x-switch-handle-size: calc(var(--x-switch-height));
+    box-sizing: content-box;
     height: var(--x-switch-height);
     padding: var(--x-switch-padding);
     border-radius: var(--x-size-border-radius-base-pill);
     background: var(--x-switch-background);
-    width: calc(2 * var(--x-switch-height));
+    width: var(--x-switch-width);
     border: none;
     transition: 0.25s ease-out background-color;
     cursor: pointer;
 
     &__handle {
-      --x-switch-handle-size: calc(var(--x-switch-height) - 2 * var(--x-switch-padding));
       background: var(--x-color-base-neutral-100);
       border-radius: 50%;
       height: var(--x-switch-handle-size);
@@ -84,16 +85,16 @@
     }
 
     &--is-selected {
-      --x-switch-translate-x: calc(100% + 2 * var(--x-switch-padding));
+      --x-switch-translate-x: calc(var(--x-switch-padding) + var(--x-switch-width) / 2);
       --x-switch-background: var(--x-color-base-neutral-10);
     }
 
     &--sm {
-      --x-switch-height: var(--x-size-base-05);
+      --x-switch-height: var(--x-size-base-04);
     }
 
     &--lg {
-      --x-switch-height: var(--x-size-base-07);
+      --x-switch-height: var(--x-size-base-06);
     }
   }
 </style>
