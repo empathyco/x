@@ -76,10 +76,15 @@
               <div class="x-input-group x-input-group--card">
                 <SearchInput
                   aria-label="Search for products"
-                  placeholder="Search"
                   :instant="controls.searchInput.instant"
                   :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
                 />
+                <SearchInputPlaceholder
+                  :animatedPlaceholders="placeholders"
+                  :animation="placeholderAnimation"
+                >
+                  Find anything
+                </SearchInputPlaceholder>
                 <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
                 <SearchButton aria-label="Search" class="x-input-group__action">
                   <SearchIcon />
@@ -506,6 +511,10 @@
   import ClearSearchInput from '../../x-modules/search-box/components/clear-search-input.vue';
   import SearchButton from '../../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../../x-modules/search-box/components/search-input.vue';
+  // eslint-disable-next-line max-len
+  import SearchInputPlaceholder from '../../x-modules/search-box/components/search-input-placeholder.vue';
+  import Slide from '../../x-modules/search-box/components/placeholder-animations/slide.vue';
+  import Fade from '../../x-modules/search-box/components/placeholder-animations/fade.vue';
   import Banner from '../../x-modules/search/components/banner.vue';
   import BannersList from '../../x-modules/search/components/banners-list.vue';
   import PartialQueryButton from '../../x-modules/search/components/partial-query-button.vue';
@@ -562,6 +571,7 @@
       ExcludeFiltersWithNoResults,
       Facets,
       FacetsProvider,
+      Fade,
       FiltersList,
       FiltersSearch,
       Grid1Col,
@@ -590,6 +600,8 @@
       SearchButton,
       SearchIcon,
       SearchInput,
+      SearchInputPlaceholder,
+      Slide,
       SelectedFilters,
       SelectedFiltersList,
       SimpleFilter,
@@ -615,6 +627,8 @@
     protected sortDropdownAnimation = CollapseHeight;
     protected selectedColumns = 4;
     protected sortValues = ['', 'price asc', 'price desc'];
+    protected placeholders = ['milk', 'egg', 'bread', 'ground beef', 'chicken'];
+    protected placeholderAnimation = Slide;
     protected controls = {
       searchInput: {
         instant: true,
