@@ -37,7 +37,7 @@ describe('testing Switch component', () => {
 
   it('supports v-model syntax', async () => {
     const { wrapper } = renderBaseSwitch({
-      template: `<BaseSwitch :value="value" @change="value = !value" />`,
+      template: `<BaseSwitch v-model="value" />`,
       value: false
     });
     expect(wrapper.attributes('role')).toBe('switch');
