@@ -19,6 +19,8 @@
    * Basic switch component to handle boolean values. This component receives
    * its selected state using a prop, and emits an event whenever the user
    * clicks it.
+   *
+   * @public
    */
   @Component({
     model: {
