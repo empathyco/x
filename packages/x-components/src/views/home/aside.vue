@@ -97,7 +97,7 @@
                       :data-test="`${facet.label}-filter`"
                     >
                       {{ filter.label }}
-                      <span data-test="brand-filter-total-results">
+                      <span :data-test="`${facet.label}-filter-total-results`">
                         {{ filter.totalResults }}
                       </span>
                     </SimpleFilter>
