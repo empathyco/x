@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.124](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.123...@empathyco/x-components@3.0.0-alpha.124) (2022-07-06)
+
+### Features
+
+- add 'my_history' as feature location (#587)
+  ([7b0263e](https://github.com/empathyco/x/commit/7b0263e23c9afb2af61174ac53bdedd3eb4263ba)),
+  closes [EX-6527](https://searchbroker.atlassian.net/browse/EX-6527)
+- **components:** add `BaseSwitch` component (#586)
+  ([31cde2d](https://github.com/empathyco/x/commit/31cde2dfb79dcc549c8662b558ef5b80529f2d01)),
+  closes [EX-6004](https://searchbroker.atlassian.net/browse/EX-6004)
+
+### Testing
+
+- fix exclude-filters e2e test (#588)
+  ([51ecc52](https://github.com/empathyco/x/commit/51ecc5234b665a2320a760d485bf6da74648f902)),
+  closes [EX-6590](https://searchbroker.atlassian.net/browse/EX-6590)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.123](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.122...@empathyco/x-components@3.0.0-alpha.123) (2022-07-04)
 
 **Note:** Version bump only for package @empathyco/x-components
