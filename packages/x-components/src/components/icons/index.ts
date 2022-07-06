@@ -53,3 +53,4 @@ export { default as TrashIcon } from './trash.vue';
 export { default as TrendingTinyIcon } from './trending-tiny.vue';
 export { default as TrendingIcon } from './trending.vue';
 export { default as UserIcon } from './user.vue';
+export { default as SettingsIcon } from './settings.vue';
