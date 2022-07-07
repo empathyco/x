@@ -44,6 +44,7 @@ export { default as PlusIcon } from './plus.vue';
 export { default as RadioButtonSelectedIcon } from './radiobutton-selected.vue';
 export { default as RadioButtonUnselectedIcon } from './radiobutton-unselected.vue';
 export { default as SearchIcon } from './search.vue';
+export { default as SettingsIcon } from './settings.vue';
 export { default as ShowIcon } from './show.vue';
 export { default as StarIcon } from './star.vue';
 export { default as SearchTinyIcon } from './search-tiny.vue';
