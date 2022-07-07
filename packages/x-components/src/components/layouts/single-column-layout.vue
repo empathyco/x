@@ -182,30 +182,19 @@
         height: 100%;
         margin-inline-start: var(--x-size-margin-left-layout-single-column, 0);
       }
+    }
+
+    &__predictive ::v-deep,
+    &__floating ::v-deep,
+    ::v-deep .x-layout__aside,
+    .slot-helper ::v-deep {
+      pointer-events: none;
 
       > * {
         pointer-events: all;
       }
 
       .x-list {
-        pointer-events: none;
-
-        > * {
-          pointer-events: all;
-        }
-      }
-    }
-
-    &__predictive,
-    &__floating,
-    .slot-helper {
-      pointer-events: none;
-
-      ::v-deep > * {
-        pointer-events: all;
-      }
-
-      ::v-deep .x-list {
         pointer-events: none;
 
         > * {
