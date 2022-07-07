@@ -99,8 +99,10 @@ export interface XComponentAliasAPI {
   readonly device: string | null;
   /** The {@link FacetsXModule} facets. */
   readonly facets: Record<Facet['id'], Facet>;
-  /** The {@link HistoryQueriesXModule} history queries. */
+  /** The {@link HistoryQueriesXModule} history queries matching the query. */
   readonly historyQueries: ReadonlyArray<HistoryQuery>;
+  /** The {@link HistoryQueriesXModule} history queries. */
+  readonly fullHistoryQueries: ReadonlyArray<HistoryQuery>;
   /** The {@link IdentifierResultsXModule} results. */
   readonly identifierResults: ReadonlyArray<Result>;
   /** The {@link Empathize} is open state. */
