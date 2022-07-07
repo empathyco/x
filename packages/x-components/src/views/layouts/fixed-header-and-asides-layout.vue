@@ -13,6 +13,9 @@
         <BaseIdModalOpen modalId="right-aside" class="x-button--ghost">
           <FiltersIcon class="x-icon--l" />
         </BaseIdModalOpen>
+        <BaseIdModalOpen modalId="extra-aside" class="x-button--ghost">
+          <CartIcon class="x-icon--l" />
+        </BaseIdModalOpen>
       </div>
     </template>
     <template #sub-header>
@@ -32,9 +35,6 @@
         "
       >
         TOOLBAR
-        <BaseIdModalOpen modalId="extra-aside" class="x-button--ghost">
-          <CartIcon class="x-icon--l" />
-        </BaseIdModalOpen>
       </div>
     </template>
     <template #left-aside>
