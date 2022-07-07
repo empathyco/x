@@ -209,12 +209,6 @@
         // layout
         z-index: 3;
         flex-flow: row nowrap;
-
-        .x-modal__content {
-          background-color: transparent;
-          height: 100%;
-          width: var(--x-size-width-layout-aside, 300px);
-        }
       }
 
       // others
@@ -260,6 +254,14 @@
       &--is-visible {
         opacity: 1;
       }
+    }
+  }
+
+  ::v-deep .x-layout__aside {
+    .x-modal__content {
+      background-color: transparent;
+      height: 100%;
+      width: var(--x-size-width-layout-aside, 300px);
     }
   }
 </style>
