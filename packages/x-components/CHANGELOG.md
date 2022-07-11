@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.127](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.126...@empathyco/x-components@3.0.0-alpha.127) (2022-07-11)
+
+### Features
+
+- **components:** add new slot `extra-aside` to `SingleColumnLayout` and
+  `FixedHeaderAndAsidesLayout` (#591)
+  ([91d406e](https://github.com/empathyco/x/commit/91d406ed7267d420009a5f3ee8c5cc092f74546a)),
+  closes [EX-6614](https://searchbroker.atlassian.net/browse/EX-6614)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.126](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.125...@empathyco/x-components@3.0.0-alpha.126) (2022-07-07)
 
 ### Features
