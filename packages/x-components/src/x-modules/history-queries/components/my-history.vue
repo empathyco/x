@@ -34,12 +34,9 @@
                   @binding {number} index - History Query suggestion index
             -->
                 <slot name="suggestion-content" v-bind="{ suggestion, index, formatTime }">
-                  <div class="x-list x-list--horizontal">
-                    <HistoryIcon />
-                    <div class="x-list x-list--vertical">
-                      <span>{{ suggestion.query }}</span>
-                      <span>{{ formatTime(suggestion.timestamp) }}</span>
-                    </div>
+                  <div class="x-list x-list--vertical">
+                    <span>{{ suggestion.query }}</span>
+                    <span>{{ formatTime(suggestion.timestamp) }}</span>
                   </div>
                 </slot>
               </template>
