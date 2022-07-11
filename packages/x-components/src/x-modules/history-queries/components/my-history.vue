@@ -67,7 +67,6 @@
   import { groupItemsBy, isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { historyQueriesXModule } from '../x-module';
-  import HistoryIcon from '../../../components/icons/history.vue';
   import HistoryQueryComponent from './history-query.vue';
 
   /**
@@ -82,7 +81,7 @@
    * @public
    */
   @Component({
-    components: { HistoryQuery: HistoryQueryComponent, BaseSuggestions, HistoryIcon },
+    components: { HistoryQuery: HistoryQueryComponent, BaseSuggestions },
     mixins: [xComponentMixin(historyQueriesXModule)]
   })
   export default class MyHistory extends Vue {
