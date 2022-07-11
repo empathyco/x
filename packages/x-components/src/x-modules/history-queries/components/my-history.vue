@@ -33,10 +33,13 @@
                   @binding {Suggestion} suggestion - History Query suggestion data
                   @binding {number} index - History Query suggestion index
             -->
-                <slot name="suggestion-content" v-bind="{ suggestion, index }">
-                  <div class="x-list x-list--vertical">
-                    <span>{{ suggestion.query }}</span>
-                    <span>{{ formatTime(suggestion.timestamp) }}</span>
+                <slot name="suggestion-content" v-bind="{ suggestion, index, formatTime }">
+                  <div class="x-list x-list--horizontal">
+                    <HistoryIcon />
+                    <div class="x-list x-list--vertical">
+                      <span>{{ suggestion.query }}</span>
+                      <span>{{ formatTime(suggestion.timestamp) }}</span>
+                    </div>
                   </div>
                 </slot>
               </template>
@@ -67,6 +70,7 @@
   import { groupItemsBy, isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { historyQueriesXModule } from '../x-module';
+  import HistoryIcon from '../../../components/icons/history.vue';
   import HistoryQueryComponent from './history-query.vue';
 
   /**
@@ -81,7 +85,7 @@
    * @public
    */
   @Component({
-    components: { HistoryQuery: HistoryQueryComponent, BaseSuggestions },
+    components: { HistoryQuery: HistoryQueryComponent, BaseSuggestions, HistoryIcon },
     mixins: [xComponentMixin(historyQueriesXModule)]
   })
   export default class MyHistory extends Vue {
