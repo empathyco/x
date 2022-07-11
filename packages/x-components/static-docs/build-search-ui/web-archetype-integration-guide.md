@@ -54,11 +54,11 @@ Automatic initialization is the easiest way to integrate the Interface&nbsp;X pr
 1. **Configure the JavaScript snippet** to define either an initialization object or a function.
 2. **Load and initialize** the Interface&nbsp;X script.
 
-#### Configuring the snippet  
+#### Configuring the snippet
 
-First, add the JavaScript snippet configuration to define multiple initialization options, i.e. the API to
-use, the language or currency to display, or even the tagging parameters to collect search-related
-data to generate conversational search features and analytics.
+First, add the JavaScript snippet configuration to define multiple initialization options, i.e. the
+API to use, the language or currency to display, or even the tagging parameters to collect
+search-related data to generate conversational search features and analytics.
 
 Depending on whether you are retrieving **static or dynamic configuration values** in your
 [snippet configuration](#snippet-configuration), you define an **object** or a **function** to
@@ -121,7 +121,7 @@ following scripts to your HTML:
     consent: false
   };
 </script>
-<script src="https://x.empathy.co/my-store/app.js"></script>
+<script src="https://x.empathy.co/my-store/app.js" type="module"></script>
 ```
 
 In the case you want to load the script for the staging environment, you just modify the script
@@ -138,7 +138,7 @@ attribute `src` so that it points to the staging environment as follows:
     consent: false
   };
 </script>
-<script src="https://x.staging.empathy.co/my-store/app.js"></script>
+<script src="https://x.staging.empathy.co/my-store/app.js" type="module"></script>
 ```
 
 Thus, when the Interface&nbsp;X JavaScript file is loaded, it retrieves the configuration from the
@@ -150,7 +150,7 @@ On-demand initialization allows you to control when Interface&nbsp;X is loaded.
 
 **Steps to initialize the project on demand**
 
-1. **Load** the Interface&nbsp;X script. 
+1. **Load** the Interface&nbsp;X script.
 2. **Initialize** Interface&nbsp;X.
 
 #### Loading the script
@@ -162,14 +162,14 @@ For example, to load the production version script for the instance _my-store_, 
 following script to your HTML:
 
 ```html
-<script src="https://x.empathy.co/my-store/app.js"></script>
+<script src="https://x.empathy.co/my-store/app.js" type="module"></script>
 ```
 
 In the case you want to load the script for the staging environment, you just modify the script
 attribute `src` so that it points to the staging environment as follows:
 
 ```html
-<script src="https://x.staging.empathy.co/my-store/app.js"></script>
+<script src="https://x.staging.empathy.co/my-store/app.js" type="module"></script>
 ```
 
 #### Initializing Interface&nbsp;X
