@@ -174,7 +174,7 @@ export interface HistoryQueriesActions {
    *
    * @param isEnabled - Whether to enable or disable the history queries.
    */
-  toggleHistoryQueries(isEnabled: boolean): void;
+  toggleHistoryQueries(isEnabled?: boolean): void;
 }
 /**
  * HistoryQueries type safe store module.

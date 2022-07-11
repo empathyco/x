@@ -44,13 +44,8 @@ export interface HistoryQueriesXEvents {
    */
   UserSelectedAHistoryQuery: HistoryQuery;
   /**
-   * The user has toggled the history queries.
+   * The user has clicked the toggle history queries switch.
    * Payload: whether it has been set to enable or disable.
    */
-  UserToggledHistoryQueries: boolean;
-  /**
-   * The user intends to disable the history queries.
-   * Payload: none.
-   */
-  UserDisableHistoryQueries: void;
+  UserClickedToggleHistoryQueries: boolean | undefined;
 }

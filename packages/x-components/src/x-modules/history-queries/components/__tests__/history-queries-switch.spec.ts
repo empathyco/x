@@ -6,10 +6,10 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { historyQueriesXModule } from '../../x-module';
-import ToggleHistoryQueries from '../toggle-history-queries.vue';
+import HistoryQueriesSwitch from '../history-queries-switch.vue';
 import { resetXHistoryQueriesStateWith } from './utils';
 
-function renderToggleHistoryQueries(): ToggleHistoryQueriesAPI {
+function renderHistoryQueriesSwitch(): HistoryQueriesSwitchAPI {
   const localVue = createLocalVue();
   localVue.use(Vuex);
 
@@ -17,47 +17,47 @@ function renderToggleHistoryQueries(): ToggleHistoryQueriesAPI {
   installNewXPlugin({ store, initialXModules: [historyQueriesXModule] }, localVue);
   resetXHistoryQueriesStateWith(store, { isEnabled: false });
 
-  const wrapper = mount(ToggleHistoryQueries, {
+  const wrapper = mount(HistoryQueriesSwitch, {
     localVue,
     store
   });
+
   return {
-    wrapper: wrapper.findComponent(ToggleHistoryQueries)
+    wrapper
   };
 }
 
-describe('testing ToggleHistoryQueries component', () => {
+describe('testing HistoryQueriesSwitch component', () => {
   it('is an XComponent which has an XModule', () => {
-    const { wrapper } = renderToggleHistoryQueries();
+    const { wrapper } = renderHistoryQueriesSwitch();
+
     expect(isXComponent(wrapper.vm)).toEqual(true);
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('historyQueries');
   });
 
   it('should emit proper events when toggling its state', () => {
-    const { wrapper } = renderToggleHistoryQueries();
+    const { wrapper } = renderHistoryQueriesSwitch();
+    const listener = jest.fn();
 
-    const toggleListener = jest.fn();
-    const disableListener = jest.fn();
-
-    wrapper.vm.$x.on('UserToggledHistoryQueries').subscribe(toggleListener);
-    wrapper.vm.$x.on('UserDisableHistoryQueries').subscribe(disableListener);
+    wrapper.vm.$x.on('UserClickedToggleHistoryQueries').subscribe(listener);
 
     wrapper.trigger('click');
 
-    expect(toggleListener).toHaveBeenCalledTimes(1);
-    expect(toggleListener).toHaveBeenCalledWith(true);
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener).toHaveBeenCalledWith(true);
+    expect(wrapper.vm.$store.state.x.historyQueries.isEnabled).toBe(true);
 
     wrapper.trigger('click');
 
-    expect(disableListener).toHaveBeenCalledTimes(1);
-    expect(disableListener).toHaveBeenCalledWith(undefined);
+    expect(listener).toHaveBeenCalledTimes(2);
+    expect(listener).toHaveBeenCalledWith(undefined);
   });
 });
 
 /**
- * Test API for the {@link ToggleHistoryQueries} component.
+ * Test API for the {@link HistoryQueriesSwitch} component.
  */
-interface ToggleHistoryQueriesAPI {
-  /** The wrapper for toggle history queries component. */
+interface HistoryQueriesSwitchAPI {
+  /** The wrapper for HistoryQueriesSwitch component. */
   wrapper: Wrapper<Vue>;
 }
