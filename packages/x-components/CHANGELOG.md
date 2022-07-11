@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.129](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.128...@empathyco/x-components@3.0.0-alpha.129) (2022-07-11)
+
+### Features
+
+- **history-queries:** bind `formatTime` to `suggestion-content` slot (#598)
+  ([589eef2](https://github.com/empathyco/x/commit/589eef287534e9916dcda7b0ad86626eb450decd)),
+  closes [EX-6611](https://searchbroker.atlassian.net/browse/EX-6611)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.128](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.127...@empathyco/x-components@3.0.0-alpha.128) (2022-07-11)
 
 ### Documentation
