@@ -19,7 +19,7 @@
   })
   export default class Pdp extends Vue {
     addProductToCart(): void {
-      window.X?.addProductToCart();
+      window.InterfaceX?.addProductToCart();
     }
   }
 </script>

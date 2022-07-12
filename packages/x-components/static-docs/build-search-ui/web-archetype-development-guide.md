@@ -142,7 +142,7 @@ Since the X&nbsp;Archetype project operates as a layer and is designed to be int
 any kind of website regardless the chosen technology, the `XInstaller` utility and its
 `installXOptions` object are designed to install the xPlugin, adding the connection between the
 X&nbsp;Components and the search API and bootstrapping the entire application with powerful APIs
-that are available in the `window.X` object.
+that are available in the `window.InterfaceX` object.
 
 To configure the xPlugin, run this code:
 
