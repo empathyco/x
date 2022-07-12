@@ -6,6 +6,7 @@
     @leave="collapse"
     appear
     name="x-collapse-width-"
+    v-bind="$attrs"
   >
     <!-- @slot (Required) to add content to the transition -->
     <slot />
@@ -26,7 +27,9 @@
   @Component({
     mixins: [createCollapseAnimationMixin('width')]
   })
-  export default class CollapseWidth extends Vue {}
+  export default class CollapseWidth extends Vue {
+    // TODO Add support for extending enter, after-enter and leave transitions
+  }
 </script>
 
 <style lang="scss" scoped>

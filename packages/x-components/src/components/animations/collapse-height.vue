@@ -6,6 +6,7 @@
     @leave="collapse"
     appear
     name="x-collapse-height-"
+    v-bind="$attrs"
   >
     <!-- @slot (Required) to add content to the transition -->
     <slot />
@@ -24,16 +25,19 @@
    * @public
    */
   @Component({
-    mixins: [createCollapseAnimationMixin('height')]
+    mixins: [createCollapseAnimationMixin('height')],
+    inheritAttrs: true
   })
-  export default class CollapseHeight extends Vue {}
+  export default class CollapseHeight extends Vue {
+    // TODO Add support for extending enter, after-enter and leave transitions
+  }
 </script>
 
 <style lang="scss" scoped>
   .x-collapse-height {
     &--enter-active,
     &--leave-active {
-      transition: height 0.3s ease-out;
+      transition: height 5s ease-out;
       overflow: hidden;
     }
   }

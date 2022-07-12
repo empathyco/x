@@ -1,5 +1,5 @@
 <template>
-  <transition v-on="$listeners" appear name="x-cross-fade-" mode="in-out">
+  <transition v-on="$listeners" appear name="x-cross-fade-" mode="in-out" v-bind="$attrs">
     <!-- @slot (Required) to add content to the transition -->
     <slot />
   </transition>
@@ -15,7 +15,9 @@
    *
    * @public
    */
-  @Component
+  @Component({
+    inheritAttrs: false
+  })
   export default class CrossFade extends Vue {}
 </script>
 
