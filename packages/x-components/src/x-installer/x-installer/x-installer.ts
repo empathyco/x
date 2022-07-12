@@ -10,7 +10,7 @@ import { InitWrapper, InstallXOptions, VueConstructorPartialArgument } from './t
 
 declare global {
   interface Window {
-    X?: XAPI;
+    InterfaceX?: XAPI;
     initX?: (() => SnippetConfig) | SnippetConfig;
   }
 }
@@ -48,7 +48,7 @@ declare global {
  *            the Public API:
  *
  * ```
- *            window.X.init(snippetConfig)
+ *            window.InterfaceX.init(snippetConfig)
  * ```
  *
  *        2.3 When the script of the project build is loaded it searches for a global `initX`
@@ -125,7 +125,7 @@ export class XInstaller {
       this.api = api ?? new BaseXAPI();
       this.api.setInitCallback(this.init.bind(this));
       this.api.setSnippetConfigCallback(this.updateSnippetConfig.bind(this));
-      window.X = this.api;
+      window.InterfaceX = this.api;
     }
   }
 

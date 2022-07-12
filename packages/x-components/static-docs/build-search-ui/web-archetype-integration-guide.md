@@ -182,7 +182,7 @@ object to provide the initialization options:
 ```html
 <script src="https://x.empathy.co/my-store/app.js"></script>
 <script>
-  window.X.init({
+  window.InterfaceX.init({
     instance: 'my-store',
     env: 'live',
     scope: 'desktop',
@@ -262,7 +262,7 @@ shopping cart:
 ```html
 <script src="https://x.empathy.co/my-store/app.js"></script>
 <script>
-  window.X.init({
+  window.InterfaceX.init({
     instance: 'my-store',
     env: 'live',
     scope: 'desktop',

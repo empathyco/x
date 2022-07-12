@@ -58,17 +58,17 @@ describe('testing `XInstaller` utility', () => {
   });
 
   it('creates the public API in global scope by default', () => {
-    delete window.X;
+    delete window.InterfaceX;
     new XInstaller({ adapter, plugin, vue: createLocalVue() }).init(snippetConfig);
 
-    expect(window.X).toBeDefined();
-    delete window.X;
+    expect(window.InterfaceX).toBeDefined();
+    delete window.InterfaceX;
   });
 
   it('does not create the public API passing the api parameter to false', () => {
     new XInstaller({ adapter, plugin, api: false, vue: createLocalVue() }).init(snippetConfig);
 
-    expect(window.X).not.toBeDefined();
+    expect(window.InterfaceX).not.toBeDefined();
   });
 
   it('installs the XPlugin using the passed vue', () => {
