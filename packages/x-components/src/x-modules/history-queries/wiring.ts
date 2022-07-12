@@ -149,7 +149,7 @@ export const historyQueriesWiring = createWiring({
   UserClickedEnableHistoryQueries: {
     setHistoryQueriesEnabled
   },
-  UserConfirmedDisableHistoryQueries: {
+  UserClickedConfirmDisableHistoryQueries: {
     setHistoryQueriesDisabled
   }
 });

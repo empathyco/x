@@ -116,7 +116,7 @@ Here you have a more complex example.
       return {
         eventsToOpenModal: ['UserClickedDisableHistoryQueries'],
         disableEvents: {
-          UserConfirmedDisableHistoryQueries: undefined,
+          UserClickedConfirmDisableHistoryQueries: undefined,
           UserClickedCloseEventsModal: undefined
         },
         cancelEvents: {
