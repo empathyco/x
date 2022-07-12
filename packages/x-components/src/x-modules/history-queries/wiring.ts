@@ -5,7 +5,6 @@ import {
 } from '../../wiring/namespaced-wires.factory';
 import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
 import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
-import { filter } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
@@ -92,15 +91,20 @@ export const clearHistoryQueries = wireDispatch('setHistoryQueries', []);
  * @public
  */
 export const removeHistoryQuery = wireDispatch('removeFromHistory');
+
 /**
- * Enables or disables history queries.
+ * Enables history queries.
  *
  * @public
  */
-export const toggleHistoryQueries = filter(
-  wireDispatch('toggleHistoryQueries'),
-  ({ eventPayload: isEnabled }) => isEnabled !== undefined
-);
+export const setHistoryQueriesEnabled = wireDispatch('toggleHistoryQueries', true);
+
+/**
+ * Disables history queries.
+ *
+ * @public
+ */
+export const setHistoryQueriesDisabled = wireDispatch('toggleHistoryQueries', false);
 
 /**
  * Debounce function for the module.
@@ -142,7 +146,10 @@ export const historyQueriesWiring = createWiring({
   UserPressedRemoveHistoryQuery: {
     removeHistoryQuery
   },
-  UserClickedToggleHistoryQueries: {
-    toggleHistoryQueries
+  UserClickedEnableHistoryQueries: {
+    setHistoryQueriesEnabled
+  },
+  UserConfirmedDisableHistoryQueries: {
+    setHistoryQueriesDisabled
   }
 });

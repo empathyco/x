@@ -8,6 +8,6 @@ export const toggleHistoryQueries: HistoryQueriesXStoreModule['actions']['toggle
       await dispatch('setHistoryQueries', []);
     }
 
-    commit('setIsEnabled', isEnabled as boolean);
+    commit('setIsEnabled', isEnabled);
     localStorageService.setItem(HISTORY_QUERIES_ENABLED_KEY, isEnabled);
   };

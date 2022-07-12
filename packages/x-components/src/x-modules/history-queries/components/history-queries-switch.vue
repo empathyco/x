@@ -30,16 +30,14 @@
     public isEnabled!: boolean;
 
     /**
-     * Emit events depending on the switch value.
+     * Emits an event based on the switch state.
      *
      * @internal
      */
     protected toggle(): void {
-      if (this.isEnabled) {
-        this.$x.emit('UserClickedToggleHistoryQueries', undefined);
-      } else {
-        this.$x.emit('UserClickedToggleHistoryQueries', true);
-      }
+      this.$x.emit(
+        this.isEnabled ? 'UserClickedDisableHistoryQueries' : 'UserClickedEnableHistoryQueries'
+      );
     }
   }
 </script>
@@ -49,9 +47,12 @@
 
 A list of events that the component will emit:
 
-- [`UserClickedToggleHistoryQueries`]
-  (x-components.historyqueriesxevents.userclickedtoggledhistoryqueries.md): the event is emitted
-  whenever the user clicks the toggle.
+- [`UserClickedEnableHistoryQueries`]
+  (x-components.historyqueriesxevents.userclickedenablehistoryqueries.md): the event is emitted
+  whenever the user clicks the switch and the history queries are disabled.
+- [`UserClickedDisableHistoryQueries`]
+  (x-components.historyqueriesxevents.userclickeddisablehistoryqueries.md): the event is emitted
+  whenever the user clicks the switch and the history queries are enabled.
 
 ## See it in action
 
@@ -113,9 +114,9 @@ Here you have a more complex example.
     },
     data() {
       return {
-        eventsToOpenModal: ['UserClickedToggleHistoryQueries'],
+        eventsToOpenModal: ['UserClickedDisableHistoryQueries'],
         disableEvents: {
-          UserClickedToggleHistoryQueries: false,
+          UserConfirmedDisableHistoryQueries: undefined,
           UserClickedCloseEventsModal: undefined
         },
         cancelEvents: {

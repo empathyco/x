@@ -37,20 +37,20 @@ describe('testing HistoryQueriesSwitch component', () => {
 
   it('should emit proper events when toggling its state', () => {
     const { wrapper } = renderHistoryQueriesSwitch();
-    const listener = jest.fn();
+    const enableListener = jest.fn();
+    const disableListener = jest.fn();
 
-    wrapper.vm.$x.on('UserClickedToggleHistoryQueries').subscribe(listener);
+    wrapper.vm.$x.on('UserClickedEnableHistoryQueries').subscribe(enableListener);
+    wrapper.vm.$x.on('UserClickedDisableHistoryQueries').subscribe(disableListener);
 
     wrapper.trigger('click');
 
-    expect(listener).toHaveBeenCalledTimes(1);
-    expect(listener).toHaveBeenCalledWith(true);
+    expect(enableListener).toHaveBeenCalledTimes(1);
     expect(wrapper.vm.$store.state.x.historyQueries.isEnabled).toBe(true);
 
     wrapper.trigger('click');
 
-    expect(listener).toHaveBeenCalledTimes(2);
-    expect(listener).toHaveBeenCalledWith(undefined);
+    expect(disableListener).toHaveBeenCalledTimes(1);
   });
 });
 
