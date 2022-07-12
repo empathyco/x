@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.130](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.129...@empathyco/x-components@3.0.0-alpha.130) (2022-07-12)
+
+### Features
+
+- Move `XAPI` from `window.X` to `window.InterfaceX` (#599)
+  ([4538778](https://github.com/empathyco/x/commit/45387783c947f859667f2786ba9013b83b952063)),
+  closes [EX-6645](https://searchbroker.atlassian.net/browse/EX-6645)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.129](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.128...@empathyco/x-components@3.0.0-alpha.129) (2022-07-11)
 
 ### Features
