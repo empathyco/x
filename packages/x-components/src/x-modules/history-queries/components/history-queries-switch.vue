@@ -88,7 +88,7 @@ Here you have a more complex example.
     </div>
     <label>
       History queries:
-      <ToggleHistoryQueries />
+      <HistoryQueriesSwitch />
       <HistoryQueries />
       <BaseEventsModal :eventsToOpenModal="eventsToOpenModal">
         <BaseEventButton :events="disableEvents">Disable</BaseEventButton>
