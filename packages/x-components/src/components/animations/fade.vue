@@ -43,9 +43,28 @@ animate it. The animation just fades in/out the element by changing its opacity.
 
 Wrapping a component:
 
-```vue
-<Fade>
-  <ComponentOrElement v-if="open"/>
-</Fade>
+```vue live
+<template>
+  <div>
+    <button @click="shouldRender = !shouldRender">Toggle</button>
+    <Fade>
+      <p v-if="open">León is southern Spain</p>
+    </Fade>
+  </div>
+</template>
+<script>
+  import { Fade } from '@empathyco/x-components';
+  export default {
+    name: 'FadeAnimationDemo',
+    component: {
+      Fade
+    },
+    data() {
+      return {
+        shouldRender: false
+      };
+    }
+  };
+</script>
 ```
 </docs>
