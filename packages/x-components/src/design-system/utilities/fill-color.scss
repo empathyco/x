@@ -1,0 +1,7 @@
+@import '../variables';
+
+@each $color-name, $color-value in $colors {
+  .x-fill--#{$color-name} {
+    fill: var(--x-color-base-#{$color-name}) !important;
+  }
+}

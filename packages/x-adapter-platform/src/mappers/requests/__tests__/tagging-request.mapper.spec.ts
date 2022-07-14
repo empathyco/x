@@ -20,6 +20,18 @@ describe('taggingRequestMapper tests', () => {
       }
     };
 
-    expect(taggingRequestMapper(internalRequest, {})).toStrictEqual({});
+    expect(taggingRequestMapper(internalRequest, {})).toStrictEqual({
+      filtered: 'false',
+      follow: false,
+      lang: 'en',
+      origin: 'search_box:none',
+      page: '1',
+      position: '1',
+      productId: '12345-U',
+      q: '12345',
+      scope: 'desktop',
+      spellcheck: 'false',
+      title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
+    });
   });
 });

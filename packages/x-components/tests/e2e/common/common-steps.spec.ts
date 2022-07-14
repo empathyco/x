@@ -1,7 +1,6 @@
 import { Given, Then, When, And } from 'cypress-cucumber-preprocessor/steps';
 import { PageableRequest } from '@empathyco/x-types';
 import '../global/global-definitions';
-import 'reflect-metadata';
 import { baseSnippetConfig } from '../../../src/views/base-config';
 
 let resultsList: string[] = [];
@@ -239,6 +238,17 @@ Then(
       .its('request.body')
       .then(JSON.parse)
       .should('have.property', key, value === 'default' ? '' : value);
+  }
+);
+
+Then(
+  'search request contains extra parameter {string} with value {string}',
+  (key: string, value: string) => {
+    cy.wait('@interceptedResults')
+      .its('request.body')
+      .then(JSON.parse)
+      .its('extraParams')
+      .should('have.property', key, value);
   }
 );
 

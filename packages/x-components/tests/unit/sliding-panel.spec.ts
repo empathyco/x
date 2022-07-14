@@ -1,10 +1,9 @@
 import { mount } from '@cypress/vue';
-import 'reflect-metadata';
 import Vue from 'vue';
-import { mockedAdapter } from '../../src/adapter/mocked-adapter';
 import SlidingPanel from '../../src/components/sliding-panel.vue';
 import { BaseXBus } from '../../src/plugins/x-bus';
 import { XPlugin } from '../../src/plugins/x-plugin';
+import { e2eAdapter } from '../../src/adapter/e2e-adapter';
 
 /**
  * Renders an {@link SlidingPanel} component with the provided options.
@@ -48,7 +47,7 @@ function renderSlidingPanel({
     },
     {
       vue: Vue.extend({}),
-      plugins: [[new XPlugin(new BaseXBus()), { adapter: mockedAdapter }]],
+      plugins: [[new XPlugin(new BaseXBus()), { adapter: e2eAdapter }]],
       propsData: {
         scrollFactor,
         resetOnContentChange,
@@ -298,7 +297,8 @@ interface RenderSlidingPanelAPI {
   getRightButton: () => Cypress.Chainable<JQuery>;
   /** Retrieves the scrolled distance of the sliding panel. */
   getScrollPosition: () => Cypress.Chainable<number>;
-  /** Manually scrolls to the desired position.
+  /**
+   * Manually scrolls to the desired position.
    *
    * @param position - The distance that should be scrolled.
    */

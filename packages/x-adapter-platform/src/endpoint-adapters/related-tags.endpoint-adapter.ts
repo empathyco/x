@@ -1,4 +1,4 @@
-import { endpointAdapterFactory } from '@empathyco/x-adapter-next';
+import { endpointAdapterFactory } from '@empathyco/x-adapter';
 import { RelatedTagsRequest, RelatedTagsResponse } from '@empathyco/x-types';
 import { relatedTagsRequestMapper } from '../mappers/requests/related-tags-request.mapper';
 import { relatedTagsResponseMapper } from '../mappers/responses/related-tags-response.mapper';

@@ -56,6 +56,7 @@ export type ResultFeature =
  */
 export type FeatureLocation =
   | 'external'
+  | 'my_history'
   | 'no_query'
   | 'no_results'
   | 'none'

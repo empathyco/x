@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.18...@empathyco/x-deep-merge@1.3.0-alpha.19) (2022-06-23)
+
+**Note:** Version bump only for package @empathyco/x-deep-merge
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.3.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.17...@empathyco/x-deep-merge@1.3.0-alpha.18) (2022-06-16)
 
 **Note:** Version bump only for package @empathyco/x-deep-merge

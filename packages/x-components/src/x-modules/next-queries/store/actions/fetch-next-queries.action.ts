@@ -17,6 +17,6 @@ export const fetchNextQueries: NextQueriesXStoreModule['actions']['fetchNextQuer
   request
 ) => {
   return request
-    ? XPlugin.adapter.getNextQueries(request).then(({ nextQueries }) => nextQueries)
+    ? XPlugin.adapter.nextQueries(request).then(({ nextQueries }) => nextQueries)
     : null;
 };

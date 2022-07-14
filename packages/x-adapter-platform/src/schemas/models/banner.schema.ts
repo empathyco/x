@@ -1,9 +1,9 @@
-import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
+import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import { Banner } from '@empathyco/x-types';
-import { getTaggingInfoFromUrl } from '@empathyco/x-utils';
+import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
 import { PlatformBanner } from '../../types/models/banner.model';
 
-export const bannerMutableSchema = createMutableSchema<Schema<PlatformBanner, Banner>>({
+export const bannerSchema = createMutableSchema<Schema<PlatformBanner, Banner>>({
   id: 'id',
   title: 'title',
   url: 'url',

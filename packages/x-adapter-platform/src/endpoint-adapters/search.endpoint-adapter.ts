@@ -1,4 +1,4 @@
-import { endpointAdapterFactory } from '@empathyco/x-adapter-next';
+import { endpointAdapterFactory } from '@empathyco/x-adapter';
 import { SearchRequest, SearchResponse } from '@empathyco/x-types';
 import { searchRequestMapper } from '../mappers/requests/search-request.mapper';
 import { searchResponseMapper } from '../mappers/responses/search-response.mapper';

@@ -20,4 +20,10 @@
   stroke-linecap: var(--x-string-stroke-linecap-icon-default);
   stroke-linejoin: var(--x-string-stroke-linejoin-icon-default);
   stroke-width: var(--x-size-stroke-width-icon-default);
+
+  &.x-filled {
+    // colors
+    stroke: none;
+    fill: var(--x-color-stroke-icon-default);
+  }
 }

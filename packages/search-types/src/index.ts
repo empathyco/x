@@ -15,3 +15,4 @@ export * from './sort.model';
 export * from './suggestion.model';
 export * from './tagging.model';
 export * from './user-info.model';
+export * from './x-components-adapter.model';
