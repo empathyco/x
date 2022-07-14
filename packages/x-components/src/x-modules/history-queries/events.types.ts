@@ -58,4 +58,9 @@ export interface HistoryQueriesXEvents {
    * Payload: None.
    */
   UserClickedConfirmDisableHistoryQueries: void;
+  /**
+   * The user has clicked the dismiss button to keep enabled the history queries.
+   * Payload: None.
+   */
+  UserClickedDismissDisableHistoryQueries: void;
 }
