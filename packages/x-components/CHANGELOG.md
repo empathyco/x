@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.132](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.131...@empathyco/x-components@3.0.0-alpha.132) (2022-07-14)
+
+### Features
+
+- **history-queries:** add `UserClickedDismissDisableHistoryQueries` event
+  ([ea0bddc](https://github.com/empathyco/x/commit/ea0bddce87ec1e87b753bb39863cbee903fb9eed)),
+  closes [EX-6682](https://searchbroker.atlassian.net/browse/EX-6682)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.131](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.130...@empathyco/x-components@3.0.0-alpha.131) (2022-07-13)
 
 ### Features
