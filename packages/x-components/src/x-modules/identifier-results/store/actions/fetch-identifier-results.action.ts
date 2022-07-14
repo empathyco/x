@@ -15,5 +15,5 @@ import { IdentifierResultsXStoreModule } from '../types';
 //eslint-disable-next-line max-len
 export const fetchIdentifierResults: IdentifierResultsXStoreModule['actions']['fetchIdentifierResults'] =
   (_context, request) => {
-    return request ? XPlugin.adapter.searchById(request).then(({ results }) => results) : [];
+    return request ? XPlugin.adapter.identifierResults(request).then(({ results }) => results) : [];
   };

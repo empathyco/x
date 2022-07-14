@@ -7,7 +7,7 @@
     tag="ul"
   >
     <li
-      v-for="({ facet, slotName }, facetId) in mappedFacets"
+      v-for="({ facet, slotNameById, slotNameByModelName }, facetId) in mappedFacets"
       :key="facetId"
       class="x-facets-list__item"
       data-test="facets-facet"
@@ -16,19 +16,35 @@
         @slot Customized Facet rendering. Specifying a slot with the facet's name will result in the
         facet using that slot composition to render.
             @binding {Facet} facet - Facet to render
+            @binding {Filter[]} selectedFilters - List of selected filters of the given facet
       -->
       <slot
-        v-if="$scopedSlots[slotName]"
+        v-if="$scopedSlots[slotNameById]"
         v-bind="{
           facet,
           selectedFilters: selectedFiltersByFacet[facetId] || []
         }"
-        :name="slotName"
+        :name="slotNameById"
+      />
+      <!--
+        @slot Customized Facet rendering. Specifying a slot with the facet's modelName will result
+        in the facet using that slot composition to render.
+            @binding {Facet} facet - Facet to render
+            @binding {Filter[]} selectedFilters - List of selected filters of the given facet
+      -->
+      <slot
+        v-else-if="$scopedSlots[slotNameByModelName]"
+        v-bind="{
+          facet,
+          selectedFilters: selectedFiltersByFacet[facetId] || []
+        }"
+        :name="slotNameByModelName"
       />
       <!--
         @slot (required) Default Facet rendering. This slot will be used by default for rendering
         the facets without an specific slot implementation.
             @binding {Facet} facet - Facet to render
+            @binding {Filter[]} selectedFilters - List of selected filters of the given facet
       -->
       <slot
         v-else
@@ -59,7 +75,8 @@
    * @internal
    */
   interface RenderFacet {
-    slotName: string;
+    slotNameById: string;
+    slotNameByModelName: string;
     facet: Facet;
   }
 
@@ -127,7 +144,8 @@
      */
     protected get mappedFacets(): Dictionary<RenderFacet> {
       return map(this.facetsToRender, (facetId, facet) => ({
-        slotName: toKebabCase(facetId),
+        slotNameById: toKebabCase(facetId),
+        slotNameByModelName: toKebabCase(facet.modelName),
         facet
       }));
     }
@@ -249,6 +267,12 @@ facet to customize. For example, the Facet with the id "color" requires a compos
 from the rest of the Facets. Doing it in a slot with the name "color" will apply this customization
 just to the "color" Facet. The other facets will fallback to the composition of the default slot.
 
+It is also possible to customize the Facet content by the facet "model name". For example, to
+configure different content for "Hierarchical Facets" the "hierarchical-facet" slot will apply that
+customization. This can be combined with the facets by facet id. If some hierarchical facet needs
+some different customization from the rest of the hierarchical, it can be achieve using the slot
+with the facet id.
+
 ```vue
 <template>
   <Facets>
@@ -258,6 +282,21 @@ just to the "color" Facet. The other facets will fallback to the composition of 
       <ul v-for="filter in facet.filters" :key="filter.id">
         <li v-if="!filter.selected">
           {{ filter.label }}
+        </li>
+      </ul>
+    </template>
+
+    <template #hierarchical-facet="{ facet, selectedFilters }">
+      <span v-if="selectedFilters.length > 0">{{ `${selectedFilters.length} colors chosen` }}</span>
+
+      <ul v-for="filter in facet.filters" :key="filter.id">
+        <li v-if="!filter.selected">
+          {{ filter.label }}
+          <ul v-for="childFilter in filter.children" :key="filter.id">
+            <li v-if="!childFilter.selected">
+              {{ childFilter.label }}
+            </li>
+          </ul>
         </li>
       </ul>
     </template>

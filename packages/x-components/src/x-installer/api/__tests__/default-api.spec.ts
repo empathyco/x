@@ -1,5 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
-import { SearchAdapterDummy } from '../../../__tests__/adapter.dummy';
+import { XComponentsAdapterDummy } from '../../../__tests__/adapter.dummy';
 import { BaseXBus } from '../../../plugins/x-bus';
 import { XInstaller } from '../../x-installer/x-installer';
 import { SnippetConfig } from '../api.types';
@@ -54,7 +54,7 @@ describe('testing default X API', () => {
     });
 
     const { api, app } = await new XInstaller({
-      adapter: SearchAdapterDummy,
+      adapter: XComponentsAdapterDummy,
       api: defaultXAPI,
       app: installerApp
     }).init(snippetConfig);

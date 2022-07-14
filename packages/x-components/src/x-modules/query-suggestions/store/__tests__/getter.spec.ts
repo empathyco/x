@@ -1,5 +1,4 @@
-import { SuggestionsRequest } from '@empathyco/x-adapter';
-import { Suggestion } from '@empathyco/x-types';
+import { QuerySuggestionsRequest, Suggestion } from '@empathyco/x-types';
 import { map } from '@empathyco/x-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -20,11 +19,13 @@ describe('testing query suggestions module getters', () => {
   describe(`${getters.request} getter`, () => {
     it('should return a request object if there is a query', () => {
       resetQuerySuggestionsStateWith(store, { query: 'dorito', params: { catalog: 'es' } });
-      expect(store.getters[getters.request]).toEqual<SuggestionsRequest>({
+      expect(store.getters[getters.request]).toEqual<QuerySuggestionsRequest>({
         query: 'dorito',
         rows: 10,
         start: 0,
-        catalog: 'es'
+        extraParams: {
+          catalog: 'es'
+        }
       });
     });
 

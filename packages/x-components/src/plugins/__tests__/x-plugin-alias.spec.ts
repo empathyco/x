@@ -54,6 +54,7 @@ describe('testing plugin alias', () => {
       device: null,
       facets: {},
       historyQueries: [],
+      fullHistoryQueries: [],
       identifierResults: [],
       isEmpathizeOpen: false,
       nextQueries: [],

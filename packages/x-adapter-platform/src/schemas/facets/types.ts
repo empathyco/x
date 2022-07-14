@@ -1,5 +1,5 @@
 import { FacetModelName, Facet } from '@empathyco/x-types';
-import { Schema } from '@empathyco/x-adapter-next';
+import { Schema } from '@empathyco/x-adapter';
 
 /**
  * Facet configuration containing the model name and the schema.

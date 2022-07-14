@@ -1,9 +1,9 @@
 import { Promoted } from '@empathyco/x-types';
-import { createMutableSchema, Schema } from '@empathyco/x-adapter-next';
-import { getTaggingInfoFromUrl } from '@empathyco/x-utils';
+import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import { PlatformPromoted } from '../../types/models/promoted.model';
+import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
 
-export const promotedMutableSchema = createMutableSchema<Schema<PlatformPromoted, Promoted>>({
+export const promotedSchema = createMutableSchema<Schema<PlatformPromoted, Promoted>>({
   id: 'id',
   url: 'url',
   title: 'title',

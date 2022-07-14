@@ -1,5 +1,4 @@
-import { SuggestionsRequest } from '@empathyco/x-adapter';
-import { Suggestion } from '@empathyco/x-types';
+import { QuerySuggestionsRequest, Suggestion } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
@@ -33,7 +32,7 @@ export interface QuerySuggestionsGetters {
    * The adapter request object for retrieving the query suggestions, or null if there is not
    * valid data to create a request.
    */
-  request: SuggestionsRequest | null;
+  request: QuerySuggestionsRequest | null;
   /** The normalized module's query. */
   normalizedQuery: string;
   /** The full list of queries suggestions related to the query search. */
@@ -82,11 +81,11 @@ export interface QuerySuggestionsActions {
    *
    * @returns A new list of suggestions.
    */
-  fetchSuggestions(request: SuggestionsRequest | null): Suggestion[];
+  fetchSuggestions(request: QuerySuggestionsRequest | null): Suggestion[];
   /**
    * Requests and saves to the state a list of suggestions.
    */
-  fetchAndSaveSuggestions(request: SuggestionsRequest | null): void;
+  fetchAndSaveSuggestions(request: QuerySuggestionsRequest | null): void;
   /**
    * Checks if the url has a query on it and then updates the state with that value.
    *

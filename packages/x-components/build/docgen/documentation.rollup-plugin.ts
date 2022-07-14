@@ -33,7 +33,7 @@ export function apiDocumentation(options: APIDocumentationPluginOptions): Plugin
       const reportFolder = path.join(options.buildPath, 'report');
       ensureDirectoryPathExists(reportFolder);
       copyThirdPartyDocModel(reportFolder, 'x-types');
-      copyThirdPartyDocModel(reportFolder, 'x-adapter');
+      copyThirdPartyDocModel(reportFolder, 'x-adapter-platform');
 
       const apiExtractorJsonPath: string = path.join(rootDir, 'build/api-extractor.json');
       const extractorConfig = ExtractorConfig.loadFileAndPrepare(apiExtractorJsonPath);

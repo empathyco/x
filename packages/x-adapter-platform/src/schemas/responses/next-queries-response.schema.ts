@@ -1,13 +1,13 @@
-import { Schema, createMutableSchema } from '@empathyco/x-adapter-next';
+import { Schema, createMutableSchema } from '@empathyco/x-adapter';
 import { NextQueriesResponse } from '@empathyco/x-types';
 import { PlatformNextQueriesResponse } from '../../types/responses/next-queries-response.model';
-import { nextQueryMutableSchema } from '../models/next-query.schema';
+import { nextQuerySchema } from '../models/next-query.schema';
 
-export const nextQueriesResponseMutableSchema = createMutableSchema<
+export const nextQueriesResponseSchema = createMutableSchema<
   Schema<PlatformNextQueriesResponse, NextQueriesResponse>
 >({
   nextQueries: {
     $path: 'data.nextqueries',
-    $subSchema: nextQueryMutableSchema
+    $subSchema: nextQuerySchema
   }
 });
