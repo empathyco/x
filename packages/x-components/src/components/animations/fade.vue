@@ -48,7 +48,7 @@ Wrapping a component:
   <div>
     <button @click="shouldRender = !shouldRender">Toggle</button>
     <Fade>
-      <p v-if="open">León is southern Spain</p>
+      <p v-if="shouldRender">León is southern Spain</p>
     </Fade>
   </div>
 </template>
