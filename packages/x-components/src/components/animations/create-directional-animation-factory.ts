@@ -15,11 +15,16 @@ export function createDirectionalAnimationFactory(
   return (animationOrigin = 'top') => {
     return Vue.extend({
       name: `transition-${animationName}-${animationOrigin}`,
+      inheritAttrs: false,
       render(h) {
         return h(
           'transition',
           {
-            props: { name: `x-${animationName}--${animationOrigin} x-${animationName}-` }
+            props: {
+              name: `x-${animationName}--${animationOrigin} x-${animationName}-`,
+              ...this.$attrs
+            },
+            on: this.$listeners
           },
           this.$slots.default
         );

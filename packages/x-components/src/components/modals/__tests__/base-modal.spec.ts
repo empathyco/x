@@ -27,8 +27,8 @@ function mountBaseModal({
 
   return {
     wrapper,
-    getModal() {
-      return wrapper.find(getDataTestSelector('modal'));
+    getModalContent() {
+      return wrapper.find(getDataTestSelector('modal-content'));
     },
     async setOpen(open) {
       await wrapper.setProps({ open });
@@ -49,12 +49,12 @@ function mountBaseModal({
 
 describe('testing Base Modal  component', () => {
   it('renders only when the open prop is set to true', async () => {
-    const { getModal, setOpen } = mountBaseModal();
+    const { getModalContent, setOpen } = mountBaseModal();
 
-    expect(getModal().exists()).toBe(false);
+    expect(getModalContent().exists()).toBe(false);
 
     await setOpen(true);
-    expect(getModal().exists()).toBe(true);
+    expect(getModalContent().exists()).toBe(true);
   });
 
   it("emits click:body event when clicking outside modal's content if it is opened", async () => {
@@ -102,7 +102,7 @@ interface MountBaseModalAPI {
   /** Fakes a click on the close button. */
   setOpen: (open: boolean) => Promise<void>;
   /** Retrieves the modal container wrapper. */
-  getModal: () => Wrapper<Vue>;
+  getModalContent: () => Wrapper<Vue>;
   /** Fakes a click on the modal close. */
   closeModal: () => Promise<void>;
   /** Fakes a focusin event in another HTMLElement of the body. */
