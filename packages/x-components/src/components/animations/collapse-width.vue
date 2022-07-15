@@ -26,7 +26,7 @@
    */
   @Component({
     mixins: [createCollapseAnimationMixin('width')],
-    inheritAttrs: true
+    inheritAttrs: false
   })
   export default class CollapseWidth extends Vue {
     // TODO Add support for extending enter, after-enter and leave transitions

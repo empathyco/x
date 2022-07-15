@@ -15,7 +15,7 @@
    * @public
    */
   @Component({
-    inheritAttrs: true
+    inheritAttrs: false
   })
   export default class AnimateWidth extends Vue {}
 </script>

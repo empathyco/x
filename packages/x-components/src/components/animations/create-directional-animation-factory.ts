@@ -15,7 +15,7 @@ export function createDirectionalAnimationFactory(
   return (animationOrigin = 'top') => {
     return Vue.extend({
       name: `transition-${animationName}-${animationOrigin}`,
-      inheritAttrs: true,
+      inheritAttrs: false,
       render(h) {
         return h(
           'transition',

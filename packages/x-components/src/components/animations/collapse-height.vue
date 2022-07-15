@@ -26,7 +26,7 @@
    */
   @Component({
     mixins: [createCollapseAnimationMixin('height')],
-    inheritAttrs: true
+    inheritAttrs: false
   })
   export default class CollapseHeight extends Vue {
     // TODO Add support for extending enter, after-enter and leave transitions
