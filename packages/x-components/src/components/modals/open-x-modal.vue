@@ -10,12 +10,22 @@
   import { XEvent } from '../../wiring/events.types';
   import BaseEventsModalOpen from './base-events-modal-open.vue';
 
+  /**
+   * Button to open the {@link XModal}.
+   *
+   * @public
+   */
   @Component({
     components: {
       BaseEventsModalOpen
     }
   })
   export default class OpenXModal extends Vue {
+    /**
+     * Event to be emitted to open the {@link XModal}.
+     *
+     * @internal
+     */
     protected openingEvent: XEvent = 'UserClickedOpenX';
   }
 </script>
@@ -23,13 +33,13 @@
 <docs lang="mdx">
 ## Events
 
-This component emits no events.
+This component emits the following events:
+
+- [`UserClickedOpenX`](./../../api/x-components.xeventstypes.md)
 
 ## See it in action
 
-Here you have a basic example of how the x modal works.
-
-_Type any term in the input field to try it out!_
+Here you have a basic example of how the open x modal button works.
 
 ```vue live
 <template>

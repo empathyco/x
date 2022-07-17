@@ -10,12 +10,22 @@
   import { XEvent } from '../../wiring/events.types';
   import BaseEventsModalClose from './base-events-modal-close.vue';
 
+  /**
+   * Button to close the {@link XModal}.
+   *
+   * @public
+   */
   @Component({
     components: {
       BaseEventsModalClose
     }
   })
   export default class CloseXModal extends Vue {
+    /**
+     * Event to be emitted to close the {@link XModal}.
+     *
+     * @internal
+     */
     protected closingEvent: XEvent = 'UserClickedCloseX';
   }
 </script>
@@ -23,13 +33,13 @@
 <docs lang="mdx">
 ## Events
 
-This component emits no events.
+This component emits the following events:
+
+- [`UserClickedCloseX`](./../../api/x-components.xeventstypes.md)
 
 ## See it in action
 
-Here you have a basic example of how the x modal works.
-
-_Type any term in the input field to try it out!_
+Here you have a basic example of how the close x modal button works.
 
 ```vue live
 <template>

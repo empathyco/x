@@ -3,6 +3,7 @@
     class="x-modal"
     :eventsToOpenModal="openEvents"
     :eventsToCloseModal="closeEvents"
+    :body-click-event="outOfModalClickEvent"
     :animation="animation"
   >
     <slot />
@@ -16,6 +17,11 @@
   import { XEvent } from '../../wiring/events.types';
   import BaseEventsModal from './base-events-modal.vue';
 
+  /**
+   * A specialised version of a modal component, made to contain a full search application.
+   *
+   * @public
+   */
   @Component({
     components: {
       BaseEventsModal
@@ -40,20 +46,27 @@
      *
      * @internal
      */
-    protected closeEvents: XEvent[] = ['UserClickedCloseX'];
+    protected closeEvents: XEvent[] = ['UserClickedCloseX', 'UserClickedOutOfXModal'];
+
+    /**
+     * Event to be emitted by the modal when clicked out of its content.
+     *
+     * @internal
+     */
+    protected outOfModalClickEvent: XEvent = 'UserClickedOutOfXModal';
   }
 </script>
 
 <docs lang="mdx">
 ## Events
 
-This component emits no events.
+This component emits the following events:
+
+- [`UserClickedOutOfXModal`](./../../api/x-components.xeventstypes.md)
 
 ## See it in action
 
 Here you have a basic example of how the x modal works.
-
-_Type any term in the input field to try it out!_
 
 ```vue live
 <template>
