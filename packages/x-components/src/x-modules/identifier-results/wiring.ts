@@ -121,5 +121,8 @@ export const identifierResultsWiring = createWiring({
   },
   ExtraParamsChanged: {
     setIdentifierResultsExtraParams
+  },
+  UserClickedCloseX: {
+    clearIdentifierResultsQuery
   }
 });

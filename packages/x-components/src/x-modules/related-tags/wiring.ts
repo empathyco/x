@@ -118,5 +118,8 @@ export const relatedTagsWiring = createWiring({
   },
   ExtraParamsChanged: {
     setRelatedTagsExtraParams
+  },
+  UserClickedCloseX: {
+    clearRelatedTagsQuery
   }
 });

@@ -112,5 +112,8 @@ export const querySuggestionsWiring = createWiring({
   },
   ExtraParamsChanged: {
     setQuerySuggestionsExtraParams
+  },
+  UserClickedCloseX: {
+    clearQuerySuggestionsQuery
   }
 });
