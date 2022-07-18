@@ -61,6 +61,8 @@ export const setQueryFromLastHistoryQueryWire = wireDispatch('setQueryFromLastHi
 
 export const fetchAndSaveNextQueryPreviewWire = wireDispatch('fetchAndSaveNextQueryPreview');
 
+export const resetResultsWire = wireCommit('setResults', null);
+
 /**
  * Sets the next queries state `searchedQueries` with the list of history queries.
  *
@@ -79,7 +81,8 @@ export const nextQueriesWiring = createWiring({
   },
   UserAcceptedAQuery: {
     setNextQueriesQuery,
-    fetchAndSaveNextQueryPreviewWire
+    fetchAndSaveNextQueryPreviewWire,
+    resetResultsWire
   },
   SessionHistoryQueriesChanged: {
     setSearchedQueries,
