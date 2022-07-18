@@ -6,6 +6,9 @@ export const fetchNextQueryPreview: NextQueriesXStoreModule['actions']['fetchNex
   { state },
   query
 ) => {
+  if (!query) {
+    return null;
+  }
   const request: SearchRequest = {
     query,
     rows: state.config.resultsPreviewCount,

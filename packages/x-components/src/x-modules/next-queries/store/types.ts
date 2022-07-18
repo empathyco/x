@@ -125,7 +125,7 @@ export interface NextQueriesActions {
    *
    * @param query - The next query to retrieve the results.
    */
-  fetchNextQueryPreview(query: string): SearchResponse;
+  fetchNextQueryPreview(query: string): SearchResponse | null;
 
   fetchAndSaveNextQueryPreview(query: string): void;
 }

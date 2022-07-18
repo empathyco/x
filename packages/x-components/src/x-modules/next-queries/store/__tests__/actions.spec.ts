@@ -1,7 +1,11 @@
-import { HistoryQuery } from '@empathyco/x-types';
+import { HistoryQuery, SearchRequest } from '@empathyco/x-types';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { createHistoryQueries, getNextQueriesStub } from '../../../../__stubs__';
+import {
+  createHistoryQueries,
+  getNextQueriesStub,
+  getSearchResponseStub
+} from '../../../../__stubs__';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { nextQueriesXStoreModule } from '../module';
@@ -15,7 +19,12 @@ import { resetNextQueriesStateWith } from './utils';
 
 describe('testing next queries module actions', () => {
   const mockedNextQueries = getNextQueriesStub();
-  const adapter = getMockedAdapter({ nextQueries: { nextQueries: mockedNextQueries } });
+  const mockedSearchResponse = getSearchResponseStub();
+
+  const adapter = getMockedAdapter({
+    nextQueries: { nextQueries: mockedNextQueries },
+    search: mockedSearchResponse
+  });
 
   const localVue = createLocalVue();
   localVue.config.productionTip = false; // Silent production console messages.
@@ -46,6 +55,40 @@ describe('testing next queries module actions', () => {
     it('should return `null` if there is not request', async () => {
       const nextQueries = await store.dispatch('fetchNextQueries', store.getters.request);
       expect(nextQueries).toBeNull();
+    });
+  });
+
+  describe('fetchNextQueryPreview', () => {
+    it('should build the search request adding rows and extraParams from state', async () => {
+      resetNextQueriesStateWith(store, {
+        config: {
+          resultsPreviewCount: 3
+        },
+        params: {
+          extraParam: 'extra param'
+        }
+      });
+      const query = 'honeyboo';
+      await store.dispatch('fetchNextQueryPreview', query);
+      const expectedRequest: SearchRequest = {
+        query,
+        rows: 3,
+        extraParams: {
+          extraParam: 'extra param'
+        }
+      };
+      expect(adapter.search).toHaveBeenCalledWith(expectedRequest, {
+        id: 'fetchNextQueryPreview-honeyboo'
+      });
+    });
+
+    it('should return the search response', async () => {
+      const results = await store.dispatch('fetchNextQueryPreview', 'honeyboo');
+      expect(results).toEqual(mockedSearchResponse);
+    });
+
+    it('should return `null` if the query is empty', async () => {
+      expect(await store.dispatch('fetchNextQueryPreview', '')).toBeNull();
     });
   });
 

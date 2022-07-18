@@ -7,9 +7,9 @@ let nextQuery = '';
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   NextQueriesActionContext,
   string,
-  SearchResponse
+  SearchResponse | null
 >({
-  fetch({ dispatch }, request: string): Promise<SearchResponse> {
+  fetch({ dispatch }, request: string) {
     nextQuery = request;
     return dispatch('fetchNextQueryPreview', request);
   },
