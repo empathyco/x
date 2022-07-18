@@ -1,10 +1,21 @@
-import { HistoryQuery, NextQuery, NextQueriesRequest } from '@empathyco/x-types';
+import {
+  HistoryQuery,
+  NextQuery,
+  NextQueriesRequest,
+  Result,
+  SearchResponse
+} from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { UrlParams } from '../../../types/url-params';
 import { NextQueriesConfig } from '../config.types';
+
+interface NextQueryPreviewResult {
+  items: Result[];
+  totalResults: number;
+}
 
 /**
  * Next queries module state.
@@ -23,6 +34,8 @@ export interface NextQueriesState extends StatusState, QueryState {
   config: NextQueriesConfig;
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
+  /** Results of the next queries requests. */
+  results: Dictionary<NextQueryPreviewResult>;
 }
 
 /**
@@ -102,6 +115,17 @@ export interface NextQueriesActions {
    * @param urlParams - List of params from the url.
    */
   setUrlParams(urlParams: UrlParams): void;
+
+  cancelFetchAndSaveNextQueryPreview(): void;
+
+  /**
+   * TODO - Add NextQueryPreviewRequest to X-Adapter?
+   *
+   * @param query - The next query to retrieve the results.
+   */
+  fetchNextQueryPreview(query: string): SearchResponse;
+
+  fetchAndSaveNextQueryPreview(query: string): void;
 }
 
 /**

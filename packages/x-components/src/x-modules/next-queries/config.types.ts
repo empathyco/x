@@ -34,4 +34,5 @@ export interface NextQueriesConfig {
    * Loads the next queries with the last searched query.
    */
   loadOnInit: boolean;
+  resultsPreviewCount: number;
 }
