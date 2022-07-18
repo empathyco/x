@@ -83,7 +83,8 @@ export interface NextQueriesMutations extends StatusMutations, QueryMutations {
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
-  setResults(payload: { nextQuery: string; results: NextQueryPreviewResults } | null): void;
+  setResults(payload: { nextQuery: string; results: NextQueryPreviewResults }): void;
+  resetResults(): void;
 }
 
 /**

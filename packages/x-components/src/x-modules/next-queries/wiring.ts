@@ -1,8 +1,13 @@
 import {
   namespacedWireCommit,
+  namespacedWireCommitWithoutPayload,
   namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
-import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
+import {
+  NamespacedWireCommit,
+  NamespacedWireCommitWithoutPayload,
+  NamespacedWireDispatch
+} from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
@@ -11,12 +16,20 @@ import { createWiring } from '../../wiring/wiring.utils';
  * @internal
  */
 const moduleName = 'nextQueries';
+
 /**
  * WireCommit for {@link NextQueriesXModule}.
  *
  * @internal
  */
 const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+
+/**
+ * WireCommitWithoutPayload for {@link NextQueriesXModule}.
+ */
+const wireCommitWithoutPayload: NamespacedWireCommitWithoutPayload<typeof moduleName> =
+  namespacedWireCommitWithoutPayload(moduleName);
+
 /**
  * WireDispatch for {@link NextQueriesXModule}.
  *
@@ -61,7 +74,7 @@ export const setQueryFromLastHistoryQueryWire = wireDispatch('setQueryFromLastHi
 
 export const fetchAndSaveNextQueryPreviewWire = wireDispatch('fetchAndSaveNextQueryPreview');
 
-export const resetResultsWire = wireCommit('setResults', null);
+export const resetResultsWire = wireCommitWithoutPayload('resetResults');
 
 /**
  * Sets the next queries state `searchedQueries` with the list of history queries.
@@ -81,6 +94,9 @@ export const nextQueriesWiring = createWiring({
   },
   UserAcceptedAQuery: {
     setNextQueriesQuery,
+    resetResultsWire
+  },
+  UserClearedQuery: {
     resetResultsWire
   },
   SessionHistoryQueriesChanged: {
