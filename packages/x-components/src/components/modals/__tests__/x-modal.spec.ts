@@ -6,13 +6,13 @@ import { PropsWithType } from '../../../utils/types';
 import { XEventsTypes } from '../../../wiring/events.types';
 
 /**
- * Mounts a {@link XModal} component with the provided options and offers an API to easily
+ * Renders a {@link XModal} component with the provided options and offers an API to easily
  * test it.
  *
  * @param options - The options to render the component with.
  * @returns An API to test the component.
  */
-function mountXModal({ template = '<XModal/>' }: MountXModalOptions = {}): MountXModalAPI {
+function renderXModal({ template = '<XModal/>' }: RenderXModalOptions = {}): RenderXModalAPI {
   const [, localVue] = installNewXPlugin();
   const parent = document.createElement('div');
   document.body.appendChild(parent);
@@ -49,7 +49,7 @@ function mountXModal({ template = '<XModal/>' }: MountXModalOptions = {}): Mount
 
 describe('testing X Modal  component', () => {
   it('opens and closes when UserClickedOpenX and UserClickedClosedX are emitted', async () => {
-    const { emit, getModalContent } = mountXModal();
+    const { emit, getModalContent } = renderXModal();
     expect(getModalContent().exists()).toBe(false);
 
     await emit('UserClickedOpenX');
@@ -60,7 +60,7 @@ describe('testing X Modal  component', () => {
   });
 
   it('closes when clicking on the modal overlay', async () => {
-    const { clickModalOverlay, emit, getModalContent } = mountXModal();
+    const { clickModalOverlay, emit, getModalContent } = renderXModal();
 
     await emit('UserClickedOpenX');
     expect(getModalContent().exists()).toBe(true);
@@ -70,7 +70,7 @@ describe('testing X Modal  component', () => {
   });
 
   it('closes when focusing any other element out of the modal', async () => {
-    const { emit, focusOutOfModal, getModalContent } = mountXModal();
+    const { emit, focusOutOfModal, getModalContent } = renderXModal();
 
     await emit('UserClickedOpenX');
     expect(getModalContent().exists()).toBe(true);
@@ -80,7 +80,7 @@ describe('testing X Modal  component', () => {
   });
 
   it('does not close when clicking inside the content', async () => {
-    const { wrapper, emit, getModalContent } = mountXModal({
+    const { wrapper, emit, getModalContent } = renderXModal({
       template: `
         <XModal>
           <button data-test="test-button">Modal should still be opened when I'm clicked</button>
@@ -96,12 +96,12 @@ describe('testing X Modal  component', () => {
   });
 });
 
-interface MountXModalOptions {
+interface RenderXModalOptions {
   /** The template to render. */
   template?: string;
 }
 
-interface MountXModalAPI {
+interface RenderXModalAPI {
   /** The wrapper for the modal component. */
   wrapper: Wrapper<Vue>;
   /** Fakes a click on the modal overlay. */
