@@ -1,5 +1,5 @@
 <template>
-  <BaseEventsModalOpen v-on="$listeners" class="x-modal" :opening-event="openingEvent">
+  <BaseEventsModalOpen v-on="$listeners" class="x-modal" :openingEvent="openingEvent">
     <slot />
   </BaseEventsModalOpen>
 </template>

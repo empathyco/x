@@ -3,7 +3,7 @@
     class="x-modal"
     :eventsToOpenModal="openEvents"
     :eventsToCloseModal="closeEvents"
-    :body-click-event="outOfModalClickEvent"
+    :bodyClickEvent="outOfModalClickEvent"
     :animation="animation"
   >
     <slot />

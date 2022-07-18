@@ -124,5 +124,8 @@ export const identifierResultsWiring = createWiring({
   },
   UserClickedCloseX: {
     clearIdentifierResultsQuery
+  },
+  UserClickedOutOfXModal: {
+    clearIdentifierResultsQuery
   }
 });

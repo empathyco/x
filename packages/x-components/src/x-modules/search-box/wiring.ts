@@ -66,5 +66,8 @@ export const searchBoxWiring = createWiring({
   },
   UserClickedCloseX: {
     clearSearchBoxQuery
+  },
+  UserClickedOutOfXModal: {
+    clearSearchBoxQuery
   }
 });

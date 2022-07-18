@@ -1,5 +1,5 @@
 <template>
-  <BaseEventsModalClose v-on="$listeners" class="x-modal" :closing-event="closingEvent">
+  <BaseEventsModalClose v-on="$listeners" class="x-modal" :closingEvent="closingEvent">
     <slot />
   </BaseEventsModalClose>
 </template>
