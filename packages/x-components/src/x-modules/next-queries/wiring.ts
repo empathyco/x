@@ -81,7 +81,6 @@ export const nextQueriesWiring = createWiring({
   },
   UserAcceptedAQuery: {
     setNextQueriesQuery,
-    fetchAndSaveNextQueryPreviewWire,
     resetResultsWire
   },
   SessionHistoryQueriesChanged: {
@@ -94,5 +93,8 @@ export const nextQueriesWiring = createWiring({
   },
   ExtraParamsChanged: {
     setNextQueriesExtraParams
+  },
+  NextQueryPreviewMounted: {
+    fetchAndSaveNextQueryPreviewWire
   }
 });

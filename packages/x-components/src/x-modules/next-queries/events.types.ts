@@ -28,4 +28,5 @@ export interface NextQueriesXEvents {
    * Payload: The next query that has been selected by the user.
    */
   UserSelectedANextQuery: NextQuery;
+  NextQueryPreviewMounted: string;
 }
