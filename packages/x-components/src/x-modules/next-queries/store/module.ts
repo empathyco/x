@@ -51,6 +51,9 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     setStatus,
     setParams(state, params) {
       state.params = params;
+    },
+    setResults(state, { nextQuery, results }) {
+      state.results[nextQuery] = results;
     }
   },
   actions: {

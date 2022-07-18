@@ -12,7 +12,7 @@ import { StatusMutations, StatusState } from '../../../store/utils/status-store.
 import { UrlParams } from '../../../types/url-params';
 import { NextQueriesConfig } from '../config.types';
 
-interface NextQueryPreviewResult {
+interface NextQueryPreviewResults {
   items: Result[];
   totalResults: number;
 }
@@ -35,7 +35,7 @@ export interface NextQueriesState extends StatusState, QueryState {
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
   /** Results of the next queries requests. */
-  results: Dictionary<NextQueryPreviewResult>;
+  results: Dictionary<NextQueryPreviewResults>;
 }
 
 /**
@@ -83,6 +83,7 @@ export interface NextQueriesMutations extends StatusMutations, QueryMutations {
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
+  setResults(payload: { nextQuery: string; results: NextQueryPreviewResults }): void;
 }
 
 /**
