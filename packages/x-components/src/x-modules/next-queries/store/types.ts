@@ -82,9 +82,10 @@ export interface NextQueriesMutations extends StatusMutations, QueryMutations {
   /**
    * Adds a new entry to the result's dictionary.
    *
-   * @param payload - Object containing the next query, the totalResults and the results to add.
+   * @param resultsPreview - Object containing the next query,
+   * the totalResults and the results to add.
    */
-  setResultsPreview(payload: SetNextQueryPreviewResultsPayload): void;
+  setResultsPreview(resultsPreview: Dictionary<NextQueryPreviewResults>): void;
 
   /**
    * Resets the result's dictionary.
@@ -168,13 +169,4 @@ export type NextQueriesActionContext = XActionContext<
 interface NextQueryPreviewResults {
   items: Result[];
   totalResults: number;
-}
-
-/**
- * Type of the payload to set the preview results of a next query.
- * It is done that way to avoid setting more than a next query in the mutation.
- */
-interface SetNextQueryPreviewResultsPayload {
-  query: string;
-  results: NextQueryPreviewResults;
 }

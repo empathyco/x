@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import { setQuery } from '../../../store/utils/query.utils';
 import { setStatus } from '../../../store/utils/status-store.utils';
 import {
@@ -50,8 +49,8 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     setParams(state, params) {
       state.params = params;
     },
-    setResultsPreview(state, { query, results }) {
-      Vue.set(state.resultsPreview, query, results);
+    setResultsPreview(state, resultsPreview) {
+      state.resultsPreview = Object.assign({}, state.resultsPreview, resultsPreview);
     },
     resetResultsPreview(state) {
       state.resultsPreview = {};

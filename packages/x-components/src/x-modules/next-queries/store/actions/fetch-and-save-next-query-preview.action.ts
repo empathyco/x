@@ -7,14 +7,12 @@ const fetchAndSave: NextQueriesXStoreModule['actions']['fetchAndSaveNextQueryPre
   return dispatch('fetchNextQueryPreview', query).then(response => {
     if (response) {
       commit('setResultsPreview', {
-        query,
-        results: {
+        [query]: {
           totalResults: response.totalResults,
           items: response.results
         }
       });
     }
-    commit('setStatus', 'success');
   });
 };
 
