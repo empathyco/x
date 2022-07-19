@@ -1,11 +1,11 @@
-import { NextQueriesActionContext } from '../types';
+import { NextQueriesXStoreModule } from '../types';
 import { cancellablePromise, CancelSymbol } from '../../../../utils/cancellable-promise';
 
 let cancelPromise: undefined | (() => void);
 
-const fetchAndSave = (
-  { dispatch, commit }: NextQueriesActionContext,
-  nextQuery: string
+const fetchAndSave: NextQueriesXStoreModule['actions']['fetchAndSaveNextQueryPreview'] = (
+  { dispatch, commit },
+  nextQuery
 ): Promise<void> => {
   commit('setStatus', 'loading');
 

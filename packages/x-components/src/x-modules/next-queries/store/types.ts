@@ -12,11 +12,6 @@ import { StatusMutations, StatusState } from '../../../store/utils/status-store.
 import { UrlParams } from '../../../types/url-params';
 import { NextQueriesConfig } from '../config.types';
 
-interface NextQueryPreviewResults {
-  items: Result[];
-  totalResults: number;
-}
-
 /**
  * Next queries module state.
  *
@@ -83,7 +78,17 @@ export interface NextQueriesMutations extends StatusMutations, QueryMutations {
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
-  setResults(payload: { nextQuery: string; results: NextQueryPreviewResults }): void;
+
+  /**
+   * Adds a new entry to the result's dictionary.
+   *
+   * @param payload - Object containing the next query, the totalResults and the results to add.
+   */
+  setResults(payload: SetNextQueryPreviewResultsPayload): void;
+
+  /**
+   * Resets the result's dictionary.
+   */
   resetResults(): void;
 }
 
@@ -121,12 +126,18 @@ export interface NextQueriesActions {
   cancelFetchAndSaveNextQueryPreview(): void;
 
   /**
-   * TODO - Add NextQueryPreviewRequest to X-Adapter?
+   * Requests the results to preview a next query,
+   * limited by {@link NextQueriesConfig.resultsPreviewCount}.
    *
    * @param query - The next query to retrieve the results.
    */
   fetchNextQueryPreview(query: string): SearchResponse | null;
 
+  /**
+   * Requests the results to preview a next query and saves them in the state.
+   *
+   * @param query - The next query to retrieve the results.
+   */
   fetchAndSaveNextQueryPreview(query: string): void;
 }
 
@@ -153,3 +164,20 @@ export type NextQueriesActionContext = XActionContext<
   NextQueriesMutations,
   NextQueriesActions
 >;
+
+/**
+ * Interface to type the next query preview objects.
+ */
+interface NextQueryPreviewResults {
+  items: Result[];
+  totalResults: number;
+}
+
+/**
+ * Type of the payload to set the preview results of a next query.
+ * It is done that way to avoid setting more than a next query in the mutation.
+ */
+interface SetNextQueryPreviewResultsPayload {
+  nextQuery: string;
+  results: NextQueryPreviewResults;
+}

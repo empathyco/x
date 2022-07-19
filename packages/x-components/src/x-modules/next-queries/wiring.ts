@@ -72,8 +72,18 @@ export const fetchAndSaveNextQueriesWire = wireDispatch('fetchAndSaveNextQueries
  */
 export const setQueryFromLastHistoryQueryWire = wireDispatch('setQueryFromLastHistoryQuery');
 
+/**
+ * Requests and store the next query preview results.
+ *
+ * @public
+ */
 export const fetchAndSaveNextQueryPreviewWire = wireDispatch('fetchAndSaveNextQueryPreview');
 
+/**
+ * Resets the next query preview results.
+ *
+ * @public
+ */
 export const resetResultsWire = wireCommitWithoutPayload('resetResults');
 
 /**
