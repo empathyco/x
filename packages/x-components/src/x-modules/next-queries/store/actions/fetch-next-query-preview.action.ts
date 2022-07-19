@@ -1,6 +1,5 @@
-import { SearchRequest } from '@empathyco/x-types';
 import { NextQueriesXStoreModule } from '../types';
-import { XPlugin } from '../../../../plugins/index';
+import { XPlugin } from '../../../../plugins/x-plugin';
 
 /**
  * Default implementation for the {@link NextQueriesActions.fetchNextQueryPreview}.
@@ -18,14 +17,14 @@ export const fetchNextQueryPreview: NextQueriesXStoreModule['actions']['fetchNex
   if (!query) {
     return null;
   }
-  const request: SearchRequest = {
-    query,
-    rows: state.config.resultsPreviewCount,
-    extraParams: state.params
-  };
-  return XPlugin.adapter
-    .search(request, {
+  return XPlugin.adapter.search(
+    {
+      query,
+      rows: state.config.resultsPreviewCount,
+      extraParams: state.params
+    },
+    {
       id: `fetchNextQueryPreview-${query}`
-    })
-    .then(searchResponse => searchResponse);
+    }
+  );
 };

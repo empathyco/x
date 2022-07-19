@@ -1,43 +1,21 @@
 import { NextQueriesXStoreModule } from '../types';
-import { cancellablePromise, CancelSymbol } from '../../../../utils/cancellable-promise';
-
-let cancelPromise: undefined | (() => void);
 
 const fetchAndSave: NextQueriesXStoreModule['actions']['fetchAndSaveNextQueryPreview'] = (
   { dispatch, commit },
-  nextQuery
+  query
 ): Promise<void> => {
-  commit('setStatus', 'loading');
-
-  const { promise, cancel } = cancellablePromise(dispatch('fetchNextQueryPreview', nextQuery));
-  cancelPromise = cancel;
-
-  return promise
-    .then(response => {
-      if (response) {
-        commit('setResults', {
-          nextQuery,
-          results: {
-            totalResults: response.totalResults,
-            items: response.results
-          }
-        });
-      }
-      commit('setStatus', 'success');
-    })
-    .catch(error => {
-      if (error !== CancelSymbol) {
-        commit('setStatus', 'error');
-        // eslint-disable-next-line no-console
-        console.error(error);
-      }
-    });
-};
-
-const cancel = (): void => {
-  cancelPromise?.();
+  return dispatch('fetchNextQueryPreview', query).then(response => {
+    if (response) {
+      commit('setResultsPreview', {
+        query,
+        results: {
+          totalResults: response.totalResults,
+          items: response.results
+        }
+      });
+    }
+    commit('setStatus', 'success');
+  });
 };
 
 export const fetchAndSaveNextQueryPreview = fetchAndSave;
-
-export const cancelFetchAndSaveNextQueryPreview = cancel;

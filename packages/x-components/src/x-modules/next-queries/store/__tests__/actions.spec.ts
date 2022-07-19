@@ -160,14 +160,13 @@ describe('testing next queries module actions', () => {
       const query = 'tshirt';
 
       const promise = store.dispatch('fetchAndSaveNextQueryPreview', query);
-      expect(store.state.status).toEqual('loading');
       await promise;
 
       const expectedResults = {
         totalResults: mockedSearchResponse.totalResults,
         items: mockedSearchResponse.results
       };
-      const stateResults = store.state.results;
+      const stateResults = store.state.resultsPreview;
 
       expect(query in stateResults).toBeTruthy();
       expect(stateResults[query]).toEqual(expectedResults);
@@ -179,26 +178,8 @@ describe('testing next queries module actions', () => {
 
       await Promise.all([firstRequest, secondRequest]);
 
-      expect('milk' in store.state.results).toBeTruthy();
-      expect('cookies' in store.state.results).toBeTruthy();
-    });
-
-    it('should set the status to error when it fails', async () => {
-      adapter.search.mockRejectedValueOnce('Generic error');
-      await store.dispatch('fetchAndSaveNextQueryPreview', 'milk');
-
-      expect(store.state.results).toStrictEqual({});
-      expect(store.state.status).toEqual('error');
-    });
-  });
-
-  describe('cancelFetchAndSaveNextQueryPreview', () => {
-    it('should cancel the request and do not modify the stored results', async () => {
-      await Promise.all([
-        store.dispatch('fetchAndSaveNextQueryPreview', 'milk'),
-        store.dispatch('cancelFetchAndSaveNextQueryPreview')
-      ]);
-      expect(store.state.results).toStrictEqual({});
+      expect('milk' in store.state.resultsPreview).toBeTruthy();
+      expect('cookies' in store.state.resultsPreview).toBeTruthy();
     });
   });
 

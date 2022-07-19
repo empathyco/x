@@ -30,7 +30,7 @@ export interface NextQueriesState extends StatusState, QueryState {
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
   /** Results of the next queries requests. */
-  results: Dictionary<NextQueryPreviewResults>;
+  resultsPreview: Dictionary<NextQueryPreviewResults>;
 }
 
 /**
@@ -84,12 +84,12 @@ export interface NextQueriesMutations extends StatusMutations, QueryMutations {
    *
    * @param payload - Object containing the next query, the totalResults and the results to add.
    */
-  setResults(payload: SetNextQueryPreviewResultsPayload): void;
+  setResultsPreview(payload: SetNextQueryPreviewResultsPayload): void;
 
   /**
    * Resets the result's dictionary.
    */
-  resetResults(): void;
+  resetResultsPreview(): void;
 }
 
 /**
@@ -122,17 +122,14 @@ export interface NextQueriesActions {
    * @param urlParams - List of params from the url.
    */
   setUrlParams(urlParams: UrlParams): void;
-
-  cancelFetchAndSaveNextQueryPreview(): void;
-
   /**
    * Requests the results to preview a next query,
    * limited by {@link NextQueriesConfig.resultsPreviewCount}.
    *
    * @param query - The next query to retrieve the results.
+   * @returns A search response based on the next query.
    */
   fetchNextQueryPreview(query: string): SearchResponse | null;
-
   /**
    * Requests the results to preview a next query and saves them in the state.
    *
@@ -178,6 +175,6 @@ interface NextQueryPreviewResults {
  * It is done that way to avoid setting more than a next query in the mutation.
  */
 interface SetNextQueryPreviewResultsPayload {
-  nextQuery: string;
+  query: string;
   results: NextQueryPreviewResults;
 }
