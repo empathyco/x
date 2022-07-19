@@ -1,29 +1,43 @@
-import { SearchResponse } from '@empathyco/x-types';
-import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { NextQueriesActionContext } from '../types';
+import { cancellablePromise, CancelSymbol } from '../../../../utils/cancellable-promise';
 
-let nextQuery = '';
+let cancelPromise: undefined | (() => void);
 
-const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
-  NextQueriesActionContext,
-  string,
-  SearchResponse | null
->({
-  fetch({ dispatch }, request: string) {
-    nextQuery = request;
-    return dispatch('fetchNextQueryPreview', request);
-  },
-  onSuccess({ commit }, response: SearchResponse) {
-    commit('setResults', {
-      nextQuery,
-      results: {
-        totalResults: response.totalResults,
-        items: response.results
+const fetchAndSave = (
+  { dispatch, commit }: NextQueriesActionContext,
+  nextQuery: string
+): Promise<void> => {
+  commit('setStatus', 'loading');
+
+  const { promise, cancel } = cancellablePromise(dispatch('fetchNextQueryPreview', nextQuery));
+  cancelPromise = cancel;
+
+  return promise
+    .then(response => {
+      if (response) {
+        commit('setResults', {
+          nextQuery,
+          results: {
+            totalResults: response.totalResults,
+            items: response.results
+          }
+        });
+      }
+      commit('setStatus', 'success');
+    })
+    .catch(error => {
+      if (error !== CancelSymbol) {
+        commit('setStatus', 'error');
+        // eslint-disable-next-line no-console
+        console.error(error);
       }
     });
-  }
-});
+};
+
+const cancel = (): void => {
+  cancelPromise?.();
+};
 
 export const fetchAndSaveNextQueryPreview = fetchAndSave;
 
-export const cancelFetchAndSaveNextQueryPreview = cancelPrevious;
+export const cancelFetchAndSaveNextQueryPreview = cancel;

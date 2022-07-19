@@ -58,40 +58,6 @@ describe('testing next queries module actions', () => {
     });
   });
 
-  describe('fetchNextQueryPreview', () => {
-    it('should build the search request adding rows and extraParams from state', async () => {
-      resetNextQueriesStateWith(store, {
-        config: {
-          resultsPreviewCount: 3
-        },
-        params: {
-          extraParam: 'extra param'
-        }
-      });
-      const query = 'honeyboo';
-      await store.dispatch('fetchNextQueryPreview', query);
-      const expectedRequest: SearchRequest = {
-        query,
-        rows: 3,
-        extraParams: {
-          extraParam: 'extra param'
-        }
-      };
-      expect(adapter.search).toHaveBeenCalledWith(expectedRequest, {
-        id: 'fetchNextQueryPreview-honeyboo'
-      });
-    });
-
-    it('should return the search response', async () => {
-      const results = await store.dispatch('fetchNextQueryPreview', 'honeyboo');
-      expect(results).toEqual(mockedSearchResponse);
-    });
-
-    it('should return `null` if the query is empty', async () => {
-      expect(await store.dispatch('fetchNextQueryPreview', '')).toBeNull();
-    });
-  });
-
   describe('fetchAndSaveNextQueries', () => {
     it('should request and store next queries in the state', async () => {
       resetNextQueriesStateWith(store, {
@@ -152,6 +118,87 @@ describe('testing next queries module actions', () => {
       ]);
       expect(store.state.nextQueries).toEqual(previousNextQueries);
       expect(store.state.status).toEqual('success');
+    });
+  });
+
+  describe('fetchNextQueryPreview', () => {
+    it('should build the search request adding rows and extraParams from state', async () => {
+      resetNextQueriesStateWith(store, {
+        config: {
+          resultsPreviewCount: 3
+        },
+        params: {
+          extraParam: 'extra param'
+        }
+      });
+      const query = 'honeyboo';
+      await store.dispatch('fetchNextQueryPreview', query);
+      const expectedRequest: SearchRequest = {
+        query,
+        rows: 3,
+        extraParams: {
+          extraParam: 'extra param'
+        }
+      };
+      expect(adapter.search).toHaveBeenCalledWith(expectedRequest, {
+        id: 'fetchNextQueryPreview-honeyboo'
+      });
+    });
+
+    it('should return the search response', async () => {
+      const results = await store.dispatch('fetchNextQueryPreview', 'honeyboo');
+      expect(results).toEqual(mockedSearchResponse);
+    });
+
+    it('should return `null` if the query is empty', async () => {
+      expect(await store.dispatch('fetchNextQueryPreview', '')).toBeNull();
+    });
+  });
+
+  describe('fetchAndSaveNextQueryPreview', () => {
+    it('should request and store preview results in the state', async () => {
+      const query = 'tshirt';
+
+      const promise = store.dispatch('fetchAndSaveNextQueryPreview', query);
+      expect(store.state.status).toEqual('loading');
+      await promise;
+
+      const expectedResults = {
+        totalResults: mockedSearchResponse.totalResults,
+        items: mockedSearchResponse.results
+      };
+      const stateResults = store.state.results;
+
+      expect(query in stateResults).toBeTruthy();
+      expect(stateResults[query]).toEqual(expectedResults);
+    });
+
+    it('should send multiple requests if the queries are different', async () => {
+      const firstRequest = store.dispatch('fetchAndSaveNextQueryPreview', 'milk');
+      const secondRequest = store.dispatch('fetchAndSaveNextQueryPreview', 'cookies');
+
+      await Promise.all([firstRequest, secondRequest]);
+
+      expect('milk' in store.state.results).toBeTruthy();
+      expect('cookies' in store.state.results).toBeTruthy();
+    });
+
+    it('should set the status to error when it fails', async () => {
+      adapter.search.mockRejectedValueOnce('Generic error');
+      await store.dispatch('fetchAndSaveNextQueryPreview', 'milk');
+
+      expect(store.state.results).toStrictEqual({});
+      expect(store.state.status).toEqual('error');
+    });
+  });
+
+  describe('cancelFetchAndSaveNextQueryPreview', () => {
+    it('should cancel the request and do not modify the stored results', async () => {
+      await Promise.all([
+        store.dispatch('fetchAndSaveNextQueryPreview', 'milk'),
+        store.dispatch('cancelFetchAndSaveNextQueryPreview')
+      ]);
+      expect(store.state.results).toStrictEqual({});
     });
   });
 
