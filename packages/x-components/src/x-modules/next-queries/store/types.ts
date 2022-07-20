@@ -2,8 +2,8 @@ import {
   HistoryQuery,
   NextQuery,
   NextQueriesRequest,
-  Result,
-  SearchResponse
+  SearchResponse,
+  NextQueryPreviewResults
 } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
@@ -162,11 +162,3 @@ export type NextQueriesActionContext = XActionContext<
   NextQueriesMutations,
   NextQueriesActions
 >;
-
-/**
- * Interface to type the next query preview objects.
- */
-interface NextQueryPreviewResults {
-  items: Result[];
-  totalResults: number;
-}
