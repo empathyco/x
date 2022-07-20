@@ -135,16 +135,31 @@ describe('next query preview', () => {
 });
 
 interface RenderNextQueryPreviewOptions {
+  /** The initial next query to render. */
   suggestion?: NextQuery;
+  /**
+   * An event to spy on.
+   * This prop is convenient because the spy is created before mounting the component.
+   */
   eventToSpy?: XEvent;
+  /** The results preview of the next query search request. */
   resultsPreview?: NextQueryPreviewResults | null;
+  /**
+   * The template to render. Receives `suggestion` via prop, and has registered the
+   * {@link NextQueryPreview} component.
+   */
   template?: string;
 }
 
 interface RenderNextQueryPreviewAPI {
+  /** The Vue testing utils wrapper for the {@link NextQueryPreview} component. */
   wrapper: Wrapper<Vue>;
+  /** A Jest spy set in the {@link XPlugin} `on` function. */
   eventSpy?: jest.Mock<any, any>;
+  /** The rendered next query. */
   suggestion: NextQuery;
+  /** The results preview of the next query search request. */
   resultsPreview: NextQueryPreviewResults | null;
+  /** Find test data in the wrapper for the {@link NextQueryPreview} component. */
   findTestDataById: (testDataId: string) => WrapperArray<Vue>;
 }
