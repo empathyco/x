@@ -97,8 +97,10 @@ describe('next query preview', () => {
 
   it('exposes the suggestion, the results and the totalResults in the default slot', () => {
     const template = `
-      <NextQueryPreview :suggestion="suggestion" #default="{ results, item, totalResults}">
-        <span data-test="next-query-query">{{suggestion.query}}</span>
+      <NextQueryPreview
+          :suggestion="suggestion"
+          #default="{ results, suggestion: slotSuggestion, totalResults}">
+        <span data-test="next-query-query">{{slotSuggestion.query}}</span>
         <span data-test="total-results">{{ totalResults }}</span>
         <div v-for="result in results" :key="result.id">
           <span data-test="result-name">{{result.name}}</span>

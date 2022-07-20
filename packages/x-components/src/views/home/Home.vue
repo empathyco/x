@@ -235,30 +235,63 @@
                         </template>
 
                         <template #next-queries-group="{ item: { nextQueries } }">
-                          <div class="x-list x-padding--06 x-background--neutral-95 x-list--gap-06">
-                            <div class="x-list x-list--gap-03">
-                              <h1 class="x-title2 x-text--bold">You may be interested</h1>
-                              <p class="x-text x-font-size--05">
-                                This is what other shoppers searched after
-                                <span class="x-font-weight--bold">"{{ $x.query.search }}"</span>
-                              </p>
-                            </div>
-                            <NextQueries
-                              #suggestion="{ suggestion }"
-                              :suggestions="nextQueries"
-                              class="x-list--gap-06"
-                              :max-items-to-render="3"
+                          <div class="x-row x-row--gap-04 x-row--align-stretch">
+                            <div
+                              class="
+                                x-row__item x-row__item--span-3
+                                x-list
+                                x-padding--06
+                                x-background--neutral-95
+                                x-list--gap-06
+                              "
                             >
-                              <NextQuery
-                                #default="{ suggestion: nextQuery }"
-                                :suggestion="suggestion"
-                                class="x-tag x-tag--card"
+                              <div class="x-list x-list--gap-03">
+                                <h1 class="x-title2 x-text--bold">You may be interested</h1>
+                                <p class="x-text x-font-size--05">
+                                  This is what other shoppers searched after
+                                  <span class="x-font-weight--bold">"{{ $x.query.search }}"</span>
+                                </p>
+                              </div>
+                              <NextQueries
+                                #suggestion="{ suggestion }"
+                                :suggestions="nextQueries"
+                                class="x-list--gap-06"
+                                :max-items-to-render="3"
                               >
-                                <LightBulbOn class="x-icon--l" />
-                                <span class="x-flex-auto">{{ nextQuery.query }}</span>
-                                <ArrowRight class="x-icon--l" />
-                              </NextQuery>
-                            </NextQueries>
+                                <NextQuery
+                                  #default="{ suggestion: nextQuery }"
+                                  :suggestion="suggestion"
+                                  class="x-tag x-tag--card"
+                                >
+                                  <LightBulbOn class="x-icon--l" />
+                                  <span class="x-flex-auto">{{ nextQuery.query }}</span>
+                                  <ArrowRight class="x-icon--l" />
+                                </NextQuery>
+                              </NextQueries>
+                            </div>
+                            <div class="x-row__item x-row__item--span-9 x-padding--top-06">
+                              <NextQueryPreview
+                                :suggestion="nextQueries[0]"
+                                #default="{ results, totalResults, suggestion }"
+                                class="x-list x-list--gap-03"
+                              >
+                                <h1 class="x-title2 x-text--bold">Others clients have searched</h1>
+                                <NextQuery class="x-text x-font-size--05" :suggestion="suggestion">
+                                  <span class="x-font-weight--bold">{{ suggestion.query }}</span>
+                                  ({{ totalResults }})
+                                </NextQuery>
+                                <SlidingPanel :resetOnContentChange="false">
+                                  <div class="x-list x-list--gap-03">
+                                    <Result
+                                      v-for="result in results"
+                                      :key="result.id"
+                                      :result="result"
+                                      class="x-next-query-preview__result"
+                                    />
+                                  </div>
+                                </SlidingPanel>
+                              </NextQueryPreview>
+                            </div>
                           </div>
                         </template>
                       </BaseVariableColumnGrid>
@@ -380,6 +413,7 @@
   import Spellcheck from '../../x-modules/search/components/spellcheck.vue';
   import Tagging from '../../x-modules/tagging/components/tagging.vue';
   import UrlHandler from '../../x-modules/url/components/url-handler.vue';
+  import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -390,6 +424,7 @@
       infiniteScroll
     },
     components: {
+      NextQueryPreview,
       ArrowRight,
       Aside,
       AutoProgressBar,
@@ -498,6 +533,13 @@
   }
 </script>
 
+<style lang="scss">
+  .x-base-grid__next-queries-group {
+    grid-column-start: 1;
+    grid-column-end: -1;
+  }
+</style>
+
 <style lang="scss" scoped>
   .x-modal::v-deep .x-modal__content {
     overflow: hidden;
@@ -505,5 +547,8 @@
     width: calc(100% - 20px);
     height: calc(100% - 20px);
     margin: 10px;
+  }
+  .x-next-query-preview__result {
+    max-width: 180px !important;
   }
 </style>

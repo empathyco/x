@@ -1,7 +1,7 @@
 <template>
   <div v-if="suggestionResults" data-test="next-query-preview" class="x-next-query-preview">
     <slot
-      :item="suggestion"
+      :suggestion="suggestion"
       :results="suggestionResults.items"
       :totalResults="suggestionResults.totalResults"
     >
