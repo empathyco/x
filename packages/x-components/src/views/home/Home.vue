@@ -108,7 +108,11 @@
         </template>
 
         <template #header-end>
-          <BaseEventButton class="x-button x-button--ghost" :events="eventsToCloseX">
+          <BaseEventButton
+            data-test="close-modal"
+            class="x-button x-button--ghost"
+            :events="eventsToCloseX"
+          >
             <CrossIcon />
           </BaseEventButton>
         </template>
