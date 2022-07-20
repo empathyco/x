@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.134](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.133...@empathyco/x-components@3.0.0-alpha.134) (2022-07-20)
+
+### Bug Fixes
+
+- **components:** now properly checks if a has content (#612)
+  ([ad2f6dc](https://github.com/empathyco/x/commit/ad2f6dc522d9da59dde2e2c5f90510c0f93380ab)),
+  closes [EX-6681](https://searchbroker.atlassian.net/browse/EX-6681)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.133](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.132...@empathyco/x-components@3.0.0-alpha.133) (2022-07-15)
 
 ### Bug Fixes
