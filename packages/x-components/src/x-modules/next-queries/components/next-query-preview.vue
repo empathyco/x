@@ -73,3 +73,94 @@
     }
   }
 </script>
+
+<docs lang="mdx">
+## Events
+
+This component emits the `NextQueryPreviewMounted` when it is mounted.
+
+## See it in action
+
+Here you have a basic example of how the NextQueryPreview is rendered. Keep in mind that this
+component is intended to be used overriding its default slot. By default it will only render the
+names of the results.
+
+```vue live
+<template>
+  <NextQueryPreview :suggestion="suggestion" />
+</template>
+
+<script>
+  import { NextQueryPreview } from '@empathyco/x-components/next-queries';
+
+  export default {
+    name: 'NextQueryPreviewDemo',
+    components: {
+      NextQueryPreview
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'NextQuery',
+          query: 'tshirt',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Play with the default slot
+
+In this example, the results will be rendered inside a sliding panel.
+
+```vue live
+<template>
+  <NextQueryPreview :suggestion="suggestion" #default="{ totalResults, results }">
+    <p>Total results: {{ totalResults }}</p>
+    <SlidingPanel :resetOnContentChange="false">
+      <article
+        v-for="result in results"
+        :key="result.id"
+        class="x-result"
+        style="max-width: 300px; overflow: hidden"
+      >
+        <BaseResultLink :result="result">
+          <BaseResultImage :result="result" class="x-result__picture" />
+        </BaseResultLink>
+        <div class="x-result__description">
+          <BaseResultLink :result="result">
+            <h1 class="x-title3">{{ result.name }}</h1>
+          </BaseResultLink>
+        </div>
+      </article>
+    </SlidingPanel>
+  </NextQueryPreview>
+</template>
+
+<script>
+  import { NextQueryPreview } from '@empathyco/x-components/next-queries';
+  import { SlidingPanel, BaseResultLink, BaseResultImage } from '@empathyco/x-components';
+
+  export default {
+    name: 'NextQueryPreviewDemoOverridingSlot',
+    components: {
+      NextQueryPreview,
+      SlidingPanel,
+      BaseResultLink,
+      BaseResultImage
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'NextQuery',
+          query: 'tshirt',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
+```
+</docs>
