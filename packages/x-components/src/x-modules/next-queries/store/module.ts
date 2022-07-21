@@ -50,7 +50,7 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
       state.params = params;
     },
     setResultsPreview(state, resultsPreview) {
-      state.resultsPreview = Object.assign({}, state.resultsPreview, resultsPreview);
+      state.resultsPreview = { ...state.resultsPreview, ...resultsPreview };
     },
     resetResultsPreview(state) {
       state.resultsPreview = {};
