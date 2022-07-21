@@ -85,10 +85,6 @@ Then('the search box is empty', () => {
   cy.getByDataTest('search-input').should('have.value', '');
 });
 
-And('related results are cleared', () => {
-  cy.getByDataTest('result-item').should('not.exist');
-});
-
 And('query suggestions are cleared', () => {
   cy.getByDataTest('query-suggestions').should('not.exist');
 });
