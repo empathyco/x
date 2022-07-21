@@ -11,5 +11,8 @@ export const popularSearchesEndpointAdapter = endpointAdapterFactory<
   endpoint:
     'https://api.{extraParams.env(.)}empathy.co/search/v1/query/{extraParams.instance}/empathize',
   requestMapper: popularSearchesRequestMapper,
-  responseMapper: popularSearchesResponseMapper
+  responseMapper: popularSearchesResponseMapper,
+  defaultRequestOptions: {
+    id: 'popular-searches'
+  }
 });
