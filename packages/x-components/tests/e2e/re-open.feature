@@ -9,6 +9,7 @@ Feature: Re-open search modal
     When  close modal button is clicked
     Then  related results are cleared
     When  start button is clicked
+    And  "<query>" is searched
     Then  related results are displayed
 
 Examples:
