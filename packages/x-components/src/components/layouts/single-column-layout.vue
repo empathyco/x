@@ -175,7 +175,6 @@
     ::v-deep .x-layout__aside {
       grid-row: page;
       z-index: 3;
-      pointer-events: none;
 
       .x-modal__content {
         width: 100%;
@@ -186,7 +185,6 @@
 
     &__predictive ::v-deep,
     &__floating ::v-deep,
-    ::v-deep .x-layout__aside,
     .slot-helper ::v-deep {
       pointer-events: none;
 
