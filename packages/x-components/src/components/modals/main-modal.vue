@@ -1,6 +1,7 @@
 <template>
   <BaseEventsModal
-    class="x-modal"
+    class="x-main-modal"
+    data-test="main-modal"
     :eventsToOpenModal="openEvents"
     :eventsToCloseModal="closeEvents"
     :bodyClickEvent="outOfModalClickEvent"
@@ -27,7 +28,7 @@
       BaseEventsModal
     }
   })
-  export default class XModal extends Vue {
+  export default class MainModal extends Vue {
     /**
      * Animation to use for opening/closing the modal.
      *
@@ -46,14 +47,14 @@
      *
      * @internal
      */
-    protected closeEvents: XEvent[] = ['UserClickedCloseX', 'UserClickedOutOfXModal'];
+    protected closeEvents: XEvent[] = ['UserClickedCloseX', 'UserClickedOutOfMainModal'];
 
     /**
      * Event to be emitted by the modal when clicked out of its content.
      *
      * @internal
      */
-    protected outOfModalClickEvent: XEvent = 'UserClickedOutOfXModal';
+    protected outOfModalClickEvent: XEvent = 'UserClickedOutOfMainModal';
   }
 </script>
 
@@ -62,7 +63,7 @@
 
 This component emits the following events:
 
-- [`UserClickedOutOfXModal`](./../../api/x-components.xeventstypes.md)
+- [`UserClickedOutOfMainModal`](./../../api/x-components.xeventstypes.md)
 
 ## See it in action
 
@@ -71,22 +72,22 @@ Here you have a basic example of how the x modal works.
 ```vue live
 <template>
   <div>
-    <OpenXModal>Open X</OpenXModal>
-    <XModal>
-      <CloseXModal>Close X</CloseXModal>
-    </XModal>
+    <OpenMainModal>Open X</OpenMainModal>
+    <MainModal>
+      <CloseMainModal>Close X</CloseMainModal>
+    </MainModal>
   </div>
 </template>
 
 <script>
-  import { XModal, CloseXModal, OpenXModal } from '@empathyco/x-components';
+  import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components';
 
   export default {
-    name: 'XModalDemo',
+    name: 'MainModalDemo',
     components: {
-      XModal,
-      CloseXModal,
-      OpenXModal
+      MainModal,
+      CloseMainModal,
+      OpenMainModal
     }
   };
 </script>

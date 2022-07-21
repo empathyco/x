@@ -125,7 +125,7 @@ export const identifierResultsWiring = createWiring({
   UserClickedCloseX: {
     clearIdentifierResultsQuery
   },
-  UserClickedOutOfXModal: {
+  UserClickedOutOfMainModal: {
     clearIdentifierResultsQuery
   }
 });

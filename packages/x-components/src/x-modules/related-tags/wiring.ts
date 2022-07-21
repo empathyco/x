@@ -122,7 +122,7 @@ export const relatedTagsWiring = createWiring({
   UserClickedCloseX: {
     clearRelatedTagsQuery
   },
-  UserClickedOutOfXModal: {
+  UserClickedOutOfMainModal: {
     clearRelatedTagsQuery
   }
 });

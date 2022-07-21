@@ -155,7 +155,7 @@ export const historyQueriesWiring = createWiring({
   UserClickedCloseX: {
     clearHistoryQueriesQuery
   },
-  UserClickedOutOfXModal: {
+  UserClickedOutOfMainModal: {
     clearHistoryQueriesQuery
   }
 });

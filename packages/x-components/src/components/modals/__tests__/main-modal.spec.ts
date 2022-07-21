@@ -1,18 +1,18 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
-import XModal from '../x-modal.vue';
+import MainModal from '../main-modal.vue';
 import { PropsWithType } from '../../../utils/types';
 import { XEventsTypes } from '../../../wiring/events.types';
 
 /**
- * Renders a {@link XModal} component with the provided options and offers an API to easily
+ * Renders a {@link MainModal} component with the provided options and offers an API to easily
  * test it.
  *
  * @param options - The options to render the component with.
  * @returns An API to test the component.
  */
-function renderXModal({ template = '<XModal/>' }: RenderXModalOptions = {}): RenderXModalAPI {
+function renderXModal({ template = '<MainModal/>' }: RenderXModalOptions = {}): RenderXModalAPI {
   const [, localVue] = installNewXPlugin();
   const parent = document.createElement('div');
   document.body.appendChild(parent);
@@ -20,10 +20,10 @@ function renderXModal({ template = '<XModal/>' }: RenderXModalOptions = {}): Ren
   const wrapper = mount(
     {
       template,
-      components: { XModal }
+      components: { MainModal }
     },
     {
-      attachTo: parent,
+      attachTo: parent, // necessary to make the focus on body event to work in some environments.
       localVue
     }
   );
@@ -82,9 +82,9 @@ describe('testing X Modal  component', () => {
   it('does not close when clicking inside the content', async () => {
     const { wrapper, emit, getModalContent } = renderXModal({
       template: `
-        <XModal>
+        <MainModal>
           <button data-test="test-button">Modal should still be opened when I'm clicked</button>
-        </XModal>
+        </MainModal>
       `
     });
 

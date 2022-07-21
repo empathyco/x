@@ -5,7 +5,7 @@
     <PreselectedFilters />
     <UrlHandler query="q" store="store" />
     <SnippetCallbacks />
-    <OpenXModal data-test="open-modal">Start</OpenXModal>
+    <OpenMainModal>Start</OpenMainModal>
     <h1>Test controls</h1>
     <ul class="x-test-controls x-list x-list--gap-05">
       <li class="x-test-controls__item x-list__item">
@@ -64,7 +64,7 @@
         </label>
       </li>
     </ul>
-    <XModal :animation="modalAnimation">
+    <MainModal :animation="modalAnimation">
       <MultiColumnMaxWidthLayout class="x-background--neutral-100">
         <template #header-middle>
           <div
@@ -108,9 +108,9 @@
         </template>
 
         <template #header-end>
-          <CloseXModal class="x-button x-button--ghost">
+          <CloseMainModal class="x-button x-button--ghost">
             <CrossIcon />
-          </CloseXModal>
+          </CloseMainModal>
         </template>
 
         <template #sub-header>
@@ -305,7 +305,7 @@
           </ScrollToTop>
         </template>
       </MultiColumnMaxWidthLayout>
-    </XModal>
+    </MainModal>
   </div>
 </template>
 
@@ -375,9 +375,9 @@
   import Spellcheck from '../../x-modules/search/components/spellcheck.vue';
   import Tagging from '../../x-modules/tagging/components/tagging.vue';
   import UrlHandler from '../../x-modules/url/components/url-handler.vue';
-  import XModal from '../../components/modals/x-modal.vue';
-  import OpenXModal from '../../components/modals/open-x-modal.vue';
-  import CloseXModal from '../../components/modals/close-x-modal.vue';
+  import MainModal from '../../components/modals/main-modal.vue';
+  import OpenMainModal from '../../components/modals/open-main-modal.vue';
+  import CloseMainModal from '../../components/modals/close-main-modal.vue';
   import BaseKeyboardNavigation from '../../components/base-keyboard-navigation.vue';
   import { XProvide } from '../../components/decorators/injection.decorators';
   import Aside from './aside.vue';
@@ -413,7 +413,7 @@
       ChevronTinyRight,
       ChevronUp,
       ClearSearchInput,
-      CloseXModal,
+      CloseMainModal,
       CrossIcon,
       Grid1Col,
       Grid2Col,
@@ -425,7 +425,7 @@
       NextQueriesList,
       NextQuery,
       Nq1,
-      OpenXModal,
+      OpenMainModal,
       PartialQueryButton,
       PartialResultsList,
       PredictiveLayer,
@@ -451,7 +451,7 @@
       SpellcheckButton,
       Tagging,
       UrlHandler,
-      XModal
+      MainModal
     }
   })
   export default class App extends Vue {

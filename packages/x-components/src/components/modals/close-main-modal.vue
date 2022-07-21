@@ -1,5 +1,10 @@
 <template>
-  <BaseEventsModalClose v-on="$listeners" class="x-modal" :closingEvent="closingEvent">
+  <BaseEventsModalClose
+    v-on="$listeners"
+    class="x-close-main-modal"
+    data-test="close-main-modal"
+    :closingEvent="closingEvent"
+  >
     <slot />
   </BaseEventsModalClose>
 </template>
@@ -11,7 +16,7 @@
   import BaseEventsModalClose from './base-events-modal-close.vue';
 
   /**
-   * Button to close the {@link XModal}.
+   * Button to close the {@link MainModal}.
    *
    * @public
    */
@@ -20,9 +25,9 @@
       BaseEventsModalClose
     }
   })
-  export default class CloseXModal extends Vue {
+  export default class CloseMainModal extends Vue {
     /**
-     * Event to be emitted to close the {@link XModal}.
+     * Event to be emitted to close the {@link MainModal}.
      *
      * @internal
      */
@@ -44,22 +49,22 @@ Here you have a basic example of how the close x modal button works.
 ```vue live
 <template>
   <div>
-    <OpenXModal>Open X</OpenXModal>
-    <XModal>
-      <CloseXModal>Close X</CloseXModal>
-    </XModal>
+    <OpenMainModal>Open X</OpenMainModal>
+    <MainModal>
+      <CloseMainModal>Close X</CloseMainModal>
+    </MainModal>
   </div>
 </template>
 
 <script>
-  import { XModal, CloseXModal, OpenXModal } from '@empathyco/x-components';
+  import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components';
 
   export default {
     name: 'XModalDemo',
     components: {
-      XModal,
-      CloseXModal,
-      OpenXModal
+      MainModal,
+      CloseMainModal,
+      OpenMainModal
     }
   };
 </script>

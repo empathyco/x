@@ -116,7 +116,7 @@ export const querySuggestionsWiring = createWiring({
   UserClickedCloseX: {
     clearQuerySuggestionsQuery
   },
-  UserClickedOutOfXModal: {
+  UserClickedOutOfMainModal: {
     clearQuerySuggestionsQuery
   }
 });

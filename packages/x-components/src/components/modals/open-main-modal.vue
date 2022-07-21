@@ -1,5 +1,10 @@
 <template>
-  <BaseEventsModalOpen v-on="$listeners" class="x-modal" :openingEvent="openingEvent">
+  <BaseEventsModalOpen
+    v-on="$listeners"
+    class="x-open-main-modal"
+    data-test="open-main-modal"
+    :openingEvent="openingEvent"
+  >
     <slot />
   </BaseEventsModalOpen>
 </template>
@@ -11,7 +16,7 @@
   import BaseEventsModalOpen from './base-events-modal-open.vue';
 
   /**
-   * Button to open the {@link XModal}.
+   * Button to open the {@link MainModal}.
    *
    * @public
    */
@@ -20,9 +25,9 @@
       BaseEventsModalOpen
     }
   })
-  export default class OpenXModal extends Vue {
+  export default class OpenMainModal extends Vue {
     /**
-     * Event to be emitted to open the {@link XModal}.
+     * Event to be emitted to open the {@link MainModal}.
      *
      * @internal
      */
@@ -44,22 +49,22 @@ Here you have a basic example of how the open x modal button works.
 ```vue live
 <template>
   <div>
-    <OpenXModal>Open X</OpenXModal>
-    <XModal>
-      <CloseXModal>Close X</CloseXModal>
-    </XModal>
+    <OpenMainModal>Open X</OpenMainModal>
+    <MainModal>
+      <CloseMainModal>Close X</CloseMainModal>
+    </MainModal>
   </div>
 </template>
 
 <script>
-  import { XModal, CloseXModal, OpenXModal } from '@empathyco/x-components';
+  import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components';
 
   export default {
     name: 'XModalDemo',
     components: {
-      XModal,
-      CloseXModal,
-      OpenXModal
+      MainModal,
+      CloseMainModal,
+      OpenMainModal
     }
   };
 </script>

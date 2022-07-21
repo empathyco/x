@@ -2,23 +2,23 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { AnyFunction } from '@empathyco/x-utils';
 import { installNewXPlugin } from '../../../__tests__/utils';
-import OpenXModal from '../open-x-modal.vue';
+import CloseMainModal from '../close-main-modal.vue';
 
 /**
- * Renders the {@link OpenXModal} with the provided options.
+ * Renders the {@link CloseMainModal} with the provided options.
  *
  * @param options - The options to render the component with.
  * @returns An small API to test the component.
  */
-function renderOpenXModal({
-  template = '<OpenXModal />',
+function renderCloseXModal({
+  template = '<CloseMainModal />',
   methods
-}: RenderOpenXModalOptions = {}): RenderOpenXModalAPI {
+}: RenderCloseXModalOptions = {}): RenderCloseXModalAPI {
   const [, localVue] = installNewXPlugin();
   const containerWrapper = mount(
     {
       components: {
-        OpenXModal
+        CloseMainModal
       },
       template,
       methods
@@ -26,7 +26,7 @@ function renderOpenXModal({
     { localVue }
   );
 
-  const wrapper = containerWrapper.findComponent(OpenXModal);
+  const wrapper = containerWrapper.findComponent(CloseMainModal);
 
   return {
     wrapper,
@@ -36,31 +36,31 @@ function renderOpenXModal({
   };
 }
 
-describe('testing Open X Modal button component', () => {
-  it('emits UserClickedOpenX by default when clicked', async () => {
-    const { wrapper, click } = renderOpenXModal();
-    const onUserClickedOpenX = jest.fn();
-    wrapper.vm.$x.on('UserClickedOpenX').subscribe(onUserClickedOpenX);
+describe('testing Close X Modal button component', () => {
+  it('emits UserClickedCloseX by default when clicked', async () => {
+    const { wrapper, click } = renderCloseXModal();
+    const onUserClickedCloseX = jest.fn();
+    wrapper.vm.$x.on('UserClickedCloseX').subscribe(onUserClickedCloseX);
 
     await click();
 
-    expect(onUserClickedOpenX).toHaveBeenCalledTimes(1);
+    expect(onUserClickedCloseX).toHaveBeenCalledTimes(1);
   });
 
   it('renders the default slot contents', () => {
-    const { wrapper } = renderOpenXModal({
-      template: '<OpenXModal>Open</OpenXModal>'
+    const { wrapper } = renderCloseXModal({
+      template: '<CloseMainModal>Close</CloseMainModal>'
     });
 
-    expect(wrapper.text()).toEqual('Open');
+    expect(wrapper.text()).toEqual('Close');
   });
 
   it('can be extended adding listeners', () => {
     const methods = {
       onClick: jest.fn()
     };
-    const { click } = renderOpenXModal({
-      template: '<OpenXModal @click="onClick">Open</OpenXModal>',
+    const { click } = renderCloseXModal({
+      template: '<CloseMainModal @click="onClick">Close</CloseMainModal>',
       methods
     });
     click();
@@ -68,14 +68,14 @@ describe('testing Open X Modal button component', () => {
   });
 });
 
-interface RenderOpenXModalOptions {
+interface RenderCloseXModalOptions {
   /** The template to render. */
   template?: string;
   /** Additional methods to add to the testing template. */
   methods?: Record<string, AnyFunction>;
 }
 
-interface RenderOpenXModalAPI {
+interface RenderCloseXModalAPI {
   /** The wrapper for the modal component. */
   wrapper: Wrapper<Vue>;
   /** Clicks the button. */
