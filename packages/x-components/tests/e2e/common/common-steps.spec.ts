@@ -64,11 +64,11 @@ Given('a URL with a filter parameter {string}', (filter: string) => {
 });
 
 When('start button is clicked', () => {
-  cy.getByDataTest('open-modal').click();
+  cy.getByDataTest('open-main-modal').click();
 });
 
 When('close modal button is clicked', () => {
-  cy.getByDataTest('close-modal').click();
+  cy.getByDataTest('close-main-modal').click();
 });
 
 // Filters
