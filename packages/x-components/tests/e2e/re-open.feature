@@ -6,7 +6,7 @@ Feature: Re-open search modal
     And   start button is clicked
     When  "<query>" is searched
     Then  related results are displayed
-    When  close button is clicked
+    When  close modal button is clicked
     Then  related results are cleared
     When  start button is clicked
     Then  related results are displayed

@@ -67,7 +67,7 @@ When('start button is clicked', () => {
   cy.getByDataTest('open-modal').click();
 });
 
-When('close button is clicked', () => {
+When('close modal button is clicked', () => {
   cy.getByDataTest('close-modal').click();
 });
 
