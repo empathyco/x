@@ -12,7 +12,9 @@ import { XEventsTypes } from '../../../wiring/events.types';
  * @param options - The options to render the component with.
  * @returns An API to test the component.
  */
-function renderXModal({ template = '<MainModal/>' }: RenderXModalOptions = {}): RenderXModalAPI {
+function renderMainModal({
+  template = '<MainModal/>'
+}: RenderMainModalOptions = {}): RenderMainModalAPI {
   const [, localVue] = installNewXPlugin();
   const parent = document.createElement('div');
   document.body.appendChild(parent);
@@ -47,9 +49,9 @@ function renderXModal({ template = '<MainModal/>' }: RenderXModalOptions = {}): 
   };
 }
 
-describe('testing X Modal  component', () => {
+describe('testing Main Modal  component', () => {
   it('opens and closes when UserClickedOpenX and UserClickedClosedX are emitted', async () => {
-    const { emit, getModalContent } = renderXModal();
+    const { emit, getModalContent } = renderMainModal();
     expect(getModalContent().exists()).toBe(false);
 
     await emit('UserClickedOpenX');
@@ -60,7 +62,7 @@ describe('testing X Modal  component', () => {
   });
 
   it('closes when clicking on the modal overlay', async () => {
-    const { clickModalOverlay, emit, getModalContent } = renderXModal();
+    const { clickModalOverlay, emit, getModalContent } = renderMainModal();
 
     await emit('UserClickedOpenX');
     expect(getModalContent().exists()).toBe(true);
@@ -70,7 +72,7 @@ describe('testing X Modal  component', () => {
   });
 
   it('closes when focusing any other element out of the modal', async () => {
-    const { emit, focusOutOfModal, getModalContent } = renderXModal();
+    const { emit, focusOutOfModal, getModalContent } = renderMainModal();
 
     await emit('UserClickedOpenX');
     expect(getModalContent().exists()).toBe(true);
@@ -80,7 +82,7 @@ describe('testing X Modal  component', () => {
   });
 
   it('does not close when clicking inside the content', async () => {
-    const { wrapper, emit, getModalContent } = renderXModal({
+    const { wrapper, emit, getModalContent } = renderMainModal({
       template: `
         <MainModal>
           <button data-test="test-button">Modal should still be opened when I'm clicked</button>
@@ -96,12 +98,12 @@ describe('testing X Modal  component', () => {
   });
 });
 
-interface RenderXModalOptions {
+interface RenderMainModalOptions {
   /** The template to render. */
   template?: string;
 }
 
-interface RenderXModalAPI {
+interface RenderMainModalAPI {
   /** The wrapper for the modal component. */
   wrapper: Wrapper<Vue>;
   /** Fakes a click on the modal overlay. */

@@ -37,13 +37,13 @@
     @Prop()
     public animation?: Vue | string;
     /**
-     * Events to listen for opening the x modal.
+     * Events to listen for opening the main modal.
      *
      * @internal
      */
     protected openEvents: XEvent[] = ['UserClickedOpenX', 'UserOpenXProgrammatically'];
     /**
-     * Events to listen for closing the x modal.
+     * Events to listen for closing the main modal.
      *
      * @internal
      */
@@ -67,7 +67,7 @@ This component emits the following events:
 
 ## See it in action
 
-Here you have a basic example of how the x modal works.
+Here you have a basic example of how the main modal works.
 
 ```vue live
 <template>

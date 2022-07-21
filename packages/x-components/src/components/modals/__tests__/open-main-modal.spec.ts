@@ -10,10 +10,10 @@ import OpenMainModal from '../open-main-modal.vue';
  * @param options - The options to render the component with.
  * @returns An small API to test the component.
  */
-function renderOpenXModal({
+function renderOpenMainModal({
   template = '<OpenMainModal />',
   methods
-}: RenderOpenXModalOptions = {}): RenderOpenXModalAPI {
+}: RenderOpenMainModalOptions = {}): RenderOpenMainModalAPI {
   const [, localVue] = installNewXPlugin();
   const containerWrapper = mount(
     {
@@ -36,9 +36,9 @@ function renderOpenXModal({
   };
 }
 
-describe('testing Open X Modal button component', () => {
+describe('testing Open Main Modal button component', () => {
   it('emits UserClickedOpenX by default when clicked', async () => {
-    const { wrapper, click } = renderOpenXModal();
+    const { wrapper, click } = renderOpenMainModal();
     const onUserClickedOpenX = jest.fn();
     wrapper.vm.$x.on('UserClickedOpenX').subscribe(onUserClickedOpenX);
 
@@ -48,7 +48,7 @@ describe('testing Open X Modal button component', () => {
   });
 
   it('renders the default slot contents', () => {
-    const { wrapper } = renderOpenXModal({
+    const { wrapper } = renderOpenMainModal({
       template: '<OpenMainModal>Open</OpenMainModal>'
     });
 
@@ -59,7 +59,7 @@ describe('testing Open X Modal button component', () => {
     const methods = {
       onClick: jest.fn()
     };
-    const { click } = renderOpenXModal({
+    const { click } = renderOpenMainModal({
       template: '<OpenMainModal @click="onClick">Open</OpenMainModal>',
       methods
     });
@@ -68,14 +68,14 @@ describe('testing Open X Modal button component', () => {
   });
 });
 
-interface RenderOpenXModalOptions {
+interface RenderOpenMainModalOptions {
   /** The template to render. */
   template?: string;
   /** Additional methods to add to the testing template. */
   methods?: Record<string, AnyFunction>;
 }
 
-interface RenderOpenXModalAPI {
+interface RenderOpenMainModalAPI {
   /** The wrapper for the modal component. */
   wrapper: Wrapper<Vue>;
   /** Clicks the button. */

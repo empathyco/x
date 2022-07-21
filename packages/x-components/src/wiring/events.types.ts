@@ -108,7 +108,7 @@ export interface XEventsTypes
    */
   UserClickedCloseX: void;
   /**
-   * The user clicked out of the Main modal
+   * The user clicked out of the main modal.
    * Payload: none.
    */
   UserClickedOutOfMainModal: void;

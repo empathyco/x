@@ -44,7 +44,7 @@ This component emits the following events:
 
 ## See it in action
 
-Here you have a basic example of how the open x modal button works.
+Here you have a basic example of how the open main modal button works.
 
 ```vue live
 <template>
