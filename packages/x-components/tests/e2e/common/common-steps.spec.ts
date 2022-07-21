@@ -67,6 +67,10 @@ When('start button is clicked', () => {
   cy.getByDataTest('open-modal').click();
 });
 
+When('close modal button is clicked', () => {
+  cy.getByDataTest('close-modal').click();
+});
+
 // Filters
 
 And(
@@ -168,6 +172,10 @@ Then('related results are displayed', () => {
     .each($resultTitle => {
       resultsList.push($resultTitle.text());
     });
+});
+
+And('related results are cleared', () => {
+  cy.getByDataTest('result-item').should('not.exist');
 });
 
 Then('related results have changed', () => {
