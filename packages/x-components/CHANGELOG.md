@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.136](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.135...@empathyco/x-components@3.0.0-alpha.136) (2022-07-21)
+
+### Bug Fixes
+
+- `pointer-events` affecting scrolling in sliding panel in `SingleColumnLayout` aside (#614)
+  ([1463bc1](https://github.com/empathyco/x/commit/1463bc1d5dd1fbd9c279077d7240329b853f82be)),
+  closes [EX-6595](https://searchbroker.atlassian.net/browse/EX-6595)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.135](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.134...@empathyco/x-components@3.0.0-alpha.135) (2022-07-21)
 
 ### Testing
