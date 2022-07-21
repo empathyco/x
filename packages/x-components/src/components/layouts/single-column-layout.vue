@@ -194,7 +194,7 @@
         pointer-events: all;
       }
 
-      .x-list {
+      > .x-list {
         pointer-events: none;
 
         > * {
