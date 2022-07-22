@@ -5,14 +5,16 @@
     data-test="query-suggestions"
     :animation="animation"
     :maxItemsToRender="maxItemsToRender"
+    :showFacets="showFacets"
+    :appendSuggestionWithoutFilter="appendSuggestionWithoutFilter"
   >
-    <template #default="{ suggestion, index }">
+    <template #default="{ suggestion, index, filter }">
       <!--
         @slot Custom component that replaces the `QuerySuggestion` component
             @binding {Suggestion} suggestion - Query Suggestion data
             @binding {number} index - Query Suggestion index
       -->
-      <slot name="suggestion" v-bind="{ suggestion, index }">
+      <slot name="suggestion" v-bind="{ suggestion, index, filter }">
         <QuerySuggestion :suggestion="suggestion" class="x-query-suggestions__suggestion">
           <template #default="{ queryHTML }">
             <!-- eslint-disable max-len -->
@@ -23,7 +25,7 @@
                   @binding {number} index - Query Suggestion index
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ suggestion, index, queryHTML }" />
+            <slot name="suggestion-content" v-bind="{ suggestion, index, queryHTML, filter }" />
           </template>
         </QuerySuggestion>
       </slot>
@@ -32,13 +34,16 @@
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Suggestion } from '@empathyco/x-types';
+  import { Component } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { querySuggestionsXModule } from '../x-module';
+  import { SuggestionsMixin } from '../../../components/suggestions/suggestions.mixin';
+  // eslint-disable-next-line max-len
+  import { SuggestionsWithFacetsMixin } from '../../../components/suggestions/suggestions-with-facets.mixin';
   import QuerySuggestion from './query-suggestion.vue';
 
   /**
@@ -50,7 +55,7 @@
    */
   @Component({
     components: { BaseSuggestions, QuerySuggestion },
-    mixins: [xComponentMixin(querySuggestionsXModule)]
+    mixins: [xComponentMixin(querySuggestionsXModule), SuggestionsMixin, SuggestionsWithFacetsMixin]
   })
   export default class QuerySuggestions extends Vue {
     /**
@@ -60,22 +65,6 @@
      */
     @Getter('querySuggestions', 'querySuggestions')
     public suggestions!: Suggestion[];
-
-    /**
-     * Animation component for `QuerySuggestions`.
-     *
-     * @public
-     */
-    @Prop()
-    protected animation!: Vue;
-
-    /**
-     * Number of query suggestions to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
   }
 </script>
 
@@ -145,6 +134,33 @@ _Type “lipstick” or another fashion term in the input field to try it out!_
     components: {
       QuerySuggestions,
       SearchInput
+    }
+  };
+</script>
+```
+
+In this example, the filters of the suggestion will be rendered along with the query.
+
+The `appendSuggestionWithoutFilter` prop can be used to indicate if the suggestion without filter
+must be rendered along with the suggestion with filters.
+
+This will render:
+
+- Chips //If `appendSuggestionWithoutFilter` is true
+- Chips EXAMPLE
+
+```vue
+<template>
+  <QuerySuggestions :suggestions="suggestions" showFacets appendSuggestionWithoutFilter />
+</template>
+
+<script>
+  import { QuerySuggestions } from '@empathyco/x-components';
+
+  export default {
+    name: 'QuerySuggestionsDemo',
+    components: {
+      QuerySuggestions
     }
   };
 </script>

@@ -1,18 +1,20 @@
 <template>
   <BaseSuggestions
-    :suggestions="popularSearches"
-    :maxItemsToRender="maxItemsToRender"
     class="x-popular-searches"
     data-test="popular-searches"
+    :suggestions="popularSearches"
+    :maxItemsToRender="maxItemsToRender"
+    :showFacets="showFacets"
+    :appendSuggestionWithoutFilter="appendSuggestionWithoutFilter"
     :animation="animation"
   >
-    <template #default="{ suggestion, index }">
+    <template #default="{ suggestion, index, filter }">
       <!--
         @slot Popular Search item
             @binding {Suggestion} suggestion - Popular Search suggestion data
             @binding {number} index - Popular Search suggestion index
       -->
-      <slot name="suggestion" v-bind="{ suggestion, index }">
+      <slot name="suggestion" v-bind="{ suggestion, index, filter }">
         <PopularSearch :suggestion="suggestion" class="x-popular-searches__suggestion">
           <template #default>
             <!--
@@ -20,7 +22,7 @@
                   @binding {Suggestion} suggestion - Popular Search suggestion data
                   @binding {number} index - Popular Search suggestion index
             -->
-            <slot name="suggestion-content" v-bind="{ suggestion, index }" />
+            <slot name="suggestion-content" v-bind="{ suggestion, index, filter }" />
           </template>
         </PopularSearch>
       </slot>
@@ -31,11 +33,14 @@
 <script lang="ts">
   import { Suggestion } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { popularSearchesXModule } from '../x-module';
+  import { SuggestionsMixin } from '../../../components/suggestions/suggestions.mixin';
+  // eslint-disable-next-line max-len
+  import { SuggestionsWithFacetsMixin } from '../../../components/suggestions/suggestions-with-facets.mixin';
   import PopularSearch from './popular-search.vue';
 
   /**
@@ -48,25 +53,9 @@
    */
   @Component({
     components: { PopularSearch, BaseSuggestions },
-    mixins: [xComponentMixin(popularSearchesXModule)]
+    mixins: [xComponentMixin(popularSearchesXModule), SuggestionsMixin, SuggestionsWithFacetsMixin]
   })
   export default class PopularSearches extends Vue {
-    /**
-     * Animation component that will be used to animate the suggestions.
-     *
-     * @public
-     */
-    @Prop()
-    protected animation!: Vue;
-
-    /**
-     * Number of popular searches to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
-
     /**
      * The list of popular searches.
      *
@@ -78,9 +67,7 @@
 </script>
 
 <docs lang="mdx">
-## Examples
-
-### Default Usage
+## See it in action
 
 You don't need to pass any props, or slots. Simply add the component, and when it has any popular
 searches it will show them.
@@ -101,12 +88,59 @@ searches it will show them.
 </script>
 ```
 
-The component has two optional props. `animation` to render the component with an animation and
-`maxItemToRender` to limit the number of popular searches will be rendered (by default it is 5).
+### Play with props
+
+In this example, the popular searches has been limited to render a maximum of 3 items.
 
 ```vue live
 <template>
-  <PopularSearches :animation="'FadeAndSlide'" :maxItemsToRender="10" />
+  <PopularSearches :maxItemsToRender="3" />
+</template>
+
+<script>
+  import { PopularSearches } from '@empathyco/x-components/popular-searches';
+
+  export default {
+    name: 'PopularSearchesDemo',
+    components: {
+      PopularSearches
+    }
+  };
+</script>
+```
+
+In this example, the filters of the suggestion will be rendered along with the query.
+
+The `appendSuggestionWithoutFilter` prop can be used to indicate if the suggestion without filter
+must be rendered along with the suggestion with filters.
+
+This will render:
+
+- Chips //If `appendSuggestionWithoutFilter` is true
+- Chips EXAMPLE
+
+```vue
+<template>
+  <PopularSearches :suggestions="suggestions" showFacets appendSuggestionWithoutFilter />
+</template>
+
+<script>
+  import { PopularSearches } from '@empathyco/x-components';
+
+  export default {
+    name: 'PopularSearchesDemo',
+    components: {
+      PopularSearches
+    }
+  };
+</script>
+```
+
+### Play with the animation
+
+```vue live
+<template>
+  <PopularSearches :animation="'FadeAndSlide'" />
 </template>
 
 <script>
@@ -126,7 +160,7 @@ The component has two optional props. `animation` to render the component with a
 </script>
 ```
 
-### Overriding Popular Search's Content
+### Play with suggestion-content slot
 
 You can use your custom implementation of the Popular Search's content. In the example below,
 instead of using the default Popular Search's content, an icon is added, as well as a span with the
@@ -156,7 +190,7 @@ query of the Popular Search's suggestion.
 </script>
 ```
 
-### Adding a Custom Popular Search Item
+### Play with suggestion slot
 
 You can use your custom implementation for the whole Popular Search item. In the example below, we
 change the default implementation of the Popular Search in Popular Searches. A custom Popular Search
