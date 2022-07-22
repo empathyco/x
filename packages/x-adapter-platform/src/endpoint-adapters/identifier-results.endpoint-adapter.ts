@@ -12,5 +12,8 @@ export const identifierResultsEndpointAdapter = endpointAdapterFactory<
   endpoint:
     'https://api.{extraParams.env(.)}empathy.co/search/v1/query/{extraParams.instance}/skusearch',
   requestMapper: identifierResultsRequestMapper,
-  responseMapper: identifierResultsResponseMapper
+  responseMapper: identifierResultsResponseMapper,
+  defaultRequestOptions: {
+    id: 'identifier-results'
+  }
 });
