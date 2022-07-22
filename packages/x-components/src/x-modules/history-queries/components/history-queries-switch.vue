@@ -75,7 +75,7 @@ A list of events that the component will emit:
   (x-components.historyqueriesxevents.userclickeddisablehistoryqueries.md): the event is emitted
   whenever the user clicks the switch when the history queries are enabled and the list of history
   queries is not empty.
-- [`UserClicedConfirmDisableHistoryQueries`]
+- [`UserClickedConfirmDisableHistoryQueries`]
   (x-components.historyqueriesxevents.userclickedconfirmdisablehistoryqueries.md): the event is
   emitted whenever the user clicks the switch when the history queries are enabled and the list of
   history queries is empty.

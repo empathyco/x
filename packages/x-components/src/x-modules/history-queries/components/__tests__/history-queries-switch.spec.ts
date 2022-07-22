@@ -58,7 +58,7 @@ describe('testing HistoryQueriesSwitch component', () => {
     expect(disableListener).toHaveBeenCalledTimes(1);
   });
 
-  it('should emit confirm disable event if there are not history queries', () => {
+  it('should emit confirm disable event if there are not history queries', async () => {
     const { wrapper } = renderHistoryQueriesSwitch({
       historyQueries: [],
       isEnabled: true
@@ -68,7 +68,10 @@ describe('testing HistoryQueriesSwitch component', () => {
 
     wrapper.trigger('click');
 
+    await new Promise(resolve => setTimeout(resolve));
+
     expect(listener).toHaveBeenCalledTimes(1);
+    expect(wrapper.vm.$store.state.x.historyQueries.isEnabled).toBe(false);
   });
 });
 
