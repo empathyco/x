@@ -8,6 +8,7 @@ export const fetchAndSaveNextQueryPreview: NextQueriesXStoreModule['actions']['f
         if (response) {
           commit('setResultsPreview', {
             [query]: {
+              query,
               totalResults: response.totalResults,
               items: response.results
             }

@@ -164,7 +164,8 @@ describe('testing next queries module actions', () => {
 
       const expectedResults = {
         totalResults: mockedSearchResponse.totalResults,
-        items: mockedSearchResponse.results
+        items: mockedSearchResponse.results,
+        query
       };
       const stateResults = store.state.resultsPreview;
 
