@@ -1,10 +1,13 @@
 <template>
   <div class="search">
     <header class="header">
-      <SearchInput />
-      <ClearSearchInput>
-        <CrossIcon />
-      </ClearSearchInput>
+      <div class="form-group">
+        <SearchInput></SearchInput>
+        <SearchInputPlaceholder />
+        <ClearSearchInput>
+          <CrossIcon />
+        </ClearSearchInput>
+      </div>
     </header>
     <aside class="aside">
       <template v-if="hasFacets">
@@ -85,6 +88,8 @@
   import FiltersList from '../x-modules/facets/components/lists/filters-list.vue';
   import ClearSearchInput from '../x-modules/search-box/components/clear-search-input.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
+  // eslint-disable-next-line max-len
+  import SearchInputPlaceholder from '../x-modules/search-box/components/search-input-placeholder.vue';
   import { searchXModule } from '../x-modules/search/x-module';
 
   XPlugin.registerXModule(searchXModule);
@@ -100,7 +105,8 @@
       FiltersList,
       Facets,
       ClearSearchInput,
-      SearchInput
+      SearchInput,
+      SearchInputPlaceholder
     }
   })
   export default class Search extends Vue {

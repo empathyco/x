@@ -1,0 +1,42 @@
+.form-group{
+    position: relative;
+}
+.placeholder {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    opacity: 0;
+}
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+
+    @keyframes slideIn {
+        0% {
+            transform: translateY(-30%);
+        }
+
+        50% {
+            transform: translateY(0);
+        }
+
+        100% {
+            transform: translateY(30%);
+        }
+    }
+
+    .visible{
+        opacity: 1;
+        animation: fadeIn 2s, slideIn 2s;
+        animation-iteration-count: infinite;
+    }
