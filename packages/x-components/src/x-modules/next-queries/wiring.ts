@@ -102,12 +102,11 @@ export const nextQueriesWiring = createWiring({
   ParamsLoadedFromUrl: {
     setUrlParams
   },
-  UserAcceptedAQuery: {
-    setNextQueriesQuery,
+  NextQueriesChanged: {
     resetResultsPreviewWire
   },
-  UserClearedQuery: {
-    resetResultsPreviewWire
+  UserAcceptedAQuery: {
+    setNextQueriesQuery
   },
   SessionHistoryQueriesChanged: {
     setSearchedQueries,

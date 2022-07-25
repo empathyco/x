@@ -3,7 +3,7 @@ import {
   NextQuery,
   NextQueriesRequest,
   SearchResponse,
-  NextQueryPreviewResults
+  PreviewResults
 } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
@@ -30,7 +30,7 @@ export interface NextQueriesState extends StatusState, QueryState {
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
   /** Results of the next queries requests. */
-  resultsPreview: Dictionary<NextQueryPreviewResults>;
+  resultsPreview: Dictionary<PreviewResults>;
 }
 
 /**
@@ -85,7 +85,7 @@ export interface NextQueriesMutations extends StatusMutations, QueryMutations {
    * @param resultsPreview - Object containing the next query,
    * the totalResults and the results to add.
    */
-  setResultsPreview(resultsPreview: Dictionary<NextQueryPreviewResults>): void;
+  setResultsPreview(resultsPreview: Dictionary<PreviewResults>): void;
 
   /**
    * Resets the result's dictionary.
