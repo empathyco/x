@@ -1,7 +1,7 @@
 import { mount, Wrapper, createLocalVue, WrapperArray } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { DeepPartial } from '@empathyco/x-utils';
-import { NextQuery, NextQueryPreviewResults } from '@empathyco/x-types';
+import { NextQuery, PreviewResults } from '@empathyco/x-types';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import NextQueryPreview from '../next-query-preview.vue';
 import { RootXStoreState } from '../../../../store/store.types';
@@ -21,6 +21,7 @@ describe('next query preview', () => {
     suggestion = createNextQueryStub('milk'),
     template = `<NextQueryPreview :suggestion="suggestion"/>`,
     resultsPreview = {
+      query: suggestion.query,
       items: getResultsStub(4),
       totalResults: 100
     },
@@ -143,7 +144,7 @@ interface RenderNextQueryPreviewOptions {
    */
   eventToSpy?: XEvent;
   /** The results preview of the next query search request. */
-  resultsPreview?: NextQueryPreviewResults | null;
+  resultsPreview?: PreviewResults | null;
   /**
    * The template to render. Receives `suggestion` via prop, and has registered the
    * {@link NextQueryPreview} component.
@@ -159,7 +160,7 @@ interface RenderNextQueryPreviewAPI {
   /** The rendered next query. */
   suggestion: NextQuery;
   /** The results preview of the next query search request. */
-  resultsPreview: NextQueryPreviewResults | null;
+  resultsPreview: PreviewResults | null;
   /** Find test data in the wrapper for the {@link NextQueryPreview} component. */
   findTestDataById: (testDataId: string) => WrapperArray<Vue>;
 }

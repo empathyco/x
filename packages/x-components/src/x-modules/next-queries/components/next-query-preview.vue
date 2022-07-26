@@ -21,7 +21,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { NextQuery, NextQueryPreviewResults } from '@empathyco/x-types';
+  import { NextQuery, PreviewResults } from '@empathyco/x-types';
   import { Dictionary } from '@empathyco/x-utils';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { nextQueriesXModule } from '../x-module';
@@ -53,7 +53,7 @@
      * It is a dictionary, indexed by the next query query.
      */
     @State('nextQueries', 'resultsPreview')
-    public results!: Dictionary<NextQueryPreviewResults>;
+    public results!: Dictionary<PreviewResults>;
 
     /**
      * The component emits the NextQueryPreviewMounted event to retrieve the results preview
@@ -68,7 +68,7 @@
      *
      * @returns The results preview of the actual next query.
      */
-    public get suggestionResults(): NextQueryPreviewResults {
+    public get suggestionResults(): PreviewResults {
       return this.results[this.suggestion.query];
     }
   }
