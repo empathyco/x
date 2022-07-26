@@ -84,8 +84,8 @@ describe('testing BaseCurrentPrice component', () => {
   it('renders custom content when overriding the default slot', () => {
     const { wrapper } = renderBaseCurrentPrice({
       template: `
-        <BaseResultCurrentPrice :result="result">
-          <span data-test="override-default-slot">{{ result.price.value }}</span>
+        <BaseResultCurrentPrice :result="result" #default="{ value }">
+          <span data-test="override-default-slot">{{ value }}</span>
         </BaseResultCurrentPrice>`
     });
 
@@ -99,8 +99,10 @@ interface RenderBaseCurrentPriceOptions {
   format?: string;
   /** The result with the price to display. */
   result?: Pick<Result, 'price'>;
-  /** The template to render. Receives the 'result', 'format' props and
-   * has registered a {@link BaseCurrency | BaseCurrency component}. */
+  /**
+   * The template to render. Receives the 'result', 'format' props and
+   * has registered a {@link BaseCurrency | BaseCurrency component}.
+   */
   template?: string;
 }
 

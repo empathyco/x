@@ -2,9 +2,9 @@
   <div :class="dynamicClasses" class="x-result-current-price" data-test="result-current-price">
     <!--
       @slot Base currency item
-          @binding {result} result - Result data
+          @binding {number} value - The result price
     -->
-    <slot :result="result">
+    <slot :value="result.price.value">
       <BaseCurrency :value="result.price.value" :format="format" />
     </slot>
   </div>
@@ -85,8 +85,8 @@ the `BaseCurrency` component use an injected one.
 ### Overriding default slot
 
 ```vue
-<BaseResultCurrentPrice :result="result">
-  <span class="custom-base-result-current-price">{{ result.price.value }}</span>
+<BaseResultCurrentPrice :result="result" #default="{ value }">
+  <span class="custom-base-result-current-price">{{ value }}</span>
 </BaseResultCurrentPrice>
 ```
 </docs>

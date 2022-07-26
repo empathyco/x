@@ -21,6 +21,8 @@
       <BaseResultLink :result="result">
         <h1 class="x-title3" data-test="result-title">{{ result.name }}</h1>
       </BaseResultLink>
+      <BaseResultCurrentPrice :result="result" />
+      <BaseResultPreviousPrice :result="result" />
     </div>
   </article>
 </template>
@@ -32,9 +34,13 @@
   import BaseResultImage from '../../components/result/base-result-image.vue';
   import BaseResultLink from '../../components/result/base-result-link.vue';
   import BaseResultRating from '../../components/result/base-result-rating.vue';
+  import BaseResultCurrentPrice from '../../components/result/base-result-current-price.vue';
+  import BaseResultPreviousPrice from '../../components/result/base-result-previous-price.vue';
 
   @Component({
     components: {
+      BaseResultCurrentPrice,
+      BaseResultPreviousPrice,
       BaseResultLink,
       BaseResultRating,
       BaseResultImage

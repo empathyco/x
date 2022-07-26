@@ -6,9 +6,9 @@
   >
     <!--
       @slot Base currency item
-         @binding {result} result - Result data
+         @binding {number} value - The result original price
     -->
-    <slot :result="result">
+    <slot :value="result.price.originalValue">
       <BaseCurrency :value="result.price.originalValue" :format="format" />
     </slot>
   </div>
@@ -87,8 +87,8 @@ props. `format` to select the currency format to be applied.
 
 ```vue
 <template>
-  <BaseResultPreviousPrice :result="result">
-    <span class="custom-base-result-previous-price">{{ result.price.originalValue }}</span>
+  <BaseResultPreviousPrice :result="result" #default="{ value }">
+    <span class="custom-base-result-previous-price">{{ value }}</span>
   </BaseResultPreviousPrice>
 </template>
 
