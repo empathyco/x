@@ -1,36 +1,44 @@
 <template>
-  <BaseEventButton
-    v-on="$listeners"
-    :events="events"
-    class="x-button x-events-modal-id-close-button"
-    data-test="close-modal-id"
-  >
-    <!-- @slot (Required) Button content with a text, an icon or both -->
-    <slot />
-  </BaseEventButton>
+  <NoElement v-on="$listeners" data-test="close-modal-id">
+    <!--
+      @slot closer-element. It's the element that will trigger the modal closing. It's a
+      button by default.
+        @binding {Function} closeModal - The function to close the modal.
+    -->
+    <slot :closeModal="emitCloseModalEvent" name="closer-element">
+      <BaseEventButton
+        v-on="$listeners"
+        :events="{ UserClickedCloseModal: modalId }"
+        class="x-button x-events-modal-id-close-button"
+      >
+        <slot />
+      </BaseEventButton>
+    </slot>
+  </NoElement>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { XEventsTypes } from '../../wiring/events.types';
   import BaseEventButton from '../base-event-button.vue';
+  import { NoElement } from '../no-element';
 
   /**
-   * Component containing an event button that emits {@link XEventsTypes.UserClickedCloseModal} when
-   * clicked with the modalId as payload. It has a default slot to customize its contents.
+   * Component that allows to close a modal by emitting {@link XEventsTypes.UserClickedCloseModal}.
+   * It's fully customizable as it exposes the closing event but by default it renders a
+   * customizable button.
    *
    * @public
    */
   @Component({
-    components: { BaseEventButton }
+    components: { BaseEventButton, NoElement }
   })
   export default class BaseIdModalClose extends Vue {
     @Prop({ required: true })
     protected modalId!: string;
 
-    protected get events(): Partial<XEventsTypes> {
-      return { UserClickedCloseModal: this.modalId };
+    protected emitCloseModalEvent(): void {
+      this.$x.emit('UserClickedCloseModal', this.modalId, { target: this.$el as HTMLElement });
     }
   }
 </script>
@@ -39,17 +47,47 @@
 ## Examples
 
 Component containing an event button that emits `UserClickedCloseModal` when clicked with the
-modalId as payload. It has a default slot to customize its contents.
+modalId as payload. It has a default slot to customize its contents and can also be fully
+customized, replacing the default button with any other element.
 
 ### Basic example
 
-The component renders whatever is passed to it in the default slot and closing the modal with
-modalId `my-modal`.
+The component renders whatever is passed to it in the default slot inside the button and closes the
+modal with modalId `my-modal`.
 
 ```vue
 <template>
   <BaseIdModalClose modalId="my-modal">
     <img src="./close-button-icon.svg" />
+  </BaseIdModalClose>
+</template>
+
+<script>
+  import { BaseIdModalClose } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseIdModalCloseTest',
+    components: {
+      BaseIdModalClose
+    }
+  };
+</script>
+```
+
+### Replacing the default button
+
+The component renders whatever element is passed, replacing the default button and exposing the
+function to close the modal with modalId `my-modal`.
+
+```vue
+<template>
+  <BaseIdModalClose modalId="my-modal">
+    <template #closer-element="{ closeModal }">
+      <ul>
+        <li @click="closeModal">Close here</li>
+        <li>Not here</li>
+      </ul>
+    </template>
   </BaseIdModalClose>
 </template>
 
