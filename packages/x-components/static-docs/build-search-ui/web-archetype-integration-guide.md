@@ -82,7 +82,7 @@ window.initX = {
 window.initX = function () {
   return {
     instance: 'my-store',
-    ...(location.href.includes('.pre.') ? { env: 'staging' } : {}),
+    env: location.href.includes('.pre.') ? 'staging' : undefined,
     scope: 'web',
     lang: localStorage.get('lang'),
     currency: localStorage.get('currency'),
