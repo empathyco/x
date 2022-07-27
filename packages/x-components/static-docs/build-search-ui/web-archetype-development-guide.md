@@ -22,9 +22,9 @@ requires knowledge of JavaScript and Vue.js.
 
 To use Interface&nbsp;X&nbsp;Archetype as a search UI layer, you need:
 
-- **Empathy Search API** (or any search API that you use to retrieve search data).
-- **Empathy Search Adapter** to communicate with the Empathy Search API (or any search adapter to
-  connect with the search API you are using).
+- **Empathy Platform Search API** (or any search API that you use to retrieve search data).
+- **Empathy Platform Search Adapter** to communicate with the Empathy Platform Search API (or the
+  Empathy Search Adapter to connect with the search API you are using).
 
 :::
 
@@ -102,16 +102,19 @@ Interface&nbsp;X&nbsp;Archetype repository.
 
 ## Configuring the search adapter
 
-Before using your project, configure the Empathy Search Adapter in the
-`x-archetype/src/adapter/adapter.ts` file to make it work with the Empathy Search API.
+Before using your project, configure the Empathy Platform Search Adapter in the
+`x-archetype/src/adapter/adapter.ts` file. The Empathy Platform Search Adapter contains a sample
+configuration for setup, global configurations, or mappers that points to a demo environment. You
+need to adjust the configuration according to the search features you use in your project.
 
 Export the required search adapter with your configuration as you will need it for the search
 [xPlugin configuration](#configuring-the-plugin).
 
 ::: interact
 
-For detailed information about other configuration options in the Empathy Search Adapter, go to the
-[x-adapter repository](https://github.com/empathyco/x/tree/main/packages/x-adapter).
+For detailed information about other configuration options in the Empathy Platform Search Adapter,
+go to the
+[x-adapter-platform repository](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform).
 
 :::
 

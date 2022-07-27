@@ -69,7 +69,6 @@ initialize Interface&nbsp;X:
 ```js
 window.initX = {
   instance: 'my-store',
-  env: 'live',
   scope: 'desktop',
   lang: 'en',
   currency: 'EUR',
@@ -83,7 +82,7 @@ window.initX = {
 window.initX = function () {
   return {
     instance: 'my-store',
-    env: location.href.includes('.pre.') ? 'staging' : 'live',
+    ...(location.href.includes('.pre.') ? { env: 'staging' } : {}),
     scope: 'web',
     lang: localStorage.get('lang'),
     currency: localStorage.get('currency'),
@@ -105,7 +104,9 @@ more information on the supported parameters, check out
 
 Once the snippet configuration is ready, add the Interface&nbsp;X script to your webpage. The script
 is hosted in a URL with the following syntax:
-`https://x.<environment?>.empathy.co/<instance>/app.js`.
+
+- **Production**: `https://x.empathy.co/{INSTANCE}/app.js`
+- **Staging**: `https://x.staging.empathy.co/{INSTANCE}/app.js`
 
 For example, to load the production version script for the instance _my-store_, you need to add the
 following scripts to your HTML:
@@ -114,7 +115,6 @@ following scripts to your HTML:
 <script>
   window.initX = {
     instance: 'my-store',
-    env: 'live',
     scope: 'desktop',
     lang: 'en',
     currency: 'EUR',
@@ -131,7 +131,7 @@ attribute `src` so that it points to the staging environment as follows:
 <script>
   window.initX = {
     instance: 'my-store',
-    env: 'live', // Note that here you are using a production API with the staging version of Interface X
+    env: 'staging',
     scope: 'desktop',
     lang: 'en',
     currency: 'EUR',
@@ -156,7 +156,9 @@ On-demand initialization allows you to control when Interface&nbsp;X is loaded.
 #### Loading the script
 
 Add the Interface&nbsp;X script hosted in a URL with the following syntax:
-`https://x.<environment?>.empathy.co/<instance>/app.js`.
+
+- **Production**: `https://x.empathy.co/{INSTANCE}/app.js`
+- **Staging**: `https://x.staging.empathy.co/{INSTANCE}/app.js`
 
 For example, to load the production version script for the instance _my-store_, you need to add the
 following script to your HTML:
@@ -180,11 +182,10 @@ initialization function** created automatically in the
 object to provide the initialization options:
 
 ```html
-<script src="https://x.empathy.co/my-store/app.js"></script>
+<script src="https://x.empathy.co/my-store/app.js" type="module"></script>
 <script>
   window.InterfaceX.init({
     instance: 'my-store',
-    env: 'live',
     scope: 'desktop',
     lang: 'en',
     currency: 'EUR',
@@ -224,7 +225,7 @@ following configuration options:
 | Name                                                   | Type                                                                                 | Description                                                                                                                                                                                                                                                                                      |
 | ------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `instance`                                             | `string`                                                                             | _Required._ ID of the API client instance. It's provided by Empathy.                                                                                                                                                                                                                             |
-| `env`                                                  | `'live'` &#124; `'staging'`                                                          | _Optional_. API environment to use. You can use the Interface&nbsp;X production version with the staging API, and vice versa.                                                                                                                                                                    |
+| `env`                                                  | `staging`                                                                            | _Optional_. API environment to use. If you don't declare this parameter you will be using the production API. If you want to point to Staging API add this parameter as `env: 'staging'`.                                                                                                        |
 | `scope`                                                | `string`                                                                             | _Optional_. Context where the search interface is executed, i.e. `mobile`, `mobile-app`, `tablet`, `desktop`.                                                                                                                                                                                    |
 | `lang`                                                 | `string`                                                                             | _Required._ Language to use. By default, it's used for both the frontend and the API requests.                                                                                                                                                                                                   |
 | `searchLang`                                           | `string`                                                                             | _Optional_. Language to use for the API requests **only**.                                                                                                                                                                                                                                       |
@@ -260,11 +261,10 @@ For example, you subscribe to the `UserClickedResultAddToCart` event to add a pr
 shopping cart:
 
 ```html
-<script src="https://x.empathy.co/my-store/app.js"></script>
+<script src="https://x.empathy.co/my-store/app.js" type="module"></script>
 <script>
   window.InterfaceX.init({
     instance: 'my-store',
-    env: 'live',
     scope: 'desktop',
     lang: 'en',
     currency: 'EUR',
@@ -297,7 +297,8 @@ etc.). See the corresponding `events.types.ts` file for each module in the
 The
 [X&nbsp;API](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-installer/api/base-api.ts)
 object allows your commerce store to communicate with Interface&nbsp;X. It supports multiple
-functions to integrate Interface&nbsp;X in your website.
+functions to integrate Interface&nbsp;X in your website. You may access these functions inside the
+`window.InterfaceX` object.
 
 | Function           | Parameters                                                                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | ------------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
