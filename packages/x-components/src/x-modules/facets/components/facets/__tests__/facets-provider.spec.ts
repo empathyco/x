@@ -122,13 +122,13 @@ describe('testing Facets component', () => {
     emittedEvents = wrapper.emitted('UserChangedSelectedFilters');
     expect(emittedEvents).toHaveLength(2);
     emittedFilters = emittedEvents?.[1][0];
-    expect(areFiltersDifferent(emittedFilters, [])).toBe(false);
+    expect(areFiltersDifferent(emittedFilters, [redFilter, bigFilter])).toBe(false);
   });
 });
 
 function renderFacetsProviderComponent({
   stateFacets = {},
-  providedFacets
+  providedFacets = []
 }: FacetsRenderOptions = {}): FacetsComponentAPI {
   resetFacetsService();
 

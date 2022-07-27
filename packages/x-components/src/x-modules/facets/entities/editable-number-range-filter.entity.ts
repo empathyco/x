@@ -30,14 +30,16 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    * @param filter - The filter to deselect.
    */
   deselect(filter: EditableNumberRangeFilter): void {
-    const newFilter: EditableNumberRangeFilter = {
-      ...filter,
-      selected: false,
-      range: { min: null, max: null }
+    const newFilterState: Pick<EditableNumberRangeFilter, 'range' | 'facetId' | 'selected'> = {
+      facetId: filter.facetId,
+      range: { min: null, max: null },
+      selected: false
     };
-    newFilter.id = this.getNewFilterId(newFilter);
     this.removePreviousFilter(filter.facetId);
-    this.store.commit('x/facets/setFilter', newFilter);
+    this.store.commit('x/facets/mutateFilter', {
+      filter,
+      newFilterState: Object.assign(newFilterState, { id: this.getNewFilterId(newFilterState) })
+    });
     addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet');
   }
 
@@ -52,10 +54,9 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
   select(filter: EditableNumberRangeFilter): void {
     const newFilterId = this.getNewFilterId(filter);
     this.removePreviousFilter(filter.facetId);
-    this.store.commit('x/facets/setFilter', {
-      ...filter,
-      id: newFilterId,
-      selected: this.isSelected(filter)
+    this.store.commit('x/facets/mutateFilter', {
+      filter,
+      newFilterState: { id: newFilterId, selected: this.isSelected(filter) }
     });
     addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet');
   }
@@ -67,7 +68,7 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    * @returns The new filter id.
    * @internal
    */
-  protected getNewFilterId(filter: EditableNumberRangeFilter): string {
+  protected getNewFilterId(filter: Pick<EditableNumberRangeFilter, 'range' | 'facetId'>): string {
     return `${filter.facetId}:${String(filter.range.min)}_${String(filter.range.max)}`;
   }
 

@@ -43,6 +43,7 @@ export interface FacetsGetters {
  * @public
  */
 export interface FacetsMutations {
+  mutateFilter(payload: { filter: Filter; newFilterState: Partial<Filter> }): void;
   /**
    * Removes the filter from the {@link FacetsState.filters | filters} record.
    *
@@ -68,12 +69,6 @@ export interface FacetsMutations {
    * @param filters - The filters to add.
    */
   setFilters(filters: Filter[]): void;
-  /**
-   * Adds the filter to the {@link FacetsState.filters | filters} record.
-   *
-   * @param filter - The filter to add.
-   */
-  setFilter(filter: Filter): void;
   /**
    * Adds a list of filters to the {@link FacetsState.preselectedFilters | preselectedFilters}
    * record.

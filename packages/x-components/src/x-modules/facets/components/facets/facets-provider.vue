@@ -99,7 +99,8 @@
     protected extractSelectedFilters(facets: Facet[]): void {
       this.selectedFilters = facets
         .flatMap(facet => facet.filters)
-        .filter(filter => filter.selected);
+        .filter(filter => filter.selected)
+        .map(filter => ({ ...filter }));
     }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function

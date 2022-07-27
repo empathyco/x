@@ -21,7 +21,7 @@ export class HierarchicalFilterEntity implements FilterEntity {
    * @param filter - The filter to deselect.
    */
   deselect(filter: HierarchicalFilter): void {
-    this.saveFilter({ ...filter, selected: false });
+    this.saveFilter(filter, { selected: false });
     this.deselectDescendants(filter);
     addFacetIfNotPresent(this.store, filter.facetId, 'HierarchicalFacet');
   }
@@ -32,7 +32,7 @@ export class HierarchicalFilterEntity implements FilterEntity {
    * @param filter - The filter to select.
    */
   select(filter: HierarchicalFilter): void {
-    this.saveFilter({ ...filter, selected: true });
+    this.saveFilter(filter, { selected: true });
     this.selectAncestors(filter);
     addFacetIfNotPresent(this.store, filter.facetId, 'HierarchicalFacet');
   }
@@ -46,12 +46,9 @@ export class HierarchicalFilterEntity implements FilterEntity {
    */
   protected deselectDescendants(filter: HierarchicalFilter): void {
     if (filter.children) {
-      filter.children.forEach(childId => {
-        const child = this.getFilterById(childId);
-        if (child) {
-          this.saveFilter({ ...child, selected: false });
-          this.deselectDescendants(child);
-        }
+      filter.children.forEach(child => {
+        this.saveFilter(child, { selected: false });
+        this.deselectDescendants(child);
       });
     }
   }
@@ -67,7 +64,7 @@ export class HierarchicalFilterEntity implements FilterEntity {
     if (filter.parentId) {
       const parent = this.getFilterById(filter.parentId);
       if (parent) {
-        this.saveFilter({ ...parent, selected: true });
+        this.saveFilter(parent, { selected: true });
         this.selectAncestors(parent);
       }
     }
@@ -88,9 +85,13 @@ export class HierarchicalFilterEntity implements FilterEntity {
    * Saves the given filter to the store.
    *
    * @param filter - The filter to save to the store.
+   * @param newFilterState - The new partial state of the filter.
    * @internal
    */
-  protected saveFilter(filter: HierarchicalFilter): void {
-    this.store.commit('x/facets/setFilter', filter);
+  protected saveFilter(
+    filter: HierarchicalFilter,
+    newFilterState: Partial<HierarchicalFilter> = {}
+  ): void {
+    this.store.commit('x/facets/mutateFilter', { filter, newFilterState });
   }
 }
