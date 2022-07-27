@@ -14,7 +14,8 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import ResultsList from '../results-list.vue';
 import { InfiniteScroll } from '../../../../directives/infinite-scroll/infinite-scroll.types';
 import { XInject } from '../../../../components/decorators/injection.decorators';
-import { LIST_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
+import { LIST_ITEMS_KEY, QUERY_KEY } from '../../../../components/decorators/injection.consts';
+import { SearchMutations } from '../../store/types';
 import { resetXSearchStateWith } from './utils';
 
 /**
@@ -56,6 +57,9 @@ function renderResultsList({
     wrapper: resultsListWrapper,
     getResults() {
       return results;
+    },
+    commit(event, payload) {
+      store.commit(`x/search/${event}`, payload);
     }
   };
 }
@@ -149,6 +153,58 @@ describe('testing Results list component', () => {
     const childWrapper = wrapper.find(Child);
     expect(childWrapper.text()).toBe(getResults()[0].id);
   });
+
+  // eslint-disable-next-line max-len
+  it('provides the query with the key `query`, only updating it if the status is success', async () => {
+    @Component({
+      template: `
+        <div>{{ searchQuery }}</div>
+      `
+    })
+    class Child extends Vue {
+      @XInject(QUERY_KEY)
+      public searchQuery!: string;
+    }
+
+    const { wrapper, commit } = renderResultsList({
+      template: `<ResultsList><Child/></ResultsList>`,
+      components: {
+        Child
+      }
+    });
+
+    const childWrapper = wrapper.findComponent(Child);
+
+    // Initially, the query should be empty, because the request has not been made yet.
+    expect(childWrapper.text()).toBeFalsy();
+
+    commit('setQuery', 'tshirt');
+    commit('setStatus', 'loading');
+    await wrapper.vm.$nextTick();
+
+    // The injected query shouldn't change if the status is loading.
+    expect(childWrapper.text()).toBeFalsy();
+
+    commit('setStatus', 'success');
+    await wrapper.vm.$nextTick();
+
+    // The query should have changed to `tshirt` because the request has succeeded.
+    expect(childWrapper.text()).toBe('tshirt');
+
+    commit('setQuery', 'jacket');
+    commit('setStatus', 'loading');
+    await wrapper.vm.$nextTick();
+
+    // Here the injected query should be `tshirt` because the request for jacket is loading.
+    expect(childWrapper.text()).toBe('tshirt');
+
+    commit('setStatus', 'success');
+    await wrapper.vm.$nextTick();
+
+    // Finally, when the request for `jacket` has been completed,
+    // the injected query should be updated.
+    expect(childWrapper.text()).toBe('jacket');
+  });
 });
 
 interface RenderResultsListOptions {
@@ -165,4 +221,9 @@ interface RenderResultsListAPI {
   wrapper: Wrapper<Vue>;
   /** The `results` used to be rendered. */
   getResults: () => Result[];
+  /** Commits a mutation to the search store. */
+  commit: <Event extends keyof SearchMutations>(
+    event: Event,
+    payload: Parameters<SearchMutations[Event]>[0]
+  ) => void;
 }
