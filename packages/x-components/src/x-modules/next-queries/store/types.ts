@@ -125,7 +125,7 @@ export interface NextQueriesActions {
   setUrlParams(urlParams: UrlParams): void;
   /**
    * Requests the results to preview a next query,
-   * limited by {@link NextQueriesConfig.resultsPreviewCount}.
+   * limited by {@link NextQueriesConfig.maxPreviewItemsToRequest}.
    *
    * @param query - The next query to retrieve the results.
    * @returns A search response based on the next query.

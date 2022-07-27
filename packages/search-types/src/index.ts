@@ -16,3 +16,4 @@ export * from './suggestion.model';
 export * from './tagging.model';
 export * from './user-info.model';
 export * from './x-components-adapter.model';
+export * from './preview-results.model';

@@ -20,7 +20,7 @@ export const fetchNextQueryPreview: NextQueriesXStoreModule['actions']['fetchNex
   return XPlugin.adapter.search(
     {
       query,
-      rows: state.config.resultsPreviewCount,
+      rows: state.config.maxPreviewItemsToRequest,
       extraParams: state.params
     },
     {

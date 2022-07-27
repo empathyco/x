@@ -28,7 +28,7 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
       maxItemsToRequest: 20,
       hideSessionQueries: true,
       loadOnInit: true,
-      resultsPreviewCount: 8
+      maxPreviewItemsToRequest: 8
     },
     params: {},
     resultsPreview: {}
