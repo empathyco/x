@@ -131,7 +131,7 @@ attribute `src` so that it points to the staging environment as follows:
 <script>
   window.initX = {
     instance: 'my-store',
-    env: 'staging',
+    env: 'staging', // By removing this param you would be using a production API with the staging version of Interface X
     scope: 'desktop',
     lang: 'en',
     currency: 'EUR',
