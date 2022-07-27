@@ -64,7 +64,11 @@ Given('a URL with a filter parameter {string}', (filter: string) => {
 });
 
 When('start button is clicked', () => {
-  cy.getByDataTest('open-modal').click();
+  cy.getByDataTest('open-main-modal').click();
+});
+
+When('close modal button is clicked', () => {
+  cy.getByDataTest('close-main-modal').click();
 });
 
 // Filters
@@ -168,6 +172,10 @@ Then('related results are displayed', () => {
     .each($resultTitle => {
       resultsList.push($resultTitle.text());
     });
+});
+
+And('related results are cleared', () => {
+  cy.getByDataTest('result-item').should('not.exist');
 });
 
 Then('related results have changed', () => {

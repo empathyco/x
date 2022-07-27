@@ -11,5 +11,8 @@ export const recommendationsEndpointAdapter = endpointAdapterFactory<
   endpoint:
     'https://api.{extraParams.env(.)}empathy.co/search/v1/query/{extraParams.instance}/topclicked',
   requestMapper: recommendationsRequestMapper,
-  responseMapper: recommendationsResponseMapper
+  responseMapper: recommendationsResponseMapper,
+  defaultRequestOptions: {
+    id: 'recommendations'
+  }
 });

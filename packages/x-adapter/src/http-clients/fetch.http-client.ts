@@ -19,7 +19,7 @@ export const fetchHttpClient: HttpClient = (
   const signal = abortAndGetNewAbortSignal(id);
   const flatParameters = flatObject(parameters);
   const url = sendParamsInBody ? endpoint : buildUrl(endpoint, flatParameters);
-  const bodyParameters = sendParamsInBody ? { body: JSON.stringify(flatParameters) } : {};
+  const bodyParameters = sendParamsInBody ? { body: JSON.stringify(parameters) } : {};
 
   return fetch(url, {
     ...properties,

@@ -151,5 +151,11 @@ export const historyQueriesWiring = createWiring({
   },
   UserClickedConfirmDisableHistoryQueries: {
     setHistoryQueriesDisabled
+  },
+  UserClickedCloseX: {
+    clearHistoryQueriesQuery
+  },
+  UserClickedOutOfMainModal: {
+    clearHistoryQueriesQuery
   }
 });
