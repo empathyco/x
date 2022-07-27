@@ -7,3 +7,8 @@ import { XInjectKey } from './injection.decorators';
  * @internal
  */
 export const LIST_ITEMS_KEY: XInjectKey<ListItem[] | undefined> = 'listItems';
+
+/**
+ * It's used to identify the provided and injected `query`.
+ */
+export const QUERY_KEY: XInjectKey<string | undefined> = 'query';

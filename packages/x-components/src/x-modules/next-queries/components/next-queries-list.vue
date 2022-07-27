@@ -21,7 +21,7 @@
   import { NextQuery } from '@empathyco/x-types';
   import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Getter } from '../../../components/decorators/store.decorators';
+  import { Getter, State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
   import { ItemsListInjectionMixin } from '../../../components/items-list-injection.mixin';
   import ItemsList from '../../../components/items-list.vue';
@@ -31,6 +31,9 @@
   import ResultsList from '../../search/components/results-list.vue';
   import { NextQueriesGroup } from '../types';
   import { nextQueriesXModule } from '../x-module';
+  import { XInject } from '../../../components/decorators/injection.decorators';
+  import { QUERY_KEY } from '../../../components/decorators/injection.consts';
+  import { RequestStatus } from '../../../store/utils/status-store.utils';
 
   /**
    * Component that inserts groups of next queries in different positions of the injected search
@@ -96,6 +99,24 @@
     public nextQueries!: NextQuery[];
 
     /**
+     * The query used to request the next queries.
+     */
+    @State('nextQueries', 'query')
+    public query!: string;
+
+    /**
+     * The status of the next queries request.
+     */
+    @State('nextQueries', 'status')
+    public status!: RequestStatus;
+
+    /**
+     * The search query, updated when the request has succeeded.
+     */
+    @XInject(QUERY_KEY)
+    public searchQuery!: string;
+
+    /**
      * The grouped next queries based on the given config.
      *
      * @returns A list of next queries groups.
@@ -125,7 +146,9 @@
       if (!this.injectedListItems) {
         return this.nextQueriesGroups;
       }
-
+      if (this.query !== this.searchQuery || this.status !== 'success') {
+        return this.injectedListItems;
+      }
       return this.nextQueriesGroups.reduce(
         (items, nextQueriesGroup, index) => {
           const targetIndex = this.offset + this.frequency * index;
