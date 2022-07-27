@@ -124,7 +124,9 @@ describe('fetch httpClient testing', () => {
         q: 'shirt',
         filter: ['long sleeve', 'dotted', 'white'],
         rows: 12,
-        lang: 'en'
+        extraParams: {
+          lang: 'en'
+        }
       })
     });
   });

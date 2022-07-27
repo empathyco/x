@@ -5,7 +5,7 @@
     <PreselectedFilters />
     <UrlHandler query="q" store="store" />
     <SnippetCallbacks />
-    <BaseEventButton data-test="open-modal" :events="eventsToOpenX">Start</BaseEventButton>
+    <OpenMainModal>Start</OpenMainModal>
     <h1>Test controls</h1>
     <ul class="x-test-controls x-list x-list--gap-05">
       <li class="x-test-controls__item x-list__item">
@@ -64,7 +64,7 @@
         </label>
       </li>
     </ul>
-    <BaseEventsModal :eventsToOpenModal="eventsToOpenModal" :animation="modalAnimation">
+    <MainModal :animation="modalAnimation">
       <MultiColumnMaxWidthLayout class="x-background--neutral-100">
         <template #header-middle>
           <div
@@ -108,9 +108,9 @@
         </template>
 
         <template #header-end>
-          <BaseEventButton class="x-button x-button--ghost" :events="eventsToCloseX">
+          <CloseMainModal class="x-button x-button--ghost">
             <CrossIcon />
-          </BaseEventButton>
+          </CloseMainModal>
         </template>
 
         <template #sub-header>
@@ -338,7 +338,7 @@
           </ScrollToTop>
         </template>
       </MultiColumnMaxWidthLayout>
-    </BaseEventsModal>
+    </MainModal>
   </div>
 </template>
 
@@ -369,13 +369,9 @@
   import Nq1 from '../../components/icons/nq-1.vue';
   import SearchIcon from '../../components/icons/search.vue';
   import BaseEventButton from '../../components/base-event-button.vue';
-  import { BaseKeyboardNavigation, XProvide } from '../../components/index';
   // eslint-disable-next-line max-len
   import MultiColumnMaxWidthLayout from '../../components/layouts/multi-column-max-width-layout.vue';
   import LocationProvider from '../../components/location-provider.vue';
-  import BaseEventsModalClose from '../../components/modals/base-events-modal-close.vue';
-  import BaseEventsModalOpen from '../../components/modals/base-events-modal-open.vue';
-  import BaseEventsModal from '../../components/modals/base-events-modal.vue';
   import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
   import BaseIdTogglePanel from '../../components/panels/base-id-toggle-panel.vue';
   import PreselectedFilters from '../../x-modules/facets/components/preselected-filters.vue';
@@ -384,7 +380,6 @@
   import SnippetCallbacks from '../../components/snippet-callbacks.vue';
   import BaseSuggestions from '../../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../../directives/infinite-scroll/infinite-scroll';
-  import { XEvent, XEventsTypes } from '../../wiring/index';
   // eslint-disable-next-line max-len
   import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue';
   // eslint-disable-next-line max-len
@@ -413,6 +408,11 @@
   import Spellcheck from '../../x-modules/search/components/spellcheck.vue';
   import Tagging from '../../x-modules/tagging/components/tagging.vue';
   import UrlHandler from '../../x-modules/url/components/url-handler.vue';
+  import MainModal from '../../components/modals/main-modal.vue';
+  import OpenMainModal from '../../components/modals/open-main-modal.vue';
+  import CloseMainModal from '../../components/modals/close-main-modal.vue';
+  import BaseKeyboardNavigation from '../../components/base-keyboard-navigation.vue';
+  import { XProvide } from '../../components/decorators/injection.decorators';
   import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
@@ -433,9 +433,6 @@
       BaseColumnPickerList,
       BaseDropdown,
       BaseEventButton,
-      BaseEventsModal,
-      BaseEventsModalClose,
-      BaseEventsModalOpen,
       BaseGrid,
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
@@ -451,6 +448,7 @@
       ChevronTinyRight,
       ChevronUp,
       ClearSearchInput,
+      CloseMainModal,
       CrossIcon,
       Grid1Col,
       Grid2Col,
@@ -462,6 +460,7 @@
       NextQueriesList,
       NextQuery,
       Nq1,
+      OpenMainModal,
       PartialQueryButton,
       PartialResultsList,
       PredictiveLayer,
@@ -486,7 +485,8 @@
       Spellcheck,
       SpellcheckButton,
       Tagging,
-      UrlHandler
+      UrlHandler,
+      MainModal
     }
   })
   export default class App extends Vue {
@@ -515,21 +515,6 @@
         maxItemsToRender: 5
       }
     };
-
-    protected eventsToOpenX: Partial<XEventsTypes> = {
-      UserClickedOpenX: undefined,
-      UserClickedOpenEventsModal: undefined
-    };
-    protected eventsToCloseX: Partial<XEventsTypes> = {
-      UserClickedCloseX: undefined,
-      UserClickedCloseEventsModal: undefined
-    };
-
-    protected eventsToOpenModal: XEvent[] = [
-      'UserClickedOpenEventsModal',
-      'UserOpenXProgrammatically',
-      'UserClickedOpenX'
-    ];
   }
 </script>
 

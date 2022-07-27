@@ -7,5 +7,8 @@ export const searchEndpointAdapter = endpointAdapterFactory<SearchRequest, Searc
   endpoint:
     'https://api.{extraParams.env(.)}empathy.co/search/v1/query/{extraParams.instance}/search',
   requestMapper: searchRequestMapper,
-  responseMapper: searchResponseMapper
+  responseMapper: searchResponseMapper,
+  defaultRequestOptions: {
+    id: 'search'
+  }
 });

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.3...@empathyco/x-adapter@8.0.0-alpha.4) (2022-07-26)
+
+### Features
+
+- Do not flatten body params in fetch http client. (#624)
+  ([375c37f](https://github.com/empathyco/x/commit/375c37f6263cbbb1e88c71d8d6e29e01080c4079))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [8.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.2...@empathyco/x-adapter@8.0.0-alpha.3) (2022-06-24)
 
 ### Features

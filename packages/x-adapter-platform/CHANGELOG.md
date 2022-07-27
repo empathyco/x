@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.26...@empathyco/x-adapter-platform@1.0.0-alpha.27) (2022-07-26)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.25...@empathyco/x-adapter-platform@1.0.0-alpha.26) (2022-07-22)
+
+### Features
+
+- change endpoint adapter ids in platform adapter (#616)
+  ([ad630cf](https://github.com/empathyco/x/commit/ad630cfe29027972d9c0e3dc1f82889b4b01c700)),
+  closes [EX-6662](https://searchbroker.atlassian.net/browse/EX-6662)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.24...@empathyco/x-adapter-platform@1.0.0-alpha.25) (2022-07-04)
 
 ### Features

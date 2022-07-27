@@ -14,5 +14,8 @@ export const relatedTagsEndpointAdapter = endpointAdapterFactory<
 >({
   endpoint: 'https://api.{extraParams.env(.)}empathy.co/relatedtags/{extraParams.instance}',
   requestMapper: relatedTagsRequestMapper,
-  responseMapper: relatedTagsResponseMapper
+  responseMapper: relatedTagsResponseMapper,
+  defaultRequestOptions: {
+    id: 'related-tags'
+  }
 });

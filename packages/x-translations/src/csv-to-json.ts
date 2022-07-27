@@ -30,7 +30,7 @@ function generateJSONFile(sourcePath: string): JSON {
  * @returns A JSON object with the contents of the CSV file.
  */
 function transformToJson(csv: string): JSON {
-  const [header, ...rows] = csv.trim().split('\n');
+  const [header, ...rows] = csv.trim().split(/\r?\n|\r/);
   const [, ...columns] = header.split(';');
 
   return rows.reduce<JSON>(toMessagesObject(columns), {});

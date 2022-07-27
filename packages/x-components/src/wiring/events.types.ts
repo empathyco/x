@@ -108,6 +108,11 @@ export interface XEventsTypes
    */
   UserClickedCloseX: void;
   /**
+   * The user clicked out of the main modal.
+   * Payload: none.
+   */
+  UserClickedOutOfMainModal: void;
+  /**
    * The user clicked the button to select the number of columns.
    * Payload: the column number.
    */

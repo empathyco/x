@@ -5,3 +5,6 @@ export { default as BaseModal } from './base-modal.vue';
 export { default as BaseIdModal } from './base-id-modal.vue';
 export { default as BaseIdModalClose } from './base-id-modal-close.vue';
 export { default as BaseIdModalOpen } from './base-id-modal-open.vue';
+export { default as CloseMainModal } from './close-main-modal.vue';
+export { default as MainModal } from './main-modal.vue';
+export { default as OpenMainModal } from './open-main-modal.vue';

@@ -5,10 +5,12 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { HistoryQuery } from '@empathyco/x-types';
   import BaseSwitch from '../../../components/base-switch.vue';
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { historyQueriesXModule } from '../x-module';
+  import { isArrayEmpty } from '../../../utils/array';
 
   /**
    * History Queries Switch is a component to enable or disable the history queries.
@@ -30,13 +32,32 @@
     public isEnabled!: boolean;
 
     /**
+     * The history queries from the state.
+     */
+    @State('historyQueries', 'historyQueries')
+    public historyQueries!: HistoryQuery[];
+
+    /**
+     * Checks if there are history queries.
+     *
+     * @returns True if there are history queries; false otherwise.
+     */
+    protected get hasHistoryQueries(): boolean {
+      return !isArrayEmpty(this.historyQueries);
+    }
+
+    /**
      * Emits an event based on the switch state.
      *
      * @internal
      */
     protected toggle(): void {
       this.$x.emit(
-        this.isEnabled ? 'UserClickedDisableHistoryQueries' : 'UserClickedEnableHistoryQueries'
+        this.isEnabled
+          ? this.hasHistoryQueries
+            ? 'UserClickedDisableHistoryQueries'
+            : 'UserClickedConfirmDisableHistoryQueries'
+          : 'UserClickedEnableHistoryQueries'
       );
     }
   }
@@ -52,7 +73,12 @@ A list of events that the component will emit:
   whenever the user clicks the switch and the history queries are disabled.
 - [`UserClickedDisableHistoryQueries`]
   (x-components.historyqueriesxevents.userclickeddisablehistoryqueries.md): the event is emitted
-  whenever the user clicks the switch and the history queries are enabled.
+  whenever the user clicks the switch when the history queries are enabled and the list of history
+  queries is not empty.
+- [`UserClickedConfirmDisableHistoryQueries`]
+  (x-components.historyqueriesxevents.userclickedconfirmdisablehistoryqueries.md): the event is
+  emitted whenever the user clicks the switch when the history queries are enabled and the list of
+  history queries is empty.
 
 ## See it in action
 
