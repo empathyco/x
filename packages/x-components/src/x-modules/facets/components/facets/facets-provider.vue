@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Facet, Filter } from '@empathyco/x-types';
+  import { Facet, Filter, isHierarchicalFacet } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop, Watch } from 'vue-property-decorator';
   import { XOn } from '../../../../components';
@@ -7,6 +7,7 @@
   import { areFiltersDifferent } from '../../../../utils/filters';
   import { FacetsGroup } from '../../service/types';
   import { GroupId } from '../../store/types';
+  import { flatHierarchicalFilters } from '../../utils';
   import { facetsXModule } from '../../x-module';
 
   /**
@@ -84,7 +85,8 @@
     @Watch('facetsGroup', { immediate: true })
     provideFacets(): void {
       if (this.facetsGroup.facets) {
-        this.$x.emit('FacetsGroupProvided', this.facetsGroup);
+        const clone = JSON.parse(JSON.stringify(this.facetsGroup));
+        this.$x.emit('FacetsGroupProvided', clone);
         this.extractSelectedFilters(this.facets);
       }
     }
@@ -98,9 +100,10 @@
      */
     protected extractSelectedFilters(facets: Facet[]): void {
       this.selectedFilters = facets
-        .flatMap(facet => facet.filters)
-        .filter(filter => filter.selected)
-        .map(filter => ({ ...filter }));
+        .flatMap(facet =>
+          isHierarchicalFacet(facet) ? flatHierarchicalFilters(facet.filters) : facet.filters
+        )
+        .filter(filter => filter.selected);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function

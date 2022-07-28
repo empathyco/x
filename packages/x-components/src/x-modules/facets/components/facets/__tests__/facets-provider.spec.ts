@@ -1,5 +1,5 @@
 import { Facet, Filter } from '@empathyco/x-types';
-import { DeepPartial, Dictionary } from '@empathyco/x-utils';
+import { Dictionary } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -14,6 +14,7 @@ import { RootXStoreState } from '../../../../../store/store.types';
 import { arrayToObject } from '../../../../../utils/array';
 import { areFiltersDifferent } from '../../../../../utils/filters';
 import { resetFacetsService } from '../../../__tests__/utils';
+import { getStoreFilter } from '../../../entities/__tests__/utils';
 import { DefaultFacetsService } from '../../../service/facets.service';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
@@ -122,7 +123,7 @@ describe('testing Facets component', () => {
     emittedEvents = wrapper.emitted('UserChangedSelectedFilters');
     expect(emittedEvents).toHaveLength(2);
     emittedFilters = emittedEvents?.[1][0];
-    expect(areFiltersDifferent(emittedFilters, [redFilter, bigFilter])).toBe(false);
+    expect(areFiltersDifferent(emittedFilters, [])).toBe(false);
   });
 });
 
@@ -134,7 +135,7 @@ function renderFacetsProviderComponent({
 
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  const store = new Store<DeepPartial<RootXStoreState>>({});
+  const store = new Store<RootXStoreState>({});
   installNewXPlugin({ store }, localVue);
   XPlugin.registerXModule(facetsXModule);
   resetXFacetsStateWith(store, stateFacets);
@@ -163,7 +164,9 @@ function renderFacetsProviderComponent({
       return store.getters['x/facets/facets'];
     },
     async selectFilters(filters: Filter[]): Promise<void> {
-      filters.forEach(filter => DefaultFacetsService.instance.select(filter));
+      filters.forEach(filter => {
+        DefaultFacetsService.instance.select(getStoreFilter(store, filter.id));
+      });
       await localVue.nextTick();
       jest.runAllTimers();
     },
