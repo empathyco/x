@@ -7,6 +7,8 @@ import {
 import { fetchNextQueries } from './actions/fetch-next-queries.action';
 import { setQueryFromLastHistoryQuery } from './actions/set-query-from-last-history-query.action';
 import { setUrlParams } from './actions/set-url-params.action';
+import { fetchNextQueryPreview } from './actions/fetch-next-query-preview.action';
+import { fetchAndSaveNextQueryPreview } from './actions/fetch-and-save-next-query-preview.action';
 import { nextQueries } from './getters/next-queries.getter';
 import { request } from './getters/request.getter';
 import { NextQueriesXStoreModule } from './types';
@@ -25,9 +27,11 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     config: {
       maxItemsToRequest: 20,
       hideSessionQueries: true,
-      loadOnInit: true
+      loadOnInit: true,
+      maxPreviewItemsToRequest: 8
     },
-    params: {}
+    params: {},
+    resultsPreview: {}
   }),
   getters: {
     request,
@@ -44,6 +48,12 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     setStatus,
     setParams(state, params) {
       state.params = params;
+    },
+    setResultsPreview(state, resultsPreview) {
+      state.resultsPreview = { ...state.resultsPreview, ...resultsPreview };
+    },
+    resetResultsPreview(state) {
+      state.resultsPreview = {};
     }
   },
   actions: {
@@ -51,6 +61,8 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     fetchAndSaveNextQueries,
     fetchNextQueries,
     setQueryFromLastHistoryQuery,
-    setUrlParams
+    setUrlParams,
+    fetchNextQueryPreview,
+    fetchAndSaveNextQueryPreview
   }
 };

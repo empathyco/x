@@ -1,4 +1,10 @@
-import { HistoryQuery, NextQuery, NextQueriesRequest } from '@empathyco/x-types';
+import {
+  HistoryQuery,
+  NextQuery,
+  NextQueriesRequest,
+  SearchResponse,
+  PreviewResults
+} from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
@@ -23,6 +29,8 @@ export interface NextQueriesState extends StatusState, QueryState {
   config: NextQueriesConfig;
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
+  /** Results of the next queries requests. */
+  resultsPreview: Dictionary<PreviewResults>;
 }
 
 /**
@@ -70,6 +78,19 @@ export interface NextQueriesMutations extends StatusMutations, QueryMutations {
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
+
+  /**
+   * Adds a new entry to the result's dictionary.
+   *
+   * @param resultsPreview - Object containing the next query,
+   * the totalResults and the results to add.
+   */
+  setResultsPreview(resultsPreview: Dictionary<PreviewResults>): void;
+
+  /**
+   * Resets the result's dictionary.
+   */
+  resetResultsPreview(): void;
 }
 
 /**
@@ -102,6 +123,20 @@ export interface NextQueriesActions {
    * @param urlParams - List of params from the url.
    */
   setUrlParams(urlParams: UrlParams): void;
+  /**
+   * Requests the results to preview a next query,
+   * limited by {@link NextQueriesConfig.maxPreviewItemsToRequest}.
+   *
+   * @param query - The next query to retrieve the results.
+   * @returns A search response based on the next query.
+   */
+  fetchNextQueryPreview(query: string): SearchResponse | null;
+  /**
+   * Requests the results to preview a next query and saves them in the state.
+   *
+   * @param query - The next query to retrieve the results.
+   */
+  fetchAndSaveNextQueryPreview(query: string): void;
 }
 
 /**

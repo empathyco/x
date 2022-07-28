@@ -28,4 +28,9 @@ export interface NextQueriesXEvents {
    * Payload: The next query that has been selected by the user.
    */
   UserSelectedANextQuery: NextQuery;
+  /**
+   * The component to show a next query preview has been mounted.
+   * Payload: The next query to preview.
+   */
+  NextQueryPreviewMounted: string;
 }

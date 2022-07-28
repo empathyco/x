@@ -34,4 +34,8 @@ export interface NextQueriesConfig {
    * Loads the next queries with the last searched query.
    */
   loadOnInit: boolean;
+  /**
+   * Number of results that will be requested to preview the next queries.
+   */
+  maxPreviewItemsToRequest: number;
 }
