@@ -222,11 +222,10 @@ export function createHierarchicalFilterFactory(
 ): CreateHierarchicalFilter {
   return (label, selected, createChildren): HierarchicalFilter => {
     const filter = createHierarchicalFilter(facetId, label, selected);
-    const children = createChildren
+    filter.children = createChildren
       ? createChildren(createHierarchicalFilterFactory(facetId, filter.id))
       : [];
     filter.parentId = parentId;
-    filter.children = children.filter(child => child.parentId === filter.id);
     return filter;
   };
 }
