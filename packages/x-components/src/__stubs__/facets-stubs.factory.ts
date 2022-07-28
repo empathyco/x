@@ -10,8 +10,6 @@ import {
   SimpleFacet,
   SimpleFilter
 } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
-import { arrayToObject } from '../utils';
 import {
   createEditableNumberRangeFilter,
   CreateHierarchicalFilter,
@@ -238,33 +236,30 @@ export function getSimpleFacetStub(): SimpleFacet {
  * @internal
  */
 export function getHierarchicalFacetStub(): HierarchicalFacet {
-  const childrenFilters: HierarchicalFilter[] = [
-    getHierarchicalFilterStub({
-      facetId: 'hierarchical_category',
-      parentId: 'hierarchical_category:"rompecabezas"',
-      id: 'hierarchical_category:"rompecabezas-faciles"',
-      label: 'Rompecabezas fáciles'
-    }),
-    getHierarchicalFilterStub({
-      facetId: 'hierarchical_category',
-      parentId: 'hierarchical_category:"rompecabezas"',
-      id: 'hierarchical_category:"rompecabezas-dificiles"',
-      label: 'Rompecabezas difíciles'
-    })
-  ];
-
   return {
     id: 'hierarchical_category',
     modelName: 'HierarchicalFacet',
     label: 'hierarchical_category',
     filters: [
-      ...childrenFilters,
       getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
         id: 'hierarchical_category:"rompecabezas"',
         label: 'Rompecabezas',
         totalResults: 1,
-        children: childrenFilters
+        children: [
+          getHierarchicalFilterStub({
+            facetId: 'hierarchical_category',
+            parentId: 'hierarchical_category:"rompecabezas"',
+            id: 'hierarchical_category:"rompecabezas-faciles"',
+            label: 'Rompecabezas fáciles'
+          }),
+          getHierarchicalFilterStub({
+            facetId: 'hierarchical_category',
+            parentId: 'hierarchical_category:"rompecabezas"',
+            id: 'hierarchical_category:"rompecabezas-dificiles"',
+            label: 'Rompecabezas difíciles'
+          })
+        ]
       }),
       getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
@@ -422,17 +417,6 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
  */
 export function getFacetsStub(): Facet[] {
   return [getSimpleFacetStub(), getHierarchicalFacetStub(), getNumberRangeFacetStub()];
-}
-
-/**
- * Creates a {@link @empathyco/x-types#Facet | facets} stub.
- *
- * @returns Dictionary of facets stub.
- *
- * @internal
- */
-export function getFacetsDictionaryStub(): Dictionary<Facet> {
-  return arrayToObject(getFacetsStub(), 'id');
 }
 
 /**
