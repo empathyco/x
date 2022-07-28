@@ -114,7 +114,7 @@
      * The search query, updated when the request has succeeded.
      */
     @XInject(QUERY_KEY)
-    public searchQuery!: string;
+    public searchQuery!: string | undefined;
 
     /**
      * The grouped next queries based on the given config.
@@ -146,7 +146,7 @@
       if (!this.injectedListItems) {
         return this.nextQueriesGroups;
       }
-      if (this.query !== this.searchQuery || this.status !== 'success') {
+      if (this.searchQuery && (this.query !== this.searchQuery || this.status !== 'success')) {
         return this.injectedListItems;
       }
       return this.nextQueriesGroups.reduce(
