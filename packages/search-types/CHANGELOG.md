@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.28...@empathyco/x-types@10.0.0-alpha.29) (2022-07-28)
+
+### Features
+
+- **next-queries:** add next query preview logic (#611)
+  ([fc611fa](https://github.com/empathyco/x/commit/fc611faa39e63e5f916cd19928e9ab0755f8dc7f)),
+  closes [EX-6119](https://searchbroker.atlassian.net/browse/EX-6119)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.27...@empathyco/x-types@10.0.0-alpha.28) (2022-07-26)
 
 **Note:** Version bump only for package @empathyco/x-types

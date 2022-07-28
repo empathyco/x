@@ -125,7 +125,7 @@ describe('testing next queries module actions', () => {
     it('should build the search request adding rows and extraParams from state', async () => {
       resetNextQueriesStateWith(store, {
         config: {
-          resultsPreviewCount: 3
+          maxPreviewItemsToRequest: 3
         },
         params: {
           extraParam: 'extra param'
