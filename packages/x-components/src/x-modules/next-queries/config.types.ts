@@ -37,5 +37,5 @@ export interface NextQueriesConfig {
   /**
    * Number of results that will be requested to preview the next queries.
    */
-  resultsPreviewCount: number;
+  maxPreviewItemsToRequest: number;
 }
