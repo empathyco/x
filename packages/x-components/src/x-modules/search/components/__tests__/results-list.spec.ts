@@ -7,7 +7,6 @@ import Component from 'vue-class-component';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { ListItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
@@ -16,6 +15,7 @@ import { InfiniteScroll } from '../../../../directives/infinite-scroll/infinite-
 import { XInject } from '../../../../components/decorators/injection.decorators';
 import { LIST_ITEMS_KEY, QUERY_KEY } from '../../../../components/decorators/injection.consts';
 import { SearchMutations } from '../../store/types';
+import { searchXModule } from '../../x-module';
 import { resetXSearchStateWith } from './utils';
 
 /**
@@ -31,12 +31,17 @@ function renderResultsList({
 }: RenderResultsListOptions = {}): RenderResultsListAPI {
   const localVue = createLocalVue();
   localVue.use(Vuex);
+
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-
-  XPlugin.resetInstance();
-
+  installNewXPlugin(
+    {
+      store,
+      initialXModules: [searchXModule]
+    },
+    localVue
+  );
   resetXSearchStateWith(store, { results });
+
   const wrapper = mount(
     {
       components: {
@@ -51,10 +56,8 @@ function renderResultsList({
     }
   );
 
-  const resultsListWrapper = wrapper.findComponent(ResultsList);
-
   return {
-    wrapper: resultsListWrapper,
+    wrapper: wrapper.findComponent(ResultsList),
     getResults() {
       return results;
     },
@@ -150,7 +153,7 @@ describe('testing Results list component', () => {
       }
     });
 
-    const childWrapper = wrapper.find(Child);
+    const childWrapper = wrapper.findComponent(Child);
     expect(childWrapper.text()).toBe(getResults()[0].id);
   });
 
