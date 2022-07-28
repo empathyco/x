@@ -60,7 +60,7 @@ describe('testing Close Button component', () => {
   it('renders custom content replacing the default exposing the function that closes the modal', async () => {
     const { wrapper, click, modalId } = renderBaseIdModalClose({
       template: `<BaseIdModalClose modalId="modal" v-bind="$attrs">
-                    <template #closer-element="{ closeModal }">
+                    <template #closing-element="{ closeModal }">
                       <div>
                         Close <span data-test="custom-close-modal" @click="closeModal">HERE</span>
                       </div>

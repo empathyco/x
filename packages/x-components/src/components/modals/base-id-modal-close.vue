@@ -5,14 +5,10 @@
       button by default.
         @binding {Function} closeModal - The function to close the modal.
     -->
-    <slot :closeModal="emitCloseModalEvent" name="closer-element">
-      <BaseEventButton
-        v-on="$listeners"
-        :events="{ UserClickedCloseModal: modalId }"
-        class="x-button x-events-modal-id-close-button"
-      >
+    <slot :closeModal="emitCloseModalEvent" name="closing-element">
+      <button @click="emitCloseModalEvent" class="x-button x-events-modal-id-close-button">
         <slot />
-      </BaseEventButton>
+      </button>
     </slot>
   </NoElement>
 </template>
