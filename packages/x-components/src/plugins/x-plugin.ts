@@ -3,7 +3,6 @@ import { forEach, Dictionary } from '@empathyco/x-utils';
 import { PluginObject, VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
 import { XComponentsAdapter } from '@empathyco/x-types';
-import { FILTERS_REGISTRY } from '../filters/filters.registry';
 import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
 import { RootXStoreModule } from '../store/x.module';
@@ -215,7 +214,6 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     this.adapter = options.adapter;
     this.registerStore();
     this.applyMixins();
-    this.registerFilters();
     this.registerInitialModules();
     this.registerPendingXModules();
     this.isInstalled = true;
@@ -394,17 +392,6 @@ export class XPlugin implements PluginObject<XPluginOptions> {
       this.registerXModule(xModule);
     });
     XPlugin.pendingXModules = {};
-  }
-
-  /**
-   * Registers filters globally.
-   *
-   * @internal
-   */
-  protected registerFilters(): void {
-    forEach(FILTERS_REGISTRY, (filterName, filterFunction) =>
-      this.vue.filter(filterName, filterFunction)
-    );
   }
 }
 
