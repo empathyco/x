@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.142](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.141...@empathyco/x-components@3.0.0-alpha.142) (2022-07-29)
+
+### Features
+
+- Remove vue filters (#635)
+  ([5026e84](https://github.com/empathyco/x/commit/5026e84b7dec3a283af8fdd2f68f84b49d332911)),
+  closes [EX-6508](https://searchbroker.atlassian.net/browse/EX-6508)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.141](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.140...@empathyco/x-components@3.0.0-alpha.141) (2022-07-28)
 
 ### Features
