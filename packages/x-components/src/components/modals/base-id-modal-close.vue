@@ -1,7 +1,7 @@
 <template>
   <NoElement v-on="$listeners" data-test="close-modal-id">
     <!--
-      @slot closer-element. It's the element that will trigger the modal closing. It's a
+      @slot closing-element. It's the element that will trigger the modal closing. It's a
       button by default.
         @binding {Function} closeModal - The function to close the modal.
     -->
