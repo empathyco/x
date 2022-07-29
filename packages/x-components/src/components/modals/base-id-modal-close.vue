@@ -78,7 +78,7 @@ function to close the modal with modalId `my-modal`.
 ```vue
 <template>
   <BaseIdModalClose modalId="my-modal">
-    <template #closer-element="{ closeModal }">
+    <template #closing-element="{ closeModal }">
       <ul>
         <li @click="closeModal">Close here</li>
         <li>Not here</li>
