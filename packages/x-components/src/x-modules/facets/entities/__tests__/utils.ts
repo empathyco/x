@@ -1,10 +1,4 @@
-import {
-  EditableNumberRangeFilter,
-  Filter,
-  Facet,
-  HierarchicalFilter,
-  isHierarchicalFilter
-} from '@empathyco/x-types';
+import { EditableNumberRangeFilter, Filter, Facet, isHierarchicalFilter } from '@empathyco/x-types';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { resetStoreXModuleState } from '../../../../__tests__/utils';
@@ -34,9 +28,7 @@ export function prepareFacetsStore(filters?: Filter[]): Store<RootXStoreState> {
     }
   });
   if (filters) {
-    const hierarchicalFilters = filters.filter(filter =>
-      isHierarchicalFilter(filter)
-    ) as HierarchicalFilter[];
+    const hierarchicalFilters = filters.filter(isHierarchicalFilter);
     resetStoreXModuleState(store, 'facets', facetsXStoreModule.state(), {
       filters: arrayToObject([...filters, ...flatHierarchicalFilters(hierarchicalFilters)], 'id')
     });

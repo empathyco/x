@@ -64,7 +64,7 @@
   import { isObject } from '@empathyco/x-utils';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { xComponentMixin } from '../../../../components';
+  import { xComponentMixin } from '../../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../../utils/types';
   import { XEventsTypes } from '../../../../wiring/events.types';
   import { facetsXModule } from '../../x-module';
@@ -172,7 +172,7 @@
     }
 
     protected isFilterPartiallySelected(filter: HierarchicalFilterModel): boolean {
-      const selectedChildren = filter.children?.filter(filter => filter?.selected);
+      const selectedChildren = filter.children?.filter(filter => filter.selected);
       const filterChildrenLength = filter.children?.length ?? 0;
       return (
         !!selectedChildren &&

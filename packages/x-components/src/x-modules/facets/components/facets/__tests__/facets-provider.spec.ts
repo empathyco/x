@@ -165,13 +165,17 @@ function renderFacetsProviderComponent({
     },
     async selectFilters(filters: Filter[]): Promise<void> {
       filters.forEach(filter => {
+        // The provided filters should not be mutated. That's why we search for them in the state.
         DefaultFacetsService.instance.select(getStoreFilter(store, filter.id));
       });
       await localVue.nextTick();
       jest.runAllTimers();
     },
     async deselectFilters(filters: Filter[]): Promise<void> {
-      filters.forEach(filter => DefaultFacetsService.instance.deselect(filter));
+      filters.forEach(filter =>
+        // The provided filters should not be mutated. That's why we search for them in the state.
+        DefaultFacetsService.instance.deselect(getStoreFilter(store, filter.id))
+      );
       await localVue.nextTick();
       jest.runAllTimers();
     }
@@ -192,7 +196,10 @@ interface FacetsRenderOptions {
 
 interface FacetsComponentAPI {
   /**
-   * Selects the given filters. * * @param filters - The list of filters to deselect.
+   * Deselects the given filters in the store. The provided filters should not be mutated. That's
+   * why we search for them in the state.
+   *
+   * @param filters - The list of filters to deselect.
    *
    * @returns A promise that resolves after updating the view.
    */
@@ -202,7 +209,8 @@ interface FacetsComponentAPI {
    */
   getStateFacets: () => Record<Facet['id'], Facet>;
   /**
-   * Selects the given filters.
+   * Selects the given filters. The provided filters should not be mutated. That's
+   * why we search for them in the state.
    *
    * @param filters - The list of filters to select.
    * @returns A promise that resolves after updating the view.

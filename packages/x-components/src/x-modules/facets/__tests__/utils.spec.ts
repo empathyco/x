@@ -55,22 +55,8 @@ describe('testing flatHierarchicalFilters util', () => {
     createFilter('Educativos', false, createFilter => [createFilter('Juguetes educativos', false)])
   ]).filters;
 
-  it('returns an array with all filters flattened', () => {
-    const flattenedHierarchicalFilters = flatHierarchicalFilters(hierarchicalFilters);
-
-    expect(flattenedHierarchicalFilters).toHaveLength(6);
-  });
-
-  it('keeps the parent-children relations in the flattened filters', () => {
-    flatHierarchicalFilters(hierarchicalFilters);
-
-    expect(hierarchicalFilters).toHaveLength(3);
-    expect(hierarchicalFilters[0].children).toHaveLength(1);
-    expect(hierarchicalFilters[1].children).toHaveLength(1);
-    expect(hierarchicalFilters[2].children).toHaveLength(1);
-  });
-
-  it('does not duplicate the flattened filters', () => {
+  // eslint-disable-next-line max-len
+  it('returns an array with all filters flattened and does not duplicate the flattened filters', () => {
     const allFilters = [
       ...hierarchicalFilters,
       ...hierarchicalFilters[0].children!,
@@ -84,5 +70,14 @@ describe('testing flatHierarchicalFilters util', () => {
     allFilters.forEach(filter => {
       expect(flattenedHierarchicalFilters).toContain(filter);
     });
+  });
+
+  it('keeps the parent-children relations in the flattened filters', () => {
+    flatHierarchicalFilters(hierarchicalFilters);
+
+    expect(hierarchicalFilters).toHaveLength(3);
+    expect(hierarchicalFilters[0].children).toHaveLength(1);
+    expect(hierarchicalFilters[1].children).toHaveLength(1);
+    expect(hierarchicalFilters[2].children).toHaveLength(1);
   });
 });

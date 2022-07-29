@@ -58,13 +58,8 @@ export function isNewQuery(newQuery: string, previousQuery: string): boolean {
 export function flatHierarchicalFilters(
   hierarchicalFilters: HierarchicalFilter[]
 ): HierarchicalFilter[] {
-  return [
-    ...hierarchicalFilters,
-    ...hierarchicalFilters.reduce((accumulator, value) => {
-      if (value.children != null) {
-        accumulator.push(...flatHierarchicalFilters(value.children));
-      }
-      return accumulator;
-    }, [] as HierarchicalFilter[])
-  ];
+  return hierarchicalFilters.reduce(function flat(flattenedFilters, filter): HierarchicalFilter[] {
+    flattenedFilters.push(filter);
+    return filter?.children?.reduce(flat, flattenedFilters) ?? flattenedFilters;
+  }, [] as HierarchicalFilter[]);
 }

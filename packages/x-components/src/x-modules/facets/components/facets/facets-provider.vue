@@ -4,6 +4,7 @@
   import { Component, Prop, Watch } from 'vue-property-decorator';
   import { XOn } from '../../../../components';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
+  import { clone } from '../../../../utils';
   import { areFiltersDifferent } from '../../../../utils/filters';
   import { FacetsGroup } from '../../service/types';
   import { GroupId } from '../../store/types';
@@ -85,8 +86,8 @@
     @Watch('facetsGroup', { immediate: true })
     provideFacets(): void {
       if (this.facetsGroup.facets) {
-        const clone = JSON.parse(JSON.stringify(this.facetsGroup));
-        this.$x.emit('FacetsGroupProvided', clone);
+        const facetsGroupClone = clone(this.facetsGroup);
+        this.$x.emit('FacetsGroupProvided', facetsGroupClone);
         this.extractSelectedFilters(this.facets);
       }
     }

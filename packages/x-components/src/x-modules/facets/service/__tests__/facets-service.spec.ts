@@ -14,6 +14,7 @@ import {
 } from '../../../../__stubs__/filters-stubs.factory';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
+import { clone } from '../../../../utils';
 import { areFiltersDifferent } from '../../../../utils/filters';
 import {
   getStoreEditableNumberRangeFilter,
@@ -283,7 +284,7 @@ describe('testing facets service', () => {
       const priceFacet = createEditableNumberRangeFacetStub('price', createFilter =>
         createFilter({ min: null, max: 10 }, true)
       );
-      const priceUpTo10Filter = JSON.parse(JSON.stringify(priceFacet.filters[0]));
+      const priceUpTo10Filter = clone(priceFacet.filters[0]);
 
       // Save a fresh new facets group. Because there
       // are no previous filters, all filters should be deselected.
