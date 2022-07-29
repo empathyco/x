@@ -1,5 +1,5 @@
 .x-picture--fixed-ratio.x-picture {
   // size
-  aspect-ratio: 1 / var(--x-number-aspect-ratio-picture);
+  aspect-ratio: var(--x-number-aspect-ratio-picture);
   width: 100%;
 }
