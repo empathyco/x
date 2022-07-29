@@ -149,6 +149,8 @@ export type FiltersByFacet = Record<Facet['id'], Filter[]>;
 
 /**
  * Payload to use in the `mutateFilter` mutation.
+ *
+ * @public
  */
 export interface MutateFilterPayload {
   filter: Filter;
