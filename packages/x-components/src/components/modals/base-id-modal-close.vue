@@ -7,6 +7,7 @@
     -->
     <slot :closeModal="emitCloseModalEvent" name="closing-element">
       <button @click="emitCloseModalEvent" class="x-button x-events-modal-id-close-button">
+        <!-- @slot (Required) Button content with a text, an icon or both -->
         <slot />
       </button>
     </slot>
@@ -16,7 +17,6 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import BaseEventButton from '../base-event-button.vue';
   import { NoElement } from '../no-element';
 
   /**
@@ -27,7 +27,7 @@
    * @public
    */
   @Component({
-    components: { BaseEventButton, NoElement }
+    components: { NoElement }
   })
   export default class BaseIdModalClose extends Vue {
     @Prop({ required: true })
