@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.144](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.143...@empathyco/x-components@3.0.0-alpha.144) (2022-08-01)
+
+### ⚠ BREAKING CHANGES
+
+- `--x-number-aspect-ratio-picture` is now inverted. Previously a value of 2 meant that it was twice
+  taller than wider. Now it means twice wider than taller.
+
+- feat(design-system): Re-do aspect ratio logic with modern `aspect-ratio` property
+  ([7fae9dc](https://github.com/empathyco/x/commit/7fae9dcab71ec8a945f70aa706cce1cb57b4ddd8)),
+  closes [EX-6463](https://searchbroker.atlassian.net/browse/EX-6463)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.143](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.142...@empathyco/x-components@3.0.0-alpha.143) (2022-08-01)
 
 ### Features
