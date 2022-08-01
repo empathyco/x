@@ -33,8 +33,7 @@ You can find the X&nbsp;Components library in the
 To integrate the X&nbsp;Components in a frontend UI, you need:
 
 - **Empathy Search API** to retrieve search data (or any other search API)
-- A **search adapter** to communicate with the search API. You can use the
-  [Empathy Platform Adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform)
+- A **search adapter** to communicate with the search API.
 - Your commerce store built on a **Vue** project, or on a **React** project using the
   [React Wrapper](https://github.com/empathyco/x/tree/main/packages/react-wrapper).
 
@@ -93,8 +92,10 @@ If you do not use the Empathy Search API, you need to build your own adapter.
 
 :::
 
-For more information, see
-[Using the Empathy Search Adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter).
+For more information, see the
+[Empathy Search Adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter) and
+[Empathy Platform Search Adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform)
+libraries.
 
 ## Configuring the plugin
 
