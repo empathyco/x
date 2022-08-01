@@ -297,7 +297,7 @@ etc.). See the corresponding `events.types.ts` file for each module in the
 The
 [X&nbsp;API](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-installer/api/base-api.ts)
 object allows your commerce store to communicate with Interface&nbsp;X. It supports multiple
-functions to integrate Interface&nbsp;X in your website. You may access these functions inside the
+functions to integrate Interface&nbsp;X in your website. You can access these functions inside the
 `window.InterfaceX` object.
 
 | Function           | Parameters                                                                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
