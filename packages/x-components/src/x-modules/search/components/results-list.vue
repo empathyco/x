@@ -66,7 +66,7 @@
      * This query is updated only when the search request has succeeded.
      */
     @XProvide(QUERY_KEY)
-    public query = '';
+    public providedQuery = '';
 
     /**
      * The status of the search request, taken from the state.
@@ -97,7 +97,7 @@
     @Watch('searchStatus')
     updateQuery(status: RequestStatus): void {
       if (status === 'success') {
-        this.query = this.searchQuery;
+        this.providedQuery = this.searchQuery;
       }
     }
 
