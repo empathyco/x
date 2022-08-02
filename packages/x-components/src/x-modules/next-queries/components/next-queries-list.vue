@@ -21,7 +21,7 @@
   import { NextQuery } from '@empathyco/x-types';
   import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Getter, State } from '../../../components/decorators/store.decorators';
+  import { Getter } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
   import { ItemsListInjectionMixin } from '../../../components/items-list-injection.mixin';
   import ItemsList from '../../../components/items-list.vue';
@@ -33,7 +33,6 @@
   import { nextQueriesXModule } from '../x-module';
   import { XInject } from '../../../components/decorators/injection.decorators';
   import { QUERY_KEY } from '../../../components/decorators/injection.consts';
-  import { RequestStatus } from '../../../store/utils/status-store.utils';
 
   /**
    * Component that inserts groups of next queries in different positions of the injected search
@@ -99,22 +98,10 @@
     public nextQueries!: NextQuery[];
 
     /**
-     * The query used to request the next queries.
-     */
-    @State('nextQueries', 'query')
-    public query!: string;
-
-    /**
-     * The status of the next queries request.
-     */
-    @State('nextQueries', 'status')
-    public status!: RequestStatus;
-
-    /**
-     * The search query, updated when the request has succeeded.
+     * Injected query, updated when the related request(s) have succeeded.
      */
     @XInject(QUERY_KEY)
-    public searchQuery!: string | undefined;
+    public injectedQuery!: string | undefined;
 
     /**
      * The grouped next queries based on the given config.
@@ -146,7 +133,7 @@
       if (!this.injectedListItems) {
         return this.nextQueriesGroups;
       }
-      if (this.searchQuery && (this.query !== this.searchQuery || this.status !== 'success')) {
+      if (this.nextQueriesAreOutdated) {
         return this.injectedListItems;
       }
       return this.nextQueriesGroups.reduce(
@@ -158,6 +145,20 @@
           return items;
         },
         [...this.injectedListItems]
+      );
+    }
+
+    /**
+     * Checks if the next queries are outdated taking into account the injected query.
+     *
+     * @returns True if the next queries are outdated, false if not.
+     * @internal
+     */
+    protected get nextQueriesAreOutdated(): boolean {
+      return (
+        !!this.injectedQuery &&
+        (this.$x.query.nextQueries !== this.injectedQuery ||
+          this.$x.status.nextQueries !== 'success')
       );
     }
   }
