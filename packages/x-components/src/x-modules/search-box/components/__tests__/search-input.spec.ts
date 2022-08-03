@@ -43,6 +43,7 @@ interface SearchInputProps {
   instantDebounceInMs: number;
   autocompleteKeyboardKeys: string[];
   autocompleteSuggestionsEvent: string[];
+  blacklistedCharacters: string;
 }
 
 interface TestSearchInputAPI {
@@ -181,5 +182,57 @@ describe('testing search input component', () => {
     expect(input).not.toBe(document.activeElement);
     mockedSearchInput.vm.$x.emit('UserPressedClearSearchBoxButton');
     expect(input).toBe(document.activeElement);
+  });
+
+  describe('input sanitization', () => {
+    function createBeforeInputEvent(data: string): InputEvent {
+      const event = new InputEvent('beforeinput', { data });
+      event.preventDefault = jest.fn();
+      return event;
+    }
+
+    function itBlacklists(characters: string[]): void {
+      characters.forEach((character: string) => {
+        it(`blacklists '${character}'`, () => {
+          const event = createBeforeInputEvent(character);
+
+          input.dispatchEvent(event);
+
+          // eslint-disable-next-line @typescript-eslint/unbound-method
+          expect(event.preventDefault).toHaveBeenCalled();
+        });
+      });
+    }
+
+    function itDoesntBlacklist(characters: string[]): void {
+      characters.forEach((character: string) => {
+        it(`doesn't blacklist '${character}'`, () => {
+          const event = createBeforeInputEvent(character);
+
+          input.dispatchEvent(event);
+
+          // eslint-disable-next-line @typescript-eslint/unbound-method
+          expect(event.preventDefault).not.toHaveBeenCalled();
+        });
+      });
+    }
+
+    describe(`with default blacklisted characters '<>'`, () => {
+      itBlacklists(['<', '>']);
+      itDoesntBlacklist(['a', 'b', '2', '+']);
+    });
+
+    const blacklistedCharacters = 'a1+$#';
+    describe(`with custom blacklisted characters '${blacklistedCharacters}'`, () => {
+      beforeEach(() => {
+        const searchInput = mountNewSearchInput({
+          blacklistedCharacters: blacklistedCharacters
+        });
+        input = searchInput.input;
+      });
+
+      itBlacklists(blacklistedCharacters.split(''));
+      itDoesntBlacklist(['b', '2', '>', '<']);
+    });
   });
 });

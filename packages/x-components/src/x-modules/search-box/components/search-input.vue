@@ -7,6 +7,7 @@
     @input="emitUserIsTypingAQueryEvents"
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
+    @beforeinput="filterBlacklistedCharacters"
     :maxlength="maxLength"
     :value="query"
     autocomplete="off"
@@ -82,6 +83,12 @@
      */
     @Prop({ default: 'QuerySuggestionsChanged' })
     protected autocompleteSuggestionsEvent!: PropsWithType<XEventsTypes, Suggestion[]>;
+
+    /**
+     * Characters blacklisted from the input.
+     */
+    @Prop({ default: '<>' })
+    protected blacklistedCharacters!: string;
 
     @State('searchBox', 'query')
     public query!: string;
@@ -205,6 +212,20 @@
     }
 
     /**
+     * Prevents entering blacklisted characters into the search input.
+     *
+     * @param event - The keyboard event with the key pressed.
+     *
+     * @internal
+     */
+    protected filterBlacklistedCharacters(event: InputEvent): void {
+      const regexp = new RegExp(`[${this.blacklistedCharacters}]`);
+      if ((event.data ?? '').search(regexp) >= 0) {
+        event.preventDefault();
+      }
+    }
+
+    /**
      * Emits multiple events when the user pressed the enter key.
      *
      * @remarks
@@ -290,15 +311,21 @@ _Type any term in the input field to try it out!_
 
 ### Play with props
 
-In this example, the search input has been limited to accept a maximum of 5 characters, including
-spaces, it won't take the focus when it is rendered, and it will emit the `UserAcceptedAQuery` event
-after 1000 milliseconds without typing.
+In this example, the search input been limited to accept a maximum of 5 characters (including
+spaces), it won't take the focus when it is rendered, it will emit the `UserAcceptedAQuery` event
+after 1000 milliseconds without typing, and it will prevent users from entering numbers;
 
 _Type a term with more than 5 characters to try it out!_
 
 ```vue live
 <template>
-  <SearchInput :maxLength="5" :autofocus="false" :instant="true" :instantDebounceInMs="1000" />
+  <SearchInput
+    :maxLength="5"
+    :autofocus="false"
+    :instant="true"
+    :instantDebounceInMs="1000"
+    :blacklistedCharacters="0123456789"
+  />
 </template>
 
 <script>
