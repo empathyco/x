@@ -126,6 +126,21 @@ describe('next query preview', () => {
     });
   });
 
+  it('allows changing the result content', () => {
+    const template = `
+      <NextQueryPreview :suggestion="suggestion" #result="{ result }">
+        <span data-test="result-content">{{result.id}} - {{result.name}}</span>
+      </NextQueryPreview>
+    `;
+    const { findTestDataById, resultsPreview } = renderNextQueryPreview({ template });
+
+    const resultsWrapper = findTestDataById('result-content');
+
+    resultsPreview!.items.forEach((result, index) => {
+      expect(resultsWrapper.at(index).element).toHaveTextContent(`${result.id} - ${result.name}`);
+    });
+  });
+
   it('wont render if there are no results', () => {
     const { wrapper } = renderNextQueryPreview({
       resultsPreview: null

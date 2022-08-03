@@ -1,5 +1,5 @@
 <template>
-  <div v-if="suggestionResults" data-test="next-query-preview" class="x-next-query-preview">
+  <ul v-if="suggestionResults" data-test="next-query-preview" class="x-next-query-preview">
     <!--
       @slot Next Query Preview default slot.
           @binding {NextQuery} suggestion - Next Query suggestion data
@@ -11,11 +11,22 @@
       :results="suggestionResults.items"
       :totalResults="suggestionResults.totalResults"
     >
-      <div v-for="result in suggestionResults.items" :key="result.id">
-        <span data-test="result-name">{{ result.name }}</span>
-      </div>
+      <li
+        v-for="result in suggestionResults.items"
+        :key="result.id"
+        class="x-next-query-preview__item"
+        data-test="next-query-preview-item"
+      >
+        <!--
+          @slot Next Query Preview result slot.
+              @binding {Result} result - A Next Query Preview result
+        -->
+        <slot name="result" :result="result">
+          <span data-test="result-name">{{ result.name }}</span>
+        </slot>
+      </li>
     </slot>
-  </div>
+  </ul>
 </template>
 
 <script lang="ts">
@@ -53,7 +64,7 @@
      * It is a dictionary, indexed by the next query query.
      */
     @State('nextQueries', 'resultsPreview')
-    public results!: Dictionary<PreviewResults>;
+    public previewResults!: Dictionary<PreviewResults>;
 
     /**
      * The component emits the NextQueryPreviewMounted event to retrieve the results preview
@@ -69,7 +80,7 @@
      * @returns The results preview of the actual next query.
      */
     public get suggestionResults(): PreviewResults {
-      return this.results[this.suggestion.query];
+      return this.previewResults[this.suggestion.query];
     }
   }
 </script>
@@ -150,6 +161,41 @@ In this example, the results will be rendered inside a sliding panel.
       SlidingPanel,
       BaseResultLink,
       BaseResultImage
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'NextQuery',
+          query: 'tshirt',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Play with the result slot
+
+The component exposes a slot to override the result content, without modifying the list.
+
+In this example, the ID of the results will be rendered along with the name.
+
+```vue
+<template>
+  <NextQueryPreview :suggestion="suggestion" #result="{ result }">
+    <span>{{ result.id }}</span>
+    <span>{{ result.name }}</span>
+  </NextQueryPreview>
+</template>
+
+<script>
+  import { NextQueryPreview } from '@empathyco/x-components/next-queries';
+
+  export default {
+    name: 'NextQueryPreviewDemoOverridingResultSlot',
+    components: {
+      NextQueryPreview
     },
     data() {
       return {
