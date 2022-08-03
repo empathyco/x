@@ -1,5 +1,5 @@
 name: Check branch is releasable and release alpha on main branch update
-on: [push, pull_request]
+on: [push, pull_request_target]
 concurrency: 
   group: ${{ github.workflow }}-${{ github.ref_name }}
   cancel-in-progress: true
