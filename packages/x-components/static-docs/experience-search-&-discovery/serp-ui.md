@@ -21,9 +21,9 @@ navigate and organize results are key points to have in mind. <br/>
 **Choice of the layout view** Your shoppers should be able to select how they’d like the products
 displayed and how the number of products they’d like to see per page, for example.
 
-That’s why the **grid** (A) is the core element of the SERP. It lists the results returned by the
-search engine. Its value relies on having a configurable and flexible space to place all types of
-results or even other layout components such as a carousel visualization for
+That’s why the **grid** (A) is the core element of the SERP. It displays the results returned by the
+search service using a grid layout. Its value relies on having a configurable and flexible space to
+place all types of results or even other layout components such as a carousel visualization for
 [Next Queries](next-queries.md) or [Recommendations](recommendations.md).
 
 However, the grid is not the only element to consider when designing the SERP:

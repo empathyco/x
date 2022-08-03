@@ -5,8 +5,8 @@ title: Next Queries UI
 # Next Queries UI
 
 The Next Queries UI component provides shoppers with ideas on what to search for next based on their
-initial search. Since next queries are related to the initial query, they appear after performing a
-first search.
+last search. Since next queries are related to the last query, they appear after performing a first
+search.
 
 ![Next Queries](/assets/media/xcomponents_func_nextqueries.gif)
 

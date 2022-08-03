@@ -17,12 +17,12 @@ values for those aspects that shoppers can use to filter by ("Nestlé", "Kellogg
 “€0 - €10”, “€10 - €50” for _price_; “blue”, “black”, “white” for _color_), allowing you to
 determine how to display them.
 
-Originally, the X&nbsp;Components for facets and filters were designed for **search**. However,
+<!--Originally, the X&nbsp;Components for facets and filters were designed for **search**. However,
 since they can precisely organize and filter your product catalogue to bring out the products that
 best fit your shoppers’ needs, you can also use them for **catalogue navigation** and **product
 discovery**. You can guide shoppers through your product catalogue faster, allowing them to navigate
 and browse different product classifications directly from the faceted menu in your shop, without
-having to search.
+having to search.-->
 
 ::: interact Can't quite capture the concept? Learn more about
 [Facets and Filters](../overview/facets-and-filters-overview.md). :::

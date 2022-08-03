@@ -39,9 +39,9 @@ You can craft your own **UI bundle with the right components for your store**. T
 X&nbsp;Components to choose from, and the catalogue evolves quickly with new experiences.
 
 To help you discover the components and leverage the UI design process, most of the
-X&nbsp;Components are distributed into **modules** intended for different purposes: functional
-experience, interface design and behavior, web and design standardization… Just pick and choose the
-modules and components that best suit your needs.
+X&nbsp;Components are distributed into **modules** which are intended for different purposes:
+functional experience, interface design and behavior, web and design standardization… Just pick and
+choose the modules and components that best suit your needs.
 
 ::: details What does X mean?
 

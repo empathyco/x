@@ -81,10 +81,10 @@ keyboard arrow keys.
 ## Spot the difference
 
 Here, Empathize is the **predictive layer** holding the advanced search capabilities built in the
-back. However, in backend terms, Empathize is a **batch application** that uses the interaction data
-collected by the [Tagging microservices](/explore-empathy-platform/capture-shopper-interaction/) to
-build advanced search capabilities, such as Query Suggestions and Popular Searches. Don’t get
-confused!
+back. However, in backend terms, Empathize is an Empathy Platform service, fed by a **batch
+application**, that uses the interaction data collected by the
+[Tagging microservices](/explore-empathy-platform/capture-shopper-interaction/) to build advanced
+search capabilities, such as Query Suggestions and Popular Searches. Don’t get confused!
 
 ## Tailor the web experience
 

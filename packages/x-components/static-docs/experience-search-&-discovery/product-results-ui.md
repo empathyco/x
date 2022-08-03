@@ -40,7 +40,7 @@ the description for the resulting product, a picture, or even rating information
   page (SERP), without going through the PDP.&nbsp;(F)
 
 :::warning To include rating and add-to-cart options in results, rating and add-to-cart features
-must be implemented in your store. :::
+must be implemented in your product catalogue. :::
 
 ## Tailor the web experience
 
