@@ -235,30 +235,44 @@
                         </template>
 
                         <template #next-queries-group="{ item: { nextQueries } }">
-                          <div class="x-list x-padding--06 x-background--neutral-95 x-list--gap-06">
-                            <div class="x-list x-list--gap-03">
-                              <h1 class="x-title2 x-text--bold">You may be interested</h1>
-                              <p class="x-text x-font-size--05">
-                                This is what other shoppers searched after
-                                <span class="x-font-weight--bold">"{{ $x.query.search }}"</span>
-                              </p>
-                            </div>
-                            <NextQueries
-                              #suggestion="{ suggestion }"
-                              :suggestions="nextQueries"
-                              class="x-list--gap-06"
-                              :max-items-to-render="3"
+                          <div class="x-row x-row--gap-04 x-row--align-stretch">
+                            <div
+                              class="
+                                x-row__item x-row__item--span-3
+                                x-list
+                                x-padding--06
+                                x-background--neutral-95
+                                x-list--gap-06
+                              "
                             >
-                              <NextQuery
-                                #default="{ suggestion: nextQuery }"
-                                :suggestion="suggestion"
-                                class="x-tag x-tag--card"
+                              <div class="x-list x-list--gap-03">
+                                <h1 class="x-title2 x-text--bold">You may be interested</h1>
+                                <p class="x-text x-font-size--05">
+                                  This is what other shoppers searched after
+                                  <span class="x-font-weight--bold">"{{ $x.query.search }}"</span>
+                                </p>
+                              </div>
+                              <NextQueries
+                                #suggestion="{ suggestion }"
+                                :suggestions="nextQueries"
+                                class="x-list--gap-06"
+                                :max-items-to-render="3"
                               >
-                                <LightBulbOn class="x-icon--l" />
-                                <span class="x-flex-auto">{{ nextQuery.query }}</span>
-                                <ArrowRight class="x-icon--l" />
-                              </NextQuery>
-                            </NextQueries>
+                                <NextQuery
+                                  #default="{ suggestion: nextQuery }"
+                                  :suggestion="suggestion"
+                                  class="x-tag x-tag--card"
+                                >
+                                  <LightBulbOn class="x-icon--l" />
+                                  <span class="x-flex-auto">{{ nextQuery.query }}</span>
+                                  <ArrowRight class="x-icon--l" />
+                                </NextQuery>
+                              </NextQueries>
+                            </div>
+                            <SlidingNextQueryPreview
+                              :suggestion="nextQueries[0]"
+                              class="x-row__item x-row__item--span-9 x-padding--top-06"
+                            />
                           </div>
                         </template>
                       </BaseVariableColumnGrid>
@@ -384,12 +398,14 @@
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
   import { HomeControls } from './types';
+  import SlidingNextQueryPreview from './sliding-next-query-preview.vue';
 
   @Component({
     directives: {
       infiniteScroll
     },
     components: {
+      SlidingNextQueryPreview,
       ArrowRight,
       Aside,
       AutoProgressBar,

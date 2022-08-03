@@ -1,6 +1,6 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
-import { createLocalVue } from '@vue/test-utils';
+import { createLocalVue, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import { Store } from 'vuex';
 import {
@@ -55,6 +55,18 @@ interface MockedAdapterFeatures {
  */
 export function getDataTestSelector(dataTest: string): string {
   return `[data-test="${dataTest}"]`;
+}
+
+/**
+ * Searches for elements in a wrapper by data test id.
+ *
+ * @param wrapper - The wrapper to search in the data.
+ * @param testDataId - The data test to search.
+ *
+ * @returns The wrappers matching the searched test data id.
+ */
+export function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
+  return wrapper.findAll(getDataTestSelector(testDataId));
 }
 
 /**
