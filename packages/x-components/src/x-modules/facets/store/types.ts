@@ -43,6 +43,11 @@ export interface FacetsGetters {
  * @public
  */
 export interface FacetsMutations {
+  /**
+   * Updates the state of a filter.
+   *
+   * @param payload - An object containing the filter to update, and the properties to modify.
+   */
   mutateFilter(payload: MutateFilterPayload): void;
   /**
    * Removes the filter from the {@link FacetsState.filters | filters} record.
@@ -153,6 +158,13 @@ export type FiltersByFacet = Record<Facet['id'], Filter[]>;
  * @public
  */
 export interface MutateFilterPayload {
+  /**
+   * The filter to modify.
+   * If it does not belong to the store it will be added.
+   */
   filter: Filter;
+  /**
+   * The new fields values to modify in the filter.
+   */
   newFilterState: Partial<Filter>;
 }
