@@ -130,8 +130,8 @@ describe('test filters injection mixin', () => {
     const categoryShirts = createHierarchicalFilter('category', 'shirts', false);
     const categoryJeans = createHierarchicalFilter('category', 'jeans', false);
     const categoryMen = createHierarchicalFilter('category', 'men', false, [
-      categoryShirts.id,
-      categoryJeans.id
+      categoryShirts,
+      categoryJeans
     ]);
     categoryShirts.parentId = categoryJeans.parentId = categoryMen.id;
     const categoryWomen = createHierarchicalFilter('category', 'women', false);
@@ -157,8 +157,8 @@ describe('test filters injection mixin', () => {
     const categoryShirts = createHierarchicalFilter('category', 'shirts', false);
     const categoryJeans = createHierarchicalFilter('category', 'jeans', false);
     const categoryMen = createHierarchicalFilter('category', 'men', false, [
-      categoryShirts.id,
-      categoryJeans.id
+      categoryShirts,
+      categoryJeans
     ]);
     categoryShirts.parentId = categoryJeans.parentId = categoryMen.id;
     const categoryWomen = createHierarchicalFilter('category', 'women', false);

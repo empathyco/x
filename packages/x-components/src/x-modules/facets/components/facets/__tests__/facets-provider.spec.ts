@@ -1,5 +1,5 @@
 import { Facet, Filter } from '@empathyco/x-types';
-import { DeepPartial, Dictionary } from '@empathyco/x-utils';
+import { Dictionary } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -14,6 +14,7 @@ import { RootXStoreState } from '../../../../../store/store.types';
 import { arrayToObject } from '../../../../../utils/array';
 import { areFiltersDifferent } from '../../../../../utils/filters';
 import { resetFacetsService } from '../../../__tests__/utils';
+import { getStoreFilter } from '../../../entities/__tests__/utils';
 import { DefaultFacetsService } from '../../../service/facets.service';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
@@ -128,13 +129,13 @@ describe('testing Facets component', () => {
 
 function renderFacetsProviderComponent({
   stateFacets = {},
-  providedFacets
+  providedFacets = []
 }: FacetsRenderOptions = {}): FacetsComponentAPI {
   resetFacetsService();
 
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  const store = new Store<DeepPartial<RootXStoreState>>({});
+  const store = new Store<RootXStoreState>({});
   installNewXPlugin({ store }, localVue);
   XPlugin.registerXModule(facetsXModule);
   resetXFacetsStateWith(store, stateFacets);
@@ -163,12 +164,18 @@ function renderFacetsProviderComponent({
       return store.getters['x/facets/facets'];
     },
     async selectFilters(filters: Filter[]): Promise<void> {
-      filters.forEach(filter => DefaultFacetsService.instance.select(filter));
+      filters.forEach(filter => {
+        // The provided filters should not be mutated. That's why we search for them in the state.
+        DefaultFacetsService.instance.select(getStoreFilter(store, filter.id));
+      });
       await localVue.nextTick();
       jest.runAllTimers();
     },
     async deselectFilters(filters: Filter[]): Promise<void> {
-      filters.forEach(filter => DefaultFacetsService.instance.deselect(filter));
+      filters.forEach(filter =>
+        // The provided filters should not be mutated. That's why we search for them in the state.
+        DefaultFacetsService.instance.deselect(getStoreFilter(store, filter.id))
+      );
       await localVue.nextTick();
       jest.runAllTimers();
     }
@@ -189,7 +196,10 @@ interface FacetsRenderOptions {
 
 interface FacetsComponentAPI {
   /**
-   * Selects the given filters. * * @param filters - The list of filters to deselect.
+   * Deselects the given filters in the store. The provided filters should not be mutated. That's
+   * why we search for them in the state.
+   *
+   * @param filters - The list of filters to deselect.
    *
    * @returns A promise that resolves after updating the view.
    */
@@ -199,7 +209,8 @@ interface FacetsComponentAPI {
    */
   getStateFacets: () => Record<Facet['id'], Facet>;
   /**
-   * Selects the given filters.
+   * Selects the given filters. The provided filters should not be mutated. That's
+   * why we search for them in the state.
    *
    * @param filters - The list of filters to select.
    * @returns A promise that resolves after updating the view.

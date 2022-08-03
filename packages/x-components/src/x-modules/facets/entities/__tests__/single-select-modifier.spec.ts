@@ -53,21 +53,19 @@ describe('testing single select modifier', () => {
      Natural & Organic
      */
     const categoryFacet = createHierarchicalFacetStub('category', createFilter => [
-      ...createFilter('Dairy & Eggs', false, createFilter => [
-        ...createFilter('Milk', false),
-        ...createFilter('Yogurt', false, createFilter => createFilter('Flavored Yogurt', false))
+      createFilter('Dairy & Eggs', false, createFilter => [
+        createFilter('Milk', false),
+        createFilter('Yogurt', false, createFilter => [createFilter('Flavored Yogurt', false)])
       ]),
-      ...createFilter('Natural & Organic', false)
+      createFilter('Natural & Organic', false)
     ]);
     const store = prepareFacetsStore(categoryFacet.filters);
     const entity = new SingleSelectModifier(store, new HierarchicalFilterEntity(store));
-    const [
-      dairyAndEggsFilter,
-      milkFilter,
-      yogurtFilter,
-      flavoredYogurtFilter,
-      naturalOrganicFilter
-    ] = categoryFacet.filters;
+    const dairyAndEggsFilter = categoryFacet.filters[0];
+    const naturalOrganicFilter = categoryFacet.filters[1];
+    const milkFilter = dairyAndEggsFilter.children![0];
+    const yogurtFilter = dairyAndEggsFilter.children![1];
+    const flavoredYogurtFilter = yogurtFilter.children![0];
 
     // Select parent
     entity.select(dairyAndEggsFilter);

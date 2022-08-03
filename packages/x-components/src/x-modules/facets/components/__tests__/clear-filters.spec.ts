@@ -34,8 +34,8 @@ function renderClearFilters({
 
   const facets = {
     category: createHierarchicalFacetStub('Category', createFilter => [
-      ...createFilter('Men', false),
-      ...createFilter('Women', false)
+      createFilter('Men', false),
+      createFilter('Women', false)
     ]),
     brand: createSimpleFacetStub('Brand', createFilter => [
       createFilter('Audi', false),
