@@ -65,7 +65,7 @@ actions is performed. :::
 - Configure the position and place it wherever you prefer.
 - Customize content. Allow shoppers to search or clear their search using text or icons.
 - Determine the number of characters shoppers can enter in the search input.
-- Autofocus the input field when the search&nbsp;box is clicked.
+- Autofocus the input field when the search&nbsp;box is displayed.
 - Auto-accept the query without the need of using a search button or the Enter key. Determine the
   debounce time to wait before instant search.
 - Configure what will happen after the search is triggered; for example, display Related Tags or
