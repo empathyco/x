@@ -269,29 +269,10 @@
                                 </NextQuery>
                               </NextQueries>
                             </div>
-                            <div class="x-row__item x-row__item--span-9 x-padding--top-06">
-                              <NextQueryPreview
-                                :suggestion="nextQueries[0]"
-                                #default="{ results, totalResults, suggestion }"
-                                class="x-list x-list--gap-03"
-                              >
-                                <h1 class="x-title2 x-text--bold">Others clients have searched</h1>
-                                <NextQuery class="x-text x-font-size--05" :suggestion="suggestion">
-                                  <span class="x-font-weight--bold">{{ suggestion.query }}</span>
-                                  ({{ totalResults }})
-                                </NextQuery>
-                                <SlidingPanel :resetOnContentChange="false">
-                                  <div class="x-list x-list--gap-03">
-                                    <Result
-                                      v-for="result in results"
-                                      :key="result.id"
-                                      :result="result"
-                                      class="x-next-query-preview__result"
-                                    />
-                                  </div>
-                                </SlidingPanel>
-                              </NextQueryPreview>
-                            </div>
+                            <SlidingNextQueryPreview
+                              :suggestion="nextQueries[0]"
+                              class="x-row__item x-row__item--span-9 x-padding--top-06"
+                            />
                           </div>
                         </template>
                       </BaseVariableColumnGrid>
@@ -413,18 +394,18 @@
   import CloseMainModal from '../../components/modals/close-main-modal.vue';
   import BaseKeyboardNavigation from '../../components/base-keyboard-navigation.vue';
   import { XProvide } from '../../components/decorators/injection.decorators';
-  import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
   import { HomeControls } from './types';
+  import SlidingNextQueryPreview from './sliding-next-query-preview.vue';
 
   @Component({
     directives: {
       infiniteScroll
     },
     components: {
-      NextQueryPreview,
+      SlidingNextQueryPreview,
       ArrowRight,
       Aside,
       AutoProgressBar,
@@ -518,13 +499,6 @@
   }
 </script>
 
-<style lang="scss">
-  .x-base-grid__next-queries-group {
-    grid-column-start: 1;
-    grid-column-end: -1;
-  }
-</style>
-
 <style lang="scss" scoped>
   .x-modal::v-deep .x-modal__content {
     overflow: hidden;
@@ -532,8 +506,5 @@
     width: calc(100% - 20px);
     height: calc(100% - 20px);
     margin: 10px;
-  }
-  .x-next-query-preview__result {
-    max-width: 180px !important;
   }
 </style>
