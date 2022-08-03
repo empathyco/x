@@ -14,7 +14,7 @@ button.
 [Search Box](../overview/search-box-overview.md). :::
 
 It can be combined with other X&nbsp;Components, such as [Query Suggestions](query-suggestions.md)
-or [Next Queries](next-queries.md), to modify the query syntax according to your shoppers’
+or [Next Queries](next-queries.md), to update the query according to shoppers’ intent or
 behaviour. For example, if a shopper selects a query suggestion, the query is instantly updated in
 the input field to the selected suggestion and the search is launched.
 
