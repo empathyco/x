@@ -8,11 +8,13 @@
   align-items: center;
   box-sizing: border-box;
   min-width: 0;
+  position: relative;
 
   // size
   gap: var(--x-size-gap-input-group-default);
   @include safari-gap(var(--x-size-gap-input-group-default));
   height: var(--x-size-height-input-group-default);
+  overflow: hidden;
 
   // color
   background-color: var(--x-color-background-input-group-default);
