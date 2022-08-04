@@ -43,7 +43,7 @@
     protected modalId!: string;
 
     /**
-     * Emits the {@link XEventTypes.UserClickedCloseModal} event with the modalId as payload.
+     * Emits the {@link XEventsTypes.UserClickedCloseModal} event with the modalId as payload.
      *
      * @param event - The event triggering the function.
      * @public
