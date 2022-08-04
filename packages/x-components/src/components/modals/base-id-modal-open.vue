@@ -43,7 +43,7 @@
     protected modalId!: string;
 
     /**
-     * Emits the 'UserClickedOpenModal' event with the {@link modalId} as payload.
+     * Emits the 'UserClickedOpenModal' event with the modalId as payload.
      *
      * @param event - The event triggering the function.
      * @public
@@ -55,6 +55,13 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- `UserClickedOpenModal`: the event is emitted after the user clicks the button. The event payload
+  is the id of the modal that is going to be opened.
+
 ## Examples
 
 Component containing an event button that emits `UserClickedOpenModal` when it is clicked with the
@@ -114,11 +121,4 @@ function to open the modal with modalId `my-modal`.
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedOpenModal`: the event is emitted after the user clicks the button. The event payload
-  is the id of the modal that is going to be opened.
 </docs>

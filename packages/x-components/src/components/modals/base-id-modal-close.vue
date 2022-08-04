@@ -43,7 +43,7 @@
     protected modalId!: string;
 
     /**
-     * Emits the 'UserClickedCloseModal' event with the {@link modalId} as payload.
+     * Emits the 'UserClickedCloseModal' event with the modalId as payload.
      *
      * @param event - The event triggering the function.
      * @public
@@ -55,6 +55,13 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- `UserClickedCloseModal`: the event is emitted after the user clicks the button. The event payload
+  is the id of the modal that is going to be closed.
+
 ## Examples
 
 Component containing an event button that emits `UserClickedCloseModal` when clicked with the
@@ -113,11 +120,4 @@ function to close the modal with modalId `my-modal`.
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedCloseModal`: the event is emitted after the user clicks the button. The event payload
-  is the id of the modal that is going to be closed.
 </docs>
