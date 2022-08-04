@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.148](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.147...@empathyco/x-components@3.0.0-alpha.148) (2022-08-04)
+
+### Features
+
+- **next-queries:** add next query preview component (#631)
+  ([1513ab1](https://github.com/empathyco/x/commit/1513ab1ef0cbcf42d72f483d99815eba76b5eaad)),
+  closes [EX-6646](https://searchbroker.atlassian.net/browse/EX-6646)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.147](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.146...@empathyco/x-components@3.0.0-alpha.147) (2022-08-03)
 
 ### ⚠ BREAKING CHANGES
