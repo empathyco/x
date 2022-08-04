@@ -1,6 +1,6 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { installNewXPlugin } from '../../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseIdModalOpen from '../base-id-modal-open.vue';
 
 /**
@@ -75,7 +75,7 @@ describe('testing Open Button component', () => {
 
     expect(listener).toHaveBeenCalledTimes(0);
 
-    wrapper.find('[data-test="custom-open-modal"]').trigger('click');
+    wrapper.find(getDataTestSelector('custom-open-modal')).trigger('click');
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith(modalId);
   });

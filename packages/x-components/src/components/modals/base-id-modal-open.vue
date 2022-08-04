@@ -1,12 +1,17 @@
 <template>
-  <NoElement v-on="$listeners" data-test="open-modal-id">
+  <NoElement>
     <!--
       @slot opening-element. It's the element that will trigger the modal opening. It's a
       button by default.
         @binding {Function} openModal - The function to open the modal.
     -->
     <slot :openModal="emitOpenModalEvent" name="opening-element">
-      <button @click="emitOpenModalEvent" class="x-button x-events-modal-id-open-button">
+      <button
+        @click="emitOpenModalEvent"
+        class="x-button x-events-modal-id-open-button"
+        data-test="open-modal-id"
+      >
+        <!-- @slot (Required) Button content with a text, an icon or both -->
         <slot />
       </button>
     </slot>
@@ -20,8 +25,8 @@
 
   /**
    * Component that allows to open a modal by emitting {@link XEventsTypes.UserClickedOpenModal}
-   * with the modalId as payload. It's fully customizable as it exposes the opening event but by
-   * default it renders a customizable button.
+   * with the modalId as payload. It allows full customization with the 'opening-element' slot and
+   * exposes the 'openModal' function.
    *
    * @public
    */
@@ -29,11 +34,22 @@
     components: { NoElement }
   })
   export default class BaseIdModalOpen extends Vue {
+    /**
+     * The modalId of the modal that will be opened.
+     *
+     * @public
+     */
     @Prop({ required: true })
     protected modalId!: string;
 
-    protected emitOpenModalEvent(): void {
-      this.$x.emit('UserClickedOpenModal', this.modalId, { target: this.$el as HTMLElement });
+    /**
+     * Emits the 'UserClickedOpenModal' event with the {@link modalId} as payload.
+     *
+     * @param event - The event triggering the function.
+     * @public
+     */
+    protected emitOpenModalEvent({ target }: Event): void {
+      this.$x.emit('UserClickedOpenModal', this.modalId, { target: target as HTMLElement });
     }
   }
 </script>
