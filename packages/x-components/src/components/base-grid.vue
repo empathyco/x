@@ -169,7 +169,8 @@
     grid-auto-flow: dense;
     list-style: none;
 
-    &__banner {
+    &__banner,
+    &__next-queries-group {
       grid-column-start: 1;
       grid-column-end: -1;
     }

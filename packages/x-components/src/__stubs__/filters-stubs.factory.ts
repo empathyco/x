@@ -135,7 +135,7 @@ export function createHierarchicalFilter(
   facetId: string,
   label: string,
   selected = false,
-  children: HierarchicalFilter['id'][] = []
+  children: HierarchicalFilter[] = []
 ): HierarchicalFilter {
   return {
     facetId,
@@ -205,7 +205,7 @@ export type CreateHierarchicalFilter = (
   label: string,
   selected?: boolean,
   createChildren?: (createChildren: CreateHierarchicalFilter) => HierarchicalFilter[]
-) => HierarchicalFilter[];
+) => HierarchicalFilter;
 
 /**
  * Creates a factory of
@@ -220,15 +220,12 @@ export function createHierarchicalFilterFactory(
   facetId: string,
   parentId: HierarchicalFilter['id'] | null = null
 ): CreateHierarchicalFilter {
-  return (label, selected, createChildren): HierarchicalFilter[] => {
+  return (label, selected, createChildren): HierarchicalFilter => {
     const filter = createHierarchicalFilter(facetId, label, selected);
-    const children = createChildren
+    filter.children = createChildren
       ? createChildren(createHierarchicalFilterFactory(facetId, filter.id))
       : [];
     filter.parentId = parentId;
-    filter.children = children
-      .filter(child => child.parentId === filter.id)
-      .map(filter => filter.id);
-    return [filter, ...children];
+    return filter;
   };
 }

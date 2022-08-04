@@ -270,26 +270,24 @@ Given('a results API with a known response', () => {
             createNumberRangeFilter({ min: 12, max: 99 }, false)
           ]),
           createHierarchicalFacetStub('hierarchical_category', createFilter => [
-            ...createFilter('Vehículos y pistas', false, createFilter => [
-              ...createFilter('Radiocontrol', false)
+            createFilter('Vehículos y pistas', false, createFilter => [
+              createFilter('Radiocontrol', false)
             ]),
-            ...createFilter('Juguetes electrónicos', false, createFilter => [
-              ...createFilter('Imagen y audio', false)
+            createFilter('Juguetes electrónicos', false, createFilter => [
+              createFilter('Imagen y audio', false)
             ]),
-            ...createFilter('Educativos', false, createFilter => [
-              ...createFilter('Juguetes educativos', false)
+            createFilter('Educativos', false, createFilter => [
+              createFilter('Juguetes educativos', false)
             ]),
-            ...createFilter('Creativos', false, createFilter => [...createFilter('Crea', false)]),
-            ...createFilter('Muñecas', false, createFilter => [
-              ...createFilter('Peluches', false),
-              ...createFilter('Ropa y accesorios', false),
-              ...createFilter('Playsets', false),
-              ...createFilter('Bebés', false),
-              ...createFilter('Carros', false)
+            createFilter('Creativos', false, createFilter => [createFilter('Crea', false)]),
+            createFilter('Muñecas', false, createFilter => [
+              createFilter('Peluches', false),
+              createFilter('Ropa y accesorios', false),
+              createFilter('Playsets', false),
+              createFilter('Bebés', false),
+              createFilter('Carros', false)
             ]),
-            ...createFilter('Construcción', false, createFilter => [
-              ...createFilter('Construye', false)
-            ])
+            createFilter('Construcción', false, createFilter => [createFilter('Construye', false)])
           ])
         ],
         results: [

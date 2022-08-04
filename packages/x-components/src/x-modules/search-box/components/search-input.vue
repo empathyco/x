@@ -7,6 +7,7 @@
     @input="emitUserIsTypingAQueryEvents"
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
+    v-on="$listeners"
     :maxlength="maxLength"
     :value="query"
     autocomplete="off"

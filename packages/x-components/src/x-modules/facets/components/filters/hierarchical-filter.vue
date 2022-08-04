@@ -64,7 +64,7 @@
   import { isObject } from '@empathyco/x-utils';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { State, xComponentMixin } from '../../../../components';
+  import { xComponentMixin } from '../../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../../utils/types';
   import { XEventsTypes } from '../../../../wiring/events.types';
   import { facetsXModule } from '../../x-module';
@@ -89,13 +89,6 @@
     /** The animation component to use for the children filters. */
     @Prop()
     public childrenAnimation?: Vue | string;
-    /**
-     * The state filters.
-     *
-     * @internal
-     */
-    @State('facets', 'filters')
-    public filters!: Record<Filter['id'], Filter>;
 
     /**
      * Additional events, with their payload, to emit when the filter is clicked.
@@ -175,13 +168,11 @@
      * @internal
      */
     protected get renderedChildrenFilters(): Filter[] {
-      return this.filter.children?.map(filterId => this.filters[filterId]) ?? [];
+      return this.filter.children ?? [];
     }
 
     protected isFilterPartiallySelected(filter: HierarchicalFilterModel): boolean {
-      const selectedChildren = filter.children
-        ?.map(filterId => this.filters[filterId])
-        ?.filter(filter => filter?.selected) as HierarchicalFilterModel[] | undefined;
+      const selectedChildren = filter.children?.filter(filter => filter.selected);
       const filterChildrenLength = filter.children?.length ?? 0;
       return (
         !!selectedChildren &&

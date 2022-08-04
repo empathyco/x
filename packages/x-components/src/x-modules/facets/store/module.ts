@@ -23,11 +23,12 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     facets
   },
   mutations: {
-    setFilter(state, filter) {
-      Vue.set(state.filters, filter.id, Object.freeze(filter));
+    mutateFilter(state, { filter, newFilterState }) {
+      const newFilter = Object.assign(filter, newFilterState);
+      Vue.set(state.filters, newFilter.id, newFilter);
     },
     setFilters(state, filters) {
-      filters.forEach(filter => Vue.set(state.filters, filter.id, Object.freeze(filter)));
+      filters.forEach(filter => Vue.set(state.filters, filter.id, filter));
     },
     setPreselectedFilters(state, filters) {
       state.preselectedFilters = filters;
