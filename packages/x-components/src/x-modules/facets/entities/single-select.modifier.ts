@@ -91,8 +91,8 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
   ): Array<Filter['id']> {
     return filter?.children?.length
       ? filter?.children.reduce(
-          (descentantIdsList, descendant) =>
-            this.getDescendantsIds(descendant, [descendant.id, ...ids]),
+          (descendantIdsList, descendant) =>
+            this.getDescendantsIds(descendant, [descendant.id, ...descendantIdsList]),
           ids
         )
       : ids;
