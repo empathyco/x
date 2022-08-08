@@ -92,7 +92,7 @@ describe('next query preview', () => {
     const wrappers = findTestDataById('result-name');
 
     resultsPreview!.items.forEach((result, index) => {
-      expect(wrappers.at(index).element).toHaveTextContent(result.name);
+      expect(wrappers.at(index).element).toHaveTextContent(result.name!);
     });
   });
 
@@ -122,7 +122,7 @@ describe('next query preview', () => {
     const resultsWrappers = findTestDataById('result-name');
 
     resultsPreview!.items.forEach((result, index) => {
-      expect(resultsWrappers.at(index).element).toHaveTextContent(result.name);
+      expect(resultsWrappers.at(index).element).toHaveTextContent(result.name!);
     });
   });
 
@@ -137,7 +137,7 @@ describe('next query preview', () => {
     const resultsWrapper = findTestDataById('result-content');
 
     resultsPreview!.items.forEach((result, index) => {
-      expect(resultsWrapper.at(index).element).toHaveTextContent(`${result.id} - ${result.name}`);
+      expect(resultsWrapper.at(index).element).toHaveTextContent(`${result.id} - ${result.name!}`);
     });
   });
 
