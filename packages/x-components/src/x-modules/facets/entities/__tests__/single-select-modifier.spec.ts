@@ -91,6 +91,16 @@ describe('testing single select modifier', () => {
     expect(isFilterSelected(store, flavoredYogurtFilter.id)).toBe(true);
     expect(isFilterSelected(store, naturalOrganicFilter.id)).toBe(false);
 
+    // Select parent again: Previously we had a bug with re-selecting a filter like it happens when
+    // saving a search response. Doing so only kept hierarchical filters selected until the 2nd
+    // level #EX-6809
+    entity.select(dairyAndEggsFilter);
+    expect(isFilterSelected(store, dairyAndEggsFilter.id)).toBe(true);
+    expect(isFilterSelected(store, milkFilter.id)).toBe(false);
+    expect(isFilterSelected(store, yogurtFilter.id)).toBe(true);
+    expect(isFilterSelected(store, flavoredYogurtFilter.id)).toBe(true);
+    expect(isFilterSelected(store, naturalOrganicFilter.id)).toBe(false);
+
     // Select parent sibling
     entity.select(naturalOrganicFilter);
     expect(isFilterSelected(store, dairyAndEggsFilter.id)).toBe(false);
