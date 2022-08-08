@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.150](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.149...@empathyco/x-components@3.0.0-alpha.150) (2022-08-08)
+
+### Features
+
+- **components:** make `BaseIdModalOpen` rendering configurable (#637)
+  ([77cb564](https://github.com/empathyco/x/commit/77cb5646b1e43c8b7aa428db4102dc6aca8affdf)),
+  closes [EX-6751](https://searchbroker.atlassian.net/browse/EX-6751)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.149](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.148...@empathyco/x-components@3.0.0-alpha.149) (2022-08-08)
 
 ### Bug Fixes
