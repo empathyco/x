@@ -1,6 +1,6 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { installNewXPlugin } from '../../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseIdModalOpen from '../base-id-modal-open.vue';
 
 /**
@@ -54,6 +54,30 @@ describe('testing Open Button component', () => {
     });
 
     expect(wrapper.text()).toEqual('Open');
+  });
+
+  // eslint-disable-next-line max-len
+  it('renders custom content replacing the default exposing the function that opens the modal', async () => {
+    const { wrapper, click, modalId } = renderBaseIdModalOpen({
+      template: `<BaseIdModalOpen modalId="modal" v-bind="$attrs">
+                    <template #opening-element="{ openModal }">
+                      <div>
+                        Open <span data-test="custom-open-modal" @click="openModal">HERE</span>
+                      </div>
+                    </template>
+                  </BaseIdModalOpen>`
+    });
+
+    const listener = jest.fn();
+    wrapper.vm.$x.on('UserClickedOpenModal').subscribe(listener);
+
+    await click();
+
+    expect(listener).toHaveBeenCalledTimes(0);
+
+    wrapper.find(getDataTestSelector('custom-open-modal')).trigger('click');
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener).toHaveBeenCalledWith(modalId);
   });
 });
 
