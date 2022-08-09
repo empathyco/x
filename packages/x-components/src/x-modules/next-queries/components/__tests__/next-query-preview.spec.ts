@@ -18,8 +18,9 @@ import { resetXNextQueriesStateWith } from './utils';
 
 describe('next query preview', () => {
   function renderNextQueryPreview({
+    maxItemsToRender,
     suggestion = createNextQueryStub('milk'),
-    template = `<NextQueryPreview :suggestion="suggestion"/>`,
+    template = `<NextQueryPreview :maxItemsToRender="maxItemsToRender" :suggestion="suggestion" />`,
     resultsPreview = {
       query: suggestion.query,
       items: getResultsStub(4),
@@ -50,7 +51,7 @@ describe('next query preview', () => {
 
     const wrapper = mount(
       {
-        props: ['suggestion'],
+        props: ['maxItemsToRender', 'suggestion'],
         components: { NextQueryPreview },
         template
       },
@@ -58,6 +59,7 @@ describe('next query preview', () => {
         localVue,
         store,
         propsData: {
+          maxItemsToRender,
           suggestion
         }
       }
@@ -94,6 +96,15 @@ describe('next query preview', () => {
     resultsPreview!.items.forEach((result, index) => {
       expect(wrappers.at(index).element).toHaveTextContent(result.name);
     });
+  });
+
+  it('renders the specified number of items', () => {
+    const maxItemsToRender = 2;
+    const { findTestDataById } = renderNextQueryPreview({
+      maxItemsToRender
+    });
+
+    expect(findTestDataById('result-name')).toHaveLength(maxItemsToRender);
   });
 
   it('exposes the suggestion, the results and the totalResults in the default slot', () => {
@@ -151,6 +162,8 @@ describe('next query preview', () => {
 });
 
 interface RenderNextQueryPreviewOptions {
+  /** The maximum number of items to render. */
+  maxItemsToRender?: number;
   /** The initial next query to render. */
   suggestion?: NextQuery;
   /**

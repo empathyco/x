@@ -60,6 +60,14 @@
     protected suggestion!: NextQuery;
 
     /**
+     * Number of suggestion results to be rendered.
+     *
+     * @public
+     */
+    @Prop()
+    protected maxItemsToRender?: number;
+
+    /**
      * The results preview of the next queries mounted.
      * It is a dictionary, indexed by the next query query.
      */
@@ -79,8 +87,15 @@
      *
      * @returns The results preview of the actual next query.
      */
-    public get suggestionResults(): PreviewResults {
-      return this.previewResults[this.suggestion.query];
+    public get suggestionResults(): PreviewResults | undefined {
+      const previewResults = this.previewResults[this.suggestion.query];
+
+      return previewResults
+        ? {
+            ...previewResults,
+            items: previewResults.items.slice(0, this.maxItemsToRender)
+          }
+        : undefined;
     }
   }
 </script>
@@ -199,6 +214,58 @@ In this example, the ID of the results will be rendered along with the name.
     },
     data() {
       return {
+        suggestion: {
+          modelName: 'NextQuery',
+          query: 'tshirt',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Play with props
+
+In this example, the suggestions has been limited to render a maximum of 4 items.
+
+```vue
+<template>
+  <NextQueryPreview :suggestion="suggestion" #result="{ result }">
+    <BaseGrid
+      #default="{ item }"
+      :animation="gridAnimation"
+      :columns="maxItemsToRender"
+      class="x-padding--00"
+    >
+      <BaseResultLink :result="result">
+        <BaseResultImage :result="result" class="x-result__picture" />
+      </BaseResultLink>
+    </BaseGrid>
+  </NextQueryPreview>
+</template>
+
+<script>
+  import {
+    BaseGrid,
+    BaseResultImage,
+    BaseResultLink,
+    StaggeredFadeAndSlide
+  } from '@empathyco/x-components';
+  import { NextQueryPreview } from '@empathyco/x-components/next-queries';
+
+  export default {
+    name: 'NextQueryPreviewDemo',
+    components: {
+      BaseGrid,
+      BaseResultImage,
+      BaseResultLink,
+      NextQueryPreview,
+      StaggeredFadeAndSlide
+    },
+    data() {
+      return {
+        gridAnimation: StaggeredFadeAndSlide,
         suggestion: {
           modelName: 'NextQuery',
           query: 'tshirt',
