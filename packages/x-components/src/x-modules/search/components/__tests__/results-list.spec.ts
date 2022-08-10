@@ -105,7 +105,7 @@ describe('testing Results list component', () => {
     expect(wrapper.classes('x-items-list')).toBe(true);
     expect(wrapper.find(getDataTestSelector('results-list-item')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('result-slot-overridden')).text()).toBe(
-      `Custom result: ${getResults()[0].name}`
+      `Custom result: ${getResults()[0].name!}`
     );
   });
 

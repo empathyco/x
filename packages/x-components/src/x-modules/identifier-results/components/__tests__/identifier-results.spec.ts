@@ -61,7 +61,7 @@ describe('testing IdentifierResult component', () => {
     const spanList = findAllByTestDataId(identifierResultsWrapper, 'identifier-result');
 
     identifierResults.forEach((result, index) => {
-      expect(spanList.at(index).text()).toEqual(result.identifier.value);
+      expect(spanList.at(index).text()).toEqual(result.identifier!.value);
     });
   });
 
