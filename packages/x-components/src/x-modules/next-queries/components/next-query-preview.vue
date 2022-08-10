@@ -231,27 +231,21 @@ In this example, the suggestions has been limited to render a maximum of 4 items
 
 ```vue
 <template>
-  <NextQueryPreview :suggestion="suggestion" #result="{ result }">
-    <BaseGrid
-      #default="{ item }"
-      :animation="gridAnimation"
-      :columns="maxItemsToRender"
-      class="x-padding--00"
-    >
+  <NextQueryPreview
+    :maxItemsToRender="maxItemsToRender"
+    :suggestion="suggestion"
+    #result="{ result }"
+  >
+    <BaseGrid #default="{ item }">
       <BaseResultLink :result="result">
-        <BaseResultImage :result="result" class="x-result__picture" />
+        <BaseResultImage :result="result" />
       </BaseResultLink>
     </BaseGrid>
   </NextQueryPreview>
 </template>
 
 <script>
-  import {
-    BaseGrid,
-    BaseResultImage,
-    BaseResultLink,
-    StaggeredFadeAndSlide
-  } from '@empathyco/x-components';
+  import { BaseGrid, BaseResultImage, BaseResultLink } from '@empathyco/x-components';
   import { NextQueryPreview } from '@empathyco/x-components/next-queries';
 
   export default {
@@ -260,12 +254,11 @@ In this example, the suggestions has been limited to render a maximum of 4 items
       BaseGrid,
       BaseResultImage,
       BaseResultLink,
-      NextQueryPreview,
-      StaggeredFadeAndSlide
+      NextQueryPreview
     },
     data() {
       return {
-        gridAnimation: StaggeredFadeAndSlide,
+        maxItemsToRender: 4,
         suggestion: {
           modelName: 'NextQuery',
           query: 'tshirt',
