@@ -1,9 +1,8 @@
-import { SearchAdapter } from '@empathyco/x-adapter';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { forEach, Dictionary } from '@empathyco/x-utils';
 import { PluginObject, VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
-import { FILTERS_REGISTRY } from '../filters/filters.registry';
+import { XComponentsAdapter } from '@empathyco/x-types';
 import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
 import { RootXStoreModule } from '../store/x.module';
@@ -24,15 +23,15 @@ import { assertXPluginOptionsAreValid } from './x-plugin.utils';
  */
 export class XPlugin implements PluginObject<XPluginOptions> {
   /**
-   * {@link @empathyco/x-adapter#SearchAdapter | SearchAdapter} Is the middleware between
-   * the components and our API where data can be mapped to client needs.
+   * {@link @empathyco/x-typesm#XComponentsAdapter | XComponentsAdapter} Is the middleware
+   * between the components and our API where data can be mapped to client needs.
    * This property is only available after installing the plugin.
    *
    * @returns The installed adapter.
    * @throws If this property is accessed before calling `Vue.use(xPlugin)`.
    * @public
    */
-  public static get adapter(): SearchAdapter {
+  public static get adapter(): XComponentsAdapter {
     return this.getInstance().adapter;
   }
 
@@ -101,7 +100,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    *
    * @internal
    */
-  protected adapter!: SearchAdapter;
+  protected adapter!: XComponentsAdapter;
 
   /**
    * Set of the already installed {@link XModule | XModules} to avoid re-registering them.
@@ -121,7 +120,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
   protected isInstalled = false;
 
   /**
-   * The install options of the plugin, where all the customization of
+   * The installation options of the plugin, where all the customization of
    * {@link XModule | XModules} is done.
    *
    * @internal
@@ -136,7 +135,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    */
   protected store!: Store<any>;
   /**
-   * The global Vue, passed by the install method. Used to apply the global mixin
+   * The global Vue, passed by the installation method. Used to apply the global mixin
    * {@link createXComponentAPIMixin}, and install the {@link https://vuex.vuejs.org/ | Vuex}
    * plugin.
    *
@@ -184,7 +183,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
   }
 
   /**
-   * Stores the {@link XModule} in a dictionary, so it can be registered later in the install
+   * Stores the {@link XModule} in a dictionary, so it can be registered later in the installation
    * process.
    *
    * @param xModule - The module to register.
@@ -213,10 +212,8 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     this.vue = vue;
     this.options = options;
     this.adapter = options.adapter;
-    this.createAdapterConfigChangedListener();
     this.registerStore();
     this.applyMixins();
-    this.registerFilters();
     this.registerInitialModules();
     this.registerPendingXModules();
     this.isInstalled = true;
@@ -345,7 +342,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
   /**
    * Registers the {@link https://vuex.vuejs.org/ | Vuex} store. If the store has not been passed
    * through the {@link XPluginOptions} object, it creates one, and injects it in the Vue
-   * prototype. Then it register an x module in the store, to safe scope all the
+   * prototype. Then it registers an x module in the store, to safe scope all the
    * {@link XModule | XModules} dynamically installed.
    *
    * @internal
@@ -396,29 +393,6 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     });
     XPlugin.pendingXModules = {};
   }
-
-  /**
-   * If the received adapter supports it, it registers a listener to emit the
-   * {@link XEventsTypes.AdapterConfigChanged} event whenever the config of it changes.
-   *
-   * @internal
-   */
-  protected createAdapterConfigChangedListener(): void {
-    this.options.adapter.addConfigChangedListener?.(newAdapterConfig => {
-      this.bus.emit('AdapterConfigChanged', newAdapterConfig);
-    });
-  }
-
-  /**
-   * Registers filters globally.
-   *
-   * @internal
-   */
-  protected registerFilters(): void {
-    forEach(FILTERS_REGISTRY, (filterName, filterFunction) =>
-      this.vue.filter(filterName, filterFunction)
-    );
-  }
 }
 
 /**
@@ -426,18 +400,18 @@ export class XPlugin implements PluginObject<XPluginOptions> {
  * {@link XComponentAPI | X Component API }.
  *
  * @example
- * Minimal installation example. A search adapter is needed for the plugin to work, and connect to
- * the API.
+ * Minimal installation example. An API adapter is needed to connect the X Components with the
+ * suggestions, search, or tagging APIs. In this example we are using the default Empathy's platform
+ * adapter.
+ *
  * ```typescript
- * const adapter = new EmpathyAdapterBuilder()
- *  .withConfiguration({instance: 'my-instance-id'})
- *  .build();
- * Vue.use(xPlugin, { adapter });
+ *  import { platformAdapter } from '@empathyco/x-adapter-platform';
+ *  Vue.use(xPlugin, { adapter: platformAdapter });
  * ```
  *
  * @example
  * If you are using {@link https://vuex.vuejs.org/ | Vuex} in your project you must install its
- *   plugin, and instantiate an store before installing the XPlugin:
+ *   plugin, and instantiate a store before installing the XPlugin:
  * ```typescript
  * Vue.use(Vuex);
  * const store = new Store({ ... });

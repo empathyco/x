@@ -79,6 +79,13 @@ export const setRelatedTags = wireCommit('setRelatedTags');
 export const setSearchQuery = wireCommit('setQuery');
 
 /**
+ * Clears the search state `query`.
+ *
+ * @public
+ */
+export const clearSearchQuery = wireCommit('setQuery', '');
+
+/**
  * Sets the search state `selectedFilters`.
  *
  * @public
@@ -192,5 +199,11 @@ export const searchWiring = createWiring({
   },
   ExtraParamsChanged: {
     setSearchExtraParams
+  },
+  UserClickedCloseX: {
+    clearSearchQuery
+  },
+  UserClickedOutOfMainModal: {
+    clearSearchQuery
   }
 });

@@ -1,4 +1,4 @@
-import { RecommendationsRequest, Result } from '@empathyco/x-types';
+import { Result, RecommendationsRequest } from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of Recommendations XModule, where each key is the event name, and the

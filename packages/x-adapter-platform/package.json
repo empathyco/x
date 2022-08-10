@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter-platform",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.30",
   "description": "A search client for the Empathy Platform API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -24,20 +24,25 @@
   },
   "scripts": {
     "prebuild": "rimraf ./dist ./*.tgz",
-    "build": "concurrently \"npm run build:*\"",
+    "build": "concurrently \"npm run build:*\" && npm run gen:docs",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "tsc --project tsconfig.esm.json",
+    "gen:model-docs": "api-extractor run -l",
+    "gen:typescript-docs": "api-documenter markdown -i report -o docs",
+    "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs",
     "test": "jest",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@empathyco/x-adapter-next": "^0.2.0-alpha.23",
-    "@empathyco/x-types": "^10.0.0-alpha.23",
-    "@empathyco/x-utils": "^1.0.0-alpha.1",
+    "@empathyco/x-adapter": "^8.0.0-alpha.4",
+    "@empathyco/x-types": "^10.0.0-alpha.31",
+    "@empathyco/x-utils": "^1.0.0-alpha.5",
     "tslib": "~2.3.0"
   },
   "devDependencies": {
+    "@microsoft/api-documenter": "~7.15.3",
+    "@microsoft/api-extractor": "~7.19.4",
     "@types/jest": "~27.0.3",
     "concurrently": "~7.0.0",
     "jest": "~27.3.1",

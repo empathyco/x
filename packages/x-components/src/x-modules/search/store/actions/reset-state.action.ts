@@ -8,13 +8,17 @@ import { SearchXStoreModule } from '../types';
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
  *
+ * @param watchedRequest - The {@link WatchedInternalSearchRequest} object.
  * @public
  */
 export const resetState: SearchXStoreModule['actions']['resetState'] = (
-  { commit, state },
+  { commit },
   { newRequest, oldRequest }
 ) => {
-  const changedKeys = getNewAndUpdatedKeys(newRequest, oldRequest);
+  const changedKeys = getNewAndUpdatedKeys(newRequest, oldRequest).filter(
+    value => value !== 'extraParams'
+  );
+  const changedExtraParams = getNewAndUpdatedKeys(newRequest.extraParams, oldRequest.extraParams);
 
   if (!isArrayEmpty(changedKeys)) {
     if (!changedKeys.includes('page')) {
@@ -23,11 +27,9 @@ export const resetState: SearchXStoreModule['actions']['resetState'] = (
     if (changedKeys.includes('query')) {
       commit('setSort', '');
     }
-
-    const haveExtraParamsChanged = changedKeys.some(key => key in state.params);
-    if (haveExtraParamsChanged) {
-      commit('setPage', 1);
-      commit('setSort', '');
-    }
+  }
+  if (!isArrayEmpty(changedExtraParams)) {
+    commit('setPage', 1);
+    commit('setSort', '');
   }
 };

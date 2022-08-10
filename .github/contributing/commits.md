@@ -107,16 +107,16 @@ The footer can contain two parts: a [breaking changes](#breaking-changes) sectio
 
 #### Breaking changes
 
-This footer must be prefixed with `BREAKING-CHANGE:`. After that, you can write a brief description
+This footer must be prefixed with `BREAKING CHANGE:`. After that, you can write a brief description
 of what the breaking change is, and what the users should do to their codebases to support the
 change.
 
 ```
-BREAKING-CHANGE: Rename `BaseEventsButton` to `EventsButton`.
+BREAKING CHANGE: Rename `BaseEventsButton` to `EventsButton`.
 ```
 
 ```
-BREAKING-CHANGE: Rename `BaseFilter` component to `Filter`, and move it from `components` to the `facets` module. Now it can be imported like this: `import { Filter } from '@empathyco/x-components/facets'`.
+BREAKING CHANGE: Rename `BaseFilter` component to `Filter`, and move it from `components` to the `facets` module. Now it can be imported like this: `import { Filter } from '@empathyco/x-components/facets'`.
 ```
 
 #### Issue
@@ -151,7 +151,7 @@ Commit with breaking changes
 ```
 feat(facets): backend filters no longer keep their own `selected` status.
 
-BREAKING-CHANGE: backend filters now trust the API selected value. The adapter must not map valid `filter.selected` values.
+BREAKING CHANGE: backend filters now trust the API selected value. The adapter must not map valid `filter.selected` values.
 
 EX-1111
 ```

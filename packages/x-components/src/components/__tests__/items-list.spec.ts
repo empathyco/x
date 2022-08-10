@@ -83,7 +83,7 @@ describe('testing ItemsList component', () => {
     });
 
     expect(wrapper.find(getDataTestSelector('results-list-item')).text()).toBe(
-      `Result: ${resultsStub[0].name}`
+      `Result: ${resultsStub[0].name!}`
     );
 
     expect(wrapper.find(getDataTestSelector('banners-list-item')).text()).toBe(

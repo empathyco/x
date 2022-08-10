@@ -14,6 +14,7 @@ import {
 } from '../../../../__stubs__/filters-stubs.factory';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
+import { clone } from '../../../../utils';
 import { areFiltersDifferent } from '../../../../utils/filters';
 import {
   getStoreEditableNumberRangeFilter,
@@ -23,6 +24,7 @@ import {
 } from '../../entities/__tests__/utils';
 import { FilterEntityFactory } from '../../entities/filter-entity.factory';
 import { SingleSelectModifier } from '../../entities/single-select.modifier';
+import { flatHierarchicalFilters } from '../../utils';
 import { facetsXModule } from '../../x-module';
 import { DefaultFacetsService } from '../facets.service';
 import { FacetsService } from '../types';
@@ -267,10 +269,10 @@ describe('testing facets service', () => {
       ]);
       const redColorFilter = colorFacet.filters[0];
       const categoryFacet = createHierarchicalFacetStub('category', createFilter => [
-        ...createFilter('men'),
-        ...createFilter('women', false, createFilter => [
-          ...createFilter('skirt', true),
-          ...createFilter('dress')
+        createFilter('men'),
+        createFilter('women', false, createFilter => [
+          createFilter('skirt', true),
+          createFilter('dress')
         ])
       ]);
       const menCategoryFilter = categoryFacet.filters[0];
@@ -282,7 +284,7 @@ describe('testing facets service', () => {
       const priceFacet = createEditableNumberRangeFacetStub('price', createFilter =>
         createFilter({ min: null, max: 10 }, true)
       );
-      const priceUpTo10Filter = priceFacet.filters[0];
+      const priceUpTo10Filter = clone(priceFacet.filters[0]);
 
       // Save a fresh new facets group. Because there
       // are no previous filters, all filters should be deselected.
@@ -293,7 +295,7 @@ describe('testing facets service', () => {
       expect(
         areFiltersDifferent(getFilters(), [
           ...colorFacet.filters,
-          ...categoryFacet.filters,
+          ...flatHierarchicalFilters(categoryFacet.filters),
           ...ageFacet.filters,
           getStoreEditableNumberRangeFilter(priceUpTo10Filter)
         ])
@@ -326,12 +328,12 @@ describe('testing facets service', () => {
         createFilter('green', true)
       ]);
       const newCategoryFacet = createHierarchicalFacetStub('category', createFilter => [
-        ...createFilter('men'),
-        ...createFilter('women', true, createFilter => [
-          ...createFilter('skirt', true),
-          ...createFilter('dress')
+        createFilter('men'),
+        createFilter('women', true, createFilter => [
+          createFilter('skirt', true),
+          createFilter('dress')
         ]),
-        ...createFilter('kids')
+        createFilter('kids')
       ]);
       const newAgeFacet = createNumberRangeFacetStub('age', createFilter => [
         createFilter({ min: 0, max: 10 }),
@@ -349,7 +351,7 @@ describe('testing facets service', () => {
       expect(
         areFiltersDifferent(getFilters(), [
           ...newColorFacet.filters,
-          ...newCategoryFacet.filters,
+          ...flatHierarchicalFilters(newCategoryFacet.filters),
           ...newAgeFacet.filters,
           getStoreEditableNumberRangeFilter(priceUpTo10Filter)
         ])
@@ -375,7 +377,7 @@ describe('testing facets service', () => {
       expect(
         areFiltersDifferent(getFilters(), [
           ...newColorFacet.filters,
-          ...newCategoryFacet.filters,
+          ...flatHierarchicalFilters(newCategoryFacet.filters),
           ...newAgeFacet.filters,
           getStoreEditableNumberRangeFilter(priceUpTo10Filter),
           ...shipmentFacet.filters
@@ -401,13 +403,13 @@ describe('testing facets service', () => {
     it('saves groups containing multiple deselected hierarchical filters levels that were not in the store', () => {
       const { service, getFilters, getSelectedFilters } = prepareFacetsService();
       const categoryFacet = createHierarchicalFacetStub('category', createFilter => [
-        ...createFilter('men'),
-        ...createFilter('women', false, createFilter => [
-          ...createFilter('skirt', false, createFilter => [
-            ...createFilter('long skirts'),
-            ...createFilter('floral skirts')
+        createFilter('men'),
+        createFilter('women', false, createFilter => [
+          createFilter('skirt', false, createFilter => [
+            createFilter('long skirts'),
+            createFilter('floral skirts')
           ]),
-          ...createFilter('dress', false, createFilter => [...createFilter('short dresses')])
+          createFilter('dress', false, createFilter => [createFilter('short dresses')])
         ])
       ]);
 
@@ -415,7 +417,9 @@ describe('testing facets service', () => {
         id: 'static',
         facets: [categoryFacet]
       });
-      expect(areFiltersDifferent(getFilters(), categoryFacet.filters)).toBe(false);
+      expect(
+        areFiltersDifferent(getFilters(), flatHierarchicalFilters(categoryFacet.filters))
+      ).toBe(false);
       expect(getSelectedFilters()).toEqual([]);
     });
   });
@@ -436,13 +440,14 @@ describe('testing facets service', () => {
       ]);
       const redColorFilter = colorFacet.filters[0];
       const categoryFacet = createHierarchicalFacetStub('category', createFilter => [
-        ...createFilter('men'),
-        ...createFilter('women', true, createFilter => [
-          ...createFilter('skirt', true),
-          ...createFilter('dress')
+        createFilter('men'),
+        createFilter('women', true, createFilter => [
+          createFilter('skirt', true),
+          createFilter('dress')
         ])
       ]);
-      const [, womenCategoryFilter, skirtCategoryFilter] = categoryFacet.filters;
+      const womenCategoryFilter = categoryFacet.filters[1];
+      const skirtCategoryFilter = womenCategoryFilter.children![0];
       const ageFacet = createNumberRangeFacetStub('age', createFilter => [
         createFilter({ min: 0, max: 10 }, true),
         createFilter({ min: 10, max: 18 })
@@ -461,7 +466,7 @@ describe('testing facets service', () => {
       expect(
         areFiltersDifferent(getFilters(), [
           ...colorFacet.filters,
-          ...categoryFacet.filters,
+          ...flatHierarchicalFilters(categoryFacet.filters),
           ...ageFacet.filters,
           getStoreEditableNumberRangeFilter(priceUpTo10Filter)
         ])
@@ -491,14 +496,14 @@ describe('testing facets service', () => {
       ]);
       const greenColorFilter = newColorFacet.filters[2];
       const newCategoryFacet = createHierarchicalFacetStub('category', createFilter => [
-        ...createFilter('men'),
-        ...createFilter('women', false, createFilter => [
-          ...createFilter('skirt'),
-          ...createFilter('dress')
+        createFilter('men'),
+        createFilter('women', false, createFilter => [
+          createFilter('skirt'),
+          createFilter('dress')
         ]),
-        ...createFilter('kids', true)
+        createFilter('kids', true)
       ]);
-      const kidsCategoryFilter = newCategoryFacet.filters[4];
+      const kidsCategoryFilter = newCategoryFacet.filters[2];
       const newAgeFacet = createNumberRangeFacetStub('age', createFilter => [
         createFilter({ min: 0, max: 10 }),
         createFilter({ min: 10, max: 18 }),
@@ -516,7 +521,7 @@ describe('testing facets service', () => {
       expect(
         areFiltersDifferent(getFilters(), [
           ...newColorFacet.filters,
-          ...newCategoryFacet.filters,
+          ...flatHierarchicalFilters(newCategoryFacet.filters),
           ...newAgeFacet.filters,
           getStoreEditableNumberRangeFilter(priceUpTo10Filter)
         ])
@@ -543,7 +548,7 @@ describe('testing facets service', () => {
       expect(
         areFiltersDifferent(getFilters(), [
           ...newColorFacet.filters,
-          ...newCategoryFacet.filters,
+          ...flatHierarchicalFilters(newCategoryFacet.filters),
           ...newAgeFacet.filters,
           getStoreEditableNumberRangeFilter(priceUpTo10Filter),
           ...shipmentFacet.filters

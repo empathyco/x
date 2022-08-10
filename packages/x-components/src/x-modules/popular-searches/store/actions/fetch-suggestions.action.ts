@@ -15,7 +15,5 @@ export const fetchSuggestions: PopularSearchesXStoreModule['actions']['fetchSugg
   _context,
   request
 ) => {
-  return XPlugin.adapter
-    .getSuggestions(request, { requestId: 'popularSearches' })
-    .then(({ suggestions }) => suggestions);
+  return XPlugin.adapter.popularSearches(request).then(({ suggestions }) => suggestions);
 };

@@ -1,3 +1,5 @@
+import { extractValue } from './extract-value';
+
 /**
  * Syntax to detect and extract string parameters. A string parameter contains a property name
  * with an optional header or tail to concatenate wrapped in curly braces (`{}`).
@@ -92,14 +94,13 @@ export function interpolate(string: string, parameters: Record<string, unknown>)
   return string.replace(STRING_PARAMETERS, (_match, propertyToReplace: string) =>
     propertyToReplace.replace(
       STRING_PARAMETER_CONTENT,
-      (_match, head = '', property: string, tail = '') =>
+      (_match, head = '', property: string, tail = '') => {
+        const value = extractValue(parameters, property);
         /* As the replacer function has a very dynamic signature, it is typed as a function with
          * `any` arguments. This makes it impossible for TS to infer the correct `string`
          * type that we are using as default values here. */
-        parameters[property] != null
-          ? // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-            `${head}${String(parameters[property])}${tail}`
-          : ''
+        return value != null ? `${String(head)}${String(value)}${String(tail)}` : '';
+      }
     )
   );
 }

@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
@@ -14,11 +13,16 @@ FilterEntityFactory.instance.registerModifierByFilterModelName(
   SingleSelectModifier
 );
 
-new XInstaller({
+const installer = new XInstaller({
   ...baseInstallXOptions,
   app: App,
   vueOptions: {
     router
   },
   domElement: '#app'
-}).init(baseSnippetConfig);
+});
+if (window.initX) {
+  installer.init();
+} else {
+  installer.init(baseSnippetConfig);
+}

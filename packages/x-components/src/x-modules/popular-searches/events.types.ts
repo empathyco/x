@@ -1,4 +1,4 @@
-import { PopularSearchesRequest, Suggestion } from '@empathyco/x-types';
+import { Suggestion, PopularSearchesRequest } from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of PopularSearches XModule, where each key is the event name, and the
@@ -9,7 +9,7 @@ import { PopularSearchesRequest, Suggestion } from '@empathyco/x-types';
 export interface PopularSearchesXEvents {
   /**
    * Any property of the popular-searches request has changed
-   * Payload: The new popular-search request.
+   * Payload: The new {@link @empathyco/x-types#PopularSearchesRequest | popular-search request}.
    */
   PopularSearchesRequestChanged: PopularSearchesRequest;
   /**

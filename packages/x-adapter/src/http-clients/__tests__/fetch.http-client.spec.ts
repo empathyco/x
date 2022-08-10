@@ -1,5 +1,5 @@
-import { HttpClient } from '../../types/http-client.types';
 import { koFetchMock, okFetchMock } from '../__mocks__/fetch.mock';
+import { HttpClient } from '../types';
 
 describe('fetch httpClient testing', () => {
   const endpoint = 'https://api.empathy.co/search';
@@ -106,16 +106,42 @@ describe('fetch httpClient testing', () => {
       }
     }).catch(error => expect(error.response.ok).toBeFalsy());
   });
+
+  it('send the data in the body if `sendParamsInBody` is true', async () => {
+    await fetchHttpClient(endpoint, {
+      sendParamsInBody: true,
+      parameters: {
+        q: 'shirt',
+        filter: ['long sleeve', 'dotted', 'white'],
+        rows: 12,
+        extraParams: {
+          lang: 'en'
+        }
+      }
+    });
+    expectFetchCallWith(endpoint, {
+      body: JSON.stringify({
+        q: 'shirt',
+        filter: ['long sleeve', 'dotted', 'white'],
+        rows: 12,
+        extraParams: {
+          lang: 'en'
+        }
+      })
+    });
+  });
 });
 
 /**
  * Expects the `fetch` function to be called with the passed `URL`.
  *
  * @param url - The `URL` to check.
+ * @param options - An optional and partial `fetch` request init options to assert that fetch has
+ * been called with those parameters.
  *
  * @internal
  */
-function expectFetchCallWith(url: string): void {
-  expect(window.fetch as jest.Mock).toHaveBeenCalledTimes(1);
-  expect(window.fetch as jest.Mock).toHaveBeenCalledWith(url, expect.anything());
+function expectFetchCallWith(url: string, options: RequestInit = {}): void {
+  expect(window.fetch).toHaveBeenCalledTimes(1);
+  expect(window.fetch).toHaveBeenCalledWith(url, expect.objectContaining(options));
 }

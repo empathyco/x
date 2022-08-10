@@ -3,6 +3,50 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.4...@empathyco/x-utils@1.0.0-alpha.5) (2022-06-23)
+
+### Bug Fixes
+
+- Remove `@empathyco/x-platform-adapter` dependency from library code. (#575)
+  ([104c7e1](https://github.com/empathyco/x/commit/104c7e10855a67b2adfa68d42d82431f9194ee15)),
+  closes [EX-6437](https://searchbroker.atlassian.net/browse/EX-6437)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.3...@empathyco/x-utils@1.0.0-alpha.4) (2022-06-16)
+
+**Note:** Version bump only for package @empathyco/x-utils
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.2...@empathyco/x-utils@1.0.0-alpha.3) (2022-06-09)
+
+**Note:** Version bump only for package @empathyco/x-utils
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.1...@empathyco/x-utils@1.0.0-alpha.2) (2022-06-08)
+
+### Features
+
+- add support for `object` params in `httpClients`
+  ([c51760b](https://github.com/empathyco/x/commit/c51760b07b2dac2e83f13964aac614d8fe6e8e8b)),
+  closes [EX-6293](https://searchbroker.atlassian.net/browse/EX-6293)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.0...@empathyco/x-utils@1.0.0-alpha.1) (2022-05-13)
 
 **Note:** Version bump only for package @empathyco/x-utils

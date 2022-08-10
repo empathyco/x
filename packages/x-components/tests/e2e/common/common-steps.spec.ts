@@ -1,6 +1,7 @@
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When, And } from 'cypress-cucumber-preprocessor/steps';
 import { PageableRequest } from '@empathyco/x-types';
 import '../global/global-definitions';
+import { baseSnippetConfig } from '../../../src/views/base-config';
 
 let resultsList: string[] = [];
 
@@ -33,6 +34,19 @@ Given('no special config for layout view', () => {
   cy.visit('/');
 });
 
+Given('an application the {string} filter preselected', (preselectedFilter: string) => {
+  cy.visit('/', {
+    onBeforeLoad(win) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      win.initX = {
+        ...baseSnippetConfig,
+        filters: [preselectedFilter]
+      };
+    }
+  });
+});
+
 Given('a URL with query parameter {string}', (query: string) => {
   cy.visit('/', {
     qs: {
@@ -41,8 +55,36 @@ Given('a URL with query parameter {string}', (query: string) => {
   });
 });
 
+Given('a URL with a filter parameter {string}', (filter: string) => {
+  cy.visit('/', {
+    qs: {
+      filter
+    }
+  });
+});
+
 When('start button is clicked', () => {
-  cy.getByDataTest('open-modal').click();
+  cy.getByDataTest('open-main-modal').click();
+});
+
+When('close modal button is clicked', () => {
+  cy.getByDataTest('close-main-modal').click();
+});
+
+// Filters
+
+And(
+  'filters {string} are shown in the selected filters list',
+  function (this: any, clickedFiltersIndex: string) {
+    const clickedFiltersIndexList = clickedFiltersIndex.split(', ');
+    clickedFiltersIndexList.forEach(index => {
+      cy.getByDataTest('selected-filters-list').should('contain', this[`clickedFilter${index}`]);
+    });
+  }
+);
+
+And('filter {string} is selected', function (filterLabel: string) {
+  cy.getByDataTest('selected-filters-list').should('contain.text', filterLabel);
 });
 
 // Extra params
@@ -132,6 +174,10 @@ Then('related results are displayed', () => {
     });
 });
 
+And('related results are cleared', () => {
+  cy.getByDataTest('result-item').should('not.exist');
+});
+
 Then('related results have changed', () => {
   cy.getByDataTest('search-result')
     .should('be.visible')
@@ -202,3 +248,26 @@ Then(
       .should('have.property', key, value === 'default' ? '' : value);
   }
 );
+
+Then(
+  'search request contains extra parameter {string} with value {string}',
+  (key: string, value: string) => {
+    cy.wait('@interceptedResults')
+      .its('request.body')
+      .then(JSON.parse)
+      .its('extraParams')
+      .should('have.property', key, value);
+  }
+);
+
+When('the page is reloaded', () => {
+  cy.reload();
+});
+
+And('url contains parameter {string} with value {string}', (key: string, value: string) => {
+  cy.location('search').should('contain', `${key}=${encodeURIComponent(value)}`);
+});
+
+When('navigating back', () => {
+  cy.go(-1);
+});

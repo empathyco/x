@@ -31,6 +31,6 @@ export class RawFilterEntity implements FilterEntity {
    * there is no need to set this property.
    */
   select(filter: RawFilter): void {
-    this.store.commit('x/facets/setFilter', filter);
+    this.store.commit('x/facets/mutateFilter', { filter, newFilterState: { selected: true } });
   }
 }

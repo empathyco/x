@@ -2,9 +2,9 @@ import { Facet, Filter } from '@empathyco/x-types';
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
-import { Getter } from '../../../components/index';
-import { isArrayEmpty } from '../../../utils/index';
-import { FiltersByFacet } from '../store/index';
+import { Getter } from '../../../components/decorators/store.decorators';
+import { isArrayEmpty } from '../../../utils/array';
+import { FiltersByFacet } from '../store/types';
 
 /**
  * Mixin to share Facets logic.

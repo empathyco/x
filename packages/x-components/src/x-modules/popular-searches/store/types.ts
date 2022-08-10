@@ -1,4 +1,4 @@
-import { HistoryQuery, PopularSearchesRequest, Suggestion } from '@empathyco/x-types';
+import { HistoryQuery, Suggestion, PopularSearchesRequest } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';

@@ -121,6 +121,7 @@ describe('testing filters entity factory', () => {
     // Deselecting a editable number range filter should keep it in the store with selected
     // to false and set the range values to null.
     previousFilter = getStoreEditableNumberRangeFilter(store, facetId);
+    const previousFilterId = previousFilter.id;
     editableNumberRangeFilterEntity.deselect(previousFilter);
 
     expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1);
@@ -129,7 +130,7 @@ describe('testing filters entity factory', () => {
       min: null,
       max: null
     });
-    expect(getStoreEditableNumberRangeFilter(store, facetId).id).not.toBe(previousFilter.id);
+    expect(getStoreEditableNumberRangeFilter(store, facetId).id).not.toBe(previousFilterId);
   });
 
   describe('test raw behavior', () => {

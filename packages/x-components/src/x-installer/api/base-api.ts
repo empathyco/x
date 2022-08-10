@@ -99,7 +99,7 @@ export class BaseXAPI implements XAPI {
     if (query) {
       this.bus?.emit('UserAcceptedAQuery', query);
     }
-    this.bus?.emit('UserOpenXProgrammatically');
+    this.bus?.emit('UserClickedOpenX');
   }
 
   /**

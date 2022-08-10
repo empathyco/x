@@ -1,16 +1,12 @@
-import {
-  beaconHttpClient,
-  endpointAdapterFactory,
-  EndpointAdapterOptions,
-  buildUrl
-} from '@empathyco/x-adapter-next';
-import { TaggingRequest } from '../types/request.types';
-import { taggingRequestMapper } from '../mappers/request/tagging-request.mapper';
+import { beaconHttpClient, endpointAdapterFactory } from '@empathyco/x-adapter';
+import { TaggingRequest } from '@empathyco/x-types';
+import { taggingRequestMapper } from '../mappers/requests/tagging-request.mapper';
 
-export const taggingEndpointAdapterOptions: EndpointAdapterOptions<TaggingRequest, void> = {
-  endpoint: ({ url, params }) => buildUrl(url, params),
+export const taggingEndpointAdapter = endpointAdapterFactory<TaggingRequest, void>({
+  endpoint: ({ url }) => url,
   httpClient: beaconHttpClient,
-  requestMapper: taggingRequestMapper
-};
-
-export const taggingEndpointAdapter = endpointAdapterFactory(taggingEndpointAdapterOptions);
+  requestMapper: taggingRequestMapper,
+  defaultRequestOptions: {
+    id: 'tagging'
+  }
+});

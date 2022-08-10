@@ -1,4 +1,4 @@
-import { Facet, Filter } from '@empathyco/x-types';
+import { Facet, Filter, RawFilter } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 
 /**
@@ -13,6 +13,8 @@ export interface FacetsState {
   groups: Record<Facet['id'], GroupId>;
   /** The facets without their filters. */
   facets: Record<Facet['id'], Omit<Facet, 'filters'>>;
+  /** Record of preselected filters indexed by its id. */
+  preselectedFilters: RawFilter[];
 }
 
 /**
@@ -42,6 +44,12 @@ export interface FacetsGetters {
  */
 export interface FacetsMutations {
   /**
+   * Updates the state of a filter.
+   *
+   * @param payload - An object containing the filter to update, and the properties to modify.
+   */
+  mutateFilter(payload: MutateFilterPayload): void;
+  /**
    * Removes the filter from the {@link FacetsState.filters | filters} record.
    *
    * @param filter - The filter to remove.
@@ -67,11 +75,12 @@ export interface FacetsMutations {
    */
   setFilters(filters: Filter[]): void;
   /**
-   * Adds the filter to the {@link FacetsState.filters | filters} record.
+   * Adds a list of filters to the {@link FacetsState.preselectedFilters | preselectedFilters}
+   * record.
    *
-   * @param filter - The filter to add.
+   * @param filters - The filters to add.
    */
-  setFilter(filter: Filter): void;
+  setPreselectedFilters(filters: RawFilter[]): void;
   /**
    * Removes the facet from the {@link FacetsState.facets | facets} record.
    *
@@ -142,3 +151,20 @@ export interface FacetGroupEntry {
  * @public
  */
 export type FiltersByFacet = Record<Facet['id'], Filter[]>;
+
+/**
+ * Payload to use in the `mutateFilter` mutation.
+ *
+ * @public
+ */
+export interface MutateFilterPayload {
+  /**
+   * The filter to modify.
+   * If it does not belong to the store it will be added.
+   */
+  filter: Filter;
+  /**
+   * The new fields values to modify in the filter.
+   */
+  newFilterState: Partial<Filter>;
+}

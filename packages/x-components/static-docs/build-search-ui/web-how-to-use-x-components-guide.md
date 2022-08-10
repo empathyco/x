@@ -24,7 +24,7 @@ you’re ready to use X&nbsp;Components in your project.
 
 2. **Configure the X&nbsp;Components behavior** to customize the search and discovery experience.
 
-## 1. Import and register the X Components
+## Importing and registering the X Components
 
 Many of the X&nbsp;Components are distributed into modules to make them easier to manage. So you
 need to indicate from which module you’re importing each component as appropriate.
@@ -56,7 +56,7 @@ export default {
 //The components are now ready to be used inside your template.
 ```
 
-## 2. Configure the X Components
+## Configuring the X Components
 
 You can configure some behaviors for each component to customize the search experience.
 
@@ -115,7 +115,7 @@ Learn more about the
 
 :::
 
-### Importing the components from the search-box module
+**1. Importing the components from the search-box module**
 
 For this purpose, you need to import the `SearchInput`, `SearchButton`, and `ClearSearchInput`
 components from the `search-box` module to the desired app component. Then, register them and
@@ -147,7 +147,7 @@ Now, you’re ready to start using the component wherever you want in your templ
 </template>
 ```
 
-### Configuring the SearchInput component
+**2. Configuring the SearchInput component**
 
 Next, you want to configure the behavior of the `SearchInput` component. Here you use the
 `maxLength` prop to limit the maximum length to 20 characters.
@@ -161,4 +161,41 @@ Next, you want to configure the behavior of the `SearchInput` component. Here yo
   :autocompleteKeyboardKeys="['ArrowDown']"
   :autocompleteSuggestionsEvent="'NextQueriesChanged'"
 />
+```
+
+**3. Listening to X Events**
+
+For advanced use cases you might need to subscribe to certain `XEvent`. The recommended way to do so
+is by using the `GlobalXBus` component.
+
+In this example you are subscribing to the `UserAcceptedAQuery` event. This event is emitted both by
+the `SearchInput` component and by the `QuerySuggestions` one.
+
+```vue live
+<template>
+  <div>
+    <GlobalXBus @UserAcceptedAQuery="logUserAcceptedAQuery" />
+    <SearchInput />
+    <QuerySuggestions />
+  </div>
+</template>
+<script>
+  import { GlobalXBus } from '@empathyco/x-components';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
+
+  export default {
+    name: 'Demo',
+    components: {
+      GlobalXBus,
+      SearchInput,
+      QuerySuggestions
+    },
+    methods: {
+      logUserAcceptedAQuery(query, metadata) {
+        console.log('UserAcceptedAQuery', query, metadata);
+      }
+    }
+  };
+</script>
 ```

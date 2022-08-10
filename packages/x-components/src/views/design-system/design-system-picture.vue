@@ -5,35 +5,39 @@
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
       <h2 class="x-title2">Default</h2>
       <picture class="x-picture">
-        <img class="x-picture__image" :src="standardImageUrl" alt="Default image" />
+        <img class="x-picture__image" :src="standardImageUrl" :alt="defaultImageMessage" />
       </picture>
     </article>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
       <h2 class="x-title2">Card</h2>
       <picture class="x-picture x-picture--card">
-        <img class="x-picture__image" :src="standardImageUrl" alt="Card image" />
+        <img class="x-picture__image" :src="standardImageUrl" :alt="cardImageMessage" />
       </picture>
     </article>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
       <h2 class="x-title2">Cover</h2>
       <picture class="x-picture x-picture--cover">
-        <img class="x-picture__image" :src="whiteBackgroundImageUrl" alt="Cover image" />
+        <img class="x-picture__image" :src="whiteBackgroundImageUrl" :alt="coverImageMessage" />
       </picture>
     </article>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
       <h2 class="x-title2">Colored</h2>
       <picture class="x-picture x-picture--colored">
-        <img class="x-picture__image" :src="whiteBackgroundImageUrl" alt="Colored image" />
+        <img class="x-picture__image" :src="whiteBackgroundImageUrl" :alt="coloredImageMessage" />
       </picture>
     </article>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
       <h2 class="x-title2">Fixed Ratio</h2>
       <picture class="x-picture x-picture--fixed-ratio">
-        <img class="x-picture__image" :src="whiteBackgroundImageUrl" alt="Fixed Ratio image" />
+        <img
+          class="x-picture__image"
+          :src="whiteBackgroundImageUrl"
+          :alt="fixedRatioImageMessage"
+        />
       </picture>
     </article>
 
@@ -70,6 +74,12 @@
     protected standardImageUrl =
       'https://images.unsplash.com/photo-1605494708535-d7a7b2d2740e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200q=80';
     /* eslint-enable max-len */
+
+    protected defaultImageMessage = 'Default image';
+    protected cardImageMessage = 'Card image';
+    protected coverImageMessage = 'Cover image';
+    protected coloredImageMessage = 'Colored image';
+    protected fixedRatioImageMessage = 'Fixed ratio image';
   }
 </script>
 

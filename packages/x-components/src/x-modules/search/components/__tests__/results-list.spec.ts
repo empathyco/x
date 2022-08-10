@@ -7,14 +7,15 @@ import Component from 'vue-class-component';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { ListItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import ResultsList from '../results-list.vue';
 import { InfiniteScroll } from '../../../../directives/infinite-scroll/infinite-scroll.types';
 import { XInject } from '../../../../components/decorators/injection.decorators';
-import { LIST_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
+import { LIST_ITEMS_KEY, QUERY_KEY } from '../../../../components/decorators/injection.consts';
+import { SearchMutations } from '../../store/types';
+import { searchXModule } from '../../x-module';
 import { resetXSearchStateWith } from './utils';
 
 /**
@@ -30,12 +31,17 @@ function renderResultsList({
 }: RenderResultsListOptions = {}): RenderResultsListAPI {
   const localVue = createLocalVue();
   localVue.use(Vuex);
+
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-
-  XPlugin.resetInstance();
-
+  installNewXPlugin(
+    {
+      store,
+      initialXModules: [searchXModule]
+    },
+    localVue
+  );
   resetXSearchStateWith(store, { results });
+
   const wrapper = mount(
     {
       components: {
@@ -50,12 +56,13 @@ function renderResultsList({
     }
   );
 
-  const resultsListWrapper = wrapper.findComponent(ResultsList);
-
   return {
-    wrapper: resultsListWrapper,
+    wrapper: wrapper.findComponent(ResultsList),
     getResults() {
       return results;
+    },
+    commit(event, payload) {
+      store.commit(`x/search/${event}`, payload);
     }
   };
 }
@@ -98,7 +105,7 @@ describe('testing Results list component', () => {
     expect(wrapper.classes('x-items-list')).toBe(true);
     expect(wrapper.find(getDataTestSelector('results-list-item')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('result-slot-overridden')).text()).toBe(
-      `Custom result: ${getResults()[0].name}`
+      `Custom result: ${getResults()[0].name!}`
     );
   });
 
@@ -146,8 +153,60 @@ describe('testing Results list component', () => {
       }
     });
 
-    const childWrapper = wrapper.find(Child);
+    const childWrapper = wrapper.findComponent(Child);
     expect(childWrapper.text()).toBe(getResults()[0].id);
+  });
+
+  // eslint-disable-next-line max-len
+  it('provides the query with the key `query`, only updating it if the status is success', async () => {
+    @Component({
+      template: `
+        <div>{{ searchQuery }}</div>
+      `
+    })
+    class Child extends Vue {
+      @XInject(QUERY_KEY)
+      public searchQuery!: string;
+    }
+
+    const { wrapper, commit } = renderResultsList({
+      template: `<ResultsList><Child/></ResultsList>`,
+      components: {
+        Child
+      }
+    });
+
+    const childWrapper = wrapper.findComponent(Child);
+
+    // Initially, the query should be empty, because the request has not been made yet.
+    expect(childWrapper.text()).toBeFalsy();
+
+    commit('setQuery', 'tshirt');
+    commit('setStatus', 'loading');
+    await wrapper.vm.$nextTick();
+
+    // The injected query shouldn't change if the status is loading.
+    expect(childWrapper.text()).toBeFalsy();
+
+    commit('setStatus', 'success');
+    await wrapper.vm.$nextTick();
+
+    // The query should have changed to `tshirt` because the request has succeeded.
+    expect(childWrapper.text()).toBe('tshirt');
+
+    commit('setQuery', 'jacket');
+    commit('setStatus', 'loading');
+    await wrapper.vm.$nextTick();
+
+    // Here the injected query should be `tshirt` because the request for jacket is loading.
+    expect(childWrapper.text()).toBe('tshirt');
+
+    commit('setStatus', 'success');
+    await wrapper.vm.$nextTick();
+
+    // Finally, when the request for `jacket` has been completed,
+    // the injected query should be updated.
+    expect(childWrapper.text()).toBe('jacket');
   });
 });
 
@@ -165,4 +224,9 @@ interface RenderResultsListAPI {
   wrapper: Wrapper<Vue>;
   /** The `results` used to be rendered. */
   getResults: () => Result[];
+  /** Commits a mutation to the search store. */
+  commit: <Event extends keyof SearchMutations>(
+    event: Event,
+    payload: Parameters<SearchMutations[Event]>[0]
+  ) => void;
 }

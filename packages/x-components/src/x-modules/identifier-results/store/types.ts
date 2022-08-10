@@ -1,5 +1,5 @@
-import { Dictionary } from '@empathyco/x-utils';
 import { IdentifierResultsRequest, Result } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';

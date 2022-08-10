@@ -22,9 +22,9 @@ requires knowledge of JavaScript and Vue.js.
 
 To use Interface&nbsp;X&nbsp;Archetype as a search UI layer, you need:
 
-- **Empathy Search API** (or any search API that you use to retrieve search data).
-- **Empathy Search Adapter** to communicate with the Empathy Search API (or any search adapter to
-  connect with the search API you are using).
+- **Empathy Platform Search API** (or any search API that you use to retrieve search data).
+- **Empathy Platform Search Adapter** to communicate with the Empathy Platform Search API (or the
+  Empathy Search Adapter to connect with the search API you are using).
 
 :::
 
@@ -35,7 +35,7 @@ To use Interface&nbsp;X&nbsp;Archetype as a search UI layer, you need:
 3. Configure the **search adapter**.
 4. Configure the **xPlugin**.
 
-## 1. Clone the project and initialize your repository
+## Cloning the project and initializing your repository
 
 Clone the [X Archetype project](https://github.com/empathyco/x-archetype.git) from the GitHub
 repository to your target folder. You need a non-initialized repository, so make sure you remove the
@@ -79,7 +79,7 @@ repository in the `package.json` file.
 }
 ```
 
-## 2. Install the dependencies and execute the project
+## Installing the dependencies and executing the project
 
 Install the project dependencies via `npm` in the root folder of your cloned repository. Then, you
 can run the project.
@@ -100,21 +100,21 @@ Interface&nbsp;X&nbsp;Archetype repository.
 
 :::
 
-## 3. Configure the search adapter
+## Configuring the search adapter
 
-Before using your project, configure the Empathy Search Adapter in the
-`x-archetype/src/adapter/adapter.ts` file, using the Empathy Adapter Builder to make it work with
-the Empathy Search API. The Empathy Search Adapter contains a sample configuration for setup, global
-configurations, or mappers that points to a demo environment. You need to adjust the configuration
-according to the search features you use in your project.
+Before using your project, configure the Empathy Platform Search Adapter in the
+`x-archetype/src/adapter/adapter.ts` file. The Empathy Platform Search Adapter contains a sample
+configuration for setup, global configurations, or mappers that points to a demo environment. You
+need to adjust the configuration according to the search features you use in your project.
 
 Export the required search adapter with your configuration as you will need it for the search
-[xPlugin configuration](#4-configure-the-plugin).
+[xPlugin configuration](#configuring-the-plugin).
 
 ::: interact
 
-For detailed information about other configuration options in the Empathy Search Adapter, go to the
-[x-adapter repository](https://github.com/empathyco/x/tree/main/packages/search-adapter).
+For detailed information about other configuration options in the Empathy Platform Search Adapter,
+go to the
+[x-adapter-platform repository](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform).
 
 :::
 
@@ -132,11 +132,11 @@ are displayed in English. However, if you want to deploy the application in Spai
 </br>
 
 For detailed information, see
-[Snippet configuration](web-archetype-integration-guide.md#snippet-configuration)
+[Snippet configuration](web-archetype-integration-guide.md#snippet-configuration).
 
 :::
 
-## 4. Configure the plugin
+## Configuring the plugin
 
 The `xPlugin` initializes the properties needed by the X&nbsp;Components. It has key options that
 you can configure in the `/x-archetype/src/x-components/plugin.options.ts` file.
@@ -145,7 +145,7 @@ Since the X&nbsp;Archetype project operates as a layer and is designed to be int
 any kind of website regardless the chosen technology, the `XInstaller` utility and its
 `installXOptions` object are designed to install the xPlugin, adding the connection between the
 X&nbsp;Components and the search API and bootstrapping the entire application with powerful APIs
-that are available in the `window.X` object.
+that are available in the `window.InterfaceX` object.
 
 To configure the xPlugin, run this code:
 
@@ -173,7 +173,8 @@ new XInstaller(installXOptions).init({
 Once you have your Interface&nbsp;X&nbsp;Archetype project, you're ready to **integrate** it in your
 store or **extend** the search and discovery experience to meet your business needs:
 
-- [**Integrate an Interface&nbsp;X&nbsp;Archetype project** into an existing website](web-archetype-integration-guide.md).
+- [**Integrate an Interface&nbsp;X&nbsp;Archetype project**](web-archetype-integration-guide.md)
+  into an existing website.
 - Change the **configuration of [X&nbsp;Components](web-how-to-use-x-components-guide.md)** or
   create new ones.
 - Adapt the

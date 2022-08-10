@@ -214,8 +214,8 @@ describe('testing facets module getters', () => {
           createFilter('Blue', true)
         ]),
         createHierarchicalFacetStub('category', createFilter => [
-          ...createFilter('Summer', false),
-          ...createFilter('Shorts', true)
+          createFilter('Summer', false),
+          createFilter('Shorts', true)
         ]),
         createNumberRangeFacetStub('price', createFilter => [
           createFilter({ min: 0, max: 25 }, true),

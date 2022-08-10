@@ -44,7 +44,7 @@ describe('http-client utils tests', () => {
         undef: undefined
       };
       expect(buildUrl('https://api.empathy.co', params)).toBe(
-        'https://api.empathy.co/?str=string&num=0&bool=false&arr=1&arr=2&nil=null'
+        'https://api.empathy.co/?' + 'str=string&num=0&bool=false&arr=1&arr=2&nil=null'
       );
     });
   });

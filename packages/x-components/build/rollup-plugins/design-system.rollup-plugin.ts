@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { Plugin } from 'rollup';
+import { normalizePath } from '../build.utils';
 
 /**
  * This function interpolates the `.tokens` suffix into a file path and checks if exists.
@@ -15,7 +16,7 @@ function getTokensFilePath(file: string): string | null {
   const fileParts = file.split('.');
   const fileExtension = fileParts.pop() ?? '';
   const tokensFile = `${fileParts.join('.')}.tokens.${fileExtension}`;
-  return fs.existsSync(tokensFile) ? tokensFile : null;
+  return fs.existsSync(tokensFile) ? normalizePath(tokensFile) : null;
 }
 
 /**

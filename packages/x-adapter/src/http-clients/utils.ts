@@ -29,11 +29,11 @@ export function toJson(response: Response): Promise<any> {
  *
  * @public
  */
-export function buildUrl(endpoint: string, params?: Dictionary): URL['href'] {
+export function buildUrl(endpoint: string, params: Dictionary<unknown> = {}): URL['href'] {
   const url = new URL(endpoint);
   forEach(params, (key, value) =>
     (Array.isArray(value) ? value : [value]).forEach(arrayItemValue =>
-      url.searchParams.append(key, arrayItemValue)
+      url.searchParams.append(key, String(arrayItemValue))
     )
   );
   return url.href;

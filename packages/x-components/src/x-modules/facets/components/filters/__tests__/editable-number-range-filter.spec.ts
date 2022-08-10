@@ -127,7 +127,7 @@ describe('testing BaseNumberRangeFilter component', () => {
 
   // eslint-disable-next-line max-len
   it('emits UserModifiedEditableNumberRangeFilter event when isInstant is true and an input is changed', async () => {
-    const { filterWrapper, typeMin, typeMax, filter } = renderEditableNumberRangeFilter({
+    const { filterWrapper, typeMin, typeMax } = renderEditableNumberRangeFilter({
       range: { min: 1, max: 5 },
       isInstant: true
     });
@@ -137,23 +137,27 @@ describe('testing BaseNumberRangeFilter component', () => {
 
     await typeMin(2);
 
-    expect(listener).toHaveBeenNthCalledWith(1, {
-      ...filter,
-      range: {
-        min: 2,
-        max: 5
-      }
-    });
+    expect(listener).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({
+        range: {
+          min: 2,
+          max: 5
+        }
+      })
+    );
 
     await typeMax(7);
 
-    expect(listener).toHaveBeenNthCalledWith(2, {
-      ...filter,
-      range: {
-        min: 2,
-        max: 7
-      }
-    });
+    expect(listener).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({
+        range: {
+          min: 2,
+          max: 7
+        }
+      })
+    );
 
     expect(listener).toHaveBeenCalledTimes(2);
   });
@@ -174,7 +178,7 @@ describe('testing BaseNumberRangeFilter component', () => {
 
   describe('clear button testing', () => {
     it('sets min and max component values to null on clear button click', () => {
-      const { filterWrapper, filter, clearButtonWrapper, applyButtonWrapper } =
+      const { filterWrapper, clearButtonWrapper, applyButtonWrapper } =
         renderEditableNumberRangeFilter({ range: { min: 1, max: 5 } });
 
       const listener = jest.fn();
@@ -182,10 +186,12 @@ describe('testing BaseNumberRangeFilter component', () => {
 
       clearButtonWrapper.trigger('click');
       applyButtonWrapper.trigger('click');
-      expect(listener).toHaveBeenNthCalledWith(1, {
-        ...filter,
-        range: { min: null, max: null }
-      });
+      expect(listener).toHaveBeenNthCalledWith(
+        1,
+        expect.objectContaining({
+          range: { min: null, max: null }
+        })
+      );
       expect(listener).toHaveBeenCalledTimes(1);
     });
 
@@ -232,7 +238,7 @@ describe('testing BaseNumberRangeFilter component', () => {
     });
 
     it('allows to customize the default slot', async () => {
-      const { filter, filterWrapper, applyButtonWrapper, clearButtonWrapper, typeMin, typeMax } =
+      const { filterWrapper, applyButtonWrapper, clearButtonWrapper, typeMin, typeMax } =
         renderEditableNumberRangeFilter({
           template: `
                     <EditableNumberRangeFilterComponent
@@ -280,23 +286,27 @@ describe('testing BaseNumberRangeFilter component', () => {
       await typeMin(4);
       await typeMax(6);
       await applyButtonWrapper.trigger('click');
-      expect(listener).toHaveBeenNthCalledWith(1, {
-        ...filter,
-        range: {
-          min: 4,
-          max: 6
-        }
-      });
+      expect(listener).toHaveBeenNthCalledWith(
+        1,
+        expect.objectContaining({
+          range: {
+            min: 4,
+            max: 6
+          }
+        })
+      );
 
       await clearButtonWrapper.trigger('click');
       await applyButtonWrapper.trigger('click');
-      expect(listener).toHaveBeenNthCalledWith(2, {
-        ...filter,
-        range: {
-          min: null,
-          max: null
-        }
-      });
+      expect(listener).toHaveBeenNthCalledWith(
+        2,
+        expect.objectContaining({
+          range: {
+            min: null,
+            max: null
+          }
+        })
+      );
 
       expect(listener).toHaveBeenCalledTimes(2);
     });

@@ -1,5 +1,5 @@
-import { HttpClient, RequestOptions } from '../../types/http-client.types';
 import { koFetchMock, okFetchMock } from '../__mocks__/fetch.mock';
+import { HttpClient, RequestOptions } from '../types';
 
 describe('beaconHttpClient testing', () => {
   const endpoint = 'https://api.empathy.co/tag/query';
@@ -42,6 +42,23 @@ describe('beaconHttpClient testing', () => {
       2,
       `${endpoint}?q=shirt&filter=long+sleeve&filter=dotted&filter=white&rows=12`,
       undefined
+    );
+  });
+
+  it('flats the received parameters', async () => {
+    await beaconHttpClient(endpoint, {
+      parameters: {
+        q: 'shirt',
+        filter: ['long sleeve', 'dotted', 'white'],
+        rows: 12,
+        extraParams: {
+          lang: 'en'
+        }
+      }
+    });
+    expect(mockedSendBeacon).toHaveBeenCalledTimes(1);
+    expect(mockedSendBeacon).toHaveBeenCalledWith(
+      `${endpoint}?q=shirt&filter=long+sleeve&filter=dotted&filter=white&rows=12&lang=en`
     );
   });
 });

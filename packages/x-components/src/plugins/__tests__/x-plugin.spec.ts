@@ -7,7 +7,7 @@ import { createWireFromFunction, wireCommit } from '../../wiring/wires.factory';
 import { AnyWire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 import { AnyXModule } from '../../x-modules/x-modules.types';
-import { SearchAdapterDummy } from '../../__tests__/adapter.dummy';
+import { XComponentsAdapterDummy } from '../../__tests__/adapter.dummy';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { BaseXBus } from '../x-bus';
 import { XPlugin } from '../x-plugin';
@@ -94,14 +94,14 @@ describe('testing X Plugin', () => {
       XPlugin.registerXModule(xModule);
       expectDefaultModuleToBeNotRegistered();
 
-      installNewXPlugin({ store, adapter: SearchAdapterDummy });
+      installNewXPlugin({ store, adapter: XComponentsAdapterDummy });
       expectDefaultModuleToBeRegisteredOnce();
     });
 
     it('allows registering a initial x-module when installing', () => {
       installNewXPlugin({
         store,
-        adapter: SearchAdapterDummy,
+        adapter: XComponentsAdapterDummy,
         initialXModules: [xModule]
       });
 
@@ -109,7 +109,7 @@ describe('testing X Plugin', () => {
     });
 
     it('allows registering a x-module after installing', () => {
-      installNewXPlugin({ store, adapter: SearchAdapterDummy });
+      installNewXPlugin({ store, adapter: XComponentsAdapterDummy });
       XPlugin.registerXModule(xModule);
 
       expectDefaultModuleToBeRegisteredOnce();
@@ -117,7 +117,7 @@ describe('testing X Plugin', () => {
 
     it('does not re-register a module', () => {
       XPlugin.registerXModule(xModule);
-      installNewXPlugin({ store, adapter: SearchAdapterDummy });
+      installNewXPlugin({ store, adapter: XComponentsAdapterDummy });
       XPlugin.registerXModule(xModule);
 
       expectDefaultModuleToBeRegisteredOnce();
@@ -259,7 +259,7 @@ describe('testing X Plugin', () => {
           __PRIVATE__xModules: privateXModulesOptions,
           xModules: xModulesOptions,
           store,
-          adapter: SearchAdapterDummy
+          adapter: XComponentsAdapterDummy
         });
       });
 
@@ -275,7 +275,7 @@ describe('testing X Plugin', () => {
           __PRIVATE__xModules: privateXModulesOptions,
           xModules: xModulesOptions,
           store,
-          adapter: SearchAdapterDummy
+          adapter: XComponentsAdapterDummy
         });
         XPlugin.registerXModule(xModule);
       });
@@ -298,7 +298,7 @@ describe('testing X Plugin', () => {
           mutations: {}
         }
       };
-      installNewXPlugin({ store, adapter: SearchAdapterDummy });
+      installNewXPlugin({ store, adapter: XComponentsAdapterDummy });
       XPlugin.registerXModule(xModuleWithoutConfig);
 
       expect(store.state.x.searchBox.config).not.toBeDefined();
@@ -309,7 +309,7 @@ describe('testing X Plugin', () => {
     const newWire = jest.fn();
     const replacedWire = jest.fn();
     const pluginOptions: XPluginOptions = {
-      adapter: SearchAdapterDummy,
+      adapter: XComponentsAdapterDummy,
       xModules: {
         searchBox: {
           wiring: {
@@ -397,7 +397,7 @@ describe('testing X Plugin', () => {
         wiring,
         storeEmitters
       });
-      installNewXPlugin({ store, adapter: SearchAdapterDummy }, localVue);
+      installNewXPlugin({ store, adapter: XComponentsAdapterDummy }, localVue);
       component = shallowMount(
         {
           render(h) {

@@ -64,7 +64,7 @@
      */
     protected get dynamicClasses(): VueCSSClasses {
       return {
-        'x-result-current-price--on-sale': this.result.price.hasDiscount
+        'x-result-current-price--on-sale': this.result.price?.hasDiscount ?? false
       };
     }
   }

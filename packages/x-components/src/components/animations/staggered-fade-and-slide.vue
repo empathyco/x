@@ -1,10 +1,10 @@
 <template>
   <staggering-transition-group
     v-on="$listeners"
-    v-bind="$attrs"
     appear
     class="x-staggered-fade-and-slide"
     name="x-staggered-fade-and-slide-"
+    v-bind="$attrs"
   >
     <!-- @slot (Required) Transition-group content -->
     <slot />
@@ -23,7 +23,8 @@
    * @public
    */
   @Component({
-    components: { StaggeringTransitionGroup }
+    components: { StaggeringTransitionGroup },
+    inheritAttrs: false
   })
   export default class StaggeredFadeAndSlide extends Vue {}
 </script>

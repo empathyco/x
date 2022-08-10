@@ -58,12 +58,11 @@
       default: (): Array<keyof SnippetConfig> => [
         'callbacks',
         'productId',
-        'instance',
-        'lang',
         'searchLang',
         'consent',
         'documentDirection',
-        'currency'
+        'currency',
+        'filters'
       ]
     })
     protected excludedExtraParams!: Array<keyof SnippetConfig>;

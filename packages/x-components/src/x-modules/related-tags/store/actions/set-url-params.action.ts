@@ -32,6 +32,5 @@ export const setUrlParams: RelatedTagsXStoreModule['actions']['setUrlParams'] = 
   { query, tag }: UrlParams
 ) => {
   commit('setSelectedRelatedTags', createRelatedTags(tag, query));
-  commit('setRelatedTags', []);
   commit('setQuery', query);
 };

@@ -1,3 +1,4 @@
+import { isObject } from './typeguards';
 import { Dictionary } from './types';
 
 /**
@@ -159,4 +160,22 @@ export function every<ObjectType extends Dictionary>(
   return Object.entries(object)
     .filter(([, value]) => value !== undefined)
     .every(([key, value], index) => condition(key, value, index));
+}
+
+/**
+ * Flattens recursively the passed object to a one level object.
+ *
+ * @param object - The object to flatten.
+ * @returns The flattened object.
+ */
+export function flatObject(object: Dictionary): Dictionary {
+  const flattenedObject: Dictionary = {};
+  forEach(object, (key, value) => {
+    if (isObject(value)) {
+      Object.assign(flattenedObject, flatObject(value));
+    } else {
+      flattenedObject[key] = value;
+    }
+  });
+  return flattenedObject;
 }

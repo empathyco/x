@@ -2,7 +2,8 @@ Feature: Clear selected filters
 
   Background:
     Given a next queries API
-    And   a suggestions API
+    And   a query suggestions API
+    And   a popular searches API
     And   a related tags API
     And   a recommendations API with a known response
     And   a results API with a known response
