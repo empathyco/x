@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.29...@empathyco/x-adapter-platform@1.0.0-alpha.30) (2022-08-10)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.28...@empathyco/x-adapter-platform@1.0.0-alpha.29) (2022-08-03)
 
 ### ⚠ BREAKING CHANGES
