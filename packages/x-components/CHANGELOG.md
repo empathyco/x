@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.153](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.152...@empathyco/x-components@3.0.0-alpha.153) (2022-08-10)
+
+### Features
+
+- **next-queries:** add `maxItemsToRender` prop to `NextQueryPreview` component (#646)
+  ([848427c](https://github.com/empathyco/x/commit/848427cb9dae85c72549ab026b3785194ec4adbd)),
+  closes [EX-6820](https://searchbroker.atlassian.net/browse/EX-6820)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.152](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.151...@empathyco/x-components@3.0.0-alpha.152) (2022-08-10)
 
 ### ⚠ BREAKING CHANGES
