@@ -234,11 +234,11 @@ In this example, the suggestions has been limited to render a maximum of 4 items
   <NextQueryPreview
     :maxItemsToRender="maxItemsToRender"
     :suggestion="suggestion"
-    #result="{ result }"
+    #default="{ results }"
   >
-    <BaseGrid #default="{ item }">
-      <BaseResultLink :result="result">
-        <BaseResultImage :result="result" />
+    <BaseGrid #default="{ item }" :items="results">
+      <BaseResultLink :result="item">
+        <BaseResultImage :result="item" />
       </BaseResultLink>
     </BaseGrid>
   </NextQueryPreview>
