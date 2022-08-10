@@ -57,14 +57,14 @@
      * @public
      */
     protected get highlightedQueryHTML(): string {
-      const identifierValue = this.result.identifier?.value;
+      const identifierValue = this.result.identifier?.value ?? '';
       if (identifierValue && this.identifierHighlightRegexp) {
         return identifierValue.replace(
           this.identifierHighlightRegexp,
           '<span class="x-identifier-result__matching-part">$1</span>'
         );
       }
-      return identifierValue ?? '';
+      return identifierValue;
     }
   }
 </script>
