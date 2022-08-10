@@ -57,7 +57,7 @@
      * @public
      */
     protected get highlightedQueryHTML(): string {
-      const identifierValue = this.result.identifier.value;
+      const identifierValue = this.result.identifier?.value ?? '';
       if (identifierValue && this.identifierHighlightRegexp) {
         return identifierValue.replace(
           this.identifierHighlightRegexp,
