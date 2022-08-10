@@ -60,6 +60,14 @@
     protected suggestion!: NextQuery;
 
     /**
+     * Number of suggestion results to be rendered.
+     *
+     * @public
+     */
+    @Prop()
+    protected maxItemsToRender?: number;
+
+    /**
      * The results preview of the next queries mounted.
      * It is a dictionary, indexed by the next query query.
      */
@@ -79,8 +87,15 @@
      *
      * @returns The results preview of the actual next query.
      */
-    public get suggestionResults(): PreviewResults {
-      return this.previewResults[this.suggestion.query];
+    public get suggestionResults(): PreviewResults | undefined {
+      const previewResults = this.previewResults[this.suggestion.query];
+
+      return previewResults
+        ? {
+            ...previewResults,
+            items: previewResults.items.slice(0, this.maxItemsToRender)
+          }
+        : undefined;
     }
   }
 </script>
@@ -199,6 +214,51 @@ In this example, the ID of the results will be rendered along with the name.
     },
     data() {
       return {
+        suggestion: {
+          modelName: 'NextQuery',
+          query: 'tshirt',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Play with props
+
+In this example, the suggestions has been limited to render a maximum of 4 items.
+
+```vue
+<template>
+  <NextQueryPreview
+    :maxItemsToRender="maxItemsToRender"
+    :suggestion="suggestion"
+    #default="{ results }"
+  >
+    <BaseGrid #default="{ item }" :items="results">
+      <BaseResultLink :result="item">
+        <BaseResultImage :result="item" />
+      </BaseResultLink>
+    </BaseGrid>
+  </NextQueryPreview>
+</template>
+
+<script>
+  import { BaseGrid, BaseResultImage, BaseResultLink } from '@empathyco/x-components';
+  import { NextQueryPreview } from '@empathyco/x-components/next-queries';
+
+  export default {
+    name: 'NextQueryPreviewDemo',
+    components: {
+      BaseGrid,
+      BaseResultImage,
+      BaseResultLink,
+      NextQueryPreview
+    },
+    data() {
+      return {
+        maxItemsToRender: 4,
         suggestion: {
           modelName: 'NextQuery',
           query: 'tshirt',
