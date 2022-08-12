@@ -3,6 +3,18 @@ import { map } from 'rxjs/operators';
 import { XEvent, XEventPayload } from '../wiring/events.types';
 import { WireMetadata, WirePayload } from '../wiring/wiring.types';
 import { Emitter, Emitters, XBus } from './x-bus.types';
+import { forEach } from '@empathyco/x-utils';
+
+interface Queues {
+  high: QueueEvent<XEvent>[];
+  mid: QueueEvent<XEvent>[];
+  low: QueueEvent<XEvent>[];
+}
+
+interface QueueEvent<SomeEvent extends XEvent> {
+  event: SomeEvent;
+  payload: WirePayload<XEventPayload<SomeEvent>>;
+}
 
 /**
  * Default {@link XBus} implementation.
@@ -17,6 +29,14 @@ export class BaseXBus implements XBus {
    */
   protected emitters: Emitters = {};
 
+  protected queues: Queues = {
+    high: [],
+    mid: [],
+    low: []
+  };
+
+  protected pendingResolve: number | null = null;
+
   /**
    * Emits an event. See {@link XBus.(emit:2)}.
    *
@@ -29,14 +49,39 @@ export class BaseXBus implements XBus {
     payload?: XEventPayload<Event>,
     metadata: WireMetadata = { moduleName: null }
   ): void {
-    // Payload is defined here as an optional argument (which is wrong), but as this
-    // implementation must be used with the type XBus there is no problem
     const value: WirePayload<XEventPayload<Event>> = {
-      eventPayload: payload as any,
+      eventPayload: payload!,
       metadata
     };
-    const emitter = this.getOrCreateEmitter(event);
-    emitter.next(value);
+    const queueName = this.getEventPriority(event);
+    this.queues[queueName] = this.queues[queueName].filter(pending => pending.event !== event);
+    this.queues[queueName].push({ event, payload: value });
+    if (this.pendingResolve === null) {
+      this.pendingResolve = setTimeout(this.flushQueues.bind(this));
+    }
+  }
+
+  protected getEventPriority<SomeEvent extends XEvent>(event: SomeEvent): keyof Queues {
+    if (/(RequestChanged|UrlStateChanged)$/g.test(event)) {
+      return 'low';
+    }
+    if (/Changed$/g.test(event)) {
+      return 'mid';
+    }
+    return 'high';
+  }
+
+  protected async flushQueues(): Promise<void> {
+    let next: QueueEvent<XEvent> | undefined;
+    while (
+      (next = this.queues.high.shift() ?? this.queues.mid.shift() ?? this.queues.low.shift())
+    ) {
+      const { event, payload } = next;
+      const emitter = this.getOrCreateEmitter(event);
+      emitter.next(payload);
+      await Promise.resolve();
+    }
+    this.pendingResolve = null;
   }
 
   /**
