@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue, { computed } from 'vue';
 import { ReactWrapper } from './react-wrapper';
 import {
   ReactNodeWithoutRenderProps,
@@ -8,6 +8,7 @@ import {
 } from './react-wrapper.types';
 import { VueChildrenWrapper } from './vue-children-wrapper';
 import { getVueComponentProps, isScopedSlot } from './vue-creator.utils';
+
 
 /**
  * Stores the Vue constructor extending its interface with the methods required to map React
@@ -92,12 +93,16 @@ export const VueExtended = Vue.extend({
  * @returns The Vue constructor with the extended methods.
  */
 export function createVueInstance(reactWrapper: ReactWrapper): Vue {
+  const reactProps = reactWrapper.props;
   return new VueExtended({
-    data: getVueComponentProps(reactWrapper.props),
+    data: getVueComponentProps(reactProps), // props contain context
+    provide() {
+      // use computed() to make context reactive
+      return { context: computed(() => this.context) }
+    },
     render(h) {
-      const reactProps = reactWrapper.props;
       const { children, scopedSlots } = this.mapSlots(reactProps);
-
+      
       return h(
         reactProps.component,
         {

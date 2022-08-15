@@ -31,6 +31,10 @@ export interface ReactWrapperProps {
    */
   className?: string;
   /**
+   * React context to pass to vue component where it is stored in a provider
+   */
+  context?: any
+  /**
    * Any other prop is passed down to the Vue component.
    */
   [key: string]: any;
