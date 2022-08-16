@@ -58,8 +58,8 @@ const renderResultSelector = ({
         level
       },
       provide: {
-        result,
-        selectedIndexes,
+        result: { value: result },
+        selectedIndexes: { value: selectedIndexes },
         setResultVariant
       }
     }

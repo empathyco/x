@@ -21,6 +21,12 @@
   import { Component, Inject, Prop } from 'vue-property-decorator';
   import { Result, ResultVariant } from '@empathyco/x-types';
   import { NoElement } from '../../../components/no-element';
+  import { XInject } from '../../../components/decorators/injection.decorators';
+  import {
+    RESULT_KEY,
+    SELECTED_VARIANTS_INDEXES_KEY,
+    SET_RESULT_VARIANT_KEY
+  } from '../../../components/index';
 
   @Component({
     components: {
@@ -28,13 +34,13 @@
     }
   })
   export default class ResultSelector extends Vue {
-    @Inject('setResultVariant')
+    @Inject(SET_RESULT_VARIANT_KEY)
     public setResultVariant!: (level: number, variantIndex: number) => void;
 
-    @Inject('result')
+    @XInject(RESULT_KEY)
     public result!: Result;
 
-    @Inject('selectedIndexes')
+    @XInject(SELECTED_VARIANTS_INDEXES_KEY)
     public selectedIndexes!: number[];
 
     @Prop({

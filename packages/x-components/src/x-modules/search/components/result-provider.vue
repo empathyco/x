@@ -2,15 +2,25 @@
   import Vue, { VNode, CreateElement } from 'vue';
   import { Component, Prop, Provide } from 'vue-property-decorator';
   import { Result } from '@empathyco/x-types';
+  import { XProvide } from '../../../components/decorators/injection.decorators';
+  import {
+    RESULT_KEY,
+    SELECTED_VARIANTS_INDEXES_KEY,
+    SET_RESULT_VARIANT_KEY
+  } from '../../../components/index';
 
   @Component
   export default class ResultProvider extends Vue {
     @Prop({
       required: true
     })
+    @XProvide(RESULT_KEY)
     public result!: Result;
 
-    @Provide('setResultVariant')
+    @XProvide(SELECTED_VARIANTS_INDEXES_KEY)
+    public selectedIndexes: number[] = [];
+
+    @Provide(SET_RESULT_VARIANT_KEY)
     setResultVariant(level: number, variantIndex: number): void {
       if (this.selectedIndexes[level] === variantIndex) {
         return;
@@ -18,8 +28,6 @@
       this.selectedIndexes = this.selectedIndexes.slice(0, level);
       this.$set(this.selectedIndexes, level, variantIndex);
     }
-
-    protected selectedIndexes: number[] = [];
 
     render(createElement: CreateElement): VNode {
       return (
