@@ -3,7 +3,7 @@ import { Wrapper, mount } from '@vue/test-utils';
 import { Result } from '@empathyco/x-types';
 import ResultSelector from '../result-selector.vue';
 import { createResultStub } from '../../../../__stubs__/index';
-import { findTestDataById } from '../../../../__tests__/utils';
+import { findTestDataById, getDataTestSelector } from '../../../../__tests__/utils';
 
 const renderResultSelector = ({
   result = createResultStub('jacket', {
@@ -71,10 +71,25 @@ const renderResultSelector = ({
 };
 
 describe('variant result selector', () => {
+  it('renders the whole variant by default', () => {
+    const { wrapper, result } = renderResultSelector({
+      level: 0
+    });
+    const button = wrapper.find(getDataTestSelector('variant-button'));
+    expect(JSON.parse(button.text())).toEqual(result.variants?.[0]);
+  });
+
   it('renders the variants for the current level', () => {
+    const template = `
+        <ResultSelector :level="level" #variant="{variant}">
+          <span data-test="variant-name">{{variant.name}}</span>
+        </ResultSelector>
+      `;
+
     let { wrapper } = renderResultSelector({
       selectedIndexes: [0],
-      level: 1
+      level: 1,
+      template
     });
 
     let variantWrappers = findTestDataById(wrapper, 'variant-name');
@@ -85,7 +100,8 @@ describe('variant result selector', () => {
 
     ({ wrapper } = renderResultSelector({
       selectedIndexes: [1, 0],
-      level: 2
+      level: 2,
+      template
     }));
 
     variantWrappers = findTestDataById(wrapper, 'variant-name');
@@ -97,7 +113,13 @@ describe('variant result selector', () => {
   });
 
   it('renders variants for the first level', () => {
-    const { wrapper, result } = renderResultSelector();
+    const { wrapper, result } = renderResultSelector({
+      template: `
+        <ResultSelector :level="level" #variant="{variant}">
+          <span data-test="variant-name">{{variant.name}}</span>
+        </ResultSelector>
+      `
+    });
 
     const variant = findTestDataById(wrapper, 'variant-name').at(1);
 
@@ -115,7 +137,8 @@ describe('variant result selector', () => {
 
     await variantWrapper.trigger('click');
 
-    expect(setResultVariant).toHaveBeenNthCalledWith(1, 0, 1);
+    expect(setResultVariant).toHaveBeenCalledTimes(1);
+    expect(setResultVariant).toHaveBeenCalledWith(0, 1);
   });
 });
 
