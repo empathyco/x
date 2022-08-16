@@ -3,11 +3,13 @@
     <slot :variants="variants">
       <ul>
         <li
-          v-for="variant in variants"
+          v-for="(variant, index) in variants"
           :key="result.id + '_' + level + variant.name"
           data-test="variant-name"
         >
-          {{ variant.name }}
+          <button @click="setResultVariant(level, index)" data-test="variant-button">
+            {{ variant.name }}
+          </button>
         </li>
       </ul>
     </slot>
@@ -41,8 +43,8 @@
     public level!: number;
 
     public get variants(): ResultVariant[] | undefined {
-      if (!this.selectedIndexes.length) {
-        return [];
+      if (this.level === 0) {
+        return this.result.variants;
       }
       return this.selectedIndexes.slice(1, this.level).reduce((selectedVariant, selectedIndex) => {
         return selectedVariant?.variants?.[selectedIndex];

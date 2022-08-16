@@ -6,10 +6,43 @@ import { createResultStub } from '../../../../__stubs__/index';
 import { findTestDataById } from '../../../../__tests__/utils';
 
 const renderResultSelector = ({
-  template = `<ResultSelector :level="level"></ResultSelector>`,
-  result,
+  result = createResultStub('jacket', {
+    variants: [
+      {
+        name: 'red',
+        variants: [
+          {
+            name: 'XL'
+          },
+          {
+            name: 'L'
+          }
+        ]
+      },
+      {
+        name: 'blue',
+        variants: [
+          {
+            name: 'S',
+            variants: [
+              {
+                name: 'S1'
+              },
+              {
+                name: 'S2'
+              },
+              {
+                name: 'S3'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }),
+  template = `<ResultSelector :level="level"/>`,
   selectedIndexes = [],
-  level,
+  level = 0,
   setResultVariant
 }: ResultSelectorOptions = {}): ResultSelectorApi => {
   const wrapper = mount(
@@ -31,48 +64,15 @@ const renderResultSelector = ({
       }
     }
   );
-  return { wrapper: wrapper.findComponent(ResultSelector) };
+  return {
+    wrapper: wrapper.findComponent(ResultSelector),
+    result
+  };
 };
 
 describe('variant result selector', () => {
   it('renders the variants for the current level', () => {
-    const result = createResultStub('jacket', {
-      variants: [
-        {
-          name: 'red',
-          variants: [
-            {
-              name: 'XL'
-            },
-            {
-              name: 'L'
-            }
-          ]
-        },
-        {
-          name: 'blue',
-          variants: [
-            {
-              name: 'S',
-              variants: [
-                {
-                  name: 'S1'
-                },
-                {
-                  name: 'S2'
-                },
-                {
-                  name: 'S3'
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    });
-
     let { wrapper } = renderResultSelector({
-      result,
       selectedIndexes: [0],
       level: 1
     });
@@ -84,7 +84,6 @@ describe('variant result selector', () => {
     expect(variantWrappers.at(1).text()).toBe('L');
 
     ({ wrapper } = renderResultSelector({
-      result,
       selectedIndexes: [1, 0],
       level: 2
     }));
@@ -95,6 +94,28 @@ describe('variant result selector', () => {
     expect(variantWrappers.at(0).text()).toBe('S1');
     expect(variantWrappers.at(1).text()).toBe('S2');
     expect(variantWrappers.at(2).text()).toBe('S3');
+  });
+
+  it('renders variants for the first level', () => {
+    const { wrapper, result } = renderResultSelector();
+
+    const variant = findTestDataById(wrapper, 'variant-name').at(1);
+
+    expect(variant.text()).toBe(result.variants?.[1].name);
+  });
+
+  it('calls set result variant injected function when an option is clicked', async () => {
+    const setResultVariant = jest.fn();
+
+    const { wrapper } = renderResultSelector({
+      setResultVariant
+    });
+
+    const variantWrapper = findTestDataById(wrapper, 'variant-button').at(1);
+
+    await variantWrapper.trigger('click');
+
+    expect(setResultVariant).toHaveBeenNthCalledWith(1, 0, 1);
   });
 });
 
@@ -108,4 +129,5 @@ interface ResultSelectorOptions {
 
 interface ResultSelectorApi {
   wrapper: Wrapper<Vue>;
+  result: Result;
 }
