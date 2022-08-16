@@ -54,6 +54,7 @@ export class BaseXBus implements XBus {
       metadata
     };
     const queueName = this.getEventPriority(event);
+    // I'm not sure about this filter
     this.queues[queueName] = this.queues[queueName].filter(pending => pending.event !== event);
     this.queues[queueName].push({ event, payload: value });
     if (this.pendingResolve === null) {

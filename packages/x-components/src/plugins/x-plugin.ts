@@ -226,7 +226,8 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    *
    * @internal
    */
-  protected registerXModule(xModule: AnyXModule): void {
+  protected async registerXModule(xModule: AnyXModule): Promise<void> {
+    await Promise.resolve();
     if (!this.installedXModules.has(xModule.name)) {
       const customizedXModule = this.customizeXModule(xModule);
       this.registerStoreModule(customizedXModule);
