@@ -1,12 +1,7 @@
 const { xTailwindPlugin } = require('@empathyco/x-tailwindcss');
 
 module.exports = {
-  content: [
-    './index.html',
-    './src/components/**/*.vue',
-    './src/views/**/*.vue',
-    './src/x-modules/**/components/**/*.vue'
-  ],
+  content: ['./public/index.html', './src/**/*.vue'],
   prefix: 'x-',
   plugins: [xTailwindPlugin({})]
 };
