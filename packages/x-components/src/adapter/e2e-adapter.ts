@@ -1,26 +1,5 @@
-import {
-  IdentifierResultsRequest,
-  IdentifierResultsResponse,
-  NextQueriesRequest,
-  NextQueriesResponse,
-  QuerySuggestionsRequest,
-  RecommendationsRequest,
-  RecommendationsResponse,
-  RelatedTagsRequest,
-  RelatedTagsResponse,
-  SearchRequest,
-  SearchResponse,
-  QuerySuggestionsResponse,
-  TaggingRequest,
-  PopularSearchesRequest,
-  PopularSearchesResponse,
-  XComponentsAdapter
-} from '@empathyco/x-types';
-import {
-  endpointAdapterFactory,
-  ExtendableEndpointAdapter,
-  HttpClient
-} from '@empathyco/x-adapter';
+import { XComponentsAdapter } from '@empathyco/x-types';
+import { EndpointAdapter, endpointAdapterFactory, HttpClient } from '@empathyco/x-adapter';
 
 /**
  * Mock fetch httpClient.
@@ -38,59 +17,34 @@ export const mockedFetchHttpClient: HttpClient = (endpoint, { parameters, proper
 };
 
 /**
- * Mock beacon httpClient.
- *
- * @param endpoint - The endpoint to use.
- * @param _
- * @param options - Additional options to make the request with.
- * @returns A promise wrapped object.
- */
-export const mockedBeaconHttpClient: HttpClient = (
-  _,
-  { parameters } = { parameters: { url: '', params: {} } }
-) => {
-  return navigator.sendBeacon(parameters!.url as string, JSON.stringify(parameters!.params))
-    ? Promise.resolve<any>({})
-    : Promise.reject('sendBeacon rejected');
-};
-
-/**
  * Mock EndpointAdapter.
  *
  * @param path - The path of the endpoint to mock.
- * @param httpClient
  * @returns The mocked endpoint adapter.
  */
 export function mockEndpointAdapter<Request, Response>(
-  path: string,
-  httpClient = mockedFetchHttpClient
-): ExtendableEndpointAdapter<Request, Response> {
-  const endpointAdapter = endpointAdapterFactory<Request, Response>({
+  path: string
+): EndpointAdapter<Request, Response> {
+  return endpointAdapterFactory<Request, Response>({
     endpoint: `https://api.empathy.co/${path}`,
-    httpClient
+    httpClient: mockedFetchHttpClient
   });
-
-  endpointAdapter.extends = <NewRequest, NewResponse>() =>
-    endpointAdapter as unknown as ExtendableEndpointAdapter<NewRequest, NewResponse>;
-
-  return endpointAdapter;
 }
 
 export const e2eAdapter: XComponentsAdapter = {
-  identifierResults: mockEndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>(
-    'identifier-results'
-  ),
-  nextQueries: mockEndpointAdapter<NextQueriesRequest, NextQueriesResponse>('next-queries'),
-  popularSearches: mockEndpointAdapter<PopularSearchesRequest, PopularSearchesResponse>(
-    'popular-searches'
-  ),
-  querySuggestions: mockEndpointAdapter<QuerySuggestionsRequest, QuerySuggestionsResponse>(
-    'query-suggestions'
-  ),
-  recommendations: mockEndpointAdapter<RecommendationsRequest, RecommendationsResponse>(
-    'recommendations'
-  ),
-  relatedTags: mockEndpointAdapter<RelatedTagsRequest, RelatedTagsResponse>('related-tags'),
-  search: mockEndpointAdapter<SearchRequest, SearchResponse>('search'),
-  tagging: mockEndpointAdapter<TaggingRequest, void>('', mockedBeaconHttpClient)
+  identifierResults: mockEndpointAdapter('identifier-results'),
+  nextQueries: mockEndpointAdapter('next-queries'),
+  popularSearches: mockEndpointAdapter('popular-searches'),
+  querySuggestions: mockEndpointAdapter('query-suggestions'),
+  recommendations: mockEndpointAdapter('recommendations'),
+  relatedTags: mockEndpointAdapter('related-tags'),
+  search: mockEndpointAdapter('search'),
+  tagging: endpointAdapterFactory({
+    endpoint: ({ url }) => url,
+    requestMapper: ({ params }) => params,
+    httpClient: mockedFetchHttpClient,
+    defaultRequestOptions: {
+      properties: { keepalive: true }
+    }
+  })
 };
