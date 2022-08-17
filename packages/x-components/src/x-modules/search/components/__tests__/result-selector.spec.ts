@@ -149,23 +149,27 @@ describe('variant result selector', () => {
     expect(wrapper.find(getDataTestSelector('variant-container')).exists()).toBe(false);
   });
 
-  it('exposes variants and selected variant in the default slot', () => {
+  it('exposes variants, selectedVariant and selectVariant in the default slot', async () => {
+    const setResultVariant = jest.fn();
+
     const { wrapper, result } = renderResultSelector({
       template: `
-        <ResultSelector :level="level" #default="{variants, selectedVariant}" >
+        <ResultSelector :level="level" #default="{variants, selectedVariant, selectVariant}" >
           <div>
-            <span
+            <button
                 v-for="(variant, index) in variants"
                 data-test="variant"
                 :key="index"
-                :class="{'isSelected': variant === selectedVariant}">
+                :class="{'isSelected': variant === selectedVariant}"
+                @click="selectVariant(variant)">
               {{variant.name}}
-            </span>
+            </button>
           </div>
         </ResultSelector>
       `,
       selectedIndexes: [1],
-      level: 0
+      level: 0,
+      setResultVariant
     });
 
     const variants = findTestDataById(wrapper, 'variant');
@@ -177,6 +181,12 @@ describe('variant result selector', () => {
     });
 
     expect(variants.at(1).element).toHaveClass('isSelected');
+
+    //It calls setResultVariant with the right indexes
+    await variants.at(0).trigger('click');
+
+    expect(setResultVariant).toHaveBeenCalledTimes(1);
+    expect(setResultVariant).toHaveBeenCalledWith(0, 0);
   });
 });
 
