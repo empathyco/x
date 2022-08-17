@@ -148,6 +148,36 @@ describe('variant result selector', () => {
 
     expect(wrapper.find(getDataTestSelector('variant-container')).exists()).toBe(false);
   });
+
+  it('exposes variants and selected variant in the default slot', () => {
+    const { wrapper, result } = renderResultSelector({
+      template: `
+        <ResultSelector :level="level" #default="{variants, selectedVariant}" >
+          <div>
+            <span
+                v-for="(variant, index) in variants"
+                data-test="variant"
+                :key="index"
+                :class="{'isSelected': variant === selectedVariant}">
+              {{variant.name}}
+            </span>
+          </div>
+        </ResultSelector>
+      `,
+      selectedIndexes: [1],
+      level: 0
+    });
+
+    const variants = findTestDataById(wrapper, 'variant');
+
+    expect(variants).toHaveLength(2);
+
+    result?.variants?.forEach((variant, index) => {
+      expect(variants.at(index).text()).toBe(variant.name);
+    });
+
+    expect(variants.at(1).element).toHaveClass('isSelected');
+  });
 });
 
 interface ResultSelectorOptions {

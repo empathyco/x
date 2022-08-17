@@ -1,6 +1,6 @@
 <template>
   <NoElement v-if="result" data-test="variant-container">
-    <slot :variants="variants">
+    <slot :variants="variants" :selectedVariant="selectedVariant">
       <ul>
         <li v-for="(variant, index) in variants" :key="index" data-test="variant-item">
           <slot name="variant" :variant="variant">
@@ -53,6 +53,10 @@
       return this.selectedIndexes.slice(1, this.level).reduce((selectedVariant, selectedIndex) => {
         return selectedVariant?.variants?.[selectedIndex];
       }, this.result.variants?.[this.selectedIndexes[0]])?.variants;
+    }
+
+    public get selectedVariant(): ResultVariant | undefined {
+      return this.variants?.[this.selectedIndexes[this.level]];
     }
   }
 </script>
