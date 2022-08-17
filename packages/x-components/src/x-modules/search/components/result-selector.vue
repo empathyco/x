@@ -3,7 +3,12 @@
     <slot :variants="variants" :selectedVariant="selectedVariant" :selectVariant="selectVariant">
       <ul>
         <li v-for="(variant, index) in variants" :key="index" data-test="variant-item">
-          <slot name="variant" :variant="variant">
+          <slot
+            name="variant"
+            :variant="variant"
+            :isSelected="variant === selectedVariant"
+            :selectVariant="selectVariant.bind(this, variant)"
+          >
             <button @click="setResultVariant(level, index)" data-test="variant-button">
               {{ variant }}
             </button>

@@ -43,7 +43,7 @@ const renderResultSelector = ({
   template = `<ResultSelector :level="level"/>`,
   selectedIndexes = [],
   level = 0,
-  setResultVariant
+  setResultVariant = jest.fn()
 }: ResultSelectorOptions = {}): ResultSelectorApi => {
   const wrapper = mount(
     {
@@ -66,7 +66,8 @@ const renderResultSelector = ({
   );
   return {
     wrapper: wrapper.findComponent(ResultSelector),
-    result
+    result,
+    setResultVariant
   };
 };
 
@@ -127,11 +128,7 @@ describe('variant result selector', () => {
   });
 
   it('calls set result variant injected function when an option is clicked', async () => {
-    const setResultVariant = jest.fn();
-
-    const { wrapper } = renderResultSelector({
-      setResultVariant
-    });
+    const { wrapper, setResultVariant } = renderResultSelector();
 
     const variantWrapper = findTestDataById(wrapper, 'variant-button').at(1);
 
@@ -150,9 +147,7 @@ describe('variant result selector', () => {
   });
 
   it('exposes variants, selectedVariant and selectVariant in the default slot', async () => {
-    const setResultVariant = jest.fn();
-
-    const { wrapper, result } = renderResultSelector({
+    const { wrapper, result, setResultVariant } = renderResultSelector({
       template: `
         <ResultSelector :level="level" #default="{variants, selectedVariant, selectVariant}" >
           <div>
@@ -168,8 +163,7 @@ describe('variant result selector', () => {
         </ResultSelector>
       `,
       selectedIndexes: [1],
-      level: 0,
-      setResultVariant
+      level: 0
     });
 
     const variants = findTestDataById(wrapper, 'variant');
@@ -188,6 +182,39 @@ describe('variant result selector', () => {
     expect(setResultVariant).toHaveBeenCalledTimes(1);
     expect(setResultVariant).toHaveBeenCalledWith(0, 0);
   });
+
+  it('exposes variant, isSelected and selectVariant in the variant slot', async () => {
+    const { wrapper, result, setResultVariant } = renderResultSelector({
+      template: `
+        <ResultSelector :level="level" #variant="{variant, selectVariant, isSelected}">
+          <button
+              data-test="variant"
+              @click="selectVariant"
+              :class="{'isSelected': isSelected}">
+            {{variant.name}}
+          </button>
+        </ResultSelector>
+      `,
+      selectedIndexes: [0],
+      level: 0
+    });
+
+    const variants = findTestDataById(wrapper, 'variant');
+
+    expect(variants).toHaveLength(2);
+
+    result?.variants?.forEach((variant, index) => {
+      expect(variants.at(index).text()).toBe(variant.name);
+    });
+
+    expect(variants.at(0).element).toHaveClass('isSelected');
+
+    //It calls setResultVariant with the right indexes
+    await variants.at(1).trigger('click');
+
+    expect(setResultVariant).toHaveBeenCalledTimes(1);
+    expect(setResultVariant).toHaveBeenCalledWith(0, 1);
+  });
 });
 
 interface ResultSelectorOptions {
@@ -201,4 +228,5 @@ interface ResultSelectorOptions {
 interface ResultSelectorApi {
   wrapper: Wrapper<Vue>;
   result: Result | null;
+  setResultVariant: (level: number, variantIndex: number) => void;
 }
