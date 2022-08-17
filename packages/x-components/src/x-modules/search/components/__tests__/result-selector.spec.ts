@@ -76,7 +76,7 @@ describe('variant result selector', () => {
       level: 0
     });
     const button = wrapper.find(getDataTestSelector('variant-button'));
-    expect(JSON.parse(button.text())).toEqual(result.variants?.[0]);
+    expect(JSON.parse(button.text())).toEqual(result?.variants?.[0]);
   });
 
   it('renders the variants for the current level', () => {
@@ -123,7 +123,7 @@ describe('variant result selector', () => {
 
     const variant = findTestDataById(wrapper, 'variant-name').at(1);
 
-    expect(variant.text()).toBe(result.variants?.[1].name);
+    expect(variant.text()).toBe(result?.variants?.[1].name);
   });
 
   it('calls set result variant injected function when an option is clicked', async () => {
@@ -140,11 +140,19 @@ describe('variant result selector', () => {
     expect(setResultVariant).toHaveBeenCalledTimes(1);
     expect(setResultVariant).toHaveBeenCalledWith(0, 1);
   });
+
+  it('wont render if no result is injected', () => {
+    const { wrapper } = renderResultSelector({
+      result: null
+    });
+
+    expect(wrapper.find(getDataTestSelector('variant-container')).exists()).toBe(false);
+  });
 });
 
 interface ResultSelectorOptions {
   template?: string;
-  result?: Result;
+  result?: Result | null;
   selectedIndexes?: number[];
   level?: number;
   setResultVariant?: (level: number, variantIndex: number) => void;
@@ -152,5 +160,5 @@ interface ResultSelectorOptions {
 
 interface ResultSelectorApi {
   wrapper: Wrapper<Vue>;
-  result: Result;
+  result: Result | null;
 }

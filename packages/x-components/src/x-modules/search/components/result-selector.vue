@@ -1,5 +1,5 @@
 <template>
-  <NoElement>
+  <NoElement v-if="result" data-test="variant-container">
     <slot :variants="variants">
       <ul>
         <li v-for="(variant, index) in variants" :key="index" data-test="variant-item">
