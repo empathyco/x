@@ -60,7 +60,7 @@ const renderResultSelector = ({
       provide: {
         result: { value: result },
         selectedIndexes: { value: selectedIndexes },
-        setResultVariant
+        setResultVariant: { value: setResultVariant }
       }
     }
   );

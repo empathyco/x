@@ -20,4 +20,5 @@ export const RESULT_KEY: XInjectKey<Result> = 'result';
 
 export const SELECTED_VARIANTS_INDEXES_KEY: XInjectKey<number[]> = 'selectedIndexes';
 
-export const SET_RESULT_VARIANT_KEY = 'setResultVariant';
+export const SET_RESULT_VARIANT_KEY: XInjectKey<(level: number, variantIndex: number) => void> =
+  'setResultVariant';

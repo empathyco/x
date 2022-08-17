@@ -16,7 +16,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Inject, Prop } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import { Result, ResultVariant } from '@empathyco/x-types';
   import { NoElement } from '../../../components/no-element';
   import { XInject } from '../../../components/decorators/injection.decorators';
@@ -32,7 +32,7 @@
     }
   })
   export default class ResultSelector extends Vue {
-    @Inject(SET_RESULT_VARIANT_KEY)
+    @XInject(SET_RESULT_VARIANT_KEY)
     public setResultVariant!: (level: number, variantIndex: number) => void;
 
     @XInject(RESULT_KEY)

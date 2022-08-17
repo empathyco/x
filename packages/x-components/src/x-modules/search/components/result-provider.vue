@@ -1,6 +1,6 @@
 <script lang="ts">
   import Vue, { VNode, CreateElement } from 'vue';
-  import { Component, Prop, Provide } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import { Result } from '@empathyco/x-types';
   import { XProvide } from '../../../components/decorators/injection.decorators';
   import {
@@ -20,7 +20,7 @@
     @XProvide(SELECTED_VARIANTS_INDEXES_KEY)
     public selectedIndexes: number[] = [];
 
-    @Provide(SET_RESULT_VARIANT_KEY)
+    @XProvide(SET_RESULT_VARIANT_KEY)
     setResultVariant(level: number, variantIndex: number): void {
       if (this.selectedIndexes[level] === variantIndex) {
         return;
