@@ -110,7 +110,7 @@ We are working on many key features to consolidate Interface X, including these 
   [![Release Docs](https://img.shields.io/badge/In%20Progress-Q3%202022-yellow)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
 - Design System Builder POC using Tailwind.
   [![Release Docs](https://img.shields.io/badge/In%20Progress-Q3%202022-yellow)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
-- WCAG AA compliance
+- WCAG AA compliance.
 - Result Preview component to rapidly discover more result attributed without leaving the SERP.
 - Suggestions with filters that allows to select a query suggestion with a specific filter.
 - Provide a No Network State for components depending on API requests.
