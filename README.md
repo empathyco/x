@@ -108,7 +108,7 @@ We are working on many key features to consolidate Interface X, including these 
   shopper starts typing as inspiration, in the predictive layer for results matching the current
   query, o as inspiration in a no results scenario.
   [![Release Docs](https://img.shields.io/badge/In%20Progress-Q3%202022-yellow)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
-- Design System Builder POC using Tailwind to generate different design systems.
+- Design System Builder POC using Tailwind.
   [![Release Docs](https://img.shields.io/badge/In%20Progress-Q3%202022-yellow)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
 - WCAG AA compliance
 - Result Preview component to rapidly discover more result attributed without leaving the SERP.
