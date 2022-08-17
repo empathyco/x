@@ -106,7 +106,7 @@ We are working on many key features to consolidate Interface X, including these 
   [![Release Docs](https://img.shields.io/badge/Released-August%202022-brightgreen)](https://docs.empathy.co)
 - Query Results Preview: Provides a list of results matching a query to be inserted before the
   shopper starts typing as inspiration, in the predictive layer for results matching the current
-  query, o as inspiration in a no results scenario.
+  query, or as inspiration in a no results scenario.
   [![Release Docs](https://img.shields.io/badge/In%20Progress-Q3%202022-yellow)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
 - Design System Builder POC using Tailwind.
   [![Release Docs](https://img.shields.io/badge/In%20Progress-Q3%202022-yellow)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
