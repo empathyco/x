@@ -1,11 +1,17 @@
 import Vue, { VueConstructor } from 'vue';
-import { Component, Inject, Prop } from 'vue-property-decorator';
+import { Component, Prop } from 'vue-property-decorator';
 import { mount, Wrapper } from '@vue/test-utils';
 import { Result } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import ResultProvider from '../result-provider.vue';
 import { createResultStub } from '../../../../__stubs__/index';
-import { getDataTestSelector } from '../../../../__tests__/utils';
+import { findTestDataById, getDataTestSelector } from '../../../../__tests__/utils';
+import { XInject } from '../../../../components/decorators/injection.decorators';
+import {
+  RESULT_KEY,
+  SELECTED_VARIANTS_INDEXES_KEY,
+  SET_RESULT_VARIANT_KEY
+} from '../../../../components/index';
 
 const renderResultProvider = ({
   result = createResultStub('jacket'),
@@ -44,20 +50,23 @@ describe('result with variants provider', () => {
   @Component({
     template: `
       <div>
-        <button data-test="set-red-jacket" @click="setResultVariant(0, 0)">Change variant</button>
-        <button data-test="set-red-xl-jacket" @click="setResultVariant(1, 1)">
-          Change variant
-        </button>
-        <span data-test="result-name">{{ result.name }}</span>
-        <span data-test="result-image" v-if="result.images">
-          {{ result.images[0] }}
-        </span>
+        <slot
+          :setResultVariant="setResultVariant"
+          :originalResult="originalResult"
+          :selectedIndexes="selectedIndexes"
+        ></slot>
       </div>
     `
   })
   class Child extends Vue {
-    @Inject('setResultVariant')
+    @XInject(SET_RESULT_VARIANT_KEY)
     public setResultVariant!: () => void;
+
+    @XInject(RESULT_KEY)
+    public originalResult!: Result;
+
+    @XInject(SELECTED_VARIANTS_INDEXES_KEY)
+    public selectedIndexes!: number[];
 
     @Prop()
     public result!: Result;
@@ -101,7 +110,15 @@ describe('result with variants provider', () => {
 
     const { wrapper } = renderResultProvider({
       result,
-      template: `<Child :result="result"/>`,
+      template: `
+        <Child :result="result" #default="{setResultVariant}">
+          <button data-test="set-red-jacket" @click="setResultVariant(0, 0)">Change variant</button>
+          <button data-test="set-red-xl-jacket" @click="setResultVariant(1, 1)">
+            Change variant
+          </button>
+          <span data-test="result-name">{{ result.name }}</span>
+        </Child>
+      `,
       components: { Child }
     });
     const setRedJacketButton = wrapper.find(getDataTestSelector('set-red-jacket'));
@@ -117,9 +134,77 @@ describe('result with variants provider', () => {
 
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toBe('red jacket L');
 
+    // It won't deselect the child variant if the parent is clicked.
+
     await setRedJacketButton.trigger('click');
 
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toBe('red jacket L');
+  });
+
+  it('provides the original result', async () => {
+    const { wrapper } = renderResultProvider({
+      result: createResultStub('tshirt', {
+        variants: [
+          {
+            name: 'black tshirt'
+          },
+          {
+            name: 'white tshirt'
+          }
+        ]
+      }),
+      template: `
+        <Child :result="result" #default="{originalResult, setResultVariant, selectedIndexes}">
+          <button data-test="variant-button" @click="setResultVariant(0, 0)">
+            Select black shirt
+          </button>
+          <span data-test="result-name">{{ result.name }}</span>
+          <span data-test="original-result-name">{{ originalResult.name }}</span>
+        </Child>
+      `,
+      components: { Child }
+    });
+    const button = wrapper.find(getDataTestSelector('variant-button'));
+    await button.trigger('click');
+
+    expect(wrapper.find(getDataTestSelector('result-name')).text()).toBe('black tshirt');
+    expect(wrapper.find(getDataTestSelector('original-result-name')).text()).toBe('tshirt');
+  });
+
+  it('provides the selected indexes', async () => {
+    const { wrapper } = renderResultProvider({
+      result: createResultStub('shoes', {
+        variants: [
+          {
+            name: 'white shoes'
+          },
+          {
+            name: 'black shoes'
+          }
+        ]
+      }),
+      template: `
+        <Child :result="result" #default="{setResultVariant, selectedIndexes}">
+          <button data-test="variant-button" @click="setResultVariant(0, 0)">Select 0</button>
+          <button data-test="variant-button" @click="setResultVariant(0, 1)">Select 1</button>
+          <span data-test="selectedIndex">{{ selectedIndexes[0] }}</span>
+        </Child>
+      `,
+      components: { Child }
+    });
+
+    const buttons = findTestDataById(wrapper, 'variant-button');
+    const selectedIndex = wrapper.find(getDataTestSelector('selectedIndex'));
+
+    expect(selectedIndex.text()).toBe('');
+
+    await buttons.at(0).trigger('click');
+
+    expect(selectedIndex.text()).toBe('0');
+
+    await buttons.at(1).trigger('click');
+
+    expect(selectedIndex.text()).toBe('1');
   });
 });
 
