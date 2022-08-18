@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![Check branch is releasable](https://github.com/empathyco/x/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/empathyco/x/actions/workflows/build.yml)
+[![GitHub contributors](https://img.shields.io/github/contributors/empathyco/x.svg)](https://github.com/empathyco/x/graphs/contributors/)
 [![Created by](https://img.shields.io/badge/Created%20by-Empathy.co-green)](https://www.empathy.co)
 
 Whether you use Empathy Search API endpoints, Elasticsearch, Solr or other search APIs, bring your
@@ -35,7 +36,7 @@ supported by Interface X.
 - **Use it anywhere.** A search interface layer that is easy to integrate into any website, with X
   Components ready to use in your Vue.js and React projects.
 - **Interoperable**. Interface X can adapt and work independently with any search service endpoints!
-- **Fully personalizable experience**. Choose the configuration components, layouts, styles, and
+- **Fully customizable experience**. Choose the configuration components, layouts, styles, and
   behaviors to craft exclusive search and discovery experiences.
 - **Expressive design**. Wrap the experience up in a neat, intuitive, and interactive UI design that
   fully matches your brand identity and your website’s look and feel.
@@ -56,8 +57,8 @@ While most of the packages are minor dependencies, there is a key package to bea
   you to quickly build the search UI for your shop. Create a smooth, personalized search and
   discovery experience, while significantly minimizing development time.
 
-Besides the packages of this monorepo, there is another project using all the X-Components to build
-a search experience:
+On top of the packages of this monorepo, there is another project using all the X-Components to
+build a search experience:
 
 - **[@empathyco/x-archetype](https://github.com/empathyco/x-archetype)** - This project is Empathy’s
   vision of the ideal mix of X&nbsp;Components. A project showing the power of the
@@ -94,21 +95,28 @@ We are working on many key features to consolidate Interface X, including these 
   [![Release Docs](https://img.shields.io/badge/Released-April%202022-brightgreen)](https://docs.empathy.co)
 - [My History](https://empathy.co/blog/development-journey-my-history/) feature, Control your search
   history and have access to previous intentions.
-  [![Release Docs](https://img.shields.io/badge/In%20Progress-Q2%202022-yellow)](https://empathy.co/blog/development-journey-my-history/)
+  [![Release Docs](https://img.shields.io/badge/Released-July%202022-brightgreen)](https://empathy.co/blog/development-journey-my-history/)
 - Use [accessibility eslint plugin](https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility)
   to improve components a11y.
-  [![Release Docs](https://img.shields.io/badge/In%20Progress-Q2%202022-yellow)](https://github.com/empathyco/x/commit/da5a10a236aae5fae96943fe0ad54849df15e7f5)
-- Evolution of the no code design system experience controls to tweak styles from the
-  [Playboard](https://docs.empathy.co/explore-empathy-platform/overview/playboard-overview.html).
-  ![Release Docs](https://img.shields.io/badge/In%20Progress-Q3%202022-yellow)
-- Discovery Wall: A set of results carousels to help the shopper to discover interesting products at
-  the search home. This represents Empathy sciences for **Discovery** and **Cross-Selling**.
-- Vertical Search: allows to select a given filter before performing a search.
+  [![Release Docs](https://img.shields.io/badge/Released-July%202022-brightgreen)](https://docs.empathy.co)
+- Next Queries Preview: A set of results that matches searches that other shoppers performed after
+  the current to be show within the SERP. This helps the shopper to discover interesting products
+  after the search action. This represents Empathy sciences for **Inspiration** and
+  **Cross-Selling**.
+  [![Release Docs](https://img.shields.io/badge/Released-August%202022-brightgreen)](https://docs.empathy.co)
+- Query Results Preview: Provides a list of results matching a query to be inserted before the
+  shopper starts typing as inspiration, in the predictive layer for results matching the current
+  query, or as inspiration in a no results scenario.
+  [![Release Docs](https://img.shields.io/badge/In%20Progress-Q3%202022-yellow)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
+- Design System Builder POC using Tailwind.
+  [![Release Docs](https://img.shields.io/badge/In%20Progress-Q3%202022-yellow)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
+- WCAG AA compliance.
+- Result Preview component to rapidly discover more result attributed without leaving the SERP.
+- Suggestions with filters that allows to select a query suggestion with a specific filter.
 - Provide a No Network State for components depending on API requests.
-- Server Side Rendering.
 - Incorporate search box power-ups such as animated suggestions or forbidden character set to
   prevent code injection.
-- Create a project generator CLI.
+- Project generator CLI.
 
 ## How to install
 
@@ -140,9 +148,16 @@ the future of search experiences, please check our
 
 ## Core Team
 
-| <a href="https://github.com/tajespasarela"><img src="https://avatars.githubusercontent.com/u/5759712?v=4" width="100px;" alt=""/><br /><br /><b>Iván Tajes</b></a> | <a href="https://github.com/javieri-empathy"><img src="https://avatars.githubusercontent.com/u/68222542?v=4" width="100px;" alt=""/><br /><br /><b>Javier Iglesias</b></a> | <a href="https://github.com/joseacabaneros"><img src="https://avatars.githubusercontent.com/u/10746604?v=4" width="100px;" alt=""/><br /><br /><b>Jose Antonio Cabañeros</b></a> | <a href="https://github.com/LuisMartinez15"><img src="https://avatars.githubusercontent.com/u/6247440?v=4" width="100px;" alt=""/><br /><br /><b>Luís Martínez</b></a> |      <a href="https://github.com/tiborux"><img src="https://avatars.githubusercontent.com/u/6597815?v=4" width="100px;" alt=""/><br /><br /><b>Beltrán García</b></a>      |
-| :----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| <a href="https://github.com/herrardo"><img src="https://avatars.githubusercontent.com/u/4663897?v=4" width="100px;" alt=""/><br /><br /><b>Gerardo Vázquez</b></a> |  <a href="https://github.com/CachedaCodes"><img src="https://avatars.githubusercontent.com/u/7124620?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Cacheda</b></a>  |         <a href="https://github.com/mavmaf"><img src="https://avatars.githubusercontent.com/u/77147901?v=4" width="100px;" alt=""/><br /><br /><b>Mavi Fernández</b></a>         |    <a href="https://github.com/diegopf"><img src="https://avatars.githubusercontent.com/u/7504736?v=4" width="100px;" alt=""/><br /><br /><b>Diego Pascual</b></a>     | <a href="https://github.com/mnavarroespinosa"><img src="https://avatars.githubusercontent.com/u/77450928?v=4" width="100px;" alt=""/><br /><br /><b>Manuel Navarro</b></a> |
+| <a href="https://github.com/tajespasarela"><img src="https://avatars.githubusercontent.com/u/5759712?v=4" width="100px;" alt=""/><br /><br /><b>Iván Tajes</b></a>  | <a href="https://github.com/javieri-empathy"><img src="https://avatars.githubusercontent.com/u/68222542?v=4" width="100px;" alt=""/><br /><br /><b>Javier Iglesias</b></a> | <a href="https://github.com/joseacabaneros"><img src="https://avatars.githubusercontent.com/u/10746604?v=4" width="100px;" alt=""/><br /><br /><b>Jose Antonio Cabañeros</b></a> | <a href="https://github.com/LuisMartinez15"><img src="https://avatars.githubusercontent.com/u/6247440?v=4" width="100px;" alt=""/><br /><br /><b>Luís Martínez</b></a> |      <a href="https://github.com/tiborux"><img src="https://avatars.githubusercontent.com/u/6597815?v=4" width="100px;" alt=""/><br /><br /><b>Beltrán García</b></a>      |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <a href="https://github.com/herrardo"><img src="https://avatars.githubusercontent.com/u/4663897?v=4" width="100px;" alt=""/><br /><br /><b>Gerardo Vázquez</b></a>  |  <a href="https://github.com/CachedaCodes"><img src="https://avatars.githubusercontent.com/u/7124620?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Cacheda</b></a>  |         <a href="https://github.com/mavmaf"><img src="https://avatars.githubusercontent.com/u/77147901?v=4" width="100px;" alt=""/><br /><br /><b>Mavi Fernández</b></a>         |    <a href="https://github.com/diegopf"><img src="https://avatars.githubusercontent.com/u/7504736?v=4" width="100px;" alt=""/><br /><br /><b>Diego Pascual</b></a>     | <a href="https://github.com/mnavarroespinosa"><img src="https://avatars.githubusercontent.com/u/77450928?v=4" width="100px;" alt=""/><br /><br /><b>Manuel Navarro</b></a> |
+| <a href="https://github.com/ajperezbau"><img src="https://avatars.githubusercontent.com/u/75546736?v=4" width="100px;" alt=""/><br /><br /><b>Abraham Pérez</b></a> |
+
+## Contributors
+
+<a href="https://github.com/empathyco/x/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=empathyco/x" alt="Contributors image list"/>
+</a>
 
 ## License
 
