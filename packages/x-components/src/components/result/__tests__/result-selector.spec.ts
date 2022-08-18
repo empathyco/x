@@ -146,6 +146,14 @@ describe('variant result selector', () => {
     expect(wrapper.find(getDataTestSelector('variant-container')).exists()).toBe(false);
   });
 
+  it('wont render if the provided result does not have variants', () => {
+    const { wrapper } = renderResultSelector({
+      result: createResultStub('jacket')
+    });
+
+    expect(wrapper.find(getDataTestSelector('variant-container')).exists()).toBe(false);
+  });
+
   it('exposes variants, selectedVariant and selectVariant in the default slot', async () => {
     const { wrapper, result, setResultVariant } = renderResultSelector({
       template: `
