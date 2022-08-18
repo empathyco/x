@@ -1,4 +1,4 @@
-import { Result } from '@empathyco/x-types';
+import { Result, ResultVariant } from '@empathyco/x-types';
 import { ListItem } from '../../utils/types';
 import { XInjectKey } from './injection.decorators';
 
@@ -18,7 +18,7 @@ export const QUERY_KEY: XInjectKey<string | undefined> = 'query';
 
 export const RESULT_KEY: XInjectKey<Result> = 'result';
 
-export const SELECTED_VARIANTS_INDEXES_KEY: XInjectKey<number[]> = 'selectedIndexes';
+export const SELECTED_VARIANTS_KEY: XInjectKey<ResultVariant[]> = 'selectedVariants';
 
-export const SET_RESULT_VARIANT_KEY: XInjectKey<(level: number, variantIndex: number) => void> =
+export const SET_RESULT_VARIANT_KEY: XInjectKey<(level: number, variant: ResultVariant) => void> =
   'setResultVariant';

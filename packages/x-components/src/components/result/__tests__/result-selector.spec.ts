@@ -1,9 +1,14 @@
 import Vue from 'vue';
 import { Wrapper, mount } from '@vue/test-utils';
-import { Result } from '@empathyco/x-types';
+import { Result, ResultVariant } from '@empathyco/x-types';
 import ResultSelector from '../result-selector.vue';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { findTestDataById, getDataTestSelector } from '../../../__tests__/utils';
+import {
+  RESULT_KEY,
+  SELECTED_VARIANTS_KEY,
+  SET_RESULT_VARIANT_KEY
+} from '../../decorators/injection.consts';
 
 const renderResultSelector = ({
   result = createResultStub('jacket', {
@@ -45,6 +50,31 @@ const renderResultSelector = ({
   level = 0,
   setResultVariant = jest.fn()
 }: ResultSelectorOptions = {}): ResultSelectorApi => {
+  function getSelectedVariantsFromIndexes(
+    result: Result,
+    level: number,
+    selectedIndexes: number[]
+  ): ResultVariant[] | undefined {
+    if (!result.variants) {
+      return [];
+    }
+
+    return selectedIndexes.slice(1, level).reduce(
+      (selectedVariants, selectedIndex) => {
+        const selectedVariant = selectedVariants.at(-1)?.variants?.[selectedIndex];
+        if (selectedVariant) {
+          selectedVariants.push(selectedVariant);
+        }
+        return selectedVariants;
+      },
+      [result.variants?.[selectedIndexes[0]]]
+    );
+  }
+
+  const selectedVariants = result
+    ? getSelectedVariantsFromIndexes(result, level, selectedIndexes)
+    : [];
+
   const wrapper = mount(
     {
       template,
@@ -58,9 +88,9 @@ const renderResultSelector = ({
         level
       },
       provide: {
-        result: { value: result },
-        selectedIndexes: { value: selectedIndexes },
-        setResultVariant: { value: setResultVariant }
+        [RESULT_KEY.toString()]: { value: result },
+        [SELECTED_VARIANTS_KEY.toString()]: { value: selectedVariants },
+        [SET_RESULT_VARIANT_KEY.toString()]: { value: setResultVariant }
       }
     }
   );
@@ -128,14 +158,14 @@ describe('variant result selector', () => {
   });
 
   it('calls set result variant injected function when an option is clicked', async () => {
-    const { wrapper, setResultVariant } = renderResultSelector();
+    const { wrapper, setResultVariant, result } = renderResultSelector();
 
     const variantWrapper = findTestDataById(wrapper, 'variant-button').at(1);
 
     await variantWrapper.trigger('click');
 
     expect(setResultVariant).toHaveBeenCalledTimes(1);
-    expect(setResultVariant).toHaveBeenCalledWith(0, 1);
+    expect(setResultVariant).toHaveBeenCalledWith(0, result?.variants?.[1]);
   });
 
   it('wont render if no result is injected', () => {
@@ -188,7 +218,7 @@ describe('variant result selector', () => {
     await variants.at(0).trigger('click');
 
     expect(setResultVariant).toHaveBeenCalledTimes(1);
-    expect(setResultVariant).toHaveBeenCalledWith(0, 0);
+    expect(setResultVariant).toHaveBeenCalledWith(0, result?.variants?.[0]);
   });
 
   it('exposes variant, isSelected and selectVariant in the variant slot', async () => {
@@ -221,7 +251,7 @@ describe('variant result selector', () => {
     await variants.at(1).trigger('click');
 
     expect(setResultVariant).toHaveBeenCalledTimes(1);
-    expect(setResultVariant).toHaveBeenCalledWith(0, 1);
+    expect(setResultVariant).toHaveBeenCalledWith(0, result?.variants?.[1]);
   });
 });
 
@@ -230,11 +260,11 @@ interface ResultSelectorOptions {
   result?: Result | null;
   selectedIndexes?: number[];
   level?: number;
-  setResultVariant?: (level: number, variantIndex: number) => void;
+  setResultVariant?: (level: number, variant: ResultVariant) => void;
 }
 
 interface ResultSelectorApi {
   wrapper: Wrapper<Vue>;
   result: Result | null;
-  setResultVariant: (level: number, variantIndex: number) => void;
+  setResultVariant: (level: number, variant: ResultVariant) => void;
 }

@@ -1,11 +1,11 @@
 <script lang="ts">
   import Vue, { VNode, CreateElement } from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { Result } from '@empathyco/x-types';
+  import { Result, ResultVariant } from '@empathyco/x-types';
   import { XProvide } from '../decorators/injection.decorators';
   import {
     RESULT_KEY,
-    SELECTED_VARIANTS_INDEXES_KEY,
+    SELECTED_VARIANTS_KEY,
     SET_RESULT_VARIANT_KEY
   } from '../decorators/injection.consts';
 
@@ -17,16 +17,21 @@
     @XProvide(RESULT_KEY)
     public result!: Result;
 
-    @XProvide(SELECTED_VARIANTS_INDEXES_KEY)
-    public selectedIndexes: number[] = [];
+    @XProvide(SELECTED_VARIANTS_KEY)
+    public selectedVariants: ResultVariant[] = [];
 
     @XProvide(SET_RESULT_VARIANT_KEY)
-    setResultVariant(level: number, variantIndex: number): void {
-      if (this.selectedIndexes[level] === variantIndex) {
+    setResultVariant(level: number, variant: ResultVariant): void {
+      if (this.selectedVariants[level] === variant) {
         return;
       }
-      this.selectedIndexes = this.selectedIndexes.slice(0, level);
-      this.$set(this.selectedIndexes, level, variantIndex);
+      this.selectedVariants = this.selectedVariants.slice(0, level);
+      this.$set(this.selectedVariants, level, variant);
+      this.$x.emit('UserSelectedAResultVariant', {
+        variant,
+        level,
+        result: this.result
+      });
     }
 
     render(createElement: CreateElement): VNode {
@@ -38,13 +43,13 @@
     }
 
     public get resultToProvide(): Result {
-      if (!this.selectedIndexes) {
+      if (!this.selectedVariants) {
         return this.result;
       }
-      const mergedResult = this.selectedIndexes.reduce((result, index) => {
+      const mergedResult = this.selectedVariants.reduce<Result>((result, variant) => {
         return {
           ...result,
-          ...result.variants?.[index]
+          ...variant
         };
       }, this.result);
       mergedResult.variants = this.result.variants;

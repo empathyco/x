@@ -7,9 +7,13 @@
             name="variant"
             :variant="variant"
             :isSelected="variant === selectedVariant"
-            :selectVariant="selectVariant.bind(this, variant)"
+            :selectVariant="
+              () => {
+                selectVariant(variant);
+              }
+            "
           >
-            <button @click="setResultVariant(level, index)" data-test="variant-button">
+            <button @click="selectVariant(variant)" data-test="variant-button">
               {{ variant }}
             </button>
           </slot>
@@ -27,7 +31,7 @@
   import { XInject } from '../decorators/injection.decorators';
   import {
     RESULT_KEY,
-    SELECTED_VARIANTS_INDEXES_KEY,
+    SELECTED_VARIANTS_KEY,
     SET_RESULT_VARIANT_KEY
   } from '../decorators/injection.consts';
 
@@ -38,13 +42,13 @@
   })
   export default class ResultSelector extends Vue {
     @XInject(SET_RESULT_VARIANT_KEY)
-    public setResultVariant!: (level: number, variantIndex: number) => void;
+    public setResultVariant!: (level: number, variant: ResultVariant) => void;
 
     @XInject(RESULT_KEY)
     public result!: Result;
 
-    @XInject(SELECTED_VARIANTS_INDEXES_KEY)
-    public selectedIndexes!: number[];
+    @XInject(SELECTED_VARIANTS_KEY)
+    public selectedVariants!: ResultVariant[];
 
     @Prop({
       required: true
@@ -55,19 +59,15 @@
       if (this.level === 0) {
         return this.result.variants;
       }
-      return this.selectedIndexes.slice(1, this.level).reduce((selectedVariant, selectedIndex) => {
-        return selectedVariant?.variants?.[selectedIndex];
-      }, this.result.variants?.[this.selectedIndexes[0]])?.variants;
+      return this.selectedVariants[this.level - 1].variants;
     }
 
     public get selectedVariant(): ResultVariant | undefined {
-      return this.variants?.[this.selectedIndexes[this.level]];
+      return this.variants?.find(variant => variant === this.selectedVariants[this.level]);
     }
 
     selectVariant(variant: ResultVariant): void {
-      if (this.variants) {
-        this.setResultVariant(this.level, this.variants.indexOf(variant));
-      }
+      this.setResultVariant(this.level, variant);
     }
   }
 </script>
