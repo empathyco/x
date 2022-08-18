@@ -4,14 +4,14 @@ import { mount, Wrapper } from '@vue/test-utils';
 import { Result } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import ResultProvider from '../result-provider.vue';
-import { createResultStub } from '../../../../__stubs__/index';
-import { findTestDataById, getDataTestSelector } from '../../../../__tests__/utils';
-import { XInject } from '../../../../components/decorators/injection.decorators';
+import { createResultStub } from '../../../__stubs__/results-stubs.factory';
+import { findTestDataById, getDataTestSelector } from '../../../__tests__/utils';
+import { XInject } from '../../decorators/injection.decorators';
 import {
   RESULT_KEY,
   SELECTED_VARIANTS_INDEXES_KEY,
   SET_RESULT_VARIANT_KEY
-} from '../../../../components/index';
+} from '../../decorators/injection.consts';
 
 const renderResultProvider = ({
   result = createResultStub('jacket'),

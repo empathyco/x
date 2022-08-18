@@ -2,12 +2,12 @@
   import Vue, { VNode, CreateElement } from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { Result } from '@empathyco/x-types';
-  import { XProvide } from '../../../components/decorators/injection.decorators';
+  import { XProvide } from '../decorators/injection.decorators';
   import {
     RESULT_KEY,
     SELECTED_VARIANTS_INDEXES_KEY,
     SET_RESULT_VARIANT_KEY
-  } from '../../../components/index';
+  } from '../decorators/injection.consts';
 
   @Component
   export default class ResultProvider extends Vue {

@@ -2,8 +2,8 @@ import Vue from 'vue';
 import { Wrapper, mount } from '@vue/test-utils';
 import { Result } from '@empathyco/x-types';
 import ResultSelector from '../result-selector.vue';
-import { createResultStub } from '../../../../__stubs__/index';
-import { findTestDataById, getDataTestSelector } from '../../../../__tests__/utils';
+import { createResultStub } from '../../../__stubs__/results-stubs.factory';
+import { findTestDataById, getDataTestSelector } from '../../../__tests__/utils';
 
 const renderResultSelector = ({
   result = createResultStub('jacket', {

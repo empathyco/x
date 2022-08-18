@@ -23,13 +23,13 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { Result, ResultVariant } from '@empathyco/x-types';
-  import { NoElement } from '../../../components/no-element';
-  import { XInject } from '../../../components/decorators/injection.decorators';
+  import { NoElement } from '../no-element';
+  import { XInject } from '../decorators/injection.decorators';
   import {
     RESULT_KEY,
     SELECTED_VARIANTS_INDEXES_KEY,
     SET_RESULT_VARIANT_KEY
-  } from '../../../components/index';
+  } from '../decorators/injection.consts';
 
   @Component({
     components: {
