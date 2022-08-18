@@ -59,7 +59,7 @@
       if (this.level === 0) {
         return this.result.variants;
       }
-      return this.selectedVariants[this.level - 1].variants;
+      return this.selectedVariants[this.level - 1]?.variants;
     }
 
     public get selectedVariant(): ResultVariant | undefined {
