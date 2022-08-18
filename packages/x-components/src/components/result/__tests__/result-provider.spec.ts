@@ -1,8 +1,7 @@
-import Vue, { VueConstructor } from 'vue';
+import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import { mount, Wrapper } from '@vue/test-utils';
 import { Result, ResultVariant } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
 import ResultProvider from '../result-provider.vue';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { findTestDataById, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
@@ -15,9 +14,32 @@ import {
 import { XPlugin } from '../../../plugins/index';
 
 const renderResultProvider = ({
-  result = createResultStub('jacket'),
-  template = '',
-  components = {}
+  result = createResultStub('jacket', {
+    variants: [
+      {
+        name: 'red jacket',
+        images: ['red-jacket-image'],
+        variants: [
+          {
+            name: 'red jacket XL'
+          },
+          {
+            name: 'red jacket L'
+          }
+        ]
+      },
+      {
+        name: 'blue jacket',
+        images: ['blue-jacket-image'],
+        variants: [
+          {
+            name: 'blue jacket L'
+          }
+        ]
+      }
+    ]
+  }),
+  template = ''
 }: ResultProviderOptions = {}): ResultProviderApi => {
   const [, localVue] = installNewXPlugin();
 
@@ -53,8 +75,7 @@ const renderResultProvider = ({
         </ResultProvider>`,
       components: {
         ResultProvider,
-        Child,
-        ...components
+        Child
       }
     },
     {
@@ -88,34 +109,7 @@ describe('result with variants provider', () => {
   });
 
   it('provides a callback to set the selected variant', async () => {
-    const result = createResultStub('jacket', {
-      variants: [
-        {
-          name: 'red jacket',
-          images: ['red-jacket-image'],
-          variants: [
-            {
-              name: 'red jacket XL'
-            },
-            {
-              name: 'red jacket L'
-            }
-          ]
-        },
-        {
-          name: 'blue jacket',
-          images: ['blue-jacket-image'],
-          variants: [
-            {
-              name: 'blue jacket L'
-            }
-          ]
-        }
-      ]
-    });
-
     const { wrapper } = renderResultProvider({
-      result,
       template: `
         <Child :result="result" #default="{setResultVariant}">
           <button
@@ -153,21 +147,11 @@ describe('result with variants provider', () => {
   });
 
   it('provides the original result', async () => {
-    const { wrapper } = renderResultProvider({
-      result: createResultStub('tshirt', {
-        variants: [
-          {
-            name: 'black tshirt'
-          },
-          {
-            name: 'white tshirt'
-          }
-        ]
-      }),
+    const { wrapper, result } = renderResultProvider({
       template: `
         <Child :result="result" #default="{originalResult, setResultVariant, selectedIndexes}">
           <button data-test="variant-button" @click="setResultVariant(0, result.variants[0])">
-            Select black shirt
+            Select first variant
           </button>
           <span data-test="result-name">{{ result.name }}</span>
           <span data-test="original-result-name">{{ originalResult.name }}</span>
@@ -177,22 +161,12 @@ describe('result with variants provider', () => {
     const button = wrapper.find(getDataTestSelector('variant-button'));
     await button.trigger('click');
 
-    expect(wrapper.find(getDataTestSelector('result-name')).text()).toBe('black tshirt');
-    expect(wrapper.find(getDataTestSelector('original-result-name')).text()).toBe('tshirt');
+    expect(wrapper.find(getDataTestSelector('result-name')).text()).toBe(result.variants?.[0].name);
+    expect(wrapper.find(getDataTestSelector('original-result-name')).text()).toBe(result.name);
   });
 
   it('provides the selected variants', async () => {
-    const { wrapper } = renderResultProvider({
-      result: createResultStub('shoes', {
-        variants: [
-          {
-            name: 'white shoes'
-          },
-          {
-            name: 'black shoes'
-          }
-        ]
-      }),
+    const { wrapper, result } = renderResultProvider({
       template: `
         <Child :result="result" #default="{ setResultVariant, selectedVariants }">
           <button data-test="variant-button" @click="setResultVariant(0, result.variants[0])">
@@ -213,11 +187,11 @@ describe('result with variants provider', () => {
 
     await buttons.at(0).trigger('click');
 
-    expect(selectedIndex.text()).toBe('white shoes');
+    expect(selectedIndex.text()).toBe(result.variants?.[0].name);
 
     await buttons.at(1).trigger('click');
 
-    expect(selectedIndex.text()).toBe('black shoes');
+    expect(selectedIndex.text()).toBe(result.variants?.[1].name);
   });
 
   it('emits UserSelectedAResultVariant event when a variant is selected', async () => {
@@ -227,17 +201,7 @@ describe('result with variants provider', () => {
           <button data-test="variant-button" @click="setResultVariant(0, result.variants[0])">
             Select first variant
           </button>
-        </Child>`,
-      result: createResultStub('tshirt', {
-        variants: [
-          {
-            name: 'red tshirt'
-          },
-          {
-            name: 'blue tshirt'
-          }
-        ]
-      })
+        </Child>`
     });
     const eventsSpy = jest.spyOn(XPlugin.bus, 'emit');
 
@@ -261,7 +225,6 @@ describe('result with variants provider', () => {
 interface ResultProviderOptions {
   result?: Result;
   template?: string;
-  components?: Dictionary<VueConstructor>;
 }
 
 interface ResultProviderApi {
