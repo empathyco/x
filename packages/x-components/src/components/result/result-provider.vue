@@ -105,3 +105,89 @@
     }
   }
 </script>
+
+<docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+[`UserSelectedAResultVariant`](./../../api/x-components.userselectedaresultvariant.md).
+
+## See it in action
+
+This component is intended to be used in conjunction with the `ResultSelector` component.
+
+The result exposed in the default slot will contain the data of the selected variant.
+
+```vue
+<template>
+  <ResultProvider :result="result" #default="{ result }">
+    <p>Result name: {{ result.name }}</p>
+
+    <h1>Select color</h1>
+    <ResultSelector :level="0" #variant="{ variant, selectVariant }">
+      <button @click="selectVariant">{{ variant.name }}</button>
+    </ResultSelector>
+
+    <h1>Select size</h1>
+    <ResultSelector :level="1" #variant="{ variant, selectVariant }">
+      <button @click="selectVariant">{{ variant.name }}</button>
+    </ResultSelector>
+  </ResultProvider>
+</template>
+
+<script>
+  import { ResultProvider, ResultSelector } from '@empathyco/x-components';
+
+  export default {
+    name: 'ResultProviderDemo',
+    components: {
+      ResultProvider,
+      ResultSelector
+    },
+    data() {
+      return {
+        result: {
+          id: 'jacket',
+          modelName: 'Result',
+          type: 'Product',
+          isWishlisted: false,
+          identifier: { value: 'jacket' },
+          images: [],
+          name: 'jacket',
+          price: { hasDiscount: false, originalValue: 10, value: 10 },
+          url: '/products/jacket',
+          variants: [
+            {
+              name: 'red',
+              variants: [
+                {
+                  name: 'red XL'
+                },
+                {
+                  name: 'red L'
+                }
+              ]
+            },
+            {
+              name: 'blue',
+              variants: [
+                {
+                  name: 'blue S'
+                },
+                {
+                  name: 'blue M'
+                },
+                {
+                  name: 'blue L'
+                }
+              ]
+            }
+          ]
+        }
+      };
+    }
+  };
+</script>
+```
+</docs>
