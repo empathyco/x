@@ -12,6 +12,7 @@ FilterEntityFactory.instance.registerModifierByFilterModelName(
   'HierarchicalFilter',
   SingleSelectModifier
 );
+import './tailwind/index.css';
 
 const installer = new XInstaller({
   ...baseInstallXOptions,

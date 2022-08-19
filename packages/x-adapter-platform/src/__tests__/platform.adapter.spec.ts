@@ -512,7 +512,7 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
       'https://api.staging.empathy.co/tagging/v1/track/empathy/click?filtered=false&follow=false&lang=en&origin=search_box%3Anone&page=1&position=1&productId=12345-U&q=12345&scope=desktop&spellcheck=false&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree',
-      { keepalive: true }
+      { keepalive: true, signal: expect.anything() }
     );
   });
 });

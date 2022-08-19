@@ -9,7 +9,6 @@ import styles from 'rollup-plugin-styles';
 import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
 import packageJSON from '../package.json';
-import postcssConfig from '../.postcssrc';
 import { normalizePath } from './build.utils';
 import { apiDocumentation } from './docgen/documentation.rollup-plugin';
 import {
@@ -79,6 +78,17 @@ export const rollupConfig = createRollupOptions({
         ]
       }
     }),
+    vue({
+      css: false,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore Undocumented option to disable vue sourcemap generation because it breaks if
+      // lang is set to ts:
+      // https://github.com/vuejs/rollup-plugin-vue/issues/272#issuecomment-491721842
+      needMap: false,
+      style: {
+        postcssCleanOptions: { disabled: true }
+      }
+    }),
     styles({
       mode: [
         'inject',
@@ -88,17 +98,6 @@ export const rollupConfig = createRollupOptions({
             id
           )}',{source:${varname}})`
       ]
-    }),
-    vue({
-      css: true,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore Undocumented option to disable vue sourcemap generation because it breaks if
-      // lang is set to ts:
-      // https://github.com/vuejs/rollup-plugin-vue/issues/272#issuecomment-491721842
-      needMap: false,
-      style: {
-        postcssPlugins: postcssConfig.plugins
-      }
     }),
     generateEntryFiles({
       buildPath,
