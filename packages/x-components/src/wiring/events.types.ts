@@ -177,6 +177,11 @@ export interface XEventsTypes
    * Payload: none.
    */
   UserReachedEmpathizeTop: void;
+  /**
+   * The user selected a result variant.
+   * Payload: And object containing the result, the selected variant and the level of the selected
+   * variant.
+   */
   UserSelectedAResultVariant: { result: Result; variant: ResultVariant; level: number };
   /**
    * User selected any kind of suggestion (query-suggestion, popular-search...)
