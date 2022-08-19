@@ -46,11 +46,10 @@
     /**
      * Selects a variant of the result.
      * When called, it slices the array of selected variants to remove the selected child variants.
-     * Emits the {@link UserSelectedAResultVariant} when called.
+     * Emits the {@link XEventsTypes.UserSelectedAResultVariant} when called.
      *
      * @param level - The nest level where the variant is placed inside the result.
      * @param variant - The variant to set.
-     *
      * @public
      */
     @XProvide(SET_RESULT_VARIANT_KEY)
@@ -69,11 +68,10 @@
 
     /**
      * Render function of the provider.
-     * It exposes the {@link Result} with the selected variant merged.
+     * It exposes the result with the selected variant merged.
      *
      * @param createElement - Vue createElement method.
      * @returns - The VNode of the first element passed in the slot.
-     *
      * @public
      */
     render(createElement: CreateElement): VNode {
@@ -88,8 +86,7 @@
      * Merges the original result with the selected variant.
      * The merge is done with all the selected variants of the array.
      *
-     * @returns - The {@link Result} with the selected variant merged.
-     *
+     * @returns - The result with the selected variant merged.
      * @public
      */
     public get resultToProvide(): Result {
