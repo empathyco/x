@@ -49,6 +49,8 @@
 
   /**
    * Component to show and select the available variants of a product for a given nest level.
+   *
+   * @public
    */
   @Component({
     components: {
@@ -58,24 +60,32 @@
   export default class ResultSelector extends Vue {
     /**
      * Callback to be called when a variant is selected.
+     *
+     * @public
      */
     @XInject(SET_RESULT_VARIANT_KEY)
     public setResultVariant!: (level: number, variant: ResultVariant) => void;
 
     /**
      * The original result, used to retrieve the available variants for the level.
+     *
+     * @public
      */
     @XInject(RESULT_KEY)
     public result!: Result;
 
     /**
      * Array containing the selected variants.
+     *
+     * @public
      */
     @XInject(SELECTED_VARIANTS_KEY)
     public selectedVariants!: ResultVariant[];
 
     /**
      * The nest level of the variants to be rendered.
+     *
+     * @public
      */
     @Prop({
       required: true
@@ -86,10 +96,9 @@
      * It retrieves the available variants from the result.
      *
      * @returns - The variants of the result for the current level.
-     *
-     * @public
+     * @internal
      */
-    public get variants(): ResultVariant[] | undefined {
+    protected get variants(): ResultVariant[] | undefined {
       if (this.level === 0) {
         return this.result.variants;
       }
@@ -100,8 +109,9 @@
      * Gets the selected variant of the current level.
      *
      * @returns - The selected variant.
+     * @internal
      */
-    public get selectedVariant(): ResultVariant | undefined {
+    protected get selectedVariant(): ResultVariant | undefined {
       return this.variants?.find(variant => variant === this.selectedVariants[this.level]);
     }
 
@@ -109,8 +119,9 @@
      * Calls the provided method to select a variant.
      *
      * @param variant - Variant to select.
+     * @internal
      */
-    selectVariant(variant: ResultVariant): void {
+    protected selectVariant(variant: ResultVariant): void {
       this.setResultVariant(this.level, variant);
     }
   }

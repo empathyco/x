@@ -16,6 +16,8 @@
    *
    * It provides the original result, the array containing the selected variants and a callback to
    * set the selected variant to be used from a child.
+   *
+   * @public
    */
   @Component
   export default class ResultProvider extends Vue {
