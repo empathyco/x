@@ -68,7 +68,8 @@ const renderResultSelector = ({
     }
     return selectedIndexes.reduce(
       (selectedVariants, selectedIndex) => {
-        const selectedVariant = selectedVariants.at(-1)?.variants?.[selectedIndex];
+        const selectedVariant =
+          selectedVariants[selectedVariants.length - 1]?.variants?.[selectedIndex];
         if (selectedVariant) {
           selectedVariants.push(selectedVariant);
         }
