@@ -9,17 +9,48 @@
     SET_RESULT_VARIANT_KEY
   } from '../decorators/injection.consts';
 
+  /**
+   * Component that exposes the result merged with its selected variant in the default slot.
+   *
+   * It receives the original result and keeps track of the selected variant.
+   *
+   * It provides the original result, the array containing the selected variants and a callback to
+   * set the selected variant to be used from a child.
+   */
   @Component
   export default class ResultProvider extends Vue {
+    /**
+     * The original result containing the variants.
+     *
+     * @public
+     */
     @Prop({
       required: true
     })
     @XProvide(RESULT_KEY)
     public result!: Result;
 
+    /**
+     * Array to keep track of the selected variants of the result.
+     * Each position of the array is a nest level in the variants' hierarchy, so,
+     * the second position will contain a variant that is present inside the variant of the first
+     * position, and so on.
+     *
+     * @public
+     */
     @XProvide(SELECTED_VARIANTS_KEY)
     public selectedVariants: ResultVariant[] = [];
 
+    /**
+     * Selects a variant of the result.
+     * When called, it slices the array of selected variants to remove the selected child variants.
+     * Emits the {@link UserSelectedAResultVariant} when called.
+     *
+     * @param level - The nest level where the variant is placed inside the result.
+     * @param variant - The variant to set.
+     *
+     * @public
+     */
     @XProvide(SET_RESULT_VARIANT_KEY)
     setResultVariant(level: number, variant: ResultVariant): void {
       if (this.selectedVariants[level] === variant) {
@@ -34,6 +65,15 @@
       });
     }
 
+    /**
+     * Render function of the provider.
+     * It exposes the {@link Result} with the selected variant merged.
+     *
+     * @param createElement - Vue createElement method.
+     * @returns - The VNode of the first element passed in the slot.
+     *
+     * @public
+     */
     render(createElement: CreateElement): VNode {
       return (
         this.$scopedSlots.default?.({
@@ -42,6 +82,14 @@
       );
     }
 
+    /**
+     * Merges the original result with the selected variant.
+     * The merge is done with all the selected variants of the array.
+     *
+     * @returns - The {@link Result} with the selected variant merged.
+     *
+     * @public
+     */
     public get resultToProvide(): Result {
       if (!this.selectedVariants) {
         return this.result;
