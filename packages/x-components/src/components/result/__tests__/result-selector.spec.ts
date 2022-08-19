@@ -50,16 +50,23 @@ const renderResultSelector = ({
   level = 0,
   setResultVariant = jest.fn()
 }: ResultSelectorOptions = {}): ResultSelectorApi => {
+  /**
+   * Helper method to get an array of selected variants from an array of selected indexes.
+   * This is useful to avoid complicating the tests passing the arrays of variants.
+   *
+   * @param result - The result containing the variants.
+   * @param selectedIndexes - The indexes of the selected variants.
+   *
+   * @returns The selected variants.
+   */
   function getSelectedVariantsFromIndexes(
     result: Result,
-    level: number,
     selectedIndexes: number[]
   ): ResultVariant[] | undefined {
     if (!result.variants) {
       return [];
     }
-
-    return selectedIndexes.slice(1, level).reduce(
+    return selectedIndexes.reduce(
       (selectedVariants, selectedIndex) => {
         const selectedVariant = selectedVariants.at(-1)?.variants?.[selectedIndex];
         if (selectedVariant) {
@@ -71,9 +78,7 @@ const renderResultSelector = ({
     );
   }
 
-  const selectedVariants = result
-    ? getSelectedVariantsFromIndexes(result, level, selectedIndexes)
-    : [];
+  const selectedVariants = result ? getSelectedVariantsFromIndexes(result, selectedIndexes) : [];
 
   const wrapper = mount(
     {
@@ -255,16 +260,30 @@ describe('variant result selector', () => {
   });
 });
 
+/**
+ * The options for the `renderResultSelector` function.
+ */
 interface ResultSelectorOptions {
+  /** The template to render. */
   template?: string;
+  /** The {@link Result} to inject in the selector component. */
   result?: Result | null;
+  /** The indexes of the selected variants to inject. */
   selectedIndexes?: number[];
+  /** The level of the variants to show in the selector component. */
   level?: number;
+  /** The callback to select the result variant to be injected. A jest mock function by default. */
   setResultVariant?: (level: number, variant: ResultVariant) => void;
 }
 
+/**
+ * Test API for the {@link ResultSelector} component.
+ */
 interface ResultSelectorApi {
+  /** The wrapper for {@link ResultSelector} component. */
   wrapper: Wrapper<Vue>;
+  /** The injected result. */
   result: Result | null;
+  /** The injected setResultVariant callback. A jest mock function by default. */
   setResultVariant: (level: number, variant: ResultVariant) => void;
 }

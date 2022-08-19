@@ -43,6 +43,10 @@ const renderResultProvider = ({
 }: ResultProviderOptions = {}): ResultProviderApi => {
   const [, localVue] = installNewXPlugin();
 
+  /**
+   * Component to test the provided items of the provider.
+   * It exposes these items in the default slot to facilitate the tests.
+   */
   @Component({
     template: `
       <div>
@@ -222,12 +226,22 @@ describe('result with variants provider', () => {
   });
 });
 
+/**
+ * The options for the `renderResultProvider` function.
+ */
 interface ResultProviderOptions {
+  /** The result containing the variants. */
   result?: Result;
+  /** The template to render inside the provider's default slot. */
   template?: string;
 }
 
+/**
+ * Test API for the {@link ResultProvider} component.
+ */
 interface ResultProviderApi {
+  /** The wrapper for {@link ResultProvider} component. */
   wrapper: Wrapper<Vue>;
+  /** The result used in the provider. */
   result: Result;
 }
