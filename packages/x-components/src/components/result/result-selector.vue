@@ -1,5 +1,5 @@
 <template>
-  <NoElement v-if="result && variants" data-test="variant-container">
+  <NoElement v-if="result && variants" class="x-result-selector" data-test="variant-container">
     <!--
       @slot Variants list
         @binding {ResultVariant[]} variants - Array containing the available variants
@@ -7,8 +7,13 @@
         @binding {(variant: ResultVariant) => void} selectVariant - Callback to select a variant
     -->
     <slot :variants="variants" :selectedVariant="selectedVariant" :selectVariant="selectVariant">
-      <ul>
-        <li v-for="(variant, index) in variants" :key="index" data-test="variant-item">
+      <ul class="x-list x-result-selector__list">
+        <li
+          v-for="(variant, index) in variants"
+          :key="index"
+          class="x-result-selector__item"
+          data-test="variant-item"
+        >
           <!--
             @slot Variant item
               @binding {ResultVariant} variant - The variant item
