@@ -126,3 +126,206 @@
     }
   }
 </script>
+
+<docs lang="mdx">
+## Events
+
+This component doesn't emit events.
+
+## See it in action
+
+Here you have a basic example of how the ResultSelector component is rendered.
+
+Take into account that this component **must** be a child of a `ResultProvider` component.
+
+Also, the component is intended to be used overwriting the content with the slots.
+
+By default it will render a list of buttons containing the available variants.
+
+This component only has a required `level` prop, that indicates the level of the variants to be
+rendered.
+
+```vue
+<template>
+  <ResultProvider :result="result" #default="{ result }">
+    <p>Result name: {{ result.name }}</p>
+
+    <h1>Select color</h1>
+    <ResultSelector :level="0" #variant="{ variant, selectVariant }" />
+
+    <h1>Select size</h1>
+    <ResultSelector :level="1" #variant="{ variant, selectVariant }" />
+  </ResultProvider>
+</template>
+
+<script>
+  import { ResultProvider, ResultSelector } from '@empathyco/x-components';
+
+  export default {
+    name: 'ResultProviderDemo',
+    components: {
+      ResultProvider,
+      ResultSelector
+    },
+    data() {
+      return {
+        result: {
+          id: 'jacket',
+          modelName: 'Result',
+          type: 'Product',
+          isWishlisted: false,
+          identifier: { value: 'jacket' },
+          images: [],
+          name: 'jacket',
+          price: { hasDiscount: false, originalValue: 10, value: 10 },
+          url: '/products/jacket',
+          variants: [
+            {
+              name: 'red',
+              variants: [
+                {
+                  name: 'red XL'
+                },
+                {
+                  name: 'red L'
+                }
+              ]
+            },
+            {
+              name: 'blue',
+              variants: [
+                {
+                  name: 'blue S'
+                },
+                {
+                  name: 'blue M'
+                },
+                {
+                  name: 'blue L'
+                }
+              ]
+            }
+          ]
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Play with the default slot
+
+In this example the default slot is used to customize the list.
+
+```vue
+<template>
+  <ResultProvider :result="result" #default="{ result }">
+    <p>Result name: {{ result.name }}</p>
+
+    <ResultSelector :level="0" #default="{ variants, selectedVariant, selectVariant }">
+      <div>
+        <p v-if="selectedVariant">Selected variant: {{ selectedVariant.name }}</p>
+        <ul class="x-list x-list--horizontal">
+          <li v-for="(variant, index) in variants" :key="index">
+            <button @click="selectVariant(variant)">{{ variant.name }}</button>
+          </li>
+        </ul>
+      </div>
+    </ResultSelector>
+  </ResultProvider>
+</template>
+
+<script>
+  import { ResultProvider, ResultSelector } from '@empathyco/x-components';
+
+  export default {
+    name: 'ResultProviderDemo',
+    components: {
+      ResultProvider,
+      ResultSelector
+    },
+    data() {
+      return {
+        result: {
+          id: 'jacket',
+          modelName: 'Result',
+          type: 'Product',
+          isWishlisted: false,
+          identifier: { value: 'jacket' },
+          images: [],
+          name: 'jacket',
+          price: { hasDiscount: false, originalValue: 10, value: 10 },
+          url: '/products/jacket',
+          variants: [
+            {
+              name: 'red'
+            },
+            {
+              name: 'blue'
+            }
+          ]
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Play with variant-slot
+
+In this example the variant-slot is used to customize the variant item.
+
+The variant will be rendered inside a list.
+
+```vue
+<template>
+  <ResultProvider :result="result" #default="{ result }">
+    <p>Result name: {{ result.name }}</p>
+
+    <ResultSelector :level="0" #variant="{ variant, isSelected, selectVariant }">
+      <div>
+        <button @click="selectVariant">
+          {{ variant.name }}
+          <span v-if="isSelected">SELECTED!</span>
+        </button>
+      </div>
+    </ResultSelector>
+  </ResultProvider>
+</template>
+
+<script>
+  import { ResultProvider, ResultSelector } from '@empathyco/x-components';
+
+  export default {
+    name: 'ResultProviderDemo',
+    components: {
+      ResultProvider,
+      ResultSelector
+    },
+    data() {
+      return {
+        result: {
+          id: 'jacket',
+          modelName: 'Result',
+          type: 'Product',
+          isWishlisted: false,
+          identifier: { value: 'jacket' },
+          images: [],
+          name: 'jacket',
+          price: { hasDiscount: false, originalValue: 10, value: 10 },
+          url: '/products/jacket',
+          variants: [
+            {
+              name: 'red'
+            },
+            {
+              name: 'blue'
+            }
+          ]
+        }
+      };
+    }
+  };
+</script>
+```
+</docs>
