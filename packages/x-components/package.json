@@ -80,7 +80,7 @@
     "@cypress/webpack-dev-server": "~1.8.4",
     "@empathyco/x-adapter-platform": "^1.0.0-alpha.31",
     "@empathyco/x-tailwindcss": "^0.2.0-alpha.10",
-    "@microsoft/api-documenter": "~7.15.3",
+    "@microsoft/api-documenter": "~7.19.5",
     "@microsoft/api-extractor": "~7.19.4",
     "@rollup/plugin-commonjs": "~21.0.1",
     "@testing-library/jest-dom": "~5.11.1",
