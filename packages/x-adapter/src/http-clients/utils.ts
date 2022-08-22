@@ -13,7 +13,8 @@ import { RequestError } from './errors/request-error';
  */
 export function toJson(response: Response): Promise<any> {
   if (response.ok) {
-    return response.text().then(text => text && JSON.parse(text));
+    // eslint-disable-next-line @typescript-eslint/no-extra-parens
+    return response.text().then(text => (text ? JSON.parse(text) : {}));
   } else {
     throw new RequestError('Request failed', response);
   }

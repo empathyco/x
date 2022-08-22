@@ -18,7 +18,7 @@ export function getFetchMock(
             status: 200,
             json: () => Promise.resolve(response),
             text: () => Promise.resolve(JSON.stringify(response))
-          } as any);
+          } as Response);
         }
       });
     });

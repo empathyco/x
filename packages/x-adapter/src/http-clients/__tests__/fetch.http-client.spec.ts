@@ -98,19 +98,24 @@ describe('fetch httpClient testing', () => {
     expect(
       await Promise.all([
         fetchHttpClient(endpoint, {
-          cancelable: false,
+          id: 'unique-id',
           parameters: {
             q: 'shirt'
           }
         }),
         fetchHttpClient(endpoint, {
-          cancelable: false,
+          parameters: {
+            q: 'shirt'
+          }
+        }),
+        fetchHttpClient(endpoint, {
+          id: 'another-unique-id',
           parameters: {
             q: 'shirt'
           }
         })
       ])
-    ).toHaveLength(2);
+    ).toHaveLength(3);
   });
 
   it('throws an exception if the response status is not OK', async () => {
