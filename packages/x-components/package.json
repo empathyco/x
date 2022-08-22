@@ -23,15 +23,16 @@
     "ux",
     "vue"
   ],
-  "main": "./core/index.js",
-  "module": "./core/index.js",
-  "types": "./core/index.d.ts",
+  "main": "./js/index.js",
+  "module": "./js/index.js",
+  "types": "./types/index.d.ts",
   "sideEffects": [
     "./tests/**/*",
     "**/*.scss",
     "**/*.scss.js",
     "**/*.css",
-    "**/*.vue"
+    "**/*.vue",
+    "**/*.vue.js"
   ],
   "repository": {
     "type": "git",

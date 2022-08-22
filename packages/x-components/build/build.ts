@@ -19,22 +19,26 @@ build().catch(console.error);
  */
 async function build(): Promise<any> {
   try {
-    const bundle = await rollup(rollupConfig);
-    await bundle.write(rollupConfig.output);
+    const browserConfig = rollupConfig('browser');
+    const browserBundle = await rollup(browserConfig);
+    await browserBundle.write(browserConfig.output);
+    const ssrConfig = rollupConfig('ssr');
+    const ssrBundle = await rollup(ssrConfig);
+    await ssrBundle.write(ssrConfig.output);
 
-    const bundleCssComponents = await rollup(cssComponentsRollupConfig);
-    await bundleCssComponents.write(cssComponentsRollupConfig.output);
-
-    const bundleCssBase = await rollup(cssBaseRollupConfig);
-    await bundleCssBase.write(cssBaseRollupConfig.output);
-
-    const bundleCssDefaultTheme = await rollup(cssDefaultThemeRollupConfig);
-    await bundleCssDefaultTheme.write(cssDefaultThemeRollupConfig.output);
-
+    // const bundleCssComponents = await rollup(cssComponentsRollupConfig);
+    // await bundleCssComponents.write(cssComponentsRollupConfig.output);
+    //
+    // const bundleCssBase = await rollup(cssBaseRollupConfig);
+    // await bundleCssBase.write(cssBaseRollupConfig.output);
+    //
+    // const bundleCssDefaultTheme = await rollup(cssDefaultThemeRollupConfig);
+    // await bundleCssDefaultTheme.write(cssDefaultThemeRollupConfig.output);
+    //
     const bundleCssFullTheme = await rollup(cssFullThemeRollupConfig);
     await bundleCssFullTheme.write(cssFullThemeRollupConfig.output);
 
-    return removeTempFiles();
+    // return removeTempFiles();
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Build failed: ', (error as Error).message);
