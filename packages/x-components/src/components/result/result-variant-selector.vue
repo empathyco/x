@@ -28,6 +28,11 @@
             :selectVariant="() => selectVariant(variant)"
           >
             <button @click="selectVariant(variant)" data-test="variant-button" class="x-button">
+              <!--
+                @slot Variant content
+                  @binding {ResultVariant} variant - The variant item
+                  @binding {boolean} isSelected - Indicates if the variant is selected
+              -->
               <slot
                 name="variant-content"
                 :variant="variant"
