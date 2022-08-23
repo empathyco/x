@@ -187,7 +187,7 @@ rendered.
   import { VariantsResultProvider, ResultVariantSelector } from '@empathyco/x-components';
 
   export default {
-    name: 'ResultProviderDemo',
+    name: 'ResultVariantSelectorDemo',
     components: {
       VariantsResultProvider,
       ResultVariantSelector
@@ -264,7 +264,7 @@ In this example the default slot is used to customize the list.
   import { VariantsResultProvider, ResultVariantSelector } from '@empathyco/x-components';
 
   export default {
-    name: 'ResultProviderDemo',
+    name: 'ResultVariantSelectorDemo',
     components: {
       VariantsResultProvider,
       ResultVariantSelector
@@ -322,7 +322,62 @@ The variant will be rendered inside a list.
   import { VariantsResultProvider, ResultVariantSelector } from '@empathyco/x-components';
 
   export default {
-    name: 'ResultProviderDemo',
+    name: 'ResultVariantSelectorDemo',
+    components: {
+      VariantsResultProvider,
+      ResultVariantSelector
+    },
+    data() {
+      return {
+        result: {
+          id: 'jacket',
+          modelName: 'Result',
+          type: 'Product',
+          isWishlisted: false,
+          identifier: { value: 'jacket' },
+          images: [],
+          name: 'jacket',
+          price: { hasDiscount: false, originalValue: 10, value: 10 },
+          url: '/products/jacket',
+          variants: [
+            {
+              name: 'red'
+            },
+            {
+              name: 'blue'
+            }
+          ]
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Play with variant-content slot
+
+In this example the variant-content slot is used to customize the content of the default variant
+button.
+
+```vue
+<template>
+  <VariantsResultProvider :result="result" #default="{ result }">
+    <p>Result name: {{ result.name }}</p>
+
+    <ResultVariantSelector #variant-content="{ variant, isSelected }">
+      <div>
+        {{ variant.name }}
+        <span v-if="isSelected">SELECTED!</span>
+      </div>
+    </ResultVariantSelector>
+  </VariantsResultProvider>
+</template>
+
+<script>
+  import { VariantsResultProvider, ResultVariantSelector } from '@empathyco/x-components';
+
+  export default {
+    name: 'ResultVariantSelectorDemo',
     components: {
       VariantsResultProvider,
       ResultVariantSelector
