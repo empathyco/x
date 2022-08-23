@@ -20,7 +20,7 @@ describe('http-client utils tests', () => {
       expect(response).toEqual({});
     });
 
-    it('returns an empty string if the response is empty', async () => {
+    it('returns an empty object if the response is empty', async () => {
       const mockedResponse = {
         ok: true,
         text: () => Promise.resolve(''),
@@ -30,7 +30,7 @@ describe('http-client utils tests', () => {
       const response = await toJson(mockedResponse as unknown as Response).then(
         response => response
       );
-      expect(response).toEqual('');
+      expect(response).toEqual({});
     });
 
     it('throws a RequestError if the response is not ok', () => {
