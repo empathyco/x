@@ -33,7 +33,7 @@ Don't quite understand ID results? Learn more about
 - Show as many ID Results as you want.
 - Animate the display of ID Results at your ease.
 - Customize content. Show whatever you need: text, images, icons.
-- Extend the performance with [results-related components](results-display.md).
+- Extend the performance with [results-related components](product-results-ui.md).
 - Meet your own code reference conventions and standards with multiple product reference patterns.
 
 ::: interact
@@ -43,4 +43,3 @@ experience.
 
 :::
 
-<!-- (To see Identifier Results in action, play with our interactive examples) -->
