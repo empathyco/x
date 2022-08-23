@@ -57,8 +57,7 @@
       if (this.selectedVariants[level] === variant) {
         return;
       }
-      this.selectedVariants = this.selectedVariants.slice(0, level);
-      this.$set(this.selectedVariants, level, variant);
+      this.selectedVariants.splice(level, Number.POSITIVE_INFINITY, variant);
       this.$x.emit('UserSelectedAResultVariant', {
         variant,
         level,

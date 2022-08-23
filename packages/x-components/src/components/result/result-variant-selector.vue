@@ -1,9 +1,5 @@
 <template>
-  <NoElement
-    v-if="result && variants"
-    class="x-result-variant-selector"
-    data-test="variant-container"
-  >
+  <NoElement v-if="result && variants">
     <!--
       @slot Variants list
         @binding {ResultVariant[]} variants - Array containing the available variants
@@ -28,13 +24,9 @@
             name="variant"
             :variant="variant"
             :isSelected="variant === selectedVariant"
-            :selectVariant="
-              () => {
-                selectVariant(variant);
-              }
-            "
+            :selectVariant="() => selectVariant(variant)"
           >
-            <button @click="selectVariant(variant)" data-test="variant-button">
+            <button @click="selectVariant(variant)" data-test="variant-button" class="x-button">
               {{ variant }}
             </button>
           </slot>
@@ -58,6 +50,7 @@
 
   /**
    * Component to show and select the available variants of a product for a given nest level.
+   * TODO: Add logger warning on mount when result is not injected.
    *
    * @public
    */
