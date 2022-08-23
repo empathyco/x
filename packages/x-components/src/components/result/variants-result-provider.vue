@@ -89,7 +89,7 @@
      * @public
      */
     public get resultToProvide(): Result {
-      if (!this.selectedVariants) {
+      if (!this.selectedVariants.length) {
         return this.result;
       }
       const mergedResult = this.selectedVariants.reduce<Result>((result, variant) => {

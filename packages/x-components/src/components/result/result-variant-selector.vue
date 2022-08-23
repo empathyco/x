@@ -7,7 +7,7 @@
         @binding {(variant: ResultVariant) => void} selectVariant - Callback to select a variant
     -->
     <slot :variants="variants" :selectedVariant="selectedVariant" :selectVariant="selectVariant">
-      <ul class="x-list x-result-variant-selector__list">
+      <ul class="x-list x-result-variant-selector__list" data-test="variants-list">
         <li
           v-for="(variant, index) in variants"
           :key="index"
