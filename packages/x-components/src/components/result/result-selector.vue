@@ -141,7 +141,7 @@ This component doesn't emit events.
 
 Here you have a basic example of how the `ResultSelector` component is rendered.
 
-Take into account that this component **must** be a child of a `ResultProvider` component.
+Take into account that this component **must** be a child of a `VariantsResultProvider` component.
 
 Also, the component is intended to be used overwriting the content with the slots.
 
@@ -152,7 +152,7 @@ rendered.
 
 ```vue
 <template>
-  <ResultProvider :result="result" #default="{ result }">
+  <VariantsResultProvider :result="result" #default="{ result }">
     <p>Result name: {{ result.name }}</p>
 
     <h1>Select color</h1>
@@ -160,16 +160,16 @@ rendered.
 
     <h1>Select size</h1>
     <ResultSelector :level="1" #variant="{ variant, selectVariant }" />
-  </ResultProvider>
+  </VariantsResultProvider>
 </template>
 
 <script>
-  import { ResultProvider, ResultSelector } from '@empathyco/x-components';
+  import { VariantsResultProvider, ResultSelector } from '@empathyco/x-components';
 
   export default {
     name: 'ResultProviderDemo',
     components: {
-      ResultProvider,
+      VariantsResultProvider,
       ResultSelector
     },
     data() {
@@ -224,7 +224,7 @@ In this example the default slot is used to customize the list.
 
 ```vue
 <template>
-  <ResultProvider :result="result" #default="{ result }">
+  <VariantsResultProvider :result="result" #default="{ result }">
     <p>Result name: {{ result.name }}</p>
 
     <ResultSelector :level="0" #default="{ variants, selectedVariant, selectVariant }">
@@ -237,16 +237,16 @@ In this example the default slot is used to customize the list.
         </ul>
       </div>
     </ResultSelector>
-  </ResultProvider>
+  </VariantsResultProvider>
 </template>
 
 <script>
-  import { ResultProvider, ResultSelector } from '@empathyco/x-components';
+  import { VariantsResultProvider, ResultSelector } from '@empathyco/x-components';
 
   export default {
     name: 'ResultProviderDemo',
     components: {
-      ResultProvider,
+      VariantsResultProvider,
       ResultSelector
     },
     data() {
@@ -284,7 +284,7 @@ The variant will be rendered inside a list.
 
 ```vue
 <template>
-  <ResultProvider :result="result" #default="{ result }">
+  <VariantsResultProvider :result="result" #default="{ result }">
     <p>Result name: {{ result.name }}</p>
 
     <ResultSelector :level="0" #variant="{ variant, isSelected, selectVariant }">
@@ -295,16 +295,16 @@ The variant will be rendered inside a list.
         </button>
       </div>
     </ResultSelector>
-  </ResultProvider>
+  </VariantsResultProvider>
 </template>
 
 <script>
-  import { ResultProvider, ResultSelector } from '@empathyco/x-components';
+  import { VariantsResultProvider, ResultSelector } from '@empathyco/x-components';
 
   export default {
     name: 'ResultProviderDemo',
     components: {
-      ResultProvider,
+      VariantsResultProvider,
       ResultSelector
     },
     data() {

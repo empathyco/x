@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import { mount, Wrapper } from '@vue/test-utils';
 import { Result, ResultVariant } from '@empathyco/x-types';
-import ResultProvider from '../result-provider.vue';
+import VariantsResultProvider from '../variants-result-provider.vue';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { findTestDataById, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import { XInject } from '../../decorators/injection.decorators';
@@ -13,7 +13,7 @@ import {
 } from '../../decorators/injection.consts';
 import { XPlugin } from '../../../plugins/index';
 
-const renderResultProvider = ({
+const renderVariantsResultProvider = ({
   result = createResultStub('jacket', {
     variants: [
       {
@@ -40,7 +40,7 @@ const renderResultProvider = ({
     ]
   }),
   template = ''
-}: ResultProviderOptions = {}): ResultProviderApi => {
+}: VariantsResultProviderOptions = {}): VariantsResultProviderApi => {
   const [, localVue] = installNewXPlugin();
 
   /**
@@ -74,11 +74,11 @@ const renderResultProvider = ({
 
   const wrapper = mount(
     {
-      template: `<ResultProvider :result="result" #default="{ result }">
+      template: `<VariantsResultProvider :result="result" #default="{ result }">
           ${template}
-        </ResultProvider>`,
+        </VariantsResultProvider>`,
       components: {
-        ResultProvider,
+        VariantsResultProvider,
         Child
       }
     },
@@ -97,7 +97,7 @@ const renderResultProvider = ({
   );
 
   return {
-    wrapper: wrapper.findComponent(ResultProvider),
+    wrapper: wrapper.findComponent(VariantsResultProvider),
     result
   };
 };
@@ -108,12 +108,12 @@ describe('result with variants provider', () => {
       <span data-test="result-name">{{result.name}}</span>
     `;
     const result = createResultStub('tshirt');
-    const { wrapper } = renderResultProvider({ result, template });
+    const { wrapper } = renderVariantsResultProvider({ result, template });
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toBe('tshirt');
   });
 
   it('provides a callback to set the selected variant', async () => {
-    const { wrapper } = renderResultProvider({
+    const { wrapper } = renderVariantsResultProvider({
       template: `
         <Child :result="result" #default="{setResultVariant}">
           <button
@@ -151,7 +151,7 @@ describe('result with variants provider', () => {
   });
 
   it('provides the original result', async () => {
-    const { wrapper, result } = renderResultProvider({
+    const { wrapper, result } = renderVariantsResultProvider({
       template: `
         <Child :result="result" #default="{originalResult, setResultVariant, selectedIndexes}">
           <button data-test="variant-button" @click="setResultVariant(0, result.variants[0])">
@@ -170,7 +170,7 @@ describe('result with variants provider', () => {
   });
 
   it('provides the selected variants', async () => {
-    const { wrapper, result } = renderResultProvider({
+    const { wrapper, result } = renderVariantsResultProvider({
       template: `
         <Child :result="result" #default="{ setResultVariant, selectedVariants }">
           <button data-test="variant-button" @click="setResultVariant(0, result.variants[0])">
@@ -199,7 +199,7 @@ describe('result with variants provider', () => {
   });
 
   it('emits UserSelectedAResultVariant event when a variant is selected', async () => {
-    const { wrapper, result } = renderResultProvider({
+    const { wrapper, result } = renderVariantsResultProvider({
       template: `
         <Child :result="result" #default="{setResultVariant}">
           <button data-test="variant-button" @click="setResultVariant(0, result.variants[0])">
@@ -227,9 +227,9 @@ describe('result with variants provider', () => {
 });
 
 /**
- * The options for the `renderResultProvider` function.
+ * The options for the `renderVariantsResultProvider` function.
  */
-interface ResultProviderOptions {
+interface VariantsResultProviderOptions {
   /** The result containing the variants. */
   result?: Result;
   /** The template to render inside the provider's default slot. */
@@ -237,10 +237,10 @@ interface ResultProviderOptions {
 }
 
 /**
- * Test API for the {@link ResultProvider} component.
+ * Test API for the {@link VariantsResultProvider} component.
  */
-interface ResultProviderApi {
-  /** The wrapper for {@link ResultProvider} component. */
+interface VariantsResultProviderApi {
+  /** The wrapper for {@link VariantsResultProvider} component. */
   wrapper: Wrapper<Vue>;
   /** The result used in the provider. */
   result: Result;

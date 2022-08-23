@@ -20,7 +20,7 @@
    * @public
    */
   @Component
-  export default class ResultProvider extends Vue {
+  export default class VariantsResultProvider extends Vue {
     /**
      * The original result containing the variants.
      *
@@ -120,7 +120,7 @@ The result exposed in the default slot will contain the data of the selected var
 
 ```vue
 <template>
-  <ResultProvider :result="result" #default="{ result }">
+  <VariantsResultProvider :result="result" #default="{ result }">
     <p>Result name: {{ result.name }}</p>
 
     <h1>Select color</h1>
@@ -132,16 +132,16 @@ The result exposed in the default slot will contain the data of the selected var
     <ResultSelector :level="1" #variant="{ variant, selectVariant }">
       <button @click="selectVariant">{{ variant.name }}</button>
     </ResultSelector>
-  </ResultProvider>
+  </VariantsResultProvider>
 </template>
 
 <script>
-  import { ResultProvider, ResultSelector } from '@empathyco/x-components';
+  import { VariantsResultProvider, ResultSelector } from '@empathyco/x-components';
 
   export default {
-    name: 'ResultProviderDemo',
+    name: 'VariantsResultProviderDemo',
     components: {
-      ResultProvider,
+      VariantsResultProvider,
       ResultSelector
     },
     data() {
