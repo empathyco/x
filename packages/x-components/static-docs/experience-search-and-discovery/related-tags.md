@@ -27,9 +27,7 @@ Can't quite capture the concept? Learn more about
 
 :::
 
-[//]:
-  #
-  'You can configure the behaviour of Related Tags and decide whether they’re selectable or not. If Related Tags aren’t selectable, they modify the initial query syntax by adding the related-search keywords to the query term initially typed in the search bar. Otherwise, the initial query syntax will still remain so that shoppers can select or deselect Related Tags at their ease, exploring different options and combinations.'
+<!-- You can configure the behaviour of Related Tags and decide whether they’re selectable or not. If Related Tags aren’t selectable, they modify the initial query syntax by adding the related-search keywords to the query term initially typed in the search bar. Otherwise, the initial query syntax will still remain so that shoppers can select or deselect Related Tags at their ease, exploring different options and combinations. -->
 
 ## Tailor the web experience
 
@@ -38,16 +36,13 @@ Can't quite capture the concept? Learn more about
 - Show as many Related Tags as you want.
 - Animate the display of Related Tags at your ease.
 - Customize content. Show whatever you need: text, images, icons.
-
-[//]:
-  #
-  '* Choose if Related Tags are selectable or change the syntax of the initial query in the search box.'
+<!-- - Choose if Related Tags are selectable or change the syntax of the initial query in the search box. -->
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/related-tags/) your web
 experience.
 
 :::
 
-[//]: # 'tip To see Related Tags in action, play with our showcase'
+
