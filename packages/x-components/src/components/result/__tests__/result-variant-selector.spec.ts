@@ -114,6 +114,19 @@ describe('variant result selector', () => {
     expect(JSON.parse(button.text())).toEqual(result?.variants?.[0]);
   });
 
+  it('add selected class when a variant is selected', () => {
+    const className = 'x-result-variant-selector__item--is-selected';
+    const { wrapper } = renderResultVariantSelector({
+      selectedIndexes: [0]
+    });
+
+    const variantWrappers = wrapper.findAll(getDataTestSelector('variant-item'));
+    expect(variantWrappers.at(0).element).toHaveClass(className);
+    variantWrappers.wrappers.slice(1).forEach(wrapper => {
+      expect(wrapper.element).not.toHaveClass(className);
+    });
+  });
+
   it('renders the variants for the current level', () => {
     const template = `
         <ResultVariantSelector :level="level" #variant="{variant}">

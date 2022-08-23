@@ -12,6 +12,7 @@
           v-for="(variant, index) in variants"
           :key="index"
           class="x-result-variant-selector__item"
+          :class="{ 'x-result-variant-selector__item--is-selected': variantIsSelected(variant) }"
           data-test="variant-item"
         >
           <!--
@@ -23,7 +24,7 @@
           <slot
             name="variant"
             :variant="variant"
-            :isSelected="variant === selectedVariant"
+            :isSelected="variantIsSelected(variant)"
             :selectVariant="() => selectVariant(variant)"
           >
             <button @click="selectVariant(variant)" data-test="variant-button" class="x-button">
@@ -125,6 +126,17 @@
      */
     protected selectVariant(variant: ResultVariant): void {
       this.setResultVariant(this.level, variant);
+    }
+
+    /**
+     * Checks if a variant is selected.
+     *
+     * @param variant - Variant to check.
+     * @returns True if the variant is selected, false if not.
+     * @internal
+     */
+    protected variantIsSelected(variant: ResultVariant): boolean {
+      return this.selectedVariant === variant;
     }
   }
 </script>
