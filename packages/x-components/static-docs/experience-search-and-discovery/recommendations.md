@@ -21,7 +21,7 @@ this type of feature.
 ::: interact
 
 Can't quite capture the concept? Learn more about
-[Recommendations](../search/recommendations-overview.md).
+[Recommendations](/explore-empathy-platform/features/recommendations-overview.md).
 
 :::
 
@@ -36,9 +36,9 @@ Can't quite capture the concept? Learn more about
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/recommendations/x-components.recommendations.md) your web
 experience.
 
 :::
 
-[//]: # 'TIP To see Recommendations in action, play with our showcase.'
+
