@@ -30,7 +30,8 @@ To learn more about the display of results, see
 
 :::
 
-**A bunch of components for comprehensive product information** Decide whether you want to include
+**A bunch of components for comprehensive product information**  
+Decide whether you want to include
 the description for the resulting product, a picture, or even rating information:
 
 - **Image**. Include a picture of the product for better product recognition.&nbsp;(A)
@@ -71,10 +72,10 @@ experience.
 
 Traditionally, search results are displayed on the SERP after the query is launched or instantly as
 you type. However, result data is also used by features such as
-[Recommendations](/explore-empathy-platform/experience-search-&-discovery/recommendations.md) and
-[ID Results](/explore-empathy-platform/experience-search-&-discovery/id-results.md). You can combine
+[Recommendations](/explore-empathy-platform/experience-search-and-discovery/recommendations.md) and
+[ID Results](/explore-empathy-platform/experience-search-and-discovery/id-results.md). You can combine
 results-related components with these modules to get advanced display options. Include additional
 product information in Recommendations and Identifier Results such as prices and pictures for better
 recognition and understanding of the products displayed.
 
-[//]: # 'TIP: To see the product results in action, play with our showcase.'
+
