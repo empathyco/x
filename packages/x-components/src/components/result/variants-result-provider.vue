@@ -53,7 +53,7 @@
      * @public
      */
     @XProvide(SELECT_RESULT_VARIANT_KEY)
-    setResultVariant(level: number, variant: ResultVariant): void {
+    selectResultVariant(level: number, variant: ResultVariant): void {
       if (this.selectedVariants[level] === variant) {
         return;
       }

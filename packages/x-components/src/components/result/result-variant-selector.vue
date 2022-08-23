@@ -78,7 +78,7 @@
      * @public
      */
     @XInject(SELECT_RESULT_VARIANT_KEY)
-    public setResultVariant!: (level: number, variant: ResultVariant) => void;
+    public selectResultVariant!: (level: number, variant: ResultVariant) => void;
 
     /**
      * The original result, used to retrieve the available variants for the level.
@@ -136,7 +136,7 @@
      * @internal
      */
     protected selectVariant(variant: ResultVariant): void {
-      this.setResultVariant(this.level, variant);
+      this.selectResultVariant(this.level, variant);
     }
 
     /**
