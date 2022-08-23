@@ -114,7 +114,7 @@ A list of events that the component will emit:
 
 ## See it in action
 
-This component is intended to be used in conjunction with the `ResultSelector` component.
+This component is intended to be used in conjunction with the `ResultVariantSelector` component.
 
 The result exposed in the default slot will contain the data of the selected variant.
 
@@ -124,25 +124,25 @@ The result exposed in the default slot will contain the data of the selected var
     <p>Result name: {{ result.name }}</p>
 
     <h1>Select color</h1>
-    <ResultSelector :level="0" #variant="{ variant, selectVariant }">
+    <ResultVariantSelector :level="0" #variant="{ variant, selectVariant }">
       <button @click="selectVariant">{{ variant.name }}</button>
-    </ResultSelector>
+    </ResultVariantSelector>
 
     <h1>Select size</h1>
-    <ResultSelector :level="1" #variant="{ variant, selectVariant }">
+    <ResultVariantSelector :level="1" #variant="{ variant, selectVariant }">
       <button @click="selectVariant">{{ variant.name }}</button>
-    </ResultSelector>
+    </ResultVariantSelector>
   </VariantsResultProvider>
 </template>
 
 <script>
-  import { VariantsResultProvider, ResultSelector } from '@empathyco/x-components';
+  import { VariantsResultProvider, ResultVariantSelector } from '@empathyco/x-components';
 
   export default {
     name: 'VariantsResultProviderDemo',
     components: {
       VariantsResultProvider,
-      ResultSelector
+      ResultVariantSelector
     },
     data() {
       return {

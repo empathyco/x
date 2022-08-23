@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { Wrapper, mount } from '@vue/test-utils';
 import { Result, ResultVariant } from '@empathyco/x-types';
-import ResultSelector from '../result-selector.vue';
+import ResultVariantSelector from '../result-variant-selector.vue';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { findTestDataById, getDataTestSelector } from '../../../__tests__/utils';
 import {
@@ -10,7 +10,7 @@ import {
   SET_RESULT_VARIANT_KEY
 } from '../../decorators/injection.consts';
 
-const renderResultSelector = ({
+const renderResultVariantSelector = ({
   result = createResultStub('jacket', {
     variants: [
       {
@@ -45,11 +45,11 @@ const renderResultSelector = ({
       }
     ]
   }),
-  template = `<ResultSelector :level="level"/>`,
+  template = `<ResultVariantSelector :level="level"/>`,
   selectedIndexes = [],
   level = 0,
   setResultVariant = jest.fn()
-}: ResultSelectorOptions = {}): ResultSelectorApi => {
+}: ResultVariantSelectorOptions = {}): ResultVariantSelectorApi => {
   /**
    * Helper method to get an array of selected variants from an array of selected indexes.
    * This is useful to avoid complicating the tests passing the arrays of variants.
@@ -85,7 +85,7 @@ const renderResultSelector = ({
     {
       template,
       components: {
-        ResultSelector
+        ResultVariantSelector
       }
     },
     {
@@ -101,7 +101,7 @@ const renderResultSelector = ({
     }
   );
   return {
-    wrapper: wrapper.findComponent(ResultSelector),
+    wrapper: wrapper.findComponent(ResultVariantSelector),
     result,
     setResultVariant
   };
@@ -109,7 +109,7 @@ const renderResultSelector = ({
 
 describe('variant result selector', () => {
   it('renders the whole variant by default', () => {
-    const { wrapper, result } = renderResultSelector({
+    const { wrapper, result } = renderResultVariantSelector({
       level: 0
     });
     const button = wrapper.find(getDataTestSelector('variant-button'));
@@ -118,12 +118,12 @@ describe('variant result selector', () => {
 
   it('renders the variants for the current level', () => {
     const template = `
-        <ResultSelector :level="level" #variant="{variant}">
+        <ResultVariantSelector :level="level" #variant="{variant}">
           <span data-test="variant-name">{{variant.name}}</span>
-        </ResultSelector>
+        </ResultVariantSelector>
       `;
 
-    let { wrapper } = renderResultSelector({
+    let { wrapper } = renderResultVariantSelector({
       selectedIndexes: [0],
       level: 1,
       template
@@ -135,7 +135,7 @@ describe('variant result selector', () => {
     expect(variantWrappers.at(0).text()).toBe('XL');
     expect(variantWrappers.at(1).text()).toBe('L');
 
-    ({ wrapper } = renderResultSelector({
+    ({ wrapper } = renderResultVariantSelector({
       selectedIndexes: [1, 0],
       level: 2,
       template
@@ -150,11 +150,11 @@ describe('variant result selector', () => {
   });
 
   it('renders variants for the first level', () => {
-    const { wrapper, result } = renderResultSelector({
+    const { wrapper, result } = renderResultVariantSelector({
       template: `
-        <ResultSelector :level="level" #variant="{variant}">
+        <ResultVariantSelector :level="level" #variant="{variant}">
           <span data-test="variant-name">{{variant.name}}</span>
-        </ResultSelector>
+        </ResultVariantSelector>
       `
     });
 
@@ -164,7 +164,7 @@ describe('variant result selector', () => {
   });
 
   it('calls set result variant injected function when an option is clicked', async () => {
-    const { wrapper, setResultVariant, result } = renderResultSelector();
+    const { wrapper, setResultVariant, result } = renderResultVariantSelector();
 
     const variantWrapper = findTestDataById(wrapper, 'variant-button').at(1);
 
@@ -175,7 +175,7 @@ describe('variant result selector', () => {
   });
 
   it('wont render if no result is injected', () => {
-    const { wrapper } = renderResultSelector({
+    const { wrapper } = renderResultVariantSelector({
       result: null
     });
 
@@ -183,7 +183,7 @@ describe('variant result selector', () => {
   });
 
   it('wont render if the provided result does not have variants', () => {
-    const { wrapper } = renderResultSelector({
+    const { wrapper } = renderResultVariantSelector({
       result: createResultStub('jacket')
     });
 
@@ -191,9 +191,11 @@ describe('variant result selector', () => {
   });
 
   it('exposes variants, selectedVariant and selectVariant in the default slot', async () => {
-    const { wrapper, result, setResultVariant } = renderResultSelector({
+    const { wrapper, result, setResultVariant } = renderResultVariantSelector({
       template: `
-        <ResultSelector :level="level" #default="{variants, selectedVariant, selectVariant}" >
+        <ResultVariantSelector
+            :level="level"
+            #default="{variants, selectedVariant, selectVariant}" >
           <div>
             <button
                 v-for="(variant, index) in variants"
@@ -204,7 +206,7 @@ describe('variant result selector', () => {
               {{variant.name}}
             </button>
           </div>
-        </ResultSelector>
+        </ResultVariantSelector>
       `,
       selectedIndexes: [1],
       level: 0
@@ -228,16 +230,16 @@ describe('variant result selector', () => {
   });
 
   it('exposes variant, isSelected and selectVariant in the variant slot', async () => {
-    const { wrapper, result, setResultVariant } = renderResultSelector({
+    const { wrapper, result, setResultVariant } = renderResultVariantSelector({
       template: `
-        <ResultSelector :level="level" #variant="{variant, selectVariant, isSelected}">
+        <ResultVariantSelector :level="level" #variant="{variant, selectVariant, isSelected}">
           <button
               data-test="variant"
               @click="selectVariant"
               :class="{'isSelected': isSelected}">
             {{variant.name}}
           </button>
-        </ResultSelector>
+        </ResultVariantSelector>
       `,
       selectedIndexes: [0],
       level: 0
@@ -262,9 +264,9 @@ describe('variant result selector', () => {
 });
 
 /**
- * The options for the `renderResultSelector` function.
+ * The options for the `renderResultVariantSelector` function.
  */
-interface ResultSelectorOptions {
+interface ResultVariantSelectorOptions {
   /** The template to render. */
   template?: string;
   /** The {@link Result} to inject in the selector component. */
@@ -278,10 +280,10 @@ interface ResultSelectorOptions {
 }
 
 /**
- * Test API for the {@link ResultSelector} component.
+ * Test API for the {@link ResultVariantSelector} component.
  */
-interface ResultSelectorApi {
-  /** The wrapper for {@link ResultSelector} component. */
+interface ResultVariantSelectorApi {
+  /** The wrapper for {@link ResultVariantSelector} component. */
   wrapper: Wrapper<Vue>;
   /** The injected result. */
   result: Result | null;

@@ -1,5 +1,9 @@
 <template>
-  <NoElement v-if="result && variants" class="x-result-selector" data-test="variant-container">
+  <NoElement
+    v-if="result && variants"
+    class="x-result-variant-selector"
+    data-test="variant-container"
+  >
     <!--
       @slot Variants list
         @binding {ResultVariant[]} variants - Array containing the available variants
@@ -7,11 +11,11 @@
         @binding {(variant: ResultVariant) => void} selectVariant - Callback to select a variant
     -->
     <slot :variants="variants" :selectedVariant="selectedVariant" :selectVariant="selectVariant">
-      <ul class="x-list x-result-selector__list">
+      <ul class="x-list x-result-variant-selector__list">
         <li
           v-for="(variant, index) in variants"
           :key="index"
-          class="x-result-selector__item"
+          class="x-result-variant-selector__item"
           data-test="variant-item"
         >
           <!--
@@ -62,7 +66,7 @@
       NoElement
     }
   })
-  export default class ResultSelector extends Vue {
+  export default class ResultVariantSelector extends Vue {
     /**
      * Callback to be called when a variant is selected.
      *
@@ -139,7 +143,7 @@ This component doesn't emit events.
 
 ## See it in action
 
-Here you have a basic example of how the `ResultSelector` component is rendered.
+Here you have a basic example of how the `ResultVariantSelector` component is rendered.
 
 Take into account that this component **must** be a child of a `VariantsResultProvider` component.
 
@@ -156,21 +160,21 @@ rendered.
     <p>Result name: {{ result.name }}</p>
 
     <h1>Select color</h1>
-    <ResultSelector :level="0" #variant="{ variant, selectVariant }" />
+    <ResultVariantSelector :level="0" #variant="{ variant, selectVariant }" />
 
     <h1>Select size</h1>
-    <ResultSelector :level="1" #variant="{ variant, selectVariant }" />
+    <ResultVariantSelector :level="1" #variant="{ variant, selectVariant }" />
   </VariantsResultProvider>
 </template>
 
 <script>
-  import { VariantsResultProvider, ResultSelector } from '@empathyco/x-components';
+  import { VariantsResultProvider, ResultVariantSelector } from '@empathyco/x-components';
 
   export default {
     name: 'ResultProviderDemo',
     components: {
       VariantsResultProvider,
-      ResultSelector
+      ResultVariantSelector
     },
     data() {
       return {
@@ -227,7 +231,7 @@ In this example the default slot is used to customize the list.
   <VariantsResultProvider :result="result" #default="{ result }">
     <p>Result name: {{ result.name }}</p>
 
-    <ResultSelector :level="0" #default="{ variants, selectedVariant, selectVariant }">
+    <ResultVariantSelector :level="0" #default="{ variants, selectedVariant, selectVariant }">
       <div>
         <p v-if="selectedVariant">Selected variant: {{ selectedVariant.name }}</p>
         <ul class="x-list x-list--horizontal">
@@ -236,18 +240,18 @@ In this example the default slot is used to customize the list.
           </li>
         </ul>
       </div>
-    </ResultSelector>
+    </ResultVariantSelector>
   </VariantsResultProvider>
 </template>
 
 <script>
-  import { VariantsResultProvider, ResultSelector } from '@empathyco/x-components';
+  import { VariantsResultProvider, ResultVariantSelector } from '@empathyco/x-components';
 
   export default {
     name: 'ResultProviderDemo',
     components: {
       VariantsResultProvider,
-      ResultSelector
+      ResultVariantSelector
     },
     data() {
       return {
@@ -287,25 +291,25 @@ The variant will be rendered inside a list.
   <VariantsResultProvider :result="result" #default="{ result }">
     <p>Result name: {{ result.name }}</p>
 
-    <ResultSelector :level="0" #variant="{ variant, isSelected, selectVariant }">
+    <ResultVariantSelector :level="0" #variant="{ variant, isSelected, selectVariant }">
       <div>
         <button @click="selectVariant">
           {{ variant.name }}
           <span v-if="isSelected">SELECTED!</span>
         </button>
       </div>
-    </ResultSelector>
+    </ResultVariantSelector>
   </VariantsResultProvider>
 </template>
 
 <script>
-  import { VariantsResultProvider, ResultSelector } from '@empathyco/x-components';
+  import { VariantsResultProvider, ResultVariantSelector } from '@empathyco/x-components';
 
   export default {
     name: 'ResultProviderDemo',
     components: {
       VariantsResultProvider,
-      ResultSelector
+      ResultVariantSelector
     },
     data() {
       return {
