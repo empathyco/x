@@ -18,7 +18,8 @@ navigate and organize results are key points to have in mind. <br/>
 </FootNote>
 <br/>
 
-**Choice of the layout view** Your shoppers should be able to select how they’d like the products
+**Choice of the layout view**  
+Your shoppers should be able to select how they’d like the products
 displayed and how the number of products they’d like to see per page, for example.
 
 That’s why the **grid** (A) is the core element of the SERP. It displays the results returned by the
@@ -27,10 +28,6 @@ place all types of results or even other layout components such as a carousel vi
 [Next Queries](next-queries.md) or [Recommendations](recommendations.md).
 
 However, the grid is not the only element to consider when designing the SERP:
-
-[//]:
-  #
-  'To add when ready: Include **pagination** options to browse results throughout the different result pages available or apply **infinite scroll** to ease navigation.'
 
 - Show the **number of results** (B).
 - Allow your shoppers to select the **number of columns** (C) to showcase results.
@@ -43,7 +40,7 @@ However, the grid is not the only element to consider when designing the SERP:
 - Apply **infinite scroll** to ease navigation and add a **scroll-to-top button** (E) to quickly
   move to the top of the results page.
 - Indicate your shoppers whether the
-  **[spellcheck](/explore-empathy-platform/features/spellcheck-overview.md)** feature is applied or
+  **[Spell Check](/explore-empathy-platform/features/spellcheck-overview.md)** feature is applied or
   not.
 
 ::: note
@@ -108,10 +105,10 @@ To learn more about the SERP, results display, and their layout, see
 - Customize content. Show whatever you need: text, images, icons.
 - Animate the display of the scroll-to-top button at your ease.
 
-**Spellcheck**
+**Spell check**
 
 - Display a message to inform your shoppers that the
-  [spellcheck](../features/spellcheck-overview.md) feature has been used to provide results for the
+  [Spell Check](../features/spellcheck-overview.md) feature has been used to provide results for the
   current query.
 - Customize the message content at your ease.
 
@@ -122,4 +119,3 @@ experience.
 
 :::
 
-[//]: # 'TIP: To see the SERP-related components in action, play with our showcase.'
