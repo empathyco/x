@@ -90,7 +90,7 @@
      * @public
      */
     @Prop({
-      required: true
+      default: 0
     })
     public level!: number;
 

@@ -47,7 +47,7 @@ const renderResultVariantSelector = ({
   }),
   template = `<ResultVariantSelector :level="level"/>`,
   selectedIndexes = [],
-  level = 0,
+  level,
   setResultVariant = jest.fn()
 }: ResultVariantSelectorOptions = {}): ResultVariantSelectorApi => {
   /**
@@ -109,9 +109,7 @@ const renderResultVariantSelector = ({
 
 describe('variant result selector', () => {
   it('renders the whole variant by default', () => {
-    const { wrapper, result } = renderResultVariantSelector({
-      level: 0
-    });
+    const { wrapper, result } = renderResultVariantSelector({});
     const button = wrapper.find(getDataTestSelector('variant-button'));
     expect(JSON.parse(button.text())).toEqual(result?.variants?.[0]);
   });
@@ -208,8 +206,7 @@ describe('variant result selector', () => {
           </div>
         </ResultVariantSelector>
       `,
-      selectedIndexes: [1],
-      level: 0
+      selectedIndexes: [1]
     });
 
     const variants = findTestDataById(wrapper, 'variant');
@@ -241,8 +238,7 @@ describe('variant result selector', () => {
           </button>
         </ResultVariantSelector>
       `,
-      selectedIndexes: [0],
-      level: 0
+      selectedIndexes: [0]
     });
 
     const variants = findTestDataById(wrapper, 'variant');
