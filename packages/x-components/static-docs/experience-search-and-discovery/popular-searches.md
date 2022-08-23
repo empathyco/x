@@ -36,9 +36,8 @@ Can't quite capture the concept? Learn about
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/popular-searches) your web
 experience.
 
 :::
 
-[//]: # 'To see Popular Searches in action, play with our showcase'
