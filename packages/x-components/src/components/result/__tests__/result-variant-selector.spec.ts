@@ -270,6 +270,24 @@ describe('variant result selector', () => {
     expect(setResultVariant).toHaveBeenCalledTimes(1);
     expect(setResultVariant).toHaveBeenCalledWith(0, result?.variants?.[1]);
   });
+
+  it('exposes variant and isSelected in the variant-content slot', () => {
+    const { wrapper, result } = renderResultVariantSelector({
+      template: `
+        <ResultVariantSelector :level="level" #variant-content="{variant, isSelected}">
+          {{variant.name}}<span v-if="isSelected"> SELECTED!</span>
+        </ResultVariantSelector>
+      `,
+      selectedIndexes: [0]
+    });
+
+    const variants = findTestDataById(wrapper, 'variant-button');
+
+    expect(variants).toHaveLength(2);
+
+    expect(variants.at(0).text()).toContain(`${result!.variants?.[0].name ?? ''} SELECTED!`);
+    expect(variants.at(1).text()).toBe(result!.variants?.[1].name);
+  });
 });
 
 /**

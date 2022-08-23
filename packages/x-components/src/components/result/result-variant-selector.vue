@@ -28,7 +28,13 @@
             :selectVariant="() => selectVariant(variant)"
           >
             <button @click="selectVariant(variant)" data-test="variant-button" class="x-button">
-              {{ variant }}
+              <slot
+                name="variant-content"
+                :variant="variant"
+                :isSelected="variantIsSelected(variant)"
+              >
+                {{ variant }}
+              </slot>
             </button>
           </slot>
         </li>
