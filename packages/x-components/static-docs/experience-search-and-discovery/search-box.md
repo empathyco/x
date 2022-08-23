@@ -80,15 +80,13 @@ key is pressed, since the typed query is not submitted until one of these two ac
 - Configure what will happen after the search is triggered; for example, display Related Tags or
   Next Queries.
 
-[//]:
-  #
-  'TO BE PUBLISHED IN FUTURE ITERATIONS WHEN THE SEARCH BOX POWER-UP ARE IMPLEMENTED: * Automatically suggest search terms to guide shoppers in constructing their search query. * Prompt shoppers to start their search with animated custom hint messages. '
+<!-- TO BE PUBLISHED IN FUTURE ITERATIONS WHEN THE SEARCH BOX POWER-UP ARE IMPLEMENTED: * Automatically suggest search terms to guide shoppers in constructing their search query. * Prompt shoppers to start their search with animated custom hint messages. -->
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/search-box/) your web
 experience.
 
 :::
 
-[//]: # 'TIP: To see Search Box in action, play with our showcase.'
+
