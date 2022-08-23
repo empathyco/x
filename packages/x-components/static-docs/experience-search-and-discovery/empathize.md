@@ -96,7 +96,7 @@ search capabilities, such as Query Suggestions and Popular Searches. Don’t get
 
 ::: interact
 
-Want to know more? Learn how to [configure](/empathy-for-developers/ui-reference/) your web
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
 experience.
 
 :::
