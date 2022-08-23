@@ -7,7 +7,7 @@ import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { findTestDataById, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import { XInject } from '../../decorators/injection.decorators';
 import {
-  RESULT_KEY,
+  RESULT_WITH_VARIANTS_KEY,
   SELECTED_VARIANTS_KEY,
   SET_RESULT_VARIANT_KEY
 } from '../../decorators/injection.consts';
@@ -62,7 +62,7 @@ const renderResultProvider = ({
     @XInject(SET_RESULT_VARIANT_KEY)
     public setResultVariant!: () => void;
 
-    @XInject(RESULT_KEY)
+    @XInject(RESULT_WITH_VARIANTS_KEY)
     public originalResult!: Result;
 
     @XInject(SELECTED_VARIANTS_KEY)

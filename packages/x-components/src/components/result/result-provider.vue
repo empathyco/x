@@ -4,7 +4,7 @@
   import { Result, ResultVariant } from '@empathyco/x-types';
   import { XProvide } from '../decorators/injection.decorators';
   import {
-    RESULT_KEY,
+    RESULT_WITH_VARIANTS_KEY,
     SELECTED_VARIANTS_KEY,
     SET_RESULT_VARIANT_KEY
   } from '../decorators/injection.consts';
@@ -29,7 +29,7 @@
     @Prop({
       required: true
     })
-    @XProvide(RESULT_KEY)
+    @XProvide(RESULT_WITH_VARIANTS_KEY)
     public result!: Result;
 
     /**

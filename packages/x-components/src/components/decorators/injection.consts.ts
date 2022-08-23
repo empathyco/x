@@ -21,7 +21,7 @@ export const QUERY_KEY: XInjectKey<string | undefined> = 'query';
  *
  * @internal
  */
-export const RESULT_KEY: XInjectKey<Result> = 'result';
+export const RESULT_WITH_VARIANTS_KEY: XInjectKey<Result> = 'resultWithVariants';
 
 /**
  * It's used to identify the provided and injected `selectedVariants` of a result.

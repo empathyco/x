@@ -47,7 +47,7 @@
   import { NoElement } from '../no-element';
   import { XInject } from '../decorators/injection.decorators';
   import {
-    RESULT_KEY,
+    RESULT_WITH_VARIANTS_KEY,
     SELECTED_VARIANTS_KEY,
     SET_RESULT_VARIANT_KEY
   } from '../decorators/injection.consts';
@@ -76,7 +76,7 @@
      *
      * @public
      */
-    @XInject(RESULT_KEY)
+    @XInject(RESULT_WITH_VARIANTS_KEY)
     public result!: Result;
 
     /**
@@ -139,7 +139,7 @@ This component doesn't emit events.
 
 ## See it in action
 
-Here you have a basic example of how the ResultSelector component is rendered.
+Here you have a basic example of how the `ResultSelector` component is rendered.
 
 Take into account that this component **must** be a child of a `ResultProvider` component.
 

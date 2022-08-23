@@ -5,7 +5,7 @@ import ResultSelector from '../result-selector.vue';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { findTestDataById, getDataTestSelector } from '../../../__tests__/utils';
 import {
-  RESULT_KEY,
+  RESULT_WITH_VARIANTS_KEY,
   SELECTED_VARIANTS_KEY,
   SET_RESULT_VARIANT_KEY
 } from '../../decorators/injection.consts';
@@ -94,7 +94,7 @@ const renderResultSelector = ({
         level
       },
       provide: {
-        [RESULT_KEY.toString()]: { value: result },
+        [RESULT_WITH_VARIANTS_KEY.toString()]: { value: result },
         [SELECTED_VARIANTS_KEY.toString()]: { value: selectedVariants },
         [SET_RESULT_VARIANT_KEY.toString()]: { value: setResultVariant }
       }
