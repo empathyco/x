@@ -45,9 +45,7 @@ results **clearer and more accessible**, meeting different types of faceting lay
 
 <img :src="$withBase('/assets/media/x-components_func_facets.png')" alt="Facets" />
 
-::: details
-
-Rendering facets and filters
+::: details Rendering facets and filters
 
 X&nbsp;Components for facets and filters not only enhances your shoppers’ experience by supporting
 and rendering faceted search and navigation, but also provides different ways to display a faceted
@@ -71,9 +69,7 @@ experience:
 
 :::
 
-::: details
-
-Extending facets and filters UI
+::: details Extending facets and filters UI
 
 Apart from the main X&nbsp;Components for facets and filters that render product categories and
 their corresponding attributes in different ways, there are components available offering advanced
@@ -153,4 +149,4 @@ experience.
 
 :::
 
-[//]: # 'To see Facets and Filters in action, play with our showcase'
+
