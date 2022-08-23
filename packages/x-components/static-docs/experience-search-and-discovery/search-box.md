@@ -10,18 +10,24 @@ button.
 
 <img :src="$withBase('/assets/media/xcomponents_func_searchbox.svg')" alt="Search Box"> <br>
 
-::: interact Can't quite capture the concept? Learn more about
-[Search Box](../overview/search-box-overview.md). :::
+::: interact
+
+Can't quite capture the concept? Learn more about [Search Box](../overview/search-box-overview.md).
+
+:::
 
 It can be combined with other X&nbsp;Components, such as [Query Suggestions](query-suggestions.md)
-or [Next Queries](next-queries.md), to update the query according to shoppers’ intent or
-behaviour. For example, if a shopper selects a query suggestion, the query is instantly updated in
-the input field to the selected suggestion and the search is launched.
+or [Next Queries](next-queries.md), to update the query according to shoppers’ intent or behaviour.
+For example, if a shopper selects a query suggestion, the query is instantly updated in the input
+field to the selected suggestion and the search is launched.
 
-:::warning To modify the query syntax using
-[Query Suggestions](../features/query-suggestions-overview.md) or
+::: warning
+
+To modify the query syntax using [Query Suggestions](../features/query-suggestions-overview.md) or
 [Next Queries](../features/next-queries-overview.md), make sure that your current search service
-supports this type of feature. :::
+supports this type of feature.
+
+:::
 
 ## Power-up behavior
 
@@ -56,9 +62,12 @@ obvious. For example, in Interface X Components for web, see what happens when:
   - Results related to the second query are displayed after debounce time
   - Displayed results are different from the previous ones
 
-::: warning Deactivating instant search means History Queries are not updated until the search
-button or Enter key is pressed, since the typed query is not submitted until one of these two
-actions is performed. :::
+::: warning
+
+Deactivating instant search means History Queries are not updated until the search button or Enter
+key is pressed, since the typed query is not submitted until one of these two actions is performed.
+
+:::
 
 ## Tailor the web experience
 
@@ -75,7 +84,11 @@ actions is performed. :::
   #
   'TO BE PUBLISHED IN FUTURE ITERATIONS WHEN THE SEARCH BOX POWER-UP ARE IMPLEMENTED: * Automatically suggest search terms to guide shoppers in constructing their search query. * Prompt shoppers to start their search with animated custom hint messages. '
 
-::: interact Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/)
-your web experience. :::
+::: interact
+
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+experience.
+
+:::
 
 [//]: # 'TIP: To see Search Box in action, play with our showcase.'

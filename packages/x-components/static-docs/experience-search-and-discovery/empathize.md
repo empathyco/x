@@ -92,11 +92,9 @@ search capabilities, such as Query Suggestions and Popular Searches. Don’t get
 - Determine when Empathize appears and disappears.
 - Animate how the component opens and closes.
 
-::: interact Want to know more? Learn how to [configure](/empathy-for-developers/ui-reference/) your
-web experience. :::
+::: interact
 
-<!---
-::: note
-To see Empathize in action, play with our showcase.
+Want to know more? Learn how to [configure](/empathy-for-developers/ui-reference/) your web
+experience.
+
 :::
---->

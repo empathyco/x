@@ -14,12 +14,16 @@ the list, they go directly to the product detail page (PDP).
 :::warning
 
 ID Results are generated using a Search service that searches the product catalogue by ID. For a
-correct performance, make sure that your current search service supports this type of feature. :::
+correct performance, make sure that your current search service supports this type of feature.
+
+:::
 
 ::: interact
 
 Don't quite understand ID results? Learn more about
-[ID Results](../features/id-results-overview.md). :::
+[ID Results](../features/id-results-overview.md).
+
+:::
 
 ## Tailor the web experience
 
@@ -32,8 +36,10 @@ Don't quite understand ID results? Learn more about
 - Extend the performance with [results-related components](results-display.md).
 - Meet your own code reference conventions and standards with multiple product reference patterns.
 
-::: interact Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/)
-your web experience.
+::: interact
+
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+experience.
 
 :::
 

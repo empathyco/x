@@ -9,8 +9,11 @@ searches and revisit products they’ve viewed before in a few clicks.
 
 ![History Queries](/assets/media/xcomponents_func_historyqueries.gif)
 
-::: interact Can't quite capture the concept? Learn more about
-[History Queries](../features/history-queries-overview.md).  
+::: interact
+
+Can't quite capture the concept? Learn more about
+[History Queries](../features/history-queries-overview.md).
+
 :::
 
 ## Tailor the web experience
@@ -31,9 +34,11 @@ searches and revisit products they’ve viewed before in a few clicks.
   search, and it’s narrowed down using “long dress”, the history queries list only displays “long
   dress” since it represents the shopper’s real intention.
 
-::: interact  
+::: interact
+
 Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
-experience.  
+experience.
+
 :::
 
 ## Extend the performance

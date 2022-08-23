@@ -12,12 +12,20 @@ instead.
 
 ![Related Tags](/assets/media/xcomponents_func_relatedtags.gif)
 
-:::warning Related Tags are generated using collective shopper behavior to identify associated terms
-used to refine a search query. For a correct performance, make sure that your current search service
-supports this type of feature. :::
+::: warning
 
-::: interact Can't quite capture the concept? Learn more about
-[Related Tags](../features/related-tags-overview.md). :::
+Related Tags are generated using collective shopper behavior to identify associated terms used to
+refine a search query. For a correct performance, make sure that your current search service
+supports this type of feature.
+
+:::
+
+::: interact
+
+Can't quite capture the concept? Learn more about
+[Related Tags](../features/related-tags-overview.md).
+
+:::
 
 [//]:
   #
@@ -35,7 +43,11 @@ supports this type of feature. :::
   #
   '* Choose if Related Tags are selectable or change the syntax of the initial query in the search box.'
 
-::: interact Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/)
-your web experience. :::
+::: interact
+
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+experience.
+
+:::
 
 [//]: # 'tip To see Related Tags in action, play with our showcase'

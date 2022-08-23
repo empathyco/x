@@ -46,16 +46,28 @@ However, the grid is not the only element to consider when designing the SERP:
   **[spellcheck](/explore-empathy-platform/features/spellcheck-overview.md)** feature is applied or
   not.
 
-::: note Enhance the search experience, adding [Related Tags](related-tags.md) to the SERP so that
-your shoppers can select descriptive keywords to refine the initial query and get highly relevant
-results. :::
+::: note
 
-::: design As most shoppers don’t like to spend time scrolling and moving between pages, a crucial
-element on the SERP for a great experience is to offer **faceted search**, letting shoppers specify
-the kind of product attributes they’re interested in. :::
+Enhance the search experience, adding [Related Tags](related-tags.md) to the SERP so that your
+shoppers can select descriptive keywords to refine the initial query and get highly relevant
+results.
 
-::: interact To learn more about the SERP, results display, and their layout, see
-[Results on the SERP](../overview/results-overview.md). :::
+:::
+
+::: design
+
+As most shoppers don’t like to spend time scrolling and moving between pages, a crucial element on
+the SERP for a great experience is to offer **faceted search**, letting shoppers specify the kind of
+product attributes they’re interested in.
+
+:::
+
+::: interact
+
+To learn more about the SERP, results display, and their layout, see
+[Results on the SERP](../overview/results-overview.md).
+
+:::
 
 ## Tailor the web experience
 
@@ -103,7 +115,11 @@ the kind of product attributes they’re interested in. :::
   current query.
 - Customize the message content at your ease.
 
-::: interact Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/)
-your web experience. :::
+::: interact
+
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+experience.
+
+:::
 
 [//]: # 'TIP: To see the SERP-related components in action, play with our showcase.'

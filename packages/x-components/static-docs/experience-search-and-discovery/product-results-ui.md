@@ -23,8 +23,12 @@ PDP Link, (E) Rating, (F) Add to cart
 
 </FootNote>
 
-::: interact To learn more about the display of results, see
-[Product results](/explore-empathy-platform/overview/product-results-overview.md). :::
+::: interact
+
+To learn more about the display of results, see
+[Product results](/explore-empathy-platform/overview/product-results-overview.md).
+
+:::
 
 **A bunch of components for comprehensive product information** Decide whether you want to include
 the description for the resulting product, a picture, or even rating information:
@@ -39,8 +43,12 @@ the description for the resulting product, a picture, or even rating information
 - **Add to cart**. Allow your shoppers to add a product to the cart from the search engine results
   page (SERP), without going through the PDP.&nbsp;(F)
 
-:::warning To include rating and add-to-cart options in results, rating and add-to-cart features
-must be implemented in your product catalogue. :::
+:::warning
+
+To include rating and add-to-cart options in results, rating and add-to-cart features must be
+implemented in your product catalogue.
+
+:::
 
 ## Tailor the web experience
 
@@ -52,8 +60,12 @@ must be implemented in your product catalogue. :::
 - Customize the default rendering behavior of pictures when loading or broken.
 - Animate the display of product results.
 
-::: interact Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/)
-your web experience. :::
+::: interact
+
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+experience.
+
+:::
 
 ## Extend the performance
 

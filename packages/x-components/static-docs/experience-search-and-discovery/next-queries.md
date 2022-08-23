@@ -14,12 +14,19 @@ Next queries can be **organic**, using information on the most common searches t
 successively or within a same session by shoppers, or **curated**, created manually by the
 merchandiser in the Empathy Platform Playboard.
 
-:::warning Organic next queries are generated using collective shopper behavior to identify query
-pairs that have been used together. For a correct performance, make sure that your current search
-service supports this feature. :::
+::: warning
 
-::: interact Can't quite capture the concept? Learn about
-[Next Queries](../features/next-queries-overview.md). :::
+Organic next queries are generated using collective shopper behavior to identify query pairs that
+have been used together. For a correct performance, make sure that your current search service
+supports this feature.
+
+:::
+
+::: interact
+
+Can't quite capture the concept? Learn about [Next Queries](../features/next-queries-overview.md).
+
+:::
 
 ## Tailor the web experience
 
@@ -30,8 +37,12 @@ service supports this feature. :::
 - Customize content. Show whatever you need: text, images, icons.
 - Display curated next queries differently to organic next queries.
 
-::: interact Want to know more? Learn how to
-[configure](/develop-empathy-platform/ui-reference/components/next-queries) your web experience. :::
+::: interact
+
+Want to know more? Learn how to
+[configure](/develop-empathy-platform/ui-reference/components/next-queries) your web experience.
+
+:::
 
 ::: design
 
@@ -46,7 +57,11 @@ customers in the post
 You can combine Next Queries with the [History Queries](history-queries.md) component to display
 next queries that shoppers haven't already used in the session.
 
-:::warning To display only new next queries, the
-[History Queries](../../search/history-queries-overview.md) feature must be implemented. :::
+::: warning
+
+To display only new next queries, the [History Queries](../../search/history-queries-overview.md)
+feature must be implemented.
+
+:::
 
 [//]: # 'To see Next Queries in action, [play with our showcase].'

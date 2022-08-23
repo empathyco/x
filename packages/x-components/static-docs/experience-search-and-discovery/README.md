@@ -43,7 +43,9 @@ X&nbsp;Components are distributed into **modules** which are intended for differ
 functional experience, interface design and behavior, web and design standardization… Just pick and
 choose the modules and components that best suit your needs.
 
-::: details What does X mean?
+::: details
+
+What does X mean?
 
 - Lightweight libraries
 - Developer friendly. Quick & easy to install and configure
@@ -53,7 +55,8 @@ choose the modules and components that best suit your needs.
 - Mix & match. Customize to satisfy any design or behavior requirement
 - Mobile-ready. Designed both for web and native apps
 - Adapt to different search services
-- Easy-to-use. Intuitive search and discovery :::
+- Easy-to-use. Intuitive search and discovery
+- :::
 
 ## Try X Components to…
 
@@ -67,13 +70,19 @@ choose the modules and components that best suit your needs.
 - Enhance the shopping experience by adding **additional features to the SERP** such as add-to-cart
   buttons or product rating information.
 
-:::warning Some X&nbsp;Components are supported by Empathy Platform search and discovery features.
-If you’re using a different search engine, make sure it supports all the functionalities you need.
+:::warning
+
+Some X&nbsp;Components are supported by Empathy Platform search and discovery features. If you’re
+using a different search engine, make sure it supports all the functionalities you need.
+
 :::
 
-::: interact Explore the Empathy Platform
-[interactive map](/explore-empathy-platform/diagram/interface/) for a sneak peak of the
-X&nbsp;Components available! :::
+::: interact
+
+Explore the Empathy Platform [interactive map](/explore-empathy-platform/diagram/interface/) for a
+sneak peak of the X&nbsp;Components available!
+
+:::
 
 ---
 
@@ -96,8 +105,12 @@ want to make the difference!
     'x_facets']"
 />
 
-::: note Check out the **Interface X for web [open-source project](https://github.com/empathyco/x)**
-on GitHub! :::
+::: note
+
+Check out the **Interface X for web [open-source project](https://github.com/empathyco/x)** on
+GitHub!
+
+:::
 
 ---
 
