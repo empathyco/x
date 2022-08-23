@@ -31,9 +31,10 @@ export const RESULT_WITH_VARIANTS_KEY: XInjectKey<Result> = 'resultWithVariants'
 export const SELECTED_VARIANTS_KEY: XInjectKey<ResultVariant[]> = 'selectedVariants';
 
 /**
- * It's used to identify the provided and injected `setResultVariant` callback.
+ * It's used to identify the provided and injected `selectResultVariant` callback.
  *
  * @internal
  */
-export const SET_RESULT_VARIANT_KEY: XInjectKey<(level: number, variant: ResultVariant) => void> =
-  'setResultVariant';
+export const SELECT_RESULT_VARIANT_KEY: XInjectKey<
+  (level: number, variant: ResultVariant) => void
+> = 'selectResultVariant';

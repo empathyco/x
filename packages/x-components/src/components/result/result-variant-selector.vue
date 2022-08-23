@@ -57,7 +57,7 @@
   import {
     RESULT_WITH_VARIANTS_KEY,
     SELECTED_VARIANTS_KEY,
-    SET_RESULT_VARIANT_KEY
+    SELECT_RESULT_VARIANT_KEY
   } from '../decorators/injection.consts';
 
   /**
@@ -77,7 +77,7 @@
      *
      * @public
      */
-    @XInject(SET_RESULT_VARIANT_KEY)
+    @XInject(SELECT_RESULT_VARIANT_KEY)
     public setResultVariant!: (level: number, variant: ResultVariant) => void;
 
     /**

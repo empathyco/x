@@ -6,7 +6,7 @@
   import {
     RESULT_WITH_VARIANTS_KEY,
     SELECTED_VARIANTS_KEY,
-    SET_RESULT_VARIANT_KEY
+    SELECT_RESULT_VARIANT_KEY
   } from '../decorators/injection.consts';
 
   /**
@@ -52,7 +52,7 @@
      * @param variant - The variant to set.
      * @public
      */
-    @XProvide(SET_RESULT_VARIANT_KEY)
+    @XProvide(SELECT_RESULT_VARIANT_KEY)
     setResultVariant(level: number, variant: ResultVariant): void {
       if (this.selectedVariants[level] === variant) {
         return;
