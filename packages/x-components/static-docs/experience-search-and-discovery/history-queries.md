@@ -48,14 +48,12 @@ component. All suggestions for shoppers about what to look next can be filtered 
 shopper’s search history so that only those suggestions that haven’t been used before in that
 session will display.
 
-[//]: # 'Link only when available to Search module page in UI reference'
-
-Combine History Queries with the Search X module to ease shoppers' frustrations. That way, you can
+Combine History Queries with the [Search module](/develop-empathy-platform/ui-reference/components/search/) to ease shoppers' frustrations. That way, you can
 configure it to display only successful history searches.
 
-[//]:
-  #
-  'TIP: To know more about which data is stored in the browser’s data storage, read [page title to be defined].'
-[//]:
-  #
-  'To see History Queries in action, [play with our interactive examples](/develop-empathy-platform/ui-reference/history-queries/history-queries.md#see-it-in-action'
+
+::: interact 
+
+To know more about which data is stored in the browser’s data storage, check out [nterface X data privacy and browser local storage](/web-local-storage.md).'
+
+:::
