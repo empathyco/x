@@ -59,9 +59,8 @@ next queries that shoppers haven't already used in the session.
 
 ::: warning
 
-To display only new next queries, the [History Queries](../../search/history-queries-overview.md)
+To display only new next queries, the [History Queries](/explore-empathy-platform/features/history-queries-overview.md)
 feature must be implemented.
 
 :::
 
-[//]: # 'To see Next Queries in action, [play with our showcase].'
