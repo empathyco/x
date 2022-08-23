@@ -36,9 +36,9 @@ Can't quite capture the concept? Learn more about
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/query-suggestions/) your web
 experience.
 
 :::
 
-[//]: # 'To see Query Suggestions in action, play with our showcase'
+
