@@ -1,10 +1,10 @@
 @import '../variables';
 
 .x-border-radius--00 {
-  border-radius: 0 !important;
+  border-radius: theme('borderRadius.none') !important;
 }
 .x-border-radius--pill {
-  border-radius: 99999px !important;
+  border-radius: theme('borderRadius.round') !important;
 }
 
 .x-border-radius {

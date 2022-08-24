@@ -2,6 +2,6 @@
   --x-size-border-radius-base-none: 0;
   --x-size-border-radius-base-s: var(--x-size-base-02);
   --x-size-border-radius-base-m: var(--x-size-base-06);
-  --x-size-border-radius-base-pill: 99999px;
-  --x-size-border-width-base: 1px;
+  --x-size-border-radius-base-pill: theme('borderRadius.round');
+  --x-size-border-width-base: theme('spacing.1')px;
 }

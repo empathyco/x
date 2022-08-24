@@ -10,5 +10,5 @@
   // stroke
   --x-string-stroke-linecap-icon-default: butt;
   --x-string-stroke-linejoin-icon-default: mitter;
-  --x-size-stroke-width-icon-default: 1px;
+  --x-size-stroke-width-icon-default: theme('spacing.1')px;
 }

@@ -2,5 +2,5 @@
   // layout
   --x-size-padding-grid: 0;
   --x-size-gap-grid: var(--x-size-base-03);
-  --x-size-min-width-grid-item: 150px;
+  --x-size-min-width-grid-item: theme('spacing.150')px;
 }
