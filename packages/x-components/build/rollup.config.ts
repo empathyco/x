@@ -93,10 +93,12 @@ export const rollupConfig = createRollupOptions({
       mode: [
         'inject',
         (varname: string, id: string) =>
-          // eslint-disable-next-line max-len
-          `import {createInjector} from 'vue-runtime-helpers';const injector=createInjector({});injector('${normalizePath(
-            id
-          )}',{source:${varname}})`
+          `import {createInjector, createInjectorSSR} from 'vue-runtime-helpers';
+           const isNodeJs = (function(){try {return this===global;}catch(e){return false;}})();
+           const useSsrInjector =
+           typeof STRIP_SSR_INJECTOR !== 'undefined' && STRIP_SSR_INJECTOR || isNodeJs; 
+           const injector = useSsrInjector ? createInjectorSSR({}) : createInjector({});
+           injector('${normalizePath(id)}',{source:${varname}});`
       ]
     }),
     generateEntryFiles({
