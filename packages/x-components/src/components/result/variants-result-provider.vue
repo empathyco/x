@@ -48,12 +48,12 @@
      * When called, it slices the array of selected variants to remove the selected child variants.
      * Emits the {@link XEventsTypes.UserSelectedAResultVariant} when called.
      *
-     * @param level - The nest level where the variant is placed inside the result.
      * @param variant - The variant to set.
+     * @param level - The nest level where the variant is placed inside the result.
      * @public
      */
     @XProvide(SELECT_RESULT_VARIANT_KEY)
-    selectResultVariant(level: number, variant: ResultVariant): void {
+    selectResultVariant(variant: ResultVariant, level = 0): void {
       if (this.selectedVariants[level] === variant) {
         return;
       }

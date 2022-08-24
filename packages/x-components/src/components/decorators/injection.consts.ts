@@ -36,5 +36,5 @@ export const SELECTED_VARIANTS_KEY: XInjectKey<ResultVariant[]> = 'selectedVaria
  * @internal
  */
 export const SELECT_RESULT_VARIANT_KEY: XInjectKey<
-  (level: number, variant: ResultVariant) => void
+  (variant: ResultVariant, level?: number) => void
 > = 'selectResultVariant';
