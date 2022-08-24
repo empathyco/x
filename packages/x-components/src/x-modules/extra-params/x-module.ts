@@ -1,5 +1,7 @@
 import { XModule } from '../x-modules.types';
-import { extraParamsEmitters, ExtraParamsXStoreModule, extraParamsXStoreModule } from './store';
+import { extraParamsEmitters } from './store/emitters';
+import { extraParamsXStoreModule } from './store/module';
+import { ExtraParamsXStoreModule } from './store/types';
 import { extraParamsWiring } from './wiring';
 
 /**

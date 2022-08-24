@@ -8,13 +8,6 @@ import { XActionContext, XStoreModule } from '../../../store/index';
 export interface QueriesPreviewState {}
 
 /**
- * QueriesPreview store actions.
- *
- * @public
- */
-export interface QueriesPreviewActions {}
-
-/**
  * QueriesPreview store getters.
  *
  * @public
@@ -27,6 +20,13 @@ export interface QueriesPreviewGetters {}
  * @public
  */
 export interface QueriesPreviewMutations {}
+
+/**
+ * QueriesPreview store actions.
+ *
+ * @public
+ */
+export interface QueriesPreviewActions {}
 
 /**
  * QueriesPreview type safe store module.

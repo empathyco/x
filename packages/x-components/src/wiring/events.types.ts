@@ -9,6 +9,7 @@ import { HistoryQueriesXEvents } from '../x-modules/history-queries/events.types
 import { IdentifierResultsXEvents } from '../x-modules/identifier-results/events.types';
 import { NextQueriesXEvents } from '../x-modules/next-queries/events.types';
 import { PopularSearchesXEvents } from '../x-modules/popular-searches/events.types';
+import { QueriesPreviewXEvents } from '../x-modules/queries-preview/events.types';
 import { QuerySuggestionsXEvents } from '../x-modules/query-suggestions/events.types';
 import { RecommendationsXEvents } from '../x-modules/recommendations/events.types';
 import { RelatedTagsXEvents } from '../x-modules/related-tags/events.types';
@@ -34,6 +35,7 @@ import { WireMetadata } from './wiring.types';
  * {@link IdentifierResultsXEvents}
  * {@link NextQueriesXEvents}
  * {@link PopularSearchesXEvents}
+ * {@link QueriesPreviewXEvents},
  * {@link QuerySuggestionsXEvents},
  * {@link RecommendationsXEvents}
  * {@link RelatedTagsXEvents}
@@ -54,6 +56,7 @@ export interface XEventsTypes
     IdentifierResultsXEvents,
     NextQueriesXEvents,
     PopularSearchesXEvents,
+    QueriesPreviewXEvents,
     QuerySuggestionsXEvents,
     RecommendationsXEvents,
     RelatedTagsXEvents,
