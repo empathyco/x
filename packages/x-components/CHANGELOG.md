@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.157](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.156...@empathyco/x-components@3.0.0-alpha.157) (2022-08-24)
+
+### Features
+
+- **queries-preview:** create `queriesPreview` module (#670)
+  ([317d961](https://github.com/empathyco/x/commit/317d961e94b0b7454cb4d858d401c4264c74cf0e)),
+  closes [EX-6638](https://searchbroker.atlassian.net/browse/EX-6638)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.156](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.155...@empathyco/x-components@3.0.0-alpha.156) (2022-08-19)
 
 **Note:** Version bump only for package @empathyco/x-components
