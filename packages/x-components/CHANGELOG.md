@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.159](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.158...@empathyco/x-components@3.0.0-alpha.159) (2022-08-24)
+
+### Documentation
+
+- update functional docs callout formatting (#671)
+  ([5f1de74](https://github.com/empathyco/x/commit/5f1de74c2e86adb638d692781483cac1ccf70a71))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.158](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.156...@empathyco/x-components@3.0.0-alpha.158) (2022-08-24)
 
 ### Features
