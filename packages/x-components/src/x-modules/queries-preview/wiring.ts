@@ -1,7 +1,7 @@
 import { createWiring } from '../../wiring/index';
 
 /**
- * QueriesPreview wiring.
+ * Wiring configuration for the {@link QueriesPreviewXModule | queriesPreview module}.
  *
  * @internal
  */
