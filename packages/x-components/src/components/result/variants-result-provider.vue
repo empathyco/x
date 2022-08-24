@@ -43,6 +43,20 @@
     @XProvide(SELECTED_VARIANTS_KEY)
     public selectedVariants: ResultVariant[] = [];
 
+    created(): void {
+      if (this.result.variants?.length) {
+        this.selectVariantsOnInit(this.result.variants);
+      }
+    }
+
+    selectVariantsOnInit(variants: ResultVariant[], level = 0): void {
+      const variant = variants[0];
+      this.selectResultVariant(variant, level);
+      if (variant.variants?.length) {
+        this.selectVariantsOnInit(variant.variants, ++level);
+      }
+    }
+
     /**
      * Selects a variant of the result.
      * When called, it slices the array of selected variants to remove the selected child variants.

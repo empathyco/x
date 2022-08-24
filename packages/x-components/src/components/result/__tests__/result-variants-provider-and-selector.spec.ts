@@ -180,6 +180,33 @@ describe('results with variants', () => {
     );
   });
 
+  it('selects the first variant of all levels by default', async () => {
+    const { wrapper } = renderVariantsResultProvider({
+      template: `
+        <div>
+          <ResultVariantSelector :level="0"/>
+          <ResultVariantSelector data-test="second-selector" :level="1"/>
+
+          <span data-test="result-name">{{result.name}}</span>
+          <span v-if="result.images" data-test="result-image">{{result.images[0]}}</span>
+        </div>
+      `
+    });
+
+    const firstVariant = wrapper.find(getDataTestSelector('variant-item'));
+    const secondLevelFirstVariant = wrapper.find(
+      `${getDataTestSelector('second-selector')} ${getDataTestSelector('variant-item')}`
+    );
+
+    await wrapper.vm.$nextTick();
+
+    expect(firstVariant.element.className).toContain('--is-selected');
+    expect(secondLevelFirstVariant.element.className).toContain('--is-selected');
+
+    expect(wrapper.find(getDataTestSelector('result-name')).text()).toBe('red jacket XL');
+    expect(wrapper.find(getDataTestSelector('result-image')).text()).toBe('red-jacket-image');
+  });
+
   describe('result variant selector', () => {
     it('renders the whole variant by default', () => {
       const { wrapper, result } = renderVariantsResultProvider({});
