@@ -24,6 +24,10 @@ export interface RequestOptions {
    */
   id?: string;
   /**
+   * True if the request can be cancelled.
+   */
+  cancelable?: boolean;
+  /**
    * A flag to send parameters in the body if true or in the url QueryString if false.
    */
   sendParamsInBody?: boolean;
