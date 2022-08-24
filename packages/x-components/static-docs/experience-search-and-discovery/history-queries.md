@@ -9,8 +9,11 @@ searches and revisit products they’ve viewed before in a few clicks.
 
 ![History Queries](/assets/media/xcomponents_func_historyqueries.gif)
 
-::: interact Can't quite capture the concept? Learn more about
-[History Queries](../features/history-queries-overview.md).  
+::: interact
+
+Can't quite capture the concept? Learn more about
+[History Queries](../features/history-queries-overview.md).
+
 :::
 
 ## Tailor the web experience
@@ -31,9 +34,11 @@ searches and revisit products they’ve viewed before in a few clicks.
   search, and it’s narrowed down using “long dress”, the history queries list only displays “long
   dress” since it represents the shopper’s real intention.
 
-::: interact  
+::: interact
+
 Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
-experience.  
+experience.
+
 :::
 
 ## Extend the performance
@@ -43,14 +48,12 @@ component. All suggestions for shoppers about what to look next can be filtered 
 shopper’s search history so that only those suggestions that haven’t been used before in that
 session will display.
 
-[//]: # 'Link only when available to Search module page in UI reference'
-
-Combine History Queries with the Search X module to ease shoppers' frustrations. That way, you can
+Combine History Queries with the [Search module](/develop-empathy-platform/ui-reference/components/search/) to ease shoppers' frustrations. That way, you can
 configure it to display only successful history searches.
 
-[//]:
-  #
-  'TIP: To know more about which data is stored in the browser’s data storage, read [page title to be defined].'
-[//]:
-  #
-  'To see History Queries in action, [play with our interactive examples](/develop-empathy-platform/ui-reference/history-queries/history-queries.md#see-it-in-action'
+
+::: interact 
+
+To know more about which data is stored in the browser’s data storage, check out [nterface X data privacy and browser local storage](/web-local-storage.md).'
+
+:::

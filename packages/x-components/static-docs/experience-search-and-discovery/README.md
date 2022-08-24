@@ -30,7 +30,8 @@ Apps cover everything and even go beyond, thanks to their standalone, configurab
 that allow you to quickly construct the search UI for your store:
 **Interface&nbsp;X&nbsp;Components** and **Interface&nbsp;X&nbsp;Components for Apps**.
 
-**Mix and match your experience** Each X&nbsp;Component represents a graphical part of the UI, with
+**Mix and match your experience**  
+Each X&nbsp;Component represents a graphical part of the UI, with
 its own unique view and behavior. They’ve been smartly designed to **work together yet
 independently**, so a single component adds real value to your UI by itself. The more components you
 add and combine, the more functionality you get.
@@ -53,7 +54,9 @@ choose the modules and components that best suit your needs.
 - Mix & match. Customize to satisfy any design or behavior requirement
 - Mobile-ready. Designed both for web and native apps
 - Adapt to different search services
-- Easy-to-use. Intuitive search and discovery :::
+- Easy-to-use. Intuitive search and discovery
+
+:::
 
 ## Try X Components to…
 
@@ -67,13 +70,19 @@ choose the modules and components that best suit your needs.
 - Enhance the shopping experience by adding **additional features to the SERP** such as add-to-cart
   buttons or product rating information.
 
-:::warning Some X&nbsp;Components are supported by Empathy Platform search and discovery features.
-If you’re using a different search engine, make sure it supports all the functionalities you need.
+::: warning
+
+Some X&nbsp;Components are supported by Empathy Platform search and discovery features. If you’re
+using a different search engine, make sure it supports all the functionalities you need.
+
 :::
 
-::: interact Explore the Empathy Platform
-[interactive map](/explore-empathy-platform/diagram/interface/) for a sneak peak of the
-X&nbsp;Components available! :::
+::: interact
+
+Explore the Empathy Platform [interactive map](/explore-empathy-platform/diagram/interface/) for a
+sneak peak of the X&nbsp;Components available!
+
+:::
 
 ---
 
@@ -96,8 +105,12 @@ want to make the difference!
     'x_facets']"
 />
 
-::: note Check out the **Interface X for web [open-source project](https://github.com/empathyco/x)**
-on GitHub! :::
+::: note
+
+Check out the **Interface X for web [open-source project](https://github.com/empathyco/x)** on
+GitHub!
+
+:::
 
 ---
 
