@@ -23,7 +23,6 @@ const renderVariantsResultProvider = ({
       },
       {
         name: 'blue jacket',
-        images: ['blue-jacket-image'],
         variants: [
           {
             name: 'blue jacket L',
@@ -86,50 +85,47 @@ const renderVariantsResultProvider = ({
 };
 
 describe('results with variants', () => {
-  it('exposes the result in the default slot', () => {
+  it('provider exposes the result in the default slot', () => {
     const template = `
-      <span data-test="result-name">{{result.name}}</span>
-    `;
+    <span data-test="result-name">{{result.name}}</span>
+  `;
     const result = createResultStub('tshirt');
     const { wrapper } = renderVariantsResultProvider({ result, template });
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toBe('tshirt');
   });
 
-  it('selects the variant', async () => {
-    const { wrapper } = renderVariantsResultProvider({
+  it('merges the selected and parent variants data with the result', async () => {
+    const { wrapper, findSelectorLevelButtons } = renderVariantsResultProvider({
       template: `
         <div>
-          <ResultVariantSelector data-test="level-0-selector" #variant-content="{variant}">
+          <ResultVariantSelector #variant-content="{variant}">
             {{variant.name}}
           </ResultVariantSelector>
-          <ResultVariantSelector
-              data-test="level-1-selector"
-              :level="1"
-              #variant-content="{variant}">
+          <ResultVariantSelector :level="1" #variant-content="{variant}">
             {{variant.name}}
           </ResultVariantSelector>
           <span data-test="result-name">{{ result.name }}</span>
+          <span data-test="result-image" v-if="result.images">{{ result.images[0] }}</span>
         </div>
       `
     });
 
-    const firstLevelVariantButtons = wrapper.findAll(
-      `${getDataTestSelector('level-0-selector')} ${getDataTestSelector('variant-button')}`
-    );
+    const firstLevelVariantButtons = findSelectorLevelButtons(0);
 
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toBe('jacket');
+    expect(wrapper.find(getDataTestSelector('result-image')).text()).toBe('');
 
     await firstLevelVariantButtons.at(0).trigger('click');
 
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toBe('red jacket');
+    expect(wrapper.find(getDataTestSelector('result-image')).text()).toBe('red-jacket-image');
 
-    const secondLevelVariantButtons = wrapper.findAll(
-      `${getDataTestSelector('level-1-selector')} ${getDataTestSelector('variant-button')}`
-    );
+    const secondLevelVariantButtons = findSelectorLevelButtons(1);
 
     await secondLevelVariantButtons.at(1).trigger('click');
 
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toBe('red jacket L');
+    expect(wrapper.find(getDataTestSelector('result-image')).text()).toBe('red-jacket-image');
 
     // It won't deselect the child variant if the parent is clicked.
 
@@ -140,6 +136,7 @@ describe('results with variants', () => {
     await firstLevelVariantButtons.at(1).trigger('click');
 
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toBe('blue jacket');
+    expect(wrapper.find(getDataTestSelector('result-image')).text()).toBe('');
   });
 
   it('keeps the original result unmodified', async () => {
@@ -187,7 +184,7 @@ describe('results with variants', () => {
     it('renders the whole variant by default', () => {
       const { wrapper, result } = renderVariantsResultProvider({});
       const button = wrapper.find(getDataTestSelector('variant-button'));
-      expect(JSON.parse(button.text())).toEqual(result?.variants?.[0]);
+      expect(JSON.parse(button.text())).toEqual(result!.variants?.[0]);
     });
 
     it('add selected class when a variant is selected', async () => {
@@ -205,7 +202,7 @@ describe('results with variants', () => {
       });
     });
 
-    it('renders all the variants for the current level', async () => {
+    it('renders all the variants of each level', async () => {
       const template = `
         <div>
           <ResultVariantSelector #variant-content="{variant}">
@@ -264,6 +261,86 @@ describe('results with variants', () => {
       });
 
       expect(wrapper.find(getDataTestSelector('variants-list')).exists()).toBe(false);
+    });
+
+    it('exposes variants, selectedVariant and selectVariant in the default slot', async () => {
+      const { wrapper, result } = renderVariantsResultProvider({
+        template: `
+          <ResultVariantSelector
+              #default="{variants, selectedVariant, selectVariant}" >
+            <div>
+              <span v-if="selectedVariant" data-test="selected-variant">
+                {{selectedVariant.name}}
+              </span>
+              <button
+                  v-for="(variant, index) in variants"
+                  data-test="variant"
+                  :key="index"
+                  :class="{'isSelected': variant === selectedVariant}"
+                  @click="selectVariant(variant)">
+                {{variant.name}}
+              </button>
+            </div>
+          </ResultVariantSelector>
+        `
+      });
+
+      const variants = findTestDataById(wrapper, 'variant');
+
+      expect(variants).toHaveLength(2);
+
+      result!.variants?.forEach((variant, index) => {
+        expect(variants.at(index).text()).toBe(variant.name);
+      });
+
+      await variants.at(0).trigger('click');
+
+      expect(variants.at(0).element).toHaveClass('isSelected');
+    });
+
+    it('exposes variant, isSelected and selectVariant in the variant slot', async () => {
+      const { wrapper, result } = renderVariantsResultProvider({
+        template: `
+        <ResultVariantSelector #variant="{variant, selectVariant, isSelected}">
+          <button
+              data-test="variant"
+              @click="selectVariant"
+              :class="{'isSelected': isSelected}">
+            {{variant.name}}
+          </button>
+        </ResultVariantSelector>
+      `
+      });
+
+      const variants = findTestDataById(wrapper, 'variant');
+
+      expect(variants).toHaveLength(2);
+
+      result!.variants?.forEach((variant, index) => {
+        expect(variants.at(index).text()).toBe(variant.name);
+      });
+
+      await variants.at(1).trigger('click');
+      expect(variants.at(1).element).toHaveClass('isSelected');
+    });
+
+    it('exposes variant and isSelected in the variant-content slot', async () => {
+      const { wrapper, result } = renderVariantsResultProvider({
+        template: `
+        <ResultVariantSelector #variant-content="{variant, isSelected}">
+          {{variant.name}}<span v-if="isSelected"> SELECTED!</span>
+        </ResultVariantSelector>
+      `
+      });
+
+      const variants = findTestDataById(wrapper, 'variant-button');
+
+      expect(variants).toHaveLength(2);
+
+      await variants.at(0).trigger('click');
+
+      expect(variants.at(0).text()).toContain(`${result!.variants?.[0].name ?? ''} SELECTED!`);
+      expect(variants.at(1).text()).toBe(result!.variants?.[1].name);
     });
   });
 });
