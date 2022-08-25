@@ -22,6 +22,6 @@ jobs:
         if: ${{ github.ref_name == 'main' && github.actor != 'support-empathy' && !startsWith(github.event.head_commit.message, 'chore(release):') }}
         uses: ./.github/actions/release-alpha
         with:
-          npm-token: ${{ secrets.NPM_TOKEN }}
-          github-token: ${{ secrets.SUPPORT_TOKEN }}
+          npm_token: ${{ secrets.NPM_TOKEN }}
+          github_token: ${{ secrets.SUPPORT_TOKEN }}
 

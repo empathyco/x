@@ -18,4 +18,5 @@ jobs:
       - name: Call release alpha action
         uses: ./.github/actions/release-alpha
         with:
-          npm-token: ${{ secrets.NPM_TOKEN }}
+          npm_token: ${{ secrets.NPM_TOKEN }}
+          github_token: ${{ secrets.SUPPORT_TOKEN }}
