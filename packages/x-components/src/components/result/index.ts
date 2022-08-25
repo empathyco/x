@@ -6,5 +6,5 @@ export { default as BaseResultPreviousPrice } from './base-result-previous-price
 export { default as BaseFallbackImage } from './base-result-fallback-image.vue';
 export { default as BasePlaceholderImage } from './base-result-placeholder-image.vue';
 export { default as BaseResultRating } from './base-result-rating.vue';
-export { default as VariantsResultProvider } from './variants-result-provider.vue';
+export { default as ResultVariantsProvider } from './result-variants-provider.vue';
 export { default as ResultVariantSelector } from './result-variant-selector.vue';
