@@ -94,10 +94,11 @@ export const rollupConfig = createRollupOptions({
         'inject',
         (varname: string, id: string) =>
           `import {createInjector, createInjectorSSR} from 'vue-runtime-helpers';
-           const isNodeJs = (function(){try {return this===global;}catch(e){return false;}})();
-           const useSsrInjector =
-           typeof STRIP_SSR_INJECTOR !== 'undefined' && STRIP_SSR_INJECTOR || isNodeJs; 
-           const injector = useSsrInjector ? createInjectorSSR({}) : createInjector({});
+           const isBrowser = (function(){try {return this!==global;}catch(e){return true;}})();
+           const useBrowserInjector = typeof STRIP_SSR_INJECTOR !== 'undefined'
+             && STRIP_SSR_INJECTOR
+             || isBrowser;
+           const injector = useBrowserInjector ? createInjector({}) : createInjectorSSR({});
            injector('${normalizePath(id)}',{source:${varname}});`
       ]
     }),
