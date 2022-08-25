@@ -1,2 +1,2 @@
 export * from './helpers';
-export { default } from './plugin';
+export { default as xTailwindPlugin } from './plugin';

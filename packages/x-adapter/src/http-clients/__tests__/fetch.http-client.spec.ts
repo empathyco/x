@@ -56,58 +56,80 @@ describe('fetch httpClient testing', () => {
   });
 
   it('cancels equal endpoint requests if no requestId parameter is passed', async () => {
-    expect.assertions(2);
     await Promise.all([
-      fetchHttpClient(endpoint, {
-        parameters: {
-          q: 'shirt'
-        }
-      }).catch(error => expect(error.code).toEqual(DOMException.ABORT_ERR)),
-      fetchHttpClient(endpoint, {
-        parameters: {
-          q: 'jeans'
-        }
-      }).then(response => expect(response).toBeDefined())
+      expect(
+        fetchHttpClient(endpoint, {
+          parameters: {
+            q: 'shirt'
+          }
+        })
+      ).rejects.toHaveProperty('code', DOMException.ABORT_ERR),
+      expect(
+        fetchHttpClient(endpoint, {
+          parameters: {
+            q: 'jeans'
+          }
+        })
+      ).resolves.toBeDefined()
     ]);
   });
 
   // eslint-disable-next-line max-len
+  it('does not cancel equal endpoint requests if a cancelable=false parameter is passed', async () => {
+    expect(
+      await Promise.all([
+        fetchHttpClient(endpoint, {
+          cancelable: false,
+          parameters: {
+            q: 'shirt'
+          }
+        }),
+        fetchHttpClient(endpoint, {
+          parameters: {
+            q: 'jeans'
+          }
+        })
+      ])
+    ).toHaveLength(2);
+  });
+
+  // eslint-disable-next-line max-len
   it('does not cancel equal endpoint requests if a different requestId parameter is passed', async () => {
-    expect.assertions(3);
-    const searchUrl = `${endpoint}?additionalParam=true`;
-    const empathizeUrl = 'https://api.empathy.co/empathize?additionalParam=true';
-    await Promise.all([
-      fetchHttpClient(searchUrl, {
-        id: 'search',
-        parameters: {
-          q: 'shirt'
-        }
-      }).catch(error => expect(error.code).toEqual(DOMException.ABORT_ERR)),
-      fetchHttpClient(empathizeUrl, {
-        id: 'search',
-        parameters: {
-          q: 'shirt'
-        }
-      }).then(response => expect(response).toBeDefined()),
-      fetchHttpClient(searchUrl, {
-        parameters: {
-          q: 'jeans'
-        }
-      }).then(response => expect(response).toBeDefined())
-    ]);
+    expect(
+      await Promise.all([
+        fetchHttpClient(endpoint, {
+          id: 'unique-id',
+          parameters: {
+            q: 'shirt'
+          }
+        }),
+        fetchHttpClient(endpoint, {
+          parameters: {
+            q: 'shirt'
+          }
+        }),
+        fetchHttpClient(endpoint, {
+          id: 'another-unique-id',
+          parameters: {
+            q: 'shirt'
+          }
+        })
+      ])
+    ).toHaveLength(3);
   });
 
   it('throws an exception if the response status is not OK', async () => {
-    expect.assertions(1);
     window.fetch = koFetchMock as any;
-    await fetchHttpClient(endpoint, {
-      parameters: {
-        q: 'jeans'
-      }
-    }).catch(error => expect(error.response.ok).toBeFalsy());
+    await expect(
+      fetchHttpClient(endpoint, {
+        parameters: {
+          q: 'jeans'
+        }
+      })
+    ).rejects.toThrow();
   });
 
-  it('send the data in the body if `sendParamsInBody` is true', async () => {
+  it('sends the data in the body if `sendParamsInBody` is true', async () => {
     await fetchHttpClient(endpoint, {
       sendParamsInBody: true,
       parameters: {

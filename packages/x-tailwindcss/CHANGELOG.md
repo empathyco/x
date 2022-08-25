@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.9...@empathyco/x-tailwindcss@0.2.0-alpha.10) (2022-08-18)
+
+### Features
+
+- **design-system:** add `tailwindcss` to `x-components` and configure it to use `x-tailwindcss`
+  (#655)
+  ([4109a8a](https://github.com/empathyco/x/commit/4109a8ad9d29378078603d97e31c073ceb2671ae)),
+  closes [EX-6793](https://searchbroker.atlassian.net/browse/EX-6793)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.8...@empathyco/x-tailwindcss@0.2.0-alpha.9) (2022-06-23)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss

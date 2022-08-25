@@ -10,12 +10,20 @@ guiding them to specific products without the need to launch any queries.
 
 <img :src="$withBase('/assets/media/xcomponents_func_recommendations.gif')" alt="Recommendations]">
 
-:::warning Recommendations are generated using collective shopper behavior, generating a feed with
-the most clicked products. For a correct performance, make sure that your current search service
-supports this type of feature. :::
+::: warning
 
-::: interact Can't quite capture the concept? Learn more about
-[Recommendations](../search/recommendations-overview.md). :::
+Recommendations are generated using collective shopper behavior, generating a feed with the most
+clicked products. For a correct performance, make sure that your current search service supports
+this type of feature.
+
+:::
+
+::: interact
+
+Can't quite capture the concept? Learn more about
+[Recommendations](/explore-empathy-platform/features/recommendations-overview.md).
+
+:::
 
 ## Tailor the web experience
 
@@ -26,7 +34,10 @@ supports this type of feature. :::
 - Customize content. Show whatever you need: text, images, icons.
 - Extend the performance with results-related components.
 
-::: interact Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/)
-your web experience. :::
+::: interact
 
-[//]: # 'TIP To see Recommendations in action, play with our showcase.'
+Want to know more? Learn how to
+[configure](/develop-empathy-platform/ui-reference/components/recommendations/x-components.recommendations.md)
+your web experience.
+
+:::

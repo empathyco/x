@@ -24,8 +24,12 @@ discovery**. You can guide shoppers through your product catalogue faster, allow
 and browse different product classifications directly from the faceted menu in your shop, without
 having to search.-->
 
-::: interact Can't quite capture the concept? Learn more about
-[Facets and Filters](../overview/facets-and-filters-overview.md). :::
+::: interact
+
+Can't quite capture the concept? Learn more about
+[Facets and Filters](../overview/facets-and-filters-overview.md).
+
+:::
 
 ## Build a faceted experience with X Components
 
@@ -41,7 +45,7 @@ results **clearer and more accessible**, meeting different types of faceting lay
 
 <img :src="$withBase('/assets/media/x-components_func_facets.png')" alt="Facets" />
 
-:::details Rendering facets and filters
+::: details Rendering facets and filters
 
 X&nbsp;Components for facets and filters not only enhances your shoppers’ experience by supporting
 and rendering faceted search and navigation, but also provides different ways to display a faceted
@@ -61,9 +65,11 @@ experience:
   attributes. For example, the _Price_ facet in a grocery store can display “< €0.99”, “€1 – €4.99”,
   “€5 – €9.99”, or “€10 – €19.99”. Implement **editable number range facets** and let your shoppers
   define the numerical ranges they want to filter by. Shoppers can type the desired price range to
-  filter by in the _From_ - _To_ or _Min_ - _Max_ input fields available. :::
+  filter by in the _From_ - _To_ or _Min_ - _Max_ input fields available.
 
-:::details Extending facets and filters UI
+:::
+
+::: details Extending facets and filters UI
 
 Apart from the main X&nbsp;Components for facets and filters that render product categories and
 their corresponding attributes in different ways, there are components available offering advanced
@@ -101,6 +107,7 @@ into icons or images such as stars for average rating-based filtering, for examp
 
 You can also change the default single-select behavior and activate **multi-select** controls so
 that shoppers can select more than one filter value at a time from the same facet to expand results.
+
 :::
 
 ## Tailor the web experience
@@ -129,10 +136,15 @@ that shoppers can select more than one filter value at a time from the same face
 - Customize facet data at your ease. You can opt to render facets defined in your product catalogue
   automatically, display custom facets, or even render a mix of them.
 
-::: warning Make sure your current Search microservice is compatible with this kind of
-configuration. :::
+::: warning
 
-::: interact Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/)
-your web experience. :::
+Make sure your current Search microservice is compatible with this kind of configuration.
 
-[//]: # 'To see Facets and Filters in action, play with our showcase'
+:::
+
+::: interact
+
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+experience.
+
+:::
