@@ -161,7 +161,7 @@ This component doesn't emit events.
 
 Here you have a basic example of how the `ResultVariantSelector` component is rendered.
 
-Take into account that this component **must** be a child of a `VariantsResultProvider` component.
+Take into account that this component **must** be a child of a `ResultVariantsProvider` component.
 
 Also, the component is intended to be used overwriting the content with the slots.
 
@@ -172,7 +172,7 @@ rendered.
 
 ```vue
 <template>
-  <VariantsResultProvider :result="result" #default="{ result }">
+  <ResultVariantsProvider :result="result" #default="{ result }">
     <p>Result name: {{ result.name }}</p>
 
     <h1>Select color</h1>
@@ -180,16 +180,16 @@ rendered.
 
     <h1>Select size</h1>
     <ResultVariantSelector :level="1" #variant="{ variant, selectVariant }" />
-  </VariantsResultProvider>
+  </ResultVariantsProvider>
 </template>
 
 <script>
-  import { VariantsResultProvider, ResultVariantSelector } from '@empathyco/x-components';
+  import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components';
 
   export default {
     name: 'ResultVariantSelectorDemo',
     components: {
-      VariantsResultProvider,
+      ResultVariantsProvider,
       ResultVariantSelector
     },
     data() {
@@ -244,7 +244,7 @@ In this example the default slot is used to customize the list.
 
 ```vue
 <template>
-  <VariantsResultProvider :result="result" #default="{ result }">
+  <ResultVariantsProvider :result="result" #default="{ result }">
     <p>Result name: {{ result.name }}</p>
 
     <ResultVariantSelector :level="0" #default="{ variants, selectedVariant, selectVariant }">
@@ -257,16 +257,16 @@ In this example the default slot is used to customize the list.
         </ul>
       </div>
     </ResultVariantSelector>
-  </VariantsResultProvider>
+  </ResultVariantsProvider>
 </template>
 
 <script>
-  import { VariantsResultProvider, ResultVariantSelector } from '@empathyco/x-components';
+  import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components';
 
   export default {
     name: 'ResultVariantSelectorDemo',
     components: {
-      VariantsResultProvider,
+      ResultVariantsProvider,
       ResultVariantSelector
     },
     data() {
@@ -304,7 +304,7 @@ The variant will be rendered inside a list.
 
 ```vue
 <template>
-  <VariantsResultProvider :result="result" #default="{ result }">
+  <ResultVariantsProvider :result="result" #default="{ result }">
     <p>Result name: {{ result.name }}</p>
 
     <ResultVariantSelector :level="0" #variant="{ variant, isSelected, selectVariant }">
@@ -315,16 +315,16 @@ The variant will be rendered inside a list.
         </button>
       </div>
     </ResultVariantSelector>
-  </VariantsResultProvider>
+  </ResultVariantsProvider>
 </template>
 
 <script>
-  import { VariantsResultProvider, ResultVariantSelector } from '@empathyco/x-components';
+  import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components';
 
   export default {
     name: 'ResultVariantSelectorDemo',
     components: {
-      VariantsResultProvider,
+      ResultVariantsProvider,
       ResultVariantSelector
     },
     data() {
@@ -361,7 +361,7 @@ button.
 
 ```vue
 <template>
-  <VariantsResultProvider :result="result" #default="{ result }">
+  <ResultVariantsProvider :result="result" #default="{ result }">
     <p>Result name: {{ result.name }}</p>
 
     <ResultVariantSelector #variant-content="{ variant, isSelected }">
@@ -370,16 +370,16 @@ button.
         <span v-if="isSelected">SELECTED!</span>
       </div>
     </ResultVariantSelector>
-  </VariantsResultProvider>
+  </ResultVariantsProvider>
 </template>
 
 <script>
-  import { VariantsResultProvider, ResultVariantSelector } from '@empathyco/x-components';
+  import { ResultVariantsProvider, ResultVariantSelector } from '@empathyco/x-components';
 
   export default {
     name: 'ResultVariantSelectorDemo',
     components: {
-      VariantsResultProvider,
+      ResultVariantsProvider,
       ResultVariantSelector
     },
     data() {
