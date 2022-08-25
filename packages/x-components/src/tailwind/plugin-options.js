@@ -25,17 +25,13 @@ module.exports = {
     spacing: {
       72: 72,
       74: 74,
-      120: 120,
+      130: 130,
       150: 150,
       202: 202,
       282: 282
     },
     fontFamily: {
-      primary: ['Montserrat', 'sans-serif'],
-      secondary: ['Lora', 'sans-serif'],
-      auxiliary: 'Space Mono',
-      special: '',
-      icons: ''
+      primary: ['Montserrat', 'sans-serif']
     },
     fontSize: {
       lg: '18px'
@@ -44,11 +40,9 @@ module.exports = {
       light: 300
     },
     lineHeight: {
-      legacy: {
-        sm: '16px',
-        md: '24px',
-        lg: '32px'
-      }
+      sm: '16px',
+      md: '24px',
+      lg: '32px'
     }
   }
 };
