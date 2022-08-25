@@ -8,6 +8,8 @@ import { QueriesPreviewXStoreModule } from '../types';
  * provided by Vuex.
  * @param request - The query preview request to make.
  * @returns A Promise of a SearchResponse when it fetches the results.
+ *
+ * @public
  */
 export const fetchQueryPreview: QueriesPreviewXStoreModule['actions']['fetchQueryPreview'] = (
   { commit },

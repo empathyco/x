@@ -7,6 +7,8 @@ import { QueriesPreviewXStoreModule } from '../types';
  * provided by Vuex.
  * @param request - The query preview request to make.
  * @returns A Promise of a SearchResponse when it fetches the results.
+ *
+ * @public
  */
 // eslint-disable-next-line max-len
 export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fetchAndSaveQueryPreview'] =
