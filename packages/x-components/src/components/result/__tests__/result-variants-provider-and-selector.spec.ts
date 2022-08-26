@@ -86,15 +86,19 @@ const renderResultVariantsProvider = ({
 
   return {
     wrapper: wrapper.findComponent(ResultVariantsProvider),
-    findSelectorButtonByLevelWrappers: function (level: number): WrapperArray<Vue> {
+    findSelectorButtonByLevel: function (level: number): WrapperArray<Vue> {
       return findTestDataById(wrapper, 'variants-list')
         .at(level)
         .findAll(getDataTestSelector('variant-button'));
     },
-    findSelectorItemByLevelWrappers: function (level: number): WrapperArray<Vue> {
+    findSelectorItemByLevel: function (level: number): WrapperArray<Vue> {
       return findTestDataById(wrapper, 'variants-list')
         .at(level)
         .findAll(getDataTestSelector('variant-item'));
+    },
+    setResult: function (result: Result): Promise<void> {
+      (wrapper.vm as any).result = result;
+      return wrapper.vm.$nextTick();
     },
     eventsBusSpy
   };
@@ -111,7 +115,7 @@ describe('results with variants', () => {
   });
 
   it('merges the selected and parent variants data with the result', async () => {
-    const { wrapper, findSelectorButtonByLevelWrappers } = renderResultVariantsProvider({
+    const { wrapper, findSelectorButtonByLevel } = renderResultVariantsProvider({
       template: `
         <div>
           <ResultVariantSelector #variant-content="{variant}">
@@ -128,7 +132,7 @@ describe('results with variants', () => {
       autoSelectDepth: 0
     });
 
-    const firstLevelVariantButtons = findSelectorButtonByLevelWrappers(0);
+    const firstLevelVariantButtons = findSelectorButtonByLevel(0);
 
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toBe('jacket');
     expect(wrapper.find(getDataTestSelector('result-image')).text()).toBe('');
@@ -138,7 +142,7 @@ describe('results with variants', () => {
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toBe('red jacket');
     expect(wrapper.find(getDataTestSelector('result-image')).text()).toBe('red-jacket-image');
 
-    const secondLevelVariantButtons = findSelectorButtonByLevelWrappers(1);
+    const secondLevelVariantButtons = findSelectorButtonByLevel(1);
 
     await secondLevelVariantButtons.at(1).trigger('click');
 
@@ -199,7 +203,7 @@ describe('results with variants', () => {
   });
 
   it('selects the first variant of all levels by default', () => {
-    const { findSelectorItemByLevelWrappers } = renderResultVariantsProvider({
+    const { findSelectorItemByLevel } = renderResultVariantsProvider({
       template: `
         <div>
           <ResultVariantSelector :level="0"/>
@@ -209,15 +213,15 @@ describe('results with variants', () => {
       result
     });
 
-    const firstVariant = findSelectorItemByLevelWrappers(0).at(0);
-    const secondSelectorFirstVariant = findSelectorItemByLevelWrappers(1).at(0);
+    const firstVariant = findSelectorItemByLevel(0).at(0);
+    const secondSelectorFirstVariant = findSelectorItemByLevel(1).at(0);
 
     expect(firstVariant.element.className).toContain('--is-selected');
     expect(secondSelectorFirstVariant.element.className).toContain('--is-selected');
   });
 
   it('selects variants on init up to the level set in the autoSelectDepth prop', () => {
-    const { findSelectorItemByLevelWrappers } = renderResultVariantsProvider({
+    const { findSelectorItemByLevel } = renderResultVariantsProvider({
       template: `
         <div>
           <ResultVariantSelector :level="0"/>
@@ -228,8 +232,8 @@ describe('results with variants', () => {
       autoSelectDepth: 1
     });
 
-    const firstVariant = findSelectorItemByLevelWrappers(0).at(0);
-    const secondSelectorFirstVariant = findSelectorItemByLevelWrappers(1).at(0);
+    const firstVariant = findSelectorItemByLevel(0).at(0);
+    const secondSelectorFirstVariant = findSelectorItemByLevel(1).at(0);
 
     expect(firstVariant.element.className).toContain('--is-selected');
     expect(secondSelectorFirstVariant.element.className).not.toContain('--is-selected');
@@ -254,7 +258,7 @@ describe('results with variants', () => {
   });
 
   it('reset the selected variants if the result changes', async () => {
-    const { wrapper } = renderResultVariantsProvider({
+    const { wrapper, setResult } = renderResultVariantsProvider({
       result,
       autoSelectDepth: 0
     });
@@ -265,11 +269,12 @@ describe('results with variants', () => {
 
     expect(variantItem.element.className).toContain('--is-selected');
 
-    await wrapper.setData({
-      result: createResultStub('tshirt', {
+    await setResult(
+      createResultStub('tshirt', {
         variants
       })
-    });
+    );
+
     //Resets even if the same variants are passed.
     expect(variantItem.element.className).not.toContain('--is-selected');
   });
@@ -313,12 +318,12 @@ describe('results with variants', () => {
         </div>
       `;
 
-      const { findSelectorButtonByLevelWrappers } = renderResultVariantsProvider({
+      const { findSelectorButtonByLevel } = renderResultVariantsProvider({
         template,
         result
       });
 
-      const firstLevelVariantButtons = findSelectorButtonByLevelWrappers(0);
+      const firstLevelVariantButtons = findSelectorButtonByLevel(0);
 
       expect(firstLevelVariantButtons).toHaveLength(2);
       expect(firstLevelVariantButtons.at(0).text()).toBe('red jacket');
@@ -326,7 +331,7 @@ describe('results with variants', () => {
 
       await firstLevelVariantButtons.at(1).trigger('click');
 
-      const secondLevelVariantButtons = findSelectorButtonByLevelWrappers(1);
+      const secondLevelVariantButtons = findSelectorButtonByLevel(1);
 
       expect(secondLevelVariantButtons).toHaveLength(2);
       expect(secondLevelVariantButtons.at(0).text()).toBe('blue jacket L');
@@ -334,7 +339,7 @@ describe('results with variants', () => {
 
       await secondLevelVariantButtons.at(0).trigger('click');
 
-      const thirdLevelVariantButtons = findSelectorButtonByLevelWrappers(2);
+      const thirdLevelVariantButtons = findSelectorButtonByLevel(2);
 
       expect(thirdLevelVariantButtons).toHaveLength(3);
       expect(thirdLevelVariantButtons.at(0).text()).toBe('blue jacket L1');
@@ -459,19 +464,26 @@ interface ResultVariantsProviderApi {
   /** The wrapper for {@link ResultVariantsProvider} component. */
   wrapper: Wrapper<Vue>;
   /**
-   * Util function to find the variant buttons of a level.
+   * Util function to find the variant items of a level.
    *
    * @param level - The level of the variants.
    * @returns The wrappers of the list items rendered for the given level.
    */
-  findSelectorItemByLevelWrappers: (level: number) => WrapperArray<Vue>;
+  findSelectorItemByLevel: (level: number) => WrapperArray<Vue>;
   /**
    * Util function to find the variant buttons of a level.
    *
    * @param level - The level of the variants.
    * @returns The wrappers of the buttons rendered for the given level.
    */
-  findSelectorButtonByLevelWrappers: (level: number) => WrapperArray<Vue>;
+  findSelectorButtonByLevel: (level: number) => WrapperArray<Vue>;
+
+  /**
+   * Sets the result passed to the provider as prop, replacing it.
+   *
+   * @param result - Result to set.
+   */
+  setResult: (result: Result) => Promise<void>;
   /**
    * A Jest spy set in the {@link XPlugin} bus `emit` function,
    * useful to test events emitted in the first lifecycle hooks of the component.

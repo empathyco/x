@@ -98,7 +98,7 @@
      * That includes doing the auto selection of the variants when the component is created
      * and when the result is changed.
      */
-    @Watch('result', { deep: true, immediate: true })
+    @Watch('result', { immediate: true })
     resetSelectedVariants(): void {
       this.selectedVariants = [];
       this.selectFirstVariants(this.result?.variants?.[0]);
