@@ -101,9 +101,7 @@
     @Watch('result', { deep: true, immediate: true })
     resetSelectedVariants(): void {
       this.selectedVariants = [];
-      if (this.result?.variants?.length) {
-        this.selectFirstVariants(this.result.variants[0]);
-      }
+      this.selectFirstVariants(this.result?.variants?.[0]);
     }
 
     /**
@@ -132,13 +130,10 @@
      *
      * @param variant - Variant to add to the array.
      */
-    selectFirstVariants(variant: ResultVariant): void {
-      if (this.selectedVariants.length > this.autoSelectDepth - 1) {
-        return;
-      }
-      this.selectedVariants.push(variant);
-      if (variant.variants?.length) {
-        this.selectFirstVariants(variant.variants[0]);
+    selectFirstVariants(variant?: ResultVariant): void {
+      if (!!variant && this.selectedVariants.length <= this.autoSelectDepth - 1) {
+        this.selectedVariants.push(variant);
+        this.selectFirstVariants(variant.variants?.[0]);
       }
     }
   }
