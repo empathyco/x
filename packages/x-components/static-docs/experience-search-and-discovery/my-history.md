@@ -12,7 +12,7 @@ Can't quite capture the concept? Learn more about [My History](/explore-empathy-
 
 :::
 
-From the frontend perspective, My History is a UI component that specifically manages the display of a list of history search suggestions. To display a dashboard featuring shoppers' data privacy and control, My History is combined with other UI elements and components, such as a toggle switch for shoppers to enable or disable search history tracking.
+From the frontend perspective, My History is a UI component that specifically manages the display of a list of history search suggestions. To display a dashboard featuring shoppers' data privacy and control, My History is combined with other UI elements and components, such as a toggle switch for shoppers to enable or disable search history.
 
 ::: note Search data storage
 
