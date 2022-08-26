@@ -94,7 +94,12 @@ export const rollupConfig = createRollupOptions({
         'inject',
         (varname: string, id: string) =>
           `import {createInjector, createInjectorSSR} from 'vue-runtime-helpers';
-           const isBrowser = (function(){return (Object.prototype.toString.call(typeof process!=='undefined'? process:0)!=='[object process]');})();
+           const isBrowser = (function () {
+              return (
+                Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) !==
+                '[object process]'
+              );
+           })();
            const useBrowserInjector = typeof STRIP_SSR_INJECTOR !== 'undefined'
              && STRIP_SSR_INJECTOR
              || isBrowser;
