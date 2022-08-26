@@ -10,7 +10,7 @@ the results appear to fine-tune the search with extra information and get highly
 They are shown as labels usually at the top of the results page, but can be displayed anywhere
 instead.
 
-![Related Tags](/assets/media/xcomponents_func_relatedtags.gif)
+![Related Tags](~@assets/media/xcomponents_func_relatedtags.gif)
 
 ::: warning
 

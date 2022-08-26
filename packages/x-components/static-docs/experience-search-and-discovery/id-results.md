@@ -38,7 +38,7 @@ Don't quite understand ID results? Learn more about
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/identifier-results/) your web
 experience.
 
 :::

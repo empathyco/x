@@ -8,7 +8,7 @@ The Popular Searches UI component displays what are the top search queries durin
 This type of suggestion can show up even before shoppers have started entering a query or when there
 are no search results to show.
 
-![Popular Searches](/assets/media/xcomponents_func_popularsearches.gif)
+![Popular Searches](~@assets/media/xcomponents_func_popularsearches.gif)
 
 ::: warning
 

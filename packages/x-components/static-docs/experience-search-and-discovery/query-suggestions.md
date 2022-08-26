@@ -8,7 +8,7 @@ The Query Suggestions UI component helps your shoppers with hints of what to loo
 relevant results. They complete and nail down the query as shoppers type without needing to keep
 typing.
 
-![Query Suggestions](/assets/media/xcomponents_func_querysuggestions.gif)
+![Query Suggestions](~@assets/media/xcomponents_func_querysuggestions.gif)
 
 ::: warning
 

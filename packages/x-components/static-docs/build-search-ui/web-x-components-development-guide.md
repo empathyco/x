@@ -162,8 +162,8 @@ building your search and discovery UI:
 
 </br>
 <VideoContent
-source="/assets/media/videos/How-to-use-X-components-in-a-real-project.mp4"
-poster="/assets/media/videos/How-to-use-X-components-in-a-real-project.jpeg"
+:source="$withBase('/assets/media/videos/How-to-use-X-components-in-a-real-project.mp4')"
+:poster="$withBase('/assets/media/videos/How-to-use-X-components-in-a-real-project.jpeg')"
 >
 
 Watch how our frontend Team Lead, [Iván Tajes](https://github.com/tajespasarela), integrates the

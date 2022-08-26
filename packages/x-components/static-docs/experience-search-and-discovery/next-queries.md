@@ -8,7 +8,7 @@ The Next Queries UI component provides shoppers with ideas on what to search for
 last search. Since next queries are related to the last query, they appear after performing a first
 search.
 
-![Next Queries](/assets/media/xcomponents_func_nextqueries.gif)
+![Next Queries](~@assets/media/xcomponents_func_nextqueries.gif)
 
 Next queries can be **organic**, using information on the most common searches that are performed
 successively or within a same session by shoppers, or **curated**, created manually by the

@@ -144,7 +144,7 @@ Make sure your current Search microservice is compatible with this kind of confi
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/facets/) your web
 experience.
 
 :::

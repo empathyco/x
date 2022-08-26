@@ -4,7 +4,7 @@ title: Experience search & discovery
 
 # Experience search & discovery
 
-Search inevitably is key when people look for specific products in an online store. It is the door
+Search inevitably is key when people look for specific products in an online store. It's the door
 to the entire product catalogue, so having an outstanding, well-structured, and optimized search UI
 is a must.
 
@@ -30,8 +30,9 @@ Apps cover everything and even go beyond, thanks to their standalone, configurab
 that allow you to quickly construct the search UI for your store:
 **Interface&nbsp;X&nbsp;Components** and **Interface&nbsp;X&nbsp;Components for Apps**.
 
-**Mix and match your experience**  
-Each X&nbsp;Component represents a graphical part of the UI, with
+### Mix and match your experience
+
+Each Interface&nbsp;X&nbsp;Component represents a graphical part of the UI, with
 its own unique view and behavior. They’ve been smartly designed to **work together yet
 independently**, so a single component adds real value to your UI by itself. The more components you
 add and combine, the more functionality you get.
@@ -58,6 +59,58 @@ choose the modules and components that best suit your needs.
 
 :::
 
+#### Discover Interface X Components for web
+
+Check out these X&nbsp;Components for Vue.js applications. They’ll certainly come in handy if you
+want to make the difference!
+
+<CardCarousel :cards="[
+    'x_popular_searches',
+    'x_history_queries',
+    'x_my_history',
+    'x_id_results',
+    'x_search_box',
+    'x_query_suggestions',
+    'x_related_tags',
+    'x_next_queries',
+    'x_recommendations',
+    'x_empathize',
+    'x_results',
+    'x_facets']"
+/>
+
+::: interact  
+
+Check out the **Interface X for web [open-source project](https://github.com/empathyco/x)** on
+GitHub!
+
+:::
+
+#### Discover Interface X Components for Apps
+
+Check out the X&nbsp;Components available for Interface&nbsp;X for Apps, that can help you create
+your native app search solution.
+
+<CardCarousel :cards="[
+    'x_popular_searches',
+    'x_history_queries',
+    'x_my_history',
+    'x_id_results',
+    'x_search_box',
+    'x_query_suggestions',
+    'x_related_tags',
+    'x_next_queries',
+    'x_empathize',
+    'x_results',]"
+/>
+
+::: warning
+
+Some X&nbsp;Components are supported by Empathy Platform search and discovery features. If you’re
+using a different search engine, make sure it supports all the functionalities you need.
+
+:::
+
 ## Try X Components to…
 
 - Surprise your shoppers by **rendering shopping-aimed search and discovery features** that
@@ -70,63 +123,9 @@ choose the modules and components that best suit your needs.
 - Enhance the shopping experience by adding **additional features to the SERP** such as add-to-cart
   buttons or product rating information.
 
-::: warning
-
-Some X&nbsp;Components are supported by Empathy Platform search and discovery features. If you’re
-using a different search engine, make sure it supports all the functionalities you need.
-
-:::
-
 ::: interact
 
 Explore the Empathy Platform [interactive map](/explore-empathy-platform/diagram/interface/) for a
 sneak peak of the X&nbsp;Components available!
 
 :::
-
----
-
-## Discover Interface X Components
-
-Check out these X&nbsp;Components for Vue.js applications. They’ll certainly come in handy if you
-want to make the difference!
-
-<CardCarousel :cards="[
-    'x_popular_searches',
-    'x_history_queries',
-    'x_id_results',
-    'x_search_box',
-    'x_query_suggestions',
-    'x_related_tags',
-    'x_next_queries',
-    'x_recommendations',
-    'x_empathize',
-    'x_results',
-    'x_facets']"
-/>
-
-::: note
-
-Check out the **Interface X for web [open-source project](https://github.com/empathyco/x)** on
-GitHub!
-
-:::
-
----
-
-## Discover Interface X Components for Apps
-
-Check out the X&nbsp;Components available for Interface&nbsp;X for Apps, that can help you create
-your native app search solution.
-
-<CardCarousel :cards="[
-    'x_popular_searches',
-    'x_history_queries',
-    'x_id_results',
-    'x_search_box',
-    'x_query_suggestions',
-    'x_related_tags',
-    'x_next_queries',
-    'x_empathize',
-    'x_results',]"
-/>
