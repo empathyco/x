@@ -53,7 +53,7 @@ configure it to display only successful history searches.
 
 ::: note Search history tracking
 
-Use the [My History](my-history.md) component to control search history tranking. Shoppers can view a complete list of history queries and decide to stop saving search history. If search history is disabled, the History Queries list is cleared.
+Use the [My History](my-history.md) component to access and control search history. Shoppers can view a complete list of history queries and decide to stop saving search history. If search history is disabled, the History Queries list is cleared.
 
 ::: 
 
