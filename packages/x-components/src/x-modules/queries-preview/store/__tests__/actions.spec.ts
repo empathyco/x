@@ -9,7 +9,8 @@ import {
   QueriesPreviewState,
   QueriesPreviewGetters,
   QueriesPreviewMutations,
-  QueriesPreviewActions
+  QueriesPreviewActions,
+  QueryPreviewItem
 } from '../types';
 
 describe('testing queries preview module actions', () => {
@@ -66,9 +67,8 @@ describe('testing queries preview module actions', () => {
       const request = getQueryPreviewRequest(query);
 
       await store.dispatch('fetchAndSaveQueryPreview', request);
-      await promise;
 
-      const expectedResults:  QueryPreviewItem = {
+      const expectedResults: QueryPreviewItem = {
         totalResults: mockedSearchResponse.totalResults,
         results: mockedSearchResponse.results,
         query,

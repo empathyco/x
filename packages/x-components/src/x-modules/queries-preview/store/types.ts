@@ -1,6 +1,7 @@
 import { Result, SearchRequest, SearchResponse } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
-import { XActionContext, XStoreModule } from '../../../store';
+import { XActionContext } from '../../../store/actions.types';
+import { XStoreModule } from '../../../store/store.types';
 import { QueryState } from '../../../store/utils/query.utils';
 import { RequestStatus, StatusState } from '../../../store/utils/status-store.utils';
 import { QueriesPreviewConfig } from '../config.types';

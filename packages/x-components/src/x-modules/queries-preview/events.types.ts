@@ -11,7 +11,7 @@ export interface QueriesPreviewXEvents {
    * Any property of the queries preview request has changed.
    * Payload: The new {@link @empathyco/x-types#SearchRequest | request}.
    */
-  QueryPreviewRequestChange: SearchRequest;
+  QueryPreviewRequestChanged: SearchRequest;
   /**
    * The component that shows a Query preview has been unmounted.
    * Payload: The query whose preview has been removed.

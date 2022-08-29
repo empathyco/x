@@ -2,7 +2,6 @@ import {
   namespacedWireCommit,
   namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
-import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
@@ -24,7 +23,7 @@ const wireCommit = namespacedWireCommit(moduleName);
  *
  * @internal
  */
-const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDispatch(moduleName);
+const wireDispatch = namespacedWireDispatch(moduleName);
 
 /**
  * Requests and stores the query preview results.
@@ -38,13 +37,14 @@ export const fetchAndSaveQueryPreviewWire = wireDispatch('fetchAndSaveQueryPrevi
  *
  * @public
  */
-export const clearQueryPreview = wireCommit('clearQueryPreview');
+
+export const clearQueryPreviewWire = wireCommit('clearQueryPreview');
 /**
  * Sets the queries preview state `params`.
  *
  * @public
  */
-export const setQueriesPreviewExtraParams = wireCommit('setParams');
+export const setQueriesPreviewExtraParamsWire = wireCommit('setParams');
 
 /**
  * Wiring configuration for the {@link QueriesPreviewXModule | queriesPreview module}.
@@ -52,13 +52,13 @@ export const setQueriesPreviewExtraParams = wireCommit('setParams');
  * @internal
  */
 export const queriesPreviewWiring = createWiring({
-  QueryPreviewRequestChange: {
+  QueryPreviewRequestChanged: {
     fetchAndSaveQueryPreviewWire
   },
   QueryPreviewRemoved: {
-    clearQueryPreview
+    clearQueryPreviewWire
   },
   ExtraParamsChanged: {
-    setQueriesPreviewExtraParams
+    setQueriesPreviewExtraParamsWire
   }
 });
