@@ -1,8 +1,11 @@
 name: Release alpha version
 description: Runs npm script to release alpha version and pushes tags to github
 inputs:
-  npm-token:
-    description: Token to push code with
+  npm_token:
+    description: Token to push code to npm
+    required: true
+  github_token:
+    description: Token to push code to github
     required: true
 runs:
   using: "composite"
@@ -16,10 +19,13 @@ runs:
       run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
       shell: bash
       env:
-        NPM_TOKEN: ${{ inputs.npm-token }}
+        NPM_TOKEN: ${{ inputs.npm_token }}
     - name: Publish release
       run: npm run release:alpha
       shell: bash
-    - name: Push changes to GitHub
-      run: git push --follow-tags
-      shell: bash
+    - name: Push tags
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ inputs.github_token }}
+        branch: ${{ github.ref }}
+        tags: true
