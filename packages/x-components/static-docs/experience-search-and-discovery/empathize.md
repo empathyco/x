@@ -11,7 +11,9 @@ experience that is usually displayed below the search box. Consider it the natur
 
 ![Empathize](/assets/media/xcomponents_func_empathize.gif)
 
-**Placement matters** One of the characteristics of X&nbsp;Components is that you can place them
+**Placement matters** 
+
+One of the characteristics of X&nbsp;Components is that you can place them
 wherever you want. However, you know that the placement of the search box in your shop matters. So,
 why have search suggestions and recommendations spread all over the page, far away from the search
 box? The Empathize container brings everything together so that your shoppers perceive a smooth,
@@ -92,11 +94,9 @@ search capabilities, such as Query Suggestions and Popular Searches. Don’t get
 - Determine when Empathize appears and disappears.
 - Animate how the component opens and closes.
 
-::: interact Want to know more? Learn how to [configure](/empathy-for-developers/ui-reference/) your
-web experience. :::
+::: interact
 
-<!---
-::: note
-To see Empathize in action, play with our showcase.
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+experience.
+
 :::
---->

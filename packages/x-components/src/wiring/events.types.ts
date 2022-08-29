@@ -1,4 +1,4 @@
-import { Result, Suggestion } from '@empathyco/x-types';
+import { Result, ResultVariant, Suggestion } from '@empathyco/x-types';
 import { ExtractPayload } from '../store/index';
 import { ArrowKey, PropsWithType } from '../utils';
 import { DeviceXEvents } from '../x-modules/device';
@@ -180,6 +180,12 @@ export interface XEventsTypes
    * Payload: none.
    */
   UserReachedEmpathizeTop: void;
+  /**
+   * The user selected a result variant.
+   * Payload: And object containing the result, the selected variant and the level of the selected
+   * variant.
+   */
+  UserSelectedAResultVariant: { result: Result; variant: ResultVariant; level: number };
   /**
    * User selected any kind of suggestion (query-suggestion, popular-search...)
    * Payload: The {@link @empathyco/x-types#Suggestion | suggestion} that the user selected.

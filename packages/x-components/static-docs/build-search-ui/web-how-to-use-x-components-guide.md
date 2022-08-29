@@ -111,7 +111,7 @@ The `search-box` module contains these components:
 ::: interact
 
 Learn more about the
-[Search Box UI](/explore-empathy-platform/experience-search-&-discovery/search-box.md)
+[Search Box UI](/explore-empathy-platform/experience-search-and-discovery/search-box.md)
 
 :::
 
