@@ -2,7 +2,6 @@ import { Result, SearchRequest, SearchResponse } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext } from '../../../store/actions.types';
 import { XStoreModule } from '../../../store/store.types';
-import { QueryState } from '../../../store/utils/query.utils';
 import { RequestStatus, StatusState } from '../../../store/utils/status-store.utils';
 import { QueriesPreviewConfig } from '../config.types';
 
@@ -11,12 +10,12 @@ import { QueriesPreviewConfig } from '../config.types';
  *
  * @public
  */
-export interface QueryPreviewItem extends QueryState, StatusState {
+export interface QueryPreviewItem extends StatusState {
   /**
    * Request object to retrieve the query preview using the search adapter, or null if there is
    * no valid data to conform a valid request.
    */
-  request: SearchRequest | null;
+  request: SearchRequest;
   /** Results of the query preview request. */
   results: Result[];
   /** The total number of results for the search query. */
@@ -65,10 +64,9 @@ export interface QueriesPreviewMutations {
   /**
    * Adds a new entry to the queries preview's dictionary.
    *
-   * @param queriesPreview - Object containing the preview query,
-   * the totalResults and the results to add.
+   * @param queryPreview - The query preview item to add.
    */
-  setQueriesPreview(queriesPreview: Dictionary<QueryPreviewItem>): void;
+  setQueryPreview(queryPreview: QueryPreviewItem): void;
   /**
    * Sets the status of a query preview request.
    *

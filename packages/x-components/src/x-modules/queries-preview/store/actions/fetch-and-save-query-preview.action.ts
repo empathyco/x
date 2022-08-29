@@ -14,19 +14,23 @@ import { QueriesPreviewXStoreModule } from '../types';
 export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fetchAndSaveQueryPreview'] =
   ({ dispatch, commit }, request) => {
     const { query } = request;
+    if (!query) {
+      return;
+    }
+    commit('setQueryPreview', {
+      request,
+      results: [],
+      status: 'loading',
+      totalResults: 0
+    });
     return dispatch('fetchQueryPreview', request)
       .then(response => {
-        if (response) {
-          commit('setQueriesPreview', {
-            [query]: {
-              query,
-              request,
-              results: response.results,
-              status: 'success',
-              totalResults: response.totalResults
-            }
-          });
-        }
+        commit('setQueryPreview', {
+          request,
+          results: response?.results ?? [],
+          status: 'success',
+          totalResults: response?.totalResults ?? 0
+        });
       })
       .catch(error => {
         // eslint-disable-next-line no-console

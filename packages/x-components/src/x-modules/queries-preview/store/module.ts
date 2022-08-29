@@ -24,11 +24,11 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     setParams(state, params) {
       state.params = params;
     },
-    setQueriesPreview(state, queriesPreview) {
-      state.queriesPreview = { ...state.queriesPreview, ...queriesPreview };
+    setQueryPreview(state, queryPreview) {
+      Vue.set(state.queriesPreview, queryPreview.request.query, queryPreview);
     },
     setStatus(state, { query, status }) {
-      state.queriesPreview[query] = { ...state.queriesPreview[query], status };
+      state.queriesPreview[query].status = status;
     }
   },
   actions: {

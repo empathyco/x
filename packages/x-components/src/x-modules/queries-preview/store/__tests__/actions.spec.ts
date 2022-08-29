@@ -12,6 +12,7 @@ import {
   QueriesPreviewActions,
   QueryPreviewItem
 } from '../types';
+import { resetQueriesPreviewStateWith } from './utils';
 
 describe('testing queries preview module actions', () => {
   const mockedSearchResponse = getSearchResponseStub();
@@ -39,19 +40,19 @@ describe('testing queries preview module actions', () => {
   > = new Store(queriesPreviewXStoreModule as any);
   installNewXPlugin({ adapter, store }, localVue);
 
+  beforeEach(() => {
+    resetQueriesPreviewStateWith(store);
+  });
+
   describe('fetchQueryPreview', () => {
     it('should make a search request with a unique id', async () => {
       const request = getQueryPreviewRequest('sandals');
-      await store.dispatch('fetchQueryPreview', request);
+      const results = await store.dispatch('fetchQueryPreview', request);
 
+      expect(adapter.search).toHaveBeenCalledTimes(1);
       expect(adapter.search).toHaveBeenCalledWith(request, {
         id: 'fetchQueryPreview-sandals'
       });
-    });
-
-    it('should return the search response', async () => {
-      const request = getQueryPreviewRequest('sandals');
-      const results = await store.dispatch('fetchQueryPreview', request);
       expect(results).toEqual(mockedSearchResponse);
     });
 
@@ -65,13 +66,10 @@ describe('testing queries preview module actions', () => {
     it('should request and store query preview results in the state', async () => {
       const query = 'tshirt';
       const request = getQueryPreviewRequest(query);
-
-      await store.dispatch('fetchAndSaveQueryPreview', request);
-
+      const stateResults = store.state.queriesPreview;
       const expectedResults: QueryPreviewItem = {
         totalResults: mockedSearchResponse.totalResults,
         results: mockedSearchResponse.results,
-        query,
         status: 'success',
         request: {
           extraParams: {
@@ -81,10 +79,21 @@ describe('testing queries preview module actions', () => {
           rows: 3
         }
       };
-      const stateResults = store.state.queriesPreview;
 
-      expect(query in stateResults).toBeTruthy();
+      const actionPromise = store.dispatch('fetchAndSaveQueryPreview', request);
+      expect(stateResults[query].status).toEqual('loading');
+
+      await actionPromise;
       expect(stateResults[query]).toEqual(expectedResults);
+    });
+
+    it('should set the status to error when it fails', async () => {
+      adapter.search.mockRejectedValueOnce('Generic error');
+      const query = 'sandals';
+      const request = getQueryPreviewRequest(query);
+      await store.dispatch('fetchAndSaveQueryPreview', request);
+
+      expect(store.state.queriesPreview[query].status).toEqual('error');
     });
 
     it('should send multiple requests if the queries are different', async () => {

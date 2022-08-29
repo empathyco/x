@@ -12,14 +12,13 @@ import { QueriesPreviewXStoreModule } from '../types';
  * @public
  */
 export const fetchQueryPreview: QueriesPreviewXStoreModule['actions']['fetchQueryPreview'] = (
-  { commit },
+  _context,
   request
 ) => {
   const { query } = request;
   if (!query) {
     return null;
   }
-  commit('setStatus', { query, status: 'loading' });
   return XPlugin.adapter.search(request, {
     id: `fetchQueryPreview-${query}`
   });
