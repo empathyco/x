@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.163](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.162...@empathyco/x-components@3.0.0-alpha.163) (2022-08-29)
+
+### Documentation
+
+- **functional:** add my history ui and related docs (#685)
+  ([3a9ac8a](https://github.com/empathyco/x/commit/3a9ac8a769d64196b31f05872fb92ec26dc635ad))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.162](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.161...@empathyco/x-components@3.0.0-alpha.162) (2022-08-29)
 
 ### Build System
