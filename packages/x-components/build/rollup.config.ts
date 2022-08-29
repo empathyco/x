@@ -93,10 +93,17 @@ export const rollupConfig = createRollupOptions({
       mode: [
         'inject',
         (varname: string, id: string) =>
-          // eslint-disable-next-line max-len
-          `import {createInjector} from 'vue-runtime-helpers';const injector=createInjector({});injector('${normalizePath(
-            id
-          )}',{source:${varname}})`
+          `import { createInjector, createInjectorSSR } from 'vue-runtime-helpers';
+           const isBrowser = /*#__PURE__*/ (function () {
+             return (
+                Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) !==
+                '[object process]'
+             );
+           })();
+           const useBrowserInjector =
+             (typeof STRIP_SSR_INJECTOR !== 'undefined' && STRIP_SSR_INJECTOR) || isBrowser;
+           const injector = useBrowserInjector ? createInjector({}) : createInjectorSSR({});
+           injector('${normalizePath(id)}',{source:${varname}});`
       ]
     }),
     generateEntryFiles({
