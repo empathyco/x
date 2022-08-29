@@ -2,7 +2,7 @@
 title: My History UI
 ---
 
-The My History UI component displays the complete list of history queries, allowing shoppers to reuse the search queries they performed once and find the products they liked in the past but now are unable to find.  
+The My History UI component displays the complete list of history queries, allowing shoppers to reuse previously searched queries.  
 
 ![My History](~@assets/media/overview_myhistory.svg)
 

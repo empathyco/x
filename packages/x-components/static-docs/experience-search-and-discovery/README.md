@@ -120,7 +120,7 @@ using a different search engine, make sure it supports all the functionalities y
   autocomplete and autosuggest to ideas of what to look for next.
 - Delight your shoppers with an **elegant and multi-configurable SERP** to help them discover what
   they’re exactly looking for.
-- Enhance the shopping experience by adding **additional features to the SERP** such as add-to-cart
+- Enhance the shopping experience by adding **additional features to the SERP**, such as add-to-cart
   buttons or product rating information.
 
 ::: interact
