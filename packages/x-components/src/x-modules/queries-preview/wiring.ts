@@ -17,7 +17,7 @@ const moduleName = 'queriesPreview';
  *
  * @internal
  */
-const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+const wireCommit = namespacedWireCommit(moduleName);
 
 /**
  * WireDispatch for {@link QueriesPreviewXModule}.

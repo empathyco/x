@@ -8,7 +8,7 @@ import { SearchRequest } from '@empathyco/x-types';
  */
 export interface QueriesPreviewXEvents {
   /**
-   * Query preview request have been changed.
+   * Any property of the queries preview request has changed.
    * Payload: The new {@link @empathyco/x-types#SearchRequest | request}.
    */
   QueryPreviewRequestChange: SearchRequest;

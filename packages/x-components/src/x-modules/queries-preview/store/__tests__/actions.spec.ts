@@ -65,10 +65,10 @@ describe('testing queries preview module actions', () => {
       const query = 'tshirt';
       const request = getQueryPreviewRequest(query);
 
-      const promise = store.dispatch('fetchAndSaveQueryPreview', request);
+      await store.dispatch('fetchAndSaveQueryPreview', request);
       await promise;
 
-      const expectedResults = {
+      const expectedResults:  QueryPreviewItem = {
         totalResults: mockedSearchResponse.totalResults,
         results: mockedSearchResponse.results,
         query,
