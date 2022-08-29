@@ -31,7 +31,7 @@ To show the complete list of history queries, My History component uses the hist
 
 ::: note
 
-Configuration options here only apply to tailor the My History component, which provides a way to display the full list of history queries. Other UI elements that comprise the My History feature can be configurable as well. Check a complete list of UI components in the [Interface X Components UI Reference](/develop-empathy-platform/ui-reference/).
+Configuration options here only apply to tailor the My History component, which provides a way to display the full list of history queries. Other UI elements that comprise the My History feature can be configured as well. Check a complete list of UI components in the [Interface X Components UI Reference](/develop-empathy-platform/ui-reference/).
 
 :::
 
