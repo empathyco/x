@@ -8,7 +8,7 @@ To handle and display search results, the layout of results and other related di
 paramount. For example, how to arrange results on the SERP or the features shoppers expect to easily
 navigate and organize results are key points to have in mind. <br/>
 
-![X Components for results layout](/assets/media/xcomponents_func_results_layout.svg)
+![X Components for results layout](~@assets/media/xcomponents_func_results_layout.svg)
 
 <FootNote>
 

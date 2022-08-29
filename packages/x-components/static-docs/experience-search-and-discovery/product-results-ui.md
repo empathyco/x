@@ -14,7 +14,7 @@ tailor the display to create the best product discovery experience for your shop
 elements and product-related information you want to include when displaying product results such as
 the price, a picture, or even an add-to-cart button.
 
-![X Components for results display](/assets/media/overview_product_card.svg)
+![X Components for results display](~@assets/media/overview_product_card.svg)
 
 <FootNote>
 

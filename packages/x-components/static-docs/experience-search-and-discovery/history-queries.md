@@ -7,7 +7,7 @@ title: History Queries UI
 The History Queries UI component displays the search history, allowing shoppers to check previous
 searches and revisit products they’ve viewed before in a few clicks.
 
-![History Queries](/assets/media/xcomponents_func_historyqueries.gif)
+![History Queries](~@assets/media/xcomponents_func_historyqueries.gif)
 
 ::: interact
 
@@ -36,7 +36,7 @@ Can't quite capture the concept? Learn more about
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/history-queries/) your web
 experience.
 
 :::
@@ -51,9 +51,14 @@ session will display.
 Combine History Queries with the [Search module](/develop-empathy-platform/ui-reference/components/search/) to ease shoppers' frustrations. That way, you can
 configure it to display only successful history searches.
 
+::: note Search history tracking
+
+Use the [My History](my-history.md) component to access and control search history. Shoppers can view a complete list of history queries and decide to stop saving search history. If search history is disabled, the History Queries list is cleared.
+
+::: 
 
 ::: interact 
 
-To know more about which data is stored in the browser’s data storage, check out [nterface X data privacy and browser local storage](/web-local-storage.md).'
+To know more about which data is stored in the browser’s data storage, check out [Interface X data privacy and browser local storage](web-local-storage.md).
 
 :::
