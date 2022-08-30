@@ -62,7 +62,9 @@
         'consent',
         'documentDirection',
         'currency',
-        'filters'
+        'filters',
+        'isSpa',
+        'queriesPreview'
       ]
     })
     protected excludedExtraParams!: Array<keyof SnippetConfig>;
@@ -77,10 +79,9 @@
     @Watch('snippetConfig', { deep: true, immediate: true })
     syncExtraParams(snippetConfig: SnippetConfig): void {
       forEach({ ...this.values, ...snippetConfig }, (name, value) => {
-        if (this.excludedExtraParams.includes(name)) {
-          return;
+        if (!this.excludedExtraParams.includes(name)) {
+          this.$set(this.extraParams, name, value);
         }
-        this.$set(this.extraParams, name, value);
       });
     }
   }

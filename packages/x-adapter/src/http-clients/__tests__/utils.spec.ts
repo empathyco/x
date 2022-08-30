@@ -3,8 +3,6 @@ import { buildUrl, toJson } from '../utils';
 
 describe('http-client utils tests', () => {
   describe('toJson tests', () => {
-    const mockedJson = jest.fn(() => Promise.resolve({}));
-
     beforeEach(() => {
       jest.clearAllMocks();
     });
@@ -12,7 +10,20 @@ describe('http-client utils tests', () => {
     it('transforms to json format if the response is ok', async () => {
       const mockedResponse = {
         ok: true,
-        json: mockedJson,
+        text: () => Promise.resolve('{}'),
+        status: 200,
+        statusText: 'Ok'
+      };
+      const response = await toJson(mockedResponse as unknown as Response).then(
+        response => response
+      );
+      expect(response).toEqual({});
+    });
+
+    it('returns an empty object if the response is empty', async () => {
+      const mockedResponse = {
+        ok: true,
+        text: () => Promise.resolve(''),
         status: 200,
         statusText: 'Ok'
       };
@@ -25,7 +36,6 @@ describe('http-client utils tests', () => {
     it('throws a RequestError if the response is not ok', () => {
       const mockedResponse = {
         ok: false,
-        json: mockedJson,
         status: 500,
         statusText: 'Unexpected error'
       };

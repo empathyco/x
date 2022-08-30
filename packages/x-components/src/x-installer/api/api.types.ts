@@ -115,6 +115,22 @@ export interface SnippetConfig {
   productId?: string;
   /** The filters to be applied on the first request. */
   filters?: string[];
+  /** List of queries to preview. */
+  queriesPreview?: QueryPreview[];
   /** Any extra param to send in all backend calls. */
-  [extra: string]: any;
+  [extra: string]: unknown;
+}
+
+/**
+ * Information to render a query preview with.
+ *
+ * @public
+ */
+export interface QueryPreview {
+  /** The query to search for. */
+  query: string;
+  /** An optional title for the container. */
+  title?: string;
+  /** Any other additional information to render the preview with. */
+  [extra: string]: unknown;
 }

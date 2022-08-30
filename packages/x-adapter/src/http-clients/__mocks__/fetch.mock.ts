@@ -1,5 +1,3 @@
-import { AnyFunction } from '@empathyco/x-utils';
-
 export const okFetchMock = jest.fn(fetchMock({}));
 
 export const koFetchMock = jest.fn(() =>
@@ -10,7 +8,6 @@ export const koFetchMock = jest.fn(() =>
     statusText: 'Unexpected error'
   })
 );
-
 /**
  * The `fetchMock()` method mocks a `fetch` API call.
  *
@@ -19,14 +16,21 @@ export const koFetchMock = jest.fn(() =>
  *
  * @internal
  */
-export function fetchMock(response: any): any {
-  return (_url: string, { signal }: any) => {
-    return new Promise((resolve: AnyFunction, reject: AnyFunction) => {
+export function fetchMock(
+  response: unknown
+): (url: string, params: RequestInit) => Promise<Response> {
+  return (_url, { signal }) => {
+    return new Promise<Response>((resolve, reject) => {
       setTimeout(() => {
         if (signal?.aborted) {
           reject(new DOMException('Aborted', 'AbortError'));
         } else {
-          resolve({ ok: true, json: () => Promise.resolve(response) });
+          resolve({
+            ok: true,
+            status: 200,
+            json: () => Promise.resolve(response),
+            text: () => Promise.resolve(JSON.stringify(response))
+          } as Response);
         }
       });
     });
