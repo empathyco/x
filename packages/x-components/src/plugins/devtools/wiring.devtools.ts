@@ -1,6 +1,5 @@
+import { Dictionary, forEach, reduce } from '@empathyco/x-utils';
 import { CustomInspectorNode, DevtoolsPluginApi, InspectorNodeTag } from '@vue/devtools-api';
-import { Dictionary } from '../../utils/index';
-import { forEach, reduce } from '../../utils/object';
 import { XEvent } from '../../wiring/events.types';
 import { filter } from '../../wiring/wires.operators';
 import { AnyWire, Wiring } from '../../wiring/wiring.types';

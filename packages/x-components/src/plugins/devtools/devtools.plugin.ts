@@ -1,4 +1,4 @@
-import { setupDevtoolsPlugin } from '@vue/devtools-api';
+import { setupDevtoolsPlugin, App } from '@vue/devtools-api';
 import Vue from 'vue';
 import { setupTimelinePlugin } from './timeline.devtools';
 import { setupWiringDevtools } from './wiring.devtools';
@@ -20,7 +20,7 @@ export function setupDevtools(app: Vue): void {
       packageName: '@empathyco/x-components',
       homepage: 'https://empathy.co',
       enableEarlyProxy: true,
-      app: app as any // FIXME: Infinite loop with types when inferred as a Vue2 app.
+      app: app as App // FIXME: Infinite loop with types when inferred as a Vue2 app.
     },
     api => {
       if (api) {

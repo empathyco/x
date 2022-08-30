@@ -1,6 +1,6 @@
 import { InspectorNodeTag } from '@vue/devtools-api';
+import { map } from '@empathyco/x-utils';
 import { RootXStoreModule, XModuleState } from '../../store/x.module';
-import { map } from '../../utils/index';
 import { XModuleName } from '../../x-modules/x-modules.types';
 
 /** Unique text and background colors for each module. */
