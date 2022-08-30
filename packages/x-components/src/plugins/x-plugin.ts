@@ -6,7 +6,6 @@ import { XComponentsAdapter } from '@empathyco/x-types';
 import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
 import { RootXStoreModule } from '../store/x.module';
-import { Dictionary, forEach } from '../utils';
 import { XEvent } from '../wiring/events.types';
 import { AnyWire } from '../wiring/wiring.types';
 import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
