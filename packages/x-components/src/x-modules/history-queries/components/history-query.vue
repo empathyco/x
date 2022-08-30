@@ -91,8 +91,29 @@
 
 This component only requires a prop called `suggestion`
 
-```vue
-<HistoryQuery :suggestion="historyQuery" />
+```vue live
+<template>
+  <HistoryQuery :suggestion="suggestion" />
+</template>
+
+<script>
+  import { HistoryQuery } from '@empathyco/x-components/history-queries';
+  export default {
+    name: 'HistoryQueryDemo',
+    components: {
+      HistoryQuery
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'HistoryQuery',
+          query: 'trousers',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
 ```
 
 ### Customizing slots content
@@ -105,18 +126,48 @@ the suggestion itself, and a `string` of HTML with the matched query.
 The other slot is called `remove-button-content`, and allows you to set the content of the button
 that serves to remove this query from the history. This slot only has one property, the suggestion.
 
-````vue
-<HistoryQuery :suggestion="historyQuery">
-  <template #default="{ suggestion, queryHTML }">
-    <img class="x-history-query__history-icon" src="./history-icon.svg"/>
-    <span class="x-history-query__matching-part" v-html="queryHTML"/>
-  </template>
+```vue live
+<template>
+  <HistoryQuery :suggestion="suggestion">
+    <template #default="{ suggestion, queryHTML }">
+      <HistoryIcon />
+      <span class="x-history-query__matching-part" v-html="queryHTML" />
+    </template>
 
-  <template #remove-button-content="{ suggestion }">
-    <img class="x-history-query__remove-icon" src="./remove-icon.svg"/>
-  </template>
-</HistoryQuery>
-``` ## Events A list of events that the component will emit: - `UserSelectedAHistoryQuery`: the
-event is emitted after the user clicks the button. The event payload is the history query data.
-````
+    <template #remove-button-content="{ suggestion }">
+      <CrossIcon />
+    </template>
+  </HistoryQuery>
+</template>
+
+<script>
+  import { HistoryQuery } from '@empathyco/x-components/history-queries';
+  import { HistoryIcon, CrossIcon } from '@empathyco/x-components';
+
+  export default {
+    name: 'HistoryQueryDemo',
+    components: {
+      HistoryQuery,
+      HistoryIcon,
+      CrossIcon
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'HistoryQuery',
+          query: 'trousers',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
+```
+
+## Events
+
+A list of events that the component will emit:
+
+- `UserSelectedAHistoryQuery`: the event is emitted after the user clicks the button. The event
+  payload is the history query data.
 </docs>

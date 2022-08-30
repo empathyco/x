@@ -1,4 +1,5 @@
 import { Facet } from '@empathyco/x-types';
+import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -7,7 +8,6 @@ import { installNewXPlugin } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import { XPlugin } from '../../../../../plugins';
 import { RootXStoreState } from '../../../../../store';
-import { DeepPartial } from '../../../../../utils';
 import { resetFacetsService } from '../../../__tests__/utils';
 import { DefaultFacetsService } from '../../../service/facets.service';
 import { facetsXModule } from '../../../x-module';

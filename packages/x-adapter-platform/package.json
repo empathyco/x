@@ -1,22 +1,55 @@
 {
   "name": "@empathyco/x-adapter-platform",
-  "version": "0.1.1-alpha.0",
-  "description": "A search client for empathy.co's platform search API",
+  "version": "1.0.0-alpha.32",
+  "description": "A search client for the Empathy Platform API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-adapter#readme",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-adapter-platform#readme",
   "keywords": [
     "search",
     "adapter",
     "client",
     "fetch"
   ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/empathyco/x.git",
     "directory": "packages/x-adapter-platform"
   },
-  "scripts": {},
+  "scripts": {
+    "prebuild": "rimraf ./dist ./*.tgz",
+    "build": "concurrently \"npm run build:*\" && npm run gen:docs",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "gen:model-docs": "api-extractor run -l",
+    "gen:typescript-docs": "api-documenter markdown -i report -o docs",
+    "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs",
+    "test": "jest",
+    "postbuild": "npm pack",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@empathyco/x-adapter": "^8.0.0-alpha.6",
+    "@empathyco/x-types": "^10.0.0-alpha.33",
+    "@empathyco/x-utils": "^1.0.0-alpha.5",
+    "tslib": "~2.3.0"
+  },
+  "devDependencies": {
+    "@microsoft/api-documenter": "~7.15.3",
+    "@microsoft/api-extractor": "~7.19.4",
+    "@types/jest": "~27.0.3",
+    "concurrently": "~7.0.0",
+    "jest": "~27.3.1",
+    "rimraf": "~3.0.2",
+    "ts-jest": "~27.0.7",
+    "typescript": "~4.6.2"
+  },
   "publishConfig": {
     "access": "public"
   }

@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![Check branch is releasable](https://github.com/empathyco/x/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/empathyco/x/actions/workflows/build.yml)
+[![GitHub contributors](https://img.shields.io/github/contributors/empathyco/x.svg)](https://github.com/empathyco/x/graphs/contributors/)
 [![Created by](https://img.shields.io/badge/Created%20by-Empathy.co-green)](https://www.empathy.co)
 
 Whether you use Empathy Search API endpoints, Elasticsearch, Solr or other search APIs, bring your
@@ -25,7 +26,7 @@ craft your own UI bundle with the right components for your shop. There are nume
 choose from, and the catalog evolves quickly with new experiences.
 
 See an
-[overview of the Empathy Platform features](https://docs.empathy.co/explore-empathy-platform/search-features/)
+[overview of the Empathy Platform features](https://docs.empathy.co/explore-empathy-platform/features/)
 supported by Interface X.
 
 ## Highlights
@@ -35,7 +36,7 @@ supported by Interface X.
 - **Use it anywhere.** A search interface layer that is easy to integrate into any website, with X
   Components ready to use in your Vue.js and React projects.
 - **Interoperable**. Interface X can adapt and work independently with any search service endpoints!
-- **Fully personalizable experience**. Choose the configuration components, layouts, styles, and
+- **Fully customizable experience**. Choose the configuration components, layouts, styles, and
   behaviors to craft exclusive search and discovery experiences.
 - **Expressive design**. Wrap the experience up in a neat, intuitive, and interactive UI design that
   fully matches your brand identity and your website’s look and feel.
@@ -56,8 +57,8 @@ While most of the packages are minor dependencies, there is a key package to bea
   you to quickly build the search UI for your shop. Create a smooth, personalized search and
   discovery experience, while significantly minimizing development time.
 
-Besides the packages of this monorepo, there is another project using all the X-Components to build
-a search experience:
+On top of the packages of this monorepo, there is another project using all the X-Components to
+build a search experience:
 
 - **[@empathyco/x-archetype](https://github.com/empathyco/x-archetype)** - This project is Empathy’s
   vision of the ideal mix of X&nbsp;Components. A project showing the power of the
@@ -70,9 +71,9 @@ a search experience:
 Each component contains inline comments. Alternatively, you can read the product documentation on
 Empathy’s eDocs documentation portal.
 
-- [Overview of X Components](https://docs.empathy.co/explore-empathy-platform/experience-search-&-discovery/)
-- [Interface X architecture](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/x-architecture/)
-- [Full UI Reference](https://docs.empathy.co/empathy-for-developers/ui-reference)
+- [Overview of X Components](https://docs.empathy.co/explore-empathy-platform/experience-search-and-discovery/)
+- [Interface X architecture](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-x-architecture/)
+- [Full UI Reference](https://docs.empathy.co/develop-empathy-platform/ui-reference/)
 <!--- [Frequently Asked Questions](Content to be developed for GitHub project)--->
 
 ## Roadmap
@@ -81,21 +82,41 @@ We are working on many key features to consolidate Interface X, including these 
 
 - Publish extensive documentation covering functional and technical aspects.
   [![Release Docs](https://img.shields.io/badge/Released-August%202021-brightgreen)](https://docs.empathy.co)
-- Support URL management to set X&nbsp;Components state based on URL parameters.
-  [![Release Docs](https://img.shields.io/badge/Released-November%202021-brightgreen)](https://docs.empathy.co)
-- Create a tagging system to track session interactions without storing PII.
-  [![Release Docs](https://img.shields.io/badge/Released-December%202021-brightgreen)](https://docs.empathy.co)
-- Discovery Wall: A set of results carousels to help the shopper to discover interesting products at
-  the search home (pre query).
-- Vertical Search: allows to select a given filter before performing a search.
-- Module independence allowing to have different instances of the same component with different
-  data/source of truth.
+- Support
+  [URL management](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/url/) to
+  set X&nbsp;Components state based on URL parameters.
+  [![Release Docs](https://img.shields.io/badge/Released-November%202021-brightgreen)](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/url/)
+- Create a
+  [tagging module](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/tagging/)
+  to track session interactions without storing PII.
+  [![Release Docs](https://img.shields.io/badge/Released-December%202021-brightgreen)](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/tagging/)
+- Create the [x-adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter) to connect to
+  any Search API based on schemas
+  [![Release Docs](https://img.shields.io/badge/Released-April%202022-brightgreen)](https://docs.empathy.co)
+- [My History](https://empathy.co/blog/development-journey-my-history/) feature, Control your search
+  history and have access to previous intentions.
+  [![Release Docs](https://img.shields.io/badge/Released-July%202022-brightgreen)](https://empathy.co/blog/development-journey-my-history/)
+- Use [accessibility eslint plugin](https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility)
+  to improve components a11y.
+  [![Release Docs](https://img.shields.io/badge/Released-July%202022-brightgreen)](https://docs.empathy.co)
+- Next Queries Preview: A set of results that matches searches that other shoppers performed after
+  the current to be show within the SERP. This helps the shopper to discover interesting products
+  after the search action. This represents Empathy sciences for **Inspiration** and
+  **Cross-Selling**.
+  [![Release Docs](https://img.shields.io/badge/Released-August%202022-brightgreen)](https://docs.empathy.co)
+- Query Results Preview: Provides a list of results matching a query to be inserted before the
+  shopper starts typing as inspiration, in the predictive layer for results matching the current
+  query, or as inspiration in a no results scenario.
+  [![Release Docs](https://img.shields.io/badge/In%20Progress-Q3%202022-yellow)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
+- Design System Builder POC using Tailwind.
+  [![Release Docs](https://img.shields.io/badge/In%20Progress-Q3%202022-yellow)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
+- WCAG AA compliance.
+- Result Preview component to rapidly discover more result attributed without leaving the SERP.
+- Suggestions with filters that allows to select a query suggestion with a specific filter.
 - Provide a No Network State for components depending on API requests.
-- Evolution of the no code design system through a visual editor.
-- Server Side Rendering.
 - Incorporate search box power-ups such as animated suggestions or forbidden character set to
   prevent code injection.
-- Create a project generator CLI.
+- Project generator CLI.
 
 ## How to install
 
@@ -114,7 +135,7 @@ to see why we moved to a mono repo and how we did it.
 ## How to implement Interface X
 
 Once you have installed the project, follow the step-by-step guide -
-[How to build your search UI](https://docs-dev.empathy.co/empathy-for-developers/build-search-ui/interface-x-integration-guide.html).
+[How to build your search UI](https://docs.empathy.co/develop-empathy-platform/build-search-ui/).
 
 Watch Ivan Tajes’
 [explanation on how to build a search experience using the X Components](https://www.youtube.com/watch?v=JjjIaQlG9aE).
@@ -125,17 +146,18 @@ We are building the Interface X ecosystem. If you are interested in helping us o
 the future of search experiences, please check our
 [contributing guidelines](./.github/CONTRIBUTING.md).
 
-## How to report issues
-
-Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). Create an issue in
-the repo and provide the following information by filling in
-[the bug template](./.github/ISSUE_TEMPLATE/bug_report.yml).
-
 ## Core Team
 
-| <a href="https://github.com/tajespasarela"><img src="https://avatars.githubusercontent.com/u/5759712?v=4" width="100px;" alt=""/><br /><br /><b>Iván Tajes</b></a> | <a href="https://github.com/javieri-empathy"><img src="https://avatars.githubusercontent.com/u/68222542?v=4" width="100px;" alt=""/><br /><br /><b>Javier Iglesias</b></a> | <a href="https://github.com/joseacabaneros"><img src="https://avatars.githubusercontent.com/u/10746604?v=4" width="100px;" alt=""/><br /><br /><b>Jose Antonio Cabañeros</b></a> | <a href="https://github.com/LuisMartinez15"><img src="https://avatars.githubusercontent.com/u/6247440?v=4" width="100px;" alt=""/><br /><br /><b>Luís Martínez</b></a> | <a href="https://github.com/tiborux"><img src="https://avatars.githubusercontent.com/u/6597815?v=4" width="100px;" alt=""/><br /><br /><b>Beltrán García</b></a> |
-| :----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| <a href="https://github.com/herrardo"><img src="https://avatars.githubusercontent.com/u/4663897?v=4" width="100px;" alt=""/><br /><br /><b>Gerardo Vázquez</b></a> |  <a href="https://github.com/CachedaCodes"><img src="https://avatars.githubusercontent.com/u/7124620?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Cacheda</b></a>  |     <a href="https://github.com/guillei10"><img src="https://avatars.githubusercontent.com/u/77337158?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Iglesias</b></a>      |    <a href="https://github.com/mavmaf"><img src="https://avatars.githubusercontent.com/u/77147901?v=4" width="100px;" alt=""/><br /><br /><b>Mavi Fernández</b></a>    | <a href="https://github.com/diegopf"><img src="https://avatars.githubusercontent.com/u/7504736?v=4" width="100px;" alt=""/><br /><br /><b>Diego Pascual</b></a>  |
+| <a href="https://github.com/tajespasarela"><img src="https://avatars.githubusercontent.com/u/5759712?v=4" width="100px;" alt=""/><br /><br /><b>Iván Tajes</b></a>  | <a href="https://github.com/javieri-empathy"><img src="https://avatars.githubusercontent.com/u/68222542?v=4" width="100px;" alt=""/><br /><br /><b>Javier Iglesias</b></a> | <a href="https://github.com/joseacabaneros"><img src="https://avatars.githubusercontent.com/u/10746604?v=4" width="100px;" alt=""/><br /><br /><b>Jose Antonio Cabañeros</b></a> | <a href="https://github.com/LuisMartinez15"><img src="https://avatars.githubusercontent.com/u/6247440?v=4" width="100px;" alt=""/><br /><br /><b>Luís Martínez</b></a> |      <a href="https://github.com/tiborux"><img src="https://avatars.githubusercontent.com/u/6597815?v=4" width="100px;" alt=""/><br /><br /><b>Beltrán García</b></a>      |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <a href="https://github.com/herrardo"><img src="https://avatars.githubusercontent.com/u/4663897?v=4" width="100px;" alt=""/><br /><br /><b>Gerardo Vázquez</b></a>  |  <a href="https://github.com/CachedaCodes"><img src="https://avatars.githubusercontent.com/u/7124620?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Cacheda</b></a>  |         <a href="https://github.com/mavmaf"><img src="https://avatars.githubusercontent.com/u/77147901?v=4" width="100px;" alt=""/><br /><br /><b>Mavi Fernández</b></a>         |    <a href="https://github.com/diegopf"><img src="https://avatars.githubusercontent.com/u/7504736?v=4" width="100px;" alt=""/><br /><br /><b>Diego Pascual</b></a>     | <a href="https://github.com/mnavarroespinosa"><img src="https://avatars.githubusercontent.com/u/77450928?v=4" width="100px;" alt=""/><br /><br /><b>Manuel Navarro</b></a> |
+| <a href="https://github.com/ajperezbau"><img src="https://avatars.githubusercontent.com/u/75546736?v=4" width="100px;" alt=""/><br /><br /><b>Abraham Pérez</b></a> |
+
+## Contributors
+
+<a href="https://github.com/empathyco/x/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=empathyco/x" alt="Contributors image list"/>
+</a>
 
 ## License
 

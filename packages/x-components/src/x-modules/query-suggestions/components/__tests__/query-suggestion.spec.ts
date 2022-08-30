@@ -1,10 +1,10 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { createQuerySuggestion } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import QuerySuggestion from '../query-suggestion.vue';
 import { resetXQuerySuggestionsStateWith } from './utils';

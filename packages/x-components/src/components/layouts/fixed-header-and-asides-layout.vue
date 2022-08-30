@@ -72,6 +72,10 @@
         </slot>
       </BaseIdModal>
 
+      <slot name="extra-aside">
+        <span v-if="devMode" class="slot-helper">EXTRA ASIDE</span>
+      </slot>
+
       <div v-if="hasContent('scroll-to-top')" key="scroll-to-top" class="x-layout__scroll-to-top">
         <slot name="scroll-to-top">
           <span v-if="devMode" class="slot-helper">SCROLL TO TOP</span>
@@ -200,22 +204,16 @@
       grid-column: max-width;
     }
 
-    &__aside {
+    ::v-deep .x-layout__aside {
       &.x-modal {
         // layout
         z-index: 3;
         flex-flow: row nowrap;
-
-        ::v-deep .x-modal__content {
-          background-color: transparent;
-          height: 100%;
-          width: var(--x-size-width-layout-aside, 300px);
-        }
       }
 
       // others
       pointer-events: none;
-      ::v-deep > *:not(.slot-helper) {
+      > *:not(.slot-helper) {
         pointer-events: all;
       }
 
@@ -258,6 +256,14 @@
       }
     }
   }
+
+  ::v-deep .x-layout__aside {
+    .x-modal__content {
+      background-color: transparent;
+      height: 100%;
+      width: var(--x-size-width-layout-aside, 300px);
+    }
+  }
 </style>
 
 <docs lang="mdx">
@@ -271,6 +277,8 @@ This component has the following layout with fixed headers and collapsible fixed
 |            |  toolbar   |               |
 |            |    main    |               |
 |            |            | scroll-to-top |
+
+Additionally it provides an empty slot `extra-aside` to be customized by the user.
 
 ## Design Tokens
 

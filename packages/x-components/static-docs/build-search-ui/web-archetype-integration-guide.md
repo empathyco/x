@@ -3,45 +3,72 @@ title: Integrate Interface X Archetype into an existing website
 tags:
   - integration
   - archetype
-  - X Components archetype integration
+  - archetype integration
   - x integration
   - interface x
   - x components
-  - archetype integration
 ---
 
 # Integrate Interface X Archetype into an existing website
 
-Once you have finished developing or extending your search interface using the
-Interface&nbsp;X&nbsp;Archetype project you will probably want to integrate it into your current
-store.
+In this tutorial, you'll learn how to integrate the Interface&nbsp;X&nbsp;Archetype project in your
+commerce store in a matter of minutes. You can use the X&nbsp;Archetype **as is** or you can
+**[extend](web-archetype-development-guide.md)** the search and discovery interface experience to
+meet your business needs.
 
-The integration is a 2-steps process:
+To integrate the Interface&nbsp;X&nbsp;Archetype layer in your commerce store, just **load** the
+generated Interface&nbsp;X JavaScript file and **initialize** it.
 
-- Load Interface&nbsp;X script.
-- Initialise the Interface&nbsp;X.
+::: note IMPORTANT
 
-Depending on your business needs, there are 2 different ways of making this integration process:
-auto initialising, or initialising on demand.
+If the X&nbsp;Archetype script is hosted by Empathy, all the X resources are provided by a CDN
+through the following environment URLs:
 
-## Auto initialisation
+- **Production**: `https://x.empathy.co/{INSTANCE}/app.js`
+- **Staging**: `https://x.staging.empathy.co/{INSTANCE}/app.js`
 
-This is the easiest way to integrate the Interface&nbsp;X project in a website. The way to do so is
-by first defining an initialisation object or function, and then loading the Interface&nbsp;X
-script.
+Where `{INSTANCE}` is the name of your commerce store. If you require any assistance, contact
+[Empathy Support](mailto:support@empathy.co).
 
-### 1. Add a snippet configuration
+:::
 
-The snippet configuration is needed by Interface&nbsp;X to know the API it must use, the language or
-currency it should display the texts in, or tagging parameters to enrich the data and provide better
-insights on how users search.
+Depending on your business needs, Interface&nbsp;X supports two initialization types:
 
-If your configuration values are easy to retrieve or static, you can simply use an object.
+- **[Automatic initialization](#initializing-the-interface-x-project-automatically)**
+- **[On-demand initialization](#initializing-the-interface-x-project-on-demand)**
+
+::: develop Frameworks & libraries integration
+
+You can integrate the X&nbsp;Archetype into any existing website regardless of the technology used
+(i.e. **React**, **Vue**, **Svelte**, etc.), as the bundle includes all the dependencies you need
+for a correct implementation.
+
+:::
+
+## Initializing the Interface X project automatically
+
+Automatic initialization is the easiest way to integrate the Interface&nbsp;X project in a website.
+
+**Steps to initialize the project automatically**
+
+1. **Configure the JavaScript snippet** to define either an initialization object or a function.
+2. **Load and initialize** the Interface&nbsp;X script.
+
+#### Configuring the snippet
+
+First, add the JavaScript snippet configuration to define multiple initialization options, i.e. the
+API to use, the language or currency to display, or even the tagging parameters to collect
+search-related data to generate conversational search features and analytics.
+
+Depending on whether you are retrieving **static or dynamic configuration values** in your
+[snippet configuration](#snippet-configuration), you define an **object** or a **function** to
+initialize Interface&nbsp;X:
+
+- To retrieve **static** configuration values, define an initialization object as follows:
 
 ```js
 window.initX = {
   instance: 'my-store',
-  env: 'live',
   scope: 'desktop',
   lang: 'en',
   currency: 'EUR',
@@ -49,14 +76,13 @@ window.initX = {
 };
 ```
 
-Otherwise, if you need to retrieve values dynamically, or execute any kind of logic before the
-initialisation you can also use a function:
+- To retrieve configuration values **dynamically**, use an initialization function:
 
 ```js
 window.initX = function () {
   return {
     instance: 'my-store',
-    env: location.href.includes('.pre.') ? 'staging' : 'live',
+    env: location.href.includes('.pre.') ? 'staging' : undefined,
     scope: 'web',
     lang: localStorage.get('lang'),
     currency: localStorage.get('currency'),
@@ -65,89 +91,101 @@ window.initX = function () {
 };
 ```
 
-You can read more about the [Snippet Configuration](#snippet-configuration) below.
+::: note
 
-### 2. Load the Interface&nbsp;X script
+You can change the snippet configuration values once the project is deployed. Use the
+`/x-archetype/public/snippet-script.js` file to perform hot changes for the snippet parameters. For
+more information on the supported parameters, check out
+[Snippet configuration](#snippet-configuration).
 
-Once you have defined your snippet configuration either as an object or a function, you can insert
-the Interface&nbsp;X script. This script is hosted in a URL of this shape
-`https://x.<environment?>.empathy.co/<instance>/app.js`.
+:::
 
-For example, supposing that `my-store` is the instance, and you want to load the production script,
-you can add to your HTML the following scripts.
+#### Loading the script
+
+Once the snippet configuration is ready, add the Interface&nbsp;X script to your webpage. The script
+is hosted in a URL with the following syntax:
+
+- **Production**: `https://x.empathy.co/{INSTANCE}/app.js`
+- **Staging**: `https://x.staging.empathy.co/{INSTANCE}/app.js`
+
+For example, to load the production version script for the instance _my-store_, you need to add the
+following scripts to your HTML:
 
 ```html
 <script>
   window.initX = {
     instance: 'my-store',
-    env: 'live',
     scope: 'desktop',
     lang: 'en',
     currency: 'EUR',
     consent: false
   };
 </script>
-<script src="https://x.empathy.co/my-store/app.js"></script>
+<script src="https://x.empathy.co/my-store/app.js" type="module"></script>
 ```
 
-Or if you want to load the staging version, you just have to change the script `src` attribute to
-point to the staging environment:
+In the case you want to load the script for the staging environment, you just modify the script
+attribute `src` so that it points to the staging environment as follows:
 
 ```html
 <script>
   window.initX = {
     instance: 'my-store',
-    env: 'live', // Note that here you are using production API with the staging version of Interface X
+    env: 'staging', // By removing this param you would be using a production API with the staging version of Interface X
     scope: 'desktop',
     lang: 'en',
     currency: 'EUR',
     consent: false
   };
 </script>
-<script src="https://x.staging.empathy.co/my-store/app.js"></script>
+<script src="https://x.staging.empathy.co/my-store/app.js" type="module"></script>
 ```
 
-This way, when the Interface&nbsp;X JavaScript file is loaded, it will retrieve the configuration
-from the object or function that you defined before. Nothing else is required.
+Thus, when the Interface&nbsp;X JavaScript file is loaded, it retrieves the configuration from the
+defined object or function.
 
-## Initialise on demand
+## Initializing the Interface X project on demand
 
-If you want to have more manual control on when the Interface&nbsp;X is loaded, you can still do so.
-Instead of defining an initialisation object or function upfront like in
-[Auto initialisation](#auto-initialisation), you can invoke a function with these options that will
-initialise Interface&nbsp;X.
+On-demand initialization allows you to control when Interface&nbsp;X is loaded.
 
-### 1. Load the Interface&nbsp;X script
+**Steps to initialize the project on demand**
 
-First, load the Interface&nbsp;X script. As you may already know, it is hosted in a URL of this
-shape: `https://x.<environment?>.empathy.co/<instance>/app.js`.
+1. **Load** the Interface&nbsp;X script.
+2. **Initialize** Interface&nbsp;X.
 
-For example, supposing that `my-store` is the instance, and you want to load the production script,
-you can add to your HTML the following scripts:
+#### Loading the script
+
+Add the Interface&nbsp;X script hosted in a URL with the following syntax:
+
+- **Production**: `https://x.empathy.co/{INSTANCE}/app.js`
+- **Staging**: `https://x.staging.empathy.co/{INSTANCE}/app.js`
+
+For example, to load the production version script for the instance _my-store_, you need to add the
+following script to your HTML:
 
 ```html
-<script src="https://x.empathy.co/my-store/app.js"></script>
+<script src="https://x.empathy.co/my-store/app.js" type="module"></script>
 ```
 
-For loading the staging version simply change the `src` attribute to the staging environment:
+In the case you want to load the script for the staging environment, you just modify the script
+attribute `src` so that it points to the staging environment as follows:
 
 ```html
-<script src="https://x.staging.empathy.co/my-store/app.js"></script>
+<script src="https://x.staging.empathy.co/my-store/app.js" type="module"></script>
 ```
 
-### 2. Initialise Interface&nbsp;X
+#### Initializing Interface&nbsp;X
 
-Loading the Interface&nbsp;X script and not providing a `initX` configuration will make it create an
-initialisation function in the [X API](#x-api) object that you can invoke whenever you want. In this
-example we are calling it immediately after loading the Interface&nbsp;X script, but it can be
-invoked at any time. Note that you should only call this function **once**.
+Since no initialization configuration is defined when loading the script, you need to **invoke the
+initialization function** created automatically in the
+[X API](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-installer/api/base-api.ts)
+object to provide the initialization options:
 
 ```html
-<script src="https://x.empathy.co/my-store/app.js"></script>
+<script src="https://x.empathy.co/my-store/app.js" type="module"></script>
 <script>
-  window.X.init({
+  window.InterfaceX.init({
     instance: 'my-store',
-    env: 'live',
     scope: 'desktop',
     lang: 'en',
     currency: 'EUR',
@@ -156,31 +194,115 @@ invoked at any time. Note that you should only call this function **once**.
 </script>
 ```
 
-## Snippet configuration
+For this example, the initialization function is called immediately after loading the script, but it
+can be called at any time. Note that you need to call this function only **once**.
 
-The snippet configuration allows you to configure certain parts of the Interface&nbsp;X project like
-language, the currency, inform whether the user has given us his consent to process personal data.
+::: interact
 
-| Name                  | Type                                                                                 | Required | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| --------------------- | ------------------------------------------------------------------------------------ | :------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| instance              | `string`                                                                             |    ✅    | The identifier of the API client instance. Should be provided by Empathy                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| env                   | `'live'` &#124; `'staging'`                                                          |          | The API environment to use. Note that you can use the production version of your Interface&nbsp;X with the staging API, or viceversa.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| scope                 | `string`                                                                             |          | The context name where the search interface is being executed. I.e. `mobile`, `mobile-app`, `tablet`, `desktop`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| lang                  | `string`                                                                             |    ✅    | The language to use. By default this lang is used for both the front-end and the API requests                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| searchLang            | `string`                                                                             |          | A language to use only for the API requests                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| consent               | `boolean`                                                                            |    ✅    | Used to let X know whether the user has accepted the usage of cookies and therefore the sessionId can be used and sent to the Search and Tagging API. If this parameter is configured with false value, then the sessionId in not generated nor sent to the Tagging API. No consent means the wisdom of the crowd signals (Related Tags, Next Queries, etc.) will not be inferred from that session. This parameter should be set to true as soon as the user accepts the usage of Customer cookies but note that Empathy not uses any cookie in its libraries, although we tie the cookie acceptance to the sessionID generation in Local Storage. If accepting the cookies does not trigger a page reload, please consider using `window.initX.consent = true` to update the consent parameter so that the current session is tracked already. |
-| documentDirection     | `'ltr'` &#124; `'rtl'`                                                               |          | The writing direction that the X Components should use                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| currency              | `string`                                                                             |    ✅    | The currency identifier. Used to configure how prices are shown                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| callbacks             | `Record<XEventName, (payload: XEventPayload<Event>, metadata: WireMetadata) => void` |          | A record of callbacks where the key is the event to listen, and the value is the callback to be executed whenever the event is emitted. For example, to listen to the `UserAcceptedAQuery` event: `{ UserAcceptedAQuery({ eventPayload }) { console.log('UserAcceptedAQuery', eventPayload); }`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| isSpa                 | `boolean`                                                                            |          | True when the X Components archetype is being run on top of an SPA.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| &lt;extra parameters> | `any`                                                                                |          | Any other parameter to be sent directly to the API calls. For example, some times is needed to filter the search catalog with a warehouse parameter. In that case you can just add `warehouse: <your-warehouse-identifier>` to the snippet config.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+Check out the [X&nbsp;API](#x-api) section to learn more about the functions and parameters
+supported.
 
-## X API
+:::
 
-The X API allows your website to communicate with Interface X. It is a set of utilities that helps
-to integrate Interface X into your website.
+## Notes on X Archetype integration
 
-| Function | Parameters                                                                     | Description                                                 |
-| -------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------- |
-| init     | - [Snippet Configuration](#snippet-configuration) - The initialisation options | [Initialises Interface X on demand](#initialise-on-demand). |
-| search   | - query (Optional) - The query to open Interface&nbsp;X with                   | Opens Interface&nbsp;X with the given search query.         |
+To successfully integrate Interface&nbsp;X in your commerce store using the X&nbsp;Archetype, check
+out further information about:
+
+- **Initialization options** supported in [snippet configuration](#snippet-configuration)
+- **[Callbacks and X&nbsp;event&nbsp;types](#callbacks-and-interface-x-events-types)** available to
+  subscribe to when initializing
+- **Functions supported by the [X&nbsp;API object](#x-api)** to initialize Interface&nbsp;X
+
+#### Snippet configuration
+
+The
+[snippet configuration](https://github.com/empathyco/x-archetype/blob/main/public/snippet-script.js)
+allows you to configure multiple initialization options for the Interface&nbsp;X project such as
+language, currency, and shopper's personal data consent. The snippet configuration supports the
+following configuration parameters:
+
+| Parameter                                              | Type                                                                                 | Description                                                                                                                                                                                                                                                                                      |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `instance`                                             | `string`                                                                             | _Required._ ID of the API client instance. It's provided by Empathy.                                                                                                                                                                                                                             |
+| `env`                                                  | `staging`                                                                            | _Optional_. API environment to use. Note that if you **do not** declare this parameter, you'll use the production API. Instead, use `env: 'staging'` to point to the staging API.                                                                                                                |
+| `scope`                                                | `string`                                                                             | _Optional_. Context where the search interface is executed, i.e. `mobile`, `mobile-app`, `tablet`, `desktop`.                                                                                                                                                                                    |
+| `lang`                                                 | `string`                                                                             | _Required._ Language to use. By default, it's used for both the frontend and the API requests.                                                                                                                                                                                                   |
+| `searchLang`                                           | `string`                                                                             | _Optional_. Language to use for the API requests **only**.                                                                                                                                                                                                                                       |
+| `consent`                                              | `boolean`                                                                            | _Required._ Determines whether the shopper has accepted the use of cookies so that the `sessionId` is sent to the Empathy's Search and Tagging APIs or not.                                                                                                                                      |
+| `documentDirection`                                    | `'ltr'` &#124; `'rtl'`                                                               | _Optional_. Writing direction script that the X Components should, i.e. left-to-right or right-to-left.                                                                                                                                                                                          |
+| `currency`                                             | `string`                                                                             | _Required._ Currency identifier to configure how prices are displayed.                                                                                                                                                                                                                           |
+| [`callbacks`](#callbacks-and-interface-x-events-types) | `Record<XEventName, (payload: XEventPayload<Event>, metadata: WireMetadata) => void` | _Optional_. Callback record where the _key_ is the event to listen and the _value_ is the callback to be executed whenever the event is emitted. E.g. to listen to the `UserAcceptedAQuery` event: `{ UserAcceptedAQuery({ eventPayload }) { console.log('UserAcceptedAQuery', eventPayload); }` |
+| `isSpa`                                                | `boolean`                                                                            | _Optional_. Enables single-page application model. You set it to `true` when the X&nbsp;Archetype runs on top of a SPA website.                                                                                                                                                                  |
+| `filters`                                              | `string[]`                                                                           | _Optional_. Filters to be applied at the start of the application and start to searching with those filters selected.                                                                                                                                                                            |
+| `<extra parameters>`                                   | `any`                                                                                | _Optional_. Any other parameters to sent to the API calls directly. E.g. to filter the search catalogue with a warehouse parameter, you add `warehouse: <your-warehouse-identifier>` to the snippet configuration.                                                                               |
+
+::: note Consent parameter
+
+When the `consent` parameter is set to `false`, the `sessionId` is not generated nor sent to the
+Tagging API. Only shoppers' behavioral data (wisdom of the crowd) is inferred from the current
+session. The `consent` parameter is set to `true` as soon as the shopper accepts the use of cookies.
+If page reload is not triggered after accepting cookies, update the `consent` parameter
+(`window.initX.consent = true`) to start tracking the current session.
+
+ </br>
+
+Although cookie acceptance is bound to the generation of the `sessionID` in local storage, Empathy
+does **not use any cookies** in its libraries.
+
+:::
+
+#### Callbacks and Interface X events types
+
+You can use a **callback** to subscribe to specific **X&nbsp;events&nbsp;types** to perform
+particular actions when triggered.
+
+For example, you subscribe to the `UserClickedResultAddToCart` event to add a product result to the
+shopping cart:
+
+```html
+<script src="https://x.empathy.co/my-store/app.js" type="module"></script>
+<script>
+  window.InterfaceX.init({
+    instance: 'my-store',
+    scope: 'desktop',
+    lang: 'en',
+    currency: 'EUR',
+    consent: false,
+    callbacks: {
+      UserAcceptedAQuery: query => {
+        doSomethingInWebApp(query);
+      },
+      UserClickedResultAddToCart: result => {
+        addToCartInWebApp(result);
+      }
+    }
+  });
+</script>
+```
+
+Interface&nbsp;X is built on an [event-based architecture](web-x-architecture.md). There are more
+than one hundred of events available to subscribe to via callbacks to trigger different actions in
+your app. Check out the complete
+**[X&nbsp;events types list](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)**
+in the open source repository in GitHub.
+
+X&nbsp;events types can be triggered from different modules in the X&nbsp;Components project.
+However, every module has its own sort of components (e.g. Empathize X events, Search Box X events,
+etc.). See the corresponding `events.types.ts` file for each module in the
+[X&nbsp;Components library in GitHub](https://github.com/empathyco/x/tree/main/packages/x-components/src/x-modules).
+
+#### X API
+
+The
+[X&nbsp;API](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-installer/api/base-api.ts)
+object allows your commerce store to communicate with Interface&nbsp;X. It supports multiple
+functions to integrate Interface&nbsp;X in your website. You can access these functions inside the
+`window.InterfaceX` object.
+
+| Function           | Parameters                                                                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ------------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `init`             | [snippet configuration params](#snippet-configuration) - _Required_. Initialization options | [Initializes Interface&nbsp;X on demand](#initializing-interface-x-project-on-demand).                                                                                                                                                                                                                                                                                                                                                                       |
+| `search`           | `query` - _Optional_. Query to open Interface&nbsp;X                                        | Executes Interface&nbsp;X and triggers a search with the given query.                                                                                                                                                                                                                                                                                                                                                                                        |
+| `setSnippetConfig` | [snippet configuration params](#snippet-configuration) - _Required_. Initialization options | Changes initialization options so that all components react to the changes, i.e. changing both search engine and language without reloading the page.                                                                                                                                                                                                                                                                                                        |
+| `addProductToCart` | `productId` - _Optional._ Id of the product added to cart                                   | Sends tracking of the `AddToCart` event to the [Empathy Tagging microservice](https://docs.empathy.co/develop-empathy-platform/capture-interaction-signals/tagging-api-guide.html) for the product displayed on screen. This function is called from the product detail page (PDP) when the shopper clicks on the add-to-cart button. If the `productId` is not provided, the URL detects whether the shopper found the product via a search session or not. |

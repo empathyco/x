@@ -17,6 +17,6 @@ export const fetchSuggestions: QuerySuggestionsXStoreModule['actions']['fetchSug
   request
 ) => {
   return request
-    ? XPlugin.adapter.getSuggestions(request).then(({ suggestions }) => suggestions)
+    ? XPlugin.adapter.querySuggestions(request).then(({ suggestions }) => suggestions)
     : [];
 };

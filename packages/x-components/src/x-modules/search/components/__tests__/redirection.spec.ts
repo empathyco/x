@@ -1,3 +1,4 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import Vuex, { Store } from 'vuex';
 import { Redirection as RedirectionModel } from '@empathyco/x-types';
 import { createLocalVue, Wrapper, mount } from '@vue/test-utils';
@@ -6,7 +7,6 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
 import { WirePayload } from '../../../../wiring/wiring.types';
 import Redirection from '../redirection.vue';
 import { resetXSearchStateWith } from './utils';
@@ -15,8 +15,8 @@ const stubRedirections = [createRedirectionStub('redirection')];
 
 function renderRedirection({
   template = `
-  <Redirection 
-    :mode="mode" 
+  <Redirection
+    :mode="mode"
     :delayInSeconds="delayInSeconds"
     v-slot="{ redirection, redirect, abortRedirect }">
      <span data-test="redirection-url">{{ redirection.url }}</span>

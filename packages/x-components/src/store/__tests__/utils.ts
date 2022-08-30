@@ -1,5 +1,5 @@
 import { Store } from 'vuex';
-import { Dictionary } from '../../utils/types';
+import { Dictionary } from '@empathyco/x-utils';
 import { ActionsDictionary, XActionContext } from '../actions.types';
 import { MutationsDictionary } from '../mutations.types';
 

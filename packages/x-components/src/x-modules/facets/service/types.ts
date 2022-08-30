@@ -46,6 +46,17 @@ export interface FacetsService {
    */
   updateFacets(facetsGroup: FacetsGroup): void;
   /**
+   * Selects preselected filter/filters, adding it/them to the store if it/they was not present.
+   *
+   */
+  selectPreselectedFilters(): void;
+  /**
+   * Replaces the preselected filters with the new ones.
+   *
+   * @param filters - An array of filters.
+   */
+  updatePreselectedFilters(filters: Filter[]): void;
+  /**
    * Sets the facets of the group. This method just replaces the facets, and keeps the given facet's
    * filters selected state as it is.
    *

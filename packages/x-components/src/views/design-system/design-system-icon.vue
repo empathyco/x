@@ -9,6 +9,12 @@
         </li>
       </ul>
     </template>
+    <h2 class="x-title2 x-uppercase">Fill</h2>
+    <ul class="x-list x-list--wrap x-list--gap-06">
+      <li v-for="(icon, id) in icons" :key="id" :title="id">
+        <component :is="icon" class="x-fill--accent x-icon--xl" />
+      </li>
+    </ul>
   </section>
 </template>
 <script lang="ts">

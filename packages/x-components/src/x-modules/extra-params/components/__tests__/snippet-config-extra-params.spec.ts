@@ -1,15 +1,19 @@
+import { Dictionary } from '@empathyco/x-utils';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { XPlugin } from '../../../../plugins';
-import { Dictionary } from '../../../../utils';
 import { WirePayload } from '../../../../wiring';
 import { extraParamsXModule } from '../../x-module';
 import SnippetConfigExtraParams from '../snippet-config-extra-params.vue';
+import { SnippetConfig } from '../../../../x-installer/api/api.types';
 
 describe('testing snippet config extra params component', () => {
-  function renderSnippetConfigExtraParams(values?: Dictionary<unknown>): RenderExtraParamsApi {
+  function renderSnippetConfigExtraParams({
+    values,
+    excludedExtraParams
+  }: RenderSnippetConfigExtraParamsOptions = {}): RenderSnippetConfigExtraParamsApi {
     XPlugin.resetInstance();
     const [, localVue] = installNewXPlugin();
     XPlugin.registerXModule(extraParamsXModule);
@@ -18,12 +22,12 @@ describe('testing snippet config extra params component', () => {
     const wrapper = mount(
       {
         template: `
-            <SnippetConfigExtraParams :values="values"/>
+            <SnippetConfigExtraParams :values="values" :excludedExtraParams="excludedExtraParams"/>
         `,
         components: {
           SnippetConfigExtraParams
         },
-        props: ['values'],
+        props: ['values', 'excludedExtraParams'],
         provide() {
           return {
             snippetConfig
@@ -33,7 +37,8 @@ describe('testing snippet config extra params component', () => {
       {
         localVue,
         propsData: {
-          values
+          values,
+          excludedExtraParams
         }
       }
     );
@@ -81,7 +86,7 @@ describe('testing snippet config extra params component', () => {
 
   // eslint-disable-next-line max-len
   it('emits the ExtraParamsProvided event with the values from the snippet config and the extra params', () => {
-    const { wrapper } = renderSnippetConfigExtraParams({ scope: 'mobile' });
+    const { wrapper } = renderSnippetConfigExtraParams({ values: { scope: 'mobile' } });
 
     const extraParamsProvidedCallback = jest.fn();
 
@@ -109,7 +114,7 @@ describe('testing snippet config extra params component', () => {
       })
     );
 
-    await setSnippetConfig({ lang: 'es' });
+    await setSnippetConfig({ searchLang: 'es' });
 
     expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
 
@@ -136,9 +141,43 @@ describe('testing snippet config extra params component', () => {
       })
     );
   });
+
+  it('allows to configure excluded params', () => {
+    const { wrapper } = renderSnippetConfigExtraParams({
+      values: {
+        xEngineId: 'motive',
+        currency: 'EUR'
+      },
+      excludedExtraParams: ['currency', 'warehouse', 'callbacks']
+    });
+
+    const extraParamsProvidedCallback = jest.fn();
+    wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
+
+    expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
+      1,
+      expect.objectContaining({
+        eventPayload: {
+          xEngineId: 'motive'
+        }
+      })
+    );
+  });
 });
 
-interface RenderExtraParamsApi {
+interface RenderSnippetConfigExtraParamsOptions {
+  /**
+   * Extra values to use as extra params, apart from the ones extracted from the
+   * {@link SnippetConfig}.
+   */
+  values?: Dictionary<unknown>;
+  /**
+   * Keys of the {@link SnippetConfig} to exclude from being sent as extra params.
+   */
+  excludedExtraParams?: Array<keyof SnippetConfig>;
+}
+
+interface RenderSnippetConfigExtraParamsApi {
   /** The wrapper for the snippet config component. */
   wrapper: Wrapper<Vue>;
   /** Helper method to change the snippet config. */

@@ -1,4 +1,4 @@
 {
-    "nonGlobalStepDefinitions": false,
-    "stepDefinitions": "tests/e2e/cucumber"
+  "nonGlobalStepDefinitions": true,
+  "stepDefinitions": "tests/e2e"
 }

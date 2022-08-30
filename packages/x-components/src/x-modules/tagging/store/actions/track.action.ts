@@ -1,6 +1,6 @@
-import { TaggingInfo } from '@empathyco/x-types';
+import { TaggingRequest } from '@empathyco/x-types';
+import { DefaultSessionService } from '@empathyco/x-utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { DefaultSessionService } from '../../service';
 import { TaggingXStoreModule } from '../types';
 
 /**
@@ -19,8 +19,8 @@ export const track: TaggingXStoreModule['actions']['track'] = ({ state }, taggin
   // TODO EX-5061 - Remove this validation when the adapter ignores undefined values.
   const session = sessionId && { session: sessionId };
 
-  taggingInfos.forEach(({ url, params }: TaggingInfo) => {
-    XPlugin.adapter.track({
+  taggingInfos.forEach(({ url, params }: TaggingRequest) => {
+    XPlugin.adapter.tagging({
       url,
       params: {
         ...params,

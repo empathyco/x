@@ -3,6 +3,7 @@
 </template>
 
 <script lang="ts">
+  import { Dictionary, objectFilter } from '@empathyco/x-utils';
   import Vue from 'vue';
   import GlobalEvents from 'vue-global-events';
   import { Component, Inject } from 'vue-property-decorator';
@@ -12,8 +13,6 @@
   import { FeatureLocation } from '../../../types/origin';
   import { UrlParams } from '../../../types/url-params';
   import { isArrayEmpty } from '../../../utils/array';
-  import { objectFilter } from '../../../utils/object';
-  import { Dictionary } from '../../../utils/types';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { initialUrlState } from '../store/initial-state';
@@ -286,7 +285,10 @@
         const url = new URL(window.location.href);
         this.deleteUrlParameters(url);
         this.setUrlParameters(url, newUrlParams);
-        if (url.href.replace(/\+/g, '%20') !== window.location.href) {
+
+        url.href = url.href.replace(/\+/g, '%20');
+
+        if (url.href !== window.location.href) {
           historyMethod({ ...window.history.state }, document.title, url.href);
         }
         this.url = url;
@@ -298,7 +300,7 @@
      *
      * @param url - The URL to remove parameters from.
      * @internal
-     * **/
+     */
     protected deleteUrlParameters(url: URL): void {
       this.managedParamsNames.forEach(paramName =>
         url.searchParams.delete(this.getUrlKey(paramName))
@@ -316,8 +318,12 @@
      * important for SEO purposes.
      *
      * @internal
-     * **/
+     */
     protected setUrlParameters(url: URL, urlParams: UrlParams): void {
+      // Only when there is a query the rest of the parameters are valid.
+      if (!urlParams.query) {
+        return;
+      }
       const filteredParams = objectFilter(urlParams, paramName =>
         this.managedParamsNames.includes(paramName as string)
       );

@@ -1,4 +1,5 @@
 import { RelatedTag } from '@empathyco/x-types';
+import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -6,7 +7,6 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/x
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { XComponentAPI } from '../../../../plugins/x-plugin.types';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
 import { getRelatedTagsStub } from '../../../../__stubs__/related-tags-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { WireMetadata } from '../../../../wiring/wiring.types';
@@ -70,9 +70,9 @@ describe('testing related tag item component', () => {
       template: `
         <RelatedTag :relatedTag="relatedTag">
           <template #default="{ relatedTag, isSelected, shouldHighlightCurated }">
-            <img 
+            <img
               data-test="related-tag-chevron"
-              src="./chevron-icon.svg" 
+              src="./chevron-icon.svg"
               v-if="shouldHighlightCurated"
             />
             <span data-test="related-tag-label">{{ relatedTag.tag }}</span>

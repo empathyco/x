@@ -79,6 +79,13 @@ export const setRelatedTags = wireCommit('setRelatedTags');
 export const setSearchQuery = wireCommit('setQuery');
 
 /**
+ * Clears the search state `query`.
+ *
+ * @public
+ */
+export const clearSearchQuery = wireCommit('setQuery', '');
+
+/**
  * Sets the search state `selectedFilters`.
  *
  * @public
@@ -118,16 +125,9 @@ export const setSearchExtraParams = wireCommit('setParams');
  *
  * @public
  */
-export const increasePageAppendingResults = wireDispatchWithoutPayload(
+export const increasePageAppendingResultsWire = wireDispatchWithoutPayload(
   'increasePageAppendingResults'
 );
-
-/**
- * Sets the search state `pageSize`.
- *
- * @public
- */
-export const setPageSize = wireCommit('setPageSize');
 
 /**
  * Resets the search state `isAppendingResults`.
@@ -177,7 +177,7 @@ export const searchWiring = createWiring({
     saveOriginWire
   },
   UserReachedResultsListEnd: {
-    increasePageAppendingResults
+    increasePageAppendingResultsWire
   },
   SearchRequestChanged: {
     fetchAndSaveSearchResponseWire
@@ -199,5 +199,11 @@ export const searchWiring = createWiring({
   },
   ExtraParamsChanged: {
     setSearchExtraParams
+  },
+  UserClickedCloseX: {
+    clearSearchQuery
+  },
+  UserClickedOutOfMainModal: {
+    clearSearchQuery
   }
 });

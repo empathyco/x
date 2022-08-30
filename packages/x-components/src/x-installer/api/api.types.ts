@@ -24,7 +24,7 @@ export interface XAPI {
    * events.
    *
    * @internal
-   * */
+   */
   setBus(bus: XBus): void;
 
   /**
@@ -81,7 +81,7 @@ export interface XAPI {
  */
 export type XEventListeners = Partial<
   {
-    [Event in XEvent]: (payload: XEventPayload<Event>, metadata: WireMetadata) => void;
+    [Event in XEvent]: (payload: XEventPayload<Event>, metadata: WireMetadata) => unknown;
   }
 >;
 
@@ -113,6 +113,24 @@ export interface SnippetConfig {
   isSpa?: boolean;
   /** The id for the current product when product page is loaded. */
   productId?: string;
+  /** The filters to be applied on the first request. */
+  filters?: string[];
+  /** List of queries to preview. */
+  queriesPreview?: QueryPreview[];
   /** Any extra param to send in all backend calls. */
-  [extra: string]: any;
+  [extra: string]: unknown;
+}
+
+/**
+ * Information to render a query preview with.
+ *
+ * @public
+ */
+export interface QueryPreview {
+  /** The query to search for. */
+  query: string;
+  /** An optional title for the container. */
+  title?: string;
+  /** Any other additional information to render the preview with. */
+  [extra: string]: unknown;
 }

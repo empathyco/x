@@ -1,5 +1,6 @@
+import { Dictionary } from '@empathyco/x-utils';
 import { WatchOptions } from 'vue';
-import { Dictionary, Returns } from '../../utils/types';
+import { Returns } from '../../utils/types';
 import { XEvent, XEventPayload } from '../../wiring/events.types';
 import { AnyXStoreModule } from '../store.types';
 
@@ -99,7 +100,7 @@ export type AnyStoreEmitters = StoreEmitters<AnyXStoreModule>;
 export function createStoreEmitters<
   Module extends AnyXStoreModule,
   Emitters extends StoreEmitters<Module>
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars-experimental
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 >(storeModule: Module, emitters: Emitters): Emitters {
   return emitters;
 }

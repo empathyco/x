@@ -119,7 +119,7 @@
      * @internal
      */
     protected get imageSrc(): string {
-      if (this.hasEnteredView && this.result.images.length > 0) {
+      if (this.hasEnteredView && this.result.images?.length) {
         const image = this.result.images.find(image => !this.failedImages.includes(image));
         return image ?? '';
       }
@@ -174,7 +174,7 @@
      * @internal
      */
     protected get hasAllImagesFailed(): boolean {
-      return this.failedImages.length === this.result.images.length;
+      return this.failedImages.length === this.result.images?.length;
     }
 
     /**

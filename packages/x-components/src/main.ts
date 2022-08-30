@@ -1,29 +1,43 @@
-import 'reflect-metadata';
 import Vue from 'vue';
 import App from './App.vue';
 import { setupDevtools } from './plugins/devtools/devtools.plugin';
 import router from './router';
 import { baseInstallXOptions, baseSnippetConfig } from './views/base-config';
+import { InitWrapper } from './x-installer/index';
 import { XInstaller } from './x-installer/x-installer/x-installer';
 import { FilterEntityFactory } from './x-modules/facets/entities/filter-entity.factory';
 import { SingleSelectModifier } from './x-modules/facets/entities/single-select.modifier';
 
 Vue.config.productionTip = false;
-['hierarchical_category', 'categories_facet', 'brand_facet', 'age_facet'].forEach(facetId =>
-  FilterEntityFactory.instance.registerFilterModifier(facetId, [SingleSelectModifier])
+FilterEntityFactory.instance.registerModifierByFacetId('age_facet', SingleSelectModifier);
+FilterEntityFactory.instance.registerModifierByFilterModelName(
+  'HierarchicalFilter',
+  SingleSelectModifier
 );
+import './tailwind/index.css';
 
-new XInstaller({
+const installer = new XInstaller({
   ...baseInstallXOptions,
   app: App,
   vueOptions: {
     router
   },
   domElement: '#app'
-})
-  .init(baseSnippetConfig)
-  .then(({ app }) => {
-    if (process.env.NODE_ENV !== 'production') {
-      setupDevtools(app!);
-    }
-  });
+});
+
+if (window.initX) {
+  installer.init().then(initDevtools);
+} else {
+  installer.init(baseSnippetConfig).then(initDevtools);
+}
+
+/**
+ * If an app is provided, initialise the devtools.
+ *
+ * @param initWrapper - An object containing the app instance.
+ */
+function initDevtools(initWrapper: InitWrapper | void): void {
+  if (initWrapper?.app && process.env.NODE_ENV !== 'production') {
+    setupDevtools(initWrapper.app);
+  }
+}

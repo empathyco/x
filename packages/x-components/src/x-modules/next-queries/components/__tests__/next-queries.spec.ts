@@ -1,3 +1,4 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -6,7 +7,6 @@ import { getNextQueriesStub } from '../../../../__stubs__';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
 import NextQueries from '../next-queries.vue';
 import { default as NextQueryComponent } from '../next-query.vue';
 import { XPlugin } from '../../../../plugins/x-plugin';
@@ -77,7 +77,7 @@ describe('testing next queries component', () => {
         <NextQueries>
           <template #suggestion-content="suggestionContentScope">
             <span data-test="next-query-highlight">
-              <img 
+              <img
                 src="./chevron-icon.svg"
                 v-if="suggestionContentScope.shouldHighlightCurated"
               />
@@ -120,16 +120,16 @@ describe('testing next queries component', () => {
     const template = `
         <NextQueries>
           <template #suggestion="{ suggestion, highlightCurated, index }">
-            <NextQuery :suggestion="suggestion" 
+            <NextQuery :suggestion="suggestion"
                        :highlightCurated="highlightCurated">
               <template #default="suggestionContentScope">
                 <span data-test="next-query-highlight">
-                  <img 
+                  <img
                     src="./chevron-icon.svg"
                     v-if="suggestionContentScope.shouldHighlightCurated"
                   />
                 </span>
-                <img src="./next-query-icon.svg" 
+                <img src="./next-query-icon.svg"
                   class="x-next-query__icon"
                   data-test="icon"/>
                 <span

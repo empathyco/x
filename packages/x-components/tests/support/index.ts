@@ -1,8 +1,7 @@
 import 'cypress-plugin-tab';
+import { SearchResponse } from '@empathyco/x-types';
+import { AnyFunction, forEach } from '@empathyco/x-utils';
 import { noOp } from '../../src/utils/function';
-import { forEach } from '../../src/utils/object';
-import { AnyFunction } from '../../src/utils/types';
-import { AdapterMockedResponses } from '../../src/adapter/mocked-adapter';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -104,7 +103,7 @@ interface CustomCommands {
    *
    * @param searchResponse - The next response for the `search` adapter method.
    */
-  fakeSearchResponse(searchResponse: Partial<AdapterMockedResponses['search']>): void;
+  fakeSearchResponse(searchResponse: Partial<SearchResponse>): void;
   /**
    * Checks if next-queries should contain or not a certain term.
    *

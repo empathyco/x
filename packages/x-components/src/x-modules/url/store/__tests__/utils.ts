@@ -1,7 +1,7 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import Vuex, { Store } from 'vuex';
 import { createLocalVue } from '@vue/test-utils';
 import { resetStoreModuleState } from '../../../../__tests__/utils';
-import { DeepPartial } from '../../../../utils/types';
 import { urlXStoreModule } from '../module';
 import { UrlState } from '../types';
 

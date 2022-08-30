@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts">
+  import Vue from 'vue';
   import { NextQuery } from '@empathyco/x-types';
   import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
@@ -29,6 +30,8 @@
   import { ListItem } from '../../../utils/types';
   import { NextQueriesGroup } from '../types';
   import { nextQueriesXModule } from '../x-module';
+  import { XInject } from '../../../components/decorators/injection.decorators';
+  import { QUERY_KEY } from '../../../components/decorators/injection.consts';
 
   /**
    * Component that inserts groups of next queries in different positions of the injected search
@@ -93,6 +96,12 @@
     public nextQueries!: NextQuery[];
 
     /**
+     * Injected query, updated when the related request(s) have succeeded.
+     */
+    @XInject(QUERY_KEY)
+    public injectedQuery!: string | undefined;
+
+    /**
      * The grouped next queries based on the given config.
      *
      * @returns A list of next queries groups.
@@ -122,7 +131,9 @@
       if (!this.injectedListItems) {
         return this.nextQueriesGroups;
       }
-
+      if (this.nextQueriesAreOutdated) {
+        return this.injectedListItems;
+      }
       return this.nextQueriesGroups.reduce(
         (items, nextQueriesGroup, index) => {
           const targetIndex = this.offset + this.frequency * index;
@@ -132,6 +143,20 @@
           return items;
         },
         [...this.injectedListItems]
+      );
+    }
+
+    /**
+     * Checks if the next queries are outdated taking into account the injected query.
+     *
+     * @returns True if the next queries are outdated, false if not.
+     * @internal
+     */
+    protected get nextQueriesAreOutdated(): boolean {
+      return (
+        !!this.injectedQuery &&
+        (this.$x.query.nextQueries !== this.injectedQuery ||
+          this.$x.status.nextQueries !== 'success')
       );
     }
   }
@@ -155,7 +180,7 @@ Usually, this component is going to be used together with the `ResultsList` one.
 will be inserted between the results, guiding users to discover new searches directly from the
 results list.
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput />
@@ -190,7 +215,7 @@ Finally, a third group will be inserted at index `192`. Because `maxGroups` is c
 more groups will be inserted. Each one of this groups will have up to `6` next queries
 (`maxNextQueriesPerGroup`).
 
-```vue
+```vue live
 <template>
   <div>
     <SearchInput />

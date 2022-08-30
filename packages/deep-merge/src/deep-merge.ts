@@ -1,3 +1,5 @@
+import { isObject } from '@empathyco/x-utils';
+
 enum Behaviour {
   Replace = 'replace',
   DeepMerge = 'deep-merge'
@@ -88,17 +90,6 @@ function cloneObjectProperties(target: any, [key, value]: any): any {
     target[key] = value;
   }
   return target;
-}
-
-/**
- * Returns true if the revieved parameter is an object.
- *
- * @param obj - The object to check.
- *
- * @returns A boolean indicating if the parameter is an object.
- */
-function isObject(obj: any): obj is Record<string, unknown> {
-  return obj && typeof obj === 'object' && !Array.isArray(obj);
 }
 
 /**

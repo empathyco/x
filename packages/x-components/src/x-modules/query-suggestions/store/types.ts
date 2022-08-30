@@ -1,9 +1,9 @@
-import { SuggestionsRequest } from '@empathyco/x-adapter';
-import { Suggestion } from '@empathyco/x-types';
+import { QuerySuggestionsRequest, Suggestion } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
+import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { UrlParams } from '../../../types/url-params';
-import { Dictionary } from '../../../utils';
 import { QuerySuggestionsConfig } from '../config.types';
 
 /**
@@ -11,7 +11,7 @@ import { QuerySuggestionsConfig } from '../config.types';
  *
  * @public
  */
-export interface QuerySuggestionsState extends StatusState {
+export interface QuerySuggestionsState extends StatusState, QueryState {
   /** The query of the query suggestions module. Used to request the suggestions. */
   query: string;
   /** The suggestions for the query of the state. */
@@ -28,9 +28,11 @@ export interface QuerySuggestionsState extends StatusState {
  * @public
  */
 export interface QuerySuggestionsGetters {
-  /** The adapter request object for retrieving the query suggestions, or null if there is not
-   * valid data to create a request. */
-  request: SuggestionsRequest | null;
+  /**
+   * The adapter request object for retrieving the query suggestions, or null if there is not
+   * valid data to create a request.
+   */
+  request: QuerySuggestionsRequest | null;
   /** The normalized module's query. */
   normalizedQuery: string;
   /** The full list of queries suggestions related to the query search. */
@@ -42,7 +44,7 @@ export interface QuerySuggestionsGetters {
  *
  * @public
  */
-export interface QuerySuggestionsMutations extends StatusMutations {
+export interface QuerySuggestionsMutations extends StatusMutations, QueryMutations {
   /**
    * Sets the query of the query suggestions module.
    *
@@ -79,11 +81,11 @@ export interface QuerySuggestionsActions {
    *
    * @returns A new list of suggestions.
    */
-  fetchSuggestions(request: SuggestionsRequest | null): Suggestion[];
+  fetchSuggestions(request: QuerySuggestionsRequest | null): Suggestion[];
   /**
    * Requests and saves to the state a list of suggestions.
    */
-  fetchAndSaveSuggestions(request: SuggestionsRequest | null): void;
+  fetchAndSaveSuggestions(request: QuerySuggestionsRequest | null): void;
   /**
    * Checks if the url has a query on it and then updates the state with that value.
    *

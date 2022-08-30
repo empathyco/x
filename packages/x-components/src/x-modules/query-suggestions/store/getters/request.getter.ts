@@ -20,7 +20,7 @@ export const request: QuerySuggestionsXStoreModule['getters']['request'] = ({
         query,
         rows: config.maxItemsToRequest,
         start: 0,
-        ...params
+        extraParams: params
       }
     : null;
 };

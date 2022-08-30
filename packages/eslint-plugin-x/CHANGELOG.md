@@ -3,6 +3,116 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.10...@empathyco/eslint-plugin-x@2.0.0-alpha.11) (2022-08-03)
+
+### ⚠ BREAKING CHANGES
+
+- **facets:** Removed the `setFilter`mutation from `facets` X-Module. Use `mutateFilter` instead.
+- **facets:** Modified the `HierarchicalFilter.children` Model type. Now it is an
+  `Array<HierarchicalFilter>` instead of an array of ids.
+
+### Features
+
+- **facets:** Move filters flattening from `x-adapter-platform` to `x-components`. (#626)
+  ([2bebaeb](https://github.com/empathyco/x/commit/2bebaeb2863fe794f1b3bea924904651b9302ef6)),
+  closes [EX-6484](https://searchbroker.atlassian.net/browse/EX-6484)
+
+### Build System
+
+- sync duplicated dependencies (#567)
+  ([912e968](https://github.com/empathyco/x/commit/912e9687851594871b3296a5fb26129327939d96)),
+  closes [EX-6412](https://searchbroker.atlassian.net/browse/EX-6412)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.9...@empathyco/eslint-plugin-x@2.0.0-alpha.10) (2022-06-06)
+
+### Features
+
+- disable v-slot-style
+  ([2e8c2d9](https://github.com/empathyco/x/commit/2e8c2d93605b6a694e84c98f955ee7acfdfd35e3)),
+  closes [EX-6284](https://searchbroker.atlassian.net/browse/EX-6284)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.8...@empathyco/eslint-plugin-x@2.0.0-alpha.9) (2022-05-11)
+
+### ⚠ BREAKING CHANGES
+
+- Request types moved to `x-types` package. Change the imports from `x-adapter` to `x-type`.
+- Removed `TaggingInfo` type. Use `TaggingRequest` from `@empathyco/x-types` instead.
+
+### Features
+
+- move `Request` types to `x-types` package
+  ([7cc85c1](https://github.com/empathyco/x/commit/7cc85c1d371b604b3188d8cc2076eab5fc9460e4)),
+  closes [EX-6066](https://searchbroker.atlassian.net/browse/EX-6066)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.7...@empathyco/eslint-plugin-x@2.0.0-alpha.8) (2022-05-05)
+
+**Note:** Version bump only for package @empathyco/eslint-plugin-x
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.6...@empathyco/eslint-plugin-x@2.0.0-alpha.7) (2022-04-29)
+
+### Build System
+
+- **deps:** update eslint-plugin dependencies (#447)
+  ([51d60f0](https://github.com/empathyco/x/commit/51d60f0e11fa9667a784bbdb10ba1f39159b382f)),
+  closes [EX-5383](https://searchbroker.atlassian.net/browse/EX-5383)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.5...@empathyco/eslint-plugin-x@2.0.0-alpha.6) (2022-04-19)
+
+### Features
+
+- **eslint:** add `vuejs-accessibility` plugin (#427)
+  ([6789771](https://github.com/empathyco/x/commit/6789771ab88a909552da74095694a4c2a191a51d)),
+  closes [EX-5845](https://searchbroker.atlassian.net/browse/EX-5845)
+- extract SessionService to x-utils package
+  ([5268808](https://github.com/empathyco/x/commit/52688087e577dfd7ce9b0669b21ada75ae67053c))
+- **typeguards:** add isPath
+  ([3c23ed0](https://github.com/empathyco/x/commit/3c23ed0c094161d787d24b2327d0884e41531878)),
+  closes [EX-5802](https://searchbroker.atlassian.net/browse/EX-5802)
+
+### Build System
+
+- **deps:** Upgrade Cypress and Vue Cli plugins versions. (#399)
+  ([630d6b0](https://github.com/empathyco/x/commit/630d6b0d767a3484140ecd252e2be10817e0900d)),
+  closes [EX-5417](https://searchbroker.atlassian.net/browse/EX-5417)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.4...@empathyco/eslint-plugin-x@2.0.0-alpha.5) (2022-03-31)
+
+### Features
+
+- update typescript
+  ([73edca6](https://github.com/empathyco/x/commit/73edca61c1cea39d82a7ab94bc18c8bff94c138c)),
+  closes [EX-5367](https://searchbroker.atlassian.net/browse/EX-5367)
+
 ## [2.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.3...@empathyco/eslint-plugin-x@2.0.0-alpha.4) (2022-03-02)
 
 ### ⚠ BREAKING CHANGES
@@ -14,11 +124,6 @@ All notable changes to this project will be documented in this file. See
 - remove standard-version from eslint-plugin-x
   ([256c9d0](https://github.com/empathyco/x/commit/256c9d051ca1d36cf465fa4ca9a00dfc1d986ae7)),
   closes [EX-5526](https://searchbroker.atlassian.net/browse/EX-5526)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.2...@empathyco/eslint-plugin-x@2.0.0-alpha.3) (2022-02-28)
 
@@ -37,11 +142,6 @@ All notable changes to this project will be documented in this file. See
   ([f3fee15](https://github.com/empathyco/x/commit/f3fee157d724292f5cbb7166908d48ef2fb4fe8c)),
   closes [EX-5027](https://searchbroker.atlassian.net/browse/EX-5027)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.1...@empathyco/eslint-plugin-x@2.0.0-alpha.2) (2021-11-22)
 
 ### Testing
@@ -50,22 +150,12 @@ All notable changes to this project will be documented in this file. See
   ([5142bb5](https://github.com/empathyco/x/commit/5142bb5fb61181f199fa1019cf7c910d9736deb8)),
   closes [EX-3801](https://searchbroker.atlassian.net/browse/EX-3801)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.0...@empathyco/eslint-plugin-x@2.0.0-alpha.1) (2021-11-03)
 
 ### Documentation
 
 - fix readme to reference the correct package
   ([0eaa431](https://github.com/empathyco/x/commit/0eaa431f18a08ba078a15b5e374ce27dd8575c96))
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@1.4.0-alpha.7...@empathyco/eslint-plugin-x@2.0.0-alpha.0) (2021-10-25)
 

@@ -1,11 +1,11 @@
 import { RelatedTag } from '@empathyco/x-types';
+import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
 import { getRelatedTagsStub } from '../../../../__stubs__/related-tags-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { relatedTagsXModule } from '../../x-module';
@@ -84,7 +84,7 @@ describe('testing related tags component', () => {
       template: `
         <RelatedTags>
           <template #related-tag-content="{relatedTag, isSelected, shouldHighlightCurated }">
-            <img 
+            <img
               data-test="related-tag-chevron"
               src="./chevron-icon.svg"
               v-if="shouldHighlightCurated"

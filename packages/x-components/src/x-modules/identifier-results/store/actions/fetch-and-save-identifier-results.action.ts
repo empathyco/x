@@ -1,11 +1,10 @@
-import { Result } from '@empathyco/x-types';
-import { SearchByIdRequest } from '@empathyco/x-adapter';
+import { Result, IdentifierResultsRequest } from '@empathyco/x-types';
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { IdentifierResultsActionsContext } from '../types';
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   IdentifierResultsActionsContext,
-  SearchByIdRequest | null,
+  IdentifierResultsRequest | null,
   Result[]
 >({
   fetch({ dispatch, state: { origin } }, request) {

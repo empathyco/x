@@ -14,9 +14,7 @@ function createRelatedTags(tags: string[], query: string): RelatedTag[] {
   return tags.map(tag => ({
     tag,
     modelName: 'RelatedTag',
-    selected: true,
-    query: query ? `${query} ${tag}` : '',
-    previous: ''
+    query: query ? `${query} ${tag}` : ''
   }));
 }
 
@@ -34,6 +32,5 @@ export const setUrlParams: RelatedTagsXStoreModule['actions']['setUrlParams'] = 
   { query, tag }: UrlParams
 ) => {
   commit('setSelectedRelatedTags', createRelatedTags(tag, query));
-  commit('setRelatedTags', []);
   commit('setQuery', query);
 };

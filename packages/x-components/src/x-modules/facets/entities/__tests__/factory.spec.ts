@@ -118,9 +118,10 @@ describe('testing filters entity factory', () => {
     });
     expect(getStoreEditableNumberRangeFilter(store, facetId).id).not.toBe(previousFilter.id);
 
-    // Deselecting a editable number range filter should  should keep it in the store with selected
+    // Deselecting a editable number range filter should keep it in the store with selected
     // to false and set the range values to null.
     previousFilter = getStoreEditableNumberRangeFilter(store, facetId);
+    const previousFilterId = previousFilter.id;
     editableNumberRangeFilterEntity.deselect(previousFilter);
 
     expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1);
@@ -129,7 +130,7 @@ describe('testing filters entity factory', () => {
       min: null,
       max: null
     });
-    expect(getStoreEditableNumberRangeFilter(store, facetId).id).not.toBe(previousFilter.id);
+    expect(getStoreEditableNumberRangeFilter(store, facetId).id).not.toBe(previousFilterId);
   });
 
   describe('test raw behavior', () => {
@@ -199,14 +200,14 @@ describe('testing filters entity factory', () => {
   });
 
   describe('testing modifiers', () => {
-    it('decorates entities of the given facet with modifiers', () => {
+    it('decorates entities of the given facet with modifiers by facet id', () => {
       const store = prepareFacetsStore();
       const factory = new FilterEntityFactory();
       const redColorFilter = createSimpleFilter('color', 'red');
       const blueColorFilter = createSimpleFilter('color', 'blue');
       const mediumSizeFilter = createSimpleFilter('size', 'm');
       const largeSizeFilter = createSimpleFilter('size', 'l');
-      factory.registerFilterModifier('color', [SingleSelectModifier]);
+      factory.registerModifierByFacetId('color', SingleSelectModifier);
       const colorEntity = factory.getFilterEntity(store, redColorFilter);
       const sizeEntity = factory.getFilterEntity(store, mediumSizeFilter);
 
@@ -217,7 +218,7 @@ describe('testing filters entity factory', () => {
       expect(isFilterSelected(store, redColorFilter.id)).toBe(false);
       expect(isFilterSelected(store, blueColorFilter.id)).toBe(true);
 
-      // Size entity shouldn not be decorated, therefore, its filters should be multiselectable.
+      // Size entity should not be decorated, therefore, its filters should be multiselectable.
       sizeEntity.select(mediumSizeFilter);
       sizeEntity.select(largeSizeFilter);
       colorEntity.select(redColorFilter);
@@ -226,6 +227,41 @@ describe('testing filters entity factory', () => {
       expect(isFilterSelected(store, blueColorFilter.id)).toBe(false);
       expect(isFilterSelected(store, mediumSizeFilter.id)).toBe(true);
       expect(isFilterSelected(store, largeSizeFilter.id)).toBe(true);
+    });
+
+    it('decorates entities of the given facet with modifiers by filter model name', () => {
+      const store = prepareFacetsStore();
+      const factory = new FilterEntityFactory();
+      const redColorFilter = createSimpleFilter('color', 'red');
+      const blueColorFilter = createSimpleFilter('color', 'blue');
+      const priceFilter10_20 = createNumberRangeFilter('price', { min: 10, max: 20 });
+      const priceFilter20_30 = createNumberRangeFilter('price', { min: 20, max: 30 });
+      const womanCategoryFilter = createHierarchicalFilter('category', 'woman');
+      const manCategoryFilter = createHierarchicalFilter('category', 'man');
+      factory.registerModifierByFilterModelName('SimpleFilter', SingleSelectModifier);
+      const colorEntity = factory.getFilterEntity(store, redColorFilter);
+      const priceEntity = factory.getFilterEntity(store, priceFilter10_20);
+      const categoryEntity = factory.getFilterEntity(store, womanCategoryFilter);
+
+      colorEntity.select(redColorFilter);
+      expect(isFilterSelected(store, redColorFilter.id)).toBe(true);
+
+      colorEntity.select(blueColorFilter);
+      expect(isFilterSelected(store, redColorFilter.id)).toBe(false);
+      expect(isFilterSelected(store, blueColorFilter.id)).toBe(true);
+
+      // The other Filters should not be decorated, therefore, its filters should be multiselectable
+      priceEntity.select(priceFilter10_20);
+      priceEntity.select(priceFilter20_30);
+      categoryEntity.select(womanCategoryFilter);
+      categoryEntity.select(manCategoryFilter);
+
+      expect(isFilterSelected(store, redColorFilter.id)).toBe(false);
+      expect(isFilterSelected(store, blueColorFilter.id)).toBe(true);
+      expect(isFilterSelected(store, priceFilter10_20.id)).toBe(true);
+      expect(isFilterSelected(store, priceFilter20_30.id)).toBe(true);
+      expect(isFilterSelected(store, womanCategoryFilter.id)).toBe(true);
+      expect(isFilterSelected(store, manCategoryFilter.id)).toBe(true);
     });
   });
 });

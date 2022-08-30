@@ -74,10 +74,12 @@ Here a basic example of how the clear button is rendered.
 
 _Type any term in the input field and then click the Clear button to try it out!_
 
-```vue
+```vue live
 <template>
-  <SearchInput />
-  <ClearSearchInput />
+  <div style="display: flex;">
+    <SearchInput />
+    <ClearSearchInput />
+  </div>
 </template>
 
 <script>
@@ -100,7 +102,7 @@ customize the button content.
 
 _Click the icon button to try it out!_
 
-```vue
+```vue live
 <template>
   <ClearSearchInput>Clear</ClearSearchInput>
 </template>
@@ -124,11 +126,12 @@ In this example, the `UserPressedClearSearchBoxButton` event is implemented, tri
 
 _Click the Clear button to try it out!_
 
-```vue
+```vue live
 <template>
-  <ClearSearchInput @UserPressedClearSearchBoxButton="logUserPressedClearSearchBoxButton">
-    Clear
-  </ClearSearchInput>
+  <div>
+    <ClearSearchInput @UserPressedClearSearchBoxButton="message = 'clear'">Clear</ClearSearchInput>
+    {{ message }}
+  </div>
 </template>
 
 <script>
@@ -139,10 +142,10 @@ _Click the Clear button to try it out!_
     components: {
       ClearSearchInput
     },
-    methods: {
-      logUserPressedClearSearchBoxButton() {
-        console.log('User pressed clear search box button');
-      }
+    data() {
+      return {
+        message: ''
+      };
     }
   };
 </script>
@@ -156,20 +159,22 @@ entered.
 
 _Type any term in the input field and then click the icon button to try it out!_
 
-```vue
+```vue live
 <template>
-  <SearchInput />
-  <ClearSearchInput />
+  <div style="display: flex;">
+    <SearchInput />
+    <ClearSearchInput />
+  </div>
 </template>
 
 <script>
-  import { ClearSearchInput, SearchInput } from '@empathyco/x-components/search-box';
+  import { SearchInput, ClearSearchInput } from '@empathyco/x-components/search-box';
 
   export default {
     name: 'ClearSearchInputDemo',
     components: {
-      ClearSearchInput,
-      SearchInput
+      SearchInput,
+      ClearSearchInput
     }
   };
 </script>

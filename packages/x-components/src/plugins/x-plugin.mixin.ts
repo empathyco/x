@@ -17,6 +17,7 @@ declare module 'vue/types/vue' {
 }
 
 declare module 'vue/types/options' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   export interface ComponentOptions<V, Data, Methods, Computed, PropsDef, Props> {
     xModule?: XModuleName;
   }

@@ -4,6 +4,7 @@ import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
 //eslint-disable-next-line max-len
 import { getEmptySearchResponseStub } from '../../../../__stubs__/empty-search-response-stubs.factory';
 import { getFacetsStub } from '../../../../__stubs__/facets-stubs.factory';
+import { getPartialResultsStub } from '../../../../__stubs__/partials-results-stubs.factory';
 import { getPromotedsStub } from '../../../../__stubs__/promoteds-stubs.factory';
 import { getRedirectionsStub } from '../../../../__stubs__/redirections-stubs.factory';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
@@ -19,6 +20,7 @@ describe('testing search module actions', () => {
   const resultsStub = getResultsStub();
   const facetsStub = getFacetsStub();
   const bannersStub = getBannersStub();
+  const partialResultsStub = getPartialResultsStub();
   const promotedsStub = getPromotedsStub();
   const redirectionsStub = getRedirectionsStub();
   const searchResponseStub = getSearchResponseStub();
@@ -103,6 +105,33 @@ describe('testing search module actions', () => {
       expect(store.state.banners).toEqual(bannersStub);
       expect(store.state.promoteds).toEqual(promotedsStub);
       expect(store.state.redirections).toEqual(redirectionsStub);
+      expect(store.state.page).toEqual(1);
+      expect(store.state.config.pageSize).toEqual(24);
+      expect(store.state.status).toEqual('success');
+      expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
+    });
+
+    it('should set undefined response values to their default values', async () => {
+      resetSearchStateWith(store, {
+        query: 'lego'
+      });
+      adapter.search.mockResolvedValueOnce({
+        ...searchResponseStub,
+        banners: undefined,
+        partialResults: undefined,
+        promoteds: undefined,
+        redirections: undefined,
+        spellcheck: undefined
+      });
+
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
+      expect(store.state.results).toEqual(resultsStub);
+      expect(store.state.facets).toEqual(facetsStub);
+      expect(store.state.banners).toEqual([]);
+      expect(store.state.partialResults).toEqual([]);
+      expect(store.state.promoteds).toEqual([]);
+      expect(store.state.spellcheckedQuery).toEqual('');
+      expect(store.state.redirections).toEqual([]);
       expect(store.state.page).toEqual(1);
       expect(store.state.config.pageSize).toEqual(24);
       expect(store.state.status).toEqual('success');
@@ -227,6 +256,47 @@ describe('testing search module actions', () => {
       expect(store.state.banners).toBe(banners);
       expect(store.state.promoteds).toBe(promoteds);
       expect(store.state.status).toEqual('error');
+    });
+  });
+
+  describe('saveSearchResponse', () => {
+    it('saves the search response in the search state', () => {
+      store.dispatch('saveSearchResponse', {
+        ...searchResponseStub,
+        partialResults: [...partialResultsStub]
+      });
+      expect(store.state.results).toEqual(resultsStub);
+      expect(store.state.facets).toEqual(facetsStub);
+      expect(store.state.banners).toEqual(bannersStub);
+      expect(store.state.partialResults).toEqual(partialResultsStub);
+      expect(store.state.promoteds).toEqual(promotedsStub);
+      expect(store.state.redirections).toEqual(redirectionsStub);
+      expect(store.state.spellcheckedQuery).toEqual('');
+      expect(store.state.page).toEqual(1);
+      expect(store.state.config.pageSize).toEqual(24);
+      expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
+    });
+
+    // eslint-disable-next-line max-len
+    it('saves default values of optional or undefined response properties in the search state', () => {
+      store.dispatch('saveSearchResponse', {
+        ...searchResponseStub,
+        partialResults: undefined,
+        redirections: undefined,
+        banners: undefined,
+        promoteds: undefined,
+        spellcheck: undefined
+      });
+      expect(store.state.results).toEqual(resultsStub);
+      expect(store.state.facets).toEqual(facetsStub);
+      expect(store.state.banners).toEqual([]);
+      expect(store.state.partialResults).toEqual([]);
+      expect(store.state.promoteds).toEqual([]);
+      expect(store.state.redirections).toEqual([]);
+      expect(store.state.spellcheckedQuery).toEqual('');
+      expect(store.state.page).toEqual(1);
+      expect(store.state.config.pageSize).toEqual(24);
+      expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
     });
   });
 
@@ -429,29 +499,18 @@ describe('testing search module actions', () => {
 
     it('should reset the page when the related tags change', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2 });
-      await store.dispatch('resetState', {
-        newRequest: {
-          query: 'lego',
-          page: 2,
-          relatedTags: [
-            {
-              query: 'lego star wars',
-              modelName: 'RelatedTag',
-              previous: 'lego',
-              selected: false,
-              tag: 'star wars'
-            }
-          ]
-        },
-        oldRequest: store.getters.request!
-      });
+      const oldRequest = store.getters.request!;
+      store.commit('setRelatedTags', [
+        { query: 'lego star wars', modelName: 'RelatedTag', tag: 'star wars' }
+      ]);
+      const newRequest = store.getters.request!;
+      await store.dispatch('resetState', { oldRequest, newRequest });
 
       expect(store.state).toEqual(
         expect.objectContaining<Partial<SearchState>>({
           page: 1,
           params: {},
           query: 'lego',
-          relatedTags: [],
           selectedFilters: {},
           sort: ''
         })
@@ -524,7 +583,9 @@ describe('testing search module actions', () => {
         newRequest: {
           query: 'lego',
           page: 2,
-          catalog: 'pt'
+          extraParams: {
+            catalog: 'pt'
+          }
         },
         oldRequest: store.getters.request!
       });

@@ -1,15 +1,20 @@
 import { NextQuery } from '@empathyco/x-types';
+import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue, { ComponentOptions, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
+import Component from 'vue-class-component';
 import { createNextQueryStub } from '../../../../__stubs__/next-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { ItemsListInjectionMixin } from '../../../../components/items-list-injection.mixin';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial, Dictionary, ListItem } from '../../../../utils/types';
+import { ListItem } from '../../../../utils/types';
 import { nextQueriesXModule } from '../../x-module';
 import NextQueriesList from '../next-queries-list.vue';
+import { XProvide } from '../../../../components/decorators/injection.decorators';
+import { QUERY_KEY } from '../../../../components/decorators/injection.consts';
+import { RequestStatus } from '../../../../store/utils/status-store.utils';
 import { resetXNextQueriesStateWith } from './utils';
 
 /**
@@ -20,30 +25,45 @@ import { resetXNextQueriesStateWith } from './utils';
  */
 function renderNextQueriesList({
   template = `
-    <NextQueriesList v-bind="$attrs">
-     <template #next-queries-group="{ item }">
-        <ul class="next-queries-group">
-          <li v-for="nextQuery in item.nextQueries" class="next-query">{{
-           nextQuery.query
-          }}</li>
-        </ul>
-      </template>
-    </NextQueriesList>`,
+    <ProviderWrapper>
+      <NextQueriesList v-bind="$attrs">
+       <template #next-queries-group="{ item }">
+          <ul class="next-queries-group">
+            <li v-for="nextQuery in item.nextQueries" class="next-query">{{
+             nextQuery.query
+            }}</li>
+          </ul>
+        </template>
+      </NextQueriesList>
+    </ProviderWrapper>
+    `,
   nextQueries = [],
+  query = 'jacket',
+  status = 'initial',
+  searchQuery,
   components,
   extraItems,
   ...props
 }: RenderNextQueriesListOptions = {}): RenderNextQueriesListAPI {
+  @Component({
+    template: `<div><slot/></div>`
+  })
+  class ProviderWrapper extends Vue {
+    @XProvide(QUERY_KEY)
+    public searchQuery = searchQuery;
+  }
+
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
   installNewXPlugin({ store, initialXModules: [nextQueriesXModule] }, localVue);
-  resetXNextQueriesStateWith(store, { nextQueries });
+  resetXNextQueriesStateWith(store, { nextQueries, query, status });
 
   const wrapper = mount(
     {
       template,
       components: {
+        ProviderWrapper,
         NextQueriesList,
         ...components
       },
@@ -265,6 +285,57 @@ describe('testing NextQueriesList component', () => {
       'shoulder steak'
     ]);
   });
+
+  describe('when a search query is provided', () => {
+    const extraItems = createExtraItems(5);
+    const nextQueries = createNextQueries('gloves', 'hat');
+
+    it('renders extra items if the next queries query and the search query are different', () => {
+      const { getItemsRenderedText } = renderNextQueriesList({
+        nextQueries,
+        extraItems,
+        query: 'jacket',
+        searchQuery: 'tshirt',
+        maxNextQueriesPerGroup: 1,
+        frequency: 1,
+        offset: 0
+      });
+      expect(getItemsRenderedText()).toEqual(extraItems.map(item => item.id));
+    });
+
+    it('renders extra items if the status of the next queries requests is not success', () => {
+      const query = 'jacket';
+      const { getItemsRenderedText } = renderNextQueriesList({
+        nextQueries,
+        extraItems,
+        query,
+        searchQuery: query,
+        maxNextQueriesPerGroup: 1,
+        frequency: 1,
+        offset: 0
+      });
+      expect(getItemsRenderedText()).toEqual(extraItems.map(item => item.id));
+    });
+
+    // eslint-disable-next-line max-len
+    it('renders next queries and extra items if the status is success and the search query and the query are equal', () => {
+      const query = 'jacket';
+      const { getItemsRenderedText } = renderNextQueriesList({
+        nextQueries,
+        extraItems,
+        query,
+        searchQuery: query,
+        maxNextQueriesPerGroup: 1,
+        frequency: 1,
+        offset: 0,
+        status: 'success'
+      });
+      expect(getItemsRenderedText()).toEqual([
+        ...nextQueries.map(nextQuery => nextQuery.query),
+        ...extraItems.map(item => item.id)
+      ]);
+    });
+  });
 });
 
 interface RenderNextQueriesListOptions {
@@ -284,6 +355,12 @@ interface RenderNextQueriesListOptions {
   offset?: number;
   /** The template to be rendered. */
   template?: string;
+  /** The query of the next queries request. */
+  query?: string;
+  /** The search query, it will be provided in a wrapper with XProvide. */
+  searchQuery?: string;
+  /** The next queries request status. */
+  status?: RequestStatus;
 }
 
 interface RenderNextQueriesListAPI {

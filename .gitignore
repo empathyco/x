@@ -1,8 +1,11 @@
 .eslintcache
 .DS_Store
+.parcel-cache
 **/node_modules
 **/dist
 **/docs
+**/temp
+**/report
 **/*.tgz
 
 **/tests/e2e/videos/

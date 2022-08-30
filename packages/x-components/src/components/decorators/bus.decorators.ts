@@ -1,9 +1,10 @@
+import { AnyFunction } from '@empathyco/x-utils';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import Vue, { WatchOptions } from 'vue';
 import { createDecorator } from 'vue-class-component';
 import { clone } from '../../utils/clone';
-import { AnyFunction, DecoratorFor } from '../../utils/types';
+import { DecoratorFor } from '../../utils/types';
 import { XEvent, XEventPayload } from '../../wiring/events.types';
 import { WireMetadata } from '../../wiring/wiring.types';
 

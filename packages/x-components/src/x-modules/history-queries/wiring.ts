@@ -93,6 +93,20 @@ export const clearHistoryQueries = wireDispatch('setHistoryQueries', []);
 export const removeHistoryQuery = wireDispatch('removeFromHistory');
 
 /**
+ * Enables history queries.
+ *
+ * @public
+ */
+export const setHistoryQueriesEnabled = wireDispatch('toggleHistoryQueries', true);
+
+/**
+ * Disables history queries.
+ *
+ * @public
+ */
+export const setHistoryQueriesDisabled = wireDispatch('toggleHistoryQueries', false);
+
+/**
  * Debounce function for the module.
  */
 const moduleDebounce = namespacedDebounce(moduleName);
@@ -131,5 +145,17 @@ export const historyQueriesWiring = createWiring({
   },
   UserPressedRemoveHistoryQuery: {
     removeHistoryQuery
+  },
+  UserClickedEnableHistoryQueries: {
+    setHistoryQueriesEnabled
+  },
+  UserClickedConfirmDisableHistoryQueries: {
+    setHistoryQueriesDisabled
+  },
+  UserClickedCloseX: {
+    clearHistoryQueriesQuery
+  },
+  UserClickedOutOfMainModal: {
+    clearHistoryQueriesQuery
   }
 });

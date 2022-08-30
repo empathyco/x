@@ -1,10 +1,10 @@
+import { forEach, Dictionary } from '@empathyco/x-utils';
 import { Store } from 'vuex';
 import { getGettersProxyFromModule } from '../store/utils/getters-proxy.utils';
 import { AnySimpleStateSelector, AnyStateSelector } from '../store/utils/store-emitters.utils';
 import { debounce } from '../utils/debounce';
-import { forEach } from '../utils/object';
-import { DebouncedFunction, Dictionary } from '../utils/types';
-import { XEvent } from '../wiring/events.types';
+import { DebouncedFunction } from '../utils/types';
+import { XEvent, XEventPayload } from '../wiring/events.types';
 import { AnyXModule } from '../x-modules/x-modules.types';
 import { XBus } from './x-bus.types';
 
@@ -30,10 +30,14 @@ export function registerStoreEmitters(
       event
     );
 
-    const emit = (value: unknown, oldValue?: unknown): void => {
+    const emit = (
+      value: XEventPayload<typeof event>,
+      oldValue?: XEventPayload<typeof event>
+    ): void => {
       bus.emit(event, value, { moduleName: name, oldValue });
     };
-    const watcherSelector = (): unknown => selector(store.state.x[name], safeGettersProxy);
+    const watcherSelector = (): XEventPayload<typeof event> =>
+      selector(store.state.x[name], safeGettersProxy);
     const debouncedEffect = debounceWatcherEffect(event, (newValue, oldValue) => {
       if (filter(newValue, oldValue)) {
         emit(newValue, oldValue);
@@ -60,10 +64,10 @@ export function registerStoreEmitters(
  * @param watcherEffect - The callback to execute.
  * @returns A new function with the `watcherEffect` callback wrapped in debounce.
  */
-function debounceWatcherEffect(
-  event: XEvent,
-  watcherEffect: (newValue: unknown, oldValue: unknown) => void
-): (newValue: unknown, oldValue: unknown) => void {
+function debounceWatcherEffect<Event extends XEvent = XEvent>(
+  event: Event,
+  watcherEffect: (newValue: XEventPayload<Event>, oldValue: XEventPayload<Event>) => void
+): (newValue: XEventPayload<Event>, oldValue: XEventPayload<Event>) => void {
   /*
    * Due the debounce added to the watch callback, the `oldValue` would be the one from the last
    * watcher execution instead of the last callback execution. This would cause problems receiving
@@ -72,12 +76,15 @@ function debounceWatcherEffect(
    * keep there until the watcher callback is finally executed (after the debounce). Then this
    * `previousValue` is cleared to store the next `oldValue`.
    */
-  let previousValue: unknown = undefined;
+  let previousValue: XEventPayload<Event> | undefined = undefined;
 
-  let watcherCallback = debounce((newValue: unknown, oldValue: unknown): void => {
-    watcherEffect(newValue, oldValue);
-    previousValue = undefined;
-  }, 0);
+  let watcherCallback = debounce(
+    (newValue: XEventPayload<Event>, oldValue: XEventPayload<Event>): void => {
+      watcherEffect(newValue, oldValue);
+      previousValue = undefined;
+    },
+    0
+  );
   /* Only applying the extra debounce to the "SecondLevelEvent" events to avoid repeating outer
    * effects (requests, URL changes). If we only apply the debounce to all the events we still have
    * the problem of outer effects. */

@@ -9,7 +9,6 @@ export * from './get-url-parameters';
 export * from './html';
 export * from './normalize';
 export * from './number';
-export * from './object';
 export * from './origin';
 export * from './sanitize';
 export * from './storage';

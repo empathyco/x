@@ -1,6 +1,6 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import { installNewXPlugin } from '../../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseIdModalClose from '../base-id-modal-close.vue';
 
 /**
@@ -54,6 +54,30 @@ describe('testing Close Button component', () => {
     });
 
     expect(wrapper.text()).toEqual('Close');
+  });
+
+  // eslint-disable-next-line max-len
+  it('renders custom content replacing the default exposing the function that closes the modal', async () => {
+    const { wrapper, click, modalId } = renderBaseIdModalClose({
+      template: `<BaseIdModalClose modalId="modal" v-bind="$attrs">
+                    <template #closing-element="{ closeModal }">
+                      <div>
+                        Close <span data-test="custom-close-modal" @click="closeModal">HERE</span>
+                      </div>
+                    </template>
+                  </BaseIdModalClose>`
+    });
+
+    const listener = jest.fn();
+    wrapper.vm.$x.on('UserClickedCloseModal').subscribe(listener);
+
+    await click();
+
+    expect(listener).toHaveBeenCalledTimes(0);
+
+    wrapper.find(getDataTestSelector('custom-close-modal')).trigger('click');
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener).toHaveBeenCalledWith(modalId);
   });
 });
 

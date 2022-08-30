@@ -1,5 +1,7 @@
 export * from './facet';
 export * from './query-signals';
+export * from './request';
+export * from './response';
 export * from './result';
 export * from './banner.model';
 export * from './identifiable.model';
@@ -13,3 +15,5 @@ export * from './sort.model';
 export * from './suggestion.model';
 export * from './tagging.model';
 export * from './user-info.model';
+export * from './x-components-adapter.model';
+export * from './preview-results.model';

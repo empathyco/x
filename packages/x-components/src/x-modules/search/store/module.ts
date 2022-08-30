@@ -1,4 +1,5 @@
 import { isFacetFilter } from '@empathyco/x-types';
+import { setQuery } from '../../../store/utils/query.utils';
 import { setStatus } from '../../../store/utils/status-store.utils';
 import { groupItemsBy } from '../../../utils/array';
 // eslint-disable-next-line max-len
@@ -10,7 +11,9 @@ import { fetchSearchResponse } from './actions/fetch-search-response.action';
 import { increasePageAppendingResults } from './actions/increase-page-apending-results.action';
 import { resetState } from './actions/reset-state.action';
 import { saveOrigin } from './actions/save-origin.action';
+import { saveSearchResponse } from './actions/save-search-response.action';
 import { setUrlParams } from './actions/set-url-params.action';
+import { query } from './getters/query.getter';
 import { request } from './getters/request.getter';
 import { SearchXStoreModule } from './types';
 
@@ -47,12 +50,11 @@ export const searchXStoreModule: SearchXStoreModule = {
     }
   }),
   getters: {
-    request
+    request,
+    query
   },
   mutations: {
-    setQuery(state, newQuery) {
-      state.query = newQuery;
-    },
+    setQuery,
     setResults(state, results) {
       state.results = results;
     },
@@ -117,6 +119,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     fetchAndSaveSearchResponse,
     increasePageAppendingResults,
     resetState,
+    saveSearchResponse,
     setUrlParams,
     saveOrigin
   }

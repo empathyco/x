@@ -1,6 +1,6 @@
 import { isFacetFilter } from '@empathyco/x-types';
+import { map } from '@empathyco/x-utils';
 import { groupItemsBy } from '../../../../utils/array';
-import { map } from '../../../../utils/object';
 import { FacetsXStoreModule, FiltersByFacet } from '../types';
 
 /**

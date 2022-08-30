@@ -1,9 +1,10 @@
+import { Dictionary } from '@empathyco/x-utils';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from 'vuex';
 import { XBus } from '../plugins/x-bus.types';
 import { RootStoreStateAndGetters, RootXStoreState } from '../store';
 import { FeatureLocation, QueryFeature } from '../types/origin';
-import { Dictionary, FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils';
+import { FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload } from './events.types';
 

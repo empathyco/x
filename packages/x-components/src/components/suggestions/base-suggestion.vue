@@ -15,10 +15,10 @@
 
 <script lang="ts">
   import { Suggestion } from '@empathyco/x-types';
+  import { forEach } from '@empathyco/x-utils';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { QueryFeature } from '../../types/origin';
-  import { forEach } from '../../utils/object';
   import { normalizeString } from '../../utils/normalize';
   import { sanitize } from '../../utils/sanitize';
   import { VueCSSClasses } from '../../utils/types';
@@ -142,7 +142,7 @@
     protected get dynamicCSSClasses(): VueCSSClasses {
       return {
         'x-suggestion--matching': this.hasMatchingQuery,
-        'x-suggestion--is-curated': this.shouldHighlightCurated,
+        'x-suggestion--is-curated': this.shouldHighlightCurated
       };
     }
 

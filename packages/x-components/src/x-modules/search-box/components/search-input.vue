@@ -7,6 +7,7 @@
     @input="emitUserIsTypingAQueryEvents"
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
+    v-on="$listeners"
     :maxlength="maxLength"
     :value="query"
     autocomplete="off"
@@ -15,6 +16,7 @@
     inputmode="search"
     type="search"
     data-test="search-input"
+    :aria-label="searchInputMessage"
   />
 </template>
 
@@ -43,6 +45,8 @@
   })
   export default class SearchInput extends Vue {
     public $refs!: { input: HTMLInputElement };
+
+    protected searchInputMessage = 'type your query here';
 
     /**
      * Maximum characters allowed in the input search.
@@ -206,8 +210,8 @@
      *
      * @remarks
      * Emitted events are:
-     * * {@link SearchBoxXEvents.UserPressedEnterKey}
-     * * {@link XEventsTypes.UserAcceptedAQuery}
+     * {@link SearchBoxXEvents.UserPressedEnterKey}
+     * {@link XEventsTypes.UserAcceptedAQuery}
      *
      * @internal
      */
@@ -268,7 +272,7 @@ Here you have a basic example of how the search input is rendered.
 
 _Type any term in the input field to try it out!_
 
-```vue
+```vue live
 <template>
   <SearchInput />
 </template>
@@ -293,7 +297,7 @@ after 1000 milliseconds without typing.
 
 _Type a term with more than 5 characters to try it out!_
 
-```vue
+```vue live
 <template>
   <SearchInput :maxLength="5" :autofocus="false" :instant="true" :instantDebounceInMs="1000" />
 </template>
@@ -317,16 +321,30 @@ For example, if you select the search input box, the message “focus” appears
 enter a search term, the message “typing” appears. If you press Enter after typing a search term,
 the message “enter” appears.
 
+<!-- prettier-ignore-start -->
+:::warning X Events are only emitted from the root X Component.
+At the moment, X Events are only emitted from the root X Component. This means that if you wrap
+the `SearchInput` with another component of another module like the `MainScroll`, you should add
+the listeners to the `MainScroll` instead of the `SearchInput`. If you need to subscribe to these
+events, it is recommended to use the [`GlobalXBus`](../common/x-components.global-x-bus.md)
+component instead.
+:::
+<!-- prettier-ignore-end -->
+
 _Type any term in the input field to try it out!_
 
-```vue
+```vue live
 <template>
-  <SearchInput
-    @UserPressedEnterKey="logUserPressedEnter"
-    @UserFocusedSearchBox="hasFocus = true"
-    @UserBlurredSearchBox="hasFocus = false"
-    @UserIsTypingAQuery="value = 'focus'"
-  />
+  <div>
+    <SearchInput
+      @UserPressedEnterKey="value = 'enter'"
+      @UserFocusedSearchBox="hasFocus = true"
+      @UserBlurredSearchBox="hasFocus = false"
+      @UserIsTypingAQuery="value = 'typing'"
+    />
+    <strong>{{ value }}</strong>
+    <span>{{ hasFocus ? 'focused' : 'unfocused' }}</span>
+  </div>
 </template>
 
 <script>
@@ -342,11 +360,6 @@ _Type any term in the input field to try it out!_
         value: '',
         hasFocus: false
       };
-    },
-    methods: {
-      logUserPressedEnter() {
-        console.log('User pressed enter');
-      }
     }
   };
 </script>
@@ -360,9 +373,10 @@ communicates with the [`SearchButton`](x-components.search-button.md) and the
 Furthermore, you can use it together with the [`QuerySuggestions`](query-suggestions.md) component
 to autocomplete the typed search term.
 
-_Type “puzzle” or another toy in the input field and then click the clear icon to try it out!_
+_Type “trousers” or another fashion term in the input field and then click the clear icon to try it
+out!_
 
-```vue
+```vue live
 <template>
   <div>
     <div style="display: flex; flex-flow: row nowrap;">
@@ -377,11 +391,7 @@ _Type “puzzle” or another toy in the input field and then click the clear ic
 </template>
 
 <script>
-  import {
-    SearchInput,
-    ClearSearchInput,
-    ClearSearchButton
-  } from '@empathyco/x-components/search-box';
+  import { SearchInput, ClearSearchInput, SearchButton } from '@empathyco/x-components/search-box';
   import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
 
   export default {
@@ -389,7 +399,7 @@ _Type “puzzle” or another toy in the input field and then click the clear ic
     components: {
       SearchInput,
       ClearSearchInput,
-      ClearSearchButton,
+      SearchButton,
       QuerySuggestions
     }
   };

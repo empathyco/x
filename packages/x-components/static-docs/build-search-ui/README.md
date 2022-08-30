@@ -6,13 +6,15 @@ tags:
   - use x components
   - x components
   - interface x
+  - x archetype
+  - archetype
 ---
 
 ::: slot left-intro-column
 
-## Getting started with Interface X Components
+## Getting started with Interface X
 
-Start building your search and discovery experience in a few simple steps:
+Start building your search and discovery experience:
 
 :::
 
@@ -22,11 +24,12 @@ Start building your search and discovery experience in a few simple steps:
 
 :::
 
-- **Discover more about the [Interface X ecosystem](#the-interface-x-ecosystem)** and how
-  Interface&nbsp;X works.
-- **[Integrate the Interface X Components](#integrate-interface-x-components)** in your store web
+- **Discover the [Interface X ecosystem](#the-interface-x-ecosystem)** and how Interface&nbsp;X
+  works.
+- **[Develop using Interface X](#developing-with-interface-x)** inside your project.
+- **[Integrate the Interface X Archetype](#integrating-interface-x-archetype)** in your store web
   application.
-- **[Use and configure the Interface X Components](#use-and-configure-the-interface-x-components)**
+- **[Use and configure the Interface X Components](#using-and-configuring-the-interface-x-components)**
   in your project.
 
 <!-- 3. Style your UI. 4. Translate your search experience-->
@@ -42,15 +45,15 @@ numerous components to choose from, and the catalog evolves quickly with new exp
 Check out the **[open source project in GitHub](https://github.com/empathyco/x)**.
 
 Interested in learning more about how Interface&nbsp;X works? Discover more about its
-**[architecture](./x-architecture/README.md)**.
+**[architecture](web-x-architecture.md)**.
 
-## Integrate Interface X Components
+## Developing with Interface X
 
-You can use the X&nbsp;Components in a project in two ways:
+You can use the Interface&nbsp;X in a project in two ways:
 
 - using the separate **Interface&nbsp;X&nbsp;Archetype** project, an out-of-the-box project with all
-  you need to get up and running fast, or
-- integrating the individual **Interface&nbsp;X&nbsp;Components** library in your Vue project for a
+  you need to get up and running fast
+- importing the individual **Interface&nbsp;X&nbsp;Components** library in your Vue project for a
   more custom approach.
 
 ::: note
@@ -59,12 +62,12 @@ You can use Empathy Search API, Elasticsearch, or Solr endpoints with both appro
 
 :::
 
-##### Integration via Interface X Archetype project
+##### Developing via Interface X Archetype
 
 The **[Interface&nbsp;X&nbsp;Archetype](https://github.com/empathyco/x-archetype)** project is the
-perfect combination of all the existing X&nbsp;Components. Instead of starting from a completely
-blank canvas, ramp up quickly with an already working search and discovery experience. This is the
-perfect solution for most cases. But don’t worry! It’s still super flexible! You’re still able to:
+perfect combination of all the existing X&nbsp;Components. It allows you to ramp up quickly with an
+already working search and discovery experience, instead of starting from a completely blank canvas.
+This is the perfect solution for most cases as you can use it as a springboard to:
 
 - Change the default styles for styles that match your application through design tokens or custom
   CSS.
@@ -74,34 +77,47 @@ perfect solution for most cases. But don’t worry! It’s still super flexible!
 - Use the individual X&nbsp;Component internationalization tool or use your own tool.
 - Create new components or modify the existing ones.
 
-To start using the X&nbsp;Archetype project, see
-**[Integrate Interface X Archetype project](web-archetype-integration-guide.md)**.
+To start developing the X&nbsp;Archetype project, see
+**[Develop using Interface&nbsp;X&nbsp;Archetype](web-archetype-development-guide.md)**.
 
-##### Integration via Interface X Components library
+##### Developing via Interface X Components library
 
 This is the more deep and flexible use of the
-**[Interface X Components library](https://github.com/empathyco/x/tree/main/packages/x-components)**,
+**[Interface&nbsp;X&nbsp;Components library](https://github.com/empathyco/x/tree/main/packages/x-components)**,
 allowing you to import any components you desire into your Vue application. It lets you connect,
 customize, extend, style, or even create new components without any limitations. This is the way to
-go if you like to look under the hood!
+go if you like to look under the hood.
 
 - Mix and match with other Vue components.
 - Implement in Vue or React projects.
 - Extend component behavior with your own development.
 - Determine styles using design tokens or custom CSS.
 
-To get started with the X Components library, check out
-**[Integrate Interface X Components in your Vue application](web-x-components-integration-guide.md)**.
+To get started with the X&nbsp;Components library, check out
+**[Develop using Interface&nbsp;X&nbsp;Components library](web-x-components-development-guide.md)**.
 
-## Use and configure the Interface X Components
+## Integrating Interface X Archetype
 
-Using the Interface&nbsp;X&nbsp;Components is a piece of cake! Just import and register the
-component, include it in your template, and you’re ready to go! What’s more, each component offers
-multiple configuration parameters to play around with, allowing you greater flexibility over the
-experience.
+With the **[Interface&nbsp;X&nbsp;Archetype](https://github.com/empathyco/x-archetype)** you have an
+isolated search layer up and running in your store web application in a matter of minutes.
+
+To integrate the Interface&nbsp;X&nbsp;Archetype into your project, just **load** the generated
+JavaScript file into your website and **initialize** it.
+
+Check out
+**[Integrate InterfaceX&nbsp;Archetype into an existing website](web-archetype-integration-guide.md)**,
+to integrate the X&nbsp;Archetype project.
+
+## Using and configuring the Interface X Components
+
+To use the Interface&nbsp;X&nbsp;Components, just **import** and **register** the component,
+**include** it in your template, and you’re ready to go.
+
+What’s more, each component offers multiple configuration parameters to play around with, giving you
+greater flexibility over the experience.
 
 Unsure how to start? Check out
-**[Use & configure Interface X Components in your project](web-use-x-components-guide.md)**.
+**[How to use and configure Interface&nbsp;X&nbsp;Components in your project](web-how-to-use-x-components-guide.md)**.
 
 <!--
 ## Style your UI

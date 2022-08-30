@@ -1,30 +1,19 @@
-import { EmpathyAdapterConfig } from '@empathyco/x-adapter';
-import { deepMerge } from '@empathyco/x-deep-merge';
+import { forEach } from '@empathyco/x-utils';
 import Vue, { PluginObject, VueConstructor } from 'vue';
 import { BaseXBus } from '../../plugins/x-bus';
 import { XBus } from '../../plugins/x-bus.types';
 import { XPlugin } from '../../plugins/x-plugin';
 import { XPluginOptions } from '../../plugins/x-plugin.types';
-import { cleanUndefined, forEach } from '../../utils/object';
-import { DeepPartial } from '../../utils/types';
 import { SnippetConfig, XAPI } from '../api/api.types';
 import { BaseXAPI } from '../api/base-api';
 import { InitWrapper, InstallXOptions, VueConstructorPartialArgument } from './types';
 
 declare global {
   interface Window {
-    X?: XAPI;
+    InterfaceX?: XAPI;
     initX?: (() => SnippetConfig) | SnippetConfig;
   }
 }
-
-const defaultAdapterConfig: DeepPartial<EmpathyAdapterConfig> = {
-  env: 'live',
-  requestParams: {
-    lang: 'es',
-    scope: 'default'
-  }
-};
 
 /**
  * The purpose of this class is to offer a quick way to initialize the XComponents in a setup
@@ -59,7 +48,7 @@ const defaultAdapterConfig: DeepPartial<EmpathyAdapterConfig> = {
  *            the Public API:
  *
  * ```
- *            window.X.init(snippetConfig)
+ *            window.InterfaceX.init(snippetConfig)
  * ```
  *
  *        2.3 When the script of the project build is loaded it searches for a global `initX`
@@ -136,7 +125,7 @@ export class XInstaller {
       this.api = api ?? new BaseXAPI();
       this.api.setInitCallback(this.init.bind(this));
       this.api.setSnippetConfigCallback(this.updateSnippetConfig.bind(this));
-      window.X = this.api;
+      window.InterfaceX = this.api;
     }
   }
 
@@ -171,8 +160,6 @@ export class XInstaller {
   init(): Promise<InitWrapper | void>;
   async init(snippetConfig = this.retrieveSnippetConfig()): Promise<InitWrapper | void> {
     if (snippetConfig) {
-      const adapterConfig = this.getAdapterConfig(snippetConfig);
-      this.applyConfigToAdapter(adapterConfig);
       const bus = this.createBus();
       const pluginOptions = this.getPluginOptions();
       const plugin = this.installPlugin(pluginOptions, bus);
@@ -192,30 +179,6 @@ export class XInstaller {
   }
 
   /**
-   * Creates the Adapter Config object using the {@link SnippetConfig} to do it. It also
-   * merges the default configuration.
-   *
-   * @param options - The {@link SnippetConfig}.
-   *
-   * @returns The Adapter Config object.
-   *
-   * @internal
-   */
-  protected getAdapterConfig({ instance, env, lang, searchLang, scope }: SnippetConfig): unknown {
-    return deepMerge(
-      defaultAdapterConfig,
-      cleanUndefined<DeepPartial<EmpathyAdapterConfig>>({
-        instance,
-        env,
-        requestParams: {
-          lang: searchLang ?? lang,
-          scope
-        }
-      })
-    );
-  }
-
-  /**
    * Creates the {@link XPluginOptions} object.
    *
    * @returns The {@link XPluginOptions} object.
@@ -231,18 +194,6 @@ export class XInstaller {
       initialXModules,
       __PRIVATE__xModules
     };
-  }
-
-  /**
-   * It applies the snippet configuration to the Adapter. Not all the parameters are for the Adapter
-   * but they appear destructured to not include them in the `extraParams` parameter.
-   *
-   * @param adapterConfig - The Adapter config object.
-   *
-   * @internal
-   */
-  protected applyConfigToAdapter(adapterConfig: any): void {
-    this.options.adapter.setConfig?.(adapterConfig);
   }
 
   /**

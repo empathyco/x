@@ -1,9 +1,9 @@
-import { RelatedTagsRequest } from '@empathyco/x-adapter';
-import { RelatedTag } from '@empathyco/x-types';
+import { RelatedTag, RelatedTagsRequest } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
+import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { UrlParams } from '../../../types/url-params';
-import { Dictionary } from '../../../utils';
 import { RelatedTagsConfig } from '../config.types';
 
 /**
@@ -11,9 +11,7 @@ import { RelatedTagsConfig } from '../config.types';
  *
  * @public
  */
-export interface RelatedTagsState extends StatusState {
-  /** The internal query of the module. Used to request the related tags. */
-  query: string;
+export interface RelatedTagsState extends StatusState, QueryState {
   /** The list of the related tags, related to the `query` property of the state. */
   relatedTags: RelatedTag[];
   /** The list of the selected related tags. */
@@ -29,26 +27,25 @@ export interface RelatedTagsState extends StatusState {
  * @public
  */
 export interface RelatedTagsGetters {
-  /** The adapter request object for retrieving the related tags, or null if there is not
-   * valid data to create a request. */
+  /**
+   * The adapter request object for retrieving the related tags, or null if there is not
+   * valid data to create a request.
+   */
   request: RelatedTagsRequest | null;
-  /** List that contains al the related tags, having the selected ones at the first positions
+  /**
+   * List that contains al the related tags, having the selected ones at the first positions
    * (if there are any), and then the unselected ones.
    */
   relatedTags: RelatedTag[];
+  /** The combination of the query and the selected related tags. */
+  query: string;
 }
 /**
  * RelatedTags store mutations.
  *
  * @public
  */
-export interface RelatedTagsMutations extends StatusMutations {
-  /**
-   * Sets the query of the module, which is used to retrieve the related tags.
-   *
-   * @param newQuery - The new query to save to the state.
-   */
-  setQuery(newQuery: string): void;
+export interface RelatedTagsMutations extends StatusMutations, QueryMutations {
   /**
    * Sets the related tags of the module.
    *

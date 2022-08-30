@@ -1,5 +1,5 @@
 <template>
-  <transition v-on="$listeners" name="x-animate-width-">
+  <transition v-on="$listeners" name="x-animate-width-" v-bind="$attrs">
     <!-- @slot (Required) Transition content -->
     <slot />
   </transition>
@@ -14,7 +14,9 @@
    *
    * @public
    */
-  @Component
+  @Component({
+    inheritAttrs: false
+  })
   export default class AnimateWidth extends Vue {}
 </script>
 

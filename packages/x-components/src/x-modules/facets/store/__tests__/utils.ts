@@ -1,6 +1,6 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import { Store } from 'vuex';
 import { resetStoreModuleState } from '../../../../__tests__/utils';
-import { DeepPartial } from '../../../../utils/types';
 import { facetsXStoreModule } from '../module';
 import { FacetsState } from '../types';
 

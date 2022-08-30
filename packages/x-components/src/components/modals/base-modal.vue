@@ -1,23 +1,37 @@
 <template>
-  <component :is="animation" @beforeEnter="showOverlay = false" @afterEnter="showOverlay = true">
-    <div v-if="open" class="x-modal" data-test="modal">
-      <div ref="modal" class="x-modal__content x-list" data-test="modal-content" role="dialog">
+  <div v-show="isWaitingForLeave || open" class="x-modal" data-test="modal">
+    <component
+      :is="animation"
+      @before-leave="isWaitingForLeave = true"
+      @after-leave="isWaitingForLeave = false"
+    >
+      <div
+        v-if="open"
+        ref="modal"
+        class="x-modal__content x-list"
+        data-test="modal-content"
+        role="dialog"
+      >
         <!-- @slot (Required) Modal container content -->
         <slot />
       </div>
+    </component>
+    <component :is="overlayAnimation">
       <div
+        v-if="open"
         @click="emitOverlayClicked"
+        @keydown="emitOverlayClicked"
         class="x-modal__overlay"
-        :class="{ 'x-modal__overlay--is-visible': showOverlay }"
         data-test="modal-overlay"
       />
-    </div>
-  </component>
+    </component>
+  </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
+  import Fade from '../animations/fade.vue';
   import { NoElement } from '../no-element';
 
   /**
@@ -29,10 +43,17 @@
   @Component
   export default class BaseModal extends Vue {
     /**
-     * Animation to use for opening/closing the modal.
+     * Animation to use for opening/closing the modal. This animation only affects the content.
      */
     @Prop({ default: () => NoElement })
     public animation!: Vue | string;
+
+    /**
+     * Animation to use for the overlay (backdrop) part of the modal. By default, it uses
+     * a fade transition.
+     */
+    @Prop({ default: () => Fade })
+    public overlayAnimation!: Vue | string;
 
     /**
      * Determines if the modal is open or not.
@@ -44,8 +65,8 @@
     protected previousBodyOverflow = '';
     /** The previous value of the HTML element overflow style. */
     protected previousHTMLOverflow = '';
-    /** To animate the overlay opacity after and before the animation. */
-    protected showOverlay = true;
+    /** Boolean to delay the leave animation until it has completed. */
+    protected isWaitingForLeave = false;
 
     public $refs!: {
       modal: HTMLDivElement;
@@ -154,13 +175,11 @@
     position: fixed;
     top: 0;
     left: 0;
-
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
     height: 100%;
-
     z-index: 1;
 
     &__content {
@@ -170,14 +189,9 @@
     &__overlay {
       width: 100%;
       height: 100%;
-      position: fixed;
-      background-color: rgba(0, 0, 0, 0.7);
-      opacity: 0;
-
-      &--is-visible {
-        transition: opacity 0.3s ease-out;
-        opacity: 1;
-      }
+      position: absolute;
+      background-color: var(--x-modal-overlay-color, rgb(0, 0, 0));
+      opacity: var(--x-modal-overlay-opacity, 0.7);
     }
   }
 </style>

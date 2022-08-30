@@ -5,6 +5,7 @@
     appear
     name="x-fade-and-slide-"
     :tag="tag"
+    v-bind="$attrs"
   >
     <!-- @slot (Required) Transition-group content -->
     <slot />
@@ -21,7 +22,9 @@
    *
    * @public
    */
-  @Component
+  @Component({
+    inheritAttrs: false
+  })
   export default class FadeAndSlide extends Vue {
     /**
      * HTML Element that the transition-group children will be wrapped in.

@@ -1,10 +1,10 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { BaseResultLink } from '../../../../components/index';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
-import { DeepPartial } from '../../../../utils/types';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import IdentifierResults from '../identifier-results.vue';
@@ -61,7 +61,7 @@ describe('testing IdentifierResult component', () => {
     const spanList = findAllByTestDataId(identifierResultsWrapper, 'identifier-result');
 
     identifierResults.forEach((result, index) => {
-      expect(spanList.at(index).text()).toEqual(result.identifier.value);
+      expect(spanList.at(index).text()).toEqual(result.identifier!.value);
     });
   });
 
@@ -93,6 +93,23 @@ describe('testing IdentifierResult component', () => {
 
     expect(identifierResultsWrapper.findComponent(animation).exists()).toBeTruthy();
     expect(identifierResultsWrapper.find('test-animation')).toBeTruthy();
+  });
+
+  // eslint-disable-next-line max-len
+  it('renders at most the number of identifier results defined by `maxItemsToRender` prop', async () => {
+    const renderedResults = (): WrapperArray<Vue> =>
+      findAllByTestDataId(identifierResultsWrapper, 'identifier-results-item');
+
+    expect(renderedResults()).toHaveLength(identifierResults.length);
+
+    await identifierResultsWrapper.setProps({ maxItemsToRender: identifierResults.length - 1 });
+    expect(renderedResults()).toHaveLength(identifierResults.length - 1);
+
+    await identifierResultsWrapper.setProps({ maxItemsToRender: identifierResults.length });
+    expect(renderedResults()).toHaveLength(identifierResults.length);
+
+    await identifierResultsWrapper.setProps({ maxItemsToRender: identifierResults.length + 1 });
+    expect(renderedResults()).toHaveLength(identifierResults.length);
   });
 
   function findAllByTestDataId(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {

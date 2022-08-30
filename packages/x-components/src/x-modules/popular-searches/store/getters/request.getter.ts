@@ -14,6 +14,6 @@ export const request: PopularSearchesXStoreModule['getters']['request'] = ({ con
   return {
     rows: config.maxItemsToRequest,
     start: 0,
-    ...params
+    extraParams: params
   };
 };

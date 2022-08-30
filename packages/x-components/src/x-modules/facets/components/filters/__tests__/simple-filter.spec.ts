@@ -4,23 +4,26 @@ import Vue from 'vue';
 import { createSimpleFilter } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
+import { XEventsTypes } from '../../../../../wiring/events.types';
 import SimpleFilter from '../simple-filter.vue';
 
 function renderSimpleFilter({
-  template = '<SimpleFilter :filter="filter"/>',
-  filter = createSimpleFilter('category', 'women')
+  template = '<SimpleFilter :filter="filter" :clickEvents="clickEvents" />',
+  filter = createSimpleFilter('category', 'women'),
+  clickEvents
 }: RenderSimpleFilterOptions = {}): RenderSimpleFilterAPI {
   Vue.observable(filter);
   const emit = jest.fn();
   const wrapper = mount(
     {
       components: { SimpleFilter },
-      props: ['filter'],
+      props: ['filter', 'clickEvents'],
       template
     },
     {
       propsData: {
-        filter
+        filter,
+        clickEvents
       },
       mocks: {
         $x: {
@@ -80,10 +83,26 @@ describe('testing SimpleFilter component', () => {
     });
   });
 
+  it('emits configured events when clicked', () => {
+    const { wrapper, clickFilter, emit, filter } = renderSimpleFilter({
+      clickEvents: { UserAcceptedAQuery: 'potato' }
+    });
+
+    clickFilter();
+
+    expect(emit).toHaveBeenCalledTimes(3);
+    ['UserClickedAFilter', 'UserClickedASimpleFilter'].forEach(event => {
+      expect(emit).toHaveBeenCalledWith(event, filter, { target: wrapper.element });
+    });
+    expect(emit).toHaveBeenNthCalledWith(3, 'UserAcceptedAQuery', 'potato', {
+      target: wrapper.element
+    });
+  });
+
   it('allows customizing the default button content', () => {
     const { wrapper, filter } = renderSimpleFilter({
       template: `
-      <SimpleFilter :filter="filter">
+      <SimpleFilter :filter="filter" :clickEvents="clickEvents">
         <template #label="{ filter }">
           <span data-test="custom-label">{{ filter.label }}</span>
         </template>
@@ -98,7 +117,7 @@ describe('testing SimpleFilter component', () => {
   it('allows replacing the root element of the component', () => {
     const { wrapper, emit, filter } = renderSimpleFilter({
       template: `
-      <SimpleFilter :filter="filter" v-slot="{ filter, clickFilter }">
+      <SimpleFilter :filter="filter" :clickEvents="clickEvents" v-slot="{ filter, clickFilter }">
         <label data-test="label">
           <input data-test="input"
             type="checkbox"
@@ -124,7 +143,11 @@ describe('testing SimpleFilter component', () => {
   it('exposes proper css classes and attributes in the default slot', async () => {
     const { wrapper, selectFilter, updateFilter } = renderSimpleFilter({
       template: `
-      <SimpleFilter :filter="filter" v-slot="{ filter, clickFilter, isDisabled, cssClasses }">
+      <SimpleFilter
+        :filter="filter"
+        :clickEvents="clickEvents"
+        v-slot="{ filter, clickFilter, isDisabled, cssClasses }"
+      >
         <button data-test="button"
           :class="cssClasses"
           :disabled="isDisabled"
@@ -176,6 +199,8 @@ describe('testing SimpleFilter component', () => {
 });
 
 interface RenderSimpleFilterOptions {
+  /** The events to emit when the filter is clicked. */
+  clickEvents?: Partial<XEventsTypes>;
   /** The filter data to render. */
   filter?: SimpleFilterModel;
   /** Template including the {@link SimpleFilter} to render. */

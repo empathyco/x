@@ -1,9 +1,9 @@
-import { SearchByIdRequest } from '@empathyco/x-adapter';
-import { Result } from '@empathyco/x-types';
+import { IdentifierResultsRequest, Result } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
+import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
-import { Dictionary } from '../../../utils';
 import { IdentifierResultsConfig } from '../config.types';
 
 /**
@@ -11,7 +11,7 @@ import { IdentifierResultsConfig } from '../config.types';
  *
  * @public
  */
-export interface IdentifierResultsState extends StatusState {
+export interface IdentifierResultsState extends StatusState, QueryState {
   /** The configuration of the identifier results module. */
   config: IdentifierResultsConfig;
   /** The list of the identifier results, related to the `query` property of the state. */
@@ -30,13 +30,17 @@ export interface IdentifierResultsState extends StatusState {
  * @public
  */
 export interface IdentifierResultsGetters {
-  /** The adapter request object for retrieving the identifier suggestions, or null if there is not
-   * valid data to create a request. */
-  identifierResultsRequest: SearchByIdRequest | null;
+  /**
+   * The adapter request object for retrieving the identifier suggestions, or null if there is not
+   * valid data to create a request.
+   */
+  identifierResultsRequest: IdentifierResultsRequest | null;
   /** The RegExp to test against the query. */
   identifierDetectionRegexp: RegExp;
-  /** The RegExp with the current query from the state adding the separatorChars after each
-   * matching character. */
+  /**
+   * The RegExp with the current query from the state adding the separatorChars after each
+   * matching character.
+   */
   identifierHighlightRegexp: RegExp;
 }
 
@@ -45,7 +49,7 @@ export interface IdentifierResultsGetters {
  *
  * @public
  */
-export interface IdentifierResultsMutations extends StatusMutations {
+export interface IdentifierResultsMutations extends StatusMutations, QueryMutations {
   /**
    * Sets the identifier results of the module.
    *
@@ -89,11 +93,11 @@ export interface IdentifierResultsActions {
    *
    * @returns An array of identifier results.
    */
-  fetchIdentifierResults(request: SearchByIdRequest | null): Result[];
+  fetchIdentifierResults(request: IdentifierResultsRequest | null): Result[];
   /**
    * Requests a new set of identifier results and stores them in the module.
    */
-  fetchAndSaveIdentifierResults(request: SearchByIdRequest | null): void;
+  fetchAndSaveIdentifierResults(request: IdentifierResultsRequest | null): void;
   /**
    * Creates a {@link QueryOrigin} and saves it.
    *

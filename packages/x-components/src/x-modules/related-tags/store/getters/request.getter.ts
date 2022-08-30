@@ -4,24 +4,23 @@ import { RelatedTagsXStoreModule } from '../types';
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the related
  * tags module.
+ * @param getters - Current {@link https://vuex.vuejs.org/guide/getters.html | getters} of the
+ * related tags module.
  *
  * @returns The related tags request to fetch data from the API.
  *
  * @public
  */
-export const request: RelatedTagsXStoreModule['getters']['request'] = ({
-  query,
-  selectedRelatedTags,
-  config,
-  params
-}) => {
+export const request: RelatedTagsXStoreModule['getters']['request'] = (
+  { config, params },
+  { query }
+) => {
   return query.trim()
     ? {
         query,
-        relatedTags: selectedRelatedTags,
         rows: config.maxItemsToRequest,
         start: 0,
-        ...params
+        extraParams: params
       }
     : null;
 };

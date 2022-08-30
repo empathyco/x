@@ -53,21 +53,19 @@ describe('testing single select modifier', () => {
      Natural & Organic
      */
     const categoryFacet = createHierarchicalFacetStub('category', createFilter => [
-      ...createFilter('Dairy & Eggs', false, createFilter => [
-        ...createFilter('Milk', false),
-        ...createFilter('Yogurt', false, createFilter => createFilter('Flavored Yogurt', false))
+      createFilter('Dairy & Eggs', false, createFilter => [
+        createFilter('Milk', false),
+        createFilter('Yogurt', false, createFilter => [createFilter('Flavored Yogurt', false)])
       ]),
-      ...createFilter('Natural & Organic', false)
+      createFilter('Natural & Organic', false)
     ]);
     const store = prepareFacetsStore(categoryFacet.filters);
     const entity = new SingleSelectModifier(store, new HierarchicalFilterEntity(store));
-    const [
-      dairyAndEggsFilter,
-      milkFilter,
-      yogurtFilter,
-      flavoredYogurtFilter,
-      naturalOrganicFilter
-    ] = categoryFacet.filters;
+    const dairyAndEggsFilter = categoryFacet.filters[0];
+    const naturalOrganicFilter = categoryFacet.filters[1];
+    const milkFilter = dairyAndEggsFilter.children![0];
+    const yogurtFilter = dairyAndEggsFilter.children![1];
+    const flavoredYogurtFilter = yogurtFilter.children![0];
 
     // Select parent
     entity.select(dairyAndEggsFilter);
@@ -87,6 +85,16 @@ describe('testing single select modifier', () => {
 
     // Select grandchild
     entity.select(flavoredYogurtFilter);
+    expect(isFilterSelected(store, dairyAndEggsFilter.id)).toBe(true);
+    expect(isFilterSelected(store, milkFilter.id)).toBe(false);
+    expect(isFilterSelected(store, yogurtFilter.id)).toBe(true);
+    expect(isFilterSelected(store, flavoredYogurtFilter.id)).toBe(true);
+    expect(isFilterSelected(store, naturalOrganicFilter.id)).toBe(false);
+
+    // Select parent again: Previously we had a bug with re-selecting a filter like it happens when
+    // saving a search response. Doing so only kept hierarchical filters selected until the 2nd
+    // level #EX-6809
+    entity.select(dairyAndEggsFilter);
     expect(isFilterSelected(store, dairyAndEggsFilter.id)).toBe(true);
     expect(isFilterSelected(store, milkFilter.id)).toBe(false);
     expect(isFilterSelected(store, yogurtFilter.id)).toBe(true);

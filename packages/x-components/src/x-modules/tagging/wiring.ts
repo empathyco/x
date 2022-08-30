@@ -1,4 +1,5 @@
-import { Result, TaggingInfo } from '@empathyco/x-types';
+import { Result, TaggingRequest } from '@empathyco/x-types';
+import { DefaultSessionService } from '@empathyco/x-utils';
 import {
   namespacedWireCommit,
   namespacedWireDispatch
@@ -8,8 +9,7 @@ import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.facto
 import { filter, mapWire } from '../../wiring/wires.operators';
 import { Wire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
-import { DefaultSessionService } from './service/session.service';
-import { DefaultPDPAddToCartService } from './service/index';
+import { DefaultPDPAddToCartService } from './service/pdp-add-to-cart.service';
 
 /**
  * `tagging` {@link XModuleName | XModule name}.
@@ -150,7 +150,7 @@ export const trackAddToCartWire = createTrackResultWire('add2cart');
 function createTrackResultWire(property: keyof Result['tagging']): Wire<Result> {
   return filter(
     wireDispatch('track', ({ eventPayload: { tagging }, metadata: { location } }) => {
-      const taggingInfo: TaggingInfo = tagging[property];
+      const taggingInfo: TaggingRequest = tagging[property];
       taggingInfo.params.location = location as string;
       return taggingInfo;
     }),
@@ -190,7 +190,8 @@ export const taggingWiring = createWiring({
     storeClickedResultWire
   },
   UserClickedResultAddToCart: {
-    trackAddToCartWire
+    trackAddToCartWire,
+    trackResultClickedWire
   },
   UserClickedPDPAddToCart: {
     trackAddToCartFromSessionStorage

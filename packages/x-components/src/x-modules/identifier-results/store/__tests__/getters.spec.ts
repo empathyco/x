@@ -1,6 +1,6 @@
+import { map } from '@empathyco/x-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { map } from '../../../../utils/object';
 import { identifierResultsXStoreModule } from '../module';
 import { IdentifierResultsState } from '../types';
 import { resetIdentifierResultsStateWith } from './utils';
@@ -25,7 +25,9 @@ describe('testing identifier results module getters', () => {
         query: 'shin chan',
         rows: 10,
         start: 0,
-        store: 'es'
+        extraParams: {
+          store: 'es'
+        }
       });
     });
 
