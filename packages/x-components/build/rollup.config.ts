@@ -21,7 +21,9 @@ import { generateEntryFiles } from './rollup-plugins/x-components.rollup-plugin'
 const rootDir = path.resolve(__dirname, '../');
 const buildPath = path.join(rootDir, 'dist');
 
-const dependencies = new Set(Object.keys(packageJSON.dependencies));
+const dependencies = new Set(
+  Object.keys(packageJSON.dependencies).concat(Object.keys(packageJSON.peerDependencies))
+);
 const jsOutputDirectory = path.join(buildPath, 'js');
 const typesOutputDirectory = path.join(buildPath, 'types');
 const cssOutputDirectory = path.join(buildPath, 'design-system');
