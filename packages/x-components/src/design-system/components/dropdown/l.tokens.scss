@@ -1,4 +1,4 @@
 :root {
   // sizing
-  --x-size-width-dropdown-l: theme('spacing.202')px;
+  --x-size-width-dropdown-l: var(--x-size-base-18);
 }

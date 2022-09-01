@@ -60,10 +60,10 @@ export default {
     }
   },
   fontFamily: {
-    primary: 'Montserrat',
-    secondary: 'Lora',
-    auxiliary: 'Helvetica Neue',
-    special: 'Allan',
+    primary: ['Inter', 'sans-serif'],
+    secondary: ['Lora', 'serif'],
+    auxiliary: ['Poppins', 'sans-serif'],
+    special: ['Bree Serif', 'serif'],
     icon: 'font-awesome'
   },
   fontSize: {
@@ -118,7 +118,11 @@ export default {
     80: 80,
     96: 96,
     128: 128,
-    152: 152
+    152: 152,
+    184: 184,
+    216: 216,
+    280: 280,
+    344: 344
   },
   extend: {}
 } as const;
