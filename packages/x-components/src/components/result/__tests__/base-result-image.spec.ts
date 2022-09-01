@@ -34,7 +34,7 @@ describe('testing BaseResultImage component', () => {
         };
       }
     });
-    const image = customResultImageWrapper.get(getDataTestSelector('result-picture-image'));
+    const image = customResultImageWrapper.get(getDataTestSelector('result-picture-loader'));
     image.trigger('error');
     image.trigger('error');
 
@@ -67,7 +67,7 @@ describe('testing BaseResultImage component', () => {
       customResultImageWrapper.find(getDataTestSelector('result-picture-placeholder')).element
     ).toBeDefined();
 
-    const image = customResultImageWrapper.get(getDataTestSelector('result-picture-image'));
+    const image = customResultImageWrapper.get(getDataTestSelector('result-picture-loader'));
     image.trigger('load');
     await localVue.nextTick();
 

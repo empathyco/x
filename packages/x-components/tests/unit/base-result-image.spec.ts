@@ -21,7 +21,8 @@ function mountBaseResultImage({ result }: MountBaseResultImageOptions): MountBas
         <div>
           <BaseResultImage :result="result" class="x-picture--colored">
             <template #placeholder>
-              <div style="padding-top: 100%; background-color: lightgray"></div>
+              <div data-test="result-picture-placeholder" 
+                  style="padding-top: 100%; background-color: lightgray"></div>
             </template>
             <template #fallback>
               <div

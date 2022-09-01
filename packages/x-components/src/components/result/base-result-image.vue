@@ -1,36 +1,32 @@
 <template>
   <picture ref="image" class="x-picture x-result-picture" data-test="result-picture">
-    <component
-      :is="animation"
+    <img
       v-if="!hasImageLoaded && !hasAllImagesFailed"
-      class="x-picture__image x-picture__image--placeholder"
-      data-test="result-picture-placeholder"
-    >
+      @error="flagImageAsFailed"
+      @load="flagImageLoaded"
+      loading="lazy"
+      :src="imageSrc"
+      :style="loaderStyles"
+      data-test="result-picture-loader"
+      alt=""
+      role="presentation"
+    />
+    <component :is="animation" class="x-picture__image">
       <!-- eslint-disable-next-line max-len -->
-      <!-- @slot (Required) Loading image content. It will be rendered while the real image is not loaded -->
-      <slot name="placeholder" />
-    </component>
-    <component :is="animation">
+      <!-- @slot Loading image content. It will be rendered while the real image is not loaded -->
+      <slot v-if="!hasImageLoaded && !hasAllImagesFailed" name="placeholder" />
+
+      <!-- eslint-disable-next-line max-len -->
+      <!-- @slot Fallback image content. It will be rendered when all the images failed -->
+      <slot v-else-if="hasAllImagesFailed" name="fallback" />
+
       <img
-        v-if="imageSrc"
-        v-show="hasImageLoaded"
-        @error="flagImageAsFailed"
-        @load="flagImageLoaded"
+        v-else
         :alt="result.name"
         :src="imageSrc"
-        class="x-picture__image x-result-picture-image"
+        class="x-picture__image x-result-picture__image"
         data-test="result-picture-image"
       />
-      <NoElement v-else-if="hasAllImagesFailed" class="x-picture__image x-picture__image--fallback">
-        <!--
-        Vue styleguidist doesn't generate slot docs for v-else and v-else-if conditions
-        due to a bug https://github.com/vuejs/vue/pull/10286.
-        TODO - Bump styleguidist version when the fix branch is merged and a new version released.
-        -->
-        <!-- eslint-disable-next-line max-len -->
-        <!-- @slot (Required) Fallback image content. It will be rendered when all the images failed -->
-        <slot name="fallback" />
-      </NoElement>
     </component>
   </picture>
 </template>
@@ -53,6 +49,13 @@
   })
   export default class BaseResultImage extends Vue {
     /**
+     * (Required) The {@link @empathyco/x-types#Result | result} information.
+     *
+     * @public
+     */
+    @Prop({ required: true })
+    protected result!: Result;
+    /**
      * Animation to use when switching between the placeholder, the loaded image, or the failed
      * image fallback.
      *
@@ -61,55 +64,33 @@
     @Prop({ default: () => NoElement })
     public animation!: string | typeof Vue;
     /**
-     * The image has entered in the port view.
-     *
-     * @public
-     */
-    protected hasEnteredView = false;
-    /**
      * An array of images that failed to load.
-     *
-     * @public
-     */
-    protected failedImages: string[] = [];
-    /**
-     * HTMLElement that references the picture element.
-     *
-     * @public
-     */
-    public $refs!: { image: HTMLElement };
-    /**
-     * Indicates if the result image is loaded.
-     *
-     * @public
-     */
-    protected hasImageLoaded = false;
-
-    /**
-     * (Required) The {@link @empathyco/x-types#Result | result} information.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected result!: Result;
-
-    /**
-     * Checks if intersection observer is available in window object.
-     *
-     * @returns Boolean.
      *
      * @internal
      */
-    protected get isIntersectionObserverAvailable(): boolean {
-      return 'IntersectionObserver' in window;
-    }
+    protected failedImages: string[] = [];
 
-    mounted(): void {
-      this.hasEnteredView = !this.isIntersectionObserverAvailable;
-      if (this.isIntersectionObserverAvailable) {
-        this.createObserver();
-      }
-    }
+    /**
+     * Indicates if the result image is loaded.
+     *
+     * @internal
+     */
+    protected hasImageLoaded = false;
+
+    /**.
+     * Styles to use inline in the image loader, to prevent override from CSS
+     *
+     * @internal
+     */
+    protected loaderStyles = {
+      position: 'absolute !important',
+      top: '0 !important',
+      left: '0 !important',
+      width: '100% !important',
+      height: '100% !important',
+      pointerEvents: 'none !important',
+      visibility: 'hidden !important'
+    };
 
     /**
      * Gets the src from the result image.
@@ -119,42 +100,8 @@
      * @internal
      */
     protected get imageSrc(): string {
-      if (this.hasEnteredView && this.result.images?.length) {
-        const image = this.result.images.find(image => !this.failedImages.includes(image));
-        return image ?? '';
-      }
-      return '';
-    }
-
-    /**
-     * Creates an intersection observer in the image element.
-     *
-     * @internal
-     */
-    protected createObserver(): void {
-      const image = this.$refs.image as Element;
-      const observer = new IntersectionObserver(this.observerHandler.bind(this));
-      observer.observe(image);
-    }
-
-    /**
-     * Observe all the observables items and detects when a element is intersected.
-     *
-     * @param entries - The observed items.
-     * @param observer - The intersection observer object.
-     *
-     * @internal
-     */
-    protected observerHandler(
-      entries: IntersectionObserverEntry[],
-      observer: IntersectionObserver
-    ): void {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          this.hasEnteredView = true;
-          observer.disconnect();
-        }
-      });
+      const image = this.result.images?.find(image => !this.failedImages.includes(image));
+      return image ?? '';
     }
 
     /**
