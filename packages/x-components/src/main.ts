@@ -1,3 +1,4 @@
+import './tailwind/index.css';
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
@@ -12,7 +13,6 @@ FilterEntityFactory.instance.registerModifierByFilterModelName(
   'HierarchicalFilter',
   SingleSelectModifier
 );
-import './tailwind/index.css';
 
 const installer = new XInstaller({
   ...baseInstallXOptions,

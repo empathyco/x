@@ -1,9 +1,9 @@
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { TailwindPluginFn } from 'tailwindcss/plugin';
-import { ReturnOfComponents } from './helpers/components';
-import { ReturnOfDynamicComponents } from './helpers/dynamic-components';
-import { ReturnOfDynamicUtilities } from './helpers/dynamic-utilities';
-import { ReturnOfUtilities } from './helpers/utilities';
+import { ReturnOfComponents } from './x-tailwind-plugin/components';
+import { ReturnOfDynamicComponents } from './x-tailwind-plugin/dynamic-components';
+import { ReturnOfDynamicUtilities } from './x-tailwind-plugin/dynamic-utilities';
+import { ReturnOfUtilities } from './x-tailwind-plugin/utilities';
 
 /**
  * Represents a `CSS` variable name.

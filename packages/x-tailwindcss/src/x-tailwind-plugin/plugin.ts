@@ -1,12 +1,12 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { forEach } from '@empathyco/x-utils';
 import plugin from 'tailwindcss/plugin';
-import components from './helpers/components';
-import dynamicComponents from './helpers/dynamic-components';
-import dynamicUtilities from './helpers/dynamic-utilities';
-import theme from './helpers/theme';
-import utilities from './helpers/utilities';
-import { PluginOptions } from './types';
+import components from './components';
+import dynamicComponents from './dynamic-components';
+import dynamicUtilities from './dynamic-utilities';
+import theme from './theme';
+import utilities from './utilities';
+import { PluginOptions } from '../types';
 
 export default plugin.withOptions(
   function (options?: PluginOptions) {
