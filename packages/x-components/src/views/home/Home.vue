@@ -252,11 +252,10 @@
                                   <span class="x-font-weight--bold">"{{ $x.query.search }}"</span>
                                 </p>
                               </div>
-                              <NextQueries
-                                #suggestion="{ suggestion }"
+                              <BaseSuggestions
+                                #default="{ suggestion }"
                                 :suggestions="nextQueries"
                                 class="x-list--gap-06"
-                                :max-items-to-render="3"
                               >
                                 <NextQuery
                                   #default="{ suggestion: nextQuery }"
@@ -267,7 +266,7 @@
                                   <span class="x-flex-auto">{{ nextQuery.query }}</span>
                                   <ArrowRight class="x-icon--l" />
                                 </NextQuery>
-                              </NextQueries>
+                              </BaseSuggestions>
                             </div>
                             <SlidingNextQueryPreview
                               :suggestion="nextQueries[0]"
