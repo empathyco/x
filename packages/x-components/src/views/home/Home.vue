@@ -252,9 +252,9 @@
                                   <span class="x-font-weight--bold">"{{ $x.query.search }}"</span>
                                 </p>
                               </div>
-                              <BaseSuggestions
-                                #default="{ suggestion }"
+                              <NextQueries
                                 :suggestions="nextQueries"
+                                #suggestion="{ suggestion }"
                                 class="x-list--gap-06"
                               >
                                 <NextQuery
@@ -266,7 +266,7 @@
                                   <span class="x-flex-auto">{{ nextQuery.query }}</span>
                                   <ArrowRight class="x-icon--l" />
                                 </NextQuery>
-                              </BaseSuggestions>
+                              </NextQueries>
                             </div>
                             <SlidingNextQueryPreview
                               :suggestion="nextQueries[0]"
@@ -358,7 +358,6 @@
   import BaseResultImage from '../../components/result/base-result-image.vue';
   import SlidingPanel from '../../components/sliding-panel.vue';
   import SnippetCallbacks from '../../components/snippet-callbacks.vue';
-  import BaseSuggestions from '../../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../../directives/infinite-scroll/infinite-scroll';
   // eslint-disable-next-line max-len
   import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue';
@@ -418,7 +417,6 @@
       BaseIdTogglePanelButton,
       BaseKeyboardNavigation,
       BaseResultImage,
-      BaseSuggestions,
       BaseVariableColumnGrid,
       CheckTiny,
       ChevronLeft,
