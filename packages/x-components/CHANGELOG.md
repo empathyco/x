@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.166](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.165...@empathyco/x-components@3.0.0-alpha.166) (2022-09-02)
+
+### Bug Fixes
+
+- Make `Home` grid next queries use grid data rather than state data. (#687)
+  ([e340ed0](https://github.com/empathyco/x/commit/e340ed0c4fc4d70a0912c38296812c2fcc0c4e23)),
+  closes [EX-6955](https://searchbroker.atlassian.net/browse/EX-6955)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.165](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.164...@empathyco/x-components@3.0.0-alpha.165) (2022-08-31)
 
 ### Build System
