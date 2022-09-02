@@ -1,7 +1,7 @@
 Feature: Search sort components
 
   Background:
-    Given a results API with a known response
+    Given a results API
     And   a recommendations API with a known response
     And   a next queries API
     And   a query suggestions API
@@ -12,6 +12,7 @@ Feature: Search sort components
     And   start button is clicked
 
   Scenario Outline: 1. Search sort list and dropdown order the results
+    Given a results API with a known response
     When  "<query>" is searched
     Then  search request contains parameter "sort" with value "<defaultSort>"
     Then  related results are displayed
