@@ -77,7 +77,7 @@
      * @public
      */
     @Prop()
-    protected queryOrigin!: QueryOrigin;
+    protected queryOrigin: QueryOrigin | undefined;
 
     /**
      * Number of query preview results to be rendered.
@@ -148,11 +148,11 @@
      *
      * @returns The results preview of the actual query preview.
      */
-    public get queryPreviewResults(): QueryPreviewItem | undefined {
+    public get queryPreviewResults(): Partial<QueryPreviewItem> | undefined {
       const previewResults = this.previewResults[this.query];
       return previewResults?.results
         ? {
-            ...previewResults,
+            totalResults: previewResults.totalResults,
             results: previewResults.results.slice(0, this.maxItemsToRender)
           }
         : undefined;

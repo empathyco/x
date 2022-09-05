@@ -197,7 +197,7 @@ describe('query preview', () => {
       }
     });
 
-    expect(wrapper.find(getDataTestSelector('query-preview')).element).toBeFalsy();
+    expect(wrapper.html()).toEqual('');
   });
 });
 
