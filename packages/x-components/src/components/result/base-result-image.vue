@@ -1,7 +1,7 @@
 <template>
   <picture ref="image" class="x-picture x-result-picture" data-test="result-picture">
     <img
-      v-if="!hasImageLoaded && !hasAllImagesFailed"
+      v-if="!hasImageLoaded && imageSrc"
       @error="flagImageAsFailed"
       @load="flagImageLoaded"
       loading="lazy"
@@ -12,13 +12,11 @@
       role="presentation"
     />
     <component :is="animation" class="x-picture__image">
-      <!-- eslint-disable-next-line max-len -->
-      <!-- @slot Loading image content. It will be rendered while the real image is not loaded -->
-      <slot v-if="!hasImageLoaded && !hasAllImagesFailed" name="placeholder" />
-
-      <!-- eslint-disable-next-line max-len -->
       <!-- @slot Fallback image content. It will be rendered when all the images failed -->
-      <slot v-else-if="hasAllImagesFailed" name="fallback" />
+      <slot v-if="!imageSrc" name="fallback" />
+
+      <!-- @slot Loading image content. It will be rendered while the real image is not loaded -->
+      <slot v-else-if="!hasImageLoaded" name="placeholder" />
 
       <img
         v-else
@@ -82,7 +80,7 @@
      *
      * @internal
      */
-    protected loaderStyles = {
+    protected loaderStyles: Partial<CSSStyleDeclaration> = {
       position: 'absolute !important',
       top: '0 !important',
       left: '0 !important',
@@ -111,17 +109,6 @@
      */
     protected flagImageAsFailed(): void {
       this.failedImages.push(this.imageSrc);
-    }
-
-    /**
-     * Checks if all the images failed.
-     *
-     * @returns Boolean.
-     *
-     * @internal
-     */
-    protected get hasAllImagesFailed(): boolean {
-      return this.failedImages.length === this.result.images?.length;
     }
 
     /**
