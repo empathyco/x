@@ -62,7 +62,7 @@
   })
   export default class QueryPreview extends Vue {
     /**
-     * The query preview to retrieve the results preview.
+     * The query to retrieve the results preview.
      *
      * @public
      */
