@@ -214,7 +214,7 @@
             </div>
 
             <template v-if="!$x.query.searchBox">
-              <h1 class="x-title1 x-margin--bottom-06">Discovery wall</h1>
+              <h1 class="x-title1 x-margin--bottom-06">Brand Recommendations</h1>
 
               <SlidingQueryPreview query="sunglasses" />
               <SlidingQueryPreview query="handbag" />

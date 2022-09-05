@@ -48,7 +48,7 @@
   import { queriesPreviewXModule } from '../x-module';
 
   /**
-   * Retrieves a preview of the results of a query preview and exposes them in the default slot,
+   * Retrieves a preview of the results of a query and exposes them in the default slot,
    * along with the query preview and the totalResults of the search request.
    * By default, it renders the names of the results.
    *
@@ -62,7 +62,7 @@
   })
   export default class QueryPreview extends Vue {
     /**
-     * The query preview to retrieve the results preview.
+     * The query to retrieve the results preview.
      *
      * @public
      */
