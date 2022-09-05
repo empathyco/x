@@ -116,7 +116,7 @@ export interface SnippetConfig {
   /** The filters to be applied on the first request. */
   filters?: string[];
   /** List of queries to preview. */
-  queriesPreview?: QueryPreviewConfig[];
+  queriesPreview?: QueryPreviewInfo[];
   /** Any extra param to send in all backend calls. */
   [extra: string]: unknown;
 }
@@ -126,7 +126,7 @@ export interface SnippetConfig {
  *
  * @public
  */
-export interface QueryPreviewConfig {
+export interface QueryPreviewInfo {
   /** The query to search for. */
   query: string;
   /** An optional title for the container. */
