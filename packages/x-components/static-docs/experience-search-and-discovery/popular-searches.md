@@ -8,14 +8,22 @@ The Popular Searches UI component displays what are the top search queries durin
 This type of suggestion can show up even before shoppers have started entering a query or when there
 are no search results to show.
 
-![Popular Searches](/assets/media/xcomponents_func_popularsearches.gif)
+![Popular Searches](~@assets/media/xcomponents_func_popularsearches.gif)
 
-:::warning Popular Searches are generated using shopper behavior to determine the top searches for a
-given period. For a correct performance, make sure that your current search service supports this
-type of feature. :::
+::: warning
 
-::: interact Can't quite capture the concept? Learn about
-[Popular Searches](../features/popular-searches-overview.md). :::
+Popular Searches are generated using shopper behavior to determine the top searches for a given
+period. For a correct performance, make sure that your current search service supports this type of
+feature.
+
+:::
+
+::: interact
+
+Can't quite capture the concept? Learn about
+[Popular Searches](../features/popular-searches-overview.md).
+
+:::
 
 ## Tailor the web experience
 
@@ -26,7 +34,9 @@ type of feature. :::
 - Animate the display of Popular Searches at your ease.
 - Customize content. Show whatever you need: text, images, icons.
 
-::: interact Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/)
-your web experience. :::
+::: interact
 
-[//]: # 'To see Popular Searches in action, play with our showcase'
+Want to know more? Learn how to
+[configure](/develop-empathy-platform/ui-reference/components/popular-searches) your web experience.
+
+:::

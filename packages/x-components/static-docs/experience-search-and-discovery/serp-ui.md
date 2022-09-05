@@ -8,7 +8,7 @@ To handle and display search results, the layout of results and other related di
 paramount. For example, how to arrange results on the SERP or the features shoppers expect to easily
 navigate and organize results are key points to have in mind. <br/>
 
-![X Components for results layout](/assets/media/xcomponents_func_results_layout.svg)
+![X Components for results layout](~@assets/media/xcomponents_func_results_layout.svg)
 
 <FootNote>
 
@@ -18,8 +18,9 @@ navigate and organize results are key points to have in mind. <br/>
 </FootNote>
 <br/>
 
-**Choice of the layout view** Your shoppers should be able to select how they’d like the products
-displayed and how the number of products they’d like to see per page, for example.
+**Choice of the layout view**  
+Your shoppers should be able to select how they’d like the products displayed and how the number of
+products they’d like to see per page, for example.
 
 That’s why the **grid** (A) is the core element of the SERP. It displays the results returned by the
 search service using a grid layout. Its value relies on having a configurable and flexible space to
@@ -27,10 +28,6 @@ place all types of results or even other layout components such as a carousel vi
 [Next Queries](next-queries.md) or [Recommendations](recommendations.md).
 
 However, the grid is not the only element to consider when designing the SERP:
-
-[//]:
-  #
-  'To add when ready: Include **pagination** options to browse results throughout the different result pages available or apply **infinite scroll** to ease navigation.'
 
 - Show the **number of results** (B).
 - Allow your shoppers to select the **number of columns** (C) to showcase results.
@@ -43,19 +40,31 @@ However, the grid is not the only element to consider when designing the SERP:
 - Apply **infinite scroll** to ease navigation and add a **scroll-to-top button** (E) to quickly
   move to the top of the results page.
 - Indicate your shoppers whether the
-  **[spellcheck](/explore-empathy-platform/features/spellcheck-overview.md)** feature is applied or
+  **[Spell Check](/explore-empathy-platform/features/spellcheck-overview.md)** feature is applied or
   not.
 
-::: note Enhance the search experience, adding [Related Tags](related-tags.md) to the SERP so that
-your shoppers can select descriptive keywords to refine the initial query and get highly relevant
-results. :::
+::: note
 
-::: design As most shoppers don’t like to spend time scrolling and moving between pages, a crucial
-element on the SERP for a great experience is to offer **faceted search**, letting shoppers specify
-the kind of product attributes they’re interested in. :::
+Enhance the search experience, adding [Related Tags](related-tags.md) to the SERP so that your
+shoppers can select descriptive keywords to refine the initial query and get highly relevant
+results.
 
-::: interact To learn more about the SERP, results display, and their layout, see
-[Results on the SERP](../overview/results-overview.md). :::
+:::
+
+::: design
+
+As most shoppers don’t like to spend time scrolling and moving between pages, a crucial element on
+the SERP for a great experience is to offer **faceted search**, letting shoppers specify the kind of
+product attributes they’re interested in.
+
+:::
+
+::: interact
+
+To learn more about the SERP, results display, and their layout, see
+[Results on the SERP](../overview/results-overview.md).
+
+:::
 
 ## Tailor the web experience
 
@@ -96,14 +105,16 @@ the kind of product attributes they’re interested in. :::
 - Customize content. Show whatever you need: text, images, icons.
 - Animate the display of the scroll-to-top button at your ease.
 
-**Spellcheck**
+**Spell check**
 
 - Display a message to inform your shoppers that the
-  [spellcheck](../features/spellcheck-overview.md) feature has been used to provide results for the
+  [Spell Check](../features/spellcheck-overview.md) feature has been used to provide results for the
   current query.
 - Customize the message content at your ease.
 
-::: interact Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/)
-your web experience. :::
+::: interact
 
-[//]: # 'TIP: To see the SERP-related components in action, play with our showcase.'
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+experience.
+
+:::

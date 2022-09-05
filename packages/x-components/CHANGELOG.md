@@ -3,6 +3,209 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.166](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.165...@empathyco/x-components@3.0.0-alpha.166) (2022-09-02)
+
+### Bug Fixes
+
+- Make `Home` grid next queries use grid data rather than state data. (#687)
+  ([e340ed0](https://github.com/empathyco/x/commit/e340ed0c4fc4d70a0912c38296812c2fcc0c4e23)),
+  closes [EX-6955](https://searchbroker.atlassian.net/browse/EX-6955)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.165](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.164...@empathyco/x-components@3.0.0-alpha.165) (2022-08-31)
+
+### Build System
+
+- **dependencies:** fix Vue & Vuex versions (#686)
+  ([177e851](https://github.com/empathyco/x/commit/177e8511f4458fa13c627210cdfbbf6d42a85b17)),
+  closes [EX-6918](https://searchbroker.atlassian.net/browse/EX-6918)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.164](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.163...@empathyco/x-components@3.0.0-alpha.164) (2022-08-30)
+
+### Features
+
+- **queries-preview:** add wiring and actions (#677)
+  ([a92e350](https://github.com/empathyco/x/commit/a92e3509be65dfce17796efa6fae14a370bc875c)),
+  closes [EX-6844](https://searchbroker.atlassian.net/browse/EX-6844)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.163](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.162...@empathyco/x-components@3.0.0-alpha.163) (2022-08-29)
+
+### Documentation
+
+- **functional:** add my history ui and related docs (#685)
+  ([3a9ac8a](https://github.com/empathyco/x/commit/3a9ac8a769d64196b31f05872fb92ec26dc635ad))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.162](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.161...@empathyco/x-components@3.0.0-alpha.162) (2022-08-29)
+
+### Build System
+
+- Support SSR with createInjectorSSR for styles. (#674)
+  ([85473c3](https://github.com/empathyco/x/commit/85473c31f5aa755890bef4d20f787ba1453b8843)),
+  closes [EX-6892](https://searchbroker.atlassian.net/browse/EX-6892)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.161](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.160...@empathyco/x-components@3.0.0-alpha.161) (2022-08-26)
+
+### Features
+
+- **components:** variants auto selection (#679)
+  ([c1c8664](https://github.com/empathyco/x/commit/c1c866481ae8866fec4fd9e2dd5389fcba00e62b)),
+  closes [EX-6878](https://searchbroker.atlassian.net/browse/EX-6878)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.160](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.159...@empathyco/x-components@3.0.0-alpha.160) (2022-08-25)
+
+### Features
+
+- **components:** merge a variant with the result (#667)
+  ([553d0e5](https://github.com/empathyco/x/commit/553d0e5de8ef5468eb673246f39fbeb826301fa1)),
+  closes [EX-6762](https://searchbroker.atlassian.net/browse/EX-6762)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.159](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.158...@empathyco/x-components@3.0.0-alpha.159) (2022-08-24)
+
+### Documentation
+
+- update functional docs callout formatting (#671)
+  ([5f1de74](https://github.com/empathyco/x/commit/5f1de74c2e86adb638d692781483cac1ccf70a71))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.158](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.156...@empathyco/x-components@3.0.0-alpha.158) (2022-08-24)
+
+### Features
+
+- **adapter:** disable cancel http client (#658)
+  ([3b5b86d](https://github.com/empathyco/x/commit/3b5b86d4725edefa084181a704df716a389eecbc)),
+  closes [EX-6875](https://searchbroker.atlassian.net/browse/EX-6875)
+- **queries-preview:** create `queriesPreview` module (#670)
+  ([317d961](https://github.com/empathyco/x/commit/317d961e94b0b7454cb4d858d401c4264c74cf0e)),
+  closes [EX-6638](https://searchbroker.atlassian.net/browse/EX-6638)
+
+### Bug Fixes
+
+- conflict version (#673)
+  ([fb74dd0](https://github.com/empathyco/x/commit/fb74dd0b992522a9441da1daabe5a8789426324f)),
+  closes [EX-6896](https://searchbroker.atlassian.net/browse/EX-6896)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.157](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.156...@empathyco/x-components@3.0.0-alpha.157) (2022-08-24)
+
+### Features
+
+- **queries-preview:** create `queriesPreview` module (#670)
+  ([317d961](https://github.com/empathyco/x/commit/317d961e94b0b7454cb4d858d401c4264c74cf0e)),
+  closes [EX-6638](https://searchbroker.atlassian.net/browse/EX-6638)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.156](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.155...@empathyco/x-components@3.0.0-alpha.156) (2022-08-19)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.155](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.154...@empathyco/x-components@3.0.0-alpha.155) (2022-08-18)
+
+### Features
+
+- **design-system:** add `tailwindcss` to `x-components` and configure it to use `x-tailwindcss`
+  (#655)
+  ([4109a8a](https://github.com/empathyco/x/commit/4109a8ad9d29378078603d97e31c073ceb2671ae)),
+  closes [EX-6793](https://searchbroker.atlassian.net/browse/EX-6793)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.154](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.153...@empathyco/x-components@3.0.0-alpha.154) (2022-08-12)
+
+### Features
+
+- add `queriesPreview` option to snippet config (#654)
+  ([7733c98](https://github.com/empathyco/x/commit/7733c9856b2859574ca0cace9c79b8b58545f46a)),
+  closes [EX-6849](https://searchbroker.atlassian.net/browse/EX-6849)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.153](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.152...@empathyco/x-components@3.0.0-alpha.153) (2022-08-10)
+
+### Features
+
+- **next-queries:** add `maxItemsToRender` prop to `NextQueryPreview` component (#646)
+  ([848427c](https://github.com/empathyco/x/commit/848427cb9dae85c72549ab026b3785194ec4adbd)),
+  closes [EX-6820](https://searchbroker.atlassian.net/browse/EX-6820)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.152](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.151...@empathyco/x-components@3.0.0-alpha.152) (2022-08-10)
+
+### ⚠ BREAKING CHANGES
+
+- **result:** `Result` model properties are optional, except `id`, `modelName` and `tagging`.
+
+### Features
+
+- **result:** add `variants` support (#644)
+  ([d5db09e](https://github.com/empathyco/x/commit/d5db09e9be92d0df65329680ee286959030ccecc)),
+  closes [EX-6760](https://searchbroker.atlassian.net/browse/EX-6760)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.151](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.150...@empathyco/x-components@3.0.0-alpha.151) (2022-08-09)
 
 ### Documentation

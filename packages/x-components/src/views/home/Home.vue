@@ -6,7 +6,7 @@
     <UrlHandler query="q" store="store" />
     <SnippetCallbacks />
     <OpenMainModal>Start</OpenMainModal>
-    <h1>Test controls</h1>
+    <h1 class="x-font-bold x-text-4xl x-text-primary-50 x-leading-md">Test controls</h1>
     <ul class="x-test-controls x-list x-list--gap-05">
       <li class="x-test-controls__item x-list__item">
         <label for="searchInput.instant">
@@ -253,10 +253,9 @@
                                 </p>
                               </div>
                               <NextQueries
-                                #suggestion="{ suggestion }"
                                 :suggestions="nextQueries"
+                                #suggestion="{ suggestion }"
                                 class="x-list--gap-06"
-                                :max-items-to-render="3"
                               >
                                 <NextQuery
                                   #default="{ suggestion: nextQuery }"
@@ -359,7 +358,6 @@
   import BaseResultImage from '../../components/result/base-result-image.vue';
   import SlidingPanel from '../../components/sliding-panel.vue';
   import SnippetCallbacks from '../../components/snippet-callbacks.vue';
-  import BaseSuggestions from '../../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../../directives/infinite-scroll/infinite-scroll';
   // eslint-disable-next-line max-len
   import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue';
@@ -419,7 +417,6 @@
       BaseIdTogglePanelButton,
       BaseKeyboardNavigation,
       BaseResultImage,
-      BaseSuggestions,
       BaseVariableColumnGrid,
       CheckTiny,
       ChevronLeft,

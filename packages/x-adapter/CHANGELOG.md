@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.5...@empathyco/x-adapter@8.0.0-alpha.6) (2022-08-24)
+
+### Features
+
+- **adapter:** disable cancel http client (#658)
+  ([3b5b86d](https://github.com/empathyco/x/commit/3b5b86d4725edefa084181a704df716a389eecbc)),
+  closes [EX-6875](https://searchbroker.atlassian.net/browse/EX-6875)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [8.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.4...@empathyco/x-adapter@8.0.0-alpha.5) (2022-08-19)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [8.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.3...@empathyco/x-adapter@8.0.0-alpha.4) (2022-07-26)
 
 ### Features
