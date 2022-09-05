@@ -108,7 +108,9 @@
      * @internal
      */
     protected flagImageAsFailed(): void {
-      this.failedImages.push(this.imageSrc);
+      if (this.imageSrc !== '') {
+        this.failedImages.push(this.imageSrc);
+      }
     }
 
     /**
