@@ -27,7 +27,7 @@
   "scripts": {
     "prebuild": "rimraf dist ./*.tgz",
     "build": "concurrently \"npm run build:*\"",
-    "build:cjs": "node_modules/.bin/tsc --project tsconfig.cjs.json",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "node_modules/.bin/tsc --project tsconfig.esm.json",
     "postbuild": "npm pack",
     "test": "node_modules/.bin/jest",
