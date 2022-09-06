@@ -39,6 +39,7 @@ export const fetchAndSaveQueryPreviewWire = wireDispatch('fetchAndSaveQueryPrevi
  */
 
 export const clearQueryPreviewWire = wireCommit('clearQueryPreview');
+
 /**
  * Sets the queries preview state `params`.
  *
