@@ -1,5 +1,5 @@
 import { x } from '../index';
 
-it('should ', function () {
+it('should ', () => {
   expect(x).toEqual('ratafia');
 });
