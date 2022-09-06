@@ -1,0 +1,47 @@
+{
+  "name": "@empathyco/x-archetype-utils",
+  "version": "0.0.1",
+  "description": "Utilities for x-archetype",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-archetype-utils#readme",
+  "keywords": [
+    "utils",
+    "x",
+    "x-archetype"
+  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/x-archetype-utils"
+  },
+  "engines": {
+    "node": ">=14.14.0"
+  },
+  "scripts": {
+    "prebuild": "rimraf ./dist ./*.tgz",
+    "build": "concurrently \"npm run build:*\"",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "postbuild": "npm pack",
+    "test": "jest",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/jest": "~27.0.3",
+    "@types/node": "~16.4.12",
+    "jest": "~27.3.1",
+    "concurrently": "~7.0.0",
+    "ts-jest": "~27.0.7",
+    "typescript": "~4.6.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
