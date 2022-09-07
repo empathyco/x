@@ -1,6 +1,6 @@
 import { Result } from '@empathyco/x-types';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import { createLocalVue, mount, Wrapper, VueClass } from '@vue/test-utils';
 import Vue, { VueConstructor, ComponentOptions } from 'vue';
 import Vuex, { Store } from 'vuex';
 import Component from 'vue-class-component';
@@ -13,7 +13,11 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import ResultsList from '../results-list.vue';
 import { InfiniteScroll } from '../../../../directives/infinite-scroll/infinite-scroll.types';
 import { XInject } from '../../../../components/decorators/injection.decorators';
-import { LIST_ITEMS_KEY, QUERY_KEY } from '../../../../components/decorators/injection.consts';
+import {
+  HAS_MORE_ITEMS_KEY,
+  LIST_ITEMS_KEY,
+  QUERY_KEY
+} from '../../../../components/decorators/injection.consts';
 import { SearchMutations } from '../../store/types';
 import { searchXModule } from '../../x-module';
 import { resetXSearchStateWith } from './utils';
@@ -27,6 +31,7 @@ import { resetXSearchStateWith } from './utils';
 function renderResultsList({
   template = '<ResultsList />',
   results = getResultsStub(),
+  totalResults = results?.length,
   components
 }: RenderResultsListOptions = {}): RenderResultsListAPI {
   const localVue = createLocalVue();
@@ -40,7 +45,7 @@ function renderResultsList({
     },
     localVue
   );
-  resetXSearchStateWith(store, { results });
+  resetXSearchStateWith(store, { results, totalResults });
 
   const wrapper = mount(
     {
@@ -208,6 +213,35 @@ describe('testing Results list component', () => {
     // the injected query should be updated.
     expect(childWrapper.text()).toBe('jacket');
   });
+
+  it('provides if there are more available results with the key `hasMoreItems`', () => {
+    @Component({
+      template: `
+        <div></div>
+      `
+    })
+    class Child extends Vue {
+      @XInject(HAS_MORE_ITEMS_KEY)
+      public hasMoreItems!: boolean;
+    }
+
+    const { commit, wrapper } = renderResultsList({
+      template: '<ResultsList><Child /></ResultsList>',
+      components: {
+        Child
+      }
+    });
+
+    const childWrapper = wrapper.findComponent(Child as VueClass<Child>);
+
+    // Initially, the number of `items` and `totalResults` should match.
+    expect(childWrapper.vm.hasMoreItems).toBe(false);
+
+    commit('setTotalResults', 1000);
+
+    // Now the `totalResults` is higher than the number of `items`
+    expect(childWrapper.vm.hasMoreItems).toBe(true);
+  });
 });
 
 interface RenderResultsListOptions {
@@ -217,6 +251,8 @@ interface RenderResultsListOptions {
   components?: Dictionary<VueConstructor | ComponentOptions<Vue>>;
   /** The `results` used to be rendered. */
   results?: Result[];
+  /** The total number of results. */
+  totalResults?: number;
 }
 
 interface RenderResultsListAPI {

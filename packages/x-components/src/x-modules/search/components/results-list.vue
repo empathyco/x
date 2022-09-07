@@ -19,7 +19,11 @@
   import { Result } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { LIST_ITEMS_KEY, QUERY_KEY } from '../../../components/decorators/injection.consts';
+  import {
+    HAS_MORE_ITEMS_KEY,
+    LIST_ITEMS_KEY,
+    QUERY_KEY
+  } from '../../../components/decorators/injection.consts';
   import { XProvide } from '../../../components/decorators/injection.decorators';
   import { State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
@@ -67,6 +71,23 @@
      */
     @XProvide(QUERY_KEY)
     public providedQuery = '';
+
+    /**
+     * Indicates if there are more available results that have not been injected.
+     *
+     * @returns Boolean.
+     * @public
+     */
+    @XProvide(HAS_MORE_ITEMS_KEY)
+    public get hasMoreItems(): boolean {
+      return this.items.length < this.totalResults;
+    }
+
+    /**
+     * The total number of results, taken from the state.
+     */
+    @State('search', 'totalResults')
+    public totalResults!: number;
 
     /**
      * The status of the search request, taken from the state.

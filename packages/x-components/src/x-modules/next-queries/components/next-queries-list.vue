@@ -32,7 +32,7 @@
   import { NextQueriesGroup } from '../types';
   import { nextQueriesXModule } from '../x-module';
   import { XInject } from '../../../components/decorators/injection.decorators';
-  import { QUERY_KEY } from '../../../components/decorators/injection.consts';
+  import { HAS_MORE_ITEMS_KEY, QUERY_KEY } from '../../../components/decorators/injection.consts';
 
   /**
    * Component that inserts groups of next queries in different positions of the injected search
@@ -90,6 +90,15 @@
     public maxGroups!: number;
 
     /**
+     * Determines if a group is added to the injected items list when the number
+     * of items is smaller than the offset.
+     *
+     * @public
+     */
+    @Prop({ default: true })
+    public concatWhenNoMoreItems!: boolean;
+
+    /**
      * The state next queries.
      *
      * @internal
@@ -102,6 +111,12 @@
      */
     @XInject(QUERY_KEY)
     public injectedQuery!: string | undefined;
+
+    /**
+     * Indicates if there are more available results than the injected.
+     */
+    @XInject(HAS_MORE_ITEMS_KEY)
+    public hasMoreItems!: boolean;
 
     /**
      * The grouped next queries based on the given config.
@@ -135,6 +150,14 @@
       }
       if (this.nextQueriesAreOutdated) {
         return this.injectedListItems;
+      }
+      if (
+        this.concatWhenNoMoreItems &&
+        !this.hasMoreItems &&
+        this.injectedListItems.length &&
+        this.offset > this.injectedListItems.length
+      ) {
+        return [...this.injectedListItems].concat(this.nextQueriesGroups[0]);
       }
       return this.nextQueriesGroups.reduce(
         (items, nextQueriesGroup, index) => {
