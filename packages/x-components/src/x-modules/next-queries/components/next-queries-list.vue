@@ -269,7 +269,7 @@ more groups will be inserted. Each one of this groups will have up to `6` next q
 ### Showing/hiding first next queries group when no more items
 
 By default, the first next query group will be inserted when the total number of results is smaller
-than the offset but this behavior can be disabled setting the `concatWhenNoMoreItems` to `false`.
+than the offset, but this behavior can be disabled setting the `concatWhenNoMoreItems` to `false`.
 
 ```vue live
 <template>

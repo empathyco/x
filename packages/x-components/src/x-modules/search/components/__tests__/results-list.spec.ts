@@ -31,7 +31,7 @@ import { resetXSearchStateWith } from './utils';
 function renderResultsList({
   template = '<ResultsList />',
   results = getResultsStub(),
-  totalResults = results?.length,
+  totalResults = results.length,
   components
 }: RenderResultsListOptions = {}): RenderResultsListAPI {
   const localVue = createLocalVue();
@@ -214,7 +214,7 @@ describe('testing Results list component', () => {
     expect(childWrapper.text()).toBe('jacket');
   });
 
-  it('provides if there are more available results with the key `hasMoreItems`', () => {
+  it('provides a flag indicating if there are more results with the key `hasMoreItems`', () => {
     @Component({
       template: `
         <div></div>

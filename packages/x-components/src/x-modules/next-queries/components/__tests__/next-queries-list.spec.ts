@@ -389,8 +389,8 @@ describe('testing NextQueriesList component', () => {
 
 interface RenderNextQueriesListOptions {
   /**
-    Determines if a group is added to the injected items list when the number
-   of items is smaller than the offset.
+   * Determines if a group is added to the injected items list when the number
+   * of items is smaller than the offset.
    */
   concatWhenNoMoreItems?: boolean;
   /** Extra components to be registered and rendered. */
