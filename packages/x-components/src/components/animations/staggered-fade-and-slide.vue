@@ -3,7 +3,7 @@
     v-on="$listeners"
     appear
     class="x-staggered-fade-and-slide"
-    name="x-staggered-fade-and-slide-"
+    :name="name"
     v-bind="$attrs"
   >
     <!-- @slot (Required) Transition-group content -->
@@ -15,6 +15,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import StaggeringTransitionGroup from '../animations/staggering-transition-group.vue';
+  import { DisableAnimationMixin } from './disable-animation.mixin';
 
   /**
    * Renders a transition group wrapping the elements passed in the default slot and animating
@@ -24,9 +25,17 @@
    */
   @Component({
     components: { StaggeringTransitionGroup },
-    inheritAttrs: false
+    inheritAttrs: false,
+    mixins: [DisableAnimationMixin]
   })
-  export default class StaggeredFadeAndSlide extends Vue {}
+  export default class StaggeredFadeAndSlide extends Vue {
+    /**
+     * The name of the animation.
+     *
+     * @public
+     */
+    protected animationName = 'x-staggered-fade-and-slide-';
+  }
 </script>
 
 <style lang="scss" scoped>
