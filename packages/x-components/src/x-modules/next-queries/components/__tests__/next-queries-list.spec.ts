@@ -363,7 +363,7 @@ describe('testing NextQueriesList component', () => {
       ]);
     });
 
-    it('does not insert next queries groups when `concatWhenNoMoreItems` is false', () => {
+    it('does not insert next queries groups if `concatWhenNoMoreItems` is false', () => {
       const nextQueries = createNextQueries('steak', 'tomahawk');
       const extraItems = createExtraItems(5);
       const { getItemsRenderedText } = renderNextQueriesList({

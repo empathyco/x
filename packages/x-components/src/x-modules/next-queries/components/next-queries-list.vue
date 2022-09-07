@@ -157,7 +157,7 @@
         this.injectedListItems.length &&
         this.offset > this.injectedListItems.length
       ) {
-        return [...this.injectedListItems].concat(this.nextQueriesGroups[0]);
+        return this.injectedListItems.concat(this.nextQueriesGroups[0] ?? []);
       }
       return this.nextQueriesGroups.reduce(
         (items, nextQueriesGroup, index) => {
@@ -246,6 +246,42 @@ more groups will be inserted. Each one of this groups will have up to `6` next q
     <SearchInput />
     <ResultsList>
       <NextQueriesList :offset="48" :frequency="72" :maxNextQueriesPerGroup="6" :maxGroups="3" />
+    </ResultsList>
+  </div>
+</template>
+
+<script>
+  import { NextQueriesList } from '@empathyco/x-components/next-queries';
+  import { ResultsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+
+  export default {
+    name: 'NextQueriesListDemo',
+    components: {
+      NextQueriesList,
+      ResultsList,
+      SearchInput
+    }
+  };
+</script>
+```
+
+### Showing/hiding first next queries group when no more items
+
+By default, the first next query group will be inserted when the total number of results is smaller
+than the offset but this behavior can be disabled setting the `concatWhenNoMoreItems` to `false`.
+
+```vue live
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList>
+      <NextQueriesList
+        :offset="48"
+        :frequency="72"
+        :maxNextQueriesPerGroup="1"
+        :concatWhenNoMoreItems="false"
+      />
     </ResultsList>
   </div>
 </template>
