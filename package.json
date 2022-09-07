@@ -3,7 +3,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "postinstall": "lerna bootstrap --hoist && npm run build",
-    "postci": "lerna bootstrap --hoist --ci && npm run build",
+    "postci": "lerna bootstrap --hoist --ci",
     "build": "lerna run build",
     "lint": "eslint packages --ext .ts,.tsx,.vue",
     "lint:fix": "eslint packages --ext .ts,.tsx,.vue --fix",
@@ -16,7 +16,6 @@
   },
   "devDependencies": {
     "@empathyco/eslint-plugin-x": "file:packages/eslint-plugin-x",
-    "@nrwl/nx-cloud": "^14.6.1",
     "colors": "1.4.0",
     "conventional-changelog-conventionalcommits": "~4.6.0",
     "cross-env": "~7.0.3",
