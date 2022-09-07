@@ -2,7 +2,7 @@
   "name": "x",
   "license": "Apache-2.0",
   "scripts": {
-    "postinstall": "lerna bootstrap --hoist && npm run build",
+    "postinstall": "lerna bootstrap --hoist",
     "postci": "lerna bootstrap --hoist --ci",
     "build": "lerna run build",
     "lint": "eslint packages --ext .ts,.tsx,.vue",
