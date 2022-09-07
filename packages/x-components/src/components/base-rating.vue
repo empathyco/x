@@ -5,7 +5,7 @@
         @slot The content to render as empty icon
       -->
       <slot v-for="i in max" name="empty-icon">
-        <DefaultIcon :key="i" class="x-rating__default-icon x-rating__default-icon--empty" />
+        <p :key="i">{{ i }}</p>
       </slot>
     </div>
     <div
