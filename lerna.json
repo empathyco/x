@@ -2,6 +2,7 @@
   "packages": ["packages/*"],
   "version": "independent",
   "ignoreChanges": ["**/package-lock.json"],
+  "useNx": true,
   "changelogPreset": {
     "name": "conventionalcommits",
     "issuePrefixes": ["EX-"],
