@@ -15,7 +15,7 @@
 <script lang="ts">
   import { mixins } from 'vue-class-component';
   import { Prop, Component } from 'vue-property-decorator';
-  import { DisableAnimationMixin } from './disable-animation.mixin';
+  import DisableAnimationMixin from './disable-animation.mixin';
 
   /**
    * Renders a transition group wrapping the elements passed in the default slot and animating
