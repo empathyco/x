@@ -8,7 +8,8 @@ const messages = {
     base: {
       testComponent: {
         title: 'Search products',
-        'text.small': 'discover products'
+        'text.small': 'discover products',
+        '__prices.current value asc': 'Price: Low to high'
       }
     }
   },
@@ -91,6 +92,18 @@ describe('Test custom i18n plugin for several use cases', () => {
 
     // Test a key with dots
     expect(wrapper.text()).toBe(`discover products`);
+
+    // Set another locale to check that the warning is fired if the key with dots doesn't exist
+    await setLocale('es');
+    expect(wrapper.text()).toBe(`[i18n] Key '${key}' is missing for locale: 'es'`);
+  });
+
+  it('gets message with white space in key', async () => {
+    const key = 'testComponent.__prices.current value asc';
+    const { wrapper, setLocale } = await renderComponent(key);
+
+    // Test a key with white spaces
+    expect(wrapper.text()).toBe(`Price: Low to high`);
 
     // Set another locale to check that the warning is fired if the key with dots doesn't exist
     await setLocale('es');
