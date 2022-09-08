@@ -26,7 +26,7 @@ export default class DisableAnimationMixin extends Vue {
   public disableAnimation!: boolean;
 
   /**
-   * The animation's name based on the {@link disableAnimation} flag.
+   * The animation's name based on the {@link DisableAnimationMixin.disableAnimation} flag.
    *
    * @returns The animation name.
    * @internal
