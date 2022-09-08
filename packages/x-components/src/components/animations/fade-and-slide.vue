@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
+  import { mixins } from 'vue-class-component';
   import { Prop, Component } from 'vue-property-decorator';
   import { DisableAnimationMixin } from './disable-animation.mixin';
 
@@ -24,10 +24,9 @@
    * @public
    */
   @Component({
-    inheritAttrs: false,
-    mixins: [DisableAnimationMixin]
+    inheritAttrs: false
   })
-  export default class FadeAndSlide extends Vue {
+  export default class FadeAndSlide extends mixins(DisableAnimationMixin) {
     /**
      * The name of the animation.
      *

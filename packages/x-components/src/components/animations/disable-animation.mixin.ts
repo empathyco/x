@@ -9,7 +9,7 @@ import { DISABLE_ANIMATIONS_KEY } from '../decorators/injection.consts';
  * @public
  */
 @Component
-export class DisableAnimationMixin extends Vue {
+export default class DisableAnimationMixin extends Vue {
   /**
    * The name of the animation.
    *

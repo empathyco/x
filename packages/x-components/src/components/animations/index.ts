@@ -7,6 +7,7 @@ export { default as FadeAndSlide } from './fade-and-slide.vue';
 export { default as StaggeredFadeAndSlide } from './staggered-fade-and-slide.vue';
 export { default as StaggeringTransitionGroup } from './staggering-transition-group.vue';
 export { createCollapseAnimationMixin } from './animations.mixin';
+export { default as DisableAnimationMixin } from './disable-animation.mixin';
 export { createDirectionalAnimationFactory } from './create-directional-animation-factory';
 export { animateClipPath } from './animate-clip-path/animate-clip-path.factory';
 export { animateScale } from './animate-scale/animate-scale.factory';

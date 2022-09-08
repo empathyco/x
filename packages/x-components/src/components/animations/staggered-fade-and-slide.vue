@@ -12,10 +12,10 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
+  import { mixins } from 'vue-class-component';
   import { Component } from 'vue-property-decorator';
   import StaggeringTransitionGroup from '../animations/staggering-transition-group.vue';
-  import { DisableAnimationMixin } from './disable-animation.mixin';
+  import DisableAnimationMixin from './disable-animation.mixin';
 
   /**
    * Renders a transition group wrapping the elements passed in the default slot and animating
@@ -25,10 +25,9 @@
    */
   @Component({
     components: { StaggeringTransitionGroup },
-    inheritAttrs: false,
-    mixins: [DisableAnimationMixin]
+    inheritAttrs: false
   })
-  export default class StaggeredFadeAndSlide extends Vue {
+  export default class StaggeredFadeAndSlide extends mixins(DisableAnimationMixin) {
     /**
      * The name of the animation.
      *
