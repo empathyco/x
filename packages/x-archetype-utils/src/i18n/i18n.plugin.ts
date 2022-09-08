@@ -49,6 +49,7 @@ export class I18n {
     this.vueI18n = new VueI18n({
       locale: this.locale,
       messages: this.currentMessages ? { [this.locale]: this.currentMessages } : {},
+      silentFallbackWarn: true,
       missing: (locale, key) => {
         return (
           this.getMessageWithDotsInKey(key) ??
