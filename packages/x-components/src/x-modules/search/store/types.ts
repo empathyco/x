@@ -96,6 +96,12 @@ export interface SearchMutations extends StatusMutations, QueryMutations {
    */
   appendResults(results: Result[]): void;
   /**
+   * Updates a result with new fields.
+   *
+   * @param result - A result containing at least an id, and the properties to modify.
+   */
+  updateResult(result: Partial<Result> & Pick<Result, 'id'>): void;
+  /**
    * Sets the banners of the module.
    *
    * @param banners - The new banners to save to the state.

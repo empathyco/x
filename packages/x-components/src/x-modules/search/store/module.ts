@@ -111,6 +111,12 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setQueryTagging(state, queryTagging) {
       state.queryTagging = queryTagging;
+    },
+    updateResult(state, result) {
+      const stateResult = state.results.find(stateResult => result.id === stateResult.id);
+      if (stateResult) {
+        Object.assign(stateResult, result);
+      }
     }
   },
   actions: {
