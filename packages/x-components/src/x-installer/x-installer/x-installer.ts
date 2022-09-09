@@ -4,7 +4,7 @@ import { BaseXBus } from '../../plugins/x-bus';
 import { XBus } from '../../plugins/x-bus.types';
 import { XPlugin } from '../../plugins/x-plugin';
 import { XPluginOptions } from '../../plugins/x-plugin.types';
-import { SnippetConfig, XAPI } from '../api/api.types';
+import { NormalisedSnippetConfig, SnippetConfig, XAPI } from '../api/api.types';
 import { BaseXAPI } from '../api/base-api';
 import { InitWrapper, InstallXOptions, VueConstructorPartialArgument } from './types';
 
@@ -276,13 +276,15 @@ export class XInstaller {
   ): Vue | undefined {
     if (this.options.app !== undefined) {
       const vue = this.getVue();
-      this.snippetConfig = vue.observable(snippetConfig);
+      const normalisedSnippetConfig = (this.snippetConfig = vue.observable(
+        this.normaliseSnippetConfig(snippetConfig)
+      ));
       return new vue({
         ...extraPlugins,
         ...this.options.vueOptions,
         provide() {
           return {
-            snippetConfig
+            snippetConfig: normalisedSnippetConfig
           };
         },
         store: this.options.store,
@@ -290,6 +292,25 @@ export class XInstaller {
         render: h => h(this.options.app)
       });
     }
+  }
+
+  protected normaliseSnippetConfig(snippetConfig: SnippetConfig): NormalisedSnippetConfig;
+  protected normaliseSnippetConfig(snippetConfig: Partial<SnippetConfig>): Partial<SnippetConfig>;
+  /**
+   * Transforms the snippet configuration.
+   * - If `lang` is provided and `uiLang` is not, it sets `uiLang=lang`.
+   *
+   * @param snippetConfig - The snippet config to normalise.
+   * @returns The normalised version of the given snippet config.
+   * @internal
+   */
+  protected normaliseSnippetConfig(
+    snippetConfig: SnippetConfig | Partial<SnippetConfig>
+  ): NormalisedSnippetConfig | Partial<SnippetConfig> {
+    if (snippetConfig.lang) {
+      snippetConfig.uiLang ??= snippetConfig.lang;
+    }
+    return snippetConfig;
   }
 
   /**
@@ -326,7 +347,7 @@ export class XInstaller {
    * @internal
    */
   protected updateSnippetConfig(snippetConfig: Partial<SnippetConfig>): void {
-    forEach(snippetConfig, (name, value) => {
+    forEach(this.normaliseSnippetConfig(snippetConfig), (name, value) => {
       this.getVue().set(this.snippetConfig, name, value);
     });
   }
