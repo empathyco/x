@@ -27,12 +27,9 @@ export class ReactToggleComponent extends React.Component<
   render(): ReactNode {
     return (
       <section>
-        {
-          // eslint-disable-next-line @typescript-eslint/no-extra-parens
-          this.state.renderVueComponent && (
-            <ReactWrapper component={VueDestroyed} count={this.state.clicksCount} />
-          )
-        }
+        {this.state.renderVueComponent && (
+          <ReactWrapper component={VueDestroyed} count={this.state.clicksCount} />
+        )}
       </section>
     );
   }

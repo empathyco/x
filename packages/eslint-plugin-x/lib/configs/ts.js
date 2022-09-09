@@ -14,7 +14,7 @@ const syntaxRules = {
   '@typescript-eslint/no-empty-function': ['error', { allow: ['protected-constructors'] }],
   '@typescript-eslint/no-empty-interface': 'off',
   '@typescript-eslint/no-explicit-any': 'off',
-  '@typescript-eslint/no-extra-parens': ['error', 'all', { nestedBinaryExpressions: false }],
+  '@typescript-eslint/no-extra-parens': 'off',
   '@typescript-eslint/no-non-null-assertion': 'off',
   '@typescript-eslint/no-unused-expressions': ['error'],
   '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
