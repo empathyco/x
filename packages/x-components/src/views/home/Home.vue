@@ -213,6 +213,14 @@
               <p>You may be interested in these:</p>
             </div>
 
+            <template v-if="!$x.query.searchBox">
+              <h1 class="x-title1 x-margin--bottom-06">Brand Recommendations</h1>
+
+              <SlidingQueryPreview query="sunglasses" />
+              <SlidingQueryPreview query="handbag" />
+              <SlidingQueryPreview query="earrings" />
+            </template>
+
             <!-- Results -->
             <LocationProvider location="results">
               <ResultsList v-infinite-scroll:main-scroll>
@@ -253,10 +261,9 @@
                                 </p>
                               </div>
                               <NextQueries
-                                #suggestion="{ suggestion }"
                                 :suggestions="nextQueries"
+                                #suggestion="{ suggestion }"
                                 class="x-list--gap-06"
-                                :max-items-to-render="3"
                               >
                                 <NextQuery
                                   #default="{ suggestion: nextQuery }"
@@ -359,7 +366,6 @@
   import BaseResultImage from '../../components/result/base-result-image.vue';
   import SlidingPanel from '../../components/sliding-panel.vue';
   import SnippetCallbacks from '../../components/snippet-callbacks.vue';
-  import BaseSuggestions from '../../components/suggestions/base-suggestions.vue';
   import { infiniteScroll } from '../../directives/infinite-scroll/infinite-scroll';
   // eslint-disable-next-line max-len
   import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue';
@@ -399,13 +405,13 @@
   import Result from './result.vue';
   import { HomeControls } from './types';
   import SlidingNextQueryPreview from './sliding-next-query-preview.vue';
+  import SlidingQueryPreview from './sliding-query-preview.vue';
 
   @Component({
     directives: {
       infiniteScroll
     },
     components: {
-      SlidingNextQueryPreview,
       ArrowRight,
       Aside,
       AutoProgressBar,
@@ -419,7 +425,6 @@
       BaseIdTogglePanelButton,
       BaseKeyboardNavigation,
       BaseResultImage,
-      BaseSuggestions,
       BaseVariableColumnGrid,
       CheckTiny,
       ChevronLeft,
@@ -458,7 +463,9 @@
       SearchButton,
       SearchIcon,
       SearchInput,
+      SlidingNextQueryPreview,
       SlidingPanel,
+      SlidingQueryPreview,
       SnippetCallbacks,
       SnippetConfigExtraParams,
       SortDropdown,

@@ -7,6 +7,7 @@ export const taggingEndpointAdapter = endpointAdapterFactory<TaggingRequest, voi
   requestMapper: taggingRequestMapper,
   defaultRequestOptions: {
     id: 'tagging',
+    cancelable: false,
     properties: { keepalive: true }
   }
 });

@@ -21,7 +21,9 @@ import { generateEntryFiles } from './rollup-plugins/x-components.rollup-plugin'
 const rootDir = path.resolve(__dirname, '../');
 const buildPath = path.join(rootDir, 'dist');
 
-const dependencies = new Set(Object.keys(packageJSON.dependencies));
+const dependencies = new Set(
+  Object.keys(packageJSON.dependencies).concat(Object.keys(packageJSON.peerDependencies))
+);
 const jsOutputDirectory = path.join(buildPath, 'js');
 const typesOutputDirectory = path.join(buildPath, 'types');
 const cssOutputDirectory = path.join(buildPath, 'design-system');
@@ -93,10 +95,17 @@ export const rollupConfig = createRollupOptions({
       mode: [
         'inject',
         (varname: string, id: string) =>
-          // eslint-disable-next-line max-len
-          `import {createInjector} from 'vue-runtime-helpers';const injector=createInjector({});injector('${normalizePath(
-            id
-          )}',{source:${varname}})`
+          `import { createInjector, createInjectorSSR } from 'vue-runtime-helpers';
+           const isBrowser = /*#__PURE__*/ (function () {
+             return (
+                Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) !==
+                '[object process]'
+             );
+           })();
+           const useBrowserInjector =
+             (typeof STRIP_SSR_INJECTOR !== 'undefined' && STRIP_SSR_INJECTOR) || isBrowser;
+           const injector = useBrowserInjector ? createInjector({}) : createInjectorSSR({});
+           injector('${normalizePath(id)}',{source:${varname}});`
       ]
     }),
     generateEntryFiles({

@@ -14,7 +14,7 @@ tailor the display to create the best product discovery experience for your shop
 elements and product-related information you want to include when displaying product results such as
 the price, a picture, or even an add-to-cart button.
 
-![X Components for results display](/assets/media/overview_product_card.svg)
+![X Components for results display](~@assets/media/overview_product_card.svg)
 
 <FootNote>
 
@@ -23,10 +23,15 @@ PDP Link, (E) Rating, (F) Add to cart
 
 </FootNote>
 
-::: interact To learn more about the display of results, see
-[Product results](/explore-empathy-platform/overview/product-results-overview.md). :::
+::: interact
 
-**A bunch of components for comprehensive product information** Decide whether you want to include
+To learn more about the display of results, see
+[Product results](/explore-empathy-platform/overview/product-results-overview.md).
+
+:::
+
+**A bunch of components for comprehensive product information**  
+Decide whether you want to include
 the description for the resulting product, a picture, or even rating information:
 
 - **Image**. Include a picture of the product for better product recognition.&nbsp;(A)
@@ -39,8 +44,12 @@ the description for the resulting product, a picture, or even rating information
 - **Add to cart**. Allow your shoppers to add a product to the cart from the search engine results
   page (SERP), without going through the PDP.&nbsp;(F)
 
-:::warning To include rating and add-to-cart options in results, rating and add-to-cart features
-must be implemented in your product catalogue. :::
+:::warning
+
+To include rating and add-to-cart options in results, rating and add-to-cart features must be
+implemented in your product catalogue.
+
+:::
 
 ## Tailor the web experience
 
@@ -52,17 +61,21 @@ must be implemented in your product catalogue. :::
 - Customize the default rendering behavior of pictures when loading or broken.
 - Animate the display of product results.
 
-::: interact Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/)
-your web experience. :::
+::: interact
+
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/) your web
+experience.
+
+:::
 
 ## Extend the performance
 
 Traditionally, search results are displayed on the SERP after the query is launched or instantly as
 you type. However, result data is also used by features such as
-[Recommendations](/explore-empathy-platform/experience-search-&-discovery/recommendations.md) and
-[ID Results](/explore-empathy-platform/experience-search-&-discovery/id-results.md). You can combine
+[Recommendations](/explore-empathy-platform/experience-search-and-discovery/recommendations.md) and
+[ID Results](/explore-empathy-platform/experience-search-and-discovery/id-results.md). You can combine
 results-related components with these modules to get advanced display options. Include additional
 product information in Recommendations and Identifier Results such as prices and pictures for better
 recognition and understanding of the products displayed.
 
-[//]: # 'TIP: To see the product results in action, play with our showcase.'
+

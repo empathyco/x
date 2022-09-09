@@ -1,6 +1,6 @@
 <template>
   <BaseSuggestions
-    :suggestions="nextQueries"
+    :suggestions="renderedNextQueries"
     data-test="next-queries"
     class="x-next-queries"
     :animation="animation"
@@ -64,7 +64,7 @@
      * @public
      */
     @Prop()
-    protected animation!: Vue;
+    public animation?: Vue;
 
     /**
      * Number of next queries to be rendered.
@@ -72,15 +72,7 @@
      * @public
      */
     @Prop()
-    protected maxItemsToRender?: number;
-
-    /**
-     * The list of next queries.
-     *
-     * @internal
-     */
-    @Getter('nextQueries', 'nextQueries')
-    public nextQueries!: NextQueryModel[];
+    public maxItemsToRender?: number;
 
     /**
      * Flag to indicate if the curated next queries should be displayed different.
@@ -88,7 +80,32 @@
      * @public
      */
     @Prop({ default: false, type: Boolean })
-    protected highlightCurated!: boolean;
+    public highlightCurated!: boolean;
+
+    /**
+     * NextQueries list to be used instead of state NextQueries.
+     *
+     * @public
+     */
+    @Prop()
+    public suggestions?: NextQueryModel[];
+
+    /**
+     * The list of next queries from the state.
+     *
+     * @internal
+     */
+    @Getter('nextQueries', 'nextQueries')
+    public stateNextQueries!: NextQueryModel[];
+
+    /**.
+     * The list of next queries finally rendered
+     *
+     * @internal
+     */
+    protected get renderedNextQueries(): NextQueryModel[] {
+      return this.suggestions ?? this.stateNextQueries;
+    }
   }
 </script>
 

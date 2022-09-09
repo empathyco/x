@@ -71,7 +71,7 @@ build a search experience:
 Each component contains inline comments. Alternatively, you can read the product documentation on
 Empathy’s eDocs documentation portal.
 
-- [Overview of X Components](https://docs.empathy.co/explore-empathy-platform/experience-search-&-discovery/)
+- [Overview of X Components](https://docs.empathy.co/explore-empathy-platform/experience-search-and-discovery/)
 - [Interface X architecture](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-x-architecture/)
 - [Full UI Reference](https://docs.empathy.co/develop-empathy-platform/ui-reference/)
 <!--- [Frequently Asked Questions](Content to be developed for GitHub project)--->

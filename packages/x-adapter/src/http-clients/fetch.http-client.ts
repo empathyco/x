@@ -14,9 +14,9 @@ import { buildUrl, toJson } from './utils';
  */
 export const fetchHttpClient: HttpClient = (
   endpoint,
-  { id = endpoint, parameters = {}, properties, sendParamsInBody = false } = {}
+  { id = endpoint, cancelable = true, parameters = {}, properties, sendParamsInBody = false } = {}
 ) => {
-  const signal = abortAndGetNewAbortSignal(id);
+  const signal = cancelable ? { signal: abortAndGetNewAbortSignal(id) } : {};
   const flatParameters = flatObject(parameters);
   const url = sendParamsInBody ? endpoint : buildUrl(endpoint, flatParameters);
   const bodyParameters = sendParamsInBody ? { body: JSON.stringify(parameters) } : {};
@@ -24,7 +24,7 @@ export const fetchHttpClient: HttpClient = (
   return fetch(url, {
     ...properties,
     ...bodyParameters,
-    signal
+    ...signal
   }).then(toJson);
 };
 

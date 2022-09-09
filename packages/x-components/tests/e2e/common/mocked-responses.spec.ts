@@ -541,9 +541,7 @@ Given('a popular searches API', () => {
 
 // Tracking
 Given('a tracking API', () => {
-  cy.intercept(`${trackEndpoint}/*`, req => {
-    req.reply({});
-  });
+  cy.intercept(`${trackEndpoint}/*`, { statusCode: 200, body: {} });
 });
 
 Given('a tracking API with a known response', () => {

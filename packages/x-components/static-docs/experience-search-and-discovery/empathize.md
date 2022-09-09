@@ -9,9 +9,9 @@ Empathize is a UI container, but not just any container. It’s the
 experience that is usually displayed below the search box. Consider it the natural companion of the
 **[search box](search-box.md)**, featuring search suggestions and recommendations.
 
-![Empathize](/assets/media/xcomponents_func_empathize.gif)
+![Empathize](~@assets/media/xcomponents_func_empathize.gif)
 
-**Placement matters** One of the characteristics of X&nbsp;Components is that you can place them
+One of the characteristics of Interface&nbsp;X&nbsp;Components is that you can place them
 wherever you want. However, you know that the placement of the search box in your shop matters. So,
 why have search suggestions and recommendations spread all over the page, far away from the search
 box? The Empathize container brings everything together so that your shoppers perceive a smooth,
@@ -22,10 +22,10 @@ effortless search experience.
 Being the face of your predictive layer, Empathize comes into play before the search process starts
 and only makes sense when used with other components.
 
-Thanks to the nature of X&nbsp;Components, you can mix and match the components you use within
+Thanks to the nature of Interface&nbsp;X&nbsp;Components, you can [mix and match the components](/explore-empathy-platform/experience-search-and-discovery/readme.md#mix-and-match-your-experience)  you use within
 Empathize. For example, provide shoppers with search ideas and use Empathize to display popular
-search terms and trending products. Or anticipate your shoppers’ intent with recent searches and
-query suggestions. There are lots of handy possibilities that you might want to place close to the
+search terms and trending products. Anticipate your shoppers’ intent with recent searches and
+query suggestions. Or give shoppers access to their [complete search history](my-history.md) and let them control tracking search data. There are lots of handy possibilities that you might want to place close to the
 search box.
 
 **Combine Empathize with:**
@@ -34,10 +34,12 @@ search box.
 - [Recommendations](recommendations.md)
 - [History Queries](history-queries.md)
 - [Query Suggestions](query-suggestions.md)
+- [Next Queries](next-queries.md)
+- [ID Results](id-results.md)
 
 ## How it works...
 
-Empathize is an event-driven component. It is determined by events that make it react to shoppers'
+Empathize is an event-driven component. It's determined by events that make it react to shoppers'
 actions, such as clicks or keystrokes. That is the Empathize magic; the component listens by default
 to some events to expand the container and others to collapse it. However, this behavior is
 configurable.
@@ -92,11 +94,9 @@ search capabilities, such as Query Suggestions and Popular Searches. Don’t get
 - Determine when Empathize appears and disappears.
 - Animate how the component opens and closes.
 
-::: interact Want to know more? Learn how to [configure](/empathy-for-developers/ui-reference/) your
-web experience. :::
+::: interact
 
-<!---
-::: note
-To see Empathize in action, play with our showcase.
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/empathize/x-components.empathize.md) your web
+experience.
+
 :::
---->

@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.SUPPORT_TOKEN }}
           fetch-depth: 0
+          persist-credentials: false
       - name: Install lerna and all packages
         run: npm ci
       - name: Run linter in all packages

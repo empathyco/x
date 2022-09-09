@@ -1,5 +1,5 @@
 <template>
-  <transition v-on="$listeners" appear name="x-cross-fade-" mode="in-out" v-bind="$attrs">
+  <transition v-on="$listeners" appear name="x-cross-fade-" v-bind="$attrs">
     <!-- @slot (Required) to add content to the transition -->
     <slot />
   </transition>
@@ -26,6 +26,7 @@
     &--enter-active,
     &--leave-active {
       transition: opacity 0.25s ease-in-out;
+      mix-blend-mode: multiply;
     }
 
     &--leave-active {

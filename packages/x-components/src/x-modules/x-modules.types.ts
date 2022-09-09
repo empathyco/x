@@ -9,6 +9,7 @@ import { HistoryQueriesXModule } from './history-queries/x-module';
 import { IdentifierResultsXModule } from './identifier-results/x-module';
 import { NextQueriesXModule } from './next-queries/x-module';
 import { PopularSearchesXModule } from './popular-searches/x-module';
+import { QueriesPreviewXModule } from './queries-preview/x-module';
 import { QuerySuggestionsXModule } from './query-suggestions/x-module';
 import { RecommendationsXModule } from './recommendations/x-module';
 import { RelatedTagsXModule } from './related-tags/x-module';
@@ -32,6 +33,7 @@ export interface XModulesTree {
   identifierResults: IdentifierResultsXModule;
   nextQueries: NextQueriesXModule;
   popularSearches: PopularSearchesXModule;
+  queriesPreview: QueriesPreviewXModule;
   querySuggestions: QuerySuggestionsXModule;
   recommendations: RecommendationsXModule;
   relatedTags: RelatedTagsXModule;
@@ -62,8 +64,10 @@ export interface XModule<StoreModule extends AnyXStoreModule> {
   storeEmitters: StoreEmitters<StoreModule>;
   /** The Vuex Store module associated to this module. */
   storeModule: StoreModule;
-  /** The wiring associated to this module. It must only access to the store module of this
-   * XModule. */
+  /**
+   * The wiring associated to this module. It must only access to the store module of this
+   * XModule.
+   */
   wiring: Partial<Wiring>;
 }
 
