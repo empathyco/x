@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-utils",
-  "version": "1.0.0-alpha.5",
+  "version": "1.0.0-alpha.6",
   "description": "A utility package for Empathy search",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@empathyco/x-get-safe-property-chain": "^1.3.0-alpha.3",
-    "@empathyco/x-storage-service": "^2.0.0-alpha.2",
+    "@empathyco/x-storage-service": "^2.0.0-alpha.3",
     "nanoid": "~3.1.31",
     "tslib": "~2.3.0"
   },
