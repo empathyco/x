@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.169](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.168...@empathyco/x-components@3.0.0-alpha.169) (2022-09-08)
+
+### Features
+
+- **search:** add `updateResult` mutation (#706)
+  ([809e346](https://github.com/empathyco/x/commit/809e34694e5a54bd72e92272aa69a9123bef94c4)),
+  closes [EX-6894](https://searchbroker.atlassian.net/browse/EX-6894)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.168](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.167...@empathyco/x-components@3.0.0-alpha.168) (2022-09-07)
 
 ### Bug Fixes
