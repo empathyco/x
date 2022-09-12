@@ -132,7 +132,7 @@ describe('fetch httpClient testing', () => {
     ).rejects.toThrow();
   });
 
-  describe('when `sendParamsInBody` is true', () => {
+  describe('when `sendParamsInBody` is `true`', () => {
     it('sends the data in the body', async () => {
       await fetchHttpClient(endpoint, {
         sendParamsInBody: true,
@@ -158,7 +158,7 @@ describe('fetch httpClient testing', () => {
     });
 
     // eslint-disable-next-line max-len
-    it('does not map `undefined`, `null`, empty string nor empty array values in the body', async () => {
+    it('does not send `undefined`, `null`, empty string nor empty array values in the body', async () => {
       await fetchHttpClient(endpoint, {
         sendParamsInBody: true,
         parameters: {
