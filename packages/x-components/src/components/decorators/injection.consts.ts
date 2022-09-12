@@ -3,6 +3,13 @@ import { ListItem } from '../../utils/types';
 import { XInjectKey } from './injection.decorators';
 
 /**
+ * It's used to identify the provided and injected `disable-animations`.
+ *
+ * @internal
+ */
+export const DISABLE_ANIMATIONS_KEY: XInjectKey<boolean | undefined> = 'disable-animations';
+
+/**
  * It's used to identify the provided and injected `items`.
  *
  * @internal
