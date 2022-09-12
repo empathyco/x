@@ -52,7 +52,7 @@ declare global {
  * ```
  *
  *        2.3 When the script of the project build is loaded it searches for a global `initX`
- *            variable that the customer must have in their web site. This variable can be a
+ *            variable that the customer must have in their website. This variable can be a
  *            function that returns the {@link SnippetConfig} or an object that contains the
  *            {@link SnippetConfig} itself:
  *
@@ -63,7 +63,7 @@ declare global {
  *                   env,
  *                   scope,
  *                   lang,
- *                   searchLang,
+ *                   uiLang,
  *                   currency,
  *                   consent,
  *                   documentDirection
@@ -77,7 +77,7 @@ declare global {
  *                 env,
  *                 scope,
  *                 lang,
- *                 searchLang,
+ *                 uiLang,
  *                 currency,
  *                 consent,
  *                 documentDirection
