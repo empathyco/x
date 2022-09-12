@@ -276,16 +276,12 @@ export class XInstaller {
   ): Vue | undefined {
     if (this.options.app !== undefined) {
       const vue = this.getVue();
-      const normalisedSnippetConfig = (this.snippetConfig = vue.observable(
-        this.normaliseSnippetConfig(snippetConfig)
-      ));
+      this.snippetConfig = vue.observable(this.normaliseSnippetConfig(snippetConfig));
       return new vue({
         ...extraPlugins,
         ...this.options.vueOptions,
-        provide() {
-          return {
-            snippetConfig: normalisedSnippetConfig
-          };
+        provide: {
+          snippetConfig: this.snippetConfig
         },
         store: this.options.store,
         el: this.getMountingTarget(this.options.domElement),
