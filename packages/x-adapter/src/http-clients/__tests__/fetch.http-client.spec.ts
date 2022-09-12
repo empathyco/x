@@ -46,10 +46,13 @@ describe('fetch httpClient testing', () => {
     expectFetchCallWith(`${endpoint}?additionalParam=true&q=shirt`);
   });
 
-  it('does not map undefined values', async () => {
+  it('does not map undefined, null or empty values', async () => {
     await fetchHttpClient(endpoint, {
       parameters: {
-        q: undefined
+        q: undefined,
+        r: '',
+        s: null,
+        t: []
       }
     });
     expectFetchCallWith(endpoint);
@@ -134,10 +137,13 @@ describe('fetch httpClient testing', () => {
       sendParamsInBody: true,
       parameters: {
         q: 'shirt',
+        r: undefined,
         filter: ['long sleeve', 'dotted', 'white'],
         rows: 12,
         extraParams: {
-          lang: 'en'
+          lang: 'en',
+          s: '',
+          t: []
         }
       }
     });
