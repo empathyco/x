@@ -102,7 +102,7 @@ export function cleanUndefined<T>(obj: T): T {
  * - an empty array.
  *
  * @param obj - The object from whom pick the values.
- * @returns A new object with the not undefined properties of the source object.
+ * @returns A new object with the not empty properties of the source object.
  * @public
  */
 export function cleanEmpty<T extends Record<string, unknown>>(obj: T): T {
@@ -111,7 +111,7 @@ export function cleanEmpty<T extends Record<string, unknown>>(obj: T): T {
     (pickedObject, key, value) => {
       if (isObject(value)) {
         pickedObject[key] = cleanEmpty(value);
-      } else if (value !== null && value !== '' && !(isArray(value) && value?.length === 0)) {
+      } else if (value !== null && value !== '' && !(isArray(value) && value.length === 0)) {
         pickedObject[key] = value;
       }
       return pickedObject;
