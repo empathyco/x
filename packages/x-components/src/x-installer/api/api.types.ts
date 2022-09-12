@@ -98,7 +98,7 @@ export interface SnippetConfig {
   env?: 'staging';
   /** Execution scope (desktop, mobile, app, ...). */
   scope: string;
-  /** Language to display. */
+  /** Language for the API request, and default value for {@link SnippetConfig.uiLang}. */
   lang: string;
   /** Language to use for the messages. Defaults to {@link SnippetConfig.lang}. */
   uiLang?: string;
