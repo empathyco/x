@@ -88,13 +88,13 @@ export default {
   },
   letterSpacing: {
     sm: '-1%',
-    md: 0,
+    md: '0',
     lg: '2%'
   },
   lineHeight: {
-    sm: 1,
-    md: 1.5,
-    lg: 2
+    sm: '1.2',
+    md: '1.5',
+    lg: '2'
   },
   screens: {
     tablet: '800px',

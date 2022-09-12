@@ -3,11 +3,13 @@ import { TailwindHelpers } from '../types';
 /**
  * Default dynamic component styles.
  *
+ * @param root0
  * @returns All the styles for each component and the values they are going to be generated with.
  *
  * @public
  */
-export default function dynamicComponents({ theme }: Partial<TailwindHelpers>) {
+// eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
+export default function dynamicComponents({ theme }: TailwindHelpers) {
   return {
     // TODO: replace this example styles with actual design styles
     'dynamic-button-gap': {

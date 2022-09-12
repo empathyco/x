@@ -1,21 +1,21 @@
 :root {
   // FONT FAMILY
-  --x-font-family-base: theme('fontFamily.primary');
+  --x-font-family-base: 'Montserrat', sans-serif;
 
   // FONT SIZES
-  --x-size-font-base-xs: theme('fontSize.xs');
-  --x-size-font-base-s: theme('fontSize.sm');
-  --x-size-font-base-m: theme('fontSize.md');
-  --x-size-font-base-l: theme('fontSize.lg');
-  --x-size-font-base-xl: theme('fontSize.2xl');
+  --x-size-font-base-xs: 12px;
+  --x-size-font-base-s: 14px;
+  --x-size-font-base-m: 16px;
+  --x-size-font-base-l: 18px;
+  --x-size-font-base-xl: 32px;
 
   // WEIGHTS
-  --x-number-font-weight-base-light: theme('fontWeight.light');
-  --x-number-font-weight-base-regular: theme('fontWeight.regular');
-  --x-number-font-weight-base-bold: theme('fontWeight.bold');
+  --x-number-font-weight-base-light: 300;
+  --x-number-font-weight-base-regular: 400;
+  --x-number-font-weight-base-bold: 600;
 
   // LINE HEIGHT
-  --x-size-line-height-base-s: theme('lineHeight.sm');
-  --x-size-line-height-base-m: theme('lineHeight.md');
-  --x-size-line-height-base-l: theme('lineHeight.lg');
+  --x-size-line-height-base-s: 16px;
+  --x-size-line-height-base-m: 24px;
+  --x-size-line-height-base-l: 32px;
 }

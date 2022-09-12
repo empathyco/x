@@ -3,11 +3,13 @@ import { TailwindHelpers } from '../types';
 /**
  * Default dynamic utility styles.
  *
+ * @param root0
  * @returns All the styles for each utility and the values they are going to be generated with.
  *
  * @public
  */
-export default function dynamicUtilities({ theme }: Partial<TailwindHelpers>) {
+// eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
+export default function dynamicUtilities({ theme }: TailwindHelpers) {
   return {
     // TODO: replace this example styles with actual design styles
     'font-util': {

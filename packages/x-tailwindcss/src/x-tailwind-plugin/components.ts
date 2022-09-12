@@ -3,11 +3,13 @@ import { TailwindHelpers } from '../types';
 /**
  * Default component styles.
  *
+ * @param root0
  * @returns All the styles for each component.
  *
  * @public
  */
-export default function components({ theme }: Partial<TailwindHelpers>) {
+// eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
+export default function components({ theme }: TailwindHelpers) {
   return {
     // TODO: replace this example styles with actual design styles
     '.btn': {
