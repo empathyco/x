@@ -151,12 +151,7 @@
       if (this.nextQueriesAreOutdated) {
         return this.injectedListItems;
       }
-      if (
-        this.concatWhenNoMoreItems &&
-        !this.hasMoreItems &&
-        this.injectedListItems.length &&
-        this.offset > this.injectedListItems.length
-      ) {
+      if (this.shouldConcatItems) {
         return this.injectedListItems.concat(this.nextQueriesGroups[0] ?? []);
       }
       return this.nextQueriesGroups.reduce(
@@ -182,6 +177,22 @@
         !!this.injectedQuery &&
         (this.$x.query.nextQueries !== this.injectedQuery ||
           this.$x.status.nextQueries !== 'success')
+      );
+    }
+
+    /**
+     * Checks if the number of items is smaller than the offset, so a group
+     * should be added to the injected items list.
+     *
+     * @returns True if a group should be added, false if not.
+     * @internal
+     */
+    protected get shouldConcatItems(): boolean {
+      return (
+        this.concatWhenNoMoreItems &&
+        !this.hasMoreItems &&
+        this.injectedListItems !== undefined &&
+        this.offset > this.injectedListItems.length
       );
     }
   }
