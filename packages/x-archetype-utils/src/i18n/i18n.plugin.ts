@@ -5,12 +5,14 @@ import { AnyMessages, Device, I18nOptions, LoadLazyMessagesByDevice, Locale } fr
 
 /**
  * I18n settings manager.
+ *
+ * @public
  */
-export class I18n {
+export class I18n<SomeMessages> {
   public vueI18n!: VueI18n;
   protected locale!: Locale;
   protected device!: Device;
-  protected messages!: Record<Locale, AnyMessages>;
+  protected messages!: Record<Locale, AnyMessages<SomeMessages>>;
   protected currentMessages!: LocaleMessageObject;
   protected fallbackLocale!: Locale;
 
@@ -19,7 +21,7 @@ export class I18n {
    *
    * @param options - The new {@link I18nOptions | i18n options}.
    */
-  public constructor({ locale, messages, device, fallbackLocale }: I18nOptions) {
+  public constructor({ locale, messages, device, fallbackLocale }: I18nOptions<SomeMessages>) {
     this.locale = locale;
     this.device = device;
     this.messages = messages;
@@ -33,7 +35,9 @@ export class I18n {
    *
    * @returns The new instance.
    */
-  static async create(options: I18nOptions): Promise<I18n> {
+  static async create<SomeMessages>(
+    options: I18nOptions<SomeMessages>
+  ): Promise<I18n<SomeMessages>> {
     const instance = new I18n(options);
     instance.currentMessages = await instance.getCurrentMessages();
     return instance;
@@ -149,6 +153,8 @@ export class I18n {
  *
  * @returns True if the messages are lazy or false otherwise.
  */
-function areLazyMessages(messages: AnyMessages): messages is LoadLazyMessagesByDevice<any> {
+function areLazyMessages<SomeMessages>(
+  messages: AnyMessages<SomeMessages>
+): messages is LoadLazyMessagesByDevice<SomeMessages> {
   return typeof messages === 'function';
 }

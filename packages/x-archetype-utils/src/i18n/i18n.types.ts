@@ -8,7 +8,9 @@ export type Locale = string;
 export type Device = string;
 
 /** Union type containing both eager and lazy messages. */
-export type AnyMessages = MessagesByDevice<any> | LoadLazyMessagesByDevice<any>;
+export type AnyMessages<SomeMessages> =
+  | MessagesByDevice<SomeMessages>
+  | LoadLazyMessagesByDevice<SomeMessages>;
 
 /** A function that loads on demand the messages for a specific locale. */
 export type LoadLazyMessagesByDevice<SomeMessages> = () => Promise<{
@@ -27,9 +29,9 @@ export interface MessagesByDevice<SomeMessages> {
 /**
  * I18n settings.
  */
-export interface I18nOptions {
+export interface I18nOptions<SomeMessages> {
   /** The initial messages. */
-  messages: Record<Locale, AnyMessages>;
+  messages: Record<Locale, AnyMessages<SomeMessages>>;
   /** The initial device. */
   device: Device;
   /** The locale to fall back if no matching locale is available. */

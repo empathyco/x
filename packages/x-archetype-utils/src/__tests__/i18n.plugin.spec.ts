@@ -1,9 +1,18 @@
+import { DeepPartial } from '@empathyco/x-utils';
 import Vue from 'vue';
 import { mount, createLocalVue, Wrapper } from '@vue/test-utils';
 import { I18n } from '../i18n/i18n.plugin';
-import { Device, Locale } from '../i18n/i18n.types';
+import { AnyMessages, Device, I18nOptions, Locale } from '../i18n/i18n.types';
 
-const messages = {
+interface Messages {
+  testComponent: {
+    title: string;
+    'text.small': string;
+    '__prices.current value asc': string;
+  };
+}
+
+const messages: Record<string, AnyMessages<DeepPartial<Messages>>> = {
   en: {
     base: {
       testComponent: {
@@ -27,23 +36,30 @@ const messages = {
   }
 };
 
+const defaultTestingKey = 'testComponent.title';
+
 describe('Test custom i18n plugin for several use cases', () => {
   /**
    * Renders a component to test i18n plugin use cases.
    *
    * @param key - The locale key to be used in the component to get the translated text.
+   * @param i18nOptions - The options object for configuring the i18n instance.
    * @returns The API for testing the component.
    */
-  async function renderComponent(key = 'testComponent.title'): Promise<RenderComponentAPI> {
+  async function renderComponent(
+    key = defaultTestingKey,
+    i18nOptions: Partial<I18nOptions<DeepPartial<Messages>>> = { messages }
+  ): Promise<RenderComponentAPI> {
     const TestComponent = Vue.component('testComponent', {
       template: `<div>{{ $t("${key}") }}</div>`
     });
     const localVue = createLocalVue();
     const i18n = await I18n.create({
       locale: 'en',
-      messages,
+      messages: {},
       device: 'desktop',
-      fallbackLocale: 'en'
+      fallbackLocale: 'en',
+      ...i18nOptions
     });
     localVue.use(i18n);
     const setLocale = i18n.setLocale.bind(i18n);
@@ -61,11 +77,9 @@ describe('Test custom i18n plugin for several use cases', () => {
   it('changes translation according to the new locale and device options', async () => {
     const { wrapper, setLocale, setLocaleDevice } = await renderComponent();
 
-    // Set a new locale and check it translates accordingly
     await setLocale('es');
     expect(wrapper.text()).toBe('Buscar productos');
 
-    // Set a new device and check it translates accordingly
     await setLocaleDevice('mobile');
     expect(wrapper.text()).toBe('Buscar');
   });
@@ -79,7 +93,7 @@ describe('Test custom i18n plugin for several use cases', () => {
 
   it("warns the key is missing if it doesn't exist for the defined locale", async () => {
     const key = 'testComponent.subtitle';
-    const { wrapper } = await renderComponent(key as string);
+    const { wrapper } = await renderComponent(key);
 
     expect(wrapper.text()).toBe(
       `[i18n] Key '${key}' is missing for locale: '${wrapper.vm.$i18n.locale}'`
@@ -90,7 +104,6 @@ describe('Test custom i18n plugin for several use cases', () => {
     const key = 'testComponent.text.small';
     const { wrapper, setLocale } = await renderComponent(key);
 
-    // Test a key with dots
     expect(wrapper.text()).toBe(`discover products`);
 
     // Set another locale to check that the warning is fired if the key with dots doesn't exist
@@ -102,7 +115,6 @@ describe('Test custom i18n plugin for several use cases', () => {
     const key = 'testComponent.__prices.current value asc';
     const { wrapper, setLocale } = await renderComponent(key);
 
-    // Test a key with white spaces
     expect(wrapper.text()).toBe(`Price: Low to high`);
 
     // Set another locale to check that the warning is fired if the key with dots doesn't exist
