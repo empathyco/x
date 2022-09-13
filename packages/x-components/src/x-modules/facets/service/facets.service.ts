@@ -55,6 +55,14 @@ export class DefaultFacetsService implements FacetsService {
     this.select(this.store.state.x.facets.preselectedFilters);
   }
 
+  clearFiltersOnStatus(facetIds?: Array<Facet['id']>): void {
+    if (this.store.state.x.facets.status !== 'initial') {
+      this.clearFilters(facetIds);
+    } else {
+      this.setStatus('modified');
+    }
+  }
+
   clearFilters(facetIds?: Array<Facet['id']>): void {
     this.getSelectedFilters()
       .filter(filter => !facetIds || (isFacetFilter(filter) && facetIds.includes(filter.facetId)))
@@ -76,6 +84,26 @@ export class DefaultFacetsService implements FacetsService {
     } else {
       this.select(filter);
     }
+  }
+
+  /**
+   * Sets the query.
+   *
+   * @param query - The query searched.
+   * @internal
+   */
+  setQuery(query: string): void {
+    this.store.commit('x/facets/setQuery', query);
+  }
+
+  /**
+   * Sets the status.
+   *
+   * @param status - The new status.
+   * @internal
+   */
+  setStatus(status: string): void {
+    this.store.commit('x/facets/setStatus', status);
   }
 
   /**

@@ -58,4 +58,18 @@ Feature: Url component
       | Portugal     | Italy  | Spain  |
 
 
+  Scenario Outline: 5. Typing a new query clears the filters
+    Given a URL with query parameter "<query>"
+    When  filter number <simpleFilter1> is clicked in facet "<facetName>"
+    Then  url contains parameter "filter" with value "price_facet:0-10"
+    When  "<query2>" is added to the search
+    Then  url contains parameter "q" with value "<query> <query2>"
+    And   url contains parameter "filter" with value "price_facet:0-10"
+    When  "<query3>" replaces current query
+    Then  url contains parameter "q" with value "<query3>"
+    And   url not contains parameter "filter"
+
+    Examples:
+      | query | query2      | query3   | simpleFilter1 | facetName   |
+      | lego  | marvel      | camion   | 0             | price_facet   |
 

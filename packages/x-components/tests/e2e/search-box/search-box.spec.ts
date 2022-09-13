@@ -5,7 +5,7 @@ let resultsCount = 0;
 let resultsList: string[] = [];
 const compoundResultsList: string[] = [];
 let startQuery = 0;
-let startSecondQuery = 0;
+const startSecondQuery = 0;
 let interval = 0;
 
 // Scenario 1
@@ -151,12 +151,6 @@ And('related tags are displayed after instantDebounceInMs is {boolean}', (instan
 });
 
 // Scenario 4
-When('{string} is added to the search', (secondQuery: string) => {
-  cy.typeQuery(` ${secondQuery}`).then(() => {
-    startSecondQuery = Date.now();
-  });
-});
-
 Then('new related results are not displayed before {int}', (instantDebounceInMs: number) => {
   cy.getByDataTest('search-result')
     .should($results => {

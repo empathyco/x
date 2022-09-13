@@ -61,6 +61,13 @@ const clearFiltersWire = wireFacetsService('clearFilters');
 const clearAllFiltersWire = wireFacetsServiceWithoutPayload('clearFilters');
 
 /**
+ * Deselects all selected filters based on the status.
+ *
+ * @public
+ */
+const clearFiltersOnStatusWire = wireFacetsServiceWithoutPayload('clearFiltersOnStatus');
+
+/**
  * Selects the filter passed by payload.
  *
  * @public
@@ -91,6 +98,13 @@ const updatePreselectedFilters = wireFacetsService('updatePreselectedFilters');
 const selectPreselectedFilterWire = wireFacetsService('selectPreselectedFilters');
 
 /**
+ * Sets the facets state `query`.
+ *
+ * @public
+ */
+const setQuery = wireFacetsService('setQuery');
+
+/**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
  *
  * @internal
@@ -110,6 +124,12 @@ export const facetsWiring = createWiring({
   FacetsGroupProvided: {
     setFacetsGroupWire
   },
+  UserAcceptedAQuery: {
+    setQuery
+  },
+  FacetsQueryChanged: {
+    clearFiltersOnStatusWire
+  },
   UserChangedExtraParams: {
     clearAllFiltersWire
   },
@@ -126,7 +146,8 @@ export const facetsWiring = createWiring({
     clearFiltersWire
   },
   UserClearedQuery: {
-    clearAllFiltersWire
+    clearAllFiltersWire,
+    setQuery
   },
   UserClickedOpenX: {
     selectPreselectedFilterWire

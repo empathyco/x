@@ -12,6 +12,8 @@ import { FacetGroupEntry, FacetsXStoreModule } from './types';
  */
 export const facetsXStoreModule: FacetsXStoreModule = {
   state: () => ({
+    query: '',
+    status: 'initial',
     filters: {},
     groups: {},
     facets: {},
@@ -33,6 +35,9 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     setPreselectedFilters(state, filters) {
       state.preselectedFilters = filters;
     },
+    setStatus(state, status) {
+      state.status = status;
+    },
     removeFilter(state, { id }) {
       Vue.delete(state.filters, id);
     },
@@ -47,6 +52,9 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     },
     setFacet(state, facet: Facet) {
       Vue.set(state.facets, facet.id, facet);
+    },
+    setQuery(state, query: string) {
+      state.query = query;
     }
   },
   actions: {}
