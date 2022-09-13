@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.170](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.169...@empathyco/x-components@3.0.0-alpha.170) (2022-09-09)
+
+### Features
+
+- **components:** add disable animation mixin (#703)
+  ([ea344f9](https://github.com/empathyco/x/commit/ea344f9d5e7b36da6aabdd4fe5d2a1ad05dbcfc8)),
+  closes [EX-6838](https://searchbroker.atlassian.net/browse/EX-6838)
+- disable `@typescript-eslint/no-extra-parens` rule (#715)
+  ([3718017](https://github.com/empathyco/x/commit/3718017c5528156f931bc8b1f2d208cdb50781ed)),
+  closes [EX-6996](https://searchbroker.atlassian.net/browse/EX-6996)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.169](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.168...@empathyco/x-components@3.0.0-alpha.169) (2022-09-08)
 
 ### Features
