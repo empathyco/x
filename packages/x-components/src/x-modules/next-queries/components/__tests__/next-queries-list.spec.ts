@@ -363,16 +363,16 @@ describe('testing NextQueriesList component', () => {
       ]);
     });
 
-    it('does not insert next queries groups if `concatWhenNoMoreItems` is false', () => {
+    it('does not insert next queries groups if `showOnlyAfterOffset` is `true`', () => {
       const nextQueries = createNextQueries('steak', 'tomahawk');
       const extraItems = createExtraItems(5);
       const { getItemsRenderedText } = renderNextQueriesList({
         nextQueries,
         extraItems,
-        concatWhenNoMoreItems: false,
         maxNextQueriesPerGroup: 1,
         frequency: 48,
-        offset: 24
+        offset: 24,
+        showOnlyAfterOffset: true
       });
 
       // 5 extra items + no groups of NQs
@@ -392,7 +392,7 @@ interface RenderNextQueriesListOptions {
    * Determines if a group is added to the injected items list when the number
    * of items is smaller than the offset.
    */
-  concatWhenNoMoreItems?: boolean;
+  showOnlyAfterOffset?: boolean;
   /** Extra components to be registered and rendered. */
   components?: Dictionary<VueConstructor | ComponentOptions<Vue>>;
   /** Extra items to be rendered. */

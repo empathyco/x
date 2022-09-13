@@ -226,7 +226,7 @@
               <ResultsList v-infinite-scroll:main-scroll>
                 <BannersList>
                   <PromotedsList>
-                    <NextQueriesList :concat-when-no-more-items="false">
+                    <NextQueriesList :show-only-after-offset="true">
                       <BaseVariableColumnGrid :animation="resultsAnimation">
                         <template #result="{ item: result }">
                           <MainScrollItem :item="result">

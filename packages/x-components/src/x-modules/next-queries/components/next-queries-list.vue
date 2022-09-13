@@ -90,13 +90,13 @@
     public maxGroups!: number;
 
     /**
-     * Determines if a group is added to the injected items list when the number
+     * Determines if a group is added to the injected items list in case the number
      * of items is smaller than the offset.
      *
      * @public
      */
-    @Prop({ default: true })
-    public concatWhenNoMoreItems!: boolean;
+    @Prop({ default: false })
+    public showOnlyAfterOffset!: boolean;
 
     /**
      * The state next queries.
@@ -151,7 +151,7 @@
       if (this.nextQueriesAreOutdated) {
         return this.injectedListItems;
       }
-      if (this.shouldConcatItems) {
+      if (this.hasNotEnoughListItems) {
         return this.injectedListItems.concat(this.nextQueriesGroups[0] ?? []);
       }
       return this.nextQueriesGroups.reduce(
@@ -181,17 +181,18 @@
     }
 
     /**
-     * Checks if the number of items is smaller than the offset, so a group
+     * Checks if the number of items is smaller than the offset so a group
      * should be added to the injected items list.
      *
      * @returns True if a group should be added, false if not.
      * @internal
      */
-    protected get shouldConcatItems(): boolean {
+    protected get hasNotEnoughListItems(): boolean {
       return (
-        this.concatWhenNoMoreItems &&
+        !this.showOnlyAfterOffset &&
         !this.hasMoreItems &&
         this.injectedListItems !== undefined &&
+        this.injectedListItems.length > 0 &&
         this.offset > this.injectedListItems.length
       );
     }
@@ -280,7 +281,7 @@ more groups will be inserted. Each one of this groups will have up to `6` next q
 ### Showing/hiding first next queries group when no more items
 
 By default, the first next query group will be inserted when the total number of results is smaller
-than the offset, but this behavior can be disabled setting the `concatWhenNoMoreItems` to `false`.
+than the offset, but this behavior can be disabled setting the `showOnlyAfterOffset` to `true`.
 
 ```vue live
 <template>
@@ -291,7 +292,7 @@ than the offset, but this behavior can be disabled setting the `concatWhenNoMore
         :offset="48"
         :frequency="72"
         :maxNextQueriesPerGroup="1"
-        :concatWhenNoMoreItems="false"
+        :showOnlyAfterOffset="true"
       />
     </ResultsList>
   </div>
