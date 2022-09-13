@@ -271,12 +271,11 @@ export class XInstaller {
   protected createApp(extraPlugins: VueConstructorPartialArgument): Vue | undefined {
     if (this.options.app !== undefined) {
       const vue = this.getVue();
-      vue.observable(this.snippetConfig);
       return new vue({
         ...extraPlugins,
         ...this.options.vueOptions,
         provide: {
-          snippetConfig: this.snippetConfig
+          snippetConfig: (this.snippetConfig = vue.observable(this.snippetConfig))
         },
         store: this.options.store,
         el: this.getMountingTarget(this.options.domElement),
