@@ -1,6 +1,10 @@
 import { isStringEmpty } from './string';
 
-/** Regex for splitting a query into its words. */
+/**
+ * Regex for splitting a query into its words.
+ *
+ * @public
+ */
 export const SPLIT_WORDS_REGEX = /[\s-]/;
 
 /**
