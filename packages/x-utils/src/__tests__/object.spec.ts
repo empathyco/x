@@ -407,7 +407,8 @@ describe('testing object utils', () => {
         c: undefined,
         d: '',
         e: null,
-        f: []
+        f: [],
+        g: {}
       };
 
       const cleanObject = cleanEmpty(testObj);
@@ -427,10 +428,11 @@ describe('testing object utils', () => {
           f: {
             g: ['hey'],
             h: 3,
-            i: null
+            i: null,
+            j: {}
           },
-          j: [],
-          k: 'test'
+          k: [],
+          l: 'test'
         }
       };
 
@@ -443,7 +445,7 @@ describe('testing object utils', () => {
             g: ['hey'],
             h: 3
           },
-          k: 'test'
+          l: 'test'
         }
       });
     });

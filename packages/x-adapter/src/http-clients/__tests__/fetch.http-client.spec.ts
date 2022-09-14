@@ -46,13 +46,14 @@ describe('fetch httpClient testing', () => {
     expectFetchCallWith(`${endpoint}?additionalParam=true&q=shirt`);
   });
 
-  it('does not map `undefined`, `null`, empty string nor empty array values', async () => {
+  it('does not map empty values', async () => {
     await fetchHttpClient(endpoint, {
       parameters: {
         q: undefined,
         r: '',
         s: null,
-        t: []
+        t: [],
+        u: {}
       }
     });
     expectFetchCallWith(endpoint);
@@ -157,8 +158,7 @@ describe('fetch httpClient testing', () => {
       });
     });
 
-    // eslint-disable-next-line max-len
-    it('does not send `undefined`, `null`, empty string nor empty array values in the body', async () => {
+    it('does not send empty values in the body', async () => {
       await fetchHttpClient(endpoint, {
         sendParamsInBody: true,
         parameters: {
@@ -172,7 +172,8 @@ describe('fetch httpClient testing', () => {
             e: undefined,
             f: null,
             g: '',
-            h: []
+            h: [],
+            i: {}
           }
         }
       });
