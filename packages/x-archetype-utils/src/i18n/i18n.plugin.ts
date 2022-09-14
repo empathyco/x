@@ -1,5 +1,6 @@
+import { isObject } from '@empathyco/x-utils';
 import { VueConstructor } from 'vue';
-import VueI18n, { LocaleMessageObject } from 'vue-i18n';
+import VueI18n, { LocaleMessageObject, LocaleMessage } from 'vue-i18n';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { AnyMessages, Device, I18nOptions, LoadLazyMessagesByDevice, Locale } from './i18n.types';
 
@@ -68,22 +69,21 @@ export class I18n<SomeMessages> {
    * When a key fails, takes the remaining key parts and tries to access the message
    * joining them into a single key.
    *
-   * @param key - A dot separated key to access the message object.
+   * @param path - A dot separated key to access the message object.
    * @returns The message corresponding to the provided key, or empty string if it doesn't exist.
    */
-  protected getMessageWithDotsInKey(key: string): string {
-    const keyParts = key.split('.');
-    let keyPartMessages = this.currentMessages;
-
-    const index = keyParts.findIndex(keyPart => {
-      if (typeof keyPartMessages[keyPart] === 'object') {
-        keyPartMessages = <LocaleMessageObject>keyPartMessages[keyPart];
-      } else {
-        return true;
-      }
-    });
-
-    return index !== -1 ? <string>keyPartMessages?.[keyParts.slice(index).join('.')] : '';
+  protected getMessageWithDotsInKey(path: string): string | null {
+    // TO-DO Support function or array messages
+    const message = path
+      .split('.')
+      .reduce<LocaleMessage>(
+        (messages, key, index, pathParts) =>
+          isObject(messages)
+            ? messages[key] ?? messages[pathParts.slice(index).join('.')]
+            : messages,
+        this.currentMessages
+      );
+    return typeof message === 'string' ? message : null;
   }
 
   /**
