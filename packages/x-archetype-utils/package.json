@@ -35,9 +35,10 @@
   },
   "dependencies": {
     "@empathyco/x-deep-merge": "^1.3.0-alpha.19",
-    "@empathyco/x-utils": "^1.0.0-alpha.5"
+    "vue-i18n": "~8.21.0"
   },
   "devDependencies": {
+    "@empathyco/x-utils": "^1.0.0-alpha.5",
     "@types/jest": "~27.0.3",
     "@types/node": "~16.4.12",
     "@vue/test-utils": "~1.0.3",
@@ -45,8 +46,7 @@
     "jest": "~27.3.1",
     "ts-jest": "~27.0.7",
     "typescript": "~4.6.2",
-    "vue": "~2.6.14",
-    "vue-i18n": "~8.21.0"
+    "vue": "~2.6.14"
   },
   "peerDependencies": {
     "vue-i18n": "^8.0.0"
