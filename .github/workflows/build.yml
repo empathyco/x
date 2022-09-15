@@ -1,10 +1,11 @@
 name: Check branch is releasable and release alpha on main branch update
 on: [push, pull_request]
-concurrency: 
+concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
   cancel-in-progress: true
 jobs:
   build:
+    runs-on: ubuntu-latest
     container: cypress/browsers:node14.19.0-chrome100-ff99-edge
     steps:
       - name: Update npm
@@ -20,9 +21,10 @@ jobs:
       - name: Run tests in all packages
         run: npm run test
       - name: Release alpha on non-release pushes to main branch
-        if: ${{ github.ref_name == 'main' && github.actor != 'support-empathy' && !startsWith(github.event.head_commit.message, 'chore(release):') }}
+        if:
+          ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
+          !startsWith(github.event.head_commit.message, 'chore(release):') }}
         uses: ./.github/actions/release-alpha
         with:
           npm_token: ${{ secrets.NPM_TOKEN }}
           github_token: ${{ secrets.SUPPORT_TOKEN }}
-
