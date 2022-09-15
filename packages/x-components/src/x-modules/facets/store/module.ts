@@ -35,9 +35,6 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     setPreselectedFilters(state, filters) {
       state.preselectedFilters = filters;
     },
-    setStatus(state, status) {
-      state.status = status;
-    },
     removeFilter(state, { id }) {
       Vue.delete(state.filters, id);
     },

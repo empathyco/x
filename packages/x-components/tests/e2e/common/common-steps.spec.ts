@@ -231,10 +231,6 @@ When('{string} is added to the search', (secondQuery: string) => {
   cy.typeQuery(` ${secondQuery}`);
 });
 
-When('{string} replaces current query', (query: string) => {
-  cy.replaceQuery(query);
-});
-
 // Sort
 When('sort option {string} is selected from the sort dropdown', (sortOption: string) => {
   cy.getByDataTest(`sort-dropdown-toggle`).click();
@@ -274,10 +270,6 @@ When('the page is reloaded', () => {
 
 And('url contains parameter {string} with value {string}', (key: string, value: string) => {
   cy.location('search').should('contain', `${key}=${encodeURIComponent(value)}`);
-});
-
-And('url not contains parameter {string}', (key: string) => {
-  cy.location('search').should('not.contain', key);
 });
 
 When('navigating back', () => {

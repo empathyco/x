@@ -9,8 +9,6 @@ import { XActionContext, XStoreModule } from '../../../store';
 export interface FacetsState {
   /** The current query {@link FacetsState.query}. */
   query: string;
-  /** The current status {@link FacetsState.status}. */
-  status: string;
   /** Record of all available filters indexed by its id. */
   filters: Record<Filter['id'], Filter>;
   /** Record specifying the group each facet belongs to. */
@@ -91,12 +89,6 @@ export interface FacetsMutations {
    * @param query - The new {@link FacetsState.query}.
    */
   setQuery(query: string): void;
-  /**
-   * Sets the {@link FacetsState.status} property.
-   *
-   * @param status - The new {@link FacetsState.status}.
-   */
-  setStatus(status: string): void;
   /**
    * Removes the facet from the {@link FacetsState.facets | facets} record.
    *

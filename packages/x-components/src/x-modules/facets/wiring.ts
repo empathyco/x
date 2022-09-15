@@ -2,7 +2,7 @@ import { Facet } from '@empathyco/x-types';
 import { UrlParams } from '../../types/url-params';
 import { createRawFilters } from '../../utils/filters';
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
-import { mapWire } from '../../wiring/wires.operators';
+import { filter, mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
 import { DefaultFacetsService } from './service/facets.service';
 
@@ -61,11 +61,14 @@ const clearFiltersWire = wireFacetsService('clearFilters');
 const clearAllFiltersWire = wireFacetsServiceWithoutPayload('clearFilters');
 
 /**
- * Deselects all selected filters based on the status.
+ * Deselects all selected filters only when oldValue is not empty.
  *
  * @public
  */
-const clearFiltersOnStatusWire = wireFacetsServiceWithoutPayload('clearFiltersOnStatus');
+const clearAllFiltersOnSecondQuery = filter(
+  clearAllFiltersWire,
+  ({ metadata }) => !!metadata.oldValue
+);
 
 /**
  * Selects the filter passed by payload.
@@ -128,7 +131,7 @@ export const facetsWiring = createWiring({
     setQuery
   },
   FacetsQueryChanged: {
-    clearFiltersOnStatusWire
+    clearAllFiltersOnSecondQuery
   },
   UserChangedExtraParams: {
     clearAllFiltersWire

@@ -32,12 +32,6 @@ export interface FacetsService {
    */
   clearFilters(facetIds?: Array<Facet['id']>): void;
   /**
-   * Deselects the selected filters based on the status.
-   *
-   * @param facetIds - An optional list of facets ids from whom deselect the filters.
-   */
-  clearFiltersOnStatus(facetIds?: Array<Facet['id']>): void;
-  /**
    * Deselects filter, adding it to the store if it was not present.
    *
    * @param filter - The filter to deselect.
@@ -82,12 +76,6 @@ export interface FacetsService {
    * @param query - The query searched.
    */
   setQuery(query: string): void;
-  /**
-   * Sets the status.
-   *
-   * @param status - The new status.
-   */
-  setStatus(status: string): void;
   /**
    * Selects a deselected filter, and deselects a selected filter, adding them to the store
    * in both cases.
