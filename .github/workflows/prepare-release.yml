@@ -3,7 +3,9 @@ on: [workflow_dispatch]
 jobs:
   prepare-release:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.19.0-chrome100-ff99-edge
+    container:
+      image: cypress/browsers:node14.19.0-chrome100-ff99-edge
+      options: --user root
     steps:
       - name: Update npm
         run: npm install -g npm@8

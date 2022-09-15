@@ -7,7 +7,9 @@ jobs:
   release:
     if: github.event.pull_request.merged == true && github.head_ref == 'release'
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.19.0-chrome100-ff99-edge
+    container:
+      image: cypress/browsers:node14.19.0-chrome100-ff99-edge
+      options: --user root
     steps:
       - name: Update npm
         run: npm install -g npm@8
