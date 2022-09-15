@@ -25,6 +25,9 @@
     "lint-staged": "~11.1.2",
     "prettier": "~2.3.2"
   },
+  "engines": {
+    "npm": ">=7.0.0"
+  },
   "prettier": "@empathyco/eslint-plugin-x/prettier-config",
   "lint-staged": {
     "*.{ts,tsx,vue}": [
