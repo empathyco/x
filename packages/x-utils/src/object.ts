@@ -112,9 +112,11 @@ export function cleanEmpty<SomeObject extends Record<string, unknown>>(
   return reduce(
     obj,
     (pickedObject, key, value) => {
+      // FIXME: Clean nested empty arrays too
       if (isObject(value)) {
-        if (Object.keys(value).length > 0) {
-          pickedObject[key] = cleanEmpty(value);
+        pickedObject[key] = cleanEmpty(value);
+        if (Object.keys(pickedObject[key] as typeof value).length === 0) {
+          delete pickedObject[key];
         }
       } else if (value !== null && value !== '' && !(isArray(value) && value.length === 0)) {
         pickedObject[key] = value;

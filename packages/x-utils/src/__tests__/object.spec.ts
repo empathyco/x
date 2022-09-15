@@ -449,6 +449,13 @@ describe('testing object utils', () => {
         }
       });
     });
+
+    it('cleans nested empty objects from an object', () => {
+      const testObj = { a: { b: { c: { d: '' } } } };
+
+      const cleanObject = cleanEmpty(testObj);
+      expect(cleanObject).toStrictEqual({});
+    });
   });
 
   describe('getKeysWithDifferentValue', () => {
