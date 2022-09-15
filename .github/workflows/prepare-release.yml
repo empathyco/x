@@ -5,8 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.19.0-chrome100-ff99-edge
     steps:
-      - name: Update npm
-        run: npm install -g npm@7
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -26,7 +24,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.SUPPORT_TOKEN }}
-          commit-message: "chore(release): prepare stable release"
+          commit-message: 'chore(release): prepare stable release'
           committer: Interface X <x@empathy.co>
           title: Stable release
           body: Release preparation
