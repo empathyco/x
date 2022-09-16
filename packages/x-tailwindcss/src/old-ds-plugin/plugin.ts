@@ -9,16 +9,23 @@ import { TailwindHelpers } from '../types';
  * @param obj - The `Dictionary` to map.
  * @returns A new `Dictionary` with the keys prefixed.
  */
-function mapPrefix<T extends Dictionary>(prefix: string, obj: T): T {
+function mapPrefix<SomeObject extends Dictionary, Prefix extends string>(
+  prefix: Prefix,
+  obj: SomeObject
+): PrefixObject<SomeObject, Prefix> {
   return reduce(
     obj,
     (result, key, value) => {
-      result[prefix + (key as string)] = value;
+      result[`${prefix}${key as string}`] = value;
       return result;
     },
-    {} as Dictionary
-  ) as T;
+    {} as PrefixObject<SomeObject, Prefix>
+  );
 }
+
+type PrefixObject<SomeObject extends Dictionary, Prefix extends string> = {
+  [Key in keyof SomeObject as `${Prefix}${Key & string}`]: SomeObject[Key];
+};
 
 export default plugin(function ({ addBase, theme }: TailwindHelpers) {
   addBase({
