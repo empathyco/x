@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.7...@empathyco/x-utils@1.0.0-alpha.8) (2022-09-16)
+
+### Features
+
+- **x-adapter:** clean empty params (#716)
+  ([eeb4399](https://github.com/empathyco/x/commit/eeb4399c59b44691d31efbf49ad028dda1123229)),
+  closes [EX-6959](https://searchbroker.atlassian.net/browse/EX-6959)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.6...@empathyco/x-utils@1.0.0-alpha.7) (2022-09-13)
 
 ### Features
