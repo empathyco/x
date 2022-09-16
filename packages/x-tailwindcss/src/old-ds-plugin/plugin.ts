@@ -23,10 +23,16 @@ function mapPrefix<SomeObject extends Dictionary, Prefix extends string>(
   );
 }
 
+/**
+ * Prefix the given object type keys.
+ */
 type PrefixObject<SomeObject extends Dictionary, Prefix extends string> = {
   [Key in keyof SomeObject as `${Prefix}${Key & string}`]: SomeObject[Key];
 };
 
+/**
+ * Integrates tailwind theme with the old design system tokens.
+ */
 export default plugin(function ({ addBase, theme }: TailwindHelpers) {
   addBase({
     ':root': {

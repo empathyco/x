@@ -82,9 +82,9 @@ export default {
     '8xl': '96px'
   },
   fontWeight: {
-    light: 200,
-    regular: 400,
-    bold: 600
+    light: '200',
+    regular: '400',
+    bold: '600'
   },
   letterSpacing: {
     sm: '-1%',
