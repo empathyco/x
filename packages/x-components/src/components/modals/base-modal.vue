@@ -61,10 +61,10 @@
     @Prop({ required: true })
     public open!: boolean;
 
-    /** The previous value of the body overflow style. */
-    protected previousBodyOverflow = '';
-    /** The previous value of the HTML element overflow style. */
-    protected previousHTMLOverflow = '';
+    /** The previous value of the scrolling element overflow style. */
+    protected previousScrollingElementOverflow = '';
+    /** The previous value of the scrolling element scrollbar-gutter style. */
+    protected previousScrollingElementScrollbarGutter = '';
     /** Boolean to delay the leave animation until it has completed. */
     protected isWaitingForLeave = false;
 
@@ -108,9 +108,11 @@
      * @internal
      */
     protected disableScroll(): void {
-      this.previousBodyOverflow = document.body.style.overflow;
-      this.previousHTMLOverflow = document.documentElement.style.overflow;
-      document.body.style.overflow = document.documentElement.style.overflow = 'hidden';
+      const scrollingElement = document.scrollingElement as HTMLElement;
+      this.previousScrollingElementOverflow = scrollingElement.style.overflow;
+      this.previousScrollingElementScrollbarGutter = scrollingElement.style.scrollbarGutter;
+      scrollingElement.style.overflow = 'hidden';
+      scrollingElement.style.scrollbarGutter = 'stable';
     }
 
     /**
@@ -119,9 +121,9 @@
      * @internal
      */
     protected enableScroll(): void {
-      document.body.style.overflow = this.previousBodyOverflow;
-      document.documentElement.style.overflow = this.previousHTMLOverflow;
-      document.body.style.overflow = document.documentElement.style.overflow = '';
+      const scrollingElement = document.scrollingElement as HTMLElement;
+      scrollingElement.style.overflow = this.previousScrollingElementOverflow;
+      scrollingElement.style.scrollbarGutter = this.previousScrollingElementScrollbarGutter;
     }
 
     /**
