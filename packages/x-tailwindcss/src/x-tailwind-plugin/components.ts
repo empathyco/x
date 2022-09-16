@@ -3,7 +3,7 @@ import { TailwindHelpers } from '../types';
 /**
  * Default component styles.
  *
- * @param root0
+ * @param helpers - A set of tailwind helpers to create the components.
  * @returns All the styles for each component.
  *
  * @public
