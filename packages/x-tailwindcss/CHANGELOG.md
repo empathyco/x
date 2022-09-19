@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.13...@empathyco/x-tailwindcss@0.2.0-alpha.14) (2022-09-19)
+
+### Features
+
+- **design-system:** generate old design system tokens with tailwind values (#675)
+  ([7aa42e4](https://github.com/empathyco/x/commit/7aa42e4e26ec34fea942bbf7f0c7f10a97a94237)),
+  closes [EX-6790](https://searchbroker.atlassian.net/browse/EX-6790)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.12...@empathyco/x-tailwindcss@0.2.0-alpha.13) (2022-09-16)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
