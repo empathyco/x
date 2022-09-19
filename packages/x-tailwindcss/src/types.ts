@@ -1,4 +1,5 @@
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
+import { PluginAPI } from 'tailwindcss/types/config';
 import { ReturnOfComponents } from './x-tailwind-plugin/components';
 import { ReturnOfDynamicComponents } from './x-tailwind-plugin/dynamic-components';
 import { ReturnOfDynamicUtilities } from './x-tailwind-plugin/dynamic-utilities';
@@ -90,20 +91,7 @@ export type DynamicCssStylesOptions = Dictionary<{
  *
  * @public
  */
-export type TailwindHelpers = {
-  theme: (themePath: string) => string;
-  addBase: (cssStyleOptions: CssStyleOptions) => void;
-  addComponents: (cssStyleOptions: CssStyleOptions) => void;
-  matchComponents: (
-    components: Dictionary<(value: any) => Dictionary>,
-    options: { values: any }
-  ) => void;
-  addUtilities: (cssStyleOptions: CssStyleOptions) => void;
-  matchUtilities: (
-    utilities: Dictionary<(value: any) => Dictionary>,
-    options: { values: any }
-  ) => void;
-};
+export type TailwindHelpers = PluginAPI;
 
 /**
  * Represents the return type of {@link PluginOptions.components}.
