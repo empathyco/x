@@ -13,7 +13,6 @@ import { FacetGroupEntry, FacetsXStoreModule } from './types';
 export const facetsXStoreModule: FacetsXStoreModule = {
   state: () => ({
     query: '',
-    status: 'initial',
     filters: {},
     groups: {},
     facets: {},
@@ -50,7 +49,7 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     setFacet(state, facet: Facet) {
       Vue.set(state.facets, facet.id, facet);
     },
-    setQuery(state, query: string) {
+    setQuery(state, query) {
       state.query = query;
     }
   },
