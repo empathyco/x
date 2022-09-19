@@ -3,11 +3,13 @@ import { TailwindHelpers } from '../types';
 /**
  * Default utility styles.
  *
+ * @param helpers - A set of tailwind helpers to create the utilities.
  * @returns All the styles for each utility.
  *
  * @public
  */
-export default function utilities({ theme }: Partial<TailwindHelpers>) {
+// eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
+export default function utilities({ theme }: TailwindHelpers) {
   return {
     // TODO: replace this example styles with actual design styles
     '.border-large': {
