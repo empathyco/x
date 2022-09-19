@@ -5,7 +5,6 @@ let resultsCount = 0;
 let resultsList: string[] = [];
 const compoundResultsList: string[] = [];
 let startQuery = 0;
-const startSecondQuery = 0;
 let interval = 0;
 
 // Scenario 1
@@ -157,7 +156,7 @@ Then('new related results are not displayed before {int}', (instantDebounceInMs:
       expect($results).to.have.length(resultsCount);
     })
     .then(() => {
-      interval = startSecondQuery + instantDebounceInMs - Date.now();
+      interval = instantDebounceInMs - Date.now();
       expect(instantDebounceInMs).to.be.greaterThan(interval);
     });
 });
@@ -174,7 +173,7 @@ And(
           compoundResultsList.push($resultTitle.text());
         })
         .then(() => {
-          interval = Date.now() - startSecondQuery;
+          interval = Date.now();
           expect(interval).to.be.greaterThan(instantDebounceInMs);
           resultsCount = resultsList.length;
         });
