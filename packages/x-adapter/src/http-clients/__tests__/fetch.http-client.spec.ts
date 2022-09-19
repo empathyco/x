@@ -46,10 +46,14 @@ describe('fetch httpClient testing', () => {
     expectFetchCallWith(`${endpoint}?additionalParam=true&q=shirt`);
   });
 
-  it('does not map undefined values', async () => {
+  it('does not map empty values', async () => {
     await fetchHttpClient(endpoint, {
       parameters: {
-        q: undefined
+        q: undefined,
+        r: '',
+        s: null,
+        t: [],
+        u: {}
       }
     });
     expectFetchCallWith(endpoint);
@@ -129,27 +133,58 @@ describe('fetch httpClient testing', () => {
     ).rejects.toThrow();
   });
 
-  it('sends the data in the body if `sendParamsInBody` is true', async () => {
-    await fetchHttpClient(endpoint, {
-      sendParamsInBody: true,
-      parameters: {
-        q: 'shirt',
-        filter: ['long sleeve', 'dotted', 'white'],
-        rows: 12,
-        extraParams: {
-          lang: 'en'
+  describe('when `sendParamsInBody` is `true`', () => {
+    it('sends the data in the body', async () => {
+      await fetchHttpClient(endpoint, {
+        sendParamsInBody: true,
+        parameters: {
+          q: 'shirt',
+          filter: ['long sleeve', 'dotted', 'white'],
+          rows: 12,
+          extraParams: {
+            lang: 'en'
+          }
         }
-      }
+      });
+      expectFetchCallWith(endpoint, {
+        body: JSON.stringify({
+          q: 'shirt',
+          filter: ['long sleeve', 'dotted', 'white'],
+          rows: 12,
+          extraParams: {
+            lang: 'en'
+          }
+        })
+      });
     });
-    expectFetchCallWith(endpoint, {
-      body: JSON.stringify({
-        q: 'shirt',
-        filter: ['long sleeve', 'dotted', 'white'],
-        rows: 12,
-        extraParams: {
-          lang: 'en'
+
+    it('does not send empty values in the body', async () => {
+      await fetchHttpClient(endpoint, {
+        sendParamsInBody: true,
+        parameters: {
+          q: 'shirt',
+          a: undefined,
+          b: null,
+          c: '',
+          d: [],
+          extraParams: {
+            lang: 'en',
+            e: undefined,
+            f: null,
+            g: '',
+            h: [],
+            i: {}
+          }
         }
-      })
+      });
+      expectFetchCallWith(endpoint, {
+        body: JSON.stringify({
+          q: 'shirt',
+          extraParams: {
+            lang: 'en'
+          }
+        })
+      });
     });
   });
 });

@@ -3,6 +3,70 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.174](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.173...@empathyco/x-components@3.0.0-alpha.174) (2022-09-19)
+
+### Features
+
+- **design-system:** generate old design system tokens with tailwind values (#675)
+  ([7aa42e4](https://github.com/empathyco/x/commit/7aa42e4e26ec34fea942bbf7f0c7f10a97a94237)),
+  closes [EX-6790](https://searchbroker.atlassian.net/browse/EX-6790)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.173](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.172...@empathyco/x-components@3.0.0-alpha.173) (2022-09-16)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.172](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.171...@empathyco/x-components@3.0.0-alpha.172) (2022-09-13)
+
+### Features
+
+- **next-queries:** add `concatWhenNoMoreItems` prop (#705)
+  ([ac73fb7](https://github.com/empathyco/x/commit/ac73fb7d2e66c3cb1aab0b64586d9e86495436de)),
+  closes [EX-6841](https://searchbroker.atlassian.net/browse/EX-6841)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.171](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.170...@empathyco/x-components@3.0.0-alpha.171) (2022-09-13)
+
+### Features
+
+- add `uiLang` parameter (#714)
+  ([f4108d4](https://github.com/empathyco/x/commit/f4108d4a76582dac7b1f8cd240e91f226e7b1ad5)),
+  closes [EX-6855](https://searchbroker.atlassian.net/browse/EX-6855)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.170](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.169...@empathyco/x-components@3.0.0-alpha.170) (2022-09-09)
+
+### Features
+
+- **components:** add disable animation mixin (#703)
+  ([ea344f9](https://github.com/empathyco/x/commit/ea344f9d5e7b36da6aabdd4fe5d2a1ad05dbcfc8)),
+  closes [EX-6838](https://searchbroker.atlassian.net/browse/EX-6838)
+- disable `@typescript-eslint/no-extra-parens` rule (#715)
+  ([3718017](https://github.com/empathyco/x/commit/3718017c5528156f931bc8b1f2d208cdb50781ed)),
+  closes [EX-6996](https://searchbroker.atlassian.net/browse/EX-6996)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.169](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.168...@empathyco/x-components@3.0.0-alpha.169) (2022-09-08)
 
 ### Features
