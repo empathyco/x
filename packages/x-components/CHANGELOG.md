@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.175](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.174...@empathyco/x-components@3.0.0-alpha.175) (2022-09-20)
+
+### Features
+
+- **facets:** remove filters on new query (#717)
+  ([e452ece](https://github.com/empathyco/x/commit/e452ecebb194b2fa248402405e26ed1044c1d849)),
+  closes [EX-6196](https://searchbroker.atlassian.net/browse/EX-6196)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.174](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.173...@empathyco/x-components@3.0.0-alpha.174) (2022-09-19)
 
 ### Features
