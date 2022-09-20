@@ -71,6 +71,12 @@ export interface FacetsService {
    */
   select(filter: Filter | Filter[]): void;
   /**
+   * Sets the query.
+   *
+   * @param query - The query searched.
+   */
+  setQuery(query: string): void;
+  /**
    * Selects a deselected filter, and deselects a selected filter, adding them to the store
    * in both cases.
    *

@@ -2,7 +2,7 @@ import { Facet } from '@empathyco/x-types';
 import { UrlParams } from '../../types/url-params';
 import { createRawFilters } from '../../utils/filters';
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
-import { mapWire } from '../../wiring/wires.operators';
+import { filter, mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
 import { DefaultFacetsService } from './service/facets.service';
 
@@ -61,6 +61,16 @@ const clearFiltersWire = wireFacetsService('clearFilters');
 const clearAllFiltersWire = wireFacetsServiceWithoutPayload('clearFilters');
 
 /**
+ * Deselects all selected filters only when oldValue is not empty.
+ *
+ * @public
+ */
+const clearAllFiltersOnSecondQuery = filter(
+  clearAllFiltersWire,
+  ({ metadata }) => !!metadata.oldValue
+);
+
+/**
  * Selects the filter passed by payload.
  *
  * @public
@@ -91,6 +101,13 @@ const updatePreselectedFilters = wireFacetsService('updatePreselectedFilters');
 const selectPreselectedFilterWire = wireFacetsService('selectPreselectedFilters');
 
 /**
+ * Sets the facets state `query`.
+ *
+ * @public
+ */
+const setQuery = wireFacetsService('setQuery');
+
+/**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
  *
  * @internal
@@ -110,6 +127,12 @@ export const facetsWiring = createWiring({
   FacetsGroupProvided: {
     setFacetsGroupWire
   },
+  UserAcceptedAQuery: {
+    setQuery
+  },
+  FacetsQueryChanged: {
+    clearAllFiltersOnSecondQuery
+  },
   UserChangedExtraParams: {
     clearAllFiltersWire
   },
@@ -126,7 +149,8 @@ export const facetsWiring = createWiring({
     clearFiltersWire
   },
   UserClearedQuery: {
-    clearAllFiltersWire
+    clearAllFiltersWire,
+    setQuery
   },
   UserClickedOpenX: {
     selectPreselectedFilterWire

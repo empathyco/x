@@ -5,7 +5,6 @@ let resultsCount = 0;
 let resultsList: string[] = [];
 const compoundResultsList: string[] = [];
 let startQuery = 0;
-let startSecondQuery = 0;
 let interval = 0;
 
 // Scenario 1
@@ -151,19 +150,13 @@ And('related tags are displayed after instantDebounceInMs is {boolean}', (instan
 });
 
 // Scenario 4
-When('{string} is added to the search', (secondQuery: string) => {
-  cy.typeQuery(` ${secondQuery}`).then(() => {
-    startSecondQuery = Date.now();
-  });
-});
-
 Then('new related results are not displayed before {int}', (instantDebounceInMs: number) => {
   cy.getByDataTest('search-result')
     .should($results => {
       expect($results).to.have.length(resultsCount);
     })
     .then(() => {
-      interval = startSecondQuery + instantDebounceInMs - Date.now();
+      interval = instantDebounceInMs - Date.now();
       expect(instantDebounceInMs).to.be.greaterThan(interval);
     });
 });
@@ -180,7 +173,7 @@ And(
           compoundResultsList.push($resultTitle.text());
         })
         .then(() => {
-          interval = Date.now() - startSecondQuery;
+          interval = Date.now();
           expect(interval).to.be.greaterThan(instantDebounceInMs);
           resultsCount = resultsList.length;
         });
