@@ -47,6 +47,16 @@ interface CustomCommands {
    */
   typeQuery(query: string): Cypress.Chainable<JQuery>;
   /**
+   * Replaces the query in the search input.
+   *
+   * @example
+   * cy.replaceQuery('lego')
+   *
+   * @param query - The query to type in the search input.
+   * @returns A Chainable object.
+   */
+  replaceQuery(query: string): Cypress.Chainable<JQuery>;
+  /**
    * Focus into the search input.
    *
    * @example
@@ -151,6 +161,7 @@ const customCommands: CustomCommands = {
     });
   },
   typeQuery: query => cy.getByDataTest('search-input').type(query),
+  replaceQuery: query => cy.getByDataTest('search-input').type(`{selectAll}${query}`),
   focusSearchInput: () => cy.getByDataTest('search-input').click(),
   clearSearchInput: () => cy.getByDataTest('clear-search-input').click(),
   getFilterWithLabel(label) {

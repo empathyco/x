@@ -149,6 +149,8 @@ export interface XComponentAliasAPI {
  * @public
  */
 export interface XComponentAliasQueryAPI {
+  /** The {@link FacetsXModule} query. */
+  readonly facets: string;
   /** The {@link SearchBoxXModule} query. */
   readonly searchBox: string;
   /** The {@link NextQueriesXModule} query. */

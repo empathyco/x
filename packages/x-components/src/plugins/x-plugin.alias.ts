@@ -17,6 +17,7 @@ import { getGetterPath } from './x-plugin.utils';
  */
 export function getAliasAPI(component: Vue): XComponentAliasAPI {
   const queryModules = [
+    'facets',
     'searchBox',
     'nextQueries',
     'querySuggestions',

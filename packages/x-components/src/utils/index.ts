@@ -7,6 +7,7 @@ export * from './filters';
 export * from './function';
 export * from './get-url-parameters';
 export * from './html';
+export * from './is-new-query';
 export * from './normalize';
 export * from './number';
 export * from './origin';
