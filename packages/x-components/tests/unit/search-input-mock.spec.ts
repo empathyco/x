@@ -1,9 +1,8 @@
-import 'reflect-metadata';
 import { mount } from '@cypress/vue';
 import Vue from 'vue';
 import { XPlugin } from '../../src/plugins/x-plugin';
 import { BaseXBus } from '../../src/plugins/x-bus';
-import { mockedAdapter } from '../../src/adapter/mocked-adapter';
+import { e2eAdapter } from '../../src/adapter/e2e-adapter';
 import SearchInput from '../../src/x-modules/search-box/components/search-input.vue';
 import { searchBoxXModule } from '../../src/x-modules/search-box';
 
@@ -26,10 +25,7 @@ function mountSearchInput(): MountSearchInputAPI {
     {
       vue: Vue.extend({}),
       plugins: [
-        [
-          new XPlugin(new BaseXBus()),
-          { adapter: mockedAdapter, initialXModules: [searchBoxXModule] }
-        ]
+        [new XPlugin(new BaseXBus()), { adapter: e2eAdapter, initialXModules: [searchBoxXModule] }]
       ]
     }
   );

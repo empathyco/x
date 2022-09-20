@@ -248,7 +248,6 @@
         event.preventDefault();
       }
     }
-
   }
 </script>
 
