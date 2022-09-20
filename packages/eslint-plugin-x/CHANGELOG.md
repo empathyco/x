@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.12...@empathyco/eslint-plugin-x@2.0.0-alpha.13) (2022-09-20)
+
+### Features
+
+- Improve tailwindcss types. (#725)
+  ([14dec97](https://github.com/empathyco/x/commit/14dec974174cd18e63cb5f4e9a690a9989de44bc)),
+  closes [EX-6790](https://searchbroker.atlassian.net/browse/EX-6790)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.11...@empathyco/eslint-plugin-x@2.0.0-alpha.12) (2022-09-09)
 
 ### Features
