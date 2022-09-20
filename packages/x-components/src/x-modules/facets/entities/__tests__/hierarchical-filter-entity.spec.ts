@@ -31,15 +31,18 @@ describe('testing HierarchicalFilterEntity', () => {
          Long Sleeve
      */
     const categoryFacet = createHierarchicalFacetStub('category', createChild => [
-      ...createChild('men', false, createChild => [
-        ...createChild('shirts', false, createChild => createChild('long sleeve', false)),
-        ...createChild('jeans', false)
+      createChild('men', false, createChild => [
+        createChild('shirts', false, createChild => [createChild('long sleeve', false)]),
+        createChild('jeans', false)
       ]),
-      ...createChild('women', false)
+      createChild('women', false)
     ]);
     const store = prepareFacetsStore(categoryFacet.filters);
-    const [categoryMen, categoryShirts, categoryLongSleeve, categoryJeans, categoryWomen] =
-      categoryFacet.filters;
+    const categoryMen = categoryFacet.filters[0];
+    const categoryWomen = categoryFacet.filters[1];
+    const categoryShirts = categoryMen.children![0];
+    const categoryLongSleeve = categoryShirts.children![0];
+    const categoryJeans = categoryMen.children![1];
     const categoryEntity = new HierarchicalFilterEntity(store);
 
     // Select a nested filter. Parents should be selected

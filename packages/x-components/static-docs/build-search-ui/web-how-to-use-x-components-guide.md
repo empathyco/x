@@ -111,7 +111,7 @@ The `search-box` module contains these components:
 ::: interact
 
 Learn more about the
-[Search Box UI](/explore-empathy-platform/experience-search-&-discovery/search-box.md)
+[Search Box UI](/explore-empathy-platform/experience-search-and-discovery/search-box.md)
 
 :::
 
@@ -161,4 +161,41 @@ Next, you want to configure the behavior of the `SearchInput` component. Here yo
   :autocompleteKeyboardKeys="['ArrowDown']"
   :autocompleteSuggestionsEvent="'NextQueriesChanged'"
 />
+```
+
+**3. Listening to X Events**
+
+For advanced use cases you might need to subscribe to certain `XEvent`. The recommended way to do so
+is by using the `GlobalXBus` component.
+
+In this example you are subscribing to the `UserAcceptedAQuery` event. This event is emitted both by
+the `SearchInput` component and by the `QuerySuggestions` one.
+
+```vue live
+<template>
+  <div>
+    <GlobalXBus @UserAcceptedAQuery="logUserAcceptedAQuery" />
+    <SearchInput />
+    <QuerySuggestions />
+  </div>
+</template>
+<script>
+  import { GlobalXBus } from '@empathyco/x-components';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
+
+  export default {
+    name: 'Demo',
+    components: {
+      GlobalXBus,
+      SearchInput,
+      QuerySuggestions
+    },
+    methods: {
+      logUserAcceptedAQuery(query, metadata) {
+        console.log('UserAcceptedAQuery', query, metadata);
+      }
+    }
+  };
+</script>
 ```

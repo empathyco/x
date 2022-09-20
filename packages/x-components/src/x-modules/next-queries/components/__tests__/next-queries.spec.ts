@@ -3,7 +3,7 @@ import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { NextQuery } from '@empathyco/x-types';
-import { getNextQueriesStub } from '../../../../__stubs__';
+import { createNextQueryStub, getNextQueriesStub } from '../../../../__stubs__';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
@@ -16,7 +16,7 @@ import { resetXNextQueriesStateWith } from './utils';
 describe('testing next queries component', () => {
   function renderNextQueries({
     nextQueries = getNextQueriesStub(),
-    template = '<NextQueries />'
+    template = '<NextQueries :suggestions="customSuggestions"/>'
   }: RenderNExtQueriesOptions = {}): RenderNextQueriesAPI {
     const localVue = createLocalVue();
     localVue.use(Vuex);
@@ -29,7 +29,7 @@ describe('testing next queries component', () => {
 
     const wrapperTemplate = mount(
       {
-        props: ['nextQueries', 'highlightCurated'],
+        props: ['nextQueries', 'highlightCurated', 'customSuggestions'],
         components: {
           NextQueries,
           NextQuery: NextQueryComponent
@@ -39,7 +39,7 @@ describe('testing next queries component', () => {
       {
         localVue,
         store,
-        propsData: { nextQueries }
+        propsData: { nextQueries, customSuggestions: null }
       }
     );
     const wrapper = wrapperTemplate.findComponent(NextQueries);
@@ -53,6 +53,9 @@ describe('testing next queries component', () => {
       findTestDataById,
       getNextQueryItems() {
         return findTestDataById('next-query-item');
+      },
+      setCustomSuggestions(suggestions: NextQuery[]) {
+        return wrapperTemplate.setProps({ customSuggestions: suggestions });
       }
     };
   }
@@ -192,13 +195,37 @@ describe('testing next queries component', () => {
     await wrapper.setProps({ maxItemsToRender: 5 });
     expect(findTestDataById('next-query')).toHaveLength(nextQueries.length);
   });
+
+  it('renders the `suggestions` passed by props instead the ones from the state', async () => {
+    const { findTestDataById, setCustomSuggestions } = renderNextQueries({
+      nextQueries: [createNextQueryStub('Lettuce'), createNextQueryStub('Tomato')]
+    });
+
+    const myNextQueries = [
+      createNextQueryStub('Bread'),
+      createNextQueryStub('Meat'),
+      createNextQueryStub('Cheese')
+    ];
+
+    expect(findTestDataById('next-query')).toHaveLength(2);
+    expect(findTestDataById('next-query').at(0).text()).toBe('Lettuce');
+    expect(findTestDataById('next-query').at(1).text()).toBe('Tomato');
+
+    await setCustomSuggestions(myNextQueries);
+    expect(findTestDataById('next-query')).toHaveLength(3);
+    expect(findTestDataById('next-query').at(0).text()).toBe('Bread');
+    expect(findTestDataById('next-query').at(1).text()).toBe('Meat');
+    expect(findTestDataById('next-query').at(2).text()).toBe('Cheese');
+  });
 });
 
 interface RenderNExtQueriesOptions {
   /** The initial next queries to render. */
   nextQueries?: NextQuery[];
-  /** The template to render. Receives the `nextQueries` via prop, and has registered the
-   * {@link NextQueries} component. */
+  /**
+   * The template to render. Receives the `nextQueries` via prop, and has registered the
+   * {@link NextQueries} component.
+   */
   template?: string;
 }
 
@@ -207,9 +234,13 @@ interface RenderNextQueriesAPI {
   wrapper: Wrapper<Vue>;
   /** The initial list of next queries that are going to be rendered. */
   nextQueries: NextQuery[];
-  /** Retrieves the wrapper for the items of the list rendered by the {@link NextQueries}
-   * component. */
+  /**
+   * Retrieves the wrapper for the items of the list rendered by the {@link NextQueries}
+   * component.
+   */
   getNextQueryItems: () => WrapperArray<Vue>;
   /** Find test data in the wrapper for the {@link NextQueries} component. */
   findTestDataById: (testDataId: string) => WrapperArray<Vue>;
+  /** Set the custom suggestions prop to the template wrapper. */
+  setCustomSuggestions: (suggestions: NextQuery[]) => Promise<void> | void;
 }

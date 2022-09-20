@@ -54,11 +54,11 @@ Automatic initialization is the easiest way to integrate the Interface&nbsp;X pr
 1. **Configure the JavaScript snippet** to define either an initialization object or a function.
 2. **Load and initialize** the Interface&nbsp;X script.
 
-#### Configuring the snippet  
+#### Configuring the snippet
 
-First, add the JavaScript snippet configuration to define multiple initialization options, i.e. the API to
-use, the language or currency to display, or even the tagging parameters to collect search-related
-data to generate conversational search features and analytics.
+First, add the JavaScript snippet configuration to define multiple initialization options, i.e. the
+API to use, the language or currency to display, or even the tagging parameters to collect
+search-related data to generate conversational search features and analytics.
 
 Depending on whether you are retrieving **static or dynamic configuration values** in your
 [snippet configuration](#snippet-configuration), you define an **object** or a **function** to
@@ -69,7 +69,6 @@ initialize Interface&nbsp;X:
 ```js
 window.initX = {
   instance: 'my-store',
-  env: 'live',
   scope: 'desktop',
   lang: 'en',
   currency: 'EUR',
@@ -83,7 +82,7 @@ window.initX = {
 window.initX = function () {
   return {
     instance: 'my-store',
-    env: location.href.includes('.pre.') ? 'staging' : 'live',
+    env: location.href.includes('.pre.') ? 'staging' : undefined,
     scope: 'web',
     lang: localStorage.get('lang'),
     currency: localStorage.get('currency'),
@@ -105,7 +104,9 @@ more information on the supported parameters, check out
 
 Once the snippet configuration is ready, add the Interface&nbsp;X script to your webpage. The script
 is hosted in a URL with the following syntax:
-`https://x.<environment?>.empathy.co/<instance>/app.js`.
+
+- **Production**: `https://x.empathy.co/{INSTANCE}/app.js`
+- **Staging**: `https://x.staging.empathy.co/{INSTANCE}/app.js`
 
 For example, to load the production version script for the instance _my-store_, you need to add the
 following scripts to your HTML:
@@ -114,14 +115,13 @@ following scripts to your HTML:
 <script>
   window.initX = {
     instance: 'my-store',
-    env: 'live',
     scope: 'desktop',
     lang: 'en',
     currency: 'EUR',
     consent: false
   };
 </script>
-<script src="https://x.empathy.co/my-store/app.js"></script>
+<script src="https://x.empathy.co/my-store/app.js" type="module"></script>
 ```
 
 In the case you want to load the script for the staging environment, you just modify the script
@@ -131,14 +131,14 @@ attribute `src` so that it points to the staging environment as follows:
 <script>
   window.initX = {
     instance: 'my-store',
-    env: 'live', // Note that here you are using a production API with the staging version of Interface X
+    env: 'staging', // By removing this param you would be using a production API with the staging version of Interface X
     scope: 'desktop',
     lang: 'en',
     currency: 'EUR',
     consent: false
   };
 </script>
-<script src="https://x.staging.empathy.co/my-store/app.js"></script>
+<script src="https://x.staging.empathy.co/my-store/app.js" type="module"></script>
 ```
 
 Thus, when the Interface&nbsp;X JavaScript file is loaded, it retrieves the configuration from the
@@ -150,26 +150,28 @@ On-demand initialization allows you to control when Interface&nbsp;X is loaded.
 
 **Steps to initialize the project on demand**
 
-1. **Load** the Interface&nbsp;X script. 
+1. **Load** the Interface&nbsp;X script.
 2. **Initialize** Interface&nbsp;X.
 
 #### Loading the script
 
 Add the Interface&nbsp;X script hosted in a URL with the following syntax:
-`https://x.<environment?>.empathy.co/<instance>/app.js`.
+
+- **Production**: `https://x.empathy.co/{INSTANCE}/app.js`
+- **Staging**: `https://x.staging.empathy.co/{INSTANCE}/app.js`
 
 For example, to load the production version script for the instance _my-store_, you need to add the
 following script to your HTML:
 
 ```html
-<script src="https://x.empathy.co/my-store/app.js"></script>
+<script src="https://x.empathy.co/my-store/app.js" type="module"></script>
 ```
 
 In the case you want to load the script for the staging environment, you just modify the script
 attribute `src` so that it points to the staging environment as follows:
 
 ```html
-<script src="https://x.staging.empathy.co/my-store/app.js"></script>
+<script src="https://x.staging.empathy.co/my-store/app.js" type="module"></script>
 ```
 
 #### Initializing Interface&nbsp;X
@@ -180,11 +182,10 @@ initialization function** created automatically in the
 object to provide the initialization options:
 
 ```html
-<script src="https://x.empathy.co/my-store/app.js"></script>
+<script src="https://x.empathy.co/my-store/app.js" type="module"></script>
 <script>
-  window.X.init({
+  window.InterfaceX.init({
     instance: 'my-store',
-    env: 'live',
     scope: 'desktop',
     lang: 'en',
     currency: 'EUR',
@@ -219,15 +220,15 @@ The
 [snippet configuration](https://github.com/empathyco/x-archetype/blob/main/public/snippet-script.js)
 allows you to configure multiple initialization options for the Interface&nbsp;X project such as
 language, currency, and shopper's personal data consent. The snippet configuration supports the
-following configuration options:
+following configuration parameters:
 
-| Name                                                   | Type                                                                                 | Description                                                                                                                                                                                                                                                                                      |
+| Parameter                                              | Type                                                                                 | Description                                                                                                                                                                                                                                                                                      |
 | ------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `instance`                                             | `string`                                                                             | _Required._ ID of the API client instance. It's provided by Empathy.                                                                                                                                                                                                                             |
-| `env`                                                  | `'live'` &#124; `'staging'`                                                          | _Optional_. API environment to use. You can use the Interface&nbsp;X production version with the staging API, and vice versa.                                                                                                                                                                    |
+| `env`                                                  | `staging`                                                                            | _Optional_. API environment to use. Note that if you **do not** declare this parameter, you'll use the production API. Instead, use `env: 'staging'` to point to the staging API.                                                                                                                |
 | `scope`                                                | `string`                                                                             | _Optional_. Context where the search interface is executed, i.e. `mobile`, `mobile-app`, `tablet`, `desktop`.                                                                                                                                                                                    |
-| `lang`                                                 | `string`                                                                             | _Required._ Language to use. By default, it's used for both the frontend and the API requests.                                                                                                                                                                                                   |
-| `searchLang`                                           | `string`                                                                             | _Optional_. Language to use for the API requests **only**.                                                                                                                                                                                                                                       |
+| `lang`                                                 | `string`                                                                             | _Required._ Language to use. By default, it's used for both the interface messages and the API requests.                                                                                                                                                                                         |
+| `uiLang`                                               | `string`                                                                             | _Optional_. Language to use for the interface messages **only**.                                                                                                                                                                                                                                 |
 | `consent`                                              | `boolean`                                                                            | _Required._ Determines whether the shopper has accepted the use of cookies so that the `sessionId` is sent to the Empathy's Search and Tagging APIs or not.                                                                                                                                      |
 | `documentDirection`                                    | `'ltr'` &#124; `'rtl'`                                                               | _Optional_. Writing direction script that the X Components should, i.e. left-to-right or right-to-left.                                                                                                                                                                                          |
 | `currency`                                             | `string`                                                                             | _Required._ Currency identifier to configure how prices are displayed.                                                                                                                                                                                                                           |
@@ -260,11 +261,10 @@ For example, you subscribe to the `UserClickedResultAddToCart` event to add a pr
 shopping cart:
 
 ```html
-<script src="https://x.empathy.co/my-store/app.js"></script>
+<script src="https://x.empathy.co/my-store/app.js" type="module"></script>
 <script>
-  window.X.init({
+  window.InterfaceX.init({
     instance: 'my-store',
-    env: 'live',
     scope: 'desktop',
     lang: 'en',
     currency: 'EUR',
@@ -297,7 +297,8 @@ etc.). See the corresponding `events.types.ts` file for each module in the
 The
 [X&nbsp;API](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-installer/api/base-api.ts)
 object allows your commerce store to communicate with Interface&nbsp;X. It supports multiple
-functions to integrate Interface&nbsp;X in your website.
+functions to integrate Interface&nbsp;X in your website. You can access these functions inside the
+`window.InterfaceX` object.
 
 | Function           | Parameters                                                                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | ------------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

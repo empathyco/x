@@ -1,4 +1,4 @@
-import { PopularSearchesRequest, Suggestion } from '@empathyco/x-types';
+import { Suggestion, PopularSearchesRequest } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { PopularSearchesActionContext } from '../types';

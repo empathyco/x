@@ -89,12 +89,11 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
     filter: HierarchicalFilter,
     ids: Array<Filter['id']> = [filter.id]
   ): Array<Filter['id']> {
-    return filter?.children
-      ? filter?.children.flatMap(descendantId =>
-          this.getAncestorsIds(
-            this.store.state.x.facets.filters[descendantId] as HierarchicalFilter,
-            [descendantId, ...ids]
-          )
+    return filter?.children?.length
+      ? filter?.children.reduce(
+          (descendantIdsList, descendant) =>
+            this.getDescendantsIds(descendant, [descendant.id, ...descendantIdsList]),
+          ids
         )
       : ids;
   }

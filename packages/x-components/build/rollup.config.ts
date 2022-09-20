@@ -9,7 +9,6 @@ import styles from 'rollup-plugin-styles';
 import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
 import packageJSON from '../package.json';
-import postcssConfig from '../.postcssrc';
 import { normalizePath } from './build.utils';
 import { apiDocumentation } from './docgen/documentation.rollup-plugin';
 import {
@@ -22,7 +21,9 @@ import { generateEntryFiles } from './rollup-plugins/x-components.rollup-plugin'
 const rootDir = path.resolve(__dirname, '../');
 const buildPath = path.join(rootDir, 'dist');
 
-const dependencies = new Set(Object.keys(packageJSON.dependencies));
+const dependencies = new Set(
+  Object.keys(packageJSON.dependencies).concat(Object.keys(packageJSON.peerDependencies))
+);
 const jsOutputDirectory = path.join(buildPath, 'js');
 const typesOutputDirectory = path.join(buildPath, 'types');
 const cssOutputDirectory = path.join(buildPath, 'design-system');
@@ -79,26 +80,33 @@ export const rollupConfig = createRollupOptions({
         ]
       }
     }),
-    styles({
-      mode: [
-        'inject',
-        (varname: string, id: string) =>
-          // eslint-disable-next-line max-len
-          `import {createInjector} from 'vue-runtime-helpers';const injector=createInjector({});injector('${normalizePath(
-            id
-          )}',{source:${varname}})`
-      ]
-    }),
     vue({
-      css: true,
+      css: false,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore Undocumented option to disable vue sourcemap generation because it breaks if
       // lang is set to ts:
       // https://github.com/vuejs/rollup-plugin-vue/issues/272#issuecomment-491721842
       needMap: false,
       style: {
-        postcssPlugins: postcssConfig.plugins
+        postcssCleanOptions: { disabled: true }
       }
+    }),
+    styles({
+      mode: [
+        'inject',
+        (varname: string, id: string) =>
+          `import { createInjector, createInjectorSSR } from 'vue-runtime-helpers';
+           const isBrowser = /*#__PURE__*/ (function () {
+             return (
+                Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) !==
+                '[object process]'
+             );
+           })();
+           const useBrowserInjector =
+             (typeof STRIP_SSR_INJECTOR !== 'undefined' && STRIP_SSR_INJECTOR) || isBrowser;
+           const injector = useBrowserInjector ? createInjector({}) : createInjectorSSR({});
+           injector('${normalizePath(id)}',{source:${varname}});`
+      ]
     }),
     generateEntryFiles({
       buildPath,

@@ -88,4 +88,9 @@ export interface FacetsXEvents {
    * Payload: array the facets ids.
    */
   UserClickedClearAllFilters: Array<Facet['id']> | undefined;
+  /**
+   * The query used in the module has changed.
+   * Payload: The facets query.
+   */
+  FacetsQueryChanged: string;
 }

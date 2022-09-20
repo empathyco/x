@@ -18,8 +18,12 @@
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+  import { Component, Prop, Watch } from 'vue-property-decorator';
+  import {
+    HAS_MORE_ITEMS_KEY,
+    LIST_ITEMS_KEY,
+    QUERY_KEY
+  } from '../../../components/decorators/injection.consts';
   import { XProvide } from '../../../components/decorators/injection.decorators';
   import { State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
@@ -27,6 +31,7 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { InfiniteScroll } from '../../../directives/infinite-scroll/infinite-scroll.types';
   import { searchXModule } from '../x-module';
+  import { RequestStatus } from '../../../store/utils/status-store.utils';
 
   /**
    * It renders a {@link ItemsList} list with the results from {@link SearchState.results} by
@@ -61,12 +66,61 @@
     public items!: Result[];
 
     /**
+     * It provides the search query.
+     * This query is updated only when the search request has succeeded.
+     */
+    @XProvide(QUERY_KEY)
+    public providedQuery = '';
+
+    /**
+     * Indicates if there are more available results that have not been injected.
+     *
+     * @returns Boolean.
+     * @public
+     */
+    @XProvide(HAS_MORE_ITEMS_KEY)
+    public get hasMoreItems(): boolean {
+      return this.items.length < this.totalResults;
+    }
+
+    /**
+     * The total number of results, taken from the state.
+     */
+    @State('search', 'totalResults')
+    public totalResults!: number;
+
+    /**
+     * The status of the search request, taken from the state.
+     */
+    @State('search', 'status')
+    public searchStatus!: RequestStatus;
+
+    /**
+     * The query of the search request, taken from the state.
+     */
+    @State('search', 'query')
+    public searchQuery!: string;
+
+    /**
      * Animation component that will be used to animate the results.
      *
      * @public
      */
     @Prop({ default: 'ul' })
     protected animation!: Vue | string;
+
+    /**
+     * Updates the query to be provided to the child components
+     * when the search request has succeeded.
+     *
+     * @param status - The status of the search request.
+     */
+    @Watch('searchStatus')
+    updateQuery(status: RequestStatus): void {
+      if (status === 'success') {
+        this.providedQuery = this.searchQuery;
+      }
+    }
 
     /**
      * It emits an {@link SearchXEvents.UserReachedResultsListEnd} event.

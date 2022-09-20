@@ -6,6 +6,7 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import { XPlugin } from '../../../../../plugins/x-plugin';
 import { XEventsTypes } from '../../../../../wiring/events.types';
+import { flatHierarchicalFilters } from '../../../utils';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import HierarchicalFilter from '../hierarchical-filter.vue';
@@ -16,13 +17,13 @@ function renderHierarchicalFilter({
 }: HierarchicalFilterOptions = {}): HierarchicalFilterAPI {
   const facet = createHierarchicalFacetStub('category', createFilter => [
     // Partially selected
-    ...createFilter('root', false, createFilter => [
+    createFilter('root', false, createFilter => [
       // Partially selected
-      ...createFilter('child-0', true, createFilter => [
-        ...createFilter('grand-child-0', false), // Unselected
-        ...createFilter('grand-child-1', true) // Selected
+      createFilter('child-0', true, createFilter => [
+        createFilter('grand-child-0', false), // Unselected
+        createFilter('grand-child-1', true) // Selected
       ]),
-      ...createFilter('child-1', false) // Unselected
+      createFilter('child-1', false) // Unselected
     ])
   ]);
 
@@ -57,8 +58,11 @@ function renderHierarchicalFilter({
   const getFiltersWrappers = (): WrapperArray<Vue> =>
     hierarchicalFilterWrapper.findAll(getDataTestSelector('filter'));
 
-  async function setFilter(filter: HierarchicalFilterModel): Promise<void> {
-    store.commit('x/facets/setFilter', filter);
+  async function mutateFilter(
+    filter: HierarchicalFilterModel,
+    newFilterState: Partial<HierarchicalFilterModel>
+  ): Promise<void> {
+    store.commit('x/facets/mutateFilter', { filter, newFilterState });
     await localVue.nextTick();
   }
 
@@ -67,7 +71,7 @@ function renderHierarchicalFilter({
   }
 
   function getFilters(): HierarchicalFilterModel[] {
-    return store.getters['x/facets/facets'][facet.id].filters;
+    return flatHierarchicalFilters(store.getters['x/facets/facets'][facet.id].filters);
   }
 
   function getRootFilter(): HierarchicalFilterModel {
@@ -88,7 +92,7 @@ function renderHierarchicalFilter({
     getRootFilter,
     getFilters,
     getPartiallySelectedFilters,
-    setFilter,
+    mutateFilter,
     clickFilter
   };
 }
@@ -209,7 +213,7 @@ describe('testing `HierarchicalFilter` component', () => {
   });
 
   it('exposes proper css classes and attributes in the default slot', async () => {
-    const { getFilterWrapper, setFilter, getRootFilter } = renderHierarchicalFilter();
+    const { getFilterWrapper, mutateFilter, getRootFilter } = renderHierarchicalFilter();
 
     expect(getFilterWrapper().attributes()).not.toHaveProperty('disabled');
     expect(getFilterWrapper().classes()).toHaveLength(4);
@@ -223,7 +227,7 @@ describe('testing `HierarchicalFilter` component', () => {
     );
 
     const filter = getRootFilter();
-    await setFilter({ ...filter, selected: true });
+    await mutateFilter(filter, { selected: true });
 
     expect(getFilterWrapper().classes()).toHaveLength(6);
     expect(getFilterWrapper().classes()).toEqual(
@@ -237,7 +241,7 @@ describe('testing `HierarchicalFilter` component', () => {
       ])
     );
 
-    await setFilter({ ...filter, totalResults: 0, selected: false });
+    await mutateFilter(filter, { totalResults: 0, selected: false });
 
     expect(getFilterWrapper().attributes()).toHaveProperty('disabled');
     expect(getFilterWrapper().classes()).toHaveLength(5);
@@ -253,14 +257,14 @@ describe('testing `HierarchicalFilter` component', () => {
   });
 
   it('adds selected classes to the rendered element when the filter is selected', async () => {
-    const { getFilterWrapper, setFilter, getRootFilter } = renderHierarchicalFilter();
+    const { getFilterWrapper, mutateFilter, getRootFilter } = renderHierarchicalFilter();
 
     expect(getFilterWrapper().classes()).not.toEqual(
       expect.arrayContaining(['x-filter--is-selected', 'x-hierarchical-filter--is-selected'])
     );
 
     const filter = getRootFilter();
-    await setFilter({ ...filter, selected: true });
+    await mutateFilter(filter, { selected: true });
 
     expect(getFilterWrapper().classes()).toEqual(
       expect.arrayContaining(['x-filter--is-selected', 'x-hierarchical-filter--is-selected'])
@@ -285,10 +289,10 @@ describe('testing `HierarchicalFilter` component', () => {
     });
 
     it('renders children filter only when available', async () => {
-      const { hierarchicalFilterWrapper, getFiltersWrappers, setFilter, getRootFilter } =
+      const { hierarchicalFilterWrapper, getFiltersWrappers, mutateFilter, getRootFilter } =
         renderHierarchicalFilter();
       const filter = getRootFilter();
-      await setFilter({ ...filter, children: [] });
+      await mutateFilter(filter, { children: [] });
       const childrenFiltersWrapper = hierarchicalFilterWrapper.find(
         getDataTestSelector('children-filters')
       );
@@ -371,7 +375,7 @@ describe('testing `HierarchicalFilter` component', () => {
     });
 
     it('exposes proper css classes and attributes in the default slot to children', () => {
-      const { setFilter, getFiltersWrappers } = renderHierarchicalFilter({
+      const { mutateFilter, getFiltersWrappers } = renderHierarchicalFilter({
         template: `
            <HierarchicalFilter
              :filter="filter"
@@ -409,7 +413,7 @@ describe('testing `HierarchicalFilter` component', () => {
           ])
         );
 
-        await setFilter({ ...filter, selected: false, totalResults: 0, children: [] });
+        await mutateFilter(filter, { selected: false, totalResults: 0, children: [] });
 
         expect(filterWrapper.attributes()).toHaveProperty('disabled');
         expect(filterWrapper.classes()).toHaveLength(3);
@@ -462,7 +466,10 @@ interface HierarchicalFilterAPI {
    * @param filter - The filter to save in the store.
    * @returns A promise that resolves after re-rendering the component.
    */
-  setFilter: (filter: HierarchicalFilterModel) => Promise<void>;
+  mutateFilter: (
+    filter: HierarchicalFilterModel,
+    newFilterState: Partial<HierarchicalFilterModel>
+  ) => Promise<void>;
   /**
    * Returns all the filters of the hierarchical facet.
    *

@@ -8,6 +8,7 @@
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
     @beforeinput="preventSpecialKey"
+    v-on="$listeners"
     :maxlength="maxLength"
     :value="query"
     autocomplete="off"
@@ -333,6 +334,16 @@ In this example, a message has been added below the search input to illustrate t
 For example, if you select the search input box, the message “focus” appears. When you start to
 enter a search term, the message “typing” appears. If you press Enter after typing a search term,
 the message “enter” appears.
+
+<!-- prettier-ignore-start -->
+:::warning X Events are only emitted from the root X Component.
+At the moment, X Events are only emitted from the root X Component. This means that if you wrap
+the `SearchInput` with another component of another module like the `MainScroll`, you should add
+the listeners to the `MainScroll` instead of the `SearchInput`. If you need to subscribe to these
+events, it is recommended to use the [`GlobalXBus`](../common/x-components.global-x-bus.md)
+component instead.
+:::
+<!-- prettier-ignore-end -->
 
 _Type any term in the input field to try it out!_
 

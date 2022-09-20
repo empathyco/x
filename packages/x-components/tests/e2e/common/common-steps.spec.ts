@@ -1,7 +1,6 @@
 import { Given, Then, When, And } from 'cypress-cucumber-preprocessor/steps';
 import { PageableRequest } from '@empathyco/x-types';
 import '../global/global-definitions';
-import 'reflect-metadata';
 import { baseSnippetConfig } from '../../../src/views/base-config';
 
 let resultsList: string[] = [];
@@ -65,7 +64,11 @@ Given('a URL with a filter parameter {string}', (filter: string) => {
 });
 
 When('start button is clicked', () => {
-  cy.getByDataTest('open-modal').click();
+  cy.getByDataTest('open-main-modal').click();
+});
+
+When('close modal button is clicked', () => {
+  cy.getByDataTest('close-main-modal').click();
 });
 
 // Filters
@@ -171,6 +174,10 @@ Then('related results are displayed', () => {
     });
 });
 
+And('related results are cleared', () => {
+  cy.getByDataTest('result-item').should('not.exist');
+});
+
 Then('related results have changed', () => {
   cy.getByDataTest('search-result')
     .should('be.visible')
@@ -220,6 +227,10 @@ Then(
   }
 );
 
+When('{string} is added to the search', (secondQuery: string) => {
+  cy.typeQuery(` ${secondQuery}`);
+});
+
 // Sort
 When('sort option {string} is selected from the sort dropdown', (sortOption: string) => {
   cy.getByDataTest(`sort-dropdown-toggle`).click();
@@ -239,6 +250,17 @@ Then(
       .its('request.body')
       .then(JSON.parse)
       .should('have.property', key, value === 'default' ? '' : value);
+  }
+);
+
+Then(
+  'search request contains extra parameter {string} with value {string}',
+  (key: string, value: string) => {
+    cy.wait('@interceptedResults')
+      .its('request.body')
+      .then(JSON.parse)
+      .its('extraParams')
+      .should('have.property', key, value);
   }
 );
 

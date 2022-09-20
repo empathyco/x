@@ -38,6 +38,9 @@
         "
       >
         TOOLBAR
+        <BaseIdModalOpen modalId="extra-aside-modal" class="x-button--ghost">
+          <CartIcon class="x-icon--l" />
+        </BaseIdModalOpen>
       </div>
     </template>
     <template #predictive>
@@ -99,6 +102,11 @@
     <template #aside>
       <div class="x-background--neutral-100 x-list__item--expand x-padding--09">ASIDE</div>
     </template>
+    <template #extra-aside>
+      <BaseIdModal modal-id="extra-aside-modal" class="x-layout__aside">
+        <div class="x-background--neutral-100 x-list__item--expand x-padding--09">EXTRA ASIDE</div>
+      </BaseIdModal>
+    </template>
   </SingleColumnLayout>
 </template>
 
@@ -107,12 +115,16 @@
   import { Component } from 'vue-property-decorator';
   import { SingleColumnLayout } from '../../components';
   import FiltersIcon from '../../components/icons/filters.vue';
+  import CartIcon from '../../components/icons/cart.vue';
   import BaseIdModalOpen from '../../components/modals/base-id-modal-open.vue';
+  import BaseIdModal from '../../components/modals/base-id-modal.vue';
 
   @Component({
     components: {
       SingleColumnLayout,
+      BaseIdModal,
       BaseIdModalOpen,
+      CartIcon,
       FiltersIcon
     }
   })

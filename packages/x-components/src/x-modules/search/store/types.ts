@@ -1,6 +1,4 @@
 import {
-  SearchResponse,
-  SearchRequest,
   Banner,
   Facet,
   Filter,
@@ -10,7 +8,9 @@ import {
   RelatedTag,
   Result,
   Sort,
-  TaggingRequest
+  TaggingRequest,
+  SearchRequest,
+  SearchResponse
 } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
@@ -95,6 +95,12 @@ export interface SearchMutations extends StatusMutations, QueryMutations {
    * @param results - Results array.
    */
   appendResults(results: Result[]): void;
+  /**
+   * Updates a result with new fields.
+   *
+   * @param result - A result containing at least an id, and the properties to modify.
+   */
+  updateResult(result: Partial<Result> & Pick<Result, 'id'>): void;
   /**
    * Sets the banners of the module.
    *

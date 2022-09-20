@@ -66,6 +66,10 @@
         <span v-if="devMode" class="slot-helper">ASIDE</span>
       </slot>
     </BaseIdModal>
+
+    <slot name="extra-aside">
+      <span v-if="devMode" class="slot-helper">EXTRA ASIDE</span>
+    </slot>
   </div>
 </template>
 
@@ -168,28 +172,27 @@
       grid-row: footer;
     }
 
-    &__aside {
+    ::v-deep .x-layout__aside {
       grid-row: page;
       z-index: 3;
 
-      ::v-deep .x-modal__content {
+      .x-modal__content {
         width: 100%;
         height: 100%;
         margin-inline-start: var(--x-size-margin-left-layout-single-column, 0);
       }
     }
 
-    &__predictive,
-    &__floating,
-    &__aside,
-    .slot-helper {
+    &__predictive ::v-deep,
+    &__floating ::v-deep,
+    .slot-helper ::v-deep {
       pointer-events: none;
 
-      ::v-deep > * {
+      > * {
         pointer-events: all;
       }
 
-      ::v-deep .x-list {
+      > .x-list {
         pointer-events: none;
 
         > * {

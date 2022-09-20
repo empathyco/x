@@ -1,19 +1,5 @@
 .x-picture--fixed-ratio.x-picture {
-  // layout
-  position: relative;
-  height: 0;
-
   // size
-  padding-block-start: calc(var(--x-number-aspect-ratio-picture) * 100%);
-  padding-block-end: 0;
-  padding-inline-start: 0;
-  padding-inline-end: 0;
+  aspect-ratio: var(--x-number-aspect-ratio-picture);
   width: 100%;
-
-  .x-picture__image {
-    // layout
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
 }

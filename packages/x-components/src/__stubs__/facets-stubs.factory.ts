@@ -10,14 +10,13 @@ import {
   SimpleFacet,
   SimpleFilter
 } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
-import { arrayToObject } from '../utils';
 import {
   createEditableNumberRangeFilter,
   CreateHierarchicalFilter,
   createHierarchicalFilterFactory,
   createNumberRangeFilter,
-  createSimpleFilter
+  createSimpleFilter,
+  getHierarchicalFilterStub
 } from './filters-stubs.factory';
 
 /**
@@ -242,129 +241,80 @@ export function getHierarchicalFacetStub(): HierarchicalFacet {
     modelName: 'HierarchicalFacet',
     label: 'hierarchical_category',
     filters: [
-      {
+      getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
-        parentId: null,
         id: 'hierarchical_category:"rompecabezas"',
         label: 'Rompecabezas',
-        selected: false,
         totalResults: 1,
-        modelName: 'HierarchicalFilter',
         children: [
-          'hierarchical_category:"rompecabezas-faciles"',
-          'hierarchical_category:"rompecabezas-dificiles"'
+          getHierarchicalFilterStub({
+            facetId: 'hierarchical_category',
+            parentId: 'hierarchical_category:"rompecabezas"',
+            id: 'hierarchical_category:"rompecabezas-faciles"',
+            label: 'Rompecabezas fáciles'
+          }),
+          getHierarchicalFilterStub({
+            facetId: 'hierarchical_category',
+            parentId: 'hierarchical_category:"rompecabezas"',
+            id: 'hierarchical_category:"rompecabezas-dificiles"',
+            label: 'Rompecabezas difíciles'
+          })
         ]
-      },
-      {
+      }),
+      getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
-        parentId: 'hierarchical_category:"rompecabezas"',
-        id: 'hierarchical_category:"rompecabezas-faciles"',
-        label: 'Rompecabezas difíciles',
-        selected: false,
-        totalResults: 1,
-        modelName: 'HierarchicalFilter',
-        children: []
-      },
-      {
-        facetId: 'hierarchical_category',
-        parentId: 'hierarchical_category:"rompecabezas"',
-        id: 'hierarchical_category:"rompecabezas-dificiles"',
-        label: 'Rompecabezas fáciles',
-        selected: false,
-        totalResults: 1,
-        modelName: 'HierarchicalFilter',
-        children: []
-      },
-      {
-        facetId: 'hierarchical_category',
-        parentId: null,
         id: 'hierarchical_category:"infantiles_\\(hasta_48_piezas\\)"',
         label: 'Infantiles (hasta 48 piezas)',
-        selected: false,
-        totalResults: 1,
-        modelName: 'HierarchicalFilter',
-        children: []
-      },
-      {
+        totalResults: 1
+      }),
+      getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
-        parentId: null,
         id: 'hierarchical_category:"construcción_por_bloques"',
         label: 'Construcción por bloques',
-        selected: false,
-        totalResults: 314,
-        modelName: 'HierarchicalFilter',
-        children: []
-      },
-      {
+        totalResults: 314
+      }),
+      getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
-        parentId: null,
         id: 'hierarchical_category:"series_y_péliculas"',
         label: 'Series y péliculas',
-        selected: false,
-        totalResults: 17,
-        modelName: 'HierarchicalFilter',
-        children: []
-      },
-      {
+        totalResults: 17
+      }),
+      getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
-        parentId: null,
         id: 'hierarchical_category:"packs_con_personajes"',
         label: 'Packs con personajes',
-        selected: false,
-        totalResults: 2,
-        modelName: 'HierarchicalFilter',
-        children: []
-      },
-      {
+        totalResults: 2
+      }),
+      getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
-        parentId: null,
         id: 'hierarchical_category:"grandes_\\(hasta_250_piezas\\)"',
         label: 'Grandes (hasta 250 piezas)',
-        selected: false,
-        totalResults: 2,
-        modelName: 'HierarchicalFilter',
-        children: []
-      },
-      {
+        totalResults: 2
+      }),
+      getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
-        parentId: null,
         id: 'hierarchical_category:"amigos_y_familia"',
         label: 'Amigos y familia',
-        selected: false,
-        totalResults: 2,
-        modelName: 'HierarchicalFilter',
-        children: []
-      },
-      {
+        totalResults: 2
+      }),
+      getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
-        parentId: null,
         id: 'hierarchical_category:"niños"',
         label: 'Niños',
-        selected: false,
-        totalResults: 3,
-        modelName: 'HierarchicalFilter',
-        children: []
-      },
-      {
+        totalResults: 3
+      }),
+      getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
-        parentId: null,
         id: 'hierarchical_category:"construye"',
         label: 'Construye',
-        selected: false,
-        totalResults: 167,
-        modelName: 'HierarchicalFilter',
-        children: []
-      },
-      {
+        totalResults: 167
+      }),
+      getHierarchicalFilterStub({
         facetId: 'hierarchical_category',
-        parentId: null,
         id: 'hierarchical_category:"mi_primera_construcción"',
         label: 'Mi primera construcción',
-        selected: false,
-        totalResults: 4,
-        modelName: 'HierarchicalFilter',
-        children: []
-      }
+        totalResults: 4
+      })
     ]
   };
 }
@@ -467,17 +417,6 @@ export function getNumberRangeFacetStub(): NumberRangeFacet {
  */
 export function getFacetsStub(): Facet[] {
   return [getSimpleFacetStub(), getHierarchicalFacetStub(), getNumberRangeFacetStub()];
-}
-
-/**
- * Creates a {@link @empathyco/x-types#Facet | facets} stub.
- *
- * @returns Dictionary of facets stub.
- *
- * @internal
- */
-export function getFacetsDictionaryStub(): Dictionary<Facet> {
-  return arrayToObject(getFacetsStub(), 'id');
 }
 
 /**

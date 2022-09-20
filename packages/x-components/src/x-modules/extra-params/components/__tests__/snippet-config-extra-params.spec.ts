@@ -101,7 +101,7 @@ describe('testing snippet config extra params component', () => {
   });
 
   // eslint-disable-next-line max-len
-  it('not emits the ExtraParamsProvided event when any no extra params in the snippet config changes', async () => {
+  it('does not emit ExtraParamsProvided when any no extra params in the snippet config changes', async () => {
     const { wrapper, setSnippetConfig } = renderSnippetConfigExtraParams();
     const extraParamsProvidedCallback = jest.fn();
 
@@ -114,7 +114,7 @@ describe('testing snippet config extra params component', () => {
       })
     );
 
-    await setSnippetConfig({ lang: 'es' });
+    await setSnippetConfig({ uiLang: 'es' });
 
     expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
 

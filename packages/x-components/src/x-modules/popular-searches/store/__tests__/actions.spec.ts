@@ -13,7 +13,7 @@ import {
 
 describe('testing popular searches module actions', () => {
   const mockedSuggestions = getPopularSearchesStub();
-  const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
+  const adapter = getMockedAdapter({ popularSearches: { suggestions: mockedSuggestions } });
 
   const localVue = createLocalVue();
   localVue.config.productionTip = false; // Silent production console messages.
@@ -45,7 +45,9 @@ describe('testing popular searches module actions', () => {
 
     it('should cancel the previous request if it is not yet resolved', async () => {
       const initialPopularSearches = store.state.popularSearches;
-      adapter.getSuggestions.mockResolvedValueOnce({ suggestions: mockedSuggestions.slice(0, 1) });
+      adapter.popularSearches.mockResolvedValueOnce({
+        suggestions: mockedSuggestions.slice(0, 1)
+      });
 
       const firstRequest = store.dispatch('fetchAndSaveSuggestions', store.getters.request);
       const secondRequest = store.dispatch('fetchAndSaveSuggestions', store.getters.request);
@@ -59,7 +61,7 @@ describe('testing popular searches module actions', () => {
     });
 
     it('should set the status to error when it fails', async () => {
-      adapter.getSuggestions.mockRejectedValueOnce('Generic error');
+      adapter.popularSearches.mockRejectedValueOnce('Generic error');
       const popularSearches = store.state.popularSearches;
       await store.dispatch('fetchAndSaveSuggestions', store.getters.request);
 

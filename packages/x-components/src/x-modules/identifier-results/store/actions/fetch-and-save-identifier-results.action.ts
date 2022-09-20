@@ -1,4 +1,4 @@
-import { IdentifierResultsRequest, Result } from '@empathyco/x-types';
+import { Result, IdentifierResultsRequest } from '@empathyco/x-types';
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { IdentifierResultsActionsContext } from '../types';
 

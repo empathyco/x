@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.6...@empathyco/x-react-wrapper@4.0.0-alpha.7) (2022-09-09)
+
+### Features
+
+- disable `@typescript-eslint/no-extra-parens` rule (#715)
+  ([3718017](https://github.com/empathyco/x/commit/3718017c5528156f931bc8b1f2d208cdb50781ed)),
+  closes [EX-6996](https://searchbroker.atlassian.net/browse/EX-6996)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.5...@empathyco/x-react-wrapper@4.0.0-alpha.6) (2022-08-31)
+
+### Build System
+
+- **dependencies:** fix Vue & Vuex versions (#686)
+  ([177e851](https://github.com/empathyco/x/commit/177e8511f4458fa13c627210cdfbbf6d42a85b17)),
+  closes [EX-6918](https://searchbroker.atlassian.net/browse/EX-6918)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [4.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.4...@empathyco/x-react-wrapper@4.0.0-alpha.5) (2022-04-04)
 
 ### Build System

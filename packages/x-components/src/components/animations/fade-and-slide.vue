@@ -3,8 +3,9 @@
     v-on="$listeners"
     class="x-fade-and-slide"
     appear
-    name="x-fade-and-slide-"
+    :name="name"
     :tag="tag"
+    v-bind="$attrs"
   >
     <!-- @slot (Required) Transition-group content -->
     <slot />
@@ -12,8 +13,9 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
+  import { mixins } from 'vue-class-component';
   import { Prop, Component } from 'vue-property-decorator';
+  import DisableAnimationMixin from './disable-animation.mixin';
 
   /**
    * Renders a transition group wrapping the elements passed in the default slot and animating
@@ -21,8 +23,17 @@
    *
    * @public
    */
-  @Component
-  export default class FadeAndSlide extends Vue {
+  @Component({
+    inheritAttrs: false
+  })
+  export default class FadeAndSlide extends mixins(DisableAnimationMixin) {
+    /**
+     * The name of the animation.
+     *
+     * @public
+     */
+    protected animationName = 'x-fade-and-slide-';
+
     /**
      * HTML Element that the transition-group children will be wrapped in.
      *

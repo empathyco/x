@@ -13,6 +13,7 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../utils/index';
   import { scrollXModule } from '../x-module';
+  import { DISABLE_ANIMATIONS_KEY } from '../../../components/decorators/injection.consts';
   import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
 
@@ -96,6 +97,17 @@
      */
     @State('scroll', 'pendingScrollTo')
     public pendingScrollTo!: string;
+
+    /**
+     * Disables the animations.
+     *
+     * @returns A boolean to disable the animations.
+     * @internal
+     */
+    @XProvide(DISABLE_ANIMATIONS_KEY)
+    public get disableAnimations(): boolean {
+      return !!this.pendingScrollTo;
+    }
 
     /**
      * Creates an `IntersectionObserver` to detect the first visible elements. Children of this
@@ -243,15 +255,6 @@
     }
   }
 </script>
-<style lang="scss">
-  .x-main-scroll--no-transition {
-    * {
-      transition: none !important;
-      transform: none !important;
-      opacity: 1 !important;
-    }
-  }
-</style>
 
 <docs lang="mdx">
 ## Events

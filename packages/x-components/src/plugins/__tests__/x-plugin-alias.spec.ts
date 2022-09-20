@@ -12,6 +12,7 @@ import { searchBoxXModule } from '../../x-modules/search-box/x-module';
 import { XPlugin } from '../x-plugin';
 import { getAliasAPI } from '../x-plugin.alias';
 import { XComponentAliasAPI } from '../x-plugin.types';
+import { facetsXModule } from '../../x-modules/facets/index';
 
 describe('testing plugin alias', () => {
   const component: ComponentOptions<Vue> & ThisType<Vue> = {
@@ -36,6 +37,7 @@ describe('testing plugin alias', () => {
   it('returns default values when no module is registered', () => {
     const defaultValues: XComponentAliasAPI = {
       query: {
+        facets: '',
         searchBox: '',
         nextQueries: '',
         querySuggestions: '',
@@ -54,6 +56,7 @@ describe('testing plugin alias', () => {
       device: null,
       facets: {},
       historyQueries: [],
+      fullHistoryQueries: [],
       identifierResults: [],
       isEmpathizeOpen: false,
       nextQueries: [],
@@ -64,6 +67,7 @@ describe('testing plugin alias', () => {
       recommendations: [],
       redirections: [],
       relatedTags: [],
+      results: [],
       scroll: {},
       selectedFilters: [],
       selectedRelatedTags: [],
@@ -80,19 +84,22 @@ describe('testing plugin alias', () => {
     XPlugin.registerXModule(relatedTagsXModule);
     XPlugin.registerXModule(searchBoxXModule);
     XPlugin.registerXModule(searchXModule);
+    XPlugin.registerXModule(facetsXModule);
 
     componentInstance.vm.$store.commit('x/searchBox/setQuery', 'this');
     componentInstance.vm.$store.commit('x/nextQueries/setQuery', 'is');
     componentInstance.vm.$store.commit('x/querySuggestions/setQuery', 'working');
     componentInstance.vm.$store.commit('x/relatedTags/setQuery', 'properly');
     componentInstance.vm.$store.commit('x/search/setQuery', 'nice');
+    componentInstance.vm.$store.commit('x/facets/setQuery', '!');
 
     expect(componentInstance.vm.$x.query).toEqual({
       searchBox: 'this',
       nextQueries: 'is',
       querySuggestions: 'working',
       relatedTags: 'properly',
-      search: 'nice'
+      search: 'nice',
+      facets: '!'
     });
   });
 

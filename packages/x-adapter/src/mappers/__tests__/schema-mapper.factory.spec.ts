@@ -72,7 +72,6 @@ describe('schemaMapperFactory tests', () => {
       hits: 5
     };
     const schema: Schema<Source, Target> = {
-      // eslint-disable-next-line @typescript-eslint/no-extra-parens
       query: ({ q }, context) => (context?.endpoint?.match(/search/gi) ? q : ''),
       hits: 'rows'
     };
@@ -260,7 +259,6 @@ describe('schemaMapperFactory tests', () => {
     const filterSchema: Schema<Filter, TargetFilter> = {
       filterId: 'id',
       value: 'value',
-      // eslint-disable-next-line @typescript-eslint/no-extra-parens
       parentId: (_, $context) => ($context?.hasParent ? ($context?.parentId as string) : '')
     };
 

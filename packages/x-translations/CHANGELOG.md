@@ -3,6 +3,73 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.25...@empathyco/x-translations@1.1.0-alpha.26) (2022-09-16)
+
+**Note:** Version bump only for package @empathyco/x-translations
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.1.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.24...@empathyco/x-translations@1.1.0-alpha.25) (2022-09-13)
+
+**Note:** Version bump only for package @empathyco/x-translations
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.1.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.23...@empathyco/x-translations@1.1.0-alpha.24) (2022-09-09)
+
+**Note:** Version bump only for package @empathyco/x-translations
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.1.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.22...@empathyco/x-translations@1.1.0-alpha.23) (2022-07-19)
+
+### Bug Fixes
+
+- end of line character issue on `csv-to-json` script (#610)
+  ([521ed42](https://github.com/empathyco/x/commit/521ed42d6aee2a716087d5cd28a6997c1353d90b)),
+  closes [EX-6631](https://searchbroker.atlassian.net/browse/EX-6631)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.1.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.21...@empathyco/x-translations@1.1.0-alpha.22) (2022-06-23)
+
+**Note:** Version bump only for package @empathyco/x-translations
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.1.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.20...@empathyco/x-translations@1.1.0-alpha.21) (2022-06-16)
+
+**Note:** Version bump only for package @empathyco/x-translations
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.1.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.19...@empathyco/x-translations@1.1.0-alpha.20) (2022-06-09)
+
+**Note:** Version bump only for package @empathyco/x-translations
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.1.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.18...@empathyco/x-translations@1.1.0-alpha.19) (2022-06-08)
 
 **Note:** Version bump only for package @empathyco/x-translations

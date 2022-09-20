@@ -1,11 +1,6 @@
-import { Dictionary } from '@empathyco/x-utils';
+import { Dictionary, cleanEmpty, flatObject } from '@empathyco/x-utils';
 import { HttpClient } from './types';
 import { buildUrl, toJson } from './utils';
-
-/**
- * Dictionary with the request id as key and an `AbortController` as value.
- */
-const requestAbortControllers: Dictionary<AbortController> = {};
 
 /**
  * The `fetchHttpClient()` function is a http client implementation using the `fetch` WebAPI.
@@ -19,11 +14,35 @@ const requestAbortControllers: Dictionary<AbortController> = {};
  */
 export const fetchHttpClient: HttpClient = (
   endpoint,
-  { id = endpoint, parameters, properties } = {}
+  { id = endpoint, cancelable = true, parameters = {}, properties, sendParamsInBody = false } = {}
 ) => {
-  const url = buildUrl(endpoint, parameters);
+  const signal = cancelable ? { signal: abortAndGetNewAbortSignal(id) } : {};
+  const flatParameters = flatObject(parameters);
+  const url = sendParamsInBody ? endpoint : buildUrl(endpoint, cleanEmpty(flatParameters));
+  const bodyParameters = sendParamsInBody ? { body: JSON.stringify(cleanEmpty(parameters)) } : {};
+
+  return fetch(url, {
+    ...properties,
+    ...bodyParameters,
+    ...signal
+  }).then(toJson);
+};
+
+/**
+ * Dictionary with the request id as key and an `AbortController` as value.
+ */
+const requestAbortControllers: Dictionary<AbortController> = {};
+
+/**
+ * Function that cancels previous request with the same `id` and returns a new `AbortSignal` for
+ * the new request.
+ *
+ * @param id - The identifier of the request to cancel and create a new `AbortSignal`.
+ *
+ * @returns The new `AbortSignal`.
+ */
+function abortAndGetNewAbortSignal(id: string): AbortSignal {
   requestAbortControllers[id]?.abort();
   requestAbortControllers[id] = new AbortController();
-
-  return fetch(url, { ...properties, signal: requestAbortControllers[id].signal }).then(toJson);
-};
+  return requestAbortControllers[id].signal;
+}

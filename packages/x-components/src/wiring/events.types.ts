@@ -1,4 +1,4 @@
-import { Result, Suggestion } from '@empathyco/x-types';
+import { Result, ResultVariant, Suggestion } from '@empathyco/x-types';
 import { ExtractPayload } from '../store/index';
 import { ArrowKey, PropsWithType } from '../utils';
 import { DeviceXEvents } from '../x-modules/device';
@@ -9,6 +9,7 @@ import { HistoryQueriesXEvents } from '../x-modules/history-queries/events.types
 import { IdentifierResultsXEvents } from '../x-modules/identifier-results/events.types';
 import { NextQueriesXEvents } from '../x-modules/next-queries/events.types';
 import { PopularSearchesXEvents } from '../x-modules/popular-searches/events.types';
+import { QueriesPreviewXEvents } from '../x-modules/queries-preview/events.types';
 import { QuerySuggestionsXEvents } from '../x-modules/query-suggestions/events.types';
 import { RecommendationsXEvents } from '../x-modules/recommendations/events.types';
 import { RelatedTagsXEvents } from '../x-modules/related-tags/events.types';
@@ -34,6 +35,7 @@ import { WireMetadata } from './wiring.types';
  * {@link IdentifierResultsXEvents}
  * {@link NextQueriesXEvents}
  * {@link PopularSearchesXEvents}
+ * {@link QueriesPreviewXEvents},
  * {@link QuerySuggestionsXEvents},
  * {@link RecommendationsXEvents}
  * {@link RelatedTagsXEvents}
@@ -54,6 +56,7 @@ export interface XEventsTypes
     IdentifierResultsXEvents,
     NextQueriesXEvents,
     PopularSearchesXEvents,
+    QueriesPreviewXEvents,
     QuerySuggestionsXEvents,
     RecommendationsXEvents,
     RelatedTagsXEvents,
@@ -62,11 +65,6 @@ export interface XEventsTypes
     SearchXEvents,
     TaggingXEvents,
     UrlXEvents {
-  /**
-   * The search adapter configuration has changed
-   * Payload: The new search adapter configuration.
-   */
-  AdapterConfigChanged: unknown;
   /**
    * The number of columns of a grid has changed.
    * Payload: the columns number.
@@ -112,6 +110,11 @@ export interface XEventsTypes
    * Payload: none.
    */
   UserClickedCloseX: void;
+  /**
+   * The user clicked out of the main modal.
+   * Payload: none.
+   */
+  UserClickedOutOfMainModal: void;
   /**
    * The user clicked the button to select the number of columns.
    * Payload: the column number.
@@ -177,6 +180,12 @@ export interface XEventsTypes
    * Payload: none.
    */
   UserReachedEmpathizeTop: void;
+  /**
+   * The user selected a result variant.
+   * Payload: And object containing the result, the selected variant and the level of the selected
+   * variant.
+   */
+  UserSelectedAResultVariant: { result: Result; variant: ResultVariant; level: number };
   /**
    * User selected any kind of suggestion (query-suggestion, popular-search...)
    * Payload: The {@link @empathyco/x-types#Suggestion | suggestion} that the user selected.

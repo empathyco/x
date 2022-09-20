@@ -26,16 +26,20 @@ describe('testing popular searches module getters', () => {
       expect(store.getters[gettersKeys.request]).toEqual<PopularSearchesRequest>({
         rows: 3,
         start: 0,
-        catalog: 'es'
+        extraParams: {
+          catalog: 'es'
+        }
       });
     });
   });
 
   describe(`${gettersKeys.popularSearches} getter`, () => {
     const searchedQueries = createHistoryQueries('limes');
-    const mockedSuggestions = getPopularSearchesStub();
+    const mockedPopularSearches = getPopularSearchesStub();
 
-    const adapter = getMockedAdapter({ suggestions: { suggestions: mockedSuggestions } });
+    const adapter = getMockedAdapter({
+      popularSearches: { suggestions: mockedPopularSearches }
+    });
     const localVue = createLocalVue();
     localVue.config.productionTip = false; // Silent production console messages.
     localVue.use(Vuex);
@@ -44,27 +48,27 @@ describe('testing popular searches module getters', () => {
     it('should return the popular searches without the previously searched queries', () => {
       resetPopularSearchesStateWith(store, {
         searchedQueries,
-        popularSearches: mockedSuggestions,
+        popularSearches: mockedPopularSearches,
         config: {
           maxItemsToRequest: 5,
           hideSessionQueries: true
         }
       });
       expect(store.getters[gettersKeys.popularSearches]).toEqual(
-        mockedSuggestions.filter(popularSearch => popularSearch.query !== 'limes')
+        mockedPopularSearches.filter(popularSearch => popularSearch.query !== 'limes')
       );
     });
 
     it('should return all popular searches if hideSessionQueries is false', () => {
       resetPopularSearchesStateWith(store, {
         searchedQueries,
-        popularSearches: mockedSuggestions,
+        popularSearches: mockedPopularSearches,
         config: {
           maxItemsToRequest: 5,
           hideSessionQueries: false
         }
       });
-      expect(store.getters[gettersKeys.popularSearches]).toEqual(mockedSuggestions);
+      expect(store.getters[gettersKeys.popularSearches]).toEqual(mockedPopularSearches);
     });
   });
 });

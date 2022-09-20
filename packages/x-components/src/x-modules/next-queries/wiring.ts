@@ -1,8 +1,13 @@
 import {
   namespacedWireCommit,
+  namespacedWireCommitWithoutPayload,
   namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
-import { NamespacedWireCommit, NamespacedWireDispatch } from '../../wiring/namespaced-wiring.types';
+import {
+  NamespacedWireCommit,
+  NamespacedWireCommitWithoutPayload,
+  NamespacedWireDispatch
+} from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
 /**
@@ -11,12 +16,20 @@ import { createWiring } from '../../wiring/wiring.utils';
  * @internal
  */
 const moduleName = 'nextQueries';
+
 /**
  * WireCommit for {@link NextQueriesXModule}.
  *
  * @internal
  */
 const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit(moduleName);
+
+/**
+ * WireCommitWithoutPayload for {@link NextQueriesXModule}.
+ */
+const wireCommitWithoutPayload: NamespacedWireCommitWithoutPayload<typeof moduleName> =
+  namespacedWireCommitWithoutPayload(moduleName);
+
 /**
  * WireDispatch for {@link NextQueriesXModule}.
  *
@@ -60,6 +73,20 @@ export const fetchAndSaveNextQueriesWire = wireDispatch('fetchAndSaveNextQueries
 export const setQueryFromLastHistoryQueryWire = wireDispatch('setQueryFromLastHistoryQuery');
 
 /**
+ * Requests and store the next query preview results.
+ *
+ * @public
+ */
+export const fetchAndSaveNextQueryPreviewWire = wireDispatch('fetchAndSaveNextQueryPreview');
+
+/**
+ * Resets the next query preview results.
+ *
+ * @public
+ */
+export const resetResultsPreviewWire = wireCommitWithoutPayload('resetResultsPreview');
+
+/**
  * Sets the next queries state `searchedQueries` with the list of history queries.
  *
  * @public
@@ -75,6 +102,9 @@ export const nextQueriesWiring = createWiring({
   ParamsLoadedFromUrl: {
     setUrlParams
   },
+  NextQueriesChanged: {
+    resetResultsPreviewWire
+  },
   UserAcceptedAQuery: {
     setNextQueriesQuery
   },
@@ -88,5 +118,8 @@ export const nextQueriesWiring = createWiring({
   },
   ExtraParamsChanged: {
     setNextQueriesExtraParams
+  },
+  NextQueryPreviewMounted: {
+    fetchAndSaveNextQueryPreviewWire
   }
 });

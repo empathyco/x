@@ -9,7 +9,9 @@ And('searchable filters are stored', () => {
 });
 
 When('{string} is typed in the filters search input', (searchFiltersQuery: string) => {
-  cy.getByDataTest('filters-search-input').type(searchFiltersQuery);
+  cy.getByDataTest('filters-search-brand_facet')
+    .getByDataTest('filters-search-input')
+    .type(searchFiltersQuery);
 });
 
 Then('filters in facet are refined with search, {string}', (searchFiltersQuery: string) => {

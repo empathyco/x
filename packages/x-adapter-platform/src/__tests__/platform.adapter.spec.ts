@@ -1,21 +1,21 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { Filter } from '@empathyco/x-types';
+import { Filter, NextQueriesRequest, RelatedTagsRequest } from '@empathyco/x-types';
 import { platformAdapter } from '../platform.adapter';
-import { BaseRequest, TaggingRequest } from '../types/request.types';
-import {
-  PlatformEmpathizeResponse,
-  PlatformNextQueriesResponse,
-  PlatformRelatedTagsResponse,
-  PlatformSearchResponse
-} from '../types/response.types';
+// eslint-disable-next-line max-len
+import { PlatformQuerySuggestionsResponse } from '../types/responses/query-suggestions-response.model';
+import { PlatformSearchResponse } from '../types/responses/search-response.model';
+// eslint-disable-next-line max-len
+import { PlatformPopularSearchesResponse } from '../types/responses/popular-searches-response.model';
+import { PlatformRelatedTagsResponse } from '../types/responses/related-tags-response.model';
+import { PlatformNextQueriesResponse } from '../types/responses/next-queries-response.model';
 import { getFetchMock } from './__mocks__/fetch.mock';
-import { platformSkuSearchResponse } from './__fixtures__/platform-sku-search.response';
-import { platformTopClickedResponse } from './__fixtures__/platform-top-clicked.response';
+import { platformIdentifierResultsResponse } from './__fixtures__/identifier-results.response';
+import { platformRecommendationsResponse } from './__fixtures__/recommendations.response';
 
 describe('platformAdapter tests', () => {
   beforeEach(jest.clearAllMocks);
 
-  it('Should call the search endpoint', async () => {
+  it('should call the search endpoint', async () => {
     const rawPlatformSearchResponse: DeepPartial<PlatformSearchResponse> = {
       banner: {
         content: [{ id: '5af08ea2d5d534000bcc27fb', title: 'test' }]
@@ -51,8 +51,11 @@ describe('platformAdapter tests', () => {
     window.fetch = fetchMock as any;
 
     const response = await platformAdapter.search({
-      device: 'mobile',
-      env: 'test',
+      query: 'chips',
+      rows: 0,
+      start: 0,
+      origin: 'popular_search:predictive_layer',
+      sort: 'price asc',
       filters: {
         categoryPaths: [
           {
@@ -100,20 +103,18 @@ describe('platformAdapter tests', () => {
           } as Filter
         ]
       },
-      instance: 'empathy',
-      lang: 'es',
-      origin: 'popular_search:predictive_layer',
-      query: 'chips',
-      relatedTags: [],
-      rows: 0,
-      scope: 'mobile',
-      sort: 'price asc',
-      start: 0
+      extraParams: {
+        instance: 'empathy',
+        env: 'test',
+        lang: 'es',
+        device: 'mobile',
+        scope: 'mobile'
+      }
     });
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.test.empathy.co/search/v1/query/empathy/search?device=mobile&query=chips&env=test&scope=mobile&origin=popular_search%3Apredictive_layer&start=0&rows=0&lang=es&sort=price+asc&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0',
+      'https://api.test.empathy.co/search/v1/query/empathy/search?query=chips&origin=popular_search%3Apredictive_layer&start=0&rows=0&sort=price+asc&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0&instance=empathy&env=test&lang=es&device=mobile&scope=mobile',
       { signal: expect.anything() }
     );
     expect(response.totalResults).toBe(0);
@@ -124,7 +125,7 @@ describe('platformAdapter tests', () => {
         modelName: 'NumberRangeFacet',
         filters: [
           {
-            facetId: '10.0-20.0',
+            facetId: 'price',
             id: 'price:10.0-20.0',
             label: '10.0-20.0',
             modelName: 'NumberRangeFilter',
@@ -136,7 +137,7 @@ describe('platformAdapter tests', () => {
             totalResults: 97
           },
           {
-            facetId: '20.0-30.0',
+            facetId: 'price',
             id: 'price:20.0-30.0',
             label: '20.0-30.0',
             modelName: 'NumberRangeFilter',
@@ -152,35 +153,35 @@ describe('platformAdapter tests', () => {
     ]);
   });
 
-  it('should call the empathize endpoint', async () => {
-    const rawPlatformEmpathizeResponse: PlatformEmpathizeResponse = {
+  it('should call the popular searches endpoint', async () => {
+    const rawPlatformPopularSearchesResponse: PlatformPopularSearchesResponse = {
       topTrends: {
         content: [
           {
             title_raw: 'shoes'
           }
-        ],
-        spellcheck: 'sneakers'
+        ]
       }
     };
-    const fetchMock = jest.fn(getFetchMock(rawPlatformEmpathizeResponse));
+    const fetchMock = jest.fn(getFetchMock(rawPlatformPopularSearchesResponse));
     window.fetch = fetchMock as any;
 
-    const empathizeRequest: BaseRequest = {
-      env: 'test',
-      device: 'tablet',
-      rows: 24,
-      scope: 'tablet',
+    const response = await platformAdapter.popularSearches({
       start: 0,
-      lang: 'en',
-      instance: 'empathy'
-    };
-    const response = await platformAdapter.empathize(empathizeRequest);
+      rows: 24,
+      extraParams: {
+        instance: 'empathy',
+        env: 'test',
+        lang: 'en',
+        device: 'tablet',
+        scope: 'tablet'
+      }
+    });
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.test.empathy.co/search/v1/query/empathy/empathize?device=tablet&env=test&lang=en&rows=24&scope=tablet&start=0',
+      'https://api.test.empathy.co/search/v1/query/empathy/empathize?start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
       { signal: expect.anything() }
     );
 
@@ -193,8 +194,54 @@ describe('platformAdapter tests', () => {
           modelName: 'PopularSearch',
           key: 'shoes'
         }
-      ],
-      spellcheck: 'sneakers'
+      ]
+    });
+  });
+
+  it('should call the query suggestions endpoint', async () => {
+    const rawPlatformQuerySuggestionsResponse: PlatformQuerySuggestionsResponse = {
+      topTrends: {
+        content: [
+          {
+            title_raw: 'shoes'
+          }
+        ]
+      }
+    };
+
+    const fetchMock = jest.fn(getFetchMock(rawPlatformQuerySuggestionsResponse));
+    window.fetch = fetchMock as any;
+
+    const response = await platformAdapter.querySuggestions({
+      query: 'boots',
+      start: 0,
+      rows: 24,
+      extraParams: {
+        instance: 'empathy',
+        env: 'test',
+        lang: 'en',
+        device: 'tablet',
+        scope: 'tablet'
+      }
+    });
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledWith(
+      // eslint-disable-next-line max-len
+      'https://api.test.empathy.co/search/v1/query/empathy/empathize?query=boots&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
+      { signal: expect.anything() }
+    );
+
+    expect(response).toStrictEqual({
+      suggestions: [
+        {
+          query: 'shoes',
+          isCurated: false,
+          facets: [],
+          modelName: 'QuerySuggestion',
+          key: 'shoes'
+        }
+      ]
     });
   });
 
@@ -210,15 +257,17 @@ describe('platformAdapter tests', () => {
         ]
       }
     };
-    const nextQueriesRequest: BaseRequest = {
-      device: 'mobile',
-      env: 'staging',
-      lang: 'en',
+    const nextQueriesRequest: NextQueriesRequest = {
       query: 'makeup',
       rows: 24,
-      scope: 'mobile',
       start: 0,
-      instance: 'empathy'
+      extraParams: {
+        scope: 'mobile',
+        instance: 'empathy',
+        device: 'mobile',
+        env: 'staging',
+        lang: 'en'
+      }
     };
 
     const fetchMock = jest.fn(getFetchMock(platformNextQueriesResponse));
@@ -228,7 +277,7 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.staging.empathy.co/nextqueries/empathy?device=mobile&env=staging&lang=en&rows=24&scope=mobile&start=0&query=makeup',
+      'https://api.staging.empathy.co/nextqueries/empathy?query=makeup&scope=mobile&instance=empathy&device=mobile&env=staging&lang=en',
       { signal: expect.anything() }
     );
     expect(response).toStrictEqual({
@@ -263,22 +312,22 @@ describe('platformAdapter tests', () => {
     const fetchMock = jest.fn(getFetchMock(platformRelatedTagsResponse));
     window.fetch = fetchMock as any;
 
-    const relatedTagsRequest: BaseRequest = {
-      device: 'mobile',
-      env: 'staging',
-      lang: 'en',
+    const relatedTagsRequest: RelatedTagsRequest = {
       query: 'jeans',
-      rows: 24,
-      scope: 'mobile',
-      start: 0,
-      instance: 'empathy'
+      extraParams: {
+        device: 'mobile',
+        env: 'staging',
+        lang: 'en',
+        scope: 'mobile',
+        instance: 'empathy'
+      }
     };
 
     const response = await platformAdapter.relatedTags(relatedTagsRequest);
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.staging.empathy.co/relatedtags/empathy?device=mobile&env=staging&lang=en&rows=24&scope=mobile&start=0&query=jeans',
+      'https://api.staging.empathy.co/relatedtags/empathy?query=jeans&device=mobile&env=staging&lang=en&scope=mobile&instance=empathy',
       { signal: expect.anything() }
     );
     expect(response).toStrictEqual({
@@ -293,28 +342,31 @@ describe('platformAdapter tests', () => {
     });
   });
 
-  it('should call the sku search endpoint', async () => {
-    const skuSearchRequest: BaseRequest = {
-      device: 'mobile',
-      env: 'staging',
-      lang: 'en',
-      query: 'jeans',
-      rows: 24,
-      scope: 'mobile',
-      start: 0,
-      instance: 'empathy',
-      origin: 'search_box:none'
-    };
-
-    const fetchMock = jest.fn(getFetchMock(platformSkuSearchResponse));
+  it('should call the identifier results endpoint', async () => {
+    const fetchMock = jest.fn(getFetchMock(platformIdentifierResultsResponse));
     window.fetch = fetchMock as any;
-    const response = await platformAdapter.skuSearch(skuSearchRequest);
+
+    const response = await platformAdapter.identifierResults({
+      query: 'jeans',
+      start: 0,
+      rows: 24,
+      origin: 'search_box:none',
+      extraParams: {
+        instance: 'empathy',
+        env: 'staging',
+        lang: 'en',
+        device: 'mobile',
+        scope: 'mobile'
+      }
+    });
+
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.staging.empathy.co/search/v1/query/empathy/skusearch?device=mobile&env=staging&lang=en&rows=24&scope=mobile&start=0&query=jeans&origin=search_box%3Anone',
+      'https://api.staging.empathy.co/search/v1/query/empathy/skusearch?query=jeans&origin=search_box%3Anone&start=0&rows=24&instance=empathy&env=staging&lang=en&device=mobile&scope=mobile',
       { signal: expect.anything() }
     );
+
     expect(response).toStrictEqual({
       results: [
         {
@@ -388,28 +440,30 @@ describe('platformAdapter tests', () => {
     });
   });
 
-  it('should call the top clicked endpoint', async () => {
-    const topClickedRequest: BaseRequest = {
-      device: 'desktop',
-      env: 'test',
-      lang: 'en',
-      query: 'jeans',
-      rows: 24,
-      scope: 'desktop',
-      start: 0,
-      instance: 'empathy'
-    };
-
-    const fetchMock = jest.fn(getFetchMock(platformTopClickedResponse));
+  it('should call the recommendations endpoint', async () => {
+    const fetchMock = jest.fn(getFetchMock(platformRecommendationsResponse));
     window.fetch = fetchMock as any;
 
-    const response = await platformAdapter.topClicked(topClickedRequest);
+    const response = await platformAdapter.recommendations({
+      start: 0,
+      rows: 24,
+      origin: 'search_box:none',
+      extraParams: {
+        instance: 'empathy',
+        env: 'test',
+        lang: 'en',
+        device: 'desktop',
+        scope: 'desktop'
+      }
+    });
+
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.test.empathy.co/search/v1/query/empathy/topclicked?device=desktop&env=test&lang=en&rows=24&scope=desktop&start=0&query=jeans',
+      'https://api.test.empathy.co/search/v1/query/empathy/topclicked?start=0&rows=24&origin=search_box%3Anone&instance=empathy&env=test&lang=en&device=desktop&scope=desktop',
       { signal: expect.anything() }
     );
+
     expect(response).toStrictEqual({
       results: [
         {
@@ -437,11 +491,10 @@ describe('platformAdapter tests', () => {
   });
 
   it('should call the tagging endpoint', async () => {
-    const beaconMock = jest.fn();
     const fetchMock = jest.fn(getFetchMock({}));
     window.fetch = fetchMock as any;
-    navigator.sendBeacon = beaconMock;
-    const taggingRequest: TaggingRequest = {
+    await platformAdapter.tagging({
+      url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/click',
       params: {
         filtered: 'false',
         follow: false,
@@ -454,13 +507,12 @@ describe('platformAdapter tests', () => {
         scope: 'desktop',
         spellcheck: 'false',
         title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
-      },
-      url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/click'
-    };
-    await platformAdapter.tagging(taggingRequest);
-    expect(beaconMock).toHaveBeenCalledWith(
+      }
+    });
+    expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.staging.empathy.co/tagging/v1/track/empathy/click?filtered=false&follow=false&lang=en&origin=search_box%3Anone&page=1&position=1&productId=12345-U&q=12345&scope=desktop&spellcheck=false&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree'
+      'https://api.staging.empathy.co/tagging/v1/track/empathy/click?filtered=false&follow=false&lang=en&origin=search_box%3Anone&page=1&position=1&productId=12345-U&q=12345&scope=desktop&spellcheck=false&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree',
+      { keepalive: true }
     );
   });
 });

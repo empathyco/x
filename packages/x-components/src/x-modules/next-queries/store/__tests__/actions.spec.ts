@@ -1,7 +1,11 @@
-import { HistoryQuery } from '@empathyco/x-types';
+import { HistoryQuery, SearchRequest } from '@empathyco/x-types';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { createHistoryQueries, getNextQueriesStub } from '../../../../__stubs__';
+import {
+  createHistoryQueries,
+  getNextQueriesStub,
+  getSearchResponseStub
+} from '../../../../__stubs__';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { nextQueriesXStoreModule } from '../module';
@@ -15,7 +19,12 @@ import { resetNextQueriesStateWith } from './utils';
 
 describe('testing next queries module actions', () => {
   const mockedNextQueries = getNextQueriesStub();
-  const adapter = getMockedAdapter({ nextQueries: { nextQueries: mockedNextQueries } });
+  const mockedSearchResponse = getSearchResponseStub();
+
+  const adapter = getMockedAdapter({
+    nextQueries: { nextQueries: mockedNextQueries },
+    search: mockedSearchResponse
+  });
 
   const localVue = createLocalVue();
   localVue.config.productionTip = false; // Silent production console messages.
@@ -75,7 +84,7 @@ describe('testing next queries module actions', () => {
     it('should cancel the previous request if it is not yet resolved', async () => {
       resetNextQueriesStateWith(store, { query: 'steak' });
       const initialNextQueries = store.state.nextQueries;
-      adapter.getNextQueries.mockResolvedValueOnce({ nextQueries: mockedNextQueries.slice(0, 1) });
+      adapter.nextQueries.mockResolvedValueOnce({ nextQueries: mockedNextQueries.slice(0, 1) });
 
       const firstRequest = store.dispatch('fetchAndSaveNextQueries', store.getters.request);
       const secondRequest = store.dispatch('fetchAndSaveNextQueries', store.getters.request);
@@ -90,7 +99,7 @@ describe('testing next queries module actions', () => {
 
     it('should set the status to error when it fails', async () => {
       resetNextQueriesStateWith(store, { query: 'milk' });
-      adapter.getNextQueries.mockRejectedValueOnce('Generic error');
+      adapter.nextQueries.mockRejectedValueOnce('Generic error');
       const nextQueries = store.state.nextQueries;
       await store.dispatch('fetchAndSaveNextQueries', store.getters.request);
 
@@ -109,6 +118,69 @@ describe('testing next queries module actions', () => {
       ]);
       expect(store.state.nextQueries).toEqual(previousNextQueries);
       expect(store.state.status).toEqual('success');
+    });
+  });
+
+  describe('fetchNextQueryPreview', () => {
+    it('should build the search request adding rows and extraParams from state', async () => {
+      resetNextQueriesStateWith(store, {
+        config: {
+          maxPreviewItemsToRequest: 3
+        },
+        params: {
+          extraParam: 'extra param'
+        }
+      });
+      const query = 'honeyboo';
+      await store.dispatch('fetchNextQueryPreview', query);
+      const expectedRequest: SearchRequest = {
+        query,
+        rows: 3,
+        extraParams: {
+          extraParam: 'extra param'
+        }
+      };
+      expect(adapter.search).toHaveBeenCalledWith(expectedRequest, {
+        id: 'fetchNextQueryPreview-honeyboo'
+      });
+    });
+
+    it('should return the search response', async () => {
+      const results = await store.dispatch('fetchNextQueryPreview', 'honeyboo');
+      expect(results).toEqual(mockedSearchResponse);
+    });
+
+    it('should return `null` if the query is empty', async () => {
+      expect(await store.dispatch('fetchNextQueryPreview', '')).toBeNull();
+    });
+  });
+
+  describe('fetchAndSaveNextQueryPreview', () => {
+    it('should request and store preview results in the state', async () => {
+      const query = 'tshirt';
+
+      const promise = store.dispatch('fetchAndSaveNextQueryPreview', query);
+      await promise;
+
+      const expectedResults = {
+        totalResults: mockedSearchResponse.totalResults,
+        items: mockedSearchResponse.results,
+        query
+      };
+      const stateResults = store.state.resultsPreview;
+
+      expect(query in stateResults).toBeTruthy();
+      expect(stateResults[query]).toEqual(expectedResults);
+    });
+
+    it('should send multiple requests if the queries are different', async () => {
+      const firstRequest = store.dispatch('fetchAndSaveNextQueryPreview', 'milk');
+      const secondRequest = store.dispatch('fetchAndSaveNextQueryPreview', 'cookies');
+
+      await Promise.all([firstRequest, secondRequest]);
+
+      expect('milk' in store.state.resultsPreview).toBeTruthy();
+      expect('cookies' in store.state.resultsPreview).toBeTruthy();
     });
   });
 

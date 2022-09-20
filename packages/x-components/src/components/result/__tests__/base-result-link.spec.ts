@@ -58,7 +58,7 @@ describe('testing BaseResultLink component', () => {
       template: `
         <BaseResultLink :result="result">
           <template #default="{ result }">
-            <img  data-test="result-link-image" src="${result.images[0]}"/>
+            <img data-test="result-link-image" src="${result.images![0]}"/>
             <span data-test="result-link-text">
               {{ result.name }}
             </span>
@@ -81,7 +81,7 @@ describe('testing BaseResultLink component', () => {
     ).toBeDefined();
     expect(
       customResultLinkWrapper.find(getDataTestSelector('result-link-image')).attributes('src')
-    ).toEqual(result.images[0]);
+    ).toEqual(result.images![0]);
     expect(customResultLinkWrapper.find(getDataTestSelector('result-link-text')).text()).toEqual(
       result.name
     );

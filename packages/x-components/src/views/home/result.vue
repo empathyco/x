@@ -1,7 +1,11 @@
 <template>
   <article class="x-result" style="max-width: 300px; overflow: hidden">
     <BaseResultLink :result="result">
-      <BaseResultImage :result="result" class="x-result__picture x-picture--colored">
+      <BaseResultImage
+        :result="result"
+        class="x-result__picture x-picture--fixed-ratio"
+        :animation="crossFade"
+      >
         <template #placeholder>
           <div style="padding-top: 100%; background-color: lightgray"></div>
         </template>
@@ -32,6 +36,7 @@
   import BaseResultImage from '../../components/result/base-result-image.vue';
   import BaseResultLink from '../../components/result/base-result-link.vue';
   import BaseResultRating from '../../components/result/base-result-rating.vue';
+  import CrossFade from '../../components/animations/cross-fade.vue';
 
   @Component({
     components: {
@@ -43,6 +48,8 @@
   export default class ResultComponent extends Vue {
     @Prop()
     protected result!: Result;
+
+    protected crossFade = CrossFade;
   }
 </script>
 

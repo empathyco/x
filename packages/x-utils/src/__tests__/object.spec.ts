@@ -1,4 +1,5 @@
 import {
+  cleanEmpty,
   cleanUndefined,
   every,
   flatObject,
@@ -396,6 +397,65 @@ describe('testing object utils', () => {
     function hasProperty(obj: any, key: string): boolean {
       return key in obj;
     }
+  });
+
+  describe('cleanEmpty', () => {
+    it('cleans empty values from an object', () => {
+      const testObj = {
+        a: 1,
+        b: 2,
+        c: undefined,
+        d: '',
+        e: null,
+        f: [],
+        g: {}
+      };
+
+      const cleanObject = cleanEmpty(testObj);
+      expect(cleanObject).toStrictEqual({
+        a: 1,
+        b: 2
+      });
+    });
+
+    it('cleans empty values from an object recursively', () => {
+      const testObj = {
+        a: 1,
+        b: {
+          c: 2,
+          d: undefined,
+          e: '',
+          f: {
+            g: ['hey'],
+            h: 3,
+            i: null,
+            j: {}
+          },
+          k: [],
+          l: 'test'
+        }
+      };
+
+      const cleanObject = cleanEmpty(testObj);
+      expect(cleanObject).toStrictEqual({
+        a: 1,
+        b: {
+          c: 2,
+          f: {
+            g: ['hey'],
+            h: 3
+          },
+          l: 'test'
+        }
+      });
+    });
+
+    it('cleans nested empty objects from an object', () => {
+      const testObj = { a: { b: { c: { d: '' } } } };
+
+      const cleanObject = cleanEmpty(testObj);
+      expect(cleanObject).toStrictEqual({});
+    });
   });
 
   describe('getKeysWithDifferentValue', () => {

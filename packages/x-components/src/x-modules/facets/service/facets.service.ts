@@ -1,4 +1,4 @@
-import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
+import { Facet, Filter, isFacetFilter, isHierarchicalFacet } from '@empathyco/x-types';
 import { Store } from 'vuex';
 import { XPlugin } from '../../../plugins/index';
 import { RootXStoreState } from '../../../store/index';
@@ -6,6 +6,7 @@ import { arrayToObject, groupItemsBy, isArrayEmpty } from '../../../utils/index'
 import { FilterEntityFactory } from '../entities/filter-entity.factory';
 import { FilterEntity } from '../entities/types';
 import { FacetGroupEntry, FacetsGetters } from '../store/types';
+import { flatHierarchicalFilters } from '../utils';
 import { FacetsGroup, FacetsService } from './types';
 
 /**
@@ -78,6 +79,16 @@ export class DefaultFacetsService implements FacetsService {
   }
 
   /**
+   * Sets the query.
+   *
+   * @param query - The query searched.
+   * @internal
+   */
+  setQuery(query: string): void {
+    this.store.commit('x/facets/setQuery', query);
+  }
+
+  /**
    * Creates an entity from a filter DTO.
    *
    * @param filter - The filter to create an entity from.
@@ -103,9 +114,27 @@ export class DefaultFacetsService implements FacetsService {
       this.setFacetGroup({ facetId: facet.id, groupId: facetsGroup.id });
       this.setFacet(facet);
     });
-    const newFilters = facetsGroup.facets.flatMap(facet => facet.filters);
+    const newFilters = this.flatFilters(facetsGroup);
     this.setFilters(newFilters);
     return newFilters;
+  }
+
+  /**
+   * This function returns the filters of the facets group flattened in an array. It keeps the
+   * relations between the filters (parent--children).
+   *
+   * @privateRemarks If it is necessary to deal with more cases than the hierarchical, we need to
+   * refactor this logic and maybe move it to the entities, to not make this service dependant of
+   * the facet type. At the moment it is only one `if`, and is ok as long as no more `if`s are
+   * needed.
+   * @param facetsGroup - The facets group from where extract the filters to flat.
+   * @returns An array with the filters flattened.
+   * @internal
+   */
+  protected flatFilters(facetsGroup: FacetsGroup): Filter[] {
+    return facetsGroup.facets.flatMap(facet =>
+      isHierarchicalFacet(facet) ? flatHierarchicalFilters(facet.filters) : facet.filters
+    );
   }
 
   /**
@@ -158,6 +187,7 @@ export class DefaultFacetsService implements FacetsService {
     this.removeFilters(filtersToRemove);
     return filtersToRemove;
   }
+
   /**
    * Removes the facets that belong to the given group.
    *

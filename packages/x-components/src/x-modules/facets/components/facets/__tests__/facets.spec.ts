@@ -94,6 +94,52 @@ describe('testing Facets component', () => {
     expect(customSelectedFiltersWrapper.text()).toEqual('RedBlue');
   });
 
+  it(
+    'allows customizing a facet using a slot named with the facet.modelName together with' +
+      'the slots with the facet.id',
+    () => {
+      const color_facet = createSimpleFacetStub('color_facet', createSimpleFilter => [
+        createSimpleFilter('Red', true),
+        createSimpleFilter('Blue', false)
+      ]);
+      const brand_facet = createSimpleFacetStub('brand_facet', createSimpleFilter => [
+        createSimpleFilter('Adidas', true),
+        createSimpleFilter('Nike', false)
+      ]);
+
+      const { wrapper } = renderFacetsComponent({
+        customFacetSlot: `
+          <template #simple-facet="{ facet, selectedFilters }">
+            <p data-test="facet-by-model-name">{{ facet.label }}</p>
+            <div data-test="selected-filters-by-model-name">
+              <span v-for="filter in selectedFilters">{{ filter.label }}</span>
+            </div>
+          </template>
+          <template #brand-facet="{ facet, selectedFilters }">
+            <p data-test="facet-by-id">{{ facet.label }}</p>
+            <div data-test="selected-filters-by-id">
+              <span v-for="filter in selectedFilters">{{ filter.label }}</span>
+            </div>
+          </template>`,
+        facets: { brand_facet, color_facet }
+      });
+      const facetByModelNameWrapper = wrapper.get(getDataTestSelector('facet-by-model-name'));
+      const selectedFiltersByModelNameWrapper = wrapper.get(
+        getDataTestSelector('selected-filters-by-model-name')
+      );
+      const facetByIdWrapper = wrapper.get(getDataTestSelector('facet-by-id'));
+      const selectedFiltersByIdWrapper = wrapper.get(getDataTestSelector('selected-filters-by-id'));
+
+      expect(facetByModelNameWrapper.exists()).toBe(true);
+      expect(facetByModelNameWrapper.text()).toBe(color_facet.label);
+      expect(selectedFiltersByModelNameWrapper.text()).toEqual('Red');
+
+      expect(facetByIdWrapper.exists()).toBe(true);
+      expect(facetByIdWrapper.text()).toBe(brand_facet.label);
+      expect(selectedFiltersByIdWrapper.text()).toEqual('Adidas');
+    }
+  );
+
   describe('filters facets based on renderableFacets prop', () => {
     it('renders all facets when its value is omitted', () => {
       const { getDefaultFacets } = renderFacetsComponent({

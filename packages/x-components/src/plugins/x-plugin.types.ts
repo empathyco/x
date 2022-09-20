@@ -1,4 +1,3 @@
-import { SearchAdapter } from '@empathyco/x-adapter';
 import {
   Facet,
   Filter,
@@ -8,7 +7,8 @@ import {
   Redirection,
   RelatedTag,
   Result,
-  Suggestion
+  Suggestion,
+  XComponentsAdapter
 } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
 import { Store } from 'vuex';
@@ -32,16 +32,24 @@ import { XBus } from './x-bus.types';
  */
 export interface XPluginOptions {
   /** The adapter transforms the request for the the search and tagging APIs and its responses. */
-  adapter: SearchAdapter;
-  /** A Vuex store to install the X module. If not passed a new one will be created and injected
-   * into every component. */
+  adapter: XComponentsAdapter;
+  /**
+   * A Vuex store to install the X module. If not passed a new one will be created and injected
+   * into every component.
+   */
   store?: Store<any>;
-  /** A {@link XModule | XModules} to be registered during the {@link XPlugin} installation. */
+  /**
+   * A {@link XModule | XModules} to be registered during the {@link XPlugin} installation.
+   */
   initialXModules?: AnyXModule[];
-  /** Override the {@link XModule | XModules} config state and its wiring. */
+  /**
+   * Override the {@link XModule | XModules} config state and its wiring.
+   */
   xModules?: XModulesOptions;
-  /** Override the {@link XModule | XModules} store module and store emitters. It must be used
-   * only in exceptional cases. */
+  /**
+   * Override the {@link XModule | XModules} store module and store emitters. It must be used
+   * only in exceptional cases.
+   */
   __PRIVATE__xModules?: PrivateXModulesOptions;
 }
 
@@ -91,8 +99,10 @@ export interface XComponentAliasAPI {
   readonly device: string | null;
   /** The {@link FacetsXModule} facets. */
   readonly facets: Record<Facet['id'], Facet>;
-  /** The {@link HistoryQueriesXModule} history queries. */
+  /** The {@link HistoryQueriesXModule} history queries matching the query. */
   readonly historyQueries: ReadonlyArray<HistoryQuery>;
+  /** The {@link HistoryQueriesXModule} history queries. */
+  readonly fullHistoryQueries: ReadonlyArray<HistoryQuery>;
   /** The {@link IdentifierResultsXModule} results. */
   readonly identifierResults: ReadonlyArray<Result>;
   /** The {@link Empathize} is open state. */
@@ -115,6 +125,8 @@ export interface XComponentAliasAPI {
   readonly redirections: ReadonlyArray<Redirection>;
   /** The {@link RelatedTagsXModule} related tags (Both selected and deselected). */
   readonly relatedTags: ReadonlyArray<RelatedTag>;
+  /** The {@link SearchXModule} search results. */
+  readonly results: ReadonlyArray<Result>;
   /** The {@link ScrollXModule} data state. */
   readonly scroll: Record<string, ScrollComponentState>;
   /** The {@link FacetsXModule} selected filters. */
@@ -137,6 +149,8 @@ export interface XComponentAliasAPI {
  * @public
  */
 export interface XComponentAliasQueryAPI {
+  /** The {@link FacetsXModule} query. */
+  readonly facets: string;
   /** The {@link SearchBoxXModule} query. */
   readonly searchBox: string;
   /** The {@link NextQueriesXModule} query. */
@@ -187,9 +201,13 @@ export type XModulesOptions = {
  * @public
  */
 export interface XModuleOptions<ModuleName extends XModuleName> {
-  /** The options to override the default config state for the module. */
+  /**
+   * The options to override the default config state for the module.
+   */
   config?: DeepPartial<ExtractState<ModuleName> extends { config: infer Config } ? Config : never>;
-  /** The options to override the default wiring configuration for the module. */
+  /**
+   * The options to override the default wiring configuration for the module.
+   */
   wiring?: Partial<Wiring>;
 }
 
@@ -211,10 +229,14 @@ export type PrivateXModulesOptions = {
  * @public
  */
 export interface PrivateXModuleOptions<Module extends AnyXModule> {
-  /** The options to override events that will be emitted when a the getters value or the state
-   * of the store changes. */
+  /**
+   * The options to override events that will be emitted when the getters value or the state
+   * of the store changes.
+   */
   storeEmitters?: Partial<StoreEmitters<Module['storeModule']>>;
-  /** The options to override the default store module configuration. */
+  /**
+   * The options to override the default store module configuration.
+   */
   storeModule?: XStoreModuleOptions<Module['storeModule']>;
 }
 

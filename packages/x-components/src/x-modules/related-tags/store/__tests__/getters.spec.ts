@@ -1,6 +1,6 @@
-import { RelatedTagsRequest } from '@empathyco/x-types';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
+import { RelatedTagsRequest } from '@empathyco/x-types';
 import {
   createRelatedTagStub,
   getRelatedTagsStub
@@ -41,7 +41,9 @@ describe('testing related tags module getters', () => {
         query: 'doraemon',
         rows: 10,
         start: 0,
-        catalog: 'es'
+        extraParams: {
+          catalog: 'es'
+        }
       });
     });
 
@@ -58,7 +60,9 @@ describe('testing related tags module getters', () => {
         query: 'barça nobita',
         rows: 10,
         start: 0,
-        warehouse: 1234
+        extraParams: {
+          warehouse: 1234
+        }
       });
     });
 

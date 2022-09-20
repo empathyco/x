@@ -90,7 +90,7 @@ describe('testing BaseCurrentPrice component', () => {
     });
 
     expect(wrapper.find(getDataTestSelector('override-default-slot')).exists()).toBe(true);
-    expect(wrapper.text()).toBe(mockedResult.price.value.toString());
+    expect(wrapper.text()).toBe(mockedResult.price!.value.toString());
   });
 });
 
@@ -99,8 +99,10 @@ interface RenderBaseCurrentPriceOptions {
   format?: string;
   /** The result with the price to display. */
   result?: Pick<Result, 'price'>;
-  /** The template to render. Receives the 'result', 'format' props and
-   * has registered a {@link BaseCurrency | BaseCurrency component}. */
+  /**
+   * The template to render. Receives the 'result', 'format' props and
+   * has registered a {@link BaseCurrency | BaseCurrency component}.
+   */
   template?: string;
 }
 

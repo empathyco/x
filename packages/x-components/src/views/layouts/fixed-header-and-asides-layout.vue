@@ -13,6 +13,9 @@
         <BaseIdModalOpen modalId="right-aside" class="x-button--ghost">
           <FiltersIcon class="x-icon--l" />
         </BaseIdModalOpen>
+        <BaseIdModalOpen modalId="extra-aside" class="x-button--ghost">
+          <CartIcon class="x-icon--l" />
+        </BaseIdModalOpen>
       </div>
     </template>
     <template #sub-header>
@@ -53,6 +56,15 @@
         RIGHT SIDE
       </div>
     </template>
+    <template #extra-aside>
+      <BaseIdModal modal-id="extra-aside" class="x-layout__aside x-layout__aside--right">
+        <div
+          class="x-background--neutral-100 x-padding--10 x-margin--top-12 x-border-radius--left-06"
+        >
+          EXTRA ASIDE
+        </div>
+      </BaseIdModal>
+    </template>
     <template #main>
       <div
         class="x-list__item--stretch x-margin--top-05 x-margin--bottom-05 x-background--neutral-95"
@@ -89,17 +101,21 @@
   import ChevronRight from '../../components/icons/chevron-right.vue';
   import Cross from '../../components/icons/cross.vue';
   import FiltersIcon from '../../components/icons/filters.vue';
+  import CartIcon from '../../components/icons/cart.vue';
   // eslint-disable-next-line max-len
   import FixedHeaderAndAsidesLayout from '../../components/layouts/fixed-header-and-asides-layout.vue';
   import BaseIdModalOpen from '../../components/modals/base-id-modal-open.vue';
+  import BaseIdModal from '../../components/modals/base-id-modal.vue';
 
   @Component({
     components: {
       ChevronRight,
       Cross,
       FixedHeaderAndAsidesLayout,
+      BaseIdModal,
       BaseIdModalOpen,
-      FiltersIcon
+      FiltersIcon,
+      CartIcon
     }
   })
   export default class FixedHeaderAndAsidesLayoutView extends Vue {}

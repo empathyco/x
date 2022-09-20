@@ -1,3 +1,4 @@
+import { RequiredProperties } from '@empathyco/x-utils';
 import { XBus } from '../../plugins/x-bus.types';
 import { DocumentDirection } from '../../plugins/x-plugin.types';
 import { XEvent, XEventPayload } from '../../wiring/events.types';
@@ -94,13 +95,13 @@ export interface SnippetConfig {
   /** Customer instance. */
   instance: string;
   /** Backend services environment. */
-  env?: 'live' | 'staging';
+  env?: 'staging';
   /** Execution scope (desktop, mobile, app, ...). */
   scope: string;
-  /** Language to display. */
+  /** Language for the API request, and default value for {@link SnippetConfig.uiLang}. */
   lang: string;
-  /** Language to send to backend services. */
-  searchLang?: string;
+  /** Language to use for the messages. Defaults to {@link SnippetConfig.lang}. */
+  uiLang?: string;
   /** User GDPR consent. */
   consent?: boolean;
   /** Document direction. */
@@ -115,6 +116,29 @@ export interface SnippetConfig {
   productId?: string;
   /** The filters to be applied on the first request. */
   filters?: string[];
+  /** List of queries to preview. */
+  queriesPreview?: QueryPreviewInfo[];
   /** Any extra param to send in all backend calls. */
-  [extra: string]: any;
+  [extra: string]: unknown;
+}
+
+/**
+ * A normalised version of the snippet config.
+ *
+ * @public
+ */
+export type NormalisedSnippetConfig = RequiredProperties<SnippetConfig, 'uiLang'>;
+
+/**
+ * Information to render a query preview with.
+ *
+ * @public
+ */
+export interface QueryPreviewInfo {
+  /** The query to search for. */
+  query: string;
+  /** An optional title for the container. */
+  title?: string;
+  /** Any other additional information to render the preview with. */
+  [extra: string]: unknown;
 }

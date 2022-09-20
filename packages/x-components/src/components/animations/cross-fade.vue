@@ -1,5 +1,5 @@
 <template>
-  <transition v-on="$listeners" appear name="x-cross-fade-" mode="in-out">
+  <transition v-on="$listeners" appear name="x-cross-fade-" v-bind="$attrs">
     <!-- @slot (Required) to add content to the transition -->
     <slot />
   </transition>
@@ -10,12 +10,14 @@
   import { Component } from 'vue-property-decorator';
 
   /**
-   * Renders a transition wrapping the element passed in the default slo. The transition
+   * Renders a transition wrapping the element passed in the default slot. The transition
    * fades between the two toggled elements at the same time.
    *
    * @public
    */
-  @Component
+  @Component({
+    inheritAttrs: false
+  })
   export default class CrossFade extends Vue {}
 </script>
 
@@ -24,6 +26,7 @@
     &--enter-active,
     &--leave-active {
       transition: opacity 0.25s ease-in-out;
+      mix-blend-mode: multiply;
     }
 
     &--leave-active {

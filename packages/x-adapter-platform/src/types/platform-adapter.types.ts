@@ -1,20 +1,30 @@
-import { Adapter, EndpointAdapter } from '@empathyco/x-adapter-next';
 import {
-  EmpathizeResponse,
+  IdentifierResultsRequest,
+  IdentifierResultsResponse,
+  NextQueriesRequest,
   NextQueriesResponse,
+  PopularSearchesRequest,
+  PopularSearchesResponse,
+  QuerySuggestionsRequest,
+  QuerySuggestionsResponse,
+  RecommendationsRequest,
+  RecommendationsResponse,
+  RelatedTagsRequest,
   RelatedTagsResponse,
+  SearchRequest,
   SearchResponse,
-  SkuSearchResponse,
-  TopClickedResponse
-} from './response.types';
-import { BaseRequest, SearchRequest, TaggingRequest } from './request.types';
+  TaggingRequest,
+  XComponentsAdapter
+} from '@empathyco/x-types';
+import { ExtendableEndpointAdapter } from '@empathyco/x-adapter';
 
-export interface PlatformAdapter extends Adapter {
-  search: EndpointAdapter<SearchRequest, SearchResponse>;
-  empathize: EndpointAdapter<BaseRequest, EmpathizeResponse>;
-  topClicked: EndpointAdapter<BaseRequest, TopClickedResponse>;
-  nextQueries: EndpointAdapter<BaseRequest, NextQueriesResponse>;
-  relatedTags: EndpointAdapter<BaseRequest, RelatedTagsResponse>;
-  skuSearch: EndpointAdapter<BaseRequest, SkuSearchResponse>;
-  tagging: EndpointAdapter<TaggingRequest, void>;
+export interface PlatformAdapter extends XComponentsAdapter {
+  search: ExtendableEndpointAdapter<SearchRequest, SearchResponse>;
+  popularSearches: ExtendableEndpointAdapter<PopularSearchesRequest, PopularSearchesResponse>;
+  nextQueries: ExtendableEndpointAdapter<NextQueriesRequest, NextQueriesResponse>;
+  recommendations: ExtendableEndpointAdapter<RecommendationsRequest, RecommendationsResponse>;
+  querySuggestions: ExtendableEndpointAdapter<QuerySuggestionsRequest, QuerySuggestionsResponse>;
+  relatedTags: ExtendableEndpointAdapter<RelatedTagsRequest, RelatedTagsResponse>;
+  identifierResults: ExtendableEndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
+  tagging: ExtendableEndpointAdapter<TaggingRequest, void>;
 }

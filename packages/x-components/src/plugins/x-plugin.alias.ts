@@ -17,6 +17,7 @@ import { getGetterPath } from './x-plugin.utils';
  */
 export function getAliasAPI(component: Vue): XComponentAliasAPI {
   const queryModules = [
+    'facets',
     'searchBox',
     'nextQueries',
     'querySuggestions',
@@ -62,6 +63,9 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
     get historyQueries() {
       return component.$store.getters[getGetterPath('historyQueries', 'historyQueries')] ?? [];
     },
+    get fullHistoryQueries() {
+      return component.$store.state.x.historyQueries?.historyQueries ?? [];
+    },
     get identifierResults() {
       return component.$store.state.x.identifierResults?.identifierResults ?? [];
     },
@@ -91,6 +95,9 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
     },
     get relatedTags() {
       return component.$store.getters[getGetterPath('relatedTags', 'relatedTags')] ?? [];
+    },
+    get results() {
+      return component.$store.state.x.search?.results ?? [];
     },
     get scroll() {
       return component.$store.state.x.scroll?.data ?? {};
