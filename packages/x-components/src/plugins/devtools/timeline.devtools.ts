@@ -7,12 +7,12 @@ import { hslToHex } from './utils';
 /**
  * Contains the devtools API.
  */
-let DevtoolsAPI: DevtoolsPluginApi<Dictionary> | undefined;
+let devtoolsAPI: DevtoolsPluginApi<Dictionary> | undefined;
 
 /**
  * List of all the configured timeline layers for {@link XEvent}s.
  */
-const TimelineLayers = [
+const timelineLayers = [
   {
     id: 'x-components-module-registered-events',
     regex: /^ModuleRegistered$/,
@@ -42,7 +42,7 @@ const TimelineLayers = [
 ];
 
 /** Set containing the different layer ids. */
-const layerIds = new Set(TimelineLayers.map(layer => layer.id));
+const layerIds = new Set(timelineLayers.map(layer => layer.id));
 
 /**
  * Retrieves the timeline layer that an {@link XEvent} belongs to.
@@ -51,7 +51,7 @@ const layerIds = new Set(TimelineLayers.map(layer => layer.id));
  * @returns The layer id for the {@link XEvent}.
  */
 function getTimelineLayer(event: XEvent): string {
-  return TimelineLayers.find(layer => layer.regex.test(event))!.id;
+  return timelineLayers.find(layer => layer.regex.test(event))!.id;
 }
 
 /**
@@ -61,8 +61,8 @@ function getTimelineLayer(event: XEvent): string {
  * @internal
  */
 export function setupTimelinePlugin(api: DevtoolsPluginApi<Dictionary>): void {
-  DevtoolsAPI = api;
-  TimelineLayers.forEach(layer =>
+  devtoolsAPI = api;
+  timelineLayers.forEach(layer =>
     api.addTimelineLayer({
       id: layer.id,
       label: layer.label,
@@ -91,11 +91,11 @@ export function logDevtoolsXEvent<Event extends XEvent>(
   value: WirePayload<XEventPayload<Event>>
 ): void {
   if (process.env.NODE_ENV !== 'production') {
-    DevtoolsAPI?.addTimelineEvent({
+    devtoolsAPI?.addTimelineEvent({
       event: {
         title: event,
         data: value,
-        time: DevtoolsAPI?.now()
+        time: devtoolsAPI?.now()
       },
       layerId: getTimelineLayer(event)
     });

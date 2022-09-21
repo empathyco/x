@@ -3,7 +3,7 @@ import App from './App.vue';
 import { setupDevtools } from './plugins/devtools/devtools.plugin';
 import router from './router';
 import { baseInstallXOptions, baseSnippetConfig } from './views/base-config';
-import { InitWrapper } from './x-installer/index';
+import { InitWrapper } from './x-installer/x-installer/types';
 import { XInstaller } from './x-installer/x-installer/x-installer';
 import { FilterEntityFactory } from './x-modules/facets/entities/filter-entity.factory';
 import { SingleSelectModifier } from './x-modules/facets/entities/single-select.modifier';

@@ -7,9 +7,11 @@ import { XModuleName } from '../../x-modules/x-modules.types';
 import { hslToHex, moduleColors } from './utils';
 
 /** The full list of wiring nodes for the inspector. */
-const WiringNodes: Partial<Record<XEvent, CustomInspectorNode[]>> = {};
-/** Status of the nodes. */
-const WiresStatus: Record<string, boolean> = {};
+const wiringNodes: Partial<Record<XEvent, CustomInspectorNode[]>> = {};
+/**
+ * Record of the wires enabled/disabled status.
+ */
+const wiresStatus: Record<string, boolean> = {};
 
 /**
  * Creates tags given a node representing a wire.
@@ -19,7 +21,7 @@ const WiresStatus: Record<string, boolean> = {};
  */
 function createWireTags({ tags = [], id }: CustomInspectorNode): InspectorNodeTag[] {
   const newTags: InspectorNodeTag[] = [...tags];
-  if (!WiresStatus[id]) {
+  if (!wiresStatus[id]) {
     newTags.push({
       label: 'disabled',
       backgroundColor: hslToHex(0, 88, 30),
@@ -47,7 +49,7 @@ export function setupWiringDevtools(api: DevtoolsPluginApi<Dictionary<unknown>>)
     }
     const query = payload.filter.toLowerCase();
     payload.rootNodes = reduce(
-      WiringNodes,
+      wiringNodes,
       (nodes, event, eventWires) => {
         const wiresNodes =
           /* If there is no active search, or the event name includes the query, we include all the
@@ -81,7 +83,7 @@ export function setupWiringDevtools(api: DevtoolsPluginApi<Dictionary<unknown>>)
       status: [
         {
           key: 'enabled',
-          value: WiresStatus[payload.nodeId],
+          value: wiresStatus[payload.nodeId],
           editable: true
         }
       ]
@@ -90,14 +92,15 @@ export function setupWiringDevtools(api: DevtoolsPluginApi<Dictionary<unknown>>)
 
   api.on.editInspectorState(payload => {
     if (payload.inspectorId === inspectorId) {
-      WiresStatus[payload.nodeId] = payload.state.value;
+      wiresStatus[payload.nodeId] = payload.state.value;
       api.sendInspectorTree(inspectorId);
     }
   });
 }
 
 /**
- * Sends the module wiring to Vue's devtools inspector.
+ * Sends the module wiring to Vue's devtools inspector. Additionally, it modifies each wire, adding
+ * a filter function to let it be enabled/disabled from the devtools.
  *
  * @param module - The module name this wiring belongs too.
  * @param wiring - The wiring to save.
@@ -106,11 +109,11 @@ export function setupWiringDevtools(api: DevtoolsPluginApi<Dictionary<unknown>>)
 export function sendWiringToDevtools(module: XModuleName, wiring: Partial<Wiring>): void {
   if (process.env.NODE_ENV !== 'production') {
     forEach(wiring, (event, wires: Dictionary<AnyWire>) => {
-      const eventWiring = WiringNodes[event] ?? (WiringNodes[event] = []);
+      const eventWiring = wiringNodes[event] ?? (wiringNodes[event] = []);
       forEach(wires, (wireName, wire) => {
         const id = `${module}-${event}-${wireName}`;
-        WiresStatus[id] = true;
-        wires[wireName] = filter(wire, () => WiresStatus[id]);
+        wiresStatus[id] = true;
+        wires[wireName] = filter(wire, () => wiresStatus[id]);
         eventWiring.push({
           id,
           label: wireName,
