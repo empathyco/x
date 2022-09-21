@@ -1,9 +1,11 @@
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { PluginAPI } from 'tailwindcss/types/config';
+import { Config } from 'tailwindcss';
 import { ReturnOfComponents } from './x-tailwind-plugin/components';
 import { ReturnOfDynamicComponents } from './x-tailwind-plugin/dynamic-components';
 import { ReturnOfDynamicUtilities } from './x-tailwind-plugin/dynamic-utilities';
 import { ReturnOfUtilities } from './x-tailwind-plugin/utilities';
+import Theme from './x-tailwind-plugin/theme';
 
 /**
  * Represents a `CSS` variable name.
@@ -83,7 +85,7 @@ export type CssStyleOptions = {
  */
 export type DynamicCssStylesOptions = Dictionary<{
   styles: (value: unknown) => CssStyleOptions;
-  values?: string;
+  values?: Dictionary<unknown>;
 }>;
 
 /**
@@ -154,5 +156,5 @@ export interface PluginOptions {
   /**
    * Helper to define new theme or modify the existing one.
    */
-  theme?: Dictionary;
+  theme?: DeepPartial<typeof Theme> | Config['theme'];
 }

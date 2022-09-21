@@ -1,6 +1,7 @@
 const { xTailwindPlugin, oldDsPlugin } = require('@empathyco/x-tailwindcss');
 const options = require('./src/tailwind/plugin-options');
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./public/index.html', './src/**/*.vue'],
   prefix: 'x-',
