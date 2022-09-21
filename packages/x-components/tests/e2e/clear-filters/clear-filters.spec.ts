@@ -1,4 +1,4 @@
-import { Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 // Scenario 1
 When('clear filters button is clicked', () => {
@@ -21,6 +21,6 @@ When('filter number {int} is clicked in selected filters list', (selectedFilterI
     .as('removedFilter');
 });
 
-Then('filter is removed from selected filters list', function (this: { removedFilter: string }) {
+Then('filter is removed from selected filters list', function () {
   cy.getByDataTest('selected-filters-list-item').should('not.contain', this.removedFilter);
 });

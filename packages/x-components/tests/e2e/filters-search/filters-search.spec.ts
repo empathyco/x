@@ -1,10 +1,10 @@
-import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 Then('facet has filters', () => {
   cy.getByDataTest('brand_facet-filter').should('have.length.at.least', 1);
 });
 
-And('searchable filters are stored', () => {
+Then('searchable filters are stored', () => {
   cy.getByDataTest('brand_facet-filter').invoke('text').as('searchableFilters');
 });
 
@@ -25,13 +25,10 @@ Then('filters in facet are refined with search, {string}', (searchFiltersQuery: 
     .as('refinedFilters');
 });
 
-And(
-  'searchable filters in facet contain refined filters',
-  function (this: { searchableFilters: string[] }) {
-    cy.getByDataTest('brand_facet-filter').should(refinedFilters => {
-      refinedFilters.each((_, refinedFilter) => {
-        expect(this.searchableFilters).to.contain(refinedFilter.textContent);
-      });
+Then('searchable filters in facet contain refined filters', function () {
+  cy.getByDataTest('brand_facet-filter').should(refinedFilters => {
+    refinedFilters.each((_, refinedFilter) => {
+      expect(this.searchableFilters).to.contain(refinedFilter.textContent);
     });
-  }
-);
+  });
+});

@@ -1,4 +1,4 @@
-import { And, Given } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When } from '@badeball/cypress-cucumber-preprocessor';
 import {
   NextQueriesResponse,
   RelatedTagsResponse,
@@ -486,7 +486,7 @@ Given('a results API with a redirection', () => {
   }).as('interceptedResults');
 });
 
-And('waiting for search request intercept', () => {
+When('waiting for search request intercept', () => {
   cy.intercept('https://api.empathy.co/search').as('requestWithFilter');
 });
 

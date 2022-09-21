@@ -33,7 +33,7 @@ Feature: Sliced Filters components
     And   filters are displayed
     Then  number of sliced filters in facet "<facetName>" are stored
     And   number of sliced filters are at most <slicedFiltersMax>
-    And   no show more / show less buttons are displayed in "<facetName>"
+    And   no show more or show less buttons are displayed in "<facetName>"
 
     Examples:
       | slicedFiltersMax | query  | facetName |

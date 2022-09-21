@@ -1,4 +1,4 @@
-import { And, Then } from 'cypress-cucumber-preprocessor/steps';
+import { Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Then('only filters with totalResults undefined or greater than 0 are shown in facet', () => {
   cy.getByDataTest('brand_facet-filter-total-results')
@@ -10,7 +10,7 @@ Then('only filters with totalResults undefined or greater than 0 are shown in fa
     });
 });
 
-And('{string} total filters are more than displayed filters', function (facetName: string) {
+Then('{string} total filters are more than displayed filters', function (facetName: string) {
   cy.getByDataTest('facets-facet')
     .contains(facetName)
     .getByDataTest('total-filters')

@@ -1,4 +1,4 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { InstallXOptions } from '../../../src/x-installer/x-installer/types';
 
 // Background
@@ -27,7 +27,7 @@ Given(
 );
 
 // Scenario 1
-And('no query suggestions are displayed', () => {
+Then('no query suggestions are displayed', () => {
   cy.getByDataTest('query-suggestion').should('not.exist');
 });
 
@@ -37,8 +37,8 @@ Then('at most {int} query suggestions are displayed', (maxItemsToRequest: number
     .and('have.length.at.most', maxItemsToRequest);
 });
 
-And('all query suggestions contain the searched query', function (this: { searchedQuery: string }) {
-  const wordsInQuery = this.searchedQuery.split(' ');
+Then('all query suggestions contain the searched query', function () {
+  const wordsInQuery = (this.searchedQuery as string).split(' ');
   cy.getByDataTest('query-suggestion').should(suggestions => {
     suggestions.each((_, e) => {
       for (const word of wordsInQuery) {

@@ -1,4 +1,4 @@
-import { And, Then, When, defineParameterType } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When, defineParameterType } from '@badeball/cypress-cucumber-preprocessor';
 
 defineParameterType({
   name: 'direction',
@@ -11,7 +11,7 @@ type Direction = 'above' | 'below' | 'on the left' | 'on the right';
 type Move = 'up' | 'right' | 'bottom' | 'left';
 
 // Scenario 1
-And('{string} element position is stored', (focusableElement: string) => {
+When('{string} element position is stored', (focusableElement: string) => {
   return cy.getByDataTest(focusableElement).last().focus().as('originalElement');
 });
 

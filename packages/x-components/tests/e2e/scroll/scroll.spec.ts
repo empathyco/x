@@ -1,4 +1,4 @@
-import { Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 When('scrolling down to result {string}', (resultId: string) => {
   cy.get(`[data-scroll=${resultId}]`).scrollIntoView({ easing: 'swing', duration: 1000 });
