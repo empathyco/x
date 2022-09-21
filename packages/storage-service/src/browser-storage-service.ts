@@ -87,7 +87,6 @@ export class BrowserStorageService implements StorageService {
 
   protected createExpirableItem(item: any, ttlInMs?: number): any {
     return {
-      // eslint-disable-next-line @typescript-eslint/no-extra-parens
       ...(!!ttlInMs && { ttl: ttlInMs + this.currentTimestamp() }),
       value: item
     };

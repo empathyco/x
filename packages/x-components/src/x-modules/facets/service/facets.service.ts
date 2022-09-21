@@ -79,6 +79,16 @@ export class DefaultFacetsService implements FacetsService {
   }
 
   /**
+   * Sets the query.
+   *
+   * @param query - The query searched.
+   * @internal
+   */
+  setQuery(query: string): void {
+    this.store.commit('x/facets/setQuery', query);
+  }
+
+  /**
    * Creates an entity from a filter DTO.
    *
    * @param filter - The filter to create an entity from.

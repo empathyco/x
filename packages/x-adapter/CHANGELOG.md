@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.8...@empathyco/x-adapter@8.0.0-alpha.9) (2022-09-16)
+
+### Features
+
+- **x-adapter:** clean empty params (#716)
+  ([eeb4399](https://github.com/empathyco/x/commit/eeb4399c59b44691d31efbf49ad028dda1123229)),
+  closes [EX-6959](https://searchbroker.atlassian.net/browse/EX-6959)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [8.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.7...@empathyco/x-adapter@8.0.0-alpha.8) (2022-09-13)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [8.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.6...@empathyco/x-adapter@8.0.0-alpha.7) (2022-09-09)
+
+### Features
+
+- disable `@typescript-eslint/no-extra-parens` rule (#715)
+  ([3718017](https://github.com/empathyco/x/commit/3718017c5528156f931bc8b1f2d208cdb50781ed)),
+  closes [EX-6996](https://searchbroker.atlassian.net/browse/EX-6996)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [8.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.5...@empathyco/x-adapter@8.0.0-alpha.6) (2022-08-24)
 
 ### Features

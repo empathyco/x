@@ -37,7 +37,6 @@ function enrichRequest(request: InternalSearchRequest, state: SearchState): Sear
 
   return {
     ...restRequest,
-    // eslint-disable-next-line @typescript-eslint/no-extra-parens
     ...(origin && { origin }),
     start,
     rows: pageSize * page - start

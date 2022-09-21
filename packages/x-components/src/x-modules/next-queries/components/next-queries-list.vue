@@ -31,7 +31,7 @@
   import { NextQueriesGroup } from '../types';
   import { nextQueriesXModule } from '../x-module';
   import { XInject } from '../../../components/decorators/injection.decorators';
-  import { QUERY_KEY } from '../../../components/decorators/injection.consts';
+  import { HAS_MORE_ITEMS_KEY, QUERY_KEY } from '../../../components/decorators/injection.consts';
 
   /**
    * Component that inserts groups of next queries in different positions of the injected search
@@ -88,6 +88,15 @@
     public maxGroups!: number;
 
     /**
+     * Determines if a group is added to the injected items list in case the number
+     * of items is smaller than the offset.
+     *
+     * @public
+     */
+    @Prop({ default: false })
+    public showOnlyAfterOffset!: boolean;
+
+    /**
      * The state next queries.
      *
      * @internal
@@ -100,6 +109,12 @@
      */
     @XInject(QUERY_KEY)
     public injectedQuery!: string | undefined;
+
+    /**
+     * Indicates if there are more available results than the injected.
+     */
+    @XInject(HAS_MORE_ITEMS_KEY)
+    public hasMoreItems!: boolean;
 
     /**
      * The grouped next queries based on the given config.
@@ -134,6 +149,9 @@
       if (this.nextQueriesAreOutdated) {
         return this.injectedListItems;
       }
+      if (this.hasNotEnoughListItems) {
+        return this.injectedListItems.concat(this.nextQueriesGroups[0] ?? []);
+      }
       return this.nextQueriesGroups.reduce(
         (items, nextQueriesGroup, index) => {
           const targetIndex = this.offset + this.frequency * index;
@@ -157,6 +175,23 @@
         !!this.injectedQuery &&
         (this.$x.query.nextQueries !== this.injectedQuery ||
           this.$x.status.nextQueries !== 'success')
+      );
+    }
+
+    /**
+     * Checks if the number of items is smaller than the offset so a group
+     * should be added to the injected items list.
+     *
+     * @returns True if a group should be added, false if not.
+     * @internal
+     */
+    protected get hasNotEnoughListItems(): boolean {
+      return (
+        !this.showOnlyAfterOffset &&
+        !this.hasMoreItems &&
+        this.injectedListItems !== undefined &&
+        this.injectedListItems.length > 0 &&
+        this.offset > this.injectedListItems.length
       );
     }
   }
@@ -221,6 +256,42 @@ more groups will be inserted. Each one of this groups will have up to `6` next q
     <SearchInput />
     <ResultsList>
       <NextQueriesList :offset="48" :frequency="72" :maxNextQueriesPerGroup="6" :maxGroups="3" />
+    </ResultsList>
+  </div>
+</template>
+
+<script>
+  import { NextQueriesList } from '@empathyco/x-components/next-queries';
+  import { ResultsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+
+  export default {
+    name: 'NextQueriesListDemo',
+    components: {
+      NextQueriesList,
+      ResultsList,
+      SearchInput
+    }
+  };
+</script>
+```
+
+### Showing/hiding first next queries group when no more items
+
+By default, the first next query group will be inserted when the total number of results is smaller
+than the offset, but this behavior can be disabled setting the `showOnlyAfterOffset` to `true`.
+
+```vue live
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList>
+      <NextQueriesList
+        :offset="48"
+        :frequency="72"
+        :maxNextQueriesPerGroup="1"
+        :showOnlyAfterOffset="true"
+      />
     </ResultsList>
   </div>
 </template>

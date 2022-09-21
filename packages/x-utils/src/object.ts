@@ -1,4 +1,4 @@
-import { isObject } from './typeguards';
+import { isArray, isObject } from './typeguards';
 import { Dictionary } from './types';
 
 /**
@@ -92,6 +92,39 @@ export function cleanUndefined<T>(obj: T): T {
         },
         {} as T
       );
+}
+
+/**
+ * Creates an object picking only the properties whose values are not:
+ * - `undefined`.
+ * - `null`.
+ * - an empty string.
+ * - an empty array.
+ * - an empty object.
+ *
+ * @param obj - The object from whom pick the values.
+ * @returns A new object with the not empty properties of the source object.
+ * @public
+ */
+export function cleanEmpty<SomeObject extends Record<string, unknown>>(
+  obj: SomeObject
+): SomeObject {
+  return reduce(
+    obj,
+    (pickedObject, key, value) => {
+      // FIXME: Clean nested empty arrays too
+      if (isObject(value)) {
+        pickedObject[key] = cleanEmpty(value);
+        if (Object.keys(pickedObject[key] as typeof value).length === 0) {
+          delete pickedObject[key];
+        }
+      } else if (value !== null && value !== '' && !(isArray(value) && value.length === 0)) {
+        pickedObject[key] = value;
+      }
+      return pickedObject;
+    },
+    {} as SomeObject
+  );
 }
 
 /**

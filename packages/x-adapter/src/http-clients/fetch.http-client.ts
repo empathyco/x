@@ -1,4 +1,4 @@
-import { Dictionary, flatObject } from '@empathyco/x-utils';
+import { Dictionary, cleanEmpty, flatObject } from '@empathyco/x-utils';
 import { HttpClient } from './types';
 import { buildUrl, toJson } from './utils';
 
@@ -18,8 +18,8 @@ export const fetchHttpClient: HttpClient = (
 ) => {
   const signal = cancelable ? { signal: abortAndGetNewAbortSignal(id) } : {};
   const flatParameters = flatObject(parameters);
-  const url = sendParamsInBody ? endpoint : buildUrl(endpoint, flatParameters);
-  const bodyParameters = sendParamsInBody ? { body: JSON.stringify(parameters) } : {};
+  const url = sendParamsInBody ? endpoint : buildUrl(endpoint, cleanEmpty(flatParameters));
+  const bodyParameters = sendParamsInBody ? { body: JSON.stringify(cleanEmpty(parameters)) } : {};
 
   return fetch(url, {
     ...properties,

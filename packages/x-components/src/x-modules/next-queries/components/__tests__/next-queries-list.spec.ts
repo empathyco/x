@@ -336,9 +336,63 @@ describe('testing NextQueriesList component', () => {
       ]);
     });
   });
+
+  describe('when the offset is lower than the number of items', () => {
+    it('inserts next queries groups by default', () => {
+      const nextQueries = createNextQueries(
+        'steak',
+        'tomahawk' // This one should be ignored as there is no room for it.
+      );
+      const extraItems = createExtraItems(5);
+      const { getItemsRenderedText } = renderNextQueriesList({
+        nextQueries,
+        extraItems,
+        maxNextQueriesPerGroup: 1,
+        frequency: 48,
+        offset: 24
+      });
+
+      // 5 extra items + 1 group of NQs at index 5
+      expect(getItemsRenderedText()).toEqual([
+        extraItems[0].id,
+        extraItems[1].id,
+        extraItems[2].id,
+        extraItems[3].id,
+        extraItems[4].id,
+        ['steak'].join('')
+      ]);
+    });
+
+    it('does not insert next queries groups if `showOnlyAfterOffset` is `true`', () => {
+      const nextQueries = createNextQueries('steak', 'tomahawk');
+      const extraItems = createExtraItems(5);
+      const { getItemsRenderedText } = renderNextQueriesList({
+        nextQueries,
+        extraItems,
+        maxNextQueriesPerGroup: 1,
+        frequency: 48,
+        offset: 24,
+        showOnlyAfterOffset: true
+      });
+
+      // 5 extra items + no groups of NQs
+      expect(getItemsRenderedText()).toEqual([
+        extraItems[0].id,
+        extraItems[1].id,
+        extraItems[2].id,
+        extraItems[3].id,
+        extraItems[4].id
+      ]);
+    });
+  });
 });
 
 interface RenderNextQueriesListOptions {
+  /**
+   * Determines if a group is added to the injected items list when the number
+   * of items is smaller than the offset.
+   */
+  showOnlyAfterOffset?: boolean;
   /** Extra components to be registered and rendered. */
   components?: Dictionary<VueConstructor | ComponentOptions<Vue>>;
   /** Extra items to be rendered. */

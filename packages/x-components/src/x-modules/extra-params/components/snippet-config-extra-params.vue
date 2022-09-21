@@ -58,7 +58,7 @@
       default: (): Array<keyof SnippetConfig> => [
         'callbacks',
         'productId',
-        'searchLang',
+        'uiLang',
         'consent',
         'documentDirection',
         'currency',

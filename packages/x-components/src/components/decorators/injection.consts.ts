@@ -3,6 +3,13 @@ import { ListItem } from '../../utils/types';
 import { XInjectKey } from './injection.decorators';
 
 /**
+ * It's used to identify the provided and injected `disable-animations`.
+ *
+ * @internal
+ */
+export const DISABLE_ANIMATIONS_KEY: XInjectKey<boolean | undefined> = 'disable-animations';
+
+/**
  * It's used to identify the provided and injected `items`.
  *
  * @internal
@@ -15,6 +22,13 @@ export const LIST_ITEMS_KEY: XInjectKey<ListItem[] | undefined> = 'listItems';
  * @internal
  */
 export const QUERY_KEY: XInjectKey<string | undefined> = 'query';
+
+/**
+ * It's used to identify the provided and injected `hasMoreItems`.
+ *
+ * @internal
+ */
+export const HAS_MORE_ITEMS_KEY: XInjectKey<boolean | undefined> = 'hasMoreItems';
 
 /**
  * It's used to identify the provided and injected `result`.
