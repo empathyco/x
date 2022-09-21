@@ -2,7 +2,7 @@ import { DevtoolsPluginApi } from '@vue/devtools-api';
 import { Dictionary } from '@empathyco/x-utils';
 import { XEvent, XEventPayload } from '../../wiring/events.types';
 import { WirePayload } from '../../wiring/wiring.types';
-import { hslToHex } from './utils';
+import { hslToHex } from './colors.utils';
 
 /**
  * Contains the devtools API.

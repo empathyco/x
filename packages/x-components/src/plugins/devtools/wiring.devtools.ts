@@ -4,7 +4,7 @@ import { XEvent } from '../../wiring/events.types';
 import { filter } from '../../wiring/wires.operators';
 import { AnyWire, Wiring } from '../../wiring/wiring.types';
 import { XModuleName } from '../../x-modules/x-modules.types';
-import { hslToHex, moduleColors } from './utils';
+import { hslToHex, moduleColors } from './colors.utils';
 
 /** The full list of wiring nodes for the inspector. */
 const wiringNodes: Partial<Record<XEvent, CustomInspectorNode[]>> = {};
