@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.177](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.176...@empathyco/x-components@3.0.0-alpha.177) (2022-09-21)
+
+### Features
+
+- **search-input:** prevent `<` or `>` input (#433)
+  ([afc865f](https://github.com/empathyco/x/commit/afc865f2e13d775e5ee4a602536dfd2ee8b474b8)),
+  closes [EX-7035](https://searchbroker.atlassian.net/browse/EX-7035)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.176](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.175...@empathyco/x-components@3.0.0-alpha.176) (2022-09-20)
 
 ### Features
