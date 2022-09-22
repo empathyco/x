@@ -127,7 +127,7 @@ interface CustomCommands extends CommandFns {
   checkNextQueries(query: string, toContain: boolean): void;
 }
 
-interface CustomDualCommands {
+interface CustomDualCommands extends CommandFns {
   /**
    * Gets a DOM element searching by its data-test attribute.
    *
