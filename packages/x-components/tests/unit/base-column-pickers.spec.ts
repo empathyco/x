@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue';
+import { mount } from 'cypress/vue2';
 // eslint-disable-next-line max-len
 import BaseColumnPickerDropdown from '../../src/components/column-picker/base-column-picker-dropdown.vue';
 import BaseColumnPickerList from '../../src/components/column-picker/base-column-picker-list.vue';
@@ -36,7 +36,7 @@ function mountBaseColumnPickerComponents({
           <BaseColumnPickerDropdown v-model="selectedColumns" :columns="columns">
             <template #toggle="{ item, isOpen }">
               Selected: {{ item }} {{ isOpen ? '🔼' : '🔽' }}
-              ️</template>
+          ️</template>
             <template #item="{ item, isSelected, isHighlighted }">
               <span v-if="isHighlighted">🟢</span>
               <span v-if="isSelected">✅</span>

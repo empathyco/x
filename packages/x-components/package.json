@@ -81,8 +81,6 @@
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "~13.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "~2.1.4",
-    "@cypress/vue": "~2.2.4",
-    "@cypress/webpack-dev-server": "~1.8.4",
     "@empathyco/x-adapter-platform": "^1.0.0-alpha.35",
     "@empathyco/x-tailwindcss": "^0.2.0-alpha.16",
     "@microsoft/api-documenter": "~7.15.3",

@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue';
+import { mount } from 'cypress/vue2';
 import Vue from 'vue';
 import SlidingPanel from '../../src/components/sliding-panel.vue';
 import { BaseXBus } from '../../src/plugins/x-bus';

@@ -1,6 +1,6 @@
 import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-preprocessor';
 import createEsbuildPlugin from '@badeball/cypress-cucumber-preprocessor/esbuild';
-import createBundler from '@bahmutov/cypress-esbuild-preprocessor';
+import { createBundler } from '@bahmutov/cypress-esbuild-preprocessor';
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
@@ -14,7 +14,10 @@ export default defineConfig({
     supportFile: 'tests/support/index.ts',
     fixturesFolder: 'tests/e2e/fixtures',
     screenshotsFolder: 'tests/e2e/screenshots',
-    retries: 1,
+    retries: {
+      openMode: 0,
+      runMode: 1
+    },
     async setupNodeEvents(on, config) {
       await addCucumberPreprocessorPlugin(on, config);
       on(
@@ -23,8 +26,6 @@ export default defineConfig({
           plugins: [createEsbuildPlugin(config)]
         })
       );
-
-      // Make sure to return the config object as it might have been modified by the plugin.
       return config;
     },
     specPattern: 'tests/e2e/**/*.feature'
@@ -32,6 +33,7 @@ export default defineConfig({
   component: {
     specPattern: 'tests/unit/**/*.spec.ts',
     supportFile: 'tests/support/index.ts',
+    indexHtmlFile: 'tests/support/component-index.html',
     devServer: {
       bundler: 'webpack',
       framework: 'vue-cli'
