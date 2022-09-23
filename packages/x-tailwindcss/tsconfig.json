@@ -2,16 +2,16 @@
   "compilerOptions": {
     "target": "es2019",
     "module": "commonjs",
-    "lib": ["esnext"],
+    "lib": ["dom", "esnext"],
     "moduleResolution": "node",
     "esModuleInterop": true,
     "importHelpers": true,
     "strict": true,
-    "types": ["tailwindcss"],
     "sourceMap": true,
     "inlineSources": true,
     "declaration": true,
     "declarationDir": "./dist/types",
+    "skipLibCheck": true,
     "noEmit": true
   },
   "include": ["src/**/*.ts", "demo/**/*.ts"]
