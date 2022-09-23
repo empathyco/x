@@ -37,15 +37,16 @@
   import { Dictionary } from '@empathyco/x-utils';
   import { SearchRequest, Result } from '@empathyco/x-types';
   import { State } from '../../../components/decorators/store.decorators';
-  import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
-  import { XProvide } from '../../../components/decorators/injection.decorators';
+  import { LIST_ITEMS_KEY, QUERY_KEY } from '../../../components/decorators/injection.consts';
+  import { XInject, XProvide } from '../../../components/decorators/injection.decorators';
   import { XEmit } from '../../../components/decorators/bus.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { NoElement } from '../../../components/no-element';
-  import { QueryOrigin } from '../../../types/origin';
+  import { QueryFeature, FeatureLocation, QueryOrigin } from '../../../types/origin';
   import { QueryPreviewItem } from '../store/types';
   import { QueriesPreviewConfig } from '../config.types';
   import { queriesPreviewXModule } from '../x-module';
+  import { createOrigin } from '../../../utils/origin';
 
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,
@@ -77,7 +78,7 @@
      * @public
      */
     @Prop()
-    protected queryOrigin: QueryOrigin | undefined;
+    protected queryFeature: QueryFeature | undefined;
 
     /**
      * Number of query preview results to be rendered.
@@ -124,6 +125,14 @@
     }
 
     /**
+     * It injects {@link QUERY_KEY} for the suggestion's request.
+     *
+     * @internal
+     */
+    @XInject(QUERY_KEY)
+    public location!: FeatureLocation;
+
+    /**
      * The computed request object to be used to retrieve the query preview results.
      *
      * @returns The search request object.
@@ -134,7 +143,10 @@
       return {
         query: this.query,
         rows: this.config.maxItemsToRequest,
-        origin: this.queryOrigin,
+        origin: createOrigin({
+          feature: this.queryFeature,
+          location: this.location
+        }) as QueryOrigin,
         extraParams: this.params
       };
     }
