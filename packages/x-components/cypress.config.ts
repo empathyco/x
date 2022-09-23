@@ -34,6 +34,8 @@ export default defineConfig({
     specPattern: 'tests/unit/**/*.spec.ts',
     supportFile: 'tests/support/index.ts',
     indexHtmlFile: 'tests/support/component-index.html',
+    screenshotOnRunFailure: false,
+    video: false,
     devServer: {
       bundler: 'webpack',
       framework: 'vue-cli'

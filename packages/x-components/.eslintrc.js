@@ -7,5 +7,6 @@ module.exports = {
   rules: {
     'no-dupe-class-members': 'off',
     '@typescript-eslint/no-unused-vars-experimental': 'off'
-  }
+  },
+  ignorePatterns: ['cypress.config.ts']
 };

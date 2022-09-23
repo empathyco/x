@@ -3,5 +3,5 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "include": ["**/*.ts", "**/*.tsx", "../cypress.config.ts"]
+  "include": ["**/*.ts", "**/*.tsx", "../cypress.config"]
 }
