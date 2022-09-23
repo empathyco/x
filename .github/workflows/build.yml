@@ -6,7 +6,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.17.0-chrome91-ff89
+    container: cypress/browsersnode14.19.0-chrome100-ff99-edge
     steps:
       - uses: actions/checkout@v3
         with:
