@@ -2,55 +2,55 @@ import fs from 'fs';
 import path from 'path';
 import { getJSONTranslations } from '../csv-to-json';
 import expectedJson from '../__tests__/json/en.messages.json';
+import { pathFromCwd } from './utils';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 describe('transform CSV to a JSON', () => {
-  const sourcePath = './src/__tests__/csv/en.messages.csv';
-  const csvPath = './src/__tests__/csv';
-  const targetPath = './translations';
+  const csvDirectoryPath = path.resolve(__dirname, 'csv');
+  const csvFilePath = path.resolve(__dirname, csvDirectoryPath, 'en.messages.csv');
 
-  afterEach(() => {
-    const absoluteTargetPath = path.resolve(process.cwd(), targetPath);
-    const absoluteOutputPath = path.resolve(process.cwd(), './output');
-    if (fs.existsSync(absoluteTargetPath)) {
-      fs.rmSync(absoluteTargetPath, { recursive: true });
-    }
-    if (fs.existsSync(absoluteOutputPath)) {
-      fs.rmSync(absoluteOutputPath, { recursive: true });
-    }
+  describe('when no output path is specified', () => {
+    afterEach(() => {
+      const absoluteDefaultOutputPath = pathFromCwd('output');
+      if (fs.existsSync(absoluteDefaultOutputPath)) {
+        fs.rmSync(absoluteDefaultOutputPath, { recursive: true });
+      }
+    });
+
+    it('transforms a single CSV file to JSON from a file path', () => {
+      process.argv = ['param1', 'param2', csvFilePath];
+      const json = getJSONTranslations();
+      expect(json).toEqual([expectedJson]);
+    });
+
+    it('transforms multiple CSV files to JSON from a directory path', () => {
+      process.argv = ['param1', 'param2', csvDirectoryPath];
+
+      getJSONTranslations();
+
+      expect(require(pathFromCwd('output/en.messages.json'))).toEqual(
+        require('./json/en.messages.json')
+      );
+      expect(require(pathFromCwd('output/es.messages.json'))).toEqual(
+        require('./json/es.messages.json')
+      );
+    });
   });
 
-  it('should transform a csv with multiple devices to a JSON', () => {
-    process.argv = ['param1', 'param2', sourcePath];
-    const json = getJSONTranslations();
-    expect(json).toEqual([expectedJson]);
-  });
-
-  it('should check that multiple files are exported in the default directory', () => {
-    process.argv = ['param1', 'param2', csvPath];
+  // eslint-disable-next-line max-len
+  it('transforms multiple CSV files to JSON from a directory path and leaves them in the defined directory', () => {
+    const jsonOutputDirectory = 'translations';
+    process.argv = ['param1', 'param2', csvDirectoryPath, jsonOutputDirectory];
 
     getJSONTranslations();
 
-    expect(fs.existsSync('./output/en.messages.json')).toBe(true);
-    expect(fs.existsSync('./output/es.messages.json')).toBe(true);
-
-    expect(require('../../output/en.messages.json')).toEqual(require('./json/en.messages.json'));
-    expect(require('../../output/es.messages.json')).toEqual(require('./json/es.messages.json'));
-  });
-
-  it('should check that multiple files are exported in the path given', () => {
-    process.argv = ['param1', 'param2', csvPath, targetPath];
-
-    getJSONTranslations();
-
-    expect(fs.existsSync(`${targetPath}/en.messages.json`)).toBe(true);
-    expect(fs.existsSync(`${targetPath}/es.messages.json`)).toBe(true);
-
-    expect(require(`../../${targetPath}/en.messages.json`)).toEqual(
+    const absolutExpectedOutputFolder = pathFromCwd(jsonOutputDirectory);
+    expect(require(path.resolve(absolutExpectedOutputFolder, `en.messages.json`))).toEqual(
       require('./json/en.messages.json')
     );
-    expect(require(`../../${targetPath}/es.messages.json`)).toEqual(
+    expect(require(path.resolve(absolutExpectedOutputFolder, `es.messages.json`))).toEqual(
       require('./json/es.messages.json')
     );
+    fs.rmSync(absolutExpectedOutputFolder, { recursive: true });
   });
 });
