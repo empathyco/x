@@ -129,7 +129,7 @@ describe('query preview', () => {
     });
   });
 
-  it('renders the component with the correct location provided', () => {
+  it('sends the `QueryPreviewRequestChanged` event with the correct location provided', () => {
     const { eventSpy } = renderQueryPreview({
       eventToSpy: 'QueryPreviewRequestChanged',
       location: 'predictive_layer',
