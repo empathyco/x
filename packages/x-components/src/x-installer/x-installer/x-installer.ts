@@ -271,7 +271,7 @@ export class XInstaller {
   protected createApp(extraPlugins: VueConstructorPartialArgument): Vue | undefined {
     if (this.options.app !== undefined) {
       const vue = this.getVue();
-      const app =  new vue({
+      const app = new vue({
         ...extraPlugins,
         ...this.options.vueOptions,
         provide: {
