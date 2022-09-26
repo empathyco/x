@@ -100,7 +100,7 @@ describe('query preview', () => {
       rows: 24
     });
 
-    await wrapper.setProps({ queryOrigin: 'popular_search:none' });
+    await wrapper.setProps({ queryFeature: 'popular_search' });
 
     expect(eventSpy).toHaveBeenNthCalledWith(2, {
       extraParams: {},
