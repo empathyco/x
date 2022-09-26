@@ -235,6 +235,7 @@ following configuration parameters:
 | [`callbacks`](#callbacks-and-interface-x-events-types) | `Record<XEventName, (payload: XEventPayload<Event>, metadata: WireMetadata) => void` | _Optional_. Callback record where the _key_ is the event to listen and the _value_ is the callback to be executed whenever the event is emitted. E.g. to listen to the `UserAcceptedAQuery` event: `{ UserAcceptedAQuery({ eventPayload }) { console.log('UserAcceptedAQuery', eventPayload); }` |
 | `isSpa`                                                | `boolean`                                                                            | _Optional_. Enables single-page application model. You set it to `true` when the X&nbsp;Archetype runs on top of a SPA website.                                                                                                                                                                  |
 | `filters`                                              | `string[]`                                                                           | _Optional_. Filters to be applied at the start of the application and start to searching with those filters selected.                                                                                                                                                                            |
+| `queriesPreview`                                       | `QueryPreviewInfo[]`                                                                 | _Optional_. List of queries to preview, e.g. To preview two queries, one with results for backpacks and another one with watches `[{query: "backpack", title: "Back to school"}, {query: "watch", title: "Get on time"}]`                                                                        |
 | `<extra parameters>`                                   | `any`                                                                                | _Optional_. Any other parameters to sent to the API calls directly. E.g. to filter the search catalogue with a warehouse parameter, you add `warehouse: <your-warehouse-identifier>` to the snippet configuration.                                                                               |
 
 ::: note Consent parameter
@@ -306,3 +307,38 @@ functions to integrate Interface&nbsp;X in your website. You can access these fu
 | `search`           | `query` - _Optional_. Query to open Interface&nbsp;X                                        | Executes Interface&nbsp;X and triggers a search with the given query.                                                                                                                                                                                                                                                                                                                                                                                        |
 | `setSnippetConfig` | [snippet configuration params](#snippet-configuration) - _Required_. Initialization options | Changes initialization options so that all components react to the changes, i.e. changing both search engine and language without reloading the page.                                                                                                                                                                                                                                                                                                        |
 | `addProductToCart` | `productId` - _Optional._ Id of the product added to cart                                   | Sends tracking of the `AddToCart` event to the [Empathy Tagging microservice](https://docs.empathy.co/develop-empathy-platform/capture-interaction-signals/tagging-api-guide.html) for the product displayed on screen. This function is called from the product detail page (PDP) when the shopper clicks on the add-to-cart button. If the `productId` is not provided, the URL detects whether the shopper found the product via a search session or not. |
+
+### Setting up the queries preview dynamically
+
+The `queriesPreview` parameter can be changed according to your commerce store convenience. You can
+take advantage of `setSnippetConfig` to adjust the queries depending on the section the user
+currently is, or any other configuration you want. For example, to show different queries for the
+kids and the adult section:
+
+```html
+<script>
+    if (yourCommerceStoreEnvironment.section === 'kids') {
+      InterfaceX.setSnippetConfig({
+        queriesPreview: [
+          {
+            query: "backpack",
+            title: "Back to School!",
+          },
+          {
+            query: "pencil",
+            title: "Write with style!",
+          }
+        ]
+      })
+    } else if (yourCommerceStoreEnvironment.section === 'adult') {
+      InterfaceX.setSnippetConfig({
+        queriesPreview: [
+          {
+            query: "watch",
+            title: "Get on time!",
+          }
+        ]
+      })
+    }
+</script
+```
