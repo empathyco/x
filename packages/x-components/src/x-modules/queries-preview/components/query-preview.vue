@@ -125,7 +125,8 @@
     }
 
     /**
-     * It injects {@link QUERY_KEY} for the suggestion's request.
+     * It injects {@link QUERY_KEY} for the retrieving the location of
+     * the selected query in the search request.
      *
      * @internal
      */
