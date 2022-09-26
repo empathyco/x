@@ -33,16 +33,16 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Prop, Inject } from 'vue-property-decorator';
   import { Dictionary } from '@empathyco/x-utils';
   import { SearchRequest, Result } from '@empathyco/x-types';
   import { State } from '../../../components/decorators/store.decorators';
-  import { LIST_ITEMS_KEY, QUERY_KEY } from '../../../components/decorators/injection.consts';
-  import { XInject, XProvide } from '../../../components/decorators/injection.decorators';
+  import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+  import { XProvide } from '../../../components/decorators/injection.decorators';
   import { XEmit } from '../../../components/decorators/bus.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { NoElement } from '../../../components/no-element';
-  import { QueryFeature, FeatureLocation, QueryOrigin } from '../../../types/origin';
+  import { QueryFeature, FeatureLocation } from '../../../types/origin';
   import { QueryPreviewItem } from '../store/types';
   import { QueriesPreviewConfig } from '../config.types';
   import { queriesPreviewXModule } from '../x-module';
@@ -78,7 +78,7 @@
      * @public
      */
     @Prop()
-    protected queryFeature: QueryFeature | undefined;
+    protected queryFeature?: QueryFeature;
 
     /**
      * Number of query preview results to be rendered.
@@ -125,12 +125,12 @@
     }
 
     /**
-     * It injects {@link QUERY_KEY} for the retrieving the location of
+     * It injects {@link location} for retrieving the location of
      * the selected query in the search request.
      *
      * @internal
      */
-    @XInject(QUERY_KEY)
+    @Inject()
     public location!: FeatureLocation;
 
     /**
@@ -141,14 +141,16 @@
      */
     @XEmit('QueryPreviewRequestChanged', { immediate: false })
     public get queryPreviewRequest(): SearchRequest {
+      const origin = createOrigin({
+        feature: this.queryFeature,
+        location: this.location
+      });
+
       return {
         query: this.query,
         rows: this.config.maxItemsToRequest,
-        origin: createOrigin({
-          feature: this.queryFeature,
-          location: this.location
-        }) as QueryOrigin,
-        extraParams: this.params
+        extraParams: this.params,
+        ...(origin && { origin })
       };
     }
 
