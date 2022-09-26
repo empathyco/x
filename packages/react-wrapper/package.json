@@ -22,7 +22,7 @@
     "directory": "packages/react-wrapper"
   },
   "scripts": {
-    "serve": "vite -c tests/demo/vite.config.ts",
+    "serve": "vite serve tests/demo",
     "build": "tsc",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --headless --browser chrome",
