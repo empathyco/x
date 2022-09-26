@@ -3,7 +3,6 @@ import App from './App.vue';
 import { setupDevtools } from './plugins/devtools/devtools.plugin';
 import router from './router';
 import { baseInstallXOptions, baseSnippetConfig } from './views/base-config';
-import { InitWrapper } from './x-installer/x-installer/types';
 import { XInstaller } from './x-installer/x-installer/x-installer';
 import { FilterEntityFactory } from './x-modules/facets/entities/filter-entity.factory';
 import { SingleSelectModifier } from './x-modules/facets/entities/single-select.modifier';
@@ -22,22 +21,23 @@ const installer = new XInstaller({
   vueOptions: {
     router
   },
-  domElement: '#app'
+  domElement: '#app',
+  onCreateApp: initDevtools
 });
 
 if (window.initX) {
-  installer.init().then(initDevtools);
+  installer.init();
 } else {
-  installer.init(baseSnippetConfig).then(initDevtools);
+  installer.init(baseSnippetConfig);
 }
 
 /**
  * If an app is provided, initialise the devtools.
  *
- * @param initWrapper - An object containing the app instance.
+ * @param app - The root Vue instance of the application.
  */
-function initDevtools(initWrapper: InitWrapper | void): void {
-  if (initWrapper?.app && process.env.NODE_ENV !== 'production') {
-    setupDevtools(initWrapper.app);
+function initDevtools(app: Vue): void {
+  if (process.env.NODE_ENV !== 'production') {
+    setupDevtools(app);
   }
 }
