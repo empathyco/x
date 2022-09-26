@@ -94,7 +94,14 @@ export function logDevtoolsXEvent<Event extends XEvent>(
     devtoolsAPI?.addTimelineEvent({
       event: {
         title: event,
-        data: value,
+        data: {
+          ...value,
+          metadata: {
+            ...value.metadata,
+            // FIX-ME: copying metadata.component as it is defined as a non-enumerable property.
+            component: value.metadata.component
+          }
+        },
         time: devtoolsAPI?.now()
       },
       layerId: getTimelineLayer(event)
