@@ -20,7 +20,13 @@ describe('query preview', () => {
   function renderQueryPreview({
     maxItemsToRender,
     query = 'milk',
-    template = `<QueryPreview :maxItemsToRender="maxItemsToRender" :query="query" />`,
+    location,
+    queryFeature,
+    template = `<QueryPreview
+                  :maxItemsToRender="maxItemsToRender"
+                  :query="query"
+                  :queryFeature="queryFeature"
+                />`,
     queryPreview = {
       request: {
         query
@@ -38,7 +44,7 @@ describe('query preview', () => {
     installNewXPlugin({ store }, localVue);
     XPlugin.registerXModule(queriesPreviewXModule);
 
-    let eventSpy;
+    let eventSpy: jest.Mock | undefined;
     if (eventToSpy) {
       eventSpy = jest.fn();
       XPlugin.bus.on(eventToSpy).subscribe(eventSpy);
@@ -54,16 +60,20 @@ describe('query preview', () => {
 
     const wrapper = mount(
       {
-        props: ['maxItemsToRender', 'query'],
+        props: ['maxItemsToRender', 'query', 'queryFeature'],
         components: { QueryPreview },
-        template
+        template,
+        provide: {
+          location
+        }
       },
       {
         localVue,
         store,
         propsData: {
           maxItemsToRender,
-          query
+          query,
+          queryFeature
         }
       }
     ).findComponent(QueryPreview);
@@ -115,6 +125,22 @@ describe('query preview', () => {
       extraParams: { store: 'Uganda' },
       origin: 'popular_search:none',
       query: 'milk',
+      rows: 24
+    });
+  });
+
+  it('renders the component with the correct location provided', () => {
+    const { eventSpy } = renderQueryPreview({
+      eventToSpy: 'QueryPreviewRequestChanged',
+      location: 'predictive_layer',
+      query: 'shoes',
+      queryFeature: 'query_suggestion'
+    });
+
+    expect(eventSpy).toHaveBeenNthCalledWith(1, {
+      extraParams: {},
+      origin: 'query_suggestion:predictive_layer',
+      query: 'shoes',
       rows: 24
     });
   });
@@ -206,6 +232,10 @@ interface RenderQueryPreviewOptions {
   maxItemsToRender?: number;
   /** The query for which preview its results. */
   query?: string;
+  /** The location of the query preview in the DOM. */
+  location?: string;
+  /** The name of the tool that generated the query. */
+  queryFeature?: string;
   /**
    * An event to spy on.
    * This prop is convenient because the spy is created before mounting the component.
