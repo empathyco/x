@@ -7,7 +7,8 @@ import {
 } from '../src/types';
 
 export const options: PluginOptions = {
-  components({ theme }): ComponentsDefinition {
+  components(helpers): ComponentsDefinition {
+    const { theme } = helpers;
     return {
       '.icon': {
         display: 'flex',
@@ -61,12 +62,7 @@ export const options: PluginOptions = {
     return {};
   },
   theme: {
-    colors: {
-      neutral: {
-        10: 'red',
-        20: 'orange'
-      }
-    },
+    colors: {},
     height: {
       1: '10px',
       2: '20px',

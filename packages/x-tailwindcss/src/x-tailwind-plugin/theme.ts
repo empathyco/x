@@ -6,7 +6,7 @@ export default {
     md: '8px',
     lg: '16px',
     xl: '32px',
-    round: '99999px'
+    full: '99999px'
   },
   borderWidth: {
     1: '1px',
