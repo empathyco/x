@@ -6,7 +6,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node16.16.0-chrome105-ff104-edge
+    container:
+      image: cypress/browsers:node16.16.0-chrome105-ff104-edge
+      options: --user 1001
     steps:
       - uses: actions/checkout@v3
         with:
