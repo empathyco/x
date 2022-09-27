@@ -125,7 +125,7 @@
     }
 
     /**
-     * It injects the provided location of the selected query in the search request.
+     * It injects the provided {@link FeatureLocation} of the selected query in the search request.
      *
      * @internal
      */
