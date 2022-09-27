@@ -67,6 +67,7 @@
     "@empathyco/x-types": "^10.0.0-alpha.36",
     "@empathyco/x-utils": "^1.0.0-alpha.8",
     "@types/resize-observer-browser": "~0.1.5",
+    "@vue/devtools-api": "~6.2.1",
     "rxjs": "~7.4.0",
     "tslib": "~2.3.0",
     "vue-class-component": "~7.1.0",

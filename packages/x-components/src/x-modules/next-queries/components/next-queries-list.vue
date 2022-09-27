@@ -28,7 +28,6 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { groupItemsBy } from '../../../utils/array';
   import { ListItem } from '../../../utils/types';
-  import ResultsList from '../../search/components/results-list.vue';
   import { NextQueriesGroup } from '../types';
   import { nextQueriesXModule } from '../x-module';
   import { XInject } from '../../../components/decorators/injection.decorators';
@@ -42,7 +41,6 @@
    */
   @Component({
     components: {
-      ResultsList,
       NoElement,
       ItemsList
     },

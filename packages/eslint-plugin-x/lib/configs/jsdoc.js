@@ -12,6 +12,8 @@ module.exports = {
         {
           definedTags: [
             'internal',
+            'alpha',
+            'beta',
             'remarks',
             'privateRemarks',
             'typeParam',
