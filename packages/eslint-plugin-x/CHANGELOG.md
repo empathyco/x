@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.13...@empathyco/eslint-plugin-x@2.0.0-alpha.14) (2022-09-27)
+
+### Features
+
+- add `vue devtools` plugin to ease `XEvents` and `wiring` visualization (#215)
+  ([bd148ec](https://github.com/empathyco/x/commit/bd148ecb9682f8d4161d278c03f110f8f050d323)),
+  closes [EX-7032](https://searchbroker.atlassian.net/browse/EX-7032)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.12...@empathyco/eslint-plugin-x@2.0.0-alpha.13) (2022-09-20)
 
 ### Features
