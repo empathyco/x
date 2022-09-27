@@ -1,4 +1,4 @@
-import { Given, Then, When, And } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { PageableRequest } from '@empathyco/x-types';
 import '../global/global-definitions';
 import { baseSnippetConfig } from '../../../src/views/base-config';
@@ -73,7 +73,7 @@ When('close modal button is clicked', () => {
 
 // Filters
 
-And(
+Then(
   'filters {string} are shown in the selected filters list',
   function (this: any, clickedFiltersIndex: string) {
     const clickedFiltersIndexList = clickedFiltersIndex.split(', ');
@@ -83,7 +83,7 @@ And(
   }
 );
 
-And('filter {string} is selected', function (filterLabel: string) {
+Then('filter {string} is selected', function (filterLabel: string) {
   cy.getByDataTest('selected-filters-list').should('contain.text', filterLabel);
 });
 
@@ -127,16 +127,13 @@ Then('history queries are displayed', () => {
   cy.getByDataTest('history-query').should('have.length.at.least', 1);
 });
 
-Then(
-  'the searched query is displayed in history queries',
-  function (this: { searchedQuery: string }) {
-    cy.getByDataTest('history-query')
-      .should('have.length.at.least', 1)
-      .each(historyQuery => expect(historyQuery).to.contain(this.searchedQuery))
-      .invoke('text')
-      .as('historicalQuery');
-  }
-);
+Then('the searched query is displayed in history queries', function () {
+  cy.getByDataTest('history-query')
+    .should('have.length.at.least', 1)
+    .each(historyQuery => expect(historyQuery).to.contain(this.searchedQuery))
+    .invoke('text')
+    .as('historicalQuery');
+});
 
 // Next Queries
 Then('next queries are displayed', () => {
@@ -174,7 +171,7 @@ Then('related results are displayed', () => {
     });
 });
 
-And('related results are cleared', () => {
+Then('related results are cleared', () => {
   cy.getByDataTest('result-item').should('not.exist');
 });
 
@@ -210,12 +207,9 @@ When('clear search button is pressed', () => {
   cy.clearSearchInput();
 });
 
-Then(
-  'the searched query is displayed in the search-box',
-  function (this: { searchedQuery: string }) {
-    cy.getByDataTest('search-input').should('have.value', this.searchedQuery);
-  }
-);
+Then('the searched query is displayed in the search-box', function () {
+  cy.getByDataTest('search-input').should('have.value', this.searchedQuery);
+});
 
 Then(
   'number of rows requested in {string} is {int}',
@@ -268,7 +262,7 @@ When('the page is reloaded', () => {
   cy.reload();
 });
 
-And('url contains parameter {string} with value {string}', (key: string, value: string) => {
+Then('url contains parameter {string} with value {string}', (key: string, value: string) => {
   cy.location('search').should('contain', `${key}=${encodeURIComponent(value)}`);
 });
 

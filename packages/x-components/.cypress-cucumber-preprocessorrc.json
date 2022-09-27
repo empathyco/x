@@ -1,4 +1,3 @@
 {
-  "nonGlobalStepDefinitions": true,
-  "stepDefinitions": "tests/e2e"
+  "stepDefinitions": "tests/e2e/**/*.ts"
 }

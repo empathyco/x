@@ -1,9 +1,10 @@
 const { startDevServer } = require('@cypress/webpack-dev-server');
 const webpackConfig = require('@vue/cli-service/webpack.config.js');
-const cucumber = require('cypress-cucumber-preprocessor').default;
-const path = require('path');
+const { addCucumberPreprocessorPlugin } = require('@badeball/cypress-cucumber-preprocessor');
+const { createEsbuildPlugin } = require('@badeball/cypress-cucumber-preprocessor/esbuild');
+const createBundler = require('@bahmutov/cypress-esbuild-preprocessor');
 
-module.exports = (on, config) => {
+module.exports = async (on, config) => {
   on('dev-server:start', options =>
     startDevServer({
       options,
@@ -11,10 +12,13 @@ module.exports = (on, config) => {
     })
   );
 
+  await addCucumberPreprocessorPlugin(on, config);
+
   on(
     'file:preprocessor',
-    cucumber({ typescript: path.dirname(require.resolve('typescript/package.json')) })
+    createBundler({
+      plugins: [createEsbuildPlugin(config)]
+    })
   );
-
   return config;
 };
