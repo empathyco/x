@@ -130,7 +130,7 @@
      * @internal
      */
     @Inject()
-    public location!: FeatureLocation;
+    public location?: FeatureLocation;
 
     /**
      * The computed request object to be used to retrieve the query preview results.
