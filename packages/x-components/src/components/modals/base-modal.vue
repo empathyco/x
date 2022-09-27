@@ -75,7 +75,10 @@
     protected mounted(): void {
       /* Watcher added after mount to prevent SSR from breaking */
       // eslint-disable-next-line @typescript-eslint/unbound-method
-      this.$watch('open', this.syncBody, { immediate: true });
+      this.$watch('open', this.syncBody);
+      if (this.open) {
+        this.syncBody(true);
+      }
     }
 
     /**
@@ -121,7 +124,6 @@
     protected enableScroll(): void {
       document.body.style.overflow = this.previousBodyOverflow;
       document.documentElement.style.overflow = this.previousHTMLOverflow;
-      document.body.style.overflow = document.documentElement.style.overflow = '';
     }
 
     /**
