@@ -125,8 +125,7 @@
     }
 
     /**
-     * It injects {@link location} for retrieving the location of
-     * the selected query in the search request.
+     * It injects the provided location of the selected query in the search request.
      *
      * @internal
      */
