@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/eslint-plugin-x",
-  "version": "2.0.0-alpha.13",
+  "version": "2.0.0-alpha.14",
   "description": "ESLint and Prettier rules and configurations",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -28,7 +28,7 @@
     "commit": "git-cz"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "~5.21.0",
+    "@typescript-eslint/eslint-plugin": "~5.38.1",
     "@typescript-eslint/parser": "~5.21.0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "~10.0.0",
