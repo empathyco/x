@@ -15,6 +15,7 @@ import {
   NextQueriesMutations,
   NextQueriesState
 } from '../types';
+import { XStoreModule } from '../../../../store/index';
 import { resetNextQueriesStateWith } from './utils';
 
 describe('testing next queries module actions', () => {
@@ -35,7 +36,7 @@ describe('testing next queries module actions', () => {
     NextQueriesGetters,
     NextQueriesMutations,
     NextQueriesActions
-  > = new Store(nextQueriesXStoreModule as any);
+  > = new Store(nextQueriesXStoreModule as XStoreModule<any, any, any, any>);
   installNewXPlugin({ adapter, store }, localVue);
 
   beforeEach(() => {
@@ -132,13 +133,15 @@ describe('testing next queries module actions', () => {
         }
       });
       const query = 'honeyboo';
-      await store.dispatch('fetchNextQueryPreview', query);
+      const location = 'external';
+      await store.dispatch('fetchNextQueryPreview', { query, location });
       const expectedRequest: SearchRequest = {
         query,
         rows: 3,
         extraParams: {
           extraParam: 'extra param'
-        }
+        },
+        origin: `next_query:${location}`
       };
       expect(adapter.search).toHaveBeenCalledWith(expectedRequest, {
         id: 'fetchNextQueryPreview-honeyboo'
@@ -146,20 +149,37 @@ describe('testing next queries module actions', () => {
     });
 
     it('should return the search response', async () => {
-      const results = await store.dispatch('fetchNextQueryPreview', 'honeyboo');
+      const results = await store.dispatch('fetchNextQueryPreview', {
+        query: 'honeyboo',
+        location: 'external'
+      });
+      expect(results).toEqual(mockedSearchResponse);
+    });
+
+    it('should return the search response although the location is not defined', async () => {
+      const results = await store.dispatch('fetchNextQueryPreview', {
+        query: 'honeyboo',
+        location: undefined
+      });
       expect(results).toEqual(mockedSearchResponse);
     });
 
     it('should return `null` if the query is empty', async () => {
-      expect(await store.dispatch('fetchNextQueryPreview', '')).toBeNull();
+      expect(
+        await store.dispatch('fetchNextQueryPreview', { query: '', location: undefined })
+      ).toBeNull();
     });
   });
 
   describe('fetchAndSaveNextQueryPreview', () => {
     it('should request and store preview results in the state', async () => {
       const query = 'tshirt';
+      const location = 'external';
 
-      const promise = store.dispatch('fetchAndSaveNextQueryPreview', query);
+      const promise = store.dispatch('fetchAndSaveNextQueryPreview', {
+        query: query,
+        location: location
+      });
       await promise;
 
       const expectedResults = {
@@ -174,8 +194,14 @@ describe('testing next queries module actions', () => {
     });
 
     it('should send multiple requests if the queries are different', async () => {
-      const firstRequest = store.dispatch('fetchAndSaveNextQueryPreview', 'milk');
-      const secondRequest = store.dispatch('fetchAndSaveNextQueryPreview', 'cookies');
+      const firstRequest = store.dispatch('fetchAndSaveNextQueryPreview', {
+        query: 'milk',
+        location: 'predictive_layer'
+      });
+      const secondRequest = store.dispatch('fetchAndSaveNextQueryPreview', {
+        query: 'cookies',
+        location: 'predictive_layer'
+      });
 
       await Promise.all([firstRequest, secondRequest]);
 
