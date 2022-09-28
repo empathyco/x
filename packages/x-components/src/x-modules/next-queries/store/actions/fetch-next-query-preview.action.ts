@@ -19,7 +19,7 @@ export const fetchNextQueryPreview: NextQueriesXStoreModule['actions']['fetchNex
   if (!query) {
     return null;
   }
-  const origin = createOrigin({ feature: 'next_query', location: location }) ?? undefined;
+  const origin = createOrigin({ feature: 'next_query', location }) ?? undefined;
 
   return XPlugin.adapter.search(
     {
