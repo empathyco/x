@@ -8,6 +8,16 @@
     <OpenMainModal>Start</OpenMainModal>
     <h1 class="x-font-bold x-text-4xl x-text-primary-50 x-leading-[1.5]">Test controls</h1>
     <ul class="x-test-controls x-list x-list--gap-05">
+      <label for="searchInput.instant">
+        Use e2e adapter
+        <input
+          v-model="controls.adapter.useE2EAdapter"
+          @change="changeAdapter"
+          id="adapter.e2eAdapter"
+          type="checkbox"
+          data-test="adapter-e2e"
+        />
+      </label>
       <li class="x-test-controls__item x-list__item">
         <label for="searchInput.instant">
           search-input - instant
@@ -400,6 +410,7 @@
   import CloseMainModal from '../../components/modals/close-main-modal.vue';
   import BaseKeyboardNavigation from '../../components/base-keyboard-navigation.vue';
   import { XProvide } from '../../components/decorators/injection.decorators';
+  import { adapterConfig } from '../adapter';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -501,8 +512,15 @@
       },
       historyQueries: {
         maxItemsToRender: 5
+      },
+      adapter: {
+        useE2EAdapter: false
       }
     };
+
+    changeAdapter(): void {
+      adapterConfig.e2e = !adapterConfig.e2e;
+    }
   }
 </script>
 
