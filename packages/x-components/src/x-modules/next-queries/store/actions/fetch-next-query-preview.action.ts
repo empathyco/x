@@ -26,7 +26,7 @@ export const fetchNextQueryPreview: NextQueriesXStoreModule['actions']['fetchNex
       query,
       rows: state.config.maxPreviewItemsToRequest,
       extraParams: state.params,
-      ...(origin && { origin })
+      origin
     },
     {
       id: `fetchNextQueryPreview-${query}`
