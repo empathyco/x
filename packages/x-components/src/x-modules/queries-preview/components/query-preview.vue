@@ -39,7 +39,6 @@
   import { State } from '../../../components/decorators/store.decorators';
   import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
   import { XProvide } from '../../../components/decorators/injection.decorators';
-  import { XEmit } from '../../../components/decorators/bus.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { NoElement } from '../../../components/no-element';
   import { QueryFeature, FeatureLocation } from '../../../types/origin';
@@ -92,8 +91,10 @@
 
     /**
      * Debounce time in milliseconds for triggering the search requests.
+     * It will default to 0 to fit the most common use case (pre-search),
+     * and it would work properly with a 250 value inside empathize.
      */
-    @Prop({ default: 200 })
+    @Prop({ default: 0 })
     public debounceTimeMs!: number;
 
     /**
@@ -160,6 +161,12 @@
       };
     }
 
+    /**
+     * The debounce method to trigger the request after the debounceTimeMs defined.
+     *
+     * @returns The search request object.
+     * @public
+     */
     public get emitQueryPreviewRequestChanged(): DebouncedFunction<[SearchRequest]> {
       return debounce(request => {
         this.$x.emit('QueryPreviewRequestChanged', request);
@@ -174,10 +181,20 @@
       this.emitQueryPreviewRequestChanged(this.queryPreviewRequest);
     }
 
+    /**
+     * Cancels the (remaining) requests when the component is destroyed
+     * via the debounce.cancel() method.
+     */
     protected beforeDestroy(): void {
       this.emitQueryPreviewRequestChanged.cancel();
     }
 
+    /**
+     * Cancels the previous request when there is a new one.
+     *
+     * @param _new - The new request.
+     * @param old - The previous request.
+     */
     @Watch('emitQueryPreviewRequestChanged')
     protected cancelEmitPreviewRequestChanged(
       _new: DebouncedFunction<[SearchRequest]>,
