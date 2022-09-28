@@ -225,6 +225,12 @@ describe('query preview', () => {
 
     expect(wrapper.html()).toEqual('');
   });
+
+  describe('debounce', () => {
+    it('requests immediately when debounce is set to 0', () => {});
+    it('does not emit subsequent requests that happen in less than the debounce time', () => {});
+    it('updates the debounced request reactively when the prop value changes', () => {});
+  });
 });
 
 interface RenderQueryPreviewOptions {

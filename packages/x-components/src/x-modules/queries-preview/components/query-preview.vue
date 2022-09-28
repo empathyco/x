@@ -33,7 +33,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Prop, Inject } from 'vue-property-decorator';
+  import { Component, Prop, Inject, Watch } from 'vue-property-decorator';
   import { Dictionary } from '@empathyco/x-utils';
   import { SearchRequest, Result } from '@empathyco/x-types';
   import { State } from '../../../components/decorators/store.decorators';
@@ -47,6 +47,8 @@
   import { QueriesPreviewConfig } from '../config.types';
   import { queriesPreviewXModule } from '../x-module';
   import { createOrigin } from '../../../utils/origin';
+  import { debounce } from '../../../utils/debounce';
+  import { DebouncedFunction } from '../../../utils';
 
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,
@@ -87,6 +89,12 @@
      */
     @Prop()
     protected maxItemsToRender?: number;
+
+    /**
+     * Debounce time in milliseconds for triggering the search requests.
+     */
+    @Prop({ default: 200 })
+    public debounceTimeMs!: number;
 
     /**
      * The results preview of the queries preview mounted.
@@ -138,7 +146,6 @@
      * @returns The search request object.
      * @public
      */
-    @XEmit('QueryPreviewRequestChanged', { immediate: false })
     public get queryPreviewRequest(): SearchRequest {
       const origin = createOrigin({
         feature: this.queryFeature,
@@ -153,8 +160,30 @@
       };
     }
 
-    protected mounted(): void {
-      this.$x.emit('QueryPreviewRequestChanged', this.queryPreviewRequest);
+    public get emitQueryPreviewRequestChanged(): DebouncedFunction<[SearchRequest]> {
+      return debounce(request => {
+        this.$x.emit('QueryPreviewRequestChanged', request);
+      }, this.debounceTimeMs);
+    }
+
+    protected created(): void {
+      this.$watch(
+        () => this.queryPreviewRequest,
+        request => this.emitQueryPreviewRequestChanged(request)
+      );
+      this.emitQueryPreviewRequestChanged(this.queryPreviewRequest);
+    }
+
+    protected beforeDestroy(): void {
+      this.emitQueryPreviewRequestChanged.cancel();
+    }
+
+    @Watch('emitQueryPreviewRequestChanged')
+    protected cancelEmitPreviewRequestChanged(
+      _new: DebouncedFunction<[SearchRequest]>,
+      old: DebouncedFunction<[SearchRequest]>
+    ): void {
+      old.cancel();
     }
 
     /**
