@@ -1,6 +1,6 @@
 import { NextQueriesXStoreModule } from '../types';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { createOrigin } from '../../../../utils/index';
+import { createOrigin } from '../../../../utils/origin';
 
 /**
  * Default implementation for the {@link NextQueriesActions.fetchNextQueryPreview}.
