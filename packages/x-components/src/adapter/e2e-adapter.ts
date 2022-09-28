@@ -1,6 +1,6 @@
 import { XComponentsAdapter } from '@empathyco/x-types';
 import { EndpointAdapter, endpointAdapterFactory, HttpClient } from '@empathyco/x-adapter';
-import { responses } from './mocked-responses';
+import { mockedResponses } from './mocked-responses';
 
 /**
  * Mock fetch httpClient.
@@ -31,7 +31,8 @@ export function mockEndpointAdapter<Request, Response>(
     httpClient:
       'Cypress' in window
         ? mockedFetchHttpClient
-        : () => Promise.resolve(responses[path as keyof typeof responses]) as Promise<any>
+        : () =>
+            Promise.resolve(mockedResponses[path as keyof typeof mockedResponses]) as Promise<any>
   });
 }
 

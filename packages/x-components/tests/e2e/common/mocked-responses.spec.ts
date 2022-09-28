@@ -28,7 +28,7 @@ import {
   getQuerySuggestionsEndpoint,
   getRecommendationsEndpoint,
   getRelatedTagsEndpoint,
-  responses,
+  mockedResponses,
   searchEndpoint,
   trackEndpoint
 } from '../../../src/adapter/mocked-responses';
@@ -44,7 +44,7 @@ Given('an ID results API', () => {
 
 Given('an ID results API with a known response', () => {
   cy.intercept(getIdentifierResultsEndpoint, req => {
-    req.reply(<IdentifierResultsResponse>responses['identifier-results']);
+    req.reply(<IdentifierResultsResponse>mockedResponses['identifier-results']);
   }).as('interceptedIDResults');
 });
 
@@ -67,7 +67,7 @@ Given('a next queries API', () => {
 
 Given('a next queries API with a known response', () => {
   cy.intercept(getNextQueriesEndpoint, req => {
-    req.reply(<NextQueriesResponse>responses['next-queries']);
+    req.reply(<NextQueriesResponse>mockedResponses['next-queries']);
   }).as('interceptedNextQueries');
 });
 
@@ -129,14 +129,14 @@ Given('a results API with partial results', () => {
 // Popular Searches
 Given('a popular searches API with a known response', () => {
   cy.intercept(getPopularSearchesEndpoint, req => {
-    req.reply(<PopularSearchesResponse>responses['popular-searches']);
+    req.reply(<PopularSearchesResponse>mockedResponses['popular-searches']);
   }).as('interceptedPopularSearches');
 });
 
 // Query Suggestions
 Given('a query suggestions API with a known response', () => {
   cy.intercept(getQuerySuggestionsEndpoint, req => {
-    req.reply(<QuerySuggestionsResponse>responses['query-suggestions']);
+    req.reply(<QuerySuggestionsResponse>mockedResponses['query-suggestions']);
   }).as('interceptedQuerySuggestions');
 });
 
@@ -151,14 +151,14 @@ Given('a query suggestions API with no query suggestions', () => {
 // Recommendations
 Given('a recommendations API with a known response', () => {
   cy.intercept(getRecommendationsEndpoint, req => {
-    req.reply(<RecommendationsResponse>responses.recommendations);
+    req.reply(<RecommendationsResponse>mockedResponses.recommendations);
   }).as('interceptedRecommendations');
 });
 
 // Related Tags
 Given('a related tags API', () => {
   cy.intercept(getRelatedTagsEndpoint, req => {
-    req.reply(<RelatedTagsResponse>responses['related-tags']);
+    req.reply(<RelatedTagsResponse>mockedResponses['related-tags']);
   });
 });
 
@@ -189,7 +189,7 @@ Given('a second related tags API with a known response', () => {
 // Results
 Given('a results API with a known response', () => {
   cy.intercept(searchEndpoint, req => {
-    req.reply(responses.search);
+    req.reply(mockedResponses.search);
   }).as('interceptedResults');
 });
 

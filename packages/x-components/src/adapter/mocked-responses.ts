@@ -24,7 +24,7 @@ export const getNextQueriesEndpoint = `${mockedApiUrl}/next-queries`;
 export const searchEndpoint = `${mockedApiUrl}/search`;
 export const trackEndpoint = `${mockedApiUrl}/track`;
 
-export const responses = {
+export const mockedResponses = {
   'identifier-results': {
     results: [
       createResultStub('A0255072 - 9788467577112 - 160000', {
