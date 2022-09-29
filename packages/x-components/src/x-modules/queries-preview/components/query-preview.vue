@@ -48,6 +48,7 @@
   import { createOrigin } from '../../../utils/origin';
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils';
+  import { XEmit } from '../../../components';
 
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,
@@ -73,8 +74,8 @@
     })
     protected query!: string;
 
-    /**.
-     *  The origin property for the request
+    /**
+     * The origin property for the request.
      *
      * @public
      */
@@ -139,15 +140,15 @@
      * @internal
      */
     @Inject()
-    public location?: FeatureLocation;
+    protected location?: FeatureLocation;
 
     /**
      * The computed request object to be used to retrieve the query preview results.
      *
      * @returns The search request object.
-     * @public
+     * @internal
      */
-    public get queryPreviewRequest(): SearchRequest {
+    protected get queryPreviewRequest(): SearchRequest {
       const origin = createOrigin({
         feature: this.queryFeature,
         location: this.location
@@ -165,14 +166,19 @@
      * The debounce method to trigger the request after the debounceTimeMs defined.
      *
      * @returns The search request object.
-     * @public
+     * @internal
      */
-    public get emitQueryPreviewRequestChanged(): DebouncedFunction<[SearchRequest]> {
+    protected get emitQueryPreviewRequestChanged(): DebouncedFunction<[SearchRequest]> {
       return debounce(request => {
         this.$x.emit('QueryPreviewRequestChanged', request);
       }, this.debounceTimeMs);
     }
 
+    /**
+     * Initialises watcher to emit debounced requests, and first value for the requests.
+     *
+     * @internal
+     */
     protected created(): void {
       this.$watch(
         () => this.queryPreviewRequest,
@@ -184,6 +190,8 @@
     /**
      * Cancels the (remaining) requests when the component is destroyed
      * via the debounce.cancel() method.
+     *
+     * @internal
      */
     protected beforeDestroy(): void {
       this.emitQueryPreviewRequestChanged.cancel();
@@ -194,6 +202,7 @@
      *
      * @param _new - The new request.
      * @param old - The previous request.
+     * @internal
      */
     @Watch('emitQueryPreviewRequestChanged')
     protected cancelEmitPreviewRequestChanged(
