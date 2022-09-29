@@ -11,6 +11,7 @@ import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { UrlParams } from '../../../types/url-params';
 import { NextQueriesConfig } from '../config.types';
+import { FeatureLocation } from '../../../types/index';
 
 /**
  * Next queries module state.
@@ -127,16 +128,22 @@ export interface NextQueriesActions {
    * Requests the results to preview a next query,
    * limited by {@link NextQueriesConfig.maxPreviewItemsToRequest}.
    *
-   * @param query - The next query to retrieve the results.
    * @returns A search response based on the next query.
+   * @param payload - The payload object containing the query and its location.
    */
-  fetchNextQueryPreview(query: string): SearchResponse | null;
+  fetchNextQueryPreview(payload: {
+    query: string;
+    location: FeatureLocation | undefined;
+  }): SearchResponse | null;
   /**
    * Requests the results to preview a next query and saves them in the state.
    *
-   * @param query - The next query to retrieve the results.
+   * @param payload - The payload object containing the query and its location.
    */
-  fetchAndSaveNextQueryPreview(query: string): void;
+  fetchAndSaveNextQueryPreview(payload: {
+    query: string;
+    location: FeatureLocation | undefined;
+  }): void;
 }
 
 /**

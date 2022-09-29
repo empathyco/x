@@ -215,10 +215,11 @@
 
             <template v-if="!$x.query.searchBox">
               <h1 class="x-title1 x-margin--bottom-06">Brand Recommendations</h1>
-
-              <SlidingQueryPreview query="sunglasses" />
-              <SlidingQueryPreview query="handbag" />
-              <SlidingQueryPreview query="earrings" />
+              <LocationProvider location="no_results">
+                <SlidingQueryPreview query="sunglasses" />
+                <SlidingQueryPreview query="handbag" />
+                <SlidingQueryPreview query="earrings" />
+              </LocationProvider>
             </template>
 
             <!-- Results -->
