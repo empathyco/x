@@ -29,7 +29,8 @@ export type QueryFeature =
   | 'history_query'
   | 'partial_result'
   | 'related_tag'
-  | 'spellcheck';
+  | 'spellcheck'
+  | 'customer';
 
 /**
  * The name of the tool that generated the results.

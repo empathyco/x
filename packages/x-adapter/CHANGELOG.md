@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.9...@empathyco/x-adapter@8.0.0-alpha.10) (2022-09-27)
+
+**Note:** Version bump only for package @empathyco/x-adapter
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [8.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.8...@empathyco/x-adapter@8.0.0-alpha.9) (2022-09-16)
 
 ### Features

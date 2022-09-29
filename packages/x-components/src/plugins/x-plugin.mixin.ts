@@ -91,11 +91,21 @@ function createWireMetadata(
   component: PrivateExtendedVueComponent,
   metadata: Partial<WireMetadata>
 ): WireMetadata {
-  return {
-    moduleName: getXComponentXModuleName(component.xComponent),
-    location: component.$location,
-    ...metadata
-  };
+  return Object.defineProperties(
+    {
+      moduleName: getXComponentXModuleName(component.xComponent),
+      location: component.$location,
+      ...metadata
+    },
+    {
+      component: {
+        value: component,
+        /* FIX-ME: defining component as a non-enumerable property to ease tests changes due to
+         * cyclic dependencies in Vue component instances. */
+        enumerable: false
+      }
+    }
+  );
 }
 
 /**

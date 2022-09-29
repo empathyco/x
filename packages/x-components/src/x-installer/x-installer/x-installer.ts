@@ -271,7 +271,7 @@ export class XInstaller {
   protected createApp(extraPlugins: VueConstructorPartialArgument): Vue | undefined {
     if (this.options.app !== undefined) {
       const vue = this.getVue();
-      return new vue({
+      const app = new vue({
         ...extraPlugins,
         ...this.options.vueOptions,
         provide: {
@@ -281,6 +281,8 @@ export class XInstaller {
         el: this.getMountingTarget(this.options.domElement),
         render: h => h(this.options.app)
       });
+      this.options.onCreateApp?.(app);
+      return app;
     }
   }
 

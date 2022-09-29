@@ -42,6 +42,8 @@ export interface WireMetadata {
   oldValue?: unknown;
   /** The DOM element that triggered the event emission. */
   target?: HTMLElement;
+  /** The component instance that triggered the event emission. */
+  component?: Vue;
 }
 
 /**

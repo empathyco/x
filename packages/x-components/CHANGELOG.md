@@ -3,6 +3,73 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.183](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.182...@empathyco/x-components@3.0.0-alpha.183) (2022-09-29)
+
+### Features
+
+- **next-queries:** add `origin` to `next queries preview` (#746)
+  ([8928676](https://github.com/empathyco/x/commit/89286768a007d9b8888bfbc6db43c39b6d963380)),
+  closes [EX-6757](https://searchbroker.atlassian.net/browse/EX-6757)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.182](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.181...@empathyco/x-components@3.0.0-alpha.182) (2022-09-27)
+
+### Bug Fixes
+
+- **components:** restore scroll on `BaseModal` (#736)
+  ([d7b18a1](https://github.com/empathyco/x/commit/d7b18a1630f7da36ecd4c52f5b73b8c101612a86)),
+  closes [EX-7091](https://searchbroker.atlassian.net/browse/EX-7091)
+
+### Documentation
+
+- add `queriesPreview` to archetype integration (#735)
+  ([57c719a](https://github.com/empathyco/x/commit/57c719a55208e149c9382483df02ac84cac33259)),
+  closes [EX-6613](https://searchbroker.atlassian.net/browse/EX-6613)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.181](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.180...@empathyco/x-components@3.0.0-alpha.181) (2022-09-27)
+
+### Features
+
+- **query-preview:** add `origin` to `QueryPreview` component (#737)
+  ([9c235bc](https://github.com/empathyco/x/commit/9c235bc9457cc959fa2a386b8dce114ff3bf6df7)),
+  closes [EX-7077](https://searchbroker.atlassian.net/browse/EX-7077)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.180](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.179...@empathyco/x-components@3.0.0-alpha.180) (2022-09-27)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.179](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.178...@empathyco/x-components@3.0.0-alpha.179) (2022-09-27)
+
+### Features
+
+- add `vue devtools` plugin to ease `XEvents` and `wiring` visualization (#215)
+  ([bd148ec](https://github.com/empathyco/x/commit/bd148ecb9682f8d4161d278c03f110f8f050d323)),
+  closes [EX-7032](https://searchbroker.atlassian.net/browse/EX-7032)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.178](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.177...@empathyco/x-components@3.0.0-alpha.178) (2022-09-21)
 
 ### Features

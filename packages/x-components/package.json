@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "3.0.0-alpha.178",
+  "version": "3.0.0-alpha.183",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -60,13 +60,14 @@
     "cypress:open:component": "cypress open-ct"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.0.0-alpha.9",
-    "@empathyco/x-deep-merge": "^1.3.0-alpha.22",
+    "@empathyco/x-adapter": "^8.0.0-alpha.10",
+    "@empathyco/x-deep-merge": "^1.3.0-alpha.23",
     "@empathyco/x-logger": "^1.2.0-alpha.3",
     "@empathyco/x-storage-service": "^2.0.0-alpha.3",
-    "@empathyco/x-types": "^10.0.0-alpha.36",
-    "@empathyco/x-utils": "^1.0.0-alpha.8",
+    "@empathyco/x-types": "^10.0.0-alpha.37",
+    "@empathyco/x-utils": "^1.0.0-alpha.9",
     "@types/resize-observer-browser": "~0.1.5",
+    "@vue/devtools-api": "~6.2.1",
     "rxjs": "~7.4.0",
     "tslib": "~2.3.0",
     "vue-class-component": "~7.1.0",
@@ -81,8 +82,8 @@
   "devDependencies": {
     "@cypress/vue": "~2.2.4",
     "@cypress/webpack-dev-server": "~1.8.4",
-    "@empathyco/x-adapter-platform": "^1.0.0-alpha.35",
-    "@empathyco/x-tailwindcss": "^0.2.0-alpha.16",
+    "@empathyco/x-adapter-platform": "^1.0.0-alpha.36",
+    "@empathyco/x-tailwindcss": "^0.2.0-alpha.17",
     "@microsoft/api-documenter": "~7.15.3",
     "@microsoft/api-extractor": "~7.19.4",
     "@rollup/plugin-commonjs": "~21.0.1",
