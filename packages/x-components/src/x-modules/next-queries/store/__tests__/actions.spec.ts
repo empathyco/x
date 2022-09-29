@@ -15,7 +15,6 @@ import {
   NextQueriesMutations,
   NextQueriesState
 } from '../types';
-import { XStoreModule } from '../../../../store/index';
 import { resetNextQueriesStateWith } from './utils';
 
 describe('testing next queries module actions', () => {
@@ -36,7 +35,7 @@ describe('testing next queries module actions', () => {
     NextQueriesGetters,
     NextQueriesMutations,
     NextQueriesActions
-  > = new Store(nextQueriesXStoreModule as XStoreModule<any, any, any, any>);
+  > = new Store(nextQueriesXStoreModule as any);
   installNewXPlugin({ adapter, store }, localVue);
 
   beforeEach(() => {
