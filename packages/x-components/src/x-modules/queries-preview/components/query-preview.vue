@@ -48,7 +48,6 @@
   import { createOrigin } from '../../../utils/origin';
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils';
-  import { XEmit } from '../../../components';
 
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,

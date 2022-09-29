@@ -10,7 +10,6 @@ import {
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { XEvent } from '../../../../wiring/events.types';
 import { QueryPreviewItem } from '../../store/types';
 import { queriesPreviewXModule } from '../../x-module';
 import QueryPreview from '../query-preview.vue';
@@ -99,9 +98,7 @@ describe('query preview', () => {
   });
 
   it('sends the `QueryPreviewRequestChanged` event', async () => {
-    const { queryPreviewRequestChangedSpy, wrapper, updateExtraParams } = renderQueryPreview({
-      eventToSpy: 'QueryPreviewRequestChanged'
-    });
+    const { queryPreviewRequestChangedSpy, wrapper, updateExtraParams } = renderQueryPreview({});
 
     jest.advanceTimersByTime(0); // Wait for first emission.
     expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(1);
@@ -112,7 +109,10 @@ describe('query preview', () => {
       rows: 24
     });
 
+    // The timer is relaunched when the prop changes
     await wrapper.setProps({ queryFeature: 'popular_search' });
+    // fast-forward until next timer should be executed
+    jest.advanceTimersToNextTimer();
 
     expect(queryPreviewRequestChangedSpy).toHaveBeenNthCalledWith(2, {
       extraParams: {},
@@ -122,6 +122,7 @@ describe('query preview', () => {
     });
 
     await updateExtraParams({ store: 'Uganda' });
+    jest.advanceTimersToNextTimer();
 
     expect(queryPreviewRequestChangedSpy).toHaveBeenNthCalledWith(3, {
       extraParams: { store: 'Uganda' },
@@ -133,12 +134,12 @@ describe('query preview', () => {
 
   it('sends the `QueryPreviewRequestChanged` event with the correct location provided', () => {
     const { queryPreviewRequestChangedSpy } = renderQueryPreview({
-      eventToSpy: 'QueryPreviewRequestChanged',
       location: 'predictive_layer',
       query: 'shoes',
       queryFeature: 'query_suggestion'
     });
 
+    jest.advanceTimersToNextTimer();
     expect(queryPreviewRequestChangedSpy).toHaveBeenNthCalledWith(1, {
       extraParams: {},
       origin: 'query_suggestion:predictive_layer',
@@ -244,8 +245,8 @@ describe('query preview', () => {
       });
     });
 
-    it('does not emit subsequent requests that happen in less than the debounce time', () => {
-      const { queryPreviewRequestChangedSpy } = renderQueryPreview({
+    it('does not emit subsequent requests that happen in less than the debounce time', async () => {
+      const { wrapper, queryPreviewRequestChangedSpy } = renderQueryPreview({
         debounceTimeMs: 250,
         query: 'bull'
       });
@@ -260,11 +261,60 @@ describe('query preview', () => {
         query: 'bull',
         rows: 24
       });
+
+      jest.advanceTimersByTime(249);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(1);
+
+      // Emulates user is typing a new query
+      await wrapper.setProps({ query: 'secall' }); // Timer relaunched
+
+      jest.advanceTimersByTime(1);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(1);
+
+      await wrapper.setProps({ query: 'secallona' }); // Timer relaunched
+
+      jest.advanceTimersByTime(249);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(1);
+
+      jest.advanceTimersByTime(1);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(2);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenNthCalledWith(2, {
+        extraParams: {},
+        query: 'secallona',
+        rows: 24
+      });
     });
 
-    it('updates the debounced request reactively when the debounceTimeMs prop changes', () => {});
+    // eslint-disable-next-line max-len
+    it('updates the debounced request reactively when the debounceTimeMs prop changes', async () => {
+      const { wrapper, queryPreviewRequestChangedSpy } = renderQueryPreview({
+        debounceTimeMs: 250,
+        query: 'bull'
+      });
 
-    it('cancels pending requests when the component is destroyed', () => {});
+      jest.advanceTimersByTime(100);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(0);
+
+      await wrapper.setProps({ debounceTimeMs: 100 }); // Timer relaunched
+      jest.advanceTimersByTime(99);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(0);
+
+      jest.advanceTimersByTime(1); // 100ms since mounting the component, the debounce tested
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(0);
+    });
+
+    it('cancels pending requests when the component is destroyed', () => {
+      const { wrapper, queryPreviewRequestChangedSpy } = renderQueryPreview({
+        debounceTimeMs: 250,
+        query: 'bull'
+      });
+      jest.advanceTimersByTime(249);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(0);
+
+      wrapper.destroy();
+      jest.advanceTimersByTime(1);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(0);
+    });
   });
 });
 
@@ -277,11 +327,6 @@ interface RenderQueryPreviewOptions {
   location?: string;
   /** The name of the tool that generated the query. */
   queryFeature?: string;
-  /**
-   * An event to spy on.
-   * This prop is convenient because the spy is created before mounting the component.
-   */
-  eventToSpy?: XEvent;
   /** The results preview for the passed query. */
   queryPreview?: QueryPreviewItem;
   /** Time to debounce requests.  */
