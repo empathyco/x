@@ -47,7 +47,8 @@ export const e2eAdapter: XComponentsAdapter = {
   tagging: endpointAdapterFactory({
     endpoint: ({ url }) => url,
     requestMapper: ({ params }) => params,
-    httpClient: mockedFetchHttpClient,
+    httpClient:
+      'Cypress' in window ? mockedFetchHttpClient : () => Promise.resolve({}) as Promise<any>,
     defaultRequestOptions: {
       properties: { keepalive: true }
     }
