@@ -22,7 +22,12 @@ describe('query preview', () => {
     location,
     queryFeature,
     debounceTimeMs,
-    template = `<QueryPreview v-bind="$attrs" />`,
+    template = `<QueryPreview
+                  :debounceTimeMs="debounceTimeMs"
+                  :maxItemsToRender="maxItemsToRender"
+                  :query="query"
+                  :queryFeature="queryFeature"
+                />`,
     queryPreview = {
       request: {
         query
@@ -52,6 +57,7 @@ describe('query preview', () => {
 
     const wrapper = mount(
       {
+        props: ['debounceTimeMs', 'maxItemsToRender', 'query', 'queryFeature'],
         components: { QueryPreview },
         template,
         provide: {
