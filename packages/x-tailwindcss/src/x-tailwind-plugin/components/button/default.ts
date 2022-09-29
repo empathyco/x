@@ -9,6 +9,9 @@ import { TailwindHelpers } from '../../../types';
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function buttonDefault({ theme }: TailwindHelpers) {
   return {
+    '--button-color-25': theme('colors.neutral.25'),
+    '--button-color-50': theme('colors.neutral.50'),
+    '--button-color-75': theme('colors.neutral.75'),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -24,8 +27,8 @@ export function buttonDefault({ theme }: TailwindHelpers) {
     borderStyle: 'solid',
     borderWidth: theme('borderWidth.1'),
 
-    borderColor: theme('colors.neutral.50'),
-    backgroundColor: theme('colors.neutral.50'),
+    borderColor: 'var(--button-color-50)',
+    backgroundColor: 'var(--button-color-50)',
     color: theme('colors.neutral.0'),
 
     fontFamily: theme('fontFamily.primary'),
@@ -35,14 +38,14 @@ export function buttonDefault({ theme }: TailwindHelpers) {
     lineHeight: theme('lineHeight.sm'),
 
     '&:hover': {
-      borderColor: theme('colors.neutral.75'),
-      backgroundColor: theme('colors.neutral.75'),
+      borderColor: 'var(--button-color-75)',
+      backgroundColor: 'var(--button-color-75)',
       color: theme('colors.neutral.0')
     },
 
     '&:active': {
-      borderColor: theme('colors.neutral.75'),
-      backgroundColor: theme('colors.neutral.75'),
+      borderColor: 'var(--button-color-75)',
+      backgroundColor: 'var(--button-color-75)',
       color: theme('colors.neutral.0')
     },
 

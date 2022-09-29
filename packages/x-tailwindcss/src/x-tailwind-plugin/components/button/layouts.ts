@@ -9,13 +9,13 @@ import { TailwindHelpers } from '../../../types';
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function buttonLayouts({ theme }: TailwindHelpers) {
   return {
-    '&.square': {
+    square: {
       aspectRatio: '1/1',
       paddingInlineStart: 0,
       paddingInlineEnd: 0
     },
 
-    '&.circle': {
+    circle: {
       aspectRatio: '1/1',
       paddingInlineStart: 0,
       paddingInlineEnd: 0,

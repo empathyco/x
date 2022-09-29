@@ -1,5 +1,4 @@
 import { TailwindHelpers } from '../../../types';
-import { mapColors } from '../../../utils/map-colors';
 
 /**
  * Returns the `ghost` variant for component `button`.
@@ -11,54 +10,28 @@ import { mapColors } from '../../../utils/map-colors';
 export function buttonGhost(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    '&.ghost': {
+    ghost: Object.assign({
       borderColor: 'transparent',
       backgroundColor: 'transparent',
-      color: theme('colors.neutral.50'),
+      color: 'var(--button-color-50)',
 
       '&:hover': {
         borderColor: theme('colors.neutral.10'),
         backgroundColor: theme('colors.neutral.10'),
-        color: theme('colors.neutral.75')
+        color: 'var(--button-color-75)'
       },
 
       '&:active': {
         borderColor: theme('colors.neutral.10'),
         backgroundColor: theme('colors.neutral.10'),
-        color: theme('colors.neutral.75')
+        color: 'var(--button-color-75)'
       },
 
       '&:disabled': {
         borderColor: 'transparent',
         backgroundColor: 'transparent',
         color: theme('colors.neutral.25')
-      },
-      ...mapColors(
-        color => ({
-          borderColor: 'transparent',
-          backgroundColor: 'transparent',
-          color: color['50'],
-
-          '&:hover': {
-            borderColor: theme('colors.neutral.10'),
-            backgroundColor: theme('colors.neutral.10'),
-            color: color['75']
-          },
-
-          '&:active': {
-            borderColor: theme('colors.neutral.10'),
-            backgroundColor: theme('colors.neutral.10'),
-            color: color['75']
-          },
-
-          '&:disabled': {
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            color: theme('colors.neutral.25')
-          }
-        }),
-        helpers
-      )
-    }
+      }
+    })
   };
 }

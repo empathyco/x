@@ -9,7 +9,7 @@ import { TailwindHelpers } from '../../../types';
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function buttonSizes({ theme }: TailwindHelpers) {
   return {
-    '&.xs': {
+    xs: {
       minHeight: theme('spacing.32'),
       gap: theme('spacing.8'),
       paddingInlineStart: theme('spacing.8'),
@@ -19,7 +19,7 @@ export function buttonSizes({ theme }: TailwindHelpers) {
       letterSpacing: theme('letterSpacing.md')
     },
 
-    '&.sm': {
+    sm: {
       minHeight: theme('spacing.40'),
       gap: theme('spacing.8'),
       paddingInlineStart: theme('spacing.12'),
@@ -29,7 +29,7 @@ export function buttonSizes({ theme }: TailwindHelpers) {
       letterSpacing: theme('letterSpacing.md')
     },
 
-    '&.md': {
+    md: {
       minHeight: theme('spacing.48'),
       gap: theme('spacing.8'),
       paddingInlineStart: theme('spacing.16'),
@@ -39,7 +39,7 @@ export function buttonSizes({ theme }: TailwindHelpers) {
       letterSpacing: theme('letterSpacing.md')
     },
 
-    '&.lg': {
+    lg: {
       minHeight: theme('spacing.56'),
       gap: theme('spacing.8'),
       paddingInlineStart: theme('spacing.24'),

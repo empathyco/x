@@ -1,11 +1,11 @@
 import { reduce } from '@empathyco/x-utils';
-import { CssStyleOptions, TailwindHelpers } from '../types';
-import pluginTheme from '../x-tailwind-plugin/theme';
+import { CssStyleOptions, TailwindHelpers } from '../../types';
+import pluginTheme from '../theme';
 
 /**
  * Type of the colors from Theme.
  */
-export type ThemeColors = typeof pluginTheme.colors;
+export type ThemeColors = typeof pluginTheme['colors'];
 
 /**
  * Type of each Theme color.
@@ -29,14 +29,14 @@ export interface ThemeColor {
  *
  * returns:
  * {
- *   '&.neutral'{ backgroundColor: '#808080' },
- *   '&.primary'{ backgroundColor: '#243D48' },
- *   '&.secondary'{ backgroundColor: '#0086B2' },
- *   '&.accent'{ backgroundColor: '#D44A6F' },
- *   '&.highlight'{ backgroundColor: '#8B6391' },
- *   '&.neutral'{ backgroundColor: '#10B981' },
- *   '&.warning'{ backgroundColor: '#F59E0B' },
- *   '&.error'{ backgroundColor: '#EF4444' },
+ *   'neutral'{ backgroundColor: '#808080' },
+ *   'primary'{ backgroundColor: '#243D48' },
+ *   'secondary'{ backgroundColor: '#0086B2' },
+ *   'accent'{ backgroundColor: '#D44A6F' },
+ *   'highlight'{ backgroundColor: '#8B6391' },
+ *   'neutral'{ backgroundColor: '#10B981' },
+ *   'warning'{ backgroundColor: '#F59E0B' },
+ *   'error'{ backgroundColor: '#EF4444' },
  * }
  * ```
  *
@@ -54,13 +54,13 @@ export function mapColors<T extends CssStyleOptions>(
   return reduce(
     colors,
     (mappedColors, colorName, color) => {
-      mappedColors[`&.${colorName}`] = {
+      mappedColors[colorName] = {
         ...mapperFn(color, colorName)
       };
       return mappedColors;
     },
     {} as {
-      -readonly [Key in keyof ThemeColors as `&.${Key & string}`]: T;
+      -readonly [Key in keyof ThemeColors]: T;
     }
   );
 }

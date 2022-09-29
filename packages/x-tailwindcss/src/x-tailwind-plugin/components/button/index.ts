@@ -1,3 +1,4 @@
+import { rename } from '@empathyco/x-utils';
 import { TailwindHelpers } from '../../../types';
 import { buttonColors } from './colors';
 import { buttonDefault } from './default';
@@ -15,13 +16,18 @@ import { buttonSizes } from './sizes';
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function button(helpers: TailwindHelpers) {
   return {
-    '.button': {
-      ...buttonDefault(helpers),
-      ...buttonSizes(helpers),
-      ...buttonLayouts(helpers),
-      ...buttonColors(helpers),
-      ...buttonOutlined(helpers),
-      ...buttonGhost(helpers)
-    }
+    '.button': Object.assign(
+      buttonDefault(helpers),
+      rename(
+        {
+          ...buttonColors(helpers),
+          ...buttonSizes(helpers),
+          ...buttonLayouts(helpers),
+          ...buttonOutlined(helpers),
+          ...buttonGhost(helpers)
+        },
+        { prefix: '&-' }
+      )
+    )
   };
 }

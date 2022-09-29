@@ -1,5 +1,5 @@
 import { TailwindHelpers } from '../../../types';
-import { mapColors } from '../../../utils/map-colors';
+import { mapColors } from '../../utils/map-colors';
 
 /**
  * Returns the `color` variants for component `button`.
@@ -12,19 +12,22 @@ export function buttonColors(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return mapColors(
     color => ({
-      borderColor: color['50'],
-      backgroundColor: color['50'],
+      '--button-color-25': color['25'],
+      '--button-color-50': color['50'],
+      '--button-color-75': color['75'],
+      borderColor: 'var(--button-color-50)',
+      backgroundColor: 'var(--button-color-50)',
       color: theme('colors.neutral.0'),
 
       '&:hover': {
-        backgroundColor: color['75'],
-        borderColor: color['75'],
+        backgroundColor: 'var(--button-color-75)',
+        borderColor: 'var(--button-color-75)',
         color: theme('colors.neutral.0')
       },
 
       '&:active': {
-        borderColor: color['75'],
-        backgroundColor: color['75'],
+        borderColor: 'var(--button-color-75)',
+        backgroundColor: 'var(--button-color-75)',
         color: theme('colors.neutral.0')
       },
 

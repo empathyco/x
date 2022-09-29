@@ -1,5 +1,4 @@
 import { TailwindHelpers } from '../../../types';
-import { mapColors } from '../../../utils/map-colors';
 
 /**
  * Returns the `outlined` variant for component `button`.
@@ -11,20 +10,20 @@ import { mapColors } from '../../../utils/map-colors';
 export function buttonOutlined(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    '&.outlined': {
-      borderColor: theme('colors.neutral.50'),
+    outlined: Object.assign({
+      borderColor: 'var(--button-color-50)',
       backgroundColor: theme('colors.neutral.0'),
-      color: theme('colors.neutral.50'),
+      color: 'var(--button-color-50)',
 
       '&:hover': {
-        borderColor: theme('colors.neutral.50'),
-        backgroundColor: theme('colors.neutral.50'),
+        borderColor: 'var(--button-color-50)',
+        backgroundColor: 'var(--button-color-50)',
         color: theme('colors.neutral.0')
       },
 
       '&:active': {
-        borderColor: theme('colors.neutral.50'),
-        backgroundColor: theme('colors.neutral.50'),
+        borderColor: 'var(--button-color-50)',
+        backgroundColor: 'var(--button-color-50)',
         color: theme('colors.neutral.0')
       },
 
@@ -32,33 +31,7 @@ export function buttonOutlined(helpers: TailwindHelpers) {
         borderColor: theme('colors.neutral.25'),
         backgroundColor: theme('colors.neutral.10'),
         color: theme('colors.neutral.25')
-      },
-      ...mapColors(
-        color => ({
-          borderColor: color['50'],
-          backgroundColor: theme('colors.neutral.0'),
-          color: color['50'],
-
-          '&:hover': {
-            backgroundColor: color['50'],
-            borderColor: color['50'],
-            color: theme('colors.neutral.0')
-          },
-
-          '&:active': {
-            borderColor: color['50'],
-            backgroundColor: color['50'],
-            color: theme('colors.neutral.0')
-          },
-
-          '&:disabled': {
-            borderColor: theme('colors.neutral.25'),
-            backgroundColor: theme('colors.neutral.10'),
-            color: theme('colors.neutral.25')
-          }
-        }),
-        helpers
-      )
-    }
+      }
+    })
   };
 }
