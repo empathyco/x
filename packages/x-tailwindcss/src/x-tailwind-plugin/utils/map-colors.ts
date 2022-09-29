@@ -21,7 +21,7 @@ export interface ThemeColor {
 }
 
 /**
- * This functions takes all the Theme colors and maps them to custom CSS defined byt the mapperFn.
+ * This functions takes all the Theme colors and maps them to custom CSS defined by the mapperFn.
  *
  * @example
  * ```

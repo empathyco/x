@@ -37,6 +37,8 @@ export function buttonDefault({ theme }: TailwindHelpers) {
     letterSpacing: theme('letterSpacing.md'),
     lineHeight: theme('lineHeight.sm'),
 
+    cursor: 'default',
+
     '&:hover': {
       borderColor: 'var(--button-color-75)',
       backgroundColor: 'var(--button-color-75)',
