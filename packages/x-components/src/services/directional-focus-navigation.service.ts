@@ -1,3 +1,4 @@
+import { FOCUSABLE_SELECTORS } from '../utils/focus';
 import { ArrowKey } from '../utils/types';
 import {
   AbsoluteDistances,
@@ -82,8 +83,7 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
     /**
      * Comma separated focusable selectors to look up.
      */
-    // eslint-disable-next-line max-len
-    private readonly focusableSelectors: string = 'a, button, details, input, textarea, select, [tabindex]:not([tabindex="-1"])'
+    private readonly focusableSelectors = FOCUSABLE_SELECTORS
   ) {}
 
   /**
