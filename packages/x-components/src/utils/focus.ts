@@ -1,5 +1,7 @@
 /**
  * Comma separated list of common focusable selectors.
+ *
+ * @public
  */
 /* eslint-disable max-len */
 export const FOCUSABLE_SELECTORS =
