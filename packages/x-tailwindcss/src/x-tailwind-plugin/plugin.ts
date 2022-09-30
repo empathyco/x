@@ -33,7 +33,11 @@ export default plugin.withOptions(
   },
   function (options) {
     return {
-      theme: deepMerge({}, theme, options?.theme)
+      theme: deepMerge(
+        { colors: { current: 'currentColor', transparent: 'transparent' } },
+        theme,
+        options?.theme
+      )
     } as Config;
   }
 );
