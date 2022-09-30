@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.184](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.183...@empathyco/x-components@3.0.0-alpha.184) (2022-09-30)
+
+### Continuous Integration
+
+- silent jest and eslint warnings (#749)
+  ([1413677](https://github.com/empathyco/x/commit/14136776e6a616e21ecd4585a071cdee1569d1cb))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.183](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.182...@empathyco/x-components@3.0.0-alpha.183) (2022-09-29)
 
 ### Features
