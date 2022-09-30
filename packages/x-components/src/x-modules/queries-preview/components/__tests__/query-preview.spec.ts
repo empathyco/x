@@ -274,7 +274,7 @@ describe('query preview', () => {
       // Emulates user is typing a new query
       await wrapper.setProps({ query: 'secall' }); // Timer relaunched
 
-      jest.advanceTimersByTime(1);
+      jest.advanceTimersByTime(249);
       expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(1);
 
       await wrapper.setProps({ query: 'secallona' }); // Timer relaunched
@@ -298,10 +298,11 @@ describe('query preview', () => {
         query: 'bull'
       });
 
-      jest.advanceTimersByTime(100);
+      jest.advanceTimersByTime(249);
       expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(0);
 
-      await wrapper.setProps({ debounceTimeMs: 100 }); // Timer relaunched
+      // Updating the debounce time aborts previous running timers
+      await wrapper.setProps({ debounceTimeMs: 100 });
       jest.advanceTimersByTime(99);
       expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(0);
 
