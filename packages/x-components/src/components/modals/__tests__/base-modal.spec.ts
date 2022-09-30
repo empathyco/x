@@ -96,8 +96,10 @@ describe('testing Base Modal  component', () => {
 
   it('changes the focus to the correct element when the modal opens', async () => {
     let { wrapper, setOpen, appendToBody } = mountBaseModal({
-      // eslint-disable-next-line max-len
-      defaultSlot: `<div><button data-test="expected-focus">First button</button><button>Second button</button></div>`,
+      defaultSlot: `<div>
+          <button data-test="expected-focus">First button</button>
+          <button>Second button</button>
+        </div>`,
       open: false
     });
 
@@ -109,8 +111,10 @@ describe('testing Base Modal  component', () => {
     );
 
     ({ wrapper, setOpen, appendToBody } = mountBaseModal({
-      // eslint-disable-next-line max-len
-      defaultSlot: `<div><button>First button</button><button tabindex="1" data-test="expected-focus">Second button</button></div>`,
+      defaultSlot: `<div>
+          <button>First button</button>
+          <button tabindex="1" data-test="expected-focus">Second button</button>
+        </div>`,
       open: false
     }));
 
@@ -122,9 +126,12 @@ describe('testing Base Modal  component', () => {
     );
   });
 
-  it("doesn't changes the focus if the focusOnOpen prop is false", async () => {
+  it("doesn't change the focus if the focusOnOpen prop is false", async () => {
     const { setOpen, appendToBody } = mountBaseModal({
-      defaultSlot: `<div><button>First button</button><button>Second button</button></div>`,
+      defaultSlot: `<div>
+          <button tabindex="1">First button</button>
+          <button>Second button</button>
+        </div>`,
       open: false,
       focusOnOpen: false
     });
