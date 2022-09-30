@@ -188,7 +188,7 @@
 
     /**
      * Cancels the (remaining) requests when the component is destroyed
-     * via the debounce.cancel() method.
+     * via the `debounce.cancel()` method.
      *
      * @internal
      */
