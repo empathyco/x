@@ -22,12 +22,7 @@ describe('query preview', () => {
     location,
     queryFeature,
     debounceTimeMs,
-    template = `<QueryPreview
-                  :debounceTimeMs="debounceTimeMs"
-                  :maxItemsToRender="maxItemsToRender"
-                  :query="query"
-                  :queryFeature="queryFeature"
-                />`,
+    template = `<QueryPreview v-bind="$attrs" />`,
     queryPreview = {
       request: {
         query
@@ -57,7 +52,6 @@ describe('query preview', () => {
 
     const wrapper = mount(
       {
-        props: ['debounceTimeMs', 'maxItemsToRender', 'query', 'queryFeature'],
         components: { QueryPreview },
         template,
         provide: {
@@ -176,7 +170,7 @@ describe('query preview', () => {
   it('exposes the query, the results and the totalResults in the default slot', () => {
     const template = `
       <QueryPreview
-          :query="query"
+          :query="$attrs.query"
           #default="{ results, query, totalResults}">
         <div>
           <span data-test="query-preview-query">{{ query }}</span>
@@ -207,7 +201,7 @@ describe('query preview', () => {
 
   it('allows changing the result content', () => {
     const template = `
-      <QueryPreview :query="query" #result="{ result }">
+      <QueryPreview :query="$attrs.query" #result="{ result }">
         <span data-test="result-content">{{result.id}} - {{result.name}}</span>
       </QueryPreview>
     `;
@@ -349,7 +343,7 @@ interface RenderQueryPreviewAPI {
   /** The Vue testing utils wrapper for the {@link QueryPreview} component. */
   wrapper: Wrapper<Vue>;
   /** A Jest spy set in the {@link XPlugin} `on` function. */
-  queryPreviewRequestChangedSpy?: jest.Mock<any, any>;
+  queryPreviewRequestChangedSpy?: jest.Mock;
   /** The query for which preview its results. */
   query: string;
   /** The results preview for the passed query. */
