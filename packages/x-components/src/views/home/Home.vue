@@ -63,6 +63,18 @@
           />
         </label>
       </li>
+      <li class="x-test-controls__item x-list__item">
+        <label for="adapter.e2eAdapter">
+          Use mocked adapter
+          <input
+            v-model="controls.adapter.useE2EAdapter"
+            @change="toggleE2EAdapter"
+            id="adapter.e2eAdapter"
+            type="checkbox"
+            data-test="adapter-e2e"
+          />
+        </label>
+      </li>
     </ul>
     <MainModal :animation="modalAnimation">
       <MultiColumnMaxWidthLayout class="x-background--neutral-100">
@@ -401,6 +413,7 @@
   import CloseMainModal from '../../components/modals/close-main-modal.vue';
   import BaseKeyboardNavigation from '../../components/base-keyboard-navigation.vue';
   import { XProvide } from '../../components/decorators/injection.decorators';
+  import { adapterConfig } from '../adapter';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -502,8 +515,15 @@
       },
       historyQueries: {
         maxItemsToRender: 5
+      },
+      adapter: {
+        useE2EAdapter: false
       }
     };
+
+    toggleE2EAdapter(): void {
+      adapterConfig.e2e = !adapterConfig.e2e;
+    }
   }
 </script>
 

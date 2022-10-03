@@ -12,4 +12,7 @@ export interface HomeControls {
   historyQueries: {
     maxItemsToRender: number;
   };
+  adapter: {
+    useE2EAdapter: boolean;
+  };
 }

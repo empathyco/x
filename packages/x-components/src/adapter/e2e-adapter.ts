@@ -1,5 +1,6 @@
 import { XComponentsAdapter } from '@empathyco/x-types';
 import { EndpointAdapter, endpointAdapterFactory, HttpClient } from '@empathyco/x-adapter';
+import { mockedResponses } from './mocked-responses';
 
 /**
  * Mock fetch httpClient.
@@ -27,7 +28,11 @@ export function mockEndpointAdapter<Request, Response>(
 ): EndpointAdapter<Request, Response> {
   return endpointAdapterFactory<Request, Response>({
     endpoint: `https://api.empathy.co/${path}`,
-    httpClient: mockedFetchHttpClient
+    httpClient:
+      'Cypress' in window
+        ? mockedFetchHttpClient
+        : () =>
+            Promise.resolve(mockedResponses[path as keyof typeof mockedResponses]) as Promise<any>
   });
 }
 
@@ -42,7 +47,8 @@ export const e2eAdapter: XComponentsAdapter = {
   tagging: endpointAdapterFactory({
     endpoint: ({ url }) => url,
     requestMapper: ({ params }) => params,
-    httpClient: mockedFetchHttpClient,
+    httpClient:
+      'Cypress' in window ? mockedFetchHttpClient : () => Promise.resolve({}) as Promise<any>,
     defaultRequestOptions: {
       properties: { keepalive: true }
     }
