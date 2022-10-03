@@ -68,7 +68,7 @@
           Use mocked adapter
           <input
             v-model="controls.adapter.useE2EAdapter"
-            @change="changeAdapter"
+            @change="toggleE2EAdapter"
             id="adapter.e2eAdapter"
             type="checkbox"
             data-test="adapter-e2e"
@@ -520,7 +520,7 @@
       }
     };
 
-    changeAdapter(): void {
+    toggleE2EAdapter(): void {
       adapterConfig.e2e = !adapterConfig.e2e;
     }
   }
