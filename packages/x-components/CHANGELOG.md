@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.186](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.185...@empathyco/x-components@3.0.0-alpha.186) (2022-10-03)
+
+### Features
+
+- make `adapter` configurable in the `home` view (#750)
+  ([0fcc5cf](https://github.com/empathyco/x/commit/0fcc5cf38995a439b3011e1b7d94e7edaa7f9ce5)),
+  closes [EX-7073](https://searchbroker.atlassian.net/browse/EX-7073)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.185](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.184...@empathyco/x-components@3.0.0-alpha.185) (2022-09-30)
 
 ### Bug Fixes

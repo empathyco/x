@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.17...@empathyco/x-tailwindcss@0.2.0-alpha.18) (2022-10-03)
+
+### Features
+
+- **design-system:** Add `button` component to the Design System. (#738)
+  ([36c14a6](https://github.com/empathyco/x/commit/36c14a6e4057cf4f03d9bf2ba29a7e2141170e67)),
+  closes [EX-6797](https://searchbroker.atlassian.net/browse/EX-6797)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.16...@empathyco/x-tailwindcss@0.2.0-alpha.17) (2022-09-27)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
