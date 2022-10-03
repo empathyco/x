@@ -24,6 +24,7 @@
   },
   "scripts": {
     "dev": "vite serve demo",
+    "dev:build": "vite build demo",
     "prebuild": "rimraf ./dist ./*.tgz",
     "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
     "postbuild": "npm pack",

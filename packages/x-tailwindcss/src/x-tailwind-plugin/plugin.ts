@@ -12,13 +12,13 @@ import utilities from './utilities';
 export default plugin.withOptions(
   function (options?: PluginOptions) {
     return function (helpers: TailwindHelpers) {
+      helpers.addComponents(deepMerge({}, components(helpers), options?.components?.(helpers)));
       forEach(
         deepMerge({}, dynamicComponents(helpers), options?.dynamicComponents?.(helpers)),
         (key, { styles, values }) => {
           helpers.matchComponents({ [key]: styles }, { values: values ?? undefined });
         }
       );
-      helpers.addComponents(deepMerge({}, components(helpers), options?.components?.(helpers)));
 
       forEach(
         deepMerge({}, dynamicUtilities(helpers), options?.dynamicUtilities?.(helpers)),
@@ -33,7 +33,11 @@ export default plugin.withOptions(
   },
   function (options) {
     return {
-      theme: deepMerge({}, theme, options?.theme)
+      theme: deepMerge(
+        { colors: { current: 'currentColor', transparent: 'transparent' } },
+        theme,
+        options?.theme
+      )
     } as Config;
   }
 );
