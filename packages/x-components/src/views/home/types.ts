@@ -12,4 +12,7 @@ export interface HomeControls {
   historyQueries: {
     maxItemsToRender: number;
   };
+  nextQueriesPreview: {
+    maxItemsToRender: number;
+  };
 }

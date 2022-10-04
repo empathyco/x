@@ -63,6 +63,17 @@
           />
         </label>
       </li>
+      <li class="x-test-controls__item x-list__item">
+        <label for="nextQueriesPreview.maxItemsToRender">
+          next-queries-preview - maxItemsToRender
+          <input
+            v-model="controls.nextQueriesPreview.maxItemsToRender"
+            id="nextQueriesPreview.maxItemsToRender"
+            type="number"
+            data-test="nq-preview-max-to-render"
+          />
+        </label>
+      </li>
     </ul>
     <MainModal :animation="modalAnimation">
       <MultiColumnMaxWidthLayout class="x-background--neutral-100">
@@ -243,26 +254,47 @@
                         </template>
 
                         <template #next-queries-group="{ item: { nextQueries } }">
-                          <SlidingNextQueryPreview
+                          <NextQueryPreview
                             :suggestion="nextQueries[0]"
+                            :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
+                            #default="{ results }"
                             class="x-row__item x-row__item--span-9 x-padding--top-06"
-                          />
-                          <NextQuery
-                            :suggestion="nextQueries[0]"
-                            class="
-                              x-tag x-tag--pill
-                              x-font-weight--bold
-                              x-margin--left-auto x-margin--right-auto x-margin--top-03
-                              x-padding--top-04
-                              x-padding--bottom-04
-                              x-padding--right-05
-                              x-padding--left-05
-                              x-font-color--lead
-                              x-border-color--lead
-                            "
                           >
-                            {{ 'View all results' }}
-                          </NextQuery>
+                            <h1 class="x-title2 x-text--bold">Others clients have searched</h1>
+                            <NextQuery class="x-text x-font-size--05" :suggestion="nextQueries[0]">
+                              <span class="x-font-weight--bold">{{ nextQueries[0].query }}</span>
+                            </NextQuery>
+                            <div class="x-margin--bottom-06">
+                              <SlidingPanel :resetOnContentChange="false">
+                                <div class="x-list x-list--gap-03">
+                                  <Result
+                                    v-for="result in results"
+                                    :key="result.id"
+                                    :result="result"
+                                    style="max-width: 180px"
+                                    data-test="next-query-preview-result"
+                                  />
+                                </div>
+                              </SlidingPanel>
+                            </div>
+                            <NextQuery
+                              :suggestion="nextQueries[0]"
+                              class="
+                                x-tag x-tag--pill
+                                x-font-weight--bold
+                                x-margin--left-auto x-margin--right-auto x-margin--top-03
+                                x-padding--top-04
+                                x-padding--bottom-04
+                                x-padding--right-05
+                                x-padding--left-05
+                                x-font-color--lead
+                                x-border-color--lead
+                                x-margin--bottom-06
+                              "
+                            >
+                              {{ 'View all results' }}
+                            </NextQuery>
+                          </NextQueryPreview>
                         </template>
                       </BaseVariableColumnGrid>
                     </NextQueriesList>
@@ -355,6 +387,7 @@
   import SnippetConfigExtraParams from '../../x-modules/extra-params/components/snippet-config-extra-params.vue';
   import NextQueriesList from '../../x-modules/next-queries/components/next-queries-list.vue';
   import NextQueries from '../../x-modules/next-queries/components/next-queries.vue';
+  import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue';
   import { NextQuery } from '../../x-modules/next-queries/index';
   import Recommendations from '../../x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from '../../x-modules/related-tags/components/related-tags.vue';
@@ -386,7 +419,6 @@
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
   import { HomeControls } from './types';
-  import SlidingNextQueryPreview from './sliding-next-query-preview.vue';
   import SlidingQueryPreview from './sliding-query-preview.vue';
 
   @Component({
@@ -426,6 +458,7 @@
       MultiColumnMaxWidthLayout,
       NextQueries,
       NextQueriesList,
+      NextQueryPreview,
       NextQuery,
       Nq1,
       OpenMainModal,
@@ -445,7 +478,6 @@
       SearchButton,
       SearchIcon,
       SearchInput,
-      SlidingNextQueryPreview,
       SlidingPanel,
       SlidingQueryPreview,
       SnippetCallbacks,
@@ -483,6 +515,9 @@
       },
       historyQueries: {
         maxItemsToRender: 5
+      },
+      nextQueriesPreview: {
+        maxItemsToRender: 10
       }
     };
   }
