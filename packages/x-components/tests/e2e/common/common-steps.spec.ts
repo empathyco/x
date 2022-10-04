@@ -264,6 +264,28 @@ Then(
   }
 );
 
+Then(
+  'recommendations request contains extra parameter {string} with value {string}',
+  (key: string, value: string) => {
+    cy.wait('@interceptedRecommendations')
+      .its('request.body')
+      .then(JSON.parse)
+      .its('extraParams')
+      .should('have.property', key, value);
+  }
+);
+
+Then(
+  'popular searches request contains extra parameter {string} with value {string}',
+  (key: string, value: string) => {
+    cy.wait('@interceptedPopularSearches')
+      .its('request.body')
+      .then(JSON.parse)
+      .its('extraParams')
+      .should('have.property', key, value);
+  }
+);
+
 When('the page is reloaded', () => {
   cy.reload();
 });
