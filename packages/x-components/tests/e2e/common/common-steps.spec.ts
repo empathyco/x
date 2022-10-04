@@ -257,9 +257,11 @@ Then(
 Then(
   'search request contains extra parameter {string} with value {string}',
   (key: string, value: string) => {
-    cy.wait('@interceptedResults').should(intercept => {
-      expect(JSON.parse(intercept.request.body).extraParams).to.have.property(key, value);
-    });
+    cy.wait('@interceptedResults')
+      .its('request.body')
+      .should((body: string) => {
+        expect(JSON.parse(body).extraParams).to.have.property(key, value);
+      });
   }
 );
 
