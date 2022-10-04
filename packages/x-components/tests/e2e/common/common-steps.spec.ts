@@ -248,8 +248,9 @@ Then(
   (key: string, value: string) => {
     cy.wait('@interceptedResults')
       .its('request.body')
-      .then(JSON.parse)
-      .should('have.property', key, value === 'default' ? '' : value);
+      .should((body: string) => {
+        expect(JSON.parse(body).extraParams).to.have.property(key, value);
+      });
   }
 );
 
@@ -258,9 +259,9 @@ Then(
   (key: string, value: string) => {
     cy.wait('@interceptedResults')
       .its('request.body')
-      .then(JSON.parse)
-      .its('extraParams')
-      .should('have.property', key, value);
+      .should((body: string) => {
+        expect(JSON.parse(body).extraParams).to.have.property(key, value);
+      });
   }
 );
 
@@ -269,9 +270,9 @@ Then(
   (key: string, value: string) => {
     cy.wait('@interceptedRecommendations')
       .its('request.body')
-      .then(JSON.parse)
-      .its('extraParams')
-      .should('have.property', key, value);
+      .should((body: string) => {
+        expect(JSON.parse(body).extraParams).to.have.property(key, value);
+      });
   }
 );
 
@@ -280,9 +281,9 @@ Then(
   (key: string, value: string) => {
     cy.wait('@interceptedPopularSearches')
       .its('request.body')
-      .then(JSON.parse)
-      .its('extraParams')
-      .should('have.property', key, value);
+      .should((body: string) => {
+        expect(JSON.parse(body).extraParams).to.have.property(key, value);
+      });
   }
 );
 
