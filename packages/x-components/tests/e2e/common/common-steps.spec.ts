@@ -254,6 +254,14 @@ Then(
   }
 );
 
+Then('search request contains sort parameter with value {string}', (value: string) => {
+  cy.wait('@interceptedResults')
+    .its('request.body')
+    .should((body: string) => {
+      expect(JSON.parse(body)).to.have.property('sort', value === 'default' ? '' : value);
+    });
+});
+
 Then(
   'search request contains extra parameter {string} with value {string}',
   (key: string, value: string) => {
