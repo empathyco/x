@@ -138,7 +138,7 @@
      *
      * @internal
      */
-    @Inject()
+    @Inject({ default: undefined })
     protected location?: FeatureLocation;
 
     /**
@@ -197,10 +197,11 @@
     }
 
     /**
-     * Cancels the previous request when there is a new one.
+     * Cancels the previous request when the debounced function changes (e.g: the debounceTimeMs
+     * prop changes or there is a request in progress that cancels it).
      *
-     * @param _new - The new request.
-     * @param old - The previous request.
+     * @param _new - The new debounced function.
+     * @param old - The previous debounced function.
      * @internal
      */
     @Watch('emitQueryPreviewRequestChanged')
