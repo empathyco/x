@@ -249,7 +249,7 @@ Then(
     cy.wait('@interceptedResults')
       .its('request.body')
       .should((body: string) => {
-        expect(JSON.parse(body).extraParams).to.have.property(key, value);
+        expect(JSON.parse(body)).to.have.property(key, value);
       });
   }
 );
