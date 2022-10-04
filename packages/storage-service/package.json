@@ -25,6 +25,9 @@
     "url": "https://github.com/empathyco/x.git",
     "directory": "packages/storage-service"
   },
+  "engines": {
+    "node": "16"
+  },
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",

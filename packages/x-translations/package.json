@@ -21,7 +21,7 @@
     "directory": "packages/x-translations"
   },
   "engines": {
-    "node": ">=14.14.0"
+    "node": "16"
   },
   "scripts": {
     "build": "tsc",

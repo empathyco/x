@@ -20,6 +20,9 @@
     "url": "https://github.com/empathyco/x.git",
     "directory": "packages/get-safe-property-chain"
   },
+  "engines": {
+    "node": "16"
+  },
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",

@@ -22,6 +22,9 @@
     "url": "git+https://github.com/empathyco/x.git",
     "directory": "packages/x-tailwindcss"
   },
+  "engines": {
+    "node": "16"
+  },
   "scripts": {
     "dev": "vite serve demo",
     "prebuild": "rimraf ./dist ./*.tgz",

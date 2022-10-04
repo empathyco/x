@@ -19,6 +19,9 @@
     "url": "https://github.com/empathyco/x.git",
     "directory": "packages/jest-utils"
   },
+  "engines": {
+    "node": "16"
+  },
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
