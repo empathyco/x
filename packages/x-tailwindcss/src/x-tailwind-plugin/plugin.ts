@@ -20,8 +20,8 @@ export default plugin.withOptions(
   function (options?: PluginOptions) {
     /**
      * Registers the generated CSS for the components and utilities of the plugin to the
-     * respective Tailwind layer. This CSS will be dependent on the plugin's theme, affecting
-     * the color, spacing, etc. Of the styles generated in this step.
+     * respective Tailwind layer. It depends on the plugin's theme, affecting
+     * the color, spacing, etc... Of the styles generated in this step.
      *
      * @param helpers - The {@link TailwindHelpers}.
      * @internal
