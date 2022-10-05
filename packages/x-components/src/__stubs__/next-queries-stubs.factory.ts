@@ -4,9 +4,7 @@ import { NextQuery } from '@empathyco/x-types';
  * Creates a {@link @empathyco/x-types#NextQuery | next queries} stub.
  *
  * @param amount - Number of stubbed next queries to create.
- *
  * @returns Array of next queries stub.
- *
  * @internal
  */
 export function getNextQueriesStub(amount = 3): NextQuery[] {
@@ -21,7 +19,6 @@ export function getNextQueriesStub(amount = 3): NextQuery[] {
  *
  * @param query - The query of the next query.
  * @param nextQuery - An optional object with fields to override the next query.
- *
  * @returns A next query.
  */
 export function createNextQueryStub(query: string, nextQuery?: Partial<NextQuery>): NextQuery {
@@ -31,6 +28,7 @@ export function createNextQueryStub(query: string, nextQuery?: Partial<NextQuery
     totalResults: 10,
     results: [],
     modelName: 'NextQuery',
+    isCurated: false,
     ...nextQuery
   };
 }
