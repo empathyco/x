@@ -6,12 +6,17 @@
     data-test="popular-search"
     feature="popular_search"
   >
-    <template #default="{ suggestion }">
+    <template #default="{ suggestion, filter }">
       <!--
         @slot Popular Search's content
             @binding {Suggestion} suggestion - Popular Search suggestion data
+            @binding {Filter} filter - Suggestion's filter
       -->
-      <slot :suggestion="suggestion">{{ suggestion.query }}</slot>
+
+      <slot :suggestion="suggestion" :filter="filter">
+        <span>{{ suggestion.query }}</span>
+        <span v-if="filter">{{ filter.label }}</span>
+      </slot>
     </template>
   </BaseSuggestion>
 </template>
@@ -120,6 +125,57 @@ content. By default, it renders the suggestion query of the popular search.
           modelName: 'PopularSearch',
           query: 'tshirt',
           facets: []
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Custom usage with filter
+
+```vue live
+<template>
+  <PopularSearch :suggestion="suggestion">
+    <template #default="{ suggestion, filter }">
+      <TrendingIcon />
+      <span :aria-label="suggestion.query">{{ suggestion.query }} | {{ filter.label }}</span>
+    </template>
+  </PopularSearch>
+</template>
+
+<script>
+  import { PopularSearch } from '@empathyco/x-components/popular-searches';
+  import { TrendingIcon } from '@empathyco/x-components';
+
+  export default {
+    name: 'PopularSearchDemo',
+    components: {
+      PopularSearch,
+      TrendingIcon
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'PopularSearch',
+          query: 'tshirt',
+          facets: [
+            {
+              id: 'exampleFacet',
+              label: 'exampleFacet',
+              modelName: 'SimpleFacet',
+              filters: [
+                {
+                  facetId: 'exampleFacet',
+                  id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"black"',
+                  label: 'black',
+                  selected: false,
+                  totalResults: 10,
+                  modelName: 'SimpleFilter'
+                }
+              ]
+            }
+          ]
         }
       };
     }
