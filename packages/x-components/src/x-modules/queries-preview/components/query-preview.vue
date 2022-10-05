@@ -33,13 +33,12 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Prop, Inject } from 'vue-property-decorator';
+  import { Component, Prop, Inject, Watch } from 'vue-property-decorator';
   import { Dictionary } from '@empathyco/x-utils';
   import { SearchRequest, Result } from '@empathyco/x-types';
   import { State } from '../../../components/decorators/store.decorators';
   import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
   import { XProvide } from '../../../components/decorators/injection.decorators';
-  import { XEmit } from '../../../components/decorators/bus.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { NoElement } from '../../../components/no-element';
   import { QueryFeature, FeatureLocation } from '../../../types/origin';
@@ -47,6 +46,8 @@
   import { QueriesPreviewConfig } from '../config.types';
   import { queriesPreviewXModule } from '../x-module';
   import { createOrigin } from '../../../utils/origin';
+  import { debounce } from '../../../utils/debounce';
+  import { DebouncedFunction } from '../../../utils';
 
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,
@@ -72,8 +73,8 @@
     })
     protected query!: string;
 
-    /**.
-     *  The origin property for the request
+    /**
+     * The origin property for the request.
      *
      * @public
      */
@@ -87,6 +88,14 @@
      */
     @Prop()
     protected maxItemsToRender?: number;
+
+    /**
+     * Debounce time in milliseconds for triggering the search requests.
+     * It will default to 0 to fit the most common use case (pre-search),
+     * and it would work properly with a 250 value inside empathize.
+     */
+    @Prop({ default: 0 })
+    public debounceTimeMs!: number;
 
     /**
      * The results preview of the queries preview mounted.
@@ -129,17 +138,16 @@
      *
      * @internal
      */
-    @Inject()
-    public location?: FeatureLocation;
+    @Inject({ default: undefined })
+    protected location?: FeatureLocation;
 
     /**
      * The computed request object to be used to retrieve the query preview results.
      *
      * @returns The search request object.
-     * @public
+     * @internal
      */
-    @XEmit('QueryPreviewRequestChanged', { immediate: false })
-    public get queryPreviewRequest(): SearchRequest {
+    protected get queryPreviewRequest(): SearchRequest {
       const origin = createOrigin({
         feature: this.queryFeature,
         location: this.location
@@ -153,8 +161,55 @@
       };
     }
 
-    protected mounted(): void {
-      this.$x.emit('QueryPreviewRequestChanged', this.queryPreviewRequest);
+    /**
+     * The debounce method to trigger the request after the debounceTimeMs defined.
+     *
+     * @returns The search request object.
+     * @internal
+     */
+    protected get emitQueryPreviewRequestChanged(): DebouncedFunction<[SearchRequest]> {
+      return debounce(request => {
+        this.$x.emit('QueryPreviewRequestChanged', request);
+      }, this.debounceTimeMs);
+    }
+
+    /**
+     * Initialises watcher to emit debounced requests, and first value for the requests.
+     *
+     * @internal
+     */
+    protected created(): void {
+      this.$watch(
+        () => this.queryPreviewRequest,
+        request => this.emitQueryPreviewRequestChanged(request)
+      );
+      this.emitQueryPreviewRequestChanged(this.queryPreviewRequest);
+    }
+
+    /**
+     * Cancels the (remaining) requests when the component is destroyed
+     * via the `debounce.cancel()` method.
+     *
+     * @internal
+     */
+    protected beforeDestroy(): void {
+      this.emitQueryPreviewRequestChanged.cancel();
+    }
+
+    /**
+     * Cancels the previous request when the debounced function changes (e.g: the debounceTimeMs
+     * prop changes or there is a request in progress that cancels it).
+     *
+     * @param _new - The new debounced function.
+     * @param old - The previous debounced function.
+     * @internal
+     */
+    @Watch('emitQueryPreviewRequestChanged')
+    protected cancelEmitPreviewRequestChanged(
+      _new: DebouncedFunction<[SearchRequest]>,
+      old: DebouncedFunction<[SearchRequest]>
+    ): void {
+      old.cancel();
     }
 
     /**
