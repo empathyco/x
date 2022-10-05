@@ -14,14 +14,14 @@ Feature: Search sort components
   Scenario Outline: 1. Search sort list and dropdown order the results
     Given a results API with a known response
     When  "<query>" is searched
-    Then  search request contains parameter "sort" with value "<defaultSort>"
+    Then  search request contains sort parameter with value "<defaultSort>"
     Then  related results are displayed
     When  sort option "<sortOption2>" is selected from the sort dropdown
-    Then  search request contains parameter "sort" with value "<sortOption2>"
+    Then  search request contains sort parameter with value "<sortOption2>"
     When  sort option "<sortOption1>" is selected from the sort dropdown
-    Then  search request contains parameter "sort" with value "<sortOption1>"
+    Then  search request contains sort parameter with value "<sortOption1>"
     When  sort option "<defaultSort>" is selected from the sort dropdown
-    Then  search request contains parameter "sort" with value "<defaultSort>"
+    Then  search request contains sort parameter with value "<defaultSort>"
 
     Examples:
       | query | sortOption1   | sortOption2    | defaultSort |
