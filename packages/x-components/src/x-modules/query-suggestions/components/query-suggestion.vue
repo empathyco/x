@@ -6,7 +6,7 @@
     data-test="query-suggestion"
     feature="query_suggestion"
   >
-    <template #default="{ suggestion, queryHTML }">
+    <template #default="{ suggestion, queryHTML, filter }">
       <!-- eslint-disable max-len -->
       <!--
         @slot Custom content that replaces the `QuerySuggestion` default content
@@ -14,7 +14,7 @@
             @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
       -->
       <!-- eslint-enable max-len -->
-      <slot v-bind="{ suggestion, queryHTML }" />
+      <slot v-bind="{ suggestion, queryHTML, filter }" />
     </template>
   </BaseSuggestion>
 </template>
@@ -136,6 +136,52 @@ element.
           modelName: 'QuerySuggestion',
           query: 'tshirt',
           facets: []
+        }
+      };
+    }
+  };
+</script>
+```
+
+In this example, the query suggestion is painted in blue and the filter in red.
+
+```vue live
+<template>
+  <QuerySuggestion :suggestion="suggestion" #default="{ queryHTML, filter }">
+    <span v-html="queryHTML" style="color: blue;" />
+    <span style="color: red">{{ filter.label }}</span>
+  </QuerySuggestion>
+</template>
+
+<script>
+  import { QuerySuggestion } from '@empathyco/x-components/query-suggestions';
+  export default {
+    name: 'QuerySuggestionDemo',
+    components: {
+      QuerySuggestion
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'QuerySuggestion',
+          query: 'tshirt',
+          facets: [
+            {
+              id: 'exampleFacet',
+              label: 'exampleFacet',
+              modelName: 'SimpleFacet',
+              filters: [
+                {
+                  facetId: 'exampleFacet',
+                  id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"black"',
+                  label: 'black',
+                  selected: false,
+                  totalResults: 10,
+                  modelName: 'SimpleFilter'
+                }
+              ]
+            }
+          ]
         }
       };
     }
