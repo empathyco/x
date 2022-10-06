@@ -18,12 +18,10 @@
 </template>
 
 <script lang="ts">
-  import { mixins } from 'vue-class-component';
+  import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { Suggestion, Facet, Filter } from '@empathyco/x-types';
   import { isArrayEmpty } from '../../utils/array';
-  import { SuggestionsMixin } from './suggestions.mixin';
-  import { SuggestionsWithFacetsMixin } from './suggestions-with-facets.mixin';
 
   /**
    * Paints a list of suggestions passed in by prop. Requires a component for a single suggestion
@@ -32,10 +30,7 @@
    * @public
    */
   @Component
-  export default class BaseSuggestions extends mixins(
-    SuggestionsMixin,
-    SuggestionsWithFacetsMixin
-  ) {
+  export default class BaseSuggestions extends Vue {
     /**
      * The list of suggestions to render.
      *
@@ -43,6 +38,39 @@
      */
     @Prop({ required: true })
     protected suggestions!: Suggestion[];
+
+    /**
+     * Animation component that will be used to animate the suggestion.
+     *
+     * @public
+     */
+    @Prop({ default: 'ul' })
+    protected animation!: Vue | string;
+
+    /**
+     * Number of suggestions to be rendered.
+     *
+     * @public
+     */
+    @Prop()
+    protected maxItemsToRender?: number;
+
+    /**
+     * Indicates if the suggestions must be rendered along with its facets.
+     *
+     * @public
+     */
+    @Prop({ default: false, type: Boolean })
+    protected showFacets!: boolean;
+
+    /**
+     * When showFacets is true, indicates if the suggestion without filter
+     * must be appended to the list.
+     *
+     * @public
+     */
+    @Prop({ default: false, type: Boolean })
+    protected appendSuggestionWithoutFilter!: boolean;
 
     /**
      * An array with the unique keys for each suggestion. Required by the `v-for` loop.
