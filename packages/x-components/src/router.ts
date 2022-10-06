@@ -53,7 +53,6 @@ if (process.env.NODE_ENV !== 'production') {
       name: 'Infinite Scroll Container',
       component: () => import('./views/infinite-scroll.vue')
     },
-
     {
       path: '/infinite-scroll-document',
       name: 'Infinite Scroll Document',

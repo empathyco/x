@@ -1,11 +1,13 @@
 import {
+  cleanEmpty,
   cleanUndefined,
   every,
   flatObject,
   forEach,
   getNewAndUpdatedKeys,
   map,
-  reduce
+  reduce,
+  rename
 } from '../object';
 import { Dictionary } from '../types/utils.types';
 
@@ -398,6 +400,65 @@ describe('testing object utils', () => {
     }
   });
 
+  describe('cleanEmpty', () => {
+    it('cleans empty values from an object', () => {
+      const testObj = {
+        a: 1,
+        b: 2,
+        c: undefined,
+        d: '',
+        e: null,
+        f: [],
+        g: {}
+      };
+
+      const cleanObject = cleanEmpty(testObj);
+      expect(cleanObject).toStrictEqual({
+        a: 1,
+        b: 2
+      });
+    });
+
+    it('cleans empty values from an object recursively', () => {
+      const testObj = {
+        a: 1,
+        b: {
+          c: 2,
+          d: undefined,
+          e: '',
+          f: {
+            g: ['hey'],
+            h: 3,
+            i: null,
+            j: {}
+          },
+          k: [],
+          l: 'test'
+        }
+      };
+
+      const cleanObject = cleanEmpty(testObj);
+      expect(cleanObject).toStrictEqual({
+        a: 1,
+        b: {
+          c: 2,
+          f: {
+            g: ['hey'],
+            h: 3
+          },
+          l: 'test'
+        }
+      });
+    });
+
+    it('cleans nested empty objects from an object', () => {
+      const testObj = { a: { b: { c: { d: '' } } } };
+
+      const cleanObject = cleanEmpty(testObj);
+      expect(cleanObject).toStrictEqual({});
+    });
+  });
+
   describe('getKeysWithDifferentValue', () => {
     it('returns an empty array when both objects are undefined', () => {
       const newValue = undefined;
@@ -500,6 +561,45 @@ describe('testing object utils', () => {
         k: null,
         l: obj.c.f.h.l
       });
+    });
+  });
+
+  describe('rename', () => {
+    const sampleObject = {
+      anString: 'string',
+      aNumber: 10,
+      anObject: {
+        notRenamedBoolean: true
+      }
+    };
+    it('allows using a prefix', () => {
+      const result = rename(sampleObject, { prefix: '_' });
+      expect(result._anString).toEqual(sampleObject.anString);
+      expect(result._aNumber).toEqual(sampleObject.aNumber);
+      expect(result._anObject).toEqual(sampleObject.anObject);
+      expect(result._anObject.notRenamedBoolean).toEqual(sampleObject.anObject.notRenamedBoolean);
+    });
+    it('allows using a suffix', () => {
+      const result = rename(sampleObject, { suffix: '_' });
+      expect(result.anString_).toEqual(sampleObject.anString);
+      expect(result.aNumber_).toEqual(sampleObject.aNumber);
+      expect(result.anObject_).toEqual(sampleObject.anObject);
+      expect(result.anObject_.notRenamedBoolean).toEqual(sampleObject.anObject.notRenamedBoolean);
+    });
+    it('allows using both prefix and a suffix', () => {
+      const result = rename(sampleObject, { prefix: '_', suffix: '_' });
+      expect(result._anString_).toEqual(sampleObject.anString);
+      expect(result._aNumber_).toEqual(sampleObject.aNumber);
+      expect(result._anObject_).toEqual(sampleObject.anObject);
+      expect(result._anObject_.notRenamedBoolean).toEqual(sampleObject.anObject.notRenamedBoolean);
+    });
+    it('excludes undefined properties', () => {
+      const result = rename(
+        { anString: 'string', anUndef: undefined },
+        { prefix: '_', suffix: '_' }
+      );
+      expect(result._anString_).toEqual(sampleObject.anString);
+      expect(result).not.toHaveProperty('_anUndef_');
     });
   });
 });

@@ -1,2 +1,3 @@
-export * from './helpers';
-export { default as xTailwindPlugin } from './plugin';
+export * from './old-ds-plugin';
+export * from './x-tailwind-plugin';
+export * from './types';

@@ -24,6 +24,13 @@ export const LIST_ITEMS_KEY: XInjectKey<ListItem[] | undefined> = 'listItems';
 export const QUERY_KEY: XInjectKey<string | undefined> = 'query';
 
 /**
+ * It's used to identify the provided and injected `hasMoreItems`.
+ *
+ * @internal
+ */
+export const HAS_MORE_ITEMS_KEY: XInjectKey<boolean | undefined> = 'hasMoreItems';
+
+/**
  * It's used to identify the provided and injected `result`.
  *
  * @internal

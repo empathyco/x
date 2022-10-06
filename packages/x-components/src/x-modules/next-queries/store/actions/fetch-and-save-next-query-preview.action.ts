@@ -2,8 +2,8 @@ import { NextQueriesXStoreModule } from '../types';
 
 // eslint-disable-next-line max-len
 export const fetchAndSaveNextQueryPreview: NextQueriesXStoreModule['actions']['fetchAndSaveNextQueryPreview'] =
-  ({ dispatch, commit }, query) => {
-    return dispatch('fetchNextQueryPreview', query)
+  ({ dispatch, commit }, { query, location }) => {
+    return dispatch('fetchNextQueryPreview', { query, location })
       .then(response => {
         if (response) {
           commit('setResultsPreview', {

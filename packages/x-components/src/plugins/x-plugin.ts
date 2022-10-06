@@ -6,8 +6,10 @@ import { XComponentsAdapter } from '@empathyco/x-types';
 import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
 import { RootXStoreModule } from '../store/x.module';
+import { XEvent } from '../wiring/events.types';
 import { AnyWire } from '../wiring/wiring.types';
 import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
+import { sendWiringToDevtools } from './devtools/wiring.devtools';
 import { bus } from './x-bus';
 import { XBus } from './x-bus.types';
 import { registerStoreEmitters } from './x-emitters';
@@ -88,6 +90,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    */
   protected static instance?: XPlugin;
 
+  public wiring: Partial<Record<XModuleName, Partial<Record<XEvent, string[]>>>> = {};
   /**
    * Bus for retrieving the observables when registering the wiring.
    *
@@ -235,6 +238,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
       // to allow lazy loaded modules work properly.
       this.registerWiring(customizedXModule);
       this.installedXModules.add(xModule.name);
+      this.bus.emit('ModuleRegistered', xModule.name);
     }
   }
 
@@ -278,7 +282,8 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    *
    * @internal
    */
-  protected registerWiring({ wiring }: AnyXModule): void {
+  protected registerWiring({ wiring, name }: AnyXModule): void {
+    sendWiringToDevtools(name, wiring);
     forEach(wiring, (event, wires: Dictionary<AnyWire>) => {
       // Obtain the observable
       const observable = this.bus.on(event, true);

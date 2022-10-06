@@ -6,7 +6,7 @@ export default {
     md: '8px',
     lg: '16px',
     xl: '32px',
-    round: '99999px'
+    full: '99999px'
   },
   borderWidth: {
     1: '1px',
@@ -39,9 +39,9 @@ export default {
       75: '#A42748'
     },
     highlight: {
-      25: 'E2D8E3',
-      50: '8B6391',
-      75: '684A6D'
+      25: '#E2D8E3',
+      50: '#8B6391',
+      75: '#684A6D'
     },
     success: {
       25: '#ECFDF5',
@@ -60,10 +60,10 @@ export default {
     }
   },
   fontFamily: {
-    primary: 'Montserrat',
-    secondary: 'Lora',
-    auxiliary: 'Helvetica Neue',
-    special: 'Allan',
+    primary: ['Inter', 'sans-serif'],
+    secondary: ['Lora', 'serif'],
+    auxiliary: ['Poppins', 'sans-serif'],
+    special: ['Bree Serif', 'serif'],
     icon: 'font-awesome'
   },
   fontSize: {
@@ -82,19 +82,19 @@ export default {
     '8xl': '96px'
   },
   fontWeight: {
-    light: 200,
-    regular: 400,
-    bold: 600
+    light: '200',
+    regular: '400',
+    bold: '600'
   },
   letterSpacing: {
     sm: '-1%',
-    md: 0,
+    md: '0',
     lg: '2%'
   },
   lineHeight: {
-    sm: 1,
-    md: 1.5,
-    lg: 2
+    sm: '1.2',
+    md: '1.5',
+    lg: '2'
   },
   screens: {
     tablet: '800px',
@@ -102,23 +102,27 @@ export default {
     large: '2800px'
   },
   spacing: {
-    'spacing-1': 1,
-    'spacing-2': 2,
-    'spacing-4': 4,
-    'spacing-8': 8,
-    'spacing-12': 12,
-    'spacing-16': 16,
-    'spacing-20': 20,
-    'spacing-24': 24,
-    'spacing-32': 32,
-    'spacing-40': 40,
-    'spacing-48': 48,
-    'spacing-56': 56,
-    'spacing-64': 64,
-    'spacing-80': 80,
-    'spacing-96': 96,
-    'spacing-128': 128,
-    'spacing-152': 152
+    1: '1px',
+    2: '2px',
+    4: '4px',
+    8: '8px',
+    12: '12px',
+    16: '16px',
+    20: '20px',
+    24: '24px',
+    32: '32px',
+    40: '40px',
+    48: '48px',
+    56: '56px',
+    64: '64px',
+    80: '80px',
+    96: '96px',
+    128: '128px',
+    152: '152px',
+    184: '184px',
+    216: '216px',
+    280: '280px',
+    344: '344px'
   },
   extend: {}
 } as const;

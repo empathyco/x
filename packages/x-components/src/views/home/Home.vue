@@ -238,10 +238,11 @@
 
             <template v-if="!$x.query.searchBox">
               <h1 class="x-title1 x-margin--bottom-06">Brand Recommendations</h1>
-
-              <SlidingQueryPreview query="sunglasses" />
-              <SlidingQueryPreview query="handbag" />
-              <SlidingQueryPreview query="earrings" />
+              <LocationProvider location="no_results">
+                <SlidingQueryPreview query="sunglasses" />
+                <SlidingQueryPreview query="handbag" />
+                <SlidingQueryPreview query="earrings" />
+              </LocationProvider>
             </template>
 
             <!-- Results -->
@@ -249,7 +250,7 @@
               <ResultsList v-infinite-scroll:main-scroll>
                 <BannersList>
                   <PromotedsList>
-                    <NextQueriesList>
+                    <NextQueriesList :show-only-after-offset="true">
                       <BaseVariableColumnGrid :animation="resultsAnimation">
                         <template #result="{ item: result }">
                           <MainScrollItem :item="result">
@@ -427,6 +428,7 @@
   import CloseMainModal from '../../components/modals/close-main-modal.vue';
   import BaseKeyboardNavigation from '../../components/base-keyboard-navigation.vue';
   import { XProvide } from '../../components/decorators/injection.decorators';
+  import { adapterConfig } from '../adapter';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -530,8 +532,15 @@
       },
       nextQueriesPreview: {
         maxItemsToRender: 10
+      },
+      adapter: {
+        useE2EAdapter: false
       }
     };
+
+    toggleE2EAdapter(): void {
+      adapterConfig.e2e = !adapterConfig.e2e;
+    }
   }
 </script>
 

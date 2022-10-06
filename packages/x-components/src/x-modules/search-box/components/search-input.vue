@@ -7,6 +7,7 @@
     @input="emitUserIsTypingAQueryEvents"
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
+    @beforeinput="preventSpecialKey"
     v-on="$listeners"
     :maxlength="maxLength"
     :value="query"
@@ -90,7 +91,7 @@
     /**
      * When event {@link XEventsTypes.UserReachedEmpathizeTop} or
      * {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
-     * are emitted the search in put is focused.
+     * are emitted the search input is focused.
      *
      * @internal
      */
@@ -234,6 +235,18 @@
      */
     protected emitUserAcceptedAQuery(query: string): void {
       this.$x.emit('UserAcceptedAQuery', query, this.createEventMetadata());
+    }
+
+    /**
+     * Prevents the user from either typing or pasting special characters in the input field.
+     *
+     * @internal
+     * @param event - The event that will be checked for special characters.
+     */
+    protected preventSpecialKey(event: InputEvent): void {
+      if (/[<>]/.test(event.data ?? '')) {
+        event.preventDefault();
+      }
     }
   }
 </script>

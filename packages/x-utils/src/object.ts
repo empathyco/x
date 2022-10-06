@@ -1,4 +1,4 @@
-import { isObject } from './typeguards';
+import { isArray, isObject } from './typeguards';
 import { Dictionary } from './types';
 
 /**
@@ -95,6 +95,39 @@ export function cleanUndefined<T>(obj: T): T {
 }
 
 /**
+ * Creates an object picking only the properties whose values are not:
+ * - `undefined`.
+ * - `null`.
+ * - an empty string.
+ * - an empty array.
+ * - an empty object.
+ *
+ * @param obj - The object from whom pick the values.
+ * @returns A new object with the not empty properties of the source object.
+ * @public
+ */
+export function cleanEmpty<SomeObject extends Record<string, unknown>>(
+  obj: SomeObject
+): SomeObject {
+  return reduce(
+    obj,
+    (pickedObject, key, value) => {
+      // FIXME: Clean nested empty arrays too
+      if (isObject(value)) {
+        pickedObject[key] = cleanEmpty(value);
+        if (Object.keys(pickedObject[key] as typeof value).length === 0) {
+          delete pickedObject[key];
+        }
+      } else if (value !== null && value !== '' && !(isArray(value) && value.length === 0)) {
+        pickedObject[key] = value;
+      }
+      return pickedObject;
+    },
+    {} as SomeObject
+  );
+}
+
+/**
  * Creates an object picking only the ones that pass the test implemented by the
  * provided function isIncluded.
  *
@@ -167,6 +200,7 @@ export function every<ObjectType extends Dictionary>(
  *
  * @param object - The object to flatten.
  * @returns The flattened object.
+ * @public
  */
 export function flatObject(object: Dictionary): Dictionary {
   const flattenedObject: Dictionary = {};
@@ -178,4 +212,51 @@ export function flatObject(object: Dictionary): Dictionary {
     }
   });
   return flattenedObject;
+}
+
+/**
+ * Renames the keys of an object adding a prefix, a suffix, or both.
+ *
+ * @param object - The object to rename its keys.
+ * @param pattern - The options to rename with: a prefix and a suffix.
+ * @returns A new object with the keys renamed following the pattern.
+ * @public
+ */
+export function rename<
+  SomeObject extends Dictionary,
+  Prefix extends string = '',
+  Suffix extends string = ''
+>(
+  object: SomeObject,
+  { prefix, suffix }: RenameOptions<Prefix, Suffix>
+): Rename<SomeObject, Prefix, Suffix> {
+  return reduce(
+    object,
+    (renamed, key, value) => {
+      renamed[
+        `${prefix ?? ''}${key as string}${suffix ?? ''}` as keyof Rename<SomeObject, Prefix, Suffix>
+      ] = value;
+      return renamed;
+    },
+    {} as Rename<SomeObject, Prefix, Suffix>
+  );
+}
+
+/**
+ * Renames the keys of the given object prefixing and suffixing them.
+ *
+ * @public
+ */
+export type Rename<SomeObject, Prefix extends string, Suffix extends string> = {
+  [Key in keyof SomeObject as `${Prefix}${Key & string}${Suffix}`]: SomeObject[Key];
+};
+
+/**
+ * An optional prefix and suffix.
+ *
+ * @public
+ */
+interface RenameOptions<Prefix, Suffix> {
+  prefix?: Prefix;
+  suffix?: Suffix;
 }

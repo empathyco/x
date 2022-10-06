@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-tailwindcss",
-  "version": "0.2.0-alpha.11",
+  "version": "0.2.0-alpha.19",
   "description": "Empathy X Tailwind plugin",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -24,24 +24,24 @@
   },
   "scripts": {
     "dev": "vite serve demo",
+    "dev:build": "vite build demo",
     "prebuild": "rimraf ./dist ./*.tgz",
     "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@empathyco/x-deep-merge": "^1.3.0-alpha.20",
-    "@empathyco/x-utils": "^1.0.0-alpha.6",
+    "@empathyco/x-deep-merge": "^1.3.0-alpha.23",
+    "@empathyco/x-utils": "^1.0.0-alpha.9",
     "tslib": "~2.3.0"
   },
   "devDependencies": {
-    "@types/tailwindcss": "~3.0.10",
     "autoprefixer": "~10.4.4",
     "cssnano": "~5.1.7",
     "postcss": "~8.4.12",
     "postcss-import": "~14.1.0",
     "rimraf": "~3.0.2",
-    "tailwindcss": "~3.0.23",
+    "tailwindcss": "~3.1.8",
     "typescript": "~4.6.2",
     "vite": "~2.9.0"
   },

@@ -33,6 +33,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import Fade from '../animations/fade.vue';
   import { NoElement } from '../no-element';
+  import { FOCUSABLE_SELECTORS } from '../../utils/focus';
 
   /**
    * Base component with no XPlugin dependencies that serves as a utility for constructing more
@@ -61,6 +62,13 @@
     @Prop({ required: true })
     public open!: boolean;
 
+    /**
+     * Determines if the focused element changes to one inside the modal when it opens. Either the
+     * first element with a positive tabindex or just the first focusable element.
+     */
+    @Prop({ default: true })
+    public focusOnOpen!: boolean;
+
     /** The previous value of the body overflow style. */
     protected previousBodyOverflow = '';
     /** The previous value of the HTML element overflow style. */
@@ -75,7 +83,10 @@
     protected mounted(): void {
       /* Watcher added after mount to prevent SSR from breaking */
       // eslint-disable-next-line @typescript-eslint/unbound-method
-      this.$watch('open', this.syncBody, { immediate: true });
+      this.$watch('open', this.syncBody);
+      if (this.open) {
+        this.syncBody(true);
+      }
     }
 
     /**
@@ -92,6 +103,9 @@
         this.$on('hook:beforeDestroy', this.removeBodyListeners);
         this.$on('hook:beforeDestroy', this.enableScroll);
         /* eslint-enable @typescript-eslint/unbound-method */
+        if (this.focusOnOpen) {
+          this.setFocus();
+        }
       } else {
         this.enableScroll();
         this.removeBodyListeners();
@@ -121,7 +135,6 @@
     protected enableScroll(): void {
       document.body.style.overflow = this.previousBodyOverflow;
       document.documentElement.style.overflow = this.previousHTMLOverflow;
-      document.body.style.overflow = document.documentElement.style.overflow = '';
     }
 
     /**
@@ -166,6 +179,23 @@
       if (!this.$refs.modal.contains(event.target as HTMLElement)) {
         this.$emit('focusin:body', event);
       }
+    }
+
+    /**
+     * Sets the focused element to the first element either the first element with a positive
+     * tabindex or, if there isn't any, the first focusable element inside the modal.
+     *
+     * @internal
+     */
+    protected setFocus(): void {
+      const focusCandidates: HTMLElement[] = Array.from(
+        this.$refs.modal.querySelectorAll(FOCUSABLE_SELECTORS)
+      );
+
+      const elementToFocus =
+        focusCandidates.find(element => element.tabIndex) ?? focusCandidates[0];
+
+      elementToFocus?.focus();
     }
   }
 </script>
