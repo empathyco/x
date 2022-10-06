@@ -9,8 +9,23 @@ import dynamicUtilities from './dynamic-utilities';
 import theme from './theme';
 import utilities from './utilities';
 
+/**
+ * Defines the x-tailwind plugin as a Tailwind {@link plugin} that can be invoked passing a
+ * configuration object to customize it. The plugin is bundled with generated static and dynamic
+ * components and utilities, all based on the plugin's theme.
+ *
+ * @public
+ */
 export default plugin.withOptions(
   function (options?: PluginOptions) {
+    /**
+     * Registers the generated CSS for the components and utilities of the plugin to the
+     * respective Tailwind layer. It depends on the plugin's theme, affecting
+     * the color, spacing, etc... Of the styles generated in this step.
+     *
+     * @param helpers - The {@link TailwindHelpers}.
+     * @internal
+     */
     return function (helpers: TailwindHelpers) {
       helpers.addComponents(deepMerge({}, components(helpers), options?.components?.(helpers)));
       forEach(
