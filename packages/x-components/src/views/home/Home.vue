@@ -6,7 +6,7 @@
     <UrlHandler query="q" store="store" />
     <SnippetCallbacks />
     <OpenMainModal>Start</OpenMainModal>
-    <h1 class="x-font-bold x-text-4xl x-text-primary-50 x-leading-md">Test controls</h1>
+    <h1 class="x-font-bold x-text-4xl x-text-primary-50 x-leading-[1.5]">Test controls</h1>
     <ul class="x-test-controls x-list x-list--gap-05">
       <li class="x-test-controls__item x-list__item">
         <label for="searchInput.instant">
@@ -71,6 +71,18 @@
             id="nextQueriesPreview.maxItemsToRender"
             type="number"
             data-test="nq-preview-max-to-render"
+          />
+        </label>
+      </li>
+      <li class="x-test-controls__item x-list__item">
+        <label for="adapter.e2eAdapter">
+          Use mocked adapter
+          <input
+            v-model="controls.adapter.useE2EAdapter"
+            @change="toggleE2EAdapter"
+            id="adapter.e2eAdapter"
+            type="checkbox"
+            data-test="adapter-e2e"
           />
         </label>
       </li>

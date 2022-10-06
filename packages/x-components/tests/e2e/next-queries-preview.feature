@@ -21,4 +21,4 @@ Feature: Next queries preview component
 
     Examples:
       | query  | resultId  | maxItemsToRender |
-      | pulpo  | result-23 | 8                |
+      | pulpo  | result-23 | 15                |

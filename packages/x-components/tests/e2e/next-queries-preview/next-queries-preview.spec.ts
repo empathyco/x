@@ -7,7 +7,7 @@ Given('following config: hide if equals query {int}', (maxItemsToRender: number)
 
 // Scenario 1
 Given('next queries preview name is shown and it is clickable', () => {
-  cy.getByDataTest('next-query-preview').getByDataTest('next-query').should('contain', 'lego');
+  cy.getByDataTest('next-query-preview').getByDataTest('next-query').should('contain', 'leg');
 });
 
 And('{int} results are shown for next queries preview', (maxItemsToRender: number) => {

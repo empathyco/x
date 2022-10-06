@@ -15,4 +15,7 @@ export interface HomeControls {
   nextQueriesPreview: {
     maxItemsToRender: number;
   };
+  adapter: {
+    useE2EAdapter: boolean;
+  };
 }
