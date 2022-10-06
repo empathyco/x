@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.18...@empathyco/x-tailwindcss@0.2.0-alpha.19) (2022-10-06)
+
+### Features
+
+- improve documentation in x-tailwind plugin (#756)
+  ([0503502](https://github.com/empathyco/x/commit/0503502962ff3d82a7ddbc1e84563bd88436b49b)),
+  closes [EX-7129](https://searchbroker.atlassian.net/browse/EX-7129)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.17...@empathyco/x-tailwindcss@0.2.0-alpha.18) (2022-10-03)
 
 ### Features
