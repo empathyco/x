@@ -52,11 +52,13 @@ As a starting point, this project uses the following scopes:
 - X Modules: If the change only affects one X Module, use the name of the module in `kebab-case`:
   - **device**
   - **empathize**
+  - **extra-params**
   - **facets**
   - **history-queries**
   - **identifier-results**
   - **next-queries**
   - **popular-searches**
+  - **queries-preview**
   - **query-suggestions**
   - **recommendations**
   - **related-tags**
@@ -64,6 +66,7 @@ As a starting point, this project uses the following scopes:
   - **search**
   - **search-box**
   - **tagging**
+  - **url**
 - **x-plugin**: For changes that affect the core of the `x-components` project. For example, if you
   modify the X Components plugin, the X Components archetype, or the X bus.
 - **wiring**: Changes that only affect the wiring operators or wiring factory.
