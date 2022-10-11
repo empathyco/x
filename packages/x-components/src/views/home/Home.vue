@@ -548,7 +548,7 @@
         maxItemsToRender: 10
       },
       nextQueriesList: {
-        showOnlyAfterOffset: false
+        showOnlyAfterOffset: true
       },
       adapter: {
         useE2EAdapter: false
