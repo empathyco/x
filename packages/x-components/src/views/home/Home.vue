@@ -75,6 +75,17 @@
         </label>
       </li>
       <li class="x-test-controls__item x-list__item">
+        <label for="nextQueriesPreview.maxItemsToRender">
+          next-queries-list - showOnlyAfterOffset
+          <input
+            v-model="controls.nextQueriesList.showOnlyAfterOffset"
+            id="nextQueriesList.showOnlyAfterOffset"
+            type="checkbox"
+            data-test="nq-preview-show-after-offset"
+          />
+        </label>
+      </li>
+      <li class="x-test-controls__item x-list__item">
         <label for="adapter.e2eAdapter">
           Use mocked adapter
           <input
@@ -250,7 +261,9 @@
               <ResultsList v-infinite-scroll:main-scroll>
                 <BannersList>
                   <PromotedsList>
-                    <NextQueriesList :show-only-after-offset="true">
+                    <NextQueriesList
+                      :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
+                    >
                       <BaseVariableColumnGrid :animation="resultsAnimation">
                         <template #result="{ item: result }">
                           <MainScrollItem :item="result">
@@ -292,6 +305,7 @@
                             </div>
                             <NextQuery
                               :suggestion="nextQueries[0]"
+                              data-test="view-all-results"
                               class="
                                 x-tag x-tag--pill
                                 x-font-weight--bold
@@ -532,6 +546,9 @@
       },
       nextQueriesPreview: {
         maxItemsToRender: 10
+      },
+      nextQueriesList: {
+        showOnlyAfterOffset: false
       },
       adapter: {
         useE2EAdapter: false

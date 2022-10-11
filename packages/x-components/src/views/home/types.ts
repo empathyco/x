@@ -15,6 +15,9 @@ export interface HomeControls {
   nextQueriesPreview: {
     maxItemsToRender: number;
   };
+  nextQueriesList: {
+    showOnlyAfterOffset: boolean;
+  };
   adapter: {
     useE2EAdapter: boolean;
   };
