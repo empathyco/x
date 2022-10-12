@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.190](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.189...@empathyco/x-components@3.0.0-alpha.190) (2022-10-12)
+
+### Features
+
+- hidde overflow-y in the sliding panel (#768)
+  ([3458e61](https://github.com/empathyco/x/commit/3458e618005e6a1bcd875127749a90b411b80f86)),
+  closes [EX-7015](https://searchbroker.atlassian.net/browse/EX-7015)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.189](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.188...@empathyco/x-components@3.0.0-alpha.189) (2022-10-06)
 
 **Note:** Version bump only for package @empathyco/x-components
