@@ -21,4 +21,34 @@
       transform: translateX(100%);
     }
   }
+
+  &--enter {
+    &#{$p}--top-to-bottom {
+      transform: translateY(-100%);
+    }
+    &#{$p}--bottom-to-top {
+      transform: translateY(100%);
+    }
+    &#{$p}--left-to-right {
+      transform: translateX(-100%);
+    }
+    &#{$p}--right-to-left {
+      transform: translateX(100%);
+    }
+  }
+
+  &--leave-to {
+    &#{$p}--top-to-bottom {
+      transform: translateY(100%);
+    }
+    &#{$p}--bottom-to-top {
+      transform: translateY(-100%);
+    }
+    &#{$p}--left-to-right {
+      transform: translateX(100%);
+    }
+    &#{$p}--right-to-left {
+      transform: translateX(-100%);
+    }
+  }
 }
