@@ -2,10 +2,12 @@
 
 .x-input-group {
   // layout
+  position: relative;
   display: flex;
   flex-flow: row nowrap;
   align-content: center;
   align-items: center;
+  overflow: hidden;
   box-sizing: border-box;
   min-width: 0;
 
@@ -74,15 +76,22 @@
     flex: 1 1 100%;
     min-width: 0;
     border: none;
+  }
 
-    &::placeholder {
-      // typography
-      color: var(--x-color-text-input-group-placeholder-default);
-      font-family: var(--x-font-family-input-group-placeholder-default);
-      font-size: var(--x-size-font-input-group-placeholder-default);
-      font-weight: var(--x-number-font-weight-input-group-placeholder-default);
-      line-height: var(--x-size-line-height-input-group-placeholder-default);
-    }
+  > .x-input-placeholder {
+    position: absolute;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  > .x-input-placeholder,
+  > .x-input::placeholder {
+    // typography
+    color: var(--x-color-text-input-group-placeholder-default);
+    font-family: var(--x-font-family-input-group-placeholder-default);
+    font-size: var(--x-size-font-input-group-placeholder-default);
+    font-weight: var(--x-number-font-weight-input-group-placeholder-default);
+    line-height: var(--x-size-line-height-input-group-placeholder-default);
   }
 
   > .x-button {

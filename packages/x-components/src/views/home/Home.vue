@@ -86,13 +86,20 @@
           >
             <BaseKeyboardNavigation>
               <div class="x-input-group x-input-group--card">
+                <SearchInputPlaceholder
+                  :messages="searchInputPlaceholderMessages"
+                  :animate-only-on-hover="true"
+                >
+                  Search
+                </SearchInputPlaceholder>
                 <SearchInput
                   aria-label="Search for products"
-                  placeholder="Search"
                   :instant="controls.searchInput.instant"
                   :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
                 />
-                <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
+                <ClearSearchInput v-if="$x.query.searchBox" aria-label="Clear query">
+                  Clear
+                </ClearSearchInput>
                 <SearchButton aria-label="Search" class="x-input-group__action">
                   <SearchIcon />
                 </SearchButton>
@@ -394,6 +401,8 @@
   import ClearSearchInput from '../../x-modules/search-box/components/clear-search-input.vue';
   import SearchButton from '../../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../../x-modules/search-box/components/search-input.vue';
+  // eslint-disable-next-line max-len
+  import SearchInputPlaceholder from '../../x-modules/search-box/components/search-input-placeholder.vue';
   import Banner from '../../x-modules/search/components/banner.vue';
   import BannersList from '../../x-modules/search/components/banners-list.vue';
   import PartialQueryButton from '../../x-modules/search/components/partial-query-button.vue';
@@ -477,6 +486,7 @@
       SearchButton,
       SearchIcon,
       SearchInput,
+      SearchInputPlaceholder,
       SlidingNextQueryPreview,
       SlidingPanel,
       SlidingQueryPreview,
@@ -494,6 +504,11 @@
   export default class App extends Vue {
     protected stores = ['Spain', 'Portugal', 'Italy'];
     protected initialExtraParams = { store: 'Portugal' };
+    protected searchInputPlaceholderMessages = [
+      'Find sunglasses',
+      'Find handbags',
+      'Find earrings'
+    ];
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
     protected modalAnimation = animateClipPath();
