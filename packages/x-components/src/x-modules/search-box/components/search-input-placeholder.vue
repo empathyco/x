@@ -19,7 +19,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Prop, Watch } from 'vue-property-decorator';
 
   import { animateTranslate, State, xComponentMixin, XOn } from '../../../components';
   import { searchBoxXModule } from '../x-module';
@@ -87,32 +87,40 @@
       return this.messages[this.animationMessageIndex];
     }
 
+    @Watch('isBeingAnimated', { immediate: true })
+    @Watch('messages', { deep: true })
+    @Watch('animationIntervalMs')
     protected resetAnimation(): void {
-      if (this.isBeingAnimated) {
-        this.restartAnimationInterval();
-      } else {
-        this.stopAnimationInterval();
-      }
-    }
-
-    protected restartAnimationInterval(): void {
       this.stopAnimationInterval();
 
-      this.animationInterval = setInterval((): void => {
-        this.incrementAnimationMessageIndex();
-      }, this.animationIntervalMs);
+      if (this.isBeingAnimated) {
+        this.animationInterval = setInterval((): void => {
+          this.incrementAnimationMessageIndex();
+        }, this.animationIntervalMs);
+      }
     }
 
     protected stopAnimationInterval(): void {
-      if (!this.animationInterval) {
-        return;
+      if (this.animationInterval) {
+        clearInterval(this.animationInterval);
+        this.animationInterval = undefined;
       }
-      clearInterval(this.animationInterval);
-      this.animationInterval = undefined;
     }
 
     protected incrementAnimationMessageIndex(): void {
       this.animationMessageIndex = (this.animationMessageIndex + 1) % this.messages.length;
+    }
+
+    @Watch('isBeingAnimated')
+    protected incrementMessageIndexForNextAnimation(): void {
+      if (!this.isBeingAnimated) {
+        this.incrementAnimationMessageIndex();
+      }
+    }
+
+    @Watch('messages', { deep: true })
+    protected resetAnimationMessageIndex(): void {
+      this.animationMessageIndex = 0;
     }
 
     @XOn('UserHoveredInSearchBox')
@@ -133,26 +141,6 @@
     @XOn('UserBlurredSearchBox')
     onUserBlurredSearchBox(): void {
       this.isSearchBoxFocused = false;
-    }
-
-    mounted(): void {
-      this.resetAnimation();
-
-      this.$watch('isBeingAnimated', (value: boolean) => {
-        if (!value) {
-          this.incrementAnimationMessageIndex();
-        }
-        this.resetAnimation();
-      });
-
-      this.$watch('messages', () => {
-        this.animationMessageIndex = 0;
-        this.resetAnimation();
-      });
-
-      this.$watch('animationIntervalMs', () => {
-        this.resetAnimation();
-      });
     }
 
     beforeDestroy(): void {
