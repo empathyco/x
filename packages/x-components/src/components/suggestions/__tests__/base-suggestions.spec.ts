@@ -1,151 +1,195 @@
 import { Suggestion } from '@empathyco/x-types';
-import { mount, WrapperArray, Wrapper } from '@vue/test-utils';
-import { getPopularSearchesStub } from '../../../__stubs__/popular-searches-stubs.factory';
+import { mount, Wrapper } from '@vue/test-utils';
+import {
+  createPopularSearch,
+  getPopularSearchesStub
+} from '../../../__stubs__/popular-searches-stubs.factory';
 import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseSuggestions from '../base-suggestions.vue';
-import { createSuggestionWithFacets } from '../../../__stubs__/base-suggestion-stubs.factory';
-import { getFlattenFilters } from '../../../x-modules/query-suggestions/components/__tests__/utils';
-
-const suggestionWithFacets = createSuggestionWithFacets('testQuery', 'testQuery', 'PopularSearch');
+import { createSimpleFacetStub } from '../../../__stubs__/facets-stubs.factory';
 
 function renderBaseSuggestions({
-  customSlot = '',
-  template = `<BaseSuggestions
-                :suggestions="suggestions"
-                :showFacets="showFacets"
-                :appendSuggestionWithoutFilter="appendSuggestionWithoutFilter">
-                  <template #default="{suggestion, index}">
-                    ${customSlot ?? ''}
+  defaultSlot = '',
+  template = `<BaseSuggestions v-bind="$attrs">
+                  <template #default="{ suggestion, index, filter }">
+                    ${defaultSlot ?? ''}
                   </template>
                 </BaseSuggestions>`,
   suggestions = getPopularSearchesStub(),
   showFacets = false,
-  appendSuggestionWithoutFilter = false
+  showPlainSuggestion = false
 }: BaseSuggestionsOptions = {}): BaseSuggestionsAPI {
   const wrapper = mount(
     {
       template,
       components: {
         BaseSuggestions
-      },
-      props: ['suggestions', 'showFacets', 'appendSuggestionWithoutFilter']
+      }
     },
     {
-      propsData: { suggestions, showFacets, appendSuggestionWithoutFilter }
+      propsData: { suggestions, showFacets, showPlainSuggestion }
     }
   );
 
   return {
     wrapper: wrapper.findComponent(BaseSuggestions),
     suggestions,
-    getSuggestionsItems() {
-      return wrapper.findAll(getDataTestSelector('suggestion-item'));
+    getSuggestionsWrappers() {
+      return wrapper.findAll(getDataTestSelector('suggestion-item')).wrappers;
     }
   };
 }
 
 describe('testing Base Suggestions component', () => {
-  it('renders a list of suggestions passed as props', () => {
-    const { wrapper, suggestions, getSuggestionsItems } = renderBaseSuggestions();
+  it('renders the passed suggestions', () => {
+    const { wrapper, suggestions, getSuggestionsWrappers } = renderBaseSuggestions();
 
-    expect(getSuggestionsItems()).toHaveLength(suggestions.length);
+    expect(getSuggestionsWrappers()).toHaveLength(suggestions.length);
     // Expect generated keys to be unique
     const listItemKeys = new Set((wrapper.vm as any).suggestionsKeys);
     expect(listItemKeys.size).toEqual(suggestions.length);
   });
 
-  it('has a default scoped slot to render each suggestion', () => {
-    const { suggestions, getSuggestionsItems } = renderBaseSuggestions({
-      customSlot: '<span>{{ index }} - {{ suggestion.query}}</span>'
+  it('renders the content passed to the default slot', () => {
+    const { suggestions, getSuggestionsWrappers } = renderBaseSuggestions({
+      defaultSlot: '<span>{{ index }} - {{ suggestion.query}}</span>'
     });
-    getSuggestionsItems().wrappers.forEach((suggestionItemWrapper, index) =>
+    getSuggestionsWrappers().forEach((suggestionItemWrapper, index) =>
       expect(suggestionItemWrapper.text()).toEqual(`${index} - ${suggestions[index].query}`)
     );
   });
 
-  it('renders at most the number of suggestions defined by `maxItemsToRender` prop', async () => {
-    const { wrapper, getSuggestionsItems, suggestions } = renderBaseSuggestions();
+  // eslint-disable-next-line max-len
+  it('renders at most the number of suggestions defined by `maxItemsToRender` prop, including those with facets', async () => {
+    const { wrapper, getSuggestionsWrappers } = renderBaseSuggestions({
+      defaultSlot: `<span>{{suggestion.query}}{{filter ?  ' - ' + filter.label : ''}}</span>`,
+      showFacets: true,
+      showPlainSuggestion: true,
+      suggestions: [
+        createPopularSearch('t-shirt', {
+          facets: [
+            createSimpleFacetStub('category', createFilter => [
+              createFilter('man'),
+              createFilter('woman')
+            ])
+          ]
+        }),
+        createPopularSearch('jeans')
+      ]
+    });
 
-    expect(getSuggestionsItems()).toHaveLength(suggestions.length);
+    const suggestionsWrappers = getSuggestionsWrappers();
+    expect(suggestionsWrappers).toHaveLength(4);
+    expect(suggestionsWrappers[0].text()).toEqual('t-shirt');
+    expect(suggestionsWrappers[1].text()).toEqual('t-shirt - man');
+    expect(suggestionsWrappers[2].text()).toEqual('t-shirt - woman');
+    expect(suggestionsWrappers[3].text()).toEqual('jeans');
 
-    await wrapper.setProps({ maxItemsToRender: suggestions.length - 1 });
-    expect(getSuggestionsItems()).toHaveLength(suggestions.length - 1);
+    await wrapper.setProps({ maxItemsToRender: 2 });
+    const updatedSuggestionsWrappers = getSuggestionsWrappers();
+    expect(updatedSuggestionsWrappers).toHaveLength(2);
+    expect(updatedSuggestionsWrappers[0].text()).toEqual('t-shirt');
+    expect(updatedSuggestionsWrappers[1].text()).toEqual('t-shirt - man');
 
-    await wrapper.setProps({ maxItemsToRender: suggestions.length });
-    expect(getSuggestionsItems()).toHaveLength(suggestions.length);
+    await wrapper.setProps({ maxItemsToRender: 0 });
+    expect(getSuggestionsWrappers()).toHaveLength(0);
+  });
 
-    await wrapper.setProps({ maxItemsToRender: suggestions.length + 1 });
-    expect(getSuggestionsItems()).toHaveLength(suggestions.length);
+  it('renders suggestions without including their facets when `showFacets` prop is false', () => {
+    const suggestions = [
+      createPopularSearch('t-shirt', {
+        facets: [
+          createSimpleFacetStub('category', createFilter => [
+            createFilter('woman'),
+            createFilter('man')
+          ])
+        ]
+      }),
+      createPopularSearch('jeans', {
+        facets: [createSimpleFacetStub('category', createFilter => [createFilter('man')])]
+      })
+    ];
+
+    const { getSuggestionsWrappers } = renderBaseSuggestions({
+      defaultSlot: '<span>{{ suggestion.query }}{{ suggestion.facets[0] }}</span>',
+      showFacets: false,
+      suggestions
+    });
+    const suggestionsWrappers = getSuggestionsWrappers();
+
+    expect(suggestionsWrappers).toHaveLength(2);
+    suggestionsWrappers.forEach((suggestionWrapper, index) =>
+      expect(suggestionWrapper.text()).toBe(suggestions[index].query)
+    );
   });
 
   // eslint-disable-next-line max-len
-  it('renders at most the number of suggestions defined by `maxItemsToRender` prop counting with the facets', async () => {
-    const suggestionsWithoutFacets = getPopularSearchesStub();
-    const { wrapper, getSuggestionsItems, suggestions } = renderBaseSuggestions({
-      customSlot: `<span>{{suggestion.query}}</span>`,
-      showFacets: true,
-      suggestions: [...suggestionWithFacets, ...getPopularSearchesStub()]
+  it('renders suggestions without facets when `showFacets` is false', () => {
+    const suggestions = [
+      createPopularSearch('t-shirt', {
+        facets: [
+          createSimpleFacetStub('category', createFilter => [
+            createFilter('woman'),
+            createFilter('man')
+          ])
+        ]
+      }),
+      createPopularSearch('jeans', {
+        facets: [
+          createSimpleFacetStub('category', createFilter => [
+            createFilter('kids'),
+            createFilter('adults')
+          ])
+        ]
+      })
+    ];
+
+    const { getSuggestionsWrappers } = renderBaseSuggestions({
+      defaultSlot: "<span>{{ suggestion.query }} {{ filter?.label ?? '' }}</span>",
+      suggestions
     });
+    const suggestionsWrappers = getSuggestionsWrappers();
 
-    const filterCount = suggestionWithFacets[0].facets.reduce((acc, act) => {
-      return acc + act.filters.length;
-    }, 0);
-
-    await wrapper.setProps({ maxItemsToRender: filterCount + 1 });
-
-    expect(getSuggestionsItems()).toHaveLength(suggestions.length);
-    expect(getSuggestionsItems().at(-1).text()).toContain(suggestionsWithoutFacets[0].query);
+    expect(suggestionsWrappers).toHaveLength(2);
+    suggestionsWrappers.forEach((suggestionWrapper, index) => {
+      expect(suggestionWrapper.text()).toBe(suggestions[index].query);
+    });
   });
 
-  it('renders all suggestions with facets if showFacets is true', () => {
-    const { getSuggestionsItems } = renderBaseSuggestions({
-      customSlot:
-        '<span>{{ suggestion.query }} - {{ suggestion.facets[0].filters[0].label }}</span>',
+  // eslint-disable-next-line max-len
+  it('renders the plain suggestion when `showFacets` and `showPlainSuggestion` are set to true', () => {
+    const { getSuggestionsWrappers } = renderBaseSuggestions({
+      defaultSlot: `<span>{{suggestion.query}}{{filter ?  ' - ' + filter.label : ''}}</span>`,
       showFacets: true,
-      suggestions: suggestionWithFacets
+      showPlainSuggestion: true,
+      suggestions: [
+        createPopularSearch('t-shirt', {
+          facets: [
+            createSimpleFacetStub('category', createFilter => [
+              createFilter('man'),
+              createFilter('woman')
+            ])
+          ]
+        }),
+        createPopularSearch('jeans', {
+          facets: [
+            createSimpleFacetStub('category', createFilter => [
+              createFilter('kids'),
+              createFilter('adults')
+            ])
+          ]
+        })
+      ]
     });
-    expect(getSuggestionsItems()).toHaveLength(3);
 
-    const filters = getFlattenFilters(suggestionWithFacets[0]);
-
-    getSuggestionsItems().wrappers.forEach((suggestionItemWrapper, index) =>
-      expect(suggestionItemWrapper.text()).toBe(
-        `${suggestionWithFacets[0].query} - ${filters[index]}`
-      )
-    );
-  });
-
-  it("won't render suggestions with facets if showFacets is false", () => {
-    const { getSuggestionsItems } = renderBaseSuggestions({
-      customSlot: '<span>{{ suggestion.query }}{{ suggestion.facets[0] }}</span>',
-      showFacets: false,
-      suggestions: suggestionWithFacets
-    });
-
-    expect(getSuggestionsItems()).toHaveLength(1);
-    getSuggestionsItems().wrappers.forEach(suggestionItemWrapper =>
-      expect(suggestionItemWrapper.text()).toBe(suggestionWithFacets[0].query)
-    );
-  });
-
-  it('shows the suggestions with facets and the query itself', () => {
-    const { getSuggestionsItems } = renderBaseSuggestions({
-      customSlot: '<span>{{ suggestion.query }}{{ suggestion.facets[0]?.filters[0].label }}</span>',
-      showFacets: true,
-      appendSuggestionWithoutFilter: true,
-      suggestions: suggestionWithFacets
-    });
-    expect(getSuggestionsItems()).toHaveLength(4);
-    expect(getSuggestionsItems().wrappers[0].text()).toBe(suggestionWithFacets[0].query);
-
-    const filters = getFlattenFilters(suggestionWithFacets[0]);
-    getSuggestionsItems().wrappers.forEach((suggestionItemWrapper, index) => {
-      expect(suggestionItemWrapper.text()).toBe(
-        index === 0
-          ? suggestionWithFacets[0].query
-          : `${suggestionWithFacets[0].query}${filters[index - 1]}`
-      );
-    });
+    const suggestionsWrappers = getSuggestionsWrappers();
+    expect(suggestionsWrappers).toHaveLength(6);
+    expect(suggestionsWrappers[0].text()).toEqual('t-shirt');
+    expect(suggestionsWrappers[1].text()).toEqual('t-shirt - man');
+    expect(suggestionsWrappers[2].text()).toEqual('t-shirt - woman');
+    expect(suggestionsWrappers[3].text()).toEqual('jeans');
+    expect(suggestionsWrappers[4].text()).toEqual('jeans - kids');
+    expect(suggestionsWrappers[5].text()).toEqual('jeans - adults');
   });
 });
 
@@ -153,18 +197,26 @@ describe('testing Base Suggestions component', () => {
  * The options for the `renderBaseSuggestions` function.
  */
 interface BaseSuggestionsOptions {
+  /** Default slot content. */
+  defaultSlot?: string;
+  /** Component template to render. */
   template?: string;
+  /** List of suggestions to render. */
   suggestions?: Suggestion[];
+  /** Flag to indicate if facets should be rendered. */
   showFacets?: boolean;
-  appendSuggestionWithoutFilter?: boolean;
-  customSlot?: string;
+  /** Flag to indicate if a suggestion with filters should be rendered. */
+  showPlainSuggestion?: boolean;
 }
 
 /**
  * Test API for the {@link BaseSuggestions} component.
  */
 interface BaseSuggestionsAPI {
+  /** The wrapper for base suggestions component. */
   wrapper: Wrapper<Vue>;
+  /** The rendered suggestions. */
   suggestions: Suggestion[];
-  getSuggestionsItems: () => WrapperArray<Vue>;
+  /** The wrappers of the rendered suggestions. */
+  getSuggestionsWrappers: () => Wrapper<Vue>[];
 }

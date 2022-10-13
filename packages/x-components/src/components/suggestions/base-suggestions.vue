@@ -56,7 +56,7 @@
     protected maxItemsToRender?: number;
 
     /**
-     * Indicates if the suggestions must be rendered along with its facets.
+     * Boolean value to indicate if the facets should be rendered.
      *
      * @public
      */
@@ -64,13 +64,13 @@
     protected showFacets!: boolean;
 
     /**
-     * When showFacets is true, indicates if the suggestion without filter
-     * must be appended to the list.
+     * When {@link showFacets} is true, it indicates if the suggestion without filter
+     * should be rendered.
      *
      * @public
      */
     @Prop({ default: false, type: Boolean })
-    protected appendSuggestionWithoutFilter!: boolean;
+    protected showPlainSuggestion!: boolean;
 
     /**
      * An array with the unique keys for each suggestion. Required by the `v-for` loop.
@@ -111,79 +111,35 @@
     }
 
     /**
-     * Slices the suggestions from the state.
+     * Creates a list of suggestions to render based on the configuration of this component.
      *
-     * @returns - The list of suggestions slice by the number of items to render.
+     * @returns - The list of suggestions to be rendered by this component.
      *
      * @internal
-     */
-    protected get suggestionsToRender(): Suggestion[] {
-      return (
-        this.showFacets
-          ? this.mapSuggestionsWithFacets(this.suggestions)
-          : this.mapSuggestionsWithoutFacets(this.suggestions)
-      ).slice(0, this.maxItemsToRender);
+     */ protected get suggestionsToRender(): Suggestion[] {
+      return this.suggestions
+        .flatMap(suggestion =>
+          this.showFacets && suggestion.facets.length
+            ? this.showPlainSuggestion
+              ? [{ ...suggestion, facets: [] }, ...this.expandSuggestionFilters(suggestion)]
+              : this.expandSuggestionFilters(suggestion)
+            : { ...suggestion, facets: [] }
+        )
+        .slice(0, this.maxItemsToRender);
     }
 
     /**
-     * Returns the suggestions with only one facet and filter per item.
-     * If a suggestion has more than one facet/filter, it will return an instance
-     * for each one of the facets/filters.
+     * Creates a suggestion for each one of the filter inside each facet.
      *
-     * @param suggestions - Suggestions.
+     * @param suggestion - Suggestion to expand.
+     * @returns A list of suggestions, each one with a single filter.
      *
-     * @returns - The mapped suggestions with a facet and filter per item.
      * @internal
      */
-    protected mapSuggestionsWithFacets(suggestions: Suggestion[]): Suggestion[] {
-      return suggestions.reduce<Suggestion[]>(
-        (acc, suggestion) => [...acc, ...this.generateSuggestionsFromFacets(suggestion)],
-        []
+    protected expandSuggestionFilters(suggestion: Suggestion): Suggestion[] {
+      return suggestion.facets.flatMap(facet =>
+        facet.filters.map(filter => ({ ...suggestion, facets: [{ ...facet, filters: [filter] }] }))
       );
-    }
-
-    /**
-     * Returns the suggestions with the facets array empty.
-     *
-     * @param suggestions - Suggestions.
-     *
-     * @returns - The suggestions with the facets array empty.
-     * @internal
-     */
-    protected mapSuggestionsWithoutFacets(suggestions: Suggestion[]): Suggestion[] {
-      return suggestions.map(suggestion => ({ ...suggestion, facets: [] }));
-    }
-
-    /**
-     * Generates a copy of the original suggestion per facet and filter.
-     *
-     * @param suggestion - Suggestion with the facets.
-     *
-     * @returns - A list of suggestions, each one containing one facet and one filter.
-     * @internal
-     */
-    protected generateSuggestionsFromFacets(suggestion: Suggestion): Suggestion[] {
-      if (!suggestion.facets || !suggestion.facets.length) {
-        return [{ ...suggestion, facets: [] }];
-      }
-      const suggestionsWithFacets = suggestion.facets.reduce<Suggestion[]>((suggestions, facet) => {
-        facet.filters.forEach(filter => {
-          suggestions.push({
-            ...suggestion,
-            facets: [
-              {
-                ...facet,
-                filters: [filter]
-              }
-            ]
-          });
-        });
-        return suggestions;
-      }, []);
-      if (this.appendSuggestionWithoutFilter) {
-        suggestionsWithFacets.unshift({ ...suggestion, facets: [] });
-      }
-      return suggestionsWithFacets;
     }
 
     /**

@@ -21,8 +21,10 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { QueryFeature } from '../../types';
-  import { sanitize, VueCSSClasses, normalizeString } from '../../utils';
-  import { XEventsTypes } from '../../wiring';
+  import { normalizeString } from '../../utils/normalize';
+  import { sanitize } from '../../utils/sanitize';
+  import { VueCSSClasses } from '../../utils/types';
+  import { XEventsTypes } from '../../wiring/events.types';
 
   /**
    * Renders a button with a default slot. It receives a query, which should be the query of the
