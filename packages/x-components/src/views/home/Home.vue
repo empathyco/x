@@ -97,9 +97,7 @@
                   :instant="controls.searchInput.instant"
                   :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
                 />
-                <ClearSearchInput v-if="$x.query.searchBox" aria-label="Clear query">
-                  Clear
-                </ClearSearchInput>
+                <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
                 <SearchButton aria-label="Search" class="x-input-group__action">
                   <SearchIcon />
                 </SearchButton>
