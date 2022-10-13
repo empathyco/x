@@ -2,7 +2,7 @@
   "rootDir": "src",
   "compilerOptions": {
     "target": "es2019",
-    "module": "commonjs",
+    "module": "esnext",
     "lib": ["esnext", "dom"],
     "moduleResolution": "node",
     "esModuleInterop": true,
@@ -12,8 +12,7 @@
     "sourceMap": true,
     "inlineSources": true,
     "declaration": true,
-    "declarationDir": "./dist/types",
     "noEmit": true
   },
-  "include": ["src/**/*.ts", "src/**/*.vue"]
+  "include": ["src/**/*.ts"]
 }

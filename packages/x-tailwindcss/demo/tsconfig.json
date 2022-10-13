@@ -1,12 +1,11 @@
 {
-  "extends": "../tsconfig.esm.json",
-  "rootDir": ".",
+  "extends": "../tsconfig.json",
+  "rootDir": "src",
   "compilerOptions": {
     "outDir": "./dist",
     "module": "esnext",
     "lib": ["esnext", "dom"],
     "declaration": true,
-    "declarationDir": "./dist/types",
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true

@@ -15,7 +15,8 @@
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "showcase"
   ],
   "repository": {
     "type": "git",
@@ -24,9 +25,8 @@
   },
   "scripts": {
     "dev": "vite serve demo",
-    "dev:build": "rollup -c demo/rollup.config.js",
     "prebuild": "rimraf ./dist ./showcase ./*.tgz",
-    "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && rollup -c demo/rollup.config.js",
+    "build": "rollup -c",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build"
   },
