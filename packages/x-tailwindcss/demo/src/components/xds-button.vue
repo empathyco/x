@@ -1,5 +1,5 @@
 <template>
-  <div class="x-flex x-flex-col">
+  <div class="x-flex x-flex-col x-gap-16">
     <h1 class="x-text-lg">Button</h1>
     <div
       v-for="(classes, section) in sections"
