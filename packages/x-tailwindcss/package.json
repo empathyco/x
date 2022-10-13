@@ -25,7 +25,7 @@
   "scripts": {
     "dev": "vite serve demo",
     "dev:build": "rollup -c demo/rollup.config.js",
-    "prebuild": "rimraf ./dist ./*.tgz",
+    "prebuild": "rimraf ./dist ./showcase ./*.tgz",
     "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json && rollup -c demo/rollup.config.js",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build"
@@ -36,18 +36,21 @@
     "tslib": "~2.3.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "~21.0.1",
     "autoprefixer": "~10.4.4",
     "cssnano": "~5.1.7",
     "postcss": "~8.4.12",
     "postcss-import": "~14.1.0",
     "rimraf": "~3.0.2",
+    "rollup": "~2.67.1",
+    "rollup-plugin-typescript2": "~0.31.2",
+    "rollup-plugin-vue": "~5.1.9",
     "tailwindcss": "~3.1.8",
     "typescript": "~4.6.2",
     "vite": "~3.1.7",
     "vite-plugin-vue2": "~2.0.2",
     "vue": "~2.6.14",
-    "vue-template-compiler": "~2.6.14",
-    "rollup-plugin-typescript2": "~0.31.2"
+    "vue-template-compiler": "~2.6.14"
   },
   "publishConfig": {
     "access": "public"
