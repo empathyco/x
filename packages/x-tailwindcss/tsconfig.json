@@ -12,7 +12,8 @@
     "sourceMap": true,
     "inlineSources": true,
     "declaration": true,
-    "noEmit": true
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true
   },
   "include": ["src/**/*.ts"]
 }

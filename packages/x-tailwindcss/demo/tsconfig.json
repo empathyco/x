@@ -2,13 +2,7 @@
   "extends": "../tsconfig.json",
   "rootDir": "src",
   "compilerOptions": {
-    "outDir": "./dist",
-    "module": "esnext",
-    "lib": ["esnext", "dom"],
-    "declaration": true,
-    "experimentalDecorators": true,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true
+    "experimentalDecorators": true
   },
   "include": ["./src/**/*.ts", "./src/**/*.vue", "vite.config.ts", "tailwindcss-nesting.d.ts"]
 }
