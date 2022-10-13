@@ -33,4 +33,12 @@ export function createDirectionalAnimationFactory(
   };
 }
 
-export type AnimationOrigin = 'top' | 'bottom' | 'left' | 'right';
+export type AnimationOrigin =
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'top-to-bottom'
+  | 'bottom-to-top'
+  | 'left-to-right'
+  | 'right-to-left';
