@@ -9,10 +9,15 @@ import SearchInput from '../search-input.vue';
 import SearchInputPlaceholder from '../search-input-placeholder.vue';
 
 async function mountTestComponent({
-  propsData,
-  slots
+  propsData
 }: TestComponentParams = {}): Promise<TestComponentAPI> {
-  const defaultMessages = ['Find sunglasses', 'Find handbags', 'Find earrings'];
+  const defaultMessages = [
+    'Find shirts',
+    'Find shoes',
+    'Find watches',
+    'Find handbags',
+    'Find sunglasses'
+  ];
 
   const [, localVue] = installNewXPlugin();
   XPlugin.registerXModule(searchBoxXModule);
@@ -28,10 +33,8 @@ async function mountTestComponent({
     {
       template: `
         <div>
-        <SearchInputPlaceholder v-bind="placeholder">
-          <slot/>
-        </SearchInputPlaceholder>
-        <SearchInput v-bind="input"/>
+          <SearchInputPlaceholder v-bind="placeholder" />
+          <SearchInput v-bind="input" />
         </div>
       `,
       props: ['placeholder', 'input'],
@@ -49,9 +52,6 @@ async function mountTestComponent({
       attachTo: parent,
       propsData: {
         ...propsData
-      },
-      slots: {
-        ...slots
       }
     }
   );
@@ -95,7 +95,6 @@ interface TestComponentParams {
     placeholder?: Partial<SearchInputPlaceholderProps>;
     input?: SearchInputProps;
   };
-  slots?: SearchInputPlaceholderSlots;
 }
 
 interface SearchInputPlaceholderProps {
@@ -106,10 +105,6 @@ interface SearchInputPlaceholderProps {
 
 interface SearchInputProps {
   autofocus?: boolean;
-}
-
-interface SearchInputPlaceholderSlots {
-  default?: string;
 }
 
 interface TestComponentAPI {
@@ -154,30 +149,29 @@ describe('testing search input placeholder component', () => {
   });
 
   it('animates the rendered text only on hover if configured to do so', async () => {
-    const slotContent = 'Search';
     const { defaultMessages, wrapper, getPlaceholderText, hoverInput } = await mountTestComponent({
       propsData: {
         placeholder: {
           animateOnlyOnHover: true
         }
-      },
-      slots: {
-        default: `<template>${slotContent}</template>`
       }
     });
 
-    expect(getPlaceholderText()).toEqual(slotContent);
+    expect(getPlaceholderText()).toEqual(defaultMessages[0]);
     await hoverInput('in');
-    for (const message of defaultMessages) {
+    for (const message of defaultMessages.slice(1)) {
       expect(getPlaceholderText()).toEqual(message);
       jest.runOnlyPendingTimers();
       await wrapper.vm.$nextTick();
     }
     expect(getPlaceholderText()).toEqual(defaultMessages[0]);
+    jest.runOnlyPendingTimers();
+    await wrapper.vm.$nextTick();
+    expect(getPlaceholderText()).toEqual(defaultMessages[1]);
     await hoverInput('out');
-    expect(getPlaceholderText()).toEqual(slotContent);
+    expect(getPlaceholderText()).toEqual(defaultMessages[0]);
     jest.advanceTimersByTime(2000);
-    expect(getPlaceholderText()).toEqual(slotContent);
+    expect(getPlaceholderText()).toEqual(defaultMessages[0]);
     await hoverInput('in');
     expect(getPlaceholderText()).toEqual(defaultMessages[1]);
   });

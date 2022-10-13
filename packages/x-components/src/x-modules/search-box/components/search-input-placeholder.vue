@@ -5,14 +5,8 @@
     class="x-input-placeholder x-search-input-placeholder"
     mode="out-in"
   >
-    <span v-if="isBeingAnimated" :key="animationMessage" data-test="search-input-placeholder">
+    <span :key="animationMessage" data-test="search-input-placeholder">
       {{ animationMessage }}
-    </span>
-    <span v-else-if="$slots.default" data-test="search-input-placeholder">
-      <!--
-        @slot The default placeholder when the `messages` animation is not active.
-      -->
-      <slot />
     </span>
   </component>
 </template>
@@ -84,6 +78,9 @@
     }
 
     protected get animationMessage(): string | undefined {
+      if (!this.isBeingAnimated) {
+        return this.messages[0];
+      }
       return this.messages[this.animationMessageIndex];
     }
 
@@ -111,9 +108,12 @@
       this.animationMessageIndex = (this.animationMessageIndex + 1) % this.messages.length;
     }
 
-    @Watch('isBeingAnimated')
-    protected incrementMessageIndexForNextAnimation(): void {
+    @Watch('isBeingAnimated', { immediate: true })
+    protected prepareMessageIndexForNextAnimation(): void {
       if (!this.isBeingAnimated) {
+        if (this.animateOnlyOnHover) {
+          this.resetAnimationMessageIndex();
+        }
         this.incrementAnimationMessageIndex();
       }
     }
@@ -183,17 +183,23 @@ Here a basic example of how the animated search input placeholder is rendered.
     },
     data: function () {
       return {
-        placeholderMessages: ['Find sunglasses', 'Find handbags', 'Find earrings']
+        placeholderMessages: [
+          'Find shirts',
+          'Find shoes',
+          'Find watches',
+          'Find handbags',
+          'Find sunglasses'
+        ]
       };
     }
   };
 </script>
 ```
 
-### Play with default slot
+### Animating only on hover
 
-In this example, a custom placeholder can be set so it is the only one visible until the user hovers
-in the search input.
+In this example, the placeholder is configured to animate only when the user hovers in the search
+input, showing the first message of the array the rest of the time.
 
 ```vue live
 <template>
@@ -202,9 +208,7 @@ in the search input.
       style="position: absolute; height: 100%; pointer-events: none;"
       :messages="placeholderMessages"
       :animate-only-on-hover="true"
-    >
-      Search
-    </SearchInputPlaceholder>
+    />
     <SearchInput />
   </div>
 </template>
@@ -220,7 +224,13 @@ in the search input.
     },
     data: function () {
       return {
-        placeholderMessages: ['Find sunglasses', 'Find handbags', 'Find earrings']
+        placeholderMessages: [
+          'Find shirts',
+          'Find shoes',
+          'Find watches',
+          'Find handbags',
+          'Find sunglasses'
+        ]
       };
     }
   };

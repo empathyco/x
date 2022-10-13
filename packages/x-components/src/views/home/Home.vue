@@ -86,12 +86,7 @@
           >
             <BaseKeyboardNavigation>
               <div class="x-input-group x-input-group--card">
-                <SearchInputPlaceholder
-                  :messages="searchInputPlaceholderMessages"
-                  :animate-only-on-hover="true"
-                >
-                  Search
-                </SearchInputPlaceholder>
+                <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
                 <SearchInput
                   aria-label="Search for products"
                   :instant="controls.searchInput.instant"
@@ -503,9 +498,11 @@
     protected stores = ['Spain', 'Portugal', 'Italy'];
     protected initialExtraParams = { store: 'Portugal' };
     protected searchInputPlaceholderMessages = [
-      'Find sunglasses',
+      'Find shirts',
+      'Find shoes',
+      'Find watches',
       'Find handbags',
-      'Find earrings'
+      'Find sunglasses'
     ];
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
