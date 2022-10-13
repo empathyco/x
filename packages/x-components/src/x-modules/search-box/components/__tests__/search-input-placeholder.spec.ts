@@ -8,10 +8,8 @@ import { searchBoxXModule } from '../../x-module';
 import SearchInput from '../search-input.vue';
 import SearchInputPlaceholder from '../search-input-placeholder.vue';
 
-async function mountTestComponent({
-  propsData
-}: TestComponentParams = {}): Promise<TestComponentAPI> {
-  const defaultMessages = [
+async function mountTestComponent(params: TestComponentParams = {}): Promise<TestComponentAPI> {
+  const messages = [
     'Find shirts',
     'Find shoes',
     'Find watches',
@@ -25,19 +23,19 @@ async function mountTestComponent({
   const parent = document.createElement('div');
   document.body.appendChild(parent);
 
-  propsData = Object.assign({ placeholder: {}, input: {} }, propsData);
-  propsData.placeholder!.messages = propsData.placeholder!.messages ?? defaultMessages;
-  propsData.input!.autofocus = propsData.input!.autofocus ?? false;
-
   const wrapper = mount(
     {
       template: `
         <div>
-          <SearchInputPlaceholder v-bind="placeholder" />
-          <SearchInput v-bind="input" />
+          <SearchInputPlaceholder
+            :messages="messages"
+            :animationIntervalMs="animationIntervalMs"
+            :animateOnlyOnHover="animateOnlyOnHover"
+          />
+          <SearchInput :autofocus="autofocus" />
         </div>
       `,
-      props: ['placeholder', 'input'],
+      props: ['messages', 'animationIntervalMs', 'animateOnlyOnHover', 'autofocus'],
       components: {
         SearchInputPlaceholder,
         SearchInput
@@ -51,7 +49,10 @@ async function mountTestComponent({
        */
       attachTo: parent,
       propsData: {
-        ...propsData
+        messages: params.messages ?? messages,
+        animationIntervalMs: params.animationIntervalMs,
+        animateOnlyOnHover: params.animateOnlyOnHover,
+        autofocus: params.autofocus ?? false
       }
     }
   );
@@ -81,7 +82,7 @@ async function mountTestComponent({
   }
 
   return {
-    defaultMessages,
+    messages,
     wrapper,
     getPlaceholderText,
     isPlaceholderVisible,
@@ -91,24 +92,14 @@ async function mountTestComponent({
 }
 
 interface TestComponentParams {
-  propsData?: {
-    placeholder?: Partial<SearchInputPlaceholderProps>;
-    input?: SearchInputProps;
-  };
-}
-
-interface SearchInputPlaceholderProps {
-  messages: Array<string>;
+  messages?: Array<string>;
   animationIntervalMs?: number;
   animateOnlyOnHover?: boolean;
-}
-
-interface SearchInputProps {
   autofocus?: boolean;
 }
 
 interface TestComponentAPI {
-  defaultMessages: Array<string>;
+  messages: Array<string>;
   wrapper: Wrapper<Vue>;
   getPlaceholderText: () => string;
   isPlaceholderVisible: () => boolean;
@@ -138,63 +129,54 @@ describe('testing search input placeholder component', () => {
   });
 
   it('animates the rendered text always', async () => {
-    const { defaultMessages, wrapper, getPlaceholderText } = await mountTestComponent();
+    const { messages, wrapper, getPlaceholderText } = await mountTestComponent();
 
-    for (const message of defaultMessages) {
+    for (const message of messages) {
       expect(getPlaceholderText()).toEqual(message);
       jest.runOnlyPendingTimers();
       await wrapper.vm.$nextTick();
     }
-    expect(getPlaceholderText()).toEqual(defaultMessages[0]);
+    expect(getPlaceholderText()).toEqual(messages[0]);
   });
 
   it('animates the rendered text only on hover if configured to do so', async () => {
-    const { defaultMessages, wrapper, getPlaceholderText, hoverInput } = await mountTestComponent({
-      propsData: {
-        placeholder: {
-          animateOnlyOnHover: true
-        }
-      }
+    const { messages, wrapper, getPlaceholderText, hoverInput } = await mountTestComponent({
+      animateOnlyOnHover: true
     });
 
-    expect(getPlaceholderText()).toEqual(defaultMessages[0]);
+    expect(getPlaceholderText()).toEqual(messages[0]);
     await hoverInput('in');
-    for (const message of defaultMessages.slice(1)) {
+    for (const message of messages.slice(1)) {
       expect(getPlaceholderText()).toEqual(message);
       jest.runOnlyPendingTimers();
       await wrapper.vm.$nextTick();
     }
-    expect(getPlaceholderText()).toEqual(defaultMessages[0]);
+    expect(getPlaceholderText()).toEqual(messages[0]);
     jest.runOnlyPendingTimers();
     await wrapper.vm.$nextTick();
-    expect(getPlaceholderText()).toEqual(defaultMessages[1]);
+    expect(getPlaceholderText()).toEqual(messages[1]);
     await hoverInput('out');
-    expect(getPlaceholderText()).toEqual(defaultMessages[0]);
+    expect(getPlaceholderText()).toEqual(messages[0]);
     jest.advanceTimersByTime(2000);
-    expect(getPlaceholderText()).toEqual(defaultMessages[0]);
+    expect(getPlaceholderText()).toEqual(messages[0]);
     await hoverInput('in');
-    expect(getPlaceholderText()).toEqual(defaultMessages[1]);
+    expect(getPlaceholderText()).toEqual(messages[1]);
   });
 
   it('is not visible when there is a query set', async () => {
-    const { defaultMessages, getPlaceholderText, isPlaceholderVisible, emit } =
-      await mountTestComponent();
+    const { messages, getPlaceholderText, isPlaceholderVisible, emit } = await mountTestComponent();
 
-    expect(getPlaceholderText()).toEqual(defaultMessages[0]);
+    expect(getPlaceholderText()).toEqual(messages[0]);
     await emit('UserAcceptedAQuery', 'testing');
     expect(isPlaceholderVisible()).toEqual(false);
     jest.advanceTimersByTime(2000);
     await emit('UserAcceptedAQuery', undefined);
-    expect(getPlaceholderText()).toEqual(defaultMessages[1]);
+    expect(getPlaceholderText()).toEqual(messages[1]);
   });
 
   it('is not visible when the search input is focused', async () => {
     const { wrapper, isPlaceholderVisible } = await mountTestComponent({
-      propsData: {
-        input: {
-          autofocus: true
-        }
-      }
+      autofocus: true
     });
 
     expect(isPlaceholderVisible()).toEqual(false);
