@@ -11,6 +11,16 @@ export interface SearchBoxXEvents {
    */
   SearchBoxQueryChanged: string;
   /**
+   * The user hovered in the search-box.
+   * * Payload: none.
+   */
+  UserHoveredInSearchBox: void;
+  /**
+   * The user hovered out the search-box.
+   * * Payload: none.
+   */
+  UserHoveredOutSearchBox: void;
+  /**
    * The user removed the focus from the search-box.
    * * Payload: none.
    */

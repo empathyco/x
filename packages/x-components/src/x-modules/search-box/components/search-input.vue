@@ -1,6 +1,8 @@
 <template>
   <input
     ref="input"
+    @mouseenter="emitUserHoveredInSearchBox"
+    @mouseleave="emitUserHoveredOutSearchBox"
     @blur="emitUserBlurredSearchBox"
     @click="emitUserClickedSearchBox"
     @focus="emitUserFocusedSearchBox"
@@ -150,6 +152,24 @@
         target: this.$refs.input,
         feature: 'search_box'
       };
+    }
+
+    /**
+     * Emits event {@link SearchBoxXEvents.UserHoveredInSearchBox} when search box is hovered in.
+     *
+     * @internal
+     */
+    protected emitUserHoveredInSearchBox(): void {
+      this.$x.emit('UserHoveredInSearchBox', undefined, { target: this.$refs.input });
+    }
+
+    /**
+     * Emits event {@link SearchBoxXEvents.UserHoveredOutSearchBox} when search box is hovered out.
+     *
+     * @internal
+     */
+    protected emitUserHoveredOutSearchBox(): void {
+      this.$x.emit('UserHoveredOutSearchBox', undefined, { target: this.$refs.input });
     }
 
     /**
