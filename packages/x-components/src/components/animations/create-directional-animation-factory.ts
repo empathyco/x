@@ -36,9 +36,9 @@ export function createDirectionalAnimationFactory(
 export type AnimationOrigin =
   | 'top'
   | 'bottom'
-  | 'left'
-  | 'right'
   | 'top-to-bottom'
   | 'bottom-to-top'
+  | 'left'
+  | 'right'
   | 'left-to-right'
   | 'right-to-left';
