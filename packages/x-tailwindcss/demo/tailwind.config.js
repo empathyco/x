@@ -1,13 +1,27 @@
-import { options } from './options';
-import plugin from '../src/x-tailwind-plugin/plugin';
+import xTailwindCss from '../src/x-tailwind-plugin/plugin';
 
-/** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./demo/index.html', './demo/*.ts'],
+  content: ['./index.html', './**/*.vue'],
   prefix: 'x-',
   important: true,
   theme: {
     extend: {}
   },
-  plugins: [plugin(options)]
+  plugins: [
+    xTailwindCss({
+      components() {
+        return {};
+      },
+      utilities() {
+        return {};
+      },
+      dynamicUtilities() {
+        return {};
+      },
+      dynamicComponents() {
+        return {};
+      },
+      theme: {}
+    })
+  ]
 };

@@ -1,8 +1,9 @@
 {
+  "rootDir": "src",
   "compilerOptions": {
     "target": "es2019",
     "module": "commonjs",
-    "lib": ["esnext"],
+    "lib": ["esnext", "dom"],
     "moduleResolution": "node",
     "esModuleInterop": true,
     "importHelpers": true,
@@ -14,5 +15,5 @@
     "declarationDir": "./dist/types",
     "noEmit": true
   },
-  "include": ["src/**/*.ts", "demo/**/*.ts"]
+  "include": ["src/**/*.ts", "src/**/*.vue"]
 }
