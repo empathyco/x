@@ -255,7 +255,8 @@
       display: flex;
       flex: 100%;
       flex-flow: row nowrap;
-      overflow: auto;
+      overflow-x: auto;
+      overflow-y: hidden;
       scrollbar-width: none; // Firefox
       -ms-overflow-style: none; // IE
 
