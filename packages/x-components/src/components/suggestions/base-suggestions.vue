@@ -64,8 +64,8 @@
     protected showFacets!: boolean;
 
     /**
-     * When {@link showFacets} is true, it indicates if the suggestion without filter
-     * should be rendered.
+     * When {@link BaseSuggestions.showFacets} is true, it indicates if the suggestion without
+     * filter should be rendered.
      *
      * @public
      */
