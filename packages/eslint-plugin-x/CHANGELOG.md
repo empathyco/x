@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.14...@empathyco/eslint-plugin-x@2.0.0-alpha.15) (2022-10-14)
+
+### Continuous Integration
+
+- update `runners` version (#740)
+  ([38f246c](https://github.com/empathyco/x/commit/38f246c306dac40c4afbcdea08336052981ca9b8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.13...@empathyco/eslint-plugin-x@2.0.0-alpha.14) (2022-09-27)
 
 ### Features
