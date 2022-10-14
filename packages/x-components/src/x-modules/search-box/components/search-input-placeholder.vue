@@ -177,6 +177,7 @@
       this.animationMessageIndex = 0;
     }
 
+    // TODO: EX-7173 - Get search input state(s) from the store instead of using events
     @XOn('UserHoveredInSearchBox')
     onUserHoveredInSearchBox(): void {
       this.isSearchBoxHovered = true;
