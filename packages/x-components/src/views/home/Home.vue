@@ -86,12 +86,14 @@
           >
             <BaseKeyboardNavigation>
               <div class="x-input-group x-input-group--card">
-                <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
-                <SearchInput
-                  aria-label="Search for products"
-                  :instant="controls.searchInput.instant"
-                  :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
-                />
+                <div class="x-input">
+                  <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
+                  <SearchInput
+                    aria-label="Search for products"
+                    :instant="controls.searchInput.instant"
+                    :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
+                  />
+                </div>
                 <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
                 <SearchButton aria-label="Search" class="x-input-group__action">
                   <SearchIcon />
