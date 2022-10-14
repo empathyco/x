@@ -22,7 +22,7 @@
     "directory": "packages/x-archetype-utils"
   },
   "engines": {
-    "node": ">=14.14.0"
+    "node": "16"
   },
   "scripts": {
     "prebuild": "rimraf dist ./*.tgz",

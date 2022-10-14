@@ -21,6 +21,9 @@
     "url": "git+https://github.com/empathyco/x.git",
     "directory": "packages/x-utils"
   },
+  "engines": {
+    "node": "16"
+  },
   "scripts": {
     "prebuild": "rimraf ./dist ./types",
     "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",

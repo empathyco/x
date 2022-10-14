@@ -21,6 +21,9 @@
     "url": "https://github.com/empathyco/x.git",
     "directory": "packages/react-wrapper"
   },
+  "engines": {
+    "node": "16"
+  },
   "scripts": {
     "serve": "parcel tests/demo/index.html",
     "build": "tsc",

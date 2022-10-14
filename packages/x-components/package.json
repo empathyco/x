@@ -39,6 +39,9 @@
     "url": "https://github.com/empathyco/x.git",
     "directory": "packages/x-components"
   },
+  "engines": {
+    "node": "16"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "ts-node --project ./build/tsconfig.json ./build/build.ts",

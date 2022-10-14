@@ -21,7 +21,7 @@
     "directory": "packages/eslint-plugin-x"
   },
   "engines": {
-    "node": ">=14.17.0"
+    "node": "16"
   },
   "scripts": {
     "build": "npm pack",
