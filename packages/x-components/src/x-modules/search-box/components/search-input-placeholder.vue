@@ -5,8 +5,8 @@
     class="x-input-placeholder x-search-input-placeholder"
     mode="out-in"
   >
-    <span :key="animationMessage" data-test="search-input-placeholder">
-      {{ animationMessage }}
+    <span :key="message" data-test="search-input-placeholder">
+      {{ message }}
     </span>
   </component>
 </template>
@@ -65,25 +65,56 @@
 
     protected isSearchBoxFocused = false;
 
+    /**
+     * The index used to point to the current animation message in the list.
+     *
+     * @internal
+     */
     protected animationMessageIndex = 0;
 
     protected animationInterval: number | undefined;
 
+    /**
+     * The visibility state of the component.
+     *
+     * @returns The visibility state based on the search input state (query & focus).
+     *
+     * @internal
+     */
     protected get isVisible(): boolean {
       return !this.query && !this.isSearchBoxFocused;
     }
 
+    /**
+     * The animation state of the component.
+     *
+     * @returns Whether the animation is active or not.
+     *
+     * @internal
+     */
     protected get isBeingAnimated(): boolean {
       return this.isVisible && (!this.animateOnlyOnHover || this.isSearchBoxHovered);
     }
 
-    protected get animationMessage(): string | undefined {
+    /**
+     * The current placeholder message.
+     *
+     * @returns The message to display as placeholder at any moment.
+     *
+     * @internal
+     */
+    protected get message(): string | undefined {
       if (!this.isBeingAnimated) {
         return this.messages[0];
       }
       return this.messages[this.animationMessageIndex];
     }
 
+    /**
+     * Starts or stops the animation depending on the current animation state.
+     *
+     * @internal
+     */
     @Watch('isBeingAnimated', { immediate: true })
     @Watch('messages', { deep: true })
     @Watch('animationIntervalMs')
@@ -97,6 +128,11 @@
       }
     }
 
+    /**
+     * Clears the interval used for the animation.
+     *
+     * @internal
+     */
     protected stopAnimationInterval(): void {
       if (this.animationInterval) {
         clearInterval(this.animationInterval);
@@ -104,10 +140,23 @@
       }
     }
 
+    /**
+     * Increments animation message index; if the new index exceeds the messages list length, it is
+     * reset to 0.
+     *
+     * @internal
+     */
     protected incrementAnimationMessageIndex(): void {
       this.animationMessageIndex = (this.animationMessageIndex + 1) % this.messages.length;
     }
 
+    /**
+     * Sets the animation message index with the right value for the next future iteration when the
+     * current one stops,assuring the user will see always a new message on each animation state
+     * change.
+     *
+     * @internal
+     */
     @Watch('isBeingAnimated', { immediate: true })
     protected prepareMessageIndexForNextAnimation(): void {
       if (!this.isBeingAnimated) {
@@ -118,6 +167,11 @@
       }
     }
 
+    /**
+     * Resets the animation message index to zero.
+     *
+     * @internal
+     */
     @Watch('messages', { deep: true })
     protected resetAnimationMessageIndex(): void {
       this.animationMessageIndex = 0;
