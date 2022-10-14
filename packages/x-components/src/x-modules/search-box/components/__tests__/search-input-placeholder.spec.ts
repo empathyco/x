@@ -8,15 +8,12 @@ import { searchBoxXModule } from '../../x-module';
 import SearchInput from '../search-input.vue';
 import SearchInputPlaceholder from '../search-input-placeholder.vue';
 
-async function mountTestComponent(params: TestComponentParams = {}): Promise<TestComponentAPI> {
-  const messages = [
-    'Find shirts',
-    'Find shoes',
-    'Find watches',
-    'Find handbags',
-    'Find sunglasses'
-  ];
-
+async function mountTestComponent({
+  messages = ['Find shirts', 'Find shoes', 'Find watches', 'Find handbags', 'Find sunglasses'],
+  animationIntervalMs,
+  animateOnlyOnHover,
+  autofocus = false
+}: MountTestComponentOptions = {}): Promise<MountTestComponentAPI> {
   const [, localVue] = installNewXPlugin();
   XPlugin.registerXModule(searchBoxXModule);
 
@@ -49,10 +46,10 @@ async function mountTestComponent(params: TestComponentParams = {}): Promise<Tes
        */
       attachTo: parent,
       propsData: {
-        messages: params.messages ?? messages,
-        animationIntervalMs: params.animationIntervalMs,
-        animateOnlyOnHover: params.animateOnlyOnHover,
-        autofocus: params.autofocus ?? false
+        messages,
+        animationIntervalMs,
+        animateOnlyOnHover,
+        autofocus
       }
     }
   );
@@ -91,14 +88,14 @@ async function mountTestComponent(params: TestComponentParams = {}): Promise<Tes
   };
 }
 
-interface TestComponentParams {
+interface MountTestComponentOptions {
   messages?: Array<string>;
   animationIntervalMs?: number;
   animateOnlyOnHover?: boolean;
   autofocus?: boolean;
 }
 
-interface TestComponentAPI {
+interface MountTestComponentAPI {
   messages: Array<string>;
   wrapper: Wrapper<Vue>;
   getPlaceholderText: () => string;
