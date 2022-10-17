@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-logger",
-  "version": "1.2.0-alpha.3",
+  "version": "1.2.0-alpha.4",
   "description": "Empathy simple logger",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -21,6 +21,9 @@
     "type": "git",
     "url": "https://github.com/empathyco/x.git",
     "directory": "packages/logger"
+  },
+  "engines": {
+    "node": "16"
   },
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",

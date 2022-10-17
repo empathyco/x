@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.193](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.192...@empathyco/x-components@3.0.0-alpha.193) (2022-10-17)
+
+### Testing
+
+- **next-queries:** next queries preview e2e tests (#759)
+  ([adccbf4](https://github.com/empathyco/x/commit/adccbf4a111ac65915b017aca799ac523347ddc1)),
+  closes [EX-6848](https://searchbroker.atlassian.net/browse/EX-6848)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.192](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.191...@empathyco/x-components@3.0.0-alpha.192) (2022-10-14)
+
+### Continuous Integration
+
+- update `runners` version (#740)
+  ([38f246c](https://github.com/empathyco/x/commit/38f246c306dac40c4afbcdea08336052981ca9b8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.191](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.190...@empathyco/x-components@3.0.0-alpha.191) (2022-10-13)
+
+### Features
+
+- Add directional origins for translate animations (#773)
+  ([9f4a0b0](https://github.com/empathyco/x/commit/9f4a0b03c675291672081388e42fcec725ab594d))
+- Add search input hover events (#772)
+  ([393cc87](https://github.com/empathyco/x/commit/393cc877457f618396a5b71a7a826e6e8d139c3a)),
+  closes [EX-7177](https://searchbroker.atlassian.net/browse/EX-7177)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.190](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.189...@empathyco/x-components@3.0.0-alpha.190) (2022-10-12)
 
 ### Features
