@@ -37,6 +37,7 @@ Feature: Next queries preview component
     Examples:
       | query  | resultId  | clickedItem                | newURL        |
       | pulpo  | result-23 | view-all-results           | results-page  |
+      | pulpo  | result-23 | next-query                 | results-page  |
       | pulpo  | result-23 | next-query-preview-result  | pdp           |
 
   Scenario Outline: 3. No Next Query Preview is shown if there are no Next Queries
