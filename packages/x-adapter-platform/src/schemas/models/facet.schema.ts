@@ -7,10 +7,6 @@ import {
 } from '@empathyco/x-types';
 import { PlatformFacet } from '../../types/models/facet.model';
 import { getFacetConfig } from '../facets/utils';
-import { FacetsConfig } from '../facets/types';
-import { hierarchicalFilterSchema } from './filters/hierarchical-filter.schema';
-import { numberFilterSchema } from './filters/number-filter.schema';
-import { simpleFilterSchema } from './filters/simple-filter.schema';
 
 export const facetSchema = createMutableSchema<
   Schema<
@@ -20,29 +16,12 @@ export const facetSchema = createMutableSchema<
 >({
   id: 'facet',
   label: 'facet',
-  modelName: source => {
-    return getFacetConfig(source.facet).modelName as any;
-  },
+  modelName: ({ type }) => getFacetConfig(type).modelName as any,
   filters: {
     $path: 'values',
-    $subSchema: ({ facet }) => getFacetConfig(facet).schema as any,
+    $subSchema: ({ type }) => getFacetConfig(type).schema as any,
     $context: {
       facetId: 'facet'
     }
   }
 });
-
-export const facetsConfig: FacetsConfig = {
-  categoryPaths: {
-    modelName: 'HierarchicalFacet',
-    schema: hierarchicalFilterSchema
-  },
-  price: {
-    modelName: 'NumberRangeFacet',
-    schema: numberFilterSchema
-  },
-  default: {
-    modelName: 'SimpleFacet',
-    schema: simpleFilterSchema
-  }
-};

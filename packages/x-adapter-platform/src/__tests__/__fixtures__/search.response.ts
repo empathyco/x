@@ -93,6 +93,7 @@ export const platformSearchResponse = {
     facets: [
       {
         facet: 'categoryPaths',
+        type: 'hierarchical',
         values: [
           {
             id: '78d9b7366',
@@ -101,6 +102,7 @@ export const platformSearchResponse = {
             filter: 'categoryIds:78d9b7366',
             children: {
               facet: 'categoryPaths_78d9b7366',
+              type: 'hierarchical',
               values: [
                 {
                   id: '78d9b7366__8a4e61a33',
@@ -109,6 +111,7 @@ export const platformSearchResponse = {
                   filter: 'categoryIds:78d9b7366__8a4e61a33',
                   children: {
                     facet: 'categoryPaths_78d9b7366__8a4e61a33',
+                    type: 'hierarchical',
                     values: [
                       {
                         id: '78d9b7366__8a4e61a33_aa',
@@ -117,6 +120,7 @@ export const platformSearchResponse = {
                         filter: 'categoryIds:78d9b7366__8a4e61a33_aa',
                         children: {
                           facet: 'categoryPaths_78d9b7366__8a4e61a33_aa',
+                          type: 'hierarchical',
                           values: [
                             {
                               id: '78d9b7366__8a4e61a33_aa_bb',
@@ -152,6 +156,7 @@ export const platformSearchResponse = {
             filter: 'categoryIds:ffc61e1e9',
             children: {
               facet: 'categoryPaths_ffc61e1e9',
+              type: 'hierarchical',
               values: [
                 {
                   id: 'ffc61e1e9_aa',
@@ -172,6 +177,7 @@ export const platformSearchResponse = {
       },
       {
         facet: 'price',
+        type: 'range',
         values: [
           {
             id: '10.0-20.0',
@@ -231,6 +237,7 @@ export const platformSearchResponse = {
       },
       {
         facet: 'gender',
+        type: 'value',
         values: [
           {
             id: 'men',
