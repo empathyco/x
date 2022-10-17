@@ -31,16 +31,16 @@ When a component is used in a template, the tag of the component must be written
 ```vue
 // ❌ Wrong
 <template>
-<section>
-  <my-component class="x-component" />
-</section>
+  <section>
+    <my-component class="x-component" />
+  </section>
 </template>
 
 // ✅ Good
 <template>
-<section>
-  <MyComponent class="x-component" />
-</section>
+  <section>
+    <MyComponent class="x-component" />
+  </section>
 </template>
 ```
 
@@ -202,20 +202,20 @@ getter. It can be a **function** or a **class** with multiple getters. If the ge
 ```ts
 // ❌ Wrong
 export const queryRequest: SearchXStoreModule['getters']['queryRequest'] = ({ query }) => {
-    return {
-        query,
-        start: 0,
-        origin: 'default'
-    };
+  return {
+    query,
+    start: 0,
+    origin: 'default'
+  };
 };
 
 // ✅ Good
 export const request: SearchXStoreModule['getters']['request'] = ({ query }) => {
-    return {
-        query,
-        start: 0,
-        origin: 'default'
-    };
+  return {
+    query,
+    start: 0,
+    origin: 'default'
+  };
 };
 ```
 
@@ -226,16 +226,16 @@ explain what it does or returns.
 ```ts
 // ❌ Wrong
 export class historyGetter implements GettersClass<HistoryQueriesXStoreModule> {
-    historyQueries({ query, historyQueries, config }: HistoryQueriesState): HistoryQuery[] {
-        return historyQueries;
-    }
+  historyQueries({ query, historyQueries, config }: HistoryQueriesState): HistoryQuery[] {
+    return historyQueries;
+  }
 }
 
 // ✅ Good
 export class HistoryQueriesGetter implements GettersClass<HistoryQueriesXStoreModule> {
-    historyQueries({ query, historyQueries, config }: HistoryQueriesState): HistoryQuery[] {
-        return historyQueries;
-    }
+  historyQueries({ query, historyQueries, config }: HistoryQueriesState): HistoryQuery[] {
+    return historyQueries;
+  }
 }
 ```
 
@@ -270,27 +270,27 @@ Document slot by explaining what they are used for and if they have any bindings
 ```vue
 // ❌ Wrong
 <template>
-<BaseSuggestion class="x-next-query" :suggestion="suggestion">
-  <template #default="{ suggestion }">
-    <!--
-      @slot Next Query content.
-    -->
-    <slot :suggestion="suggestion">{{ suggestion.query }}</slot>
-  </template>
-</BaseSuggestion>
+  <BaseSuggestion class="x-next-query" :suggestion="suggestion">
+    <template #default="{ suggestion }">
+      <!--
+        @slot Next Query content.
+      -->
+      <slot :suggestion="suggestion">{{ suggestion.query }}</slot>
+    </template>
+  </BaseSuggestion>
 </template>
 
 // ✅ Good
 <template>
-<BaseSuggestion class="x-next-query" :suggestion="suggestion">
-  <template #default="{ suggestion }">
-    <!--
-      @slot Next Query content.
-        @binding {Suggestion} suggestion - Next Query suggestion data.
-    -->
-    <slot :suggestion="suggestion">{{ suggestion.query }}</slot>
-  </template>
-</BaseSuggestion>
+  <BaseSuggestion class="x-next-query" :suggestion="suggestion">
+    <template #default="{ suggestion }">
+      <!--
+        @slot Next Query content.
+          @binding {Suggestion} suggestion - Next Query suggestion data.
+      -->
+      <slot :suggestion="suggestion">{{ suggestion.query }}</slot>
+    </template>
+  </BaseSuggestion>
 </template>
 ```
 
@@ -308,8 +308,8 @@ using Vue Styleguidist
  * @internal
  */
 @Component({
-    mixins: [xComponentMixin(historyQueriesXModule)],
-    components: { RemoveHistoryQuery, BaseSuggestion }
+  mixins: [xComponentMixin(historyQueriesXModule)],
+  components: { RemoveHistoryQuery, BaseSuggestion }
 })
 export default class HistoryQuery extends Vue {}
 
@@ -322,8 +322,8 @@ export default class HistoryQuery extends Vue {}
  * @public
  */
 @Component({
-    mixins: [xComponentMixin(historyQueriesXModule)],
-    components: { RemoveHistoryQuery, BaseSuggestion }
+  mixins: [xComponentMixin(historyQueriesXModule)],
+  components: { RemoveHistoryQuery, BaseSuggestion }
 })
 export default class HistoryQuery extends Vue {}
 ```
@@ -338,25 +338,25 @@ not.
 // ❌ Wrong
 @Component
 class Component {
-    /**
-     * An array.
-     *
-     * @public
-     */
-    @Prop()
-    items?: Result[];
+  /**
+   * An array.
+   *
+   * @public
+   */
+  @Prop()
+  items?: Result[];
 }
 
 // ✅ Good
 @Component
 class Component {
-    /**
-     * The list of results to render.
-     *
-     * @public
-     */
-    @Prop()
-    items?: Result[];
+  /**
+   * The list of results to render.
+   *
+   * @public
+   */
+  @Prop()
+  items?: Result[];
 }
 ```
 
@@ -370,29 +370,29 @@ on whether it should be exported or not.
 // ❌ Wrong
 @Component
 class CurrencyComponent {
-    /**
-     * Returns a string.
-     *
-     * @internal
-     */
-    protected get currency(): string {
-        return currencyFormatter(this.value, this.format);
-    }
+  /**
+   * Returns a string.
+   *
+   * @internal
+   */
+  protected get currency(): string {
+    return currencyFormatter(this.value, this.format);
+  }
 }
 
 // ✅ Good
 @Component
 class CurrencyComponent {
-    /**
-     * Returns the formatted result as string.
-     *
-     * @returns Formatted number.
-     *
-     * @internal
-     */
-    protected get currency(): string {
-        return currencyFormatter(this.value, this.format);
-    }
+  /**
+   * Returns the formatted result as string.
+   *
+   * @returns Formatted number.
+   *
+   * @internal
+   */
+  protected get currency(): string {
+    return currencyFormatter(this.value, this.format);
+  }
 }
 ```
 
@@ -436,11 +436,11 @@ It renders a list of items using the default slot:
 Renders an string with the item id
 
 <template>
-<BaseGrid :items="items">
-  <template #default="{ item }">
-    {{ `Default slot content: ${item.id}` }}
-  </template>
-</BaseGrid>
+  <BaseGrid :items="items">
+    <template #default="{ item }">
+      {{ `Default slot content: ${item.id}` }}
+    </template>
+  </BaseGrid>
 </template>
 
 // ✅ Good
@@ -449,11 +449,11 @@ Renders an string with the item id
 It renders a list of items using the default slot:
 
 <template>
-<BaseGrid :items="items">
-  <template #default="{ item }">
-    {{ `Default slot content: ${item.id}` }}
-  </template>
-</BaseGrid>
+  <BaseGrid :items="items">
+    <template #default="{ item }">
+      {{ `Default slot content: ${item.id}` }}
+    </template>
+  </BaseGrid>
 </template>
 ```
 
@@ -472,12 +472,12 @@ This approach is the same for the Vue events emitted by the component.
 // ❌ Wrong
 ## Events
 
-- The event is `UserClickedColumnPicker` and it is emitted when the user clicks the component.
-The payload is the column number.
+- The event is `UserClickedColumnPicker` and it is emitted when the user clicks the component. 
+  The payload is the column number. 
 
 // ✅ Good
 ## Events
 
-- `UserClickedColumnPicker`: the event is emitted after the user clicks an item.
-The event payload is the number of columns that the clicked item represents.
+- `UserClickedColumnPicker`: the event is emitted after the user clicks an item. 
+  The event payload is the number of columns that the clicked item represents.
 ```
