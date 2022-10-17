@@ -36,9 +36,7 @@ Given('next queries preview name is shown and it is clickable', () => {
 });
 
 And('{int} results are shown for next queries preview', (maxItemsToRender: number) => {
-  cy.getByDataTest('sliding-panel-scroll')
-    .getByDataTest('next-query-preview-result')
-    .should('have.length.at.most', maxItemsToRender);
+  cy.getByDataTest('next-query-preview-result').should('have.length.at.most', maxItemsToRender);
 });
 
 // Scenario 2
