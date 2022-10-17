@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.193](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.192...@empathyco/x-components@3.0.0-alpha.193) (2022-10-17)
+
+### Testing
+
+- **next-queries:** next queries preview e2e tests (#759)
+  ([adccbf4](https://github.com/empathyco/x/commit/adccbf4a111ac65915b017aca799ac523347ddc1)),
+  closes [EX-6848](https://searchbroker.atlassian.net/browse/EX-6848)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.192](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.191...@empathyco/x-components@3.0.0-alpha.192) (2022-10-14)
 
 ### Continuous Integration
