@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.23...@empathyco/x-deep-merge@1.3.0-alpha.24) (2022-10-14)
+
+### Continuous Integration
+
+- update `runners` version (#740)
+  ([38f246c](https://github.com/empathyco/x/commit/38f246c306dac40c4afbcdea08336052981ca9b8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.3.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.22...@empathyco/x-deep-merge@1.3.0-alpha.23) (2022-09-27)
 
 **Note:** Version bump only for package @empathyco/x-deep-merge

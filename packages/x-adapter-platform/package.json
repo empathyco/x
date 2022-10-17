@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter-platform",
-  "version": "1.0.0-alpha.36",
+  "version": "1.0.0-alpha.37",
   "description": "A search client for the Empathy Platform API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -22,6 +22,9 @@
     "url": "git+https://github.com/empathyco/x.git",
     "directory": "packages/x-adapter-platform"
   },
+  "engines": {
+    "node": "16"
+  },
   "scripts": {
     "prebuild": "rimraf ./dist ./*.tgz",
     "build": "concurrently \"npm run build:*\" && npm run gen:docs",
@@ -35,9 +38,9 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.0.0-alpha.10",
-    "@empathyco/x-types": "^10.0.0-alpha.37",
-    "@empathyco/x-utils": "^1.0.0-alpha.9",
+    "@empathyco/x-adapter": "^8.0.0-alpha.11",
+    "@empathyco/x-types": "^10.0.0-alpha.38",
+    "@empathyco/x-utils": "^1.0.0-alpha.10",
     "tslib": "~2.3.0"
   },
   "devDependencies": {
