@@ -430,7 +430,10 @@ Each example must be explained with a brief description about what it does and h
 It renders a list of items using the default slot:
 
 ```vue
-// ❌ Wrong ## Default usage Renders an string with the item id
+// ❌ Wrong
+## Default usage
+
+Renders an string with the item id
 
 <template>
   <BaseGrid :items="items">
@@ -440,7 +443,10 @@ It renders a list of items using the default slot:
   </BaseGrid>
 </template>
 
-// ✅ Good ## Default usage It renders a list of items using the default slot:
+// ✅ Good
+## Default usage
+
+It renders a list of items using the default slot:
 
 <template>
   <BaseGrid :items="items">
@@ -463,8 +469,15 @@ Each event must be written according to the format:
 This approach is the same for the Vue events emitted by the component.
 
 ```vue
-// ❌ Wrong ## Events - The event is `UserClickedColumnPicker` and it is emitted when the user
-clicks the component. The payload is the column number. // ✅ Good ## Events -
-`UserClickedColumnPicker`: the event is emitted after the user clicks an item. The event payload is
-the number of columns that the clicked item represents.
+// ❌ Wrong
+## Events
+
+- The event is `UserClickedColumnPicker` and it is emitted when the user clicks the component. 
+  The payload is the column number. 
+
+// ✅ Good
+## Events
+
+- `UserClickedColumnPicker`: the event is emitted after the user clicks an item. 
+  The event payload is the number of columns that the clicked item represents.
 ```

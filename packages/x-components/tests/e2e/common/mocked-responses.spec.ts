@@ -71,6 +71,14 @@ Given('a next queries API with a known response', () => {
   }).as('interceptedNextQueries');
 });
 
+Given('a next queries API with no next queries', () => {
+  cy.intercept(getNextQueriesEndpoint, req => {
+    req.reply(<NextQueriesResponse>{
+      nextQueries: []
+    });
+  }).as('interceptedNextQueries');
+});
+
 // Partial Results
 Given('a results API with partial results', () => {
   cy.intercept(searchEndpoint, req => {
