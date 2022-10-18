@@ -14,7 +14,6 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop, Watch } from 'vue-property-decorator';
-
   import { animateTranslate, State, xComponentMixin, XOn } from '../../../components';
   import { searchBoxXModule } from '../x-module';
 
@@ -30,6 +29,8 @@
   export default class SearchInputPlaceholder extends Vue {
     /**
      * List of messages to animate.
+     *
+     * @public
      */
     @Prop({ required: true })
     protected messages!: Array<string>;
@@ -58,11 +59,26 @@
     @Prop({ default: false })
     protected animateOnlyOnHover!: boolean;
 
+    /**.
+     * The search box written query
+     *
+     * @internal
+     */
     @State('searchBox', 'query')
     public query!: string;
 
+    /**.
+     * The search box hover status
+     *
+     * @internal
+     */
     protected isSearchBoxHovered = false;
 
+    /**.
+     * The search box focus status
+     *
+     * @internal
+     */
     protected isSearchBoxFocused = false;
 
     /**
@@ -72,6 +88,11 @@
      */
     protected animationMessageIndex = 0;
 
+    /**
+     * The interval used for the animation.
+     *
+     * @internal
+     */
     protected animationInterval: number | undefined;
 
     /**
@@ -104,10 +125,7 @@
      * @internal
      */
     protected get message(): string | undefined {
-      if (!this.isBeingAnimated) {
-        return this.messages[0];
-      }
-      return this.messages[this.animationMessageIndex];
+      return this.isBeingAnimated ? this.messages[this.animationMessageIndex] : this.messages[0];
     }
 
     /**
