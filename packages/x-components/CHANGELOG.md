@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.194](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.193...@empathyco/x-components@3.0.0-alpha.194) (2022-10-18)
+
+### Features
+
+- **components:** Add new origins to the `animateClipPath` animation factory. (#777)
+  ([d016057](https://github.com/empathyco/x/commit/d016057ea0c92901dc88df755351b4acee32f472)),
+  closes [EX-7195](https://searchbroker.atlassian.net/browse/EX-7195)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.193](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.192...@empathyco/x-components@3.0.0-alpha.193) (2022-10-17)
 
 ### Testing
