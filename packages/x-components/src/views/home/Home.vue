@@ -108,12 +108,14 @@
           >
             <BaseKeyboardNavigation>
               <div class="x-input-group x-input-group--card">
-                <SearchInput
-                  aria-label="Search for products"
-                  placeholder="Search"
-                  :instant="controls.searchInput.instant"
-                  :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
-                />
+                <div class="x-input">
+                  <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
+                  <SearchInput
+                    aria-label="Search for products"
+                    :instant="controls.searchInput.instant"
+                    :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
+                  />
+                </div>
                 <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
                 <SearchButton aria-label="Search" class="x-input-group__action">
                   <SearchIcon />
@@ -423,6 +425,8 @@
   import ClearSearchInput from '../../x-modules/search-box/components/clear-search-input.vue';
   import SearchButton from '../../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../../x-modules/search-box/components/search-input.vue';
+  // eslint-disable-next-line max-len
+  import SearchInputPlaceholder from '../../x-modules/search-box/components/search-input-placeholder.vue';
   import Banner from '../../x-modules/search/components/banner.vue';
   import BannersList from '../../x-modules/search/components/banners-list.vue';
   import PartialQueryButton from '../../x-modules/search/components/partial-query-button.vue';
@@ -506,6 +510,7 @@
       SearchButton,
       SearchIcon,
       SearchInput,
+      SearchInputPlaceholder,
       SlidingPanel,
       SlidingQueryPreview,
       SnippetCallbacks,
@@ -522,6 +527,13 @@
   export default class App extends Vue {
     protected stores = ['Spain', 'Portugal', 'Italy'];
     protected initialExtraParams = { store: 'Portugal' };
+    protected searchInputPlaceholderMessages = [
+      'Find shirts',
+      'Find shoes',
+      'Find watches',
+      'Find handbags',
+      'Find sunglasses'
+    ];
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
     protected modalAnimation = animateClipPath();
