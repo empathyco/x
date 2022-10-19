@@ -80,7 +80,7 @@ keyboard arrow keys.
 
 ::: interact
 
-Learn more on how to improve the usability of the Empathize UI component using the [Scroll](/develop-empathy-platform/ui-reference/components/base-components/x-components.base-scroll.md) and [Base Keyboard Navigation]](/develop-empathy-platform/ui-reference/components/base-components/x-components.base-keyboard-navigation.md) components in the X&nbsp;Components UI Reference.
+Learn more on how to improve the usability of the Empathize UI component using the [Base Scroll](/develop-empathy-platform/ui-reference/components/base-components/scroll/x-components.base-scroll.md) and [Base Keyboard Navigation](/develop-empathy-platform/ui-reference/components/base-components/x-components.base-keyboard-navigation.md) components in the X&nbsp;Components UI Reference.
 
 :::
 

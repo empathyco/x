@@ -13,7 +13,7 @@ The Recommendations UI component shows the most clicked products on the SERP, ba
 interaction within a defined period. They help your shoppers to explore your product catalogue,
 guiding them to specific products without the need to launch any queries.
 
-![Recommendations](~@/assets/media/interface/x-recommendations.gif)
+![Recommendations](~@assets/media/interface/x-recommendations.gif)
 
 ::: warning
 

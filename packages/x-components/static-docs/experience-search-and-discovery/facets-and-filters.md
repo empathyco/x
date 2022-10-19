@@ -9,7 +9,7 @@ and narrow the search results to better find what they are looking for. Shoppers
 according to the categories or facets defined in the faceted menu, which is usually located on the
 left or upper side of the search engine results page or product listing page.
 
-![Facets](~@assets/media/interface/x-facets.gif')
+![Facets](~@assets/media/interface/x-facets.gif)
 
 X&nbsp;Components for facets present how you have categorized your products, displaying the
 different aspects available (brand, price, color…), while the filter-related components render the
