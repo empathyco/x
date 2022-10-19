@@ -1,15 +1,15 @@
 ---
 title: Facets & Filters UI
+tag:
+  - faceted
 ---
-
-# Facets & Filters UI
 
 Facets and Filters allow your shoppers to organize your product catalogue in different categories
 and narrow the search results to better find what they are looking for. Shoppers can set filters
 according to the categories or facets defined in the faceted menu, which is usually located on the
 left or upper side of the search engine results page or product listing page.
 
-<img :src="$withBase('/assets/media/x-components_func_facets.gif')" alt="Facets"> <br>
+![Facets](~@assets/media/interface/x-facets.gif')
 
 X&nbsp;Components for facets present how you have categorized your products, displaying the
 different aspects available (brand, price, color…), while the filter-related components render the
@@ -43,7 +43,7 @@ time, giving them the opportunity to establish a **dialogue** with your product 
 decide what results to display by adding and clearing filters, or make information on product
 results **clearer and more accessible**, meeting different types of faceting layouts.
 
-<img :src="$withBase('/assets/media/x-components_func_facets.png')" alt="Facets" />
+![Facets](~@assets/media/interface/x-facets.svg)
 
 ::: details Rendering facets and filters
 

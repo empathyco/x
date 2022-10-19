@@ -1,8 +1,8 @@
 ---
 title: Product results UI
+tags:
+  - results layout
 ---
-
-# Product results UI
 
 After launching a search, some shoppers may just want to take a quick look around, reviewing only
 product thumbnails and quick info on the SERP. While others will prefer to have a more detailed
@@ -14,7 +14,7 @@ tailor the display to create the best product discovery experience for your shop
 elements and product-related information you want to include when displaying product results such as
 the price, a picture, or even an add-to-cart button.
 
-![X Components for results display](~@assets/media/overview_product_card.svg)
+![X Components for results display](~@assets/media/features/overview-product-results-card.svg)
 
 <FootNote>
 

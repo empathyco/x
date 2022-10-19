@@ -2,8 +2,6 @@
 title: Experience search & discovery
 ---
 
-# Experience search & discovery
-
 Search inevitably is key when people look for specific products in an online store. It's the door
 to the entire product catalogue, so having an outstanding, well-structured, and optimized search UI
 is a must.
@@ -12,8 +10,8 @@ However, it’s not enough. With the advanced features provided by some well-kno
 shoppers need a new dimension to **connect effortlessly** to the most relevant products, enjoy a
 **smooth user experience**, and take advantage of **outstanding search and discovery capabilities**.
 
-<img :src="$withBase('/assets/media/intro_experience_and_search.svg')" alt="Experience search and discovery">
-<br/>
+![Experience search and discovery](~@/assets/media/interface/experience-search-intro.svg)
+
 
 ## Interface X and Interface X for Apps, the solution
 

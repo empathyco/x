@@ -1,14 +1,15 @@
 ---
 title: Query Suggestions UI
+tags:
+  - search suggestions
+  - search as you type
 ---
-
-# Query Suggestions UI
 
 The Query Suggestions UI component helps your shoppers with hints of what to look for to get
 relevant results. They complete and nail down the query as shoppers type without needing to keep
 typing.
 
-![Query Suggestions](~@assets/media/xcomponents_func_querysuggestions.gif)
+![Query Suggestions](~@assets/media/interface/x-query-suggestions.gif)
 
 ::: warning
 

@@ -2,12 +2,10 @@
 title: History Queries UI
 ---
 
-# History Queries UI
-
 The History Queries UI component displays the search history, allowing shoppers to check previous
 searches and revisit products they’ve viewed before in a few clicks.
 
-![History Queries](~@assets/media/xcomponents_func_historyqueries.gif)
+![History Queries](~@assets/media/interface/x-history-queries.gif)
 
 ::: interact
 
