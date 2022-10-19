@@ -19,7 +19,7 @@ export const facetSchema = createMutableSchema<
   modelName: ({ type }) => getFacetConfig(type).modelName as any,
   filters: {
     $path: 'values',
-    $subSchema: ({ type }) => getFacetConfig(type).schema as any,
+    $subSchema: ({ type }) => getFacetConfig(type).schema,
     $context: {
       facetId: 'facet'
     }
