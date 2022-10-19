@@ -1,4 +1,4 @@
-import { DeepPartial, Dictionary } from '@empathyco/x-utils';
+import { DeepPartial, Dictionary, ExtractPath } from '@empathyco/x-utils';
 import { PluginAPI } from 'tailwindcss/types/config';
 import { Config } from 'tailwindcss';
 import { ReturnOfComponents } from './x-tailwind-plugin/components';
@@ -93,7 +93,12 @@ export type DynamicCssStylesOptions = Dictionary<{
  *
  * @public
  */
-export type TailwindHelpers = PluginAPI;
+export type TailwindHelpers = PluginAPI & {
+  theme: <TDefaultValue = Config['theme']>(
+    path?: ExtractPath<typeof Theme>,
+    defaultValue?: TDefaultValue
+  ) => TDefaultValue;
+};
 
 /**
  * Represents the return type of {@link PluginOptions.components}.
