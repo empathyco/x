@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.196](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.195...@empathyco/x-components@3.0.0-alpha.196) (2022-10-19)
+
+### Features
+
+- **search-box:** add `SearchInputPlaceholder` component (#771)
+  ([a2e73e3](https://github.com/empathyco/x/commit/a2e73e3895c5454898fbc7ddc6d2202e03448fff)),
+  closes [EX-7178](https://searchbroker.atlassian.net/browse/EX-7178)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.195](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.194...@empathyco/x-components@3.0.0-alpha.195) (2022-10-19)
 
 **Note:** Version bump only for package @empathyco/x-components
