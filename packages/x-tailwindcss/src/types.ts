@@ -12,7 +12,7 @@ import Theme from './x-tailwind-plugin/theme';
  *
  * @example
  * ```typescript
- * const primaryColor: CssVariable = '--color-primary';
+ * const leadColor: CssVariable = '--color-lead';
  * ```
  *
  * @internal
@@ -35,7 +35,7 @@ type CssClassSelector = `.${string}`;
  *
  * @example
  * ```typescript
- * const nestedSelector: CssNestedSelector = '&--primary';
+ * const nestedSelector: CssNestedSelector = '&--lead';
  * ```
  *
  * @internal
@@ -59,10 +59,10 @@ type CssPseudoSelector = `:${string}`;
  * @example
  * ```typescript
  * const cssOptions: CssStyleOptions = {
- *   '--color-primary': 'blue',
+ *   '--color-lead': 'blue',
  *   '.btn': {
- *     '&--primary': {
- *       color: 'var(--color-primary)',
+ *     '&--lead': {
+ *       color: 'var(--color-lead)',
  *       gap: theme('spacing.2')
  *     }
  *   }
