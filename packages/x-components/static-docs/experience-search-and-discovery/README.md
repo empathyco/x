@@ -10,7 +10,7 @@ However, it’s not enough. With the advanced features provided by some well-kno
 shoppers need a new dimension to **connect effortlessly** to the most relevant products, enjoy a
 **smooth user experience**, and take advantage of **outstanding search and discovery capabilities**.
 
-![Experience search and discovery](~@/assets/media/interface/experience-search-intro.svg)
+![Experience search and discovery](~@assets/media/interface/experience-search-intro.svg)
 
 
 ## Interface X and Interface X for Apps, the solution
