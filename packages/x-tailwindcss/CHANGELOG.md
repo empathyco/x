@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.21...@empathyco/x-tailwindcss@0.2.0-alpha.22) (2022-10-19)
+
+### Features
+
+- **types:** add autocomplete to theme function in TailwindHelpers (#788)
+  ([d1c7a29](https://github.com/empathyco/x/commit/d1c7a290d1c95f03941f451069fe321ee142f998)),
+  closes [EX-7085](https://searchbroker.atlassian.net/browse/EX-7085)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.20...@empathyco/x-tailwindcss@0.2.0-alpha.21) (2022-10-19)
 
 ### Features
