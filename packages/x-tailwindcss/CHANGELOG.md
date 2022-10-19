@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.20...@empathyco/x-tailwindcss@0.2.0-alpha.21) (2022-10-19)
+
+### Features
+
+- **design-system:** update color names and values (#785)
+  ([6826c48](https://github.com/empathyco/x/commit/6826c4845249cfa14793a81553214670b8c895c8)),
+  closes [EX-7163](https://searchbroker.atlassian.net/browse/EX-7163)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.19...@empathyco/x-tailwindcss@0.2.0-alpha.20) (2022-10-14)
 
 ### Continuous Integration
