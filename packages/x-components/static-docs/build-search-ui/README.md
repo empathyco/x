@@ -20,7 +20,7 @@ Start building your search and discovery experience:
 
 ::: slot right-intro-column
 
-<img :src="$withBase('/assets/media/build-search-ui.svg')" alt="Build Your Search UI">
+<img :src="$withBase('/assets/media/interface/build-search-ui.svg')" alt="Build Your Search UI">
 
 :::
 

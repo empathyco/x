@@ -9,8 +9,6 @@ tags:
   - x components
 ---
 
-# Integrate Interface X Archetype into an existing website
-
 In this tutorial, you'll learn how to integrate the Interface&nbsp;X&nbsp;Archetype project in your
 commerce store in a matter of minutes. You can use the X&nbsp;Archetype **as is** or you can
 **[extend](web-archetype-development-guide.md)** the search and discovery interface experience to
@@ -54,7 +52,7 @@ Automatic initialization is the easiest way to integrate the Interface&nbsp;X pr
 1. **Configure the JavaScript snippet** to define either an initialization object or a function.
 2. **Load and initialize** the Interface&nbsp;X script.
 
-#### Configuring the snippet
+### Configuring the snippet
 
 First, add the JavaScript snippet configuration to define multiple initialization options, i.e. the
 API to use, the language or currency to display, or even the tagging parameters to collect
@@ -100,7 +98,7 @@ more information on the supported parameters, check out
 
 :::
 
-#### Loading the script
+### Loading the script
 
 Once the snippet configuration is ready, add the Interface&nbsp;X script to your webpage. The script
 is hosted in a URL with the following syntax:
@@ -153,7 +151,7 @@ On-demand initialization allows you to control when Interface&nbsp;X is loaded.
 1. **Load** the Interface&nbsp;X script.
 2. **Initialize** Interface&nbsp;X.
 
-#### Loading the script
+### Loading the script
 
 Add the Interface&nbsp;X script hosted in a URL with the following syntax:
 
@@ -174,7 +172,7 @@ attribute `src` so that it points to the staging environment as follows:
 <script src="https://x.staging.empathy.co/my-store/app.js" type="module"></script>
 ```
 
-#### Initializing Interface&nbsp;X
+### Initializing Interface&nbsp;X
 
 Since no initialization configuration is defined when loading the script, you need to **invoke the
 initialization function** created automatically in the
@@ -214,7 +212,7 @@ out further information about:
   subscribe to when initializing
 - **Functions supported by the [X&nbsp;API object](#x-api)** to initialize Interface&nbsp;X
 
-#### Snippet configuration
+### Snippet configuration
 
 The
 [snippet configuration](https://github.com/empathyco/x-archetype/blob/main/public/snippet-script.js)
@@ -253,7 +251,7 @@ does **not use any cookies** in its libraries.
 
 :::
 
-#### Callbacks and Interface X events types
+### Callbacks and Interface X events types
 
 You can use a **callback** to subscribe to specific **X&nbsp;events&nbsp;types** to perform
 particular actions when triggered.
@@ -293,7 +291,7 @@ However, every module has its own sort of components (e.g. Empathize X events, S
 etc.). See the corresponding `events.types.ts` file for each module in the
 [X&nbsp;Components library in GitHub](https://github.com/empathyco/x/tree/main/packages/x-components/src/x-modules).
 
-#### X API
+### X API
 
 The
 [X&nbsp;API](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-installer/api/base-api.ts)
