@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.198](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.197...@empathyco/x-components@3.0.0-alpha.198) (2022-10-20)
+
+### Bug Fixes
+
+- **related-tags:** use `query` instead of `tag` as `key` to ensure unique values (#792)
+  ([53e86bd](https://github.com/empathyco/x/commit/53e86bd43137a9e4cd389f58e0efce8bcf63632c)),
+  closes [EX-7236](https://searchbroker.atlassian.net/browse/EX-7236)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.197](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.196...@empathyco/x-components@3.0.0-alpha.197) (2022-10-19)
 
 **Note:** Version bump only for package @empathyco/x-components
