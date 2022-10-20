@@ -6,7 +6,6 @@ tags:
   - cookies
   - local storage
   - history queries
-  - cookies
   - cookieless
 ---
 
