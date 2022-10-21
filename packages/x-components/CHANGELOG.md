@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.200](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.199...@empathyco/x-components@3.0.0-alpha.200) (2022-10-21)
+
+### Continuous Integration
+
+- export webpack config from `x-archetype-utils` (#760)
+  ([0d7bfa2](https://github.com/empathyco/x/commit/0d7bfa2a63b5aaa3b220a0338fcefdaedc888f32)),
+  closes [EX-7222](https://searchbroker.atlassian.net/browse/EX-7222)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.199](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.198...@empathyco/x-components@3.0.0-alpha.199) (2022-10-20)
 
 ### Documentation
