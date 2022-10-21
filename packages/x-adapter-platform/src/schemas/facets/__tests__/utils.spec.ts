@@ -1,4 +1,6 @@
-import { hierarchicalFilterSchema, numberFilterSchema, simpleFilterSchema } from '../../models';
+import { hierarchicalFilterSchema } from '../../models/filters/hierarchical-filter.schema';
+import { numberFilterSchema } from '../../models/filters/number-filter.schema';
+import { simpleFilterSchema } from '../../models/filters/simple-filter.schema';
 import { getFacetConfig } from '../utils';
 
 describe('getFacetConfig', () => {
