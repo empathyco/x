@@ -7,7 +7,7 @@ import { TaggingRequest } from './request/tagging-request.model';
  */
 export interface Taggable {
   /** Tagging object containing the different taggable events. */
-  tagging: Tagging;
+  tagging?: Tagging;
 }
 
 /**
