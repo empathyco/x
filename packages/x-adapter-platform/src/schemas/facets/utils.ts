@@ -11,7 +11,7 @@ import { FacetConfig } from './types';
  * @returns The facet's config.
  */
 export function getFacetConfig(type: PlatformFacetType): FacetConfig {
-  return {
+  const typeConfigs: Record<PlatformFacetType, FacetConfig> = {
     value: {
       modelName: 'SimpleFacet',
       schema: simpleFilterSchema
@@ -24,5 +24,6 @@ export function getFacetConfig(type: PlatformFacetType): FacetConfig {
       modelName: 'NumberRangeFacet',
       schema: numberFilterSchema
     }
-  }[type] as FacetConfig;
+  };
+  return typeConfigs[type] ?? typeConfigs.value;
 }
