@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.201](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.200...@empathyco/x-components@3.0.0-alpha.201) (2022-10-21)
+
+### ⚠ BREAKING CHANGES
+
+- **tagging:** `tagging` property of `Taggable` and `queryTagging` property of `SearchResponse` are
+  optional.
+
+### Features
+
+- **tagging:** make `tagging` and `queryTagging` optional (#797)
+  ([0e49156](https://github.com/empathyco/x/commit/0e49156308d4e77d667a2191697101674cdbf213)),
+  closes [EX-7231](https://searchbroker.atlassian.net/browse/EX-7231)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.200](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.199...@empathyco/x-components@3.0.0-alpha.200) (2022-10-21)
 
 ### Continuous Integration
