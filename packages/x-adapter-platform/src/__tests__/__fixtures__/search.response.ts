@@ -1,5 +1,6 @@
-/* eslint-disable max-len */
+import { PlatformSearchResponse } from '../../types/responses/search-response.model';
 
+/* eslint-disable max-len */
 export const platformSearchResponse = {
   catalog: {
     content: [
@@ -301,4 +302,4 @@ export const platformSearchResponse = {
       }
     ]
   }
-};
+} as any as PlatformSearchResponse;
