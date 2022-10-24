@@ -48,12 +48,10 @@
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { relatedTagsXModule } from '../x-module';
-  import { generateProps } from '../../../components/dynamic-props.mixin';
+  import { dynamicPropsMixin, extendedProps } from '../../../components/dynamic-props.mixin';
   import RelatedTag from './related-tag.vue';
 
   const nodes = ['list', 'listitem', 'tag'] as const;
-  type extendedProps = typeof nodes[number];
-  const props = generateProps<extendedProps>(nodes);
   /**
    * This component renders a set of [`RelatedTag`](./x-components.related-tag) components by
    * default to select from after a query is performed to fine-tune search.
@@ -67,7 +65,9 @@
     components: { RelatedTag },
     mixins: [xComponentMixin(relatedTagsXModule)]
   })
-  export default class RelatedTags extends mixins(Vue.extend({ props })) {
+  export default class RelatedTags extends mixins(
+    dynamicPropsMixin<extendedProps<typeof nodes>>(nodes)
+  ) {
     /**
      * Animation component that will be used to animate the suggestion.
      *

@@ -1,37 +1,24 @@
+import Vue from 'vue';
 import { PropValidator } from 'vue/types/options';
+import { ExtendedVue } from 'vue/types/vue';
+
+export type extendedProps<T extends readonly string[]> = T[number];
 
 /**
- * Generates props.
+ * Dynamic props mixin.
  *
  * @param elements - The props names to create.
  *
- * @returns An object.
+ * @returns Extended vue.
+ *
  */
-export function generateProps<T extends string[number]>(
+export function dynamicPropsMixin<T extends string[number]>(
   elements: readonly string[]
-): Record<T, PropValidator<string>> {
-  return elements.reduce(
-    (a, v) => ({ ...a, [v]: { type: String } }),
-    {} as Record<T, PropValidator<string>>
-  );
+): ExtendedVue<Vue, unknown, unknown, unknown, Record<T, string>> {
+  return Vue.extend({
+    props: elements.reduce(
+      (a, v) => ({ ...a, [v]: { type: String } }),
+      {} as Record<T, PropValidator<string>>
+    )
+  });
 }
-
-// export function dynamicPropsMixin<T extends string[number]>(
-//   elements: readonly string[]
-// ): VueConstructor {
-//   return Vue.extend({
-//     props: elements.reduce((a, v) => ({ ...a, [v]: { type: String } }), {}) as Record<
-//       T,
-//       PropValidator<string>
-//     >
-//   });
-// }
-//
-// const elements = ['list', 'listitem', 'tag'] as const;
-// type extendedProps = typeof elements[number];
-// export const propsMixin = Vue.extend({
-//   props: elements.reduce((a, v) => ({ ...a, [v]: { type: String } }), {}) as Record<
-//     extendedProps,
-//     PropValidator<string>
-//   >
-// });
