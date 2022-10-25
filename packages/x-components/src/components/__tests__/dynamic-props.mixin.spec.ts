@@ -1,18 +1,41 @@
-import { extendedProps } from '../dynamic-props.mixin';
+import Vue from 'vue';
+import { mount, Wrapper } from '@vue/test-utils';
+import { ExtractArrayItems } from '@empathyco/x-utils';
+import { dynamicPropsMixin } from '../dynamic-props.mixin';
 
-describe('extendedProps', () => {
-  it('only allows values from the given array', () => {
-    const elements = ['prop1', 'prop2'] as const;
-    let test: extendedProps<typeof elements>;
-    // @ts-expect-error to check that the type only allows the desired values
-    test = 'some other string';
-    // @ts-expect-error to check that the type only allows the desired values
-    test = 6;
-    // @ts-expect-error to check that the type only allows the desired values
-    test = {};
-    test = 'prop1';
-    expect(test).toEqual('prop1');
-    test = 'prop2';
-    expect(test).toEqual('prop2');
+const renderComponent = ({
+  props = ['list', 'button'] as const
+}: ComponentOptions = {}): ComponentAPI => {
+  const wrapper = mount({
+    mixins: [dynamicPropsMixin<ExtractArrayItems<typeof props>>(props)],
+    render: h => h(),
+    props: ['data']
+  });
+  return { wrapper };
+};
+
+describe('dynamicPropsMixin', () => {
+  it('expects to have the defined props from the mixin', () => {
+    const { wrapper } = renderComponent();
+    const props = Object.keys(wrapper.props());
+    expect(props).toHaveLength(3);
+    expect(props.includes('list')).toBeTruthy();
+    expect(props.includes('button')).toBeTruthy();
+    expect(props.includes('data')).toBeTruthy();
   });
 });
+
+/**
+ * The options for the `renderComponent` function.
+ */
+interface ComponentOptions {
+  props?: readonly string[];
+}
+
+/**
+ * Test API for the component.
+ */
+interface ComponentAPI {
+  /** The wrapper for the component. */
+  wrapper: Wrapper<Vue>;
+}

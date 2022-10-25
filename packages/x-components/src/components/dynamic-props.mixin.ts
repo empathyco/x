@@ -10,7 +10,7 @@ import { ExtendedVue } from 'vue/types/vue';
  * @returns Extended vue.
  *
  */
-export function dynamicPropsMixin<T extends string[number]>(
+export function dynamicPropsMixin<T extends string>(
   elements: readonly string[]
 ): ExtendedVue<Vue, unknown, unknown, unknown, Record<T, string>> {
   return Vue.extend({
