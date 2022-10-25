@@ -1,15 +1,18 @@
 <template>
   <component :is="animation">
     <div
-      v-if="isOpen"
+      v-show="isOpen && !emptySlot"
       @mousedown.prevent
       @focusin="open"
       @focusout="close"
       class="x-empathize"
       data-test="empathize"
+      style="content-visibility: auto"
     >
       <!-- @slot (Required) Modal container content -->
-      <slot />
+      <slot>
+        <span ref="emptySlot" hidden aria-hidden="true"></span>
+      </slot>
     </div>
   </component>
 </template>
@@ -74,6 +77,22 @@
     protected isOpen = false;
 
     /**
+     * The default slot is empty to avoid opening empathize with no content.
+     *
+     * @internal
+     */
+    protected emptySlot: boolean | Element = true;
+
+    /**
+     * Detects if the default slot has been replaced.
+     *
+     * @internal
+     */
+    updated(): void {
+      this.emptySlot = !!this.$refs.emptySlot;
+    }
+
+    /**
      * Open empathize. This method will be executed on any event in
      * {@link Empathize.eventsToOpenEmpathize} and on DOM event `focusin` on Empathize root element.
      *
@@ -119,6 +138,7 @@
     changeOpenState(newOpenState: boolean, metadata: WireMetadata): void {
       if (this.isOpen !== newOpenState) {
         this.isOpen = newOpenState;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         this.$x.emit(
           this.isOpen ? 'EmpathizeOpened' : 'EmpathizeClosed',
           undefined,
