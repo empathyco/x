@@ -45,10 +45,11 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
+  import { ExtractArrayItems } from '@empathyco/x-utils';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { relatedTagsXModule } from '../x-module';
-  import { dynamicPropsMixin, extendedProps } from '../../../components/dynamic-props.mixin';
+  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
   import RelatedTag from './related-tag.vue';
 
   const nodes = ['list', 'listitem', 'tag'] as const;
@@ -66,7 +67,7 @@
     mixins: [xComponentMixin(relatedTagsXModule)]
   })
   export default class RelatedTags extends mixins(
-    dynamicPropsMixin<extendedProps<typeof nodes>>(nodes)
+    dynamicPropsMixin<ExtractArrayItems<typeof nodes>>(nodes)
   ) {
     /**
      * Animation component that will be used to animate the suggestion.

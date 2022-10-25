@@ -2,8 +2,6 @@ import Vue from 'vue';
 import { PropValidator } from 'vue/types/options';
 import { ExtendedVue } from 'vue/types/vue';
 
-export type extendedProps<T extends readonly string[]> = T[number];
-
 /**
  * Dynamic props mixin.
  *
