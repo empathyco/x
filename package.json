@@ -5,7 +5,7 @@
     "postinstall": "lerna bootstrap --hoist && npm run build",
     "postci": "lerna bootstrap --hoist --ci && npm run build",
     "build": "lerna run build",
-    "lint": "eslint packages --ext .ts,.tsx,.vue",
+    "lint": "eslint packages --ext .ts,.tsx,.vue --quiet",
     "lint:fix": "eslint packages --ext .ts,.tsx,.vue --fix",
     "test": "lerna run test --parallel",
     "serve": "lerna run serve --parallel",
@@ -24,6 +24,10 @@
     "lerna": "~4.0.0",
     "lint-staged": "~11.1.2",
     "prettier": "~2.3.2"
+  },
+  "engines": {
+    "node": "16",
+    "npm": ">=7"
   },
   "prettier": "@empathyco/eslint-plugin-x/prettier-config",
   "lint-staged": {

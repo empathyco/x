@@ -75,6 +75,7 @@
     min-width: 0;
     border: none;
 
+    > .x-input-placeholder,
     &::placeholder {
       // typography
       color: var(--x-color-text-input-group-placeholder-default);

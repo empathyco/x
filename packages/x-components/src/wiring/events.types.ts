@@ -1,5 +1,5 @@
 import { Result, ResultVariant, Suggestion } from '@empathyco/x-types';
-import { ExtractPayload } from '../store/index';
+import { ExtractPayload } from '../store/store.types';
 import { ArrowKey, PropsWithType } from '../utils';
 import { DeviceXEvents } from '../x-modules/device';
 import { EmpathizeXEvents } from '../x-modules/empathize/events.types';
@@ -18,6 +18,7 @@ import { SearchBoxXEvents } from '../x-modules/search-box/events.types';
 import { SearchXEvents } from '../x-modules/search/events.types';
 import { TaggingXEvents } from '../x-modules/tagging/events.types';
 import { UrlXEvents } from '../x-modules/url/events.types';
+import { XModuleName } from '../x-modules/x-modules.types';
 import { WireMetadata } from './wiring.types';
 
 /**
@@ -202,6 +203,11 @@ export interface XEventsTypes
     payload: ExtractPayload<XEvent>;
     metadata: WireMetadata;
   };
+  /**
+   * A new {@link XModule} has been registered.
+   * Payload: The name of the XModule that has been registered.
+   */
+  ModuleRegistered: XModuleName;
 }
 
 /**

@@ -1,71 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>x-tailwindcss demo</title>
   </head>
   <body>
-    <div id="app" class="x-flex x-flex-col">
+    <div id="app" class="x-flex x-flex-col x-m-12">
       <h1 class="x-text-lg x-m-4">Components</h1>
-      <div class="x-flex x-flex-row x-items-start">
-        <button class="x-btn x-btn-lg x-m-4">
-          <span class="x-icon">★</span>
-          <span>large</span>
-        </button>
+      <div class="x-flex x-flex-col x-items-start x-gap-20">
+        <div class="x-flex x-flex-row x-items-start x-gap-12">
+          <h1 class="x-text-md x-m-4">Default</h1>
+          <button class="x-button">
+            <span>♥️</span>
+            <span>button</span>
+          </button>
 
-        <button class="x-btn x-m-4">
-          <span class="x-icon">★</span>
-          <span>default</span>
-        </button>
+          <button class="x-button" disabled>
+            <span>♥️</span>
+            <span>button disabled</span>
+          </button>
+        </div>
 
-        <button class="x-btn x-btn-md x-m-4">
-          <span class="x-icon">★</span>
-          <span>medium</span>
-        </button>
+        <div class="x-flex x-flex-row x-items-start x-gap-12">
+          <h1 class="x-text-md x-m-4">Sizes</h1>
 
-        <button class="x-btn x-btn-sm x-m-4">
-          <span class="x-icon">★</span>
-          <span>small</span>
-        </button>
-      </div>
+          <button class="x-button x-button-xs">
+            <span>♥️</span>
+            <span>xs</span>
+          </button>
 
-      <h1 class="x-text-lg x-m-4">Utilities</h1>
-      <div class="x-flex x-flex-row x-items-start">
-        <button class="x-btn x-m-4 x-btn-height-lg">
-          <span class="x-icon">★</span>
-          <span>default</span>
-        </button>
-        <button class="x-btn x-m-4 x-border-large">
-          <span class="x-icon">★</span>
-          <span>default</span>
-        </button>
-      </div>
+          <button class="x-button x-button-sm">
+            <span>♥️</span>
+            <span>sm</span>
+          </button>
 
-      <h1 class="x-text-lg x-m-4">Dynamic Utilities</h1>
-      <div class="x-flex x-flex-row x-items-start">
-        <button class="x-btn x-m-4 x-btn-height-[50px]">
-          <span class="x-icon">★</span>
-          <span>default</span>
-        </button>
+          <button class="x-button x-button-md">
+            <span>♥️</span>
+            <span>md</span>
+          </button>
 
-        <button class="x-btn x-m-4 x-background-success-25">
-          <span class="x-icon">★</span>
-          <span>default</span>
-        </button>
+          <button class="x-button x-button-lg">
+            <span>♥️</span>
+            <span>lg</span>
+          </button>
+        </div>
 
-        <button class="x-btn x-m-4 x-font-util-20">
-          <span class="x-icon">★</span>
-          <span>default</span>
-        </button>
-      </div>
+        <div class="x-flex x-flex-row x-items-start x-gap-12">
+          <h1 class="x-text-md x-m-4">Colors</h1>
 
-      <h1 class="x-text-lg x-m-4">Dynamic Components</h1>
-      <div class="x-flex x-flex-row x-items-start">
-        <button class="x-dynamic-button-gap-4 x-m-4">
-          <span class="x-icon">★</span>
-          <span>default</span>
-        </button>
+          <button class="x-button x-button-lead">
+            <span>♥️</span>
+            <span>lead</span>
+          </button>
+
+          <button class="x-button x-button-auxiliary">
+            <span>♥️</span>
+            <span>auxiliary</span>
+          </button>
+
+          <button class="x-button x-button-accent">
+            <span>♥️</span>
+            <span>accent</span>
+          </button>
+
+          <button class="x-button x-button-highlight">
+            <span>♥️</span>
+            <span>highlight</span>
+          </button>
+
+          <button class="x-button x-button-success">
+            <span>♥️</span>
+            <span>success</span>
+          </button>
+
+          <button class="x-button x-button-warning">
+            <span>♥️</span>
+            <span>warning</span>
+          </button>
+
+          <button class="x-button x-button-error">
+            <span>♥️</span>
+            <span>error</span>
+          </button>
+
+          <button class="x-button x-button-lead" disabled>
+            <span>♥️</span>
+            <span>disabled</span>
+          </button>
+        </div>
+
+        <div class="x-flex x-flex-row x-items-start x-gap-12">
+          <h1 class="x-text-md x-m-4">Layout</h1>
+
+          <button class="x-button x-button-square" title="square">♥️</button>
+
+          <button class="x-button x-button-circle" title="circle">♥️</button>
+        </div>
+
+        <div class="x-flex x-flex-row x-items-start x-gap-12">
+          <h1 class="x-text-md x-m-4">Outlined</h1>
+
+          <button class="x-button x-button-outlined">
+            <span>♥️</span>
+            <span>outlined</span>
+          </button>
+
+          <button class="x-button x-button-outlined" disabled>
+            <span>♥️</span>
+            <span>outlined disabled</span>
+          </button>
+
+          <button class="x-button x-button-outlined x-button-lead">
+            <span>♥️</span>
+            <span>outlined lead</span>
+          </button>
+
+          <button class="x-button x-button-outlined x-button-auxiliary">
+            <span>♥️</span>
+            <span>outlined auxiliary</span>
+          </button>
+
+          <button class="x-button x-button-outlined x-button-accent">
+            <span>♥️</span>
+            <span>outlined accent</span>
+          </button>
+
+          <button class="x-button x-button-outlined x-button-highlight">
+            <span>♥️</span>
+            <span>outlined highlight</span>
+          </button>
+
+          <button class="x-button x-button-outlined x-button-success">
+            <span>♥️</span>
+            <span>outlined success</span>
+          </button>
+
+          <button class="x-button x-button-outlined x-button-warning">
+            <span>♥️</span>
+            <span>outlined warning</span>
+          </button>
+
+          <button class="x-button x-button-outlined x-button-error">
+            <span>♥️</span>
+            <span>outlined error</span>
+          </button>
+        </div>
+
+        <div class="x-flex x-flex-row x-items-start x-gap-12">
+          <h1 class="x-text-md x-m-4">Ghost</h1>
+
+          <button class="x-button x-button-ghost">
+            <span>♥️</span>
+            <span>ghost</span>
+          </button>
+
+          <button class="x-button x-button-ghost" disabled>
+            <span>♥️</span>
+            <span>ghost disabled</span>
+          </button>
+
+          <button class="x-button x-button-ghost x-button-lead">
+            <span>♥️</span>
+            <span>ghost lead</span>
+          </button>
+
+          <button class="x-button x-button-ghost x-button-auxiliary">
+            <span>♥️</span>
+            <span>ghost auxiliary</span>
+          </button>
+
+          <button class="x-button x-button-ghost x-button-accent">
+            <span>♥️</span>
+            <span>ghost accent</span>
+          </button>
+
+          <button class="x-button x-button-ghost x-button-highlight">
+            <span>♥️</span>
+            <span>ghost highlight</span>
+          </button>
+
+          <button class="x-button x-button-ghost x-button-success">
+            <span>♥️</span>
+            <span>ghost success</span>
+          </button>
+
+          <button class="x-button x-button-ghost x-button-warning">
+            <span>♥️</span>
+            <span>ghost warning</span>
+          </button>
+
+          <button class="x-button x-button-ghost x-button-error">
+            <span>♥️</span>
+            <span>ghost error</span>
+          </button>
+        </div>
+
+        <div class="x-flex x-flex-row x-items-start x-gap-12">
+          <h1 class="x-text-md x-m-4">Combined</h1>
+
+          <button class="x-custom-button">
+            <span>♥️</span>
+            <span>custom</span>
+          </button>
+        </div>
       </div>
     </div>
   </body>

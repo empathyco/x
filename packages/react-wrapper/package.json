@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-react-wrapper",
-  "version": "4.0.0-alpha.7",
+  "version": "4.0.0-alpha.8",
   "description": "A proxy that transforms Vue components into React ones",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -20,6 +20,9 @@
     "type": "git",
     "url": "https://github.com/empathyco/x.git",
     "directory": "packages/react-wrapper"
+  },
+  "engines": {
+    "node": "16"
   },
   "scripts": {
     "serve": "vite serve tests/demo",

@@ -2,6 +2,9 @@
 
 .x-input {
   // layout
+  position: relative;
+  display: flex;
+  overflow: hidden;
   box-sizing: border-box;
   margin: 0;
   min-width: 0;
@@ -43,6 +46,19 @@
     border-color: var(--x-color-border-input-default-focus);
   }
 
+  > .x-input-placeholder {
+    position: absolute;
+    height: 100%;
+  }
+
+  > .x-input {
+    background: none;
+    border: none;
+    padding: 0;
+    flex: 1 1 auto;
+  }
+
+  > .x-input-placeholder,
   &::placeholder {
     // typography
     color: var(--x-color-text-input-placeholder-default);

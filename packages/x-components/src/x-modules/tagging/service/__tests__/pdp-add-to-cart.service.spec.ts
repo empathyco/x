@@ -137,7 +137,7 @@ describe('testing pdp add to cart', () => {
     service.trackAddToCart();
 
     expect(sessionGetItemSpy).toHaveBeenCalledWith(`add-to-cart-${productPathName}`);
-    expect(storeDispatchSpy).toHaveBeenCalledWith('x/tagging/track', result.tagging.add2cart);
+    expect(storeDispatchSpy).toHaveBeenCalledWith('x/tagging/track', result.tagging?.add2cart);
 
     commitTaggingConfig(store, { clickedResultStorageKey: 'id', clickedResultStorageTTLMs });
     service.storeResultClicked(result);
@@ -146,6 +146,14 @@ describe('testing pdp add to cart', () => {
     service.trackAddToCart(id);
 
     expect(sessionGetItemSpy).toHaveBeenCalledWith(`add-to-cart-${id}`);
-    expect(storeDispatchSpy).toHaveBeenCalledWith('x/tagging/track', result.tagging.add2cart);
+    expect(storeDispatchSpy).toHaveBeenCalledWith('x/tagging/track', result.tagging?.add2cart);
+  });
+
+  it('does not dispatch the add to track if result has no tagging', () => {
+    commitTaggingConfig(store, {});
+    service.storeResultClicked({ ...result, tagging: undefined });
+    service.trackAddToCart();
+
+    expect(storeDispatchSpy).not.toHaveBeenCalledWith('x/tagging/track', expect.anything());
   });
 });

@@ -189,6 +189,11 @@ Then('related results have changed', () => {
     });
 });
 
+// Scroll
+When('scrolling down to result {string}', (resultId: string) => {
+  cy.get(`[data-scroll=${resultId}]`).scrollIntoView({ easing: 'swing', duration: 1000 });
+});
+
 // Search Box
 When('search-input is focused', () => {
   cy.focusSearchInput();
@@ -248,19 +253,83 @@ Then(
   (key: string, value: string) => {
     cy.wait('@interceptedResults')
       .its('request.body')
-      .then(JSON.parse)
-      .should('have.property', key, value === 'default' ? '' : value);
+      .should((body: string) => {
+        expect(JSON.parse(body)).to.have.property(key, value);
+      });
   }
 );
+
+Then('search request contains sort parameter with value {string}', (value: string) => {
+  cy.wait('@interceptedResults')
+    .its('request.body')
+    .should((body: string) => {
+      expect(JSON.parse(body)).to.have.property('sort', value === 'default' ? '' : value);
+    });
+});
 
 Then(
   'search request contains extra parameter {string} with value {string}',
   (key: string, value: string) => {
     cy.wait('@interceptedResults')
       .its('request.body')
-      .then(JSON.parse)
-      .its('extraParams')
-      .should('have.property', key, value);
+      .should((body: string) => {
+        expect(JSON.parse(body).extraParams).to.have.property(key, value);
+      });
+  }
+);
+
+Then(
+  'recommendations request contains extra parameter {string} with value {string}',
+  (key: string, value: string) => {
+    cy.wait('@interceptedRecommendations')
+      .its('request.body')
+      .should((body: string) => {
+        expect(JSON.parse(body).extraParams).to.have.property(key, value);
+      });
+  }
+);
+
+Then(
+  'popular searches request contains extra parameter {string} with value {string}',
+  (key: string, value: string) => {
+    cy.wait('@interceptedPopularSearches')
+      .its('request.body')
+      .should((body: string) => {
+        expect(JSON.parse(body).extraParams).to.have.property(key, value);
+      });
+  }
+);
+
+Then(
+  'next queries request contains extra parameter {string} with value {string}',
+  (key: string, value: string) => {
+    cy.wait('@interceptedNextQueries')
+      .its('request.body')
+      .should((body: string) => {
+        expect(JSON.parse(body).extraParams).to.have.property(key, value);
+      });
+  }
+);
+
+Then(
+  'related tags request contains extra parameter {string} with value {string}',
+  (key: string, value: string) => {
+    cy.wait('@interceptedRelatedTags')
+      .its('request.body')
+      .should((body: string) => {
+        expect(JSON.parse(body).extraParams).to.have.property(key, value);
+      });
+  }
+);
+
+Then(
+  'query suggestions request contains extra parameter {string} with value {string}',
+  (key: string, value: string) => {
+    cy.wait('@interceptedQuerySuggestions')
+      .its('request.body')
+      .should((body: string) => {
+        expect(JSON.parse(body).extraParams).to.have.property(key, value);
+      });
   }
 );
 

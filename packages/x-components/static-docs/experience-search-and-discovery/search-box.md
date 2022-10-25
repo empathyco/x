@@ -1,14 +1,17 @@
 ---
 title: Search Box UI
+tags: 
+  - search input
+  - search bar
+  - search field
+  - input
 ---
-
-# Search Box UI
 
 The Search&nbsp;Box UI Component is the main entry point for search where shoppers can type what
 they're looking for in your shop. It usually includes an input field, a search button, and a clear
 button.
 
-<img :src="$withBase('/assets/media/xcomponents_func_searchbox.svg')" alt="Search Box"> <br>
+![Search box](~@assets/media/interface/x-search-box.svg)
 
 ::: interact
 

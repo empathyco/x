@@ -6,9 +6,8 @@ tags:
   - cookies
   - local storage
   - history queries
+  - cookieless
 ---
-
-# Interface X data privacy and browser local storage
 
 Interface&nbsp;X for web **does not use cookies** for storing data. The
 [Interface X Components](readme.md#interface-x-and-interface-x-for-apps-the-solution) use the web browser's local storage to save the technical data
