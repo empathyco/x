@@ -5,14 +5,12 @@
     tag="ul"
     class="x-list x-related-tags"
     data-test="related-tags"
-    :class="list"
   >
     <li
       v-for="relatedTag in relatedTags"
       :key="relatedTag.query"
       class="x-related-tags__item"
       data-test="related-tag-item"
-      :class="listitem"
     >
       <!--
         @slot Custom content that replaces the RelatedTag component.
@@ -20,7 +18,7 @@
         @binding {boolean} highlightCurated - True if the curated RTs should be displayed.
        -->
       <slot name="related-tag" v-bind="{ relatedTag, highlightCurated }">
-        <RelatedTag :highlightCurated="highlightCurated" :relatedTag="relatedTag" :class="tag">
+        <RelatedTag :highlightCurated="highlightCurated" :relatedTag="relatedTag">
           <template #default="{ relatedTag, isSelected, shouldHighlightCurated }">
             <!-- eslint-disable max-len -->
             <!--
@@ -44,15 +42,11 @@
   import { RelatedTag as RelatedTagModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { mixins } from 'vue-class-component';
-  import { ExtractArrayItems } from '@empathyco/x-utils';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { relatedTagsXModule } from '../x-module';
-  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
   import RelatedTag from './related-tag.vue';
 
-  const nodes = ['list', 'listitem', 'tag'] as const;
   /**
    * This component renders a set of [`RelatedTag`](./x-components.related-tag) components by
    * default to select from after a query is performed to fine-tune search.
@@ -66,9 +60,7 @@
     components: { RelatedTag },
     mixins: [xComponentMixin(relatedTagsXModule)]
   })
-  export default class RelatedTags extends mixins(
-    dynamicPropsMixin<ExtractArrayItems<typeof nodes>>(nodes)
-  ) {
+  export default class RelatedTags extends Vue {
     /**
      * Animation component that will be used to animate the suggestion.
      *
