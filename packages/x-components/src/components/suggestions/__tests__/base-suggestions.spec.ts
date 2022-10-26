@@ -95,35 +95,6 @@ describe('testing Base Suggestions component', () => {
     expect(getSuggestionsWrappers()).toHaveLength(0);
   });
 
-  it('renders suggestions without including their facets when `showFacets` prop is false', () => {
-    const suggestions = [
-      createPopularSearch('t-shirt', {
-        facets: [
-          createSimpleFacetStub('category', createFilter => [
-            createFilter('woman'),
-            createFilter('man')
-          ])
-        ]
-      }),
-      createPopularSearch('jeans', {
-        facets: [createSimpleFacetStub('category', createFilter => [createFilter('man')])]
-      })
-    ];
-
-    const { getSuggestionsWrappers } = renderBaseSuggestions({
-      defaultSlot: '<span>{{ suggestion.query }}{{ suggestion.facets[0] }}</span>',
-      showFacets: false,
-      suggestions
-    });
-    const suggestionsWrappers = getSuggestionsWrappers();
-
-    expect(suggestionsWrappers).toHaveLength(2);
-    suggestionsWrappers.forEach((suggestionWrapper, index) =>
-      expect(suggestionWrapper.text()).toBe(suggestions[index].query)
-    );
-  });
-
-  // eslint-disable-next-line max-len
   it('renders suggestions without facets when `showFacets` is false', () => {
     const suggestions = [
       createPopularSearch('t-shirt', {
