@@ -105,7 +105,7 @@
         UserSelectedASuggestion: this.suggestion,
         ...this.suggestionSelectedEvents
       };
-      if (this.hasFacets) {
+      if (this.filter) {
         events.UserClickedAFilter = this.filter;
       }
       return events;
@@ -135,7 +135,9 @@
      * @public
      */
     protected get filter(): BooleanFilter | undefined {
-      return this.hasFacets ? (this.suggestion.facets[0].filters[0] as BooleanFilter) : undefined;
+      return this.suggestion.facets?.length
+        ? (this.suggestion.facets[0].filters[0] as BooleanFilter)
+        : undefined;
     }
 
     /**
