@@ -240,7 +240,7 @@ must be rendered along with the suggestion with filters.
 
 This will render:
 
-- Chips //If `appendSuggestionWithoutFilter` is true
+- Chips //If `showPlainSuggestion` is true
 - Chips EXAMPLE
 
 ```vue
