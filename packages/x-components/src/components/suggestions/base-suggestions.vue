@@ -116,7 +116,8 @@
      * @returns - The list of suggestions to be rendered by this component.
      *
      * @internal
-     */ protected get suggestionsToRender(): Suggestion[] {
+     */
+     protected get suggestionsToRender(): Suggestion[] {
       return this.suggestions
         .flatMap(suggestion =>
           this.showFacets && suggestion.facets.length
@@ -234,7 +235,7 @@ another toy in the input field to try it out!_
 
 In this example, the filters of the suggestion will be rendered along with the query.
 
-The `appendSuggestionWithoutFilter` prop can be used to indicate if the suggestion without filter
+The `showPlainSuggestion` prop can be used to indicate if the suggestion without filter
 must be rendered along with the suggestion with filters.
 
 This will render:
@@ -244,7 +245,7 @@ This will render:
 
 ```vue
 <template>
-  <BaseSuggestions :suggestions="suggestions" showFacets appendSuggestionWithoutFilter />
+  <BaseSuggestions :suggestions="suggestions" showFacets showPlainSuggestion />
 </template>
 
 <script>
