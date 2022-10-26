@@ -67,6 +67,11 @@ if (process.env.NODE_ENV !== 'production') {
       path: '/infinite-scroll-body',
       name: 'Infinite Scroll Body',
       component: () => import('./views/infinite-scroll-body.vue')
+    },
+    {
+      path: '/accessibility-check',
+      name: 'Accessibility Check',
+      component: () => import('./views/accessibility-check.vue')
     }
   );
 }
