@@ -117,7 +117,7 @@
      *
      * @internal
      */
-     protected get suggestionsToRender(): Suggestion[] {
+    protected get suggestionsToRender(): Suggestion[] {
       return this.suggestions
         .flatMap(suggestion =>
           this.showFacets && suggestion.facets.length
@@ -235,8 +235,8 @@ another toy in the input field to try it out!_
 
 In this example, the filters of the suggestion will be rendered along with the query.
 
-The `showPlainSuggestion` prop can be used to indicate if the suggestion without filter
-must be rendered along with the suggestion with filters.
+The `showPlainSuggestion` prop can be used to indicate if the suggestion without filter must be
+rendered along with the suggestion with filters.
 
 This will render:
 
