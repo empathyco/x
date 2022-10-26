@@ -12,18 +12,13 @@ import { createPopularSearch } from '../../../__stubs__/popular-searches-stubs.f
 
 function renderBaseSuggestion({
   query = 'bebe',
-  suggestion = {
-    query: 'bebe lloron',
-    facets: [],
-    key: 'bebe lloron',
-    modelName: 'QuerySuggestion'
-  }
+  suggestion = createPopularSearch('bebe lloron')
 }: BaseSuggestionOptions = {}): BaseSuggestionAPI {
   const [, localVue] = installNewXPlugin();
+  const emit = jest.spyOn(XPlugin.bus, 'emit');
 
   const suggestionSelectedEvents: Partial<XEventsTypes> = {
-    UserSelectedAQuerySuggestion: suggestion,
-    UserTalked: 'belt'
+    UserSelectedAQuerySuggestion: suggestion
   };
 
   const wrapper = mount(BaseSuggestion, {
@@ -43,8 +38,8 @@ function renderBaseSuggestion({
     wrapper,
     suggestion,
     query,
-    localVue,
-    wireMetadata
+    wireMetadata,
+    emit
   };
 }
 
@@ -69,12 +64,7 @@ describe('testing Base Suggestion component', () => {
 
   it('has suggestion query parts matching query passed as prop retaining accent marks', () => {
     const { wrapper, suggestion, query } = renderBaseSuggestion({
-      suggestion: {
-        query: 'bebé lloron',
-        facets: [],
-        key: 'bebe lloron',
-        modelName: 'QuerySuggestion'
-      }
+      suggestion: createPopularSearch('bebé lloron')
     });
     const matchingPart = wrapper.find(getDataTestSelector('matching-part')).text();
 
@@ -84,77 +74,54 @@ describe('testing Base Suggestion component', () => {
 
   it('sanitizes the matching part of the suggestion query', () => {
     const { wrapper } = renderBaseSuggestion({
-      query: normalizeString('(b<ebé>)'),
-      suggestion: {
-        query: '(b<ebé>) lloron',
-        facets: [],
-        key: 'bebe lloron',
-        modelName: 'QuerySuggestion'
-      }
+      query: '(b<ebe>)',
+      suggestion: createPopularSearch('(b<ebé>) lloron')
     });
     const matchingPartHTML = wrapper.find(getDataTestSelector('matching-part')).element.innerHTML;
 
     expect(matchingPartHTML).toBe('(b&lt;ebé&gt;)');
   });
 
-  it('does not have a filter label if the suggestion has no facets', () => {
-    const { wrapper, suggestion } = renderBaseSuggestion();
-    expect(wrapper.text().trim()).toBe(suggestion.query);
-  });
-
-  it('emits suggestionSelectedEvent and the default events onclick', async () => {
-    const { wrapper, suggestion, localVue, wireMetadata } = renderBaseSuggestion();
-    const spyOn = jest.spyOn(XPlugin.bus, 'emit');
+  it('emits suggestionSelectedEvent and the default events onclick', () => {
+    const { emit, wrapper, suggestion, wireMetadata } = renderBaseSuggestion();
     wrapper.trigger('click');
 
-    await localVue.nextTick();
-
-    expect(spyOn).toHaveBeenNthCalledWith(1, 'UserAcceptedAQuery', suggestion.query, wireMetadata);
-    expect(spyOn).toHaveBeenNthCalledWith(2, 'UserSelectedASuggestion', suggestion, wireMetadata);
-    expect(spyOn).toHaveBeenNthCalledWith(
+    expect(emit).toHaveBeenNthCalledWith(1, 'UserAcceptedAQuery', suggestion.query, wireMetadata);
+    expect(emit).toHaveBeenNthCalledWith(2, 'UserSelectedASuggestion', suggestion, wireMetadata);
+    expect(emit).toHaveBeenNthCalledWith(
       3,
       'UserSelectedAQuerySuggestion',
       suggestion,
       wireMetadata
     );
-    expect(spyOn).toHaveBeenNthCalledWith(4, 'UserTalked', 'belt', wireMetadata);
   });
 
-  it('emits UserClickedAFilter if the suggestion has a filter', async () => {
-    const { wrapper, wireMetadata, localVue, suggestion } = renderBaseSuggestion({
-      suggestion: {
-        query: '(b<ebé>) lloron',
+  it('emits UserClickedAFilter if the suggestion has a filter', () => {
+    const { emit, wrapper, wireMetadata, suggestion } = renderBaseSuggestion({
+      suggestion: createPopularSearch('(b<ebé>) lloron', {
         facets: [
           createSimpleFacetStub('rootCategories', createFilter => [
             createFilter('DORMIR'),
             createFilter('SPECIAL PRICES')
           ]),
           createSimpleFacetStub('exampleFacet', createFilter => [createFilter('EXAMPLE')])
-        ],
-        key: 'bebe lloron',
-        modelName: 'QuerySuggestion'
-      }
+        ]
+      })
     });
-    const spyOn = jest.spyOn(XPlugin.bus, 'emit');
     wrapper.trigger('click');
 
-    await localVue.nextTick();
-
-    expect(spyOn).toHaveBeenCalledWith(
+    expect(emit).toHaveBeenCalledWith(
       'UserClickedAFilter',
       suggestion.facets[0].filters[0],
       wireMetadata
     );
   });
 
-  it('does not emit UserClickedAFilter if there is no filter', async () => {
-    const { wrapper, localVue, wireMetadata } = renderBaseSuggestion();
-    const spyOn = jest.spyOn(XPlugin.bus, 'emit');
+  it('does not emit UserClickedAFilter if there is no filter', () => {
+    const { emit, wrapper, wireMetadata } = renderBaseSuggestion();
     wrapper.trigger('click');
 
-    await localVue.nextTick();
-
-    expect(spyOn).not.toHaveBeenCalledWith('UserClickedAFilter', undefined, wireMetadata);
+    expect(emit).not.toHaveBeenCalledWith('UserClickedAFilter', undefined, wireMetadata);
   });
 });
 
@@ -178,8 +145,8 @@ interface BaseSuggestionAPI {
   suggestion: Suggestion;
   /** The query introduced to find the suggestion. */
   query: string;
-  /** The test Vue instance. */
-  localVue: typeof Vue;
   /** Metadata used to keep track of the events fired to the bus. */
   wireMetadata: Partial<WireMetadata>;
+  /** Mock for the `$x.emit` function. Can be used to check the emitted events. */
+  emit: jest.SpyInstance;
 }
