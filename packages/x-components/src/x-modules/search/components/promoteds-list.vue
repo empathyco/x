@@ -74,9 +74,23 @@
      * @internal
      */
     public override get items(): ListItem[] {
-      return this.injectedListItems
-        ? [...this.stateItems, ...this.injectedListItems]
-        : this.stateItems;
+      if (!this.injectedListItems?.length) {
+        return this.stateItems;
+      }
+      const items = [...this.injectedListItems];
+      for (const item of this.stateItems) {
+        let index = item.position - 1;
+        while (items.at(index)?.modelName === 'Promoted') {
+          index++;
+        }
+        const isIndexInLoadedPages = index <= items.length;
+        const allPagesLoaded = this.$x.results.length === this.$x.totalResults;
+        if (!isIndexInLoadedPages && !allPagesLoaded) {
+          break;
+        }
+        items.splice(index, 0, item);
+      }
+      return items;
     }
   }
 </script>

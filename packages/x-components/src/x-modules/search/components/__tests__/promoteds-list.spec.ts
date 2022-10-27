@@ -118,13 +118,13 @@ describe('testing PromotedsList component', () => {
   });
 
   it('provides the result of concatenating ancestor injected items with the promoteds', () => {
-    const resultStub = getResultsStub().slice(0, 1);
-    const promotedStub = getPromotedsStub().slice(0, 1);
+    const resultStub = getResultsStub();
+    const promotedStub = getPromotedsStub();
     const localVue = createLocalVue();
     localVue.use(Vuex);
     const store = new Store<DeepPartial<RootXStoreState>>({});
     installNewXPlugin({ store }, localVue);
-    resetXSearchStateWith(store, { promoteds: promotedStub });
+    resetXSearchStateWith(store, { promoteds: promotedStub, totalResults: resultStub.length * 2 });
 
     /* It provides an array with one result */
     @Component({
@@ -168,7 +168,10 @@ describe('testing PromotedsList component', () => {
       }
     );
 
-    expect(wrapper.text()).toBe(`${promotedStub[0].id},${resultStub[0].id}`);
+    expect(wrapper.text()).toBe(
+      // eslint-disable-next-line max-len
+      `${promotedStub[0].id},${resultStub[0].id},${promotedStub[1].id},${promotedStub[2].id},${promotedStub[3].id},${resultStub[1].id},${resultStub[2].id},${resultStub[3].id},${promotedStub[4].id}`
+    );
   });
 });
 

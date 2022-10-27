@@ -8,7 +8,14 @@ import { Promoted } from '@empathyco/x-types';
  * @internal
  */
 export function getPromotedsStub(): Promoted[] {
-  return [createPromotedStub('1'), createPromotedStub('2')];
+  return [
+    createPromotedStub('1', 1),
+    createPromotedStub('2', 3),
+    createPromotedStub('3', 3),
+    createPromotedStub('4', 4),
+    createPromotedStub('5', 9),
+    createPromotedStub('6', 11)
+  ];
 }
 
 /**
