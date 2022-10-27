@@ -15,5 +15,6 @@ export const BannerSchema: Banner = {
   image: expect.any(String),
   modelName: expect.any(String),
   title: expect.any(String),
-  url: expect.any(String)
+  url: expect.any(String),
+  position: expect.any(Number)
 };

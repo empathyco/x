@@ -16,16 +16,18 @@ export function getBannersStub(): Banner[] {
  *
  * @param identifier - The banner identifier.
  *
+ * @param position
  * @returns The banner.
  *
  * @internal
  */
-export function createBannerStub(identifier: string): Banner {
+export function createBannerStub(identifier: string, position = 1): Banner {
   return {
     id: `xb-${identifier}`,
     title: `Banner ${identifier}`,
     url: `/banner/${identifier}`,
     image: `xb-${identifier}.jpg`,
+    position,
     tagging: {
       click: {
         params: {},

@@ -16,16 +16,18 @@ export function getPromotedsStub(): Promoted[] {
  *
  * @param identifier - The promoted identifier.
  *
+ * @param position
  * @returns The promoted.
  *
  * @internal
  */
-export function createPromotedStub(identifier: string): Promoted {
+export function createPromotedStub(identifier: string, position = 1): Promoted {
   return {
     id: `xp-${identifier}`,
     title: `Promoted ${identifier}`,
     url: `/promoted/${identifier}`,
     image: `xp-${identifier}.jpg`,
+    position,
     tagging: {
       click: {
         params: {},
