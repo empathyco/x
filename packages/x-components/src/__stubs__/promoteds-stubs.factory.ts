@@ -15,8 +15,8 @@ export function getPromotedsStub(): Promoted[] {
  * Creates a promoted with a "unique" identifier.
  *
  * @param identifier - The promoted identifier.
+ * @param position - The promoted position inside the grid.
  *
- * @param position
  * @returns The promoted.
  *
  * @internal

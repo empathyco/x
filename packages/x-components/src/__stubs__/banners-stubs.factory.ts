@@ -15,8 +15,8 @@ export function getBannersStub(): Banner[] {
  * Creates a banner with a "unique" identifier.
  *
  * @param identifier - The banner identifier.
+ * @param position - The banner position (= row) inside the grid.
  *
- * @param position
  * @returns The banner.
  *
  * @internal
