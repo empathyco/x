@@ -158,6 +158,41 @@
         };
       });
     }
+
+    /**.
+     * Initialises the rendered columns number and sets a ResizeObserver to keep it updated
+     *
+     * @internal
+     */
+    protected mounted(): void {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      const resizeObserver = new ResizeObserver(this.emitRenderedColumnsNumber);
+      resizeObserver.observe(this.$el);
+      this.$on('hook:beforeDestroy', () => {
+        resizeObserver.disconnect();
+      });
+    }
+
+    /**
+     * Emits a {@link XEventsTypes.ColumnsNumberRendered | ColumnsNumberRendered} event.
+     *
+     * @internal
+     */
+    protected emitRenderedColumnsNumber(): void {
+      this.$x.emit('ColumnsNumberRendered', this.getRenderedColumnsNumber());
+    }
+
+    /**
+     * Calculates the columns number rendered inside the grid.
+     *
+     * @returns The number of rendered columns.
+     *
+     * @internal
+     */
+    protected getRenderedColumnsNumber(): number {
+      const { gridTemplateColumns } = getComputedStyle(this.$el);
+      return gridTemplateColumns.split(' ').length;
+    }
   }
 </script>
 
