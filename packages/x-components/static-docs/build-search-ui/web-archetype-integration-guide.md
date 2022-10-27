@@ -211,7 +211,8 @@ out further information about:
 - **[Callbacks and X&nbsp;event&nbsp;types](#callbacks-and-interface-x-events-types)** available to
   subscribe to when initializing
 - **Functions supported by the [X&nbsp;API object](#x-api)** to initialize Interface&nbsp;X
-- Notes on how to set up [** the preview of query results**](#dynamic-query-results-preview) for determined queries at the pre-search stage
+- Notes on how to set up [**the preview of query results**](#dynamic-query-results-preview) for
+  determined queries at the pre-search stage
 
 ### Snippet configuration
 
