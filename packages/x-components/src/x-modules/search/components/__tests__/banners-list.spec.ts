@@ -117,7 +117,7 @@ describe('testing BannersList component', () => {
     expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
   });
 
-  it('provides the result of concatenating ancestor injected items with the banners', () => {
+  it('provides the result of concatenating ancestor injected items with the banners', async () => {
     const resultStub = getResultsStub();
     const bannerStub = getBannersStub();
     const localVue = createLocalVue();
@@ -125,8 +125,6 @@ describe('testing BannersList component', () => {
     const store = new Store<DeepPartial<RootXStoreState>>({});
     installNewXPlugin({ store }, localVue);
     resetXSearchStateWith(store, { banners: bannerStub, totalResults: resultStub.length * 2 });
-
-    // TODO EX-7291 - set columnsNumber for the test (value = 2)
 
     /* It provides an array with one result */
     @Component({
@@ -169,6 +167,9 @@ describe('testing BannersList component', () => {
         store
       }
     );
+
+    wrapper.vm.$x.emit('ColumnsNumberRendered', 2);
+    await wrapper.vm.$nextTick();
 
     expect(wrapper.text()).toBe(
       // eslint-disable-next-line max-len

@@ -19,6 +19,7 @@
   import { Banner } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
+  import { XOn } from '../../../components/decorators/bus.decorators';
   import { State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
   import { ItemsListInjectionMixin } from '../../../components/items-list-injection.mixin';
@@ -64,6 +65,25 @@
     protected animation!: Vue | string;
 
     /**
+     * Number of columns the grid is being divided into.
+     *
+     * @internal
+     */
+    protected columnsNumber = 0;
+
+    /**
+     * Handler to update the number of columns when it changes.
+     *
+     * @param newColumnsNumber - The new columns value.
+     *
+     * @internal
+     */
+    @XOn(['ColumnsNumberRendered'])
+    setColumnsNumber(newColumnsNumber: number): void {
+      this.columnsNumber = newColumnsNumber;
+    }
+
+    /**
      * The `stateItems` concatenated with the `injectedListItems` if there are.
      *
      * @remarks This computed defines the merging strategy of the `stateItems` and the
@@ -78,7 +98,6 @@
         return this.stateItems;
       }
       const items = [...this.injectedListItems];
-      const columnsNumber = 2; // TODO EX-7291 - get value from BaseGrid
       let index = 0,
         previousBannerRow = -1;
       for (const item of this.stateItems) {
@@ -88,7 +107,7 @@
         }
         const rowsDiff = row - previousBannerRow;
         if (rowsDiff > 1) {
-          index += (rowsDiff - 1) * columnsNumber;
+          index += (rowsDiff - 1) * this.columnsNumber;
         }
         const isIndexInLoadedPages = index <= items.length;
         const areAllPagesLoaded = this.$x.results.length === this.$x.totalResults;
