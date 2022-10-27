@@ -261,8 +261,8 @@
             <!-- Results -->
             <LocationProvider location="results">
               <ResultsList v-infinite-scroll:main-scroll>
-                <BannersList>
-                  <PromotedsList>
+                <PromotedsList>
+                  <BannersList>
                     <NextQueriesList
                       :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
                     >
@@ -327,8 +327,8 @@
                         </template>
                       </BaseVariableColumnGrid>
                     </NextQueriesList>
-                  </PromotedsList>
-                </BannersList>
+                  </BannersList>
+                </PromotedsList>
               </ResultsList>
             </LocationProvider>
 

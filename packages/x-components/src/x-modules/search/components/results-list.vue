@@ -275,13 +275,13 @@ value.
   <div>
     <SearchInput />
     <ResultsList>
-      <BannersList>
-        <PromotedsList>
+      <PromotedsList>
+        <BannersList>
           <template #result="{ item }">Result: {{ item.id }}</template>
           <template #banner="{ item }">Banner: {{ item.id }}</template>
           <template #promoted="{ item }">Promoted: {{ item.id }}</template>
-        </PromotedsList>
-      </BannersList>
+        </BannersList>
+      </PromotedsList>
     </ResultsList>
   </div>
 </template>
