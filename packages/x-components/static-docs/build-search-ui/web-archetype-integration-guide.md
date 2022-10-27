@@ -310,9 +310,13 @@ functions to integrate Interface&nbsp;X in your website. You can access these fu
 
 ### Dynamic query results preview 
 
-The `queriesPreview` parameter settings can be changed to dynamically preview product results from the queries you define according to your brand's strategy. Use the `setSnippetConfig` function in the [`X API`](#x-api) object to determine the queries to be previewed dynamically depending on the section the shopper is visiting in your commerce store, for instance, or any other scenario.  
+The `queriesPreview` parameter settings can be changed to dynamically preview product results from
+the queries you define according to your brand's strategy. Use the `setSnippetConfig` function in
+the [`X API`](#x-api) object to determine the queries to be previewed dynamically depending on the
+section the shopper is visiting in your commerce store, for instance, or any other scenario.
 
-The following example shows you how to change dynamically the preview of query results in the _kids_ and _adult_ sections:
+The following example shows you how to change dynamically the preview of query results in the _kids_
+and _adult_ sections:
 
 ```html
 <script>
