@@ -159,8 +159,8 @@
       });
     }
 
-    /**.
-     * Initialises the rendered columns number and sets a ResizeObserver to keep it updated
+    /**
+     * Initialises the rendered columns number and sets a ResizeObserver to keep it updated.
      *
      * @internal
      */
