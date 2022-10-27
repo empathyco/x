@@ -84,8 +84,8 @@
           index++;
         }
         const isIndexInLoadedPages = index <= items.length;
-        const allPagesLoaded = this.$x.results.length === this.$x.totalResults;
-        if (!isIndexInLoadedPages && !allPagesLoaded) {
+        const areAllPagesLoaded = this.$x.results.length === this.$x.totalResults;
+        if (!isIndexInLoadedPages && !areAllPagesLoaded) {
           break;
         }
         items.splice(index, 0, item);
