@@ -78,16 +78,6 @@
     protected highlightCurated!: boolean;
 
     /**
-     * Indicates if there are facets available.
-     *
-     * @returns True if there are facets available and false otherwise.
-     * @internal
-     */
-    protected get hasFacets(): boolean {
-      return !!this.suggestion.facets?.length;
-    }
-
-    /**
      * The event handler that will be triggered when clicking on a suggestion.
      *
      * @remarks
@@ -216,9 +206,9 @@
      * @internal
      */
     protected splitAt(label: string, start: number, skip: number): [string, string, string] {
-      const startPart = label.substr(0, start);
-      const matchingPart = label.substr(start, skip);
-      const endPart = label.substr(start + skip);
+      const startPart = label.substring(0, start);
+      const matchingPart = label.substring(start, start + skip);
+      const endPart = label.substring(start + skip);
 
       return [sanitize(startPart), sanitize(matchingPart), sanitize(endPart)];
     }

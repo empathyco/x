@@ -112,7 +112,7 @@ describe('testing Base Suggestion component', () => {
 
     expect(emit).toHaveBeenCalledWith(
       'UserClickedAFilter',
-      suggestion.facets[0].filters[0],
+      suggestion.facets?.[0].filters?.[0],
       wireMetadata
     );
   });

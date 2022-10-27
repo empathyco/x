@@ -10,7 +10,7 @@
         @slot (Required) List item content
             @binding {Suggestion} suggestion - Suggestion data
             @binding {number} index - Suggestion index
-            @binding {Filter} filter - Suggestion's filter
+            @binding {Filter | undefined} filter - Suggestion's filter
        -->
       <slot v-bind="{ suggestion, index, filter: getSuggestionFilter(suggestion) }" />
     </li>
@@ -120,7 +120,7 @@
     protected get suggestionsToRender(): Suggestion[] {
       return this.suggestions
         .flatMap(suggestion =>
-          this.showFacets && suggestion.facets.length
+          this.showFacets && suggestion.facets?.length
             ? this.showPlainSuggestion
               ? [{ ...suggestion, facets: [] }, ...this.expandSuggestionFilters(suggestion)]
               : this.expandSuggestionFilters(suggestion)
@@ -138,8 +138,13 @@
      * @internal
      */
     protected expandSuggestionFilters(suggestion: Suggestion): Suggestion[] {
-      return suggestion.facets.flatMap(facet =>
-        facet.filters.map(filter => ({ ...suggestion, facets: [{ ...facet, filters: [filter] }] }))
+      return (
+        suggestion.facets?.flatMap(facet =>
+          facet.filters.map(filter => ({
+            ...suggestion,
+            facets: [{ ...facet, filters: [filter] }]
+          }))
+        ) ?? []
       );
     }
 
@@ -150,8 +155,8 @@
      * @returns The suggestion filter.
      * @internal
      */
-    protected getSuggestionFilter(suggestion: Suggestion): Filter {
-      return suggestion.facets[0]?.filters[0];
+    protected getSuggestionFilter(suggestion: Suggestion): Filter | undefined {
+      return suggestion.facets?.[0]?.filters[0];
     }
   }
 </script>
