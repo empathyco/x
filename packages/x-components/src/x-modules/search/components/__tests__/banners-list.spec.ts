@@ -118,13 +118,15 @@ describe('testing BannersList component', () => {
   });
 
   it('provides the result of concatenating ancestor injected items with the banners', () => {
-    const resultStub = getResultsStub().slice(0, 1);
-    const bannerStub = getBannersStub().slice(0, 1);
+    const resultStub = getResultsStub();
+    const bannerStub = getBannersStub();
     const localVue = createLocalVue();
     localVue.use(Vuex);
     const store = new Store<DeepPartial<RootXStoreState>>({});
     installNewXPlugin({ store }, localVue);
-    resetXSearchStateWith(store, { banners: bannerStub });
+    resetXSearchStateWith(store, { banners: bannerStub, totalResults: resultStub.length * 2 });
+
+    // TODO EX-7291 - set columnsNumber for the test (value = 2)
 
     /* It provides an array with one result */
     @Component({
@@ -168,7 +170,10 @@ describe('testing BannersList component', () => {
       }
     );
 
-    expect(wrapper.text()).toBe(`${bannerStub[0].id},${resultStub[0].id}`);
+    expect(wrapper.text()).toBe(
+      // eslint-disable-next-line max-len
+      `${bannerStub[0].id},${resultStub[0].id},${resultStub[1].id},${bannerStub[1].id},${bannerStub[2].id},${bannerStub[3].id},${resultStub[2].id},${resultStub[3].id},${bannerStub[4].id}`
+    );
   });
 });
 

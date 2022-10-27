@@ -74,9 +74,32 @@
      * @internal
      */
     public override get items(): ListItem[] {
-      return this.injectedListItems
-        ? [...this.stateItems, ...this.injectedListItems]
-        : this.stateItems;
+      if (!this.injectedListItems?.length) {
+        return this.stateItems;
+      }
+      const items = [...this.injectedListItems];
+      const columnsNumber = 2; // TODO EX-7291 - get value from BaseGrid
+      let index = 0,
+        previousBannerRow = -1;
+      for (const item of this.stateItems) {
+        let row = item.position - 1;
+        if (row <= previousBannerRow) {
+          row = previousBannerRow + 1;
+        }
+        const rowsDiff = row - previousBannerRow;
+        if (rowsDiff > 1) {
+          index += (rowsDiff - 1) * columnsNumber;
+        }
+        const isIndexInLoadedPages = index <= items.length;
+        const areAllPagesLoaded = this.$x.results.length === this.$x.totalResults;
+        if (!isIndexInLoadedPages && !areAllPagesLoaded) {
+          break;
+        }
+        items.splice(index, 0, item);
+        index++;
+        previousBannerRow = row;
+      }
+      return items;
     }
   }
 </script>
