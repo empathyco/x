@@ -6,7 +6,7 @@ import { PlatformBanner } from '../../types/models/banner.model';
 export const bannerSchema = createMutableSchema<Schema<PlatformBanner, Banner>>({
   id: 'id',
   title: 'title',
-  url: 'url',
+  url: 'title',
   image: 'image_url',
   modelName: () => 'Banner',
   tagging: {
