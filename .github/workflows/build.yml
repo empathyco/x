@@ -16,11 +16,11 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Install lerna and all packages
-        run: lerna run ci
+        run: npm run ci
       - name: Run linter in all packages
         run: npm run lint
       - name: Run tests in all packages
-        run: lerna run test
+        run: npm run test
       - name: Release alpha on non-release pushes to main branch
         if:
           ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
