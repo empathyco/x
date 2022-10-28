@@ -3,7 +3,6 @@ export { default as ArrowLeftIcon } from './arrow-left.vue';
 export { default as ArrowRightIcon } from './arrow-right.vue';
 export { default as ArrowUpIcon } from './arrow-up.vue';
 export { default as BagIcon } from './bag.vue';
-export { default as BarCodeIcon } from './bar-code.vue';
 export { default as BarcodeTinyIcon } from './barcode-tiny.vue';
 export { default as CartIcon } from './cart.vue';
 export { default as CheckTinyIcon } from './check-tiny.vue';
