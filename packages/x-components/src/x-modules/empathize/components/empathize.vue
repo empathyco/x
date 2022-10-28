@@ -1,7 +1,7 @@
 <template>
   <component :is="animation">
     <div
-      v-show="isOpen && !emptySlot"
+      v-show="isOpen && !isEmptySlot"
       @mousedown.prevent
       @focusin="open"
       @focusout="close"
@@ -11,7 +11,7 @@
     >
       <!-- @slot (Required) Modal container content -->
       <slot>
-        <span ref="emptySlot" hidden aria-hidden="true"></span>
+        <span ref="isEmptySlot" hidden aria-hidden="true"></span>
       </slot>
     </div>
   </component>
@@ -81,7 +81,7 @@
      *
      * @internal
      */
-    protected emptySlot: boolean | Element = true;
+    protected isEmptySlot: boolean | Element = true;
 
     /**
      * Detects if the default slot has been replaced.
@@ -89,7 +89,7 @@
      * @internal
      */
     updated(): void {
-      this.emptySlot = !!this.$refs.emptySlot;
+      this.isEmptySlot = !!this.$refs.isEmptySlot;
     }
 
     /**
