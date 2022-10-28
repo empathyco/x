@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Install lerna and all packages
-        run: npm run ci
+        run: npm ci
       - name: Run linter in all packages
         run: npm run lint
       - name: Run tests in all packages
