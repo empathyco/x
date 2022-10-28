@@ -15,12 +15,13 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+      - uses: nrwl/nx-set-shas@v2
       - name: Install lerna and all packages
         run: npm ci
       - name: Run linter in all packages
         run: npm run lint
       - name: Run tests in all packages
-        run: nx affected --target=test --base=origin/main --parallel
+        run: npx nx affected --target=test --base=origin/main --parallel
       - name: Release alpha on non-release pushes to main branch
         if:
           ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
