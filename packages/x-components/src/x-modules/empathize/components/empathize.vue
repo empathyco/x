@@ -104,7 +104,9 @@
     @XOn(component => (component as Empathize).eventsToOpenEmpathize)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     open(payload: unknown, metadata: WireMetadata): void {
-      this.changeOpenState(true, metadata);
+      if (this.isEmptySlot === false) {
+        this.changeOpenState(true, metadata);
+      }
     }
 
     /**
