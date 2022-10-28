@@ -2,8 +2,9 @@
   "extends": "nx/presets/npm.json",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "nx/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
+        "accessToken": "YTYzMThiN2UtYjgzYy00YzJiLTg5M2UtNzFjOGVkZWFiNDQ0fHJlYWQ=",
         "cacheableOperations": ["build", "test", "lint"]
       }
     }
