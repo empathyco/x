@@ -7,4 +7,3 @@ module.exports = {
   },
   testMatch: ['<rootDir>/**/*.spec.ts']
 };
-t;
