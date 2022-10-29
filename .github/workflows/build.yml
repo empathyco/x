@@ -23,13 +23,22 @@ jobs:
           key: node-modules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
               node-modules-
+      - name: Cache eslint
+        id: cache-eslint
+        uses: actions/cache@v3
+        with:
+          path: ~/.eslintcache
+          key: eslint-${{github.sha}}
+            restore-keys: |
+              eslint-
       - name: Install lerna and all packages
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
       - name: Run linter in all packages
+        if: steps.cache-eslint.outputs.cache-hit != 'true'
         run: npm run lint
       - name: Run tests in all packages
-        run: npm run test
+        run: npm run test ${{ github.event.pull_request.base.sha }}
       - name: Release alpha on non-release pushes to main branch
         if:
           ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
