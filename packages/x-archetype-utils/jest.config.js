@@ -2,5 +2,10 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js'],
   preset: 'ts-jest',
   testMatch: ['<rootDir>/**/*.spec.ts'],
-  testEnvironment: 'jsdom'
+  testEnvironment: 'jsdom',
+  globals: {
+    'ts-jest': {
+      isolatedModules: true
+    }
+  }
 };

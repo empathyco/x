@@ -29,7 +29,8 @@ jobs:
         id: cache-eslint
         uses: actions/cache@v3
         with:
-          path: ~/.eslintcache
+          path: |
+            .eslintcache
           key: eslint-${{github.sha}}
           restore-keys: | 
             eslint-
