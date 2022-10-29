@@ -5,7 +5,7 @@
     "postinstall": "lerna bootstrap --hoist && npm run build",
     "postci": "lerna bootstrap --hoist --ci && npm run build",
     "build": "lerna run build",
-    "lint": "eslint packages --ext .ts,.tsx,.vue --quiet --cache --cache-location .eslint/cache",
+    "lint": "eslint packages --ext .ts,.tsx,.vue --quiet --cache",
     "lint:fix": "eslint packages --ext .ts,.tsx,.vue --fix",
     "test": "lerna run test --parallel",
     "serve": "lerna run serve --parallel",
