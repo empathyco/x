@@ -34,6 +34,9 @@ jobs:
       - name: Install lerna and all packages
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
+      - name: Build
+        if: steps.cache-node-modules.outputs.cache-hit == 'true'
+        run: npm run build
       - name: Run linter in all packages
         if: steps.cache-eslint.outputs.cache-hit != 'true'
         run: npm run lint
