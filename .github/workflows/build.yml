@@ -29,7 +29,8 @@ jobs:
         with:
           path: ~/.eslintcache
           key: eslint-${{github.sha}}
-            restore-keys: eslint-
+          restore-keys: | 
+            eslint-
       - name: Install lerna and all packages
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
