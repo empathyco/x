@@ -6,10 +6,5 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
-  testMatch: ['<rootDir>/src/__tests__/**/*.spec.ts'],
-  globals: {
-    'ts-jest': {
-      isolatedModules: true
-    }
-  }
+  testMatch: ['<rootDir>/src/__tests__/**/*.spec.ts']
 };

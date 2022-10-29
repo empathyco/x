@@ -4,10 +4,5 @@ module.exports = {
   transform: {
     '^.+\\.ts?$': 'ts-jest'
   },
-  testMatch: ['<rootDir>/**/*.spec.ts'],
-  globals: {
-    'ts-jest': {
-      isolatedModules: true
-    }
-  }
+  testMatch: ['<rootDir>/**/*.spec.ts']
 };
