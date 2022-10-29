@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Cache node modules
-          id: cache-node-modules
+          id: cache-node_modules
           uses: actions/cache@v3
           env:
             cache-name: cache-node-modules
