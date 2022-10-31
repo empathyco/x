@@ -66,12 +66,6 @@ Then(
 );
 
 // Scenario 2
-When('History queries are being displayed is not {boolean}', (hideIfEqualsQuery: boolean) => {
-  if (hideIfEqualsQuery) {
-    cy.getByDataTest('history-queries').should('not.exist');
-  }
-});
-
 When('the {string} is cleared by {string}', (query: string, cleared: string) => {
   if (cleared === 'clickButton') {
     cy.clearSearchInput();
