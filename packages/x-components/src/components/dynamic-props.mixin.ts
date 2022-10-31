@@ -10,28 +10,24 @@ import { ExtendedVue } from 'vue/types/vue';
  * @example
  * ```typescript
  *
- *   const nodes = ['list', 'listitem', 'tag'] as const;
- *
  *   @Component({
  *     components: { RelatedTag },
  *     mixins: [xComponentMixin(relatedTagsXModule)]
  *   })
- *   export default class RelatedTags extends mixins(
- *     dynamicPropsMixin<ExtractArrayItems<typeof nodes>>(nodes)
- *   ) {
- *   // This component will have available 3 props: 'list', 'listitem', 'tag'
+ *   export default class RelatedTags extends Mixins(dynamicPropsMixin(['list', 'li', 'tag'])) {
+ *   // This component will have available 3 props: 'list', 'li' and 'tag'
  *   }
  * ```
  * @returns Mixin for the component.
  *
  */
-export function dynamicPropsMixin<T extends string>(
-  propNames: readonly string[]
-): ExtendedVue<Vue, unknown, unknown, unknown, Record<T, string>> {
+export function dynamicPropsMixin<PropNames extends string>(
+  propNames: PropNames[]
+): ExtendedVue<Vue, unknown, unknown, unknown, Partial<Record<PropNames, string>>> {
   return Vue.extend({
     props: propNames.reduce(
-      (a, v) => ({ ...a, [v]: { type: String } }),
-      {} as Record<T, PropValidator<string>>
+      (props, propName) => ({ ...props, [propName]: { type: String } }),
+      {} as Record<PropNames, PropValidator<string>>
     )
   });
 }
