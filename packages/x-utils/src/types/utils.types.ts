@@ -58,11 +58,3 @@ export type DeepPartial<T> = {
       : DeepPartial<T[P]>
     : T[P];
 };
-
-/**
- * Union type with all the elements of the given array.
- *
- * @param T - The array to collect items from.
- * @public
- */
-export type ExtractArrayItems<T extends readonly unknown[]> = T[number];
