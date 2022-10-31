@@ -13,25 +13,29 @@
 
   &--enter-active,
   &--leave-active {
+    overflow: hidden;
     &#{$p}--top,
-    &#{$p}--bottom {
+    &#{$p}--bottom,
+    &#{$p}--top-to-bottom,
+    &#{$p}--bottom-to-top {
       animation-name: containerAnimationY;
     }
-    &#{$p}--left,
-    &#{$p}--right {
-      animation-name: containerAnimationX;
-    }
-    overflow: hidden;
-  }
-
-  &--enter-active,
-  &--leave-active {
     &#{$p}--top > *,
-    &#{$p}--bottom > * {
+    &#{$p}--bottom > *,
+    &#{$p}--top-to-bottom > *,
+    &#{$p}--bottom-to-top > * {
       animation-name: contentAnimationY;
     }
+    &#{$p}--left,
+    &#{$p}--right,
+    &#{$p}--left-to-right,
+    &#{$p}--right-to-left {
+      animation-name: containerAnimationX;
+    }
     &#{$p}--left > *,
-    &#{$p}--right > * {
+    &#{$p}--right > *,
+    &#{$p}--left-to-right > *,
+    &#{$p}--right-to-left > * {
       animation-name: contentAnimationX;
     }
   }
@@ -50,6 +54,46 @@
       &#{$p}--leave-active > * {
         transform-origin: $origin center;
       }
+    }
+  }
+
+  &--top-to-bottom,
+  &--top-to-bottom > * {
+    &#{$p}--enter-active {
+      transform-origin: top center;
+    }
+    &#{$p}--leave-active {
+      transform-origin: bottom center;
+    }
+  }
+
+  &--bottom-to-top,
+  &--bottom-to-top > * {
+    &#{$p}--enter-active {
+      transform-origin: bottom center;
+    }
+    &#{$p}--leave-active {
+      transform-origin: top center;
+    }
+  }
+
+  &--left-to-right,
+  &--left-to-right > * {
+    &#{$p}--enter-active {
+      transform-origin: left center;
+    }
+    &#{$p}--leave-active {
+      transform-origin: right center;
+    }
+  }
+
+  &--right-to-left,
+  &--right-to-left > * {
+    &#{$p}--enter-active {
+      transform-origin: right center;
+    }
+    &#{$p}--leave-active {
+      transform-origin: left center;
     }
   }
 }

@@ -3,6 +3,82 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.22...@empathyco/x-tailwindcss@0.2.0-alpha.23) (2022-10-27)
+
+### Features
+
+- replace `parcel` with `vite` (#739)
+  ([7720502](https://github.com/empathyco/x/commit/7720502abfdee009506f4478ba3d71ea76051cb1))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.21...@empathyco/x-tailwindcss@0.2.0-alpha.22) (2022-10-19)
+
+### Features
+
+- **types:** add autocomplete to theme function in TailwindHelpers (#788)
+  ([d1c7a29](https://github.com/empathyco/x/commit/d1c7a290d1c95f03941f451069fe321ee142f998)),
+  closes [EX-7085](https://searchbroker.atlassian.net/browse/EX-7085)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.20...@empathyco/x-tailwindcss@0.2.0-alpha.21) (2022-10-19)
+
+### Features
+
+- **design-system:** update color names and values (#785)
+  ([6826c48](https://github.com/empathyco/x/commit/6826c4845249cfa14793a81553214670b8c895c8)),
+  closes [EX-7163](https://searchbroker.atlassian.net/browse/EX-7163)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.19...@empathyco/x-tailwindcss@0.2.0-alpha.20) (2022-10-14)
+
+### Continuous Integration
+
+- update `runners` version (#740)
+  ([38f246c](https://github.com/empathyco/x/commit/38f246c306dac40c4afbcdea08336052981ca9b8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.18...@empathyco/x-tailwindcss@0.2.0-alpha.19) (2022-10-06)
+
+### Features
+
+- improve documentation in x-tailwind plugin (#756)
+  ([0503502](https://github.com/empathyco/x/commit/0503502962ff3d82a7ddbc1e84563bd88436b49b)),
+  closes [EX-7129](https://searchbroker.atlassian.net/browse/EX-7129)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.17...@empathyco/x-tailwindcss@0.2.0-alpha.18) (2022-10-03)
+
+### Features
+
+- **design-system:** Add `button` component to the Design System. (#738)
+  ([36c14a6](https://github.com/empathyco/x/commit/36c14a6e4057cf4f03d9bf2ba29a7e2141170e67)),
+  closes [EX-6797](https://searchbroker.atlassian.net/browse/EX-6797)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.16...@empathyco/x-tailwindcss@0.2.0-alpha.17) (2022-09-27)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss

@@ -1,15 +1,16 @@
 ---
 title: ID Results UI
+tags:
+  - identifier results
 ---
 
-# ID Results UI
 
 The Identifier Results UI component presents a type of search results intended for product reference
 codes. When shoppers start typing, a reference code query type is detected, and a list displays
 instantly with query-matching product results. When shoppers select an identifier result hint from
 the list, they go directly to the product detail page (PDP).
 
-<img :src="$withBase('/assets/media/xcomponents_func_idresults.gif')" alt="ID Results">
+![ID Results](~@assets/media/interface/x-id-results.gif)
 
 :::warning
 

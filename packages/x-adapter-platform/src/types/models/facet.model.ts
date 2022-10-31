@@ -7,8 +7,16 @@ import { BooleanFilter, Facet, Filter } from '@empathyco/x-types';
  */
 export interface PlatformFacet {
   facet: string;
+  type: PlatformFacetType;
   values: PlatformFilter[];
 }
+
+/**
+ * Facet type for the `platform` API. It can be: value, hierarchical or range.
+ *
+ * @public
+ */
+export type PlatformFacetType = 'value' | 'hierarchical' | 'range';
 
 /**
  * Filter model for the `platform` API.

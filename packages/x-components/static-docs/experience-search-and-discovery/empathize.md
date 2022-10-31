@@ -1,15 +1,16 @@
 ---
 title: Empathize UI
+tags:
+    - predictive layer
+    - search box
 ---
-
-# Empathize
 
 Empathize is a UI container, but not just any container. It’s the
 **[predictive layer](/explore-empathy-platform/overview/predictive-layer.md)** for your search
 experience that is usually displayed below the search box. Consider it the natural companion of the
 **[search box](search-box.md)**, featuring search suggestions and recommendations.
 
-![Empathize](~@assets/media/xcomponents_func_empathize.gif)
+![Empathize](~@assets/media/interface/x-empathize.gif)
 
 One of the characteristics of Interface&nbsp;X&nbsp;Components is that you can place them
 wherever you want. However, you know that the placement of the search box in your shop matters. So,
@@ -72,13 +73,17 @@ addition to or replacing the search box focus. You may prefer to make it more ac
 Keyboard Navigation component. Your shoppers can navigate the components in Empathize with the
 keyboard arrow keys.
 
-<!--
-**Enhance Empathize usability with...**
+**Enhance Empathize usability with...**  
+
 - Keyboard scroll
 - Keyboard navigation
--->
 
-<!--link to keyboard navigation components when available-->
+::: interact
+
+Learn more on how to improve the usability of the Empathize UI component using the [Base Scroll](/develop-empathy-platform/ui-reference/components/base-components/scroll/x-components.base-scroll.md) and [Base Keyboard Navigation](/develop-empathy-platform/ui-reference/components/base-components/x-components.base-keyboard-navigation.md) components in the X&nbsp;Components UI Reference.
+
+:::
+
 
 ## Spot the difference
 

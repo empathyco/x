@@ -73,6 +73,19 @@ describe('testing search input component', () => {
     expect(getXComponentXModuleName(mockedSearchInput.vm)).toEqual('searchBox');
   });
 
+  it('emits UserHoveredInSearchBox when it is hovered in', () => {
+    mockedSearchInput.vm.$x.on('UserHoveredInSearchBox').subscribe(listener);
+    mockedSearchInput.trigger('mouseenter');
+    expect(listener).toHaveBeenCalled();
+  });
+
+  it('emits UserHoveredOutSearchBox when it is hovered out', () => {
+    mockedSearchInput.vm.$x.on('UserHoveredOutSearchBox').subscribe(listener);
+    mockedSearchInput.trigger('mouseenter');
+    mockedSearchInput.trigger('mouseleave');
+    expect(listener).toHaveBeenCalled();
+  });
+
   it('emits UserFocusedSearchBox if input autofocus true', () => {
     const { wrapper } = mountNewSearchInput({ autofocus: true });
     wrapper.vm.$x.on('UserFocusedSearchBox').subscribe(listener);

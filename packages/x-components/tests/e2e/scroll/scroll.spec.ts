@@ -1,8 +1,4 @@
-import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
-
-When('scrolling down to result {string}', (resultId: string) => {
-  cy.get(`[data-scroll=${resultId}]`).scrollIntoView({ easing: 'swing', duration: 1000 });
-});
+import { Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Then('url is updated with result {string}', (resultId: string) => {
   cy.url().should('contain', `scroll=${resultId}`);
