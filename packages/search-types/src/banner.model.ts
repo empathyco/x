@@ -16,4 +16,6 @@ export interface Banner extends NamedModel<'Banner'>, Identifiable, Taggable {
   url: string;
   /** Banner image. */
   image: string;
+  /** Banner position (= row) inside the grid. */
+  position: number;
 }

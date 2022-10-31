@@ -15,17 +15,19 @@ export function getBannersStub(): Banner[] {
  * Creates a banner with a "unique" identifier.
  *
  * @param identifier - The banner identifier.
+ * @param position - The banner position (= row) inside the grid.
  *
  * @returns The banner.
  *
  * @internal
  */
-export function createBannerStub(identifier: string): Banner {
+export function createBannerStub(identifier: string, position = 1): Banner {
   return {
     id: `xb-${identifier}`,
     title: `Banner ${identifier}`,
     url: `/banner/${identifier}`,
     image: `xb-${identifier}.jpg`,
+    position,
     tagging: {
       click: {
         params: {},
