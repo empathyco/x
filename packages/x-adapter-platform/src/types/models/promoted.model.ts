@@ -8,6 +8,7 @@ export interface PlatformPromoted {
   title: string;
   url: string;
   image_url: string;
+  position: number;
   tagging?: {
     query: string;
   };

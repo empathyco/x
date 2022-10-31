@@ -15,4 +15,6 @@ export interface Promoted extends NamedModel<'Promoted'>, Identifiable, Taggable
   url: string;
   /** Promoted image. */
   image: string;
+  /** Promoted position inside the grid. */
+  position: number;
 }
