@@ -35,20 +35,23 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Mixins, Prop } from 'vue-property-decorator';
   import { VueCSSClasses } from '../utils/types';
   import { Debounce } from './decorators/debounce.decorators';
+  import { dynamicPropsMixin } from './dynamic-props.mixin';
 
-  /**
+  /**.
    * This component allows for any other component or element inside it to be horizontally
    * navigable. It also implements customizable buttons as well as other minor customizations to its
    * general behavior.
    *
+   * Additionally, this component exposes the following props to modify the classes of the
+   * elements: buttonClass
+   *
    * @public
    */
   @Component
-  export default class SlidingPanel extends Vue {
+  export default class SlidingPanel extends Mixins(dynamicPropsMixin(['buttonClass'])) {
     /**
      * Scroll factor that will dictate how much the scroll moves when pressing a navigation button.
      *
@@ -73,14 +76,6 @@
      */
     @Prop({ default: true })
     public resetOnContentChange!: boolean;
-
-    /**
-     * CSS classes to add to the buttons.
-     *
-     * @public
-     */
-    @Prop()
-    public buttonClass?: string;
 
     /**
      * Indicates if the scroll is at the start of the sliding panel.
