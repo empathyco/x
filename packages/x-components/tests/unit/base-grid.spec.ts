@@ -43,13 +43,19 @@ function renderBaseGrid({
     } as NextQueriesGroup
   ];
 
+  const renderedColumnsNumberChangedSpy = cy.spy();
+
+  cy.viewport(2000, 200);
   mount(
     {
       components: {
         BaseGrid
       },
       props: ['items', 'columns'],
-      template
+      template,
+      beforeCreate() {
+        XPlugin.bus.on('RenderedColumnsNumberChanged').subscribe(renderedColumnsNumberChangedSpy);
+      }
     },
     {
       vue: Vue.extend({}),
@@ -57,7 +63,12 @@ function renderBaseGrid({
       propsData: {
         items: items ?? defaultItems,
         columns
-      }
+      },
+      style: `
+        :root {
+          --x-size-min-width-grid-item: 300px;
+        }
+      `
     }
   );
 
@@ -70,7 +81,8 @@ function renderBaseGrid({
     },
     getScopedSlot(modelName: string) {
       return cy.getByDataTest(`${modelName}-slot`);
-    }
+    },
+    renderedColumnsNumberChangedSpy: () => cy.wrap(renderedColumnsNumberChangedSpy)
   };
 }
 
@@ -123,6 +135,17 @@ describe('testing BaseGrid', () => {
     getScopedSlot('NextQueriesGroup').should('not.exist');
     getScopedSlot('next-queries-group').should('exist');
   });
+
+  it('emits RenderedColumnsNumberChanged event when rendered columns number changes', () => {
+    const { renderedColumnsNumberChangedSpy } = renderBaseGrid({
+      columns: 0
+    });
+
+    renderedColumnsNumberChangedSpy().should('have.been.calledWith', 6);
+    cy.viewport(1000, 200);
+    renderedColumnsNumberChangedSpy().should('have.been.calledWith', 3);
+    renderedColumnsNumberChangedSpy().should('have.been.calledTwice');
+  });
 });
 
 interface BaseGridRenderOptions {
@@ -136,4 +159,5 @@ interface BaseGridComponentAPI {
   getBaseGrid: () => Cypress.Chainable<JQuery>;
   getDefaultSlot: () => Cypress.Chainable<JQuery>;
   getScopedSlot: (modelName: string) => Cypress.Chainable<JQuery>;
+  renderedColumnsNumberChangedSpy: () => Cypress.Chainable<Cypress.SinonSpyAgent<any>>;
 }
