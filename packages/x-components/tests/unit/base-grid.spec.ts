@@ -1,13 +1,20 @@
-import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
+import { mount } from '@cypress/vue';
 import Vue from 'vue';
-import { getNextQueriesStub } from '../../__stubs__';
-import { getSearchResponseStub } from '../../__stubs__/search-response-stubs.factory';
-import { getDataTestSelector } from '../../__tests__/utils';
-import { ListItem } from '../../utils';
-import { NextQueriesGroup } from '../../x-modules/next-queries/types';
-import BaseGrid from '../base-grid.vue';
+import { getNextQueriesStub, getSearchResponseStub } from '../../src/__stubs__';
+import BaseGrid from '../../src/components/base-grid.vue';
+import { BaseXBus } from '../../src/plugins/x-bus';
+import { XPlugin } from '../../src/plugins/x-plugin';
+import { ListItem } from '../../src/utils';
+import { NextQueriesGroup } from '../../src/x-modules/next-queries/types';
+import { e2eAdapter } from '../../src/adapter/e2e-adapter';
 
-function renderBaseGridComponent({
+/**
+ * Renders an {@link BaseGrid} component with the provided options.
+ *
+ * @param  options - Options to render {@link BaseGrid} with.
+ * @returns Helper methods for the rendered {@link BaseGrid}.
+ */
+function renderBaseGrid({
   columns = 3,
   items,
   customItemSlot = `
@@ -36,7 +43,7 @@ function renderBaseGridComponent({
     } as NextQueriesGroup
   ];
 
-  const gridWrapper = mount(
+  mount(
     {
       components: {
         BaseGrid
@@ -45,29 +52,32 @@ function renderBaseGridComponent({
       template
     },
     {
+      vue: Vue.extend({}),
+      plugins: [[new XPlugin(new BaseXBus()), { adapter: e2eAdapter }]],
       propsData: {
         items: items ?? defaultItems,
         columns
       }
     }
   );
-  const wrapper = gridWrapper.findComponent(BaseGrid);
 
   return {
-    wrapper,
+    getBaseGrid() {
+      return cy.getByDataTest('grid');
+    },
     getDefaultSlot() {
-      return wrapper.findAll(getDataTestSelector('default-slot'));
+      return cy.getByDataTest('default-slot');
     },
     getScopedSlot(modelName: string) {
-      return wrapper.findAll(getDataTestSelector(`${modelName}-slot`));
+      return cy.getByDataTest(`${modelName}-slot`);
     }
   };
 }
 
-describe('testing Base Grid', () => {
+describe('testing BaseGrid', () => {
   it('allows configuring the number of columns and updates the css class accordingly', () => {
-    const { wrapper } = renderBaseGridComponent({ columns: 5 });
-    expect(wrapper.classes()).toContain(`x-grid--cols-5`);
+    const { getBaseGrid } = renderBaseGrid({ columns: 5 });
+    getBaseGrid().should('have.class', 'x-grid--cols-5');
   });
 
   it('allows customizing the default slot', () => {
@@ -77,8 +87,8 @@ describe('testing Base Grid', () => {
              <p data-test="default-slot-overridden">{{ item.modelName }}</p>
            </template>
          </BaseGrid>`;
-    const { wrapper } = renderBaseGridComponent({ template });
-    expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
+    renderBaseGrid({ template });
+    cy.getByDataTest('default-slot-overridden').should('exist');
   });
 
   it('allows customizing named slots', () => {
@@ -86,17 +96,17 @@ describe('testing Base Grid', () => {
       <template #banner="{ item }">
         <p data-test="banner-slot">{{ item.modelName }}</p>
       </template>`;
-    const { getDefaultSlot, getScopedSlot } = renderBaseGridComponent({
+    const { getDefaultSlot, getScopedSlot } = renderBaseGrid({
       customItemSlot
     });
 
-    expect(getDefaultSlot().exists()).toBe(true);
-    expect(getScopedSlot('result').exists()).toBe(false);
-    expect(getScopedSlot('banner').exists()).toBe(true);
+    getDefaultSlot().should('exist');
+    getScopedSlot('result').should('not.exist');
+    getScopedSlot('banner').should('exist');
   });
 
   it('allows customizing named slots only using kebab case', () => {
-    const { getScopedSlot } = renderBaseGridComponent({
+    const { getScopedSlot } = renderBaseGrid({
       customItemSlot: `
         <template #banner="{ item }">
           <p data-test="banner-slot">{{ item.modelName }}</p>
@@ -109,9 +119,9 @@ describe('testing Base Grid', () => {
         </template>`
     });
 
-    expect(getScopedSlot('banner').exists()).toBe(true);
-    expect(getScopedSlot('NextQueriesGroup').exists()).toBe(false);
-    expect(getScopedSlot('next-queries-group').exists()).toBe(true);
+    getScopedSlot('banner').should('exist');
+    getScopedSlot('NextQueriesGroup').should('not.exist');
+    getScopedSlot('next-queries-group').should('exist');
   });
 });
 
@@ -123,7 +133,7 @@ interface BaseGridRenderOptions {
 }
 
 interface BaseGridComponentAPI {
-  wrapper: Wrapper<Vue>;
-  getDefaultSlot: () => WrapperArray<Vue>;
-  getScopedSlot: (modelName: string) => WrapperArray<Vue>;
+  getBaseGrid: () => Cypress.Chainable<JQuery>;
+  getDefaultSlot: () => Cypress.Chainable<JQuery>;
+  getScopedSlot: (modelName: string) => Cypress.Chainable<JQuery>;
 }
