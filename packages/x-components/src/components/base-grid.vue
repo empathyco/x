@@ -34,6 +34,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { toKebabCase } from '../utils/string';
   import { ListItem, VueCSSClasses } from '../utils/types';
+  import { XEmit } from './decorators/bus.decorators';
   import { XInject } from './decorators/injection.decorators';
   import { LIST_ITEMS_KEY } from './decorators/injection.consts';
 
@@ -95,6 +96,15 @@
      */
     @XInject(LIST_ITEMS_KEY)
     public injectedListItems!: ListItem[];
+
+    /**
+     * Emits the {@link XEventsTypes.RenderedColumnsNumberChanged | RenderedColumnsNumberChanged}
+     * event whenever the number of columns rendered inside the grid changes.
+     *
+     * @internal
+     */
+    @XEmit('RenderedColumnsNumberChanged')
+    public renderedColumnsNumber = 0;
 
     /**
      * It returns the items passed as props or the injected ones.
@@ -166,7 +176,7 @@
      */
     protected mounted(): void {
       // eslint-disable-next-line @typescript-eslint/unbound-method
-      const resizeObserver = new ResizeObserver(this.emitRenderedColumnsNumber);
+      const resizeObserver = new ResizeObserver(this.updateRenderedColumnsNumber);
       resizeObserver.observe(this.$el);
       this.$on('hook:beforeDestroy', () => {
         resizeObserver.disconnect();
@@ -174,25 +184,13 @@
     }
 
     /**
-     * Emits a {@link XEventsTypes.RenderedColumnsNumberChanged | RenderedColumnsNumberChanged}
-     * event.
+     * Updates the number of columns rendered inside the grid.
      *
      * @internal
      */
-    protected emitRenderedColumnsNumber(): void {
-      this.$x.emit('RenderedColumnsNumberChanged', this.getRenderedColumnsNumber());
-    }
-
-    /**
-     * Calculates the columns number rendered inside the grid.
-     *
-     * @returns The number of rendered columns.
-     *
-     * @internal
-     */
-    protected getRenderedColumnsNumber(): number {
+    protected updateRenderedColumnsNumber(): void {
       const { gridTemplateColumns } = getComputedStyle(this.$el);
-      return gridTemplateColumns.split(' ').length;
+      this.renderedColumnsNumber = gridTemplateColumns.split(' ').length;
     }
   }
 </script>
