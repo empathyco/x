@@ -103,7 +103,7 @@
      *
      * @internal
      */
-    @XEmit('RenderedColumnsNumberChanged')
+    @XEmit('RenderedColumnsNumberChanged', { immediate: false })
     public renderedColumnsNumber = 0;
 
     /**
