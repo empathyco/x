@@ -174,12 +174,13 @@
     }
 
     /**
-     * Emits a {@link XEventsTypes.ColumnsNumberRendered | ColumnsNumberRendered} event.
+     * Emits a {@link XEventsTypes.RenderedColumnsNumberChanged | RenderedColumnsNumberChanged}
+     * event.
      *
      * @internal
      */
     protected emitRenderedColumnsNumber(): void {
-      this.$x.emit('ColumnsNumberRendered', this.getRenderedColumnsNumber());
+      this.$x.emit('RenderedColumnsNumberChanged', this.getRenderedColumnsNumber());
     }
 
     /**
