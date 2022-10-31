@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.22...@empathyco/x-tailwindcss@0.2.0-alpha.23) (2022-10-27)
+
+### Features
+
+- replace `parcel` with `vite` (#739)
+  ([7720502](https://github.com/empathyco/x/commit/7720502abfdee009506f4478ba3d71ea76051cb1))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.21...@empathyco/x-tailwindcss@0.2.0-alpha.22) (2022-10-19)
 
 ### Features

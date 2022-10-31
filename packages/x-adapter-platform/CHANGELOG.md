@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.39...@empathyco/x-adapter-platform@1.0.0-alpha.40) (2022-10-31)
+
+### Features
+
+- add position on Banner and Promoted models (#800)
+  ([e7393fb](https://github.com/empathyco/x/commit/e7393fbce8d0767d3c762aa714fe94e162203a12)),
+  closes [EX-7293](https://searchbroker.atlassian.net/browse/EX-7293)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.38...@empathyco/x-adapter-platform@1.0.0-alpha.39) (2022-10-24)
 
 ### Features
