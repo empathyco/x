@@ -84,29 +84,29 @@ function mountBaseColumnPickerComponents({
 describe('testing Base Column Picker List and Dropdown', () => {
   it('Selects  different options from the column picker list', () => {
     const { clickListNthItem, getListNthItem } = mountBaseColumnPickerComponents();
-    getListNthItem(4).should('have.attr', 'aria-selected', 'true');
+    getListNthItem(4).should('have.attr', 'aria-pressed', 'true');
 
     clickListNthItem(2);
-    getListNthItem(2).should('have.attr', 'aria-selected', 'true');
+    getListNthItem(2).should('have.attr', 'aria-pressed', 'true');
     cy.getByDataTest('dropdown-toggle').should('contain', '2');
 
     clickListNthItem(6);
-    getListNthItem(6).should('have.attr', 'aria-selected', 'true');
+    getListNthItem(6).should('have.attr', 'aria-pressed', 'true');
     cy.getByDataTest('dropdown-toggle').should('contain', '6');
   });
 
   it('Selects different options from the column picker dropdown', () => {
     const { clickDropdownNthItem, getDropdownNthItem, closeDropdown } =
       mountBaseColumnPickerComponents();
-    getDropdownNthItem(1).should('have.attr', 'aria-selected', 'true');
+    getDropdownNthItem(1).should('have.attr', 'aria-pressed', 'true');
     closeDropdown();
 
     clickDropdownNthItem(2);
-    getDropdownNthItem(2).should('have.attr', 'aria-selected', 'true');
+    getDropdownNthItem(2).should('have.attr', 'aria-pressed', 'true');
     closeDropdown();
 
     clickDropdownNthItem(0);
-    getDropdownNthItem(0).should('have.attr', 'aria-selected', 'true');
+    getDropdownNthItem(0).should('have.attr', 'aria-pressed', 'true');
   });
 });
 
