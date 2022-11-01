@@ -101,7 +101,8 @@
       let index = 0,
         previousBannerRow = -1;
       for (const item of this.stateItems) {
-        let row = item.position - 1;
+        const position = item.position ?? 1;
+        let row = position - 1;
         if (row <= previousBannerRow) {
           row = previousBannerRow + 1;
         }
