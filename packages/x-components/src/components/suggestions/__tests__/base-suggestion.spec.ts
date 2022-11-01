@@ -82,6 +82,7 @@ describe('testing Base Suggestion component', () => {
     const { emit, wrapper, suggestion, wireMetadata } = renderBaseSuggestion();
     wrapper.trigger('click');
 
+    expect(emit).toHaveBeenCalledTimes(3);
     expect(emit).toHaveBeenNthCalledWith(1, 'UserAcceptedAQuery', suggestion.query, wireMetadata);
     expect(emit).toHaveBeenNthCalledWith(2, 'UserSelectedASuggestion', suggestion, wireMetadata);
     expect(emit).toHaveBeenNthCalledWith(
@@ -106,7 +107,7 @@ describe('testing Base Suggestion component', () => {
     });
     wrapper.trigger('click');
 
-    expect(emit).toHaveBeenCalledTimes(3);
+    expect(emit).toHaveBeenCalledTimes(4);
     expect(emit).toHaveBeenCalledWith(
       'UserClickedAFilter',
       suggestion.facets?.[0].filters?.[0],
