@@ -3,7 +3,6 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { XPlugin } from '../../../plugins/x-plugin';
 import { normalizeString } from '../../../utils/normalize';
-import { XEventsTypes } from '../../../wiring/events.types';
 import { WireMetadata } from '../../../wiring/wiring.types';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseSuggestion from '../base-suggestion.vue';
@@ -16,17 +15,14 @@ function renderBaseSuggestion({
 }: BaseSuggestionOptions = {}): BaseSuggestionAPI {
   const [, localVue] = installNewXPlugin();
   const emit = jest.spyOn(XPlugin.bus, 'emit');
-
-  const suggestionSelectedEvents: Partial<XEventsTypes> = {
-    UserSelectedAQuerySuggestion: suggestion
-  };
-
   const wrapper = mount(BaseSuggestion, {
     localVue,
     propsData: {
       query,
       suggestion,
-      suggestionSelectedEvents
+      suggestionSelectedEvents: {
+        UserSelectedAQuerySuggestion: suggestion
+      }
     }
   });
 
@@ -110,18 +106,12 @@ describe('testing Base Suggestion component', () => {
     });
     wrapper.trigger('click');
 
+    expect(emit).toHaveBeenCalledTimes(3);
     expect(emit).toHaveBeenCalledWith(
       'UserClickedAFilter',
       suggestion.facets?.[0].filters?.[0],
       wireMetadata
     );
-  });
-
-  it('does not emit UserClickedAFilter if there is no filter', () => {
-    const { emit, wrapper, wireMetadata } = renderBaseSuggestion();
-    wrapper.trigger('click');
-
-    expect(emit).not.toHaveBeenCalledWith('UserClickedAFilter', undefined, wireMetadata);
   });
 });
 

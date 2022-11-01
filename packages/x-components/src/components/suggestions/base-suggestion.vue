@@ -125,9 +125,7 @@
      * @public
      */
     protected get filter(): BooleanFilter | undefined {
-      return this.suggestion.facets?.length
-        ? (this.suggestion.facets[0].filters[0] as BooleanFilter)
-        : undefined;
+      return this.suggestion.facets?.[0]?.filters[0] as BooleanFilter;
     }
 
     /**
