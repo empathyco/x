@@ -9,6 +9,7 @@
     >
       <BaseEventButton
         class="x-button column-picker-item__button"
+        :class="buttonClass"
         data-test="column-picker-button"
         :aria-selected="isSelected.toString()"
         :events="events"
@@ -27,19 +28,13 @@
   </ul>
 </template>
 
-<style lang="scss" scoped>
-  .x-column-picker-list {
-    display: flex;
-    list-style-type: none;
-  }
-</style>
-
 <script lang="ts">
   import { mixins } from 'vue-class-component';
   import { Component } from 'vue-property-decorator';
   import { VueCSSClasses } from '../../utils/types';
   import { XEventsTypes } from '../../wiring';
   import BaseEventButton from '../base-event-button.vue';
+  import { dynamicPropsMixin } from '../dynamic-props.mixin';
   import ColumnPickerMixin from './column-picker.mixin';
 
   interface ColumnPickerItem {
@@ -52,6 +47,9 @@
   /**
    * Column picker list component renders a list of buttons to choose the columns number.
    *
+   * Additionally, this component exposes the following props to modify the classes of the
+   * elements: `buttonClass`.
+   *
    * @remarks It extends {@link ColumnPickerMixin}.
    *
    * @public
@@ -59,7 +57,10 @@
   @Component({
     components: { BaseEventButton }
   })
-  export default class BaseColumnPickerList extends mixins(ColumnPickerMixin) {
+  export default class BaseColumnPickerList extends mixins(
+    ColumnPickerMixin,
+    dynamicPropsMixin(['buttonClass'])
+  ) {
     /**
      * Maps the column to an object containing: the `column` and `CSS classes`.
      *
@@ -86,6 +87,13 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .x-column-picker-list {
+    display: flex;
+    list-style-type: none;
+  }
+</style>
 
 <docs lang="mdx">
 ## Examples
@@ -150,6 +158,28 @@ It is possible to override the column picker button content.
   <BaseColumnPickerList :columns="columns" #default="{ column, isSelected }">
     <span>{{ column }} {{ isSelected ? '🟢' : '' }}</span>
   </BaseColumnPickerList>
+</template>
+<script>
+  import { BaseColumnPickerList } from '@empathyco/xcomponents';
+
+  export default {
+    components: {
+      BaseColumnPickerList
+    },
+    data() {
+      return { columns: [2, 4, 6] };
+    }
+  };
+</script>
+```
+
+#### Customizing the buttons with classes
+
+The `buttonClass` prop can be used to add classes to the buttons.
+
+```vue
+<template>
+  <BaseColumnPickerList :columns="columns" buttonClass="x-button--round" />
 </template>
 <script>
   import { BaseColumnPickerList } from '@empathyco/xcomponents';

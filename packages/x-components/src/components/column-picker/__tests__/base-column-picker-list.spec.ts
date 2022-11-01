@@ -6,12 +6,13 @@ import BaseColumnPickerList from '../base-column-picker-list.vue';
 function renderBaseColumnPickerListComponent({
   columns,
   selectedColumns,
+  buttonClass,
   customItemSlot = `
     <template #default="{ column }">
       <p data-test="column-slot">{{ column }}</p>
     </template>`,
   template = `
-   <BaseColumnPickerList :columns="columns" v-model="selectedColumns">
+   <BaseColumnPickerList v-bind="$attrs" v-model="selectedColumns">
       ${customItemSlot ?? ''}
    </BaseColumnPickerList>`
 }: BaseColumnPickerListRenderOptions = {}): BaseColumnPickerListComponentAPI {
@@ -23,7 +24,6 @@ function renderBaseColumnPickerListComponent({
         components: {
           BaseColumnPickerList
         },
-        props: ['columns'],
         template,
         data() {
           return { selectedColumns: options.selectedColumns ?? selectedColumns };
@@ -31,7 +31,8 @@ function renderBaseColumnPickerListComponent({
       },
       {
         propsData: {
-          columns
+          columns,
+          buttonClass
         },
         localVue
       }
@@ -63,7 +64,7 @@ describe('testing Base Column Picker List', () => {
     const value = columns[index];
     const { wrapper } = renderBaseColumnPickerListComponent({
       columns,
-      template: `<BaseColumnPickerList :columns="columns" :value="${value}" />`
+      template: `<BaseColumnPickerList v-bind="$attrs" :value="${value}" />`
     });
     const listenerColumnPicker = jest.fn();
     wrapper.vm.$x.on('ColumnsNumberProvided', true).subscribe(listenerColumnPicker);
@@ -183,6 +184,17 @@ describe('testing Base Column Picker List', () => {
     expect(getSelectedItem(wrapper4)).toBe('0');
     expect(getSelectedItem(wrapper5)).toBe('0');
   });
+
+  it('allows adding CSS class to the buttons', () => {
+    const { wrapper } = renderBaseColumnPickerListComponent({
+      columns: [1, 3, 6],
+      buttonClass: 'x-background--accent'
+    });
+
+    wrapper.findAll('button').wrappers.forEach(button => {
+      expect(button.classes()).toContain('x-background--accent');
+    });
+  });
 });
 
 interface BaseColumnPickerListRenderOptions {
@@ -190,6 +202,8 @@ interface BaseColumnPickerListRenderOptions {
   columns?: number[];
   /** The custom element to be rendered. */
   customItemSlot?: string;
+  /** The CSS classes to add to the buttons. */
+  buttonClass?: string;
   /** The initial selected column value. */
   selectedColumns?: number;
   /** The template to be rendered. */
