@@ -3,5 +3,6 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "exclude": []
+  "include": ["src/**/*.ts", "src/**/*.tsx", "cypress.config.ts"],
+  "exclude": ["node_modules"]
 }

@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue';
+import { mount } from 'cypress/vue2';
 import Vue from 'vue';
 import StaggeredFadeAndSlide from '../../src/components/animations/staggered-fade-and-slide.vue';
 import { BaseXBus } from '../../src/plugins/x-bus';
@@ -83,7 +83,7 @@ function renderMainScroll({
 
         html,
         body,
-        #__cy_root {
+        [data-cy-root] {
           margin: 0;
           height: 100%;
           max-height: 100%;
@@ -307,5 +307,5 @@ interface RenderMainScrollAPI {
    */
   getScrollingElement: () => Cypress.Chainable<JQuery>;
   /** Spy of {@link ScrollXEvents.UserScrolledToElement}. */
-  userScrolledToElementSpy: () => Cypress.Chainable<Cypress.SinonSpyAgent<any>>;
+  userScrolledToElementSpy: () => Cypress.Chainable<ReturnType<typeof cy.spy>>;
 }
