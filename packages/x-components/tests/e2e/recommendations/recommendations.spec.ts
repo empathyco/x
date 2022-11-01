@@ -1,4 +1,4 @@
-import { And, Given } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then } from '@badeball/cypress-cucumber-preprocessor';
 import { InstallXOptions } from '../../../src/x-installer/x-installer/types';
 
 // Scenario 1
@@ -18,7 +18,7 @@ Given('following config: max items to store is {int}', (maxItemsToRequest: numbe
   });
 });
 
-And(
+Then(
   'number of displayed recommendations are equal or less than {int}',
   (maxItemsToRequest: number) => {
     cy.getByDataTest('recommendation-item')
@@ -28,7 +28,7 @@ And(
   }
 );
 
-And('each recommendation has an associated hyperlink, image and text', () => {
+Then('each recommendation has an associated hyperlink, image and text', () => {
   cy.getByDataTest('recommendation-item').getByDataTest('result-link').should('have.attr', 'href');
   cy.getByDataTest('recommendation-item')
     .getByDataTest('result-link')

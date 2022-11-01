@@ -83,6 +83,8 @@
     "vuex": "^3.0.0"
   },
   "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "~13.0.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "~2.1.4",
     "@cypress/vue": "~2.2.4",
     "@cypress/webpack-dev-server": "~1.8.4",
     "@empathyco/x-adapter-platform": "^1.0.0-alpha.40",
@@ -103,8 +105,6 @@
     "@vue/vue2-jest": "~27.0.0-alpha.3",
     "autoprefixer": "~10.4.4",
     "cypress": "~8.4.0",
-    "cypress-cucumber-preprocessor": "~4.0.0",
-    "cypress-plugin-tab": "~1.0.5",
     "glob": "~7.1.6",
     "jest": "~27.3.1",
     "jest-scss-transform": "~1.0.1",
