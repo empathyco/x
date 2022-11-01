@@ -79,7 +79,8 @@
       }
       const items = [...this.injectedListItems];
       for (const item of this.stateItems) {
-        let index = item.position - 1;
+        const position = item.position ?? 1;
+        let index = position - 1;
         while (items.at(index)?.modelName === 'Promoted') {
           index++;
         }
