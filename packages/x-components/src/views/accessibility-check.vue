@@ -35,7 +35,9 @@
         <FacetsProvider :facets="[facet]" />
         <Facets>
           <template #default="{ facet }">
-            <AllFilter :facet="facet" />
+            <AllFilter :id="facet.label" :facet="facet">
+              {{ facet.label }}
+            </AllFilter>
             <Filters v-slot="{ filter }" :filters="facet.filters">
               <SimpleFilter :filter="filter" />
             </Filters>
@@ -54,7 +56,7 @@
       <h1>ScrollToTop</h1>
       <div>
         <ScrollToTop scroll-id="accessibility-scroll" :threshold-px="1000">
-          <span>Scroll to top</span>
+          <span>^</span>
         </ScrollToTop>
       </div>
     </section>

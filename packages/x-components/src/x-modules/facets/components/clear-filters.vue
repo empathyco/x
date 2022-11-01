@@ -7,7 +7,7 @@
     :events="events"
     :class="cssClasses"
   >
-    <slot :selectedFilters="selectedFilters">Clear Filters ({{ selectedFilters.length }})</slot>
+    <slot :selectedFilters="selectedFilters"></slot>
   </BaseEventButton>
 </template>
 

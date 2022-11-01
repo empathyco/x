@@ -10,7 +10,7 @@
       <BaseEventButton
         class="x-button column-picker-item__button"
         data-test="column-picker-button"
-        :aria-selected="isSelected.toString()"
+        :aria-pressed="isSelected"
         :events="events"
         :aria-label="column"
       >

@@ -5,7 +5,6 @@
       v-on="$listeners"
       class="x-button x-scroll-to-top"
       data-test="scroll-to-top"
-      ^
       aria-label="Scroll to top"
       :events="events"
     >
