@@ -4,6 +4,7 @@
     :events="events"
     class="x-button x-result-add-to-cart"
     data-test="result-add-to-cart"
+    aria-labelledby="result-add-to-cart"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />

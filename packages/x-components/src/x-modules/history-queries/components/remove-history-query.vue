@@ -38,7 +38,7 @@
      * The event handler that will be triggered when clicking on the clear history query button.
      *
      * @remarks
-     * * {@link HistoryQueriesXEvents.UserPressedRemoveHistoryQuery}: historyQuery
+     * {@link HistoryQueriesXEvents.UserPressedRemoveHistoryQuery}: historyQuery
      *
      * @returns The {@link XEvent | XEvents} to emit.
      * @public

@@ -12,6 +12,7 @@
         data-test="column-picker-button"
         :aria-selected="isSelected.toString()"
         :events="events"
+        :aria-label="column"
       >
         <!--
           @slot Customized Column Picker Button content. Specifying a slot with the column value
@@ -26,13 +27,6 @@
     </li>
   </ul>
 </template>
-
-<style lang="scss" scoped>
-  .x-column-picker-list {
-    display: flex;
-    list-style-type: none;
-  }
-</style>
 
 <script lang="ts">
   import { mixins } from 'vue-class-component';
@@ -86,6 +80,13 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .x-column-picker-list {
+    display: flex;
+    list-style-type: none;
+  }
+</style>
 
 <docs lang="mdx">
 ## Examples

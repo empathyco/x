@@ -5,7 +5,7 @@
     class="x-button x-base-id-toggle-panel-button"
     data-test="base-id-toggle-button"
     :aria-pressed="isPanelOpen"
-    aria-labelledby="toggle-panel"
+    aria-labelledby="base-id-toggle-button"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot :isPanelOpen="isPanelOpen" />
