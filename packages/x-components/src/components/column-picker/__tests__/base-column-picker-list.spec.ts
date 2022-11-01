@@ -51,7 +51,7 @@ function renderBaseColumnPickerListComponent({
       await wrapper.setData({ selectedColumns: column });
     },
     getSelectedItem() {
-      return wrapper.find('[aria-selected=true]');
+      return wrapper.find('[aria-pressed=true]');
     }
   };
 }
@@ -139,7 +139,7 @@ describe('testing Base Column Picker List', () => {
 
   it('updates selected value on fresh mounts correctly', async () => {
     const getSelectedItem = (wrapper: Wrapper<Vue>): string =>
-      wrapper.get('[aria-selected=true]').text();
+      wrapper.get('[aria-pressed=true]').text();
     const { wrapper, mountComponent, clickNthItem, setWrapperSelectedColumns } =
       renderBaseColumnPickerListComponent({
         columns: [4, 6, 0]
