@@ -21,7 +21,7 @@ export function getBannersStub(): Banner[] {
  *
  * @internal
  */
-export function createBannerStub(identifier: string, position = 1): Banner {
+export function createBannerStub(identifier: string, position?: number): Banner {
   return {
     id: `xb-${identifier}`,
     title: `Banner ${identifier}`,
