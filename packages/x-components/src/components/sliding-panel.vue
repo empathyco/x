@@ -46,7 +46,7 @@
    * general behavior.
    *
    * Additionally, this component exposes the following props to modify the classes of the
-   * elements: buttonClass
+   * elements: `buttonClass`.
    *
    * @public
    */
@@ -368,6 +368,43 @@ just by swiping.
 ```vue
 <template>
   <SlidingPanel :showButtons="false">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+  </SlidingPanel>
+</template>
+
+<script>
+  import { SlidingPanel } from '@empathyco/x-components';
+
+  export default {
+    name: 'SlidingPanelDemo',
+    components: {
+      SlidingPanel
+    }
+  };
+</script>
+
+<style>
+  .x-sliding-panel {
+    width: 200px;
+  }
+
+  .item {
+    display: inline-block;
+    width: 100px;
+  }
+</style>
+```
+
+#### Customizing the buttons with classes
+
+The `buttonClass` prop can be used to add classes to the buttons.
+
+```vue
+<template>
+  <SlidingPanel buttonClass="x-button--round">
     <div class="item">Item 1</div>
     <div class="item">Item 2</div>
     <div class="item">Item 3</div>
