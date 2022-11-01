@@ -168,7 +168,7 @@ describe('testing BannersList component', () => {
       }
     );
 
-    wrapper.vm.$x.emit('ColumnsNumberRendered', 2);
+    wrapper.vm.$x.emit('RenderedColumnsNumberChanged', 2);
     await wrapper.vm.$nextTick();
 
     expect(wrapper.text()).toBe(

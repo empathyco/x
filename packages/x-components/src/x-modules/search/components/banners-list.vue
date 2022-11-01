@@ -78,7 +78,7 @@
      *
      * @internal
      */
-    @XOn(['ColumnsNumberRendered'])
+    @XOn(['RenderedColumnsNumberChanged'])
     setColumnsNumber(newColumnsNumber: number): void {
       this.columnsNumber = newColumnsNumber;
     }
