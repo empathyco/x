@@ -53,7 +53,7 @@
 
       <h1>ScrollToTop</h1>
       <div>
-        <ScrollToTop scrollId="accessibility-scroll" :threshold-px="1000">
+        <ScrollToTop scroll-id="accessibility-scroll" :threshold-px="1000">
           <span>Scroll to top</span>
         </ScrollToTop>
       </div>
