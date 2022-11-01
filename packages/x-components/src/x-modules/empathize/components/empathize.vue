@@ -56,7 +56,14 @@
      *
      * @public
      */
-    @Prop({ default: (): XEvent[] => ['UserClosedEmpathize', 'UserSelectedASuggestion', 'UserPressedEnterKey', 'UserBlurredSearchBox'] })
+    @Prop({
+      default: (): XEvent[] => [
+        'UserClosedEmpathize',
+        'UserSelectedASuggestion',
+        'UserPressedEnterKey',
+        'UserBlurredSearchBox'
+      ]
+    })
     protected eventsToCloseEmpathize!: XEvent[];
 
     /**
