@@ -3,6 +3,7 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { XPlugin } from '../../../plugins/x-plugin';
 import { normalizeString } from '../../../utils/normalize';
+import { XEventsTypes } from '../../../wiring/events.types';
 import { WireMetadata } from '../../../wiring/wiring.types';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseSuggestion from '../base-suggestion.vue';
@@ -11,7 +12,8 @@ import { createPopularSearch } from '../../../__stubs__/popular-searches-stubs.f
 
 function renderBaseSuggestion({
   query = 'bebe',
-  suggestion = createPopularSearch('bebe lloron')
+  suggestion = createPopularSearch('bebe lloron'),
+  suggestionSelectedEvents = {}
 }: BaseSuggestionOptions = {}): BaseSuggestionAPI {
   const [, localVue] = installNewXPlugin();
   const emit = jest.spyOn(XPlugin.bus, 'emit');
@@ -20,9 +22,7 @@ function renderBaseSuggestion({
     propsData: {
       query,
       suggestion,
-      suggestionSelectedEvents: {
-        UserSelectedAQuerySuggestion: suggestion
-      }
+      suggestionSelectedEvents
     }
   });
 
@@ -79,7 +79,13 @@ describe('testing Base Suggestion component', () => {
   });
 
   it('emits suggestionSelectedEvent and the default events onclick', () => {
-    const { emit, wrapper, suggestion, wireMetadata } = renderBaseSuggestion();
+    const customSuggestion = createPopularSearch('bebe lloron');
+    const { emit, wrapper, suggestion, wireMetadata } = renderBaseSuggestion({
+      suggestion: customSuggestion,
+      suggestionSelectedEvents: {
+        UserSelectedAQuerySuggestion: customSuggestion
+      }
+    });
     wrapper.trigger('click');
 
     expect(emit).toHaveBeenCalledTimes(3);
@@ -107,7 +113,7 @@ describe('testing Base Suggestion component', () => {
     });
     wrapper.trigger('click');
 
-    expect(emit).toHaveBeenCalledTimes(4);
+    expect(emit).toHaveBeenCalledTimes(3);
     expect(emit).toHaveBeenCalledWith(
       'UserClickedAFilter',
       suggestion.facets?.[0].filters?.[0],
@@ -124,6 +130,8 @@ interface BaseSuggestionOptions {
   query?: string;
   /** The suggestion to be rendered. By default, a suggestion with facets is used. */
   suggestion?: Suggestion;
+  /** The events to emit when selecting a suggestion. */
+  suggestionSelectedEvents?: Partial<XEventsTypes>;
 }
 
 /**
