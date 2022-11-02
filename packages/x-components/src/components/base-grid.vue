@@ -34,6 +34,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { toKebabCase } from '../utils/string';
   import { ListItem, VueCSSClasses } from '../utils/types';
+  import { XEmit } from './decorators/bus.decorators';
   import { XInject } from './decorators/injection.decorators';
   import { LIST_ITEMS_KEY } from './decorators/injection.consts';
 
@@ -97,6 +98,15 @@
     public injectedListItems!: ListItem[];
 
     /**
+     * Emits the {@link XEventsTypes.RenderedColumnsNumberChanged | RenderedColumnsNumberChanged}
+     * event whenever the number of columns rendered inside the grid changes.
+     *
+     * @internal
+     */
+    @XEmit('RenderedColumnsNumberChanged', { immediate: false })
+    public renderedColumnsNumber = 0;
+
+    /**
      * It returns the items passed as props or the injected ones.
      *
      * @returns List of grid items.
@@ -157,6 +167,30 @@
           cssClass: `x-base-grid__${slotName}`
         };
       });
+    }
+
+    /**
+     * Initialises the rendered columns number and sets a ResizeObserver to keep it updated.
+     *
+     * @internal
+     */
+    protected mounted(): void {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      const resizeObserver = new ResizeObserver(this.updateRenderedColumnsNumber);
+      resizeObserver.observe(this.$el);
+      this.$on('hook:beforeDestroy', () => {
+        resizeObserver.disconnect();
+      });
+    }
+
+    /**
+     * Updates the number of columns rendered inside the grid.
+     *
+     * @internal
+     */
+    protected updateRenderedColumnsNumber(): void {
+      const { gridTemplateColumns } = getComputedStyle(this.$el);
+      this.renderedColumnsNumber = gridTemplateColumns.split(' ').length;
     }
   }
 </script>
