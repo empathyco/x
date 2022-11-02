@@ -94,9 +94,9 @@
         ? { UserClickedAFilter: this.filter }
         : {};
       return {
-        ...this.suggestionSelectedEvents,
         UserAcceptedAQuery: this.suggestion.query,
         UserSelectedASuggestion: this.suggestion,
+        ...this.suggestionSelectedEvents,
         ...filterEvent
       };
     }
