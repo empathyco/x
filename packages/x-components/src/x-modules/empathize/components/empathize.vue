@@ -57,10 +57,10 @@
      * @public
      */
     @Prop({
-      default: () => [
+      default: (): XEvent[] => [
         'UserClosedEmpathize',
         'UserSelectedASuggestion',
-        'UserPressedEnter',
+        'UserPressedEnterKey',
         'UserBlurredSearchBox'
       ]
     })
