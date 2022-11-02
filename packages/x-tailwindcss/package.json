@@ -26,7 +26,7 @@
   "scripts": {
     "dev": "vite serve demo",
     "prebuild": "rimraf ./dist ./showcase ./*.tgz",
-    "build": "rollup -c",
+    "build": "rollup -c && rollup -c demo/rollup.config.js",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build"
   },
