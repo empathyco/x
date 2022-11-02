@@ -18,14 +18,16 @@
 <script lang="ts">
   import { Banner } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Inject, Prop } from 'vue-property-decorator';
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
   import { ItemsListInjectionMixin } from '../../../components/items-list-injection.mixin';
   import ItemsList from '../../../components/items-list.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { FeatureLocation } from '../../../types/origin';
   import { ListItem } from '../../../utils/types';
+  import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchXModule } from '../x-module';
 
   /**
@@ -65,6 +67,14 @@
     protected animation!: Vue | string;
 
     /**
+     * The provided {@link FeatureLocation} for the component.
+     *
+     * @internal
+     */
+    @Inject({ default: undefined })
+    protected location?: FeatureLocation;
+
+    /**
      * Number of columns the grid is being divided into.
      *
      * @internal
@@ -76,11 +86,14 @@
      *
      * @param newColumnsNumber - The new columns value.
      *
+     * @param root0
      * @internal
      */
     @XOn(['RenderedColumnsNumberChanged'])
-    setColumnsNumber(newColumnsNumber: number): void {
-      this.columnsNumber = newColumnsNumber;
+    setColumnsNumber(newColumnsNumber: number, { location }: WireMetadata): void {
+      if (location === this.location) {
+        this.columnsNumber = newColumnsNumber;
+      }
     }
 
     /**
