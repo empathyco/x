@@ -270,6 +270,11 @@ Starting with the `ResultsList` component as root element, you can concat the li
 using `BannersList`, `PromotedsList`, `BaseGrid` or any component that injects the `listItems`
 value.
 
+The order in which elements are placed in the template will define the concat strategy of the items,
+so it is important to define it properly; for example, Promoteds will be usually before Banners so
+first promoted items are inserted within the results and then banner items are placed on top of
+that, occupying the rows.
+
 ```vue
 <template>
   <div>
