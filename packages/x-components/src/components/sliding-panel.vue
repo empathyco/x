@@ -40,7 +40,7 @@
   import { Debounce } from './decorators/debounce.decorators';
   import { dynamicPropsMixin } from './dynamic-props.mixin';
 
-  /**.
+  /**
    * This component allows for any other component or element inside it to be horizontally
    * navigable. It also implements customizable buttons as well as other minor customizations to its
    * general behavior.
