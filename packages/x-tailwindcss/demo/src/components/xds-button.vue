@@ -7,7 +7,13 @@
       class="x-flex x-flex-row x-items-start x-gap-12 x-align-items-baseline"
     >
       <h2 class="x-text-md">{{ section }}</h2>
-      <button v-for="cssClass in classes" :key="cssClass" @click="copyCSSClasses" :class="cssClass">
+      <button
+        v-for="cssClass in classes"
+        :key="cssClass"
+        @click="copyCSSClasses"
+        :class="cssClass"
+        title="Click me to copy CSS classes"
+      >
         {{ removeBase(cssClass) }}
       </button>
     </div>
