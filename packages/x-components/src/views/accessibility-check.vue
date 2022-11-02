@@ -4,9 +4,9 @@
       <div>
         <h1>BaseIdTogglePanelButton</h1>
         <BaseIdTogglePanelButton
-          id="base-id-toggle-button"
+          :id="`base-id-toggle-button-${panelId}`"
           class="x-button x-button--ghost"
-          panelId="aside-panel"
+          :panelId="panelId"
         >
           Panel
         </BaseIdTogglePanelButton>
@@ -18,7 +18,9 @@
       <div>
         <h1>ClearHistoryQueries and RemoveHistoryQuery</h1>
         <SearchInput />
-        <ClearHistoryQueries>Not reading this since there is an aria-label</ClearHistoryQueries>
+        <ClearHistoryQueries id="here" aria-labelledby="here">
+          Not reading this since there is an aria-label
+        </ClearHistoryQueries>
         <HistoryQueries :maxItemsToRender="3" />
       </div>
 
@@ -35,9 +37,7 @@
         <FacetsProvider :facets="[facet]" />
         <Facets>
           <template #default="{ facet }">
-            <AllFilter :id="facet.label" :facet="facet">
-              {{ facet.label }}
-            </AllFilter>
+            <AllFilter :id="`all-filter-${facet.label}`" :facet="facet">ay ni de coña</AllFilter>
             <Filters v-slot="{ filter }" :filters="facet.filters">
               <SimpleFilter :filter="filter" />
             </Filters>
@@ -73,33 +73,25 @@
   // eslint-disable-next-line max-len
   import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
   import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
-  import MainScroll from '../x-modules/scroll/components/main-scroll.vue';
   import SearchInput from '../x-modules/search-box/components/search-input.vue';
   import BaseResultAddToCart from '../components/result/base-result-add-to-cart.vue';
   import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
   import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';
   import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
   import Filters from '../x-modules/facets/components/lists/filters-list.vue';
-  import CheckboxCardSelectedIcon from '../components/icons/checkbox-card-selected.vue';
-  import CheckboxCardUnselectedIcon from '../components/icons/checkbox-card-unselected.vue';
   import ScrollToTop from '../x-modules/scroll/components/scroll-to-top.vue';
-  import BaseEventButton from '../components/base-event-button.vue';
   import { getSimpleFacetStub } from '../__stubs__';
   import Facets from '../x-modules/facets/components/facets/facets.vue';
   import Scroll from '../x-modules/scroll/components/scroll.vue';
 
   @Component({
     components: {
-      MainScroll,
       FacetsProvider,
       AllFilter,
       BaseColumnPickerList,
-      BaseEventButton,
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
       BaseResultAddToCart,
-      CheckboxCardSelectedIcon,
-      CheckboxCardUnselectedIcon,
       ClearFilters,
       ClearHistoryQueries,
       Facets,
@@ -113,6 +105,7 @@
   })
   export default class AccessibilityCheck extends Vue {
     protected facet = getSimpleFacetStub();
+    protected panelId = 'aside-panel';
   }
 </script>
 

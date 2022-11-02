@@ -21,7 +21,6 @@
       class="x-history-query__remove"
       :historyQuery="suggestion"
       data-test="remove-history-query"
-      aria-label="remove"
     >
       <!--
           @slot History Query remove button content

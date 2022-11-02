@@ -1,5 +1,9 @@
 <template>
-  <BaseEventButton class="x-button x-remove-history-query" :events="removeHistoryQueryEvent">
+  <BaseEventButton
+    class="x-button x-remove-history-query"
+    :events="removeHistoryQueryEvent"
+    aria-label="grelos"
+  >
     <!--  @slot (Required) Button content with a text, an icon or both -->
     <slot />
   </BaseEventButton>
