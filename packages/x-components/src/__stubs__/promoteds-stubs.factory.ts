@@ -21,7 +21,7 @@ export function getPromotedsStub(): Promoted[] {
  *
  * @internal
  */
-export function createPromotedStub(identifier: string, position = 1): Promoted {
+export function createPromotedStub(identifier: string, position?: number): Promoted {
   return {
     id: `xp-${identifier}`,
     title: `Promoted ${identifier}`,
