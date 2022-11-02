@@ -85,8 +85,8 @@
      * Handler to update the number of columns when it changes.
      *
      * @param newColumnsNumber - The new columns value.
+     * @param metadata - The {@link WirePayload.metadata}.
      *
-     * @param root0
      * @internal
      */
     @XOn(['RenderedColumnsNumberChanged'])
