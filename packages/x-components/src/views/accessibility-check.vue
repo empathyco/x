@@ -18,9 +18,7 @@
       <div>
         <h1>ClearHistoryQueries and RemoveHistoryQuery</h1>
         <SearchInput />
-        <ClearHistoryQueries id="here" aria-labelledby="here">
-          Not reading this since there is an aria-label
-        </ClearHistoryQueries>
+        <ClearHistoryQueries>Not reading this since there is an aria-label</ClearHistoryQueries>
         <HistoryQueries :maxItemsToRender="3" />
       </div>
 
@@ -37,7 +35,9 @@
         <FacetsProvider :facets="[facet]" />
         <Facets>
           <template #default="{ facet }">
-            <AllFilter :id="`all-filter-${facet.label}`" :facet="facet">ay ni de coña</AllFilter>
+            <AllFilter :id="`all-filter-${facet.label}`" :facet="facet">
+              {{ facet.label }}
+            </AllFilter>
             <Filters v-slot="{ filter }" :filters="facet.filters">
               <SimpleFilter :filter="filter" />
             </Filters>
