@@ -90,15 +90,15 @@
      * @public
      */
     protected get events(): Partial<XEventsTypes> {
-      const events = {
+      const filterEvent: Partial<XEventsTypes> = this.filter
+        ? { UserClickedAFilter: this.filter }
+        : {};
+      return {
+        ...this.suggestionSelectedEvents,
         UserAcceptedAQuery: this.suggestion.query,
         UserSelectedASuggestion: this.suggestion,
-        ...this.suggestionSelectedEvents
+        ...filterEvent
       };
-      if (this.filter) {
-        events.UserClickedAFilter = this.filter;
-      }
-      return events;
     }
 
     /**
