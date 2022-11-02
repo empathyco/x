@@ -1,4 +1,4 @@
-import { Result, Tagging, TaggingRequest } from '@empathyco/x-types';
+import { Banner, Result, Tagging, TaggingRequest } from '@empathyco/x-types';
 import { DefaultSessionService } from '@empathyco/x-utils';
 import {
   namespacedWireCommit,
@@ -132,6 +132,8 @@ export const setQueryTaggingInfo = moduleDebounce(
  */
 export const trackResultClickedWire = createTrackResultWire('click');
 
+export const trackBannerClickedWire = createTrackResultWire('click');
+
 /**
  * Performs a track of a result added to the cart.
  *
@@ -147,7 +149,7 @@ export const trackAddToCartWire = createTrackResultWire('add2cart');
  *
  * @internal
  */
-function createTrackResultWire(property: keyof Tagging): Wire<Result> {
+function createTrackResultWire(property: keyof Tagging): Wire<Result | Banner> {
   return filter(
     wireDispatch('track', ({ eventPayload: { tagging }, metadata: { location } }) => {
       const taggingInfo: TaggingRequest = tagging[property];
@@ -195,5 +197,8 @@ export const taggingWiring = createWiring({
   },
   UserClickedPDPAddToCart: {
     trackAddToCartFromSessionStorage
+  },
+  UserClickedABanner: {
+    trackBannerClickedWire
   }
 });

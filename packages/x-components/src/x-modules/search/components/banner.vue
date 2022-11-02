@@ -1,5 +1,11 @@
 <template>
-  <a @click="emitClickEvent" :href="banner.url" class="x-banner" data-test="banner">
+  <a
+    @click="emitClickEvent"
+    @click.middle="emitClickEvent"
+    :href="banner.url"
+    class="x-banner"
+    data-test="banner"
+  >
     <img :src="banner.image" class="x-banner__image" :alt="banner.title" />
     <h2 class="x-banner__title">{{ banner.title }}</h2>
   </a>
