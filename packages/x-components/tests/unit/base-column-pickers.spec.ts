@@ -98,15 +98,15 @@ describe('testing Base Column Picker List and Dropdown', () => {
   it('Selects different options from the column picker dropdown', () => {
     const { clickDropdownNthItem, getDropdownNthItem, closeDropdown } =
       mountBaseColumnPickerComponents();
-    getDropdownNthItem(1).should('have.attr', 'aria-pressed', 'true');
+    getDropdownNthItem(1).should('have.attr', 'aria-selected', 'true');
     closeDropdown();
 
     clickDropdownNthItem(2);
-    getDropdownNthItem(2).should('have.attr', 'aria-pressed', 'true');
+    getDropdownNthItem(2).should('have.attr', 'aria-selected', 'true');
     closeDropdown();
 
     clickDropdownNthItem(0);
-    getDropdownNthItem(0).should('have.attr', 'aria-pressed', 'true');
+    getDropdownNthItem(0).should('have.attr', 'aria-selected', 'true');
   });
 });
 
