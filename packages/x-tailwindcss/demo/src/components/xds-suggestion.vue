@@ -1,6 +1,6 @@
 <template>
   <div class="x-flex x-flex-col x-gap-16">
-    <h1 class="x-text-lg">Button</h1>
+    <h1 class="x-text-lg">Suggestion</h1>
     <div
       v-for="(classes, section) in sections"
       :key="section"
@@ -14,6 +14,7 @@
         :class="cssClass"
         title="Click me to copy CSS classes"
       >
+        🔎
         {{ removeBase(cssClass) }}
       </button>
     </div>
@@ -24,40 +25,41 @@
   import { Vue, Component, Prop } from 'vue-property-decorator';
 
   @Component
-  export default class XdsButton extends Vue {
-    @Prop({ default: () => 'x-button' })
+  export default class XdsSuggestion extends Vue {
+    @Prop({ default: () => 'x-suggestion' })
     public base!: string;
 
-    @Prop({ default: () => ['x-button-xs', 'x-button-sm', 'x-button-md', 'x-button-lg'] })
+    @Prop({
+      default: () => ['x-suggestion-md', 'x-suggestion-lg']
+    })
     public sizes!: string[];
 
     @Prop({
       default: () => [
-        'x-button-neutral',
-        'x-button-lead',
-        'x-button-auxiliary',
-        'x-button-accent',
-        'x-button-highlight',
-        'x-button-success',
-        'x-button-warning',
-        'x-button-error'
+        'x-suggestion-neutral',
+        'x-suggestion-lead',
+        'x-suggestion-auxiliary',
+        'x-suggestion-accent',
+        'x-suggestion-highlight',
+        'x-suggestion-success',
+        'x-suggestion-warning',
+        'x-suggestion-error'
       ]
     })
     public colors!: string[];
 
-    @Prop({ default: () => ['x-button-circle', 'x-button-square'] })
-    public layouts!: string[];
-
-    @Prop({ default: () => ['x-button-ghost'] })
-    public ghost!: string;
-
-    @Prop({ default: () => ['x-button-outlined'] })
+    @Prop({ default: () => ['x-suggestion-outlined'] })
     public outline!: string;
+
+    @Prop({ default: () => ['x-suggestion-filled'] })
+    public filled!: string;
 
     @Prop({
       default: () => [
-        'x-button-lead x-button-xs',
-        'x-button-auxiliary x-button-circle x-button-outlined'
+        'x-suggestion-outlined x-suggestion-md',
+        'x-suggestion-outlined x-suggestion-lg',
+        'x-suggestion-filled x-suggestion-md',
+        'x-suggestion-filled x-suggestion-lg'
       ]
     })
     public combinations!: string[];
@@ -67,9 +69,8 @@
         Default: [this.base],
         Colors: this.colors.map(this.prefixWith(this.base)),
         Sizes: this.sizes.map(this.prefixWith(this.base)),
-        Layout: this.layouts.map(this.prefixWith(this.base)),
         Outline: this.colors.map(this.prefixWith(this.base, this.outline)),
-        Ghost: this.colors.map(this.prefixWith(this.base, this.ghost)),
+        Filled: this.colors.map(this.prefixWith(this.base, this.filled)),
         Combinations: this.combinations.map(this.prefixWith(this.base))
       };
     }
@@ -79,7 +80,7 @@
     }
 
     protected removeBase(cssClass: string): string {
-      return cssClass.replace(new RegExp(`${this.base}-?`, 'g'), '') || 'button';
+      return cssClass.replace(new RegExp(`${this.base}-?`, 'g'), '') || 'suggestion';
     }
 
     protected copyCSSClasses(event: MouseEvent): void {
