@@ -15,6 +15,17 @@ export function suggestionFilled(helpers: TailwindHelpers) {
 
       '&:hover': {
         backgroundColor: 'var(--suggestion-color-25)'
+      },
+
+      '&.suggestion-md': {
+        minHeight: theme('spacing.32'),
+        paddingInlineStart: theme('spacing.8'),
+        paddingInlineEnd: theme('spacing.8')
+      },
+
+      '&.suggestion-lg': {
+        paddingInlineStart: theme('spacing.12'),
+        paddingInlineEnd: theme('spacing.12')
       }
     })
   };

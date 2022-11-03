@@ -11,8 +11,6 @@ import { suggestionSizes } from './sizes';
 export function suggestionDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    paddingRight: 0,
-    paddingLeft: 0,
     borderRadius: 0,
     borderColor: 'transparent',
     borderWidth: 0,
@@ -22,6 +20,13 @@ export function suggestionDefault(helpers: TailwindHelpers) {
     backgroundColor: 'transparent',
     color: theme('colors.neutral.90'),
     textDecoration: 'none',
+
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    flexFlow: 'row nowrap',
+    boxSizing: 'border-box',
 
     // Default size is `md`
     ...suggestionSizes(helpers).md,

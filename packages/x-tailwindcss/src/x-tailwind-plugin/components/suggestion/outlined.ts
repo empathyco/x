@@ -15,6 +15,17 @@ export function suggestionOutlined({ theme }: TailwindHelpers) {
 
       '&:hover': {
         borderColor: 'var(--suggestion-color-50)'
+      },
+
+      '&.suggestion-md': {
+        minHeight: theme('spacing.32'),
+        paddingInlineStart: theme('spacing.8'),
+        paddingInlineEnd: theme('spacing.8')
+      },
+
+      '&.suggestion-lg': {
+        paddingInlineStart: theme('spacing.12'),
+        paddingInlineEnd: theme('spacing.12')
       }
     })
   };
