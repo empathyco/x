@@ -7,6 +7,8 @@ import { empathizeXModule } from '../../x-module';
 import { XPlugin } from '../../../../plugins/index';
 import { XEvent } from '../../../../wiring/index';
 
+jest.useFakeTimers();
+
 describe('testing empathize component', () => {
   function renderEmpathize({
     eventsToOpenEmpathize = ['UserClickedSearchBox'],
@@ -50,7 +52,10 @@ describe('testing empathize component', () => {
     const { wrapper } = renderEmpathize({ template });
 
     wrapper.vm.$x.emit('UserClickedSearchBox');
+    // Fast-forward until all timers have been executed
+    jest.runAllTimers();
     await wrapper.vm.$nextTick();
+
     expect(wrapper.find('.x-empathize').exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(false);
   });
@@ -58,26 +63,25 @@ describe('testing empathize component', () => {
   it('listens to UserOpenedEmpathize and UserClosedEmpathize by default', async () => {
     const { wrapper } = renderEmpathize();
 
-    wrapper.vm.$x.emit('UserFocusedSearchBox');
+    wrapper.vm.$x.emit('UserClickedSearchBox');
+    jest.runAllTimers();
     await wrapper.vm.$nextTick();
 
+    // Both should exist and be visible
     expect(wrapper.find('.x-empathize').exists()).toBe(true);
+    expect(wrapper.find('.x-empathize').isVisible()).toBe(true);
     expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(true);
-    // FAILS, IT SHOULD EXIST AND BE VISIBLE
-    // expect(wrapper.find('.x-empathize').isVisible()).toBe(true);
-    // expect(wrapper.find(getDataTestSelector('empathize-content')).isVisible()).toBe(true);
-
-    // WRONG, IT SHOULD NOT PASS
-    // expect(wrapper.element.style.display).toEqual('none');
-    // expect(wrapper.attributes().style).toBe('display:none');
+    expect(wrapper.find(getDataTestSelector('empathize-content')).isVisible()).toBe(true);
 
     wrapper.vm.$x.emit('UserClosedEmpathize');
+    jest.runAllTimers();
     await wrapper.vm.$nextTick();
+
+    // Both should exist, as v-show doesn't remove the elements in the DOM, but not be visible
     expect(wrapper.find('.x-empathize').exists()).toBe(true);
-    // FAILS, IT SHOULD EXIST AND NOT BE VISIBLE
-    // expect(wrapper.find('.x-empathize').isVisible()).toBe(false);
-    // expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(true);
-    // expect(wrapper.find(getDataTestSelector('empathize-content')).isVisible()).toBe(false);
+    expect(wrapper.find('.x-empathize').isVisible()).toBe(false);
+    expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('empathize-content')).isVisible()).toBe(false);
   });
 });
 
