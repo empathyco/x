@@ -12,7 +12,7 @@
         data-test="column-picker-button"
         :aria-pressed="isSelected"
         :events="events"
-        :aria-label="column"
+        :aria-label="`${column} columns`"
       >
         <!--
           @slot Customized Column Picker Button content. Specifying a slot with the column value
