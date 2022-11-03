@@ -1,4 +1,5 @@
 import { TailwindHelpers } from '../../../types';
+import { buttonSizes } from './sizes';
 
 /**
  * Returns the default styles for component `button`.
@@ -7,7 +8,8 @@ import { TailwindHelpers } from '../../../types';
  * @returns The {@link CssStyleOptions} for the component.
  */
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
-export function buttonDefault({ theme }: TailwindHelpers) {
+export function buttonDefault(helpers: TailwindHelpers) {
+  const { theme } = helpers;
   return {
     '--button-color-25': theme('colors.neutral.25'),
     '--button-color-50': theme('colors.neutral.50'),
@@ -18,10 +20,6 @@ export function buttonDefault({ theme }: TailwindHelpers) {
     alignContent: 'center',
     flexFlow: 'row nowrap',
     boxSizing: 'border-box',
-    minHeight: theme('spacing.48'),
-    gap: theme('spacing.8'),
-    paddingInlineStart: theme('spacing.16'),
-    paddingInlineEnd: theme('spacing.16'),
     borderRadius: theme('borderRadius.none'),
 
     borderStyle: 'solid',
@@ -32,12 +30,12 @@ export function buttonDefault({ theme }: TailwindHelpers) {
     color: theme('colors.neutral.0'),
 
     fontFamily: theme('fontFamily.primary'),
-    fontSize: theme('fontSize.md'),
-    fontWeight: theme('fontWeight.bold'),
-    letterSpacing: theme('letterSpacing.md'),
     lineHeight: theme('lineHeight.sm'),
 
     cursor: 'default',
+
+    // Default size is `md`
+    ...buttonSizes(helpers).md,
 
     '&:hover': {
       borderColor: 'var(--button-color-75)',
