@@ -10,6 +10,7 @@ export interface PlatformBanner {
   image_url: string;
   position?: number;
   tagging?: {
-    query: string;
+    query?: string;
+    click?: string;
   };
 }

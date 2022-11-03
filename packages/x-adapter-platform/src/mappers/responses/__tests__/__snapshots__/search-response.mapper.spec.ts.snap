@@ -8,6 +8,12 @@ Object {
       "image": "https://assets.empathy.co/images-demo/31335.jpg",
       "modelName": "Banner",
       "tagging": Object {
+        "click": Object {
+          "params": Object {
+            "follow": false,
+          },
+          "url": "",
+        },
         "query": Object {
           "params": Object {
             "follow": false,
