@@ -32,7 +32,7 @@ export function buttonDefault(helpers: TailwindHelpers) {
     fontFamily: theme('fontFamily.primary'),
     lineHeight: theme('lineHeight.sm'),
 
-    cursor: 'default',
+    cursor: 'pointer',
 
     // Default size is `md`
     ...buttonSizes(helpers).md,
