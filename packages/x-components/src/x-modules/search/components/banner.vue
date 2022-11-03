@@ -1,6 +1,7 @@
 <template>
   <a
     @click="emitClickEvent"
+    @click.right="emitClickEvent"
     @click.middle="emitClickEvent"
     :href="banner.url"
     class="x-banner"
