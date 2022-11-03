@@ -87,9 +87,10 @@
      * Detects if the default slot has been replaced.
      *
      * @internal
+     * @returns True if the slot is empty, the slot element if it has content.
      */
-    updated(): void {
-      this.isEmptySlot = !!this.$refs.isEmptySlot;
+    updated(): boolean | Element {
+      return (this.isEmptySlot = !!this.$refs.isEmptySlot);
     }
 
     /**
@@ -102,7 +103,6 @@
      * @internal
      */
     @XOn(component => (component as Empathize).eventsToOpenEmpathize)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     open(payload: unknown, metadata: WireMetadata): void {
       if (this.isEmptySlot === false) {
         this.changeOpenState(true, metadata);
