@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.214](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.213...@empathyco/x-components@3.0.0-alpha.214) (2022-11-03)
+
+### Features
+
+- **design-system:** add tailwind showcase component (#778)
+  ([0178ef5](https://github.com/empathyco/x/commit/0178ef5a4b472e2ca14f98f1243d08e36e1f5840)),
+  closes [EX-7078](https://searchbroker.atlassian.net/browse/EX-7078)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.213](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.212...@empathyco/x-components@3.0.0-alpha.213) (2022-11-03)
 
 ### Features
