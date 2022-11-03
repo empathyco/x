@@ -18,13 +18,16 @@
 <script lang="ts">
   import { Banner } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Inject, Prop } from 'vue-property-decorator';
+  import { XOn } from '../../../components/decorators/bus.decorators';
   import { State } from '../../../components/decorators/store.decorators';
   import { NoElement } from '../../../components/no-element';
   import { ItemsListInjectionMixin } from '../../../components/items-list-injection.mixin';
   import ItemsList from '../../../components/items-list.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { FeatureLocation } from '../../../types/origin';
   import { ListItem } from '../../../utils/types';
+  import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchXModule } from '../x-module';
 
   /**
@@ -64,6 +67,36 @@
     protected animation!: Vue | string;
 
     /**
+     * The provided {@link FeatureLocation} for the component.
+     *
+     * @internal
+     */
+    @Inject({ default: undefined })
+    protected location?: FeatureLocation;
+
+    /**
+     * Number of columns the grid is being divided into.
+     *
+     * @internal
+     */
+    protected columnsNumber = 0;
+
+    /**
+     * Handler to update the number of columns when it changes.
+     *
+     * @param newColumnsNumber - The new columns value.
+     * @param metadata - The {@link WirePayload.metadata}.
+     *
+     * @internal
+     */
+    @XOn(['RenderedColumnsNumberChanged'])
+    setColumnsNumber(newColumnsNumber: number, { location }: WireMetadata): void {
+      if (location === this.location) {
+        this.columnsNumber = newColumnsNumber;
+      }
+    }
+
+    /**
      * The `stateItems` concatenated with the `injectedListItems` if there are.
      *
      * @remarks This computed defines the merging strategy of the `stateItems` and the
@@ -74,9 +107,32 @@
      * @internal
      */
     public override get items(): ListItem[] {
-      return this.injectedListItems
-        ? [...this.stateItems, ...this.injectedListItems]
-        : this.stateItems;
+      if (!this.injectedListItems?.length) {
+        return this.stateItems;
+      }
+      const items = [...this.injectedListItems];
+      let index = 0,
+        previousBannerRow = -1;
+      for (const item of this.stateItems) {
+        const position = item.position ?? 1;
+        let row = position - 1;
+        if (row <= previousBannerRow) {
+          row = previousBannerRow + 1;
+        }
+        const rowsDiff = row - previousBannerRow;
+        if (rowsDiff > 1) {
+          index += (rowsDiff - 1) * this.columnsNumber;
+        }
+        const isIndexInLoadedPages = index <= items.length;
+        const areAllPagesLoaded = this.$x.results.length === this.$x.totalResults;
+        if (!isIndexInLoadedPages && !areAllPagesLoaded) {
+          break;
+        }
+        items.splice(index, 0, item);
+        index++;
+        previousBannerRow = row;
+      }
+      return items;
     }
   }
 </script>

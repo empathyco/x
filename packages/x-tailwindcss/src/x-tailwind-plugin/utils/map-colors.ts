@@ -30,8 +30,8 @@ export interface ThemeColor {
  * returns:
  * {
  *   'neutral'{ backgroundColor: '#808080' },
- *   'primary'{ backgroundColor: '#243D48' },
- *   'secondary'{ backgroundColor: '#0086B2' },
+ *   'lead'{ backgroundColor: '#243D48' },
+ *   'auxiliary'{ backgroundColor: '#0086B2' },
  *   'accent'{ backgroundColor: '#D44A6F' },
  *   'highlight'{ backgroundColor: '#8B6391' },
  *   'neutral'{ backgroundColor: '#10B981' },

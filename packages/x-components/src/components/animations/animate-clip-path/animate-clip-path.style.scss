@@ -1,23 +1,73 @@
 .x-animate-clip-path {
+  $p: &;
+
   &--enter-active,
   &--leave-active {
     transition: clip-path var(--x-duration-animation, 0.3s) ease-out;
     clip-path: inset(0 0 0 0 round var(--x-size-border-radius-animation-clip-path, 0));
   }
-  $p: &;
-  &--enter,
-  &--leave-to {
-    &#{$p}--top {
+
+  &--top {
+    &#{$p}--enter,
+    &#{$p}--leave-to {
       clip-path: inset(0 0 100% 0 round var(--x-size-border-radius-animation-clip-path, 0));
     }
-    &#{$p}--bottom {
+  }
+
+  &--bottom {
+    &#{$p}--enter,
+    &#{$p}--leave-to {
       clip-path: inset(100% 0 0 0 round var(--x-size-border-radius-animation-clip-path, 0));
     }
-    &#{$p}--left {
+  }
+
+  &--top-to-bottom {
+    &#{$p}--enter {
+      clip-path: inset(0 0 100% 0 round var(--x-size-border-radius-animation-clip-path, 0));
+    }
+    &#{$p}--leave-to {
+      clip-path: inset(100% 0 0 0 round var(--x-size-border-radius-animation-clip-path, 0));
+    }
+  }
+
+  &--bottom-to-top {
+    &#{$p}--enter {
+      clip-path: inset(100% 0 0 0 round var(--x-size-border-radius-animation-clip-path, 0));
+    }
+    &#{$p}--leave-to {
+      clip-path: inset(0 0 100% 0 round var(--x-size-border-radius-animation-clip-path, 0));
+    }
+  }
+
+  &--left {
+    &#{$p}--enter,
+    &#{$p}--leave-to {
       clip-path: inset(0 100% 0 0 round var(--x-size-border-radius-animation-clip-path, 0));
     }
-    &#{$p}--right {
+  }
+
+  &--right {
+    &#{$p}--enter,
+    &#{$p}--leave-to {
       clip-path: inset(0 0 0 100% round var(--x-size-border-radius-animation-clip-path, 0));
+    }
+  }
+
+  &--left-to-right {
+    &#{$p}--enter {
+      clip-path: inset(0 100% 0 0 round var(--x-size-border-radius-animation-clip-path, 0));
+    }
+    &#{$p}--leave-to {
+      clip-path: inset(0 0 0 100% round var(--x-size-border-radius-animation-clip-path, 0));
+    }
+  }
+
+  &--right-to-left {
+    &#{$p}--enter {
+      clip-path: inset(0 0 0 100% round var(--x-size-border-radius-animation-clip-path, 0));
+    }
+    &#{$p}--leave-to {
+      clip-path: inset(0 100% 0 0 round var(--x-size-border-radius-animation-clip-path, 0));
     }
   }
 }

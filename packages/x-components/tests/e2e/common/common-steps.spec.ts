@@ -189,6 +189,11 @@ Then('related results have changed', () => {
     });
 });
 
+// Scroll
+When('scrolling down to result {string}', (resultId: string) => {
+  cy.get(`[data-scroll=${resultId}]`).scrollIntoView({ easing: 'swing', duration: 1000 });
+});
+
 // Search Box
 When('search-input is focused', () => {
   cy.focusSearchInput();

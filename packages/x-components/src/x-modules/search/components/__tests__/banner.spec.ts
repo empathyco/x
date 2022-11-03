@@ -52,6 +52,7 @@ describe('testing Banner component', () => {
         url: 'https://empathy.co',
         title: 'Search UIs',
         image: 'https://empathy.co/x-components.jpg',
+        position: 1,
         tagging: {
           click: { url: 'https://track-things.com', params: {} }
         }

@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.3...@empathyco/x-archetype-utils@0.1.0-alpha.4) (2022-10-21)
+
+### Continuous Integration
+
+- export webpack config from `x-archetype-utils` (#760)
+  ([0d7bfa2](https://github.com/empathyco/x/commit/0d7bfa2a63b5aaa3b220a0338fcefdaedc888f32)),
+  closes [EX-7222](https://searchbroker.atlassian.net/browse/EX-7222)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.2...@empathyco/x-archetype-utils@0.1.0-alpha.3) (2022-10-14)
+
+### Continuous Integration
+
+- update `runners` version (#740)
+  ([38f246c](https://github.com/empathyco/x/commit/38f246c306dac40c4afbcdea08336052981ca9b8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.1...@empathyco/x-archetype-utils@0.1.0-alpha.2) (2022-09-27)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils

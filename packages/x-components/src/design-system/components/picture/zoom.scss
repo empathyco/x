@@ -1,0 +1,8 @@
+.x-picture--zoom {
+  .x-picture__image {
+    transition: transform var(--x-number-zoom-duration-picture) ease-out;
+    &:hover {
+      transform: scale(var(--x-number-zoom-scale-picture));
+    }
+  }
+}
