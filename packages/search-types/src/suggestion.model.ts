@@ -1,4 +1,3 @@
-import { Facet } from './facet/facet.model';
 import { NamedModel } from './named-model.model';
 import { Previewable } from './previewable.model';
 
@@ -9,9 +8,6 @@ import { Previewable } from './previewable.model';
  * @public
  */
 export interface Suggestion extends NamedModel<'QuerySuggestion' | 'PopularSearch'>, Previewable {
-  // eslint-disable-next-line jsdoc/require-description-complete-sentence
-  /** {@inheritDoc Previewable.facets} */
-  facets: Facet[];
   /** If it's a curated suggestion. */
   isCurated?: boolean;
   /**
