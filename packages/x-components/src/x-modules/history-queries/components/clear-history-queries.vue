@@ -8,7 +8,7 @@
     aria-label="Clear all"
   >
     <!-- @slot (Required) Button content with a message, an icon or both -->
-    <slot>x</slot>
+    <slot>✕</slot>
   </BaseEventButton>
 </template>
 
