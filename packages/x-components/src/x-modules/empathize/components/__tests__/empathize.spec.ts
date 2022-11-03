@@ -22,6 +22,9 @@ describe('testing empathize component', () => {
     const [, localVue] = installNewXPlugin();
     XPlugin.registerXModule(empathizeXModule);
 
+    const parent = document.createElement('div');
+    document.body.appendChild(parent);
+
     const wrapper = mount(
       {
         components: { Empathize },
@@ -29,6 +32,7 @@ describe('testing empathize component', () => {
       },
       {
         localVue,
+        attachTo: parent,
         propsData: {
           eventsToOpenEmpathize,
           eventsToCloseEmpathize
@@ -69,19 +73,19 @@ describe('testing empathize component', () => {
 
     // Both should exist and be visible
     expect(wrapper.find('.x-empathize').exists()).toBe(true);
-    expect(wrapper.find('.x-empathize').isVisible()).toBe(true);
+    expect(wrapper.find('.x-empathize').element).toBeVisible();
     expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('empathize-content')).isVisible()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('empathize-content')).element).toBeVisible();
 
     wrapper.vm.$x.emit('UserClosedEmpathize');
     jest.runAllTimers();
     await wrapper.vm.$nextTick();
 
-    // Both should exist, as v-show doesn't remove the elements in the DOM, but not be visible
+    // Both should exist, as v-show doesn't remove the elements in the DOM, and not be visible
     expect(wrapper.find('.x-empathize').exists()).toBe(true);
-    expect(wrapper.find('.x-empathize').isVisible()).toBe(false);
+    expect(wrapper.find('.x-empathize').element).not.toBeVisible();
     expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('empathize-content')).isVisible()).toBe(false);
+    expect(wrapper.find(getDataTestSelector('empathize-content')).element).not.toBeVisible();
   });
 });
 
