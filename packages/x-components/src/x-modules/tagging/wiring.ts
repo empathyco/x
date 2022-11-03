@@ -1,4 +1,4 @@
-import { Banner, Result, Tagging, TaggingRequest } from '@empathyco/x-types';
+import { Taggable, Tagging, TaggingRequest } from '@empathyco/x-types';
 import { DefaultSessionService } from '@empathyco/x-utils';
 import {
   namespacedWireCommit,
@@ -130,26 +130,31 @@ export const setQueryTaggingInfo = moduleDebounce(
  *
  * @public
  */
-export const trackResultClickedWire = createTrackResultWire('click');
+export const trackResultClickedWire = createTrackWire('click');
 
-export const trackBannerClickedWire = createTrackResultWire('click');
+/**
+ * Tracks the tagging of the banner.
+ *
+ * @public
+ */
+export const trackBannerClickedWire = createTrackWire('click');
 
 /**
  * Performs a track of a result added to the cart.
  *
  * @public
  */
-export const trackAddToCartWire = createTrackResultWire('add2cart');
+export const trackAddToCartWire = createTrackWire('add2cart');
 
 /**
- * Factory helper to create a wire for the track of a result.
+ * Factory helper to create a wire for the track of a taggable object.
  *
  * @param property - Key of the tagging object to track.
  * @returns A new wire for the given property of the result tagging.
  *
  * @internal
  */
-function createTrackResultWire(property: keyof Tagging): Wire<Result | Banner> {
+function createTrackWire(property: keyof Tagging): Wire<Taggable> {
   return filter(
     wireDispatch('track', ({ eventPayload: { tagging }, metadata: { location } }) => {
       const taggingInfo: TaggingRequest = tagging[property];
