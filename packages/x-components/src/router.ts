@@ -39,6 +39,11 @@ if (process.env.NODE_ENV !== 'production') {
       component: () => import('./views/design-system/design-system.vue')
     },
     {
+      path: '/xds',
+      name: 'XDS',
+      component: () => import('@empathyco/x-tailwindcss/showcase').then(m => m.XdsShowCase)
+    },
+    {
       path: '/result-app',
       name: 'result-app',
       component: () => import('./views/ResultApp.vue')
