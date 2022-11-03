@@ -1,10 +1,9 @@
 <template>
   <BaseSuggestions
+    v-bind="$attrs"
     :suggestions="suggestions"
     class="x-query-suggestions"
     data-test="query-suggestions"
-    :animation="animation"
-    :maxItemsToRender="maxItemsToRender"
   >
     <template #default="{ suggestion, index }">
       <!--
@@ -34,7 +33,7 @@
 <script lang="ts">
   import { Suggestion } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
@@ -50,7 +49,8 @@
    */
   @Component({
     components: { BaseSuggestions, QuerySuggestion },
-    mixins: [xComponentMixin(querySuggestionsXModule)]
+    mixins: [xComponentMixin(querySuggestionsXModule)],
+    inheritAttrs: false
   })
   export default class QuerySuggestions extends Vue {
     /**
@@ -60,22 +60,6 @@
      */
     @Getter('querySuggestions', 'querySuggestions')
     public suggestions!: Suggestion[];
-
-    /**
-     * Animation component for `QuerySuggestions`.
-     *
-     * @public
-     */
-    @Prop()
-    protected animation!: Vue;
-
-    /**
-     * Number of query suggestions to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
   }
 </script>
 

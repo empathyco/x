@@ -1,10 +1,9 @@
 <template>
   <BaseSuggestions
+    v-bind="$attrs"
     :suggestions="renderedNextQueries"
     data-test="next-queries"
     class="x-next-queries"
-    :animation="animation"
-    :maxItemsToRender="maxItemsToRender"
   >
     <template #default="{ suggestion, index }">
       <!--
@@ -55,25 +54,10 @@
    */
   @Component({
     components: { NextQuery, BaseSuggestions },
-    mixins: [xComponentMixin(nextQueriesXModule)]
+    mixins: [xComponentMixin(nextQueriesXModule)],
+    inheritAttrs: false
   })
   export default class NextQueries extends Vue {
-    /**
-     * Animation component that will be used to animate the suggestions.
-     *
-     * @public
-     */
-    @Prop()
-    public animation?: Vue;
-
-    /**
-     * Number of next queries to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    public maxItemsToRender?: number;
-
     /**
      * Flag to indicate if the curated next queries should be displayed different.
      *

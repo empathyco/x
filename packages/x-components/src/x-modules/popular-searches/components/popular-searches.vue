@@ -1,26 +1,25 @@
 <template>
   <BaseSuggestions
+    v-bind="$attrs"
     :suggestions="popularSearches"
-    :maxItemsToRender="maxItemsToRender"
     class="x-popular-searches"
     data-test="popular-searches"
-    :animation="animation"
   >
-    <template #default="{ suggestion, index }">
+    <template #default="slotProps">
       <!--
         @slot Popular Search item
             @binding {Suggestion} suggestion - Popular Search suggestion data
             @binding {number} index - Popular Search suggestion index
       -->
-      <slot name="suggestion" v-bind="{ suggestion, index }">
-        <PopularSearch :suggestion="suggestion" class="x-popular-searches__suggestion">
+      <slot name="suggestion" v-bind="{ slotProps }">
+        <PopularSearch :suggestion="slotProps.suggestion" class="x-popular-searches__suggestion">
           <template #default>
             <!--
               @slot Popular Search content
                   @binding {Suggestion} suggestion - Popular Search suggestion data
                   @binding {number} index - Popular Search suggestion index
             -->
-            <slot name="suggestion-content" v-bind="{ suggestion, index }" />
+            <slot name="suggestion-content" v-bind="{ slotProps }" />
           </template>
         </PopularSearch>
       </slot>
@@ -31,7 +30,7 @@
 <script lang="ts">
   import { Suggestion } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
@@ -48,25 +47,10 @@
    */
   @Component({
     components: { PopularSearch, BaseSuggestions },
-    mixins: [xComponentMixin(popularSearchesXModule)]
+    mixins: [xComponentMixin(popularSearchesXModule)],
+    inheritAttrs: false
   })
   export default class PopularSearches extends Vue {
-    /**
-     * Animation component that will be used to animate the suggestions.
-     *
-     * @public
-     */
-    @Prop()
-    protected animation!: Vue;
-
-    /**
-     * Number of popular searches to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
-
     /**
      * The list of popular searches.
      *

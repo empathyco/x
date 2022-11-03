@@ -1,10 +1,9 @@
 <template>
   <BaseSuggestions
+    v-bind="$attrs"
     :suggestions="historyQueries"
     class="x-history-queries"
     data-test="history-queries"
-    :animation="animation"
-    :maxItemsToRender="maxItemsToRender"
   >
     <template #default="{ suggestion, index }">
       <!--
@@ -46,7 +45,7 @@
 <script lang="ts">
   import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
@@ -66,25 +65,10 @@
    */
   @Component({
     components: { BaseSuggestions, HistoryQuery },
-    mixins: [xComponentMixin(historyQueriesXModule)]
+    mixins: [xComponentMixin(historyQueriesXModule)],
+    inheritAttrs: false
   })
   export default class HistoryQueries extends Vue {
-    /**
-     * Animation component that will be used to animate the suggestions.
-     *
-     * @public
-     */
-    @Prop()
-    protected animation!: Vue;
-
-    /**
-     * Maximum number of history queries to show. It should be a lower number than the
-     * {@link HistoryQueriesConfig.maxItemsToStore}. If it is not provided, it will show
-     * all the stored `HistoryQueries`.
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
-
     /**
      * The filtered list of history queries.
      *
