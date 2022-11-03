@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.27...@empathyco/x-translations@1.1.0-alpha.28) (2022-10-14)
+
+### Continuous Integration
+
+- update `runners` version (#740)
+  ([38f246c](https://github.com/empathyco/x/commit/38f246c306dac40c4afbcdea08336052981ca9b8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.1.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.26...@empathyco/x-translations@1.1.0-alpha.27) (2022-09-27)
 
 **Note:** Version bump only for package @empathyco/x-translations

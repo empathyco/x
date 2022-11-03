@@ -64,6 +64,28 @@
         </label>
       </li>
       <li class="x-test-controls__item x-list__item">
+        <label for="nextQueriesPreview.maxItemsToRender">
+          next-queries-preview - maxItemsToRender
+          <input
+            v-model="controls.nextQueriesPreview.maxItemsToRender"
+            id="nextQueriesPreview.maxItemsToRender"
+            type="number"
+            data-test="nq-preview-max-to-render"
+          />
+        </label>
+      </li>
+      <li class="x-test-controls__item x-list__item">
+        <label for="nextQueriesPreview.maxItemsToRender">
+          next-queries-list - showOnlyAfterOffset
+          <input
+            v-model="controls.nextQueriesList.showOnlyAfterOffset"
+            id="nextQueriesList.showOnlyAfterOffset"
+            type="checkbox"
+            data-test="nq-preview-show-after-offset"
+          />
+        </label>
+      </li>
+      <li class="x-test-controls__item x-list__item">
         <label for="adapter.e2eAdapter">
           Use mocked adapter
           <input
@@ -86,12 +108,14 @@
           >
             <BaseKeyboardNavigation>
               <div class="x-input-group x-input-group--card">
-                <SearchInput
-                  aria-label="Search for products"
-                  placeholder="Search"
-                  :instant="controls.searchInput.instant"
-                  :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
-                />
+                <div class="x-input">
+                  <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
+                  <SearchInput
+                    aria-label="Search for products"
+                    :instant="controls.searchInput.instant"
+                    :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
+                  />
+                </div>
                 <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
                 <SearchButton aria-label="Search" class="x-input-group__action">
                   <SearchIcon />
@@ -237,9 +261,11 @@
             <!-- Results -->
             <LocationProvider location="results">
               <ResultsList v-infinite-scroll:main-scroll>
-                <BannersList>
-                  <PromotedsList>
-                    <NextQueriesList :show-only-after-offset="true">
+                <PromotedsList>
+                  <BannersList>
+                    <NextQueriesList
+                      :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
+                    >
                       <BaseVariableColumnGrid :animation="resultsAnimation">
                         <template #result="{ item: result }">
                           <MainScrollItem :item="result">
@@ -256,49 +282,53 @@
                         </template>
 
                         <template #next-queries-group="{ item: { nextQueries } }">
-                          <div class="x-row x-row--gap-04 x-row--align-stretch">
-                            <div
+                          <NextQueryPreview
+                            :suggestion="nextQueries[0]"
+                            :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
+                            #default="{ results }"
+                            class="x-row__item x-row__item--span-9 x-padding--top-06"
+                          >
+                            <h1 class="x-title2 x-text--bold">Others clients have searched</h1>
+                            <NextQuery class="x-text x-font-size--05" :suggestion="nextQueries[0]">
+                              <span class="x-font-weight--bold">{{ nextQueries[0].query }}</span>
+                            </NextQuery>
+                            <div class="x-margin--bottom-06">
+                              <SlidingPanel :resetOnContentChange="false">
+                                <div class="x-list x-list--gap-03">
+                                  <Result
+                                    v-for="result in results"
+                                    :key="result.id"
+                                    :result="result"
+                                    style="max-width: 180px"
+                                    data-test="next-query-preview-result"
+                                  />
+                                </div>
+                              </SlidingPanel>
+                            </div>
+                            <NextQuery
+                              :suggestion="nextQueries[0]"
+                              data-test="view-all-results"
                               class="
-                                x-row__item x-row__item--span-3
-                                x-list
-                                x-padding--06
-                                x-background--neutral-95
-                                x-list--gap-06
+                                x-tag x-tag--pill
+                                x-font-weight--bold
+                                x-margin--left-auto x-margin--right-auto x-margin--top-03
+                                x-padding--top-04
+                                x-padding--bottom-04
+                                x-padding--right-05
+                                x-padding--left-05
+                                x-font-color--lead
+                                x-border-color--lead
+                                x-margin--bottom-06
                               "
                             >
-                              <div class="x-list x-list--gap-03">
-                                <h1 class="x-title2 x-text--bold">You may be interested</h1>
-                                <p class="x-text x-font-size--05">
-                                  This is what other shoppers searched after
-                                  <span class="x-font-weight--bold">"{{ $x.query.search }}"</span>
-                                </p>
-                              </div>
-                              <NextQueries
-                                :suggestions="nextQueries"
-                                #suggestion="{ suggestion }"
-                                class="x-list--gap-06"
-                              >
-                                <NextQuery
-                                  #default="{ suggestion: nextQuery }"
-                                  :suggestion="suggestion"
-                                  class="x-tag x-tag--card"
-                                >
-                                  <LightBulbOn class="x-icon--l" />
-                                  <span class="x-flex-auto">{{ nextQuery.query }}</span>
-                                  <ArrowRight class="x-icon--l" />
-                                </NextQuery>
-                              </NextQueries>
-                            </div>
-                            <SlidingNextQueryPreview
-                              :suggestion="nextQueries[0]"
-                              class="x-row__item x-row__item--span-9 x-padding--top-06"
-                            />
-                          </div>
+                              {{ 'View all results' }}
+                            </NextQuery>
+                          </NextQueryPreview>
                         </template>
                       </BaseVariableColumnGrid>
                     </NextQueriesList>
-                  </PromotedsList>
-                </BannersList>
+                  </BannersList>
+                </PromotedsList>
               </ResultsList>
             </LocationProvider>
 
@@ -386,6 +416,7 @@
   import SnippetConfigExtraParams from '../../x-modules/extra-params/components/snippet-config-extra-params.vue';
   import NextQueriesList from '../../x-modules/next-queries/components/next-queries-list.vue';
   import NextQueries from '../../x-modules/next-queries/components/next-queries.vue';
+  import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue';
   import { NextQuery } from '../../x-modules/next-queries/index';
   import Recommendations from '../../x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from '../../x-modules/related-tags/components/related-tags.vue';
@@ -394,6 +425,8 @@
   import ClearSearchInput from '../../x-modules/search-box/components/clear-search-input.vue';
   import SearchButton from '../../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../../x-modules/search-box/components/search-input.vue';
+  // eslint-disable-next-line max-len
+  import SearchInputPlaceholder from '../../x-modules/search-box/components/search-input-placeholder.vue';
   import Banner from '../../x-modules/search/components/banner.vue';
   import BannersList from '../../x-modules/search/components/banners-list.vue';
   import PartialQueryButton from '../../x-modules/search/components/partial-query-button.vue';
@@ -418,7 +451,6 @@
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
   import { HomeControls } from './types';
-  import SlidingNextQueryPreview from './sliding-next-query-preview.vue';
   import SlidingQueryPreview from './sliding-query-preview.vue';
 
   @Component({
@@ -458,6 +490,7 @@
       MultiColumnMaxWidthLayout,
       NextQueries,
       NextQueriesList,
+      NextQueryPreview,
       NextQuery,
       Nq1,
       OpenMainModal,
@@ -477,7 +510,7 @@
       SearchButton,
       SearchIcon,
       SearchInput,
-      SlidingNextQueryPreview,
+      SearchInputPlaceholder,
       SlidingPanel,
       SlidingQueryPreview,
       SnippetCallbacks,
@@ -494,6 +527,13 @@
   export default class App extends Vue {
     protected stores = ['Spain', 'Portugal', 'Italy'];
     protected initialExtraParams = { store: 'Portugal' };
+    protected searchInputPlaceholderMessages = [
+      'Find shirts',
+      'Find shoes',
+      'Find watches',
+      'Find handbags',
+      'Find sunglasses'
+    ];
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
     protected modalAnimation = animateClipPath();
@@ -515,6 +555,12 @@
       },
       historyQueries: {
         maxItemsToRender: 5
+      },
+      nextQueriesPreview: {
+        maxItemsToRender: 10
+      },
+      nextQueriesList: {
+        showOnlyAfterOffset: true
       },
       adapter: {
         useE2EAdapter: false

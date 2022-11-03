@@ -1,14 +1,16 @@
 ---
 title: SERP UI
+tags:
+  - results layout
+  - grid
+  - results grid
 ---
-
-# SERP UI
 
 To handle and display search results, the layout of results and other related discovery features is
 paramount. For example, how to arrange results on the SERP or the features shoppers expect to easily
 navigate and organize results are key points to have in mind. <br/>
 
-![X Components for results layout](~@assets/media/xcomponents_func_results_layout.svg)
+![X Components for results layout](~@assets/media/interface/x-results-layout.svg)
 
 <FootNote>
 
@@ -19,8 +21,8 @@ navigate and organize results are key points to have in mind. <br/>
 <br/>
 
 **Choice of the layout view**  
-Your shoppers should be able to select how they’d like the products
-displayed and how the number of products they’d like to see per page, for example.
+Your shoppers should be able to select how they’d like the products displayed and how the number of
+products they’d like to see per page, for example.
 
 That’s why the **grid** (A) is the core element of the SERP. It displays the results returned by the
 search service using a grid layout. Its value relies on having a configurable and flexible space to
@@ -118,4 +120,3 @@ Want to know more? Learn how to [configure](/develop-empathy-platform/ui-referen
 experience.
 
 :::
-

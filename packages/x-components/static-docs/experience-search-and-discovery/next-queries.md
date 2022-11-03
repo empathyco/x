@@ -1,14 +1,15 @@
 ---
 title: Next Queries UI
+tags:
+  - popular next queries
+  - what's next
 ---
-
-# Next Queries UI
 
 The Next Queries UI component provides shoppers with ideas on what to search for next based on their
 last search. Since next queries are related to the last query, they appear after performing a first
 search.
 
-![Next Queries](~@assets/media/xcomponents_func_nextqueries.gif)
+![Next Queries](~@assets/media/interface/x-next-queries.gif)
 
 Next queries can be **organic**, using information on the most common searches that are performed
 successively or within a same session by shoppers, or **curated**, created manually by the
@@ -59,8 +60,8 @@ next queries that shoppers haven't already used in the session.
 
 ::: warning
 
-To display only new next queries, the [History Queries](/explore-empathy-platform/features/history-queries-overview.md)
-feature must be implemented.
+To display only new next queries, the
+[History Queries](/explore-empathy-platform/features/history-queries-overview.md) feature must be
+implemented.
 
 :::
-

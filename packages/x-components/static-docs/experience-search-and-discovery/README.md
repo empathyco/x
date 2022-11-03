@@ -2,18 +2,15 @@
 title: Experience search & discovery
 ---
 
-# Experience search & discovery
-
-Search inevitably is key when people look for specific products in an online store. It's the door
-to the entire product catalogue, so having an outstanding, well-structured, and optimized search UI
-is a must.
+Search inevitably is key when people look for specific products in an online store. It's the door to
+the entire product catalogue, so having an outstanding, well-structured, and optimized search UI is
+a must.
 
 However, it’s not enough. With the advanced features provided by some well-known search engines,
 shoppers need a new dimension to **connect effortlessly** to the most relevant products, enjoy a
 **smooth user experience**, and take advantage of **outstanding search and discovery capabilities**.
 
-<img :src="$withBase('/assets/media/intro_experience_and_search.svg')" alt="Experience search and discovery">
-<br/>
+![Experience search and discovery](~@assets/media/interface/experience-search-intro.svg)
 
 ## Interface X and Interface X for Apps, the solution
 
@@ -32,10 +29,10 @@ that allow you to quickly construct the search UI for your store:
 
 ### Mix and match your experience
 
-Each Interface&nbsp;X&nbsp;Component represents a graphical part of the UI, with
-its own unique view and behavior. They’ve been smartly designed to **work together yet
-independently**, so a single component adds real value to your UI by itself. The more components you
-add and combine, the more functionality you get.
+Each Interface&nbsp;X&nbsp;Component represents a graphical part of the UI, with its own unique view
+and behavior. They’ve been smartly designed to **work together yet independently**, so a single
+component adds real value to your UI by itself. The more components you add and combine, the more
+functionality you get.
 
 You can craft your own **UI bundle with the right components for your store**. There are numerous
 X&nbsp;Components to choose from, and the catalogue evolves quickly with new experiences.
@@ -79,7 +76,7 @@ want to make the difference!
     'x_facets']"
 />
 
-::: interact  
+::: interact
 
 Check out the **Interface X for web [open-source project](https://github.com/empathyco/x)** on
 GitHub!

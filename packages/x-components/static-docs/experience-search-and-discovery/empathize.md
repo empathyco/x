@@ -1,32 +1,35 @@
 ---
 title: Empathize UI
+tags:
+  - predictive layer
+  - search box
 ---
-
-# Empathize
 
 Empathize is a UI container, but not just any container. It’s the
 **[predictive layer](/explore-empathy-platform/overview/predictive-layer.md)** for your search
 experience that is usually displayed below the search box. Consider it the natural companion of the
 **[search box](search-box.md)**, featuring search suggestions and recommendations.
 
-![Empathize](~@assets/media/xcomponents_func_empathize.gif)
+![Empathize](~@assets/media/interface/x-empathize.gif)
 
-One of the characteristics of Interface&nbsp;X&nbsp;Components is that you can place them
-wherever you want. However, you know that the placement of the search box in your shop matters. So,
-why have search suggestions and recommendations spread all over the page, far away from the search
-box? The Empathize container brings everything together so that your shoppers perceive a smooth,
-effortless search experience.
+One of the characteristics of Interface&nbsp;X&nbsp;Components is that you can place them wherever
+you want. However, you know that the placement of the search box in your shop matters. So, why have
+search suggestions and recommendations spread all over the page, far away from the search box? The
+Empathize container brings everything together so that your shoppers perceive a smooth, effortless
+search experience.
 
 ## Use Empathize with...
 
 Being the face of your predictive layer, Empathize comes into play before the search process starts
 and only makes sense when used with other components.
 
-Thanks to the nature of Interface&nbsp;X&nbsp;Components, you can [mix and match the components](/explore-empathy-platform/experience-search-and-discovery/readme.md#mix-and-match-your-experience)  you use within
-Empathize. For example, provide shoppers with search ideas and use Empathize to display popular
-search terms and trending products. Anticipate your shoppers’ intent with recent searches and
-query suggestions. Or give shoppers access to their [complete search history](my-history.md) and let them control tracking search data. There are lots of handy possibilities that you might want to place close to the
-search box.
+Thanks to the nature of Interface&nbsp;X&nbsp;Components, you can
+[mix and match the components](/explore-empathy-platform/experience-search-and-discovery/readme.md#mix-and-match-your-experience)
+you use within Empathize. For example, provide shoppers with search ideas and use Empathize to
+display popular search terms and trending products. Anticipate your shoppers’ intent with recent
+searches and query suggestions. Or give shoppers access to their
+[complete search history](my-history.md) and let them control tracking search data. There are lots
+of handy possibilities that you might want to place close to the search box.
 
 **Combine Empathize with:**
 
@@ -72,13 +75,20 @@ addition to or replacing the search box focus. You may prefer to make it more ac
 Keyboard Navigation component. Your shoppers can navigate the components in Empathize with the
 keyboard arrow keys.
 
-<!--
 **Enhance Empathize usability with...**
+
 - Keyboard scroll
 - Keyboard navigation
--->
 
-<!--link to keyboard navigation components when available-->
+::: interact
+
+Learn more on how to improve the usability of the Empathize UI component using the
+[Base Scroll](/develop-empathy-platform/ui-reference/components/base-components/scroll/x-components.base-scroll.md)
+and
+[Base Keyboard Navigation](/develop-empathy-platform/ui-reference/components/base-components/x-components.base-keyboard-navigation.md)
+components in the X&nbsp;Components UI Reference.
+
+:::
 
 ## Spot the difference
 
@@ -96,7 +106,8 @@ search capabilities, such as Query Suggestions and Popular Searches. Don’t get
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/empathize/x-components.empathize.md) your web
-experience.
+Want to know more? Learn how to
+[configure](/develop-empathy-platform/ui-reference/components/empathize/x-components.empathize.md)
+your web experience.
 
 :::

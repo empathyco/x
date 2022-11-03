@@ -38,14 +38,14 @@ export default plugin(function ({ addBase, theme }: TailwindHelpers) {
     ':root': {
       // COLOR
       ...mapPrefix('--x-color-base-', {
-        lead: theme('colors.primary.50'),
-        auxiliary: theme('colors.secondary.25'),
+        lead: theme('colors.lead.50'),
+        auxiliary: theme('colors.auxiliary.25'),
         'neutral-10': theme('colors.neutral.90'),
         'neutral-35': theme('colors.neutral.75'),
         'neutral-70': theme('colors.neutral.25'),
         'neutral-95': theme('colors.neutral.10'),
         'neutral-100': theme('colors.neutral.0'),
-        accent: theme('colors.secondary.50'),
+        accent: theme('colors.auxiliary.50'),
         enable: theme('colors.success.50'),
         disable: theme('colors.error.50')
       }),

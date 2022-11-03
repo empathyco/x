@@ -1,8 +1,8 @@
 ---
 title: Product results UI
+tags:
+  - results layout
 ---
-
-# Product results UI
 
 After launching a search, some shoppers may just want to take a quick look around, reviewing only
 product thumbnails and quick info on the SERP. While others will prefer to have a more detailed
@@ -14,7 +14,7 @@ tailor the display to create the best product discovery experience for your shop
 elements and product-related information you want to include when displaying product results such as
 the price, a picture, or even an add-to-cart button.
 
-![X Components for results display](~@assets/media/overview_product_card.svg)
+![X Components for results display](~@assets/media/features/overview-product-results-card.svg)
 
 <FootNote>
 
@@ -31,8 +31,8 @@ To learn more about the display of results, see
 :::
 
 **A bunch of components for comprehensive product information**  
-Decide whether you want to include
-the description for the resulting product, a picture, or even rating information:
+Decide whether you want to include the description for the resulting product, a picture, or even
+rating information:
 
 - **Image**. Include a picture of the product for better product recognition.&nbsp;(A)
 - **Result data and product variants**. Retrieve the information to display about the product –name,
@@ -73,9 +73,7 @@ experience.
 Traditionally, search results are displayed on the SERP after the query is launched or instantly as
 you type. However, result data is also used by features such as
 [Recommendations](/explore-empathy-platform/experience-search-and-discovery/recommendations.md) and
-[ID Results](/explore-empathy-platform/experience-search-and-discovery/id-results.md). You can combine
-results-related components with these modules to get advanced display options. Include additional
-product information in Recommendations and Identifier Results such as prices and pictures for better
-recognition and understanding of the products displayed.
-
-
+[ID Results](/explore-empathy-platform/experience-search-and-discovery/id-results.md). You can
+combine results-related components with these modules to get advanced display options. Include
+additional product information in Recommendations and Identifier Results such as prices and pictures
+for better recognition and understanding of the products displayed.

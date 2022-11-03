@@ -93,8 +93,8 @@ We are working on many key features to consolidate Interface X, including these 
 - Create the [x-adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter) to connect to
   any Search API based on schemas
   [![Release Docs](https://img.shields.io/badge/Released-April%202022-brightgreen)](https://docs.empathy.co)
-- [My History](https://empathy.co/blog/development-journey-my-history/) feature, Control your search
-  history and have access to previous intentions.
+- [My History](https://docs.empathy.co/explore-empathy-platform/experience-search-and-discovery/my-history.html)
+  feature, Control your search history and have access to previous intentions.
   [![Release Docs](https://img.shields.io/badge/Released-July%202022-brightgreen)](https://empathy.co/blog/development-journey-my-history/)
 - Use [accessibility eslint plugin](https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility)
   to improve components a11y.
@@ -107,7 +107,7 @@ We are working on many key features to consolidate Interface X, including these 
 - Query Results Preview: Provides a list of results matching a query to be inserted before the
   shopper starts typing as inspiration, in the predictive layer for results matching the current
   query, or as inspiration in a no results scenario.
-  [![Release Docs](https://img.shields.io/badge/In%20Progress-Q3%202022-yellow)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
+  [![Release Docs](https://img.shields.io/badge/Released-September%202022-brightgreen)](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-archetype-integration-guide.html#setting-up-the-queries-preview-dynamically)
 - Design System Builder POC using Tailwind.
   [![Release Docs](https://img.shields.io/badge/In%20Progress-Q3%202022-yellow)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
 - WCAG AA compliance.
@@ -151,7 +151,7 @@ the future of search experiences, please check our
 | <a href="https://github.com/tajespasarela"><img src="https://avatars.githubusercontent.com/u/5759712?v=4" width="100px;" alt=""/><br /><br /><b>Iván Tajes</b></a>  | <a href="https://github.com/javieri-empathy"><img src="https://avatars.githubusercontent.com/u/68222542?v=4" width="100px;" alt=""/><br /><br /><b>Javier Iglesias</b></a> | <a href="https://github.com/joseacabaneros"><img src="https://avatars.githubusercontent.com/u/10746604?v=4" width="100px;" alt=""/><br /><br /><b>Jose Antonio Cabañeros</b></a> | <a href="https://github.com/LuisMartinez15"><img src="https://avatars.githubusercontent.com/u/6247440?v=4" width="100px;" alt=""/><br /><br /><b>Luís Martínez</b></a> |      <a href="https://github.com/tiborux"><img src="https://avatars.githubusercontent.com/u/6597815?v=4" width="100px;" alt=""/><br /><br /><b>Beltrán García</b></a>      |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | <a href="https://github.com/herrardo"><img src="https://avatars.githubusercontent.com/u/4663897?v=4" width="100px;" alt=""/><br /><br /><b>Gerardo Vázquez</b></a>  |  <a href="https://github.com/CachedaCodes"><img src="https://avatars.githubusercontent.com/u/7124620?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Cacheda</b></a>  |         <a href="https://github.com/mavmaf"><img src="https://avatars.githubusercontent.com/u/77147901?v=4" width="100px;" alt=""/><br /><br /><b>Mavi Fernández</b></a>         |    <a href="https://github.com/diegopf"><img src="https://avatars.githubusercontent.com/u/7504736?v=4" width="100px;" alt=""/><br /><br /><b>Diego Pascual</b></a>     | <a href="https://github.com/mnavarroespinosa"><img src="https://avatars.githubusercontent.com/u/77450928?v=4" width="100px;" alt=""/><br /><br /><b>Manuel Navarro</b></a> |
-| <a href="https://github.com/ajperezbau"><img src="https://avatars.githubusercontent.com/u/75546736?v=4" width="100px;" alt=""/><br /><br /><b>Abraham Pérez</b></a> |
+| <a href="https://github.com/ajperezbau"><img src="https://avatars.githubusercontent.com/u/75546736?v=4" width="100px;" alt=""/><br /><br /><b>Abraham Pérez</b></a> |       <a href="https://github.com/annacv"><img src="https://avatars.githubusercontent.com/u/21217131?v=4" width="100px;" alt=""/><br /><br /><b>Anna Condal</b></a>        |         <a href="https://github.com/alvarodE"><img src="https://avatars.githubusercontent.com/u/72568818?v=4" width="100px;" alt=""/><br /><br /><b>Álvaro Díaz</b></a>          |
 
 ## Contributors
 

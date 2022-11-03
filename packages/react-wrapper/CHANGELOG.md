@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.8...@empathyco/x-react-wrapper@4.0.0-alpha.9) (2022-10-27)
+
+### Features
+
+- replace `parcel` with `vite` (#739)
+  ([7720502](https://github.com/empathyco/x/commit/7720502abfdee009506f4478ba3d71ea76051cb1))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.7...@empathyco/x-react-wrapper@4.0.0-alpha.8) (2022-10-14)
+
+### Continuous Integration
+
+- update `runners` version (#740)
+  ([38f246c](https://github.com/empathyco/x/commit/38f246c306dac40c4afbcdea08336052981ca9b8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [4.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.6...@empathyco/x-react-wrapper@4.0.0-alpha.7) (2022-09-09)
 
 ### Features

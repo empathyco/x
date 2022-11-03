@@ -1,14 +1,17 @@
 ---
 title: Search Box UI
+tags:
+  - search input
+  - search bar
+  - search field
+  - input
 ---
-
-# Search Box UI
 
 The Search&nbsp;Box UI Component is the main entry point for search where shoppers can type what
 they're looking for in your shop. It usually includes an input field, a search button, and a clear
 button.
 
-<img :src="$withBase('/assets/media/xcomponents_func_searchbox.svg')" alt="Search Box"> <br>
+![Search box](~@assets/media/interface/x-search-box.svg)
 
 ::: interact
 
@@ -84,9 +87,7 @@ key is pressed, since the typed query is not submitted until one of these two ac
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/search-box/) your web
-experience.
+Want to know more? Learn how to
+[configure](/develop-empathy-platform/ui-reference/components/search-box/) your web experience.
 
 :::
-
-

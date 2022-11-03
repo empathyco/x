@@ -1,14 +1,18 @@
 ---
 title: Popular Searches UI
+tags:
+  - top searches
+  - top terms
+  - search trends
+  - top queries
+  - trending
 ---
-
-# Popular Searches UI
 
 The Popular Searches UI component displays what are the top search queries during a specific time.
 This type of suggestion can show up even before shoppers have started entering a query or when there
 are no search results to show.
 
-![Popular Searches](~@assets/media/xcomponents_func_popularsearches.gif)
+![Popular Searches](~@assets/media/interface/x-popular-searches.gif)
 
 ::: warning
 
@@ -36,8 +40,7 @@ Can't quite capture the concept? Learn about
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/popular-searches) your web
-experience.
+Want to know more? Learn how to
+[configure](/develop-empathy-platform/ui-reference/components/popular-searches) your web experience.
 
 :::
-

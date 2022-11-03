@@ -1,14 +1,19 @@
 ---
 title: Recommendations UI
+tags:
+  - top clicked
+  - top searched
+  - trending
+  - trending products
+  - top products
+  - popular
 ---
-
-# Recommendations UI
 
 The Recommendations UI component shows the most clicked products on the SERP, based on shopper
 interaction within a defined period. They help your shoppers to explore your product catalogue,
 guiding them to specific products without the need to launch any queries.
 
-<img :src="$withBase('/assets/media/xcomponents_func_recommendations.gif')" alt="Recommendations]">
+![Recommendations](~@assets/media/interface/x-recommendations.gif)
 
 ::: warning
 
@@ -36,9 +41,8 @@ Can't quite capture the concept? Learn more about
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/recommendations/x-components.recommendations.md) your web
-experience.
+Want to know more? Learn how to
+[configure](/develop-empathy-platform/ui-reference/components/recommendations/x-components.recommendations.md)
+your web experience.
 
 :::
-
-

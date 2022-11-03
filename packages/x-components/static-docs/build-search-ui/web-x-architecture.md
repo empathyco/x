@@ -7,9 +7,7 @@ tags:
   - architecture
 ---
 
-# How Interface X works
-
-<img :src="$withBase('/assets/media/interfacex-architecture.svg')" alt="Interface X architecture">
+![Interface X architecture](~@assets/media/interface/x-architecture.svg)
 
 <FootNote>
 

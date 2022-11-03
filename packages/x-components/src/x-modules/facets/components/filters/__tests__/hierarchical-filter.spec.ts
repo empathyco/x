@@ -84,9 +84,14 @@ function renderHierarchicalFilter({
     );
   }
 
+  function getFilterWrapperByText(text: string): Wrapper<Vue> | undefined {
+    return getFiltersWrappers().wrappers.find(filter => filter.text().trim() === text);
+  }
+
   return {
     getFilterWrapper,
     getFiltersWrappers,
+    getFilterWrapperByText,
     hierarchicalFilterWrapper,
     emit,
     getRootFilter,
@@ -374,8 +379,8 @@ describe('testing `HierarchicalFilter` component', () => {
       });
     });
 
-    it('exposes proper css classes and attributes in the default slot to children', () => {
-      const { mutateFilter, getFiltersWrappers } = renderHierarchicalFilter({
+    it('exposes proper css classes and attributes in the default slot to children', async () => {
+      const { mutateFilter, getFilterWrapperByText, getFilters } = renderHierarchicalFilter({
         template: `
            <HierarchicalFilter
              :filter="filter"
@@ -393,34 +398,61 @@ describe('testing `HierarchicalFilter` component', () => {
            </HierarchicalFilter>
      `
       });
-      const filtersWrappers = getFiltersWrappers();
 
-      expect(filtersWrappers.length).toBeGreaterThan(1);
+      const grandChild0Wrapper = getFilterWrapperByText('grand-child-0')!;
+      const grandChild0Data = getFilters()[2];
+      expect(grandChild0Wrapper.classes()).toHaveLength(2);
+      expect(grandChild0Wrapper.classes()).toEqual(
+        expect.arrayContaining(['x-filter', 'x-hierarchical-filter'])
+      );
 
-      filtersWrappers.wrappers.forEach(async filterWrapper => {
-        const filter = (filterWrapper.vm as any).filter;
+      /* Filters with totalResults===0 should be disabled. */
+      await mutateFilter(grandChild0Data, { totalResults: 0 });
+      expect(grandChild0Wrapper.attributes()).toHaveProperty('disabled');
+      expect(grandChild0Wrapper.classes()).toHaveLength(3);
+      expect(grandChild0Wrapper.classes()).toEqual(
+        expect.arrayContaining(['x-filter', 'x-hierarchical-filter', 'x-filter--is-disabled'])
+      );
 
-        expect(filterWrapper.attributes()).not.toHaveProperty('disabled');
-        expect(filterWrapper.classes()).toHaveLength(6);
-        expect(filterWrapper.classes()).toEqual(
-          expect.arrayContaining([
-            'x-filter',
-            'x-filter--is-selected',
-            'x-filter--is-partially-selected',
-            'x-hierarchical-filter',
-            'x-hierarchical-filter--is-selected',
-            'x-hierarchical-filter--is-partially-selected'
-          ])
-        );
+      /* As grand-child-0 is deselected and grand-child-1 selected, child-0 should have partial
+       * select classes. As it is selected it should have selected classes
+       */
+      const child0Wrapper = getFilterWrapperByText('child-0')!;
+      expect(child0Wrapper.attributes()).not.toHaveProperty('disabled');
+      expect(child0Wrapper.classes()).toHaveLength(6);
+      expect(child0Wrapper.classes()).toEqual(
+        expect.arrayContaining([
+          'x-filter',
+          'x-filter--is-selected',
+          'x-filter--is-partially-selected',
+          'x-hierarchical-filter',
+          'x-hierarchical-filter--is-selected',
+          'x-hierarchical-filter--is-partially-selected'
+        ])
+      );
 
-        await mutateFilter(filter, { selected: false, totalResults: 0, children: [] });
-
-        expect(filterWrapper.attributes()).toHaveProperty('disabled');
-        expect(filterWrapper.classes()).toHaveLength(3);
-        expect(filterWrapper.classes()).toEqual(
-          expect.arrayContaining(['x-filter', 'x-hierarchical-filter', 'x-filter--is-disabled'])
-        );
-      });
+      // Enable back filter through total results and select it
+      await mutateFilter(grandChild0Data, { totalResults: 1, selected: true });
+      expect(grandChild0Wrapper.attributes()).not.toHaveProperty('disabled');
+      expect(grandChild0Wrapper.classes()).toHaveLength(4);
+      expect(grandChild0Wrapper.classes()).toEqual(
+        expect.arrayContaining([
+          'x-filter',
+          'x-hierarchical-filter',
+          'x-filter--is-selected',
+          'x-hierarchical-filter--is-selected'
+        ])
+      );
+      // Child 0 Partial classes should be removed as grand-child is now selected
+      expect(child0Wrapper.classes()).toHaveLength(4);
+      expect(child0Wrapper.classes()).toEqual(
+        expect.arrayContaining([
+          'x-filter',
+          'x-filter--is-selected',
+          'x-hierarchical-filter',
+          'x-hierarchical-filter--is-selected'
+        ])
+      );
     });
   });
 });
@@ -446,6 +478,13 @@ interface HierarchicalFilterAPI {
    * @returns The filter Wrapper.
    */
   getFilterWrapper: () => Wrapper<Vue>;
+  /**
+   * Gets a filter wrapper by the rendered button text.
+   *
+   * @param text - The rendered filter text.
+   * @returns The filter Wrapper.
+   */
+  getFilterWrapperByText: (text: string) => Wrapper<Vue> | undefined;
   /**
    * Get all the filters including children.
    *
