@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.41...@empathyco/x-types@10.0.0-alpha.42) (2022-11-03)
+
+### ⚠ BREAKING CHANGES
+
+- **components:** `facets` are now optional in `Suggestion`.
+
+### Features
+
+- **components:** add filters to base-suggestions (#758)
+  ([2014861](https://github.com/empathyco/x/commit/2014861453215808ee4279f9484f1d845780d7bf)),
+  closes [EX-6346](https://searchbroker.atlassian.net/browse/EX-6346)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.40...@empathyco/x-types@10.0.0-alpha.41) (2022-11-02)
+
+### Bug Fixes
+
+- make promoted and banner position optional (#817)
+  ([a2a8d5d](https://github.com/empathyco/x/commit/a2a8d5dcc03451e046d00f87f3545dfd46c050c5)),
+  closes [EX-7333](https://searchbroker.atlassian.net/browse/EX-7333)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.39...@empathyco/x-types@10.0.0-alpha.40) (2022-10-31)
 
 ### Features

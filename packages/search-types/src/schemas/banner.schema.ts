@@ -16,5 +16,5 @@ export const BannerSchema: Banner = {
   modelName: expect.any(String),
   title: expect.any(String),
   url: expect.any(String),
-  position: expect.any(Number)
+  position: expect.undefinedOr(Number)
 };
