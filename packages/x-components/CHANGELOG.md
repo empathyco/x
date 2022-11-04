@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.215](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.214...@empathyco/x-components@3.0.0-alpha.215) (2022-11-04)
+
+### Features
+
+- wai-aria for BaseEventButton based components (#816)
+  ([3dfd29e](https://github.com/empathyco/x/commit/3dfd29e8f8cc57c5caeeda609ccd4903434bd74a)),
+  closes [EX-7204](https://searchbroker.atlassian.net/browse/EX-7204)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.214](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.213...@empathyco/x-components@3.0.0-alpha.214) (2022-11-03)
 
 ### Features
