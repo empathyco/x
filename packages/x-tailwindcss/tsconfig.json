@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2019",
-    "module": "commonjs",
+    "module": "esnext",
     "lib": ["esnext", "dom"],
     "moduleResolution": "node",
     "esModuleInterop": true,
@@ -11,8 +11,7 @@
     "sourceMap": true,
     "inlineSources": true,
     "declaration": true,
-    "declarationDir": "./dist/types",
-    "noEmit": true
+    "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "demo/**/*.ts"]
+  "include": ["src/**/*.ts"]
 }
