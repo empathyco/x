@@ -5,15 +5,16 @@
     class="x-history-queries"
     data-test="history-queries"
   >
-    <template #default="{ suggestion, index }">
+    <template #default="props">
+      <!-- eslint-disable max-len -->
       <!--
         @slot History Query item
-            @binding {Suggestion} suggestion - History Query suggestion data
-            @binding {number} index - History Query suggestion index
+            @binding {Suggestion} props defined in BaseSuggestions slot's content - History Query suggestion
       -->
-      <slot name="suggestion" v-bind="{ suggestion, index }">
+      <!-- eslint-enable max-len -->
+      <slot name="suggestion" v-bind="{ props }">
         <HistoryQuery
-          :suggestion="suggestion"
+          :suggestion="props.suggestion"
           data-test="history-query-item"
           class="x-history-queries__item"
         >
@@ -21,20 +22,18 @@
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query content
-                  @binding {Suggestion} suggestion - History Query suggestion data
+                  @binding {Suggestion} suggestion - History Query suggestion
                   @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
-                  @binding {number} index - History Query suggestion index
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ suggestion, index, queryHTML }" />
+            <slot name="suggestion-content" v-bind="{ props, queryHTML }" />
           </template>
           <template #remove-button-content>
             <!--
               @slot History Query remove button content
-                  @binding {Suggestion} suggestion - History Query suggestion data
-                  @binding {number} index - History Query suggestion index
+                  @binding {Suggestion} suggestion - History Query suggestion
             -->
-            <slot name="suggestion-remove-content" v-bind="{ suggestion, index }" />
+            <slot name="suggestion-remove-content" v-bind="{ props }" />
           </template>
         </HistoryQuery>
       </slot>
@@ -53,7 +52,8 @@
   import HistoryQuery from './history-query.vue';
 
   /**
-   * This component renders a list of suggestions coming from the user queries history.
+   * This component renders a list of [`BaseSuggestions`](./x-components.base-suggestions.md)
+   * coming from the user queries history.
    *
    * @remarks
    *

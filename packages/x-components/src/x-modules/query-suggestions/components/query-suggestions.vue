@@ -5,24 +5,24 @@
     class="x-query-suggestions"
     data-test="query-suggestions"
   >
-    <template #default="{ suggestion, index }">
+    <template #default="props">
+      <!-- eslint-disable max-len -->
       <!--
         @slot Custom component that replaces the `QuerySuggestion` component
-            @binding {Suggestion} suggestion - Query Suggestion data
-            @binding {number} index - Query Suggestion index
+            @binding {Suggestion} props defined in BaseSuggestions slot's content - Query Suggestion
       -->
-      <slot name="suggestion" v-bind="{ suggestion, index }">
-        <QuerySuggestion :suggestion="suggestion" class="x-query-suggestions__suggestion">
+      <!-- eslint-enable max-len -->
+      <slot name="suggestion" v-bind="{ props }">
+        <QuerySuggestion :suggestion="props.suggestion" class="x-query-suggestions__suggestion">
           <template #default="{ queryHTML }">
             <!-- eslint-disable max-len -->
             <!--
               @slot Custom content that replaces the `QuerySuggestion` default content
-                  @binding {Suggestion} suggestion - Query Suggestion data
+                  @binding {Suggestion} suggestion props - Query Suggestion
                   @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
-                  @binding {number} index - Query Suggestion index
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ suggestion, index, queryHTML }" />
+            <slot name="suggestion-content" v-bind="{ props, queryHTML }" />
           </template>
         </QuerySuggestion>
       </slot>
@@ -41,9 +41,9 @@
   import QuerySuggestion from './query-suggestion.vue';
 
   /**
-   * This component renders a list of possible search queries to select from as a query is entered
-   * in the input field. By default, this is a list of
-   * [`QuerySuggestion`](./x-components.query-suggestion.md) components.
+   * This component renders a [`BaseSuggestions`](./x-components.base-suggestions.md) list of
+   * possible search queries, to select from as a query is entered in the input field. By default,
+   * this is a list of [`QuerySuggestion`](./x-components.query-suggestion.md) components.
    *
    * @public
    */

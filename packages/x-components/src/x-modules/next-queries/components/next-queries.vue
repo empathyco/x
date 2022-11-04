@@ -5,28 +5,28 @@
     data-test="next-queries"
     class="x-next-queries"
   >
-    <template #default="{ suggestion, index }">
+    <template #default="props">
+      <!-- eslint-disable max-len -->
       <!--
         @slot Next Query item
-            @binding {Suggestion} suggestion - Next Query suggestion data
-            @binding {number} index - Next Query suggestion index
+            @binding {Suggestion} props defined in BaseSuggestions slot's content - Next Query suggestion
             @binding {boolean} highlightCurated - True if the curated NQs should be highlighted
       -->
-      <slot name="suggestion" v-bind="{ suggestion, highlightCurated, index }">
+      <!-- eslint-enable max-len -->
+      <slot name="suggestion" v-bind="{ props, highlightCurated }">
         <NextQuery
-          #default="{ suggestion, shouldHighlightCurated }"
-          :suggestion="suggestion"
+          #default="{ props, shouldHighlightCurated }"
+          :suggestion="props.suggestion"
           :highlightCurated="highlightCurated"
           class="x-next-queries__suggestion"
         >
           <!--
               @slot Next Query content
-                  @binding {Suggestion} suggestion - Next Query suggestion data
+                  @binding {Suggestion} suggestion props - Next Query suggestion data
                   @binding {boolean} shouldHighlightCurated - True if the curated NQ should
                   be highlighted
-                  @binding {number} index - Next Query suggestion index
             -->
-          <slot name="suggestion-content" v-bind="{ suggestion, shouldHighlightCurated, index }" />
+          <slot name="suggestion-content" v-bind="{ props, shouldHighlightCurated }" />
         </NextQuery>
       </slot>
     </template>
@@ -44,11 +44,11 @@
   import NextQuery from './next-query.vue';
 
   /**
-   * Simple next-queries component that renders a list of suggestions, allowing the user to
-   * select one of them, and emitting the needed events.
-   * A next query is a suggestion for a new search, related to your previous query. I.e. If
-   * people normally search for `shirts`, and then `trousers`, `trousers` would be a next query
-   * of `shirts`.
+   * Simple next-queries component that renders a list of
+   * [`BaseSuggestions`](./x-components.base-suggestions.md),
+   * allowing the user to select one of them, and emitting the needed events. A next query is a
+   * suggestion for a new search, related to your previous query. I.e. If people normally search
+   * for `shirts`, and then `trousers`, `trousers` would be a next query of `shirts`.
    *
    * @public
    */

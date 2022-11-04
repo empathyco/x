@@ -5,21 +5,21 @@
     class="x-popular-searches"
     data-test="popular-searches"
   >
-    <template #default="slotProps">
+    <template #default="props">
+      <!-- eslint-disable max-len -->
       <!--
-        @slot Popular Search item
-            @binding {Suggestion} suggestion - Popular Search suggestion data
-            @binding {number} index - Popular Search suggestion index
-      -->
-      <slot name="suggestion" v-bind="{ slotProps }">
-        <PopularSearch :suggestion="slotProps.suggestion" class="x-popular-searches__suggestion">
+          @slot Popular Search item
+              @binding {Suggestion} props defined in BaseSuggestions slot's content - Popular Search suggestion
+        -->
+      <!-- eslint-enable max-len -->
+      <slot name="suggestion" v-bind="{ props }">
+        <PopularSearch :suggestion="props.suggestion" class="x-popular-searches__suggestion">
           <template #default>
             <!--
               @slot Popular Search content
-                  @binding {Suggestion} suggestion - Popular Search suggestion data
-                  @binding {number} index - Popular Search suggestion index
+                  @binding {Suggestion} suggestion props - Popular Search suggestion
             -->
-            <slot name="suggestion-content" v-bind="{ slotProps }" />
+            <slot name="suggestion-content" v-bind="{ props }" />
           </template>
         </PopularSearch>
       </slot>
@@ -38,10 +38,10 @@
   import PopularSearch from './popular-search.vue';
 
   /**
-   * Simple popular-searches component that renders a list of suggestions, allowing the user to
-   * select one of them, and emitting the needed events.
-   * A popular search is just a query that has been searched a lot in a certain period and may
-   * optionally have associated a set of filters.
+   * Simple popular-searches component that renders a list of
+   * [`BaseSuggestions`](./x-components.base-suggestions.md), allowing the user to select one
+   * of them, and emitting the needed events. A popular search is just a query that has been
+   * searched a lot in a certain period and may optionally have associated a set of filters.
    *
    * @public
    */
