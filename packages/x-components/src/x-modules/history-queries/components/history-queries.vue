@@ -9,7 +9,7 @@
       <!-- eslint-disable max-len -->
       <!--
         @slot History Query item
-            @binding {Suggestion} props defined in BaseSuggestions slot's content - History Query suggestion
+            @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - History Query suggestion
       -->
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ props }">
@@ -22,11 +22,11 @@
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query content
-                  @binding {Suggestion} suggestion - History Query suggestion
+                  @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - History Query suggestion
                   @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ props, queryHTML }" />
+            <slot name="suggestion-content" v-bind="{ ...props, queryHTML }" />
           </template>
           <template #remove-button-content>
             <!--

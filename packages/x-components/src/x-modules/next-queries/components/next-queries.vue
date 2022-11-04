@@ -9,24 +9,25 @@
       <!-- eslint-disable max-len -->
       <!--
         @slot Next Query item
-            @binding {Suggestion} props defined in BaseSuggestions slot's content - Next Query suggestion
+            @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - Next Query suggestion
             @binding {boolean} highlightCurated - True if the curated NQs should be highlighted
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ props, highlightCurated }">
+      <slot name="suggestion" v-bind="{ ...props, highlightCurated }">
         <NextQuery
-          #default="{ props, shouldHighlightCurated }"
+          #default="{ shouldHighlightCurated, ...props }"
           :suggestion="props.suggestion"
           :highlightCurated="highlightCurated"
           class="x-next-queries__suggestion"
         >
+          <!-- eslint-disable max-len -->
           <!--
               @slot Next Query content
-                  @binding {Suggestion} suggestion props - Next Query suggestion data
-                  @binding {boolean} shouldHighlightCurated - True if the curated NQ should
-                  be highlighted
+                  @binding {Suggestion} suggestion bindings defined in [BaseSuggestions](./x-components.base-suggestions.md#slots) default slot - Next Query suggestion
+                  @binding {boolean} shouldHighlightCurated - True if the curated NQ should be highlighted
             -->
-          <slot name="suggestion-content" v-bind="{ props, shouldHighlightCurated }" />
+          <!-- eslint-enable max-len -->
+          <slot name="suggestion-content" v-bind="{ ...props, shouldHighlightCurated }" />
         </NextQuery>
       </slot>
     </template>

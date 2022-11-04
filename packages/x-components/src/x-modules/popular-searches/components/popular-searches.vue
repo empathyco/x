@@ -9,16 +9,18 @@
       <!-- eslint-disable max-len -->
       <!--
           @slot Popular Search item
-              @binding {Suggestion} props defined in BaseSuggestions slot's content - Popular Search suggestion
+              @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - Popular Search suggestion
         -->
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ props }">
         <PopularSearch :suggestion="props.suggestion" class="x-popular-searches__suggestion">
           <template #default>
+            <!-- eslint-disable max-len -->
             <!--
               @slot Popular Search content
-                  @binding {Suggestion} suggestion props - Popular Search suggestion
+                  @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - Popular Search suggestion
             -->
+            <!-- eslint-enable max-len -->
             <slot name="suggestion-content" v-bind="{ props }" />
           </template>
         </PopularSearch>

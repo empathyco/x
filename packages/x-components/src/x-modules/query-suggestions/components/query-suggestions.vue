@@ -9,7 +9,7 @@
       <!-- eslint-disable max-len -->
       <!--
         @slot Custom component that replaces the `QuerySuggestion` component
-            @binding {Suggestion} props defined in BaseSuggestions slot's content - Query Suggestion
+            @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - Query Suggestion
       -->
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ props }">
@@ -18,11 +18,11 @@
             <!-- eslint-disable max-len -->
             <!--
               @slot Custom content that replaces the `QuerySuggestion` default content
-                  @binding {Suggestion} suggestion props - Query Suggestion
+                  @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - Query Suggestion
                   @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ props, queryHTML }" />
+            <slot name="suggestion-content" v-bind="{ ...props, queryHTML }" />
           </template>
         </QuerySuggestion>
       </slot>
