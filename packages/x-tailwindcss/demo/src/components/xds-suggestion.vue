@@ -36,6 +36,7 @@
 
     @Prop({
       default: () => [
+        '',
         'x-suggestion-neutral',
         'x-suggestion-lead',
         'x-suggestion-auxiliary',
@@ -80,7 +81,7 @@
     }
 
     protected removeBase(cssClass: string): string {
-      return cssClass.replace(new RegExp(`${this.base}-?`, 'g'), '') || 'suggestion';
+      return cssClass.replace(new RegExp(`${this.base}-?`, 'g'), '').trim() || 'suggestion';
     }
 
     protected copyCSSClasses(event: MouseEvent): void {

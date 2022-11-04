@@ -11,6 +11,9 @@ import { suggestionSizes } from './sizes';
 export function suggestionDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
+    '--suggestion-color-25': theme('colors.neutral.25'),
+    '--suggestion-color-50': theme('colors.neutral.50'),
+    '--suggestion-color-75': theme('colors.neutral.75'),
     borderRadius: 0,
     borderColor: 'transparent',
     borderWidth: 0,

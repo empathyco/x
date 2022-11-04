@@ -13,17 +13,16 @@ export function suggestionFilled(helpers: TailwindHelpers) {
     filled: Object.assign({
       backgroundColor: theme('colors.neutral.10'),
 
+      minHeight: theme('spacing.32'),
+      paddingInlineStart: theme('spacing.8'),
+      paddingInlineEnd: theme('spacing.8'),
+
       '&:hover': {
         backgroundColor: 'var(--suggestion-color-25)'
       },
 
-      '&.suggestion-md': {
-        minHeight: theme('spacing.32'),
-        paddingInlineStart: theme('spacing.8'),
-        paddingInlineEnd: theme('spacing.8')
-      },
-
       '&.suggestion-lg': {
+        minHeight: theme('spacing.48'),
         paddingInlineStart: theme('spacing.12'),
         paddingInlineEnd: theme('spacing.12')
       }

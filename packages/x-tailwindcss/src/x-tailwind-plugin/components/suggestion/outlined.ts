@@ -13,17 +13,16 @@ export function suggestionOutlined({ theme }: TailwindHelpers) {
       borderColor: 'var(--suggestion-color-75)',
       borderWidth: theme('borderWidth.1'),
 
+      minHeight: theme('spacing.32'),
+      paddingInlineStart: theme('spacing.8'),
+      paddingInlineEnd: theme('spacing.8'),
+
       '&:hover': {
         borderColor: 'var(--suggestion-color-50)'
       },
 
-      '&.suggestion-md': {
-        minHeight: theme('spacing.32'),
-        paddingInlineStart: theme('spacing.8'),
-        paddingInlineEnd: theme('spacing.8')
-      },
-
       '&.suggestion-lg': {
+        minHeight: theme('spacing.48'),
         paddingInlineStart: theme('spacing.12'),
         paddingInlineEnd: theme('spacing.12')
       }
