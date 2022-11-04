@@ -5,6 +5,7 @@
     :disabled="isHistoryQueriesEmpty"
     :events="clearHistoryQueriesEvents"
     data-test="clear-history-queries"
+    aria-label="Clear all"
   >
     <!-- @slot (Required) Button content with a message, an icon or both -->
     <slot>✕</slot>
