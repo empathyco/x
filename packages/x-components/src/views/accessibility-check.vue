@@ -3,15 +3,18 @@
     <section class="x-list x-padding--07 x-list--gap-05">
       <div>
         <h1>BaseIdTogglePanelButton</h1>
-        <BaseIdTogglePanelButton
-          :id="`base-id-toggle-button-${panelId}`"
-          class="x-button x-button--ghost"
-          :panelId="panelId"
-        >
+        <BaseIdTogglePanelButton class="x-button x-button--ghost" :panelId="panelId">
           Panel
         </BaseIdTogglePanelButton>
         <BaseIdTogglePanel :startOpen="true" panelId="aside-panel">
           <div class="x-text">Hey there!</div>
+        </BaseIdTogglePanel>
+
+        <BaseIdTogglePanelButton class="x-button x-button--ghost" panelId="panel2" />
+        <BaseIdTogglePanel :startOpen="true" panelId="aside-panel">
+          <div class="x-text">
+            Button without text, an element should have the ID to make it accessible.
+          </div>
         </BaseIdTogglePanel>
       </div>
 
@@ -24,9 +27,8 @@
 
       <div>
         <h1>BaseResultAddToCart</h1>
-        <BaseResultAddToCart id="result-add-to-cart" result="">
-          <img src="https://picsum.photos/seed/200/50/50" alt="shopping cart" />
-          <span>I want it!</span>
+        <BaseResultAddToCart result="">
+          <img src="https://picsum.photos/seed/200/50/50" alt="Add to cart" />
         </BaseResultAddToCart>
       </div>
 
@@ -35,7 +37,7 @@
         <FacetsProvider :facets="[facet]" />
         <Facets>
           <template #default="{ facet }">
-            <AllFilter :id="`all-filter-${facet.label}`" :facet="facet">
+            <AllFilter :facet="facet">
               {{ facet.label }}
             </AllFilter>
             <Filters v-slot="{ filter }" :filters="facet.filters">

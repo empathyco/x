@@ -6,7 +6,6 @@
     :aria-checked="isSelected"
     :events="clickEvent"
     :class="cssClasses"
-    :aria-labelledby="`all-filter-${facet.label}`"
   >
     <!--
         @slot The content to render inside the button
