@@ -11,6 +11,6 @@ jobs:
       - name: Run pull request stats
         uses: flowwer-dev/pull-request-stats@master
         with:
-          period: 365
+          period: 90
           charts: true
           sort-by: 'COMMENTS'
