@@ -5,7 +5,7 @@
     "postinstall": "lerna bootstrap --hoist && npm run build",
     "postci": "lerna bootstrap --hoist --ci && npm run build",
     "build": "lerna run build",
-    "lint": "eslint packages --ext .ts,.tsx,.vue --quiet",
+    "lint": "jest --config=jest-lint.config.js",
     "lint:fix": "eslint packages --ext .ts,.tsx,.vue --fix",
     "test": "lerna run test --parallel",
     "serve": "lerna run serve --parallel",
@@ -21,6 +21,7 @@
     "cross-env": "~7.0.3",
     "eslint": "~8.14.0",
     "husky": "~7.0.2",
+    "jest-runner-eslint": "^1.1.0",
     "lerna": "~4.0.0",
     "lint-staged": "~11.1.2",
     "prettier": "~2.3.2"
@@ -36,5 +37,10 @@
       "cross-env NODE_ENV=production eslint --fix"
     ],
     "*.{md,js,json}": "prettier --write"
+  },
+  "jest-runner-eslint": {
+    "cliOptions": {
+      "quiet": true
+    }
   }
 }
