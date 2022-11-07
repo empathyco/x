@@ -140,7 +140,6 @@
     changeOpenState(newOpenState: boolean, metadata: WireMetadata): void {
       if (this.isOpen !== newOpenState) {
         this.isOpen = newOpenState;
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         this.$x.emit(
           this.isOpen ? 'EmpathizeOpened' : 'EmpathizeClosed',
           undefined,
