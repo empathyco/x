@@ -5,7 +5,7 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import Empathize from '../empathize.vue';
 import { empathizeXModule } from '../../x-module';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { XEvent } from '../../../../wiring/index';
+import { XEvent } from '../../../../wiring/events.types';
 
 jest.useFakeTimers();
 
