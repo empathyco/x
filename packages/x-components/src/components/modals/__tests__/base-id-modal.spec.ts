@@ -49,6 +49,11 @@ function mountBaseIdModal({
 }
 
 describe('testing BaseIdModal  component', () => {
+  window.ResizeObserver = jest.fn().mockImplementation(() => ({
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+    disconnect: jest.fn()
+  }));
   it('opens when UserClickedOpenModal event is emitted', async () => {
     const { emit, getModalContent } = mountBaseIdModal();
     expect(getModalContent().exists()).toBe(false);

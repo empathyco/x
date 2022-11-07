@@ -54,6 +54,11 @@ function mountBaseModal({
 }
 
 describe('testing Base Modal  component', () => {
+  window.ResizeObserver = jest.fn().mockImplementation(() => ({
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+    disconnect: jest.fn()
+  }));
   it('renders only when the open prop is set to true', async () => {
     const { getModalContent, setOpen } = mountBaseModal();
 

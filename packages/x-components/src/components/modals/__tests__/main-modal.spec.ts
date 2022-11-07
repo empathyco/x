@@ -50,6 +50,11 @@ function renderMainModal({
 }
 
 describe('testing Main Modal  component', () => {
+  window.ResizeObserver = jest.fn().mockImplementation(() => ({
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+    disconnect: jest.fn()
+  }));
   it('opens and closes when UserClickedOpenX and UserClickedClosedX are emitted', async () => {
     const { emit, getModalContent } = renderMainModal();
     expect(getModalContent().exists()).toBe(false);

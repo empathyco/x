@@ -1,5 +1,5 @@
 <template>
-  <div v-show="isWaitingForLeave || open" class="x-modal" data-test="modal">
+  <div v-show="isWaitingForLeave || open" ref="modal" class="x-modal" data-test="modal">
     <component
       :is="animation"
       @before-leave="isWaitingForLeave = true"
@@ -7,7 +7,7 @@
     >
       <div
         v-if="open"
-        ref="modal"
+        ref="modalContent"
         class="x-modal__content x-list"
         data-test="modal-content"
         role="dialog"
@@ -34,6 +34,7 @@
   import Fade from '../animations/fade.vue';
   import { NoElement } from '../no-element';
   import { FOCUSABLE_SELECTORS } from '../../utils/focus';
+  import { Debounce } from '../decorators/debounce.decorators';
 
   /**
    * Base component with no XPlugin dependencies that serves as a utility for constructing more
@@ -69,6 +70,12 @@
     @Prop({ default: true })
     public focusOnOpen!: boolean;
 
+    /**
+     * The selector under which the modal is to be placed.
+     */
+    @Prop()
+    public clientHeaderSelector!: string;
+
     /** The previous value of the body overflow style. */
     protected previousBodyOverflow = '';
     /** The previous value of the HTML element overflow style. */
@@ -76,7 +83,13 @@
     /** Boolean to delay the leave animation until it has completed. */
     protected isWaitingForLeave = false;
 
+    /**
+     * The element selected.
+     */
+    protected selectedElement!: Element;
+
     public $refs!: {
+      modalContent: HTMLDivElement;
       modal: HTMLDivElement;
     };
 
@@ -87,6 +100,40 @@
       if (this.open) {
         this.syncBody(true);
       }
+
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      const resizeObserver = new ResizeObserver(this.updatePosition);
+
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      this.$watch(
+        'clientHeaderSelector',
+        () => {
+          if (this.clientHeaderSelector) {
+            const element = document.querySelector(this.clientHeaderSelector);
+            if (element) {
+              this.selectedElement = element;
+              resizeObserver.observe(element);
+            }
+          }
+        },
+        { immediate: true }
+      );
+    }
+
+    /**
+     * Updates the position of the modal setting the top of the element depending
+     * on the selector. The modal will be placed under this selector.
+     *
+     * @internal
+     */
+    @Debounce(100, { leading: true })
+    updatePosition(): void {
+      this.$refs.modal.style.top = this.clientHeaderSelector
+        ? `${
+            this.selectedElement.getBoundingClientRect().height +
+            this.selectedElement.getBoundingClientRect().y
+          }px`
+        : '0';
     }
 
     /**
@@ -176,7 +223,7 @@
      * @internal
      */
     protected emitFocusInBody(event: FocusEvent): void {
-      if (!this.$refs.modal.contains(event.target as HTMLElement)) {
+      if (!this.$refs.modalContent.contains(event.target as HTMLElement)) {
         this.$emit('focusin:body', event);
       }
     }
@@ -189,7 +236,7 @@
      */
     protected setFocus(): void {
       const focusCandidates: HTMLElement[] = Array.from(
-        this.$refs.modal.querySelectorAll(FOCUSABLE_SELECTORS)
+        this.$refs.modalContent.querySelectorAll(FOCUSABLE_SELECTORS)
       );
 
       const elementToFocus =
@@ -230,7 +277,9 @@
 ## Examples
 
 The `BaseModal` is a simple component that serves to create complex modals. Its open state has to be
-passed via prop. It also accepts an animation to use for opening & closing.
+passed via prop. There is a prop, `clientHeaderSelector`, used to place the modal under some element
+instead of set the top of the element directly. It also accepts an animation to use for opening &
+closing.
 
 It emits a `click:overlay` event when any part out of the content is clicked, but only if the modal
 is open.
@@ -239,7 +288,12 @@ is open.
 <template>
   <div>
     <button @click="open = true">Open modal</button>
-    <BaseModal animation="fadeAndSlide" :open="open" @click:overlay="open = false">
+    <BaseModal
+      animation="fadeAndSlide"
+      :open="open"
+      @click:overlay="open = false"
+      clientHeaderSelector=".header"
+    >
       <h1>Hello</h1>
       <p>The modal is working</p>
       <button @click="open = false">Close modal</button>
