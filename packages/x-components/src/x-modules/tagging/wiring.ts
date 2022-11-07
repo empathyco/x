@@ -147,10 +147,10 @@ export const trackBannerClickedWire = createTrackWire('click');
 export const trackAddToCartWire = createTrackWire('add2cart');
 
 /**
- * Factory helper to create a wire for the track of a taggable object.
+ * Factory helper to create a wire for the track of a taggable element.
  *
  * @param property - Key of the tagging object to track.
- * @returns A new wire for the given property of the result tagging.
+ * @returns A new wire for the given property of the taggable element.
  *
  * @internal
  */
