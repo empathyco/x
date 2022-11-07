@@ -11,7 +11,7 @@
     >
       <!-- @slot (Required) Modal container content -->
       <slot>
-        <span ref="isEmptySlot" hidden aria-hidden="true"></span>
+        <span ref="noContent" hidden aria-hidden="true" />
       </slot>
     </div>
   </component>
