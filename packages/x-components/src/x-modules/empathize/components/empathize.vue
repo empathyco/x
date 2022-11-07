@@ -76,6 +76,11 @@
      */
     protected isOpen = false;
 
+    public $refs!: {
+      /** Hidden span as default slot content to check if the empathize has content or not. */
+      noContent?: HTMLSpanElement;
+    };
+
     /**
      * Reflects if the empathize has content.
      *
