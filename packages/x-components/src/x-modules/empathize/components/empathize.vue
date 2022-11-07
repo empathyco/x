@@ -77,11 +77,11 @@
     protected isOpen = false;
 
     /**
-     * The default slot is empty to avoid opening empathize with no content.
+     * Reflects if the empathize has content.
      *
      * @internal
      */
-    protected isEmptySlot = true;
+    protected hasContent = false;
 
     /**
      * The Vue lifecycle hook {@link https://vuex.vuejs.org/guide/state.html | updated} is called
@@ -105,7 +105,7 @@
      */
     @XOn(component => (component as Empathize).eventsToOpenEmpathize)
     open(payload: unknown, metadata: WireMetadata): void {
-      if (this.$refs.noContent) {
+      if (!this.$refs.noContent) {
         this.changeOpenState(true, metadata);
       }
     }
