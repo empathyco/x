@@ -90,7 +90,7 @@
      * @returns True if the slot is empty, the slot element if it has content.
      */
     updated(): void {
-      return (this.isEmptySlot = !!this.$refs.isEmptySlot);
+      this.hasContent = !this.$refs.noContent;
     }
 
     /**
