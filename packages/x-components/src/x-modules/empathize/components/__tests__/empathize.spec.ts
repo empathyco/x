@@ -57,7 +57,7 @@ describe('testing empathize component', () => {
 
     wrapper.vm.$x.emit('UserClickedSearchBox');
 
-    expect(wrapper.find('.x-empathize').exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('empathize')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(false);
   });
 
