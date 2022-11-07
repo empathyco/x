@@ -82,8 +82,8 @@ describe('testing empathize component', () => {
     await wrapper.vm.$nextTick();
 
     // Both should exist, as v-show doesn't remove the elements in the DOM, and not be visible
-    expect(wrapper.find('.x-empathize').exists()).toBe(true);
-    expect(wrapper.find('.x-empathize').element).not.toBeVisible();
+    expect(wrapper.find(getDataTestSelector('empathize')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('empathize')).element).not.toBeVisible();
     expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('empathize-content')).element).not.toBeVisible();
   });
