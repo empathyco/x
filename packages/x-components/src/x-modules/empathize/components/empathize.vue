@@ -84,10 +84,11 @@
     protected isEmptySlot = true;
 
     /**
-     * Detects if the default slot has been replaced.
+     * The Vue lifecycle hook {@link https://vuex.vuejs.org/guide/state.html | updated} is called
+     * after a data change causes the virtual DOM to be re-rendered and patched. Using it to detect
+     * if the default slot content has been replaced.
      *
-     * @internal
-     * @returns True if the slot is empty, the slot element if it has content.
+     * @public
      */
     updated(): void {
       this.hasContent = !this.$refs.noContent;
