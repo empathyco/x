@@ -72,8 +72,8 @@ describe('testing empathize component', () => {
     await wrapper.vm.$nextTick();
 
     // Both should exist and be visible
-    expect(wrapper.find('.x-empathize').exists()).toBe(true);
-    expect(wrapper.find('.x-empathize').element).toBeVisible();
+    expect(wrapper.find(getDataTestSelector('empathize')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('empathize')).element).toBeVisible();
     expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('empathize-content')).element).toBeVisible();
 
