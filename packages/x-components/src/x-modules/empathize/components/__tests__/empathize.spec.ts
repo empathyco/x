@@ -51,7 +51,7 @@ describe('testing empathize component', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('empathize');
   });
 
-  it('will not open empathize if there is no content to render', async () => {
+  it('will not open empathize if there is no content to render', () => {
     const template = `<Empathize v-bind="$attrs"/>`;
     const { wrapper } = renderEmpathize({ template });
 
