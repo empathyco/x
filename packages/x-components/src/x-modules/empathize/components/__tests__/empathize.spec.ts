@@ -4,7 +4,7 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/x
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import Empathize from '../empathize.vue';
 import { empathizeXModule } from '../../x-module';
-import { XPlugin } from '../../../../plugins/index';
+import { XPlugin } from '../../../../plugins/x-plugin';
 import { XEvent } from '../../../../wiring/index';
 
 jest.useFakeTimers();
