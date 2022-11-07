@@ -104,7 +104,7 @@
      */
     @XOn(component => (component as Empathize).eventsToOpenEmpathize)
     open(payload: unknown, metadata: WireMetadata): void {
-      if (!this.$refs.isEmptySlot) {
+      if (this.$refs.noContent) {
         this.changeOpenState(true, metadata);
       }
     }
