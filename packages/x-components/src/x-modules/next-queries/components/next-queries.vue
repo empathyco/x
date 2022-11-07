@@ -15,7 +15,7 @@
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ ...props, highlightCurated }">
         <NextQuery
-          #default="{ shouldHighlightCurated, ...props }"
+          #default="{ suggestion, shouldHighlightCurated }"
           :suggestion="props.suggestion"
           :highlightCurated="highlightCurated"
           class="x-next-queries__suggestion"
@@ -27,7 +27,10 @@
                   @binding {boolean} shouldHighlightCurated - True if the curated NQ should be highlighted
             -->
           <!-- eslint-enable max-len -->
-          <slot name="suggestion-content" v-bind="{ ...props, shouldHighlightCurated }" />
+          <slot
+            name="suggestion-content"
+            v-bind="{ ...props, suggestion, shouldHighlightCurated }"
+          />
         </NextQuery>
       </slot>
     </template>
@@ -55,8 +58,7 @@
    */
   @Component({
     components: { NextQuery, BaseSuggestions },
-    mixins: [xComponentMixin(nextQueriesXModule)],
-    inheritAttrs: false
+    mixins: [xComponentMixin(nextQueriesXModule)]
   })
   export default class NextQueries extends Vue {
     /**

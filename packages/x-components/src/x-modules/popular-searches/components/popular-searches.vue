@@ -12,16 +12,16 @@
               @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - Popular Search suggestion
         -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ props }">
+      <slot name="suggestion" v-bind="{ ...props }">
         <PopularSearch :suggestion="props.suggestion" class="x-popular-searches__suggestion">
-          <template #default>
+          <template #default="{ suggestion }">
             <!-- eslint-disable max-len -->
             <!--
               @slot Popular Search content
                   @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - Popular Search suggestion
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ props }" />
+            <slot name="suggestion-content" v-bind="{ ...props, suggestion }" />
           </template>
         </PopularSearch>
       </slot>
@@ -49,8 +49,7 @@
    */
   @Component({
     components: { PopularSearch, BaseSuggestions },
-    mixins: [xComponentMixin(popularSearchesXModule)],
-    inheritAttrs: false
+    mixins: [xComponentMixin(popularSearchesXModule)]
   })
   export default class PopularSearches extends Vue {
     /**

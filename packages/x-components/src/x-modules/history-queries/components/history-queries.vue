@@ -12,13 +12,13 @@
             @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - History Query suggestion
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ props }">
+      <slot name="suggestion" v-bind="{ ...props }">
         <HistoryQuery
           :suggestion="props.suggestion"
           data-test="history-query-item"
           class="x-history-queries__item"
         >
-          <template #default="{ queryHTML }">
+          <template #default="{ suggestion, queryHTML }">
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query content
@@ -26,14 +26,14 @@
                   @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ ...props, queryHTML }" />
+            <slot name="suggestion-content" v-bind="{ ...props, suggestion, queryHTML }" />
           </template>
-          <template #remove-button-content>
+          <template #remove-button-content="{ suggestion }">
             <!--
               @slot History Query remove button content
                   @binding {Suggestion} suggestion - History Query suggestion
             -->
-            <slot name="suggestion-remove-content" v-bind="{ props }" />
+            <slot name="suggestion-remove-content" v-bind="{ ...props, suggestion }" />
           </template>
         </HistoryQuery>
       </slot>
@@ -65,8 +65,7 @@
    */
   @Component({
     components: { BaseSuggestions, HistoryQuery },
-    mixins: [xComponentMixin(historyQueriesXModule)],
-    inheritAttrs: false
+    mixins: [xComponentMixin(historyQueriesXModule)]
   })
   export default class HistoryQueries extends Vue {
     /**

@@ -12,9 +12,9 @@
             @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - Query Suggestion
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ props }">
+      <slot name="suggestion" v-bind="{ ...props }">
         <QuerySuggestion :suggestion="props.suggestion" class="x-query-suggestions__suggestion">
-          <template #default="{ queryHTML }">
+          <template #default="{ suggestion, queryHTML }">
             <!-- eslint-disable max-len -->
             <!--
               @slot Custom content that replaces the `QuerySuggestion` default content
@@ -22,7 +22,7 @@
                   @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ ...props, queryHTML }" />
+            <slot name="suggestion-content" v-bind="{ ...props, suggestion, queryHTML }" />
           </template>
         </QuerySuggestion>
       </slot>
@@ -49,8 +49,7 @@
    */
   @Component({
     components: { BaseSuggestions, QuerySuggestion },
-    mixins: [xComponentMixin(querySuggestionsXModule)],
-    inheritAttrs: false
+    mixins: [xComponentMixin(querySuggestionsXModule)]
   })
   export default class QuerySuggestions extends Vue {
     /**
