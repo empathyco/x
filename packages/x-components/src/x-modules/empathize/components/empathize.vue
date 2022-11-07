@@ -81,7 +81,7 @@
      *
      * @internal
      */
-    protected isEmptySlot: boolean | Element = true;
+    protected isEmptySlot = true;
 
     /**
      * Detects if the default slot has been replaced.
