@@ -1,7 +1,7 @@
 <template>
   <component :is="animation">
     <div
-      v-show="isOpen && !isEmptySlot"
+      v-show="isOpen && hasContent"
       @mousedown.prevent
       @focusin="open"
       @focusout="close"
