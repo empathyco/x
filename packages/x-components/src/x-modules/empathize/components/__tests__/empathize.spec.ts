@@ -56,9 +56,6 @@ describe('testing empathize component', () => {
     const { wrapper } = renderEmpathize({ template });
 
     wrapper.vm.$x.emit('UserClickedSearchBox');
-    // Fast-forward until all timers have been executed
-    jest.runAllTimers();
-    await wrapper.vm.$nextTick();
 
     expect(wrapper.find('.x-empathize').exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(false);
