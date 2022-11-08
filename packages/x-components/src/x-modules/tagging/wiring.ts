@@ -152,9 +152,9 @@ export const trackAddToCartWire = createTrackWire('add2cart');
  * @param property - Key of the tagging object to track.
  * @returns A new wire for the given property of the taggable element.
  *
- * @internal
+ * @public
  */
-function createTrackWire(property: keyof Tagging): Wire<Taggable> {
+export function createTrackWire(property: keyof Tagging): Wire<Taggable> {
   return filter(
     wireDispatch('track', ({ eventPayload: { tagging }, metadata: { location } }) => {
       const taggingInfo: TaggingRequest = tagging[property];
