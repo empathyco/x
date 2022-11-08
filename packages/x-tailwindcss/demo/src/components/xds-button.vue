@@ -27,13 +27,13 @@
   export default class XdsButtonShowcase extends Vue {
     @Prop({ default: () => 'x-button' })
     public base!: string;
-    @Prop({ default: () => ['x-button-xs', 'x-button-sm', 'x-button-md', 'x-button-lg'] })
+    @Prop({ default: () => ['x-button-sm', 'x-button-md', 'x-button-lg', 'x-button-xl'] })
     public sizes!: string[];
     @Prop({
       default: () => [
         'x-button-neutral',
-        'x-button-primary',
-        'x-button-secondary',
+        'x-button-lead',
+        'x-button-auxiliary',
         'x-button-accent',
         'x-button-highlight',
         'x-button-success',
@@ -54,8 +54,8 @@
 
     @Prop({
       default: () => [
-        'x-button-primary x-button-xs',
-        'x-button-secondary x-button-circle x-button-outlined'
+        'x-button-lead x-button-sm',
+        'x-button-auxiliary x-button-circle x-button-outlined'
       ]
     })
     public combinations!: string[];
