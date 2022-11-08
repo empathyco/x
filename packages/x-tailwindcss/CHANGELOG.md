@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.24...@empathyco/x-tailwindcss@0.2.0-alpha.25) (2022-11-08)
+
+### Bug Fixes
+
+- **design-system:** Change the xds button size variants. (#832)
+  ([6ac36fc](https://github.com/empathyco/x/commit/6ac36fcaea774bc2255273a4c6486df2c3ccd948)),
+  closes [EX-7369](https://searchbroker.atlassian.net/browse/EX-7369)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.23...@empathyco/x-tailwindcss@0.2.0-alpha.24) (2022-11-03)
 
 ### Features
