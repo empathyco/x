@@ -45,7 +45,7 @@
    * possible search queries to select from as a query is entered in the input field. By
    * default, this is a list of [`QuerySuggestion`](./x-components.query-suggestion.md) components.
    *
-   * > This component inherits `BaseSuggestions` component attributes.
+   * This component inherits `BaseSuggestions` component attributes.
    * Check [`BaseSuggestions` Props section](./x-components.base-suggestions.md#Props) and
    * [Slot section](./x-components.base-suggestions.md#Slots)
    * for further information.

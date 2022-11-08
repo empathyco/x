@@ -45,7 +45,7 @@
    * of them, and emitting the needed events. A popular search is just a query that has been
    * searched a lot in a certain period and may optionally have associated a set of filters.
    *
-   * > This component inherits `BaseSuggestions` component attributes.
+   * This component inherits `BaseSuggestions` component attributes.
    * Check [`BaseSuggestions` Props section](./x-components.base-suggestions.md#Props) and
    * [Slot section](./x-components.base-suggestions.md#Slots)
    * for further information.

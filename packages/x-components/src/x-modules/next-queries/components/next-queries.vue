@@ -54,7 +54,7 @@
    * suggestion for a new search, related to your previous query. I.e. If people normally search
    * for `shirts`, and then `trousers`, `trousers` would be a next query of `shirts`.
    *
-   * > This component inherits `BaseSuggestions` component attributes.
+   * This component inherits `BaseSuggestions` component attributes.
    * Check [`BaseSuggestions` Props section](./x-components.base-suggestions.md#Props) and
    * [Slot section](./x-components.base-suggestions.md#Slots)
    * for further information.

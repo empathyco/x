@@ -59,7 +59,7 @@
    * needed events. A history query is just another type of suggestion that contains a query that
    * the user has made in the past.
    *
-   * > This component inherits `BaseSuggestions` component attributes.
+   * This component inherits `BaseSuggestions` component attributes.
    * Check [`BaseSuggestions` Props section](./x-components.base-suggestions.md#Props) and
    * [Slot section](./x-components.base-suggestions.md#Slots)
    * for further information.
