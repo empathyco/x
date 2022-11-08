@@ -157,6 +157,21 @@ export const cssComponentsRollupConfig = createRollupOptions({
 });
 
 /**
+ * The config to generate one `.css` file with all the deprecated styles.
+ */
+export const cssDeprecatedComponentsRollupConfig = createRollupOptions({
+  ...commonCssOptions,
+  input: glob('src/design-system-deprecated/**/*.scss', {
+    ignore: 'src/design-system-deprecated/**/*.tokens.scss'
+  }),
+  plugins: [
+    importTokens(),
+    styles({ mode: ['extract', 'deprecated-full-theme.css'] }),
+    omitJsFiles()
+  ]
+});
+
+/**
  * The config to generate the components `base.css` file with the base tokens.
  */
 export const cssBaseRollupConfig = createRollupOptions({
