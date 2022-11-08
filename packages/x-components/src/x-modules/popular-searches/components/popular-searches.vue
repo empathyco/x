@@ -8,9 +8,9 @@
     <template #default="props">
       <!-- eslint-disable max-len -->
       <!--
-          @slot Popular Search item
-              @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - Popular Search suggestion
-        -->
+        @slot Popular Search item
+            @binding {Suggestion} suggestion - Popular Search suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+      -->
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ ...props }">
         <PopularSearch :suggestion="props.suggestion" class="x-popular-searches__suggestion">
@@ -18,7 +18,7 @@
             <!-- eslint-disable max-len -->
             <!--
               @slot Popular Search content
-                  @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - Popular Search suggestion
+                  @binding {Suggestion} suggestion - Popular Search suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
             -->
             <!-- eslint-enable max-len -->
             <slot name="suggestion-content" v-bind="{ ...props, suggestion }" />
@@ -44,6 +44,11 @@
    * [`BaseSuggestions`](./x-components.base-suggestions.md), allowing the user to select one
    * of them, and emitting the needed events. A popular search is just a query that has been
    * searched a lot in a certain period and may optionally have associated a set of filters.
+   *
+   * > This component inherits `BaseSuggestions` component attributes.
+   * Check [`BaseSuggestions` Props section](./x-components.base-suggestions.md#Props) and
+   * [Slot section](./x-components.base-suggestions.md#Slots)
+   * for further information.
    *
    * @public
    */

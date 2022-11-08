@@ -8,8 +8,8 @@
     <template #default="props">
       <!-- eslint-disable max-len -->
       <!--
-        @slot Custom component that replaces the `QuerySuggestion` component
-            @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - Query Suggestion
+        @slot Custom content that replaces the `QuerySuggestion` default content
+            @binding {Suggestion} suggestion - Query Suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
       -->
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ ...props }">
@@ -18,7 +18,7 @@
             <!-- eslint-disable max-len -->
             <!--
               @slot Custom content that replaces the `QuerySuggestion` default content
-                  @binding {Suggestion} suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot - Query Suggestion
+                  @binding {Suggestion} suggestion - Query Suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
                   @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
             -->
             <!-- eslint-enable max-len -->
@@ -42,8 +42,13 @@
 
   /**
    * This component renders a [`BaseSuggestions`](./x-components.base-suggestions.md) list of
-   * possible search queries, to select from as a query is entered in the input field. By default,
-   * this is a list of [`QuerySuggestion`](./x-components.query-suggestion.md) components.
+   * possible search queries to select from as a query is entered in the input field. By
+   * default, this is a list of [`QuerySuggestion`](./x-components.query-suggestion.md) components.
+   *
+   * > This component inherits `BaseSuggestions` component attributes.
+   * Check [`BaseSuggestions` Props section](./x-components.base-suggestions.md#Props) and
+   * [Slot section](./x-components.base-suggestions.md#Slots)
+   * for further information.
    *
    * @public
    */
