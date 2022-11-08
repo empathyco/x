@@ -9,7 +9,7 @@
       <!-- eslint-disable max-len -->
       <!--
         @slot History Query item
-            @binding {Suggestion} suggestion - History Query suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+            @binding {DirectiveFunction} v-bind - History Query suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
       -->
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ ...props }">
@@ -22,7 +22,8 @@
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query content
-                  @binding {Suggestion} suggestion - History Query suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+                  @binding {DirectiveFunction} v-bind - History Query suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+                  @binding {Suggestion} suggestion - History Query suggestion data
                   @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
             -->
             <!-- eslint-enable max-len -->
@@ -32,7 +33,8 @@
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query remove button content
-                  @binding {Suggestion} suggestion - History Query suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+                  @binding {DirectiveFunction} v-bind - History Query suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+                  @binding {Suggestion} suggestion - History Query suggestion data
             -->
             <!-- eslint-enable max-len -->
             <slot name="suggestion-remove-content" v-bind="{ ...props, suggestion }" />
@@ -54,15 +56,14 @@
   import HistoryQuery from './history-query.vue';
 
   /**
-   * This component renders a list of [`BaseSuggestions`](./x-components.base-suggestions.md)
-   * coming from the user queries history. Allows the user to select one of them, emitting the
-   * needed events. A history query is just another type of suggestion that contains a query that
-   * the user has made in the past.
+   * This component renders a list of suggestions coming from the user queries history.
+   * Allows the user to select one of them, emitting the needed events. A history query is just
+   * another type of suggestion that contains a query that the user has made in the past.
    *
-   * This component inherits `BaseSuggestions` component attributes.
-   * Check [`BaseSuggestions` Props section](./x-components.base-suggestions.md#Props) and
-   * [Slot section](./x-components.base-suggestions.md#Slots)
-   * for further information.
+   * This component uses the [`BaseSuggestions`](./x-components.base-suggestions.md) component
+   * and inherits its attributes.
+   * Check `BaseSuggestions` [Props section](./x-components.base-suggestions.md#Props) and
+   * [Slots section](./x-components.base-suggestions.md#Slots) for further information.
    *
    * @public
    */

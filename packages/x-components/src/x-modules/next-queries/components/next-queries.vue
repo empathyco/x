@@ -9,7 +9,7 @@
       <!-- eslint-disable max-len -->
       <!--
         @slot Next Query item
-            @binding {Suggestion} suggestion - Next Query suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+            @binding {DirectiveFunction} v-bind - Next Query suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
             @binding {boolean} highlightCurated - True if the curated NQs should be highlighted
       -->
       <!-- eslint-enable max-len -->
@@ -23,7 +23,8 @@
           <!-- eslint-disable max-len -->
           <!--
               @slot Next Query content
-                  @binding {Suggestion} suggestion - Next Query suggestion bindings defined in [BaseSuggestions](./x-components.base-suggestions.md#slots) default slot
+                  @binding {DirectiveFunction} v-bind - Next Query suggestion attributes defined in [BaseSuggestions](./x-components.base-suggestions.md#slots) default slot
+                  @binding {Suggestion} suggestion - Next Query suggestion data
                   @binding {boolean} shouldHighlightCurated - True if the curated NQ should be highlighted
             -->
           <!-- eslint-enable max-len -->
@@ -54,10 +55,10 @@
    * suggestion for a new search, related to your previous query. I.e. If people normally search
    * for `shirts`, and then `trousers`, `trousers` would be a next query of `shirts`.
    *
-   * This component inherits `BaseSuggestions` component attributes.
-   * Check [`BaseSuggestions` Props section](./x-components.base-suggestions.md#Props) and
-   * [Slot section](./x-components.base-suggestions.md#Slots)
-   * for further information.
+   * This component uses the [`BaseSuggestions`](./x-components.base-suggestions.md) component
+   * and inherits its attributes.
+   * Check `BaseSuggestions` [Props section](./x-components.base-suggestions.md#Props) and
+   * [Slots section](./x-components.base-suggestions.md#Slots) for further information.
    *
    * @public
    */

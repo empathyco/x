@@ -9,7 +9,7 @@
       <!-- eslint-disable max-len -->
       <!--
         @slot Custom content that replaces the `QuerySuggestion` default content
-            @binding {Suggestion} suggestion - Query Suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+            @binding {DirectiveFunction} v-bind - Query Suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
       -->
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ ...props }">
@@ -18,7 +18,8 @@
             <!-- eslint-disable max-len -->
             <!--
               @slot Custom content that replaces the `QuerySuggestion` default content
-                  @binding {Suggestion} suggestion - Query Suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+                  @binding {DirectiveFunction} v-bind - Query Suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+                  @binding {Suggestion} suggestion - Query Suggestion data
                   @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
             -->
             <!-- eslint-enable max-len -->
@@ -41,14 +42,14 @@
   import QuerySuggestion from './query-suggestion.vue';
 
   /**
-   * This component renders a [`BaseSuggestions`](./x-components.base-suggestions.md) list of
-   * possible search queries to select from as a query is entered in the input field. By
-   * default, this is a list of [`QuerySuggestion`](./x-components.query-suggestion.md) components.
+   * This component renders a list of possible search queries to select from as a query is entered
+   * in the input field. By default, this is a list of
+   * [`QuerySuggestion`](./x-components.query-suggestion.md) components.
    *
-   * This component inherits `BaseSuggestions` component attributes.
-   * Check [`BaseSuggestions` Props section](./x-components.base-suggestions.md#Props) and
-   * [Slot section](./x-components.base-suggestions.md#Slots)
-   * for further information.
+   * This component uses the [`BaseSuggestions`](./x-components.base-suggestions.md) component
+   * and inherits its attributes.
+   * Check `BaseSuggestions` [Props section](./x-components.base-suggestions.md#Props) and
+   * [Slots section](./x-components.base-suggestions.md#Slots) for further information.
    *
    * @public
    */

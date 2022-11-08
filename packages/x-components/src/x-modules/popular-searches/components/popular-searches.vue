@@ -9,7 +9,7 @@
       <!-- eslint-disable max-len -->
       <!--
         @slot Popular Search item
-            @binding {Suggestion} suggestion - Popular Search suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+            @binding {DirectiveFunction} v-bind - Popular Search suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
       -->
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ ...props }">
@@ -18,7 +18,8 @@
             <!-- eslint-disable max-len -->
             <!--
               @slot Popular Search content
-                  @binding {Suggestion} suggestion - Popular Search suggestion bindings defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+                  @binding {DirectiveFunction} v-bind - Popular Search suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+                  @binding {Suggestion} suggestion - Popular Searches suggestion data
             -->
             <!-- eslint-enable max-len -->
             <slot name="suggestion-content" v-bind="{ ...props, suggestion }" />
@@ -40,15 +41,15 @@
   import PopularSearch from './popular-search.vue';
 
   /**
-   * Simple popular-searches component that renders a list of
-   * [`BaseSuggestions`](./x-components.base-suggestions.md), allowing the user to select one
-   * of them, and emitting the needed events. A popular search is just a query that has been
+   * Simple popular-searches component that renders a list of suggestions, allowing the user to
+   * select one of them, and emitting the needed events.
+   * A popular search is just a query that has been
    * searched a lot in a certain period and may optionally have associated a set of filters.
    *
-   * This component inherits `BaseSuggestions` component attributes.
-   * Check [`BaseSuggestions` Props section](./x-components.base-suggestions.md#Props) and
-   * [Slot section](./x-components.base-suggestions.md#Slots)
-   * for further information.
+   * This component uses the [`BaseSuggestions`](./x-components.base-suggestions.md) component
+   * and inherits its attributes.
+   * Check `BaseSuggestions` [Props section](./x-components.base-suggestions.md#Props) and
+   * [Slots section](./x-components.base-suggestions.md#Slots) for further information.
    *
    * @public
    */
