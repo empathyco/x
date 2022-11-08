@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.217](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.216...@empathyco/x-components@3.0.0-alpha.217) (2022-11-08)
+
+### Bug Fixes
+
+- remove `resize-observer-browser` types from tsconfig (#833)
+  ([ce46b2c](https://github.com/empathyco/x/commit/ce46b2cefba5b727679c81862542e367a903b4b0)),
+  closes [EX-7373](https://searchbroker.atlassian.net/browse/EX-7373)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.216](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.215...@empathyco/x-components@3.0.0-alpha.216) (2022-11-08)
 
 **Note:** Version bump only for package @empathyco/x-components
