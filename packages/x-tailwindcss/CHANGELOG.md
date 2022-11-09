@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.25...@empathyco/x-tailwindcss@0.2.0-alpha.26) (2022-11-09)
+
+### Code Refactoring
+
+- **design-system:** Refactor showcase component to make it reusable. (#834)
+  ([f5607d7](https://github.com/empathyco/x/commit/f5607d78545043f8a924f3cd52a63bef352f0069)),
+  closes [EX-7368](https://searchbroker.atlassian.net/browse/EX-7368)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.24...@empathyco/x-tailwindcss@0.2.0-alpha.25) (2022-11-08)
 
 ### Bug Fixes
