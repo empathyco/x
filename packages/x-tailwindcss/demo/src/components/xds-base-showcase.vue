@@ -10,6 +10,16 @@
         </div>
       </div>
     </div>
+    <div
+      class="
+        x-fixed x-left-1/2 x-top-1/2
+        -translate-x-1/2 -translate-y-1/2
+        x-bg-neutral-25 x-p-8 x-transition-opacity x-duration-300 x-pointer-events-none
+      "
+      :class="isMessageVisible ? 'x-opacity-100' : 'x-opacity-0'"
+    >
+      CSS classes copied to Clipboard!
+    </div>
   </div>
 </template>
 
@@ -35,13 +45,18 @@
     @Prop({ required: true })
     public title!: string;
 
+    protected isMessageVisible = false;
+
     /**
      * Copies the classList of an HTML Element to the clipboard.
      *
      * @param event - The MouseEvent to get the HTML Element from.
+     *
+     * @internal
      */
     protected copyCssClassesToClipboard(event: MouseEvent): void {
       navigator.clipboard.writeText((event.target as HTMLElement).classList.value);
+      this.showMessage();
     }
 
     /**
@@ -50,9 +65,21 @@
      * @param cssClasses - The class list to remove the prefix from.
      * @param prefix - The prefix to be removed.
      * @returns The CSS classes with the prefix removed.
+     *
+     * @internal
      */
     protected removeClassPrefix(cssClasses: string, prefix: string): string {
       return cssClasses.replace(new RegExp(`${prefix}-?`, 'g'), '');
+    }
+
+    /**
+     * Shows the message of copied classes to clipboard for 2 seconds.
+     *
+     * @internal
+     */
+    protected showMessage(): void {
+      this.isMessageVisible = true;
+      setTimeout(() => (this.isMessageVisible = false), 2000);
     }
   }
 </script>
