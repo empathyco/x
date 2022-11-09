@@ -146,6 +146,8 @@
     updatePosition(): void {
       const { height, y } = this.referenceElement?.getBoundingClientRect() ?? { height: 0, y: 0 };
       this.$refs.modal.style.top = `${height + y}px`;
+      this.$refs.modal.style.bottom = '0';
+      this.$refs.modal.style.height = 'auto';
     }
 
     /**
