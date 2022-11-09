@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.220](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.219...@empathyco/x-components@3.0.0-alpha.220) (2022-11-09)
+
+### Features
+
+- **empathize:** show Empathize only when it has content (#820)
+  ([c926335](https://github.com/empathyco/x/commit/c926335a33dca2e8d379accd065726e02bd6f384)),
+  closes [EX-7169](https://searchbroker.atlassian.net/browse/EX-7169)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.219](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.218...@empathyco/x-components@3.0.0-alpha.219) (2022-11-09)
 
 ### Features
