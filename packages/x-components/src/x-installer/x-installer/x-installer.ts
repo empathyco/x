@@ -1,4 +1,4 @@
-import { forEach } from '@empathyco/x-utils';
+import { forEach, isFunction } from '@empathyco/x-utils';
 import Vue, { PluginObject, VueConstructor } from 'vue';
 import { BaseXBus } from '../../plugins/x-bus';
 import { XBus } from '../../plugins/x-bus.types';
@@ -319,7 +319,7 @@ export class XInstaller {
    * @internal
    */
   protected getMountingTarget(domElement?: InstallXOptions['domElement']): Element {
-    if (typeof domElement === 'function') {
+    if (isFunction(domElement)) {
       domElement = domElement(this.snippetConfig!);
     }
     if (typeof domElement === 'string') {
@@ -331,10 +331,7 @@ export class XInstaller {
       }
       return target;
     }
-    if (domElement !== undefined) {
-      return domElement;
-    }
-    return document.body.appendChild(document.createElement('div'));
+    return domElement ?? document.body.appendChild(document.createElement('div'));
   }
 
   /**
