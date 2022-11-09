@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.25...@empathyco/x-tailwindcss@0.2.0-alpha.26) (2022-11-09)
+
+### Code Refactoring
+
+- **design-system:** Refactor showcase component to make it reusable. (#834)
+  ([f5607d7](https://github.com/empathyco/x/commit/f5607d78545043f8a924f3cd52a63bef352f0069)),
+  closes [EX-7368](https://searchbroker.atlassian.net/browse/EX-7368)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.24...@empathyco/x-tailwindcss@0.2.0-alpha.25) (2022-11-08)
+
+### Bug Fixes
+
+- **design-system:** Change the xds button size variants. (#832)
+  ([6ac36fc](https://github.com/empathyco/x/commit/6ac36fcaea774bc2255273a4c6486df2c3ccd948)),
+  closes [EX-7369](https://searchbroker.atlassian.net/browse/EX-7369)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.23...@empathyco/x-tailwindcss@0.2.0-alpha.24) (2022-11-03)
+
+### Features
+
+- **design-system:** add tailwind showcase component (#778)
+  ([0178ef5](https://github.com/empathyco/x/commit/0178ef5a4b472e2ca14f98f1243d08e36e1f5840)),
+  closes [EX-7078](https://searchbroker.atlassian.net/browse/EX-7078)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.22...@empathyco/x-tailwindcss@0.2.0-alpha.23) (2022-10-27)
+
+### Features
+
+- replace `parcel` with `vite` (#739)
+  ([7720502](https://github.com/empathyco/x/commit/7720502abfdee009506f4478ba3d71ea76051cb1))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.21...@empathyco/x-tailwindcss@0.2.0-alpha.22) (2022-10-19)
 
 ### Features

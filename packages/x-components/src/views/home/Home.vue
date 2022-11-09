@@ -261,8 +261,8 @@
             <!-- Results -->
             <LocationProvider location="results">
               <ResultsList v-infinite-scroll:main-scroll>
-                <BannersList>
-                  <PromotedsList>
+                <PromotedsList>
+                  <BannersList>
                     <NextQueriesList
                       :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
                     >
@@ -289,7 +289,11 @@
                             class="x-row__item x-row__item--span-9 x-padding--top-06"
                           >
                             <h1 class="x-title2 x-text--bold">Others clients have searched</h1>
-                            <NextQuery class="x-text x-font-size--05" :suggestion="nextQueries[0]">
+                            <NextQuery
+                              class="x-text x-font-size--05"
+                              :suggestion="nextQueries[0]"
+                              data-test="next-query-preview-name"
+                            >
                               <span class="x-font-weight--bold">{{ nextQueries[0].query }}</span>
                             </NextQuery>
                             <div class="x-margin--bottom-06">
@@ -327,8 +331,8 @@
                         </template>
                       </BaseVariableColumnGrid>
                     </NextQueriesList>
-                  </PromotedsList>
-                </BannersList>
+                  </BannersList>
+                </PromotedsList>
               </ResultsList>
             </LocationProvider>
 

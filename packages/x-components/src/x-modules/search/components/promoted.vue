@@ -86,7 +86,8 @@ _Here you can see how the `Promoted` component is rendered._
           id: 'promoted-example',
           url: 'https://my-website.com/summer-shirts',
           image: 'https://my-website.com/images/summer-shirts.jpg',
-          title: 'Trendy summer shirts'
+          title: 'Trendy summer shirts',
+          position: 1
         }
       };
     }

@@ -10,22 +10,17 @@
         @slot (Required) List item content
             @binding {Suggestion} suggestion - Suggestion data
             @binding {number} index - Suggestion index
+            @binding {Filter | undefined} filter - Suggestion's filter
        -->
-      <slot v-bind="{ suggestion, index }" />
+      <slot v-bind="{ suggestion, index, filter: getSuggestionFilter(suggestion) }" />
     </li>
   </component>
 </template>
 
-<style lang="scss" scoped>
-  .x-suggestions {
-    list-style-type: none;
-  }
-</style>
-
 <script lang="ts">
-  import { Component, Prop } from 'vue-property-decorator';
-  import { Suggestion, Facet } from '@empathyco/x-types';
   import Vue from 'vue';
+  import { Component, Prop } from 'vue-property-decorator';
+  import { Suggestion, Facet, Filter } from '@empathyco/x-types';
   import { isArrayEmpty } from '../../utils/array';
 
   /**
@@ -61,13 +56,30 @@
     protected maxItemsToRender?: number;
 
     /**
+     * Boolean value to indicate if the facets should be rendered.
+     *
+     * @public
+     */
+    @Prop({ default: false, type: Boolean })
+    protected showFacets!: boolean;
+
+    /**
+     * When {@link BaseSuggestions.showFacets} is true, it indicates if the suggestion without
+     * filter should be rendered.
+     *
+     * @public
+     */
+    @Prop({ default: false, type: Boolean })
+    protected showPlainSuggestion!: boolean;
+
+    /**
      * An array with the unique keys for each suggestion. Required by the `v-for` loop.
      *
      * @returns An array with the unique keys of the suggestions.
      * @internal
      */
     protected get suggestionsKeys(): string[] {
-      return this.suggestions.map(suggestion =>
+      return this.suggestionsToRender.map(suggestion =>
         isArrayEmpty(suggestion.facets)
           ? suggestion.query
           : `${suggestion.query}-in-${this.getFacetsKey(suggestion.facets)}`
@@ -99,17 +111,61 @@
     }
 
     /**
-     * Slices the suggestions from the state.
+     * Creates a list of suggestions to render based on the configuration of this component.
      *
-     * @returns - The list of suggestions slice by the number of items to render.
+     * @returns - The list of suggestions to be rendered by this component.
      *
      * @internal
      */
     protected get suggestionsToRender(): Suggestion[] {
-      return this.suggestions.slice(0, this.maxItemsToRender);
+      return this.suggestions
+        .flatMap(suggestion =>
+          this.showFacets && suggestion.facets?.length
+            ? this.showPlainSuggestion
+              ? [{ ...suggestion, facets: [] }, ...this.expandSuggestionFilters(suggestion)]
+              : this.expandSuggestionFilters(suggestion)
+            : { ...suggestion, facets: [] }
+        )
+        .slice(0, this.maxItemsToRender);
+    }
+
+    /**
+     * Creates a suggestion for each one of the filter inside each facet.
+     *
+     * @param suggestion - Suggestion to expand.
+     * @returns A list of suggestions, each one with a single filter.
+     *
+     * @internal
+     */
+    protected expandSuggestionFilters(suggestion: Suggestion): Suggestion[] {
+      return (
+        suggestion.facets?.flatMap(facet =>
+          facet.filters.map(filter => ({
+            ...suggestion,
+            facets: [{ ...facet, filters: [filter] }]
+          }))
+        ) ?? []
+      );
+    }
+
+    /**
+     * Returns the filter contained by the suggestion.
+     *
+     * @param suggestion - Suggestion containing the filter.
+     * @returns The suggestion filter.
+     * @internal
+     */
+    protected getSuggestionFilter(suggestion: Suggestion): Filter | undefined {
+      return suggestion.facets?.[0]?.filters[0];
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .x-suggestions {
+    list-style-type: none;
+  }
+</style>
 
 <docs lang="mdx">
 ## Examples
@@ -148,9 +204,8 @@ export default {
 
 ### Play with props
 
-In this example, the suggestions has been limited to render a maximum of 3 items.
-
-_Type “puzzle” or another toy in the input field to try it out!_
+In this example, the suggestions has been limited to render a maximum of 3 items. _Type "puzzle" or
+another toy in the input field to try it out!_
 
 ```vue
 <template>
@@ -170,6 +225,63 @@ _Type “puzzle” or another toy in the input field to try it out!_
         suggestions: [
           {
             facets: [],
+            key: 'chips',
+            query: 'Chips',
+            totalResults: 10,
+            results: [],
+            modelName: 'PopularSearch'
+          }
+        ]
+      };
+    }
+  };
+</script>
+```
+
+In this example, the filters of the suggestion will be rendered along with the query.
+
+The `showPlainSuggestion` prop can be used to indicate if the suggestion without filter must be
+rendered along with the suggestion with filters.
+
+This will render:
+
+- Chips //If `showPlainSuggestion` is true
+- Chips EXAMPLE
+
+```vue
+<template>
+  <BaseSuggestions :suggestions="suggestions" showFacets showPlainSuggestion />
+</template>
+
+<script>
+  import { BaseSuggestions } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseSuggestionsDemo',
+    components: {
+      BaseSuggestions
+    },
+    data() {
+      return {
+        suggestions: [
+          {
+            facets: [
+              {
+                id: 'exampleFacet',
+                label: 'exampleFacet',
+                modelName: 'SimpleFacet',
+                filters: [
+                  {
+                    facetId: 'exampleFacet',
+                    id: '{!tag=exampleFacet}exampleFacet_60361120_64009600:"EXAMPLE"',
+                    label: 'EXAMPLE',
+                    selected: false,
+                    totalResults: 10,
+                    modelName: 'SimpleFilter'
+                  }
+                ]
+              }
+            ],
             key: 'chips',
             query: 'Chips',
             totalResults: 10,

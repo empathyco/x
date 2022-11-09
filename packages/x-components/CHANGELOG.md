@@ -3,6 +3,241 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.220](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.219...@empathyco/x-components@3.0.0-alpha.220) (2022-11-09)
+
+### Features
+
+- **empathize:** show Empathize only when it has content (#820)
+  ([c926335](https://github.com/empathyco/x/commit/c926335a33dca2e8d379accd065726e02bd6f384)),
+  closes [EX-7169](https://searchbroker.atlassian.net/browse/EX-7169)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.219](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.218...@empathyco/x-components@3.0.0-alpha.219) (2022-11-09)
+
+### Features
+
+- **tagging:** track banner clicks (#822)
+  ([504d6bf](https://github.com/empathyco/x/commit/504d6bf29ca86ece7b8116cb32a676f05624468d))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.218](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.217...@empathyco/x-components@3.0.0-alpha.218) (2022-11-09)
+
+### ⚠ BREAKING CHANGES
+
+- **design-system:** the old design system button styles are now located in the
+  `deprecated-full-theme.css`, if a setup is not using the new design system, it must import this
+  file.
+
+### Features
+
+- **design-system:** deprecate old design system button styles (#830)
+  ([78fbf63](https://github.com/empathyco/x/commit/78fbf63116a9312e361540388b2573e0939dc7ae))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.217](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.216...@empathyco/x-components@3.0.0-alpha.217) (2022-11-08)
+
+### Bug Fixes
+
+- remove `resize-observer-browser` types from tsconfig (#833)
+  ([ce46b2c](https://github.com/empathyco/x/commit/ce46b2cefba5b727679c81862542e367a903b4b0)),
+  closes [EX-7373](https://searchbroker.atlassian.net/browse/EX-7373)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.216](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.215...@empathyco/x-components@3.0.0-alpha.216) (2022-11-08)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.215](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.214...@empathyco/x-components@3.0.0-alpha.215) (2022-11-04)
+
+### Features
+
+- wai-aria for BaseEventButton based components (#816)
+  ([3dfd29e](https://github.com/empathyco/x/commit/3dfd29e8f8cc57c5caeeda609ccd4903434bd74a)),
+  closes [EX-7204](https://searchbroker.atlassian.net/browse/EX-7204)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.214](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.213...@empathyco/x-components@3.0.0-alpha.214) (2022-11-03)
+
+### Features
+
+- **design-system:** add tailwind showcase component (#778)
+  ([0178ef5](https://github.com/empathyco/x/commit/0178ef5a4b472e2ca14f98f1243d08e36e1f5840)),
+  closes [EX-7078](https://searchbroker.atlassian.net/browse/EX-7078)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.213](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.212...@empathyco/x-components@3.0.0-alpha.213) (2022-11-03)
+
+### Features
+
+- Use Banner position (= row) to sort grid (#802)
+  ([28836a7](https://github.com/empathyco/x/commit/28836a71b91f210f425098f41ab71136a1b7b34c)),
+  closes [EX-7292](https://searchbroker.atlassian.net/browse/EX-7292)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.212](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.211...@empathyco/x-components@3.0.0-alpha.212) (2022-11-03)
+
+### ⚠ BREAKING CHANGES
+
+- **components:** `facets` are now optional in `Suggestion`.
+
+### Features
+
+- **components:** add filters to base-suggestions (#758)
+  ([2014861](https://github.com/empathyco/x/commit/2014861453215808ee4279f9484f1d845780d7bf)),
+  closes [EX-6346](https://searchbroker.atlassian.net/browse/EX-6346)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.211](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.210...@empathyco/x-components@3.0.0-alpha.211) (2022-11-02)
+
+### Features
+
+- **components:** insert promoteds in the grid using position (#801)
+  ([b537cae](https://github.com/empathyco/x/commit/b537caeb2077fa6b8d5898d0dbdb9069a06ab2e8)),
+  closes [EX-7295](https://searchbroker.atlassian.net/browse/EX-7295)
+
+### Bug Fixes
+
+- make promoted and banner position optional (#817)
+  ([a2a8d5d](https://github.com/empathyco/x/commit/a2a8d5dcc03451e046d00f87f3545dfd46c050c5)),
+  closes [EX-7333](https://searchbroker.atlassian.net/browse/EX-7333)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.210](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.209...@empathyco/x-components@3.0.0-alpha.210) (2022-11-02)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.209](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.208...@empathyco/x-components@3.0.0-alpha.209) (2022-11-02)
+
+### Features
+
+- **components:** Emit ColumnsNumberRendered event on BaseGrid (#806)
+  ([87a8ca9](https://github.com/empathyco/x/commit/87a8ca947f8d83dff1a0044db80649eb297361fb)),
+  closes [EX-7291](https://searchbroker.atlassian.net/browse/EX-7291)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.208](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.207...@empathyco/x-components@3.0.0-alpha.208) (2022-11-02)
+
+### Features
+
+- apply dynamic css mixin to sliding panel and column picker list buttons (#815)
+  ([4cc040d](https://github.com/empathyco/x/commit/4cc040d7d7c4751a5f31c6e36acfa64d28cbb23d)),
+  closes [EX-7224](https://searchbroker.atlassian.net/browse/EX-7224)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.207](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.206...@empathyco/x-components@3.0.0-alpha.207) (2022-11-02)
+
+### Bug Fixes
+
+- type empathize events and replace UserPressedEnter with UserPressedEnterKey
+  ([98055c4](https://github.com/empathyco/x/commit/98055c44e165b06013e63c9829fd363f5e50c87a))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.206](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.205...@empathyco/x-components@3.0.0-alpha.206) (2022-10-31)
+
+### Features
+
+- add `dynamic-props` mixin (#798)
+  ([defafbb](https://github.com/empathyco/x/commit/defafbb2c40f51e3c44474b469b353472a91a828)),
+  closes [EX-7220](https://searchbroker.atlassian.net/browse/EX-7220)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.205](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.204...@empathyco/x-components@3.0.0-alpha.205) (2022-10-31)
+
+### Features
+
+- add position on Banner and Promoted models (#800)
+  ([e7393fb](https://github.com/empathyco/x/commit/e7393fbce8d0767d3c762aa714fe94e162203a12)),
+  closes [EX-7293](https://searchbroker.atlassian.net/browse/EX-7293)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.204](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.203...@empathyco/x-components@3.0.0-alpha.204) (2022-10-27)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.203](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.202...@empathyco/x-components@3.0.0-alpha.203) (2022-10-26)
+
+### Features
+
+- **design-system:** add zoom effect (#799)
+  ([e7af33a](https://github.com/empathyco/x/commit/e7af33a7d2186e4fc6191961ee8b12a35198fc59)),
+  closes [EX-6315](https://searchbroker.atlassian.net/browse/EX-6315)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.202](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.201...@empathyco/x-components@3.0.0-alpha.202) (2022-10-24)
 
 **Note:** Version bump only for package @empathyco/x-components

@@ -117,22 +117,22 @@ describe('testing BannersList component', () => {
     expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
   });
 
-  it('provides the result of concatenating ancestor injected items with the banners', () => {
-    const resultStub = getResultsStub().slice(0, 1);
-    const bannerStub = getBannersStub().slice(0, 1);
+  it('provides the result of concatenating ancestor injected items with the banners', async () => {
+    const resultsStub = getResultsStub();
+    const bannersStub = getBannersStub();
     const localVue = createLocalVue();
     localVue.use(Vuex);
     const store = new Store<DeepPartial<RootXStoreState>>({});
     installNewXPlugin({ store }, localVue);
-    resetXSearchStateWith(store, { banners: bannerStub });
+    resetXSearchStateWith(store, { banners: bannersStub, totalResults: resultsStub.length * 2 });
 
-    /* It provides an array with one result */
+    /* It provides an array with some results */
     @Component({
       template: `<div><slot/></div>`
     })
     class Provider extends Vue {
       @XProvide(LIST_ITEMS_KEY)
-      public providedStub: ListItem[] = resultStub;
+      public providedStub: ListItem[] = resultsStub;
     }
 
     /*
@@ -168,7 +168,13 @@ describe('testing BannersList component', () => {
       }
     );
 
-    expect(wrapper.text()).toBe(`${bannerStub[0].id},${resultStub[0].id}`);
+    wrapper.vm.$x.emit('RenderedColumnsNumberChanged', 2);
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.text()).toBe(
+      // eslint-disable-next-line max-len
+      `${bannersStub[0].id},${resultsStub[0].id},${resultsStub[1].id},${bannersStub[1].id},${bannersStub[2].id},${bannersStub[3].id},${resultsStub[2].id},${resultsStub[3].id},${bannersStub[4].id}`
+    );
   });
 });
 
