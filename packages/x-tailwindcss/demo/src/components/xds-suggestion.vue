@@ -1,30 +1,34 @@
 <template>
-  <div class="x-flex x-flex-col x-gap-16">
-    <h1 class="x-text-lg">Suggestion</h1>
+  <XdsBaseShowcase
+    #default="{ cssClass, copyCssClassesToClipboard, removeClassPrefix }"
+    title="Suggestion"
+    :sections="sections"
+  >
     <div
-      v-for="(classes, section) in sections"
-      :key="section"
-      class="x-flex x-flex-row x-items-start x-gap-12 x-align-items-baseline"
+      :key="cssClass"
+      @click="copyCssClassesToClipboard"
+      :class="cssClass"
+      aria-hidden="true"
+      title="Click me to copy CSS classes"
     >
-      <h2 class="x-text-md">{{ section }}</h2>
-      <button
-        v-for="cssClass in classes"
-        :key="cssClass"
-        @click="copyCSSClasses"
-        :class="cssClass"
-        title="Click me to copy CSS classes"
-      >
-        🔎
-        {{ removeBase(cssClass) }}
-      </button>
+      🔎
+      {{ removeClassPrefix(cssClass, base) }}
+      suggestion
     </div>
-  </div>
+  </XdsBaseShowcase>
 </template>
 
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { ShowcaseSections } from '../types/types';
+  import { addParentClasses } from '../utils';
+  import XdsBaseShowcase from './xds-base-showcase.vue';
 
-  @Component
+  @Component({
+    components: {
+      XdsBaseShowcase
+    }
+  })
   export default class XdsSuggestion extends Vue {
     @Prop({ default: () => 'x-suggestion' })
     public base!: string;
@@ -57,26 +61,14 @@
     })
     public combinations!: string[];
 
-    protected get sections(): Record<string, string[]> {
+    protected get sections(): ShowcaseSections {
       return {
         Default: [this.base],
-        Colors: this.colors.map(this.prefixWith(this.base)),
-        Sizes: this.sizes.map(this.prefixWith(this.base)),
-        Tag: this.colors.map(this.prefixWith(this.base, this.tag)),
-        Combinations: this.combinations.map(this.prefixWith(this.base))
+        Colors: this.colors.map(addParentClasses(this.base)),
+        Sizes: this.sizes.map(addParentClasses(this.base)),
+        Tag: this.colors.map(addParentClasses(this.base, this.tag)),
+        Combinations: this.combinations.map(addParentClasses(this.base))
       };
-    }
-
-    protected prefixWith(...prefix: string[]): (value: string) => string {
-      return cssClass => `${prefix.join(' ')} ${cssClass}`;
-    }
-
-    protected removeBase(cssClass: string): string {
-      return cssClass.replace(new RegExp(`${this.base}-?`, 'g'), '').trim() || 'suggestion';
-    }
-
-    protected copyCSSClasses(event: MouseEvent): void {
-      navigator.clipboard.writeText((event.target as HTMLElement).classList.value);
     }
   }
 </script>

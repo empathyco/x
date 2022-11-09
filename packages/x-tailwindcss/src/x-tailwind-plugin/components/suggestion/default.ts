@@ -17,7 +17,7 @@ export function suggestionDefault(helpers: TailwindHelpers) {
 
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'start',
+    alignItems: 'flex-start',
     alignContent: 'center',
     flexFlow: 'row nowrap',
     boxSizing: 'border-box',
