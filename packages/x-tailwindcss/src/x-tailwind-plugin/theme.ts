@@ -60,9 +60,9 @@ export default {
     }
   },
   fontFamily: {
-    primary: ['Inter', 'sans-serif'],
-    secondary: ['Lora', 'serif'],
-    auxiliary: ['Poppins', 'sans-serif'],
+    main: ['Inter', 'sans-serif'],
+    alternative: ['Lora', 'serif'],
+    extra: ['Poppins', 'sans-serif'],
     special: ['Bree Serif', 'serif'],
     icon: 'font-awesome'
   },
@@ -88,7 +88,7 @@ export default {
   },
   letterSpacing: {
     sm: '-1%',
-    md: '0',
+    md: '1.5%',
     lg: '2%'
   },
   lineHeight: {
@@ -123,6 +123,12 @@ export default {
     216: '216px',
     280: '280px',
     344: '344px'
+  },
+  strokeWidth: {
+    sm: '0.2px',
+    md: '0.4px',
+    lg: '0.8px',
+    xl: '1px'
   },
   extend: {}
 } as const;
