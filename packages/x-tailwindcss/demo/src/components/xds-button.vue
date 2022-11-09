@@ -66,12 +66,16 @@
     protected get sections(): ShowcaseSections {
       return {
         Default: [this.base],
-        Disabled: [this.base],
         Colors: this.colors.map(addParentClasses(this.base)),
         Sizes: this.sizes.map(addParentClasses(this.base)),
         Layout: this.layouts.map(addParentClasses(this.base)),
         Outline: this.colors.map(addParentClasses(this.base, this.outline)),
         Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
+        Disabled: [
+          this.base,
+          addParentClasses(this.base)(this.outline),
+          addParentClasses(this.base)(this.ghost)
+        ],
         Combinations: this.combinations.map(addParentClasses(this.base))
       };
     }
