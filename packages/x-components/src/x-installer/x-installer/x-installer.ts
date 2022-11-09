@@ -306,29 +306,35 @@ export class XInstaller {
   }
 
   /**
-   * It returns the HTML element to mount the Vue Application. If the `domElement` parameter in the
-   * {@link InstallXOptions} is an Element or a string, then it is used. If it is
-   * not present then a new <div> Element is created and append to the body to be used.
+   * It returns the HTML element to mount the Vue Application. If the `domElement` parameter in
+   * the {@link InstallXOptions} is an Element or an element selector, then this will be used.
+   * The `domElement` can also be a function with the {@link SnippetConfig} as parameter which
+   * returns an Element or element selector to use.
+   * If it is not present, a new <div> Element is created and appended to the body.
    *
-   * @param elementOrSelector - String or Element used to mount the Vue App.
+   * @param domElement - {@link InstallXOptions.domElement | Element, string or function} Used
+   * to mount the Vue Application.
    *
-   * @returns The Element to use as mounting point for the Vue App.
+   * @returns The Element to use as mounting target for the Vue Application.
    * @internal
    */
-  protected getMountingTarget(elementOrSelector?: string | Element): Element {
-    if (typeof elementOrSelector === 'string') {
-      const target = document.querySelector(elementOrSelector);
+  protected getMountingTarget(domElement?: InstallXOptions['domElement']): Element {
+    if (typeof domElement === 'function') {
+      domElement = domElement(this.snippetConfig!);
+    }
+    if (typeof domElement === 'string') {
+      const target = document.querySelector(domElement);
       if (!target) {
         throw Error(
-          `XComponents app couldn't be mounted: Element "${elementOrSelector}" couldn't be found`
+          `XComponents app couldn't be mounted: Element "${domElement}" couldn't be found`
         );
       }
       return target;
-    } else if (elementOrSelector !== undefined) {
-      return elementOrSelector;
-    } else {
-      return document.body.appendChild(document.createElement('div'));
     }
+    if (domElement !== undefined) {
+      return domElement;
+    }
+    return document.body.appendChild(document.createElement('div'));
   }
 
   /**
