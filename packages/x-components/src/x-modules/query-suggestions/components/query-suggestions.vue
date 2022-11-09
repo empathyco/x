@@ -8,22 +8,21 @@
     <template #default="props">
       <!-- eslint-disable max-len -->
       <!--
-        @slot Custom content that replaces the `QuerySuggestion` default content
-            @binding {DirectiveFunction} v-bind - Query Suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+        @slot Custom component that replaces the `QuerySuggestion` component
+            @binding {DirectiveFunction} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Query Suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Query Suggestion index
       -->
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ ...props }">
         <QuerySuggestion :suggestion="props.suggestion" class="x-query-suggestions__suggestion">
-          <template #default="{ suggestion, queryHTML }">
+          <template #default="{ queryHTML }">
             <!-- eslint-disable max-len -->
             <!--
               @slot Custom content that replaces the `QuerySuggestion` default content
-                  @binding {DirectiveFunction} v-bind - Query Suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
-                  @binding {Suggestion} suggestion - Query Suggestion data
+                  @binding {DirectiveFunction} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Query Suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Query Suggestion index
                   @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ ...props, suggestion, queryHTML }" />
+            <slot name="suggestion-content" v-bind="{ ...props, queryHTML }" />
           </template>
         </QuerySuggestion>
       </slot>
@@ -46,11 +45,6 @@
    * in the input field. By default, this is a list of
    * [`QuerySuggestion`](./x-components.query-suggestion.md) components.
    *
-   * This component uses the [`BaseSuggestions`](./x-components.base-suggestions.md) component
-   * and inherits its attributes.
-   * Check `BaseSuggestions` [Props section](./x-components.base-suggestions.md#Props) and
-   * [Slots section](./x-components.base-suggestions.md#Slots) for further information.
-   *
    * @public
    */
   @Component({
@@ -69,6 +63,16 @@
 </script>
 
 <docs lang="mdx">
+## Inherited props
+
+This component inherits the [`BaseSuggestions`](../base-components/x-components.base-suggestions.md)
+props.
+
+| Name                          | Description                                 | Type                | Default       |
+| ----------------------------- | ------------------------------------------- | ------------------- | ------------- |
+| <code>animation</code>        | Animation component for `QuerySuggestions`. | <code>Vue</code>    | <code></code> |
+| <code>maxItemsToRender</code> | Number of query suggestions to be rendered. | <code>number</code> | <code></code> |
+
 ## See it in action
 
 <!-- prettier-ignore-start -->

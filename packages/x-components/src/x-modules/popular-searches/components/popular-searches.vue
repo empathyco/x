@@ -9,20 +9,19 @@
       <!-- eslint-disable max-len -->
       <!--
         @slot Popular Search item
-            @binding {DirectiveFunction} v-bind - Popular Search suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+            @binding {DirectiveFunction} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
       -->
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ ...props }">
         <PopularSearch :suggestion="props.suggestion" class="x-popular-searches__suggestion">
-          <template #default="{ suggestion }">
+          <template #default="{ ...props }">
             <!-- eslint-disable max-len -->
             <!--
               @slot Popular Search content
-                  @binding {DirectiveFunction} v-bind - Popular Search suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
-                  @binding {Suggestion} suggestion - Popular Searches suggestion data
+                  @binding {DirectiveFunction} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ ...props, suggestion }" />
+            <slot name="suggestion-content" v-bind="{ ...props }" />
           </template>
         </PopularSearch>
       </slot>
@@ -46,11 +45,6 @@
    * A popular search is just a query that has been
    * searched a lot in a certain period and may optionally have associated a set of filters.
    *
-   * This component uses the [`BaseSuggestions`](./x-components.base-suggestions.md) component
-   * and inherits its attributes.
-   * Check `BaseSuggestions` [Props section](./x-components.base-suggestions.md#Props) and
-   * [Slots section](./x-components.base-suggestions.md#Slots) for further information.
-   *
    * @public
    */
   @Component({
@@ -69,6 +63,16 @@
 </script>
 
 <docs lang="mdx">
+## Inherited props
+
+This component inherits the [`BaseSuggestions`](../base-components/x-components.base-suggestions.md)
+props.
+
+| Name                          | Description                                                       | Type                | Default       |
+| ----------------------------- | ----------------------------------------------------------------- | ------------------- | ------------- |
+| <code>animation</code>        | Animation component that will be used to animate the suggestions. | <code>Vue</code>    | <code></code> |
+| <code>maxItemsToRender</code> | Number of popular searches to be rendered.                        | <code>number</code> | <code></code> |
+
 ## Examples
 
 ### Default Usage

@@ -9,7 +9,7 @@
       <!-- eslint-disable max-len -->
       <!--
         @slot History Query item
-            @binding {DirectiveFunction} v-bind - History Query suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
+            @binding {DirectiveFunction} v-bind - History Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - History Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - History Query suggestion index
       -->
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ ...props }">
@@ -18,26 +18,24 @@
           data-test="history-query-item"
           class="x-history-queries__item"
         >
-          <template #default="{ suggestion, queryHTML }">
+          <template #default="{ queryHTML }">
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query content
-                  @binding {DirectiveFunction} v-bind - History Query suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
-                  @binding {Suggestion} suggestion - History Query suggestion data
+                  @binding {DirectiveFunction} v-bind - History Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - History Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - History Query suggestion index
                   @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ ...props, suggestion, queryHTML }" />
+            <slot name="suggestion-content" v-bind="{ ...props, queryHTML }" />
           </template>
-          <template #remove-button-content="{ suggestion }">
+          <template #remove-button-content="{ ...props }">
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query remove button content
-                  @binding {DirectiveFunction} v-bind - History Query suggestion attributes defined in [`BaseSuggestions`](./x-components.base-suggestions.md#slots) default slot
-                  @binding {Suggestion} suggestion - History Query suggestion data
+                  @binding {DirectiveFunction} v-bind - History Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - History Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - History Query suggestion index
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-remove-content" v-bind="{ ...props, suggestion }" />
+            <slot name="suggestion-remove-content" v-bind="{ ...props }" />
           </template>
         </HistoryQuery>
       </slot>
@@ -60,11 +58,6 @@
    * Allows the user to select one of them, emitting the needed events. A history query is just
    * another type of suggestion that contains a query that the user has made in the past.
    *
-   * This component uses the [`BaseSuggestions`](./x-components.base-suggestions.md) component
-   * and inherits its attributes.
-   * Check `BaseSuggestions` [Props section](./x-components.base-suggestions.md#Props) and
-   * [Slots section](./x-components.base-suggestions.md#Slots) for further information.
-   *
    * @public
    */
   @Component({
@@ -83,6 +76,16 @@
 </script>
 
 <docs lang="mdx">
+## Inherited props
+
+This component inherits the [`BaseSuggestions`](../base-components/x-components.base-suggestions.md)
+props.
+
+| Name                          | Description                                                                                                                                                                                                  | Type                | Default       |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- | ------------- |
+| <code>animation</code>        | Animation component that will be used to animate the suggestions.                                                                                                                                            | <code>Vue</code>    | <code></code> |
+| <code>maxItemsToRender</code> | Maximum number of history queries to show. It should be a lower number than the<br />{@link HistoryQueriesConfig.maxItemsToStore}. If it is not provided, it will show<br />all the stored `HistoryQueries`. | <code>number</code> | <code></code> |
+
 ## Events
 
 This component doesn't emit events.
