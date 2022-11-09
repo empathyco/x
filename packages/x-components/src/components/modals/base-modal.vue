@@ -71,26 +71,39 @@
     public focusOnOpen!: boolean;
 
     /**
-     * The selector under which the modal is to be placed.
+     * The reference selector of a DOM element to use as reference to position the modal.
+     * This selector can be an ID or a class, if it is a class, it will use the first
+     * element that matches.
      */
     @Prop()
-    public clientHeaderSelector!: string;
-
-    /** The previous value of the body overflow style. */
-    protected previousBodyOverflow = '';
-    /** The previous value of the HTML element overflow style. */
-    protected previousHTMLOverflow = '';
-    /** Boolean to delay the leave animation until it has completed. */
-    protected isWaitingForLeave = false;
+    public referenceSelector?: string;
 
     /**
-     * The element selected.
+     * The previous value of the body overflow style.
      */
-    protected selectedElement!: Element;
+    protected previousBodyOverflow = '';
+    /**
+     * The previous value of the HTML element overflow style.
+     */
+    protected previousHTMLOverflow = '';
+    /**
+     * Boolean to delay the leave animation until it has completed.
+     */
+    protected isWaitingForLeave = false;
+    /**
+     * The reference element to use to find the modal's position.
+     */
+    protected referenceElement!: HTMLElement;
 
     public $refs!: {
-      modalContent: HTMLDivElement;
+      /**
+       * Reference to the modal element in the DOM.
+       */
       modal: HTMLDivElement;
+      /**
+       * Reference to the modal content element in the DOM.
+       */
+      modalContent: HTMLDivElement;
     };
 
     protected mounted(): void {
@@ -104,20 +117,23 @@
       // eslint-disable-next-line @typescript-eslint/unbound-method
       const resizeObserver = new ResizeObserver(this.updatePosition);
 
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       this.$watch(
         'clientHeaderSelector',
         () => {
-          if (this.clientHeaderSelector) {
-            const element = document.querySelector(this.clientHeaderSelector);
+          if (this.referenceSelector) {
+            const element = document.querySelector(this.referenceSelector) as HTMLElement;
             if (element) {
-              this.selectedElement = element;
+              this.referenceElement = element;
               resizeObserver.observe(element);
             }
           }
         },
         { immediate: true }
       );
+
+      this.$on('hook:beforeDestroy', () => {
+        resizeObserver.disconnect();
+      });
     }
 
     /**
@@ -128,12 +144,8 @@
      */
     @Debounce(100, { leading: true })
     updatePosition(): void {
-      this.$refs.modal.style.top = this.clientHeaderSelector
-        ? `${
-            this.selectedElement.getBoundingClientRect().height +
-            this.selectedElement.getBoundingClientRect().y
-          }px`
-        : '0';
+      const { height, y } = this.referenceElement?.getBoundingClientRect() ?? { height: 0, y: 0 };
+      this.$refs.modal.style.top = `${height + y}px`;
     }
 
     /**
@@ -277,7 +289,7 @@
 ## Examples
 
 The `BaseModal` is a simple component that serves to create complex modals. Its open state has to be
-passed via prop. There is a prop, `clientHeaderSelector`, used to place the modal under some element
+passed via prop. There is a prop, `referenceSelector`, used to place the modal under some element
 instead of set the top of the element directly. It also accepts an animation to use for opening &
 closing.
 
@@ -289,10 +301,10 @@ is open.
   <div>
     <button @click="open = true">Open modal</button>
     <BaseModal
-      animation="fadeAndSlide"
+      :animation="fadeAndSlide"
       :open="open"
       @click:overlay="open = false"
-      clientHeaderSelector=".header"
+      referenceSelector=".header"
     >
       <h1>Hello</h1>
       <p>The modal is working</p>

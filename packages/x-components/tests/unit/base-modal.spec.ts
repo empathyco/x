@@ -12,12 +12,16 @@ import { e2eAdapter } from '../../src/adapter/e2e-adapter';
  * @returns Helper methods for the rendered {@link BaseModal}.
  */
 function renderBaseModal({
-  clientHeaderSelector = '',
-  clientHeaderHeight = {},
+  referenceSelector = '',
+  clientHeaderHeight = {
+    desktop: 0,
+    tablet: 0,
+    mobile: 0
+  },
   template = `
       <div class="wrapper">
         <div class="header"></div>
-        <BaseModal :clientHeaderSelector="clientHeaderSelector" :open="open" />
+        <BaseModal :referenceSelector="referenceSelector" :open="true" />
       </div>
   `
 }: RenderBaseModalOptions = {}): RenderBaseModalAPI {
@@ -29,14 +33,13 @@ function renderBaseModal({
         BaseModal
       },
       template,
-      props: ['clientHeaderSelector', 'open']
+      props: ['referenceSelector']
     },
     {
       vue: Vue.extend({}),
       plugins: [[new XPlugin(new BaseXBus()), { adapter: e2eAdapter }]],
       propsData: {
-        clientHeaderSelector,
-        open: true
+        referenceSelector
       },
       style: `
         body {
@@ -67,15 +70,15 @@ function renderBaseModal({
 }
 
 describe('Testing base modal', () => {
-  it('places the modal at top if there is not a selector', () => {
+  it('places the modal at the top of the page if referenceSelector is not defined', () => {
     const { getBaseModal } = renderBaseModal();
     getBaseModal().should($modal => expect($modal.position().top).to.be.eq(0));
   });
 
-  it('places the modal under the selector passed by prop', () => {
+  it('places the modal under the defined referenceSelector', () => {
     const options = {
-      clientHeaderHeight: { desktop: 100 },
-      clientHeaderSelector: '.header'
+      clientHeaderHeight: { desktop: 100, tablet: 0, mobile: 0 },
+      referenceSelector: '.header'
     };
     const { getBaseModal } = renderBaseModal(options);
     getBaseModal().should($modal =>
@@ -90,21 +93,22 @@ describe('Testing base modal', () => {
         tablet: 400,
         desktop: 200
       },
-      clientHeaderSelector: '.header'
+      referenceSelector: '.header'
     };
     const { getBaseModal } = renderBaseModal(options);
-    // Starts in desktop
+
+    cy.log('Viewport in desktop resolution');
     getBaseModal().should($modal =>
       expect($modal.position().top).to.be.eq(options.clientHeaderHeight.desktop)
     );
 
-    // Change to mobile
+    cy.log('Viewport in mobile resolution');
     cy.viewport('iphone-8');
     getBaseModal().should($modal =>
       expect($modal.position().top).to.be.eq(options.clientHeaderHeight.mobile)
     );
 
-    // Change to tablet
+    cy.log('Viewport in tablet resolution');
     cy.viewport('ipad-2');
     getBaseModal().should($modal =>
       expect($modal.position().top).to.be.eq(options.clientHeaderHeight.tablet)
@@ -115,13 +119,13 @@ describe('Testing base modal', () => {
   it('calculates where to place the modal even if there are more elements on the selected element', () => {
     const preHeaderHeight = 300;
     const options = {
-      clientHeaderHeight: { desktop: 100 },
-      clientHeaderSelector: '.header',
+      clientHeaderHeight: { desktop: 100, tablet: 0, mobile: 0 },
+      referenceSelector: '.header',
       template: `
                   <div class="wrapper">
-                    <div class="pre-header" style="height: 300px"></div>
+                    <div class="pre-header" style="height: ${preHeaderHeight}px"></div>
                     <div class="header"></div>
-                    <BaseModal :clientHeaderSelector="clientHeaderSelector" :open="open" />
+                    <BaseModal :referenceSelector="referenceSelector" :open="true" />
                   </div>
       `
     };
@@ -136,11 +140,11 @@ interface RenderBaseModalOptions {
   /**
    * The selector under which the modal is to be placed.
    */
-  clientHeaderSelector?: string;
+  referenceSelector?: string;
   /**
-   * The client header height.
+   * The client header height for each device.
    */
-  clientHeaderHeight?: Record<string, number>;
+  clientHeaderHeight?: Record<'desktop' | 'tablet' | 'mobile', number>;
   /**
    * The template to render.
    */
