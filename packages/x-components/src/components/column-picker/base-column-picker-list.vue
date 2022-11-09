@@ -11,8 +11,9 @@
         class="x-button column-picker-item__button"
         :class="buttonClass"
         data-test="column-picker-button"
-        :aria-selected="isSelected.toString()"
+        :aria-pressed="isSelected"
         :events="events"
+        :aria-label="`${column} columns`"
       >
         <!--
           @slot Customized Column Picker Button content. Specifying a slot with the column value

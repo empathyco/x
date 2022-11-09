@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.42...@empathyco/x-adapter-platform@1.0.0-alpha.43) (2022-11-09)
+
+### Features
+
+- **banners:** add tagging info banners in platform adapter (#823)
+  ([71bd570](https://github.com/empathyco/x/commit/71bd5702b963c41a2cd75e719aad9976ec2180b0))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.41...@empathyco/x-adapter-platform@1.0.0-alpha.42) (2022-11-03)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
