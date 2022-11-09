@@ -1,5 +1,6 @@
 import { TailwindHelpers } from '../../../types';
 import { suggestionSizes } from './sizes';
+import { suggestionColors } from './colors';
 
 /**
  * Returns the default styles for component `suggestion`.
@@ -11,28 +12,20 @@ import { suggestionSizes } from './sizes';
 export function suggestionDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    '--suggestion-color-25': theme('colors.neutral.25'),
-    '--suggestion-color-50': theme('colors.neutral.50'),
-    '--suggestion-color-75': theme('colors.neutral.75'),
-    borderRadius: 0,
-    borderColor: 'transparent',
-    borderWidth: 0,
-
     fontFamily: theme('fontFamily.primary'),
-
-    backgroundColor: 'transparent',
-    color: theme('colors.neutral.90'),
-    textDecoration: 'none',
+    fontWeight: theme('fontWeight.regular'),
 
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'start',
     alignContent: 'center',
     flexFlow: 'row nowrap',
     boxSizing: 'border-box',
 
-    // Default size is `md`
+    ...suggestionColors(helpers).neutral,
     ...suggestionSizes(helpers).md,
+
+    color: theme('colors.neutral.90'),
 
     '&:hover': {
       textDecoration: 'underline'

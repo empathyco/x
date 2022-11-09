@@ -14,7 +14,6 @@ export function suggestionColors(helpers: TailwindHelpers) {
       '--suggestion-color-25': color['25'],
       '--suggestion-color-50': color['50'],
       '--suggestion-color-75': color['75'],
-      borderColor: 'transparent',
       color: 'var(--suggestion-color-75)'
     }),
     helpers

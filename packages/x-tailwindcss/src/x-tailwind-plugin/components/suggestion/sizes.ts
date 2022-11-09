@@ -10,24 +10,16 @@ import { TailwindHelpers } from '../../../types';
 export function suggestionSizes({ theme }: TailwindHelpers) {
   return {
     md: {
-      minHeight: theme('spacing.24'),
-      paddingInlineStart: 0,
-      paddingInlineEnd: 0,
+      paddingTop: theme('spacing.2'),
+      paddingBottom: theme('spacing.2'),
       gap: theme('spacing.8'),
-      fontSize: theme('fontSize.sm'),
-      fontWeight: theme('fontWeight.regular'),
-      lineHeight: theme('lineHeight.md'),
-      letterSpacing: theme('letterSpacing.md')
+      fontSize: theme('fontSize.sm')
     },
     lg: {
-      minHeight: theme('spacing.48'),
-      paddingInlineStart: 0,
-      paddingInlineEnd: 0,
+      paddingTop: theme('spacing.4'),
+      paddingBottom: theme('spacing.4'),
       gap: theme('spacing.12'),
-      fontSize: theme('fontSize.md'),
-      fontWeight: theme('fontWeight.regular'),
-      lineHeight: theme('lineHeight.md'),
-      letterSpacing: theme('letterSpacing.md')
+      fontSize: theme('fontSize.md')
     }
   };
 }

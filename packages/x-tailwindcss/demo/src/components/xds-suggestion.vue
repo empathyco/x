@@ -49,19 +49,11 @@
     })
     public colors!: string[];
 
-    @Prop({ default: () => ['x-suggestion-outlined'] })
-    public outline!: string;
-
-    @Prop({ default: () => ['x-suggestion-filled'] })
-    public filled!: string;
+    @Prop({ default: () => ['x-suggestion-tag'] })
+    public tag!: string;
 
     @Prop({
-      default: () => [
-        'x-suggestion-outlined x-suggestion-md',
-        'x-suggestion-outlined x-suggestion-lg',
-        'x-suggestion-filled x-suggestion-md',
-        'x-suggestion-filled x-suggestion-lg'
-      ]
+      default: () => ['x-suggestion-tag x-suggestion-md', 'x-suggestion-tag x-suggestion-lg']
     })
     public combinations!: string[];
 
@@ -70,8 +62,7 @@
         Default: [this.base],
         Colors: this.colors.map(this.prefixWith(this.base)),
         Sizes: this.sizes.map(this.prefixWith(this.base)),
-        Outline: this.colors.map(this.prefixWith(this.base, this.outline)),
-        Filled: this.colors.map(this.prefixWith(this.base, this.filled)),
+        Tag: this.colors.map(this.prefixWith(this.base, this.tag)),
         Combinations: this.combinations.map(this.prefixWith(this.base))
       };
     }
