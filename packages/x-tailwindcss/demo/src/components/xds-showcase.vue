@@ -1,5 +1,5 @@
 <template>
-  <div class="x-flex x-flex-col"><XdsButton /></div>
+  <div class="x-flex x-flex-col x-gap-40"><XdsButton /></div>
 </template>
 <script lang="ts">
   import Vue from 'vue';
