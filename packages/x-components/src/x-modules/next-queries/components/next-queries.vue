@@ -101,7 +101,7 @@ props.
 
 | Name                          | Description                                                       | Type                | Default       |
 | ----------------------------- | ----------------------------------------------------------------- | ------------------- | ------------- |
-| <code>animation</code>        | Animation component that will be used to animate the suggestions. | <code>Vue</code>    | <code></code> |
+| <code>animation</code>        | Animation component that will be used to animate the suggestions. | <code>Vue</code>    | <code>ul</code> |
 | <code>maxItemsToRender</code> | Number of next queries to be rendered.                        | <code>number</code> | <code></code> |
 
 ## Examples
