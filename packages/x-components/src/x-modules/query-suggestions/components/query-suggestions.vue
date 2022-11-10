@@ -18,7 +18,7 @@
             <!-- eslint-disable max-len -->
             <!--
               @slot Custom content that replaces the `QuerySuggestion` default content
-                  @binding {DirectiveFunction} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Query Suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Query Suggestion index
+                  @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Query Suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Query Suggestion index
                   @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
             -->
             <!-- eslint-enable max-len -->
