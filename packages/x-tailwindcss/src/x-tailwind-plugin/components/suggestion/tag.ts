@@ -21,7 +21,7 @@ export function suggestionTag(helpers: TailwindHelpers) {
       borderWidth: theme('borderWidth.1'),
       borderColor: theme('colors.neutral.90'),
 
-      alignItems: 'baseline',
+      alignItems: 'center',
 
       '&:hover': {
         backgroundColor: theme('colors.neutral.10')

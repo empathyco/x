@@ -21,6 +21,7 @@ export function suggestionDefault(helpers: TailwindHelpers) {
     alignContent: 'center',
     flexFlow: 'row nowrap',
     boxSizing: 'border-box',
+    cursor: 'pointer',
 
     ...suggestionColors(helpers).neutral,
     ...suggestionSizes(helpers).md,
@@ -29,6 +30,14 @@ export function suggestionDefault(helpers: TailwindHelpers) {
 
     '&:hover': {
       textDecoration: 'underline'
+    },
+
+    // Matching state
+    '&.suggestion-matching': {
+      fontWeight: theme('fontWeight.bold')
+    },
+    '.suggestion-matching-part': {
+      fontWeight: theme('fontWeight.regular')
     }
   };
 }

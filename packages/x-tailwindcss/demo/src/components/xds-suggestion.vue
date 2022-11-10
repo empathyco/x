@@ -1,6 +1,6 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, copyCssClassesToClipboard, removeClassPrefix }"
+    #default="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
     title="Suggestion"
     :sections="sections"
   >
@@ -12,8 +12,11 @@
       title="Click me to copy CSS classes"
     >
       🔎
-      {{ removeClassPrefix(cssClass, base) }}
-      suggestion
+      <div v-if="section === 'Matching'">
+        <span class="x-suggestion-matching-part">su</span>
+        <span>ggestion</span>
+      </div>
+      <span v-else>{{ removeClassPrefix(cssClass, base) }} suggestion</span>
     </div>
   </XdsBaseShowcase>
 </template>
@@ -56,6 +59,9 @@
     @Prop({ default: () => ['x-suggestion-tag'] })
     public tag!: string;
 
+    @Prop({ default: () => ['x-suggestion-matching'] })
+    public matching!: string[];
+
     @Prop({
       default: () => ['x-suggestion-tag x-suggestion-md', 'x-suggestion-tag x-suggestion-lg']
     })
@@ -67,7 +73,8 @@
         Colors: this.colors.map(addParentClasses(this.base)),
         Sizes: this.sizes.map(addParentClasses(this.base)),
         Tag: this.colors.map(addParentClasses(this.base, this.tag)),
-        Combinations: this.combinations.map(addParentClasses(this.base))
+        Combinations: this.combinations.map(addParentClasses(this.base)),
+        Matching: this.matching.map(addParentClasses(this.base))
       };
     }
   }
