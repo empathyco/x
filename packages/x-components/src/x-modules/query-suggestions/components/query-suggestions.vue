@@ -62,16 +62,17 @@
   }
 </script>
 
+<!--eslint-disable max-len -->
 <docs lang="mdx">
 ## Inherited props
 
 This component inherits the [`BaseSuggestions`](../base-components/x-components.base-suggestions.md)
 props.
 
-| Name                          | Description                                 | Type                | Default       |
-| ----------------------------- | ------------------------------------------- | ------------------- | ------------- |
+| Name                          | Description                                 | Type                | Default         |
+| ----------------------------- | ------------------------------------------- | ------------------- | --------------- |
 | <code>animation</code>        | Animation component for `QuerySuggestions`. | <code>Vue</code>    | <code>ul</code> |
-| <code>maxItemsToRender</code> | Number of query suggestions to be rendered. | <code>number</code> | <code></code> |
+| <code>maxItemsToRender</code> | Number of query suggestions to be rendered. | <code>number</code> | <code></code>   |
 
 ## See it in action
 
