@@ -55,7 +55,7 @@
      * @internal
      */
     protected copyCssClassesToClipboard(event: MouseEvent): void {
-      navigator.clipboard.writeText((event.target as HTMLElement).classList.value);
+      navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
       this.showMessage();
     }
 
