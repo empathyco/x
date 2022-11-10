@@ -11,7 +11,7 @@
       aria-hidden="true"
       title="Click me to copy CSS classes"
     >
-      🔎
+      <CuratedIcon class="x-icon" />
       <div v-if="section === 'Matching'">
         <span class="x-suggestion-matching-part">su</span>
         <span>ggestion</span>
@@ -25,10 +25,12 @@
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
+  import CuratedIcon from './icons/curated.vue';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
   @Component({
     components: {
+      CuratedIcon,
       XdsBaseShowcase
     }
   })
