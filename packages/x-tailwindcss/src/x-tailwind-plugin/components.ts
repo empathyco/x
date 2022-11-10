@@ -1,5 +1,6 @@
 import { TailwindHelpers } from '../types';
 import { button } from './components/button';
+import { icon } from './components/icon';
 import { suggestion } from './components/suggestion';
 
 /**
@@ -14,6 +15,7 @@ import { suggestion } from './components/suggestion';
 export default function components(helpers: TailwindHelpers) {
   return {
     ...button(helpers),
+    ...icon(helpers),
     ...suggestion(helpers)
   };
 }

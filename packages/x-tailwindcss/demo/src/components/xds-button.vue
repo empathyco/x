@@ -11,7 +11,10 @@
       title="Click me to copy CSS classes"
       :disabled="section === 'Disabled'"
     >
-      {{ removeClassPrefix(cssClass, base) || 'button' }}
+      <CuratedIcon class="x-icon" />
+      <span v-if="!cssClass.includes('circle') && !cssClass.includes('square')">
+        {{ removeClassPrefix(cssClass, base) || 'button' }}
+      </span>
     </button>
   </XdsBaseShowcase>
 </template>
@@ -21,10 +24,12 @@
   import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
+  import CuratedIcon from './icons/curated.vue';
 
   @Component({
     components: {
-      XdsBaseShowcase
+      XdsBaseShowcase,
+      CuratedIcon
     }
   })
   export default class XdsButtonShowcase extends Vue {
