@@ -9,7 +9,7 @@
       <!-- eslint-disable max-len -->
       <!--
         @slot Custom component that replaces the `QuerySuggestion` component
-            @binding {DirectiveFunction} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Query Suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Query Suggestion index
+            @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Query Suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Query Suggestion index
       -->
       <!-- eslint-enable max-len -->
       <slot name="suggestion" v-bind="{ ...props }">
