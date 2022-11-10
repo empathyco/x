@@ -25,10 +25,6 @@ export function suggestionTag(helpers: TailwindHelpers) {
         backgroundColor: theme('colors.neutral.10')
       },
 
-      '&.suggestion-tag': {
-        borderColor: 'var(--suggestion-color-75)'
-      },
-
       '&.suggestion-md': {
         minHeight: theme('spacing.32'),
         paddingInlineStart: theme('spacing.8'),

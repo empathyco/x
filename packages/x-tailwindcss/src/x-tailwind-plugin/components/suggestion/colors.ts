@@ -11,10 +11,12 @@ import { mapColors } from '../../utils/map-colors';
 export function suggestionColors(helpers: TailwindHelpers) {
   return mapColors(
     color => ({
-      '--suggestion-color-25': color['25'],
-      '--suggestion-color-50': color['50'],
       '--suggestion-color-75': color['75'],
-      color: 'var(--suggestion-color-75)'
+      color: 'var(--suggestion-color-75)',
+
+      '&.suggestion-tag': {
+        borderColor: 'var(--suggestion-color-75)'
+      }
     }),
     helpers
   );

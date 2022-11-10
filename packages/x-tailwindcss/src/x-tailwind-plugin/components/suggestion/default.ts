@@ -1,6 +1,5 @@
 import { TailwindHelpers } from '../../../types';
 import { suggestionSizes } from './sizes';
-import { suggestionColors } from './colors';
 
 /**
  * Returns the default styles for component `suggestion`.
@@ -23,7 +22,6 @@ export function suggestionDefault(helpers: TailwindHelpers) {
     boxSizing: 'border-box',
     cursor: 'pointer',
 
-    ...suggestionColors(helpers).neutral,
     ...suggestionSizes(helpers).md,
 
     color: theme('colors.neutral.90'),
