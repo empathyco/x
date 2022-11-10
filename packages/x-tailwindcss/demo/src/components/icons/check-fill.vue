@@ -1,5 +1,5 @@
 <template>
-  <svg class="x-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" fill="none">
     <path fill="currentColor" d="M1 1h6v6H1z" />
     <path
       fill="none"

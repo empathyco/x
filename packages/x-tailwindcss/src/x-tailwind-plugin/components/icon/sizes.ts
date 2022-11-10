@@ -1,7 +1,7 @@
 import { TailwindHelpers } from '../../../types';
 
 /**
- * Returns the `sizes` variants for component `button`.
+ * Returns the `sizes` variants for component `icon`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the variant.

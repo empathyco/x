@@ -3,7 +3,7 @@ import { TailwindHelpers } from '../../../types';
 import { mapColors } from '../../utils/map-colors';
 
 /**
- * Returns the `background color` variants for component `icon`.
+ * Returns the `color` variants for component `icon`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the variant.
