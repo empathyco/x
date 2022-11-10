@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.26...@empathyco/x-tailwindcss@0.2.0-alpha.27) (2022-11-10)
+
+### Features
+
+- **desing-system:** Add icon component to Design System. (#835)
+  ([17c5199](https://github.com/empathyco/x/commit/17c5199291595285f1b777045743cf89eae06b9b)),
+  closes [EX-7113](https://searchbroker.atlassian.net/browse/EX-7113)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.25...@empathyco/x-tailwindcss@0.2.0-alpha.26) (2022-11-09)
 
 ### Code Refactoring
