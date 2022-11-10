@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.222](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.221...@empathyco/x-components@3.0.0-alpha.222) (2022-11-10)
+
+### Features
+
+- **x-plugin:** Add function as possible value of `domElement` in InstallXOptions.(#836)
+  ([99a96ef](https://github.com/empathyco/x/commit/99a96ef2303f27b656835253203bc73758a337ae))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.221](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.220...@empathyco/x-components@3.0.0-alpha.221) (2022-11-10)
 
 ### Features
