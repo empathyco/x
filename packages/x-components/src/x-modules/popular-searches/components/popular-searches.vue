@@ -18,7 +18,7 @@
             <!-- eslint-disable max-len -->
             <!--
               @slot Popular Search content
-                  @binding {DirectiveFunction} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
+                  @binding {Object} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
             -->
             <!-- eslint-enable max-len -->
             <slot name="suggestion-content" v-bind="{ ...props }" />
