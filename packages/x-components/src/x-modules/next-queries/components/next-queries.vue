@@ -9,7 +9,7 @@
       <!-- eslint-disable max-len -->
       <!--
         @slot Next Query item
-            @binding {DirectiveFunction} v-bind - Next Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Next Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Next Query suggestion index
+            @binding {Object} v-bind - Next Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Next Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Next Query suggestion index
             @binding {boolean} highlightCurated - True if the curated NQs should be highlighted
       -->
       <!-- eslint-enable max-len -->
