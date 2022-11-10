@@ -62,6 +62,7 @@
   }
 </script>
 
+<!--eslint-disable max-len -->
 <docs lang="mdx">
 ## Inherited props
 
