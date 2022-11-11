@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.225](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.224...@empathyco/x-components@3.0.0-alpha.225) (2022-11-11)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.224](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.223...@empathyco/x-components@3.0.0-alpha.224) (2022-11-11)
+
+### Bug Fixes
+
+- **animations:** make content-visibility CSS property and createCollapseAnimationMixin work
+  together (#839)
+  ([50d5c87](https://github.com/empathyco/x/commit/50d5c8744e5a8d2c8db5aed33e71bd8a39a76cf3))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.223](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.222...@empathyco/x-components@3.0.0-alpha.223) (2022-11-10)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.222](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.221...@empathyco/x-components@3.0.0-alpha.222) (2022-11-10)
 
 ### Features
