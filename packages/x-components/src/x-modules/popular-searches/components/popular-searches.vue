@@ -42,7 +42,7 @@
   /**
    * Simple popular-searches component that renders a list of suggestions, allowing the user to
    * select one of them, and emitting the needed events.
-   * A popular search is just a query that has been searched a lot in a certain period and may 
+   * A popular search is just a query that has been searched a lot in a certain period and may
    * optionally have associated a set of filters.
    *
    * @public
