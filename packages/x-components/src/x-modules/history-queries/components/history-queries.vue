@@ -84,7 +84,7 @@ props.
 
 | Name                          | Description                                                                                                                                                                                                  | Type                | Default       |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- | ------------- |
-| <code>animation</code>        | Animation component that will be used to animate the suggestions.                                                                                                                                            | <code>Vue</code>    | <code></code> |
+| <code>animation</code>        | Animation component that will be used to animate the suggestions.                                                                                                                                            | <code>Vue</code>    | <code>ul</code> |
 | <code>maxItemsToRender</code> | Maximum number of history queries to show. It should be a lower number than the<br />{@link HistoryQueriesConfig.maxItemsToStore}. If it is not provided, it will show<br />all the stored `HistoryQueries`. | <code>number</code> | <code></code> |
 
 ## Events
