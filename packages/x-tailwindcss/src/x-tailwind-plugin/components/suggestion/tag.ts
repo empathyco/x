@@ -23,7 +23,8 @@ export function suggestionTag(helpers: TailwindHelpers) {
       borderColor: 'currentColor',
 
       '&:hover': {
-        backgroundColor: theme('colors.neutral.10')
+        backgroundColor: theme('colors.neutral.10'),
+        textDecoration: 'none'
       },
 
       '&.suggestion-md': {
