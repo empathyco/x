@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.27...@empathyco/x-tailwindcss@0.2.0-alpha.28) (2022-11-11)
+
+### Build System
+
+- **dev-deps:** sync `vite` version to 3.2.0 (#837)
+  ([e1db153](https://github.com/empathyco/x/commit/e1db1539468827d0943fbe5516dc6960d98ff152))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.26...@empathyco/x-tailwindcss@0.2.0-alpha.27) (2022-11-10)
 
 ### Features
