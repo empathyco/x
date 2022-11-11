@@ -11,7 +11,7 @@ import { suggestionSizes } from './sizes';
 export function suggestionDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    fontFamily: theme('fontFamily.primary'),
+    fontFamily: theme('fontFamily.main'),
     fontWeight: theme('fontWeight.regular'),
 
     display: 'flex',
