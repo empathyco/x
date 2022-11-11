@@ -4,20 +4,19 @@
     title="Suggestion"
     :sections="sections"
   >
-    <div
+    <button
       :key="cssClass"
       @click="copyCssClassesToClipboard"
       :class="cssClass"
-      aria-hidden="true"
       title="Click me to copy CSS classes"
     >
       <CuratedIcon class="x-icon" />
-      <div v-if="section === 'Matching'">
+      <span v-if="section === 'Matching'">
         <span class="x-suggestion-matching-part">su</span>
         <span>ggestion</span>
-      </div>
+      </span>
       <template v-else>{{ removeClassPrefix(cssClass, base) }} suggestion</template>
-    </div>
+    </button>
   </XdsBaseShowcase>
 </template>
 
@@ -67,6 +66,15 @@
     @Prop({
       default: () => ['x-suggestion-tag x-suggestion-md', 'x-suggestion-tag x-suggestion-lg']
     })
+    public tagSizes!: string[];
+
+    @Prop({
+      default: () => [
+        'x-suggestion x-suggestion-accent x-suggestion-md',
+        'x-suggestion x-suggestion-matching x-suggestion-auxiliary x-suggestion-md',
+        'x-suggestion-tag x-suggestion-success x-suggestion-lg'
+      ]
+    })
     public combinations!: string[];
 
     protected get sections(): ShowcaseSections {
@@ -75,8 +83,9 @@
         Colors: this.colors.map(addParentClasses(this.base)),
         Sizes: this.sizes.map(addParentClasses(this.base)),
         Tag: this.colors.map(addParentClasses(this.base, this.tag)),
-        Combinations: this.combinations.map(addParentClasses(this.base)),
-        Matching: this.matching.map(addParentClasses(this.base))
+        'Tag Sizes': this.tagSizes.map(addParentClasses(this.base)),
+        Matching: this.matching.map(addParentClasses(this.base)),
+        Combinations: this.combinations.map(addParentClasses(this.base))
       };
     }
   }
