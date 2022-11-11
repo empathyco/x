@@ -2,7 +2,7 @@
   <section class="x-list x-padding--07 x-list--gap-05">
     <div>
       <h1>BaseColumnPickerDropdown</h1>
-      <BaseColumnPickerDropdown v-model="selectedColumns" :columns="[2, 4, 6]">
+      <BaseColumnPickerDropdown :columns="[2, 4, 6]">
         <template #item="{ item, isSelected, isHighlighted }">
           <span v-if="isHighlighted">🟢</span>
           <span v-if="isSelected">✅</span>
@@ -31,7 +31,6 @@
   // eslint-disable-next-line max-len
   import BaseColumnPickerDropdown from '../components/column-picker/base-column-picker-dropdown.vue';
   import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
-
   @Component({
     components: {
       BaseColumnPickerDropdown,
@@ -39,6 +38,9 @@
     }
   })
   export default class AccessibilityCheck extends Vue {
+    mounted(): void {
+      this.$x.emit('UserClickedASort', 'default');
+    }
     protected sortValues = ['default', 'price asc', 'price desc'];
   }
 </script>

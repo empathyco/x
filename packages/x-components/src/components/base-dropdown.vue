@@ -9,7 +9,8 @@
     <button
       @click="toggle"
       @keydown.up.down.prevent.stop="open"
-      aria-haspopup="listbox"
+      aria-haspopup="menu"
+      :aria-expanded="isOpen.toString()"
       class="x-dropdown__toggle"
       data-test="dropdown-toggle"
     >
@@ -31,10 +32,11 @@
         @keydown.end="highlightLastItem"
         @keydown.esc="close"
         @keydown.home="highlightFirstItem"
-        :aria-expanded="isOpen.toString()"
         class="x-dropdown__items-list"
-        role="listbox"
+        role="menu"
         tabIndex="0"
+        :aria-activedescendant="value"
+        :aria-label="value"
       >
         <li v-for="(item, index) in items" :key="item.id || item" class="x-dropdown__list-item">
           <button
@@ -45,7 +47,7 @@
             :class="itemsCSSClasses[index]"
             class="x-dropdown__item"
             data-test="dropdown-item"
-            role="option"
+            role="menuitem"
             tabindex="-1"
           >
             <!--
