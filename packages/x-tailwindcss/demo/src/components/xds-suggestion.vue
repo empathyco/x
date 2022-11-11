@@ -1,6 +1,6 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
+    #default="{ cssClass, copyCssClassesToClipboard, removeClassPrefix }"
     title="Suggestion"
     :sections="sections"
   >
@@ -11,9 +11,10 @@
       title="Click me to copy CSS classes"
     >
       <CuratedIcon class="x-icon" />
-      <span v-if="section === 'Matching'">
-        <span class="x-suggestion-matching-part">su</span>
-        <span>ggestion</span>
+      <span v-if="cssClass.includes('matching')">
+        {{ removeClassPrefix(cssClass, base) }}
+        <span class="x-suggestion-matching-part">sugge</span>
+        <span>stion</span>
       </span>
       <template v-else>{{ removeClassPrefix(cssClass, base) }} suggestion</template>
     </button>
