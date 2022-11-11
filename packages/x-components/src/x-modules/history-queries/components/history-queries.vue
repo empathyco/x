@@ -32,7 +32,7 @@
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query remove button content
-                  @binding {DirectiveFunction} v-bind - History Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - History Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - History Query suggestion index
+                  @binding {Object} v-bind - History Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - History Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - History Query suggestion index
             -->
             <!-- eslint-enable max-len -->
             <slot name="suggestion-remove-content" v-bind="{ ...props }" />
