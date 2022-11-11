@@ -19,6 +19,9 @@ export function iconDefault(helpers: TailwindHelpers) {
     aspectRatio: '1/1',
     vectorEffect: 'non-scaling-stroke',
     flex: '0 0 auto',
+    '--enableIconOffset': 'var(--OFF)',
+    fontSize: 'var(--enableIconOffset) var(--fontSize)',
+    transform: 'var(--enableIconOffset, translateY(var(--iconVerticalOffset,0)))',
     ...iconSizes(helpers).md
   };
 }

@@ -10,16 +10,17 @@ import { TailwindHelpers } from '../../../types';
 export function suggestionTag(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    tag: Object.assign({
+    tag: {
       minHeight: theme('spacing.32'),
       paddingTop: 0,
       paddingBottom: 0,
+      alignItems: 'center',
       paddingInlineStart: theme('spacing.8'),
       paddingInlineEnd: theme('spacing.8'),
 
       backgroundColor: theme('colors.neutral.0'),
       borderWidth: theme('borderWidth.1'),
-      borderColor: theme('colors.neutral.90'),
+      borderColor: 'currentColor',
 
       '&:hover': {
         backgroundColor: theme('colors.neutral.10')
@@ -35,7 +36,12 @@ export function suggestionTag(helpers: TailwindHelpers) {
         minHeight: theme('spacing.48'),
         paddingInlineStart: theme('spacing.12'),
         paddingInlineEnd: theme('spacing.12')
+      },
+
+      // Disable Align icon
+      '& *': {
+        '--enableIconOffset': 'var(--OFF)'
       }
-    })
+    }
   };
 }

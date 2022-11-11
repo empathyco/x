@@ -16,7 +16,7 @@ export function suggestionDefault(helpers: TailwindHelpers) {
 
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'baseline',
     alignContent: 'center',
     flexFlow: 'row nowrap',
     boxSizing: 'border-box',
@@ -36,6 +36,12 @@ export function suggestionDefault(helpers: TailwindHelpers) {
     },
     '.suggestion-matching-part': {
       fontWeight: theme('fontWeight.regular')
+    },
+
+    // Enable Align icon
+    '& *': {
+      '--enableIconOffset': 'var(--ON)',
+      '--iconVerticalOffset': 'calc(50% - 0.5ex - 1px)'
     }
   };
 }

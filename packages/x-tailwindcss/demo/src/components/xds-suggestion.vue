@@ -16,7 +16,7 @@
         <span class="x-suggestion-matching-part">su</span>
         <span>ggestion</span>
       </div>
-      <span v-else>{{ removeClassPrefix(cssClass, base) }} suggestion</span>
+      <template v-else>{{ removeClassPrefix(cssClass, base) }} suggestion</template>
     </div>
   </XdsBaseShowcase>
 </template>

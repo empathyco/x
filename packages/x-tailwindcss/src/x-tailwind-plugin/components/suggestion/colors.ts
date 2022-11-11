@@ -1,3 +1,4 @@
+import { map, rename } from '@empathyco/x-utils';
 import { TailwindHelpers } from '../../../types';
 import { mapColors } from '../../utils/map-colors';
 
@@ -11,12 +12,13 @@ import { mapColors } from '../../utils/map-colors';
 export function suggestionColors(helpers: TailwindHelpers) {
   return mapColors(
     color => ({
-      '--suggestion-color-75': color['75'],
-      color: 'var(--suggestion-color-75)',
-
-      '&.suggestion-tag': {
-        borderColor: 'var(--suggestion-color-75)'
-      }
+      color: color['75'],
+      ...rename(
+        map(color, (shadeName, shadeColor) => ({
+          color: shadeColor
+        })),
+        { prefix: '&-' }
+      )
     }),
     helpers
   );

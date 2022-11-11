@@ -14,9 +14,9 @@ import { suggestionSizes } from './sizes';
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function suggestion(helpers: TailwindHelpers) {
   return {
-    '.suggestion': Object.assign(
-      suggestionDefault(helpers),
-      rename(
+    '.suggestion': {
+      ...suggestionDefault(helpers),
+      ...rename(
         {
           ...suggestionColors(helpers),
           ...suggestionSizes(helpers),
@@ -24,6 +24,6 @@ export function suggestion(helpers: TailwindHelpers) {
         },
         { prefix: '&-' }
       )
-    )
+    }
   };
 }
