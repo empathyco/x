@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.226](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.225...@empathyco/x-components@3.0.0-alpha.226) (2022-11-14)
+
+### Features
+
+- Change suggestion components to bind $attrs to base suggestions (#831)
+  ([49c139b](https://github.com/empathyco/x/commit/49c139bc55f4cc1a2e1e0ec2e2e7972376eaf487)),
+  closes [EX-7356](https://searchbroker.atlassian.net/browse/EX-7356)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.225](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.224...@empathyco/x-components@3.0.0-alpha.225) (2022-11-11)
 
 **Note:** Version bump only for package @empathyco/x-components
