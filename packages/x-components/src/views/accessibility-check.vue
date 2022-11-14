@@ -49,6 +49,7 @@
   export default class AccessibilityCheck extends Vue {
     mounted(): void {
       this.$x.emit('UserClickedASort', 'default');
+      this.$x.emit('UserClickedEnableHistoryQueries');
     }
     protected sortValues = ['default', 'price asc', 'price desc'];
   }
