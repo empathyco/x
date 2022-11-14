@@ -37,9 +37,6 @@ jobs:
       - name: Install lerna and all packages
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
-      - name: Build
-        if: steps.cache-node-modules.outputs.cache-hit == 'true'
-        run: npm run build
       - name: Run linter in all packages
         run: npm run lint
       - name: Release alpha on non-release pushes to main branch
