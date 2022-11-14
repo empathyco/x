@@ -21,6 +21,7 @@ export function suggestionDefault(helpers: TailwindHelpers) {
     flexFlow: 'row nowrap',
     boxSizing: 'border-box',
     cursor: 'pointer',
+    textAlign: 'start',
 
     ...suggestionSizes(helpers).md,
 

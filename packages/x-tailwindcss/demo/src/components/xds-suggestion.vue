@@ -1,6 +1,6 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, copyCssClassesToClipboard, removeClassPrefix }"
+    #default="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
     title="Suggestion"
     :sections="sections"
   >
@@ -8,6 +8,7 @@
       :key="cssClass"
       @click="copyCssClassesToClipboard"
       :class="cssClass"
+      :style="section === 'Default' ? { width: '120px' } : ''"
       title="Click me to copy CSS classes"
     >
       <CuratedIcon class="x-icon" />
@@ -16,6 +17,9 @@
         <span class="x-suggestion-matching-part">sugge</span>
         <span>stion</span>
       </span>
+      <template v-else-if="section === 'Default'">
+        very long default suggestion to test line wrap alignment
+      </template>
       <template v-else>{{ removeClassPrefix(cssClass, base) }} suggestion</template>
     </button>
   </XdsBaseShowcase>
