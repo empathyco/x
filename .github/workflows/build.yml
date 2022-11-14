@@ -34,7 +34,7 @@ jobs:
         with:
           path: |
             .eslintcache
-          key: eslint-${{github.ref}}
+          key: eslint-${{ github.head_ref || github.ref_name }}
       - name: Install lerna and all packages
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
