@@ -28,8 +28,6 @@ jobs:
           path: |
             **/node_modules
           key: node-modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            node-modules-
       - name: Cache eslint
         id: cache-eslint
         uses: actions/cache@v3
@@ -37,8 +35,6 @@ jobs:
           path: |
             .eslintcache
           key: eslint-${{github.sha}}
-          restore-keys: |
-            eslint-
       - name: Install lerna and all packages
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
