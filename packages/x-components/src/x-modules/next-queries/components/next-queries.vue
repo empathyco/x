@@ -1,33 +1,33 @@
 <template>
   <BaseSuggestions
+    v-bind="$attrs"
     :suggestions="renderedNextQueries"
     data-test="next-queries"
     class="x-next-queries"
-    :animation="animation"
-    :maxItemsToRender="maxItemsToRender"
   >
-    <template #default="{ suggestion, index }">
+    <template #default="props">
+      <!-- eslint-disable max-len -->
       <!--
         @slot Next Query item
-            @binding {Suggestion} suggestion - Next Query suggestion data
-            @binding {number} index - Next Query suggestion index
+            @binding {Object} v-bind - Next Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Next Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Next Query suggestion index
             @binding {boolean} highlightCurated - True if the curated NQs should be highlighted
       -->
-      <slot name="suggestion" v-bind="{ suggestion, highlightCurated, index }">
+      <!-- eslint-enable max-len -->
+      <slot name="suggestion" v-bind="{ ...props, highlightCurated }">
         <NextQuery
-          #default="{ suggestion, shouldHighlightCurated }"
-          :suggestion="suggestion"
+          #default="{ shouldHighlightCurated }"
+          :suggestion="props.suggestion"
           :highlightCurated="highlightCurated"
           class="x-next-queries__suggestion"
         >
+          <!-- eslint-disable max-len -->
           <!--
               @slot Next Query content
-                  @binding {Suggestion} suggestion - Next Query suggestion data
-                  @binding {boolean} shouldHighlightCurated - True if the curated NQ should
-                  be highlighted
-                  @binding {number} index - Next Query suggestion index
+                  @binding {Object} v-bind - Next Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Next Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Next Query suggestion index
+                  @binding {boolean} shouldHighlightCurated - True if the curated NQ should be highlighted
             -->
-          <slot name="suggestion-content" v-bind="{ suggestion, shouldHighlightCurated, index }" />
+          <!-- eslint-enable max-len -->
+          <slot name="suggestion-content" v-bind="{ ...props, shouldHighlightCurated }" />
         </NextQuery>
       </slot>
     </template>
@@ -45,11 +45,11 @@
   import NextQuery from './next-query.vue';
 
   /**
-   * Simple next-queries component that renders a list of suggestions, allowing the user to
-   * select one of them, and emitting the needed events.
-   * A next query is a suggestion for a new search, related to your previous query. I.e. If
-   * people normally search for `shirts`, and then `trousers`, `trousers` would be a next query
-   * of `shirts`.
+   * Simple next-queries component that renders a list of
+   * [`BaseSuggestions`](./x-components.base-suggestions.md),
+   * allowing the user to select one of them, and emitting the needed events. A next query is a
+   * suggestion for a new search, related to your previous query. I.e. If people normally search
+   * for `shirts`, and then `trousers`, `trousers` would be a next query of `shirts`.
    *
    * @public
    */
@@ -58,22 +58,6 @@
     mixins: [xComponentMixin(nextQueriesXModule)]
   })
   export default class NextQueries extends Vue {
-    /**
-     * Animation component that will be used to animate the suggestions.
-     *
-     * @public
-     */
-    @Prop()
-    public animation?: Vue;
-
-    /**
-     * Number of next queries to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    public maxItemsToRender?: number;
-
     /**
      * Flag to indicate if the curated next queries should be displayed different.
      *
@@ -109,7 +93,18 @@
   }
 </script>
 
+<!--eslint-disable max-len -->
 <docs lang="mdx">
+## Inherited props
+
+This component inherits the [`BaseSuggestions`](../base-components/x-components.base-suggestions.md)
+props.
+
+| Name                          | Description                                                       | Type                | Default         |
+| ----------------------------- | ----------------------------------------------------------------- | ------------------- | --------------- |
+| <code>animation</code>        | Animation component that will be used to animate the suggestions. | <code>Vue</code>    | <code>ul</code> |
+| <code>maxItemsToRender</code> | Number of next queries to be rendered.                            | <code>number</code> | <code></code>   |
+
 ## Examples
 
 ### Basic example
