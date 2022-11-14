@@ -1,7 +1,7 @@
 import { TailwindHelpers } from '../../../types';
 
 /**
- * Returns the component `icon` CSS.
+ * Returns the CSS global variables to be used across the components.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
