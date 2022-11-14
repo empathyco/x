@@ -20,7 +20,7 @@ jobs:
         uses: actions/cache@v3
         with:
            path: ~/.cache/Cypress
-           restore-keys: cypress-cache
+           key: cypress-cache
       - name: Cache node modules
         id: cache-node-modules
         uses: actions/cache@v3
