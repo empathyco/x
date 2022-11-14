@@ -18,7 +18,7 @@ export function suggestionSizes({ theme }: TailwindHelpers) {
     lg: {
       paddingTop: theme('spacing.4'),
       paddingBottom: theme('spacing.4'),
-      gap: theme('spacing.12'),
+      gap: theme('spacing.16'),
       fontSize: theme('fontSize.md')
     }
   };
