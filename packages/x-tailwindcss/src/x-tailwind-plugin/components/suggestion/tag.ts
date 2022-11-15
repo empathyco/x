@@ -36,7 +36,8 @@ export function suggestionTag(helpers: TailwindHelpers) {
       '&.suggestion-lg': {
         minHeight: theme('spacing.48'),
         paddingInlineStart: theme('spacing.12'),
-        paddingInlineEnd: theme('spacing.12')
+        paddingInlineEnd: theme('spacing.12'),
+        gap: theme('spacing.12')
       },
 
       // Disable Align icon
