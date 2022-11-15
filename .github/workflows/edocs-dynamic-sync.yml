@@ -1,4 +1,4 @@
-name: Synchronize Dynamic docs with eDocs
+name: Synchronize Dynamic docs with EPDocs
 on:
   workflow_dispatch:
 jobs:
