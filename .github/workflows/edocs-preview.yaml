@@ -14,3 +14,6 @@ jobs:
       prNum: ${{ github.event.pull_request.number }}
       prMessage: '⚠️ Only for Empathy members ⚠️ We’re sorry for the inconvenience!\n'
       publicRepo: true
+    secrets:
+      GH_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
+      JIRA_TOKEN: ${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}
