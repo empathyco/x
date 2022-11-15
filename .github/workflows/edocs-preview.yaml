@@ -7,12 +7,9 @@ env:
   GH_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
 jobs:
   preview-edocs:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger EPDocs reusable workflow
-        run: |
-          curl --request POST \
-          -u empathyco:${{env.GH_TOKEN}} \
-          --header 'content-type: application/json' \
-          --url https://api.github.com/repos/empathyco/platform-reusable-github-actions/actions/workflows/40476242/dispatches \
-          --data '{"ref": "main",  "inputs": {"teamRepo": "x", "branch": "${{ github.head_ref }}", "prNum": "${{ github.event.pull_request.number }}", "prMessage": "⚠️ Only for Empathy members ⚠️ We’re sorry for the inconvenience!\n"}}'
+    uses: empathyco/platform-reusable-github-actions/.github/workflows/edocs-preview.yml@main
+      with:
+        teamRepo: 'x'
+        branch: ${{ github.head_ref }}
+        prNum: ${{ github.event.pull_request.number }}
+        prMessage: '⚠️ Only for Empathy members ⚠️ We’re sorry for the inconvenience!\n'
