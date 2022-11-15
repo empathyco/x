@@ -22,7 +22,7 @@ export function buttonDefault(helpers: TailwindHelpers) {
     borderStyle: 'solid',
     borderWidth: theme('borderWidth.1'),
 
-    fontFamily: theme('fontFamily.primary'),
+    fontFamily: theme('fontFamily.main'),
     fontWeight: theme('fontWeight.bold'),
     letterSpacing: theme('letterSpacing.md'),
     lineHeight: theme('lineHeight.sm'),
