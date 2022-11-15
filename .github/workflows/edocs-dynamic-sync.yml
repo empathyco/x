@@ -1,6 +1,5 @@
 name: Synchronize Dynamic docs with EPDocs
-on:
-  workflow_dispatch:
+on: [workflow_dispatch]
 jobs:
   connect-with-edocs:
     runs-on: ubuntu-latest
