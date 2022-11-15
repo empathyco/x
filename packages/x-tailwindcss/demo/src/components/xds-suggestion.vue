@@ -75,9 +75,9 @@
 
     @Prop({
       default: () => [
-        'x-suggestion x-suggestion-accent x-suggestion-md',
+        'x-suggestion x-suggestion-success x-suggestion-md',
         'x-suggestion x-suggestion-matching x-suggestion-auxiliary x-suggestion-md',
-        'x-suggestion-tag x-suggestion-success x-suggestion-lg'
+        'x-suggestion-tag x-suggestion-error-50 x-suggestion-lg'
       ]
     })
     public combinations!: string[];

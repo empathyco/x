@@ -19,9 +19,14 @@ export function iconDefault(helpers: TailwindHelpers) {
     aspectRatio: '1/1',
     vectorEffect: 'non-scaling-stroke',
     flex: '0 0 auto',
+
+    // Disable flag by default, it can be enabled from other components.
     '--enableIconOffset': 'var(--OFF)',
+    // When flag is enabled, `fontSize` won't be changed.
     fontSize: 'var(--enableIconOffset) var(--fontSize)',
+    // When flag is enabled, `translateY` will be applied.
     transform: 'var(--enableIconOffset, translateY(var(--iconVerticalOffset,0)))',
+
     ...iconSizes(helpers).md
   };
 }
