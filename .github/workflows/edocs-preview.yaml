@@ -7,6 +7,7 @@ env:
   GH_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
 jobs:
   preview-edocs:
+    runs-on: ubuntu-latest
     uses: empathyco/platform-reusable-github-actions/.github/workflows/edocs-preview.yml@main
     with:
       teamRepo: 'x'
