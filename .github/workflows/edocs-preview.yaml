@@ -2,7 +2,7 @@ name: Create eDocs preview
 on:
   pull_request:
     paths:
-      - packages/x-components/static-docs/*
+      - packages/x-components/static-docs/**
 env:
   GH_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
 jobs:
