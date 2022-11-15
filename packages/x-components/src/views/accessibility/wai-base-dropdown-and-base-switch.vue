@@ -2,7 +2,15 @@
   <section class="x-list x-padding--07 x-list--gap-05">
     <div>
       <h1>BaseColumnPickerDropdown</h1>
-      <BaseColumnPickerDropdown :columns="[2, 4, 6]">
+      <label for="column-picker-label">
+        <input id="column-picker-label" type="text" />
+        Select number of columns
+      </label>
+      <BaseColumnPickerDropdown
+        id="column-picker"
+        :columns="[2, 4, 6]"
+        aria-labelledby="column-picker-label"
+      >
         <template #item="{ item, isSelected, isHighlighted }">
           <span v-if="isHighlighted">🟢</span>
           <span v-if="isSelected">✅</span>
@@ -22,6 +30,11 @@
         </template>
       </SortDropdown>
     </div>
+
+    <div>
+      <h1>HistoryQueriesSwitch</h1>
+      <HistoryQueriesSwitch />
+    </div>
   </section>
 </template>
 
@@ -29,17 +42,22 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   // eslint-disable-next-line max-len
-  import BaseColumnPickerDropdown from '../components/column-picker/base-column-picker-dropdown.vue';
-  import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
+  import BaseColumnPickerDropdown from '../../components/column-picker/base-column-picker-dropdown.vue';
+  import SortDropdown from '../../x-modules/search/components/sort-dropdown.vue';
+  // eslint-disable-next-line max-len
+  import HistoryQueriesSwitch from '../../x-modules/history-queries/components/history-queries-switch.vue';
+
   @Component({
     components: {
       BaseColumnPickerDropdown,
+      HistoryQueriesSwitch,
       SortDropdown
     }
   })
   export default class AccessibilityCheck extends Vue {
     mounted(): void {
       this.$x.emit('UserClickedASort', 'default');
+      this.$x.emit('UserClickedEnableHistoryQueries');
     }
     protected sortValues = ['default', 'price asc', 'price desc'];
   }
