@@ -16,4 +16,5 @@ jobs:
       publicRepo: true
     secrets:
       GH_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
-      JIRA_TOKEN: ${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}
+      JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+      JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
