@@ -10,7 +10,7 @@ tags:
   - archetype development
 ---
 
-In this tutorial, you’ll learn how to build a search and discovery layer based on predefined
+In this tutorial,, you’ll learn how to build a search and discovery layer based on predefined
 features and components in a matter of minutes using the Interface&nbsp;X&nbsp;Archetype.
 
 For this tutorial, the Empathy Search API is used, but you can use any search API. This guide
