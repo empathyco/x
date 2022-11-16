@@ -1,0 +1,18 @@
+name: Create EPDocs preview
+on:
+  pull_request:
+    paths:
+      - packages/x-components/static-docs/**
+jobs:
+  preview-edocs:
+    if: "! github.event.pull_request.head.repo.fork"
+    uses: empathyco/platform-reusable-github-actions/.github/workflows/edocs-preview.yml@main
+    with:
+      teamRepo: 'x'
+      branch: ${{ github.head_ref }}
+      prNum: ${{ github.event.pull_request.number }}
+      prMessage: '⚠️ Only for Empathy members ⚠️ We’re sorry for the inconvenience!\n'
+      publicRepo: true
+    secrets:
+      GH_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
+      JIRA_TOKEN: '${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}'

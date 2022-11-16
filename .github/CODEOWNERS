@@ -3,3 +3,5 @@
 # These owners will be requested for review when someone opens a pull request.
 
 * @empathyco/x
+# Adding tech-writers to EPDocs folder
+packages/x-components/static-docs/ @empathyco/x @empathyco/tech-writers

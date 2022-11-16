@@ -1,13 +1,5 @@
-name: Synchronize with eDocs
-on:
-  workflow_dispatch:
-    inputs:
-      content:
-        type: choice
-        description: Content to be synchronized
-        options: 
-        - static
-        - all
+name: Synchronize Dynamic docs with EPDocs
+on: [workflow_dispatch]
 jobs:
   connect-with-edocs:
     runs-on: ubuntu-latest
@@ -28,8 +20,8 @@ jobs:
           curl --request POST \
           -u empathyco:${GITHUB_TOKEN} \
           --header 'content-type: application/json' \
-          --url https://api.github.com/repos/empathyco/docs-empathy-documentation/actions/workflows/${{ github.event.inputs.content == 'static' && '26816599' || '14218449' }}/dispatches \
+          --url https://api.github.com/repos/empathyco/docs-empathy/actions/workflows/40134850/dispatches \
           --data '{"ref": "main",  "inputs": {"branchName": "${{ env.BRANCH_NAME }}", "version": "${{ steps.package-version.outputs.current-version }}"}}'
         env:
           GITHUB_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
-          
+
