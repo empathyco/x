@@ -4,4 +4,4 @@
 
 * @empathyco/x
 # Adding tech-writers to EPDocs folder
-packages/x-components/static-docs/ @empathyco/tech-writers
+packages/x-components/static-docs/ @empathyco/x @empathyco/tech-writers
