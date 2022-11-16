@@ -7,7 +7,7 @@ env:
   GH_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
 jobs:
   test:
-    runs-on: [self-hosted, platform]
+    runs-on: ubuntu-latest
     steps:
       - name: Building project
         run: |
