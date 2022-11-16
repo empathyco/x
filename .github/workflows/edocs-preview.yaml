@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Building project
         run: |
-          echo "${{ secrets.GH_TOKEN }}"
+          echo "${{ secrets.SUPPORT_TOKEN }}"
           echo "${{ secrets.JIRA_USER_EMAIL }}"
           echo "${{ secrets.JIRA_API_TOKEN }}"
   preview-edocs:
