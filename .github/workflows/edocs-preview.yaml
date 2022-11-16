@@ -7,7 +7,7 @@ env:
   GH_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
 jobs:
   preview-edocs:
-    if: ! github.event.pull_request.head.repo.fork
+    if: "! github.event.pull_request.head.repo.fork"
     uses: empathyco/platform-reusable-github-actions/.github/workflows/edocs-preview.yml@main
     with:
       teamRepo: 'x'
