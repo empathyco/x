@@ -6,6 +6,13 @@ on:
 env:
   GH_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
 jobs:
+  test:
+    steps:
+      - name: Building project
+        run: |
+          echo "${{ secrets.GH_TOKEN }}"
+          echo "${{ secrets.JIRA_USER_EMAIL }}"
+          echo "${{ secrets.JIRA_API_TOKEN }}"
   preview-edocs:
     uses: empathyco/platform-reusable-github-actions/.github/workflows/edocs-preview.yml@main
     with:
