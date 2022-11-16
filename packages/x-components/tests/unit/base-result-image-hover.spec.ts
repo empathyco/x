@@ -119,7 +119,7 @@ describe('testing Base Result Image component', () => {
 
     const { getResultPictureImage, getResultPicture } = mountBaseResultImage({ result });
     getResultPictureImage().should('have.attr', 'src', 'https://picsum.photos/seed/18/100/100');
-    getResultPicture().trigger('mouseenter');
+    getResultPicture().trigger('pointerenter');
     // It should have load the third image after the second one failed.
     getResultPictureImage().should('have.attr', 'src', 'https://picsum.photos/seed/2/100/100');
   });

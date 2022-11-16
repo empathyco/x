@@ -1,46 +1,35 @@
 <template>
   <picture
     ref="image"
-    @mouseenter="isHovering = true"
-    @focusin="isHovering = true"
-    @mouseleave="isHovering = false"
-    @focusout="isHovering = false"
+    @pointerenter.once="imagesToLoad++"
+    @pointerenter="isHovering = true"
+    @pointerleave="isHovering = false"
     class="x-picture x-result-picture"
     data-test="result-picture"
   >
     <img
-      v-if="!hasImageLoaded && imageSrc"
+      v-if="loadedImages.length < imagesToLoad"
       @error="flagImageAsFailed"
       @load="flagImageLoaded"
       loading="lazy"
-      :src="imageSrc"
+      :src="images[0]"
       :style="loaderStyles"
       data-test="result-picture-loader"
       alt=""
       role="presentation"
     />
-
-    <img
-      v-if="isHovering && !hasHoverImageLoaded && hoverImageSrc"
-      @error="flagHoverImageAsFailed"
-      @load="flagHoverImageLoaded"
-      :src="hoverImageSrc"
-      style="display: none"
-      alt=""
-    />
     <component :is="animation" class="x-picture__image">
       <!-- @slot Fallback image content. It will be rendered when all the images failed -->
-      <slot v-if="!imageSrc" name="fallback" />
+      <slot v-if="!loadedImages.length && !images.length" name="fallback" />
 
       <!-- @slot Loading image content. It will be rendered while the real image is not loaded -->
-      <slot v-else-if="!hasImageLoaded" name="placeholder" />
+      <slot v-else-if="!loadedImages.length" name="placeholder" />
 
       <template v-else>
         <img
-          :key="srcToRender"
-          @error="flagHoverImageAsFailed"
+          :key="imageSrc"
           :alt="result.name"
-          :src="srcToRender"
+          :src="imageSrc"
           class="x-picture__image x-result-picture__image"
           data-test="result-picture-image"
         />
@@ -85,22 +74,13 @@
     @Prop({ default: () => NoElement })
     public hoverAnimation!: string | typeof Vue;
 
-    /**
-     * An array of images that failed to load.
-     *
-     * @internal
-     */
-    protected failedImages: string[] = [];
+    public loadedImages: string[] = [];
 
-    /**
-     * Indicates if the result image is loaded.
-     *
-     * @internal
-     */
-    protected hasImageLoaded = false;
-    protected hasHoverImageLoaded = false;
+    protected images: string[] = this.result.images ?? [];
 
     protected isHovering = false;
+
+    protected imagesToLoad = 1;
 
     /**.
      * Styles to use inline in the image loader, to prevent override from CSS
@@ -125,23 +105,7 @@
      * @internal
      */
     protected get imageSrc(): string {
-      const image = this.result.images?.find(image => !this.failedImages.includes(image));
-      return image ?? '';
-    }
-
-    protected get hoverImageSrc(): string {
-      return (
-        this.result.images?.find(
-          image => !this.failedImages.includes(image) && image !== this.imageSrc
-        ) ?? ''
-      );
-    }
-
-    protected get srcToRender(): string {
-      if (this.isHovering && this.hoverImageSrc && this.hasHoverImageLoaded) {
-        return this.hoverImageSrc;
-      }
-      return this.imageSrc;
+      return this.loadedImages[!this.isHovering ? 0 : this.loadedImages.length - 1];
     }
 
     /**
@@ -150,20 +114,7 @@
      * @internal
      */
     protected flagImageAsFailed(): void {
-      if (this.imageSrc !== '') {
-        this.failedImages.push(this.imageSrc);
-      }
-    }
-
-    /**
-     * Sets an image as failed.
-     *
-     * @internal
-     */
-    protected flagHoverImageAsFailed(): void {
-      if (this.hoverImageSrc !== '') {
-        this.failedImages.push(this.hoverImageSrc);
-      }
+      this.images.shift();
     }
 
     /**
@@ -172,16 +123,10 @@
      * @internal
      */
     protected flagImageLoaded(): void {
-      this.hasImageLoaded = true;
-    }
-
-    /**
-     * Marks an image as loaded.
-     *
-     * @internal
-     */
-    protected flagHoverImageLoaded(): void {
-      this.hasHoverImageLoaded = true;
+      const image = this.images.shift();
+      if (image) {
+        this.loadedImages.push(image);
+      }
     }
   }
 </script>
