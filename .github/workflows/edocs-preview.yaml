@@ -6,15 +6,8 @@ on:
 env:
   GH_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Building project
-        run: |
-          echo "${{ secrets.SUPPORT_TOKEN }}"
-          echo "${{ secrets.JIRA_USER_EMAIL }}"
-          echo "${{ secrets.JIRA_API_TOKEN }}"
   preview-edocs:
+    if: ! github.event.pull_request.head.repo.fork
     uses: empathyco/platform-reusable-github-actions/.github/workflows/edocs-preview.yml@main
     with:
       teamRepo: 'x'
@@ -24,5 +17,4 @@ jobs:
       publicRepo: true
     secrets:
       GH_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
-      JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
-      JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      JIRA_TOKEN: '${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}'
