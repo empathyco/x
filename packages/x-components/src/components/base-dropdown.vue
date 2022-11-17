@@ -5,20 +5,17 @@
     @keydown.up.prevent="highlightPreviousItem"
     :class="dropdownCSSClasses"
     class="x-dropdown"
-    role="combobox"
-    aria-haspopup="listbox"
-    tabIndex="0"
-    :aria-expanded="isOpen"
-    :aria-label="value"
-    aria-controls="base-dropdown-listbox"
-    :aria-activedescendant="`dropdown-option-${value}`"
-    aria-autocomplete="none"
   >
     <button
       @click="toggle"
       @keydown.up.down.prevent.stop="open"
       class="x-dropdown__toggle"
       data-test="dropdown-toggle"
+      role="combobox"
+      aria-haspopup="listbox"
+      :aria-expanded="isOpen.toString()"
+      aria-controls="base-dropdown-listbox"
+      aria-autocomplete="none"
     >
       <!--
        @slot Used to render the contents of the dropdown toggle button. If not provided, it uses
@@ -47,14 +44,11 @@
           <button
             ref="itemButtons"
             @click="emitSelectedItemChanged(item)"
-            id="`dropdown-option-${value}`"
-            :aria-selected="(index === highlightedItemIndex).toString()"
-            :aria-current="(item === value).toString()"
+            :aria-selected="(item === value).toString()"
             :class="itemsCSSClasses[index]"
             class="x-dropdown__item"
             data-test="dropdown-item"
             role="option"
-            tabindex="0"
           >
             <!--
                @slot (required) Used to render each one of the items content, and as fallback

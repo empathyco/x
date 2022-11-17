@@ -2,15 +2,7 @@
   <section class="x-list x-padding--07 x-list--gap-05">
     <div>
       <h1>BaseColumnPickerDropdown</h1>
-      <label for="column-picker-label">
-        <input id="column-picker-label" type="text" />
-        Select number of columns
-      </label>
-      <BaseColumnPickerDropdown
-        id="column-picker"
-        :columns="[2, 4, 6]"
-        aria-labelledby="column-picker-label"
-      >
+      <BaseColumnPickerDropdown :columns="[2, 4, 6]">
         <template #item="{ item, isSelected, isHighlighted }">
           <span v-if="isHighlighted">🟢</span>
           <span v-if="isSelected">✅</span>
