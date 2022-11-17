@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.228](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.227...@empathyco/x-components@3.0.0-alpha.228) (2022-11-17)
+
+### Features
+
+- adding edocs preview
+  ([8580a72](https://github.com/empathyco/x/commit/8580a72fa3b9125ad7a487995eabedb7ecfbde2b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.227](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.226...@empathyco/x-components@3.0.0-alpha.227) (2022-11-15)
 
 ### Features
