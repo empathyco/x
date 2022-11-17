@@ -27,7 +27,7 @@
       <!-- @slot Loading image content. It will be rendered while the real image is not loaded -->
       <slot v-else-if="!loadedImages.length" name="placeholder" />
 
-      <template v-else>
+      <component :is="loadedImages.length === 2 ? hoverAnimation : animation" v-else>
         <img
           :key="imageSrc"
           :alt="result.name"
@@ -35,7 +35,7 @@
           class="x-picture__image x-result-picture__image"
           data-test="result-picture-image"
         />
-      </template>
+      </component>
     </component>
   </div>
 </template>
