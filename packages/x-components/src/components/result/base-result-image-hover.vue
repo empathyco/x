@@ -1,14 +1,16 @@
 <template>
   <!-- This is a div because using a picture causes the onload event of the image to fire twice. -->
+  <!-- Disabling this warning because adding the focus event here is not needed. -->
+  <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
   <div
-    @pointerenter.once="imagesToLoad++"
-    @pointerenter="isHovering = true"
-    @pointerleave="isHovering = false"
+    @mouseenter.once="imagesToLoad++"
+    @mouseenter="isHovering = true"
+    @mouseleave="isHovering = false"
     class="x-picture x-result-picture"
     data-test="result-picture"
   >
     <img
-      v-if="images.length && loadedImages.length < imagesToLoad"
+      v-if="shouldLoadNextImage"
       @load="flagImageLoaded"
       @error="flagImageAsFailed"
       loading="lazy"
@@ -106,6 +108,17 @@
      */
     protected get imageSrc(): string {
       return this.loadedImages[!this.isHovering ? 0 : this.loadedImages.length - 1];
+    }
+
+    /**
+     * Indicates if the loader should try to load the next image.
+     *
+     * @returns True if it should try to load the next image.
+     *
+     * @internal
+     */
+    protected get shouldLoadNextImage(): boolean {
+      return !!(this.images.length && this.loadedImages.length < this.imagesToLoad);
     }
 
     /**
