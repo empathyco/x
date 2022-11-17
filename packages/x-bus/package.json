@@ -1,0 +1,52 @@
+{
+  "name": "x-bus",
+  "version": "0.1.0-alpha.0",
+  "description": "Event bus to help with events orchestration",
+  "author": "Empathy Systems Corporation S.L.",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-bus#readme",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "keywords": [
+    "bus",
+    "events",
+    "orchestration"
+  ],
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/empathyco/x.git",
+    "directory": "packages/x-bus"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "scripts": {
+    "prebuild": "rimraf dist ./*.tgz",
+    "build": "concurrently \"npm run build:*\"",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "postbuild": "npm pack",
+    "test": "jest",
+    "prepublishOnly": "npm run build"
+  },
+  "bugs": {
+    "url": "https://github.com/empathyco/x/issues"
+  },
+  "devDependencies": {
+    "concurrently": "~7.0.0",
+    "jest": "~27.3.1",
+    "rimraf": "~3.0.2",
+    "ts-jest": "~27.0.7",
+    "typescript": "~4.6.2"
+  },
+  "dependencies": {
+    "tslib": "~2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
