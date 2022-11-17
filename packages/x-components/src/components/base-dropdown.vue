@@ -7,6 +7,7 @@
     class="x-dropdown"
   >
     <button
+      ref="toggleButton"
       @click="toggle"
       @keydown.up.down.prevent.stop="open"
       class="x-dropdown__toggle"
@@ -14,7 +15,8 @@
       role="combobox"
       aria-haspopup="listbox"
       :aria-expanded="isOpen.toString()"
-      aria-controls="base-dropdown-listbox"
+      :aria-controls="listId"
+      :aria-label="ariaLabel"
       aria-autocomplete="none"
     >
       <!--
@@ -31,14 +33,14 @@
 
     <component :is="animation">
       <ul
-        v-if="isOpen"
+        v-show="isOpen"
         @keydown.end="highlightLastItem"
-        @keydown.esc="close"
+        @keydown.esc="closeAndFocusToggleButton"
         @keydown.home="highlightFirstItem"
-        id="base-dropdown-listbox"
+        :id="listId"
         class="x-dropdown__items-list"
         role="listbox"
-        tabindex="0"
+        tabindex="-1"
       >
         <li v-for="(item, index) in items" :key="item.id || item" class="x-dropdown__list-item">
           <button
@@ -83,6 +85,7 @@
   import { NoElement } from './no-element';
 
   type DropdownItem = string | number | Identifiable;
+  let dropdownCount = 0;
 
   /**
    * Dropdown component that mimics a Select element behavior, but with the option
@@ -106,6 +109,14 @@
      */
     @Prop({ required: true })
     public items!: DropdownItem[];
+
+    /**
+     * Description of what the dropdown is used for.
+     *
+     * @public
+     */
+    @Prop()
+    public ariaLabel?: string;
 
     /**
      * The selected item.
@@ -135,6 +146,8 @@
     public $refs!: {
       /** Array containing the dropdown list buttons HTMLElements. */
       itemButtons: HTMLButtonElement[];
+      /** The button that opens and closes the list of options. */
+      toggleButton: HTMLButtonElement;
     };
 
     /**
@@ -166,6 +179,7 @@
      */
     protected restartResetSearchTimeout!: () => void;
 
+    protected readonly listId = `x-dropdown-${dropdownCount++}`;
     /**
      * Dynamic CSS classes to add to the dropdown root element.
      *
@@ -222,6 +236,16 @@
     }
 
     /**
+     * Closes the modal and focuses the toggle button.
+     *
+     * @internal
+     */
+    protected closeAndFocusToggleButton(): void {
+      this.close();
+      this.$refs.toggleButton.focus();
+    }
+
+    /**
      * If the dropdown is opened it closes it. If it is closed it opens it.
      *
      * @internal
@@ -238,7 +262,7 @@
      */
     protected emitSelectedItemChanged(item: DropdownItem): void {
       this.$emit('change', item);
-      this.close();
+      this.closeAndFocusToggleButton();
     }
 
     /**
