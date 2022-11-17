@@ -1,4 +1,4 @@
-name: Synchronize Dynamic docs with EPDocs
+name: EPDocs - Dynamic Content PR creation
 on: [workflow_dispatch]
 jobs:
   connect-with-edocs:
