@@ -1,6 +1,6 @@
 <template>
-  <picture
-    ref="image"
+  <!-- This is a div because using a picture causes the onload event of the image to fire twice. -->
+  <div
     @pointerenter.once="imagesToLoad++"
     @pointerenter="isHovering = true"
     @pointerleave="isHovering = false"
@@ -8,9 +8,9 @@
     data-test="result-picture"
   >
     <img
-      v-if="loadedImages.length < imagesToLoad"
-      @error="flagImageAsFailed"
+      v-if="images.length && loadedImages.length < imagesToLoad"
       @load="flagImageLoaded"
+      @error="flagImageAsFailed"
       loading="lazy"
       :src="images[0]"
       :style="loaderStyles"
@@ -35,7 +35,7 @@
         />
       </template>
     </component>
-  </picture>
+  </div>
 </template>
 
 <script lang="ts">
