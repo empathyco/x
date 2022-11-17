@@ -1,4 +1,4 @@
-name: Create EPDocs preview
+name: EPDocs - Static Content Web Preview
 on:
   pull_request:
     paths:
