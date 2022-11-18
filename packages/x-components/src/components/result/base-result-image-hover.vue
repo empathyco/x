@@ -3,7 +3,7 @@
   <!-- Disabling this warning because adding the focus event here is not needed. -->
   <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
   <div
-    @mouseenter.once="imagesToLoad++"
+    @mouseenter.once="enableHoverImage"
     @mouseenter="isHovering = true"
     @mouseleave="isHovering = false"
     class="x-picture x-result-picture"
@@ -20,22 +20,21 @@
       alt=""
       role="presentation"
     />
-    <component :is="animation" class="x-picture__image">
+    <component :is="animationToUse" class="x-picture__image" :appear="false">
       <!-- @slot Fallback image content. It will be rendered when all the images failed -->
       <slot v-if="!loadedImages.length && !images.length" name="fallback" />
 
       <!-- @slot Loading image content. It will be rendered while the real image is not loaded -->
       <slot v-else-if="!loadedImages.length" name="placeholder" />
 
-      <component :is="loadedImages.length === 2 ? hoverAnimation : animation" v-else>
-        <img
-          :key="imageSrc"
-          :alt="result.name"
-          :src="imageSrc"
-          class="x-picture__image x-result-picture__image"
-          data-test="result-picture-image"
-        />
-      </component>
+      <img
+        v-else
+        :key="imageSrc"
+        :alt="result.name"
+        :src="imageSrc"
+        class="x-picture__image x-result-picture__image"
+        data-test="result-picture-image"
+      />
     </component>
   </div>
 </template>
@@ -75,6 +74,8 @@
 
     @Prop({ default: () => NoElement })
     public hoverAnimation!: string | typeof Vue;
+
+    public animationToUse = this.animation;
 
     public loadedImages: string[] = [];
 
@@ -140,6 +141,11 @@
       if (image) {
         this.loadedImages.push(image);
       }
+    }
+
+    protected enableHoverImage(): void {
+      this.animationToUse = this.hoverAnimation;
+      this.imagesToLoad++;
     }
   }
 </script>
