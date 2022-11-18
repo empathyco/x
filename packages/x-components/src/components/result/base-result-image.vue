@@ -1,32 +1,42 @@
 <template>
-  <picture ref="image" class="x-picture x-result-picture" data-test="result-picture">
+  <!-- This is a div because using a picture causes the onload event of the image to fire twice. -->
+  <!-- Disabling this warning because adding the focus event here is not needed. -->
+  <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
+  <div
+    @mouseenter.once="showSecondImageOnHover && (shouldLoadHoverImage = true)"
+    @mouseenter="isHovering = true"
+    @mouseleave="isHovering = false"
+    class="x-picture x-result-picture"
+    data-test="result-picture"
+  >
     <img
-      v-if="!hasImageLoaded && imageSrc"
-      @error="flagImageAsFailed"
+      v-if="shouldLoadNextImage"
       @load="flagImageLoaded"
+      @error="flagImageAsFailed"
       loading="lazy"
-      :src="imageSrc"
+      :src="images[0]"
       :style="loaderStyles"
       data-test="result-picture-loader"
       alt=""
       role="presentation"
     />
-    <component :is="animation" class="x-picture__image">
+    <component :is="imageAnimation" class="x-picture__image" :appear="false">
       <!-- @slot Fallback image content. It will be rendered when all the images failed -->
-      <slot v-if="!imageSrc" name="fallback" />
+      <slot v-if="!loadedImages.length && !images.length" name="fallback" />
 
       <!-- @slot Loading image content. It will be rendered while the real image is not loaded -->
-      <slot v-else-if="!hasImageLoaded" name="placeholder" />
+      <slot v-else-if="!loadedImages.length" name="placeholder" />
 
       <img
         v-else
+        :key="imageSrc"
         :alt="result.name"
         :src="imageSrc"
         class="x-picture__image x-result-picture__image"
         data-test="result-picture-image"
       />
     </component>
-  </picture>
+  </div>
 </template>
 
 <script lang="ts">
@@ -61,19 +71,51 @@
      */
     @Prop({ default: () => NoElement })
     public animation!: string | typeof Vue;
-    /**
-     * An array of images that failed to load.
-     *
-     * @internal
-     */
-    protected failedImages: string[] = [];
 
     /**
-     * Indicates if the result image is loaded.
+     * Indicates if the next valid image should be displayed on hover.
+     *
+     * @public
+     */
+    @Prop({ type: Boolean, default: () => false })
+    public showSecondImageOnHover!: boolean;
+
+    /**
+     * Animation to use when switching between the loaded image and the hover image.
+     *
+     * @public
+     */
+    @Prop({ default: () => NoElement })
+    public hoverAnimation!: string | typeof Vue;
+
+    /**
+     * Contains the images that have been loaded successfully.
+     */
+    public loadedImages: string[] = [];
+
+    /**
+     * Copy of the images of the result.
+     *
+     * It is used as a queue of images to load, once an image loads/fails to load, it is removed
+     * from this array.
      *
      * @internal
      */
-    protected hasImageLoaded = false;
+    protected images: string[] = this.result.images ?? [];
+
+    /**
+     * Indicates if the user is hovering the image.
+     *
+     * @internal
+     */
+    protected isHovering = false;
+
+    /**
+     * Indicates if a second image should be loaded to show it on hover.
+     *
+     * @internal
+     */
+    protected shouldLoadHoverImage = false;
 
     /**.
      * Styles to use inline in the image loader, to prevent override from CSS
@@ -91,6 +133,17 @@
     };
 
     /**
+     * Animation to be used.
+     *
+     * @returns The animation to be used, taking into account if the user has hovered the image.
+     *
+     * @internal
+     */
+    protected get imageAnimation(): string | typeof Vue {
+      return !this.shouldLoadHoverImage ? this.animation : this.hoverAnimation;
+    }
+
+    /**
      * Gets the src from the result image.
      *
      * @returns The result image src.
@@ -98,8 +151,20 @@
      * @internal
      */
     protected get imageSrc(): string {
-      const image = this.result.images?.find(image => !this.failedImages.includes(image));
-      return image ?? '';
+      return this.loadedImages[!this.isHovering ? 0 : this.loadedImages.length - 1];
+    }
+
+    /**
+     * Indicates if the loader should try to load the next image.
+     *
+     * @returns True if it should try to load the next image.
+     *
+     * @internal
+     */
+    protected get shouldLoadNextImage(): boolean {
+      return !!(
+        this.images.length && this.loadedImages.length < (this.shouldLoadHoverImage ? 2 : 1)
+      );
     }
 
     /**
@@ -108,18 +173,19 @@
      * @internal
      */
     protected flagImageAsFailed(): void {
-      if (this.imageSrc !== '') {
-        this.failedImages.push(this.imageSrc);
-      }
+      this.images.shift();
     }
 
     /**
-     * Marks an image as loaded.
+     * Sets an image as loaded.
      *
      * @internal
      */
     protected flagImageLoaded(): void {
-      this.hasImageLoaded = true;
+      const image = this.images.shift();
+      if (image) {
+        this.loadedImages.push(image);
+      }
     }
   }
 </script>
