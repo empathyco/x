@@ -10,7 +10,13 @@ export const numberFilterSchema = createMutableSchema<Schema<PlatformFilter, Num
   selected: () => false,
   modelName: () => 'NumberRangeFilter',
   range: {
-    min: ({ value }) => Number(value.split('-')[0]),
-    max: ({ value }) => Number(value.split('-')[1])
+    min: ({ value }) => {
+      const min = Number(value.split('-')[0]);
+      return Number.isNaN(min) ? null : min;
+    },
+    max: ({ value }) => {
+      const max = Number(value.split('-')[1]);
+      return Number.isNaN(max) ? null : max;
+    }
   }
 });
