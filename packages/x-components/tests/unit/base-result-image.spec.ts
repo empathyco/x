@@ -9,17 +9,28 @@ import BaseResultImage from '../../src/components/result/base-result-image.vue';
  * @param options - The options to render the component with.
  * @returns An API to test the component.
  */
-function mountBaseResultImage({ result }: MountBaseResultImageOptions): MountBaseResultImageAPI {
+function mountBaseResultImage({
+  result,
+  showSecondImageOnHover = false
+}: MountBaseResultImageOptions): MountBaseResultImageAPI {
   cy.viewport(1920, 200);
   mount(
     {
       components: {
         BaseResultImage
       },
-      props: ['result'],
+      data() {
+        return {
+          result,
+          showSecondImageOnHover
+        };
+      },
       template: `
         <div>
-          <BaseResultImage :result="result" class="x-picture--colored">
+          <BaseResultImage
+              :result="result"
+              :showSecondImageOnHover="showSecondImageOnHover"
+              class="x-picture--colored">
             <template #placeholder>
               <div data-test="result-picture-placeholder"
                   style="padding-top: 100%; background-color: lightgray"></div>
@@ -35,11 +46,14 @@ function mountBaseResultImage({ result }: MountBaseResultImageOptions): MountBas
       `
     },
     {
-      propsData: { result }
+      propsData: { result, showSecondImageOnHover }
     }
   );
 
   return {
+    getResultPicture() {
+      return cy.getByDataTest('result-picture');
+    },
     getResultPictureImage() {
       return cy.getByDataTest('result-picture-image');
     },
@@ -104,13 +118,59 @@ describe('testing Base Result Image component', () => {
     getResultPicturePlaceholder().should('not.exist');
     getResultPictureFallback().should('not.exist');
   });
+
+  it('does not change the image on hover if `showSecondImageOnHover` is false', () => {
+    const result = createResultStub('Result', {
+      images: [
+        'https://picsum.photos/seed/18/100/100',
+        'https://notexistsimage1.com',
+        'https://picsum.photos/seed/2/100/100'
+      ]
+    });
+
+    const { getResultPictureImage, getResultPicture } = mountBaseResultImage({
+      result,
+      showSecondImageOnHover: true
+    });
+    getResultPictureImage().should('have.attr', 'src', 'https://picsum.photos/seed/18/100/100');
+    getResultPicture()
+      .trigger('mouseenter')
+      .then(async () => {
+        await new Promise(resolve => setTimeout(resolve));
+      })
+      .then(() => {
+        getResultPictureImage().should('have.attr', 'src', 'https://picsum.photos/seed/18/100/100');
+      });
+  });
+
+  it('shows the next valid image on hover if `showSecondImageOnHover` is true', () => {
+    const result = createResultStub('Result', {
+      images: [
+        'https://picsum.photos/seed/18/100/100',
+        'https://notexistsimage1.com',
+        'https://picsum.photos/seed/2/100/100'
+      ]
+    });
+
+    const { getResultPictureImage, getResultPicture } = mountBaseResultImage({
+      result,
+      showSecondImageOnHover: true
+    });
+    getResultPictureImage().should('have.attr', 'src', 'https://picsum.photos/seed/18/100/100');
+    getResultPicture().trigger('mouseenter');
+    // It should have load the third image after the second one failed.
+    getResultPictureImage().should('have.attr', 'src', 'https://picsum.photos/seed/2/100/100');
+  });
 });
 
 interface MountBaseResultImageOptions {
   result: Result;
+  showSecondImageOnHover?: boolean;
 }
 
 interface MountBaseResultImageAPI {
+  /** Gets the result picture image. */
+  getResultPicture: () => Cypress.Chainable<JQuery>;
   /** Gets the result picture image. */
   getResultPictureImage: () => Cypress.Chainable<JQuery>;
   /** Gets the result picture fallback. */
