@@ -3,7 +3,7 @@
   <!-- Disabling this warning because adding the focus event here is not needed. -->
   <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
   <div
-    @mouseenter.once="enableHoverImage"
+    @mouseenter.once="shouldLoadHoverImage = true"
     @mouseenter="isHovering = true"
     @mouseleave="isHovering = false"
     class="x-picture x-result-picture"
@@ -20,7 +20,7 @@
       alt=""
       role="presentation"
     />
-    <component :is="animationToUse" class="x-picture__image" :appear="false">
+    <component :is="imageAnimation" class="x-picture__image" :appear="false">
       <!-- @slot Fallback image content. It will be rendered when all the images failed -->
       <slot v-if="!loadedImages.length && !images.length" name="fallback" />
 
@@ -72,18 +72,42 @@
     @Prop({ default: () => NoElement })
     public animation!: string | typeof Vue;
 
+    /**
+     * Animation to use when switching between the loaded image and the hover image.
+     *
+     * @public
+     */
     @Prop({ default: () => NoElement })
     public hoverAnimation!: string | typeof Vue;
 
-    public animationToUse = this.animation;
-
+    /**
+     * Contains the images that have been loaded successfully.
+     */
     public loadedImages: string[] = [];
 
+    /**
+     * Copy of the images of the result.
+     *
+     * It is used as a queue of images to load, once an image loads/fails to load, it is removed
+     * from this array.
+     *
+     * @internal
+     */
     protected images: string[] = this.result.images ?? [];
 
+    /**
+     * Indicates if the user is hovering the image.
+     *
+     * @internal
+     */
     protected isHovering = false;
 
-    protected imagesToLoad = 1;
+    /**
+     * Indicates if a second image should be loaded to show it on hover.
+     *
+     * @internal
+     */
+    protected shouldLoadHoverImage = false;
 
     /**.
      * Styles to use inline in the image loader, to prevent override from CSS
@@ -99,6 +123,17 @@
       pointerEvents: 'none !important',
       visibility: 'hidden !important'
     };
+
+    /**
+     * Animation to be used.
+     *
+     * @returns The animation to be used, taking into account if the user has hovered the image.
+     *
+     * @internal
+     */
+    protected get imageAnimation(): string | typeof Vue {
+      return !this.shouldLoadHoverImage ? this.animation : this.hoverAnimation;
+    }
 
     /**
      * Gets the src from the result image.
@@ -119,7 +154,9 @@
      * @internal
      */
     protected get shouldLoadNextImage(): boolean {
-      return !!(this.images.length && this.loadedImages.length < this.imagesToLoad);
+      return !!(
+        this.images.length && this.loadedImages.length < (this.shouldLoadHoverImage ? 2 : 1)
+      );
     }
 
     /**
@@ -132,7 +169,7 @@
     }
 
     /**
-     * Marks an image as loaded.
+     * Sets an image as loaded.
      *
      * @internal
      */
@@ -141,11 +178,6 @@
       if (image) {
         this.loadedImages.push(image);
       }
-    }
-
-    protected enableHoverImage(): void {
-      this.animationToUse = this.hoverAnimation;
-      this.imagesToLoad++;
     }
   }
 </script>
