@@ -3,7 +3,7 @@
   <!-- Disabling this warning because adding the focus event here is not needed. -->
   <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
   <div
-    @mouseenter.once="shouldLoadHoverImage = true"
+    @mouseenter.once="showSecondImageOnHover && (shouldLoadHoverImage = true)"
     @mouseenter="isHovering = true"
     @mouseleave="isHovering = false"
     class="x-picture x-result-picture"
@@ -71,6 +71,14 @@
      */
     @Prop({ default: () => NoElement })
     public animation!: string | typeof Vue;
+
+    /**
+     * Indicates if the next valid image should be displayed on hover.
+     *
+     * @public
+     */
+    @Prop({ type: Boolean, default: () => false })
+    public showSecondImageOnHover!: boolean;
 
     /**
      * Animation to use when switching between the loaded image and the hover image.
