@@ -8,6 +8,8 @@ import { removeFromHistory } from './actions/remove-query-from-history.action';
 import { setHistoryQueries } from './actions/set-history-queries.action';
 import { setUrlParams } from './actions/set-url-params.action';
 import { toggleHistoryQueries } from './actions/toggle-history-queries.action';
+// eslint-disable-next-line max-len
+import { updateHistoryQueriesWithSearchResponse } from './actions/update-history-queries-with-search-response.action';
 import { HISTORY_QUERIES_ENABLED_KEY } from './constants';
 import { historyQueries } from './getters/history-queries.getter';
 import { normalizedQuery } from './getters/normalized-query.getter';
@@ -58,6 +60,7 @@ export const historyQueriesXStoreModule: HistoryQueriesXStoreModule = {
     removeFromHistory,
     setHistoryQueries,
     setUrlParams,
-    toggleHistoryQueries
+    toggleHistoryQueries,
+    updateHistoryQueriesWithSearchResponse
   }
 };

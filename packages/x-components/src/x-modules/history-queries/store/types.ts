@@ -3,6 +3,7 @@ import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { UrlParams } from '../../../types/url-params';
 import { HistoryQueriesConfig } from '../config.types';
+import { InternalSearchResponse } from '../../search/index';
 
 /**
  * HistoryQueries store state.
@@ -175,6 +176,12 @@ export interface HistoryQueriesActions {
    * @param isEnabled - Whether to enable or disable the history queries.
    */
   toggleHistoryQueries(isEnabled: boolean): void;
+  /**
+   * Updates the history queries with the relevant info included in a search response.
+   *
+   * @param searchResponse - The search response to update history queries with.
+   */
+  updateHistoryQueriesWithSearchResponse(searchResponse: InternalSearchResponse): void;
 }
 /**
  * HistoryQueries type safe store module.
