@@ -76,7 +76,19 @@ if (process.env.NODE_ENV !== 'production') {
     {
       path: '/accessibility-check',
       name: 'Accessibility Check',
-      component: () => import('./views/accessibility-check.vue')
+      component: () => import('./views/accessibility/accessibility-check.vue'),
+      children: [
+        {
+          path: 'wai-base-event-button',
+          name: 'Base Event Button',
+          component: () => import('./views/accessibility/wai-base-event-button.vue')
+        },
+        {
+          path: 'wai-base-dropdown-and-base-switch',
+          name: 'Base Dropdown and Base Switch',
+          component: () => import('./views/accessibility/wai-base-dropdown-and-base-switch.vue')
+        }
+      ]
     }
   );
 }
