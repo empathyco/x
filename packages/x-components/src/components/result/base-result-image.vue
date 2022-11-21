@@ -3,7 +3,7 @@
   <!-- Disabling this warning because adding the focus event here is not needed. -->
   <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
   <div
-    @mouseenter.once="showNextImageOnHover && (shouldLoadHoverImage = true)"
+    @mouseenter.once="userHasHoveredImage = true"
     @mouseenter="isHovering = true"
     @mouseleave="isHovering = false"
     class="x-picture x-result-picture"
@@ -111,11 +111,11 @@
     protected isHovering = false;
 
     /**
-     * Indicates if a second image should be loaded to show it on hover.
+     * Indicates if the user has hovered the image.
      *
      * @internal
      */
-    protected shouldLoadHoverImage = false;
+    protected userHasHoveredImage = false;
 
     /**.
      * Styles to use inline in the image loader, to prevent override from CSS
@@ -140,7 +140,7 @@
      * @internal
      */
     protected get imageAnimation(): string | typeof Vue {
-      return !this.shouldLoadHoverImage ? this.animation : this.hoverAnimation;
+      return !this.userHasHoveredImage ? this.animation : this.hoverAnimation;
     }
 
     /**
@@ -151,7 +151,9 @@
      * @internal
      */
     protected get imageSrc(): string {
-      return this.loadedImages[!this.isHovering ? 0 : this.loadedImages.length - 1];
+      return this.loadedImages[
+        !this.showNextImageOnHover || !this.isHovering ? 0 : this.loadedImages.length - 1
+      ];
     }
 
     /**
@@ -163,7 +165,8 @@
      */
     protected get shouldLoadNextImage(): boolean {
       return !!(
-        this.images.length && this.loadedImages.length < (this.shouldLoadHoverImage ? 2 : 1)
+        this.images.length &&
+        this.loadedImages.length < (this.showNextImageOnHover && this.userHasHoveredImage ? 2 : 1)
       );
     }
 
