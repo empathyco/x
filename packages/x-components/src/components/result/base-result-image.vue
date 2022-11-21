@@ -3,7 +3,7 @@
   <!-- Disabling this warning because adding the focus event here is not needed. -->
   <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
   <div
-    @mouseenter.once="showSecondImageOnHover && (shouldLoadHoverImage = true)"
+    @mouseenter.once="showNextImageOnHover && (shouldLoadHoverImage = true)"
     @mouseenter="isHovering = true"
     @mouseleave="isHovering = false"
     class="x-picture x-result-picture"
@@ -78,7 +78,7 @@
      * @public
      */
     @Prop({ type: Boolean, default: () => false })
-    public showSecondImageOnHover!: boolean;
+    public showNextImageOnHover!: boolean;
 
     /**
      * Animation to use when switching between the loaded image and the hover image.
@@ -236,5 +236,13 @@ displayed while the real one is loaded.
     <img class="x-result-picture-fallback" src="./fallback-image.svg"/>
   </template>
 </BaseResultImage>
+```
+
+### Showing the next image on hover
+
+If a result has multiple images, it can show the next one on hover.
+
+```vue
+<BaseResultImage :result="result" showNextImageOnHover />
 ```
 </docs>

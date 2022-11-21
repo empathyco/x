@@ -11,25 +11,24 @@ import BaseResultImage from '../../src/components/result/base-result-image.vue';
  */
 function mountBaseResultImage({
   result,
-  showSecondImageOnHover = false
+  showNextImageOnHover = false
 }: MountBaseResultImageOptions): MountBaseResultImageAPI {
   cy.viewport(1920, 200);
-  mount(
-    {
-      components: {
-        BaseResultImage
-      },
-      data() {
-        return {
-          result,
-          showSecondImageOnHover
-        };
-      },
-      template: `
+  mount({
+    components: {
+      BaseResultImage
+    },
+    data() {
+      return {
+        result,
+        showNextImageOnHover
+      };
+    },
+    template: `
         <div>
           <BaseResultImage
               :result="result"
-              :showSecondImageOnHover="showSecondImageOnHover"
+              :showNextImageOnHover="showNextImageOnHover"
               class="x-picture--colored">
             <template #placeholder>
               <div data-test="result-picture-placeholder"
@@ -44,11 +43,7 @@ function mountBaseResultImage({
           </BaseResultImage>
         </div>
       `
-    },
-    {
-      propsData: { result, showSecondImageOnHover }
-    }
-  );
+  });
 
   return {
     getResultPicture() {
@@ -119,31 +114,31 @@ describe('testing Base Result Image component', () => {
     getResultPictureFallback().should('not.exist');
   });
 
-  it('does not change the image on hover if `showSecondImageOnHover` is false', () => {
+  it('does not change the image on hover if `showNextImageOnHover` is false', () => {
     const result = createResultStub('Result', {
       images: ['/img/test-image-1.jpeg', '/img/test-image-2.jpeg']
     });
     const { getResultPictureImage, getResultPicture } = mountBaseResultImage({
       result,
-      showSecondImageOnHover: false
+      showNextImageOnHover: false
     });
     getResultPictureImage().should('have.attr', 'src', '/img/test-image-1.jpeg');
     getResultPicture().trigger('mouseenter');
-    // Setting this wait to make the test fail if we change showSecondImageOnHover
+    // Setting this wait to make the test fail if we change showNextImageOnHover
     // or the second image src.
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(100);
     getResultPictureImage().should('not.have.attr', 'src', '/img/test-image-2.jpeg');
   });
 
-  it('shows the next valid image on hover if `showSecondImageOnHover` is true', () => {
+  it('shows the next valid image on hover if `showNextImageOnHover` is true', () => {
     const result = createResultStub('Result', {
       images: ['/img/test-image-1.jpeg', 'https://notexistsimage1.com', '/img/test-image-2.jpeg']
     });
 
     const { getResultPictureImage, getResultPicture } = mountBaseResultImage({
       result,
-      showSecondImageOnHover: true
+      showNextImageOnHover: true
     });
     getResultPictureImage().should('have.attr', 'src', '/img/test-image-1.jpeg');
     getResultPicture().trigger('mouseenter');
@@ -154,11 +149,11 @@ describe('testing Base Result Image component', () => {
 
 interface MountBaseResultImageOptions {
   result: Result;
-  showSecondImageOnHover?: boolean;
+  showNextImageOnHover?: boolean;
 }
 
 interface MountBaseResultImageAPI {
-  /** Gets the result picture image. */
+  /** Gets the result picture container. */
   getResultPicture: () => Cypress.Chainable<JQuery>;
   /** Gets the result picture image. */
   getResultPictureImage: () => Cypress.Chainable<JQuery>;
