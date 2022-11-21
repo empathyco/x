@@ -1,4 +1,4 @@
-import { HistoryQuery } from '@empathyco/x-types';
+import { HistoryQuery, Result } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -267,6 +267,55 @@ describe('testing history queries module actions', () => {
 
       await store.dispatch('toggleHistoryQueries', true);
       expect(localStorageService.getItem<boolean>(HISTORY_QUERIES_ENABLED_KEY)).toBe(true);
+    });
+  });
+
+  describe('updateHistoryQueriesWithSearchResponse', () => {
+    const results: Result[] = [],
+      totalResults = 50;
+    let gato: HistoryQuery, perro: HistoryQuery;
+    beforeEach(() => {
+      [gato, perro] = createHistoryQueries('gato', 'perro');
+      resetStateWith({ historyQueries: [gato, perro] });
+    });
+
+    it('updates a history query if its response is a success', async () => {
+      await store.dispatch('updateHistoryQueriesWithSearchResponse', {
+        request: {
+          query: 'gato',
+          page: 1
+        },
+        status: 'success',
+        results,
+        totalResults
+      });
+      expectHistoryQueriesToEqual([{ ...gato, totalResults }, perro]);
+    });
+
+    it('does not update a history query if its response is an error', async () => {
+      await store.dispatch('updateHistoryQueriesWithSearchResponse', {
+        request: {
+          query: 'gato',
+          page: 1
+        },
+        status: 'error',
+        results,
+        totalResults
+      });
+      expectHistoryQueriesToEqual([gato, perro]);
+    });
+
+    it('does not update a history query if it is not stored', async () => {
+      await store.dispatch('updateHistoryQueriesWithSearchResponse', {
+        request: {
+          query: 'pato',
+          page: 1
+        },
+        status: 'success',
+        results,
+        totalResults
+      });
+      expectHistoryQueriesToEqual([gato, perro]);
     });
   });
 });
