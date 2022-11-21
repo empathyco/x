@@ -1,39 +1,47 @@
 <template>
-  <div class="x-flex x-flex-col x-gap-16">
-    <h1 class="x-text-lg">Button</h1>
-    <div
-      v-for="(classes, section) in sections"
-      :key="section"
-      class="x-flex x-flex-row x-items-start x-gap-12 x-align-items-baseline"
+  <XdsBaseShowcase
+    #default="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
+    title="Button"
+    :sections="sections"
+  >
+    <button
+      :key="cssClass"
+      @click="copyCssClassesToClipboard"
+      :class="cssClass"
+      title="Click me to copy CSS classes"
+      :disabled="section === 'Disabled'"
     >
-      <h2 class="x-text-md">{{ section }}</h2>
-      <button
-        v-for="cssClass in classes"
-        :key="cssClass"
-        @click="copyCSSClasses"
-        :class="cssClass"
-        title="Click me to copy CSS classes"
-      >
-        {{ removeBase(cssClass) }}
-      </button>
-    </div>
-  </div>
+      <CuratedIcon class="x-icon" />
+      <span v-if="!cssClass.includes('circle') && !cssClass.includes('square')">
+        {{ removeClassPrefix(cssClass, base) || 'button' }}
+      </span>
+    </button>
+  </XdsBaseShowcase>
 </template>
 
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { ShowcaseSections } from '../types/types';
+  import { addParentClasses } from '../utils';
+  import XdsBaseShowcase from './xds-base-showcase.vue';
+  import CuratedIcon from './icons/curated.vue';
 
-  @Component
+  @Component({
+    components: {
+      XdsBaseShowcase,
+      CuratedIcon
+    }
+  })
   export default class XdsButtonShowcase extends Vue {
     @Prop({ default: () => 'x-button' })
     public base!: string;
-    @Prop({ default: () => ['x-button-xs', 'x-button-sm', 'x-button-md', 'x-button-lg'] })
+    @Prop({ default: () => ['x-button-sm', 'x-button-md', 'x-button-lg', 'x-button-xl'] })
     public sizes!: string[];
     @Prop({
       default: () => [
         'x-button-neutral',
-        'x-button-primary',
-        'x-button-secondary',
+        'x-button-lead',
+        'x-button-auxiliary',
         'x-button-accent',
         'x-button-highlight',
         'x-button-success',
@@ -54,34 +62,27 @@
 
     @Prop({
       default: () => [
-        'x-button-primary x-button-xs',
-        'x-button-secondary x-button-circle x-button-outlined'
+        'x-button-lead x-button-sm',
+        'x-button-auxiliary x-button-circle x-button-outlined'
       ]
     })
     public combinations!: string[];
 
-    protected get sections(): Record<string, string[]> {
+    protected get sections(): ShowcaseSections {
       return {
         Default: [this.base],
-        Colors: this.colors.map(this.prefixWith(this.base)),
-        Sizes: this.sizes.map(this.prefixWith(this.base)),
-        Layout: this.layouts.map(this.prefixWith(this.base)),
-        Outline: this.colors.map(this.prefixWith(this.base, this.outline)),
-        Ghost: this.colors.map(this.prefixWith(this.base, this.ghost)),
-        Combinations: this.combinations.map(this.prefixWith(this.base))
+        Colors: this.colors.map(addParentClasses(this.base)),
+        Sizes: this.sizes.map(addParentClasses(this.base)),
+        Layout: this.layouts.map(addParentClasses(this.base)),
+        Outline: this.colors.map(addParentClasses(this.base, this.outline)),
+        Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
+        Disabled: [
+          this.base,
+          addParentClasses(this.base)(this.outline),
+          addParentClasses(this.base)(this.ghost)
+        ],
+        Combinations: this.combinations.map(addParentClasses(this.base))
       };
-    }
-
-    protected prefixWith(...prefix: string[]): (value: string) => string {
-      return cssClass => `${prefix.join(' ')} ${cssClass}`;
-    }
-
-    protected removeBase(cssClass: string): string {
-      return cssClass.replace(new RegExp(`${this.base}-?`, 'g'), '') || 'button';
-    }
-
-    protected copyCSSClasses(event: MouseEvent): void {
-      navigator.clipboard.writeText((event.target as HTMLElement).classList.value);
     }
   }
 </script>

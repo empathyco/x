@@ -1,5 +1,8 @@
 import { TailwindHelpers } from '../types';
+import { variables } from './components/variables';
 import { button } from './components/button';
+import { icon } from './components/icon';
+import { suggestion } from './components/suggestion';
 
 /**
  * Default component styles.
@@ -12,7 +15,10 @@ import { button } from './components/button';
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export default function components(helpers: TailwindHelpers) {
   return {
-    ...button(helpers)
+    ...variables(helpers),
+    ...button(helpers),
+    ...icon(helpers),
+    ...suggestion(helpers)
   };
 }
 

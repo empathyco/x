@@ -5,6 +5,7 @@ import {
   cssBaseRollupConfig,
   cssComponentsRollupConfig,
   cssDefaultThemeRollupConfig,
+  cssDeprecatedComponentsRollupConfig,
   cssFullThemeRollupConfig,
   rollupConfig
 } from './rollup.config';
@@ -24,6 +25,9 @@ async function build(): Promise<any> {
 
     const bundleCssComponents = await rollup(cssComponentsRollupConfig);
     await bundleCssComponents.write(cssComponentsRollupConfig.output);
+
+    const bundleCssDepracatedComponents = await rollup(cssDeprecatedComponentsRollupConfig);
+    await bundleCssDepracatedComponents.write(cssDeprecatedComponentsRollupConfig.output);
 
     const bundleCssBase = await rollup(cssBaseRollupConfig);
     await bundleCssBase.write(cssBaseRollupConfig.output);

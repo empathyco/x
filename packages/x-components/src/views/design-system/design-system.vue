@@ -4,8 +4,6 @@
 
     <DesignSystemIcon />
 
-    <DesignSystemButton />
-
     <DesignSystemInput />
 
     <DesignSystemInputGroup />
@@ -54,7 +52,6 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import DesignSystemBadge from './design-system-badge.vue';
-  import DesignSystemButton from './design-system-button.vue';
   import DesignSystemDropdown from './design-system-dropdown.vue';
   import DesignSystemFacet from './design-system-facet.vue';
   import DesignSystemFilter from './design-system-filter.vue';
@@ -79,7 +76,6 @@
   @Component({
     components: {
       DesignSystemBadge,
-      DesignSystemButton,
       DesignSystemDropdown,
       DesignSystemFacet,
       DesignSystemFilter,

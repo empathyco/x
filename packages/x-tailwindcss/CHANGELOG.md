@@ -3,6 +3,69 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.28...@empathyco/x-tailwindcss@0.2.0-alpha.29) (2022-11-15)
+
+### Features
+
+- **design-system:** add `suggestion` component to the XDS (#838)
+  ([055af83](https://github.com/empathyco/x/commit/055af838ddbf3a1293936d5994c455e4e8499654))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.27...@empathyco/x-tailwindcss@0.2.0-alpha.28) (2022-11-11)
+
+### Build System
+
+- **dev-deps:** sync `vite` version to 3.2.0 (#837)
+  ([e1db153](https://github.com/empathyco/x/commit/e1db1539468827d0943fbe5516dc6960d98ff152))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.26...@empathyco/x-tailwindcss@0.2.0-alpha.27) (2022-11-10)
+
+### Features
+
+- **desing-system:** Add icon component to Design System. (#835)
+  ([17c5199](https://github.com/empathyco/x/commit/17c5199291595285f1b777045743cf89eae06b9b)),
+  closes [EX-7113](https://searchbroker.atlassian.net/browse/EX-7113)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.25...@empathyco/x-tailwindcss@0.2.0-alpha.26) (2022-11-09)
+
+### Code Refactoring
+
+- **design-system:** Refactor showcase component to make it reusable. (#834)
+  ([f5607d7](https://github.com/empathyco/x/commit/f5607d78545043f8a924f3cd52a63bef352f0069)),
+  closes [EX-7368](https://searchbroker.atlassian.net/browse/EX-7368)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.24...@empathyco/x-tailwindcss@0.2.0-alpha.25) (2022-11-08)
+
+### Bug Fixes
+
+- **design-system:** Change the xds button size variants. (#832)
+  ([6ac36fc](https://github.com/empathyco/x/commit/6ac36fcaea774bc2255273a4c6486df2c3ccd948)),
+  closes [EX-7369](https://searchbroker.atlassian.net/browse/EX-7369)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.23...@empathyco/x-tailwindcss@0.2.0-alpha.24) (2022-11-03)
 
 ### Features

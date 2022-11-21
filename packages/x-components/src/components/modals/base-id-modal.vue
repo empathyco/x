@@ -4,6 +4,7 @@
     @focusin:body="emitClickOutOfModal"
     :animation="animation"
     :open="isOpen"
+    v-bind="$attrs"
   >
     <slot />
   </BaseModal>
