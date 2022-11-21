@@ -2,10 +2,10 @@
   <transition-group
     v-on="$listeners"
     class="x-fade-and-slide"
-    appear
     :name="name"
     :tag="tag"
     v-bind="$attrs"
+    :appear="appear"
   >
     <!-- @slot (Required) Transition-group content -->
     <slot />
@@ -41,6 +41,15 @@
      */
     @Prop()
     protected tag!: string;
+
+    /**
+     * Indicates if the transition must be applied on the initial render of the node.
+     */
+    @Prop({
+      type: Boolean,
+      default: true
+    })
+    public appear!: boolean;
   }
 </script>
 
