@@ -49,6 +49,11 @@ export interface HistoryQueriesGetters {
   /** The normalized module's query. */
   normalizedQuery: string;
   /**
+   * A sub-set of the {@link HistoryQueriesGetters.historyQueries} including only the queries with
+   * results at the moment they were requested.
+   */
+  resultHistoryQueries: HistoryQuery[];
+  /**
    * A list of the queries that have been made in the last period of time specified by
    * {@link HistoryQueriesConfig.sessionTTLInMs}.
    */
