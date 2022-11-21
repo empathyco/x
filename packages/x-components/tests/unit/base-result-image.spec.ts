@@ -69,7 +69,7 @@ function mountBaseResultImage({
 describe('testing Base Result Image component', () => {
   it('placeholder is replaced for an image', () => {
     const result = createResultStub('Result', {
-      images: ['https://picsum.photos/seed/18/100/100', 'https://picsum.photos/seed/2/100/100']
+      images: ['/img/test-image-1.jpeg', '/img/test-image-2.jpeg']
     });
     const { getResultPictureImage, getResultPictureFallback, getResultPicturePlaceholder } =
       mountBaseResultImage({ result });
@@ -77,7 +77,7 @@ describe('testing Base Result Image component', () => {
     getResultPicturePlaceholder().should('exist');
     getResultPictureImage().should('not.exist');
     // Success
-    getResultPictureImage().should('have.attr', 'src', 'https://picsum.photos/seed/18/100/100');
+    getResultPictureImage().should('have.attr', 'src', '/img/test-image-1.jpeg');
     getResultPicturePlaceholder().should('not.exist');
     getResultPictureFallback().should('not.exist');
   });
@@ -105,7 +105,7 @@ describe('testing Base Result Image component', () => {
         'https://notexistsimage1.com',
         'https://notexistsimage2.com',
         'https://notexistsimage3.com',
-        'https://picsum.photos/seed/20/100/100'
+        '/img/test-image-1.jpeg'
       ]
     });
     const { getResultPictureImage, getResultPictureFallback, getResultPicturePlaceholder } =
@@ -114,52 +114,41 @@ describe('testing Base Result Image component', () => {
     getResultPicturePlaceholder().should('exist');
     getResultPictureImage().should('not.exist');
     // Success
-    getResultPictureImage().should('have.attr', 'src', 'https://picsum.photos/seed/20/100/100');
+    getResultPictureImage().should('have.attr', 'src', '/img/test-image-1.jpeg');
     getResultPicturePlaceholder().should('not.exist');
     getResultPictureFallback().should('not.exist');
   });
 
   it('does not change the image on hover if `showSecondImageOnHover` is false', () => {
     const result = createResultStub('Result', {
-      images: [
-        'https://picsum.photos/seed/18/100/100',
-        'https://notexistsimage1.com',
-        'https://picsum.photos/seed/2/100/100'
-      ]
+      images: ['/img/test-image-1.jpeg', '/img/test-image-2.jpeg']
     });
-
     const { getResultPictureImage, getResultPicture } = mountBaseResultImage({
       result,
-      showSecondImageOnHover: true
+      showSecondImageOnHover: false
     });
-    getResultPictureImage().should('have.attr', 'src', 'https://picsum.photos/seed/18/100/100');
-    getResultPicture()
-      .trigger('mouseenter')
-      .then(async () => {
-        await new Promise(resolve => setTimeout(resolve));
-      })
-      .then(() => {
-        getResultPictureImage().should('have.attr', 'src', 'https://picsum.photos/seed/18/100/100');
-      });
+    getResultPictureImage().should('have.attr', 'src', '/img/test-image-1.jpeg');
+    getResultPicture().trigger('mouseenter');
+    // Setting this wait to make the test fail if we change showSecondImageOnHover
+    // or the second image src.
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(100);
+    getResultPictureImage().should('not.have.attr', 'src', '/img/test-image-2.jpeg');
   });
 
   it('shows the next valid image on hover if `showSecondImageOnHover` is true', () => {
     const result = createResultStub('Result', {
-      images: [
-        'https://picsum.photos/seed/18/100/100',
-        'https://notexistsimage1.com',
-        'https://picsum.photos/seed/2/100/100'
-      ]
+      images: ['/img/test-image-1.jpeg', 'https://notexistsimage1.com', '/img/test-image-2.jpeg']
     });
 
     const { getResultPictureImage, getResultPicture } = mountBaseResultImage({
       result,
       showSecondImageOnHover: true
     });
-    getResultPictureImage().should('have.attr', 'src', 'https://picsum.photos/seed/18/100/100');
+    getResultPictureImage().should('have.attr', 'src', '/img/test-image-1.jpeg');
     getResultPicture().trigger('mouseenter');
     // It should have load the third image after the second one failed.
-    getResultPictureImage().should('have.attr', 'src', 'https://picsum.photos/seed/2/100/100');
+    getResultPictureImage().should('have.attr', 'src', '/img/test-image-2.jpeg');
   });
 });
 
