@@ -23,6 +23,24 @@ export const searchEmitters = createStoreEmitters(searchXStoreModule, {
       return !!newValue && !!oldValue;
     }
   },
+  SearchResponseProvided: {
+    selector: (state, getters) => {
+      return {
+        request: getters.request!,
+        status: state.status,
+        banners: state.banners,
+        facets: state.facets,
+        partialResults: state.partialResults,
+        promoteds: state.promoteds,
+        queryTagging: state.queryTagging,
+        redirections: state.redirections,
+        results: state.results,
+        spellcheck: state.spellcheckedQuery,
+        totalResults: state.totalResults
+      };
+    },
+    filter: (newValue, oldValue) => oldValue.status === 'loading'
+  },
   SearchTaggingChanged: {
     selector: state => state.queryTagging,
     filter: ({ url }) => !isStringEmpty(url)
