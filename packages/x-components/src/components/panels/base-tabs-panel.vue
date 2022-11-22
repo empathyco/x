@@ -1,5 +1,5 @@
 <template>
-  <section class="x-tabs-panel" data-test="base-tabs-panel">
+  <section v-if="getTabs().length > 0" class="x-tabs-panel" data-test="base-tabs-panel">
     <component :is="animation" tag="ul" class="x-list" :class="tabsListClass">
       <li v-for="tab in getTabs()" :key="tab">
         <!--
@@ -38,7 +38,7 @@
     </component>
 
     <template v-for="(_, slotName) in $scopedSlots">
-      <div v-if="slotName === selectedTab" :key="slotName">
+      <div v-if="slotName === selectedTab" :key="slotName" :data-test="`${slotName}-panel`">
         <slot :name="slotName" />
       </div>
     </template>
@@ -66,7 +66,7 @@
      * @public
      */
     @Prop({ default: 'ul' })
-    protected animation!: Vue | string;
+    public animation!: Vue | string;
 
     /**
      * The tab to be initially selected.
@@ -74,7 +74,7 @@
      * @public
      */
     @Prop({ default: '' })
-    protected initialTab!: string;
+    public initialTab!: string;
 
     /**
      * The currently selected tab.
