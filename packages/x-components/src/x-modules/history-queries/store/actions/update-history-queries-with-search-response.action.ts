@@ -22,8 +22,7 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
         if (historyQuery.query === searchResponse.request.query) {
           historyQuery.totalResults = searchResponse.totalResults;
         }
-        result.push(historyQuery);
-        return result;
+        return [...result, historyQuery];
       }, []);
       return dispatch('setHistoryQueries', historyQueries);
     }

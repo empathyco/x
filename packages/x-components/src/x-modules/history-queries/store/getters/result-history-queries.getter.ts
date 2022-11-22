@@ -9,12 +9,11 @@ import { HistoryQueriesXStoreModule } from '../types';
  * @param getters - Current {@link https://vuex.vuejs.org/guide/getters.html | getters} of the
  * history queries module.
  *
- * @param _
  * @returns The history queries that have results at the moment they were requested.
  *
  * @public
  */
 export const resultHistoryQueries: HistoryQueriesXStoreModule['getters']['resultHistoryQueries'] = (
-  _,
+  state,
   { historyQueries }
 ) => historyQueries.filter(({ totalResults }) => totalResults !== 0);
