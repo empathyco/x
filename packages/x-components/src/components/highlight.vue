@@ -34,11 +34,21 @@
     components: { NoElement }
   })
   export default class Highlight extends Vue {
+    /**
+     * The text to highlight some part of it.
+     *
+     * @public
+     */
     @Prop({ default: '' })
-    protected text!: string;
+    public text!: string;
 
+    /**
+     * The part of the text to be highlighted.
+     *
+     * @public
+     */
     @Prop({ default: '' })
-    protected highlight!: string;
+    public highlight!: string;
 
     /**
      * Checks if the normalized suggestion query matches with the module's query, so it has a
