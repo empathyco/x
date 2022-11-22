@@ -29,7 +29,7 @@ describe('tests', () => {
     expect(filter.range).toEqual({ min: null, max: 0 });
   });
 
-  it('should map to null the max value even if the max value is 0', () => {
+  it('should map to null the max value even if the min value is 0', () => {
     const filter = mapper(createFilter('0-*'), {});
     expect(filter.range).toEqual({ min: 0, max: null });
   });
