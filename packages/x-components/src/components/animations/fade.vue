@@ -1,5 +1,5 @@
 <template>
-  <transition v-on="$listeners" appear name="x-fade-" v-bind="$attrs">
+  <transition v-on="$listeners" name="x-fade-" v-bind="$attrs" :appear="appear">
     <!-- @slot (Required) to add content to the transition -->
     <slot />
   </transition>
@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
 
   /**
    * Renders a transition wrapping the element passed in the default slot. The animation just fades
@@ -18,7 +18,16 @@
   @Component({
     inheritAttrs: false
   })
-  export default class Fade extends Vue {}
+  export default class Fade extends Vue {
+    /**
+     * Indicates if the transition must be applied on the initial render of the node.
+     */
+    @Prop({
+      type: Boolean,
+      default: true
+    })
+    public appear!: boolean;
+  }
 </script>
 
 <style lang="scss" scoped>
