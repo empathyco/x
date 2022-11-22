@@ -17,7 +17,7 @@ runs:
       shell: bash
     - name: Configure npm auth
       run: |
-        npm config set registry="http://registry.npmjs.org/"
+        npm config set registry="https://registry.npmjs.org/"
         npm config set _authToken=${NPM_TOKEN}
       shell: bash
       env:
