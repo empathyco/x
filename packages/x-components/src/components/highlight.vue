@@ -80,11 +80,14 @@
      * and the ending part. If there is no match between the text and the highlight, it returns
      * `null`.
      *
-     * @returns Either an array containing the different parts ofthe match, or `null` if there is
+     * @returns Either an array containing the different parts of the match, or `null` if there is
      * no match.
      * @internal
      */
     protected get matchParts(): HighlightMatch | null {
+      if (!this.highlight) {
+        return null;
+      }
       const matcherIndex = normalizeString(this.text).indexOf(normalizeString(this.highlight));
       return matcherIndex !== -1
         ? this.splitAt(this.text, matcherIndex, matcherIndex + this.highlight.length)

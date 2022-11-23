@@ -5,20 +5,20 @@
     class="x-history-queries"
     data-test="history-queries"
   >
-    <template #default="props">
+    <template #default="defaultBaseSuggestionsScope">
       <!-- eslint-disable max-len -->
       <!--
         @slot History Query item
             @binding {Object} v-bind - History Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - History Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - History Query suggestion index
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ ...props }">
+      <slot name="suggestion" v-bind="{ ...defaultBaseSuggestionsScope }">
         <HistoryQuery
-          :suggestion="props.suggestion"
+          :suggestion="defaultBaseSuggestionsScope.suggestion"
           data-test="history-query-item"
           class="x-history-queries__item"
         >
-          <template #default="{ queryHTML }">
+          <template #default="defaultHistoryQuerySlotScope">
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query content
@@ -26,16 +26,22 @@
                   @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ ...props, queryHTML }" />
+            <slot
+              name="suggestion-content"
+              v-bind="{ ...defaultBaseSuggestionsScope, ...defaultHistoryQuerySlotScope }"
+            />
           </template>
-          <template #remove-button-content="{ ...props }">
+          <template #remove-button-content="removeHistoryQuerySlotScope">
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query remove button content
                   @binding {Object} v-bind - History Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - History Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - History Query suggestion index
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-remove-content" v-bind="{ ...props }" />
+            <slot
+              name="suggestion-remove-content"
+              v-bind="{ ...defaultBaseSuggestionsScope, ...removeHistoryQuerySlotScope }"
+            />
           </template>
         </HistoryQuery>
       </slot>
@@ -61,6 +67,7 @@
    * @public
    */
   @Component({
+    inheritAttrs: false,
     components: { BaseSuggestions, HistoryQuery },
     mixins: [xComponentMixin(historyQueriesXModule)]
   })

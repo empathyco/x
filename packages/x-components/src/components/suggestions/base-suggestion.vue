@@ -17,7 +17,7 @@
           @binding {Filter} filter - Suggestion's filter
       -->
       <!-- eslint-enable max-len -->
-      <slot v-bind="{ suggestion, start, match, end, hasMatch, filter }">
+      <slot v-bind="{ suggestion, start, match, end, hasMatch, text, filter }">
         <span class="x-suggestion__query x-highlight" :class="dynamicCSSClasses">
           <template v-if="hasMatch">
             <span class="x-highlight__text">{{ start }}</span>
@@ -30,7 +30,7 @@
           </template>
           <template v-else>{{ text }}</template>
         </span>
-        <span v-if="filter" class="x-suggestion__filter">{{ filter.label }}</span>
+        <span v-if="filter" class="x-suggestion__filter">{{ ' ' + filter.label }}</span>
       </slot>
     </button>
   </Highlight>

@@ -85,34 +85,35 @@ describe('testing Query Suggestions component', () => {
 
   it('renders custom content when overriding the suggestion-content slot', () => {
     resetXQuerySuggestionsStateWith(store, { suggestions });
-
-    const suggestionContentSlotOverridden = {
-      template: `
+    const querySuggestions = mount(
+      {
+        template: `
         <QuerySuggestions>
-          <template #suggestion-content="{ suggestion, queryHTML }">
+          <template #suggestion-content="{ suggestion, start, match, end, hasMatch, text }">
             <img
               class="x-query-suggestion__icon"
               data-test="icon"
               src="/query-suggestion-icon.svg"
             />
             <span
-              :aria-label="'Select ' + suggestion.query"
               class="x-query-suggestion__query"
               data-test="query"
-              v-html="queryHTML"
-            />
+            >
+              <template v-if="hasMatch">{{ start }}<strong>{{ match }}</strong>{{ end }}</template>
+              <span v-else>{{ text }}</span>
+            </span>
           </template>
         </QuerySuggestions>
       `,
-      components: {
-        QuerySuggestions
+        components: {
+          QuerySuggestions
+        }
+      },
+      {
+        localVue,
+        store
       }
-    };
-
-    const querySuggestions = mount(suggestionContentSlotOverridden, {
-      localVue,
-      store
-    });
+    );
 
     const suggestionsItemWrappers = findTestDataById(querySuggestions, 'query-suggestion').wrappers;
     expect(suggestionsItemWrappers).toHaveLength(suggestions.length);

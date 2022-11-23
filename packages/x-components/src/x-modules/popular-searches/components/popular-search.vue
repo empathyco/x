@@ -6,12 +6,12 @@
     data-test="popular-search"
     feature="popular_search"
   >
-    <template #default="{ suggestion }">
+    <template #default="defaultSlotScope">
       <!--
         @slot Popular Search's content
             @binding {Suggestion} suggestion - Popular Search suggestion data
       -->
-      <slot :suggestion="suggestion">{{ suggestion.query }}</slot>
+      <slot v-bind="defaultSlotScope">{{ suggestion.query }}</slot>
     </template>
   </BaseSuggestion>
 </template>
