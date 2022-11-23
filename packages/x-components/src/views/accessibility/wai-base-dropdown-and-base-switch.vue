@@ -34,10 +34,10 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   // eslint-disable-next-line max-len
-  import BaseColumnPickerDropdown from '../components/column-picker/base-column-picker-dropdown.vue';
-  import SortDropdown from '../x-modules/search/components/sort-dropdown.vue';
+  import BaseColumnPickerDropdown from '../../components/column-picker/base-column-picker-dropdown.vue';
+  import SortDropdown from '../../x-modules/search/components/sort-dropdown.vue';
   // eslint-disable-next-line max-len
-  import HistoryQueriesSwitch from '../x-modules/history-queries/components/history-queries-switch.vue';
+  import HistoryQueriesSwitch from '../../x-modules/history-queries/components/history-queries-switch.vue';
 
   @Component({
     components: {

@@ -1,10 +1,10 @@
 <template>
   <staggering-transition-group
     v-on="$listeners"
-    appear
     class="x-staggered-fade-and-slide"
     :name="name"
     v-bind="$attrs"
+    :appear="appear"
   >
     <!-- @slot (Required) Transition-group content -->
     <slot />
@@ -13,7 +13,7 @@
 
 <script lang="ts">
   import { mixins } from 'vue-class-component';
-  import { Component } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import StaggeringTransitionGroup from '../animations/staggering-transition-group.vue';
   import DisableAnimationMixin from './disable-animation.mixin';
 
@@ -28,6 +28,14 @@
     inheritAttrs: false
   })
   export default class StaggeredFadeAndSlide extends mixins(DisableAnimationMixin) {
+    /**
+     * Indicates if the transition must be applied on the initial render of the node.
+     */
+    @Prop({
+      type: Boolean,
+      default: true
+    })
+    public appear!: boolean;
     /**
      * The name of the animation.
      *

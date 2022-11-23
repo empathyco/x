@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "3.0.0-alpha.228",
+  "version": "3.0.0-alpha.229",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -84,7 +84,7 @@
   "devDependencies": {
     "@cypress/vue": "~2.2.4",
     "@cypress/webpack-dev-server": "~1.8.4",
-    "@empathyco/x-adapter-platform": "^1.0.0-alpha.43",
+    "@empathyco/x-adapter-platform": "^1.0.0-alpha.44",
     "@empathyco/x-tailwindcss": "^0.2.0-alpha.29",
     "@microsoft/api-documenter": "~7.15.3",
     "@microsoft/api-extractor": "~7.19.4",

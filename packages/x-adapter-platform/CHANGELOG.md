@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.43...@empathyco/x-adapter-platform@1.0.0-alpha.44) (2022-11-22)
+
+### Bug Fixes
+
+- number filter schema to map the right values (#861)
+  ([3b52554](https://github.com/empathyco/x/commit/3b5255420f5c081640bf23ef34063d014f70c34c))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.42...@empathyco/x-adapter-platform@1.0.0-alpha.43) (2022-11-09)
 
 ### Features
