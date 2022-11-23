@@ -94,3 +94,18 @@ Feature: History queries component
       | false             | 150          | 4               | 6                | true    | 1                | puzzle, funko, lego, coche, barbie, casa, muñeca, peluche |
       | false             | 150          | 6               | 8                | true    | 2                | puzzle, funko, lego, coche                                |
       | false             | 150          | 8               | 4                | true    | 3                | puzzle, funko, lego, coche, barbie, casa                  |
+
+  Scenario Outline: 7. Rendered history queries list is empty if no results are provided
+    Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
+    And   a results API with no results
+    And   start button is clicked
+    And   no history queries are displayed
+    When  "<query>" is searched
+    Then  the searched query is displayed in the search-box
+    When  clear search button is pressed
+    Then  no history queries are displayed
+    And   clear history queries button is enabled
+
+    Examples:
+      | hideIfEqualsQuery | debounceInMs | maxItemsToStore | maxItemsToRender | instant | query   |
+      | false             | 150          | 15              | 5                | true    | puzzle  |
