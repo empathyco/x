@@ -39,7 +39,8 @@ export const searchEmitters = createStoreEmitters(searchXStoreModule, {
         totalResults: state.totalResults
       };
     },
-    filter: (newValue, oldValue) => oldValue.status === 'loading'
+    filter: (newValue, oldValue) =>
+      oldValue.status === 'loading' && newValue.status !== oldValue.status
   },
   SearchTaggingChanged: {
     selector: state => state.queryTagging,
