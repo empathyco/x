@@ -1,4 +1,3 @@
-import { HistoryQuery } from '@empathyco/x-types';
 import { HistoryQueriesXStoreModule } from '../types';
 
 /**
@@ -18,12 +17,21 @@ import { HistoryQueriesXStoreModule } from '../types';
 export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule['actions']['updateHistoryQueriesWithSearchResponse'] =
   ({ state, dispatch }, searchResponse) => {
     if (searchResponse.status === 'success') {
-      const historyQueries = state.historyQueries.reduce((result: HistoryQuery[], historyQuery) => {
+      let historyQueriesHaveChanged = false;
+      const newHistoryQueries = state.historyQueries.map(historyQuery => {
         if (historyQuery.query === searchResponse.request.query) {
-          historyQuery.totalResults = searchResponse.totalResults;
+          historyQuery = {
+            ...historyQuery,
+            facets: searchResponse.facets,
+            results: searchResponse.results,
+            totalResults: searchResponse.totalResults
+          };
+          historyQueriesHaveChanged = true;
         }
-        return [...result, historyQuery];
-      }, []);
-      return dispatch('setHistoryQueries', historyQueries);
+        return historyQuery;
+      });
+      if (historyQueriesHaveChanged) {
+        return dispatch('setHistoryQueries', newHistoryQueries);
+      }
     }
   };

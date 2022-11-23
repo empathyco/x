@@ -9,6 +9,4 @@ import { Previewable } from './previewable.model';
 export interface HistoryQuery extends Previewable, NamedModel<'HistoryQuery'> {
   /** Timestamp when the history query was created. */
   timestamp: number;
-  /** Number of results for the query at the moment it was requested. */
-  totalResults?: number;
 }

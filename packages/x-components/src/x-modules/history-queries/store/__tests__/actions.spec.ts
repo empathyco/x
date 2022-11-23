@@ -271,8 +271,11 @@ describe('testing history queries module actions', () => {
   });
 
   describe('updateHistoryQueriesWithSearchResponse', () => {
-    const results: Result[] = [],
-      totalResults = 50;
+    const results: Result[] = [
+      { modelName: 'Result', id: '1' },
+      { modelName: 'Result', id: '2' }
+    ];
+    const totalResults = results.length;
     let gato: HistoryQuery, perro: HistoryQuery;
     beforeEach(() => {
       [gato, perro] = createHistoryQueries('gato', 'perro');
@@ -289,7 +292,7 @@ describe('testing history queries module actions', () => {
         results,
         totalResults
       });
-      expectHistoryQueriesToEqual([{ ...gato, totalResults }, perro]);
+      expectHistoryQueriesToEqual([{ ...gato, results, totalResults }, perro]);
     });
 
     it('does not update a history query if its response is an error', async () => {
