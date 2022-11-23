@@ -1,6 +1,12 @@
 <template>
   <section v-if="getTabs().length > 0" class="x-tabs-panel" data-test="base-tabs-panel">
-    <component :is="animation" tag="ul" class="x-list" :class="tabsListClass">
+    <component
+      :is="animation"
+      tag="ul"
+      class="x-list"
+      :class="tabsListClass"
+      data-test="base-tabs-panel-list"
+    >
       <li v-for="tab in getTabs()" :key="tab">
         <!--
           @slot Slot that is be used for replacing the whole tab.
@@ -16,20 +22,16 @@
             :key="tab"
             @click="selectTab(tab)"
             class="x-button x-tabs-panel__button"
-            :class="tabIsSelected(tab) ? `${tabClass} ${activeTabClass}` : tabClass"
+            :class="tabIsSelected(tab) ? activeTabClass : tabClass"
             :aria-pressed="tabIsSelected(tab)"
-            data-test="tabs-panel-button"
+            data-test="base-tabs-panel-button"
           >
             <!--
               @slot Slot used to just pass the content.
                 @binding {tab} string - The tab name.
                 @binding {isSelected} boolean - Indicates if the tab is selected.
-                @binding {selectTab} {() => void} selectTab - Function to select the tab.
             -->
-            <slot
-              name="tab-content"
-              v-bind="{ tab, isSelected: tabIsSelected(tab), selectTab: () => selectTab(tab) }"
-            >
+            <slot name="tab-content" v-bind="{ tab, isSelected: tabIsSelected(tab) }">
               {{ tab }}
             </slot>
           </button>
@@ -38,7 +40,12 @@
     </component>
 
     <template v-for="(_, slotName) in $scopedSlots">
-      <div v-if="slotName === selectedTab" :key="slotName" :data-test="`${slotName}-panel`">
+      <div
+        v-if="slotName === selectedTab"
+        :key="slotName"
+        :class="panelClass"
+        :data-test="`base-tabs-panel-${slotName}`"
+      >
         <slot :name="slotName" />
       </div>
     </template>
@@ -58,7 +65,7 @@
    */
   @Component
   export default class BaseTabsPanel extends mixins(
-    dynamicPropsMixin(['activeTabClass', 'tabClass', 'tabsListClass'])
+    dynamicPropsMixin(['activeTabClass', 'panelClass', 'tabClass', 'tabsListClass'])
   ) {
     /**
      * Animation component that will be used to animate the tabs list.

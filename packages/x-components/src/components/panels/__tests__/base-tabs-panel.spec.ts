@@ -4,8 +4,8 @@ import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseTabsPanel from '../base-tabs-panel.vue';
 
 /**
- * Function that returns a BaseTabsPanel wrapper. The animation prop is not gonna be tested
- * because is part of Vue 'component'.
+ * Function that returns a BaseTabsPanel wrapper. The animation prop is not
+ * tested because it is part of Vue 'component'.
  *
  * @param params - Wrapper options.
  *
@@ -14,24 +14,28 @@ import BaseTabsPanel from '../base-tabs-panel.vue';
 function renderBaseTabsPanel({
   scopedSlots,
   initialTab = '',
-  activeTabClass
+  activeTabClass,
+  panelClass,
+  tabClass,
+  tabsListClass
 }: RenderBaseTabsPanelOptions = {}): RenderBaseTabsPanelAPI {
   const localVue = createLocalVue();
 
   const wrapper = mount(BaseTabsPanel, {
     localVue,
-    propsData: { activeTabClass, initialTab },
+    propsData: { initialTab, activeTabClass, panelClass, tabClass, tabsListClass },
     scopedSlots
   });
 
   return {
     wrapper,
     clickNthTab: (nth: number) => {
-      wrapper.findAll(getDataTestSelector('tabs-panel-button')).at(nth).trigger('click');
+      wrapper.findAll(getDataTestSelector('base-tabs-panel-button')).at(nth).trigger('click');
       return localVue.nextTick();
     },
     getBaseTabsPanel: () => wrapper.find(getDataTestSelector('base-tabs-panel')),
-    getTabs: () => wrapper.findAll(getDataTestSelector('tabs-panel-button'))
+    getTabPanel: tab => wrapper.find(getDataTestSelector(`base-tabs-panel-${tab}`)),
+    getTabs: () => wrapper.findAll(getDataTestSelector('base-tabs-panel-button'))
   };
 }
 
@@ -58,7 +62,7 @@ describe('testing BaseTabsPanel', () => {
   });
 
   it('renders the tab indicated by `initialTab`', () => {
-    const { wrapper, getTabs } = renderBaseTabsPanel({
+    const { getTabPanel, getTabs } = renderBaseTabsPanel({
       scopedSlots: {
         summer: '<div>Top Summer sales</div>',
         fall: '<div>Top Fall sales</div>',
@@ -68,14 +72,14 @@ describe('testing BaseTabsPanel', () => {
     });
 
     expect(getTabs()).toHaveLength(3);
-    expect(wrapper.find(getDataTestSelector('summer-panel')).exists()).toBe(false);
-    expect(wrapper.find(getDataTestSelector('fall-panel')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('outlet-panel')).exists()).toBe(false);
-    expect(wrapper.find(getDataTestSelector('fall-panel')).text()).toBe('Top Fall sales');
+    expect(getTabPanel('summer').exists()).toBe(false);
+    expect(getTabPanel('fall').exists()).toBe(true);
+    expect(getTabPanel('outlet').exists()).toBe(false);
+    expect(getTabPanel('fall').text()).toBe('Top Fall sales');
   });
 
   it('renders the default `tab` slot', () => {
-    const { wrapper, getTabs } = renderBaseTabsPanel({
+    const { getTabPanel, getTabs } = renderBaseTabsPanel({
       scopedSlots: {
         summer: '<div>Top Summer sales</div>'
       },
@@ -84,35 +88,49 @@ describe('testing BaseTabsPanel', () => {
 
     expect(getTabs()).toHaveLength(1);
     expect(getTabs().at(0).text()).toBe('summer');
-    expect(wrapper.find(getDataTestSelector('summer-panel')).text()).toBe('Top Summer sales');
+    expect(getTabPanel('summer').text()).toBe('Top Summer sales');
   });
 
-  it('renders a custom `tab` slot properly', () => {
-    const { getTabs } = renderBaseTabsPanel({
+  it('renders a custom `tab` slot properly', async () => {
+    const { clickNthTab, getTabs } = renderBaseTabsPanel({
       scopedSlots: {
-        tab: '<button data-test="tabs-panel-button">{{ props.tab }} tab</button>',
+        tab: `<template v-slot="{ tab, isSelected, selectTab }">
+            <button data-test="base-tabs-panel-button" @click="selectTab">
+              custom {{ tab }} tab <span v-if="isSelected">✅</span>
+            </button>
+          </template>`,
         summer: '<div>Summer top sales</div>'
       }
     });
 
     expect(getTabs()).toHaveLength(1);
-    expect(getTabs().at(0).text()).toBe('summer tab');
+    expect(getTabs().at(0).text()).toBe('custom summer tab');
+
+    // Select first tab
+    await clickNthTab(0);
+    expect(getTabs().at(0).text()).toBe('custom summer tab ✅');
   });
 
-  it('renders a custom `tab-content` slot properly', () => {
-    const { getTabs } = renderBaseTabsPanel({
+  it('renders a custom `tab-content` slot properly', async () => {
+    const { clickNthTab, getTabs } = renderBaseTabsPanel({
       scopedSlots: {
-        'tab-content': '<template v-slot="{ tab, isSelected }">custom {{ tab }} tab</template>',
+        'tab-content': `<template v-slot="{ tab, isSelected }">
+            custom {{ tab }} tab content <span v-if="isSelected">✅</span>
+          </template>`,
         summer: '<div>Top Summer sales</div>'
       }
     });
 
     expect(getTabs()).toHaveLength(1);
-    expect(getTabs().at(0).text()).toBe('custom summer tab');
+    expect(getTabs().at(0).text()).toBe('custom summer tab content');
+
+    // Select first tab
+    await clickNthTab(0);
+    expect(getTabs().at(0).text()).toBe('custom summer tab content ✅');
   });
 
   it('renders as many tabs as included in template', () => {
-    const { wrapper, getTabs } = renderBaseTabsPanel({
+    const { getTabPanel, getTabs } = renderBaseTabsPanel({
       scopedSlots: {
         summer: '<div>Top Summer sales</div>',
         fall: '<div>Top Fall sales</div>',
@@ -122,43 +140,70 @@ describe('testing BaseTabsPanel', () => {
     });
 
     expect(getTabs()).toHaveLength(3);
-    expect(wrapper.find(getDataTestSelector('summer-panel')).text()).toBe('Top Summer sales');
-    expect(wrapper.find(getDataTestSelector('fall-panel')).exists()).toBe(false);
-    expect(wrapper.find(getDataTestSelector('outlet-panel')).exists()).toBe(false);
+    expect(getTabPanel('summer').text()).toBe('Top Summer sales');
+    expect(getTabPanel('fall').exists()).toBe(false);
+    expect(getTabPanel('outlet').exists()).toBe(false);
   });
 
   it('changes the selected tab on click', async () => {
-    const { wrapper, clickNthTab, getTabs } = renderBaseTabsPanel({
+    const { clickNthTab, getTabPanel, getTabs } = renderBaseTabsPanel({
       scopedSlots: {
         summer: '<div>Top Summer sales</div>',
         fall: '<div>Top Fall sales</div>',
         outlet: '<div>Top Outlet sales</div>'
       },
-      activeTabClass: 'selectedTab',
+      activeTabClass: 'selected-tab',
       initialTab: 'summer'
     });
 
     // First tab is selected initially
-    expect(getTabs().at(0).element).toHaveClass('selectedTab');
+    expect(getTabs().at(0).element).toHaveClass('selected-tab');
 
     // Select third tab
     await clickNthTab(2);
-    expect(getTabs().at(2).element).toHaveClass('selectedTab');
+    expect(getTabs().at(2).element).toHaveClass('selected-tab');
 
     // The third panel is the rendered one
-    expect(wrapper.find(getDataTestSelector('summer-panel')).exists()).toBe(false);
-    expect(wrapper.find(getDataTestSelector('fall-panel')).exists()).toBe(false);
-    expect(wrapper.find(getDataTestSelector('outlet-panel')).text()).toBe('Top Outlet sales');
+    expect(getTabPanel('summer').exists()).toBe(false);
+    expect(getTabPanel('fall').exists()).toBe(false);
+    expect(getTabPanel('outlet').text()).toBe('Top Outlet sales');
+  });
+
+  it('allows adding CSS classes to the tabs and panel', () => {
+    const { wrapper, getTabPanel, getTabs } = renderBaseTabsPanel({
+      scopedSlots: {
+        summer: '<div>Top Summer sales</div>',
+        fall: '<div>Top Fall sales</div>'
+      },
+      initialTab: 'summer',
+      activeTabClass: 'selected-tab',
+      panelClass: 'tab-panel',
+      tabClass: 'tab-button',
+      tabsListClass: 'tabs-list'
+    });
+
+    expect(getTabs().at(0).element).toHaveClass('selected-tab');
+    expect(getTabs().at(1).element).toHaveClass('tab-button');
+    expect(getTabPanel('summer').element).toHaveClass('tab-panel');
+    expect(wrapper.find(getDataTestSelector('base-tabs-panel-list')).element).toHaveClass(
+      'tabs-list'
+    );
   });
 });
 
 interface RenderBaseTabsPanelOptions {
   /** Scoped slots to be passed to the mount function. */
   scopedSlots?: Record<string, string>;
-  /** Classes to add to the active tab button. */
-  activeTabClass?: string;
   /** The tab to be initially selected. */
   initialTab?: string;
+  /** Classes to add to the active tab button. */
+  activeTabClass?: string;
+  /** Classes to add to the panel. */
+  panelClass?: string;
+  /** Classes to add to the tab buttons. */
+  tabClass?: string;
+  /** Classes to add to the tabs list. */
+  tabsListClass?: string;
 }
 
 interface RenderBaseTabsPanelAPI {
@@ -168,6 +213,8 @@ interface RenderBaseTabsPanelAPI {
   clickNthTab: (nth: number) => Promise<void>;
   /** Returns the BaseTabsPanel. */
   getBaseTabsPanel: () => Wrapper<Vue>;
+  /** Returns the panel for the passed tab. */
+  getTabPanel: (tab: string) => Wrapper<Vue>;
   /** Returns the tabs buttons. */
   getTabs: () => WrapperArray<Vue>;
 }
