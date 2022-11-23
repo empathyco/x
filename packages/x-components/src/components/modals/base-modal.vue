@@ -31,6 +31,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
+  import { getTargetElement } from '../../utils/index';
   import Fade from '../animations/fade.vue';
   import { NoElement } from '../no-element';
   import { FOCUSABLE_SELECTORS } from '../../utils/focus';
@@ -237,7 +238,7 @@
      * @internal
      */
     protected emitFocusInBody(event: FocusEvent): void {
-      if (!this.$refs.modalContent.contains(event.target as HTMLElement)) {
+      if (!this.$refs.modalContent.contains(getTargetElement(event))) {
         this.$emit('focusin:body', event);
       }
     }

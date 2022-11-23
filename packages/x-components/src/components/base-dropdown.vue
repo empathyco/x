@@ -78,6 +78,7 @@
   import { Identifiable } from '@empathyco/x-types';
   import { Component, Prop, Watch } from 'vue-property-decorator';
   import Vue from 'vue';
+  import { getTargetElement } from '../utils/index';
   import { normalizeString } from '../utils/normalize';
   import { isInRange } from '../utils/number';
   import { debounce } from '../utils/debounce';
@@ -461,7 +462,7 @@
      * @param event - The event to check if it has happen out of the dropdown component.
      */
     protected closeIfEventIsOutOfDropdown(event: MouseEvent | TouchEvent | FocusEvent): void {
-      if (!this.$el.contains(event.target as HTMLElement)) {
+      if (!this.$el.contains(getTargetElement(event))) {
         this.close();
       }
     }
