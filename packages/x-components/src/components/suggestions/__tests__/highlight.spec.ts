@@ -5,7 +5,10 @@ import { getDataTestSelector } from '../../../__tests__/utils';
 function renderHighlight({
   template = '<Highlight v-bind="$attrs"/>',
   text,
-  highlight
+  highlight,
+  noMatchClass,
+  matchingPartClass,
+  matchClass
 }: RenderHighlightOptions): RenderHighlightAPI {
   const wrapper = mount(
     {
@@ -18,14 +21,24 @@ function renderHighlight({
     {
       propsData: {
         text,
-        highlight
+        highlight,
+        noMatchClass,
+        matchingPartClass,
+        matchClass
       }
     }
   );
-  const matchingPart = wrapper.find(getDataTestSelector('matching-part'));
   return {
     wrapper,
-    matchingPart,
+    getStartPart() {
+      return wrapper.find(getDataTestSelector('highlight-start'));
+    },
+    getMatchingPart() {
+      return wrapper.find(getDataTestSelector('matching-part'));
+    },
+    getEndPart() {
+      return wrapper.find(getDataTestSelector('highlight-end'));
+    },
     async setHighlight(highlight) {
       return await wrapper.setProps({ highlight });
     }
@@ -34,28 +47,69 @@ function renderHighlight({
 
 describe('testing Highlight component', () => {
   it('highlights the rendered text when the match happens at the beginning', () => {
-    const { matchingPart, wrapper } = renderHighlight({ text: 'Ibérico', highlight: 'ibe' });
-    expect(matchingPart.text()).toEqual('Ibé');
+    const { getStartPart, getMatchingPart, getEndPart, wrapper } = renderHighlight({
+      text: 'Ibérico',
+      highlight: 'ibe'
+    });
     expect(wrapper.text()).toEqual('Ibérico');
+    expect(getStartPart().exists()).toBe(false);
+    expect(getMatchingPart().text()).toEqual('Ibé');
+    expect(getEndPart().text()).toBe('rico');
   });
+
   it('highlights the rendered text when the match happens at the middle', () => {
-    const { matchingPart, wrapper } = renderHighlight({ text: 'Picaña', highlight: 'can' });
-    expect(matchingPart.text()).toEqual('cañ');
+    const { getStartPart, getMatchingPart, getEndPart, wrapper } = renderHighlight({
+      text: 'Picaña',
+      highlight: 'can'
+    });
     expect(wrapper.text()).toEqual('Picaña');
+    expect(getStartPart().text()).toBe('Pi');
+    expect(getMatchingPart().text()).toEqual('cañ');
+    expect(getEndPart().text()).toBe('a');
   });
+
   it('highlights the rendered text when the match happens at the end', () => {
-    const { matchingPart, wrapper } = renderHighlight({
+    const { getStartPart, getMatchingPart, getEndPart, wrapper } = renderHighlight({
       text: 'Jamón Ibérico',
       highlight: 'iberico'
     });
-    expect(matchingPart.text()).toEqual('Ibérico');
     expect(wrapper.text()).toEqual('Jamón Ibérico');
+    expect(getStartPart().text()).toBe('Jamón');
+    expect(getMatchingPart().text()).toEqual('Ibérico');
+    expect(getEndPart().exists()).toBe(false);
   });
+
   it('renders the given text if no match', () => {
-    const { matchingPart, wrapper } = renderHighlight({ text: 'vacío', highlight: 'chorizo' });
-    expect(matchingPart.exists()).toBe(false);
+    const { getStartPart, getMatchingPart, getEndPart, wrapper } = renderHighlight({
+      text: 'vacío',
+      highlight: 'chorizo'
+    });
     expect(wrapper.text()).toEqual('vacío');
+    expect(getStartPart().text()).toBe('vacío');
+    expect(getMatchingPart().exists()).toBe(false);
+    expect(getEndPart().exists()).toBe(false);
   });
+
+  it('allows to add classes when the text matches', () => {
+    const { getMatchingPart, wrapper } = renderHighlight({
+      text: 'salchichón',
+      highlight: 'sal',
+      matchClass: 'custom-match-class',
+      matchingPartClass: 'custom-matching-part-class'
+    });
+    expect(wrapper.classes('custom-match-class')).toBe(true);
+    expect(getMatchingPart().classes('custom-matching-part-class')).toBe(true);
+  });
+
+  it('allows to add classes when the text does not match', () => {
+    const { wrapper } = renderHighlight({
+      text: 'salchichón',
+      highlight: 'soy',
+      noMatchClass: 'custom-no-match-class'
+    });
+    expect(wrapper.classes('custom-no-match-class')).toBe(true);
+  });
+
   it('allows customising the HTML', async () => {
     const { wrapper, setHighlight } = renderHighlight({
       template: `
@@ -86,13 +140,23 @@ interface RenderHighlightOptions {
   text: string;
   /** The part of the text to highlight. */
   highlight: string;
+  /** Class to add to the root node when the given text doesn't contain the part to highlight. */
+  noMatchClass?: string;
+  /** Class to add to the node wrapping the matching text. */
+  matchingPartClass?: string;
+  /** Class to add to the root node when the given text contains the part to highlight. */
+  matchClass?: string;
 }
 
 interface RenderHighlightAPI {
   /** Testing wrapper component. */
   wrapper: Wrapper<Vue>;
+  /** Only the start node wrapper. */
+  getStartPart: () => Wrapper<Vue>;
   /** Only the matching node wrapper. */
-  matchingPart: Wrapper<Vue>;
-  /** Sets the part of the text to highlight */
+  getMatchingPart: () => Wrapper<Vue>;
+  /** Only the end node wrapper. */
+  getEndPart: () => Wrapper<Vue>;
+  /** Sets the part of the text to highlight. */
   setHighlight: (highlight: string) => Promise<void>;
 }

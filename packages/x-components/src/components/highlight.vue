@@ -2,14 +2,25 @@
   <NoElement>
     <slot v-bind="{ text, hasMatch, ...matchParts }">
       <span class="x-highlight" :class="dynamicCSSClasses">
-        <span v-text="matchParts.start" class="x-highlight__text" />
+        <span
+          v-if="matchParts.start"
+          v-text="matchParts.start"
+          class="x-highlight__text"
+          data-test="highlight-start"
+        />
         <span
           v-if="hasMatch"
           v-text="matchParts.match"
-          class="x-highlight__text x-highlight-match"
+          class="x-highlight__text x-highlight-text-match"
+          :class="matchingPartClass"
           data-test="matching-part"
         />
-        <span v-if="hasMatch" v-text="matchParts.end" class="x-highlight__text" />
+        <span
+          v-if="matchParts.end"
+          v-text="matchParts.end"
+          class="x-highlight__text"
+          data-test="highlight-end"
+        />
       </span>
     </slot>
   </NoElement>
@@ -31,7 +42,9 @@
   @Component({
     components: { NoElement }
   })
-  export default class Highlight extends Mixins(dynamicPropsMixin(['noMatchClass'])) {
+  export default class Highlight extends Mixins(
+    dynamicPropsMixin(['noMatchClass', 'matchingPartClass'])
+  ) {
     /**
      * The text to highlight some part of it.
      *
@@ -76,7 +89,6 @@
     protected get dynamicCSSClasses(): VueCSSClasses {
       const classes: VueCSSClasses = {
         'x-highlight--has-match': this.hasMatch,
-        'x-highlight-text': this.hasMatch,
         [this.matchClass]: this.hasMatch
       };
       if (this.noMatchClass) {
