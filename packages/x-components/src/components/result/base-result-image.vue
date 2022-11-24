@@ -1,31 +1,17 @@
 <template>
   <!-- This is a div because using a picture causes the onload event of the image to fire twice. -->
-  <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
-  <div
-    @mouseenter.once="userHasHoveredImage = true"
-    @mouseenter="isHovering = true"
-    @mouseleave="isHovering = false"
-    class="x-picture x-result-picture"
-    data-test="result-picture"
-  >
-    <img
-      v-if="shouldLoadNextImage"
-      @load="flagImageLoaded"
-      @error="flagImageAsFailed"
-      loading="lazy"
-      :src="images[0]"
-      :style="loaderStyles"
-      data-test="result-picture-loader"
-      alt=""
-      role="presentation"
+  <div data-test="result-picture" class="x-picture x-result-picture">
+    <BaseResultImageLoader
+      v-if="!injectedLoadedImages"
+      @loadedImage="addLoadedImage"
+      :result="result"
     />
-    <component :is="imageAnimation" class="x-picture__image" :appear="false">
+    <component :is="animation" :appear="false">
       <!-- @slot Fallback image content. It will be rendered when all the images failed -->
-      <slot v-if="!loadedImages.length && !images.length" name="fallback" />
+      <!--      <slot v-if="!loadedImages.length" name="fallback" />-->
 
       <!-- @slot Loading image content. It will be rendered while the real image is not loaded -->
-      <slot v-else-if="!loadedImages.length" name="placeholder" />
-
+      <slot v-if="!images.length" name="placeholder" />
       <img
         v-else
         :key="imageSrc"
@@ -43,6 +29,8 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { NoElement } from '../no-element';
+  import { XInject } from '../decorators/injection.decorators';
+  import BaseResultImageLoader from './base-result-image-loader.vue';
 
   /**
    * Component to be reused that renders an `<img>`.
@@ -51,6 +39,7 @@
    */
   @Component({
     components: {
+      BaseResultImageLoader,
       NoElement
     }
   })
@@ -60,8 +49,11 @@
      *
      * @public
      */
-    @Prop({ required: true })
+    @Prop()
     protected result!: Result;
+
+    @XInject('loadedImages')
+    public injectedLoadedImages!: string[];
     /**
      * Animation to use when switching between the placeholder, the loaded image, or the failed
      * image fallback.
@@ -72,75 +64,9 @@
     public animation!: string | typeof Vue;
 
     /**
-     * Indicates if the next valid image should be displayed on hover.
-     *
-     * @public
-     */
-    @Prop({ type: Boolean, default: false })
-    public showNextImageOnHover!: boolean;
-
-    /**
-     * Animation to use when switching between the loaded image and the hover image.
-     *
-     * @public
-     */
-    @Prop({ default: () => NoElement })
-    public hoverAnimation!: string | typeof Vue;
-
-    /**
      * Contains the images that have been loaded successfully.
      */
     public loadedImages: string[] = [];
-
-    /**
-     * Copy of the images of the result.
-     *
-     * It is used as a queue of images to load, once an image loads/fails to load, it is removed
-     * from this array.
-     *
-     * @internal
-     */
-    protected images: string[] = this.result.images ?? [];
-
-    /**
-     * Indicates if the user is hovering the image.
-     *
-     * @internal
-     */
-    protected isHovering = false;
-
-    /**
-     * Indicates if the user has hovered the image.
-     *
-     * @internal
-     */
-    protected userHasHoveredImage = false;
-
-    /**.
-     * Styles to use inline in the image loader, to prevent override from CSS
-     *
-     * @internal
-     */
-    protected loaderStyles: Partial<CSSStyleDeclaration> = {
-      position: 'absolute !important',
-      top: '0 !important',
-      left: '0 !important',
-      width: '100% !important',
-      height: '100% !important',
-      pointerEvents: 'none !important',
-      visibility: 'hidden !important'
-    };
-
-    /**
-     * Animation to be used.
-     *
-     * @returns The animation to be used, taking into account if the user has hovered the image.
-     *
-     * @internal
-     */
-    protected get imageAnimation(): string | typeof Vue {
-      return !this.userHasHoveredImage ? this.animation : this.hoverAnimation;
-    }
 
     /**
      * Gets the src from the result image.
@@ -150,42 +76,15 @@
      * @internal
      */
     protected get imageSrc(): string {
-      return this.loadedImages[
-        !this.showNextImageOnHover || !this.isHovering ? 0 : this.loadedImages.length - 1
-      ];
+      return this.images[0];
     }
 
-    /**
-     * Indicates if the loader should try to load the next image.
-     *
-     * @returns True if it should try to load the next image.
-     *
-     * @internal
-     */
-    protected get shouldLoadNextImage(): boolean {
-      const nextImgIndex = this.showNextImageOnHover && this.userHasHoveredImage ? 2 : 1;
-      return !!this.images.length && this.loadedImages.length < nextImgIndex;
+    protected get images(): string[] {
+      return this.injectedLoadedImages ?? this.loadedImages;
     }
 
-    /**
-     * Sets an image as failed.
-     *
-     * @internal
-     */
-    protected flagImageAsFailed(): void {
-      this.images.shift();
-    }
-
-    /**
-     * Sets an image as loaded.
-     *
-     * @internal
-     */
-    protected flagImageLoaded(): void {
-      const image = this.images.shift();
-      if (image) {
-        this.loadedImages.push(image);
-      }
+    protected addLoadedImage(src: string): void {
+      this.loadedImages.push(src);
     }
   }
 </script>
