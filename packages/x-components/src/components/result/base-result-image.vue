@@ -1,6 +1,5 @@
 <template>
   <!-- This is a div because using a picture causes the onload event of the image to fire twice. -->
-  <!-- Disabling this warning because adding the focus event here is not needed. -->
   <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
   <div
     @mouseenter.once="userHasHoveredImage = true"
@@ -77,7 +76,7 @@
      *
      * @public
      */
-    @Prop({ type: Boolean, default: () => false })
+    @Prop({ type: Boolean, default: false })
     public showNextImageOnHover!: boolean;
 
     /**
@@ -164,10 +163,8 @@
      * @internal
      */
     protected get shouldLoadNextImage(): boolean {
-      return !!(
-        this.images.length &&
-        this.loadedImages.length < (this.showNextImageOnHover && this.userHasHoveredImage ? 2 : 1)
-      );
+      const nextImgIndex = this.showNextImageOnHover && this.userHasHoveredImage ? 2 : 1;
+      return !!this.images.length && this.loadedImages.length < nextImgIndex;
     }
 
     /**
