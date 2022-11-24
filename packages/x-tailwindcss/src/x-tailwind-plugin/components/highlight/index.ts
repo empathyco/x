@@ -1,7 +1,5 @@
-import { rename } from '@empathyco/x-utils';
 import { TailwindHelpers } from '../../../types';
 import { highlightDefault } from './default';
-import { highlightInverted } from './inverted';
 
 /**
  * Returns the `highlight` component CSS. The highlight component serves to emphasise certain part
@@ -16,13 +14,7 @@ import { highlightInverted } from './inverted';
 export function highlight(helpers: TailwindHelpers) {
   return {
     '.highlight-text': {
-      ...highlightDefault(helpers),
-      ...rename(
-        {
-          ...highlightInverted(helpers)
-        },
-        { prefix: '&-' }
-      )
+      ...highlightDefault(helpers)
     }
   };
 }
