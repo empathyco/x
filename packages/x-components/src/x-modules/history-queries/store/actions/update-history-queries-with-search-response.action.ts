@@ -3,6 +3,7 @@ import { HistoryQueriesXStoreModule } from '../types';
 /**
  * Default implementation for the
  * {@link HistoryQueriesActions.updateHistoryQueriesWithSearchResponse} action.
+ *
  * The matching history query will only be updated on the following scenarios:
  * 1. If it is part of a previous session, not the current one.
  * 2. If tts total results count has not been registered yet.
