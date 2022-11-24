@@ -18,7 +18,8 @@ Given(
         config: {
           hideIfEqualsQuery,
           debounceInMs,
-          maxItemsToStore
+          maxItemsToStore,
+          sessionTTLInMs: 30 * 60 * 1000
         }
       }
     };
