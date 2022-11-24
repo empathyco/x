@@ -12,14 +12,13 @@
           @slot Slot that is be used for replacing the whole tab.
             @binding {tab} string - The tab name.
             @binding {isSelected} boolean - Indicates if the tab is selected.
-            @binding {selectTab} {() => void} selectTab - Function to select the tab.
+            @binding {select} function - Function to select the tab.
          -->
         <slot
           name="tab"
           v-bind="{ tab, isSelected: tabIsSelected(tab), select: () => selectTab(tab) }"
         >
           <button
-            :key="tab"
             @click="selectTab(tab)"
             class="x-button x-tabs-panel__button"
             :class="tabIsSelected(tab) ? activeTabClass : tabClass"
@@ -63,7 +62,7 @@
    */
   @Component
   export default class BaseTabsPanel extends mixins(
-    dynamicPropsMixin(['activeTabClass', 'panelClass', 'tabClass', 'tabsListClass'])
+    dynamicPropsMixin(['activeTabClass', 'contentClass', 'tabClass', 'tabsListClass'])
   ) {
     /**
      * Animation component that will be used to animate the tabs list.
@@ -96,7 +95,9 @@
      * @internal
      */
     protected getTabs(): string[] {
-      return Object.keys(this.$scopedSlots).filter(slotName => !['tab', 'tab-content'].includes(slotName));
+      return Object.keys(this.$scopedSlots).filter(
+        slotName => !['tab', 'tab-content'].includes(slotName)
+      );
     }
 
     /**
@@ -204,7 +205,7 @@ which tab should be opened at first.
 #### Customizing the content with classes
 
 - The `activeTabClass` prop can be used to add classes to the active tab button.
-- The `panelClass` prop can be used to add classes to the panel.
+- The `contentClass` prop can be used to add classes to the panel.
 - The `tabClass` prop can be used to add classes to the tab buttons.
 - The `tabsListClass` prop can be used to add classes to the tabs list.
 
@@ -212,7 +213,7 @@ which tab should be opened at first.
 <template>
   <BaseTabsPanel
     activeTabClass="x-button-auxiliary"
-    panelClass="x-padding--04 x-background--auxiliary"
+    contentClass="x-padding--04 x-background--auxiliary"
     tabClass="x-button-ghost"
     tabsListClass="x-list--horizontal"
   >
@@ -252,10 +253,10 @@ replaced entirely through the `tab` slot.
 ```vue
 <template>
   <BaseTabsPanel>
-    <template #tab="{ tab, isSelected, selectTab }">
+    <template #tab="{ tab, isSelected, select }">
       <CheckIcon v-if="isSelected" />
       This is the {{ tab }} tab.
-      <button @click="selectTab">Open tab</button>
+      <button @click="select">Open tab</button>
     </template>
 
     <template #summer>

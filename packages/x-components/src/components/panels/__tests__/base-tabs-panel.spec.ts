@@ -15,7 +15,7 @@ function renderBaseTabsPanel({
   scopedSlots,
   initialTab,
   activeTabClass,
-  panelClass,
+  contentClass,
   tabClass,
   tabsListClass
 }: RenderBaseTabsPanelOptions = {}): RenderBaseTabsPanelAPI {
@@ -23,7 +23,7 @@ function renderBaseTabsPanel({
 
   const wrapper = mount(BaseTabsPanel, {
     localVue,
-    propsData: { initialTab, activeTabClass, panelClass, tabClass, tabsListClass },
+    propsData: { initialTab, activeTabClass, contentClass, tabClass, tabsListClass },
     scopedSlots
   });
 
@@ -100,8 +100,8 @@ describe('testing BaseTabsPanel', () => {
   it('renders a custom `tab` slot properly', async () => {
     const { clickNthTab, getTabsButtons } = renderBaseTabsPanel({
       scopedSlots: {
-        tab: `<template v-slot="{ tab, isSelected, selectTab }">
-            <button data-test="base-tabs-panel-button" @click="selectTab">
+        tab: `<template v-slot="{ tab, isSelected, select }">
+            <button data-test="base-tabs-panel-button" @click="select">
               custom {{ tab }} tab <span v-if="isSelected">✅</span>
             </button>
           </template>`,
@@ -165,7 +165,7 @@ describe('testing BaseTabsPanel', () => {
       },
       initialTab: 'summer',
       activeTabClass: 'selected-tab',
-      panelClass: 'tab-panel',
+      contentClass: 'tab-panel',
       tabClass: 'tab-button',
       tabsListClass: 'tabs-list'
     });
@@ -185,7 +185,7 @@ interface RenderBaseTabsPanelOptions {
   /** Classes to add to the active tab button. */
   activeTabClass?: string;
   /** Classes to add to the panel. */
-  panelClass?: string;
+  contentClass?: string;
   /** Classes to add to the tab buttons. */
   tabClass?: string;
   /** Classes to add to the tabs list. */
