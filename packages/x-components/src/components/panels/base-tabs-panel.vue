@@ -96,7 +96,7 @@
      * @internal
      */
     protected getTabs(): string[] {
-      return Object.keys(this.$scopedSlots).filter(tab => tab !== 'tab-content' && tab !== 'tab');
+      return Object.keys(this.$scopedSlots).filter(slotName => !['tab', 'tab-content'].includes(slotName));
     }
 
     /**
