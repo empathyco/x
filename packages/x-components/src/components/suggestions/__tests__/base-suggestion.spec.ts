@@ -55,7 +55,9 @@ describe('testing Base Suggestion component', () => {
       })
     });
 
-    expect(wrapper.text()).toEqual('t-shirt woman');
+    // The text content ignores spaces between nodes due to the `condense` option.
+    // Fortunately browsers handle this properly.
+    expect(wrapper.text()).toEqual('t-shirtwoman');
   });
 
   it('has suggestion query parts matching query passed as prop retaining accent marks', () => {

@@ -1,67 +1,126 @@
+import { Suggestion } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { createQuerySuggestion } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
+import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { WireMetadata } from '../../../../wiring/wiring.types';
+import { querySuggestionsXModule } from '../../x-module';
 import QuerySuggestion from '../query-suggestion.vue';
 import { resetXQuerySuggestionsStateWith } from './utils';
 
-describe('testing query-suggestion component', () => {
+function renderQuerySuggestion({
+  suggestion = createQuerySuggestion('baileys'),
+  query = '',
+  template = '<QuerySuggestion v-bind="$attrs"/>'
+}: RenderQuerySuggestionOptions = {}): RenderQuerySuggestionApi {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
+  installNewXPlugin({ store, initialXModules: [querySuggestionsXModule] }, localVue);
+  resetXQuerySuggestionsStateWith(store, { query });
 
-  const suggestion = createQuerySuggestion('baileys');
+  const wrapper = mount(
+    {
+      template,
+      inheritAttrs: false,
+      components: {
+        QuerySuggestion
+      }
+    },
+    {
+      localVue,
+      propsData: { suggestion },
+      store
+    }
+  );
 
-  const component = mount(QuerySuggestion, {
-    localVue,
-    propsData: { suggestion },
-    store
-  });
+  return {
+    wrapper: wrapper.findComponent(QuerySuggestion),
+    suggestion,
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    getMatchingPart() {
+      return wrapper.get(getDataTestSelector('matching-part'));
+    }
+  };
+}
 
-  beforeEach(() => {
-    resetXQuerySuggestionsStateWith(store);
-  });
-
-  it('is an XComponent', () => {
-    expect(isXComponent(component.vm)).toEqual(true);
-  });
-
-  it('has QuerySuggestionModule as XModule', () => {
-    expect(getXComponentXModuleName(component.vm)).toEqual('querySuggestions');
-  });
-
-  // TODO: Refactor state to normalized query getter
-  it('highlights the suggestion matching parts with the state query', async () => {
-    resetXQuerySuggestionsStateWith(store, { query: 'Bá' });
-
-    await localVue.nextTick();
-
-    expect(component.classes()).toContain('x-suggestion--matching');
+describe('testing query-suggestion component', () => {
+  it('is an XComponent that belongs to the query suggestions', () => {
+    const { wrapper } = renderQuerySuggestion();
+    expect(isXComponent(wrapper.vm)).toEqual(true);
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('querySuggestions');
   });
 
   it('renders the suggestion received as prop', () => {
-    expect(component.text()).toContain(suggestion.query);
+    const { wrapper } = renderQuerySuggestion({
+      suggestion: createQuerySuggestion('milk')
+    });
+    expect(wrapper.text()).toEqual('milk');
   });
 
-  it('emits UserSelectedAQuerySuggestion event on click', async () => {
-    const listener = jest.fn();
-    const button = component.find(getDataTestSelector('query-suggestion')).element;
-    component.vm.$x.on('UserSelectedAQuerySuggestion', true).subscribe(listener);
-    await component.trigger('click');
-
-    expect(listener).toHaveBeenCalledTimes(1);
-    expect(listener).toHaveBeenCalledWith({
-      eventPayload: suggestion,
-      metadata: expect.objectContaining<Partial<WireMetadata>>({
-        moduleName: 'querySuggestions',
-        target: button,
-        feature: 'query_suggestion'
-      })
+  it('highlights the suggestion matching parts with the state query', () => {
+    const { wrapper, getMatchingPart } = renderQuerySuggestion({
+      suggestion: createQuerySuggestion('baileys'),
+      query: 'Bá'
     });
+
+    expect(getMatchingPart().text()).toEqual('ba');
+    expect(wrapper.text()).toEqual('baileys');
+  });
+
+  it('emits appropriate events on click', async () => {
+    const { wrapper, emitSpy, suggestion } = renderQuerySuggestion({
+      suggestion: createQuerySuggestion('milk')
+    });
+
+    await wrapper.trigger('click');
+
+    const expectedMetadata = expect.objectContaining<Partial<WireMetadata>>({
+      moduleName: 'querySuggestions',
+      target: wrapper.element,
+      feature: 'query_suggestion'
+    });
+    expect(emitSpy).toHaveBeenCalledTimes(3);
+    expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', suggestion.query, expectedMetadata);
+    expect(emitSpy).toHaveBeenCalledWith('UserSelectedASuggestion', suggestion, expectedMetadata);
+    expect(emitSpy).toHaveBeenCalledWith(
+      'UserSelectedAQuerySuggestion',
+      suggestion,
+      expectedMetadata
+    );
+  });
+
+  it('allows to customise the rendered content', () => {
+    const { wrapper } = renderQuerySuggestion({
+      suggestion: createQuerySuggestion('baileys'),
+      template: `
+      <QuerySuggestion v-bind="$attrs" #default="{ suggestion }">
+        <span>🔍</span>
+        <span>{{ suggestion.query }}</span>
+      </QuerySuggestion>
+      `
+    });
+
+    expect(wrapper.text()).toEqual('🔍 baileys');
   });
 });
+
+interface RenderQuerySuggestionOptions {
+  /** The suggestion data to render. */
+  suggestion?: Suggestion;
+  /** The query that the suggestions belong to. */
+  query?: string;
+  /** The template to render. */
+  template?: string;
+}
+
+interface RenderQuerySuggestionApi {
+  wrapper: Wrapper<Vue>;
+  getMatchingPart: () => Wrapper<Vue>;
+  emitSpy: jest.SpyInstance;
+  suggestion: Suggestion;
+}

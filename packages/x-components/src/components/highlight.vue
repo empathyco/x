@@ -2,38 +2,36 @@
   <NoElement>
     <slot v-bind="{ text, hasMatch, ...matchParts }">
       <span class="x-highlight" :class="dynamicCSSClasses">
-        <template v-if="hasMatch">
-          <span v-text="matchParts.start" class="x-highlight__text" />
-          <span
-            v-text="matchParts.match"
-            class="x-highlight__text x-highlight__text--is-match"
-            data-test="matching-part"
-          />
-          <span v-text="matchParts.end" class="x-highlight__text" />
-        </template>
-        <span v-else class="x-highlight__text">{{ text }}</span>
+        <span v-text="matchParts.start" class="x-highlight__text" />
+        <span
+          v-if="hasMatch"
+          v-text="matchParts.match"
+          class="x-highlight__text x-highlight-match"
+          data-test="matching-part"
+        />
+        <span v-if="hasMatch" v-text="matchParts.end" class="x-highlight__text" />
       </span>
     </slot>
   </NoElement>
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Mixins, Prop } from 'vue-property-decorator';
   import { normalizeString } from '../utils/normalize';
   import { VueCSSClasses } from '../utils/types';
   import { NoElement } from './no-element';
+  import { dynamicPropsMixin } from './dynamic-props.mixin';
 
   /**
    * Highlights the given part of the text. The component is smart enough to do matches
-   * between special characters like tilde, cedilla, eñe, capital leters...
+   * between special characters like tilde, cedilla, eñe, capital letters...
    *
    * @public
    */
   @Component({
     components: { NoElement }
   })
-  export default class Highlight extends Vue {
+  export default class Highlight extends Mixins(dynamicPropsMixin(['noMatchClass'])) {
     /**
      * The text to highlight some part of it.
      *
@@ -51,6 +49,12 @@
     public highlight!: string;
 
     /**
+     * CSS Class to add when the `text` string contains the `highlight` string.
+     */
+    @Prop({ default: 'x-highlight-text' })
+    public matchClass!: string;
+
+    /**
      * Checks if the normalized suggestion query matches with the module's query, so it has a
      * matching part.
      *
@@ -58,7 +62,7 @@
      * @internal
      */
     protected get hasMatch(): boolean {
-      return this.matchParts !== null;
+      return !!this.matchParts.match;
     }
 
     /**
@@ -70,28 +74,30 @@
      * @public
      */
     protected get dynamicCSSClasses(): VueCSSClasses {
-      return {
-        'x-highlight--has-match': this.hasMatch
+      const classes: VueCSSClasses = {
+        'x-highlight--has-match': this.hasMatch,
+        'x-highlight-text': this.hasMatch,
+        [this.matchClass]: this.hasMatch
       };
+      if (this.noMatchClass) {
+        classes[this.noMatchClass] = !this.hasMatch;
+      }
+      return classes;
     }
 
     /**
-     * If possible, splits the text to highlight into 3 parts: a starting part, the matching part
-     * and the ending part. If there is no match between the text and the highlight, it returns
-     * `null`.
+     * Splits the text to highlight into 3 parts: a starting part, the matching part
+     * and the ending part. If there is no match between the text and the highlight, the `start`
+     * property will contain the whole text.
      *
-     * @returns Either an array containing the different parts of the match, or `null` if there is
-     * no match.
+     * @returns An object containing the different parts of the text.
      * @internal
      */
-    protected get matchParts(): HighlightMatch | null {
-      if (!this.highlight) {
-        return null;
-      }
+    protected get matchParts(): HighlightMatch {
       const matcherIndex = normalizeString(this.text).indexOf(normalizeString(this.highlight));
-      return matcherIndex !== -1
+      return matcherIndex !== -1 && this.highlight
         ? this.splitAt(this.text, matcherIndex, matcherIndex + this.highlight.length)
-        : null;
+        : { start: this.text, match: '', end: '' };
     }
 
     /**

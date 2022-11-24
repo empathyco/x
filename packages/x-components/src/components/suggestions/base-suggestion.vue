@@ -1,39 +1,16 @@
 <template>
-  <Highlight
-    #default="{ hasMatch, start, match, end, text }"
-    :text="suggestion.query"
-    :highlight="query"
-  >
-    <button
-      @click="emitEvents"
-      :class="[dynamicCSSClasses, { 'x-suggestion--matching': hasMatch }]"
-      class="x-suggestion"
-    >
-      <!-- eslint-disable max-len -->
-      <!--
+  <button @click="emitEvents" :class="dynamicCSSClasses" class="x-suggestion">
+    <!--
       @slot Button content
           @binding {Suggestion} suggestion - Suggestion data
-          @binding {string} queryHTML - Suggestion's query with the matching part inside a `<span>` tag
+          @binding {String} query - The query that the suggestion belongs to
           @binding {Filter} filter - Suggestion's filter
       -->
-      <!-- eslint-enable max-len -->
-      <slot v-bind="{ suggestion, start, match, end, hasMatch, text, filter }">
-        <span class="x-suggestion__query x-highlight" :class="dynamicCSSClasses">
-          <template v-if="hasMatch">
-            <span class="x-highlight__text">{{ start }}</span>
-            <span
-              v-text="match"
-              class="x-suggestion__matching-part x-highlight__text x-highlight__text--is-match"
-              data-test="matching-part"
-            />
-            <span class="x-highlight__text">{{ end }}</span>
-          </template>
-          <template v-else>{{ text }}</template>
-        </span>
-        <span v-if="filter" class="x-suggestion__filter">{{ ' ' + filter.label }}</span>
-      </slot>
-    </button>
-  </Highlight>
+    <slot v-bind="{ suggestion, query, filter }">
+      <Highlight class="x-suggestion__query" :text="suggestion.query" :highlight="query" />
+      <span v-if="filter" class="x-suggestion__filter">{{ filter.label }}</span>
+    </slot>
+  </button>
 </template>
 
 <script lang="ts">
@@ -58,7 +35,6 @@
   @Component({
     components: { Highlight }
   })
-  // TODO Refactor highlight usage to be just the query when the suggestion XDS is made.
   export default class BaseSuggestion extends Vue {
     /**
      * The normalized query of the module using this component.
@@ -180,52 +156,9 @@
 </script>
 
 <docs lang="mdx">
-## Examples
-
-This default suggestion component expects a suggestion to render and pass to its default slot, a
-normalized query to compare with the suggestion's query and highlight its matching parts and events
-to emit when the suggestion is selected.
-
-If the suggestion contains a filter, it is displayed next to the suggestion.
-
-### Default usage
-
-```vue
-<BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }" />
-```
-
-### Customized usage
-
-```vue
-<BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }">
-  <template #default="{ suggestion, queryHTML }">
-    <span
-      class="my-suggestion"
-      v-html="queryHTML"
-      :aria-label="suggestion.query"
-    />
-  </template>
-</BaseSuggestion>
-```
-
-### Customized usage with filter
-
-```vue
-<BaseSuggestion v-bind="{ query, suggestion, suggestionSelectedEvents }">
-  <template #default="{ suggestion, queryHTML, filter }">
-    <span
-      class="my-suggestion"
-      v-html="queryHTML"
-      :aria-label="suggestion.query"
-    />
-    <span>{{ filter.label }}</span>
-  </template>
-</BaseSuggestion>
-```
-
 ## Events
 
-A list of events that the component will emit:
+This component emits the following events:
 
 - `UserAcceptedAQuery`: the event is emitted after the user clicks the button. The event payload is
   the suggestion query data.
@@ -234,4 +167,85 @@ A list of events that the component will emit:
 - `UserClickedAFilter`: the event is emitted after the user clicks the button if the suggestion
   includes a filter. The event payload is the suggestion filter.
 - The component can emit more events on click using the `suggestionSelectedEvents` prop.
+
+## See it in action
+
+This suggestion component expects a suggestion to render and pass to its default slot, a normalized
+query to compare with the suggestion's query and highlight its matching parts and events to emit
+when the suggestion is selected.
+
+If the suggestion contains a filter, it is displayed next to the suggestion.
+
+```vue live
+<template>
+  <BaseSuggestion v-bind="{ query, suggestion }" />
+</template>
+<script>
+  import { BaseSuggestion } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseSuggestionDemo',
+    components: {
+      BaseSuggestion
+    },
+    data() {
+      return {
+        query: 'st',
+        suggestion: {
+          modelName: 'QuerySuggestion',
+          query: 'steak',
+          facet: {
+            namedModel: 'SimpleFacet',
+            id: 'category',
+            label: 'Category',
+            filters: [
+              {
+                id: 'category:groceries',
+                modelName: 'SimpleFilter',
+                facetId: 'category-facet',
+                label: 'Groceries',
+                selected: false,
+                totalResults: 10
+              }
+            ]
+          }
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Customise the content
+
+You can make this component render any content you want by using the `default` slot.
+
+```vue live
+<template>
+  <BaseSuggestion v-bind="{ query, suggestion }" #default="{ suggestion, query, filter }">
+    <span>🔍</span>
+    <Highlight :text="suggestion.query" :highlight="query" />
+    <span v-if="filter">{{ filter.label }}</span>
+  </BaseSuggestion>
+</template>
+<script>
+  import { BaseSuggestion } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseSuggestionDemo',
+    components: {
+      BaseSuggestion
+    },
+    data() {
+      return {
+        query: 'st',
+        suggestion: {
+          modelName: 'QuerySuggestion',
+          query: 'steak'
+        }
+      };
+    }
+  };
+</script>
+```
 </docs>

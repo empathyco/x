@@ -89,19 +89,9 @@ describe('testing Query Suggestions component', () => {
       {
         template: `
         <QuerySuggestions>
-          <template #suggestion-content="{ suggestion, start, match, end, hasMatch, text }">
-            <img
-              class="x-query-suggestion__icon"
-              data-test="icon"
-              src="/query-suggestion-icon.svg"
-            />
-            <span
-              class="x-query-suggestion__query"
-              data-test="query"
-            >
-              <template v-if="hasMatch">{{ start }}<strong>{{ match }}</strong>{{ end }}</template>
-              <span v-else>{{ text }}</span>
-            </span>
+          <template #suggestion-content="{ suggestion }">
+            <span data-test="icon">🔍</span>
+            <span data-test="query">{{ suggestion.query }}</span>
           </template>
         </QuerySuggestions>
       `,
@@ -119,7 +109,7 @@ describe('testing Query Suggestions component', () => {
     expect(suggestionsItemWrappers).toHaveLength(suggestions.length);
 
     suggestionsItemWrappers.forEach((slot, index) => {
-      expect(slot.find(getDataTestSelector('icon')).element).toBeDefined();
+      expect(slot.find(getDataTestSelector('icon')).text()).toEqual('🔍');
       expect(slot.find(getDataTestSelector('query')).text()).toEqual(suggestions[index].query);
     });
   });

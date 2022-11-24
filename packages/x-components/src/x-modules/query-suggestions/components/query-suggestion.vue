@@ -1,7 +1,6 @@
 <template>
   <BaseSuggestion
     v-bind="{ query, suggestion, suggestionSelectedEvents: event }"
-    :aria-label="suggestion.query"
     class="x-query-suggestion"
     data-test="query-suggestion"
     feature="query_suggestion"

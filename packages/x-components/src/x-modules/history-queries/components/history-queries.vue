@@ -23,7 +23,6 @@
             <!--
               @slot History Query content
                   @binding {Object} v-bind - History Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - History Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - History Query suggestion index
-                  @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
             -->
             <!-- eslint-enable max-len -->
             <slot

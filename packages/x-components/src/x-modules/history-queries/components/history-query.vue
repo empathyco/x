@@ -7,12 +7,10 @@
       feature="history_query"
     >
       <template #default="defaultSlotScope">
-        <!-- eslint-disable max-len -->
         <!--
           @slot History Query content
               @binding {Suggestion} suggestion - History Query suggestion data
         -->
-        <!-- eslint-enable max-len -->
         <slot v-bind="defaultSlotScope" />
       </template>
     </BaseSuggestion>

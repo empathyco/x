@@ -12,7 +12,7 @@
             @binding {Object} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ ...defaultBaseSuggestionsScope }">
+      <slot name="suggestion" v-bind="defaultBaseSuggestionsScope">
         <PopularSearch
           :suggestion="defaultBaseSuggestionsScope.suggestion"
           class="x-popular-searches__suggestion"

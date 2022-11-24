@@ -13,7 +13,7 @@ module.exports = {
     'vue-jest': {
       templateCompiler: {
         compilerOptions: {
-          // Set whitespace to 'condense' to prevent differences between jsdom and browsers.
+          // Set whitespace to 'condense' to have a more similar behavior to browsers
           // https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler#options
           whitespace: 'condense'
         }
