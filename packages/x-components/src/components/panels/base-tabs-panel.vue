@@ -16,7 +16,7 @@
          -->
         <slot
           name="tab"
-          v-bind="{ tab, isSelected: tabIsSelected(tab), selectTab: () => selectTab(tab) }"
+          v-bind="{ tab, isSelected: tabIsSelected(tab), select: () => selectTab(tab) }"
         >
           <button
             :key="tab"
