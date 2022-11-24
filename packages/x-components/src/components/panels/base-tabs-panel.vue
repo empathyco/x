@@ -42,7 +42,7 @@
     <div
       v-if="selectedTab && $scopedSlots[selectedTab]"
       :key="selectedTab"
-      :class="panelClass"
+      :class="contentClass"
       data-test="base-tabs-panel-content"
     >
       <slot :name="selectedTab" />
