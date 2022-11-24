@@ -31,7 +31,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { getTargetElement } from '../../utils/index';
+  import { getTargetElement } from '../../utils/html';
   import Fade from '../animations/fade.vue';
   import { NoElement } from '../no-element';
   import { FOCUSABLE_SELECTORS } from '../../utils/focus';

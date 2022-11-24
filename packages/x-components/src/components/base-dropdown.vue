@@ -78,7 +78,7 @@
   import { Identifiable } from '@empathyco/x-types';
   import { Component, Prop, Watch } from 'vue-property-decorator';
   import Vue from 'vue';
-  import { getTargetElement } from '../utils/index';
+  import { getTargetElement } from '../utils/html';
   import { normalizeString } from '../utils/normalize';
   import { isInRange } from '../utils/number';
   import { debounce } from '../utils/debounce';
