@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.230](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.229...@empathyco/x-components@3.0.0-alpha.230) (2022-11-24)
+
+### Features
+
+- Emit SearchResponseProvided event from Search Module (#864)
+  ([586899d](https://github.com/empathyco/x/commit/586899dbb556f50772bdfd1dc4eb5216ebd15e41)),
+  closes [EX-5167](https://searchbroker.atlassian.net/browse/EX-5167)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.229](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.228...@empathyco/x-components@3.0.0-alpha.229) (2022-11-22)
+
+### Features
+
+- make base dropdown based components accesible (#846)
+  ([71d4233](https://github.com/empathyco/x/commit/71d4233ad5c18fb19f205591bf8b9a0adf160884))
+
+### Bug Fixes
+
+- make `appear` attribute configurable on animations that have it set to `true` by default (#862)
+  ([7e2cd52](https://github.com/empathyco/x/commit/7e2cd52933385fcee4a7944fd474d2314ac3291d)),
+  closes [EX-5970](https://searchbroker.atlassian.net/browse/EX-5970)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.228](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.227...@empathyco/x-components@3.0.0-alpha.228) (2022-11-17)
 
 ### Features
