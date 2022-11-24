@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.230](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.229...@empathyco/x-components@3.0.0-alpha.230) (2022-11-24)
+
+### Features
+
+- Emit SearchResponseProvided event from Search Module (#864)
+  ([586899d](https://github.com/empathyco/x/commit/586899dbb556f50772bdfd1dc4eb5216ebd15e41)),
+  closes [EX-5167](https://searchbroker.atlassian.net/browse/EX-5167)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.229](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.228...@empathyco/x-components@3.0.0-alpha.229) (2022-11-22)
 
 ### Features
