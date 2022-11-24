@@ -80,13 +80,19 @@ describe('testing Highlight component', () => {
 });
 
 interface RenderHighlightOptions {
+  /** The template to render. */
   template?: string;
+  /** The text to be highlighted. */
   text: string;
+  /** The part of the text to highlight. */
   highlight: string;
 }
 
 interface RenderHighlightAPI {
+  /** Testing wrapper component. */
   wrapper: Wrapper<Vue>;
+  /** Only the matching node wrapper. */
   matchingPart: Wrapper<Vue>;
+  /** Sets the part of the text to highlight */
   setHighlight: (highlight: string) => Promise<void>;
 }
