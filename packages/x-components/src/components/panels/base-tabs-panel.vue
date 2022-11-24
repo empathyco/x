@@ -43,7 +43,7 @@
       v-if="selectedTab"
       :key="selectedTab"
       :class="panelClass"
-      :data-test="`base-tabs-panel-${selectedTab}`"
+      data-test="base-tabs-panel-content"
     >
       <slot :name="selectedTab" />
     </div>
