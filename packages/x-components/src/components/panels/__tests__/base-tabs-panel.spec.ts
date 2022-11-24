@@ -13,7 +13,7 @@ import BaseTabsPanel from '../base-tabs-panel.vue';
  */
 function renderBaseTabsPanel({
   scopedSlots,
-  initialTab = '',
+  initialTab,
   activeTabClass,
   panelClass,
   tabClass,
@@ -54,6 +54,20 @@ describe('testing BaseTabsPanel', () => {
         fall: '<div>Top Fall sales</div>',
         outlet: '<div>Top Outlet sales</div>'
       }
+    });
+
+    expect(getTabsButtons()).toHaveLength(3);
+    expect(getTabPanel().exists()).toBe(false);
+  });
+
+  it('renders only the tabs list when passed `initialTab` is invalid', () => {
+    const { getTabPanel, getTabsButtons } = renderBaseTabsPanel({
+      scopedSlots: {
+        summer: '<div>Top Summer sales</div>',
+        fall: '<div>Top Fall sales</div>',
+        outlet: '<div>Top Outlet sales</div>'
+      },
+      initialTab: 'whatever'
     });
 
     expect(getTabsButtons()).toHaveLength(3);

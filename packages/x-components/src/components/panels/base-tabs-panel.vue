@@ -40,7 +40,7 @@
     </component>
 
     <div
-      v-if="selectedTab"
+      v-if="selectedTab && $scopedSlots[selectedTab]"
       :key="selectedTab"
       :class="panelClass"
       data-test="base-tabs-panel-content"
