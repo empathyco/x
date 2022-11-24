@@ -161,43 +161,6 @@ recommendations.
 </Recommendations>
 ```
 
-### Play with props
-
-In this example, the suggestions has been limited to render a maximum of 3 items.
-
-_Type “puzzle” or another toy in the input field to try it out!_
-
-```vue
-<template>
-  <BaseSuggestions :suggestions="suggestions" :maxItemToRender="3" />
-</template>
-
-<script>
-  import { BaseSuggestions } from '@empathyco/x-components';
-
-  export default {
-    name: 'BaseSuggestionsDemo',
-    components: {
-      BaseSuggestions
-    },
-    data() {
-      return {
-        suggestions: [
-          {
-            facets: [],
-            key: 'chips',
-            query: 'Chips',
-            totalResults: 10,
-            results: [],
-            modelName: 'PopularSearch'
-          }
-        ]
-      };
-    }
-  };
-</script>
-```
-
 ## Events
 
 A list of events that the component will emit:
