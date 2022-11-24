@@ -3,6 +3,11 @@ import { HistoryQueriesXStoreModule } from '../types';
 /**
  * Default implementation for the
  * {@link HistoryQueriesActions.updateHistoryQueriesWithSearchResponse} action.
+ * The matching history query will only be updated on the following scenarios:
+ * 1. If it is part of a previous session, not the current one.
+ * 2. If tts total results count has not been registered yet.
+ * 3. If its total results count registered is less than the one specified on the search response,
+ * meaning that the previous update was part of a filtered request.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
@@ -20,13 +25,18 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
       let historyQueriesHaveChanged = false;
       const newHistoryQueries = state.historyQueries.map(historyQuery => {
         if (historyQuery.query === searchResponse.request.query) {
-          historyQuery = {
-            ...historyQuery,
-            facets: searchResponse.facets,
-            results: searchResponse.results,
-            totalResults: searchResponse.totalResults
-          };
-          historyQueriesHaveChanged = true;
+          const isCurrentSessionHistoryQuery = historyQuery.timestamp > state.sessionTimeStampInMs;
+          if (
+            !isCurrentSessionHistoryQuery ||
+            historyQuery.totalResults == null ||
+            historyQuery.totalResults < searchResponse.totalResults
+          ) {
+            historyQuery = {
+              ...historyQuery,
+              totalResults: searchResponse.totalResults
+            };
+            historyQueriesHaveChanged = true;
+          }
         }
         return historyQuery;
       });

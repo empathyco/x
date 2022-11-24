@@ -292,7 +292,7 @@ describe('testing history queries module actions', () => {
         results,
         totalResults
       });
-      expectHistoryQueriesToEqual([{ ...gato, results, totalResults }, perro]);
+      expectHistoryQueriesToEqual([{ ...gato, totalResults }, perro]);
     });
 
     it('does not update a history query if its response is an error', async () => {
@@ -319,6 +319,37 @@ describe('testing history queries module actions', () => {
         totalResults
       });
       expectHistoryQueriesToEqual([gato, perro]);
+    });
+
+    it('updates a history query if it was made on a previous session', async () => {
+      gato.totalResults = 50;
+      gato.timestamp -= 60 * 60 * 1000;
+      resetStateWith({ historyQueries: [gato, perro] });
+      await store.dispatch('updateHistoryQueriesWithSearchResponse', {
+        request: {
+          query: 'gato',
+          page: 1
+        },
+        status: 'success',
+        results,
+        totalResults
+      });
+      expectHistoryQueriesToEqual([{ ...gato, totalResults }, perro]);
+    });
+
+    it('updates a history query if the new totalResults is higher', async () => {
+      gato.totalResults = 1;
+      resetStateWith({ historyQueries: [gato, perro] });
+      await store.dispatch('updateHistoryQueriesWithSearchResponse', {
+        request: {
+          query: 'gato',
+          page: 1
+        },
+        status: 'success',
+        results,
+        totalResults
+      });
+      expectHistoryQueriesToEqual([{ ...gato, totalResults }, perro]);
     });
   });
 });
