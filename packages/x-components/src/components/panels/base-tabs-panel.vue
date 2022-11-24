@@ -39,16 +39,14 @@
       </li>
     </component>
 
-    <template v-for="(_, slotName) in $scopedSlots">
-      <div
-        v-if="slotName === selectedTab"
-        :key="slotName"
-        :class="panelClass"
-        :data-test="`base-tabs-panel-${slotName}`"
-      >
-        <slot :name="slotName" />
-      </div>
-    </template>
+    <div
+      v-if="selectedTab"
+      :key="selectedTab"
+      :class="panelClass"
+      :data-test="`base-tabs-panel-${selectedTab}`"
+    >
+      <slot :name="selectedTab" />
+    </div>
   </section>
 </template>
 
@@ -125,3 +123,209 @@
     }
   }
 </script>
+
+<docs lang="mdx">
+## Examples
+
+This component renders a list of tabs based on the name of the slots passed on its template. By
+default, the name of each slot will be used as tab label. If an initial tab is passed by prop, the
+content of its correspondent slot will displayed in a panel. Otherwise, no content will be displayed
+until a tab is selected.
+
+### Basic example
+
+It renders a list of tabs and, when a tab is clicked, a panel with its content will be displayed.
+
+```vue
+<template>
+  <BaseTabsPanel>
+    <template #summer>
+      <div>Summer Top Sales</div>
+    </template>
+
+    <template #fall>
+      <div>Fall Top Sales</div>
+    </template>
+
+    <template #outlet>
+      <div>Outlet Top Sales</div>
+    </template>
+  </BaseTabsPanel>
+</template>
+
+<script>
+  import { BaseTabsPanel } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseTabsPanelDemo',
+    components: {
+      BaseTabsPanel
+    }
+  };
+</script>
+```
+
+### Play with props
+
+#### Define the tab to be initially opened
+
+By default, no tab is selected so any panel is displayed. The `initialTab` prop allows to indicate
+which tab should be opened at first.
+
+```vue
+<template>
+  <BaseTabsPanel initialTab="summer">
+    <template #summer>
+      <div>Summer Top Sales</div>
+    </template>
+
+    <template #fall>
+      <div>Fall Top Sales</div>
+    </template>
+
+    <template #outlet>
+      <div>Outlet Top Sales</div>
+    </template>
+  </BaseTabsPanel>
+</template>
+
+<script>
+  import { BaseTabsPanel } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseTabsPanelDemo',
+    components: {
+      BaseTabsPanel
+    }
+  };
+</script>
+```
+
+#### Customizing the content with classes
+
+- The `activeTabClass` prop can be used to add classes to the active tab button.
+- The `panelClass` prop can be used to add classes to the panel.
+- The `tabClass` prop can be used to add classes to the tab buttons.
+- The `tabsListClass` prop can be used to add classes to the tabs list.
+
+```vue
+<template>
+  <BaseTabsPanel
+    activeTabClass="x-button-auxiliary"
+    panelClass="x-padding--04 x-background--auxiliary"
+    tabClass="x-button-ghost"
+    tabsListClass="x-list--horizontal"
+  >
+    <template #summer>
+      <div>Summer Top Sales</div>
+    </template>
+
+    <template #fall>
+      <div>Fall Top Sales</div>
+    </template>
+
+    <template #outlet>
+      <div>Outlet Top Sales</div>
+    </template>
+  </BaseTabsPanel>
+</template>
+
+<script>
+  import { BaseTabsPanel } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseTabsPanelDemo',
+    components: {
+      BaseTabsPanel
+    }
+  };
+</script>
+```
+
+### Overriding the slots
+
+#### Customizing the tab button
+
+By default, the component is rendering a button for each tab to be displayed. This button can be
+replaced entirely through the `tab` slot.
+
+```vue
+<template>
+  <BaseTabsPanel>
+    <template #tab="{ tab, isSelected, selectTab }">
+      <CheckIcon v-if="isSelected" />
+      This is the {{ tab }} tab.
+      <button @click="selectTab">Open tab</button>
+    </template>
+
+    <template #summer>
+      <div>Summer Top Sales</div>
+    </template>
+
+    <template #fall>
+      <div>Fall Top Sales</div>
+    </template>
+
+    <template #outlet>
+      <div>Outlet Top Sales</div>
+    </template>
+  </BaseTabsPanel>
+</template>
+
+<script>
+  import { BaseTabsPanel, CheckIcon } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseTabsPanelDemo',
+    components: {
+      BaseTabsPanel,
+      CheckIcon
+    }
+  };
+</script>
+```
+
+#### Customizing the tab button content
+
+Alternatively to the previous example, instead of changing the whole tab button, the slot
+`tab-content` offers the possibility of changing just its contents.
+
+```vue
+<template>
+  <BaseTabsPanel>
+    <template #tab-content="{ tab, isSelected }">
+      <CheckIcon v-if="isSelected" />
+      {{ tab }}
+    </template>
+
+    <template #summer>
+      <div>Summer Top Sales</div>
+    </template>
+
+    <template #fall>
+      <div>Fall Top Sales</div>
+    </template>
+
+    <template #outlet>
+      <div>Outlet Top Sales</div>
+    </template>
+  </BaseTabsPanel>
+</template>
+
+<script>
+  import { BaseTabsPanel, CheckIcon } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseTabsPanelDemo',
+    components: {
+      BaseTabsPanel,
+      CheckIcon
+    }
+  };
+</script>
+```
+
+## Events
+
+This component emits no events.
+</docs>
