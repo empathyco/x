@@ -101,6 +101,12 @@ export default {
     desktop: '1200px',
     large: '2800px'
   },
+  layoutMaxWidth: {
+    sm: '1000px',
+    md: '1440px',
+    lg: '2000px',
+    full: '100vw'
+  },
   spacing: {
     1: '1px',
     2: '2px',

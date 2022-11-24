@@ -1,4 +1,5 @@
 import { TailwindHelpers } from '../types';
+import { layout } from './components/layout';
 import { variables } from './components/variables';
 import { button } from './components/button';
 import { icon } from './components/icon';
@@ -18,7 +19,8 @@ export default function components(helpers: TailwindHelpers) {
     ...variables(helpers),
     ...button(helpers),
     ...icon(helpers),
-    ...suggestion(helpers)
+    ...suggestion(helpers),
+    ...layout(helpers)
   };
 }
 
