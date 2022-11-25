@@ -13,12 +13,14 @@ export class XPriorityQueueNode<Key = string> {
    * @public
    */
   public readonly key: Key;
+
   /**
    * The number used to sort the elements in the queue.
    *
    * @public
    */
   public readonly priority: number;
+
   /**
    * The extra data to store in the queue associated with a key and priority pair. Optionally, a
    * `boolean` `replaceable` key can be used in order to make the node replaceable in the queue.
@@ -78,13 +80,14 @@ export class XPriorityQueue<Key = string> {
   /**
    * The list of stored {@link XPriorityQueueNode | nodes}.
    *
-   * @protected
+   * @internal
    */
   protected nodes: XPriorityQueueNode<Key>[] = [];
+
   /**
    * The comparator function to use for sorting.
    *
-   * @protected
+   * @internal
    */
   protected comparatorFn: AnyFunction<boolean>;
 
