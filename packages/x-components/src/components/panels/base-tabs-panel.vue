@@ -6,6 +6,7 @@
       class="x-list"
       :class="tabsListClass"
       data-test="base-tabs-panel-list"
+      role="tablist"
     >
       <li v-for="tab in getTabs()" :key="tab">
         <!--
@@ -24,6 +25,7 @@
             :class="tabIsSelected(tab) ? activeTabClass : tabClass"
             :aria-pressed="tabIsSelected(tab)"
             data-test="base-tabs-panel-button"
+            role="tab"
           >
             <!--
               @slot Slot used to just pass the content.
@@ -44,6 +46,7 @@
         :key="selectedTab"
         :class="contentClass"
         data-test="base-tabs-panel-content"
+        role="tabpanel"
       >
         <slot :name="selectedTab" />
       </div>
