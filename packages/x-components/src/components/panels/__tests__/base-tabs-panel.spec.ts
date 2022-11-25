@@ -12,10 +12,11 @@ import BaseTabsPanel from '../base-tabs-panel.vue';
  * @returns BaseTabsPanel vue-test-utils wrapper.
  */
 function renderBaseTabsPanel({
-  scopedSlots,
-  initialTab,
   activeTabClass,
   contentClass,
+  initialTab,
+  slots,
+  tabs,
   tabClass,
   tabsListClass
 }: RenderBaseTabsPanelOptions = {}): RenderBaseTabsPanelAPI {
@@ -24,7 +25,10 @@ function renderBaseTabsPanel({
   const wrapper = mount(BaseTabsPanel, {
     localVue,
     propsData: { initialTab, activeTabClass, contentClass, tabClass, tabsListClass },
-    scopedSlots
+    scopedSlots: {
+      ...slots,
+      ...tabs
+    }
   });
 
   return {
@@ -49,7 +53,7 @@ describe('testing BaseTabsPanel', () => {
 
   it('renders only the tabs list when no `initialTab` is passed', () => {
     const { getTabPanel, getTabsButtons } = renderBaseTabsPanel({
-      scopedSlots: {
+      tabs: {
         summer: '<div>Top Summer sales</div>',
         fall: '<div>Top Fall sales</div>',
         outlet: '<div>Top Outlet sales</div>'
@@ -62,7 +66,7 @@ describe('testing BaseTabsPanel', () => {
 
   it('renders only the tabs list when passed `initialTab` is invalid', () => {
     const { getTabPanel, getTabsButtons } = renderBaseTabsPanel({
-      scopedSlots: {
+      tabs: {
         summer: '<div>Top Summer sales</div>',
         fall: '<div>Top Fall sales</div>',
         outlet: '<div>Top Outlet sales</div>'
@@ -76,7 +80,7 @@ describe('testing BaseTabsPanel', () => {
 
   it('renders the panel of the tab indicated by `initialTab`', () => {
     const { getTabPanel } = renderBaseTabsPanel({
-      scopedSlots: {
+      tabs: {
         summer: '<div>Top Summer sales</div>',
         fall: '<div>Top Fall sales</div>'
       },
@@ -88,7 +92,7 @@ describe('testing BaseTabsPanel', () => {
 
   it('renders the default `tab` slot', () => {
     const { getTabsButtons } = renderBaseTabsPanel({
-      scopedSlots: {
+      tabs: {
         summer: '<div>Top Summer sales</div>'
       }
     });
@@ -99,12 +103,14 @@ describe('testing BaseTabsPanel', () => {
 
   it('renders a custom `tab` slot properly', async () => {
     const { clickNthTab, getTabsButtons } = renderBaseTabsPanel({
-      scopedSlots: {
+      slots: {
         tab: `<template v-slot="{ tab, isSelected, select }">
             <button data-test="base-tabs-panel-button" @click="select">
               custom {{ tab }} tab <span v-if="isSelected">✅</span>
             </button>
-          </template>`,
+          </template>`
+      },
+      tabs: {
         summer: '<div>Summer top sales</div>'
       }
     });
@@ -119,10 +125,12 @@ describe('testing BaseTabsPanel', () => {
 
   it('renders a custom `tab-content` slot properly', async () => {
     const { clickNthTab, getTabsButtons } = renderBaseTabsPanel({
-      scopedSlots: {
+      slots: {
         'tab-content': `<template v-slot="{ tab, isSelected }">
             custom {{ tab }} tab content <span v-if="isSelected">✅</span>
-          </template>`,
+          </template>`
+      },
+      tabs: {
         summer: '<div>Top Summer sales</div>'
       }
     });
@@ -137,7 +145,7 @@ describe('testing BaseTabsPanel', () => {
 
   it('changes the selected tab on click', async () => {
     const { clickNthTab, getTabPanel, getTabsButtons } = renderBaseTabsPanel({
-      scopedSlots: {
+      tabs: {
         summer: '<div>Top Summer sales</div>',
         fall: '<div>Top Fall sales</div>',
         outlet: '<div>Top Outlet sales</div>'
@@ -159,7 +167,7 @@ describe('testing BaseTabsPanel', () => {
 
   it('allows adding CSS classes to the tabs and panel', () => {
     const { getTabPanel, getTabsButtons, getTabsList } = renderBaseTabsPanel({
-      scopedSlots: {
+      tabs: {
         summer: '<div>Top Summer sales</div>',
         fall: '<div>Top Fall sales</div>'
       },
@@ -178,8 +186,10 @@ describe('testing BaseTabsPanel', () => {
 });
 
 interface RenderBaseTabsPanelOptions {
-  /** Scoped slots to be passed to the mount function. */
-  scopedSlots?: Record<string, string>;
+  /** Custom slots to be passed to the mount function. */
+  slots?: Record<string, string>;
+  /** Named slots to be passed to the mount function, each standing for a tab. */
+  tabs?: Record<string, string>;
   /** The tab to be initially selected. */
   initialTab?: string;
   /** Classes to add to the active tab button. */

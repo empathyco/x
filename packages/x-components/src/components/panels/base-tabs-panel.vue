@@ -21,9 +21,10 @@
         >
           <button
             @click="selectTab(tab)"
+            :id="`base-tabs-panel-${tab}`"
             class="x-button x-tabs-panel__button"
             :class="tabIsSelected(tab) ? activeTabClass : tabClass"
-            :aria-pressed="tabIsSelected(tab)"
+            :aria-selected="tabIsSelected(tab)"
             data-test="base-tabs-panel-button"
             role="tab"
           >
@@ -45,9 +46,13 @@
         v-if="selectedTab && $scopedSlots[selectedTab]"
         :key="selectedTab"
         :class="contentClass"
+        :aria-labelledby="`base-tabs-panel-${selectedTab}`"
         data-test="base-tabs-panel-content"
         role="tabpanel"
       >
+        <!--
+          @slot Slot used to display the selected tab content.
+        -->
         <slot :name="selectedTab" />
       </div>
     </component>
