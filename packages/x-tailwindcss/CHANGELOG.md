@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.28...@empathyco/x-tailwindcss@0.2.0-alpha.29) (2022-11-15)
+
+### Features
+
+- **design-system:** add `suggestion` component to the XDS (#838)
+  ([055af83](https://github.com/empathyco/x/commit/055af838ddbf3a1293936d5994c455e4e8499654))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.27...@empathyco/x-tailwindcss@0.2.0-alpha.28) (2022-11-11)
 
 ### Build System

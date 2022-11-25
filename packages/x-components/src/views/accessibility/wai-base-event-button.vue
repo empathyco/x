@@ -68,23 +68,23 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import BaseIdTogglePanelButton from '../components/panels/base-id-toggle-panel-button.vue';
-  import BaseIdTogglePanel from '../components/panels/base-id-toggle-panel.vue';
-  import FacetsProvider from '../x-modules/facets/components/facets/facets-provider.vue';
-  import AllFilter from '../x-modules/facets/components/filters/all-filter.vue';
+  import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
+  import BaseIdTogglePanel from '../../components/panels/base-id-toggle-panel.vue';
+  import FacetsProvider from '../../x-modules/facets/components/facets/facets-provider.vue';
+  import AllFilter from '../../x-modules/facets/components/filters/all-filter.vue';
   // eslint-disable-next-line max-len
-  import ClearHistoryQueries from '../x-modules/history-queries/components/clear-history-queries.vue';
-  import HistoryQueries from '../x-modules/history-queries/components/history-queries.vue';
-  import SearchInput from '../x-modules/search-box/components/search-input.vue';
-  import BaseResultAddToCart from '../components/result/base-result-add-to-cart.vue';
-  import ClearFilters from '../x-modules/facets/components/clear-filters.vue';
-  import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';
-  import SimpleFilter from '../x-modules/facets/components/filters/simple-filter.vue';
-  import Filters from '../x-modules/facets/components/lists/filters-list.vue';
-  import ScrollToTop from '../x-modules/scroll/components/scroll-to-top.vue';
-  import { getSimpleFacetStub } from '../__stubs__';
-  import Facets from '../x-modules/facets/components/facets/facets.vue';
-  import Scroll from '../x-modules/scroll/components/scroll.vue';
+  import ClearHistoryQueries from '../../x-modules/history-queries/components/clear-history-queries.vue';
+  import HistoryQueries from '../../x-modules/history-queries/components/history-queries.vue';
+  import SearchInput from '../../x-modules/search-box/components/search-input.vue';
+  import BaseResultAddToCart from '../../components/result/base-result-add-to-cart.vue';
+  import ClearFilters from '../../x-modules/facets/components/clear-filters.vue';
+  import BaseColumnPickerList from '../../components/column-picker/base-column-picker-list.vue';
+  import SimpleFilter from '../../x-modules/facets/components/filters/simple-filter.vue';
+  import Filters from '../../x-modules/facets/components/lists/filters-list.vue';
+  import ScrollToTop from '../../x-modules/scroll/components/scroll-to-top.vue';
+  import { getSimpleFacetStub } from '../../__stubs__';
+  import Facets from '../../x-modules/facets/components/facets/facets.vue';
+  import Scroll from '../../x-modules/scroll/components/scroll.vue';
 
   @Component({
     components: {
