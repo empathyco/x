@@ -254,7 +254,8 @@
               <LocationProvider location="no_results">
                 <BaseTabsPanel
                   initial-tab="summer"
-                  panelClass="x-padding--top-06"
+                  contentClass="x-padding--top-06"
+                  :contentAnimation="tabsPanelAnimation"
                   tabClass="x-button-outlined x-button-neutral"
                   tabsListClass="x-list--horizontal"
                 >
@@ -564,6 +565,7 @@
     ];
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
+    protected tabsPanelAnimation = StaggeredFadeAndSlide;
     protected modalAnimation = animateClipPath();
     protected sortDropdownAnimation = CollapseHeight;
     protected selectedColumns = 4;

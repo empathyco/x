@@ -1,7 +1,7 @@
 <template>
   <section v-if="getTabs().length > 0" class="x-tabs-panel" data-test="base-tabs-panel">
     <component
-      :is="animation"
+      :is="tabsAnimation"
       tag="ul"
       class="x-list"
       :class="tabsListClass"
@@ -38,14 +38,16 @@
       </li>
     </component>
 
-    <div
-      v-if="selectedTab && $scopedSlots[selectedTab]"
-      :key="selectedTab"
-      :class="contentClass"
-      data-test="base-tabs-panel-content"
-    >
-      <slot :name="selectedTab" />
-    </div>
+    <component :is="contentAnimation">
+      <div
+        v-if="selectedTab && $scopedSlots[selectedTab]"
+        :key="selectedTab"
+        :class="contentClass"
+        data-test="base-tabs-panel-content"
+      >
+        <slot :name="selectedTab" />
+      </div>
+    </component>
   </section>
 </template>
 
@@ -70,7 +72,15 @@
      * @public
      */
     @Prop({ default: 'ul' })
-    public animation!: Vue | string;
+    public tabsAnimation!: Vue | string;
+
+    /**
+     * Animation component that will be used to animate the selected tab content.
+     *
+     * @public
+     */
+    @Prop({ default: 'div' })
+    public contentAnimation!: Vue | string;
 
     /**
      * The tab to be initially selected.
@@ -238,6 +248,41 @@ which tab should be opened at first.
     name: 'BaseTabsPanelDemo',
     components: {
       BaseTabsPanel
+    }
+  };
+</script>
+```
+
+#### Play with the animations
+
+- The `tabsAnimation` prop can be used to animate the tabs list.
+- The `contentAnimation` prop can be used to animate the selected tab content.
+
+```vue
+<template>
+  <BaseTabsPanel :tabsAnimation="staggeredFadeAndSlide" :contentAnimation="staggeredFadeAndSlide">
+    <template #summer>
+      <div>Summer Top Sales</div>
+    </template>
+
+    <template #fall>
+      <div>Fall Top Sales</div>
+    </template>
+  </BaseTabsPanel>
+</template>
+
+<script>
+  import { BaseTabsPanel, StaggeredFadeAndSlide } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseTabsPanelDemo',
+    components: {
+      BaseTabsPanel
+    },
+    data() {
+      return {
+        staggeredFadeAndSlide: StaggeredFadeAndSlide
+      };
     }
   };
 </script>
