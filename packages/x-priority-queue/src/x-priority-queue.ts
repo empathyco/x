@@ -149,7 +149,6 @@ export class XPriorityQueue<Key = string> {
     }
 
     const insertAtIndex = this.nodes.findIndex(node =>
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       this.comparatorFn(node.priority, newNode.priority)
     );
 
