@@ -70,7 +70,7 @@
      *
      * @internal
      */
-    @Getter('historyQueries', 'resultHistoryQueries')
+    @Getter('historyQueries', 'historyQueriesWithResults')
     public historyQueries!: HistoryQueryModel[];
   }
 </script>

@@ -13,7 +13,7 @@ import { updateHistoryQueriesWithSearchResponse } from './actions/update-history
 import { HISTORY_QUERIES_ENABLED_KEY } from './constants';
 import { historyQueries } from './getters/history-queries.getter';
 import { normalizedQuery } from './getters/normalized-query.getter';
-import { resultHistoryQueries } from './getters/result-history-queries.getter';
+import { historyQueriesWithResults } from './getters/history-queries-with-results.getter';
 import { sessionHistoryQueries } from './getters/session-history-queries.getter';
 import { storageKey } from './getters/storage-key.getter';
 import { HistoryQueriesXStoreModule } from './types';
@@ -39,7 +39,7 @@ export const historyQueriesXStoreModule: HistoryQueriesXStoreModule = {
   getters: {
     historyQueries,
     normalizedQuery,
-    resultHistoryQueries,
+    historyQueriesWithResults,
     sessionHistoryQueries,
     storageKey
   },

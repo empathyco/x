@@ -1,7 +1,7 @@
 import { HistoryQueriesXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link HistoryQueriesGetters.resultHistoryQueries} getter.
+ * Default implementation for the {@link HistoryQueriesGetters.historyQueriesWithResults} getter.
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the history
  * queries module.
@@ -13,7 +13,6 @@ import { HistoryQueriesXStoreModule } from '../types';
  *
  * @public
  */
-export const resultHistoryQueries: HistoryQueriesXStoreModule['getters']['resultHistoryQueries'] = (
-  state,
-  { historyQueries }
-) => historyQueries.filter(({ totalResults }) => totalResults !== 0);
+// eslint-disable-next-line max-len
+export const historyQueriesWithResults: HistoryQueriesXStoreModule['getters']['historyQueriesWithResults'] =
+  (state, { historyQueries }) => historyQueries.filter(({ totalResults }) => totalResults !== 0);

@@ -6,7 +6,7 @@ import { HistoryQueriesXStoreModule } from '../types';
  *
  * The matching history query will only be updated on the following scenarios:
  * 1. If it is part of a previous session, not the current one.
- * 2. If tts total results count has not been registered yet.
+ * 2. If its total results count has not been registered yet.
  * 3. If its total results count registered is less than the one specified on the search response,
  * meaning that the previous update was part of a filtered request.
  *
