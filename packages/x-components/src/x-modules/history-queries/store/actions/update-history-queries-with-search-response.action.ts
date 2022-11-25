@@ -23,26 +23,24 @@ import { HistoryQueriesXStoreModule } from '../types';
 export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule['actions']['updateHistoryQueriesWithSearchResponse'] =
   ({ state, dispatch }, searchResponse) => {
     if (searchResponse.status === 'success') {
-      let historyQueriesHaveChanged = false;
-      const newHistoryQueries = state.historyQueries.map(historyQuery => {
-        if (historyQuery.query === searchResponse.request.query) {
-          const isCurrentSessionHistoryQuery = historyQuery.timestamp > state.sessionTimeStampInMs;
-          if (
-            !isCurrentSessionHistoryQuery ||
-            historyQuery.totalResults == null ||
-            historyQuery.totalResults < searchResponse.totalResults
-          ) {
-            historyQuery = {
-              ...historyQuery,
-              totalResults: searchResponse.totalResults
-            };
-            historyQueriesHaveChanged = true;
-          }
+      const indexOfHistoryQuery = state.historyQueries.findIndex(
+        ({ query }) => query === searchResponse.request.query
+      );
+      if (indexOfHistoryQuery >= 0) {
+        const historyQuery = state.historyQueries[indexOfHistoryQuery];
+        const isCurrentSessionHistoryQuery = historyQuery.timestamp > state.sessionTimeStampInMs;
+        if (
+          !isCurrentSessionHistoryQuery ||
+          historyQuery.totalResults == null ||
+          historyQuery.totalResults < searchResponse.totalResults
+        ) {
+          const newHistoryQueries = state.historyQueries.slice();
+          newHistoryQueries[indexOfHistoryQuery] = {
+            ...historyQuery,
+            totalResults: searchResponse.totalResults
+          };
+          return dispatch('setHistoryQueries', newHistoryQueries);
         }
-        return historyQuery;
-      });
-      if (historyQueriesHaveChanged) {
-        return dispatch('setHistoryQueries', newHistoryQueries);
       }
     }
   };
