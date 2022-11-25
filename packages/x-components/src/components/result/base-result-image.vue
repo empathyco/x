@@ -77,8 +77,8 @@
      *
      * @public
      */
-    @Prop({ default: () => NoElement })
-    public hoverAnimation!: string | typeof Vue;
+    @Prop()
+    public hoverAnimation!: string | typeof Vue | undefined;
 
     /**
      * Copy of the images of the result.
@@ -140,7 +140,9 @@
      * @internal
      */
     protected get animation(): string | typeof Vue {
-      return this.userHasHoveredImage ? this.hoverAnimation : this.loadAnimation;
+      return this.userHasHoveredImage
+        ? this.hoverAnimation ?? this.loadAnimation
+        : this.loadAnimation;
     }
 
     /**
