@@ -119,7 +119,7 @@ describe('x-priority-queue scenarios', () => {
       const queue = new XPriorityQueue();
 
       // And an element is peeked
-      // Then the first element is retrieved but not removed
+      // Then no element is returned
       expect(queue.peek()).toBeUndefined();
 
       // Pushing elements
@@ -194,7 +194,7 @@ describe('x-priority-queue scenarios', () => {
   });
 
   describe('at', () => {
-    it('returns the element of the queue at the // Given index', () => {
+    it('returns the element of the queue at the given index', () => {
       // Given a queue
       const queue = new XPriorityQueue();
 
