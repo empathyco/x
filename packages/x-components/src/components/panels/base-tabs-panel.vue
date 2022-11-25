@@ -9,7 +9,7 @@
     >
       <li v-for="tab in getTabs()" :key="tab">
         <!--
-          @slot Slot that is be used for replacing the whole tab.
+          @slot Slot used to replace the whole tab.
             @binding {tab} string - The tab name.
             @binding {isSelected} boolean - Indicates if the tab is selected.
             @binding {select} function - Function to select the tab.
