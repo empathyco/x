@@ -13,7 +13,7 @@
       @load="flagImageLoaded"
       @error="flagImageAsFailed"
       loading="lazy"
-      :src="images[0]"
+      :src="pendingImages[0]"
       :style="loaderStyles"
       data-test="result-picture-loader"
       alt=""
@@ -21,7 +21,7 @@
     />
     <component :is="animation" class="x-picture__image" :appear="false">
       <!-- @slot Fallback image content. It will be rendered when all the images failed -->
-      <slot v-if="!loadedImages.length && !images.length" name="fallback" />
+      <slot v-if="!loadedImages.length && !pendingImages.length" name="fallback" />
 
       <!-- @slot Loading image content. It will be rendered while the real image is not loaded -->
       <slot v-else-if="!loadedImages.length" name="placeholder" />
@@ -96,7 +96,7 @@
      *
      * @internal
      */
-    protected images: string[] = this.result.images ?? [];
+    protected pendingImages: string[] = [...(this.result.images ?? [])];
 
     /**
      * Contains the images that have been loaded successfully.
@@ -169,7 +169,7 @@
      */
     protected get shouldLoadNextImage(): boolean {
       const numImagesToLoad = this.showNextImageOnHover && this.userHasHoveredImage ? 2 : 1;
-      return !!this.images.length && this.loadedImages.length < numImagesToLoad;
+      return !!this.pendingImages.length && this.loadedImages.length < numImagesToLoad;
     }
 
     /**
@@ -178,7 +178,7 @@
      * @internal
      */
     protected flagImageAsFailed(): void {
-      this.images.shift();
+      this.pendingImages.shift();
     }
 
     /**
@@ -187,7 +187,7 @@
      * @internal
      */
     protected flagImageLoaded(): void {
-      const image = this.images.shift();
+      const image = this.pendingImages.shift();
       if (image) {
         this.loadedImages.push(image);
       }
