@@ -32,7 +32,7 @@
     "@typescript-eslint/parser": "~5.21.0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "~10.0.0",
-    "eslint": "~8.14.0",
+    "eslint": "~8.28.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-import-resolver-typescript": "~2.7.1",
     "eslint-plugin-cypress": "~2.12.1",
@@ -45,7 +45,7 @@
     "eslint-plugin-vuejs-accessibility": "~1.1.1"
   },
   "peerDependencies": {
-    "eslint": "~8.14.0",
+    "eslint": "~8.28.0",
     "prettier": "^2.0.5"
   },
   "prettier": "./prettier-config.js",
