@@ -9,6 +9,7 @@
         v-if="open"
         ref="modalContent"
         class="x-modal__content x-list"
+        :class="contentClass"
         data-test="modal-content"
         role="dialog"
       >
@@ -30,8 +31,9 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Prop, Mixins } from 'vue-property-decorator';
   import Fade from '../animations/fade.vue';
+  import { dynamicPropsMixin } from '../dynamic-props.mixin';
   import { NoElement } from '../no-element';
   import { FOCUSABLE_SELECTORS } from '../../utils/focus';
   import { Debounce } from '../decorators/debounce.decorators';
@@ -43,7 +45,7 @@
    * @public
    */
   @Component
-  export default class BaseModal extends Vue {
+  export default class BaseModal extends Mixins(dynamicPropsMixin(['contentClass'])) {
     /**
      * Animation to use for opening/closing the modal. This animation only affects the content.
      */

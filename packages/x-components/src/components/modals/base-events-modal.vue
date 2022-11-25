@@ -12,11 +12,12 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Prop, Mixins } from 'vue-property-decorator';
   import { XEvent } from '../../wiring/events.types';
   import { XOn } from '../decorators/bus.decorators';
   import { WireMetadata } from '../../wiring/wiring.types';
   import { isElementEqualOrContained } from '../../utils/html';
+  import { dynamicPropsMixin } from '../dynamic-props.mixin';
   import BaseModal from './base-modal.vue';
 
   /**
@@ -33,7 +34,7 @@
   @Component({
     components: { BaseModal }
   })
-  export default class BaseEventsModal extends Vue {
+  export default class BaseEventsModal extends Mixins(dynamicPropsMixin(['contentClass'])) {
     /**
      * Animation to use for opening/closing the modal.
      */

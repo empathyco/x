@@ -32,42 +32,38 @@
           This is not inside a
           <code>x-layout-item</code>
         </div>
-        <div class="x-layout-item x-overlap-from-top">
-          <button class="x-button x-justify-self-center x-mt-32">
-            This is overlapping from the top
-          </button>
-        </div>
-        <div class="x-scroll">
-          <div class="x-layout-item x-bg-auxiliary-25">
-            <span
-              class="x-on-margin-left"
-              style="text-orientation: sideways; writing-mode: vertical-rl"
-            >
-              This is on the margin left
-            </span>
-            <div class="x-flex x-flex-col x-justify-between x-bg-auxiliary-50 x-h-[2000px]">
-              <span>
-                this is inside another
-                <code>x-layout-item</code>
-                which is inside the scroll
-              </span>
-              <span class="x-place-self-center">
-                this is inside the same last
-                <code>x-layout-item</code>
-                which is still inside the scroll
-              </span>
-              <span class="x-place-self-end">
-                this also is inside the same last
-                <code>x-layout-item</code>
-                which is inside the scroll
-              </span>
+        <div class="x-layout-item x-no-margin-right x-layout-expand x-bg-success-50">
+          <div class="x-flex x-layout-expand">
+            <div class="x-scroll x-w-128">
+              <div class="x-flex x-flex-col x-justify-between x-bg-auxiliary-50 x-h-[2000px]">
+                <span>
+                  this is inside another
+                  <code>x-layout-item</code>
+                  which is inside the scroll
+                </span>
+                <span class="x-place-self-end">
+                  this also is inside the same last
+                  <code>x-layout-item</code>
+                  which is inside the scroll
+                </span>
+              </div>
             </div>
-            <span
-              class="x-on-margin-right"
-              style="text-orientation: sideways; writing-mode: vertical-lr"
-            >
-              This is on the margin right
-            </span>
+            <div class="x-scroll x-layout-expand x-flex-1">
+              <div class="x-layout-item x-no-margin-left x-bg-auxiliary-25">
+                <div class="x-flex x-flex-col x-justify-between x-bg-auxiliary-50 x-h-[2000px]">
+                  <section>
+                    this is inside another
+                    <code>x-layout-item</code>
+                    which is inside the scroll
+                  </section>
+                  <span class="x-place-self-end">
+                    this also is inside the same last
+                    <code>x-layout-item</code>
+                    which is inside the scroll
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="x-layout-item x-overlap">
@@ -96,7 +92,7 @@
   import { Vue, Component } from 'vue-property-decorator';
 
   @Component
-  export default class XdsLayout extends Vue {
+  export default class XdsLayoutTwoCols extends Vue {
     openModal(): void {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       (this.$refs.modal as any).showModal();

@@ -11,8 +11,6 @@ import { TailwindHelpers } from '../../../types';
 export function item(helpers: TailwindHelpers) {
   return {
     item: {
-      '--x-layout-scroll-width': '17px',
-
       '--x-margin': 'max(var(--x-layout-min-margin, 0px), var(--x-max-width-margin))',
       '--x-max-width-margin': 'calc((100vw - var(--x-layout-max-with, 100vw)) / 2)',
       '--x-margin-left': 'var(--x-margin)',
@@ -21,8 +19,10 @@ export function item(helpers: TailwindHelpers) {
       display: 'grid',
       justifyItems: 'stretch',
       alignItems: 'start',
+      overflowX: 'hidden',
 
-      gridTemplateColumns: 'var(--x-margin-left) 1fr var(--x-margin-right)',
+      gridTemplateColumns:
+        'var(--x-margin-left) 1fr calc(var(--x-margin-right) - var(--x-layout-scroll-width,0px))',
 
       '& > *': {
         gridColumn: '2 / -2'
@@ -69,16 +69,22 @@ export function itemModifiers(helpers: TailwindHelpers) {
     },
 
     '.no-margin-left': {
-      '--x-margin-left': 0
+      '--x-margin-left': '0px'
     },
 
     '.no-margin-right': {
-      '--x-margin-right': 0
+      '--x-margin-right': '0px'
     },
 
     '.no-margin': {
-      '--x-margin-left': 0,
-      '--x-margin-right': 0
+      '--x-margin-left': '0px',
+      '--x-margin-right': '0px'
+    },
+    '@media (hover: hover) and (pointer: fine)': {
+      /*'.scroll > .layout-item:not(.no-margin-right)': {*/
+      '.scroll > .layout-item:not(.no-margin-right)': {
+        '--x-layout-scroll-width': '17px'
+      }
     }
   };
 }

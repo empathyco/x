@@ -4,6 +4,7 @@
     <XdsIcon />
     <XdsSuggestion />
     <XdsLayout />
+    <XdsLayoutTwoCols />
   </div>
 </template>
 <script lang="ts">
@@ -11,11 +12,12 @@
   import { Component } from 'vue-property-decorator';
   import XdsButton from './xds-button.vue';
   import XdsIcon from './xds-icon.vue';
+  import XdsLayoutTwoCols from './xds-layout-two-cols.vue';
   import XdsLayout from './xds-layout.vue';
   import XdsSuggestion from './xds-suggestion.vue';
 
   @Component({
-    components: { XdsLayout, XdsButton, XdsIcon, XdsSuggestion }
+    components: { XdsLayoutTwoCols, XdsLayout, XdsButton, XdsIcon, XdsSuggestion }
   })
   export default class XdsShowcase extends Vue {}
 </script>
