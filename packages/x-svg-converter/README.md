@@ -18,11 +18,11 @@ By default, the SVGs are deleted.
 Run the following command to generate a Vue component from each SVG in the source folder:
 
 ```
-ts-node ./src/svg-to-vue.ts ./src/test-files ./yourSourceFolder
+ts-node ./src/svg-to-vue.ts ./yourSourceFolder
 ```
 
 If you want to keep the source SVGs, add the `--keep-svgs` param:
 
 ```
-ts-node ./src/svg-to-vue.ts ./src/test-files ./yourSourceFolder --keep-svgs
+ts-node ./src/svg-to-vue.ts ./yourSourceFolder --keep-svgs
 ```
