@@ -223,7 +223,7 @@ which tab should be opened at first.
 #### Customizing the content with classes
 
 - The `activeTabClass` prop can be used to add classes to the active tab button.
-- The `contentClass` prop can be used to add classes to the panel.
+- The `contentClass` prop can be used to add classes to the content.
 - The `tabClass` prop can be used to add classes to the tab buttons.
 - The `tabsListClass` prop can be used to add classes to the tabs list.
 
