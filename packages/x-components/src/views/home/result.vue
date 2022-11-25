@@ -4,7 +4,7 @@
       <BaseResultImage
         :result="result"
         class="x-result__picture x-picture--fixed-ratio x-picture--zoom"
-        :animation="crossFade"
+        :loadAnimation="crossFade"
       >
         <template #placeholder>
           <div style="padding-top: 100%; background-color: lightgray"></div>

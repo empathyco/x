@@ -410,7 +410,6 @@
   import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
   import BaseIdTogglePanel from '../../components/panels/base-id-toggle-panel.vue';
   import PreselectedFilters from '../../x-modules/facets/components/preselected-filters.vue';
-  import BaseResultImage from '../../components/result/base-result-image.vue';
   import SlidingPanel from '../../components/sliding-panel.vue';
   import SnippetCallbacks from '../../components/snippet-callbacks.vue';
   import { infiniteScroll } from '../../directives/infinite-scroll/infinite-scroll';
@@ -474,7 +473,6 @@
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
       BaseKeyboardNavigation,
-      BaseResultImage,
       BaseVariableColumnGrid,
       CheckTiny,
       ChevronLeft,

@@ -19,7 +19,7 @@
       alt=""
       role="presentation"
     />
-    <component :is="imageAnimation" class="x-picture__image" :appear="false">
+    <component :is="animation" class="x-picture__image" :appear="false">
       <!-- @slot Fallback image content. It will be rendered when all the images failed -->
       <slot v-if="!loadedImages.length && !images.length" name="fallback" />
 
@@ -62,6 +62,7 @@
      */
     @Prop({ required: true })
     protected result!: Result;
+
     /**
      * Animation to use when switching between the placeholder, the loaded image, or the failed
      * image fallback.
@@ -69,15 +70,7 @@
      * @public
      */
     @Prop({ default: () => NoElement })
-    public animation!: string | typeof Vue;
-
-    /**
-     * Indicates if the next valid image should be displayed on hover.
-     *
-     * @public
-     */
-    @Prop({ type: Boolean, default: false })
-    public showNextImageOnHover!: boolean;
+    public loadAnimation!: string | typeof Vue;
 
     /**
      * Animation to use when switching between the loaded image and the hover image.
@@ -88,11 +81,6 @@
     public hoverAnimation!: string | typeof Vue;
 
     /**
-     * Contains the images that have been loaded successfully.
-     */
-    public loadedImages: string[] = [];
-
-    /**
      * Copy of the images of the result.
      *
      * It is used as a queue of images to load, once an image loads/fails to load, it is removed
@@ -101,6 +89,19 @@
      * @internal
      */
     protected images: string[] = this.result.images ?? [];
+
+    /**
+     * Contains the images that have been loaded successfully.
+     */
+    public loadedImages: string[] = [];
+
+    /**
+     * Indicates if the next valid image should be displayed on hover.
+     *
+     * @public
+     */
+    @Prop({ type: Boolean, default: false })
+    public showNextImageOnHover!: boolean;
 
     /**
      * Indicates if the user is hovering the image.
@@ -138,8 +139,8 @@
      *
      * @internal
      */
-    protected get imageAnimation(): string | typeof Vue {
-      return !this.userHasHoveredImage ? this.animation : this.hoverAnimation;
+    protected get animation(): string | typeof Vue {
+      return this.userHasHoveredImage ? this.hoverAnimation : this.loadAnimation;
     }
 
     /**
