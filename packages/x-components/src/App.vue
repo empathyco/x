@@ -2,6 +2,7 @@
   <div class="app">
     <nav>
       <div>test</div>
+      <div>test</div>
       <!-- Intentionally using an `a` element instead of `router-link` to perform a full refresh -->
       <a v-for="route in $router.options.routes" :key="route.name" class="link" :href="route.path">
         {{ route.name }}
