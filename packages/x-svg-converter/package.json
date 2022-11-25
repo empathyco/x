@@ -14,8 +14,7 @@
     "dist"
   ],
   "bin": {
-    "json-csv": "dist/json-to-csv.js",
-    "csv-json": "dist/csv-to-json.js"
+    "svg-vue": "dist/svg-to-vue.js"
   },
   "repository": {
     "type": "git",
