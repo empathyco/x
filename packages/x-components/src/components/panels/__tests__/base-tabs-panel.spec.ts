@@ -156,10 +156,12 @@ describe('testing BaseTabsPanel', () => {
 
     // First tab is selected initially
     expect(getTabsButtons().at(0).element).toHaveClass('selected-tab');
+    expect(getTabsButtons().at(0).element).toHaveAttribute('aria-selected', 'true');
 
     // Select third tab
     await clickNthTab(2);
     expect(getTabsButtons().at(2).element).toHaveClass('selected-tab');
+    expect(getTabsButtons().at(2).element).toHaveAttribute('aria-selected', 'true');
 
     // The third panel is the rendered one
     expect(getTabPanel().text()).toBe('Top Outlet sales');
