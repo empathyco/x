@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.232](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.231...@empathyco/x-components@3.0.0-alpha.232) (2022-11-28)
+
+### Features
+
+- add `Highlight` component (#872)
+  ([1b5aa57](https://github.com/empathyco/x/commit/1b5aa5793b7916ec0433b4110b7ef355f882f4f6)),
+  closes [EX-7468](https://searchbroker.atlassian.net/browse/EX-7468)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.231](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.230...@empathyco/x-components@3.0.0-alpha.231) (2022-11-28)
 
 ### Features
