@@ -54,7 +54,10 @@
             @binding {tab} string - This content's tab name.
             @binding {selectTab} function - Function to select a tab.
         -->
-        <slot :name="selectedTab" v-bind="{ tab: selectedTab, selectTab }" />
+        <slot
+          :name="selectedTab"
+          v-bind="{ tab: selectedTab, selectTab, unselectTab: () => selectTab(selectedTab) }"
+        />
       </div>
     </component>
   </section>
