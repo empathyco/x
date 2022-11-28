@@ -215,6 +215,12 @@ describe('x-priority-queue scenarios', () => {
   });
 
   describe('toString', () => {
+    it('returns an empty string if the queue is empty', () => {
+      // Given an empty queue
+      const queue = new XPriorityQueue();
+      expect(queue.toString()).toBe('');
+    });
+
     it("returns queue's data stringified", () => {
       // Given a queue
       const queue = new XPriorityQueue();
