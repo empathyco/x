@@ -27,7 +27,7 @@
   "scripts": {
     "build": "tsc",
     "postbuild": "npm pack",
-    "test": "jest -i"
+    "test": ""
   },
   "devDependencies": {
     "@types/jest": "~27.0.3",
