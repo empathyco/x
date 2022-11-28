@@ -34,8 +34,8 @@ function removeDimensions(svg: string): string {
  * @returns The processed SVG.
  */
 function addFillNoneInRoot(svg: string): string {
-  const matchRootWithoutFillNone = /svg ?:(?!.*?fill="none")(?=.*?>)/gm;
-  return svg.replace(matchRootWithoutFillNone, '$1 fill="none"');
+  const matchRootWithoutFillNone = /svg (?:(?!.*?fill="none"))(?=.*?>)/gm;
+  return svg.replace(matchRootWithoutFillNone, 'svg fill="none" ');
 }
 
 /**
