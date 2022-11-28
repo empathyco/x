@@ -30,8 +30,8 @@
         >
           <!--
               @slot Slot used to just pass the content.
-                @binding {tab} string - The tab name.
-                @binding {isSelected} boolean - Indicates if the tab is selected.
+                @binding {string} tab - The tab name.
+                @binding {boolean} isSelected - Indicates if the tab is selected.
             -->
           <slot name="tab-content" v-bind="{ tab, isSelected: tabIsSelected(tab) }">
             {{ tab }}
@@ -51,12 +51,13 @@
       >
         <!--
           @slot Slot used to display the selected tab content.
-            @binding {tab} string - This content's tab name.
-            @binding {selectTab} function - Function to select a tab.
+            @binding {string} tab - This content's tab name.
+            @binding {function} selectTab - Function to select a tab.
+            @binding {function} deselectTab - Function to deselect the tab.
         -->
         <slot
           :name="selectedTab"
-          v-bind="{ tab: selectedTab, selectTab, unselectTab: () => selectTab(selectedTab) }"
+          v-bind="{ tab: selectedTab, selectTab, deselectTab: () => selectTab(selectedTab) }"
         />
       </div>
     </component>
@@ -75,11 +76,7 @@
    *
    * @public
    */
-  @Component({
-    components: {
-      NoElement
-    }
-  })
+  @Component
   export default class BaseTabsPanel extends mixins(
     dynamicPropsMixin(['activeTabClass', 'contentClass', 'tabClass', 'tabsListClass'])
   ) {
@@ -443,9 +440,14 @@ The displayed tab name and a method to select a tab are exposed to the tab panel
 ```vue
 <template>
   <BaseTabsPanel>
-    <template #summer="{ tab, selectTab }">
+    <template #summer="{ tab, selectTab, deselectTab }">
       <h1>{{ tab }}</h1>
-      <button @click="() => selectTab('')">Close tab</button>
+      <button @click="() => selectTab('fall')">Open Fall</button>
+      <button @click="deselectTab">Close tab</button>
+    </template>
+
+    <template #fall>
+      <div>Fall Top Sales</div>
     </template>
   </BaseTabsPanel>
 </template>

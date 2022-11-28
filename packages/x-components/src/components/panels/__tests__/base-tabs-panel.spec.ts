@@ -98,27 +98,38 @@ describe('testing BaseTabsPanel', () => {
     expect(getTabPanel().text()).toBe('Top Fall sales');
   });
 
-  it('exposes `tab` and `selectTab` in the panel content slot', async () => {
+  it('exposes `tab`, `selectTab` and `deselectTab` in the panel content slot', async () => {
+    const TabContent = `<template v-slot="{ tab, selectTab, deselectTab }">
+      <div>{{ tab }} tab content</div>
+      <button data-test="select-tab-button" @click="() => selectTab('fall')"></button>
+      <button data-test="deselect-tab-button" @click="deselectTab"></button>
+    </template>`;
+
     const { getTabPanel, wrapper } = renderBaseTabsPanel({
       tabs: {
-        summer: `<template v-slot="{ tab, selectTab }">
-            <div>{{ tab }}</div>
-            <button data-test="custom-button" @click="() => selectTab('fall')"></button>
-          </template>`,
-        fall: '<div>Top Fall sales</div>'
+        summer: TabContent,
+        fall: TabContent
       },
-      initialTab: 'summer'
+      initialTab: 'summer',
+      allowTabDeselect: true
     });
 
     // `tab` is exposed properly
-    expect(getTabPanel().text()).toBe('summer');
+    expect(getTabPanel().text()).toBe('summer tab content');
 
-    // Click on custom button
-    wrapper.find(getDataTestSelector('custom-button')).trigger('click');
+    // Select another tab
+    wrapper.find(getDataTestSelector('select-tab-button')).trigger('click');
     await wrapper.vm.$nextTick();
 
     // 'selectTab` is exposed properly as the selected tab has changed
-    expect(getTabPanel().text()).toBe('Top Fall sales');
+    expect(getTabPanel().text()).toBe('fall tab content');
+
+    // Deselect the tab
+    wrapper.find(getDataTestSelector('deselect-tab-button')).trigger('click');
+    await wrapper.vm.$nextTick();
+
+    // 'deselectTab` is exposed properly as no panel is displayed
+    expect(getTabPanel().exists()).toBe(false);
   });
 
   it('renders the default `tab` slot', () => {
