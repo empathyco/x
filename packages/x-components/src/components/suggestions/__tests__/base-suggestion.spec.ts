@@ -55,7 +55,7 @@ describe('testing Base Suggestion component', () => {
       })
     });
 
-    expect(wrapper.text()).toEqual('t-shirt woman');
+    expect(wrapper.text()).toEqual('t-shirtwoman');
   });
 
   it('has suggestion query parts matching query passed as prop retaining accent marks', () => {

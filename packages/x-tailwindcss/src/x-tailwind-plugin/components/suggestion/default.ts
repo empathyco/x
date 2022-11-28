@@ -31,14 +31,6 @@ export function suggestionDefault(helpers: TailwindHelpers) {
       textDecoration: 'underline'
     },
 
-    // Matching state
-    '&.suggestion-matching': {
-      fontWeight: theme('fontWeight.bold')
-    },
-    '.suggestion-matching-part': {
-      fontWeight: theme('fontWeight.regular')
-    },
-
     /**
      * Enable `enableIconOffset` icon alignment flag.
      *

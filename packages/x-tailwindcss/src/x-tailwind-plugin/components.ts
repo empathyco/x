@@ -3,6 +3,7 @@ import { variables } from './components/variables';
 import { button } from './components/button';
 import { icon } from './components/icon';
 import { suggestion } from './components/suggestion';
+import { highlight } from './components/highlight';
 
 /**
  * Default component styles.
@@ -18,7 +19,8 @@ export default function components(helpers: TailwindHelpers) {
     ...variables(helpers),
     ...button(helpers),
     ...icon(helpers),
-    ...suggestion(helpers)
+    ...suggestion(helpers),
+    ...highlight(helpers)
   };
 }
 

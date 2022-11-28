@@ -12,12 +12,7 @@
       title="Click me to copy CSS classes"
     >
       <CuratedIcon class="x-icon" />
-      <span v-if="cssClass.includes('matching')">
-        {{ removeClassPrefix(cssClass, base) }}
-        <span class="x-suggestion-matching-part">sugge</span>
-        <span>stion</span>
-      </span>
-      <template v-else-if="section === 'Default'">
+      <template v-if="section === 'Default'">
         very long default suggestion to test line wrap alignment
       </template>
       <template v-else>{{ removeClassPrefix(cssClass, base) }} suggestion</template>
@@ -65,9 +60,6 @@
     @Prop({ default: () => ['x-suggestion-tag'] })
     public tag!: string;
 
-    @Prop({ default: () => ['x-suggestion-matching'] })
-    public matching!: string[];
-
     @Prop({
       default: () => ['x-suggestion-tag x-suggestion-md', 'x-suggestion-tag x-suggestion-lg']
     })
@@ -76,7 +68,7 @@
     @Prop({
       default: () => [
         'x-suggestion x-suggestion-success x-suggestion-md',
-        'x-suggestion x-suggestion-matching x-suggestion-auxiliary x-suggestion-md',
+        'x-suggestion x-suggestion-auxiliary x-suggestion-md',
         'x-suggestion-tag x-suggestion-error-50 x-suggestion-lg'
       ]
     })
@@ -89,7 +81,6 @@
         Sizes: this.sizes.map(addParentClasses(this.base)),
         Tag: this.colors.map(addParentClasses(this.base, this.tag)),
         'Tag Sizes': this.tagSizes.map(addParentClasses(this.base)),
-        Matching: this.matching.map(addParentClasses(this.base)),
         Combinations: this.combinations.map(addParentClasses(this.base))
       };
     }
