@@ -64,7 +64,7 @@
     /**
      * CSS Class to add when the `text` string contains the `highlight` string.
      */
-    @Prop({ default: 'x-highlight-text' })
+    @Prop({ default: '' })
     public matchClass!: string;
 
     /**
@@ -83,7 +83,7 @@
      *
      * @remarks
      * `x-highlight--has-match`: When there is a match between the text and the part to highlight.
-     * `[matchClass]` (defaults to `x-highlight-text`): When there is a match between the text and
+     * `[matchClass]`: When there is a match between the text and
      * the part to highlight.
      * `[noMatchClass]`: when there is no match between the text to highlight.
      * @returns The {@link VueCSSClasses} classes.
@@ -92,6 +92,7 @@
     protected get dynamicCSSClasses(): VueCSSClasses {
       const classes: VueCSSClasses = {
         'x-highlight--has-match': this.hasMatch,
+        'x-highlight-text': this.hasMatch,
         [this.matchClass]: this.hasMatch
       };
       if (this.noMatchClass) {
