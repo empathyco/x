@@ -2,43 +2,42 @@
   <section v-if="getTabs().length > 0" class="x-tabs-panel" data-test="base-tabs-panel">
     <component
       :is="tabsAnimation"
-      tag="ul"
-      class="x-list"
+      class="x-tabs-panel__items-list x-list"
       :class="tabsListClass"
       data-test="base-tabs-panel-list"
       role="tablist"
     >
-      <li v-for="tab in getTabs()" :key="tab">
-        <!--
-          @slot Slot used to replace the whole tab.
-            @binding {tab} string - The tab name.
-            @binding {isSelected} boolean - Indicates if the tab is selected.
-            @binding {select} function - Function to select the tab.
-         -->
-        <slot
-          name="tab"
-          v-bind="{ tab, isSelected: tabIsSelected(tab), select: () => selectTab(tab) }"
+      <!--
+        @slot Slot used to replace the whole tab.
+          @binding {tab} string - The tab name.
+          @binding {isSelected} boolean - Indicates if the tab is selected.
+          @binding {select} function - Function to select the tab.
+      -->
+      <slot
+        v-for="tab in getTabs()"
+        name="tab"
+        v-bind="{ tab, isSelected: tabIsSelected(tab), select: () => selectTab(tab) }"
+      >
+        <button
+          :key="tab"
+          @click="selectTab(tab)"
+          :id="`base-tabs-panel-${tab}`"
+          class="x-tabs-panel__list-item x-list__item x-button x-tabs-panel__button"
+          :class="tabIsSelected(tab) ? activeTabClass : tabClass"
+          :aria-selected="tabIsSelected(tab)"
+          data-test="base-tabs-panel-button"
+          role="tab"
         >
-          <button
-            @click="selectTab(tab)"
-            :id="`base-tabs-panel-${tab}`"
-            class="x-button x-tabs-panel__button"
-            :class="tabIsSelected(tab) ? activeTabClass : tabClass"
-            :aria-selected="tabIsSelected(tab)"
-            data-test="base-tabs-panel-button"
-            role="tab"
-          >
-            <!--
+          <!--
               @slot Slot used to just pass the content.
                 @binding {tab} string - The tab name.
                 @binding {isSelected} boolean - Indicates if the tab is selected.
             -->
-            <slot name="tab-content" v-bind="{ tab, isSelected: tabIsSelected(tab) }">
-              {{ tab }}
-            </slot>
-          </button>
-        </slot>
-      </li>
+          <slot name="tab-content" v-bind="{ tab, isSelected: tabIsSelected(tab) }">
+            {{ tab }}
+          </slot>
+        </button>
+      </slot>
     </component>
 
     <component :is="contentAnimation">
@@ -52,8 +51,10 @@
       >
         <!--
           @slot Slot used to display the selected tab content.
+            @binding {tab} string - This content's tab name.
+            @binding {selectTab} function - Function to select a tab.
         -->
-        <slot :name="selectedTab" />
+        <slot :name="selectedTab" v-bind="{ tab: selectedTab, selectTab }" />
       </div>
     </component>
   </section>
@@ -63,6 +64,7 @@
   import Vue from 'vue';
   import { mixins } from 'vue-class-component';
   import { Component, Prop } from 'vue-property-decorator';
+  import { NoElement } from '../no-element';
   import { dynamicPropsMixin } from '../dynamic-props.mixin';
 
   /**
@@ -70,7 +72,11 @@
    *
    * @public
    */
-  @Component
+  @Component({
+    components: {
+      NoElement
+    }
+  })
   export default class BaseTabsPanel extends mixins(
     dynamicPropsMixin(['activeTabClass', 'contentClass', 'tabClass', 'tabsListClass'])
   ) {
@@ -79,7 +85,7 @@
      *
      * @public
      */
-    @Prop({ default: 'ul' })
+    @Prop({ default: 'header' })
     public tabsAnimation!: Vue | string;
 
     /**
@@ -87,7 +93,7 @@
      *
      * @public
      */
-    @Prop({ default: 'div' })
+    @Prop({ default: 'NoElement' })
     public contentAnimation!: Vue | string;
 
     /**
@@ -97,6 +103,14 @@
      */
     @Prop({ default: '' })
     public initialTab!: string;
+
+    /**
+     * Allows the tabs to be unselected.
+     *
+     * @public
+     */
+    @Prop({ default: false, type: Boolean })
+    public allowTabDeselect!: boolean;
 
     /**
      * The currently selected tab.
@@ -119,14 +133,19 @@
     }
 
     /**
-     * Changes the current selected tab.
+     * Changes the current selected tab. If the tab is already selected
+     * and `allowTabDeselect` is `true`, the tab will be unselected.
      *
      * @param tab - The tab to be selected.
      *
      * @internal
      */
     protected selectTab(tab: string): void {
-      this.selectedTab = tab;
+      if (this.allowTabDeselect && this.selectedTab === tab) {
+        this.selectedTab = '';
+      } else {
+        this.selectedTab = tab;
+      }
     }
 
     /**
@@ -194,6 +213,41 @@ which tab should be opened at first.
 ```vue
 <template>
   <BaseTabsPanel initialTab="summer">
+    <template #summer>
+      <div>Summer Top Sales</div>
+    </template>
+
+    <template #fall>
+      <div>Fall Top Sales</div>
+    </template>
+
+    <template #outlet>
+      <div>Outlet Top Sales</div>
+    </template>
+  </BaseTabsPanel>
+</template>
+
+<script>
+  import { BaseTabsPanel } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseTabsPanelDemo',
+    components: {
+      BaseTabsPanel
+    }
+  };
+</script>
+```
+
+#### Allowing tabs deselection
+
+The prop `allowTabDeselect` allows the tabs to be deselected. When a tab that is already selected is
+clicked again, the tab will be deselected and no panel content will be displayed. By default, this
+behavior is disabled.
+
+```vue
+<template>
+  <BaseTabsPanel initialTab="summer" allowTabDeselect>
     <template #summer>
       <div>Summer Top Sales</div>
     </template>
@@ -374,6 +428,32 @@ Alternatively to the previous example, instead of changing the whole tab button,
     components: {
       BaseTabsPanel,
       CheckIcon
+    }
+  };
+</script>
+```
+
+#### Customizing the tab panel content
+
+The displayed tab name and a method to select a tab are exposed to the tab panel content slot.
+
+```vue
+<template>
+  <BaseTabsPanel>
+    <template #summer="{ tab, selectTab }">
+      <h1>{{ tab }}</h1>
+      <button @click="() => selectTab('')">Close tab</button>
+    </template>
+  </BaseTabsPanel>
+</template>
+
+<script>
+  import { BaseTabsPanel } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseTabsPanelDemo',
+    components: {
+      BaseTabsPanel
     }
   };
 </script>

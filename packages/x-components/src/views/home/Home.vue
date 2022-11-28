@@ -253,7 +253,7 @@
               <h1 class="x-title1 x-margin--bottom-05">Brand Recommendations</h1>
               <LocationProvider location="no_results">
                 <BaseTabsPanel
-                  initial-tab="summer"
+                  initialTab="summer"
                   contentClass="x-padding--top-06"
                   :contentAnimation="tabsPanelAnimation"
                   tabClass="x-button-outlined x-button-neutral"

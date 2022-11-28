@@ -13,6 +13,7 @@ import BaseTabsPanel from '../base-tabs-panel.vue';
  */
 function renderBaseTabsPanel({
   activeTabClass,
+  allowTabDeselect,
   contentClass,
   initialTab,
   slots,
@@ -24,7 +25,14 @@ function renderBaseTabsPanel({
 
   const wrapper = mount(BaseTabsPanel, {
     localVue,
-    propsData: { initialTab, activeTabClass, contentClass, tabClass, tabsListClass },
+    propsData: {
+      activeTabClass,
+      allowTabDeselect,
+      contentClass,
+      initialTab,
+      tabClass,
+      tabsListClass
+    },
     scopedSlots: {
       ...slots,
       ...tabs
@@ -78,7 +86,7 @@ describe('testing BaseTabsPanel', () => {
     expect(getTabPanel().exists()).toBe(false);
   });
 
-  it('renders the panel of the tab indicated by `initialTab`', () => {
+  it('renders the panel content of the tab indicated by `initialTab`', () => {
     const { getTabPanel } = renderBaseTabsPanel({
       tabs: {
         summer: '<div>Top Summer sales</div>',
@@ -87,6 +95,29 @@ describe('testing BaseTabsPanel', () => {
       initialTab: 'fall'
     });
 
+    expect(getTabPanel().text()).toBe('Top Fall sales');
+  });
+
+  it('exposes `tab` and `selectTab` in the panel content slot', async () => {
+    const { getTabPanel, wrapper } = renderBaseTabsPanel({
+      tabs: {
+        summer: `<template v-slot="{ tab, selectTab }">
+            <div>{{ tab }}</div>
+            <button data-test="custom-button" @click="() => selectTab('fall')"></button>
+          </template>`,
+        fall: '<div>Top Fall sales</div>'
+      },
+      initialTab: 'summer'
+    });
+
+    // `tab` is exposed properly
+    expect(getTabPanel().text()).toBe('summer');
+
+    // Click on custom button
+    wrapper.find(getDataTestSelector('custom-button')).trigger('click');
+    await wrapper.vm.$nextTick();
+
+    // 'selectTab` is exposed properly as the selected tab has changed
     expect(getTabPanel().text()).toBe('Top Fall sales');
   });
 
@@ -167,6 +198,55 @@ describe('testing BaseTabsPanel', () => {
     expect(getTabPanel().text()).toBe('Top Outlet sales');
   });
 
+  it('does not allow tab deselection by default', async () => {
+    const { clickNthTab, getTabPanel, getTabsButtons } = renderBaseTabsPanel({
+      tabs: {
+        summer: '<div>Top Summer sales</div>',
+        fall: '<div>Top Fall sales</div>',
+        outlet: '<div>Top Outlet sales</div>'
+      },
+      activeTabClass: 'selected-tab',
+      initialTab: 'summer'
+    });
+
+    // First tab is selected initially
+    expect(getTabsButtons().at(0).element).toHaveClass('selected-tab');
+    expect(getTabsButtons().at(0).element).toHaveAttribute('aria-selected', 'true');
+
+    // Select again first tab
+    await clickNthTab(0);
+    expect(getTabsButtons().at(0).element).toHaveClass('selected-tab');
+    expect(getTabsButtons().at(0).element).toHaveAttribute('aria-selected', 'true');
+
+    // The first panel is the rendered one
+    expect(getTabPanel().text()).toBe('Top Summer sales');
+  });
+
+  it('allows tab deselection when `allowTabDeselect` is true', async () => {
+    const { clickNthTab, getTabPanel, getTabsButtons } = renderBaseTabsPanel({
+      tabs: {
+        summer: '<div>Top Summer sales</div>',
+        fall: '<div>Top Fall sales</div>',
+        outlet: '<div>Top Outlet sales</div>'
+      },
+      activeTabClass: 'selected-tab',
+      allowTabDeselect: true,
+      initialTab: 'summer'
+    });
+
+    // First tab is selected initially
+    expect(getTabsButtons().at(0).element).toHaveClass('selected-tab');
+    expect(getTabsButtons().at(0).element).toHaveAttribute('aria-selected', 'true');
+
+    // Select again first tab
+    await clickNthTab(0);
+    expect(getTabsButtons().at(0).element).not.toHaveClass('selected-tab');
+    expect(getTabsButtons().at(0).element).not.toHaveAttribute('aria-selected', 'true');
+
+    // The first panel is the rendered one
+    expect(getTabPanel().exists()).toBe(false);
+  });
+
   it('allows adding CSS classes to the tabs and panel', () => {
     const { getTabPanel, getTabsButtons, getTabsList } = renderBaseTabsPanel({
       tabs: {
@@ -192,6 +272,8 @@ interface RenderBaseTabsPanelOptions {
   slots?: Record<string, string>;
   /** Named slots to be passed to the mount function, each standing for a tab. */
   tabs?: Record<string, string>;
+  /** Allows tabs to be deselected. */
+  allowTabDeselect?: boolean;
   /** The tab to be initially selected. */
   initialTab?: string;
   /** Classes to add to the active tab button. */
