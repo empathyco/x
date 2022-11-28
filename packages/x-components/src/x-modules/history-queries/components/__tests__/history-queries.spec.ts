@@ -53,10 +53,16 @@ describe('testing history queries component', () => {
   });
 
   it('renders only the elements in store with results', async () => {
-    const searchedHistoryQueries = historyQueries.map((historyQuery, index) => ({
-      ...historyQuery,
-      totalResults: index
-    }));
+    const searchedHistoryQueries = historyQueries.map((historyQuery, index) => {
+      let totalResults: number | undefined;
+      if (index !== historyQueries.length - 1) {
+        totalResults = index;
+      }
+      return {
+        ...historyQuery,
+        totalResults
+      };
+    });
     resetXHistoryQueriesStateWith(store, { historyQueries: searchedHistoryQueries });
     await localVue.nextTick();
     const historyQueryItemWrapper = findAllInWrapper('history-query-item');
