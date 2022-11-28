@@ -1,1 +1,1 @@
-export const xPriorityQueue = 'x-priority-queue';
+export * from './x-priority-queue';

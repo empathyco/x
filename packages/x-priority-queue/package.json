@@ -34,6 +34,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "@empathyco/x-utils": "^1.0.0-alpha.10",
     "tslib": "~2.3.0"
   },
   "devDependencies": {
