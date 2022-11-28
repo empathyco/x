@@ -243,7 +243,7 @@ describe('testing BaseTabsPanel', () => {
     expect(getTabsButtons().at(0).element).not.toHaveClass('selected-tab');
     expect(getTabsButtons().at(0).element).not.toHaveAttribute('aria-selected', 'true');
 
-    // The first panel is the rendered one
+    // The panel is not rendered
     expect(getTabPanel().exists()).toBe(false);
   });
 
