@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.10...@empathyco/x-utils@1.0.0-alpha.11) (2022-11-28)
+
+### Features
+
+- **priority-queue:** add `XPriorityQueue` (#876)
+  ([9117359](https://github.com/empathyco/x/commit/91173598513d58e733de27358f999926d0cd0976)),
+  closes [EX-7459](https://searchbroker.atlassian.net/browse/EX-7459)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.9...@empathyco/x-utils@1.0.0-alpha.10) (2022-10-14)
 
 ### Continuous Integration
