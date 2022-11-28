@@ -41,7 +41,7 @@
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Prop, Watch } from 'vue-property-decorator';
   import { NoElement } from '../no-element';
 
   /**
@@ -96,7 +96,7 @@
      *
      * @internal
      */
-    protected pendingImages: string[] = [...(this.result.images ?? [])];
+    protected pendingImages: string[] = [];
 
     /**
      * Contains the images that have been loaded successfully.
@@ -133,6 +133,17 @@
       pointerEvents: 'none !important',
       visibility: 'hidden !important'
     };
+
+    /**
+     * Initializes images state and resets when the result changes.
+     *
+     * @internal
+     */
+    @Watch('result', { immediate: true })
+    resetImagesState(): void {
+      this.pendingImages = [...(this.result.images ?? [])];
+      this.loadedImages = [];
+    }
 
     /**
      * Animation to be used.
