@@ -75,35 +75,6 @@ describe('testing history queries component', () => {
       expect(suggestionContentWrappers).toHaveLength(historyQueries.length);
       expect(suggestionRemoveWrappers).toHaveLength(historyQueries.length);
     });
-
-    it('allows changing history query content using docs example as template', () => {
-      const wrapperComponent = {
-        template: `
-          <HistoryQueries>
-            <template #suggestion-content="suggestionContentScope">
-              <img src="./history-icon.svg" data-test="suggestion-history-icon"/>
-              <span :data-index="suggestionContentScope.index"
-                    v-html="suggestionContentScope.queryHTML"></span>
-            </template>
-            <template #suggestion-remove-content>
-              <img src="./remove-icon.svg" data-test="suggestion-remove-icon"/>
-            </template>
-          </HistoryQueries>
-        `,
-        components: {
-          HistoryQueries
-        }
-      };
-      const customWrapper = mount(wrapperComponent, {
-        localVue,
-        store
-      });
-      const suggestionContentWrappers = findAllInWrapper('suggestion-history-icon', customWrapper);
-      const suggestionRemoveWrappers = findAllInWrapper('suggestion-remove-icon', customWrapper);
-
-      expect(suggestionContentWrappers).toHaveLength(historyQueries.length);
-      expect(suggestionRemoveWrappers).toHaveLength(historyQueries.length);
-    });
   });
 
   it('allows to change HistoryQuery component', () => {

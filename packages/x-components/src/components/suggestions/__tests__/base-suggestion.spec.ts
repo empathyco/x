@@ -55,6 +55,8 @@ describe('testing Base Suggestion component', () => {
       })
     });
 
+    // The text content ignores spaces between nodes due to the `condense` option.
+    // Fortunately browsers handle this properly.
     expect(wrapper.text()).toEqual('t-shirtwoman');
   });
 

@@ -36,7 +36,7 @@
                 <slot name="suggestion-content" v-bind="{ suggestion, index, formatTime }">
                   <div class="x-list x-list--vertical">
                     <span>{{ suggestion.query }}</span>
-                    <span>{{ formatTime(suggestion.timestamp) }}</span>
+                    <span>{{ ` ${formatTime(suggestion.timestamp)} ` }}</span>
                   </div>
                 </slot>
               </template>

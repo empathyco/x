@@ -6,15 +6,12 @@
       data-test="history-query"
       feature="history_query"
     >
-      <template #default="{ suggestion, queryHTML }">
-        <!-- eslint-disable max-len -->
+      <template #default="defaultSlotScope">
         <!--
           @slot History Query content
               @binding {Suggestion} suggestion - History Query suggestion data
-              @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
         -->
-        <!-- eslint-enable max-len -->
-        <slot v-bind="{ suggestion, queryHTML }" />
+        <slot v-bind="defaultSlotScope" />
       </template>
     </BaseSuggestion>
     <RemoveHistoryQuery
@@ -129,9 +126,14 @@ that serves to remove this query from the history. This slot only has one proper
 ```vue live
 <template>
   <HistoryQuery :suggestion="suggestion">
-    <template #default="{ suggestion, queryHTML }">
+    <template #default="{ suggestion, start, match, end, hasMatch, text }">
       <HistoryIcon />
-      <span class="x-history-query__matching-part" v-html="queryHTML" />
+      <template v-if="hasMatch">
+        <span>{{ start }}</span>
+        <span style="color: blue;">{{ match }}</span>
+        <span>{{ end }}</span>
+      </template>
+      <span v-else>{{ text }}</span>
     </template>
 
     <template #remove-button-content="{ suggestion }">
