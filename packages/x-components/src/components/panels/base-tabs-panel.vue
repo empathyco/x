@@ -96,7 +96,7 @@
      *
      * @public
      */
-    @Prop({ default: 'NoElement' })
+    @Prop({ default: () => NoElement })
     public contentAnimation!: Vue | string;
 
     /**
