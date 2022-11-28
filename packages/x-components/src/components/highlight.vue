@@ -83,8 +83,11 @@
      *
      * @remarks
      * `x-highlight--has-match`: When there is a match between the text and the part to highlight.
+     * `[matchClass]` (defaults to `x-highlight-text`): When there is a match between the text and
+     * the part to highlight.
+     * `[noMatchClass]`: when there is no match between the text to highlight.
      * @returns The {@link VueCSSClasses} classes.
-     * @public
+     * @internal
      */
     protected get dynamicCSSClasses(): VueCSSClasses {
       const classes: VueCSSClasses = {
@@ -108,7 +111,7 @@
     protected get matchParts(): HighlightMatch {
       const matcherIndex = normalizeString(this.text).indexOf(normalizeString(this.highlight));
       return matcherIndex !== -1 && this.highlight
-        ? this.splitAt(this.text, matcherIndex, matcherIndex + this.highlight.length)
+        ? this.splitAt(this.text.trim(), matcherIndex, matcherIndex + this.highlight.trim().length)
         : { start: this.text, match: '', end: '' };
     }
 
@@ -131,9 +134,22 @@
     }
   }
 
+  /**
+   * Contains the different parts of a string match.
+   */
   interface HighlightMatch {
+    /**
+     * When the match does not happen from the beginning of the string, the initial unmatched
+     * part.
+     */
     start: string;
+    /**
+     * The part of the text that is matching.
+     */
     match: string;
+    /**
+     * When the match does not extend until the end, the remaining unmatched string.
+     */
     end: string;
   }
 </script>

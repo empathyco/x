@@ -2,10 +2,8 @@ import { TailwindHelpers } from '../../../types';
 import { highlightDefault } from './default';
 
 /**
- * Returns the `highlight` component CSS. The highlight component serves to emphasise certain part
- * of a text. It has two variants:
- * - Emphasise the different part, which is the default.
- * - Emphasise the matching part.
+ * Returns the `highlight` component CSS. The highlight component serves to emphasize certain part
+ * of a text.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.

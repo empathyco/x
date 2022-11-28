@@ -17,15 +17,13 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
   import { ShowcaseSections } from '../types/types';
   import XdsBaseShowcase from './xds-base-showcase.vue';
-  import CuratedIcon from './icons/curated.vue';
 
   @Component({
     components: {
-      XdsBaseShowcase,
-      CuratedIcon
+      XdsBaseShowcase
     }
   })
   export default class XdsHighlightShowcase extends Vue {

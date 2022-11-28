@@ -1,6 +1,6 @@
 import { mount, Wrapper } from '@vue/test-utils';
-import Highlight from '../../highlight.vue';
-import { getDataTestSelector } from '../../../__tests__/utils';
+import Highlight from '../highlight.vue';
+import { getDataTestSelector } from '../../__tests__/utils';
 
 function renderHighlight({
   template = '<Highlight v-bind="$attrs"/>',
@@ -77,6 +77,28 @@ describe('testing Highlight component', () => {
     expect(getStartPart().text()).toBe('Jamón');
     expect(getMatchingPart().text()).toEqual('Ibérico');
     expect(getEndPart().exists()).toBe(false);
+  });
+
+  it('highlights the text properly when it contains spaces at the start & end', () => {
+    const { getStartPart, getMatchingPart, getEndPart, wrapper } = renderHighlight({
+      text: ' tinean chosco ',
+      highlight: 'cho'
+    });
+    expect(wrapper.text()).toEqual('tinean chosco');
+    expect(getStartPart().text()).toBe('tinean');
+    expect(getMatchingPart().text()).toEqual('cho');
+    expect(getEndPart().text()).toBe('sco');
+  });
+
+  it('ignores spaces at the start & end of the text to highlight', () => {
+    const { getStartPart, getMatchingPart, getEndPart, wrapper } = renderHighlight({
+      text: 'Butiello',
+      highlight: ' tie '
+    });
+    expect(wrapper.text()).toEqual('Butiello');
+    expect(getStartPart().text()).toBe('Bu');
+    expect(getMatchingPart().text()).toEqual('tie');
+    expect(getEndPart().text()).toBe('llo');
   });
 
   it('renders the given text if no match', () => {
