@@ -1,5 +1,7 @@
 import { AnyFunction } from '@empathyco/x-utils';
 
+export type XPriorityQueueNodeMetadata = { replaceable?: boolean; [key: string]: unknown };
+
 /**
  * An XPriorityQueueNode object is a representation of a structure containing a parametrized key, a
  * priority number and metadata record. By default, the key is a string.
@@ -29,7 +31,7 @@ export class XPriorityQueueNode<Key = string> {
    *
    * @public
    */
-  public readonly metadata: Record<string, unknown>;
+  public readonly metadata: XPriorityQueueNodeMetadata;
 
   /**
    * Creates a new PriorityQueueNode with the given key, priority and metadata.
@@ -40,7 +42,7 @@ export class XPriorityQueueNode<Key = string> {
    *
    * @public
    */
-  public constructor(key: Key, priority: number, metadata: Record<string, unknown> = {}) {
+  public constructor(key: Key, priority: number, metadata: XPriorityQueueNodeMetadata = {}) {
     this.key = key;
     this.priority = priority;
     this.metadata = metadata;
@@ -123,7 +125,7 @@ export class XPriorityQueue<Key = string> {
    *
    * @public
    */
-  push(key: Key, priority: number, metadata?: Record<string, unknown>): void {
+  push(key: Key, priority: number, metadata?: XPriorityQueueNodeMetadata): void {
     const node = new XPriorityQueueNode<Key>(key, priority, metadata);
 
     if (this.isEmpty()) {

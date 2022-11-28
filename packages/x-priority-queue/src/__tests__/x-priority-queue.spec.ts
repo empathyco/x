@@ -135,6 +135,15 @@ describe('x-priority-queue scenarios', () => {
   });
 
   describe('clear', () => {
+    it('does nothing if the queue is empty', () => {
+      // Given an empty priority queue
+      const queue = new XPriorityQueue();
+      queue.clear();
+      // Then the queue is empty
+      expect(queue.size()).toBe(0);
+      expect(queue.isEmpty()).toBe(true);
+    });
+
     it('clears the queue', () => {
       // Given a priority queue with elements
       const queue = new XPriorityQueue();
