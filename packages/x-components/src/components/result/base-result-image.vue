@@ -1,32 +1,41 @@
 <template>
-  <picture ref="image" class="x-picture x-result-picture" data-test="result-picture">
+  <!-- This is a div because using a picture causes the onload event of the image to fire twice. -->
+  <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
+  <div
+    @mouseenter.once="userHasHoveredImage = true"
+    @mouseenter="isHovering = true"
+    @mouseleave="isHovering = false"
+    class="x-picture x-result-picture"
+    data-test="result-picture"
+  >
     <img
-      v-if="!hasImageLoaded && imageSrc"
-      @error="flagImageAsFailed"
+      v-if="shouldLoadNextImage"
       @load="flagImageLoaded"
+      @error="flagImageAsFailed"
       loading="lazy"
-      :src="imageSrc"
+      :src="pendingImages[0]"
       :style="loaderStyles"
       data-test="result-picture-loader"
       alt=""
       role="presentation"
     />
-    <component :is="animation" class="x-picture__image">
+    <component :is="animation" class="x-picture__image" :appear="false">
       <!-- @slot Fallback image content. It will be rendered when all the images failed -->
-      <slot v-if="!imageSrc" name="fallback" />
+      <slot v-if="!loadedImages.length && !pendingImages.length" name="fallback" />
 
       <!-- @slot Loading image content. It will be rendered while the real image is not loaded -->
-      <slot v-else-if="!hasImageLoaded" name="placeholder" />
+      <slot v-else-if="!loadedImages.length" name="placeholder" />
 
       <img
         v-else
+        :key="imageSrc"
         :alt="result.name"
         :src="imageSrc"
         class="x-picture__image x-result-picture__image"
         data-test="result-picture-image"
       />
     </component>
-  </picture>
+  </div>
 </template>
 
 <script lang="ts">
@@ -53,6 +62,7 @@
      */
     @Prop({ required: true })
     protected result!: Result;
+
     /**
      * Animation to use when switching between the placeholder, the loaded image, or the failed
      * image fallback.
@@ -60,20 +70,54 @@
      * @public
      */
     @Prop({ default: () => NoElement })
-    public animation!: string | typeof Vue;
-    /**
-     * An array of images that failed to load.
-     *
-     * @internal
-     */
-    protected failedImages: string[] = [];
+    public loadAnimation!: string | typeof Vue;
 
     /**
-     * Indicates if the result image is loaded.
+     * Animation to use when switching between the loaded image and the hover image.
+     *
+     * @public
+     */
+    @Prop()
+    public hoverAnimation!: string | typeof Vue | undefined;
+
+    /**
+     * Indicates if the next valid image should be displayed on hover.
+     *
+     * @public
+     */
+    @Prop({ type: Boolean, default: false })
+    public showNextImageOnHover!: boolean;
+
+    /**
+     * Copy of the images of the result.
+     *
+     * It is used as a queue of images to load, once an image loads/fails to load, it is removed
+     * from this array.
      *
      * @internal
      */
-    protected hasImageLoaded = false;
+    protected pendingImages: string[] = [...(this.result.images ?? [])];
+
+    /**
+     * Contains the images that have been loaded successfully.
+     *
+     * @internal
+     */
+    protected loadedImages: string[] = [];
+
+    /**
+     * Indicates if the user is hovering the image.
+     *
+     * @internal
+     */
+    protected isHovering = false;
+
+    /**
+     * Indicates if the user has hovered the image.
+     *
+     * @internal
+     */
+    protected userHasHoveredImage = false;
 
     /**.
      * Styles to use inline in the image loader, to prevent override from CSS
@@ -91,6 +135,19 @@
     };
 
     /**
+     * Animation to be used.
+     *
+     * @returns The animation to be used, taking into account if the user has hovered the image.
+     *
+     * @internal
+     */
+    protected get animation(): string | typeof Vue {
+      return this.userHasHoveredImage
+        ? this.hoverAnimation ?? this.loadAnimation
+        : this.loadAnimation;
+    }
+
+    /**
      * Gets the src from the result image.
      *
      * @returns The result image src.
@@ -98,8 +155,21 @@
      * @internal
      */
     protected get imageSrc(): string {
-      const image = this.result.images?.find(image => !this.failedImages.includes(image));
-      return image ?? '';
+      return this.loadedImages[
+        !this.showNextImageOnHover || !this.isHovering ? 0 : this.loadedImages.length - 1
+      ];
+    }
+
+    /**
+     * Indicates if the loader should try to load the next image.
+     *
+     * @returns True if it should try to load the next image.
+     *
+     * @internal
+     */
+    protected get shouldLoadNextImage(): boolean {
+      const numImagesToLoad = this.showNextImageOnHover && this.userHasHoveredImage ? 2 : 1;
+      return !!this.pendingImages.length && this.loadedImages.length < numImagesToLoad;
     }
 
     /**
@@ -108,18 +178,19 @@
      * @internal
      */
     protected flagImageAsFailed(): void {
-      if (this.imageSrc !== '') {
-        this.failedImages.push(this.imageSrc);
-      }
+      this.pendingImages.shift();
     }
 
     /**
-     * Marks an image as loaded.
+     * Sets an image as loaded.
      *
      * @internal
      */
     protected flagImageLoaded(): void {
-      this.hasImageLoaded = true;
+      const image = this.pendingImages.shift();
+      if (image) {
+        this.loadedImages.push(image);
+      }
     }
   }
 </script>
@@ -152,6 +223,14 @@ The result prop is required. It will render a `<img/>` with the result image:
 <BaseResultImage :result="result" />
 ```
 
+### Showing the next image on hover
+
+If a result has multiple images, it can show the next one on hover.
+
+```vue
+<BaseResultImage :result="result" showNextImageOnHover />
+```
+
 ### Customizing slots content
 
 Fallback and placeholder contents can be customized.
@@ -170,5 +249,49 @@ displayed while the real one is loaded.
     <img class="x-result-picture-fallback" src="./fallback-image.svg"/>
   </template>
 </BaseResultImage>
+```
+
+### Customizing the animations
+
+Two animations can be used this component.
+
+The `loadAnimation` is used to transition between the placeholder, the fallback and the image.
+
+The `hoverAnimation` is used to transition between the image and the hover image, if the
+`showNextImageOnHover` prop is `true`.
+
+`hoverAnimation` will default to `loadAnimation` if it is not provided.
+
+```vue
+<template>
+  <BaseResultImage
+    :result="result"
+    :loadAnimation="loadAnimation"
+    :hoverAnimation="hoverAnimation"
+    showNextImageOnHover
+  />
+</template>
+
+<script>
+  import { BaseResultImage } from '@empathyco/x-components';
+  import { CrossFade, CollapseHeight } from '@empathyco/x-components/animations';
+
+  export default {
+    name: 'BaseResultImageAnimations',
+    components: {
+      BaseResultImage
+    },
+    data() {
+      return {
+        loadAnimation: CrossFade,
+        hoverAnimation: CollapseHeight,
+        result: {
+          name: 'jacket',
+          images: ['https://some-image', 'https://some-image-2']
+        }
+      };
+    }
+  };
+</script>
 ```
 </docs>

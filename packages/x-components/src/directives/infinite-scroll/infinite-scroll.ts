@@ -15,7 +15,7 @@ const state: Record<string, IntersectionObserver> = {};
  *
  * This directive uses the IntersectionObserver API to handle the intersection between the
  * children and the scrollable container. The content of the children moves up on scroll and when it
- * reaches the end the IntersectionObserver triggers that both elements are intersecting.
+ * reaches the end, the IntersectionObserver triggers that both elements are intersecting.
  *
  * How it works.
  *
@@ -28,9 +28,9 @@ const state: Record<string, IntersectionObserver> = {};
  *
  * The directive has to be set in the target element. It can receive an argument which will be used
  * to determine the scrollable container. Possible values:
- * * html: will set the <html> as the scrollable container.
- * * body: will set the <body> as the scrollable container.
- * * id: will set the DOM element with the provided id as the scrollable container.
+ * `html`: will set the <html> as the scrollable container.
+ * `body`: will set the <body> as the scrollable container.
+ * ID: will set the DOM element with the provided id as the scrollable container.
  *
  * If no argument is provided the scrollable container fallbacks to the viewport.
  *
@@ -58,7 +58,7 @@ const state: Record<string, IntersectionObserver> = {};
  */
 export const infiniteScroll: DirectiveOptions = {
   inserted(element, { arg: id = VIEWPORT_ID, value: { margin = 200 } = {} }, vNode) {
-    const root = getRoot(id);
+    const root = getRoot(element, id);
 
     state[id] = createIntersectionObserver({
       root,
@@ -80,10 +80,11 @@ export const infiniteScroll: DirectiveOptions = {
 /**
  * Retrieves the root element for the provided id.
  *
- * @param id - String.
+ * @param element - Target element where directive is set.
+ * @param id - String identifier.
  * @returns HTMLElement or null.
- * */
-function getRoot(id: string): HTMLElement | null {
+ */
+function getRoot(element: HTMLElement, id: string): HTMLElement | null {
   switch (id) {
     case 'html':
       return null;
@@ -92,7 +93,7 @@ function getRoot(id: string): HTMLElement | null {
     case VIEWPORT_ID:
       return null;
     default:
-      return document.getElementById(id)!;
+      return element.closest(`#${id}`)!;
   }
 }
 
@@ -111,7 +112,7 @@ function createIntersectionObserver({
   vNode
 }: ObserverOptions): IntersectionObserver {
   // This hack allows the root element to always contain the observed element.
-  // not overpass the top margin more than 1700000 because it doesn't work in Android chrome
+  // Not overpass the top margin more than 1700000 because it doesn't work in Android chrome
   const rootMargin = `1000000% 0px ${margin}px 0px`;
 
   return new IntersectionObserver(
