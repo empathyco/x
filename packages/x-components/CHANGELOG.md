@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See
 
 ### ⚠ BREAKING CHANGES
 
-- **components:**  The `animation` prop is now named `loadAnimation`.
+- **components:**  Renamed prop `animation` of `BaseResultImage` to `loadAnimation`.
 
 ### Features
 
