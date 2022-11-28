@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file. See
 
 ## [3.0.0-alpha.231](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.230...@empathyco/x-components@3.0.0-alpha.231) (2022-11-28)
 
+### ⚠ BREAKING CHANGES
+
+- **base-result-image:**  The `animation` prop is now named `loadAnimation`.
+
 ### Features
 
 - show next result image on hover (#863)
