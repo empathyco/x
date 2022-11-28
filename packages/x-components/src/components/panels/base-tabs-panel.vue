@@ -9,9 +9,9 @@
     >
       <!--
         @slot Slot used to replace the whole tab.
-          @binding {tab} string - The tab name.
-          @binding {isSelected} boolean - Indicates if the tab is selected.
-          @binding {select} function - Function to select the tab.
+          @binding {string} tab - The tab name.
+          @binding {boolean} isSelected - Indicates if the tab is selected.
+          @binding {function} select - Function to select the tab.
       -->
       <slot
         v-for="tab in getTabs()"
