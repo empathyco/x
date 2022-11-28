@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.231](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.230...@empathyco/x-components@3.0.0-alpha.231) (2022-11-28)
+
+### Features
+
+- show next result image on hover (#863)
+  ([8fd02cc](https://github.com/empathyco/x/commit/8fd02cc8f9913dfa0e06af83251db4577656099e)),
+  closes [EX-5970](https://searchbroker.atlassian.net/browse/EX-5970)
+
+### Bug Fixes
+
+- **components:** Fix InfiniteScroll get root element inside Shadow DOM. (#874)
+  ([340293f](https://github.com/empathyco/x/commit/340293ffc1946c69018fcfa67a069f443110763d))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.230](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.229...@empathyco/x-components@3.0.0-alpha.230) (2022-11-24)
 
 ### Features
