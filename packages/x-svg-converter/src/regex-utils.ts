@@ -21,7 +21,7 @@ export function applyXDSFormat(svg: string): string {
  *
  * @returns The processed SVG.
  */
-function removeDimensions(svg: string): string {
+export function removeDimensions(svg: string): string {
   const matchDimensions = /(?<=<svg.*?)((width|height)="[0-9]*?")(?=.*?>)/gm;
   return svg.replace(matchDimensions, '');
 }
@@ -33,7 +33,7 @@ function removeDimensions(svg: string): string {
  *
  * @returns The processed SVG.
  */
-function addFillNoneInRoot(svg: string): string {
+export function addFillNoneInRoot(svg: string): string {
   const matchRootWithoutFillNone = /svg (?:(?!.*?fill="none"))(?=.*?>)/gm;
   return svg.replace(matchRootWithoutFillNone, 'svg fill="none" ');
 }
@@ -45,7 +45,7 @@ function addFillNoneInRoot(svg: string): string {
  *
  * @returns The processed SVG.
  */
-function addXClass(svg: string): string {
+export function addXClass(svg: string): string {
   const matchRoot = /svg /gm;
   return svg.replace(matchRoot, 'svg :class="[\'x-icon\'].concat(data.staticClass, data.class)" ');
 }
@@ -57,7 +57,7 @@ function addXClass(svg: string): string {
  *
  * @returns The processed SVG.
  */
-function replaceColorWithCurrentColor(svg: string): string {
+export function replaceColorWithCurrentColor(svg: string): string {
   const matchColoredFillOrStroke = /(?<=(fill|stroke)=")(?!#fff+"|white|none).*?(?=")/gim;
   return svg.replace(matchColoredFillOrStroke, 'currentColor');
 }

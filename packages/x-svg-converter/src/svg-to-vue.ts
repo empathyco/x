@@ -5,6 +5,16 @@ import { CommandParameters, SVGInfo } from './types';
 import { applyXDSFormat } from './regex-utils';
 
 if (require.main === module) {
+  svgToVue();
+}
+
+/**
+ * Load SVGs from provided folder, turn them into Vue Components and apply
+ * prettier to them. By default, the source SVGs are deleted unless the `keepSVGs`
+ * parameter is passed.
+ *
+ */
+export function svgToVue(): void {
   const svgList = loadSVGsFromFolder();
   svgList.forEach(writeVueFromSVG);
 
