@@ -179,7 +179,7 @@ describe('testing MyHistory component', () => {
           minute: '2-digit'
         });
         expect(historyItemWrappers?.at(historyQueryIndex).text()).toMatch(
-          `${historyQuery.query} ${hour} ✕`
+          `${historyQuery.query}${hour}✕`
         );
       });
     });
