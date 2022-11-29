@@ -14,29 +14,6 @@ export interface QuerySuggestionsConfig {
    */
   maxItemsToRequest: number;
   /**
-   * Show the extra suggestion that has filters without the filter.
-   *
-   * @remarks
-   * Remember this property might be affected by {@link QuerySuggestionsConfig.hideIfEqualsQuery}
-   *
-   * @example
-   * When set to true:
-   * ```
-   * query = 'trou';
-   * suggestions = ['trousers in man', 'trousers in woman'];
-   * // Suggests ['trousers', 'trousers in man', 'trousers in woman']
-   * ```
-   *
-   * @example
-   * When set to false:
-   * ```
-   * query = 'trou';
-   * suggestions = ['trousers in man', 'trousers in woman'];
-   * // Suggests ['trousers in man', 'trousers in woman']
-   * ```
-   */
-  showExtraSuggestionWithoutFilter: boolean;
-  /**
    * Hides the suggestion if it is equal to the current query.
    *
    * @example

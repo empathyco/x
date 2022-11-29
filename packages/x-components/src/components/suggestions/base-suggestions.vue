@@ -209,7 +209,7 @@ another toy in the input field to try it out!_
 
 ```vue
 <template>
-  <BaseSuggestions :suggestions="suggestions" :maxItemToRender="3" />
+  <BaseSuggestions :suggestions="suggestions" :maxItemsToRender="3" />
 </template>
 
 <script>

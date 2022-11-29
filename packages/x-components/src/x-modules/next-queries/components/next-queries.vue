@@ -139,7 +139,7 @@ queries it will show them
 ```
 
 The component has three optional props. `animation` to render the component with an animation,
-`maxItemToRender` to limit the number of next queries will be rendered (by default it is 5) and
+`maxItemsToRender` to limit the number of next queries will be rendered (by default it is 5) and
 `highlightCurated` to indicate if the curated Next Queries inside the list should be highlighted.
 
 ```vue live
