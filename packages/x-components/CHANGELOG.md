@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.236](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.235...@empathyco/x-components@3.0.0-alpha.236) (2022-11-29)
+
+### Features
+
+- **tabs-panel:** add base tabs panel component (#871)
+  ([ebd5feb](https://github.com/empathyco/x/commit/ebd5feb4006315236ae62f8de03d6a986d9ced10)),
+  closes [EX-6142](https://searchbroker.atlassian.net/browse/EX-6142)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.235](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.234...@empathyco/x-components@3.0.0-alpha.235) (2022-11-29)
 
 **Note:** Version bump only for package @empathyco/x-components
