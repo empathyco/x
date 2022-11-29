@@ -7,20 +7,10 @@ describe('test SVG to Vue script', () => {
   const sourcePath = './src/__tests__/svgs';
 
   afterEach(() => {
-    process.argv = [];
-    jest.restoreAllMocks();
+    jest.resetAllMocks();
 
-    const absoluteSourcePath = path.resolve(process.cwd(), sourcePath);
-
-    if (fs.existsSync(absoluteSourcePath)) {
-      [...Array(2)].forEach((_, i) => {
-        if (!fs.existsSync(`${absoluteSourcePath}/test_svg_${i}.svg`)) {
-          fs.writeFileSync(`${absoluteSourcePath}/test_svg_${i}.svg`, svgStub);
-        }
-      });
-      fs.rmSync(`${absoluteSourcePath}/test_svg_0.vue`, { recursive: true });
-      fs.rmSync(`${absoluteSourcePath}/test_svg_1.vue`, { recursive: true });
-    }
+    generateTestSVGs();
+    removeVueTestFiles();
   });
 
   it('should create a vue component for each svg in the source folder', () => {
@@ -71,4 +61,31 @@ describe('test SVG to Vue script', () => {
     expect(fs.existsSync(`${sourcePath}/test_svg_0.svg`)).toBe(true);
     expect(fs.existsSync(`${sourcePath}/test_svg_1.svg`)).toBe(true);
   });
+
+  /**
+   * Generate the SVG files used in the tests.
+   */
+  function generateTestSVGs(): void {
+    const absoluteSourcePath = path.resolve(process.cwd(), sourcePath);
+
+    if (fs.existsSync(absoluteSourcePath)) {
+      [...Array(2)].forEach((_, i) => {
+        if (!fs.existsSync(`${absoluteSourcePath}/test_svg_${i}.svg`)) {
+          fs.writeFileSync(`${absoluteSourcePath}/test_svg_${i}.svg`, svgStub);
+        }
+      });
+    }
+  }
+
+  /**
+   * Remove the vue files product of the tests.
+   */
+  function removeVueTestFiles(): void {
+    const absoluteSourcePath = path.resolve(process.cwd(), sourcePath);
+
+    if (fs.existsSync(`${absoluteSourcePath}/test_svg_0.vue`)) {
+      fs.rmSync(`${absoluteSourcePath}/test_svg_0.vue`, { recursive: true });
+      fs.rmSync(`${absoluteSourcePath}/test_svg_1.vue`, { recursive: true });
+    }
+  }
 });
