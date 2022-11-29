@@ -98,7 +98,7 @@ searches it will show them.
 ```
 
 The component has two optional props. `animation` to render the component with an animation and
-`maxItemToRender` to limit the number of popular searches will be rendered (by default it is 5).
+`maxItemsToRender` to limit the number of popular searches will be rendered (by default it is 5).
 
 ```vue live
 <template>
