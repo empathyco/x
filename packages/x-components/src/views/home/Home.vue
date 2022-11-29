@@ -250,11 +250,34 @@
             </div>
 
             <template v-if="!$x.query.searchBox">
-              <h1 class="x-title1 x-margin--bottom-06">Brand Recommendations</h1>
+              <h1 class="x-title1 x-margin--bottom-05">Brand Recommendations</h1>
               <LocationProvider location="no_results">
-                <SlidingQueryPreview query="sunglasses" />
-                <SlidingQueryPreview query="handbag" />
-                <SlidingQueryPreview query="earrings" />
+                <BaseTabsPanel
+                  initialTab="summer"
+                  contentClass="x-padding--top-06"
+                  :contentAnimation="tabsPanelAnimation"
+                  tabClass="x-button-outlined x-button-neutral"
+                  tabsListClass="x-list--horizontal"
+                >
+                  <template #tab-content="{ tab }">
+                    <span class="x-capitalize">
+                      {{ tab }}
+                    </span>
+                  </template>
+
+                  <template #summer>
+                    <SlidingQueryPreview query="sunglasses" />
+                  </template>
+
+                  <template #women>
+                    <SlidingQueryPreview query="handbag" />
+                    <SlidingQueryPreview query="earrings" />
+                  </template>
+
+                  <template #men>
+                    <SlidingQueryPreview query="watch" />
+                  </template>
+                </BaseTabsPanel>
               </LocationProvider>
             </template>
 
@@ -432,6 +455,7 @@
   import SearchInputPlaceholder from '../../x-modules/search-box/components/search-input-placeholder.vue';
   import Banner from '../../x-modules/search/components/banner.vue';
   import BannersList from '../../x-modules/search/components/banners-list.vue';
+  import BaseTabsPanel from '../../components/panels/base-tabs-panel.vue';
   import PartialQueryButton from '../../x-modules/search/components/partial-query-button.vue';
   import PartialResultsList from '../../x-modules/search/components/partial-results-list.vue';
   import Promoted from '../../x-modules/search/components/promoted.vue';
@@ -473,6 +497,7 @@
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
       BaseKeyboardNavigation,
+      BaseTabsPanel,
       BaseVariableColumnGrid,
       CheckTiny,
       ChevronLeft,
@@ -538,6 +563,7 @@
     ];
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
+    protected tabsPanelAnimation = StaggeredFadeAndSlide;
     protected modalAnimation = animateClipPath();
     protected sortDropdownAnimation = CollapseHeight;
     protected selectedColumns = 4;
