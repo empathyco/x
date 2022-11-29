@@ -119,8 +119,12 @@ interface RenderQuerySuggestionOptions {
 }
 
 interface RenderQuerySuggestionApi {
+  /** Testing wrapper of the {@link QuerySuggestion} component. */
   wrapper: Wrapper<Vue>;
+  /** Retrieves the wrapper that matches the query in the {@link QuerySuggestion} component. */
   getMatchingPart: () => Wrapper<Vue>;
+  /** The {@link XBus.emit} spy. */
   emitSpy: jest.SpyInstance;
+  /** Rendered {@link Suggestion} model data. */
   suggestion: Suggestion;
 }

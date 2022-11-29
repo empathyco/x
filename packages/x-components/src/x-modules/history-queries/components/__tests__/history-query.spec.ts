@@ -1,108 +1,163 @@
 import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
-import { mount } from '@vue/test-utils';
-import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
+import { DeepPartial } from '@empathyco/x-utils';
+import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import Vuex, { Store } from 'vuex';
+import { createHistoryQuery } from '../../../../__stubs__/history-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
+import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
+import { XPlugin } from '../../../../plugins/x-plugin';
+import { RootXStoreState } from '../../../../store/store.types';
 import { WireMetadata } from '../../../../wiring/wiring.types';
+import { historyQueriesXModule } from '../../x-module';
 import HistoryQuery from '../history-query.vue';
+import { resetXHistoryQueriesStateWith } from './utils';
+
+function renderHistoryQuery({
+  suggestion = createHistoryQuery({ query: 'milk' }),
+  query = '',
+  template = '<HistoryQuery v-bind="$attrs"/>'
+}: RenderHistoryQueryOptions = {}): RenderHistoryQueryApi {
+  const localVue = createLocalVue();
+  localVue.use(Vuex);
+  const store = new Store<DeepPartial<RootXStoreState>>({});
+  installNewXPlugin({ store, initialXModules: [historyQueriesXModule] }, localVue);
+  resetXHistoryQueriesStateWith(store, { query });
+
+  const wrapper = mount(
+    {
+      template,
+      inheritAttrs: false,
+      components: {
+        HistoryQuery
+      }
+    },
+    {
+      localVue,
+      propsData: { suggestion },
+      store
+    }
+  );
+
+  return {
+    wrapper: wrapper.findComponent(HistoryQuery),
+    suggestion,
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    getSuggestionWrapper() {
+      return wrapper.get(getDataTestSelector('history-query'));
+    },
+    getRemoveWrapper() {
+      return wrapper.get(getDataTestSelector('remove-history-query'));
+    },
+    getMatchingPart() {
+      return wrapper.get(getDataTestSelector('matching-part'));
+    }
+  };
+}
 
 describe('testing history-query component', () => {
-  const [, localVue] = installNewXPlugin();
-
-  const historyQuery: HistoryQueryModel = {
-    modelName: 'HistoryQuery',
-    timestamp: 1000,
-    query: 'Pan de bola'
-  };
-  const historyQueryWrapper = mount(HistoryQuery, {
-    localVue,
-    propsData: {
-      suggestion: historyQuery
-    }
+  it('is an XComponent that belongs to the qhistory queries', () => {
+    const { wrapper } = renderHistoryQuery();
+    expect(isXComponent(wrapper.vm)).toEqual(true);
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('historyQueries');
   });
 
-  it('is an XComponent', () => {
-    expect(isXComponent(historyQueryWrapper.vm)).toEqual(true);
+  it('renders the suggestion received as prop', () => {
+    const { getSuggestionWrapper } = renderHistoryQuery({
+      suggestion: createHistoryQuery({ query: 'milk' })
+    });
+    expect(getSuggestionWrapper().text()).toEqual('milk');
   });
 
-  it('has QuerySuggestionModule as XModule', () => {
-    expect(getXComponentXModuleName(historyQueryWrapper.vm)).toEqual('historyQueries');
+  it('highlights the suggestion matching parts with the state query', () => {
+    const { getSuggestionWrapper, getMatchingPart } = renderHistoryQuery({
+      suggestion: createHistoryQuery({ query: 'baileys' }),
+      query: 'Bá'
+    });
+
+    expect(getMatchingPart().text()).toEqual('ba');
+    expect(getSuggestionWrapper().text()).toEqual('baileys');
   });
 
-  it('emits the history query selected event when it is clicked', () => {
-    const listener = jest.fn();
-    historyQueryWrapper.vm.$x.on('UserSelectedAHistoryQuery', true).subscribe(listener);
-    const suggestionButton = historyQueryWrapper.find(getDataTestSelector('history-query'));
-    suggestionButton.trigger('click');
+  it('emits appropriate events on click', async () => {
+    const { emitSpy, getSuggestionWrapper, suggestion } = renderHistoryQuery({
+      suggestion: createHistoryQuery({ query: 'milk' })
+    });
 
-    expect(listener).toHaveBeenCalledWith({
-      eventPayload: historyQuery,
-      metadata: expect.objectContaining<Partial<WireMetadata>>({
-        target: suggestionButton.element,
+    await getSuggestionWrapper().trigger('click');
+
+    const expectedMetadata = expect.objectContaining<Partial<WireMetadata>>({
+      moduleName: 'historyQueries',
+      target: getSuggestionWrapper().element,
+      feature: 'history_query'
+    });
+    expect(emitSpy).toHaveBeenCalledTimes(3);
+    expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', suggestion.query, expectedMetadata);
+    expect(emitSpy).toHaveBeenCalledWith('UserSelectedASuggestion', suggestion, expectedMetadata);
+    expect(emitSpy).toHaveBeenCalledWith('UserSelectedAHistoryQuery', suggestion, expectedMetadata);
+  });
+
+  it('allows to customise the rendered content', () => {
+    const { getSuggestionWrapper } = renderHistoryQuery({
+      suggestion: createHistoryQuery({ query: 'baileys' }),
+      template: `
+      <HistoryQuery v-bind="$attrs" #default="{ suggestion }">
+        <span>🔍</span>
+        <span>{{ suggestion.query }}</span>
+      </HistoryQuery>
+      `
+    });
+
+    expect(getSuggestionWrapper().text()).toEqual('🔍 baileys');
+  });
+
+  it('emits `UserPressedRemoveHistoryQuery` when `RemoveHistoryQuery` button is clicked', () => {
+    const { getRemoveWrapper, emitSpy, suggestion } = renderHistoryQuery();
+
+    getRemoveWrapper().trigger('click');
+    expect(emitSpy).toHaveBeenCalledWith(
+      'UserPressedRemoveHistoryQuery',
+      suggestion,
+      expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'historyQueries',
-        feature: 'history_query'
+        target: getRemoveWrapper().element
       })
-    });
-  });
-
-  it('button ClearHistoryQuery emits UserPressedRemoveHistoryQuery when it is clicked', () => {
-    const listener = jest.fn();
-    const removeHistoryQueryWrapper = historyQueryWrapper.find(
-      getDataTestSelector('remove-history-query')
     );
-    removeHistoryQueryWrapper.vm.$x.on('UserPressedRemoveHistoryQuery', true).subscribe(listener);
-    removeHistoryQueryWrapper.trigger('click');
-
-    expect(listener).toHaveBeenCalledTimes(1);
-    expect(listener).toHaveBeenCalledWith({
-      eventPayload: historyQuery,
-      metadata: {
-        moduleName: 'historyQueries',
-        target: removeHistoryQueryWrapper.element
-      }
-    });
   });
 
-  // eslint-disable-next-line max-len
-  it('renders query-suggestions slot with default content, and remove history-queries without', () => {
-    const historyQuerySuggestion = historyQueryWrapper.find(getDataTestSelector('history-query'));
-    const removeHistoryQueryWrapper = historyQueryWrapper.find(
-      getDataTestSelector('remove-history-query')
-    );
-
-    expect(historyQuerySuggestion.text()).not.toHaveLength(0);
-    expect(removeHistoryQueryWrapper.text()).toBe('✕');
-  });
-
-  it('has a default slot to customize suggestion content', () => {
-    const historyQueryWrapper = mount(HistoryQuery, {
-      localVue,
-      propsData: {
-        suggestion: historyQuery
-      },
-      scopedSlots: {
-        default: '<span class="custom-suggestion-content">{{props.suggestion.query}}</span>'
-      }
+  it('allows to customize `RemoveHistoryQuery` button content', () => {
+    const { getRemoveWrapper } = renderHistoryQuery({
+      suggestion: createHistoryQuery({ query: 'cruzcampo' }),
+      template: `
+      <HistoryQuery v-bind="$attrs" #remove-button-content="{ suggestion }">
+        Remove {{ suggestion.query }} ❌
+      </HistoryQuery>
+      `
     });
 
-    const customContent = historyQueryWrapper.find('.custom-suggestion-content');
-    expect(customContent.element).toBeDefined();
-    expect(customContent.text()).toEqual(historyQuery.query);
-  });
-
-  it('has a "remove-button-content" to customize the remove button content', () => {
-    const historyQueryWrapper = mount(HistoryQuery, {
-      localVue,
-      propsData: {
-        suggestion: historyQuery
-      },
-      scopedSlots: {
-        'remove-button-content':
-          '<span class="custom-remove-button-content">Remove {{props.suggestion.query}}</span>'
-      }
-    });
-
-    const customContent = historyQueryWrapper.find('.custom-remove-button-content');
-    expect(customContent.element).toBeDefined();
-    expect(customContent.text()).toEqual(`Remove ${historyQuery.query}`);
+    expect(getRemoveWrapper().text()).toBe('Remove cruzcampo ❌');
   });
 });
+
+interface RenderHistoryQueryOptions {
+  /** The suggestion data to render. */
+  suggestion?: HistoryQueryModel;
+  /** The query that the suggestions belong to. */
+  query?: string;
+  /** The template to render. */
+  template?: string;
+}
+
+interface RenderHistoryQueryApi {
+  /** Testing wrapper of the {@link HistoryQuery} component. */
+  wrapper: Wrapper<Vue>;
+  /** Retrieves the suggestion wrapper of the {@link HistoryQuery} component. */
+  getSuggestionWrapper: () => Wrapper<Vue>;
+  /** Retrieves the remove wrapper of the {@link HistoryQuery} component. */
+  getRemoveWrapper: () => Wrapper<Vue>;
+  /** Retrieves the wrapper that matches the query in the {@link HistoryQuery} component. */
+  getMatchingPart: () => Wrapper<Vue>;
+  /** The {@link XBus.emit} spy. */
+  emitSpy: jest.SpyInstance;
+  /** Rendered {@link HistoryQueryModel} model data. */
+  suggestion: HistoryQueryModel;
+}
