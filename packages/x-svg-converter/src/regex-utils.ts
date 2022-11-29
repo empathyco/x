@@ -47,7 +47,7 @@ function addFillNoneInRoot(svg: string): string {
  */
 function addXClass(svg: string): string {
   const matchRoot = /svg /gm;
-  return svg.replace(matchRoot, 'svg :class="[\'x-icon\'].concat(data.staticClass, data.class)"');
+  return svg.replace(matchRoot, 'svg :class="[\'x-icon\'].concat(data.staticClass, data.class)" ');
 }
 
 /**
