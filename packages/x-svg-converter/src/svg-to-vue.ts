@@ -16,7 +16,7 @@ if (require.main === module) {
 }
 
 /**
- * Lod the SVG's info from the provided folder in the params.
+ * Load the SVG's info from the provided folder in the params.
  *
  * @returns A list of objects with the info of the SVGs found.
  */

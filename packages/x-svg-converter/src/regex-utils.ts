@@ -51,13 +51,13 @@ function addXClass(svg: string): string {
 }
 
 /**
- * Replaces all the colors in the SVG with `currentColor`, expect white.
+ * Replaces all the colors in the SVG with `currentColor`, except white.
  *
  * @param svg - The SVG that will be processed.
  *
  * @returns The processed SVG.
  */
 function replaceColorWithCurrentColor(svg: string): string {
-  const matchColoredFillOrStroke = /(?<=(fill|stroke)=")(?!#fff"|none).*?(?=")/gim;
+  const matchColoredFillOrStroke = /(?<=(fill|stroke)=")(?!#fff+"|white|none).*?(?=")/gim;
   return svg.replace(matchColoredFillOrStroke, 'currentColor');
 }

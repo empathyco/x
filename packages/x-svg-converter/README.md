@@ -7,8 +7,8 @@ This project generates Vue components from SVGs in a folder, with the format req
 ### Params
 
 It receives two parameters, the first one should be the path to the folder containing the SVGs. The
-second one indicates if the source SVGs should be deleted at the end of the process (`--keep-svgs`).
-By default, the SVGs are deleted.
+second one indicates if the source SVG files should persist at the end of the process
+(`--keep-svgs`). By default, the SVGs are deleted.
 
 - **sourcePath**: path of the folder with the SVGs.
 - **keepSVGs**: indicates if the SVGs are deleted at the end. `false` by default.
