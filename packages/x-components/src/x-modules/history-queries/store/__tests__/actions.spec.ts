@@ -324,7 +324,7 @@ describe('testing history queries module actions', () => {
 
     it('updates a history query if it was made on a previous session', async () => {
       gato.totalResults = 50;
-      gato.timestamp -= store.state.sessionTimeStampInMs;
+      gato.timestamp = store.state.sessionTimeStampInMs;
       resetStateWith({ historyQueries: [gato, perro] });
       await store.dispatch('updateHistoryQueriesWithSearchResponse', {
         request: {
