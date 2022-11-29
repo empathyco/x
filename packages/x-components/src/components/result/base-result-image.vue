@@ -135,11 +135,11 @@
     };
 
     /**
-     * Initializes images state and resets when the result changes.
+     * Initializes images state and resets when the result's images change.
      *
      * @internal
      */
-    @Watch('result', { immediate: true })
+    @Watch('result.images', { immediate: true })
     resetImagesState(): void {
       this.pendingImages = [...(this.result.images ?? [])];
       this.loadedImages = [];
