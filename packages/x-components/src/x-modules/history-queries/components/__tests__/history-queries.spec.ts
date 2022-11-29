@@ -25,7 +25,7 @@ describe('testing history queries component', () => {
     'navajas',
     'croquetas',
     'zamburiñas'
-  );
+  ).map(historyQuery => ({ ...historyQuery, totalResults: 24 }));
 
   const historyQueriesWrapper = mount(HistoryQueries, {
     localVue,
@@ -54,9 +54,11 @@ describe('testing history queries component', () => {
 
   it('renders only the elements in store with results', async () => {
     const searchedHistoryQueries = historyQueries.map((historyQuery, index) => {
-      let totalResults: number | undefined;
-      if (index !== historyQueries.length - 1) {
-        totalResults = index;
+      let { totalResults } = historyQuery;
+      if (index === 0) {
+        totalResults = undefined;
+      } else if (index === 1) {
+        totalResults = 0;
       }
       return {
         ...historyQuery,
@@ -66,7 +68,7 @@ describe('testing history queries component', () => {
     resetXHistoryQueriesStateWith(store, { historyQueries: searchedHistoryQueries });
     await localVue.nextTick();
     const historyQueryItemWrapper = findAllInWrapper('history-query-item');
-    expect(historyQueryItemWrapper).toHaveLength(searchedHistoryQueries.length - 1);
+    expect(historyQueryItemWrapper).toHaveLength(searchedHistoryQueries.length - 2);
   });
 
   it('limits the number of rendered elements by the maxItemsToRender config property', async () => {

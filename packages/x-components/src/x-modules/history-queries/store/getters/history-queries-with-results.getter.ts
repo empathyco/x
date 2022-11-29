@@ -15,4 +15,4 @@ import { HistoryQueriesXStoreModule } from '../types';
  */
 // eslint-disable-next-line max-len
 export const historyQueriesWithResults: HistoryQueriesXStoreModule['getters']['historyQueriesWithResults'] =
-  (state, { historyQueries }) => historyQueries.filter(({ totalResults }) => totalResults !== 0);
+  (state, { historyQueries }) => historyQueries.filter(({ totalResults }) => !!totalResults);
