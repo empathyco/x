@@ -30,24 +30,4 @@ export interface PopularSearchesConfig {
    * ```
    */
   hideSessionQueries: boolean;
-  /**
-   * Show the extra suggestion that has filters without the filter.
-   *
-   * @example
-   * When set to true:
-   * ```
-   * query = 'trou';
-   * suggestions = ['trousers in man', 'trousers in woman'];
-   * // Suggests ['trousers', 'trousers in man', 'trousers in woman']
-   * ```
-   *
-   * @example
-   * When set to false:
-   * ```
-   * query = 'trou';
-   * suggestions = ['trousers in man', 'trousers in woman'];
-   * // Suggests ['trousers in man', 'trousers in woman']
-   * ```
-   */
-  showExtraSuggestionWithoutFilter: boolean;
 }
