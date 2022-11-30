@@ -99,7 +99,7 @@ function runPrettier(): void {
 
   exec(`prettier --write ${sourcePath}/*.vue`, error => {
     if (error) {
-      throw `runPrettier, ${error.message}`;
+      throw Error(`runPrettier, ${error.message}`);
     }
   });
 }

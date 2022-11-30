@@ -3,6 +3,17 @@ import fs from 'fs';
 import { svgToVue } from '../svg-to-vue';
 import svgStub from './svg-stub';
 
+// Mock to prevent the prettier from running in test env.
+jest.mock('child_process', () => {
+  const originalModule = jest.requireActual('child_process');
+
+  return {
+    __esModule: true,
+    ...originalModule,
+    exec: jest.fn(() => true)
+  };
+});
+
 describe('test SVG to Vue script', () => {
   const sourcePath = './src/__tests__/svgs';
 
