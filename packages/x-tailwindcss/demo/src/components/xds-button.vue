@@ -54,11 +54,17 @@
     @Prop({ default: () => ['x-button-circle', 'x-button-square'] })
     public layouts!: string[];
 
+    @Prop({ default: () => ['x-button-outlined'] })
+    public outline!: string;
+
     @Prop({ default: () => ['x-button-ghost'] })
     public ghost!: string;
 
-    @Prop({ default: () => ['x-button-outlined'] })
-    public outline!: string;
+    @Prop({ default: () => ['x-button-tight'] })
+    public tight!: string;
+
+    @Prop({ default: () => ['x-button-link'] })
+    public link!: string;
 
     @Prop({
       default: () => [
@@ -76,10 +82,14 @@
         Layout: this.layouts.map(addParentClasses(this.base)),
         Outline: this.colors.map(addParentClasses(this.base, this.outline)),
         Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
+        Tight: this.colors.map(addParentClasses(this.base, this.tight)),
+        Link: this.colors.map(addParentClasses(this.base, this.link)),
         Disabled: [
           this.base,
           addParentClasses(this.base)(this.outline),
-          addParentClasses(this.base)(this.ghost)
+          addParentClasses(this.base)(this.ghost),
+          addParentClasses(this.base)(this.tight),
+          addParentClasses(this.base)(this.link)
         ],
         Combinations: this.combinations.map(addParentClasses(this.base))
       };

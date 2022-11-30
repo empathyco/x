@@ -3,7 +3,9 @@ import { TailwindHelpers } from '../../../types';
 import { buttonColors } from './colors';
 import { buttonDefault } from './default';
 import { buttonGhost } from './ghost';
+import { buttonTight } from './tight';
 import { buttonLayouts } from './layouts';
+import { buttonLink } from './link';
 import { buttonOutlined } from './outlined';
 import { buttonSizes } from './sizes';
 
@@ -24,7 +26,9 @@ export function button(helpers: TailwindHelpers) {
           ...buttonSizes(helpers),
           ...buttonLayouts(helpers),
           ...buttonOutlined(helpers),
-          ...buttonGhost(helpers)
+          ...buttonLink(helpers),
+          ...buttonGhost(helpers),
+          ...buttonTight(helpers)
         },
         { prefix: '&-' }
       )
