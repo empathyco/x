@@ -53,7 +53,7 @@ describe('testing history queries component', () => {
   });
 
   it('renders only the elements in store with results', async () => {
-    const searchedHistoryQueries = historyQueries.map((historyQuery, index) => {
+    const testHistoryQueries = historyQueries.map((historyQuery, index) => {
       let { totalResults } = historyQuery;
       if (index === 0) {
         totalResults = undefined;
@@ -65,10 +65,10 @@ describe('testing history queries component', () => {
         totalResults
       };
     });
-    resetXHistoryQueriesStateWith(store, { historyQueries: searchedHistoryQueries });
+    resetXHistoryQueriesStateWith(store, { historyQueries: testHistoryQueries });
     await localVue.nextTick();
     const historyQueryItemWrapper = findAllInWrapper('history-query-item');
-    expect(historyQueryItemWrapper).toHaveLength(searchedHistoryQueries.length - 2);
+    expect(historyQueryItemWrapper).toHaveLength(testHistoryQueries.length - 2);
   });
 
   it('limits the number of rendered elements by the maxItemsToRender config property', async () => {
