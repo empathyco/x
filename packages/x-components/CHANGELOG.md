@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.238](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.237...@empathyco/x-components@3.0.0-alpha.238) (2022-12-01)
+
+### Features
+
+- **components:** add `getTargetElement` util to retrieve the `event.target` (#870)
+  ([8be7beb](https://github.com/empathyco/x/commit/8be7beba25a5a90b142fbb1a905d41503befc92c))
+
+### Bug Fixes
+
+- **components:** reset`BaseResultImage` images state when `result` `prop` changes (#888)
+  ([a783ace](https://github.com/empathyco/x/commit/a783ace74929db22b7ed087b0eb19481078a35f5))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.237](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.236...@empathyco/x-components@3.0.0-alpha.237) (2022-12-01)
 
 ### Features
