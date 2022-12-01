@@ -12,7 +12,7 @@
             @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** `Suggestion` - Query Suggestion data<br />&nbsp;&nbsp;- **index** `number` - Query Suggestion index
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="defaultBaseSuggestionsScope">
+      <slot name="suggestion" v-bind="{ ...defaultBaseSuggestionsScope }">
         <QuerySuggestion
           :suggestion="defaultBaseSuggestionsScope.suggestion"
           class="x-query-suggestions__suggestion"

@@ -12,7 +12,7 @@
             @binding {Object} v-bind - History Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - History Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - History Query suggestion index
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="defaultBaseSuggestionsScope">
+      <slot name="suggestion" v-bind="{ ...defaultBaseSuggestionsScope }">
         <HistoryQuery
           :suggestion="defaultBaseSuggestionsScope.suggestion"
           data-test="history-query-item"
