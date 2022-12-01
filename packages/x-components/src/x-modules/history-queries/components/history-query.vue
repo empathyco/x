@@ -5,14 +5,15 @@
       v-bind="{ suggestion, suggestionSelectedEvents, query }"
       data-test="history-query"
       feature="history_query"
+      #default="defaultSlotScope"
     >
-      <template #default="defaultSlotScope">
-        <!--
+      <!-- eslint-disable max-len -->
+      <!--
           @slot History Query content
-              @binding {Suggestion} suggestion - History Query suggestion data
-        -->
-        <slot v-bind="defaultSlotScope" />
-      </template>
+              @binding {Object} v-bind - `BaseSuggestion` default slot scope: **suggestion** <code>Suggestion</code> - Suggestion data<br />**index** <code>number</code> - Suggestion index<br />**filter** <code>Filter \| undefined</code> - Suggestion's filter
+      -->
+      <!-- eslint-enable max-len -->
+      <slot v-bind="{ ...defaultSlotScope }" />
     </BaseSuggestion>
     <RemoveHistoryQuery
       class="x-history-query__remove"
@@ -22,7 +23,7 @@
       <!--
           @slot History Query remove button content
               @binding {Suggestion} suggestion - History Query suggestion data
-        -->
+      -->
       <slot name="remove-button-content" v-bind="{ suggestion }">✕</slot>
     </RemoveHistoryQuery>
   </div>

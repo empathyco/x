@@ -4,14 +4,15 @@
     class="x-query-suggestion"
     data-test="query-suggestion"
     feature="query_suggestion"
+    #default="defaultScope"
   >
-    <template #default="defaultScope">
-      <!--
-        @slot Custom content that replaces the `QuerySuggestion` default content
-            @binding {Suggestion} suggestion - Query Suggestion data
-      -->
-      <slot v-bind="defaultScope" />
-    </template>
+    <!-- eslint-disable max-len -->
+    <!--
+        @slot Query Suggestion content
+            @binding {Object} v-bind - `BaseSuggestion` default slot scope: **suggestion** <code>Suggestion</code> - Suggestion data<br />**index** <code>number</code> - Suggestion index<br />**filter** <code>Filter \| undefined</code> - Suggestion's filter
+    -->
+    <!-- eslint-enable max-len -->
+    <slot v-bind="{ ...defaultScope }" />
   </BaseSuggestion>
 </template>
 
