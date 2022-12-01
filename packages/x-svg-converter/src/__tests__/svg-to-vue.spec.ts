@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import { exec } from 'child_process';
 import { svgToVue } from '../svg-to-vue';
 import svgStub from './svg-stub';
 
@@ -17,15 +18,17 @@ jest.mock('child_process', () => {
 describe('test SVG to Vue script', () => {
   const sourcePath = './src/__tests__/svgs';
 
-  afterEach(() => {
-    jest.resetAllMocks();
+  beforeEach(() => {
+    process.argv = ['param1', 'param2', sourcePath];
 
     generateTestSVGs();
+  });
+
+  afterEach(() => {
     removeVueTestFiles();
   });
 
   it('should create a vue component for each svg in the source folder', () => {
-    process.argv = ['param1', 'param2', sourcePath];
     svgToVue();
 
     expect(fs.existsSync(`${sourcePath}/test_svg_0.vue`)).toBe(true);
@@ -33,7 +36,6 @@ describe('test SVG to Vue script', () => {
   });
 
   it('wraps the svg in a vue component format and generates the vue files with it', () => {
-    process.argv = ['param1', 'param2', sourcePath];
     svgToVue();
 
     const vueComponentContent = fs.readFileSync(`${sourcePath}/test_svg_0.vue`, {
@@ -58,7 +60,6 @@ describe('test SVG to Vue script', () => {
   it('unlinks the source svg files', () => {
     jest.spyOn(fs, 'unlink');
 
-    process.argv = ['param1', 'param2', sourcePath];
     svgToVue();
 
     expect(fs.unlink).toHaveBeenCalledWith(`${sourcePath}/test_svg_0.svg`, expect.any(Function));
@@ -73,6 +74,12 @@ describe('test SVG to Vue script', () => {
     expect(fs.existsSync(`${sourcePath}/test_svg_1.svg`)).toBe(true);
   });
 
+  it('applies prettier in the source folder', () => {
+    svgToVue();
+
+    expect(exec).toHaveBeenCalledWith(`prettier --write ${sourcePath}/*.vue`, expect.any(Function));
+  });
+
   /**
    * Generate the SVG files used in the tests.
    */
@@ -80,7 +87,7 @@ describe('test SVG to Vue script', () => {
     const absoluteSourcePath = path.resolve(process.cwd(), sourcePath);
 
     if (fs.existsSync(absoluteSourcePath)) {
-      [...Array(2)].forEach((_, i) => {
+      [0, 1].forEach(i => {
         if (!fs.existsSync(`${absoluteSourcePath}/test_svg_${i}.svg`)) {
           fs.writeFileSync(`${absoluteSourcePath}/test_svg_${i}.svg`, svgStub);
         }
@@ -94,9 +101,12 @@ describe('test SVG to Vue script', () => {
   function removeVueTestFiles(): void {
     const absoluteSourcePath = path.resolve(process.cwd(), sourcePath);
 
-    if (fs.existsSync(`${absoluteSourcePath}/test_svg_0.vue`)) {
-      fs.rmSync(`${absoluteSourcePath}/test_svg_0.vue`, { recursive: true });
-      fs.rmSync(`${absoluteSourcePath}/test_svg_1.vue`, { recursive: true });
+    if (fs.existsSync(absoluteSourcePath)) {
+      [0, 1].forEach(i => {
+        if (fs.existsSync(`${absoluteSourcePath}/test_svg_${i}.vue`)) {
+          fs.rmSync(`${absoluteSourcePath}/test_svg_${i}.vue`, { recursive: true });
+        }
+      });
     }
   }
 });

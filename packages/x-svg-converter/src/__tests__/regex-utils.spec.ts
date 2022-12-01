@@ -13,9 +13,14 @@ describe('test regex utils', () => {
 <path />
 </svg>`;
 
+    const svgWithoutDimensions = `<svg fill="none">
+<path />
+</svg>`;
+
     expect(removeDimensions(svgWithDimensions)).toBe(`<svg   fill="none">
 <path />
 </svg>`);
+    expect(removeDimensions(svgWithoutDimensions)).toBe(svgWithoutDimensions);
   });
 
   it('adds `fill="none"` to the SVG root if it\'s missing', () => {
@@ -23,10 +28,16 @@ describe('test regex utils', () => {
 <path />
 </svg>`;
 
+    const svgWithFillNone = `<svg fill="none" xmlns="http://www.w3.org/2000/svg">
+<path />
+</svg>`;
+
     expect(addFillNoneInRoot(svgWithoutFillNone))
       .toBe(`<svg fill="none" xmlns="http://www.w3.org/2000/svg">
 <path />
 </svg>`);
+
+    expect(addFillNoneInRoot(svgWithFillNone)).toBe(svgWithFillNone);
   });
 
   it('adds the `x-icon` and data classes to the root of an SVG', () => {

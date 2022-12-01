@@ -88,7 +88,7 @@ function getParams(): CommandParameters {
     throw Error('getParams, sourcePath not found');
   }
 
-  return { sourcePath, keepSVGs: keepSVGs === '--keep-svgs' ?? false };
+  return { sourcePath, keepSVGs: keepSVGs === '--keep-svgs' };
 }
 
 /**
