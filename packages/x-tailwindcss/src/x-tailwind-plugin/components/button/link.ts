@@ -1,5 +1,6 @@
 import { TailwindHelpers } from '../../../types';
 import { noBackground } from './utils/no-background';
+import { noHorizontalPadding } from './utils/no-horizontal-padding';
 
 /**
  * Returns the `link` variant for component `button`.
@@ -11,8 +12,7 @@ import { noBackground } from './utils/no-background';
 export function buttonLink(helpers: TailwindHelpers) {
   return {
     link: {
-      paddingInlineStart: '0',
-      paddingInlineEnd: '0',
+      display: 'flex-inline',
       minHeight: '0',
       textDecoration: 'underline',
       fontFamily: 'inherit',
@@ -20,6 +20,7 @@ export function buttonLink(helpers: TailwindHelpers) {
       lineHeight: 'inherit',
       fontWeight: 'inherit',
       letterSpacing: 'inherit',
+      ...noHorizontalPadding(helpers),
       ...noBackground(helpers)
     }
   };
