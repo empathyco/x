@@ -1,139 +1,165 @@
+import { Suggestion } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { getPopularSearchesStub } from '../../../../__stubs__/popular-searches-stubs.factory';
+import { createPopularSearch } from '../../../../__stubs__/popular-searches-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
-import PopularSearch from '../popular-search.vue';
+import { popularSearchesXModule } from '../../../popular-searches/x-module';
 import PopularSearches from '../popular-searches.vue';
 import { resetXPopularSearchesStateWith } from './utils';
 
-describe('testing popular searches component', () => {
-  const popularSearches = getPopularSearchesStub();
-
+function renderPopularSearches({
+  popularSearches = [
+    createPopularSearch('chocolate'),
+    createPopularSearch('milk chocolate'),
+    createPopularSearch('chocolate milk')
+  ],
+  maxItemsToRender,
+  template = '<PopularSearches v-bind="$attrs" />'
+}: RenderPopularSearchesOptions = {}): RenderPopularSearchesApi {
   const localVue = createLocalVue();
   localVue.use(Vuex);
+  const store = new Store<DeepPartial<RootXStoreState>>({});
+  installNewXPlugin({ store, initialXModules: [popularSearchesXModule] }, localVue);
+  resetXPopularSearchesStateWith(store, { popularSearches });
 
-  const store: Store<DeepPartial<RootXStoreState>> = new Store({});
-  installNewXPlugin({ store }, localVue);
-
-  let popularSearchesWrapper: Wrapper<Vue>;
-
-  beforeEach(() => {
-    popularSearchesWrapper = mount(PopularSearches, { localVue, store });
-    resetXPopularSearchesStateWith(store, { popularSearches });
-  });
-
-  it('is an XComponent', () => {
-    expect(isXComponent(popularSearchesWrapper.vm)).toEqual(true);
-    expect(getXComponentXModuleName(popularSearchesWrapper.vm)).toBe('popularSearches');
-  });
-
-  it('renders a button with the query of the popular search (suggestion)', () => {
-    const eventButtonsList = findTestDataById(popularSearchesWrapper, 'popular-search');
-
-    popularSearches.forEach((suggestion, index) => {
-      expect(eventButtonsList.at(index).element.innerHTML).toEqual(suggestion.query);
-    });
-  });
-
-  it('renders a span & and image overriding the default Popular Search content', () => {
-    const wrapperComponent = {
-      template: `
-        <PopularSearches>
-          <template #suggestion-content="suggestionContentScope">
-            <img src="./popular-search-icon.svg" class="x-popular-search__icon" data-test="icon"/>
-            <span class="x-popular-search__query" :data-index="suggestionContentScope.index"
-                  data-test="query">{{ suggestionContentScope.suggestion.query }}</span>
-          </template>
-        </PopularSearches>
-      `,
+  const wrapper = mount(
+    {
+      template,
+      inheritAttrs: false,
       components: {
         PopularSearches
       }
-    };
-
-    popularSearchesWrapper = mount(wrapperComponent, {
+    },
+    {
       localVue,
-      store
-    });
-
-    const eventSpansList = findTestDataById(popularSearchesWrapper, 'query');
-    const iconsList = findTestDataById(popularSearchesWrapper, 'icon');
-
-    popularSearches.forEach((suggestion, index) => {
-      expect(eventSpansList.at(index).element.innerHTML).toEqual(suggestion.query);
-      expect(iconsList.at(index)).toBeDefined();
-    });
-  });
-
-  it('renders a button & a custom Popular Search', () => {
-    const wrapperComponent = {
-      template: `
-        <PopularSearches>
-          <template #suggestion="{suggestion}">
-            <PopularSearch :suggestion="suggestion">
-              <template #default="{suggestion}">
-                <img src="./popular-search-icon.svg"
-                     class="x-popular-search__icon"
-                     data-test="icon"/>
-                <span class="x-popular-search__query"
-                      data-test="query">{{ suggestion.query }}</span>
-              </template>
-            </PopularSearch>
-            <button data-test="custom-button">Custom Behaviour</button>
-          </template>
-        </PopularSearches>
-      `,
-      components: {
-        PopularSearches,
-        PopularSearch
+      store,
+      propsData: {
+        maxItemsToRender
       }
-    };
+    }
+  );
 
-    popularSearchesWrapper = mount(wrapperComponent, {
-      localVue,
-      store
+  return {
+    wrapper: wrapper.findComponent(PopularSearches),
+    popularSearches,
+    async setMaxItemsToRender(max) {
+      return await wrapper.setProps({ maxItemsToRender: max });
+    },
+    getSuggestionItemWrappers() {
+      return wrapper.findAll(getDataTestSelector('suggestion-item'));
+    }
+  };
+}
+
+describe('testing Query Suggestions component', () => {
+  it('is an XComponent that belongs to the query suggestions module', () => {
+    const { wrapper } = renderPopularSearches();
+    expect(isXComponent(wrapper.vm)).toEqual(true);
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('popularSearches');
+  });
+
+  it('does not render anything when suggestions are empty', () => {
+    const { wrapper } = renderPopularSearches({ popularSearches: [] });
+    expect(wrapper.html()).toBe('');
+  });
+
+  it('renders the state list of suggestions', () => {
+    const { getSuggestionItemWrappers, popularSearches } = renderPopularSearches({
+      popularSearches: [createPopularSearch('chocolate'), createPopularSearch('milk chocolate')]
     });
 
-    expect(popularSearchesWrapper.findComponent(PopularSearch)).toBeDefined();
-
-    const eventSpansList = findTestDataById(popularSearchesWrapper, 'query');
-    const iconsList = findTestDataById(popularSearchesWrapper, 'icon');
-    const customButtonList = findTestDataById(popularSearchesWrapper, 'custom-button');
-
-    popularSearches.forEach((suggestion, index) => {
-      expect(eventSpansList.at(index).element.innerHTML).toEqual(suggestion.query);
-      expect(iconsList.at(index)).toBeDefined();
-      expect(customButtonList.at(index)).toBeDefined();
+    const suggestionItemWrappers = getSuggestionItemWrappers();
+    expect(suggestionItemWrappers).toHaveLength(2);
+    suggestionItemWrappers.wrappers.forEach((itemWrapper, index) => {
+      expect(itemWrapper.text()).toEqual(popularSearches[index].query);
     });
   });
 
-  it('does not render any PopularSearch if the are none', async () => {
-    resetXPopularSearchesStateWith(store);
+  it('allows to render a custom query suggestion', () => {
+    const { getSuggestionItemWrappers, popularSearches } = renderPopularSearches({
+      popularSearches: [createPopularSearch('chocolate'), createPopularSearch('milk chocolate')],
+      template: `
+        <PopularSearches #suggestion="{ suggestion }">
+          <button class="custom-suggestion">
+            <span>🔍</span>
+            <span>{{ suggestion.query }}</span>
+          </button>
+        </PopularSearches>
+      `
+    });
 
-    await localVue.nextTick();
-
-    expect(popularSearchesWrapper.html()).toEqual('');
+    const suggestionItemWrappers = getSuggestionItemWrappers();
+    expect(suggestionItemWrappers).toHaveLength(2);
+    suggestionItemWrappers.wrappers.forEach((itemWrapper, index) => {
+      expect(itemWrapper.get('.custom-suggestion').text()).toEqual(
+        `🔍 ${popularSearches[index].query}`
+      );
+      expect(itemWrapper.find(getDataTestSelector('popular-search')).exists()).toBe(false);
+    });
   });
 
+  it('allows to render a custom suggestion content', () => {
+    const { getSuggestionItemWrappers, popularSearches } = renderPopularSearches({
+      popularSearches: [createPopularSearch('chocolate'), createPopularSearch('milk chocolate')],
+      template: `
+        <PopularSearches #suggestion-content="{ suggestion }">
+          <span>🔍</span>
+          <span>{{ suggestion.query }}</span>
+        </PopularSearches>
+      `
+    });
+
+    const suggestionItemWrappers = getSuggestionItemWrappers();
+    expect(suggestionItemWrappers).toHaveLength(2);
+    suggestionItemWrappers.wrappers.forEach((itemWrapper, index) => {
+      expect(itemWrapper.text()).toEqual(`🔍 ${popularSearches[index].query}`);
+      expect(itemWrapper.find(getDataTestSelector('popular-search')).exists()).toBe(true);
+    });
+  });
+
+  // eslint-disable-next-line max-len
   it('renders at most the number of PopularSearch defined by `maxItemsToRender` prop', async () => {
-    const renderedPopularSearches = (): WrapperArray<Vue> =>
-      findTestDataById(popularSearchesWrapper, 'popular-search');
+    const { getSuggestionItemWrappers, setMaxItemsToRender, popularSearches } =
+      renderPopularSearches({
+        popularSearches: [
+          createPopularSearch('shirt'),
+          createPopularSearch('jeans'),
+          createPopularSearch('tshirt'),
+          createPopularSearch('jumper')
+        ]
+      });
 
-    await popularSearchesWrapper.setProps({ maxItemsToRender: 2 });
-    expect(renderedPopularSearches()).toHaveLength(2);
+    await setMaxItemsToRender(popularSearches.length - 1);
+    expect(getSuggestionItemWrappers().wrappers).toHaveLength(popularSearches.length - 1);
 
-    await popularSearchesWrapper.setProps({ maxItemsToRender: 3 });
-    expect(renderedPopularSearches()).toHaveLength(3);
+    await setMaxItemsToRender(popularSearches.length);
+    expect(getSuggestionItemWrappers().wrappers).toHaveLength(popularSearches.length);
 
-    await popularSearchesWrapper.setProps({ maxItemsToRender: 5 });
-    expect(renderedPopularSearches()).toHaveLength(popularSearches.length);
+    await setMaxItemsToRender(popularSearches.length + 1);
+    expect(getSuggestionItemWrappers().wrappers).toHaveLength(popularSearches.length);
   });
-
-  function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
-    return wrapper.findAll(getDataTestSelector(testDataId));
-  }
 });
+
+interface RenderPopularSearchesOptions {
+  /** The suggestions list to render. */
+  popularSearches?: Suggestion[];
+  /** The maximum number of items to render. */
+  maxItemsToRender?: string;
+  /** The template to render. */
+  template?: string;
+}
+
+interface RenderPopularSearchesApi {
+  /** PopularSearches component testing wrapper. */
+  wrapper: Wrapper<Vue>;
+  /** Retrieves the list item of each suggestion. */
+  getSuggestionItemWrappers: () => WrapperArray<Vue>;
+  /** Retrieves the list item of each suggestion. */
+  setMaxItemsToRender: (max: number) => Promise<void>;
+  /** Rendered suggestions data. */
+  popularSearches: Suggestion[];
+}
