@@ -116,6 +116,26 @@ describe('testing Query Suggestions component', () => {
     });
   });
 
+  it('allows to render a custom remove suggestion content', () => {
+    const { getSuggestionItemWrappers, historyQueries } = renderHistoryQueries({
+      historyQueries: createHistoryQueries('chocolate', 'milk chocolate'),
+      template: `
+        <HistoryQueries #suggestion-remove-content="{ suggestion }">
+          <span>❌</span>
+          <span>{{ suggestion.query }}</span>
+        </HistoryQueries>
+      `
+    });
+
+    const suggestionItemWrappers = getSuggestionItemWrappers();
+    expect(suggestionItemWrappers).toHaveLength(2);
+    suggestionItemWrappers.wrappers.forEach((itemWrapper, index) => {
+      const query = historyQueries[index].query;
+      expect(itemWrapper.text()).toEqual(`${query}❌ ${query}`);
+      expect(itemWrapper.find(getDataTestSelector('history-query')).exists()).toBe(true);
+    });
+  });
+
   // eslint-disable-next-line max-len
   it('renders at most the number of HistoryQuery defined by `maxItemsToRender` prop', async () => {
     const { getSuggestionItemWrappers, setMaxItemsToRender, historyQueries } = renderHistoryQueries(
