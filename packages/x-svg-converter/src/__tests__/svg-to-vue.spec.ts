@@ -20,6 +20,7 @@ describe('test SVG to Vue script', () => {
   const originalArgv = process.argv;
 
   beforeEach(() => {
+    process.argv = ['param1', 'param2', sourcePath];
     generateTestSVGs();
   });
 
@@ -29,10 +30,10 @@ describe('test SVG to Vue script', () => {
 
   afterAll(() => {
     process.argv = originalArgv;
+    generateTestSVGs();
   });
 
   it('should create a vue component for each svg in the source folder', () => {
-    loadParams();
     svgToVue();
 
     expect(fs.existsSync(`${sourcePath}/test_svg_0.vue`)).toBe(true);
@@ -40,7 +41,6 @@ describe('test SVG to Vue script', () => {
   });
 
   it('wraps the svg in a vue component format and generates the vue files with it', () => {
-    loadParams();
     svgToVue();
 
     const vueComponentContent = fs.readFileSync(`${sourcePath}/test_svg_0.vue`, {
@@ -65,7 +65,6 @@ describe('test SVG to Vue script', () => {
   it('unlinks the source svg files', () => {
     jest.spyOn(fs, 'unlink');
 
-    loadParams();
     svgToVue();
 
     expect(fs.unlink).toHaveBeenCalledWith(`${sourcePath}/test_svg_0.svg`, expect.any(Function));
@@ -73,7 +72,7 @@ describe('test SVG to Vue script', () => {
   });
 
   it('keeps the source SVG files if keepSVGs param is present', () => {
-    loadParams(true);
+    process.argv = ['param1', 'param2', sourcePath, '--keep-svgs'];
     svgToVue();
 
     expect(fs.existsSync(`${sourcePath}/test_svg_0.svg`)).toBe(true);
@@ -81,20 +80,10 @@ describe('test SVG to Vue script', () => {
   });
 
   it('applies prettier in the source folder', () => {
-    loadParams();
     svgToVue();
 
     expect(exec).toHaveBeenCalledWith(`prettier --write ${sourcePath}/*.vue`, expect.any(Function));
   });
-
-  /**
-   * Util function to load the params for the tests.
-   *
-   * @param keepSVGs - Indicates if the source SVGs should be kept.
-   */
-  function loadParams(keepSVGs = false): void {
-    process.argv = ['param1', 'param2', sourcePath, keepSVGs ? '--keep-svgs' : ''];
-  }
 
   /**
    * Generate the SVG files used in the tests.
