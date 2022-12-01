@@ -5,29 +5,23 @@
     class="x-popular-searches"
     data-test="popular-searches"
   >
-    <template #default="defaultBaseSuggestionsScope">
+    <template #default="props">
       <!-- eslint-disable max-len -->
       <!--
         @slot Popular Search item
             @binding {Object} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ ...defaultBaseSuggestionsScope }">
-        <PopularSearch
-          :suggestion="defaultBaseSuggestionsScope.suggestion"
-          class="x-popular-searches__suggestion"
-        >
-          <template #default="defaultPopularSearchScope">
+      <slot name="suggestion" v-bind="{ ...props }">
+        <PopularSearch :suggestion="props.suggestion" class="x-popular-searches__suggestion">
+          <template #default="{ ...props }">
             <!-- eslint-disable max-len -->
             <!--
               @slot Popular Search content
                   @binding {Object} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
             -->
             <!-- eslint-enable max-len -->
-            <slot
-              name="suggestion-content"
-              v-bind="{ ...defaultBaseSuggestionsScope, ...defaultPopularSearchScope }"
-            />
+            <slot name="suggestion-content" v-bind="{ ...props }" />
           </template>
         </PopularSearch>
       </slot>
@@ -54,7 +48,6 @@
    * @public
    */
   @Component({
-    inheritAttrs: false,
     components: { PopularSearch, BaseSuggestions },
     mixins: [xComponentMixin(popularSearchesXModule)]
   })

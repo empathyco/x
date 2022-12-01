@@ -5,7 +5,7 @@
     data-test="next-queries"
     class="x-next-queries"
   >
-    <template #default="defaultBaseSuggestionsScope">
+    <template #default="props">
       <!-- eslint-disable max-len -->
       <!--
         @slot Next Query item
@@ -13,10 +13,10 @@
             @binding {boolean} highlightCurated - True if the curated NQs should be highlighted
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ ...defaultBaseSuggestionsScope, highlightCurated }">
+      <slot name="suggestion" v-bind="{ ...props, highlightCurated }">
         <NextQuery
-          #default="defaultNextQuerySlotScope"
-          :suggestion="defaultBaseSuggestionsScope.suggestion"
+          #default="{ shouldHighlightCurated }"
+          :suggestion="props.suggestion"
           :highlightCurated="highlightCurated"
           class="x-next-queries__suggestion"
         >
@@ -27,10 +27,7 @@
                   @binding {boolean} shouldHighlightCurated - True if the curated NQ should be highlighted
             -->
           <!-- eslint-enable max-len -->
-          <slot
-            name="suggestion-content"
-            v-bind="{ ...defaultBaseSuggestionsScope, ...defaultNextQuerySlotScope }"
-          />
+          <slot name="suggestion-content" v-bind="{ ...props, shouldHighlightCurated }" />
         </NextQuery>
       </slot>
     </template>
@@ -57,7 +54,6 @@
    * @public
    */
   @Component({
-    inheritAttrs: false,
     components: { NextQuery, BaseSuggestions },
     mixins: [xComponentMixin(nextQueriesXModule)]
   })

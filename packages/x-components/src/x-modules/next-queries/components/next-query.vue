@@ -14,7 +14,7 @@
             @binding {Object} v-bind - `BaseSuggestion` default slot scope: **suggestion** <code>Suggestion</code> - Suggestion data<br />**index** <code>number</code> - Suggestion index<br />**filter** <code>Filter \| undefined</code> - Suggestion's filter
     -->
     <!-- eslint-enable max-len -->
-    <slot v-bind="{ ...defaultSlotScope, shouldHighlightCurated }">{{ suggestion.query }}</slot>
+    <slot v-bind="{ ...defaultSlotScope, shouldHighlightCurated }" />
   </BaseSuggestion>
 </template>
 
