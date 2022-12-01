@@ -77,8 +77,8 @@ props.
 
 | Name               | Description                                 | Type     | Default |
 | ------------------ | ------------------------------------------- | -------- | ------- |
-| `animation`        | Animation component for `QuerySuggestions`. | `Vue`    | `ul`    |
-| `maxItemsToRender` | Number of query suggestions to be rendered. | `number` | ``      |
+| `animation`        | Animation component for `QuerySuggestions`. | `Vue`    | `"ul"`  |
+| `maxItemsToRender` | Number of query suggestions to be rendered. | `number` |         |
 
 ## See it in action
 

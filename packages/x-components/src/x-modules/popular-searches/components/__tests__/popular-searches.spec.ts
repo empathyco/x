@@ -158,7 +158,7 @@ interface RenderPopularSearchesApi {
   wrapper: Wrapper<Vue>;
   /** Retrieves the list item of each suggestion. */
   getSuggestionItemWrappers: () => WrapperArray<Vue>;
-  /** Retrieves the list item of each suggestion. */
+  /** Updates the maximum number of items to render. */
   setMaxItemsToRender: (max: number) => Promise<void>;
   /** Rendered suggestions data. */
   popularSearches: Suggestion[];
