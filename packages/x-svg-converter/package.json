@@ -25,6 +25,7 @@
     "node": "16"
   },
   "scripts": {
+    "prebuild": "rimraf dist ./*.tgz",
     "build": "tsc",
     "postbuild": "npm pack",
     "test": "jest -i"

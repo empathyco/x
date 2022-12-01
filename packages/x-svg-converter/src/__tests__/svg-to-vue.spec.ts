@@ -17,6 +17,7 @@ jest.mock('child_process', () => {
 
 describe('test SVG to Vue script', () => {
   const sourcePath = './src/__tests__/svgs';
+  const originalArgv = process.argv;
 
   beforeEach(() => {
     process.argv = ['param1', 'param2', sourcePath];
@@ -26,6 +27,10 @@ describe('test SVG to Vue script', () => {
 
   afterEach(() => {
     removeVueTestFiles();
+  });
+
+  afterAll(() => {
+    process.argv = originalArgv;
   });
 
   it('should create a vue component for each svg in the source folder', () => {
