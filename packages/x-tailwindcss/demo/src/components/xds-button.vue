@@ -69,7 +69,9 @@
     @Prop({
       default: () => [
         'x-button-lead x-button-sm',
-        'x-button-auxiliary x-button-circle x-button-outlined'
+        'x-button-auxiliary x-button-circle x-button-outlined',
+        'x-button-accent x-button-tight ',
+        'x-button-warning x-button-ghost'
       ]
     })
     public combinations!: string[];
