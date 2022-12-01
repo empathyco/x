@@ -1,7 +1,8 @@
 Feature: Query-suggestions component
 
   Background:
-    Given a query suggestions API with a known response
+    Given a results API with a known response
+    And a query suggestions API with a known response
     And   a tracking API
 
   Scenario Outline: 1. Query suggestions are displayed while typing a query
