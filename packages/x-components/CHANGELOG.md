@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.239](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.238...@empathyco/x-components@3.0.0-alpha.239) (2022-12-01)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.238](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.237...@empathyco/x-components@3.0.0-alpha.238) (2022-12-01)
 
 ### Features
