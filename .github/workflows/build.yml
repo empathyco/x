@@ -7,7 +7,7 @@ jobs:
   build:
     strategy:
       matrix:
-        task: [ lint, build, test ]
+        task: [ lint, test ]
     name: ${{ matrix.task }}
     runs-on: ubuntu-latest
     container:
@@ -45,7 +45,7 @@ jobs:
         run: npm run build
       - name: Set test CLI args
         if: ${{ matrix.task == 'test' }}
-        run: echo "CLI_ARGS=--changedSince ${{ github.sha }}" >> $GITHUB_ENV
+        run: echo "CLI_ARGS=-- --changedSince ${{ github.sha }}" >> $GITHUB_ENV
       - name: Run ${{ matrix.task }}
         run: npm run ${{ matrix.task }} ${{ env.CLI_ARGS }}
       - name: Release alpha on non-release pushes to main branch
