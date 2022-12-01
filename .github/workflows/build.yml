@@ -5,6 +5,9 @@ concurrency:
   cancel-in-progress: true
 jobs:
   build:
+    strategy:
+      matrix:
+        task: [ lint, test ]
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:node16.16.0-chrome105-ff104-edge
@@ -15,12 +18,33 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+      - name: Cache node modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Cache Cypress
+        id: cache-cypress
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-cache
+      - name: Cache eslint
+        id: cache-eslint
+        uses: actions/cache@v3
+        with:
+          path: .eslintcache
+          key: eslint-${{github.sha}}
       - name: Install lerna and all packages
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
-      - name: Run linter in all packages
-        run: npm run lint
-      - name: Run tests in all packages
-        run: npm run test
+      - name: Build
+        if: steps.cache-node-modules.outputs.cache-hit == 'true'
+        run: npm run build
+      # Run the task based on matrix variable
+      - name: Run ${{ matrix.task }}
+        run: npm run ${{ matrix.task }}
       - name: Release alpha on non-release pushes to main branch
         if:
           ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
