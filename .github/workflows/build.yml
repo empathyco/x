@@ -43,9 +43,11 @@ jobs:
       - name: Build
         if: steps.cache-node-modules.outputs.cache-hit == 'true'
         run: npm run build
-      # Run the task based on matrix variable
+      - name: Set test CLI args
+        if: ${{ matrix.task == 'test' }}
+        run: echo "CLI_ARGS=--changedSince ${{ github.event.pull_request.base.sha }}" >> $GITHUB_ENV
       - name: Run ${{ matrix.task }}
-        run: npm run ${{ matrix.task }}
+        run: npm run ${{ matrix.task }} ${{ env.CLI_ARGS }}
       - name: Release alpha on non-release pushes to main branch
         if:
           ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
