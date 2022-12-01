@@ -1,18 +1,21 @@
 <template>
   <BaseSuggestion
     v-bind="{ query, suggestion, suggestionSelectedEvents: event }"
+    :aria-label="suggestion.query"
     class="x-query-suggestion"
     data-test="query-suggestion"
     feature="query_suggestion"
-    #default="defaultScope"
   >
-    <!-- eslint-disable max-len -->
-    <!--
-        @slot Query Suggestion content
-            @binding {Object} v-bind - `BaseSuggestion` default slot scope: **suggestion** <code>Suggestion</code> - Suggestion data<br />**index** <code>number</code> - Suggestion index<br />**filter** <code>Filter \| undefined</code> - Suggestion's filter
-    -->
-    <!-- eslint-enable max-len -->
-    <slot v-bind="{ ...defaultScope }" />
+    <template #default="{ suggestion, queryHTML }">
+      <!-- eslint-disable max-len -->
+      <!--
+        @slot Custom content that replaces the `QuerySuggestion` default content
+            @binding {Suggestion} suggestion - Query Suggestion data
+            @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
+      -->
+      <!-- eslint-enable max-len -->
+      <slot v-bind="{ suggestion, queryHTML }" />
+    </template>
   </BaseSuggestion>
 </template>
 
@@ -115,13 +118,8 @@ element.
 
 ```vue live
 <template>
-  <QuerySuggestion :suggestion="suggestion" #default="{ start, match, end, hasMatch, text }">
-    <template v-if="hasMatch">
-      <span>{{ start }}</span>
-      <span style="color: blue;">{{ match }}</span>
-      <span>{{ end }}</span>
-    </template>
-    <span v-else>{{ text }}</span>
+  <QuerySuggestion :suggestion="suggestion" #default="{ queryHTML }">
+    <span v-html="queryHTML" style="color: blue;" />
   </QuerySuggestion>
 </template>
 

@@ -5,15 +5,17 @@
       v-bind="{ suggestion, suggestionSelectedEvents, query }"
       data-test="history-query"
       feature="history_query"
-      #default="defaultSlotScope"
     >
-      <!-- eslint-disable max-len -->
-      <!--
+      <template #default="{ suggestion, queryHTML }">
+        <!-- eslint-disable max-len -->
+        <!--
           @slot History Query content
-              @binding {Object} v-bind - `BaseSuggestion` default slot scope: **suggestion** <code>Suggestion</code> - Suggestion data<br />**index** <code>number</code> - Suggestion index<br />**filter** <code>Filter \| undefined</code> - Suggestion's filter
-      -->
-      <!-- eslint-enable max-len -->
-      <slot v-bind="{ ...defaultSlotScope }" />
+              @binding {Suggestion} suggestion - History Query suggestion data
+              @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
+        -->
+        <!-- eslint-enable max-len -->
+        <slot v-bind="{ suggestion, queryHTML }" />
+      </template>
     </BaseSuggestion>
     <RemoveHistoryQuery
       class="x-history-query__remove"
@@ -23,7 +25,7 @@
       <!--
           @slot History Query remove button content
               @binding {Suggestion} suggestion - History Query suggestion data
-      -->
+        -->
       <slot name="remove-button-content" v-bind="{ suggestion }">✕</slot>
     </RemoveHistoryQuery>
   </div>
@@ -127,14 +129,9 @@ that serves to remove this query from the history. This slot only has one proper
 ```vue live
 <template>
   <HistoryQuery :suggestion="suggestion">
-    <template #default="{ suggestion, start, match, end, hasMatch, text }">
+    <template #default="{ suggestion, queryHTML }">
       <HistoryIcon />
-      <template v-if="hasMatch">
-        <span>{{ start }}</span>
-        <span style="color: blue;">{{ match }}</span>
-        <span>{{ end }}</span>
-      </template>
-      <span v-else>{{ text }}</span>
+      <span class="x-history-query__matching-part" v-html="queryHTML" />
     </template>
 
     <template #remove-button-content="{ suggestion }">

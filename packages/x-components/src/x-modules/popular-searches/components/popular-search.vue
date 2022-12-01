@@ -5,15 +5,14 @@
     :suggestionSelectedEvents="events"
     data-test="popular-search"
     feature="popular_search"
-    #default="defaultSlotScope"
   >
-    <!-- eslint-disable max-len -->
-    <!--
-        @slot Popular Search content
-            @binding {Object} v-bind - `BaseSuggestion` default slot scope: **suggestion** <code>Suggestion</code> - Suggestion data<br />**index** <code>number</code> - Suggestion index<br />**filter** <code>Filter \| undefined</code> - Suggestion's filter
-    -->
-    <!-- eslint-enable max-len -->
-    <slot v-bind="{ ...defaultSlotScope }">{{ suggestion.query }}</slot>
+    <template #default="{ suggestion }">
+      <!--
+        @slot Popular Search's content
+            @binding {Suggestion} suggestion - Popular Search suggestion data
+      -->
+      <slot :suggestion="suggestion">{{ suggestion.query }}</slot>
+    </template>
   </BaseSuggestion>
 </template>
 

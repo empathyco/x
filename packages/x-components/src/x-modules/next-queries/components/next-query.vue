@@ -6,15 +6,15 @@
     data-test="next-query"
     feature="next_query"
     :class="{ 'x-next-query--is-curated': shouldHighlightCurated }"
-    #default="defaultSlotScope"
   >
-    <!-- eslint-disable max-len -->
-    <!--
+    <template #default="{ suggestion }">
+      <!--
         @slot Next Query content
-            @binding {Object} v-bind - `BaseSuggestion` default slot scope: **suggestion** <code>Suggestion</code> - Suggestion data<br />**index** <code>number</code> - Suggestion index<br />**filter** <code>Filter \| undefined</code> - Suggestion's filter
-    -->
-    <!-- eslint-enable max-len -->
-    <slot v-bind="{ ...defaultSlotScope, shouldHighlightCurated }">{{ suggestion.query }}</slot>
+            @binding {Suggestion} suggestion - Next Query suggestion data
+            @binding {boolean} shouldHighlightCurated - True if the curated NQ should be highlighted
+      -->
+      <slot v-bind="{ suggestion, shouldHighlightCurated }">{{ suggestion.query }}</slot>
+    </template>
   </BaseSuggestion>
 </template>
 
