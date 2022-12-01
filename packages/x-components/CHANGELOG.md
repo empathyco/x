@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.237](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.236...@empathyco/x-components@3.0.0-alpha.237) (2022-12-01)
+
+### Features
+
+- **recommendations:** add `updateRecommendation` mutation (#891)
+  ([0e9ceec](https://github.com/empathyco/x/commit/0e9ceec145458a55ccbe4abf8e7b49f64d1717ae))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.236](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.235...@empathyco/x-components@3.0.0-alpha.236) (2022-11-29)
 
 ### Features
