@@ -33,6 +33,14 @@ export const recommendationsXStoreModule: RecommendationsXStoreModule = {
     setStatus,
     setParams(state, params) {
       state.params = params;
+    },
+    updateRecommendation(state, recommendation) {
+      const stateRecommendation = state.recommendations.find(
+        stateRecommendation => recommendation.id === stateRecommendation.id
+      );
+      if (stateRecommendation) {
+        Object.assign(stateRecommendation, recommendation);
+      }
     }
   },
   actions: {

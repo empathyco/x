@@ -48,6 +48,13 @@ export interface RecommendationsMutations extends StatusMutations {
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
+  /**
+   * Updates a recommendation with new fields.
+   *
+   * @param recommendation - A recommendation containing at least an id
+   * and the properties to modify.
+   */
+  updateRecommendation(recommendation: Partial<Result> & Pick<Result, 'id'>): void;
 }
 
 /**

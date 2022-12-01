@@ -145,6 +145,28 @@ describe('testing Base Result Image component', () => {
     // It should have load the third image after the second one failed.
     getResultPictureImage().should('have.attr', 'src', '/img/test-image-2.jpeg');
   });
+
+  it('resets images state when `result` prop changes', () => {
+    const result = createResultStub('Result', { images: ['/img/test-image-1.jpeg'] });
+    cy.viewport(1920, 200);
+    mount({
+      components: { BaseResultImage },
+      data: () => ({ result }),
+      template: `
+        <div>
+          <BaseResultImage :result="result" />
+          <button @click="result.images = ['/img/test-image-2.jpeg']"
+                  data-test="button-images-change">
+            Change result images
+          </button>
+        </div>
+      `
+    });
+
+    cy.getByDataTest('result-picture-image').should('have.attr', 'src', '/img/test-image-1.jpeg');
+    cy.getByDataTest('button-images-change').trigger('click');
+    cy.getByDataTest('result-picture-image').should('have.attr', 'src', '/img/test-image-2.jpeg');
+  });
 });
 
 interface MountBaseResultImageOptions {
