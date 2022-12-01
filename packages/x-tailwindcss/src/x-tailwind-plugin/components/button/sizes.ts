@@ -12,24 +12,24 @@ export function buttonSizes({ theme }: TailwindHelpers) {
     sm: {
       minHeight: theme('spacing.32'),
       gap: theme('spacing.8'),
-      paddingInlineStart: theme('spacing.8'),
-      paddingInlineEnd: theme('spacing.8'),
-      fontSize: theme('fontSize.xs')
+      paddingInlineStart: theme('spacing.12'),
+      paddingInlineEnd: theme('spacing.12'),
+      fontSize: theme('fontSize.sm')
     },
 
     md: {
       minHeight: theme('spacing.40'),
       gap: theme('spacing.8'),
-      paddingInlineStart: theme('spacing.12'),
-      paddingInlineEnd: theme('spacing.12'),
+      paddingInlineStart: theme('spacing.16'),
+      paddingInlineEnd: theme('spacing.16'),
       fontSize: theme('fontSize.sm')
     },
 
     lg: {
       minHeight: theme('spacing.48'),
       gap: theme('spacing.8'),
-      paddingInlineStart: theme('spacing.16'),
-      paddingInlineEnd: theme('spacing.16'),
+      paddingInlineStart: theme('spacing.20'),
+      paddingInlineEnd: theme('spacing.20'),
       fontSize: theme('fontSize.md')
     },
 
