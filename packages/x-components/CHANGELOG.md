@@ -7,15 +7,8 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **components:** add `getTargetElement` util to retrieve the `event.target` (#870)
-  ([8be7beb](https://github.com/empathyco/x/commit/8be7beba25a5a90b142fbb1a905d41503befc92c))
 - **recommendations:** add `updateRecommendation` mutation (#891)
   ([0e9ceec](https://github.com/empathyco/x/commit/0e9ceec145458a55ccbe4abf8e7b49f64d1717ae))
-
-### Bug Fixes
-
-- **components:** reset`BaseResultImage` images state when `result` `prop` changes (#888)
-  ([a783ace](https://github.com/empathyco/x/commit/a783ace74929db22b7ed087b0eb19481078a35f5))
 
 # Change Log
 
