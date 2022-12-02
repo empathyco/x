@@ -1,11 +1,10 @@
-import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
-import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
+import { createHistoryQuery } from '../../../../__stubs__/history-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import HistoryQueries from '../history-queries.vue';
 import { resetXHistoryQueriesStateWith } from './utils';
@@ -16,7 +15,7 @@ describe('testing history queries component', () => {
   const store = new Store<DeepPartial<RootXStoreState>>({});
   installNewXPlugin({ store }, localVue);
 
-  const historyQueries: HistoryQueryModel[] = createHistoryQueries(
+  const historyQueries = [
     'moura',
     'calamares',
     'rubia galega',
@@ -25,7 +24,7 @@ describe('testing history queries component', () => {
     'navajas',
     'croquetas',
     'zamburiñas'
-  ).map(historyQuery => ({ ...historyQuery, totalResults: 24 }));
+  ].map(query => createHistoryQuery({ query, totalResults: 24 }));
 
   const historyQueriesWrapper = mount(HistoryQueries, {
     localVue,
@@ -53,22 +52,15 @@ describe('testing history queries component', () => {
   });
 
   it('renders only the elements in store with results', async () => {
-    const testHistoryQueries = historyQueries.map((historyQuery, index) => {
-      let { totalResults } = historyQuery;
-      if (index === 0) {
-        totalResults = undefined;
-      } else if (index === 1) {
-        totalResults = 0;
-      }
-      return {
-        ...historyQuery,
-        totalResults
-      };
-    });
+    const testHistoryQueries = [
+      ...historyQueries,
+      createHistoryQuery({ query: 'cachelos' }),
+      createHistoryQuery({ query: 'zorza', totalResults: 0 })
+    ];
     resetXHistoryQueriesStateWith(store, { historyQueries: testHistoryQueries });
     await localVue.nextTick();
     const historyQueryItemWrapper = findAllInWrapper('history-query-item');
-    expect(historyQueryItemWrapper).toHaveLength(testHistoryQueries.length - 2);
+    expect(historyQueryItemWrapper).toHaveLength(testHistoryQueries.length);
   });
 
   it('limits the number of rendered elements by the maxItemsToRender config property', async () => {
