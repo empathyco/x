@@ -192,7 +192,7 @@ const customCommands: CustomCommands = {
     return cy.get('.x-filter--is-selected');
   },
   waitForResultsToRender() {
-    cy.wait(300);
+    cy.getByDataTest('search-result').should('be.visible');
   },
   fakeSearchResponse: searchResponse => {
     cy.window().then(window => {
