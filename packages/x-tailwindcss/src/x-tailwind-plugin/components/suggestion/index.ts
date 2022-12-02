@@ -2,6 +2,7 @@ import { rename } from '@empathyco/x-utils';
 import { TailwindHelpers } from '../../../types';
 import { suggestionDefault } from './default';
 import { suggestionColors } from './colors';
+import { suggestionGhost } from './ghost';
 import { suggestionTag } from './tag';
 import { suggestionSizes } from './sizes';
 
@@ -20,7 +21,8 @@ export function suggestion(helpers: TailwindHelpers) {
         {
           ...suggestionColors(helpers),
           ...suggestionSizes(helpers),
-          ...suggestionTag(helpers)
+          ...suggestionTag(helpers),
+          ...suggestionGhost(helpers)
         },
         { prefix: '&-' }
       )

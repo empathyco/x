@@ -2,19 +2,19 @@ import { TailwindHelpers } from '../../../types';
 import { commonGhostAndTagStyles } from './utils/common-ghost-and-tag-styles';
 
 /**
- * Returns the `tag` variant for component `suggestion`.
+ * Returns the `ghost` variant for component `suggestion`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the variant.
  */
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
-export function suggestionTag(helpers: TailwindHelpers) {
+export function suggestionGhost(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    tag: {
+    ghost: {
       backgroundColor: theme('colors.neutral.0'),
+      borderColor: theme('colors.neutral.0'),
       borderWidth: theme('borderWidth.1'),
-      borderColor: 'currentColor',
       ...commonGhostAndTagStyles(helpers)
     }
   };

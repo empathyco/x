@@ -38,7 +38,7 @@
     public base!: string;
 
     @Prop({
-      default: () => ['x-suggestion-md', 'x-suggestion-lg']
+      default: () => ['x-suggestion-sm', 'x-suggestion-md', 'x-suggestion-lg']
     })
     public sizes!: string[];
 
@@ -60,10 +60,8 @@
     @Prop({ default: () => ['x-suggestion-tag'] })
     public tag!: string;
 
-    @Prop({
-      default: () => ['x-suggestion-tag x-suggestion-md', 'x-suggestion-tag x-suggestion-lg']
-    })
-    public tagSizes!: string[];
+    @Prop({ default: () => ['x-suggestion-ghost'] })
+    public ghost!: string;
 
     @Prop({
       default: () => [
@@ -80,7 +78,9 @@
         Colors: this.colors.map(addParentClasses(this.base)),
         Sizes: this.sizes.map(addParentClasses(this.base)),
         Tag: this.colors.map(addParentClasses(this.base, this.tag)),
-        'Tag Sizes': this.tagSizes.map(addParentClasses(this.base)),
+        'Tag Sizes': this.sizes.map(addParentClasses(this.base, this.tag)),
+        Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
+        'Ghost Sizes': this.sizes.map(addParentClasses(this.base, this.ghost)),
         Combinations: this.combinations.map(addParentClasses(this.base))
       };
     }
