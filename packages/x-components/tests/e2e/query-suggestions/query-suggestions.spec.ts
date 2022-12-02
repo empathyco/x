@@ -55,7 +55,6 @@ When('query suggestion number {int} is clicked', (querySuggestionItem: number) =
     .click()
     .invoke('text')
     .as('searchedQuery');
-  cy.waitForResultsToRender();
 });
 
 // Scenario 3

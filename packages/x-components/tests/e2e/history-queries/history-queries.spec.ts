@@ -46,7 +46,6 @@ And('a {string} of queries already searched', (list: string) => {
 
 When('history query number {int} is clicked', (historyQueryItem: number) => {
   cy.getByDataTest('history-query').eq(historyQueryItem).click().invoke('text').as('searchedQuery');
-  cy.waitForResultsToRender();
 });
 
 And(

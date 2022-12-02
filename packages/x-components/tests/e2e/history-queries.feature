@@ -15,6 +15,7 @@ Feature: History queries component
     When  search-input is focused
     And   history query number <historyQueryItem> is clicked
     And   search-input is focused
+    And  related results are displayed
     Then  the searched query is displayed in the search-box
     And   the searched query is not displayed in history queries if <hideIfEqualsQuery> is true
 
