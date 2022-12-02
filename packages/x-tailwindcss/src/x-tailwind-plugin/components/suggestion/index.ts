@@ -3,7 +3,7 @@ import { TailwindHelpers } from '../../../types';
 import { suggestionDefault } from './default';
 import { suggestionColors } from './colors';
 import { suggestionGhost } from './ghost';
-import { suggestionTag } from './tag';
+import { suggestionOutlined } from './outlined';
 import { suggestionSizes } from './sizes';
 
 /**
@@ -21,7 +21,7 @@ export function suggestion(helpers: TailwindHelpers) {
         {
           ...suggestionColors(helpers),
           ...suggestionSizes(helpers),
-          ...suggestionTag(helpers),
+          ...suggestionOutlined(helpers),
           ...suggestionGhost(helpers)
         },
         { prefix: '&-' }

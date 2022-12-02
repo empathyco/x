@@ -8,10 +8,10 @@ import { commonGhostAndTagStyles } from './utils/common-ghost-and-tag-styles';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
-export function suggestionTag(helpers: TailwindHelpers) {
+export function suggestionOutlined(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    tag: {
+    outlined: {
       backgroundColor: theme('colors.neutral.0'),
       borderWidth: theme('borderWidth.1'),
       borderColor: 'currentColor',
