@@ -60,7 +60,7 @@ describe('testing history queries component', () => {
     resetXHistoryQueriesStateWith(store, { historyQueries: testHistoryQueries });
     await localVue.nextTick();
     const historyQueryItemWrapper = findAllInWrapper('history-query-item');
-    expect(historyQueryItemWrapper).toHaveLength(testHistoryQueries.length);
+    expect(historyQueryItemWrapper).toHaveLength(historyQueries.length);
   });
 
   it('limits the number of rendered elements by the maxItemsToRender config property', async () => {
