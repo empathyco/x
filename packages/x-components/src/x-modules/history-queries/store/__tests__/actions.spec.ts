@@ -40,7 +40,7 @@ describe('testing history queries module actions', () => {
   }
 
   beforeEach(() => {
-    resetStateWith({});
+    resetStateWith({ sessionTimeStampInMs: 0 });
     currentTimeStamp = 0;
   });
 
@@ -279,7 +279,9 @@ describe('testing history queries module actions', () => {
     let gato: HistoryQuery, perro: HistoryQuery;
 
     beforeEach(() => {
-      [gato, perro] = createHistoryQueries('gato', 'perro');
+      [gato, perro] = ['gato', 'perro'].map(query =>
+        createHistoryQuery({ query, timestamp: store.state.sessionTimeStampInMs + 1 })
+      );
       resetStateWith({ historyQueries: [gato, perro] });
     });
 
@@ -351,6 +353,21 @@ describe('testing history queries module actions', () => {
         totalResults
       });
       expectHistoryQueriesToEqual([{ ...gato, totalResults }, perro]);
+    });
+
+    it('does not update a history query if the new totalResults is lower', async () => {
+      gato.totalResults = 50;
+      resetStateWith({ historyQueries: [gato, perro] });
+      await store.dispatch('updateHistoryQueriesWithSearchResponse', {
+        request: {
+          query: 'gato',
+          page: 1
+        },
+        status: 'success',
+        results,
+        totalResults
+      });
+      expectHistoryQueriesToEqual([gato, perro]);
     });
   });
 });
