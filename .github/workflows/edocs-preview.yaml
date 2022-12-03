@@ -11,11 +11,11 @@ jobs:
     if: "! github.event.pull_request.head.repo.fork"
     uses: empathyco/platform-reusable-github-actions/.github/workflows/edocs-preview.yml@main
     with:
+      runner: ubuntu-latest
       teamRepo: 'x'
       branch: ${{ github.head_ref }}
       prNum: ${{ github.event.pull_request.number }}
       prMessage: 'This is a link to Empathy Platform Docs Portal preview in a development environment. \n ⚠️ Only for Empathy members. We’re sorry for the inconvenience!\n'
-      publicRepo: true
     secrets:
       GH_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
       JIRA_TOKEN: '${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}'
