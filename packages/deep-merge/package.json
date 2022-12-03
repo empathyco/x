@@ -32,7 +32,8 @@
     "clean": "rimraf dist && rimraf coverage",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build",
-    "prebuild": "npm run clean"
+    "prebuild": "npm run clean",
+    "test": "jest"
   },
   "dependencies": {
     "@empathyco/x-utils": "^1.0.0-alpha.11",

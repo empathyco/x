@@ -4,8 +4,6 @@ describe('x-priority-queue scenarios', () => {
   describe('constructor', () => {
     it('uses the comparator function passed to the constructor to sort the queue', () => {
       // Given a queue passing a comparator function to its constructor
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       const queue = new XPriorityQueue((a, b) => a < b);
 
       // And elements are inserted

@@ -7,7 +7,7 @@ jobs:
   build:
     strategy:
       matrix:
-        task: [ lint, build, test ]
+        task: [ lint, test ]
     name: ${{ matrix.task }}
     runs-on: ubuntu-latest
     container:
@@ -41,7 +41,7 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
       - name: Run Build
-        if: steps.cache-node-modules.outputs.cache-hit == 'true' && matrix.task== 'build'
+        if: steps.cache-node-modules.outputs.cache-hit == 'true'
         run: npm run build
       - name: Run ${{ matrix.task }}
         if: matrix.task != 'build'
