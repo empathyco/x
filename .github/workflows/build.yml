@@ -8,9 +8,6 @@ jobs:
     strategy:
       matrix:
         task: [ lint, build, test ]
-        exclude:
-          - task: build
-            if: steps.cache-node-modules.outputs.cache-hit == 'true'
     name: ${{ matrix.task }}
     runs-on: ubuntu-latest
     container:
@@ -43,7 +40,11 @@ jobs:
       - name: Install lerna and all packages
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
+      - name: Run Build
+        if: steps.cache-node-modules.outputs.cache-hit == 'true' && matrix.task== 'build'
+        run: npm run build
       - name: Run ${{ matrix.task }}
+        if: matrix.task != 'build'
         run: npm run ${{ matrix.task }}
       - name: Release alpha on non-release pushes to main branch
         if:
