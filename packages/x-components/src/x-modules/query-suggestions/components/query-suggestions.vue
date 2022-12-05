@@ -5,30 +5,26 @@
     class="x-query-suggestions"
     data-test="query-suggestions"
   >
-    <template #default="defaultBaseSuggestionsScope">
+    <template #default="baseScope">
       <!-- eslint-disable max-len -->
       <!--
         @slot Custom component that replaces the `QuerySuggestion` component
             @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** `Suggestion` - Query Suggestion data<br />&nbsp;&nbsp;- **index** `number` - Query Suggestion index
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ ...defaultBaseSuggestionsScope }">
+      <slot name="suggestion" v-bind="{ ...baseScope }">
         <QuerySuggestion
-          :suggestion="defaultBaseSuggestionsScope.suggestion"
+          :suggestion="baseScope.suggestion"
           class="x-query-suggestions__suggestion"
+          #default="querySuggestionScope"
         >
-          <template #default="defaultQuerySuggestionSlotScope">
-            <!-- eslint-disable max-len -->
-            <!--
-              @slot Custom content that replaces the `QuerySuggestion` default content
-                  @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** `Suggestion` - Query Suggestion data<br />&nbsp;&nbsp;- **index** `number` - Query Suggestion index
-            -->
-            <!-- eslint-enable max-len -->
-            <slot
-              name="suggestion-content"
-              v-bind="{ ...defaultBaseSuggestionsScope, ...defaultQuerySuggestionSlotScope }"
-            />
-          </template>
+          <!-- eslint-disable max-len -->
+          <!--
+            @slot Custom content that replaces the `QuerySuggestion` default content
+                @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** `Suggestion` - Query Suggestion data<br />&nbsp;&nbsp;- **index** `number` - Query Suggestion index
+          -->
+          <!-- eslint-enable max-len -->
+          <slot name="suggestion-content" v-bind="{ ...baseScope, ...querySuggestionScope }" />
         </QuerySuggestion>
       </slot>
     </template>

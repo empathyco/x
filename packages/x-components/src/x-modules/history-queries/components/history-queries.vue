@@ -5,32 +5,29 @@
     class="x-history-queries"
     data-test="history-queries"
   >
-    <template #default="defaultBaseSuggestionsScope">
+    <template #default="baseScope">
       <!-- eslint-disable max-len -->
       <!--
         @slot History Query item
             @binding {Object} v-bind - History Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - History Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - History Query suggestion index
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ ...defaultBaseSuggestionsScope }">
+      <slot name="suggestion" v-bind="{ ...baseScope }">
         <HistoryQuery
-          :suggestion="defaultBaseSuggestionsScope.suggestion"
+          :suggestion="baseScope.suggestion"
           data-test="history-query-item"
           class="x-history-queries__item"
         >
-          <template #default="defaultHistoryQuerySlotScope">
+          <template #default="historyQueryScope">
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query content
                   @binding {Object} v-bind - History Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - History Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - History Query suggestion index
             -->
             <!-- eslint-enable max-len -->
-            <slot
-              name="suggestion-content"
-              v-bind="{ ...defaultBaseSuggestionsScope, ...defaultHistoryQuerySlotScope }"
-            />
+            <slot name="suggestion-content" v-bind="{ ...baseScope, ...historyQueryScope }" />
           </template>
-          <template #remove-button-content="removeHistoryQuerySlotScope">
+          <template #remove-button-content="removeHistoryQueryScope">
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query remove button content
@@ -39,7 +36,7 @@
             <!-- eslint-enable max-len -->
             <slot
               name="suggestion-remove-content"
-              v-bind="{ ...defaultBaseSuggestionsScope, ...removeHistoryQuerySlotScope }"
+              v-bind="{ ...baseScope, ...removeHistoryQueryScope }"
             />
           </template>
         </HistoryQuery>

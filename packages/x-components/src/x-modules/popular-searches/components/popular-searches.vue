@@ -5,30 +5,26 @@
     class="x-popular-searches"
     data-test="popular-searches"
   >
-    <template #default="defaultBaseSuggestionsScope">
+    <template #default="baseScope">
       <!-- eslint-disable max-len -->
       <!--
         @slot Popular Search item
             @binding {Object} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ ...defaultBaseSuggestionsScope }">
+      <slot name="suggestion" v-bind="{ ...baseScope }">
         <PopularSearch
-          :suggestion="defaultBaseSuggestionsScope.suggestion"
+          :suggestion="baseScope.suggestion"
           class="x-popular-searches__suggestion"
+          #default="popularSearchScope"
         >
-          <template #default="defaultPopularSearchScope">
-            <!-- eslint-disable max-len -->
-            <!--
-              @slot Popular Search content
-                  @binding {Object} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
-            -->
-            <!-- eslint-enable max-len -->
-            <slot
-              name="suggestion-content"
-              v-bind="{ ...defaultBaseSuggestionsScope, ...defaultPopularSearchScope }"
-            />
-          </template>
+          <!-- eslint-disable max-len -->
+          <!--
+            @slot Popular Search content
+                @binding {Object} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
+          -->
+          <!-- eslint-enable max-len -->
+          <slot name="suggestion-content" v-bind="{ ...baseScope, ...popularSearchScope }" />
         </PopularSearch>
       </slot>
     </template>
