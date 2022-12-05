@@ -56,7 +56,7 @@ function renderPopularSearches({
 }
 
 describe('testing Query Suggestions component', () => {
-  it('is an XComponent that belongs to the query suggestions module', () => {
+  it('is an XComponent that belongs to the  popular searches module', () => {
     const { wrapper } = renderPopularSearches();
     expect(isXComponent(wrapper.vm)).toEqual(true);
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('popularSearches');
@@ -79,7 +79,7 @@ describe('testing Query Suggestions component', () => {
     });
   });
 
-  it('allows to render a custom query suggestion', () => {
+  it('allows to render a custom popular search', () => {
     const { getSuggestionItemWrappers, popularSearches } = renderPopularSearches({
       popularSearches: [createPopularSearch('chocolate'), createPopularSearch('milk chocolate')],
       template: `

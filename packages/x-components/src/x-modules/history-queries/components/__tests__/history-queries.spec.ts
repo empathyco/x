@@ -51,7 +51,7 @@ function renderHistoryQueries({
 }
 
 describe('testing Query Suggestions component', () => {
-  it('is an XComponent that belongs to the query suggestions module', () => {
+  it('is an XComponent that belongs to the history queries module', () => {
     const { wrapper } = renderHistoryQueries();
     expect(isXComponent(wrapper.vm)).toEqual(true);
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('historyQueries');
