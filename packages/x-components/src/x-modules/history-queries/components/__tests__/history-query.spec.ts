@@ -55,7 +55,7 @@ function renderHistoryQuery({
 }
 
 describe('testing history-query component', () => {
-  it('is an XComponent that belongs to the qhistory queries', () => {
+  it('is an XComponent that belongs to the history queries', () => {
     const { wrapper } = renderHistoryQuery();
     expect(isXComponent(wrapper.vm)).toEqual(true);
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('historyQueries');
@@ -78,12 +78,12 @@ describe('testing history-query component', () => {
     expect(getSuggestionWrapper().text()).toEqual('baileys');
   });
 
-  it('emits appropriate events on click', async () => {
+  it('emits appropriate events on click', () => {
     const { emitSpy, getSuggestionWrapper, suggestion } = renderHistoryQuery({
       suggestion: createHistoryQuery({ query: 'milk' })
     });
 
-    await getSuggestionWrapper().trigger('click');
+    getSuggestionWrapper().trigger('click');
 
     const expectedMetadata = expect.objectContaining<Partial<WireMetadata>>({
       moduleName: 'historyQueries',

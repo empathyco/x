@@ -59,12 +59,12 @@ describe('testing popular-search component', () => {
     expect(wrapper.text()).toEqual('milk');
   });
 
-  it('emits appropriate events on click', async () => {
+  it('emits appropriate events on click', () => {
     const { wrapper, emitSpy, suggestion } = renderPopularSearch({
       suggestion: createPopularSearch('milk')
     });
 
-    await wrapper.trigger('click');
+    wrapper.trigger('click');
 
     const expectedMetadata = expect.objectContaining<Partial<WireMetadata>>({
       moduleName: 'popularSearches',

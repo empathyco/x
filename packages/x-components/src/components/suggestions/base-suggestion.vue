@@ -171,7 +171,7 @@ This component emits the following events:
 ## See it in action
 
 This suggestion component expects a suggestion to render and pass to its default slot, a normalized
-query to compare with the suggestion's query and highlight its matching parts and events to emit
+query to compare with the suggestion's query and highlight its matching parts, and events to emit
 when the suggestion is selected.
 
 If the suggestion contains a filter, it is displayed next to the suggestion.

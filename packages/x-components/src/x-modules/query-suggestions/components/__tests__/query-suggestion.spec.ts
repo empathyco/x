@@ -72,12 +72,12 @@ describe('testing query-suggestion component', () => {
     expect(wrapper.text()).toEqual('baileys');
   });
 
-  it('emits appropriate events on click', async () => {
+  it('emits appropriate events on click', () => {
     const { wrapper, emitSpy, suggestion } = renderQuerySuggestion({
       suggestion: createQuerySuggestion('milk')
     });
 
-    await wrapper.trigger('click');
+   wrapper.trigger('click');
 
     const expectedMetadata = expect.objectContaining<Partial<WireMetadata>>({
       moduleName: 'querySuggestions',
