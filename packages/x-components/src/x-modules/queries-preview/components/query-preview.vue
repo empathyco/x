@@ -321,7 +321,7 @@ The component exposes a slot to override the result content, without modifying t
 
 In this example, the ID of the results will be rendered along with the name.
 
-```vue
+```vue live
 <template>
   <QueryPreview :query="query" #result="{ result }">
     <span>{{ result.id }}</span>
@@ -350,7 +350,7 @@ In this example, the ID of the results will be rendered along with the name.
 
 In this example, the query preview has been limited to render a maximum of 4 results.
 
-```vue
+```vue live
 <template>
   <QueryPreview :maxItemsToRender="maxItemsToRender" :query="query" #default="{ results }">
     <BaseGrid #default="{ item }" :items="results">

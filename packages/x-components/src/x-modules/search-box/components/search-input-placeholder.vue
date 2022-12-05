@@ -254,7 +254,7 @@ Here a basic example of how the animated search input placeholder is rendered.
       SearchInput,
       SearchInputPlaceholder
     },
-    data: function () {
+    data() {
       return {
         placeholderMessages: [
           'Find shirts',
@@ -295,7 +295,7 @@ input, showing the first message of the array the rest of the time.
       SearchInput,
       SearchInputPlaceholder
     },
-    data: function () {
+    data() {
       return {
         placeholderMessages: [
           'Find shirts',
