@@ -111,7 +111,7 @@ We are working on many key features to consolidate Interface X, including these 
   Provides a list of results matching a query to be inserted before the shopper starts typing as
   inspiration, in the predictive layer for results matching the current query, or as inspiration in
   a no results scenario.
-  [![Release Docs](https://img.shields.io/badge/Released-September%202022-brightgreen)](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-archetype-integration-guide.html#setting-up-the-queries-preview-dynamically)
+  [![Release Docs](https://img.shields.io/badge/Released-September%202022-brightgreen)](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-archetype-integration-guide.html#dynamic-query-results-preview)
 - **Search box power-ups** such as
   [animated suggestions](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/search-box/x-components.search-input-placeholder.html)
   or [forbidden character](https://github.com/empathyco/x/pull/433) set to prevent code injection.
