@@ -107,7 +107,7 @@ We are working on many key features to consolidate Interface X, including these 
   products after the search action. This represents Empathy sciences for **Inspiration** and
   **Cross-Selling**.
   [![Release Docs](https://img.shields.io/badge/Released-August%202022-brightgreen)](https://docs.empathy.co)
-- **[Query Results Preview](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-archetype-integration-guide.html#setting-up-the-queries-preview-dynamically)**:
+- **[Query Results Preview](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-archetype-integration-guide.html#dynamic-query-results-preview)**:
   Provides a list of results matching a query to be inserted before the shopper starts typing as
   inspiration, in the predictive layer for results matching the current query, or as inspiration in
   a no results scenario.
