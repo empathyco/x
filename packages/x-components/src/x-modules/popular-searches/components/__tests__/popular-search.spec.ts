@@ -46,7 +46,7 @@ function renderPopularSearch({
 }
 
 describe('testing popular-search component', () => {
-  it('is an XComponent that belongs to the query suggestions', () => {
+  it('is an XComponent that belongs to the popular searches', () => {
     const { wrapper } = renderPopularSearch();
     expect(isXComponent(wrapper.vm)).toEqual(true);
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('popularSearches');

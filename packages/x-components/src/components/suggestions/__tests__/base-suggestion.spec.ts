@@ -1,6 +1,7 @@
 import { Suggestion } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
+import { createQuerySuggestion } from '../../../__stubs__/index';
 import { XPlugin } from '../../../plugins/x-plugin';
 import { normalizeString } from '../../../utils/normalize';
 import { XEventsTypes } from '../../../wiring/events.types';
@@ -35,7 +36,13 @@ function renderBaseSuggestion({
     suggestion,
     query,
     wireMetadata,
-    emit
+    emit,
+    getEndingPart() {
+      return wrapper.get(getDataTestSelector('highlight-end'));
+    },
+    getMatchingPart() {
+      return wrapper.get(getDataTestSelector('matching-part'));
+    }
   };
 }
 
@@ -116,11 +123,25 @@ describe('testing Base Suggestion component', () => {
     wrapper.trigger('click');
 
     expect(emit).toHaveBeenCalledTimes(3);
-    expect(emit).toHaveBeenCalledWith(
+    expect(emit).toHaveBeenNthCalledWith(1, 'UserAcceptedAQuery', suggestion.query, wireMetadata);
+    expect(emit).toHaveBeenNthCalledWith(2, 'UserSelectedASuggestion', suggestion, wireMetadata);
+    expect(emit).toHaveBeenNthCalledWith(
+      3,
       'UserClickedAFilter',
       suggestion.facets?.[0].filters?.[0],
       wireMetadata
     );
+  });
+
+  it('highlights the text when a query is passed', () => {
+    const { wrapper, getMatchingPart, getEndingPart } = renderBaseSuggestion({
+      query: 'pork',
+      suggestion: createQuerySuggestion('pork neck')
+    });
+
+    expect(wrapper.text()).toEqual('pork neck');
+    expect(getMatchingPart().text()).toEqual('pork');
+    expect(getEndingPart().text()).toEqual('neck');
   });
 });
 
@@ -150,4 +171,8 @@ interface BaseSuggestionAPI {
   wireMetadata: Partial<WireMetadata>;
   /** Mock for the `$x.emit` function. Can be used to check the emitted events. */
   emit: jest.SpyInstance;
+  /** Retrieves the last non-matching part. */
+  getEndingPart: () => Wrapper<Vue>;
+  /** When there is a query matching, retrieves the matching part of the text. */
+  getMatchingPart: () => Wrapper<Vue>;
 }
