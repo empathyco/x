@@ -2,7 +2,10 @@ import { HistoryQuery } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
+import {
+  createHistoryQueries,
+  createHistoryQuery
+} from '../../../../__stubs__/history-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
@@ -152,6 +155,16 @@ describe('testing Query Suggestions component', () => {
 
     await setMaxItemsToRender(historyQueries.length + 1);
     expect(getSuggestionItemWrappers().wrappers).toHaveLength(historyQueries.length);
+  });
+
+  it('renders only the elements in store with results', () => {
+    const { getSuggestionItemWrappers } = renderHistoryQueries({
+      historyQueries: [
+        createHistoryQuery({ query: 'cachelos' }),
+        createHistoryQuery({ query: 'zorza', totalResults: 0 })
+      ]
+    });
+    expect(getSuggestionItemWrappers()).toHaveLength(1);
   });
 });
 
