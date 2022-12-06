@@ -4,6 +4,7 @@ import SlidingPanel from '../../src/components/sliding-panel.vue';
 import { BaseXBus } from '../../src/plugins/x-bus';
 import { XPlugin } from '../../src/plugins/x-plugin';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
+import { loadCss } from './css.utils';
 
 /**
  * Renders an {@link SlidingPanel} component with the provided options.
@@ -31,7 +32,27 @@ function renderSlidingPanel({
   `
 }: RenderSlidingPanelOptions = {}): RenderSlidingPanelAPI {
   XPlugin.resetInstance();
+  loadCss(`
+        .wrapper {
+          display: inline-flex;
+          flex-flow: column nowrap;
+        }
+        .x-sliding-panel__scroll {
+          flex: 0 0 auto !important;
+          width: ${slidingPanelWidthPx}px;
+        }
 
+        .container {
+          display: flex;
+          flex-flow: row nowrap;
+          padding: 0;
+          list-style: none;
+        }
+
+        .item {
+          flex: 0 0 auto;
+          width: ${itemWidthPx}px;
+        }`);
   mount(
     {
       components: {
@@ -53,28 +74,7 @@ function renderSlidingPanel({
         resetOnContentChange,
         showButtons,
         buttonClass
-      },
-      style: `
-        .wrapper {
-          display: inline-flex;
-          flex-flow: column nowrap;
-        }
-        .x-sliding-panel__scroll {
-          flex: 0 0 auto !important;
-          width: ${slidingPanelWidthPx}px;
-        }
-
-        .container {
-          display: flex;
-          flex-flow: row nowrap;
-          padding: 0;
-          list-style: none;
-        }
-
-        .item {
-          flex: 0 0 auto;
-          width: ${itemWidthPx}px;
-        }`
+      }
     }
   );
 
