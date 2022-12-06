@@ -23,7 +23,7 @@ export const searchEmitters = createStoreEmitters(searchXStoreModule, {
       return !!newValue && !!oldValue;
     }
   },
-  SearchResponseProvided: {
+  SearchResponseChanged: {
     selector: (state, getters) => {
       return {
         request: getters.request!,

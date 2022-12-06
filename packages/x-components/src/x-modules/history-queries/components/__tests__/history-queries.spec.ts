@@ -157,14 +157,17 @@ describe('testing Query Suggestions component', () => {
     expect(getSuggestionItemWrappers().wrappers).toHaveLength(historyQueries.length);
   });
 
-  it('renders only the elements in store with results', () => {
+  it('renders only history queries with results', () => {
     const { getSuggestionItemWrappers } = renderHistoryQueries({
       historyQueries: [
         createHistoryQuery({ query: 'cachelos' }),
-        createHistoryQuery({ query: 'zorza', totalResults: 0 })
+        createHistoryQuery({ query: 'zorza', totalResults: 0 }),
+        createHistoryQuery({ query: 'licor cafe', totalResults: 20 })
       ]
     });
-    expect(getSuggestionItemWrappers()).toHaveLength(1);
+    expect(getSuggestionItemWrappers()).toHaveLength(2);
+    expect(getSuggestionItemWrappers().at(0).text()).toEqual('cachelos✕');
+    expect(getSuggestionItemWrappers().at(1).text()).toEqual('licor cafe✕');
   });
 });
 
