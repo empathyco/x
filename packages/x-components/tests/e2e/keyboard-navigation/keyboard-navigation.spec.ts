@@ -34,12 +34,11 @@ Then('next element position is "{direction}"', (expectedPosition: Direction) => 
       }
     });
   });
-  cy.focused().as('originalElement');
 });
 
 When('{string} arrow is pressed {int} times', (direction: Move, pressedTimes: number) => {
   Array.from({ length: pressedTimes }).forEach(() => {
-    cy.focused().type(`{${direction}arrow}`);
+    cy.focused().type(`{${direction}Arrow}`).as('originalElement');
   });
 });
 
