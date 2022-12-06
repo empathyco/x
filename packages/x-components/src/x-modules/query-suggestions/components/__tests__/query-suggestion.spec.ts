@@ -77,7 +77,7 @@ describe('testing query-suggestion component', () => {
       suggestion: createQuerySuggestion('milk')
     });
 
-   wrapper.trigger('click');
+    wrapper.trigger('click');
 
     const expectedMetadata = expect.objectContaining<Partial<WireMetadata>>({
       moduleName: 'querySuggestions',
