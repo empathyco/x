@@ -233,7 +233,7 @@ When('{string} is added to the search', (secondQuery: string) => {
 // Sort
 When('sort option {string} is selected from the sort dropdown', (sortOption: string) => {
   cy.getByDataTest(`sort-dropdown-toggle`).click();
-  cy.getByDataTest(`sort-dropdown`).children().contains(sortOption).click();
+  cy.getByDataTest(`dropdown-item`).contains(sortOption).click();
 });
 
 // Spellcheck
