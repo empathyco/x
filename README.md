@@ -102,16 +102,17 @@ We are working on many key features to consolidate Interface X, including these 
   **[accessibility eslint plugin](https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility)**
   to improve components a11y.
   [![Release Docs](https://img.shields.io/badge/Released-July%202022-brightgreen)](https://docs.empathy.co)
-- **Next Queries Preview**: A set of results that matches searches that other shoppers performed
-  after the current to be show within the SERP. This helps the shopper to discover interesting
-  products after the search action. This represents Empathy sciences for **Inspiration** and
-  **Cross-Selling**.
+- **[Next Queries Preview](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/next-queries/x-components.next-query-preview.html)**:
+  A set of results that matches searches that other shoppers performed after the current to be show
+  within the SERP. This helps the shopper to discover interesting products after the search action.
+  This represents Empathy sciences for **Inspiration** and **Cross-Selling**.
   [![Release Docs](https://img.shields.io/badge/Released-August%202022-brightgreen)](https://docs.empathy.co)
-- **[Query Results Preview](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-archetype-integration-guide.html#dynamic-query-results-preview)**:
+- **[Query Results Preview](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/queries-preview/x-components.query-preview.html)**:
   Provides a list of results matching a query to be inserted before the shopper starts typing as
   inspiration, in the predictive layer for results matching the current query, or as inspiration in
-  a no results scenario.
-  [![Release Docs](https://img.shields.io/badge/Released-September%202022-brightgreen)](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-archetype-integration-guide.html#dynamic-query-results-preview)
+  a no results scenario. If you are facing an Archetype type integration,
+  [this is how you set the query preview source of data](https://docs.empathy.co/develop-empathy-platform/build-search-ui/web-archetype-integration-guide.html#dynamic-query-results-preview).
+  [![Release Docs](https://img.shields.io/badge/Released-September%202022-brightgreen)](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/queries-preview/x-components.query-preview.html)
 - **Search box power-ups** such as
   [animated suggestions](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/search-box/x-components.search-input-placeholder.html)
   or [forbidden character](https://github.com/empathyco/x/pull/433) set to prevent code injection.
