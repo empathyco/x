@@ -30,7 +30,7 @@ Given('next queries preview name is shown and it is clickable', () => {
   getFirstNextQueryToPreview();
   cy.get<Interception>('@firstNextQueryToPreview').then(firstNextQueryToPreview => {
     cy.getByDataTest('next-query-preview')
-      .getByDataTest('next-query')
+      .getByDataTest('next-query-preview-name')
       .should('contain', firstNextQueryToPreview.response!.body.nextQueries[0].query)
       .should('not.be.disabled');
   });

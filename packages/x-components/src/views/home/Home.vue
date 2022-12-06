@@ -250,19 +250,42 @@
             </div>
 
             <template v-if="!$x.query.searchBox">
-              <h1 class="x-title1 x-margin--bottom-06">Brand Recommendations</h1>
+              <h1 class="x-title1 x-margin--bottom-05">Brand Recommendations</h1>
               <LocationProvider location="no_results">
-                <SlidingQueryPreview query="sunglasses" />
-                <SlidingQueryPreview query="handbag" />
-                <SlidingQueryPreview query="earrings" />
+                <BaseTabsPanel
+                  initialTab="summer"
+                  contentClass="x-padding--top-06"
+                  :contentAnimation="tabsPanelAnimation"
+                  tabClass="x-button-outlined x-button-neutral"
+                  tabsListClass="x-list--horizontal"
+                >
+                  <template #tab-content="{ tab }">
+                    <span class="x-capitalize">
+                      {{ tab }}
+                    </span>
+                  </template>
+
+                  <template #summer>
+                    <SlidingQueryPreview query="sunglasses" />
+                  </template>
+
+                  <template #women>
+                    <SlidingQueryPreview query="handbag" />
+                    <SlidingQueryPreview query="earrings" />
+                  </template>
+
+                  <template #men>
+                    <SlidingQueryPreview query="watch" />
+                  </template>
+                </BaseTabsPanel>
               </LocationProvider>
             </template>
 
             <!-- Results -->
             <LocationProvider location="results">
               <ResultsList v-infinite-scroll:main-scroll>
-                <BannersList>
-                  <PromotedsList>
+                <PromotedsList>
+                  <BannersList>
                     <NextQueriesList
                       :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
                     >
@@ -289,7 +312,11 @@
                             class="x-row__item x-row__item--span-9 x-padding--top-06"
                           >
                             <h1 class="x-title2 x-text--bold">Others clients have searched</h1>
-                            <NextQuery class="x-text x-font-size--05" :suggestion="nextQueries[0]">
+                            <NextQuery
+                              class="x-text x-font-size--05"
+                              :suggestion="nextQueries[0]"
+                              data-test="next-query-preview-name"
+                            >
                               <span class="x-font-weight--bold">{{ nextQueries[0].query }}</span>
                             </NextQuery>
                             <div class="x-margin--bottom-06">
@@ -327,8 +354,8 @@
                         </template>
                       </BaseVariableColumnGrid>
                     </NextQueriesList>
-                  </PromotedsList>
-                </BannersList>
+                  </BannersList>
+                </PromotedsList>
               </ResultsList>
             </LocationProvider>
 
@@ -406,7 +433,6 @@
   import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
   import BaseIdTogglePanel from '../../components/panels/base-id-toggle-panel.vue';
   import PreselectedFilters from '../../x-modules/facets/components/preselected-filters.vue';
-  import BaseResultImage from '../../components/result/base-result-image.vue';
   import SlidingPanel from '../../components/sliding-panel.vue';
   import SnippetCallbacks from '../../components/snippet-callbacks.vue';
   import { infiniteScroll } from '../../directives/infinite-scroll/infinite-scroll';
@@ -429,6 +455,7 @@
   import SearchInputPlaceholder from '../../x-modules/search-box/components/search-input-placeholder.vue';
   import Banner from '../../x-modules/search/components/banner.vue';
   import BannersList from '../../x-modules/search/components/banners-list.vue';
+  import BaseTabsPanel from '../../components/panels/base-tabs-panel.vue';
   import PartialQueryButton from '../../x-modules/search/components/partial-query-button.vue';
   import PartialResultsList from '../../x-modules/search/components/partial-results-list.vue';
   import Promoted from '../../x-modules/search/components/promoted.vue';
@@ -470,7 +497,7 @@
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
       BaseKeyboardNavigation,
-      BaseResultImage,
+      BaseTabsPanel,
       BaseVariableColumnGrid,
       CheckTiny,
       ChevronLeft,
@@ -536,6 +563,7 @@
     ];
     protected columnPickerValues = [0, 4, 6];
     protected resultsAnimation = StaggeredFadeAndSlide;
+    protected tabsPanelAnimation = StaggeredFadeAndSlide;
     protected modalAnimation = animateClipPath();
     protected sortDropdownAnimation = CollapseHeight;
     protected selectedColumns = 4;

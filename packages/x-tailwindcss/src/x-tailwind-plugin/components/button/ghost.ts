@@ -1,4 +1,7 @@
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { TailwindHelpers } from '../../../types';
+import { backgroundOnHover } from './utils/background-on-hover';
+import { noBackground } from './utils/no-background';
 
 /**
  * Returns the `ghost` variant for component `button`.
@@ -8,30 +11,5 @@ import { TailwindHelpers } from '../../../types';
  */
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function buttonGhost(helpers: TailwindHelpers) {
-  const { theme } = helpers;
-  return {
-    ghost: Object.assign({
-      borderColor: 'transparent',
-      backgroundColor: 'transparent',
-      color: 'var(--button-color-50)',
-
-      '&:hover': {
-        borderColor: theme('colors.neutral.10'),
-        backgroundColor: theme('colors.neutral.10'),
-        color: 'var(--button-color-75)'
-      },
-
-      '&:active': {
-        borderColor: theme('colors.neutral.10'),
-        backgroundColor: theme('colors.neutral.10'),
-        color: 'var(--button-color-75)'
-      },
-
-      '&:disabled': {
-        borderColor: 'transparent',
-        backgroundColor: 'transparent',
-        color: theme('colors.neutral.25')
-      }
-    })
-  };
+  return { ghost: deepMerge(noBackground(helpers), backgroundOnHover(helpers)) };
 }

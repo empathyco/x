@@ -7,11 +7,17 @@
     class="x-dropdown"
   >
     <button
+      ref="toggleButton"
       @click="toggle"
       @keydown.up.down.prevent.stop="open"
-      aria-haspopup="listbox"
       class="x-dropdown__toggle"
       data-test="dropdown-toggle"
+      role="combobox"
+      aria-haspopup="listbox"
+      :aria-expanded="isOpen.toString()"
+      :aria-controls="listId"
+      :aria-label="ariaLabel"
+      aria-autocomplete="none"
     >
       <!--
        @slot Used to render the contents of the dropdown toggle button. If not provided, it uses
@@ -27,26 +33,24 @@
 
     <component :is="animation">
       <ul
-        v-if="isOpen"
+        v-show="isOpen"
         @keydown.end="highlightLastItem"
-        @keydown.esc="close"
+        @keydown.esc="closeAndFocusToggleButton"
         @keydown.home="highlightFirstItem"
-        :aria-expanded="isOpen.toString()"
+        :id="listId"
         class="x-dropdown__items-list"
         role="listbox"
-        tabIndex="0"
+        tabindex="-1"
       >
         <li v-for="(item, index) in items" :key="item.id || item" class="x-dropdown__list-item">
           <button
             ref="itemButtons"
             @click="emitSelectedItemChanged(item)"
-            :aria-selected="(index === highlightedItemIndex).toString()"
-            :aria-current="(item === value).toString()"
+            :aria-selected="(item === value).toString()"
             :class="itemsCSSClasses[index]"
             class="x-dropdown__item"
             data-test="dropdown-item"
             role="option"
-            tabindex="-1"
           >
             <!--
                @slot (required) Used to render each one of the items content, and as fallback
@@ -74,6 +78,7 @@
   import { Identifiable } from '@empathyco/x-types';
   import { Component, Prop, Watch } from 'vue-property-decorator';
   import Vue from 'vue';
+  import { getTargetElement } from '../utils/html';
   import { normalizeString } from '../utils/normalize';
   import { isInRange } from '../utils/number';
   import { debounce } from '../utils/debounce';
@@ -81,6 +86,7 @@
   import { NoElement } from './no-element';
 
   type DropdownItem = string | number | Identifiable;
+  let dropdownCount = 0;
 
   /**
    * Dropdown component that mimics a Select element behavior, but with the option
@@ -104,6 +110,14 @@
      */
     @Prop({ required: true })
     public items!: DropdownItem[];
+
+    /**
+     * Description of what the dropdown is used for.
+     *
+     * @public
+     */
+    @Prop()
+    public ariaLabel?: string;
 
     /**
      * The selected item.
@@ -133,6 +147,8 @@
     public $refs!: {
       /** Array containing the dropdown list buttons HTMLElements. */
       itemButtons: HTMLButtonElement[];
+      /** The button that opens and closes the list of options. */
+      toggleButton: HTMLButtonElement;
     };
 
     /**
@@ -164,6 +180,7 @@
      */
     protected restartResetSearchTimeout!: () => void;
 
+    protected readonly listId = `x-dropdown-${dropdownCount++}`;
     /**
      * Dynamic CSS classes to add to the dropdown root element.
      *
@@ -220,6 +237,16 @@
     }
 
     /**
+     * Closes the modal and focuses the toggle button.
+     *
+     * @internal
+     */
+    protected closeAndFocusToggleButton(): void {
+      this.close();
+      this.$refs.toggleButton.focus();
+    }
+
+    /**
      * If the dropdown is opened it closes it. If it is closed it opens it.
      *
      * @internal
@@ -236,7 +263,7 @@
      */
     protected emitSelectedItemChanged(item: DropdownItem): void {
       this.$emit('change', item);
-      this.close();
+      this.closeAndFocusToggleButton();
     }
 
     /**
@@ -435,7 +462,7 @@
      * @param event - The event to check if it has happen out of the dropdown component.
      */
     protected closeIfEventIsOutOfDropdown(event: MouseEvent | TouchEvent | FocusEvent): void {
-      if (!this.$el.contains(event.target as HTMLElement)) {
+      if (!this.$el.contains(getTargetElement(event))) {
         this.close();
       }
     }

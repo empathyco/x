@@ -7,7 +7,7 @@ import {
   Promoted,
   Banner
 } from '@empathyco/x-types';
-import { InternalSearchRequest } from './types';
+import { InternalSearchRequest, InternalSearchResponse } from './types';
 
 /**
  * Dictionary of the events of Search XModule, where each key is the event name, and the value is
@@ -42,6 +42,11 @@ export interface SearchXEvents {
    * Payload: The new internal request object.
    */
   SearchRequestUpdated: InternalSearchRequest;
+  /**
+   * A search response has been provided.
+   * Payload: The provided internal response object.
+   */
+  SearchResponseChanged: InternalSearchResponse;
   /**
    * Query tagging has been changed.
    * Payload: The new query tagging object.

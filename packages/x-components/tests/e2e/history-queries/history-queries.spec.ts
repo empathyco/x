@@ -153,3 +153,8 @@ Then(
 Then('the searched query is the first item in history queries', function () {
   cy.getByDataTest('history-query').first().should('have.text', this.searchedQuery);
 });
+
+// Scenario 7
+Then('clear history queries button is enabled', () => {
+  cy.getByDataTest('clear-history-queries').should('be.enabled');
+});

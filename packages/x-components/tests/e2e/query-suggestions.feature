@@ -1,7 +1,8 @@
 Feature: Query-suggestions component
 
   Background:
-    Given a query suggestions API with a known response
+    Given a results API with a known response
+    And a query suggestions API with a known response
     And   a tracking API
 
   Scenario Outline: 1. Query suggestions are displayed while typing a query
@@ -31,6 +32,7 @@ Feature: Query-suggestions component
     And   all query suggestions contain the searched query
     When  query suggestion number <querySuggestionItem> is clicked
     And   the searched query is displayed in the search-box
+    And   related results are displayed
     Then  all query suggestions contain the searched query
     When  clear search button is pressed
     Then  the searched query is displayed in history queries

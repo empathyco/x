@@ -6,6 +6,7 @@
     :value="selectedSort"
     class="x-sort-dropdown"
     data-test="sort-dropdown"
+    aria-label="Select sorting"
   >
     <template #toggle="{ isOpen, item }">
       <!--

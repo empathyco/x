@@ -39,6 +39,11 @@ if (process.env.NODE_ENV !== 'production') {
       component: () => import('./views/design-system/design-system.vue')
     },
     {
+      path: '/xds',
+      name: 'XDS',
+      component: () => import('@empathyco/x-tailwindcss/showcase').then(m => m.XdsShowCase)
+    },
+    {
       path: '/result-app',
       name: 'result-app',
       component: () => import('./views/ResultApp.vue')
@@ -67,6 +72,23 @@ if (process.env.NODE_ENV !== 'production') {
       path: '/infinite-scroll-body',
       name: 'Infinite Scroll Body',
       component: () => import('./views/infinite-scroll-body.vue')
+    },
+    {
+      path: '/accessibility-check',
+      name: 'Accessibility Check',
+      component: () => import('./views/accessibility/accessibility-check.vue'),
+      children: [
+        {
+          path: 'wai-base-event-button',
+          name: 'Base Event Button',
+          component: () => import('./views/accessibility/wai-base-event-button.vue')
+        },
+        {
+          path: 'wai-base-dropdown-and-base-switch',
+          name: 'Base Dropdown and Base Switch',
+          component: () => import('./views/accessibility/wai-base-dropdown-and-base-switch.vue')
+        }
+      ]
     }
   );
 }

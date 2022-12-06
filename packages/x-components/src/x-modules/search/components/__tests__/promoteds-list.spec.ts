@@ -118,21 +118,24 @@ describe('testing PromotedsList component', () => {
   });
 
   it('provides the result of concatenating ancestor injected items with the promoteds', () => {
-    const resultStub = getResultsStub().slice(0, 1);
-    const promotedStub = getPromotedsStub().slice(0, 1);
+    const resultsStub = getResultsStub();
+    const promotedsStub = getPromotedsStub();
     const localVue = createLocalVue();
     localVue.use(Vuex);
     const store = new Store<DeepPartial<RootXStoreState>>({});
     installNewXPlugin({ store }, localVue);
-    resetXSearchStateWith(store, { promoteds: promotedStub });
+    resetXSearchStateWith(store, {
+      promoteds: promotedsStub,
+      totalResults: resultsStub.length * 2
+    });
 
-    /* It provides an array with one result */
+    /* It provides an array with some results */
     @Component({
       template: `<div><slot/></div>`
     })
     class Provider extends Vue {
       @XProvide(LIST_ITEMS_KEY)
-      public providedStub: ListItem[] = resultStub;
+      public providedStub: ListItem[] = resultsStub;
     }
 
     /*
@@ -168,7 +171,10 @@ describe('testing PromotedsList component', () => {
       }
     );
 
-    expect(wrapper.text()).toBe(`${promotedStub[0].id},${resultStub[0].id}`);
+    expect(wrapper.text()).toBe(
+      // eslint-disable-next-line max-len
+      `${promotedsStub[0].id},${resultsStub[0].id},${promotedsStub[1].id},${promotedsStub[2].id},${promotedsStub[3].id},${resultsStub[1].id},${resultsStub[2].id},${resultsStub[3].id},${promotedsStub[4].id}`
+    );
   });
 });
 

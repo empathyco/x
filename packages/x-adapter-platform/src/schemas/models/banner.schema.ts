@@ -11,6 +11,7 @@ export const bannerSchema = createMutableSchema<Schema<PlatformBanner, Banner>>(
   position: 'position',
   modelName: () => 'Banner',
   tagging: {
-    query: ({ tagging }) => getTaggingInfoFromUrl(tagging?.query ?? '')
+    query: ({ tagging }) => getTaggingInfoFromUrl(tagging?.query ?? ''),
+    click: ({ tagging }) => getTaggingInfoFromUrl(tagging?.click ?? '')
   }
 });

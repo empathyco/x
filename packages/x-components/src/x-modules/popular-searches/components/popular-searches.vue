@@ -1,27 +1,30 @@
 <template>
   <BaseSuggestions
+    v-bind="$attrs"
     :suggestions="popularSearches"
-    :maxItemsToRender="maxItemsToRender"
     class="x-popular-searches"
     data-test="popular-searches"
-    :animation="animation"
   >
-    <template #default="{ suggestion, index }">
+    <template #default="baseScope">
+      <!-- eslint-disable max-len -->
       <!--
         @slot Popular Search item
-            @binding {Suggestion} suggestion - Popular Search suggestion data
-            @binding {number} index - Popular Search suggestion index
+            @binding {Object} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
       -->
-      <slot name="suggestion" v-bind="{ suggestion, index }">
-        <PopularSearch :suggestion="suggestion" class="x-popular-searches__suggestion">
-          <template #default>
-            <!--
-              @slot Popular Search content
-                  @binding {Suggestion} suggestion - Popular Search suggestion data
-                  @binding {number} index - Popular Search suggestion index
-            -->
-            <slot name="suggestion-content" v-bind="{ suggestion, index }" />
-          </template>
+      <!-- eslint-enable max-len -->
+      <slot name="suggestion" v-bind="{ ...baseScope }">
+        <PopularSearch
+          :suggestion="baseScope.suggestion"
+          class="x-popular-searches__suggestion"
+          #default="popularSearchScope"
+        >
+          <!-- eslint-disable max-len -->
+          <!--
+            @slot Popular Search content
+                @binding {Object} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
+          -->
+          <!-- eslint-enable max-len -->
+          <slot name="suggestion-content" v-bind="{ ...baseScope, ...popularSearchScope }" />
         </PopularSearch>
       </slot>
     </template>
@@ -31,7 +34,7 @@
 <script lang="ts">
   import { Suggestion } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
@@ -47,26 +50,11 @@
    * @public
    */
   @Component({
+    inheritAttrs: false,
     components: { PopularSearch, BaseSuggestions },
     mixins: [xComponentMixin(popularSearchesXModule)]
   })
   export default class PopularSearches extends Vue {
-    /**
-     * Animation component that will be used to animate the suggestions.
-     *
-     * @public
-     */
-    @Prop()
-    protected animation!: Vue;
-
-    /**
-     * Number of popular searches to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
-
     /**
      * The list of popular searches.
      *
@@ -77,7 +65,18 @@
   }
 </script>
 
+<!--eslint-disable max-len -->
 <docs lang="mdx">
+## Inherited props
+
+This component inherits the [`BaseSuggestions`](../base-components/x-components.base-suggestions.md)
+props.
+
+| Name               | Description                                                       | Type     | Default |
+| ------------------ | ----------------------------------------------------------------- | -------- | ------- |
+| `animation`        | Animation component that will be used to animate the suggestions. | `Vue`    | `"ul"`  |
+| `maxItemsToRender` | Number of popular searches to be rendered.                        | `number` |         |
+
 ## Examples
 
 ### Default Usage
@@ -102,7 +101,7 @@ searches it will show them.
 ```
 
 The component has two optional props. `animation` to render the component with an animation and
-`maxItemToRender` to limit the number of popular searches will be rendered (by default it is 5).
+`maxItemsToRender` to limit the number of popular searches will be rendered (by default it is 5).
 
 ```vue live
 <template>

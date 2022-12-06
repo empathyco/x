@@ -20,8 +20,7 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
     status: 'initial',
     config: {
       hideSessionQueries: true,
-      maxItemsToRequest: 20,
-      showExtraSuggestionWithoutFilter: false
+      maxItemsToRequest: 20
     },
     params: {}
   }),
