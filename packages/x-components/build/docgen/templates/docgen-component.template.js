@@ -1,5 +1,7 @@
 function createComponentTemplate(renderedUsage, doc) {
   const { displayName, description, docsBlocks } = doc;
+  console.log('StyleGuidist', description);
+  console.log('StyleGuidist', doc);
   const title = kebabToPascalCase(displayName);
   return `
   ---
