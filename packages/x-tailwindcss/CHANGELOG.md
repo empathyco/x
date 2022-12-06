@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.32...@empathyco/x-tailwindcss@0.2.0-alpha.33) (2022-12-06)
+
+### Features
+
+- **desing-system:** Add `ghost` variant for `suggestion` in X Design System (#899)
+  ([371658c](https://github.com/empathyco/x/commit/371658caacbeb536af9da8d797c13025138b62d9)),
+  closes [EX-7498](https://searchbroker.atlassian.net/browse/EX-7498)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.31...@empathyco/x-tailwindcss@0.2.0-alpha.32) (2022-12-01)
 
 ### Features
