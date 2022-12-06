@@ -46,7 +46,7 @@ export interface SearchXEvents {
    * A search response has been provided.
    * Payload: The provided internal response object.
    */
-  SearchResponseProvided: InternalSearchResponse;
+  SearchResponseChanged: InternalSearchResponse;
   /**
    * Query tagging has been changed.
    * Payload: The new query tagging object.

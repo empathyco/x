@@ -5,37 +5,39 @@
     class="x-history-queries"
     data-test="history-queries"
   >
-    <template #default="props">
+    <template #default="baseScope">
       <!-- eslint-disable max-len -->
       <!--
         @slot History Query item
             @binding {Object} v-bind - History Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - History Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - History Query suggestion index
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ ...props }">
+      <slot name="suggestion" v-bind="{ ...baseScope }">
         <HistoryQuery
-          :suggestion="props.suggestion"
+          :suggestion="baseScope.suggestion"
           data-test="history-query-item"
           class="x-history-queries__item"
         >
-          <template #default="{ queryHTML }">
+          <template #default="historyQueryScope">
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query content
                   @binding {Object} v-bind - History Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - History Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - History Query suggestion index
-                  @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ ...props, queryHTML }" />
+            <slot name="suggestion-content" v-bind="{ ...baseScope, ...historyQueryScope }" />
           </template>
-          <template #remove-button-content="{ ...props }">
+          <template #remove-button-content="removeHistoryQueryScope">
             <!-- eslint-disable max-len -->
             <!--
               @slot History Query remove button content
                   @binding {Object} v-bind - History Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - History Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - History Query suggestion index
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-remove-content" v-bind="{ ...props }" />
+            <slot
+              name="suggestion-remove-content"
+              v-bind="{ ...baseScope, ...removeHistoryQueryScope }"
+            />
           </template>
         </HistoryQuery>
       </slot>
@@ -61,6 +63,7 @@
    * @public
    */
   @Component({
+    inheritAttrs: false,
     components: { BaseSuggestions, HistoryQuery },
     mixins: [xComponentMixin(historyQueriesXModule)]
   })
@@ -70,7 +73,7 @@
      *
      * @internal
      */
-    @Getter('historyQueries', 'historyQueries')
+    @Getter('historyQueries', 'historyQueriesWithResults')
     public historyQueries!: HistoryQueryModel[];
   }
 </script>
@@ -82,10 +85,10 @@
 This component inherits the [`BaseSuggestions`](../base-components/x-components.base-suggestions.md)
 props.
 
-| Name                          | Description                                                                                                                                                                                                  | Type                | Default         |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- | --------------- |
-| <code>animation</code>        | Animation component that will be used to animate the suggestions.                                                                                                                                            | <code>Vue</code>    | <code>ul</code> |
-| <code>maxItemsToRender</code> | Maximum number of history queries to show. It should be a lower number than the<br />{@link HistoryQueriesConfig.maxItemsToStore}. If it is not provided, it will show<br />all the stored `HistoryQueries`. | <code>number</code> | <code></code>   |
+| Name               | Description                                                       | Type     | Default |
+| ------------------ | ----------------------------------------------------------------- | -------- | ------- |
+| `animation`        | Animation component that will be used to animate the suggestions. | `Vue`    | `"ul"`  |
+| `maxItemsToRender` | Number of popular searches to be rendered.                        | `number` |         |
 
 ## Events
 

@@ -10,7 +10,7 @@ import { TailwindHelpers } from '../../../types';
 export function buttonOutlined(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    outlined: Object.assign({
+    outlined: {
       borderColor: 'var(--button-color-50)',
       backgroundColor: theme('colors.neutral.0'),
       color: 'var(--button-color-50)',
@@ -32,6 +32,6 @@ export function buttonOutlined(helpers: TailwindHelpers) {
         backgroundColor: theme('colors.neutral.10'),
         color: theme('colors.neutral.25')
       }
-    })
+    }
   };
 }

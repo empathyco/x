@@ -14,11 +14,11 @@ export function suggestionDefault(helpers: TailwindHelpers) {
     fontFamily: theme('fontFamily.main'),
     fontWeight: theme('fontWeight.regular'),
 
-    display: 'flex',
+    display: 'grid',
+    gridAutoFlow: 'column',
     justifyContent: 'center',
     alignItems: 'baseline',
     alignContent: 'center',
-    flexFlow: 'row nowrap',
     boxSizing: 'border-box',
     cursor: 'pointer',
     textAlign: 'start',

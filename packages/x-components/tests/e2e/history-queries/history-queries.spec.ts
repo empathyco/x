@@ -159,3 +159,8 @@ And(
     cy.getByDataTest('history-query').first().should('have.text', this.searchedQuery);
   }
 );
+
+// Scenario 7
+And('clear history queries button is enabled', () => {
+  cy.getByDataTest('clear-history-queries').should('be.enabled');
+});

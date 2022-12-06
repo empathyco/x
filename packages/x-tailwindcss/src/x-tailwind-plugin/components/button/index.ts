@@ -1,9 +1,13 @@
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { rename } from '@empathyco/x-utils';
 import { TailwindHelpers } from '../../../types';
 import { buttonColors } from './colors';
 import { buttonDefault } from './default';
+import { buttonDisabled } from './disabled';
 import { buttonGhost } from './ghost';
+import { buttonTight } from './tight';
 import { buttonLayouts } from './layouts';
+import { buttonLink } from './link';
 import { buttonOutlined } from './outlined';
 import { buttonSizes } from './sizes';
 
@@ -16,7 +20,7 @@ import { buttonSizes } from './sizes';
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function button(helpers: TailwindHelpers) {
   return {
-    '.button': Object.assign(
+    '.button': deepMerge(
       buttonDefault(helpers),
       rename(
         {
@@ -24,10 +28,13 @@ export function button(helpers: TailwindHelpers) {
           ...buttonSizes(helpers),
           ...buttonLayouts(helpers),
           ...buttonOutlined(helpers),
-          ...buttonGhost(helpers)
+          ...buttonLink(helpers),
+          ...buttonGhost(helpers),
+          ...buttonTight(helpers)
         },
         { prefix: '&-' }
-      )
+      ),
+      buttonDisabled(helpers)
     )
   };
 }
