@@ -5,24 +5,26 @@
     class="x-popular-searches"
     data-test="popular-searches"
   >
-    <template #default="props">
+    <template #default="baseScope">
       <!-- eslint-disable max-len -->
       <!--
         @slot Popular Search item
             @binding {Object} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ ...props }">
-        <PopularSearch :suggestion="props.suggestion" class="x-popular-searches__suggestion">
-          <template #default="{ ...props }">
-            <!-- eslint-disable max-len -->
-            <!--
-              @slot Popular Search content
-                  @binding {Object} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
-            -->
-            <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ ...props }" />
-          </template>
+      <slot name="suggestion" v-bind="{ ...baseScope }">
+        <PopularSearch
+          :suggestion="baseScope.suggestion"
+          class="x-popular-searches__suggestion"
+          #default="popularSearchScope"
+        >
+          <!-- eslint-disable max-len -->
+          <!--
+            @slot Popular Search content
+                @binding {Object} v-bind - Popular Search suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Popular Search suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Popular Search suggestion index
+          -->
+          <!-- eslint-enable max-len -->
+          <slot name="suggestion-content" v-bind="{ ...baseScope, ...popularSearchScope }" />
         </PopularSearch>
       </slot>
     </template>
@@ -48,6 +50,7 @@
    * @public
    */
   @Component({
+    inheritAttrs: false,
     components: { PopularSearch, BaseSuggestions },
     mixins: [xComponentMixin(popularSearchesXModule)]
   })
@@ -69,10 +72,10 @@
 This component inherits the [`BaseSuggestions`](../base-components/x-components.base-suggestions.md)
 props.
 
-| Name                          | Description                                                       | Type                | Default         |
-| ----------------------------- | ----------------------------------------------------------------- | ------------------- | --------------- |
-| <code>animation</code>        | Animation component that will be used to animate the suggestions. | <code>Vue</code>    | <code>ul</code> |
-| <code>maxItemsToRender</code> | Number of popular searches to be rendered.                        | <code>number</code> | <code></code>   |
+| Name               | Description                                                       | Type     | Default |
+| ------------------ | ----------------------------------------------------------------- | -------- | ------- |
+| `animation`        | Animation component that will be used to animate the suggestions. | `Vue`    | `"ul"`  |
+| `maxItemsToRender` | Number of popular searches to be rendered.                        | `number` |         |
 
 ## Examples
 

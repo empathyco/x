@@ -167,7 +167,7 @@ export const historyQueriesWiring = createWiring({
   UserClickedOutOfMainModal: {
     clearHistoryQueriesQuery
   },
-  SearchResponseProvided: {
+  SearchResponseChanged: {
     updateHistoryQueriesWithSearchResponse
   }
 });

@@ -5,7 +5,7 @@
     data-test="next-queries"
     class="x-next-queries"
   >
-    <template #default="props">
+    <template #default="baseScope">
       <!-- eslint-disable max-len -->
       <!--
         @slot Next Query item
@@ -13,10 +13,10 @@
             @binding {boolean} highlightCurated - True if the curated NQs should be highlighted
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ ...props, highlightCurated }">
+      <slot name="suggestion" v-bind="{ ...baseScope, highlightCurated }">
         <NextQuery
-          #default="{ shouldHighlightCurated }"
-          :suggestion="props.suggestion"
+          #default="nextQueryScope"
+          :suggestion="baseScope.suggestion"
           :highlightCurated="highlightCurated"
           class="x-next-queries__suggestion"
         >
@@ -25,9 +25,9 @@
               @slot Next Query content
                   @binding {Object} v-bind - Next Query suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Next Query suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Next Query suggestion index
                   @binding {boolean} shouldHighlightCurated - True if the curated NQ should be highlighted
-            -->
+          -->
           <!-- eslint-enable max-len -->
-          <slot name="suggestion-content" v-bind="{ ...props, shouldHighlightCurated }" />
+          <slot name="suggestion-content" v-bind="{ ...baseScope, ...nextQueryScope }" />
         </NextQuery>
       </slot>
     </template>
@@ -54,6 +54,7 @@
    * @public
    */
   @Component({
+    inheritAttrs: false,
     components: { NextQuery, BaseSuggestions },
     mixins: [xComponentMixin(nextQueriesXModule)]
   })
@@ -100,10 +101,10 @@
 This component inherits the [`BaseSuggestions`](../base-components/x-components.base-suggestions.md)
 props.
 
-| Name                          | Description                                                       | Type                | Default         |
-| ----------------------------- | ----------------------------------------------------------------- | ------------------- | --------------- |
-| <code>animation</code>        | Animation component that will be used to animate the suggestions. | <code>Vue</code>    | <code>ul</code> |
-| <code>maxItemsToRender</code> | Number of next queries to be rendered.                            | <code>number</code> | <code></code>   |
+| Name               | Description                                                       | Type     | Default |
+| ------------------ | ----------------------------------------------------------------- | -------- | ------- |
+| `animation`        | Animation component that will be used to animate the suggestions. | `Vue`    | `"ul"`  |
+| `maxItemsToRender` | Number of popular searches to be rendered.                        | `number` |         |
 
 ## Examples
 
