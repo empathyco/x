@@ -1,10 +1,14 @@
 <template>
   <div class="x-flex x-flex-col x-gap-32">
     <h1 class="x-text-lg">{{ title }}</h1>
-    <div v-for="(classes, section) in sections" :key="section" class="x-flex x-flex-row x-gap-16">
+    <div
+      v-for="(classes, section) in sections"
+      :key="section"
+      class="x-flex x-flex-row x-gap-16 x-items-baseline"
+    >
       <h2 class="x-text-md x-w-128 x-text-right x-flex-none">{{ section }}</h2>
 
-      <div class="x-flex x-flex-row x-flex-wrap x-gap-16">
+      <div class="x-flex x-flex-row x-flex-wrap x-gap-16 x-items-baseline">
         <div v-for="cssClass in classes" :key="cssClass">
           <slot v-bind="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }" />
         </div>
