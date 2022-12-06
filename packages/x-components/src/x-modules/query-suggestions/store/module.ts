@@ -24,7 +24,6 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
     config: {
       debounceInMs: 200,
       maxItemsToRequest: 10,
-      showExtraSuggestionWithoutFilter: true,
       hideIfEqualsQuery: true
     },
     params: {}

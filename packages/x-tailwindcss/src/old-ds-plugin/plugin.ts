@@ -81,7 +81,7 @@ export default plugin(function ({ addBase, theme }: TailwindHelpers) {
       }),
 
       // FONT FAMILY
-      '--x-font-family-base': theme('fontFamily.primary'),
+      '--x-font-family-base': theme('fontFamily.main'),
 
       // FONT SIZES
       ...mapPrefix('--x-size-font-', {

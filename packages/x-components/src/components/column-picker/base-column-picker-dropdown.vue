@@ -4,6 +4,7 @@
     :value="selectedColumns"
     :items="columns"
     :animation="animation"
+    aria-label="Select number of columns"
   >
     <template v-if="$scopedSlots.toggle" #toggle="{ item, isOpen }">
       <!--

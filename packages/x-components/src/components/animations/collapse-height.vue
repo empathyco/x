@@ -4,9 +4,9 @@
     @enter="expand"
     @after-enter="cleanUpAnimationStyles"
     @leave="collapse"
-    appear
     name="x-collapse-height-"
     v-bind="$attrs"
+    :appear="appear"
   >
     <!-- @slot (Required) to add content to the transition -->
     <slot />
@@ -15,7 +15,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import { createCollapseAnimationMixin } from './animations.mixin';
 
   /**
@@ -29,6 +29,14 @@
     inheritAttrs: false
   })
   export default class CollapseHeight extends Vue {
+    /**
+     * Indicates if the transition must be applied on the initial render of the node.
+     */
+    @Prop({
+      type: Boolean,
+      default: true
+    })
+    public appear!: boolean;
     // TODO Add support for extending enter, after-enter and leave transitions
   }
 </script>

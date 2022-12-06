@@ -1,4 +1,5 @@
-import { SearchRequest } from '@empathyco/x-types';
+import { SearchRequest, SearchResponse } from '@empathyco/x-types';
+import { RequestStatus } from '../../store/utils/status-store.utils';
 
 /**
  * An internal search request containing the page used to calculate the start and rows properties of
@@ -20,4 +21,17 @@ export interface InternalSearchRequest extends SearchRequest {
 export interface WatchedInternalSearchRequest {
   newRequest: InternalSearchRequest;
   oldRequest: InternalSearchRequest;
+}
+
+/**
+ * An internal search response containing the {@link InternalSearchRequest} performed to get a
+ * {@link @empathyco/x-types#SearchResponse} and its {@link RequestStatus}.
+ *
+ * @public
+ */
+export interface InternalSearchResponse extends SearchResponse {
+  /** The search request. */
+  request: InternalSearchRequest;
+  /** The response status. */
+  status: RequestStatus;
 }

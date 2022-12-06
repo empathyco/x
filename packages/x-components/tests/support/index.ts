@@ -1,5 +1,4 @@
 import { AnyFunction } from '@empathyco/x-utils';
-import { noOp } from '../../src/utils/function';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -161,7 +160,8 @@ const customCommands: CustomCommands = {
   searchQueries: (...queries) => {
     queries.forEach(query => {
       cy.clearSearchInput();
-      cy.typeQuery(query).type('{enter}');
+      cy.searchQuery(query);
+      cy.waitForResultsToRender();
     });
   },
   typeQuery: query => cy.getByDataTest('search-input').type(query),
@@ -196,8 +196,7 @@ const customCommands: CustomCommands = {
     return cy.get('.x-filter--is-selected');
   },
   waitForResultsToRender() {
-    cy.getByDataTest('loading').should('exist');
-    cy.getByDataTest('loading').should('not.exist').then(noOp);
+    cy.getByDataTest('search-result').should('be.visible');
   },
   checkNextQueries(query: string, toContain: boolean) {
     cy.getByDataTest('next-query').should(queries => {

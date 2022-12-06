@@ -107,6 +107,15 @@ export const setHistoryQueriesEnabled = wireDispatch('toggleHistoryQueries', tru
 export const setHistoryQueriesDisabled = wireDispatch('toggleHistoryQueries', false);
 
 /**
+ * Updates the history queries with the relevant info included in a search response.
+ *
+ * @public
+ */
+export const updateHistoryQueriesWithSearchResponse = wireDispatch(
+  'updateHistoryQueriesWithSearchResponse'
+);
+
+/**
  * Debounce function for the module.
  */
 const moduleDebounce = namespacedDebounce(moduleName);
@@ -157,5 +166,8 @@ export const historyQueriesWiring = createWiring({
   },
   UserClickedOutOfMainModal: {
     clearHistoryQueriesQuery
+  },
+  SearchResponseChanged: {
+    updateHistoryQueriesWithSearchResponse
   }
 });

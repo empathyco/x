@@ -78,7 +78,7 @@ function renderSortDropdown({
       return sortDropdownWrapper.get(getDataTestSelector('dropdown-toggle'));
     },
     getHighlightedItem() {
-      return sortDropdownWrapper.get('[aria-current=true]');
+      return sortDropdownWrapper.get('[aria-selected=true]');
     },
     async setItems(items) {
       await wrapper.setProps({

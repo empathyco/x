@@ -4,6 +4,7 @@
     @focusin:body="emitClickOutOfModal"
     :animation="animation"
     :open="isOpen"
+    v-bind="$attrs"
   >
     <slot />
   </BaseModal>
@@ -14,7 +15,7 @@
   import { Component, Prop } from 'vue-property-decorator';
   import { XOn } from '../decorators/bus.decorators';
   import { WireMetadata } from '../../wiring/wiring.types';
-  import { isElementEqualOrContained } from '../../utils/html';
+  import { getTargetElement, isElementEqualOrContained } from '../../utils/html';
   import BaseModal from './base-modal.vue';
 
   /**
@@ -84,7 +85,7 @@
       // Prevents clicking the open button when the panel is already open to close the panel.
       if (
         !this.openerElement ||
-        !isElementEqualOrContained(this.openerElement, event.target as HTMLElement)
+        !isElementEqualOrContained(this.openerElement, getTargetElement(event))
       ) {
         this.$x.emit('UserClickedOutOfModal', this.modalId, { target: this.$el as HTMLElement });
       }

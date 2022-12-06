@@ -1,53 +1,107 @@
-import { mount } from '@vue/test-utils';
+import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
-import BaseEventButton from '../../../../components/base-event-button.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import Empathize from '../empathize.vue';
+import { empathizeXModule } from '../../x-module';
+import { XPlugin } from '../../../../plugins/x-plugin';
+import { XEvent } from '../../../../wiring/events.types';
+
+jest.useFakeTimers();
 
 describe('testing empathize component', () => {
-  let localVue: typeof Vue;
+  function renderEmpathize({
+    eventsToOpenEmpathize = ['UserClickedSearchBox'],
+    eventsToCloseEmpathize = ['UserClosedEmpathize'],
+    template = `<Empathize v-bind="$attrs">
+                  <template #default>
+                    <span data-test="empathize-content">Empathize</span>
+                  </template>
+                </Empathize>`
+  }: RenderEmpathizeOptions = {}): RenderEmpathizeAPI {
+    const [, localVue] = installNewXPlugin();
+    XPlugin.registerXModule(empathizeXModule);
 
-  beforeEach(() => {
-    [, localVue] = installNewXPlugin({});
-  });
+    const parent = document.createElement('div');
+    document.body.appendChild(parent);
+
+    const wrapper = mount(
+      {
+        components: { Empathize },
+        template
+      },
+      {
+        localVue,
+        attachTo: parent,
+        propsData: {
+          eventsToOpenEmpathize,
+          eventsToCloseEmpathize
+        }
+      }
+    ).findComponent(Empathize);
+
+    return {
+      wrapper
+    };
+  }
 
   it('is an XComponent which has an XModule', () => {
-    const empathize = mount(Empathize, { localVue });
-    expect(isXComponent(empathize.vm)).toEqual(true);
-    expect(getXComponentXModuleName(empathize.vm)).toEqual('empathize');
+    const { wrapper } = renderEmpathize();
+    expect(isXComponent(wrapper.vm)).toEqual(true);
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('empathize');
+  });
+
+  it('will not open empathize if there is no content to render', () => {
+    const template = `<Empathize v-bind="$attrs"/>`;
+    const { wrapper } = renderEmpathize({ template });
+
+    wrapper.vm.$x.emit('UserClickedSearchBox');
+
+    expect(wrapper.find(getDataTestSelector('empathize')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(false);
   });
 
   it('listens to UserOpenedEmpathize and UserClosedEmpathize by default', async () => {
-    const component = {
-      template: `
-        <Empathize :events-to-open-empathize="['TestOpenEvent']"
-                   :events-to-close-empathize="['TestCloseEvent']">
-          <template #default>
-            <span data-test="empathize-content">Empathize</span>
-          </template>
-        </Empathize>
-      `,
-      components: {
-        BaseEventButton,
-        Empathize
-      },
-      localVue
-    };
-    const componentWrapper = mount(component, {
-      localVue
-    });
+    const { wrapper } = renderEmpathize();
 
-    componentWrapper.vm.$x.emit('TestOpenEvent' as any);
-    await new Promise(resolve => setTimeout(resolve));
-    // await localVue.nextTick();
-    expect(componentWrapper.find('.x-empathize').exists()).toBe(true);
-    expect(componentWrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(true);
+    wrapper.vm.$x.emit('UserClickedSearchBox');
+    jest.runAllTimers();
+    await wrapper.vm.$nextTick();
 
-    componentWrapper.vm.$x.emit('TestCloseEvent' as any);
-    await new Promise(resolve => setTimeout(resolve));
-    // await localVue.nextTick();
-    expect(componentWrapper.find('.x-empathize').exists()).toBe(false);
-    expect(componentWrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(false);
+    // Both should exist and be visible
+    expect(wrapper.find(getDataTestSelector('empathize')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('empathize')).element).toBeVisible();
+    expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('empathize-content')).element).toBeVisible();
+
+    wrapper.vm.$x.emit('UserClosedEmpathize');
+    jest.runAllTimers();
+    await wrapper.vm.$nextTick();
+
+    // Both should exist, as v-show doesn't remove the elements in the DOM, and not be visible
+    expect(wrapper.find(getDataTestSelector('empathize')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('empathize')).element).not.toBeVisible();
+    expect(wrapper.find(getDataTestSelector('empathize-content')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('empathize-content')).element).not.toBeVisible();
   });
 });
+
+interface RenderEmpathizeOptions {
+  /**
+   * Array of {@link XEvent | xEvents} to open the empathize.
+   */
+  eventsToOpenEmpathize?: XEvent[];
+  /**
+   * Array of {@link XEvent | xEvents} to close the empathize.
+   */
+  eventsToCloseEmpathize?: XEvent[];
+  /**
+   * The template to render {@link Empathize} component.
+   */
+  template?: string;
+}
+
+interface RenderEmpathizeAPI {
+  /** The Vue testing utils wrapper for the {@link Empathize} component. */
+  wrapper: Wrapper<Vue>;
+}

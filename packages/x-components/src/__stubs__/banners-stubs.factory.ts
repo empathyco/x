@@ -8,7 +8,14 @@ import { Banner } from '@empathyco/x-types';
  * @internal
  */
 export function getBannersStub(): Banner[] {
-  return [createBannerStub('1'), createBannerStub('2')];
+  return [
+    createBannerStub('1', 1),
+    createBannerStub('2', 3),
+    createBannerStub('3', 3),
+    createBannerStub('4', 4),
+    createBannerStub('5', 7),
+    createBannerStub('6', 9)
+  ];
 }
 
 /**
@@ -21,7 +28,7 @@ export function getBannersStub(): Banner[] {
  *
  * @internal
  */
-export function createBannerStub(identifier: string, position = 1): Banner {
+export function createBannerStub(identifier: string, position?: number): Banner {
   return {
     id: `xb-${identifier}`,
     title: `Banner ${identifier}`,

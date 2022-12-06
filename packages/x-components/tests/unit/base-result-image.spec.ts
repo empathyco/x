@@ -9,17 +9,27 @@ import BaseResultImage from '../../src/components/result/base-result-image.vue';
  * @param options - The options to render the component with.
  * @returns An API to test the component.
  */
-function mountBaseResultImage({ result }: MountBaseResultImageOptions): MountBaseResultImageAPI {
+function mountBaseResultImage({
+  result,
+  showNextImageOnHover = false
+}: MountBaseResultImageOptions): MountBaseResultImageAPI {
   cy.viewport(1920, 200);
-  mount(
-    {
-      components: {
-        BaseResultImage
-      },
-      props: ['result'],
-      template: `
+  mount({
+    components: {
+      BaseResultImage
+    },
+    data() {
+      return {
+        result,
+        showNextImageOnHover
+      };
+    },
+    template: `
         <div>
-          <BaseResultImage :result="result" class="x-picture--colored">
+          <BaseResultImage
+              :result="result"
+              :showNextImageOnHover="showNextImageOnHover"
+              class="x-picture--colored">
             <template #placeholder>
               <div data-test="result-picture-placeholder"
                   style="padding-top: 100%; background-color: lightgray"></div>
@@ -33,13 +43,12 @@ function mountBaseResultImage({ result }: MountBaseResultImageOptions): MountBas
           </BaseResultImage>
         </div>
       `
-    },
-    {
-      propsData: { result }
-    }
-  );
+  });
 
   return {
+    getResultPicture() {
+      return cy.getByDataTest('result-picture');
+    },
     getResultPictureImage() {
       return cy.getByDataTest('result-picture-image');
     },
@@ -55,7 +64,7 @@ function mountBaseResultImage({ result }: MountBaseResultImageOptions): MountBas
 describe('testing Base Result Image component', () => {
   it('placeholder is replaced for an image', () => {
     const result = createResultStub('Result', {
-      images: ['https://picsum.photos/seed/18/100/100', 'https://picsum.photos/seed/2/100/100']
+      images: ['/img/test-image-1.jpeg', '/img/test-image-2.jpeg']
     });
     const { getResultPictureImage, getResultPictureFallback, getResultPicturePlaceholder } =
       mountBaseResultImage({ result });
@@ -63,7 +72,7 @@ describe('testing Base Result Image component', () => {
     getResultPicturePlaceholder().should('exist');
     getResultPictureImage().should('not.exist');
     // Success
-    getResultPictureImage().should('have.attr', 'src', 'https://picsum.photos/seed/18/100/100');
+    getResultPictureImage().should('have.attr', 'src', '/img/test-image-1.jpeg');
     getResultPicturePlaceholder().should('not.exist');
     getResultPictureFallback().should('not.exist');
   });
@@ -91,7 +100,7 @@ describe('testing Base Result Image component', () => {
         'https://notexistsimage1.com',
         'https://notexistsimage2.com',
         'https://notexistsimage3.com',
-        'https://picsum.photos/seed/20/100/100'
+        '/img/test-image-1.jpeg'
       ]
     });
     const { getResultPictureImage, getResultPictureFallback, getResultPicturePlaceholder } =
@@ -100,17 +109,74 @@ describe('testing Base Result Image component', () => {
     getResultPicturePlaceholder().should('exist');
     getResultPictureImage().should('not.exist');
     // Success
-    getResultPictureImage().should('have.attr', 'src', 'https://picsum.photos/seed/20/100/100');
+    getResultPictureImage().should('have.attr', 'src', '/img/test-image-1.jpeg');
     getResultPicturePlaceholder().should('not.exist');
     getResultPictureFallback().should('not.exist');
+  });
+
+  it('does not change the image on hover if `showNextImageOnHover` is false', () => {
+    const result = createResultStub('Result', {
+      images: ['/img/test-image-1.jpeg', '/img/test-image-2.jpeg']
+    });
+    const { getResultPictureImage, getResultPicture } = mountBaseResultImage({
+      result,
+      showNextImageOnHover: false
+    });
+    getResultPictureImage().should('have.attr', 'src', '/img/test-image-1.jpeg');
+    getResultPicture().trigger('mouseenter');
+    // Setting this wait to make the test fail if we change showNextImageOnHover
+    // or the second image src.
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(100);
+    getResultPictureImage().should('not.have.attr', 'src', '/img/test-image-2.jpeg');
+  });
+
+  it('shows the next valid image on hover if `showNextImageOnHover` is true', () => {
+    const result = createResultStub('Result', {
+      images: ['/img/test-image-1.jpeg', 'https://notexistsimage1.com', '/img/test-image-2.jpeg']
+    });
+
+    const { getResultPictureImage, getResultPicture } = mountBaseResultImage({
+      result,
+      showNextImageOnHover: true
+    });
+    getResultPictureImage().should('have.attr', 'src', '/img/test-image-1.jpeg');
+    getResultPicture().trigger('mouseenter');
+    // It should have load the third image after the second one failed.
+    getResultPictureImage().should('have.attr', 'src', '/img/test-image-2.jpeg');
+  });
+
+  it('resets images state when `result` prop changes', () => {
+    const result = createResultStub('Result', { images: ['/img/test-image-1.jpeg'] });
+    cy.viewport(1920, 200);
+    mount({
+      components: { BaseResultImage },
+      data: () => ({ result }),
+      template: `
+        <div>
+          <BaseResultImage :result="result" />
+          <button @click="result.images = ['/img/test-image-2.jpeg']"
+                  data-test="button-images-change">
+            Change result images
+          </button>
+        </div>
+      `
+    });
+
+    cy.getByDataTest('result-picture-image').should('have.attr', 'src', '/img/test-image-1.jpeg');
+    cy.getByDataTest('button-images-change').trigger('click');
+    cy.getByDataTest('result-picture-image').should('have.attr', 'src', '/img/test-image-2.jpeg');
   });
 });
 
 interface MountBaseResultImageOptions {
   result: Result;
+  showNextImageOnHover?: boolean;
 }
 
 interface MountBaseResultImageAPI {
+  /** Gets the result picture container. */
+  getResultPicture: () => Cypress.Chainable<JQuery>;
   /** Gets the result picture image. */
   getResultPictureImage: () => Cypress.Chainable<JQuery>;
   /** Gets the result picture fallback. */

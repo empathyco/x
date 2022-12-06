@@ -54,9 +54,11 @@ export function mapColors<T extends CssStyleOptions>(
   return reduce(
     colors,
     (mappedColors, colorName, color) => {
-      mappedColors[colorName] = {
-        ...mapperFn(color, colorName)
-      };
+      if (!['transparent', 'current'].includes(colorName)) {
+        mappedColors[colorName] = {
+          ...mapperFn(color, colorName)
+        };
+      }
       return mappedColors;
     },
     {} as {
