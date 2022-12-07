@@ -23,6 +23,7 @@ import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata, Wiring } from '../wiring/wiring.types';
 import { ScrollComponentState } from '../x-modules/scroll/index';
 import { AnyXModule, ExtractState, XModuleName, XModulesTree } from '../x-modules/x-modules.types';
+import { Status } from '../x-modules/search-box/store/types';
 import { XBus } from './x-bus.types';
 
 /**
@@ -183,6 +184,8 @@ export interface XComponentAliasStatusAPI {
   readonly relatedTags: RequestStatus | undefined;
   /** The {@link SearchXModule} status. */
   readonly search: RequestStatus | undefined;
+  /** The {@link SearchBoxXModule} status. */
+  readonly searchBox: Status | undefined;
 }
 
 /**

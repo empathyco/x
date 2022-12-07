@@ -4,6 +4,8 @@ import {
 } from '../../wiring/namespaced-wires.factory';
 import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
+import { XEvent } from '../../wiring/events.types';
+import { AnyWire } from '../../wiring/wiring.types';
 
 /**
  * `searchBox` {@link XModuleName | XModule name}.
@@ -11,6 +13,7 @@ import { createWiring } from '../../wiring/wiring.utils';
  * @internal
  */
 const moduleName = 'searchBox';
+
 /**
  * WireCommit for {@link SearchBoxXModule}.
  *
@@ -47,6 +50,17 @@ const clearSearchBoxQuery = wireCommit('setQuery', '');
 const setUrlParams = wireDispatch('setUrlParams');
 
 /**
+ * Sets the search state `status`.
+ *
+ * @param event - The {@link XEvent} used to transition the status.
+ *
+ * @returns A wire.
+ *
+ * @public
+ */
+const setStatus = (event: XEvent): AnyWire => wireDispatch('setStatus', event);
+
+/**
  * SearchBox wiring.
  *
  * @internal
@@ -56,10 +70,12 @@ export const searchBoxWiring = createWiring({
     setUrlParams
   },
   UserIsTypingAQuery: {
-    setSearchBoxQuery
+    setSearchBoxQuery,
+    transitionState: setStatus('UserIsTypingAQuery')
   },
   UserAcceptedAQuery: {
-    setSearchBoxQuery
+    setSearchBoxQuery,
+    transitionState: setStatus('UserAcceptedAQuery')
   },
   UserPressedClearSearchBoxButton: {
     clearSearchBoxQuery
@@ -69,5 +85,14 @@ export const searchBoxWiring = createWiring({
   },
   UserClickedOutOfMainModal: {
     clearSearchBoxQuery
+  },
+  UserClearedQuery: {
+    transitionState: setStatus('UserClearedQuery')
+  },
+  UserFocusedSearchBox: {
+    transitionState: setStatus('UserFocusedSearchBox')
+  },
+  UserBlurredSearchBox: {
+    transitionState: setStatus('UserBlurredSearchBox')
   }
 });

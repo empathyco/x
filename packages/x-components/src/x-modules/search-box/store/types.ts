@@ -1,6 +1,7 @@
 import { XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { UrlParams } from '../../../types/url-params';
+import { XEvent } from '../../../wiring/events.types';
 
 /**
  * SearchBox store state.
@@ -8,8 +9,14 @@ import { UrlParams } from '../../../types/url-params';
  * @public
  */
 export interface SearchBoxState extends QueryState {
-  /** The query of the search box input. */
+  /**
+   * The query of the search box input.
+   */
   query: string;
+  /**
+   * The status of the search box based on a state machine.
+   */
+  status: string;
 }
 
 /**
@@ -34,6 +41,12 @@ export interface SearchBoxMutations extends QueryMutations {
    * @param newQuery - The new query of the search-box.
    */
   setQuery(newQuery: string): void;
+  /**
+   * Sets the new status of the search-box.
+   *
+   * @param status - The new {@link Status} of the search-box.
+   */
+  setStatus(status: Status): void;
 }
 
 /**
@@ -48,6 +61,13 @@ export interface SearchBoxActions {
    * @param urlParams - List of params from the url.
    */
   setUrlParams(urlParams: UrlParams): void;
+  /**
+   * Changes the machine state to a new state and updates the status in the store
+   * with it.
+   *
+   * @param event - The {@link XEvent} to transition to the new state.
+   */
+  setStatus(event: XEvent): void;
 }
 
 /**
@@ -61,3 +81,10 @@ export type SearchBoxXStoreModule = XStoreModule<
   SearchBoxMutations,
   SearchBoxActions
 >;
+
+/**
+ * Different status for the search box.
+ *
+ * @internal
+ */
+export type Status = 'initial' | 'typing' | 'filled' | 'focused' | 'empty';
