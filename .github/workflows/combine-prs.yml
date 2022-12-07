@@ -1,5 +1,20 @@
 name: 'Combine PRs'
 
+# This workflow will collect all PRs that match the given conditions and combine them into a single PR.
+#
+# There are 3 input parameters that you can use to decide which PRs will be combined:
+#
+# -'branchPrefix' it will be used to collect all PRs where the branch name matches this value. By default, it targets
+# dependabot PRs by using the 'dependabot' prefix.
+# -'mustBeGreen' this can be used to skip PRs that are failing the CI build and tests. By default, it is set to true.
+# -'ignoreLabel' it will skip PRs that are labelled with the given label. By default, the label used is 'nocombine'
+#
+# After running this workflow on demand a new branch will be created with the name provided in 'combineBranchName'
+# input parameter. A new PR trying to merge this new branch against the main branch will be created.
+#
+# If you are running this workflow with dependabot branches, you can expect that dependabot will close automatically
+# the original ones after the combined PR is merged.
+
 # Controls when the action will run - in this case triggered manually
 on:
   workflow_dispatch:
