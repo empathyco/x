@@ -3,7 +3,7 @@
  *
  * @public
  */
-export type AnyFunction = (...args: any[]) => any;
+export type AnyFunction<ReturnType = any> = (...args: any[]) => ReturnType;
 /**
  * TypeScript type non-primitives. Array or Record with all possible types.
  *

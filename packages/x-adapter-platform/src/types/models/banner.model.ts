@@ -8,7 +8,9 @@ export interface PlatformBanner {
   title: string;
   url: string;
   image_url: string;
+  position?: number;
   tagging?: {
-    query: string;
+    query?: string;
+    click?: string;
   };
 }

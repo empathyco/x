@@ -3,6 +3,117 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.44...@empathyco/x-adapter-platform@1.0.0-alpha.45) (2022-11-28)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.43...@empathyco/x-adapter-platform@1.0.0-alpha.44) (2022-11-22)
+
+### Bug Fixes
+
+- number filter schema to map the right values (#861)
+  ([3b52554](https://github.com/empathyco/x/commit/3b5255420f5c081640bf23ef34063d014f70c34c))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.42...@empathyco/x-adapter-platform@1.0.0-alpha.43) (2022-11-09)
+
+### Features
+
+- **banners:** add tagging info banners in platform adapter (#823)
+  ([71bd570](https://github.com/empathyco/x/commit/71bd5702b963c41a2cd75e719aad9976ec2180b0))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.41...@empathyco/x-adapter-platform@1.0.0-alpha.42) (2022-11-03)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.40...@empathyco/x-adapter-platform@1.0.0-alpha.41) (2022-11-02)
+
+### Bug Fixes
+
+- make promoted and banner position optional (#817)
+  ([a2a8d5d](https://github.com/empathyco/x/commit/a2a8d5dcc03451e046d00f87f3545dfd46c050c5)),
+  closes [EX-7333](https://searchbroker.atlassian.net/browse/EX-7333)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.39...@empathyco/x-adapter-platform@1.0.0-alpha.40) (2022-10-31)
+
+### Features
+
+- add position on Banner and Promoted models (#800)
+  ([e7393fb](https://github.com/empathyco/x/commit/e7393fbce8d0767d3c762aa714fe94e162203a12)),
+  closes [EX-7293](https://searchbroker.atlassian.net/browse/EX-7293)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.38...@empathyco/x-adapter-platform@1.0.0-alpha.39) (2022-10-24)
+
+### Features
+
+- Add facets type field on Platform adapter (#784)
+  ([96b97a8](https://github.com/empathyco/x/commit/96b97a88b98a785d5e491b75c85e90ac11261f29)),
+  closes [EX-6373](https://searchbroker.atlassian.net/browse/EX-6373)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.37...@empathyco/x-adapter-platform@1.0.0-alpha.38) (2022-10-21)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.36...@empathyco/x-adapter-platform@1.0.0-alpha.37) (2022-10-14)
+
+### Continuous Integration
+
+- update `runners` version (#740)
+  ([38f246c](https://github.com/empathyco/x/commit/38f246c306dac40c4afbcdea08336052981ca9b8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.35...@empathyco/x-adapter-platform@1.0.0-alpha.36) (2022-09-27)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.34...@empathyco/x-adapter-platform@1.0.0-alpha.35) (2022-09-16)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform

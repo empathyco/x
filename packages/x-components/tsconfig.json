@@ -14,7 +14,7 @@
     "sourceMap": true,
     "rootDir": "src",
     "baseUrl": ".",
-    "types": ["webpack-env", "jest", "testing-library__jest-dom", "resize-observer-browser"],
+    "types": ["webpack-env", "jest", "testing-library__jest-dom"],
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],

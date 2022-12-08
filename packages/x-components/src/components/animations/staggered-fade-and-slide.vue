@@ -1,10 +1,10 @@
 <template>
   <staggering-transition-group
     v-on="$listeners"
-    appear
     class="x-staggered-fade-and-slide"
     :name="name"
     v-bind="$attrs"
+    :appear="appear"
   >
     <!-- @slot (Required) Transition-group content -->
     <slot />
@@ -13,7 +13,7 @@
 
 <script lang="ts">
   import { mixins } from 'vue-class-component';
-  import { Component } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import StaggeringTransitionGroup from '../animations/staggering-transition-group.vue';
   import DisableAnimationMixin from './disable-animation.mixin';
 
@@ -29,6 +29,14 @@
   })
   export default class StaggeredFadeAndSlide extends mixins(DisableAnimationMixin) {
     /**
+     * Indicates if the transition must be applied on the initial render of the node.
+     */
+    @Prop({
+      type: Boolean,
+      default: true
+    })
+    public appear!: boolean;
+    /**
      * The name of the animation.
      *
      * @public
@@ -40,22 +48,26 @@
 <style lang="scss" scoped>
   $transition-duration: 0.25s;
 
-  .x-staggered-fade-and-slide::v-deep .x-staggered-fade-and-slide {
-    &--enter-active,
-    &--leave-active {
-      transition: $transition-duration ease-out;
-      transition-property: opacity, transform;
-    }
+  .x-staggered-fade-and-slide {
+    z-index: 0;
 
-    &--move {
-      transition: transform $transition-duration ease-out;
-      z-index: 1;
-    }
+    &::v-deep .x-staggered-fade-and-slide {
+      &--enter-active,
+      &--leave-active {
+        transition: $transition-duration ease-out;
+        transition-property: opacity, transform;
+      }
 
-    &--enter,
-    &--leave-to {
-      transform: translate3d(0, 50%, 0);
-      opacity: 0;
+      &--move {
+        transition: transform $transition-duration ease-out;
+      }
+
+      &--enter,
+      &--leave-to {
+        transform: translate3d(0, 50%, 0);
+        opacity: 0;
+        z-index: -1;
+      }
     }
   }
 </style>

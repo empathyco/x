@@ -1,5 +1,6 @@
-/* eslint-disable max-len */
+import { PlatformSearchResponse } from '../../types/responses/search-response.model';
 
+/* eslint-disable max-len */
 export const platformSearchResponse = {
   catalog: {
     content: [
@@ -93,6 +94,7 @@ export const platformSearchResponse = {
     facets: [
       {
         facet: 'categoryPaths',
+        type: 'hierarchical',
         values: [
           {
             id: '78d9b7366',
@@ -101,6 +103,7 @@ export const platformSearchResponse = {
             filter: 'categoryIds:78d9b7366',
             children: {
               facet: 'categoryPaths_78d9b7366',
+              type: 'hierarchical',
               values: [
                 {
                   id: '78d9b7366__8a4e61a33',
@@ -109,6 +112,7 @@ export const platformSearchResponse = {
                   filter: 'categoryIds:78d9b7366__8a4e61a33',
                   children: {
                     facet: 'categoryPaths_78d9b7366__8a4e61a33',
+                    type: 'hierarchical',
                     values: [
                       {
                         id: '78d9b7366__8a4e61a33_aa',
@@ -117,6 +121,7 @@ export const platformSearchResponse = {
                         filter: 'categoryIds:78d9b7366__8a4e61a33_aa',
                         children: {
                           facet: 'categoryPaths_78d9b7366__8a4e61a33_aa',
+                          type: 'hierarchical',
                           values: [
                             {
                               id: '78d9b7366__8a4e61a33_aa_bb',
@@ -152,6 +157,7 @@ export const platformSearchResponse = {
             filter: 'categoryIds:ffc61e1e9',
             children: {
               facet: 'categoryPaths_ffc61e1e9',
+              type: 'hierarchical',
               values: [
                 {
                   id: 'ffc61e1e9_aa',
@@ -172,6 +178,7 @@ export const platformSearchResponse = {
       },
       {
         facet: 'price',
+        type: 'range',
         values: [
           {
             id: '10.0-20.0',
@@ -231,6 +238,7 @@ export const platformSearchResponse = {
       },
       {
         facet: 'gender',
+        type: 'value',
         values: [
           {
             id: 'men',
@@ -272,7 +280,13 @@ export const platformSearchResponse = {
         id: '61f9223221c06701c2f98c17',
         image_url: 'https://assets.empathy.co/images-demo/31335.jpg',
         title: 'Banner title',
-        url: 'https://assets.empathy.co/'
+        url: 'https://assets.empathy.co/',
+        tagging: {
+          query:
+            'https://api.staging.empathy.co/tagging/v1/track/empathy/query?q=jeans&lang=en&scope=desktop&title=banner+title&productId=61f9223221c06701c2f98c17&position=1&page=1&url=https://assets.empathy.co/&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false',
+          click:
+            'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=jeans&lang=en&scope=desktop&title=banner+title&productId=61f9223221c06701c2f98c17&position=1&page=1&url=https://assets.empathy.co/&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false'
+        }
       }
     ]
   },
@@ -294,4 +308,4 @@ export const platformSearchResponse = {
       }
     ]
   }
-};
+} as any as PlatformSearchResponse;

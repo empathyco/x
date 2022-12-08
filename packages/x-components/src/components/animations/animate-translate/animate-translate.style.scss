@@ -6,19 +6,67 @@
     transition: transform var(--x-duration-animation, 0.3s) ease-out;
   }
 
-  &--enter,
-  &--leave-to {
-    &#{$p}--top {
+  &--top {
+    &#{$p}--enter,
+    &#{$p}--leave-to {
       transform: translateY(-100%);
     }
-    &#{$p}--bottom {
+  }
+
+  &--bottom {
+    &#{$p}--enter,
+    &#{$p}--leave-to {
       transform: translateY(100%);
     }
-    &#{$p}--left {
+  }
+
+  &--top-to-bottom {
+    &#{$p}--enter {
+      transform: translateY(-100%);
+    }
+    &#{$p}--leave-to {
+      transform: translateY(100%);
+    }
+  }
+
+  &--bottom-to-top {
+    &#{$p}--enter {
+      transform: translateY(100%);
+    }
+    &#{$p}--leave-to {
+      transform: translateY(-100%);
+    }
+  }
+
+  &--left {
+    &#{$p}--enter,
+    &#{$p}--leave-to {
       transform: translateX(-100%);
     }
-    &#{$p}--right {
+  }
+
+  &--right {
+    &#{$p}--enter,
+    &#{$p}--leave-to {
       transform: translateX(100%);
+    }
+  }
+
+  &--left-to-right {
+    &#{$p}--enter {
+      transform: translateX(-100%);
+    }
+    &#{$p}--leave-to {
+      transform: translateX(100%);
+    }
+  }
+
+  &--right-to-left {
+    &#{$p}--enter {
+      transform: translateX(100%);
+    }
+    &#{$p}--leave-to {
+      transform: translateX(-100%);
     }
   }
 }

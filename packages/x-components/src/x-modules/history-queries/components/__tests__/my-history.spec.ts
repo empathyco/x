@@ -105,7 +105,7 @@ describe('testing MyHistory component', () => {
       snippetConfig: { ...baseSnippetConfig, lang: 'en' }
     });
 
-    expectValidHistoryContent(historyQueriesGroupedByDate, findAllInWrapper);
+    expectValidHistoryContent(historyQueriesGroupedByDate, findAllInWrapper, 'en');
   });
 
   it('renders the date using the locale prop when there is no snippetConfig', () => {
@@ -178,8 +178,8 @@ describe('testing MyHistory component', () => {
           hour: '2-digit',
           minute: '2-digit'
         });
-        expect(historyItemWrappers?.at(historyQueryIndex).text()).toEqual(
-          `${historyQuery.query} ${hour} ✕`
+        expect(historyItemWrappers?.at(historyQueryIndex).text()).toMatch(
+          `${historyQuery.query}${hour}✕`
         );
       });
     });
@@ -208,8 +208,10 @@ interface MyHistoryAPI {
   wrapper: Wrapper<Vue>;
   /** Helper method to search a query. */
   search: (query: string) => Promise<void>;
-  /** Retrieves the wrapper for the items of the list rendered by the {@link MyHistory}
-   * component. */
+  /**
+   * Retrieves the wrapper for the items of the list rendered by the {@link MyHistory}
+   * component.
+   */
   getListItems: () => WrapperArray<Vue>;
   /** Retrieves the wrapper for the items that matches with the selector. */
   findAllInWrapper: (selector: string) => Wrapper<Vue>[];

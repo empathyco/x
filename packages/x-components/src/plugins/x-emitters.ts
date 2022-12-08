@@ -30,26 +30,18 @@ export function registerStoreEmitters(
       event
     );
 
-    const emit = (
-      value: XEventPayload<typeof event>,
-      oldValue?: XEventPayload<typeof event>
-    ): void => {
-      bus.emit(event, value, { moduleName: name, oldValue });
-    };
     const watcherSelector = (): XEventPayload<typeof event> =>
       selector(store.state.x[name], safeGettersProxy);
-    const debouncedEffect = debounceWatcherEffect(event, (newValue, oldValue) => {
+    const emit = debounceWatcherEffect(event, (newValue, oldValue) => {
       if (filter(newValue, oldValue)) {
-        emit(newValue, oldValue);
+        bus.emit(event, newValue, { moduleName: name, oldValue });
       }
     });
 
-    store.watch(watcherSelector, debouncedEffect, options);
+    store.watch(watcherSelector, emit, options);
 
     if (immediate) {
-      Promise.resolve().then(() => {
-        emit(watcherSelector());
-      });
+      emit(watcherSelector());
     }
   });
 }

@@ -1,5 +1,5 @@
 <template>
-  <BaseSwitch @change="toggle" :value="isEnabled" />
+  <BaseSwitch @change="toggle" :value="isEnabled" aria-label="Queries' history" />
 </template>
 
 <script lang="ts">

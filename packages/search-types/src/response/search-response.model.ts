@@ -16,7 +16,7 @@ export interface SearchResponse {
   facets?: Facet[];
   partialResults?: PartialResult[];
   promoteds?: Promoted[];
-  queryTagging: TaggingRequest;
+  queryTagging?: TaggingRequest;
   redirections?: Redirection[];
   results: Result[];
   spellcheck?: string;

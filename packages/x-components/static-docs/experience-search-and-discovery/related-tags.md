@@ -1,8 +1,9 @@
 ---
 title: Related Tags UI
+tags:
+  - tags
+  - related keywords
 ---
-
-# Related Tags UI
 
 The Related Tags UI component helps your shoppers to refine a specific search query and find what
 they’re looking for with just one click. They only appear after the search process is completed, and
@@ -10,7 +11,7 @@ the results appear to fine-tune the search with extra information and get highly
 They are shown as labels usually at the top of the results page, but can be displayed anywhere
 instead.
 
-![Related Tags](~@assets/media/xcomponents_func_relatedtags.gif)
+![Related Tags](~@assets/media/interface/x-related-tags.gif)
 
 ::: warning
 
@@ -27,7 +28,7 @@ Can't quite capture the concept? Learn more about
 
 :::
 
-<!-- You can configure the behaviour of Related Tags and decide whether they’re selectable or not. If Related Tags aren’t selectable, they modify the initial query syntax by adding the related-search keywords to the query term initially typed in the search bar. Otherwise, the initial query syntax will still remain so that shoppers can select or deselect Related Tags at their ease, exploring different options and combinations. -->
+<!-- You can configure the behavior of Related Tags and decide whether they’re selectable or not. If Related Tags aren’t selectable, they modify the initial query syntax by adding the related-search keywords to the query term initially typed in the search bar. Otherwise, the initial query syntax will still remain so that shoppers can select or deselect Related Tags at their ease, exploring different options and combinations. -->
 
 ## Tailor the web experience
 

@@ -52,6 +52,7 @@ describe('testing Banner component', () => {
         url: 'https://empathy.co',
         title: 'Search UIs',
         image: 'https://empathy.co/x-components.jpg',
+        position: 1,
         tagging: {
           click: { url: 'https://track-things.com', params: {} }
         }
@@ -59,6 +60,25 @@ describe('testing Banner component', () => {
     });
 
     expect(wrapper.get(getDataTestSelector('banner')).text()).toEqual('Search UIs');
+  });
+
+  // eslint-disable-next-line max-len
+  it('emits UserClickedABanner when the user clicks in the left, middle or right button on the component', () => {
+    const listener = jest.fn();
+    const banner = createBannerStub('banner');
+    const { wrapper } = renderBanner({ banner });
+    wrapper.vm.$x.on('UserClickedABanner').subscribe(listener);
+
+    wrapper.trigger('click');
+    expect(listener).toHaveBeenNthCalledWith(1, banner);
+
+    wrapper.trigger('click', { button: 1 });
+    expect(listener).toHaveBeenNthCalledWith(2, banner);
+
+    wrapper.trigger('click', { button: 2 });
+    expect(listener).toHaveBeenNthCalledWith(3, banner);
+
+    expect(listener).toHaveBeenCalledTimes(3);
   });
 });
 

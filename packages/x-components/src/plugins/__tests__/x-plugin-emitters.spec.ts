@@ -156,7 +156,7 @@ describe('testing X Plugin emitters', () => {
     };
 
     // eslint-disable-next-line max-len
-    it('should not execute wires with immediate `false` when the module is registered', async () => {
+    it('should not execute wires with immediate `false` when the module is registered', () => {
       const pluginOptions: XPluginOptions = {
         adapter: XComponentsAdapterDummy,
         xModules: {
@@ -180,12 +180,12 @@ describe('testing X Plugin emitters', () => {
 
       /* Emitters relies on Vue watcher that are async. We need to wait a cycle before testing if
          they have emitted or not. */
-      await Promise.resolve();
+      jest.runAllTimers();
 
       expect(testWire).not.toHaveBeenCalled();
     });
 
-    it('should execute wires with immediate `true` when the module is registered', async () => {
+    it('should execute wires with immediate `true` when the module is registered', () => {
       const pluginOptions: XPluginOptions = {
         adapter: XComponentsAdapterDummy,
         xModules: {
@@ -211,7 +211,7 @@ describe('testing X Plugin emitters', () => {
 
       /* Emitters relies on Vue watcher that are async. We need to wait a cycle before testing if
        they have emitted or not. */
-      await Promise.resolve();
+      jest.advanceTimersByTime(0);
 
       expect(testWire).toHaveBeenCalled();
     });

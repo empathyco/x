@@ -3,8 +3,8 @@
     <BaseResultLink :result="result">
       <BaseResultImage
         :result="result"
-        class="x-result__picture x-picture--fixed-ratio"
-        :animation="crossFade"
+        class="x-result__picture x-picture--fixed-ratio x-picture--zoom"
+        :loadAnimation="crossFade"
       >
         <template #placeholder>
           <div style="padding-top: 100%; background-color: lightgray"></div>
