@@ -7,7 +7,7 @@ jobs:
   build:
     strategy:
       matrix:
-        task: [lint, 'test:unit', 'test:component', 'test:e2e:ci']
+        task: [lint]
     name: ${{ matrix.task }}
     runs-on: ubuntu-latest
     container:
@@ -37,6 +37,12 @@ jobs:
         with:
           path: .eslintcache
           key: eslint-${{github.sha}}
+      - name: Unit tests
+        run: npm run test:unit
+      - name: Component tests
+        run: npm run test:component
+      - name: E2E tests
+        run: npm run test:e2e:ci
       - name: Install lerna and all packages
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
