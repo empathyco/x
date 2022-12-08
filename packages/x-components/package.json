@@ -57,7 +57,7 @@
     "test:unit-coverage": "jest --coverage",
     "test:unit-watch": "jest --watch",
     "test:e2e": "vue-cli-service test:e2e",
-    "test:e2e:ci": "vue-cli-service test:e2e --headless --browser chrome",
+    "test:e2e:ci": "vue-cli-service test:e2e --headless --browser chrome --parallel",
     "test": "npm run test:unit && npm run test:e2e:ci",
     "cypress:open": "cypress open",
     "cypress:open:component": "cypress open-ct"

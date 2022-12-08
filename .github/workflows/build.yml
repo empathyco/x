@@ -40,11 +40,11 @@ jobs:
       - name: Install lerna and all packages
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
+      - name: Run ${{ matrix.task }}
+        run: npm run ${{ matrix.task }}
       - name: Run Build
         if: steps.cache-node-modules.outputs.cache-hit == 'true'
         run: npm run build
-      - name: Run ${{ matrix.task }}
-        run: npm run ${{ matrix.task }}
       - name: Release alpha on non-release pushes to main branch
         if:
           ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
