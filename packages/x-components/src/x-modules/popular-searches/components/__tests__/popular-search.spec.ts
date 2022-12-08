@@ -3,7 +3,7 @@ import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { createPopularSearch } from '../../../../__stubs__/popular-searches-stubs.factory';
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
+import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
@@ -38,10 +38,7 @@ function renderPopularSearch({
   return {
     wrapper: wrapper.findComponent(PopularSearch),
     suggestion,
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
-    getMatchingPart() {
-      return wrapper.get(getDataTestSelector('matching-part'));
-    }
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit')
   };
 }
 
@@ -106,8 +103,6 @@ interface RenderPopularSearchOptions {
 interface RenderPopularSearchApi {
   /** Testing wrapper of the {@link PopularSearch} component. */
   wrapper: Wrapper<Vue>;
-  /** Retrieves the wrapper that matches the query in the {@link PopularSearch} component. */
-  getMatchingPart: () => Wrapper<Vue>;
   /** The {@link XBus.emit} spy. */
   emitSpy: jest.SpyInstance;
   /** Rendered {@link Suggestion} model data. */
