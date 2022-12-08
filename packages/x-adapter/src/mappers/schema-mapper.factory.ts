@@ -99,7 +99,7 @@ function applySubSchemaTransformer<Source, Target>(
   rawContext: MapperContext,
   schema: Schema<Source, Target>
 ): Target | Target[] | undefined {
-  const subSource = extractValue(source, $path);
+  const subSource = extractValue(source as Dictionary, $path);
 
   if (!subSource) {
     return;
@@ -113,7 +113,7 @@ function applySubSchemaTransformer<Source, Target>(
       }
       extendedContext[key] = isFunction(value)
         ? value(source)
-        : extractValue(source, value as ExtractPath<typeof source>);
+        : extractValue(source as Dictionary, value as ExtractPath<typeof source>);
     });
   }
 
