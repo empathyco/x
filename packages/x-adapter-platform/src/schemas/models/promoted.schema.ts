@@ -8,6 +8,7 @@ export const promotedSchema = createMutableSchema<Schema<PlatformPromoted, Promo
   url: 'url',
   title: 'title',
   image: 'image_url',
+  position: 'position',
   modelName: () => 'Promoted',
   tagging: {
     query: ({ tagging }) => getTaggingInfoFromUrl(tagging?.query ?? '')

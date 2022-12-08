@@ -35,7 +35,7 @@ describe('testing `XInstaller` utility', () => {
   /**
    * Creates a Vue component injecting the snippet config.
    *
-   * @param snippetProperty
+   * @param snippetProperty - Property of {@link SnippetConfig} to be rendered.
    * @returns A Vue component with the injected snippet config.
    *
    * @internal
@@ -253,6 +253,80 @@ describe('testing `XInstaller` utility', () => {
       api!.setSnippetConfig({ lang: 'fr', uiLang: 'it' });
       await vue.nextTick();
       expect(app?.$el).toHaveTextContent('it');
+    });
+  });
+
+  describe('mounting target element', () => {
+    const componentApp: ComponentOptions<Vue> = {
+      render(h) {
+        return h('section', { class: 'root-element' });
+      }
+    };
+
+    function installX(
+      domElement?: InstallXOptions['domElement'],
+      snippetConfig = getMinimumSnippetConfig()
+    ): Promise<InitWrapper> {
+      const vue = createLocalVue();
+      return new XInstaller({ adapter, plugin, vue, domElement, app: componentApp }).init(
+        snippetConfig
+      );
+    }
+
+    beforeEach(() => {
+      document.body.innerHTML = '';
+    });
+
+    it('creates an element if there is no target element indicated', async () => {
+      await installX();
+      expect(document.body.querySelector('div')).toBeNull();
+      expect(document.body.querySelector('section')).not.toBeNull();
+    });
+
+    it('mounts the app on the DOM element passed as parameter', async () => {
+      const domElement = document.createElement('div');
+      domElement.className = 'target-element';
+      document.body.appendChild(domElement);
+
+      await installX(domElement);
+      expect(document.body.querySelector('.target-element')).toBeNull();
+      expect(document.body.querySelector('.root-element')).not.toBeNull();
+    });
+
+    it('mounts the app on the element selector passed as parameter', async () => {
+      const domElement = document.createElement('div');
+      domElement.className = 'target-element';
+      document.body.appendChild(domElement);
+
+      await installX('.target-element');
+      expect(document.body.querySelector('.target-element')).toBeNull();
+      expect(document.body.querySelector('.root-element')).not.toBeNull();
+    });
+
+    it("throws an error if the element selector doesn't exist in the DOM", async () => {
+      await expect(async () => await installX('.no-exists')).rejects.toThrow(Error);
+      expect(document.body.innerHTML).toBe('');
+    });
+
+    it(`executes a function which retrieves the DOM element based in the snippet configuration
+    and on which to mount the app`, async () => {
+      const snippetConfig = { ...getMinimumSnippetConfig(), wrapped: true };
+      function domElement(snippetConfig: SnippetConfig): Element {
+        const domElement = document.createElement('div');
+        domElement.className = 'target-element';
+        if (snippetConfig.wrapped) {
+          const container = document.createElement('div');
+          container.className = 'container-element';
+          container.appendChild(domElement);
+          document.body.appendChild(container);
+        }
+        return domElement;
+      }
+
+      await installX(domElement, snippetConfig);
+      expect(document.body.querySelector('.target-element')).toBeNull();
+      expect(document.body.querySelector('.container-element')).not.toBeNull();
+      expect(document.body.querySelector('.root-element')).not.toBeNull();
     });
   });
 });

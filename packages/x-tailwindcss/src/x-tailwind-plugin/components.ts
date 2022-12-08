@@ -1,4 +1,8 @@
 import { TailwindHelpers } from '../types';
+import { variables } from './components/variables';
+import { button } from './components/button';
+import { icon } from './components/icon';
+import { suggestion } from './components/suggestion';
 
 /**
  * Default component styles.
@@ -9,48 +13,12 @@ import { TailwindHelpers } from '../types';
  * @public
  */
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
-export default function components({ theme }: TailwindHelpers) {
+export default function components(helpers: TailwindHelpers) {
   return {
-    // TODO: replace this example styles with actual design styles
-    '.btn': {
-      '--x-size-height': theme('spacing.32'),
-      display: 'flex',
-      alignItems: 'baseline',
-      alignContent: 'center',
-      justifyContent: 'center',
-      flexFlow: 'row wrap',
-      backgroundColor: theme('colors.secondary.25'),
-      color: theme('colors.neutral.0'),
-      height: 'var(--x-size-height)',
-      gap: theme('spacing.4'),
-      paddingInlineStart: theme('spacing.16'),
-      paddingInlineEnd: theme('spacing.16'),
-      borderRadius: theme('borderRadius.sm'),
-      fontSize: theme('fontSize.base'),
-      '&-lg': {
-        '--x-size-height': theme('spacing.48'),
-        fontSize: theme('fontSize.lg')
-      },
-      '&-md': {
-        '--x-size-height': theme('spacing.32'),
-        fontSize: theme('fontSize.lg')
-      },
-      '&-sm': {
-        '--x-size-height': theme('spacing.24'),
-        fontSize: theme('fontSize.sm')
-      },
-      '&-square': {
-        width: 'var(--x-size-height)',
-        paddingInlineStart: '0',
-        paddingInlineEnd: '0'
-      },
-      '& > .icon': {
-        alignSelf: 'center'
-      },
-      '&:hover': {
-        backgroundColor: theme('colors.secondary.50')
-      }
-    }
+    ...variables(helpers),
+    ...button(helpers),
+    ...icon(helpers),
+    ...suggestion(helpers)
   };
 }
 

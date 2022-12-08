@@ -1,15 +1,18 @@
 <template>
   <component :is="animation">
     <div
-      v-if="isOpen"
+      v-show="isOpen && hasContent"
       @mousedown.prevent
       @focusin="open"
       @focusout="close"
       class="x-empathize"
       data-test="empathize"
+      style="content-visibility: auto"
     >
       <!-- @slot (Required) Modal container content -->
-      <slot />
+      <slot>
+        <span ref="noContent" hidden aria-hidden="true" />
+      </slot>
     </div>
   </component>
 </template>
@@ -57,10 +60,10 @@
      * @public
      */
     @Prop({
-      default: () => [
+      default: (): XEvent[] => [
         'UserClosedEmpathize',
         'UserSelectedASuggestion',
-        'UserPressedEnter',
+        'UserPressedEnterKey',
         'UserBlurredSearchBox'
       ]
     })
@@ -73,6 +76,29 @@
      */
     protected isOpen = false;
 
+    public $refs!: {
+      /** Hidden span as default slot content to check if the empathize has content or not. */
+      noContent?: HTMLSpanElement;
+    };
+
+    /**
+     * Reflects if the empathize has content.
+     *
+     * @internal
+     */
+    protected hasContent = false;
+
+    /**
+     * The Vue lifecycle hook {@link https://vuex.vuejs.org/guide/state.html | updated} is called
+     * after a data change causes the virtual DOM to be re-rendered and patched. Using it to detect
+     * if the default slot content has been replaced.
+     *
+     * @public
+     */
+    updated(): void {
+      this.hasContent = !this.$refs.noContent;
+    }
+
     /**
      * Open empathize. This method will be executed on any event in
      * {@link Empathize.eventsToOpenEmpathize} and on DOM event `focusin` on Empathize root element.
@@ -83,9 +109,10 @@
      * @internal
      */
     @XOn(component => (component as Empathize).eventsToOpenEmpathize)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     open(payload: unknown, metadata: WireMetadata): void {
-      this.changeOpenState(true, metadata);
+      if (!this.$refs.noContent) {
+        this.changeOpenState(true, metadata);
+      }
     }
 
     /**
@@ -99,7 +126,6 @@
      * @internal
      */
     @XOn(component => (component as Empathize).eventsToCloseEmpathize)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     close(payload: unknown, metadata: WireMetadata): void {
       this.changeOpenState(false, metadata);
     }

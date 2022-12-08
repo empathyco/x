@@ -1,5 +1,12 @@
 <template>
-  <a @click="emitClickEvent" :href="banner.url" class="x-banner" data-test="banner">
+  <a
+    @click="emitClickEvent"
+    @click.right="emitClickEvent"
+    @click.middle="emitClickEvent"
+    :href="banner.url"
+    class="x-banner"
+    data-test="banner"
+  >
     <img :src="banner.image" class="x-banner__image" :alt="banner.title" />
     <h2 class="x-banner__title">{{ banner.title }}</h2>
   </a>
@@ -85,7 +92,8 @@ _Here you can see how the `Banner` component is rendered._
           id: 'banner-example',
           url: 'https://my-website.com/summer-shirts',
           image: 'https://my-website.com/images/summer-shirts.jpg',
-          title: 'Trendy summer shirts'
+          title: 'Trendy summer shirts',
+          position: 1
         }
       };
     }

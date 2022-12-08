@@ -8,8 +8,10 @@ export const bannerSchema = createMutableSchema<Schema<PlatformBanner, Banner>>(
   title: 'title',
   url: 'url',
   image: 'image_url',
+  position: 'position',
   modelName: () => 'Banner',
   tagging: {
-    query: ({ tagging }) => getTaggingInfoFromUrl(tagging?.query ?? '')
+    query: ({ tagging }) => getTaggingInfoFromUrl(tagging?.query ?? ''),
+    click: ({ tagging }) => getTaggingInfoFromUrl(tagging?.click ?? '')
   }
 });

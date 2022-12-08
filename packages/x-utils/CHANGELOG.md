@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.9...@empathyco/x-utils@1.0.0-alpha.10) (2022-10-14)
+
+### Continuous Integration
+
+- update `runners` version (#740)
+  ([38f246c](https://github.com/empathyco/x/commit/38f246c306dac40c4afbcdea08336052981ca9b8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.8...@empathyco/x-utils@1.0.0-alpha.9) (2022-09-27)
+
+### Features
+
+- Add `rename` utility (#745)
+  ([7ba6383](https://github.com/empathyco/x/commit/7ba6383096ba99b2a7d1fc162de81651b4c4af0f)),
+  closes [EX-7103](https://searchbroker.atlassian.net/browse/EX-7103)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.7...@empathyco/x-utils@1.0.0-alpha.8) (2022-09-16)
 
 ### Features

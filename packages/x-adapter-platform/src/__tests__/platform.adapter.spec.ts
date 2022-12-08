@@ -24,6 +24,7 @@ describe('platformAdapter tests', () => {
         facets: [
           {
             facet: 'price',
+            type: 'range',
             values: [
               {
                 id: '10.0-20.0',

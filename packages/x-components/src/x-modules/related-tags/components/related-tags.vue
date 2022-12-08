@@ -8,7 +8,7 @@
   >
     <li
       v-for="relatedTag in relatedTags"
-      :key="relatedTag.tag"
+      :key="relatedTag.query"
       class="x-related-tags__item"
       data-test="related-tag-item"
     >

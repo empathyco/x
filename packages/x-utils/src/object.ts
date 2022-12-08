@@ -200,6 +200,7 @@ export function every<ObjectType extends Dictionary>(
  *
  * @param object - The object to flatten.
  * @returns The flattened object.
+ * @public
  */
 export function flatObject(object: Dictionary): Dictionary {
   const flattenedObject: Dictionary = {};
@@ -211,4 +212,51 @@ export function flatObject(object: Dictionary): Dictionary {
     }
   });
   return flattenedObject;
+}
+
+/**
+ * Renames the keys of an object adding a prefix, a suffix, or both.
+ *
+ * @param object - The object to rename its keys.
+ * @param pattern - The options to rename with: a prefix and a suffix.
+ * @returns A new object with the keys renamed following the pattern.
+ * @public
+ */
+export function rename<
+  SomeObject extends Dictionary,
+  Prefix extends string = '',
+  Suffix extends string = ''
+>(
+  object: SomeObject,
+  { prefix, suffix }: RenameOptions<Prefix, Suffix>
+): Rename<SomeObject, Prefix, Suffix> {
+  return reduce(
+    object,
+    (renamed, key, value) => {
+      renamed[
+        `${prefix ?? ''}${key as string}${suffix ?? ''}` as keyof Rename<SomeObject, Prefix, Suffix>
+      ] = value;
+      return renamed;
+    },
+    {} as Rename<SomeObject, Prefix, Suffix>
+  );
+}
+
+/**
+ * Renames the keys of the given object prefixing and suffixing them.
+ *
+ * @public
+ */
+export type Rename<SomeObject, Prefix extends string, Suffix extends string> = {
+  [Key in keyof SomeObject as `${Prefix}${Key & string}${Suffix}`]: SomeObject[Key];
+};
+
+/**
+ * An optional prefix and suffix.
+ *
+ * @public
+ */
+interface RenameOptions<Prefix, Suffix> {
+  prefix?: Prefix;
+  suffix?: Suffix;
 }

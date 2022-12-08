@@ -9,8 +9,6 @@ tags:
   - x components library
 ---
 
-# Develop using the Interface X Components library
-
 In this tutorial, you’ll learn the basics to integrate the Interface&nbsp;X&nbsp;Components library
 in your own project to craft enticing Vue search experiences for your commerce store in a matter of
 minutes.

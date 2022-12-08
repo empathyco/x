@@ -1,5 +1,5 @@
-import { FacetModelName, Facet } from '@empathyco/x-types';
 import { Schema } from '@empathyco/x-adapter';
+import { FacetModelName } from '@empathyco/x-types';
 
 /**
  * Facet configuration containing the model name and the schema.
@@ -7,11 +7,4 @@ import { Schema } from '@empathyco/x-adapter';
 export interface FacetConfig {
   modelName: FacetModelName;
   schema: Schema;
-}
-
-/**
- * Dictionary grouping facets configurations.
- */
-export interface FacetsConfig {
-  [key: Facet['id']]: FacetConfig;
 }

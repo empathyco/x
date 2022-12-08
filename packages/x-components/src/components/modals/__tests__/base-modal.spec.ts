@@ -12,18 +12,23 @@ import BaseModal from '../base-modal.vue';
  */
 function mountBaseModal({
   defaultSlot = '<span data-test="default-slot">Modal</span>',
-  open = false
+  open = false,
+  focusOnOpen = true
 }: MountBaseModalOptions = {}): MountBaseModalAPI {
   const localVue = createLocalVue();
   const wrapper = mount(BaseModal, {
     localVue,
     propsData: {
-      open
+      open,
+      focusOnOpen
     },
     slots: {
       default: defaultSlot
     }
   });
+  const appendToBody = (): void => {
+    document.body.appendChild(wrapper.element);
+  };
 
   return {
     wrapper,
@@ -36,11 +41,12 @@ function mountBaseModal({
     async closeModal() {
       await wrapper.find(getDataTestSelector('modal-overlay'))?.trigger('click');
     },
+    appendToBody,
     async fakeFocusIn() {
       const buttonWrapper = mount({
         template: `<button>Button</button>`
       });
-      document.body.appendChild(wrapper.element);
+      appendToBody();
       document.body.appendChild(buttonWrapper.element);
       await buttonWrapper.trigger('focusin');
     }
@@ -87,6 +93,55 @@ describe('testing Base Modal  component', () => {
 
     expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
   });
+
+  it('changes the focus to the correct element when the modal opens', async () => {
+    let { wrapper, setOpen, appendToBody } = mountBaseModal({
+      defaultSlot: `<div>
+          <button data-test="expected-focus">First button</button>
+          <button>Second button</button>
+        </div>`,
+      open: false
+    });
+
+    appendToBody();
+    await setOpen(true);
+
+    expect(wrapper.find(getDataTestSelector('expected-focus')).element).toBe(
+      document.activeElement
+    );
+
+    ({ wrapper, setOpen, appendToBody } = mountBaseModal({
+      defaultSlot: `<div>
+          <button>First button</button>
+          <button tabindex="1" data-test="expected-focus">Second button</button>
+        </div>`,
+      open: false
+    }));
+
+    appendToBody();
+    await setOpen(true);
+
+    expect(wrapper.find(getDataTestSelector('expected-focus')).element).toBe(
+      document.activeElement
+    );
+  });
+
+  it("doesn't change the focus if the focusOnOpen prop is false", async () => {
+    const { setOpen, appendToBody } = mountBaseModal({
+      defaultSlot: `<div>
+          <button tabindex="1">First button</button>
+          <button>Second button</button>
+        </div>`,
+      open: false,
+      focusOnOpen: false
+    });
+
+    appendToBody();
+    const focusedElementBeforeOpen = document.activeElement;
+    await setOpen(true);
+
+    expect(focusedElementBeforeOpen).toBe(document.activeElement);
+  });
 });
 
 interface MountBaseModalOptions {
@@ -94,6 +149,8 @@ interface MountBaseModalOptions {
   defaultSlot?: string;
   /** Events that when emitted should open the modal. */
   open?: boolean;
+  /** Indicates if the focus changes to an element inside the modal when it opens. */
+  focusOnOpen?: boolean;
 }
 
 interface MountBaseModalAPI {
@@ -105,6 +162,8 @@ interface MountBaseModalAPI {
   getModalContent: () => Wrapper<Vue>;
   /** Fakes a click on the modal close. */
   closeModal: () => Promise<void>;
+  /** Appends the component's element the body. */
+  appendToBody: () => void;
   /** Fakes a focusin event in another HTMLElement of the body. */
   fakeFocusIn: () => Promise<void>;
 }

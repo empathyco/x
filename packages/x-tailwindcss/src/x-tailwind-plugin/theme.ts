@@ -6,7 +6,7 @@ export default {
     md: '8px',
     lg: '16px',
     xl: '32px',
-    round: '99999px'
+    full: '99999px'
   },
   borderWidth: {
     1: '1px',
@@ -16,19 +16,19 @@ export default {
   colors: {
     neutral: {
       0: '#FFFFFF',
-      10: '#E7E7E7',
-      25: '#BFBFBF',
-      50: '#808080',
-      75: '#404040',
-      90: '#1A1A1A',
+      10: '#F7F7FA',
+      25: '#C8D1D5',
+      50: '#5F717B',
+      75: '#4B5B63',
+      90: '#283034',
       100: '#000000'
     },
-    primary: {
-      25: '#CDD3D6',
+    lead: {
+      25: '#BBC9CF',
       50: '#243D48',
       75: '#1B2D36'
     },
-    secondary: {
+    auxiliary: {
       25: '#BFE1EC',
       50: '#0086B2',
       75: '#006485'
@@ -60,9 +60,9 @@ export default {
     }
   },
   fontFamily: {
-    primary: ['Inter', 'sans-serif'],
-    secondary: ['Lora', 'serif'],
-    auxiliary: ['Poppins', 'sans-serif'],
+    main: ['Inter', 'sans-serif'],
+    alternative: ['Lora', 'serif'],
+    extra: ['Poppins', 'sans-serif'],
     special: ['Bree Serif', 'serif'],
     icon: 'font-awesome'
   },
@@ -88,7 +88,7 @@ export default {
   },
   letterSpacing: {
     sm: '-1%',
-    md: '0',
+    md: '1.5%',
     lg: '2%'
   },
   lineHeight: {
@@ -123,6 +123,12 @@ export default {
     216: '216px',
     280: '280px',
     344: '344px'
+  },
+  strokeWidth: {
+    sm: '0.2px',
+    md: '0.4px',
+    lg: '0.8px',
+    xl: '1px'
   },
   extend: {}
 } as const;

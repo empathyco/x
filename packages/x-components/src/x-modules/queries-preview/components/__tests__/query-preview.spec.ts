@@ -10,7 +10,6 @@ import {
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { XEvent } from '../../../../wiring/events.types';
 import { QueryPreviewItem } from '../../store/types';
 import { queriesPreviewXModule } from '../../x-module';
 import QueryPreview from '../query-preview.vue';
@@ -20,7 +19,10 @@ describe('query preview', () => {
   function renderQueryPreview({
     maxItemsToRender,
     query = 'milk',
-    template = `<QueryPreview :maxItemsToRender="maxItemsToRender" :query="query" />`,
+    location,
+    queryFeature,
+    debounceTimeMs,
+    template = `<QueryPreview v-bind="$attrs" />`,
     queryPreview = {
       request: {
         query
@@ -28,8 +30,7 @@ describe('query preview', () => {
       results: getResultsStub(4),
       status: 'success',
       totalResults: 100
-    },
-    eventToSpy
+    }
   }: RenderQueryPreviewOptions = {}): RenderQueryPreviewAPI {
     const localVue = createLocalVue();
     localVue.use(Vuex);
@@ -38,11 +39,8 @@ describe('query preview', () => {
     installNewXPlugin({ store }, localVue);
     XPlugin.registerXModule(queriesPreviewXModule);
 
-    let eventSpy;
-    if (eventToSpy) {
-      eventSpy = jest.fn();
-      XPlugin.bus.on(eventToSpy).subscribe(eventSpy);
-    }
+    const queryPreviewRequestChangedSpy = jest.fn();
+    XPlugin.bus.on('QueryPreviewRequestChanged').subscribe(queryPreviewRequestChangedSpy);
 
     if (queryPreview) {
       resetXQueriesPreviewStateWith(store, {
@@ -54,23 +52,27 @@ describe('query preview', () => {
 
     const wrapper = mount(
       {
-        props: ['maxItemsToRender', 'query'],
         components: { QueryPreview },
-        template
+        template,
+        provide: {
+          location
+        }
       },
       {
         localVue,
         store,
         propsData: {
           maxItemsToRender,
-          query
+          query,
+          queryFeature,
+          debounceTimeMs
         }
       }
     ).findComponent(QueryPreview);
 
     return {
       wrapper,
-      eventSpy,
+      queryPreviewRequestChangedSpy,
       query,
       queryPreview,
       findTestDataById: findTestDataById.bind(undefined, wrapper),
@@ -81,6 +83,14 @@ describe('query preview', () => {
     };
   }
 
+  jest.useFakeTimers();
+  afterEach(() => {
+    jest.runAllTimers();
+  });
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   it('is an XComponent which has an XModule', () => {
     const { wrapper } = renderQueryPreview();
     expect(isXComponent(wrapper.vm)).toEqual(true);
@@ -88,21 +98,23 @@ describe('query preview', () => {
   });
 
   it('sends the `QueryPreviewRequestChanged` event', async () => {
-    const { eventSpy, wrapper, updateExtraParams } = renderQueryPreview({
-      eventToSpy: 'QueryPreviewRequestChanged'
-    });
+    const { queryPreviewRequestChangedSpy, wrapper, updateExtraParams } = renderQueryPreview({});
 
-    expect(eventSpy).toHaveBeenCalledTimes(1);
-    expect(eventSpy).toHaveBeenCalledWith({
+    jest.advanceTimersByTime(0); // Wait for first emission.
+    expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(1);
+    expect(queryPreviewRequestChangedSpy).toHaveBeenCalledWith({
       extraParams: {},
       origin: undefined,
       query: 'milk',
       rows: 24
     });
 
-    await wrapper.setProps({ queryOrigin: 'popular_search:none' });
+    // The timer is relaunched when the prop changes
+    await wrapper.setProps({ queryFeature: 'popular_search' });
+    // fast-forward until next timer should be executed
+    jest.advanceTimersToNextTimer();
 
-    expect(eventSpy).toHaveBeenNthCalledWith(2, {
+    expect(queryPreviewRequestChangedSpy).toHaveBeenNthCalledWith(2, {
       extraParams: {},
       origin: 'popular_search:none',
       query: 'milk',
@@ -110,11 +122,28 @@ describe('query preview', () => {
     });
 
     await updateExtraParams({ store: 'Uganda' });
+    jest.advanceTimersToNextTimer();
 
-    expect(eventSpy).toHaveBeenNthCalledWith(3, {
+    expect(queryPreviewRequestChangedSpy).toHaveBeenNthCalledWith(3, {
       extraParams: { store: 'Uganda' },
       origin: 'popular_search:none',
       query: 'milk',
+      rows: 24
+    });
+  });
+
+  it('sends the `QueryPreviewRequestChanged` event with the correct location provided', () => {
+    const { queryPreviewRequestChangedSpy } = renderQueryPreview({
+      location: 'predictive_layer',
+      query: 'shoes',
+      queryFeature: 'query_suggestion'
+    });
+
+    jest.advanceTimersToNextTimer();
+    expect(queryPreviewRequestChangedSpy).toHaveBeenNthCalledWith(1, {
+      extraParams: {},
+      origin: 'query_suggestion:predictive_layer',
+      query: 'shoes',
       rows: 24
     });
   });
@@ -141,7 +170,7 @@ describe('query preview', () => {
   it('exposes the query, the results and the totalResults in the default slot', () => {
     const template = `
       <QueryPreview
-          :query="query"
+          :query="$attrs.query"
           #default="{ results, query, totalResults}">
         <div>
           <span data-test="query-preview-query">{{ query }}</span>
@@ -172,7 +201,7 @@ describe('query preview', () => {
 
   it('allows changing the result content', () => {
     const template = `
-      <QueryPreview :query="query" #result="{ result }">
+      <QueryPreview :query="$attrs.query" #result="{ result }">
         <span data-test="result-content">{{result.id}} - {{result.name}}</span>
       </QueryPreview>
     `;
@@ -199,6 +228,95 @@ describe('query preview', () => {
 
     expect(wrapper.html()).toEqual('');
   });
+
+  describe('debounce', () => {
+    it('requests immediately when debounce is set to 0', () => {
+      const { queryPreviewRequestChangedSpy } = renderQueryPreview({
+        debounceTimeMs: 0,
+        query: 'bull'
+      });
+
+      jest.advanceTimersByTime(0);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(1);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenNthCalledWith(1, {
+        extraParams: {},
+        query: 'bull',
+        rows: 24
+      });
+    });
+
+    it('does not emit subsequent requests that happen in less than the debounce time', async () => {
+      const { wrapper, queryPreviewRequestChangedSpy } = renderQueryPreview({
+        debounceTimeMs: 250,
+        query: 'bull'
+      });
+
+      jest.advanceTimersByTime(249);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(0);
+
+      jest.advanceTimersByTime(1); // 250ms since mounting the component, the debounce tested
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(1);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenNthCalledWith(1, {
+        extraParams: {},
+        query: 'bull',
+        rows: 24
+      });
+
+      jest.advanceTimersByTime(249);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(1);
+
+      // Emulates user is typing a new query
+      await wrapper.setProps({ query: 'secall' }); // Timer relaunched
+
+      jest.advanceTimersByTime(249);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(1);
+
+      await wrapper.setProps({ query: 'secallona' }); // Timer relaunched
+
+      jest.advanceTimersByTime(249);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(1);
+
+      jest.advanceTimersByTime(1);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(2);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenNthCalledWith(2, {
+        extraParams: {},
+        query: 'secallona',
+        rows: 24
+      });
+    });
+
+    // eslint-disable-next-line max-len
+    it('updates the debounced request reactively when the debounceTimeMs prop changes', async () => {
+      const { wrapper, queryPreviewRequestChangedSpy } = renderQueryPreview({
+        debounceTimeMs: 250,
+        query: 'bull'
+      });
+
+      jest.advanceTimersByTime(249);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(0);
+
+      // Updating the debounce time aborts previous running timers
+      await wrapper.setProps({ debounceTimeMs: 100 });
+      jest.advanceTimersByTime(99);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(0);
+
+      jest.advanceTimersByTime(1); // 100ms since mounting the component, the debounce tested
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(0);
+    });
+
+    it('cancels pending requests when the component is destroyed', () => {
+      const { wrapper, queryPreviewRequestChangedSpy } = renderQueryPreview({
+        debounceTimeMs: 250,
+        query: 'bull'
+      });
+      jest.advanceTimersByTime(249);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(0);
+
+      wrapper.destroy();
+      jest.advanceTimersByTime(1);
+      expect(queryPreviewRequestChangedSpy).toHaveBeenCalledTimes(0);
+    });
+  });
 });
 
 interface RenderQueryPreviewOptions {
@@ -206,13 +324,14 @@ interface RenderQueryPreviewOptions {
   maxItemsToRender?: number;
   /** The query for which preview its results. */
   query?: string;
-  /**
-   * An event to spy on.
-   * This prop is convenient because the spy is created before mounting the component.
-   */
-  eventToSpy?: XEvent;
+  /** The location of the query preview in the DOM. */
+  location?: string;
+  /** The name of the tool that generated the query. */
+  queryFeature?: string;
   /** The results preview for the passed query. */
   queryPreview?: QueryPreviewItem;
+  /** Time to debounce requests.  */
+  debounceTimeMs?: number;
   /**
    * The template to render. Receives `query` via prop, and has registered the
    * {@link QueryPreview} component.
@@ -224,7 +343,7 @@ interface RenderQueryPreviewAPI {
   /** The Vue testing utils wrapper for the {@link QueryPreview} component. */
   wrapper: Wrapper<Vue>;
   /** A Jest spy set in the {@link XPlugin} `on` function. */
-  eventSpy?: jest.Mock<any, any>;
+  queryPreviewRequestChangedSpy?: jest.Mock;
   /** The query for which preview its results. */
   query: string;
   /** The results preview for the passed query. */

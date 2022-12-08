@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@1.4.0-alpha.4...@empathyco/x-jest-utils@1.4.0-alpha.5) (2022-10-14)
+
+### Continuous Integration
+
+- update `runners` version (#740)
+  ([38f246c](https://github.com/empathyco/x/commit/38f246c306dac40c4afbcdea08336052981ca9b8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.4.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@1.4.0-alpha.3...@empathyco/x-jest-utils@1.4.0-alpha.4) (2022-04-29)
 
 ### Build System

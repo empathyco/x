@@ -1,29 +1,28 @@
 <template>
   <BaseSuggestions
+    v-bind="$attrs"
     :suggestions="suggestions"
     class="x-query-suggestions"
     data-test="query-suggestions"
-    :animation="animation"
-    :maxItemsToRender="maxItemsToRender"
   >
-    <template #default="{ suggestion, index }">
+    <template #default="props">
+      <!-- eslint-disable max-len -->
       <!--
         @slot Custom component that replaces the `QuerySuggestion` component
-            @binding {Suggestion} suggestion - Query Suggestion data
-            @binding {number} index - Query Suggestion index
+            @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Query Suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Query Suggestion index
       -->
-      <slot name="suggestion" v-bind="{ suggestion, index }">
-        <QuerySuggestion :suggestion="suggestion" class="x-query-suggestions__suggestion">
+      <!-- eslint-enable max-len -->
+      <slot name="suggestion" v-bind="{ ...props }">
+        <QuerySuggestion :suggestion="props.suggestion" class="x-query-suggestions__suggestion">
           <template #default="{ queryHTML }">
             <!-- eslint-disable max-len -->
             <!--
               @slot Custom content that replaces the `QuerySuggestion` default content
-                  @binding {Suggestion} suggestion - Query Suggestion data
+                  @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Query Suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Query Suggestion index
                   @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
-                  @binding {number} index - Query Suggestion index
             -->
             <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ suggestion, index, queryHTML }" />
+            <slot name="suggestion-content" v-bind="{ ...props, queryHTML }" />
           </template>
         </QuerySuggestion>
       </slot>
@@ -34,7 +33,7 @@
 <script lang="ts">
   import { Suggestion } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component } from 'vue-property-decorator';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
@@ -60,26 +59,21 @@
      */
     @Getter('querySuggestions', 'querySuggestions')
     public suggestions!: Suggestion[];
-
-    /**
-     * Animation component for `QuerySuggestions`.
-     *
-     * @public
-     */
-    @Prop()
-    protected animation!: Vue;
-
-    /**
-     * Number of query suggestions to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
   }
 </script>
 
+<!--eslint-disable max-len -->
 <docs lang="mdx">
+## Inherited props
+
+This component inherits the [`BaseSuggestions`](../base-components/x-components.base-suggestions.md)
+props.
+
+| Name                          | Description                                 | Type                | Default         |
+| ----------------------------- | ------------------------------------------- | ------------------- | --------------- |
+| <code>animation</code>        | Animation component for `QuerySuggestions`. | <code>Vue</code>    | <code>ul</code> |
+| <code>maxItemsToRender</code> | Number of query suggestions to be rendered. | <code>number</code> | <code></code>   |
+
 ## See it in action
 
 <!-- prettier-ignore-start -->

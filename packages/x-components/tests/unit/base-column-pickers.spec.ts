@@ -84,14 +84,14 @@ function mountBaseColumnPickerComponents({
 describe('testing Base Column Picker List and Dropdown', () => {
   it('Selects  different options from the column picker list', () => {
     const { clickListNthItem, getListNthItem } = mountBaseColumnPickerComponents();
-    getListNthItem(4).should('have.attr', 'aria-selected', 'true');
+    getListNthItem(4).should('have.attr', 'aria-pressed', 'true');
 
     clickListNthItem(2);
-    getListNthItem(2).should('have.attr', 'aria-selected', 'true');
+    getListNthItem(2).should('have.attr', 'aria-pressed', 'true');
     cy.getByDataTest('dropdown-toggle').should('contain', '2');
 
     clickListNthItem(6);
-    getListNthItem(6).should('have.attr', 'aria-selected', 'true');
+    getListNthItem(6).should('have.attr', 'aria-pressed', 'true');
     cy.getByDataTest('dropdown-toggle').should('contain', '6');
   });
 

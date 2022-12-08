@@ -4,6 +4,7 @@ export * from './clone';
 export * from './currency-formatter';
 export { debounce as debounceFunction } from './debounce';
 export * from './filters';
+export * from './focus';
 export * from './function';
 export * from './get-url-parameters';
 export * from './html';

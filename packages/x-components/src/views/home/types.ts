@@ -12,4 +12,13 @@ export interface HomeControls {
   historyQueries: {
     maxItemsToRender: number;
   };
+  nextQueriesPreview: {
+    maxItemsToRender: number;
+  };
+  nextQueriesList: {
+    showOnlyAfterOffset: boolean;
+  };
+  adapter: {
+    useE2EAdapter: boolean;
+  };
 }

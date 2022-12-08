@@ -129,11 +129,11 @@ describe('testing Dropdown component', () => {
     const { getDropdownToggle, getListItems, clickToggleButton } = renderDropdown();
 
     expect(getDropdownToggle().exists()).toBe(true);
-    expect(getListItems().exists()).toBe(false);
+    expect(getListItems().isVisible()).toBe(false);
 
     await clickToggleButton();
 
-    expect(getListItems().exists()).toBe(true);
+    expect(getListItems().isVisible()).toBe(true);
   });
 
   it('renders the provided items', async () => {
@@ -233,10 +233,10 @@ describe('testing Dropdown component', () => {
       const { clickToggleButton, getListItems } = renderDropdown();
 
       await clickToggleButton();
-      expect(getListItems().length).toBeGreaterThan(0);
+      expect(getListItems().isVisible()).toBe(true);
 
       await clickToggleButton();
-      expect(getListItems()).toHaveLength(0);
+      expect(getListItems().isVisible()).toBe(false);
     });
 
     it('closes the dropdown when losing focus', async () => {
@@ -246,7 +246,7 @@ describe('testing Dropdown component', () => {
       expect(getListItems()).not.toHaveLength(0);
 
       await clickBody();
-      expect(getListItems()).toHaveLength(0);
+      expect(getListItems().isVisible()).toBe(false);
     });
 
     it('closes the dropdown when selecting an element', async () => {
@@ -261,7 +261,7 @@ describe('testing Dropdown component', () => {
       await clickNthItem(2);
 
       expect(getDropdownToggle().text()).toEqual('2');
-      expect(getListItems()).toHaveLength(0);
+      expect(getListItems().isVisible()).toBe(false);
     });
 
     // eslint-disable-next-line max-len
@@ -286,7 +286,7 @@ describe('testing Dropdown component', () => {
       expect(getSelectedItem().text()).toBe('spain');
 
       await pressKeyFromFocusedItem('Esc');
-      expect(getListItems()).toHaveLength(0);
+      expect(getListItems().isVisible()).toBe(false);
 
       await clickToggleButton();
       expect(getSelectedItem().text()).toBe('spain');

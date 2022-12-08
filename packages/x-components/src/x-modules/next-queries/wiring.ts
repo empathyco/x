@@ -6,7 +6,8 @@ import {
 import {
   NamespacedWireCommit,
   NamespacedWireCommitWithoutPayload,
-  NamespacedWireDispatch
+  NamespacedWireDispatch,
+  NamespacedWiringData
 } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 
@@ -77,8 +78,15 @@ export const setQueryFromLastHistoryQueryWire = wireDispatch('setQueryFromLastHi
  *
  * @public
  */
-export const fetchAndSaveNextQueryPreviewWire = wireDispatch('fetchAndSaveNextQueryPreview');
-
+export const fetchAndSaveNextQueryPreviewWire = wireDispatch(
+  'fetchAndSaveNextQueryPreview',
+  ({ eventPayload: query, metadata: { location } }: NamespacedWiringData<'nextQueries'>) => {
+    return {
+      query,
+      location
+    };
+  }
+);
 /**
  * Resets the next query preview results.
  *

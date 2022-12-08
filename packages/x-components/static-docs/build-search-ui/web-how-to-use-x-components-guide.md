@@ -8,8 +8,6 @@ tags:
   - how to
 ---
 
-# How to use and configure Interface X Components in your project
-
 Interface&nbsp;X&nbsp;Components are like building blocks that you pick up and mix to craft your
 search UI experiences. The goal of using components is to include only the components you want,
 wherever you want.

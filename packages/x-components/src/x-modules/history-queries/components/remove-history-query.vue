@@ -1,5 +1,9 @@
 <template>
-  <BaseEventButton class="x-button x-remove-history-query" :events="removeHistoryQueryEvent">
+  <BaseEventButton
+    class="x-button x-remove-history-query"
+    :events="removeHistoryQueryEvent"
+    aria-label="remove"
+  >
     <!--  @slot (Required) Button content with a text, an icon or both -->
     <slot />
   </BaseEventButton>
@@ -38,7 +42,7 @@
      * The event handler that will be triggered when clicking on the clear history query button.
      *
      * @remarks
-     * * {@link HistoryQueriesXEvents.UserPressedRemoveHistoryQuery}: historyQuery
+     * {@link HistoryQueriesXEvents.UserPressedRemoveHistoryQuery}: historyQuery
      *
      * @returns The {@link XEvent | XEvents} to emit.
      * @public

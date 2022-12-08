@@ -3,7 +3,10 @@ on: [workflow_dispatch]
 jobs:
   prepare-release:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.17.0-chrome91-ff89
+    container:
+      image: cypress/browsers:node16.16.0-chrome105-ff104-edge
+      # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
+      options: --user 1001
     steps:
       - uses: actions/checkout@v3
         with:
