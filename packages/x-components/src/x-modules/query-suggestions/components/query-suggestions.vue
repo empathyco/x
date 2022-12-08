@@ -5,25 +5,26 @@
     class="x-query-suggestions"
     data-test="query-suggestions"
   >
-    <template #default="props">
+    <template #default="baseScope">
       <!-- eslint-disable max-len -->
       <!--
         @slot Custom component that replaces the `QuerySuggestion` component
-            @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Query Suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Query Suggestion index
+            @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** `Suggestion` - Query Suggestion data<br />&nbsp;&nbsp;- **index** `number` - Query Suggestion index
       -->
       <!-- eslint-enable max-len -->
-      <slot name="suggestion" v-bind="{ ...props }">
-        <QuerySuggestion :suggestion="props.suggestion" class="x-query-suggestions__suggestion">
-          <template #default="{ queryHTML }">
-            <!-- eslint-disable max-len -->
-            <!--
-              @slot Custom content that replaces the `QuerySuggestion` default content
-                  @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** <code>Suggestion</code> - Query Suggestion data<br />&nbsp;&nbsp;- **index** <code>number</code> - Query Suggestion index
-                  @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
-            -->
-            <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="{ ...props, queryHTML }" />
-          </template>
+      <slot name="suggestion" v-bind="{ ...baseScope }">
+        <QuerySuggestion
+          :suggestion="baseScope.suggestion"
+          class="x-query-suggestions__suggestion"
+          #default="querySuggestionScope"
+        >
+          <!-- eslint-disable max-len -->
+          <!--
+            @slot Custom content that replaces the `QuerySuggestion` default content
+                @binding {Object} v-bind - Query Suggestion attributes:<br />&nbsp;&nbsp;- **suggestion** `Suggestion` - Query Suggestion data<br />&nbsp;&nbsp;- **index** `number` - Query Suggestion index
+          -->
+          <!-- eslint-enable max-len -->
+          <slot name="suggestion-content" v-bind="{ ...baseScope, ...querySuggestionScope }" />
         </QuerySuggestion>
       </slot>
     </template>
@@ -34,6 +35,7 @@
   import { Suggestion } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import Highlight from '../../../components/highlight.vue';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
@@ -48,7 +50,8 @@
    * @public
    */
   @Component({
-    components: { BaseSuggestions, QuerySuggestion },
+    inheritAttrs: false,
+    components: { Highlight, BaseSuggestions, QuerySuggestion },
     mixins: [xComponentMixin(querySuggestionsXModule)]
   })
   export default class QuerySuggestions extends Vue {
@@ -62,17 +65,16 @@
   }
 </script>
 
-<!--eslint-disable max-len -->
 <docs lang="mdx">
 ## Inherited props
 
 This component inherits the [`BaseSuggestions`](../base-components/x-components.base-suggestions.md)
 props.
 
-| Name                          | Description                                 | Type                | Default         |
-| ----------------------------- | ------------------------------------------- | ------------------- | --------------- |
-| <code>animation</code>        | Animation component for `QuerySuggestions`. | <code>Vue</code>    | <code>ul</code> |
-| <code>maxItemsToRender</code> | Number of query suggestions to be rendered. | <code>number</code> | <code></code>   |
+| Name               | Description                                 | Type     | Default |
+| ------------------ | ------------------------------------------- | -------- | ------- |
+| `animation`        | Animation component for `QuerySuggestions`. | `Vue`    | `"ul"`  |
+| `maxItemsToRender` | Number of query suggestions to be rendered. | `number` |         |
 
 ## See it in action
 
@@ -155,8 +157,9 @@ _Type “bag” or another fashion term in the input field to try it out!_
   <div>
     <SearchInput />
     <QuerySuggestions #suggestion="{ suggestion }">
-      <QuerySuggestion :suggestion="suggestion" #default="{ queryHTML }">
-        <span v-html="queryHTML" />
+      <QuerySuggestion :suggestion="suggestion" #default="{ suggestion }">
+        <span>🔍</span>
+        <span>{{ suggestion.query }}</span>
       </QuerySuggestion>
     </QuerySuggestions>
   </div>
@@ -225,8 +228,8 @@ you must implement the `UserAcceptedAQuery` and `UserSelectedAQuerySuggestion` e
 
 ### Play with suggestion-content slot
 
-In this example, the `suggestion` and `queryHTML` bindings have been passed in the
-`suggestion-content` slot to paint the resulting query suggestions in blue.
+In this example, the `suggestion` and `query` properties of the `suggestion-content` slot are used
+to paint a suggestion with an icon.
 
 _Type “trousers” or another toy in the input field to try it out!_
 
@@ -234,8 +237,9 @@ _Type “trousers” or another toy in the input field to try it out!_
 <template>
   <div>
     <SearchInput />
-    <QuerySuggestions #suggestion-content="{ suggestion, queryHTML }">
-      <span :aria-label="`Select ${suggestion.query}`" style="color: blue;" v-html="queryHTML" />
+    <QuerySuggestions #suggestion-content="{ suggestion, query }">
+      <span>🔍</span>
+      <Highlight :text="suggestion.query" :highlight="query" />
     </QuerySuggestions>
   </div>
 </template>
@@ -243,12 +247,14 @@ _Type “trousers” or another toy in the input field to try it out!_
 <script>
   import { QuerySuggestions } from '@empathyco/x-components/query-suggestions';
   import { SearchInput } from '@empathyco/x-components/search-box';
+  import { Highlight } from '@empathyco/x-components';
 
   export default {
     name: 'QuerySuggestionsDemo',
     components: {
       SearchInput,
-      QuerySuggestions
+      QuerySuggestions,
+      Highlight
     }
   };
 </script>
