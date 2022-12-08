@@ -31,8 +31,7 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
     'querySuggestions',
     'recommendations',
     'relatedTags',
-    'search',
-    'searchBox'
+    'search'
   ] as const;
 
   const query = queryModules.reduce((acc, moduleName) => {

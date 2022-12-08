@@ -28,7 +28,8 @@ const machine = new StateMachine<InputStatus, XEvent>({
     },
     focused: {
       UserBlurredSearchBox: 'filled',
-      UserClearedQuery: 'empty'
+      UserClearedQuery: 'empty',
+      UserIsTypingAQuery: 'typing'
     }
   }
 });
