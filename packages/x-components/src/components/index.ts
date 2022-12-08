@@ -20,6 +20,7 @@ export { default as BaseRating } from './base-rating.vue';
 export { default as BaseSwitch } from './base-switch.vue';
 export { default as BaseVariableColumnGrid } from './base-variable-column-grid.vue';
 export { default as GlobalXBus } from './global-x-bus.vue';
+export { default as Highlight } from './highlight.vue';
 export { default as ItemsList } from './items-list.vue';
 export { default as LocationProvider } from './location-provider.vue';
 export { NoElement } from './no-element';
