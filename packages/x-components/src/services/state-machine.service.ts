@@ -11,11 +11,11 @@ export class StateMachine<SomeStatus extends string, SomeEvent extends string> {
    *
    * @internal
    */
-  public machine: Machine<SomeStatus, SomeEvent>;
+  private machine: Machine<SomeStatus, SomeEvent>;
   /**
    * The current state of the machine.
    *
-   * @internal
+   * @public
    */
   public currentState: SomeStatus;
 
@@ -30,7 +30,7 @@ export class StateMachine<SomeStatus extends string, SomeEvent extends string> {
    * @param event - The event to determine which state is the new one to be
    * transitioned.
    *
-   * @internal
+   * @public
    */
   transition(event: SomeEvent): void {
     const currentState = this.machine.states[this.currentState];

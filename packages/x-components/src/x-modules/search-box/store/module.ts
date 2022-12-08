@@ -1,7 +1,7 @@
 import { setQuery } from '../../../store/utils/query.utils';
 import { setUrlParams } from './actions/set-url-params.action';
 import { SearchBoxXStoreModule } from './types';
-import { setStatus } from './actions/set-status.action';
+import { setInputStatus } from './actions/set-input-status.action';
 
 /**
  * {@link XStoreModule} For the search-box module.
@@ -11,7 +11,7 @@ import { setStatus } from './actions/set-status.action';
 export const searchBoxXStoreModule: SearchBoxXStoreModule = {
   state: () => ({
     query: '',
-    status: 'initial'
+    inputStatus: 'initial'
   }),
   getters: {
     trimmedQuery(state) {
@@ -20,12 +20,12 @@ export const searchBoxXStoreModule: SearchBoxXStoreModule = {
   },
   mutations: {
     setQuery,
-    setStatus(state, status) {
-      state.status = status;
+    setInputStatus(state, status) {
+      state.inputStatus = status;
     }
   },
   actions: {
     setUrlParams,
-    setStatus
+    setInputStatus
   }
 };

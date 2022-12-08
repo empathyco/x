@@ -40,14 +40,18 @@ describe('testing search box module actions', () => {
     });
   });
 
-  describe('setStatus', () => {
-    it('should update the status depending on the event emitted', async () => {
-      await store.dispatch('setStatus', 'UserAcceptedAQuery');
-      expect(store.state.status).toEqual('filled');
-    });
-    it('should not update the status if the event is not a valid transition', async () => {
-      await store.dispatch('setStatus', 'ColumnsNumberProvided');
-      expect(store.state.status).toEqual('filled');
+  describe('setInputStatus', () => {
+    it('should update the input status if the event emitted is valid', async () => {
+      await store.dispatch('setInputStatus', 'UserIsTypingAQuery');
+      expect(store.state.inputStatus).toEqual('typing');
+      await store.dispatch('setInputStatus', 'UserAcceptedAQuery');
+      expect(store.state.inputStatus).toEqual('filled');
+      await store.dispatch('setInputStatus', 'UserFocusedSearchBox');
+      expect(store.state.inputStatus).toEqual('focused');
+      await store.dispatch('setInputStatus', 'UserClearedQuery');
+      expect(store.state.inputStatus).toEqual('empty');
+      await store.dispatch('setInputStatus', 'ColumnsNumberProvided');
+      expect(store.state.inputStatus).toEqual('empty');
     });
   });
 });

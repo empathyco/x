@@ -56,9 +56,10 @@ export interface AbsoluteDistances {
 }
 
 /**
- * Type representing that the key will be a string extracted from the first generic type
- * and the value, a record of string having as key one of the different keys
- * in the second generic type and as a value one of the keys in the first generic type.
+ * Type for the different status of a machine, and how to transition between them.
+ * The `SomeStatus` parameter is a union containing all the possible status the
+ * machine can be in, and the `SomeEvent` parameter is a union containing all the
+ * possible events that can be emitted to change from one status to another one.
  *
  * @example
  * ```typescript
@@ -82,8 +83,8 @@ export interface AbsoluteDistances {
  *
  * @internal
  */
-export type TransitionStates<T extends string, E extends string> = {
-  [K in T]: Partial<Record<E, T>>;
+export type TransitionStates<SomeStatus extends string, SomeEvent extends string> = {
+  [Key in SomeStatus]: Partial<Record<SomeEvent, SomeStatus>>;
 };
 
 /**
@@ -91,7 +92,7 @@ export type TransitionStates<T extends string, E extends string> = {
  *
  * @internal
  */
-export type Machine<T extends string, E extends string> = {
-  initial: T;
-  states: TransitionStates<T, E>;
+export type Machine<SomeStatus extends string, SomeEvent extends string> = {
+  initial: SomeStatus;
+  states: TransitionStates<SomeStatus, SomeEvent>;
 };

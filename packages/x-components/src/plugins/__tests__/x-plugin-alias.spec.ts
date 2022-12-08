@@ -51,14 +51,14 @@ describe('testing plugin alias', () => {
         querySuggestions: undefined,
         recommendations: undefined,
         relatedTags: undefined,
-        search: undefined,
-        searchBox: undefined
+        search: undefined
       },
       device: null,
       facets: {},
       historyQueries: [],
       fullHistoryQueries: [],
       identifierResults: [],
+      inputStatus: undefined,
       isEmpathizeOpen: false,
       nextQueries: [],
       noResults: false,
@@ -130,8 +130,7 @@ describe('testing plugin alias', () => {
       nextQueries: expect.stringMatching(REQUEST_STATUS_REGEX),
       querySuggestions: expect.stringMatching(REQUEST_STATUS_REGEX),
       relatedTags: expect.stringMatching(REQUEST_STATUS_REGEX),
-      search: expect.stringMatching(REQUEST_STATUS_REGEX),
-      searchBox: expect.stringMatching(REQUEST_STATUS_REGEX)
+      search: expect.stringMatching(REQUEST_STATUS_REGEX)
     });
   });
 

@@ -6,6 +6,7 @@ import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 import { XEvent } from '../../wiring/events.types';
 import { AnyWire } from '../../wiring/wiring.types';
+import { filter } from '../../wiring/index';
 
 /**
  * `searchBox` {@link XModuleName | XModule name}.
@@ -58,7 +59,7 @@ const setUrlParams = wireDispatch('setUrlParams');
  *
  * @public
  */
-const setStatus = (event: XEvent): AnyWire => wireDispatch('setStatus', event);
+const setInputStatus = (event: XEvent): AnyWire => wireDispatch('setInputStatus', event);
 
 /**
  * SearchBox wiring.
@@ -67,15 +68,18 @@ const setStatus = (event: XEvent): AnyWire => wireDispatch('setStatus', event);
  */
 export const searchBoxWiring = createWiring({
   ParamsLoadedFromUrl: {
-    setUrlParams
+    setUrlParams,
+    transitionState: filter(setInputStatus('UserAcceptedAQuery'), ({ eventPayload: urlParams }) => {
+      return !!urlParams.query;
+    })
   },
   UserIsTypingAQuery: {
     setSearchBoxQuery,
-    transitionState: setStatus('UserIsTypingAQuery')
+    transitionState: setInputStatus('UserIsTypingAQuery')
   },
   UserAcceptedAQuery: {
     setSearchBoxQuery,
-    transitionState: setStatus('UserAcceptedAQuery')
+    transitionState: setInputStatus('UserAcceptedAQuery')
   },
   UserPressedClearSearchBoxButton: {
     clearSearchBoxQuery
@@ -87,12 +91,12 @@ export const searchBoxWiring = createWiring({
     clearSearchBoxQuery
   },
   UserClearedQuery: {
-    transitionState: setStatus('UserClearedQuery')
+    transitionState: setInputStatus('UserClearedQuery')
   },
   UserFocusedSearchBox: {
-    transitionState: setStatus('UserFocusedSearchBox')
+    transitionState: setInputStatus('UserFocusedSearchBox')
   },
   UserBlurredSearchBox: {
-    transitionState: setStatus('UserBlurredSearchBox')
+    transitionState: setInputStatus('UserBlurredSearchBox')
   }
 });
