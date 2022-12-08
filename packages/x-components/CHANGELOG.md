@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.243](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.242...@empathyco/x-components@3.0.0-alpha.243) (2022-12-08)
+
+### Testing
+
+- **e2e:** make `HistoryQueries` test wait for no results (#906)
+  ([82cc3dd](https://github.com/empathyco/x/commit/82cc3ddc0f1339fbff6c04e2eff7dfbf24598672)),
+  closes [EX-7591](https://searchbroker.atlassian.net/browse/EX-7591)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.242](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.241...@empathyco/x-components@3.0.0-alpha.242) (2022-12-07)
 
 ### ⚠ BREAKING CHANGES
