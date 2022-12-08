@@ -344,3 +344,7 @@ And('url contains parameter {string} with value {string}', (key: string, value: 
 When('navigating back', () => {
   cy.go(-1);
 });
+
+Then('no results message is displayed', () => {
+  cy.getByDataTest('no-results-message').should('be.visible');
+});

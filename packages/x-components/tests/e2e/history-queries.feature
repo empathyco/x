@@ -102,11 +102,11 @@ Feature: History queries component
     And   start button is clicked
     And   no history queries are displayed
     When  "<query>" is searched
-    Then  the searched query is displayed in the search-box
+    Then  no results message is displayed
     When  clear search button is pressed
     Then  no history queries are displayed
     And   clear history queries button is enabled
 
     Examples:
-      | hideIfEqualsQuery | debounceInMs | maxItemsToStore | maxItemsToRender | instant | query   |
-      | false             | 150          | 15              | 5                | true    | puzzle  |
+      | hideIfEqualsQuery | debounceInMs | maxItemsToStore | maxItemsToRender | instant | query  |
+      | false             | 150          | 15              | 5                | true    | puzzle |
