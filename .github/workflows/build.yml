@@ -7,7 +7,7 @@ jobs:
   build:
     strategy:
       matrix:
-        task: [ lint, test ]
+        task: [lint, test:unit, test:component, test:e2e:ci]
     name: ${{ matrix.task }}
     runs-on: ubuntu-latest
     container:
