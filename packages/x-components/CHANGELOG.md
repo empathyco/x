@@ -36,6 +36,11 @@ All notable changes to this project will be documented in this file. See
 
 ## [3.0.0-alpha.244](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.243...@empathyco/x-components@3.0.0-alpha.244) (2022-12-08)
 
+### ⚠ BREAKING CHANGES
+
+- Removes `queryHTML` slot scope prop from `BaseSuggestion`, `PopularSearch` `QuerySuggestion` and
+  `HistoryQuery`. Use the new `Highlight` component instead.
+
 ### Features
 
 - **components:** Use `Highlight` component inside suggestion components.(#894)
