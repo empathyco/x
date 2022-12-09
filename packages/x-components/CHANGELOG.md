@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.245](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.244...@empathyco/x-components@3.0.0-alpha.245) (2022-12-09)
+
+### Features
+
+- **search-box:** add input status handling(#903)
+  ([c74b8fb](https://github.com/empathyco/x/commit/c74b8fbc9734541774c535792466333b78197146)),
+  closes [EX-6474](https://searchbroker.atlassian.net/browse/EX-6474)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.244](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.243...@empathyco/x-components@3.0.0-alpha.244) (2022-12-08)
 
 ### Features
