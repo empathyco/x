@@ -5,6 +5,14 @@ concurrency:
   cancel-in-progress: true
 jobs:
   build:
+    strategy:
+      matrix:
+        task: [ lint, 'test:unit', 'test:component', 'test:e2e:ci' ]
+    name: ${{ matrix.task }}
+    container:
+      image: cypress/browsers:node16.16.0-chrome105-ff104-edge
+      # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
+      options: --user 1001
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -35,34 +43,10 @@ jobs:
       - name: Run Build
         if: steps.cache-node-modules.outputs.cache-hit == 'true'
         run: npm run build
-      - name: Upload the build output
-        uses: actions/upload-artifact@v2
-        with:
-          name: x-build-temp
-          path: |
-            '**/packages/**/dist'
-            '**/package.json'
-          retention-days: 1
-  rest:
-    needs: [build]
-    strategy:
-      matrix:
-        task: [ lint, 'test:unit', 'test:component', 'test:e2e:ci' ]
-    name: ${{ matrix.task }}
-    runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node16.16.0-chrome105-ff104-edge
-      # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
-      options: --user 1001
-    steps:
-      - name: Download the build output
-        uses: actions/download-artifact@v2
-        with:
-          name: x-build-temp
       - name: Run ${{ matrix.task }}
         run: npm run ${{ matrix.task }}
   release:
-    needs: [rest]
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Release alpha on non-release pushes to main branch
