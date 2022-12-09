@@ -36,6 +36,7 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit == 'true'
         run: npm run build
   rest:
+    needs: [build]
     strategy:
       matrix:
         task: [ lint, 'test:unit', 'test:component', 'test:e2e:ci' ]
@@ -49,6 +50,7 @@ jobs:
       - name: Run ${{ matrix.task }}
         run: npm run ${{ matrix.task }}
   release:
+    needs: [rest]
     runs-on: ubuntu-latest
     steps:
       - name: Release alpha on non-release pushes to main branch
