@@ -69,7 +69,7 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
     get identifierResults() {
       return component.$store.state.x.identifierResults?.identifierResults ?? [];
     },
-    get inputStatus() {
+    get searchBoxStatus() {
       return component.$store.state.x.searchBox?.inputStatus ?? undefined;
     },
     get isEmpathizeOpen() {

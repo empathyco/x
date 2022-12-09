@@ -107,7 +107,7 @@ export interface XComponentAliasAPI {
   /** The {@link IdentifierResultsXModule} results. */
   readonly identifierResults: ReadonlyArray<Result>;
   /** The {@link SearchBoxXModule } input status. */
-  readonly inputStatus: InputStatus | undefined;
+  readonly searchBoxStatus: InputStatus | undefined;
   /** The {@link Empathize} is open state. */
   readonly isEmpathizeOpen: boolean;
   /** The {@link NextQueriesXModule} next queries. */
