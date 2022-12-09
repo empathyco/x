@@ -49,6 +49,7 @@ jobs:
       - name: Run ${{ matrix.task }}
         run: npm run ${{ matrix.task }}
   release:
+    runs-on: ubuntu-latest
     steps:
       - name: Release alpha on non-release pushes to main branch
         if:
