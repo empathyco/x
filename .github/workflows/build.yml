@@ -39,8 +39,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: x-build-temp
-          path: |
-              dist/
+          path: '**/packages/**/dist'
           retention-days: 1
   rest:
     needs: [build]
