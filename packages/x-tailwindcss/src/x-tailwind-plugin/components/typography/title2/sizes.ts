@@ -17,7 +17,7 @@ export function titleSizes({ theme }: TailwindHelpers) {
       lineHeight: theme('lineHeight.md')
     },
     lg: {
-      fontSize: theme('fontSize.2xl'),
+      fontSize: theme('fontSize.4xl'),
       lineHeight: theme('lineHeight.sm')
     }
   };
