@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.16...@empathyco/eslint-plugin-x@2.0.0-alpha.17) (2022-12-09)
+
+### Build System
+
+- **deps:** bump `eslint`, `@typescript-eslint/eslint-plugin` and
+  `eslint-import-resolver-typescript`
+  ([cd63a4b](https://github.com/empathyco/x/commit/cd63a4b8fd7e7c605af86181e55e1e9379d59e95))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.15...@empathyco/eslint-plugin-x@2.0.0-alpha.16) (2022-12-09)
 
 ### Build System
