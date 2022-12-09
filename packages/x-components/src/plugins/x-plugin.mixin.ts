@@ -122,7 +122,7 @@ export function getRootXComponent(component: Vue): Vue | undefined {
     if (isXComponent(currentComponent)) {
       xComponent = currentComponent;
     }
-    currentComponent = component.$parent;
+    currentComponent = currentComponent.$parent;
   }
   return xComponent;
 }
