@@ -3,6 +3,62 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.245](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.244...@empathyco/x-components@3.0.0-alpha.245) (2022-12-09)
+
+### Features
+
+- **search-box:** add input status handling(#903)
+  ([c74b8fb](https://github.com/empathyco/x/commit/c74b8fbc9734541774c535792466333b78197146)),
+  closes [EX-6474](https://searchbroker.atlassian.net/browse/EX-6474)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.244](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.243...@empathyco/x-components@3.0.0-alpha.244) (2022-12-08)
+
+### Features
+
+- **components:** Use `Highlight` component inside suggestion components.(#894)
+  ([ceb9c0c](https://github.com/empathyco/x/commit/ceb9c0c729d9a7a3b8a983e5b23912d561f2bd4d)),
+  closes [EX-7469](https://searchbroker.atlassian.net/browse/EX-7469)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.243](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.242...@empathyco/x-components@3.0.0-alpha.243) (2022-12-08)
+
+### Testing
+
+- **e2e:** make `HistoryQueries` test wait for no results (#906)
+  ([82cc3dd](https://github.com/empathyco/x/commit/82cc3ddc0f1339fbff6c04e2eff7dfbf24598672)),
+  closes [EX-7591](https://searchbroker.atlassian.net/browse/EX-7591)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.242](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.241...@empathyco/x-components@3.0.0-alpha.242) (2022-12-07)
+
+### ⚠ BREAKING CHANGES
+
+- the event `SearchResponseProvided` was renamed to `SearchResponseChanged`
+
+### Code Refactoring
+
+- Simplify suggestions list slots. (#893)
+  ([fc4ccb9](https://github.com/empathyco/x/commit/fc4ccb97a91b4c2ff7dfd0d7aed9747d7841b4ed)),
+  closes [EX-7469](https://searchbroker.atlassian.net/browse/EX-7469)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.241](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.240...@empathyco/x-components@3.0.0-alpha.241) (2022-12-06)
 
 **Note:** Version bump only for package @empathyco/x-components

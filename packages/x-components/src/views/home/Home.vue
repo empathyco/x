@@ -241,7 +241,11 @@
 
           <template v-if="!$x.redirections.length">
             <!--  No Results Message  -->
-            <div v-if="$x.noResults" class="x-message x-margin--top-03 x-margin--bottom-03">
+            <div
+              v-if="$x.noResults"
+              class="x-message x-margin--top-03 x-margin--bottom-03"
+              data-test="no-results-message"
+            >
               <p>
                 There are no results for
                 <span class="x-font-weight--bold">{{ $x.query.search }}</span>

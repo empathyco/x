@@ -23,6 +23,7 @@ import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata, Wiring } from '../wiring/wiring.types';
 import { ScrollComponentState } from '../x-modules/scroll/index';
 import { AnyXModule, ExtractState, XModuleName, XModulesTree } from '../x-modules/x-modules.types';
+import { InputStatus } from '../x-modules/search-box/store/types';
 import { XBus } from './x-bus.types';
 
 /**
@@ -105,6 +106,8 @@ export interface XComponentAliasAPI {
   readonly fullHistoryQueries: ReadonlyArray<HistoryQuery>;
   /** The {@link IdentifierResultsXModule} results. */
   readonly identifierResults: ReadonlyArray<Result>;
+  /** The {@link SearchBoxXModule } input status. */
+  readonly inputStatus: InputStatus | undefined;
   /** The {@link Empathize} is open state. */
   readonly isEmpathizeOpen: boolean;
   /** The {@link NextQueriesXModule} next queries. */

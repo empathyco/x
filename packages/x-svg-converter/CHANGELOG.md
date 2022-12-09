@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@0.2.0-alpha.0...@empathyco/x-svg-converter@0.2.0-alpha.1) (2022-12-07)
+
+### Bug Fixes
+
+- **svg-converter:** check if file exist before unlink it (#904)
+  ([3f7af94](https://github.com/empathyco/x/commit/3f7af94e156ee5ab51f7e42e2a551e41cae94d3a))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## 0.2.0-alpha.0 (2022-12-02)
 
 ### Features
