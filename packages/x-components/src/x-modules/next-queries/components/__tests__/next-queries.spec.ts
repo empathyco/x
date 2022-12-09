@@ -102,14 +102,21 @@ describe('testing next queries component', () => {
     nextQueries[0].isCurated = true;
     const eventSpansList = findTestDataById('query');
     const iconsList = findTestDataById('icon');
+    let highlightIconList = findTestDataById('next-query-highlight');
 
     nextQueries.forEach((nextQuery, index) => {
       expect(eventSpansList.at(index).element.innerHTML).toEqual(nextQuery.query);
       expect(eventSpansList.at(index).element.getAttribute('data-index')).toEqual(`${index}`);
       expect(iconsList.at(index)).toBeDefined();
+      expect(highlightIconList.at(index).find('img').exists()).toBe(false);
     });
 
     await wrapper.setProps({ highlightCurated: true });
+    highlightIconList = findTestDataById('next-query-highlight');
+
+    nextQueries.forEach((nextQuery, index) => {
+      expect(highlightIconList.at(index).find('img').exists()).toBe(!!nextQuery.isCurated);
+    });
   });
 
   it('renders a button, a highlighting icon & a custom Next Query', async () => {
@@ -119,11 +126,12 @@ describe('testing next queries component', () => {
             <NextQuery :suggestion="suggestion"
                        :highlightCurated="highlightCurated">
               <template #default="suggestionContentScope">
-                  <img
-                    data-test="next-query-highlight"
+              <span data-test="next-query-highlight">
+                  <img\
                     src="./chevron-icon.svg"
                     v-if="suggestionContentScope.shouldHighlightCurated"
                   />
+                  </span>
                 <img src="./next-query-icon.svg"
                   class="x-next-query__icon"
                   data-test="icon"/>
@@ -149,15 +157,22 @@ describe('testing next queries component', () => {
     const eventSpansList = findTestDataById('query');
     const iconsList = findTestDataById('icon');
     const customButtonList = findTestDataById('custom-button');
+    let highlightIconList = findTestDataById('next-query-highlight');
 
     nextQueries.forEach((nextQuery, index) => {
       expect(eventSpansList.at(index).element.innerHTML).toEqual(nextQuery.query);
       expect(eventSpansList.at(index).element.getAttribute('data-index')).toEqual(`${index}`);
       expect(iconsList.at(index)).toBeDefined();
       expect(customButtonList.at(index)).toBeDefined();
+      expect(highlightIconList.at(index).find('img').exists()).toBe(false);
     });
 
     await wrapper.setProps({ highlightCurated: true });
+    highlightIconList = findTestDataById('next-query-highlight');
+
+    nextQueries.forEach((nextQuery, index) => {
+      expect(highlightIconList.at(index).find('img').exists()).toBe(!!nextQuery.isCurated);
+    });
   });
 
   it('does not render any NextQuery if the are none', () => {
