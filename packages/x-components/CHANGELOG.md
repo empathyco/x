@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.246](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.245...@empathyco/x-components@3.0.0-alpha.246) (2022-12-09)
+
+### Build System
+
+- **deps:** update dependencies (#908)
+  ([840da52](https://github.com/empathyco/x/commit/840da52dec32e04cf2b402cca2646b49c839e6e8))
+
+### Code Refactoring
+
+- **plugin:** Rename `inputStatus` to `searchBoxStatus` in Alias API. (#913)
+  ([5cb837e](https://github.com/empathyco/x/commit/5cb837ed57db3fb5543a7f8e82d9beea0088cdd9)),
+  closes [EX-7597](https://searchbroker.atlassian.net/browse/EX-7597)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.245](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.244...@empathyco/x-components@3.0.0-alpha.245) (2022-12-09)
 
 ### Features

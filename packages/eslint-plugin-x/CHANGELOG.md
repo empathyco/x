@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.15...@empathyco/eslint-plugin-x@2.0.0-alpha.16) (2022-12-09)
+
+### Build System
+
+- **deps:** update dependencies (#908)
+  ([840da52](https://github.com/empathyco/x/commit/840da52dec32e04cf2b402cca2646b49c839e6e8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.14...@empathyco/eslint-plugin-x@2.0.0-alpha.15) (2022-10-14)
 
 ### Continuous Integration

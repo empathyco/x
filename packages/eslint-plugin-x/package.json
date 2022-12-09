@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/eslint-plugin-x",
-  "version": "2.0.0-alpha.15",
+  "version": "2.0.0-alpha.16",
   "description": "ESLint and Prettier rules and configurations",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
