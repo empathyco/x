@@ -46,7 +46,7 @@
     "jest": "~27.3.1",
     "ts-jest": "~27.0.7",
     "typescript": "~4.6.2",
-    "vue": "~2.6.14"
+    "vue": "~2.7.14"
   },
   "peerDependencies": {
     "vue-i18n": "^8.0.0"
