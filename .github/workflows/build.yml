@@ -49,12 +49,12 @@ jobs:
       - name: Run ${{ matrix.task }}
         run: npm run ${{ matrix.task }}
   release:
-    - name: Release alpha on non-release pushes to main branch
-      if:
-        ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
-        !startsWith(github.event.head_commit.message, 'chore(release):') }}
-      uses: ./.github/actions/release-alpha
-      with:
-        npm_token: ${{ secrets.NPM_TOKEN }}
-        github_token: ${{ secrets.SUPPORT_TOKEN }}
-
+    steps:
+      - name: Release alpha on non-release pushes to main branch
+        if:
+          ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
+          !startsWith(github.event.head_commit.message, 'chore(release):') }}
+        uses: ./.github/actions/release-alpha
+        with:
+          npm_token: ${{ secrets.NPM_TOKEN }}
+          github_token: ${{ secrets.SUPPORT_TOKEN }}
