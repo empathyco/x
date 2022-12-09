@@ -35,6 +35,13 @@ jobs:
       - name: Run Build
         if: steps.cache-node-modules.outputs.cache-hit == 'true'
         run: npm run build
+      - name: Upload the build output
+        uses: actions/upload-artifact@v2
+        with:
+          name: x-build-temp
+          path: |
+              dist/
+          retention-days: 1
   rest:
     needs: [build]
     strategy:
@@ -47,6 +54,10 @@ jobs:
       # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
       options: --user 1001
     steps:
+      - name: Download the build output
+        uses: actions/download-artifact@v2
+        with:
+          name: x-build-temp
       - name: Run ${{ matrix.task }}
         run: npm run ${{ matrix.task }}
   release:
