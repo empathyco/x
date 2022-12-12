@@ -4,6 +4,7 @@
     <XdsIcon />
     <XdsSuggestion />
     <XdsHighlight />
+    <XdsTypography />
   </div>
 </template>
 <script lang="ts">
@@ -13,9 +14,10 @@
   import XdsHighlight from './xds-highlight.vue';
   import XdsIcon from './xds-icon.vue';
   import XdsSuggestion from './xds-suggestion.vue';
+  import XdsTypography from './xds-typography.vue';
 
   @Component({
-    components: { XdsHighlight, XdsButton, XdsIcon, XdsSuggestion }
+    components: { XdsTypography, XdsHighlight, XdsButton, XdsIcon, XdsSuggestion }
   })
   export default class XdsShowcase extends Vue {}
 </script>
