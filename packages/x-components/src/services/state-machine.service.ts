@@ -38,11 +38,6 @@ export class StateMachine<SomeStatus extends string, SomeEvent extends string> {
       /* Typescript is not detecting the type guard in the previous if
       so we have to force it to be defined */
       this.currentState = currentState[event]!;
-    } else {
-      //eslint-disable-next-line no-console
-      console.warn(
-        `The ${event} event is not defined as a possible transition for ${this.currentState}`
-      );
     }
   }
 }
