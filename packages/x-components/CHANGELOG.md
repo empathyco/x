@@ -3,7 +3,65 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.248](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.247...@empathyco/x-components@3.0.0-alpha.248) (2022-12-12)
+
+### Bug Fixes
+
+- remove warning when the event is not defined (#918)
+  ([7f70e25](https://github.com/empathyco/x/commit/7f70e257bae41ba34f72c1c580c79862448faea9)),
+  closes [EX-7617](https://searchbroker.atlassian.net/browse/EX-7617)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.247](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.246...@empathyco/x-components@3.0.0-alpha.247) (2022-12-09)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.246](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.245...@empathyco/x-components@3.0.0-alpha.246) (2022-12-09)
+
+### Build System
+
+- **deps:** update dependencies (#908)
+  ([840da52](https://github.com/empathyco/x/commit/840da52dec32e04cf2b402cca2646b49c839e6e8))
+
+### Code Refactoring
+
+- **plugin:** Rename `inputStatus` to `searchBoxStatus` in Alias API. (#913)
+  ([5cb837e](https://github.com/empathyco/x/commit/5cb837ed57db3fb5543a7f8e82d9beea0088cdd9)),
+  closes [EX-7597](https://searchbroker.atlassian.net/browse/EX-7597)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.245](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.244...@empathyco/x-components@3.0.0-alpha.245) (2022-12-09)
+
+### Features
+
+- **search-box:** add input status handling(#903)
+  ([c74b8fb](https://github.com/empathyco/x/commit/c74b8fbc9734541774c535792466333b78197146)),
+  closes [EX-6474](https://searchbroker.atlassian.net/browse/EX-6474)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.244](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.243...@empathyco/x-components@3.0.0-alpha.244) (2022-12-08)
+
+### ⚠ BREAKING CHANGES
+
+- Removes `queryHTML` slot scope prop from `BaseSuggestion`, `PopularSearch` `QuerySuggestion` and
+  `HistoryQuery`. Use the new `Highlight` component instead.
 
 ### Features
 

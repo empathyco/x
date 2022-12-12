@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/eslint-plugin-x",
-  "version": "2.0.0-alpha.15",
+  "version": "2.0.0-alpha.18",
   "description": "ESLint and Prettier rules and configurations",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -28,13 +28,13 @@
     "commit": "git-cz"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "~5.21.0",
-    "@typescript-eslint/parser": "~5.21.0",
+    "@typescript-eslint/eslint-plugin": "~5.46.0",
+    "@typescript-eslint/parser": "~5.46.0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "~10.0.0",
-    "eslint": "~8.14.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-import-resolver-typescript": "~2.7.1",
+    "eslint": "~8.29.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "~3.5.2",
     "eslint-plugin-cypress": "~2.12.1",
     "eslint-plugin-import": "~2.26.0",
     "eslint-plugin-jest": "~26.1.5",
@@ -45,7 +45,7 @@
     "eslint-plugin-vuejs-accessibility": "~1.1.1"
   },
   "peerDependencies": {
-    "eslint": "~8.14.0",
+    "eslint": "~8.29.0",
     "prettier": "^2.0.5"
   },
   "prettier": "./prettier-config.js",
