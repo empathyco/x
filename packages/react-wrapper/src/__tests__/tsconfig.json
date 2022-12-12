@@ -1,8 +1,8 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": ["jest"]
+    "types": ["jest", "./jsx.d.ts"]
   },
   "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": []
+  "exclude": ["node_modules"]
 }
