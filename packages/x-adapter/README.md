@@ -217,7 +217,7 @@ npm test
 ## Contributing
 
 To start contributing to the project, please take a look to
-our **[Contributing Guide](https://github.com/empathyco/x/blob/HEAD/.github/CONTRIBUTING.md).**
+our **[Contributing Guide](https://github.com/empathyco/x/blob/main/.github/CONTRIBUTING.md).**
 
 ## License
 
