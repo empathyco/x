@@ -1,16 +1,16 @@
 import { readFileSync } from 'fs';
-import { resolve } from 'path';
+import path, { resolve } from 'path';
 
 /**
- * Returns an absolute path from the working directory.
+ * Returns an absolute path from the project root.
  *
- * @param path - The relative path.
+ * @param targetPath - The path to add to the project root.
  * @returns The full path.
  *
  * @internal
  */
-export function pathFromCwd(path: string): string {
-  return resolve(process.cwd(), path);
+export function pathFromProjectRoot(targetPath: string): string {
+  return path.join(__dirname, '..', '..', targetPath);
 }
 
 /**
@@ -22,7 +22,7 @@ export function pathFromCwd(path: string): string {
  * @internal
  */
 export function readRootFile(path: string): string {
-  return readFileSync(pathFromCwd(path), 'utf-8');
+  return readFileSync(pathFromProjectRoot(path), 'utf-8');
 }
 
 /**

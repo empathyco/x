@@ -91,7 +91,7 @@ export class XPriorityQueue<Key = string> {
    *
    * @internal
    */
-  protected comparatorFn: AnyFunction;
+  protected comparatorFn: AnyFunction<boolean>;
 
   /**
    * Creates a new {@link XPriorityQueue}.
@@ -100,7 +100,7 @@ export class XPriorityQueue<Key = string> {
    * By default, the elements will be sorted in descending order (an element with priority 1 will
    * be higher than another with priority 5).
    */
-  public constructor(comparatorFn: AnyFunction = (a: number, b: number) => a > b) {
+  public constructor(comparatorFn: AnyFunction<boolean> = (a: number, b: number) => a > b) {
     this.comparatorFn = comparatorFn;
   }
 

@@ -127,7 +127,7 @@ describe('testing next queries component', () => {
                        :highlightCurated="highlightCurated">
               <template #default="suggestionContentScope">
               <span data-test="next-query-highlight">
-                  <img\
+                  <img
                     src="./chevron-icon.svg"
                     v-if="suggestionContentScope.shouldHighlightCurated"
                   />

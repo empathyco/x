@@ -89,7 +89,7 @@ describe('test SVG to Vue script', () => {
    * Generate the SVG files used in the tests.
    */
   function generateTestSVGs(): void {
-    const absoluteSourcePath = path.resolve(process.cwd(), sourcePath);
+    const absoluteSourcePath = path.resolve(__dirname, sourcePath);
 
     if (fs.existsSync(absoluteSourcePath)) {
       [0, 1].forEach(i => {
@@ -104,7 +104,7 @@ describe('test SVG to Vue script', () => {
    * Remove the vue files product of the tests.
    */
   function removeVueTestFiles(): void {
-    const absoluteSourcePath = path.resolve(process.cwd(), sourcePath);
+    const absoluteSourcePath = path.resolve(__dirname, sourcePath);
 
     if (fs.existsSync(absoluteSourcePath)) {
       [0, 1].forEach(i => {

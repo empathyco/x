@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { getCSVTranslations } from '../json-to-csv';
-import { pathFromCwd, readRelativeFile, readRootFile } from './utils';
+import { pathFromProjectRoot, readRelativeFile, readRootFile } from './utils';
 
 describe('transform json to csv', () => {
   const jsonDirectoryPath = path.resolve(__dirname, 'json');
@@ -9,7 +9,7 @@ describe('transform json to csv', () => {
 
   describe('when no output path is specified', () => {
     afterEach(() => {
-      const absoluteDefaultOutputPath = pathFromCwd('output');
+      const absoluteDefaultOutputPath = pathFromProjectRoot('output');
       if (fs.existsSync(absoluteDefaultOutputPath)) {
         fs.rmSync(absoluteDefaultOutputPath, { recursive: true });
       }
@@ -48,6 +48,6 @@ describe('transform json to csv', () => {
     expect(readRootFile('translations/es.messages.csv')).toEqual(
       readRelativeFile(__dirname, 'csv/es.messages.csv')
     );
-    fs.rmSync(pathFromCwd(csvOutputDirectory), { recursive: true });
+    fs.rmSync(pathFromProjectRoot(csvOutputDirectory), { recursive: true });
   });
 });

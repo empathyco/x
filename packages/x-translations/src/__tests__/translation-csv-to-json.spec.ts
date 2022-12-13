@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { getJSONTranslations } from '../csv-to-json';
 import expectedJson from '../__tests__/json/en.messages.json';
-import { pathFromCwd } from './utils';
+import { pathFromProjectRoot } from './utils';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 describe('transform CSV to a JSON', () => {
@@ -11,7 +11,7 @@ describe('transform CSV to a JSON', () => {
 
   describe('when no output path is specified', () => {
     afterEach(() => {
-      const absoluteDefaultOutputPath = pathFromCwd('output');
+      const absoluteDefaultOutputPath = pathFromProjectRoot('output');
       if (fs.existsSync(absoluteDefaultOutputPath)) {
         fs.rmSync(absoluteDefaultOutputPath, { recursive: true });
       }
@@ -28,10 +28,10 @@ describe('transform CSV to a JSON', () => {
 
       getJSONTranslations();
 
-      expect(require(pathFromCwd('output/en.messages.json'))).toEqual(
+      expect(require(pathFromProjectRoot('output/en.messages.json'))).toEqual(
         require('./json/en.messages.json')
       );
-      expect(require(pathFromCwd('output/es.messages.json'))).toEqual(
+      expect(require(pathFromProjectRoot('output/es.messages.json'))).toEqual(
         require('./json/es.messages.json')
       );
     });
@@ -44,7 +44,7 @@ describe('transform CSV to a JSON', () => {
 
     getJSONTranslations();
 
-    const absolutExpectedOutputFolder = pathFromCwd(jsonOutputDirectory);
+    const absolutExpectedOutputFolder = pathFromProjectRoot(jsonOutputDirectory);
     expect(require(path.resolve(absolutExpectedOutputFolder, `en.messages.json`))).toEqual(
       require('./json/en.messages.json')
     );
