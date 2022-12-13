@@ -59,7 +59,7 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit == 'true'
         run: npm run build
       - name: Set jest cache directory
-        if: steps.cache-jest.outputs.cache-hit != 'true' &&  ${{ matrix.task == 'test:unit' }}
+        if: ${{ matrix.task == 'test:unit' && steps.cache-jest.outputs.cache-hit != 'true' }}
         run: echo "JEST_DIRECTORY=-- --cacheDirectory ./__tests__/cache" >> $GITHUB_ENV
       - name: Run ${{ matrix.task }}
         run: npm run ${{ matrix.task }} ${{ env.JEST_DIRECTORY }}
