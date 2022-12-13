@@ -51,7 +51,7 @@
     "gen:component-docs": "vue-docgen",
     "postbuild": "npm pack ./dist",
     "prepublishOnly": "npm run build",
-    "test:unit": "jest --silent --maxWorkers=2 && npm run test:unit-cypress",
+    "test:unit": "jest --silent && npm run test:unit-cypress",
     "test:unit-jest": "jest",
     "test:unit-cypress": "cypress run-ct",
     "test:unit-coverage": "jest --coverage",

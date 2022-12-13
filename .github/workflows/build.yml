@@ -36,6 +36,15 @@ jobs:
         with:
           path: .eslintcache
           key: eslint-${{github.sha}}
+          restore-keys: eslint-
+      - name: Cache Jest
+        if: ${{ matrix.task == 'test:unit' }}
+        id: cache-jest
+        uses: actions/cache@v3
+        with:
+          path: ./tmp/jest
+          key: jest-${{github.sha}}
+          restore-keys: jest-
       - name: Cache Cypress
         if: ${{ matrix.task == 'test:e2e:ci' || matrix.task == 'test:component' }}
         id: cache-cypress
@@ -49,8 +58,12 @@ jobs:
       - name: Build
         if: steps.cache-node-modules.outputs.cache-hit == 'true'
         run: npm run build
+      - name: Set jest cache directory
+        if: steps.cache-jest.outputs.cache-hit != 'true' &&  ${{ matrix.task == 'test:unit' }}
+        run: echo "JEST_CACHE=-- --cacheDirectory ./__tests__/cache" >> $GITHUB_ENV
       - name: Run ${{ matrix.task }}
-        run: npm run ${{ matrix.task }}
+        run: npm run ${{ matrix.task }} ${{ JEST_CACHE }}
+
   release:
     needs: [build]
     runs-on: ubuntu-latest
