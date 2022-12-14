@@ -27,6 +27,9 @@ jobs:
       - name: Install lerna and all packages
         if: steps.cache.outputs.cache-node-modules != 'true'
         run: npm ci
+      - name: Build
+        if: steps.cache.outputs.cache-node-modules == 'true'
+        run: npm run build
       - name: Run ${{ matrix.task }}
         run: npm run ${{ matrix.task }}
   release:
