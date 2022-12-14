@@ -23,35 +23,10 @@ jobs:
       # but this is not the standard, normally, only the node_modules/.cache should be cached. Also, as cypress image is used, node is already
       # preinstalled, the expected action `setup-node` is not used.
       # https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#about-caching-workflow-dependencies
-      - name: Cache node modules
-        id: cache-node-modules
-        uses: actions/cache@v3
+      - name: Enables cache
+        uses: ./.github/actions/cache
         with:
-          path: '**/node_modules'
-          key: node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Cache eslint
-        if: ${{ matrix.task == 'lint' }}
-        id: cache-eslint
-        uses: actions/cache@v3
-        with:
-          path: .eslintcache
-          key: eslint-${{github.sha}}
-          restore-keys: eslint-
-      - name: Cache Jest
-        if: ${{ matrix.task == 'test:unit' }}
-        id: cache-jest
-        uses: actions/cache@v3
-        with:
-          path: ./tmp/jest
-          key: jest-${{github.sha}}
-          restore-keys: jest-
-      - name: Cache Cypress
-        if: ${{ matrix.task == 'test:e2e:ci' || matrix.task == 'test:component' }}
-        id: cache-cypress
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-cache
+          task_name: ${{ matrix.task }}
       - name: Install lerna and all packages
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci

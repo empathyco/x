@@ -1,0 +1,38 @@
+name: Enables Cache
+description: Enables the cache for different task
+inputs:
+  task_name:
+    description: Task used to check if the cache should be used
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Cache node modules
+      id: cache-node-modules
+      uses: actions/cache@v3
+      with:
+        path: '**/node_modules'
+        key: node-modules-${{ hashFiles('**/package-lock.json') }}
+    - name: Cache eslint
+      if: ${{ inputs.task_name == 'lint' }}
+      id: cache-eslint
+      uses: actions/cache@v3
+      with:
+        path: .eslintcache
+        key: eslint-${{github.sha}}
+        restore-keys: eslint-
+    - name: Cache Jest
+      if: ${{ inputs.task_name == 'test:unit' }}
+      id: cache-jest
+      uses: actions/cache@v3
+      with:
+        path: ./tmp/jest
+        key: jest-${{github.sha}}
+        restore-keys: jest-
+    - name: Cache Cypress
+      if: ${{ inputs.task_name== 'test:e2e:ci' || inputs.task_name == 'test:component' }}
+      id: cache-cypress
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/Cypress
+        key: cypress-cache
