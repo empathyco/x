@@ -1,5 +1,9 @@
 name: Enables Cache
 description: Enables the cache for different task
+outputs:
+  cache-node-modules:
+    description: "Node modules cache"
+    value: ${{ steps.cache-node-modules.outputs.cache-hit }}
 inputs:
   task_name:
     description: Task used to check if the cache should be used
