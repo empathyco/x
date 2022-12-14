@@ -1,7 +1,7 @@
 import { TailwindHelpers } from '../../../../types';
 
 /**
- * Returns the `sizes` variants for component `title2`.
+ * Returns the `sizes` variants for component `title4`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the variant.
@@ -10,15 +10,14 @@ import { TailwindHelpers } from '../../../../types';
 export function titleSizes({ theme }: TailwindHelpers) {
   return {
     sm: {
-      fontSize: theme('fontSize.xl')
+      fontSize: theme('fontSize.xs')
     },
     md: {
-      fontSize: theme('fontSize.xl'),
+      fontSize: theme('fontSize.md'),
       lineHeight: theme('lineHeight.md')
     },
     lg: {
-      fontSize: theme('fontSize.3xl'),
-      lineHeight: theme('lineHeight.sm')
+      fontSize: theme('fontSize.lg')
     }
   };
 }

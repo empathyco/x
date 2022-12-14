@@ -11,9 +11,8 @@ import { textSizes } from './sizes';
 export function textDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    fontFamily: theme('fontFamily.lead'),
+    fontFamily: theme('fontFamily.main'),
     fontWeight: theme('fontWeight.regular'),
-    letterSpacing: theme('letterSpacing.md'),
 
     ...textSizes(helpers).md
   };

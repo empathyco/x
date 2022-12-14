@@ -57,6 +57,10 @@
         'x-title3': {
           base: 'x-title3',
           sizes: ['x-title3-sm', 'x-title3-md', 'x-title3-lg']
+        },
+        'x-title4': {
+          base: 'x-title4',
+          sizes: ['x-title4-sm', 'x-title4-md', 'x-title4-lg']
         }
       };
     }
