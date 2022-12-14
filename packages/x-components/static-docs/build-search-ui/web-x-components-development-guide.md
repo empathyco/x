@@ -46,7 +46,6 @@ To integrate the X&nbsp;Components in a frontend UI, you need:
 
 <VideoReference videoId="JjjIaQlG9aE" customDescription="Watch how to integrate the Interface X Components in a project from scratch."/>
 
-
 ## Installing the dependencies
 
 To build your search and discovery UI, the following project dependencies are required:
