@@ -7,6 +7,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    # Using lerna, it is recommended to cache the whole node_modules folder https://github.com/actions/cache/blob/main/examples.md#node---lerna
+    # but this is not the standard, normally, only the node_modules/.cache should be cached. Also, as cypress image is used, node is already
+    # preinstalled, the expected action `setup-node` is not used.
+    # https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#about-caching-workflow-dependencies
     - name: Cache node modules
       id: cache-node-modules
       uses: actions/cache@v3

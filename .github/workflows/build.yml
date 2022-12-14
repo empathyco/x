@@ -19,23 +19,19 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      # Using lerna, it is recommended to cache the whole node_modules folder https://github.com/actions/cache/blob/main/examples.md#node---lerna
-      # but this is not the standard, normally, only the node_modules/.cache should be cached. Also, as cypress image is used, node is already
-      # preinstalled, the expected action `setup-node` is not used.
-      # https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#about-caching-workflow-dependencies
       - name: Enables cache
+        id: cache
         uses: ./.github/actions/cache
         with:
           task_name: ${{ matrix.task }}
       - name: Install lerna and all packages
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        if: steps.cache.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
       - name: Build
         if: steps.cache-node-modules.outputs.cache-hit == 'true'
         run: npm run build
       - name: Run ${{ matrix.task }}
         run: npm run ${{ matrix.task }}
-
   release:
     needs: [build]
     runs-on: ubuntu-latest
