@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.249](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.248...@empathyco/x-components@3.0.0-alpha.249) (2022-12-14)
+
+
+### Features
+
+* **recommendations:** emit `RecommendationsChanged` (#922) ([11119c3](https://github.com/empathyco/x/commit/11119c353bb26ac5dc3fdd774a513b68a1098771))
+
+
+
 ## [3.0.0-alpha.248](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.247...@empathyco/x-components@3.0.0-alpha.248) (2022-12-12)
 
 
