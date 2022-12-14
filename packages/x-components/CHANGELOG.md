@@ -1,7 +1,7 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [3.0.0-alpha.249](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.248...@empathyco/x-components@3.0.0-alpha.249) (2022-12-14)
 
@@ -14,11 +14,12 @@ All notable changes to this project will be documented in this file. See
 
 ## [3.0.0-alpha.248](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.247...@empathyco/x-components@3.0.0-alpha.248) (2022-12-12)
 
+
 ### Bug Fixes
 
-- remove warning when the event is not defined (#918)
-  ([7f70e25](https://github.com/empathyco/x/commit/7f70e257bae41ba34f72c1c580c79862448faea9)),
-  closes [EX-7617](https://searchbroker.atlassian.net/browse/EX-7617)
+* remove warning when the event is not defined (#918) ([7f70e25](https://github.com/empathyco/x/commit/7f70e257bae41ba34f72c1c580c79862448faea9)), closes [EX-7617](https://searchbroker.atlassian.net/browse/EX-7617)
+
+
 
 # Change Log
 
