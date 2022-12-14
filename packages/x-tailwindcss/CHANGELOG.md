@@ -1,16 +1,15 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [0.2.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.33...@empathyco/x-tailwindcss@0.2.0-alpha.34) (2022-12-12)
 
-
 ### Features
 
-* **design-system:** Add typography component to the XDS (#905) ([f09d511](https://github.com/empathyco/x/commit/f09d511341c37c3f037d9c670066f80dab1dc760)), closes [EX-5910](https://searchbroker.atlassian.net/browse/EX-5910)
-
-
+- **design-system:** Add typography component to the XDS (#905)
+  ([f09d511](https://github.com/empathyco/x/commit/f09d511341c37c3f037d9c670066f80dab1dc760)),
+  closes [EX-5910](https://searchbroker.atlassian.net/browse/EX-5910)
 
 # Change Log
 

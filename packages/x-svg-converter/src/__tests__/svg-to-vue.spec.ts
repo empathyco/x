@@ -89,12 +89,10 @@ describe('test SVG to Vue script', () => {
    * Generate the SVG files used in the tests.
    */
   function generateTestSVGs(): void {
-    const absoluteSourcePath = path.resolve(process.cwd(), sourcePath);
-
-    if (fs.existsSync(absoluteSourcePath)) {
+    if (fs.existsSync(sourcePath)) {
       [0, 1].forEach(i => {
-        if (!fs.existsSync(`${absoluteSourcePath}/test_svg_${i}.svg`)) {
-          fs.writeFileSync(`${absoluteSourcePath}/test_svg_${i}.svg`, svgStub);
+        if (!fs.existsSync(`${sourcePath}/test_svg_${i}.svg`)) {
+          fs.writeFileSync(`${sourcePath}/test_svg_${i}.svg`, svgStub);
         }
       });
     }
@@ -104,12 +102,10 @@ describe('test SVG to Vue script', () => {
    * Remove the vue files product of the tests.
    */
   function removeVueTestFiles(): void {
-    const absoluteSourcePath = path.resolve(process.cwd(), sourcePath);
-
-    if (fs.existsSync(absoluteSourcePath)) {
+    if (fs.existsSync(sourcePath)) {
       [0, 1].forEach(i => {
-        if (fs.existsSync(`${absoluteSourcePath}/test_svg_${i}.vue`)) {
-          fs.rmSync(`${absoluteSourcePath}/test_svg_${i}.vue`, { recursive: true });
+        if (fs.existsSync(`${sourcePath}/test_svg_${i}.vue`)) {
+          fs.rmSync(`${sourcePath}/test_svg_${i}.vue`, { recursive: true });
         }
       });
     }

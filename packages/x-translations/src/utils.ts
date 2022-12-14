@@ -20,7 +20,7 @@ export function getParams(): CommandParameters {
  *
  * @param sourcePath - The path of the file.
  *
- * @returns The source file depending if it is a CSV or a JSON.
+ * @returns The source file depending on if it is a CSV or a JSON.
  */
 export function loadFile(sourcePath: string): JSON | string {
   if (!fs.existsSync(sourcePath)) {
@@ -57,10 +57,11 @@ export function getSourcePaths(source: string, extension: string): string[] {
  */
 export function exportToFile(fileName: string, data: string): void {
   const { targetPath = 'output' } = getParams();
-  const outputPath = path.join(targetPath, fileName);
-  if (!fs.existsSync(targetPath)) {
-    fs.mkdirSync(targetPath, { recursive: true });
+  const outputPath = path.join(__dirname, '..', targetPath);
+  const outputFilePath = path.join(outputPath, fileName);
+  if (!fs.existsSync(outputPath)) {
+    fs.mkdirSync(outputPath, { recursive: true });
   }
 
-  fs.writeFileSync(outputPath, data);
+  fs.writeFileSync(outputFilePath, data);
 }

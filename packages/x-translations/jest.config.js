@@ -1,8 +1,8 @@
+const base = require('../../jest-base.config');
+
 module.exports = {
-  moduleFileExtensions: [
-    'ts',
-    'js'
-  ],
+  ...base,
+  moduleFileExtensions: ['ts', 'js'],
   transform: {
     '^.+\\.ts?$': 'ts-jest'
   },

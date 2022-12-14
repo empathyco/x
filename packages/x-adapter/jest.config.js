@@ -1,4 +1,7 @@
+const base = require('../../jest-base.config');
+
 module.exports = {
+  ...base,
   moduleFileExtensions: ['ts', 'js'],
   roots: ['<rootDir>/src'],
   testEnvironment: 'jsdom',
