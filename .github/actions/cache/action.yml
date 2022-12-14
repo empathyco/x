@@ -1,5 +1,5 @@
 name: Enables Cache
-description: Enables the cache for different task
+description: Enables the cache for different tasks
 outputs:
   cache-node-modules:
     description: "Node modules cache"
