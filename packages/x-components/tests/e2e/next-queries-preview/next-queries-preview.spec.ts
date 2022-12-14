@@ -1,6 +1,4 @@
-import { When, Given, Then } from '@badeball/cypress-cucumber-preprocessor';
-import { Interception } from 'cypress/types/net-stubbing';
-
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 /**
  * Gets the name of the first Next Query to preview.
  *
@@ -28,7 +26,9 @@ Given(
 
 Given('next queries preview name is shown and it is clickable', () => {
   getFirstNextQueryToPreview();
-  cy.get<Interception>('@firstNextQueryToPreview').then(firstNextQueryToPreview => {
+  // TODO Remove any: Cypress does not export Interception type
+  // https://github.com/cypress-io/cypress/issues/21347
+  cy.get('@firstNextQueryToPreview').then((firstNextQueryToPreview: any) => {
     cy.getByDataTest('next-query-preview')
       .getByDataTest('next-query-preview-name')
       .should('contain', firstNextQueryToPreview.response!.body.nextQueries[0].query)
@@ -47,7 +47,7 @@ When('{string} is clicked', (clickedItem: string) => {
 
 Then('new {string} URL is opened', (newURL: string) => {
   getFirstNextQueryToPreview();
-  cy.get<Interception>('@firstNextQueryToPreview').then(firstNextQueryToPreview => {
+  cy.get('@firstNextQueryToPreview').then((firstNextQueryToPreview: any) => {
     if (newURL === 'results-page') {
       cy.location('search').should(
         'contain',
