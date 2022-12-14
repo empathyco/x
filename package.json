@@ -8,7 +8,7 @@
     "lint": "eslint packages --ext .ts,.tsx,.vue --quiet --cache --cache-strategy content",
     "lint:fix": "eslint packages --ext .ts,.tsx,.vue --fix",
     "test:unit": "jest",
-    "test:component": "lerna run test:unit-cypress --parallel",
+    "test:unit-cypress": "lerna run test:unit-cypress --parallel",
     "test:e2e:ci": "lerna run test:e2e:ci --parallel",
     "serve": "lerna run serve --parallel",
     "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
