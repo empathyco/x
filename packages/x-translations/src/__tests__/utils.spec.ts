@@ -1,13 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 import { exportToFile, getParams, loadFile } from '../utils';
-import { pathFromProjectRoot } from './utils';
 
 describe('test utils', () => {
-  const jsonPath = path.resolve(__dirname, 'json');
+  const jsonPath = './src/__tests__/json';
+  const targetPath = './translations';
 
   afterEach(() => {
-    const absoluteTargetPath = pathFromProjectRoot('translations');
+    const absoluteTargetPath = path.resolve(process.cwd(), targetPath);
     if (fs.existsSync(absoluteTargetPath)) {
       fs.rmSync(absoluteTargetPath, { recursive: true });
     }
@@ -32,6 +32,6 @@ describe('test utils', () => {
 
     exportToFile('en.messages.json', 'Test file');
 
-    expect(fs.existsSync(pathFromProjectRoot('/output/en.messages.json'))).toBe(true);
+    expect(fs.existsSync('./output/en.messages.json')).toBe(true);
   });
 });

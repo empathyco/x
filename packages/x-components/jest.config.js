@@ -1,7 +1,4 @@
-const base = require('../../jest-base.config');
-
 module.exports = {
-  ...base,
   preset: 'ts-jest',
   transform: {
     '^.+\\.vue$': require.resolve('./vue-preprocessor'),
