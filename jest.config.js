@@ -1,5 +1,5 @@
 const glob = require('glob');
-const base = require('../../jest-base.config');
+const base = require('./jest-base.config');
 
 module.exports = {
   ...base,
