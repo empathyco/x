@@ -111,9 +111,12 @@ function runPrettier(): void {
  */
 function removeSourceSVG(svgInfo: SVGInfo): void {
   const { sourcePath } = getParams();
-  fs.unlink(`${sourcePath}/${svgInfo.fileName}.svg`, error => {
-    if (error) {
-      throw Error(`removeSourceSVG, ${error.message}`);
-    }
-  });
+  const filePath = `${sourcePath}/${svgInfo.fileName}.svg`;
+  if (fs.existsSync(filePath)) {
+    fs.unlink(filePath, error => {
+      if (error) {
+        throw Error(`removeSourceSVG, ${error.message}`);
+      }
+    });
+  }
 }
