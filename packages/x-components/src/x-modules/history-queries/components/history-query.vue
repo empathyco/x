@@ -5,17 +5,15 @@
       v-bind="{ suggestion, suggestionSelectedEvents, query }"
       data-test="history-query"
       feature="history_query"
+      #default="baseScope"
     >
-      <template #default="{ suggestion, queryHTML }">
-        <!-- eslint-disable max-len -->
-        <!--
+      <!-- eslint-disable max-len -->
+      <!--
           @slot History Query content
-              @binding {Suggestion} suggestion - History Query suggestion data
-              @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
-        -->
-        <!-- eslint-enable max-len -->
-        <slot v-bind="{ suggestion, queryHTML }" />
-      </template>
+              @binding {Object} v-bind - `BaseSuggestion` default slot scope: **suggestion** <code>Suggestion</code> - Suggestion data<br /> **query** <code>string</code> - The query that the suggestion belongs to<br /> **filter** <code>Filter \| undefined</code> - Suggestion's filter
+      -->
+      <!-- eslint-enable max-len -->
+      <slot v-bind="{ ...baseScope }" />
     </BaseSuggestion>
     <RemoveHistoryQuery
       class="x-history-query__remove"
@@ -25,7 +23,7 @@
       <!--
           @slot History Query remove button content
               @binding {Suggestion} suggestion - History Query suggestion data
-        -->
+      -->
       <slot name="remove-button-content" v-bind="{ suggestion }">✕</slot>
     </RemoveHistoryQuery>
   </div>
@@ -36,6 +34,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { Getter } from '../../../components/decorators/store.decorators';
+  import Highlight from '../../../components/highlight.vue';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
@@ -51,7 +50,7 @@
    */
   @Component({
     mixins: [xComponentMixin(historyQueriesXModule)],
-    components: { RemoveHistoryQuery, BaseSuggestion }
+    components: { Highlight, RemoveHistoryQuery, BaseSuggestion }
   })
   export default class HistoryQuery extends Vue {
     /**
@@ -129,9 +128,9 @@ that serves to remove this query from the history. This slot only has one proper
 ```vue live
 <template>
   <HistoryQuery :suggestion="suggestion">
-    <template #default="{ suggestion, queryHTML }">
+    <template #default="{ suggestion }">
       <HistoryIcon />
-      <span class="x-history-query__matching-part" v-html="queryHTML" />
+      <Highlight highlight="tro" :text="suggestion.query" />
     </template>
 
     <template #remove-button-content="{ suggestion }">
@@ -142,14 +141,15 @@ that serves to remove this query from the history. This slot only has one proper
 
 <script>
   import { HistoryQuery } from '@empathyco/x-components/history-queries';
-  import { HistoryIcon, CrossIcon } from '@empathyco/x-components';
+  import { HistoryIcon, CrossIcon, Highlight } from '@empathyco/x-components';
 
   export default {
     name: 'HistoryQueryDemo',
     components: {
       HistoryQuery,
       HistoryIcon,
-      CrossIcon
+      CrossIcon,
+      Highlight
     },
     data() {
       return {
