@@ -32,6 +32,6 @@ describe('test utils', () => {
 
     exportToFile('en.messages.json', 'Test file');
 
-    expect(fs.existsSync(path.join(__dirname, '../../output/en.messages.json'))).toBe(true);
+    expect(fs.existsSync(pathFromProjectRoot('/output/en.messages.json'))).toBe(true);
   });
 });
