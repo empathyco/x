@@ -11,9 +11,8 @@ import { titleSizes } from './sizes';
 export function titleDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    fontFamily: theme('fontFamily.extra'),
-    fontWeight: theme('fontWeight.regular'),
-    letterSpacing: theme('letterSpacing.md'),
+    fontFamily: theme('fontFamily.main'),
+    fontWeight: theme('fontWeight.bold'),
 
     ...titleSizes(helpers).md
   };
