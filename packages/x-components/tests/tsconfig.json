@@ -7,6 +7,6 @@
     "downlevelIteration": true,
     "rootDir": "../"
   },
-  "include": ["./**/*.ts", "../cypress.config.ts"],
+  "include": ["./**/*.ts"],
   "exclude": ["node_modules", "**/__tests__/**/*"]
 }

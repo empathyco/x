@@ -27,8 +27,8 @@
   "scripts": {
     "serve": "vite serve tests/demo",
     "build": "tsc",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run --headless --browser chrome",
+    "cypress:open": "cypress open -C tests/cypress.config.ts --browser chrome",
+    "cypress:run": "cypress run -C tests/cypress.config.ts  --headless --browser chrome",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build",
     "test": "npm run test:unit && npm run test:e2e:ci",

@@ -56,15 +56,15 @@
     "test:unit-cypress": "cypress run --component",
     "test:unit-coverage": "jest --coverage",
     "test:unit-watch": "jest --watch",
-    "test:e2e": "vue-cli-service test:e2e --e2e",
-    "test:e2e:firefox": "vue-cli-service test:e2e --e2e --browser firefox",
-    "test:e2e:ci": "vue-cli-service test:e2e --headless --browser chrome",
+    "test:e2e": "vue-cli-service test:e2e -C tests/cypress.config.ts --e2e --browser chrome",
+    "test:e2e:firefox": "vue-cli-service test:e2e -C tests/cypress.config.ts --e2e --browser firefox",
+    "test:e2e:ci": "vue-cli-service test:e2e -C tests/cypress.config.ts --headless --browser chrome",
     "test": "npm run test:unit && npm run test:e2e:ci",
-    "cypress:open": "cypress open --e2e --browser chrome",
-    "cypress:open:firefox": "cypress open--e2e --browser firefox",
-    "cypress:open:component": "cypress open --component --browser chrome",
-    "cypress:open:component:safari": "cypress open --component --browser safari",
-    "cypress:open:component:firefox": "cypress open --component --browser firefox"
+    "cypress:open": "cypress open -C tests/cypress.config.ts --e2e --browser chrome",
+    "cypress:open:firefox": "cypress open -C tests/cypress.config.ts--e2e --browser firefox",
+    "cypress:open:component": "cypress open -C tests/cypress.config.ts --component --browser chrome",
+    "cypress:open:component:safari": "cypress open -C tests/cypress.config.ts --component --browser safari",
+    "cypress:open:component:firefox": "cypress open -C tests/cypress.config.ts --component --browser firefox"
   },
   "dependencies": {
     "@empathyco/x-adapter": "^8.0.0-alpha.12",
@@ -86,7 +86,7 @@
     "vuex": "^3.0.0"
   },
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "~14.0.0",
+    "@badeball/cypress-cucumber-preprocessor": "~15.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "~2.1.5",
     "@empathyco/x-adapter-platform": "^1.0.0-alpha.45",
     "@empathyco/x-tailwindcss": "^0.2.0-alpha.34",
@@ -106,6 +106,7 @@
     "@vue/vue2-jest": "~27.0.0-alpha.3",
     "autoprefixer": "~10.4.4",
     "cypress": "~12.1.0",
+    "esbuild": "0.15.16",
     "glob": "~7.1.6",
     "jest": "~27.3.1",
     "jest-scss-transform": "~1.0.1",
