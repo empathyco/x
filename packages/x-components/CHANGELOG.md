@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.250](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.249...@empathyco/x-components@3.0.0-alpha.250) (2022-12-15)
+
+
+### Continuous Integration
+
+* use matrix steps and jest projects (#919) ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
+
+
+
 ## [3.0.0-alpha.249](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.248...@empathyco/x-components@3.0.0-alpha.249) (2022-12-14)
 
 
