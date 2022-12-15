@@ -53,7 +53,7 @@
     "prepublishOnly": "npm run build",
     "test:unit": "jest --silent && npm run test:unit-cypress",
     "test:unit-jest": "jest",
-    "test:unit-cypress": "cypress run --component",
+    "test:unit-cypress": "cypress run -C tests/cypress.config.ts --component",
     "test:unit-coverage": "jest --coverage",
     "test:unit-watch": "jest --watch",
     "test:e2e": "vue-cli-service test:e2e -C tests/cypress.config.ts --e2e --browser chrome",
