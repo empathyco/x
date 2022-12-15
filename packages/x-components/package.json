@@ -63,7 +63,6 @@
     "cypress:open": "cypress open -C tests/cypress.config.ts --e2e --browser chrome",
     "cypress:open:firefox": "cypress open -C tests/cypress.config.ts--e2e --browser firefox",
     "cypress:open:component": "cypress open -C tests/cypress.config.ts --component --browser chrome",
-    "cypress:open:component:safari": "cypress open -C tests/cypress.config.ts --component --browser safari",
     "cypress:open:component:firefox": "cypress open -C tests/cypress.config.ts --component --browser firefox"
   },
   "dependencies": {
