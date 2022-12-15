@@ -10,7 +10,7 @@ import { TailwindHelpers } from '../../../../types';
 export function titleSizes({ theme }: TailwindHelpers) {
   return {
     sm: {
-      fontSize: theme('fontSize.xl')
+      fontSize: theme('fontSize.lg')
     },
     md: {
       fontSize: theme('fontSize.xl'),

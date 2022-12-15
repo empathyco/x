@@ -84,7 +84,7 @@ export default {
   fontWeight: {
     light: '200',
     regular: '400',
-    bold: '600'
+    bold: '700'
   },
   letterSpacing: {
     sm: '-0.01em',
