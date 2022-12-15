@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.251](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.250...@empathyco/x-components@3.0.0-alpha.251) (2022-12-15)
+
+
+### Documentation
+
+* use new docs video reference component (#923) ([c1f2bff](https://github.com/empathyco/x/commit/c1f2bffa684c10149c97b4d746fecbe4519fa126))
+
+
+
 ## [3.0.0-alpha.250](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.249...@empathyco/x-components@3.0.0-alpha.250) (2022-12-15)
 
 
