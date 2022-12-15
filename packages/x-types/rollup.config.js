@@ -39,10 +39,7 @@ const schemas = {
     format: 'cjs'
   },
   external: ['@empathyco/x-jest-utils'],
-  plugins: [
-    del({ targets: 'schemas' }),
-    typescript({ clean: true }),
-  ]
+  plugins: [del({ targets: 'schemas' }), typescript({ clean: true })]
 };
 
 export default [models, schemas];

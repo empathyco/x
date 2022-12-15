@@ -11,10 +11,14 @@ export interface Previewable {
   query: string;
   /** Facets to apply to the `query` property when searching. */
   facets?: Facet[];
-  /** The results that the combination of `query` and `facets` properties return, or `null` if
-   * they have not been loaded yet. */
+  /**
+   * The results that the combination of `query` and `facets` properties return, or `null` if
+   * they have not been loaded yet.
+   */
   results?: Result[] | null;
-  /** The number of results that the combination of `query` and `facets` properties return, or
-   * `null` if they have not been loaded yet. */
+  /**
+   * The number of results that the combination of `query` and `facets` properties return, or
+   * `null` if they have not been loaded yet.
+   */
   totalResults?: number | null;
 }
