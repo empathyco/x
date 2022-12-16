@@ -167,7 +167,6 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
 
 const addQueryToHistoryAction = new AddQueryToHistoryAction();
 
-// eslint-disable-next-line jsdoc/require-description-complete-sentence
 /**.
  * {@inheritDoc AddQueryToHistoryAction.addQueryToHistory}
  *
