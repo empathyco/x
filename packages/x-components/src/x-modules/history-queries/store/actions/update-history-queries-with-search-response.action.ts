@@ -43,4 +43,5 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
         }
       }
     }
+    return undefined;
   };

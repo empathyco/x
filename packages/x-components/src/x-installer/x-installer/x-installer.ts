@@ -142,6 +142,7 @@ export class XInstaller {
     } else if (typeof window.initX === 'object') {
       return window.initX;
     }
+    return undefined;
   }
 
   /**
@@ -284,6 +285,7 @@ export class XInstaller {
       this.options.onCreateApp?.(app);
       return app;
     }
+    return undefined;
   }
 
   protected normaliseSnippetConfig(snippetConfig: SnippetConfig): NormalisedSnippetConfig;

@@ -102,7 +102,7 @@ function applySubSchemaTransformer<Source, Target>(
   const subSource = extractValue(source, $path);
 
   if (!subSource) {
-    return;
+    return undefined;
   }
 
   const extendedContext: Dictionary = {};

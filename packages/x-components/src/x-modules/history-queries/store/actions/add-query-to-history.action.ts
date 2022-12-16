@@ -28,7 +28,7 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
   ): void | Promise<void> {
     const normalizedQuery = normalizeString(query);
     if (!normalizedQuery) {
-      return;
+      return undefined;
     }
 
     if (isArrayEmpty(state.historyQueries)) {
@@ -40,6 +40,7 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
       newHistory.unshift(this.createHistoryQuery(query));
       return dispatch('setHistoryQueries', newHistory);
     }
+    return undefined;
   }
 
   /**
@@ -167,7 +168,7 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
 const addQueryToHistoryAction = new AddQueryToHistoryAction();
 
 // eslint-disable-next-line jsdoc/require-description-complete-sentence
-/**
+/**.
  * {@inheritDoc AddQueryToHistoryAction.addQueryToHistory}
  *
  * @public

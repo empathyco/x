@@ -15,7 +15,7 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
   ({ dispatch, commit }, request) => {
     const { query } = request;
     if (!query) {
-      return;
+      return undefined;
     }
     commit('setQueryPreview', {
       request,

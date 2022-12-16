@@ -23,6 +23,7 @@ export function extractValue<SomeObject extends Dictionary, Path extends Extract
       return result;
     }
   }
+  return result;
 }
 
 /**
