@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.43...@empathyco/x-types@10.0.0-alpha.44) (2022-12-16)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.42...@empathyco/x-types@10.0.0-alpha.43) (2022-11-28)
 
 **Note:** Version bump only for package @empathyco/x-types

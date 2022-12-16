@@ -1,43 +1,40 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.252](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.251...@empathyco/x-components@3.0.0-alpha.252) (2022-12-16)
+
+**Note:** Version bump only for package @empathyco/x-components
 
 ## [3.0.0-alpha.251](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.250...@empathyco/x-components@3.0.0-alpha.251) (2022-12-15)
 
-
 ### Documentation
 
-* use new docs video reference component (#923) ([c1f2bff](https://github.com/empathyco/x/commit/c1f2bffa684c10149c97b4d746fecbe4519fa126))
-
-
+- use new docs video reference component (#923)
+  ([c1f2bff](https://github.com/empathyco/x/commit/c1f2bffa684c10149c97b4d746fecbe4519fa126))
 
 ## [3.0.0-alpha.250](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.249...@empathyco/x-components@3.0.0-alpha.250) (2022-12-15)
 
-
 ### Continuous Integration
 
-* use matrix steps and jest projects (#919) ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
-
-
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
 
 ## [3.0.0-alpha.249](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.248...@empathyco/x-components@3.0.0-alpha.249) (2022-12-14)
 
-
 ### Features
 
-* **recommendations:** emit `RecommendationsChanged` (#922) ([11119c3](https://github.com/empathyco/x/commit/11119c353bb26ac5dc3fdd774a513b68a1098771))
-
-
+- **recommendations:** emit `RecommendationsChanged` (#922)
+  ([11119c3](https://github.com/empathyco/x/commit/11119c353bb26ac5dc3fdd774a513b68a1098771))
 
 ## [3.0.0-alpha.248](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.247...@empathyco/x-components@3.0.0-alpha.248) (2022-12-12)
 
-
 ### Bug Fixes
 
-* remove warning when the event is not defined (#918) ([7f70e25](https://github.com/empathyco/x/commit/7f70e257bae41ba34f72c1c580c79862448faea9)), closes [EX-7617](https://searchbroker.atlassian.net/browse/EX-7617)
-
-
+- remove warning when the event is not defined (#918)
+  ([7f70e25](https://github.com/empathyco/x/commit/7f70e257bae41ba34f72c1c580c79862448faea9)),
+  closes [EX-7617](https://searchbroker.atlassian.net/browse/EX-7617)
 
 # Change Log
 
