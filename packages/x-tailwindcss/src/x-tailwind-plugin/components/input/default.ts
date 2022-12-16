@@ -18,6 +18,12 @@ export function inputDefault(helpers: TailwindHelpers) {
     cursor: 'pointer',
     fontWeight: theme('fontWeight.regular'),
     outline: 'none',
+    '&::placeholder': {
+      color: theme('colors.neutral.50'),
+      fontFamily: theme('fontFamily.main'),
+      fontSize: theme('fontSize.md'),
+      fontWeight: theme('fontWeight.regular')
+    },
     ...inputColors(helpers).neutral,
     ...inputSizes(helpers).md
   };
