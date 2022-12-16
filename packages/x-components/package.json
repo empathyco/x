@@ -83,7 +83,7 @@
   },
   "devDependencies": {
     "@cypress/vue": "~2.2.4",
-    "@cypress/webpack-dev-server": "~1.8.4",
+    "@cypress/webpack-dev-server": "~3.1.1",
     "@empathyco/x-adapter-platform": "^1.0.0-alpha.45",
     "@empathyco/x-tailwindcss": "^0.2.0-alpha.35",
     "@microsoft/api-documenter": "~7.15.3",
