@@ -12,7 +12,7 @@ export function inputColors(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return mapColors(
     color => ({
-      '--input-color-50': color['25'],
+      '--input-color-50': color['50'],
       '--input-color-75': color['75'],
       borderColor: 'var(--input-color-50)',
       backgroundColor: theme('colors.neutral.0'),
