@@ -42,7 +42,7 @@
   "devDependencies": {
     "@empathyco/x-utils": "^1.0.0-alpha.11",
     "@types/jest": "~27.0.3",
-    "concurrently": "~7.0.0",
+    "concurrently": "~7.6.0",
     "jest": "~27.3.1",
     "rimraf": "~3.0.2",
     "ts-jest": "~27.0.7",

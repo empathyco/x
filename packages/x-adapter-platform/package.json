@@ -47,7 +47,7 @@
     "@microsoft/api-documenter": "~7.15.3",
     "@microsoft/api-extractor": "~7.19.4",
     "@types/jest": "~27.0.3",
-    "concurrently": "~7.0.0",
+    "concurrently": "~7.6.0",
     "jest": "~27.3.1",
     "rimraf": "~3.0.2",
     "ts-jest": "~27.0.7",
