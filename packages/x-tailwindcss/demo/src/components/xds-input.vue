@@ -45,11 +45,8 @@
     })
     public colors!: string[];
 
-    @Prop({ default: () => ['x-input-circle', 'x-input-square'] })
-    public layouts!: string[];
-
-    @Prop({ default: () => ['x-input-outlined'] })
-    public outline!: string;
+    @Prop({ default: () => ['x-input-line'] })
+    public line!: string;
 
     @Prop({
       default: () => [
@@ -66,9 +63,8 @@
         Default: [this.base],
         Colors: this.colors.map(addParentClasses(this.base)),
         Sizes: this.sizes.map(addParentClasses(this.base)),
-        Layout: this.layouts.map(addParentClasses(this.base)),
-        Outline: this.colors.map(addParentClasses(this.base, this.outline)),
-        Disabled: [this.base, addParentClasses(this.base)(this.outline)],
+        line: this.colors.map(addParentClasses(this.base, this.line)),
+        Disabled: [this.base, addParentClasses(this.base)(this.line)],
         Combinations: this.combinations.map(addParentClasses(this.base))
       };
     }
