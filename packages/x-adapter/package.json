@@ -36,11 +36,10 @@
   },
   "dependencies": {
     "@empathyco/x-deep-merge": "^1.3.0-alpha.25",
-    "@empathyco/x-get-safe-property-chain": "^1.3.0-alpha.4",
+    "@empathyco/x-utils": "^1.0.0-alpha.11",
     "tslib": "~2.3.0"
   },
   "devDependencies": {
-    "@empathyco/x-utils": "^1.0.0-alpha.11",
     "@types/jest": "~27.0.3",
     "concurrently": "~7.6.0",
     "jest": "~27.3.1",
