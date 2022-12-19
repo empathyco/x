@@ -27,6 +27,9 @@ export function inputDefault(helpers: TailwindHelpers) {
       fontSize: theme('fontSize.md'),
       fontWeight: theme('fontWeight.regular')
     },
+    '&:disabled': {
+      cursor: 'not-allowed'
+    },
     ...inputColors(helpers).neutral,
     ...inputSizes(helpers).md
   };
