@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.13...@empathyco/x-adapter@8.0.0-alpha.14) (2022-12-19)
+
+### ⚠ BREAKING CHANGES
+
+- `getSafePropertyChain` moved to `@empathyco/x-utils` package.
+
+### Code Refactoring
+
+- add types to `getSafePropertyChain` and move it to `@empatyco/x-utils` (#940)
+  ([5118210](https://github.com/empathyco/x/commit/511821063b8b08751c15f00f233e7b611a74b2cc)),
+  closes [EX-7647](https://searchbroker.atlassian.net/browse/EX-7647)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [8.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.12...@empathyco/x-adapter@8.0.0-alpha.13) (2022-12-16)
 
 ### Continuous Integration

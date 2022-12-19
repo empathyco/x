@@ -1,30 +1,32 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.35...@empathyco/x-tailwindcss@0.2.0-alpha.36) (2022-12-19)
+
+**Note:** Version bump only for package @empathyco/x-tailwindcss
 
 ## [0.2.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.34...@empathyco/x-tailwindcss@0.2.0-alpha.35) (2022-12-15)
 
-
 ### Features
 
-* **design-system:** modify typography component (#924) ([4f97156](https://github.com/empathyco/x/commit/4f97156ea42338c430313b47310552a8a8dc3654)), closes [EX-7638](https://searchbroker.atlassian.net/browse/EX-7638)
-
+- **design-system:** modify typography component (#924)
+  ([4f97156](https://github.com/empathyco/x/commit/4f97156ea42338c430313b47310552a8a8dc3654)),
+  closes [EX-7638](https://searchbroker.atlassian.net/browse/EX-7638)
 
 ### Continuous Integration
 
-* use matrix steps and jest projects (#919) ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
-
-
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
 
 ## [0.2.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.33...@empathyco/x-tailwindcss@0.2.0-alpha.34) (2022-12-12)
 
-
 ### Features
 
-* **design-system:** Add typography component to the XDS (#905) ([f09d511](https://github.com/empathyco/x/commit/f09d511341c37c3f037d9c670066f80dab1dc760)), closes [EX-5910](https://searchbroker.atlassian.net/browse/EX-5910)
-
-
+- **design-system:** Add typography component to the XDS (#905)
+  ([f09d511](https://github.com/empathyco/x/commit/f09d511341c37c3f037d9c670066f80dab1dc760)),
+  closes [EX-5910](https://searchbroker.atlassian.net/browse/EX-5910)
 
 # Change Log
 
