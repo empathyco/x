@@ -18,6 +18,9 @@ export function inputDefault(helpers: TailwindHelpers) {
     cursor: 'pointer',
     fontWeight: theme('fontWeight.regular'),
     outline: 'none',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
     '&::placeholder': {
       color: theme('colors.neutral.50'),
       fontFamily: theme('fontFamily.main'),
