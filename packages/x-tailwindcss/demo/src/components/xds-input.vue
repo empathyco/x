@@ -1,7 +1,7 @@
 <template>
   <XdsBaseShowcase
     #default="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
-    title="Button"
+    title="Input"
     :sections="sections"
   >
     <input
@@ -10,7 +10,7 @@
       :class="cssClass"
       title="Click me to copy CSS classes"
       :disabled="section === 'Disabled'"
-      :placeholder="removeClassPrefix(cssClass, base) || 'input'"
+      :placeholder="removeClassPrefix(cssClass, base).trim() || 'input'"
     />
   </XdsBaseShowcase>
 </template>
