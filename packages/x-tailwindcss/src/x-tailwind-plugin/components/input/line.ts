@@ -11,22 +11,22 @@ export function inputLine(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     line: {
+      '--border-color': 'var(--input-color-50)',
       borderWidth: 0,
-      borderBottomWidth: theme('borderWidth.1'),
-
+      backgroundImage: 'linear-gradient(var(--border-color) ,var(--border-color))',
+      backgroundPosition: 'bottom',
+      backgroundSize: '100% 1px',
+      backgroundRepeat: 'no-repeat',
       '&:hover': {
-        borderBottomWidth: theme('borderWidth.2')
+        backgroundSize: '100% 2px'
       },
-
       '&:focus': {
-        borderColor: theme('colors.neutral.90'),
-        color: theme('colors.neutral.90'),
-        borderBottomWidth: theme('borderWidth.2')
+        backgroundSize: '100% 2px',
+        color: theme('colors.neutral.90')
       },
-
       '&:disabled': {
         backgroundColor: theme('colors.neutral.10'),
-        borderColor: theme('colors.neutral.25')
+        '--border-color': theme('colors.neutral.25')
       }
     }
   };
