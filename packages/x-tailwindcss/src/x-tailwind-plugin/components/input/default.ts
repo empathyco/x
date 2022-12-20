@@ -19,6 +19,7 @@ export function inputDefault(helpers: TailwindHelpers) {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    gap: theme('spacing.8'),
     paddingInlineStart: theme('spacing.16'),
     paddingInlineEnd: theme('spacing.16'),
     '&::placeholder': {

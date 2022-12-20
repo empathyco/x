@@ -15,7 +15,6 @@ export function inputSizes({ theme }: TailwindHelpers) {
     },
     md: {
       minHeight: theme('spacing.40'),
-      gap: theme('spacing.8'),
       fontSize: theme('fontSize.sm')
     },
     lg: {
