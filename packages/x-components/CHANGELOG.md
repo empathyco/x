@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.254](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.253...@empathyco/x-components@3.0.0-alpha.254) (2022-12-20)
+
+### ⚠ BREAKING CHANGES
+
+- Rename `NextQueryPreviewMounted` to `NextQueryPreviewMountedHook` and `QueryPreviewRemoved` to
+  `QueryPreviewUnmountedHook`
+
+### Features
+
+- Rename lifecycle hook events (#939)
+  ([e626b89](https://github.com/empathyco/x/commit/e626b899849b6742e0bce57d86a8ff89718817bf)),
+  closes [EX-7580](https://searchbroker.atlassian.net/browse/EX-7580)
+- **scroll:** capture listeners in MainScrollItem component (#942)
+  ([2719a3d](https://github.com/empathyco/x/commit/2719a3dd6c1408f9413ecbee4ebf3c46bf24eea2))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.253](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.252...@empathyco/x-components@3.0.0-alpha.253) (2022-12-19)
 
 **Note:** Version bump only for package @empathyco/x-components
