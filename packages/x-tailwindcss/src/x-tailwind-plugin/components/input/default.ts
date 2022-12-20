@@ -13,14 +13,14 @@ export function inputDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     fontFamily: theme('fontFamily.main'),
-    borderRadius: 'none',
     borderWidth: theme('borderWidth.1'),
     cursor: 'pointer',
     fontWeight: theme('fontWeight.regular'),
-    outline: 'none',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    paddingInlineStart: theme('spacing.16'),
+    paddingInlineEnd: theme('spacing.16'),
     '&::placeholder': {
       color: theme('colors.neutral.50'),
       fontFamily: theme('fontFamily.main'),
