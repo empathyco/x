@@ -14,7 +14,7 @@ export function inputDefault(helpers: TailwindHelpers) {
   return {
     fontFamily: theme('fontFamily.main'),
     borderWidth: theme('borderWidth.1'),
-    cursor: 'pointer',
+    cursor: 'text',
     fontWeight: theme('fontWeight.regular'),
     overflow: 'hidden',
     textOverflow: 'ellipsis',
