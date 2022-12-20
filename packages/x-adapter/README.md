@@ -178,13 +178,55 @@ getItemById({ id: 1 }, { endpoint: 'https://dummyjson.com/products/{id}');
 
 <br>
 
-#### Using the httpClient function param
+#### Using the httpClient function
 
-If you don’t specify any `HTTP` client, the `x-adapter` will use the `Fetch API` interface by
-default. TO DO: BLABLBALBALBA + how it works
+The `x-adapter` uses the `Fetch API` interface by default to perform the requests. But you can use
+your own HTTP Client as part of the configurable `EndpointAdapterOptions`. The `httpClient` is a
+function type that accepts two parameters: the `endpoint` and an additional
+[`options`](https://github.com/empathyco/x/blob/main/packages/x-adapter/src/http-clients/types.ts)
+object to make the request with.
 
 ```ts
-TO DO: example
+// Defining your customizations outside the adapter's factory function would keep it more legible...
+
+// HTTP Client
+const customHttpClient: HttpClient = endpoint =>
+  axios.get(endpoint).then(response => response.data);
+
+// Request Mapper
+const customRequestMapper = ({ query }: Readonly<MySearchRequest>): ApiRequest => {
+  return {
+    q: query
+  };
+};
+
+// Object Mapper to use in the Response Mapper
+const productMap = (product: ApiProduct): MyProduct => {
+  return {
+    id: product.id.toString(),
+    name: product.title,
+    price: product.price
+  };
+};
+
+// Response Mapper
+const customResponseMapper = ({
+  products,
+  total
+}: Readonly<ApiSearchResponse>): MySearchResponse => {
+  return {
+    products: products.map(product => productMap(product)),
+    total: total
+  };
+};
+
+// Adapter factory function implementation
+export const searchProducts = endpointAdapterFactory({
+  endpoint: 'https://dummyjson.com/products/search',
+  httpClient: customHttpClient,
+  requestMapper: customRequestMapper,
+  responseMapper: customResponseMapper
+});
 ```
 
 <br>
