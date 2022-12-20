@@ -1,6 +1,6 @@
 # x-adapter
 
-**Empathy Search Adapter** is a library of utils to ease the communication with any API.
+**Empathy Adapter** is a library of utils to ease the communication with any API.
 
 Some features that it provides:
 
@@ -9,97 +9,185 @@ Some features that it provides:
 - Allow to configure the response/request mapping.
 - Create mapping functions based on Schemas.
 
+<br>
+
 ## Installation
 
 ```
 npm i @empathyco/x-adapter
 ```
 
-You can additionally install the
+If you use this package together with
+[x-components](https://github.com/empathyco/x/tree/main/packages/x-components), you should
+additionally install the
 [@empathyco/x-types](https://github.com/empathyco/x/tree/main/packages/search-types) package and
 take the advantage of it in your project development.
 
+<br>
+
 ## Configuration & Usage
 
-The `Adapter` instance is meant to be a configuration object for each `EndpointAdapter`, handling
-each data model that will need to be passed/mapped/transformed to meet your app’s environment and
-the API requirements.
+The `adapter` is a function that triggers a request with the given data (a search request and an
+options object to make the request with). It returns a response promise that you will use to curate
+the data you need. You will only need to call this function to get you request made, as you would do
+with any `HTTP` client.
 
-```tsx
-// PlatformAdapter definition example with 3 endpoint adapters
-
-import { XComponentsAdapter } from './types/platform-adapter.types';
-
-export const adapter: XComponentsAdapter = {
-  search: searchEndpointAdapter,
-  popularSearches: popularSearchesEndpointAdapter,
-  recommendations: recommendationsEndpointAdapter
-  // ... any endpoints your project may need
-};
+```ts
+async searchOnClick() {
+  const response = await searchProducts({ query: 'phone' });
+  this.items = response.products;
+}
 ```
+
+<br>
 
 ### Implement your own adapter
 
-Use the `EndpointAdapterOptions` to configure the params needed to handle your request. The params
-that can be configured are: `endpoint`, `httpClient`, `defaultRequestOptions` and the
-request/response `mappers`.
+To create an `EndpointAdapter` you can use the `endpointAdapterFactory` options. This function will
+receive an `EndpointAdapterOptions` object containing all the needed data to perform and map a
+request, and return a function that when invoked will trigger the request. The options that can be
+configured are:
 
-Take in account that if your use our `SearchRequest` and `SearchResponse`
-[search-types](https://github.com/empathyco/x/tree/main/packages/search-types), you will need to map
-some fields as they are required in the model.
+- `endpoint`: The url that for the request. Can be either a string or a mapper function that
+  receives the request and returns a string.
+- `httpClient`: A function that will receive the endpoint and request options such as the parameters
+  and will perform the request, returning a promise with the response.
+- `defaultRequestOptions`: Some options to configure how the request will behave by default, like if
+  it is cancelable, a unique id to identify it, if it should use the body to send the params...
+- `requestMapper`: A function to apply to the request parameters and transform them.
+- `responseMapper`: A function to apply to the response and transform it.
 
-```tsx
-import { SearchRequest, SearchResponse } from '@empathyco/x-types';
-import { EndpointAdapterOptions } from '@empathyco/x-adapter';
+<br>
 
-export const searchEndpointAdapter: EndpointAdapterOptions<SearchRequest, SearchResponse> = {
-  endpoint: `https://${API_ENDPOINT}`,
-  defaultRequestOptions: {
-    properties: {
-      headers: { Authorization: `${YOUR_AUTH}` }
-      // ... any options your API may need
-    }
-  },
-  requestMapper({ query, start, rows }) {
+#### Basic adapter implementation
+
+In this example we have a simple request mapper that will add a `query` parameter to the endpoint's
+url to perform the request. If you check the function call above, you will see the query parameter
+passed.
+
+###### Types definition
+
+```
+// Param needed to perform the request to the API
+interface ApiRequest {
+  q?: string;
+  id?: number;
+}
+
+// API response data models
+interface ApiSearchResponse {
+  products: ApiProduct[];
+  total: number;
+}
+interface ApiProduct {
+  id: number;
+  title: string;
+  price: number;
+}
+
+// Param passed to the adapter function that will be mapped
+interface MySearchRequest {
+  query: string;
+}
+
+// App's data models
+interface MySearchResponse {
+  products: MyProduct[];
+  total: number;
+}
+interface MyProduct {
+  id: string;
+  name: string;
+  price: number;
+}
+```
+
+###### Adapter's factory function implementation
+
+```ts
+export const searchProducts = endpointAdapterFactory({
+  endpoint: 'https://dummyjson.com/products/search',
+  requestMapper({ query }: Readonly<MySearchRequest>): ApiRequest {
     return {
-      q: query,
-      limit: rows,
-      offset: start
-      // ... any field you need to send for your request
+      q: query // the request will be triggered as https://dummyjson.com/products/search?q=phone
     };
   },
-  responseMapper({ results }) {
+  responseMapper({ products, total }: Readonly<ApiSearchResponse>): MySearchResponse {
     return {
-      results: results,
-      totalResults: results.length
-      // ... any field you need to map from the response
+      products: products.map(product => {
+        return {
+          id: product.id.toString(),
+          name: product.title,
+          price: product.price
+        };
+      }),
+      total: total
     };
   }
-};
-```
-
-#### Using a factory function to configure your adapter
-
-To ease this configuration, you can also use the `x-adapter` ’s `endpointAdapterFactory` function
-that defines how a request will be triggered and resolved with the given `EndpointAdapterOptions`.
-
-```tsx
-import { endpointAdapterFactory } from '@empathyco/x-adapter';
-import { SearchRequest, SearchResponse } from '@empathyco/x-types';
-
-export const searchEndpointAdapter = endpointAdapterFactory<SearchRequest, SearchResponse>({
-  endpoint: 'https://{API_ENDPOINT}',
-  defaultRequestOptions: {
-    properties: {
-      headers: { Authorization: `${YOUR_AUTH}` }
-      // ... any options your API may need
-    }
-  },
-  // we enhance you to declare your resquest/response mappers ouside this function to improve its legibility
-  requestMapper: searchRequestMapper,
-  responseMapper: searchResponseMapper
 });
 ```
+
+<br>
+
+#### Using a dynamic endpoint
+
+You can use a mapper function to do so and pass the dynamic part of the url as a parameter when the
+adapter function is called.
+
+```ts
+export const getProductById = endpointAdapterFactory({
+  endpoint: ({ id }: GetProductByIdRequest) => 'https://dummyjson.com/products/' + id,
+  responseMapper(response: Readonly<ApiProduct>): MyProduct {
+    return productMap(response);
+  }
+});
+```
+
+Or you can place your parameter(s) inside curly brackets, and they will be added to the final
+string, thanks to the
+[interpolate](https://github.com/empathyco/x/blob/main/packages/x-adapter/src/utils/interpolate.ts)
+utility function. If a value is not provided, its parameter would just will be removed from the
+string.
+
+```ts
+export const getItemById = endpointAdapterFactory({
+  endpoint: 'https://dummyjson.com/{section}/{id}',
+  // ... rest of options to configure
+  }
+});
+
+// You would pass the parameter's value in the function call
+getItemById({ section: "products", id: 1 });
+getItemById({ section: "quotes", id: 3 });
+```
+
+Additionally, you can also overwrite your adapter's endpoint definition using the
+`RequestOptions.endpoint` parameter in the function call. Take in account that your `responseMapper`
+definition should be agnostic enough to support the change:
+
+```ts
+export const getItemById = endpointAdapterFactory({
+  endpoint: 'https://dummyjson.com/quotes/{id}',
+  // ... rest of options to configure
+  }
+});
+
+// You would pass the new endpoint in the function call
+getItemById({ id: 1 }, { endpoint: 'https://dummyjson.com/products/{id}');
+```
+
+<br>
+
+#### Using the httpClient function param
+
+If you don’t specify any `HTTP` client, the `x-adapter` will use the `Fetch API` interface by
+default. TO DO: BLABLBALBALBA + how it works
+
+```ts
+TO DO: example
+```
+
+<br>
 
 ### Implement your own adapter using schemas
 
@@ -107,7 +195,7 @@ The `x-adapter` library includes a `schemaMapperFactory` function that creates a
 execute the schema you provide. You just need to create your request and response schemas to define
 the structure of your data, and pass them as a parameter to the factory function.
 
-```tsx
+```ts
 import { schemaMapperFactory } from '@empathyco/x-adapter';
 import { SearchRequest } from '@empathyco/x-types';
 import { searchRequestSchema } from '../../schemas/requests/search-request.schema';
@@ -125,59 +213,39 @@ interface ApiResponseModel {
   total: number;
 }
 
-// Maps both the request and the response to connect your model with API you are working with.
-const searchRequestSchema: Schema<SearchRequest, ApiRequestModel> = {
+// Map both the request and the response to connect your model with API you are working with.
+export const searchRequestMapper = schemaMapperFactory<SearchRequest, ApiRequestModel>({
   q: 'query',
   limit: 'rows',
   offset: 'start'
-};
-const searchResponseSchema: Schema<ApiResponseModel, SearchResponse> = {
+});
+export const searchResponseMapper = schemaMapperFactory<ApiResponseModel, SearchResponse>({
   results: 'items',
   totalResults: 'items.total' // you can use paths to access to an inner property if needed
-};
-
-// The 'schemaMapperFactory' creates a mapper function for a given schema.
-export const searchRequestMapper = schemaMapperFactory<SearchRequest, ApiRequestModel>(
-  searchRequestSchema
-);
-export const searchResponseMapper = schemaMapperFactory<ApiResponseModel, SearchResponse>(
-  searchResponseSchema
-);
+});
 ```
 
 #### Create more complex models with Subschemas
 
-For more complex data mapping, the `x-adapter` library also provides a `subSchema` type that
-receives a `Source`, a `Target` and a `Path` that will be applied to the inner path of the main
-object. Furthermore, and not restricted to using subschemas, you can also use schema with function
-return types, that makes schemas powerful to custom the logic you need in your data mapping.
+When you are creating adapters for different APIs you might find the case that you have to map the
+same model in different places. To help you with that, schemas allows to use subSchemas. To use them
+you just have to provide with the `Path` of the data to map, and the `Schema` to apply to it.
 
-```tsx
-// Example of using a subSchema to map a response
-const responseMapper = schemaMapperFactory<ApiResponseModel, SearchResponse>({
-  totalResults: 'results.total',
-  results: {
-    $path: 'results.items',
-    $subSchema: {
-      id: 'id',
-      name: 'name',
-      url: 'result_url',
-      images: ({ result }) => result.images.map(({ url }) => url),
-      price: {
-        value: ({ price, sale_price }) => (sale_price ? sale_price : price)
-      }
-    }
-  }
-});
+```ts
+// TO DO: example of using a subSchema to map a response
+// TO DO: example reusing the same schema under different paths in two adapters.
 ```
 
 #### Using a mutable schema
 
-The `x-adapter` library also provides a `MutableSchema` type, a `Schema` that can replace an
-original schema, override it or create a new one based on the original one. This can be useful to
-define a shared pattern that you will need to reuse in different endpoint adapters.
+With the `x-adapter` you can create mutable schemas. These schemas are helpful when writing
+libraries where you want to have some defaults, but allow to modify or extend them.
 
-```tsx
+```
+// TODO: Add mutable schema's options: replace, override, delete
+```
+
+```ts
 import { createMutableSchema, Schema } from '@empathyco/x-adapter';
 import { SearchRequest } from '@empathyco/x-types';
 import { ApiRequestModel } from 'YOUR-API-SOURCE';
@@ -201,6 +269,10 @@ and also some guidance on how to extend it for your needs.
 ## Test
 
 ```
+// TODO: add introduction & test's location
+```
+
+```
 npm test
 ```
 
@@ -211,7 +283,9 @@ npm test
 ## Contributing
 
 To start contributing to the project, please take a look to
-our **[Contributing Guide](https://github.com/empathyco/x/blob/main/.github/CONTRIBUTING.md).**
+our **[Contributing Guide](https://github.com/empathyco/x/blob/main/.github/CONTRIBUTING.md).** Take
+in account that `x-adapter` is developed using [Typescript](https://www.typescriptlang.org/), so we
+recommend you check it out.
 
 ## License
 
