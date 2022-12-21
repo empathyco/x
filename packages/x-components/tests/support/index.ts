@@ -1,4 +1,4 @@
-import { AnyFunction, forEach } from '@empathyco/x-utils';
+import { AnyFunction } from '@empathyco/x-utils';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -11,8 +11,9 @@ import Loggable = Cypress.Loggable;
 import Shadow = Cypress.Shadow;
 import Timeoutable = Cypress.Timeoutable;
 import Withinable = Cypress.Withinable;
+import CommandFns = Cypress.CommandFns;
 
-interface CustomCommands {
+interface CustomCommands extends CommandFns {
   /**
    * Searches a query by typing it in the search input and pressing enter.
    *
@@ -125,7 +126,7 @@ interface CustomCommands {
   checkNextQueries(query: string, toContain: boolean): void;
 }
 
-interface CustomDualCommands {
+interface CustomDualCommands extends CommandFns {
   /**
    * Gets a DOM element searching by its data-test attribute.
    *
@@ -217,11 +218,5 @@ const customDualCommands: AddPreviousParam<CustomDualCommands> = {
   }
 };
 
-// Register the commands
-forEach(customCommands, (name, implementation) => {
-  Cypress.Commands.add(name, implementation);
-});
-
-forEach(customDualCommands, (name, implementation) => {
-  Cypress.Commands.add(name, { prevSubject: 'optional' }, implementation);
-});
+Cypress.Commands.addAll(customCommands);
+Cypress.Commands.addAll({ prevSubject: 'optional' }, customDualCommands);

@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue';
+import { mount } from 'cypress/vue2';
 import { Result } from '@empathyco/x-types';
 import { createResultStub } from '../../src/__stubs__/results-stubs.factory';
 import BaseResultImage from '../../src/components/result/base-result-image.vue';
