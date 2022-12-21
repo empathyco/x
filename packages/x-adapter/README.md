@@ -187,11 +187,9 @@ function type that accepts two parameters: the `endpoint` and an additional
 object to make the request with.
 
 ```ts
-// Defining your customizations outside the adapter's factory function would keep it more legible...
-
 // HTTP Client
-const customHttpClient: HttpClient = endpoint =>
-  axios.get(endpoint).then(response => response.data);
+const customHttpClient: HttpClient = (endpoint, options) =>
+  axios.get(endpoint, { params: options?.parameters }).then(response => response.data);
 
 // Request Mapper
 const customRequestMapper = ({ query }: Readonly<MySearchRequest>): ApiRequest => {
