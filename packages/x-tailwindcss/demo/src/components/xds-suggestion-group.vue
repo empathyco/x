@@ -12,6 +12,13 @@
       :style="section === 'Default' ? { width: '200px' } : ''"
       title="Click me to copy CSS classes"
     >
+      <button class="x-suggestion">
+        <CuratedIcon class="x-icon" />
+        <template v-if="section === 'Default'">
+          very long default suggestion to test line wrap alignment
+        </template>
+        <template v-else>{{ removeClassPrefix(cssClass, base) }} suggestion group</template>
+      </button>
       <button
         v-if="section === 'Combinations layer'"
         class="
@@ -22,13 +29,6 @@
       </button>
       <button v-if="section !== 'Combinations layer'" class="x-suggestion-group-button">
         <CrossIcon class="x-icon" />
-      </button>
-      <button class="x-suggestion">
-        <CuratedIcon class="x-icon" />
-        <template v-if="section === 'Default'">
-          very long default suggestion to test line wrap alignment
-        </template>
-        <template v-else>{{ removeClassPrefix(cssClass, base) }} suggestion group</template>
       </button>
     </div>
   </XdsBaseShowcase>
