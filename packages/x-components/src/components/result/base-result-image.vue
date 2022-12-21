@@ -142,7 +142,7 @@
     @Watch('result.images', { immediate: true })
     resetImagesState(): void {
       this.pendingImages = [...(this.result.images ?? [])];
-      this.loadedImages = [];
+      this.loadedImages = [...(this.result.images ?? [])];
     }
 
     /**
