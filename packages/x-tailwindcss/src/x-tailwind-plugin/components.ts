@@ -5,6 +5,8 @@ import { icon } from './components/icon';
 import { suggestion } from './components/suggestion';
 import { highlight } from './components/highlight';
 import { typography } from './components/typography';
+import { suggestionGroup } from './components/suggestion-group';
+import { suggestionGroupButton } from './components/suggestion-group/button';
 
 /**
  * Default component styles.
@@ -22,7 +24,9 @@ export default function components(helpers: TailwindHelpers) {
     ...icon(helpers),
     ...suggestion(helpers),
     ...highlight(helpers),
-    ...typography(helpers)
+    ...typography(helpers),
+    ...suggestionGroup(helpers),
+    ...suggestionGroupButton(helpers)
   };
 }
 
