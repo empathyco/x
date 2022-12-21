@@ -57,9 +57,9 @@
 
       <div>
         <h1>BaseEventsModalOpen and BaseEventsModalClose</h1>
-        <BaseEventsModalOpen>Open</BaseEventsModalOpen>
+        <BaseEventsModalOpen>This button opens the modal</BaseEventsModalOpen>
         <BaseEventsModal>
-          <BaseEventsModalClose>Close</BaseEventsModalClose>
+          <BaseEventsModalClose>This button closes the modal</BaseEventsModalClose>
         </BaseEventsModal>
       </div>
 

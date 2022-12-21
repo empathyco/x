@@ -4,6 +4,7 @@
     :events="events"
     class="x-button x-events-modal-open-button"
     data-test="open-modal"
+    aria-label="Open"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
