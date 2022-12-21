@@ -67,7 +67,7 @@ passed.
 
 ###### Types definition
 
-```
+```ts
 // Param needed to perform the request to the API
 interface ApiRequest {
   q?: string;
@@ -192,7 +192,7 @@ const customHttpClient: HttpClient = (endpoint, options) =>
   axios.get(endpoint, { params: options?.parameters }).then(response => response.data);
 
 // Request Mapper
-const customRequestMapper = ({ query }: Readonly<MySearchRequest>): ApiRequest => {
+const customRequestMapper: Mapper<MySearchRequest, ApiRequest> = ({ query }) => {
   return {
     q: query
   };
@@ -208,10 +208,7 @@ const productMap = (product: ApiProduct): MyProduct => {
 };
 
 // Response Mapper
-const customResponseMapper = ({
-  products,
-  total
-}: Readonly<ApiSearchResponse>): MySearchResponse => {
+const customResponseMapper: Mapper<ApiSearchResponse, MySearchResponse> = ({ products, total }) => {
   return {
     products: products.map(product => productMap(product)),
     total: total
@@ -231,50 +228,89 @@ export const searchProducts = endpointAdapterFactory({
 
 ### Implement your own adapter using schemas
 
-The `x-adapter` library includes a `schemaMapperFactory` function that creates a mapper function to
-execute the schema you provide. You just need to create your request and response schemas to define
-the structure of your data, and pass them as a parameter to the factory function.
+The `x-adapter` library includes a `schemaMapperFactory` function that returns a mapper function to
+execute the `schema` you provide. The function accepts a `Source` object (the data to be
+transformed) and a `Target` object. You just need to create the request and response models to
+define the structure of your data vs the APIs data, and pass them to the factory function.
+
+###### Types definition
 
 ```ts
-import { schemaMapperFactory } from '@empathyco/x-adapter';
-import { SearchRequest } from '@empathyco/x-types';
-import { searchRequestSchema } from '../../schemas/requests/search-request.schema';
-
-// Import and use already existing types from your API source, or declare your own based on the response you get.
-interface ApiRequestModel {
+// API data models
+interface ApiUserRequest {
   q: string;
-  limit?: number;
-  offset?: number;
 }
-interface ApiResponseModel {
-  items: T[];
-  limit?: number;
-  offset?: number;
+interface ApiUserResponse {
+  users: ApiUser[];
   total: number;
 }
+interface ApiUser {
+  id: number;
+  firstName: string;
+}
 
-// Map both the request and the response to connect your model with API you are working with.
-export const searchRequestMapper = schemaMapperFactory<SearchRequest, ApiRequestModel>({
-  q: 'query',
-  limit: 'rows',
-  offset: 'start'
+// Your App's data models
+interface UserRequest {
+  query: string;
+}
+interface UserResponse {
+  people: MyUser[];
+  total: number;
+}
+interface MyUser {
+  id: string;
+  name: string;
+}
+```
+
+###### Schema's mapper factory function implementation
+
+```ts
+// Map both the request and the response to connect your model with the API you are working with.
+const userSearchRequestMapper = schemaMapperFactory<UserRequest, ApiUserRequest>({
+  q: 'query'
 });
-export const searchResponseMapper = schemaMapperFactory<ApiResponseModel, SearchResponse>({
-  results: 'items',
-  totalResults: 'items.total' // you can use paths to access to an inner property if needed
+const userSearchResponseMapper = schemaMapperFactory<ApiUserResponse, UserResponse>({
+  people: ({ users }) =>
+    users.map(user => {
+      return {
+        // you may use paths to access to an inner property if needed
+        id: user.id.toString(),
+        name: user.firstName
+      };
+    }),
+  total: 'total'
+});
+
+// Use the mappers in the Endpoint's adapter factory function
+export const searchUsers = endpointAdapterFactory({
+  endpoint: 'https://dummyjson.com/users/search',
+  requestMapper: userSearchRequestMapper,
+  responseMapper: userSearchResponseMapper
 });
 ```
 
-#### Create more complex models with Subschemas
+<br>
+
+#### Create more complex models with SubSchemas
 
 When you are creating adapters for different APIs you might find the case that you have to map the
-same model in different places. To help you with that, schemas allows to use subSchemas. To use them
-you just have to provide with the `Path` of the data to map, and the `Schema` to apply to it.
+same model in different places. To help you with that, schemas allows to use `SubSchemas`. To use
+them you just have to provide with the `Path` of the data to map, and the `Schema` to apply to it.
+
+###### Basic subSchema implementation
 
 ```ts
 // TO DO: example of using a subSchema to map a response
+```
+
+###### Reusing the same Schema under different paths
+
+```ts
 // TO DO: example reusing the same schema under different paths in two adapters.
 ```
+
+<br>
 
 #### Using a mutable schema
 
