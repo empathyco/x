@@ -3,7 +3,6 @@
     #default="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }"
     title="Suggestion Group"
     :sections="sections"
-    :childrenCombinations="childrenCombinations"
   >
     <div
       :key="cssClass"

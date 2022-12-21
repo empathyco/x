@@ -9,7 +9,7 @@ export function suggestionGroupButtonDefault() {
     display: 'grid',
     gridAutoFlow: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'baseline',
     alignContent: 'center',
     boxSizing: 'border-box',
     backgroundColor: 'transparent',
@@ -19,6 +19,13 @@ export function suggestionGroupButtonDefault() {
     aspectRatio: '1',
     '&:hover': {
       transform: 'scale(1.2)'
+    },
+
+    /*To fix icon baseline alignment needs text to know the baseline*/
+    '&::after': {
+      content: `'|'`,
+      width: 0,
+      visibility: 'hidden'
     }
   };
 }

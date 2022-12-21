@@ -2,9 +2,9 @@
   <div class="x-flex x-flex-col x-gap-40 x-p-20">
     <XdsButton />
     <XdsIcon />
-    <XdsSuggestion />
-    <XdsHighlight />
     <XdsTypography />
+    <XdsHighlight />
+    <XdsSuggestion />
     <XdsSuggestionGroup />
   </div>
 </template>

@@ -1,4 +1,5 @@
 import { TailwindHelpers } from '../../../types';
+import { alignIconWithBaseline } from '../icon/utils/align-icon-with-baseline';
 import { suggestionGroupSizes } from './sizes';
 import { overridesChildren } from './utils/overrides-children';
 
@@ -30,6 +31,7 @@ export function suggestionGroupDefault(helpers: TailwindHelpers) {
 
     color: theme('colors.neutral.90'),
 
-    ...overridesChildren(helpers)
+    ...overridesChildren(helpers),
+    ...alignIconWithBaseline(helpers)
   };
 }

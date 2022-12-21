@@ -18,7 +18,10 @@ export function overridesChildren(helpers: TailwindHelpers) {
     },
     '.suggestion': {
       color: 'currentColor',
-      minHeight: 'inherit'
+      minHeight: 'inherit',
+      fontSize: 'inherit',
+      fontFamily: 'inherit',
+      fontWeight: 'inherit'
     },
 
     '&:hover': {
