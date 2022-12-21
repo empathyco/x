@@ -1,7 +1,7 @@
 import { TailwindHelpers } from '../../../../types';
 
 /**
- * Overrides the `suggestion` styles when there is inside a `suggestion group`.
+ * Overrides the `suggestion` styles when it is inside a `suggestion group`.
  *
  * @param helpers
  * @returns The {@link CssStyleOptions} for the component.

@@ -1,7 +1,7 @@
 import { TailwindHelpers } from '../../../../types';
 
 /**
- * Util to return paddings for each size for variants with horizontal padding.
+ * Util to align an icon vertically to a text.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the util.
@@ -13,7 +13,7 @@ export function alignIconWithBaseline(helpers: TailwindHelpers) {
     /**
      * Enable `enableIconOffset` icon alignment flag.
      *
-     * Suggestions should have the icon aligned with the first text
+     * For example, suggestions should have the icon aligned with the first text
      * line.
      *
      * As the suggestion is a flex container with the items aligned
