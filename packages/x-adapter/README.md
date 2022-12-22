@@ -68,13 +68,11 @@ passed.
 ###### Types definition
 
 ```ts
-// Param needed to perform the request to the API
+// API data models
 interface ApiRequest {
   q?: string;
   id?: number;
 }
-
-// API response data models
 interface ApiSearchResponse {
   products: ApiProduct[];
   total: number;
@@ -85,17 +83,15 @@ interface ApiProduct {
   price: number;
 }
 
-// Param passed to the adapter function that will be mapped
-interface MySearchRequest {
+// App's data models
+interface AppSearchRequest {
   query: string;
 }
-
-// App's data models
-interface MySearchResponse {
+interface AppSearchResponse {
   products: MyProduct[];
   total: number;
 }
-interface MyProduct {
+interface AppProduct {
   id: string;
   name: string;
   price: number;
@@ -107,12 +103,12 @@ interface MyProduct {
 ```ts
 export const searchProducts = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/products/search',
-  requestMapper({ query }: Readonly<MySearchRequest>): ApiRequest {
+  requestMapper({ query }: Readonly<AppSearchRequest>): ApiRequest {
     return {
       q: query // the request will be triggered as https://dummyjson.com/products/search?q=phone
     };
   },
-  responseMapper({ products, total }: Readonly<ApiSearchResponse>): MySearchResponse {
+  responseMapper({ products, total }: Readonly<ApiSearchResponse>): AppSearchResponse {
     return {
       products: products.map(product => {
         return {
@@ -137,7 +133,7 @@ adapter function is called.
 ```ts
 export const getProductById = endpointAdapterFactory({
   endpoint: ({ id }: GetProductByIdRequest) => 'https://dummyjson.com/products/' + id,
-  responseMapper(response: Readonly<ApiProduct>): MyProduct {
+  responseMapper(response: Readonly<ApiProduct>): AppProduct {
     return productMap(response);
   }
 });
@@ -192,14 +188,14 @@ const customHttpClient: HttpClient = (endpoint, options) =>
   axios.get(endpoint, { params: options?.parameters }).then(response => response.data);
 
 // Request Mapper
-const customRequestMapper: Mapper<MySearchRequest, ApiRequest> = ({ query }) => {
+const customRequestMapper: Mapper<AppSearchRequest, ApiRequest> = ({ query }) => {
   return {
     q: query
   };
 };
 
 // Object Mapper to use in the Response Mapper
-const productMap = (product: ApiProduct): MyProduct => {
+const productMap: Mapper<ApiProduct, AppProduct> = product => {
   return {
     id: product.id.toString(),
     name: product.title,
@@ -208,9 +204,12 @@ const productMap = (product: ApiProduct): MyProduct => {
 };
 
 // Response Mapper
-const customResponseMapper: Mapper<ApiSearchResponse, MySearchResponse> = ({ products, total }) => {
+const customResponseMapper: Mapper<ApiSearchResponse, AppSearchResponse> = ({
+  products,
+  total
+}) => {
   return {
-    products: products.map(product => productMap(product)),
+    products: products.map(product => productMap(product, {})),
     total: total
   };
 };
@@ -249,15 +248,15 @@ interface ApiUser {
   firstName: string;
 }
 
-// Your App's data models
-interface UserRequest {
+// App's data models
+interface AppUserRequest {
   query: string;
 }
-interface UserResponse {
-  people: MyUser[];
+interface AppUserResponse {
+  people: AppUser[];
   total: number;
 }
-interface MyUser {
+interface AppUser {
   id: string;
   name: string;
 }
@@ -266,19 +265,20 @@ interface MyUser {
 ###### Schema's mapper factory function implementation
 
 ```ts
+// Object Mapper to use in the Response Mapper
+const userMap: Mapper<ApiUser, AppUser> = user => {
+  return {
+    id: user.id.toString(),
+    name: user.firstName
+  };
+};
+
 // Map both the request and the response to connect your model with the API you are working with.
-const userSearchRequestMapper = schemaMapperFactory<UserRequest, ApiUserRequest>({
+const userSearchRequestMapper = schemaMapperFactory<AppUserRequest, ApiUserRequest>({
   q: 'query'
 });
-const userSearchResponseMapper = schemaMapperFactory<ApiUserResponse, UserResponse>({
-  people: ({ users }) =>
-    users.map(user => {
-      return {
-        // you may use paths to access to an inner property if needed
-        id: user.id.toString(),
-        name: user.firstName
-      };
-    }),
+const userSearchResponseMapper = schemaMapperFactory<ApiUserResponse, AppUserResponse>({
+  people: ({ users }) => users.map(user => userMap(user, {})),
   total: 'total'
 });
 
@@ -298,16 +298,104 @@ When you are creating adapters for different APIs you might find the case that y
 same model in different places. To help you with that, schemas allows to use `SubSchemas`. To use
 them you just have to provide with the `Path` of the data to map, and the `Schema` to apply to it.
 
-###### Basic subSchema implementation
+###### Types definition
 
 ```ts
-// TO DO: example of using a subSchema to map a response
+// API data models
+interface ApiRequest {
+  q: string;
+}
+interface ApiResponse {
+  users: ApiUser[];
+  total: number;
+}
+interface ApiUser {
+  id: number;
+  email: string;
+  phone: string;
+  address: ApiAddress;
+  company: ApiAddress;
+}
+interface ApiAddress {
+  address: string;
+  city: string;
+  postalCode: string;
+}
+
+// APP data models
+interface AppRequest {
+  query: string;
+}
+interface AppResponse {
+  people: AppUser[];
+  count: number;
+}
+interface AppUser {
+  id: number;
+  contact: {
+    email: string;
+    phone: string;
+    homeAddress: AppAddress;
+    companyAddress: AppAddress;
+  };
+}
+interface AppAddress {
+  displayName: string;
+  postalCode: number;
+  city: string;
+}
 ```
 
-###### Reusing the same Schema under different paths
+###### Schemas and SubSchemas implementation
 
 ```ts
-// TO DO: example reusing the same schema under different paths in two adapters.
+// Address Schema definition
+const addressSchema: Schema<ApiAddress, AppUserAddress> = {
+  displayName: source => `${source.address}, ${source.postalCode} - ${source.city}`,
+  city: 'city',
+  postalCode: source => parseInt(source.postalCode)
+};
+
+// User Schema definition with a subSchema
+const userSchema: Schema<ApiUser, AppUser> = {
+  id: 'id',
+  contact: {
+    email: source => source.email.toLowerCase(),
+    phone: 'phone',
+    homeAddress: {
+      $subSchema: addressSchema,
+      $path: 'address'
+    },
+    companyAddress: {
+      $subSchema: addressSchema,
+      $path: 'address'
+    }
+  }
+};
+```
+
+###### Schema's mapper factory function implementation with subSchemas
+
+```ts
+// Response mapper with user's subSchema implemented
+const responseMapper = schemaMapperFactory<ApiSearchUsersResponse, AppSearchUsersResponse>({
+  people: {
+    $subSchema: userSchema,
+    $path: 'users'
+  },
+  count: 'total'
+});
+
+const requestMapper = schemaMapperFactory<SearchUsersRequest, ApiSearchUsersRequest>({
+  q: 'query'
+});
+
+// Endpoint Adapter Factory function implementation
+export const searchUsersWithContactInfo = endpointAdapterFactory({
+  endpoint: 'https://dummyjson.com/users/search',
+  requestMapper,
+  responseMapper
+});
 ```
 
 <br>
