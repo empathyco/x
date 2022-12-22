@@ -1,3 +1,4 @@
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { TailwindHelpers } from '../../../types';
 import { inputColors } from './colors';
 import { inputSizes } from './sizes';
@@ -19,16 +20,19 @@ export function inputDefault(helpers: TailwindHelpers) {
     textOverflow: 'ellipsis',
     paddingInlineStart: theme('spacing.16'),
     paddingInlineEnd: theme('spacing.16'),
-    '&::placeholder': {
-      color: theme('colors.neutral.50'),
-      fontFamily: theme('fontFamily.main'),
-      fontSize: theme('fontSize.md'),
-      fontWeight: theme('fontWeight.regular')
-    },
     '&:disabled': {
       cursor: 'not-allowed'
     },
     ...inputColors(helpers).neutral,
-    ...inputSizes(helpers).md
+    ...deepMerge(
+      { ...inputSizes(helpers).md },
+      {
+        '&::placeholder': {
+          color: theme('colors.neutral.50'),
+          fontFamily: theme('fontFamily.main'),
+          fontWeight: theme('fontWeight.regular')
+        }
+      }
+    )
   };
 }
