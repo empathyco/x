@@ -16,10 +16,7 @@ export function inputDefault(helpers: TailwindHelpers) {
     borderWidth: theme('borderWidth.1'),
     cursor: 'text',
     fontWeight: theme('fontWeight.regular'),
-    overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    gap: theme('spacing.8'),
     paddingInlineStart: theme('spacing.16'),
     paddingInlineEnd: theme('spacing.16'),
     '&::placeholder': {
