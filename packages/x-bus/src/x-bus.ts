@@ -1,9 +1,8 @@
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Dictionary } from '@empathyco/x-utils';
-import { logDevtoolsXEvent } from './devtools/timeline.devtools';
-import { Emitter, Emitters, SubjectPayload, XBus, XEvent, XEventPayload } from './x-bus.types';
+import { AnyFunction, Dictionary } from '@empathyco/x-utils';
 import { XPriorityQueue } from '@empathyco/x-priority-queue';
+import { Emitter, Emitters, SubjectPayload, XBus, XEvent, XEventPayload } from './x-bus.types';
 
 const eventsPriorities: Dictionary<number> = {
   RequestChanged: 2,
@@ -21,7 +20,7 @@ const eventsPriorities: Dictionary<number> = {
  *
  * @public
  */
-export class BaseXBus implements XBus {
+export class XPriorityBus implements XBus {
   /**
    * Dictionary to store the created event emitters.
    *
@@ -31,7 +30,9 @@ export class BaseXBus implements XBus {
 
   public constructor(protected queue: XPriorityQueue<XEvent> = new XPriorityQueue()) {}
 
-  public pendingFlush!: number;
+  public pendingEmit!: number;
+
+  public pendingPops: number[] = [];
 
   /**
    * Emits an event. See {@link XBus.(emit:2)}.
@@ -40,11 +41,11 @@ export class BaseXBus implements XBus {
    * @param payload - Event payload.
    * @param metadata - Information of who emits the event.
    */
-  async emit<Event extends XEvent>(
+  emit<Event extends XEvent>(
     event: Event,
     payload?: XEventPayload<Event>,
     metadata: Dictionary = { moduleName: null }
-  ): Promise<void> {
+  ): Promise<XEvent> {
     // Payload is defined here as an optional argument (which is wrong), but as this
     // implementation must be used with the type XBus there is no problem
     const value: SubjectPayload<XEventPayload<Event>> = {
@@ -52,24 +53,30 @@ export class BaseXBus implements XBus {
       metadata
     };
     // logDevtoolsXEvent(event, value);
-    // const emitter = this.getOrCreateEmitter(event);
-    // emitter.next(value);
-    this.queue.push(event, this.getEventPriority(event), {
-      replaceable: false,
-      ...value
-    });
+    return new Promise<XEvent>(resolve => {
+      this.queue.push(event, this.getEventPriority(event), {
+        replaceable: false,
+        resolve,
+        ...value
+      });
 
-    await this.flushQueue();
+      this.flushQueue();
+    });
   }
 
   protected getEventPriority(event: XEvent): number {
     return eventsPriorities[event] ?? Number.MAX_VALUE;
   }
 
-  protected flushQueue(): Promise<void> {
-    return new Promise(resolve => {
-      this.pendingFlush = setTimeout(() => {
-        while (!this.queue.isEmpty()) {
+  protected flushQueue(): void {
+    this.pendingPops.forEach(clearTimeout);
+    if (this.pendingEmit) {
+      clearTimeout(this.pendingEmit);
+    }
+
+    this.pendingEmit = setTimeout(() => {
+      while (!this.queue.isEmpty()) {
+        const popTimeout = setTimeout(async () => {
           const element = this.queue.pop();
           if (element) {
             const { metadata } = element;
@@ -78,13 +85,17 @@ export class BaseXBus implements XBus {
               eventPayload: metadata.eventPayload as any,
               metadata: metadata.metadata as any
             });
+            await (metadata.resolve as AnyFunction)(element.key);
           }
-        }
-        this.queue.clear();
-        this.pendingFlush = 0;
-        resolve();
-      });
+
+          this.pendingPops = this.pendingPops.filter(pendingPop => pendingPop !== popTimeout);
+        });
+
+        this.pendingPops.push(popTimeout);
+      }
     });
+
+    this.pendingEmit = 0;
   }
 
   /**
@@ -124,5 +135,5 @@ export class BaseXBus implements XBus {
 }
 
 /** @internal The bus instance. Will be replaced by injection. */
-export const bus: XBus = new BaseXBus();
+export const xPriorityBus: XBus = new XPriorityBus();
 // TODO Remove this instantiation and replace with injection where used

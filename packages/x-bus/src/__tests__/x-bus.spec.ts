@@ -1,7 +1,11 @@
-import { xBus } from '../index';
+import { XPriorityBus } from '../index';
 
-describe('x-bus', () => {
-  it('Dummy test to see jest is working', () => {
-    expect(xBus).toEqual('x-bus');
+describe('x-bus with priority queue', () => {
+  it('emits events', async () => {
+    const bus = new XPriorityBus();
+
+    await bus.emit('stub').then(() => {
+      expect(false);
+    });
   });
 });

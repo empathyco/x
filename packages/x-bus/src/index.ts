@@ -1,1 +1,1 @@
-export const xBus = 'x-bus';
+export * from './x-bus';
