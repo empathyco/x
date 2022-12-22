@@ -64,7 +64,7 @@ export class XPriorityBus implements XBus {
     });
   }
 
-  protected getEventPriority(event: XEvent): number {
+  getEventPriority(event: XEvent): number {
     return eventsPriorities[event] ?? Number.MAX_VALUE;
   }
 
@@ -76,8 +76,8 @@ export class XPriorityBus implements XBus {
 
     this.pendingEmit = setTimeout(() => {
       while (!this.queue.isEmpty()) {
+        const element = this.queue.pop();
         const popTimeout = setTimeout(async () => {
-          const element = this.queue.pop();
           if (element) {
             const { metadata } = element;
             const emitter = this.getOrCreateEmitter(element.key);

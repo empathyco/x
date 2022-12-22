@@ -31,7 +31,6 @@ class Test {
       const ele = queue[0];
 
       queue.splice(0, 1);
-
       this.pendingFlush = setTimeout(async () => {
         await new Promise((resolve, reject) => {
           this.iTimeout = setTimeout(() => {
