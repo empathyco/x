@@ -148,9 +148,7 @@ describe('testing Base Result Image component', () => {
   });
 
   it('resets images state when `result` prop changes', () => {
-    const result = createResultStub('Result', {
-      images: ['/img/test-image-1.jpeg']
-    });
+    const result = createResultStub('Result', { images: ['/img/test-image-1.jpeg'] });
 
     cy.viewport(1920, 200);
     const { getResultPictureImage } = mountBaseResultImage({
@@ -160,7 +158,7 @@ describe('testing Base Result Image component', () => {
           <BaseResultImage :result="result" />
           <button @click="result.images = ['/img/test-image-2.jpeg']"
                   data-test="button-images-change">
-            Change result image
+            Change result images
           </button>
         </div>
       `
