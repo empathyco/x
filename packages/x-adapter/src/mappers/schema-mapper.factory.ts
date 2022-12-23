@@ -102,7 +102,7 @@ function applySubSchemaTransformer<Source, Target>(
   const subSource = getSafePropertyChain(source, $path);
 
   if (!subSource) {
-    return undefined;
+    return;
   }
 
   const extendedContext: Dictionary = {};

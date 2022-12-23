@@ -28,7 +28,7 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
   ): void | Promise<void> {
     const normalizedQuery = normalizeString(query);
     if (!normalizedQuery) {
-      return undefined;
+      return;
     }
 
     if (isArrayEmpty(state.historyQueries)) {
@@ -40,7 +40,7 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
       newHistory.unshift(this.createHistoryQuery(query));
       return dispatch('setHistoryQueries', newHistory);
     }
-    return undefined;
+    return;
   }
 
   /**
