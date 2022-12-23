@@ -40,7 +40,6 @@ export class AddQueryToHistoryAction implements ActionsClass<HistoryQueriesXStor
       newHistory.unshift(this.createHistoryQuery(query));
       return dispatch('setHistoryQueries', newHistory);
     }
-    return;
   }
 
   /**
