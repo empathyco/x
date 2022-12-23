@@ -69,7 +69,7 @@
     "@empathyco/x-storage-service": "^2.0.0-alpha.4",
     "@empathyco/x-types": "^10.0.0-alpha.45",
     "@empathyco/x-utils": "^1.0.0-alpha.12",
-    "@vue/devtools-api": "~6.2.1",
+    "@vue/devtools-api": "~6.4.5",
     "rxjs": "~7.8.0",
     "tslib": "~2.3.0",
     "vue-class-component": "~7.1.0",
