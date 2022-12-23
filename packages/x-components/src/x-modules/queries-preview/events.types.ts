@@ -16,5 +16,5 @@ export interface QueriesPreviewXEvents {
    * The component that shows a Query preview has been unmounted.
    * Payload: The query whose preview has been removed.
    */
-  QueryPreviewUnmountedHook: string;
+  QueryPreviewRemoved: string;
 }

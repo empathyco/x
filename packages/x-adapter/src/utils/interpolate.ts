@@ -1,4 +1,4 @@
-import { getSafePropertyChain } from '@empathyco/x-utils';
+import { extractValue } from './extract-value';
 
 /**
  * Syntax to detect and extract string parameters. A string parameter contains a property name
@@ -95,7 +95,7 @@ export function interpolate(string: string, parameters: Record<string, unknown>)
     propertyToReplace.replace(
       STRING_PARAMETER_CONTENT,
       (_match, head = '', property: string, tail = '') => {
-        const value = getSafePropertyChain(parameters, property);
+        const value = extractValue(parameters, property);
         /* As the replacer function has a very dynamic signature, it is typed as a function with
          * `any` arguments. This makes it impossible for TS to infer the correct `string`
          * type that we are using as default values here. */

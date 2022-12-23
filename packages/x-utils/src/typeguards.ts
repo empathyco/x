@@ -1,6 +1,6 @@
+import { getSafePropertyChain } from '@empathyco/x-get-safe-property-chain';
+import { ExtractPath, ExtractType } from './types/paths.types';
 import { AnyFunction } from './types/utils.types';
-import { ExtractPath } from './types/paths.types';
-import { getSafePropertyChain } from './get-safe-property-chain';
 
 /**
  * Determines whether the passed value is an Array.
@@ -57,5 +57,5 @@ export function isPath<SomeObject, Path extends ExtractPath<SomeObject>>(
   obj: SomeObject,
   path: string
 ): path is Path {
-  return getSafePropertyChain(obj, path as Path) !== undefined;
+  return getSafePropertyChain<ExtractType<SomeObject, Path>>(obj, path) !== undefined;
 }

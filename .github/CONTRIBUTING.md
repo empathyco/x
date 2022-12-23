@@ -64,6 +64,8 @@ evolves.
   X project of the [ESLint plugin](https://eslint.org/docs/about/), an open source JavaScript
   linting utility. It also includes a style formatter and best practices beyond the ESLint plugin,
   such as [prettier](https://prettier.io/).
+- **[@empathyco/x-get-safe-property-chain](/packages/get-safe-property-chain)** - A utility designed
+  to safely retrieve nested values.
 - **[@empathyco/x-jest-utils](/packages/jest-utils)** - Jest extensions for easier testing.
 - **[@empathyco/x-logger](/packages/logger)** - A custom implementation of a logger.
 - **[@empathyco/x-adapter](/packages/search-adapter)** - A search client for Empathy's Search API.

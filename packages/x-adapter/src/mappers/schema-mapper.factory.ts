@@ -2,7 +2,6 @@ import { deepMerge } from '@empathyco/x-deep-merge';
 import {
   Dictionary,
   ExtractPath,
-  getSafePropertyChain,
   isArray,
   isFunction,
   isObject,
@@ -11,6 +10,7 @@ import {
 } from '@empathyco/x-utils';
 import { Schema, SubSchemaTransformer } from '../schemas/types';
 import { createMutableSchema, isInternalMethod } from '../schemas/utils';
+import { extractValue } from '../utils/extract-value';
 import { Mapper, MapperContext } from './types';
 
 /**
@@ -54,7 +54,7 @@ function mapSchema<Source, Target>(
     (target, key, transformer) => {
       type TargetKey = Target[keyof Target];
       if (typeof transformer === 'string' && isPath(source, transformer)) {
-        target[key] = getSafePropertyChain(source, transformer) as TargetKey;
+        target[key] = extractValue(source, transformer) as TargetKey;
       } else if (isFunction(transformer) && !isInternalMethod(transformer.name)) {
         target[key] = transformer(source, context);
       } else if (isObject(transformer)) {
@@ -99,7 +99,7 @@ function applySubSchemaTransformer<Source, Target>(
   rawContext: MapperContext,
   schema: Schema<Source, Target>
 ): Target | Target[] | undefined {
-  const subSource = getSafePropertyChain(source, $path);
+  const subSource = extractValue(source, $path);
 
   if (!subSource) {
     return undefined;
@@ -113,7 +113,7 @@ function applySubSchemaTransformer<Source, Target>(
       }
       extendedContext[key] = isFunction(value)
         ? value(source)
-        : getSafePropertyChain(source, value as ExtractPath<typeof source>);
+        : extractValue(source, value as ExtractPath<typeof source>);
     });
   }
 

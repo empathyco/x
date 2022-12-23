@@ -19,7 +19,7 @@
      * Emits the initial extra params, overriding with the state extra params, just in case, those
      * values were already set by XComponents initialization (url, plugin config, etc.).
      */
-    created(): void {
+    mounted(): void {
       this.$x.emit('ExtraParamsInitialized', { ...this.values });
       this.$x.emit('ExtraParamsProvided', { ...this.values, ...this.storeExtraParams });
     }
