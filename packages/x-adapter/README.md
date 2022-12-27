@@ -59,7 +59,7 @@ configured are:
 
 #### Basic adapter implementation
 
-In this example we have a simple request mapper that will add a `query` parameter to the endpoint's
+In this example we have a simple request mapper that will add a `q` parameter to the endpoint's
 url to perform the request. If you check the function call above, you will see the query parameter
 passed.
 
