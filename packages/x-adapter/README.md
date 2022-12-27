@@ -45,7 +45,7 @@ receive an `EndpointAdapterOptions` object containing all the needed data to per
 request, and return a function that when invoked will trigger the request. The options that can be
 configured are:
 
-- `endpoint`: The url that for the request. Can be either a string or a mapper function that
+- `endpoint`: The URL from which to fetch. Can be either a string or a mapper function that
   receives the request and returns a string.
 - `httpClient`: A function that will receive the endpoint and request options such as the parameters
   and will perform the request, returning a promise with the response.
