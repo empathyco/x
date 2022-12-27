@@ -2,8 +2,9 @@
   <div class="x-flex x-flex-col x-gap-40 x-p-20">
     <XdsButton />
     <XdsIcon />
-    <XdsTypography />
     <XdsHighlight />
+    <XdsTypography />
+    <XdsInput />
     <XdsSuggestion />
     <XdsSuggestionGroup />
   </div>
@@ -16,6 +17,7 @@
   import XdsIcon from './xds-icon.vue';
   import XdsSuggestion from './xds-suggestion.vue';
   import XdsTypography from './xds-typography.vue';
+  import XdsInput from './xds-input.vue';
   import XdsSuggestionGroup from './xds-suggestion-group.vue';
 
   @Component({
@@ -24,6 +26,7 @@
       XdsHighlight,
       XdsButton,
       XdsIcon,
+      XdsInput,
       XdsSuggestion,
       XdsSuggestionGroup
     }

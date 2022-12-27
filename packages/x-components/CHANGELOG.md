@@ -1,43 +1,129 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [3.0.0-alpha.251](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.250...@empathyco/x-components@3.0.0-alpha.251) (2022-12-15)
-
+## [3.0.0-alpha.260](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.259...@empathyco/x-components@3.0.0-alpha.260) (2022-12-26)
 
 ### Documentation
 
-* use new docs video reference component (#923) ([c1f2bff](https://github.com/empathyco/x/commit/c1f2bffa684c10149c97b4d746fecbe4519fa126))
+- fix typo in UrlHandler docs (#959)
+  ([75e4bbe](https://github.com/empathyco/x/commit/75e4bbe47d4298fccb5d26f6145ac3d203d64b2e))
 
-
-
-## [3.0.0-alpha.250](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.249...@empathyco/x-components@3.0.0-alpha.250) (2022-12-15)
-
-
-### Continuous Integration
-
-* use matrix steps and jest projects (#919) ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
-
-
-
-## [3.0.0-alpha.249](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.248...@empathyco/x-components@3.0.0-alpha.249) (2022-12-14)
-
+## [3.0.0-alpha.259](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.258...@empathyco/x-components@3.0.0-alpha.259) (2022-12-26)
 
 ### Features
 
-* **recommendations:** emit `RecommendationsChanged` (#922) ([11119c3](https://github.com/empathyco/x/commit/11119c353bb26ac5dc3fdd774a513b68a1098771))
+- modify base-events-modal-close and base-events-modal-open for WCAG compliance (#946)
+  ([1f5abdf](https://github.com/empathyco/x/commit/1f5abdf36c6eec18b73f13a78be4c7616016d6fd)),
+  closes [EX-7669](https://searchbroker.atlassian.net/browse/EX-7669)
 
+# Change Log
 
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [3.0.0-alpha.248](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.247...@empathyco/x-components@3.0.0-alpha.248) (2022-12-12)
+## [3.0.0-alpha.258](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.257...@empathyco/x-components@3.0.0-alpha.258) (2022-12-26)
 
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.257](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.256...@empathyco/x-components@3.0.0-alpha.257) (2022-12-23)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.256](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.255...@empathyco/x-components@3.0.0-alpha.256) (2022-12-22)
 
 ### Bug Fixes
 
-* remove warning when the event is not defined (#918) ([7f70e25](https://github.com/empathyco/x/commit/7f70e257bae41ba34f72c1c580c79862448faea9)), closes [EX-7617](https://searchbroker.atlassian.net/browse/EX-7617)
+- **components:** image flickering on re-rendering (#945)
+  ([3b1b558](https://github.com/empathyco/x/commit/3b1b55857ac1c5169a771c465fa32fb4313ab63c)),
+  closes [EX-7610](https://searchbroker.atlassian.net/browse/EX-7610)
 
+# Change Log
 
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.255](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.254...@empathyco/x-components@3.0.0-alpha.255) (2022-12-22)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.254](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.253...@empathyco/x-components@3.0.0-alpha.254) (2022-12-20)
+
+### ⚠ BREAKING CHANGES
+
+- Rename `NextQueryPreviewMounted` to `NextQueryPreviewMountedHook` and `QueryPreviewRemoved` to
+  `QueryPreviewUnmountedHook`
+
+### Features
+
+- Rename lifecycle hook events (#939)
+  ([e626b89](https://github.com/empathyco/x/commit/e626b899849b6742e0bce57d86a8ff89718817bf)),
+  closes [EX-7580](https://searchbroker.atlassian.net/browse/EX-7580)
+- **scroll:** capture listeners in MainScrollItem component (#942)
+  ([2719a3d](https://github.com/empathyco/x/commit/2719a3dd6c1408f9413ecbee4ebf3c46bf24eea2))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.253](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.252...@empathyco/x-components@3.0.0-alpha.253) (2022-12-19)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.252](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.251...@empathyco/x-components@3.0.0-alpha.252) (2022-12-16)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [3.0.0-alpha.251](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.250...@empathyco/x-components@3.0.0-alpha.251) (2022-12-15)
+
+### Documentation
+
+- use new docs video reference component (#923)
+  ([c1f2bff](https://github.com/empathyco/x/commit/c1f2bffa684c10149c97b4d746fecbe4519fa126))
+
+## [3.0.0-alpha.250](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.249...@empathyco/x-components@3.0.0-alpha.250) (2022-12-15)
+
+### Continuous Integration
+
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
+
+## [3.0.0-alpha.249](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.248...@empathyco/x-components@3.0.0-alpha.249) (2022-12-14)
+
+### Features
+
+- **recommendations:** emit `RecommendationsChanged` (#922)
+  ([11119c3](https://github.com/empathyco/x/commit/11119c353bb26ac5dc3fdd774a513b68a1098771))
+
+## [3.0.0-alpha.248](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.247...@empathyco/x-components@3.0.0-alpha.248) (2022-12-12)
+
+### Bug Fixes
+
+- remove warning when the event is not defined (#918)
+  ([7f70e25](https://github.com/empathyco/x/commit/7f70e257bae41ba34f72c1c580c79862448faea9)),
+  closes [EX-7617](https://searchbroker.atlassian.net/browse/EX-7617)
 
 # Change Log
 
