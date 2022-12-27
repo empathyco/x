@@ -53,7 +53,7 @@ configured are:
   if a request is cancelable, a unique id to identify it, anything but the `endpoint` can be set. 
   Check [EndpointAdapterOptions](https://github.com/empathyco/x/blob/main/packages/x-adapter/src/endpoint-adapter/types.ts) to see the available options.
 - `requestMapper`: A function to transform the unprocessed request into parameters the API can understand.
-- `responseMapper`: A function to apply to the response and transform it.
+- `responseMapper`: A function to transform the API response into data that your project can understand.
 
 <br>
 
