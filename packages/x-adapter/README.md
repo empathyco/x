@@ -40,7 +40,7 @@ async function searchOnClick() {
 
 ### Implement your own adapter
 
-To create an `EndpointAdapter` you can use the `endpointAdapterFactory` options. This function will
+To create an `EndpointAdapter` you can use the `endpointAdapterFactory` function. This function will
 receive an `EndpointAdapterOptions` object containing all the needed data to perform and map a
 request, and return a function that when invoked will trigger the request. The options that can be
 configured are:
