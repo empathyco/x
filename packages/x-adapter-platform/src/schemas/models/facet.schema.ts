@@ -1,4 +1,4 @@
-import { createMutableSchema, Schema } from '@empathyco/x-adapter';
+import { createMutableSchema } from '@empathyco/x-adapter';
 import {
   EditableNumberRangeFacet,
   HierarchicalFacet,
@@ -9,10 +9,8 @@ import { PlatformFacet } from '../../types/models/facet.model';
 import { getFacetConfig } from '../facets/utils';
 
 export const facetSchema = createMutableSchema<
-  Schema<
-    PlatformFacet,
-    HierarchicalFacet | NumberRangeFacet | SimpleFacet | EditableNumberRangeFacet
-  >
+  PlatformFacet,
+  HierarchicalFacet | NumberRangeFacet | SimpleFacet | EditableNumberRangeFacet
 >({
   id: 'facet',
   label: 'facet',

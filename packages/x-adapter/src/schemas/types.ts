@@ -53,25 +53,25 @@ export type Schema<Source = any, Target = any> = {
  * @param OriginalSchema - The {@link Schema | schema} that will be mutable.
  * @public
  */
-export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
+export type MutableSchema<Source, Target> = Schema<Source, Target> & {
   /**
    * Replaces all usages of the original {@link Schema | schema} with the given one.
    *
    * @param newSchema - The {@link Schema | schema} to use instead of the original one.
    * @returns The new {@link Schema | schema} that will be used.
    */
-  $replace: <Source, Target>(
-    newSchema: Schema<Source, Target>
-  ) => MutableSchema<Schema<Source, Target>>;
+  $replace<NewSource, NewTarget>(
+    newSchema: Schema<NewSource, NewTarget>
+  ): MutableSchema<NewSource, NewTarget>;
   /**
    * Merges the original {@link Schema | schema} with the given one.
    *
    * @param newSchema - The {@link Schema | schema} to use to merge with the original one.
    * @returns The {@link Schema | schema} returned by the merge.
    */
-  $override: <Source, Target>(
-    newSchema: Schema<Source, Target>
-  ) => MutableSchema<Schema<Source, Target>>;
+  $override<NewSource, NewTarget>(
+    newSchema: Partial<Schema<Source & NewSource, Target>> & Schema<Source & NewSource, NewTarget>
+  ): MutableSchema<Source & NewSource, Target & NewTarget>;
   /**
    * Creates a new {@link Schema | schema} using the original one as starting point.
    * The original {@link Schema | schema} will remain unchanged.
@@ -79,9 +79,9 @@ export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
    * @param newSchema - The {@link Schema | schema} to be used to extend the original one.
    * @returns The {@link Schema | schema} created.
    */
-  $extends: <Source, Target>(
-    newSchema: Schema<Source, Target>
-  ) => MutableSchema<Schema<Source, Target>>;
+  $extends<NewSource, NewTarget>(
+    newSchema: Partial<Schema<Source & NewSource, Target>> & Schema<Source & NewSource, NewTarget>
+  ): MutableSchema<Source & NewSource, Target & NewTarget>;
   /**
    * Returns a string representing of the {@link Schema | schema}.
    *
@@ -89,7 +89,7 @@ export type MutableSchema<OriginalSchema extends Schema> = OriginalSchema & {
    * the internal methods. Disabled by default.
    * @returns The string representation.
    */
-  toString: (includeInternalMethods?: boolean) => string;
+  toString(includeInternalMethods?: boolean): string;
 };
 
 /**
