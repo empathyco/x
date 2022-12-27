@@ -1,7 +1,6 @@
 import {
   AnyFunction,
   DeepPartial,
-  EmptyObject,
   ExtractPath,
   ExtractPathByType,
   ExtractType,
@@ -62,7 +61,7 @@ export type MutableSchema<Source, Target> = Schema<Source, Target> & {
    * @param newSchema - The {@link Schema | schema} to use instead of the original one.
    * @returns The new {@link Schema | schema} that will be used.
    */
-  $replace<NewSource, NewTarget = EmptyObject>(
+  $replace<NewSource, NewTarget>(
     newSchema: Schema<NewSource, NewTarget>
   ): MutableSchema<NewSource, NewTarget>;
   /**
