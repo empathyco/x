@@ -52,7 +52,7 @@ configured are:
 - `defaultRequestOptions`: Default values for the endpoint configuration. You can use it to define
   if a request is cancelable, a unique id to identify it, anything but the `endpoint` can be set. 
   Check [EndpointAdapterOptions](https://github.com/empathyco/x/blob/main/packages/x-adapter/src/endpoint-adapter/types.ts) to see the available options.
-- `requestMapper`: A function to apply to the request parameters and transform them.
+- `requestMapper`: A function to transform the unprocessed request into parameters the API can understand.
 - `responseMapper`: A function to apply to the response and transform it.
 
 <br>
