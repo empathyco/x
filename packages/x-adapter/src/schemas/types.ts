@@ -1,5 +1,7 @@
 import {
   AnyFunction,
+  DeepPartial,
+  EmptyObject,
   ExtractPath,
   ExtractPathByType,
   ExtractType,
@@ -60,7 +62,7 @@ export type MutableSchema<Source, Target> = Schema<Source, Target> & {
    * @param newSchema - The {@link Schema | schema} to use instead of the original one.
    * @returns The new {@link Schema | schema} that will be used.
    */
-  $replace<NewSource, NewTarget>(
+  $replace<NewSource, NewTarget = EmptyObject>(
     newSchema: Schema<NewSource, NewTarget>
   ): MutableSchema<NewSource, NewTarget>;
   /**
@@ -69,8 +71,10 @@ export type MutableSchema<Source, Target> = Schema<Source, Target> & {
    * @param newSchema - The {@link Schema | schema} to use to merge with the original one.
    * @returns The {@link Schema | schema} returned by the merge.
    */
-  $override<NewSource, NewTarget>(
-    newSchema: Partial<Schema<Source & NewSource, Target>> & Schema<Source & NewSource, NewTarget>
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  $override<NewSource, NewTarget = {}>(
+    newSchema: DeepPartial<Schema<Source & NewSource, Target>> &
+      Schema<Source & NewSource, NewTarget>
   ): MutableSchema<Source & NewSource, Target & NewTarget>;
   /**
    * Creates a new {@link Schema | schema} using the original one as starting point.
@@ -79,8 +83,10 @@ export type MutableSchema<Source, Target> = Schema<Source, Target> & {
    * @param newSchema - The {@link Schema | schema} to be used to extend the original one.
    * @returns The {@link Schema | schema} created.
    */
-  $extends<NewSource, NewTarget>(
-    newSchema: Partial<Schema<Source & NewSource, Target>> & Schema<Source & NewSource, NewTarget>
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  $extends<NewSource, NewTarget = {}>(
+    newSchema: DeepPartial<Schema<Source & NewSource, Target>> &
+      Schema<Source & NewSource, NewTarget>
   ): MutableSchema<Source & NewSource, Target & NewTarget>;
   /**
    * Returns a string representing of the {@link Schema | schema}.
@@ -91,7 +97,6 @@ export type MutableSchema<Source, Target> = Schema<Source, Target> & {
    */
   toString(includeInternalMethods?: boolean): string;
 };
-
 /**
  * The possible transformers to apply to the target key.
  *
