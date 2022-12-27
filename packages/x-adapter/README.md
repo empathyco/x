@@ -149,7 +149,6 @@ string.
 export const getItemById = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/{section}/{id}',
   // ... rest of options to configure
-  }
 });
 
 // You would pass the parameter's value in the function call
