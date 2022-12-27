@@ -31,6 +31,6 @@ export function suggestionDefault(helpers: TailwindHelpers) {
       textDecoration: 'underline'
     },
 
-    ...alignIconWithBaseline(helpers)
+    ...alignIconWithBaseline()
   };
 }

@@ -32,6 +32,6 @@ export function suggestionGroupDefault(helpers: TailwindHelpers) {
     color: theme('colors.neutral.90'),
 
     ...overridesChildren(helpers),
-    ...alignIconWithBaseline(helpers)
+    ...alignIconWithBaseline()
   };
 }
