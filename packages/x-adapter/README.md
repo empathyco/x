@@ -48,7 +48,7 @@ configured are:
 - `endpoint`: The URL from which to fetch. Can be either a string or a mapper function that
   receives the request and returns a string.
 - `httpClient`: A function that will receive the endpoint and request options such as the parameters
-  and will perform the request, returning a promise with the response.
+  and will perform the request, returning a promise with the unprocessed response data.
 - `defaultRequestOptions`: Some options to configure how the request will behave by default, like if
   it is cancelable, a unique id to identify it, if it should use the body to send the params...
 - `requestMapper`: A function to apply to the request parameters and transform them.
