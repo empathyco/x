@@ -1,5 +1,4 @@
 import { TailwindHelpers } from '../../../types';
-import { commonGhostAndOutlinedStyles } from './utils/common-ghost-and-outline-styles';
 
 /**
  * Returns the `outlined` variant for component `suggestion group`.
@@ -15,7 +14,10 @@ export function suggestionGroupOutlined(helpers: TailwindHelpers) {
       backgroundColor: theme('colors.neutral.0'),
       borderWidth: theme('borderWidth.1'),
       borderColor: 'var(--suggestion-group-color-50)',
-      ...commonGhostAndOutlinedStyles(helpers)
+      '&:hover': {
+        backgroundColor: theme('colors.neutral.10')
+      },
+      gap: theme('spacing.4')
     }
   };
 }

@@ -1,5 +1,4 @@
 import { TailwindHelpers } from '../../../types';
-import { commonGhostAndOutlinedStyles } from './utils/common-ghost-and-outline-styles';
 
 /**
  * Returns the `ghost` variant for component `suggestion group`.
@@ -9,10 +8,14 @@ import { commonGhostAndOutlinedStyles } from './utils/common-ghost-and-outline-s
  */
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function suggestionGroupGhost(helpers: TailwindHelpers) {
+  const { theme } = helpers;
   return {
     ghost: {
       backgroundColor: 'transparent',
-      ...commonGhostAndOutlinedStyles(helpers)
+      '&:hover': {
+        backgroundColor: theme('colors.neutral.10')
+      },
+      gap: theme('spacing.4')
     }
   };
 }
