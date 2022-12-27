@@ -99,6 +99,8 @@ interface AppProduct {
 ###### Adapter's factory function implementation
 
 ```ts
+import { endpointAdapterFactory } from '@empathyco/x-adapter';
+
 export const searchProducts = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/products/search',
   requestMapper({ query }: Readonly<AppSearchRequest>): ApiRequest {
