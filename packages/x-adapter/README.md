@@ -30,7 +30,7 @@ take the advantage of it in your project development.
 An `EndpointAdapter` is an asynchronous function that performs a request with the given data, and returns a response promise with the requested data. Internally, it usually has to transform the request data so the API can understand it, and the response data so your app understands it as well.
 
 ```ts
-async searchOnClick() {
+async function searchOnClick() {
   const response = await searchProducts({ query: 'phone' });
   this.items = response.products;
 }
