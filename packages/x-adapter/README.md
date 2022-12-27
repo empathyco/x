@@ -34,9 +34,11 @@ take the advantage of it in your project development.
 
 ## Configuration & Usage
 
-An `EndpointAdapter` is an asynchronous function that performs a request with the given data, and
-returns a response promise with the requested data. Internally, it usually has to transform the
-request data so the API can understand it, and the response data so your app understands it as well.
+An `API Adapter` is a collection of `EndpointAdapters`, one for each endpoint of the API you want to
+consume. Each `EndpointAdapter` is an asynchronous function that performs a request with the given
+data, and returns a response promise with the requested data. Internally, it usually has to
+transform the request data so the API can understand it, and the response data so your app
+understands it as well.
 
 <br>
 
@@ -47,8 +49,8 @@ receive an `EndpointAdapterOptions` object containing all the needed data to per
 request, and return a function that when invoked will trigger the request. The options that can be
 configured are:
 
-- `endpoint`: The URL from which to fetch. Can be either a string or a mapper function that receives
-  the request and returns a string.
+- `endpoint`: The URL that the `httpClient` uses. It can be either a string or a mapper function
+  that dynamically generates the URL string using the request data.
 - `httpClient`: A function that will receive the endpoint and request options such as the parameters
   and will perform the request, returning a promise with the unprocessed response data.
 - `defaultRequestOptions`: Default values for the endpoint configuration. You can use it to define
