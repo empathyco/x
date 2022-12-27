@@ -87,6 +87,11 @@ export const rollupConfig = createRollupOptions({
       // lang is set to ts:
       // https://github.com/vuejs/rollup-plugin-vue/issues/272#issuecomment-491721842
       needMap: false,
+      template: {
+        compilerOptions: {
+          whitespace: 'condense'
+        }
+      } as any,
       style: {
         postcssCleanOptions: { disabled: true }
       }
