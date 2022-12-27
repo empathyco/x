@@ -11,6 +11,13 @@ Some features that it provides:
 
 <br>
 
+## Tech Stack
+
+[![TypeScript](https://img.shields.io/badge/-typescript-3178C6?logo=typescript&logoColor=white&style=for-the-badge)](https://www.typescriptlang.org/)
+[![Jest](https://img.shields.io/badge/-jest-C21325?logo=jest&logoColor=white&style=for-the-badge)](https://jestjs.io/)
+
+<br>
+
 ## Installation
 
 ```
@@ -27,14 +34,9 @@ take the advantage of it in your project development.
 
 ## Configuration & Usage
 
-An `EndpointAdapter` is an asynchronous function that performs a request with the given data, and returns a response promise with the requested data. Internally, it usually has to transform the request data so the API can understand it, and the response data so your app understands it as well.
-
-```ts
-async function searchOnClick() {
-  const response = await searchProducts({ query: 'phone' });
-  this.items = response.products;
-}
-```
+An `EndpointAdapter` is an asynchronous function that performs a request with the given data, and
+returns a response promise with the requested data. Internally, it usually has to transform the
+request data so the API can understand it, and the response data so your app understands it as well.
 
 <br>
 
@@ -45,22 +47,26 @@ receive an `EndpointAdapterOptions` object containing all the needed data to per
 request, and return a function that when invoked will trigger the request. The options that can be
 configured are:
 
-- `endpoint`: The URL from which to fetch. Can be either a string or a mapper function that
-  receives the request and returns a string.
+- `endpoint`: The URL from which to fetch. Can be either a string or a mapper function that receives
+  the request and returns a string.
 - `httpClient`: A function that will receive the endpoint and request options such as the parameters
   and will perform the request, returning a promise with the unprocessed response data.
 - `defaultRequestOptions`: Default values for the endpoint configuration. You can use it to define
-  if a request is cancelable, a unique id to identify it, anything but the `endpoint` can be set. 
-  Check [EndpointAdapterOptions](https://github.com/empathyco/x/blob/main/packages/x-adapter/src/endpoint-adapter/types.ts) to see the available options.
-- `requestMapper`: A function to transform the unprocessed request into parameters the API can understand.
-- `responseMapper`: A function to transform the API response into data that your project can understand.
+  if a request is cancelable, a unique id to identify it, anything but the `endpoint` can be set.
+  Check
+  [EndpointAdapterOptions](https://github.com/empathyco/x/blob/main/packages/x-adapter/src/endpoint-adapter/types.ts)
+  to see the available options.
+- `requestMapper`: A function to transform the unprocessed request into parameters the API can
+  understand.
+- `responseMapper`: A function to transform the API response into data that your project can
+  understand.
 
 <br>
 
 #### Basic adapter implementation
 
-In this example we have a simple request mapper that will add a `q` parameter to the endpoint's
-url to perform the request. If you check the function call below, you will see the query parameter
+In this example we have a simple request mapper that will add a `q` parameter to the endpoint's url
+to perform the request. If you check the function call below, you will see the query parameter
 passed.
 
 ###### Types definition
@@ -86,7 +92,7 @@ interface AppSearchRequest {
   query: string;
 }
 interface AppSearchResponse {
-  products: MyProduct[];
+  products: AppProduct[];
   total: number;
 }
 interface AppProduct {
@@ -121,6 +127,12 @@ export const searchProducts = endpointAdapterFactory({
     };
   }
 });
+
+// Function call
+async function searchOnClick() {
+  const response = await searchProducts({ query: 'phone' });
+  this.items = response.products;
+}
 ```
 
 <br>
@@ -147,18 +159,18 @@ string.
 
 ```ts
 export const getItemById = endpointAdapterFactory({
-  endpoint: 'https://dummyjson.com/{section}/{id}',
+  endpoint: 'https://dummyjson.com/{section}/{id}'
   // ... rest of options to configure
 });
 
 // You would pass the parameter's value in the function call
-getItemById({ section: "products", id: 1 });
-getItemById({ section: "quotes", id: 3 });
+getItemById({ section: 'products', id: 1 });
+getItemById({ section: 'quotes', id: 3 });
 ```
 
 Additionally, you can also overwrite your adapter's endpoint definition using the
-`RequestOptions.endpoint` parameter in the function call. Take into account that your `responseMapper`
-definition should be agnostic enough to support the change:
+`RequestOptions.endpoint` parameter in the function call. Take into account that your
+`responseMapper` definition should be agnostic enough to support the change:
 
 ```ts
 export const getItemById = endpointAdapterFactory({
@@ -174,15 +186,16 @@ getItemById({ id: 1 }, { endpoint: 'https://dummyjson.com/products/{id}');
 
 #### Using the httpClient function
 
-Every adapter created using `endpointAdapterFactory` uses the `Fetch API` by default to perform the requests. But you can use
-your own `HttpClient` as part of the configurable `EndpointAdapterOptions`. A `HttpClient` is a
-function that accepts two parameters: the `endpoint` string, and an additional
+Every adapter created using `endpointAdapterFactory` uses the `Fetch API` by default to perform the
+requests. But you can use your own `HttpClient` as part of the configurable
+`EndpointAdapterOptions`. A `HttpClient` is a function that accepts two parameters: the `endpoint`
+string, and an additional
 [`options`](https://github.com/empathyco/x/blob/main/packages/x-adapter/src/http-clients/types.ts)
 object to make the request with.
 
 ```ts
 // HTTP Client
-const customHttpClient: HttpClient = (endpoint, options) =>
+const axiosHttpClient: HttpClient = (endpoint, options) =>
   axios.get(endpoint, { params: options?.parameters }).then(response => response.data);
 
 // Request Mapper
@@ -192,22 +205,19 @@ const customRequestMapper: Mapper<AppSearchRequest, ApiRequest> = ({ query }) =>
   };
 };
 
-// Object Mapper to use in the Response Mapper
-const productMap: Mapper<ApiProduct, AppProduct> = product => {
-  return {
-    id: product.id.toString(),
-    name: product.title,
-    price: product.price
-  };
-};
-
 // Response Mapper
 const customResponseMapper: Mapper<ApiSearchResponse, AppSearchResponse> = ({
   products,
   total
 }) => {
   return {
-    products: products.map(product => productMap(product, {})),
+    products: products.map(product => {
+      return {
+        id: product.id.toString(),
+        name: product.title,
+        price: product.price
+      };
+    }),
     total: total
   };
 };
@@ -215,7 +225,7 @@ const customResponseMapper: Mapper<ApiSearchResponse, AppSearchResponse> = ({
 // Adapter factory function implementation
 export const searchProducts = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/products/search',
-  httpClient: customHttpClient,
+  httpClient: axiosHttpClient,
   requestMapper: customRequestMapper,
   responseMapper: customResponseMapper
 });
@@ -225,9 +235,13 @@ export const searchProducts = endpointAdapterFactory({
 
 ### Implement your own adapter using schemas
 
-Sometimes the transformations you will need to do in the mappers are just renaming parameters. What the API calls `q` might be called `query` in your request. To ease this transformations, `@empathyco/x-adapter` allows to create mappers using schemas.
+Sometimes the transformations you will need to do in the mappers are just renaming parameters. What
+the API calls `q` might be called `query` in your request. To ease this transformations,
+`@empathyco/x-adapter` allows to create mappers using schemas.
 
-A schema is just a dictionary where the key is the desired parameter name, and the value is the path of the source object that has the desired value or a simple mapper function if you need to transform the value somehow.
+A schema is just a dictionary where the key is the desired parameter name, and the value is the path
+of the source object that has the desired value or a simple mapper function if you need to transform
+the value somehow.
 
 ###### Types definition
 
@@ -262,20 +276,18 @@ interface AppUser {
 ###### Schema's mapper factory function implementation
 
 ```ts
-// Object Mapper to use in the Response Mapper
-const userMap: Mapper<ApiUser, AppUser> = user => {
-  return {
-    id: user.id.toString(),
-    name: user.firstName
-  };
-};
-
 // Map both the request and the response to connect your model with the API you are working with.
 const userSearchRequestMapper = schemaMapperFactory<AppUserRequest, ApiUserRequest>({
   q: 'query'
 });
 const userSearchResponseMapper = schemaMapperFactory<ApiUserResponse, AppUserResponse>({
-  people: ({ users }) => users.map(user => userMap(user, {})),
+  people: ({ users }) =>
+    users.map(user => {
+      return {
+        id: user.id.toString(),
+        name: user.firstName
+      };
+    }),
   total: 'total'
 });
 
@@ -399,25 +411,26 @@ export const searchUsersWithContactInfo = endpointAdapterFactory({
 
 #### Using a mutable schema
 
-With the `x-adapter` you can create mutable schemas. These schemas are helpful when writing
-libraries where you want to have some defaults, but allow to modify or extend them.
-
-```
-// TODO: Add mutable schema's options: replace, override, delete
-```
+This feature lets you have some default mappers, and modify or extend them for some concrete
+implementations. To do so, you should use the `createMutableSchema` helper function, and pass as a
+parameter the schema you want to make mutable.
 
 ```ts
-import { createMutableSchema, Schema } from '@empathyco/x-adapter';
-import { SearchRequest } from '@empathyco/x-types';
-import { ApiRequestModel } from 'YOUR-API-SOURCE';
-
-export const searchRequestSchema = createMutableSchema<Schema<SearchRequest, ApiRequestModel>>({
-  q: 'query',
-  limit: 'rows',
-  offset: 'start'
-  // ... any existing types from your API source
-});
+// TODO: Creating a mutable schema
 ```
+
+Once you have your mutable schema, you can use its available methods to obtain a new schema based on
+it:
+
+- `replace`: Replaces completely the original Schema.
+- `override`: Merges the original schema with the new one.
+- `extends`: Creates a new Schema based on the original Schema. The original remains unchanged.
+
+```ts
+// TODO: Use mutable schema's methods: '$replace', '$override', '$extends'
+```
+
+<br>
 
 ### Extend an adapter that uses schemas
 
@@ -429,9 +442,8 @@ and also some guidance on how to extend it for your needs.
 
 ## Test
 
-```
-// TODO: add introduction & test's location
-```
+**Empathy Adapter** features are tested using [Jest](https://jestjs.io/). You will find a
+`__tests__` folder inside each of the project's sections.
 
 ```
 npm test
