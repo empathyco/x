@@ -157,7 +157,7 @@ getItemById({ section: "quotes", id: 3 });
 ```
 
 Additionally, you can also overwrite your adapter's endpoint definition using the
-`RequestOptions.endpoint` parameter in the function call. Take in account that your `responseMapper`
+`RequestOptions.endpoint` parameter in the function call. Take into account that your `responseMapper`
 definition should be agnostic enough to support the change:
 
 ```ts
