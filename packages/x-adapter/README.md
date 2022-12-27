@@ -49,8 +49,9 @@ configured are:
   receives the request and returns a string.
 - `httpClient`: A function that will receive the endpoint and request options such as the parameters
   and will perform the request, returning a promise with the unprocessed response data.
-- `defaultRequestOptions`: Some options to configure how the request will behave by default, like if
-  it is cancelable, a unique id to identify it, if it should use the body to send the params...
+- `defaultRequestOptions`: Default values for the endpoint configuration. You can use it to define
+  if a request is cancelable, a unique id to identify it, anything but the `endpoint` can be set. 
+  Check [EndpointAdapterOptions](https://github.com/empathyco/x/blob/main/packages/x-adapter/src/endpoint-adapter/types.ts) to see the available options.
 - `requestMapper`: A function to apply to the request parameters and transform them.
 - `responseMapper`: A function to apply to the response and transform it.
 
