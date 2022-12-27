@@ -27,10 +27,7 @@ take the advantage of it in your project development.
 
 ## Configuration & Usage
 
-The `adapter` is a function that triggers a request with the given data (a search request and an
-options object to make the request with). It returns a response promise that you will use to curate
-the data you need. You will only need to call this function to get you request made, as you would do
-with any `HTTP` client.
+An `EndpointAdapter` is an asynchronous function that performs a request with the given data, and returns a response promise with the requested data. Internally, it usually has to transform the request data so the API can understand it, and the response data so your app understands it as well.
 
 ```ts
 async searchOnClick() {
