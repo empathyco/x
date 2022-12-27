@@ -21,9 +21,11 @@
       </button>
       <button
         v-if="section === 'Combinations layer'"
-        class="
-          x-suggestion-group-button x-suggestion-group-button-layout x-suggestion-group-button-ghost
-        "
+        class="x-suggestion-group-button x-suggestion-group-button-layout"
+        :class="{
+          'x-suggestion-group-button-lighter': cssClass.includes('x-suggestion-group-success'),
+          'x-suggestion-group-button-ghost': !cssClass.includes('x-suggestion-group-success')
+        }"
       >
         clear
       </button>
