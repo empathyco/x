@@ -225,10 +225,9 @@ export const searchProducts = endpointAdapterFactory({
 
 ### Implement your own adapter using schemas
 
-The `x-adapter` library includes a `schemaMapperFactory` function that returns a mapper function to
-execute the `schema` you provide. The function accepts a `Source` object (the data to be
-transformed) and a `Target` object. You just need to create the request and response models to
-define the structure of your data vs the APIs data, and pass them to the factory function.
+Sometimes the transformations you will need to do in the mappers are just renaming parameters. What the API calls `q` might be called `query` in your request. To ease this transformations, `@empathyco/x-adapter` allows to create mappers using schemas.
+
+A schema is just a dictionary where the key is the desired parameter name, and the value is the path of the source object that has the desired value or a simple mapper function if you need to transform the value somehow.
 
 ###### Types definition
 
