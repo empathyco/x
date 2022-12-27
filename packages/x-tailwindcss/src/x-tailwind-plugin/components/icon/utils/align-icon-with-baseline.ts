@@ -1,14 +1,11 @@
-import { TailwindHelpers } from '../../../../types';
-
 /**
  * Util to align an icon vertically to a text.
  *
- * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the util.
  */
 // eslint-disable-next-line max-len
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type,@typescript-eslint/no-unused-vars
-export function alignIconWithBaseline(helpers: TailwindHelpers) {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export function alignIconWithBaseline() {
   return {
     /**
      * Enable `enableIconOffset` icon alignment flag.
