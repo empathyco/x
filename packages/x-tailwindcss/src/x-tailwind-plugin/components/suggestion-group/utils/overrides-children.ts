@@ -24,9 +24,9 @@ export function overridesChildren(helpers: TailwindHelpers) {
       fontWeight: 'inherit'
     },
 
-    '&:hover': {
+    '&.suggestion-group-ghost:hover, &.suggestion-group-outlined:hover': {
       '.suggestion': {
-        textDecoration: 'underline'
+        textDecoration: 'none'
       }
     }
   };
