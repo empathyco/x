@@ -164,7 +164,6 @@ definition should be agnostic enough to support the change:
 export const getItemById = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/quotes/{id}',
   // ... rest of options to configure
-  }
 });
 
 // You would pass the new endpoint in the function call
