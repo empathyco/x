@@ -174,9 +174,9 @@ getItemById({ id: 1 }, { endpoint: 'https://dummyjson.com/products/{id}');
 
 #### Using the httpClient function
 
-The `x-adapter` uses the `Fetch API` interface by default to perform the requests. But you can use
-your own HTTP Client as part of the configurable `EndpointAdapterOptions`. The `httpClient` is a
-function type that accepts two parameters: the `endpoint` and an additional
+Every adapter created using `endpointAdapterFactory` uses the `Fetch API` by default to perform the requests. But you can use
+your own `HttpClient` as part of the configurable `EndpointAdapterOptions`. A `HttpClient` is a
+function that accepts two parameters: the `endpoint` string, and an additional
 [`options`](https://github.com/empathyco/x/blob/main/packages/x-adapter/src/http-clients/types.ts)
 object to make the request with.
 
