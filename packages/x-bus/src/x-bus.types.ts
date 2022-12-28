@@ -1,5 +1,74 @@
 import { Observable, Subject } from 'rxjs';
-import { Dictionary, PropsWithType } from '@empathyco/x-utils';
+import {AnyFunction, Dictionary, Keys} from '@empathyco/x-utils';
+
+/**
+ * Alias representing a
+ * {@link https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#return_value | timeoutID}
+ * value.
+ *
+ * @internal
+ */
+export type TimeoutId = number;
+
+/**
+ * Alias representing a positive number to represent the priority of an {@link XEvent} in an
+ * {@link XPriorityBus}.
+ *
+ * @internal
+ */
+export type Priority = number;
+
+/**
+ * Alias representing a dictionary where the key is the name of the {@link XEvent} and the type
+ * is its payload type.
+ */
+export type XEvents = Dictionary;
+
+/**
+ * Alias representing the name of an {@link XEvent}.
+ *
+ * @internal
+ */
+export type XEvent = keyof XEvents;
+
+/**
+ * Extracts the payload type of a {@link XEvent}.
+ *
+ * @internal
+ */
+export type XEventPayload<Event extends XEvent> = XEvents[Event] extends void
+  ? undefined
+  : XEvents[Event];
+
+/**
+ * Represents the payload of a subject with a given type.
+ *
+ * @internal
+ */
+export type SubjectPayload<SomePayload> = {
+  /** The payload of the event. */
+  eventPayload: SomePayload;
+  /** Extra data of the event. */
+  metadata: Dictionary;
+};
+
+/**
+ * Type safe for emitter payload. It is the wire payload.
+ *
+ * @typeParam Event - The {@link XEvent} to extract its payload type.
+ * @public
+ */
+export type Emitter<Event extends XEvent> = Subject<SubjectPayload<XEventPayload<Event>>>;
+
+/**
+ * Type safe emitter's dictionary, where each key is the {@link XEvent} name, and the value is a
+ * {@link https://rxjs.dev/api/index/class/Subject} of the {@link XEventPayload} type.
+ *
+ * @public
+ */
+export type Emitters = {
+  [Event in XEvent]?: Emitter<Event>;
+};
 
 /**
  * The events bus that allows emitting and subscribing to {@link XEventsTypes}.
@@ -11,20 +80,21 @@ export interface XBus {
    * Emits an event with the `void` type associated as payload.
    *
    * @param event - The event name.
+   * @returns A promise that is resolved whenever the event is emitted.
    */
-  emit(event: PropsWithType<XEventsTypes, void>): void;
+  emit(event: Keys<XEvents, void>): Promise<XEvent> | void;
   /**
    * Emits an event with a non-void payload.
    *
    * @param event - The event name.
    * @param payload - The payload of the event.
-   * @param metadata - The {@link WireMetadata | metadata} of the event.
+   * @param metadata - The extra data of the event.
    */
-  emit<Event extends keyof XEventsTypes>(
+  emit<Event extends keyof XEvents>(
     event: Event,
     payload: XEventPayload<Event>,
     metadata?: Dictionary
-  ): void;
+  ): Promise<XEvent> | void;
 
   /**
    * Retrieves the observable for an event.
@@ -35,7 +105,7 @@ export interface XBus {
    * @returns An Observable of {@link WirePayload} object containing the event payload and the
    * event metadata.
    */
-  on<Event extends keyof XEventsTypes>(
+  on<Event extends keyof XEvents>(
     event: Event,
     withMetadata: true
   ): Observable<SubjectPayload<XEventPayload<Event>>>;
@@ -43,8 +113,7 @@ export interface XBus {
    * Retrieves the observable for an event.
    *
    * @param event - The event to retrieve an observable for.
-   * @param withMetadata - When set to `false`, the observable payload will be the Event
-   * payload.
+   * @param withMetadata - When set to `false`, the observable payload will be the Event payload.
    * @returns An Observable of the event payload.
    */
   on<Event extends XEvent>(event: Event, withMetadata?: false): Observable<XEventPayload<Event>>;
@@ -64,37 +133,3 @@ export interface XBus {
     withMetadata: boolean
   ): Observable<XEventPayload<Event> | SubjectPayload<XEventPayload<Event>>>;
 }
-
-/**
- * Type safe emitters dictionary, where each key is the {@link XEvent} name,
- * and the value is a {@link https://rxjs.dev/api/index/class/Subject} of the
- * {@link XEventPayload} type.
- *
- * @public
- */
-export type Emitters = {
-  [Event in XEvent]?: Emitter<Event>;
-};
-
-/**
- * Type safe for emitter payload. It is the wire payload.
- *
- * @typeParam Event - The {@link XEvent} to extract its payload type.
- * @public
- */
-export type Emitter<Event extends XEvent> = Subject<SubjectPayload<XEventPayload<Event>>>;
-
-export type XEventsTypes = Record<string, any>;
-
-export type XEvent = keyof XEventsTypes;
-
-export type XEventPayload<Event extends XEvent> = XEventsTypes[Event] extends void
-  ? undefined
-  : XEventsTypes[Event];
-
-export type SubjectPayload<PayloadType> = {
-  /** The payload of the event, which must be of type {@link XEventPayload}. */
-  eventPayload: PayloadType;
-  /** An object containing information about the emission of the event. */
-  metadata: Dictionary;
-};

@@ -1,6 +1,5 @@
-import { XPriorityBus } from '../index';
-import { Dictionary } from '@empathyco/x-utils';
 import { XPriorityQueue } from '@empathyco/x-priority-queue';
+import { XPriorityBus } from '../index';
 
 describe('x-bus with priority queue', () => {
   beforeAll(() => {

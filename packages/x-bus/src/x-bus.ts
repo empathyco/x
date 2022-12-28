@@ -1,107 +1,200 @@
+import { XPriorityQueue } from '@empathyco/x-priority-queue';
+import { AnyFunction, Dictionary } from '@empathyco/x-utils';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AnyFunction, Dictionary } from '@empathyco/x-utils';
-import { XPriorityQueue } from '@empathyco/x-priority-queue';
-import { Emitter, Emitters, SubjectPayload, XBus, XEvent, XEventPayload } from './x-bus.types';
+import {
+  Emitter,
+  Emitters,
+  Priority,
+  SubjectPayload,
+  TimeoutId,
+  XBus,
+  XEvent,
+  XEventPayload
+} from './x-bus.types';
 
-const eventsPriorities: Dictionary<number> = {
-  RequestChanged: 2,
-  DataChanged: 4,
-  User: 6,
-  Url: 8,
-  External: 10,
-  DataProvided: 12,
-  LifecycleHooks: 12,
-  DataReceived: 14
-};
+declare module '@empathyco/x-priority-queue' {
+  export interface XPriorityQueueNodeMetadata {
+    resolve: (value: XEvent) => void;
+    eventPayload: any;
+    eventMetadata: any;
+  }
+}
 
 /**
- * Default {@link XBus} implementation.
+ * A {@link XBus} implementation using an {@link XPriorityQueue} as its data structure to
+ * prioritise the emission of events. The priorities are preconfigured based on event naming.
  *
  * @public
  */
 export class XPriorityBus implements XBus {
   /**
-   * Dictionary to store the created event emitters.
+   *
+   *
+   * @internal
+   */
+  protected queue: XPriorityQueue<XEvent>;
+
+  /**
+   *
+   *
+   * @internal
+   */
+  protected priorities: Dictionary<number>;
+
+  /**
+   *
+   *
+   * @internal
+   */
+  protected emitCallbacks: AnyFunction[];
+
+  /**
+   * A dictionary to store the created event emitters.
    *
    * @internal
    */
   protected emitters: Emitters = {};
 
-  public constructor(protected queue: XPriorityQueue<XEvent> = new XPriorityQueue()) {}
+  /**
+   * A pending flush operation {@link TimeoutId | timeout identifier} or undefined if there's
+   * none pending.
+   *
+   * @internal
+   */
+  protected pendingFlush?: TimeoutId;
 
-  public pendingEmit!: number;
+  /**
+   * A list of pending pop operations {@link TimeoutId | timeout identifiers}.
+   *
+   * @internal
+   */
+  protected pendingPops: TimeoutId[] = [];
 
-  public pendingPops: number[] = [];
+  /**
+   * Creates a new instance of a {@link XPriorityBus}.
+   *
+   * @param queue - A {@link XPriorityQueue} to store the events.
+   * @param priorities - A {@link @empathyco/x-utils#Dictionary} defining the priorities associated
+   * to a given string.
+   */
+  public constructor(
+    config: {
+      queue?: XPriorityQueue;
+      priorities?: Dictionary<number>;
+      emitCallbacks?: AnyFunction[];
+    } = {}
+  ) {
+    this.queue = config.queue ?? new XPriorityQueue();
+    this.priorities = config.priorities ?? {
+      RequestChanged$: 2,
+      Changed$: 4,
+      '^User': 6,
+      FromUrl$: 8,
+      '^External': 10,
+      Provided$: 12,
+      Hook$: 12,
+      Received$: 14
+    };
+    this.emitCallbacks = config.emitCallbacks ?? [];
+  }
 
   /**
    * Emits an event. See {@link XBus.(emit:2)}.
    *
    * @param event - Event to be emitted.
    * @param payload - Event payload.
-   * @param metadata - Information of who emits the event.
+   * @param metadata - Extra event data.
+   *
+   * @returns A promise that is resolved whenever the emitted is truly emitted.
    */
   emit<Event extends XEvent>(
     event: Event,
     payload?: XEventPayload<Event>,
     metadata: Dictionary = { moduleName: null }
   ): Promise<XEvent> {
-    // Payload is defined here as an optional argument (which is wrong), but as this
-    // implementation must be used with the type XBus there is no problem
-    const value: SubjectPayload<XEventPayload<Event>> = {
-      eventPayload: payload,
-      metadata
-    };
-    // logDevtoolsXEvent(event, value);
     return new Promise<XEvent>(resolve => {
-      this.queue.push(event, this.getEventPriority(event), {
-        replaceable: false,
+      this.queue.push(event, this.getEventPriority(event, metadata), {
+        replaceable: metadata.replaceable || false,
         resolve,
-        ...value
+        eventPayload: payload,
+        eventMetadata: metadata
       });
 
       this.flushQueue();
     });
   }
 
-  getEventPriority(event: XEvent): number {
-    return eventsPriorities[event] ?? Number.MAX_VALUE;
+  /**
+   * Retrieves the event priority. The criteria to get the priority is:
+   * - the defined event metadata priority
+   * - the priority associated to the matching preconfigured priority key
+   * - the max positive value is assigned
+   *
+   * @param event - The {@link XEvent | event} to get the priority from.
+   * @param metadata - The {@link XEvent | event} metadata.
+   * @returns The priority for the given {@link XEvent | event}.
+   *
+   * @internal
+   */
+  protected getEventPriority(event: XEvent, metadata: Dictionary): Priority {
+    const [, priorityKey] = Object.keys(this.priorities).reduce(
+      ([matchedCount, matchedName], name) => {
+        const count = event.match(new RegExp(name))?.[0].length ?? 0;
+
+        return count > matchedCount ? [count, name] : [matchedCount, matchedName];
+      },
+      [0, ''] as [count: number, priorityKey: string]
+    );
+
+    return metadata.priority ?? this.priorities[priorityKey] ?? Number.MAX_VALUE;
   }
 
+  /**
+   * Processes the events stored in the {@link XPriorityQueue | queue} and resolves each
+   * {@link XEvent | event} whenever it is emitted.
+   *
+   * @remarks If another 'flushQueue' was running, it is cleared and a new one is executed. The
+   * pending popping operations are also cleared.
+   *
+   * @internal
+   */
   protected flushQueue(): void {
+    clearTimeout(this.pendingFlush);
     this.pendingPops.forEach(clearTimeout);
-    if (this.pendingEmit) {
-      clearTimeout(this.pendingEmit);
-    }
 
-    this.pendingEmit = setTimeout(() => {
-      while (!this.queue.isEmpty()) {
-        const element = this.queue.pop();
-        const popTimeout = setTimeout(async () => {
-          if (element) {
-            const { metadata } = element;
-            const emitter = this.getOrCreateEmitter(element.key);
-            emitter.next({
-              eventPayload: metadata.eventPayload as any,
-              metadata: metadata.metadata as any
-            });
-            await (metadata.resolve as AnyFunction)(element.key);
-          }
+    this.pendingFlush = setTimeout(() => {
+      for (let i = 0; i < this.queue.size() - 1; i++) {
+        const popTimeoutId = setTimeout(() => {
+          const {
+            key,
+            metadata: { eventPayload, eventMetadata, resolve }
+          } = this.queue.pop()!;
+          const emitter = this.getEmitter(key);
 
-          this.pendingPops = this.pendingPops.filter(pendingPop => pendingPop !== popTimeout);
+          emitter.next({
+            eventPayload,
+            metadata: eventMetadata
+          });
+
+          this.emitCallbacks.forEach(callback =>
+            callback(key, { eventPayload, metadata: eventMetadata })
+          );
+          resolve(key);
+
+          this.pendingPops = this.pendingPops.filter(timeoutId => timeoutId !== popTimeoutId);
         });
 
-        this.pendingPops.push(popTimeout);
+        this.pendingPops.push(popTimeoutId);
       }
     });
 
-    this.pendingEmit = 0;
+    this.pendingFlush = undefined;
   }
 
   /**
    * Retrieves an observable. See {@link XBus.(on:3)}.
    *
-   * @public
    * @param event - Event to listener.
    * @param withMetadata - Option to listener with info about event emitter.
    * @returns The emitter for the event passed.
@@ -111,29 +204,55 @@ export class XPriorityBus implements XBus {
     withMetadata = false
   ): Observable<SubjectPayload<XEventPayload<Event>> | XEventPayload<Event>> {
     return withMetadata
-      ? this.getOrCreateEmitter(event)
-      : this.getOrCreateEmitter(event).pipe(map(value => value.eventPayload));
+      ? this.getEmitter(event)
+      : this.getEmitter(event).pipe(map(value => value.eventPayload));
   }
 
   /**
-   * Retrieves an event emitter for a given event.
+   * Retrieves an event emitter for the given event.
    *
    * @param event - The event to retrieve the emitter for.
-   * @returns The emitter for the event passed.
+   * @returns The emitter for the passed event.
+   *
+   * @internal
+   */
+  protected getEmitter<Event extends XEvent>(event: Event): Emitter<Event> {
+    if (!this.emitters[event]) {
+      this.createEmitter(event);
+    }
+
+    return this.emitters[event]!;
+  }
+
+  /**
+   * Creates an event emitter for the given event.
+   *
    * @remarks The emitter is implemented with a
    * {@Link https://www.learnrxjs.io/learn-rxjs/subjects/replaysubject | ReplaySubject} to allow any
    * new subscriber receive the last emitted value.
+   *
+   * @param event - The event to create the emitter for.
+   *
    * @internal
    */
-  protected getOrCreateEmitter<Event extends XEvent>(event: Event): Emitter<Event> {
-    // TODO I Don't get why the types are not working here
-    return (
-      this.emitters[event] ??
-      (this.emitters[event] = new ReplaySubject<SubjectPayload<XEventPayload<Event>>>(1) as any)
-    );
+  protected createEmitter<Event extends XEvent>(event: Event): void {
+    this.emitters[event] = new ReplaySubject<SubjectPayload<XEventPayload<Event>>>(1);
   }
 }
 
-/** @internal The bus instance. Will be replaced by injection. */
-export const xPriorityBus: XBus = new XPriorityBus();
-// TODO Remove this instantiation and replace with injection where used
+const logEvent = (event: string, value: { eventPayload: any }): void => console.log(value);
+const bus = new XPriorityBus({ emitCallbacks: [logEvent] });
+
+bus.emit(
+  'SearchResponseReceived',
+  {
+    docs: [
+      { id: 1, name: 1 },
+      { id: 2, name: '2' }
+    ]
+  },
+  { moduleName: 'search' }
+);
+
+bus.emit('UserAcceptedAQuery', 'shirt', { moduleName: 'search' });
+bus.emit('SearchRequestChanged', { query: 'shirtless', rows: 2 }, { moduleName: 'search' });

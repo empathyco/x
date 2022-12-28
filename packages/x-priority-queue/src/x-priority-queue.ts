@@ -1,6 +1,8 @@
 import { AnyFunction } from '@empathyco/x-utils';
 
-export type XPriorityQueueNodeMetadata = { replaceable?: boolean; [key: string]: unknown };
+export interface XPriorityQueueNodeMetadata {
+  replaceable?: boolean;
+}
 
 /**
  * An XPriorityQueueNode object is a representation of a structure containing a parametrized key, a
