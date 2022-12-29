@@ -141,33 +141,28 @@ async function searchOnClick() {
 
 #### Using a dynamic endpoint
 
-You can use a mapper function to do so and pass the dynamic part of the url as a parameter when the
-adapter function is called.
-
-```ts
-export const getProductById = endpointAdapterFactory({
-  endpoint: ({ id }: GetProductByIdRequest) => 'https://dummyjson.com/products/' + id,
-  responseMapper(response: Readonly<ApiProduct>): AppProduct {
-    return productMap(response);
-  }
-});
-```
-
-Or you can place your parameter(s) inside curly brackets, and they will be added to the final
-string, thanks to the
-[interpolate](https://github.com/empathyco/x/blob/main/packages/x-adapter/src/utils/interpolate.ts)
-utility function. If a value is not provided, its parameter would just will be removed from the
-string.
+If you need to generate an endpoint url dynamically, you can add parameters inside curly brackets to
+the endpoint string. By default, these parameters will be replaced using the request data. If a
+parameter is not found inside the request, an empty string will be used.
 
 ```ts
 export const getItemById = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/{section}/{id}'
   // ... rest of options to configure
 });
+getItemById({ section: 'products', id: 1 }); // 'https://dummyjson.com/products/1'
+getItemById({ section: 'quotes', id: 3 }); // 'https://dummyjson.com/quotes/3'
+getItemById({ section: 'quotes' }); // 'https://dummyjson.com/quotes/'
+```
 
-// You would pass the parameter's value in the function call
-getItemById({ section: 'products', id: 1 });
-getItemById({ section: 'quotes', id: 3 });
+For more complex use cases, you can use a mapper function. This function receives the request, and
+must return the URL string.
+
+```ts
+export const getProductById = endpointAdapterFactory({
+  endpoint: ({ id }: GetProductByIdRequest) => 'https://dummyjson.com/products/' + id
+  // ... rest of options to configure
+});
 ```
 
 Additionally, you can also overwrite your adapter's endpoint definition using the
@@ -426,10 +421,10 @@ it:
 
 - `replace`: Replaces completely the original Schema.
 - `override`: Merges the original schema with the new one.
-- `extends`: Creates a new Schema based on the original Schema. The original remains unchanged.
+- `extends`: Creates a new Schema based on the original one. The original remains unchanged.
 
 ```ts
-// TODO: Use mutable schema's methods: '$replace', '$override', '$extends'
+// TODO: Mutable schema's methods: '$replace', '$override', '$extends'
 ```
 
 <br>
