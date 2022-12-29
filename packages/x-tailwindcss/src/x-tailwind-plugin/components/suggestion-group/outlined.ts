@@ -13,7 +13,8 @@ export function suggestionGroupOutlined(helpers: TailwindHelpers) {
     outlined: {
       backgroundColor: theme('colors.neutral.0'),
       borderWidth: theme('borderWidth.1'),
-      borderColor: 'var(--suggestion-group-color-50)',
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      borderColor: `var(--suggestion-group-color-75, ${theme('colors.neutral.90')})`,
       '&:hover': {
         backgroundColor: theme('colors.neutral.10')
       },
