@@ -113,15 +113,6 @@ describe('MutableSchemas', () => {
       rows: 99
     };
 
-    const originalSchema: Schema<OriginalSource, OriginalTarget> = {
-      query: 'q',
-      hits: 'rows'
-    };
-
-    const customSchema: Schema<CustomSource, Partial<OriginalTarget>> = {
-      query: 'data.query'
-    };
-
     const originalTarget: OriginalTarget = {
       query: 'potatoes',
       hits: 1
@@ -132,24 +123,27 @@ describe('MutableSchemas', () => {
       hits: 99
     };
 
-    const mutableSchema = createMutableSchema(originalSchema);
-    const mapper = schemaMapperFactory<any, any>(mutableSchema);
+    const mutableSchema = createMutableSchema<OriginalSource, OriginalTarget>({
+      query: 'q',
+      hits: 'rows'
+    });
+    const mapper = schemaMapperFactory<OriginalSource, OriginalTarget>(mutableSchema);
     expect(mapper(source, {})).toStrictEqual(originalTarget);
 
-    const newSchema = mutableSchema.$override(customSchema);
+    const newSchema = mutableSchema.$override<CustomSource>({
+      query: 'data.query'
+    });
     expect(newSchema.query).toBe('data.query');
     expect(newSchema.hits).toBe('rows');
     expect(typeof newSchema.$override).toBe('function');
     expect(typeof newSchema.$replace).toBe('function');
-    expect(mapper(customSource, {})).toStrictEqual(overrideTarget);
+    expect(mapper(customSource as any, {})).toStrictEqual(overrideTarget);
 
-    const removeHitsFieldSchema: Schema<CustomSource, Partial<OriginalTarget>> = {
+    mutableSchema.$override<CustomSource, { hits?: undefined }>({
       query: 'data.query',
       hits: undefined
-    };
-
-    mutableSchema.$override(removeHitsFieldSchema);
-    expect(mapper(customSource, {})).toStrictEqual({
+    });
+    expect(mapper(customSource as any, {})).toStrictEqual({
       query: 'chips'
     });
   });
@@ -175,10 +169,6 @@ describe('MutableSchemas', () => {
       hits: 'rows'
     };
 
-    const customSchema: Schema<typeof extendedSource, Partial<ExtendedTarget>> = {
-      extra: 'someExtraField'
-    };
-
     const originalTarget: OriginalTarget = {
       query: 'potatoes',
       hits: 1
@@ -190,13 +180,18 @@ describe('MutableSchemas', () => {
     };
 
     const mutableSchema = createMutableSchema(originalSchema);
-    const mapperFromOriginal = schemaMapperFactory<any, any>(mutableSchema);
-    const extendedSchema = mutableSchema.$extends(customSchema);
-    const mapperFromExtended = schemaMapperFactory<any, any>(extendedSchema);
+    const mapperFromOriginal = schemaMapperFactory<OriginalSource, OriginalTarget>(mutableSchema);
+    const extendedSchema = mutableSchema.$extends<typeof extendedSource, { extra: string }>({
+      extra: 'someExtraField'
+    });
+    const mapperFromExtended = schemaMapperFactory<
+      OriginalSource & typeof extendedSource,
+      OriginalTarget & { extra: string }
+    >(extendedSchema);
     expect(mapperFromExtended({ ...source, someExtraField: 'extended' }, {})).toStrictEqual(
       extendedTarget
     );
-    expect(mapperFromOriginal({ ...source, someExtraField: 'extended' }, {})).toStrictEqual(
+    expect(mapperFromOriginal({ ...source, someExtraField: 'extended' } as any, {})).toStrictEqual(
       originalTarget
     );
   });
@@ -321,9 +316,9 @@ describe('MutableSchemas', () => {
 },`;
       /* eslint-enable max-len */
       expect(mutable.toString().trim()).toStrictEqual(mutableSerialized);
-      expect(mutable.toString(true).trim()).toContain('$replace: function (newSchema) {');
-      expect(mutable.toString(true).trim()).toContain('$override: function (newSchema) {');
-      expect(mutable.toString(true).trim()).toContain('$extends: function (newSchema) {');
+      expect(mutable.toString(true).trim()).toContain('$replace: $replace(newSchema) {');
+      expect(mutable.toString(true).trim()).toContain('$override: $override(newSchema) {');
+      expect(mutable.toString(true).trim()).toContain('$extends: $extends(newSchema) {');
     });
 
     it('should replace complex schemas', () => {
@@ -400,25 +395,6 @@ describe('MutableSchemas', () => {
     });
 
     it('should override complex schemas', () => {
-      const schema: Schema<ComplexSource, ComplexTarget> = {
-        facet: {
-          id: 'facets.name',
-          filters: {
-            $path: 'facets.filters',
-            $subSchema: filtersSchema
-          }
-        }
-      };
-
-      const overrideSchema: Schema<CustomComplexSource, DeepPartial<ComplexTarget>> = {
-        facet: {
-          filters: {
-            $path: 'data.facets.f',
-            $subSchema: customFilterSchema
-          }
-        }
-      };
-
       const customSource: CustomComplexSource = {
         data: {
           facets: {
@@ -470,15 +446,32 @@ describe('MutableSchemas', () => {
         }
       };
 
-      const mutable = createMutableSchema(schema);
-      const mapper = schemaMapperFactory<any, any>(mutable);
-      expect(mapper(customSource, { requestParameters: { addNumFound: 2 } })).toStrictEqual({
+      const mutable = createMutableSchema<ComplexSource, ComplexTarget>({
+        facet: {
+          id: 'facets.name',
+          filters: {
+            $path: 'facets.filters',
+            $subSchema: filtersSchema
+          }
+        }
+      });
+      const mapper = schemaMapperFactory<ComplexSource, ComplexTarget>(mutable);
+      expect(mapper(customSource as any, { requestParameters: { addNumFound: 2 } })).toStrictEqual({
         facet: {
           id: 'Sizes'
         }
       });
-      mutable.$override(overrideSchema);
-      expect(mapper(customSource, { requestParameters: { addNumFound: 2 } })).toStrictEqual(target);
+      mutable.$override<CustomComplexSource>({
+        facet: {
+          filters: {
+            $path: 'data.facets.f',
+            $subSchema: customFilterSchema
+          }
+        }
+      });
+      expect(mapper(customSource as any, { requestParameters: { addNumFound: 2 } })).toStrictEqual(
+        target
+      );
     });
   });
 });

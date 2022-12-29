@@ -1,9 +1,10 @@
-import { createMutableSchema, Schema } from '@empathyco/x-adapter';
+import { createMutableSchema } from '@empathyco/x-adapter';
 import { HierarchicalFilter } from '@empathyco/x-types';
 import { PlatformHierarchicalFilter } from '../../../types/models/facet.model';
 
 export const hierarchicalFilterSchema = createMutableSchema<
-  Schema<PlatformHierarchicalFilter, HierarchicalFilter>
+  PlatformHierarchicalFilter,
+  HierarchicalFilter
 >({
   facetId: (_, $context) => $context?.facetId as string,
   label: 'value',
