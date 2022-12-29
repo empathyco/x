@@ -2,7 +2,7 @@ import { rename } from '@empathyco/x-utils';
 import { TailwindHelpers } from '../../../../types';
 import { suggestionGroupButtonDefault } from './default';
 import { suggestionGroupButtonGhost } from './ghost';
-import { suggestionGroupButtonLayout } from './layout';
+import { suggestionGroupButtonRectangle } from './rectangle';
 import { suggestionGroupLighterColors } from './lighter-colors';
 import { suggestionGroupButtonLighter } from './lighter';
 
@@ -20,7 +20,7 @@ export function suggestionGroupButton(helpers: TailwindHelpers) {
       ...rename(
         {
           ...suggestionGroupButtonGhost(helpers),
-          ...suggestionGroupButtonLayout(helpers),
+          ...suggestionGroupButtonRectangle(helpers),
           ...suggestionGroupButtonLighter()
         },
         { prefix: '&-' }
