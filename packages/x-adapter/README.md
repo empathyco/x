@@ -133,7 +133,7 @@ export const searchProducts = endpointAdapterFactory({
 // Function call
 async function searchOnClick() {
   const response = await searchProducts({ query: 'phone' });
-  this.items = response.products;
+  console.log('products', response.products);
 }
 ```
 
