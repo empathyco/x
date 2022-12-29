@@ -12,13 +12,13 @@ export function suggestionGroupGhost(helpers: TailwindHelpers) {
   return {
     ghost: {
       backgroundColor: 'transparent',
+      gap: theme('spacing.4'),
       '&:hover': {
         backgroundColor: theme('colors.neutral.10'),
         '.suggestion': {
           textDecoration: 'none'
         }
       },
-      gap: theme('spacing.4'),
       '> *:first-child:not(.suggestion-group-button)': {
         marginInlineStart: theme('spacing.8')
       },

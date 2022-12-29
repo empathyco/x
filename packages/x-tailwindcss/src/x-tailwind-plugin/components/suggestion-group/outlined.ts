@@ -15,13 +15,13 @@ export function suggestionGroupOutlined(helpers: TailwindHelpers) {
       borderWidth: theme('borderWidth.1'),
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       borderColor: `var(--suggestion-group-color-75, ${theme('colors.neutral.90')})`,
+      gap: theme('spacing.4'),
       '&:hover': {
         backgroundColor: theme('colors.neutral.10'),
         '.suggestion': {
           textDecoration: 'none'
         }
       },
-      gap: theme('spacing.4'),
       '> *:first-child:not(.suggestion-group-button)': {
         marginInlineStart: theme('spacing.8')
       },
