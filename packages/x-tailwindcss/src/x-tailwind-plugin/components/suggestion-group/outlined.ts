@@ -16,9 +16,24 @@ export function suggestionGroupOutlined(helpers: TailwindHelpers) {
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       borderColor: `var(--suggestion-group-color-75, ${theme('colors.neutral.90')})`,
       '&:hover': {
-        backgroundColor: theme('colors.neutral.10')
+        backgroundColor: theme('colors.neutral.10'),
+        '.suggestion': {
+          textDecoration: 'none'
+        }
       },
-      gap: theme('spacing.4')
+      gap: theme('spacing.4'),
+      '> *:first-child:not(.suggestion-group-button)': {
+        marginInlineStart: theme('spacing.8')
+      },
+      '> *:last-child:not(.suggestion-group-button)': {
+        marginInlineEnd: theme('spacing.8')
+      },
+      '&.suggestion-group-lg > *:first-child:not(.suggestion-group-button)': {
+        marginInlineStart: theme('spacing.12')
+      },
+      '&.suggestion-group-lg > *:last-child:not(.suggestion-group-button)': {
+        marginInlineEnd: theme('spacing.12')
+      }
     }
   };
 }

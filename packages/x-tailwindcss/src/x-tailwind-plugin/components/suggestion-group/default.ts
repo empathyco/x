@@ -1,7 +1,6 @@
 import { TailwindHelpers } from '../../../types';
 import { alignIconWithBaseline } from '../icon/utils/align-icon-with-baseline';
 import { suggestionGroupSizes } from './sizes';
-import { overridesChildren } from './utils/overrides-children';
 
 /**
  * Returns the default styles for component `suggestion group`.
@@ -30,8 +29,14 @@ export function suggestionGroupDefault(helpers: TailwindHelpers) {
     paddingInlineEnd: 0,
 
     color: theme('colors.neutral.90'),
+    ...alignIconWithBaseline(),
 
-    ...overridesChildren(helpers),
-    ...alignIconWithBaseline()
+    '.suggestion': {
+      color: 'currentColor',
+      minHeight: 'inherit',
+      fontSize: 'inherit',
+      fontFamily: 'inherit',
+      fontWeight: 'inherit'
+    }
   };
 }
