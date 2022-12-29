@@ -1,5 +1,24 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [8.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.14...@empathyco/x-adapter@8.0.0-alpha.15) (2022-12-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* MutableSchema now receives a Source and a Target object instead of a Schema
+* $replace, $extends and $override function types now reflect the allowed operations more correctly.
+
+### Bug Fixes
+
+* mutable schema types (#960) ([8015921](https://github.com/empathyco/x/commit/8015921daf2c9e5ee3a6fce2c1f57458aeb278dd)), closes [EX-7702](https://searchbroker.atlassian.net/browse/EX-7702)
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
