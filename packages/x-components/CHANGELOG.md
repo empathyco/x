@@ -1,7 +1,7 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [3.0.0-alpha.262](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.261...@empathyco/x-components@3.0.0-alpha.262) (2022-12-29)
 
@@ -22,21 +22,18 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [3.0.0-alpha.260](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.259...@empathyco/x-components@3.0.0-alpha.260) (2022-12-26)
 
-
 ### Documentation
 
-* fix typo in UrlHandler docs (#959) ([75e4bbe](https://github.com/empathyco/x/commit/75e4bbe47d4298fccb5d26f6145ac3d203d64b2e))
-
-
+- fix typo in UrlHandler docs (#959)
+  ([75e4bbe](https://github.com/empathyco/x/commit/75e4bbe47d4298fccb5d26f6145ac3d203d64b2e))
 
 ## [3.0.0-alpha.259](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.258...@empathyco/x-components@3.0.0-alpha.259) (2022-12-26)
 
-
 ### Features
 
-* modify base-events-modal-close and base-events-modal-open for WCAG compliance (#946) ([1f5abdf](https://github.com/empathyco/x/commit/1f5abdf36c6eec18b73f13a78be4c7616016d6fd)), closes [EX-7669](https://searchbroker.atlassian.net/browse/EX-7669)
-
-
+- modify base-events-modal-close and base-events-modal-open for WCAG compliance (#946)
+  ([1f5abdf](https://github.com/empathyco/x/commit/1f5abdf36c6eec18b73f13a78be4c7616016d6fd)),
+  closes [EX-7669](https://searchbroker.atlassian.net/browse/EX-7669)
 
 # Change Log
 

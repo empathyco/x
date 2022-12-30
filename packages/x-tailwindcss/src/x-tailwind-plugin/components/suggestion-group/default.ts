@@ -1,36 +1,42 @@
 import { TailwindHelpers } from '../../../types';
 import { alignIconWithBaseline } from '../icon/utils/align-icon-with-baseline';
-import { suggestionSizes } from './sizes';
+import { suggestionGroupSizes } from './sizes';
 
 /**
- * Returns the default styles for component `suggestion`.
+ * Returns the default styles for component `suggestion group`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
-export function suggestionDefault(helpers: TailwindHelpers) {
+export function suggestionGroupDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
+    gap: theme('spacing.16'),
+    ...suggestionGroupSizes(helpers).md,
+
     fontFamily: theme('fontFamily.main'),
     fontWeight: theme('fontWeight.regular'),
 
     display: 'grid',
     gridAutoFlow: 'column',
-    alignItems: 'baseline',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     alignContent: 'center',
-    boxSizing: 'border-box',
     cursor: 'pointer',
-    textAlign: 'start',
 
-    ...suggestionSizes(helpers).md,
+    paddingInlineStart: 0,
+    paddingInlineEnd: 0,
 
     color: theme('colors.neutral.90'),
+    ...alignIconWithBaseline(),
 
-    '&:hover': {
-      textDecoration: 'underline'
-    },
-
-    ...alignIconWithBaseline()
+    '.suggestion': {
+      color: 'currentColor',
+      minHeight: 'inherit',
+      fontSize: 'inherit',
+      fontFamily: 'inherit',
+      fontWeight: 'inherit'
+    }
   };
 }
