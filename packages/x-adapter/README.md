@@ -409,22 +409,59 @@ export const searchUsersWithContactInfo = endpointAdapterFactory({
 #### Using a mutable schema
 
 This feature lets you have some default mappers, and modify or extend them for some concrete
-implementations. To do so, you should use the `createMutableSchema` helper function, and pass as a
-parameter the schema you want to make mutable.
+implementations. To do so, you should use the `createMutableSchema` helper function, and pass as
+parameters a `Source` and a `Target` to map your models, it will return a `MutableSchema` that will
+accept a `NewSource` and a `NewTarget` to handle the transformations you need.
+
+In the example below we will use a `MutableSchema` to have a default object that will be reused for
+different endpoint calls.
+
+###### Types definition and MutableSchema
 
 ```ts
-// TODO: Creating a mutable schema
+// API models
+
+// APP models
+
+// MutableSchema
 ```
 
-Once you have your mutable schema, you can use its available methods to obtain a new schema based on
-it:
+Once we have the `MutableSchema`, we can use the `createMutableSchema` available methods to fit our
+different APIs needs:
 
-- `replace`: Replaces completely the original Schema.
-- `override`: Merges the original schema with the new one.
-- `extends`: Creates a new Schema based on the original one. The original remains unchanged.
+- `extends`: Creates a new `Schema` based on the original (default) one. The original remains
+  unchanged. Useful if we need to create a new `EndpointAdapter` to fit a new API.
+- `override`: Merges/modifies the original `Schema` partially, so the change will affect to all the
+  `EndpointAdapter`(s) that are using it. It can be used to change the structure of our
+  request/response mappers, or to add them new fields. Useful for clients with few differences in
+  their APIs (so they can use an already created adapter and override it to make some tiny changes,
+  e.g. change from 'image' field to 'images').
+- `replace`: Replaces completely the original `Schema` by a new one, it won't exist anymore. The
+  change will affect to all the `EndpointAdapter`(s) that were using it. Useful for clients with a
+  completely different API/response to the standard you have been working with.
+
+###### Extend a MutableSchema to reuse it in two different endpoints with more fields
 
 ```ts
-// TODO: Mutable schema's methods: '$replace', '$override', '$extends'
+/** EXTEND EXAMPLE:
+1 base schema (above)
+2 extends
+2 adapters
+**/
+```
+
+```ts
+/** OVERRIDES EXAMPLE
+1 schema
+1 adapter
+simulate a new project + overrides the default
+```
+
+```ts
+/** REPLACE EXAMPLE
+1 schema
+1 adapter
+simulate a new project + replace the default
 ```
 
 <br>
