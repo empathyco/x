@@ -40,7 +40,7 @@
   "devDependencies": {
     "@empathyco/x-utils": "^1.0.0-alpha.12",
     "@types/jest": "~27.0.3",
-    "@types/node": "~16.4.12",
+    "@types/node": "~18.11.18",
     "@vue/test-utils": "~1.0.3",
     "concurrently": "~7.6.0",
     "jest": "~27.3.1",
