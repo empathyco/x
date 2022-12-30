@@ -1,5 +1,41 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.38...@empathyco/x-tailwindcss@0.2.0-alpha.39) (2022-12-30)
+
+
+### Features
+
+* **design-system:** Add suggestion group component (#943) ([4bac818](https://github.com/empathyco/x/commit/4bac8183a29ec17a99a90edeae55ba3d4301b626)), closes [EX-7496](https://searchbroker.atlassian.net/browse/EX-7496)
+
+
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.37...@empathyco/x-tailwindcss@0.2.0-alpha.38) (2022-12-23)
+
+**Note:** Version bump only for package @empathyco/x-tailwindcss
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.36...@empathyco/x-tailwindcss@0.2.0-alpha.37) (2022-12-22)
+
+### Features
+
+- **desing-system:** add input component to XDS (#941)
+  ([8addb91](https://github.com/empathyco/x/commit/8addb91bd69f292fa7363e992c19d59d17034c9c)),
+  closes [EX-7494](https://searchbroker.atlassian.net/browse/EX-7494)
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

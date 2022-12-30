@@ -11,20 +11,8 @@ import BaseResultImage from '../../src/components/result/base-result-image.vue';
  */
 function mountBaseResultImage({
   result,
-  showNextImageOnHover = false
-}: MountBaseResultImageOptions): MountBaseResultImageAPI {
-  cy.viewport(1920, 200);
-  mount({
-    components: {
-      BaseResultImage
-    },
-    data() {
-      return {
-        result,
-        showNextImageOnHover
-      };
-    },
-    template: `
+  showNextImageOnHover = false,
+  template = `
         <div>
           <BaseResultImage
               :result="result"
@@ -43,6 +31,19 @@ function mountBaseResultImage({
           </BaseResultImage>
         </div>
       `
+}: MountBaseResultImageOptions): MountBaseResultImageAPI {
+  cy.viewport(1920, 200);
+  mount({
+    components: {
+      BaseResultImage
+    },
+    data() {
+      return {
+        result,
+        showNextImageOnHover
+      };
+    },
+    template
   });
 
   return {
@@ -148,10 +149,10 @@ describe('testing Base Result Image component', () => {
 
   it('resets images state when `result` prop changes', () => {
     const result = createResultStub('Result', { images: ['/img/test-image-1.jpeg'] });
+
     cy.viewport(1920, 200);
-    mount({
-      components: { BaseResultImage },
-      data: () => ({ result }),
+    const { getResultPictureImage } = mountBaseResultImage({
+      result,
       template: `
         <div>
           <BaseResultImage :result="result" />
@@ -162,16 +163,16 @@ describe('testing Base Result Image component', () => {
         </div>
       `
     });
-
-    cy.getByDataTest('result-picture-image').should('have.attr', 'src', '/img/test-image-1.jpeg');
+    getResultPictureImage().should('have.attr', 'src', '/img/test-image-1.jpeg');
     cy.getByDataTest('button-images-change').trigger('click');
-    cy.getByDataTest('result-picture-image').should('have.attr', 'src', '/img/test-image-2.jpeg');
+    getResultPictureImage().should('have.attr', 'src', '/img/test-image-2.jpeg');
   });
 });
 
 interface MountBaseResultImageOptions {
   result: Result;
   showNextImageOnHover?: boolean;
+  template?: string;
 }
 
 interface MountBaseResultImageAPI {

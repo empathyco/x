@@ -1,5 +1,104 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.264](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.263...@empathyco/x-components@3.0.0-alpha.264) (2022-12-30)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [3.0.0-alpha.263](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.262...@empathyco/x-components@3.0.0-alpha.263) (2022-12-30)
+
+
+### Features
+
+* **design-system:** Add suggestion group component (#943) ([4bac818](https://github.com/empathyco/x/commit/4bac8183a29ec17a99a90edeae55ba3d4301b626)), closes [EX-7496](https://searchbroker.atlassian.net/browse/EX-7496)
+
+
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.262](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.261...@empathyco/x-components@3.0.0-alpha.262) (2022-12-29)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [3.0.0-alpha.261](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.260...@empathyco/x-components@3.0.0-alpha.261) (2022-12-29)
+
+
+### Bug Fixes
+
+* **build:** use the default `vue-cli` `webpack` configuration in `rollup-plugin-vue` (#961) ([f9a9238](https://github.com/empathyco/x/commit/f9a9238cf4a05a6a35129336f318c9440cb6732d)), closes [EX-7706](https://searchbroker.atlassian.net/browse/EX-7706)
+
+
+
+## [3.0.0-alpha.260](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.259...@empathyco/x-components@3.0.0-alpha.260) (2022-12-26)
+
+### Documentation
+
+- fix typo in UrlHandler docs (#959)
+  ([75e4bbe](https://github.com/empathyco/x/commit/75e4bbe47d4298fccb5d26f6145ac3d203d64b2e))
+
+## [3.0.0-alpha.259](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.258...@empathyco/x-components@3.0.0-alpha.259) (2022-12-26)
+
+### Features
+
+- modify base-events-modal-close and base-events-modal-open for WCAG compliance (#946)
+  ([1f5abdf](https://github.com/empathyco/x/commit/1f5abdf36c6eec18b73f13a78be4c7616016d6fd)),
+  closes [EX-7669](https://searchbroker.atlassian.net/browse/EX-7669)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.258](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.257...@empathyco/x-components@3.0.0-alpha.258) (2022-12-26)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.257](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.256...@empathyco/x-components@3.0.0-alpha.257) (2022-12-23)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.256](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.255...@empathyco/x-components@3.0.0-alpha.256) (2022-12-22)
+
+### Bug Fixes
+
+- **components:** image flickering on re-rendering (#945)
+  ([3b1b558](https://github.com/empathyco/x/commit/3b1b55857ac1c5169a771c465fa32fb4313ab63c)),
+  closes [EX-7610](https://searchbroker.atlassian.net/browse/EX-7610)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.255](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.254...@empathyco/x-components@3.0.0-alpha.255) (2022-12-22)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
