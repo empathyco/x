@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.10...@empathyco/x-react-wrapper@4.0.0-alpha.11) (2022-12-30)
+
+### Testing
+
+- **e2e:** update `cypress` to version `12.1.0` and replace `cypress-cucumber-preprocessor` with
+  `@badeball/cypress-cucumber-preprocessor` (#747)
+  ([2adb2cd](https://github.com/empathyco/x/commit/2adb2cd03591c37934fb385b120822ef271c359f))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [4.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.9...@empathyco/x-react-wrapper@4.0.0-alpha.10) (2022-12-30)
 
 ### Continuous Integration
