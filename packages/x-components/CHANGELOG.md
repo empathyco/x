@@ -1,5 +1,19 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.263](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.262...@empathyco/x-components@3.0.0-alpha.263) (2022-12-30)
+
+
+### Features
+
+* **design-system:** Add suggestion group component (#943) ([4bac818](https://github.com/empathyco/x/commit/4bac8183a29ec17a99a90edeae55ba3d4301b626)), closes [EX-7496](https://searchbroker.atlassian.net/browse/EX-7496)
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
