@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue';
+import { mount } from 'cypress/vue2';
 import Vue from 'vue';
 import { getNextQueriesStub, getSearchResponseStub } from '../../src/__stubs__';
 import BaseGrid from '../../src/components/base-grid.vue';
@@ -7,6 +7,7 @@ import { XPlugin } from '../../src/plugins/x-plugin';
 import { ListItem } from '../../src/utils';
 import { NextQueriesGroup } from '../../src/x-modules/next-queries/types';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
+import { loadCss } from './css.utils';
 
 /**
  * Renders an {@link BaseGrid} component with the provided options.
@@ -46,6 +47,11 @@ function renderBaseGrid({
   const renderedColumnsNumberChangedSpy = cy.spy();
 
   cy.viewport(2000, 200);
+  loadCss(`
+        :root {
+          --x-size-min-width-grid-item: 300px;
+        }
+      `);
   mount(
     {
       components: {
@@ -63,12 +69,7 @@ function renderBaseGrid({
       propsData: {
         items: items ?? defaultItems,
         columns
-      },
-      style: `
-        :root {
-          --x-size-min-width-grid-item: 300px;
-        }
-      `
+      }
     }
   );
 
@@ -159,5 +160,5 @@ interface BaseGridComponentAPI {
   getBaseGrid: () => Cypress.Chainable<JQuery>;
   getDefaultSlot: () => Cypress.Chainable<JQuery>;
   getScopedSlot: (modelName: string) => Cypress.Chainable<JQuery>;
-  renderedColumnsNumberChangedSpy: () => Cypress.Chainable<Cypress.SinonSpyAgent<any>>;
+  renderedColumnsNumberChangedSpy: () => Cypress.Chainable<ReturnType<typeof cy.spy>>;
 }

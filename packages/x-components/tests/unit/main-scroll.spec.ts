@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue';
+import { mount } from 'cypress/vue2';
 import Vue from 'vue';
 import StaggeredFadeAndSlide from '../../src/components/animations/staggered-fade-and-slide.vue';
 import { BaseXBus } from '../../src/plugins/x-bus';
@@ -8,6 +8,7 @@ import MainScrollItem from '../../src/x-modules/scroll/components/main-scroll-it
 import MainScroll from '../../src/x-modules/scroll/components/main-scroll.vue';
 import { scrollXModule } from '../../src/x-modules/scroll/x-module';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
+import { loadCss } from './css.utils';
 
 /**
  * Renders a {@link MainScroll} component with the provided options.
@@ -46,6 +47,25 @@ function renderMainScroll({
   } else if (windowScrollingElement === 'html') {
     document.documentElement.dataset.test = 'scroll';
   }
+  loadCss(
+    `${windowScrollingElement === 'body' ? 'html { overflow: hidden; }' : ''}
+    html,
+    body,
+    [data-cy-root] {
+      margin: 0;
+      height: 100%;
+      max-height: 100%;
+    }
+
+    [data-test='scroll'] {
+      overflow: auto;
+      height: 100%;
+    }
+
+    .item {
+      height: ${itemHeight};
+    }`
+  );
 
   let pendingScroll: number;
 
@@ -77,26 +97,7 @@ function renderMainScroll({
       vue: Vue.extend({}),
       plugins: [
         [new XPlugin(new BaseXBus()), { adapter: e2eAdapter, initialXModules: [scrollXModule] }]
-      ],
-      style: `
-        ${windowScrollingElement === 'body' ? 'html { overflow: hidden; }' : ''}
-
-        html,
-        body,
-        #__cy_root {
-          margin: 0;
-          height: 100%;
-          max-height: 100%;
-        }
-
-        [data-test='scroll'] {
-          overflow: auto;
-          height: 100%;
-        }
-
-        .item {
-          height: ${itemHeight};
-        }`
+      ]
     }
   );
 
@@ -307,5 +308,5 @@ interface RenderMainScrollAPI {
    */
   getScrollingElement: () => Cypress.Chainable<JQuery>;
   /** Spy of {@link ScrollXEvents.UserScrolledToElement}. */
-  userScrolledToElementSpy: () => Cypress.Chainable<Cypress.SinonSpyAgent<any>>;
+  userScrolledToElementSpy: () => Cypress.Chainable<ReturnType<typeof cy.spy>>;
 }

@@ -1,5 +1,4 @@
-import { And, Given, Then } from 'cypress-cucumber-preprocessor/steps';
-
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 /**
  * Gets the name of the first Next Query to preview.
  *
@@ -27,30 +26,32 @@ Given(
 
 Given('next queries preview name is shown and it is clickable', () => {
   getFirstNextQueryToPreview();
-  cy.get('@firstNextQueryToPreview').then(firstNextQueryToPreview => {
+  // TODO Remove any: Cypress does not export Interception type
+  // https://github.com/cypress-io/cypress/issues/21347
+  cy.get('@firstNextQueryToPreview').then((firstNextQueryToPreview: any) => {
     cy.getByDataTest('next-query-preview')
       .getByDataTest('next-query-preview-name')
-      .should('contain', firstNextQueryToPreview.response.body.nextQueries[0].query)
+      .should('contain', firstNextQueryToPreview.response!.body.nextQueries[0].query)
       .should('not.be.disabled');
   });
 });
 
-And('{int} results are shown for next queries preview', (maxItemsToRender: number) => {
+Then('{int} results are shown for next queries preview', (maxItemsToRender: number) => {
   cy.getByDataTest('next-query-preview-result').should('have.length.at.most', maxItemsToRender);
 });
 
 // Scenario 2
-And('{string} is clicked', (clickedItem: string) => {
+When('{string} is clicked', (clickedItem: string) => {
   cy.getByDataTest(clickedItem).eq(0).click();
 });
 
 Then('new {string} URL is opened', (newURL: string) => {
   getFirstNextQueryToPreview();
-  cy.get('@firstNextQueryToPreview').then(firstNextQueryToPreview => {
+  cy.get('@firstNextQueryToPreview').then((firstNextQueryToPreview: any) => {
     if (newURL === 'results-page') {
       cy.location('search').should(
         'contain',
-        firstNextQueryToPreview.response.body.nextQueries[0].query
+        firstNextQueryToPreview.response!.body.nextQueries[0].query
       );
     } else if (newURL === 'pdp') {
       cy.location('pathname').should('contain', 'products');
@@ -59,6 +60,6 @@ Then('new {string} URL is opened', (newURL: string) => {
 });
 
 // Scenario 3
-And('next queries preview are displayed is {boolean}', (nextQueriesPreviewAreShown: boolean) => {
+Then('next queries preview are displayed is {boolean}', (nextQueriesPreviewAreShown: boolean) => {
   cy.getByDataTest('next-query-preview').should(`${nextQueriesPreviewAreShown ? '' : 'not.'}exist`);
 });
