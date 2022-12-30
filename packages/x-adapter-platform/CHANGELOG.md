@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.49...@empathyco/x-adapter-platform@1.0.0-alpha.50) (2022-12-30)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+
+
+
+
 ## [1.0.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.48...@empathyco/x-adapter-platform@1.0.0-alpha.49) (2022-12-29)
 
 

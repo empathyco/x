@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.15...@empathyco/x-adapter@8.0.0-alpha.16) (2022-12-30)
+
+
+### Documentation
+
+* create Readme for x-adapter (#921) ([55fc422](https://github.com/empathyco/x/commit/55fc4223ab41e407892e68bf3fe4af7fba5f527a))
+
+
+
 ## [8.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.14...@empathyco/x-adapter@8.0.0-alpha.15) (2022-12-29)
 
 
