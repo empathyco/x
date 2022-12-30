@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.9...@empathyco/x-react-wrapper@4.0.0-alpha.10) (2022-12-30)
+
+### Continuous Integration
+
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [4.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.8...@empathyco/x-react-wrapper@4.0.0-alpha.9) (2022-10-27)
 
 ### Features
