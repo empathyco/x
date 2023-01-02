@@ -18,23 +18,24 @@ you alongside!
 
 #### Table of Contents
 
-- [Contributing Guidelines](#contributing-guidelines) - [Table of Contents](#table-of-contents)
-  - [Code of Conduct](#code-of-conduct)
-  - [What you need to know before getting started](#what-you-need-to-know-before-getting-started)
-    - [Interface X and Packages](#interface-x-and-packages)
-  - [How to contribute](#how-to-contribute)
-    - [Report Bugs](#report-bugs)
-    - [Suggest new features or enhancements](#suggest-new-features-or-enhancements)
-    - [Contribute code for the first time](#contribute-code-for-the-first-time)
-    - [Set up your development environment](#set-up-your-development-environment)
-    - [Pull requests](#pull-requests)
-  - [Style guides](#style-guides)
-    - [Git commit messages](#git-commit-messages)
-    - [JavaScript style guide](#javascript-style-guide)
-    - [Testing style guide](#testing-style-guide)
-    - [Documentation style guide](#documentation-style-guide)
-  - [Any questions?](#any-questions)
-  - [License](#license)
+- [Code of Conduct](#code-of-conduct)
+- [What you need to know before getting started](#what-you-need-to-know-before-getting-started)
+  - [Interface X and packages](#interface-x-and-packages)
+- [How to contribute](#how-to-contribute)
+
+  - [Report bugs](#report-bugs)
+  - [Suggest enhancements](#suggest-new-features-or-enhancements)
+  - [Contribute code for the first time](#contribute-code-for-the-first-time)
+  - [Set up your development environment](#set-up-your-development-environment)
+  - [Pull requests](#pull-requests)
+
+- [Style guides](#style-guides)
+  - [Git commit messages](#git-commit-messages)
+  - [JavaScript style guide](#javascript-style-guide)
+  - [Documentation style guide](#documentation-style-guide)
+  - [Testing style guide](#testing-style-guide)
+- [Any questions?](#any-questions)
+- [License](#license)
 
 ## Code of Conduct
 
@@ -66,7 +67,7 @@ evolves.
 - **[@empathyco/x-jest-utils](/packages/jest-utils)** - Jest extensions for easier testing.
 - **[@empathyco/x-logger](/packages/logger)** - A custom implementation of a logger.
 - **[@empathyco/x-adapter](/packages/search-adapter)** - A search client for Empathy's Search API.
-- **[@empathyco/x-types](/packages/x-types)** - TypeScript types & guards for X models.
+- **[@empathyco/x-types](/packages/search-types)** - TypeScript types & guards for X models.
 - **[@empathyco/x-storage-service](/packages/storage-service)** - Storage service with TTL.
 - **[@empathyco/x-react-wrapper](/packages/react-wrapper)** - A proxy that transforms Vue components
   into React components.
