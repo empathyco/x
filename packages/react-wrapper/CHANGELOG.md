@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.11...@empathyco/x-react-wrapper@4.0.0-alpha.12) (2023-01-02)
+
+### Continuous Integration
+
+- make Cypress cache depend on package. Make eslint cache restore last version if no exact match.
+  ([2498972](https://github.com/empathyco/x/commit/24989726d8e5c6c3450b344fbbc623a3f7246b53)),
+  closes [EX-7721](https://searchbroker.atlassian.net/browse/EX-7721)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [4.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.10...@empathyco/x-react-wrapper@4.0.0-alpha.11) (2022-12-30)
 
 ### Testing
