@@ -30,7 +30,21 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/Cypress
-          key: cypress-cache-${{ hashFiles('**/package-lock.json') }}
+          key: cypress-cache
+      - name: install dependencies and verify Cypress
+        env:
+          # make sure every Cypress install prints minimal information
+          CI: 1
+        # print Cypress and OS info
+        run: |
+          npm ci
+          npx cypress verify
+          npx cypress info
+          npx cypress version
+          npx cypress version --component package
+          npx cypress version --component binary
+          npx cypress version --component electron
+          npx cypress version --component node
       - name: Cache eslint
         id: cache-eslint
         uses: actions/cache@v3
