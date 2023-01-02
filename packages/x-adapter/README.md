@@ -420,10 +420,19 @@ different endpoint calls.
 
 ```ts
 // API models
+export interface ApiIdentifiable {
+  id: number;
+}
 
 // APP models
+export interface AppIdentifiable {
+  id: string;
+}
 
 // MutableSchema
+export const identifiableSchema = createMutableSchema<ApiIdentifiable, AppIdentifiable>({
+  id: ({ id }) => id.toString()
+});
 ```
 
 Once we have the `MutableSchema`, we can use the `createMutableSchema` available methods to fit our
@@ -450,18 +459,75 @@ different APIs needs:
 **/
 ```
 
-```ts
-/** OVERRIDES EXAMPLE
-1 schema
-1 adapter
-simulate a new project + overrides the default
-```
+###### Override a MutableSchema to add more fields
 
 ```ts
-/** REPLACE EXAMPLE
-1 schema
-1 adapter
-simulate a new project + replace the default
+import { ApiIdentifiable, AppIdentifiable, identifiableSchema } from 'base-types';
+
+// New Source and Target types definition
+interface ApiTodosResponse {
+  todos: ApiIdentifiable[];
+}
+interface AppTodosResponse {
+  todos: AppIdentifiable[];
+}
+
+/* Override the original Schema. The Schema will be changed:
+now maps the 'id', 'completed' and 'body' fields. */
+identifiableSchema.$override({
+  completed: 'completed',
+  body: 'todo'
+});
+
+// Response mapper
+const todosResponse = schemaMapperFactory<ApiTodosResponse, AppTodosResponse>({
+  todos: {
+    $subSchema: identifiableSchema,
+    $path: 'todos'
+  }
+});
+
+// Endpoint Adapter
+export const searchTodos = endpointAdapterFactory({
+  endpoint: 'https://dummyjson.com/todos',
+  responseMapper: todosResponse
+});
+```
+
+###### Replace a MutableSchema to completely change it
+
+```ts
+import { ApiIdentifiable, AppIdentifiable, identifiableSchema } from 'base-types';
+
+// New Source and Target types definition
+interface ApiQuotesResponse {
+  quotes: ApiIdentifiable[];
+}
+
+interface AppQuotesResponse {
+  quotes: AppIdentifiable[];
+}
+
+// Response mapper
+const quotesResponse = schemaMapperFactory<ApiQuotesResponse, AppQuotesResponse>({
+  quotes: {
+    $subSchema: identifiableSchema,
+    $path: 'quotes'
+  }
+});
+
+// Replace the original Schema.
+identifiableSchema.$replace({
+  quoteId: 'id',
+  quote: 'quote',
+  author: 'author'
+});
+
+// Endpoint Adapter
+export const searchQuotes = endpointAdapterFactory({
+  endpoint: 'https://dummyjson.com/quotes',
+  responseMapper: quotesResponse
+});
 ```
 
 <br>
