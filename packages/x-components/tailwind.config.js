@@ -25,6 +25,8 @@ module.exports = {
     'gap',
     'lineHeight',
     'textColor',
+    'textTransform',
+    'textDecoration',
     'preflight'
   ]
 };
