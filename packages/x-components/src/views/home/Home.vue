@@ -168,7 +168,7 @@
             v-if="$x.totalResults > 0"
             class="x-list x-list--horizontal x-list--align-center x-list--gap-04"
           >
-            <span>{{ $x.totalResults }} Results</span>
+            <span class="x-text1">{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
               #default="{ column }"
               v-model="selectedColumns"
