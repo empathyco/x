@@ -1,4 +1,4 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { InstallXOptions } from '../../../src/x-installer/x-installer/types';
 
 let resultsCount = 0;
@@ -33,7 +33,7 @@ Given(
   }
 );
 
-And('no queries have been searched', () => {
+When('no queries have been searched', () => {
   cy.getByDataTest('search-input').should('have.value', '');
   cy.getByDataTest('results-list').should('not.exist');
   cy.getByDataTest('query-suggestions').should('not.exist');
@@ -50,7 +50,7 @@ When('{string} is clicked immediately after', (buttonOrKey: string) => {
   }
 });
 
-And(
+Then(
   '{string} is displayed in history queries is not {boolean}',
   (query: string, hideIfEqualsQuery: boolean) => {
     if (!hideIfEqualsQuery) {
@@ -66,12 +66,6 @@ And(
 );
 
 // Scenario 2
-And('History queries are being displayed is not {boolean}', (hideIfEqualsQuery: boolean) => {
-  if (hideIfEqualsQuery) {
-    cy.getByDataTest('history-queries').should('not.exist');
-  }
-});
-
 When('the {string} is cleared by {string}', (query: string, cleared: string) => {
   if (cleared === 'clickButton') {
     cy.clearSearchInput();
@@ -84,15 +78,15 @@ Then('the search box is empty', () => {
   cy.getByDataTest('search-input').should('have.value', '');
 });
 
-And('query suggestions are cleared', () => {
+Then('query suggestions are cleared', () => {
   cy.getByDataTest('query-suggestions').should('not.exist');
 });
 
-And('next queries are not cleared', () => {
+Then('next queries are not cleared', () => {
   cy.getByDataTest('next-query').should('have.length.at.least', 1);
 });
 
-And('related tags are cleared', () => {
+Then('related tags are cleared', () => {
   cy.getByDataTest('related-tag').should('not.exist');
 });
 
@@ -112,7 +106,7 @@ Then('no related results are displayed before {int}', (instantDebounceInMs: numb
       resultsCount = 0;
     });
 });
-And(
+Then(
   'related results are displayed after {int} is {boolean}',
   (instantDebounceInMs: number, instant: boolean) => {
     if (instant) {
@@ -134,14 +128,14 @@ And(
     }
   }
 );
-And('next queries are displayed after instantDebounceInMs is {boolean}', (instant: boolean) => {
+Then('next queries are displayed after instantDebounceInMs is {boolean}', (instant: boolean) => {
   if (instant) {
     cy.getByDataTest('next-query').should('have.length.at.least', 1);
   } else {
     cy.getByDataTest('next-query').should('not.exist');
   }
 });
-And('related tags are displayed after instantDebounceInMs is {boolean}', (instant: boolean) => {
+Then('related tags are displayed after instantDebounceInMs is {boolean}', (instant: boolean) => {
   if (instant) {
     cy.getByDataTest('related-tag').should('have.length.at.least', 1);
   } else {
@@ -161,7 +155,7 @@ Then('new related results are not displayed before {int}', (instantDebounceInMs:
     });
 });
 
-And(
+Then(
   'new related results are displayed after {int} is {boolean}',
   (instantDebounceInMs: number, instant: boolean) => {
     if (instant) {
@@ -183,7 +177,7 @@ And(
   }
 );
 
-And('new related results are different from previous ones', () => {
+Then('new related results are different from previous ones', () => {
   expect(compoundResultsList.every(item => resultsList.includes(item))).to.eq(false);
 });
 

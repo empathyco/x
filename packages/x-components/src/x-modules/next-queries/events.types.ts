@@ -32,5 +32,5 @@ export interface NextQueriesXEvents {
    * The component to show a next query preview has been mounted.
    * Payload: The next query to preview.
    */
-  NextQueryPreviewMounted: string;
+  NextQueryPreviewMountedHook: string;
 }

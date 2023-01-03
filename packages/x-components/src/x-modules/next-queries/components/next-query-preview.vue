@@ -75,11 +75,11 @@
     public previewResults!: Dictionary<PreviewResults>;
 
     /**
-     * The component emits the NextQueryPreviewMounted event to retrieve the results preview
+     * The component emits the NextQueryPreviewMountedHook event to retrieve the results preview
      * of the next query.
      */
     mounted(): void {
-      this.$x.emit('NextQueryPreviewMounted', this.suggestion.query);
+      this.$x.emit('NextQueryPreviewMountedHook', this.suggestion.query);
     }
 
     /**
@@ -103,7 +103,7 @@
 <docs lang="mdx">
 ## Events
 
-This component emits the `NextQueryPreviewMounted` when it is mounted.
+This component emits the `NextQueryPreviewMountedHook` when it is mounted.
 
 ## See it in action
 

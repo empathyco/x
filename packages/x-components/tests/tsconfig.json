@@ -3,10 +3,10 @@
   "compilerOptions": {
     "declaration": false,
     "declarationMap": false,
-    "types": ["node", "cypress"],
+    "types": ["node"],
     "downlevelIteration": true,
     "rootDir": "../"
   },
   "include": ["./**/*.ts"],
-  "exclude": ["**/__tests__/**/*"]
+  "exclude": ["node_modules"]
 }

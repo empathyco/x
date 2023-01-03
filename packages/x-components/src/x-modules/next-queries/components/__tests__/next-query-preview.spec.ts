@@ -82,7 +82,7 @@ describe('next query preview', () => {
 
   it('sends the next query preview mounted event', () => {
     const { eventSpy, suggestion } = renderNextQueryPreview({
-      eventToSpy: 'NextQueryPreviewMounted'
+      eventToSpy: 'NextQueryPreviewMountedHook'
     });
     expect(eventSpy).toHaveBeenCalledTimes(1);
     expect(eventSpy).toHaveBeenCalledWith(suggestion.query);

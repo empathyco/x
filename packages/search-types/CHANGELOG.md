@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.47...@empathyco/x-types@10.0.0-alpha.48) (2022-12-30)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+## [10.0.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.46...@empathyco/x-types@10.0.0-alpha.47) (2022-12-29)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.45...@empathyco/x-types@10.0.0-alpha.46) (2022-12-23)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.44...@empathyco/x-types@10.0.0-alpha.45) (2022-12-19)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.43...@empathyco/x-types@10.0.0-alpha.44) (2022-12-16)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.42...@empathyco/x-types@10.0.0-alpha.43) (2022-11-28)
 
 **Note:** Version bump only for package @empathyco/x-types

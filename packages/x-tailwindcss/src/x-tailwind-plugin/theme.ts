@@ -84,17 +84,19 @@ export default {
   fontWeight: {
     light: '200',
     regular: '400',
-    bold: '600'
+    bold: '700'
   },
   letterSpacing: {
-    sm: '-1%',
-    md: '1.5%',
-    lg: '2%'
+    sm: '-0.01em',
+    md: '0',
+    lg: '0.04em'
   },
   lineHeight: {
-    sm: '1.2',
-    md: '1.5',
-    lg: '2'
+    xs: '1.2',
+    sm: '1.4',
+    md: '1.6',
+    lg: '1.8',
+    default: 'auto'
   },
   screens: {
     tablet: '800px',
