@@ -18,7 +18,7 @@
       </BaseResultImage>
     </BaseResultLink>
     <div class="x-result__description">
-      <BaseResultRating :result="result" :max="5" link="#" class="x-font-size--04">
+      <BaseResultRating :result="result" :max="5" link="#" class="x-text1 x-text1-sm">
         <template #filled-icon>❤️</template>
         <template #empty-icon>🤍</template>
       </BaseResultRating>

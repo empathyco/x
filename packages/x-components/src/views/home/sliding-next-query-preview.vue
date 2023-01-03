@@ -5,7 +5,7 @@
     class="x-list x-list--gap-03"
   >
     <h1 class="x-title2 x-text--bold">Others clients have searched</h1>
-    <NextQuery class="x-text x-font-size--05" :suggestion="suggestion">
+    <NextQuery class="x-text1 x-text1-lg" :suggestion="suggestion">
       <span class="x-font-weight--bold">{{ suggestion.query }}</span>
       ({{ totalResults }})
     </NextQuery>

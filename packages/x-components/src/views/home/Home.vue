@@ -314,7 +314,7 @@
                           >
                             <h1 class="x-title2 x-text--bold">Others clients have searched</h1>
                             <NextQuery
-                              class="x-text x-font-size--05"
+                              class="x-text1 x-text1-lg"
                               :suggestion="nextQueries[0]"
                               data-test="next-query-preview-name"
                             >
