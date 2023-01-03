@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.48...@empathyco/x-types@10.0.0-alpha.49) (2023-01-03)
+
+### Build System
+
+- **deps:** update `vue` to version `2.7` (#971)
+  ([09fb0fe](https://github.com/empathyco/x/commit/09fb0fe5dbef020565571a4fafc89d2aac544c8e)),
+  closes [EX-7730](https://searchbroker.atlassian.net/browse/EX-7730)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.47...@empathyco/x-types@10.0.0-alpha.48) (2022-12-30)
 
 **Note:** Version bump only for package @empathyco/x-types
