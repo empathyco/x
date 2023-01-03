@@ -226,13 +226,10 @@
               {{ redirection.url }}
             </a>
             <div class="x-list x-list--horizontal x-list--gap-07">
-              <button
-                @click="abortRedirect"
-                class="x-button x-button--ghost x-font-color--neutral-70"
-              >
+              <button @click="abortRedirect" class="x-button x-button--ghost x-text-neutral-25">
                 No, I'll stay here
               </button>
-              <button @click="redirect" class="x-button x-button--ghost x-font-color--neutral-10">
+              <button @click="redirect" class="x-button x-button--ghost x-text-neutral-90">
                 Yes, redirect me
               </button>
             </div>
@@ -341,13 +338,13 @@
                               data-test="view-all-results"
                               class="
                                 x-tag x-tag--pill
+                                x-font-bold x-text-lead-50
                                 x-font-weight--bold
                                 x-margin--left-auto x-margin--right-auto x-margin--top-03
                                 x-padding--top-04
                                 x-padding--bottom-04
                                 x-padding--right-05
                                 x-padding--left-05
-                                x-font-color--lead
                                 x-border-color--lead
                                 x-margin--bottom-06
                               "

@@ -29,8 +29,7 @@
     <template #toolbar>
       <div
         class="
-          x-title3
-          x-font-color--neutral-70
+          x-title3 x-text-neutral-25
           x-list__item--expand
           x-border-width--02
           x-border-color--neutral-70
@@ -45,12 +44,7 @@
     </template>
     <template #predictive>
       <div
-        class="
-          x-title3
-          x-font-color--neutral-70
-          x-list__item--expand
-          x-margin--top-03 x-margin--bottom-03
-        "
+        class="x-title3 x-text-neutral-25 x-list__item--expand x-margin--top-03 x-margin--bottom-03"
       >
         PREDICTIVE
       </div>
@@ -58,8 +52,7 @@
     <template #floating>
       <div
         class="
-          x-title3
-          x-font-color--neutral-10
+          x-title3 x-text-neutral-90
           x-list__item--expand
           x-margin--top-03 x-margin--bottom-03
           x-list x-list--horizontal x-list--justify-center
