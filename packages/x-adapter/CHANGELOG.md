@@ -1,30 +1,27 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [8.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.15...@empathyco/x-adapter@8.0.0-alpha.16) (2022-12-30)
 
-
 ### Documentation
 
-* create Readme for x-adapter (#921) ([55fc422](https://github.com/empathyco/x/commit/55fc4223ab41e407892e68bf3fe4af7fba5f527a))
-
-
+- create Readme for x-adapter (#921)
+  ([55fc422](https://github.com/empathyco/x/commit/55fc4223ab41e407892e68bf3fe4af7fba5f527a))
 
 ## [8.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.14...@empathyco/x-adapter@8.0.0-alpha.15) (2022-12-29)
 
-
 ### ⚠ BREAKING CHANGES
 
-* MutableSchema now receives a Source and a Target object instead of a Schema
-* $replace, $extends and $override function types now reflect the allowed operations more correctly.
+- MutableSchema now receives a Source and a Target object instead of a Schema
+- $replace, $extends and $override function types now reflect the allowed operations more correctly.
 
 ### Bug Fixes
 
-* mutable schema types (#960) ([8015921](https://github.com/empathyco/x/commit/8015921daf2c9e5ee3a6fce2c1f57458aeb278dd)), closes [EX-7702](https://searchbroker.atlassian.net/browse/EX-7702)
-
-
+- mutable schema types (#960)
+  ([8015921](https://github.com/empathyco/x/commit/8015921daf2c9e5ee3a6fce2c1f57458aeb278dd)),
+  closes [EX-7702](https://searchbroker.atlassian.net/browse/EX-7702)
 
 # Change Log
 
