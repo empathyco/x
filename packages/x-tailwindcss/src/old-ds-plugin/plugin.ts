@@ -83,42 +83,6 @@ export default plugin(function ({ addBase, theme }: TailwindHelpers) {
       // FONT FAMILY
       '--x-font-family-base': theme('fontFamily.main'),
 
-      // TEXT
-      '--x-color-text-default': theme('colors.neutral.100'),
-      '--x-font-family-text': theme('fontFamily.main'),
-      '--x-size-font-text': theme('fontSize.sm'),
-      '--x-number-font-weight-text': theme('fontWeight.regular'),
-      '--x-size-line-height-text': theme('lineHeight.sm'),
-      '--x-string-text-decoration-text': 'none',
-
-      // title1
-      '--x-font-family-title1': theme('fontFamily.main'),
-      '--x-size-font-title1': theme('fontSize.xl'),
-      '--x-number-font-weight-title1': theme('fontWeight.regular'),
-      '--x-size-line-height-title1': theme('lineHeight.lg'),
-      '--x-string-text-decoration-title1': 'none',
-
-      // title2
-      '--x-font-family-title2': theme('fontFamily.main'),
-      '--x-size-font-title2': theme('fontSize.lg'),
-      '--x-number-font-weight-title2': theme('fontWeight.regular'),
-      '--x-size-line-height-title2': theme('lineHeight.md'),
-      '--x-string-text-decoration-title2': 'none',
-
-      // title3
-      '--x-font-family-title3': theme('fontFamily.main'),
-      '--x-size-font-title3': theme('fontSize.md'),
-      '--x-number-font-weight-title3': theme('fontWeight.regular'),
-      '--x-size-line-height-title3': theme('lineHeight.md'),
-      '--x-string-text-decoration-title3': 'none',
-
-      // small
-      '--x-font-family-small': theme('fontFamily.main'),
-      '--x-size-font-small': theme('fontSize.xs'),
-      '--x-number-font-weight-small': theme('fontWeight.regular'),
-      '--x-size-line-height-small': theme('lineHeight.sm'),
-      '--x-string-text-decoration-small': 'none',
-
       // FONT SIZES
       ...mapPrefix('--x-size-font-', {
         'base-xs': theme('fontSize.xs'),
@@ -140,7 +104,20 @@ export default plugin(function ({ addBase, theme }: TailwindHelpers) {
         s: theme('lineHeight.sm'),
         m: theme('lineHeight.md'),
         l: theme('lineHeight.lg')
-      })
+      }),
+
+      // TEXT
+      '--x-color-text-default': theme('colors.neutral.100'),
+      '--x-font-family-text': theme('fontFamily.main'),
+      '--x-size-font-text': theme('fontSize.sm'),
+      '--x-number-font-weight-text': theme('fontWeight.regular'),
+      '--x-size-line-height-text': theme('lineHeight.sm'),
+
+      // TITLE 3
+      '--x-font-family-title3': theme('fontFamily.main'),
+      '--x-size-font-title3': theme('fontSize.md'),
+      '--x-number-font-weight-title3': theme('fontWeight.regular'),
+      '--x-size-line-height-title3': theme('lineHeight.md')
     }
   });
 });
