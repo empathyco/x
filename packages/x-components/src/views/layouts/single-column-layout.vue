@@ -80,7 +80,7 @@
       <div
         class="
           x-list__item--expand
-          x-text
+          x-text1 x-text1-lg
           x-padding--03
           x-background--neutral-95
           x-border-width--01

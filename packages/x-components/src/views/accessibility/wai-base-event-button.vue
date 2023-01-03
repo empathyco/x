@@ -7,12 +7,12 @@
           Panel
         </BaseIdTogglePanelButton>
         <BaseIdTogglePanel :startOpen="true" panelId="aside-panel">
-          <div class="x-text">Hey there!</div>
+          <div class="x-text1">Hey there!</div>
         </BaseIdTogglePanel>
 
         <BaseIdTogglePanelButton class="x-button x-button--ghost" panelId="panel2" />
         <BaseIdTogglePanel :startOpen="true" panelId="aside-panel">
-          <div class="x-text">
+          <div class="x-text1">
             Button without text, an element should have the ID to make it accessible.
           </div>
         </BaseIdTogglePanel>
