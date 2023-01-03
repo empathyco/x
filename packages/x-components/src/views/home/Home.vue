@@ -312,7 +312,7 @@
                             #default="{ results }"
                             class="x-row__item x-row__item--span-9 x-padding--top-06"
                           >
-                            <h1 class="x-title2 x-text--bold">Others clients have searched</h1>
+                            <h1 class="x-title2">Others clients have searched</h1>
                             <NextQuery
                               class="x-text1 x-text1-lg"
                               :suggestion="nextQueries[0]"

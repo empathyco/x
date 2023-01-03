@@ -27,6 +27,7 @@ module.exports = {
     'textColor',
     'textTransform',
     'textDecoration',
+    'textOverflow',
     'preflight'
   ]
 };
