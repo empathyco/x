@@ -23,7 +23,7 @@
         <template #empty-icon>🤍</template>
       </BaseResultRating>
       <BaseResultLink :result="result">
-        <h1 class="x-title3" data-test="result-title">{{ result.name }}</h1>
+        <h1 class="x-title3 x-text-neutral-100" data-test="result-title">{{ result.name }}</h1>
       </BaseResultLink>
     </div>
   </article>
