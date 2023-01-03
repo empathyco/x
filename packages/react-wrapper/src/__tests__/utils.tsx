@@ -1,9 +1,3 @@
-/**
- * Transforms the string parameter into a single line.
- *
- * @param text - Multiline string to transform into a single one.
- * @returns Text in a single line.
- */
 import React, { ComponentClass, ReactElement } from 'react';
 import ReactDOM from 'react-dom';
 

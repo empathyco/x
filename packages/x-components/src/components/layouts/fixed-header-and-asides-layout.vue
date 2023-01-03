@@ -88,6 +88,7 @@
 <script lang="ts">
   import { Component } from 'vue-property-decorator';
   import { mixins } from 'vue-class-component';
+  import { VueConstructor } from 'vue';
   import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
   import { animateTranslate } from '../animations/animate-translate/animate-translate.factory';
   import BaseIdModal from '../modals/base-id-modal.vue';
@@ -108,8 +109,8 @@
   })
   export default class FixedHeaderAndAsidesLayout extends mixins(LayoutsMixin) {
     protected scrollPosition = 0;
-    protected rightAsideAnimation = animateTranslate('right');
-    protected leftAsideAnimation = animateTranslate('left');
+    protected rightAsideAnimation: VueConstructor = animateTranslate('right');
+    protected leftAsideAnimation: VueConstructor = animateTranslate('left');
 
     protected setPosition(position: number): void {
       this.scrollPosition = position;

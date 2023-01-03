@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.12...@empathyco/x-react-wrapper@4.0.0-alpha.13) (2023-01-03)
+
+### Build System
+
+- **deps:** update `vue` to version `2.7` (#971)
+  ([09fb0fe](https://github.com/empathyco/x/commit/09fb0fe5dbef020565571a4fafc89d2aac544c8e)),
+  closes [EX-7730](https://searchbroker.atlassian.net/browse/EX-7730)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [4.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.11...@empathyco/x-react-wrapper@4.0.0-alpha.12) (2023-01-02)
 
 ### Continuous Integration

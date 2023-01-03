@@ -1,16 +1,36 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.2.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.38...@empathyco/x-tailwindcss@0.2.0-alpha.39) (2022-12-30)
+## [0.2.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.40...@empathyco/x-tailwindcss@0.2.0-alpha.41) (2023-01-03)
 
+### Build System
+
+- **deps:** update `vue` to version `2.7` (#971)
+  ([09fb0fe](https://github.com/empathyco/x/commit/09fb0fe5dbef020565571a4fafc89d2aac544c8e)),
+  closes [EX-7730](https://searchbroker.atlassian.net/browse/EX-7730)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.39...@empathyco/x-tailwindcss@0.2.0-alpha.40) (2023-01-03)
 
 ### Features
 
-* **design-system:** Add suggestion group component (#943) ([4bac818](https://github.com/empathyco/x/commit/4bac8183a29ec17a99a90edeae55ba3d4301b626)), closes [EX-7496](https://searchbroker.atlassian.net/browse/EX-7496)
+- update theme colors (#969)
+  ([60ee525](https://github.com/empathyco/x/commit/60ee52520256706474939309c9dde63f1300830b)),
+  closes [EX-7685](https://searchbroker.atlassian.net/browse/EX-7685)
 
+## [0.2.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.38...@empathyco/x-tailwindcss@0.2.0-alpha.39) (2022-12-30)
 
+### Features
+
+- **design-system:** Add suggestion group component (#943)
+  ([4bac818](https://github.com/empathyco/x/commit/4bac8183a29ec17a99a90edeae55ba3d4301b626)),
+  closes [EX-7496](https://searchbroker.atlassian.net/browse/EX-7496)
 
 # Change Log
 
