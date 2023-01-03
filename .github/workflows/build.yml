@@ -23,20 +23,17 @@ jobs:
         id: cache-node-modules
         uses: actions/cache@v3
         with:
-          path: '**/node_modules'
+          path: |
+           **/node_modules
+            ~/.cache/Cypress
           key: node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Cache Cypress
-        id: cache-cypress
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-cache
       - name: Cache eslint
         id: cache-eslint
         uses: actions/cache@v3
         with:
           path: .eslintcache
           key: eslint-${{github.sha}}
+          restore-keys: eslint-
       - name: Install lerna and all packages
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
