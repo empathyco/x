@@ -87,6 +87,11 @@ if (process.env.NODE_ENV !== 'production') {
           path: 'wai-base-dropdown-and-base-switch',
           name: 'Base Dropdown and Base Switch',
           component: () => import('./views/accessibility/wai-base-dropdown-and-base-switch.vue')
+        },
+        {
+          path: 'wai-base-result-link',
+          name: 'Base Result Link',
+          component: () => import('./views/accessibility/wai-base-result-link.vue')
         }
       ]
     }
