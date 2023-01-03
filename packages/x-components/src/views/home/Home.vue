@@ -1,5 +1,5 @@
 <template>
-  <div class="x">
+  <div class="x x-text-neutral-90">
     <Tagging :consent="false" />
     <SnippetConfigExtraParams :values="initialExtraParams" />
     <PreselectedFilters />
@@ -245,7 +245,7 @@
             >
               <p>
                 There are no results for
-                <span class="x-font-weight--bold">{{ $x.query.search }}</span>
+                <span class="x-font-bold">{{ $x.query.search }}</span>
               </p>
               <p>You may be interested in these:</p>
             </div>
