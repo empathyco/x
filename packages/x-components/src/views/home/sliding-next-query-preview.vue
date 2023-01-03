@@ -4,9 +4,9 @@
     #default="{ results, totalResults, suggestion }"
     class="x-list x-list--gap-03"
   >
-    <h1 class="x-title2 x-text--bold">Others clients have searched</h1>
+    <h1 class="x-title2">Others clients have searched</h1>
     <NextQuery class="x-text1 x-text1-lg" :suggestion="suggestion">
-      <span class="x-font-weight--bold">{{ suggestion.query }}</span>
+      <span class="x-font-bold">{{ suggestion.query }}</span>
       ({{ totalResults }})
     </NextQuery>
     <SlidingPanel :resetOnContentChange="false">

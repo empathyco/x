@@ -318,7 +318,7 @@
                               :suggestion="nextQueries[0]"
                               data-test="next-query-preview-name"
                             >
-                              <span class="x-font-weight--bold">{{ nextQueries[0].query }}</span>
+                              <span class="x-font-bold">{{ nextQueries[0].query }}</span>
                             </NextQuery>
                             <div class="x-margin--bottom-06">
                               <SlidingPanel :resetOnContentChange="false">
@@ -339,7 +339,6 @@
                               class="
                                 x-tag x-tag--pill
                                 x-font-bold x-text-lead-50
-                                x-font-weight--bold
                                 x-margin--left-auto x-margin--right-auto x-margin--top-03
                                 x-padding--top-04
                                 x-padding--bottom-04
