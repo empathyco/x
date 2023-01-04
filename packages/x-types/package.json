@@ -4,7 +4,7 @@
   "description": "Empathy search types",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/empathyco/x/tree/main/packages/search-types#readme",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-types#readme",
   "keywords": [
     "search",
     "types",
@@ -22,7 +22,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/empathyco/x.git",
-    "directory": "packages/search-types"
+    "directory": "packages/x-types"
   },
   "engines": {
     "node": "16"
@@ -30,7 +30,7 @@
   "scripts": {
     "build": "rollup -c && npm run gen:docs",
     "build:watch": "rollup -c -w",
-    "gen:model-docs": "api-extractor run -c search-types-extractor.json -l && api-extractor run -c schema-extractor.json -l && api-extractor run -l",
+    "gen:model-docs": "api-extractor run -c x-types-extractor.json -l && api-extractor run -c schema-extractor.json -l && api-extractor run -l",
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
     "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs",
     "postbuild": "npm pack",

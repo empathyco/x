@@ -64,9 +64,8 @@ To build your search and discovery UI, the following project dependencies are re
   one from scratch using the
   [`@empathyco/x-adapter`](https://github.com/empathyco/x/tree/main/packages/x-adapter) package.
 
-- **x-types**
-  ([`@empathyco/x-types`](https://github.com/empathyco/x/tree/main/packages/search-types)): The data
-  model used in the X&nbsp;Components to define types.
+- **x-types** ([`@empathyco/x-types`](https://github.com/empathyco/x/tree/main/packages/x-types)):
+  The data model used in the X&nbsp;Components to define types.
 
 Install the project dependencies via `npm` as follows:
 

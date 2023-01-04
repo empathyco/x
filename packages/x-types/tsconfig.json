@@ -11,14 +11,8 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "types": [
-      "jest",
-      "@empathyco/x-jest-utils"
-    ],
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "types": ["jest", "@empathyco/x-jest-utils"],
+    "lib": ["dom", "esnext"],
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
