@@ -36,7 +36,7 @@ export function createMutableSchema<Source, Target>(
     $override(newSchema) {
       return deepMerge(this, newSchema);
     },
-    $extends(newSchema) {
+    $extends(newSchema: unknown) {
       return deepMerge({}, this, newSchema);
     },
     toString(includeInternalMethods = false) {
