@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.49...@empathyco/x-types@10.0.0-alpha.50) (2023-01-04)
+
+### Features
+
+- rename `search-types` to `x-types` (#928)
+  ([1ac0008](https://github.com/empathyco/x/commit/1ac00084a4f46f453741c6b04a7c18e88c637cee))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.48...@empathyco/x-types@10.0.0-alpha.49) (2023-01-03)
 
 ### Build System
