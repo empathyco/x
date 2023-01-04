@@ -74,7 +74,7 @@ passed.
 ###### Types definition
 
 ```ts
-// API data models
+// API models
 interface ApiRequest {
   q?: string;
   id?: number;
@@ -89,7 +89,7 @@ interface ApiProduct {
   price: number;
 }
 
-// App's data models
+// App models
 interface AppSearchRequest {
   query: string;
 }
@@ -243,7 +243,7 @@ the value somehow.
 ###### Types definition
 
 ```ts
-// API data models
+// API models
 interface ApiUserRequest {
   q: string;
 }
@@ -256,7 +256,7 @@ interface ApiUser {
   firstName: string;
 }
 
-// App's data models
+// App models
 interface AppUserRequest {
   query: string;
 }
@@ -307,7 +307,7 @@ them you just have to provide with the `Path` of the data to map, and the `Schem
 ###### Types definition
 
 ```ts
-// API data models
+// API models
 interface ApiRequest {
   q: string;
 }
@@ -328,7 +328,7 @@ interface ApiAddress {
   postalCode: string;
 }
 
-// APP data models
+// App models
 interface AppRequest {
   query: string;
 }
@@ -413,8 +413,8 @@ implementations. To do so, you should use the `createMutableSchema` helper funct
 parameters a `Source` and a `Target` to map your models, it will return a `MutableSchema` that will
 accept a `NewSource` and a `NewTarget` to handle the transformations you need.
 
-In the example below we will use a `MutableSchema` to have a default object that will be reused for
-different endpoint calls.
+In the example below we will create a `MutableSchema` to have a default object that will be reused
+for different endpoint calls.
 
 ###### Types definition and MutableSchema
 
@@ -431,7 +431,7 @@ export interface AppBaseObject {
   text: string;
 }
 
-// MutableSchema
+// Mutable Schema
 export const baseObjectSchema = createMutableSchema<ApiBaseObject, AppBaseObject>({
   id: ({ id }) => id.toString(),
   text: 'body'
@@ -455,11 +455,69 @@ different APIs needs:
 ###### Extend a MutableSchema to reuse it in two different endpoints with more fields
 
 ```ts
-/** EXTEND EXAMPLE:
-1 base schema (above)
-2 extends
-2 adapters
-**/
+// Api models
+interface ApiPost extends ApiBaseObject {
+  title: string;
+}
+interface ApiPostsResponse {
+  posts: ApiPost[];
+}
+
+interface ApiComment extends ApiBaseObject {
+  postId: number;
+}
+interface ApiCommentsResponse {
+  comments: ApiComment[];
+}
+
+// App models
+interface AppPost extends AppBaseObject {
+  postTitle: string;
+}
+interface AppPostsResponse {
+  posts: AppPost[];
+}
+
+interface AppComment extends AppBaseObject {
+  postId: number;
+}
+interface AppCommentsResponse {
+  comments: AppComment[];
+}
+
+// Extend for posts endpoint
+const postSchema = baseObjectSchema.$extends<ApiPost, AppPost>({
+  postTitle: 'title'
+});
+
+const postsResponse = schemaMapperFactory<ApiPostsResponse, AppPostsResponse>({
+  posts: {
+    $subSchema: postSchema,
+    $path: 'posts'
+  }
+});
+
+export const searchPosts = endpointAdapterFactory({
+  endpoint: 'https://dummyjson.com/posts',
+  responseMapper: postsResponse
+});
+
+// Extend for comments endpoint
+const commentSchema = baseObjectSchema.$extends<ApiComment, AppComment>({
+  postId: 'postId'
+});
+
+const commentsResponse = schemaMapperFactory<ApiCommentsResponse, AppCommentsResponse>({
+  comments: {
+    $subSchema: commentSchema,
+    $path: 'comments'
+  }
+});
+
+export const searchComments = endpointAdapterFactory({
+  endpoint: 'https://dummyjson.com/comments',
+  responseMapper: commentsResponse
+});
 ```
 
 ###### Override a MutableSchema to add more fields
@@ -471,7 +529,7 @@ most of the types and schemas definitions, so we would only add a few new fields
 ```ts
 import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types';
 
-// Api Models
+// Api models
 interface ApiTodo {
   completed: boolean;
   todo: string;
@@ -482,7 +540,7 @@ interface ApiTodosResponse {
   todos: ApiBaseObject[];
 }
 
-// App Models
+// App models
 interface AppTodo {
   completed: boolean;
   text: string;
@@ -524,7 +582,7 @@ should replace some `endpointAdapter`'s schemas.
 ```ts
 import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types';
 
-// Api Models
+// Api models
 interface ApiQuote {
   id: number;
   quote: string;
@@ -535,7 +593,7 @@ interface ApiQuotesResponse {
   quotes: ApiBaseObject[];
 }
 
-// App Models
+// App models
 interface AppQuote {
   quoteId: string;
   quote: string;
