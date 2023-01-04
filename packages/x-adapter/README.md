@@ -420,18 +420,21 @@ different endpoint calls.
 
 ```ts
 // API models
-export interface ApiIdentifiable {
+export interface ApiBaseObject {
   id: number;
+  body: string;
 }
 
 // APP models
-export interface AppIdentifiable {
+export interface AppBaseObject {
   id: string;
+  text: string;
 }
 
 // MutableSchema
-export const identifiableSchema = createMutableSchema<ApiIdentifiable, AppIdentifiable>({
-  id: ({ id }) => id.toString()
+export const baseObjectSchema = createMutableSchema<ApiBaseObject, AppBaseObject>({
+  id: ({ id }) => id.toString(),
+  text: 'body'
 });
 ```
 
@@ -461,28 +464,46 @@ different APIs needs:
 
 ###### Override a MutableSchema to add more fields
 
+As said above, the suitable context for using the `override` method would say a project with an API
+that doesn't differ too much against the one used in our "base project". That means we can reuse
+most of the types and schemas definitions, so we would only add a few new fields from the new API.
+
 ```ts
-import { ApiIdentifiable, AppIdentifiable, identifiableSchema } from 'base-types';
+import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types';
 
-// New Source and Target types definition
+// Api Models
+interface ApiTodo {
+  completed: boolean;
+  todo: string;
+  userId: number;
+}
+
 interface ApiTodosResponse {
-  todos: ApiIdentifiable[];
-}
-interface AppTodosResponse {
-  todos: AppIdentifiable[];
+  todos: ApiBaseObject[];
 }
 
-/* Override the original Schema. The Schema will be changed:
-now maps the 'id', 'completed' and 'body' fields. */
-identifiableSchema.$override({
+// App Models
+interface AppTodo {
+  completed: boolean;
+  text: string;
+  userId: string;
+}
+
+interface AppTodosResponse {
+  todos: AppBaseObject[];
+}
+
+// Override the original Schema. The Schema changes to map: 'id', 'completed', 'text' and 'userId''
+baseObjectSchema.$override<ApiTodo, AppTodo>({
   completed: 'completed',
-  body: 'todo'
+  text: 'todo',
+  userId: ({ userId }) => userId.toString()
 });
 
 // Response mapper
 const todosResponse = schemaMapperFactory<ApiTodosResponse, AppTodosResponse>({
   todos: {
-    $subSchema: identifiableSchema,
+    $subSchema: baseObjectSchema,
     $path: 'todos'
   }
 });
@@ -496,31 +517,48 @@ export const searchTodos = endpointAdapterFactory({
 
 ###### Replace a MutableSchema to completely change it
 
-```ts
-import { ApiIdentifiable, AppIdentifiable, identifiableSchema } from 'base-types';
+In this case we are facing too many differences between API responses. We don't need to write a
+whole adapter from scratch, as there are other parts of the API that aren't changing so much, but we
+should replace some `endpointAdapter`'s schemas.
 
-// New Source and Target types definition
+```ts
+import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types';
+
+// Api Models
+interface ApiQuote {
+  id: number;
+  quote: string;
+  author: string;
+}
+
 interface ApiQuotesResponse {
-  quotes: ApiIdentifiable[];
+  quotes: ApiBaseObject[];
+}
+
+// App Models
+interface AppQuote {
+  quoteId: string;
+  quote: string;
+  author: string;
 }
 
 interface AppQuotesResponse {
-  quotes: AppIdentifiable[];
+  quotes: AppBaseObject[];
 }
+
+// Replace the original Schema
+baseObjectSchema.$replace<ApiQuote, AppQuote>({
+  quoteId: ({ id }) => id.toString(),
+  quote: 'quote',
+  author: 'author'
+});
 
 // Response mapper
 const quotesResponse = schemaMapperFactory<ApiQuotesResponse, AppQuotesResponse>({
   quotes: {
-    $subSchema: identifiableSchema,
+    $subSchema: baseObjectSchema,
     $path: 'quotes'
   }
-});
-
-// Replace the original Schema.
-identifiableSchema.$replace({
-  quoteId: 'id',
-  quote: 'quote',
-  author: 'author'
 });
 
 // Endpoint Adapter
