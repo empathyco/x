@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.269](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.268...@empathyco/x-components@3.0.0-alpha.269) (2023-01-04)
+
+### Features
+
+- add view to test base-result-link accessibility (#972)
+  ([21d185a](https://github.com/empathyco/x/commit/21d185a8a107f95be4436dabfbeffe83bc7dcd62))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.268](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.267...@empathyco/x-components@3.0.0-alpha.268) (2023-01-03)
 
 ### Build System
