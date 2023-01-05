@@ -446,7 +446,7 @@ different APIs needs:
   `EndpointAdapter`(s) that are using it. It can be used to change the structure of our
   request/response mappers, or to add them new fields. Useful for clients with few differences in
   their APIs. For example, you can create a library with a default adapter and use this library from the customer projects overriding only the needed field  (e.g. retrieve the images from `pictures` instead of `images` in a products API).
-- `replace`: Replaces completely the original `Schema` by a new one, it won't exist anymore. The
+- `$replace`: Replaces completely the original `Schema` by a new one, it won't exist anymore. The
   change will affect to all the `EndpointAdapter`(s) that were using it. Useful for clients with a
   completely different API/response to the standard you have been working with.
 
