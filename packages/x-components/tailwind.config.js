@@ -24,6 +24,7 @@ module.exports = {
     'fontWeight',
     'gap',
     'lineHeight',
-    'textColor'
+    'textColor',
+    'preflight'
   ]
 };
