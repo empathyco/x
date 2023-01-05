@@ -437,7 +437,7 @@ export const baseObjectSchema = createMutableSchema<ApiBaseObject, AppBaseObject
 });
 ```
 
-Once we have the `MutableSchema`, we can use the `createMutableSchema` available methods to fit our
+Once we have the `MutableSchema`, we can use the following methods to fit our
 different APIs needs:
 
 - `extends`: Creates a new `Schema` based on the original one. The original remains
