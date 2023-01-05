@@ -442,7 +442,7 @@ different APIs needs:
 
 - `extends`: Creates a new `Schema` based on the original one. The original remains
   unchanged. This can be useful if we need to create a new `EndpointAdapter` with models based on another API.
-- `override`: Merges/modifies the original `Schema` partially, so the change will affect to all the
+- `$override`: Merges/modifies the original `Schema` partially, so the change will affect to all the
   `EndpointAdapter`(s) that are using it. It can be used to change the structure of our
   request/response mappers, or to add them new fields. Useful for clients with few differences in
   their APIs. For example, you can create a library with a default adapter and use this library from the customer projects overriding only the needed field  (e.g. retrieve the images from `pictures` instead of `images` in a products API).
