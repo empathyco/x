@@ -1,9 +1,14 @@
 # x-adapter-platform
 
 **Empathy Platform Adapter** is a library to ease the communication with **empathy.co**
-[Search Platform API](https://docs.empathy.co/develop-empathy-platform/api-reference/search-api.html).
+[Empathy Platform API](https://docs.empathy.co/develop-empathy-platform/api-reference/search-api.html).
 Built upon [x-adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter) library, it
 contains a sample configuration for setup, global configurations, mappers and models.
+
+It is used as the default adapter configuration in
+[x-archetype](https://github.com/empathyco/x-archetype), a standardised implementation of the
+[x-components](https://github.com/empathyco/x/tree/main/packages/x-components) library, which
+imports it as a plugin.
 
 <br>
 
@@ -24,7 +29,7 @@ npm i @empathyco/x-adapter-platform
 
 ## Configuration & Usage
 
-The PlatformAdapter interface is a configuration object for each Search Platform API’s endpoint:
+The PlatformAdapter instance is a configuration object for each Empathy Platform API’s endpoints:
 
 ```ts
 export const platformAdapter: PlatformAdapter = {
@@ -39,23 +44,178 @@ export const platformAdapter: PlatformAdapter = {
 };
 ```
 
-```
-TO DO: Explain each endpoint adapter
+<br>
+
+### Platform Endpoint Adapters & usage
+
+This API has the particularity of needing an `env`, `instance` and a `language` to be passed in each
+endpoint call. For that purpose, you will need to use the `extraParams` field to specify them and
+make it work. In an [x-archetype](https://github.com/empathyco/x-archetype) project context, which
+would be the recommended scenario to use this package, these parameters are configured used a
+[snippetConfig.js](https://github.com/empathyco/x-archetype/blob/main/public/snippet-script.js)
+file.
+
+<br>
+
+##### Search endpoint adapter
+
+###### endpoint: /search/v1/query/{extraParams.instance}/search
+
+Search results. A search request is triggered when the user has typed or accepted a query. The
+response is mapped and usually shown in a grid.
+
+```ts
+const { results } = await platformAdapter.search({
+  query: 'trousers',
+  extraParams: {
+    lang: 'en',
+    instance: 'empathy',
+    env: 'staging'
+  }
+});
 ```
 
 <br>
 
-## ### Extending the x-platform-adapter
+##### Popular searches endpoint adapter
 
-If you are not using the
-[Search Platform API](https://docs.empathy.co/develop-empathy-platform/api-reference/search-api.html),
-you can extend the \***\*`x-adapter-platform` \*\***when your API needs don’t differ too much, or
-create a new adapter from scratch using
-the `[@empathyco/x-adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter)` package.
+###### endpoint: /search/v1/query/{extraParams.instance}/empathize
 
+Top searched queries. Usually these **suggestions** are shown inside the predictive layer when the
+input has no query.
+
+```ts
+const { suggestions } = await platformAdapter.popularSearches({
+  extraParams: {
+    lang: 'en',
+    instance: 'empathy',
+    env: 'staging'
+  }
+});
 ```
-TO DO: Extending an adapter that uses schemas
+
+<br>
+
+##### Recommendations endpoint adapter
+
+###### endpoint: /search/v1/query/{extraParams.instance}/topclicked
+
+Top clicked products. Usually these **recommendations** are shown inside the predictive layer when
+the input has no query or in the result grid.
+
+```ts
+const { results } = await platformAdapter.recommendations({
+  extraParams: {
+    lang: 'en',
+    instance: 'empathy',
+    env: 'staging'
+  }
+});
 ```
+
+<br>
+
+##### Next Queries endpoint adapter
+
+###### endpoint: /nextqueries/{extraParams.instance}
+
+Next queries are shown after a search request has been made. They are recurrent searches that users
+tend to do after searching for a specific item.
+
+```ts
+const { nextQueries } = await platformAdapter.nextQueries({
+  query: 'trousers',
+  extraParams: {
+    lang: 'en',
+    instance: 'empathy',
+    env: 'staging'
+  }
+});
+```
+
+<br>
+
+##### Query suggestions endpoint adapter
+
+###### endpoint: /search/v1/query/{extraParams.instance}/empathize
+
+These **suggestions** help users to refine their searches while they are typing. So, depending on
+the query, a list of terms will be suggested that could complete the search. For example, for the
+query "trousers" we could have "trousers summer, trousers grey, trousers men, trousers woman...." as
+query suggestions.
+
+```ts
+const { suggestions } = await platformAdapter.querySuggestions({
+  extraParams: {
+    query: 'trousers',
+    lang: 'en',
+    instance: 'empathy',
+    env: 'staging'
+  }
+});
+```
+
+<br>
+
+##### Related tags endpoint adapter
+
+###### endpoint: /relatedtags/{extraParams.instance}
+
+Related tags depend on what users are searching for. They are used to help to filter a query search
+by adding more **specificity** (e.g, adjectives: log, short, gluten-free, categories: kids,
+summer...). Usually they are show below the search-box with tag appearance after a search request
+has been made.
+
+```ts
+const { relatedTags } = await platformAdapter.relatedTags({
+  extraParams: {
+    query: 'trousers',
+    lang: 'en',
+    instance: 'empathy',
+    env: 'staging'
+  }
+});
+```
+
+<br>
+
+##### Identifier results endpoint adapter
+
+###### endpoint: /search/v1/query/{extraParams.instance}/skusearch
+
+This endpoint is similar to the search endpoint, but instead of searching by query, it searches by a
+specific product identifiable, the SKU number.
+
+```ts
+const { sku } = await platformAdapter.skuSearch({
+  extraParams: {
+    query: '1234',
+    lang: 'en',
+    instance: 'empathy',
+    env: 'staging'
+  }
+});
+```
+
+<br>
+
+##### Tagging endpoint adapter
+
+###### endpoint: ({ url }) => url
+
+Allows sending events to a server to collect metrics about how the search is performing (this won't
+collect user data, just the use of tools per session).
+
+<br>
+
+### Modifying the x-platform-adapter
+
+Each request and response schemas are created as mutable schemas, sou you will be able to use  
+`x-adapter`'s library
+[`createMutableSchema`](https://github.com/empathyco/x/tree/main/packages/x-adapter/README.md)
+methods -$extends, $override, $replace- accordingly to adapt some schemas to your API needs.
+
+// OVERRIDE EXAMPLE
 
 <br>
 
@@ -67,7 +227,9 @@ inside each of the project's sections functionalities (`endpoint-adapters`, `map
 `schemas`).
 
 ```
+
 npm test
+
 ```
 
 <br>
@@ -80,13 +242,17 @@ npm test
 
 ## Contributing
 
-To start contributing to the project, please take a look to
-our **[Contributing Guide](https://github.com/empathyco/x/blob/HEAD/.github/CONTRIBUTING.md).** Take
-in account that `x-adapter-platform` is developed using
-[Typescript](https://www.typescriptlang.org/), so we recommend you check it out.
+To start contributing to the project, please take a look to our
+**[Contributing Guide](https://github.com/empathyco/x/blob/HEAD/.github/CONTRIBUTING.md).** Take in
+account that `x-adapter-platform` is developed using [Typescript](https://www.typescriptlang.org/),
+so we recommend you check it out.
 
 <br>
 
 ## License
 
 [empathyco/x License](https://github.com/empathyco/x/blob/main/packages/x-adapter-platform/LICENSE)
+
+```
+
+```
