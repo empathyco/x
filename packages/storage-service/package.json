@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@empathyco/x-logger": "^1.2.0-alpha.4",
-    "tslib": "~2.3.0"
+    "tslib": "~2.4.1"
   },
   "devDependencies": {
     "@types/jest": "~27.0.3",
