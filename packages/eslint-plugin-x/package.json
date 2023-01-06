@@ -44,7 +44,7 @@
     "eslint-plugin-vuejs-accessibility": "~2.0.0"
   },
   "devDependencies": {
-    "eslint": "~8.30.0",
+    "eslint": "~8.31.0",
     "prettier": "~2.3.2"
   },
   "peerDependencies": {
