@@ -9,13 +9,3 @@ updates:
       day: "friday"
       time: "08:00"
       timezone: "Europe/Madrid"
-
-
-  # Maintain dependencies for the eslint-plugin-x package
-  - package-ecosystem: "npm"
-    directory: "/packages/eslint-plugin-x"
-    schedule:
-      interval: "weekly"
-      day: "friday"
-      time: "08:00"
-      timezone: "Europe/Madrid"
