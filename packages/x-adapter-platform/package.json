@@ -41,7 +41,7 @@
     "@empathyco/x-adapter": "^8.0.0-alpha.17",
     "@empathyco/x-types": "^10.0.0-alpha.50",
     "@empathyco/x-utils": "^1.0.0-alpha.12",
-    "tslib": "~2.3.0"
+    "tslib": "~2.4.1"
   },
   "devDependencies": {
     "@microsoft/api-documenter": "~7.19.27",
