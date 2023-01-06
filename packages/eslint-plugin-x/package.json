@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "~5.47.0",
-    "@typescript-eslint/parser": "~5.47.0",
+    "@typescript-eslint/parser": "~5.48.0",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "~10.0.0",
     "eslint": "~8.30.0",
