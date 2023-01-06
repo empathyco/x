@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.26...@empathyco/x-deep-merge@1.3.0-alpha.27) (2023-01-06)
+
+### Build System
+
+- **deps:** update dependencies
+  ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.3.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.25...@empathyco/x-deep-merge@1.3.0-alpha.26) (2022-12-19)
 
 ### Continuous Integration
