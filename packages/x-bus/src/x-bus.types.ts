@@ -1,5 +1,5 @@
+import { Dictionary, Keys } from '@empathyco/x-utils';
 import { Observable, Subject } from 'rxjs';
-import {AnyFunction, Dictionary, Keys} from '@empathyco/x-utils';
 
 /**
  * Alias representing a
@@ -71,6 +71,15 @@ export type Emitters = {
 };
 
 /**
+ * Represents the emitted data of an {@link XEvent}.
+ *
+ * @public
+ */
+export type EmittedData<Event extends XEvent> = {
+  event: Event;
+} & SubjectPayload<XEventPayload<Event>>;
+
+/**
  * The events bus that allows emitting and subscribing to {@link XEventsTypes}.
  *
  * @public
@@ -82,7 +91,7 @@ export interface XBus {
    * @param event - The event name.
    * @returns A promise that is resolved whenever the event is emitted.
    */
-  emit(event: Keys<XEvents, void>): Promise<XEvent> | void;
+  emit(event: Keys<XEvents, void>): Promise<EmittedData<XEvent>> | void;
   /**
    * Emits an event with a non-void payload.
    *
@@ -94,7 +103,7 @@ export interface XBus {
     event: Event,
     payload: XEventPayload<Event>,
     metadata?: Dictionary
-  ): Promise<XEvent> | void;
+  ): Promise<EmittedData<XEvent>> | void;
 
   /**
    * Retrieves the observable for an event.

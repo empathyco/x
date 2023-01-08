@@ -1,87 +1,96 @@
 import { XPriorityQueue } from '@empathyco/x-priority-queue';
-import { XPriorityBus } from '../index';
+import { AnyFunction } from '@empathyco/x-utils';
+import { XEvent, XPriorityBus } from '../index';
 
-describe('x-bus with priority queue', () => {
+describe('x-priority-bus scenarios', () => {
   beforeAll(() => {
     jest.useFakeTimers();
   });
 
-  it('accepts an XPriorityQueue as constructor parameter', () => {
-    const priorityQueue = new XPriorityQueue();
-    const bus = new XPriorityBus(priorityQueue);
-
-    bus.emit('stub').then(() => {
-      expect(true).toBe(true);
-    });
-    jest.runAllTimers();
+  afterAll(() => {
+    jest.useRealTimers();
   });
 
-  it('emits events that are resolved', () => {
-    const bus = new XPriorityBus();
+  describe('constructor', () => {
+    it('creates a bus with an existing priority queue', async () => {
+      // Given a priority queue
+      const queue = new XPriorityQueue();
+      // And a custom priorities object
+      const priorities = {
+        stub1: 0,
+        stub2: 10,
+        stub3: 5
+      };
+      //And an array with multiple emit callbacks
+      const logEventName: AnyFunction = jest.fn();
+      const logEventMetadata: AnyFunction = jest.fn();
+      const emitCallbacks = [logEventName, logEventMetadata];
 
-    bus.emit('stub').then(() => {
-      expect(true).toBe(true);
+      const bus = new XPriorityBus({ queue, priorities, emitCallbacks });
+      const emittedEvents: XEvent[] = [];
+
+      const pushEmittedEvent: AnyFunction = ({ event }) => emittedEvents.push(event);
+      const emittedEventsPromise = Promise.all([
+        bus.emit('stub1').then(pushEmittedEvent),
+        bus.emit('stub2').then(pushEmittedEvent),
+        bus.emit('stub3').then(pushEmittedEvent)
+      ]);
+
+      // Then the provided configuration is used
+      expect(queue.size()).toBe(3);
+
+      jest.runAllTimers();
+
+      await emittedEventsPromise;
+      expect(emittedEvents).toEqual(['stub1', 'stub3', 'stub2']);
+      emitCallbacks.forEach(callbackFn => {
+        expect(callbackFn).toHaveBeenCalledTimes(3);
+      });
     });
-    jest.runAllTimers();
   });
 
-  it('all the events in the queue are emitted', () => {
-    const priorityQueue = new XPriorityQueue();
-    const bus = new XPriorityBus(priorityQueue);
+  describe('emit', () => {
+    it('emits events in the right order', () => {
+      // Given a bus
+      const bus = new XPriorityBus();
+      const resolvedEvents: XEvent[] = [];
 
-    bus.emit('stub1');
+      // When multiple events are emitted through it
+      bus.emit('DataChanged').then(({ event }) => {
+        resolvedEvents.push(event);
+        expect(resolvedEvents[1]).toBe('DataChanged');
+      });
 
-    bus.emit('stub2');
+      bus.emit('RequestChanged').then(({ event }) => {
+        resolvedEvents.push(event);
+        expect(resolvedEvents[0]).toBe('RequestChanged');
+      });
 
-    expect(priorityQueue.size()).toBe(2);
-
-    jest.runAllTimers();
-
-    expect(priorityQueue.isEmpty()).toBe(true);
+      jest.runAllTimers();
+    });
   });
 
-  it('emitted events resolve by priority order', () => {
-    const bus = new XPriorityBus();
+  describe('getEventPriority', () => {
+    it('can override the priority behavior', async () => {
+      // Given a priority bus
+      const bus = new XPriorityBus();
 
-    const resolvedEvents: string[] = [];
+      // When the priority assignment function is overriden
+      bus.getEventPriority = (event, metadata) => metadata.customPriority;
 
-    bus.emit('DataChanged').then(event => {
-      resolvedEvents.push(event);
-      expect(resolvedEvents[1]).toBe('DataChanged');
+      // Then multiple events are emitted in the right order
+      const emittedEvents: XEvent[] = [];
+      const pushEmittedEvent: AnyFunction = ({ event }) => emittedEvents.push(event);
+      const emittedEventsPromise = Promise.all([
+        bus.emit('stub1', undefined, { customPriority: 4 }).then(pushEmittedEvent),
+        bus.emit('stub2', undefined, { customPriority: 2 }).then(pushEmittedEvent),
+        bus.emit('stub3', undefined, { customPriority: 0 }).then(pushEmittedEvent)
+      ]);
+
+      jest.runAllTimers();
+
+      await emittedEventsPromise;
+      expect(emittedEvents).toEqual(['stub3', 'stub2', 'stub1']);
     });
-
-    bus.emit('RequestChanged').then(event => {
-      resolvedEvents.push(event);
-      expect(resolvedEvents[0]).toBe('RequestChanged');
-    });
-
-    jest.runAllTimers();
-  });
-
-  it('can override the priority behavior', () => {
-    const bus = new XPriorityBus();
-
-    const eventsPriorities = {
-      stub2: 2,
-      stub1: 4
-    };
-
-    const resolvedEvents: string[] = [];
-
-    bus.getEventPriority = (event: 'stub1' | 'stub2') => {
-      return eventsPriorities[event];
-    };
-
-    bus.emit('stub1').then(event => {
-      resolvedEvents.push(event);
-      expect(resolvedEvents[1]).toBe('stub1');
-    });
-
-    bus.emit('stub2').then(event => {
-      resolvedEvents.push(event);
-      expect(resolvedEvents[0]).toBe('stub2');
-    });
-
-    jest.runAllTimers();
   });
 });

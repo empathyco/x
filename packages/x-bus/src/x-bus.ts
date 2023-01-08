@@ -3,6 +3,7 @@ import { AnyFunction, Dictionary } from '@empathyco/x-utils';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
+  EmittedData,
   Emitter,
   Emitters,
   Priority,
@@ -15,7 +16,7 @@ import {
 
 declare module '@empathyco/x-priority-queue' {
   export interface XPriorityQueueNodeMetadata {
-    resolve: (value: XEvent) => void;
+    resolve: (value: EmittedData<XEvent>) => void;
     eventPayload: any;
     eventMetadata: any;
   }
@@ -112,8 +113,8 @@ export class XPriorityBus implements XBus {
     event: Event,
     payload?: XEventPayload<Event>,
     metadata: Dictionary = { moduleName: null }
-  ): Promise<XEvent> {
-    return new Promise<XEvent>(resolve => {
+  ): Promise<EmittedData<XEvent>> {
+    return new Promise(resolve => {
       this.queue.push(event, this.getEventPriority(event, metadata), {
         replaceable: metadata.replaceable || false,
         resolve,
@@ -137,7 +138,7 @@ export class XPriorityBus implements XBus {
    *
    * @internal
    */
-  protected getEventPriority(event: XEvent, metadata: Dictionary): Priority {
+  getEventPriority(event: XEvent, metadata: Dictionary): Priority {
     const [, priorityKey] = Object.keys(this.priorities).reduce(
       ([matchedCount, matchedName], name) => {
         const count = event.match(new RegExp(name))?.[0].length ?? 0;
@@ -161,35 +162,37 @@ export class XPriorityBus implements XBus {
    */
   protected flushQueue(): void {
     clearTimeout(this.pendingFlush);
-    this.pendingPops.forEach(clearTimeout);
+    this.clearPendingPops();
 
     this.pendingFlush = setTimeout(() => {
-      for (let i = 0; i < this.queue.size() - 1; i++) {
+      for (let i = 0; i < this.queue.size(); ++i) {
         const popTimeoutId = setTimeout(() => {
           const {
             key,
             metadata: { eventPayload, eventMetadata, resolve }
           } = this.queue.pop()!;
           const emitter = this.getEmitter(key);
-
-          emitter.next({
+          const payloadObj = {
             eventPayload,
             metadata: eventMetadata
-          });
+          };
 
-          this.emitCallbacks.forEach(callback =>
-            callback(key, { eventPayload, metadata: eventMetadata })
-          );
-          resolve(key);
+          emitter.next(payloadObj);
+
+          this.emitCallbacks.forEach(callback => callback(key, payloadObj));
+          resolve({ event: key, ...payloadObj });
 
           this.pendingPops = this.pendingPops.filter(timeoutId => timeoutId !== popTimeoutId);
-        });
+        }) as unknown as number;
 
         this.pendingPops.push(popTimeoutId);
       }
-    });
+    }) as unknown as number;
+  }
 
-    this.pendingFlush = undefined;
+  private clearPendingPops(): void {
+    this.pendingPops.forEach(clearTimeout);
+    this.pendingPops.length = 0;
   }
 
   /**
@@ -243,7 +246,7 @@ export class XPriorityBus implements XBus {
 const logEvent = (event: string, value: { eventPayload: any }): void => console.log(value);
 const bus = new XPriorityBus({ emitCallbacks: [logEvent] });
 
-bus.emit(
+const emittedSearchResponseReceived = bus.emit(
   'SearchResponseReceived',
   {
     docs: [
@@ -253,6 +256,10 @@ bus.emit(
   },
   { moduleName: 'search' }
 );
+
+emittedSearchResponseReceived.then(response => {
+  console.log(response);
+});
 
 bus.emit('UserAcceptedAQuery', 'shirt', { moduleName: 'search' });
 bus.emit('SearchRequestChanged', { query: 'shirtless', rows: 2 }, { moduleName: 'search' });
