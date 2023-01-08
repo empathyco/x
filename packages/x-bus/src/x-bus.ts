@@ -75,6 +75,7 @@ export class XPriorityBus implements XBus {
   /**
    * Creates a new instance of a {@link XPriorityBus}.
    *
+   * @param config
    * @param queue - A {@link XPriorityQueue} to store the events.
    * @param priorities - A {@link @empathyco/x-utils#Dictionary} defining the priorities associated
    * to a given string.
@@ -126,7 +127,7 @@ export class XPriorityBus implements XBus {
     });
   }
 
-  /**
+  /**.
    * Retrieves the event priority. The criteria to get the priority is:
    * - the defined event metadata priority
    * - the priority associated to the matching preconfigured priority key
@@ -242,24 +243,3 @@ export class XPriorityBus implements XBus {
     this.emitters[event] = new ReplaySubject<SubjectPayload<XEventPayload<Event>>>(1);
   }
 }
-
-const logEvent = (event: string, value: { eventPayload: any }): void => console.log(value);
-const bus = new XPriorityBus({ emitCallbacks: [logEvent] });
-
-const emittedSearchResponseReceived = bus.emit(
-  'SearchResponseReceived',
-  {
-    docs: [
-      { id: 1, name: 1 },
-      { id: 2, name: '2' }
-    ]
-  },
-  { moduleName: 'search' }
-);
-
-emittedSearchResponseReceived.then(response => {
-  console.log(response);
-});
-
-bus.emit('UserAcceptedAQuery', 'shirt', { moduleName: 'search' });
-bus.emit('SearchRequestChanged', { query: 'shirtless', rows: 2 }, { moduleName: 'search' });
