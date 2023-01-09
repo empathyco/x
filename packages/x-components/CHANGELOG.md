@@ -1,5 +1,23 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.273](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.272...@empathyco/x-components@3.0.0-alpha.273) (2023-01-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **design-system:** suggestion and suggestion group styles are now deprecated. To continue using them import from `deprecated-full-theme.css`.
+
+### Features
+
+* **design-system:** deprecate old suggestion and suggestion group styles (#975) ([69d8bc5](https://github.com/empathyco/x/commit/69d8bc59ce43660b3295dcafa9283598d1143336)), closes [EX-7725](https://searchbroker.atlassian.net/browse/EX-7725)
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
