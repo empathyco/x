@@ -456,6 +456,7 @@ Once we have the `MutableSchema`, we can use the following methods to fit our di
 ###### Extend a MutableSchema to reuse it in two different endpoints with more fields
 
 ```ts
+import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types';
 // Api models
 interface ApiPost extends ApiBaseObject {
   title: string;
