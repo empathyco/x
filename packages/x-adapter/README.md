@@ -409,7 +409,7 @@ export const searchUsersWithContactInfo = endpointAdapterFactory({
 #### Using a mutable schema
 
 This feature lets you have some default mappers, and modify or extend them for some concrete
-implementations. To do so, you can use the `createMutableSchema` function, passing a a `Source` and
+implementations. To do so, you can use the `createMutableSchema` function, passing a `Source` and
 `Target` type parameters to map your models. This function will return a `MutableSchema` that apart
 from the mapping information will also contain some methods to create new schemas or modify the
 current one.
@@ -441,7 +441,7 @@ export const baseObjectSchema = createMutableSchema<ApiBaseObject, AppBaseObject
 
 Once we have the `MutableSchema`, we can use the following methods to fit our different APIs needs:
 
-- `extends`: Creates a new `Schema` based on the original one. The original remains unchanged. This
+- `$extends`: Creates a new `Schema` based on the original one. The original remains unchanged. This
   can be useful if we need to create a new `EndpointAdapter` with models based on another API.
 - `$override`: Merges/modifies the original `Schema` partially, so the change will affect to all the
   `EndpointAdapter`(s) that are using it. It can be used to change the structure of our
@@ -631,11 +631,36 @@ baseObjectSchema.$replace<ApiQuote, AppQuote>({
 
 ### Extend an adapter that uses schemas
 
-You can check the
-[x-platform-adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform) library.
-You will find a sample implementation of the `x-adapter` library based on the
+Imagine you have a new setup and that you can reuse most of the stuff you have developed. Probably
+you have built an adapter instance as a configuration object that contains all of your
+`EndpointAdapter` calls, so you only need to extend the endpoint you need to change.
+
+```ts
+export const adapter = {
+  searchItem: getItemById,
+  searchList: searchComments
+  // Any endpoint adapter you are using to communicate with your API
+};
+
+adapter.searchList = searchComments.extends({
+  endpoint: 'https://dummyjson.com/comments/',
+  defaultRequestOptions: {
+    // If you need to send an id, a header...
+  },
+  defaultRequestOptions: {
+    parameters: {
+      limit: 10,
+      skip: 10
+    }
+  }
+});
+```
+
+For further detail, you can check the
+[x-platform-adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform) package.
+It is a whole adapter implementation using this `x-adapter` library to suit the
 [Search Platform API](https://docs.empathy.co/develop-empathy-platform/api-reference/search-api.html),
-and also some guidance on how to extend it for your needs.
+needs.
 
 ## Test
 
@@ -652,9 +677,9 @@ npm test
 
 ## Contributing
 
-To start contributing to the project, please take a look to
-our **[Contributing Guide](https://github.com/empathyco/x/blob/main/.github/CONTRIBUTING.md).** Take
-in account that `x-adapter` is developed using [Typescript](https://www.typescriptlang.org/), so we
+To start contributing to the project, please take a look to our
+**[Contributing Guide](https://github.com/empathyco/x/blob/main/.github/CONTRIBUTING.md).** Take in
+account that `x-adapter` is developed using [Typescript](https://www.typescriptlang.org/), so we
 recommend you check it out.
 
 ## License
