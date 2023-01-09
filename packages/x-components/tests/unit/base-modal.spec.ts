@@ -1,9 +1,10 @@
-import { mount } from '@cypress/vue';
+import { mount } from 'cypress/vue2';
 import Vue from 'vue';
 import BaseModal from '../../src/components/modals/base-modal.vue';
 import { BaseXBus } from '../../src/plugins/x-bus';
 import { XPlugin } from '../../src/plugins/x-plugin';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
+import { loadCss } from './css.utils';
 
 /**
  * Renders an {@link BaseModal} component with the provided options.
@@ -26,7 +27,25 @@ function renderBaseModal({
   `
 }: RenderBaseModalOptions = {}): RenderBaseModalAPI {
   XPlugin.resetInstance();
-
+  cy.viewport('macbook-16');
+  loadCss(`
+        body {
+          margin: 0;
+        }
+        .header {
+          height: ${clientHeaderHeight.desktop}px;
+        }
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          .header {
+            height: ${clientHeaderHeight.mobile}px;
+          }
+        }
+        @media screen and (min-width: 481px) and (max-width: 1024px) {
+          .header {
+            height: ${clientHeaderHeight.tablet}px;
+          }
+        }
+        `);
   mount(
     {
       components: {
@@ -40,25 +59,7 @@ function renderBaseModal({
       plugins: [[new XPlugin(new BaseXBus()), { adapter: e2eAdapter }]],
       propsData: {
         referenceSelector
-      },
-      style: `
-        body {
-          margin: 0;
-        }
-        .header {
-          height: ${clientHeaderHeight.desktop}px;
-        }
-        @media only screen and (min-width: 320px) and (max-width: 480px) {
-          .header {
-            height: ${clientHeaderHeight.mobile}px;
-          }
-        }
-        @media screen and (min-width: 481px) and (max-width: 1024px){
-          .header {
-            height: ${clientHeaderHeight.tablet}px;
-          }
-        }
-        `
+      }
     }
   );
 

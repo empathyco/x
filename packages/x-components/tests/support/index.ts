@@ -1,6 +1,4 @@
-import 'cypress-plugin-tab';
-import { SearchResponse } from '@empathyco/x-types';
-import { AnyFunction, forEach } from '@empathyco/x-utils';
+import { AnyFunction } from '@empathyco/x-utils';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -13,8 +11,9 @@ import Loggable = Cypress.Loggable;
 import Shadow = Cypress.Shadow;
 import Timeoutable = Cypress.Timeoutable;
 import Withinable = Cypress.Withinable;
+import CommandFns = Cypress.CommandFns;
 
-interface CustomCommands {
+interface CustomCommands extends CommandFns {
   /**
    * Searches a query by typing it in the search input and pressing enter.
    *
@@ -25,6 +24,7 @@ interface CustomCommands {
    * @returns A Chainable object.
    */
   searchQuery(query: string): Cypress.Chainable<JQuery>;
+
   /**
    * Searches multiple queries by typing it in the search input and pressing enter.
    *
@@ -35,6 +35,7 @@ interface CustomCommands {
    * @returns A Chainable object.
    */
   searchQueries(...queries: string[]): void;
+
   /**
    * Types a query into the search input.
    *
@@ -45,6 +46,7 @@ interface CustomCommands {
    * @returns A Chainable object.
    */
   typeQuery(query: string): Cypress.Chainable<JQuery>;
+
   /**
    * Replaces the query in the search input.
    *
@@ -55,6 +57,7 @@ interface CustomCommands {
    * @returns A Chainable object.
    */
   replaceQuery(query: string): Cypress.Chainable<JQuery>;
+
   /**
    * Focus into the search input.
    *
@@ -64,6 +67,7 @@ interface CustomCommands {
    * @returns A Chainable object.
    */
   focusSearchInput(): Cypress.Chainable<JQuery>;
+
   /**
    * Clear search input.
    *
@@ -73,6 +77,7 @@ interface CustomCommands {
    * @returns A Chainable object.
    */
   clearSearchInput(): Cypress.Chainable<JQuery>;
+
   /**
    * Retrieves a filter by its label.
    *
@@ -80,12 +85,14 @@ interface CustomCommands {
    * @returns A Chainable object that contains the asserted filter `HTMLElement`.
    */
   getFilterWithLabel(label: string): Cypress.Chainable<JQuery>;
+
   /**
    * Retrieves the filters that are selected.
    *
    * @returns A Chainable object that contains the `HTMLElement`s of the filters that are selected.
    */
   getSelectedFilters(): Cypress.Chainable<JQuery>;
+
   /**
    * Clicks a filter with the provided text. It saves it to an alias if provided, and asserts
    * if it its selected.
@@ -95,6 +102,7 @@ interface CustomCommands {
    * @returns A Chainable object that contains the clicked filter `HTMLElement`.
    */
   clickFilterWithLabel(label: string, options?: ClickFilterOptions): Cypress.Chainable<JQuery>;
+
   /**
    * Checks that the filter with the provided label is selected or unselected.
    *
@@ -103,16 +111,12 @@ interface CustomCommands {
    * @returns A Chainable object that contains the asserted filter `HTMLElement`.
    */
   assertFilterIs(label: string, status: SelectedStatus): Cypress.Chainable<JQuery>;
+
   /**
    * Waits for the results to update by checking the existence of a loading item.
    */
   waitForResultsToRender(): void;
-  /**
-   * Mocks the search response with the provided value.
-   *
-   * @param searchResponse - The next response for the `search` adapter method.
-   */
-  fakeSearchResponse(searchResponse: Partial<SearchResponse>): void;
+
   /**
    * Checks if next-queries should contain or not a certain term.
    *
@@ -122,7 +126,7 @@ interface CustomCommands {
   checkNextQueries(query: string, toContain: boolean): void;
 }
 
-interface CustomDualCommands {
+interface CustomDualCommands extends CommandFns {
   /**
    * Gets a DOM element searching by its data-test attribute.
    *
@@ -194,25 +198,6 @@ const customCommands: CustomCommands = {
   waitForResultsToRender() {
     cy.getByDataTest('search-result').should('be.visible');
   },
-  fakeSearchResponse: searchResponse => {
-    cy.window().then(window => {
-      window.__mockedAdapter.responses.search = {
-        banners: [],
-        facets: [],
-        partialResults: [],
-        promoteds: [],
-        queryTagging: {
-          params: {},
-          url: ''
-        },
-        redirections: [],
-        results: [],
-        spellcheck: '',
-        totalResults: 0,
-        ...searchResponse
-      };
-    });
-  },
   checkNextQueries(query: string, toContain: boolean) {
     cy.getByDataTest('next-query').should(queries => {
       queries.each((_, e) => {
@@ -233,11 +218,5 @@ const customDualCommands: AddPreviousParam<CustomDualCommands> = {
   }
 };
 
-// Register the commands
-forEach(customCommands, (name, implementation) => {
-  Cypress.Commands.add(name, implementation);
-});
-
-forEach(customDualCommands, (name, implementation) => {
-  Cypress.Commands.add(name, { prevSubject: 'optional' }, implementation);
-});
+Cypress.Commands.addAll(customCommands);
+Cypress.Commands.addAll({ prevSubject: 'optional' }, customDualCommands);

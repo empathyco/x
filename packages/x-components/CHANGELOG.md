@@ -3,6 +3,200 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.273](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.272...@empathyco/x-components@3.0.0-alpha.273) (2023-01-09)
+
+### ⚠ BREAKING CHANGES
+
+- **design-system:** suggestion and suggestion group styles are now deprecated. To continue using
+  them import from `deprecated-full-theme.css`.
+
+### Features
+
+- **design-system:** deprecate old suggestion and suggestion group styles (#975)
+  ([69d8bc5](https://github.com/empathyco/x/commit/69d8bc59ce43660b3295dcafa9283598d1143336)),
+  closes [EX-7725](https://searchbroker.atlassian.net/browse/EX-7725)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.272](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.271...@empathyco/x-components@3.0.0-alpha.272) (2023-01-09)
+
+### Features
+
+- **design-system:** deprecate old typography styles (#973)
+  ([15d6d64](https://github.com/empathyco/x/commit/15d6d64c18fe28664e873802fe34073158c30648)),
+  closes [EX-7726](https://searchbroker.atlassian.net/browse/EX-7726)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.271](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.270...@empathyco/x-components@3.0.0-alpha.271) (2023-01-06)
+
+### Build System
+
+- **deps:** update dependencies
+  ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.270](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.269...@empathyco/x-components@3.0.0-alpha.270) (2023-01-04)
+
+### Features
+
+- rename `search-types` to `x-types` (#928)
+  ([1ac0008](https://github.com/empathyco/x/commit/1ac00084a4f46f453741c6b04a7c18e88c637cee))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.269](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.268...@empathyco/x-components@3.0.0-alpha.269) (2023-01-04)
+
+### Features
+
+- add view to test base-result-link accessibility (#972)
+  ([21d185a](https://github.com/empathyco/x/commit/21d185a8a107f95be4436dabfbeffe83bc7dcd62))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.268](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.267...@empathyco/x-components@3.0.0-alpha.268) (2023-01-03)
+
+### Build System
+
+- **deps:** update `vue` to version `2.7` (#971)
+  ([09fb0fe](https://github.com/empathyco/x/commit/09fb0fe5dbef020565571a4fafc89d2aac544c8e)),
+  closes [EX-7730](https://searchbroker.atlassian.net/browse/EX-7730)
+
+## [3.0.0-alpha.267](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.266...@empathyco/x-components@3.0.0-alpha.267) (2023-01-03)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.266](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.265...@empathyco/x-components@3.0.0-alpha.266) (2023-01-02)
+
+### Continuous Integration
+
+- make Cypress cache depend on package. Make eslint cache restore last version if no exact match.
+  ([2498972](https://github.com/empathyco/x/commit/24989726d8e5c6c3450b344fbbc623a3f7246b53)),
+  closes [EX-7721](https://searchbroker.atlassian.net/browse/EX-7721)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.265](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.264...@empathyco/x-components@3.0.0-alpha.265) (2022-12-30)
+
+### Testing
+
+- **e2e:** update `cypress` to version `12.1.0` and replace `cypress-cucumber-preprocessor` with
+  `@badeball/cypress-cucumber-preprocessor` (#747)
+  ([2adb2cd](https://github.com/empathyco/x/commit/2adb2cd03591c37934fb385b120822ef271c359f))
+
+## [3.0.0-alpha.264](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.263...@empathyco/x-components@3.0.0-alpha.264) (2022-12-30)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [3.0.0-alpha.263](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.262...@empathyco/x-components@3.0.0-alpha.263) (2022-12-30)
+
+### Features
+
+- **design-system:** Add suggestion group component (#943)
+  ([4bac818](https://github.com/empathyco/x/commit/4bac8183a29ec17a99a90edeae55ba3d4301b626)),
+  closes [EX-7496](https://searchbroker.atlassian.net/browse/EX-7496)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.262](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.261...@empathyco/x-components@3.0.0-alpha.262) (2022-12-29)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [3.0.0-alpha.261](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.260...@empathyco/x-components@3.0.0-alpha.261) (2022-12-29)
+
+### Bug Fixes
+
+- **build:** use the default `vue-cli` `webpack` configuration in `rollup-plugin-vue` (#961)
+  ([f9a9238](https://github.com/empathyco/x/commit/f9a9238cf4a05a6a35129336f318c9440cb6732d)),
+  closes [EX-7706](https://searchbroker.atlassian.net/browse/EX-7706)
+
+## [3.0.0-alpha.260](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.259...@empathyco/x-components@3.0.0-alpha.260) (2022-12-26)
+
+### Documentation
+
+- fix typo in UrlHandler docs (#959)
+  ([75e4bbe](https://github.com/empathyco/x/commit/75e4bbe47d4298fccb5d26f6145ac3d203d64b2e))
+
+## [3.0.0-alpha.259](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.258...@empathyco/x-components@3.0.0-alpha.259) (2022-12-26)
+
+### Features
+
+- modify base-events-modal-close and base-events-modal-open for WCAG compliance (#946)
+  ([1f5abdf](https://github.com/empathyco/x/commit/1f5abdf36c6eec18b73f13a78be4c7616016d6fd)),
+  closes [EX-7669](https://searchbroker.atlassian.net/browse/EX-7669)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.258](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.257...@empathyco/x-components@3.0.0-alpha.258) (2022-12-26)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.257](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.256...@empathyco/x-components@3.0.0-alpha.257) (2022-12-23)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.256](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.255...@empathyco/x-components@3.0.0-alpha.256) (2022-12-22)
+
+### Bug Fixes
+
+- **components:** image flickering on re-rendering (#945)
+  ([3b1b558](https://github.com/empathyco/x/commit/3b1b55857ac1c5169a771c465fa32fb4313ab63c)),
+  closes [EX-7610](https://searchbroker.atlassian.net/browse/EX-7610)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.255](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.254...@empathyco/x-components@3.0.0-alpha.255) (2022-12-22)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.254](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.253...@empathyco/x-components@3.0.0-alpha.254) (2022-12-20)
 
 ### ⚠ BREAKING CHANGES

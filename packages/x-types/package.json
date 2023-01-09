@@ -1,0 +1,58 @@
+{
+  "name": "@empathyco/x-types",
+  "version": "10.0.0-alpha.51",
+  "description": "Empathy search types",
+  "author": "Empathy Systems Corporation S.L.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/empathyco/x/tree/main/packages/x-types#readme",
+  "keywords": [
+    "search",
+    "types",
+    "models",
+    "interfaces"
+  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/x-types.d.ts",
+  "files": [
+    "dist",
+    "schemas",
+    "report"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/empathyco/x.git",
+    "directory": "packages/x-types"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "scripts": {
+    "build": "rollup -c && npm run gen:docs",
+    "build:watch": "rollup -c -w",
+    "gen:model-docs": "api-extractor run -c x-types-extractor.json -l && api-extractor run -c schema-extractor.json -l && api-extractor run -l",
+    "gen:typescript-docs": "api-documenter markdown -i report -o docs",
+    "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs",
+    "postbuild": "npm pack",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@empathyco/x-adapter": "^8.0.0-alpha.18",
+    "tslib": "~2.4.1"
+  },
+  "devDependencies": {
+    "@empathyco/x-jest-utils": "^1.4.0-alpha.5",
+    "@microsoft/api-documenter": "~7.19.27",
+    "@microsoft/api-extractor": "~7.19.4",
+    "@types/jest": "~27.0.3",
+    "jest": "~27.3.1",
+    "rollup": "~2.79.1",
+    "rollup-plugin-delete": "~2.0.0",
+    "rollup-plugin-typescript2": "~0.31.2",
+    "tslint": "~5.16.0",
+    "typescript": "~4.6.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

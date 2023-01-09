@@ -9,7 +9,7 @@ import {
   isPath,
   reduce
 } from '@empathyco/x-utils';
-import { Schema, SubSchemaTransformer } from '../schemas/types';
+import { MutableSchema, Schema, SubSchemaTransformer } from '../schemas/types';
 import { createMutableSchema, isInternalMethod } from '../schemas/utils';
 import { Mapper, MapperContext } from './types';
 
@@ -22,7 +22,7 @@ import { Mapper, MapperContext } from './types';
  * @public
  */
 export function schemaMapperFactory<Source, Target>(
-  schema: Schema<Source, Target>
+  schema: Schema<Source, Target> | MutableSchema<Source, Target>
 ): Mapper<Source, Target> {
   return function mapper(source: Source, context: MapperContext): Target {
     return mapSchema(source, schema, context);

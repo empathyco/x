@@ -3,6 +3,9 @@ import { ReactWrapperProps, ReactWrapperState } from './react-wrapper.types';
 import { createVueInstance, updateVueInstance } from './vue-creator';
 
 export class ReactWrapper extends React.Component<ReactWrapperProps, ReactWrapperState> {
+  // https://github.com/vuejs/core/pull/7083/files
+  // Fixes collision between React and Vue JSX types.
+  public $props!: never;
   /**
    * This method will be executed when props of the react-wrapper have changed. It synchronizes
    * these new props with the Vue instance, resubscribe the new event listeners and the Vue instance

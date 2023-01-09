@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-react-wrapper",
-  "version": "4.0.0-alpha.9",
+  "version": "4.0.0-alpha.14",
   "description": "A proxy that transforms Vue components into React ones",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -27,7 +27,7 @@
   "scripts": {
     "serve": "vite serve tests/demo",
     "build": "tsc",
-    "cypress:open": "cypress open",
+    "cypress:open": "cypress open --browser chrome",
     "cypress:run": "cypress run --headless --browser chrome",
     "postbuild": "npm pack",
     "prepublishOnly": "npm run build",
@@ -37,27 +37,27 @@
     "test:e2e:ci": "start-server-and-test serve http://localhost:1234 cypress:run"
   },
   "dependencies": {
-    "tslib": "~2.3.0"
+    "tslib": "~2.4.1"
   },
   "peerDependencies": {
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "vue": "~2.6.0"
+    "vue": "^2.6.0"
   },
   "devDependencies": {
     "@types/jest": "~27.0.3",
     "@types/react": "~16.9.0",
     "@types/react-dom": "~16.9.0",
-    "cypress": "~8.4.0",
-    "eslint-plugin-react": "~7.20.0",
+    "cypress": "~12.2.0",
+    "eslint-plugin-react": "~7.31.11",
     "jest": "~27.3.1",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "react": "~16.9.0",
+    "react-dom": "~16.9.0",
     "start-server-and-test": "~1.14.0",
     "ts-jest": "~27.0.7",
     "typescript": "~4.6.2",
-    "vite": "~3.2.0",
-    "vue": "~2.6.14"
+    "vite": "~4.0.4",
+    "vue": "~2.7.14"
   },
   "publishConfig": {
     "access": "public"

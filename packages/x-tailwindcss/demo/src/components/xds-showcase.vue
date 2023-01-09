@@ -2,9 +2,11 @@
   <div class="x-flex x-flex-col x-gap-40 x-p-20">
     <XdsButton />
     <XdsIcon />
-    <XdsSuggestion />
     <XdsHighlight />
     <XdsTypography />
+    <XdsInput />
+    <XdsSuggestion />
+    <XdsSuggestionGroup />
   </div>
 </template>
 <script lang="ts">
@@ -15,9 +17,19 @@
   import XdsIcon from './xds-icon.vue';
   import XdsSuggestion from './xds-suggestion.vue';
   import XdsTypography from './xds-typography.vue';
+  import XdsInput from './xds-input.vue';
+  import XdsSuggestionGroup from './xds-suggestion-group.vue';
 
   @Component({
-    components: { XdsTypography, XdsHighlight, XdsButton, XdsIcon, XdsSuggestion }
+    components: {
+      XdsTypography,
+      XdsHighlight,
+      XdsButton,
+      XdsIcon,
+      XdsInput,
+      XdsSuggestion,
+      XdsSuggestionGroup
+    }
   })
   export default class XdsShowcase extends Vue {}
 </script>

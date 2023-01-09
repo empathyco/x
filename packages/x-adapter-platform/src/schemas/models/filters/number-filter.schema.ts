@@ -1,8 +1,8 @@
-import { createMutableSchema, Schema } from '@empathyco/x-adapter';
+import { createMutableSchema } from '@empathyco/x-adapter';
 import { NumberRangeFilter } from '@empathyco/x-types';
 import { PlatformFilter } from '../../../types/models/facet.model';
 
-export const numberFilterSchema = createMutableSchema<Schema<PlatformFilter, NumberRangeFilter>>({
+export const numberFilterSchema = createMutableSchema<PlatformFilter, NumberRangeFilter>({
   id: 'filter',
   facetId: (_, $context) => $context?.facetId as string,
   label: 'value',
