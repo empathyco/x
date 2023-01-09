@@ -235,6 +235,27 @@ Each request and response schemas are created as `MutableSchemas`, so they can b
 [`x-adapter`](https://github.com/empathyco/x/tree/main/packages/x-adapter/README.md)'s package
 documentation for further details.
 
+###### Example of overriding a response by adding an new parameter
+
+```ts
+import { PlatformResult, resultSchema } from '@empathyco/x-adapter-platform';
+import { Result } from '@empathyco/x-types';
+
+interface EmpathyDemoPlatformResult extends PlatformResult {
+  season: string;
+}
+
+declare module '@empathyco/x-types' {
+  export interface Result {
+    season: string;
+  }
+}
+
+resultSchema.$override<EmpathyDemoPlatformResult, Partial<Result>>({
+  season: 'season'
+});
+```
+
 <br>
 
 ## Test
