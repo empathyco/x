@@ -18,7 +18,7 @@
       <template #hierarchical-facet="{ facet }">
         <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>
-            <span class="x-ellipsis">{{ facet.label }}</span>
+            <span class="x-truncate">{{ facet.label }}</span>
             <ChevronDown />
           </template>
           <!-- Filters -->
@@ -34,7 +34,7 @@
       <template #number-range-facet="{ facet }">
         <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>
-            <span :data-test="facet.label" class="x-ellipsis">{{ facet.label }}</span>
+            <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
             <ChevronDown />
           </template>
           <!-- Filters -->
@@ -72,7 +72,7 @@
       <template #default="{ facet }">
         <BaseHeaderTogglePanel class="x-facet">
           <template #header-content>
-            <span :data-test="facet.label" class="x-ellipsis">{{ facet.label }}</span>
+            <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
             <span data-test="total-filters">{{ facet.filters.length }}</span>
             <ChevronDown />
           </template>

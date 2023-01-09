@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.4...@empathyco/x-storage-service@2.0.0-alpha.5) (2023-01-06)
+
+### Continuous Integration
+
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
+
+### Build System
+
+- **deps:** update dependencies
+  ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.3...@empathyco/x-storage-service@2.0.0-alpha.4) (2022-10-14)
 
 ### Continuous Integration

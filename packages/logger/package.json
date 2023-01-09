@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-logger",
-  "version": "1.2.0-alpha.4",
+  "version": "1.2.0-alpha.5",
   "description": "Empathy simple logger",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -33,7 +33,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "tslib": "~2.3.0"
+    "tslib": "~2.4.1"
   },
   "devDependencies": {
     "@types/jest": "~27.0.3",
