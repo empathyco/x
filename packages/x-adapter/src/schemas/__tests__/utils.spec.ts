@@ -196,15 +196,8 @@ describe('MutableSchemas', () => {
       extra: 'someExtraField'
     });
 
-    const mapperFromExtended = schemaMapperFactory<
-      OriginalSource & typeof extendedSource,
-      OriginalTarget & { extra: string }
-    >(extendedSchema);
-
-    const mapperFromExtendedObjects = schemaMapperFactory<
-      OriginalSource & typeof extendedSource,
-      OriginalTarget & { extra: string }
-    >(extendedSchemaWithExtendedObjects);
+    const mapperFromExtended = schemaMapperFactory(extendedSchema);
+    const mapperFromExtendedObjects = schemaMapperFactory(extendedSchemaWithExtendedObjects);
 
     expect(mapperFromExtended({ ...source, someExtraField: 'extended' }, {})).toStrictEqual(
       extendedTarget
