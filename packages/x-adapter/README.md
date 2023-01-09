@@ -409,8 +409,10 @@ export const searchUsersWithContactInfo = endpointAdapterFactory({
 #### Using a mutable schema
 
 This feature lets you have some default mappers, and modify or extend them for some concrete
-implementations. To do so, you can use the `createMutableSchema` function, passing a
-a `Source` and `Target` type parameters to map your models. This function will return a `MutableSchema` that apart from the mapping information will also contain some methods to create new schemas or modify the current one.
+implementations. To do so, you can use the `createMutableSchema` function, passing a a `Source` and
+`Target` type parameters to map your models. This function will return a `MutableSchema` that apart
+from the mapping information will also contain some methods to create new schemas or modify the
+current one.
 
 In the example below we will create a `MutableSchema` to have a default object that will be reused
 for different endpoint calls.
@@ -437,15 +439,16 @@ export const baseObjectSchema = createMutableSchema<ApiBaseObject, AppBaseObject
 });
 ```
 
-Once we have the `MutableSchema`, we can use the following methods to fit our
-different APIs needs:
+Once we have the `MutableSchema`, we can use the following methods to fit our different APIs needs:
 
-- `extends`: Creates a new `Schema` based on the original one. The original remains
-  unchanged. This can be useful if we need to create a new `EndpointAdapter` with models based on another API.
+- `extends`: Creates a new `Schema` based on the original one. The original remains unchanged. This
+  can be useful if we need to create a new `EndpointAdapter` with models based on another API.
 - `$override`: Merges/modifies the original `Schema` partially, so the change will affect to all the
   `EndpointAdapter`(s) that are using it. It can be used to change the structure of our
   request/response mappers, or to add them new fields. Useful for clients with few differences in
-  their APIs. For example, you can create a library with a default adapter and use this library from the customer projects overriding only the needed field  (e.g. retrieve the images from `pictures` instead of `images` in a products API).
+  their APIs. For example, you can create a library with a default adapter and use this library from
+  the customer projects overriding only the needed field (e.g. retrieve the images from `pictures`
+  instead of `images` in a products API).
 - `$replace`: Replaces completely the original `Schema` by a new one, it won't exist anymore. The
   change will affect to all the `EndpointAdapter`(s) that were using it. Useful for clients with a
   completely different API/response to the standard you have been working with.
@@ -549,13 +552,6 @@ interface AppTodosResponse {
   todos: AppBaseObject[];
 }
 
-// Override the original Schema. The Schema changes to map: 'id', 'completed', 'text' and 'userId''
-baseObjectSchema.$override<ApiTodo, AppTodo>({
-  completed: 'completed',
-  text: 'todo',
-  userId: ({ userId }) => userId.toString()
-});
-
 // Response mapper
 const todosResponse = schemaMapperFactory<ApiTodosResponse, AppTodosResponse>({
   todos: {
@@ -568,6 +564,13 @@ const todosResponse = schemaMapperFactory<ApiTodosResponse, AppTodosResponse>({
 export const searchTodos = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/todos',
   responseMapper: todosResponse
+});
+
+// Override the original Schema. The Schema changes to map: 'id', 'completed', 'text' and 'userId''
+baseObjectSchema.$override<ApiTodo, AppTodo>({
+  completed: 'completed',
+  text: 'todo',
+  userId: ({ userId }) => userId.toString()
 });
 ```
 
@@ -602,13 +605,6 @@ interface AppQuotesResponse {
   quotes: AppBaseObject[];
 }
 
-// Replace the original Schema
-baseObjectSchema.$replace<ApiQuote, AppQuote>({
-  quoteId: ({ id }) => id.toString(),
-  quote: 'quote',
-  author: 'author'
-});
-
 // Response mapper
 const quotesResponse = schemaMapperFactory<ApiQuotesResponse, AppQuotesResponse>({
   quotes: {
@@ -621,6 +617,13 @@ const quotesResponse = schemaMapperFactory<ApiQuotesResponse, AppQuotesResponse>
 export const searchQuotes = endpointAdapterFactory({
   endpoint: 'https://dummyjson.com/quotes',
   responseMapper: quotesResponse
+});
+
+// Replace the original Schema
+baseObjectSchema.$replace<ApiQuote, AppQuote>({
+  quoteId: ({ id }) => id.toString(),
+  quote: 'quote',
+  author: 'author'
 });
 ```
 
