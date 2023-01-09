@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.274](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.273...@empathyco/x-components@3.0.0-alpha.274) (2023-01-09)
+
+
+### Features
+
+* **history-queries:** expose `historyQueriesWithResults` in the alias API (#991) ([90c17f5](https://github.com/empathyco/x/commit/90c17f54a1bc1a4c613d06e64dd630f9e1efca61)), closes [EX-7476](https://searchbroker.atlassian.net/browse/EX-7476)
+
+
+
 ## [3.0.0-alpha.273](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.272...@empathyco/x-components@3.0.0-alpha.273) (2023-01-09)
 
 
