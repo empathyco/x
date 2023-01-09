@@ -441,22 +441,24 @@ export const baseObjectSchema = createMutableSchema<ApiBaseObject, AppBaseObject
 
 Once we have the `MutableSchema`, we can use the following methods to fit our different APIs needs:
 
-- `$extends`: Creates a new `MutableSchema` based on the original one. The original remains unchanged. This
-  can be useful if we need to create a new `EndpointAdapter` with models based on another API.
-- `$override`: Merges/modifies the original `Schema` partially, so the change will affect to all the
-  `EndpointAdapter`(s) that are using it. It can be used to change the structure of our
+- `$extends`: Creates a new `MutableSchema` based on the original one. The original remains
+  unchanged. This can be useful if we need to create a new `EndpointAdapter` with models based on
+  another API.
+- `$override`: Merges/modifies the original `MutableSchema` partially, so the change will affect to
+  all the `EndpointAdapter`(s) that are using it. It can be used to change the structure of our
   request/response mappers, or to add them new fields. Useful for clients with few differences in
   their APIs. For example, you can create a library with a default adapter and use this library from
   the customer projects overriding only the needed field (e.g. retrieve the images from `pictures`
   instead of `images` in a products API).
-- `$replace`: Replaces completely the original `Schema` by a new one, it won't exist anymore. The
-  change will affect to all the `EndpointAdapter`(s) that were using it. Useful for clients with a
-  completely different API/response to the standard you have been working with.
+- `$replace`: Replaces completely the original `MutableSchema` by a new one, it won't exist anymore.
+  The change will affect to all the `EndpointAdapter`(s) that were using it. Useful for clients with
+  a completely different API/response to the standard you have been working with.
 
 ###### Extend a MutableSchema to reuse it in two different endpoints with more fields
 
 ```ts
 import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types';
+
 // Api models
 interface ApiPost extends ApiBaseObject {
   title: string;
@@ -660,7 +662,7 @@ adapter.searchList = searchComments.extends({
 For further detail, you can check the
 [x-platform-adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform) package.
 It is a whole adapter implementation using this `x-adapter` library to suit the
-[Search Platform API](https://docs.empathy.co/develop-empathy-platform/api-reference/search-api.html) 
+[Search Platform API](https://docs.empathy.co/develop-empathy-platform/api-reference/search-api.html)
 needs.
 
 ## Test
