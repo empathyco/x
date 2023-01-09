@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.42...@empathyco/x-tailwindcss@0.2.0-alpha.43) (2023-01-09)
+
+### Features
+
+- **design-system:** deprecate old typography styles (#973)
+  ([15d6d64](https://github.com/empathyco/x/commit/15d6d64c18fe28664e873802fe34073158c30648)),
+  closes [EX-7726](https://searchbroker.atlassian.net/browse/EX-7726)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.41...@empathyco/x-tailwindcss@0.2.0-alpha.42) (2023-01-06)
 
 ### Build System
