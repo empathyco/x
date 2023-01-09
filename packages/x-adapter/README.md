@@ -441,7 +441,7 @@ export const baseObjectSchema = createMutableSchema<ApiBaseObject, AppBaseObject
 
 Once we have the `MutableSchema`, we can use the following methods to fit our different APIs needs:
 
-- `$extends`: Creates a new `Schema` based on the original one. The original remains unchanged. This
+- `$extends`: Creates a new `MutableSchema` based on the original one. The original remains unchanged. This
   can be useful if we need to create a new `EndpointAdapter` with models based on another API.
 - `$override`: Merges/modifies the original `Schema` partially, so the change will affect to all the
   `EndpointAdapter`(s) that are using it. It can be used to change the structure of our
