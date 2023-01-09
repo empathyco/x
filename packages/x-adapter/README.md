@@ -408,7 +408,7 @@ export const searchUsersWithContactInfo = endpointAdapterFactory({
 
 #### Using a mutable schema
 
-This feature lets you have some default mappers, and modify or extend them for some concrete
+This feature lets you have some default schemas, and modify or extend them for some concrete
 implementations. To do so, you can use the `createMutableSchema` function, passing a `Source` and
 `Target` type parameters to map your models. This function will return a `MutableSchema` that apart
 from the mapping information will also contain some methods to create new schemas or modify the
