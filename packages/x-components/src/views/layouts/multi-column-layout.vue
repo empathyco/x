@@ -52,7 +52,6 @@
       <div
         class="
           x-title3
-          x-font-color--neutral-70
           x-list__item--expand
           x-border-width--02
           x-border-color--neutral-70
@@ -69,7 +68,6 @@
       <div
         class="
           x-title3
-          x-font-color--neutral-70
           x-list__item--expand
           x-border-width--02
           x-border-color--neutral-70
