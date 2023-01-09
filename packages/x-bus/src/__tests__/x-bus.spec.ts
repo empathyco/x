@@ -16,11 +16,11 @@ describe('x-priority-bus scenarios', () => {
     it('creates a bus with an existing priority queue', () => {
       // Given a custom bus initialization config
       const queue = new XPriorityQueue();
-      //And an array with multiple emit callbacks
       const emitCallbackFn1: AnyFunction = jest.fn();
       const emitCallbackFn2: AnyFunction = jest.fn();
       const emitCallbacks = [emitCallbackFn1, emitCallbackFn2];
 
+      // Then the provided configuration is used
       const bus = new XPriorityBus({
         queue,
         priorities: {
@@ -32,7 +32,6 @@ describe('x-priority-bus scenarios', () => {
       bus.emit('TestEvent1');
       bus.emit('TestEvent2');
 
-      // Then the provided configuration is used
       expect(queue.size()).toBe(2);
       jest.runAllTimers();
       expect(queue.isEmpty()).toBe(true);
@@ -71,26 +70,44 @@ describe('x-priority-bus scenarios', () => {
       ]);
     });
 
-    it('stops an ongoing queue flushing whenever a new event is emitted', async () => {
+    it('restarts an ongoing queue flushing whenever a new event is emitted', async () => {
       // Given a priority bus
-      const bus = new XPriorityBus();
+      const queue = new XPriorityQueue();
+      const bus = new XPriorityBus({ queue });
       const emittedEvents: XEvent[] = [];
+      const pushEmittedEvent: AnyFunction = ({ event }) => emittedEvents.push(event);
 
-      // Multiple events are emitted at the same time, being added to the queue and cancelling
-      // any previous flushing of the queue
-      await emitMultipleEvents(
-        bus,
-        [
-          ['TestEvent1', undefined, { priority: 2 }],
-          ['TestEvent2', undefined, { priority: 6 }],
-          ['TestEvent3', undefined, { priority: 4 }],
-          ['TestEvent4', undefined, { priority: 0 }]
-        ],
-        emittedEvents
-      );
+      // When multiple events are emitted at the same time
+      // Then they're added to the queue
+      // And cancel an ongoing flushing of the queue
+      let pendingFlush = bus['pendingFlush'];
+      expect(pendingFlush).toBeUndefined();
+      expect(queue.isEmpty()).toBe(true);
+
+      const emit1 = bus.emit('TestEvent1', undefined, { priority: 2 }).then(pushEmittedEvent);
+      pendingFlush = bus['pendingFlush'];
+      expect(pendingFlush).toBeDefined();
+      expect(queue.size()).toBe(1);
+
+      const emit2 = bus.emit('TestEvent2', undefined, { priority: 6 }).then(pushEmittedEvent);
+      expect(pendingFlush).not.toBe(bus['pendingFlush']);
+      pendingFlush = bus['pendingFlush'];
+      expect(queue.size()).toBe(2);
+
+      const emit3 = bus.emit('TestEvent3', undefined, { priority: 4 }).then(pushEmittedEvent);
+      expect(pendingFlush).not.toBe(bus['pendingFlush']);
+      pendingFlush = bus['pendingFlush'];
+      expect(queue.size()).toBe(3);
+
+      const emit4 = bus.emit('TestEvent4', undefined, { priority: 0 }).then(pushEmittedEvent);
+      expect(pendingFlush).not.toBe(bus['pendingFlush']);
+      expect(queue.size()).toBe(4);
 
       // The events are batched and emitted in the right order
+      jest.runAllTimers();
+      await Promise.all([emit1, emit2, emit3, emit4]);
       expect(emittedEvents).toEqual(['TestEvent4', 'TestEvent1', 'TestEvent3', 'TestEvent2']);
+      expect(queue.isEmpty()).toBe(true);
     });
   });
 
@@ -147,7 +164,7 @@ describe('x-priority-bus scenarios', () => {
 });
 
 /**
- * Utility to create multiple emit calls and wait for them to be resolved.
+ * Utility to emit multiple events and wait for them to be resolved.
  *
  * @param bus - The bus to emit the events to.
  * @param eventsToEmit - The events to emit.
