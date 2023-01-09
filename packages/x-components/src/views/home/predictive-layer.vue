@@ -5,11 +5,16 @@
         class="x-list x-list--horizontal x-list--padding-05 x-list--padding-bottom x-list--gap-06"
       >
         <PopularSearches :maxItemsToRender="10" />
-        <HistoryQueries :maxItemsToRender="controls.historyQueries.maxItemsToRender" />
-        <ClearHistoryQueries class="x-button--ghost x-button--ghost-start">
-          <CrossTinyIcon />
-          <span>Clear previous searches</span>
-        </ClearHistoryQueries>
+        <div v-if="$x.historyQueriesWithResults.length">
+          <h2 class="x-title2">
+            History
+            <ClearHistoryQueries class="x-button--ghost x-button--ghost-start">
+              <CrossTinyIcon />
+              <span>Clear previous searches</span>
+            </ClearHistoryQueries>
+          </h2>
+          <HistoryQueries :maxItemsToRender="controls.historyQueries.maxItemsToRender" />
+        </div>
         <QuerySuggestions :maxItemsToRender="10" />
         <NextQueries :maxItemsToRender="10" />
 
