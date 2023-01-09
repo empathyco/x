@@ -523,7 +523,7 @@ export const searchComments = endpointAdapterFactory({
 
 ###### Override a MutableSchema to add more fields
 
-As said above, the suitable context for using the `override` method would say a project with an API
+As said above, the suitable context for using the `override` method would be a project with an API
 that doesn't differ too much against the one used in our "base project". That means we can reuse
 most of the types and schemas definitions, so we would only add a few new fields from the new API.
 
