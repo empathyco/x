@@ -659,7 +659,7 @@ adapter.searchList = searchComments.extends({
 For further detail, you can check the
 [x-platform-adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform) package.
 It is a whole adapter implementation using this `x-adapter` library to suit the
-[Search Platform API](https://docs.empathy.co/develop-empathy-platform/api-reference/search-api.html),
+[Search Platform API](https://docs.empathy.co/develop-empathy-platform/api-reference/search-api.html) 
 needs.
 
 ## Test
