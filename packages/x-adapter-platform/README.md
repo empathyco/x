@@ -61,7 +61,7 @@ file.
 
 ###### endpoint: /search/v1/query/{extraParams.instance}/search
 
-Search results. A search request is triggered when the user has typed or accepted a query. The
+Search **results**. A search request is triggered when the user has typed or accepted a query. The
 response is mapped and usually shown in a grid.
 
 ```ts
@@ -119,7 +119,7 @@ const { results } = await platformAdapter.recommendations({
 
 ###### endpoint: /nextqueries/{extraParams.instance}
 
-Next queries are shown after a search request has been made. They are recurrent searches that users
+Next queries are shown after a search request has been made. They are recurring searches that users
 tend to do after searching for a specific item.
 
 ```ts
@@ -140,7 +140,7 @@ const { nextQueries } = await platformAdapter.nextQueries({
 ###### endpoint: /search/v1/query/{extraParams.instance}/empathize
 
 These **suggestions** help users to refine their searches while they are typing. So, depending on
-the query, a list of terms will be suggested that could complete the search. For example, for the
+the query, a list of terms that could complete the search will be suggested. For example, for the
 query "trousers" we could have "trousers summer, trousers grey, trousers men, trousers woman...." as
 query suggestions.
 
@@ -203,19 +203,37 @@ const { sku } = await platformAdapter.skuSearch({
 
 ###### endpoint: ({ url }) => url
 
-Allows sending events to a server to collect metrics about how the search is performing (this won't
-collect user data, just the use of tools per session).
+The `TaggingRequest` is made up of an url and a params object, it allows sending events to a server
+to collect metrics about how the search is performing (this won't collect user data, just the use of
+tools per session). The `x-adapter-platform` adapter uses the
+[`x-types`](https://github.com/empathyco/x/tree/main/packages/x-types) `Taggable` events object,
+which contain `add2cart`, `checkout`, `click`, `query` and `wishlist` actions.
+
+```ts
+const tagging = await platformAdapter.tagging({
+  url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/query',
+  // Info that will be sent along with the query event
+  params: {
+    filtered: 'false',
+    lang: 'en',
+    origin: 'customer:no_query',
+    page: '1',
+    q: 'trousers',
+    scope: 'desktop',
+    spellcheck: 'false',
+    totalHits: 700
+  }
+});
+```
 
 <br>
 
 ### Modifying the x-platform-adapter
 
-Each request and response schemas are created as mutable schemas, sou you will be able to use  
-`x-adapter`'s library
-[`createMutableSchema`](https://github.com/empathyco/x/tree/main/packages/x-adapter/README.md)
-methods -$extends, $override, $replace- accordingly to adapt some schemas to your API needs.
-
-// OVERRIDE EXAMPLE
+Each request and response schemas are created as `MutableSchemas`, so they can be modified using the
+`$extends`, `$override`, `$replace` methods accordingly. You can check the
+[`x-adapter`](https://github.com/empathyco/x/tree/main/packages/x-adapter/README.md)'s package
+documentation for further details.
 
 <br>
 
@@ -252,7 +270,3 @@ so we recommend you check it out.
 ## License
 
 [empathyco/x License](https://github.com/empathyco/x/blob/main/packages/x-adapter-platform/LICENSE)
-
-```
-
-```
