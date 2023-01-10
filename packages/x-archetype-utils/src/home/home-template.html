@@ -104,7 +104,6 @@
         </button>
       </div>
     </div>
-    <div class="x-archetype-row__item x-archetype-row__item--span-3"></div>
   </div>
 </header>
 
@@ -1359,6 +1358,9 @@
     .x-archetype-header {
       padding: 16px;
     }
+    .x-archetype-header__input-container {
+      grid-column-end: span 12 !important;
+    }
 
     .x-archetype-section1,
     .x-archetype-section2,
@@ -1380,6 +1382,11 @@
 
     .x-archetype-section1__title {
       font-size: 32px;
+        line-height: 39px;
+    }
+
+    .x-archetype-circle {
+        top: 86px;
     }
 
     /* SECTION 2 */
@@ -1403,14 +1410,19 @@
       align-items: flex-start;
     }
 
-    .x-archetype-section3__list > .x-list {
+    .x-archetype-section3__list > .x-archetype-list {
       flex-flow: row;
       max-width: none;
     }
 
-    .x-archetype-section3__list svg {
-      max-width: 65px;
+    .x-archetype-section3__list .x-archetype-section3__title {
+        text-align: start;
     }
+
+      .x-archetype-section3__list svg {
+          min-width: 56px;
+          max-width: 65px;
+      }
 
     .x-archetype-mouse-scroll,
     .x-archetype-pulse-circle,
