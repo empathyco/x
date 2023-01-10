@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.12...@empathyco/x-utils@1.0.0-alpha.13) (2023-01-06)
+
+### Build System
+
+- **deps:** update dependencies
+  ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.11...@empathyco/x-utils@1.0.0-alpha.12) (2022-12-19)
+
+### ⚠ BREAKING CHANGES
+
+- `getSafePropertyChain` moved to `@empathyco/x-utils` package.
+
+### Continuous Integration
+
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
+
+### Code Refactoring
+
+- add types to `getSafePropertyChain` and move it to `@empatyco/x-utils` (#940)
+  ([5118210](https://github.com/empathyco/x/commit/511821063b8b08751c15f00f233e7b611a74b2cc)),
+  closes [EX-7647](https://searchbroker.atlassian.net/browse/EX-7647)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.10...@empathyco/x-utils@1.0.0-alpha.11) (2022-11-28)
 
 ### Features

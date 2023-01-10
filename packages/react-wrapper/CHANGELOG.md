@@ -3,6 +3,69 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.13...@empathyco/x-react-wrapper@4.0.0-alpha.14) (2023-01-06)
+
+### Build System
+
+- **deps:** update dependencies
+  ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.12...@empathyco/x-react-wrapper@4.0.0-alpha.13) (2023-01-03)
+
+### Build System
+
+- **deps:** update `vue` to version `2.7` (#971)
+  ([09fb0fe](https://github.com/empathyco/x/commit/09fb0fe5dbef020565571a4fafc89d2aac544c8e)),
+  closes [EX-7730](https://searchbroker.atlassian.net/browse/EX-7730)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.11...@empathyco/x-react-wrapper@4.0.0-alpha.12) (2023-01-02)
+
+### Continuous Integration
+
+- make Cypress cache depend on package. Make eslint cache restore last version if no exact match.
+  ([2498972](https://github.com/empathyco/x/commit/24989726d8e5c6c3450b344fbbc623a3f7246b53)),
+  closes [EX-7721](https://searchbroker.atlassian.net/browse/EX-7721)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.10...@empathyco/x-react-wrapper@4.0.0-alpha.11) (2022-12-30)
+
+### Testing
+
+- **e2e:** update `cypress` to version `12.1.0` and replace `cypress-cucumber-preprocessor` with
+  `@badeball/cypress-cucumber-preprocessor` (#747)
+  ([2adb2cd](https://github.com/empathyco/x/commit/2adb2cd03591c37934fb385b120822ef271c359f))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.9...@empathyco/x-react-wrapper@4.0.0-alpha.10) (2022-12-30)
+
+### Continuous Integration
+
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [4.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.8...@empathyco/x-react-wrapper@4.0.0-alpha.9) (2022-10-27)
 
 ### Features

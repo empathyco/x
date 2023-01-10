@@ -103,7 +103,7 @@ Using default slot:
       <span>Toggle Aside</span>
     </BaseIdTogglePanelButton>
     <BaseIdTogglePanel :startOpen="true" :animation="animation" panelId="myToggle">
-      <div class="x-text">My toggle</div>
+      <div class="x-text1">My toggle</div>
     </BaseIdTogglePanel>
   </div>
 </template>

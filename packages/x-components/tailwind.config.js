@@ -24,6 +24,10 @@ module.exports = {
     'fontWeight',
     'gap',
     'lineHeight',
-    'textColor'
+    'textColor',
+    'textTransform',
+    'textDecoration',
+    'textOverflow',
+    'preflight'
   ]
 };

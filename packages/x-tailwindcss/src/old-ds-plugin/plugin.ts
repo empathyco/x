@@ -104,7 +104,20 @@ export default plugin(function ({ addBase, theme }: TailwindHelpers) {
         s: theme('lineHeight.sm'),
         m: theme('lineHeight.md'),
         l: theme('lineHeight.lg')
-      })
+      }),
+
+      // TEXT
+      '--x-color-text-default': theme('colors.neutral.100'),
+      '--x-font-family-text': theme('fontFamily.main'),
+      '--x-size-font-text': theme('fontSize.sm'),
+      '--x-number-font-weight-text': theme('fontWeight.regular'),
+      '--x-size-line-height-text': theme('lineHeight.sm'),
+
+      // TITLE 3
+      '--x-font-family-title3': theme('fontFamily.main'),
+      '--x-size-font-title3': theme('fontSize.md'),
+      '--x-number-font-weight-title3': theme('fontWeight.regular'),
+      '--x-size-line-height-title3': theme('lineHeight.md')
     }
   });
 });

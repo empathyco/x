@@ -3,6 +3,53 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.9...@empathyco/x-archetype-utils@0.1.0-alpha.10) (2023-01-06)
+
+**Note:** Version bump only for package @empathyco/x-archetype-utils
+
+## [0.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.8...@empathyco/x-archetype-utils@0.1.0-alpha.9) (2023-01-05)
+
+**Note:** Version bump only for package @empathyco/x-archetype-utils
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.7...@empathyco/x-archetype-utils@0.1.0-alpha.8) (2023-01-03)
+
+### Build System
+
+- **deps:** update `vue` to version `2.7` (#971)
+  ([09fb0fe](https://github.com/empathyco/x/commit/09fb0fe5dbef020565571a4fafc89d2aac544c8e)),
+  closes [EX-7730](https://searchbroker.atlassian.net/browse/EX-7730)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.6...@empathyco/x-archetype-utils@0.1.0-alpha.7) (2022-12-19)
+
+**Note:** Version bump only for package @empathyco/x-archetype-utils
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.5...@empathyco/x-archetype-utils@0.1.0-alpha.6) (2022-12-16)
+
+### Continuous Integration
+
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.4...@empathyco/x-archetype-utils@0.1.0-alpha.5) (2022-11-28)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils

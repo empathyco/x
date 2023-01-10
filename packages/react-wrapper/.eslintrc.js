@@ -1,5 +1,6 @@
 module.exports = {
   extends: ['plugin:react/recommended'],
+  ignorePatterns: ['cypress.config.ts'],
   settings: {
     react: {
       pragma: 'React',

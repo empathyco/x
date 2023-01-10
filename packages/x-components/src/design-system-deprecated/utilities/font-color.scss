@@ -1,0 +1,7 @@
+@import '../../design-system/variables';
+
+@each $color-name, $color-value in $colors {
+  .x-font-color--#{$color-name} {
+    color: var(--x-color-base-#{$color-name}) !important;
+  }
+}

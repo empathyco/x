@@ -25,7 +25,7 @@
   }
 
   /**
-   * This component manage the browser URL parameters to perserve them through reloads and browser
+   * This component manages the browser URL parameters to preserve them through reloads and browser
    * history navigation. It allow to configure the default url parameter names using its attributes.
    * This component doesn't render elements to the DOM.
    *

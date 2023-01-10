@@ -2,15 +2,15 @@ import { deepMerge } from '@empathyco/x-deep-merge';
 import {
   Dictionary,
   ExtractPath,
+  getSafePropertyChain,
   isArray,
   isFunction,
   isObject,
   isPath,
   reduce
 } from '@empathyco/x-utils';
-import { Schema, SubSchemaTransformer } from '../schemas/types';
+import { MutableSchema, Schema, SubSchemaTransformer } from '../schemas/types';
 import { createMutableSchema, isInternalMethod } from '../schemas/utils';
-import { extractValue } from '../utils/extract-value';
 import { Mapper, MapperContext } from './types';
 
 /**
@@ -22,7 +22,7 @@ import { Mapper, MapperContext } from './types';
  * @public
  */
 export function schemaMapperFactory<Source, Target>(
-  schema: Schema<Source, Target>
+  schema: Schema<Source, Target> | MutableSchema<Source, Target>
 ): Mapper<Source, Target> {
   return function mapper(source: Source, context: MapperContext): Target {
     return mapSchema(source, schema, context);
@@ -54,7 +54,7 @@ function mapSchema<Source, Target>(
     (target, key, transformer) => {
       type TargetKey = Target[keyof Target];
       if (typeof transformer === 'string' && isPath(source, transformer)) {
-        target[key] = extractValue(source, transformer) as TargetKey;
+        target[key] = getSafePropertyChain(source, transformer) as TargetKey;
       } else if (isFunction(transformer) && !isInternalMethod(transformer.name)) {
         target[key] = transformer(source, context);
       } else if (isObject(transformer)) {
@@ -99,7 +99,7 @@ function applySubSchemaTransformer<Source, Target>(
   rawContext: MapperContext,
   schema: Schema<Source, Target>
 ): Target | Target[] | undefined {
-  const subSource = extractValue(source as Dictionary, $path);
+  const subSource = getSafePropertyChain(source, $path);
 
   if (!subSource) {
     return;
@@ -113,7 +113,7 @@ function applySubSchemaTransformer<Source, Target>(
       }
       extendedContext[key] = isFunction(value)
         ? value(source)
-        : extractValue(source as Dictionary, value as ExtractPath<typeof source>);
+        : getSafePropertyChain(source, value as ExtractPath<typeof source>);
     });
   }
 

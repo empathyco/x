@@ -35,7 +35,7 @@ module.exports = {
       'jsdoc/require-param-name': 'error',
       'jsdoc/require-param-type': 'off',
       'jsdoc/require-returns': 'error',
-      'jsdoc/require-returns-check': 'error',
+      'jsdoc/require-returns-check': 'off',
       'jsdoc/require-returns-description': 'error',
       'jsdoc/require-returns-type': 'off',
       'jsdoc/valid-types': 'off'

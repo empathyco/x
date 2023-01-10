@@ -30,7 +30,6 @@
       <div
         class="
           x-title3
-          x-font-color--neutral-70
           x-list__item--expand
           x-border-width--02
           x-border-color--neutral-70
@@ -44,14 +43,7 @@
       </div>
     </template>
     <template #predictive>
-      <div
-        class="
-          x-title3
-          x-font-color--neutral-70
-          x-list__item--expand
-          x-margin--top-03 x-margin--bottom-03
-        "
-      >
+      <div class="x-title3 x-list__item--expand x-margin--top-03 x-margin--bottom-03">
         PREDICTIVE
       </div>
     </template>
@@ -59,7 +51,6 @@
       <div
         class="
           x-title3
-          x-font-color--neutral-10
           x-list__item--expand
           x-margin--top-03 x-margin--bottom-03
           x-list x-list--horizontal x-list--justify-center
@@ -89,7 +80,7 @@
       <div
         class="
           x-list__item--expand
-          x-text
+          x-text1 x-text1-lg
           x-padding--03
           x-background--neutral-95
           x-border-width--01

@@ -64,12 +64,10 @@ evolves.
   X project of the [ESLint plugin](https://eslint.org/docs/about/), an open source JavaScript
   linting utility. It also includes a style formatter and best practices beyond the ESLint plugin,
   such as [prettier](https://prettier.io/).
-- **[@empathyco/x-get-safe-property-chain](/packages/get-safe-property-chain)** - A utility designed
-  to safely retrieve nested values.
 - **[@empathyco/x-jest-utils](/packages/jest-utils)** - Jest extensions for easier testing.
 - **[@empathyco/x-logger](/packages/logger)** - A custom implementation of a logger.
 - **[@empathyco/x-adapter](/packages/search-adapter)** - A search client for Empathy's Search API.
-- **[@empathyco/x-types](/packages/search-types)** - TypeScript types & guards for X models.
+- **[@empathyco/x-types](/packages/x-types)** - TypeScript types & guards for X models.
 - **[@empathyco/x-storage-service](/packages/storage-service)** - Storage service with TTL.
 - **[@empathyco/x-react-wrapper](/packages/react-wrapper)** - A proxy that transforms Vue components
   into React components.

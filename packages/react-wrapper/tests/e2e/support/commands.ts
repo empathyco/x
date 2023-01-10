@@ -2,11 +2,12 @@
 declare namespace Cypress {
   interface Chainable extends CustomCommands {}
 }
+import CommandFns = Cypress.CommandFns;
 
 /** Possible values for the view to render */
 type ViewName = 'slots' | 'slotsComponents';
 
-interface CustomCommands {
+interface CustomCommands extends CommandFns {
   /**
    * Selects a DOM element based on the `data-test` attribute value.
    *
@@ -33,6 +34,4 @@ const commands: CustomCommands = {
   }
 };
 
-Object.entries(commands).forEach(([commandName, command]) => {
-  Cypress.Commands.add(commandName, command);
-});
+Cypress.Commands.addAll(commands);

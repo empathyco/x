@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    class="x-button x-remove-history-query"
+    class="x-remove-history-query"
     :events="removeHistoryQueryEvent"
     aria-label="remove"
   >

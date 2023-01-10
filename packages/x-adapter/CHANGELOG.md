@@ -3,6 +3,85 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.17...@empathyco/x-adapter@8.0.0-alpha.18) (2023-01-06)
+
+### Build System
+
+- **deps:** update dependencies
+  ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [8.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.16...@empathyco/x-adapter@8.0.0-alpha.17) (2023-01-03)
+
+### Build System
+
+- **deps:** update `vue` to version `2.7` (#971)
+  ([09fb0fe](https://github.com/empathyco/x/commit/09fb0fe5dbef020565571a4fafc89d2aac544c8e)),
+  closes [EX-7730](https://searchbroker.atlassian.net/browse/EX-7730)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [8.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.15...@empathyco/x-adapter@8.0.0-alpha.16) (2022-12-30)
+
+### Documentation
+
+- create Readme for x-adapter (#921)
+  ([55fc422](https://github.com/empathyco/x/commit/55fc4223ab41e407892e68bf3fe4af7fba5f527a))
+
+## [8.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.14...@empathyco/x-adapter@8.0.0-alpha.15) (2022-12-29)
+
+### ⚠ BREAKING CHANGES
+
+- MutableSchema now receives a Source and a Target object instead of a Schema
+- $replace, $extends and $override function types now reflect the allowed operations more correctly.
+
+### Bug Fixes
+
+- mutable schema types (#960)
+  ([8015921](https://github.com/empathyco/x/commit/8015921daf2c9e5ee3a6fce2c1f57458aeb278dd)),
+  closes [EX-7702](https://searchbroker.atlassian.net/browse/EX-7702)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [8.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.13...@empathyco/x-adapter@8.0.0-alpha.14) (2022-12-19)
+
+### ⚠ BREAKING CHANGES
+
+- `getSafePropertyChain` moved to `@empathyco/x-utils` package.
+
+### Code Refactoring
+
+- add types to `getSafePropertyChain` and move it to `@empatyco/x-utils` (#940)
+  ([5118210](https://github.com/empathyco/x/commit/511821063b8b08751c15f00f233e7b611a74b2cc)),
+  closes [EX-7647](https://searchbroker.atlassian.net/browse/EX-7647)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [8.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.12...@empathyco/x-adapter@8.0.0-alpha.13) (2022-12-16)
+
+### Continuous Integration
+
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [8.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.11...@empathyco/x-adapter@8.0.0-alpha.12) (2022-11-28)
 
 **Note:** Version bump only for package @empathyco/x-adapter

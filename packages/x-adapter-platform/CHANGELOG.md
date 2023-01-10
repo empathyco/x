@@ -3,6 +3,92 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.53](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.52...@empathyco/x-adapter-platform@1.0.0-alpha.53) (2023-01-06)
+
+### Build System
+
+- **deps:** update dependencies
+  ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.52](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.51...@empathyco/x-adapter-platform@1.0.0-alpha.52) (2023-01-04)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.51](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.50...@empathyco/x-adapter-platform@1.0.0-alpha.51) (2023-01-03)
+
+### Build System
+
+- **deps:** update `vue` to version `2.7` (#971)
+  ([09fb0fe](https://github.com/empathyco/x/commit/09fb0fe5dbef020565571a4fafc89d2aac544c8e)),
+  closes [EX-7730](https://searchbroker.atlassian.net/browse/EX-7730)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.49...@empathyco/x-adapter-platform@1.0.0-alpha.50) (2022-12-30)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+## [1.0.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.48...@empathyco/x-adapter-platform@1.0.0-alpha.49) (2022-12-29)
+
+### ⚠ BREAKING CHANGES
+
+- MutableSchema now receives a Source and a Target object instead of a Schema
+- $replace, $extends and $override function types now reflect the allowed operations more correctly.
+
+### Bug Fixes
+
+- mutable schema types (#960)
+  ([8015921](https://github.com/empathyco/x/commit/8015921daf2c9e5ee3a6fce2c1f57458aeb278dd)),
+  closes [EX-7702](https://searchbroker.atlassian.net/browse/EX-7702)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.47...@empathyco/x-adapter-platform@1.0.0-alpha.48) (2022-12-23)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.46...@empathyco/x-adapter-platform@1.0.0-alpha.47) (2022-12-19)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.45...@empathyco/x-adapter-platform@1.0.0-alpha.46) (2022-12-16)
+
+### Continuous Integration
+
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.44...@empathyco/x-adapter-platform@1.0.0-alpha.45) (2022-11-28)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform

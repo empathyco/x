@@ -1,4 +1,4 @@
-import { mount } from '@cypress/vue';
+import { mount } from 'cypress/vue2';
 import Vue from 'vue';
 import BaseEventsModalClose from '../../src/components/modals/base-events-modal-close.vue';
 import BaseEventsModalOpen from '../../src/components/modals/base-events-modal-open.vue';

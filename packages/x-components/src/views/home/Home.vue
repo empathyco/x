@@ -1,5 +1,5 @@
 <template>
-  <div class="x">
+  <div class="x x-text-neutral-90">
     <Tagging :consent="false" />
     <SnippetConfigExtraParams :values="initialExtraParams" />
     <PreselectedFilters />
@@ -168,7 +168,7 @@
             v-if="$x.totalResults > 0"
             class="x-list x-list--horizontal x-list--align-center x-list--gap-04"
           >
-            <span>{{ $x.totalResults }} Results</span>
+            <span class="x-text1">{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
               #default="{ column }"
               v-model="selectedColumns"
@@ -226,13 +226,10 @@
               {{ redirection.url }}
             </a>
             <div class="x-list x-list--horizontal x-list--gap-07">
-              <button
-                @click="abortRedirect"
-                class="x-button x-button--ghost x-font-color--neutral-70"
-              >
+              <button @click="abortRedirect" class="x-button x-button--ghost x-text-neutral-25">
                 No, I'll stay here
               </button>
-              <button @click="redirect" class="x-button x-button--ghost x-font-color--neutral-10">
+              <button @click="redirect" class="x-button x-button--ghost x-text-neutral-90">
                 Yes, redirect me
               </button>
             </div>
@@ -248,7 +245,7 @@
             >
               <p>
                 There are no results for
-                <span class="x-font-weight--bold">{{ $x.query.search }}</span>
+                <span class="x-font-bold">{{ $x.query.search }}</span>
               </p>
               <p>You may be interested in these:</p>
             </div>
@@ -315,13 +312,13 @@
                             #default="{ results }"
                             class="x-row__item x-row__item--span-9 x-padding--top-06"
                           >
-                            <h1 class="x-title2 x-text--bold">Others clients have searched</h1>
+                            <h1 class="x-title2">Others clients have searched</h1>
                             <NextQuery
-                              class="x-text x-font-size--05"
+                              class="x-text1 x-text1-lg"
                               :suggestion="nextQueries[0]"
                               data-test="next-query-preview-name"
                             >
-                              <span class="x-font-weight--bold">{{ nextQueries[0].query }}</span>
+                              <span class="x-font-bold">{{ nextQueries[0].query }}</span>
                             </NextQuery>
                             <div class="x-margin--bottom-06">
                               <SlidingPanel :resetOnContentChange="false">
@@ -341,13 +338,12 @@
                               data-test="view-all-results"
                               class="
                                 x-tag x-tag--pill
-                                x-font-weight--bold
+                                x-font-bold x-text-lead-50
                                 x-margin--left-auto x-margin--right-auto x-margin--top-03
                                 x-padding--top-04
                                 x-padding--bottom-04
                                 x-padding--right-05
                                 x-padding--left-05
-                                x-font-color--lead
                                 x-border-color--lead
                                 x-margin--bottom-06
                               "

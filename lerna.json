@@ -22,7 +22,9 @@
   },
   "command": {
     "bootstrap": {
-      "npmClientArgs": ["--legacy-peer-deps"]
+      "npmClientArgs": ["--legacy-peer-deps"],
+      "hoist": true,
+      "strict": true
     },
     "version": {
       "message": "chore(release): publish"
