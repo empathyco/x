@@ -29,7 +29,8 @@ npm i @empathyco/x-adapter-platform
 
 ## Configuration & Usage
 
-The PlatformAdapter instance is a configuration object for each Empathy Platform API’s endpoints:
+The `PlatformAdapter` is an object containing several endpoint adapters.
+Each `EndpointAdapter` contains the configuration of an endpoint, including the URL, the mapper to adapt the responses and the requests, the request options ...
 
 ```ts
 export const platformAdapter: PlatformAdapter = {
