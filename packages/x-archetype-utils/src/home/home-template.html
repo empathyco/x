@@ -608,24 +608,6 @@
       <div class="x-archetype-section3__list x-archetype-list x-archetype-gap--06">
         <div class="x-archetype-list x-archetype-align-center x-archetype-gap--05">
           <svg
-            width="120"
-            height="121"
-            viewBox="0 0 120 121"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="60" cy="60.8633" r="60" fill="#EDBF3B" />
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M76.2501 118.637C101.492 111.551 120 88.3688 120 60.8633C120 27.7262 93.1371 0.863281 60 0.863281C26.8629 0.863281 0 27.7262 0 60.8633C0 88.3688 18.5082 111.551 43.7499 118.637C44.9854 114.188 55.8599 74.8835 54.5455 74.3514C49.2149 72.1937 45.4545 66.9676 45.4545 60.8633C45.4545 52.8301 51.9668 46.3178 60 46.3178C68.0332 46.3178 74.5454 52.8301 74.5454 60.8633C74.5454 66.9676 70.7851 72.1937 65.4545 74.3514C64.1401 74.8835 75.0146 114.188 76.2501 118.637Z"
-              fill="#243D48"
-            />
-          </svg>
-          <p class="x-archetype-section3__title">Interoperable: Works with any API!</p>
-        </div>
-        <div class="x-archetype-list x-archetype-align-center x-archetype-gap--05">
-          <svg
             width="121"
             height="121"
             viewBox="0 0 121 121"
@@ -653,7 +635,34 @@
             <circle cx="104.303" cy="104.5" r="9.09091" fill="#243D48" />
             <ellipse cx="18.8485" cy="104.5" rx="9.09091" ry="9.09091" fill="#243D48" />
           </svg>
-          <p class="x-archetype-section3__title">Built on open-source technology</p>
+
+          <p class="x-archetype-section3__title">
+            <a href="https://docs.empathy.co/video-library.html?video=zNq3n_3HA2I" target="_blank">
+              Interoperable: Works with any API!
+            </a>
+          </p>
+        </div>
+        <div class="x-archetype-list x-archetype-align-center x-archetype-gap--05">
+          <svg
+            width="120"
+            height="121"
+            viewBox="0 0 120 121"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="60" cy="60.8633" r="60" fill="#EDBF3B" />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M76.2501 118.637C101.492 111.551 120 88.3688 120 60.8633C120 27.7262 93.1371 0.863281 60 0.863281C26.8629 0.863281 0 27.7262 0 60.8633C0 88.3688 18.5082 111.551 43.7499 118.637C44.9854 114.188 55.8599 74.8835 54.5455 74.3514C49.2149 72.1937 45.4545 66.9676 45.4545 60.8633C45.4545 52.8301 51.9668 46.3178 60 46.3178C68.0332 46.3178 74.5454 52.8301 74.5454 60.8633C74.5454 66.9676 70.7851 72.1937 65.4545 74.3514C64.1401 74.8835 75.0146 114.188 76.2501 118.637Z"
+              fill="#243D48"
+            />
+          </svg>
+          <p class="x-archetype-section3__title">
+            <a href="https://github.com/empathyco/x" target="_blank">
+              Built on open-source technology
+            </a>
+          </p>
         </div>
         <div class="x-archetype-list x-archetype-align-center x-archetype-gap--05">
           <svg
@@ -696,7 +705,14 @@
               fill="#243D48"
             />
           </svg>
-          <p class="x-archetype-section3__title">Check out all the available components</p>
+          <p class="x-archetype-section3__title">
+            <a
+              href="https://docs.empathy.co/develop-empathy-platform/ui-reference/"
+              target="_blank"
+            >
+              Check out all the available components
+            </a>
+          </p>
         </div>
         <div class="x-archetype-list x-archetype-align-center x-archetype-gap--05">
           <svg
@@ -779,7 +795,11 @@
             />
             <circle cx="77.5" cy="97.3633" r="10.5" fill="#EDBF3B" />
           </svg>
-          <p class="x-archetype-section3__title">Enjoy the functional documentation</p>
+          <p class="x-archetype-section3__title">
+            <a href="https://docs.empathy.co/explore-empathy-platform/features/" target="_blank">
+              Enjoy the functional documentation
+            </a>
+          </p>
         </div>
       </div>
     </div>
@@ -1242,6 +1262,11 @@
     margin: 64px 0;
   }
 
+  .x-archetype-section3__list a {
+      color: inherit;
+      text-decoration: none;
+  }
+
   .x-archetype-section3__list > div {
     max-width: 150px;
   }
@@ -1382,11 +1407,11 @@
 
     .x-archetype-section1__title {
       font-size: 32px;
-        line-height: 39px;
+      line-height: 39px;
     }
 
     .x-archetype-circle {
-        top: 86px;
+      top: 86px;
     }
 
     /* SECTION 2 */
@@ -1416,13 +1441,13 @@
     }
 
     .x-archetype-section3__list .x-archetype-section3__title {
-        text-align: start;
+      text-align: start;
     }
 
-      .x-archetype-section3__list svg {
-          min-width: 56px;
-          max-width: 65px;
-      }
+    .x-archetype-section3__list svg {
+      min-width: 56px;
+      max-width: 65px;
+    }
 
     .x-archetype-mouse-scroll,
     .x-archetype-pulse-circle,
