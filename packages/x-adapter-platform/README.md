@@ -51,7 +51,7 @@ export const platformAdapter: PlatformAdapter = {
 This API has the particularity of needing an `env`, `instance` and a `language` to be passed in each
 endpoint call. For that purpose, you will need to use the `extraParams` field to specify them and
 make it work. In an [x-archetype](https://github.com/empathyco/x-archetype) project context, which
-would be the recommended scenario to use this package, these parameters are configured used a
+would be the recommended scenario to use this package, these parameters are configured using a
 [snippetConfig.js](https://github.com/empathyco/x-archetype/blob/main/public/snippet-script.js)
 file.
 
