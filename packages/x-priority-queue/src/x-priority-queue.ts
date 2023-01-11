@@ -1,9 +1,8 @@
-import { AnyFunction, Dictionary } from '@empathyco/x-utils';
-import { XPriorityQueue, XPriorityQueueNode } from './x-priority-queue.types';
+import { Dictionary } from '@empathyco/x-utils';
+import { PriorityComparatorFn, XPriorityQueue, XPriorityQueueNode } from './x-priority-queue.types';
 
 /**
- * An XPriorityQueueNode object is a representation of a structure containing a parametrized key, a
- * priority number and metadata record. By default, the key is a string.
+ * Default {@link XPriorityQueueNode} implementation.
  *
  * @public
  */
@@ -16,16 +15,16 @@ export class BaseXPriorityQueueNode<
   public readonly priority: number;
   public readonly data: SomeData;
 
-  public constructor(key: SomeKey, priority: number, data?: SomeData) {
+  public constructor(key: SomeKey, priority: number, data = {} as SomeData) {
     this.key = key;
     this.priority = priority;
-    this.data = data ?? ({} as SomeData);
+    this.data = data;
   }
 
   /**
    * Returns a string representation of this object. The string representation consists of: its
    * priority, enclosed in square brackets ("[]"), followed by its key, an arrow (->) and the
-   * metadata converted to string as by JSON.stringify(Object).
+   * data converted to string as by JSON.stringify(Object).
    *
    * @example
    * [10] 1 -> { replaceable: false, randomKey: randomValue }
@@ -40,8 +39,7 @@ export class BaseXPriorityQueueNode<
 }
 
 /**.
- * A priority queue implementation storing replaceable elements with a metadata associated to a
- * defined key and priority. By default, the keys are strings.
+ * Default {@link XPriorityQueue} implementation.
  *
  * Method         big-O
  * ---------------------------
@@ -69,7 +67,7 @@ export class BaseXPriorityQueue<
    *
    * @internal
    */
-  protected comparatorFn: AnyFunction<boolean>;
+  protected comparatorFn: PriorityComparatorFn;
 
   /**
    * Creates a new {@link XPriorityQueue}.
@@ -78,7 +76,7 @@ export class BaseXPriorityQueue<
    * By default, the elements will be sorted in descending order (an element with priority 1 will
    * be higher than another with priority 5).
    */
-  public constructor(comparatorFn: AnyFunction<boolean> = (a: number, b: number) => a > b) {
+  public constructor(comparatorFn: PriorityComparatorFn = (a: number, b: number) => a > b) {
     this.comparatorFn = comparatorFn;
   }
 
@@ -93,17 +91,16 @@ export class BaseXPriorityQueue<
   }
 
   /**.
-   * See {@link XPriorityQueue.(push:1)}
+   * See {@link XPriorityQueue.push)}
    *
    * @remarks
    * If the optional data has a 'replaceable: true' and a similar key is already in the queue,
    * the previous key will be removed and the new one will be inserted to the queue at the
-   * @param data
    * correct position based on its new priority.
    *
    * @param key - The key to insert.
    * @param priority - The priority to order the element in the queue.
-   * @param metadata - The extra data associated to a key and priority pair.
+   * @param data - The extra data associated to a key and priority pair.
    */
   push(key: SomeKey, priority: number, data?: SomeData): void {
     const node = new BaseXPriorityQueueNode<SomeKey, SomeData>(key, priority, data);
@@ -142,7 +139,7 @@ export class BaseXPriorityQueue<
   }
 
   /**
-   * See {@link XPriorityQueue.(pop:1)}.
+   * See {@link XPriorityQueue.pop)}.
    *
    * @returns The head {@link XPriorityQueueNode | node} of the queue or undefined if it is empty.
    */

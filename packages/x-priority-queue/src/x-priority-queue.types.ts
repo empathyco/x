@@ -1,7 +1,10 @@
 import { Dictionary } from '@empathyco/x-utils';
 
 /**
- * Adsadsadas.
+ * An object containing a key, a priority number and a data. By default, the key is of type
+ * string and the data is of type {@link @empathyco/x-utils#Dictionary | dictionary}.
+ *
+ * @public
  */
 export interface XPriorityQueueNode<SomeKey extends string, SomeData extends Dictionary> {
   /**
@@ -24,6 +27,11 @@ export interface XPriorityQueueNode<SomeKey extends string, SomeData extends Dic
   data: SomeData;
 }
 
+/**
+ * Data structure to store a list of entries ordered by their priority.
+ *
+ * @public
+ */
 export interface XPriorityQueue<SomeKey extends string, SomeData extends Dictionary> {
   /**
    * Inserts an element into the queue in the correct position based on its priority.
@@ -47,3 +55,10 @@ export interface XPriorityQueue<SomeKey extends string, SomeData extends Diction
    */
   pop(): XPriorityQueueNode<SomeKey, SomeData> | undefined;
 }
+
+/**
+ * Alias type to express a priority comparator function.
+ *
+ * @public
+ */
+export type PriorityComparatorFn = (a: number, b: number) => boolean;

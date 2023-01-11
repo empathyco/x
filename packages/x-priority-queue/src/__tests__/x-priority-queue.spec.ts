@@ -24,14 +24,14 @@ describe('x-priority-queue scenarios', () => {
       // And an element is pushed
       const key = '1';
       const priority = 10;
-      const metadata = { location: 'patata' };
-      queue.push(key, 10, metadata);
+      const data = { location: 'patata' };
+      queue.push(key, 10, data);
 
       // Then the element is inserted at the first position
       const insertedElement = queue.at(0);
       expect(insertedElement!.key).toBe(key);
       expect(insertedElement!.priority).toBe(priority);
-      expect(insertedElement!.data).toEqual(metadata);
+      expect(insertedElement!.data).toEqual(data);
     });
 
     it('inserts an element when the queue is not empty', () => {
