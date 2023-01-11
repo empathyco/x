@@ -1,5 +1,24 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.43...@empathyco/x-tailwindcss@0.2.0-alpha.44) (2023-01-11)
+
+
+### Features
+
+* **components:** add `justifyContent` property to `suggestion` component (#998) ([d07168f](https://github.com/empathyco/x/commit/d07168ff48e83c68b51c78f0c85cb5ed55a09e7f)), closes [EX-7807](https://searchbroker.atlassian.net/browse/EX-7807)
+
+
+### Bug Fixes
+
+* **components:** set the correct value to the `x-button-link` `display` property (#997) ([01279e9](https://github.com/empathyco/x/commit/01279e95ea2078097ac0605382dc910bbfb743f4)), closes [EX-7808](https://searchbroker.atlassian.net/browse/EX-7808)
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
