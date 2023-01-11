@@ -23,11 +23,13 @@ export class BaseXPriorityQueueNode<
 
   /**
    * Returns a string representation of this object. The string representation consists of: its
-   * priority, enclosed in square brackets ("[]"), followed by its key, an arrow (->) and the
+   * priority, enclosed in square brackets (`[]`), followed by its key, an arrow `(->)` and the
    * data converted to string as by JSON.stringify(Object).
    *
    * @example
+   * ```
    * [10] 1 -> { replaceable: false, randomKey: randomValue }
+   * ```
    *
    * @returns A string representation of this object.
    *
@@ -91,7 +93,7 @@ export class BaseXPriorityQueue<
   }
 
   /**.
-   * See {@link XPriorityQueue.push)}
+   * See {@link XPriorityQueue.push}.
    *
    * @remarks
    * If the optional data has a 'replaceable: true' and a similar key is already in the queue,
@@ -139,7 +141,7 @@ export class BaseXPriorityQueue<
   }
 
   /**
-   * See {@link XPriorityQueue.pop)}.
+   * See {@link XPriorityQueue.pop}.
    *
    * @returns The head {@link XPriorityQueueNode | node} of the queue or undefined if it is empty.
    */
@@ -198,9 +200,11 @@ export class BaseXPriorityQueue<
    * one. Nodes are converted to strings as by {@link XPriorityQueueNode.toString | toString()}.
    *
    * @example
+   * ```
    * [10] 1 -> { replaceable: false, a: 'b' }
    * [20] 2 -> { replaceable: false }
    * [30] 3 -> { replaceable: false, c: 1 }
+   * ```
    *
    * @returns A string representation of the queue.
    */
