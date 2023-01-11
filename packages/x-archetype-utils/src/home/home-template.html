@@ -87,20 +87,16 @@
         />
         <button class="x-archetype-button x-archetype-button--square" onclick="InterfaceX.search()">
           <svg
-            class="x-archetype-logo"
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
+            class="x-archetype-button-icon"
+            viewBox="0 0 16 16"
+            version="1.1"
             xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
           >
-            <path
-              d="M19.1336 18.571L14.0318 13.9273M15.6897 8.83908C15.6897 12.9315 12.3714 16.2491 8.27798 16.2491C4.18457 16.2491 0.866211 12.9315 0.866211 8.83908C0.866211 4.74665 4.18457 1.42908 8.27798 1.42908C12.3714 1.42908 15.6897 4.74665 15.6897 8.83908Z"
-              stroke="white"
-              stroke-width="1.2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+            <g fill="none" fill-rule="evenodd">
+              <circle cx="6.94117647" cy="6.94117647" r="4.94117647"></circle>
+              <line x1="14" y1="14" x2="10.598747" y2="10.6977848"></line>
+            </g>
           </svg>
         </button>
       </div>
@@ -1706,6 +1702,7 @@
 
     --x-archetype-color-base-neutral-10: #283034;
     --x-archetype-color-lead: #243d48;
+    --x-archetype-button-color: #5e7782;
   }
 
   .x-archetype-list {
@@ -1898,16 +1895,21 @@
     border-style: solid;
     border-width: 1px;
     font-weight: 600;
-    margin: 0;
-    border-radius: 0;
+    margin: 0 -1px 0 0;
     line-height: 1.2;
     cursor: pointer;
-    border-color: var(--x-archetype-color-lead);
-    background-color: var(--x-archetype-color-lead);
+    border-color: var(--x-archetype-button-color);
+    background-color: var(--x-archetype-button-color);
     color: #fff;
     min-height: 40px;
     gap: 8px;
     font-size: 24px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  .x-archetype-button-icon {
+    stroke: white;
   }
 
   .x-archetype-button--square {
@@ -1956,7 +1958,7 @@
   }
 
   .x-archetype-section1__title-highlight {
-    color: #5e7782;
+    color: var(--x-archetype-button-color);
     font-weight: 700;
   }
 
@@ -2084,7 +2086,7 @@
   }
 
   .x-archetype-section3__list a:hover {
-      text-decoration: underline;
+    text-decoration: underline;
   }
 
   .x-archetype-section3__list > div {
