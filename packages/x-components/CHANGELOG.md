@@ -1,36 +1,37 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
-## [3.0.0-alpha.276](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.275...@empathyco/x-components@3.0.0-alpha.276) (2023-01-11)
-
-**Note:** Version bump only for package @empathyco/x-components
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [3.0.0-alpha.275](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.274...@empathyco/x-components@3.0.0-alpha.275) (2023-01-10)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [3.0.0-alpha.274](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.273...@empathyco/x-components@3.0.0-alpha.274) (2023-01-09)
+
 
 ### Features
 
-- **history-queries:** expose `historyQueriesWithResults` in the alias API (#991)
-  ([90c17f5](https://github.com/empathyco/x/commit/90c17f54a1bc1a4c613d06e64dd630f9e1efca61)),
-  closes [EX-7476](https://searchbroker.atlassian.net/browse/EX-7476)
+* **history-queries:** expose `historyQueriesWithResults` in the alias API (#991) ([90c17f5](https://github.com/empathyco/x/commit/90c17f54a1bc1a4c613d06e64dd630f9e1efca61)), closes [EX-7476](https://searchbroker.atlassian.net/browse/EX-7476)
+
+
 
 ## [3.0.0-alpha.273](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.272...@empathyco/x-components@3.0.0-alpha.273) (2023-01-09)
 
+
 ### ⚠ BREAKING CHANGES
 
-- **design-system:** suggestion and suggestion group styles are now deprecated. To continue using
-  them import from `deprecated-full-theme.css`.
+* **design-system:** suggestion and suggestion group styles are now deprecated. To continue using them import from `deprecated-full-theme.css`.
 
 ### Features
 
-- **design-system:** deprecate old suggestion and suggestion group styles (#975)
-  ([69d8bc5](https://github.com/empathyco/x/commit/69d8bc59ce43660b3295dcafa9283598d1143336)),
-  closes [EX-7725](https://searchbroker.atlassian.net/browse/EX-7725)
+* **design-system:** deprecate old suggestion and suggestion group styles (#975) ([69d8bc5](https://github.com/empathyco/x/commit/69d8bc59ce43660b3295dcafa9283598d1143336)), closes [EX-7725](https://searchbroker.atlassian.net/browse/EX-7725)
+
+
 
 # Change Log
 
