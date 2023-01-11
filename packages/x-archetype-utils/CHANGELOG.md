@@ -1,5 +1,19 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.11...@empathyco/x-archetype-utils@0.1.0-alpha.12) (2023-01-11)
+
+
+### Features
+
+* add data-test to searchbar and hover underline to docs links (#996) ([c384ede](https://github.com/empathyco/x/commit/c384edea8b289b2508692aacd95b73d49abe8df6)), closes [EX-7806](https://searchbroker.atlassian.net/browse/EX-7806)
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
