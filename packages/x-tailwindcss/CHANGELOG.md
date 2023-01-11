@@ -1,16 +1,113 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.2.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.33...@empathyco/x-tailwindcss@0.2.0-alpha.34) (2022-12-12)
-
+## [0.2.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.42...@empathyco/x-tailwindcss@0.2.0-alpha.43) (2023-01-09)
 
 ### Features
 
-* **design-system:** Add typography component to the XDS (#905) ([f09d511](https://github.com/empathyco/x/commit/f09d511341c37c3f037d9c670066f80dab1dc760)), closes [EX-5910](https://searchbroker.atlassian.net/browse/EX-5910)
+- **design-system:** deprecate old typography styles (#973)
+  ([15d6d64](https://github.com/empathyco/x/commit/15d6d64c18fe28664e873802fe34073158c30648)),
+  closes [EX-7726](https://searchbroker.atlassian.net/browse/EX-7726)
 
+# Change Log
 
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.41...@empathyco/x-tailwindcss@0.2.0-alpha.42) (2023-01-06)
+
+### Build System
+
+- **deps:** update dependencies
+  ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.40...@empathyco/x-tailwindcss@0.2.0-alpha.41) (2023-01-03)
+
+### Build System
+
+- **deps:** update `vue` to version `2.7` (#971)
+  ([09fb0fe](https://github.com/empathyco/x/commit/09fb0fe5dbef020565571a4fafc89d2aac544c8e)),
+  closes [EX-7730](https://searchbroker.atlassian.net/browse/EX-7730)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.39...@empathyco/x-tailwindcss@0.2.0-alpha.40) (2023-01-03)
+
+### Features
+
+- update theme colors (#969)
+  ([60ee525](https://github.com/empathyco/x/commit/60ee52520256706474939309c9dde63f1300830b)),
+  closes [EX-7685](https://searchbroker.atlassian.net/browse/EX-7685)
+
+## [0.2.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.38...@empathyco/x-tailwindcss@0.2.0-alpha.39) (2022-12-30)
+
+### Features
+
+- **design-system:** Add suggestion group component (#943)
+  ([4bac818](https://github.com/empathyco/x/commit/4bac8183a29ec17a99a90edeae55ba3d4301b626)),
+  closes [EX-7496](https://searchbroker.atlassian.net/browse/EX-7496)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.37...@empathyco/x-tailwindcss@0.2.0-alpha.38) (2022-12-23)
+
+**Note:** Version bump only for package @empathyco/x-tailwindcss
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.36...@empathyco/x-tailwindcss@0.2.0-alpha.37) (2022-12-22)
+
+### Features
+
+- **desing-system:** add input component to XDS (#941)
+  ([8addb91](https://github.com/empathyco/x/commit/8addb91bd69f292fa7363e992c19d59d17034c9c)),
+  closes [EX-7494](https://searchbroker.atlassian.net/browse/EX-7494)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.35...@empathyco/x-tailwindcss@0.2.0-alpha.36) (2022-12-19)
+
+**Note:** Version bump only for package @empathyco/x-tailwindcss
+
+## [0.2.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.34...@empathyco/x-tailwindcss@0.2.0-alpha.35) (2022-12-15)
+
+### Features
+
+- **design-system:** modify typography component (#924)
+  ([4f97156](https://github.com/empathyco/x/commit/4f97156ea42338c430313b47310552a8a8dc3654)),
+  closes [EX-7638](https://searchbroker.atlassian.net/browse/EX-7638)
+
+### Continuous Integration
+
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
+
+## [0.2.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.33...@empathyco/x-tailwindcss@0.2.0-alpha.34) (2022-12-12)
+
+### Features
+
+- **design-system:** Add typography component to the XDS (#905)
+  ([f09d511](https://github.com/empathyco/x/commit/f09d511341c37c3f037d9c670066f80dab1dc760)),
+  closes [EX-5910](https://searchbroker.atlassian.net/browse/EX-5910)
 
 # Change Log
 

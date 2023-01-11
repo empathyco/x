@@ -4,5 +4,5 @@
     "types": ["jest"]
   },
   "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": []
+  "exclude": ["node_modules"]
 }

@@ -18,7 +18,7 @@
           <BaseResultLink :result="identifierResult">
             <article class="x-suggestion">
               <IdentifierResult :result="identifierResult" />
-              <span class="x-ellipsis" data-test="result-text">
+              <span class="x-truncate" data-test="result-text">
                 {{ identifierResult.name }}
               </span>
             </article>

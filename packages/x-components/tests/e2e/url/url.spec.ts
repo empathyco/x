@@ -1,4 +1,4 @@
-import { And, When } from 'cypress-cucumber-preprocessor/steps';
+import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 // Scenario 3
 When('clicking result in position {int}', (index: number) => {
@@ -6,7 +6,7 @@ When('clicking result in position {int}', (index: number) => {
 });
 
 // Scenario 4
-And("url doesn't contain parameter {string} with value {string}", (key: string, value: string) => {
+Then("url doesn't contain parameter {string} with value {string}", (key: string, value: string) => {
   cy.location('search').should('not.contain', `${key}=${encodeURIComponent(value)}`);
 });
 
@@ -16,7 +16,7 @@ When('selecting store {string}', (store: string) => {
 });
 
 // Scenario 5
-And('url not contains parameter {string}', (key: string) => {
+Then('url not contains parameter {string}', (key: string) => {
   cy.location('search').should('not.contain', key);
 });
 

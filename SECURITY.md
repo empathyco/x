@@ -26,4 +26,3 @@ As a summary, send an email with:
 - Attach the `x_security_patch` file if you have created one.
 
 Thanks for your contribution.
-

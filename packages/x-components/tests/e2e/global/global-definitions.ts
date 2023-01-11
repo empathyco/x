@@ -1,4 +1,4 @@
-import { defineParameterType } from 'cypress-cucumber-preprocessor/steps';
+import { defineParameterType } from '@badeball/cypress-cucumber-preprocessor';
 
 defineParameterType({
   name: 'boolean',

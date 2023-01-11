@@ -7,7 +7,7 @@ import del from 'rollup-plugin-delete';
 import rename from 'rollup-plugin-rename';
 import styles from 'rollup-plugin-styles';
 import typescript from 'rollup-plugin-typescript2';
-import vue from 'rollup-plugin-vue';
+import vue, { VuePluginOptions } from 'rollup-plugin-vue';
 import packageJSON from '../package.json';
 import { normalizePath } from './build.utils';
 import { apiDocumentation } from './docgen/documentation.rollup-plugin';
@@ -33,7 +33,8 @@ export const rollupConfig = createRollupOptions({
   output: {
     dir: jsOutputDirectory,
     format: 'esm',
-    sourcemap: true
+    sourcemap: true,
+    preserveModules: true
   },
   onwarn(warning) {
     /* Circular dependencies are dangerous, and can result in an `undefined` error in runtime.
@@ -59,7 +60,6 @@ export const rollupConfig = createRollupOptions({
       id.includes('vue-runtime-helpers')
     );
   },
-  preserveModules: true,
   plugins: [
     del({ targets: [`${buildPath}/*`, `${path.join(rootDir, 'docs')}/*`] }),
     commonjs(),
@@ -87,6 +87,11 @@ export const rollupConfig = createRollupOptions({
       // lang is set to ts:
       // https://github.com/vuejs/rollup-plugin-vue/issues/272#issuecomment-491721842
       needMap: false,
+      template: {
+        compilerOptions: {
+          whitespace: 'condense'
+        }
+      } as VuePluginOptions['template'],
       style: {
         postcssCleanOptions: { disabled: true }
       }

@@ -7,12 +7,12 @@
           Panel
         </BaseIdTogglePanelButton>
         <BaseIdTogglePanel :startOpen="true" panelId="aside-panel">
-          <div class="x-text">Hey there!</div>
+          <div class="x-text1">Hey there!</div>
         </BaseIdTogglePanel>
 
         <BaseIdTogglePanelButton class="x-button x-button--ghost" panelId="panel2" />
         <BaseIdTogglePanel :startOpen="true" panelId="aside-panel">
-          <div class="x-text">
+          <div class="x-text1">
             Button without text, an element should have the ID to make it accessible.
           </div>
         </BaseIdTogglePanel>
@@ -55,6 +55,14 @@
         </BaseColumnPickerList>
       </div>
 
+      <div>
+        <h1>BaseEventsModalOpen and BaseEventsModalClose</h1>
+        <BaseEventsModalOpen>This button opens the modal</BaseEventsModalOpen>
+        <BaseEventsModal>
+          <BaseEventsModalClose>This button closes the modal</BaseEventsModalClose>
+        </BaseEventsModal>
+      </div>
+
       <h1>ScrollToTop</h1>
       <div>
         <ScrollToTop scroll-id="accessibility-scroll" :threshold-px="1000">
@@ -68,6 +76,9 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import BaseEventsModal from '../../components/modals/base-events-modal.vue';
+  import BaseEventsModalClose from '../../components/modals/base-events-modal-close.vue';
+  import BaseEventsModalOpen from '../../components/modals/base-events-modal-open.vue';
   import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
   import BaseIdTogglePanel from '../../components/panels/base-id-toggle-panel.vue';
   import FacetsProvider from '../../x-modules/facets/components/facets/facets-provider.vue';
@@ -91,6 +102,9 @@
       FacetsProvider,
       AllFilter,
       BaseColumnPickerList,
+      BaseEventsModal,
+      BaseEventsModalClose,
+      BaseEventsModalOpen,
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
       BaseResultAddToCart,
