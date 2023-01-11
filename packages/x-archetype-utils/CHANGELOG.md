@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.10...@empathyco/x-archetype-utils@0.1.0-alpha.11) (2023-01-11)
+
+### Features
+
+- add importable home `template` (#994)
+  ([a31c3ea](https://github.com/empathyco/x/commit/a31c3eadf412ee732ca4b3724a85ef8faa300061)),
+  closes [EX-7633](https://searchbroker.atlassian.net/browse/EX-7633)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.9...@empathyco/x-archetype-utils@0.1.0-alpha.10) (2023-01-06)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils
