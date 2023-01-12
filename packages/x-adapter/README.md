@@ -74,7 +74,7 @@ passed.
 ###### Types definition
 
 ```ts
-// API data models
+// API models
 interface ApiRequest {
   q?: string;
   id?: number;
@@ -89,7 +89,7 @@ interface ApiProduct {
   price: number;
 }
 
-// App's data models
+// App models
 interface AppSearchRequest {
   query: string;
 }
@@ -243,7 +243,7 @@ the value somehow.
 ###### Types definition
 
 ```ts
-// API data models
+// API models
 interface ApiUserRequest {
   q: string;
 }
@@ -256,7 +256,7 @@ interface ApiUser {
   firstName: string;
 }
 
-// App's data models
+// App models
 interface AppUserRequest {
   query: string;
 }
@@ -307,7 +307,7 @@ them you just have to provide with the `Path` of the data to map, and the `Schem
 ###### Types definition
 
 ```ts
-// API data models
+// API models
 interface ApiRequest {
   q: string;
 }
@@ -328,7 +328,7 @@ interface ApiAddress {
   postalCode: string;
 }
 
-// APP data models
+// App models
 interface AppRequest {
   query: string;
 }
@@ -408,34 +408,262 @@ export const searchUsersWithContactInfo = endpointAdapterFactory({
 
 #### Using a mutable schema
 
-This feature lets you have some default mappers, and modify or extend them for some concrete
-implementations. To do so, you should use the `createMutableSchema` helper function, and pass as a
-parameter the schema you want to make mutable.
+This feature lets you have some default schemas, and modify or extend them for some concrete
+implementations. To do so, you can use the `createMutableSchema` function, passing a `Source` and
+`Target` type parameters to map your models. This function will return a `MutableSchema` that apart
+from the mapping information will also contain some methods to create new schemas or modify the
+current one.
+
+In the example below we will create a `MutableSchema` to have a default object that will be reused
+for different endpoint calls.
+
+###### Types definition and MutableSchema
 
 ```ts
-// TODO: Creating a mutable schema
+// API models
+export interface ApiBaseObject {
+  id: number;
+  body: string;
+}
+
+// APP models
+export interface AppBaseObject {
+  id: string;
+  text: string;
+}
+
+// Mutable Schema
+export const baseObjectSchema = createMutableSchema<ApiBaseObject, AppBaseObject>({
+  id: ({ id }) => id.toString(),
+  text: 'body'
+});
 ```
 
-Once you have your mutable schema, you can use its available methods to obtain a new schema based on
-it:
+Once we have the `MutableSchema`, we can use the following methods to fit our different APIs needs:
 
-- `replace`: Replaces completely the original Schema.
-- `override`: Merges the original schema with the new one.
-- `extends`: Creates a new Schema based on the original one. The original remains unchanged.
+- `$extends`: Creates a new `MutableSchema` based on the original one. The original remains
+  unchanged. This can be useful if we need to create a new `EndpointAdapter` with models based on
+  another API.
+- `$override`: Merges/modifies the original `MutableSchema` partially, so the change will affect to
+  all the `EndpointAdapter`(s) that are using it. It can be used to change the structure of our
+  request/response mappers, or to add them new fields. Useful for clients with few differences in
+  their APIs. For example, you can create a library with a default adapter and use this library from
+  the customer projects overriding only the needed field (e.g. retrieve the images from `pictures`
+  instead of `images` in a products API).
+- `$replace`: Replaces completely the original `MutableSchema` by a new one, it won't exist anymore.
+  The change will affect to all the `EndpointAdapter`(s) that were using it. Useful for clients with
+  a completely different API/response to the standard you have been working with.
+
+###### Extend a MutableSchema to reuse it in two different endpoints with more fields
 
 ```ts
-// TODO: Mutable schema's methods: '$replace', '$override', '$extends'
+import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types';
+
+// Api models
+interface ApiPost extends ApiBaseObject {
+  title: string;
+}
+interface ApiPostsResponse {
+  posts: ApiPost[];
+}
+
+interface ApiComment extends ApiBaseObject {
+  postId: number;
+}
+interface ApiCommentsResponse {
+  comments: ApiComment[];
+}
+
+// App models
+interface AppPost extends AppBaseObject {
+  postTitle: string;
+}
+interface AppPostsResponse {
+  posts: AppPost[];
+}
+
+interface AppComment extends AppBaseObject {
+  postId: number;
+}
+interface AppCommentsResponse {
+  comments: AppComment[];
+}
+
+// Extend for posts endpoint
+const postSchema = baseObjectSchema.$extends<ApiPost, AppPost>({
+  postTitle: 'title'
+});
+
+const postsResponse = schemaMapperFactory<ApiPostsResponse, AppPostsResponse>({
+  posts: {
+    $subSchema: postSchema,
+    $path: 'posts'
+  }
+});
+
+export const searchPosts = endpointAdapterFactory({
+  endpoint: 'https://dummyjson.com/posts',
+  responseMapper: postsResponse
+});
+
+// Extend for comments endpoint
+const commentSchema = baseObjectSchema.$extends<ApiComment, AppComment>({
+  postId: 'postId'
+});
+
+const commentsResponse = schemaMapperFactory<ApiCommentsResponse, AppCommentsResponse>({
+  comments: {
+    $subSchema: commentSchema,
+    $path: 'comments'
+  }
+});
+
+export const searchComments = endpointAdapterFactory({
+  endpoint: 'https://dummyjson.com/comments',
+  responseMapper: commentsResponse
+});
+```
+
+###### Override a MutableSchema to add more fields
+
+As said above, the suitable context for using the `override` method would be a project with an API
+that doesn't differ too much against the one used in our "base project". That means we can reuse
+most of the types and schemas definitions, so we would only add a few new fields from the new API.
+
+```ts
+import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types';
+
+// Api models
+interface ApiTodo {
+  completed: boolean;
+  todo: string;
+  userId: number;
+}
+
+interface ApiTodosResponse {
+  todos: ApiBaseObject[];
+}
+
+// App models
+interface AppTodo {
+  completed: boolean;
+  text: string;
+  userId: string;
+}
+
+interface AppTodosResponse {
+  todos: AppBaseObject[];
+}
+
+// Response mapper
+const todosResponse = schemaMapperFactory<ApiTodosResponse, AppTodosResponse>({
+  todos: {
+    $subSchema: baseObjectSchema,
+    $path: 'todos'
+  }
+});
+
+// Endpoint Adapter
+export const searchTodos = endpointAdapterFactory({
+  endpoint: 'https://dummyjson.com/todos',
+  responseMapper: todosResponse
+});
+
+// Override the original Schema. The Schema changes to map: 'id', 'completed', 'text' and 'userId''
+baseObjectSchema.$override<ApiTodo, AppTodo>({
+  completed: 'completed',
+  text: 'todo',
+  userId: ({ userId }) => userId.toString()
+});
+```
+
+###### Replace a MutableSchema to completely change it
+
+In this case we are facing too many differences between API responses. We don't need to write a
+whole adapter from scratch, as there are other parts of the API that aren't changing so much, but we
+should replace some `endpointAdapter`'s schemas.
+
+```ts
+import { ApiBaseObject, AppBaseObject, baseObjectSchema } from '@/base-types';
+
+// Api models
+interface ApiQuote {
+  id: number;
+  quote: string;
+  author: string;
+}
+
+interface ApiQuotesResponse {
+  quotes: ApiBaseObject[];
+}
+
+// App models
+interface AppQuote {
+  quoteId: string;
+  quote: string;
+  author: string;
+}
+
+interface AppQuotesResponse {
+  quotes: AppBaseObject[];
+}
+
+// Response mapper
+const quotesResponse = schemaMapperFactory<ApiQuotesResponse, AppQuotesResponse>({
+  quotes: {
+    $subSchema: baseObjectSchema,
+    $path: 'quotes'
+  }
+});
+
+// Endpoint Adapter
+export const searchQuotes = endpointAdapterFactory({
+  endpoint: 'https://dummyjson.com/quotes',
+  responseMapper: quotesResponse
+});
+
+// Replace the original Schema
+baseObjectSchema.$replace<ApiQuote, AppQuote>({
+  quoteId: ({ id }) => id.toString(),
+  quote: 'quote',
+  author: 'author'
+});
 ```
 
 <br>
 
 ### Extend an adapter that uses schemas
 
-You can check the
-[x-platform-adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform) library.
-You will find a sample implementation of the `x-adapter` library based on the
-[Search Platform API](https://docs.empathy.co/develop-empathy-platform/api-reference/search-api.html),
-and also some guidance on how to extend it for your needs.
+Imagine you have a new setup and that you can reuse most of the stuff you have developed. Probably
+you have built an adapter instance as a configuration object that contains all of your
+`EndpointAdapter` calls, so you only need to extend the endpoint you need to change.
+
+```ts
+export const adapter = {
+  searchItem: getItemById,
+  searchList: searchComments
+  // Any endpoint adapter you are using to communicate with your API
+};
+
+adapter.searchList = searchComments.extends({
+  endpoint: 'https://dummyjson.com/comments/',
+  defaultRequestOptions: {
+    // If you need to send an id, a header...
+  },
+  defaultRequestOptions: {
+    parameters: {
+      limit: 10,
+      skip: 10
+    }
+  }
+});
+```
+
+For further detail, you can check the
+[x-platform-adapter](https://github.com/empathyco/x/tree/main/packages/x-adapter-platform) package.
+It is a whole adapter implementation using this `x-adapter` library to suit the
+[Search Platform API](https://docs.empathy.co/develop-empathy-platform/api-reference/search-api.html)
+needs.
 
 ## Test
 
@@ -452,9 +680,9 @@ npm test
 
 ## Contributing
 
-To start contributing to the project, please take a look to
-our **[Contributing Guide](https://github.com/empathyco/x/blob/main/.github/CONTRIBUTING.md).** Take
-in account that `x-adapter` is developed using [Typescript](https://www.typescriptlang.org/), so we
+To start contributing to the project, please take a look to our
+**[Contributing Guide](https://github.com/empathyco/x/blob/main/.github/CONTRIBUTING.md).** Take in
+account that `x-adapter` is developed using [Typescript](https://www.typescriptlang.org/), so we
 recommend you check it out.
 
 ## License

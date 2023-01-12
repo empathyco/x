@@ -1,10 +1,10 @@
-import { XPriorityQueue } from '../x-priority-queue';
+import { BaseXPriorityQueue } from '../x-priority-queue';
 
 describe('x-priority-queue scenarios', () => {
   describe('constructor', () => {
     it('uses the comparator function passed to the constructor to sort the queue', () => {
       // Given a queue passing a comparator function to its constructor
-      const queue = new XPriorityQueue((a, b) => a < b);
+      const queue = new BaseXPriorityQueue((a, b) => a < b);
 
       // And elements are inserted
       queue.push('1', 10);
@@ -19,24 +19,24 @@ describe('x-priority-queue scenarios', () => {
   describe('push', () => {
     it('inserts an element when the queue is empty', () => {
       // Given an empty priority queue
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
 
       // And an element is pushed
       const key = '1';
       const priority = 10;
-      const metadata = { location: 'patata' };
-      queue.push(key, 10, metadata);
+      const data = { location: 'patata' };
+      queue.push(key, 10, data);
 
       // Then the element is inserted at the first position
       const insertedElement = queue.at(0);
       expect(insertedElement!.key).toBe(key);
       expect(insertedElement!.priority).toBe(priority);
-      expect(insertedElement!.metadata).toEqual(metadata);
+      expect(insertedElement!.data).toEqual(data);
     });
 
     it('inserts an element when the queue is not empty', () => {
       // Given a priority queue with elements
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
       queue.push('1', 10);
       queue.push('2', 20);
       queue.push('3', 30);
@@ -53,7 +53,7 @@ describe('x-priority-queue scenarios', () => {
     // eslint-disable-next-line max-len
     it('inserts an element with the same key as an already existing non-replaceable element', () => {
       // Given a priority queue with non-replaceable elements
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
       queue.push('1', 10, { previous: true });
       queue.push('2', 20);
       queue.push('3', 30);
@@ -67,16 +67,16 @@ describe('x-priority-queue scenarios', () => {
 
       expect(existingElement!.key).toBe('1');
       expect(existingElement!.priority).toBe(10);
-      expect(existingElement!.metadata).toEqual({ previous: true });
+      expect(existingElement!.data).toEqual({ previous: true });
       expect(newElement!.key).toBe('1');
       expect(newElement!.priority).toBe(10);
-      expect(newElement!.metadata).toEqual({ newer: true });
+      expect(newElement!.data).toEqual({ newer: true });
     });
 
     // eslint-disable-next-line max-len
     it('inserts an element with the same key as an already existing and replaceable element', () => {
       // Given a priority queue with replaceable elements
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
       queue.push('1', 10, { replaceable: true });
       queue.push('2', 20);
       queue.push('3', 30);
@@ -92,7 +92,7 @@ describe('x-priority-queue scenarios', () => {
   describe('pop', () => {
     it('does not remove anything when the queue is empty', () => {
       // Given an empty priority queue
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
 
       // And an element is popped
       // Then nothing is removed
@@ -101,7 +101,7 @@ describe('x-priority-queue scenarios', () => {
 
     it('removes and retrieves the first element of the queue when it is not empty', () => {
       // Given a priority queue with elements
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
       queue.push('3', 30);
       queue.push('1', 10);
       queue.push('2', 20);
@@ -116,7 +116,7 @@ describe('x-priority-queue scenarios', () => {
   describe('peek', () => {
     it('returns the first element of the queue without removing it', () => {
       // Given an empty queue
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
 
       // And an element is peeked
       // Then no element is returned
@@ -137,7 +137,7 @@ describe('x-priority-queue scenarios', () => {
   describe('clear', () => {
     it('does nothing if the queue is empty', () => {
       // Given an empty priority queue
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
       queue.clear();
       // Then the queue is empty
       expect(queue.size()).toBe(0);
@@ -146,7 +146,7 @@ describe('x-priority-queue scenarios', () => {
 
     it('clears the queue', () => {
       // Given a priority queue with elements
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
       queue.push('1', 10);
       queue.push('2', 20);
       queue.push('3', 30);
@@ -163,7 +163,7 @@ describe('x-priority-queue scenarios', () => {
   describe('isEmpty', () => {
     it('checks if the queue is empty when it is empty', () => {
       // Given an empty queue
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
 
       // And the size of the queue is checked
       // Then the assertion is true
@@ -172,7 +172,7 @@ describe('x-priority-queue scenarios', () => {
 
     it('checks if the queue is empty when it is not empty', () => {
       // Given a queue with elements
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
       queue.push('1', 10);
       queue.push('2', 20);
       queue.push('3', 30);
@@ -186,7 +186,7 @@ describe('x-priority-queue scenarios', () => {
   describe('size', () => {
     it('returns the size of the queue', () => {
       // Given an empty queue
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
 
       // And the size of the queue is checked
       // Then the size is 0
@@ -205,7 +205,7 @@ describe('x-priority-queue scenarios', () => {
   describe('at', () => {
     it('returns the element of the queue at the given index', () => {
       // Given a queue
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
 
       // And an index
       const index = 2;
@@ -226,13 +226,13 @@ describe('x-priority-queue scenarios', () => {
   describe('toString', () => {
     it('returns an empty string if the queue is empty', () => {
       // Given an empty queue
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
       expect(queue.toString()).toBe('');
     });
 
     it("returns queue's data stringified", () => {
       // Given a queue
-      const queue = new XPriorityQueue();
+      const queue = new BaseXPriorityQueue();
       queue.push('1', 10);
       queue.push('2', 10, { replaceable: true });
       queue.push('3', 30, { replaceable: true, extra: 'potato' });

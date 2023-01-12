@@ -12,7 +12,7 @@ import { noHorizontalPadding } from './utils/no-horizontal-padding';
 export function buttonLink(helpers: TailwindHelpers) {
   return {
     link: {
-      display: 'flex-inline',
+      display: 'inline-flex',
       minHeight: '0',
       textDecoration: 'underline',
       fontFamily: 'inherit',

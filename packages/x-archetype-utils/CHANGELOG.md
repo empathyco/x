@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.12...@empathyco/x-archetype-utils@0.1.0-alpha.13) (2023-01-12)
+
+### Bug Fixes
+
+- now styles should be accurate to the designs (#999)
+  ([7638670](https://github.com/empathyco/x/commit/7638670d3d4f22983fcaeb0277fb9b394ece2218)),
+  closes [EX-7809](https://searchbroker.atlassian.net/browse/EX-7809)
+
+## [0.1.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.11...@empathyco/x-archetype-utils@0.1.0-alpha.12) (2023-01-11)
+
+### Features
+
+- add data-test to searchbar and hover underline to docs links (#996)
+  ([c384ede](https://github.com/empathyco/x/commit/c384edea8b289b2508692aacd95b73d49abe8df6)),
+  closes [EX-7806](https://searchbroker.atlassian.net/browse/EX-7806)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.10...@empathyco/x-archetype-utils@0.1.0-alpha.11) (2023-01-11)
+
+### Features
+
+- add importable home `template` (#994)
+  ([a31c3ea](https://github.com/empathyco/x/commit/a31c3eadf412ee732ca4b3724a85ef8faa300061)),
+  closes [EX-7633](https://searchbroker.atlassian.net/browse/EX-7633)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.9...@empathyco/x-archetype-utils@0.1.0-alpha.10) (2023-01-06)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils

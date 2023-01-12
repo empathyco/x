@@ -63,6 +63,11 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
     get historyQueries() {
       return component.$store.getters[getGetterPath('historyQueries', 'historyQueries')] ?? [];
     },
+    get historyQueriesWithResults() {
+      return (
+        component.$store.getters[getGetterPath('historyQueries', 'historyQueriesWithResults')] ?? []
+      );
+    },
     get fullHistoryQueries() {
       return component.$store.state.x.historyQueries?.historyQueries ?? [];
     },

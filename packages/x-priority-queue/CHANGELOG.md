@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.6...@empathyco/x-priority-queue@0.1.0-alpha.7) (2023-01-12)
+
+### Features
+
+- **priority-queue:** improve types (#992)
+  ([61f8a80](https://github.com/empathyco/x/commit/61f8a80b50d4a2e553000a11c658cdc4fef50302)),
+  closes [EX-7789](https://searchbroker.atlassian.net/browse/EX-7789)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.5...@empathyco/x-priority-queue@0.1.0-alpha.6) (2023-01-06)
 
 ### Build System
