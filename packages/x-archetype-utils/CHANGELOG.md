@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.12...@empathyco/x-archetype-utils@0.1.0-alpha.13) (2023-01-12)
+
+
+### Bug Fixes
+
+* now styles should be accurate to the designs (#999) ([7638670](https://github.com/empathyco/x/commit/7638670d3d4f22983fcaeb0277fb9b394ece2218)), closes [EX-7809](https://searchbroker.atlassian.net/browse/EX-7809)
+
+
+
 ## [0.1.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.11...@empathyco/x-archetype-utils@0.1.0-alpha.12) (2023-01-11)
 
 
