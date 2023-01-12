@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.277](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.276...@empathyco/x-components@3.0.0-alpha.277) (2023-01-12)
+
+
+### Documentation
+
+* assets migration (#995) ([04678f1](https://github.com/empathyco/x/commit/04678f104a9e9383af7284d349f26e6c0f5454df))
+
+
+
 ## [3.0.0-alpha.276](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.275...@empathyco/x-components@3.0.0-alpha.276) (2023-01-11)
 
 **Note:** Version bump only for package @empathyco/x-components
