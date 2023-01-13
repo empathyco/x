@@ -123,7 +123,7 @@
     "rollup-plugin-typescript2": "~0.31.2",
     "rollup-plugin-vue": "~5.1.9",
     "sass": "~1.57.1",
-    "sass-loader": "~8.0.0",
+    "sass-loader": "~13.2.0",
     "tailwindcss": "~3.2.4",
     "ts-jest": "~27.0.7",
     "ts-node": "~10.9.1",
