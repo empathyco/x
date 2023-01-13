@@ -8,6 +8,7 @@ import { typography } from './components/typography';
 import { input } from './components/input';
 import { suggestionGroup } from './components/suggestion-group';
 import { suggestionGroupButton } from './components/suggestion-group/button';
+import { slidingPanel } from './components/sliding-panel';
 
 /**
  * Default component styles.
@@ -29,7 +30,8 @@ export default function components(helpers: TailwindHelpers) {
     ...input(helpers),
     ...typography(helpers),
     ...suggestionGroup(helpers),
-    ...suggestionGroupButton(helpers)
+    ...suggestionGroupButton(helpers),
+    ...slidingPanel(helpers)
   };
 }
 
