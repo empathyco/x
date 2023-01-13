@@ -160,6 +160,10 @@ describe('MutableSchemas', () => {
       someExtraField: 'extra'
     };
 
+    interface ExtendedSource extends OriginalSource {
+      someExtraField: string;
+    }
+
     interface ExtendedTarget extends OriginalTarget {
       extra: string;
     }
@@ -181,14 +185,24 @@ describe('MutableSchemas', () => {
 
     const mutableSchema = createMutableSchema(originalSchema);
     const mapperFromOriginal = schemaMapperFactory<OriginalSource, OriginalTarget>(mutableSchema);
+
     const extendedSchema = mutableSchema.$extends<typeof extendedSource, { extra: string }>({
       extra: 'someExtraField'
     });
-    const mapperFromExtended = schemaMapperFactory<
-      OriginalSource & typeof extendedSource,
-      OriginalTarget & { extra: string }
-    >(extendedSchema);
+    const extendedSchemaWithExtendedObjects = mutableSchema.$extends<
+      ExtendedSource,
+      ExtendedTarget
+    >({
+      extra: 'someExtraField'
+    });
+
+    const mapperFromExtended = schemaMapperFactory(extendedSchema);
+    const mapperFromExtendedObjects = schemaMapperFactory(extendedSchemaWithExtendedObjects);
+
     expect(mapperFromExtended({ ...source, someExtraField: 'extended' }, {})).toStrictEqual(
+      extendedTarget
+    );
+    expect(mapperFromExtendedObjects({ ...source, someExtraField: 'extended' }, {})).toStrictEqual(
       extendedTarget
     );
     expect(mapperFromOriginal({ ...source, someExtraField: 'extended' } as any, {})).toStrictEqual(

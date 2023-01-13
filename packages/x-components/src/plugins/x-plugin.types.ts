@@ -102,6 +102,8 @@ export interface XComponentAliasAPI {
   readonly facets: Record<Facet['id'], Facet>;
   /** The {@link HistoryQueriesXModule} history queries matching the query. */
   readonly historyQueries: ReadonlyArray<HistoryQuery>;
+  /** The {@link HistoryQueriesXModule} history queries with 1 or more results. */
+  readonly historyQueriesWithResults: ReadonlyArray<HistoryQuery>;
   /** The {@link HistoryQueriesXModule} history queries. */
   readonly fullHistoryQueries: ReadonlyArray<HistoryQuery>;
   /** The {@link IdentifierResultsXModule} results. */

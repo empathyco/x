@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.21...@empathyco/eslint-plugin-x@2.0.0-alpha.22) (2023-01-06)
+
+### Build System
+
+- Add `eslint` and `prettier` to `devDependencies` in eslint-plugin-x (#987)
+  ([1013b73](https://github.com/empathyco/x/commit/1013b73436537ea14085456b334a6ec3b54b3767))
+- **deps:** update dependencies
+  ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.20...@empathyco/eslint-plugin-x@2.0.0-alpha.21) (2022-12-26)
 
 **Note:** Version bump only for package @empathyco/eslint-plugin-x

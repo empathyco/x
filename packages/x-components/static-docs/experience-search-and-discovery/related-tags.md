@@ -11,7 +11,7 @@ the results appear to fine-tune the search with extra information and get highly
 They are shown as labels usually at the top of the results page, but can be displayed anywhere
 instead.
 
-![Related Tags](~@assets/media/interface/x-related-tags.gif)
+![Related Tags](~@assets/x/interface/x-related-tags.gif)
 
 ::: warning
 
@@ -41,9 +41,7 @@ Can't quite capture the concept? Learn more about
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/related-tags/) your web
-experience.
+Want to know more? Learn how to
+[configure](/develop-empathy-platform/ui-reference/components/related-tags/) your web experience.
 
 :::
-
-

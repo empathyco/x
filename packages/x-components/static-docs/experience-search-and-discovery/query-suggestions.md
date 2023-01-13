@@ -9,7 +9,7 @@ The Query Suggestions UI component helps your shoppers with hints of what to loo
 relevant results. They complete and nail down the query as shoppers type without needing to keep
 typing.
 
-![Query Suggestions](~@assets/media/interface/x-query-suggestions.gif)
+![Query Suggestions](~@assets/x/interface/x-query-suggestions.gif)
 
 ::: warning
 
@@ -37,9 +37,8 @@ Can't quite capture the concept? Learn more about
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/query-suggestions/) your web
+Want to know more? Learn how to
+[configure](/develop-empathy-platform/ui-reference/components/query-suggestions/) your web
 experience.
 
 :::
-
-

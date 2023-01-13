@@ -90,7 +90,7 @@ The component rendering content passed to the default slot and opening the panel
       </template>
     </BaseIdTogglePanelButton>
     <BaseIdTogglePanel :startOpen="true" :animation="animation" panelId="myToggle">
-      <div class="x-text">My toggle</div>
+      <div class="x-text1">My toggle</div>
     </BaseIdTogglePanel>
   </div>
 </template>

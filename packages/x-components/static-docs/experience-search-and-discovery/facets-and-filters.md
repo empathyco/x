@@ -9,7 +9,7 @@ and narrow the search results to better find what they are looking for. Shoppers
 according to the categories or facets defined in the faceted menu, which is usually located on the
 left or upper side of the search engine results page or product listing page.
 
-![Facets](~@assets/media/interface/x-facets.gif)
+![Facets](~@assets/x/interface/x-facets.gif)
 
 X&nbsp;Components for facets present how you have categorized your products, displaying the
 different aspects available (brand, price, color…), while the filter-related components render the
@@ -43,7 +43,7 @@ time, giving them the opportunity to establish a **dialogue** with your product 
 decide what results to display by adding and clearing filters, or make information on product
 results **clearer and more accessible**, meeting different types of faceting layouts.
 
-![Facets](~@assets/media/interface/x-facets.svg)
+![Facets](~@assets/x/interface/x-facets.svg)
 
 ::: details Rendering facets and filters
 
@@ -144,9 +144,7 @@ Make sure your current Search microservice is compatible with this kind of confi
 
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/facets/) your web
-experience.
+Want to know more? Learn how to
+[configure](/develop-empathy-platform/ui-reference/components/facets/) your web experience.
 
 :::
-
-
