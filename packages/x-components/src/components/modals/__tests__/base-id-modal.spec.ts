@@ -14,7 +14,7 @@ import BaseIdModal from '../base-id-modal.vue';
 function mountBaseIdModal({
   modalId = 'myModal',
   defaultSlot = `<span data-test="default-slot">Modal: ${modalId}</span>`,
-  contentClass = ''
+  contentClass
 }: MountBaseIdModalOptions = {}): MountBaseIdModalAPI {
   const [, localVue] = installNewXPlugin();
   const parent = document.createElement('div');
@@ -125,7 +125,6 @@ interface MountBaseIdModalOptions {
   defaultSlot?: string;
   /** The modal id. */
   modalId?: string;
-
   /** Class to add to the content element of the modal. */
   contentClass?: string;
 }

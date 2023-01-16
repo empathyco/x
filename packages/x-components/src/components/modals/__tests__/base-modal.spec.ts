@@ -14,7 +14,7 @@ function mountBaseModal({
   defaultSlot = '<span data-test="default-slot">Modal</span>',
   open = false,
   focusOnOpen = true,
-  contentClass = ''
+  contentClass
 }: MountBaseModalOptions = {}): MountBaseModalAPI {
   const localVue = createLocalVue();
   const wrapper = mount(BaseModal, {

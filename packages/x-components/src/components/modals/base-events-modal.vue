@@ -193,6 +193,34 @@ see a full example on how this would work with custom events.
 </script>
 ```
 
+### Customizing the content with classes
+
+The `contentClass` prop can be used to add classes to the modal content.
+
+```vue
+<template>
+  <div>
+    <BaseEventsModalOpen>Open</BaseEventsModalOpen>
+    <BaseEventsModal contentClass="x-background--neutral-35">
+      <BaseEventsModalClose>Close</BaseEventsModalClose>
+      <img src="success.png" />
+    </BaseEventsModal>
+  </div>
+</template>
+
+<script>
+  import { BaseEventsModalOpen, BaseEventsModal } from '@empathyco/x-components';
+
+  export default {
+    name: 'ModalTest',
+    components: {
+      BaseEventsModalOpen,
+      BaseEventsModal
+    }
+  };
+</script>
+```
+
 ## Events
 
 A list of events that the component will emit:
