@@ -31,8 +31,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { mixins } from 'vue-class-component';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Prop, Mixins } from 'vue-property-decorator';
   import { getTargetElement } from '../../utils/html';
   import Fade from '../animations/fade.vue';
   import { NoElement } from '../no-element';
@@ -47,7 +46,7 @@
    * @public
    */
   @Component
-  export default class BaseModal extends mixins(dynamicPropsMixin(['contentClass'])) {
+  export default class BaseModal extends Mixins(dynamicPropsMixin(['contentClass'])) {
     /**
      * Animation to use for opening/closing the modal. This animation only affects the content.
      */
