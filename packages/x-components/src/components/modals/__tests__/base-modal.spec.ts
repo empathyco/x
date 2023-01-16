@@ -13,14 +13,16 @@ import BaseModal from '../base-modal.vue';
 function mountBaseModal({
   defaultSlot = '<span data-test="default-slot">Modal</span>',
   open = false,
-  focusOnOpen = true
+  focusOnOpen = true,
+  contentClass = ''
 }: MountBaseModalOptions = {}): MountBaseModalAPI {
   const localVue = createLocalVue();
   const wrapper = mount(BaseModal, {
     localVue,
     propsData: {
       open,
-      focusOnOpen
+      focusOnOpen,
+      contentClass
     },
     slots: {
       default: defaultSlot
@@ -142,6 +144,15 @@ describe('testing Base Modal  component', () => {
 
     expect(focusedElementBeforeOpen).toBe(document.activeElement);
   });
+
+  it('allows adding classes to the modal content', () => {
+    const { getModalContent } = mountBaseModal({
+      contentClass: 'test-class',
+      open: true
+    });
+
+    expect(getModalContent().classes()).toContain('test-class');
+  });
 });
 
 interface MountBaseModalOptions {
@@ -151,6 +162,8 @@ interface MountBaseModalOptions {
   open?: boolean;
   /** Indicates if the focus changes to an element inside the modal when it opens. */
   focusOnOpen?: boolean;
+  /** Class to add to the content element of the modal. */
+  contentClass?: string;
 }
 
 interface MountBaseModalAPI {
