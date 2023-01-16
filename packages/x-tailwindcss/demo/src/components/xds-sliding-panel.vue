@@ -55,7 +55,7 @@
     public base!: string;
 
     @Prop({
-      default: () => ['x-buttons-center', 'x-buttons-outside', '']
+      default: () => ['', 'x-buttons-center', 'x-buttons-outside']
     })
     public buttonsPositionVariants!: string[];
 
@@ -75,10 +75,10 @@
 
     public combinations = [
       'x-buttons-center x-fade-sm',
+      'x-buttons-center x-fade-md',
       'x-buttons-outside x-fade-lg',
-      'x-fade-md',
-      'x-sliding-panel-show-buttons-on-hover x-fade-lg x-buttons-outside',
-      'x-sliding-panel-show-buttons-on-hover x-fade-md x-buttons-center'
+      'x-buttons-outside x-fade-sm x-sliding-panel-show-buttons-on-hover ',
+      'x-buttons-center x-fade-md x-sliding-panel-show-buttons-on-hover '
     ];
 
     protected get sections(): ShowcaseSections {
