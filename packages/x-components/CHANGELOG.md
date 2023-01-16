@@ -1,5 +1,19 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.281](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.280...@empathyco/x-components@3.0.0-alpha.281) (2023-01-16)
+
+
+### Features
+
+* **history-queries:** add dynamic classes to the remove history query button (#1007) ([b5623d1](https://github.com/empathyco/x/commit/b5623d1c6f7f2709251164c6055b616218163c6f)), closes [EX-7833](https://searchbroker.atlassian.net/browse/EX-7833)
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
