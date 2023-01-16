@@ -1,6 +1,11 @@
 import { TailwindHelpers } from '../../../types';
 
-// eslint-disable-next-line jsdoc/require-description
+/**
+ * Returns the `fade` variants for the component `sliding panel`.
+ *
+ * @param helpers - The {@link TailwindHelpers} to generate CSS.
+ * @returns The {@link CssStyleOptions} for the variant.
+ */
 export function slidingPanelFade({ theme }: TailwindHelpers) {
   /* eslint-disable @typescript-eslint/restrict-template-expressions */
   return {

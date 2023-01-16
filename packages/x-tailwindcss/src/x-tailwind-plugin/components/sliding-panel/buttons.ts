@@ -1,10 +1,15 @@
+/**
+ * Returns the button position variants for the component `sliding panel`.
+ *
+ * @returns The {@link CssStyleOptions} for the variant.
+ */
 export function slidingPanelButtons() {
   return {
     '.sliding-panel__button': {
       pointerEvents: 'none',
       position: 'absolute',
       transition: 'all ease-out 0.2s',
-      // z-index: 2; /* To overlay the design system gradient with z-index:1 */
+      zIndex: 2, // To overlay the fade gradient with z-index:1
 
       '&-left': {
         left: 0,

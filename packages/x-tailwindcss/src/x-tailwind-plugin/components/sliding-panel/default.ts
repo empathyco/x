@@ -2,6 +2,12 @@ import { TailwindHelpers } from '../../../types';
 import { slidingPanelButtons } from './buttons';
 import { slidingPanelFade } from './fade';
 
+/**
+ * Returns the default styles for the component `sliding panel`.
+ *
+ * @param helpers - The {@link TailwindHelpers} to generate CSS.
+ * @returns The {@link CssStyleOptions} for the component.
+ */
 export function slidingPanelDefault(helpers: TailwindHelpers) {
   return {
     position: 'relative',
