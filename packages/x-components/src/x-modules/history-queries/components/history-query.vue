@@ -17,6 +17,7 @@
     </BaseSuggestion>
     <RemoveHistoryQuery
       class="x-history-query__remove x-suggestion-group-button"
+      :class="removeHistoryQueryClass"
       :historyQuery="suggestion"
       data-test="remove-history-query"
     >
@@ -31,14 +32,14 @@
 
 <script lang="ts">
   import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Mixins, Prop } from 'vue-property-decorator';
   import { Getter } from '../../../components/decorators/store.decorators';
   import Highlight from '../../../components/highlight.vue';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';
+  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
   import RemoveHistoryQuery from './remove-history-query.vue';
 
   /**
@@ -52,7 +53,7 @@
     mixins: [xComponentMixin(historyQueriesXModule)],
     components: { Highlight, RemoveHistoryQuery, BaseSuggestion }
   })
-  export default class HistoryQuery extends Vue {
+  export default class HistoryQuery extends Mixins(dynamicPropsMixin(['removeHistoryQueryClass'])) {
     /**
      * The history query suggestion to render.
      *
