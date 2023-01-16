@@ -101,9 +101,6 @@ export default {
     lg: '1.8',
     default: 'auto'
   },
-  overlay: {
-    image: 'rgba(95, 113, 123, 0.6)'
-  },
   screens: {
     tablet: '800px',
     desktop: '1200px',

@@ -11,6 +11,7 @@
       :class="cssClass"
       title="Click me to copy CSS classes"
       style="width: 200px"
+      class="x-bg-neutral-50/60"
     >
       <img
         src="https://assets.empathy.co/images-demo/2885.jpg"
