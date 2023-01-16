@@ -15,6 +15,7 @@ export function slidingPanelDefault(helpers: TailwindHelpers) {
     flexFlow: 'row nowrap',
     alignItems: 'center',
     height: '100%',
+    zIndex: 0,
     '.sliding-panel__scroll': {
       display: 'flex',
       flex: '100%',
@@ -22,6 +23,9 @@ export function slidingPanelDefault(helpers: TailwindHelpers) {
       overflowX: 'auto',
       overflowY: 'hidden',
       scrollbarWidth: 'none', // Firefox
+      '&__scroll > *': {
+        flex: '0 0 auto'
+      },
       '&::-webkit-scrollbar': {
         display: 'none'
       }

@@ -9,7 +9,7 @@ export function slidingPanelButtons() {
       pointerEvents: 'none',
       position: 'absolute',
       transition: 'all ease-out 0.2s',
-      zIndex: 2, // To overlay the fade gradient with z-index:1
+      zIndex: 2,
 
       '&-left': {
         left: 0,
@@ -46,11 +46,29 @@ export function slidingPanelButtons() {
           pointerEvents: 'all'
         }
       },
-      '&:hover': {
-        '.sliding-panel__button': {
+      '&:not(.sliding-panel--at-start):hover': {
+        '.sliding-panel__button-left': {
           opacity: 1,
           pointerEvents: 'all'
         }
+      },
+      '&:not(.sliding-panel--at-end):hover': {
+        '.sliding-panel__button-right': {
+          opacity: 1,
+          pointerEvents: 'all'
+        }
+      }
+    },
+    '&:not(.sliding-panel-show-buttons-on-hover):not(.sliding-panel--at-start)': {
+      '.sliding-panel__button-left': {
+        opacity: 1,
+        pointerEvents: 'all'
+      }
+    },
+    '&:not(.sliding-panel-show-buttons-on-hover):not(.sliding-panel--at-end)': {
+      '.sliding-panel__button-right': {
+        opacity: 1,
+        pointerEvents: 'all'
       }
     }
   };
