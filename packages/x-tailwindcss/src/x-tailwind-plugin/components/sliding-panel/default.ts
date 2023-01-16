@@ -16,14 +16,14 @@ export function slidingPanelDefault(helpers: TailwindHelpers) {
     alignItems: 'center',
     height: '100%',
     zIndex: 0,
-    '.sliding-panel__scroll': {
+    '.sliding-panel-scroll': {
       display: 'flex',
       flex: '100%',
       flexFlow: 'row nowrap',
       overflowX: 'auto',
       overflowY: 'hidden',
       scrollbarWidth: 'none', // Firefox
-      '&__scroll > *': {
+      '> *': {
         flex: '0 0 auto'
       },
       '&::-webkit-scrollbar': {

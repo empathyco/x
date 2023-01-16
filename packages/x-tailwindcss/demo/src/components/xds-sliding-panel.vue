@@ -10,8 +10,8 @@
       :class="cssClass"
       title="Click me to copy CSS classes"
     >
-      <button class="x-button x-sliding-panel__button x-sliding-panel__button-left">ᐸ</button>
-      <div class="x-sliding-panel__scroll x-gap-12">
+      <button class="x-button x-sliding-panel-button x-sliding-panel-button-left">ᐸ</button>
+      <div class="x-sliding-panel-scroll x-gap-12">
         <div
           v-for="(item, index) of items"
           :key="index"
@@ -22,7 +22,7 @@
           <span>{{ item }}</span>
         </div>
       </div>
-      <button class="x-button x-sliding-panel__button x-sliding-panel__button-right">ᐳ</button>
+      <button class="x-button x-sliding-panel-button x-sliding-panel-button-right">ᐳ</button>
     </div>
   </XdsBaseShowcase>
 </template>
@@ -62,8 +62,8 @@
     @Prop({
       default: () => [
         'x-sliding-panel-show-buttons-on-hover',
-        'x-sliding-panel-show-buttons-on-hover x-sliding-panel--at-start',
-        'x-sliding-panel-show-buttons-on-hover x-sliding-panel--at-end'
+        'x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
+        'x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end'
       ]
     })
     public showButtonsOnHover!: string[];
