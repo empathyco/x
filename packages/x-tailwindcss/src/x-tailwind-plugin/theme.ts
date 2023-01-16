@@ -1,4 +1,7 @@
 export default {
+  aspectRatio: {
+    default: '3 / 4'
+  },
   borderRadius: {
     none: 0,
     xs: '2px',
@@ -97,6 +100,9 @@ export default {
     md: '1.6',
     lg: '1.8',
     default: 'auto'
+  },
+  overlay: {
+    image: 'rgba(95, 113, 123, 0.6)'
   },
   screens: {
     tablet: '800px',
