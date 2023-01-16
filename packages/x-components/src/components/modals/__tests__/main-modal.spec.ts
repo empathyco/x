@@ -96,6 +96,19 @@ describe('testing Main Modal  component', () => {
     await wrapper.find(getDataTestSelector('test-button')).trigger('click');
     expect(getModalContent().exists()).toBe(true);
   });
+
+  it('allows adding classes to the modal content', async () => {
+    const { getModalContent, emit } = renderMainModal({
+      template: `
+        <MainModal contentClass="test-class">
+          <span>Some content</span>
+        </MainModal>
+      `
+    });
+
+    await emit('UserClickedOpenX');
+    expect(getModalContent().classes()).toContain('test-class');
+  });
 });
 
 interface RenderMainModalOptions {
