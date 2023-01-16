@@ -25,7 +25,7 @@
     "directory": "packages/deep-merge"
   },
   "engines": {
-    "node": "16"
+    "node": ">=16"
   },
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",
