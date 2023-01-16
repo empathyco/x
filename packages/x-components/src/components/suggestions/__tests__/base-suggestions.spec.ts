@@ -17,7 +17,8 @@ function renderBaseSuggestions({
                 </BaseSuggestions>`,
   suggestions = getPopularSearchesStub(),
   showFacets = false,
-  showPlainSuggestion = false
+  showPlainSuggestion = false,
+  suggestionItemClass
 }: BaseSuggestionsOptions = {}): BaseSuggestionsAPI {
   const wrapper = mount(
     {
@@ -27,7 +28,7 @@ function renderBaseSuggestions({
       }
     },
     {
-      propsData: { suggestions, showFacets, showPlainSuggestion }
+      propsData: { suggestions, showFacets, showPlainSuggestion, suggestionItemClass }
     }
   );
 
@@ -162,6 +163,15 @@ describe('testing Base Suggestions component', () => {
     expect(suggestionsWrappers[4].text()).toEqual('jeans - kids');
     expect(suggestionsWrappers[5].text()).toEqual('jeans - adults');
   });
+
+  it('allows to add classes to the `suggestion item`', () => {
+    const { getSuggestionsWrappers } = renderBaseSuggestions({
+      suggestionItemClass: 'custom-class'
+    });
+    getSuggestionsWrappers().forEach(suggestionWrapper => {
+      expect(suggestionWrapper.classes('custom-class')).toBe(true);
+    });
+  });
 });
 
 /**
@@ -178,6 +188,8 @@ interface BaseSuggestionsOptions {
   showFacets?: boolean;
   /** Flag to indicate if a suggestion with filters should be rendered. */
   showPlainSuggestion?: boolean;
+  /** Class to add to the node wrapping the suggestion item. */
+  suggestionItemClass?: string;
 }
 
 /**
