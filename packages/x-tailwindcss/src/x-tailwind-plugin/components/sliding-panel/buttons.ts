@@ -30,12 +30,10 @@ export function slidingPanelButtons() {
     },
     '&.buttons-outside': {
       '.sliding-panel-button-left': {
-        transform: 'translateX(-100%)',
-        pointerEvents: 'all'
+        transform: 'translateX(-100%)'
       },
       '.sliding-panel-button-right': {
-        transform: 'translateX(100%)',
-        pointerEvents: 'all'
+        transform: 'translateX(100%)'
       }
     },
     '&.sliding-panel-show-buttons-on-hover': {
