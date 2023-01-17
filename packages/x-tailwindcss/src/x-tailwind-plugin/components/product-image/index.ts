@@ -1,5 +1,4 @@
 import { rename } from '@empathyco/x-utils';
-import { deepMerge } from '@empathyco/x-deep-merge';
 import { TailwindHelpers } from '../../../types';
 import { productImageDefault } from './default';
 import { overlay } from './overlay';
