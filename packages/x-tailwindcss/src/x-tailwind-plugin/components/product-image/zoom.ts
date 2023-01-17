@@ -1,5 +1,3 @@
-import { deepMerge } from '@empathyco/x-deep-merge';
-
 /**
  * Returns the default styles for component `product image`.
  *
@@ -7,7 +5,7 @@ import { deepMerge } from '@empathyco/x-deep-merge';
  */
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function zoom() {
-  return deepMerge({
+  return {
     zoom: {
       img: {
         transition: 'transform 0.3s ease-out',
@@ -16,5 +14,5 @@ export function zoom() {
         }
       }
     }
-  });
+  };
 }

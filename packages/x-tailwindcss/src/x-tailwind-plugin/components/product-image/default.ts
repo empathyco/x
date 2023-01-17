@@ -1,4 +1,3 @@
-import { deepMerge } from '@empathyco/x-deep-merge';
 import { TailwindHelpers } from '../../../types';
 
 /**
@@ -10,11 +9,11 @@ import { TailwindHelpers } from '../../../types';
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function productImageDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
-  return deepMerge({
+  return {
     aspectRatio: theme('aspectRatio.default'),
     overflow: 'hidden',
     img: {
       objectFit: 'contain'
     }
-  });
+  };
 }
