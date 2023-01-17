@@ -13,6 +13,9 @@ export const popularSearchesEndpointAdapter = endpointAdapterFactory<
   requestMapper: popularSearchesRequestMapper,
   responseMapper: popularSearchesResponseMapper,
   defaultRequestOptions: {
-    id: 'popular-searches'
+    id: 'popular-searches',
+    parameters: {
+      internal: true
+    }
   }
 });

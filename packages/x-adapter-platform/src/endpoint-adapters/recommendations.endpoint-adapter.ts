@@ -13,6 +13,9 @@ export const recommendationsEndpointAdapter = endpointAdapterFactory<
   requestMapper: recommendationsRequestMapper,
   responseMapper: recommendationsResponseMapper,
   defaultRequestOptions: {
-    id: 'recommendations'
+    id: 'recommendations',
+    parameters: {
+      internal: true
+    }
   }
 });
