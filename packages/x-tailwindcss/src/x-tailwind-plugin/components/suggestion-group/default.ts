@@ -20,8 +20,10 @@ export function suggestionGroupDefault(helpers: TailwindHelpers) {
 
     display: 'grid',
     gridAutoFlow: 'column',
+    gridTemplateColumns: 'auto [last-col]',
+    gridAutoColumns: '1fr',
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'baseline',
     alignContent: 'center',
     cursor: 'pointer',
 
@@ -37,6 +39,10 @@ export function suggestionGroupDefault(helpers: TailwindHelpers) {
       fontSize: 'inherit',
       fontFamily: 'inherit',
       fontWeight: 'inherit'
+    },
+
+    '& > :last-child': {
+      justifySelf: 'end'
     }
   };
 }
