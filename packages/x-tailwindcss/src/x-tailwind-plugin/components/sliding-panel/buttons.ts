@@ -9,7 +9,7 @@ export function slidingPanelButtons() {
       pointerEvents: 'none',
       position: 'absolute',
       transition: 'all ease-out 0.2s',
-      zIndex: 2,
+      zIndex: 1,
 
       '&-left': {
         left: 0,
