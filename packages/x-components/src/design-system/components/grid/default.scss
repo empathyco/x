@@ -1,4 +1,4 @@
-.x-grid {
+.x-grid-list {
   // layout
   margin: 0;
   display: grid;
@@ -17,7 +17,7 @@
     }
   }
 
-  &--cols-auto .x-grid__item {
+  &--cols-auto .x-grid-list__item {
     // layout
     min-width: var(--x-size-min-width-grid-item);
   }
