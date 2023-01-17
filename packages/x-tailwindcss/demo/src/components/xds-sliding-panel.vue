@@ -77,8 +77,8 @@
       'x-buttons-center x-fade-sm',
       'x-buttons-center x-fade-md',
       'x-buttons-outside x-fade-lg',
-      'x-buttons-outside x-fade-sm x-sliding-panel-show-buttons-on-hover ',
-      'x-buttons-center x-fade-md x-sliding-panel-show-buttons-on-hover '
+      'x-buttons-outside x-fade-sm x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
+      'x-buttons-center x-fade-md x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end'
     ];
 
     protected get sections(): ShowcaseSections {
