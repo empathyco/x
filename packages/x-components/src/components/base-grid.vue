@@ -2,7 +2,7 @@
   <component
     :is="animation"
     :style="style"
-    class="x-grid x-base-grid"
+    class="x-grid-list x-base-grid"
     :class="cssClasses"
     tag="ul"
     data-test="grid"
@@ -11,7 +11,7 @@
       v-for="{ slotName, item, cssClass } in gridItems"
       :key="item.id"
       :class="cssClass"
-      class="x-grid__item x-base-grid__item"
+      class="x-grid-list__item x-base-grid__item"
     >
       <!--
         @slot Customized item rendering. Specifying a slot with the item's modelName will result in
@@ -132,7 +132,7 @@
      * @internal
      */
     protected get cssClasses(): VueCSSClasses {
-      return this.columns ? `x-grid--cols-${this.columns}` : 'x-grid--cols-auto';
+      return this.columns ? `x-grid-list--cols-${this.columns}` : 'x-grid-list--cols-auto';
     }
 
     /**
