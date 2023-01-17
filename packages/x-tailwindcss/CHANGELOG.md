@@ -1,5 +1,19 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.45...@empathyco/x-tailwindcss@0.2.0-alpha.46) (2023-01-17)
+
+
+### Features
+
+* **design-system:** modify default styles in the suggestion-group (#1011) ([833c4f4](https://github.com/empathyco/x/commit/833c4f4440f90d2b984803fe2f863e690a59a3bf)), closes [EX-7845](https://searchbroker.atlassian.net/browse/EX-7845)
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
