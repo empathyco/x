@@ -20,7 +20,8 @@ export function suggestionGroupSizes(helpers: TailwindHelpers) {
     },
     lg: {
       minHeight: theme('spacing.48'),
-      fontSize: theme('fontSize.md')
+      fontSize: theme('fontSize.md'),
+      gap: theme('spacing.24')
     }
   };
 }
