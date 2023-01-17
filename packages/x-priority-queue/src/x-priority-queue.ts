@@ -34,7 +34,7 @@ export class BaseXPriorityQueueNode<SomeRecord extends Dictionary, SomeData exte
    * @public
    */
   toString(): string {
-    return `[${this.priority}] ${this.key as string} -> ${JSON.stringify(this.data)}`;
+    return `[${this.priority}] ${String(this.key)} -> ${JSON.stringify(this.data)}`;
   }
 }
 
