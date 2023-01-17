@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.285](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.284...@empathyco/x-components@3.0.0-alpha.285) (2023-01-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* Rename `x-grid` class to `x-grid-list`.
+* Rename `x-grid__item` class to `x-grid-list__item`.
+* Rename `x-grid--cols-{cols}` class to `x-grid-list--cols-{cols}`.
+
+### Features
+
+* rename `x-grid` class to `x-grid-list` (#1015) ([dbb5d50](https://github.com/empathyco/x/commit/dbb5d502dd9c1e69c18d137edc8be2e13bceaeb2)), closes [EX-7481](https://searchbroker.atlassian.net/browse/EX-7481)
+
+
+
 ## [3.0.0-alpha.284](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.283...@empathyco/x-components@3.0.0-alpha.284) (2023-01-17)
 
 **Note:** Version bump only for package @empathyco/x-components
