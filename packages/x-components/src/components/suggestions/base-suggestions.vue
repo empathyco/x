@@ -301,7 +301,7 @@ In this example, the `contentClass` prop can be used to add classes to the sugge
 
 ```vue
 <template>
-  <BaseSuggestions :suggestions="suggestions" suggestionItemClas="x-custom-class" />
+  <BaseSuggestions :suggestions="suggestions" suggestionItemClass="x-custom-class" />
 </template>
 
 <script>
