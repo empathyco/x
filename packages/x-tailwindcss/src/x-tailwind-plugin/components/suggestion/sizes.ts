@@ -21,7 +21,7 @@ export function suggestionSizes({ theme }: TailwindHelpers) {
     },
     lg: {
       minHeight: theme('spacing.48'),
-      gap: theme('spacing.12'),
+      gap: theme('spacing.24'),
       fontSize: theme('fontSize.md')
     }
   };
