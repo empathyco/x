@@ -296,4 +296,37 @@ This will render:
   };
 </script>
 ```
+
+In this example, the `contentClass` prop can be used to add classes to the suggestion item.
+
+```vue
+<template>
+  <BaseSuggestions :suggestions="suggestions" suggestionItemClas="x-custom-class" />
+</template>
+
+<script>
+  import { BaseSuggestions } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseSuggestionsDemo',
+    components: {
+      BaseSuggestions
+    },
+    data() {
+      return {
+        suggestions: [
+          {
+            facets: [],
+            key: 'chips',
+            query: 'Chips',
+            totalResults: 10,
+            results: [],
+            modelName: 'PopularSearch'
+          }
+        ]
+      };
+    }
+  };
+</script>
+```
 </docs>
