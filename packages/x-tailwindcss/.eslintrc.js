@@ -4,6 +4,7 @@ module.exports = {
     project: 'tsconfig.json'
   },
   rules: {
-    '@typescript-eslint/explicit-function-return-type': 'off'
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'off'
   }
 };
