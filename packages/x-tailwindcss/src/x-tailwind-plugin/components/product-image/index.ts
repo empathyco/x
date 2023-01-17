@@ -14,9 +14,9 @@ import { zoom } from './zoom';
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function productImage(helpers: TailwindHelpers) {
   return {
-    '.product-image': deepMerge(
-      productImageDefault(helpers),
-      rename(
+    '.product-image': {
+      ...productImageDefault(helpers),
+      ...rename(
         {
           ...zoom(),
           ...overlay()
@@ -25,6 +25,6 @@ export function productImage(helpers: TailwindHelpers) {
           prefix: '&-'
         }
       )
-    )
+    }
   };
 }
