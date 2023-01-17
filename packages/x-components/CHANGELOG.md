@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.282](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.281...@empathyco/x-components@3.0.0-alpha.282) (2023-01-17)
+
+
+### Features
+
+* add dynamic classes to the suggestion item inside the `base-suggestions` (#1008) ([3e0b683](https://github.com/empathyco/x/commit/3e0b683eb83b9b2e9f6ebb0a17b80a9ff46d6e3c)), closes [EX-7834](https://searchbroker.atlassian.net/browse/EX-7834)
+
+
+
 ## [3.0.0-alpha.281](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.280...@empathyco/x-components@3.0.0-alpha.281) (2023-01-16)
 
 
