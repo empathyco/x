@@ -18,7 +18,7 @@ export function productImage(helpers: TailwindHelpers) {
       ...rename(
         {
           ...zoom(),
-          ...overlay()
+          ...overlay(helpers)
         },
         {
           prefix: '&-'
