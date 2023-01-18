@@ -55,7 +55,7 @@
     public base!: string;
 
     @Prop({
-      default: () => ['', 'x-buttons-center', 'x-buttons-outside']
+      default: () => ['', 'x-sliding-panel-buttons-center', 'x-sliding-panel-buttons-outside']
     })
     public buttonsPositionVariants!: string[];
 
@@ -69,16 +69,22 @@
     public showButtonsOnHover!: string[];
 
     @Prop({
-      default: () => ['x-fade-sm', 'x-fade-md', 'x-fade-lg']
+      default: () => [
+        'x-sliding-panel-fade-sm',
+        'x-sliding-panel-fade-md',
+        'x-sliding-panel-fade-lg'
+      ]
     })
     public fadeSizes!: string[];
 
     public combinations = [
-      'x-buttons-center x-fade-sm',
-      'x-buttons-center x-fade-md',
-      'x-buttons-outside x-fade-lg',
-      'x-buttons-outside x-fade-sm x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
-      'x-buttons-center x-fade-md x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end'
+      'x-sliding-panel-buttons-center x-sliding-panel-fade-sm',
+      'x-sliding-panel-buttons-center x-sliding-panel-fade-md',
+      'x-sliding-panel-buttons-outside x-sliding-panel-fade-lg',
+      // eslint-disable-next-line max-len
+      'x-sliding-panel-buttons-outside x-sliding-panel-fade-sm x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
+      // eslint-disable-next-line max-len
+      'x-sliding-panel-buttons-center x-sliding-panel-fade-md x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end'
     ];
 
     protected get sections(): ShowcaseSections {

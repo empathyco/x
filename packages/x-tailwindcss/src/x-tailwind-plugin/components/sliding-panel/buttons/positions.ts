@@ -5,7 +5,7 @@
  */
 export function slidingPanelButtonsPositions() {
   return {
-    '&.buttons-center': {
+    '&.sliding-panel-buttons-center': {
       '.sliding-panel-button-left': {
         transform: 'translateX(-50%)'
       },
@@ -13,7 +13,7 @@ export function slidingPanelButtonsPositions() {
         transform: 'translateX(50%)'
       }
     },
-    '&.buttons-outside': {
+    '&.sliding-panel-buttons-outside': {
       '.sliding-panel-button-left': {
         pointerEvents: 'all',
         transform: 'translateX(-100%)'

@@ -11,7 +11,7 @@ import { fadeSizes } from './sizes';
 export function slidingPanelFade(helpers: TailwindHelpers) {
   const sizes = fadeSizes(helpers);
   return {
-    '&.fade': {
+    '&.sliding-panel-fade': {
       ...sizes.md,
       ...rename(
         {
