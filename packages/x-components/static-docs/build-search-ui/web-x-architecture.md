@@ -7,7 +7,7 @@ tags:
   - architecture
 ---
 
-![Interface X architecture](~@assets/media/interface/x-architecture.svg)
+![Interface X architecture](~@assets/x/interface/x-architecture.svg)
 
 <FootNote>
 

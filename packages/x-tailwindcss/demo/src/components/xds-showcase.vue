@@ -7,6 +7,7 @@
     <XdsInput />
     <XdsSuggestion />
     <XdsSuggestionGroup />
+    <XdsSlidingPanel />
     <XdsProductImage />
   </div>
 </template>
@@ -20,6 +21,7 @@
   import XdsTypography from './xds-typography.vue';
   import XdsInput from './xds-input.vue';
   import XdsSuggestionGroup from './xds-suggestion-group.vue';
+  import XdsSlidingPanel from './xds-sliding-panel.vue';
   import XdsProductImage from './xds-product-image.vue';
 
   @Component({
@@ -31,6 +33,7 @@
       XdsInput,
       XdsSuggestion,
       XdsSuggestionGroup,
+      XdsSlidingPanel,
       XdsProductImage
     }
   })

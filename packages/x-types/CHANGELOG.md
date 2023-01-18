@@ -1,15 +1,18 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.53](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.52...@empathyco/x-types@10.0.0-alpha.53) (2023-01-13)
+
+### Build System
+
+- **deps:** update dependencies (#1004)
+  ([7343506](https://github.com/empathyco/x/commit/73435063e97648ed5bb87600bb7cfbb5eb64b70c))
 
 ## [10.0.0-alpha.52](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.51...@empathyco/x-types@10.0.0-alpha.52) (2023-01-10)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-
-
-
 
 # Change Log
 
