@@ -178,7 +178,7 @@ const { nextQueries } = await platformAdapter.nextQueries({
   [`QuerySuggestionsResponse`](https://github.com/empathyco/x/blob/main/packages/x-types/src/response/query-suggestions-response.model.ts)
 
 The `QuerySuggestions` endpoint returns suggestions based on a query. For example, for the query
-"trousers" we could have "trousers summer, trousers grey, trousers men, trousers woman...." as query
+"trousers" we could have "denim trousers, cargo trousers, chino trousers, etc..." as query
 suggestions.
 
 ```ts
