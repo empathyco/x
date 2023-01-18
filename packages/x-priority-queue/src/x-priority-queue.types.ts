@@ -1,18 +1,20 @@
 import { Dictionary } from '@empathyco/x-utils';
 
 /**
- * An object containing a key, a priority number and a data. By default, the key is of type
- * string and the data is of type {@link @empathyco/x-utils#Dictionary | dictionary}.
+ * An object containing a key, a priority number and a data.
  *
  * @public
  */
-export interface XPriorityQueueNode<SomeKey extends string, SomeData extends Dictionary> {
+export interface XPriorityQueueNode<
+  SomeRecord extends Dictionary,
+  SomeData extends Dictionary = Dictionary
+> {
   /**
    * The key to store the element in the queue.
    *
    * @public
    */
-  key: SomeKey;
+  key: keyof SomeRecord;
   /**
    * The number used to sort the elements in the queue.
    *
@@ -32,7 +34,7 @@ export interface XPriorityQueueNode<SomeKey extends string, SomeData extends Dic
  *
  * @public
  */
-export interface XPriorityQueue<SomeKey extends string, SomeData extends Dictionary> {
+export interface XPriorityQueue<SomeRecord extends Dictionary, SomeData extends Dictionary> {
   /**
    * Inserts an element into the queue in the correct position based on its priority.
    *
@@ -40,25 +42,28 @@ export interface XPriorityQueue<SomeKey extends string, SomeData extends Diction
    * @param priority - The priority of the element to insert. This will determine its position
    * in the queue.
    * @param data - Extra data related to the inserted key.
-   *
-   * @public
    */
-  push(key: SomeKey, priority: number, data?: SomeData): void;
+  push(key: keyof SomeRecord, priority: number, data?: SomeData): void;
 
   /**
    * Retrieves and removes the head {@link XPriorityQueueNode | node} of the queue.
    *
    * @returns The head {@link XPriorityQueueNode | node} of the {@link XPriorityQueue | queue} or
    * undefined if the queue is empty.
-   *
-   * @public
    */
-  pop(): XPriorityQueueNode<SomeKey, SomeData> | undefined;
+  pop(): XPriorityQueueNode<SomeRecord, SomeData> | undefined;
+
+  /**
+   * Retrieves the number of elements stored in the queue.
+   *
+   * @returns The number of elements in the queue.
+   */
+  size(): number;
 }
 
 /**
- * Alias type to express a priority comparator function.
+ * Alias type representing a comparator function between two numbers.
  *
  * @public
  */
-export type PriorityComparatorFn = (a: number, b: number) => boolean;
+export type NumberComparatorFn = (a: number, b: number) => boolean;
