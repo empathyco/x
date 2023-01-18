@@ -34,7 +34,7 @@
     }
   })
   export default class XdsProductImageShowcase extends Vue {
-    @Prop({ default: () => 'x-product-image' })
+    @Prop({ default: 'x-product-image' })
     public base!: string;
 
     @Prop({ default: () => 'x-product-image-zoom' })
