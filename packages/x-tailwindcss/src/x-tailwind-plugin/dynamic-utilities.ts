@@ -8,7 +8,6 @@ import { TailwindHelpers } from '../types';
  *
  * @public
  */
-// eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export default function dynamicUtilities({ theme }: TailwindHelpers) {
   return {
     // TODO: replace this example styles with actual design styles

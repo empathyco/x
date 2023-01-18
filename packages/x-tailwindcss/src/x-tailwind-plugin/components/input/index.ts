@@ -12,7 +12,6 @@ import { inputLine } from './line';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-// eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function input(helpers: TailwindHelpers) {
   return {
     '.input': deepMerge(

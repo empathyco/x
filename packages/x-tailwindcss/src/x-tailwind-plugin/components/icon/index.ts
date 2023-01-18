@@ -13,7 +13,6 @@ import { iconStrokeWidths } from './stroke-widths';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-// eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function icon(helpers: TailwindHelpers) {
   return {
     '.icon': Object.assign(
