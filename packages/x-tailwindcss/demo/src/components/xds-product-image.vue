@@ -37,7 +37,7 @@
     @Prop({ default: 'x-product-image' })
     public base!: string;
 
-    @Prop({ default: () => 'x-product-image-zoom' })
+    @Prop({ default: 'x-product-image-zoom' })
     public zoom!: string;
 
     @Prop({ default: 'x-product-image-overlay' })
