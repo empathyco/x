@@ -1,6 +1,6 @@
 import { TailwindHelpers } from '../../../types';
-import { slidingPanelButtons } from './buttons';
 import { slidingPanelFade } from './fade';
+import { slidingPanelButtons } from './buttons';
 
 /**
  * Returns the default styles for the component `sliding panel`.
