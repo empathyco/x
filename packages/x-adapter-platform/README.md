@@ -204,7 +204,7 @@ const { suggestions } = await platformAdapter.querySuggestions({
 - response:
   [`RelatedTagsResponse`](https://github.com/empathyco/x/blob/main/packages/x-types/src/response/related-tags-response.model.ts)
 
-The `RelatedTags` endpoint will return terms used to help filtering a search query by adding more
+The `RelatedTags` endpoint will return terms used to help refining a search query by adding more
 **specificity** (e.g, adjectives: log, short, gluten-free, categories: kids, summer...).
 
 ```ts
