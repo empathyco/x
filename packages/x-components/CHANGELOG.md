@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.287](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.286...@empathyco/x-components@3.0.0-alpha.287) (2023-01-18)
+
+
+### Features
+
+* **components:** add `contentClass` to `modals` (#1009) ([68b8790](https://github.com/empathyco/x/commit/68b8790289dd6e233c0199497cdb09f515ccbeec)), closes [EX-7479](https://searchbroker.atlassian.net/browse/EX-7479)
+
+
+
 ## [3.0.0-alpha.286](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.285...@empathyco/x-components@3.0.0-alpha.286) (2023-01-18)
 
 

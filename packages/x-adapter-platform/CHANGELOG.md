@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.57](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.56...@empathyco/x-adapter-platform@1.0.0-alpha.57) (2023-01-18)
+
+
+### Features
+
+* **endpoint-adapters:** add `internal` field to all `requests` but `tagging` (#1016) ([d718bc1](https://github.com/empathyco/x/commit/d718bc1a2b0449fc8d41f8d23cbb882adad3d8eb)), closes [EX-7780](https://searchbroker.atlassian.net/browse/EX-7780)
+
+
+
 ## [1.0.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.55...@empathyco/x-adapter-platform@1.0.0-alpha.56) (2023-01-18)
 
 
