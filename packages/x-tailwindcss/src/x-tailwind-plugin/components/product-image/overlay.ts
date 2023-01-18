@@ -1,5 +1,5 @@
 /**
- * Returns the `overlay` variant for component `product image`.
+ * Returns the `overlay` variant of component `product-image`.
  *
  * @returns The {@link CssStyleOptions} for the variant.
  */
