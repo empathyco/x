@@ -40,7 +40,7 @@
     @Prop({ default: () => 'x-product-image-zoom' })
     public zoom!: string;
 
-    @Prop({ default: () => ['x-product-image-overlay'] })
+    @Prop({ default: 'x-product-image-overlay' })
     public overlay!: string;
 
     protected get sections(): ShowcaseSections {
