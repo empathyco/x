@@ -30,19 +30,17 @@ export function slidingPanelButtons() {
     },
     '&.buttons-outside': {
       '.sliding-panel-button-left': {
+        pointerEvents: 'all',
         transform: 'translateX(-100%)'
       },
       '.sliding-panel-button-right': {
+        pointerEvents: 'all',
         transform: 'translateX(100%)'
       }
     },
     '&.sliding-panel-show-buttons-on-hover': {
       '.sliding-panel-button': {
-        opacity: 0,
-        '&:hover': {
-          opacity: 1,
-          pointerEvents: 'all'
-        }
+        opacity: 0
       },
       '&:not(.sliding-panel-at-start):hover': {
         '.sliding-panel-button-left': {
