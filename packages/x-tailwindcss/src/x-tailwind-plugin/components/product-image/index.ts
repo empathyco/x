@@ -5,7 +5,7 @@ import { overlay } from './overlay';
 import { zoom } from './zoom';
 
 /**
- * Returns the component `input` CSS.
+ * Returns the component `product-image` CSS.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
