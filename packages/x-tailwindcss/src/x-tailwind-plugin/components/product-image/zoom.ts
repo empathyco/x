@@ -1,5 +1,5 @@
 /**
- * Returns the default styles for component `product image`.
+ * Returns the `zoom` variant of the component `product-image`.
  *
  * @returns The {@link CssStyleOptions} for the component.
  */
