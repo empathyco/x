@@ -8,9 +8,6 @@ export const taggingEndpointAdapter = endpointAdapterFactory<TaggingRequest, voi
   defaultRequestOptions: {
     id: 'tagging',
     cancelable: false,
-    properties: { keepalive: true },
-    parameters: {
-      internal: true
-    }
+    properties: { keepalive: true }
   }
 });
