@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.286](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.285...@empathyco/x-components@3.0.0-alpha.286) (2023-01-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **history-queries:** Renamed `removeHistoryQueryClass` prop to `removeButtonClass`.
+
+### Features
+
+* **history-queries:** add dynamic classes to the history query suggestion (#1014) ([ddd4ac7](https://github.com/empathyco/x/commit/ddd4ac76f30f90bb68497d507948caee060944cf)), closes [EX-7853](https://searchbroker.atlassian.net/browse/EX-7853)
+
+
+
 ## [3.0.0-alpha.285](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.284...@empathyco/x-components@3.0.0-alpha.285) (2023-01-17)
 
 

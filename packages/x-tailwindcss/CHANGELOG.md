@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.47...@empathyco/x-tailwindcss@0.2.0-alpha.48) (2023-01-18)
+
+
+### Features
+
+* **design-sytem:** add sliding panel to XDS (#1006) ([541854a](https://github.com/empathyco/x/commit/541854a648a0c85ea2421fab4de600952f8407e5))
+
+
+
 ## [0.2.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.46...@empathyco/x-tailwindcss@0.2.0-alpha.47) (2023-01-17)
 
 
