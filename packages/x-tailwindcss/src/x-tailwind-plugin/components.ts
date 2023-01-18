@@ -18,7 +18,6 @@ import { slidingPanel } from './components/sliding-panel';
  *
  * @public
  */
-// eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export default function components(helpers: TailwindHelpers) {
   return {
     ...variables(helpers),

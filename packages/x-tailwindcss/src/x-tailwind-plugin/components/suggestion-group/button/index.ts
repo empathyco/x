@@ -12,7 +12,6 @@ import { suggestionGroupButtonLighter } from './lighter';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-// eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function suggestionGroupButton(helpers: TailwindHelpers) {
   return {
     '.suggestion-group-button': {
