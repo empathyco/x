@@ -12,6 +12,7 @@ shoppers need a new dimension to **connect effortlessly** to the most relevant p
 
 ![Experience search and discovery](~@assets/x/interface/experience-search-intro.svg)
 
+
 ## Interface X and Interface X for Apps, the solution
 
 Interface&nbsp;X and Interface&nbsp;X for Apps are a collection of libraries that lets you create a

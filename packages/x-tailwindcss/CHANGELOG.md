@@ -1,23 +1,25 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [0.2.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.46...@empathyco/x-tailwindcss@0.2.0-alpha.47) (2023-01-17)
 
+
 ### Bug Fixes
 
-- **components:** change `gap` in `suggestion` and `suggestion-group lg` (#1013)
-  ([ae97b1f](https://github.com/empathyco/x/commit/ae97b1f383d19a9fa7192d3ec93fbb935312e63a)),
-  closes [EX-7852](https://searchbroker.atlassian.net/browse/EX-7852)
+* **components:** change `gap` in `suggestion` and `suggestion-group lg` (#1013) ([ae97b1f](https://github.com/empathyco/x/commit/ae97b1f383d19a9fa7192d3ec93fbb935312e63a)), closes [EX-7852](https://searchbroker.atlassian.net/browse/EX-7852)
+
+
 
 ## [0.2.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.45...@empathyco/x-tailwindcss@0.2.0-alpha.46) (2023-01-17)
 
+
 ### Features
 
-- **design-system:** modify default styles in the suggestion-group (#1011)
-  ([833c4f4](https://github.com/empathyco/x/commit/833c4f4440f90d2b984803fe2f863e690a59a3bf)),
-  closes [EX-7845](https://searchbroker.atlassian.net/browse/EX-7845)
+* **design-system:** modify default styles in the suggestion-group (#1011) ([833c4f4](https://github.com/empathyco/x/commit/833c4f4440f90d2b984803fe2f863e690a59a3bf)), closes [EX-7845](https://searchbroker.atlassian.net/browse/EX-7845)
+
+
 
 # Change Log
 

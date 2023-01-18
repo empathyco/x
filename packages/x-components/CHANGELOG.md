@@ -1,45 +1,56 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [3.0.0-alpha.285](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.284...@empathyco/x-components@3.0.0-alpha.285) (2023-01-17)
 
+
 ### ⚠ BREAKING CHANGES
 
-- Rename `x-grid` class to `x-grid-list`.
-- Rename `x-grid__item` class to `x-grid-list__item`.
-- Rename `x-grid--cols-{cols}` class to `x-grid-list--cols-{cols}`.
+* Rename `x-grid` class to `x-grid-list`.
+* Rename `x-grid__item` class to `x-grid-list__item`.
+* Rename `x-grid--cols-{cols}` class to `x-grid-list--cols-{cols}`.
 
 ### Features
 
-- rename `x-grid` class to `x-grid-list` (#1015)
-  ([dbb5d50](https://github.com/empathyco/x/commit/dbb5d502dd9c1e69c18d137edc8be2e13bceaeb2)),
-  closes [EX-7481](https://searchbroker.atlassian.net/browse/EX-7481)
+* rename `x-grid` class to `x-grid-list` (#1015) ([dbb5d50](https://github.com/empathyco/x/commit/dbb5d502dd9c1e69c18d137edc8be2e13bceaeb2)), closes [EX-7481](https://searchbroker.atlassian.net/browse/EX-7481)
+
+
 
 ## [3.0.0-alpha.284](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.283...@empathyco/x-components@3.0.0-alpha.284) (2023-01-17)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [3.0.0-alpha.283](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.282...@empathyco/x-components@3.0.0-alpha.283) (2023-01-17)
 
 **Note:** Version bump only for package @empathyco/x-components
 
+
+
+
+
 ## [3.0.0-alpha.282](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.281...@empathyco/x-components@3.0.0-alpha.282) (2023-01-17)
+
 
 ### Features
 
-- add dynamic classes to the suggestion item inside the `base-suggestions` (#1008)
-  ([3e0b683](https://github.com/empathyco/x/commit/3e0b683eb83b9b2e9f6ebb0a17b80a9ff46d6e3c)),
-  closes [EX-7834](https://searchbroker.atlassian.net/browse/EX-7834)
+* add dynamic classes to the suggestion item inside the `base-suggestions` (#1008) ([3e0b683](https://github.com/empathyco/x/commit/3e0b683eb83b9b2e9f6ebb0a17b80a9ff46d6e3c)), closes [EX-7834](https://searchbroker.atlassian.net/browse/EX-7834)
+
+
 
 ## [3.0.0-alpha.281](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.280...@empathyco/x-components@3.0.0-alpha.281) (2023-01-16)
 
+
 ### Features
 
-- **history-queries:** add dynamic classes to the remove history query button (#1007)
-  ([b5623d1](https://github.com/empathyco/x/commit/b5623d1c6f7f2709251164c6055b616218163c6f)),
-  closes [EX-7833](https://searchbroker.atlassian.net/browse/EX-7833)
+* **history-queries:** add dynamic classes to the remove history query button (#1007) ([b5623d1](https://github.com/empathyco/x/commit/b5623d1c6f7f2709251164c6055b616218163c6f)), closes [EX-7833](https://searchbroker.atlassian.net/browse/EX-7833)
+
+
 
 # Change Log
 
