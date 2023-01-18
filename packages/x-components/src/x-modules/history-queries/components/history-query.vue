@@ -2,7 +2,7 @@
   <div class="x-history-query x-suggestion-group">
     <BaseSuggestion
       class="x-history-query__suggestion"
-      :class="historyQuerySuggestionClass"
+      :class="suggestionClass"
       v-bind="{ suggestion, suggestionSelectedEvents, query }"
       data-test="history-query"
       feature="history_query"
@@ -18,7 +18,7 @@
     </BaseSuggestion>
     <RemoveHistoryQuery
       class="x-history-query__remove x-suggestion-group-button"
-      :class="removeHistoryQueryClass"
+      :class="removeButtonClass"
       :historyQuery="suggestion"
       data-test="remove-history-query"
     >
@@ -55,7 +55,7 @@
     components: { Highlight, RemoveHistoryQuery, BaseSuggestion }
   })
   export default class HistoryQuery extends Mixins(
-    dynamicPropsMixin(['removeHistoryQueryClass', 'historyQuerySuggestionClass'])
+    dynamicPropsMixin(['removeButtonClass', 'suggestionClass'])
   ) {
     /**
      * The history query suggestion to render.
@@ -170,11 +170,11 @@ that serves to remove this query from the history. This slot only has one proper
 
 ### Customizing the content with classes
 
-The `historyQuerySuggestionClass` prop can be used to add classes to the history query suggestion.
+The `suggestionClass` prop can be used to add classes to the history query suggestion.
 
 ```vue live
 <template>
-  <HistoryQuery :suggestion="suggestion" historyQuerySuggestionClass="x-custom-class" />
+  <HistoryQuery :suggestion="suggestion" suggestionClass="x-custom-class" />
 </template>
 
 <script>
@@ -197,11 +197,11 @@ The `historyQuerySuggestionClass` prop can be used to add classes to the history
 </script>
 ```
 
-The `removeHistoryQueryClass` prop can be used to add classes to the remove history query.
+The `removeButtonClass` prop can be used to add classes to the remove history query.
 
 ```vue live
 <template>
-  <HistoryQuery :suggestion="suggestion" removeHistoryQueryClass="x-custom-class" />
+  <HistoryQuery :suggestion="suggestion" removeButtonClass="x-custom-class" />
 </template>
 
 <script>
