@@ -338,7 +338,7 @@ npm test
 
 ## Contributing
 
-To start contributing to the project, please take a look to our
+To start contributing to the project, please take a look at our
 **[Contributing Guide](https://github.com/empathyco/x/blob/HEAD/.github/CONTRIBUTING.md).** Take in
 account that `x-adapter-platform` is developed using [Typescript](https://www.typescriptlang.org/),
 so we recommend you check it out.
