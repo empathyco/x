@@ -1,10 +1,14 @@
+import { TailwindHelpers } from '../../../types';
+
 /**
  * Returns the `overlay` variant of component `product-image`.
  *
+ * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the variant.
  */
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
-export function overlay() {
+export function overlay(helpers: TailwindHelpers) {
+  const { theme } = helpers;
   return {
     overlay: {
       '&:hover': {
@@ -12,7 +16,7 @@ export function overlay() {
       },
       img: {
         '&:hover': {
-          maskImage: 'linear-gradient(to top, transparent, 20%, black)'
+          maskImage: `linear-gradient(to top, transparent, 20%, ${theme('colors.neutral.100')})`
         }
       }
     }
