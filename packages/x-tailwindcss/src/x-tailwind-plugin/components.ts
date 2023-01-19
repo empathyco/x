@@ -9,7 +9,7 @@ import { input } from './components/input';
 import { suggestionGroup } from './components/suggestion-group';
 import { suggestionGroupButton } from './components/suggestion-group/button';
 import { slidingPanel } from './components/sliding-panel';
-import { productImage } from './components/product-image';
+import { picture } from './components/picture';
 
 /**
  * Default component styles.
@@ -32,7 +32,7 @@ export default function components(helpers: TailwindHelpers) {
     ...suggestionGroup(helpers),
     ...suggestionGroupButton(helpers),
     ...slidingPanel(helpers),
-    ...productImage(helpers)
+    ...picture(helpers)
   };
 }
 
