@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.48...@empathyco/x-tailwindcss@0.2.0-alpha.49) (2023-01-18)
+
+
+### Features
+
+* **components:** add `product-image` component (#1005) ([15e2c88](https://github.com/empathyco/x/commit/15e2c8846dbfbcae502895979dfed7c8501120c7)), closes [EX-7689](https://searchbroker.atlassian.net/browse/EX-7689)
+
+
+
 ## [0.2.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.47...@empathyco/x-tailwindcss@0.2.0-alpha.48) (2023-01-18)
 
 
