@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.49...@empathyco/x-tailwindcss@0.2.0-alpha.50) (2023-01-19)
+
+
+### Features
+
+* Rename XDS product image class to make easier using it in x-components (#1018) ([14545ff](https://github.com/empathyco/x/commit/14545ff0de6ab650b46457e869e5f2d800f72662)), closes [EX-7836](https://searchbroker.atlassian.net/browse/EX-7836)
+
+
+
 ## [0.2.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.48...@empathyco/x-tailwindcss@0.2.0-alpha.49) (2023-01-18)
 
 
