@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.19...@empathyco/x-adapter@8.0.0-alpha.20) (2023-01-18)
+
+### Documentation
+
+- add `license` and improve `readme` (#968)
+  ([d6513fb](https://github.com/empathyco/x/commit/d6513fb77d6467e7490f9951c2111870b4770058)),
+  closes [EX-6046](https://searchbroker.atlassian.net/browse/EX-6046)
+
 ## [8.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.18...@empathyco/x-adapter@8.0.0-alpha.19) (2023-01-10)
 
 ### Documentation

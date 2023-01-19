@@ -16,7 +16,8 @@ function mountBaseEventsModal({
   defaultSlot = '<span data-test="default-slot">Modal</span>',
   bodyClickEvent,
   eventsToCloseModal,
-  eventsToOpenModal
+  eventsToOpenModal,
+  contentClass
 }: MountBaseEventsModalOptions = {}): MountBaseEventsModalAPI {
   const [, localVue] = installNewXPlugin();
   const parent = document.createElement('div');
@@ -25,7 +26,7 @@ function mountBaseEventsModal({
   const wrapper = mount(BaseEventsModal, {
     attachTo: parent,
     localVue,
-    propsData: { bodyClickEvent, eventsToCloseModal, eventsToOpenModal },
+    propsData: { bodyClickEvent, eventsToCloseModal, eventsToOpenModal, contentClass },
     slots: {
       default: defaultSlot
     }
@@ -134,6 +135,15 @@ describe('testing Base Events Modal  component', () => {
     expect(listener).toHaveBeenCalledTimes(1);
     expect(getModalContent().exists()).toBe(false);
   });
+
+  it('allows adding classes to the modal content', async () => {
+    const { getModalContent, emit } = mountBaseEventsModal({
+      contentClass: 'test-class'
+    });
+
+    await emit('UserClickedOpenEventsModal');
+    expect(getModalContent().classes()).toContain('test-class');
+  });
 });
 
 interface MountBaseEventsModalOptions {
@@ -145,6 +155,8 @@ interface MountBaseEventsModalOptions {
   eventsToCloseModal?: XEvent[];
   /** Events that when emitted should open the modal. */
   eventsToOpenModal?: XEvent[];
+  /** Class to add to the content element of the modal. */
+  contentClass?: string;
 }
 
 interface MountBaseEventsModalAPI {

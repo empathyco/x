@@ -1,0 +1,17 @@
+/**
+ * Returns the `zoom` variant of the component `product-image`.
+ *
+ * @returns The {@link CssStyleOptions} for the component.
+ */
+export function zoom() {
+  return {
+    zoom: {
+      img: {
+        transition: 'transform 0.3s ease-out',
+        '&:hover': {
+          transform: 'scale(1.1)'
+        }
+      }
+    }
+  };
+}

@@ -13,7 +13,8 @@ import BaseIdModal from '../base-id-modal.vue';
  */
 function mountBaseIdModal({
   modalId = 'myModal',
-  defaultSlot = `<span data-test="default-slot">Modal: ${modalId}</span>`
+  defaultSlot = `<span data-test="default-slot">Modal: ${modalId}</span>`,
+  contentClass
 }: MountBaseIdModalOptions = {}): MountBaseIdModalAPI {
   const [, localVue] = installNewXPlugin();
   const parent = document.createElement('div');
@@ -22,7 +23,7 @@ function mountBaseIdModal({
   const wrapper = mount(BaseIdModal, {
     attachTo: parent,
     localVue,
-    propsData: { modalId },
+    propsData: { modalId, contentClass },
     slots: {
       default: defaultSlot
     }
@@ -108,6 +109,15 @@ describe('testing BaseIdModal  component', () => {
     await wrapper.find(getDataTestSelector('test-button'))?.trigger('click');
     expect(getModalContent().exists()).toBe(true);
   });
+
+  it('allows adding classes to the modal content', async () => {
+    const { getModalContent, emit } = mountBaseIdModal({
+      contentClass: 'test-class'
+    });
+
+    await emit('UserClickedOpenModal');
+    expect(getModalContent().classes()).toContain('test-class');
+  });
 });
 
 interface MountBaseIdModalOptions {
@@ -115,6 +125,8 @@ interface MountBaseIdModalOptions {
   defaultSlot?: string;
   /** The modal id. */
   modalId?: string;
+  /** Class to add to the content element of the modal. */
+  contentClass?: string;
 }
 
 interface MountBaseIdModalAPI {

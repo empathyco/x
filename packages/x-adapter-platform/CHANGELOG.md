@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.57](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.56...@empathyco/x-adapter-platform@1.0.0-alpha.57) (2023-01-18)
+
+### Features
+
+- **endpoint-adapters:** add `internal` field to all `requests` but `tagging` (#1016)
+  ([d718bc1](https://github.com/empathyco/x/commit/d718bc1a2b0449fc8d41f8d23cbb882adad3d8eb)),
+  closes [EX-7780](https://searchbroker.atlassian.net/browse/EX-7780)
+
+## [1.0.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.55...@empathyco/x-adapter-platform@1.0.0-alpha.56) (2023-01-18)
+
+### Documentation
+
+- add `license` and improve `readme` (#968)
+  ([d6513fb](https://github.com/empathyco/x/commit/d6513fb77d6467e7490f9951c2111870b4770058)),
+  closes [EX-6046](https://searchbroker.atlassian.net/browse/EX-6046)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.55](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.54...@empathyco/x-adapter-platform@1.0.0-alpha.55) (2023-01-13)
+
+### Build System
+
+- **deps:** update dependencies (#1004)
+  ([7343506](https://github.com/empathyco/x/commit/73435063e97648ed5bb87600bb7cfbb5eb64b70c))
+
 ## [1.0.0-alpha.54](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.53...@empathyco/x-adapter-platform@1.0.0-alpha.54) (2023-01-10)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform

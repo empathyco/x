@@ -130,6 +130,37 @@ share the same value in their `modalId` prop to work:
 </script>
 ```
 
+### Customized usage
+
+#### Customizing the content with classes
+
+The `contentClass` prop can be used to add classes to the modal content.
+
+```vue
+<template>
+  <div>
+    <BaseIdModalOpen modalId="myModal">Open</BaseIdModalOpen>
+    <BaseIdModal modalId="myModal" contentClass="x-background--neutral-35">
+      <img src="success.png" />
+      <BaseIdModalClose modalId="myModal">Close</BaseIdModalClose>
+    </BaseIdModal>
+  </div>
+</template>
+
+<script>
+  import { BaseIdModalOpen, BaseIdModal, BaseIdModalClose } from '@empathyco/x-components';
+
+  export default {
+    name: 'TestModal',
+    components: {
+      BaseIdModalOpen,
+      BaseIdModal,
+      BaseIdModalClose
+    }
+  };
+</script>
+```
+
 ## Events
 
 A list of events that the component will emit:

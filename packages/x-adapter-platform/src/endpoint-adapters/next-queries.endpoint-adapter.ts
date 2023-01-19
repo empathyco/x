@@ -16,6 +16,9 @@ export const nextQueriesEndpointAdapter = endpointAdapterFactory<
   requestMapper: nextQueriesRequestMapper,
   responseMapper: nextQueriesResponseMapper,
   defaultRequestOptions: {
-    id: 'next-queries'
+    id: 'next-queries',
+    parameters: {
+      internal: true
+    }
   }
 });

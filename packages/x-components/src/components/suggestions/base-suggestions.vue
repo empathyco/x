@@ -4,6 +4,7 @@
       v-for="(suggestion, index) in suggestionsToRender"
       :key="suggestionsKeys[index]"
       class="x-list x-suggestions__item"
+      :class="suggestionItemClass"
       data-test="suggestion-item"
     >
       <!--
@@ -19,9 +20,10 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Mixins, Prop } from 'vue-property-decorator';
   import { Suggestion, Facet, Filter } from '@empathyco/x-types';
   import { isArrayEmpty } from '../../utils/array';
+  import { dynamicPropsMixin } from '../dynamic-props.mixin';
 
   /**
    * Paints a list of suggestions passed in by prop. Requires a component for a single suggestion
@@ -30,7 +32,7 @@
    * @public
    */
   @Component
-  export default class BaseSuggestions extends Vue {
+  export default class BaseSuggestions extends Mixins(dynamicPropsMixin(['suggestionItemClass'])) {
     /**
      * The list of suggestions to render.
      *
@@ -282,6 +284,39 @@ This will render:
                 ]
               }
             ],
+            key: 'chips',
+            query: 'Chips',
+            totalResults: 10,
+            results: [],
+            modelName: 'PopularSearch'
+          }
+        ]
+      };
+    }
+  };
+</script>
+```
+
+In this example, the `contentClass` prop can be used to add classes to the suggestion item.
+
+```vue
+<template>
+  <BaseSuggestions :suggestions="suggestions" suggestionItemClass="x-custom-class" />
+</template>
+
+<script>
+  import { BaseSuggestions } from '@empathyco/x-components';
+
+  export default {
+    name: 'BaseSuggestionsDemo',
+    components: {
+      BaseSuggestions
+    },
+    data() {
+      return {
+        suggestions: [
+          {
+            facets: [],
             key: 'chips',
             query: 'Chips',
             totalResults: 10,

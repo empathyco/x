@@ -16,6 +16,9 @@ export const relatedTagsEndpointAdapter = endpointAdapterFactory<
   requestMapper: relatedTagsRequestMapper,
   responseMapper: relatedTagsResponseMapper,
   defaultRequestOptions: {
-    id: 'related-tags'
+    id: 'related-tags',
+    parameters: {
+      internal: true
+    }
   }
 });
