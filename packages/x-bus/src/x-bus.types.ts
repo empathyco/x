@@ -1,4 +1,4 @@
-import { Dictionary, Keys } from '@empathyco/x-utils';
+import { Dictionary } from '@empathyco/x-utils';
 import { Observable, Subject } from 'rxjs';
 
 /**
@@ -11,7 +11,7 @@ import { Observable, Subject } from 'rxjs';
 export type TimeoutId = number;
 
 /**
- * Alias representing a positive number to represent the priority of an {@link XEvent} in an
+ * Alias representing a positive number to represent the priority of an event in an
  * {@link XPriorityBus}.
  *
  * @internal
@@ -19,126 +19,137 @@ export type TimeoutId = number;
 export type Priority = number;
 
 /**
- * Alias representing a dictionary where the key is the name of the {@link XEvent} and the type
- * is its payload type.
+ * Extracts the payload type of the event.
+ *
+ * @remarks If the payload type is void, the returned type is undefined.
+ *
+ * @public
  */
-export type XEvents = Dictionary;
+export type EventPayload<
+  SomeEvents extends Dictionary,
+  SomeEvent extends keyof SomeEvents
+> = SomeEvents[SomeEvent] extends void ? undefined : SomeEvents[SomeEvent];
 
 /**
- * Alias representing the name of an {@link XEvent}.
+ * Represents an object including an eventPayload, which type is extracted using
+ * {@link EventPayload}, and a metadata which type is taken from the SomeEventMetadata parameter
+ * of this type.
  *
- * @internal
+ * @public
  */
-export type XEvent = keyof XEvents;
-
-/**
- * Extracts the payload type of a {@link XEvent}.
- *
- * @internal
- */
-export type XEventPayload<Event extends XEvent> = XEvents[Event] extends void
-  ? undefined
-  : XEvents[Event];
-
-/**
- * Represents the payload of a subject with a given type.
- *
- * @internal
- */
-export type SubjectPayload<SomePayload> = {
+export interface SubjectPayload<
+  SomeEvents extends Dictionary,
+  SomeEvent extends keyof SomeEvents,
+  SomeEventMetadata extends Dictionary
+> {
   /** The payload of the event. */
-  eventPayload: SomePayload;
+  eventPayload: EventPayload<SomeEvents, SomeEvent>;
   /** Extra data of the event. */
-  metadata: Dictionary;
+  metadata: SomeEventMetadata;
+}
+
+/**
+ * Alias representing a {@link https://rxjs.dev/api/index/class/Subject | Subject} parametrized
+ * with the {@link SubjectPayload} of an event.
+ *
+ * @public
+ */
+export type Emitter<
+  SomeEvents extends Dictionary,
+  SomeEvent extends keyof SomeEvents,
+  SomeEventMetadata extends Dictionary
+> = Subject<SubjectPayload<SomeEvents, SomeEvent, SomeEventMetadata>>;
+
+/**
+ * Represents a dictionary where the key is an event name and its value is an {@link Emitter}.
+ *
+ * @public
+ */
+export type Emitters<SomeEvents extends Dictionary, SomeEventMetadata extends Dictionary> = {
+  [SomeEvent in keyof SomeEvents]?: Emitter<SomeEvents, SomeEvent, SomeEventMetadata>;
 };
 
 /**
- * Type safe for emitter payload. It is the wire payload.
+ * Represents an object containing the data emitted by an event.
  *
- * @typeParam Event - The {@link XEvent} to extract its payload type.
  * @public
  */
-export type Emitter<Event extends XEvent> = Subject<SubjectPayload<XEventPayload<Event>>>;
+export interface EmittedData<
+  SomeEvents extends Dictionary,
+  SomeEvent extends keyof SomeEvents,
+  SomeEventMetadata extends Dictionary
+> {
+  /** The event name. */
+  event: SomeEvent;
+  /** The event payload. */
+  eventPayload: EventPayload<SomeEvents, SomeEvent>;
+  /** The event extra data. */
+  metadata: SomeEventMetadata;
+}
 
 /**
- * Type safe emitter's dictionary, where each key is the {@link XEvent} name, and the value is a
- * {@link https://rxjs.dev/api/index/class/Subject} of the {@link XEventPayload} type.
  *
- * @public
  */
-export type Emitters = {
-  [Event in XEvent]?: Emitter<Event>;
-};
+export interface XPriorityQueueNodeData<
+  SomeEvents extends Dictionary,
+  SomeEventMetadata extends Dictionary
+> {
+  eventPayload: EventPayload<SomeEvents, keyof SomeEvents>;
+  eventMetadata: SomeEventMetadata;
+  replaceable: boolean;
+  resolve: <SomeEvent extends keyof SomeEvents>(
+    value:
+      | EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>
+      | PromiseLike<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>
+  ) => void;
+}
 
 /**
- * Represents the emitted data of an {@link XEvent}.
+ * Event bus to emit and subscribe to events.
  *
  * @public
  */
-export type EmittedData<Event extends XEvent> = {
-  event: Event;
-} & SubjectPayload<XEventPayload<Event>>;
-
-/**
- * The events bus that allows emitting and subscribing to {@link XEventsTypes}.
- *
- * @public
- */
-export interface XBus {
+export interface XBus<SomeEvents extends Dictionary, SomeEventMetadata extends Dictionary> {
   /**
    * Emits an event with the `void` type associated as payload.
    *
    * @param event - The event name.
+   *
    * @returns A promise that is resolved whenever the event is emitted.
    */
-  emit(event: Keys<XEvents, void>): Promise<EmittedData<XEvent>> | void;
+  emit<SomeEvent extends keyof SomeEvents>(
+    event: SomeEvent
+  ): Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>;
   /**
    * Emits an event with a non-void payload.
    *
    * @param event - The event name.
    * @param payload - The payload of the event.
    * @param metadata - The extra data of the event.
+   *
+   * @returns A promise that is resolved whenever the event is emitted.
    */
-  emit<Event extends keyof XEvents>(
-    event: Event,
-    payload: XEventPayload<Event>,
-    metadata?: Dictionary
-  ): Promise<EmittedData<XEvent>> | void;
+  emit<SomeEvent extends keyof SomeEvents>(
+    event: SomeEvent,
+    payload: EventPayload<SomeEvents, SomeEvent>,
+    metadata?: SomeEventMetadata
+  ): Promise<EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>>;
 
   /**
-   * Retrieves the observable for an event.
-   *
-   * @param event - The event to retrieve an observable for.
-   * @param withMetadata - When set to `true`, the returned observable payload will be a
-   * {@link WirePayload}.
-   * @returns An Observable of {@link WirePayload} object containing the event payload and the
-   * event metadata.
-   */
-  on<Event extends keyof XEvents>(
-    event: Event,
-    withMetadata: true
-  ): Observable<SubjectPayload<XEventPayload<Event>>>;
-  /**
-   * Retrieves the observable for an event.
-   *
-   * @param event - The event to retrieve an observable for.
-   * @param withMetadata - When set to `false`, the observable payload will be the Event payload.
-   * @returns An Observable of the event payload.
-   */
-  on<Event extends XEvent>(event: Event, withMetadata?: false): Observable<XEventPayload<Event>>;
-  /**
-   * Retrieves the observable for an event.
+   * Retrieves an observable for an event.
    *
    * @param event - The event to retrieve an observable for.
    * @param withMetadata - If `true` the returned Observable payload will contain the Event
    * payload and the Event metadata. If `false`, the observable payload will only be the event
    * payload.
-   * @returns If `withMetadata` is `true`, an Observable of {@link WirePayload} object
-   * containing the event payload and more metadata. If `withMetadata` is `false`, an Observable
-   * of the Event payload.
+   *
+   * @returns If `withMetadata` is `true`, an Observable of type {@link SubjectPayload}. Otherwise,
+   * an observable of type {@link EventPayload}.
    */
-  on<Event extends XEvent>(
-    event: Event,
-    withMetadata: boolean
-  ): Observable<XEventPayload<Event> | SubjectPayload<XEventPayload<Event>>>;
+  on<SomeEvent extends keyof SomeEvents>(
+    event: SomeEvent,
+    withMetadata?: boolean
+  ): typeof withMetadata extends true
+    ? Observable<SubjectPayload<SomeEvents, SomeEvent, SomeEventMetadata>>
+    : Observable<EventPayload<SomeEvents, SomeEvent>>;
 }
