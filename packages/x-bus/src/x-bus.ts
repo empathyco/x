@@ -49,7 +49,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    *
    * @internal
    */
-  protected priorities: Dictionary<number>;
+  protected priorities: Dictionary<Priority>;
 
   /**
    * A list of functions to execute when an event is emitted.
