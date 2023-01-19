@@ -34,13 +34,13 @@
     }
   })
   export default class XdsProductImageShowcase extends Vue {
-    @Prop({ default: 'x-product-image' })
+    @Prop({ default: 'x-picture' })
     public base!: string;
 
-    @Prop({ default: 'x-product-image-zoom' })
+    @Prop({ default: 'x-picture-zoom' })
     public zoom!: string;
 
-    @Prop({ default: 'x-product-image-overlay' })
+    @Prop({ default: 'x-picture-overlay' })
     public overlay!: string;
 
     protected get sections(): ShowcaseSections {
