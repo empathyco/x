@@ -79,24 +79,48 @@ export interface EmittedData<
   SomeEvent extends keyof SomeEvents,
   SomeEventMetadata extends Dictionary
 > {
-  /** The event name. */
+  /**
+   * The event name.
+   */
   event: SomeEvent;
-  /** The event payload. */
+  /**
+   * The event payload.
+   */
   eventPayload: EventPayload<SomeEvents, SomeEvent>;
-  /** The event extra data. */
+  /**
+   * The event extra data.
+   */
   metadata: SomeEventMetadata;
 }
 
 /**
- *
+ * Represents the {@link @empathyco/x-priority-queue#XPriorityQueueNode.data | queue node data}
+ * in the {@link @empathyco/x-priority-queue#XPriorityQueue | priority queue} of a
+ * {@link XPriorityBus}.
  */
 export interface XPriorityQueueNodeData<
   SomeEvents extends Dictionary,
   SomeEventMetadata extends Dictionary
 > {
+  /**
+   * The event payload.
+   */
   eventPayload: EventPayload<SomeEvents, keyof SomeEvents>;
+  /**
+   * The event metadata.
+   */
   eventMetadata: SomeEventMetadata;
+  /**
+   * Flag determining if an event is replaceable or not. If a node is replaceable, and an event
+   * with the same key is inserted, then, the replaceable event is removed from the key, and the
+   * new one is inserted at its corresponding position.
+   */
   replaceable: boolean;
+  /**
+   * The resolve function of the {@link Promise} to be called the moment the event is emitted.
+   *
+   * @param value - The {@link EmittedData | emitted data}.
+   */
   resolve: <SomeEvent extends keyof SomeEvents>(
     value:
       | EmittedData<SomeEvents, SomeEvent, SomeEventMetadata>
