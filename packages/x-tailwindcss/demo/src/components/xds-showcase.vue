@@ -22,7 +22,7 @@
   import XdsInput from './xds-input.vue';
   import XdsSuggestionGroup from './xds-suggestion-group.vue';
   import XdsSlidingPanel from './xds-sliding-panel.vue';
-  import XdsProductImage from './xds-product-image.vue';
+  import XdsProductImage from './xds-picture.vue';
 
   @Component({
     components: {

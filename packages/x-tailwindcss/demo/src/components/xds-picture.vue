@@ -1,7 +1,7 @@
 <template>
   <XdsBaseShowcase
     #default="{ cssClass, copyCssClassesToClipboard }"
-    title="Product Image"
+    title="Picture"
     :sections="sections"
   >
     <div
@@ -33,7 +33,7 @@
       XdsBaseShowcase
     }
   })
-  export default class XdsProductImageShowcase extends Vue {
+  export default class XdsPictureShowcase extends Vue {
     @Prop({ default: 'x-picture' })
     public base!: string;
 

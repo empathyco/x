@@ -6,9 +6,10 @@ import { TailwindHelpers } from '../../../types';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function productImageDefault(helpers: TailwindHelpers) {
+export function pictureDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
+    display: 'block',
     aspectRatio: theme('aspectRatio.default'),
     overflow: 'hidden',
     img: {

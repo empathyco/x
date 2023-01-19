@@ -1,19 +1,19 @@
 import { rename } from '@empathyco/x-utils';
 import { TailwindHelpers } from '../../../types';
-import { productImageDefault } from './default';
+import { pictureDefault } from './default';
 import { overlay } from './overlay';
 import { zoom } from './zoom';
 
 /**
- * Returns the component `product-image` CSS.
+ * Returns the component `picture` CSS.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function productImage(helpers: TailwindHelpers) {
+export function picture(helpers: TailwindHelpers) {
   return {
     '.picture': {
-      ...productImageDefault(helpers),
+      ...pictureDefault(helpers),
       ...rename(
         {
           ...zoom(),
