@@ -9,7 +9,6 @@ import { TailwindHelpers } from '../../../types';
 export function pictureDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    display: 'block',
     aspectRatio: theme('aspectRatio.default'),
     overflow: 'hidden',
     img: {
