@@ -5,7 +5,7 @@ import pluginTheme from '../theme';
 /**
  * Type of the colors from Theme.
  */
-export type ThemeColors = typeof pluginTheme['colors'];
+export type ThemeColors = (typeof pluginTheme)['colors'];
 
 /**
  * Type of each Theme color.

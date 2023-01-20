@@ -102,9 +102,7 @@
       <MultiColumnMaxWidthLayout class="x-background--neutral-100">
         <template #header-middle>
           <div
-            class="
-              x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand
-            "
+            class="x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand"
           >
             <BaseKeyboardNavigation>
               <div class="x-input-group x-input-group--card">
@@ -336,17 +334,7 @@
                             <NextQuery
                               :suggestion="nextQueries[0]"
                               data-test="view-all-results"
-                              class="
-                                x-tag x-tag--pill
-                                x-font-bold x-text-lead-50
-                                x-margin--left-auto x-margin--right-auto x-margin--top-03
-                                x-padding--top-04
-                                x-padding--bottom-04
-                                x-padding--right-05
-                                x-padding--left-05
-                                x-border-color--lead
-                                x-margin--bottom-06
-                              "
+                              class="x-tag x-tag--pill x-font-bold x-text-lead-50 x-margin--left-auto x-margin--right-auto x-margin--top-03 x-padding--top-04 x-padding--bottom-04 x-padding--right-05 x-padding--left-05 x-border-color--lead x-margin--bottom-06"
                             >
                               {{ 'View all results' }}
                             </NextQuery>

@@ -33,6 +33,8 @@
   --x-number-font-weight-filter-default: var(--x-number-font-weight-base-regular);
   --x-number-font-weight-filter-default-selected: var(--x-number-font-weight-base-bold);
   --x-number-font-weight-filter-count-default: var(--x-number-font-weight-base-light);
-  --x-number-font-weight-filter-count-default-selected: var(--x-number-font-weight-filter-count-default);
+  --x-number-font-weight-filter-count-default-selected: var(
+    --x-number-font-weight-filter-count-default
+  );
   --x-size-line-height-filter-default: var(--x-size-line-height-text);
 }

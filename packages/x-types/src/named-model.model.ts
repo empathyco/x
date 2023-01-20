@@ -64,4 +64,4 @@ export const BooleanFilterModelNames = [
  *
  * @public
  */
-export type BooleanFilterModelName = typeof BooleanFilterModelNames[number];
+export type BooleanFilterModelName = (typeof BooleanFilterModelNames)[number];

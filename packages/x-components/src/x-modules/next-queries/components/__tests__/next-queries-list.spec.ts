@@ -46,7 +46,9 @@ function renderNextQueriesList({
   ...props
 }: RenderNextQueriesListOptions = {}): RenderNextQueriesListAPI {
   @Component({
-    template: `<div><slot/></div>`
+    template: `
+      <div><slot /></div>
+    `
   })
   class ProviderWrapper extends Vue {
     @XProvide(QUERY_KEY)
