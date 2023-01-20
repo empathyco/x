@@ -1,60 +1,57 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.52](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.51...@empathyco/x-tailwindcss@0.2.0-alpha.52) (2023-01-20)
+
+### Build System
+
+- **deps:** update dependencies (#1024)
+  ([e99425f](https://github.com/empathyco/x/commit/e99425fc315526afe40b1fd536bcfde1fc1af08a))
 
 ## [0.2.0-alpha.51](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.50...@empathyco/x-tailwindcss@0.2.0-alpha.51) (2023-01-20)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
 
-
-
-
-
 ## [0.2.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.49...@empathyco/x-tailwindcss@0.2.0-alpha.50) (2023-01-19)
-
 
 ### Features
 
-* Rename XDS product image class to make easier using it in x-components (#1018) ([14545ff](https://github.com/empathyco/x/commit/14545ff0de6ab650b46457e869e5f2d800f72662)), closes [EX-7836](https://searchbroker.atlassian.net/browse/EX-7836)
-
-
+- Rename XDS product image class to make easier using it in x-components (#1018)
+  ([14545ff](https://github.com/empathyco/x/commit/14545ff0de6ab650b46457e869e5f2d800f72662)),
+  closes [EX-7836](https://searchbroker.atlassian.net/browse/EX-7836)
 
 ## [0.2.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.48...@empathyco/x-tailwindcss@0.2.0-alpha.49) (2023-01-18)
 
-
 ### Features
 
-* **components:** add `product-image` component (#1005) ([15e2c88](https://github.com/empathyco/x/commit/15e2c8846dbfbcae502895979dfed7c8501120c7)), closes [EX-7689](https://searchbroker.atlassian.net/browse/EX-7689)
-
-
+- **components:** add `product-image` component (#1005)
+  ([15e2c88](https://github.com/empathyco/x/commit/15e2c8846dbfbcae502895979dfed7c8501120c7)),
+  closes [EX-7689](https://searchbroker.atlassian.net/browse/EX-7689)
 
 ## [0.2.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.47...@empathyco/x-tailwindcss@0.2.0-alpha.48) (2023-01-18)
 
-
 ### Features
 
-* **design-sytem:** add sliding panel to XDS (#1006) ([541854a](https://github.com/empathyco/x/commit/541854a648a0c85ea2421fab4de600952f8407e5))
-
-
+- **design-sytem:** add sliding panel to XDS (#1006)
+  ([541854a](https://github.com/empathyco/x/commit/541854a648a0c85ea2421fab4de600952f8407e5))
 
 ## [0.2.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.46...@empathyco/x-tailwindcss@0.2.0-alpha.47) (2023-01-17)
 
-
 ### Bug Fixes
 
-* **components:** change `gap` in `suggestion` and `suggestion-group lg` (#1013) ([ae97b1f](https://github.com/empathyco/x/commit/ae97b1f383d19a9fa7192d3ec93fbb935312e63a)), closes [EX-7852](https://searchbroker.atlassian.net/browse/EX-7852)
-
-
+- **components:** change `gap` in `suggestion` and `suggestion-group lg` (#1013)
+  ([ae97b1f](https://github.com/empathyco/x/commit/ae97b1f383d19a9fa7192d3ec93fbb935312e63a)),
+  closes [EX-7852](https://searchbroker.atlassian.net/browse/EX-7852)
 
 ## [0.2.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.45...@empathyco/x-tailwindcss@0.2.0-alpha.46) (2023-01-17)
 
-
 ### Features
 
-* **design-system:** modify default styles in the suggestion-group (#1011) ([833c4f4](https://github.com/empathyco/x/commit/833c4f4440f90d2b984803fe2f863e690a59a3bf)), closes [EX-7845](https://searchbroker.atlassian.net/browse/EX-7845)
-
-
+- **design-system:** modify default styles in the suggestion-group (#1011)
+  ([833c4f4](https://github.com/empathyco/x/commit/833c4f4440f90d2b984803fe2f863e690a59a3bf)),
+  closes [EX-7845](https://searchbroker.atlassian.net/browse/EX-7845)
 
 # Change Log
 
