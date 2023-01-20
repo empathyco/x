@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-jest-utils",
-  "version": "1.4.0-alpha.5",
+  "version": "1.4.0-alpha.6",
   "description": "Jest extensions for easier testing",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",

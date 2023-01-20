@@ -1,5 +1,18 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.14...@empathyco/x-react-wrapper@4.0.0-alpha.15) (2023-01-20)
+
+**Note:** Version bump only for package @empathyco/x-react-wrapper
+
+
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

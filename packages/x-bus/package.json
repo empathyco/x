@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-bus",
-  "version": "0.1.0-alpha.3",
+  "version": "0.1.0-alpha.4",
   "description": "Event bus to help with events orchestration",
   "author": "Empathy Systems Corporation S.L.",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-bus#readme",

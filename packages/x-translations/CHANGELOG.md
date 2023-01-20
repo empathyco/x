@@ -1,5 +1,18 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.1.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.31...@empathyco/x-translations@1.1.0-alpha.32) (2023-01-20)
+
+**Note:** Version bump only for package @empathyco/x-translations
+
+
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
