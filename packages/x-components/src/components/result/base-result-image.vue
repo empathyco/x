@@ -31,7 +31,7 @@
         :key="imageSrc"
         :alt="result.name"
         :src="imageSrc"
-        class="x-picture__image x-result-picture__image"
+        class="x-result-picture-image"
         data-test="result-picture-image"
       />
     </component>
@@ -208,14 +208,13 @@
 
 <style lang="scss" scoped>
   .x-result-picture {
+    position: relative;
     min-width: 1px;
     min-height: 1px;
-    position: relative;
 
-    &__image {
+    &-image {
       max-width: 100%;
       max-height: 100%;
-      object-fit: contain;
     }
   }
 </style>
