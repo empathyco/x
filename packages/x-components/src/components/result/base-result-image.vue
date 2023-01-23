@@ -211,10 +211,11 @@
     position: relative;
     min-width: 1px;
     min-height: 1px;
-  }
-  .x-result-picture-image {
-    max-width: 100%;
-    max-height: 100%;
+
+    &-image {
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
 </style>
 
