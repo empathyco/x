@@ -17,7 +17,7 @@ function mountBaseResultImage({
           <BaseResultImage
               :result="result"
               :showNextImageOnHover="showNextImageOnHover"
-              class="x-picture--colored">
+              class="x-picture x-picture-overlay x-bg-neutral-50/60">
             <template #placeholder>
               <div data-test="result-picture-placeholder"
                   style="padding-top: 100%; background-color: lightgray"></div>
