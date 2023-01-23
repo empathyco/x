@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.294](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.293...@empathyco/x-components@3.0.0-alpha.294) (2023-01-23)
+
+### Features
+
+- **design-system:** add `product-image` `XDS` component (#1025)
+  ([d60e239](https://github.com/empathyco/x/commit/d60e239012d04d547b5430eb8afc22536f66d838))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.293](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.292...@empathyco/x-components@3.0.0-alpha.293) (2023-01-23)
 
 ### Styling
