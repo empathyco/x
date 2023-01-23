@@ -21,10 +21,7 @@
         @change="setMin($event.target.valueAsNumber)"
         name="min"
         type="number"
-        class="
-          x-input
-          x-editable-number-range-filter__input x-editable-number-range-filter__input--min
-        "
+        class="x-input x-editable-number-range-filter__input x-editable-number-range-filter__input--min"
         :value="min"
         data-test="range-min"
         :aria-label="rangeFilterMin"
@@ -34,10 +31,7 @@
         @change="setMax($event.target.valueAsNumber)"
         name="max"
         type="number"
-        class="
-          x-input
-          x-editable-number-range-filter__input x-editable-number-range-filter__input--max
-        "
+        class="x-input x-editable-number-range-filter__input x-editable-number-range-filter__input--max"
         :value="max"
         data-test="range-max"
         :aria-label="rangeFilterMax"

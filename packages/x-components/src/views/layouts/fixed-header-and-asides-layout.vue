@@ -25,25 +25,14 @@
     </template>
     <template #toolbar>
       <div
-        class="
-          x-title3
-          x-list__item--expand
-          x-border-width--02
-          x-border-color--neutral-70
-          x-margin--top-03
-        "
+        class="x-title3 x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03"
       >
         TOOLBAR
       </div>
     </template>
     <template #left-aside>
       <div
-        class="
-          x-background--neutral-100
-          x-list__item--expand
-          x-border-radius--right-06
-          x-padding--05
-        "
+        class="x-background--neutral-100 x-list__item--expand x-border-radius--right-06 x-padding--05"
       >
         LEFT SIDE
       </div>
@@ -80,13 +69,7 @@
     </template>
     <template #scroll-to-top>
       <div
-        class="
-          x-text1 x-text1-lg
-          x-padding--03
-          x-background--neutral-95
-          x-border-width--01
-          x-border-color--neutral-35
-        "
+        class="x-text1 x-text1-lg x-padding--03 x-background--neutral-95 x-border-width--01 x-border-color--neutral-35"
       >
         SCROLL TO TOP
       </div>

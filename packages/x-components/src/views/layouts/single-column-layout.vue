@@ -2,39 +2,21 @@
   <SingleColumnLayout :dev-mode="true">
     <template #header>
       <span
-        class="
-          x-title1
-          x-list__item--expand
-          x-list x-list--horizontal x-list--justify-center
-          x-margin--bottom-03 x-margin--top-03
-          x-background--neutral-95
-        "
+        class="x-title1 x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95"
       >
         HEADER
       </span>
     </template>
     <template #sub-header>
       <span
-        class="
-          x-title2
-          x-list__item--expand
-          x-list x-list--horizontal x-list--justify-center
-          x-margin--bottom-03 x-margin--top-03
-          x-background--neutral-95
-        "
+        class="x-title2 x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95"
       >
         SUB HEADER
       </span>
     </template>
     <template #toolbar>
       <div
-        class="
-          x-title3
-          x-list__item--expand
-          x-border-width--02
-          x-border-color--neutral-70
-          x-margin--top-03 x-margin--bottom-03
-        "
+        class="x-title3 x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03"
       >
         TOOLBAR
         <BaseIdModalOpen modalId="extra-aside-modal" class="x-button--ghost">
@@ -49,12 +31,7 @@
     </template>
     <template #floating>
       <div
-        class="
-          x-title3
-          x-list__item--expand
-          x-margin--top-03 x-margin--bottom-03
-          x-list x-list--horizontal x-list--justify-center
-        "
+        class="x-title3 x-list__item--expand x-margin--top-03 x-margin--bottom-03 x-list x-list--horizontal x-list--justify-center"
       >
         <BaseIdModalOpen modalId="aside-modal">
           <FiltersIcon />
@@ -78,14 +55,7 @@
     </template>
     <template #footer>
       <div
-        class="
-          x-list__item--expand
-          x-text1 x-text1-lg
-          x-padding--03
-          x-background--neutral-95
-          x-border-width--01
-          x-border-color--neutral-35
-        "
+        class="x-list__item--expand x-text1 x-text1-lg x-padding--03 x-background--neutral-95 x-border-width--01 x-border-color--neutral-35"
       >
         FOOTER
       </div>

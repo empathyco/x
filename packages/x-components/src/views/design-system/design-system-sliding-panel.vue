@@ -246,11 +246,7 @@
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
       <h2 class="x-title2">Buttons visible on hover, with overflow and no gradient</h2>
       <SlidingPanel
-        class="
-          x-sliding-panel--no-gradient
-          x-sliding-panel--show-buttons-on-hover
-          x-sliding-panel--buttons-overflow
-        "
+        class="x-sliding-panel--no-gradient x-sliding-panel--show-buttons-on-hover x-sliding-panel--buttons-overflow"
       >
         <template #sliding-panel-left-button>
           <ChevronLeftIcon />

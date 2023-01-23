@@ -15,11 +15,7 @@
       </div>
     </div>
     <div
-      class="
-        x-fixed x-left-1/2 x-top-1/2
-        -translate-x-1/2 -translate-y-1/2
-        x-bg-neutral-25 x-p-8 x-transition-opacity x-duration-300 x-pointer-events-none
-      "
+      class="x-fixed x-left-1/2 x-top-1/2 -translate-x-1/2 -translate-y-1/2 x-bg-neutral-25 x-p-8 x-transition-opacity x-duration-300 x-pointer-events-none"
       :class="isMessageVisible ? 'x-opacity-100' : 'x-opacity-0'"
     >
       CSS classes copied to Clipboard!
