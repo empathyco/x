@@ -5,7 +5,6 @@
  */
 export function slidingPanelButtonsDefault() {
   return {
-    pointerEvents: 'none',
     position: 'absolute',
     transition: 'all ease-out 0.2s',
     zIndex: 1,

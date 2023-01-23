@@ -7,12 +7,14 @@ export function slidingPanelButtonsHover() {
   return {
     '&.sliding-panel-at-start': {
       '.sliding-panel-button-left': {
-        opacity: 0
+        opacity: 0,
+        pointerEvents: 'none'
       }
     },
     '&.sliding-panel-at-end': {
       '.sliding-panel-button-right': {
-        opacity: 0
+        opacity: 0,
+        pointerEvents: 'none'
       }
     },
     '&.sliding-panel-show-buttons-on-hover': {
