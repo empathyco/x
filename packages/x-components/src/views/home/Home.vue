@@ -322,7 +322,7 @@
                             </NextQuery>
                             <div class="x-margin--bottom-06">
                               <SlidingPanel :resetOnContentChange="false">
-                                <div class="x-list x-list--gap-03">
+                                <div class="x-flex x-flex-row x-gap-8">
                                   <Result
                                     v-for="result in results"
                                     :key="result.id"
