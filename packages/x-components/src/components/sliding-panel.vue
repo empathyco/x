@@ -404,13 +404,15 @@ just by swiping.
 </style>
 ```
 
-#### Customizing the buttons with classes
+#### Customizing the content with classes
 
 The `buttonClass` prop can be used to add classes to the buttons.
 
+The `scrollContainerClass` prop can be used to add classes to the scroll content.
+
 ```vue
 <template>
-  <SlidingPanel buttonClass="x-button--round">
+  <SlidingPanel buttonClass="x-button--round" scrollContainerClass="x-sliding-panel-fade">
     <div class="item">Item 1</div>
     <div class="item">Item 2</div>
     <div class="item">Item 3</div>
