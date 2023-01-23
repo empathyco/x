@@ -24,7 +24,7 @@ export function slidingPanelFade(helpers: TailwindHelpers) {
         }
       )
     },
-    '.sliding-panel-at-start': {
+    '&.sliding-panel-at-start': {
       '.sliding-panel-fade': {
         ...startSizes.md,
         ...rename(
@@ -37,7 +37,7 @@ export function slidingPanelFade(helpers: TailwindHelpers) {
         )
       }
     },
-    '.sliding-panel-at-end': {
+    '&.sliding-panel-at-end': {
       '.sliding-panel-fade': {
         ...endSizes.md,
         ...rename(

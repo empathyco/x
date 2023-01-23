@@ -1,3 +1,4 @@
+import { deepMerge } from '@empathyco/x-deep-merge';
 import { TailwindHelpers } from '../../../types';
 import { slidingPanelDefault } from './default';
 import { slidingPanelFade } from './fade';
@@ -11,8 +12,7 @@ import { slidingPanelFade } from './fade';
 export function slidingPanel(helpers: TailwindHelpers) {
   return {
     '.sliding-panel': {
-      ...slidingPanelDefault(),
-      ...slidingPanelFade(helpers)
+      ...deepMerge(slidingPanelDefault(), slidingPanelFade(helpers))
     }
   };
 }
