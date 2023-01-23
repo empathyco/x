@@ -25,7 +25,7 @@ module.exports = {
       'jsdoc/implements-on-classes': 'off',
       'jsdoc/multiline-blocks': 'warn',
       'jsdoc/newline-after-description': 'error',
-      'jsdoc/no-multi-asterisks': 'warn',
+      'jsdoc/no-multi-asterisks': ['warn', { allowWhitespace: true }],
       'jsdoc/tag-lines': 'off',
       'jsdoc/require-description': 'error',
       'jsdoc/require-description-complete-sentence': 'warn',
