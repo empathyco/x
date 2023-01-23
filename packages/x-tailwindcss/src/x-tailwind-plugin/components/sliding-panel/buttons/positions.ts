@@ -15,11 +15,9 @@ export function slidingPanelButtonsPositions() {
     },
     '&.sliding-panel-buttons-outside': {
       '.sliding-panel-button-left': {
-        pointerEvents: 'all',
         transform: 'translateX(-100%)'
       },
       '.sliding-panel-button-right': {
-        pointerEvents: 'all',
         transform: 'translateX(100%)'
       }
     }
