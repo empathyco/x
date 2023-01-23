@@ -1,5 +1,5 @@
 <template>
-  <!-- This is a div because we support adding an overlay gradient above the image on hover -->
+  <!-- This is a div because using a picture causes the onload event of the image to fire twice. -->
   <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
   <div
     @mouseenter.once="userHasHoveredImage = true"
@@ -31,7 +31,7 @@
         :key="imageSrc"
         :alt="result.name"
         :src="imageSrc"
-        class="x-result-picture__image"
+        class="x-result-picture-image"
         data-test="result-picture-image"
       />
     </component>
@@ -208,14 +208,14 @@
 
 <style lang="scss" scoped>
   .x-result-picture {
-    // the loaderStyles prop is positioning absolutely to this container
+    // The image loader is positioning absolutely to this container
     position: relative;
     min-width: 1px;
     min-height: 1px;
-
-    &__image {
-      max-height: 100%;
-    }
+  }
+  .x-result-picture-image {
+    max-width: 100%;
+    max-height: 100%;
   }
 </style>
 

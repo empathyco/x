@@ -1,4 +1,6 @@
 .x-picture {
+  overflow: hidden;
+
   // border
   border-radius: var(--x-size-border-radius-top-picture-default)
     var(--x-size-border-radius-right-picture-default)
