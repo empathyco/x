@@ -1,5 +1,19 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.53](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.52...@empathyco/x-tailwindcss@0.2.0-alpha.53) (2023-01-23)
+
+
+### Code Refactoring
+
+* make sliding panel take care buttons position and fade (#1027) ([6e9c97c](https://github.com/empathyco/x/commit/6e9c97cfcb2e13f848463d3265f0b5d52be326d6))
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
