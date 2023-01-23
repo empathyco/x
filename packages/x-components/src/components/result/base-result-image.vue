@@ -208,7 +208,6 @@
 
 <style lang="scss" scoped>
   .x-result-picture {
-    // The image loader is positioning absolutely to this container
     position: relative;
     min-width: 1px;
     min-height: 1px;
