@@ -3,7 +3,7 @@
     <button
       v-if="showButtons"
       @click="scrollLeft"
-      class="x-sliding-panel__button x-sliding-panel__button-left x-button"
+      class="x-sliding-panel__button x-sliding-panel-button-left x-button"
       :class="buttonClass"
       data-test="sliding-panel-left-button"
     >
@@ -15,6 +15,7 @@
       @scroll="debouncedUpdateScrollPosition"
       @transitionend="debouncedUpdateScrollPosition"
       @animationend="debouncedUpdateScrollPosition"
+      :class="scrollContainerClass"
       class="x-list x-list--horizontal x-sliding-panel__scroll"
       data-test="sliding-panel-scroll"
     >
@@ -24,7 +25,7 @@
     <button
       v-if="showButtons"
       @click="scrollRight"
-      class="x-sliding-panel__button x-sliding-panel__button-right x-button"
+      class="x-sliding-panel__button x-sliding-panel-button-right x-button"
       :class="buttonClass"
       data-test="sliding-panel-right-button"
     >
@@ -51,7 +52,9 @@
    * @public
    */
   @Component
-  export default class SlidingPanel extends Mixins(dynamicPropsMixin(['buttonClass'])) {
+  export default class SlidingPanel extends Mixins(
+    dynamicPropsMixin(['buttonClass', 'scrollContainerClass'])
+  ) {
     /**
      * Scroll factor that will dictate how much the scroll moves when pressing a navigation button.
      *
@@ -109,8 +112,8 @@
      */
     protected get cssClasses(): VueCSSClasses {
       return {
-        'x-sliding-panel--at-start': this.isScrollAtStart,
-        'x-sliding-panel--at-end': this.isScrollAtEnd
+        'x-sliding-panel-at-start': this.isScrollAtStart,
+        'x-sliding-panel-at-end': this.isScrollAtEnd
       };
     }
 
@@ -236,14 +239,13 @@
       position: absolute;
       transition: all ease-out 0.2s;
       z-index: 2; /* To overlay the design system gradient with z-index:1 */
+    }
+    .x-sliding-panel-button-left {
+      left: 0;
+    }
 
-      &-left {
-        left: 0;
-      }
-
-      &-right {
-        right: 0;
-      }
+    .x-sliding-panel-button-right {
+      right: 0;
     }
 
     &__scroll {
@@ -259,17 +261,21 @@
       &::-webkit-scrollbar {
         display: none;
       }
+
+      > * {
+        flex: 0 0 auto;
+      }
     }
 
-    &:not(.x-sliding-panel--show-buttons-on-hover):not(.x-sliding-panel--at-start) {
-      .x-sliding-panel__button-left {
+    &:not(.x-sliding-panel-show-buttons-on-hover):not(.x-sliding-panel-at-start) {
+      .x-sliding-panel-button-left {
         opacity: 1;
         pointer-events: all;
       }
     }
 
-    &:not(.x-sliding-panel--show-buttons-on-hover):not(.x-sliding-panel--at-end) {
-      .x-sliding-panel__button-right {
+    &:not(.x-sliding-panel-show-buttons-on-hover):not(.x-sliding-panel-at-end) {
+      .x-sliding-panel-button-right {
         opacity: 1;
         pointer-events: all;
       }
