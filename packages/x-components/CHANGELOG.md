@@ -1,15 +1,19 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.293](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.292...@empathyco/x-components@3.0.0-alpha.293) (2023-01-23)
+
+### Styling
+
+- update prettier and format code (#1026)
+  ([a18cc17](https://github.com/empathyco/x/commit/a18cc172b6638962d53192905cd466f12bccacac)),
+  closes [EX-7877](https://searchbroker.atlassian.net/browse/EX-7877)
 
 ## [3.0.0-alpha.292](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.291...@empathyco/x-components@3.0.0-alpha.292) (2023-01-23)
 
 **Note:** Version bump only for package @empathyco/x-components
-
-
-
-
 
 # Change Log
 
