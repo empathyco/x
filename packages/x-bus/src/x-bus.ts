@@ -52,6 +52,14 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
   protected priorities: Dictionary<Priority>;
 
   /**
+   * The default value to use as priority for an event that doesn't have defined neither a custom
+   * priority nor its name doesn't match any key of the {@link priorities} dictionary.
+   *
+   * @internal
+   */
+  protected defaultEventPriority: number;
+
+  /**
    * A list of functions to execute when an event is emitted.
    *
    * @internal
@@ -88,13 +96,15 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    * store the events.
    * @param config.priorities - A {@link @empathyco/x-utils#Dictionary} defining the priorities
    * associated to a given string.
-   * @param config.emitCallbacks - A list of functions to execute when an event is emitted.
+   @param config.emitCallbacks - A list of functions to execute when an event is emitted.
+   * @param config.defaultEventPriority -  A default priority to assigned to an event.
    */
   public constructor(
     config: {
       queue?: XPriorityQueue<SomeEvents, XPriorityQueueNodeData<SomeEvents, SomeEventMetadata>>;
       priorities?: Dictionary<number>;
       emitCallbacks?: AnyFunction[];
+      defaultEventPriority?: number;
     } = {}
   ) {
     this.queue =
@@ -102,6 +112,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
       new BaseXPriorityQueue<SomeEvents, XPriorityQueueNodeData<SomeEvents, SomeEventMetadata>>();
     this.priorities = config.priorities ?? {};
     this.emitCallbacks = config.emitCallbacks ?? [];
+    this.defaultEventPriority = config.defaultEventPriority ?? Number.MIN_SAFE_INTEGER;
   }
 
   /**
@@ -137,7 +148,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    * Retrieves the event priority based on:
    * - the defined event metadata priority
    * - the priority associated to the matching preconfigured priority key
-   * - the max positive value is assigned
+   * - the configured {@link defaultEventPriority} is assigned (by default, the min safe integer).
    *
    * @param event - The event to get the priority from.
    * @param metadata - The event metadata.
@@ -156,7 +167,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
       return this.priorities[matchingKey];
     }
 
-    return Number.MIN_SAFE_INTEGER;
+    return this.defaultEventPriority;
   }
 
   /**

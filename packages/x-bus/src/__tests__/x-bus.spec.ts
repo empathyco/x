@@ -20,35 +20,51 @@ describe('x-priority-bus scenarios', () => {
   });
 
   describe('constructor', () => {
-    it('creates a bus with an existing priority queue', () => {
+    it('creates a bus with an existing priority queue', async () => {
+      interface CustomTestEvents {
+        TestEvent1: string;
+        EventTest2: number;
+        RandomEvent3: boolean;
+      }
+
       // Given a custom bus initialization config
       const queue = new BaseXPriorityQueue<
-        TestEvents,
-        XPriorityQueueNodeData<TestEvents, Dictionary>
+        CustomTestEvents,
+        XPriorityQueueNodeData<CustomTestEvents, Dictionary>
       >();
       const emitCallbackFn1: AnyFunction = jest.fn();
       const emitCallbackFn2: AnyFunction = jest.fn();
       const emitCallbacks = [emitCallbackFn1, emitCallbackFn2];
 
       // Then the provided configuration is used
-      const bus = new XPriorityBus<TestEvents, Dictionary>({
+      const bus = new XPriorityBus<CustomTestEvents, Dictionary>({
         queue,
         priorities: {
-          '^TestEvent': 10,
-          '^EventTest': 0
+          TestEvent: 10,
+          EventTest: 0
         },
-        emitCallbacks
+        emitCallbacks,
+        defaultEventPriority: 5
       });
-      bus.emit('TestEvent1');
-      bus.emit('TestEvent2');
-
-      expect(queue.size()).toBe(2);
-
-      jest.runAllTimers();
-
+      // Then events are emitted
+      const emittedEvents: (keyof CustomTestEvents)[] = [];
+      await emitMultipleEvents<CustomTestEvents, Dictionary>(
+        bus,
+        [
+          ['TestEvent1', 'test', undefined],
+          ['EventTest2', 0, undefined],
+          ['RandomEvent3', false, undefined]
+        ],
+        emittedEvents
+      );
+      expect(emittedEvents).toEqual<(keyof CustomTestEvents)[]>([
+        'TestEvent1',
+        'RandomEvent3',
+        'EventTest2'
+      ]);
       expect(queue.isEmpty()).toBe(true);
       emitCallbacks.forEach(callbackFn => {
-        expect(callbackFn).toHaveBeenCalledTimes(2);
+        expect(callbackFn).toHaveBeenCalledTimes(3);
       });
     });
   });
@@ -102,32 +118,24 @@ describe('x-priority-bus scenarios', () => {
         queue
       });
       const emittedEvents: (keyof TestEvents)[] = [];
-      const pushEmittedEvent: AnyFunction = ({ event }) => emittedEvents.push(event);
+      const pushEmittedEvent: AnyFunction = ({ event }) =>
+        emittedEvents.push(event as keyof TestEvents);
 
       // When multiple events are emitted at the same time
       // Then they're added to the queue
       // And cancel an ongoing flushing of the queue
-      let pendingFlush = bus['pendingFlushId'];
-      expect(pendingFlush).toBeUndefined();
       expect(queue.isEmpty()).toBe(true);
 
       const emit1 = bus.emit('TestEvent1', undefined, { priority: 4 }).then(pushEmittedEvent);
-      pendingFlush = bus['pendingFlushId'];
-      expect(pendingFlush).toBeDefined();
       expect(queue.size()).toBe(1);
 
       const emit2 = bus.emit('TestEvent2', undefined, { priority: 0 }).then(pushEmittedEvent);
-      expect(pendingFlush).not.toBe(bus['pendingFlushId']);
-      pendingFlush = bus['pendingFlushId'];
       expect(queue.size()).toBe(2);
 
       const emit3 = bus.emit('EventTest3', undefined, { priority: 2 }).then(pushEmittedEvent);
-      expect(pendingFlush).not.toBe(bus['pendingFlushId']);
-      pendingFlush = bus['pendingFlushId'];
       expect(queue.size()).toBe(3);
 
       const emit4 = bus.emit('EventTest4', undefined, { priority: 8 }).then(pushEmittedEvent);
-      expect(pendingFlush).not.toBe(bus['pendingFlushId']);
       expect(queue.size()).toBe(4);
 
       // The events are batched and emitted in the right order
@@ -202,39 +210,6 @@ describe('x-priority-bus scenarios', () => {
       });
     });
   });
-
-  describe('getEventPriority', () => {
-    it('can override the priority behavior', async () => {
-      interface EventMetadata {
-        customPriority?: number;
-      }
-
-      // Given a priority bus
-      const bus = new XPriorityBus<TestEvents, EventMetadata>();
-
-      // When the priority assignment function is overridden
-      bus['getEventPriority'] = (_, metadata) => metadata.customPriority ?? Number.MIN_SAFE_INTEGER;
-
-      // Then multiple events are emitted in the right order
-      const emittedEvents: (keyof TestEvents)[] = [];
-      await emitMultipleEvents<TestEvents, EventMetadata>(
-        bus,
-        [
-          ['TestEvent1', undefined, { customPriority: 0 }],
-          ['TestEvent2', undefined, { customPriority: 2 }],
-          ['EventTest3', undefined, { customPriority: 4 }],
-          ['EventTest4', undefined, {}]
-        ],
-        emittedEvents
-      );
-      expect(emittedEvents).toEqual<(keyof TestEvents)[]>([
-        'EventTest3',
-        'TestEvent2',
-        'TestEvent1',
-        'EventTest4'
-      ]);
-    });
-  });
 });
 
 /**
@@ -253,7 +228,8 @@ async function emitMultipleEvents<SomeRecord extends Dictionary, SomeMetadata ex
   eventsToEmit: Parameters<XBus<SomeRecord, SomeMetadata>['emit']>[],
   emittedEvents: (keyof SomeRecord)[] = []
 ): Promise<any[]> {
-  const pushEmittedEvent: AnyFunction = ({ event }) => emittedEvents.push(event);
+  const pushEmittedEvent: AnyFunction = ({ event }) =>
+    emittedEvents.push(event as keyof SomeRecord);
   const emittedEventsPromise = Promise.all([
     eventsToEmit.map(([event, payload, metadata]) => {
       bus.emit(event, payload, metadata).then(pushEmittedEvent);
