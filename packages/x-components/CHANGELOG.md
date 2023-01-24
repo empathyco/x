@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file. See
 
 ## [3.0.0-alpha.294](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.293...@empathyco/x-components@3.0.0-alpha.294) (2023-01-23)
 
+### ⚠ BREAKING CHANGES
+
+- **design-system:** `picture` and some `result` styles related are now deprecated. To continue using them import from `deprecated-full-theme.css`.
+- Rename `x-result-picture__image` to `x-result-picture-image`.
+
 ### Features
 
 - **design-system:** add `product-image` `XDS` component (#1025)
