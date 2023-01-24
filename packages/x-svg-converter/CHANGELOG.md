@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@0.2.0-alpha.2...@empathyco/x-svg-converter@0.2.0-alpha.3) (2023-01-20)
+
+### Continuous Integration
+
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@0.2.0-alpha.1...@empathyco/x-svg-converter@0.2.0-alpha.2) (2022-12-09)
 
 ### Bug Fixes

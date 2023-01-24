@@ -18,7 +18,7 @@
 
       <div class="x-result">
         <div class="x-result__picture">
-          <picture class="x-picture x-picture--cover x-picture--colored">
+          <picture class="x-picture--cover x-picture--colored x-picture">
             <img
               class="x-picture__image"
               :src="whiteBackgroundImageUrl"
@@ -27,7 +27,7 @@
           </picture>
         </div>
         <div class="x-result__overlay x-list x-list--horizontal x-padding--02">
-          <button class="x-button primary x-list__item--expand">Add to Cart</button>
+          <button class="primary x-list__item--expand x-button">Add to Cart</button>
         </div>
         <div class="x-result__description x-list x-list--align-center">
           <h1 class="x-title2">Empathy Dress</h1>
@@ -53,7 +53,7 @@
 
       <div class="x-result x-result--card">
         <div class="x-result__picture">
-          <picture class="x-picture x-picture--cover x-picture--colored">
+          <picture class="x-picture--cover x-picture--colored x-picture">
             <img
               class="x-picture__image"
               :src="whiteBackgroundImageUrl"
@@ -62,7 +62,7 @@
           </picture>
         </div>
         <div class="x-result__overlay x-list x-list--horizontal x-padding--02">
-          <button class="x-button primary x-list__item--expand">Add to Cart</button>
+          <button class="primary x-list__item--expand x-button">Add to Cart</button>
         </div>
         <div class="x-result__description x-list x-list--align-center">
           <h1 class="x-title2">Empathy Dress</h1>

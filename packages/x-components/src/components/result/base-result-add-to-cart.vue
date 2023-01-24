@@ -2,7 +2,7 @@
   <BaseEventButton
     v-on="$listeners"
     :events="events"
-    class="x-button x-result-add-to-cart"
+    class="x-result-add-to-cart x-button"
     data-test="result-add-to-cart"
   >
     <!-- @slot (Required) Button content with a text, an icon or both -->

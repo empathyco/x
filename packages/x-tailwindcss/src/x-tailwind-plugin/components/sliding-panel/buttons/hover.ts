@@ -5,8 +5,23 @@
  */
 export function slidingPanelButtonsHover() {
   return {
+    '&.sliding-panel-at-start': {
+      '.sliding-panel-button-left': {
+        opacity: 0,
+        pointerEvents: 'none'
+      }
+    },
+    '&.sliding-panel-at-end': {
+      '.sliding-panel-button-right': {
+        opacity: 0,
+        pointerEvents: 'none'
+      }
+    },
     '&.sliding-panel-show-buttons-on-hover': {
-      '.sliding-panel-button': {
+      '.sliding-panel-button-left': {
+        opacity: 0
+      },
+      '.sliding-panel-button-right': {
         opacity: 0
       },
       '&:not(.sliding-panel-at-start):hover': {
@@ -20,18 +35,6 @@ export function slidingPanelButtonsHover() {
           opacity: 1,
           pointerEvents: 'all'
         }
-      }
-    },
-    '&:not(.sliding-panel-show-buttons-on-hover):not(.sliding-panel-at-start)': {
-      '.sliding-panel-button-left': {
-        opacity: 1,
-        pointerEvents: 'all'
-      }
-    },
-    '&:not(.sliding-panel-show-buttons-on-hover):not(.sliding-panel-at-end)': {
-      '.sliding-panel-button-right': {
-        opacity: 1,
-        pointerEvents: 'all'
       }
     }
   };

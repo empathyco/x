@@ -8,7 +8,7 @@
     <XdsSuggestion />
     <XdsSuggestionGroup />
     <XdsSlidingPanel />
-    <XdsProductImage />
+    <XdsPicture />
   </div>
 </template>
 <script lang="ts">
@@ -22,7 +22,7 @@
   import XdsInput from './xds-input.vue';
   import XdsSuggestionGroup from './xds-suggestion-group.vue';
   import XdsSlidingPanel from './xds-sliding-panel.vue';
-  import XdsProductImage from './xds-product-image.vue';
+  import XdsPicture from './xds-picture.vue';
 
   @Component({
     components: {
@@ -34,7 +34,7 @@
       XdsSuggestion,
       XdsSuggestionGroup,
       XdsSlidingPanel,
-      XdsProductImage
+      XdsPicture
     }
   })
   export default class XdsShowcase extends Vue {}

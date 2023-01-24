@@ -1,86 +1,177 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.298](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.297...@empathyco/x-components@3.0.0-alpha.298) (2023-01-24)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.297](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.296...@empathyco/x-components@3.0.0-alpha.297) (2023-01-24)
+
+### Features
+
+- add `prettier-plugin-tailwindcss` (#1033)
+  ([c3eae8b](https://github.com/empathyco/x/commit/c3eae8bef0a75fa1e78f1190947a74fa9269d6bd)),
+  closes [EX-7884](https://searchbroker.atlassian.net/browse/EX-7884)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.296](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.295...@empathyco/x-components@3.0.0-alpha.296) (2023-01-24)
+
+### Features
+
+- remove duplicates from image placeholder/fallback classes (#1032)
+  ([2c5390c](https://github.com/empathyco/x/commit/2c5390c0e5cf2d4bc0b843422d2e99415b6e58ff)),
+  closes [EX-7836](https://searchbroker.atlassian.net/browse/EX-7836)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.295](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.294...@empathyco/x-components@3.0.0-alpha.295) (2023-01-24)
+
+### ⚠ BREAKING CHANGES
+
+- **components:** Renamed `SlidingPanel` css classes `x-sliding-panel--at-start` and
+  `x-sliding-panel--at-end` to `x-sliding-panel-at-start` and `x-sliding-panel-at-end` respectively.
+- **components:** Renamed `SlidingPanel` buttons css classes `x-sliding-panel__button-left` and
+  `x-sliding-panel__button-right` to `x-sliding-panel-button-left` and
+  `x-sliding-panel-button-right` respectively.
+- **components:** Old design-system `SlidingPanel` styles (including the updated button classes) are
+  now located in the `deprecated-full-theme.css` file.
+
+### Features
+
+- **components:** use XDS `sliding panel` (#1028)
+  ([9773003](https://github.com/empathyco/x/commit/97730036b473678b8487a386bc6d83bd3ecf872d)),
+  closes [EX-7831](https://searchbroker.atlassian.net/browse/EX-7831)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.294](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.293...@empathyco/x-components@3.0.0-alpha.294) (2023-01-23)
+
+### ⚠ BREAKING CHANGES
+
+- **design-system:** `picture` and some `result` styles related are now deprecated. To continue
+  using them import from `deprecated-full-theme.css`.
+- Rename `x-result-picture__image` to `x-result-picture-image`.
+
+### Features
+
+- **design-system:** add `product-image` `XDS` component (#1025)
+  ([d60e239](https://github.com/empathyco/x/commit/d60e239012d04d547b5430eb8afc22536f66d838))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.293](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.292...@empathyco/x-components@3.0.0-alpha.293) (2023-01-23)
+
+### Styling
+
+- update prettier and format code (#1026)
+  ([a18cc17](https://github.com/empathyco/x/commit/a18cc172b6638962d53192905cd466f12bccacac)),
+  closes [EX-7877](https://searchbroker.atlassian.net/browse/EX-7877)
+
+## [3.0.0-alpha.292](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.291...@empathyco/x-components@3.0.0-alpha.292) (2023-01-23)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.291](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.290...@empathyco/x-components@3.0.0-alpha.291) (2023-01-20)
+
+### Build System
+
+- **deps:** update dependencies (#1024)
+  ([e99425f](https://github.com/empathyco/x/commit/e99425fc315526afe40b1fd536bcfde1fc1af08a))
+
+## [3.0.0-alpha.290](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.289...@empathyco/x-components@3.0.0-alpha.290) (2023-01-20)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [3.0.0-alpha.289](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.288...@empathyco/x-components@3.0.0-alpha.289) (2023-01-19)
+
+**Note:** Version bump only for package @empathyco/x-components
 
 ## [3.0.0-alpha.288](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.287...@empathyco/x-components@3.0.0-alpha.288) (2023-01-18)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## [3.0.0-alpha.287](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.286...@empathyco/x-components@3.0.0-alpha.287) (2023-01-18)
-
 
 ### Features
 
-* **components:** add `contentClass` to `modals` (#1009) ([68b8790](https://github.com/empathyco/x/commit/68b8790289dd6e233c0199497cdb09f515ccbeec)), closes [EX-7479](https://searchbroker.atlassian.net/browse/EX-7479)
-
-
+- **components:** add `contentClass` to `modals` (#1009)
+  ([68b8790](https://github.com/empathyco/x/commit/68b8790289dd6e233c0199497cdb09f515ccbeec)),
+  closes [EX-7479](https://searchbroker.atlassian.net/browse/EX-7479)
 
 ## [3.0.0-alpha.286](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.285...@empathyco/x-components@3.0.0-alpha.286) (2023-01-18)
 
-
 ### ⚠ BREAKING CHANGES
 
-* **history-queries:** Renamed `removeHistoryQueryClass` prop to `removeButtonClass`.
+- **history-queries:** Renamed `removeHistoryQueryClass` prop to `removeButtonClass`.
 
 ### Features
 
-* **history-queries:** add dynamic classes to the history query suggestion (#1014) ([ddd4ac7](https://github.com/empathyco/x/commit/ddd4ac76f30f90bb68497d507948caee060944cf)), closes [EX-7853](https://searchbroker.atlassian.net/browse/EX-7853)
-
-
+- **history-queries:** add dynamic classes to the history query suggestion (#1014)
+  ([ddd4ac7](https://github.com/empathyco/x/commit/ddd4ac76f30f90bb68497d507948caee060944cf)),
+  closes [EX-7853](https://searchbroker.atlassian.net/browse/EX-7853)
 
 ## [3.0.0-alpha.285](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.284...@empathyco/x-components@3.0.0-alpha.285) (2023-01-17)
 
-
 ### ⚠ BREAKING CHANGES
 
-* Rename `x-grid` class to `x-grid-list`.
-* Rename `x-grid__item` class to `x-grid-list__item`.
-* Rename `x-grid--cols-{cols}` class to `x-grid-list--cols-{cols}`.
+- Rename `x-grid` class to `x-grid-list`.
+- Rename `x-grid__item` class to `x-grid-list__item`.
+- Rename `x-grid--cols-{cols}` class to `x-grid-list--cols-{cols}`.
 
 ### Features
 
-* rename `x-grid` class to `x-grid-list` (#1015) ([dbb5d50](https://github.com/empathyco/x/commit/dbb5d502dd9c1e69c18d137edc8be2e13bceaeb2)), closes [EX-7481](https://searchbroker.atlassian.net/browse/EX-7481)
-
-
+- rename `x-grid` class to `x-grid-list` (#1015)
+  ([dbb5d50](https://github.com/empathyco/x/commit/dbb5d502dd9c1e69c18d137edc8be2e13bceaeb2)),
+  closes [EX-7481](https://searchbroker.atlassian.net/browse/EX-7481)
 
 ## [3.0.0-alpha.284](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.283...@empathyco/x-components@3.0.0-alpha.284) (2023-01-17)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## [3.0.0-alpha.283](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.282...@empathyco/x-components@3.0.0-alpha.283) (2023-01-17)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## [3.0.0-alpha.282](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.281...@empathyco/x-components@3.0.0-alpha.282) (2023-01-17)
-
 
 ### Features
 
-* add dynamic classes to the suggestion item inside the `base-suggestions` (#1008) ([3e0b683](https://github.com/empathyco/x/commit/3e0b683eb83b9b2e9f6ebb0a17b80a9ff46d6e3c)), closes [EX-7834](https://searchbroker.atlassian.net/browse/EX-7834)
-
-
+- add dynamic classes to the suggestion item inside the `base-suggestions` (#1008)
+  ([3e0b683](https://github.com/empathyco/x/commit/3e0b683eb83b9b2e9f6ebb0a17b80a9ff46d6e3c)),
+  closes [EX-7834](https://searchbroker.atlassian.net/browse/EX-7834)
 
 ## [3.0.0-alpha.281](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.280...@empathyco/x-components@3.0.0-alpha.281) (2023-01-16)
 
-
 ### Features
 
-* **history-queries:** add dynamic classes to the remove history query button (#1007) ([b5623d1](https://github.com/empathyco/x/commit/b5623d1c6f7f2709251164c6055b616218163c6f)), closes [EX-7833](https://searchbroker.atlassian.net/browse/EX-7833)
-
-
+- **history-queries:** add dynamic classes to the remove history query button (#1007)
+  ([b5623d1](https://github.com/empathyco/x/commit/b5623d1c6f7f2709251164c6055b616218163c6f)),
+  closes [EX-7833](https://searchbroker.atlassian.net/browse/EX-7833)
 
 # Change Log
 

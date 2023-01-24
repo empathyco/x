@@ -3,7 +3,7 @@
     <BaseEventButton
       v-if="isVisible"
       v-on="$listeners"
-      class="x-button x-scroll-to-top"
+      class="x-scroll-to-top x-button"
       data-test="scroll-to-top"
       aria-label="Scroll to top"
       :events="events"

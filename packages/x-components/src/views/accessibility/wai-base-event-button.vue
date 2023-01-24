@@ -3,14 +3,14 @@
     <section class="x-list x-padding--07 x-list--gap-05">
       <div>
         <h1>BaseIdTogglePanelButton</h1>
-        <BaseIdTogglePanelButton class="x-button x-button--ghost" :panelId="panelId">
+        <BaseIdTogglePanelButton class="x-button--ghost x-button" :panelId="panelId">
           Panel
         </BaseIdTogglePanelButton>
         <BaseIdTogglePanel :startOpen="true" panelId="aside-panel">
           <div class="x-text1">Hey there!</div>
         </BaseIdTogglePanel>
 
-        <BaseIdTogglePanelButton class="x-button x-button--ghost" panelId="panel2" />
+        <BaseIdTogglePanelButton class="x-button--ghost x-button" panelId="panel2" />
         <BaseIdTogglePanel :startOpen="true" panelId="aside-panel">
           <div class="x-text1">
             Button without text, an element should have the ID to make it accessible.

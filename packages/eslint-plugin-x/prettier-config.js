@@ -8,5 +8,8 @@ module.exports = {
   proseWrap: 'always',
   singleQuote: true,
   trailingComma: 'none',
-  vueIndentScriptAndStyle: true
+  vueIndentScriptAndStyle: true,
+  plugins: [
+    'prettier-plugin-tailwindcss' // MUST come last
+  ]
 };

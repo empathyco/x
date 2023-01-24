@@ -1,5 +1,5 @@
 /**
- * Returns the `zoom` variant of the component `product-image`.
+ * Returns the `zoom` variant of the component `picture`.
  *
  * @returns The {@link CssStyleOptions} for the component.
  */

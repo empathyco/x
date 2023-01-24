@@ -1,25 +1,35 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.14...@empathyco/x-archetype-utils@0.1.0-alpha.15) (2023-01-23)
+
+### Styling
+
+- update prettier and format code (#1026)
+  ([a18cc17](https://github.com/empathyco/x/commit/a18cc172b6638962d53192905cd466f12bccacac)),
+  closes [EX-7877](https://searchbroker.atlassian.net/browse/EX-7877)
+
+## [0.1.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.13...@empathyco/x-archetype-utils@0.1.0-alpha.14) (2023-01-20)
+
+**Note:** Version bump only for package @empathyco/x-archetype-utils
 
 ## [0.1.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.12...@empathyco/x-archetype-utils@0.1.0-alpha.13) (2023-01-12)
 
-
 ### Bug Fixes
 
-* now styles should be accurate to the designs (#999) ([7638670](https://github.com/empathyco/x/commit/7638670d3d4f22983fcaeb0277fb9b394ece2218)), closes [EX-7809](https://searchbroker.atlassian.net/browse/EX-7809)
-
-
+- now styles should be accurate to the designs (#999)
+  ([7638670](https://github.com/empathyco/x/commit/7638670d3d4f22983fcaeb0277fb9b394ece2218)),
+  closes [EX-7809](https://searchbroker.atlassian.net/browse/EX-7809)
 
 ## [0.1.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.11...@empathyco/x-archetype-utils@0.1.0-alpha.12) (2023-01-11)
 
-
 ### Features
 
-* add data-test to searchbar and hover underline to docs links (#996) ([c384ede](https://github.com/empathyco/x/commit/c384edea8b289b2508692aacd95b73d49abe8df6)), closes [EX-7806](https://searchbroker.atlassian.net/browse/EX-7806)
-
-
+- add data-test to searchbar and hover underline to docs links (#996)
+  ([c384ede](https://github.com/empathyco/x/commit/c384edea8b289b2508692aacd95b73d49abe8df6)),
+  closes [EX-7806](https://searchbroker.atlassian.net/browse/EX-7806)
 
 # Change Log
 

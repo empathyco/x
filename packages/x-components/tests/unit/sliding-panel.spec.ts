@@ -156,18 +156,18 @@ describe('Testing sliding panel', () => {
     });
 
     getSlidingPanel()
-      .should('have.class', 'x-sliding-panel--at-start')
-      .should('not.have.class', 'x-sliding-panel--at-end');
+      .should('have.class', 'x-sliding-panel-at-start')
+      .should('not.have.class', 'x-sliding-panel-at-end');
 
     scrollTo(200);
     getSlidingPanel()
-      .should('not.have.class', 'x-sliding-panel--at-start')
-      .should('not.have.class', 'x-sliding-panel--at-end');
+      .should('not.have.class', 'x-sliding-panel-at-start')
+      .should('not.have.class', 'x-sliding-panel-at-end');
 
     scrollTo(500);
     getSlidingPanel()
-      .should('not.have.class', 'x-sliding-panel--at-start')
-      .should('have.class', 'x-sliding-panel--at-end');
+      .should('not.have.class', 'x-sliding-panel-at-start')
+      .should('have.class', 'x-sliding-panel-at-end');
   });
 
   it('allows to configure the scroll amount for each button', () => {

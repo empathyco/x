@@ -2,7 +2,7 @@
   <BaseEventButton
     v-on="$listeners"
     :events="events"
-    class="x-button x-events-modal-close-button"
+    class="x-events-modal-close-button x-button"
     data-test="close-modal"
     aria-label="Close"
   >

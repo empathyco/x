@@ -17,7 +17,7 @@
   --x-object-fit-picture-default: contain;
   --x-object-fit-picture-fallback-default: var(--x-object-fit-picture-default);
   --x-object-fit-picture-placeholder-default: var(--x-object-fit-picture-default);
-  --x-mix-blend-mode-picture-default: none;
+  --x-mix-blend-mode-picture-default: normal;
   --x-mix-blend-mode-picture-fallback-default: var(--x-mix-blend-mode-picture-default);
   --x-mix-blend-mode-picture-placeholder-default: var(--x-mix-blend-mode-picture-default);
 }

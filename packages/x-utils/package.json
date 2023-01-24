@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-utils",
-  "version": "1.0.0-alpha.13",
+  "version": "1.0.0-alpha.14",
   "description": "A utility package for Empathy search",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -22,7 +22,7 @@
     "directory": "packages/x-utils"
   },
   "engines": {
-    "node": "16"
+    "node": ">=16"
   },
   "scripts": {
     "prebuild": "rimraf ./dist ./types",
@@ -32,7 +32,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@empathyco/x-storage-service": "^2.0.0-alpha.5",
+    "@empathyco/x-storage-service": "^2.0.0-alpha.6",
     "nanoid": "~3.1.31",
     "tslib": "~2.4.1"
   },

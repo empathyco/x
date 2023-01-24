@@ -6,7 +6,13 @@
   // border
   --x-size-border-width-facet-header-default: var(--x-size-border-width-facet-header-line);
   --x-size-border-width-top-facet-header-default: var(--x-size-border-width-top-facet-header-line);
-  --x-size-border-width-right-facet-header-default: var(--x-size-border-width-right-facet-header-line);
-  --x-size-border-width-bottom-facet-header-default: var(--x-size-border-width-bottom-facet-header-line);
-  --x-size-border-width-left-facet-header-default: var(--x-size-border-width-left-facet-header-line);
+  --x-size-border-width-right-facet-header-default: var(
+    --x-size-border-width-right-facet-header-line
+  );
+  --x-size-border-width-bottom-facet-header-default: var(
+    --x-size-border-width-bottom-facet-header-line
+  );
+  --x-size-border-width-left-facet-header-default: var(
+    --x-size-border-width-left-facet-header-line
+  );
 }

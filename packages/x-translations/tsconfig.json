@@ -7,18 +7,9 @@
     "strict": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "types": [
-      "node",
-      "jest"
-    ],
-    "lib": [
-      "esnext"
-    ]
+    "types": ["node", "jest"],
+    "lib": ["esnext"]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

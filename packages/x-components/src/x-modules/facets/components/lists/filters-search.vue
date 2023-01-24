@@ -12,7 +12,7 @@
         @input="setQuery($event.target.value)"
         :value="query"
         type="search"
-        class="x-input x-filters-search__input"
+        class="x-filters-search__input x-input"
         data-test="filters-search-input"
         :aria-label="filtersSearchInputMessage"
       />
