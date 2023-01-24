@@ -3,11 +3,35 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.295](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.294...@empathyco/x-components@3.0.0-alpha.295) (2023-01-24)
+
+### ⚠ BREAKING CHANGES
+
+- **components:** Renamed `SlidingPanel` css classes `x-sliding-panel--at-start` and
+  `x-sliding-panel--at-end` to `x-sliding-panel-at-start` and `x-sliding-panel-at-end` respectively.
+- **components:** Renamed `SlidingPanel` buttons css classes `x-sliding-panel__button-left` and
+  `x-sliding-panel__button-right` to `x-sliding-panel-button-left` and
+  `x-sliding-panel-button-right` respectively.
+- **components:** Old design-system `SlidingPanel` styles (including the updated button classes) are
+  now located in the `deprecated-full-theme.css` file.
+
+### Features
+
+- **components:** use XDS `sliding panel` (#1028)
+  ([9773003](https://github.com/empathyco/x/commit/97730036b473678b8487a386bc6d83bd3ecf872d)),
+  closes [EX-7831](https://searchbroker.atlassian.net/browse/EX-7831)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.294](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.293...@empathyco/x-components@3.0.0-alpha.294) (2023-01-23)
 
 ### ⚠ BREAKING CHANGES
 
-- **design-system:** `picture` and some `result` styles related are now deprecated. To continue using them import from `deprecated-full-theme.css`.
+- **design-system:** `picture` and some `result` styles related are now deprecated. To continue
+  using them import from `deprecated-full-theme.css`.
 - Rename `x-result-picture__image` to `x-result-picture-image`.
 
 ### Features
