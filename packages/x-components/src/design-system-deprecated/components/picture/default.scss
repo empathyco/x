@@ -25,8 +25,9 @@
 
     &--fallback {
       --x-object-fit-picture-default: var(--x-object-fit-picture-fallback-default) !important;
-      --x-mix-blend-mode-picture-default: var
-        (--x-mix-blend-mode-picture-fallback-default) !important;
+      --x-mix-blend-mode-picture-default: var(
+        --x-mix-blend-mode-picture-fallback-default
+      ) !important;
 
       & > rect {
         fill: var(--x-color-fill-picture-fallback-rect-default) !important;
@@ -38,7 +39,9 @@
 
     &--placeholder {
       --x-object-fit-picture-default: var(--x-object-fit-picture-placeholder-default) !important;
-      --x-mix-blend-mode-picture-default: var(--x-mix-blend-mode-picture-placeholder-default) !important;
+      --x-mix-blend-mode-picture-default: var(
+        --x-mix-blend-mode-picture-placeholder-default
+      ) !important;
 
       & > rect {
         fill: var(--x-color-fill-picture-placeholder-rect-default) !important;
