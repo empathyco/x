@@ -253,10 +253,10 @@ displayed while the real one is loaded.
 ```vue
 <BaseResultImage :result="result">
   <template #placeholder>
-    <img class="x-result-picture-placeholder" src="./placeholder-image.svg"/>
+    <img class="x-picture__image--placeholder" src="./placeholder-image.svg"/>
   </template>
   <template #fallback>
-    <img class="x-result-picture-fallback" src="./fallback-image.svg"/>
+    <img class="x-picture__image--fallback" src="./fallback-image.svg"/>
   </template>
 </BaseResultImage>
 ```
