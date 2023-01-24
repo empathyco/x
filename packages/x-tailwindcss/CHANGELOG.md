@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.55](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.54...@empathyco/x-tailwindcss@0.2.0-alpha.55) (2023-01-24)
+
+### Features
+
+- add `prettier-plugin-tailwindcss` (#1033)
+  ([c3eae8b](https://github.com/empathyco/x/commit/c3eae8bef0a75fa1e78f1190947a74fa9269d6bd)),
+  closes [EX-7884](https://searchbroker.atlassian.net/browse/EX-7884)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.54](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.53...@empathyco/x-tailwindcss@0.2.0-alpha.54) (2023-01-23)
 
 ### Styling
