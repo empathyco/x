@@ -13,7 +13,7 @@ export function overlay(helpers: TailwindHelpers) {
       '&:hover': {
         mixBlendMode: 'multiply'
       },
-      img: {
+      '.picture-image': {
         '&:hover': {
           maskImage: `linear-gradient(to top, transparent, 20%, ${theme('colors.neutral.100')})`
         }
