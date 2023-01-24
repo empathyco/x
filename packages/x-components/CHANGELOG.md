@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.296](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.295...@empathyco/x-components@3.0.0-alpha.296) (2023-01-24)
+
+### Features
+
+- remove duplicates from image placeholder/fallback classes (#1032)
+  ([2c5390c](https://github.com/empathyco/x/commit/2c5390c0e5cf2d4bc0b843422d2e99415b6e58ff)),
+  closes [EX-7836](https://searchbroker.atlassian.net/browse/EX-7836)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.295](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.294...@empathyco/x-components@3.0.0-alpha.295) (2023-01-24)
 
 ### ⚠ BREAKING CHANGES
