@@ -1,7 +1,7 @@
 <template>
   <button
     @click="emitEvents"
-    class="x-button x-partial-query-button"
+    class="x-partial-query-button x-button"
     data-test="partial-query-button"
   >
     <slot v-bind="{ query }">{{ query }}</slot>

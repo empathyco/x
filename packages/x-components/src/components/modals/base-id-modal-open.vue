@@ -8,7 +8,7 @@
     <slot :openModal="emitOpenModalEvent" name="opening-element">
       <button
         @click="emitOpenModalEvent"
-        class="x-button x-events-modal-id-open-button"
+        class="x-events-modal-id-open-button x-button"
         data-test="open-modal-id"
       >
         <!-- @slot (Required) Button content with a text, an icon or both -->

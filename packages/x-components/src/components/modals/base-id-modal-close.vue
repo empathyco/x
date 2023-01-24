@@ -8,7 +8,7 @@
     <slot :closeModal="emitCloseModalEvent" name="closing-element">
       <button
         @click="emitCloseModalEvent"
-        class="x-button x-events-modal-id-close-button"
+        class="x-events-modal-id-close-button x-button"
         data-test="close-modal-id"
       >
         <!-- @slot (Required) Button content with a text, an icon or both -->

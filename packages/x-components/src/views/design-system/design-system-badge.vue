@@ -3,17 +3,17 @@
     <h1 class="x-title1">Badge</h1>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start">
-      <div class="x-button x-badge-container">
+      <div class="x-badge-container x-button">
         More filters
         <span class="x-badge">2</span>
       </div>
 
-      <div class="x-button x-badge-container">
+      <div class="x-badge-container x-button">
         More filters
         <span class="x-badge">+1234</span>
       </div>
 
-      <div class="x-button x-button--round x-badge-container">
+      <div class="x-button--round x-badge-container x-button">
         <FiltersIcon />
         <span class="x-badge">40</span>
       </div>

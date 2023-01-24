@@ -10,10 +10,10 @@
         </p>
         <a href="https://empathy.co">https://empathy.co</a>
         <div class="x-list x-list--horizontal x-list--gap-07">
-          <button class="x-button x-button--ghost x-font-color--neutral-70">
+          <button class="x-button--ghost x-font-color--neutral-70 x-button">
             No, I'll stay here
           </button>
-          <button class="x-button x-button--ghost x-font-color--neutral-10">
+          <button class="x-button--ghost x-font-color--neutral-10 x-button">
             Yes, redirect me
           </button>
         </div>

@@ -9,30 +9,30 @@
     </template>
     <template #header-middle>
       <span
-        class="x-title1 x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03"
+        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-title1"
       >
         HEADER MIDDLE
       </span>
     </template>
     <template #header-end>
       <span
-        class="x-title2 x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03"
+        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-title2"
       >
         HEADER END
       </span>
     </template>
     <template #sub-header>
       <span
-        class="x-title2 x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03"
+        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-title2"
       >
         SUB HEADER
       </span>
     </template>
     <template #toolbar-aside>
       <div
-        class="x-title3 x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03"
+        class="x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03 x-title3"
       >
-        <BaseIdTogglePanelButton class="x-button x-button--ghost" panelId="aside-panel">
+        <BaseIdTogglePanelButton class="x-button--ghost x-button" panelId="aside-panel">
           <FiltersIcon />
         </BaseIdTogglePanelButton>
         TOOLBAR ASIDE
@@ -40,7 +40,7 @@
     </template>
     <template #toolbar-body>
       <div
-        class="x-title3 x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03"
+        class="x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03 x-title3"
       >
         TOOLBAR
       </div>

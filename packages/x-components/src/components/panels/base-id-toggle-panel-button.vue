@@ -2,7 +2,7 @@
   <BaseEventButton
     v-on="$listeners"
     :events="events"
-    class="x-button x-base-id-toggle-panel-button"
+    class="x-base-id-toggle-panel-button x-button"
     data-test="base-id-toggle-button"
     :aria-pressed="isPanelOpen"
   >

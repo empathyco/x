@@ -42,7 +42,7 @@
 
     <DesignSystemUtilities />
 
-    <button @click="toggleTokens" class="info x-button x-button--tertiary x-button--round">
+    <button @click="toggleTokens" class="info x-button--tertiary x-button--round x-button">
       i
     </button>
   </main>
