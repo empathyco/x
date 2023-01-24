@@ -49,6 +49,11 @@ export function slidingPanelFade(helpers: TailwindHelpers) {
           }
         )
       }
+    },
+    '&.sliding-panel-at-start.sliding-panel-at-end': {
+      '.sliding-panel-fade': {
+        mask: 'none'
+      }
     }
   };
 }
