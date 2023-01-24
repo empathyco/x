@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.55...@empathyco/x-tailwindcss@0.2.0-alpha.56) (2023-01-24)
+
+### Bug Fixes
+
+- prevent fade when sliding panel has less content than width (#1034)
+  ([6d2916a](https://github.com/empathyco/x/commit/6d2916aa9e399959c915c96f7504f982fac6f936)),
+  closes [EX-7832](https://searchbroker.atlassian.net/browse/EX-7832)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.2.0-alpha.55](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.54...@empathyco/x-tailwindcss@0.2.0-alpha.55) (2023-01-24)
+
+### Features
+
+- add `prettier-plugin-tailwindcss` (#1033)
+  ([c3eae8b](https://github.com/empathyco/x/commit/c3eae8bef0a75fa1e78f1190947a74fa9269d6bd)),
+  closes [EX-7884](https://searchbroker.atlassian.net/browse/EX-7884)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.54](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.53...@empathyco/x-tailwindcss@0.2.0-alpha.54) (2023-01-23)
 
 ### Styling

@@ -76,7 +76,12 @@
     public showButtonsOnHover!: string[];
 
     @Prop({
-      default: () => ['', 'x-sliding-panel-at-start', 'x-sliding-panel-at-end']
+      default: () => [
+        '',
+        'x-sliding-panel-at-start',
+        'x-sliding-panel-at-end',
+        'x-sliding-panel-at-start x-sliding-panel-at-end'
+      ]
     })
     public fadeSizes!: string[];
 
