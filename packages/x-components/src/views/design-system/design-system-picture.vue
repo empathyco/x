@@ -11,28 +11,28 @@
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
       <h2 class="x-title2">Card</h2>
-      <picture class="x-picture x-picture--card">
+      <picture class="x-picture--card x-picture">
         <img class="x-picture__image" :src="standardImageUrl" :alt="cardImageMessage" />
       </picture>
     </article>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
       <h2 class="x-title2">Cover</h2>
-      <picture class="x-picture x-picture--cover">
+      <picture class="x-picture--cover x-picture">
         <img class="x-picture__image" :src="whiteBackgroundImageUrl" :alt="coverImageMessage" />
       </picture>
     </article>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
       <h2 class="x-title2">Colored</h2>
-      <picture class="x-picture x-picture--colored">
+      <picture class="x-picture--colored x-picture">
         <img class="x-picture__image" :src="whiteBackgroundImageUrl" :alt="coloredImageMessage" />
       </picture>
     </article>
 
     <article class="x-list x-list--wrap x-list--gap-06 x-list--align-start x-picture-show-case">
       <h2 class="x-title2">Fixed Ratio</h2>
-      <picture class="x-picture x-picture--fixed-ratio">
+      <picture class="x-picture--fixed-ratio x-picture">
         <img
           class="x-picture__image"
           :src="whiteBackgroundImageUrl"

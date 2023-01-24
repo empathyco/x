@@ -7,19 +7,19 @@
       <div
         class="x-list x-list--horizontal x-list--gap-03 x-self-stretch x-padding--02 x-background--neutral-95"
       >
-        <div class="x-flex-1 x-background--auxiliary x-padding--03 x-font-color--neutral-100">
+        <div class="x-background--auxiliary x-padding--03 x-font-color--neutral-100 x-flex-1">
           x-flex-1
         </div>
-        <div class="x-flex-auto x-background--auxiliary x-padding--03 x-font-color--neutral-100">
+        <div class="x-background--auxiliary x-padding--03 x-font-color--neutral-100 x-flex-auto">
           x-flex-auto
         </div>
-        <div class="x-flex-initial x-background--auxiliary x-padding--03 x-font-color--neutral-100">
+        <div class="x-background--auxiliary x-padding--03 x-font-color--neutral-100 x-flex-initial">
           x-flex-initial
         </div>
         <div class="x-flex-shrink x-background--auxiliary x-padding--03 x-font-color--neutral-100">
           x-flex-shrink
         </div>
-        <div class="x-flex-none x-background--auxiliary x-padding--03 x-font-color--neutral-100">
+        <div class="x-background--auxiliary x-padding--03 x-font-color--neutral-100 x-flex-none">
           x-flex-none
         </div>
       </div>

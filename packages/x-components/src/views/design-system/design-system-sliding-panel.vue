@@ -7,39 +7,39 @@
         <template #sliding-panel-left-button>
           <ChevronLeftIcon />
         </template>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Bogotá</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Baghdad</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Nairobi</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Ankara</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Thais</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Edron</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Venore</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Carlin</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Ab'Dendriel</span>
         </button>
@@ -55,39 +55,39 @@
         <template #sliding-panel-left-button>
           <ChevronLeftIcon />
         </template>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Bogotá</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Baghdad</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Nairobi</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Ankara</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Thais</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Edron</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Venore</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Carlin</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Ab'Dendriel</span>
         </button>
@@ -103,39 +103,39 @@
         <template #sliding-panel-left-button>
           <ChevronLeftIcon />
         </template>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Bogotá</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Baghdad</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Nairobi</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Ankara</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Thais</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Edron</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Venore</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Carlin</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Ab'Dendriel</span>
         </button>
@@ -151,39 +151,39 @@
         <template #sliding-panel-left-button>
           <ChevronLeftIcon />
         </template>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Bogotá</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Baghdad</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Nairobi</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Ankara</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Thais</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Edron</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Venore</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Carlin</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Ab'Dendriel</span>
         </button>
@@ -201,39 +201,39 @@
         <template #sliding-panel-left-button>
           <ChevronLeftIcon />
         </template>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Bogotá</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Baghdad</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Nairobi</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Ankara</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Thais</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Edron</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Venore</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Carlin</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Ab'Dendriel</span>
         </button>
@@ -251,39 +251,39 @@
         <template #sliding-panel-left-button>
           <ChevronLeftIcon />
         </template>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Bogotá</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Baghdad</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Nairobi</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Ankara</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Thais</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Edron</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Venore</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Carlin</span>
         </button>
-        <button class="x-button x-button--tertiary x-button--card">
+        <button class="x-button--tertiary x-button--card x-button">
           <PlusIcon />
           <span>Ab'Dendriel</span>
         </button>

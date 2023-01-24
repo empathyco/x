@@ -5,7 +5,7 @@
     @mouseenter.once="userHasHoveredImage = true"
     @mouseenter="isHovering = true"
     @mouseleave="isHovering = false"
-    class="x-picture x-result-picture"
+    class="x-result-picture x-picture"
     data-test="result-picture"
   >
     <img

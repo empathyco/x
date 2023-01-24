@@ -21,7 +21,7 @@
         @change="setMin($event.target.valueAsNumber)"
         name="min"
         type="number"
-        class="x-input x-editable-number-range-filter__input x-editable-number-range-filter__input--min"
+        class="x-editable-number-range-filter__input x-editable-number-range-filter__input--min x-input"
         :value="min"
         data-test="range-min"
         :aria-label="rangeFilterMin"
@@ -31,7 +31,7 @@
         @change="setMax($event.target.valueAsNumber)"
         name="max"
         type="number"
-        class="x-input x-editable-number-range-filter__input x-editable-number-range-filter__input--max"
+        class="x-editable-number-range-filter__input x-editable-number-range-filter__input--max x-input"
         :value="max"
         data-test="range-max"
         :aria-label="rangeFilterMax"
@@ -41,7 +41,7 @@
       <button
         v-if="!isInstant"
         @click="emitUserModifiedFilter"
-        class="x-button x-editable-number-range-filter__apply"
+        class="x-editable-number-range-filter__apply x-button"
         :disabled="hasError"
         data-test="range-apply"
       >
@@ -54,7 +54,7 @@
       <button
         v-if="renderClearButton"
         @click="clearValues"
-        class="x-button x-editable-number-range-filter__clear"
+        class="x-editable-number-range-filter__clear x-button"
         data-test="range-clear"
       >
         <!--

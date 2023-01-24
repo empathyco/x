@@ -3,7 +3,7 @@
     <button
       v-if="showButtons"
       @click="scrollLeft"
-      class="x-sliding-panel__button x-sliding-panel-button-left x-button"
+      class="x-sliding-panel__button x-button x-sliding-panel-button-left"
       :class="buttonClass"
       data-test="sliding-panel-left-button"
     >
@@ -25,7 +25,7 @@
     <button
       v-if="showButtons"
       @click="scrollRight"
-      class="x-sliding-panel__button x-sliding-panel-button-right x-button"
+      class="x-sliding-panel__button x-button x-sliding-panel-button-right"
       :class="buttonClass"
       data-test="sliding-panel-right-button"
     >
