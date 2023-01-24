@@ -15,13 +15,18 @@
     // layout
     display: block;
 
+    // sizes
+    width: 100%;
+    height: 100%;
+
     // others
     object-fit: var(--x-object-fit-picture-default);
     mix-blend-mode: var(--x-mix-blend-mode-picture-default);
 
     &--fallback {
       --x-object-fit-picture-default: var(--x-object-fit-picture-fallback-default) !important;
-      --x-mix-blend-mode-picture-default: var(--x-mix-blend-mode-picture-fallback-default) !important;
+      --x-mix-blend-mode-picture-default: var
+        (--x-mix-blend-mode-picture-fallback-default) !important;
 
       & > rect {
         fill: var(--x-color-fill-picture-fallback-rect-default) !important;
