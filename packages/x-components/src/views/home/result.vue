@@ -3,7 +3,7 @@
     <BaseResultLink :result="result">
       <BaseResultImage
         :result="result"
-        class="x-result-picture x-picture-zoom"
+        class="x-result__picture x-picture-zoom"
         :loadAnimation="crossFade"
       >
         <template #placeholder>
