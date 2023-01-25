@@ -1,1 +1,2 @@
-export const xBus = 'x-bus';
+export * from './x-bus';
+export * from './x-bus.types';
