@@ -17,6 +17,7 @@
         src="https://assets.empathy.co/images-demo/2885.jpg"
         alt="Summer Sandal"
         role="presentation"
+        class="x-picture-image"
       />
     </div>
   </XdsBaseShowcase>

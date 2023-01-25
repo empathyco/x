@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.0-alpha.57](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.56...@empathyco/x-tailwindcss@0.2.0-alpha.57) (2023-01-24)
+
+### Bug Fixes
+
+- **design-system:** use x-picture-image instead of img tag (#1035)
+  ([0722a83](https://github.com/empathyco/x/commit/0722a8384f7042fa4d031712059a79574e7a0f60)),
+  closes [EX-7836](https://searchbroker.atlassian.net/browse/EX-7836)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.55...@empathyco/x-tailwindcss@0.2.0-alpha.56) (2023-01-24)
 
 ### Bug Fixes

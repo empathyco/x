@@ -12,7 +12,8 @@ export function pictureDefault(helpers: TailwindHelpers) {
     display: 'block',
     aspectRatio: theme('aspectRatio.default'),
     overflow: 'hidden',
-    img: {
+    '&-image': {
+      aspectRatio: theme('aspectRatio.default'),
       objectFit: 'contain'
     }
   };
