@@ -639,6 +639,18 @@ describe('testing search module actions', () => {
     });
   });
 
+  describe('clearSearchParams', () => {
+    it('should clear the search params of the search module', async () => {
+      resetSearchStateWith(store, { query: 'funko', page: 1, sort: 'priceSort asc' });
+
+      await store.dispatch('clearSearchParams');
+
+      expect(store.state.page).toEqual(1);
+      expect(store.state.query).toEqual('');
+      expect(store.state.sort).toEqual('');
+    });
+  });
+
   describe('saveOrigin', () => {
     it('saves valid origins', async () => {
       resetSearchStateWith(store);
