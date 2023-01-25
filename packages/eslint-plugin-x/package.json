@@ -28,8 +28,8 @@
     "commit": "git-cz"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "~5.48.2",
-    "@typescript-eslint/parser": "~5.48.2",
+    "@typescript-eslint/eslint-plugin": "~5.49.0",
+    "@typescript-eslint/parser": "~5.49.0",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "~10.0.0",
     "eslint-config-prettier": "^8.5.0",
