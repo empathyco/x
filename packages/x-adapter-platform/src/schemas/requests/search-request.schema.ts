@@ -16,7 +16,6 @@ export const searchRequestSchema = createMutableSchema<SearchRequest, PlatformSe
 /**
  * Converts the filters to the shape the Platform's API is expecting.
  *
- * @param filters.filters
  * @param filters - The filters from our internal request.
  * @example
  * ```ts
