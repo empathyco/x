@@ -1,27 +1,33 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [0.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.8...@empathyco/x-priority-queue@0.1.0-alpha.9) (2023-01-20)
 
 **Note:** Version bump only for package @empathyco/x-priority-queue
 
+
+
+
+
 ## [0.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.7...@empathyco/x-priority-queue@0.1.0-alpha.8) (2023-01-18)
+
 
 ### Features
 
-- improve generics types (#1012)
-  ([b01f1cc](https://github.com/empathyco/x/commit/b01f1ccbb1b9f54c0f382661ce6af61a80e2905f)),
-  closes [EX-7850](https://searchbroker.atlassian.net/browse/EX-7850)
+* improve generics types (#1012) ([b01f1cc](https://github.com/empathyco/x/commit/b01f1ccbb1b9f54c0f382661ce6af61a80e2905f)), closes [EX-7850](https://searchbroker.atlassian.net/browse/EX-7850)
+
+
 
 ## [0.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.6...@empathyco/x-priority-queue@0.1.0-alpha.7) (2023-01-12)
 
+
 ### Features
 
-- **priority-queue:** improve types (#992)
-  ([61f8a80](https://github.com/empathyco/x/commit/61f8a80b50d4a2e553000a11c658cdc4fef50302)),
-  closes [EX-7789](https://searchbroker.atlassian.net/browse/EX-7789)
+* **priority-queue:** improve types (#992) ([61f8a80](https://github.com/empathyco/x/commit/61f8a80b50d4a2e553000a11c658cdc4fef50302)), closes [EX-7789](https://searchbroker.atlassian.net/browse/EX-7789)
+
+
 
 # Change Log
 

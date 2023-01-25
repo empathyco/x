@@ -1,11 +1,15 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [1.2.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-logger@1.2.0-alpha.5...@empathyco/x-logger@1.2.0-alpha.6) (2023-01-20)
 
 **Note:** Version bump only for package @empathyco/x-logger
+
+
+
+
 
 # Change Log
 
