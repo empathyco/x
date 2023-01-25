@@ -7,6 +7,7 @@ import {
   cancelFetchAndSaveSearchResponse,
   fetchAndSaveSearchResponse
 } from './actions/fetch-and-save-search-response.action';
+import { clearSearchParams } from './actions/clear-search-params.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
 import { increasePageAppendingResults } from './actions/increase-page-apending-results.action';
 import { resetState } from './actions/reset-state.action';
@@ -121,6 +122,7 @@ export const searchXStoreModule: SearchXStoreModule = {
   },
   actions: {
     cancelFetchAndSaveSearchResponse,
+    clearSearchParams,
     fetchSearchResponse,
     fetchAndSaveSearchResponse,
     increasePageAppendingResults,

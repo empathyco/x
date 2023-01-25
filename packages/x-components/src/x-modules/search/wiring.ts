@@ -107,6 +107,13 @@ export const setSort = wireCommit('setSort');
 export const setUrlParams = wireDispatch('setUrlParams');
 
 /**
+ * Clears the search states `query`, `page` and `sort`.
+ *
+ * @public
+ */
+export const clearSearchParamsWire = wireDispatchWithoutPayload('clearSearchParams');
+
+/**
  * Sets the search state `page`.
  *
  * @public
@@ -167,7 +174,7 @@ export const searchWiring = createWiring({
     resetSpellcheckQuery
   },
   UserClearedQuery: {
-    setSearchQuery,
+    clearSearchParamsWire,
     cancelFetchAndSaveSearchResponseWire
   },
   UserClickedASort: {

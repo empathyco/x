@@ -252,6 +252,11 @@ export interface SearchActions {
    */
   setUrlParams(urlParams: UrlParams): void;
   /**
+   * Batches state resets in a single action to clear the search params.
+   *
+   */
+  clearSearchParams(): void;
+  /**
    * Creates a {@link QueryOrigin} and saves it.
    *
    * @param originInit - The object to create the origin with.
