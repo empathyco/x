@@ -6,10 +6,21 @@ import { PlatformTagging } from './tagging.model';
  * @public
  */
 export interface PlatformResult {
-  id: string;
-  name: string;
-  image: string;
-  price: number;
-  url: string;
+  __id: string;
+  __externalId: string;
+  __name: string;
+  __url: string;
+  __images: string[];
+  __prices: {
+    current: {
+      value: number;
+    };
+    previous?: {
+      value: number;
+    };
+    future?: {
+      value: number;
+    };
+  };
   tagging: PlatformTagging;
 }
