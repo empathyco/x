@@ -1,15 +1,26 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-bus@0.1.0-alpha.4...@empathyco/x-bus@0.1.0-alpha.5) (2023-01-25)
+
+### Features
+
+- add `x-priority-bus` (#990)
+  ([718d3d2](https://github.com/empathyco/x/commit/718d3d278e58a0f0d173ff4511245d59b1e6f036)),
+  closes [EX-7458](https://searchbroker.atlassian.net/browse/EX-7458)
+
+### Build System
+
+- **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
+  (#993)
+  ([500ab57](https://github.com/empathyco/x/commit/500ab57e4729f5c4dcefaa31ed4a8497ddd349b9)),
+  closes [EX-7288](https://searchbroker.atlassian.net/browse/EX-7288)
 
 ## [0.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-bus@0.1.0-alpha.3...@empathyco/x-bus@0.1.0-alpha.4) (2023-01-20)
 
 **Note:** Version bump only for package @empathyco/x-bus
-
-
-
-
 
 # Change Log
 

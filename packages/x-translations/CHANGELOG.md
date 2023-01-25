@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.33...@empathyco/x-translations@1.1.0-alpha.34) (2023-01-25)
+
+### Build System
+
+- **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
+  (#993)
+  ([500ab57](https://github.com/empathyco/x/commit/500ab57e4729f5c4dcefaa31ed4a8497ddd349b9)),
+  closes [EX-7288](https://searchbroker.atlassian.net/browse/EX-7288)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.1.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.32...@empathyco/x-translations@1.1.0-alpha.33) (2023-01-23)
 
 ### Styling

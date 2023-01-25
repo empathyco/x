@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.59...@empathyco/x-adapter-platform@1.0.0-alpha.60) (2023-01-25)
+
+### Build System
+
+- **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
+  (#993)
+  ([500ab57](https://github.com/empathyco/x/commit/500ab57e4729f5c4dcefaa31ed4a8497ddd349b9)),
+  closes [EX-7288](https://searchbroker.atlassian.net/browse/EX-7288)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.59](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.58...@empathyco/x-adapter-platform@1.0.0-alpha.59) (2023-01-23)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
