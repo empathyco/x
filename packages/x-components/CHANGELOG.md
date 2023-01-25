@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.301](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.300...@empathyco/x-components@3.0.0-alpha.301) (2023-01-25)
+
+### Documentation
+
+- correcting `video-reference` id (#1038)
+  ([bc46163](https://github.com/empathyco/x/commit/bc461638d10ecc9160d3c58bd9c7bfdc26d5df1e))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.300](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.299...@empathyco/x-components@3.0.0-alpha.300) (2023-01-25)
 
 ### Build System
