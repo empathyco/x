@@ -1,6 +1,6 @@
 <template functional>
   <svg
-    :class="['x-picture__image x-picture__image--fallback'].concat(data.staticClass, data.class)"
+    :class="['x-picture__image--fallback'].concat(data.staticClass, data.class)"
     version="1.1"
     viewBox="0 0 256 371"
     xmlns="http://www.w3.org/2000/svg"

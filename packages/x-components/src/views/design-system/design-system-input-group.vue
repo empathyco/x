@@ -8,7 +8,7 @@
       <div class="x-input-group">
         <input type="text" class="x-input" placeholder="type here" :aria-label="searchBoxMessage" />
         <button class="x-button">Clear</button>
-        <button class="x-button x-input-group__action">
+        <button class="x-input-group__action x-button">
           <SearchIcon />
         </button>
       </div>
@@ -17,11 +17,11 @@
         <span class="x-input-group__action"><SearchIcon /></span>
         <input type="text" class="x-input" placeholder="type here" :aria-label="searchBoxMessage" />
         <button class="x-button">Clear</button>
-        <button class="x-button x-button--secondary x-input-group__action">Search</button>
+        <button class="x-button--secondary x-input-group__action x-button">Search</button>
       </div>
 
       <div class="x-input-group">
-        <button class="x-button x-button--tertiary x-input-group__action">
+        <button class="x-button--tertiary x-input-group__action x-button">
           <SearchIcon />
         </button>
         <input type="text" class="x-input" placeholder="type here" :aria-label="searchBoxMessage" />
@@ -35,7 +35,7 @@
       <div class="x-input-group">
         <input type="text" class="x-input" placeholder="type here" :aria-label="searchBoxMessage" />
         <button class="x-button">Clear</button>
-        <button class="x-button x-input-group__action">
+        <button class="x-input-group__action x-button">
           <SearchIcon />
         </button>
       </div>
@@ -44,11 +44,11 @@
         <span class="x-input-group__action"><SearchIcon /></span>
         <input type="text" class="x-input" placeholder="type here" :aria-label="searchBoxMessage" />
         <button class="x-button">Clear</button>
-        <button class="x-button x-button--secondary x-input-group__action">Search</button>
+        <button class="x-button--secondary x-input-group__action x-button">Search</button>
       </div>
 
       <div class="x-input-group">
-        <button class="x-button x-button--tertiary x-input-group__action">
+        <button class="x-button--tertiary x-input-group__action x-button">
           <SearchIcon />
         </button>
         <input type="text" class="x-input" placeholder="type here" :aria-label="searchBoxMessage" />
@@ -62,7 +62,7 @@
       <div class="x-input-group">
         <input type="text" class="x-input" placeholder="type here" :aria-label="searchBoxMessage" />
         <button class="x-button">Clear</button>
-        <button class="x-button x-input-group__action">
+        <button class="x-input-group__action x-button">
           <SearchIcon />
         </button>
       </div>
@@ -71,11 +71,11 @@
         <span class="x-input-group__action"><SearchIcon /></span>
         <input type="text" class="x-input" placeholder="type here" :aria-label="searchBoxMessage" />
         <button class="x-button">Clear</button>
-        <button class="x-button x-button--secondary x-input-group__action">Search</button>
+        <button class="x-button--secondary x-input-group__action x-button">Search</button>
       </div>
 
       <div class="x-input-group">
-        <button class="x-button x-button--tertiary x-input-group__action">
+        <button class="x-button--tertiary x-input-group__action x-button">
           <SearchIcon />
         </button>
         <input type="text" class="x-input" placeholder="type here" :aria-label="searchBoxMessage" />
@@ -89,7 +89,7 @@
       <div class="x-input-group">
         <input type="text" class="x-input" placeholder="type here" :aria-label="searchBoxMessage" />
         <button class="x-button">Clear</button>
-        <button class="x-button x-input-group__action">
+        <button class="x-input-group__action x-button">
           <SearchIcon />
         </button>
       </div>
@@ -98,11 +98,11 @@
         <span class="x-input-group__action"><SearchIcon /></span>
         <input type="text" class="x-input" placeholder="type here" :aria-label="searchBoxMessage" />
         <button class="x-button">Clear</button>
-        <button class="x-button x-button--secondary x-input-group__action">Search</button>
+        <button class="x-button--secondary x-input-group__action x-button">Search</button>
       </div>
 
       <div class="x-input-group">
-        <button class="x-button x-button--tertiary x-input-group__action">
+        <button class="x-button--tertiary x-input-group__action x-button">
           <SearchIcon />
         </button>
         <input type="text" class="x-input" placeholder="type here" :aria-label="searchBoxMessage" />

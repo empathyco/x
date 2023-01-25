@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-react-wrapper",
-  "version": "4.0.0-alpha.14",
+  "version": "4.0.0-alpha.16",
   "description": "A proxy that transforms Vue components into React ones",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -22,7 +22,7 @@
     "directory": "packages/react-wrapper"
   },
   "engines": {
-    "node": "16"
+    "node": ">=16"
   },
   "scripts": {
     "serve": "vite serve tests/demo",
@@ -49,11 +49,11 @@
     "@types/react": "~16.9.0",
     "@types/react-dom": "~16.9.0",
     "cypress": "~12.2.0",
-    "eslint-plugin-react": "~7.31.11",
+    "eslint-plugin-react": "~7.32.1",
     "jest": "~27.3.1",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
-    "start-server-and-test": "~1.14.0",
+    "start-server-and-test": "~1.15.2",
     "ts-jest": "~27.0.7",
     "typescript": "~4.9.4",
     "vite": "~4.0.4",

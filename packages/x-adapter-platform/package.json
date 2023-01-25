@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter-platform",
-  "version": "1.0.0-alpha.53",
+  "version": "1.0.0-alpha.59",
   "description": "A search client for the Empathy Platform API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -23,7 +23,7 @@
     "directory": "packages/x-adapter-platform"
   },
   "engines": {
-    "node": "16"
+    "node": ">=16"
   },
   "scripts": {
     "prebuild": "rimraf ./dist ./*.tgz",
@@ -38,14 +38,14 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.0.0-alpha.18",
-    "@empathyco/x-types": "^10.0.0-alpha.51",
-    "@empathyco/x-utils": "^1.0.0-alpha.13",
+    "@empathyco/x-adapter": "^8.0.0-alpha.22",
+    "@empathyco/x-types": "^10.0.0-alpha.56",
+    "@empathyco/x-utils": "^1.0.0-alpha.14",
     "tslib": "~2.4.1"
   },
   "devDependencies": {
     "@microsoft/api-documenter": "~7.19.27",
-    "@microsoft/api-extractor": "~7.33.6",
+    "@microsoft/api-extractor": "~7.33.7",
     "@types/jest": "~27.0.3",
     "concurrently": "~7.6.0",
     "jest": "~27.3.1",

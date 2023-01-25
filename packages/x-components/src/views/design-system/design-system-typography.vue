@@ -15,31 +15,31 @@
     <h1 class="x-title1">Title 1</h1>
     <section class="x-list x-padding--07 x-list--gap-05 x-list--justify-start x-list--align-start">
       <span class="x-title1">Title1 Typography</span>
-      <span class="x-title1 x-text--accent">Title1 Typography Accent</span>
-      <span class="x-title1 x-text--bold">Title1 Typography Bold</span>
-      <span class="x-title1 x-text--light">Title1 Typography Light</span>
-      <span class="x-title1 x-text--secondary">Title1 Typography Secondary</span>
-      <span class="x-title1 x-text--stroke">Title1 Typography Stroke</span>
+      <span class="x-text--accent x-title1">Title1 Typography Accent</span>
+      <span class="x-text--bold x-title1">Title1 Typography Bold</span>
+      <span class="x-text--light x-title1">Title1 Typography Light</span>
+      <span class="x-text--secondary x-title1">Title1 Typography Secondary</span>
+      <span class="x-text--stroke x-title1">Title1 Typography Stroke</span>
     </section>
 
     <h1 class="x-title2">Title 2</h1>
     <section class="x-list x-padding--07 x-list--gap-05 x-list--justify-start x-list--align-start">
       <span class="x-title2">Title2 Typography</span>
-      <span class="x-title2 x-text--accent">Title2 Typography Accent</span>
-      <span class="x-title2 x-text--bold">Title2 Typography Bold</span>
-      <span class="x-title2 x-text--light">Title2 Typography Light</span>
-      <span class="x-title2 x-text--secondary">Title2 Typography Secondary</span>
-      <span class="x-title2 x-text--stroke">Title2 Typography Stroke</span>
+      <span class="x-text--accent x-title2">Title2 Typography Accent</span>
+      <span class="x-text--bold x-title2">Title2 Typography Bold</span>
+      <span class="x-text--light x-title2">Title2 Typography Light</span>
+      <span class="x-text--secondary x-title2">Title2 Typography Secondary</span>
+      <span class="x-text--stroke x-title2">Title2 Typography Stroke</span>
     </section>
 
     <h1 class="x-title3">Title 3</h1>
     <section class="x-list x-padding--07 x-list--gap-05 x-list--justify-start x-list--align-start">
       <span class="x-title3">Title3 Typography</span>
-      <span class="x-title3 x-text--accent">Title3 Typography Accent</span>
-      <span class="x-title3 x-text--bold">Title3 Typography Bold</span>
-      <span class="x-title3 x-text--light">Title3 Typography Light</span>
-      <span class="x-title3 x-text--secondary">Title3 Typography Secondary</span>
-      <span class="x-title3 x-text--stroke">Title3 Typography Stroke</span>
+      <span class="x-text--accent x-title3">Title3 Typography Accent</span>
+      <span class="x-text--bold x-title3">Title3 Typography Bold</span>
+      <span class="x-text--light x-title3">Title3 Typography Light</span>
+      <span class="x-text--secondary x-title3">Title3 Typography Secondary</span>
+      <span class="x-text--stroke x-title3">Title3 Typography Stroke</span>
     </section>
 
     <h1 class="x-small">Small</h1>

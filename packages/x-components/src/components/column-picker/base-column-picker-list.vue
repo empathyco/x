@@ -8,7 +8,7 @@
       data-test="column-picker-item"
     >
       <BaseEventButton
-        class="x-button column-picker-item__button"
+        class="column-picker-item__button x-button"
         :class="buttonClass"
         data-test="column-picker-button"
         :aria-pressed="isSelected"

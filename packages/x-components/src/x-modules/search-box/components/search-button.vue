@@ -1,7 +1,7 @@
 <template>
   <button
     @click="emitEvents"
-    class="x-button x-search-button"
+    class="x-search-button x-button"
     :class="dynamicClasses"
     data-test="search-button"
   >

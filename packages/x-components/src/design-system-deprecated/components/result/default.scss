@@ -1,0 +1,13 @@
+.x-result {
+  &__picture {
+    // color
+    border-color: var(--x-color-border-result-picture-default);
+
+    // size
+    padding: var(--x-size-padding-result-picture-default);
+
+    // border
+    border-style: solid;
+    border-width: var(--x-size-border-width-result-picture-default);
+  }
+}

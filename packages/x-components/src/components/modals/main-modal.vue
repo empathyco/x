@@ -93,4 +93,32 @@ Here you have a basic example of how the main modal works.
   };
 </script>
 ```
+
+### Customizing the content with classes
+
+The `contentClass` prop can be used to add classes to the modal content.
+
+```vue live
+<template>
+  <div>
+    <OpenMainModal>Open X</OpenMainModal>
+    <MainModal contentClass="x-background--neutral-35">
+      <CloseMainModal>Close X</CloseMainModal>
+    </MainModal>
+  </div>
+</template>
+
+<script>
+  import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components';
+
+  export default {
+    name: 'MainModalDemo',
+    components: {
+      MainModal,
+      CloseMainModal,
+      OpenMainModal
+    }
+  };
+</script>
+```
 </docs>

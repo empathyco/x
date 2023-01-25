@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.28...@empathyco/x-deep-merge@1.3.0-alpha.29) (2023-01-23)
+
+### Styling
+
+- update prettier and format code (#1026)
+  ([a18cc17](https://github.com/empathyco/x/commit/a18cc172b6638962d53192905cd466f12bccacac)),
+  closes [EX-7877](https://searchbroker.atlassian.net/browse/EX-7877)
+
+## [1.3.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.27...@empathyco/x-deep-merge@1.3.0-alpha.28) (2023-01-20)
+
+**Note:** Version bump only for package @empathyco/x-deep-merge
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.3.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.26...@empathyco/x-deep-merge@1.3.0-alpha.27) (2023-01-06)
 
 ### Build System

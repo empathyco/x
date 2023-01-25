@@ -80,8 +80,13 @@ export type MutableSchema<Source, Target> = Schema<Source, Target> & {
    * The original {@link Schema | schema} will remain unchanged.
    *
    * @param newSchema - The {@link Schema | schema} to be used to extend the original one.
+   * Both schema's Target and Source can be unique or also be extending from another one.
    * @returns The {@link Schema | schema} created.
    */
+  $extends<NewSource extends Source, NewTarget extends Target>(
+    newSchema: DeepPartial<Schema<Source & NewSource, Target>> &
+      Schema<Source & NewSource, Omit<NewTarget, keyof Target>>
+  ): MutableSchema<Source & NewSource, Target & NewTarget>;
   // eslint-disable-next-line @typescript-eslint/ban-types
   $extends<NewSource, NewTarget = {}>(
     newSchema: DeepPartial<Schema<Source & NewSource, Target>> &

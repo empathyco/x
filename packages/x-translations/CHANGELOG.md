@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.32...@empathyco/x-translations@1.1.0-alpha.33) (2023-01-23)
+
+### Styling
+
+- update prettier and format code (#1026)
+  ([a18cc17](https://github.com/empathyco/x/commit/a18cc172b6638962d53192905cd466f12bccacac)),
+  closes [EX-7877](https://searchbroker.atlassian.net/browse/EX-7877)
+
+## [1.1.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.31...@empathyco/x-translations@1.1.0-alpha.32) (2023-01-20)
+
+**Note:** Version bump only for package @empathyco/x-translations
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.1.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.30...@empathyco/x-translations@1.1.0-alpha.31) (2023-01-06)
 
 **Note:** Version bump only for package @empathyco/x-translations

@@ -97,6 +97,7 @@
 <style lang="scss" scoped>
   .x-related-tags {
     display: flex;
+    flex-flow: row nowrap;
     list-style: none;
   }
 </style>

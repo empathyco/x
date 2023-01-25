@@ -8,7 +8,6 @@ import { suggestionSizes } from './sizes';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-// eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function suggestionDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
@@ -19,6 +18,7 @@ export function suggestionDefault(helpers: TailwindHelpers) {
     gridAutoFlow: 'column',
     alignItems: 'baseline',
     alignContent: 'center',
+    justifyContent: 'flex-start',
     boxSizing: 'border-box',
     cursor: 'pointer',
     textAlign: 'start',

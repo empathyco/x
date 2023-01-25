@@ -12,8 +12,9 @@ import FiltersInjectionMixin from '../filters-injection.mixin';
 @Component({
   template: `
     <div>
-    <slot/>
-    </div>`
+      <slot />
+    </div>
+  `
 })
 class Provider extends Vue {
   @Prop()

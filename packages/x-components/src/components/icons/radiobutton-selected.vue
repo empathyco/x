@@ -1,6 +1,6 @@
 <template functional>
   <svg
-    :class="['x-icon x-filled'].concat(data.staticClass, data.class)"
+    :class="['x-filled x-icon'].concat(data.staticClass, data.class)"
     viewBox="0 0 16 16"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

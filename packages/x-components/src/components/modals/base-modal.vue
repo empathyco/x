@@ -11,6 +11,7 @@
         class="x-modal__content x-list"
         data-test="modal-content"
         role="dialog"
+        :class="contentClass"
       >
         <!-- @slot (Required) Modal container content -->
         <slot />
@@ -30,12 +31,13 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Prop, Mixins } from 'vue-property-decorator';
   import { getTargetElement } from '../../utils/html';
   import Fade from '../animations/fade.vue';
   import { NoElement } from '../no-element';
   import { FOCUSABLE_SELECTORS } from '../../utils/focus';
   import { Debounce } from '../decorators/debounce.decorators';
+  import { dynamicPropsMixin } from '../dynamic-props.mixin';
 
   /**
    * Base component with no XPlugin dependencies that serves as a utility for constructing more
@@ -44,7 +46,7 @@
    * @public
    */
   @Component
-  export default class BaseModal extends Vue {
+  export default class BaseModal extends Mixins(dynamicPropsMixin(['contentClass'])) {
     /**
      * Animation to use for opening/closing the modal. This animation only affects the content.
      */
@@ -308,6 +310,49 @@ is open.
       :open="open"
       @click:overlay="open = false"
       referenceSelector=".header"
+    >
+      <h1>Hello</h1>
+      <p>The modal is working</p>
+      <button @click="open = false">Close modal</button>
+    </BaseModal>
+  </div>
+</template>
+
+<script>
+  import { BaseModal, FadeAndSlide } from '@empathyco/x-components';
+  import Vue from 'vue';
+
+  Vue.component('fadeAndSlide', FadeAndSlide);
+
+  export default {
+    components: {
+      BaseModal
+    },
+    data() {
+      return {
+        open: false
+      };
+    }
+  };
+</script>
+```
+
+### Customized usage
+
+#### Customizing the content with classes
+
+The `contentClass` prop can be used to add classes to the modal content.
+
+```vue
+<template>
+  <div>
+    <button @click="open = true">Open modal</button>
+    <BaseModal
+      :animation="fadeAndSlide"
+      :open="open"
+      @click:overlay="open = false"
+      referenceSelector=".header"
+      contentClass="x-background--neutral-35"
     >
       <h1>Hello</h1>
       <p>The modal is working</p>

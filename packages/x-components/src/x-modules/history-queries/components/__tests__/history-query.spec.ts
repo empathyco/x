@@ -15,7 +15,9 @@ import { resetXHistoryQueriesStateWith } from './utils';
 function renderHistoryQuery({
   suggestion = createHistoryQuery({ query: 'milk' }),
   query = '',
-  template = '<HistoryQuery v-bind="$attrs"/>'
+  template = '<HistoryQuery v-bind="$attrs"/>',
+  removeButtonClass,
+  suggestionClass
 }: RenderHistoryQueryOptions = {}): RenderHistoryQueryApi {
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -33,7 +35,7 @@ function renderHistoryQuery({
     },
     {
       localVue,
-      propsData: { suggestion },
+      propsData: { suggestion, removeButtonClass, suggestionClass },
       store
     }
   );
@@ -136,6 +138,24 @@ describe('testing history-query component', () => {
 
     expect(getRemoveWrapper().text()).toBe('Remove cruzcampo ❌');
   });
+
+  it('allows to add classes to the `RemoveHistoryQuery` button', () => {
+    const { getRemoveWrapper } = renderHistoryQuery({
+      suggestion: createHistoryQuery({ query: 'baileys' }),
+      query: 'Bá',
+      removeButtonClass: 'custom-class'
+    });
+    expect(getRemoveWrapper().classes('custom-class')).toBe(true);
+  });
+
+  it('allows to add classes to the `HistoryQuerySuggestion` button', () => {
+    const { getSuggestionWrapper } = renderHistoryQuery({
+      suggestion: createHistoryQuery({ query: 'baileys' }),
+      query: 'Bá',
+      suggestionClass: 'custom-class'
+    });
+    expect(getSuggestionWrapper().classes('custom-class')).toBe(true);
+  });
 });
 
 interface RenderHistoryQueryOptions {
@@ -145,6 +165,10 @@ interface RenderHistoryQueryOptions {
   query?: string;
   /** The template to render. */
   template?: string;
+  /** Class to add to the node wrapping the remove history query button. */
+  removeButtonClass?: string;
+  /** Class to add to the node wrapping the history query suggestion button. */
+  suggestionClass?: string;
 }
 
 interface RenderHistoryQueryApi {

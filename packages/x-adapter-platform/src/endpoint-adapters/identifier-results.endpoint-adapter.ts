@@ -14,6 +14,9 @@ export const identifierResultsEndpointAdapter = endpointAdapterFactory<
   requestMapper: identifierResultsRequestMapper,
   responseMapper: identifierResultsResponseMapper,
   defaultRequestOptions: {
-    id: 'identifier-results'
+    id: 'identifier-results',
+    parameters: {
+      internal: true
+    }
   }
 });

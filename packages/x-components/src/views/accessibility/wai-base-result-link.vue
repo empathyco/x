@@ -1,10 +1,7 @@
 <template>
   <article class="x-result" style="max-width: 300px; overflow: hidden">
     <BaseResultLink class="x-result__picture" :result="result">
-      <BaseResultImage
-        :result="result"
-        class="x-picture--fixed-ratio x-picture--zoom"
-      ></BaseResultImage>
+      <BaseResultImage :result="result" class="x-picture-zoom"></BaseResultImage>
     </BaseResultLink>
 
     <BaseResultLink

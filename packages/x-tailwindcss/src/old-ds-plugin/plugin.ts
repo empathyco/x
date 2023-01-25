@@ -117,7 +117,10 @@ export default plugin(function ({ addBase, theme }: TailwindHelpers) {
       '--x-font-family-title3': theme('fontFamily.main'),
       '--x-size-font-title3': theme('fontSize.md'),
       '--x-number-font-weight-title3': theme('fontWeight.regular'),
-      '--x-size-line-height-title3': theme('lineHeight.md')
+      '--x-size-line-height-title3': theme('lineHeight.md'),
+
+      // IMAGE
+      '--x-number-aspect-ratio-picture': theme('aspectRatio.default')
     }
   });
 });

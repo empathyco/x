@@ -1,4 +1,7 @@
 export default {
+  aspectRatio: {
+    default: '3 / 4'
+  },
   borderRadius: {
     none: 0,
     xs: '2px',

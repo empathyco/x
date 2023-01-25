@@ -5,7 +5,7 @@ import pluginTheme from '../theme';
 /**
  * Type of the colors from Theme.
  */
-export type ThemeColors = typeof pluginTheme['colors'];
+export type ThemeColors = (typeof pluginTheme)['colors'];
 
 /**
  * Type of each Theme color.
@@ -45,7 +45,6 @@ export interface ThemeColor {
  *
  *@returns The {@link CssStyleOptions} with styles for all the colors.
  */
-// eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function mapColors<T extends CssStyleOptions>(
   mapperFn: (color: ThemeColor, colorName: string) => T,
   { theme }: TailwindHelpers
