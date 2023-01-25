@@ -32,7 +32,7 @@
         :key="imageSrc"
         :alt="result.name"
         :src="imageSrc"
-        class="x-result-picture-image x-picture-image"
+        class="x-result-picture-image"
         data-test="result-picture-image"
       />
     </component>
