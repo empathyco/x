@@ -4,6 +4,7 @@
     viewBox="0 0 256 371"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
+    style="background-color: #eef1f2"
   >
     <rect height="371" width="256" x="0" y="0" fill="#EEF1F2"></rect>
     <path
