@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.302](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.301...@empathyco/x-components@3.0.0-alpha.302) (2023-01-26)
+
+### ⚠ BREAKING CHANGES
+
+- **components:** class `x-picture__image` renamed to `x-picture-image`, deprecate classes
+  `x-picture__image--placeholder` and `x-picture__image--fallback`
+
+### Features
+
+- **components:** deprecate x-picture\_\_image and placeholder/fallback styles (#1036)
+  ([73a08a5](https://github.com/empathyco/x/commit/73a08a576b3f9b715cccefee8cb452d00cd45bcb)),
+  closes [EX-7888](https://searchbroker.atlassian.net/browse/EX-7888)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.301](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.300...@empathyco/x-components@3.0.0-alpha.301) (2023-01-25)
 
 ### Documentation
