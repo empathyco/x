@@ -380,6 +380,9 @@ describe('platformAdapter tests', () => {
           modelName: 'Result',
           name: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree',
           price: {
+            value: 10,
+            originalValue: 10,
+            futureValue: 10,
             hasDiscount: false
           },
           rating: {
@@ -479,6 +482,7 @@ describe('platformAdapter tests', () => {
           price: {
             hasDiscount: false,
             originalValue: 10,
+            futureValue: 10,
             value: 10
           },
           rating: {
