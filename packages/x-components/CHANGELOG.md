@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.303](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.302...@empathyco/x-components@3.0.0-alpha.303) (2023-01-27)
+
+### Build System
+
+- **deps:** update deps (#1046)
+  ([b6957df](https://github.com/empathyco/x/commit/b6957df9d88c0d94c2543047991a63afadd707ff))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.302](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.301...@empathyco/x-components@3.0.0-alpha.302) (2023-01-26)
 
 ### ⚠ BREAKING CHANGES
