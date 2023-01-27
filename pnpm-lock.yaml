@@ -221,6 +221,7 @@ importers:
       '@types/node': ~16.4.12
       '@vue/test-utils': ~1.0.3
       jest: ~27.3.1
+      rimraf: ~3.0.2
       rollup: ~2.79.1
       rollup-plugin-copy: ~3.4.0
       rollup-plugin-delete: ~2.0.0
@@ -238,6 +239,7 @@ importers:
       '@types/node': 16.4.14
       '@vue/test-utils': 1.0.5_vue@2.7.14
       jest: 27.3.1
+      rimraf: 3.0.2
       rollup: 2.79.1
       rollup-plugin-copy: 3.4.0
       rollup-plugin-delete: 2.0.0
