@@ -2,7 +2,7 @@ import { map } from '@empathyco/x-utils';
 import { TailwindHelpers } from '../../../types';
 
 /**
- * Returns the `sizes` available variants of component `layout`.
+ * Returns the `sizes` variants of component `layout`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.

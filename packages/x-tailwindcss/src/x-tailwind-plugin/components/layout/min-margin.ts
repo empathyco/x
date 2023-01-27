@@ -2,7 +2,7 @@ import { map, rename } from '@empathyco/x-utils';
 import { TailwindHelpers } from '../../../types';
 
 /**
- * Returns the `min-margin` available variants of component `layout`.
+ * Returns the `min-margin` variants of component `layout`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
