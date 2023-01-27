@@ -20,8 +20,9 @@
         @slot History Query item
             @binding {Suggestion} suggestion - History Query suggestion data
             @binding {number} index - History Query suggestion index
+            @binding {() => string} formatTime - Callback to format time to `hh:mm [PM/AM]`
       -->
-          <slot name="suggestion" v-bind="{ suggestion, index }">
+          <slot name="suggestion" v-bind="{ suggestion, index, formatTime }">
             <HistoryQuery
               :suggestion="suggestion"
               data-test="history-query-item"
@@ -32,6 +33,7 @@
               @slot History Query content
                   @binding {Suggestion} suggestion - History Query suggestion data
                   @binding {number} index - History Query suggestion index
+                  @binding {() => string} formatTime - Callback to format time to `hh:mm [PM/AM]`
             -->
                 <slot name="suggestion-content" v-bind="{ suggestion, index, formatTime }">
                   <div class="x-list x-list--vertical">
