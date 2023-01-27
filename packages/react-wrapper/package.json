@@ -29,6 +29,7 @@
     "build": "tsc",
     "cypress:open": "cypress open --browser chrome",
     "cypress:run": "cypress run --headless --browser chrome",
+    "lint": "eslint . --ext .ts,tsx",
     "postbuild": "pnpm pack",
     "prepublishOnly": "pnpm run build",
     "test": "pnpm run test:unit && pnpm run test:e2e:ci",

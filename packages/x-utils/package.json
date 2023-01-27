@@ -27,8 +27,9 @@
   "scripts": {
     "prebuild": "rimraf ./dist ./types",
     "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
-    "test": "jest",
     "postbuild": "pnpm pack",
+    "lint": "eslint . --ext .ts",
+    "test": "jest",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {

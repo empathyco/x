@@ -24,8 +24,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "build:watch": "tsc --watch",
     "postbuild": "pnpm pack",
+    "lint": "eslint . --ext .ts",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {

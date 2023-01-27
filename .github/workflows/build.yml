@@ -39,18 +39,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: setup eslint cache
+      - name: setup node_modules cache
+        id: cache-node-modules
         uses: actions/cache@v3
         with:
-          path: .eslintcache
-          key: eslint-${{github.sha}}
-          restore-keys: eslint-
+          path: |
+            **/node_modules
+             ~/.cache/Cypress
+          key: node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: install dependencies
         run: pnpm install
 
       - name: build packages
-        if: steps.pnpm-cache.outputs.cache-hit == 'true'
         run: pnpm run build
 
       - name: lint packages
