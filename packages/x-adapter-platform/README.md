@@ -22,7 +22,7 @@ imports it as a plugin.
 ## Installation
 
 ```
-npm i @empathyco/x-adapter-platform
+pnpm i @empathyco/x-adapter-platform
 ```
 
 <br>
@@ -125,7 +125,8 @@ const { suggestions } = await platformAdapter.popularSearches({
 - response:
   [`RecommendationsResponse`](https://github.com/empathyco/x/blob/main/packages/x-types/src/response/recommendations-response.model.ts)
 
-These **recommendations** are top clicked products based on user click interactions (note: no personal user data is collected).
+These **recommendations** are top clicked products based on user click interactions (note: no
+personal user data is collected).
 
 ```ts
 import { platformAdapter } from '@empathyco/x-adapter-platform';
@@ -324,7 +325,7 @@ inside each of the project's sections functionalities (`endpoint-adapters`, `map
 
 ```
 
-npm test
+pnpm test
 
 ```
 

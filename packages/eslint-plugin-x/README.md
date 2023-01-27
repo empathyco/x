@@ -11,10 +11,10 @@ custom plugin, but it includes also style formatter and good practices outside E
 
 ### Installation
 
-You can install the linter plugin using NPM:
+You can install the linter plugin using pnpm:
 
 ```
-npm install @empathyco/eslint-plugin-x --save-dev
+pnpm install @empathyco/eslint-plugin-x --dev
 ```
 
 The plugin offers different levels of configuration depending on the plugins and rules we want to

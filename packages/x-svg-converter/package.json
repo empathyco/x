@@ -27,7 +27,7 @@
   "scripts": {
     "prebuild": "rimraf dist ./*.tgz",
     "build": "tsc --project tsconfig.build.json",
-    "postbuild": "npm pack",
+    "postbuild": "pnpm pack",
     "test": "jest -i"
   },
   "devDependencies": {

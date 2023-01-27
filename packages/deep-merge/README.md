@@ -5,12 +5,15 @@ Utility for deep cloning objects.
 ### How to install
 
 ```
-npm install @empathyco/x-deep-merge --save
+pnpm i @empathyco/x-deep-merge
 ```
 
 ### How to use
 
-[TypeScript Module Resolution Logic](https://www.typescriptlang.org/docs/handbook/module-resolution.html) makes it quite easy. The `package.json` file contains `main` attribute that points to the generated `dist/client.js` file and `typings` attribute that points to the generated `dist/client.d.ts` file. You can also import this package as a module:
+[TypeScript Module Resolution Logic](https://www.typescriptlang.org/docs/handbook/module-resolution.html)
+makes it quite easy. The `package.json` file contains `main` attribute that points to the generated
+`dist/client.js` file and `typings` attribute that points to the generated `dist/client.d.ts` file.
+You can also import this package as a module:
 
 - Using `x-deep-merge` in a `TypeScript` file:
 
@@ -37,10 +40,11 @@ If you want to find out all the covered use cases, check the `tests` folder.
 
 ### How to update the version
 
-You can check if a new version has been published running [npm outdated](https://docs.npmjs.com/cli/outdated):
+You can check if a new version has been published running
+[pnpm outdated](https://pnpm.io/cli/outdated):
 
-`npm outdated @empathyco/x-deep-merge`
+`pnpm outdated @empathyco/x-deep-merge`
 
-And update it using [npm update](https://docs.npmjs.com/cli/update):
+And update it using [npm update](https://pnpm.io/cli/update):
 
-`npm update --save @empathyco/x-deep-merge`
+`pnpm update @empathyco/x-deep-merge`

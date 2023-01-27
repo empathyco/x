@@ -45,10 +45,10 @@ ts-node ./src/csv-to-json.ts ./src/__tests__/csv ./TargetPath
 
 ### Run it as a dependency
 
-1. `npm install`
-2. `npm run build`
-3. `npm install -g nameOfTgzGenerated.tgz`
-   - `npm install -g empathy-x-translations-0.1.0.tgz`
+1. `pnpm install`
+2. `pnpm run build`
+3. `pnpm install nameOfTgzGenerated.tgz`
+   - `pnpm install empathy-x-translations-0.1.0.tgz`
 4. run the command to transform a JSON to a CSV:
 
    - `json-csv ./src/__tests__/json/en.messages.json`

@@ -25,7 +25,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "postbuild": "npm pack",
+    "postbuild": "pnpm pack",
     "test": "jest -i"
   },
   "dependencies": {

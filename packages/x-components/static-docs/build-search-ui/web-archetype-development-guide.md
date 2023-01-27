@@ -79,15 +79,15 @@ repository in the `package.json` file.
 
 ## Installing the dependencies and executing the project
 
-Install the project dependencies via `npm` in the root folder of your cloned repository. Then, you
+Install the project dependencies via `pnpm` in the root folder of your cloned repository. Then, you
 can run the project.
 
 ```batch
-// Install the dependencies via npm
-npm install
+// Install the dependencies via pnpm
+pnpm install
 
 // Execute the project
-npm run serve
+pnpm run serve
 ```
 
 ::: interact

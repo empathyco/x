@@ -24,8 +24,7 @@
     "node": ">=16"
   },
   "scripts": {
-    "build": "npm pack",
-    "commit": "git-cz"
+    "build": "pnpm pack"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "~5.49.0",

@@ -21,7 +21,7 @@ Some features that it provides:
 ## Installation
 
 ```
-npm i @empathyco/x-adapter
+pnpm i @empathyco/x-adapter
 ```
 
 If you use this package together with
@@ -671,7 +671,7 @@ needs.
 `__tests__` folder inside each of the project's sections.
 
 ```
-npm test
+pnpm test
 ```
 
 ## Changelog

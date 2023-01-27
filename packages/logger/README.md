@@ -4,10 +4,10 @@ This project is a simple logger
 
 ### Installation
 
-You can install the logger using NPM:
+You can install the logger using pnpm:
 
 ```
-npm install @empathyco/x-logger --save-dev
+pnpm install @empathyco/x-logger --dev
 ```
 
 ### Usage
@@ -39,7 +39,10 @@ logger.debug()
 logger.trace()
 ```
 
-Depending on the LogLevel, only some levels will be displayed in the console. Setting the LogLevel to `warn`, the console will display the levels below it and itself, in this case, `error` and `warn`.
+Depending on the LogLevel, only some levels will be displayed in the console. Setting the LogLevel
+to `warn`, the console will display the levels below it and itself, in this case, `error` and
+`warn`.
+
 ```
 logger.consoleLevel = LogLevel.warn;
 logger.serverLevel = LogLevel.silent;
@@ -50,4 +53,3 @@ logger.info() // console.info not called
 logger.debug() // console.debug  not called
 logger.trace() // console.trace not called
 ```
-

@@ -28,8 +28,8 @@
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
-    "postbuild": "npm pack",
-    "prepublishOnly": "npm run build",
+    "postbuild": "pnpm pack",
+    "prepublishOnly": "pnpm run build",
     "test": "jest"
   },
   "dependencies": {

@@ -30,9 +30,9 @@
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",
     "clean": "rimraf dist && rimraf coverage",
-    "postbuild": "npm pack",
-    "prepublishOnly": "npm run build",
-    "prebuild": "npm run clean",
+    "postbuild": "pnpm pack",
+    "prepublishOnly": "pnpm run build",
+    "prebuild": "pnpm run clean",
     "test": "jest"
   },
   "dependencies": {

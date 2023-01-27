@@ -67,11 +67,11 @@ To build your search and discovery UI, the following project dependencies are re
 - **x-types** ([`@empathyco/x-types`](https://github.com/empathyco/x/tree/main/packages/x-types)):
   The data model used in the X&nbsp;Components to define types.
 
-Install the project dependencies via `npm` as follows:
+Install the project dependencies via `pnpm` as follows:
 
 ```batch
-//Install the dependencies via npm.
-npm install --save @empathyco/x-components @empathyco/x-types @empathyco/x-adapter-platform
+// Install the dependencies via pnpm
+pnpm install @empathyco/x-components @empathyco/x-types @empathyco/x-adapter-platform
 ```
 
 ## Configuring the search adapter
