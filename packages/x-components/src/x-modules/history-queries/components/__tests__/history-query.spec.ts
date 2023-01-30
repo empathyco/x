@@ -2,6 +2,7 @@ import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
+import { ComponentOptions } from 'vue';
 import { createHistoryQuery } from '../../../../__stubs__/history-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -17,7 +18,8 @@ function renderHistoryQuery({
   query = '',
   template = '<HistoryQuery v-bind="$attrs"/>',
   removeButtonClass,
-  suggestionClass
+  suggestionClass,
+  wrapperComponentOptions
 }: RenderHistoryQueryOptions = {}): RenderHistoryQueryApi {
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -31,7 +33,8 @@ function renderHistoryQuery({
       inheritAttrs: false,
       components: {
         HistoryQuery
-      }
+      },
+      ...wrapperComponentOptions
     },
     {
       localVue,
@@ -156,9 +159,32 @@ describe('testing history-query component', () => {
     });
     expect(getSuggestionWrapper().classes('custom-class')).toBe(true);
   });
+
+  it('emits click event', () => {
+    const suggestion = createHistoryQuery({ query: 'baileys' });
+    const handleClick = jest.fn();
+
+    const { wrapper } = renderHistoryQuery({
+      suggestion,
+      template: `
+        <HistoryQuery v-bind="$attrs" @click="handleClick"/>
+      `,
+      wrapperComponentOptions: {
+        methods: {
+          handleClick
+        }
+      }
+    });
+
+    wrapper.get(getDataTestSelector('history-query')).trigger('click');
+    expect(handleClick).toHaveBeenCalledTimes(1);
+    expect(handleClick).toHaveBeenCalledWith(suggestion, expect.any(MouseEvent));
+  });
 });
 
 interface RenderHistoryQueryOptions {
+  /** Options to pass to the wrapper component. */
+  wrapperComponentOptions?: ComponentOptions<Vue>;
   /** The suggestion data to render. */
   suggestion?: HistoryQueryModel;
   /** The query that the suggestions belong to. */
