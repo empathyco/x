@@ -61,6 +61,11 @@ export { default as RadioButtonUnselectedIcon } from './radiobutton-unselected.v
 export { default as SearchIcon } from './search.vue';
 export { default as SettingsIcon } from './settings.vue';
 export { default as ShowIcon } from './show.vue';
+export { default as SortAZIcon } from './sort-az.vue';
+export { default as SortPriceDownIcon } from './sort-price-down.vue';
+export { default as SortPriceUpIcon } from './sort-price-up.vue';
+export { default as SortRelevancyIcon } from './sort-relevancy.vue';
+export { default as SortZAIcon } from './sort-za.vue';
 export { default as StarIcon } from './star.vue';
 export { default as StarFilledIcon } from './star-filled.vue';
 export { default as SearchTinyIcon } from './search-tiny.vue';
