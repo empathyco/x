@@ -66,10 +66,6 @@
 </script>
 
 <style lang="scss" scoped>
-  ::v-deep h2 {
-    align-self: flex-start;
-  }
-
   .x-layout-item {
     max-width: var(--x-layout-max-width);
     width: 2100px;
