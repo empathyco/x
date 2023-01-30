@@ -11,10 +11,10 @@
       @keydown="copyCssClassesToClipboard"
       :class="cssClass"
       title="Click me to copy CSS classes"
-      class="x-bg-neutral-50"
+      class="x-bg-warning-50"
     >
-      <div v-for="index in 5" :key="index" class="x-layout-item">
-        {{ index }}
+      <div v-for="index in 5" :key="index" class="x-layout-item x-bg-neutral-50">
+        Layout Item {{ index }}
       </div>
     </div>
   </XdsBaseShowcase>
