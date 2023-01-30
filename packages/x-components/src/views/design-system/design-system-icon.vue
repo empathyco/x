@@ -5,14 +5,14 @@
       <h2 :key="'h2' + size" class="x-title2 x-uppercase">{{ size }}</h2>
       <ul :key="size" class="x-list x-list--wrap x-list--gap-06">
         <li v-for="(icon, id) in icons" :key="id" :title="id">
-          <component :is="icon" :class="'x-icon-' + size" />
+          <component :is="icon" :class="'x-icon--' + size" />
         </li>
       </ul>
     </template>
     <h2 class="x-title2 x-uppercase">Fill</h2>
     <ul class="x-list x-list--wrap x-list--gap-06">
       <li v-for="(icon, id) in icons" :key="id" :title="id">
-        <component :is="icon" class="x-icon-xl x-icon-auxiliary" />
+        <component :is="icon" class="x-fill--accent x-icon--xl" />
       </li>
     </ul>
   </section>
