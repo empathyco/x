@@ -5,6 +5,7 @@ import { TailwindHelpers } from '../../../types';
 import { layoutDefault } from './default';
 import { sizes } from './sizes';
 import { minMargin } from './min-margin';
+import { item } from './item';
 
 /**
  * Returns the component `layout` CSS.
@@ -24,6 +25,7 @@ export function layout(helpers: TailwindHelpers) {
         },
         { prefix: '&-' }
       )
-    )
+    ),
+    '.layout-item': item()
   };
 }

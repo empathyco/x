@@ -13,8 +13,8 @@
       title="Click me to copy CSS classes"
       class="x-bg-neutral-50"
     >
-      <div v-for="index in 5" :key="index" class="x-layout-item">
-        {{ index }}
+      <div v-for="index in 5" :key="index" class="x-layout-item x-bg-accent-50">
+        <span>{{ index }}</span>
       </div>
     </div>
   </XdsBaseShowcase>
@@ -74,5 +74,6 @@
     max-width: var(--x-layout-max-width);
     width: 2100px;
     margin: 0 var(--x-layout-min-margin);
+    height: var(--x-layout-min-margin);
   }
 </style>
