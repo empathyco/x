@@ -6,16 +6,17 @@
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M6.5 4H1.75317"
+      d="M3.92159 6.49265L1.56456 4.13563L3.92159 1.77861H6.27861V4.13563L3.92159 6.49265Z"
+      fill="currentColor"
       stroke="currentColor"
       stroke-width="0.4"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
     <path
-      d="M4 6.5L1.5 4L4 1.5"
-      stroke="currentColor"
-      stroke-width="0.4"
+      d="M5.22454 2.83659L5.22464 2.83485"
+      stroke="white"
+      stroke-width="0.5"
       stroke-linecap="round"
       stroke-linejoin="round"
     />

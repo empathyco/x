@@ -6,14 +6,7 @@
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M6.5 4H1.75317"
-      stroke="currentColor"
-      stroke-width="0.4"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M4 6.5L1.5 4L4 1.5"
+      d="M5.125 3.18644L7 5.09322L5.125 7M1 1V5.09322H6.84766"
       stroke="currentColor"
       stroke-width="0.4"
       stroke-linecap="round"
