@@ -36,21 +36,16 @@
     public base!: string;
 
     @Prop({
-      default: () => [
-        'x-layout-container-sm',
-        'x-layout-container-md',
-        'x-layout-container-lg',
-        'x-layout-container-full'
-      ]
+      default: () => ['x-layout-sm', 'x-layout-md', 'x-layout-lg', 'x-layout-full']
     })
     public sizes!: string[];
 
     @Prop({
       default: () => [
-        'x-layout-container-min-margin-12',
-        'x-layout-container-min-margin-20',
-        'x-layout-container-min-margin-32',
-        'x-layout-container-min-margin-48'
+        'x-layout-min-margin-12',
+        'x-layout-min-margin-20',
+        'x-layout-min-margin-32',
+        'x-layout-min-margin-48'
       ]
     })
     public minMargin!: string[];
