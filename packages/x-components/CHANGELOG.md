@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.305](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.304...@empathyco/x-components@3.0.0-alpha.305) (2023-01-30)
+
+### Features
+
+- **history-queries:** emit click event on HistoryQuery click (#1048)
+  ([2e7d074](https://github.com/empathyco/x/commit/2e7d07484571a9458a14fab4435b10523f6e7457)),
+  closes [EX-7879](https://searchbroker.atlassian.net/browse/EX-7879)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.304](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.303...@empathyco/x-components@3.0.0-alpha.304) (2023-01-30)
 
 ### Features
