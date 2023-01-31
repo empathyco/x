@@ -86,7 +86,6 @@
   }
 
   .x-layout-item {
-    margin: 0 var(--x-layout-min-margin);
     height: var(--x-layout-min-margin);
   }
 </style>

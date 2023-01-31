@@ -7,7 +7,7 @@ export function item() {
   return {
     item: {
       '--x-margin': 'max(var(--x-layout-min-margin, 0px), var(--x-max-width-margin))',
-      '--x-max-width-margin': 'calc((100vw - var(--x-layout-max-with, 100vw)) / 2)',
+      '--x-max-width-margin': 'calc((100vw - var(--x-layout-max-width, 100vw)) / 2)',
       '--x-margin-left': 'var(--x-margin)',
       '--x-margin-right': 'var(--x-margin)',
 
