@@ -1,6 +1,13 @@
 <template>
   <div class="x-history-query x-suggestion-group">
+    <!--
+      Click on the History Query suggestion
+      @event click
+      @property {Suggestion} suggestion - History Query suggestion data
+      @property {MouseEvent} event - The original mouse event
+    -->
     <BaseSuggestion
+      @click="$emit('click', suggestion, $event)"
       class="x-history-query__suggestion"
       :class="suggestionClass"
       v-bind="{ suggestion, suggestionSelectedEvents, query }"
@@ -11,7 +18,7 @@
       <!-- eslint-disable max-len -->
       <!--
           @slot History Query content
-              @binding {Object} v-bind - `BaseSuggestion` default slot scope: **suggestion** <code>Suggestion</code> - Suggestion data<br /> **query** <code>string</code> - The query that the suggestion belongs to<br /> **filter** <code>Filter \| undefined</code> - Suggestion's filter
+              @binding {Object} v-bind - `BaseSuggestion` default slot scope: **suggestion** <code>Suggestion</code> - Suggestion data<br /> **query** <code>string</code> - The query that the suggestion belongs to<br /> **filter** <code>Filter or undefined</code> - Suggestion's filter
       -->
       <!-- eslint-enable max-len -->
       <slot v-bind="{ ...baseScope }" />
