@@ -20,12 +20,17 @@ export function layout(helpers: TailwindHelpers) {
 
       rename(
         {
-          ...sizes(helpers),
-          ...minMargin(helpers)
+          ...sizes(helpers)
         },
         { prefix: '&-' }
       )
     ),
-    '.layout-item': item()
+    '.layout': rename(
+      {
+        ...minMargin(helpers),
+        ...item()
+      },
+      { prefix: '&-' }
+    )
   };
 }
