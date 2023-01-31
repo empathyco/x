@@ -1,8 +1,7 @@
 import { rename } from '@empathyco/x-utils';
-import { deepMerge } from '@empathyco/x-deep-merge';
 import { TailwindHelpers } from '../../../types';
 
-import { layoutDefault } from './default';
+import { container } from './container';
 import { sizes } from './sizes';
 import { minMargin } from './min-margin';
 import { item } from './item';
@@ -15,18 +14,10 @@ import { item } from './item';
  */
 export function layout(helpers: TailwindHelpers) {
   return {
-    '.layout-container': deepMerge(
-      layoutDefault(),
-
-      rename(
-        {
-          ...sizes(helpers)
-        },
-        { prefix: '&-' }
-      )
-    ),
     '.layout': rename(
       {
+        ...container(),
+        ...sizes(helpers),
         ...minMargin(helpers),
         ...item()
       },

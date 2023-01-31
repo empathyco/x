@@ -16,10 +16,9 @@
         @keydown="copyCssClassesToClipboard"
         :class="cssClass"
         title="Click me to copy CSS classes"
-        class="x-bg-neutral-50 x-layout-container-sm x-layout-min-margin-48"
       >
         <div v-for="(item, index) in items" :key="index" :class="item.class">
-          <span>{{ item.content }} - {{ index }}</span>
+          <div :class="item.contentClass">{{ item.content }} - {{ index }}</div>
         </div>
       </div>
     </dialog>
@@ -37,18 +36,20 @@
     }
   })
   export default class XdsLayoutShowcase extends Vue {
-    @Prop({ default: 'x-layout-container' })
+    @Prop({ default: 'x-layout-container x-bg-neutral-50 x-layout-sm x-layout-min-margin-48' })
     public base!: string;
 
     @Prop({
       default: () => [
         {
-          class: 'x-layout-item x-bg-accent-50',
-          content: 'layout item'
+          class: 'x-layout-item',
+          content: 'layout item',
+          contentClass: 'x-bg-accent-50'
         },
         {
-          class: 'x-layout-item x-bg-warning-75',
-          content: 'layout item'
+          class: 'x-layout-item',
+          content: 'layout item',
+          contentClass: 'x-bg-warning-75'
         }
       ]
     })
@@ -83,9 +84,5 @@
     width: 100vw;
     max-width: 100vw;
     padding: 0;
-  }
-
-  .x-layout-item {
-    height: var(--x-layout-min-margin);
   }
 </style>
