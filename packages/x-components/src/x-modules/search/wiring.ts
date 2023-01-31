@@ -1,3 +1,4 @@
+import { debounce } from '../../wiring';
 import {
   namespacedWireCommit,
   namespacedWireDispatch,
@@ -107,13 +108,6 @@ export const setSort = wireCommit('setSort');
 export const setUrlParams = wireDispatch('setUrlParams');
 
 /**
- * Clears the search states `query`, `page` and `sort`.
- *
- * @public
- */
-export const clearSearchParamsWire = wireDispatchWithoutPayload('clearSearchParams');
-
-/**
  * Sets the search state `page`.
  *
  * @public
@@ -148,12 +142,15 @@ export const resetAppending = wireCommit('setIsAppendResults', false);
  *
  * @public
  */
-export const resetStateWire = wireDispatch(
-  'resetState',
-  ({ eventPayload: newRequest, metadata: { oldValue } }: WirePayload<InternalSearchRequest>) => ({
-    newRequest,
-    oldRequest: oldValue as InternalSearchRequest
-  })
+export const resetStateWire = debounce(
+  wireDispatch(
+    'resetState',
+    ({ eventPayload: newRequest, metadata: { oldValue } }: WirePayload<InternalSearchRequest>) => ({
+      newRequest,
+      oldRequest: oldValue as InternalSearchRequest
+    })
+  ),
+  0
 );
 
 /**
@@ -174,7 +171,7 @@ export const searchWiring = createWiring({
     resetSpellcheckQuery
   },
   UserClearedQuery: {
-    clearSearchParamsWire,
+    setSearchQuery,
     cancelFetchAndSaveSearchResponseWire
   },
   UserClickedASort: {
@@ -187,10 +184,8 @@ export const searchWiring = createWiring({
     increasePageAppendingResultsWire
   },
   SearchRequestChanged: {
+    resetStateWire,
     fetchAndSaveSearchResponseWire
-  },
-  SearchRequestUpdated: {
-    resetStateWire
   },
   SelectedRelatedTagsChanged: {
     setRelatedTags
