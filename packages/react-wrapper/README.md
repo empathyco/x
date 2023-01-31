@@ -9,7 +9,8 @@ To start using this library, simply add it to your React project dependencies, t
 `react`, `react-dom`, and `vue`:
 
 ```
-pnpm install @empathyco/react-wrapper react react-dom vue
+# or pnpm or yarn
+npm install @empathyco/react-wrapper react react-dom vue
 ```
 
 After installing these dependencies, you can start using the `ReactWrapper`. To do so, you just have

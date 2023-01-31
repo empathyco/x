@@ -5,7 +5,8 @@ Jest extensions for easier testing.
 ## How to install
 
 ```
-pnpm install @empathyco/x-jest-utils --dev
+# or pnpm or yarn
+npm install @empathyco/x-jest-utils --save-dev
 ```
 
 ## How to use
@@ -29,18 +30,3 @@ import '@empathyco/x-jest-utils';
 
 If you want to find out all the matchers, check the
 [src/jest-utils.types.ts](src/jest-utils.types.ts) file.
-
-## How to update the version
-
-You can check if a new version has been published running
-[pnpm outdated](https://pnpm.io/cli/outdated):
-
-```
-npm outdated @empathyco/x-jest-utils
-```
-
-And update it using [pnpm update](https://pnpm.io/cli/update):
-
-```
-pnpm update @empathyco/x-jest-utils
-```

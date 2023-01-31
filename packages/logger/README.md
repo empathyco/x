@@ -4,10 +4,11 @@ This project is a simple logger
 
 ### Installation
 
-You can install the logger using pnpm:
+To install the logger:
 
 ```
-pnpm install @empathyco/x-logger --dev
+# or pnpm or yarn
+npm install @empathyco/x-logger --save-dev
 ```
 
 ### Usage
