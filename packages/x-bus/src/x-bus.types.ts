@@ -2,15 +2,6 @@ import { Dictionary } from '@empathyco/x-utils';
 import { Observable, Subject } from 'rxjs';
 
 /**
- * Alias representing a
- * {@link https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#return_value | timeoutID}
- * value.
- *
- * @internal
- */
-export type TimeoutId = number;
-
-/**
  * Alias representing a positive number to represent the priority of an event in an
  * {@link XPriorityBus}.
  *
