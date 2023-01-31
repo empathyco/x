@@ -14,7 +14,6 @@ export function item() {
       display: 'grid',
       justifyItems: 'stretch',
       alignItems: 'start',
-      overflowX: 'hidden',
 
       gridTemplateColumns: 'var(--x-margin-left) 1fr var(--x-margin-right)',
 
