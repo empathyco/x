@@ -1,29 +1,34 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, copyCssClassesToClipboard, removeClassPrefix }"
+    #default="{ cssClass, copyCssClassesToClipboard }"
     title="Layout"
     :sections="sections"
   >
-    {{ removeClassPrefix(cssClass, base) }}
-    <div
-      :key="cssClass"
-      @click="copyCssClassesToClipboard"
-      @keydown="copyCssClassesToClipboard"
-      :class="cssClass"
-      title="Click me to copy CSS classes"
-      class="x-bg-neutral-50"
-    >
-      <div v-for="index in 5" :key="index" class="x-layout-item x-bg-accent-50">
-        <span>{{ index }}</span>
+    <button @click="openModal" class="x-button">One Column Layout</button>
+
+    <dialog ref="modal" class="modal">
+      <form method="dialog" class="x-flex x-justify-end">
+        <button @click="enableScroll" class="x-button x-button-ghost" value="default">Close</button>
+      </form>
+      <div
+        :key="cssClass"
+        @click="copyCssClassesToClipboard"
+        @keydown="copyCssClassesToClipboard"
+        :class="cssClass"
+        title="Click me to copy CSS classes"
+        class="x-bg-neutral-50 x-layout-container-sm x-layout-min-margin-48"
+      >
+        <div v-for="(item, index) in items" :key="index" :class="item.class">
+          <span>{{ item.content }} - {{ index }}</span>
+        </div>
       </div>
-    </div>
+    </dialog>
   </XdsBaseShowcase>
 </template>
 
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { ShowcaseSections } from '../types/types';
-  import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
   @Component({
@@ -37,42 +42,50 @@
 
     @Prop({
       default: () => [
-        'x-layout-container-sm',
-        'x-layout-container-md',
-        'x-layout-container-lg',
-        'x-layout-container-full'
+        {
+          class: 'x-layout-item x-bg-accent-50',
+          content: 'layout item'
+        },
+        {
+          class: 'x-layout-item x-bg-warning-75',
+          content: 'layout item'
+        }
       ]
     })
-    public sizes!: string[];
-
-    @Prop({
-      default: () => [
-        'x-layout-container-min-margin-12',
-        'x-layout-container-min-margin-20',
-        'x-layout-container-min-margin-32',
-        'x-layout-container-min-margin-48'
-      ]
-    })
-    public minMargin!: string[];
+    public items!: object[];
 
     protected get sections(): ShowcaseSections {
       return {
-        Default: [this.base],
-        Sizes: this.sizes.map(addParentClasses(this.base)),
-        Margins: this.minMargin.map(addParentClasses(this.base))
+        Default: [this.base]
       };
+    }
+
+    openModal(): void {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      (this.$refs.modal as any).showModal();
+      document.documentElement.style.overflow = 'hidden';
+    }
+
+    enableScroll(): void {
+      document.documentElement.style.overflow = '';
+    }
+
+    destroyed(): void {
+      this.enableScroll();
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  ::v-deep h2 {
-    align-self: flex-start;
+  .modal {
+    height: 100vh;
+    max-height: 100vh;
+    width: 100vw;
+    max-width: 100vw;
+    padding: 0;
   }
 
   .x-layout-item {
-    max-width: var(--x-layout-max-width);
-    width: 2100px;
     margin: 0 var(--x-layout-min-margin);
     height: var(--x-layout-min-margin);
   }
