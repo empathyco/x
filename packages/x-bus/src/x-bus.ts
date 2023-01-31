@@ -8,7 +8,6 @@ import {
   Emitters,
   Priority,
   SubjectPayload,
-  TimeoutId,
   EventPayload,
   XBus,
   XPriorityQueueNodeData
@@ -74,19 +73,18 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
   protected emitters: Emitters<SomeEvents, SomeEventMetadata> = {};
 
   /**
-   * A pending flush operation {@link TimeoutId | timeout identifier} or undefined if there's
-   * none pending.
+   * A pending flush operation timeout identifier or undefined if there's none pending.
    *
    * @internal
    */
-  protected pendingFlushId?: TimeoutId;
+  protected pendingFlushId?: number;
 
   /**
-   * A list of pending pop operations {@link TimeoutId | timeout identifiers}.
+   * A list of pending pop operations timeout identifiers.
    *
    * @internal
    */
-  protected pendingPopsIds: TimeoutId[] = [];
+  protected pendingPopsIds: number[] = [];
 
   /**
    * Creates a new instance of a {@link XPriorityBus}.
@@ -96,7 +94,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    * store the events.
    * @param config.priorities - A {@link @empathyco/x-utils#Dictionary} defining the priorities
    * associated to a given string.
-   * @param config.emitCallbacks - A list of functions to execute when an event is emitted.
+   @param config.emitCallbacks - A list of functions to execute when an event is emitted.
    * @param config.defaultEventPriority -  A default priority to assigned to an event.
    */
   public constructor(
@@ -184,9 +182,9 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
     clearTimeout(this.pendingFlushId);
     this.clearPendingPopsIds();
 
-    this.pendingFlushId = setTimeout(() => {
+    this.pendingFlushId = window.setTimeout(() => {
       for (let i = 0; i < this.queue.size(); ++i) {
-        const popTimeoutId = setTimeout(() => {
+        const popTimeoutId = window.setTimeout(() => {
           const {
             key,
             data: { eventPayload, eventMetadata, resolve }
