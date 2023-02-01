@@ -89,6 +89,12 @@ export default {
     regular: '400',
     bold: '700'
   },
+  layoutMaxWidth: {
+    sm: '1000px',
+    md: '1440px',
+    lg: '2000px',
+    full: '100vw'
+  },
   letterSpacing: {
     sm: '-0.01em',
     md: '0',
