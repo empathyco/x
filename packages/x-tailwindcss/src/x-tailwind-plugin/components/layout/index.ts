@@ -16,10 +16,10 @@ export function layout(helpers: TailwindHelpers) {
   return {
     '.layout': rename(
       {
-        ...container(),
+        ...container(helpers),
         ...sizes(helpers),
         ...minMargin(helpers),
-        ...item()
+        ...item(helpers)
       },
       { prefix: '&-' }
     )
