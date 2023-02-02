@@ -25,9 +25,9 @@
           <div class="x-p-16 x-bg-auxiliary-50">layout item - Fake toolbar</div>
         </div>
 
-        <div class="x-layout-item x-overlap-from-top">
+        <div class="x-layout-item x-layout-overlap-from-top">
           <div class="x-justify-self-center x-mt-16">
-            <button class="x-button x-button-sm x-button-accent">x-overlap-from-top</button>
+            <button class="x-button x-button-sm x-button-accent">x-layout-overlap-from-top</button>
           </div>
         </div>
 
@@ -97,8 +97,8 @@
           </div>
         </div>
 
-        <div class="x-layout-item x-overlap">
-          <div class="x-on-margin-right x-mb-16 x-mr-16">
+        <div class="x-layout-item x-layout-overlap">
+          <div class="x-layout-on-margin-right x-mb-16 x-mr-16">
             <button class="x-button x-button-sm x-button-circle x-button-accent">▲</button>
           </div>
         </div>

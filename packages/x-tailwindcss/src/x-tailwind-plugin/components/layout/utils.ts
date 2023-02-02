@@ -1,13 +1,13 @@
 import { TailwindHelpers } from '../../../types';
 
 /**
- * Returns the component `layout item` utils CSS.
+ * Returns the component `layout` utils CSS.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function itemUtils(helpers: TailwindHelpers) {
+export function utils(helpers: TailwindHelpers) {
   return {
     '.layout-expand': {
       height: '100%',
@@ -15,39 +15,39 @@ export function itemUtils(helpers: TailwindHelpers) {
       minHeight: '0'
     },
 
-    '.on-margin-left': {
+    '.layout-on-margin-left': {
       gridColumn: '1 / 2'
     },
-    '.on-margin-right': {
+    '.layout-on-margin-right': {
       gridColumn: '-2 / -1'
     },
 
-    '.overlap': {
+    '.layout-overlap': {
       height: '0',
       overflow: 'visible',
       alignContent: 'flex-end',
       zIndex: '1'
     },
-    '.overlap-from-top': {
+    '.layout-overlap-from-top': {
       height: '0',
       overflow: 'visible',
       zIndex: '1',
       alignContent: 'flex-start'
     },
 
-    '.no-margin-left': {
+    '.layout-no-margin-left': {
       '--x-margin-left': '0px'
     },
-    '.no-margin-right': {
+    '.layout-no-margin-right': {
       '--x-margin-right': '0px'
     },
-    '.no-margin': {
+    '.layout-no-margin': {
       '--x-margin-left': '0px',
       '--x-margin-right': '0px'
     },
 
     '@media (hover: hover) and (pointer: fine)': {
-      '.scroll > .layout-item:not(.no-margin-right)': {
+      '.scroll > .layout-item:not(.layout-no-margin-right)': {
         '--x-layout-scroll-width': '17px'
       }
     }
