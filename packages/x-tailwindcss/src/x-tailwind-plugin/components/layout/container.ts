@@ -1,9 +1,9 @@
 import { TailwindHelpers } from '../../../types';
 
 /**
- * Returns the `default` element CSS.
+ * Returns the `container` element CSS.
  *
- * @param helpers
+ * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
 // eslint-disable-next-line max-len

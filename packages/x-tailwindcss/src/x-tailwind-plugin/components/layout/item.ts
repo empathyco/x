@@ -3,7 +3,7 @@ import { TailwindHelpers } from '../../../types';
 /**
  * Returns the component `layout item` CSS.
  *
- * @param helpers
+ * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
 // eslint-disable-next-line max-len
@@ -23,7 +23,7 @@ export function item(helpers: TailwindHelpers) {
       gridTemplateColumns: 'var(--x-margin-left) 1fr var(--x-margin-right)',
 
       '& > *': {
-        gridColumn: '2'
+        gridColumn: '2/-2'
       }
     }
   };

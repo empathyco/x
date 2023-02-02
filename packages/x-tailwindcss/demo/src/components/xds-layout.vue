@@ -24,7 +24,7 @@
           v-for="(item, index) in items"
           :key="index"
           :class="item.class"
-          class="x-bg-error-50 x-border-1 x-border-neutral-10"
+          class="x-bg-warning-50 x-border-1 x-border-neutral-10"
         >
           <div :class="item.backgroundContent" class="x-p-16">{{ item.title }}</div>
           <div v-if="item.content" class="x-flex x-flex-col" :class="item.backgroundContent">
@@ -74,7 +74,7 @@
     public items: Record<string, unknown>[] = [
       {
         class: 'x-layout-item',
-        backgroundContent: 'x-bg-warning-50',
+        backgroundContent: 'x-bg-auxiliary-50',
         title: 'layout item - Fake toolbar'
       },
       {
