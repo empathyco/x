@@ -20,32 +20,86 @@
         title="Click me to copy CSS classes"
       >
         <h1 class="x-title1">{{ removeClassPrefix(cssClass, base).trim() }}</h1>
-        <div
-          v-for="(item, index) in items"
-          :key="index"
-          :class="item.class"
-          class="x-bg-warning-50 x-border-1 x-border-neutral-10"
-        >
-          <div :class="item.backgroundContent" class="x-p-16">{{ item.title }}</div>
-          <div v-if="item.content" class="x-flex x-flex-col" :class="item.backgroundContent">
+
+        <div class="x-layout-item x-bg-warning-50 x-border-1 x-border-neutral-10">
+          <div class="x-p-16 x-bg-auxiliary-50">layout item - Fake toolbar</div>
+        </div>
+
+        <div class="x-layout-item x-overlap-from-top">
+          <div class="x-justify-self-center x-mt-16">
+            <button class="x-button x-button-sm x-button-accent">x-overlap-from-top</button>
+          </div>
+        </div>
+
+        <div class="x-scroll x-min-h-[500px]">
+          <div class="x-layout-item x-bg-warning-50 x-border-1 x-border-neutral-10">
+            <div class="x-bg-neutral-0 x-p-16">layout item inside scroll</div>
+            <div class="x-flex x-flex-col x-bg-neutral-0">
+              <div class="x-flex x-flex-col">
+                <div
+                  v-for="index in 15"
+                  :key="index"
+                  class="x-flex x-flex-row x-flex-wrap x-justify-between x-p-16"
+                >
+                  <div class="x-title2">I'm a title</div>
+                  <div class="x-mb-16">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                  </div>
+                  <button class="x-button x-button-primary">Hover me!</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="x-layout-item x-bg-warning-50 x-border-1 x-border-neutral-10">
+          <div class="x-bg-success-50 x-p-16">layout item - Fake NQ grid</div>
+          <div class="x-flex x-flex-col x-bg-success-50">
             <div class="x-flex x-flex-row">
               <div
                 v-for="index in 5"
                 :key="index"
                 class="x-flex x-flex-row x-flex-wrap x-justify-between x-p-16"
               >
-                <div class="x-title2">{{ item.content.title }}</div>
-                <div class="x-mb-16">{{ item.content.text }}</div>
+                <div class="x-title2">I'm a title</div>
+                <div class="x-mb-16">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                  Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                  unknown printer took a galley of type and scrambled it to make a type specimen
+                  book.
+                </div>
                 <button class="x-button x-button-primary">Hover me!</button>
               </div>
             </div>
 
-            <button
-              v-if="item.button"
-              class="x-button x-button-secondary x-self-center x-mt-24 x-mx-auto"
-            >
-              {{ item.button }}
+            <button class="x-button x-button-secondary x-self-center x-mt-24 x-mx-auto">
+              see more
             </button>
+          </div>
+        </div>
+
+        <div class="x-layout-item x-bg-warning-50 x-border-1 x-border-neutral-10">
+          <div class="x-bg-neutral-0 x-p-16">layout item - Fake result grid</div>
+          <div class="x-flex x-flex-col x-bg-neutral-0">
+            <div class="x-flex x-flex-row">
+              <div
+                v-for="index in 5"
+                :key="index"
+                class="x-flex x-flex-row x-flex-wrap x-justify-between x-p-16"
+              >
+                <div class="x-title2">I'm a title</div>
+                <div class="x-mb-16">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                </div>
+                <button class="x-button x-button-primary">Hover me!</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="x-layout-item x-overlap">
+          <div class="x-on-margin-right x-mb-16 x-mr-16">
+            <button class="x-button x-button-sm x-button-circle x-button-accent">▲</button>
           </div>
         </div>
       </div>
@@ -65,50 +119,11 @@
     }
   })
   export default class XdsLayoutShowcase extends Vue {
-    @Prop({ default: 'x-layout-container' })
+    @Prop({ default: 'x-layout-container x-layout-min-margin-32' })
     public base!: string;
 
     @Prop({ default: () => ['x-layout-sm', 'x-layout-md', 'x-layout-lg', 'x-layout-full'] })
     public sizes!: string[];
-
-    public items: Record<string, unknown>[] = [
-      {
-        class: 'x-layout-item',
-        backgroundContent: 'x-bg-auxiliary-50',
-        title: 'layout item - Fake toolbar'
-      },
-      {
-        class: 'x-layout-item',
-        backgroundContent: 'x-bg-neutral-0',
-        title: 'layout item - Fake result grid',
-        content: {
-          title: "I'm a title",
-          // eslint-disable-next-line max-len
-          text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
-        }
-      },
-      {
-        class: 'x-layout-item',
-        backgroundContent: 'x-bg-success-50',
-        title: 'layout item - Fake NQ grid',
-        button: 'see more',
-        content: {
-          title: "I'm a title",
-          // eslint-disable-next-line max-len
-          text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-        }
-      },
-      {
-        class: 'x-layout-item',
-        backgroundContent: 'x-bg-neutral-0',
-        title: 'layout item - Fake result grid',
-        content: {
-          title: "I'm a title",
-          // eslint-disable-next-line max-len
-          text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
-        }
-      }
-    ];
 
     protected get sections(): ShowcaseSections {
       return {
@@ -134,6 +149,7 @@
 
 <style lang="scss" scoped>
   .modal {
+    height: 100vh;
     min-height: 100vh;
     width: 100vw;
     max-width: 100vw;

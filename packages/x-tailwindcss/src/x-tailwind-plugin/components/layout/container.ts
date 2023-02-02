@@ -16,7 +16,16 @@ export function container(helpers: TailwindHelpers) {
       height: '100%',
       maxHeight: '100%',
       justifyContent: 'flex-start',
-      alignItems: 'stretch'
+      alignItems: 'stretch',
+
+      '& > .scroll': {
+        height: '100%',
+        flex: '1 1 0',
+        minHeight: '0'
+      },
+      '& .scroll': {
+        overflowY: 'scroll'
+      }
     }
   };
 }
