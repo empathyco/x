@@ -90,7 +90,7 @@
     "@cypress/vue": "~2.2.4",
     "@empathyco/x-adapter-platform": "^1.0.0-alpha.60",
     "@empathyco/x-tailwindcss": "^1.0.0-alpha.1",
-    "@microsoft/api-documenter": "~7.19.27",
+    "@microsoft/api-documenter": "~7.21.3",
     "@microsoft/api-extractor": "~7.33.7",
     "@rollup/plugin-commonjs": "~24.0.0",
     "@testing-library/jest-dom": "~5.11.1",
