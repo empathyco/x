@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.17...@empathyco/x-archetype-utils@0.1.0-alpha.18) (2023-02-03)
+
+### Build System
+
+- **deps:** update deps (#1062)
+  ([59f29b9](https://github.com/empathyco/x/commit/59f29b9c5861f790a65b061eec628eb35d066b68))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.16...@empathyco/x-archetype-utils@0.1.0-alpha.17) (2023-01-27)
 
 ### Build System

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.58](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.57...@empathyco/x-types@10.0.0-alpha.58) (2023-02-03)
+
+### Build System
+
+- **deps:** update deps (#1062)
+  ([59f29b9](https://github.com/empathyco/x/commit/59f29b9c5861f790a65b061eec628eb35d066b68))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.57](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.56...@empathyco/x-types@10.0.0-alpha.57) (2023-01-25)
 
 ### Build System
