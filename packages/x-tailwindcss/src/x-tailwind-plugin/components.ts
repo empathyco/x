@@ -1,4 +1,5 @@
 import { TailwindHelpers } from '../types';
+import { inputGroup } from './components/input-group';
 import { variables } from './components/variables';
 import { button } from './components/button';
 import { icon } from './components/icon';
@@ -29,6 +30,7 @@ export default function components(helpers: TailwindHelpers) {
     ...highlight(helpers),
     ...typography(helpers),
     ...input(helpers),
+    ...inputGroup(helpers),
     ...typography(helpers),
     ...suggestionGroup(helpers),
     ...suggestionGroupButton(helpers),
