@@ -145,11 +145,12 @@ export const increasePageAppendingResultsWire = wireDispatchWithoutPayload(
 export const resetAppending = wireCommit('setIsAppendResults', false);
 
 /**
- * Batches state resets after {@link SearchGetters.request} parameters update.
+ * Resets the {@link SearchGetters.request} parameters when refining request and before the actual
+ * request is launched.
  *
  * @public
  */
-export const resetRequestParamsOnRefinementWire = wireDispatch(
+export const resetRequestOnRefinementWire = wireDispatch(
   'resetRequestOnRefinement',
   ({ eventPayload: newRequest, metadata: { oldValue } }: WirePayload<InternalSearchRequest>) => ({
     newRequest,
@@ -158,7 +159,8 @@ export const resetRequestParamsOnRefinementWire = wireDispatch(
 );
 
 /**
- * Sets the search state `params`.
+ * Resets the search state when the request is changed to null. See the
+ * {@link searchXStoreModule} for details.
  *
  * @public
  */
@@ -201,7 +203,7 @@ export const searchWiring = createWiring({
     fetchAndSaveSearchResponseWire
   },
   SearchRequestUpdated: {
-    resetRequestParamsOnRefinementWire
+    resetRequestOnRefinementWire
   },
   SelectedRelatedTagsChanged: {
     setRelatedTags
