@@ -2,8 +2,9 @@ import { rename } from '@empathyco/x-utils';
 import { TailwindHelpers } from '../../../types';
 
 import { container } from './container';
-import { sizes } from './sizes';
 import { minMargin } from './min-margin';
+import { item } from './item';
+import { maxWidth } from './max-width';
 
 /**
  * Returns the component `layout` CSS.
@@ -15,9 +16,10 @@ export function layout(helpers: TailwindHelpers) {
   return {
     '.layout': rename(
       {
-        ...container(),
-        ...sizes(helpers),
-        ...minMargin(helpers)
+        ...container(helpers),
+        ...maxWidth(helpers),
+        ...minMargin(helpers),
+        ...item(helpers)
       },
       { prefix: '&-' }
     )
