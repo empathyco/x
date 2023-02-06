@@ -14,7 +14,7 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
       : Promise.resolve(null);
   },
   onSuccess({ dispatch }, response) {
-    if (response) {
+    if (response !== null) {
       dispatch('saveSearchResponse', response);
     }
   }
