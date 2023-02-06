@@ -6,8 +6,7 @@ import { TailwindHelpers } from '../../../types';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-// eslint-disable-next-line max-len
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type,@typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function item(helpers: TailwindHelpers) {
   return {
     item: {

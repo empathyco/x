@@ -4,6 +4,10 @@
     title="Layout"
     :sections="sections"
   >
+    <div v-if="cssClass.includes('x-layout-min-margin-12')" class="x-text-md x-mb-16">
+      There are as many classes as spacing variables declared in the Tailwind theme:
+      <code>x-layout-min-margin-[spacing-value]</code>
+    </div>
     {{ removeClassPrefix(cssClass, base) }}
     <div
       :key="cssClass"
@@ -52,17 +56,14 @@
     protected get sections(): ShowcaseSections {
       return {
         Default: [this.base],
-        MaxWidth: this.maxWidth.map(addParentClasses(this.base)),
-        MinMargins: this.minMargin.map(addParentClasses(this.base))
+        'Max width': this.maxWidth.map(addParentClasses(this.base)),
+        'Min margin': this.minMargin.map(addParentClasses(this.base))
       };
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  ::v-deep h2 {
-    align-self: flex-start;
-  }
   .x-layout-item {
     width: 2100px;
   }
