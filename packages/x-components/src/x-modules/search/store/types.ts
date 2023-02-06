@@ -96,7 +96,8 @@ export interface SearchMutations extends StatusMutations, QueryMutations {
    */
   appendResults(results: Result[]): void;
   /**
-   * Resets the Search state to the initial state.
+   * Resets the "resettable" part of the Search state to the initial state. See the
+   * {@link searchXStoreModule} for details.
    */
   resetState(): void;
   /**
