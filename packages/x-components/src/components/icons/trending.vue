@@ -1,21 +1,24 @@
 <template functional>
   <svg
     :class="['x-icon'].concat(data.staticClass, data.class)"
-    viewBox="0 0 16 16"
-    version="1.1"
+    viewBox="0 0 8 8"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
   >
-    <g fill="none" fill-rule="evenodd">
-      <polyline
-        transform="translate(8.000000, 8.500000) scale(1, -1) translate(-8.000000, -8.500000) "
-        points="14 12 8.81818182 6.45833333 6.09090909 9.375 2 5"
-      />
-      <polyline
-        transform="translate(12.363636, 6.750000) scale(1, -1) translate(-12.363636, -6.750000) "
-        points="10.7272727 8.5 14 8.5 14 5"
-      />
-    </g>
+    <path
+      d="M6.85229 2.34766C5.84048 3.42973 5.4209 3.88871 4.40909 4.97078L3.04545 3.51245L1 5.69995"
+      stroke="currentColor"
+      stroke-width="0.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M5.36353 2.19995H6.99989V3.94995"
+      stroke="currentColor"
+      stroke-width="0.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
   </svg>
 </template>
 

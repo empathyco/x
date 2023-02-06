@@ -1,15 +1,23 @@
 <template functional>
   <svg
     :class="['x-icon'].concat(data.staticClass, data.class)"
-    viewBox="0 0 16 16"
-    version="1.1"
+    viewBox="0 0 8 8"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
   >
-    <g fill="none" fill-rule="evenodd">
-      <rect x="2.5" y="2.5" width="11" height="4.4" />
-      <rect x="2.5" y="9.1" width="11" height="4.4" />
+    <g clip-path="url(#clip0_478_168)">
+      <path
+        d="M7 1H1V3.4H7V1ZM7 4.6H1V7H7V4.6Z"
+        stroke="currentColor"
+        stroke-width="0.4"
+        stroke-linejoin="round"
+      />
     </g>
+    <defs>
+      <clipPath id="clip0_478_168">
+        <rect width="8" height="8" fill="white" />
+      </clipPath>
+    </defs>
   </svg>
 </template>
 

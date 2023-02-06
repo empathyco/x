@@ -9,6 +9,7 @@
     <XdsSuggestionGroup />
     <XdsSlidingPanel />
     <XdsPicture />
+    <XdsScroll />
     <XdsLayout />
     <XdsLayoutTwoColumns />
   </div>
@@ -26,6 +27,7 @@
   import XdsSlidingPanel from './xds-sliding-panel.vue';
   import XdsPicture from './xds-picture.vue';
   import XdsLayout from './xds-layout.vue';
+  import XdsScroll from './xds-scroll.vue';
   import XdsLayoutTwoColumns from './xds-layout-two-columns.vue';
 
   @Component({
@@ -36,6 +38,7 @@
       XdsIcon,
       XdsInput,
       XdsLayout,
+      XdsScroll,
       XdsLayoutTwoColumns,
       XdsSuggestion,
       XdsSuggestionGroup,
