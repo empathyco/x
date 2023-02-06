@@ -226,7 +226,7 @@ export interface SearchActions {
    *
    * @param watchedRequest - The watched internal search request object.
    */
-  resetParamsOnRefinement(watchedRequest: WatchedInternalSearchRequest): void;
+  resetRequestOnRefinement(watchedRequest: WatchedInternalSearchRequest): void;
   /**
    * Cancels / interrupt {@link SearchActions.fetchAndSaveSearchResponse} synchronous promise.
    */

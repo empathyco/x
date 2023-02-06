@@ -11,7 +11,7 @@ import { SearchXStoreModule } from '../types';
  * @param watchedRequest - The {@link WatchedInternalSearchRequest} object.
  * @public
  */
-export const resetParamsOnRefinement: SearchXStoreModule['actions']['resetParamsOnRefinement'] = (
+export const resetRequestOnRefinement: SearchXStoreModule['actions']['resetRequestOnRefinement'] = (
   { commit },
   { newRequest, oldRequest }
 ) => {

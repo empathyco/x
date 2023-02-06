@@ -150,7 +150,7 @@ export const resetAppending = wireCommit('setIsAppendResults', false);
  * @public
  */
 export const resetRequestParamsOnRefinementWire = wireDispatch(
-  'resetParamsOnRefinement',
+  'resetRequestOnRefinement',
   ({ eventPayload: newRequest, metadata: { oldValue } }: WirePayload<InternalSearchRequest>) => ({
     newRequest,
     oldRequest: oldValue as InternalSearchRequest

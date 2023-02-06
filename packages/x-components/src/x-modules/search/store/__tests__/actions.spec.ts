@@ -371,7 +371,7 @@ describe('testing search module actions', () => {
     // does not modify all fields but only some of them.
     it('should not reset the page when the page parameter of the request changes', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2 });
-      await store.dispatch('resetParamsOnRefinement', {
+      await store.dispatch('resetRequestOnRefinement', {
         newRequest: {
           query: 'lego',
           page: 3
@@ -393,7 +393,7 @@ describe('testing search module actions', () => {
 
     it('should not reset the page nor the sort when there are no changes', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2, sort: 'desc' });
-      await store.dispatch('resetParamsOnRefinement', {
+      await store.dispatch('resetRequestOnRefinement', {
         newRequest: {
           query: 'lego',
           page: 2,
@@ -416,7 +416,7 @@ describe('testing search module actions', () => {
 
     it('should reset the page when the query changes', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2 });
-      await store.dispatch('resetParamsOnRefinement', {
+      await store.dispatch('resetRequestOnRefinement', {
         newRequest: {
           query: 'playmobil',
           page: 2
@@ -438,7 +438,7 @@ describe('testing search module actions', () => {
 
     it('should reset the page when the sort changes', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2 });
-      await store.dispatch('resetParamsOnRefinement', {
+      await store.dispatch('resetRequestOnRefinement', {
         newRequest: {
           query: 'lego',
           page: 2,
@@ -466,7 +466,7 @@ describe('testing search module actions', () => {
         { query: 'lego star wars', modelName: 'RelatedTag', tag: 'star wars' }
       ]);
       const newRequest = store.getters.request!;
-      await store.dispatch('resetParamsOnRefinement', { oldRequest, newRequest });
+      await store.dispatch('resetRequestOnRefinement', { oldRequest, newRequest });
 
       expect(store.state).toEqual(
         expect.objectContaining<Partial<SearchState>>({
@@ -481,7 +481,7 @@ describe('testing search module actions', () => {
 
     it('should reset the page when the filters change', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2 });
-      await store.dispatch('resetParamsOnRefinement', {
+      await store.dispatch('resetRequestOnRefinement', {
         newRequest: {
           query: 'lego',
           page: 2,
@@ -512,7 +512,7 @@ describe('testing search module actions', () => {
 
     it('should reset the sort when the query parameter of the request changes', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 1, sort: 'price asc' });
-      await store.dispatch('resetParamsOnRefinement', {
+      await store.dispatch('resetRequestOnRefinement', {
         newRequest: {
           query: 'playmobil',
           page: 1
@@ -541,7 +541,7 @@ describe('testing search module actions', () => {
           catalog: 'es'
         }
       });
-      await store.dispatch('resetParamsOnRefinement', {
+      await store.dispatch('resetRequestOnRefinement', {
         newRequest: {
           query: 'lego',
           page: 2,

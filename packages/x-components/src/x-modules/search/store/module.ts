@@ -9,7 +9,7 @@ import {
 } from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
 import { increasePageAppendingResults } from './actions/increase-page-apending-results.action';
-import { resetParamsOnRefinement } from './actions/reset-params-on-refinement.action';
+import { resetRequestOnRefinement } from './actions/reset-params-on-refinement.action';
 import { saveOrigin } from './actions/save-origin.action';
 import { saveSearchResponse } from './actions/save-search-response.action';
 import { setUrlParams } from './actions/set-url-params.action';
@@ -109,7 +109,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     fetchSearchResponse,
     fetchAndSaveSearchResponse,
     increasePageAppendingResults,
-    resetParamsOnRefinement,
+    resetRequestOnRefinement,
     saveSearchResponse,
     setUrlParams,
     saveOrigin
