@@ -10,7 +10,12 @@
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build", "prebuild"],
-      "outputs": ["{projectRoot}/dist", "{projectRoot}/showcase", "{projectRoot}/types"]
+      "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/showcase",
+        "{projectRoot}/types",
+        "{projectRoot}/report"
+      ]
     }
   }
 }
