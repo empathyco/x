@@ -8,9 +8,9 @@
       {{ removeClassPrefix(cssClass, base).trim() }}
     </button>
 
-    <dialog :ref="cssClass" class="modal x-bg-neutral-25">
+    <dialog :ref="cssClass" class="modal x-bg-neutral-10">
       <div :class="[cssClass, 'x-layout-min-margin-32']">
-        <div class="x-layout-item x-bg-neutral-0 x-border-1 x-border-neutral-10">
+        <div class="x-layout-item x-bg-neutral-0 x-border-1 x-border-neutral-25">
           <div class="x-flex x-justify-between x-items-center">
             <h1 class="x-title1">
               <code>{{ removeClassPrefix(cssClass, base).trim() }}</code>
@@ -27,23 +27,28 @@
           </div>
         </div>
 
-        <div class="x-layout-item">
-          <div class="x-flex x-justify-between x-items-center x-p-16">
-            <div>HEADER START</div>
-            <div>HEADER MIDDLE</div>
-            <div>HEADER END</div>
+        <div class="x-layout-item x-border-1 x-border-neutral-25">
+          <div class="x-flex x-justify-between x-items-center x-p-16 x-title3">
+            <div class="x-title3">HEADER START</div>
+            <div class="x-title2">HEADER MIDDLE</div>
+            <div class="x-title3">HEADER END</div>
           </div>
         </div>
-        <div class="x-layout-item x-no-margin-right x-layout-expand">
+
+        <div class="x-layout-item x-border-1 x-border-neutral-25">
+          <div class="x-flex x-justify-center x-p-16 x-title3">SUB HEADER</div>
+        </div>
+
+        <div class="x-layout-item x-no-margin-right x-layout-expand x-mt-16">
           <div class="x-flex x-layout-expand">
-            <div class="x-scroll x-w-128 x-bg-neutral-50">
+            <div class="x-scroll x-w-128 x-bg-neutral-25">
               <div class="x-flex x-flex-col x-justify-between x-h-[2000px]">
                 <span>ASIDE</span>
                 <span class="x-place-self-end">ASIDE BOTTOM</span>
               </div>
             </div>
 
-            <div class="x-scroll x-layout-expand x-flex-1 x-bg-neutral-50">
+            <div class="x-scroll x-layout-expand x-flex-1 x-bg-neutral-25">
               <div class="x-layout-item x-layout-no-margin-left">
                 <div class="x-flex x-flex-col x-justify-between x-h-[2000px]">
                   <section>MAIN</section>
@@ -73,7 +78,7 @@
     @Prop({ default: 'x-layout-container' })
     public base!: string;
 
-    @Prop({ default: () => ['x-layout-sm ', 'x-layout-md', 'x-layout-lg', 'x-layout-full'] })
+    @Prop({ default: () => ['x-layout-lg'] })
     public sizes!: string[];
 
     protected get sections(): ShowcaseSections {
