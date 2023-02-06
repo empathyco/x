@@ -41,7 +41,7 @@ export interface SearchXEvents {
    * Any property of the search request has been updated.
    * Payload: The new internal request object.
    */
-  SearchRequestUpdated: InternalSearchRequest;
+  SearchRequestUpdated: InternalSearchRequest | null;
   /**
    * A search response has been provided.
    * Payload: The provided internal response object.
