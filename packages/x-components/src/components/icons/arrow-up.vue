@@ -1,15 +1,24 @@
 <template functional>
   <svg
     :class="['x-icon'].concat(data.staticClass, data.class)"
-    viewBox="0 0 16 16"
-    version="1.1"
+    viewBox="0 0 8 8"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
   >
-    <g fill="none" fill-rule="evenodd">
-      <line x1="8" y1="13" x2="8" y2="3" />
-      <polyline points="3 8 8 3 13 8" />
-    </g>
+    <path
+      d="M4 6.5L4 1.75317"
+      stroke="currentColor"
+      stroke-width="0.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M6.5 4L4 1.5L1.5 4"
+      stroke="currentColor"
+      stroke-width="0.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
   </svg>
 </template>
 

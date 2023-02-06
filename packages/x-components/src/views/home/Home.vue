@@ -412,7 +412,6 @@
   import Grid1Col from '../../components/icons/grid-1-col.vue';
   import Grid2Col from '../../components/icons/grid-2-col.vue';
   import LightBulbOn from '../../components/icons/light-bulb-on.vue';
-  import Nq1 from '../../components/icons/nq-1.vue';
   import SearchIcon from '../../components/icons/search.vue';
   import BaseEventButton from '../../components/base-event-button.vue';
   // eslint-disable-next-line max-len
@@ -507,7 +506,6 @@
       NextQueriesList,
       NextQueryPreview,
       NextQuery,
-      Nq1,
       OpenMainModal,
       PartialQueryButton,
       PartialResultsList,

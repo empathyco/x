@@ -11,7 +11,7 @@ second one indicates if the source SVG files should persist at the end of the pr
 (`--keep-svgs`). By default, the SVGs are deleted.
 
 - **sourcePath**: path of the folder with the SVGs.
-- **keepSVGs**: indicates if the SVGs are deleted at the end. `false` by default.
+- **keepSVGs**: indicates if the SVGs are preserved at the end. `false` by default.
 
 ### Run it as script
 
