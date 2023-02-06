@@ -15,7 +15,7 @@
       @keydown="copyCssClassesToClipboard"
       :class="cssClass"
       title="Click me to copy CSS classes"
-      class="x-bg-neutral-50"
+      class="x-bg-neutral-50 x-w-[100vw]"
     >
       <div class="x-layout-item"><span class="x-bg-accent-50 x-p-8">item</span></div>
     </div>
@@ -36,12 +36,7 @@
     @Prop({ default: 'x-layout-container' })
     public base!: string;
     @Prop({
-      default: () => [
-        'x-layout-max-width-sm',
-        'x-layout-max-width-md',
-        'x-layout-max-width-lg',
-        'x-layout-max-width-full'
-      ]
+      default: () => ['x-layout-max-width-md', 'x-layout-max-width-lg', 'x-layout-max-width-full']
     })
     public maxWidth!: string[];
     @Prop({
@@ -63,8 +58,4 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .x-layout-item {
-    width: 2100px;
-  }
-</style>
+<style lang="scss" scoped></style>
