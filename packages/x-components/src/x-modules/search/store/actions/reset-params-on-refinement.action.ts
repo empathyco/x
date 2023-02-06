@@ -11,17 +11,11 @@ import { SearchXStoreModule } from '../types';
  * @param watchedRequest - The {@link WatchedInternalSearchRequest} object.
  * @public
  */
-export const resetState: SearchXStoreModule['actions']['resetState'] = (
+export const resetParamsOnRefinement: SearchXStoreModule['actions']['resetParamsOnRefinement'] = (
   { commit },
   { newRequest, oldRequest }
 ) => {
-  // clearing query
-  if (newRequest === null) {
-    commit('setPage', 1);
-    commit('setSort', '');
-  }
-
-  // refining query
+  // is refining request
   if (!!newRequest && !!oldRequest) {
     const changedKeys = getNewAndUpdatedKeys(newRequest, oldRequest).filter(
       value => value !== 'extraParams'

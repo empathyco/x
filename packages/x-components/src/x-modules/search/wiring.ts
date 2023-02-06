@@ -1,4 +1,4 @@
-import { debounce } from '../../wiring';
+import { filterTruthyPayload, namespacedWireCommitWithoutPayload } from '../../wiring';
 import {
   namespacedWireCommit,
   namespacedWireDispatch,
@@ -20,6 +20,13 @@ const moduleName = 'search';
  * @internal
  */
 const wireCommit = namespacedWireCommit(moduleName);
+
+/**
+ * WireCommit without Payload for {@link SearchXModule}.
+ *
+ * @internal
+ */
+const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload(moduleName);
 
 /**
  * WireDispatch for {@link SearchXModule}.
@@ -142,15 +149,21 @@ export const resetAppending = wireCommit('setIsAppendResults', false);
  *
  * @public
  */
-export const resetStateWire = debounce(
-  wireDispatch(
-    'resetState',
-    ({ eventPayload: newRequest, metadata: { oldValue } }: WirePayload<InternalSearchRequest>) => ({
-      newRequest,
-      oldRequest: oldValue as InternalSearchRequest
-    })
-  ),
-  0
+export const resetRequestParamsOnRefinementWire = wireDispatch(
+  'resetParamsOnRefinement',
+  ({ eventPayload: newRequest, metadata: { oldValue } }: WirePayload<InternalSearchRequest>) => ({
+    newRequest,
+    oldRequest: oldValue as InternalSearchRequest
+  })
+);
+
+/**
+ * Sets the search state `params`.
+ *
+ * @public
+ */
+export const resetStateIfNoRequestWire = filterTruthyPayload<InternalSearchRequest | null>(
+  wireCommitWithoutPayload('resetState')
 );
 
 /**
@@ -184,8 +197,11 @@ export const searchWiring = createWiring({
     increasePageAppendingResultsWire
   },
   SearchRequestChanged: {
-    resetStateWire,
+    resetStateIfNoRequestWire,
     fetchAndSaveSearchResponseWire
+  },
+  SearchRequestUpdated: {
+    resetRequestParamsOnRefinementWire
   },
   SelectedRelatedTagsChanged: {
     setRelatedTags
