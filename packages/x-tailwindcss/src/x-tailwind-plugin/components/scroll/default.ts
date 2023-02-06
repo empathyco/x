@@ -11,15 +11,16 @@ export function scrollDefault(helpers: TailwindHelpers) {
     overflowY: 'scroll',
     '--x-color-thumb-scroll-bar': theme('colors.neutral.25'),
     '--x-color-thumb-scroll-bar-hover': theme('colors.neutral.50'),
-    '--x-color-background-scroll-bar': theme('colors.neutral.0'),
+    '--x-color-background-scroll-bar': 'transparent',
 
     '@media (hover: hover)': {
       '&::-webkit-scrollbar': {
         width: '17px',
         '&-thumb': {
+          backgroundClip: 'content-box',
           backgroundColor: 'var(--x-color-thumb-scroll-bar)',
-          borderColor: theme('colors.neutral.0'),
-          borderWidth: theme('spacing.4'),
+          borderColor: 'transparent',
+          borderWidth: theme('spacing.12'),
           borderRadius: theme('spacing.24'),
           borderStyle: 'solid'
         },
