@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-bus@0.1.0-alpha.5...@empathyco/x-bus@0.1.0-alpha.6) (2023-02-01)
+
+### Bug Fixes
+
+- add missing `rxjs` dependency and narrow `setTimeout` type (#1052)
+  ([86d64b4](https://github.com/empathyco/x/commit/86d64b4be7249bcb802982dfb5690688e35b88c9)),
+  closes [EX-7928](https://searchbroker.atlassian.net/browse/EX-7928)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-bus@0.1.0-alpha.4...@empathyco/x-bus@0.1.0-alpha.5) (2023-01-25)
 
 ### Features

@@ -1,21 +1,24 @@
 <template functional>
   <svg
     :class="['x-icon'].concat(data.staticClass, data.class)"
-    viewBox="0 0 16 16"
-    version="1.1"
+    viewBox="0 0 8 8"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
   >
-    <g fill="none" fill-rule="evenodd">
-      <polyline points="3 4.440384 3 7.10700048 5.7000971 7.10700048" />
-      <path
-        d="M4.12954062,9.32918088 C4.72896505,11.0094679 6.38134923,12.0957055
-        8.18225819,11.9933397 C9.98316714,11.890974 11.498452,10.6246826 11.8987192,8.88757189
-        C12.2989865,7.15046123 11.4877429,5.3613003 9.90902387,4.49938901 C8.33030486,3.63747773
-        6.36469552,3.91059887 5.08807509,5.16925917 L3,7.10700048"
-      />
-      <polyline points="7.76986876 6.94142827 7.76986876 9.04528335 9.70788623 9.04528335" />
-    </g>
+    <path
+      d="M1.80005 2.2202V3.55351H3.13336M2.35782 4.66459C2.65382 5.50473 3.46976 6.04785 4.35905 5.99667C5.24834 5.94549 5.99659 5.31234 6.19424 4.44379C6.39189 3.57523 5.9913 2.68065 5.21173 2.24969C4.43216 1.81874 3.46154 1.9553 2.83114 2.58463L1.93094 3.43051"
+      stroke="currentColor"
+      stroke-width="0.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M4.1554 3.4707V4.52263H5.11239"
+      stroke="currentColor"
+      stroke-width="0.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
   </svg>
 </template>
 

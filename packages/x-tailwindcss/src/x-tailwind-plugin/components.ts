@@ -10,6 +10,8 @@ import { suggestionGroup } from './components/suggestion-group';
 import { suggestionGroupButton } from './components/suggestion-group/button';
 import { slidingPanel } from './components/sliding-panel';
 import { picture } from './components/picture';
+import { layout } from './components/layout';
+import { scroll } from './components/scroll';
 
 /**
  * Default component styles.
@@ -32,7 +34,9 @@ export default function components(helpers: TailwindHelpers) {
     ...suggestionGroup(helpers),
     ...suggestionGroupButton(helpers),
     ...slidingPanel(helpers),
-    ...picture(helpers)
+    ...picture(helpers),
+    ...layout(helpers),
+    ...scroll(helpers)
   };
 }
 
