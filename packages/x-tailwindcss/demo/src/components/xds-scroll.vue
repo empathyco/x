@@ -36,3 +36,9 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  ::v-deep h2 {
+    align-self: flex-start;
+  }
+</style>
