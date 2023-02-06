@@ -28,6 +28,7 @@
     "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "tsc && tsc --project tsconfig.esm.json",
     "clean": "rimraf dist && rimraf coverage",
     "postbuild": "pnpm pack",

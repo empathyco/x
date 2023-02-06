@@ -29,6 +29,7 @@
     "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
     "test": "jest",
