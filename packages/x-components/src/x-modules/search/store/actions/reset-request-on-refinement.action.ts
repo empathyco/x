@@ -3,7 +3,7 @@ import { isArrayEmpty } from '../../../../utils/array';
 import { SearchXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link SearchActions.resetState}.
+ * Default implementation for the {@link SearchActions.resetRequestOnRefinement}.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.

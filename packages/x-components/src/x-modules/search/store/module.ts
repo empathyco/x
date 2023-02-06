@@ -121,6 +121,8 @@ export const searchXStoreModule: SearchXStoreModule = {
  * mutation to reset to the initial state.
  *
  * @returns The "resettable" part of the {@link SearchState}.
+ *
+ * @internal
  */
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function resettableState() {
