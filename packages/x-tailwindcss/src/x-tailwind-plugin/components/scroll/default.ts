@@ -20,7 +20,7 @@ export function scrollDefault(helpers: TailwindHelpers) {
           backgroundClip: 'content-box',
           backgroundColor: 'var(--x-color-thumb-scroll-bar)',
           borderColor: 'transparent',
-          borderWidth: theme('spacing.12'),
+          borderWidth: theme('spacing.4'),
           borderRadius: theme('spacing.24'),
           borderStyle: 'solid'
         },
