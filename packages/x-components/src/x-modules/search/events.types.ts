@@ -39,7 +39,12 @@ export interface SearchXEvents {
   SearchRequestChanged: InternalSearchRequest | null;
   /**
    * Any property of the search request has been updated.
-   * Payload: The new internal request object.
+   * Payload: The new search request or `null` if there is not enough data in the state to
+   * conform a valid request.
+   *
+   * @remarks The difference from `SearchRequestChanged` and this event is this one will be executed
+   * with more priority (As it is not a `...Changed` event). So we can use this event to modify
+   * request params before emitting the `SearchRequestChanged` and fetch the API.
    */
   SearchRequestUpdated: InternalSearchRequest | null;
   /**
