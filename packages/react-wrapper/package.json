@@ -25,13 +25,14 @@
     "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "serve": "vite serve tests/demo",
     "build": "tsc",
     "cypress:open": "cypress open --browser chrome",
     "cypress:run": "cypress run --headless --browser chrome",
-    "postbuild": "npm pack",
-    "prepublishOnly": "npm run build",
-    "test": "npm run test:unit && npm run test:e2e:ci",
+    "postbuild": "pnpm pack",
+    "prepublishOnly": "pnpm run build",
+    "test": "pnpm run test:unit && pnpm run test:e2e:ci",
     "test:unit": "jest",
     "test:e2e": "start-server-and-test serve http://localhost:1234 cypress:open",
     "test:e2e:ci": "start-server-and-test serve http://localhost:1234 cypress:run"

@@ -25,11 +25,12 @@
     "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "prebuild": "rimraf ./dist ./types",
     "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
     "test": "jest",
-    "postbuild": "npm pack",
-    "prepublishOnly": "npm run build"
+    "postbuild": "pnpm pack",
+    "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
     "@empathyco/x-storage-service": "^2.0.0-alpha.7",

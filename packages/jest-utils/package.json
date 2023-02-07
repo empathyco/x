@@ -23,10 +23,11 @@
     "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "postbuild": "npm pack",
-    "prepublishOnly": "npm run build"
+    "postbuild": "pnpm pack",
+    "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
     "@types/jest": "~27.0.3",

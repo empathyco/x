@@ -85,7 +85,7 @@
       this.isRedirecting = true;
       if (this.mode === 'auto' && this.redirection) {
         // eslint-disable-next-line @typescript-eslint/unbound-method
-        this.timeoutId = setTimeout(this.redirect, this.delayInSeconds * 1000);
+        this.timeoutId = window.setTimeout(this.redirect, this.delayInSeconds * 1000);
       }
     }
 

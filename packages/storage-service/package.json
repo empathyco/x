@@ -29,13 +29,14 @@
     "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "postbuild": "npm pack",
-    "prepublishOnly": "npm run build"
+    "postbuild": "pnpm pack",
+    "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
     "@empathyco/x-logger": "^1.2.0-alpha.7",

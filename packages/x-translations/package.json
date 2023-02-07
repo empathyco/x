@@ -24,8 +24,9 @@
     "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "tsc",
-    "postbuild": "npm pack",
+    "postbuild": "pnpm pack",
     "test": "jest -i"
   },
   "dependencies": {
