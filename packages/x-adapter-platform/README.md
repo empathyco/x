@@ -22,7 +22,8 @@ imports it as a plugin.
 ## Installation
 
 ```
-pnpm i @empathyco/x-adapter-platform
+# or pnpm or yarn
+npm install @empathyco/x-adapter-platform
 ```
 
 <br>
@@ -324,9 +325,7 @@ inside each of the project's sections functionalities (`endpoint-adapters`, `map
 `schemas`).
 
 ```
-
-pnpm test
-
+npm run test
 ```
 
 <br>

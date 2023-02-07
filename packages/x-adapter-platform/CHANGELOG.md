@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.61](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.60...@empathyco/x-adapter-platform@1.0.0-alpha.61) (2023-02-03)
+
+### Build System
+
+- **deps:** update deps (#1062)
+  ([59f29b9](https://github.com/empathyco/x/commit/59f29b9c5861f790a65b061eec628eb35d066b68))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.59...@empathyco/x-adapter-platform@1.0.0-alpha.60) (2023-01-25)
 
 ### Build System

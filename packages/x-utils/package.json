@@ -25,6 +25,7 @@
     "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "prebuild": "rimraf ./dist ./types",
     "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
     "postbuild": "pnpm pack",

@@ -34,25 +34,24 @@ jobs:
         id: pnpm-cache
         uses: actions/cache@v3
         with:
-          path: ${{ steps.pnpm-store-directory.outputs.PATH }}
+          path: |
+            ${{ steps.pnpm-store-directory.outputs.PATH }}
+            ~/.cache/Cypress
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: setup node_modules cache
-        id: cache-node-modules
+      - name: setup lerna cache
+        id: lerna-cache
         uses: actions/cache@v3
         with:
           path: |
-            **/node_modules
-             ~/.cache/Cypress
-          key: node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+            node_modules/.cache
+          key: lerna-cache-${{github.sha}}
+          restore-keys: lerna-cache-
 
       - name: install dependencies
         run: pnpm install
-
-      - name: build packages
-        run: pnpm run build
 
       - name: lint packages
         run: pnpm run lint

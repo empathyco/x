@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-bus",
-  "version": "0.1.0-alpha.5",
+  "version": "0.1.0-alpha.6",
   "description": "Event bus to help with events orchestration",
   "author": "Empathy Systems Corporation S.L.",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-bus#readme",
@@ -25,6 +25,7 @@
     "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "prebuild": "rimraf dist ./*.tgz",
     "build": "concurrently \"pnpm run build:*\"",
     "build:cjs": "tsc --project tsconfig.cjs.json",
@@ -40,9 +41,11 @@
   "dependencies": {
     "@empathyco/x-priority-queue": "^0.1.0-alpha.10",
     "@empathyco/x-utils": "^1.0.0-alpha.15",
+    "rxjs": "~7.8.0",
     "tslib": "~2.4.1"
   },
   "devDependencies": {
+    "@types/jest": "~27.0.3",
     "concurrently": "~7.6.0",
     "jest": "~27.3.1",
     "rimraf": "~3.0.2",

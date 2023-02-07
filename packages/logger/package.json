@@ -26,6 +26,7 @@
     "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "tsc && tsc --project tsconfig.esm.json",
     "postbuild": "pnpm pack",
     "lint": "eslint . --ext .ts",

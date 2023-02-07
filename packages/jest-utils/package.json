@@ -23,6 +23,7 @@
     "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "tsc",
     "postbuild": "pnpm pack",
     "lint": "eslint . --ext .ts",

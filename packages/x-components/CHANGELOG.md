@@ -3,6 +3,71 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.308](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.307...@empathyco/x-components@3.0.0-alpha.308) (2023-02-06)
+
+### ⚠ BREAKING CHANGES
+
+- **design-system:** Old design-system `Icon` styles are now located in the
+  `deprecated-full-theme.css` file. Removed `checkbox-card`, `nq1`, `nq2`, `nq3`, and `nq4 icons`.
+
+### Features
+
+- **design-system:** add `icon` to XDS (#1053)
+  ([21605ab](https://github.com/empathyco/x/commit/21605abc99f5da05556cfa7edb4213c61c205b78)),
+  closes [EX-7783](https://searchbroker.atlassian.net/browse/EX-7783)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.307](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.306...@empathyco/x-components@3.0.0-alpha.307) (2023-02-03)
+
+### Build System
+
+- **deps:** update deps (#1062)
+  ([59f29b9](https://github.com/empathyco/x/commit/59f29b9c5861f790a65b061eec628eb35d066b68))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.306](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.305...@empathyco/x-components@3.0.0-alpha.306) (2023-02-01)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.305](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.304...@empathyco/x-components@3.0.0-alpha.305) (2023-01-30)
+
+### Features
+
+- **history-queries:** emit click event on HistoryQuery click (#1048)
+  ([2e7d074](https://github.com/empathyco/x/commit/2e7d07484571a9458a14fab4435b10523f6e7457)),
+  closes [EX-7879](https://searchbroker.atlassian.net/browse/EX-7879)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.304](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.303...@empathyco/x-components@3.0.0-alpha.304) (2023-01-30)
+
+### Features
+
+- **history-queries:** bind formatTime callback to MyHistory suggestion slot (#1049)
+  ([0e20cf3](https://github.com/empathyco/x/commit/0e20cf3315b2f2a687ee63b14bb50bac021eb57f)),
+  closes [EX-7879](https://searchbroker.atlassian.net/browse/EX-7879)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.303](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.302...@empathyco/x-components@3.0.0-alpha.303) (2023-01-27)
 
 ### Build System

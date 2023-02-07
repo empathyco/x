@@ -24,6 +24,7 @@
     "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "pnpm pack"
   },
   "dependencies": {

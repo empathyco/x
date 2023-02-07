@@ -28,13 +28,14 @@
     "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "prebuild": "pnpm run clean",
     "build": "tsc && tsc --project tsconfig.esm.json",
     "postbuild": "pnpm pack",
     "clean": "rimraf dist && rimraf coverage",
     "lint": "eslint . --ext .ts",
-    "test": "jest",
-    "prepublishOnly": "pnpm run build"
+    "prepublishOnly": "pnpm run build",
+    "test": "jest"
   },
   "dependencies": {
     "@empathyco/x-utils": "^1.0.0-alpha.15",

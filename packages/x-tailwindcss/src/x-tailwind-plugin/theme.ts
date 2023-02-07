@@ -89,6 +89,11 @@ export default {
     regular: '400',
     bold: '700'
   },
+  layoutMaxWidth: {
+    md: '1440px',
+    lg: '1920px',
+    full: '100vw'
+  },
   letterSpacing: {
     sm: '-0.01em',
     md: '0',
@@ -102,9 +107,9 @@ export default {
     default: 'auto'
   },
   screens: {
-    tablet: '800px',
-    desktop: '1200px',
-    large: '2800px'
+    tablet: '744px',
+    desktop: '1440px',
+    large: '1920px'
   },
   spacing: {
     0: '0px',

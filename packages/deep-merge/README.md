@@ -5,7 +5,8 @@ Utility for deep cloning objects.
 ### How to install
 
 ```
-pnpm i @empathyco/x-deep-merge
+# or pnpm or yarn
+npm install @empathyco/x-deep-merge
 ```
 
 ### How to use
