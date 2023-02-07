@@ -1,19 +1,13 @@
 <template>
-  <XdsBaseShowcase
-    #default="{ cssClass, removeClassPrefix }"
-    title="Layout Two Columns"
-    :sections="sections"
-  >
-    <button @click="openModal(cssClass)" class="x-button">
-      {{ removeClassPrefix(cssClass, base).trim() }}
-    </button>
+  <XdsBaseShowcase #default="{ cssClass }" title="Layout two columns" :sections="sections">
+    <button @click="openModal(cssClass)" class="x-button">Open Layout</button>
 
     <dialog :ref="cssClass" class="modal x-bg-neutral-10">
       <div :class="[cssClass, 'x-layout-min-margin-32']">
         <div class="x-layout-item x-bg-neutral-0 x-border-1 x-border-neutral-25">
           <div class="x-flex x-justify-between x-items-center">
             <h1 class="x-title1">
-              <code>{{ removeClassPrefix(cssClass, base).trim() }}</code>
+              <code>x-layout-container</code>
               <span class="x-title4 x-title4-md">
                 with
                 <code>x-layout-min-margin-32</code>
@@ -39,10 +33,10 @@
           <div class="x-flex x-justify-center x-p-16 x-title3">SUB HEADER</div>
         </div>
 
-        <div class="x-layout-item x-no-margin-right x-layout-expand x-mt-16">
-          <div class="x-flex x-layout-expand">
+        <div class="x-layout-item x-no-margin-right x-layout-expand x-mt-16 x-mb-16">
+          <div class="x-flex x-layout-expand x-gap-12">
             <div class="x-scroll x-w-128 x-bg-neutral-25">
-              <div class="x-flex x-flex-col x-justify-between x-h-[2000px]">
+              <div class="x-flex x-flex-col x-justify-between x-h-[2000px] x-p-12">
                 <span>ASIDE</span>
                 <span class="x-place-self-end">ASIDE BOTTOM</span>
               </div>
@@ -50,7 +44,7 @@
 
             <div class="x-scroll x-layout-expand x-flex-1 x-bg-neutral-25">
               <div class="x-layout-item x-layout-no-margin-left">
-                <div class="x-flex x-flex-col x-justify-between x-h-[2000px]">
+                <div class="x-flex x-flex-col x-justify-between x-h-[2000px] x-p-12">
                   <section>MAIN</section>
                   <span class="x-place-self-end">MAIN BOTTOM</span>
                 </div>
@@ -66,7 +60,6 @@
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { ShowcaseSections } from '../types/types';
-  import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
   @Component({
@@ -75,15 +68,12 @@
     }
   })
   export default class XdsLayoutTwoColumnsShowcase extends Vue {
-    @Prop({ default: 'x-layout-container' })
+    @Prop({ default: 'x-layout-container x-layout-max-width-sm' })
     public base!: string;
-
-    @Prop({ default: () => ['x-layout-lg'] })
-    public sizes!: string[];
 
     protected get sections(): ShowcaseSections {
       return {
-        Sizes: this.sizes.map(addParentClasses(this.base))
+        '': [this.base]
       };
     }
 
