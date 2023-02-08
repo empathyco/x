@@ -15,9 +15,9 @@
       @keydown="copyCssClassesToClipboard"
       :class="cssClass"
       title="Click me to copy CSS classes"
-      class="x-bg-neutral-50 x-w-[100vw]"
+      class="x-bg-neutral-25 x-w-[100vw]"
     >
-      <div class="x-layout-item"><span class="x-bg-accent-50 x-p-8">item</span></div>
+      <div class="x-layout-item"><span class="x-bg-lead-25 x-p-8">item</span></div>
     </div>
   </XdsBaseShowcase>
 </template>

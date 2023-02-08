@@ -6,11 +6,11 @@
   >
     {{ removeClassPrefix(cssClass, base) }}
     <div
-      class="x-layout-container x-layout-min-margin-216 x-layout-max-width-lg x-w-[100vw] x-h-[80px] x-bg-neutral-50"
+      class="x-layout-container x-layout-min-margin-216 x-layout-max-width-lg x-w-[100vw] x-h-[80px] x-bg-neutral-25"
     >
       <template v-if="section === 'Overlap'">
         <div v-if="cssClass.split(' ')[1] === 'x-layout-overlap'" class="x-layout-item">
-          <span class="x-bg-accent-50 x-p-8 x-h-[60px]">item</span>
+          <span class="x-bg-lead-25 x-p-8 x-h-[60px]">item</span>
         </div>
 
         <div
@@ -20,21 +20,19 @@
           :class="cssClass"
           title="Click me to copy CSS classes"
         >
-          <span class="x-justify-self-center x-bg-auxiliary-50 x-p-8 x-w-[80%]">
+          <span class="x-justify-self-center x-bg-lead-50 x-p-8 x-w-[80%]">
             This is overlapping
           </span>
         </div>
 
         <div v-if="cssClass.includes('x-layout-overlap-from-top')" class="x-layout-item">
-          <span class="x-bg-accent-50 x-p-8 x-h-[60px]">item</span>
+          <span class="x-bg-lead-25 x-p-8 x-h-[60px]">item</span>
         </div>
       </template>
 
       <template v-else-if="section === 'On margin'">
         <div class="x-layout-item">
-          <div v-if="cssClass === 'x-layout-on-margin-right'" class="x-bg-accent-50 x-p-8">
-            item
-          </div>
+          <div v-if="cssClass === 'x-layout-on-margin-right'" class="x-bg-lead-25 x-p-8">item</div>
           <div
             :key="cssClass"
             @click="copyCssClassesToClipboard"
@@ -42,11 +40,11 @@
             :class="cssClass"
             title="Click me to copy CSS classes"
           >
-            <div class="x-bg-auxiliary-50 x-p-8">
+            <div class="x-bg-lead-50 x-p-8">
               {{ cssClass }}
             </div>
           </div>
-          <div v-if="cssClass === 'x-layout-on-margin-left'" class="x-bg-accent-50 x-p-8">item</div>
+          <div v-if="cssClass === 'x-layout-on-margin-left'" class="x-bg-lead-25 x-p-8">item</div>
         </div>
       </template>
 
@@ -58,7 +56,7 @@
         :class="cssClass"
         title="Click me to copy CSS classes"
       >
-        <span class="x-bg-accent-50 x-p-8 x-self-stretch">item</span>
+        <span class="x-bg-lead-25 x-p-8 x-self-stretch">item</span>
       </div>
     </div>
   </XdsBaseShowcase>
