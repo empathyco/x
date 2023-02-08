@@ -27,6 +27,7 @@
     "preinstall": "npx only-allow pnpm",
     "build": "tsc",
     "postbuild": "pnpm pack",
+    "lint": "eslint . --ext .ts",
     "test": "jest -i"
   },
   "dependencies": {

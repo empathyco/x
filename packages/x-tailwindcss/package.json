@@ -33,6 +33,7 @@
     "prebuild": "rimraf ./dist ./showcase ./*.tgz",
     "build": "rollup -c && rollup -c demo/rollup.config.js",
     "postbuild": "pnpm pack",
+    "lint": "eslint . --ext .ts,.vue",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {

@@ -29,6 +29,7 @@
     "prebuild": "rimraf dist ./*.tgz",
     "build": "tsc --project tsconfig.build.json",
     "postbuild": "pnpm pack",
+    "lint": "eslint . --ext .ts",
     "test": "jest -i"
   },
   "devDependencies": {

@@ -41,6 +41,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
+      - name: setup eslint cache
+        uses: actions/cache@v3
+        with:
+          path: '**/.eslintcache'
+          key: eslint-${{github.sha}}
+          restore-keys: eslint-
+
       - name: setup lerna cache
         id: lerna-cache
         uses: actions/cache@v3
@@ -49,13 +56,6 @@ jobs:
             node_modules/.cache
           key: lerna-cache-${{github.sha}}
           restore-keys: lerna-cache-
-
-      - name: setup eslint cache
-        uses: actions/cache@v3
-        with:
-          path: .eslintcache
-          key: eslint-${{github.sha}}
-          restore-keys: eslint-
 
       - name: install dependencies
         run: pnpm install
