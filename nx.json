@@ -3,7 +3,7 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test"]
+        "cacheableOperations": ["build", "test"]
       }
     }
   },
@@ -17,9 +17,6 @@
         "{projectRoot}/showcase",
         "{projectRoot}/types"
       ]
-    },
-    "lint": {
-      "outputs": ["{projectRoot}/.eslintcache"]
     },
     "test": {
       "outputs": ["{projectRoot}/coverage"]
