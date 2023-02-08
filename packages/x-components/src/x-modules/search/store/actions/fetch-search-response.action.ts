@@ -14,21 +14,4 @@ import { SearchXStoreModule } from '../types';
 export const fetchSearchResponse: SearchXStoreModule['actions']['fetchSearchResponse'] = (
   _context,
   request
-) => {
-  return request
-    ? XPlugin.adapter.search(request)
-    : {
-        banners: [],
-        facets: [],
-        partialResults: [],
-        promoteds: [],
-        queryTagging: {
-          params: {},
-          url: ''
-        },
-        redirections: [],
-        results: [],
-        spellcheck: '',
-        totalResults: 0
-      };
-};
+) => XPlugin.adapter.search(request);

@@ -35,8 +35,10 @@ export function filter<Payload>(
  *
  * @public
  */
-export function filterFalsyPayload<Payload>(wire: Wire<Payload>): Wire<Payload> {
-  return filter(wire, ({ eventPayload }) => !!eventPayload);
+export function filterFalsyPayload<Payload>(
+  wire: Wire<Exclude<Payload, null | undefined | false | 0 | ''>>
+): Wire<Payload> {
+  return filter(wire, ({ eventPayload }) => !!eventPayload) as Wire<Payload>;
 }
 
 /**

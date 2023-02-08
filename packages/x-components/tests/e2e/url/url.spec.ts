@@ -16,10 +16,6 @@ When('selecting store {string}', (store: string) => {
 });
 
 // Scenario 5
-Then('url not contains parameter {string}', (key: string) => {
-  cy.location('search').should('not.contain', key);
-});
-
 When('{string} replaces current query', (query: string) => {
   cy.replaceQuery(query);
 });
