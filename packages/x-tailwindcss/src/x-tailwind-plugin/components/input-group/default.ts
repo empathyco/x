@@ -3,7 +3,7 @@ import { TailwindHelpers } from '../../../types';
 import { inputDefault } from '../input/default';
 
 /**
- * Returns the default styles for component `input`.
+ * Returns the default styles for component `input-group`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.

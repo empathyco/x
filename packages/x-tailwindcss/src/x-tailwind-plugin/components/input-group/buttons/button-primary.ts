@@ -2,7 +2,7 @@ import { TailwindHelpers } from '../../../../types';
 import { inputGroupButton } from './button';
 
 /**
- * Returns the default styles for component `input`.
+ * Returns the `primary` variant for component `input-group-button`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
@@ -22,13 +22,15 @@ export function inputGroupButtonPrimary(helpers: TailwindHelpers) {
     },
 
     // to remove the "padding" when the button is at the start or at the end.
-    // the negative value is to avoid double border (input-group and button). Specially in outlined.
+    // border style is to avoid double border (input-group and button). Specially in outlined.
     '&:first-child': {
-      marginInlineStart: `calc(-1 * ${theme('borderWidth.1')})`
+      marginInlineStart: '0',
+      borderInlineStartStyle: 'none'
     },
 
     '&:last-child': {
-      marginInlineEnd: `calc(-1 * ${theme('borderWidth.1')})`
+      marginInlineEnd: '0',
+      borderInlineEndStyle: 'none'
     }
   };
 }

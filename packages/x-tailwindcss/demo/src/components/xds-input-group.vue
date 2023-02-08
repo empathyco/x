@@ -16,7 +16,11 @@
       <input
         class="x-input"
         :disabled="section === 'Disabled'"
-        :placeholder="removeClassPrefix(cssClass, base).trim() || 'input-group'"
+        :placeholder="
+          removeClassPrefix(cssClass, base).trim() ||
+          (section.includes('Line') && 'line') ||
+          'input-group'
+        "
       />
       <button
         @click.stop="copyCssClassesToClipboard"
@@ -105,7 +109,7 @@
         Colors: this.colors.map(addParentClasses(this.base)),
         Outlined: ['', ...this.colors].map(addParentClasses(this.base)),
         Ghost: ['', ...this.colors].map(addParentClasses(this.base)),
-        Line: [this.base + ' ' + this.line],
+        Line: [addParentClasses(this.base)(this.line)],
         'Line Sizes': this.sizes.map(addParentClasses(this.base, this.line)),
         'Line Colors': this.colors.map(addParentClasses(this.base, this.line)),
         'Line Button Outlined': ['', ...this.colors].map(addParentClasses(this.base, this.line)),
