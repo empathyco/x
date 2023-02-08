@@ -18,7 +18,7 @@ export function inputGroupLine(helpers: TailwindHelpers) {
       // To avoid the buttons to be "touching" the bottom line in sm size variant.
       '&.input-group-sm': {
         '--input-group-button-height': theme('spacing.28'),
-        paddingBottom: '4px'
+        paddingBottom: theme('spacing.4')
       },
 
       // Default input-group is "hiding" the border, so here is restored.

@@ -21,13 +21,13 @@ export function inputGroup(helpers: TailwindHelpers) {
         {
           ...inputGroupColors(helpers),
           ...inputGroupSizes(helpers),
-          ...inputGroupLine(helpers)
+          ...inputGroupLine(helpers),
+          ...inputGroupButtons(helpers)
         },
         {
           prefix: '&-'
         }
       )
-    ),
-    ...rename(inputGroupButtons(helpers), { prefix: '.input-group-' })
+    )
   };
 }
