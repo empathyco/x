@@ -23,6 +23,7 @@ import {
 export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata extends Dictionary>
   implements XBus<SomeEvents, SomeEventMetadata>
 {
+  protected test = 'Test';
   /**
    * A {@link @empathyco/x-priority-queue#XPriorityQueue | priority queue} to store the events to
    * emit.
