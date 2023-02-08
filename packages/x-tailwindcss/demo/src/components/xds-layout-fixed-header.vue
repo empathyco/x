@@ -1,6 +1,6 @@
 <template>
   <XdsBaseShowcase #default="{ cssClass }" title="Layout fixed header" :sections="sections">
-    <button @click="openModal(cssClass)" class="x-button">Open Layout</button>
+    <button @click="openModal(cssClass)" class="x-button">Open layout example</button>
 
     <dialog :ref="cssClass" class="modal">
       <div :class="[cssClass, 'x-layout-min-margin-48 x-bg-neutral-10']">
