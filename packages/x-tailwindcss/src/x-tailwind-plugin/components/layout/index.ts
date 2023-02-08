@@ -5,6 +5,7 @@ import { container } from './container';
 import { minMargin } from './min-margin';
 import { item } from './item';
 import { maxWidth } from './max-width';
+import { utils } from './utils';
 
 /**
  * Returns the component `layout` CSS.
@@ -22,6 +23,7 @@ export function layout(helpers: TailwindHelpers) {
         ...item(helpers)
       },
       { prefix: '&-' }
-    )
+    ),
+    ...utils(helpers)
   };
 }

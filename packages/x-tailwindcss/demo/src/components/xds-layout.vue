@@ -15,9 +15,9 @@
       @keydown="copyCssClassesToClipboard"
       :class="cssClass"
       title="Click me to copy CSS classes"
-      class="x-bg-neutral-50 x-w-[100vw]"
+      class="x-bg-neutral-25 x-w-[100vw]"
     >
-      <div class="x-layout-item"><span class="x-bg-accent-50 x-p-8">item</span></div>
+      <div class="x-layout-item"><span class="x-bg-lead-25 x-p-8">item</span></div>
     </div>
   </XdsBaseShowcase>
 </template>
@@ -27,6 +27,7 @@
   import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
+
   @Component({
     components: {
       XdsBaseShowcase
@@ -35,10 +36,12 @@
   export default class XdsLayoutShowcase extends Vue {
     @Prop({ default: 'x-layout-container' })
     public base!: string;
+
     @Prop({
       default: () => ['x-layout-max-width-md', 'x-layout-max-width-lg', 'x-layout-max-width-full']
     })
     public maxWidth!: string[];
+
     @Prop({
       default: () => [
         'x-layout-min-margin-12',
@@ -48,6 +51,7 @@
       ]
     })
     public minMargin!: string[];
+
     protected get sections(): ShowcaseSections {
       return {
         Default: [this.base],
@@ -57,5 +61,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped></style>

@@ -11,6 +11,8 @@
     <XdsPicture />
     <XdsScroll />
     <XdsLayout />
+    <XdsLayoutUtils />
+    <XdsLayoutTwoColumns />
   </div>
 </template>
 <script lang="ts">
@@ -25,8 +27,10 @@
   import XdsSuggestionGroup from './xds-suggestion-group.vue';
   import XdsSlidingPanel from './xds-sliding-panel.vue';
   import XdsPicture from './xds-picture.vue';
-  import XdsLayout from './xds-layout.vue';
   import XdsScroll from './xds-scroll.vue';
+  import XdsLayout from './xds-layout.vue';
+  import XdsLayoutUtils from './xds-layout-utils.vue';
+  import XdsLayoutTwoColumns from './xds-layout-two-columns.vue';
 
   @Component({
     components: {
@@ -37,10 +41,12 @@
       XdsInput,
       XdsLayout,
       XdsScroll,
+      XdsLayoutTwoColumns,
       XdsSuggestion,
       XdsSuggestionGroup,
       XdsSlidingPanel,
-      XdsPicture
+      XdsPicture,
+      XdsLayoutUtils
     }
   })
   export default class XdsShowcase extends Vue {}
