@@ -12,16 +12,16 @@ export function inputDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return deepMerge(
     {
-      fontFamily: theme('fontFamily.main'),
-      borderWidth: theme('borderWidth.1'),
-      cursor: 'text',
-      fontWeight: theme('fontWeight.regular'),
-      textOverflow: 'ellipsis',
       paddingInlineStart: theme('spacing.16'),
       paddingInlineEnd: theme('spacing.16'),
+      borderWidth: theme('borderWidth.1'),
+      fontWeight: theme('fontWeight.regular'),
+      textOverflow: 'ellipsis',
+      fontFamily: theme('fontFamily.main'),
       borderColor: theme('colors.neutral.90'),
       backgroundColor: theme('colors.neutral.0'),
       color: theme('colors.neutral.90'),
+      cursor: 'text',
 
       '&:hover': {
         borderColor: `var(--input-color-75,${theme('colors.neutral.50')})`
@@ -41,7 +41,7 @@ export function inputDefault(helpers: TailwindHelpers) {
         color: theme('colors.neutral.50')
       },
 
-      '&::placeholder': {
+      '&::placeholder,& .input-placeholder': {
         color: theme('colors.neutral.50'),
         fontFamily: theme('fontFamily.main'),
         fontWeight: theme('fontWeight.regular')

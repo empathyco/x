@@ -15,7 +15,8 @@ export function inputGroupDefault(helpers: TailwindHelpers) {
     flexFlow: 'row nowrap',
     alignItems: 'center',
     alignContent: 'center',
-    padding: '0',
+    paddingInlineStart: 0,
+    paddingInlineEnd: 0,
     gap: theme('spacing.8'),
     overflow: 'hidden', // necessary to not show the buttons border over the input-group border.
 
