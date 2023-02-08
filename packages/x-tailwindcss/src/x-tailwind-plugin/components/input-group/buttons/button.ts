@@ -8,6 +8,12 @@ import { TailwindHelpers } from '../../../../types';
  */
 export function inputGroupButton({ theme }: TailwindHelpers) {
   return {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    flexFlow: 'row nowrap',
+    boxSizing: 'border-box',
     height: 'var(--input-group-button-height, inherit)',
     minHeight: 0,
     aspectRatio: '1',
