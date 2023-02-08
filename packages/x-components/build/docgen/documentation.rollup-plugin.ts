@@ -148,7 +148,7 @@ function getExtractorInvokeOptions(): IExtractorInvokeOptions {
  */
 function generateDocumentation(): Promise<void> {
   return new Promise((resolve, reject) => {
-    exec('npm run gen:docs', error => {
+    exec('pnpm run gen:docs', error => {
       if (error) {
         reject(error);
       }

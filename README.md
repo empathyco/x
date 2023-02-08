@@ -140,8 +140,8 @@ To prepare your development environment, proceed as follows:
 
 1. Fork the X repository and then clone it to your local environment:
    `git clone https://github.com/empathyco/x.git`.
-2. Install the dependencies in the root folder: `npm install`. This links all the projects.
-3. Run a build so that the linked projects work: `npm run build`.
+2. Install the dependencies in the root folder: `pnpm install --frozen-lockfile`. This links all the
+   projects.
 
 Have a look to
 [this article](https://medium.com/empathyco/moving-to-a-mono-repo-part-1-the-journey-eb63efd8ef64)

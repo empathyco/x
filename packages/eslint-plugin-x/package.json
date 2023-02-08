@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/eslint-plugin-x",
-  "version": "2.0.0-alpha.29",
+  "version": "2.0.0-alpha.30",
   "description": "ESLint and Prettier rules and configurations",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -24,8 +24,8 @@
     "node": ">=16"
   },
   "scripts": {
-    "build": "npm pack",
-    "commit": "git-cz"
+    "preinstall": "npx only-allow pnpm",
+    "build": "pnpm pack"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "~5.49.0",
