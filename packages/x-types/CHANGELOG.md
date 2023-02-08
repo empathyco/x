@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.59...@empathyco/x-types@10.0.0-alpha.60) (2023-02-08)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.59](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.58...@empathyco/x-types@10.0.0-alpha.59) (2023-02-07)
 
 ### Continuous Integration

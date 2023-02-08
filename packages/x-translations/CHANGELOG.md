@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.35...@empathyco/x-translations@1.1.0-alpha.36) (2023-02-08)
+
+### Continuous Integration
+
+- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+  ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
+  closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.1.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.34...@empathyco/x-translations@1.1.0-alpha.35) (2023-02-07)
 
 ### Continuous Integration

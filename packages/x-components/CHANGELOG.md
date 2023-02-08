@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.310](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.309...@empathyco/x-components@3.0.0-alpha.310) (2023-02-08)
+
+### Bug Fixes
+
+- **search:** reset `query`, `page` and `sort` on clear query (#1045)
+  ([5dc0603](https://github.com/empathyco/x/commit/5dc060304980f5c373cd1aa8aebd4d3932723a35)),
+  closes [EX-7663](https://searchbroker.atlassian.net/browse/EX-7663)
+
+### Continuous Integration
+
+- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+  ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
+  closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.309](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.308...@empathyco/x-components@3.0.0-alpha.309) (2023-02-07)
 
 ### Continuous Integration
