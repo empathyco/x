@@ -12,13 +12,6 @@
       "dependsOn": ["^build", "prebuild"],
       "outputs": [
         "{projectRoot}/dist",
-        "{projectRoot}/showcase",
-        "{projectRoot}/types",
-        "{projectRoot}/report"
-      ],
-      "dependsOn": ["^build", "prebuild"],
-      "outputs": [
-        "{projectRoot}/dist",
         "{projectRoot}/report",
         "{projectRoot}/schemas",
         "{projectRoot}/showcase",
