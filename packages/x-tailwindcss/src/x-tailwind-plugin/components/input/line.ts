@@ -19,7 +19,7 @@ export function inputLine(helpers: TailwindHelpers) {
       '&:hover': {
         backgroundSize: '100% 2px'
       },
-      '&:focus': {
+      '&:focus, &:focus-within': {
         backgroundSize: '100% 2px',
         color: theme('colors.neutral.90'),
         outline: 'none',

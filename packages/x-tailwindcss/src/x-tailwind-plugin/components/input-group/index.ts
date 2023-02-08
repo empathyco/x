@@ -4,7 +4,7 @@ import { TailwindHelpers } from '../../../types';
 import { inputGroupButtons } from './buttons';
 import { inputGroupColors } from './colors';
 import { inputGroupDefault } from './default';
-import { inputGroupline } from './line';
+import { inputGroupLine } from './line';
 import { inputGroupSizes } from './sizes';
 
 /**
@@ -21,7 +21,7 @@ export function inputGroup(helpers: TailwindHelpers) {
         {
           ...inputGroupColors(helpers),
           ...inputGroupSizes(helpers),
-          ...inputGroupline(helpers)
+          ...inputGroupLine(helpers)
         },
         {
           prefix: '&-'

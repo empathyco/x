@@ -27,7 +27,7 @@ export function inputDefault(helpers: TailwindHelpers) {
         borderColor: `var(--input-color-75,${theme('colors.neutral.50')})`
       },
 
-      '&:focus': {
+      '&:focus,&:focus-within': {
         borderColor: `var(--input-color-75,${theme('colors.neutral.50')})`,
         outlineColor: `var(--input-color-25,${theme('colors.neutral.25')})`,
         outlineWidth: theme('borderWidth.2'),
@@ -40,6 +40,7 @@ export function inputDefault(helpers: TailwindHelpers) {
         backgroundColor: theme('colors.neutral.10'),
         color: theme('colors.neutral.50')
       },
+
       '&::placeholder': {
         color: theme('colors.neutral.50'),
         fontFamily: theme('fontFamily.main'),

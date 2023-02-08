@@ -21,14 +21,14 @@ export function inputGroupButtonPrimary(helpers: TailwindHelpers) {
       borderColor: `var(--input-color-75,${theme('colors.neutral.75')})`
     },
 
+    // to remove the "padding" when the button is at the start or at the end.
+    // the negative value is to avoid double border (input-group and button). Specially in outlined.
     '&:first-child': {
-      marginInlineStart: '0',
-      borderInlineStartStyle: 'none'
+      marginInlineStart: `calc(-1 * ${theme('borderWidth.1')})`
     },
 
     '&:last-child': {
-      marginInlineEnd: '0',
-      borderInlineEndStyle: 'none'
+      marginInlineEnd: `calc(-1 * ${theme('borderWidth.1')})`
     }
   };
 }
