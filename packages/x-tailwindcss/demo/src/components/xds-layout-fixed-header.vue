@@ -17,7 +17,7 @@
               </form>
             </div>
 
-            <div class="x-flex x-justify-between x-items-center x-py-16 x-title3">
+            <div class="x-flex x-justify-between x-items-center x-py-16">
               <div class="x-title3">HEADER START</div>
               <div class="x-title2">HEADER MIDDLE</div>
               <div class="x-title3">HEADER END</div>
@@ -32,10 +32,8 @@
             <div class="x-flex x-justify-center x-p-16 x-title3 x-bg-neutral-10">TOOLBAR</div>
           </div>
 
-          <div class="x-layout-item x-flex-1">
-            <div
-              class="x-flex x-flex-col x-layout-expand x-justify-between x-h-[2000px] x-p-12 x-bg-neutral-25"
-            >
+          <div class="x-layout-item x-layout-expand">
+            <div class="x-flex x-flex-col x-justify-between x-h-[2000px] x-p-12 x-bg-neutral-25">
               <section>MAIN</section>
               <span class="x-place-self-end">MAIN BOTTOM</span>
             </div>

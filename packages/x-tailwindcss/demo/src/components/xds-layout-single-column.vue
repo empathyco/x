@@ -16,7 +16,7 @@
         </div>
 
         <div class="x-layout-item x-border-b-1 x-border-neutral-25">
-          <div class="x-flex x-justify-between x-items-center x-py-16 x-title3">
+          <div class="x-flex x-justify-between x-items-center x-py-16">
             <div class="x-title3">HEADER START</div>
             <div class="x-title2">HEADER MIDDLE</div>
             <div class="x-title3">HEADER END</div>
@@ -28,7 +28,7 @@
         </div>
 
         <div class="x-layout-item x-layout-expand x-layout-no-margin-right x-bg-neutral-25">
-          <div class="x-scroll x-layout-expand x-flex-1">
+          <div class="x-scroll x-layout-expand">
             <div class="x-flex x-flex-col x-justify-between x-h-[2000px] x-p-12">
               <section>MAIN</section>
               <span class="x-place-self-end">MAIN BOTTOM</span>

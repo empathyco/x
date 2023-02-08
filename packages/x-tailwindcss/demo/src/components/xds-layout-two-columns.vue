@@ -36,7 +36,7 @@
               </div>
             </div>
 
-            <div class="x-scroll x-layout-expand x-flex-1">
+            <div class="x-scroll x-layout-expand">
               <div class="x-layout-item x-layout-no-margin-left">
                 <div
                   class="x-flex x-flex-col x-justify-between x-h-[2000px] x-p-12 x-bg-neutral-25"
