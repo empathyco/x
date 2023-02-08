@@ -3,6 +3,53 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.2...@empathyco/x-tailwindcss@1.0.0-alpha.3) (2023-02-07)
+
+### Features
+
+- **design-system:** Add layout item to XDS (#1055)
+  ([6640c18](https://github.com/empathyco/x/commit/6640c18dae7d40a65c9ddf170138730425c907ac)),
+  closes [EX-7825](https://searchbroker.atlassian.net/browse/EX-7825)
+- **design-system:** Add scroll component (#1056)
+  ([e6fcd90](https://github.com/empathyco/x/commit/e6fcd90f77490a314016bfe5778e9cf0c87663fd)),
+  closes [EX-7956](https://searchbroker.atlassian.net/browse/EX-7956)
+
+### Continuous Integration
+
+- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+  ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
+  closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.1...@empathyco/x-tailwindcss@1.0.0-alpha.2) (2023-02-03)
+
+### Build System
+
+- **deps:** update deps (#1062)
+  ([59f29b9](https://github.com/empathyco/x/commit/59f29b9c5861f790a65b061eec628eb35d066b68))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.0...@empathyco/x-tailwindcss@1.0.0-alpha.1) (2023-02-01)
+
+### Features
+
+- **design-system:** add layout container to XDS (#1050)
+  ([f9a13af](https://github.com/empathyco/x/commit/f9a13af0fa1147042615d769e49c6cb462d9b4ac)),
+  closes [EX-7824](https://searchbroker.atlassian.net/browse/EX-7824)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.58...@empathyco/x-tailwindcss@1.0.0-alpha.0) (2023-01-26)
 
 ### ⚠ BREAKING CHANGES

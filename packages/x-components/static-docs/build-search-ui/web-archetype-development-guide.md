@@ -127,8 +127,6 @@ For example, you may configure the adapter to use EN as `lang` so that when you 
 are displayed in English. However, if you want to deploy the application in Spain, you want the
 `lang` to be ES. You change these values in the `snippet-script.js` file.
 
-</br>
-
 For detailed information, see
 [Snippet configuration](web-archetype-integration-guide.md#snippet-configuration).
 
