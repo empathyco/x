@@ -16,10 +16,10 @@ runs:
         git config --local user.name "empathy/x"
       shell: bash
 
-    - name: Configure pnpm auth
+    - name: Configure npm auth
       run: |
-        pnpm config set registry="https://registry.npmjs.org/"
-        pnpm config set _authToken=${NPM_TOKEN}
+        npm config set registry="https://registry.npmjs.org/"
+        npm config set _authToken=${NPM_TOKEN}
       shell: bash
       env:
         NPM_TOKEN: ${{ inputs.npm_token }}

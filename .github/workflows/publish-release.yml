@@ -38,15 +38,15 @@ jobs:
           git config --local user.email "x@empathy.co"
           git config --local user.name "empathy/x"
 
-      - name: configure pnpm auth
+      - name: configure npm auth
         run: |
-          pnpm config set registry="https://registry.npmjs.org/"
-          pnpm config set _authToken=${NPM_TOKEN}
+          npm config set registry="https://registry.npmjs.org/"
+          npm config set _authToken=${NPM_TOKEN}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: publish the release
-        run: npm run publish-release
+        run: pnpm run publish-release
 
       - name: push tags
         uses: ad-m/github-push-action@master

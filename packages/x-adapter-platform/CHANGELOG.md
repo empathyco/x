@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.62](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.61...@empathyco/x-adapter-platform@1.0.0-alpha.62) (2023-02-07)
+
+### Continuous Integration
+
+- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+  ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
+  closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.61](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.60...@empathyco/x-adapter-platform@1.0.0-alpha.61) (2023-02-03)
 
 ### Build System
