@@ -80,8 +80,6 @@
     @Getter('historyQueries', 'normalizedQuery')
     public query!: string;
 
-    protected test = 'test';
-
     /**
      * The list of events that are going to be emitted when the suggestion button is pressed.
      *
