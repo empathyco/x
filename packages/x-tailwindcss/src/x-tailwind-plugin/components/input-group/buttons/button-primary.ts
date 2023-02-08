@@ -11,6 +11,7 @@ export function inputGroupButtonPrimary(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     ...inputGroupButton(helpers),
+    fontSize: `var(--input-group-button-primary-font-size,${theme('fontSize.sm')})`,
     backgroundColor: `var(--input-color-50,${theme('colors.neutral.90')})`,
     borderColor: `var(--input-color-50,${theme('colors.neutral.90')})`,
     color: theme('colors.neutral.0'),
@@ -21,11 +22,13 @@ export function inputGroupButtonPrimary(helpers: TailwindHelpers) {
     },
 
     '&:first-child': {
-      marginInlineStart: '0'
+      marginInlineStart: '0',
+      borderInlineStartStyle: 'none'
     },
 
     '&:last-child': {
-      marginInlineEnd: '0'
+      marginInlineEnd: '0',
+      borderInlineEndStyle: 'none'
     }
   };
 }

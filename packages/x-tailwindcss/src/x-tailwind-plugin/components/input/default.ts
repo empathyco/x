@@ -23,8 +23,15 @@ export function inputDefault(helpers: TailwindHelpers) {
       backgroundColor: theme('colors.neutral.0'),
       color: theme('colors.neutral.90'),
 
-      '&:hover,&:focus': {
+      '&:hover': {
         borderColor: `var(--input-color-75,${theme('colors.neutral.50')})`
+      },
+
+      '&:focus': {
+        borderColor: `var(--input-color-75,${theme('colors.neutral.50')})`,
+        outlineColor: `var(--input-color-25,${theme('colors.neutral.25')})`,
+        outlineWidth: theme('borderWidth.2'),
+        outlineStyle: 'solid'
       },
 
       '&:disabled,&[disabled]': {

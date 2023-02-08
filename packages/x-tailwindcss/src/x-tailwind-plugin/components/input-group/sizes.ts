@@ -9,5 +9,22 @@ import { inputSizes } from '../input/sizes';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function inputGroupSizes(helpers: TailwindHelpers) {
-  return deepMerge(inputSizes(helpers));
+  const { theme } = helpers;
+  return deepMerge(inputSizes(helpers), {
+    sm: {
+      '--input-group-button-font-size': theme('fontSize.xs'),
+      '--input-group-button-primary-font-size': theme('fontSize.sm'),
+      '--input-group-button-rectangle-padding': theme('spacing.12')
+    },
+    md: {
+      '--input-group-button-font-size': theme('fontSize.sm'),
+      '--input-group-button-primary-font-size': theme('fontSize.sm'),
+      '--input-group-button-rectangle-padding': theme('spacing.16')
+    },
+    lg: {
+      '--input-group-button-font-size': theme('fontSize.sm'),
+      '--input-group-button-primary-font-size': theme('fontSize.md'),
+      '--input-group-button-rectangle-padding': theme('spacing.20')
+    }
+  });
 }
