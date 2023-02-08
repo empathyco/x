@@ -99,7 +99,6 @@
 
     protected get sections(): ShowcaseSections {
       return {
-        Default: [this.base],
         'No margin': this.noMargin.map(addParentClasses(this.base)),
         'On margin': this.onMargin,
         Overlap: this.overlap.map(addParentClasses(this.base)),
