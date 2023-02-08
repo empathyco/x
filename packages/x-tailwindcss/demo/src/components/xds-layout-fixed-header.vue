@@ -63,7 +63,7 @@
     }
   })
   export default class XdsLayoutFixedHeaderShowcase extends Vue {
-    @Prop({ default: 'x-layout-container x-layout-max-width-sm' })
+    @Prop({ default: 'x-layout-container x-layout-max-width-md' })
     public base!: string;
 
     protected get sections(): ShowcaseSections {
