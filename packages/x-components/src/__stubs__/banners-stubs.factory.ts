@@ -9,38 +9,35 @@ import { Banner } from '@empathyco/x-types';
  */
 export function getBannersStub(): Banner[] {
   return [
-    createBannerStub('1', 1),
-    createBannerStub('2', 3),
-    createBannerStub('3', 3),
-    createBannerStub('4', 4),
-    createBannerStub('5', 7),
-    createBannerStub('6', 9)
+    createBannerStub('1', { position: 1 }),
+    createBannerStub('2', { position: 3 }),
+    createBannerStub('3', { position: 3 }),
+    createBannerStub('4', { url: 'http://empathy.co', position: 4 }),
+    createBannerStub('5', { title: 'Banner', url: 'http://empathy.co', position: 7 }),
+    createBannerStub('6', { title: 'Banner', position: 9 })
   ];
 }
 
 /**
- * Creates a banner with a "unique" identifier.
+ * Creates a banner.
  *
  * @param identifier - The banner identifier.
- * @param position - The banner position (= row) inside the grid.
- *
+ * @param banner - An optional object with fields to override the banner.
  * @returns The banner.
  *
  * @internal
  */
-export function createBannerStub(identifier: string, position?: number): Banner {
+export function createBannerStub(identifier: string, banner?: Partial<Banner>): Banner {
   return {
     id: `xb-${identifier}`,
-    title: `Banner ${identifier}`,
-    url: `/banner/${identifier}`,
     image: `xb-${identifier}.jpg`,
-    position,
+    modelName: 'Banner',
     tagging: {
       click: {
         params: {},
         url: ''
       }
     },
-    modelName: 'Banner'
+    ...banner
   };
 }
