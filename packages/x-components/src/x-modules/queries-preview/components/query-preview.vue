@@ -21,7 +21,7 @@
           <!--
           @slot Query Preview result slot.
               @binding {Result} result - A Query Preview result
-        -->
+          -->
           <slot name="result" :result="result">
             <span data-test="result-name">{{ result.name }}</span>
           </slot>
@@ -41,6 +41,7 @@
   import { XProvide } from '../../../components/decorators/injection.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { NoElement } from '../../../components/no-element';
+  import { RequestStatus } from '../../../store';
   import { QueryFeature, FeatureLocation } from '../../../types/origin';
   import { QueryPreviewItem } from '../store/types';
   import { QueriesPreviewConfig } from '../config.types';
@@ -162,6 +163,21 @@
     }
 
     /**
+     * Gets from the state the results preview of the query preview.
+     *
+     * @returns The results preview of the actual query preview.
+     */
+    public get queryPreviewResults(): Partial<QueryPreviewItem> | undefined {
+      const previewResults = this.previewResults[this.query];
+      return previewResults?.results
+        ? {
+            ...previewResults,
+            results: previewResults.results.slice(0, this.maxItemsToRender)
+          }
+        : undefined;
+    }
+
+    /**
      * The debounce method to trigger the request after the debounceTimeMs defined.
      *
      * @returns The search request object.
@@ -212,19 +228,13 @@
       old.cancel();
     }
 
-    /**
-     * Gets from the state the results preview of the query preview.
-     *
-     * @returns The results preview of the actual query preview.
-     */
-    public get queryPreviewResults(): Partial<QueryPreviewItem> | undefined {
-      const previewResults = this.previewResults[this.query];
-      return previewResults?.results
-        ? {
-            totalResults: previewResults.totalResults,
-            results: previewResults.results.slice(0, this.maxItemsToRender)
-          }
-        : undefined;
+    @Watch('queryPreviewResults.status')
+    emitLoad(status: RequestStatus | undefined): void {
+      if (status === 'success') {
+        this.$emit(this.results?.length ? 'load' : 'error', this.query);
+      } else if (status === 'error') {
+        this.$emit('error', this.query);
+      }
     }
   }
 </script>

@@ -251,32 +251,26 @@
             <template v-if="!$x.query.searchBox">
               <h1 class="x-margin--bottom-05 x-title1">Brand Recommendations</h1>
               <LocationProvider location="no_results">
-                <BaseTabsPanel
-                  initialTab="summer"
-                  contentClass="x-padding--top-06"
-                  :contentAnimation="tabsPanelAnimation"
-                  tabClass="x-button-outlined x-button-neutral"
-                  tabsListClass="x-list--horizontal"
-                >
-                  <template #tab-content="{ tab }">
-                    <span class="x-capitalize">
-                      {{ tab }}
-                    </span>
-                  </template>
-
-                  <template #summer>
-                    <SlidingQueryPreview query="sunglasses" />
-                  </template>
-
-                  <template #women>
-                    <SlidingQueryPreview query="handbag" />
-                    <SlidingQueryPreview query="earrings" />
-                  </template>
-
-                  <template #men>
-                    <SlidingQueryPreview query="watch" />
-                  </template>
-                </BaseTabsPanel>
+                <div>
+                  <QueryPreviewList
+                    :queries="queriesToPreview"
+                    #default="{ query, totalResults, results }"
+                  >
+                    <div class="x-list x-list--gap-03 x-margin--bottom-05">
+                      <h1 class="x-title2 x-text--bold">{{ query }} ({{ totalResults }})</h1>
+                      <SlidingPanel :resetOnContentChange="false">
+                        <div class="x-list x-list--horizontal x-list--gap-03">
+                          <Result
+                            v-for="result in results"
+                            :key="result.id"
+                            :result="result"
+                            style="max-width: 180px"
+                          />
+                        </div>
+                      </SlidingPanel>
+                    </div>
+                  </QueryPreviewList>
+                </div>
               </LocationProvider>
             </template>
 
@@ -432,6 +426,7 @@
   import NextQueries from '../../x-modules/next-queries/components/next-queries.vue';
   import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue';
   import { NextQuery } from '../../x-modules/next-queries/index';
+  import QueryPreviewList from '../../x-modules/queries-preview/components/query-preview-list.vue';
   import Recommendations from '../../x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from '../../x-modules/related-tags/components/related-tags.vue';
   import MainScrollItem from '../../x-modules/scroll/components/main-scroll-item.vue';
@@ -473,6 +468,7 @@
       infiniteScroll
     },
     components: {
+      QueryPreviewList,
       ArrowRight,
       Aside,
       AutoProgressBar,
@@ -582,6 +578,8 @@
         useE2EAdapter: false
       }
     };
+
+    protected queriesToPreview = ['sunglasses', 'handbag', 'earrings', 'jeans', 't-shirt'];
 
     toggleE2EAdapter(): void {
       adapterConfig.e2e = !adapterConfig.e2e;
