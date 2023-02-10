@@ -1,10 +1,11 @@
 import { Result } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { mount, Wrapper } from '@vue/test-utils';
+import { XBus } from '@empathyco/x-bus';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
-import { XBus } from '../../../plugins/index';
 import BaseResultAddToCart from '../base-result-add-to-cart.vue';
+import { WireMetadata, XEventsTypes } from '../../../wiring/index';
 
 describe('testing BaseResultAddToCart component', () => {
   function renderAddToCart({
@@ -78,9 +79,10 @@ describe('testing BaseResultAddToCart component', () => {
 interface RenderAddToCartOptions {
   /** The result to pass to `BaseResultAddToCart` as prop. A stub is used by default.*/
   result?: Result;
-  /** The template to render. Remember to use `:result="result"` as prop of the
+  /**
+   * The template to render. Remember to use `:result="result"` as prop of the
    * `BaseResultAddToCart`.
-   * */
+   */
   template?: string;
   /** The methods to add to mounted component to test listeners in the `BaseResultAddToCart`. */
   methods?: Dictionary<() => void>;
@@ -89,7 +91,7 @@ interface RenderAddToCartApi {
   /** Triggers the click on the `BaseResultAddToCart`. */
   clickAddToCart: () => Promise<void>;
   /** The `XBus.on` method to subscribe to any `XEvent`. */
-  on: XBus['on'];
+  on: XBus<XEventsTypes, WireMetadata>['on'];
   /** The `BaseResultAddToCart` wrapper to use it for testing. */
   addToCartWrapper: Wrapper<Vue>;
 }

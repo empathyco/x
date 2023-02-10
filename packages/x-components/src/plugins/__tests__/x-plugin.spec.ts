@@ -2,16 +2,17 @@ import { Dictionary } from '@empathyco/x-utils';
 import { createLocalVue, shallowMount, Wrapper } from '@vue/test-utils';
 import { default as Vue, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
+import { XPriorityBus } from '@empathyco/x-bus';
 import { createStoreEmitters, XStoreModule } from '../../store';
 import { createWireFromFunction, wireCommit } from '../../wiring/wires.factory';
-import { AnyWire } from '../../wiring/wiring.types';
+import { AnyWire, WireMetadata } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 import { AnyXModule } from '../../x-modules/x-modules.types';
 import { XComponentsAdapterDummy } from '../../__tests__/adapter.dummy';
 import { installNewXPlugin } from '../../__tests__/utils';
-import { BaseXBus } from '../x-bus';
 import { XPlugin } from '../x-plugin';
 import { PrivateXModulesOptions, XModulesOptions, XPluginOptions } from '../x-plugin.types';
+import { XEventsTypes } from '../../wiring/index';
 
 const wireToReplace: AnyWire = jest.fn();
 const wireToRemove: AnyWire = jest.fn();
@@ -86,7 +87,7 @@ describe('testing X Plugin', () => {
 
   describe('install XPlugin without overriding options', () => {
     it('throws an error if no options are passed', () => {
-      const plugin = new XPlugin(new BaseXBus());
+      const plugin = new XPlugin(new XPriorityBus<XEventsTypes, WireMetadata>());
       expect(() => localVue.use(plugin)).toThrow();
     });
 

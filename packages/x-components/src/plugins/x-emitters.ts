@@ -1,26 +1,27 @@
 import { forEach, Dictionary } from '@empathyco/x-utils';
 import { Store } from 'vuex';
+import { XBus } from '@empathyco/x-bus';
 import { getGettersProxyFromModule } from '../store/utils/getters-proxy.utils';
 import { AnySimpleStateSelector, AnyStateSelector } from '../store/utils/store-emitters.utils';
 import { debounce } from '../utils/debounce';
 import { DebouncedFunction } from '../utils/types';
-import { XEvent, XEventPayload } from '../wiring/events.types';
+import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { AnyXModule } from '../x-modules/x-modules.types';
-import { XBus } from './x-bus.types';
+import { WireMetadata } from '../wiring/index';
 
 /**
  * Registers the store emitters, making them emit the event when the part of the state selected
  * changes.
  *
  * @param xModule - The {@link XModule} to register its Store Emitters.
- * @param bus - The {@Link XBus} to emit the events by the Emitters.
+ * @param bus - The {@link @empathyco/x-bus#XBus} to emit the events by the Emitters.
  * @param store - The Vuex store to access to state and getters to watch them.
  *
  * @internal
  */
 export function registerStoreEmitters(
   { name, storeEmitters, storeModule }: AnyXModule,
-  bus: XBus,
+  bus: XBus<XEventsTypes, WireMetadata>,
   store: Store<any>
 ): void {
   const safeGettersProxy = getGettersProxyFromModule(store.getters, name, storeModule);

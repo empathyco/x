@@ -1,12 +1,12 @@
 import Vue, { ComponentOptions } from 'vue';
 import { Store } from 'vuex';
+import { XBus } from '@empathyco/x-bus';
 import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
 import { RootXStoreState } from '../store/store.types';
-import { XEvent, XEventPayload } from '../wiring/events.types';
+import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
 import { FeatureLocation } from '../types/origin';
 import { XModuleName } from '../x-modules/x-modules.types';
-import { XBus } from './x-bus.types';
 import { getAliasAPI } from './x-plugin.alias';
 import { XComponentAPI, XComponentBusAPI } from './x-plugin.types';
 
@@ -35,12 +35,12 @@ interface PrivateExtendedVueComponent extends Vue {
  * @remarks It adds an injection property `origin` which value is included in the metadata of each
  * event emitted with `$x.emit`.
  *
- * @param bus - The {@link XBus} to use inside the components for emitting events.
+ * @param bus - The {@link @empathyco/x-bus#XBus} to use inside the components for emitting events.
  * @returns Mixin options which registers the component as X-Component and the $x.
  * @internal
  */
 export const createXComponentAPIMixin = (
-  bus: XBus
+  bus: XBus<XEventsTypes, WireMetadata>
 ): ComponentOptions<Vue> & ThisType<PrivateExtendedVueComponent> => ({
   inject: {
     $location: {
@@ -57,15 +57,18 @@ export const createXComponentAPIMixin = (
 });
 
 /**
- * Creates an object containing the API related to the {@link XBus}.
+ * Creates an object containing the API related to the {@link @empathyco/x-bus#XBus}.
  *
- * @param bus - The global {@link XBus}.
+ * @param bus - The global {@link @empathyco/x-bus#XBus}.
  * @param component - The component instance.
  *
  * @returns An object containing the {@link XComponentBusAPI}.
  * @internal
  */
-export function getBusAPI(bus: XBus, component: PrivateExtendedVueComponent): XComponentBusAPI {
+export function getBusAPI(
+  bus: XBus<XEventsTypes, WireMetadata>,
+  component: PrivateExtendedVueComponent
+): XComponentBusAPI {
   return {
     emit: <Event extends XEvent>(
       event: Event,

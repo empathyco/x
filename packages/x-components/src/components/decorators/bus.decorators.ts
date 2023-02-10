@@ -1,11 +1,12 @@
 import { AnyFunction } from '@empathyco/x-utils';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import Vue, { WatchOptions } from 'vue';
 import { createDecorator } from 'vue-class-component';
+import { EventPayload, SubjectPayload } from '@empathyco/x-bus';
 import { clone } from '../../utils/clone';
 import { DecoratorFor } from '../../utils/types';
-import { XEvent, XEventPayload } from '../../wiring/events.types';
+import { XEvent, XEventPayload, XEventsTypes } from '../../wiring/events.types';
 import { WireMetadata } from '../../wiring/wiring.types';
 
 /**
@@ -84,8 +85,11 @@ function createSubscription<Event extends XEvent>(
   const subscription = new Subscription();
   eventArray.forEach(xEvent => {
     subscription.add(
-      this.$x
-        .on(xEvent, true)
+      (
+        this.$x.on(xEvent, true) as unknown as Observable<
+          SubjectPayload<EventPayload<XEventsTypes, Event>, WireMetadata>
+        >
+      )
         .pipe(filter(({ metadata }) => filterMetadataOptions(metadataFilteringOptions, metadata)))
         .subscribe(({ eventPayload, metadata }) => callback(eventPayload, metadata))
     );

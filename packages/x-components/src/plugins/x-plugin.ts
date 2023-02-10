@@ -3,15 +3,16 @@ import { forEach, Dictionary } from '@empathyco/x-utils';
 import { PluginObject, VueConstructor } from 'vue';
 import Vuex, { Module, Store } from 'vuex';
 import { XComponentsAdapter } from '@empathyco/x-types';
+import { EventPayload, SubjectPayload, XBus } from '@empathyco/x-bus';
+import { Observable } from 'rxjs';
 import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
 import { RootXStoreModule } from '../store/x.module';
-import { XEvent } from '../wiring/events.types';
-import { AnyWire } from '../wiring/wiring.types';
+import { XEvent, XEventsTypes } from '../wiring/events.types';
+import { AnyWire, WireMetadata } from '../wiring/wiring.types';
 import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
 import { sendWiringToDevtools } from './devtools/wiring.devtools';
 import { bus } from './x-bus';
-import { XBus } from './x-bus.types';
 import { registerStoreEmitters } from './x-emitters';
 import { createXComponentAPIMixin } from './x-plugin.mixin';
 import { AnyXStoreModuleOption, XModuleOptions, XPluginOptions } from './x-plugin.types';
@@ -38,15 +39,15 @@ export class XPlugin implements PluginObject<XPluginOptions> {
   }
 
   /**
-   * Exposed {@link XBus}, so any kind of application can subscribe to {@link XEventsTypes}
-   * without having to pass through a component.
+   * Exposed {@link @empathyco/x-bus#XBus}, so any kind of application can subscribe to
+   * {@link XEventsTypes} without having to pass through a component.
    * This property is only available after installing the plugin.
    *
    * @returns The installed bus.
    * @throws If this property is accessed before calling `Vue.use(xPlugin)`.
    * @public
    */
-  public static get bus(): XBus {
+  public static get bus(): XBus<XEventsTypes, WireMetadata> {
     return this.getInstance().bus;
   }
 
@@ -96,7 +97,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    *
    * @internal
    */
-  protected bus: XBus;
+  protected bus: XBus<XEventsTypes, WireMetadata>;
 
   /**
    * Adapter for the API, responsible for transforming requests and responses.
@@ -149,11 +150,11 @@ export class XPlugin implements PluginObject<XPluginOptions> {
   /**
    * Creates a new instance of the XPlugin with the given bus passed as parameter.
    *
-   * @param bus - The {@link XBus} implementation to use for the plugin.
+   * @param bus - The {@link @empathyco/x-bus#XBus} implementation to use for the plugin.
    *
    * @public
    */
-  public constructor(bus: XBus) {
+  public constructor(bus: XBus<XEventsTypes, WireMetadata>) {
     this.bus = bus;
   }
 
@@ -286,7 +287,9 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     sendWiringToDevtools(name, wiring);
     forEach(wiring, (event, wires: Dictionary<AnyWire>) => {
       // Obtain the observable
-      const observable = this.bus.on(event, true);
+      const observable = this.bus.on(event, true) as unknown as Observable<
+        SubjectPayload<EventPayload<XEventsTypes, typeof event>, WireMetadata>
+      >;
       // Register event wires
       forEach(wires, (_, wire) => {
         wire(observable, this.store, this.bus.on.bind(this.bus));

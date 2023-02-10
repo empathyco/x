@@ -1,4 +1,4 @@
-import { BaseXBus } from '../../plugins/x-bus';
+import { XPriorityBus } from '@empathyco/x-bus';
 import { noOp } from '../../utils/function';
 import {
   createWireFromFunction,
@@ -9,12 +9,14 @@ import {
   wireService,
   wireServiceWithoutPayload
 } from '../wires.factory';
+import { XEventsTypes } from '../events.types';
+import { WireMetadata } from '../wiring.types';
 import { createQuerySuggestionsStoreMock, getExpectedWirePayload, SubjectHandler } from './utils';
 
 describe('testing wires factory', () => {
   const storeMock = createQuerySuggestionsStoreMock();
   const subjectHandler = new SubjectHandler();
-  const busMock = new BaseXBus();
+  const busMock = new XPriorityBus<XEventsTypes, WireMetadata>();
   const busOnMock = busMock.on.bind(busMock);
 
   beforeEach(() => {

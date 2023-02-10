@@ -1,7 +1,8 @@
 import { createLocalVue } from '@vue/test-utils';
 import { VueConstructor } from 'vue';
-import { BaseXBus } from '../x-bus';
+import { XPriorityBus } from '@empathyco/x-bus';
 import { XPlugin } from '../x-plugin';
+import { WireMetadata, XEventsTypes } from '../../wiring/index';
 
 describe('testing adapter configuration', () => {
   let xPlugin: XPlugin;
@@ -9,7 +10,7 @@ describe('testing adapter configuration', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    xPlugin = new XPlugin(new BaseXBus());
+    xPlugin = new XPlugin(new XPriorityBus<XEventsTypes, WireMetadata>());
     localVue = createLocalVue();
   });
 

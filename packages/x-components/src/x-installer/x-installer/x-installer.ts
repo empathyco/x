@@ -1,11 +1,11 @@
 import { forEach, isFunction } from '@empathyco/x-utils';
 import Vue, { PluginObject, VueConstructor } from 'vue';
-import { BaseXBus } from '../../plugins/x-bus';
-import { XBus } from '../../plugins/x-bus.types';
+import { XBus, XPriorityBus } from '@empathyco/x-bus';
 import { XPlugin } from '../../plugins/x-plugin';
 import { XPluginOptions } from '../../plugins/x-plugin.types';
 import { NormalisedSnippetConfig, SnippetConfig, XAPI } from '../api/api.types';
 import { BaseXAPI } from '../api/base-api';
+import { WireMetadata, XEventsTypes } from '../../wiring/index';
 import { InitWrapper, InstallXOptions, VueConstructorPartialArgument } from './types';
 
 declare global {
@@ -151,8 +151,8 @@ export class XInstaller {
    * @param snippetConfig - The {@link SnippetConfig} that receives from snippet integration.
    *
    * @returns If {@link SnippetConfig | snippet config} is passed or configured in window.initX,
-   * returns an object with the {@link XAPI}, the {@link XBus}, the {@link XPlugin} and the Vue App
-   * used in the application. Else, a rejected promise is returned.
+   * returns an object with the {@link XAPI}, the {@link @empathyco/x-bus#XBus}, the {@link XPlugin}
+   * and the Vue App used in the application. Else, a rejected promise is returned.
    *
    * @public
    */
@@ -200,14 +200,14 @@ export class XInstaller {
   /**
    * This method returns the bus instance to be used in the {@link XPlugin} and in the {@link XAPI}.
    * It returns the `bus` parameter in the {@link InstallXOptions} or if not provided, then
-   * creates a new instance of {@link BaseXBus}.
+   * creates a new instance of {@link @empathyco/x-bus#XPriorityBus | bus}.
    *
    * @returns XBus - The bus instance.
    *
    * @internal
    */
-  protected createBus(): XBus {
-    return this.options.bus ?? new BaseXBus();
+  protected createBus(): XBus<XEventsTypes, WireMetadata> {
+    return this.options.bus ?? new XPriorityBus<XEventsTypes, WireMetadata>();
   }
 
   /**
@@ -233,12 +233,15 @@ export class XInstaller {
    *
    * @param pluginOptions - The {@link XPluginOptions} to passed as parameter to the install method
    * of the plugin.
-   * @param bus - The {@link XBus} to be used to create the XPlugin.
+   * @param bus - The {@link @empathyco/x-bus#XBus} to be used to create the XPlugin.
    *
    * @returns PluginObject<XPluginOption> - The plugin instance.
    * @internal
    */
-  protected installPlugin(pluginOptions: XPluginOptions, bus: XBus): PluginObject<XPluginOptions> {
+  protected installPlugin(
+    pluginOptions: XPluginOptions,
+    bus: XBus<XEventsTypes, WireMetadata>
+  ): PluginObject<XPluginOptions> {
     const plugin = this.options.plugin ?? new XPlugin(bus);
     const vue = this.getVue();
     vue.use(plugin, pluginOptions);
@@ -252,7 +255,9 @@ export class XInstaller {
    * @returns The arguments from the plugins installation to be used in Vue's constructor.
    * @internal
    */
-  protected installExtraPlugins(bus: XBus): Promise<VueConstructorPartialArgument> {
+  protected installExtraPlugins(
+    bus: XBus<XEventsTypes, WireMetadata>
+  ): Promise<VueConstructorPartialArgument> {
     const vue = this.getVue();
     return Promise.resolve(
       this.options.installExtraPlugins?.({ vue, snippet: this.snippetConfig!, bus })
