@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.4...@empathyco/x-tailwindcss@1.0.0-alpha.5) (2023-02-10)
+
+### Features
+
+- **design-system:** add single column and fixed header layouts showcases (#1067)
+  ([5254f37](https://github.com/empathyco/x/commit/5254f37f8ffdf9c71ea843b2972cce04a4ae55b9)),
+  closes [EX-7972](https://searchbroker.atlassian.net/browse/EX-7972)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.3...@empathyco/x-tailwindcss@1.0.0-alpha.4) (2023-02-08)
 
 ### Features
