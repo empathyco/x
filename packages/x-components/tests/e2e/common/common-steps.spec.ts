@@ -335,6 +335,10 @@ Then('url contains parameter {string} with value {string}', (key: string, value:
   cy.location('search').should('contain', `${key}=${encodeURIComponent(value)}`);
 });
 
+Then('url not contains parameter {string}', (key: string) => {
+  cy.location('search').should('not.contain', key);
+});
+
 When('navigating back', () => {
   cy.go(-1);
 });

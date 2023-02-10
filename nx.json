@@ -12,10 +12,14 @@
       "dependsOn": ["^build", "prebuild"],
       "outputs": [
         "{projectRoot}/dist",
+        "{projectRoot}/report",
+        "{projectRoot}/schemas",
         "{projectRoot}/showcase",
-        "{projectRoot}/types",
-        "{projectRoot}/report"
+        "{projectRoot}/types"
       ]
+    },
+    "test": {
+      "outputs": ["{projectRoot}/coverage"]
     }
   }
 }

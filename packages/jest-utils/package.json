@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-jest-utils",
-  "version": "1.4.0-alpha.8",
+  "version": "1.4.0-alpha.9",
   "description": "Jest extensions for easier testing",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -27,6 +27,7 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "postbuild": "pnpm pack",
+    "lint": "eslint . --ext .ts",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {

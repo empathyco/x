@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.3...@empathyco/x-tailwindcss@1.0.0-alpha.4) (2023-02-08)
+
+### Features
+
+- **design-system:** add layout item utilities (#1064)
+  ([792fabc](https://github.com/empathyco/x/commit/792fabcfd5f68b38302465e5867c477657e2749d)),
+  closes [EX-7824](https://searchbroker.atlassian.net/browse/EX-7824)
+
+### Continuous Integration
+
+- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+  ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
+  closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.2...@empathyco/x-tailwindcss@1.0.0-alpha.3) (2023-02-07)
 
 ### Features

@@ -5,6 +5,7 @@ export { default as XdsIcon } from './components/xds-icon.vue';
 export { default as XdsInput } from './components/xds-input.vue';
 export { default as XdsInputGroup } from './components/xds-input-group.vue';
 export { default as XdsLayout } from './components/xds-layout.vue';
+export { default as XdsLayoutTwoColumns } from './components/xds-layout-two-columns.vue';
 export { default as XdsPicture } from './components/xds-picture.vue';
 export { default as XdsShowCase } from './components/xds-showcase.vue';
 export { default as XdsSlindingPanel } from './components/xds-sliding-panel.vue';

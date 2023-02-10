@@ -19,7 +19,8 @@ export function item(helpers: TailwindHelpers) {
       justifyItems: 'stretch',
       alignItems: 'start',
 
-      gridTemplateColumns: 'var(--x-margin-left) 1fr var(--x-margin-right)',
+      gridTemplateColumns:
+        'var(--x-margin-left) 1fr calc(var(--x-margin-right) - var(--x-layout-scroll-width,0px))',
 
       '& > *': {
         gridColumn: '2/-2'

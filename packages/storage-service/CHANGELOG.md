@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.8...@empathyco/x-storage-service@2.0.0-alpha.9) (2023-02-08)
+
+### Continuous Integration
+
+- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+  ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
+  closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.7...@empathyco/x-storage-service@2.0.0-alpha.8) (2023-02-07)
 
 ### Continuous Integration

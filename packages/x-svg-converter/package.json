@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-svg-converter",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "private": true,
   "description": "A project which allows the user to convert SVGs into Vue components formatted to be used with the x-tailwindcss design system.",
   "author": "Empathy Systems Corporation S.L.",
@@ -29,6 +29,7 @@
     "prebuild": "rimraf dist ./*.tgz",
     "build": "tsc --project tsconfig.build.json",
     "postbuild": "pnpm pack",
+    "lint": "eslint . --ext .ts",
     "test": "jest -i"
   },
   "devDependencies": {

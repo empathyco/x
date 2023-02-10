@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.63](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.62...@empathyco/x-adapter-platform@1.0.0-alpha.63) (2023-02-08)
+
+### Continuous Integration
+
+- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+  ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
+  closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.62](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.61...@empathyco/x-adapter-platform@1.0.0-alpha.62) (2023-02-07)
 
 ### Continuous Integration

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@1.0.0-alpha.1...@empathyco/x-svg-converter@1.0.0-alpha.2) (2023-02-08)
+
+### Continuous Integration
+
+- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+  ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
+  closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@1.0.0-alpha.0...@empathyco/x-svg-converter@1.0.0-alpha.1) (2023-02-07)
 
 ### Continuous Integration
