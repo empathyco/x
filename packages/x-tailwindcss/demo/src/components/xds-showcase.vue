@@ -12,6 +12,8 @@
     <XdsScroll />
     <XdsLayout />
     <XdsLayoutUtils />
+    <XdsLayoutFixedHeader />
+    <XdsLayoutSingleColumn />
     <XdsLayoutTwoColumns />
   </div>
 </template>
@@ -30,6 +32,8 @@
   import XdsScroll from './xds-scroll.vue';
   import XdsLayout from './xds-layout.vue';
   import XdsLayoutUtils from './xds-layout-utils.vue';
+  import XdsLayoutFixedHeader from './xds-layout-fixed-header.vue';
+  import XdsLayoutSingleColumn from './xds-layout-single-column.vue';
   import XdsLayoutTwoColumns from './xds-layout-two-columns.vue';
 
   @Component({
@@ -41,6 +45,8 @@
       XdsInput,
       XdsLayout,
       XdsScroll,
+      XdsLayoutFixedHeader,
+      XdsLayoutSingleColumn,
       XdsLayoutTwoColumns,
       XdsSuggestion,
       XdsSuggestionGroup,
