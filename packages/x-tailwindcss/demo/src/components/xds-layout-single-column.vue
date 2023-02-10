@@ -27,9 +27,9 @@
           <div class="x-flex x-justify-center x-p-16 x-title3">SUB HEADER</div>
         </div>
 
-        <div class="x-layout-item x-layout-expand x-layout-no-margin-right x-bg-neutral-25">
-          <div class="x-scroll x-layout-expand">
-            <div class="x-flex x-flex-col x-justify-between x-h-[2000px] x-p-12">
+        <div class="x-scroll">
+          <div class="x-layout-item x-layout-expand">
+            <div class="x-flex x-flex-col x-justify-between x-h-[2000px] x-p-12 x-bg-neutral-25">
               <section>MAIN</section>
               <span class="x-place-self-end">MAIN BOTTOM</span>
             </div>
