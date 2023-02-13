@@ -1,4 +1,4 @@
-import { And, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 // Scenario 1
 Then('at least {int} related results are displayed', (minResultsWithoutPartials: number) => {
@@ -7,7 +7,7 @@ Then('at least {int} related results are displayed', (minResultsWithoutPartials:
     .should('have.length.at.least', minResultsWithoutPartials);
 });
 
-And('no partial results are displayed', () => {
+Then('no partial results are displayed', () => {
   cy.getByDataTest('partial-result-item').should('not.exist');
 });
 
@@ -18,12 +18,12 @@ Then('less than {int} related results are displayed', (minResultsWithoutPartials
     .should('have.length.at.most', minResultsWithoutPartials - 1);
 });
 
-And('partial results are displayed', () => {
+Then('partial results are displayed', () => {
   cy.getByDataTest('partial-result-item').should('be.visible');
 });
 
 // Scenario 3
-And('{string} contains the partial query', function (this: { searchedQuery: string }) {
+Then('{string} contains the partial query', function () {
   cy.getByDataTest('partial-query').should(partialQueries => {
     partialQueries.each((_, e) => {
       const wordsInPartialQuery = e.innerText.split(' ');
@@ -34,14 +34,11 @@ And('{string} contains the partial query', function (this: { searchedQuery: stri
   });
 });
 
-When('first partial query button is clicked', function (this: { partialQueryButtonText: string }) {
+When('first partial query button is clicked', function () {
   cy.getByDataTest('partial-query').first().invoke('text').as('partialQueryButtonText');
   cy.getByDataTest('partial-query-button').first().click();
 });
 
-Then(
-  'first partial query is displayed in the search-box',
-  function (this: { partialQueryButtonText: string }) {
-    cy.getByDataTest('search-input').should('have.value', this.partialQueryButtonText);
-  }
-);
+Then('first partial query is displayed in the search-box', function () {
+  cy.getByDataTest('search-input').should('have.value', this.partialQueryButtonText);
+});

@@ -4,7 +4,9 @@ import { Component, Prop } from 'vue-property-decorator';
 import { XInject, XProvide } from '../injection.decorators';
 
 @Component({
-  template: `<div><slot/></div>`,
+  template: `
+    <div><slot /></div>
+  `,
   provide: {
     defaultInjectWayValue: 'DefaultInjectValue'
   }
@@ -23,7 +25,9 @@ class Provider extends Vue {
 }
 
 @Component({
-  template: `<div><slot/></div>`,
+  template: `
+    <div><slot /></div>
+  `,
   inject: ['defaultInjectWayValue']
 })
 class FilterItems extends Vue {
@@ -39,7 +43,9 @@ class FilterItems extends Vue {
 }
 
 @Component({
-  template: `<div><slot/></div>`,
+  template: `
+    <div><slot /></div>
+  `,
   inject: ['defaultInjectWayValue']
 })
 class Child extends Vue {

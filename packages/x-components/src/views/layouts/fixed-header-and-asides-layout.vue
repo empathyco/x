@@ -6,7 +6,7 @@
           <ChevronRight />
         </BaseIdModalOpen>
         <span
-          class="x-title1 x-list__item--expand x-list x-list--horizontal x-list--justify-center"
+          class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-title1"
         >
           HEADER
         </span>
@@ -19,32 +19,20 @@
       </div>
     </template>
     <template #sub-header>
-      <span class="x-title2 x-list__item--expand x-list x-list--horizontal x-list--justify-center">
+      <span class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-title2">
         SUB-HEADER
       </span>
     </template>
     <template #toolbar>
       <div
-        class="
-          x-title3
-          x-font-color--neutral-70
-          x-list__item--expand
-          x-border-width--02
-          x-border-color--neutral-70
-          x-margin--top-03
-        "
+        class="x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-title3"
       >
         TOOLBAR
       </div>
     </template>
     <template #left-aside>
       <div
-        class="
-          x-background--neutral-100
-          x-list__item--expand
-          x-border-radius--right-06
-          x-padding--05
-        "
+        class="x-background--neutral-100 x-list__item--expand x-border-radius--right-06 x-padding--05"
       >
         LEFT SIDE
       </div>
@@ -70,7 +58,7 @@
         class="x-list__item--stretch x-margin--top-05 x-margin--bottom-05 x-background--neutral-95"
       >
         MAIN
-        <div class="x-grid x-grid--cols-auto">
+        <div class="x-grid-list x-grid-list--cols-auto">
           <article
             v-for="i in 100"
             :key="i"
@@ -81,13 +69,7 @@
     </template>
     <template #scroll-to-top>
       <div
-        class="
-          x-text
-          x-padding--03
-          x-background--neutral-95
-          x-border-width--01
-          x-border-color--neutral-35
-        "
+        class="x-padding--03 x-background--neutral-95 x-border-width--01 x-border-color--neutral-35 x-text1 x-text1-lg"
       >
         SCROLL TO TOP
       </div>

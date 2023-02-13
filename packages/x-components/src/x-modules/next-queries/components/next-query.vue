@@ -6,15 +6,16 @@
     data-test="next-query"
     feature="next_query"
     :class="{ 'x-next-query--is-curated': shouldHighlightCurated }"
+    #default="baseScope"
   >
-    <template #default="{ suggestion }">
-      <!--
+    <!-- eslint-disable max-len -->
+    <!--
         @slot Next Query content
-            @binding {Suggestion} suggestion - Next Query suggestion data
+            @binding {Object} v-bind - `BaseSuggestion` default slot scope: **suggestion** <code>Suggestion</code> - Suggestion data<br /> **query** <code>string</code> - The query that the suggestion belongs to<br /> **filter** <code>Filter \| undefined</code> - Suggestion's filter
             @binding {boolean} shouldHighlightCurated - True if the curated NQ should be highlighted
-      -->
-      <slot v-bind="{ suggestion, shouldHighlightCurated }">{{ suggestion.query }}</slot>
-    </template>
+    -->
+    <!-- eslint-enable max-len -->
+    <slot v-bind="{ ...baseScope, shouldHighlightCurated }" />
   </BaseSuggestion>
 </template>
 
@@ -126,7 +127,7 @@ The default slot allows you to replace the content of the suggestion button.
 <template>
   <NextQuery :suggestion="suggestion">
     <template #default="{ suggestion }">
-      <Nq1Icon />
+      <TrendingIcon />
       <span class="x-next-query__query" :aria-label="suggestion.query">{{ suggestion.query }}</span>
     </template>
   </NextQuery>
@@ -134,13 +135,13 @@ The default slot allows you to replace the content of the suggestion button.
 
 <script>
   import { NextQuery } from '@empathyco/x-components/next-queries';
-  import { Nq1Icon } from '@empathyco/x-components';
+  import { TrendingIcon } from '@empathyco/x-components';
 
   export default {
     name: 'NextQueryDemo',
     components: {
       NextQuery,
-      Nq1Icon
+      TrendingIcon
     },
     data() {
       return {

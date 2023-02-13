@@ -5,7 +5,7 @@ import { MutableSchema, Schema } from './types';
 /**
  * Collection of internal method names for {@link MutableSchema | mutable schemas}.
  */
-const mutableSchemasInternalMethods = ['$replace', '$override', '$extends', 'toString'];
+const mutableSchemasInternalMethods: string[] = ['$replace', '$override', '$extends', 'toString'];
 
 /**
  * Creates a {@link MutableSchema | mutable schema } version of a given {@link Schema | schema}.
@@ -16,32 +16,30 @@ const mutableSchemasInternalMethods = ['$replace', '$override', '$extends', 'toS
  *
  * @public
  */
-export function createMutableSchema<T extends Schema>(schema: T): MutableSchema<T> {
+export function createMutableSchema<Source, Target>(
+  schema: Schema<Source, Target>
+): MutableSchema<Source, Target> {
   return {
     ...schema,
-    $replace: function <Source = any, Target = any>(
-      newSchema: Schema<Source, Target>
-    ): MutableSchema<Schema<Source, Target>> {
-      Object.keys(this).forEach(key => {
-        if (isInternalMethod(key)) {
+    $replace(newSchema) {
+      forEach(this, key => {
+        if (isInternalMethod(key as string)) {
           return;
         }
         delete this[key];
       });
       Object.assign(this, newSchema);
-      return this;
+      /* We are replacing the schema with a completely new schema , so it makes sense that TS
+       complains that the old schema and the new one are not the same. */
+      return this as any;
     },
-    $override: function <Source = any, Target = any>(
-      newSchema: Schema<Source, Target>
-    ): MutableSchema<Schema<Source, Target>> {
+    $override(newSchema) {
       return deepMerge(this, newSchema);
     },
-    $extends: function <Source = any, Target = any>(
-      newSchema: Schema<Source, Target>
-    ): MutableSchema<Schema<Source, Target>> {
+    $extends(newSchema: unknown) {
       return deepMerge({}, this, newSchema);
     },
-    toString: function (includeInternalMethods = false) {
+    toString(includeInternalMethods = false) {
       return serialize(this, !!includeInternalMethods);
     }
   };

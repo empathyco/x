@@ -3,6 +3,87 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.31...@empathyco/x-deep-merge@1.3.0-alpha.32) (2023-02-08)
+
+### Continuous Integration
+
+- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+  ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
+  closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.3.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.30...@empathyco/x-deep-merge@1.3.0-alpha.31) (2023-02-07)
+
+### Continuous Integration
+
+- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+  ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
+  closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.3.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.29...@empathyco/x-deep-merge@1.3.0-alpha.30) (2023-01-25)
+
+### Build System
+
+- **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
+  (#993)
+  ([500ab57](https://github.com/empathyco/x/commit/500ab57e4729f5c4dcefaa31ed4a8497ddd349b9)),
+  closes [EX-7288](https://searchbroker.atlassian.net/browse/EX-7288)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.3.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.28...@empathyco/x-deep-merge@1.3.0-alpha.29) (2023-01-23)
+
+### Styling
+
+- update prettier and format code (#1026)
+  ([a18cc17](https://github.com/empathyco/x/commit/a18cc172b6638962d53192905cd466f12bccacac)),
+  closes [EX-7877](https://searchbroker.atlassian.net/browse/EX-7877)
+
+## [1.3.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.27...@empathyco/x-deep-merge@1.3.0-alpha.28) (2023-01-20)
+
+**Note:** Version bump only for package @empathyco/x-deep-merge
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.3.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.26...@empathyco/x-deep-merge@1.3.0-alpha.27) (2023-01-06)
+
+### Build System
+
+- **deps:** update dependencies
+  ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.3.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.25...@empathyco/x-deep-merge@1.3.0-alpha.26) (2022-12-19)
+
+### Continuous Integration
+
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.3.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.24...@empathyco/x-deep-merge@1.3.0-alpha.25) (2022-11-28)
 
 **Note:** Version bump only for package @empathyco/x-deep-merge

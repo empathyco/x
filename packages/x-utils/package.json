@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-utils",
-  "version": "1.0.0-alpha.11",
+  "version": "1.0.0-alpha.17",
   "description": "A utility package for Empathy search",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -22,27 +22,28 @@
     "directory": "packages/x-utils"
   },
   "engines": {
-    "node": "16"
+    "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "prebuild": "rimraf ./dist ./types",
     "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
     "test": "jest",
-    "postbuild": "npm pack",
-    "prepublishOnly": "npm run build"
+    "postbuild": "pnpm pack",
+    "lint": "eslint . --ext .ts",
+    "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-get-safe-property-chain": "^1.3.0-alpha.4",
-    "@empathyco/x-storage-service": "^2.0.0-alpha.4",
+    "@empathyco/x-storage-service": "^2.0.0-alpha.9",
     "nanoid": "~3.1.31",
-    "tslib": "~2.3.0"
+    "tslib": "~2.4.1"
   },
   "devDependencies": {
     "@types/jest": "~27.0.3",
     "jest": "~27.3.1",
     "rimraf": "~3.0.2",
     "ts-jest": "~27.0.7",
-    "typescript": "~4.6.2"
+    "typescript": "~4.9.4"
   },
   "publishConfig": {
     "access": "public"

@@ -1,12 +1,13 @@
 <template functional>
   <svg
-    :class="['x-picture__image x-picture__image--placeholder'].concat(data.staticClass, data.class)"
+    :class="[].concat(data.staticClass, data.class)"
     version="1.1"
     viewBox="0 0 256 371"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
+    style="background-color: #eef1f2"
   >
-    <rect height="371" width="256" x="0" y="0"></rect>
+    <rect height="371" width="256" x="0" y="0" fill="#EEF1F2"></rect>
     <path
       d="M162.40625,77 L162.40625,90.5625 L40.34375,90.5625 C36.5983809,90.5625 33.5625,93.5983809
       33.5625,97.34375 L33.5625,97.34375 L33.5625,236.969687 L96.628125,173.971875
@@ -41,6 +42,7 @@
        C183.887384,88.6368031 182.34531,88.6368031 181.414841,87.6918832 C180.466611,86.7485972
        180.466611,85.2139736 181.411064,84.2734376 C187.057027,78.6168059 194.564245,75.5
        202.54801,75.5 Z"
+      fill="#DBE2E5"
       fill-rule="nonzero"
     ></path>
   </svg>

@@ -9,6 +9,9 @@ export const searchEndpointAdapter = endpointAdapterFactory<SearchRequest, Searc
   requestMapper: searchRequestMapper,
   responseMapper: searchResponseMapper,
   defaultRequestOptions: {
-    id: 'search'
+    id: 'search',
+    parameters: {
+      internal: true
+    }
   }
 });

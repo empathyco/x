@@ -6,19 +6,21 @@ import { TailwindHelpers } from '../../../types';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the variant.
  */
-// eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function suggestionSizes({ theme }: TailwindHelpers) {
   return {
+    sm: {
+      minHeight: theme('spacing.24'),
+      gap: theme('spacing.8'),
+      fontSize: theme('fontSize.sm')
+    },
     md: {
-      paddingTop: theme('spacing.2'),
-      paddingBottom: theme('spacing.2'),
+      minHeight: theme('spacing.32'),
       gap: theme('spacing.8'),
       fontSize: theme('fontSize.sm')
     },
     lg: {
-      paddingTop: theme('spacing.4'),
-      paddingBottom: theme('spacing.4'),
-      gap: theme('spacing.16'),
+      minHeight: theme('spacing.48'),
+      gap: theme('spacing.24'),
       fontSize: theme('fontSize.md')
     }
   };

@@ -3,6 +3,758 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.311](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.310...@empathyco/x-components@3.0.0-alpha.311) (2023-02-10)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.310](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.309...@empathyco/x-components@3.0.0-alpha.310) (2023-02-08)
+
+### Bug Fixes
+
+- **search:** reset `query`, `page` and `sort` on clear query (#1045)
+  ([5dc0603](https://github.com/empathyco/x/commit/5dc060304980f5c373cd1aa8aebd4d3932723a35)),
+  closes [EX-7663](https://searchbroker.atlassian.net/browse/EX-7663)
+
+### Continuous Integration
+
+- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+  ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
+  closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.309](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.308...@empathyco/x-components@3.0.0-alpha.309) (2023-02-07)
+
+### Continuous Integration
+
+- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+  ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
+  closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.308](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.307...@empathyco/x-components@3.0.0-alpha.308) (2023-02-06)
+
+### ⚠ BREAKING CHANGES
+
+- **design-system:** Old design-system `Icon` styles are now located in the
+  `deprecated-full-theme.css` file. Removed `checkbox-card`, `nq1`, `nq2`, `nq3`, and `nq4 icons`.
+
+### Features
+
+- **design-system:** add `icon` to XDS (#1053)
+  ([21605ab](https://github.com/empathyco/x/commit/21605abc99f5da05556cfa7edb4213c61c205b78)),
+  closes [EX-7783](https://searchbroker.atlassian.net/browse/EX-7783)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.307](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.306...@empathyco/x-components@3.0.0-alpha.307) (2023-02-03)
+
+### Build System
+
+- **deps:** update deps (#1062)
+  ([59f29b9](https://github.com/empathyco/x/commit/59f29b9c5861f790a65b061eec628eb35d066b68))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.306](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.305...@empathyco/x-components@3.0.0-alpha.306) (2023-02-01)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.305](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.304...@empathyco/x-components@3.0.0-alpha.305) (2023-01-30)
+
+### Features
+
+- **history-queries:** emit click event on HistoryQuery click (#1048)
+  ([2e7d074](https://github.com/empathyco/x/commit/2e7d07484571a9458a14fab4435b10523f6e7457)),
+  closes [EX-7879](https://searchbroker.atlassian.net/browse/EX-7879)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.304](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.303...@empathyco/x-components@3.0.0-alpha.304) (2023-01-30)
+
+### Features
+
+- **history-queries:** bind formatTime callback to MyHistory suggestion slot (#1049)
+  ([0e20cf3](https://github.com/empathyco/x/commit/0e20cf3315b2f2a687ee63b14bb50bac021eb57f)),
+  closes [EX-7879](https://searchbroker.atlassian.net/browse/EX-7879)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.303](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.302...@empathyco/x-components@3.0.0-alpha.303) (2023-01-27)
+
+### Build System
+
+- **deps:** update deps (#1046)
+  ([b6957df](https://github.com/empathyco/x/commit/b6957df9d88c0d94c2543047991a63afadd707ff))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.302](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.301...@empathyco/x-components@3.0.0-alpha.302) (2023-01-26)
+
+### ⚠ BREAKING CHANGES
+
+- **components:** class `x-picture__image` renamed to `x-picture-image`, deprecate classes
+  `x-picture__image--placeholder` and `x-picture__image--fallback`
+
+### Features
+
+- **components:** deprecate x-picture\_\_image and placeholder/fallback styles (#1036)
+  ([73a08a5](https://github.com/empathyco/x/commit/73a08a576b3f9b715cccefee8cb452d00cd45bcb)),
+  closes [EX-7888](https://searchbroker.atlassian.net/browse/EX-7888)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.301](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.300...@empathyco/x-components@3.0.0-alpha.301) (2023-01-25)
+
+### Documentation
+
+- correcting `video-reference` id (#1038)
+  ([bc46163](https://github.com/empathyco/x/commit/bc461638d10ecc9160d3c58bd9c7bfdc26d5df1e))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.300](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.299...@empathyco/x-components@3.0.0-alpha.300) (2023-01-25)
+
+### Build System
+
+- **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
+  (#993)
+  ([500ab57](https://github.com/empathyco/x/commit/500ab57e4729f5c4dcefaa31ed4a8497ddd349b9)),
+  closes [EX-7288](https://searchbroker.atlassian.net/browse/EX-7288)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.299](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.298...@empathyco/x-components@3.0.0-alpha.299) (2023-01-24)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.298](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.297...@empathyco/x-components@3.0.0-alpha.298) (2023-01-24)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.297](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.296...@empathyco/x-components@3.0.0-alpha.297) (2023-01-24)
+
+### Features
+
+- add `prettier-plugin-tailwindcss` (#1033)
+  ([c3eae8b](https://github.com/empathyco/x/commit/c3eae8bef0a75fa1e78f1190947a74fa9269d6bd)),
+  closes [EX-7884](https://searchbroker.atlassian.net/browse/EX-7884)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.296](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.295...@empathyco/x-components@3.0.0-alpha.296) (2023-01-24)
+
+### Features
+
+- remove duplicates from image placeholder/fallback classes (#1032)
+  ([2c5390c](https://github.com/empathyco/x/commit/2c5390c0e5cf2d4bc0b843422d2e99415b6e58ff)),
+  closes [EX-7836](https://searchbroker.atlassian.net/browse/EX-7836)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.295](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.294...@empathyco/x-components@3.0.0-alpha.295) (2023-01-24)
+
+### ⚠ BREAKING CHANGES
+
+- **components:** Renamed `SlidingPanel` css classes `x-sliding-panel--at-start` and
+  `x-sliding-panel--at-end` to `x-sliding-panel-at-start` and `x-sliding-panel-at-end` respectively.
+- **components:** Renamed `SlidingPanel` buttons css classes `x-sliding-panel__button-left` and
+  `x-sliding-panel__button-right` to `x-sliding-panel-button-left` and
+  `x-sliding-panel-button-right` respectively.
+- **components:** Old design-system `SlidingPanel` styles (including the updated button classes) are
+  now located in the `deprecated-full-theme.css` file.
+
+### Features
+
+- **components:** use XDS `sliding panel` (#1028)
+  ([9773003](https://github.com/empathyco/x/commit/97730036b473678b8487a386bc6d83bd3ecf872d)),
+  closes [EX-7831](https://searchbroker.atlassian.net/browse/EX-7831)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.294](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.293...@empathyco/x-components@3.0.0-alpha.294) (2023-01-23)
+
+### ⚠ BREAKING CHANGES
+
+- **design-system:** `picture` and some `result` styles related are now deprecated. To continue
+  using them import from `deprecated-full-theme.css`.
+- Rename `x-result-picture__image` to `x-result-picture-image`.
+
+### Features
+
+- **design-system:** add `product-image` `XDS` component (#1025)
+  ([d60e239](https://github.com/empathyco/x/commit/d60e239012d04d547b5430eb8afc22536f66d838))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.293](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.292...@empathyco/x-components@3.0.0-alpha.293) (2023-01-23)
+
+### Styling
+
+- update prettier and format code (#1026)
+  ([a18cc17](https://github.com/empathyco/x/commit/a18cc172b6638962d53192905cd466f12bccacac)),
+  closes [EX-7877](https://searchbroker.atlassian.net/browse/EX-7877)
+
+## [3.0.0-alpha.292](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.291...@empathyco/x-components@3.0.0-alpha.292) (2023-01-23)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.291](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.290...@empathyco/x-components@3.0.0-alpha.291) (2023-01-20)
+
+### Build System
+
+- **deps:** update dependencies (#1024)
+  ([e99425f](https://github.com/empathyco/x/commit/e99425fc315526afe40b1fd536bcfde1fc1af08a))
+
+## [3.0.0-alpha.290](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.289...@empathyco/x-components@3.0.0-alpha.290) (2023-01-20)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [3.0.0-alpha.289](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.288...@empathyco/x-components@3.0.0-alpha.289) (2023-01-19)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [3.0.0-alpha.288](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.287...@empathyco/x-components@3.0.0-alpha.288) (2023-01-18)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [3.0.0-alpha.287](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.286...@empathyco/x-components@3.0.0-alpha.287) (2023-01-18)
+
+### Features
+
+- **components:** add `contentClass` to `modals` (#1009)
+  ([68b8790](https://github.com/empathyco/x/commit/68b8790289dd6e233c0199497cdb09f515ccbeec)),
+  closes [EX-7479](https://searchbroker.atlassian.net/browse/EX-7479)
+
+## [3.0.0-alpha.286](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.285...@empathyco/x-components@3.0.0-alpha.286) (2023-01-18)
+
+### ⚠ BREAKING CHANGES
+
+- **history-queries:** Renamed `removeHistoryQueryClass` prop to `removeButtonClass`.
+
+### Features
+
+- **history-queries:** add dynamic classes to the history query suggestion (#1014)
+  ([ddd4ac7](https://github.com/empathyco/x/commit/ddd4ac76f30f90bb68497d507948caee060944cf)),
+  closes [EX-7853](https://searchbroker.atlassian.net/browse/EX-7853)
+
+## [3.0.0-alpha.285](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.284...@empathyco/x-components@3.0.0-alpha.285) (2023-01-17)
+
+### ⚠ BREAKING CHANGES
+
+- Rename `x-grid` class to `x-grid-list`.
+- Rename `x-grid__item` class to `x-grid-list__item`.
+- Rename `x-grid--cols-{cols}` class to `x-grid-list--cols-{cols}`.
+
+### Features
+
+- rename `x-grid` class to `x-grid-list` (#1015)
+  ([dbb5d50](https://github.com/empathyco/x/commit/dbb5d502dd9c1e69c18d137edc8be2e13bceaeb2)),
+  closes [EX-7481](https://searchbroker.atlassian.net/browse/EX-7481)
+
+## [3.0.0-alpha.284](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.283...@empathyco/x-components@3.0.0-alpha.284) (2023-01-17)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [3.0.0-alpha.283](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.282...@empathyco/x-components@3.0.0-alpha.283) (2023-01-17)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [3.0.0-alpha.282](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.281...@empathyco/x-components@3.0.0-alpha.282) (2023-01-17)
+
+### Features
+
+- add dynamic classes to the suggestion item inside the `base-suggestions` (#1008)
+  ([3e0b683](https://github.com/empathyco/x/commit/3e0b683eb83b9b2e9f6ebb0a17b80a9ff46d6e3c)),
+  closes [EX-7834](https://searchbroker.atlassian.net/browse/EX-7834)
+
+## [3.0.0-alpha.281](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.280...@empathyco/x-components@3.0.0-alpha.281) (2023-01-16)
+
+### Features
+
+- **history-queries:** add dynamic classes to the remove history query button (#1007)
+  ([b5623d1](https://github.com/empathyco/x/commit/b5623d1c6f7f2709251164c6055b616218163c6f)),
+  closes [EX-7833](https://searchbroker.atlassian.net/browse/EX-7833)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.280](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.279...@empathyco/x-components@3.0.0-alpha.280) (2023-01-13)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.279](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.278...@empathyco/x-components@3.0.0-alpha.279) (2023-01-13)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.278](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.277...@empathyco/x-components@3.0.0-alpha.278) (2023-01-13)
+
+### Build System
+
+- **deps:** update dependencies (#1004)
+  ([7343506](https://github.com/empathyco/x/commit/73435063e97648ed5bb87600bb7cfbb5eb64b70c))
+
+## [3.0.0-alpha.277](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.276...@empathyco/x-components@3.0.0-alpha.277) (2023-01-12)
+
+### Documentation
+
+- assets migration (#995)
+  ([04678f1](https://github.com/empathyco/x/commit/04678f104a9e9383af7284d349f26e6c0f5454df))
+
+## [3.0.0-alpha.276](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.275...@empathyco/x-components@3.0.0-alpha.276) (2023-01-11)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [3.0.0-alpha.275](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.274...@empathyco/x-components@3.0.0-alpha.275) (2023-01-10)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [3.0.0-alpha.274](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.273...@empathyco/x-components@3.0.0-alpha.274) (2023-01-09)
+
+### Features
+
+- **history-queries:** expose `historyQueriesWithResults` in the alias API (#991)
+  ([90c17f5](https://github.com/empathyco/x/commit/90c17f54a1bc1a4c613d06e64dd630f9e1efca61)),
+  closes [EX-7476](https://searchbroker.atlassian.net/browse/EX-7476)
+
+## [3.0.0-alpha.273](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.272...@empathyco/x-components@3.0.0-alpha.273) (2023-01-09)
+
+### ⚠ BREAKING CHANGES
+
+- **design-system:** suggestion and suggestion group styles are now deprecated. To continue using
+  them import from `deprecated-full-theme.css`.
+
+### Features
+
+- **design-system:** deprecate old suggestion and suggestion group styles (#975)
+  ([69d8bc5](https://github.com/empathyco/x/commit/69d8bc59ce43660b3295dcafa9283598d1143336)),
+  closes [EX-7725](https://searchbroker.atlassian.net/browse/EX-7725)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.272](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.271...@empathyco/x-components@3.0.0-alpha.272) (2023-01-09)
+
+### Features
+
+- **design-system:** deprecate old typography styles (#973)
+  ([15d6d64](https://github.com/empathyco/x/commit/15d6d64c18fe28664e873802fe34073158c30648)),
+  closes [EX-7726](https://searchbroker.atlassian.net/browse/EX-7726)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.271](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.270...@empathyco/x-components@3.0.0-alpha.271) (2023-01-06)
+
+### Build System
+
+- **deps:** update dependencies
+  ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.270](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.269...@empathyco/x-components@3.0.0-alpha.270) (2023-01-04)
+
+### Features
+
+- rename `search-types` to `x-types` (#928)
+  ([1ac0008](https://github.com/empathyco/x/commit/1ac00084a4f46f453741c6b04a7c18e88c637cee))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.269](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.268...@empathyco/x-components@3.0.0-alpha.269) (2023-01-04)
+
+### Features
+
+- add view to test base-result-link accessibility (#972)
+  ([21d185a](https://github.com/empathyco/x/commit/21d185a8a107f95be4436dabfbeffe83bc7dcd62))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.268](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.267...@empathyco/x-components@3.0.0-alpha.268) (2023-01-03)
+
+### Build System
+
+- **deps:** update `vue` to version `2.7` (#971)
+  ([09fb0fe](https://github.com/empathyco/x/commit/09fb0fe5dbef020565571a4fafc89d2aac544c8e)),
+  closes [EX-7730](https://searchbroker.atlassian.net/browse/EX-7730)
+
+## [3.0.0-alpha.267](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.266...@empathyco/x-components@3.0.0-alpha.267) (2023-01-03)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.266](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.265...@empathyco/x-components@3.0.0-alpha.266) (2023-01-02)
+
+### Continuous Integration
+
+- make Cypress cache depend on package. Make eslint cache restore last version if no exact match.
+  ([2498972](https://github.com/empathyco/x/commit/24989726d8e5c6c3450b344fbbc623a3f7246b53)),
+  closes [EX-7721](https://searchbroker.atlassian.net/browse/EX-7721)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.265](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.264...@empathyco/x-components@3.0.0-alpha.265) (2022-12-30)
+
+### Testing
+
+- **e2e:** update `cypress` to version `12.1.0` and replace `cypress-cucumber-preprocessor` with
+  `@badeball/cypress-cucumber-preprocessor` (#747)
+  ([2adb2cd](https://github.com/empathyco/x/commit/2adb2cd03591c37934fb385b120822ef271c359f))
+
+## [3.0.0-alpha.264](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.263...@empathyco/x-components@3.0.0-alpha.264) (2022-12-30)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [3.0.0-alpha.263](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.262...@empathyco/x-components@3.0.0-alpha.263) (2022-12-30)
+
+### Features
+
+- **design-system:** Add suggestion group component (#943)
+  ([4bac818](https://github.com/empathyco/x/commit/4bac8183a29ec17a99a90edeae55ba3d4301b626)),
+  closes [EX-7496](https://searchbroker.atlassian.net/browse/EX-7496)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.262](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.261...@empathyco/x-components@3.0.0-alpha.262) (2022-12-29)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [3.0.0-alpha.261](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.260...@empathyco/x-components@3.0.0-alpha.261) (2022-12-29)
+
+### Bug Fixes
+
+- **build:** use the default `vue-cli` `webpack` configuration in `rollup-plugin-vue` (#961)
+  ([f9a9238](https://github.com/empathyco/x/commit/f9a9238cf4a05a6a35129336f318c9440cb6732d)),
+  closes [EX-7706](https://searchbroker.atlassian.net/browse/EX-7706)
+
+## [3.0.0-alpha.260](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.259...@empathyco/x-components@3.0.0-alpha.260) (2022-12-26)
+
+### Documentation
+
+- fix typo in UrlHandler docs (#959)
+  ([75e4bbe](https://github.com/empathyco/x/commit/75e4bbe47d4298fccb5d26f6145ac3d203d64b2e))
+
+## [3.0.0-alpha.259](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.258...@empathyco/x-components@3.0.0-alpha.259) (2022-12-26)
+
+### Features
+
+- modify base-events-modal-close and base-events-modal-open for WCAG compliance (#946)
+  ([1f5abdf](https://github.com/empathyco/x/commit/1f5abdf36c6eec18b73f13a78be4c7616016d6fd)),
+  closes [EX-7669](https://searchbroker.atlassian.net/browse/EX-7669)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.258](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.257...@empathyco/x-components@3.0.0-alpha.258) (2022-12-26)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.257](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.256...@empathyco/x-components@3.0.0-alpha.257) (2022-12-23)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.256](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.255...@empathyco/x-components@3.0.0-alpha.256) (2022-12-22)
+
+### Bug Fixes
+
+- **components:** image flickering on re-rendering (#945)
+  ([3b1b558](https://github.com/empathyco/x/commit/3b1b55857ac1c5169a771c465fa32fb4313ab63c)),
+  closes [EX-7610](https://searchbroker.atlassian.net/browse/EX-7610)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.255](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.254...@empathyco/x-components@3.0.0-alpha.255) (2022-12-22)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.254](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.253...@empathyco/x-components@3.0.0-alpha.254) (2022-12-20)
+
+### ⚠ BREAKING CHANGES
+
+- Rename `NextQueryPreviewMounted` to `NextQueryPreviewMountedHook` and `QueryPreviewRemoved` to
+  `QueryPreviewUnmountedHook`
+
+### Features
+
+- Rename lifecycle hook events (#939)
+  ([e626b89](https://github.com/empathyco/x/commit/e626b899849b6742e0bce57d86a8ff89718817bf)),
+  closes [EX-7580](https://searchbroker.atlassian.net/browse/EX-7580)
+- **scroll:** capture listeners in MainScrollItem component (#942)
+  ([2719a3d](https://github.com/empathyco/x/commit/2719a3dd6c1408f9413ecbee4ebf3c46bf24eea2))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.253](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.252...@empathyco/x-components@3.0.0-alpha.253) (2022-12-19)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.252](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.251...@empathyco/x-components@3.0.0-alpha.252) (2022-12-16)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [3.0.0-alpha.251](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.250...@empathyco/x-components@3.0.0-alpha.251) (2022-12-15)
+
+### Documentation
+
+- use new docs video reference component (#923)
+  ([c1f2bff](https://github.com/empathyco/x/commit/c1f2bffa684c10149c97b4d746fecbe4519fa126))
+
+## [3.0.0-alpha.250](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.249...@empathyco/x-components@3.0.0-alpha.250) (2022-12-15)
+
+### Continuous Integration
+
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
+
+## [3.0.0-alpha.249](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.248...@empathyco/x-components@3.0.0-alpha.249) (2022-12-14)
+
+### Features
+
+- **recommendations:** emit `RecommendationsChanged` (#922)
+  ([11119c3](https://github.com/empathyco/x/commit/11119c353bb26ac5dc3fdd774a513b68a1098771))
+
+## [3.0.0-alpha.248](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.247...@empathyco/x-components@3.0.0-alpha.248) (2022-12-12)
+
+### Bug Fixes
+
+- remove warning when the event is not defined (#918)
+  ([7f70e25](https://github.com/empathyco/x/commit/7f70e257bae41ba34f72c1c580c79862448faea9)),
+  closes [EX-7617](https://searchbroker.atlassian.net/browse/EX-7617)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.247](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.246...@empathyco/x-components@3.0.0-alpha.247) (2022-12-09)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.246](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.245...@empathyco/x-components@3.0.0-alpha.246) (2022-12-09)
+
+### Build System
+
+- **deps:** update dependencies (#908)
+  ([840da52](https://github.com/empathyco/x/commit/840da52dec32e04cf2b402cca2646b49c839e6e8))
+
+### Code Refactoring
+
+- **plugin:** Rename `inputStatus` to `searchBoxStatus` in Alias API. (#913)
+  ([5cb837e](https://github.com/empathyco/x/commit/5cb837ed57db3fb5543a7f8e82d9beea0088cdd9)),
+  closes [EX-7597](https://searchbroker.atlassian.net/browse/EX-7597)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.245](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.244...@empathyco/x-components@3.0.0-alpha.245) (2022-12-09)
+
+### Features
+
+- **search-box:** add input status handling(#903)
+  ([c74b8fb](https://github.com/empathyco/x/commit/c74b8fbc9734541774c535792466333b78197146)),
+  closes [EX-6474](https://searchbroker.atlassian.net/browse/EX-6474)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.244](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.243...@empathyco/x-components@3.0.0-alpha.244) (2022-12-08)
+
+### ⚠ BREAKING CHANGES
+
+- Removes `queryHTML` slot scope prop from `BaseSuggestion`, `PopularSearch` `QuerySuggestion` and
+  `HistoryQuery`. Use the new `Highlight` component instead.
+
+### Features
+
+- **components:** Use `Highlight` component inside suggestion components.(#894)
+  ([ceb9c0c](https://github.com/empathyco/x/commit/ceb9c0c729d9a7a3b8a983e5b23912d561f2bd4d)),
+  closes [EX-7469](https://searchbroker.atlassian.net/browse/EX-7469)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.243](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.242...@empathyco/x-components@3.0.0-alpha.243) (2022-12-08)
+
+### Testing
+
+- **e2e:** make `HistoryQueries` test wait for no results (#906)
+  ([82cc3dd](https://github.com/empathyco/x/commit/82cc3ddc0f1339fbff6c04e2eff7dfbf24598672)),
+  closes [EX-7591](https://searchbroker.atlassian.net/browse/EX-7591)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.242](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.241...@empathyco/x-components@3.0.0-alpha.242) (2022-12-07)
+
+### ⚠ BREAKING CHANGES
+
+- the event `SearchResponseProvided` was renamed to `SearchResponseChanged`
+
+### Code Refactoring
+
+- Simplify suggestions list slots. (#893)
+  ([fc4ccb9](https://github.com/empathyco/x/commit/fc4ccb97a91b4c2ff7dfd0d7aed9747d7841b4ed)),
+  closes [EX-7469](https://searchbroker.atlassian.net/browse/EX-7469)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.241](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.240...@empathyco/x-components@3.0.0-alpha.241) (2022-12-06)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.240](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.239...@empathyco/x-components@3.0.0-alpha.240) (2022-12-02)
 
 ### Features

@@ -1,12 +1,12 @@
 <template>
-  <div class="x">
+  <div class="x x-text-neutral-90">
     <Tagging :consent="false" />
     <SnippetConfigExtraParams :values="initialExtraParams" />
     <PreselectedFilters />
     <UrlHandler query="q" store="store" />
     <SnippetCallbacks />
     <OpenMainModal>Start</OpenMainModal>
-    <h1 class="x-font-bold x-text-4xl x-text-primary-50 x-leading-[1.5]">Test controls</h1>
+    <h1 class="x-text-primary-50 x-text-4xl x-font-bold x-leading-[1.5]">Test controls</h1>
     <ul class="x-test-controls x-list x-list--gap-05">
       <li class="x-test-controls__item x-list__item">
         <label for="searchInput.instant">
@@ -102,9 +102,7 @@
       <MultiColumnMaxWidthLayout class="x-background--neutral-100">
         <template #header-middle>
           <div
-            class="
-              x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand
-            "
+            class="x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand"
           >
             <BaseKeyboardNavigation>
               <div class="x-input-group x-input-group--card">
@@ -144,7 +142,7 @@
         </template>
 
         <template #header-end>
-          <CloseMainModal class="x-button x-button--ghost">
+          <CloseMainModal class="x-button--ghost x-button">
             <CrossIcon />
           </CloseMainModal>
         </template>
@@ -156,7 +154,7 @@
         <template #toolbar-aside>
           <BaseIdTogglePanelButton
             v-if="$x.totalResults > 0"
-            class="x-button x-button--ghost"
+            class="x-button--ghost x-button"
             panelId="aside-panel"
           >
             Toggle Aside
@@ -168,7 +166,7 @@
             v-if="$x.totalResults > 0"
             class="x-list x-list--horizontal x-list--align-center x-list--gap-04"
           >
-            <span>{{ $x.totalResults }} Results</span>
+            <span class="x-text1">{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
               #default="{ column }"
               v-model="selectedColumns"
@@ -226,13 +224,10 @@
               {{ redirection.url }}
             </a>
             <div class="x-list x-list--horizontal x-list--gap-07">
-              <button
-                @click="abortRedirect"
-                class="x-button x-button--ghost x-font-color--neutral-70"
-              >
+              <button @click="abortRedirect" class="x-button--ghost x-button x-text-neutral-25">
                 No, I'll stay here
               </button>
-              <button @click="redirect" class="x-button x-button--ghost x-font-color--neutral-10">
+              <button @click="redirect" class="x-button--ghost x-button x-text-neutral-90">
                 Yes, redirect me
               </button>
             </div>
@@ -241,16 +236,20 @@
 
           <template v-if="!$x.redirections.length">
             <!--  No Results Message  -->
-            <div v-if="$x.noResults" class="x-message x-margin--top-03 x-margin--bottom-03">
+            <div
+              v-if="$x.noResults"
+              class="x-message x-margin--top-03 x-margin--bottom-03"
+              data-test="no-results-message"
+            >
               <p>
                 There are no results for
-                <span class="x-font-weight--bold">{{ $x.query.search }}</span>
+                <span class="x-font-bold">{{ $x.query.search }}</span>
               </p>
               <p>You may be interested in these:</p>
             </div>
 
             <template v-if="!$x.query.searchBox">
-              <h1 class="x-title1 x-margin--bottom-05">Brand Recommendations</h1>
+              <h1 class="x-margin--bottom-05 x-title1">Brand Recommendations</h1>
               <LocationProvider location="no_results">
                 <BaseTabsPanel
                   initialTab="summer"
@@ -311,17 +310,17 @@
                             #default="{ results }"
                             class="x-row__item x-row__item--span-9 x-padding--top-06"
                           >
-                            <h1 class="x-title2 x-text--bold">Others clients have searched</h1>
+                            <h1 class="x-title2">Others clients have searched</h1>
                             <NextQuery
-                              class="x-text x-font-size--05"
+                              class="x-text1 x-text1-lg"
                               :suggestion="nextQueries[0]"
                               data-test="next-query-preview-name"
                             >
-                              <span class="x-font-weight--bold">{{ nextQueries[0].query }}</span>
+                              <span class="x-font-bold">{{ nextQueries[0].query }}</span>
                             </NextQuery>
                             <div class="x-margin--bottom-06">
                               <SlidingPanel :resetOnContentChange="false">
-                                <div class="x-list x-list--gap-03">
+                                <div class="x-flex x-flex-row x-gap-8">
                                   <Result
                                     v-for="result in results"
                                     :key="result.id"
@@ -335,18 +334,7 @@
                             <NextQuery
                               :suggestion="nextQueries[0]"
                               data-test="view-all-results"
-                              class="
-                                x-tag x-tag--pill
-                                x-font-weight--bold
-                                x-margin--left-auto x-margin--right-auto x-margin--top-03
-                                x-padding--top-04
-                                x-padding--bottom-04
-                                x-padding--right-05
-                                x-padding--left-05
-                                x-font-color--lead
-                                x-border-color--lead
-                                x-margin--bottom-06
-                              "
+                              class="x-tag x-tag--pill x-margin--left-auto x-margin--right-auto x-margin--top-03 x-padding--top-04 x-padding--bottom-04 x-padding--right-05 x-padding--left-05 x-border-color--lead x-margin--bottom-06 x-font-bold x-text-lead-50"
                             >
                               {{ 'View all results' }}
                             </NextQuery>
@@ -424,7 +412,6 @@
   import Grid1Col from '../../components/icons/grid-1-col.vue';
   import Grid2Col from '../../components/icons/grid-2-col.vue';
   import LightBulbOn from '../../components/icons/light-bulb-on.vue';
-  import Nq1 from '../../components/icons/nq-1.vue';
   import SearchIcon from '../../components/icons/search.vue';
   import BaseEventButton from '../../components/base-event-button.vue';
   // eslint-disable-next-line max-len
@@ -519,7 +506,6 @@
       NextQueriesList,
       NextQueryPreview,
       NextQuery,
-      Nq1,
       OpenMainModal,
       PartialQueryButton,
       PartialResultsList,

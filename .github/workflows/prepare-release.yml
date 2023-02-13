@@ -7,23 +7,36 @@ jobs:
       image: cypress/browsers:node16.16.0-chrome105-ff104-edge
       # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
       options: --user 1001
+
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Install lerna and all packages
-        run: npm ci
-      - name: Run linter in all packages
-        run: npm run lint
-      - name: Run tests in all packages
-        run: npm run test
-      - name: Configure git user
+
+      # Install pnpm because it is not included in our container image
+      - name: install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: install dependencies
+        run: pnpm install
+
+      - name: lint packages
+        run: pnpm run lint
+
+      - name: test packages
+        run: pnpm run test
+
+      - name: configure git user
         run: |
           git config --local user.email "x@empathy.co"
           git config --local user.name "empathy/x"
-      - name: Prepare the release
-        run: npm run prepare-release:stable
-      - name: Create Pull Request
+
+      - name: prepare the release
+        run: pnpm run prepare-release:stable
+
+      - name: create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.SUPPORT_TOKEN }}

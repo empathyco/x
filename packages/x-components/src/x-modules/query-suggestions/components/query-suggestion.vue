@@ -1,21 +1,18 @@
 <template>
   <BaseSuggestion
     v-bind="{ query, suggestion, suggestionSelectedEvents: event }"
-    :aria-label="suggestion.query"
     class="x-query-suggestion"
     data-test="query-suggestion"
     feature="query_suggestion"
+    #default="baseScope"
   >
-    <template #default="{ suggestion, queryHTML }">
-      <!-- eslint-disable max-len -->
-      <!--
-        @slot Custom content that replaces the `QuerySuggestion` default content
-            @binding {Suggestion} suggestion - Query Suggestion data
-            @binding {string} queryHTML - Suggestion’s query with the matching part wrapped in a HTML span tag
-      -->
-      <!-- eslint-enable max-len -->
-      <slot v-bind="{ suggestion, queryHTML }" />
-    </template>
+    <!-- eslint-disable max-len -->
+    <!--
+        @slot Query Suggestion content
+          @binding {Object} v-bind - `BaseSuggestion` default slot scope: **suggestion** <code>Suggestion</code> - Suggestion data<br /> **query** <code>string</code> - The query that the suggestion belongs to<br /> **filter** <code>Filter \| undefined</code> - Suggestion's filter
+    -->
+    <!-- eslint-enable max-len -->
+    <slot v-bind="{ ...baseScope }" />
   </BaseSuggestion>
 </template>
 
@@ -113,13 +110,13 @@ Here you can see how a single query suggestion is rendered using the `suggestion
 
 ### Play with default slot
 
-In this example, the query suggestion is painted in blue by passing a color style in the HTML span
-element.
+In this example, we are adding an emoji next to the suggestion.
 
 ```vue live
 <template>
-  <QuerySuggestion :suggestion="suggestion" #default="{ queryHTML }">
-    <span v-html="queryHTML" style="color: blue;" />
+  <QuerySuggestion :suggestion="suggestion" #default="{ suggestion }">
+    <span>🔍</span>
+    <span>{{ suggestion.query }}</span>
   </QuerySuggestion>
 </template>
 

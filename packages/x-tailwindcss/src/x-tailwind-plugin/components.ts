@@ -4,6 +4,14 @@ import { button } from './components/button';
 import { icon } from './components/icon';
 import { suggestion } from './components/suggestion';
 import { highlight } from './components/highlight';
+import { typography } from './components/typography';
+import { input } from './components/input';
+import { suggestionGroup } from './components/suggestion-group';
+import { suggestionGroupButton } from './components/suggestion-group/button';
+import { slidingPanel } from './components/sliding-panel';
+import { picture } from './components/picture';
+import { layout } from './components/layout';
+import { scroll } from './components/scroll';
 
 /**
  * Default component styles.
@@ -13,14 +21,22 @@ import { highlight } from './components/highlight';
  *
  * @public
  */
-// eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export default function components(helpers: TailwindHelpers) {
   return {
     ...variables(helpers),
     ...button(helpers),
     ...icon(helpers),
     ...suggestion(helpers),
-    ...highlight(helpers)
+    ...highlight(helpers),
+    ...typography(helpers),
+    ...input(helpers),
+    ...typography(helpers),
+    ...suggestionGroup(helpers),
+    ...suggestionGroupButton(helpers),
+    ...slidingPanel(helpers),
+    ...picture(helpers),
+    ...layout(helpers),
+    ...scroll(helpers)
   };
 }
 

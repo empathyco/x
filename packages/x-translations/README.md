@@ -45,11 +45,8 @@ ts-node ./src/csv-to-json.ts ./src/__tests__/csv ./TargetPath
 
 ### Run it as a dependency
 
-1. `npm install`
-2. `npm run build`
-3. `npm install -g nameOfTgzGenerated.tgz`
-   - `npm install -g empathy-x-translations-0.1.0.tgz`
-4. run the command to transform a JSON to a CSV:
+1. `npm install @empathyco/x-translations`
+2. run the command to transform a JSON to a CSV:
 
    - `json-csv ./src/__tests__/json/en.messages.json`
    - `json-csv ./src/__tests__/json/en.messages.json ./TargetPath`
@@ -57,7 +54,7 @@ ts-node ./src/csv-to-json.ts ./src/__tests__/csv ./TargetPath
      - `json-csv ./src/__tests__/json`
      - `json-csv ./src/__tests__/json ./TargetPath`
 
-5. run the command to transform a CSV to a JSON:
+3. run the command to transform a CSV to a JSON:
    - `csv-json ./src/__tests__/csv/en_translations.csv`
    - `csv-json ./src/__tests__/csv/en_translations.csv ./TargetPath`
    - To transform multiple files, use the path where the files are stored:

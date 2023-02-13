@@ -7,7 +7,7 @@
       class="x-option-list__item x-sort-list__item"
     >
       <BaseEventButton
-        class="x-button x-sort-list__button"
+        class="x-sort-list__button x-button"
         data-test="x-sort-button"
         :events="event"
       >
@@ -18,12 +18,6 @@
     </li>
   </component>
 </template>
-
-<style lang="scss" scoped>
-  .x-sort-list {
-    list-style-type: none;
-  }
-</style>
 
 <script lang="ts">
   import { Sort } from '@empathyco/x-types';
@@ -90,6 +84,12 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .x-sort-list {
+    list-style-type: none;
+  }
+</style>
 
 <docs lang="mdx">
 ## Sort List

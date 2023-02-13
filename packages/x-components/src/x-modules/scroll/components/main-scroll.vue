@@ -205,7 +205,7 @@
       // TODO Move this logic to the wiring. A cancelable delay operator is needed
       clearTimeout(this.restoreScrollFailTimeoutId);
       if (pendingScrollTo) {
-        this.restoreScrollFailTimeoutId = setTimeout(() => {
+        this.restoreScrollFailTimeoutId = window.setTimeout(() => {
           this.$x.emit('ScrollRestoreFailed');
         }, this.restoreScrollTimeoutMs);
       }

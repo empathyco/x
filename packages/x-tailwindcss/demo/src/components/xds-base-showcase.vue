@@ -1,21 +1,21 @@
 <template>
   <div class="x-flex x-flex-col x-gap-32">
     <h1 class="x-text-lg">{{ title }}</h1>
-    <div v-for="(classes, section) in sections" :key="section" class="x-flex x-flex-row x-gap-16">
+    <div
+      v-for="(classes, section) in sections"
+      :key="section"
+      class="x-flex x-flex-row x-gap-16 x-items-baseline"
+    >
       <h2 class="x-text-md x-w-128 x-text-right x-flex-none">{{ section }}</h2>
 
-      <div class="x-flex x-flex-row x-flex-wrap x-gap-16">
+      <div class="x-flex x-flex-row x-flex-wrap x-gap-16 x-items-baseline">
         <div v-for="cssClass in classes" :key="cssClass">
           <slot v-bind="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }" />
         </div>
       </div>
     </div>
     <div
-      class="
-        x-fixed x-left-1/2 x-top-1/2
-        -translate-x-1/2 -translate-y-1/2
-        x-bg-neutral-25 x-p-8 x-transition-opacity x-duration-300 x-pointer-events-none
-      "
+      class="x-fixed x-left-1/2 x-top-1/2 x-bg-neutral-25 x-p-8 x-transition-opacity x-duration-300 x-pointer-events-none -translate-x-1/2 -translate-y-1/2"
       :class="isMessageVisible ? 'x-opacity-100' : 'x-opacity-0'"
     >
       CSS classes copied to Clipboard!

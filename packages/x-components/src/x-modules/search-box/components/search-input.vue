@@ -14,7 +14,7 @@
     :maxlength="maxLength"
     :value="query"
     autocomplete="off"
-    class="x-input x-search-input"
+    class="x-search-input x-input"
     enterkeyhint="search"
     inputmode="search"
     type="search"

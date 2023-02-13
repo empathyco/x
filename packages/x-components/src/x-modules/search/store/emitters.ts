@@ -17,13 +17,8 @@ export const searchEmitters = createStoreEmitters(searchXStoreModule, {
   PageChanged: state => state.page,
   ResultsChanged: state => state.results,
   SearchRequestChanged: (_, getters) => getters.request,
-  SearchRequestUpdated: {
-    selector: (_, getters) => getters.request!,
-    filter(newValue, oldValue): boolean {
-      return !!newValue && !!oldValue;
-    }
-  },
-  SearchResponseProvided: {
+  SearchRequestUpdated: { selector: (_, getters) => getters.request },
+  SearchResponseChanged: {
     selector: (state, getters) => {
       return {
         request: getters.request!,

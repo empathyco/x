@@ -43,7 +43,10 @@ export const VueChildrenWrapper = Vue.extend({
     renderReactComponent() {
       if (isReactComponentDefinition(this.slotContent)) {
         const ReactComponent = this.slotContent as any; // TODO Fix type.
-        ReactDOM.render(<ReactComponent {...this.reactProps} />, this.$el);
+        ReactDOM.render(
+          <ReactComponent {...(this.reactProps as Record<string, unknown>)} />,
+          this.$el
+        );
       } else {
         ReactDOM.render(this.slotContent, this.$el);
       }

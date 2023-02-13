@@ -3,7 +3,10 @@ import { DeepPartial, forEach } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
+import {
+  createHistoryQueries,
+  createHistoryQuery
+} from '../../../../__stubs__/history-queries-stubs.factory';
 import { RootXStoreState } from '../../../../store/store.types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -11,6 +14,7 @@ import { baseSnippetConfig } from '../../../../views/base-config';
 import { SnippetConfig } from '../../../../x-installer/api/api.types';
 import { historyQueriesXModule } from '../../x-module';
 import MyHistory from '../my-history.vue';
+import HistoryQueryComponent from '../history-query.vue';
 import { resetXHistoryQueriesStateWith } from './utils';
 
 const historyQueries: HistoryQuery[] = [
@@ -53,7 +57,8 @@ function renderMyHistory({
     {
       template,
       components: {
-        MyHistory
+        MyHistory,
+        HistoryQuery: HistoryQueryComponent
       },
       provide: {
         snippetConfig
@@ -161,6 +166,30 @@ describe('testing MyHistory component', () => {
       expect(contentWrapper.attributes('data-index')).toEqual(index.toString());
       expect(contentWrapper.text()).toEqual(historyQueries[index].query);
     });
+  });
+
+  it('allows changing the history query', () => {
+    const historyQuery = createHistoryQuery({
+      query: 'testQuery',
+      timestamp: Date.parse('2023-01-23T09:40:00')
+    });
+
+    const { wrapper } = renderMyHistory({
+      template: `
+        <MyHistory>
+            <template #suggestion="{ suggestion, formatTime}">
+                <HistoryQuery :suggestion="suggestion">
+                    <span data-test="suggestion-query">{{ suggestion.query }}</span>
+                    <span data-test="suggestion-date">{{ formatTime(suggestion.timestamp) }}</span>
+                </HistoryQuery>
+            </template>
+        </MyHistory>
+      `,
+      historyQueries: [historyQuery]
+    });
+
+    expect(wrapper.get(getDataTestSelector('suggestion-query')).text()).toBe('testQuery');
+    expect(wrapper.get(getDataTestSelector('suggestion-date')).text()).toBe('09:40 AM');
   });
 
   function expectValidHistoryContent(

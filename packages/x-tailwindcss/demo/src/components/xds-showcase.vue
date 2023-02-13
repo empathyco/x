@@ -2,8 +2,19 @@
   <div class="x-flex x-flex-col x-gap-40 x-p-20">
     <XdsButton />
     <XdsIcon />
-    <XdsSuggestion />
     <XdsHighlight />
+    <XdsTypography />
+    <XdsInput />
+    <XdsSuggestion />
+    <XdsSuggestionGroup />
+    <XdsSlidingPanel />
+    <XdsPicture />
+    <XdsScroll />
+    <XdsLayout />
+    <XdsLayoutUtils />
+    <XdsLayoutFixedHeader />
+    <XdsLayoutSingleColumn />
+    <XdsLayoutTwoColumns />
   </div>
 </template>
 <script lang="ts">
@@ -13,9 +24,36 @@
   import XdsHighlight from './xds-highlight.vue';
   import XdsIcon from './xds-icon.vue';
   import XdsSuggestion from './xds-suggestion.vue';
+  import XdsTypography from './xds-typography.vue';
+  import XdsInput from './xds-input.vue';
+  import XdsSuggestionGroup from './xds-suggestion-group.vue';
+  import XdsSlidingPanel from './xds-sliding-panel.vue';
+  import XdsPicture from './xds-picture.vue';
+  import XdsScroll from './xds-scroll.vue';
+  import XdsLayout from './xds-layout.vue';
+  import XdsLayoutUtils from './xds-layout-utils.vue';
+  import XdsLayoutFixedHeader from './xds-layout-fixed-header.vue';
+  import XdsLayoutSingleColumn from './xds-layout-single-column.vue';
+  import XdsLayoutTwoColumns from './xds-layout-two-columns.vue';
 
   @Component({
-    components: { XdsHighlight, XdsButton, XdsIcon, XdsSuggestion }
+    components: {
+      XdsTypography,
+      XdsHighlight,
+      XdsButton,
+      XdsIcon,
+      XdsInput,
+      XdsLayout,
+      XdsScroll,
+      XdsLayoutFixedHeader,
+      XdsLayoutSingleColumn,
+      XdsLayoutTwoColumns,
+      XdsSuggestion,
+      XdsSuggestionGroup,
+      XdsSlidingPanel,
+      XdsPicture,
+      XdsLayoutUtils
+    }
   })
   export default class XdsShowcase extends Vue {}
 </script>

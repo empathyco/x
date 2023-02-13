@@ -5,7 +5,7 @@
     @mouseenter.once="userHasHoveredImage = true"
     @mouseenter="isHovering = true"
     @mouseleave="isHovering = false"
-    class="x-picture x-result-picture"
+    class="x-result-picture x-picture"
     data-test="result-picture"
   >
     <img
@@ -15,11 +15,12 @@
       loading="lazy"
       :src="pendingImages[0]"
       :style="loaderStyles"
+      class="x-picture-image"
       data-test="result-picture-loader"
       alt=""
       role="presentation"
     />
-    <component :is="animation" class="x-picture__image" :appear="false">
+    <component :is="animation" class="x-picture-image" :appear="false">
       <!-- @slot Fallback image content. It will be rendered when all the images failed -->
       <slot v-if="!loadedImages.length && !pendingImages.length" name="fallback" />
 
@@ -31,7 +32,7 @@
         :key="imageSrc"
         :alt="result.name"
         :src="imageSrc"
-        class="x-picture__image x-result-picture__image"
+        class="x-result-picture-image"
         data-test="result-picture-image"
       />
     </component>
@@ -142,7 +143,7 @@
     @Watch('result.images', { immediate: true })
     resetImagesState(): void {
       this.pendingImages = [...(this.result.images ?? [])];
-      this.loadedImages = [];
+      this.loadedImages = this.pendingImages.filter(image => this.loadedImages.includes(image));
     }
 
     /**
@@ -208,14 +209,13 @@
 
 <style lang="scss" scoped>
   .x-result-picture {
+    position: relative;
     min-width: 1px;
     min-height: 1px;
-    position: relative;
 
-    &__image {
+    &-image {
       max-width: 100%;
       max-height: 100%;
-      object-fit: contain;
     }
   }
 </style>
@@ -254,10 +254,10 @@ displayed while the real one is loaded.
 ```vue
 <BaseResultImage :result="result">
   <template #placeholder>
-    <img class="x-result-picture-placeholder" src="./placeholder-image.svg"/>
+    <img alt="Placeholder image" src="./placeholder-image.svg"/>
   </template>
   <template #fallback>
-    <img class="x-result-picture-fallback" src="./fallback-image.svg"/>
+    <img alt="Fallback image" src="./fallback-image.svg"/>
   </template>
 </BaseResultImage>
 ```

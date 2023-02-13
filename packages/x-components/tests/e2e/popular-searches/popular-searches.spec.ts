@@ -1,4 +1,4 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { InstallXOptions } from '../../../src/x-installer/x-installer/types';
 
 // Background
@@ -43,9 +43,9 @@ When('popular search number {int} is clicked', (popularSearchItem: number) => {
     .as('searchedQuery');
 });
 
-And(
+Then(
   'the clicked popular search is removed from Popular Searches if {boolean} is true',
-  function (this: { searchedQuery: string }, hideSessionQueries: boolean) {
+  function (hideSessionQueries: boolean) {
     if (!hideSessionQueries) {
       cy.getByDataTest('popular-search').eq(0).should('have.text', this.searchedQuery);
     } else {
@@ -54,7 +54,7 @@ And(
   }
 );
 
-And(
+Then(
   // eslint-disable-next-line max-len
   'no new term is displayed in Popular Searches if hideSessionQueries = {boolean} is true and maxItemsToRender = {int} > maxItemsToRequest = {int}',
   (hideSessionQueries: boolean, maxItemsToRender: number, maxItemsToRequest: number) => {

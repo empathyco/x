@@ -14,6 +14,9 @@ export const querySuggestionsEndpointAdapter = endpointAdapterFactory<
   requestMapper: querySuggestionsRequestMapper,
   responseMapper: querySuggestionsResponseMapper,
   defaultRequestOptions: {
-    id: 'query-suggestions'
+    id: 'query-suggestions',
+    parameters: {
+      internal: true
+    }
   }
 });

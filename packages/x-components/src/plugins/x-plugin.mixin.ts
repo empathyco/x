@@ -117,11 +117,12 @@ function createWireMetadata(
  */
 export function getRootXComponent(component: Vue): Vue | undefined {
   let xComponent: Vue | undefined;
-  while (component !== undefined && component !== null) {
-    if (isXComponent(component)) {
-      xComponent = component;
+  let currentComponent: Vue | null = component;
+  while (currentComponent != null) {
+    if (isXComponent(currentComponent)) {
+      xComponent = currentComponent;
     }
-    component = component.$parent;
+    currentComponent = currentComponent.$parent;
   }
   return xComponent;
 }

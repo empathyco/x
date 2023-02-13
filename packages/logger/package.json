@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-logger",
-  "version": "1.2.0-alpha.4",
+  "version": "1.2.0-alpha.9",
   "description": "Empathy simple logger",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -23,23 +23,25 @@
     "directory": "packages/logger"
   },
   "engines": {
-    "node": "16"
+    "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "tsc && tsc --project tsconfig.esm.json",
     "build:watch": "tsc --watch",
-    "postbuild": "npm pack",
-    "prepublishOnly": "npm run build",
+    "postbuild": "pnpm pack",
+    "lint": "eslint . --ext .ts",
+    "prepublishOnly": "pnpm run build",
     "test": "jest"
   },
   "dependencies": {
-    "tslib": "~2.3.0"
+    "tslib": "~2.4.1"
   },
   "devDependencies": {
     "@types/jest": "~27.0.3",
     "jest": "~27.3.1",
     "ts-jest": "~27.0.7",
-    "typescript": "~4.6.2"
+    "typescript": "~4.9.4"
   },
   "publishConfig": {
     "access": "public"

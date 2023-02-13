@@ -10,18 +10,63 @@ jobs:
       image: cypress/browsers:node16.16.0-chrome105-ff104-edge
       # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
       options: --user 1001
+
     steps:
-      - uses: actions/checkout@v3
+      - name: checkout repository
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Install lerna and all packages
-        run: npm ci
-      - name: Run linter in all packages
-        run: npm run lint
-      - name: Run tests in all packages
-        run: npm run test
-      - name: Release alpha on non-release pushes to main branch
+
+      # Install pnpm because it is not included in our container image
+      - name: install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: save pnpm store directory
+        id: pnpm-store-directory
+        shell: bash
+        run: |
+          echo "PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: setup pnpm cache
+        id: pnpm-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ${{ steps.pnpm-store-directory.outputs.PATH }}
+            ~/.cache/Cypress
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: setup eslint cache
+        uses: actions/cache@v3
+        with:
+          path: '**/.eslintcache'
+          key: eslint-${{github.sha}}
+          restore-keys: eslint-
+
+      - name: setup lerna cache
+        id: lerna-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules/.cache
+          key: lerna-cache-${{github.sha}}
+          restore-keys: lerna-cache-
+
+      - name: install dependencies
+        run: pnpm install
+
+      - name: lint packages
+        run: pnpm run lint
+
+      - name: test packages
+        run: pnpm run test
+
+      - name: release alpha on non-release pushes to main branch
         if:
           ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
           !startsWith(github.event.head_commit.message, 'chore(release):') }}

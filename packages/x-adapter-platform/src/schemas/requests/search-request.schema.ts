@@ -1,11 +1,9 @@
-import { createMutableSchema, Schema } from '@empathyco/x-adapter';
-import { reduce } from '@empathyco/x-utils';
+import { createMutableSchema } from '@empathyco/x-adapter';
 import { isHierarchicalFilter, SearchRequest } from '@empathyco/x-types';
+import { reduce } from '@empathyco/x-utils';
 import { PlatformSearchRequest } from '../../types/requests/search-request.model';
 
-export const searchRequestSchema = createMutableSchema<
-  Schema<SearchRequest, PlatformSearchRequest>
->({
+export const searchRequestSchema = createMutableSchema<SearchRequest, PlatformSearchRequest>({
   query: 'query',
   origin: 'origin',
   start: 'start',

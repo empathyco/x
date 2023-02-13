@@ -3,7 +3,7 @@
     <BaseResultLink :result="result">
       <BaseResultImage
         :result="result"
-        class="x-result__picture x-picture--fixed-ratio x-picture--zoom"
+        class="x-result__picture x-picture-zoom"
         :loadAnimation="crossFade"
       >
         <template #placeholder>
@@ -18,12 +18,12 @@
       </BaseResultImage>
     </BaseResultLink>
     <div class="x-result__description">
-      <BaseResultRating :result="result" :max="5" link="#" class="x-font-size--04">
+      <BaseResultRating :result="result" :max="5" link="#" class="x-text1 x-text1-sm">
         <template #filled-icon>❤️</template>
         <template #empty-icon>🤍</template>
       </BaseResultRating>
       <BaseResultLink :result="result">
-        <h1 class="x-title3" data-test="result-title">{{ result.name }}</h1>
+        <h1 class="x-text1 x-text1-lg" data-test="result-title">{{ result.name }}</h1>
       </BaseResultLink>
     </div>
   </article>

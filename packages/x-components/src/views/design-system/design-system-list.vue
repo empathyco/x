@@ -197,10 +197,7 @@
       <div class="x-list x-list--gap-03 x-list-alignment-horizontal">
         <h2 class="x-title3">Horizontal Justify & Align Start</h2>
         <ul
-          class="
-            x-list x-list--horizontal x-list--justify-start x-list--align-start
-            x-list-show-case
-          "
+          class="x-list x-list--horizontal x-list--justify-start x-list--align-start x-list-show-case"
         >
           <li></li>
           <li></li>
@@ -208,10 +205,7 @@
         </ul>
         <h2 class="x-title3">Horizontal Justify & Align Center</h2>
         <ul
-          class="
-            x-list x-list--horizontal x-list--justify-center x-list--align-center
-            x-list-show-case
-          "
+          class="x-list x-list--horizontal x-list--justify-center x-list--align-center x-list-show-case"
         >
           <li></li>
           <li></li>
@@ -243,10 +237,7 @@
         </ul>
         <h2 class="x-title3">Vertical Justify & Align Center</h2>
         <ul
-          class="
-            x-list x-list--vertical x-list--justify-center x-list--align-center
-            x-list-show-case
-          "
+          class="x-list x-list--vertical x-list--justify-center x-list--align-center x-list-show-case"
         >
           <li></li>
           <li></li>

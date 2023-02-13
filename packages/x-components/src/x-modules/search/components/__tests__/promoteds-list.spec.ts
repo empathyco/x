@@ -131,7 +131,9 @@ describe('testing PromotedsList component', () => {
 
     /* It provides an array with some results */
     @Component({
-      template: `<div><slot/></div>`
+      template: `
+        <div><slot /></div>
+      `
     })
     class Provider extends Vue {
       @XProvide(LIST_ITEMS_KEY)

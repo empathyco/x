@@ -1,4 +1,7 @@
 export default {
+  aspectRatio: {
+    default: '3 / 4'
+  },
   borderRadius: {
     none: 0,
     xs: '2px',
@@ -16,30 +19,30 @@ export default {
   colors: {
     neutral: {
       0: '#FFFFFF',
-      10: '#F7F7FA',
-      25: '#C8D1D5',
+      10: '#EEF1F2',
+      25: '#DBE2E5',
       50: '#5F717B',
-      75: '#4B5B63',
+      75: '#3C494F',
       90: '#283034',
       100: '#000000'
     },
     lead: {
       25: '#BBC9CF',
-      50: '#243D48',
-      75: '#1B2D36'
+      50: '#5E7782',
+      75: '#243D48'
     },
     auxiliary: {
-      25: '#BFE1EC',
+      25: '#E3F0F5',
       50: '#0086B2',
       75: '#006485'
     },
     accent: {
-      25: '#F4D2DB',
+      25: '#F8EBEF',
       50: '#D44A6F',
       75: '#A42748'
     },
     highlight: {
-      25: '#E2D8E3',
+      25: '#F1EEF2',
       50: '#8B6391',
       75: '#684A6D'
     },
@@ -84,22 +87,29 @@ export default {
   fontWeight: {
     light: '200',
     regular: '400',
-    bold: '600'
+    bold: '700'
+  },
+  layoutMaxWidth: {
+    md: '1440px',
+    lg: '1920px',
+    full: '100vw'
   },
   letterSpacing: {
-    sm: '-1%',
-    md: '1.5%',
-    lg: '2%'
+    sm: '-0.01em',
+    md: '0',
+    lg: '0.04em'
   },
   lineHeight: {
-    sm: '1.2',
-    md: '1.5',
-    lg: '2'
+    xs: '1.2',
+    sm: '1.4',
+    md: '1.6',
+    lg: '1.8',
+    default: 'auto'
   },
   screens: {
-    tablet: '800px',
-    desktop: '1200px',
-    large: '2800px'
+    tablet: '744px',
+    desktop: '1440px',
+    large: '1920px'
   },
   spacing: {
     0: '0px',

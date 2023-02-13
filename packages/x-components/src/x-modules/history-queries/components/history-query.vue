@@ -1,31 +1,38 @@
 <template>
-  <div class="x-suggestion-group x-history-query">
+  <div class="x-history-query x-suggestion-group">
+    <!--
+      Click on the History Query suggestion
+      @event click
+      @property {Suggestion} suggestion - History Query suggestion data
+      @property {MouseEvent} event - The original mouse event
+    -->
     <BaseSuggestion
+      @click="$emit('click', suggestion, $event)"
       class="x-history-query__suggestion"
+      :class="suggestionClass"
       v-bind="{ suggestion, suggestionSelectedEvents, query }"
       data-test="history-query"
       feature="history_query"
+      #default="baseScope"
     >
-      <template #default="{ suggestion, queryHTML }">
-        <!-- eslint-disable max-len -->
-        <!--
+      <!-- eslint-disable max-len -->
+      <!--
           @slot History Query content
-              @binding {Suggestion} suggestion - History Query suggestion data
-              @binding {string} queryHTML - Suggestion's query with the matching part inside a span tag
-        -->
-        <!-- eslint-enable max-len -->
-        <slot v-bind="{ suggestion, queryHTML }" />
-      </template>
+              @binding {Object} v-bind - `BaseSuggestion` default slot scope: **suggestion** <code>Suggestion</code> - Suggestion data<br /> **query** <code>string</code> - The query that the suggestion belongs to<br /> **filter** <code>Filter or undefined</code> - Suggestion's filter
+      -->
+      <!-- eslint-enable max-len -->
+      <slot v-bind="{ ...baseScope }" />
     </BaseSuggestion>
     <RemoveHistoryQuery
-      class="x-history-query__remove"
+      class="x-history-query__remove x-suggestion-group-button"
+      :class="removeButtonClass"
       :historyQuery="suggestion"
       data-test="remove-history-query"
     >
       <!--
           @slot History Query remove button content
               @binding {Suggestion} suggestion - History Query suggestion data
-        -->
+      -->
       <slot name="remove-button-content" v-bind="{ suggestion }">✕</slot>
     </RemoveHistoryQuery>
   </div>
@@ -33,13 +40,14 @@
 
 <script lang="ts">
   import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Mixins, Prop } from 'vue-property-decorator';
   import { Getter } from '../../../components/decorators/store.decorators';
+  import Highlight from '../../../components/highlight.vue';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';
+  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
   import RemoveHistoryQuery from './remove-history-query.vue';
 
   /**
@@ -51,9 +59,11 @@
    */
   @Component({
     mixins: [xComponentMixin(historyQueriesXModule)],
-    components: { RemoveHistoryQuery, BaseSuggestion }
+    components: { Highlight, RemoveHistoryQuery, BaseSuggestion }
   })
-  export default class HistoryQuery extends Vue {
+  export default class HistoryQuery extends Mixins(
+    dynamicPropsMixin(['removeButtonClass', 'suggestionClass'])
+  ) {
     /**
      * The history query suggestion to render.
      *
@@ -129,9 +139,9 @@ that serves to remove this query from the history. This slot only has one proper
 ```vue live
 <template>
   <HistoryQuery :suggestion="suggestion">
-    <template #default="{ suggestion, queryHTML }">
+    <template #default="{ suggestion }">
       <HistoryIcon />
-      <span class="x-history-query__matching-part" v-html="queryHTML" />
+      <Highlight highlight="tro" :text="suggestion.query" />
     </template>
 
     <template #remove-button-content="{ suggestion }">
@@ -142,14 +152,71 @@ that serves to remove this query from the history. This slot only has one proper
 
 <script>
   import { HistoryQuery } from '@empathyco/x-components/history-queries';
-  import { HistoryIcon, CrossIcon } from '@empathyco/x-components';
+  import { HistoryIcon, CrossIcon, Highlight } from '@empathyco/x-components';
 
   export default {
     name: 'HistoryQueryDemo',
     components: {
       HistoryQuery,
       HistoryIcon,
-      CrossIcon
+      CrossIcon,
+      Highlight
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'HistoryQuery',
+          query: 'trousers',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Customizing the content with classes
+
+The `suggestionClass` prop can be used to add classes to the history query suggestion.
+
+```vue live
+<template>
+  <HistoryQuery :suggestion="suggestion" suggestionClass="x-custom-class" />
+</template>
+
+<script>
+  import { HistoryQuery } from '@empathyco/x-components/history-queries';
+  export default {
+    name: 'HistoryQueryDemo',
+    components: {
+      HistoryQuery
+    },
+    data() {
+      return {
+        suggestion: {
+          modelName: 'HistoryQuery',
+          query: 'trousers',
+          facets: []
+        }
+      };
+    }
+  };
+</script>
+```
+
+The `removeButtonClass` prop can be used to add classes to the remove history query.
+
+```vue live
+<template>
+  <HistoryQuery :suggestion="suggestion" removeButtonClass="x-custom-class" />
+</template>
+
+<script>
+  import { HistoryQuery } from '@empathyco/x-components/history-queries';
+  export default {
+    name: 'HistoryQueryDemo',
+    components: {
+      HistoryQuery
     },
     data() {
       return {

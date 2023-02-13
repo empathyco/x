@@ -140,7 +140,7 @@
       this.stopAnimationInterval();
 
       if (this.isBeingAnimated) {
-        this.animationInterval = setInterval((): void => {
+        this.animationInterval = window.setInterval((): void => {
           this.incrementAnimationMessageIndex();
         }, this.animationIntervalMs);
       }

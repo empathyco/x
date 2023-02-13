@@ -3,6 +3,163 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.19...@empathyco/x-archetype-utils@0.1.0-alpha.20) (2023-02-08)
+
+### Continuous Integration
+
+- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+  ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
+  closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.18...@empathyco/x-archetype-utils@0.1.0-alpha.19) (2023-02-07)
+
+### Continuous Integration
+
+- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+  ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
+  closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.17...@empathyco/x-archetype-utils@0.1.0-alpha.18) (2023-02-03)
+
+### Build System
+
+- **deps:** update deps (#1062)
+  ([59f29b9](https://github.com/empathyco/x/commit/59f29b9c5861f790a65b061eec628eb35d066b68))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.16...@empathyco/x-archetype-utils@0.1.0-alpha.17) (2023-01-27)
+
+### Build System
+
+- **deps:** update deps (#1046)
+  ([b6957df](https://github.com/empathyco/x/commit/b6957df9d88c0d94c2543047991a63afadd707ff))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.15...@empathyco/x-archetype-utils@0.1.0-alpha.16) (2023-01-25)
+
+### Build System
+
+- **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
+  (#993)
+  ([500ab57](https://github.com/empathyco/x/commit/500ab57e4729f5c4dcefaa31ed4a8497ddd349b9)),
+  closes [EX-7288](https://searchbroker.atlassian.net/browse/EX-7288)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.14...@empathyco/x-archetype-utils@0.1.0-alpha.15) (2023-01-23)
+
+### Styling
+
+- update prettier and format code (#1026)
+  ([a18cc17](https://github.com/empathyco/x/commit/a18cc172b6638962d53192905cd466f12bccacac)),
+  closes [EX-7877](https://searchbroker.atlassian.net/browse/EX-7877)
+
+## [0.1.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.13...@empathyco/x-archetype-utils@0.1.0-alpha.14) (2023-01-20)
+
+**Note:** Version bump only for package @empathyco/x-archetype-utils
+
+## [0.1.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.12...@empathyco/x-archetype-utils@0.1.0-alpha.13) (2023-01-12)
+
+### Bug Fixes
+
+- now styles should be accurate to the designs (#999)
+  ([7638670](https://github.com/empathyco/x/commit/7638670d3d4f22983fcaeb0277fb9b394ece2218)),
+  closes [EX-7809](https://searchbroker.atlassian.net/browse/EX-7809)
+
+## [0.1.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.11...@empathyco/x-archetype-utils@0.1.0-alpha.12) (2023-01-11)
+
+### Features
+
+- add data-test to searchbar and hover underline to docs links (#996)
+  ([c384ede](https://github.com/empathyco/x/commit/c384edea8b289b2508692aacd95b73d49abe8df6)),
+  closes [EX-7806](https://searchbroker.atlassian.net/browse/EX-7806)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.10...@empathyco/x-archetype-utils@0.1.0-alpha.11) (2023-01-11)
+
+### Features
+
+- add importable home `template` (#994)
+  ([a31c3ea](https://github.com/empathyco/x/commit/a31c3eadf412ee732ca4b3724a85ef8faa300061)),
+  closes [EX-7633](https://searchbroker.atlassian.net/browse/EX-7633)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.9...@empathyco/x-archetype-utils@0.1.0-alpha.10) (2023-01-06)
+
+**Note:** Version bump only for package @empathyco/x-archetype-utils
+
+## [0.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.8...@empathyco/x-archetype-utils@0.1.0-alpha.9) (2023-01-05)
+
+**Note:** Version bump only for package @empathyco/x-archetype-utils
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.7...@empathyco/x-archetype-utils@0.1.0-alpha.8) (2023-01-03)
+
+### Build System
+
+- **deps:** update `vue` to version `2.7` (#971)
+  ([09fb0fe](https://github.com/empathyco/x/commit/09fb0fe5dbef020565571a4fafc89d2aac544c8e)),
+  closes [EX-7730](https://searchbroker.atlassian.net/browse/EX-7730)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.6...@empathyco/x-archetype-utils@0.1.0-alpha.7) (2022-12-19)
+
+**Note:** Version bump only for package @empathyco/x-archetype-utils
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.5...@empathyco/x-archetype-utils@0.1.0-alpha.6) (2022-12-16)
+
+### Continuous Integration
+
+- use matrix steps and jest projects (#919)
+  ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.4...@empathyco/x-archetype-utils@0.1.0-alpha.5) (2022-11-28)
 
 **Note:** Version bump only for package @empathyco/x-archetype-utils

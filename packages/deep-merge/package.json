@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-deep-merge",
-  "version": "1.3.0-alpha.25",
+  "version": "1.3.0-alpha.32",
   "description": "Utility for deep cloning objects.",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -25,27 +25,29 @@
     "directory": "packages/deep-merge"
   },
   "engines": {
-    "node": "16"
+    "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "prebuild": "pnpm run clean",
     "build": "tsc && tsc --project tsconfig.esm.json",
     "clean": "rimraf dist && rimraf coverage",
-    "postbuild": "npm pack",
-    "prepublishOnly": "npm run build",
-    "prebuild": "npm run clean",
+    "postbuild": "pnpm pack",
+    "lint": "eslint . --ext .ts",
+    "prepublishOnly": "pnpm run build",
     "test": "jest"
   },
   "dependencies": {
-    "@empathyco/x-utils": "^1.0.0-alpha.11",
-    "tslib": "~2.3.0"
+    "@empathyco/x-utils": "^1.0.0-alpha.17",
+    "tslib": "~2.4.1"
   },
   "devDependencies": {
     "@types/jest": "~27.0.3",
     "jest": "~27.3.1",
     "rimraf": "~3.0.2",
     "ts-jest": "~27.0.7",
-    "ts-node": "~8.9.1",
-    "typescript": "~4.6.2"
+    "ts-node": "~10.9.1",
+    "typescript": "~4.9.4"
   },
   "publishConfig": {
     "access": "public"

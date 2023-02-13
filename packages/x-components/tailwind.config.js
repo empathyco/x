@@ -17,6 +17,7 @@ module.exports = {
   // See https://github.com/empathyco/x/pull/655#discussion_r948923711
   corePlugins: [
     'alignItems',
+    'backgroundColor',
     'display',
     'flex',
     'flexDirection',
@@ -24,6 +25,10 @@ module.exports = {
     'fontWeight',
     'gap',
     'lineHeight',
-    'textColor'
+    'textColor',
+    'textTransform',
+    'textDecoration',
+    'textOverflow',
+    'preflight'
   ]
 };

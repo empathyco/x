@@ -63,11 +63,19 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
     get historyQueries() {
       return component.$store.getters[getGetterPath('historyQueries', 'historyQueries')] ?? [];
     },
+    get historyQueriesWithResults() {
+      return (
+        component.$store.getters[getGetterPath('historyQueries', 'historyQueriesWithResults')] ?? []
+      );
+    },
     get fullHistoryQueries() {
       return component.$store.state.x.historyQueries?.historyQueries ?? [];
     },
     get identifierResults() {
       return component.$store.state.x.identifierResults?.identifierResults ?? [];
+    },
+    get searchBoxStatus() {
+      return component.$store.state.x.searchBox?.inputStatus ?? undefined;
     },
     get isEmpathizeOpen() {
       return component.$store.state.x.empathize?.isOpen ?? false;

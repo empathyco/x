@@ -7,7 +7,7 @@ module.exports = {
       curly: ['error', 'all'],
       eqeqeq: ['error', 'always', { null: 'ignore' }],
       indent: 'off',
-      'max-len': ['error', { code: 100, ignoreComments: false }],
+      'max-len': ['error', { code: 100, ignoreComments: false, ignorePattern: 'class=".*"$' }],
       'no-alert': process.env.NODE_ENV === 'production' ? 'error' : 'off',
       'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
       'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',

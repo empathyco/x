@@ -5,7 +5,9 @@ import { FeatureLocation } from '../../types';
 import LocationProvider from '../location-provider.vue';
 
 @Component({
-  template: `<button/>`
+  template: `
+    <button />
+  `
 })
 class Child extends Vue {
   @Inject('location')

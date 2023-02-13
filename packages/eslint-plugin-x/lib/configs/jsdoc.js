@@ -25,7 +25,7 @@ module.exports = {
       'jsdoc/implements-on-classes': 'off',
       'jsdoc/multiline-blocks': 'warn',
       'jsdoc/newline-after-description': 'error',
-      'jsdoc/no-multi-asterisks': 'warn',
+      'jsdoc/no-multi-asterisks': ['warn', { allowWhitespace: true }],
       'jsdoc/tag-lines': 'off',
       'jsdoc/require-description': 'error',
       'jsdoc/require-description-complete-sentence': 'warn',
@@ -35,7 +35,7 @@ module.exports = {
       'jsdoc/require-param-name': 'error',
       'jsdoc/require-param-type': 'off',
       'jsdoc/require-returns': 'error',
-      'jsdoc/require-returns-check': 'error',
+      'jsdoc/require-returns-check': 'off',
       'jsdoc/require-returns-description': 'error',
       'jsdoc/require-returns-type': 'off',
       'jsdoc/valid-types': 'off'

@@ -1,7 +1,6 @@
 {
-  "packages": ["packages/*"],
   "version": "independent",
-  "ignoreChanges": ["**/package-lock.json"],
+  "ignoreChanges": ["pnpm-lock.yaml"],
   "changelogPreset": {
     "name": "conventionalcommits",
     "issuePrefixes": ["EX-"],
@@ -21,11 +20,10 @@
     ]
   },
   "command": {
-    "bootstrap": {
-      "npmClientArgs": ["--legacy-peer-deps"]
-    },
     "version": {
       "message": "chore(release): publish"
     }
-  }
+  },
+  "npmClient": "pnpm",
+  "useWorkspaces": true
 }

@@ -44,6 +44,8 @@ To integrate the X&nbsp;Components in a frontend UI, you need:
 3. Configure the **xPlugin**.
 4. Install and **initialize the xPlugin**.
 
+<VideoReference videoId="x-components-action" customDescription="Watch how to integrate the Interface X Components in a project from scratch."/>
+
 ## Installing the dependencies
 
 To build your search and discovery UI, the following project dependencies are required:
@@ -62,9 +64,8 @@ To build your search and discovery UI, the following project dependencies are re
   one from scratch using the
   [`@empathyco/x-adapter`](https://github.com/empathyco/x/tree/main/packages/x-adapter) package.
 
-- **x-types**
-  ([`@empathyco/x-types`](https://github.com/empathyco/x/tree/main/packages/search-types)): The data
-  model used in the X&nbsp;Components to define types.
+- **x-types** ([`@empathyco/x-types`](https://github.com/empathyco/x/tree/main/packages/x-types)):
+  The data model used in the X&nbsp;Components to define types.
 
 Install the project dependencies via `npm` as follows:
 
@@ -153,18 +154,3 @@ building your search and discovery UI:
 :::
 
 <!-- Manage [internationalization options](https://github.com/empathyco/x/tree/main/packages/x-translations) to support different languages.-->
-
-</br>
-
----
-
-</br>
-<VideoContent
-:source="$withBase('/assets/media/videos/How-to-use-X-components-in-a-real-project.mp4')"
-:poster="$withBase('/assets/media/videos/How-to-use-X-components-in-a-real-project.jpeg')"
->
-
-Watch how our frontend Team Lead, [Iván Tajes](https://github.com/tajespasarela), integrates the
-Interface&nbsp;X&nbsp;Components in a project from scratch.
-
-</VideoContent>
