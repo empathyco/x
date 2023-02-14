@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.313](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.312...@empathyco/x-components@3.0.0-alpha.313) (2023-02-14)
+
+### ⚠ BREAKING CHANGES
+
+- **design-system:** design system scroll styles are deprecated. To continue using them import from
+  deprecated-full-theme.css
+
+### Features
+
+- **design-system:** deprecate old x-scroll styles (#1073)
+  ([3916c5f](https://github.com/empathyco/x/commit/3916c5fab866a51f5c2df089cef3e80a9c0ae1ee)),
+  closes [EX-7982](https://searchbroker.atlassian.net/browse/EX-7982)
+
+### Bug Fixes
+
+- **modal:** set focusOnOpen for the main-modal to false (#1074)
+  ([655e8eb](https://github.com/empathyco/x/commit/655e8eb6bc5bedab6b79ab2a7c7d6110f9d27437)),
+  closes [EX-7710](https://searchbroker.atlassian.net/browse/EX-7710)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.312](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.311...@empathyco/x-components@3.0.0-alpha.312) (2023-02-14)
 
 ### Build System
