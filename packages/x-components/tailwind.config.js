@@ -29,6 +29,8 @@ module.exports = {
     'textTransform',
     'textDecoration',
     'textOverflow',
-    'preflight'
+    'borderRadius',
+    'preflight',
+    'margin'
   ]
 };

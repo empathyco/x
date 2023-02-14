@@ -15,7 +15,7 @@
       <slot name="suggestion" v-bind="{ ...baseScope }">
         <PopularSearch
           :suggestion="baseScope.suggestion"
-          class="x-popular-searches__suggestion"
+          class="x-popular-searches__suggestion x-suggestion"
           #default="popularSearchScope"
         >
           <!-- eslint-disable max-len -->

@@ -312,7 +312,7 @@
                           >
                             <h1 class="x-title2">Others clients have searched</h1>
                             <NextQuery
-                              class="x-text1 x-text1-lg"
+                              class="x-suggestion x-text1 x-text1-lg"
                               :suggestion="nextQueries[0]"
                               data-test="next-query-preview-name"
                             >
@@ -334,7 +334,7 @@
                             <NextQuery
                               :suggestion="nextQueries[0]"
                               data-test="view-all-results"
-                              class="x-tag x-tag--pill x-margin--left-auto x-margin--right-auto x-margin--top-03 x-padding--top-04 x-padding--bottom-04 x-padding--right-05 x-padding--left-05 x-border-color--lead x-margin--bottom-06 x-font-bold x-text-lead-50"
+                              class="x-button x-button-outlined x-rounded-full x-mx-auto x-mt-8 x-mb-24"
                             >
                               {{ 'View all results' }}
                             </NextQuery>
