@@ -410,7 +410,7 @@
       padding-right: calc(var(--x-size-margin-layout-columns) + var(--x-size-gap-default) - 16px);
 
       &.x-scroll {
-        --x-string-overflow-scroll: scroll;
+        overflow-y: scroll;
       }
     }
 
