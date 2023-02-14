@@ -11,7 +11,6 @@ export function inputGroupButton({ theme }: TailwindHelpers) {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    alignContent: 'center',
     flexFlow: 'row nowrap',
     boxSizing: 'border-box',
     height: 'var(--input-group-button-height, inherit)',

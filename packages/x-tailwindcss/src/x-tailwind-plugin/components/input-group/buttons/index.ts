@@ -6,7 +6,7 @@ import { inputGroupButtonPrimary } from './button-primary';
 import { inputGroupButtonRectangle } from './button-rectangle';
 
 /**
- * Returns the default styles for component `input`.
+ * Returns the default styles for component `input-group-button`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
