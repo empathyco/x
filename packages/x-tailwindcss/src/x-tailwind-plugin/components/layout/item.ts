@@ -23,7 +23,12 @@ export function item(helpers: TailwindHelpers) {
         'var(--x-margin-left) 1fr calc(var(--x-margin-right) - var(--x-layout-scroll-width,0px))',
 
       '& > *': {
-        gridColumn: '2/-2'
+        gridColumn: '2/-2',
+        minWidth: '0'
+      },
+
+      '&:not(.layout-overlap):not(.layout-overlap-from-top) > *': {
+        minHeight: '0'
       }
     }
   };
