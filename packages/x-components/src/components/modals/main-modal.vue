@@ -6,6 +6,7 @@
     :eventsToCloseModal="closeEvents"
     :bodyClickEvent="outOfModalClickEvent"
     :animation="animation"
+    :focusOnOpen="false"
     v-bind="$attrs"
   >
     <slot />
