@@ -37,3 +37,7 @@
     }
   }
 }
+
+.x-base-scroll {
+  overflow-y: var(--x-string-overflow-scroll, auto);
+}
