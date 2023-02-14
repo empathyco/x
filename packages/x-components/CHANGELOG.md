@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.312](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.311...@empathyco/x-components@3.0.0-alpha.312) (2023-02-14)
+
+### Build System
+
+- Delete unused `Jenkinsfile`. (#1075)
+  ([fb9a15b](https://github.com/empathyco/x/commit/fb9a15b80686293b3bd14c8129ed045d8a6c99f2))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.311](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.310...@empathyco/x-components@3.0.0-alpha.311) (2023-02-10)
 
 **Note:** Version bump only for package @empathyco/x-components
