@@ -75,7 +75,7 @@ export function getBusAPI(
       payload?: XEventPayload<Event>,
       metadata: Omit<WireMetadata, 'moduleName'> = {}
     ) => {
-      bus.emit(event, payload as any, createWireMetadata(component, metadata));
+      bus.emit(event, payload as XEventPayload<Event>, createWireMetadata(component, metadata));
       component.xComponent?.$emit(event, payload);
     },
     on: bus.on.bind(bus)
