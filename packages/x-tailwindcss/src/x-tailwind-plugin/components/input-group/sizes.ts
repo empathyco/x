@@ -3,7 +3,7 @@ import { TailwindHelpers } from '../../../types';
 import { inputSizes } from '../input/sizes';
 
 /**
- * Returns the `sizes` variants for component `input`.
+ * Returns the `sizes` variants for component `input-group`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
