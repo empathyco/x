@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.6...@empathyco/x-tailwindcss@1.0.0-alpha.7) (2023-02-15)
+
+### Features
+
+- **design-system:** Add `Input Group` component to the X Desing System. (#1066)
+  ([5f83b14](https://github.com/empathyco/x/commit/5f83b1460408e0e3b6a5f7fedaf91ee006d27a9c)),
+  closes [EX-7944](https://searchbroker.atlassian.net/browse/EX-7944)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.5...@empathyco/x-tailwindcss@1.0.0-alpha.6) (2023-02-15)
 
 ### Features

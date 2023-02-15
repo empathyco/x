@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.315](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.314...@empathyco/x-components@3.0.0-alpha.315) (2023-02-15)
+
+### Features
+
+- **design-system:** Add `Input Group` component to the X Desing System. (#1066)
+  ([5f83b14](https://github.com/empathyco/x/commit/5f83b1460408e0e3b6a5f7fedaf91ee006d27a9c)),
+  closes [EX-7944](https://searchbroker.atlassian.net/browse/EX-7944)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.314](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.313...@empathyco/x-components@3.0.0-alpha.314) (2023-02-15)
 
 ### Features
