@@ -230,7 +230,6 @@
     align-items: center;
     display: flex;
     flex-flow: row nowrap;
-    height: 100%;
     position: relative;
 
     &__button {

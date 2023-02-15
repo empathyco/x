@@ -9,6 +9,23 @@ import { TailwindHelpers } from '../../../types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function utils(helpers: TailwindHelpers) {
   return {
+    '.layout-stack': {
+      display: 'grid',
+      gridTemplateRows: '1fr',
+      gridTemplateColumns: '1fr',
+      justifyItems: 'stretch',
+      alignItems: 'stretch',
+
+      '& > *': {
+        gridRow: '1 / -1',
+        gridColumn: '1 / -1',
+        minHeight: '0',
+        minWidth: '0',
+        maxHeight: '100%',
+        maxWidth: '100%'
+      }
+    },
+
     '.layout-expand': {
       height: '100%',
       flex: '1 1 0',
