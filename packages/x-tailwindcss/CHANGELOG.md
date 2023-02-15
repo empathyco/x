@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.5...@empathyco/x-tailwindcss@1.0.0-alpha.6) (2023-02-15)
+
+### Features
+
+- **desing-system:** Add layout `layout-stack` util. (#1076)
+  ([38db5b3](https://github.com/empathyco/x/commit/38db5b3b4c10a2bd288e9e79b15232f063002156)),
+  closes [EX-8000](https://searchbroker.atlassian.net/browse/EX-8000)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.4...@empathyco/x-tailwindcss@1.0.0-alpha.5) (2023-02-10)
 
 ### Features
