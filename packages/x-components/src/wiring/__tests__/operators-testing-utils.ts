@@ -1,12 +1,13 @@
 import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { EventPayload, SubjectPayload, XBus, XPriorityBus } from '@empathyco/x-bus';
+import { EventPayload, SubjectPayload, XBus } from '@empathyco/x-bus';
 import { Observable } from 'rxjs';
 import { RootXStoreState } from '../../store/index';
 import { XEvent, XEventPayload, XEventsTypes } from '../events.types';
 import { createWireFromFunction } from '../wires.factory';
 import { Wire, WireMetadata } from '../wiring.types';
+import { XDummyBus } from '../../__tests__/bus.dummy';
 
 /**
  * Creates a wire with the given options.
@@ -20,7 +21,7 @@ export function createWire<SomeEvent extends XEvent = 'UserIsTypingAQuery'>({
 }: CreateWireOptions<SomeEvent> = {}): CreateWireAPI<XEventPayload<SomeEvent>> {
   const vue = createLocalVue();
   vue.use(Vuex);
-  const bus = new XPriorityBus<XEventsTypes, WireMetadata>();
+  const bus = new XDummyBus();
   const callback = jest.fn();
   const wire = createWireFromFunction<XEventPayload<SomeEvent>>(({ eventPayload }) => {
     callback(eventPayload);

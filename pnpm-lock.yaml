@@ -304,6 +304,7 @@ importers:
       '@vue/test-utils': ~1.0.3
       '@vue/vue2-jest': ~27.0.0-alpha.3
       autoprefixer: ~10.4.4
+      convert-source-map: ^2.0.0
       cypress: ~12.2.0
       esbuild: 0.17.5
       glob: ~7.1.6
@@ -358,7 +359,7 @@ importers:
       '@bahmutov/cypress-esbuild-preprocessor': 2.1.5_esbuild@0.17.5
       '@cypress/vue': 2.2.4_tayzhzodz2m7diticeg5gjyp2u
       '@empathyco/x-adapter-platform': link:../x-adapter-platform
-      '@empathyco/x-tailwindcss': link:../x-tailwindcss
+      '@empathyco/x-tailwindcss': 1.0.0-alpha.5_gpjwtnpe6prxm4oobfcnintlvy
       '@microsoft/api-documenter': 7.21.4_@types+node@16.4.14
       '@microsoft/api-extractor': 7.33.8
       '@rollup/plugin-commonjs': 24.0.1_rollup@2.79.1
@@ -375,6 +376,7 @@ importers:
       '@vue/test-utils': 1.0.5_rhqkolmkwunxzlyyxxsuwaiuri
       '@vue/vue2-jest': 27.0.0_3wnfi2cjlikaqtlmjt2gmi3kwm
       autoprefixer: 10.4.13_postcss@8.4.21
+      convert-source-map: 2.0.0
       cypress: 12.2.0
       esbuild: 0.17.5
       glob: 7.1.7
@@ -1322,6 +1324,66 @@ packages:
       lodash.once: 4.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /@empathyco/x-deep-merge/1.3.0-alpha.32:
+    resolution: {integrity: sha512-3brAAb15a1YciX+Bc0UwTBwDDPQJOp8pA2qMxFTPmJ13rJpJiwNMthXdvbRQ4eY/IttiRQq8PJH32IFTS0j2Fw==}
+    engines: {node: '>=16'}
+    requiresBuild: true
+    dependencies:
+      '@empathyco/x-utils': 1.0.0-alpha.17
+      tslib: 2.4.1
+    dev: true
+
+  /@empathyco/x-logger/1.2.0-alpha.9:
+    resolution: {integrity: sha512-7wgTIYxL6utubj2J+DimrOqcwInhS0i7JtRbmFcukGNafJUp9dWvHd/UeCF/LCjzocDLYHQMXeVfM7vvdDcpPg==}
+    engines: {node: '>=16'}
+    requiresBuild: true
+    dependencies:
+      tslib: 2.4.1
+    dev: true
+
+  /@empathyco/x-storage-service/2.0.0-alpha.9:
+    resolution: {integrity: sha512-xBU7wQAkxwOfv51AcPDyO8km49mfH5BDvMlvx6gtbMNpvObgjAWbrkQvU0qgB+TA2GUodP7uKBtTNUCuTd1Avg==}
+    engines: {node: '>=16'}
+    requiresBuild: true
+    dependencies:
+      '@empathyco/x-logger': 1.2.0-alpha.9
+      tslib: 2.4.1
+    dev: true
+
+  /@empathyco/x-tailwindcss/1.0.0-alpha.5_gpjwtnpe6prxm4oobfcnintlvy:
+    resolution: {integrity: sha512-Kq6ayXBYcIiTiUwVQVSiEQ/pehKeayDjxuk6fp7CF0Z+VT5VNQ0Qpn+ntgGE0eSptdML7oNf0kpNsI+JwRmxyg==}
+    engines: {node: '>=16'}
+    requiresBuild: true
+    peerDependencies:
+      vue: ^2.7.0
+      vue-class-component: ^7.1.0
+      vue-property-decorator: ^8.3.0
+    peerDependenciesMeta:
+      vue:
+        optional: true
+      vue-class-component:
+        optional: true
+      vue-property-decorator:
+        optional: true
+    dependencies:
+      '@empathyco/x-deep-merge': 1.3.0-alpha.32
+      '@empathyco/x-utils': 1.0.0-alpha.17
+      tslib: 2.4.1
+      vue: 2.7.14
+      vue-class-component: 7.2.6_vue@2.7.14
+      vue-property-decorator: 8.3.0_vue@2.7.14
+    dev: true
+
+  /@empathyco/x-utils/1.0.0-alpha.17:
+    resolution: {integrity: sha512-rtBnaH/iJLLkZaM+6o89bnhNugNQxgQLzrhT3FBL+b13Nj0xXIQy2e99yLiFmvYOA2kHNFpqZTLj+GF68IXyAg==}
+    engines: {node: '>=16'}
+    requiresBuild: true
+    dependencies:
+      '@empathyco/x-storage-service': 2.0.0-alpha.9
+      nanoid: 3.1.32
+      tslib: 2.4.1
     dev: true
 
   /@es-joy/jsdoccomment/0.36.1:
@@ -6749,6 +6811,10 @@ packages:
     resolution: {integrity: sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==}
     dev: true
 
+  /convert-source-map/2.0.0:
+    resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+    dev: true
+
   /cookie-signature/1.0.6:
     resolution: {integrity: sha512-QADzlaHc8icV8I7vbaJXJwod9HWYp8uCqf1xa4OfNu1T7JVxQIrUgOWtHdNDtPiywmFbiS12VjotIXLrKM3orQ==}
     dev: true
@@ -10257,7 +10323,7 @@ packages:
       pretty-format: 27.5.1
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1_typescript@4.9.4
+      ts-node: 10.9.1_olvm5ep3pscdu3xks2ljs4ou5a
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -11651,7 +11717,6 @@ packages:
     resolution: {integrity: sha512-F8mf7R3iT9bvThBoW4tGXhXFHCctyCiUUPrWF8WaTqa3h96d9QybkSeba43XVOOE3oiLfkVDe4bT8MeGmkrTxw==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
-    dev: false
 
   /nanoid/3.3.4:
     resolution: {integrity: sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==}

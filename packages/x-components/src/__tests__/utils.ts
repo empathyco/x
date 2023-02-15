@@ -13,7 +13,6 @@ import {
   RelatedTagsResponse,
   SearchResponse
 } from '@empathyco/x-types';
-import { XPriorityBus } from '@empathyco/x-bus';
 import { XPluginOptions } from '../plugins';
 import { XPlugin } from '../plugins/x-plugin';
 import { ActionsDictionary } from '../store/actions.types';
@@ -21,9 +20,8 @@ import { MutationsDictionary } from '../store/mutations.types';
 import { RootXStoreState, XStoreModule } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
 import { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types';
-import { WireMetadata } from '../wiring/wiring.types';
-import { XEventsTypes } from '../wiring/events.types';
 import { XComponentsAdapterDummy } from './adapter.dummy';
+import { XDummyBus } from './bus.dummy';
 import Mock = jest.Mock;
 
 export type MockedXComponentsAdapter = {
@@ -192,7 +190,7 @@ export function installNewXPlugin(
   localVue: typeof Vue = createLocalVue()
 ): [XPlugin, typeof Vue] {
   XPlugin.resetInstance();
-  const xPlugin = new XPlugin(new XPriorityBus<XEventsTypes, WireMetadata>());
+  const xPlugin = new XPlugin(new XDummyBus());
   const installOptions: XPluginOptions = {
     adapter: XComponentsAdapterDummy,
     ...options

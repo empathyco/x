@@ -1,18 +1,16 @@
-import { XPriorityBus } from '@empathyco/x-bus';
 import {
   namespacedWireCommit,
   namespacedWireCommitWithoutPayload,
   namespacedWireDispatch,
   namespacedWireDispatchWithoutPayload
 } from '../namespaced-wires.factory';
-import { XEventsTypes } from '../events.types';
-import { WireMetadata } from '../wiring.types';
+import { XDummyBus } from '../../__tests__/bus.dummy';
 import { createQuerySuggestionsStoreMock, SubjectHandler } from './utils';
 
 describe('testing namespaced wires factory', () => {
   const moduleName = 'querySuggestions';
   const storeMock = createQuerySuggestionsStoreMock();
-  const busMock = new XPriorityBus<XEventsTypes, WireMetadata>();
+  const busMock = new XDummyBus();
   const busOnMock = busMock.on.bind(busMock);
 
   const subjectHandler = new SubjectHandler();

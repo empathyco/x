@@ -1,4 +1,3 @@
-import { XPriorityBus } from '@empathyco/x-bus';
 import { createWireFromFunction } from '../wires.factory';
 import {
   filter,
@@ -8,8 +7,8 @@ import {
   filterWhitelistedModules,
   mapWire
 } from '../wires.operators';
-import { WireMetadata, WireParams } from '../wiring.types';
-import { XEventsTypes } from '../events.types';
+import { WireParams } from '../wiring.types';
+import { XDummyBus } from '../../__tests__/bus.dummy';
 import { createQuerySuggestionsStoreMock, getExpectedWirePayload, SubjectHandler } from './utils';
 
 describe('testing wires operators', () => {
@@ -17,7 +16,7 @@ describe('testing wires operators', () => {
   const subjectHandler = new SubjectHandler();
   const executeFunction = jest.fn();
   const wire = createWireFromFunction(executeFunction);
-  const busMock = new XPriorityBus<XEventsTypes, WireMetadata>();
+  const busMock = new XDummyBus();
   const busOnMock = busMock.on.bind(busMock);
 
   beforeEach(() => {
