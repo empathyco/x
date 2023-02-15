@@ -105,8 +105,8 @@
             class="x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand"
           >
             <BaseKeyboardNavigation>
-              <div class="x-input-group x-input-group--card">
-                <div class="x-input">
+              <div class="x-input-group x-input-group-lead x-rounded-sm">
+                <div class="x-input x-search-input-placeholder-container">
                   <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
                   <SearchInput
                     aria-label="Search for products"
@@ -114,8 +114,13 @@
                     :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
                   />
                 </div>
-                <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-                <SearchButton aria-label="Search" class="x-input-group__action">
+                <ClearSearchInput
+                  class="x-input-group-button x-input-group-button-rectangle"
+                  aria-label="Clear query"
+                >
+                  Clear
+                </ClearSearchInput>
+                <SearchButton aria-label="Search" class="x-input-group-button-primary">
                   <SearchIcon />
                 </SearchButton>
               </div>
