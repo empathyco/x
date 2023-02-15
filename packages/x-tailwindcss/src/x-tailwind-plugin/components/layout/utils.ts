@@ -9,7 +9,7 @@ import { TailwindHelpers } from '../../../types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function utils(helpers: TailwindHelpers) {
   return {
-    '.x-stack': {
+    '.layout-stack': {
       display: 'grid',
       gridTemplateRows: '1fr',
       gridTemplateColumns: '1fr',
