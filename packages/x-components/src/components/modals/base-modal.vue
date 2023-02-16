@@ -247,7 +247,7 @@
      * @internal
      */
     protected emitFocusInBody(event: FocusEvent): void {
-      if (!this.$refs.modalContent.contains(getTargetElement(event))) {
+      if (!this.$refs.modalContent?.contains(getTargetElement(event))) {
         this.$emit('focusin:body', event);
       }
     }
