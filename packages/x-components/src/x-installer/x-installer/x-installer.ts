@@ -1,11 +1,12 @@
 import { forEach, isFunction } from '@empathyco/x-utils';
 import Vue, { PluginObject, VueConstructor } from 'vue';
-import { XBus, XPriorityBus } from '@empathyco/x-bus';
+import { XBus } from '@empathyco/x-bus';
 import { XPlugin } from '../../plugins/x-plugin';
 import { XPluginOptions } from '../../plugins/x-plugin.types';
 import { NormalisedSnippetConfig, SnippetConfig, XAPI } from '../api/api.types';
 import { BaseXAPI } from '../api/base-api';
 import { WireMetadata, XEventsTypes } from '../../wiring/index';
+import { bus } from '../../plugins/x-bus';
 import { InitWrapper, InstallXOptions, VueConstructorPartialArgument } from './types';
 
 declare global {
@@ -207,7 +208,7 @@ export class XInstaller {
    * @internal
    */
   protected createBus(): XBus<XEventsTypes, WireMetadata> {
-    return this.options.bus ?? new XPriorityBus<XEventsTypes, WireMetadata>();
+    return this.options.bus ?? bus;
   }
 
   /**

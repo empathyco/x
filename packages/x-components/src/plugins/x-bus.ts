@@ -1,6 +1,7 @@
 import { XPriorityBus } from '@empathyco/x-bus';
 import { XEventsTypes } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
+import { logDevtoolsXEvent } from './devtools/timeline.devtools';
 
 /**
  * Default {@link @empathyco/x-bus#XBus} implementation.
@@ -24,5 +25,6 @@ export const bus = new XPriorityBus<XEventsTypes, WireMetadata>({
     BeforeUnmountHook: 12,
     UnmountedHook: 12,
     DataReceived: 14
-  }
+  },
+  emitCallbacks: [logDevtoolsXEvent]
 });
