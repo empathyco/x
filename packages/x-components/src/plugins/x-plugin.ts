@@ -235,9 +235,9 @@ export class XPlugin implements PluginObject<XPluginOptions> {
       const customizedXModule = this.customizeXModule(xModule);
       this.registerStoreModule(customizedXModule);
       this.registerStoreEmitters(customizedXModule);
+      this.registerWiring(customizedXModule);
       // The wiring must be registered after the store emitters
       // to allow lazy loaded modules work properly.
-      this.registerWiring(customizedXModule);
       this.installedXModules.add(xModule.name);
       this.bus.emit('ModuleRegistered', xModule.name);
     }
@@ -292,7 +292,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
       >;
       // Register event wires
       forEach(wires, (_, wire) => {
-        wire(observable, this.store, this.bus.on.bind(this.bus));
+        wire(observable, this.store as Store<RootXStoreState>, this.bus.on.bind(this.bus));
       });
     });
   }

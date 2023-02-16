@@ -167,9 +167,9 @@
      * @returns The search request object.
      * @internal
      */
-    protected get emitQueryPreviewRequestChanged(): DebouncedFunction<[SearchRequest]> {
+    protected get emitQueryPreviewRequestUpdated(): DebouncedFunction<[SearchRequest]> {
       return debounce(request => {
-        this.$x.emit('QueryPreviewRequestChanged', request);
+        this.$x.emit('QueryPreviewRequestUpdated', request);
       }, this.debounceTimeMs);
     }
 
@@ -181,9 +181,9 @@
     protected created(): void {
       this.$watch(
         () => this.queryPreviewRequest,
-        request => this.emitQueryPreviewRequestChanged(request)
+        request => this.emitQueryPreviewRequestUpdated(request)
       );
-      this.emitQueryPreviewRequestChanged(this.queryPreviewRequest);
+      this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
     }
 
     /**
@@ -193,7 +193,7 @@
      * @internal
      */
     protected beforeDestroy(): void {
-      this.emitQueryPreviewRequestChanged.cancel();
+      this.emitQueryPreviewRequestUpdated.cancel();
     }
 
     /**
@@ -204,8 +204,8 @@
      * @param old - The previous debounced function.
      * @internal
      */
-    @Watch('emitQueryPreviewRequestChanged')
-    protected cancelEmitPreviewRequestChanged(
+    @Watch('emitQueryPreviewRequestUpdated')
+    protected cancelEmitPreviewRequestUpdated(
       _new: DebouncedFunction<[SearchRequest]>,
       old: DebouncedFunction<[SearchRequest]>
     ): void {
@@ -233,7 +233,7 @@
 
 A list of events that the component will emit:
 
-- `QueryPreviewRequestChanged`: the event is emitted when the component is mounted and when the
+- `QueryPreviewRequestUpdated`: the event is emitted when the component is mounted and when the
   properties of the request object changes. The event payload is the `queryPreviewRequest` object.
 
 ## See it in action

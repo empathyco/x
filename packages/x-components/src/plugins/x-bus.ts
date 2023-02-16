@@ -10,6 +10,7 @@ import { logDevtoolsXEvent } from './devtools/timeline.devtools';
  */
 export const bus = new XPriorityBus<XEventsTypes, WireMetadata>({
   priorities: {
+    UserScrolledToElement: 0,
     RequestUpdated: 2,
     Changed: 4,
     User: 6,
@@ -24,7 +25,8 @@ export const bus = new XPriorityBus<XEventsTypes, WireMetadata>({
     UpdatedHook: 12,
     BeforeUnmountHook: 12,
     UnmountedHook: 12,
-    DataReceived: 14
+    DataReceived: 14,
+    Initialized: 16
   },
   emitCallbacks: [logDevtoolsXEvent]
 });

@@ -17,7 +17,7 @@ export interface RelatedTagsXEvents {
    * Payload: The new related tags request or `null` if there is not enough data in the state
    * to conform a valid request.
    */
-  RelatedTagsRequestChanged: RelatedTagsRequest | null;
+  RelatedTagsRequestUpdated: RelatedTagsRequest | null;
   /**
    * Selected related tags have been changed.
    * Payload: The new {@link @empathyco/x-types#RelatedTag | selected related tags}.

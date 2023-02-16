@@ -4,7 +4,6 @@ import { XBus } from '@empathyco/x-bus';
 import { getGettersProxyFromModule } from '../store/utils/getters-proxy.utils';
 import { AnySimpleStateSelector, AnyStateSelector } from '../store/utils/store-emitters.utils';
 import { debounce } from '../utils/debounce';
-import { DebouncedFunction } from '../utils/types';
 import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { AnyXModule } from '../x-modules/x-modules.types';
 import { WireMetadata } from '../wiring/index';
@@ -26,10 +25,7 @@ export function registerStoreEmitters(
 ): void {
   const safeGettersProxy = getGettersProxyFromModule(store.getters, name, storeModule);
   forEach(storeEmitters, (event, stateSelector: AnySimpleStateSelector | AnyStateSelector) => {
-    const { selector, immediate, filter, ...options } = normalizeStateSelector(
-      stateSelector,
-      event
-    );
+    const { selector, immediate, filter, ...options } = normalizeStateSelector(stateSelector);
 
     const watcherSelector = (): XEventPayload<typeof event> =>
       selector(store.state.x[name], safeGettersProxy);
@@ -71,24 +67,13 @@ function debounceWatcherEffect<Event extends XEvent = XEvent>(
    */
   let previousValue: XEventPayload<Event> | undefined = undefined;
 
-  let watcherCallback = debounce(
+  const watcherCallback = debounce(
     (newValue: XEventPayload<Event>, oldValue: XEventPayload<Event>): void => {
       watcherEffect(newValue, oldValue);
       previousValue = undefined;
     },
     0
   );
-  /* Only applying the extra debounce to the "SecondLevelEvent" events to avoid repeating outer
-   * effects (requests, URL changes). If we only apply the debounce to all the events we still have
-   * the problem of outer effects. */
-  if (isSecondLevelEventEmitter(event)) {
-    const previousCallback = watcherCallback;
-    const debouncedPreviousCallback = debounce(previousCallback, 0);
-    watcherCallback = ((n, o) => {
-      previousCallback.cancel();
-      debouncedPreviousCallback(n, o);
-    }) as DebouncedFunction<any>;
-  }
 
   return (newValue, oldValue) => {
     previousValue = previousValue !== undefined ? previousValue : oldValue;
@@ -101,14 +86,12 @@ function debounceWatcherEffect<Event extends XEvent = XEvent>(
  * default values for its properties.
  *
  * @param stateSelector - The state selector to normalize.
- * @param event - The event name of the emitter.
  * @returns A {@link AnyStateSelector} with all the properties set.
  *
  * @internal
  */
 function normalizeStateSelector(
-  stateSelector: AnySimpleStateSelector | AnyStateSelector,
-  event: XEvent
+  stateSelector: AnySimpleStateSelector | AnyStateSelector
 ): Required<AnyStateSelector> {
   const normalizedSelector = isSimpleSelector(stateSelector)
     ? { selector: stateSelector }
@@ -116,9 +99,7 @@ function normalizeStateSelector(
   return {
     deep: false,
     immediate: false,
-    filter: isSecondLevelEventEmitter(event)
-      ? (newValue, oldValue) => !hasPayloadChanged(newValue, oldValue)
-      : () => true,
+    filter: (newValue, oldValue) => !hasPayloadChanged(newValue, oldValue),
     ...normalizedSelector
   };
 }
@@ -138,20 +119,6 @@ export function isSimpleSelector(
   return typeof stateSelector === 'function';
 }
 
-// TODO: Generalize the Naming of the Events to take this into account
-const secondLevelEvents: RegExp[] = [/RequestChanged$/, /UrlStateChanged$/];
-
-/**
- * Function to detect if an {@link XEvent} is a "SecondLevelEvent", to treat it differently.
- *
- * @param event - The name of the {@link XEvent} to check.
- * @returns True if is an `SecondLevelEvent`, False otherwise.
- *
- * @internal
- */
-function isSecondLevelEventEmitter(event: XEvent): boolean {
-  return secondLevelEvents.some(regex => regex.test(event));
-}
 /**
  * Function to filter if a payload of an {@link XEvent} has really changed or not. It only
  * compares the first level of fields and not deeply, to avoid CPU consuming task here.
