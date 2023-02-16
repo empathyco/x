@@ -30,6 +30,7 @@ module.exports = {
     'textDecoration',
     'textOverflow',
     'preflight',
-    'borderRadius'
+    'borderRadius',
+    'margin'
   ]
 };
