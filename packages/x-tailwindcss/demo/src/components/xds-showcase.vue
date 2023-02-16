@@ -5,6 +5,7 @@
     <XdsHighlight />
     <XdsTypography />
     <XdsInput />
+    <XdsInputGroup />
     <XdsSuggestion />
     <XdsSuggestionGroup />
     <XdsSlidingPanel />
@@ -23,6 +24,7 @@
   import XdsButton from './xds-button.vue';
   import XdsHighlight from './xds-highlight.vue';
   import XdsIcon from './xds-icon.vue';
+  import XdsInputGroup from './xds-input-group.vue';
   import XdsSuggestion from './xds-suggestion.vue';
   import XdsTypography from './xds-typography.vue';
   import XdsInput from './xds-input.vue';
@@ -38,6 +40,7 @@
 
   @Component({
     components: {
+      XdsInputGroup,
       XdsTypography,
       XdsHighlight,
       XdsButton,

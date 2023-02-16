@@ -8,7 +8,7 @@
       @keydown="copyCssClassesToClipboard"
       @click="copyCssClassesToClipboard"
       :class="cssClass"
-      class="x-h-[200px] x-w-[200px] x-bg-warning-50"
+      class="x-h-[200px] x-w-[200px] x-bg-warning-25"
     >
       <div :key="cssClass" class="x-h-[1000px]"></div>
     </div>
