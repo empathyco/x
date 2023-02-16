@@ -26,7 +26,7 @@
             <HistoryQuery
               :suggestion="suggestion"
               data-test="history-query-item"
-              class="x-history-queries__item"
+              class="x-history-queries__item x-suggestion"
             >
               <template #default>
                 <!--

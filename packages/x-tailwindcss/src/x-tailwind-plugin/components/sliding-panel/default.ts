@@ -11,7 +11,6 @@ export function slidingPanelDefault() {
     display: 'flex',
     flexFlow: 'row nowrap',
     alignItems: 'center',
-    height: '100%',
     ...slidingPanelButtons()
   };
 }

@@ -116,16 +116,14 @@ We are working on many key features to consolidate Interface X, including these 
 - **Search box power-ups** such as
   [animated suggestions](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/search-box/x-components.search-input-placeholder.html)
   or [forbidden character](https://github.com/empathyco/x/pull/433) set to prevent code injection.
+- Create the **x-bus**, a library that provides an event bus to help with event orchestration.
+  ![Release Docs](https://img.shields.io/badge/In%20Progress-Q1%202023-yellow)
   [![Release Docs](https://img.shields.io/badge/Released-November%202022-brightgreen)](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/search-box/x-components.search-input-placeholder.html)
 - **WCAG AA compliance**.
   [![Release Docs](https://img.shields.io/badge/In%20Progress-Q1%202023-yellow)](https://www.w3.org/WAI/standards-guidelines/wcag/)
 - **Result Preview component** to rapidly discover more result attributed without leaving the SERP.
   ![Release Docs](https://img.shields.io/badge/In%20Progress-Q1%202023-yellow)
 - **Suggestions with filters** that allows to select a query suggestion with a specific filter.
-  ![Release Docs](https://img.shields.io/badge/In%20Progress-Q1%202023-yellow)
-- **Events** that allows to select a query suggestion with a specific filter.
-  ![Release Docs](https://img.shields.io/badge/In%20Progress-Q1%202023-yellow)
-- Create the **x-bus**, a library that provides an event bus to help with event orchestration.
   ![Release Docs](https://img.shields.io/badge/In%20Progress-Q1%202023-yellow)
 - **Vue 3 Migration**.
   [![Release Docs](https://img.shields.io/badge/Discovery-Q2%202023-blue)](https://vuejs.org/)
@@ -135,17 +133,20 @@ We are working on many key features to consolidate Interface X, including these 
 
 ## How to install
 
-This project is a monorepo that is handled by [Lerna](https://github.com/lerna/lerna) using `npm`.
-To prepare your development environment, proceed as follows:
+This project is a monorepo that is handled by [Lerna](https://github.com/lerna/lerna) &
+[pnpm](https://pnpm.io/) & [Nx](https://nx.dev/). To prepare your development environment, proceed
+as follows:
 
-1. Fork the X repository and then clone it to your local environment:
+1. [Install pnpm](https://pnpm.io/installation)
+2. Fork the X repository and then clone it to your local environment:
    `git clone https://github.com/empathyco/x.git`.
-2. Install the dependencies in the root folder: `pnpm install --frozen-lockfile`. This links all the
+3. Install the dependencies in the root folder: `pnpm install --frozen-lockfile`. This links all the
    projects.
 
-Have a look to
-[this article](https://medium.com/empathyco/moving-to-a-mono-repo-part-1-the-journey-eb63efd8ef64)
-to see why we moved to a mono repo and how we did it.
+> Have a look to
+> [this article](https://medium.com/empathyco/moving-to-a-mono-repo-part-1-the-journey-eb63efd8ef64)
+> to see why we moved to a mono repo and how we did it. Take into account that the article talks
+> about the previous version of this monorepo managed by Lerna & npm.
 
 ## How to implement Interface X
 
@@ -163,10 +164,10 @@ the future of search experiences, please check our
 
 ## Core Team
 
-| <a href="https://github.com/tajespasarela"><img src="https://avatars.githubusercontent.com/u/5759712?v=4" width="100px;" alt=""/><br /><br /><b>Iván Tajes</b></a>  | <a href="https://github.com/javieri-empathy"><img src="https://avatars.githubusercontent.com/u/68222542?v=4" width="100px;" alt=""/><br /><br /><b>Javier Iglesias</b></a> | <a href="https://github.com/joseacabaneros"><img src="https://avatars.githubusercontent.com/u/10746604?v=4" width="100px;" alt=""/><br /><br /><b>Jose Antonio Cabañeros</b></a> | <a href="https://github.com/LuisMartinez15"><img src="https://avatars.githubusercontent.com/u/6247440?v=4" width="100px;" alt=""/><br /><br /><b>Luís Martínez</b></a> |      <a href="https://github.com/tiborux"><img src="https://avatars.githubusercontent.com/u/6597815?v=4" width="100px;" alt=""/><br /><br /><b>Beltrán García</b></a>      |
-| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| <a href="https://github.com/herrardo"><img src="https://avatars.githubusercontent.com/u/4663897?v=4" width="100px;" alt=""/><br /><br /><b>Gerardo Vázquez</b></a>  |  <a href="https://github.com/CachedaCodes"><img src="https://avatars.githubusercontent.com/u/7124620?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Cacheda</b></a>  |         <a href="https://github.com/mavmaf"><img src="https://avatars.githubusercontent.com/u/77147901?v=4" width="100px;" alt=""/><br /><br /><b>Mavi Fernández</b></a>         |    <a href="https://github.com/diegopf"><img src="https://avatars.githubusercontent.com/u/7504736?v=4" width="100px;" alt=""/><br /><br /><b>Diego Pascual</b></a>     | <a href="https://github.com/mnavarroespinosa"><img src="https://avatars.githubusercontent.com/u/77450928?v=4" width="100px;" alt=""/><br /><br /><b>Manuel Navarro</b></a> |
-| <a href="https://github.com/ajperezbau"><img src="https://avatars.githubusercontent.com/u/75546736?v=4" width="100px;" alt=""/><br /><br /><b>Abraham Pérez</b></a> |       <a href="https://github.com/annacv"><img src="https://avatars.githubusercontent.com/u/21217131?v=4" width="100px;" alt=""/><br /><br /><b>Anna Condal</b></a>        |         <a href="https://github.com/alvarodE"><img src="https://avatars.githubusercontent.com/u/72568818?v=4" width="100px;" alt=""/><br /><br /><b>Álvaro Díaz</b></a>          |
+| <a href="https://github.com/tajespasarela"><img src="https://avatars.githubusercontent.com/u/5759712?v=4" width="100px;" alt=""/><br /><br /><b>Iván Tajes</b></a>  | <a href="https://github.com/javieri-empathy"><img src="https://avatars.githubusercontent.com/u/68222542?v=4" width="100px;" alt=""/><br /><br /><b>Javier Iglesias</b><br/><font size="1">(Honorific)</font></a> | <a href="https://github.com/joseacabaneros"><img src="https://avatars.githubusercontent.com/u/10746604?v=4" width="100px;" alt=""/><br /><br /><b>Jose Antonio Cabañeros</b></a> | <a href="https://github.com/LuisMartinez15"><img src="https://avatars.githubusercontent.com/u/6247440?v=4" width="100px;" alt=""/><br /><br /><b>Luís Martínez</b></a> |      <a href="https://github.com/tiborux"><img src="https://avatars.githubusercontent.com/u/6597815?v=4" width="100px;" alt=""/><br /><br /><b>Beltrán García</b></a>      |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <a href="https://github.com/herrardo"><img src="https://avatars.githubusercontent.com/u/4663897?v=4" width="100px;" alt=""/><br /><br /><b>Gerardo Vázquez</b></a>  |                     <a href="https://github.com/CachedaCodes"><img src="https://avatars.githubusercontent.com/u/7124620?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Cacheda</b></a>                     |         <a href="https://github.com/mavmaf"><img src="https://avatars.githubusercontent.com/u/77147901?v=4" width="100px;" alt=""/><br /><br /><b>Mavi Fernández</b></a>         |    <a href="https://github.com/diegopf"><img src="https://avatars.githubusercontent.com/u/7504736?v=4" width="100px;" alt=""/><br /><br /><b>Diego Pascual</b></a>     | <a href="https://github.com/mnavarroespinosa"><img src="https://avatars.githubusercontent.com/u/77450928?v=4" width="100px;" alt=""/><br /><br /><b>Manuel Navarro</b></a> |
+| <a href="https://github.com/ajperezbau"><img src="https://avatars.githubusercontent.com/u/75546736?v=4" width="100px;" alt=""/><br /><br /><b>Abraham Pérez</b></a> |                          <a href="https://github.com/annacv"><img src="https://avatars.githubusercontent.com/u/21217131?v=4" width="100px;" alt=""/><br /><br /><b>Anna Condal</b></a>                           |         <a href="https://github.com/alvarodE"><img src="https://avatars.githubusercontent.com/u/72568818?v=4" width="100px;" alt=""/><br /><br /><b>Álvaro Díaz</b></a>          |
 
 ## Contributors
 

@@ -20,6 +20,10 @@ export function suggestionGroupButtonDefault() {
       transform: 'scale(1.2)'
     },
 
+    '&:last-child': {
+      justifySelf: 'end'
+    },
+
     /*To fix icon baseline alignment needs text to know the baseline*/
     '&::after': {
       content: `'|'`,

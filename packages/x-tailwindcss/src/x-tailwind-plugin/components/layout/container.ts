@@ -21,9 +21,6 @@ export function container(helpers: TailwindHelpers) {
         height: '100%',
         flex: '1 1 0',
         minHeight: '0'
-      },
-      '& .scroll': {
-        overflowY: 'scroll'
       }
     }
   };

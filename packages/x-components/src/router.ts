@@ -41,7 +41,7 @@ if (process.env.NODE_ENV !== 'production') {
     {
       path: '/xds',
       name: 'XDS',
-      component: () => import('@empathyco/x-tailwindcss/showcase').then(m => m.XdsShowCase)
+      component: () => import('@empathyco/x-tailwindcss/showcase').then(m => m.XdsShowcase)
     },
     {
       path: '/result-app',
