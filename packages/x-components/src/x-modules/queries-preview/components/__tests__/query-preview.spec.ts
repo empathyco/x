@@ -21,7 +21,7 @@ describe('query preview', () => {
     query = 'milk',
     location,
     queryFeature,
-    debounceTimeMs,
+    debounceTimeMs = 0,
     template = `<QueryPreview v-bind="$attrs" />`,
     queryPreview = {
       request: {
