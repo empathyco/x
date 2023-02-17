@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.20...@empathyco/x-archetype-utils@0.1.0-alpha.21) (2023-02-17)
+
+### Bug Fixes
+
+- Update home styles to match `inputGroup`. (#1079)
+  ([eef82a1](https://github.com/empathyco/x/commit/eef82a1574ab922556a83712ebf6e5f78651a9c9)),
+  closes [EX-8014](https://searchbroker.atlassian.net/browse/EX-8014)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.19...@empathyco/x-archetype-utils@0.1.0-alpha.20) (2023-02-08)
 
 ### Continuous Integration
