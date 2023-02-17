@@ -276,7 +276,7 @@ importers:
   packages/x-components:
     specifiers:
       '@badeball/cypress-cucumber-preprocessor': ~15.0.0
-      '@bahmutov/cypress-esbuild-preprocessor': ~2.1.5
+      '@bahmutov/cypress-esbuild-preprocessor': ~2.2.0
       '@cypress/vue': ~2.2.4
       '@empathyco/x-adapter': ^8.0.0-alpha.25
       '@empathyco/x-adapter-platform': ^1.0.0-alpha.63
@@ -353,7 +353,7 @@ importers:
       vue-runtime-helpers: 1.1.2
     devDependencies:
       '@badeball/cypress-cucumber-preprocessor': 15.0.0_cypress@12.2.0
-      '@bahmutov/cypress-esbuild-preprocessor': 2.1.5_esbuild@0.17.5
+      '@bahmutov/cypress-esbuild-preprocessor': 2.2.0_esbuild@0.17.5
       '@cypress/vue': 2.2.4_tayzhzodz2m7diticeg5gjyp2u
       '@empathyco/x-adapter-platform': link:../x-adapter-platform
       '@empathyco/x-tailwindcss': link:../x-tailwindcss
@@ -1196,10 +1196,10 @@ packages:
       - supports-color
     dev: true
 
-  /@bahmutov/cypress-esbuild-preprocessor/2.1.5_esbuild@0.17.5:
-    resolution: {integrity: sha512-cJMlZOZ3kUb/s2KQ8p7DJNiOzwApSoYCiK1toJKBvz58MbqBIeBjD7F8NFJE1MrFzYBYAOQcSMVWHp4y1l/Fjg==}
+  /@bahmutov/cypress-esbuild-preprocessor/2.2.0_esbuild@0.17.5:
+    resolution: {integrity: sha512-pTvxRi6+OFsXy6uCn/HlO5zi0fUZWbiCtTiLTDf/+kgEfZ/Y8WIxZ2pjuir9MEM8prQenBw60TLcM0wcazh7+Q==}
     peerDependencies:
-      esbuild: '*'
+      esbuild: '>=0.17.0'
     dependencies:
       debug: 4.3.4
       esbuild: 0.17.5
@@ -3997,8 +3997,8 @@ packages:
       prettier: '>= 2.0.0'
     dependencies:
       eslint: 8.33.0
-      eslint-config-prettier: 8.5.0_eslint@8.33.0
-      eslint-plugin-prettier: 4.2.1_6szgnv26mlwjcnkli62b775hwe
+      eslint-config-prettier: 8.6.0_eslint@8.33.0
+      eslint-plugin-prettier: 4.2.1_jqplj6qf3uqpxpu4gdyhwwasnq
       prettier: 2.8.3
     dev: true
 
@@ -7475,15 +7475,6 @@ packages:
       eslint: 8.32.0
     dev: false
 
-  /eslint-config-prettier/8.5.0_eslint@8.33.0:
-    resolution: {integrity: sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==}
-    hasBin: true
-    peerDependencies:
-      eslint: '>=7.0.0'
-    dependencies:
-      eslint: 8.33.0
-    dev: true
-
   /eslint-config-prettier/8.6.0_eslint@8.33.0:
     resolution: {integrity: sha512-bAF0eLpLVqP5oEVUFKpMA+NnRFICwn9X8B5jrR9FcqnYBuPbqWEjTEspPWMj5ye6czoSLDweCzSo3Ko7gGrZaA==}
     hasBin: true
@@ -7770,23 +7761,6 @@ packages:
       spdx-expression-parse: 3.0.1
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /eslint-plugin-prettier/4.2.1_6szgnv26mlwjcnkli62b775hwe:
-    resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
-    engines: {node: '>=12.0.0'}
-    peerDependencies:
-      eslint: '>=7.28.0'
-      eslint-config-prettier: '*'
-      prettier: '>=2.0.0'
-    peerDependenciesMeta:
-      eslint-config-prettier:
-        optional: true
-    dependencies:
-      eslint: 8.33.0
-      eslint-config-prettier: 8.5.0_eslint@8.33.0
-      prettier: 2.8.3
-      prettier-linter-helpers: 1.0.0
     dev: true
 
   /eslint-plugin-prettier/4.2.1_jqplj6qf3uqpxpu4gdyhwwasnq:
@@ -9991,7 +9965,7 @@ packages:
       pretty-format: 27.5.1
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1_typescript@4.9.4
+      ts-node: 10.9.1_olvm5ep3pscdu3xks2ljs4ou5a
     transitivePeerDependencies:
       - bufferutil
       - canvas
