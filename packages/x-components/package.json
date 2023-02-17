@@ -88,7 +88,7 @@
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "~15.0.0",
-    "@bahmutov/cypress-esbuild-preprocessor": "~2.1.5",
+    "@bahmutov/cypress-esbuild-preprocessor": "~2.2.0",
     "@cypress/vue": "~2.2.4",
     "@empathyco/x-adapter-platform": "^1.0.0-alpha.63",
     "@empathyco/x-tailwindcss": "^1.0.0-alpha.7",
