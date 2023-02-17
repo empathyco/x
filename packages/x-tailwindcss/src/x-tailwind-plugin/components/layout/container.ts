@@ -1,9 +1,13 @@
+import { TailwindHelpers } from '../../../types';
+
 /**
- * Returns the `default` element CSS.
+ * Returns the `container` element CSS.
  *
+ * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function container() {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function container(helpers: TailwindHelpers) {
   return {
     container: {
       display: 'flex',
@@ -11,7 +15,13 @@ export function container() {
       height: '100%',
       maxHeight: '100%',
       justifyContent: 'flex-start',
-      alignItems: 'stretch'
+      alignItems: 'stretch',
+
+      '& > .scroll': {
+        height: '100%',
+        flex: '1 1 0',
+        minHeight: '0'
+      }
     }
   };
 }

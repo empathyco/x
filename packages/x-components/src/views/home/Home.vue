@@ -105,8 +105,8 @@
             class="x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand"
           >
             <BaseKeyboardNavigation>
-              <div class="x-input-group x-input-group--card">
-                <div class="x-input">
+              <div class="x-input-group x-input-group-lead x-rounded-sm">
+                <div class="x-input x-search-input-placeholder-container">
                   <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
                   <SearchInput
                     aria-label="Search for products"
@@ -114,8 +114,13 @@
                     :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
                   />
                 </div>
-                <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-                <SearchButton aria-label="Search" class="x-input-group__action">
+                <ClearSearchInput
+                  class="x-input-group-button x-input-group-button-rectangle"
+                  aria-label="Clear query"
+                >
+                  Clear
+                </ClearSearchInput>
+                <SearchButton aria-label="Search" class="x-input-group-button-primary">
                   <SearchIcon />
                 </SearchButton>
               </div>
@@ -306,7 +311,7 @@
                           >
                             <h1 class="x-title2">Others clients have searched</h1>
                             <NextQuery
-                              class="x-text1 x-text1-lg"
+                              class="x-suggestion x-text1 x-text1-lg"
                               :suggestion="nextQueries[0]"
                               data-test="next-query-preview-name"
                             >
@@ -328,7 +333,7 @@
                             <NextQuery
                               :suggestion="nextQueries[0]"
                               data-test="view-all-results"
-                              class="x-tag x-tag--pill x-margin--left-auto x-margin--right-auto x-margin--top-03 x-padding--top-04 x-padding--bottom-04 x-padding--right-05 x-padding--left-05 x-border-color--lead x-margin--bottom-06 x-font-bold x-text-lead-50"
+                              class="x-button x-button-outlined x-rounded-full x-mx-auto x-mt-8 x-mb-24"
                             >
                               {{ 'View all results' }}
                             </NextQuery>
@@ -406,7 +411,6 @@
   import Grid1Col from '../../components/icons/grid-1-col.vue';
   import Grid2Col from '../../components/icons/grid-2-col.vue';
   import LightBulbOn from '../../components/icons/light-bulb-on.vue';
-  import Nq1 from '../../components/icons/nq-1.vue';
   import SearchIcon from '../../components/icons/search.vue';
   import BaseEventButton from '../../components/base-event-button.vue';
   // eslint-disable-next-line max-len
@@ -503,7 +507,6 @@
       NextQueriesList,
       NextQueryPreview,
       NextQuery,
-      Nq1,
       OpenMainModal,
       PartialQueryButton,
       PartialResultsList,

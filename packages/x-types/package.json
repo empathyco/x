@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-types",
-  "version": "10.0.0-alpha.58",
+  "version": "10.0.0-alpha.60",
   "description": "Empathy search types",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -28,6 +28,7 @@
     "node": ">=16"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "rollup -c && npm run gen:docs",
     "build:watch": "rollup -c -w",
     "gen:model-docs": "api-extractor run -c x-types-extractor.json -l && api-extractor run -c schema-extractor.json -l && api-extractor run -l",
@@ -37,11 +38,11 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.0.0-alpha.23",
+    "@empathyco/x-adapter": "^8.0.0-alpha.25",
     "tslib": "~2.4.1"
   },
   "devDependencies": {
-    "@empathyco/x-jest-utils": "^1.4.0-alpha.7",
+    "@empathyco/x-jest-utils": "^1.4.0-alpha.9",
     "@microsoft/api-documenter": "~7.21.3",
     "@microsoft/api-extractor": "~7.33.7",
     "@types/jest": "~27.0.3",

@@ -18,7 +18,7 @@
           #default="nextQueryScope"
           :suggestion="baseScope.suggestion"
           :highlightCurated="highlightCurated"
-          class="x-next-queries__suggestion"
+          class="x-next-queries__suggestion x-suggestion"
         >
           <!-- eslint-disable max-len -->
           <!--
@@ -177,7 +177,7 @@ Next Query suggestion.
     <SearchInput />
     <NextQueries>
       <template #suggestion-content="{ suggestion }">
-        <Nq1Icon />
+        <TrendingIcon />
         <span class="x-next-query__query">{{ suggestion.query }}</span>
       </template>
     </NextQueries>
@@ -187,14 +187,14 @@ Next Query suggestion.
 <script>
   import { SearchInput } from '@empathyco/x-components/search-box';
   import { NextQueries } from '@empathyco/x-components/next-queries';
-  import { Nq1Icon } from '@empathyco/x-components';
+  import { TrendingIcon } from '@empathyco/x-components';
 
   export default {
     name: 'NextQueriesDemo',
     components: {
       SearchInput,
       NextQueries,
-      Nq1Icon
+      TrendingIcon
     }
   };
 </script>
@@ -215,7 +215,7 @@ is wrapped in a `span`
       <template #suggestion="{ suggestion }">
         <NextQuery :suggestion="suggestion" class="x-next-queries__suggestion">
           <template #default="{ suggestion }">
-            <Nq1Icon />
+            <TrendingIcon />
             <span class="x-next-query__query">{{ suggestion.query }}</span>
           </template>
         </NextQuery>
@@ -228,7 +228,7 @@ is wrapped in a `span`
 <script>
   import { SearchInput } from '@empathyco/x-components/search-box';
   import { NextQueries, NextQuery } from '@empathyco/x-components/next-queries';
-  import { Nq1Icon } from '@empathyco/x-components';
+  import { TrendingIcon } from '@empathyco/x-components';
 
   export default {
     name: 'NextQueriesDemo',
@@ -236,7 +236,7 @@ is wrapped in a `span`
       SearchInput,
       NextQueries,
       NextQuery,
-      Nq1Icon
+      TrendingIcon
     }
   };
 </script>

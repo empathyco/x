@@ -7,6 +7,8 @@ import { StatusMutations, StatusState } from './status-store.utils';
  * option to cancel the request at any moment. This factory provides with the standard flow
  * for requesting, cancelling, handling errors for a module, while also taking care of its status.
  *
+ * @param hooks - The {@link FetchAndSaveHooks} hooks to create the action.
+ *
  * @public
  * @returns An action to fetch and save some data, and an action to cancel the last request.
  */
@@ -19,6 +21,7 @@ export function createFetchAndSaveActions<
 >({
   fetch,
   onSuccess,
+  // TODO add logger
   // eslint-disable-next-line no-console
   onError = console.error,
   onCancel

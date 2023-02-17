@@ -12,9 +12,9 @@ their flexibility.
 To start contributing on this project you need to understand how to see the X Components up and
 running.
 
-1. run `npm ci` at the project root
+1. run `pnpm i --frozen-lockfile` at the project root
 2. set `packages/x-components` as working directory at the terminal
-3. run `npm run serve`
+3. run `pnpm run serve`
 
 The app will be launch in localhost. Every view available at the top tabs is set in
 `packages/x-components/src/router.ts`.

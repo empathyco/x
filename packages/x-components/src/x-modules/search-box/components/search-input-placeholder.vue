@@ -140,7 +140,7 @@
       this.stopAnimationInterval();
 
       if (this.isBeingAnimated) {
-        this.animationInterval = setInterval((): void => {
+        this.animationInterval = window.setInterval((): void => {
           this.incrementAnimationMessageIndex();
         }, this.animationIntervalMs);
       }
@@ -222,8 +222,16 @@
   }
 </script>
 
+<style lang="scss">
+  .x-search-input-placeholder-container {
+    position: relative;
+  }
+</style>
+
 <style lang="scss" scoped>
   .x-search-input-placeholder {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
   }

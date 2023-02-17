@@ -4,45 +4,21 @@
     title="Layout"
     :sections="sections"
   >
-    <button @click="openModal(cssClass)" class="x-button">
-      {{ removeClassPrefix(cssClass, base).trim() }}
-    </button>
-
-    <dialog :ref="cssClass" class="modal x-bg-neutral-25">
-      <form method="dialog" class="x-flex x-justify-end x-p-16">
-        <button @click="enableScroll" class="x-button x-button-ghost" value="default">Close</button>
-      </form>
-      <div
-        :key="cssClass"
-        @click="copyCssClassesToClipboard"
-        @keydown="copyCssClassesToClipboard"
-        :class="cssClass"
-        title="Click me to copy CSS classes"
-      >
-        <h1 class="x-layout-item x-title1">{{ removeClassPrefix(cssClass, base).trim() }}</h1>
-        <div v-for="(item, index) in items" :key="index" :class="item.class">
-          <div>{{ item.title }}</div>
-          <div v-if="item.content" class="x-flex">
-            <div
-              v-for="index in 5"
-              :key="index"
-              class="x-flex x-flex-row x-flex-wrap x-justify-between x-p-16"
-              :class="item.background"
-            >
-              <div class="x-title2">{{ item.content.title }}</div>
-              <div class="x-mb-16">{{ item.content.text }}</div>
-              <button class="x-button x-button-primary">Hover me!</button>
-            </div>
-          </div>
-          <button
-            v-if="item.button"
-            class="x-button x-button-secondary x-self-center x-mt-24 x-mx-auto"
-          >
-            {{ item.button }}
-          </button>
-        </div>
-      </div>
-    </dialog>
+    <div v-if="cssClass.includes('x-layout-min-margin-12')" class="x-text-md x-mb-16">
+      There are as many classes as spacing variables declared in the Tailwind theme:
+      <code>x-layout-min-margin-[spacing-value]</code>
+    </div>
+    {{ removeClassPrefix(cssClass, base) }}
+    <div
+      :key="cssClass"
+      @click="copyCssClassesToClipboard"
+      @keydown="copyCssClassesToClipboard"
+      :class="cssClass"
+      title="Click me to copy CSS classes"
+      class="x-bg-neutral-25 x-w-[100vw]"
+    >
+      <div class="x-layout-item"><span class="x-bg-lead-25 x-p-8">item</span></div>
+    </div>
   </XdsBaseShowcase>
 </template>
 
@@ -61,81 +37,27 @@
     @Prop({ default: 'x-layout-container' })
     public base!: string;
 
-    @Prop({ default: () => ['x-layout-sm', 'x-layout-md', 'x-layout-lg', 'x-layout-full'] })
-    public sizes!: string[];
+    @Prop({
+      default: () => ['x-layout-max-width-md', 'x-layout-max-width-lg', 'x-layout-max-width-full']
+    })
+    public maxWidth!: string[];
 
-    public items: Record<string, unknown>[] = [
-      {
-        class: 'x-layout-item x-p-16 x-bg-accent-50',
-        title: 'layout item - Fake toolbar'
-      },
-      {
-        class: 'x-layout-item x-p-16 x-bg-neutral-0',
-        background: 'x-bg-neutral-0',
-        title: 'layout item - Fake result grid',
-        content: {
-          title: "I'm a title",
-          // eslint-disable-next-line max-len
-          text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
-        }
-      },
-      {
-        class: 'x-layout-item x-p-16 x-bg-warning-50',
-        background: 'x-bg-warning-25 x-mt-16',
-        title: 'layout item - Fake NQ grid',
-        button: 'see more',
-        content: {
-          title: "I'm a title",
-          // eslint-disable-next-line max-len
-          text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-        }
-      },
-      {
-        class: 'x-layout-item x-p-16 x-bg-neutral-0',
-        background: 'x-bg-neutral-0',
-        title: 'layout item - Fake result grid',
-        content: {
-          title: "I'm a title",
-          // eslint-disable-next-line max-len
-          text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
-        }
-      }
-    ];
+    @Prop({
+      default: () => [
+        'x-layout-min-margin-12',
+        'x-layout-min-margin-20',
+        'x-layout-min-margin-32',
+        'x-layout-min-margin-48'
+      ]
+    })
+    public minMargin!: string[];
 
     protected get sections(): ShowcaseSections {
       return {
-        Sizes: this.sizes.map(addParentClasses(this.base))
+        Default: [this.base],
+        'Max width': this.maxWidth.map(addParentClasses(this.base)),
+        'Min margin': this.minMargin.map(addParentClasses(this.base))
       };
-    }
-
-    openModal(layoutSize: string): void {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      (this.$refs[layoutSize] as any).showModal();
-      document.documentElement.style.overflow = 'hidden';
-    }
-
-    enableScroll(): void {
-      document.documentElement.style.overflow = '';
-    }
-
-    destroyed(): void {
-      this.enableScroll();
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  .modal {
-    min-height: 100vh;
-    width: 100vw;
-    max-width: 100vw;
-    padding: 0;
-  }
-  .x-layout-item {
-    max-width: var(--x-layout-max-width);
-    width: 4000px;
-    height: auto;
-    margin: 0 var(--x-layout-min-margin);
-    align-self: center;
-  }
-</style>

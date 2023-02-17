@@ -9,8 +9,17 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["{projectRoot}/dist", "{projectRoot}/showcase"]
+      "dependsOn": ["^build", "prebuild"],
+      "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/report",
+        "{projectRoot}/schemas",
+        "{projectRoot}/showcase",
+        "{projectRoot}/types"
+      ]
+    },
+    "test": {
+      "outputs": ["{projectRoot}/coverage"]
     }
   }
 }

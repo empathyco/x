@@ -19,12 +19,6 @@
   export default class BaseScroll extends mixins(ScrollMixin) {}
 </script>
 
-<style lang="scss" scoped>
-  .x-base-scroll {
-    overflow-y: var(--x-string-overflow-scroll, auto);
-  }
-</style>
-
 <docs lang="mdx">
 ## Example
 

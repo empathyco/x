@@ -9,7 +9,7 @@ import {
 } from './actions/fetch-and-save-search-response.action';
 import { fetchSearchResponse } from './actions/fetch-search-response.action';
 import { increasePageAppendingResults } from './actions/increase-page-apending-results.action';
-import { resetState } from './actions/reset-state.action';
+import { resetRequestOnRefinement } from './actions/reset-request-on-refinement.action';
 import { saveOrigin } from './actions/save-origin.action';
 import { saveSearchResponse } from './actions/save-search-response.action';
 import { setUrlParams } from './actions/set-url-params.action';
@@ -24,42 +24,27 @@ import { SearchXStoreModule } from './types';
  */
 export const searchXStoreModule: SearchXStoreModule = {
   state: () => ({
-    query: '',
+    ...resettableState(),
     params: {},
-    results: [],
-    partialResults: [],
-    facets: [],
-    relatedTags: [],
-    banners: [],
-    promoteds: [],
-    selectedFilters: {},
     config: {
       pageSize: 24
     },
-    totalResults: 0,
-    spellcheckedQuery: '',
-    status: 'initial',
-    sort: '',
-    page: 1,
-    origin: null,
-    isAppendResults: false,
-    redirections: [],
-    queryTagging: {
-      url: '',
-      params: {}
-    }
+    status: 'initial'
   }),
   getters: {
     request,
     query
   },
   mutations: {
+    appendResults(state, results) {
+      state.results.push(...results);
+    },
+    resetState(state) {
+      Object.assign(state, resettableState());
+    },
     setQuery,
     setResults(state, results) {
       state.results = results;
-    },
-    appendResults(state, results) {
-      state.results.push(...results);
     },
     setPartialResults(state, partialResults) {
       state.partialResults = partialResults;
@@ -124,9 +109,42 @@ export const searchXStoreModule: SearchXStoreModule = {
     fetchSearchResponse,
     fetchAndSaveSearchResponse,
     increasePageAppendingResults,
-    resetState,
+    resetRequestOnRefinement,
     saveSearchResponse,
     setUrlParams,
     saveOrigin
   }
 };
+
+/**
+ * Function to return the "resettable" part of the state. This will be used in the `resetState`
+ * mutation to reset to the initial state.
+ *
+ * @returns The "resettable" part of the {@link SearchState}.
+ *
+ * @internal
+ */
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export function resettableState() {
+  return {
+    query: '',
+    results: [],
+    partialResults: [],
+    facets: [],
+    relatedTags: [],
+    banners: [],
+    promoteds: [],
+    selectedFilters: {},
+    totalResults: 0,
+    spellcheckedQuery: '',
+    sort: '',
+    page: 1,
+    origin: null,
+    isAppendResults: false,
+    redirections: [],
+    queryTagging: {
+      url: '',
+      params: {}
+    }
+  };
+}

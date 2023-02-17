@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.20...@empathyco/x-archetype-utils@0.1.0-alpha.21) (2023-02-17)
+
+### Bug Fixes
+
+- Update home styles to match `inputGroup`. (#1079)
+  ([eef82a1](https://github.com/empathyco/x/commit/eef82a1574ab922556a83712ebf6e5f78651a9c9)),
+  closes [EX-8014](https://searchbroker.atlassian.net/browse/EX-8014)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.19...@empathyco/x-archetype-utils@0.1.0-alpha.20) (2023-02-08)
+
+### Continuous Integration
+
+- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+  ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
+  closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.1.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.18...@empathyco/x-archetype-utils@0.1.0-alpha.19) (2023-02-07)
+
+### Continuous Integration
+
+- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+  ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
+  closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@0.1.0-alpha.17...@empathyco/x-archetype-utils@0.1.0-alpha.18) (2023-02-03)
 
 ### Build System
