@@ -254,17 +254,17 @@
             </div>
 
             <template v-if="!$x.query.searchBox">
-              <h1 class="x-margin--bottom-05 x-title1">Brand Recommendations</h1>
+              <h1 class="x-mb-16 x-title1">Brand Recommendations</h1>
               <LocationProvider location="no_results">
                 <div>
                   <QueryPreviewList
                     :queries="queriesToPreview"
                     #default="{ query, totalResults, results }"
                   >
-                    <div class="x-list x-list--gap-03 x-margin--bottom-05">
-                      <h1 class="x-title2 x-text--bold">{{ query }} ({{ totalResults }})</h1>
+                    <div class="x-flex x-flex-col x-gap-8 x-mb-16">
+                      <h1 class="x-title2">{{ query }} ({{ totalResults }})</h1>
                       <SlidingPanel :resetOnContentChange="false">
-                        <div class="x-list x-list--horizontal x-list--gap-03">
+                        <div class="x-flex x-gap-8">
                           <Result
                             v-for="result in results"
                             :key="result.id"
