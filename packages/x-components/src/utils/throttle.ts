@@ -44,7 +44,7 @@ export const throttle = <Params extends any[]>(
 
 export interface ThrottleOptions {
   /**
-   * If true, calls the throttled function immediately if there are not pending calls.
+   * If true, calls the throttled function immediately if there are no pending calls.
    */
   leading?: boolean;
 }
