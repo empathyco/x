@@ -419,6 +419,6 @@ interface RenderQueryPreviewAPI {
   findTestDataById: (testDataId: string) => WrapperArray<Vue>;
   /** Updates the extra params in the module state. */
   updateExtraParams: (params: any) => Promise<void>;
-  /** Flush all pending promises to cause the component to be in its final state. */
+  /** Flushes all pending promises to cause the component to be in its final state. */
   reRender: () => Promise<void>;
 }

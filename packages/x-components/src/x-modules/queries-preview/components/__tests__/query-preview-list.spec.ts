@@ -7,11 +7,7 @@ import {
   getResultsStub
 } from '../../../../__stubs__/index';
 import { XComponentsAdapterDummy } from '../../../../__tests__/adapter.dummy';
-import {
-  getDataTestSelector,
-  getMockedAdapter,
-  installNewXPlugin
-} from '../../../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { queriesPreviewXModule } from '../../x-module';
 import QueryPreviewList from '../query-preview-list.vue';
 
@@ -100,33 +96,33 @@ describe('testing QueryPreviewList', () => {
     });
 
     // noResults query preview
-    let queryPreviews = getQueryPreviewItemWrappers();
-    expect(queryPreviews.wrappers).toHaveLength(1);
-    expect(queryPreviews.at(0).text()).toEqual(''); // Query preview still is loading
-
-    // Jeans query preview
     await reRender();
-    queryPreviews = getQueryPreviewItemWrappers();
+    let queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews.wrappers).toHaveLength(1);
     expect(queryPreviews.at(0).text()).toEqual('');
 
     await reRender();
     queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews.wrappers).toHaveLength(1);
-    expect(queryPreviews.at(0).text()).toEqual('jeans - Sick jeans');
+    expect(queryPreviews.at(0).text()).toEqual('shoes - Crazy shoes');
   });
   // TODO When error handling is added this component should exclude also queries that failed.
 });
 
 interface RenderQueryPreviewListOptions {
+  /** The template to render the {@link QueryPreviewList} component. */
   template?: string;
+  /** The queries for which preview its results. */
   queries?: string[];
+  /** The results to return from the mocked search endpoint adapter. */
   results?: Record<string, Result[]>;
 }
 
 interface RenderQueryPreviewListApi {
+  /** The Vue testing utils wrapper for the {@link QueryPreviewList} component. */
   wrapper: Wrapper<Vue>;
+  /** Returns an array with the {@link QueryPreview} items wrappers. */
   getQueryPreviewItemWrappers: () => WrapperArray<Vue>;
-
+  /** Flushes all pending promises to cause the component to be in its final state. */
   reRender: () => Promise<void>;
 }
