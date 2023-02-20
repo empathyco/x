@@ -115,6 +115,7 @@
                   />
                 </div>
                 <ClearSearchInput
+                  v-if="$x.query.searchBox"
                   class="x-input-group-button x-input-group-button-rectangle"
                   aria-label="Clear query"
                 >

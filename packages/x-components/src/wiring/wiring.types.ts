@@ -1,10 +1,10 @@
+import { Priority, SubjectPayload, XPriorityBus } from '@empathyco/x-bus';
 import { Dictionary } from '@empathyco/x-utils';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from 'vuex';
-import { SubjectPayload, XPriorityBus } from '@empathyco/x-bus';
-import { RootStoreStateAndGetters, RootXStoreState } from '../store';
+import { RootStoreStateAndGetters, RootXStoreState } from '../store/store.types';
 import { FeatureLocation, QueryFeature } from '../types/origin';
-import { FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils';
+import { FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils/types';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload, XEventsTypes } from './events.types';
 
@@ -46,6 +46,13 @@ export interface WireMetadata {
   target?: HTMLElement;
   /** The component instance that triggered the event emission. */
   component?: Vue;
+  /** The event priority to use when sorting the bus queue for event batching. */
+  priority?: Priority;
+  /**
+   * The event replaces an existing entry of the same event in the bus, placing this new one
+   * based on its priority.
+   */
+  replaceable?: boolean;
 }
 
 /**

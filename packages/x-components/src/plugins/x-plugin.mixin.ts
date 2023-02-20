@@ -96,6 +96,7 @@ function createWireMetadata(
 ): WireMetadata {
   return Object.defineProperties(
     {
+      replaceable: true,
       moduleName: getXComponentXModuleName(component.xComponent),
       location: component.$location,
       ...metadata
