@@ -228,6 +228,12 @@
       old.cancel();
     }
 
+    /**
+     * Emits an event when the query results are loaded or fail to load.
+     *
+     * @param status - The status of the query preview request.
+     * @internal
+     */
     @Watch('queryPreviewResults.status')
     emitLoad(status: RequestStatus | undefined): void {
       if (status === 'success') {
@@ -245,6 +251,13 @@ A list of events that the component will emit:
 
 - `QueryPreviewRequestChanged`: the event is emitted when the component is mounted and when the
   properties of the request object changes. The event payload is the `queryPreviewRequest` object.
+
+## Vue Events
+
+A list of vue events that the component will emit:
+
+- `load`: the event is emitted when the query results have been loaded.
+- `error`: the event is emitted if there is some error when retrieving the query results.
 
 ## See it in action
 
