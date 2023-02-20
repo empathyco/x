@@ -465,7 +465,6 @@
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
   import { HomeControls } from './types';
-  import SlidingQueryPreview from './sliding-query-preview.vue';
 
   @Component({
     directives: {
@@ -526,7 +525,6 @@
       SearchInput,
       SearchInputPlaceholder,
       SlidingPanel,
-      SlidingQueryPreview,
       SnippetCallbacks,
       SnippetConfigExtraParams,
       SortDropdown,
