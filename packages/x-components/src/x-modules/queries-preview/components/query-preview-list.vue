@@ -24,9 +24,9 @@
   }
 
   /**
-   * Retrieves a preview of the results of a query and exposes them in the default slot,
-   * along with the query preview and the totalResults of the search request.
-   * By default, it renders the names of the results.
+   * Renders the results previews of a list of queries, and exposes the {@link QueryPreview} slots
+   * to modify the content.
+   * The requests are made in sequential order.
    *
    * @public
    */
@@ -39,32 +39,67 @@
     mixins: [xComponentMixin(queriesPreviewXModule)]
   })
   export default class QueryPreviewList extends Vue {
+    /**
+     * List of queries to preview.
+     */
     @Prop({ required: true })
     public queries!: string[];
+
+    /**
+     * Contains the status of the preview requests, indexed by query.
+     */
     public queriesStatus: QueryPreviewStatusRecord = {};
 
+    /**
+     * Gets all the queries to render, that are those that don't have an `error` status.
+     *
+     * @returns A list of queries.
+     * @internal
+     */
     protected get renderedQueries(): string[] {
       return this.queries.filter(
         query => this.queriesStatus[query] === 'success' || this.queriesStatus[query] === 'loading'
       );
     }
 
+    /**
+     * Resets the status of all queries if they change.
+     *
+     * @internal
+     */
     @Watch('queries', { immediate: true })
     protected resetStatusRecord(): void {
       this.queriesStatus = {};
       this.loadNext();
     }
 
+    /**
+     * Sets the status of a given query to `success`.
+     *
+     * @param loadedQuery - The query to flag as loaded.
+     * @internal
+     */
     protected flagAsLoaded(loadedQuery: string): void {
       this.queriesStatus[loadedQuery] = 'success';
       this.loadNext();
     }
 
+    /**
+     * Sets the status of a given query to `error`.
+     *
+     * @param failedQuery - The query to flag as failed.
+     * @internal
+     */
     protected flagAsFailed(failedQuery: string): void {
       this.queriesStatus[failedQuery] = 'error';
       this.loadNext();
     }
 
+    /**
+     * Tries to load the next query.
+     *
+     * @internal
+     */
     protected loadNext(): void {
       const queryToLoad = this.queries.find(query => !(query in this.queriesStatus));
       if (queryToLoad) {
@@ -75,35 +110,28 @@
 </script>
 
 <docs lang="mdx">
-## Events
-
-A list of events that the component will emit:
-
-- `QueryPreviewRequestChanged`: the event is emitted when the component is mounted and when the
-  properties of the request object changes. The event payload is the `queryPreviewRequest` object.
-
 ## See it in action
 
-Here you have a basic example of how the QueryPreview is rendered. Keep in mind that this component
-is intended to be used overriding its default slot. By default it will only render the names of the
-results.
+Here you have a basic example of how the QueryPreviewList is rendered. Keep in mind that this
+component is intended to be used overriding its default slot. By default it will only render the
+names of the results.
 
 ```vue live
 <template>
-  <QueryPreview :query="query" />
+  <QueryPreviewList :queries="queries" />
 </template>
 
 <script>
-  import { QueryPreview } from '@empathyco/x-components/queries-preview';
+  import { QueryPreviewList } from '@empathyco/x-components/queries-preview';
 
   export default {
-    name: 'QueryPreviewDemo',
+    name: 'QueryPreviewListDemo',
     components: {
-      QueryPreview
+      QueryPreviewList
     },
     data() {
       return {
-        query: 'sandals'
+        queries: ['sandals', 'tshirt', 'jacket']
       };
     }
   };
@@ -116,47 +144,38 @@ In this example, the results will be rendered inside a sliding panel.
 
 ```vue live
 <template>
-  <QueryPreview :query="query" #default="{ totalResults, results }">
-    <section>
-      <p>Total results: {{ totalResults }}</p>
-
+  <QueryPreviewList :queries="queries" #default="{ query, totalResults, results }">
+    <div class="x-flex x-flex-col x-gap-8 x-mb-16">
+      <h1 class="x-title2">{{ query }} ({{ totalResults }})</h1>
       <SlidingPanel :resetOnContentChange="false">
-        <article
-          v-for="result in results"
-          :key="result.id"
-          class="x-result"
-          style="max-width: 300px; overflow: hidden"
-        >
-          <BaseResultLink :result="result">
-            <BaseResultImage :result="result" class="x-result__picture" />
-          </BaseResultLink>
-
-          <div class="x-result__description">
-            <BaseResultLink :result="result">
-              <h1 class="x-title3">{{ result.name }}</h1>
-            </BaseResultLink>
-          </div>
-        </article>
+        <div class="x-flex x-gap-8">
+          <Result
+            v-for="result in results"
+            :key="result.id"
+            :result="result"
+            style="max-width: 180px"
+          />
+        </div>
       </SlidingPanel>
-    </section>
-  </QueryPreview>
+    </div>
+  </QueryPreviewList>
 </template>
 
 <script>
-  import { QueryPreview } from '@empathyco/x-components/queries-preview';
+  import { QueryPreviewList } from '@empathyco/x-components/queries-preview';
   import { BaseResultImage, BaseResultLink, SlidingPanel } from '@empathyco/x-components';
 
   export default {
-    name: 'QueryPreviewDemoOverridingSlot',
+    name: 'QueryPreviewListDemoOverridingSlot',
     components: {
       BaseResultImage,
       BaseResultLink,
-      QueryPreview,
+      QueryPreviewList,
       SlidingPanel
     },
     data() {
       return {
-        query: 'flip-flops'
+        queries: ['sandals', 'tshirt', 'jacket']
       };
     }
   };
@@ -171,61 +190,23 @@ In this example, the ID of the results will be rendered along with the name.
 
 ```vue
 <template>
-  <QueryPreview :query="query" #result="{ result }">
-    <span>{{ result.id }}</span>
-
+  <QueryPreviewList class="x-flex x-gap-8" :queries="queries" #result="{ result }">
+    <span class="x-font-bold">{{ result.id }}:</span>
     <span>{{ result.name }}</span>
-  </QueryPreview>
+  </QueryPreviewList>
 </template>
 
 <script>
-  import { QueryPreview } from '@empathyco/x-components/queries-preview';
+  import { QueryPreviewList } from '@empathyco/x-components/queries-preview';
 
   export default {
-    name: 'QueryPreviewDemoOverridingResultSlot',
+    name: 'QueryPreviewListDemoOverridingResultSlot',
     components: {
-      QueryPreview
+      QueryPreviewList
     },
     data() {
       return {
-        query: 'flips-flops'
-      };
-    }
-  };
-</script>
-```
-
-### Play with props
-
-In this example, the query preview has been limited to render a maximum of 4 results.
-
-```vue
-<template>
-  <QueryPreview :maxItemsToRender="maxItemsToRender" :query="query" #default="{ results }">
-    <BaseGrid #default="{ item }" :items="results">
-      <BaseResultLink :result="item">
-        <BaseResultImage :result="item" />
-      </BaseResultLink>
-    </BaseGrid>
-  </QueryPreview>
-</template>
-
-<script>
-  import { BaseGrid, BaseResultImage, BaseResultLink } from '@empathyco/x-components';
-  import { QueryPreview } from '@empathyco/x-components/queries-preview';
-
-  export default {
-    name: 'QueryPreviewDemo',
-    components: {
-      BaseGrid,
-      BaseResultImage,
-      BaseResultLink,
-      QueryPreview
-    },
-    data() {
-      return {
-        maxItemsToRender: 4,
-        query: 'flips-flops'
+        queries: ['sandals', 'tshirt', 'jacket']
       };
     }
   };
