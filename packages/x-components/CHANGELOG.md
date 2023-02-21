@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.318](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.317...@empathyco/x-components@3.0.0-alpha.318) (2023-02-21)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.317](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.316...@empathyco/x-components@3.0.0-alpha.317) (2023-02-17)
 
 ### Build System

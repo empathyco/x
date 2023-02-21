@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.7...@empathyco/x-tailwindcss@1.0.0-alpha.8) (2023-02-21)
+
+### Bug Fixes
+
+- **design-system:** Fix X Design System `Scroll` component appearing in mobile. (#1085)
+  ([b23d5ec](https://github.com/empathyco/x/commit/b23d5ec8cfb6a68ba704e42507ca71b000f141b4)),
+  closes [EX-8044](https://searchbroker.atlassian.net/browse/EX-8044)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.6...@empathyco/x-tailwindcss@1.0.0-alpha.7) (2023-02-15)
 
 ### Features

@@ -282,7 +282,7 @@ importers:
       '@empathyco/x-deep-merge': ^1.3.0-alpha.32
       '@empathyco/x-logger': ^1.2.0-alpha.9
       '@empathyco/x-storage-service': ^2.0.0-alpha.9
-      '@empathyco/x-tailwindcss': ^1.0.0-alpha.7
+      '@empathyco/x-tailwindcss': ^1.0.0-alpha.8
       '@empathyco/x-types': ^10.0.0-alpha.60
       '@empathyco/x-utils': ^1.0.0-alpha.17
       '@microsoft/api-documenter': ~7.21.3
@@ -4995,8 +4995,8 @@ packages:
       prettier: '>= 2.0.0'
     dependencies:
       eslint: 8.33.0
-      eslint-config-prettier: 8.6.0_eslint@8.33.0
-      eslint-plugin-prettier: 4.2.1_jqplj6qf3uqpxpu4gdyhwwasnq
+      eslint-config-prettier: 8.5.0_eslint@8.33.0
+      eslint-plugin-prettier: 4.2.1_6szgnv26mlwjcnkli62b775hwe
       prettier: 2.8.3
     dev: true
 
@@ -9664,6 +9664,18 @@ packages:
       eslint: 8.32.0
     dev: false
 
+  /eslint-config-prettier/8.5.0_eslint@8.33.0:
+    resolution:
+      {
+        integrity: sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==
+      }
+    hasBin: true
+    peerDependencies:
+      eslint: '>=7.0.0'
+    dependencies:
+      eslint: 8.33.0
+    dev: true
+
   /eslint-config-prettier/8.6.0_eslint@8.33.0:
     resolution:
       {
@@ -9995,6 +10007,26 @@ packages:
       spdx-expression-parse: 3.0.1
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /eslint-plugin-prettier/4.2.1_6szgnv26mlwjcnkli62b775hwe:
+    resolution:
+      {
+        integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==
+      }
+    engines: { node: '>=12.0.0' }
+    peerDependencies:
+      eslint: '>=7.28.0'
+      eslint-config-prettier: '*'
+      prettier: '>=2.0.0'
+    peerDependenciesMeta:
+      eslint-config-prettier:
+        optional: true
+    dependencies:
+      eslint: 8.33.0
+      eslint-config-prettier: 8.5.0_eslint@8.33.0
+      prettier: 2.8.3
+      prettier-linter-helpers: 1.0.0
     dev: true
 
   /eslint-plugin-prettier/4.2.1_jqplj6qf3uqpxpu4gdyhwwasnq:
@@ -13048,7 +13080,7 @@ packages:
       pretty-format: 27.5.1
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1_olvm5ep3pscdu3xks2ljs4ou5a
+      ts-node: 10.9.1_typescript@4.9.4
     transitivePeerDependencies:
       - bufferutil
       - canvas
