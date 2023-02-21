@@ -81,7 +81,9 @@ describe('testing BaseColumnPickerDropdown', () => {
     expect(listenerColumnPicker).toHaveBeenNthCalledWith(1, {
       eventPayload: 3,
       metadata: {
-        moduleName: null
+        moduleName: null,
+        location: undefined,
+        replaceable: true
       }
     });
   });

@@ -115,7 +115,6 @@
                   />
                 </div>
                 <ClearSearchInput
-                  v-if="$x.query.searchBox"
                   class="x-input-group-button x-input-group-button-rectangle"
                   aria-label="Clear query"
                 >
@@ -294,7 +293,7 @@
                     <NextQueriesList
                       :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
                     >
-                      <BaseVariableColumnGrid :animation="resultsAnimation">
+                      <BaseGrid :animation="resultsAnimation" :columns="4">
                         <template #result="{ item: result }">
                           <MainScrollItem :item="result">
                             <Result :result="result" data-test="search-result" />
@@ -346,7 +345,7 @@
                             </NextQuery>
                           </NextQueryPreview>
                         </template>
-                      </BaseVariableColumnGrid>
+                      </BaseGrid>
                     </NextQueriesList>
                   </BannersList>
                 </PromotedsList>

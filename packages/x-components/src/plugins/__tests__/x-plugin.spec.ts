@@ -450,9 +450,7 @@ describe('testing X Plugin', () => {
         ' value are emitted asynchronously but consecutively',
       async () => {
         component.vm.$x.emit('UserIsTypingAQuery', 'New York strip steak');
-        await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
         component.vm.$x.emit('UserIsTypingAQuery', 'Prime rib');
-        await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
         component.vm.$x.emit('UserIsTypingAQuery', 'Tomahawk steak');
 
         await waitNextTick();
@@ -461,7 +459,8 @@ describe('testing X Plugin', () => {
         expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
           eventPayload: 'Tomahawk steak',
           metadata: expect.objectContaining({
-            moduleName: 'searchBox'
+            moduleName: 'searchBox',
+            replaceable: true
           }),
           store
         });

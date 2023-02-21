@@ -28,7 +28,8 @@ describe('testing GlobalXBus component', function () {
     expect(acceptedAQueryCallback).toHaveBeenCalledTimes(1);
     expect(acceptedAQueryCallback).toHaveBeenCalledWith('lego', {
       location: undefined,
-      moduleName: null
+      moduleName: null,
+      replaceable: true
     });
 
     expect(clickedColumnPickerCallback).not.toHaveBeenCalled();

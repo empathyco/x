@@ -72,7 +72,9 @@ describe('testing Base Column Picker List', () => {
     expect(listenerColumnPicker).toHaveBeenNthCalledWith(1, {
       eventPayload: 3,
       metadata: {
-        moduleName: null
+        moduleName: null,
+        location: undefined,
+        replaceable: true
       }
     });
   });
@@ -94,7 +96,9 @@ describe('testing Base Column Picker List', () => {
       eventPayload: columns[index],
       metadata: {
         moduleName: null, // no module registered for this base component
-        target: wrapper.findAll(getDataTestSelector('column-picker-button')).at(index).element
+        target: wrapper.findAll(getDataTestSelector('column-picker-button')).at(index).element,
+        location: undefined,
+        replaceable: true
       }
     });
     /* 1st event is to sync the initial value
@@ -105,7 +109,9 @@ describe('testing Base Column Picker List', () => {
       eventPayload: columns[index],
       metadata: {
         moduleName: null, // no module registered for this base component
-        target: wrapper.findAll(getDataTestSelector('column-picker-button')).at(index).element
+        target: wrapper.findAll(getDataTestSelector('column-picker-button')).at(index).element,
+        location: undefined,
+        replaceable: true
       }
     });
   });

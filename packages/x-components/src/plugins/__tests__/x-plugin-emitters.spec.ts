@@ -256,7 +256,8 @@ describe('testing X Plugin emitters', () => {
         eventPayload: 'wheat',
         metadata: {
           moduleName: 'searchBox',
-          oldValue: ''
+          oldValue: '',
+          replaceable: true
         },
         store
       });
@@ -272,7 +273,8 @@ describe('testing X Plugin emitters', () => {
         eventPayload: 'wheat beer',
         metadata: {
           moduleName: 'searchBox',
-          oldValue: 'whe'
+          oldValue: 'whe',
+          replaceable: true
         },
         store
       });

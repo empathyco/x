@@ -36,7 +36,8 @@ describe('testing SnippetCallbacks component', () => {
     expect(acceptedAQueryCallback).toHaveBeenCalledTimes(1);
     expect(acceptedAQueryCallback).toHaveBeenCalledWith('lego', {
       location: undefined,
-      moduleName: null
+      moduleName: null,
+      replaceable: true
     });
 
     expect(clickedColumnPickerCallback).not.toHaveBeenCalled();
@@ -48,7 +49,8 @@ describe('testing SnippetCallbacks component', () => {
     expect(clickedColumnPickerCallback).toHaveBeenCalledTimes(1);
     expect(clickedColumnPickerCallback).toHaveBeenCalledWith(1, {
       location: undefined,
-      moduleName: null
+      moduleName: null,
+      replaceable: true
     });
   });
 
