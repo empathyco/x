@@ -9,7 +9,7 @@ Feature: Preselected filters
     And   a recommendations API with a known response
     And   a results API with a known response
 
-  Scenario Outline: 1. Preselected filter are selected is there is no more filters in the url
+  Scenario Outline: 1. Preselected filters are selected if there ire no more filters in the url
     Given an application the "<filter>" filter preselected
     When  start button is clicked
     And   "<query>" is searched
