@@ -94,7 +94,7 @@
      * It will default to 0 to fit the most common use case (pre-search),
      * and it would work properly with a 250 value inside empathize.
      */
-    @Prop({ default: 150 })
+    @Prop({ default: 0 })
     public debounceTimeMs!: number;
 
     /**
