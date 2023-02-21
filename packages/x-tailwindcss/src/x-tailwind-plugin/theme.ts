@@ -108,8 +108,8 @@ export default {
   },
   screens: {
     tablet: '744px',
-    desktop: '1440px',
-    large: '1920px'
+    desktop: '1280px',
+    large: '2560px'
   },
   spacing: {
     0: '0px',
