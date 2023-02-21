@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.317](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.316...@empathyco/x-components@3.0.0-alpha.317) (2023-02-17)
+
+### Build System
+
+- **dependencies:** bump `@bahmutov/cypress-esbuild-preprocessor` from `2.1.5` to `2.2.0` (#1082)
+  ([106c2d1](https://github.com/empathyco/x/commit/106c2d1eba6e1d3b03ac75a04bdec3e961579fef))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.316](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.315...@empathyco/x-components@3.0.0-alpha.316) (2023-02-16)
+
+### Features
+
+- remove `x-suggestion` class from `BaseSuggestion` component (#1077)
+  ([31f48e9](https://github.com/empathyco/x/commit/31f48e91ca06348d9122ad301f765b48c2fc963f)),
+  closes [EX-8006](https://searchbroker.atlassian.net/browse/EX-8006)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.315](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.314...@empathyco/x-components@3.0.0-alpha.315) (2023-02-15)
 
 ### Features
