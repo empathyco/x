@@ -108,6 +108,7 @@
     "@vue/test-utils": "~1.0.3",
     "@vue/vue2-jest": "~27.0.0-alpha.3",
     "autoprefixer": "~10.4.4",
+    "convert-source-map": "^2.0.0",
     "cypress": "~12.2.0",
     "esbuild": "0.17.5",
     "glob": "~7.1.6",
@@ -135,8 +136,7 @@
     "vue-docgen-cli": "~4.13.1",
     "vue-router": "~3.6.5",
     "vue-template-compiler": "~2.7.14",
-    "vuex": "~3.6.2",
-    "convert-source-map": "^2.0.0"
+    "vuex": "~3.6.2"
   },
   "publishConfig": {
     "access": "public",
