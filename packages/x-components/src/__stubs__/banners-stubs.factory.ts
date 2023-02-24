@@ -12,9 +12,9 @@ export function getBannersStub(): Banner[] {
     createBannerStub('1', { position: 1 }),
     createBannerStub('2', { position: 3 }),
     createBannerStub('3', { position: 3 }),
-    createBannerStub('4', { url: 'http://empathy.co', position: 4 }),
-    createBannerStub('5', { title: 'Banner', url: 'http://empathy.co', position: 7 }),
-    createBannerStub('6', { title: 'Banner', position: 9 })
+    createBannerStub('4', { position: 4 }),
+    createBannerStub('5', { position: 7 }),
+    createBannerStub('6', { position: 9 })
   ];
 }
 
