@@ -76,7 +76,7 @@ describe('testing ItemsList component', () => {
     const { wrapper } = renderItemsList({
       scopedSlots: {
         result: `<template #result="{ item }">Result: {{ item.name }}</template>`,
-        banner: `<template #banner="{ item }">Banner: {{ item.title }}</template>`,
+        banner: `<template #banner="{ item }">Banner: {{ item.id }}</template>`,
         promoted: `<template #promoted="{ item }">Promoted: {{ item.title }}</template>`
       },
       items: [resultsStub[0], promotedsStub[0], bannersStub[0]]
@@ -87,7 +87,7 @@ describe('testing ItemsList component', () => {
     );
 
     expect(wrapper.find(getDataTestSelector('banners-list-item')).text()).toBe(
-      `Banner: ${bannersStub[0].title}`
+      `Banner: ${bannersStub[0].id}`
     );
 
     expect(wrapper.find(getDataTestSelector('promoteds-list-item')).text()).toBe(
