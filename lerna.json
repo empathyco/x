@@ -1,6 +1,5 @@
 {
   "version": "independent",
-  "ignoreChanges": ["pnpm-lock.yaml"],
   "changelogPreset": {
     "name": "conventionalcommits",
     "issuePrefixes": ["EX-"],
