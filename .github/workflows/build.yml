@@ -58,7 +58,7 @@ jobs:
           restore-keys: lerna-cache-
 
       - name: install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: lint packages
         run: pnpm run lint
