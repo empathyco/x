@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.8...@empathyco/x-tailwindcss@1.0.0-alpha.9) (2023-02-27)
+
+### Bug Fixes
+
+- **design-system:** Fix scroll in the Design System. (#1088)
+  ([f1df2cb](https://github.com/empathyco/x/commit/f1df2cbe2b6c14c96de4fa682df792c8be60321f)),
+  closes [EX-8055](https://searchbroker.atlassian.net/browse/EX-8055)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.7...@empathyco/x-tailwindcss@1.0.0-alpha.8) (2023-02-21)
 
 ### Bug Fixes

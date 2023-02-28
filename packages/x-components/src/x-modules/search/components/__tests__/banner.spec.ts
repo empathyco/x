@@ -44,28 +44,26 @@ describe('testing Banner component', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('search');
   });
 
-  it('renders the banner component', () => {
+  it('renders a banner component with title', () => {
     const { wrapper } = renderBanner({
-      banner: {
-        modelName: 'Banner',
-        id: '12345',
-        url: 'https://empathy.co',
-        title: 'Search UIs',
-        image: 'https://empathy.co/x-components.jpg',
-        position: 1,
-        tagging: {
-          click: { url: 'https://track-things.com', params: {} }
-        }
-      }
+      banner: createBannerStub('banner', { title: 'Search UIs' })
     });
 
     expect(wrapper.get(getDataTestSelector('banner')).text()).toEqual('Search UIs');
   });
 
+  it('renders a banner component without title', () => {
+    const { wrapper } = renderBanner({
+      banner: createBannerStub('banner')
+    });
+
+    expect(wrapper.get(getDataTestSelector('banner')).text()).toEqual('');
+  });
+
   // eslint-disable-next-line max-len
-  it('emits UserClickedABanner when the user clicks in the left, middle or right button on the component', () => {
+  it('renders a banner which emits UserClickedABanner when the user clicks in the left, middle or right button on the component', () => {
     const listener = jest.fn();
-    const banner = createBannerStub('banner');
+    const banner = createBannerStub('banner', { url: 'https://empathy.co' });
     const { wrapper } = renderBanner({ banner });
     wrapper.vm.$x.on('UserClickedABanner').subscribe(listener);
 
@@ -79,6 +77,25 @@ describe('testing Banner component', () => {
     expect(listener).toHaveBeenNthCalledWith(3, banner);
 
     expect(listener).toHaveBeenCalledTimes(3);
+  });
+
+  it('renders a banner which does not emits any event on click', () => {
+    const listener = jest.fn();
+    const { wrapper } = renderBanner({
+      banner: createBannerStub('banner', { title: 'Search UIs' })
+    });
+    wrapper.vm.$x.on('UserClickedABanner').subscribe(listener);
+
+    wrapper.trigger('click');
+    expect(listener).not.toHaveBeenCalled();
+
+    wrapper.trigger('click', { button: 1 });
+    expect(listener).not.toHaveBeenCalled();
+
+    wrapper.trigger('click', { button: 2 });
+    expect(listener).not.toHaveBeenCalled();
+
+    expect(listener).toHaveBeenCalledTimes(0);
   });
 });
 

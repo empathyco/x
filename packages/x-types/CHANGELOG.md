@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.61](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.60...@empathyco/x-types@10.0.0-alpha.61) (2023-02-27)
+
+### Features
+
+- **banner:** add support without title and no clickable (#1069)
+  ([7207767](https://github.com/empathyco/x/commit/72077675691dc8fab7361f64e0302aa8d33213fa))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.59...@empathyco/x-types@10.0.0-alpha.60) (2023-02-08)
 
 **Note:** Version bump only for package @empathyco/x-types

@@ -8,7 +8,7 @@ inputs:
     description: Token to push code to github
     required: true
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Configure git user
       run: |
@@ -25,7 +25,9 @@ runs:
         NPM_TOKEN: ${{ inputs.npm_token }}
 
     - name: Publish release
-      run: pnpm run release:alpha
+      run: |
+        git restore ./pnpm-lock.yaml
+        pnpm run release:alpha
       shell: bash
 
     - name: Push tags

@@ -8,8 +8,10 @@ import { TailwindHelpers } from '../../../types';
 export function scrollDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
+    overflowY: 'scroll',
+    minHeight: 0,
+
     '@media (hover: hover) and (pointer: fine)': {
-      overflowY: 'scroll',
       '--x-color-thumb-scroll-bar': theme('colors.neutral.25'),
       '--x-color-thumb-scroll-bar-hover': theme('colors.neutral.50'),
       '--x-color-background-scroll-bar': 'transparent',
