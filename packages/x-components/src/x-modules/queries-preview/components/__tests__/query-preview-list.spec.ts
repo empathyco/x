@@ -12,10 +12,13 @@ import { queriesPreviewXModule } from '../../x-module';
 import QueryPreviewList from '../query-preview-list.vue';
 
 function renderQueryPreviewList({
-  template = '<QueryPreviewList v-bind="$attrs"/>',
+  template = `
+        <QueryPreviewList v-bind="$attrs" #default="{ query, results }">
+          {{ query }} - {{results[0].name}}
+        </QueryPreviewList>`,
   queries = ['milk'],
   results = { milk: getResultsStub(1) }
-}: RenderQueryPreviewListOptions): RenderQueryPreviewListApi {
+}: RenderQueryPreviewListOptions): RenderQueryPreviewListAPI {
   const localVue = createLocalVue();
   const adapter: XComponentsAdapter = {
     ...XComponentsAdapterDummy,
@@ -58,10 +61,6 @@ function renderQueryPreviewList({
 describe('testing QueryPreviewList', () => {
   it('renders a list of queries one by one', async () => {
     const { getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
-      template: `
-        <QueryPreviewList v-bind="$attrs" #default="{ query, results }">
-          {{ query }} - {{results[0].name}}
-        </QueryPreviewList>`,
       queries: ['shirt', 'jeans'],
       results: { shirt: [createResultStub('Cool shirt')], jeans: [createResultStub('Sick jeans')] }
     });
@@ -87,10 +86,6 @@ describe('testing QueryPreviewList', () => {
 
   it('hides queries with no results', async () => {
     const { getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
-      template: `
-        <QueryPreviewList v-bind="$attrs" #default="{ query, results }">
-          {{ query }} - {{results[0].name}}
-        </QueryPreviewList>`,
       queries: ['noResults', 'shoes'],
       results: { noResults: [], shoes: [createResultStub('Crazy shoes')] }
     });
@@ -118,7 +113,7 @@ interface RenderQueryPreviewListOptions {
   results?: Record<string, Result[]>;
 }
 
-interface RenderQueryPreviewListApi {
+interface RenderQueryPreviewListAPI {
   /** The Vue testing utils wrapper for the {@link QueryPreviewList} component. */
   wrapper: Wrapper<Vue>;
   /** Returns an array with the {@link QueryPreview} items wrappers. */

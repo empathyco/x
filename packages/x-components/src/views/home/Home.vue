@@ -256,26 +256,24 @@
             <template v-if="!$x.query.searchBox">
               <h1 class="x-mb-16 x-title1">Brand Recommendations</h1>
               <LocationProvider location="no_results">
-                <div>
-                  <QueryPreviewList
-                    :queries="queriesToPreview"
-                    #default="{ query, totalResults, results }"
-                  >
-                    <div class="x-flex x-flex-col x-gap-8 x-mb-16">
-                      <h1 class="x-title2">{{ query }} ({{ totalResults }})</h1>
-                      <SlidingPanel :resetOnContentChange="false">
-                        <div class="x-flex x-gap-8">
-                          <Result
-                            v-for="result in results"
-                            :key="result.id"
-                            :result="result"
-                            style="max-width: 180px"
-                          />
-                        </div>
-                      </SlidingPanel>
-                    </div>
-                  </QueryPreviewList>
-                </div>
+                <QueryPreviewList
+                  :queries="queriesToPreview"
+                  #default="{ query, totalResults, results }"
+                >
+                  <div class="x-flex x-flex-col x-gap-8 x-mb-16">
+                    <h1 class="x-title2">{{ query }} ({{ totalResults }})</h1>
+                    <SlidingPanel :resetOnContentChange="false">
+                      <div class="x-flex x-gap-8">
+                        <Result
+                          v-for="result in results"
+                          :key="result.id"
+                          :result="result"
+                          style="max-width: 180px"
+                        />
+                      </div>
+                    </SlidingPanel>
+                  </div>
+                </QueryPreviewList>
               </LocationProvider>
             </template>
 
@@ -442,7 +440,6 @@
   import SearchInputPlaceholder from '../../x-modules/search-box/components/search-input-placeholder.vue';
   import Banner from '../../x-modules/search/components/banner.vue';
   import BannersList from '../../x-modules/search/components/banners-list.vue';
-  import BaseTabsPanel from '../../components/panels/base-tabs-panel.vue';
   import PartialQueryButton from '../../x-modules/search/components/partial-query-button.vue';
   import PartialResultsList from '../../x-modules/search/components/partial-results-list.vue';
   import Promoted from '../../x-modules/search/components/promoted.vue';
@@ -484,7 +481,6 @@
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
       BaseKeyboardNavigation,
-      BaseTabsPanel,
       BaseVariableColumnGrid,
       CheckTiny,
       ChevronLeft,

@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <component :is="animation" class="x-query-preview-list" tag="ul">
     <li v-for="query in renderedQueries" :key="query" data-test="query-preview-item">
       <QueryPreview @load="flagAsLoaded" @error="flagAsFailed" v-bind="$attrs" :query="query">
         <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="scope">
@@ -7,7 +7,7 @@
         </template>
       </QueryPreview>
     </li>
-  </ul>
+  </component>
 </template>
 
 <script lang="ts">
@@ -39,6 +39,14 @@
     mixins: [xComponentMixin(queriesPreviewXModule)]
   })
   export default class QueryPreviewList extends Vue {
+    /**
+     * Animation component that will be used to animate the elements.
+     *
+     * @public
+     */
+    @Prop({ default: 'ul' })
+    public animation!: Vue | string;
+
     /**
      * List of queries to preview.
      */
