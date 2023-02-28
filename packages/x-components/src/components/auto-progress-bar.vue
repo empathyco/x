@@ -42,7 +42,10 @@
        *
        * @internal
        */
-      const cssStyles = computed(() => ({ animationDuration: `${props.durationInSeconds}s` }));
+      const cssStyles = computed<Partial<CSSStyleDeclaration>>(() => ({
+        animationDuration: `${props.durationInSeconds}s`
+      }));
+
       return {
         cssStyles
       };
@@ -83,12 +86,16 @@ Here you have a basic example of how the auto progress bar is rendered.
 
 ```vue live
 <template>
-  <AutoProgressBar :isLoading="isLoading" :durationInSeconds="delayInSeconds" />
+  <AutoProgressBar :isLoading="isLoading" :durationInSeconds="durationInSeconds" />
 </template>
 
 <script>
+  import { AutoProgressBar } from '@empathyco/x-components';
   export default {
     name: 'AutoProgressBarDemo',
+    components: {
+      AutoProgressBar
+    },
     data() {
       return {
         isLoading: true,
@@ -110,8 +117,12 @@ to cancel the animation by sending the isLoading prop to false.
 </template>
 
 <script>
+  import { AutoProgressBar } from '@empathyco/x-components';
   export default {
-    name: 'AutoProgressBarDemo'
+    name: 'AutoProgressBarDemo',
+    components: {
+      AutoProgressBar
+    }
   };
 </script>
 ```
