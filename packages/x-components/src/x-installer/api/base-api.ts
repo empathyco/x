@@ -118,4 +118,14 @@ export class BaseXAPI implements XAPI {
       console.warn('We know X is awesome, but you only need to initialize it once.');
     }
   }
+
+  /**
+   * Closes the Application.
+   *
+   * @public
+   */
+  close(): void {
+    this.bus?.emit('UserClickedCloseEventsModal');
+    this.bus?.emit('UserClickedCloseX');
+  }
 }
