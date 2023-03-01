@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.10...@empathyco/x-tailwindcss@1.0.0-alpha.11) (2023-03-01)
+
+### Bug Fixes
+
+- **design-system:** fix wrong sliding panel spacing value (#1093)
+  ([0713e34](https://github.com/empathyco/x/commit/0713e34f510c3514c3dd8192f4b42aaecbd7ce38)),
+  closes [EX-7541](https://searchbroker.atlassian.net/browse/EX-7541)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.9...@empathyco/x-tailwindcss@1.0.0-alpha.10) (2023-03-01)
 
 ### Features
