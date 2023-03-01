@@ -125,7 +125,6 @@ export class BaseXAPI implements XAPI {
    * @public
    */
   close(): void {
-    this.bus?.emit('UserClickedCloseEventsModal');
     this.bus?.emit('UserClickedCloseX');
   }
 }
