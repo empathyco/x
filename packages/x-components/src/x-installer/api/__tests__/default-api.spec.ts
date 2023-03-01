@@ -20,6 +20,15 @@ describe('testing default X API', () => {
     expect(listener).toHaveBeenCalledWith(query);
   });
 
+  it('should emit `UserClickedCloseX` through the `close` function', () => {
+    const listener = jest.fn();
+    bus.on('UserClickedCloseX').subscribe(listener);
+
+    defaultXAPI.close();
+
+    expect(listener).toHaveBeenCalled();
+  });
+
   it('should emit `UserClickedPDPAddToCart` through the `addProductToCart` function', () => {
     const listener = jest.fn();
     bus.on('UserClickedPDPAddToCart').subscribe(listener);
