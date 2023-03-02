@@ -22,14 +22,14 @@ function renderQueryPreviewList({
   const localVue = createLocalVue();
   const adapter: XComponentsAdapter = {
     ...XComponentsAdapterDummy,
-    search({ query }) {
+    search: jest.fn(({ query }) => {
       const fakeResults = results[query];
       return Promise.resolve({
         ...getEmptySearchResponseStub(),
         results: fakeResults,
         totalResults: fakeResults.length
       });
-    }
+    })
   };
   installNewXPlugin({ initialXModules: [queriesPreviewXModule], adapter }, localVue);
   const wrapper = mount(
@@ -47,6 +47,7 @@ function renderQueryPreviewList({
     }
   );
   return {
+    adapter,
     wrapper: wrapper.findComponent(QueryPreviewList),
     getQueryPreviewItemWrappers() {
       return wrapper.findAll(getDataTestSelector('query-preview-item'));
@@ -101,7 +102,29 @@ describe('testing QueryPreviewList', () => {
     expect(queryPreviews.wrappers).toHaveLength(1);
     expect(queryPreviews.at(0).text()).toEqual('shoes - Crazy shoes');
   });
-  // TODO When error handling is added this component should exclude also queries that failed.
+
+  it('hides queries that failed', async () => {
+    const { adapter, getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
+      queries: ['willFail', 'shoes'],
+      results: {
+        willFail: [createResultStub('Will fail')],
+        shoes: [createResultStub('Crazy shoes')]
+      }
+    });
+
+    (adapter.search as jest.Mock).mockRejectedValueOnce('Some error');
+
+    // First query will fail
+    await reRender();
+    let queryPreviews = getQueryPreviewItemWrappers();
+    expect(queryPreviews.wrappers).toHaveLength(1);
+    expect(queryPreviews.at(0).text()).toEqual(''); // Query preview still is loading
+
+    await reRender();
+    queryPreviews = getQueryPreviewItemWrappers();
+    expect(queryPreviews.wrappers).toHaveLength(1);
+    expect(queryPreviews.at(0).text()).toEqual('shoes - Crazy shoes');
+  });
 });
 
 interface RenderQueryPreviewListOptions {
@@ -114,6 +137,8 @@ interface RenderQueryPreviewListOptions {
 }
 
 interface RenderQueryPreviewListAPI {
+  /** The {@link XComponentsAdapter} passed to the {@link XPlugin}. */
+  adapter: XComponentsAdapter;
   /** The Vue testing utils wrapper for the {@link QueryPreviewList} component. */
   wrapper: Wrapper<Vue>;
   /** Returns an array with the {@link QueryPreview} items wrappers. */
