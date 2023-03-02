@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.11...@empathyco/x-tailwindcss@1.0.0-alpha.12) (2023-03-02)
+
+### Bug Fixes
+
+- **design-system:** modify font-size by default in input component (#1094)
+  ([efc872f](https://github.com/empathyco/x/commit/efc872faca26d82518a5fd06789664cfcf872b3c)),
+  closes [EX-8078](https://searchbroker.atlassian.net/browse/EX-8078)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.10...@empathyco/x-tailwindcss@1.0.0-alpha.11) (2023-03-01)
 
 ### Bug Fixes
