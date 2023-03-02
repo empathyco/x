@@ -17,8 +17,8 @@ export function inputGroupSizes(helpers: TailwindHelpers) {
       '--input-group-button-rectangle-padding': theme('spacing.12')
     },
     md: {
-      '--input-group-button-font-size': theme('fontSize.md'),
-      '--input-group-button-primary-font-size': theme('fontSize.md'),
+      '--input-group-button-font-size': theme('fontSize.sm'),
+      '--input-group-button-primary-font-size': theme('fontSize.sm'),
       '--input-group-button-rectangle-padding': theme('spacing.16')
     },
     lg: {

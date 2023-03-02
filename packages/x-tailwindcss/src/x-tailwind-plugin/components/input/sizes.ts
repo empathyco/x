@@ -10,9 +10,9 @@ export function inputSizes({ theme }: TailwindHelpers) {
   return {
     sm: {
       height: theme('spacing.32'),
-      fontSize: theme('fontSize.xs'),
+      fontSize: theme('fontSize.sm'),
       '&::placeholder': {
-        fontSize: theme('fontSize.xs')
+        fontSize: theme('fontSize.sm')
       }
     },
     md: {
