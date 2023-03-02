@@ -17,9 +17,9 @@ export function inputSizes({ theme }: TailwindHelpers) {
     },
     md: {
       height: theme('spacing.40'),
-      fontSize: theme('fontSize.sm'),
+      fontSize: theme('fontSize.md'),
       '&::placeholder': {
-        fontSize: theme('fontSize.sm')
+        fontSize: theme('fontSize.md')
       }
     },
     lg: {
