@@ -207,9 +207,16 @@
      * @internal
      */
     protected addBodyListeners(): void {
-      /* eslint-disable @typescript-eslint/unbound-method */
-      document.body.addEventListener('focusin', this.emitFocusInBody);
-      /* eslint-enable @typescript-eslint/unbound-method */
+      // TODO find a better solution and remove the timeout
+      // to avoid emit the focusin on opening X that provokes closing it immediately.
+      // This is because this event was emitted after the open of main modal when the user clicks
+      // on the customer website search box (focus event). This way we avoid add the listener before
+      // the open and the avoid the event that provokes the close.
+      setTimeout(() => {
+        /* eslint-disable @typescript-eslint/unbound-method */
+        document.body.addEventListener('focusin', this.emitFocusInBody);
+        /* eslint-enable @typescript-eslint/unbound-method */
+      });
     }
 
     /**
@@ -240,7 +247,7 @@
      * @internal
      */
     protected emitFocusInBody(event: FocusEvent): void {
-      if (!this.$refs.modalContent.contains(getTargetElement(event))) {
+      if (!this.$refs.modalContent?.contains(getTargetElement(event))) {
         this.$emit('focusin:body', event);
       }
     }

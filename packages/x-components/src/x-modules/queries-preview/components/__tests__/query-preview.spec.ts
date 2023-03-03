@@ -7,12 +7,14 @@ import {
   getDataTestSelector,
   installNewXPlugin
 } from '../../../../__tests__/utils';
+import { XComponentsAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { QueryPreviewItem } from '../../store/types';
 import { queriesPreviewXModule } from '../../x-module';
 import QueryPreview from '../query-preview.vue';
+import { getEmptySearchResponseStub } from '../../../../__stubs__/index';
 import { resetXQueriesPreviewStateWith } from './utils';
 
 describe('query preview', () => {
@@ -79,13 +81,15 @@ describe('query preview', () => {
       updateExtraParams: async params => {
         store.commit('x/queriesPreview/setParams', params);
         await localVue.nextTick();
-      }
+      },
+      reRender: () => new Promise(resolve => setTimeout(resolve))
     };
   }
 
   jest.useFakeTimers();
   afterEach(() => {
     jest.runAllTimers();
+    jest.resetAllMocks();
   });
   afterAll(() => {
     jest.useRealTimers();
@@ -229,6 +233,69 @@ describe('query preview', () => {
     expect(wrapper.html()).toEqual('');
   });
 
+  it('emits load event on success', async () => {
+    jest.useRealTimers();
+
+    const { wrapper, reRender } = renderQueryPreview({
+      query: 'milk'
+    });
+
+    (XComponentsAdapterDummy.search as jest.Mock).mockResolvedValueOnce({
+      ...getEmptySearchResponseStub(),
+      results: getResultsStub(1),
+      totalResults: 1
+    });
+
+    await reRender();
+
+    expect(wrapper.emitted('load')?.length).toBe(1);
+    expect(wrapper.emitted('load')?.[0]).toEqual(['milk']);
+    expect(wrapper.emitted('error')).toBeUndefined();
+
+    jest.useFakeTimers();
+  });
+
+  it('emits error event on success if results are empty', async () => {
+    jest.useRealTimers();
+
+    const { wrapper, reRender } = renderQueryPreview({
+      query: 'milk'
+    });
+
+    // The status will be success
+    (XComponentsAdapterDummy.search as jest.Mock).mockResolvedValueOnce({
+      ...getEmptySearchResponseStub(),
+      results: [],
+      totalResults: 0
+    });
+
+    await reRender();
+
+    expect(wrapper.emitted('error')?.length).toBe(1);
+    expect(wrapper.emitted('error')?.[0]).toEqual(['milk']);
+    expect(wrapper.emitted('load')).toBeUndefined();
+
+    jest.useFakeTimers();
+  });
+
+  it('emits error event on error', async () => {
+    jest.useRealTimers();
+
+    const { wrapper, reRender } = renderQueryPreview({
+      query: 'milk'
+    });
+
+    (XComponentsAdapterDummy.search as jest.Mock).mockRejectedValueOnce('Some error');
+
+    await reRender();
+
+    expect(wrapper.emitted('error')?.length).toBe(1);
+    expect(wrapper.emitted('error')?.[0]).toEqual(['milk']);
+    expect(wrapper.emitted('load')).toBeUndefined();
+
+    jest.useFakeTimers();
+  });
+
   describe('debounce', () => {
     it('requests immediately when debounce is set to 0', () => {
       const { QueryPreviewRequestUpdatedSpy } = renderQueryPreview({
@@ -352,4 +419,6 @@ interface RenderQueryPreviewAPI {
   findTestDataById: (testDataId: string) => WrapperArray<Vue>;
   /** Updates the extra params in the module state. */
   updateExtraParams: (params: any) => Promise<void>;
+  /** Flushes all pending promises to cause the component to be in its final state. */
+  reRender: () => Promise<void>;
 }

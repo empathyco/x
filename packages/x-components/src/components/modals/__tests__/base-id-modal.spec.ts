@@ -43,6 +43,7 @@ function mountBaseIdModal({
       return wrapper.find(getDataTestSelector('modal-content'));
     },
     async fakeFocusIn() {
+      jest.runAllTimers();
       document.body.dispatchEvent(new FocusEvent('focusin'));
       await localVue.nextTick();
     }
@@ -50,6 +51,14 @@ function mountBaseIdModal({
 }
 
 describe('testing BaseIdModal  component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   it('opens when UserClickedOpenModal event is emitted', async () => {
     const { emit, getModalContent } = mountBaseIdModal();
     expect(getModalContent().exists()).toBe(false);

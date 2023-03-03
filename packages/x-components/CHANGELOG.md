@@ -3,6 +3,78 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.325](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.324...@empathyco/x-components@3.0.0-alpha.325) (2023-03-02)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.324](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.323...@empathyco/x-components@3.0.0-alpha.324) (2023-03-02)
+
+### Features
+
+- **query-preview:** add query preview list component to orchestrate requests (#1084)
+  ([dda5cd7](https://github.com/empathyco/x/commit/dda5cd7c0fa4c91ecdc837a6bfb3493a5db883bd)),
+  closes [EX-7541](https://searchbroker.atlassian.net/browse/EX-7541)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.323](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.322...@empathyco/x-components@3.0.0-alpha.323) (2023-03-01)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.322](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.321...@empathyco/x-components@3.0.0-alpha.322) (2023-03-01)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.321](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.320...@empathyco/x-components@3.0.0-alpha.321) (2023-03-01)
+
+### Features
+
+- Add close event to BaseXAPI (#1091)
+  ([1aaaeb0](https://github.com/empathyco/x/commit/1aaaeb0dd2cb20a90655e9afe7622de67616e708)),
+  closes [EX-8050](https://searchbroker.atlassian.net/browse/EX-8050)
+
+### Bug Fixes
+
+- **design-system:** fix deprecated typography and picture components (#1090)
+  ([4f1bdb7](https://github.com/empathyco/x/commit/4f1bdb7d69a49e51d39dd2a7f8050b0fce3ef96e)),
+  closes [EX-8053](https://searchbroker.atlassian.net/browse/EX-8053)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.320](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.319...@empathyco/x-components@3.0.0-alpha.320) (2023-02-28)
+
+### Bug Fixes
+
+- **components:** Fix open issue when focused on body. Fix `SearchInputPlaceholder` styles. (#1078)
+  ([25aa285](https://github.com/empathyco/x/commit/25aa2851daf713512c42ef394707a9f1fc41fe4b)),
+  closes [EX-8011](https://searchbroker.atlassian.net/browse/EX-8011)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.319](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.318...@empathyco/x-components@3.0.0-alpha.319) (2023-02-27)
 
 ### Features

@@ -67,11 +67,11 @@ export default plugin(function ({ addBase, theme }: TailwindHelpers) {
         '13': theme('spacing.80'),
         '14': theme('spacing.96'),
         '15': theme('spacing.128'),
-        '16': theme('spacing.152'),
-        '17': theme('spacing.184'),
-        '18': theme('spacing.216'),
-        '19': theme('spacing.280'),
-        '20': theme('spacing.344')
+        '16': '152px',
+        '17': '184px',
+        '18': '216px',
+        '19': '280px',
+        '20': '344px'
       }),
 
       // BORDER
