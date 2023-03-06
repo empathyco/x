@@ -37,6 +37,8 @@ Then('next element position is "{direction}"', (expectedPosition: Direction) => 
 });
 
 When('{string} arrow is pressed {int} times', (direction: Move, pressedTimes: number) => {
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(10);
   Array.from({ length: pressedTimes }).forEach(() => {
     cy.focused().type(`{${direction}Arrow}`).as('originalElement');
   });

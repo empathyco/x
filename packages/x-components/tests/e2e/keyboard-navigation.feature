@@ -14,12 +14,12 @@ Feature: Keyboard navigation component
 
   Scenario Outline: 1. Navigating with arrow keys
     When  "<focusableElement>" element position is stored
+    When  "down" arrow is pressed 1 times
+    Then  next element position is "below"
     And   "right" arrow is pressed 1 times
     Then  next element position is "on the right"
     When  "left" arrow is pressed 1 times
     Then  next element position is "on the left"
-    When  "down" arrow is pressed 1 times
-    Then  next element position is "below"
     When  "right" arrow is pressed 3 times
     Then  next element position is "on the right"
     When  "left" arrow is pressed 1 times
