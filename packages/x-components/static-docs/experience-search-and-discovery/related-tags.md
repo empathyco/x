@@ -21,7 +21,7 @@ Can't quite capture the concept? Learn more about
 :::
 
 Related Tags can be **organic**, using information on the terms most used by shoppers to refine a
-query. Othewise, you can create manually **curated** related tags, based on your business needs, by
+query. Otherwise, you can create manually **curated** related tags, based on your business needs, by
 using the Related Tags management tool in the Empathy Platform Playboard.
 
 ::: warning
