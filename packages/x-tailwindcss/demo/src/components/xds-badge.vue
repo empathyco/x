@@ -22,10 +22,25 @@
     @Prop({ default: () => ['x-badge-sm', 'x-badge-md'] })
     public sizes!: string[];
 
+    @Prop({
+      default: () => [
+        'x-badge-neutral',
+        'x-badge-lead',
+        'x-badge-auxiliary',
+        'x-badge-accent',
+        'x-badge-highlight',
+        'x-badge-success',
+        'x-badge-warning',
+        'x-badge-error'
+      ]
+    })
+    public colors!: string[];
+
     protected get sections(): ShowcaseSections {
       return {
         Default: [this.base],
-        Sizes: this.sizes.map(addParentClasses(this.base))
+        Sizes: this.sizes.map(addParentClasses(this.base)),
+        Colors: this.colors.map(addParentClasses(this.base))
       };
     }
   }

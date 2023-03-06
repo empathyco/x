@@ -2,6 +2,7 @@ import { rename } from '@empathyco/x-utils';
 import { TailwindHelpers } from '../../../types';
 import { badgeDefault } from './default';
 import { badgeSizes } from './sizes';
+import { badgeColors } from './colors';
 
 /**
  * Returns the component `badge` CSS.
@@ -15,7 +16,8 @@ export function badge(helpers: TailwindHelpers) {
       ...badgeDefault(helpers),
       ...rename(
         {
-          ...badgeSizes(helpers)
+          ...badgeSizes(helpers),
+          ...badgeColors(helpers)
         },
         {
           prefix: '&-'
