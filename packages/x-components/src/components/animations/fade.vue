@@ -65,7 +65,7 @@ Wrapping a component:
   import { Fade } from '@empathyco/x-components';
   export default {
     name: 'FadeAnimationDemo',
-    component: {
+    components: {
       Fade
     },
     data() {
