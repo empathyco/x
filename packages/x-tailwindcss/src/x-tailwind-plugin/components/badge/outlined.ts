@@ -14,7 +14,7 @@ export function badgeOutlined(helpers: TailwindHelpers) {
       borderWidth: theme('spacing.1'),
       color: theme('colors.neutral.90'),
       borderColor: `var(--badge-color-50, ${theme('colors.neutral.90')})`,
-      backgroundColor: theme('colors.neutral.0')
+      backgroundColor: 'transparent'
     }
   };
 }
