@@ -1,6 +1,8 @@
 <template>
   <XdsBaseShowcase #default="{ cssClass, removeClassPrefix }" title="Badge" :sections="sections">
-    <span :class="cssClass">{{ removeClassPrefix(cssClass, base) }} badge</span>
+    <span :class="cssClass">
+      {{ !cssClass.includes('circle') ? `${removeClassPrefix(cssClass, base)} badge` : '1' }}
+    </span>
   </XdsBaseShowcase>
 </template>
 
@@ -21,6 +23,9 @@
 
     @Prop({ default: () => ['x-badge-sm', 'x-badge-md'] })
     public sizes!: string[];
+
+    @Prop({ default: () => 'x-badge-circle' })
+    public circle!: string;
 
     @Prop({
       default: () => [
@@ -47,6 +52,7 @@
       return {
         Default: [this.base],
         Sizes: this.sizes.map(addParentClasses(this.base)),
+        Circle: this.sizes.map(addParentClasses(this.base, this.circle)),
         Colors: this.colors.map(addParentClasses(this.base)),
         Light: this.colors.map(addParentClasses(this.base, this.light)),
         Outlined: this.colors.map(addParentClasses(this.base, this.outlined))

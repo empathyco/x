@@ -16,6 +16,7 @@ export function badgeDefault(helpers: TailwindHelpers) {
 
     display: 'inline-flex',
     alignItems: 'center',
+    justifyContent: 'center',
 
     borderRadius: theme('borderRadius.full'),
     color: theme('colors.neutral.0'),
