@@ -43,7 +43,6 @@
     "node": ">=16"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "serve": "vue-cli-service serve",
     "build": "ts-node --project ./build/tsconfig.json ./build/build.ts",
     "build:website": "vue-cli-service build",
