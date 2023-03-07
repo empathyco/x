@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.327](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.326...@empathyco/x-components@3.0.0-alpha.327) (2023-03-07)
+
+### Bug Fixes
+
+- **deps:** remove `only-allow` pnpm (#1097)
+  ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
+  closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
+
+### Documentation
+
+- **related-tags:** added curation options (#1095)
+  ([ab458c7](https://github.com/empathyco/x/commit/ab458c767fc508f4c1cfd4362589a408a09cfbc9))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.326](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.325...@empathyco/x-components@3.0.0-alpha.326) (2023-03-06)
 
 ### Documentation
