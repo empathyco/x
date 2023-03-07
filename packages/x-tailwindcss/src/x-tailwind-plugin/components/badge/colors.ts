@@ -15,6 +15,8 @@ export function badgeColors(helpers: TailwindHelpers) {
     ...mapColors(color => {
       return {
         '--badge-color-25': color['25'],
+        '--badge-color-50': color['50'],
+
         backgroundColor: color['75']
       };
     }, helpers)

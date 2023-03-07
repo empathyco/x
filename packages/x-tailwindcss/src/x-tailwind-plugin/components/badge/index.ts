@@ -4,6 +4,7 @@ import { badgeDefault } from './default';
 import { badgeSizes } from './sizes';
 import { badgeColors } from './colors';
 import { badgeLight } from './light';
+import { badgeOutlined } from './outlined';
 
 /**
  * Returns the component `badge` CSS.
@@ -19,7 +20,8 @@ export function badge(helpers: TailwindHelpers) {
         {
           ...badgeSizes(helpers),
           ...badgeColors(helpers),
-          ...badgeLight(helpers)
+          ...badgeLight(helpers),
+          ...badgeOutlined(helpers)
         },
         {
           prefix: '&-'

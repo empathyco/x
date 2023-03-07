@@ -1,6 +1,6 @@
 <template>
   <XdsBaseShowcase #default="{ cssClass, removeClassPrefix }" title="Badge" :sections="sections">
-    <span :class="cssClass">{{ removeClassPrefix(cssClass, base) || 'badge' }}</span>
+    <span :class="cssClass">{{ removeClassPrefix(cssClass, base) }} badge</span>
   </XdsBaseShowcase>
 </template>
 
@@ -24,6 +24,7 @@
 
     @Prop({
       default: () => [
+        '',
         'x-badge-neutral',
         'x-badge-lead',
         'x-badge-auxiliary',
@@ -39,12 +40,16 @@
     @Prop({ default: () => 'x-badge-light' })
     public light!: string;
 
+    @Prop({ default: () => 'x-badge-outlined' })
+    public outlined!: string;
+
     protected get sections(): ShowcaseSections {
       return {
         Default: [this.base],
         Sizes: this.sizes.map(addParentClasses(this.base)),
         Colors: this.colors.map(addParentClasses(this.base)),
-        Light: this.colors.map(addParentClasses(this.base, this.light))
+        Light: this.colors.map(addParentClasses(this.base, this.light)),
+        Outlined: this.colors.map(addParentClasses(this.base, this.outlined))
       };
     }
   }
