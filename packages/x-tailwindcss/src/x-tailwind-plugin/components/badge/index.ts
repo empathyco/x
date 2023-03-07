@@ -3,6 +3,7 @@ import { TailwindHelpers } from '../../../types';
 import { badgeDefault } from './default';
 import { badgeSizes } from './sizes';
 import { badgeColors } from './colors';
+import { badgeLight } from './light';
 
 /**
  * Returns the component `badge` CSS.
@@ -17,7 +18,8 @@ export function badge(helpers: TailwindHelpers) {
       ...rename(
         {
           ...badgeSizes(helpers),
-          ...badgeColors(helpers)
+          ...badgeColors(helpers),
+          ...badgeLight(helpers)
         },
         {
           prefix: '&-'

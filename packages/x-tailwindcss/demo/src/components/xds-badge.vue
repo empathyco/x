@@ -36,11 +36,15 @@
     })
     public colors!: string[];
 
+    @Prop({ default: () => 'x-badge-light' })
+    public light!: string;
+
     protected get sections(): ShowcaseSections {
       return {
         Default: [this.base],
         Sizes: this.sizes.map(addParentClasses(this.base)),
-        Colors: this.colors.map(addParentClasses(this.base))
+        Colors: this.colors.map(addParentClasses(this.base)),
+        Light: this.colors.map(addParentClasses(this.base, this.light))
       };
     }
   }
