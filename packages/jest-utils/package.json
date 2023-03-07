@@ -23,7 +23,6 @@
     "node": ">=16"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "postbuild": "pnpm pack",

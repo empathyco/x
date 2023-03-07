@@ -25,7 +25,6 @@
     "node": ">=16"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "serve": "vite serve tests/demo",
     "build": "tsc",
     "cypress:open": "cypress open --browser chrome",

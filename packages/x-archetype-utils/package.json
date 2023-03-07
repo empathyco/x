@@ -25,7 +25,6 @@
     "node": ">=16"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "prebuild": "rimraf dist ./*.tgz",
     "build": "rollup -c",
     "build:cjs": "tsc --project tsconfig.cjs.json",

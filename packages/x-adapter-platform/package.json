@@ -26,7 +26,6 @@
     "node": ">=16"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "prebuild": "rimraf ./dist ./*.tgz",
     "build": "concurrently \"pnpm run build:*\" && pnpm run gen:docs",
     "build:cjs": "tsc --project tsconfig.cjs.json",
