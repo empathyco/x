@@ -1,5 +1,10 @@
 <template>
-  <XdsBaseShowcase #default="{ cssClass, removeClassPrefix }" title="Badge" :sections="sections">
+  <XdsBaseShowcase
+    #default="{ cssClass, removeClassPrefix }"
+    title="Badge"
+    :sections="sections"
+    :sectionsClasses="sectionClasses"
+  >
     <span :class="cssClass">
       {{ !cssClass.includes('circle') ? `${removeClassPrefix(cssClass, base)} badge` : '1' }}
     </span>
@@ -8,9 +13,11 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { ShowcaseSections } from '../types/types';
+  import { ShowcaseSectionsClasses, ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
+
+  type Sections = 'Default' | 'Sizes' | 'Circle' | 'Colors' | 'Light' | 'Outlined' | 'Bright';
 
   @Component({
     components: {
@@ -48,14 +55,22 @@
     @Prop({ default: () => 'x-badge-outlined' })
     public outlined!: string;
 
-    protected get sections(): ShowcaseSections {
+    @Prop({ default: () => 'x-badge-bright' })
+    public bright!: string;
+
+    public sectionClasses: ShowcaseSectionsClasses<Sections> = {
+      Bright: 'x-bg-neutral-90 x-p-8'
+    };
+
+    protected get sections(): ShowcaseSections<Sections> {
       return {
         Default: [this.base],
         Sizes: this.sizes.map(addParentClasses(this.base)),
         Circle: this.sizes.map(addParentClasses(this.base, this.circle)),
         Colors: this.colors.map(addParentClasses(this.base)),
         Light: this.colors.map(addParentClasses(this.base, this.light)),
-        Outlined: this.colors.map(addParentClasses(this.base, this.outlined))
+        Outlined: this.colors.map(addParentClasses(this.base, this.outlined)),
+        Bright: this.colors.map(addParentClasses(this.base, this.bright))
       };
     }
   }

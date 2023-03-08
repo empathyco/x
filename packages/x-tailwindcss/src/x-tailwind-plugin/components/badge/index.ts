@@ -6,6 +6,7 @@ import { badgeColors } from './colors';
 import { badgeLight } from './light';
 import { badgeOutlined } from './outlined';
 import { badgeCircle } from './circle';
+import { badgeBright } from './bright';
 
 /**
  * Returns the component `badge` CSS.
@@ -23,7 +24,8 @@ export function badge(helpers: TailwindHelpers) {
           ...badgeColors(helpers),
           ...badgeLight(helpers),
           ...badgeOutlined(helpers),
-          ...badgeCircle(helpers)
+          ...badgeCircle(helpers),
+          ...badgeBright(helpers)
         },
         {
           prefix: '&-'
