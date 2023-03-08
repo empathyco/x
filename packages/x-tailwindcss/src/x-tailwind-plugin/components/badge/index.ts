@@ -21,10 +21,10 @@ export function badge(helpers: TailwindHelpers) {
       ...rename(
         {
           ...badgeSizes(helpers),
-          ...badgeColors(helpers),
-          ...badgeLight(helpers),
-          ...badgeOutlined(helpers),
           ...badgeCircle(helpers),
+          ...badgeColors(helpers),
+          ...badgeOutlined(helpers),
+          ...badgeLight(helpers),
           ...badgeBright(helpers)
         },
         {

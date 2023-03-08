@@ -20,7 +20,7 @@ export function badgeDefault(helpers: TailwindHelpers) {
 
     borderRadius: theme('borderRadius.full'),
     color: theme('colors.neutral.0'),
-    background: theme('colors.neutral.90'),
+    backgroundColor: theme('colors.neutral.90'),
 
     ...badgeSizes(helpers).md
   };

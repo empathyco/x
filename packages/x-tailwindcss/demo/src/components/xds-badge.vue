@@ -17,7 +17,15 @@
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
-  type Sections = 'Default' | 'Sizes' | 'Circle' | 'Colors' | 'Light' | 'Outlined' | 'Bright';
+  type Sections =
+    | 'Default'
+    | 'Sizes'
+    | 'Circle'
+    | 'Colors'
+    | 'Light'
+    | 'Outlined'
+    | 'Bright'
+    | 'Combinations';
 
   @Component({
     components: {
@@ -58,6 +66,16 @@
     @Prop({ default: () => 'x-badge-bright' })
     public bright!: string;
 
+    @Prop({
+      default: () => [
+        'x-badge-error x-badge-sm x-badge-outlined',
+        'x-badge-light x-badge-lead x-badge-circle',
+        'x-badge-outlined x-badge-circle x-badge-warning x-badge-sm',
+        'x-badge-light x-badge-outlined x-badge-auxiliary'
+      ]
+    })
+    public combinations!: string[];
+
     public sectionClasses: ShowcaseSectionsClasses<Sections> = {
       Bright: 'x-bg-neutral-90 x-p-8'
     };
@@ -70,7 +88,8 @@
         Colors: this.colors.map(addParentClasses(this.base)),
         Light: this.colors.map(addParentClasses(this.base, this.light)),
         Outlined: this.colors.map(addParentClasses(this.base, this.outlined)),
-        Bright: this.colors.map(addParentClasses(this.base, this.bright))
+        Bright: this.colors.map(addParentClasses(this.base, this.bright)),
+        Combinations: this.combinations.map(addParentClasses(this.base))
       };
     }
   }
