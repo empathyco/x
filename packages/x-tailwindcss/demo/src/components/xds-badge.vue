@@ -1,11 +1,11 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, removeClassPrefix }"
+    #default="{ cssClass, removeClassPrefix, copyCssClassesToClipboard }"
     title="Badge"
     :sections="sections"
     :sectionsClasses="sectionClasses"
   >
-    <span :class="cssClass">
+    <span @click="copyCssClassesToClipboard" @keydown="copyCssClassesToClipboard" :class="cssClass">
       {{ !cssClass.includes('circle') ? `${removeClassPrefix(cssClass, base)} badge` : '1' }}
     </span>
   </XdsBaseShowcase>
