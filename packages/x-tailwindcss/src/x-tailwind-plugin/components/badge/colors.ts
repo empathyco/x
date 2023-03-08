@@ -11,13 +11,13 @@ export function badgeColors(helpers: TailwindHelpers) {
   const { theme } = helpers;
 
   return {
-    color: theme('colors.neutral.0'),
     ...mapColors(color => {
       return {
         '--badge-color-25': color['25'],
         '--badge-color-50': color['50'],
 
-        backgroundColor: color['75']
+        backgroundColor: color['75'],
+        color: theme('colors.neutral.0')
       };
     }, helpers)
   };

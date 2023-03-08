@@ -11,10 +11,11 @@ export function badgeBright(helpers: TailwindHelpers) {
 
   return {
     bright: {
-      borderWidth: theme('spacing.1'),
       color: theme('colors.neutral.0'),
-      borderColor: `var(--badge-color-25, ${theme('colors.neutral.0')})`,
-      backgroundColor: 'transparent'
+      backgroundColor: 'transparent',
+
+      borderWidth: theme('spacing.1'),
+      borderColor: `var(--badge-color-25, ${theme('colors.neutral.0')})`
     }
   };
 }
