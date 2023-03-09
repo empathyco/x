@@ -18,7 +18,11 @@
         @binding {boolean} highlightCurated - True if the curated RTs should be displayed.
        -->
       <slot name="related-tag" v-bind="{ relatedTag, highlightCurated }">
-        <RelatedTag :highlightCurated="highlightCurated" :relatedTag="relatedTag">
+        <RelatedTag
+          :highlightCurated="highlightCurated"
+          :relatedTag="relatedTag"
+          :class="relatedTagClass"
+        >
           <template #default="{ relatedTag, isSelected, shouldHighlightCurated }">
             <!-- eslint-disable max-len -->
             <!--
@@ -41,10 +45,11 @@
 <script lang="ts">
   import { RelatedTag as RelatedTagModel } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Mixins, Prop } from 'vue-property-decorator';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { relatedTagsXModule } from '../x-module';
+  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
   import RelatedTag from './related-tag.vue';
 
   /**
@@ -60,7 +65,7 @@
     components: { RelatedTag },
     mixins: [xComponentMixin(relatedTagsXModule)]
   })
-  export default class RelatedTags extends Vue {
+  export default class RelatedTags extends Mixins(dynamicPropsMixin(['relatedTagClass'])) {
     /**
      * Animation component that will be used to animate the suggestion.
      *
@@ -265,6 +270,37 @@ _Search for a fashion term and see how the related tags can be rendered._
       SearchInput,
       RelatedTags,
       ResultsList
+    }
+  };
+</script>
+```
+
+## Customizing the related tags with classes
+
+The `relatedTagClass` prop can be used to add classes to the related tags.
+
+```vue live
+<template>
+  <div>
+    <SearchInput />
+    <RelatedTags
+      #related-tag-content="{ relatedTag }"
+      relatedTagClass="x-tag-outlined x-tag-auxiliary"
+    >
+      <span>{{ relatedTag.tag }}</span>
+    </RelatedTags>
+  </div>
+</template>
+
+<script>
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { RelatedTags } from '@empathyco/x-components/related-tags';
+
+  export default {
+    name: 'RelatedTagsDemo',
+    components: {
+      SearchInput,
+      RelatedTags
     }
   };
 </script>
