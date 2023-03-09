@@ -13,27 +13,29 @@ export function attach(helpers: TailwindHelpers) {
       position: 'relative'
     },
     '.attach-to': {
-      position: 'absolute',
-
       '&-top-left': {
+        position: 'absolute',
         top: 0,
         left: 0,
         transform: 'translate(calc(var(--attach-horizontal-offset, 50%) * -1), -50%)'
       },
 
       '&-top-right': {
+        position: 'absolute',
         top: 0,
         right: 0,
         transform: 'translate(var(--attach-horizontal-offset, 50%), -50%)'
       },
 
       '&-bottom-right': {
+        position: 'absolute',
         bottom: 0,
         right: 0,
         transform: 'translate( var(--attach-horizontal-offset, 50%), 50%)'
       },
 
       '&-bottom-left': {
+        position: 'absolute',
         bottom: 0,
         left: 0,
         transform: 'translate(calc(var(--attach-horizontal-offset, 50%) * -1), 50%)'

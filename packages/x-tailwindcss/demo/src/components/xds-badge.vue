@@ -5,14 +5,15 @@
     :sections="sections"
     :sectionsClasses="sectionClasses"
   >
-    <button
-      v-if="cssClass.includes('attach')"
-      @click="copyCssClassesToClipboard"
-      @keydown="copyCssClassesToClipboard"
-      class="x-button x-attach-container"
-    >
+    <button v-if="cssClass.includes('attach')" class="x-button x-attach-container">
       {{ removeClassPrefix(cssClass, base) }}
-      <span :class="cssClass" class="x-absolute x-badge-light x-badge-lead">10</span>
+      <span
+        @click="copyCssClassesToClipboard"
+        @keydown="copyCssClassesToClipboard"
+        :class="cssClass"
+      >
+        10
+      </span>
     </button>
     <span
       v-else
@@ -97,8 +98,8 @@
         'x-badge-light x-badge-lead x-badge-circle',
         'x-badge-outlined x-badge-circle x-badge-warning x-badge-sm',
         'x-badge-light x-badge-outlined x-badge-auxiliary',
-        'x-badge-circle x-attach-to-top-right',
-        'x-badge-sm x-attach-to-top-right'
+        'x-badge-circle x-badge-light x-badge-lead x-attach-to-top-right',
+        'x-badge-sm x-badge-highlight x-attach-to-top-right'
       ]
     })
     public combinations!: string[];
