@@ -14,6 +14,7 @@ import { picture } from './components/picture';
 import { layout } from './components/layout';
 import { scroll } from './components/scroll';
 import { badge } from './components/badge';
+import { attach } from './components/attach';
 
 /**
  * Default component styles.
@@ -40,7 +41,8 @@ export default function components(helpers: TailwindHelpers) {
     ...picture(helpers),
     ...layout(helpers),
     ...scroll(helpers),
-    ...badge(helpers)
+    ...badge(helpers),
+    ...attach(helpers)
   };
 }
 

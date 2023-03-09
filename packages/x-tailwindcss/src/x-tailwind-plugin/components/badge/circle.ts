@@ -9,6 +9,8 @@ import { TailwindHelpers } from '../../../types';
 export function badgeCircle({ theme }: TailwindHelpers) {
   return {
     circle: {
+      '--attach-horizontal-offset': '50%',
+
       overflow: 'hidden',
       whiteSpace: 'nowrap',
       padding: '0',

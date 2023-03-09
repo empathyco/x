@@ -5,7 +5,21 @@
     :sections="sections"
     :sectionsClasses="sectionClasses"
   >
-    <span @click="copyCssClassesToClipboard" @keydown="copyCssClassesToClipboard" :class="cssClass">
+    <button
+      v-if="cssClass.includes('attach')"
+      @click="copyCssClassesToClipboard"
+      @keydown="copyCssClassesToClipboard"
+      class="x-button x-attach-container"
+    >
+      {{ removeClassPrefix(cssClass, base) }}
+      <span :class="cssClass" class="x-absolute x-badge-light x-badge-lead">10</span>
+    </button>
+    <span
+      v-else
+      @click="copyCssClassesToClipboard"
+      @keydown="copyCssClassesToClipboard"
+      :class="cssClass"
+    >
       {{ !cssClass.includes('circle') ? `${removeClassPrefix(cssClass, base)} badge` : '1' }}
     </span>
   </XdsBaseShowcase>
@@ -25,6 +39,7 @@
     | 'Light'
     | 'Outlined'
     | 'Bright'
+    | 'AttachTo'
     | 'Combinations';
 
   @Component({
@@ -68,10 +83,22 @@
 
     @Prop({
       default: () => [
+        'x-attach-to-top-left',
+        'x-attach-to-top-right',
+        'x-attach-to-bottom-left',
+        'x-attach-to-bottom-right'
+      ]
+    })
+    public attachTo!: string[];
+
+    @Prop({
+      default: () => [
         'x-badge-error x-badge-sm x-badge-outlined',
         'x-badge-light x-badge-lead x-badge-circle',
         'x-badge-outlined x-badge-circle x-badge-warning x-badge-sm',
-        'x-badge-light x-badge-outlined x-badge-auxiliary'
+        'x-badge-light x-badge-outlined x-badge-auxiliary',
+        'x-badge-circle x-attach-to-top-right',
+        'x-badge-sm x-attach-to-top-right'
       ]
     })
     public combinations!: string[];
@@ -89,6 +116,7 @@
         Light: this.colors.map(addParentClasses(this.base, this.light)),
         Outlined: this.colors.map(addParentClasses(this.base, this.outlined)),
         Bright: this.colors.map(addParentClasses(this.base, this.bright)),
+        AttachTo: this.attachTo.map(addParentClasses(this.base)),
         Combinations: this.combinations.map(addParentClasses(this.base))
       };
     }

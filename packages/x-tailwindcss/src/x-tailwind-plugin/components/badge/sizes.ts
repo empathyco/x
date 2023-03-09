@@ -11,10 +11,14 @@ export function badgeSizes(helpers: TailwindHelpers) {
 
   return {
     sm: {
+      '--attach-horizontal-offset': theme('spacing.8'),
+
       height: theme('spacing.20'),
       padding: `0 ${theme('spacing.8')}`
     },
     md: {
+      '--attach-horizontal-offset': theme('spacing.12'),
+
       height: theme('spacing.24'),
       padding: `0 ${theme('spacing.12')}`
     }
