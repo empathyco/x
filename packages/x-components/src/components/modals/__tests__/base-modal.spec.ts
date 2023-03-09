@@ -50,12 +50,21 @@ function mountBaseModal({
       });
       appendToBody();
       document.body.appendChild(buttonWrapper.element);
+      jest.runAllTimers();
       await buttonWrapper.trigger('focusin');
     }
   };
 }
 
 describe('testing Base Modal  component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   it('renders only when the open prop is set to true', async () => {
     const { getModalContent, setOpen } = mountBaseModal();
 

@@ -45,6 +45,7 @@ function mountBaseEventsModal({
       return wrapper.find(getDataTestSelector('modal-content'));
     },
     async fakeFocusIn() {
+      jest.runAllTimers();
       document.body.dispatchEvent(new FocusEvent('focusin'));
       await localVue.nextTick();
     }
@@ -52,6 +53,14 @@ function mountBaseEventsModal({
 }
 
 describe('testing Base Events Modal  component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   it('opens and closes when UserClickedOpenX and UserClickedClosedX are emitted', async () => {
     const { emit, getModalContent } = mountBaseEventsModal();
     expect(getModalContent().exists()).toBe(false);

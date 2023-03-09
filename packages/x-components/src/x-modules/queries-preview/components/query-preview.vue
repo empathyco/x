@@ -21,7 +21,7 @@
           <!--
           @slot Query Preview result slot.
               @binding {Result} result - A Query Preview result
-        -->
+          -->
           <slot name="result" :result="result">
             <span data-test="result-name">{{ result.name }}</span>
           </slot>
@@ -41,6 +41,7 @@
   import { XProvide } from '../../../components/decorators/injection.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { NoElement } from '../../../components/no-element';
+  import { RequestStatus } from '../../../store';
   import { QueryFeature, FeatureLocation } from '../../../types/origin';
   import { QueryPreviewItem } from '../store/types';
   import { QueriesPreviewConfig } from '../config.types';
@@ -162,6 +163,21 @@
     }
 
     /**
+     * Gets from the state the results preview of the query preview.
+     *
+     * @returns The results preview of the actual query preview.
+     */
+    public get queryPreviewResults(): Partial<QueryPreviewItem> | undefined {
+      const previewResults = this.previewResults[this.query];
+      return previewResults?.results
+        ? {
+            ...previewResults,
+            results: previewResults.results.slice(0, this.maxItemsToRender)
+          }
+        : undefined;
+    }
+
+    /**
      * The debounce method to trigger the request after the debounceTimeMs defined.
      *
      * @returns The search request object.
@@ -213,18 +229,18 @@
     }
 
     /**
-     * Gets from the state the results preview of the query preview.
+     * Emits an event when the query results are loaded or fail to load.
      *
-     * @returns The results preview of the actual query preview.
+     * @param status - The status of the query preview request.
+     * @internal
      */
-    public get queryPreviewResults(): Partial<QueryPreviewItem> | undefined {
-      const previewResults = this.previewResults[this.query];
-      return previewResults?.results
-        ? {
-            totalResults: previewResults.totalResults,
-            results: previewResults.results.slice(0, this.maxItemsToRender)
-          }
-        : undefined;
+    @Watch('queryPreviewResults.status')
+    emitLoad(status: RequestStatus | undefined): void {
+      if (status === 'success') {
+        this.$emit(this.results?.length ? 'load' : 'error', this.query);
+      } else if (status === 'error') {
+        this.$emit('error', this.query);
+      }
     }
   }
 </script>
@@ -235,6 +251,13 @@ A list of events that the component will emit:
 
 - `QueryPreviewRequestChanged`: the event is emitted when the component is mounted and when the
   properties of the request object changes. The event payload is the `queryPreviewRequest` object.
+
+## Vue Events
+
+A list of vue events that the component will emit:
+
+- `load`: the event is emitted when the query results have been loaded.
+- `error`: the event is emitted if there is some error when retrieving the query results.
 
 ## See it in action
 

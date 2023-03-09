@@ -3,6 +3,71 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.12...@empathyco/x-tailwindcss@1.0.0-alpha.13) (2023-03-07)
+
+### Bug Fixes
+
+- **deps:** remove `only-allow` pnpm (#1097)
+  ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
+  closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.11...@empathyco/x-tailwindcss@1.0.0-alpha.12) (2023-03-02)
+
+### Bug Fixes
+
+- **design-system:** modify font-size by default in input component (#1094)
+  ([efc872f](https://github.com/empathyco/x/commit/efc872faca26d82518a5fd06789664cfcf872b3c)),
+  closes [EX-8078](https://searchbroker.atlassian.net/browse/EX-8078)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.10...@empathyco/x-tailwindcss@1.0.0-alpha.11) (2023-03-01)
+
+### Bug Fixes
+
+- **design-system:** fix wrong sliding panel spacing value (#1093)
+  ([0713e34](https://github.com/empathyco/x/commit/0713e34f510c3514c3dd8192f4b42aaecbd7ce38)),
+  closes [EX-7541](https://searchbroker.atlassian.net/browse/EX-7541)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.9...@empathyco/x-tailwindcss@1.0.0-alpha.10) (2023-03-01)
+
+### Features
+
+- **design-system:** update XDS spacing values (#1092)
+  ([913a1c8](https://github.com/empathyco/x/commit/913a1c88dc0848ed1d25fc56904257eef5feb40f)),
+  closes [EX-8071](https://searchbroker.atlassian.net/browse/EX-8071)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.8...@empathyco/x-tailwindcss@1.0.0-alpha.9) (2023-02-27)
+
+### Bug Fixes
+
+- **design-system:** Fix scroll in the Design System. (#1088)
+  ([f1df2cb](https://github.com/empathyco/x/commit/f1df2cbe2b6c14c96de4fa682df792c8be60321f)),
+  closes [EX-8055](https://searchbroker.atlassian.net/browse/EX-8055)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.7...@empathyco/x-tailwindcss@1.0.0-alpha.8) (2023-02-21)
 
 ### Bug Fixes

@@ -234,6 +234,7 @@
     inset: 0;
     display: flex;
     align-items: center;
+    pointer-events: none;
   }
 </style>
 

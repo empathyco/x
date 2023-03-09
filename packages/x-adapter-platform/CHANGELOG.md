@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.65](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.64...@empathyco/x-adapter-platform@1.0.0-alpha.65) (2023-03-07)
+
+### Bug Fixes
+
+- **deps:** remove `only-allow` pnpm (#1097)
+  ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
+  closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.64](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.63...@empathyco/x-adapter-platform@1.0.0-alpha.64) (2023-02-27)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.63](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.62...@empathyco/x-adapter-platform@1.0.0-alpha.63) (2023-02-08)
 
 ### Continuous Integration

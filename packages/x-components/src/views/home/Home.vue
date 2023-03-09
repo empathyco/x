@@ -254,34 +254,26 @@
             </div>
 
             <template v-if="!$x.query.searchBox">
-              <h1 class="x-margin--bottom-05 x-title1">Brand Recommendations</h1>
+              <h1 class="x-mb-16 x-title1">Brand Recommendations</h1>
               <LocationProvider location="no_results">
-                <BaseTabsPanel
-                  initialTab="summer"
-                  contentClass="x-padding--top-06"
-                  :contentAnimation="tabsPanelAnimation"
-                  tabClass="x-button-outlined x-button-neutral"
-                  tabsListClass="x-list--horizontal"
+                <QueryPreviewList
+                  :queries="queriesToPreview"
+                  #default="{ query, totalResults, results }"
                 >
-                  <template #tab-content="{ tab }">
-                    <span class="x-capitalize">
-                      {{ tab }}
-                    </span>
-                  </template>
-
-                  <template #summer>
-                    <SlidingQueryPreview query="sunglasses" />
-                  </template>
-
-                  <template #women>
-                    <SlidingQueryPreview query="handbag" />
-                    <SlidingQueryPreview query="earrings" />
-                  </template>
-
-                  <template #men>
-                    <SlidingQueryPreview query="watch" />
-                  </template>
-                </BaseTabsPanel>
+                  <div class="x-flex x-flex-col x-gap-8 x-mb-16">
+                    <h1 class="x-title2">{{ query }} ({{ totalResults }})</h1>
+                    <SlidingPanel :resetOnContentChange="false">
+                      <div class="x-flex x-gap-8">
+                        <Result
+                          v-for="result in results"
+                          :key="result.id"
+                          :result="result"
+                          style="max-width: 180px"
+                        />
+                      </div>
+                    </SlidingPanel>
+                  </div>
+                </QueryPreviewList>
               </LocationProvider>
             </template>
 
@@ -436,6 +428,7 @@
   import NextQueries from '../../x-modules/next-queries/components/next-queries.vue';
   import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue';
   import { NextQuery } from '../../x-modules/next-queries/index';
+  import QueryPreviewList from '../../x-modules/queries-preview/components/query-preview-list.vue';
   import Recommendations from '../../x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from '../../x-modules/related-tags/components/related-tags.vue';
   import MainScrollItem from '../../x-modules/scroll/components/main-scroll-item.vue';
@@ -447,7 +440,6 @@
   import SearchInputPlaceholder from '../../x-modules/search-box/components/search-input-placeholder.vue';
   import Banner from '../../x-modules/search/components/banner.vue';
   import BannersList from '../../x-modules/search/components/banners-list.vue';
-  import BaseTabsPanel from '../../components/panels/base-tabs-panel.vue';
   import PartialQueryButton from '../../x-modules/search/components/partial-query-button.vue';
   import PartialResultsList from '../../x-modules/search/components/partial-results-list.vue';
   import Promoted from '../../x-modules/search/components/promoted.vue';
@@ -470,13 +462,13 @@
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
   import { HomeControls } from './types';
-  import SlidingQueryPreview from './sliding-query-preview.vue';
 
   @Component({
     directives: {
       infiniteScroll
     },
     components: {
+      QueryPreviewList,
       ArrowRight,
       Aside,
       AutoProgressBar,
@@ -489,7 +481,6 @@
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
       BaseKeyboardNavigation,
-      BaseTabsPanel,
       BaseVariableColumnGrid,
       CheckTiny,
       ChevronLeft,
@@ -530,7 +521,6 @@
       SearchInput,
       SearchInputPlaceholder,
       SlidingPanel,
-      SlidingQueryPreview,
       SnippetCallbacks,
       SnippetConfigExtraParams,
       SortDropdown,
@@ -585,6 +575,8 @@
         useE2EAdapter: false
       }
     };
+
+    protected queriesToPreview = ['sunglasses', 'handbag', 'earrings', 'jeans', 't-shirt'];
 
     toggleE2EAdapter(): void {
       adapterConfig.e2e = !adapterConfig.e2e;

@@ -90,7 +90,7 @@ describe('testing BannersList component', () => {
       template: `
         <BannersList>
           <template #banner="{ item }">
-            <p data-test="banner-slot-overridden">Custom banner: {{ item.title }}</p>
+            <p data-test="banner-slot-overridden">Custom banner: {{ item.id }}</p>
           </template>
         </BannersList>`
     });
@@ -98,7 +98,7 @@ describe('testing BannersList component', () => {
     expect(wrapper.classes('x-items-list')).toBe(true);
     expect(wrapper.find(getDataTestSelector('banners-list-item')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('banner-slot-overridden')).text()).toBe(
-      `Custom banner: ${getBanners()[0].title}`
+      `Custom banner: ${getBanners()[0].id}`
     );
   });
 
