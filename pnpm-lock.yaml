@@ -279,7 +279,7 @@ importers:
       '@bahmutov/cypress-esbuild-preprocessor': ~2.2.0
       '@cypress/vue': ~2.2.4
       '@empathyco/x-adapter': ^8.0.0-alpha.26
-      '@empathyco/x-adapter-platform': workspace:^1.0.0-alpha.65
+      '@empathyco/x-adapter-platform': ^1.0.0-alpha.66
       '@empathyco/x-deep-merge': ^1.3.0-alpha.33
       '@empathyco/x-logger': ^1.2.0-alpha.10
       '@empathyco/x-storage-service': ^2.0.0-alpha.10
@@ -340,7 +340,7 @@ importers:
       vuex: ~3.6.2
     dependencies:
       '@empathyco/x-adapter': link:../x-adapter
-      '@empathyco/x-adapter-platform': link:../x-adapter-platform
+      '@empathyco/x-adapter-platform': 1.0.0-alpha.66
       '@empathyco/x-deep-merge': link:../deep-merge
       '@empathyco/x-logger': link:../logger
       '@empathyco/x-storage-service': link:../storage-service
@@ -1323,6 +1323,65 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@empathyco/x-adapter-platform/1.0.0-alpha.66:
+    resolution: {integrity: sha512-CDpIkeI+rcjhQPQFbvdmjXuC+CP/R8mXdrXRe53UhDGXYgkWpL6AkavgMbdbiui/piunDz6G7KCpPbwHbFAkBg==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@empathyco/x-adapter': 8.0.0-alpha.26
+      '@empathyco/x-types': 10.0.0-alpha.62
+      '@empathyco/x-utils': 1.0.0-alpha.18
+      tslib: 2.4.1
+    dev: false
+
+  /@empathyco/x-adapter/8.0.0-alpha.26:
+    resolution: {integrity: sha512-al4y4ewqIeTn+j52bsU++omu8LFHMru4QIoeJ+oGX5fUSPn4QOjvD6amdaseXVLpZwcQHNPgcpqus0F/qIym/A==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@empathyco/x-deep-merge': 1.3.0-alpha.33
+      '@empathyco/x-utils': 1.0.0-alpha.18
+      tslib: 2.4.1
+    dev: false
+
+  /@empathyco/x-deep-merge/1.3.0-alpha.33:
+    resolution: {integrity: sha512-janmC0HBWLAVdWb9kHyJTcffO68rloQOfZEpW/2mVXY8bxYU1TmHTnvbZPZZJCEg5R1U8Ssijq0taMkfM1BohA==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@empathyco/x-utils': 1.0.0-alpha.18
+      tslib: 2.4.1
+    dev: false
+
+  /@empathyco/x-logger/1.2.0-alpha.10:
+    resolution: {integrity: sha512-sJmVl1UV00MzqNeDt6ixZVbtUJvwxYGA3Art6f70V4lQf9hfvSQ/Y7OzR5nH1+hF8zzfb4or44de3+XnmjTi7Q==}
+    engines: {node: '>=16'}
+    dependencies:
+      tslib: 2.4.1
+    dev: false
+
+  /@empathyco/x-storage-service/2.0.0-alpha.10:
+    resolution: {integrity: sha512-3xlJToZIe3X3Toeey8mACTjCInJuVvo7gzuTqRcHVgZhiFmi4iTyqolfDltjbzOuftRtjo413pFWTl+zxQsBpw==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@empathyco/x-logger': 1.2.0-alpha.10
+      tslib: 2.4.1
+    dev: false
+
+  /@empathyco/x-types/10.0.0-alpha.62:
+    resolution: {integrity: sha512-2+5eaHbO0binYP6rr1A1SPSwn9eO7Ck70EQ1MK1VGuHU9eZUFZLz7/TSqfmbiw4M5Y+8ZNO4x09N5m6G3AzLRg==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@empathyco/x-adapter': 8.0.0-alpha.26
+      tslib: 2.4.1
+    dev: false
+
+  /@empathyco/x-utils/1.0.0-alpha.18:
+    resolution: {integrity: sha512-g0kyaaaeyeN3KQ1xoTu+mT8IHEFVoUJvwwL0jcVi+3BZbDgA7b45CvMlw9IuXh2OxqfuHSm893FaNZn3z0HCXQ==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@empathyco/x-storage-service': 2.0.0-alpha.10
+      nanoid: 3.1.32
+      tslib: 2.4.1
+    dev: false
 
   /@es-joy/jsdoccomment/0.36.1:
     resolution: {integrity: sha512-922xqFsTpHs6D0BUiG4toiyPOMc8/jafnWKxz1KWgS4XzKPy2qXf1Pe6UFuNSCQqt6tOuhAWXBNuuyUhJmw9Vg==}
