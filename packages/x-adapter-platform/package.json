@@ -15,7 +15,8 @@
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "report"
   ],
   "repository": {
     "type": "git",
