@@ -31,7 +31,6 @@ export function tagOutlined(helpers: TailwindHelpers) {
         color: theme('colors.neutral.90'),
 
         '&:hover,&:focus,&:active': {
-          backgroundColor: `var(--tag-color-25, ${theme('colors.neutral.10')})`,
           borderColor: `var(--tag-color-75, ${theme('colors.neutral.75')})`,
           color: `var(--tag-color-75, ${theme('colors.neutral.75')})`
         }
