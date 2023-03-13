@@ -11,7 +11,6 @@ export function badgeBright(helpers: TailwindHelpers) {
 
   return {
     bright: {
-      color: theme('colors.neutral.0'),
       backgroundColor: 'transparent',
 
       borderWidth: theme('spacing.1'),
