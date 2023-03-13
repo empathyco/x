@@ -8,6 +8,17 @@ import { TailwindHelpers } from '../../../types';
  */
 export function tagGhost(helpers: TailwindHelpers) {
   const { theme } = helpers;
+
+  // Ghost & Ghost Selected common styles
+  const disabledStyles = {
+    '&:disabled': {
+      backgroundColor: 'transparent',
+      borderColor: 'transparent',
+      color: theme('colors.neutral.25'),
+      fontWeight: theme('fontWeight.regular')
+    }
+  };
+
   return {
     ghost: {
       backgroundColor: 'transparent',
@@ -20,20 +31,18 @@ export function tagGhost(helpers: TailwindHelpers) {
         color: `var(--tag-color-75, ${theme('colors.neutral.90')})`
       },
 
-      '&:disabled': {
-        backgroundColor: 'transparent',
-        borderColor: 'transparent',
-        color: theme('colors.neutral.25')
-      },
+      ...disabledStyles,
 
-      '&:not(:disabled).selected': {
+      '&.selected': {
         borderColor: 'transparent',
         color: `var(--tag-color-75, ${theme('colors.neutral.90')})`,
         fontWeight: theme('fontWeight.bold'),
 
         '&:hover,&:focus,&:active': {
           borderColor: theme('colors.neutral.10')
-        }
+        },
+
+        ...disabledStyles
       }
     }
   };

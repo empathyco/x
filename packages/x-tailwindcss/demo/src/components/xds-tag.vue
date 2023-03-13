@@ -11,7 +11,7 @@
       title="Click me to copy CSS classes"
       :disabled="section === 'Disabled'"
     >
-      {{ removeClassPrefix(cssClass, base) || 'tag' }}
+      {{ removeClassPrefix(cssClass, base) }} tag
       <PlusIcon class="x-icon" />
     </button>
   </XdsBaseShowcase>
@@ -39,6 +39,7 @@
 
     @Prop({
       default: () => [
+        '',
         'x-tag-neutral',
         'x-tag-lead',
         'x-tag-auxiliary',

@@ -10,6 +10,16 @@ import { tagSizes } from './sizes';
 export function tagDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
 
+  // Default & Default Selected common styles
+  const disabledStyles = {
+    '&:disabled': {
+      cursor: 'not-allowed',
+      borderColor: theme('colors.neutral.25'),
+      borderWidth: theme('spacing.1'),
+      color: theme('colors.neutral.25')
+    }
+  };
+
   return {
     display: 'flex',
     justifyContent: 'center',
@@ -38,22 +48,19 @@ export function tagDefault(helpers: TailwindHelpers) {
       color: theme('colors.neutral.90')
     },
 
-    '&:disabled': {
-      cursor: 'not-allowed',
-      borderColor: theme('colors.neutral.25'),
-      color: theme('colors.neutral.25')
-    },
-
     ...tagSizes(helpers).md,
+    ...disabledStyles,
 
-    '&:not(:disabled).selected': {
+    '&.selected': {
       borderColor: `var(--tag-color-75, ${theme('colors.neutral.90')})`,
       borderWidth: theme('spacing.2'),
       color: theme('colors.neutral.90'),
 
       '&:hover,&:focus,&:active': {
         borderColor: `var(--tag-color-50, ${theme('colors.neutral.50')})`
-      }
+      },
+
+      ...disabledStyles
     }
   };
 }
