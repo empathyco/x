@@ -8,6 +8,22 @@ import { TailwindHelpers } from '../../../types';
  */
 export function tagTight(helpers: TailwindHelpers) {
   const { theme } = helpers;
+
+  // Tight & Tight Selected common styles
+  const disabledStyles = {
+    '&:disabled': {
+      borderColor: 'transparent',
+      color: theme('colors.neutral.25'),
+      fontWeight: theme('fontWeight.regular')
+    }
+  };
+  const hoverStyles = {
+    '&:hover,&:focus,&:active': {
+      borderColor: 'transparent',
+      color: `var(--tag-color-50, ${theme('colors.neutral.50')})`
+    }
+  };
+
   return {
     tight: {
       borderColor: 'transparent',
@@ -15,24 +31,15 @@ export function tagTight(helpers: TailwindHelpers) {
       paddingInlineStart: theme('spacing.0'),
       paddingInlineEnd: theme('spacing.0'),
 
-      '&:hover,&:focus,&:active': {
-        borderColor: 'transparent',
-        color: `var(--tag-color-50, ${theme('colors.neutral.50')})`
-      },
+      ...hoverStyles,
+      ...disabledStyles,
 
-      '&:disabled': {
-        borderColor: 'transparent',
-        color: theme('colors.neutral.25')
-      },
-
-      '&:not(:disabled).selected': {
+      '&.selected': {
         borderColor: 'transparent',
         fontWeight: theme('fontWeight.bold'),
 
-        '&:hover,&:focus,&:active': {
-          borderColor: 'transparent',
-          color: `var(--tag-color-50, ${theme('colors.neutral.50')})`
-        }
+        ...hoverStyles,
+        ...disabledStyles
       }
     }
   };
