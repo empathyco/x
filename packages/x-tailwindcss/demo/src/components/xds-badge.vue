@@ -1,6 +1,6 @@
 <template>
   <XdsBaseShowcase
-    #default="{ cssClass, removeClassPrefix, copyCssClassesToClipboard }"
+    #default="{ cssClass, removeClassPrefix, copyCssClassesToClipboard, section }"
     title="Badge"
     :sections="sections"
     :sectionsClasses="sectionClasses"
@@ -21,7 +21,12 @@
       @keydown="copyCssClassesToClipboard"
       :class="cssClass"
     >
-      {{ !cssClass.includes('circle') ? `${removeClassPrefix(cssClass, base)} badge` : '1' }}
+      <template v-if="section === 'WithIcon'">
+        <CuratedIcon class="x-icon" />
+      </template>
+      <template v-else>
+        {{ !cssClass.includes('circle') ? `${removeClassPrefix(cssClass, base)} badge` : '1' }}
+      </template>
     </span>
   </XdsBaseShowcase>
 </template>
@@ -31,6 +36,7 @@
   import { ShowcaseSectionsClasses, ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
+  import CuratedIcon from './icons/curated.vue';
 
   type Sections =
     | 'Default'
@@ -41,11 +47,13 @@
     | 'Outlined'
     | 'Bright'
     | 'AttachTo'
+    | 'WithIcon'
     | 'Combinations';
 
   @Component({
     components: {
-      XdsBaseShowcase
+      XdsBaseShowcase,
+      CuratedIcon
     }
   })
   export default class XdsBadgeShowcase extends Vue {
@@ -93,6 +101,11 @@
     public attachTo!: string[];
 
     @Prop({
+      default: () => ['x-badge-sm', '', 'x-badge-circle x-badge-sm', 'x-badge-circle']
+    })
+    public withIcon!: string[];
+
+    @Prop({
       default: () => [
         'x-badge-error x-badge-sm x-badge-outlined',
         'x-badge-light x-badge-lead x-badge-circle',
@@ -118,6 +131,7 @@
         Outlined: this.colors.map(addParentClasses(this.base, this.outlined)),
         Bright: this.colors.map(addParentClasses(this.base, this.bright)),
         AttachTo: this.attachTo.map(addParentClasses(this.base)),
+        WithIcon: this.withIcon.map(addParentClasses(this.base)),
         Combinations: this.combinations.map(addParentClasses(this.base))
       };
     }
