@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.36...@empathyco/x-translations@1.1.0-alpha.37) (2023-03-07)
+
+### Bug Fixes
+
+- **deps:** remove `only-allow` pnpm (#1097)
+  ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
+  closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.1.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.35...@empathyco/x-translations@1.1.0-alpha.36) (2023-02-08)
 
 ### Continuous Integration

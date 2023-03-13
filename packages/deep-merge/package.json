@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-deep-merge",
-  "version": "1.3.0-alpha.32",
+  "version": "1.3.0-alpha.33",
   "description": "Utility for deep cloning objects.",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -28,7 +28,6 @@
     "node": ">=16"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "prebuild": "pnpm run clean",
     "build": "tsc && tsc --project tsconfig.esm.json",
     "clean": "rimraf dist && rimraf coverage",
@@ -38,7 +37,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@empathyco/x-utils": "^1.0.0-alpha.17",
+    "@empathyco/x-utils": "^1.0.0-alpha.18",
     "tslib": "~2.4.1"
   },
   "devDependencies": {
