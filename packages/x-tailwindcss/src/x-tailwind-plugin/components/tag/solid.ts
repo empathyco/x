@@ -11,16 +11,18 @@ export function tagSolid(helpers: TailwindHelpers) {
   return {
     solid: {
       backgroundColor: `var(--tag-color-25, ${theme('colors.neutral.10')})`,
-      borderWidth: 0,
+      borderColor: `var(--tag-color-25, ${theme('colors.neutral.10')})`,
       color: theme('colors.neutral.75'),
 
       '&:hover,&:focus,&:active': {
         backgroundColor: `var(--tag-color-25, ${theme('colors.neutral.25')})`,
+        borderColor: `var(--tag-color-25, ${theme('colors.neutral.25')})`,
         color: `var(--tag-color-75, ${theme('colors.neutral.75')})`
       },
 
       '&:disabled': {
         backgroundColor: theme('colors.neutral.10'),
+        borderColor: theme('colors.neutral.10'),
         color: theme('colors.neutral.25')
       },
 
