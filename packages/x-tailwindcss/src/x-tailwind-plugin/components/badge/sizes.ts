@@ -14,13 +14,15 @@ export function badgeSizes(helpers: TailwindHelpers) {
       '--attach-horizontal-offset': theme('spacing.8'),
 
       height: theme('spacing.20'),
-      padding: `0 ${theme('spacing.8')}`
+      paddingInlineStart: theme('spacing.8'),
+      paddingInlineEnd: theme('spacing.8')
     },
     md: {
       '--attach-horizontal-offset': theme('spacing.12'),
 
       height: theme('spacing.24'),
-      padding: `0 ${theme('spacing.12')}`
+      paddingInlineStart: theme('spacing.12'),
+      paddingInlineEnd: theme('spacing.12')
     }
   };
 }

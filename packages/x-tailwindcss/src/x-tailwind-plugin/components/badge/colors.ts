@@ -8,16 +8,13 @@ import { mapColors } from '../../utils/map-colors';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function badgeColors(helpers: TailwindHelpers) {
-  const { theme } = helpers;
-
   return {
     ...mapColors(color => {
       return {
         '--badge-color-25': color['25'],
         '--badge-color-50': color['50'],
 
-        backgroundColor: color['75'],
-        color: theme('colors.neutral.0')
+        backgroundColor: color['75']
       };
     }, helpers)
   };

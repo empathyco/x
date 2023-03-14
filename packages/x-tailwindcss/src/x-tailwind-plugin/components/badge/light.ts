@@ -9,7 +9,7 @@ import { TailwindHelpers } from '../../../types';
 export function badgeLight({ theme }: TailwindHelpers) {
   return {
     light: {
-      backgroundColor: 'var(--badge-color-25)',
+      backgroundColor: `var(--badge-color-25, ${theme('colors.neutral.0')})`,
       color: theme('colors.neutral.90')
     }
   };

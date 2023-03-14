@@ -21,9 +21,7 @@
       @keydown="copyCssClassesToClipboard"
       :class="cssClass"
     >
-      <template v-if="section === 'WithIcon'">
-        <CuratedIcon class="x-icon" />
-      </template>
+      <CuratedIcon v-if="section === 'WithIcon'" class="x-icon" />
       <template v-else>
         {{ !cssClass.includes('circle') ? `${removeClassPrefix(cssClass, base)} badge` : '1' }}
       </template>
