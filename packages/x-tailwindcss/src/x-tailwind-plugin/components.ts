@@ -13,6 +13,7 @@ import { slidingPanel } from './components/sliding-panel';
 import { picture } from './components/picture';
 import { layout } from './components/layout';
 import { scroll } from './components/scroll';
+import { tag } from './components/tag';
 
 /**
  * Default component styles.
@@ -38,7 +39,8 @@ export default function components(helpers: TailwindHelpers) {
     ...slidingPanel(helpers),
     ...picture(helpers),
     ...layout(helpers),
-    ...scroll(helpers)
+    ...scroll(helpers),
+    ...tag(helpers)
   };
 }
 
