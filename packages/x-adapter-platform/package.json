@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter-platform",
-  "version": "1.0.0-alpha.64",
+  "version": "1.0.0-alpha.66",
   "description": "A search client for the Empathy Platform API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -15,7 +15,8 @@
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "report"
   ],
   "repository": {
     "type": "git",
@@ -26,7 +27,6 @@
     "node": ">=16"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "prebuild": "rimraf ./dist ./*.tgz",
     "build": "concurrently \"pnpm run build:*\" && pnpm run gen:docs",
     "build:cjs": "tsc --project tsconfig.cjs.json",
@@ -40,9 +40,9 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.0.0-alpha.25",
-    "@empathyco/x-types": "^10.0.0-alpha.61",
-    "@empathyco/x-utils": "^1.0.0-alpha.17",
+    "@empathyco/x-adapter": "^8.0.0-alpha.26",
+    "@empathyco/x-types": "^10.0.0-alpha.62",
+    "@empathyco/x-utils": "^1.0.0-alpha.18",
     "tslib": "~2.4.1"
   },
   "devDependencies": {

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.9...@empathyco/x-storage-service@2.0.0-alpha.10) (2023-03-07)
+
+### Bug Fixes
+
+- **deps:** remove `only-allow` pnpm (#1097)
+  ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
+  closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.8...@empathyco/x-storage-service@2.0.0-alpha.9) (2023-02-08)
 
 ### Continuous Integration

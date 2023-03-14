@@ -16,6 +16,7 @@
     <XdsLayoutFixedHeader />
     <XdsLayoutSingleColumn />
     <XdsLayoutTwoColumns />
+    <XdsTag />
     <XdsBadge />
   </div>
 </template>
@@ -39,6 +40,7 @@
   import XdsLayoutFixedHeader from './xds-layout-fixed-header.vue';
   import XdsLayoutSingleColumn from './xds-layout-single-column.vue';
   import XdsLayoutTwoColumns from './xds-layout-two-columns.vue';
+  import XdsTag from './xds-tag.vue';
 
   @Component({
     components: {
@@ -58,7 +60,8 @@
       XdsSuggestionGroup,
       XdsSlidingPanel,
       XdsPicture,
-      XdsLayoutUtils
+      XdsLayoutUtils,
+      XdsTag
     }
   })
   export default class XdsShowcase extends Vue {}

@@ -14,6 +14,7 @@ export { default as XdsShowcase } from './components/xds-showcase.vue';
 export { default as XdsSlidingPanel } from './components/xds-sliding-panel.vue';
 export { default as XdsSuggestion } from './components/xds-suggestion.vue';
 export { default as XdsSuggestionGroup } from './components/xds-suggestion-group.vue';
+export { default as XdsTag } from './components/xds-tag.vue';
 export { default as XdsTypography } from './components/xds-typography.vue';
 
 export * from './types/types';
