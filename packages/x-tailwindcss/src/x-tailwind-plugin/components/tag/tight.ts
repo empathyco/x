@@ -36,6 +36,7 @@ export function tagTight(helpers: TailwindHelpers) {
 
       '&.selected': {
         borderColor: 'transparent',
+        color: `var(--tag-color-75, ${theme('colors.neutral.90')})`,
         fontWeight: theme('fontWeight.bold'),
 
         ...hoverStyles,
