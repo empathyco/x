@@ -25,7 +25,7 @@ importers:
 
   packages/deep-merge:
     specifiers:
-      '@empathyco/x-utils': ^1.0.0-alpha.17
+      '@empathyco/x-utils': ^1.0.0-alpha.18
       '@types/jest': ~27.0.3
       jest: ~27.3.1
       rimraf: ~3.0.2
@@ -145,7 +145,7 @@ importers:
 
   packages/storage-service:
     specifiers:
-      '@empathyco/x-logger': ^1.2.0-alpha.9
+      '@empathyco/x-logger': ^1.2.0-alpha.10
       '@types/jest': ~27.0.3
       jest: ~27.3.1
       ts-jest: ~27.0.7
@@ -162,8 +162,8 @@ importers:
 
   packages/x-adapter:
     specifiers:
-      '@empathyco/x-deep-merge': ^1.3.0-alpha.32
-      '@empathyco/x-utils': ^1.0.0-alpha.17
+      '@empathyco/x-deep-merge': ^1.3.0-alpha.33
+      '@empathyco/x-utils': ^1.0.0-alpha.18
       '@types/jest': ~27.0.3
       concurrently: ~7.6.0
       jest: ~27.3.1
@@ -185,9 +185,9 @@ importers:
 
   packages/x-adapter-platform:
     specifiers:
-      '@empathyco/x-adapter': ^8.0.0-alpha.25
-      '@empathyco/x-types': ^10.0.0-alpha.61
-      '@empathyco/x-utils': ^1.0.0-alpha.17
+      '@empathyco/x-adapter': ^8.0.0-alpha.26
+      '@empathyco/x-types': ^10.0.0-alpha.62
+      '@empathyco/x-utils': ^1.0.0-alpha.18
       '@microsoft/api-documenter': ~7.21.3
       '@microsoft/api-extractor': ~7.33.7
       '@types/jest': ~27.0.3
@@ -214,8 +214,8 @@ importers:
 
   packages/x-archetype-utils:
     specifiers:
-      '@empathyco/x-deep-merge': ^1.3.0-alpha.32
-      '@empathyco/x-utils': ^1.0.0-alpha.17
+      '@empathyco/x-deep-merge': ^1.3.0-alpha.33
+      '@empathyco/x-utils': ^1.0.0-alpha.18
       '@types/jest': ~27.0.3
       '@types/node': ~16.4.12
       '@vue/test-utils': ~1.0.3
@@ -249,8 +249,8 @@ importers:
 
   packages/x-bus:
     specifiers:
-      '@empathyco/x-priority-queue': ^0.1.0-alpha.12
-      '@empathyco/x-utils': ^1.0.0-alpha.17
+      '@empathyco/x-priority-queue': ^0.1.0-alpha.13
+      '@empathyco/x-utils': ^1.0.0-alpha.18
       '@types/jest': ~27.0.3
       concurrently: ~7.6.0
       jest: ~27.3.1
@@ -277,14 +277,14 @@ importers:
       '@badeball/cypress-cucumber-preprocessor': ~15.0.0
       '@bahmutov/cypress-esbuild-preprocessor': ~2.2.0
       '@cypress/vue': ~2.2.4
-      '@empathyco/x-adapter': ^8.0.0-alpha.25
-      '@empathyco/x-adapter-platform': ^1.0.0-alpha.64
-      '@empathyco/x-deep-merge': ^1.3.0-alpha.32
-      '@empathyco/x-logger': ^1.2.0-alpha.9
-      '@empathyco/x-storage-service': ^2.0.0-alpha.9
-      '@empathyco/x-tailwindcss': ^1.0.0-alpha.12
-      '@empathyco/x-types': ^10.0.0-alpha.61
-      '@empathyco/x-utils': ^1.0.0-alpha.17
+      '@empathyco/x-adapter': ^8.0.0-alpha.26
+      '@empathyco/x-adapter-platform': ^1.0.0-alpha.66
+      '@empathyco/x-deep-merge': ^1.3.0-alpha.33
+      '@empathyco/x-logger': ^1.2.0-alpha.10
+      '@empathyco/x-storage-service': ^2.0.0-alpha.10
+      '@empathyco/x-tailwindcss': ^1.0.0-alpha.13
+      '@empathyco/x-types': ^10.0.0-alpha.62
+      '@empathyco/x-utils': ^1.0.0-alpha.18
       '@microsoft/api-documenter': ~7.21.3
       '@microsoft/api-extractor': ~7.33.7
       '@rollup/plugin-commonjs': ~24.0.0
@@ -302,6 +302,7 @@ importers:
       '@vue/test-utils': ~1.0.3
       '@vue/vue2-jest': ~27.0.0-alpha.3
       autoprefixer: ~10.4.4
+      convert-source-map: ~2.0.0
       cypress: ~12.2.0
       esbuild: 0.17.5
       glob: ~7.1.6
@@ -338,6 +339,7 @@ importers:
       vuex: ~3.6.2
     dependencies:
       '@empathyco/x-adapter': link:../x-adapter
+      '@empathyco/x-adapter-platform': link:../x-adapter-platform
       '@empathyco/x-deep-merge': link:../deep-merge
       '@empathyco/x-logger': link:../logger
       '@empathyco/x-storage-service': link:../storage-service
@@ -354,7 +356,6 @@ importers:
       '@badeball/cypress-cucumber-preprocessor': 15.0.0_cypress@12.2.0
       '@bahmutov/cypress-esbuild-preprocessor': 2.2.0_esbuild@0.17.5
       '@cypress/vue': 2.2.4_tayzhzodz2m7diticeg5gjyp2u
-      '@empathyco/x-adapter-platform': link:../x-adapter-platform
       '@empathyco/x-tailwindcss': link:../x-tailwindcss
       '@microsoft/api-documenter': 7.21.4_@types+node@16.4.14
       '@microsoft/api-extractor': 7.33.8
@@ -372,6 +373,7 @@ importers:
       '@vue/test-utils': 1.0.5_rhqkolmkwunxzlyyxxsuwaiuri
       '@vue/vue2-jest': 27.0.0_3wnfi2cjlikaqtlmjt2gmi3kwm
       autoprefixer: 10.4.13_postcss@8.4.21
+      convert-source-map: 2.0.0
       cypress: 12.2.0
       esbuild: 0.17.5
       glob: 7.1.7
@@ -404,7 +406,7 @@ importers:
 
   packages/x-priority-queue:
     specifiers:
-      '@empathyco/x-utils': ^1.0.0-alpha.17
+      '@empathyco/x-utils': ^1.0.0-alpha.18
       '@types/jest': ~27.0.3
       concurrently: ~7.6.0
       jest: ~27.3.1
@@ -441,8 +443,8 @@ importers:
 
   packages/x-tailwindcss:
     specifiers:
-      '@empathyco/x-deep-merge': ^1.3.0-alpha.32
-      '@empathyco/x-utils': ^1.0.0-alpha.17
+      '@empathyco/x-deep-merge': ^1.3.0-alpha.33
+      '@empathyco/x-utils': ^1.0.0-alpha.18
       '@rollup/plugin-commonjs': ~24.0.0
       autoprefixer: ~10.4.4
       postcss: ~8.4.12
@@ -484,7 +486,7 @@ importers:
 
   packages/x-translations:
     specifiers:
-      '@empathyco/x-deep-merge': ^1.3.0-alpha.32
+      '@empathyco/x-deep-merge': ^1.3.0-alpha.33
       '@types/jest': ~27.0.3
       '@types/node': ~16.4.12
       jest: ~27.3.1
@@ -501,8 +503,8 @@ importers:
 
   packages/x-types:
     specifiers:
-      '@empathyco/x-adapter': ^8.0.0-alpha.25
-      '@empathyco/x-jest-utils': ^1.4.0-alpha.9
+      '@empathyco/x-adapter': ^8.0.0-alpha.26
+      '@empathyco/x-jest-utils': ^1.4.0-alpha.10
       '@microsoft/api-documenter': ~7.21.3
       '@microsoft/api-extractor': ~7.33.7
       '@types/jest': ~27.0.3
@@ -528,7 +530,7 @@ importers:
 
   packages/x-utils:
     specifiers:
-      '@empathyco/x-storage-service': ^2.0.0-alpha.9
+      '@empathyco/x-storage-service': ^2.0.0-alpha.10
       '@types/jest': ~27.0.3
       jest: ~27.3.1
       nanoid: ~3.1.31
@@ -7939,6 +7941,13 @@ packages:
     resolution:
       {
         integrity: sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==
+      }
+    dev: true
+
+  /convert-source-map/2.0.0:
+    resolution:
+      {
+        integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==
       }
     dev: true
 
@@ -21708,7 +21717,7 @@ packages:
     resolution: { directory: packages/eslint-plugin-x, type: directory }
     id: file:packages/eslint-plugin-x
     name: '@empathyco/eslint-plugin-x'
-    version: 2.0.0-alpha.30
+    version: 2.0.0-alpha.31
     engines: { node: '>=16' }
     requiresBuild: true
     peerDependencies:
