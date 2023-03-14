@@ -17,11 +17,13 @@
     <XdsLayoutSingleColumn />
     <XdsLayoutTwoColumns />
     <XdsTag />
+    <XdsBadge />
   </div>
 </template>
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import XdsBadge from './xds-badge.vue';
   import XdsButton from './xds-button.vue';
   import XdsHighlight from './xds-highlight.vue';
   import XdsIcon from './xds-icon.vue';
@@ -42,6 +44,7 @@
 
   @Component({
     components: {
+      XdsBadge,
       XdsInputGroup,
       XdsTypography,
       XdsHighlight,
