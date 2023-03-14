@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.13...@empathyco/x-tailwindcss@1.0.0-alpha.14) (2023-03-14)
+
+### Features
+
+- **design-system:** add XDS tag component (#1099)
+  ([3bb3d80](https://github.com/empathyco/x/commit/3bb3d80372f7929f8c1f3c629951780b0349957b)),
+  closes [EX-7990](https://searchbroker.atlassian.net/browse/EX-7990)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.12...@empathyco/x-tailwindcss@1.0.0-alpha.13) (2023-03-07)
 
 ### Bug Fixes
