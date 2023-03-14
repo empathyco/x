@@ -3,6 +3,79 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.331](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.330...@empathyco/x-components@3.0.0-alpha.331) (2023-03-14)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.330](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.329...@empathyco/x-components@3.0.0-alpha.330) (2023-03-09)
+
+### Code Refactoring
+
+- **components:** migrate `AutoProgressBar` to `Composition API` (#1087)
+  ([30cfa06](https://github.com/empathyco/x/commit/30cfa06ea5894412ab61db44b876c0645d17913e)),
+  closes [EX-8049](https://searchbroker.atlassian.net/browse/EX-8049)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.329](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.328...@empathyco/x-components@3.0.0-alpha.329) (2023-03-09)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.328](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.327...@empathyco/x-components@3.0.0-alpha.328) (2023-03-07)
+
+### Bug Fixes
+
+- **edocs-live-examples:** Live example was not rendered
+  ([5aa2653](https://github.com/empathyco/x/commit/5aa2653054686a3a6b8ada0478f171518d7733c2))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.327](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.326...@empathyco/x-components@3.0.0-alpha.327) (2023-03-07)
+
+### Bug Fixes
+
+- **deps:** remove `only-allow` pnpm (#1097)
+  ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
+  closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
+
+### Documentation
+
+- **related-tags:** added curation options (#1095)
+  ([ab458c7](https://github.com/empathyco/x/commit/ab458c767fc508f4c1cfd4362589a408a09cfbc9))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.326](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.325...@empathyco/x-components@3.0.0-alpha.326) (2023-03-06)
+
+### Documentation
+
+- **integration:** add close api function (#1096)
+  ([2602e90](https://github.com/empathyco/x/commit/2602e90cf05eea95707d15ea0dac2a319fee6604))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.325](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.324...@empathyco/x-components@3.0.0-alpha.325) (2023-03-02)
 
 **Note:** Version bump only for package @empathyco/x-components

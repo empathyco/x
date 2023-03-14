@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-react-wrapper",
-  "version": "4.0.0-alpha.19",
+  "version": "4.0.0-alpha.20",
   "description": "A proxy that transforms Vue components into React ones",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -25,7 +25,6 @@
     "node": ">=16"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "serve": "vite serve tests/demo",
     "build": "tsc",
     "cypress:open": "cypress open --browser chrome",
