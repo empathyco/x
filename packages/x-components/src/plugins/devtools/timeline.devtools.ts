@@ -31,7 +31,7 @@ const timelineLayers = [
 
   {
     id: 'x-components-request-events',
-    regex: /RequestUpdated$/,
+    regex: /Request(?:Changed|Updated)$/,
     label: 'X request events'
   },
   {
