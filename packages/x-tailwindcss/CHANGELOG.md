@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.14...@empathyco/x-tailwindcss@1.0.0-alpha.15) (2023-03-14)
+
+### Features
+
+- **design-system:** add XDS badge component (#1100)
+  ([c0d8446](https://github.com/empathyco/x/commit/c0d84461b1cb72705e8570766c19078c2eef3abf)),
+  closes [EX-7992](https://searchbroker.atlassian.net/browse/EX-7992)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.13...@empathyco/x-tailwindcss@1.0.0-alpha.14) (2023-03-14)
 
 ### Features

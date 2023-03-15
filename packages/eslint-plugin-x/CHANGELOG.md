@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.31...@empathyco/eslint-plugin-x@2.0.0-alpha.32) (2023-03-14)
+
+### Bug Fixes
+
+- **build:** Fix issue with prettier-plugin-tailwindcss. (#1102)
+  ([b87f274](https://github.com/empathyco/x/commit/b87f2741815e9a6723a997a955a1b18784cb4ed4)),
+  closes [EX-8112](https://searchbroker.atlassian.net/browse/EX-8112)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.30...@empathyco/eslint-plugin-x@2.0.0-alpha.31) (2023-03-07)
 
 ### Bug Fixes
