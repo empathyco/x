@@ -16,7 +16,8 @@ import { resetStoreRelatedTagsState } from './utils';
 describe('testing related tags component', () => {
   function renderRelatedTags({
     relatedTags = getRelatedTagsStub(),
-    template = '<RelatedTags />'
+    template = '<RelatedTags v-bind="$attrs" />',
+    itemClass
   }: RenderRelatedTagsOptions = {}): RenderRelatedTagsAPI {
     const localVue = createLocalVue();
     localVue.use(Vuex);
@@ -38,7 +39,7 @@ describe('testing related tags component', () => {
       {
         localVue,
         store,
-        propsData: { relatedTags }
+        propsData: { relatedTags, itemClass }
       }
     );
     const wrapper = wrapperTemplate.findComponent(RelatedTags);
@@ -76,6 +77,15 @@ describe('testing related tags component', () => {
 
     getRelatedTagItems().wrappers.forEach((relatedTagItemWrapper, index) => {
       expect(relatedTagItemWrapper.text()).toEqual(relatedTags[index].tag);
+    });
+  });
+
+  it('allows to add classes to each related tag', () => {
+    const { wrapper } = renderRelatedTags({ itemClass: 'custom-class' });
+    const relatedTagWrappers = wrapper.findAllComponents(RelatedTagComponent);
+
+    relatedTagWrappers.wrappers.forEach(relatedTagItemWrapper => {
+      expect(relatedTagItemWrapper.classes('custom-class')).toBe(true);
     });
   });
 
@@ -132,13 +142,14 @@ describe('testing related tags component', () => {
   it('allows changing the whole component for each related tag', async () => {
     const { getRelatedTagItems, relatedTags, wrapper } = renderRelatedTags({
       template: `
-        <RelatedTags>
-          <template #related-tag="{relatedTag, highlightCurated}">
-            <button data-test="custom-related-tag" v-if="highlightCurated">
+        <RelatedTags v-bind="$attrs">
+          <template #related-tag="{relatedTag, highlightCurated, itemClass }">
+            <button data-test="custom-related-tag" v-if="highlightCurated" :class="itemClass">
               {{ relatedTag.tag }}
             </button>
           </template>
-        </RelatedTags>`
+        </RelatedTags>`,
+      itemClass: 'custom-class'
     });
 
     const relatedTagsWrappers = getRelatedTagItems();
@@ -158,6 +169,7 @@ describe('testing related tags component', () => {
       );
       expect(customRelatedTagWrapper.exists()).toEqual(true);
       expect(customRelatedTagWrapper.text()).toEqual(relatedTags[index].tag);
+      expect(customRelatedTagWrapper.classes('custom-class')).toBe(true);
     });
   });
 
@@ -176,9 +188,13 @@ describe('testing related tags component', () => {
 interface RenderRelatedTagsOptions {
   /** The initial related tags to render. */
   relatedTags?: RelatedTag[];
-  /** The template to render. Receives the `relatedTags` via prop, and has registered the
-   * {@link RelatedTags} component. */
+  /**
+   * The template to render. Receives the `relatedTags` via prop, and has registered the
+   * {@link RelatedTags} component.
+   */
   template?: string;
+  /** Class to add to the related tags. */
+  itemClass?: string;
 }
 
 interface RenderRelatedTagsAPI {
@@ -186,8 +202,10 @@ interface RenderRelatedTagsAPI {
   wrapper: Wrapper<Vue>;
   /** The initial list of related tags that are going to be rendered. */
   relatedTags: RelatedTag[];
-  /** Retrieves the wrapper for the items of the list rendered by the {@link RelatedTags}
-   * component. */
+  /**
+   * Retrieves the wrapper for the items of the list rendered by the {@link RelatedTags}
+   * component.
+   */
   getRelatedTagItems: () => WrapperArray<Vue>;
   /** Clicks the nth {@link RelatedTagComponent} component and waits for the view to update. */
   clickNthRelatedTag: (nth: number) => Promise<void>;
