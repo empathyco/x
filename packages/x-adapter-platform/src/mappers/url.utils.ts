@@ -6,6 +6,8 @@ import { TaggingRequest } from '@empathyco/x-types';
  * @param taggingUrl - The url containing the tagging info.
  *
  * @returns The object with the tagging info.
+ *
+ * @public
  */
 export function getTaggingInfoFromUrl(taggingUrl: string): TaggingRequest {
   const { url, params } = extractUrlParameters(taggingUrl);
@@ -24,6 +26,8 @@ export function getTaggingInfoFromUrl(taggingUrl: string): TaggingRequest {
  * @param url - The url string to manipulate.
  *
  * @returns The object with the url information.
+ *
+ * @public
  */
 export function extractUrlParameters(url: string): {
   url: string;

@@ -4,6 +4,11 @@ import { RelatedTagsRequest } from '@empathyco/x-types';
 import { relatedTagsRequestSchema } from '../../schemas/requests/related-tags-request.schema';
 import { PlatformRelatedTagsRequest } from '../../types/requests/related-tags-request.model';
 
+/**
+ * Default implementation for the RelatedTagsRequestMapper.
+ *
+ * @public
+ */
 export const relatedTagsRequestMapper = schemaMapperFactory<
   RelatedTagsRequest,
   PlatformRelatedTagsRequest

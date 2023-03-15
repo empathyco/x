@@ -18,6 +18,11 @@ import {
 } from '@empathyco/x-types';
 import { ExtendableEndpointAdapter } from '@empathyco/x-adapter';
 
+/**
+ * Platform adapter interface.
+ *
+ * @public
+ */
 export interface PlatformAdapter extends XComponentsAdapter {
   search: ExtendableEndpointAdapter<SearchRequest, SearchResponse>;
   popularSearches: ExtendableEndpointAdapter<PopularSearchesRequest, PopularSearchesResponse>;

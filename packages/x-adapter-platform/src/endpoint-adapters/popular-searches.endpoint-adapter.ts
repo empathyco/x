@@ -4,6 +4,11 @@ import { popularSearchesRequestMapper } from '../mappers/requests/popular-search
 // eslint-disable-next-line max-len
 import { popularSearchesResponseMapper } from '../mappers/responses/popular-searches-response.mapper';
 
+/**
+ * Default adapter for the popular searches endpoint.
+ *
+ * @public
+ */
 export const popularSearchesEndpointAdapter = endpointAdapterFactory<
   PopularSearchesRequest,
   PopularSearchesResponse
