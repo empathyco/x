@@ -5,6 +5,7 @@ import { XPluginOptions } from './x-plugin.types';
  * Asserts that the passed options object is valid, providing helpful error messages.
  *
  * @param options - The options to check if they are valid.
+ * @public
  */
 export function assertXPluginOptionsAreValid(
   options: XPluginOptions | undefined
