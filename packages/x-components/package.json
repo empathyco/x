@@ -53,7 +53,7 @@
     "lint": "eslint . --ext .ts,.vue",
     "test:unit": "jest --silent && pnpm run test:unit-cypress",
     "test:unit-jest": "jest",
-    "test:unit-cypress": "cypress run --component",
+    "test:unit-cypress": "cypress run --component --browser chrome",
     "test:unit-coverage": "jest --coverage",
     "test:unit-watch": "jest --watch",
     "test:e2e": "vue-cli-service test:e2e --e2e --browser chrome",

@@ -1,3 +1,4 @@
+export { default as XdsBadge } from './components/xds-badge.vue';
 export { default as XdsBaseShowcase } from './components/xds-base-showcase.vue';
 export { default as XdsButton } from './components/xds-button.vue';
 export { default as XdsHighlight } from './components/xds-highlight.vue';
@@ -13,6 +14,7 @@ export { default as XdsShowcase } from './components/xds-showcase.vue';
 export { default as XdsSlidingPanel } from './components/xds-sliding-panel.vue';
 export { default as XdsSuggestion } from './components/xds-suggestion.vue';
 export { default as XdsSuggestionGroup } from './components/xds-suggestion-group.vue';
+export { default as XdsTag } from './components/xds-tag.vue';
 export { default as XdsTypography } from './components/xds-typography.vue';
 
 export * from './types/types';
