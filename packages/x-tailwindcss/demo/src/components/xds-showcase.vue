@@ -1,6 +1,7 @@
 <template>
   <div class="x-flex x-flex-col x-gap-40 x-p-20">
     <XdsButton />
+    <XdsButtonGroup />
     <XdsIcon />
     <XdsHighlight />
     <XdsTypography />
@@ -25,6 +26,7 @@
   import { Component } from 'vue-property-decorator';
   import XdsBadge from './xds-badge.vue';
   import XdsButton from './xds-button.vue';
+  import XdsButtonGroup from './xds-button-group.vue';
   import XdsHighlight from './xds-highlight.vue';
   import XdsIcon from './xds-icon.vue';
   import XdsInputGroup from './xds-input-group.vue';
@@ -49,6 +51,7 @@
       XdsTypography,
       XdsHighlight,
       XdsButton,
+      XdsButtonGroup,
       XdsIcon,
       XdsInput,
       XdsLayout,
