@@ -21,7 +21,7 @@
         <RelatedTag
           :highlightCurated="highlightCurated"
           :relatedTag="relatedTag"
-          :class="relatedTagClass"
+          :class="itemClass"
         >
           <template #default="{ relatedTag, isSelected, shouldHighlightCurated }">
             <!-- eslint-disable max-len -->
@@ -277,16 +277,13 @@ _Search for a fashion term and see how the related tags can be rendered._
 
 ## Customizing the related tags with classes
 
-The `relatedTagClass` prop can be used to add classes to the related tags.
+The `itemClass` prop can be used to add classes to the related tags.
 
 ```vue live
 <template>
   <div>
     <SearchInput />
-    <RelatedTags
-      #related-tag-content="{ relatedTag }"
-      relatedTagClass="x-tag-outlined x-tag-auxiliary"
-    >
+    <RelatedTags #related-tag-content="{ relatedTag }" itemClass="x-tag-outlined x-tag-auxiliary">
       <span>{{ relatedTag.tag }}</span>
     </RelatedTags>
   </div>
