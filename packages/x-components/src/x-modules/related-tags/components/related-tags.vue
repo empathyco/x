@@ -45,7 +45,7 @@
 <script lang="ts">
   import { RelatedTag as RelatedTagModel } from '@empathyco/x-types';
   import Vue from 'vue';
-  import { Component, Mixins, Prop } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { relatedTagsXModule } from '../x-module';
@@ -63,9 +63,9 @@
    */
   @Component({
     components: { RelatedTag },
-    mixins: [xComponentMixin(relatedTagsXModule)]
+    mixins: [xComponentMixin(relatedTagsXModule), dynamicPropsMixin(['itemClass'])]
   })
-  export default class RelatedTags extends Mixins(dynamicPropsMixin(['relatedTagClass'])) {
+  export default class RelatedTags extends Vue {
     /**
      * Animation component that will be used to animate the suggestion.
      *
