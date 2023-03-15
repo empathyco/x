@@ -321,28 +321,28 @@ and _adult_ sections:
 
 ```html
 <script>
-    if (yourCommerceStoreEnvironment.section === 'kids') {
-      InterfaceX.setSnippetConfig({
-        queriesPreview: [
-          {
-            query: "backpack",
-            title: "Back to School!",
-          },
-          {
-            query: "pencil",
-            title: "Write with style!",
-          }
-        ]
-      })
-    } else if (yourCommerceStoreEnvironment.section === 'adult') {
-      InterfaceX.setSnippetConfig({
-        queriesPreview: [
-          {
-            query: "watch",
-            title: "Get on time!",
-          }
-        ]
-      })
-    }
-</script
+  if (yourCommerceStoreEnvironment.section === 'kids') {
+    InterfaceX.setSnippetConfig({
+      queriesPreview: [
+        {
+          query: 'backpack',
+          title: 'Back to School!'
+        },
+        {
+          query: 'pencil',
+          title: 'Write with style!'
+        }
+      ]
+    });
+  } else if (yourCommerceStoreEnvironment.section === 'adult') {
+    InterfaceX.setSnippetConfig({
+      queriesPreview: [
+        {
+          query: 'watch',
+          title: 'Get on time!'
+        }
+      ]
+    });
+  }
+</script>
 ```
