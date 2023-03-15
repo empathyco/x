@@ -3,6 +3,11 @@ import { Banner } from '@empathyco/x-types';
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
 import { PlatformBanner } from '../../types/models/banner.model';
 
+/**
+ * Default implementation for the BannerSchema.
+ *
+ * @public
+ */
 export const bannerSchema = createMutableSchema<PlatformBanner, Banner>({
   id: 'id',
   title: 'title',

@@ -5,6 +5,11 @@ import { querySuggestionsRequestMapper } from '../mappers/requests/query-suggest
 // eslint-disable-next-line max-len
 import { querySuggestionsResponseMapper } from '../mappers/responses/query-suggestions-response.mapper';
 
+/**
+ * Default adapter for the query suggestions endpoint.
+ *
+ * @public
+ */
 export const querySuggestionsEndpointAdapter = endpointAdapterFactory<
   QuerySuggestionsRequest,
   QuerySuggestionsResponse

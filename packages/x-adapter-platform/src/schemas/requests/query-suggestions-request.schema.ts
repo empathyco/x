@@ -3,6 +3,11 @@ import { QuerySuggestionsRequest } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { PlatformQuerySuggestionsRequest } from '../../types/requests/query-suggestions-request.model';
 
+/**
+ * Default implementation for the QuerySuggestionsRequestSchema.
+ *
+ * @public
+ */
 export const querySuggestionsRequestSchema = createMutableSchema<
   QuerySuggestionsRequest,
   PlatformQuerySuggestionsRequest

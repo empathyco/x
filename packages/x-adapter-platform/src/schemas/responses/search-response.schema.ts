@@ -9,6 +9,11 @@ import { promotedSchema } from '../models/promoted.schema';
 import { redirectionSchema } from '../models/redirection.schema';
 import { resultSchema } from '../models/result.schema';
 
+/**
+ * Default implementation for the SearchResponseSchema.
+ *
+ * @public
+ */
 export const searchResponseSchema = createMutableSchema<PlatformSearchResponse, SearchResponse>({
   results: {
     $path: 'catalog.content',

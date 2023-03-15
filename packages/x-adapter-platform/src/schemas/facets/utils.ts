@@ -9,6 +9,8 @@ import { FacetConfig } from './types';
  *
  * @param type - The facet type to resolve the configuration.
  * @returns The facet's config.
+ *
+ * @public
  */
 export function getFacetConfig(type: PlatformFacetType): FacetConfig {
   const typeConfigs: Record<PlatformFacetType, FacetConfig> = {
