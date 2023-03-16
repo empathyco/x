@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.67](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.66...@empathyco/x-adapter-platform@1.0.0-alpha.67) (2023-03-16)
+
+### Documentation
+
+- add missing release-tags and documentation (#1106)
+  ([fbe7d46](https://github.com/empathyco/x/commit/fbe7d461daa37f9309dedaa46e87035e047e4a2a)),
+  closes [EX-8119](https://searchbroker.atlassian.net/browse/EX-8119)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.66](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.65...@empathyco/x-adapter-platform@1.0.0-alpha.66) (2023-03-09)
 
 ### Build System
