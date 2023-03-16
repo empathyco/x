@@ -142,14 +142,13 @@ describe('testing related tags component', () => {
   it('allows changing the whole component for each related tag', async () => {
     const { getRelatedTagItems, relatedTags, wrapper } = renderRelatedTags({
       template: `
-        <RelatedTags v-bind="$attrs">
+        <RelatedTags>
           <template #related-tag="{relatedTag, highlightCurated, itemClass }">
             <button data-test="custom-related-tag" v-if="highlightCurated" :class="itemClass">
               {{ relatedTag.tag }}
             </button>
           </template>
-        </RelatedTags>`,
-      itemClass: 'custom-class'
+        </RelatedTags>`
     });
 
     const relatedTagsWrappers = getRelatedTagItems();
@@ -169,7 +168,6 @@ describe('testing related tags component', () => {
       );
       expect(customRelatedTagWrapper.exists()).toEqual(true);
       expect(customRelatedTagWrapper.text()).toEqual(relatedTags[index].tag);
-      expect(customRelatedTagWrapper.classes('custom-class')).toBe(true);
     });
   });
 

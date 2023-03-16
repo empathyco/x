@@ -16,9 +16,8 @@
         @slot Custom content that replaces the RelatedTag component.
         @binding {RelatedTag} relatedTag - Related tag data.
         @binding {boolean} highlightCurated - True if the curated RTs should be displayed.
-        @binding {string} itemClass - Class to add to the related tag.
        -->
-      <slot name="related-tag" v-bind="{ relatedTag, highlightCurated, itemClass }">
+      <slot name="related-tag" v-bind="{ relatedTag, highlightCurated }">
         <RelatedTag
           :highlightCurated="highlightCurated"
           :relatedTag="relatedTag"
