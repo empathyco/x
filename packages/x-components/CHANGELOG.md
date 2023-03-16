@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.335](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.334...@empathyco/x-components@3.0.0-alpha.335) (2023-03-16)
+
+### ⚠ BREAKING CHANGES
+
+- **design-system:** Old `design-system` `Tag` styles are now located in the
+  `deprecated-full-theme.css` file.
+- **design-system:** Old `x-tag--is-curated` and `x-tag--is-selected` classes are no longer used by
+  `RelatedTag` component.
+
+### Features
+
+- **design-system:** deprecate old DS `Tag` component (#1103)
+  ([f698e00](https://github.com/empathyco/x/commit/f698e004daa0ed73fafefa2968c2b1ced66397e7)),
+  closes [EX-7990](https://searchbroker.atlassian.net/browse/EX-7990)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.334](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.333...@empathyco/x-components@3.0.0-alpha.334) (2023-03-16)
 
 ### Features
