@@ -136,7 +136,7 @@
               <template #sliding-panel-left-button>
                 <ChevronLeft />
               </template>
-              <RelatedTags class="x-tag--card x-list--gap-03" />
+              <RelatedTags class="x-list--gap-03" itemClass="x-tag-outlined" />
               <template #sliding-panel-right-button>
                 <ChevronRight />
               </template>
