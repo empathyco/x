@@ -143,8 +143,8 @@ describe('testing related tags component', () => {
     const { getRelatedTagItems, relatedTags, wrapper } = renderRelatedTags({
       template: `
         <RelatedTags>
-          <template #related-tag="{relatedTag, highlightCurated, itemClass }">
-            <button data-test="custom-related-tag" v-if="highlightCurated" :class="itemClass">
+          <template #related-tag="{relatedTag, highlightCurated }">
+            <button data-test="custom-related-tag" v-if="highlightCurated">
               {{ relatedTag.tag }}
             </button>
           </template>
