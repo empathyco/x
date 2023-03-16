@@ -1,4 +1,4 @@
-import { Facet } from '@empathyco/x-types';
+import { Facet, Filter } from '@empathyco/x-types';
 import { UrlParams } from '../../types/url-params';
 import { createRawFilters } from '../../utils/filters';
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
@@ -43,7 +43,14 @@ const setFacetsGroupWire = wireFacetsService('setFacets');
  *
  * @public
  */
-const toggleFilterWire = wireFacetsService('toggle');
+const toggleFilterWire = mapWire(wireFacetsService('toggle'), (filter: Filter) => {
+  return {
+    filter,
+    metadata: {
+      shouldDeselect: true
+    }
+  };
+});
 
 /**
  * Deselects all the filters. Optionally, it can accept a list of facets ids as payload, and it will

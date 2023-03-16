@@ -1,5 +1,6 @@
 import { Store } from 'vuex';
 import { Filter } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { RootXStoreState } from '../../../store/store.types';
 
 /**
@@ -7,11 +8,11 @@ import { RootXStoreState } from '../../../store/store.types';
  *
  * @internal
  */
-export interface FilterEntity {
+export interface FilterEntity<Metadata extends Dictionary = Dictionary<unknown>> {
   /** Selects the filter. */
-  select(filter: Filter): void;
+  select(filter: Filter, metadata?: Metadata): void;
   /** Deselects the filter. */
-  deselect(filter: Filter): void;
+  deselect(filter: Filter, metadata?: Metadata): void;
 }
 
 /** Constructor of a {@link FilterEntity}.
@@ -38,8 +39,8 @@ export interface FilterEntityConstructor {
  *
  * @internal
  */
-export interface FilterEntityModifier {
-  new (store: Store<RootXStoreState>, entity: FilterEntity): FilterEntity;
+export interface FilterEntityModifier<Metadata extends Dictionary = Dictionary> {
+  new (store: Store<RootXStoreState>, entity: FilterEntity<Metadata>): FilterEntity<Metadata>;
 }
 
 /**
@@ -47,7 +48,9 @@ export interface FilterEntityModifier {
  *
  * @internal
  */
-export abstract class BaseFilterEntityModifier implements FilterEntity {
+export abstract class BaseFilterEntityModifier<Metadata extends Dictionary = Dictionary>
+  implements FilterEntity<Metadata>
+{
   public constructor(protected store: Store<RootXStoreState>, protected entity: FilterEntity) {}
 
   /**
@@ -55,7 +58,8 @@ export abstract class BaseFilterEntityModifier implements FilterEntity {
    *
    * @param filter - The filter to select.
    */
-  select(filter: Filter): void {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  select(filter: Filter, metadata?: Metadata): void {
     this.entity.select(filter);
   }
 
@@ -64,7 +68,8 @@ export abstract class BaseFilterEntityModifier implements FilterEntity {
    *
    * @param filter - The filter to deselect.
    */
-  deselect(filter: Filter): void {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  deselect(filter: Filter, metadata?: Metadata): void {
     this.entity.deselect(filter);
   }
 }

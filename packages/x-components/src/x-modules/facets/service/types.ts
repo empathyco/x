@@ -82,5 +82,5 @@ export interface FacetsService {
    *
    * @param filter - The filter to toggle.
    */
-  toggle(filter: Filter): void;
+  toggle({ filter, metadata }: { filter: Filter; metadata: { shouldDeselect: boolean } }): void;
 }

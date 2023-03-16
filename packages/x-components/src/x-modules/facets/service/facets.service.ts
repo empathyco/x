@@ -58,11 +58,11 @@ export class DefaultFacetsService implements FacetsService {
   clearFilters(facetIds?: Array<Facet['id']>): void {
     this.getSelectedFilters()
       .filter(filter => !facetIds || (isFacetFilter(filter) && facetIds.includes(filter.facetId)))
-      .forEach(this.deselect.bind(this));
+      .forEach(filter => this.deselect.bind(this)(filter));
   }
 
-  deselect(filter: Filter): void {
-    this.getFilterEntity(filter).deselect(filter);
+  deselect(filter: Filter, metadata?: { shouldDeselect: boolean }): void {
+    this.getFilterEntity(filter).deselect(filter, metadata);
   }
 
   select(filterOrFilters: Filter | Filter[]): void {
@@ -70,9 +70,9 @@ export class DefaultFacetsService implements FacetsService {
     filters.forEach(filter => this.getFilterEntity(filter).select(filter));
   }
 
-  toggle(filter: Filter): void {
+  toggle({ filter, metadata }: { filter: Filter; metadata: { shouldDeselect: boolean } }): void {
     if (filter.selected) {
-      this.deselect(filter);
+      this.deselect(filter, metadata);
     } else {
       this.select(filter);
     }
