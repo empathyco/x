@@ -45,10 +45,7 @@ const setFacetsGroupWire = wireFacetsService('setFacets');
  */
 const toggleFilterWire = mapWire(wireFacetsService('toggle'), (filter: Filter) => {
   return {
-    filter,
-    metadata: {
-      shouldDeselect: true
-    }
+    filter
   };
 });
 
@@ -58,7 +55,14 @@ const toggleFilterWire = mapWire(wireFacetsService('toggle'), (filter: Filter) =
  *
  * @public
  */
-const clearFiltersWire = wireFacetsService('clearFilters');
+const clearFiltersWire = mapWire(
+  wireFacetsService('clearFilters'),
+  (facetIds: Array<Facet['id']> | undefined) => {
+    return {
+      facetIds
+    };
+  }
+);
 
 /**
  * Deselects all selected filters.
@@ -67,13 +71,21 @@ const clearFiltersWire = wireFacetsService('clearFilters');
  */
 const clearAllFiltersWire = wireFacetsServiceWithoutPayload('clearFilters');
 
+const clearAllFiltersButStickyWire = mapWire(wireFacetsService('clearFilters'), () => {
+  return {
+    metadata: {
+      keepSticky: true
+    }
+  };
+});
+
 /**
  * Deselects all selected filters only when oldValue is not empty.
  *
  * @public
  */
 const clearAllFiltersOnSecondQuery = filter(
-  clearAllFiltersWire,
+  clearAllFiltersButStickyWire,
   ({ metadata }) => !!metadata.oldValue
 );
 
@@ -141,7 +153,7 @@ export const facetsWiring = createWiring({
     clearAllFiltersOnSecondQuery
   },
   UserChangedExtraParams: {
-    clearAllFiltersWire
+    clearAllFiltersButStickyWire
   },
   UserClickedAFilter: {
     toggleFilterWire
@@ -156,7 +168,7 @@ export const facetsWiring = createWiring({
     clearFiltersWire
   },
   UserClearedQuery: {
-    clearAllFiltersWire,
+    clearAllFiltersButStickyWire,
     setQuery
   },
   UserClickedOpenX: {

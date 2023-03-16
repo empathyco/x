@@ -19,6 +19,11 @@ export interface FacetsGroup {
   id: string;
 }
 
+export type ClearFiltersPayload = {
+  facetIds?: Array<Facet['id']>;
+  metadata?: { keepSticky: boolean };
+};
+
 /**
  * Service to manipulate the filters.
  *
@@ -30,7 +35,7 @@ export interface FacetsService {
    *
    * @param facetIds - An optional list of facets ids from whom deselect the filters.
    */
-  clearFilters(facetIds?: Array<Facet['id']>): void;
+  clearFilters(payload?: ClearFiltersPayload): void;
   /**
    * Deselects filter, adding it to the store if it was not present.
    *
@@ -82,5 +87,5 @@ export interface FacetsService {
    *
    * @param filter - The filter to toggle.
    */
-  toggle({ filter, metadata }: { filter: Filter; metadata: { shouldDeselect: boolean } }): void;
+  toggle({ filter, metadata }: { filter: Filter; metadata?: { keepSticky: boolean } }): void;
 }

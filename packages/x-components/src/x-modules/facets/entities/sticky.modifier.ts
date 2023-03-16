@@ -2,14 +2,12 @@ import { Filter } from '@empathyco/x-types';
 import { BaseFilterEntityModifier } from './types';
 
 interface Metadata {
-  shouldDeselect: boolean;
+  keepSticky: boolean;
 }
 
 export class StickyModifier extends BaseFilterEntityModifier<Metadata> {
   deselect(filter: Filter, metadata: Metadata): void {
-    console.log('STICKY', this.entity);
-
-    if (metadata?.shouldDeselect) {
+    if (!metadata?.keepSticky) {
       super.deselect(filter, metadata);
     }
   }

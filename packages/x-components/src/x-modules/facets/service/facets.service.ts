@@ -7,7 +7,7 @@ import { FilterEntityFactory } from '../entities/filter-entity.factory';
 import { FilterEntity } from '../entities/types';
 import { FacetGroupEntry, FacetsGetters } from '../store/types';
 import { flatHierarchicalFilters } from '../utils';
-import { FacetsGroup, FacetsService } from './types';
+import { ClearFiltersPayload, FacetsGroup, FacetsService } from './types';
 
 /**
  * Default implementation for the {@link FacetsService}.
@@ -55,13 +55,13 @@ export class DefaultFacetsService implements FacetsService {
     this.select(this.store.state.x.facets.preselectedFilters);
   }
 
-  clearFilters(facetIds?: Array<Facet['id']>): void {
+  clearFilters({ facetIds, metadata }: ClearFiltersPayload = {}): void {
     this.getSelectedFilters()
       .filter(filter => !facetIds || (isFacetFilter(filter) && facetIds.includes(filter.facetId)))
-      .forEach(filter => this.deselect.bind(this)(filter));
+      .forEach(filter => this.deselect.bind(this)(filter, metadata));
   }
 
-  deselect(filter: Filter, metadata?: { shouldDeselect: boolean }): void {
+  deselect(filter: Filter, metadata?: { keepSticky: boolean }): void {
     this.getFilterEntity(filter).deselect(filter, metadata);
   }
 
@@ -70,7 +70,7 @@ export class DefaultFacetsService implements FacetsService {
     filters.forEach(filter => this.getFilterEntity(filter).select(filter));
   }
 
-  toggle({ filter, metadata }: { filter: Filter; metadata: { shouldDeselect: boolean } }): void {
+  toggle({ filter, metadata }: { filter: Filter; metadata: { keepSticky: boolean } }): void {
     if (filter.selected) {
       this.deselect(filter, metadata);
     } else {
