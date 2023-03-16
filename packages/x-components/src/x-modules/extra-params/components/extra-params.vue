@@ -32,7 +32,7 @@
      *
      * @public
      */
-    @XEmit('ExtraParamsProvided', { deep: true })
+    @XEmit('ExtraParamsProvided', { immediate: false, deep: true })
     @Prop({ required: true })
     public values!: Dictionary<unknown>;
 

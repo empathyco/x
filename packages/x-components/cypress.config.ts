@@ -27,7 +27,8 @@ export default defineConfig({
       );
       return config;
     },
-    specPattern: 'tests/e2e/**/*.feature'
+    specPattern: 'tests/e2e/**/*.feature',
+    experimentalRunAllSpecs: true
   },
   component: {
     specPattern: 'tests/unit/**/*.spec.ts',

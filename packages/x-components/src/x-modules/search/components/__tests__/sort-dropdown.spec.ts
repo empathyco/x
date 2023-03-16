@@ -120,7 +120,12 @@ describe('testing SortDropdown component', () => {
     expect(onUserClickedASort).toHaveBeenCalledTimes(1);
     expect(onUserClickedASort).toHaveBeenCalledWith<[WirePayload<Sort>]>({
       eventPayload: 'offer',
-      metadata: { moduleName: 'search', target: wrapper.vm.$el as HTMLElement }
+      metadata: {
+        moduleName: 'search',
+        target: wrapper.vm.$el as HTMLElement,
+        location: undefined,
+        replaceable: true
+      }
     });
   });
   // eslint-disable-next-line max-len
@@ -131,7 +136,7 @@ describe('testing SortDropdown component', () => {
     expect(onSelectedSortProvided).toHaveBeenCalledWith<[WirePayload<Sort>]>({
       eventPayload: '',
       // This event gets emitted immediately, before the component has been mounted
-      metadata: { moduleName: 'search', target: undefined }
+      metadata: { moduleName: 'search', target: undefined, location: undefined, replaceable: true }
     });
   });
 

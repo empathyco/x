@@ -43,7 +43,7 @@ export const setRecommendationsExtraParams = wireCommit('setParams');
  * @internal
  */
 export const recommendationsWiring = createWiring({
-  RecommendationsRequestChanged: {
+  RecommendationsRequestUpdated: {
     fetchAndSaveRecommendations
   },
   UserClickedColumnPicker: {},

@@ -104,27 +104,25 @@
           <div
             class="x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand"
           >
-            <BaseKeyboardNavigation>
-              <div class="x-input-group x-input-group-lead x-rounded-sm">
-                <div class="x-input x-search-input-placeholder-container">
-                  <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
-                  <SearchInput
-                    aria-label="Search for products"
-                    :instant="controls.searchInput.instant"
-                    :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
-                  />
-                </div>
-                <ClearSearchInput
-                  class="x-input-group-button x-input-group-button-rectangle"
-                  aria-label="Clear query"
-                >
-                  Clear
-                </ClearSearchInput>
-                <SearchButton aria-label="Search" class="x-input-group-button-primary">
-                  <SearchIcon />
-                </SearchButton>
+            <div class="x-input-group x-input-group-lead x-rounded-sm">
+              <div class="x-input x-search-input-placeholder-container">
+                <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
+                <SearchInput
+                  aria-label="Search for products"
+                  :instant="controls.searchInput.instant"
+                  :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
+                />
               </div>
-            </BaseKeyboardNavigation>
+              <ClearSearchInput
+                class="x-input-group-button x-input-group-button-rectangle"
+                aria-label="Clear query"
+              >
+                Clear
+              </ClearSearchInput>
+              <SearchButton aria-label="Search" class="x-input-group-button-primary">
+                <SearchIcon />
+              </SearchButton>
+            </div>
 
             <!-- Spellcheck -->
             <Spellcheck>
@@ -257,6 +255,7 @@
               <h1 class="x-mb-16 x-title1">Brand Recommendations</h1>
               <LocationProvider location="no_results">
                 <QueryPreviewList
+                  :debounceTimeMs="250"
                   :queries="queriesToPreview"
                   #default="{ query, totalResults, results }"
                 >
@@ -285,7 +284,7 @@
                     <NextQueriesList
                       :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
                     >
-                      <BaseVariableColumnGrid :animation="resultsAnimation">
+                      <BaseGrid :animation="resultsAnimation" :columns="4">
                         <template #result="{ item: result }">
                           <MainScrollItem :item="result">
                             <Result :result="result" data-test="search-result" />
@@ -337,7 +336,7 @@
                             </NextQuery>
                           </NextQueryPreview>
                         </template>
-                      </BaseVariableColumnGrid>
+                      </BaseGrid>
                     </NextQueriesList>
                   </BannersList>
                 </PromotedsList>
@@ -410,7 +409,6 @@
   import Grid2Col from '../../components/icons/grid-2-col.vue';
   import LightBulbOn from '../../components/icons/light-bulb-on.vue';
   import SearchIcon from '../../components/icons/search.vue';
-  import BaseEventButton from '../../components/base-event-button.vue';
   // eslint-disable-next-line max-len
   import MultiColumnMaxWidthLayout from '../../components/layouts/multi-column-max-width-layout.vue';
   import LocationProvider from '../../components/location-provider.vue';
@@ -455,7 +453,6 @@
   import MainModal from '../../components/modals/main-modal.vue';
   import OpenMainModal from '../../components/modals/open-main-modal.vue';
   import CloseMainModal from '../../components/modals/close-main-modal.vue';
-  import BaseKeyboardNavigation from '../../components/base-keyboard-navigation.vue';
   import { XProvide } from '../../components/decorators/injection.decorators';
   import { adapterConfig } from '../adapter';
   import Aside from './aside.vue';
@@ -476,11 +473,9 @@
       BannersList,
       BaseColumnPickerList,
       BaseDropdown,
-      BaseEventButton,
       BaseGrid,
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
-      BaseKeyboardNavigation,
       BaseVariableColumnGrid,
       CheckTiny,
       ChevronLeft,

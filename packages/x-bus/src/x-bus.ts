@@ -230,7 +230,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
     event: SomeEvent,
     withMetadata = false
   ): typeof withMetadata extends true
-    ? Observable<SubjectPayload<SomeEvents, SomeEvent, SomeEventMetadata>>
+    ? Observable<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>
     : Observable<EventPayload<SomeEvents, SomeEvent>> {
     // TODO: This type should work, but inference isn't working as expected. Check when updating ts.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -239,7 +239,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
       ? this.getEmitter(event).asObservable()
       : this.getEmitter(event).pipe(
           map<
-            SubjectPayload<SomeEvents, SomeEvent, SomeEventMetadata>,
+            SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>,
             EventPayload<SomeEvents, SomeEvent>
           >(value => value.eventPayload)
         );
@@ -277,7 +277,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    */
   protected createEmitter<SomeEvent extends keyof SomeEvents>(event: SomeEvent): void {
     this.emitters[event] = new ReplaySubject<
-      SubjectPayload<SomeEvents, SomeEvent, SomeEventMetadata>
+      SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>
     >(1);
   }
 }

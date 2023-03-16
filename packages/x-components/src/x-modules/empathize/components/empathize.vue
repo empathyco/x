@@ -2,6 +2,7 @@
   <component :is="animation">
     <div
       v-show="isOpen && hasContent"
+      ref="empathize"
       @mousedown.prevent
       @focusin="open"
       @focusout="close"
@@ -79,6 +80,8 @@
     public $refs!: {
       /** Hidden span as default slot content to check if the empathize has content or not. */
       noContent?: HTMLSpanElement;
+      /** The empathize root element. */
+      empathize: HTMLDivElement;
     };
 
     /**
@@ -127,7 +130,9 @@
      */
     @XOn(component => (component as Empathize).eventsToCloseEmpathize)
     close(payload: unknown, metadata: WireMetadata): void {
-      this.changeOpenState(false, metadata);
+      if (!this.$refs.empathize?.contains(document.activeElement)) {
+        this.changeOpenState(false, metadata);
+      }
     }
 
     /**
@@ -136,8 +141,8 @@
      * the state really changes.
      *
      * @param newOpenState - The new state to assign to {@link Empathize.isOpen}.
-     * @param metadata - The {@link WireMetadata} to emit the {@link XEvent | XEvents}. If is
-     * undefined, a this component is used as source of info for the metadata.
+     * @param metadata - The {@link WireMetadata} to emit the {@link XEvent | XEvents}. If it is
+     * undefined, this component is used as source of info for the metadata.
      *
      * @internal
      */

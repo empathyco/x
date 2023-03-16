@@ -1,5 +1,5 @@
 <template>
-  <QueryPreview :query="query" #default="{ results, totalResults, query }">
+  <QueryPreview :debounceTimeMs="250" :query="query" #default="{ results, totalResults, query }">
     <div class="x-list x-list--gap-03 x-margin--bottom-05">
       <h1 class="x-title2">{{ query }} ({{ totalResults }})</h1>
       <SlidingPanel :resetOnContentChange="false" scrollContainerClass="x-sliding-panel-fade">

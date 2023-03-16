@@ -198,11 +198,11 @@ export const searchWiring = createWiring({
   UserReachedResultsListEnd: {
     increasePageAppendingResultsWire
   },
-  SearchRequestChanged: {
+  SearchRequestUpdated: {
     resetStateIfNoRequestWire,
     fetchAndSaveSearchResponseWire
   },
-  SearchRequestUpdated: {
+  SearchRequestChanged: {
     resetRequestOnRefinementWire
   },
   SelectedRelatedTagsChanged: {

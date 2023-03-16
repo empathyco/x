@@ -1,4 +1,3 @@
-import { BaseXBus } from '../../plugins/x-bus';
 import { createWireFromFunction } from '../wires.factory';
 import {
   filter,
@@ -9,6 +8,7 @@ import {
   mapWire
 } from '../wires.operators';
 import { WireParams } from '../wiring.types';
+import { XDummyBus } from '../../__tests__/bus.dummy';
 import { createQuerySuggestionsStoreMock, getExpectedWirePayload, SubjectHandler } from './utils';
 
 describe('testing wires operators', () => {
@@ -16,7 +16,7 @@ describe('testing wires operators', () => {
   const subjectHandler = new SubjectHandler();
   const executeFunction = jest.fn();
   const wire = createWireFromFunction(executeFunction);
-  const busMock = new BaseXBus();
+  const busMock = new XDummyBus();
   const busOnMock = busMock.on.bind(busMock);
 
   beforeEach(() => {

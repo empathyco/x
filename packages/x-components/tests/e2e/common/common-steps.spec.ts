@@ -45,6 +45,9 @@ Given('an application the {string} filter preselected', (preselectedFilter: stri
       };
     }
   });
+  // TODO: Check why we need to wait a few ms so the preselected are actually pushed into the url
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(20);
 });
 
 Given('a URL with query parameter {string}', (query: string) => {

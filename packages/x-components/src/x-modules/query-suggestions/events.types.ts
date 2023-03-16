@@ -22,7 +22,7 @@ export interface QuerySuggestionsXEvents {
    * Payload: The new query suggestions request or `null` if there is not enough data in the state
    * to conform a valid request.
    */
-  QuerySuggestionsRequestChanged: QuerySuggestionsRequest | null;
+  QuerySuggestionsRequestUpdated: QuerySuggestionsRequest | null;
   /**
    * User selected a query suggestion
    * Payload: The {@link @empathyco/x-types#Suggestion | query suggestion} that the user

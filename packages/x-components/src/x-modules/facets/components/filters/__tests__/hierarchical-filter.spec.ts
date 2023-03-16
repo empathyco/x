@@ -129,11 +129,15 @@ describe('testing `HierarchicalFilter` component', () => {
     expect(emit).toHaveBeenCalledTimes(2);
     expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter, {
       target: getFilterWrapper().element,
-      moduleName: 'facets'
+      moduleName: 'facets',
+      location: undefined,
+      replaceable: true
     });
     expect(emit).toHaveBeenCalledWith('UserClickedAHierarchicalFilter', filter, {
       target: getFilterWrapper().element,
-      moduleName: 'facets'
+      moduleName: 'facets',
+      location: undefined,
+      replaceable: true
     });
   });
 
@@ -151,16 +155,22 @@ describe('testing `HierarchicalFilter` component', () => {
     ['UserClickedAFilter', 'UserClickedAHierarchicalFilter'].forEach(event => {
       expect(emit).toHaveBeenCalledWith(event, filter, {
         target: getFilterWrapper().element,
-        moduleName: 'facets'
+        moduleName: 'facets',
+        location: undefined,
+        replaceable: true
       });
     });
     expect(emit).toHaveBeenCalledWith('UserAcceptedAQuery', 'potato', {
       target: getFilterWrapper().element,
-      moduleName: 'facets'
+      moduleName: 'facets',
+      location: undefined,
+      replaceable: true
     });
     expect(emit).toHaveBeenCalledWith('UserBlurredSearchBox', undefined, {
       target: getFilterWrapper().element,
-      moduleName: 'facets'
+      moduleName: 'facets',
+      location: undefined,
+      replaceable: true
     });
   });
 
@@ -194,7 +204,9 @@ describe('testing `HierarchicalFilter` component', () => {
     expect(emit).toHaveBeenCalledTimes(2);
     const expectedMetadata = {
       target: customLabelWrapper.element,
-      moduleName: 'facets'
+      moduleName: 'facets',
+      location: undefined,
+      replaceable: true
     };
     expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter, expectedMetadata);
     expect(emit).toHaveBeenCalledWith('UserClickedAHierarchicalFilter', filter, expectedMetadata);
@@ -321,11 +333,15 @@ describe('testing `HierarchicalFilter` component', () => {
         expect(emit).toHaveBeenCalledTimes(2);
         expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter, {
           target: filterWrapper.element,
-          moduleName: 'facets'
+          moduleName: 'facets',
+          location: undefined,
+          replaceable: true
         });
         expect(emit).toHaveBeenCalledWith('UserClickedAHierarchicalFilter', filter, {
           target: filterWrapper.element,
-          moduleName: 'facets'
+          moduleName: 'facets',
+          location: undefined,
+          replaceable: true
         });
       });
     });
@@ -347,16 +363,22 @@ describe('testing `HierarchicalFilter` component', () => {
         ['UserClickedAFilter', 'UserClickedAHierarchicalFilter'].forEach(event => {
           expect(emit).toHaveBeenCalledWith(event, filter, {
             target: filterWrapper.element,
-            moduleName: 'facets'
+            moduleName: 'facets',
+            location: undefined,
+            replaceable: true
           });
         });
         expect(emit).toHaveBeenCalledWith('UserAcceptedAQuery', 'potato', {
           target: filterWrapper.element,
-          moduleName: 'facets'
+          moduleName: 'facets',
+          location: undefined,
+          replaceable: true
         });
         expect(emit).toHaveBeenCalledWith('UserBlurredSearchBox', undefined, {
           target: filterWrapper.element,
-          moduleName: 'facets'
+          moduleName: 'facets',
+          location: undefined,
+          replaceable: true
         });
       });
     });
