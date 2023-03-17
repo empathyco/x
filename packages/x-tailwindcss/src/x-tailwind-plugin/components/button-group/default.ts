@@ -11,9 +11,9 @@ export function buttonGroupDefault(helpers: TailwindHelpers) {
 
   return {
     display: 'inline-flex',
-    flexFlow: 'row nowrap',
     color: theme('colors.neutral.50'),
 
+    // We should only remove the left border if the button group doesn't have gap.
     '&:not([class*="gap"]) > .button + .button': {
       borderLeft: 'unset'
     },
