@@ -1,4 +1,5 @@
 import { Facet, Filter } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 
 /**
  * An object containing a list of facets, and the group they belong to.
@@ -19,11 +20,6 @@ export interface FacetsGroup {
   id: string;
 }
 
-export type ClearFiltersPayload = {
-  facetIds?: Array<Facet['id']>;
-  metadata?: { keepSticky: boolean };
-};
-
 /**
  * Service to manipulate the filters.
  *
@@ -35,7 +31,7 @@ export interface FacetsService {
    *
    * @param facetIds - An optional list of facets ids from whom deselect the filters.
    */
-  clearFilters(payload?: ClearFiltersPayload): void;
+  clearFilters(payload?: { facetIds?: Array<Facet['id']>; metadata?: Dictionary }): void;
   /**
    * Deselects filter, adding it to the store if it was not present.
    *
@@ -87,5 +83,5 @@ export interface FacetsService {
    *
    * @param filter - The filter to toggle.
    */
-  toggle({ filter, metadata }: { filter: Filter; metadata?: { keepSticky: boolean } }): void;
+  toggle(filter: Filter): void;
 }

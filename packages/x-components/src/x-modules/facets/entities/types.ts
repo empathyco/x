@@ -15,7 +15,8 @@ export interface FilterEntity<Metadata extends Dictionary = Dictionary<unknown>>
   deselect(filter: Filter, metadata?: Metadata): void;
 }
 
-/** Constructor of a {@link FilterEntity}.
+/**
+ * Constructor of a {@link FilterEntity}.
  *
  * @internal
  */
@@ -57,19 +58,19 @@ export abstract class BaseFilterEntityModifier<Metadata extends Dictionary = Dic
    * Selects the filter passed by parameter.
    *
    * @param filter - The filter to select.
+   * @param metadata
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   select(filter: Filter, metadata?: Metadata): void {
-    this.entity.select(filter);
+    this.entity.select(filter, metadata);
   }
 
   /**
    * Deselects the filter passed by parameter.
    *
    * @param filter - The filter to deselect.
+   * @param metadata
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   deselect(filter: Filter, metadata?: Metadata): void {
-    this.entity.deselect(filter);
+    this.entity.deselect(filter, metadata);
   }
 }
