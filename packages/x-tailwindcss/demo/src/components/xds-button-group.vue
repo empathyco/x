@@ -22,9 +22,9 @@
         class="x-gap-8"
       >
         <button class="x-button">BUTTON 1</button>
-        <span class="x-button-group-separator" />
+        <span class="x-button-group-divider" />
         <button class="x-button">BUTTON 2</button>
-        <span class="x-button-group-separator" />
+        <span class="x-button-group-divider" />
         <button class="x-button">BUTTON 3</button>
       </div>
 
@@ -56,9 +56,9 @@
         class="x-gap-8"
       >
         <button class="x-button x-button-outlined">BUTTON 1</button>
-        <span class="x-button-group-separator" />
+        <span class="x-button-group-divider" />
         <button class="x-button x-button-outlined">BUTTON 2</button>
-        <span class="x-button-group-separator" />
+        <span class="x-button-group-divider" />
         <button class="x-button">BUTTON 3</button>
       </div>
 
@@ -69,9 +69,9 @@
         class="x-text-accent-50"
       >
         <button class="x-button x-button-ghost">BUTTON 1</button>
-        <span class="x-button-group-separator" />
+        <span class="x-button-group-divider" />
         <button class="x-button x-button-ghost">BUTTON 2</button>
-        <span class="x-button-group-separator" />
+        <span class="x-button-group-divider" />
         <button class="x-button x-button-ghost x-button-warning">BUTTON 3</button>
       </div>
 

@@ -1,7 +1,7 @@
 import { rename } from '@empathyco/x-utils';
 import { TailwindHelpers } from '../../../types';
 import { buttonGroupDefault } from './default';
-import { buttonGroupSeparator } from './separator';
+import { buttonGroupDivider } from './divider';
 
 /**
  * Returns the component `button-group` CSS.
@@ -13,7 +13,7 @@ export function buttonGroup(helpers: TailwindHelpers) {
   return {
     '.button-group': {
       ...buttonGroupDefault(helpers),
-      ...rename(buttonGroupSeparator(helpers), { prefix: '&-' })
+      ...rename(buttonGroupDivider(helpers), { prefix: '&-' })
     }
   };
 }
