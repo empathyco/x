@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.15...@empathyco/x-tailwindcss@1.0.0-alpha.16) (2023-03-20)
+
+### Features
+
+- **desing-system:** add padding top and bottom 0 to tag (#1111)
+  ([1d878c5](https://github.com/empathyco/x/commit/1d878c599b44406f5467268d761e568f315eee3b)),
+  closes [EX-8131](https://searchbroker.atlassian.net/browse/EX-8131)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.14...@empathyco/x-tailwindcss@1.0.0-alpha.15) (2023-03-14)
 
 ### Features

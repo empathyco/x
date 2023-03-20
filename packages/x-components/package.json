@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "3.0.0-alpha.335",
+  "version": "3.0.0-alpha.336",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -91,7 +91,7 @@
     "@badeball/cypress-cucumber-preprocessor": "~15.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "~2.2.0",
     "@cypress/vue2": "~2.0.1",
-    "@empathyco/x-tailwindcss": "^1.0.0-alpha.15",
+    "@empathyco/x-tailwindcss": "^1.0.0-alpha.16",
     "@microsoft/api-documenter": "~7.21.3",
     "@microsoft/api-extractor": "~7.33.7",
     "@rollup/plugin-commonjs": "~24.0.0",
