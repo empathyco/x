@@ -53,7 +53,7 @@ export const setQueriesPreviewExtraParamsWire = wireCommit('setParams');
  * @internal
  */
 export const queriesPreviewWiring = createWiring({
-  QueryPreviewRequestChanged: {
+  QueryPreviewRequestUpdated: {
     fetchAndSaveQueryPreviewWire
   },
   QueryPreviewUnmountedHook: {

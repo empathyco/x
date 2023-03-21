@@ -4,6 +4,11 @@ import { recommendationsRequestMapper } from '../mappers/requests/recommendation
 // eslint-disable-next-line max-len
 import { recommendationsResponseMapper } from '../mappers/responses/recommendations-response.mapper';
 
+/**
+ * Default adapter for the recommendations' endpoint.
+ *
+ * @public
+ */
 export const recommendationsEndpointAdapter = endpointAdapterFactory<
   RecommendationsRequest,
   RecommendationsResponse

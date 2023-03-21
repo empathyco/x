@@ -5,6 +5,11 @@ import { identifierResultsResponseSchema } from '../../schemas/responses/identif
 // eslint-disable-next-line max-len
 import { PlatformIdentifierResultsResponse } from '../../types/responses/identifier-results-response.model';
 
+/**
+ * Default implementation for the IdentifierResultsResponseMapper.
+ *
+ * @public
+ */
 export const identifierResultsResponseMapper = schemaMapperFactory<
   PlatformIdentifierResultsResponse,
   IdentifierResultsResponse

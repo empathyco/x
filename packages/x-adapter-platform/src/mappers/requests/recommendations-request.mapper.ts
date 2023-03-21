@@ -5,6 +5,11 @@ import { recommendationsRequestSchema } from '../../schemas/requests/recommendat
 // eslint-disable-next-line max-len
 import { PlatformRecommendationsRequest } from '../../types/requests/recommendations-request.model';
 
+/**
+ * Default implementation for the RecommendationsRequestMapper.
+ *
+ * @public
+ */
 export const recommendationsRequestMapper = schemaMapperFactory<
   RecommendationsRequest,
   PlatformRecommendationsRequest

@@ -29,7 +29,9 @@ describe('testing RemoveHistoryQuery component', () => {
       eventPayload: historyQuery,
       metadata: {
         moduleName: 'historyQueries',
-        target: removeHistoryQuery.element
+        target: removeHistoryQuery.element,
+        location: undefined,
+        replaceable: true
       }
     });
   });

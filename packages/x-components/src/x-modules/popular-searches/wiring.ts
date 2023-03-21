@@ -52,7 +52,7 @@ export const setPopularSearchesExtraParams = wireCommit('setParams');
  * @internal
  */
 export const popularSearchesWiring = createWiring({
-  PopularSearchesRequestChanged: {
+  PopularSearchesRequestUpdated: {
     retrievePopularSuggestions
   },
   SessionHistoryQueriesChanged: {

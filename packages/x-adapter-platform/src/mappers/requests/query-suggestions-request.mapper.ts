@@ -5,6 +5,11 @@ import { querySuggestionsRequestSchema } from '../../schemas/requests/query-sugg
 // eslint-disable-next-line max-len
 import { PlatformQuerySuggestionsRequest } from '../../types/requests/query-suggestions-request.model';
 
+/**
+ * Default implementation for the QuerySuggestionsRequestMapper.
+ *
+ * @public
+ */
 export const querySuggestionsRequestMapper = schemaMapperFactory<
   QuerySuggestionsRequest,
   PlatformQuerySuggestionsRequest

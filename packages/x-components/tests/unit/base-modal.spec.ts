@@ -1,9 +1,9 @@
 import { mount } from 'cypress/vue2';
 import Vue from 'vue';
 import BaseModal from '../../src/components/modals/base-modal.vue';
-import { BaseXBus } from '../../src/plugins/x-bus';
 import { XPlugin } from '../../src/plugins/x-plugin';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
+import { XDummyBus } from '../../src/__tests__/bus.dummy';
 import { loadCss } from './css.utils';
 
 /**
@@ -56,7 +56,7 @@ function renderBaseModal({
     },
     {
       vue: Vue.extend({}),
-      plugins: [[new XPlugin(new BaseXBus()), { adapter: e2eAdapter }]],
+      plugins: [[new XPlugin(new XDummyBus()), { adapter: e2eAdapter }]],
       propsData: {
         referenceSelector
       }

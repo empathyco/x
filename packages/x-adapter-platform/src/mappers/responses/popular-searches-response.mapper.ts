@@ -5,6 +5,11 @@ import { popularSearchesResponseSchema } from '../../schemas/responses/popular-s
 // eslint-disable-next-line max-len
 import { PlatformPopularSearchesResponse } from '../../types/responses/popular-searches-response.model';
 
+/**
+ * Default implementation for the PopularSearchesResponseMapper.
+ *
+ * @public
+ */
 export const popularSearchesResponseMapper = schemaMapperFactory<
   PlatformPopularSearchesResponse,
   PopularSearchesResponse

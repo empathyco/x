@@ -5,6 +5,11 @@ import { querySuggestionsResponseSchema } from '../../schemas/responses/query-su
 // eslint-disable-next-line max-len
 import { PlatformQuerySuggestionsResponse } from '../../types/responses/query-suggestions-response.model';
 
+/**
+ * Default implementation for the QuerySuggestionsResponseMapper.
+ *
+ * @public
+ */
 export const querySuggestionsResponseMapper = schemaMapperFactory<
   PlatformQuerySuggestionsResponse,
   QuerySuggestionsResponse

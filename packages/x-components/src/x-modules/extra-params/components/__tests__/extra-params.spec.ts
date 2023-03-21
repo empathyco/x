@@ -40,7 +40,7 @@ describe('testing extra params component', () => {
 
     expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
       eventPayload: { warehouse: 1234 },
-      metadata: { moduleName: 'extraParams' }
+      metadata: { moduleName: 'extraParams', location: undefined, replaceable: true }
     });
     expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
 
@@ -48,7 +48,7 @@ describe('testing extra params component', () => {
 
     expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
       eventPayload: { warehouse: 5678 },
-      metadata: { moduleName: 'extraParams' }
+      metadata: { moduleName: 'extraParams', location: undefined, replaceable: true }
     });
     expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(2);
   });

@@ -7,8 +7,7 @@ import { popularSearchesXStoreModule } from './module';
  * @internal
  */
 export const popularSearchesEmitters = createStoreEmitters(popularSearchesXStoreModule, {
-  PopularSearchesRequestChanged: {
-    selector: (_, getters) => getters.request,
-    immediate: true
+  PopularSearchesRequestUpdated: {
+    selector: (_, getters) => getters.request
   }
 });

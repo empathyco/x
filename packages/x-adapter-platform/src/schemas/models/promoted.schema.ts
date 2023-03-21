@@ -3,6 +3,11 @@ import { Promoted } from '@empathyco/x-types';
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
 import { PlatformPromoted } from '../../types/models/promoted.model';
 
+/**
+ * Default implementation for the PromotedSchema.
+ *
+ * @public
+ */
 export const promotedSchema = createMutableSchema<PlatformPromoted, Promoted>({
   id: 'id',
   url: 'url',

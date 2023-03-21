@@ -18,7 +18,11 @@
         @binding {boolean} highlightCurated - True if the curated RTs should be displayed.
        -->
       <slot name="related-tag" v-bind="{ relatedTag, highlightCurated }">
-        <RelatedTag :highlightCurated="highlightCurated" :relatedTag="relatedTag">
+        <RelatedTag
+          :highlightCurated="highlightCurated"
+          :relatedTag="relatedTag"
+          :class="itemClass"
+        >
           <template #default="{ relatedTag, isSelected, shouldHighlightCurated }">
             <!-- eslint-disable max-len -->
             <!--
@@ -45,6 +49,7 @@
   import { Getter } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { relatedTagsXModule } from '../x-module';
+  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
   import RelatedTag from './related-tag.vue';
 
   /**
@@ -58,7 +63,7 @@
    */
   @Component({
     components: { RelatedTag },
-    mixins: [xComponentMixin(relatedTagsXModule)]
+    mixins: [xComponentMixin(relatedTagsXModule), dynamicPropsMixin(['itemClass'])]
   })
   export default class RelatedTags extends Vue {
     /**
@@ -265,6 +270,34 @@ _Search for a fashion term and see how the related tags can be rendered._
       SearchInput,
       RelatedTags,
       ResultsList
+    }
+  };
+</script>
+```
+
+## Customizing the related tags with classes
+
+The `itemClass` prop can be used to add classes to the related tags.
+
+```vue live
+<template>
+  <div>
+    <SearchInput />
+    <RelatedTags #related-tag-content="{ relatedTag }" itemClass="x-tag-outlined x-tag-auxiliary">
+      <span>{{ relatedTag.tag }}</span>
+    </RelatedTags>
+  </div>
+</template>
+
+<script>
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { RelatedTags } from '@empathyco/x-components/related-tags';
+
+  export default {
+    name: 'RelatedTagsDemo',
+    components: {
+      SearchInput,
+      RelatedTags
     }
   };
 </script>

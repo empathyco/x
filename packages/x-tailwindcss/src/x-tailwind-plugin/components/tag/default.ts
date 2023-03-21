@@ -48,6 +48,8 @@ export function tagDefault(helpers: TailwindHelpers) {
       color: theme('colors.neutral.90')
     },
 
+    paddingTop: 0,
+    paddingBottom: 0,
     ...tagSizes(helpers).md,
     ...disabledStyles,
 

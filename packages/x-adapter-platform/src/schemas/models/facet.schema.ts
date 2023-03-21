@@ -8,6 +8,11 @@ import {
 import { PlatformFacet } from '../../types/models/facet.model';
 import { getFacetConfig } from '../facets/utils';
 
+/**
+ * Default implementation for the FacetSchema.
+ *
+ * @public
+ */
 export const facetSchema = createMutableSchema<
   PlatformFacet,
   HierarchicalFacet | NumberRangeFacet | SimpleFacet | EditableNumberRangeFacet

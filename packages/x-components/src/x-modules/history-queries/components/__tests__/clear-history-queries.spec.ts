@@ -56,7 +56,9 @@ describe('testing ClearHistoryQueries component', () => {
       eventPayload: undefined,
       metadata: {
         moduleName: 'historyQueries',
-        target: clearHistoryQueries.element
+        target: clearHistoryQueries.element,
+        location: undefined,
+        replaceable: true
       }
     });
   });

@@ -1,4 +1,3 @@
-import { BaseXBus } from '../../plugins/x-bus';
 import { noOp } from '../../utils/function';
 import {
   createWireFromFunction,
@@ -9,12 +8,13 @@ import {
   wireService,
   wireServiceWithoutPayload
 } from '../wires.factory';
+import { XDummyBus } from '../../__tests__/bus.dummy';
 import { createQuerySuggestionsStoreMock, getExpectedWirePayload, SubjectHandler } from './utils';
 
 describe('testing wires factory', () => {
   const storeMock = createQuerySuggestionsStoreMock();
   const subjectHandler = new SubjectHandler();
-  const busMock = new BaseXBus();
+  const busMock = new XDummyBus();
   const busOnMock = busMock.on.bind(busMock);
 
   beforeEach(() => {

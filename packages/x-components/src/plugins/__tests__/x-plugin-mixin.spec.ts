@@ -127,7 +127,12 @@ describe('testing $x component API global mixin', () => {
       expect(listener).toHaveBeenCalledTimes(1);
       expect(listener).toHaveBeenCalledWith({
         eventPayload: 'Sexy Lego',
-        metadata: { moduleName: 'searchBox', target: testTarget }
+        metadata: {
+          moduleName: 'searchBox',
+          target: testTarget,
+          location: undefined,
+          replaceable: true
+        }
       });
     });
 
@@ -153,7 +158,12 @@ describe('testing $x component API global mixin', () => {
       expect(listener).toHaveBeenCalledTimes(1);
       expect(listener).toHaveBeenCalledWith({
         eventPayload: 'Sexy Lego',
-        metadata: { moduleName: 'searchBox', target: testTarget }
+        metadata: {
+          moduleName: 'searchBox',
+          target: testTarget,
+          location: undefined,
+          replaceable: true
+        }
       });
     });
 

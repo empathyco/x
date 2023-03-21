@@ -12,6 +12,7 @@ import {
 } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
 import { Store } from 'vuex';
+import { XBus } from '@empathyco/x-bus';
 import { ActionsTree } from '../store/actions.types';
 import { GettersTree } from '../store/getters.types';
 import { MutationsTree } from '../store/mutations.types';
@@ -24,7 +25,6 @@ import { WireMetadata, Wiring } from '../wiring/wiring.types';
 import { ScrollComponentState } from '../x-modules/scroll/index';
 import { AnyXModule, ExtractState, XModuleName, XModulesTree } from '../x-modules/x-modules.types';
 import { InputStatus } from '../x-modules/search-box/store/types';
-import { XBus } from './x-bus.types';
 
 /**
  * {@link XPlugin} Installation options.
@@ -63,7 +63,7 @@ export interface XPluginOptions {
 export type DocumentDirection = 'ltr' | 'rtl';
 
 /**
- * The XComponentAPI exposes access to the {@link XBus}, and store aliases to the
+ * The XComponentAPI exposes access to the {@link @empathyco/x-bus#XBus}, and store aliases to the
  * components.
  *
  * @public
@@ -71,14 +71,14 @@ export type DocumentDirection = 'ltr' | 'rtl';
 export interface XComponentAPI extends XComponentBusAPI, XComponentAliasAPI {}
 
 /**
- * API for emitting and subscribing to events of the {@link XBus}.
+ * API for emitting and subscribing to events of the {@link @empathyco/x-bus#XBus}.
  *
  * @public
  */
 export interface XComponentBusAPI {
   /* eslint-disable jsdoc/require-description-complete-sentence */
   /** {@inheritDoc XBus.(on:1)} */
-  on: XBus['on'];
+  on: XBus<XEventsTypes, WireMetadata>['on'];
   /** {@inheritDoc XBus.(emit:1)} */
   emit(event: PropsWithType<XEventsTypes, void>): void;
   /** {@inheritDoc XBus.(emit:2)} */

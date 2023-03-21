@@ -109,7 +109,7 @@
      *
      * @param newUrlParams - The new params to update browser URL.
      */
-    @XOn('PushableUrlStateChanged')
+    @XOn('PushableUrlStateUpdated')
     updateUrlWithPush(newUrlParams: UrlParams): void {
       this.updateUrl(newUrlParams, window.history.pushState.bind(window.history));
     }
@@ -120,7 +120,7 @@
      *
      * @param newUrlParams - The new params to update browser URL.
      */
-    @XOn('ReplaceableUrlStateChanged')
+    @XOn('ReplaceableUrlStateUpdated')
     updateUrlWithReplace(newUrlParams: UrlParams): void {
       this.updateUrl(newUrlParams, window.history.replaceState.bind(window.history));
     }

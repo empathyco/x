@@ -118,24 +118,13 @@
      */
     protected get dynamicClasses(): VueCSSClasses {
       return {
-        'x-tag--is-curated': this.shouldHighlightCurated,
-        'x-related-tag--is-curated': this.shouldHighlightCurated,
-        'x-tag--is-selected': this.isSelected,
-        'x-related-tag--is-selected': this.isSelected
+        'x-selected': this.isSelected,
+        'x-related-tag--is-selected': this.isSelected,
+        'x-related-tag--is-curated': this.shouldHighlightCurated
       };
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  .x-related-tag {
-    white-space: nowrap;
-
-    &--is-selected {
-      background: lightgrey;
-    }
-  }
-</style>
 
 <docs lang="mdx">
 ## Dynamic classes
