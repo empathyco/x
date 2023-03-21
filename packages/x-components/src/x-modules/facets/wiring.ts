@@ -1,10 +1,17 @@
 import { Facet } from '@empathyco/x-types';
 import { UrlParams } from '../../types/url-params';
 import { createRawFilters } from '../../utils/filters';
-import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
+import {
+  createWireFromFunction,
+  wireCommit,
+  wireService,
+  wireServiceWithoutPayload
+} from '../../wiring/wires.factory';
 import { filter, mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
 import { DefaultFacetsService } from './service/facets.service';
+import { InternalSearchResponse } from '../search/index';
+import { WireParams } from '../../wiring/index';
 
 /**
  * Wires factory for {@link DefaultFacetsService}.
@@ -120,6 +127,10 @@ const selectPreselectedFilterWire = wireFacetsService('selectPreselectedFilters'
  */
 const setQuery = wireFacetsService('setQuery');
 
+const clearSticky = filter<any>(wireCommit('x/facets/clearStickyFilters'), ({ eventPayload }) => {
+  return eventPayload.totalResults !== 0;
+});
+
 /**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
  *
@@ -167,5 +178,8 @@ export const facetsWiring = createWiring({
   },
   UserClickedOpenX: {
     selectPreselectedFilterWire
+  },
+  SearchResponseChanged: {
+    clearSticky
   }
 });

@@ -16,7 +16,8 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     filters: {},
     groups: {},
     facets: {},
-    preselectedFilters: []
+    preselectedFilters: [],
+    stickyFilters: {}
   }),
   getters: {
     selectedFilters,
@@ -51,6 +52,17 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     },
     setQuery(state, query) {
       state.query = query;
+    },
+    setStickyFilter(state, filter) {
+      if (!state.stickyFilters[filter.id]) {
+        Vue.set(state.stickyFilters, filter.id, filter);
+      }
+    },
+    removeStickyFilter(state, filter) {
+      Vue.delete(state.stickyFilters, filter.id);
+    },
+    clearStickyFilters(state) {
+      state.stickyFilters = {};
     }
   },
   actions: {}

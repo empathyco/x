@@ -25,6 +25,7 @@ import { SearchXStoreModule } from './types';
 export const searchXStoreModule: SearchXStoreModule = {
   state: () => ({
     ...resettableState(),
+    selectedFilters: {},
     params: {},
     config: {
       pageSize: 24
@@ -134,7 +135,6 @@ export function resettableState() {
     relatedTags: [],
     banners: [],
     promoteds: [],
-    selectedFilters: {},
     totalResults: 0,
     spellcheckedQuery: '',
     sort: '',

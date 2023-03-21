@@ -17,6 +17,7 @@ export interface FacetsState {
   facets: Record<Facet['id'], Omit<Facet, 'filters'>>;
   /** Record of preselected filters indexed by its id. */
   preselectedFilters: RawFilter[];
+  stickyFilters: Record<Filter['id'], Filter>;
 }
 
 /**
@@ -101,6 +102,9 @@ export interface FacetsMutations {
    * @param facet - The facet to set in the store.
    */
   setFacet(facet: Facet): void;
+  setStickyFilter(filter: RawFilter): void;
+  removeStickyFilter(filter: RawFilter): void;
+  clearStickyFilters(): void;
 }
 
 /**
