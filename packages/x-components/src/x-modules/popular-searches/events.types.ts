@@ -11,7 +11,7 @@ export interface PopularSearchesXEvents {
    * Any property of the popular-searches request has changed
    * Payload: The new {@link @empathyco/x-types#PopularSearchesRequest | popular-search request}.
    */
-  PopularSearchesRequestChanged: PopularSearchesRequest;
+  PopularSearchesRequestUpdated: PopularSearchesRequest;
   /**
    * The popular searches have been displayed.
    * Payload: The displayed {@link @empathyco/x-types#Suggestion | popular searches}.

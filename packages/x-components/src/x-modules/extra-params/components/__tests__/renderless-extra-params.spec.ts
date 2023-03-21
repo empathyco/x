@@ -82,7 +82,7 @@ describe('testing RenderlessExtraParam component', () => {
     expect(userChangedExtraParamsCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>(
       {
         eventPayload: { warehouse: 45678 },
-        metadata: { moduleName: 'extraParams' }
+        metadata: { moduleName: 'extraParams', location: undefined, replaceable: true }
       }
     );
 

@@ -178,11 +178,11 @@ describe('testing UrlHandler component', () => {
     });
   });
 
-  it('changes the URL params when `PushableUrlStateChanged` is emitted', () => {
+  it('changes the URL params when `PushableUrlStateUpdated` is emitted', () => {
     const { emit, getCurrentUrlParams } = renderUrlHandler({
       template: '<UrlHandler store="store" />'
     });
-    emit('PushableUrlStateChanged', {
+    emit('PushableUrlStateUpdated', {
       ...initialUrlState,
       query: 'lego',
       page: 2,
@@ -197,11 +197,11 @@ describe('testing UrlHandler component', () => {
     expect(urlSearchParams.get('warehouse')).toBeNull();
   });
 
-  it('changes the URL params when `ReplaceableUrlStateChanged` is emitted', () => {
+  it('changes the URL params when `ReplaceableUrlStateUpdated` is emitted', () => {
     const { emit, getCurrentUrlParams } = renderUrlHandler({
       template: '<UrlHandler store="store" />'
     });
-    emit('ReplaceableUrlStateChanged', {
+    emit('ReplaceableUrlStateUpdated', {
       ...initialUrlState,
       query: 'lego',
       page: 2,
@@ -220,13 +220,13 @@ describe('testing UrlHandler component', () => {
     const { emit } = renderUrlHandler({
       template: '<UrlHandler store="store" />'
     });
-    emit('PushableUrlStateChanged', {
+    emit('PushableUrlStateUpdated', {
       ...initialUrlState,
       query: 'lego city'
     });
     expect(window.location.href).toContain('query=lego%20city');
 
-    emit('ReplaceableUrlStateChanged', {
+    emit('ReplaceableUrlStateUpdated', {
       ...initialUrlState,
       query: 'lego farm'
     });
@@ -235,7 +235,7 @@ describe('testing UrlHandler component', () => {
 
   it('ignores all parameters if query is not provided', () => {
     const { emit } = renderUrlHandler();
-    emit('PushableUrlStateChanged', {
+    emit('PushableUrlStateUpdated', {
       page: 2,
       filter: ['dry-aged:2-months'],
       sort: 'price desc',

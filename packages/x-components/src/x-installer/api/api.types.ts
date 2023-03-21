@@ -1,7 +1,7 @@
 import { RequiredProperties } from '@empathyco/x-utils';
-import { XBus } from '../../plugins/x-bus.types';
+import { XBus } from '@empathyco/x-bus';
 import { DocumentDirection } from '../../plugins/x-plugin.types';
-import { XEvent, XEventPayload } from '../../wiring/events.types';
+import { XEvent, XEventPayload, XEventsTypes } from '../../wiring/events.types';
 import { WireMetadata } from '../../wiring/wiring.types';
 
 /**
@@ -21,12 +21,12 @@ export interface XAPI {
    */
   addProductToCart(productId?: string): void;
   /**
-   * To set the {@link XBus | bus} to the API. This bus will be used to emit the necessary
-   * events.
+   * To set the {@link @empathyco/x-bus#XBus | bus} to the API. This bus will be used to emit
+   * the necessary events.
    *
    * @internal
    */
-  setBus(bus: XBus): void;
+  setBus(bus: XBus<XEventsTypes, WireMetadata>): void;
 
   /**
    * To set the callback to call after the call to method init. This is used from {@link XInstaller}

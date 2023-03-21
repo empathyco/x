@@ -14,6 +14,11 @@ let devtoolsAPI: DevtoolsPluginApi<Dictionary> | undefined;
  */
 const timelineLayers = [
   {
+    id: 'x-components-all-events',
+    regex: /^$/,
+    label: 'X events'
+  },
+  {
     id: 'x-components-module-registered-events',
     regex: /^ModuleRegistered$/,
     label: 'X registered modules'
@@ -26,7 +31,7 @@ const timelineLayers = [
 
   {
     id: 'x-components-request-events',
-    regex: /RequestChanged$/,
+    regex: /Request(?:Changed|Updated)$/,
     label: 'X request events'
   },
   {
@@ -90,21 +95,26 @@ export function logDevtoolsXEvent<Event extends XEvent>(
   event: Event,
   value: WirePayload<XEventPayload<Event>>
 ): void {
-  if (process.env.NODE_ENV !== 'production') {
-    devtoolsAPI?.addTimelineEvent({
-      event: {
-        title: event,
-        data: {
-          ...value,
-          metadata: {
-            ...value.metadata,
-            // FIX-ME: copying metadata.component as it is defined as a non-enumerable property.
-            component: value.metadata.component
-          }
-        },
-        time: devtoolsAPI?.now()
+  if (process.env.NODE_ENV !== 'production' && devtoolsAPI) {
+    const timelineEvent = {
+      title: event,
+      data: {
+        ...value,
+        metadata: {
+          ...value.metadata,
+          // FIX-ME: copying metadata.component as it is defined as a non-enumerable property.
+          component: value.metadata.component
+        }
       },
+      time: devtoolsAPI.now()
+    };
+    devtoolsAPI.addTimelineEvent({
+      event: timelineEvent,
       layerId: getTimelineLayer(event)
+    });
+    devtoolsAPI.addTimelineEvent({
+      event: timelineEvent,
+      layerId: 'x-components-all-events'
     });
   }
 }

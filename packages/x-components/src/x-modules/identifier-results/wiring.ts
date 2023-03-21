@@ -116,7 +116,7 @@ export const identifierResultsWiring = createWiring({
     clearIdentifierResultsQuery,
     cancelFetchAndSaveIdentifierResultsWire
   },
-  IdentifierResultsRequestChanged: {
+  IdentifierResultsRequestUpdated: {
     fetchAndSaveIdentifierResultsWire
   },
   ExtraParamsChanged: {

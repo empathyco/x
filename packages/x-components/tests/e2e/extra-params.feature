@@ -14,13 +14,20 @@ Feature: Extra-params component
   Scenario Outline: 1. Search request includes extra-params
     Then  popular searches request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
     And   recommendations request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
-    # This is the initial query preview request for the no-search carousels
+    # These are the initial query preview requests for the no-search carousels
     And   search request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
+    And   search request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
+    And   search request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
+    And   search request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
+    And   search request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
+    # End of query preview requests
+
     When  "<query>" is searched
     Then  query suggestions request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
     And   search request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
     And   next queries request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
     And   related tags request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
+
     When  store is changed to "<NewExtraParamValue>"
     Then  popular searches request contains extra parameter "<ExtraParamName>" with value "<NewExtraParamValue>"
     And   query suggestions request contains extra parameter "<ExtraParamName>" with value "<NewExtraParamValue>"
@@ -28,6 +35,7 @@ Feature: Extra-params component
     And   search request contains extra parameter "<ExtraParamName>" with value "<NewExtraParamValue>"
     And   next queries request contains extra parameter "<ExtraParamName>" with value "<NewExtraParamValue>"
     And   related tags request contains extra parameter "<ExtraParamName>" with value "<NewExtraParamValue>"
+
     When  the page is reloaded
     Then  popular searches request contains extra parameter "<ExtraParamName>" with value "<NewExtraParamValue>"
     And   query suggestions request contains extra parameter "<ExtraParamName>" with value "<NewExtraParamValue>"

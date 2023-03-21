@@ -121,7 +121,7 @@ export const nextQueriesWiring = createWiring({
     // TODO setQueryFromLastHistoryQuery it has to be called only one time
     setQueryFromLastHistoryQueryWire
   },
-  NextQueriesRequestChanged: {
+  NextQueriesRequestUpdated: {
     fetchAndSaveNextQueriesWire
   },
   ExtraParamsChanged: {

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-bus@0.1.0-alpha.9...@empathyco/x-bus@0.1.0-alpha.10) (2023-03-16)
+
+### Features
+
+- **plugin:** replace old bus implementation using the new `x-priority-bus` (#1086)
+  ([f64f9b6](https://github.com/empathyco/x/commit/f64f9b68225c4ee422eb007784e0eec813c95228)),
+  closes [EX-7283](https://searchbroker.atlassian.net/browse/EX-7283)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-bus@0.1.0-alpha.8...@empathyco/x-bus@0.1.0-alpha.9) (2023-03-07)
 
 ### Bug Fixes

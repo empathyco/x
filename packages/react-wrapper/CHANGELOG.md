@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.20...@empathyco/x-react-wrapper@4.0.0-alpha.21) (2023-03-16)
+
+### Features
+
+- **plugin:** replace old bus implementation using the new `x-priority-bus` (#1086)
+  ([f64f9b6](https://github.com/empathyco/x/commit/f64f9b68225c4ee422eb007784e0eec813c95228)),
+  closes [EX-7283](https://searchbroker.atlassian.net/browse/EX-7283)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [4.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.19...@empathyco/x-react-wrapper@4.0.0-alpha.20) (2023-03-07)
 
 ### Bug Fixes

@@ -9,7 +9,7 @@ Feature: Preselected filters
     And   a recommendations API with a known response
     And   a results API with a known response
 
-  Scenario Outline: 1. Preselected filter are selected is there is no more filters in the url
+  Scenario Outline: 1. Preselected filters are applied when there are no other filters in the url
     Given an application the "<filter>" filter preselected
     When  start button is clicked
     And   "<query>" is searched
@@ -21,7 +21,7 @@ Feature: Preselected filters
       | query | filter                | filterLabel |
       | lego  | brand_facet:Construye | Construye   |
 
-  Scenario Outline: 2. Preselected filter are not applied when there are other filters in the url
+  Scenario Outline: 2. Preselected filters are not applied when there are other filters in the url
     Given an application the "<filter>" filter preselected
     Given a URL with a filter parameter "<parameter>"
     When  start button is clicked

@@ -85,7 +85,7 @@
      * Handler to update the number of columns when it changes.
      *
      * @param newColumnsNumber - The new columns value.
-     * @param metadata - The {@link WirePayload.metadata}.
+     * @param metadata - The {@link @empathyco/x-bus#SubjectPayload.metadata}.
      *
      * @internal
      */

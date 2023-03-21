@@ -7,5 +7,8 @@ import { extraParamsXStoreModule } from './module';
  * @internal
  */
 export const extraParamsEmitters = createStoreEmitters(extraParamsXStoreModule, {
-  ExtraParamsChanged: state => state.params
+  ExtraParamsChanged: {
+    selector: state => state.params,
+    metadata: { priority: 9 }
+  }
 });

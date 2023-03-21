@@ -1,13 +1,13 @@
 import { createLocalVue } from '@vue/test-utils';
 import { XComponentsAdapterDummy } from '../../../__tests__/adapter.dummy';
-import { BaseXBus } from '../../../plugins/x-bus';
 import { XInstaller } from '../../x-installer/x-installer';
 import { SnippetConfig } from '../api.types';
 import { BaseXAPI } from '../base-api';
+import { XDummyBus } from '../../../__tests__/bus.dummy';
 
 describe('testing default X API', () => {
   const defaultXAPI = new BaseXAPI();
-  const bus = new BaseXBus();
+  const bus = new XDummyBus();
   defaultXAPI.setBus(bus);
   const query = 'maserati';
 

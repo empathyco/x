@@ -119,7 +119,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
     });
@@ -161,7 +163,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
       expect(listenerChangeDirection).toHaveBeenNthCalledWith(2, {
@@ -169,7 +173,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
     });
@@ -201,7 +207,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
       expect(listenerScrollStart).toHaveBeenNthCalledWith(2, {
@@ -209,7 +217,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
     });
@@ -243,7 +253,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
       expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(1, {
@@ -251,7 +263,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
 
@@ -267,7 +281,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
 
@@ -283,7 +299,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
       expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(3, {
@@ -291,7 +309,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
 
@@ -307,7 +327,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
       expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(4, {
@@ -315,7 +337,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
     });
@@ -384,7 +408,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
 
@@ -399,7 +425,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.documentElement,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
 
@@ -449,7 +477,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.body,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
     });
@@ -491,7 +521,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.body,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
       expect(listenerChangeDirection).toHaveBeenNthCalledWith(2, {
@@ -499,7 +531,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.body,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
     });
@@ -531,7 +565,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.body,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
       expect(listenerScrollStart).toHaveBeenNthCalledWith(2, {
@@ -539,7 +575,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.body,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
     });
@@ -573,7 +611,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.body,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
       expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(1, {
@@ -581,7 +621,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.body,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
 
@@ -597,7 +639,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.body,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
 
@@ -613,7 +657,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.body,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
       expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(3, {
@@ -621,7 +667,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.body,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
 
@@ -637,7 +685,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.body,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
       expect(listenerReachedScrollEnd).toHaveBeenNthCalledWith(4, {
@@ -645,7 +695,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.body,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
     });
@@ -714,7 +766,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.body,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
 
@@ -729,7 +783,9 @@ describe('testing Main Scroll Component', () => {
         metadata: {
           moduleName: 'scroll',
           target: document.body,
-          id: 'main-scroll'
+          id: 'main-scroll',
+          location: undefined,
+          replaceable: true
         }
       });
 

@@ -52,12 +52,14 @@ function shouldReplaceUrl(
  * @internal
  */
 export const urlEmitters = createStoreEmitters(urlXStoreModule, {
-  PushableUrlStateChanged: {
+  PushableUrlStateUpdated: {
     selector: (_, getters) => getters.urlParams,
-    filter: shouldPushUrl
+    filter: shouldPushUrl,
+    metadata: { replaceable: false }
   },
-  ReplaceableUrlStateChanged: {
+  ReplaceableUrlStateUpdated: {
     selector: (_, getters) => getters.urlParams,
-    filter: shouldReplaceUrl
+    filter: shouldReplaceUrl,
+    metadata: { replaceable: false }
   }
 });

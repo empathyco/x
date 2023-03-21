@@ -17,7 +17,7 @@ export interface IdentifierResultsXEvents {
    * Payload: The new {@link @empathyco/x-types#IdentifierResultsRequest | identifier  result
    * request} or `null` if there is not enough data in the state nto conform a valid request.
    */
-  IdentifierResultsRequestChanged: IdentifierResultsRequest | null;
+  IdentifierResultsRequestUpdated: IdentifierResultsRequest | null;
   /**
    * A identifier result has been clicked.
    * Payload: The {@link @empathyco/x-types#Result | result}.

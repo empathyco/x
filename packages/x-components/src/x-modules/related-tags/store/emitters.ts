@@ -9,7 +9,7 @@ import { relatedTagsXStoreModule } from './module';
  */
 export const relatedTagsEmitters = createStoreEmitters(relatedTagsXStoreModule, {
   RelatedTagsChanged: state => state.relatedTags,
-  RelatedTagsRequestChanged: (_, getters) => getters.request,
+  RelatedTagsRequestUpdated: (_, getters) => getters.request,
   SelectedRelatedTagsChanged: {
     selector: state => state.selectedRelatedTags,
     filter: createEmitterArrayFilter('tag')
