@@ -11,13 +11,12 @@ import { FacetsXStoreModule } from '../types';
  * @public
  */
 export const selectedFilters: FacetsXStoreModule['getters']['selectedFilters'] = state => {
-  const selected = Object.values(state.filters).filter(filter => filter.selected);
-  Object.keys(state.stickyFilters).forEach(key => {
-    const stickyFilter = state.stickyFilters[key];
-    const index = selected.findIndex(filter => filter.id === stickyFilter.id);
-    if (index < 0) {
-      selected.push(stickyFilter);
+  const selectedFilters = Object.values(state.filters).filter(filter => filter.selected);
+  Object.keys(state.stickyFilters).forEach(stickyFilterId => {
+    const isSelected = selectedFilters.some(selectedFilter => selectedFilter.id === stickyFilterId);
+    if (!isSelected) {
+      selectedFilters.push(state.stickyFilters[stickyFilterId]);
     }
   });
-  return selected;
+  return selectedFilters;
 };
