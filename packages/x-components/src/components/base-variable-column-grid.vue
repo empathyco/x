@@ -51,7 +51,8 @@
     protected items?: ListItem[];
 
     /**
-     * The columns to render in the grid.
+     * The columns to render by default in the grid. This property is used when the user has not
+     * selected any value in the column picker.
      *
      * @internal
      */
@@ -59,7 +60,7 @@
     protected columns!: number;
 
     /**
-     * The number of columns provided by the user.
+     * The number of columns provided by a user interaction.
      *
      * @internal
      */
