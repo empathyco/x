@@ -58,7 +58,7 @@ export abstract class BaseFilterEntityModifier<Metadata extends Dictionary = Dic
    * Selects the filter passed by parameter.
    *
    * @param filter - The filter to select.
-   * @param metadata
+   * @param metadata - The event metadata.
    */
   select(filter: Filter, metadata?: Metadata): void {
     this.entity.select(filter, metadata);
@@ -68,7 +68,7 @@ export abstract class BaseFilterEntityModifier<Metadata extends Dictionary = Dic
    * Deselects the filter passed by parameter.
    *
    * @param filter - The filter to deselect.
-   * @param metadata
+   * @param metadata - The event metadata.
    */
   deselect(filter: Filter, metadata?: Metadata): void {
     this.entity.deselect(filter, metadata);
