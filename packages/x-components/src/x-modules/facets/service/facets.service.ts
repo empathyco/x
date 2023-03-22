@@ -56,13 +56,17 @@ export class DefaultFacetsService implements FacetsService {
     this.select(this.store.state.x.facets.preselectedFilters);
   }
 
-  clearFilters({
-    facetIds,
-    metadata
-  }: { facetIds?: Array<Facet['id']>; metadata?: Dictionary } = {}): void {
+  clearFilters(facetIds?: Array<Facet['id']>, metadata?: Dictionary): void {
     this.getSelectedFilters()
       .filter(filter => !facetIds || (isFacetFilter(filter) && facetIds.includes(filter.facetId)))
       .forEach(filter => this.deselect.bind(this)(filter, metadata));
+  }
+
+  clearFiltersWithMetadata({
+    facetIds,
+    metadata
+  }: { facetIds?: Array<Facet['id']>; metadata?: Dictionary } = {}): void {
+    this.clearFilters(facetIds, metadata);
   }
 
   deselect(filter: Filter, metadata?: Dictionary): void {

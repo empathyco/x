@@ -31,7 +31,12 @@ export interface FacetsService {
    *
    * @param facetIds - An optional list of facets ids from whom deselect the filters.
    */
-  clearFilters(payload?: { facetIds?: Array<Facet['id']>; metadata?: Dictionary }): void;
+  clearFilters(facetIds?: Array<Facet['id']>, metadata?: Dictionary): void;
+
+  clearFiltersWithMetadata(payload?: {
+    facetIds?: Array<Facet['id']>;
+    metadata?: Dictionary;
+  }): void;
   /**
    * Deselects filter, adding it to the store if it was not present.
    *

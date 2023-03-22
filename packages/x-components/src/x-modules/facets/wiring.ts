@@ -1,17 +1,10 @@
 import { Facet } from '@empathyco/x-types';
 import { UrlParams } from '../../types/url-params';
 import { createRawFilters } from '../../utils/filters';
-import {
-  createWireFromFunction,
-  wireCommit,
-  wireService,
-  wireServiceWithoutPayload
-} from '../../wiring/wires.factory';
+import { wireCommit, wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
 import { filter, mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
 import { DefaultFacetsService } from './service/facets.service';
-import { InternalSearchResponse } from '../search/index';
-import { WireParams } from '../../wiring/index';
 
 /**
  * Wires factory for {@link DefaultFacetsService}.
@@ -58,14 +51,7 @@ const toggleFilterWire = wireFacetsService('toggle');
  *
  * @public
  */
-const clearFiltersWire = mapWire(
-  wireFacetsService('clearFilters'),
-  (facetIds: Array<Facet['id']> | undefined) => {
-    return {
-      facetIds
-    };
-  }
-);
+const clearFiltersWire = wireFacetsService('clearFilters');
 
 /**
  * Deselects all selected filters.
@@ -74,7 +60,7 @@ const clearFiltersWire = mapWire(
  */
 const clearAllFiltersWire = wireFacetsServiceWithoutPayload('clearFilters');
 
-const clearAllFiltersButStickyWire = wireFacetsService('clearFilters', {
+const clearAllFiltersButStickyWire = wireFacetsService('clearFiltersWithMetadata', {
   metadata: {
     keepSticky: true
   }
