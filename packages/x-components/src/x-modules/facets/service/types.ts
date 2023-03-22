@@ -42,7 +42,7 @@ export interface FacetsService {
    *
    * @param filter - The filter to deselect.
    */
-  deselect(filter: Filter): void;
+  deselect(filter: Filter, metadata?: Dictionary): void;
   /**
    * Replaces the facets of the group with the new ones. It ignores the provided filters selected
    * state, replacing it with the previous selected filter.
