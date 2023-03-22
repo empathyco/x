@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.16...@empathyco/x-tailwindcss@1.0.0-alpha.17) (2023-03-22)
+
+### Features
+
+- **design-system:** add button group component (#1104)
+  ([e8745fe](https://github.com/empathyco/x/commit/e8745fe9f3f657e76091b3bacead7b0084017a34)),
+  closes [EX-8059](https://searchbroker.atlassian.net/browse/EX-8059)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.15...@empathyco/x-tailwindcss@1.0.0-alpha.16) (2023-03-20)
 
 ### Features
