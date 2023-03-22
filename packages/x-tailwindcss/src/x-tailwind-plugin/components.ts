@@ -2,6 +2,7 @@ import { TailwindHelpers } from '../types';
 import { inputGroup } from './components/input-group';
 import { variables } from './components/variables';
 import { button } from './components/button';
+import { buttonGroup } from './components/button-group';
 import { icon } from './components/icon';
 import { suggestion } from './components/suggestion';
 import { highlight } from './components/highlight';
@@ -29,6 +30,7 @@ export default function components(helpers: TailwindHelpers) {
   return {
     ...variables(helpers),
     ...button(helpers),
+    ...buttonGroup(helpers),
     ...icon(helpers),
     ...suggestion(helpers),
     ...highlight(helpers),

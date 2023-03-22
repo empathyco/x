@@ -1,6 +1,7 @@
 export { default as XdsBadge } from './components/xds-badge.vue';
 export { default as XdsBaseShowcase } from './components/xds-base-showcase.vue';
 export { default as XdsButton } from './components/xds-button.vue';
+export { default as XdsButtonGroup } from './components/xds-button-group.vue';
 export { default as XdsHighlight } from './components/xds-highlight.vue';
 export { default as XdsIcon } from './components/xds-icon.vue';
 export { default as XdsInput } from './components/xds-input.vue';
