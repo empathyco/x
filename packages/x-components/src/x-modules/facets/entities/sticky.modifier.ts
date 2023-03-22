@@ -6,7 +6,7 @@ interface Metadata {
 }
 
 export class StickyModifier extends BaseFilterEntityModifier<Metadata> {
-  deselect(filter: Filter, metadata: Metadata): void {
+  deselect(filter: Filter, metadata?: Metadata): void {
     if (!metadata?.keepSticky) {
       super.deselect(filter, metadata);
       this.store.commit('x/facets/removeStickyFilter', filter);
