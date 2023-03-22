@@ -128,7 +128,7 @@ const selectPreselectedFilterWire = wireFacetsService('selectPreselectedFilters'
 const setQuery = wireFacetsService('setQuery');
 
 const clearSticky = filter<any>(wireCommit('x/facets/clearStickyFilters'), ({ eventPayload }) => {
-  return eventPayload.totalResults !== 0;
+  return eventPayload.totalResults === 0;
 });
 
 /**
