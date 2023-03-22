@@ -4,6 +4,7 @@ import { createRawFilters } from '../../utils/filters';
 import { wireCommit, wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
 import { filter, mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
+import { XEventPayload } from '../../wiring/index';
 import { DefaultFacetsService } from './service/facets.service';
 
 /**
@@ -113,9 +114,17 @@ const selectPreselectedFilterWire = wireFacetsService('selectPreselectedFilters'
  */
 const setQuery = wireFacetsService('setQuery');
 
-const clearSticky = filter<any>(wireCommit('x/facets/clearStickyFilters'), ({ eventPayload }) => {
-  return eventPayload.totalResults === 0;
-});
+/**
+ * Removes all the sticky filters from the state.
+ *
+ * @internal
+ */
+const clearStickyFilters = filter<XEventPayload<'SearchResponseChanged'>>(
+  wireCommit('x/facets/clearStickyFilters'),
+  ({ eventPayload }) => {
+    return eventPayload.totalResults === 0;
+  }
+);
 
 /**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
@@ -166,6 +175,6 @@ export const facetsWiring = createWiring({
     selectPreselectedFilterWire
   },
   SearchResponseChanged: {
-    clearSticky
+    clearStickyFilters
   }
 });
