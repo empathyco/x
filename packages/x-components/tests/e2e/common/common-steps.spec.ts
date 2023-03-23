@@ -121,6 +121,24 @@ Then(
   }
 );
 
+Then(
+  'filter number {int} in facet {string} is selected',
+  function (this: any, simpleFilterIndex: number, facetName: string) {
+    cy.getByDataTest(`${facetName}-filter`)
+      .eq(simpleFilterIndex)
+      .should('to.have.class', 'x-filter--is-selected');
+  }
+);
+
+Then(
+  'filter number {int} in facet {string} is not selected',
+  function (this: any, simpleFilterIndex: number, facetName: string) {
+    cy.getByDataTest(`${facetName}-filter`)
+      .eq(simpleFilterIndex)
+      .should('not.to.have.class', 'x-filter--is-selected');
+  }
+);
+
 // History Queries
 When('clear history queries button is clicked', () => {
   cy.getByDataTest('clear-history-queries').click();

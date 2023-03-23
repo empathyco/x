@@ -11,48 +11,48 @@ Feature: Sticky filters
     And   no special config for layout view
     And   start button is clicked
 
-  Scenario Outline: 1. Sticky filter is mantained after clearing the query
+  Scenario Outline: 1. Sticky filter is kept after clearing the query
     When "<query>" is searched
     Then related results are displayed
-    And   filter number <filter1> is clicked in facet "<stickyFacetName>"
-    Then  selection status of filter number <filter1> in facet "<stickyFacetName>" is true
-    And   filter number <filter1> is clicked in facet "<facetName>"
-    Then  selection status of filter number <filter1> in facet "<facetName>" is true
+    When   filter number <filterIndex> is clicked in facet "<stickyFacetName>"
+    Then  filter number <filterIndex> in facet "<stickyFacetName>" is selected
+    When   filter number <filterIndex> is clicked in facet "<facetName>"
+    Then  filter number <filterIndex> in facet "<facetName>" is selected
     When clear search button is pressed
     Then "<query2>" is searched
-    Then  related results are displayed
-    Then  selection status of filter number <filter1> in facet "<stickyFacetName>" is true
-    And  selection status of filter number <filter1> in facet "<facetName>" is false
+    And  related results are displayed
+    And  filter number <filterIndex> in facet "<stickyFacetName>" is selected
+    And  filter number <filterIndex> in facet "<facetName>" is not selected
 
     Examples:
-      | query | query2 | filter1 | stickyFacetName    | facetName |
-      | lego  | test   | 0       | price_facet | age_facet |
+      | query | query2 | filterIndex | stickyFacetName | facetName |
+      | lego  | test   | 0           | brand_facet     | age_facet |
 
-  Scenario Outline: 2. Sticky filter is mantained after changing the query
+  Scenario Outline: 2. Sticky filter is kept after changing the query
     When "<query>" is searched
     Then related results are displayed
-    And   filter number <filter1> is clicked in facet "<stickyFacetName>"
-    Then  selection status of filter number <filter1> in facet "<stickyFacetName>" is true
-    And   filter number <filter1> is clicked in facet "<facetName>"
-    Then  selection status of filter number <filter1> in facet "<facetName>" is true
-    Then "<query2>" replaces current query
+    When   filter number <filterIndex> is clicked in facet "<stickyFacetName>"
+    Then  filter number <filterIndex> in facet "<stickyFacetName>" is selected
+    When   filter number <filterIndex> is clicked in facet "<facetName>"
+    Then  filter number <filterIndex> in facet "<facetName>" is selected
+    When "<query2>" replaces current query
     Then  related results are displayed
-    Then  selection status of filter number <filter1> in facet "<stickyFacetName>" is true
-    And  selection status of filter number <filter1> in facet "<facetName>" is false
+    Then  filter number <filterIndex> in facet "<stickyFacetName>" is selected
+    Then  filter number <filterIndex> in facet "<facetName>" is not selected
 
     Examples:
-      | query | query2 | filter1 | stickyFacetName | facetName |
-      | lego  | test   | 0       | price_facet     | age_facet |
+      | query | query2 | filterIndex | stickyFacetName | facetName |
+      | lego  | test   | 0           | brand_facet     | age_facet |
 
   Scenario Outline: 3. Sticky filter is cleared on click
     When "<query>" is searched
     Then related results are displayed
-    And   filter number <filter> is clicked in facet "<facetName>"
-    Then  selection status of filter number <filter> in facet "<facetName>" is true
-    And   filter number <filter> is clicked in facet "<facetName>"
-    Then  selection status of filter number <filter> in facet "<facetName>" is false
+    When   filter number <filterIndex> is clicked in facet "<facetName>"
+    Then  filter number <filterIndex> in facet "<facetName>" is selected
+    When   filter number <filterIndex> is clicked in facet "<facetName>"
+    Then  filter number <filterIndex> in facet "<facetName>" is not selected
 
     Examples:
-      | query |  filter | facetName |
-      | lego  |  0       | age_facet |
+      | query | filterIndex | facetName   |
+      | lego  | 0           | brand_facet |
 
