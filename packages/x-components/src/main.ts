@@ -12,7 +12,7 @@ import './tailwind/index.css';
 Vue.config.productionTip = false;
 FilterEntityFactory.instance.registerModifierByFacetId('age_facet', SingleSelectModifier);
 FilterEntityFactory.instance.registerModifierByFacetId(
-  'price_facet',
+  'brand_facet',
   SingleSelectModifier,
   StickyModifier
 );
