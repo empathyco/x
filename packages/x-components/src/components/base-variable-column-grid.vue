@@ -64,7 +64,7 @@
      *
      * @internal
      */
-    protected providedColumns = 0;
+    protected providedColumns: number | null = null;
 
     /**
      * The number of columns to render in the grid.
@@ -74,7 +74,7 @@
      * @internal
      */
     protected get columnsToRender(): number {
-      return this.providedColumns || this.columns;
+      return this.providedColumns === null ? this.columns : this.providedColumns;
     }
 
     /**
