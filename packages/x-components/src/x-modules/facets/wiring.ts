@@ -61,6 +61,11 @@ const clearFiltersWire = wireFacetsService('clearFilters');
  */
 const clearAllFiltersWire = wireFacetsServiceWithoutPayload('clearFilters');
 
+/**
+ * Deselects all selected filters but keep the sticky ones.
+ *
+ * @internal
+ */
 const clearAllFiltersButStickyWire = wireFacetsService('clearFiltersWithMetadata', {
   metadata: {
     keepSticky: true
