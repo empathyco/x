@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.338](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.337...@empathyco/x-components@3.0.0-alpha.338) (2023-03-23)
+
+### Features
+
+- **components:** add `columns` prop in `BaseVariableColumnGrid` (#1112)
+  ([8a74847](https://github.com/empathyco/x/commit/8a7484779542768a1f03dbd09eff164b0ecb8686)),
+  closes [EX-8135](https://searchbroker.atlassian.net/browse/EX-8135)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.337](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.336...@empathyco/x-components@3.0.0-alpha.337) (2023-03-22)
 
 **Note:** Version bump only for package @empathyco/x-components
