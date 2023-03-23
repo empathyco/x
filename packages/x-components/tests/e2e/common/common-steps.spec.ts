@@ -211,6 +211,10 @@ When('{string} is searched', (query: string) => {
   });
 });
 
+When('{string} replaces current query', (query: string) => {
+  cy.replaceQuery(query);
+});
+
 When('clear search button is pressed', () => {
   cy.clearSearchInput();
 });

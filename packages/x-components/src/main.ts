@@ -10,6 +10,12 @@ import { StickyModifier } from './x-modules/facets/entities/sticky.modifier';
 import './tailwind/index.css';
 
 Vue.config.productionTip = false;
+FilterEntityFactory.instance.registerModifierByFacetId('age_facet', SingleSelectModifier);
+FilterEntityFactory.instance.registerModifierByFacetId(
+  'price_facet',
+  SingleSelectModifier,
+  StickyModifier
+);
 FilterEntityFactory.instance.registerModifierByFacetId(
   'price',
   SingleSelectModifier,
