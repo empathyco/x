@@ -1,5 +1,5 @@
 <template>
-  <BaseGrid :animation="animation" :columns="columns" :items="items">
+  <BaseGrid :animation="animation" :columns="columnsToRender" :items="items">
     <template v-for="(_, name) in $scopedSlots" v-slot:[name]="{ item }">
       <!--
         @slot Customized item rendering. The slot name can either be default or the item's model
@@ -51,11 +51,31 @@
     protected items?: ListItem[];
 
     /**
-     * The columns to render in the grid.
+     * The columns to render by default in the grid. This property is used when the user has not
+     * selected any value in the column picker.
      *
      * @internal
      */
-    protected columns = 0;
+    @Prop({ default: 0 })
+    protected columns!: number;
+
+    /**
+     * The number of columns provided by a user interaction.
+     *
+     * @internal
+     */
+    protected providedColumns: number | null = null;
+
+    /**
+     * The number of columns to render in the grid.
+     *
+     * @returns The number of columns.
+     *
+     * @internal
+     */
+    protected get columnsToRender(): number {
+      return this.providedColumns === null ? this.columns : this.providedColumns;
+    }
 
     /**
      * Handler to update the number of columns when the user selects a new value.
@@ -66,7 +86,7 @@
      */
     @XOn(['ColumnsNumberProvided'])
     setColumns(newColumns: number): void {
-      this.columns = newColumns;
+      this.providedColumns = newColumns;
     }
   }
 </script>
@@ -85,6 +105,62 @@ you to customize the grid items using the available `scopedSlots`.
       <span class="column-picker-selector__text">4 columns</span>
     </button>
     <BaseVariableColumnGrid :animation="animation" :items="items">
+      <template #default="{ item }">
+        <span data-test="default-slot">{{ item.id }}</span>
+      </template>
+      <template #result="{ item }">
+        <span data-test="result-slot">{{ 'Result ' + item.id }}</span>
+      </template>
+    </BaseVariableColumnGrid>
+  </section>
+</template>
+
+<script>
+  import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components';
+
+  export default {
+    name: 'ResultsSection',
+    components: {
+      BaseVariableColumnGrid
+    },
+    data() {
+      return {
+        animation: StaggeredFadeAndSlide,
+        items: [
+          {
+            id: 'res-1',
+            modelName: 'Result',
+            name: 'Product 1'
+          },
+          {
+            id: 'res-2',
+            modelName: 'Result',
+            name: 'Product 2'
+          }
+        ]
+      };
+    },
+    methods: {
+      setColumns(columns) {
+        this.$x.emit('UserClickedColumnPicker', columns);
+      }
+    }
+  };
+</script>
+```
+
+### Playing with props
+
+Configuring the default columns to be rendered. These columns will be the default value until the
+`ColumnsNumberProvided` is emitted and changes the value.
+
+```vue
+<template>
+  <section class="results">
+    <button @click="setColumns(5)" class="column-picker-selector">
+      <span class="column-picker-selector__text">5 columns</span>
+    </button>
+    <BaseVariableColumnGrid :animation="animation" :items="items" :columns="3">
       <template #default="{ item }">
         <span data-test="default-slot">{{ item.id }}</span>
       </template>

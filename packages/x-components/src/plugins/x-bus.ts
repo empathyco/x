@@ -15,10 +15,10 @@ export const bus = new XPriorityBus<XEventsTypes, WireMetadata>({
     FromUrl: 8,
     User: 16,
     External: 32,
-    Provided: 64,
     Initialized: 64,
-    DataReceived: 128,
-    ModuleRegistered: 256
+    Provided: 128,
+    DataReceived: 256,
+    ModuleRegistered: 512
   },
   emitCallbacks: [logDevtoolsXEvent]
 });
