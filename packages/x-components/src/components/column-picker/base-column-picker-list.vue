@@ -1,5 +1,5 @@
 <template>
-  <div class="x-column-picker-list x-button-group" data-test="column-picker-list">
+  <div class="x-column-picker-list x-button-group" data-test="column-picker-list" role="list">
     <template v-for="({ column, cssClasses, events, isSelected }, index) in columnsWithCssClasses">
       <BaseEventButton
         :key="column"
@@ -9,6 +9,7 @@
         :aria-pressed="isSelected"
         :events="events"
         :aria-label="`${column} columns`"
+        role="listitem"
       >
         <!--
           @slot Customized Column Picker Button content. Specifying a slot with the column value
@@ -173,15 +174,18 @@ It also possible to add a divider element between the column picker buttons by o
 ```vue
 <template>
   <BaseColumnPickerList :columns="columns">
-    <template #divider></template>
+    <template #divider>
+      <ChevronRightIcon aria-hidden="true" />
+    </template>
   </BaseColumnPickerList>
 </template>
 <script>
-  import { BaseColumnPickerList } from '@empathyco/xcomponents';
+  import { BaseColumnPickerList, ChevronRightIcon } from '@empathyco/xcomponents';
 
   export default {
     components: {
-      BaseColumnPickerList
+      BaseColumnPickerList,
+      ChevronRightIcon
     },
     data() {
       return { columns: [2, 4, 6] };
