@@ -15,6 +15,9 @@
 
       <div v-for="(sectionClasses, sectionName) in modalContent" :key="sectionName">
         <div class="x-title3 x-mt-32 x-pb-8 x-px-16">{{ sectionName }}</div>
+        <div class="x-text-md x-mb-16 x-px-16">
+          {{ sectionDescriptions[sectionName] }}
+        </div>
         <div v-for="cssClass in sectionClasses" :key="cssClass" class="x-flex x-flex-col x-pb-12">
           <code class="x-py-8 x-px-16">{{ cssClass }}</code>
           <div
@@ -122,6 +125,13 @@
       'On margin': this.onMargin,
       Overlap: this.overlap.map(addParentClasses(this.base)),
       Expand: this.expand.map(addParentClasses(this.base))
+    };
+
+    public sectionDescriptions = {
+      'No margin': 'Removes the margin from one or both sides of the layout item.',
+      'On margin': 'Positions an element in one of the side margins of the layout.',
+      Overlap: 'Positions an element over a layout item.',
+      Expand: 'Makes a layout item to fit the container height.'
     };
 
     protected get sections(): ShowcaseSections {
