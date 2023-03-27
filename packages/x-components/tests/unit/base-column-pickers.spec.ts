@@ -58,14 +58,13 @@ function mountBaseColumnPickerComponents({
   return {
     clickListNthItem(columns: number) {
       cy.getByDataTest('column-picker-list')
-        .children(`.x-column-picker-list__item--${columns}-cols`)
+        .children(`.x-column-picker-list__button--${columns}-cols`)
         .click();
     },
     getListNthItem(columns: number) {
       return cy
         .getByDataTest('column-picker-list')
-        .children(`.x-column-picker-list__item--${columns}-cols`)
-        .getByDataTest('column-picker-button');
+        .children(`.x-column-picker-list__button--${columns}-cols`);
     },
     clickDropdownNthItem(index: number) {
       cy.getByDataTest('dropdown-toggle').click();

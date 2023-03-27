@@ -171,17 +171,19 @@
           >
             <span class="x-text1">{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
-              #default="{ column }"
               v-model="selectedColumns"
+              class="x-gap-4"
               :columns="columnPickerValues"
             >
-              <template v-if="column === 0">
-                <ChevronTinyRight />
-                <Grid1Col />
-                <ChevronTinyLeft />
+              <template #default="{ column }">
+                <span v-if="column === 0">Auto</span>
+                <Grid2Col v-else-if="column === 2" />
+                <Grid4Col v-else-if="column === 4" />
               </template>
-              <Grid1Col v-else-if="column === 4" />
-              <Grid2Col v-else-if="column === 6" />
+
+              <template #divider>
+                <span class="x-button-group-divider"></span>
+              </template>
             </BaseColumnPickerList>
             <SortDropdown
               :items="sortValues"
@@ -284,7 +286,10 @@
                     <NextQueriesList
                       :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
                     >
-                      <BaseGrid :animation="resultsAnimation" :columns="4">
+                      <BaseVariableColumnGrid
+                        :animation="resultsAnimation"
+                        :columns="$x.device === 'mobile' ? 2 : 4"
+                      >
                         <template #result="{ item: result }">
                           <MainScrollItem :item="result">
                             <Result :result="result" data-test="search-result" />
@@ -336,7 +341,7 @@
                             </NextQuery>
                           </NextQueryPreview>
                         </template>
-                      </BaseGrid>
+                      </BaseVariableColumnGrid>
                     </NextQueriesList>
                   </BannersList>
                 </PromotedsList>
@@ -385,9 +390,9 @@
 </template>
 
 <script lang="ts">
+  /* eslint-disable max-len */
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  // eslint-disable-next-line max-len
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
   import CollapseHeight from '../../components/animations/collapse-height.vue';
   import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
@@ -405,11 +410,10 @@
   import ChevronTinyRight from '../../components/icons/chevron-tiny-right.vue';
   import ChevronUp from '../../components/icons/chevron-up.vue';
   import CrossIcon from '../../components/icons/cross.vue';
-  import Grid1Col from '../../components/icons/grid-1-col.vue';
   import Grid2Col from '../../components/icons/grid-2-col.vue';
+  import Grid4Col from '../../components/icons/grid-4-col.vue';
   import LightBulbOn from '../../components/icons/light-bulb-on.vue';
   import SearchIcon from '../../components/icons/search.vue';
-  // eslint-disable-next-line max-len
   import MultiColumnMaxWidthLayout from '../../components/layouts/multi-column-max-width-layout.vue';
   import LocationProvider from '../../components/location-provider.vue';
   import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
@@ -418,9 +422,7 @@
   import SlidingPanel from '../../components/sliding-panel.vue';
   import SnippetCallbacks from '../../components/snippet-callbacks.vue';
   import { infiniteScroll } from '../../directives/infinite-scroll/infinite-scroll';
-  // eslint-disable-next-line max-len
   import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue';
-  // eslint-disable-next-line max-len
   import SnippetConfigExtraParams from '../../x-modules/extra-params/components/snippet-config-extra-params.vue';
   import NextQueriesList from '../../x-modules/next-queries/components/next-queries-list.vue';
   import NextQueries from '../../x-modules/next-queries/components/next-queries.vue';
@@ -434,7 +436,6 @@
   import ClearSearchInput from '../../x-modules/search-box/components/clear-search-input.vue';
   import SearchButton from '../../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../../x-modules/search-box/components/search-input.vue';
-  // eslint-disable-next-line max-len
   import SearchInputPlaceholder from '../../x-modules/search-box/components/search-input-placeholder.vue';
   import Banner from '../../x-modules/search/components/banner.vue';
   import BannersList from '../../x-modules/search/components/banners-list.vue';
@@ -459,6 +460,7 @@
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
   import { HomeControls } from './types';
+  /* eslint-enable max-len */
 
   @Component({
     directives: {
@@ -487,8 +489,8 @@
       ClearSearchInput,
       CloseMainModal,
       CrossIcon,
-      Grid1Col,
       Grid2Col,
+      Grid4Col,
       LightBulbOn,
       LocationProvider,
       MainScrollItem,
@@ -537,7 +539,7 @@
       'Find handbags',
       'Find sunglasses'
     ];
-    protected columnPickerValues = [0, 4, 6];
+    protected columnPickerValues = [0, 2, 4];
     protected resultsAnimation = StaggeredFadeAndSlide;
     protected tabsPanelAnimation = StaggeredFadeAndSlide;
     protected modalAnimation = animateClipPath();

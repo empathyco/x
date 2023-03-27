@@ -44,6 +44,7 @@ export default plugin.withOptions(
       helpers.addUtilities(deepMerge({}, utilities(helpers), options?.utilities?.(helpers)));
 
       options?.extra?.(helpers);
+      helpers.addVariant('selected', '&.selected');
     };
   },
   function (options) {
