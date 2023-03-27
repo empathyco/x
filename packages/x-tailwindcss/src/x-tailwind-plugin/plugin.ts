@@ -42,9 +42,9 @@ export default plugin.withOptions(
         }
       );
       helpers.addUtilities(deepMerge({}, utilities(helpers), options?.utilities?.(helpers)));
-      helpers.addVariant('selected', '&.selected');
 
       options?.extra?.(helpers);
+      helpers.addVariant('selected', '&.selected');
     };
   },
   function (options) {
