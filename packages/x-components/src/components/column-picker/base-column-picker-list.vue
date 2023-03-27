@@ -168,7 +168,7 @@ It is possible to override the column picker button content.
 </script>
 ```
 
-It also possible to add a divider element between the column picker buttons by overriding the
+It is also possible to add a divider element between the column picker buttons by overriding the
 `divider` slot.
 
 ```vue

@@ -410,7 +410,6 @@
   import ChevronTinyRight from '../../components/icons/chevron-tiny-right.vue';
   import ChevronUp from '../../components/icons/chevron-up.vue';
   import CrossIcon from '../../components/icons/cross.vue';
-  import Grid1Col from '../../components/icons/grid-1-col.vue';
   import Grid2Col from '../../components/icons/grid-2-col.vue';
   import Grid4Col from '../../components/icons/grid-4-col.vue';
   import LightBulbOn from '../../components/icons/light-bulb-on.vue';
@@ -490,7 +489,6 @@
       ClearSearchInput,
       CloseMainModal,
       CrossIcon,
-      Grid1Col,
       Grid2Col,
       Grid4Col,
       LightBulbOn,
