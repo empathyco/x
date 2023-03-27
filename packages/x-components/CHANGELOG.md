@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.339](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.338...@empathyco/x-components@3.0.0-alpha.339) (2023-03-27)
+
+### ⚠ BREAKING CHANGES
+
+- `base-column-picker-list` structure changes. It now wraps the buttons in a div instead of using ul
+  and li. Additionally, the class for the selected option has been changed to `x-selected`.
+
+### Features
+
+- adapt `base-column-picker-list` to use the XDS component of button group (#1115)
+  ([7057b8f](https://github.com/empathyco/x/commit/7057b8f7cd7f1e20ad248c40e8da97450895cd26)),
+  closes [EX-8144](https://searchbroker.atlassian.net/browse/EX-8144)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.338](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.337...@empathyco/x-components@3.0.0-alpha.338) (2023-03-23)
 
 ### Features
