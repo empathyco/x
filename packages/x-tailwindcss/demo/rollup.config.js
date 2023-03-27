@@ -1,5 +1,6 @@
 import { resolve } from 'path';
 import commonjs from '@rollup/plugin-commonjs';
+import styles from 'rollup-plugin-styles';
 import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
 
@@ -16,6 +17,7 @@ export default {
   ],
   plugins: [
     commonjs(),
+    styles(),
     typescript({
       tsconfig: resolve(__dirname, 'tsconfig.json'),
       tsconfigOverride: {
