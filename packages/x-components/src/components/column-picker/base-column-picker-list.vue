@@ -1,15 +1,10 @@
 <template>
-  <ul class="x-option-list x-column-picker-list" data-test="column-picker-list">
-    <li
-      v-for="{ column, cssClasses, events, isSelected } in columnsWithCssClasses"
-      :key="column"
-      :class="cssClasses"
-      class="x-option-list__item x-column-picker-list__item"
-      data-test="column-picker-item"
-    >
+  <div class="x-column-picker-list x-button-group" data-test="column-picker-list">
+    <template v-for="({ column, cssClasses, events, isSelected }, index) in columnsWithCssClasses">
       <BaseEventButton
-        class="column-picker-item__button x-button"
-        :class="buttonClass"
+        :key="column"
+        class="x-column-picker-list__button x-button"
+        :class="[buttonClass, cssClasses]"
         data-test="column-picker-button"
         :aria-pressed="isSelected"
         :events="events"
@@ -25,8 +20,14 @@
           {{ column }}
         </slot>
       </BaseEventButton>
-    </li>
-  </ul>
+
+      <!--
+          @slot Customized Column Picker divider. Specify an element to act as divider for
+          the items in the column picker. Empty by default.
+        -->
+      <slot v-if="index !== columnsWithCssClasses.length - 1" name="divider"></slot>
+    </template>
+  </div>
 </template>
 
 <script lang="ts">
@@ -73,10 +74,9 @@
       return this.columns.map(column => ({
         column,
         cssClasses: [
-          `x-column-picker-list__item--${column}-cols`,
+          `x-column-picker-list__button--${column}-cols`,
           {
-            'x-column-picker-list__item--is-selected': this.selectedColumns === column,
-            'x-option-list__item--is-selected': this.selectedColumns === column
+            'x-selected': this.selectedColumns === column
           }
         ],
         isSelected: this.selectedColumns === column,
@@ -88,13 +88,6 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  .x-column-picker-list {
-    display: flex;
-    list-style-type: none;
-  }
-</style>
 
 <docs lang="mdx">
 ## Examples
@@ -158,6 +151,29 @@ It is possible to override the column picker button content.
 <template>
   <BaseColumnPickerList :columns="columns" #default="{ column, isSelected }">
     <span>{{ column }} {{ isSelected ? '🟢' : '' }}</span>
+  </BaseColumnPickerList>
+</template>
+<script>
+  import { BaseColumnPickerList } from '@empathyco/xcomponents';
+
+  export default {
+    components: {
+      BaseColumnPickerList
+    },
+    data() {
+      return { columns: [2, 4, 6] };
+    }
+  };
+</script>
+```
+
+It also possible to add a divider element between the column picker buttons by overriding the
+`divider` slot.
+
+```vue
+<template>
+  <BaseColumnPickerList :columns="columns">
+    <template #divider></template>
   </BaseColumnPickerList>
 </template>
 <script>

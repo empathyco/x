@@ -119,28 +119,62 @@ describe('testing Base Column Picker List', () => {
   it('allows configuring the number of columns and updates the css class accordingly', () => {
     const columns = [1, 3, 6];
     const { wrapper } = renderBaseColumnPickerListComponent({ columns });
-    const columnPickerListWrapper = wrapper.findAll(getDataTestSelector('column-picker-item'));
+    const columnPickerListWrapper = wrapper.findAll(getDataTestSelector('column-picker-button'));
     columns.forEach((column, index) => {
       expect(columnPickerListWrapper.at(index).classes()).toContain(
-        `x-column-picker-list__item--${column}-cols`
+        `x-column-picker-list__button--${column}-cols`
       );
     });
   });
 
-  it('allows customizing slots', () => {
+  it('allows customizing the picker button slot', () => {
     const columns = [1, 3, 6];
     const customItemSlot = `
       <template #default="{ column }">
-        <p data-test="column-slot">{{ column }}</p>
+        <p data-test="custom-column-slot">{{ column }}</p>
       </template>`;
     const { wrapper } = renderBaseColumnPickerListComponent({
       columns,
       customItemSlot
     });
-    const columnsSlots = wrapper.findAll(getDataTestSelector('column-slot'));
+    const columnsSlots = wrapper.findAll(getDataTestSelector('custom-column-slot'));
     expect(columnsSlots).toHaveLength(columns.length);
     columns.forEach((column, index) => {
       expect(columnsSlots.at(index).text()).toEqual(column.toString());
+    });
+  });
+
+  it('by default there are no divider elements between column picker buttons', () => {
+    const columns = [1, 3, 6];
+    const { wrapper } = renderBaseColumnPickerListComponent({
+      columns
+    });
+
+    const rootChildren = wrapper.element.children;
+    expect(rootChildren).toHaveLength(columns.length);
+  });
+
+  it('divider slot renders only between column picker buttons', () => {
+    const columns = [1, 3, 6];
+    const customItemSlot = `
+      <template #default="{ column }">
+        <p>{{ column }}</p>
+      </template>
+      <template #divider>
+        <span data-test="custom-divider-slot">-</span>
+      </template>`;
+
+    const { wrapper } = renderBaseColumnPickerListComponent({
+      columns,
+      customItemSlot
+    });
+
+    const dividerSlots = wrapper.findAll(getDataTestSelector('custom-divider-slot'));
+    expect(dividerSlots).toHaveLength(columns.length - 1);
+
+    dividerSlots.wrappers.forEach(dividerWrapper => {
+      const nextSibling = dividerWrapper.element.nextSibling! as HTMLElement;
+      expect(nextSibling.getAttribute('data-test')).toBe('column-picker-button');
     });
   });
 
