@@ -12,16 +12,24 @@ export function filterDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
 
   return {
-    display: 'flex',
+    display: 'grid',
+    gridAutoFlow: 'column',
     alignItems: 'baseline',
+    alignContent: 'center',
+    justifyContent: 'flex-start',
+    boxSizing: 'border-box',
+    cursor: 'pointer',
     textAlign: 'start',
+
+    borderWidth: `0 0 ${theme('spacing.1')} 0`,
+    borderColor: 'transparent',
 
     color: theme('colors.neutral.90'),
 
     ...filterSizes(helpers).md,
     ...alignIconWithBaseline(),
 
-    '&:hover': {
+    '&:hover,&.selected': {
       color: `var(--filter-color-50, ${theme('colors.neutral.50')})`
     },
 

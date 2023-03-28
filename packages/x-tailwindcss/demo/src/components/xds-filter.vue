@@ -14,7 +14,7 @@
       <template v-if="section === 'Default'">
         very long default filter to test line wrap alignment
       </template>
-      <template v-else>Filter</template>
+      <template v-else>Filter (123)</template>
     </button>
   </XdsBaseShowcase>
 </template>
@@ -39,6 +39,9 @@
     @Prop({ default: () => 'x-selected' })
     public selected!: string;
 
+    @Prop({ default: () => 'x-filter-underline' })
+    public underline!: string;
+
     @Prop({
       default: () => [
         '',
@@ -60,6 +63,10 @@
         Colors: this.colors.map(addParentClasses(this.base)),
         Sizes: this.sizes.map(addParentClasses(this.base)),
         Selected: this.colors.map(addParentClasses(this.base, this.selected)),
+        Underline: this.colors.map(addParentClasses(this.base, this.underline)),
+        'Selected Underline': this.colors.map(
+          addParentClasses(this.base, this.underline, this.selected)
+        ),
         Disabled: [this.base, addParentClasses(this.base)(this.selected)]
       };
     }
