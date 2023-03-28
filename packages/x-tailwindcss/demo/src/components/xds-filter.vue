@@ -8,6 +8,7 @@
       @click="copyCssClassesToClipboard"
       :class="cssClass"
       :style="section === 'Default' ? { width: '120px' } : ''"
+      :disabled="section === 'Disabled'"
     >
       <CheckIcon class="x-icon" :class="{ 'x-icon-lg': cssClass.includes('x-filter-lg') }" />
       <template v-if="section === 'Default'">
@@ -58,7 +59,8 @@
         Default: [this.base],
         Colors: this.colors.map(addParentClasses(this.base)),
         Sizes: this.sizes.map(addParentClasses(this.base)),
-        Selected: this.colors.map(addParentClasses(this.base, this.selected))
+        Selected: this.colors.map(addParentClasses(this.base, this.selected)),
+        Disabled: [this.base, addParentClasses(this.base)(this.selected)]
       };
     }
   }

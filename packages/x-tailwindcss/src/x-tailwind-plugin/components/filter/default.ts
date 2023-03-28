@@ -27,6 +27,11 @@ export function filterDefault(helpers: TailwindHelpers) {
 
     '&.selected': {
       fontWeight: theme('fontWeight.bold')
+    },
+
+    '&:disabled': {
+      color: theme('colors.neutral.25'),
+      cursor: 'disabled'
     }
   };
 }
