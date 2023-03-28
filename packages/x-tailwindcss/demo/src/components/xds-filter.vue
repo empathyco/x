@@ -35,10 +35,30 @@
     @Prop({ default: () => ['x-filter-sm', 'x-filter-md', 'x-filter-lg'] })
     public sizes!: string[];
 
+    @Prop({ default: () => 'x-selected' })
+    public selected!: string;
+
+    @Prop({
+      default: () => [
+        '',
+        'x-filter-neutral',
+        'x-filter-lead',
+        'x-filter-auxiliary',
+        'x-filter-accent',
+        'x-filter-highlight',
+        'x-filter-success',
+        'x-filter-warning',
+        'x-filter-error'
+      ]
+    })
+    public colors!: string[];
+
     protected get sections(): ShowcaseSections {
       return {
         Default: [this.base],
-        Sizes: this.sizes.map(addParentClasses(this.base))
+        Colors: this.colors.map(addParentClasses(this.base)),
+        Sizes: this.sizes.map(addParentClasses(this.base)),
+        Selected: this.colors.map(addParentClasses(this.base, this.selected))
       };
     }
   }

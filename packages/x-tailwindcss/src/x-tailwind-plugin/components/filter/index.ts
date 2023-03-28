@@ -1,5 +1,6 @@
 import { rename } from '@empathyco/x-utils';
 import { TailwindHelpers } from '../../../types';
+import { filterColors } from './colors';
 import { filterDefault } from './default';
 import { filterSizes } from './sizes';
 
@@ -15,7 +16,8 @@ export function filter(helpers: TailwindHelpers) {
       ...filterDefault(helpers),
       ...rename(
         {
-          ...filterSizes(helpers)
+          ...filterSizes(helpers),
+          ...filterColors(helpers)
         },
         { prefix: '&-' }
       )

@@ -9,12 +9,24 @@ import { filterSizes } from './sizes';
  * @returns The {@link CssStyleOptions} for the component.
  */
 export function filterDefault(helpers: TailwindHelpers) {
+  const { theme } = helpers;
+
   return {
     display: 'flex',
     alignItems: 'baseline',
     textAlign: 'start',
 
+    color: theme('colors.neutral.90'),
+
     ...filterSizes(helpers).md,
-    ...alignIconWithBaseline()
+    ...alignIconWithBaseline(),
+
+    '&:hover': {
+      color: `var(--filter-color-50, ${theme('colors.neutral.50')})`
+    },
+
+    '&.selected': {
+      fontWeight: theme('fontWeight.bold')
+    }
   };
 }
