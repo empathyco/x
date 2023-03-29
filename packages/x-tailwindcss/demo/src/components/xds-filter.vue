@@ -42,6 +42,9 @@
     @Prop({ default: () => 'x-filter-underline' })
     public underline!: string;
 
+    @Prop({ default: () => 'x-filter-ghost' })
+    public ghost!: string;
+
     @Prop({
       default: () => [
         '',
@@ -57,6 +60,11 @@
     })
     public colors!: string[];
 
+    @Prop({
+      default: () => ['x-filter x-filter-ghost x-filter-lg x-filter-warning x-selected']
+    })
+    public combinations!: string[];
+
     protected get sections(): ShowcaseSections {
       return {
         Default: [this.base],
@@ -67,7 +75,14 @@
         'Selected Underline': this.colors.map(
           addParentClasses(this.base, this.underline, this.selected)
         ),
-        Disabled: [this.base, addParentClasses(this.base)(this.selected)]
+        Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
+        'Selected Ghost': this.colors.map(addParentClasses(this.base, this.ghost, this.selected)),
+        Disabled: [
+          this.base,
+          addParentClasses(this.base)(this.selected),
+          addParentClasses(this.base)(this.ghost)
+        ],
+        Combinations: this.combinations.map(addParentClasses(this.base))
       };
     }
   }

@@ -10,7 +10,8 @@ import { mapColors } from '../../utils/map-colors';
 export function filterColors(helpers: TailwindHelpers) {
   return mapColors(
     color => ({
-      '--filter-color-50': color['50']
+      '--filter-color-50': color['50'],
+      '--filter-color-75': color['75']
     }),
     helpers
   );

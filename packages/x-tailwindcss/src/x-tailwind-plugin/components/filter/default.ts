@@ -39,7 +39,7 @@ export function filterDefault(helpers: TailwindHelpers) {
 
     '&:disabled': {
       color: theme('colors.neutral.25'),
-      cursor: 'disabled'
+      cursor: 'not-allowed'
     }
   };
 }

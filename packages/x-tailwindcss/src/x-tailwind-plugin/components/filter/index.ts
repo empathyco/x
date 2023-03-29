@@ -3,6 +3,7 @@ import { rename } from '@empathyco/x-utils';
 import { TailwindHelpers } from '../../../types';
 import { filterColors } from './colors';
 import { filterDefault } from './default';
+import { filterGhost } from './ghost';
 import { filterSizes } from './sizes';
 import { filterUnderline } from './underline';
 
@@ -20,7 +21,8 @@ export function filter(helpers: TailwindHelpers) {
         {
           ...filterSizes(helpers),
           ...filterColors(helpers),
-          ...filterUnderline(helpers)
+          ...filterUnderline(helpers),
+          ...filterGhost(helpers)
         },
         { prefix: '&-' }
       )
