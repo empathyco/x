@@ -10,7 +10,7 @@
       :style="section === 'Default' ? { width: '120px' } : ''"
       :disabled="section === 'Disabled'"
     >
-      <CheckIcon class="x-icon" :class="{ 'x-icon-lg': cssClass.includes('x-filter-lg') }" />
+      <CheckIcon class="x-icon" />
       <template v-if="section === 'Default'">
         very long default filter to test line wrap alignment
       </template>

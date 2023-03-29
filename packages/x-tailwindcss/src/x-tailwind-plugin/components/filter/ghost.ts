@@ -19,13 +19,17 @@ export function filterGhost(helpers: TailwindHelpers) {
     ghost: {
       ...sizes.md,
       ...sizes,
-      '&:hover:not(:disabled)': {
+      '&:hover': {
         backgroundColor: theme('colors.neutral.10'),
         color: theme('colors.neutral.90')
       },
       '&.selected': {
         fontWeight: theme('fontWeight.regular'),
         color: `var(--filter-color-75)`
+      },
+      '&:disabled': {
+        backgroundColor: 'unset',
+        color: theme('colors.neutral.25')
       }
     }
   };
