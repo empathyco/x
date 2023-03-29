@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.340](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.339...@empathyco/x-components@3.0.0-alpha.340) (2023-03-29)
+
+### Features
+
+- Minor improvements. (#1109)
+  ([1c9dace](https://github.com/empathyco/x/commit/1c9dacea7c46eb0b27687730a8a4978d0e49b230)),
+  closes [EX-8130](https://searchbroker.atlassian.net/browse/EX-8130)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.339](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.338...@empathyco/x-components@3.0.0-alpha.339) (2023-03-27)
 
 ### ⚠ BREAKING CHANGES
