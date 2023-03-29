@@ -10,7 +10,7 @@ import { RootXStoreState } from '../../../store/store.types';
  */
 export interface FilterEntity<Metadata extends Dictionary = Dictionary<unknown>> {
   /** Selects the filter. */
-  select(filter: Filter, metadata?: Metadata): void;
+  select(filter: Filter): void;
   /** Deselects the filter. */
   deselect(filter: Filter, metadata?: Metadata): void;
 }
@@ -58,10 +58,9 @@ export abstract class BaseFilterEntityModifier<Metadata extends Dictionary = Dic
    * Selects the filter passed by parameter.
    *
    * @param filter - The filter to select.
-   * @param metadata - The event metadata.
    */
-  select(filter: Filter, metadata?: Metadata): void {
-    this.entity.select(filter, metadata);
+  select(filter: Filter): void {
+    this.entity.select(filter);
   }
 
   /**

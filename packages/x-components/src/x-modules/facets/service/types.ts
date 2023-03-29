@@ -30,9 +30,17 @@ export interface FacetsService {
    * Deselects the selected filters.
    *
    * @param facetIds - An optional list of facets ids from whom deselect the filters.
+   * @param metadata - An optional object with the event metadata.
    */
   clearFilters(facetIds?: Array<Facet['id']>, metadata?: Dictionary): void;
 
+  /**
+   * Deselects the selected filters. This is intended to be used from the wiring where currently
+   * we can only provide one argument.
+   *
+   * @param payload - The event payload that can contain the list of facets ids from whom deselect
+   * the filters and the event metadata.
+   */
   clearFiltersWithMetadata(payload?: {
     facetIds?: Array<Facet['id']>;
     metadata?: Dictionary;
@@ -52,7 +60,7 @@ export interface FacetsService {
    */
   updateFacets(facetsGroup: FacetsGroup): void;
   /**
-   * Selects preselected filter/filters, adding it/them to the store if it/they was not present.
+   * Selects preselected filter/filters, adding it/them to the store if it/they are not present.
    *
    */
   selectPreselectedFilters(): void;
