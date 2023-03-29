@@ -20,7 +20,7 @@
     "colors": "1.4.0",
     "conventional-changelog-conventionalcommits": "~5.0.0",
     "cross-env": "~7.0.3",
-    "eslint": "~8.33.0",
+    "eslint": "~8.37.0",
     "husky": "~8.0.3",
     "lerna": "~6.5.1",
     "lint-staged": "~13.1.0",
