@@ -23,14 +23,16 @@ import { resetFacetsStateWith } from './utils';
 describe('testing facets module getters', () => {
   function createFacetsStore(
     filters: Filter[],
-    facets: Omit<Facet, 'filters'>[] = []
+    facets: Omit<Facet, 'filters'>[] = [],
+    stickyFilters: Filter[] = []
   ): SafeStore<FacetsState, FacetsGetters, FacetsMutations, FacetsActions> {
     const localVue = createLocalVue();
     localVue.use(Vuex);
     const store = new Store<FacetsState>(facetsXStoreModule as any);
     resetFacetsStateWith(store, {
       filters: arrayToObject(filters, 'id'),
-      facets: arrayToObject(facets, 'id')
+      facets: arrayToObject(facets, 'id'),
+      stickyFilters: arrayToObject(stickyFilters, 'id')
     });
     return store;
   }
@@ -117,6 +119,21 @@ describe('testing facets module getters', () => {
       const store = createFacetsStore([createRawFilter('size:xl')]);
 
       expect(store.getters.selectedFilters).toEqual([store.state.filters['size:xl']]);
+    });
+
+    it('returns the sticky filters', () => {
+      const store = createFacetsStore(
+        [createSimpleFilter('color', 'Red', false), createSimpleFilter('color', 'Blue', true)],
+        [],
+        [createSimpleFilter('color', 'Blue', true)]
+      );
+      expect(store.getters.selectedFilters).toEqual([store.state.filters['color:Blue']]);
+      resetFacetsStateWith(store, {
+        filters: {},
+        facets: {},
+        stickyFilters: arrayToObject([createSimpleFilter('color', 'Blue', true)], 'id')
+      });
+      expect(store.getters.selectedFilters).toEqual([store.state.stickyFilters['color:Blue']]);
     });
   });
 
