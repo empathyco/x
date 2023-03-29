@@ -1,5 +1,4 @@
 import { Facet, Filter } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
 
 /**
  * An object containing a list of facets, and the group they belong to.
@@ -21,6 +20,14 @@ export interface FacetsGroup {
 }
 
 /**
+ * An object containing additional context regarding the filters.
+ */
+export interface FiltersMetadata {
+  /** Flag to prevent the clearing of sticky filters. */
+  keepSticky?: boolean;
+}
+
+/**
  * Service to manipulate the filters.
  *
  * @public
@@ -32,7 +39,7 @@ export interface FacetsService {
    * @param facetIds - An optional list of facets ids from whom deselect the filters.
    * @param metadata - An optional object with the event metadata.
    */
-  clearFilters(facetIds?: Array<Facet['id']>, metadata?: Dictionary): void;
+  clearFilters(facetIds?: Array<Facet['id']>, metadata?: FiltersMetadata): void;
 
   /**
    * Deselects the selected filters. This is intended to be used from the wiring where currently
@@ -43,14 +50,14 @@ export interface FacetsService {
    */
   clearFiltersWithMetadata(payload?: {
     facetIds?: Array<Facet['id']>;
-    metadata?: Dictionary;
+    metadata?: FiltersMetadata;
   }): void;
   /**
    * Deselects filter, adding it to the store if it was not present.
    *
    * @param filter - The filter to deselect.
    */
-  deselect(filter: Filter, metadata?: Dictionary): void;
+  deselect(filter: Filter, metadata?: FiltersMetadata): void;
   /**
    * Replaces the facets of the group with the new ones. It ignores the provided filters selected
    * state, replacing it with the previous selected filter.

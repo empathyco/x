@@ -8,7 +8,7 @@ import { FilterEntityFactory } from '../entities/filter-entity.factory';
 import { FilterEntity } from '../entities/types';
 import { FacetGroupEntry, FacetsGetters } from '../store/types';
 import { flatHierarchicalFilters } from '../utils';
-import { FacetsGroup, FacetsService } from './types';
+import { FacetsGroup, FacetsService, FiltersMetadata } from './types';
 
 /**
  * Default implementation for the {@link FacetsService}.
@@ -56,7 +56,7 @@ export class DefaultFacetsService implements FacetsService {
     this.select(this.store.state.x.facets.preselectedFilters);
   }
 
-  clearFilters(facetIds?: Array<Facet['id']>, metadata?: Dictionary): void {
+  clearFilters(facetIds?: Array<Facet['id']>, metadata?: FiltersMetadata): void {
     this.getSelectedFilters()
       .filter(filter => !facetIds || (isFacetFilter(filter) && facetIds.includes(filter.facetId)))
       .forEach(filter => this.deselect.bind(this)(filter, metadata));
@@ -65,7 +65,7 @@ export class DefaultFacetsService implements FacetsService {
   clearFiltersWithMetadata({
     facetIds,
     metadata
-  }: { facetIds?: Array<Facet['id']>; metadata?: Dictionary } = {}): void {
+  }: { facetIds?: Array<Facet['id']>; metadata?: FiltersMetadata } = {}): void {
     this.clearFilters(facetIds, metadata);
   }
 
