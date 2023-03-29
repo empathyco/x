@@ -3,7 +3,7 @@
     <label for="layout-fixed-header-modal" class="x-button">Open layout example</label>
     <input id="layout-fixed-header-modal" type="checkbox" class="modal-toggle" />
 
-    <div :ref="cssClass" class="modal x-bg-neutral-0">
+    <div class="modal x-bg-neutral-0">
       <div :class="[cssClass, 'x-layout-min-margin-48 x-bg-neutral-10']">
         <div class="x-scroll x-flex x-flex-col">
           <div
@@ -55,7 +55,6 @@
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { ShowcaseSections } from '../types/types';
   import XdsBaseShowcase from './xds-base-showcase.vue';
-  import '../css/modal.css';
 
   @Component({
     components: {

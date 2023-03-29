@@ -456,7 +456,6 @@ importers:
       postcss-import: ~15.1.0
       rimraf: ~3.0.2
       rollup: ~2.79.1
-      rollup-plugin-styles: ~4.0.0
       rollup-plugin-typescript2: ~0.34.1
       rollup-plugin-vue: ~5.1.9
       tailwindcss: ~3.2.4
@@ -479,7 +478,6 @@ importers:
       postcss-import: 15.1.0_postcss@8.4.21
       rimraf: 3.0.2
       rollup: 2.79.1
-      rollup-plugin-styles: 4.0.0_rollup@2.79.1
       rollup-plugin-typescript2: 0.34.1_ntuob3xud5wukob6phfmz2mbyy
       rollup-plugin-vue: 5.1.9_msb4omfpi5xaaav7gpce3lwjli
       tailwindcss: 3.2.4_postcss@8.4.21
@@ -11034,6 +11032,7 @@ packages:
   /make-dir/2.1.0:
     resolution: {integrity: sha512-LS9X+dc8KLxXCb8dni79fLIIUA5VyZoyjSMCwTluaXA0o27cCK0bhXkpgw+sTXVpPy/lSO57ilRixqk0vDmtRA==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dependencies:
       pify: 4.0.1
       semver: 5.7.1

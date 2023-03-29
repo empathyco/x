@@ -89,7 +89,6 @@
   import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
-  import '../css/modal.css';
 
   @Component({
     components: {

@@ -3,7 +3,7 @@
     <label for="layout-single-column-modal" class="x-button">Open layout example</label>
     <input id="layout-single-column-modal" type="checkbox" class="modal-toggle" />
 
-    <div :ref="cssClass" class="modal x-bg-neutral-10">
+    <div class="modal x-bg-neutral-10">
       <div :class="[cssClass, 'x-layout-min-margin-48']">
         <div class="x-layout-item x-bg-neutral-0 x-border-b-1 x-border-neutral-25">
           <div class="x-flex x-justify-between x-items-center x-py-8">
@@ -51,7 +51,6 @@
   import { Vue, Component, Prop } from 'vue-property-decorator';
   import { ShowcaseSections } from '../types/types';
   import XdsBaseShowcase from './xds-base-showcase.vue';
-  import '../css/modal.css';
 
   @Component({
     components: {
