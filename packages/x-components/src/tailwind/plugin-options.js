@@ -1,2 +1,0 @@
-/** @type{PluginOptions} */
-module.exports = {};
