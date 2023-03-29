@@ -1,6 +1,7 @@
 import { reduce } from '@empathyco/x-utils';
-import { useWindowSize, useScreenOrientation, useEventListener } from '@vueuse/core';
+import { useWindowSize, useScreenOrientation, useEventListener, useMemoize } from '@vueuse/core';
 import { computed, effectScope, ref, Ref } from 'vue';
+import { capitalize } from '../utils';
 
 /**
  * The Return type of the composable returned by `createUseDevice`.
@@ -33,7 +34,7 @@ export type UseDeviceFlags<Device extends string> = Record<
  * and the value is the screen width.
  * @returns A composable which provides multiple reactive flags and values for detecting the
  * current device. The flags names depends on the names passed in the `devices` parameter.
- * @remarks The `orientation` only works for orientation- sensor devices (mobile, tablet, etc). If
+ * @remarks The `orientation` only works for orientation-sensor devices (mobile, tablet, etc). If
  * in a desktop, the height of the window is larger than the width, the orientation will be
  * `landscape`.
  *
@@ -94,20 +95,10 @@ function getDeviceFlags<Device extends string>(
   devices: Record<Device, number>
 ): UseDeviceFlags<Device> {
   const { width: windowSize } = useWindowSize();
-  const sortedByWidthDevices = Object.entries<number>(devices).sort(
-    ([, aWidth], [, bWidth]) => bWidth - aWidth
-  ) as Array<[Device, number]>;
   return reduce(
     devices,
     (accumulator, device, deviceWidth) => {
-      const isDevice = computed(
-        () =>
-          deviceWidth <= windowSize.value &&
-          !sortedByWidthDevices.some(
-            ([, otherDeviceWidth]) =>
-              otherDeviceWidth <= windowSize.value && otherDeviceWidth > deviceWidth
-          )
-      );
+      const isDevice = computed(() => isCurrentDevice(device, devices, windowSize.value));
       accumulator[`is${capitalize(device)}`] = isDevice;
       accumulator[`is${capitalize(device)}OrLess`] = computed(
         () => deviceWidth >= windowSize.value || isDevice.value
@@ -122,6 +113,39 @@ function getDeviceFlags<Device extends string>(
 }
 
 /**
+ * To get the devices sorted by size and not run this calculation on every check.
+ */
+const getSortedByWidthDevices = useMemoize((devices: Record<string, number>) =>
+  Object.entries(devices).sort(([, aWidth], [, bWidth]) => bWidth - aWidth)
+);
+
+/**
+ * Checks if the current device satisfies the criteria of being a valid device.
+ *
+ * @param device - The name of the current device.
+ * @param devices - An object containing device names and their
+ * respective widths.
+ * @param windowSize - The width of the window.
+ * @returns A boolean value indicating whether the current device satisfies the
+ * criteria of being a valid device.
+ *
+ * @internal
+ */
+function isCurrentDevice(
+  device: string,
+  devices: Record<string, number>,
+  windowSize: number
+): boolean {
+  const deviceWidth = devices[device];
+  return (
+    deviceWidth <= windowSize &&
+    !getSortedByWidthDevices(devices).some(
+      ([, otherDeviceWidth]) => otherDeviceWidth <= windowSize && otherDeviceWidth > deviceWidth
+    )
+  );
+}
+
+/**
  * A function that returns the current device orientation as a reactive value.
  *
  * @returns A reactive value indicating the current device
@@ -131,14 +155,13 @@ function getDeviceFlags<Device extends string>(
  */
 function getOrientation(): UseDeviceReturn['orientation'] {
   const { orientation } = useScreenOrientation();
-  return computed(() => {
-    if (['landscape-primary', 'landscape-secondary'].includes(orientation.value ?? '')) {
-      return 'landscape';
-    } else if (['portrait-primary', 'portrait-secondary'].includes(orientation.value ?? '')) {
-      return 'portrait';
-    }
-    return undefined;
-  });
+  return computed(() =>
+    orientation.value?.includes('landscape')
+      ? 'landscape'
+      : orientation.value?.includes('portrait')
+      ? 'portrait'
+      : undefined
+  );
 }
 
 /**
@@ -176,9 +199,7 @@ function getDeviceName(
   devicesFlags: UseDeviceFlags<string>
 ): Ref<string> {
   return computed(
-    () =>
-      Object.keys(devices).find(device => devicesFlags[`is${capitalize(device)}` as any]?.value) ??
-      ''
+    () => Object.keys(devices).find(device => devicesFlags[`is${capitalize(device)}`]?.value) ?? ''
   );
 }
 
@@ -191,16 +212,4 @@ function getDeviceName(
  */
 function detectTouchable(): boolean {
   return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-}
-
-/**
- * Util function to capitalize a string.
- *
- * @param str - The string to capitalize.
- * @returns The string capitalized.
- *
- * @internal
- */
-function capitalize(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1);
 }
