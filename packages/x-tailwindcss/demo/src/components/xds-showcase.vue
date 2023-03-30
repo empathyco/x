@@ -69,3 +69,32 @@
   })
   export default class XdsShowcase extends Vue {}
 </script>
+<style lang="scss">
+  .modal {
+    pointer-events: none;
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    overflow-y: auto;
+  }
+  .modal-toggle {
+    position: fixed;
+    height: 0;
+    width: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    opacity: 0;
+  }
+  .modal-toggle:checked + .modal {
+    pointer-events: auto;
+    visibility: visible;
+    opacity: 1;
+  }
+  html:has(.modal-toggle:checked) {
+    overflow: hidden;
+  }
+</style>
