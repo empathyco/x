@@ -14,7 +14,10 @@
       <template v-if="section === 'Default'">
         very long default filter to test line wrap alignment
       </template>
-      <span v-else class="x-filter-count">Filter (123)</span>
+      <template v-else>
+        <span>Filter</span>
+        <span class="x-filter-count">(123)</span>
+      </template>
     </button>
   </XdsBaseShowcase>
 </template>
