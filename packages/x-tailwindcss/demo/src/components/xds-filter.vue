@@ -11,9 +11,17 @@
       :disabled="section === 'Disabled'"
     >
       <CheckIcon class="x-icon" :class="{ 'x-icon-lg': cssClass.includes('x-filter-lg') }" />
+
       <span v-if="section === 'Default'">very long default filter to test line wrap alignment</span>
       <span v-else>Filter</span>
-      <span class="x-filter-count">(123)</span>
+
+      <span
+        v-if="section === 'Combinations'"
+        :class="{ 'x-badge x-badge-circle x-badge-light x-badge-lead': true }"
+      >
+        1
+      </span>
+      <span v-else>(123)</span>
     </button>
   </XdsBaseShowcase>
 </template>
@@ -60,7 +68,10 @@
     public colors!: string[];
 
     @Prop({
-      default: () => ['x-filter x-filter-ghost x-filter-lg x-filter-warning x-selected']
+      default: () => [
+        'x-filter-ghost x-filter-lg x-filter-warning x-selected',
+        'x-filter-ghost x-filter-success x-filter-underline x-selected'
+      ]
     })
     public combinations!: string[];
 
