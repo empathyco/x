@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.19...@empathyco/x-tailwindcss@1.0.0-alpha.20) (2023-03-30)
+
+### Features
+
+- **design-system:** improve layout showcase (#1116)
+  ([e2f9b7d](https://github.com/empathyco/x/commit/e2f9b7d1f5ab284b535c57a1e0405652cac02b12))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.18...@empathyco/x-tailwindcss@1.0.0-alpha.19) (2023-03-29)
 
 ### Features
