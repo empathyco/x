@@ -16,9 +16,13 @@ export function filterDefault(helpers: TailwindHelpers) {
     gridAutoFlow: 'column',
     alignItems: 'baseline',
     alignContent: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'start',
     boxSizing: 'border-box',
+
     cursor: 'pointer',
+
+    fontFamily: theme('fontFamily.main'),
+    fontWeight: theme('fontWeight.regular'),
     textAlign: 'start',
 
     borderWidth: `0 0 ${theme('spacing.1')} 0`,
