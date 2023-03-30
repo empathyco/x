@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "3.0.0-alpha.340",
+  "version": "3.0.0-alpha.341",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -107,6 +107,7 @@
     "@vue/cli-service": "~5.0.4",
     "@vue/test-utils": "~1.0.3",
     "@vue/vue2-jest": "~27.0.0-alpha.3",
+    "@vueuse/core": "~9.13.0",
     "autoprefixer": "~10.4.4",
     "convert-source-map": "~2.0.0",
     "cypress": "~12.8.0",
@@ -136,8 +137,7 @@
     "vue-docgen-cli": "~4.13.1",
     "vue-router": "~3.6.5",
     "vue-template-compiler": "~2.7.14",
-    "vuex": "~3.6.2",
-    "@vueuse/core": "~9.13.0"
+    "vuex": "~3.6.2"
   },
   "publishConfig": {
     "access": "public",
