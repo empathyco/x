@@ -11,6 +11,8 @@ interface Metadata {
 /**
  * Allows to persist a filter between different queries.
  *
+ * @remarks when using this modifier along with others, make sure this is the last one defined.
+ *
  * @internal
  */
 export class StickyModifier extends BaseFilterEntityModifier<Metadata> {

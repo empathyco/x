@@ -58,6 +58,7 @@ export interface FacetsService {
    * Deselects filter, adding it to the store if it was not present.
    *
    * @param filter - The filter to deselect.
+   * @param metadata - An optional object with the event metadata.
    */
   deselect(filter: Filter, metadata?: FiltersMetadata): void;
   /**
