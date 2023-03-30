@@ -21,6 +21,8 @@ export interface FacetsGroup {
 
 /**
  * An object containing additional context regarding the filters.
+ *
+ * @public
  */
 export interface FiltersMetadata {
   /** Flag to prevent the clearing of sticky filters. */
