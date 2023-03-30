@@ -7,17 +7,13 @@
     <button
       @click="copyCssClassesToClipboard"
       :class="cssClass"
-      :style="section === 'Default' ? { width: '120px' } : ''"
+      :style="section === 'Default' ? { width: '200px' } : ''"
       :disabled="section === 'Disabled'"
     >
-      <CheckIcon class="x-icon" />
-      <template v-if="section === 'Default'">
-        very long default filter to test line wrap alignment
-      </template>
-      <template v-else>
-        <span>Filter</span>
-        <span class="x-filter-count">(123)</span>
-      </template>
+      <CheckIcon class="x-icon" :class="{ 'x-icon-lg': cssClass.includes('x-filter-lg') }" />
+      <span v-if="section === 'Default'">very long default filter to test line wrap alignment</span>
+      <span v-else>Filter</span>
+      <span class="x-filter-count">(123)</span>
     </button>
   </XdsBaseShowcase>
 </template>
