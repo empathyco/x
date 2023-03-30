@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.32...@empathyco/eslint-plugin-x@2.0.0-alpha.33) (2023-03-29)
+
+### Features
+
+- Minor improvements. (#1109)
+  ([1c9dace](https://github.com/empathyco/x/commit/1c9dacea7c46eb0b27687730a8a4978d0e49b230)),
+  closes [EX-8130](https://searchbroker.atlassian.net/browse/EX-8130)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.31...@empathyco/eslint-plugin-x@2.0.0-alpha.32) (2023-03-14)
 
 ### Bug Fixes

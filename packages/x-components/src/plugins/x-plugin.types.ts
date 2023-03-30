@@ -106,6 +106,8 @@ export interface XComponentAliasAPI {
   readonly historyQueriesWithResults: ReadonlyArray<HistoryQuery>;
   /** The {@link HistoryQueriesXModule} history queries. */
   readonly fullHistoryQueries: ReadonlyArray<HistoryQuery>;
+  /** The {@link HistoryQueriesXModule} history queries enabled flag. */
+  readonly isHistoryQueriesEnabled: Readonly<boolean>;
   /** The {@link IdentifierResultsXModule} results. */
   readonly identifierResults: ReadonlyArray<Result>;
   /** The {@link SearchBoxXModule } input status. */

@@ -42,6 +42,6 @@ export function toKebabCase(str: string): string {
  *
  * @public
  */
-export function capitalize(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+export function capitalize<StrType extends string>(str: StrType): Capitalize<StrType> {
+  return (str.charAt(0).toUpperCase() + str.slice(1)) as Capitalize<StrType>;
 }

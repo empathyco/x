@@ -12,6 +12,7 @@ export default {
     full: '99999px'
   },
   borderWidth: {
+    DEFAULT: '1px',
     1: '1px',
     2: '2px',
     4: '4px'
