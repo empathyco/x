@@ -1,5 +1,6 @@
 import { Facet, Filter, isFacetFilter, isHierarchicalFacet } from '@empathyco/x-types';
 import { Store } from 'vuex';
+import { Dictionary } from '@empathyco/x-utils';
 import { XPlugin } from '../../../plugins/index';
 import { RootXStoreState } from '../../../store/index';
 import { arrayToObject, groupItemsBy, isArrayEmpty } from '../../../utils/index';
@@ -7,7 +8,7 @@ import { FilterEntityFactory } from '../entities/filter-entity.factory';
 import { FilterEntity } from '../entities/types';
 import { FacetGroupEntry, FacetsGetters } from '../store/types';
 import { flatHierarchicalFilters } from '../utils';
-import { FacetsGroup, FacetsService } from './types';
+import { FacetsGroup, FacetsService, FiltersMetadata } from './types';
 
 /**
  * Default implementation for the {@link FacetsService}.
@@ -55,14 +56,21 @@ export class DefaultFacetsService implements FacetsService {
     this.select(this.store.state.x.facets.preselectedFilters);
   }
 
-  clearFilters(facetIds?: Array<Facet['id']>): void {
+  clearFilters(facetIds?: Array<Facet['id']>, metadata?: FiltersMetadata): void {
     this.getSelectedFilters()
       .filter(filter => !facetIds || (isFacetFilter(filter) && facetIds.includes(filter.facetId)))
-      .forEach(this.deselect.bind(this));
+      .forEach(filter => this.deselect.bind(this)(filter, metadata));
   }
 
-  deselect(filter: Filter): void {
-    this.getFilterEntity(filter).deselect(filter);
+  clearFiltersWithMetadata({
+    facetIds,
+    metadata
+  }: { facetIds?: Array<Facet['id']>; metadata?: FiltersMetadata } = {}): void {
+    this.clearFilters(facetIds, metadata);
+  }
+
+  deselect(filter: Filter, metadata?: Dictionary): void {
+    this.getFilterEntity(filter).deselect(filter, metadata);
   }
 
   select(filterOrFilters: Filter | Filter[]): void {

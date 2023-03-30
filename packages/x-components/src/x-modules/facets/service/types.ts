@@ -20,6 +20,16 @@ export interface FacetsGroup {
 }
 
 /**
+ * An object containing additional context regarding the filters.
+ *
+ * @public
+ */
+export interface FiltersMetadata {
+  /** Flag to prevent the clearing of sticky filters. */
+  keepSticky?: boolean;
+}
+
+/**
  * Service to manipulate the filters.
  *
  * @public
@@ -29,14 +39,28 @@ export interface FacetsService {
    * Deselects the selected filters.
    *
    * @param facetIds - An optional list of facets ids from whom deselect the filters.
+   * @param metadata - An optional object with the event metadata.
    */
-  clearFilters(facetIds?: Array<Facet['id']>): void;
+  clearFilters(facetIds?: Array<Facet['id']>, metadata?: FiltersMetadata): void;
+
+  /**
+   * Deselects the selected filters. This is intended to be used from the wiring where currently
+   * we can only provide one argument.
+   *
+   * @param payload - The event payload that can contain the list of facets ids from whom deselect
+   * the filters and the event metadata.
+   */
+  clearFiltersWithMetadata(payload?: {
+    facetIds?: Array<Facet['id']>;
+    metadata?: FiltersMetadata;
+  }): void;
   /**
    * Deselects filter, adding it to the store if it was not present.
    *
    * @param filter - The filter to deselect.
+   * @param metadata - An optional object with the event metadata.
    */
-  deselect(filter: Filter): void;
+  deselect(filter: Filter, metadata?: FiltersMetadata): void;
   /**
    * Replaces the facets of the group with the new ones. It ignores the provided filters selected
    * state, replacing it with the previous selected filter.
@@ -46,7 +70,7 @@ export interface FacetsService {
    */
   updateFacets(facetsGroup: FacetsGroup): void;
   /**
-   * Selects preselected filter/filters, adding it/them to the store if it/they was not present.
+   * Selects preselected filter/filters, adding it/them to the store if it/they are not present.
    *
    */
   selectPreselectedFilters(): void;

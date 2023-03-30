@@ -23,8 +23,8 @@ Feature: Clear selected filters
     And   spellcheck component is not shown
 
     Examples:
-      | query | filter1 | filter2 | filter3 | facetName              | facetName2 | facetName3  |
-      | lego  | 0       | 1       | 2       | hierarchical_category  | age_facet  | price_facet |
+      | query | filter1 | filter2 | filter3 | facetName             | facetName2 | facetName3  |
+      | lego  | 0       | 1       | 2       | hierarchical_category | age_facet  | price_facet |
 
   Scenario Outline: 2. Clear filters deleting the query
     When  "<query>" is searched
@@ -36,8 +36,8 @@ Feature: Clear selected filters
     Then  no filters are selected
 
     Examples:
-      | query | filter | facetName    | facetName2 | facetName3  | maxItemsToRequest |
-      | lego  | 0      | brand_facet  | age_facet  | price_facet | 5                 |
+      | query | filter | facetName   | facetName2 | facetName3  |
+      | lego  | 0      | brand_facet | age_facet  | brand_facet |
 
   Scenario Outline: 3. Remove single filter
     When  "<query>" is searched
@@ -49,5 +49,5 @@ Feature: Clear selected filters
     Then  filter is removed from selected filters list
 
     Examples:
-      | query | filter | facetName    | facetName2 | facetName3  |
-      | lego  | 0      | brand_facet  | age_facet  | price_facet |
+      | query | filter | facetName   | facetName2 | facetName3  |
+      | lego  | 0      | brand_facet | age_facet  | price_facet |
