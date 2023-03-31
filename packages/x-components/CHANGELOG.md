@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.343](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.342...@empathyco/x-components@3.0.0-alpha.343) (2023-03-31)
+
+### Features
+
+- add sticky filters (#1113)
+  ([3b51b60](https://github.com/empathyco/x/commit/3b51b6045a283f9f27dd7c6e16dec7f68a8a2921)),
+  closes [EX-8076](https://searchbroker.atlassian.net/browse/EX-8076)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.342](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.341...@empathyco/x-components@3.0.0-alpha.342) (2023-03-30)
 
 **Note:** Version bump only for package @empathyco/x-components
