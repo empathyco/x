@@ -124,7 +124,6 @@
       return {
         'x-hierarchical-filter--is-partially-selected': this.isPartiallySelected,
         'x-hierarchical-filter--is-selected': this.filter.selected,
-        'x-selected': this.filter.selected,
         'x-filter--is-partially-selected': this.isPartiallySelected
       };
     }

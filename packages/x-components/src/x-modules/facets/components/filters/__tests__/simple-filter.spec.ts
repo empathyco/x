@@ -173,7 +173,7 @@ describe('testing SimpleFilter component', () => {
       expect.arrayContaining([
         'x-filter',
         'x-simple-filter',
-        'x-filter--is-selected',
+        'x-selected',
         'x-simple-filter--is-selected'
       ])
     );
@@ -188,12 +188,12 @@ describe('testing SimpleFilter component', () => {
   it('adds selected classes to the rendered element when the filter is selected', async () => {
     const { wrapper, selectFilter } = renderSimpleFilter();
 
-    expect(wrapper.classes()).not.toContain('x-filter--is-selected');
+    expect(wrapper.classes()).not.toContain('x-selected');
     expect(wrapper.classes()).not.toContain('x-simple-filter--is-selected');
 
     await selectFilter();
 
-    expect(wrapper.classes()).toContain('x-filter--is-selected');
+    expect(wrapper.classes()).toContain('x-selected');
     expect(wrapper.classes()).toContain('x-simple-filter--is-selected');
   });
 });

@@ -109,11 +109,11 @@ describe('testing Renderless Filter component', () => {
   it('adds selected classes to the rendered element when the filter is selected', async () => {
     const { wrapper, selectFilter } = renderComponent();
 
-    expect(wrapper.classes()).not.toContain('x-filter--is-selected');
+    expect(wrapper.classes()).not.toContain('x-selected');
 
     await selectFilter();
 
-    expect(wrapper.classes()).toContain('x-filter--is-selected');
+    expect(wrapper.classes()).toContain('x-selected');
   });
 
   it('disables the filter when it has no results', async () => {
@@ -126,7 +126,6 @@ describe('testing Renderless Filter component', () => {
     filter.totalResults = 0;
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.classes()).toContain('x-filter--is-disabled');
     expect(wrapper.attributes('disabled')).toBe('disabled');
   });
 });
@@ -136,8 +135,10 @@ interface RenderOptions {
   template?: string;
   /** The filter data. Passed as prop to the {@link RenderlessFilter} component. */
   filter?: BooleanFilter;
-  /** Additional events to emit when the filter is clicked.
-   * Passed as prop to the {@link RenderlessFilter} component. */
+  /**
+   * Additional events to emit when the filter is clicked.
+   * Passed as prop to the {@link RenderlessFilter} component.
+   */
   clickEvents?: Partial<XEventsTypes>;
 }
 

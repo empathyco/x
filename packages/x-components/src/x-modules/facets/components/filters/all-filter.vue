@@ -81,7 +81,7 @@
      */
     protected get cssClasses(): VueCSSClasses {
       return {
-        'x-filter--is-selected': this.isSelected,
+        'x-selected': this.isSelected,
         'x-all-filter--is-selected': this.isSelected
       };
     }
