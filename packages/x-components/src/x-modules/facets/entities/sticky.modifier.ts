@@ -11,7 +11,7 @@ interface Metadata {
 /**
  * Allows to persist a filter between different queries.
  *
- * @remarks when using this modifier along with others, make sure this is the last one defined.
+ * @remarks when using this modifier along with others, make sure this is the first one defined.
  *
  * @internal
  */
