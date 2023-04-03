@@ -6,7 +6,7 @@
     <ClearFilters />
     <SelectedFiltersList>
       <template #default="{ filter }">
-        <SimpleFilter :filter="filter" class="x-tag" />
+        <SimpleFilter :filter="filter" class="x-filter-success" />
       </template>
     </SelectedFiltersList>
 
@@ -22,7 +22,11 @@
           <!-- Filters -->
           <SlicedFilters max="4" :filters="facet.filters">
             <FiltersList v-slot="{ filter }">
-              <HierarchicalFilter :filter="filter" :data-test="`${facet.label}-filter`" />
+              <HierarchicalFilter
+                :filter="filter"
+                :data-test="`${facet.label}-filter`"
+                childrenFiltersClass="x-margin--left-05"
+              />
             </FiltersList>
           </SlicedFilters>
         </BaseHeaderTogglePanel>

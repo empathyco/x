@@ -37,12 +37,14 @@
       :filters="renderedChildrenFilters"
       :parent-id="filter.id"
       class="x-hierarchical-filter__children"
+      :class="childrenFiltersClass"
       data-test="children-filters"
     >
       <HierarchicalFilter
         :childrenAnimation="childrenAnimation"
         :filter="childFilter"
         :clickEvents="getChildFilterClickEvents(childFilter)"
+        :childrenFiltersClass="childrenFiltersClass"
       >
         <template #default="{ filter, clickFilter, cssClasses, isDisabled }">
           <slot v-bind="{ filter, clickFilter, cssClasses, isDisabled }" />
@@ -64,6 +66,7 @@
   import { isObject } from '@empathyco/x-utils';
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
+  import { dynamicPropsMixin } from '../../../../components/dynamic-props.mixin';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../../utils/types';
   import { XEventsTypes } from '../../../../wiring/events.types';
@@ -79,7 +82,7 @@
   @Component({
     name: 'HierarchicalFilter',
     components: { FiltersList, RenderlessFilter },
-    mixins: [xComponentMixin(facetsXModule)]
+    mixins: [xComponentMixin(facetsXModule), dynamicPropsMixin(['childrenFiltersClass'])]
   })
   export default class HierarchicalFilter extends Vue {
     /** The filter data to render. */
@@ -121,6 +124,7 @@
       return {
         'x-hierarchical-filter--is-partially-selected': this.isPartiallySelected,
         'x-hierarchical-filter--is-selected': this.filter.selected,
+        'x-selected': this.filter.selected,
         'x-filter--is-partially-selected': this.isPartiallySelected
       };
     }
@@ -320,6 +324,42 @@ In this example, the child filters will also include the label and checkbox.
       <span class="custom-class">{{ filter.label }}</span>
     </template>
   </HierarchicalFilter>
+</template>
+
+<script>
+  import { HierarchicalFilter } from '@empathyco/x-components/facets';
+
+  export default {
+    name: 'HierarchicalFilterTest',
+    components: {
+      HierarchicalFilter
+    },
+    date() {
+      return {
+        filter: {
+          id: `categories:men`,
+          modelName: 'HierarchicalFilter',
+          label: `men`,
+          facetId: 'categories',
+          parentId: null,
+          totalResults: 10,
+          children: [],
+          selected: false
+        }
+      };
+    }
+  };
+</script>
+```
+
+### Customizing the content with classes
+
+The `childrenFiltersClass` prop can be used to add classes to the inner filters lists. This is
+useful to set the indent of the children filters.
+
+```vue
+<template>
+  <HierarchicalFilter :filter="filter" childrenFiltersClass="x-custom-class" />
 </template>
 
 <script>

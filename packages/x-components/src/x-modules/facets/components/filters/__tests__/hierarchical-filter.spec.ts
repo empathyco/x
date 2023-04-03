@@ -1,4 +1,7 @@
-import { HierarchicalFilter as HierarchicalFilterModel } from '@empathyco/x-types';
+import {
+  HierarchicalFacet,
+  HierarchicalFilter as HierarchicalFilterModel
+} from '@empathyco/x-types';
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import { createHierarchicalFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
@@ -12,10 +15,12 @@ import { resetXFacetsStateWith } from '../../__tests__/utils';
 import HierarchicalFilter from '../hierarchical-filter.vue';
 
 function renderHierarchicalFilter({
-  template = `<HierarchicalFilter :filter="filter" :clickEvents="clickEvents" />`,
-  clickEvents
-}: HierarchicalFilterOptions = {}): HierarchicalFilterAPI {
-  const facet = createHierarchicalFacetStub('category', createFilter => [
+  template = `
+    <HierarchicalFilter
+      :filter="filter"
+      :clickEvents="clickEvents"
+      :childrenFiltersClass="childrenFiltersClass" />`,
+  facet = createHierarchicalFacetStub('category', createFilter => [
     // Partially selected
     createFilter('root', false, createFilter => [
       // Partially selected
@@ -25,8 +30,10 @@ function renderHierarchicalFilter({
       ]),
       createFilter('child-1', false) // Unselected
     ])
-  ]);
-
+  ]),
+  childrenFiltersClass = '',
+  clickEvents
+}: HierarchicalFilterOptions = {}): HierarchicalFilterAPI {
   const [, localVue] = installNewXPlugin({ initialXModules: [facetsXModule] });
   const emit = jest.spyOn(XPlugin.bus, 'emit');
   const store = XPlugin.store;
@@ -42,6 +49,11 @@ function renderHierarchicalFilter({
         clickEvents() {
           return clickEvents;
         }
+      },
+      data() {
+        return {
+          childrenFiltersClass
+        };
       }
     },
     {
@@ -476,12 +488,32 @@ describe('testing `HierarchicalFilter` component', () => {
         ])
       );
     });
+
+    it('allows adding classes to the inner filters lists', () => {
+      const { hierarchicalFilterWrapper } = renderHierarchicalFilter({
+        childrenFiltersClass: 'custom-class',
+        facet: createHierarchicalFacetStub('category', createFilter => [
+          createFilter('root', false, createFilter => [
+            createFilter('filter 1', true),
+            createFilter('filter 2', false, createFilter => [createFilter('filter 3', false)])
+          ])
+        ])
+      });
+
+      const wrappers = hierarchicalFilterWrapper.findAll(getDataTestSelector('children-filters'));
+      expect(wrappers).toHaveLength(2);
+
+      wrappers.wrappers.forEach(wrapper => {
+        expect(wrapper.classes('custom-class')).toBe(true);
+      });
+    });
   });
 });
 
 interface HierarchicalFilterOptions {
   clickEvents?: Partial<XEventsTypes>;
-  filter?: HierarchicalFilterModel;
+  facet?: HierarchicalFacet;
+  childrenFiltersClass?: string;
   template?: string;
 }
 
