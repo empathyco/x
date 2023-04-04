@@ -24,19 +24,20 @@ jobs:
         with:
           version: 7
 
-      - name: save pnpm store directory
-        id: pnpm-store-directory
+      - name: setup ENV variables
+        id: setup-env-vars
         shell: bash
         run: |
-          echo "PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+          echo "CYPRESS_CACHE_FOLDER=$CYPRESS_CACHE_FOLDER" >> $GITHUB_OUTPUT
+          echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: setup pnpm cache
         id: pnpm-cache
         uses: actions/cache@v3
         with:
           path: |
-            ${{ steps.pnpm-store-directory.outputs.PATH }}
-            ~/.cache/Cypress
+            ${{ steps.setup-env-vars.outputs.PNPM_STORE_PATH }}
+            ${{ steps.setup-env-vars.outputs.CYPRESS_CACHE_FOLDER }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
