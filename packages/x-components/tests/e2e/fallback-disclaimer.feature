@@ -19,6 +19,7 @@ Feature: Fallback disclaimer component
     Given a results API with no results
     When  waiting for search request intercept
     When  "<query2>" replaces current query
+    Then no results message is displayed
     Given a results API with a known response
     Then  url not contains parameter "filter"
     And   fallback disclaimer is displayed
