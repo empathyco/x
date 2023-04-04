@@ -49,4 +49,35 @@
   }
 </script>
 
-<docs lang="mdx"></docs>
+<docs lang="mdx">
+## Examples
+
+This default fallback disclaimer component reads the query from the search state and pass it to its
+default slot. This component will be rendered if there is a no results with filters situation.
+
+### Basic usage
+
+```vue
+<FallbackDisclaimer />
+```
+
+### Customizing its contents
+
+```vue
+<FallbackDisclaimer>
+  <template #default="{ query }">
+    No results found for '{{ query }}' with the selected filters. The filters have been unselected.'
+  </template>
+</FallbackDisclaimer>
+
+<script>
+  import { FallbackDisclaimer } from '@empathyco/x-components/search';
+
+  export default {
+    components: {
+      FallbackDisclaimer
+    }
+  };
+</script>
+```
+</docs>

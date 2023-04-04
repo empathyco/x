@@ -1,5 +1,6 @@
 export { default as Banner } from './banner.vue';
 export { default as BannersList } from './banners-list.vue';
+export { default as FallbackDisclaimer } from './fallback-disclaimer.vue';
 export { default as PartialQueryButton } from './partial-query-button.vue';
 export { default as PartialResultsList } from './partial-results-list.vue';
 export { default as Promoted } from './promoted.vue';

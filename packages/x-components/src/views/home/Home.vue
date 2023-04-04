@@ -428,7 +428,6 @@
   import NextQueriesList from '../../x-modules/next-queries/components/next-queries-list.vue';
   import NextQueries from '../../x-modules/next-queries/components/next-queries.vue';
   import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue';
-  import { NextQuery } from '../../x-modules/next-queries/index';
   import QueryPreviewList from '../../x-modules/queries-preview/components/query-preview-list.vue';
   import Recommendations from '../../x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from '../../x-modules/related-tags/components/related-tags.vue';
@@ -457,12 +456,12 @@
   import CloseMainModal from '../../components/modals/close-main-modal.vue';
   import { XProvide } from '../../components/decorators/injection.decorators';
   import { adapterConfig } from '../adapter';
+  import NextQuery from '../../x-modules/next-queries/components/next-query.vue';
   import FallbackDisclaimer from '../../x-modules/search/components/fallback-disclaimer.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
   import { HomeControls } from './types';
-  /* eslint-enable max-len */
 
   @Component({
     directives: {
