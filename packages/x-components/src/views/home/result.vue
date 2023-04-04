@@ -24,6 +24,9 @@
       </BaseResultRating>
       <BaseResultLink :result="result">
         <h1 class="x-text1 x-text1-lg" data-test="result-title">{{ result.name }}</h1>
+        <h1 class="x-text1 x-text1-lg" data-test="result-title">
+          {{ result.price.originalValue }}
+        </h1>
       </BaseResultLink>
     </div>
   </article>

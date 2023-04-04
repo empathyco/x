@@ -13,13 +13,13 @@ Vue.config.productionTip = false;
 FilterEntityFactory.instance.registerModifierByFacetId('age_facet', SingleSelectModifier);
 FilterEntityFactory.instance.registerModifierByFacetId(
   'brand_facet',
-  SingleSelectModifier,
-  StickyModifier
+  StickyModifier,
+  SingleSelectModifier
 );
 FilterEntityFactory.instance.registerModifierByFacetId(
   'price',
-  SingleSelectModifier,
-  StickyModifier
+  StickyModifier,
+  SingleSelectModifier
 );
 FilterEntityFactory.instance.registerModifierByFilterModelName(
   'HierarchicalFilter',

@@ -240,6 +240,8 @@
           </Redirection>
 
           <template v-if="!$x.redirections.length">
+            <FallbackDisclaimer class="x-message" />
+
             <!--  No Results Message  -->
             <div
               v-if="$x.noResults"
@@ -365,7 +367,6 @@
                 </PartialQueryButton>
               </template>
             </PartialResultsList>
-
             <!-- Recommendations -->
             <Recommendations v-if="!$x.query.search || $x.noResults" #layout="{ recommendations }">
               <BaseVariableColumnGrid
@@ -456,6 +457,7 @@
   import CloseMainModal from '../../components/modals/close-main-modal.vue';
   import { XProvide } from '../../components/decorators/injection.decorators';
   import { adapterConfig } from '../adapter';
+  import FallbackDisclaimer from '../../x-modules/search/components/fallback-disclaimer.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -467,6 +469,7 @@
       infiniteScroll
     },
     components: {
+      FallbackDisclaimer,
       QueryPreviewList,
       ArrowRight,
       Aside,
