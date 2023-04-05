@@ -9,7 +9,20 @@
   "packageRules": [
     {
       "matchPackageNames": ["@vue/test-utils"],
-      "groupName": null
+      "groupName": null,
+      "allowedVersions": "< 2"
+    },
+    {
+      "matchPackageNames": ["vue"],
+      "allowedVersions": "< 3"
+    },
+    {
+      "matchPackageNames": ["vue-router"],
+      "allowedVersions": "< 4"
+    },
+    {
+      "matchPackageNames": ["react monorepo"],
+      "allowedVersions": "< 17"
     }
   ]
 }
