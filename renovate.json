@@ -5,5 +5,11 @@
   "rebaseWhen": "behind-base-branch",
   "dependencyDashboard": true,
   "labels": ["dependencies"],
-  "schedule": ["after 5pm on tuesday"]
+  "schedule": ["after 5pm on tuesday"],
+  "packageRules": [
+    {
+      "matchPackageNames": ["@vue/test-utils"],
+      "groupName": null
+    }
+  ]
 }
