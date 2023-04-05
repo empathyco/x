@@ -33,7 +33,7 @@
       "allowedVersions": "< 17"
     },
     {
-      "matchPackageNames": ["@types/react*"],
+      "matchPackagePatterns": ["^@types/react*"],
       "allowedVersions": "< 17"
     }
   ]
