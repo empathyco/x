@@ -4,5 +4,6 @@
   "timezone": "Europe/Madrid",
   "rebaseWhen": "behind-base-branch",
   "dependencyDashboard": true,
-  "labels": ["dependencies"]
+  "labels": ["dependencies"],
+  "schedule": ["after 5pm on tuesday"]
 }
