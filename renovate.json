@@ -31,6 +31,10 @@
     {
       "extends": ["monorepo:react"],
       "allowedVersions": "< 17"
+    },
+    {
+      "matchPackageNames": ["@types/react*"],
+      "allowedVersions": "< 17"
     }
   ]
 }
