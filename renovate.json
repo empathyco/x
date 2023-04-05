@@ -25,6 +25,10 @@
       "allowedVersions": "< 4"
     },
     {
+      "matchPackageNames": ["vue-global-events"],
+      "allowedVersions": "< 2"
+    },
+    {
       "extends": ["monorepo:react"],
       "allowedVersions": "< 17"
     }
