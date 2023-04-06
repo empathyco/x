@@ -15,6 +15,10 @@ export const baseInstallXOptions: InstallXOptions = {
   adapter,
   xModules: {
     ...xModulesURLConfig,
-    facets: {}
+    facets: {
+      config: {
+        filtersForRequestStrategy: 'leaves-only'
+      }
+    }
   }
 };
