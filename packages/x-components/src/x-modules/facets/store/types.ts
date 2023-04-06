@@ -7,6 +7,8 @@ import { XActionContext, XStoreModule } from '../../../store';
  * @public
  */
 export interface FacetsState {
+  /** The current facets config {@link FacetsState.config}. */
+  config: FacetsConfig;
   /** The current query {@link FacetsState.query}. */
   query: string;
   /** Record of all available filters indexed by its id. */
@@ -29,6 +31,10 @@ export interface FacetsGetters {
    * List of all selected filters.
    */
   selectedFilters: Filter[];
+  /**
+   * List of all selected filters that conform to the filters for request strategy.
+   */
+  selectedFiltersForRequest: Filter[];
   /**
    * List of all selected filters grouped by their facet.
    */
@@ -101,6 +107,12 @@ export interface FacetsMutations {
    * @param facet - The facet to set in the store.
    */
   setFacet(facet: Facet): void;
+  /**
+   * Sets the {@link FacetsState.facets | facets} config.
+   *
+   * @param config - The new config.
+   */
+  setFacetsConfig(config: FacetsConfig): void;
 }
 
 /**
@@ -176,3 +188,20 @@ export interface MutateFilterPayload {
    */
   newFilterState: Partial<Filter>;
 }
+
+/**
+ * Configuration options for the {@link FacetsXModule}.
+ *
+ * @public
+ */
+export interface FacetsConfig {
+  /** The filter strategy to use when providing the selected filters for requests. */
+  filtersForRequestStrategy: FiltersForRequestStrategy;
+}
+
+/**
+ * Type for the filter strategy to use when providing the selected filters.
+ *
+ * @public
+ */
+export type FiltersForRequestStrategy = 'all' | 'leaves-only';

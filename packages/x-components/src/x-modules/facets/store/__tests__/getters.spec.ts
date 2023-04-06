@@ -12,7 +12,8 @@ import {
   createHierarchicalFilter,
   createNumberRangeFilter,
   createRawFilter,
-  createSimpleFilter
+  createSimpleFilter,
+  getHierarchicalFilterStub
 } from '../../../../__stubs__/filters-stubs.factory';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { arrayToObject } from '../../../../utils/array';
@@ -117,6 +118,118 @@ describe('testing facets module getters', () => {
       const store = createFacetsStore([createRawFilter('size:xl')]);
 
       expect(store.getters.selectedFilters).toEqual([store.state.filters['size:xl']]);
+    });
+  });
+
+  describe('selected filters for request getter', () => {
+    it('returns an empty array if there are no filters', () => {
+      const store = createFacetsStore([]);
+
+      expect(store.getters.selectedFiltersForRequest).toEqual([]);
+    });
+
+    it('returns an array containing the selected filters', () => {
+      const store = createFacetsStore([
+        createSimpleFilter('color', 'Red', false),
+        createSimpleFilter('color', 'Blue', true),
+        createHierarchicalFilter('category', 'Summer', false),
+        createHierarchicalFilter('category', 'Shorts', true),
+        createNumberRangeFilter('price', { min: 0, max: 25 }, false),
+        createNumberRangeFilter('price', { min: 25, max: 50 }, true),
+        createEditableNumberRangeFilter('age', { min: null, max: 5 }),
+        createEditableNumberRangeFilter('size', { min: null, max: null }),
+        createRawFilter('size:xl')
+      ]);
+
+      expect(store.getters.selectedFiltersForRequest).toHaveLength(5);
+      expect(store.getters.selectedFiltersForRequest).toEqual(
+        expect.arrayContaining([
+          store.state.filters['color:Blue'],
+          store.state.filters['category:Shorts'],
+          store.state.filters['price:25-50'],
+          store.state.filters['age:*-5'],
+          store.state.filters['size:xl']
+        ])
+      );
+    });
+
+    it('returns selected simple filters', () => {
+      const store = createFacetsStore([
+        createSimpleFilter('color', 'Red', false),
+        createSimpleFilter('color', 'Blue', true)
+      ]);
+
+      expect(store.getters.selectedFiltersForRequest).toHaveLength(1);
+      expect(store.getters.selectedFiltersForRequest).toEqual(
+        expect.arrayContaining([store.state.filters['color:Blue']])
+      );
+    });
+
+    it('returns selected hierarchical filters', () => {
+      const store = createFacetsStore([
+        createHierarchicalFilter('category', 'Summer', false),
+        createHierarchicalFilter('category', 'Shorts', true)
+      ]);
+
+      expect(store.getters.selectedFiltersForRequest).toHaveLength(1);
+      expect(store.getters.selectedFiltersForRequest).toEqual(
+        expect.arrayContaining([store.state.filters['category:Shorts']])
+      );
+    });
+
+    it('returns selected number range filters', () => {
+      const store = createFacetsStore([
+        createNumberRangeFilter('price', { min: 0, max: 25 }, false),
+        createNumberRangeFilter('price', { min: 25, max: 50 }, true)
+      ]);
+
+      expect(store.getters.selectedFiltersForRequest).toHaveLength(1);
+      expect.arrayContaining([store.state.filters['price:25-50']]);
+    });
+
+    it('returns selected editable number range filters', () => {
+      const store = createFacetsStore([
+        createEditableNumberRangeFilter('age', { min: null, max: 5 }),
+        createEditableNumberRangeFilter('size', { min: null, max: null })
+      ]);
+
+      expect(store.getters.selectedFiltersForRequest).toHaveLength(1);
+      expect(store.getters.selectedFiltersForRequest).toEqual(
+        expect.arrayContaining([store.state.filters['age:*-5']])
+      );
+    });
+
+    it('returns raw filters', () => {
+      const store = createFacetsStore([createRawFilter('size:xl')]);
+
+      expect(store.getters.selectedFiltersForRequest).toEqual([store.state.filters['size:xl']]);
+    });
+
+    // eslint-disable-next-line max-len
+    it("applying `leaves-only` strategy returns only filters that don't have children selected", () => {
+      const parentFilter = createHierarchicalFilter('parent', 'parent', true);
+      const childFilter = getHierarchicalFilterStub({
+        id: 'child',
+        label: 'child',
+        parentId: parentFilter.id,
+        selected: true
+      });
+      parentFilter.children = [childFilter];
+      const parentFilterWithoutChild = createHierarchicalFilter(
+        'parentWithoutChildren',
+        'parentWithoutChildren',
+        true
+      );
+
+      const store = createFacetsStore([parentFilter, childFilter, parentFilterWithoutChild], []);
+      store.commit('setFacetsConfig', {
+        filtersForRequestStrategy: 'leaves-only'
+      });
+
+      expect(store.getters.selectedFiltersForRequest).toEqual([
+        childFilter,
+        parentFilterWithoutChild
+      ]);
     });
   });
 

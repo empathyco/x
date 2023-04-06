@@ -6,7 +6,7 @@ import { FacetsXStoreModule } from '../types';
 /**
  * Default implementation for the {@link FacetsGetters.facets} getter.
  *
- * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the facets
+ * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the facets'
  * module.
  * @returns An array containing the facets with the filters.
  *

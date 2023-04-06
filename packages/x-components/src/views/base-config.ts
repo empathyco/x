@@ -14,6 +14,7 @@ const xModulesURLConfig = JSON.parse(new URL(location.href).searchParams.get('xM
 export const baseInstallXOptions: InstallXOptions = {
   adapter,
   xModules: {
-    ...xModulesURLConfig
+    ...xModulesURLConfig,
+    facets: {}
   }
 };

@@ -82,7 +82,7 @@ export const urlWiring = createWiring({
   SelectedRelatedTagsChanged: {
     setUrlRelatedTags
   },
-  SelectedFiltersChanged: {
+  SelectedFiltersForRequestChanged: {
     setUrlFilters
   },
   PageChanged: {

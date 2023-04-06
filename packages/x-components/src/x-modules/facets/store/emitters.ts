@@ -16,6 +16,13 @@ export const facetsEmitters = createStoreEmitters(facetsXStoreModule, {
       priority: 12
     }
   },
+  SelectedFiltersForRequestChanged: {
+    selector: (_, getters) => getters.selectedFiltersForRequest,
+    filter: areFiltersDifferent,
+    metadata: {
+      priority: 12
+    }
+  },
   FacetsQueryChanged: {
     selector: state => state.query,
     filter: isNewQuery
