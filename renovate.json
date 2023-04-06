@@ -29,6 +29,10 @@
       "allowedVersions": "< 2"
     },
     {
+      "matchPackageNames": ["vue-i18n"],
+      "allowedVersions": "< 9"
+    },
+    {
       "extends": ["monorepo:react"],
       "allowedVersions": "< 17"
     },
