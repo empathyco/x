@@ -10,10 +10,19 @@
       :style="section === 'Default' ? { width: '200px' } : ''"
       :disabled="section === 'Disabled'"
     >
-      <CheckIcon class="x-icon" :class="{ 'x-icon-lg': cssClass.includes('x-filter-lg') }" />
+      <CheckIcon
+        v-if="cssClass.includes('x-selected')"
+        class="x-icon"
+        :class="{ 'x-icon-lg': cssClass.includes('x-filter-lg') }"
+      />
+      <UncheckIcon
+        v-else
+        class="x-icon"
+        :class="{ 'x-icon-lg': cssClass.includes('x-filter-lg') }"
+      />
 
       <span v-if="section === 'Default'">very long default filter to test line wrap alignment</span>
-      <span v-else>Filter</span>
+      <span v-else>filter</span>
 
       <span
         v-if="section === 'Combinations'"
@@ -32,9 +41,10 @@
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
   import CheckIcon from './icons/check.vue';
+  import UncheckIcon from './icons/uncheck.vue';
 
   @Component({
-    components: { CheckIcon, XdsBaseShowcase }
+    components: { CheckIcon, XdsBaseShowcase, UncheckIcon }
   })
   export default class XdsFilterShowcase extends Vue {
     @Prop({ default: () => 'x-filter' })
