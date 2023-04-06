@@ -19,7 +19,6 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     facets: {},
     preselectedFilters: [],
     stickyFilters: {},
-    preselectedFilters: [],
     config: {
       filtersForRequestStrategy: 'all'
     }
