@@ -20,8 +20,7 @@ export function filterGhost(helpers: TailwindHelpers) {
       ...sizes.md,
       ...sizes,
       '&:hover': {
-        backgroundColor: theme('colors.neutral.10'),
-        color: theme('colors.neutral.90')
+        backgroundColor: theme('colors.neutral.10')
       },
       '&.selected': {
         fontWeight: theme('fontWeight.regular'),
