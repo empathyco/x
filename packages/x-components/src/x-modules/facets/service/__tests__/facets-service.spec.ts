@@ -28,6 +28,7 @@ import { flatHierarchicalFilters } from '../../utils';
 import { facetsXModule } from '../../x-module';
 import { DefaultFacetsService } from '../facets.service';
 import { FacetsService } from '../types';
+import { StickyModifier } from '../../entities/sticky.modifier';
 
 /**
  * Creates a fresh new {@link DefaultFacetsService} with some helpful test methods.
@@ -638,6 +639,31 @@ describe('testing facets service', () => {
       expect(
         areFiltersDifferent(getSelectedFilters(), [sizeSFilter, sizeMFilter, womenFilter])
       ).toBe(false);
+    });
+
+    it('sets a new Sticky facet', () => {
+      const filterEntityFactory = new FilterEntityFactory();
+      filterEntityFactory.registerModifierByFacetId('size', StickyModifier);
+      const { service, getSelectedFilters } = prepareFacetsService(filterEntityFactory);
+      const genderFacet = createSimpleFacetStub('gender', createFilter => [
+        createFilter('women', true),
+        createFilter('men')
+      ]);
+      const newSizeFacet = createSimpleFacetStub('size', createFilter => [
+        createFilter('s'),
+        createFilter('m', true)
+      ]);
+
+      service.setFacets({
+        id: 'test',
+        facets: [newSizeFacet, genderFacet]
+      });
+      expect(getSelectedFilters()).toHaveLength(2);
+      service.clearFiltersWithMetadata({ metadata: { keepSticky: true } });
+
+      expect(getSelectedFilters()).toEqual([newSizeFacet.filters[1]]);
+      service.clearFilters(undefined);
+      expect(getSelectedFilters()).toHaveLength(0);
     });
   });
 });

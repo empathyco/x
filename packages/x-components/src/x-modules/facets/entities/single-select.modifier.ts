@@ -20,7 +20,7 @@ export class SingleSelectModifier extends BaseFilterEntityModifier {
    * @param filter - The filter to select.
    */
   select(filter: FacetFilter): void {
-    this.getOtherFilters(filter).forEach(this.deselect.bind(this));
+    this.getOtherFilters(filter).forEach(filter => this.deselect.bind(this)(filter));
     this.entity.select(filter);
   }
 
