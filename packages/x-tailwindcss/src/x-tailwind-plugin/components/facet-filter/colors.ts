@@ -2,12 +2,12 @@ import { TailwindHelpers } from '../../../types';
 import { mapColors } from '../../utils/map-colors';
 
 /**
- * Returns the `colors` variants for component `filter`.
+ * Returns the `colors` variants for component `facet-filter`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the variant.
  */
-export function filterColors(helpers: TailwindHelpers) {
+export function facetFilterColors(helpers: TailwindHelpers) {
   return mapColors(
     color => ({
       '--filter-color-50': color['50'],

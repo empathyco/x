@@ -1,7 +1,7 @@
 <template>
   <XdsBaseShowcase
     #default="{ cssClass, copyCssClassesToClipboard, section }"
-    title="Filter"
+    title="Facet Filter"
     :sections="sections"
   >
     <button
@@ -13,12 +13,12 @@
       <CheckIcon
         v-if="cssClass.includes('x-selected')"
         class="x-icon"
-        :class="{ 'x-icon-lg': cssClass.includes('x-filter-lg') }"
+        :class="{ 'x-icon-lg': cssClass.includes('x-facet-filter-lg') }"
       />
       <UncheckIcon
         v-else
         class="x-icon"
-        :class="{ 'x-icon-lg': cssClass.includes('x-filter-lg') }"
+        :class="{ 'x-icon-lg': cssClass.includes('x-facet-filter-lg') }"
       />
 
       <span v-if="section === 'Default'">very long default filter to test line wrap alignment</span>
@@ -46,41 +46,41 @@
   @Component({
     components: { CheckIcon, XdsBaseShowcase, UncheckIcon }
   })
-  export default class XdsFilterShowcase extends Vue {
-    @Prop({ default: () => 'x-filter' })
+  export default class XdsFacetFilterShowcase extends Vue {
+    @Prop({ default: () => 'x-facet-filter' })
     public base!: string;
 
-    @Prop({ default: () => ['x-filter-sm', 'x-filter-md', 'x-filter-lg'] })
+    @Prop({ default: () => ['x-facet-filter-sm', 'x-facet-filter-md', 'x-facet-filter-lg'] })
     public sizes!: string[];
 
     @Prop({ default: () => 'x-selected' })
     public selected!: string;
 
-    @Prop({ default: () => 'x-filter-underline' })
+    @Prop({ default: () => 'x-facet-filter-underline' })
     public underline!: string;
 
-    @Prop({ default: () => 'x-filter-ghost' })
+    @Prop({ default: () => 'x-facet-filter-ghost' })
     public ghost!: string;
 
     @Prop({
       default: () => [
         '',
-        'x-filter-neutral',
-        'x-filter-lead',
-        'x-filter-auxiliary',
-        'x-filter-accent',
-        'x-filter-highlight',
-        'x-filter-success',
-        'x-filter-warning',
-        'x-filter-error'
+        'x-facet-filter-neutral',
+        'x-facet-filter-lead',
+        'x-facet-filter-auxiliary',
+        'x-facet-filter-accent',
+        'x-facet-filter-highlight',
+        'x-facet-filter-success',
+        'x-facet-filter-warning',
+        'x-facet-filter-error'
       ]
     })
     public colors!: string[];
 
     @Prop({
       default: () => [
-        'x-filter-ghost x-filter-lg x-filter-warning x-selected',
-        'x-filter-ghost x-filter-success x-filter-underline x-selected'
+        'x-facet-filter-ghost x-facet-filter-lg x-facet-filter-warning x-selected',
+        'x-facet-filter-ghost x-facet-filter-success x-facet-filter-underline x-selected'
       ]
     })
     public combinations!: string[];

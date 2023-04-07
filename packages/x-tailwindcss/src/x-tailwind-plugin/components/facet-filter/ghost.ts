@@ -1,12 +1,12 @@
 import { TailwindHelpers } from '../../../types';
 
 /**
- * Returns the `ghost` variant for component `filter`.
+ * Returns the `ghost` variant for component `facet-filter`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the variant.
  */
-export function filterGhost(helpers: TailwindHelpers) {
+export function facetFilterGhost(helpers: TailwindHelpers) {
   const { theme } = helpers;
 
   const sizes = {

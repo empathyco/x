@@ -1,14 +1,14 @@
 import { TailwindHelpers } from '../../../types';
 import { alignIconWithBaseline } from '../icon/utils/align-icon-with-baseline';
-import { filterSizes } from './sizes';
+import { facetFilterSizes } from './sizes';
 
 /**
- * Returns the default styles for component `filter`.
+ * Returns the default styles for component `facet-filter`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function filterDefault(helpers: TailwindHelpers) {
+export function facetFilterDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
 
   return {
@@ -30,7 +30,7 @@ export function filterDefault(helpers: TailwindHelpers) {
 
     color: theme('colors.neutral.90'),
 
-    ...filterSizes(helpers).md,
+    ...facetFilterSizes(helpers).md,
     ...alignIconWithBaseline(),
 
     '&:hover,&.selected': {

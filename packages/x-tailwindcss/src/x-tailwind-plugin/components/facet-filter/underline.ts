@@ -1,12 +1,12 @@
 import { TailwindHelpers } from '../../../types';
 
 /**
- * Returns the `underline` variant for component `filter`.
+ * Returns the `underline` variant for component `facet-filter`.
  *
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the variant.
  */
-export function filterUnderline(helpers: TailwindHelpers) {
+export function facetFilterUnderline(helpers: TailwindHelpers) {
   const { theme } = helpers;
 
   return {
