@@ -215,7 +215,7 @@ export interface MutateFilterPayload {
  */
 export interface FacetsConfig {
   /** The filter strategy to use when providing the selected filters for requests. */
-  filtersForRequestStrategy: FiltersForRequestStrategy;
+  filtersStrategyForRequest: filtersStrategyForRequest;
 }
 
 /**
@@ -223,4 +223,4 @@ export interface FacetsConfig {
  *
  * @public
  */
-export type FiltersForRequestStrategy = 'all' | 'leaves-only';
+export type filtersStrategyForRequest = 'all' | 'leaves-only';

@@ -15,7 +15,7 @@ export const selectedFiltersForRequest: FacetsXStoreModule['getters']['selectedF
   state => {
     const selectedFilters = Object.values(state.filters).filter(filter => filter.selected);
 
-    if (state.config.filtersForRequestStrategy === 'leaves-only') {
+    if (state.config.filtersStrategyForRequest === 'leaves-only') {
       return selectedFilters.filter((filter, _, filters) => {
         if (isHierarchicalFilter(filter)) {
           const childrenIds = filter.children?.map(child => child.id);

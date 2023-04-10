@@ -17,7 +17,7 @@ export const baseInstallXOptions: InstallXOptions = {
     ...xModulesURLConfig,
     facets: {
       config: {
-        filtersForRequestStrategy: 'leaves-only'
+        filtersStrategyForRequest: 'leaves-only'
       }
     }
   }
