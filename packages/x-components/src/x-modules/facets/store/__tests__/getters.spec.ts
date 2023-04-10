@@ -240,7 +240,7 @@ describe('testing facets module getters', () => {
 
       const store = createFacetsStore([parentFilter, childFilter, parentFilterWithoutChild], []);
       store.commit('setFacetsConfig', {
-        filtersForRequestStrategy: 'leaves-only'
+        filtersStrategyForRequest: 'leaves-only'
       });
 
       expect(store.getters.selectedFiltersForRequest).toEqual([
