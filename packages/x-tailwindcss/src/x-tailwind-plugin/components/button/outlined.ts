@@ -10,19 +10,13 @@ export function buttonOutlined(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     outlined: {
-      borderColor: 'var(--button-color-50)',
+      borderColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
       backgroundColor: theme('colors.neutral.0'),
-      color: 'var(--button-color-50)',
+      color: `var(--button-color-50,${theme('colors.neutral.90')})`,
 
-      '&:hover': {
-        borderColor: 'var(--button-color-50)',
-        backgroundColor: 'var(--button-color-50)',
-        color: theme('colors.neutral.0')
-      },
-
-      '&:active': {
-        borderColor: 'var(--button-color-50)',
-        backgroundColor: 'var(--button-color-50)',
+      '&:hover,&:active': {
+        borderColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
+        backgroundColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
         color: theme('colors.neutral.0')
       },
 

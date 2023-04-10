@@ -11,18 +11,18 @@ export function noBackground(helpers: TailwindHelpers) {
   return {
     borderColor: 'transparent',
     backgroundColor: 'transparent',
-    color: 'var(--button-color-50)',
+    color: `var(--button-color-50,${theme('colors.neutral.90')})`,
 
     '&:hover': {
       borderColor: 'transparent',
       backgroundColor: 'transparent',
-      color: 'var(--button-color-75)'
+      color: `var(--button-color-75,${theme('colors.neutral.100')})`
     },
 
     '&:active': {
       borderColor: 'transparent',
       backgroundColor: 'transparent',
-      color: 'var(--button-color-75)'
+      color: `var(--button-color-75,${theme('colors.neutral.100')})`
     },
 
     '&:disabled': {

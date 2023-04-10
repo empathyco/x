@@ -10,5 +10,13 @@ import { noBackground } from './utils/no-background';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function buttonGhost(helpers: TailwindHelpers) {
-  return { ghost: deepMerge(noBackground(helpers), backgroundOnHover(helpers)) };
+  const { theme } = helpers;
+  return {
+    ghost: deepMerge(noBackground(helpers), backgroundOnHover(helpers), {
+      '&:active': {
+        borderColor: theme('colors.neutral.25'),
+        backgroundColor: theme('colors.neutral.25')
+      }
+    })
+  };
 }
