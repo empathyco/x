@@ -19,7 +19,7 @@
     <XdsLayoutTwoColumns />
     <XdsTag />
     <XdsBadge />
-    <XdsFilter />
+    <XdsFacetFilter />
   </div>
 </template>
 <script lang="ts">
@@ -28,7 +28,7 @@
   import XdsBadge from './xds-badge.vue';
   import XdsButton from './xds-button.vue';
   import XdsButtonGroup from './xds-button-group.vue';
-  import XdsFilter from './xds-filter.vue';
+  import XdsFacetFilter from './xds-facet-filter.vue';
   import XdsHighlight from './xds-highlight.vue';
   import XdsIcon from './xds-icon.vue';
   import XdsInputGroup from './xds-input-group.vue';
@@ -67,7 +67,7 @@
       XdsPicture,
       XdsLayoutUtils,
       XdsTag,
-      XdsFilter
+      XdsFacetFilter
     }
   })
   export default class XdsShowcase extends Vue {}

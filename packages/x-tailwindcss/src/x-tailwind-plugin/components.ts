@@ -17,7 +17,7 @@ import { scroll } from './components/scroll';
 import { tag } from './components/tag';
 import { badge } from './components/badge';
 import { attach } from './components/attach';
-import { filter } from './components/filter/index';
+import { facetFilter } from './components/facet-filter';
 
 /**
  * Default component styles.
@@ -47,7 +47,7 @@ export default function components(helpers: TailwindHelpers) {
     ...scroll(helpers),
     ...tag(helpers),
     ...badge(helpers),
-    ...filter(helpers),
+    ...facetFilter(helpers),
     ...attach(helpers)
   };
 }
