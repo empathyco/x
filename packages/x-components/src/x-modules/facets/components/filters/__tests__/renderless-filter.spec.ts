@@ -120,7 +120,6 @@ describe('testing Renderless Filter component', () => {
     const filter = createSimpleFilter('category', 'men', false);
     const { wrapper } = renderComponent({ filter });
 
-    expect(wrapper.classes()).not.toContain('x-filter--is-disabled');
     expect(wrapper.attributes('disabled')).toBeUndefined();
 
     filter.totalResults = 0;

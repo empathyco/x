@@ -71,7 +71,7 @@
      * @internal
      */
     protected get cssClasses(): VueCSSClasses {
-      return ['x-filter', { 'x-selected': this.filter.selected }];
+      return ['x-facet-filter', { 'x-selected': this.filter.selected }];
     }
 
     render(h: CreateElement): VNode {

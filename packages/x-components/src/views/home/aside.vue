@@ -6,7 +6,7 @@
     <ClearFilters />
     <SelectedFiltersList>
       <template #default="{ filter }">
-        <SimpleFilter :filter="filter" class="x-filter-success" />
+        <SimpleFilter :filter="filter" class="x-facet-filter-success" />
       </template>
     </SelectedFiltersList>
 

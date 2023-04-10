@@ -9,7 +9,7 @@
       <button
         v-if="showMoreFilters"
         @click="toggleShowMoreFilters"
-        class="x-filter x-sliced-filters__button x-sliced-filters__button--show-more"
+        class="x-facet-filter x-sliced-filters__button x-sliced-filters__button--show-more"
         data-test="sliced-filters-show-more-button"
       >
         <!--
@@ -25,7 +25,7 @@
       <button
         v-else
         @click="toggleShowMoreFilters"
-        class="x-filter x-sliced-filters__button x-sliced-filters__button--show-less"
+        class="x-facet-filter x-sliced-filters__button x-sliced-filters__button--show-less"
         data-test="sliced-filters-show-less-button"
       >
         <!--
@@ -62,10 +62,11 @@
     mixins: [xComponentMixin(facetsXModule)]
   })
   export default class SlicedFilters extends mixins(FiltersInjectionMixin) {
-    /** The maximum number of filters to show.
+    /**
+     * The maximum number of filters to show.
      *
      * @public
-     * */
+     */
     @Prop({ required: true })
     protected max!: number;
 

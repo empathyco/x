@@ -161,7 +161,7 @@ describe('testing SimpleFilter component', () => {
 
     expect(buttonWrapper.classes()).toHaveLength(2);
     expect(buttonWrapper.classes()).toEqual(
-      expect.arrayContaining(['x-filter', 'x-simple-filter'])
+      expect.arrayContaining(['x-facet-filter', 'x-simple-filter'])
     );
     expect(buttonWrapper.attributes()).toHaveProperty('aria-checked', 'false');
     expect(buttonWrapper.element).toHaveProperty('disabled', false);
@@ -171,7 +171,7 @@ describe('testing SimpleFilter component', () => {
     expect(buttonWrapper.classes()).toHaveLength(4);
     expect(buttonWrapper.classes()).toEqual(
       expect.arrayContaining([
-        'x-filter',
+        'x-facet-filter',
         'x-simple-filter',
         'x-selected',
         'x-simple-filter--is-selected'
