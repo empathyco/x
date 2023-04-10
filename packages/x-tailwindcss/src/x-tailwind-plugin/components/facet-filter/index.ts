@@ -4,6 +4,7 @@ import { TailwindHelpers } from '../../../types';
 import { facetFilterColors } from './colors';
 import { facetFilterDefault } from './default';
 import { facetFilterGhost } from './ghost';
+import { facetFilterSimple } from './simple';
 import { facetFilterSizes } from './sizes';
 import { facetFilterUnderline } from './underline';
 
@@ -22,7 +23,8 @@ export function facetFilter(helpers: TailwindHelpers) {
           ...facetFilterSizes(helpers),
           ...facetFilterColors(helpers),
           ...facetFilterUnderline(helpers),
-          ...facetFilterGhost(helpers)
+          ...facetFilterGhost(helpers),
+          ...facetFilterSimple(helpers)
         },
         { prefix: '&-' }
       )

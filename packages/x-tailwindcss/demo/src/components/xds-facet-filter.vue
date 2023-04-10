@@ -62,6 +62,9 @@
     @Prop({ default: () => 'x-facet-filter-ghost' })
     public ghost!: string;
 
+    @Prop({ default: () => 'x-facet-filter-simple' })
+    public simple!: string;
+
     @Prop({
       default: () => [
         '',
@@ -97,10 +100,13 @@
         ),
         Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
         'Selected Ghost': this.colors.map(addParentClasses(this.base, this.ghost, this.selected)),
+        Simple: this.colors.map(addParentClasses(this.base, this.simple)),
+        'Selected Simple': this.colors.map(addParentClasses(this.base, this.simple, this.selected)),
         Disabled: [
           this.base,
           addParentClasses(this.base)(this.selected),
-          addParentClasses(this.base)(this.ghost)
+          addParentClasses(this.base)(this.ghost),
+          addParentClasses(this.base)(this.simple)
         ],
         Combinations: this.combinations.map(addParentClasses(this.base))
       };
