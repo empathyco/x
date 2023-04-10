@@ -1,5 +1,4 @@
 import { TailwindHelpers } from '../../../types';
-import { buttonColors } from './colors';
 import { buttonSizes } from './sizes';
 
 /**
@@ -27,7 +26,23 @@ export function buttonDefault(helpers: TailwindHelpers) {
     lineHeight: theme('lineHeight.sm'),
 
     cursor: 'pointer',
-    ...buttonColors(helpers).neutral,
+
+    backgroundColor: theme('colors.neutral.90'),
+    borderColor: theme('colors.neutral.90'),
+    color: theme('colors.neutral.0'),
+
+    '&:hover,&:active': {
+      backgroundColor: `var(--button-color-75,${theme('colors.neutral.100')})`,
+      borderColor: `var(--button-color-75,${theme('colors.neutral.100')})`,
+      color: theme('colors.neutral.0')
+    },
+
+    '&:disabled': {
+      borderColor: theme('colors.neutral.10'),
+      backgroundColor: theme('colors.neutral.10'),
+      color: theme('colors.neutral.25')
+    },
+
     ...buttonSizes(helpers).md
   };
 }

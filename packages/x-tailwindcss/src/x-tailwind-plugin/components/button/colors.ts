@@ -16,25 +16,7 @@ export function buttonColors(helpers: TailwindHelpers) {
       '--button-color-75': color['75'],
       borderColor: 'var(--button-color-50)',
       backgroundColor: 'var(--button-color-50)',
-      color: theme('colors.neutral.0'),
-
-      '&:hover': {
-        backgroundColor: 'var(--button-color-75)',
-        borderColor: 'var(--button-color-75)',
-        color: theme('colors.neutral.0')
-      },
-
-      '&:active': {
-        borderColor: 'var(--button-color-75)',
-        backgroundColor: 'var(--button-color-75)',
-        color: theme('colors.neutral.0')
-      },
-
-      '&:disabled': {
-        borderColor: theme('colors.neutral.10'),
-        backgroundColor: theme('colors.neutral.10'),
-        color: theme('colors.neutral.25')
-      }
+      color: theme('colors.neutral.0')
     }),
     helpers
   );
