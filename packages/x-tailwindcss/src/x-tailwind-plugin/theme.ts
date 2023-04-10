@@ -96,7 +96,7 @@ export default {
     full: '100vw'
   },
   letterSpacing: {
-    xs: '0,025em',
+    xs: '0.025em',
     sm: '-0.01em',
     md: '0',
     lg: '0.04em'
