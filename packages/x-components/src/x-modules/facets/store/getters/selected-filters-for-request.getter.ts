@@ -11,18 +11,21 @@ import { FacetsXStoreModule } from '../types';
  *
  * @public
  */
-export const selectedFiltersForRequest: FacetsXStoreModule['getters']['selectedFilters'] = state =>
-  Object.values(state.filters)
-    .filter(filter => filter.selected)
-    .filter((filter, _, filters) => {
-      if (
-        state.config.filtersForRequestStrategy === 'leaves-only' &&
-        isHierarchicalFilter(filter)
-      ) {
-        const childrenIds = filter.children?.map(child => child.id);
+export const selectedFiltersForRequest: FacetsXStoreModule['getters']['selectedFiltersForRequest'] =
+  state => {
+    const selectedFilters = Object.values(state.filters).filter(filter => filter.selected);
 
-        return !filters.some(newFilter => childrenIds?.includes(newFilter.id));
-      }
+    if (state.config.filtersForRequestStrategy === 'leaves-only') {
+      return selectedFilters.filter((filter, _, filters) => {
+        if (isHierarchicalFilter(filter)) {
+          const childrenIds = filter.children?.map(child => child.id);
 
-      return true;
-    });
+          return !filters.some(newFilter => childrenIds?.includes(newFilter.id));
+        }
+
+        return true;
+      });
+    }
+
+    return selectedFilters;
+  };
