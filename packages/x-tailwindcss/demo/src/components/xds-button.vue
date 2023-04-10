@@ -13,7 +13,7 @@
     >
       <CuratedIcon class="x-icon" />
       <span v-if="!cssClass.includes('circle') && !cssClass.includes('square')">
-        {{ removeClassPrefix(cssClass, base) || 'button' }}
+        {{ removeClassPrefix(cssClass, base) }} button
       </span>
     </button>
   </XdsBaseShowcase>
@@ -39,6 +39,7 @@
     public sizes!: string[];
     @Prop({
       default: () => [
+        '',
         'x-button-neutral',
         'x-button-lead',
         'x-button-auxiliary',
