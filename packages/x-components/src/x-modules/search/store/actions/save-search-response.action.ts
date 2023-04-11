@@ -23,13 +23,12 @@ export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchRespon
     queryTagging
   }
 ) => {
-  if (state.isAppendResults) {
-    commit('appendResults', results);
-  } else {
-    commit('setResults', results);
-    commit('setBanners', banners ?? []);
-    commit('setPromoteds', promoteds ?? []);
-    commit('setRedirections', redirections ?? []);
+  if (state.isNoResultsWithFilters && state.results.length) {
+    commit('setIsNoResultsWithFilters', false);
+  }
+
+  if (results.length || partialResults?.length) {
+    commit('setIsNoResults', false);
   }
 
   if (results.length === 0) {
@@ -38,9 +37,15 @@ export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchRespon
     } else {
       commit('setIsNoResults', true);
     }
+  }
+
+  if (state.isAppendResults) {
+    commit('appendResults', results);
   } else {
-    commit('setIsNoResultsWithFilters', false);
-    commit('setIsNoResults', false);
+    commit('setResults', results);
+    commit('setBanners', banners ?? []);
+    commit('setPromoteds', promoteds ?? []);
+    commit('setRedirections', redirections ?? []);
   }
 
   commit('setPartialResults', partialResults ?? []);
