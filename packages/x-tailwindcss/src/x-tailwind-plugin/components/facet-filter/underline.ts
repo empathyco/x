@@ -15,7 +15,8 @@ export function facetFilterUnderline(helpers: TailwindHelpers) {
         borderColor: 'currentColor'
       },
       '&.selected': {
-        fontWeight: theme('fontWeight.regular')
+        fontWeight: theme('fontWeight.regular'),
+        letterSpacing: theme('letterSpacing.md')
       }
     }
   };

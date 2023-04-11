@@ -17,6 +17,7 @@ export function facetFilterSimple(helpers: TailwindHelpers) {
       },
       '&.selected': {
         fontWeight: theme('fontWeight.regular'),
+        letterSpacing: theme('letterSpacing.md'),
 
         '&:hover': {
           color: `var(--filter-color-50, ${theme('colors.neutral.50')})`
