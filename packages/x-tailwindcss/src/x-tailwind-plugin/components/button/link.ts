@@ -33,6 +33,10 @@ export function buttonLink(helpers: TailwindHelpers) {
           borderColor: 'transparent',
           backgroundColor: 'transparent',
           color: `var(--button-color-50,${theme('colors.neutral.90')})`
+        },
+
+        '&:disabled': {
+          fontWeight: 'inherit'
         }
       }
     }

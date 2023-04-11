@@ -36,6 +36,8 @@ export function buttonDefault(helpers: TailwindHelpers) {
       borderColor: `var(--button-color-75,${theme('colors.neutral.100')})`
     },
 
+    ...buttonSizes(helpers).md,
+
     '&.selected': {
       backgroundColor: `var(--button-color-75,${theme('colors.neutral.100')})`,
       borderColor: `var(--button-color-75,${theme('colors.neutral.100')})`,
@@ -44,14 +46,6 @@ export function buttonDefault(helpers: TailwindHelpers) {
         backgroundColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
         borderColor: `var(--button-color-50,${theme('colors.neutral.90')})`
       }
-    },
-
-    '&:disabled': {
-      borderColor: theme('colors.neutral.10'),
-      backgroundColor: theme('colors.neutral.10'),
-      color: theme('colors.neutral.25')
-    },
-
-    ...buttonSizes(helpers).md
+    }
   };
 }

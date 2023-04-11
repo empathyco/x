@@ -10,6 +10,9 @@ export function buttonOutlined(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     outlined: {
+      // Disabled style
+      '--button-disabled-border-color': theme('colors.neutral.25'),
+
       borderColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
       backgroundColor: theme('colors.neutral.0'),
       color: `var(--button-color-50,${theme('colors.neutral.90')})`,
@@ -29,12 +32,6 @@ export function buttonOutlined(helpers: TailwindHelpers) {
           backgroundColor: theme('colors.neutral.0'),
           color: `var(--button-color-50,${theme('colors.neutral.90')})`
         }
-      },
-
-      '&:disabled': {
-        borderColor: theme('colors.neutral.25'),
-        backgroundColor: theme('colors.neutral.10'),
-        color: theme('colors.neutral.25')
       }
     }
   };
