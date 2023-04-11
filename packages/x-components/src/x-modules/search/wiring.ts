@@ -208,7 +208,7 @@ export const searchWiring = createWiring({
   SelectedRelatedTagsChanged: {
     setRelatedTags
   },
-  SelectedFiltersChanged: {
+  SelectedFiltersForRequestChanged: {
     setSelectedFilters
   },
   ResultsChanged: {
