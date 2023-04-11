@@ -61,6 +61,7 @@ export default class ScrollMixin extends Vue {
       'SearchBoxQueryChanged',
       'SortChanged',
       'SelectedFiltersChanged',
+      'SelectedFiltersForRequestChanged',
       'SelectedRelatedTagsChanged',
       'UserChangedExtraParams'
     ]
