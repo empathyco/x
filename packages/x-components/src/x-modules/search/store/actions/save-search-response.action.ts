@@ -27,7 +27,7 @@ export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchRespon
     commit('setIsNoResultsWithFilters', false);
   }
 
-  if (results.length || partialResults?.length) {
+  if (results.length) {
     commit('setIsNoResults', false);
   }
 
