@@ -31,6 +31,7 @@ export const searchXStoreModule: SearchXStoreModule = {
       pageSize: 24
     },
     status: 'initial',
+    isNoResults: false,
     isNoResultsWithFilters: false
   }),
   getters: {
@@ -85,6 +86,9 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setIsAppendResults(state, isAppendResults) {
       state.isAppendResults = isAppendResults;
+    },
+    setIsNoResults(state, isNoResults) {
+      state.isNoResults = isNoResults;
     },
     setIsNoResultsWithFilters(state, isNoResultsWithFilters) {
       state.isNoResultsWithFilters = isNoResultsWithFilters;

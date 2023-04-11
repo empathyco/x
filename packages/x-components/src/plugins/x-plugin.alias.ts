@@ -74,6 +74,12 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
     get isHistoryQueriesEnabled() {
       return component.$store.state.x.historyQueries?.isEnabled ?? false;
     },
+    get isNoResults() {
+      return component.$store.state.x.search.isNoResults ?? false;
+    },
+    get isNoResultsWithFilters() {
+      return component.$store.state.x.search?.isNoResultsWithFilters ?? false;
+    },
     get identifierResults() {
       return component.$store.state.x.identifierResults?.identifierResults ?? [];
     },

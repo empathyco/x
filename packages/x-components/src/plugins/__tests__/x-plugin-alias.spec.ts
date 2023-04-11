@@ -59,6 +59,8 @@ describe('testing plugin alias', () => {
       historyQueriesWithResults: [],
       fullHistoryQueries: [],
       isHistoryQueriesEnabled: false,
+      isNoResults: false,
+      isNoResultsWithFilters: false,
       identifierResults: [],
       searchBoxStatus: undefined,
       isEmpathizeOpen: false,

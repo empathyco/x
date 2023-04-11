@@ -10,7 +10,7 @@ import { SearchXStoreModule } from '../types';
  * @public
  */
 export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchResponse'] = (
-  { commit, state },
+  { commit, state, getters },
   {
     results,
     partialResults,
@@ -30,6 +30,17 @@ export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchRespon
     commit('setBanners', banners ?? []);
     commit('setPromoteds', promoteds ?? []);
     commit('setRedirections', redirections ?? []);
+  }
+
+  if (results.length === 0) {
+    if (getters.request && Object.keys(getters.request.filters!).length > 0) {
+      commit('setIsNoResultsWithFilters', true);
+    } else {
+      commit('setIsNoResults', true);
+    }
+  } else {
+    commit('setIsNoResultsWithFilters', false);
+    commit('setIsNoResults', false);
   }
 
   commit('setPartialResults', partialResults ?? []);

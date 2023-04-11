@@ -1,9 +1,4 @@
-import {
-  filter,
-  filterTruthyPayload,
-  namespacedWireCommitWithoutPayload,
-  XEventPayload
-} from '../../wiring';
+import { filterTruthyPayload, namespacedWireCommitWithoutPayload } from '../../wiring';
 import {
   namespacedWireCommit,
   namespacedWireDispatch,
@@ -11,7 +6,7 @@ import {
 } from '../../wiring/namespaced-wires.factory';
 import { WirePayload } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
-import { InternalSearchRequest, InternalSearchResponse } from './types';
+import { InternalSearchRequest } from './types';
 
 /**
  * `search` {@link XModuleName | XModule name}.
@@ -134,24 +129,6 @@ export const setSearchPage = wireCommit('setPage');
 export const setSearchExtraParams = wireCommit('setParams');
 
 /**
- * Sets the search state `isNoResultsWithFilters` when the request has selected filters
- * and the total results are 0.
- *
- * @public
- */
-export const setIsNoResultsWithFilters = filter<XEventPayload<'SearchResponseChanged'>>(
-  wireCommit('setIsNoResultsWithFilters', true),
-  ({ eventPayload, metadata }) => {
-    const oldResponse = metadata.oldValue as InternalSearchResponse;
-    return (
-      oldResponse.totalResults > 0 &&
-      eventPayload.totalResults === 0 &&
-      Object.keys(eventPayload.request.filters!).length > 0
-    );
-  }
-);
-
-/**
  * Resets the search state `isNoResultsWithFilters`.
  *
  * @public
@@ -210,16 +187,14 @@ export const searchWiring = createWiring({
   },
   UserAcceptedAQuery: {
     setSearchQuery,
-    saveOriginWire,
-    resetIsNoResultsWithFilters
+    saveOriginWire
   },
   UserAcceptedSpellcheckQuery: {
     resetSpellcheckQuery
   },
   UserClearedQuery: {
     setSearchQuery,
-    cancelFetchAndSaveSearchResponseWire,
-    resetIsNoResultsWithFilters
+    cancelFetchAndSaveSearchResponseWire
   },
   UserClickedASort: {
     setSort
@@ -236,9 +211,6 @@ export const searchWiring = createWiring({
   },
   SearchRequestChanged: {
     resetRequestOnRefinementWire
-  },
-  SearchResponseChanged: {
-    setIsNoResultsWithFilters
   },
   SelectedRelatedTagsChanged: {
     setRelatedTags

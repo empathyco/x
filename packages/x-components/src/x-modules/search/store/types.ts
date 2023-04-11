@@ -35,6 +35,8 @@ export interface SearchState extends StatusState, QueryState {
   facets: Facet[];
   /** A flag to indicate if new results are append to the current instead of replacing them. */
   isAppendResults: boolean;
+  /** Flag indicating if there is a no results situation */
+  isNoResults: boolean;
   /** Flag indicating if there is a no results situation with filters selected */
   isNoResultsWithFilters: boolean;
   /** The origin property of the request. */
@@ -120,6 +122,12 @@ export interface SearchMutations extends StatusMutations, QueryMutations {
    * @param isAppendResults - The new flag value.
    */
   setIsAppendResults(isAppendResults: boolean): void;
+  /**
+   * Sets the `isNoResults` flag value.
+   *
+   * @param isNoResults - The new flag value.
+   */
+  setIsNoResults(isNoResults: boolean): void;
   /**
    * Sets the `isNoResultsWithFilters` flag value.
    *
