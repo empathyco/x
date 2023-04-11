@@ -20,6 +20,17 @@ export function buttonOutlined(helpers: TailwindHelpers) {
         color: theme('colors.neutral.0')
       },
 
+      '&.selected': {
+        borderColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
+        backgroundColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
+        color: theme('colors.neutral.0'),
+
+        '&:hover,&:active': {
+          backgroundColor: theme('colors.neutral.0'),
+          color: `var(--button-color-50,${theme('colors.neutral.90')})`
+        }
+      },
+
       '&:disabled': {
         borderColor: theme('colors.neutral.25'),
         backgroundColor: theme('colors.neutral.10'),

@@ -67,6 +67,9 @@
     @Prop({ default: () => ['x-button-link'] })
     public link!: string;
 
+    @Prop({ default: () => ['x-selected'] })
+    public selected!: string;
+
     @Prop({
       default: () => [
         'x-button-lead x-button-sm',
@@ -80,19 +83,31 @@
     protected get sections(): ShowcaseSections {
       return {
         Default: [this.base],
-        Colors: this.colors.map(addParentClasses(this.base)),
         Sizes: this.sizes.map(addParentClasses(this.base)),
         Layout: this.layouts.map(addParentClasses(this.base)),
+        Colors: this.colors.map(addParentClasses(this.base)),
+        ['Default Selected']: this.colors.map(addParentClasses(this.base, this.selected)),
         Outline: this.colors.map(addParentClasses(this.base, this.outline)),
+        ['Outline Selected']: this.colors.map(
+          addParentClasses(this.base, this.selected, this.outline)
+        ),
         Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
+        ['Ghost Selected']: this.colors.map(addParentClasses(this.base, this.selected, this.ghost)),
         Tight: this.colors.map(addParentClasses(this.base, this.tight)),
+        ['Tight Selected']: this.colors.map(addParentClasses(this.base, this.selected, this.tight)),
         Link: this.colors.map(addParentClasses(this.base, this.link)),
+        ['Link Selected']: this.colors.map(addParentClasses(this.base, this.selected, this.link)),
         Disabled: [
           this.base,
+          addParentClasses(this.base)(this.selected),
           addParentClasses(this.base)(this.outline),
+          addParentClasses(this.base, this.selected)(this.outline),
           addParentClasses(this.base)(this.ghost),
+          addParentClasses(this.base, this.selected)(this.ghost),
           addParentClasses(this.base)(this.tight),
-          addParentClasses(this.base)(this.link)
+          addParentClasses(this.base, this.selected)(this.tight),
+          addParentClasses(this.base)(this.link),
+          addParentClasses(this.base, this.selected)(this.link)
         ],
         Combinations: this.combinations.map(addParentClasses(this.base))
       };

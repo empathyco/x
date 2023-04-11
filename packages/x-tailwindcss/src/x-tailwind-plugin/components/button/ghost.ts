@@ -13,9 +13,15 @@ export function buttonGhost(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     ghost: deepMerge(noBackground(helpers), backgroundOnHover(helpers), {
-      '&:active': {
-        borderColor: theme('colors.neutral.25'),
-        backgroundColor: theme('colors.neutral.25')
+      '&.selected': {
+        borderColor: theme('colors.neutral.10'),
+        backgroundColor: theme('colors.neutral.10'),
+        color: `var(--button-color-75,${theme('colors.neutral.90')})`,
+
+        '&:hover,&:active': {
+          borderColor: theme('colors.neutral.25'),
+          backgroundColor: theme('colors.neutral.25')
+        }
       }
     })
   };

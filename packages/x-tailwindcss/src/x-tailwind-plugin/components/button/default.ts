@@ -33,8 +33,17 @@ export function buttonDefault(helpers: TailwindHelpers) {
 
     '&:hover,&:active': {
       backgroundColor: `var(--button-color-75,${theme('colors.neutral.100')})`,
+      borderColor: `var(--button-color-75,${theme('colors.neutral.100')})`
+    },
+
+    '&.selected': {
+      backgroundColor: `var(--button-color-75,${theme('colors.neutral.100')})`,
       borderColor: `var(--button-color-75,${theme('colors.neutral.100')})`,
-      color: theme('colors.neutral.0')
+
+      '&:hover,&:active': {
+        backgroundColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
+        borderColor: `var(--button-color-50,${theme('colors.neutral.90')})`
+      }
     },
 
     '&:disabled': {
