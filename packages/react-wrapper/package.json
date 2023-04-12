@@ -38,7 +38,7 @@
     "test:e2e:ci": "start-server-and-test serve http://localhost:1234 cypress:run"
   },
   "dependencies": {
-    "tslib": "~2.4.1"
+    "tslib": "~2.5.0"
   },
   "peerDependencies": {
     "react": "^16.9.0",
@@ -46,18 +46,18 @@
     "vue": "^2.6.0"
   },
   "devDependencies": {
-    "@types/jest": "~27.0.3",
+    "@types/jest": "~27.5.0",
     "@types/react": "~16.9.0",
     "@types/react-dom": "~16.9.0",
-    "cypress": "~12.8.0",
+    "cypress": "~12.9.0",
     "eslint-plugin-react": "~7.32.1",
-    "jest": "~27.3.1",
+    "jest": "~27.5.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "start-server-and-test": "~1.15.2",
-    "ts-jest": "~27.0.7",
+    "ts-jest": "~27.1.0",
     "typescript": "~4.9.4",
-    "vite": "~4.0.4",
+    "vite": "~4.2.0",
     "vue": "~2.7.14"
   },
   "publishConfig": {
