@@ -40,8 +40,8 @@
 </template>
 
 <script lang="ts">
+  import { computed, defineComponent, PropType, Ref, ref, watch, DefineComponent } from 'vue';
   import { Result } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType, Ref, ref, watch } from 'vue';
   import { NoElement } from '../no-element';
 
   /**
@@ -70,7 +70,7 @@
        * @public
        */
       loadAnimation: {
-        type: String,
+        type: [String, Object] as PropType<string | DefineComponent>,
         default: () => NoElement
       },
       /**
@@ -79,7 +79,7 @@
        * @public
        */
       hoverAnimation: {
-        type: String
+        type: [String, Object] as PropType<string | DefineComponent>
       },
       /**
        * Indicates if the next valid image should be displayed on hover.
@@ -160,7 +160,7 @@
        *
        * @internal
        */
-      const animation = computed<string>(() => {
+      const animation = computed(() => {
         return userHasHoveredImage
           ? props.hoverAnimation ?? props.loadAnimation
           : props.loadAnimation;
