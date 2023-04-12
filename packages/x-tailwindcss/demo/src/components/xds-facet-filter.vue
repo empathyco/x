@@ -108,7 +108,11 @@
           this.base,
           addParentClasses(this.base)(this.selected),
           addParentClasses(this.base)(this.ghost),
-          addParentClasses(this.base)(this.simple)
+          addParentClasses(this.base, this.selected)(this.ghost),
+          addParentClasses(this.base)(this.simple),
+          addParentClasses(this.base, this.selected)(this.simple),
+          addParentClasses(this.base)(this.underline),
+          addParentClasses(this.base, this.selected)(this.underline)
         ],
         Combinations: this.combinations.map(addParentClasses(this.base))
       };

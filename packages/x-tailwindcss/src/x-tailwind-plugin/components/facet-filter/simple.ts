@@ -21,6 +21,10 @@ export function facetFilterSimple(helpers: TailwindHelpers) {
 
         '&:hover': {
           color: `var(--filter-color-50, ${theme('colors.neutral.50')})`
+        },
+
+        '&:disabled': {
+          color: theme('colors.neutral.25')
         }
       },
       '&:disabled': {

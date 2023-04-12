@@ -12,7 +12,11 @@ export function facetFilterUnderline(helpers: TailwindHelpers) {
   return {
     underline: {
       '&:hover': {
-        borderColor: 'currentColor'
+        borderColor: 'currentColor',
+
+        '&:disabled': {
+          borderColor: 'transparent'
+        }
       },
       '&.selected': {
         fontWeight: theme('fontWeight.regular'),
