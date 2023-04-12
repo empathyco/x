@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.10...@empathyco/x-storage-service@2.0.0-alpha.11) (2023-04-12)
+
+**Note:** Version bump only for package @empathyco/x-storage-service
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.9...@empathyco/x-storage-service@2.0.0-alpha.10) (2023-03-07)
 
 ### Bug Fixes

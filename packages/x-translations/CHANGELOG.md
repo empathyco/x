@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.37...@empathyco/x-translations@1.1.0-alpha.38) (2023-04-12)
+
+**Note:** Version bump only for package @empathyco/x-translations
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.1.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.36...@empathyco/x-translations@1.1.0-alpha.37) (2023-03-07)
 
 ### Bug Fixes

@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-priority-queue",
-  "version": "0.1.0-alpha.13",
+  "version": "0.1.0-alpha.14",
   "description": "A priority queue implementation in typescript allowing cancellable elements",
   "author": "Empathy Systems Corporation S.L.",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-priority-queue#readme",
@@ -35,7 +35,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-utils": "^1.0.0-alpha.18",
+    "@empathyco/x-utils": "^1.0.0-alpha.19",
     "tslib": "~2.5.0"
   },
   "devDependencies": {

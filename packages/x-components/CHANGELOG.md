@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.347](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.346...@empathyco/x-components@3.0.0-alpha.347) (2023-04-12)
+
+### Features
+
+- **design-system:** deprecate old DS filters (#1121)
+  ([dd9690d](https://github.com/empathyco/x/commit/dd9690d5f59ae39e6c7f1a29f542732c03221cfe)),
+  closes [EX-8152](https://searchbroker.atlassian.net/browse/EX-8152)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.346](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.345...@empathyco/x-components@3.0.0-alpha.346) (2023-04-12)
 
 ### Features
