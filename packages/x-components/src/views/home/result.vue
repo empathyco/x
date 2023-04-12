@@ -4,7 +4,7 @@
       <BaseResultImage
         :result="result"
         class="x-result__picture x-picture-zoom"
-        loadAnimation="CrossFade"
+        :loadAnimation="crossFade"
       >
         <template #placeholder>
           <div style="padding-top: 100%; background-color: lightgray"></div>
@@ -49,9 +49,7 @@
     @Prop()
     protected result!: Result;
 
-    created(): void {
-      Vue.component('CrossFade', CrossFade);
-    }
+    protected crossFade = CrossFade;
   }
 </script>
 
