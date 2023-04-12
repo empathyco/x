@@ -6,7 +6,7 @@
     <ClearFilters />
     <SelectedFiltersList>
       <template #default="{ filter }">
-        <SimpleFilter :filter="filter" class="x-tag" />
+        <SimpleFilter :filter="filter" class="x-facet-filter-success" />
       </template>
     </SelectedFiltersList>
 
@@ -22,7 +22,11 @@
           <!-- Filters -->
           <SlicedFilters max="4" :filters="facet.filters">
             <FiltersList v-slot="{ filter }">
-              <HierarchicalFilter :filter="filter" :data-test="`${facet.label}-filter`" />
+              <HierarchicalFilter
+                :filter="filter"
+                :data-test="`${facet.label}-filter`"
+                childrenFiltersClass="x-margin--left-05"
+              />
             </FiltersList>
           </SlicedFilters>
         </BaseHeaderTogglePanel>
@@ -52,7 +56,6 @@
                     <BasePriceFilterLabel
                       v-if="facet.id === 'price'"
                       :filter="filter"
-                      class="x-filter__label"
                       format="ii.dd €"
                       lessThan="Less than {max}"
                       fromTo="From {min} to {max}"
