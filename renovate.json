@@ -35,11 +35,11 @@
     },
     {
       "extends": ["monorepo:react"],
-      "allowedVersions": "< 17"
+      "enabled": false
     },
     {
       "matchPackagePatterns": ["^@types/react*"],
-      "allowedVersions": "< 17"
+      "enabled": false
     }
   ]
 }
