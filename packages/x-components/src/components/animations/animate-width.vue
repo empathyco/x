@@ -5,19 +5,21 @@
   </transition>
 </template>
 
-<script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
-
+<script>
   /**
    * Renders a transition wrapping an element passed in the default slot and animating its width.
    *
    * @public
    */
-  @Component({
+  export default {
     inheritAttrs: false
-  })
-  export default class AnimateWidth extends Vue {}
+  };
+</script>
+
+<script lang="ts">
+  import { defineComponent } from 'vue';
+
+  export default defineComponent({});
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { Prop, Provide, Component } from 'vue-property-decorator';
-  import { NoElement } from '../components/no-element';
+  import { defineComponent, PropType, provide } from 'vue';
   import { FeatureLocation } from '../types';
 
   /**
@@ -9,17 +8,22 @@
    *
    * @public
    */
-  @Component
-  export default class LocationProvider extends NoElement {
-    /**
-     * The {@link FeatureLocation} to provide.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    @Provide()
-    protected location!: FeatureLocation;
-  }
+  export default defineComponent({
+    props: {
+      location: {
+        type: Object as PropType<FeatureLocation>,
+        required: true
+      }
+    },
+    setup(props) {
+      /**
+       * The {@link FeatureLocation} to provide.
+       *
+       * @public
+       */
+      provide<FeatureLocation>('location', props.location);
+    }
+  });
 </script>
 
 <docs lang="mdx">

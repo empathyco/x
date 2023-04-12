@@ -1,26 +1,33 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Component from 'vue-class-component';
-import Vue from 'vue';
+import Vue, { defineComponent, h, provide, ref } from 'vue';
 import BaseCurrency from '../base-currency.vue';
 import { XProvide } from '../../decorators/injection.decorators';
 
-function renderBaseCurrency({ value, format }: RenderBaseCurrencyOptions): Wrapper<BaseCurrency> {
-  return mount(BaseCurrency, {
-    propsData: {
-      value,
-      format
+function renderBaseCurrency({ value, format }: RenderBaseCurrencyOptions): Wrapper<Vue> {
+  return mount(
+    {
+      components: { BaseCurrency },
+      template: `<BaseCurrency :value="value" :format="format"/>`,
+      props: ['value', 'format']
+    },
+    {
+      propsData: {
+        value,
+        format
+      }
     }
-  });
+  );
 }
 
-function renderInjectedBaseCurrency({ value, format }: RenderBaseCurrencyOptions): Wrapper<any> {
-  @Component({
-    template: '<div><slot /></div>'
-  })
-  class Provider extends Vue {
-    @XProvide('currencyFormat')
-    public providedFormat = '$i,iii.ddd';
-  }
+function renderInjectedBaseCurrency({ value, format }: RenderBaseCurrencyOptions): Wrapper<Vue> {
+  const Provider = defineComponent({
+    template: '<div><slot/></div>',
+    setup() {
+      const providedFormat = ref('$i,iii.ddd');
+      provide('currencyFormat', providedFormat.value);
+    }
+  });
 
   return mount(
     {

@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { Component, Inject, Prop } from 'vue-property-decorator';
-  import Vue from 'vue';
+  import { defineComponent, inject, PropType } from 'vue';
   import { createRawFilters } from '../../../utils/filters';
   import { isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
+  import { use$x } from '../../../composables/index';
 
   /**
    * This component emits {@link FacetsXEvents.PreselectedFiltersProvided} when a preselected filter
@@ -11,41 +11,48 @@
    *
    * @public
    */
-  @Component
-  export default class PreselectedFilters extends Vue {
-    /**
-     * Injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
-     *
-     * @internal
-     */
-    @Inject()
-    public snippetConfig?: SnippetConfig;
-
-    /**
-     * A list of filters to preselect.
-     *
-     * @remarks Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
-     * component is created.
-     *
-     * @public
-     */
-    @Prop({ default: () => [] })
-    public filters!: string[];
-
-    /**
-     * Emits the provided preselected filters prioritizing the {@link SnippetConfig} over the
-     * filters prop.
-     */
-    created(): void {
-      const preselectedFilters = this.snippetConfig?.filters ?? this.filters;
-      if (!isArrayEmpty(preselectedFilters)) {
-        this.$x.emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters));
+  export default defineComponent({
+    props: {
+      /**
+       * A list of filters to preselect.
+       *
+       * @remarks Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
+       * component is created.
+       *
+       * @public
+       */
+      filters: {
+        type: Array as PropType<string[]>,
+        default: () => []
       }
-    }
+    },
+    setup(props) {
+      const $x = use$x();
+      /**
+       * Injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
+       *
+       * @internal
+       */
+      const snippetConfig = inject<SnippetConfig>;
+      /**
+       * Emits the provided preselected filters prioritizing the {@link SnippetConfig} over the
+       * filters prop.
+       */
+      const created = (): void => {
+        const preselectedFilters = snippetConfig?.filters ?? props.filters;
+        if (!isArrayEmpty(preselectedFilters)) {
+          $x.emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters));
+        }
+      };
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      const render = (): void => {};
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    render(): void {}
-  }
+      return {
+        created,
+        render
+      };
+    }
+  });
 </script>
 
 <docs lang="mdx">

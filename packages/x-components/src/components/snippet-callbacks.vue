@@ -4,10 +4,10 @@
 
 <script lang="ts">
   import { map } from '@empathyco/x-utils';
-  import { Component, Inject } from 'vue-property-decorator';
-  import Vue from 'vue';
+  import { computed, defineComponent, inject } from 'vue';
   import { WireMetadata } from '../wiring';
   import { SnippetConfig, XEventListeners } from '../x-installer/api/api.types';
+  import { use$x } from '../composables/index';
   import GlobalXBus from './global-x-bus.vue';
 
   /**
@@ -16,44 +16,47 @@
    *
    * @public
    */
-  @Component({
-    components: { GlobalXBus }
-  })
-  export default class SnippetCallbacks extends Vue {
-    /**
-     * Injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
-     *
-     * @internal
-     */
-    @Inject('snippetConfig')
-    public snippetConfig!: SnippetConfig;
+  export default defineComponent({
+    components: { GlobalXBus },
+    setup() {
+      const $x = use$x();
+      /**
+       * Injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
+       *
+       * @internal
+       */
+      const snippetConfig = inject<SnippetConfig>('snippetConfig');
+      /**
+       * It maps all the callbacks provided by the snippetConfig and adds an emit to each one.
+       *
+       * @returns The event listeners with the {@link XEventsTypes.SnippetCallbackExecuted} emit in
+       * the callback.
+       *
+       * @internal
+       *
+       */
+      const eventListeners = computed<XEventListeners>(() => {
+        const { callbacks } = snippetConfig;
+        return callbacks
+          ? map(callbacks, (eventName, callback) => {
+              return (payload: unknown, metadata: WireMetadata) => {
+                const callbackReturn = callback(payload as never, metadata);
+                $x.emit('SnippetCallbackExecuted', {
+                  event: eventName,
+                  callbackReturn,
+                  payload: payload as never,
+                  metadata
+                });
+              };
+            })
+          : ({} as XEventListeners);
+      });
 
-    /**
-     * It maps all the callbacks provided by the snippetConfig and adds an emit to each one.
-     *
-     * @returns The event listeners with the {@link XEventsTypes.SnippetCallbackExecuted} emit in
-     * the callback.
-     *
-     * @internal
-     *
-     */
-    protected get eventListeners(): XEventListeners {
-      const { callbacks } = this.snippetConfig;
-      return callbacks
-        ? map(callbacks, (eventName, callback) => {
-            return (payload: unknown, metadata: WireMetadata) => {
-              const callbackReturn = callback(payload as never, metadata);
-              this.$x.emit('SnippetCallbackExecuted', {
-                event: eventName,
-                callbackReturn,
-                payload: payload as never,
-                metadata
-              });
-            };
-          })
-        : ({} as XEventListeners);
+      return {
+        eventListeners
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

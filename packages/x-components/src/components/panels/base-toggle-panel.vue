@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
+  import Vue, { defineComponent } from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
 
   /**
@@ -17,25 +17,29 @@
    *
    * @public
    */
-  @Component
-  export default class BaseTogglePanel extends Vue {
-    /**
-     * Handles if the panel is rendered. It is used with v-if instead of v-show to get better
-     * performance.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected open!: boolean;
-
-    /**
-     * Animation component that will be used to animate the panel content.
-     *
-     * @public
-     */
-    @Prop({ default: 'div' })
-    protected animation!: Vue | string;
-  }
+  export default defineComponent({
+    props: {
+      /**
+       * Handles if the panel is rendered. It is used with v-if instead of v-show to get better
+       * performance.
+       *
+       * @public
+       */
+      open: {
+        type: Boolean,
+        required: true
+      },
+      /**
+       * Animation component that will be used to animate the panel content.
+       *
+       * @public
+       */
+      animation: {
+        type: [Vue, String],
+        default: 'div'
+      }
+    }
+  });
 </script>
 
 <docs lang="mdx">

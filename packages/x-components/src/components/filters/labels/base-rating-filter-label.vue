@@ -17,8 +17,7 @@
 
 <script lang="ts">
   import { BooleanFilter } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType } from 'vue';
   import BaseRating from '../../base-rating.vue';
 
   /**
@@ -27,40 +26,55 @@
    *
    * @public
    */
-  @Component({
-    components: {
-      BaseRating
-    }
-  })
-  export default class BaseRatingFilterLabel extends Vue {
-    /**
-     * The filter data to render.
-     *
-     * @public
-     * */
-    @Prop({ required: true })
-    public filter!: BooleanFilter;
 
+  export default defineComponent({
     /**
-     * Maximum number of elements to paint.
+     * Renders a label for a rating filter, allowing to override the elements used to paint
+     * the rating.
      *
      * @public
      */
-    @Prop({ default: 5 })
-    protected max!: number;
+    components: {
+      BaseRating
+    },
+    props: {
+      /**
+       * The filter data to render.
+       *
+       * @public
+       * */
+      filter: {
+        type: Object as PropType<BooleanFilter>,
+        required: true
+      },
+      /**
+       * Maximum number of elements to paint.
+       *
+       * @public
+       */
+      max: {
+        type: Number,
+        default: 5
+      }
+    },
+    setup(props) {
+      /**
+       * Converts the label string into a number.
+       *
+       * @returns The label as number or 0 if it is not a valid number.
+       *
+       * @internal
+       * */
+      const value = computed<number>(() => {
+        const x = parseFloat(props.filter.label) ?? 0;
+        return Number.isNaN(x) ? 0 : x;
+      });
 
-    /**
-     * Converts the label string into a number.
-     *
-     * @returns The label as number or 0 if it is not a valid number.
-     *
-     * @internal
-     * */
-    protected get value(): number {
-      const value = parseFloat(this.filter.label) ?? 0;
-      return Number.isNaN(value) ? 0 : value;
+      return {
+        value
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
