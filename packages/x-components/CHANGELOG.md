@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.346](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.345...@empathyco/x-components@3.0.0-alpha.346) (2023-04-12)
+
+### Features
+
+- **facets:** implement a strategy to decide what filters are sent in the request (#1124)
+  ([a2174b5](https://github.com/empathyco/x/commit/a2174b58d356cc16177cf3d4c2ac3866dadd86b7)),
+  closes [EX-7550](https://searchbroker.atlassian.net/browse/EX-7550)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.345](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.344...@empathyco/x-components@3.0.0-alpha.345) (2023-04-10)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.344](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.343...@empathyco/x-components@3.0.0-alpha.344) (2023-04-10)
 
 **Note:** Version bump only for package @empathyco/x-components

@@ -113,7 +113,7 @@ export interface SearchMutations extends StatusMutations, QueryMutations {
    */
   setFacets(facets: Facet[]): void;
   /**
-   * Set the the `isAppendResuls` flag value.
+   * Set the `isAppendResuls` flag value.
    *
    * @param isAppendResults - The new flag value.
    */

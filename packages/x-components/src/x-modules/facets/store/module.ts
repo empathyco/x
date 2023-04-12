@@ -3,7 +3,8 @@ import Vue from 'vue';
 import { facets } from './getters/facets.getter';
 import { selectedFiltersByFacet } from './getters/selected-filters-by-facet.getter';
 import { selectedFilters } from './getters/selected-filters.getter';
-import { FacetGroupEntry, FacetsXStoreModule } from './types';
+import { FacetGroupEntry, FacetsConfig, FacetsXStoreModule } from './types';
+import { selectedFiltersForRequest } from './getters/selected-filters-for-request.getter';
 
 /**
  * {@link XStoreModule} For the facets module.
@@ -17,10 +18,14 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     groups: {},
     facets: {},
     preselectedFilters: [],
-    stickyFilters: {}
+    stickyFilters: {},
+    config: {
+      filtersStrategyForRequest: 'all'
+    }
   }),
   getters: {
     selectedFilters,
+    selectedFiltersForRequest,
     selectedFiltersByFacet,
     facets
   },
@@ -49,6 +54,9 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     },
     setFacet(state, facet: Facet) {
       Vue.set(state.facets, facet.id, facet);
+    },
+    setFacetsConfig(state, config: FacetsConfig) {
+      state.config = config;
     },
     setQuery(state, query) {
       state.query = query;

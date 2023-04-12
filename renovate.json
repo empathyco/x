@@ -1,11 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", "group:allNonMajor"],
+  "extends": ["config:base", "group:allNonMajor", "group:linters"],
   "timezone": "Europe/Madrid",
   "rebaseWhen": "behind-base-branch",
   "dependencyDashboard": true,
   "labels": ["dependencies"],
   "schedule": ["after 5pm on tuesday"],
+  "stabilityDays": 3,
   "packageRules": [
     {
       "matchPackageNames": ["@vue/test-utils"],
@@ -34,11 +35,11 @@
     },
     {
       "extends": ["monorepo:react"],
-      "allowedVersions": "< 17"
+      "enabled": false
     },
     {
       "matchPackagePatterns": ["^@types/react*"],
-      "allowedVersions": "< 17"
+      "enabled": false
     }
   ]
 }

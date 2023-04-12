@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.21...@empathyco/x-tailwindcss@1.0.0-alpha.22) (2023-04-10)
+
+### Features
+
+- **design-system:** add `xs` letter spacing (#1126)
+  ([1c5bd20](https://github.com/empathyco/x/commit/1c5bd2054e17a66881a42133b9e1dde78af95ea8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.20...@empathyco/x-tailwindcss@1.0.0-alpha.21) (2023-04-10)
 
 ### Features
