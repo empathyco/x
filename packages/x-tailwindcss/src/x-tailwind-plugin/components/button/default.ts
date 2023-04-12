@@ -27,8 +27,8 @@ export function buttonDefault(helpers: TailwindHelpers) {
 
     cursor: 'pointer',
 
-    backgroundColor: theme('colors.neutral.90'),
-    borderColor: theme('colors.neutral.90'),
+    backgroundColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
+    borderColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
     color: theme('colors.neutral.0'),
 
     '&:hover,&:active': {
