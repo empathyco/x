@@ -10,6 +10,7 @@ import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils
 import BaseSuggestion from '../base-suggestion.vue';
 import { createSimpleFacetStub } from '../../../__stubs__/facets-stubs.factory';
 import { createPopularSearch } from '../../../__stubs__/popular-searches-stubs.factory';
+import MainModal from '../../modals/main-modal.vue';
 
 function renderBaseSuggestion({
   query = 'bebe',

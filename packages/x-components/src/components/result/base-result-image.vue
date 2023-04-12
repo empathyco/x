@@ -41,7 +41,7 @@
 
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType, reactive, watch } from 'vue';
+  import { computed, defineComponent, PropType, Ref, ref, watch } from 'vue';
   import { NoElement } from '../no-element';
 
   /**
@@ -100,27 +100,25 @@
        *
        * @internal
        */
-      let pendingImages: string[] = [];
+      let pendingImages: Ref<string[]> = ref([]);
       /**
        * Contains the images that have been loaded successfully.
        *
        * @internal
        */
-      let loadedImages: string[] = [];
-
+      let loadedImages: Ref<string[]> = ref([]);
       /**
        * Indicates if the user is hovering the image.
        *
        * @internal
        */
-      const isHovering = false;
-
+      const isHovering = ref(false);
       /**
        * Indicates if the user has hovered the image.
        *
        * @internal
        */
-      const userHasHoveredImage = false;
+      const userHasHoveredImage = ref(false);
 
       /**.
        * Styles to use inline in the image loader, to prevent override from CSS
@@ -137,16 +135,22 @@
         visibility: 'hidden !important'
       };
 
-      const resultImages = reactive(props.result.images!);
+      const resultImages = ref(props.result.images!);
       /**
        * Initializes images state and resets when the result's images change.
        *
        * @internal
        */
-      const resetImagesState = watch<any, true>(resultImages, () => {
-        pendingImages = [...(props.result.images ?? [])];
-        loadedImages = pendingImages.filter(image => loadedImages.includes(image));
-      });
+      watch(
+        resultImages,
+        () => {
+          pendingImages.value = [...(props.result.images ?? [])];
+          loadedImages.value = pendingImages.value.filter(image =>
+            loadedImages.value.includes(image)
+          );
+        },
+        { immediate: true }
+      );
       /**
        * Animation to be used.
        *
@@ -167,8 +171,8 @@
        * @internal
        */
       const imageSrc = computed<string>(() => {
-        return loadedImages[
-          !props.showNextImageOnHover || !isHovering ? 0 : loadedImages.length - 1
+        return loadedImages.value[
+          !props.showNextImageOnHover || !isHovering ? 0 : loadedImages.value.length - 1
         ];
       });
       /**
@@ -180,7 +184,7 @@
        */
       const shouldLoadNextImage = computed<boolean>(() => {
         const numImagesToLoad = props.showNextImageOnHover && userHasHoveredImage ? 2 : 1;
-        return !!pendingImages.length && loadedImages.length < numImagesToLoad;
+        return !!pendingImages.value.length && loadedImages.value.length < numImagesToLoad;
       });
       /**
        * Sets an image as failed.
@@ -188,7 +192,7 @@
        * @internal
        */
       const flagImageAsFailed = (): void => {
-        pendingImages.shift();
+        pendingImages.value.shift();
       };
       /**
        * Sets an image as loaded.
@@ -196,9 +200,9 @@
        * @internal
        */
       const flagImageLoaded = (): void => {
-        const image = pendingImages.shift();
+        const image = pendingImages.value.shift();
         if (image) {
-          loadedImages.push(image);
+          loadedImages.value.push(image);
         }
       };
 
@@ -208,7 +212,6 @@
         isHovering,
         userHasHoveredImage,
         loaderStyles,
-        resetImagesState,
         animation,
         imageSrc,
         shouldLoadNextImage,

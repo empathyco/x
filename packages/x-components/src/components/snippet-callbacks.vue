@@ -4,7 +4,7 @@
 
 <script lang="ts">
   import { map } from '@empathyco/x-utils';
-  import { computed, defineComponent, inject } from 'vue';
+  import {computed, defineComponent, inject, ref} from 'vue';
   import { WireMetadata } from '../wiring';
   import { SnippetConfig, XEventListeners } from '../x-installer/api/api.types';
   import { use$x } from '../composables/index';

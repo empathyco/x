@@ -1,5 +1,5 @@
 <template>
-  <button @click="emitEvents" v-on="$listeners" :class="dynamicCSSClasses">
+  <button ref="root" @click="emitEvents" v-on="$listeners" :class="dynamicCSSClasses">
     <!--
       @slot Button content
           @binding {Suggestion} suggestion - Suggestion data
@@ -16,7 +16,7 @@
 <script lang="ts">
   import { BooleanFilter, Suggestion } from '@empathyco/x-types';
   import { forEach } from '@empathyco/x-utils';
-  import { computed, defineComponent, PropType } from 'vue';
+  import { computed, defineComponent, PropType, ref } from 'vue';
   import { QueryFeature } from '../../types';
   import { VueCSSClasses } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
@@ -122,9 +122,10 @@
        * @public
        */
       const emitEvents = (): void => {
+        const el = ref<HTMLElement | null>(null);
         forEach(events.value, (event, payload): void => {
           $x.emit(event, payload, {
-            target: this.$el as HTMLElement,
+            target: el.value!,
             feature: props.feature
           });
         });
