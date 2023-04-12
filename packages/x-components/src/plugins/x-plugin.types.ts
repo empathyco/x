@@ -108,8 +108,6 @@ export interface XComponentAliasAPI {
   readonly fullHistoryQueries: ReadonlyArray<HistoryQuery>;
   /** The {@link HistoryQueriesXModule} history queries enabled flag. */
   readonly isHistoryQueriesEnabled: Readonly<boolean>;
-  /** The {@link SearchXModule} no results flag. */
-  readonly isNoResults: Readonly<boolean>;
   /** The {@link SearchXModule} no results with filters flag. */
   readonly isNoResultsWithFilters: Readonly<boolean>;
   /** The {@link IdentifierResultsXModule} results. */

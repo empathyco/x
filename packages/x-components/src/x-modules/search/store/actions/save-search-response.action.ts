@@ -27,16 +27,13 @@ export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchRespon
     commit('setIsNoResultsWithFilters', false);
   }
 
-  if (results.length) {
-    commit('setIsNoResults', false);
-  }
-
-  if (results.length === 0) {
+  if (totalResults === 0) {
+    commit('setIsNoResults', true);
     if (getters.request && Object.keys(getters.request.filters!).length > 0) {
       commit('setIsNoResultsWithFilters', true);
-    } else {
-      commit('setIsNoResults', true);
     }
+  } else {
+    commit('setIsNoResults', false);
   }
 
   if (state.isAppendResults) {

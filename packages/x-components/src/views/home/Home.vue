@@ -214,7 +214,7 @@
         </template>
 
         <template #main-aside>
-          <Aside v-if="!$x.isNoResults || !$x.isNoResultsWithFilters" />
+          <Aside v-if="$x.totalResults > 0" />
         </template>
 
         <template #main-body>
@@ -244,7 +244,7 @@
 
             <!--  No Results Message  -->
             <div
-              v-if="$x.isNoResults"
+              v-if="$x.noResults"
               class="x-message x-margin--top-03 x-margin--bottom-03"
               data-test="no-results-message"
             >
@@ -351,7 +351,10 @@
             </LocationProvider>
 
             <!-- Partials -->
-            <PartialResultsList v-if="$x.isNoResults" :animation="resultsAnimation">
+            <PartialResultsList
+              v-if="!$x.isNoResultsWithFilters && ($x.totalResults <= 4 || $x.isNoResults)"
+              :animation="resultsAnimation"
+            >
               <template #default="{ partialResult }">
                 <span data-test="partial-query">{{ partialResult.query }}</span>
                 <BaseGrid

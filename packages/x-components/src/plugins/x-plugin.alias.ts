@@ -74,9 +74,6 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
     get isHistoryQueriesEnabled() {
       return component.$store.state.x.historyQueries?.isEnabled ?? false;
     },
-    get isNoResults() {
-      return component.$store.state.x.search.isNoResults ?? false;
-    },
     get isNoResultsWithFilters() {
       return component.$store.state.x.search?.isNoResultsWithFilters ?? false;
     },
@@ -93,7 +90,7 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
       return component.$store.getters[getGetterPath('nextQueries', 'nextQueries')] ?? [];
     },
     get noResults() {
-      return !this.totalResults && !!this.query.search && this.status.search === 'success';
+      return component.$store.state.x.search?.isNoResults ?? false;
     },
     get partialResults() {
       return component.$store.state.x.search?.partialResults ?? [];

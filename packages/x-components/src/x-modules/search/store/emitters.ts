@@ -37,7 +37,7 @@ export const searchEmitters = createStoreEmitters(searchXStoreModule, {
     },
     filter: (newValue, oldValue) => {
       return (
-        newValue.status === oldValue.status && oldValue.status === 'loading' && !!newValue.request
+        newValue.status !== oldValue.status && oldValue.status === 'loading' && !!newValue.request
       );
     }
   },

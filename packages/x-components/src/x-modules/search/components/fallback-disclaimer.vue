@@ -17,7 +17,8 @@
   import { searchXModule } from '../x-module';
 
   /**
-   * The `FallbackDisclaimer` component.
+   * The `FallbackDisclaimer` component shows a message if the filters have been removed
+   * from the current search because there were no results.
    *
    * @public
    */
@@ -38,8 +39,8 @@
 <docs lang="mdx">
 ## Examples
 
-This default fallback disclaimer component reads the query from the search state and pass it to its
-default slot. This component will be rendered if there is a no results with filters situation.
+This default fallback disclaimer component reads the query from the search state and passes it to
+its default slot. This component will be rendered if there is a no results with filters situation.
 
 ### Basic usage
 
@@ -52,7 +53,7 @@ default slot. This component will be rendered if there is a no results with filt
 ```vue
 <FallbackDisclaimer>
   <template #default="{ query }">
-    No results found for '{{ query }}' with the selected filters. The filters have been unselected.'
+    No results found for '{{ query }}' with the selected filters. The filters have been unselected.
   </template>
 </FallbackDisclaimer>
 

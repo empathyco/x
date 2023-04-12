@@ -15,7 +15,7 @@ Feature: Fallback disclaimer component
     Given a results API with a known response
     When  "<query>" is searched
     Then  related results are displayed
-    And   filter number <multiselectFilter1> is clicked in facet "<facetName>"
+    And   filter number <filterNumber> is clicked in facet "<facetName>"
     Given a results API with no results
     When  waiting for search request intercept
     When  "<query2>" replaces current query
@@ -23,6 +23,24 @@ Feature: Fallback disclaimer component
     Given a results API with a known response
     Then  url not contains parameter "filter"
     And   fallback disclaimer is displayed
+    When  "<query>" is searched
+    Then  related results are displayed
+    And   fallback disclaimer is not displayed
+
     Examples:
-      | query | query2            | multiselectFilter1 | facetName   |
-      | lego  | lego super mario  |       3            | price_facet |
+      | query | query2            | filterNumber | facetName   |
+      | lego  | lego super mario  | 3            | price_facet |
+
+  Scenario Outline: 2. Fallback disclaimer is not displayed when there is no results
+    Given a results API with a known response
+    When  "<query>" is searched
+    Then  related results are displayed
+    Given a results API with no results
+    When  waiting for search request intercept
+    When  "<query2>" replaces current query
+    Then no results message is displayed
+    And   fallback disclaimer is not displayed
+
+    Examples:
+      | query | query2            |
+      | lego  | lego super mario  |
