@@ -73,8 +73,9 @@
     @Prop({
       default: () => [
         'x-button-lead x-button-sm',
+        'x-button-outlined x-button-square x-button-lg x-selected',
         'x-button-auxiliary x-button-circle x-button-outlined',
-        'x-button-accent x-button-tight ',
+        'x-button-accent x-button-tight',
         'x-button-warning x-button-ghost'
       ]
     })
