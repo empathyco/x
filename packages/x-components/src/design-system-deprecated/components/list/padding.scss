@@ -1,6 +1,6 @@
 /* @deprecated */
 
-@import '../../mixins';
+@import '../../../design-system/mixins';
 
 [class*='x-list--padding-'].x-list {
   $directions: top, right, bottom, left;
