@@ -18,7 +18,7 @@
         <button
           @click="clickFilter"
           :aria-checked="filter.selected.toString()"
-          :class="cssClasses"
+          :class="[cssClasses, filterItemClass]"
           :disabled="isDisabled"
           data-test="filter"
           role="checkbox"
@@ -45,6 +45,7 @@
         :filter="childFilter"
         :clickEvents="getChildFilterClickEvents(childFilter)"
         :childrenFiltersClass="childrenFiltersClass"
+        :filterItemClass="filterItemClass"
       >
         <template #default="{ filter, clickFilter, cssClasses, isDisabled }">
           <slot v-bind="{ filter, clickFilter, cssClasses, isDisabled }" />
@@ -82,7 +83,10 @@
   @Component({
     name: 'HierarchicalFilter',
     components: { FiltersList, RenderlessFilter },
-    mixins: [xComponentMixin(facetsXModule), dynamicPropsMixin(['childrenFiltersClass'])]
+    mixins: [
+      xComponentMixin(facetsXModule),
+      dynamicPropsMixin(['childrenFiltersClass', 'filterItemClass'])
+    ]
   })
   export default class HierarchicalFilter extends Vue {
     /** The filter data to render. */

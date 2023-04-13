@@ -19,7 +19,9 @@ function renderHierarchicalFilter({
     <HierarchicalFilter
       :filter="filter"
       :clickEvents="clickEvents"
-      :childrenFiltersClass="childrenFiltersClass" />`,
+      :childrenFiltersClass="childrenFiltersClass"
+      :filterItemClass="filterItemClass"
+      />`,
   facet = createHierarchicalFacetStub('category', createFilter => [
     // Partially selected
     createFilter('root', false, createFilter => [
@@ -32,6 +34,7 @@ function renderHierarchicalFilter({
     ])
   ]),
   childrenFiltersClass = '',
+  filterItemClass = '',
   clickEvents
 }: HierarchicalFilterOptions = {}): HierarchicalFilterAPI {
   const [, localVue] = installNewXPlugin({ initialXModules: [facetsXModule] });
@@ -52,7 +55,8 @@ function renderHierarchicalFilter({
       },
       data() {
         return {
-          childrenFiltersClass
+          childrenFiltersClass,
+          filterItemClass
         };
       }
     },
@@ -506,6 +510,25 @@ describe('testing `HierarchicalFilter` component', () => {
         expect(wrapper.classes('custom-class')).toBe(true);
       });
     });
+
+    it('allows adding classes to the filter item', () => {
+      const { hierarchicalFilterWrapper } = renderHierarchicalFilter({
+        filterItemClass: 'custom-class',
+        facet: createHierarchicalFacetStub('category', createFilter => [
+          createFilter('root', false, createFilter => [
+            createFilter('filter 1', true),
+            createFilter('filter 2', false, createFilter => [createFilter('filter 3', false)])
+          ])
+        ])
+      });
+
+      const wrappers = hierarchicalFilterWrapper.findAll(getDataTestSelector('filter'));
+      expect(wrappers).toHaveLength(4);
+
+      wrappers.wrappers.forEach(wrapper => {
+        expect(wrapper.classes('custom-class')).toBe(true);
+      });
+    });
   });
 });
 
@@ -513,6 +536,7 @@ interface HierarchicalFilterOptions {
   clickEvents?: Partial<XEventsTypes>;
   facet?: HierarchicalFacet;
   childrenFiltersClass?: string;
+  filterItemClass?: string;
   template?: string;
 }
 
