@@ -38,9 +38,7 @@
       </div>
     </template>
     <template #main>
-      <div
-        class="x-list__item--stretch x-margin--top-05 x-margin--bottom-05 x-background--neutral-95"
-      >
+      <div class="x-self-stretch x-margin--top-05 x-margin--bottom-05 x-background--neutral-95">
         MAIN
         <div class="x-grid-list x-grid-list--cols-auto">
           <article

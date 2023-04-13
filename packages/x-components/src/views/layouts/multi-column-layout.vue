@@ -47,16 +47,14 @@
     </template>
     <template #main-aside>
       <div
-        class="x-list__item--stretch x-margin--top-05 x-margin--bottom-05 x-background--neutral-95 x-border-width--02 x-border-color--neutral-70"
+        class="x-self-stretch x-margin--top-05 x-margin--bottom-05 x-background--neutral-95 x-border-width--02 x-border-color--neutral-70"
       >
         MAIN ASIDE
         <article class="x-background--neutral-70 x-padding--top-13 x-padding--left-6" />
       </div>
     </template>
     <template #main-body>
-      <div
-        class="x-list__item--stretch x-margin--top-05 x-margin--bottom-05 x-background--neutral-95"
-      >
+      <div class="x-self-stretch x-margin--top-05 x-margin--bottom-05 x-background--neutral-95">
         MAIN
         <div class="x-grid-list x-grid-list--cols-auto">
           <article

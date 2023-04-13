@@ -8,7 +8,7 @@
     <OpenMainModal>Start</OpenMainModal>
     <h1 class="x-text-primary-50 x-text-4xl x-font-bold x-leading-[1.5]">Test controls</h1>
     <ul class="x-test-controls x-list x-gap-16">
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="searchInput.instant">
           search-input - instant
           <input
@@ -19,7 +19,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="searchInput.instantDebounceInMs">
           search-input - debounce
           <input
@@ -30,7 +30,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="popularSearches.maxItemsToRender">
           popular-searches - maxItemsToRender
           <input
@@ -41,7 +41,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="slicedFilters.max">
           sliced-filters - max
           <input
@@ -52,7 +52,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="historyQueries.maxItemsToRender">
           history-queries - maxItemsToRender
           <input
@@ -63,7 +63,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="nextQueriesPreview.maxItemsToRender">
           next-queries-preview - maxItemsToRender
           <input
@@ -74,7 +74,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="nextQueriesPreview.maxItemsToRender">
           next-queries-list - showOnlyAfterOffset
           <input
@@ -85,7 +85,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="adapter.e2eAdapter">
           Use mocked adapter
           <input
