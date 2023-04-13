@@ -16,7 +16,7 @@
       @transitionend="debouncedUpdateScrollPosition"
       @animationend="debouncedUpdateScrollPosition"
       :class="scrollContainerClass"
-      class="x-flex x-sliding-panel__scroll"
+      class="x-list x-sliding-panel__scroll"
       data-test="sliding-panel-scroll"
     >
       <!-- @slot (Required) Sliding panel content -->

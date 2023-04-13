@@ -3,7 +3,7 @@
     :is="animation"
     v-if="identifierResults.length"
     tag="ul"
-    class="x-flex x-identifier-results"
+    class="x-list x-identifier-results"
   >
     <li
       v-for="identifierResult in identifierResultsToRender"

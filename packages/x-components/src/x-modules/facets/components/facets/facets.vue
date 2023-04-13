@@ -2,7 +2,7 @@
   <component
     :is="animation"
     v-if="hasFacets"
-    class="x-flex x-flex-col x-facets-list"
+    class="x-list x-facets-list"
     data-test="facets"
     tag="ul"
   >

@@ -1,11 +1,11 @@
 <template>
   <FixedHeaderAndAsidesLayout :dev-mode="true">
     <template #header>
-      <div class="x-flex x-flex-auto x-items-center">
+      <div class="x-list x-flex-auto x-items-center">
         <BaseIdModalOpen modalId="left-aside" class="x-button--ghost">
           <ChevronRight />
         </BaseIdModalOpen>
-        <span class="x-flex-auto x-flex x-justify-center x-title1">HEADER</span>
+        <span class="x-flex-auto x-list x-justify-center x-title1">HEADER</span>
         <BaseIdModalOpen modalId="right-aside" class="x-button--ghost">
           <FiltersIcon class="x-icon--l" />
         </BaseIdModalOpen>
@@ -15,7 +15,7 @@
       </div>
     </template>
     <template #sub-header>
-      <span class="x-flex-auto x-flex x-justify-center x-title2">SUB-HEADER</span>
+      <span class="x-flex-auto x-list x-justify-center x-title2">SUB-HEADER</span>
     </template>
     <template #toolbar>
       <div

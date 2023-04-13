@@ -2,14 +2,14 @@
   <SingleColumnLayout :dev-mode="true">
     <template #header>
       <span
-        class="x-flex-auto x-flex x-justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95 x-title1"
+        class="x-flex-auto x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95 x-title1"
       >
         HEADER
       </span>
     </template>
     <template #sub-header>
       <span
-        class="x-flex-auto x-flex x-justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95 x-title2"
+        class="x-flex-auto x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95 x-title2"
       >
         SUB HEADER
       </span>
@@ -29,7 +29,7 @@
     </template>
     <template #floating>
       <div
-        class="x-flex-auto x-margin--top-03 x-margin--bottom-03 x-flex x-justify-center x-title3"
+        class="x-flex-auto x-margin--top-03 x-margin--bottom-03 x-list x-justify-center x-title3"
       >
         <BaseIdModalOpen modalId="aside-modal">
           <FiltersIcon />
