@@ -9,6 +9,7 @@ import { noHorizontalPadding } from './utils/no-horizontal-padding';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function buttonLink(helpers: TailwindHelpers) {
+  const { theme } = helpers;
   return {
     link: {
       display: 'inline-flex',
@@ -20,7 +21,24 @@ export function buttonLink(helpers: TailwindHelpers) {
       fontWeight: 'inherit',
       letterSpacing: 'inherit',
       ...noHorizontalPadding(helpers),
-      ...noBackground(helpers)
+      ...noBackground(helpers),
+
+      '&.selected': {
+        borderColor: 'transparent',
+        backgroundColor: 'transparent',
+        color: `var(--button-color-75,${theme('colors.neutral.100')})`,
+        fontWeight: theme('fontWeight.bold'),
+
+        '&:hover,&:active': {
+          borderColor: 'transparent',
+          backgroundColor: 'transparent',
+          color: `var(--button-color-50,${theme('colors.neutral.90')})`
+        },
+
+        '&:disabled': {
+          fontWeight: 'inherit'
+        }
+      }
     }
   };
 }
