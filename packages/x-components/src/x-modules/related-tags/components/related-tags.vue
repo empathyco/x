@@ -3,7 +3,7 @@
     :is="animation"
     v-if="relatedTags.length"
     tag="ul"
-    class="x-list x-related-tags"
+    class="x-flex x-flex-col x-related-tags"
     data-test="related-tags"
   >
     <li

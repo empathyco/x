@@ -1,5 +1,5 @@
 <template>
-  <div class="x-list x-gap-24">
+  <div class="x-flex x-flex-col x-gap-24">
     <FacetsProvider :facets="staticFacets" />
     <ClearFilters />
     <SelectedFiltersList>

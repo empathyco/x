@@ -1,5 +1,5 @@
 <template>
-  <section class="x-list x-padding--07 x-gap-16">
+  <section class="x-flex x-flex-col x-padding--07 x-gap-16">
     <div>
       <h1>BaseColumnPickerDropdown</h1>
       <BaseColumnPickerDropdown :columns="[2, 4, 6]">

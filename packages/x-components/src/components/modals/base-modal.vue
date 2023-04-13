@@ -8,7 +8,7 @@
       <div
         v-if="open"
         ref="modalContent"
-        class="x-modal__content x-list"
+        class="x-modal__content x-flex x-flex-col"
         data-test="modal-content"
         role="dialog"
         :class="contentClass"

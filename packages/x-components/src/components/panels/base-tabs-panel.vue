@@ -2,7 +2,7 @@
   <section v-if="getTabs().length > 0" class="x-tabs-panel" data-test="base-tabs-panel">
     <component
       :is="tabsAnimation"
-      class="x-tabs-panel__items-list x-list"
+      class="x-tabs-panel__items-list x-flex x-flex-col"
       :class="tabsListClass"
       data-test="base-tabs-panel-list"
       role="tablist"
@@ -287,6 +287,7 @@ behavior is disabled.
     activeTabClass="x-button-auxiliary"
     contentClass="x-padding--04 x-background--auxiliary"
     tabClass="x-button-ghost"
+    tabListClass="x-flex-col"
   >
     <template #summer>
       <div>Summer Top Sales</div>

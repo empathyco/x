@@ -5,21 +5,21 @@
     :style="{ height: hasContent('main-body') ? '100%' : 'auto' }"
   >
     <header class="x-layout__header">
-      <div v-if="hasContent('header-start')" class="x-list x-layout__header-start">
+      <div v-if="hasContent('header-start')" class="x-flex x-flex-col x-layout__header-start">
         <!-- @slot Slot that can be used to insert content into the left part of the header. -->
         <slot name="header-start">
           <span v-if="devMode" class="slot-helper">HEADER START</span>
         </slot>
       </div>
 
-      <div v-if="hasContent('header-middle')" class="x-list x-layout__header-middle">
+      <div v-if="hasContent('header-middle')" class="x-flex x-flex-col x-layout__header-middle">
         <!-- @slot Slot that can be used to insert content into the center part of the header. -->
         <slot name="header-middle">
           <span v-if="devMode" class="slot-helper">HEADER MIDDLE</span>
         </slot>
       </div>
 
-      <div v-if="hasContent('header-end')" class="x-list x-layout__header-end">
+      <div v-if="hasContent('header-end')" class="x-flex x-flex-col x-layout__header-end">
         <!-- @slot Slot that can be used to insert content into the right part of the header. -->
         <slot name="header-end">
           <span v-if="devMode" class="slot-helper">HEADER END</span>
@@ -37,14 +37,14 @@
     </div>
 
     <section v-if="hasContent('toolbar-aside', 'toolbar-body')" class="x-layout__toolbar">
-      <aside class="x-list x-layout__toolbar-aside">
+      <aside class="x-flex x-flex-col x-layout__toolbar-aside">
         <slot name="toolbar-aside">
           <!-- @slot Slot that can be used to insert content above the left aside. -->
           <span v-if="devMode" class="slot-helper">TOOLBAR ASIDE</span>
         </slot>
       </aside>
 
-      <div class="x-list x-layout__toolbar-body">
+      <div class="x-flex x-flex-col x-layout__toolbar-body">
         <!-- @slot Slot that can be used to insert content above the body. -->
         <slot name="toolbar-body">
           <span v-if="devMode" class="slot-helper">TOOLBAR BODY</span>
@@ -60,7 +60,7 @@
         class="x-layout__collapse-aside"
       >
         <Scroll id="aside-scroll" class="x-layout__aside-scroll">
-          <div class="x-layout__main-aside x-list x-flex-col">
+          <div class="x-layout__main-aside x-flex x-flex-col">
             <!-- @slot Slot that can be used to insert content into the left side bar. -->
             <slot name="main-aside">
               <span v-if="devMode" class="slot-helper" style="height: 110vh">MAIN ASIDE</span>
@@ -71,7 +71,7 @@
 
       <MainScroll>
         <Scroll v-if="hasContent('main-body')" id="main-scroll" class="x-layout__body-scroll">
-          <section class="x-layout__main-body x-list x-flex-col">
+          <section class="x-layout__main-body x-flex x-flex-col">
             <!-- @slot Slot that can be used to insert the body content. -->
             <slot name="main-body">
               <span v-if="devMode" class="slot-helper" style="height: 110vh">MAIN BODY</span>
@@ -235,7 +235,7 @@
       // layout
       grid-column: start-content;
 
-      &.x-list {
+      &.x-flex {
         // space
         flex-flow: var(--x-flow-layout-columns-header-start, row nowrap);
         justify-content: var(--x-size-justify-layout-columns-header-start, flex start);
@@ -247,7 +247,7 @@
       // layout
       grid-column: middle-content;
 
-      &.x-list {
+      &.x-flex {
         // space
         flex-flow: var(--x-flow-layout-columns-header-middle, row nowrap);
         justify-content: var(--x-size-justify-layout-columns-header-middle, center);
@@ -259,7 +259,7 @@
       // layout
       grid-column: end-content;
 
-      &.x-list {
+      &.x-flex {
         flex-flow: var(--x-flow-layout-columns-header-end, row nowrap);
         justify-content: var(--x-size-justify-layout-columns-header-end, flex-end);
         align-items: var(--x-size-align-layout-columns-header-end, flex-start);
@@ -303,7 +303,7 @@
       // layout
       grid-column: sub-header-content;
 
-      &.x-list {
+      &.x-flex {
         flex-flow: var(--x-flow-layout-columns-sub-header, row nowrap);
         justify-content: var(--x-size-justify-layout-columns-sub-header, flex-start);
         align-items: var(--x-size-align-layout-columns-sub-header, flex-start);
@@ -347,7 +347,7 @@
       // layout
       grid-column: toolbar-aside;
 
-      &.x-list {
+      &.x-flex {
         flex-flow: var(--x-flow-layout-columns-toolbar-aside, row nowrap);
         justify-content: var(--x-size-justify-layout-columns-toolbar-aside, flex-start);
         align-items: var(--x-size-align-layout-columns-toolbar-aside, center);
@@ -358,7 +358,7 @@
       // layout
       grid-column: toolbar-body;
 
-      &.x-list {
+      &.x-flex {
         flex-flow: var(--x-flow-layout-columns-toolbar-body, row nowrap);
         justify-content: var(--x-size-justify-layout-columns-toolbar-body, flex-end);
         align-items: var(--x-size-align-layout-columns-toolbar-body, center);

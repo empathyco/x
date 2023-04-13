@@ -1,5 +1,10 @@
 <template>
-  <component :is="animation" v-if="hasHistoryQueries" class="x-my-history x-list" tag="ul">
+  <component
+    :is="animation"
+    v-if="hasHistoryQueries"
+    class="x-my-history x-flex x-flex-col"
+    tag="ul"
+  >
     <li
       v-for="(historyQueries, date) in groupByDate"
       :key="date"
@@ -36,7 +41,7 @@
                   @binding {() => string} formatTime - Callback to format time to `hh:mm [PM/AM]`
             -->
                 <slot name="suggestion-content" v-bind="{ suggestion, index, formatTime }">
-                  <div class="x-list x-flex-col">
+                  <div class="x-flex x-flex-col">
                     <span>{{ suggestion.query }}</span>
                     <span>{{ formatTime(suggestion.timestamp) }}</span>
                   </div>
