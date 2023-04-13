@@ -22,7 +22,7 @@
     </div>
 
     <div v-if="hasContent('predictive')" class="x-layout__predictive x-list x-flex-col">
-      <BaseScroll class="x-layout__predictive-scroll x-list x-flex-col x-list__item--expand">
+      <BaseScroll class="x-layout__predictive-scroll x-list x-flex-col x-flex-auto">
         <!-- @slot Slot that can be used to insert content into the Predictive Layer. -->
         <slot name="predictive">
           <span v-if="devMode" class="slot-helper">PREDICTIVE</span>

@@ -2,35 +2,35 @@
   <MultiColumnMaxWidthLayout :dev-mode="true">
     <template #header-start>
       <span
-        class="x-title x-list__item--expand x-list x-justify-center x-margin--bottom-03 x-margin--top-03"
+        class="x-title x-flex-auto x-list x-justify-center x-margin--bottom-03 x-margin--top-03"
       >
         HEADER START
       </span>
     </template>
     <template #header-middle>
       <span
-        class="x-list__item--expand x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-title1"
+        class="x-flex-auto x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-title1"
       >
         HEADER MIDDLE
       </span>
     </template>
     <template #header-end>
       <span
-        class="x-list__item--expand x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-title2"
+        class="x-flex-auto x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-title2"
       >
         HEADER END
       </span>
     </template>
     <template #sub-header>
       <span
-        class="x-list__item--expand x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-title2"
+        class="x-flex-auto x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-title2"
       >
         SUB HEADER
       </span>
     </template>
     <template #toolbar-aside>
       <div
-        class="x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03 x-title3"
+        class="x-flex-auto x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03 x-title3"
       >
         <BaseIdTogglePanelButton class="x-button--ghost x-button" panelId="aside-panel">
           <FiltersIcon />
@@ -40,7 +40,7 @@
     </template>
     <template #toolbar-body>
       <div
-        class="x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03 x-title3"
+        class="x-flex-auto x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03 x-title3"
       >
         TOOLBAR
       </div>

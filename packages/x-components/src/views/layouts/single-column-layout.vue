@@ -2,21 +2,21 @@
   <SingleColumnLayout :dev-mode="true">
     <template #header>
       <span
-        class="x-list__item--expand x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95 x-title1"
+        class="x-flex-auto x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95 x-title1"
       >
         HEADER
       </span>
     </template>
     <template #sub-header>
       <span
-        class="x-list__item--expand x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95 x-title2"
+        class="x-flex-auto x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95 x-title2"
       >
         SUB HEADER
       </span>
     </template>
     <template #toolbar>
       <div
-        class="x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03 x-title3"
+        class="x-flex-auto x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03 x-title3"
       >
         TOOLBAR
         <BaseIdModalOpen modalId="extra-aside-modal" class="x-button--ghost">
@@ -25,13 +25,11 @@
       </div>
     </template>
     <template #predictive>
-      <div class="x-list__item--expand x-margin--top-03 x-margin--bottom-03 x-title3">
-        PREDICTIVE
-      </div>
+      <div class="x-flex-auto x-margin--top-03 x-margin--bottom-03 x-title3">PREDICTIVE</div>
     </template>
     <template #floating>
       <div
-        class="x-list__item--expand x-margin--top-03 x-margin--bottom-03 x-list x-justify-center x-title3"
+        class="x-flex-auto x-margin--top-03 x-margin--bottom-03 x-list x-justify-center x-title3"
       >
         <BaseIdModalOpen modalId="aside-modal">
           <FiltersIcon />
@@ -55,17 +53,17 @@
     </template>
     <template #footer>
       <div
-        class="x-list__item--expand x-padding--03 x-background--neutral-95 x-border-width--01 x-border-color--neutral-35 x-text1 x-text1-lg"
+        class="x-flex-auto x-padding--03 x-background--neutral-95 x-border-width--01 x-border-color--neutral-35 x-text1 x-text1-lg"
       >
         FOOTER
       </div>
     </template>
     <template #aside>
-      <div class="x-background--neutral-100 x-list__item--expand x-padding--09">ASIDE</div>
+      <div class="x-background--neutral-100 x-flex-auto x-padding--09">ASIDE</div>
     </template>
     <template #extra-aside>
       <BaseIdModal modal-id="extra-aside-modal" class="x-layout__aside">
-        <div class="x-background--neutral-100 x-list__item--expand x-padding--09">EXTRA ASIDE</div>
+        <div class="x-background--neutral-100 x-flex-auto x-padding--09">EXTRA ASIDE</div>
       </BaseIdModal>
     </template>
   </SingleColumnLayout>
