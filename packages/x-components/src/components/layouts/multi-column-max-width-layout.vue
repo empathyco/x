@@ -60,7 +60,7 @@
         class="x-layout__collapse-aside"
       >
         <Scroll id="aside-scroll" class="x-layout__aside-scroll">
-          <div class="x-layout__main-aside x-list x-list--vertical">
+          <div class="x-layout__main-aside x-list x-flex-col">
             <!-- @slot Slot that can be used to insert content into the left side bar. -->
             <slot name="main-aside">
               <span v-if="devMode" class="slot-helper" style="height: 110vh">MAIN ASIDE</span>
@@ -71,7 +71,7 @@
 
       <MainScroll>
         <Scroll v-if="hasContent('main-body')" id="main-scroll" class="x-layout__body-scroll">
-          <section class="x-layout__main-body x-list x-list--vertical">
+          <section class="x-layout__main-body x-list x-flex-col">
             <!-- @slot Slot that can be used to insert the body content. -->
             <slot name="main-body">
               <span v-if="devMode" class="slot-helper" style="height: 110vh">MAIN BODY</span>

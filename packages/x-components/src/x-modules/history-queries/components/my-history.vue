@@ -36,7 +36,7 @@
                   @binding {() => string} formatTime - Callback to format time to `hh:mm [PM/AM]`
             -->
                 <slot name="suggestion-content" v-bind="{ suggestion, index, formatTime }">
-                  <div class="x-list x-list--vertical">
+                  <div class="x-list x-flex-col">
                     <span>{{ suggestion.query }}</span>
                     <span>{{ formatTime(suggestion.timestamp) }}</span>
                   </div>

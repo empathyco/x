@@ -21,8 +21,8 @@
       </slot>
     </div>
 
-    <div v-if="hasContent('predictive')" class="x-layout__predictive x-list x-list--vertical">
-      <BaseScroll class="x-layout__predictive-scroll x-list x-list--vertical x-list__item--expand">
+    <div v-if="hasContent('predictive')" class="x-layout__predictive x-list x-flex-col">
+      <BaseScroll class="x-layout__predictive-scroll x-list x-flex-col x-list__item--expand">
         <!-- @slot Slot that can be used to insert content into the Predictive Layer. -->
         <slot name="predictive">
           <span v-if="devMode" class="slot-helper">PREDICTIVE</span>
@@ -32,7 +32,7 @@
 
     <main v-if="hasContent('main')" class="x-layout__main">
       <MainScroll>
-        <Scroll id="main-scroll" class="x-layout__main-scroll x-list x-list--vertical">
+        <Scroll id="main-scroll" class="x-layout__main-scroll x-list x-flex-col">
           <!-- @slot Slot that can be used to insert content into the Main. -->
           <slot name="main">
             <span v-if="devMode" class="slot-helper">MAIN</span>

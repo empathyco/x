@@ -35,7 +35,7 @@
         </slot>
       </section>
 
-      <main v-if="hasContent('main')" key="main" class="x-layout__main x-list x-list--vertical">
+      <main v-if="hasContent('main')" key="main" class="x-layout__main x-list x-flex-col">
         <!-- @slot Slot that is be used for insert content into the Main. -->
         <slot name="main">
           <span v-if="devMode" class="slot-helper">MAIN</span>
