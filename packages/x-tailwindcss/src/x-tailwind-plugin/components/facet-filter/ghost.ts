@@ -19,12 +19,14 @@ export function facetFilterGhost(helpers: TailwindHelpers) {
     ghost: {
       ...sizes.md,
       ...sizes,
+
       '&:hover': {
         backgroundColor: theme('colors.neutral.10')
       },
       '&.selected': {
         fontWeight: theme('fontWeight.regular'),
-        color: `var(--filter-color-75)`
+        color: `var(--filter-color-75)`,
+        letterSpacing: theme('letterSpacing.md')
       },
       '&:disabled': {
         backgroundColor: 'unset',

@@ -62,6 +62,9 @@
     @Prop({ default: () => 'x-facet-filter-ghost' })
     public ghost!: string;
 
+    @Prop({ default: () => 'x-facet-filter-simple' })
+    public simple!: string;
+
     @Prop({
       default: () => [
         '',
@@ -80,7 +83,9 @@
     @Prop({
       default: () => [
         'x-facet-filter-ghost x-facet-filter-lg x-facet-filter-warning x-selected',
-        'x-facet-filter-ghost x-facet-filter-success x-facet-filter-underline x-selected'
+        'x-facet-filter-ghost x-facet-filter-success x-facet-filter-underline x-selected',
+        // eslint-disable-next-line max-len
+        'x-facet-filter-simple x-facet-filter-lg x-facet-filter-success x-facet-filter-underline x-selected'
       ]
     })
     public combinations!: string[];
@@ -97,10 +102,17 @@
         ),
         Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
         'Selected Ghost': this.colors.map(addParentClasses(this.base, this.ghost, this.selected)),
+        Simple: this.colors.map(addParentClasses(this.base, this.simple)),
+        'Selected Simple': this.colors.map(addParentClasses(this.base, this.simple, this.selected)),
         Disabled: [
           this.base,
           addParentClasses(this.base)(this.selected),
-          addParentClasses(this.base)(this.ghost)
+          addParentClasses(this.base)(this.ghost),
+          addParentClasses(this.base, this.selected)(this.ghost),
+          addParentClasses(this.base)(this.simple),
+          addParentClasses(this.base, this.selected)(this.simple),
+          addParentClasses(this.base)(this.underline),
+          addParentClasses(this.base, this.selected)(this.underline)
         ],
         Combinations: this.combinations.map(addParentClasses(this.base))
       };

@@ -38,7 +38,8 @@ export function facetFilterDefault(helpers: TailwindHelpers) {
     },
 
     '&.selected': {
-      fontWeight: theme('fontWeight.bold')
+      fontWeight: theme('fontWeight.bold'),
+      letterSpacing: theme('letterSpacing.xs')
     },
 
     '&:disabled': {
