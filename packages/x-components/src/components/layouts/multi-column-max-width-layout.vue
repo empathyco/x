@@ -249,7 +249,7 @@
 
       &.x-flex {
         // space
-        flex-flow: var(--x-flow-layout-columns-header-middle, row nowrap);
+        flex-flow: var(--x-flow-layout-columns-header-middle, column nowrap);
         justify-content: var(--x-size-justify-layout-columns-header-middle, center);
         align-items: var(--x-size-align-layout-columns-header-middle, flex start);
       }

@@ -103,7 +103,7 @@
         <template #header-middle>
           <div class="x-flex x-flex-col x-gap-16 x-items-stretch x-flex-auto">
             <div class="x-input-group x-input-group-lead x-rounded-sm">
-              <div class="x-input x-search-input-placeholder-container">
+              <div class="x-input x-search-input-placeholder-container x-flex">
                 <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
                 <SearchInput
                   aria-label="Search for products"
