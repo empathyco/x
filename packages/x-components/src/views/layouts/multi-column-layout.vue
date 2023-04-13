@@ -2,28 +2,28 @@
   <MultiColumnMaxWidthLayout :dev-mode="true">
     <template #header-start>
       <span
-        class="x-title x-list__item--expand x-list x-list--justify-center x-margin--bottom-03 x-margin--top-03"
+        class="x-title x-list__item--expand x-list x-justify-center x-margin--bottom-03 x-margin--top-03"
       >
         HEADER START
       </span>
     </template>
     <template #header-middle>
       <span
-        class="x-list__item--expand x-list x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-title1"
+        class="x-list__item--expand x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-title1"
       >
         HEADER MIDDLE
       </span>
     </template>
     <template #header-end>
       <span
-        class="x-list__item--expand x-list x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-title2"
+        class="x-list__item--expand x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-title2"
       >
         HEADER END
       </span>
     </template>
     <template #sub-header>
       <span
-        class="x-list__item--expand x-list x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-title2"
+        class="x-list__item--expand x-list x-justify-center x-margin--bottom-03 x-margin--top-03 x-title2"
       >
         SUB HEADER
       </span>

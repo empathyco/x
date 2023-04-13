@@ -5,7 +5,7 @@
         <BaseIdModalOpen modalId="left-aside" class="x-button--ghost">
           <ChevronRight />
         </BaseIdModalOpen>
-        <span class="x-list__item--expand x-list x-list--justify-center x-title1">HEADER</span>
+        <span class="x-list__item--expand x-list x-justify-center x-title1">HEADER</span>
         <BaseIdModalOpen modalId="right-aside" class="x-button--ghost">
           <FiltersIcon class="x-icon--l" />
         </BaseIdModalOpen>
@@ -15,7 +15,7 @@
       </div>
     </template>
     <template #sub-header>
-      <span class="x-list__item--expand x-list x-list--justify-center x-title2">SUB-HEADER</span>
+      <span class="x-list__item--expand x-list x-justify-center x-title2">SUB-HEADER</span>
     </template>
     <template #toolbar>
       <div
