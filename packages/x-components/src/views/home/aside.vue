@@ -1,6 +1,6 @@
 <template>
   <div
-    class="x-list x-list--padding-05 x-list--padding-top x-list--gap-06 x-list--border x-list--border-top"
+    class="x-list x-list--padding-05 x-list--padding-top x-gap-24 x-list--border x-list--border-top"
   >
     <FacetsProvider :facets="staticFacets" />
     <ClearFilters />
@@ -11,7 +11,7 @@
     </SelectedFiltersList>
 
     <!-- Facets -->
-    <Facets class="x-list--gap-06">
+    <Facets class="x-gap-24">
       <!--  Hierarchical Facet    -->
       <template #hierarchical-facet="{ facet }">
         <BaseHeaderTogglePanel class="x-facet">

@@ -7,7 +7,7 @@
     <SnippetCallbacks />
     <OpenMainModal>Start</OpenMainModal>
     <h1 class="x-text-primary-50 x-text-4xl x-font-bold x-leading-[1.5]">Test controls</h1>
-    <ul class="x-test-controls x-list x-list--gap-05">
+    <ul class="x-test-controls x-list x-gap-16">
       <li class="x-test-controls__item x-list__item">
         <label for="searchInput.instant">
           search-input - instant
@@ -101,9 +101,7 @@
     <MainModal :animation="modalAnimation">
       <MultiColumnMaxWidthLayout class="x-background--neutral-100">
         <template #header-middle>
-          <div
-            class="x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand"
-          >
+          <div class="x-list x-list--vertical x-gap-16 x-list--align-stretch x-list__item--expand">
             <div class="x-input-group x-input-group-lead x-rounded-sm">
               <div class="x-input x-search-input-placeholder-container">
                 <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
@@ -136,7 +134,7 @@
               <template #sliding-panel-left-button>
                 <ChevronLeft />
               </template>
-              <RelatedTags class="x-list--gap-03" itemClass="x-tag-outlined" />
+              <RelatedTags class="x-gap-8" itemClass="x-tag-outlined" />
               <template #sliding-panel-right-button>
                 <ChevronRight />
               </template>
@@ -167,7 +165,7 @@
         <template #toolbar-body>
           <div
             v-if="$x.totalResults > 0"
-            class="x-list x-list--horizontal x-list--align-center x-list--gap-04"
+            class="x-list x-list--horizontal x-list--align-center x-gap-12"
           >
             <span class="x-text1">{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
@@ -228,7 +226,7 @@
             <a @click="redirect" :href="redirection.url" data-test="redirection-link">
               {{ redirection.url }}
             </a>
-            <div class="x-list x-list--horizontal x-list--gap-07">
+            <div class="x-list x-list--horizontal x-gap-32">
               <button @click="abortRedirect" class="x-button--ghost x-button x-text-neutral-25">
                 No, I'll stay here
               </button>

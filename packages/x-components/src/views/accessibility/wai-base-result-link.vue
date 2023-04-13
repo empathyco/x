@@ -4,14 +4,11 @@
       <BaseResultImage :result="result" class="x-picture-zoom"></BaseResultImage>
     </BaseResultLink>
 
-    <BaseResultLink
-      class="x-result__description x-list x-list--vertical x-list--gap-02"
-      :result="result"
-    >
+    <BaseResultLink class="x-result__description x-list x-list--vertical x-gap-4" :result="result">
       <h2 class="x-small x-ellipsis x-uppercase" data-test="result-title">
         {{ result.name }}
       </h2>
-      <div class="x-list x-list--horizontal x-list--wrap x-list--gap-03">
+      <div class="x-list x-list--horizontal x-list--wrap x-gap-8">
         <BaseResultCurrentPrice :result="result" class="x-text x-text--bold" />
         <BaseResultPreviousPrice
           :result="result"
