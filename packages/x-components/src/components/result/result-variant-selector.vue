@@ -7,7 +7,7 @@
         @binding {(variant: ResultVariant) => void} selectVariant - Callback to select a variant
     -->
     <slot :variants="variants" :selectedVariant="selectedVariant" :selectVariant="selectVariant">
-      <ul class="x-list x-result-variant-selector__list" data-test="variants-list">
+      <ul class="x-flex x-result-variant-selector__list" data-test="variants-list">
         <li
           v-for="(variant, index) in variants"
           :key="index"
@@ -250,7 +250,7 @@ In this example the default slot is used to customize the list.
     <ResultVariantSelector :level="0" #default="{ variants, selectedVariant, selectVariant }">
       <div>
         <p v-if="selectedVariant">Selected variant: {{ selectedVariant.name }}</p>
-        <ul class="x-list ">
+        <ul class="x-flex ">
           <li v-for="(variant, index) in variants" :key="index">
             <button @click="selectVariant(variant)">{{ variant.name }}</button>
           </li>

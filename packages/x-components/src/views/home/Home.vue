@@ -7,7 +7,7 @@
     <SnippetCallbacks />
     <OpenMainModal>Start</OpenMainModal>
     <h1 class="x-text-primary-50 x-text-4xl x-font-bold x-leading-[1.5]">Test controls</h1>
-    <ul class="x-test-controls x-list x-gap-16">
+    <ul class="x-test-controls x-flex x-gap-16">
       <li class="x-test-controls__item">
         <label for="searchInput.instant">
           search-input - instant
@@ -101,7 +101,7 @@
     <MainModal :animation="modalAnimation">
       <MultiColumnMaxWidthLayout class="x-background--neutral-100">
         <template #header-middle>
-          <div class="x-list x-flex-col x-gap-16 x-items-stretch x-flex-auto">
+          <div class="x-flex x-flex-col x-gap-16 x-items-stretch x-flex-auto">
             <div class="x-input-group x-input-group-lead x-rounded-sm">
               <div class="x-input x-search-input-placeholder-container">
                 <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
@@ -163,7 +163,7 @@
         </template>
 
         <template #toolbar-body>
-          <div v-if="$x.totalResults > 0" class="x-list x-items-center x-gap-12">
+          <div v-if="$x.totalResults > 0" class="x-flex x-items-center x-gap-12">
             <span class="x-text1">{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
               v-model="selectedColumns"
@@ -223,7 +223,7 @@
             <a @click="redirect" :href="redirection.url" data-test="redirection-link">
               {{ redirection.url }}
             </a>
-            <div class="x-list x-gap-32">
+            <div class="x-flex x-gap-32">
               <button @click="abortRedirect" class="x-button--ghost x-button x-text-neutral-25">
                 No, I'll stay here
               </button>

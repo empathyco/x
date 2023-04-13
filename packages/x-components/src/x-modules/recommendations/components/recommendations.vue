@@ -10,7 +10,7 @@
         :is="animation"
         tag="ul"
         data-test="recommendations"
-        class="x-list x-recommendations"
+        class="x-flex x-recommendations"
       >
         <li
           v-for="recommendation in recommendations"

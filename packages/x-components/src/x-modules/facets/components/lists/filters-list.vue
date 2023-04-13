@@ -3,7 +3,7 @@
     :is="animation"
     v-if="hasFiltersToRender"
     tag="ul"
-    class="x-list x-filters"
+    class="x-flex x-filters"
     :class="cssClasses"
     data-test="base-filters"
   >

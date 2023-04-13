@@ -1,9 +1,9 @@
 <template>
-  <component :is="animation" v-if="suggestions.length" tag="ul" class="x-list x-suggestions">
+  <component :is="animation" v-if="suggestions.length" tag="ul" class="x-flex x-suggestions">
     <li
       v-for="(suggestion, index) in suggestionsToRender"
       :key="suggestionsKeys[index]"
-      class="x-list x-suggestions__item"
+      class="x-flex x-suggestions__item"
       :class="suggestionItemClass"
       data-test="suggestion-item"
     >
