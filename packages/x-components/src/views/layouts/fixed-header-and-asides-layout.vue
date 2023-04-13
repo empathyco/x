@@ -1,7 +1,7 @@
 <template>
   <FixedHeaderAndAsidesLayout :dev-mode="true">
     <template #header>
-      <div class="x-list x-list__item--expand x-list--align-center">
+      <div class="x-list x-list__item--expand x-items-center">
         <BaseIdModalOpen modalId="left-aside" class="x-button--ghost">
           <ChevronRight />
         </BaseIdModalOpen>

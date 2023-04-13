@@ -101,7 +101,7 @@
     <MainModal :animation="modalAnimation">
       <MultiColumnMaxWidthLayout class="x-background--neutral-100">
         <template #header-middle>
-          <div class="x-list x-flex-col x-gap-16 x-list--align-stretch x-list__item--expand">
+          <div class="x-list x-flex-col x-gap-16 x-items-stretch x-list__item--expand">
             <div class="x-input-group x-input-group-lead x-rounded-sm">
               <div class="x-input x-search-input-placeholder-container">
                 <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
@@ -163,7 +163,7 @@
         </template>
 
         <template #toolbar-body>
-          <div v-if="$x.totalResults > 0" class="x-list x-list--align-center x-gap-12">
+          <div v-if="$x.totalResults > 0" class="x-list x-items-center x-gap-12">
             <span class="x-text1">{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
               v-model="selectedColumns"
