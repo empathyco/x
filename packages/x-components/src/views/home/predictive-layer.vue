@@ -1,7 +1,7 @@
 <template>
   <BaseKeyboardNavigation>
     <Empathize :animation="empathizeAnimation">
-      <div class="x-list x-list--padding-05 x-list--padding-bottom x-gap-24">
+      <div class="x-list x-gap-24">
         <PopularSearches :maxItemsToRender="10" />
         <HistoryQueries :maxItemsToRender="controls.historyQueries.maxItemsToRender" />
         <ClearHistoryQueries class="x-button--ghost x-button--ghost-start">

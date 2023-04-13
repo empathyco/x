@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="x-list x-list--padding-05 x-list--padding-top x-gap-24 x-list--border x-list--border-top"
-  >
+  <div class="x-list x-gap-24">
     <FacetsProvider :facets="staticFacets" />
     <ClearFilters />
     <SelectedFiltersList>
