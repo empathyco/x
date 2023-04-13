@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.23...@empathyco/x-tailwindcss@1.0.0-alpha.24) (2023-04-13)
+
+### Features
+
+- **design-system:** add simple filter variant (#1127)
+  ([9adf7b3](https://github.com/empathyco/x/commit/9adf7b30e63239e36ef673462ec43de11823491c))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.22...@empathyco/x-tailwindcss@1.0.0-alpha.23) (2023-04-12)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
