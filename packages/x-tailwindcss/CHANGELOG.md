@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.24...@empathyco/x-tailwindcss@1.0.0-alpha.25) (2023-04-13)
+
+### Features
+
+- **design-system:** update xds button (#1130)
+  ([eb3758b](https://github.com/empathyco/x/commit/eb3758b4b52f01c022c0ae8c254037bf164dde6e))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.23...@empathyco/x-tailwindcss@1.0.0-alpha.24) (2023-04-13)
 
 ### Features
