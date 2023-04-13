@@ -1,20 +1,20 @@
 <template>
   <div class="x-layout x-layout--single-column" :class="{ 'dev-mode': devMode }">
-    <header v-if="hasContent('header')" class="x-layout__header x-list x-list--horizontal">
+    <header v-if="hasContent('header')" class="x-layout__header x-list">
       <!-- @slot Slot that is used to insert content into the Header. -->
       <slot name="header">
         <span v-if="devMode" class="slot-helper">HEADER</span>
       </slot>
     </header>
 
-    <div v-if="hasContent('sub-header')" class="x-layout__sub-header x-list x-list--horizontal">
+    <div v-if="hasContent('sub-header')" class="x-layout__sub-header x-list">
       <!-- @slot Slot that can be used to insert content into the Sub Header. -->
       <slot name="sub-header">
         <span v-if="devMode" class="slot-helper">SUB HEADER</span>
       </slot>
     </div>
 
-    <div v-if="hasContent('toolbar')" class="x-layout__toolbar x-list x-list--horizontal">
+    <div v-if="hasContent('toolbar')" class="x-layout__toolbar x-list">
       <!-- @slot Slot that can be used to insert content into the Toolbar. -->
       <slot name="toolbar">
         <span v-if="devMode" class="slot-helper">TOOLBAR</span>
@@ -41,14 +41,14 @@
       </MainScroll>
     </main>
 
-    <div v-if="hasContent('floating')" class="x-layout__floating x-list x-list--horizontal">
+    <div v-if="hasContent('floating')" class="x-layout__floating x-list">
       <!-- @slot Slot that can be used to insert content into the Floating. -->
       <slot name="floating">
         <span v-if="devMode" class="slot-helper">FLOATING</span>
       </slot>
     </div>
 
-    <footer v-if="hasContent('footer')" class="x-layout__footer x-list x-list--horizontal">
+    <footer v-if="hasContent('footer')" class="x-layout__footer x-list">
       <!-- @slot Slot that can be used to insert content into the Footer. -->
       <slot name="footer">
         <span v-if="devMode" class="slot-helper">FOOTER</span>

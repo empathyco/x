@@ -2,14 +2,14 @@
   <SingleColumnLayout :dev-mode="true">
     <template #header>
       <span
-        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95 x-title1"
+        class="x-list__item--expand x-list x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95 x-title1"
       >
         HEADER
       </span>
     </template>
     <template #sub-header>
       <span
-        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95 x-title2"
+        class="x-list__item--expand x-list x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95 x-title2"
       >
         SUB HEADER
       </span>
@@ -31,7 +31,7 @@
     </template>
     <template #floating>
       <div
-        class="x-list__item--expand x-margin--top-03 x-margin--bottom-03 x-list x-list--horizontal x-list--justify-center x-title3"
+        class="x-list__item--expand x-margin--top-03 x-margin--bottom-03 x-list x-list--justify-center x-title3"
       >
         <BaseIdModalOpen modalId="aside-modal">
           <FiltersIcon />

@@ -12,11 +12,7 @@
         :class="{ 'x-layout__header-backdrop--is-visible': isBackdropVisible }"
       />
 
-      <header
-        v-if="hasContent('header')"
-        key="header"
-        class="x-layout__header x-list x-list--horizontal"
-      >
+      <header v-if="hasContent('header')" key="header" class="x-layout__header x-list">
         <!-- @slot Slot that is be used for insert content into the Header. -->
         <slot name="header">
           <span v-if="devMode" class="slot-helper">HEADER</span>

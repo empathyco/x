@@ -287,7 +287,6 @@ behavior is disabled.
     activeTabClass="x-button-auxiliary"
     contentClass="x-padding--04 x-background--auxiliary"
     tabClass="x-button-ghost"
-    tabsListClass="x-list--horizontal"
   >
     <template #summer>
       <div>Summer Top Sales</div>

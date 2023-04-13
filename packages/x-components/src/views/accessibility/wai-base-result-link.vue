@@ -8,7 +8,7 @@
       <h2 class="x-small x-ellipsis x-uppercase" data-test="result-title">
         {{ result.name }}
       </h2>
-      <div class="x-list x-list--horizontal x-list--wrap x-gap-8">
+      <div class="x-list x-list--wrap x-gap-8">
         <BaseResultCurrentPrice :result="result" class="x-text x-text--bold" />
         <BaseResultPreviousPrice
           :result="result"

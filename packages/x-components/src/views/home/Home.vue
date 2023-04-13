@@ -163,10 +163,7 @@
         </template>
 
         <template #toolbar-body>
-          <div
-            v-if="$x.totalResults > 0"
-            class="x-list x-list--horizontal x-list--align-center x-gap-12"
-          >
+          <div v-if="$x.totalResults > 0" class="x-list x-list--align-center x-gap-12">
             <span class="x-text1">{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
               v-model="selectedColumns"
@@ -226,7 +223,7 @@
             <a @click="redirect" :href="redirection.url" data-test="redirection-link">
               {{ redirection.url }}
             </a>
-            <div class="x-list x-list--horizontal x-gap-32">
+            <div class="x-list x-gap-32">
               <button @click="abortRedirect" class="x-button--ghost x-button x-text-neutral-25">
                 No, I'll stay here
               </button>
