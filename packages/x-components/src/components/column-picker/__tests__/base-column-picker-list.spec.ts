@@ -228,11 +228,11 @@ describe('testing Base Column Picker List', () => {
   it('allows adding CSS class to the buttons', () => {
     const { wrapper } = renderBaseColumnPickerListComponent({
       columns: [1, 3, 6],
-      buttonClass: 'x-background--accent'
+      buttonClass: 'custom-class'
     });
 
     wrapper.findAll('button').wrappers.forEach(button => {
-      expect(button.classes()).toContain('x-background--accent');
+      expect(button.classes()).toContain('custom-class');
     });
   });
 });

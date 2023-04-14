@@ -99,7 +99,7 @@
       </li>
     </ul>
     <MainModal :animation="modalAnimation">
-      <MultiColumnMaxWidthLayout class="x-background--neutral-100">
+      <MultiColumnMaxWidthLayout class="x-bg-neutral-0">
         <template #header-middle>
           <div
             class="x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand"

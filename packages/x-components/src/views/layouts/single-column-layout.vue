@@ -2,14 +2,14 @@
   <SingleColumnLayout :dev-mode="true">
     <template #header>
       <span
-        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95 x-title1"
+        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-bg-neutral-10 x-title1"
       >
         HEADER
       </span>
     </template>
     <template #sub-header>
       <span
-        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-background--neutral-95 x-title2"
+        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-bg-neutral-10 x-title2"
       >
         SUB HEADER
       </span>
@@ -40,32 +40,30 @@
       </div>
     </template>
     <template #main>
-      <div
-        class="x-list__item--stretch x-margin--top-05 x-margin--bottom-05 x-background--neutral-95"
-      >
+      <div class="x-list__item--stretch x-margin--top-05 x-margin--bottom-05 x-bg-neutral-10">
         MAIN
         <div class="x-grid-list x-grid-list--cols-auto">
           <article
             v-for="i in 100"
             :key="i"
-            class="x-background--neutral-70 x-padding--top-13 x-padding--left-6"
+            class="x-bg-neutral-25 x-padding--top-13 x-padding--left-6"
           />
         </div>
       </div>
     </template>
     <template #footer>
       <div
-        class="x-list__item--expand x-padding--03 x-background--neutral-95 x-border-width--01 x-border-color--neutral-35 x-text1 x-text1-lg"
+        class="x-list__item--expand x-padding--03 x-bg-neutral-10 x-border-width--01 x-border-color--neutral-35 x-text1 x-text1-lg"
       >
         FOOTER
       </div>
     </template>
     <template #aside>
-      <div class="x-background--neutral-100 x-list__item--expand x-padding--09">ASIDE</div>
+      <div class="x-bg-neutral-0 x-list__item--expand x-padding--09">ASIDE</div>
     </template>
     <template #extra-aside>
       <BaseIdModal modal-id="extra-aside-modal" class="x-layout__aside">
-        <div class="x-background--neutral-100 x-list__item--expand x-padding--09">EXTRA ASIDE</div>
+        <div class="x-bg-neutral-0 x-list__item--expand x-padding--09">EXTRA ASIDE</div>
       </BaseIdModal>
     </template>
   </SingleColumnLayout>
