@@ -272,6 +272,21 @@ describe('testing search module actions', () => {
       });
       expect(store.state.isNoResults).toEqual(false);
     });
+    // eslint-disable-next-line max-len
+    it('sets the FromNoResultsWithFilters flag when there is no results with filters applied', () => {
+      resetSearchStateWith(store, {
+        query: 'requestWithFilters',
+        selectedFilters: { brand: [{ id: 'test', selected: true, modelName: 'SimpleFilter' }] }
+      });
+      expect(store.state.fromNoResultsWithFilters).toEqual(false);
+      store.dispatch('saveSearchResponse', {
+        ...emptySearchResponseStub
+      });
+      expect(store.state.fromNoResultsWithFilters).toEqual(true);
+      store.dispatch('saveSearchResponse', {
+        ...searchResponseStub
+      });
+    });
   });
 
   describe('cancelFetchAndSaveSearchResponse', () => {
