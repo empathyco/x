@@ -66,7 +66,7 @@
       </div>
     </template>
     <template #scroll-to-top>
-      <ChevronUp class="x-bg-neutral-25 x-padding--02 x-border-radius--06" />
+      <ChevronUp class="x-bg-neutral-25 x-padding--02 x-rounded-lg" />
     </template>
   </MultiColumnMaxWidthLayout>
 </template>

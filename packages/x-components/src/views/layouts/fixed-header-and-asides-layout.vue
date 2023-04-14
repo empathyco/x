@@ -29,20 +29,14 @@
       </div>
     </template>
     <template #left-aside>
-      <div class="x-bg-neutral-0 x-list__item--expand x-border-radius--right-06 x-padding--05">
-        LEFT SIDE
-      </div>
+      <div class="x-bg-neutral-0 x-list__item--expand x-rounded-r-lg x-padding--05">LEFT SIDE</div>
     </template>
     <template #right-aside>
-      <div class="x-bg-neutral-0 x-padding--10 x-margin--top-12 x-border-radius--left-06">
-        RIGHT SIDE
-      </div>
+      <div class="x-bg-neutral-0 x-padding--10 x-margin--top-12 x-rounded-l-lg">RIGHT SIDE</div>
     </template>
     <template #extra-aside>
       <BaseIdModal modal-id="extra-aside" class="x-layout__aside x-layout__aside--right">
-        <div class="x-bg-neutral-0 x-padding--10 x-margin--top-12 x-border-radius--left-06">
-          EXTRA ASIDE
-        </div>
+        <div class="x-bg-neutral-0 x-padding--10 x-margin--top-12 x-rounded-l-lg">EXTRA ASIDE</div>
       </BaseIdModal>
     </template>
     <template #main>
