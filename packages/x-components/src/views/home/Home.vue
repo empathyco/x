@@ -221,7 +221,7 @@
           <!--  Redirection  -->
           <Redirection
             #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
-            class="x-margin--top-03 x-margin--bottom-03"
+            class="x-mt-8 x-mb-8"
             :delayInSeconds="5"
           >
             <p>Your search matches a special place in our website. You are being redirected to:</p>
@@ -241,11 +241,7 @@
 
           <template v-if="!$x.redirections.length">
             <!--  No Results Message  -->
-            <div
-              v-if="$x.noResults"
-              class="x-message x-margin--top-03 x-margin--bottom-03"
-              data-test="no-results-message"
-            >
+            <div v-if="$x.noResults" class="x-message x-mt-8 x-mb-8" data-test="no-results-message">
               <p>
                 There are no results for
                 <span class="x-font-bold">{{ $x.query.search }}</span>
@@ -319,7 +315,7 @@
                             >
                               <span class="x-font-bold">{{ nextQueries[0].query }}</span>
                             </NextQuery>
-                            <div class="x-margin--bottom-06">
+                            <div class="x-mb-24">
                               <SlidingPanel :resetOnContentChange="false">
                                 <div class="x-flex x-flex-row x-gap-8">
                                   <Result

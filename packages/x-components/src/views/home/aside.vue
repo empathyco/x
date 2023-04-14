@@ -25,7 +25,7 @@
               <HierarchicalFilter
                 :filter="filter"
                 :data-test="`${facet.label}-filter`"
-                childrenFiltersClass="x-margin--left-05"
+                childrenFiltersClass="x-ml-16"
               />
             </FiltersList>
           </SlicedFilters>
