@@ -46,23 +46,19 @@
         class="x-list__item--stretch x-mt-16 x-mb-16 x-bg-neutral-10 x-border-2 x-border-neutral-25"
       >
         MAIN ASIDE
-        <article class="x-bg-neutral-25 x-padding--top-13 x-padding--left-6" />
+        <article class="x-bg-neutral-25 x-pt-80 x-pl-24" />
       </div>
     </template>
     <template #main-body>
       <div class="x-list__item--stretch x-mt-16 x-mb-16 x-bg-neutral-10">
         MAIN
         <div class="x-grid-list x-grid-list--cols-auto">
-          <article
-            v-for="i in 100"
-            :key="i"
-            class="x-bg-neutral-25 x-padding--top-13 x-padding--left-6"
-          />
+          <article v-for="i in 100" :key="i" class="x-bg-neutral-25 x-pt-80 x-pl-24" />
         </div>
       </div>
     </template>
     <template #scroll-to-top>
-      <ChevronUp class="x-bg-neutral-25 x-padding--02 x-rounded-lg" />
+      <ChevronUp class="x-bg-neutral-25 x-p-4 x-rounded-lg" />
     </template>
   </MultiColumnMaxWidthLayout>
 </template>

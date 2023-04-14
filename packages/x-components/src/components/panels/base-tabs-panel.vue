@@ -285,7 +285,7 @@ behavior is disabled.
 <template>
   <BaseTabsPanel
     activeTabClass="x-button-auxiliary"
-    contentClass="x-padding--04 x-bg-auxiliary-25"
+    contentClass="x-p-12 x-bg-auxiliary-25"
     tabClass="x-button-ghost"
     tabsListClass="x-list--horizontal"
   >

@@ -39,27 +39,23 @@
       <div class="x-list__item--stretch x-mt-16 x-mb-16 x-bg-neutral-10">
         MAIN
         <div class="x-grid-list x-grid-list--cols-auto">
-          <article
-            v-for="i in 100"
-            :key="i"
-            class="x-bg-neutral-25 x-padding--top-13 x-padding--left-6"
-          />
+          <article v-for="i in 100" :key="i" class="x-bg-neutral-25 x-pt-80 x-pl-24" />
         </div>
       </div>
     </template>
     <template #footer>
       <div
-        class="x-list__item--expand x-padding--03 x-bg-neutral-10 x-border-1 x-border-neutral-75 x-text1 x-text1-lg"
+        class="x-list__item--expand x-p-8 x-bg-neutral-10 x-border-1 x-border-neutral-75 x-text1 x-text1-lg"
       >
         FOOTER
       </div>
     </template>
     <template #aside>
-      <div class="x-bg-neutral-0 x-list__item--expand x-padding--09">ASIDE</div>
+      <div class="x-bg-neutral-0 x-list__item--expand x-p-48">ASIDE</div>
     </template>
     <template #extra-aside>
       <BaseIdModal modal-id="extra-aside-modal" class="x-layout__aside">
-        <div class="x-bg-neutral-0 x-list__item--expand x-padding--09">EXTRA ASIDE</div>
+        <div class="x-bg-neutral-0 x-list__item--expand x-p-48">EXTRA ASIDE</div>
       </BaseIdModal>
     </template>
   </SingleColumnLayout>
