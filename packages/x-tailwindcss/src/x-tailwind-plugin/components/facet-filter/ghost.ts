@@ -21,7 +21,8 @@ export function facetFilterGhost(helpers: TailwindHelpers) {
       ...sizes,
 
       '&:hover': {
-        backgroundColor: theme('colors.neutral.10')
+        backgroundColor: theme('colors.neutral.10'),
+        color: theme('colors.neutral.90')
       },
       '&.selected': {
         fontWeight: theme('fontWeight.regular'),
