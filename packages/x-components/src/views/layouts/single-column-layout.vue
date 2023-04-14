@@ -16,7 +16,7 @@
     </template>
     <template #toolbar>
       <div
-        class="x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03 x-title3"
+        class="x-list__item--expand x-border-2 x-border-neutral-25 x-margin--top-03 x-margin--bottom-03 x-title3"
       >
         TOOLBAR
         <BaseIdModalOpen modalId="extra-aside-modal" class="x-button--ghost">
@@ -53,7 +53,7 @@
     </template>
     <template #footer>
       <div
-        class="x-list__item--expand x-padding--03 x-bg-neutral-10 x-border-width--01 x-border-color--neutral-35 x-text1 x-text1-lg"
+        class="x-list__item--expand x-padding--03 x-bg-neutral-10 x-border-1 x-border-neutral-75 x-text1 x-text1-lg"
       >
         FOOTER
       </div>

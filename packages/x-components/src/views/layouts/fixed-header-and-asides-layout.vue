@@ -24,9 +24,7 @@
       </span>
     </template>
     <template #toolbar>
-      <div
-        class="x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-title3"
-      >
+      <div class="x-list__item--expand x-border-2 x-border-neutral-25 x-margin--top-03 x-title3">
         TOOLBAR
       </div>
     </template>
@@ -60,9 +58,7 @@
       </div>
     </template>
     <template #scroll-to-top>
-      <div
-        class="x-padding--03 x-bg-neutral-10 x-border-width--01 x-border-color--neutral-35 x-text1 x-text1-lg"
-      >
+      <div class="x-padding--03 x-bg-neutral-10 x-border-1 x-border-neutral-75 x-text1 x-text1-lg">
         SCROLL TO TOP
       </div>
     </template>

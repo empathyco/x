@@ -30,7 +30,7 @@
     </template>
     <template #toolbar-aside>
       <div
-        class="x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03 x-title3"
+        class="x-list__item--expand x-border-2 x-border-neutral-25 x-margin--top-03 x-margin--bottom-03 x-title3"
       >
         <BaseIdTogglePanelButton class="x-button--ghost x-button" panelId="aside-panel">
           <FiltersIcon />
@@ -40,14 +40,14 @@
     </template>
     <template #toolbar-body>
       <div
-        class="x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03 x-title3"
+        class="x-list__item--expand x-border-2 x-border-neutral-25 x-margin--top-03 x-margin--bottom-03 x-title3"
       >
         TOOLBAR
       </div>
     </template>
     <template #main-aside>
       <div
-        class="x-list__item--stretch x-margin--top-05 x-margin--bottom-05 x-bg-neutral-10 x-border-width--02 x-border-color--neutral-70"
+        class="x-list__item--stretch x-margin--top-05 x-margin--bottom-05 x-bg-neutral-10 x-border-2 x-border-neutral-25"
       >
         MAIN ASIDE
         <article class="x-bg-neutral-25 x-padding--top-13 x-padding--left-6" />
