@@ -244,7 +244,7 @@
 
             <!--  No Results Message  -->
             <div
-              v-if="$x.noResults"
+              v-if="$x.noResults && !$x.fromNoResultsWithFilters"
               class="x-message x-margin--top-03 x-margin--bottom-03"
               data-test="no-results-message"
             >

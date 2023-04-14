@@ -22,11 +22,6 @@ export interface SearchXEvents {
    */
   FacetsChanged: Facet[];
   /**
-   * The no results with filters have changed.
-   * Payload: A flag indicating if the situation happened.
-   */
-  NoResultsWithFiltersChanged: boolean;
-  /**
    * Page has been changed.
    * Payload: The new page number.
    */

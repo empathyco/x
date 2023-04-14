@@ -32,7 +32,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     status: 'initial',
     isNoResults: false,
-    isNoResultsWithFilters: false
+    fromNoResultsWithFilters: false
   }),
   getters: {
     request,
@@ -90,8 +90,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     setIsNoResults(state, isNoResults) {
       state.isNoResults = isNoResults;
     },
-    setIsNoResultsWithFilters(state, isNoResultsWithFilters) {
-      state.isNoResultsWithFilters = isNoResultsWithFilters;
+    setFromNoResultsWithFilters(state, fromNoResultsWithFilters) {
+      state.fromNoResultsWithFilters = fromNoResultsWithFilters;
     },
     setStatus,
     setParams(state, params) {

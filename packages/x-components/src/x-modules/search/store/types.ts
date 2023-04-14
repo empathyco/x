@@ -38,7 +38,7 @@ export interface SearchState extends StatusState, QueryState {
   /** Flag indicating if there is a no results situation */
   isNoResults: boolean;
   /** Flag indicating if there is a no results situation with filters selected */
-  isNoResultsWithFilters: boolean;
+  fromNoResultsWithFilters: boolean;
   /** The origin property of the request. */
   origin: QueryOrigin | null;
   /** The current page of the request. */
@@ -129,11 +129,11 @@ export interface SearchMutations extends StatusMutations, QueryMutations {
    */
   setIsNoResults(isNoResults: boolean): void;
   /**
-   * Sets the `isNoResultsWithFilters` flag value.
+   * Sets the `fromNoResultsWithFilters` flag value.
    *
-   * @param isNoResults - The new flag value.
+   * @param fromNoResultsWithFilters - The new flag value.
    */
-  setIsNoResultsWithFilters(isNoResults: boolean): void;
+  setFromNoResultsWithFilters(fromNoResultsWithFilters: boolean): void;
   /**
    * Sets the origin of the module.
    *

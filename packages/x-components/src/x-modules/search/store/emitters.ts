@@ -14,7 +14,6 @@ export const searchEmitters = createStoreEmitters(searchXStoreModule, {
       return newValue.length !== 0 || oldValue.length !== 0;
     }
   },
-  NoResultsWithFiltersChanged: state => state.isNoResultsWithFilters,
   PageChanged: state => state.page,
   ResultsChanged: state => state.results,
   SearchRequestChanged: (_, getters) => getters.request,

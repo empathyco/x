@@ -74,8 +74,8 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
     get isHistoryQueriesEnabled() {
       return component.$store.state.x.historyQueries?.isEnabled ?? false;
     },
-    get isNoResultsWithFilters() {
-      return component.$store.state.x.search?.isNoResultsWithFilters ?? false;
+    get fromNoResultsWithFilters() {
+      return component.$store.state.x.search?.fromNoResultsWithFilters ?? false;
     },
     get identifierResults() {
       return component.$store.state.x.identifierResults?.identifierResults ?? [];

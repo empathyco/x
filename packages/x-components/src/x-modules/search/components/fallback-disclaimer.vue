@@ -1,11 +1,12 @@
 <template>
   <div
-    v-if="$x.isNoResultsWithFilters"
+    v-if="$x.fromNoResultsWithFilters"
     class="x-fallback-disclaimer"
     data-test="fallback-disclaimer"
   >
-    <slot v-bind="{ query }">
-      No results found for {{ query }} with the selected filters. The filters have been unselected.
+    <slot v-bind="{ query: $x.query.search }">
+      No results found for {{ $x.query.search }} with the selected filters. The filters have been
+      unselected.
     </slot>
   </div>
 </template>
@@ -13,7 +14,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { State, xComponentMixin } from '../../../components';
+  import { xComponentMixin } from '../../../components';
   import { searchXModule } from '../x-module';
 
   /**
@@ -25,15 +26,7 @@
   @Component({
     mixins: [xComponentMixin(searchXModule)]
   })
-  export default class FallbackDisclaimer extends Vue {
-    /**
-     * The query from the search state.
-     *
-     * @public
-     */
-    @State('search', 'query')
-    public query!: string;
-  }
+  export default class FallbackDisclaimer extends Vue {}
 </script>
 
 <docs lang="mdx">

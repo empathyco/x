@@ -23,14 +23,10 @@ export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchRespon
     queryTagging
   }
 ) => {
-  if (state.isNoResultsWithFilters && state.results.length) {
-    commit('setIsNoResultsWithFilters', false);
-  }
-
   if (totalResults === 0) {
     commit('setIsNoResults', true);
     if (getters.request && Object.keys(getters.request.filters!).length > 0) {
-      commit('setIsNoResultsWithFilters', true);
+      commit('setFromNoResultsWithFilters', true);
     }
   } else {
     commit('setIsNoResults', false);

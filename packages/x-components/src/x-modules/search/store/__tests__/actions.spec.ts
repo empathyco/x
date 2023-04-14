@@ -260,6 +260,18 @@ describe('testing search module actions', () => {
       expect(store.state.config.pageSize).toEqual(24);
       expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
     });
+
+    it('sets the isNoResults flag when there is no results', () => {
+      expect(store.state.isNoResults).toEqual(false);
+      store.dispatch('saveSearchResponse', {
+        ...emptySearchResponseStub
+      });
+      expect(store.state.isNoResults).toEqual(true);
+      store.dispatch('saveSearchResponse', {
+        ...searchResponseStub
+      });
+      expect(store.state.isNoResults).toEqual(false);
+    });
   });
 
   describe('cancelFetchAndSaveSearchResponse', () => {
@@ -564,6 +576,24 @@ describe('testing search module actions', () => {
           sort: ''
         })
       );
+    });
+
+    // eslint-disable-next-line max-len
+    it('should reset the FromNoResultsWithFilters flag when there is already results in the state and the flag is true', () => {
+      resetSearchStateWith(store, {
+        query: 'requestWithFilters',
+        fromNoResultsWithFilters: true,
+        results: getResultsStub()
+      });
+      expect(store.state.fromNoResultsWithFilters).toEqual(true);
+      store.dispatch('resetRequestOnRefinement', {
+        newRequest: {
+          query: 'requestWithFilters',
+          page: 1
+        },
+        oldRequest: store.getters.request!
+      });
+      expect(store.state.fromNoResultsWithFilters).toEqual(false);
     });
   });
 

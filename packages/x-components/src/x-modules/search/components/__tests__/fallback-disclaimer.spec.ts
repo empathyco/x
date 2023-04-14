@@ -10,7 +10,7 @@ import { resetXSearchStateWith } from './utils';
 function renderFallbackDisclaimer({
   template = `<FallbackDisclaimer/>`,
   query = '',
-  isNoResultsWithFilters = false
+  fromNoResultsWithFilters = false
 }: RenderFallbackDisclaimerOptions = {}): RenderFallbackDisclaimerAPI {
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -18,7 +18,7 @@ function renderFallbackDisclaimer({
   installNewXPlugin({ store }, localVue);
   resetXSearchStateWith(store, {
     query,
-    isNoResultsWithFilters
+    fromNoResultsWithFilters
   });
   const wrapper = mount(
     {
@@ -48,7 +48,7 @@ describe('testing Fallback disclaimer component', () => {
     const query = 'shirt';
     // eslint-disable-next-line max-len
     const message = `No results found for ${query} with the selected filters. The filters have been unselected.`;
-    const { wrapper } = renderFallbackDisclaimer({ isNoResultsWithFilters: true, query });
+    const { wrapper } = renderFallbackDisclaimer({ fromNoResultsWithFilters: true, query });
     await wrapper.vm.$nextTick();
     expect(wrapper.find(getDataTestSelector('fallback-disclaimer')).text()).toBe(message);
   });
@@ -60,10 +60,10 @@ describe('testing Fallback disclaimer component', () => {
         <template #default="{ query }">
           No results found for '{{ query }}'. Filters deselected
         </template>
-      </Fall>
+      </FallbackDisclaimer>
       `,
       query: 'dress',
-      isNoResultsWithFilters: true
+      fromNoResultsWithFilters: true
     });
     await wrapper.vm.$nextTick();
     expect(wrapper.find(getDataTestSelector('fallback-disclaimer')).text()).toBe(
@@ -78,7 +78,7 @@ interface RenderFallbackDisclaimerOptions {
   /** The query to display in the fallback disclaimer. */
   query?: string;
   /** Indicates if a request with filters applied had no results. */
-  isNoResultsWithFilters?: boolean;
+  fromNoResultsWithFilters?: boolean;
 }
 
 interface RenderFallbackDisclaimerAPI {
