@@ -159,7 +159,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '../../design-system/utilities/dev-mode';
+  @import '../../design-system-deprecated/utilities/dev-mode';
 
   .x-layout {
     // custom properties

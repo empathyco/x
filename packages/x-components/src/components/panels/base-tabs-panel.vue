@@ -291,7 +291,7 @@ behavior is disabled.
 <template>
   <BaseTabsPanel
     activeTabClass="x-button-auxiliary"
-    contentClass="x-padding--04 x-background--auxiliary"
+    contentClass="x-p-12 x-bg-auxiliary-25"
     tabClass="x-button-ghost"
     tabListClass="x-flex-col"
   >
