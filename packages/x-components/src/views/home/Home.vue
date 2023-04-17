@@ -221,7 +221,7 @@
           <!--  Redirection  -->
           <Redirection
             #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
-            class="x-margin--top-03 x-margin--bottom-03"
+            class="x-p-28 x-flex x-flex-col x-gap-8 x-items-center x-bg-lead-25 x-my-3"
             :delayInSeconds="5"
           >
             <p>Your search matches a special place in our website. You are being redirected to:</p>
@@ -243,7 +243,7 @@
             <!--  No Results Message  -->
             <div
               v-if="$x.noResults"
-              class="x-message x-margin--top-03 x-margin--bottom-03"
+              class="x-p-28 x-flex x-flex-col x-gap-8 x-items-center x-bg-lead-25"
               data-test="no-results-message"
             >
               <p>
