@@ -1,18 +1,17 @@
 import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import { Component, Inject } from 'vue-property-decorator';
+import { defineComponent, inject } from 'vue';
 import { FeatureLocation } from '../../types';
 import LocationProvider from '../location-provider.vue';
 
-@Component({
-  template: `
-    <button />
-  `
-})
-class Child extends Vue {
-  @Inject('location')
-  public location!: FeatureLocation;
-}
+const Child = defineComponent({
+  setup() {
+    const location = inject<FeatureLocation>('location');
+    return {
+      location
+    };
+  },
+  template: '<button />'
+});
 
 /**
  * Renders the {@link LocationProvider} component, exposing a basic API for testing.
@@ -22,6 +21,7 @@ class Child extends Vue {
  * @returns The API for testing the `LocationProvider` component.
  */
 function renderLocationProvider({
+  template = `<LocationProvider :location="location"><Child /></LocationProvider>`,
   location
 }: RenderLocationProviderOptions): RenderLocationProviderAPI {
   const wrapper = mount(
@@ -30,10 +30,7 @@ function renderLocationProvider({
         LocationProvider,
         Child
       },
-      template: `
-        <LocationProvider :location="location">
-          <Child />
-        </LocationProvider>`,
+      template,
       props: ['location']
     },
     {
@@ -44,7 +41,7 @@ function renderLocationProvider({
   );
 
   return {
-    child: wrapper.findComponent<Child>(Child)
+    child: wrapper.findComponent(Child)
   };
 }
 
@@ -61,9 +58,10 @@ describe('testing LocationProvider component', () => {
 interface RenderLocationProviderOptions {
   /** The location to provide. */
   location: FeatureLocation;
+  template?: string;
 }
 
 interface RenderLocationProviderAPI {
   /** The wrapper for the child component inside the location provider. */
-  child: Wrapper<Child>;
+  child: Wrapper<any>;
 }

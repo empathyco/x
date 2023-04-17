@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { defineComponent, PropType, provide } from 'vue';
+  import { defineComponent, h, PropType, provide } from 'vue';
   import { FeatureLocation } from '../types';
 
   /**
@@ -11,17 +11,19 @@
   export default defineComponent({
     props: {
       location: {
-        type: Object as PropType<FeatureLocation>,
+        type: String as PropType<FeatureLocation>,
         required: true
       }
     },
-    setup(props) {
+    setup(props, { slots }) {
       /**
        * The {@link FeatureLocation} to provide.
        *
        * @public
        */
       provide<FeatureLocation>('location', props.location);
+
+      return () => slots.default!() ?? h();
     }
   });
 </script>

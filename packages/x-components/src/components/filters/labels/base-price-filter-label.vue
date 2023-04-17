@@ -1,6 +1,5 @@
 <script lang="ts">
-  import Vue, { CreateElement, VNode, VNodeChildren } from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, CreateElement, defineComponent, h, PropType, VNode, VNodeChildren } from 'vue';
   import { RangeValue } from '@empathyco/x-types';
   import BaseCurrency from '../../currency/base-currency.vue';
 
@@ -10,81 +9,89 @@
    *
    * @public
    */
-  @Component({
-    components: { BaseCurrency }
-  })
-  export default class BasePriceFilterLabel extends Vue {
-    /** The filter data for get min and max value. */
-    @Prop({ required: true })
-    public filter!: { range: RangeValue };
-
-    /** Configuration for show the label. */
-    @Prop()
-    public format?: string;
-
-    /**
-     * Message shown when the filter hasn't got the min value defined.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public lessThan!: string;
-
-    /**
-     * Message shown when the filter has both the min and max values defined.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public fromTo!: string;
-
-    /**
-     * Message shown when the filter hasn't got max value defined.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public from!: string;
-
-    /**
-     * The active label, retrieved from the provided props.
-     * It depends on the min and max values of the filter.
-     *
-     * @returns The active label to be formatted with the min and max values of the filter.
-     */
-    protected get label(): string {
-      return this.filter.range.min === null
-        ? this.lessThan
-        : this.filter.range.max === null
-        ? this.from
-        : this.fromTo;
-    }
-
-    render(createElement: CreateElement): VNode {
-      const labelParts = this.label.split(/({min}|{max})/);
-
-      const children: VNodeChildren = labelParts.map(partMessage => {
-        if (partMessage === '{min}') {
-          return createElement('BaseCurrency', {
-            props: {
-              value: this.filter.range.min,
-              format: this.format
-            }
-          });
-        } else if (partMessage === '{max}') {
-          return createElement('BaseCurrency', {
-            props: {
-              value: this.filter.range.max,
-              format: this.format
-            }
-          });
-        }
-        return partMessage;
+  export default defineComponent({
+    components: { BaseCurrency },
+    props: {
+      /** The filter data for get min and max value. */
+      filter: {
+        type: Object as PropType<{ range: RangeValue }>,
+        required: true
+      },
+      /** Configuration for show the label. */
+      format: {
+        type: String
+      },
+      /**
+       * Message shown when the filter hasn't got the min value defined.
+       *
+       * @public
+       */
+      lessThan: {
+        type: String,
+        required: true
+      },
+      /**
+       * Message shown when the filter has both the min and max values defined.
+       *
+       * @public
+       */
+      fromTo: {
+        type: String,
+        required: true
+      },
+      /**
+       * Message shown when the filter hasn't got max value defined.
+       *
+       * @public
+       */
+      from: {
+        type: String,
+        required: true
+      }
+    },
+    setup(props) {
+      /**
+       * The active label, retrieved from the provided props.
+       * It depends on the min and max values of the filter.
+       *
+       * @returns The active label to be formatted with the min and max values of the filter.
+       */
+      const label = computed<string>(() => {
+        return props.filter.range.min === null
+          ? props.lessThan
+          : props.filter.range.max === null
+          ? props.from
+          : props.fromTo;
       });
 
-      return createElement('span', { class: 'x-price-filter-label' }, children);
+      const render = (): VNode => {
+        const labelParts = label.value.split(/({min}|{max})/);
+
+        const children: VNodeChildren = labelParts.map(partMessage => {
+          if (partMessage === '{min}') {
+            return h('BaseCurrency', {
+              props: {
+                value: props.filter.range.min,
+                format: props.format
+              }
+            });
+          } else if (partMessage === '{max}') {
+            return h('BaseCurrency', {
+              props: {
+                value: props.filter.range.max,
+                format: props.format
+              }
+            });
+          }
+          return partMessage;
+        });
+
+        return h('span', { class: 'x-price-filter-label' }, children);
+      };
+
+      return render;
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

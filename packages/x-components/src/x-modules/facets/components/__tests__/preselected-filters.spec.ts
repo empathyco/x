@@ -4,21 +4,29 @@ import { baseSnippetConfig } from '../../../../views/base-config';
 import PreselectedFilters from '../preselected-filters.vue';
 
 function renderPreselectedFilters({
+  template = '<PreselectedFilters :filters="filters" />',
   filters,
   snippetFilters
 }: RenderPreselectedFiltersOptions = {}): RenderPreselectedFiltersAPI {
   const emit = jest.fn();
-  mount(PreselectedFilters, {
-    provide: {
-      snippetConfig: { ...baseSnippetConfig, filters: snippetFilters }
+  mount(
+    {
+      components: { PreselectedFilters },
+      template,
+      props: ['filters']
     },
-    propsData: { filters },
-    mocks: {
-      $x: {
-        emit
+    {
+      provide: {
+        snippetConfig: { ...baseSnippetConfig, filters: snippetFilters }
+      },
+      propsData: { filters },
+      mocks: {
+        $x: {
+          emit
+        }
       }
     }
-  });
+  );
 
   return {
     emit
@@ -89,6 +97,8 @@ interface RenderPreselectedFiltersOptions {
   filters?: string[];
   /** The preselected filters provided by the snippet config. */
   snippetFilters?: string[];
+
+  template?: string;
 }
 
 /**

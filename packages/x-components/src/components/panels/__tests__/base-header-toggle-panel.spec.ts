@@ -98,7 +98,7 @@ describe('testing BaseHeaderTogglePanel component', () => {
       template: `
         <BaseHeaderTogglePanel :start-collaps="false">
           <template #header-content="{ open }">
-            <p data-test="header-content">{{ open ? "open" : "closed" }}</p> 
+            <p data-test="header-content">{{ open ? "open" : "closed" }}</p>
           </template>
           <p>Default slot</p>
         </BaseHeaderTogglePanel>

@@ -1,14 +1,14 @@
 <template>
-  <button v-on="$listeners" @click="emitEvents" data-test="event-button">
+  <button ref="root" v-on="$listeners" @click="emitEvents" data-test="event-button">
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
   </button>
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, PropType, ref } from 'vue';
   import { XEvent, XEventsTypes } from '../wiring';
+  import { use$x } from '../composables/index';
 
   /**
    * Component to be reused that renders a `<button>` with the logic of emitting events to the bus
@@ -19,23 +19,34 @@
    *
    * @public
    */
-  @Component
-  export default class BaseEventButton extends Vue {
-    /**
-     * (Required) A object where the keys are the {@link XEvent} and the values
-     * are the payload of each event.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected events!: Partial<XEventsTypes>;
+  export default defineComponent({
+    props: {
+      /**
+       * (Required) A object where the keys are the {@link XEvent} and the values
+       * are the payload of each event.
+       *
+       * @public
+       */
+      events: {
+        type: Object as PropType<Partial<XEventsTypes>>,
+        required: true
+      }
+    },
+    setup(props) {
+      const $x = use$x();
 
-    protected emitEvents(): void {
-      Object.entries(this.events).forEach(([event, payload]) => {
-        this.$x.emit(event as XEvent, payload, { target: this.$el as HTMLElement });
-      });
+      const emitEvents = (): void => {
+        Object.entries(props.events).forEach(([event, payload]) => {
+          const el = ref<HTMLElement | null>(null);
+          $x.emit(event as XEvent, payload, { target: el.value! });
+        });
+      };
+
+      return {
+        emitEvents
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

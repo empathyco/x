@@ -33,24 +33,17 @@
        *
        * @internal
        */
-      const snippetConfig = inject<SnippetConfig>;
+      const snippetConfig = inject<SnippetConfig>('snippetConfig');
       /**
        * Emits the provided preselected filters prioritizing the {@link SnippetConfig} over the
        * filters prop.
        */
-      const created = (): void => {
-        const preselectedFilters = snippetConfig?.filters ?? props.filters;
-        if (!isArrayEmpty(preselectedFilters)) {
-          $x.emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters));
-        }
-      };
+      const preselectedFilters = snippetConfig?.filters ?? props.filters;
+      if (!isArrayEmpty(preselectedFilters)) {
+        $x.emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters));
+      }
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      const render = (): void => {};
-
-      return {
-        created,
-        render
-      };
+      return () => {};
     }
   });
 </script>

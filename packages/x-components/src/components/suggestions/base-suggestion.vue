@@ -60,7 +60,7 @@
        */
       //TODO: set to true when the suggestions components pass it.
       feature: {
-        type: Object as PropType<QueryFeature>
+        type: String as PropType<QueryFeature>
       },
       /**
        * The {@link XEvent | XEvents} that will be emitted when selecting a suggestion.
@@ -108,7 +108,9 @@
        * @public
        */
       const events = computed<Partial<XEventsTypes>>(() => {
-        const filterEvent: Partial<XEventsTypes> = filter ? { UserClickedAFilter: filter } : {};
+        const filterEvent: Partial<XEventsTypes> = filter.value
+          ? { UserClickedAFilter: filter.value }
+          : {};
         return {
           UserAcceptedAQuery: props.suggestion.query,
           UserSelectedASuggestion: props.suggestion,

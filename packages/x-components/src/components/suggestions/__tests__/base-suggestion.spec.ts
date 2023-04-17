@@ -10,23 +10,31 @@ import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils
 import BaseSuggestion from '../base-suggestion.vue';
 import { createSimpleFacetStub } from '../../../__stubs__/facets-stubs.factory';
 import { createPopularSearch } from '../../../__stubs__/popular-searches-stubs.factory';
-import MainModal from '../../modals/main-modal.vue';
 
 function renderBaseSuggestion({
   query = 'bebe',
   suggestion = createPopularSearch('bebe lloron'),
-  suggestionSelectedEvents = {}
+  suggestionSelectedEvents = {},
+  template = '<BaseSuggestion :quey="query" :suggestion="suggestion" ' +
+    ':suggestion-selected-events="suggestionSelectedEvents" />'
 }: BaseSuggestionOptions = {}): BaseSuggestionAPI {
   const [, localVue] = installNewXPlugin();
   const emit = jest.spyOn(XPlugin.bus, 'emit');
-  const wrapper = mount(BaseSuggestion, {
-    localVue,
-    propsData: {
-      query,
-      suggestion,
-      suggestionSelectedEvents
+  const wrapper = mount(
+    {
+      components: { BaseSuggestion },
+      props: ['query', 'suggestion', 'suggestionSelectedEvents'],
+      template
+    },
+    {
+      localVue,
+      propsData: {
+        query,
+        suggestion,
+        suggestionSelectedEvents
+      }
     }
-  });
+  );
 
   const wireMetadata = expect.objectContaining<Partial<WireMetadata>>({
     target: wrapper.element
@@ -156,6 +164,8 @@ interface BaseSuggestionOptions {
   suggestion?: Suggestion;
   /** The events to emit when selecting a suggestion. */
   suggestionSelectedEvents?: Partial<XEventsTypes>;
+
+  template?: string;
 }
 
 /**

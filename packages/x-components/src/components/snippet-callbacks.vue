@@ -36,7 +36,7 @@
        *
        */
       const eventListeners = computed<XEventListeners>(() => {
-        const { callbacks } = snippetConfig;
+        const { callbacks } = snippetConfig!;
         return callbacks
           ? map(callbacks, (eventName, callback) => {
               return (payload: unknown, metadata: WireMetadata) => {

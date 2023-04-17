@@ -9,7 +9,6 @@
           data-test="highlight-start"
         />
         <span
-          v-if="hasMatch"
           v-text="matchParts.match"
           class="x-highlight__text x-highlight-text-match"
           :class="matchingPartClass"
@@ -111,9 +110,16 @@
      */
     protected get matchParts(): HighlightMatch {
       const matcherIndex = normalizeString(this.text).indexOf(normalizeString(this.highlight));
-      return matcherIndex !== -1 && this.highlight
-        ? this.splitAt(this.text.trim(), matcherIndex, matcherIndex + this.highlight.trim().length)
-        : { start: this.text, match: '', end: '' };
+      const a =
+        matcherIndex !== -1 && this.highlight
+          ? this.splitAt(
+              this.text.trim(),
+              matcherIndex,
+              matcherIndex + this.highlight.trim().length
+            )
+          : { start: this.text, match: '', end: '' };
+      console.log(a);
+      return a;
     }
 
     /**

@@ -5,23 +5,30 @@ import BaseEventButton from '../base-event-button.vue';
 
 describe('testing Base Event Button Component', () => {
   const emitSpy = jest.fn();
-
-  const componentWrapper = mount(BaseEventButton, {
-    propsData: {
-      events: {}
+  const template = '<BaseEventButton :events="events" />';
+  const componentWrapper = mount(
+    {
+      components: { BaseEventButton },
+      props: ['events'],
+      template
     },
-    mocks: {
-      $x: {
-        emit: emitSpy
+    {
+      propsData: {
+        events: {}
+      },
+      mocks: {
+        $x: {
+          emit: emitSpy
+        }
+      },
+      slots: {
+        default: [
+          { template: '<span class="test-msg">button text</span>' },
+          { template: '<i class="test-icon"></i>' }
+        ]
       }
-    },
-    slots: {
-      default: [
-        { template: '<span class="test-msg">button text</span>' },
-        { template: '<i class="test-icon"></i>' }
-      ]
     }
-  });
+  );
   const expectedMetadata: Omit<WireMetadata, 'moduleName'> = {
     target: componentWrapper.element
   };

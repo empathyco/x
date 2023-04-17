@@ -42,6 +42,7 @@
       animation: {
         type: [Vue, String],
         default: () => NoElement
+        // default: () => slots.default() ?? h()
       },
       /**
        * Handles if the panel is open by default.
