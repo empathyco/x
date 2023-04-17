@@ -309,7 +309,7 @@
                             :suggestion="nextQueries[0]"
                             :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
                             #default="{ results }"
-                            class="x-row__item x-row__item--span-9 x-padding--top-06"
+                            class="x-padding--top-06"
                           >
                             <h1 class="x-title2">Others clients have searched</h1>
                             <NextQuery
