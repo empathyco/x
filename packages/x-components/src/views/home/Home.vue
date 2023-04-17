@@ -287,6 +287,8 @@
                       :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
                     >
                       <BaseVariableColumnGrid
+                        style="--x-size-min-width-grid-item: 150px"
+                        class="x-gap-12"
                         :animation="resultsAnimation"
                         :columns="$x.device === 'mobile' ? 2 : 4"
                       >
