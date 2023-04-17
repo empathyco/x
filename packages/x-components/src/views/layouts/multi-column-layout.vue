@@ -2,36 +2,34 @@
   <MultiColumnMaxWidthLayout :dev-mode="true">
     <template #header-start>
       <span
-        class="x-title x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03"
+        class="x-title x-list__item--expand x-list x-list--horizontal x-list--justify-center x-my-8"
       >
         HEADER START
       </span>
     </template>
     <template #header-middle>
       <span
-        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-title1"
+        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-my-8 x-title1"
       >
         HEADER MIDDLE
       </span>
     </template>
     <template #header-end>
       <span
-        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-title2"
+        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-my-8 x-title2"
       >
         HEADER END
       </span>
     </template>
     <template #sub-header>
       <span
-        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-margin--bottom-03 x-margin--top-03 x-title2"
+        class="x-list__item--expand x-list x-list--horizontal x-list--justify-center x-my-8 x-title2"
       >
         SUB HEADER
       </span>
     </template>
     <template #toolbar-aside>
-      <div
-        class="x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03 x-title3"
-      >
+      <div class="x-list__item--expand x-border-2 x-border-neutral-25 x-my-8 x-title3">
         <BaseIdTogglePanelButton class="x-button--ghost x-button" panelId="aside-panel">
           <FiltersIcon />
         </BaseIdTogglePanelButton>
@@ -39,36 +37,24 @@
       </div>
     </template>
     <template #toolbar-body>
-      <div
-        class="x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-margin--bottom-03 x-title3"
-      >
-        TOOLBAR
-      </div>
+      <div class="x-list__item--expand x-border-2 x-border-neutral-25 x-my-8 x-title3">TOOLBAR</div>
     </template>
     <template #main-aside>
-      <div
-        class="x-list__item--stretch x-margin--top-05 x-margin--bottom-05 x-background--neutral-95 x-border-width--02 x-border-color--neutral-70"
-      >
+      <div class="x-list__item--stretch x-my-16 x-bg-neutral-10 x-border-2 x-border-neutral-25">
         MAIN ASIDE
-        <article class="x-background--neutral-70 x-padding--top-13 x-padding--left-6" />
+        <article class="x-bg-neutral-25 x-pt-80 x-pl-24" />
       </div>
     </template>
     <template #main-body>
-      <div
-        class="x-list__item--stretch x-margin--top-05 x-margin--bottom-05 x-background--neutral-95"
-      >
+      <div class="x-list__item--stretch x-my-16 x-bg-neutral-10">
         MAIN
         <div class="x-grid-list x-grid-list--cols-auto">
-          <article
-            v-for="i in 100"
-            :key="i"
-            class="x-background--neutral-70 x-padding--top-13 x-padding--left-6"
-          />
+          <article v-for="i in 100" :key="i" class="x-bg-neutral-25 x-pt-80 x-pl-24" />
         </div>
       </div>
     </template>
     <template #scroll-to-top>
-      <ChevronUp class="x-background--neutral-70 x-padding--02 x-border-radius--06" />
+      <ChevronUp class="x-bg-neutral-25 x-p-4 x-rounded-lg" />
     </template>
   </MultiColumnMaxWidthLayout>
 </template>

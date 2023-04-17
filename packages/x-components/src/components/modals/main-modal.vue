@@ -109,7 +109,7 @@ The `contentClass` prop can be used to add classes to the modal content.
 <template>
   <div>
     <OpenMainModal>Open X</OpenMainModal>
-    <MainModal contentClass="x-background--neutral-35">
+    <MainModal contentClass="x-bg-neutral-75">
       <CloseMainModal>Close X</CloseMainModal>
     </MainModal>
   </div>

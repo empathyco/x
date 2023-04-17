@@ -99,7 +99,7 @@
       </li>
     </ul>
     <MainModal :animation="modalAnimation">
-      <MultiColumnMaxWidthLayout class="x-background--neutral-100">
+      <MultiColumnMaxWidthLayout class="x-bg-neutral-0">
         <template #header-middle>
           <div
             class="x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand"
@@ -221,7 +221,7 @@
           <!--  Redirection  -->
           <Redirection
             #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
-            class="x-margin--top-03 x-margin--bottom-03"
+            class="x-my-8"
             :delayInSeconds="5"
           >
             <p>Your search matches a special place in our website. You are being redirected to:</p>
@@ -241,11 +241,7 @@
 
           <template v-if="!$x.redirections.length">
             <!--  No Results Message  -->
-            <div
-              v-if="$x.noResults"
-              class="x-message x-margin--top-03 x-margin--bottom-03"
-              data-test="no-results-message"
-            >
+            <div v-if="$x.noResults" class="x-message x-mt-8 x-mb-8" data-test="no-results-message">
               <p>
                 There are no results for
                 <span class="x-font-bold">{{ $x.query.search }}</span>
@@ -309,7 +305,7 @@
                             :suggestion="nextQueries[0]"
                             :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
                             #default="{ results }"
-                            class="x-row__item x-row__item--span-9 x-padding--top-06"
+                            class="x-row__item x-row__item--span-9 x-pt-24"
                           >
                             <h1 class="x-title2">Others clients have searched</h1>
                             <NextQuery
@@ -319,7 +315,7 @@
                             >
                               <span class="x-font-bold">{{ nextQueries[0].query }}</span>
                             </NextQuery>
-                            <div class="x-margin--bottom-06">
+                            <div class="x-mb-24">
                               <SlidingPanel :resetOnContentChange="false">
                                 <div class="x-flex x-flex-row x-gap-8">
                                   <Result

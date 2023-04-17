@@ -24,53 +24,29 @@
       </span>
     </template>
     <template #toolbar>
-      <div
-        class="x-list__item--expand x-border-width--02 x-border-color--neutral-70 x-margin--top-03 x-title3"
-      >
-        TOOLBAR
-      </div>
+      <div class="x-list__item--expand x-border-2 x-border-neutral-25 x-mt-8 x-title3">TOOLBAR</div>
     </template>
     <template #left-aside>
-      <div
-        class="x-background--neutral-100 x-list__item--expand x-border-radius--right-06 x-padding--05"
-      >
-        LEFT SIDE
-      </div>
+      <div class="x-bg-neutral-0 x-list__item--expand x-rounded-r-lg x-p-16">LEFT SIDE</div>
     </template>
     <template #right-aside>
-      <div
-        class="x-background--neutral-100 x-padding--10 x-margin--top-12 x-border-radius--left-06"
-      >
-        RIGHT SIDE
-      </div>
+      <div class="x-bg-neutral-0 x-p-56 x-mt-80 x-rounded-l-lg">RIGHT SIDE</div>
     </template>
     <template #extra-aside>
       <BaseIdModal modal-id="extra-aside" class="x-layout__aside x-layout__aside--right">
-        <div
-          class="x-background--neutral-100 x-padding--10 x-margin--top-12 x-border-radius--left-06"
-        >
-          EXTRA ASIDE
-        </div>
+        <div class="x-bg-neutral-0 x-p-56 x-mt-80 x-rounded-l-lg">EXTRA ASIDE</div>
       </BaseIdModal>
     </template>
     <template #main>
-      <div
-        class="x-list__item--stretch x-margin--top-05 x-margin--bottom-05 x-background--neutral-95"
-      >
+      <div class="x-list__item--stretch x-mt-16 x-mb-16 x-bg-neutral-10">
         MAIN
         <div class="x-grid-list x-grid-list--cols-auto">
-          <article
-            v-for="i in 100"
-            :key="i"
-            class="x-background--neutral-70 x-padding--top-13 x-padding--left-6"
-          />
+          <article v-for="i in 100" :key="i" class="x-bg-neutral-25 x-pt-80 x-pl-24" />
         </div>
       </div>
     </template>
     <template #scroll-to-top>
-      <div
-        class="x-padding--03 x-background--neutral-95 x-border-width--01 x-border-color--neutral-35 x-text1 x-text1-lg"
-      >
+      <div class="x-p-8 x-bg-neutral-10 x-border-1 x-border-neutral-75 x-text1 x-text1-lg">
         SCROLL TO TOP
       </div>
     </template>

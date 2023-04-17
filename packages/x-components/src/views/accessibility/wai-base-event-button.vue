@@ -1,6 +1,6 @@
 <template>
   <Scroll id="accessibility-scroll">
-    <section class="x-list x-padding--07 x-list--gap-05">
+    <section class="x-list x-p-32 x-list--gap-05">
       <div>
         <h1>BaseIdTogglePanelButton</h1>
         <BaseIdTogglePanelButton class="x-button--ghost x-button" :panelId="panelId">
