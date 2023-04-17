@@ -1,10 +1,10 @@
 <template>
-  <component :is="animation" tag="ul" class="x-option-list x-sort-list" data-test="sort-list">
+  <component :is="animation" tag="ul" class="x-sort-list" data-test="sort-list">
     <li
       v-for="{ item, cssClasses, event } in listItems"
       :key="item"
       :class="cssClasses"
-      class="x-option-list__item x-sort-list__item"
+      class="x-sort-list__item"
     >
       <BaseEventButton
         class="x-sort-list__button x-button"
@@ -73,12 +73,7 @@
     protected get listItems(): SortListItem[] {
       return this.items.map(item => ({
         item,
-        cssClasses: [
-          {
-            'x-sort-list__item--is-selected': item === this.selectedSort,
-            'x-option-list__item--is-selected': item === this.selectedSort
-          }
-        ],
+        cssClasses: [{ 'x-sort-list__item--is-selected': item === this.selectedSort }],
         event: { UserClickedASort: item }
       }));
     }
