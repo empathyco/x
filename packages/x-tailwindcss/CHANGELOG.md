@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.25...@empathyco/x-tailwindcss@1.0.0-alpha.26) (2023-04-17)
+
+### Bug Fixes
+
+- styles for default and ghost variant (#1136)
+  ([e78e280](https://github.com/empathyco/x/commit/e78e280f5bd2638a869c996a3e59904976eeca1a))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.24...@empathyco/x-tailwindcss@1.0.0-alpha.25) (2023-04-13)
 
 ### Features
