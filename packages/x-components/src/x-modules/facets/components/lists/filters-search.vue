@@ -1,5 +1,5 @@
 <template>
-  <div class="x-flex x-flex-col x-filters-search" :class="cssClasses" data-test="filters-search">
+  <div class="x-filters-search" :class="cssClasses" data-test="filters-search">
     <!--
       @slot Search content. It is the content which triggers the filters sifting.
         @binding {string} query - The query to search in filters.
@@ -114,24 +114,29 @@
 </script>
 
 <style lang="scss" scoped>
-  .x-filters-search__input {
-    &::-ms-clear {
-      display: none;
-      width: 0;
-      height: 0;
-    }
+  .x-filters-search {
+    display: flex;
+    flex-flow: column nowrap;
 
-    &::-ms-reveal {
-      display: none;
-      width: 0;
-      height: 0;
-    }
+    &__input {
+      &::-ms-clear {
+        display: none;
+        width: 0;
+        height: 0;
+      }
 
-    &::-webkit-search-decoration,
-    &::-webkit-search-cancel-button,
-    &::-webkit-search-results-button,
-    &::-webkit-search-results-decoration {
-      display: none;
+      &::-ms-reveal {
+        display: none;
+        width: 0;
+        height: 0;
+      }
+
+      &::-webkit-search-decoration,
+      &::-webkit-search-cancel-button,
+      &::-webkit-search-results-button,
+      &::-webkit-search-results-decoration {
+        display: none;
+      }
     }
   }
 </style>

@@ -6,7 +6,7 @@
   >
     <component
       :is="animation"
-      class="x-flex x-flex-col x-selected-filters-list"
+      class="x-selected-filters-list"
       data-test="selected-filters-list"
       tag="ul"
     >
@@ -99,6 +99,13 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .x-selected-filters-list {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+</style>
 
 <docs lang="mdx">
 ## Example

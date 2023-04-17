@@ -7,7 +7,7 @@
         @binding {(variant: ResultVariant) => void} selectVariant - Callback to select a variant
     -->
     <slot :variants="variants" :selectedVariant="selectedVariant" :selectVariant="selectVariant">
-      <ul class="x-flex x-flex-col x-result-variant-selector__list" data-test="variants-list">
+      <ul class="x-result-variant-selector__list" data-test="variants-list">
         <li
           v-for="(variant, index) in variants"
           :key="index"
@@ -151,6 +151,12 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .x-result-variant-selector__list {
+    display: flex;
+  }
+</style>
 
 <docs lang="mdx">
 ## Events

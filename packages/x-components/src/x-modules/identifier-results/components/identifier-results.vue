@@ -1,10 +1,5 @@
 <template>
-  <component
-    :is="animation"
-    v-if="identifierResults.length"
-    tag="ul"
-    class="x-flex x-flex-col x-identifier-results"
-  >
+  <component :is="animation" v-if="identifierResults.length" tag="ul" class="x-identifier-results">
     <li
       v-for="identifierResult in identifierResultsToRender"
       :key="identifierResult.id"
@@ -87,6 +82,13 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .x-identifier-results {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+</style>
 
 <docs lang="mdx">
 ## Examples

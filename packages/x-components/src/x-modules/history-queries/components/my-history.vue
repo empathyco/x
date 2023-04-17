@@ -1,10 +1,5 @@
 <template>
-  <component
-    :is="animation"
-    v-if="hasHistoryQueries"
-    class="x-my-history x-flex x-flex-col"
-    tag="ul"
-  >
+  <component :is="animation" v-if="hasHistoryQueries" class="x-my-history" tag="ul">
     <li
       v-for="(historyQueries, date) in groupByDate"
       :key="date"
@@ -41,10 +36,7 @@
                   @binding {() => string} formatTime - Callback to format time to `hh:mm [PM/AM]`
             -->
                 <slot name="suggestion-content" v-bind="{ suggestion, index, formatTime }">
-                  <div class="x-flex x-flex-col">
-                    <span>{{ suggestion.query }}</span>
-                    <span>{{ formatTime(suggestion.timestamp) }}</span>
-                  </div>
+                  {{ suggestion.query }} - {{ formatTime(suggestion.timestamp) }}
                 </slot>
               </template>
               <template #remove-button-content>
@@ -199,6 +191,13 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .x-my-history {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+</style>
 
 <docs lang="mdx">
 ## Events

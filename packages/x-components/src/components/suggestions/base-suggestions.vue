@@ -1,14 +1,9 @@
 <template>
-  <component
-    :is="animation"
-    v-if="suggestions.length"
-    tag="ul"
-    class="x-flex x-flex-col x-suggestions"
-  >
+  <component :is="animation" v-if="suggestions.length" tag="ul" class="x-suggestions">
     <li
       v-for="(suggestion, index) in suggestionsToRender"
       :key="suggestionsKeys[index]"
-      class="x-flex x-flex-col x-suggestions__item"
+      class="x-suggestions__item"
       :class="suggestionItemClass"
       data-test="suggestion-item"
     >
@@ -171,6 +166,12 @@
 <style lang="scss" scoped>
   .x-suggestions {
     list-style-type: none;
+
+    &,
+    &__item {
+      display: flex;
+      flex-flow: column nowrap;
+    }
   }
 </style>
 

@@ -2,7 +2,7 @@
   <section v-if="getTabs().length > 0" class="x-tabs-panel" data-test="base-tabs-panel">
     <component
       :is="tabsAnimation"
-      class="x-tabs-panel__items-list x-flex x-flex-col"
+      class="x-tabs-panel__items-list"
       :class="tabsListClass"
       data-test="base-tabs-panel-list"
       role="tablist"
@@ -161,6 +161,12 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .x-tabs-panel__items-list {
+    display: flex;
+  }
+</style>
 
 <docs lang="mdx">
 ## Examples
