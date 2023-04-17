@@ -37,14 +37,10 @@
       </div>
     </template>
     <template #toolbar-body>
-      <div class="x-list__item--expand x-border-2 x-border-neutral-25 x-my-8 x-title3">
-        TOOLBAR
-      </div>
+      <div class="x-list__item--expand x-border-2 x-border-neutral-25 x-my-8 x-title3">TOOLBAR</div>
     </template>
     <template #main-aside>
-      <div
-        class="x-list__item--stretch x-my-16 x-bg-neutral-10 x-border-2 x-border-neutral-25"
-      >
+      <div class="x-list__item--stretch x-my-16 x-bg-neutral-10 x-border-2 x-border-neutral-25">
         MAIN ASIDE
         <article class="x-bg-neutral-25 x-pt-80 x-pl-24" />
       </div>
