@@ -103,11 +103,6 @@
   .x-recommendations {
     display: flex;
     flex-flow: column nowrap;
-  }
-</style>
-
-<style lang="scss" scoped>
-  .x-recommendations {
     list-style-type: none;
   }
 </style>
