@@ -251,6 +251,10 @@ If page reload is not triggered after accepting cookies, update the `consent` pa
 Although cookie acceptance is bound to the generation of the `sessionID` in local storage, Empathy
 does **not use any cookies** in its libraries.
 
+<br/>
+
+The `sessionId` lasts until there are 30 minutes of inactivity. However, every time the shopper interacts with the commerce search (e.g. queries, clicks, etc.), the session expiration time is reset by adding 30 minutes from the time of that interaction. After 30 minutes of shopper inactivity, a new `sessionId` is generated.
+
 :::
 
 ### Callbacks and Interface X events types
