@@ -33,13 +33,14 @@ export function facetFilterDefault(helpers: TailwindHelpers) {
     ...facetFilterSizes(helpers).md,
     ...alignIconWithBaseline(),
 
-    '&:hover,&.selected': {
+    '&:hover': {
       color: `var(--filter-color-50, ${theme('colors.neutral.50')})`
     },
 
     '&.selected': {
       fontWeight: theme('fontWeight.bold'),
-      letterSpacing: theme('letterSpacing.xs')
+      letterSpacing: theme('letterSpacing.xs'),
+      color: `var(--filter-color-50, ${theme('colors.neutral.90')})`
     },
 
     '&:disabled': {
