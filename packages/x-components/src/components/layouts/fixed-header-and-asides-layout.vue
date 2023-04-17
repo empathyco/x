@@ -12,7 +12,11 @@
         :class="{ 'x-layout__header-backdrop--is-visible': isBackdropVisible }"
       />
 
-      <header v-if="hasContent('header')" key="header" class="x-layout__header x-flex">
+      <header
+        v-if="hasContent('header')"
+        key="header"
+        class="x-layout__header x-list x-list--horizontal"
+      >
         <!-- @slot Slot that is be used for insert content into the Header. -->
         <slot name="header">
           <span v-if="devMode" class="slot-helper">HEADER</span>
@@ -35,7 +39,7 @@
         </slot>
       </section>
 
-      <main v-if="hasContent('main')" key="main" class="x-layout__main x-flex x-flex-col">
+      <main v-if="hasContent('main')" key="main" class="x-layout__main x-list x-list--vertical">
         <!-- @slot Slot that is be used for insert content into the Main. -->
         <slot name="main">
           <span v-if="devMode" class="slot-helper">MAIN</span>
@@ -93,6 +97,8 @@
 
   /**
    * Component for use as Layout to be filled with the rest of the components.
+   *
+   * @deprecated - The layout has been deprecated in favor of using new XDS layout.
    *
    * @public
    */

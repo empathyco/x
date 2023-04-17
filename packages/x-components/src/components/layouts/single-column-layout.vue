@@ -1,28 +1,28 @@
 <template>
   <div class="x-layout x-layout--single-column" :class="{ 'dev-mode': devMode }">
-    <header v-if="hasContent('header')" class="x-layout__header x-flex">
+    <header v-if="hasContent('header')" class="x-layout__header x-list x-list--horizontal">
       <!-- @slot Slot that is used to insert content into the Header. -->
       <slot name="header">
         <span v-if="devMode" class="slot-helper">HEADER</span>
       </slot>
     </header>
 
-    <div v-if="hasContent('sub-header')" class="x-layout__sub-header x-flex">
+    <div v-if="hasContent('sub-header')" class="x-layout__sub-header x-list x-list--horizontal">
       <!-- @slot Slot that can be used to insert content into the Sub Header. -->
       <slot name="sub-header">
         <span v-if="devMode" class="slot-helper">SUB HEADER</span>
       </slot>
     </div>
 
-    <div v-if="hasContent('toolbar')" class="x-layout__toolbar x-flex">
+    <div v-if="hasContent('toolbar')" class="x-layout__toolbar x-list x-list--horizontal">
       <!-- @slot Slot that can be used to insert content into the Toolbar. -->
       <slot name="toolbar">
         <span v-if="devMode" class="slot-helper">TOOLBAR</span>
       </slot>
     </div>
 
-    <div v-if="hasContent('predictive')" class="x-layout__predictive x-flex x-flex-col">
-      <BaseScroll class="x-layout__predictive-scroll x-flex x-flex-col x-flex-auto">
+    <div v-if="hasContent('predictive')" class="x-layout__predictive x-list x-list--vertical">
+      <BaseScroll class="x-layout__predictive-scroll x-list x-list--vertical x-list__item--expand">
         <!-- @slot Slot that can be used to insert content into the Predictive Layer. -->
         <slot name="predictive">
           <span v-if="devMode" class="slot-helper">PREDICTIVE</span>
@@ -32,7 +32,7 @@
 
     <main v-if="hasContent('main')" class="x-layout__main">
       <MainScroll>
-        <Scroll id="main-scroll" class="x-layout__main-scroll x-flex x-flex-col">
+        <Scroll id="main-scroll" class="x-layout__main-scroll x-list x-list--vertical">
           <!-- @slot Slot that can be used to insert content into the Main. -->
           <slot name="main">
             <span v-if="devMode" class="slot-helper">MAIN</span>
@@ -41,14 +41,14 @@
       </MainScroll>
     </main>
 
-    <div v-if="hasContent('floating')" class="x-layout__floating x-flex">
+    <div v-if="hasContent('floating')" class="x-layout__floating x-list x-list--horizontal">
       <!-- @slot Slot that can be used to insert content into the Floating. -->
       <slot name="floating">
         <span v-if="devMode" class="slot-helper">FLOATING</span>
       </slot>
     </div>
 
-    <footer v-if="hasContent('footer')" class="x-layout__footer x-flex">
+    <footer v-if="hasContent('footer')" class="x-layout__footer x-list x-list--horizontal">
       <!-- @slot Slot that can be used to insert content into the Footer. -->
       <slot name="footer">
         <span v-if="devMode" class="slot-helper">FOOTER</span>
@@ -86,6 +86,8 @@
 
   /**
    * Component for use as Layout to be filled with the rest of the Components.
+   *
+   * @deprecated - The layout has been deprecated in favor of using new XDS layout.
    *
    * @public
    */
@@ -192,7 +194,7 @@
         pointer-events: all;
       }
 
-      > .x-flex {
+      > .x-list {
         pointer-events: none;
 
         > * {
