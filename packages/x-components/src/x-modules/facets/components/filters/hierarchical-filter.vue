@@ -360,9 +360,15 @@ In this example, the child filters will also include the label and checkbox.
 The `childrenFiltersClass` prop can be used to add classes to the inner filters lists. This is
 useful to set the indent of the children filters.
 
+The `filterItemClass` prop can be used to add classes to the filter element itself.
+
 ```vue
 <template>
-  <HierarchicalFilter :filter="filter" childrenFiltersClass="x-custom-class" />
+  <HierarchicalFilter
+    :filter="filter"
+    childrenFiltersClass="x-custom-class"
+    filterItemClass="x-custom-filter"
+  />
 </template>
 
 <script>
