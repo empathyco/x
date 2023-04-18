@@ -160,6 +160,29 @@ the `default` slot.
 </script>
 ```
 
+### Customizing the items with classes
+
+The `buttonClass` prop can be used to add classes to the sort items.
+
+```vue
+<template>
+  <SortList :items="sortValues" buttonClass="x-button-outlined" />
+</template>
+
+<script>
+  import { SortList } from '@empathyco/x-components/search';
+
+  export default {
+    components: {
+      SortList
+    },
+    data() {
+      return { sortValues: ['Relevance', 'Price asc', 'Price desc'] };
+    }
+  };
+</script>
+```
+
 ## Events
 
 This component emits 2 different events:

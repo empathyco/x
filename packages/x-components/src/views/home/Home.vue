@@ -186,7 +186,10 @@
                 :items="sortValues"
                 class="x-button-group"
                 buttonClass="x-button-outlined"
-              />
+                #default="{ item }"
+              >
+                {{ item || 'default' }}
+              </SortList>
             </div>
 
             <RenderlessExtraParams #default="{ value, updateValue }" name="store">
