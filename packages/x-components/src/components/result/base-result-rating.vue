@@ -2,6 +2,7 @@
   <component
     :is="link ? 'a' : 'div'"
     v-if="result.rating && result.rating.value"
+    ref="root"
     @click="emitClickedEvent"
     :href="link"
     class="x-result-rating"
@@ -31,48 +32,59 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, PropType, ref } from 'vue';
   import { Result } from '@empathyco/x-types';
   import BaseRating from '../base-rating.vue';
+  import { use$x } from '../../composables/index';
 
   /**
    * This component renders a {@link BaseRating} for a result passed as prop.
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
     components: {
       BaseRating
-    }
-  })
-  export default class BaseResultRating extends Vue {
-    /**
-     * The {@link @empathyco/x-types#Result | Result} to render its rating.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected result!: Result;
+    },
+    props: {
+      /**
+       * The {@link @empathyco/x-types#Result | Result} to render its rating.
+       *
+       * @public
+       */
+      result: {
+        type: Object as PropType<Result>,
+        required: true
+      },
+      /**
+       * A link to redirect when rating is clicked.
+       *
+       * @public
+       */
+      link: {
+        type: String
+      }
+    },
+    setup(props) {
+      const $x = use$x();
+      /**
+       * Emits the `UserClickedAResultRating` event when user clicks this component, with the
+       * {@link @empathyco/x-types#Result | Result} as payload.
+       *
+       * @internal
+       */
+      const emitClickedEvent = (): void => {
+        const el = ref<HTMLElement | null>(null);
+        $x.emit('UserClickedAResultRating', props.result, {
+          target: el.value!
+        });
+      };
 
-    /**
-     * A link to redirect when rating is clicked.
-     *
-     * @public
-     */
-    @Prop()
-    protected link!: string;
-
-    /**
-     * Emits the `UserClickedAResultRating` event when user clicks this component, with the
-     * {@link @empathyco/x-types#Result | Result} as payload.
-     *
-     * @internal
-     */
-    protected emitClickedEvent(): void {
-      this.$x.emit('UserClickedAResultRating', this.result, { target: this.$el as HTMLElement });
+      return {
+        emitClickedEvent
+      };
     }
-  }
+  });
 </script>
 
 <style scoped lang="scss">
