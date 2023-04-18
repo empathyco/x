@@ -3,7 +3,7 @@
     :is="animation"
     v-if="hasFiltersToRender"
     tag="ul"
-    class="x-list x-filters"
+    class="x-filters"
     :class="cssClasses"
     data-test="base-filters"
   >
@@ -87,6 +87,8 @@
 
 <style lang="scss" scoped>
   .x-filters {
+    display: flex;
+    flex-flow: column nowrap;
     list-style-type: none;
   }
 </style>

@@ -4,7 +4,7 @@
       <BaseResultImage :result="result" class="x-picture-zoom"></BaseResultImage>
     </BaseResultLink>
 
-    <BaseResultLink class="x-list x-list--vertical x-list--gap-02" :result="result">
+    <BaseResultLink class="x-flex x-flex-col x-gap-4" :result="result">
       <h2 class="x-small x-ellipsis x-uppercase" data-test="result-title">
         {{ result.name }}
       </h2>

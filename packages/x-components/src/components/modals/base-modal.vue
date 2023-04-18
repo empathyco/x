@@ -8,7 +8,7 @@
       <div
         v-if="open"
         ref="modalContent"
-        class="x-modal__content x-list"
+        class="x-modal__content"
         data-test="modal-content"
         role="dialog"
         :class="contentClass"
@@ -284,6 +284,8 @@
     z-index: 1;
 
     &__content {
+      display: flex;
+      flex-flow: column nowrap;
       z-index: 1;
     }
 
