@@ -198,7 +198,6 @@
 <style lang="scss" scoped>
   .x-base-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--x-size-min-width-grid-item), auto));
     grid-auto-flow: dense;
     list-style: none;
     align-items: stretch;
