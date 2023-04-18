@@ -104,6 +104,8 @@
   /**
    * Component for use as Layout to be filled with the rest of the Components.
    *
+   * @deprecated - The layout has been deprecated in favor of using new XDS layout.
+   *
    * @public
    */
   @Component({
