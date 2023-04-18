@@ -98,7 +98,7 @@ describe('testing BaseHeaderTogglePanel component', () => {
       template: `
         <BaseHeaderTogglePanel :start-collaps="false">
           <template #header-content="{ open }">
-            <p data-test="header-content">{{ open ? "open" : "closed" }}</p> 
+            <p data-test="header-content">{{ open ? "open" : "closed" }}</p>
           </template>
           <p>Default slot</p>
         </BaseHeaderTogglePanel>
@@ -109,6 +109,18 @@ describe('testing BaseHeaderTogglePanel component', () => {
     expect(headerWrapper.text()).toBe('open');
     await toggleOpen();
     expect(headerWrapper.text()).toBe('closed');
+  });
+
+  it('allows adding classes to the header', () => {
+    const { wrapper } = renderBaseHeaderTogglePanel({
+      template: `
+        <BaseHeaderTogglePanel headerClass="custom-class">
+          <template #header-content>Header Content</template>
+          <p>Default Slot</p>
+        </BaseHeaderTogglePanel>`
+    });
+    const headerWrapper = wrapper.find(getDataTestSelector('toggle-panel-header'));
+    expect(headerWrapper.classes('custom-class')).toBe(true);
   });
 });
 

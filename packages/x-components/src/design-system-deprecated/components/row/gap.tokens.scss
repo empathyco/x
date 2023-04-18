@@ -1,5 +1,5 @@
 :root {
-  @import '../../variables';
+  @import '../../../design-system/variables';
 
   @each $size, $size-value in $sizes {
     --x-size-gap-row-#{$size}: var(--x-size-base-#{$size});

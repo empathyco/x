@@ -216,7 +216,7 @@
           <!--  Redirection  -->
           <Redirection
             #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
-            class="x-my-8"
+            class="x-p-28 x-flex x-flex-col x-gap-8 x-items-center x-bg-lead-25 x-my-8"
             :delayInSeconds="5"
           >
             <p>Your search matches a special place in our website. You are being redirected to:</p>
@@ -236,7 +236,11 @@
 
           <template v-if="!$x.redirections.length">
             <!--  No Results Message  -->
-            <div v-if="$x.noResults" class="x-message x-mt-8 x-mb-8" data-test="no-results-message">
+            <div
+              v-if="$x.noResults"
+              class="x-p-28 x-flex x-flex-col x-gap-8 x-items-center x-bg-lead-25 x-my-8"
+              data-test="no-results-message"
+            >
               <p>
                 There are no results for
                 <span class="x-font-bold">{{ $x.query.search }}</span>
@@ -278,6 +282,8 @@
                       :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
                     >
                       <BaseVariableColumnGrid
+                        style="--x-size-min-width-grid-item: 150px"
+                        class="x-gap-12"
                         :animation="resultsAnimation"
                         :columns="$x.device === 'mobile' ? 2 : 4"
                       >
@@ -300,7 +306,7 @@
                             :suggestion="nextQueries[0]"
                             :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
                             #default="{ results }"
-                            class="x-row__item x-row__item--span-9 x-pt-24"
+                            class="x-pt-24"
                           >
                             <h1 class="x-title2">Others clients have searched</h1>
                             <NextQuery

@@ -12,7 +12,7 @@
     <Facets class="x-gap-24">
       <!--  Hierarchical Facet    -->
       <template #hierarchical-facet="{ facet }">
-        <BaseHeaderTogglePanel class="x-facet">
+        <BaseHeaderTogglePanel headerClass="x-w-full x-flex x-justify-between x-py-8">
           <template #header-content>
             <span class="x-truncate">{{ facet.label }}</span>
             <ChevronDown />
@@ -32,7 +32,7 @@
 
       <!--  Range Facet    -->
       <template #number-range-facet="{ facet }">
-        <BaseHeaderTogglePanel class="x-facet">
+        <BaseHeaderTogglePanel headerClass="x-w-full x-flex x-justify-between x-py-8">
           <template #header-content>
             <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
             <ChevronDown />
@@ -69,11 +69,11 @@
 
       <!--  Default Facet    -->
       <template #default="{ facet }">
-        <BaseHeaderTogglePanel class="x-facet">
+        <BaseHeaderTogglePanel headerClass="x-w-full x-flex x-py-8 x-gap-8">
           <template #header-content>
             <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
             <span data-test="total-filters">{{ facet.filters.length }}</span>
-            <ChevronDown />
+            <ChevronDown class="x-ml-auto" />
           </template>
 
           <!-- Filters -->
