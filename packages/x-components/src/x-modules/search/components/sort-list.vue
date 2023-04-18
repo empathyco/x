@@ -1,21 +1,18 @@
 <template>
-  <component :is="animation" tag="ul" class="x-sort-list" data-test="sort-list">
-    <li
+  <component :is="animation" tag="div" class="x-sort-list" data-test="sort-list" role="list">
+    <BaseEventButton
       v-for="{ item, cssClasses, event } in listItems"
       :key="item"
-      :class="cssClasses"
-      class="x-sort-list__item"
+      class="x-sort-list__item x-button"
+      :class="[cssClasses, buttonClass]"
+      data-test="x-sort-button"
+      :events="event"
+      role="listitem"
     >
-      <BaseEventButton
-        class="x-sort-list__button x-button"
-        data-test="x-sort-button"
-        :events="event"
-      >
-        <slot v-bind="{ item, isSelected: item === selectedSort }">
-          {{ item }}
-        </slot>
-      </BaseEventButton>
-    </li>
+      <slot v-bind="{ item, isSelected: item === selectedSort }">
+        {{ item || 'default' }}
+      </slot>
+    </BaseEventButton>
   </component>
 </template>
 
@@ -29,6 +26,7 @@
   import { VueCSSClasses } from '../../../utils';
   import { XEventsTypes } from '../../../wiring';
   import { searchXModule } from '../x-module';
+  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
   import SortMixin from './sort.mixin';
 
   /**
@@ -50,7 +48,7 @@
    * @public
    */
   @Component({
-    mixins: [xComponentMixin(searchXModule)],
+    mixins: [xComponentMixin(searchXModule), dynamicPropsMixin(['buttonClass'])],
     components: {
       BaseEventButton
     }
@@ -73,7 +71,12 @@
     protected get listItems(): SortListItem[] {
       return this.items.map(item => ({
         item,
-        cssClasses: [{ 'x-sort-list__item--is-selected': item === this.selectedSort }],
+        cssClasses: [
+          {
+            'x-sort-list__item--is-selected': item === this.selectedSort,
+            'x-selected': item === this.selectedSort
+          }
+        ],
         event: { UserClickedASort: item }
       }));
     }
