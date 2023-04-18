@@ -19,39 +19,47 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import { NoElement } from '../no-element';
+  import { use$x } from '../../composables/index';
 
-  /**
-   * Component that allows to open a modal by emitting {@link XEventsTypes.UserClickedOpenModal}
-   * with the modalId as payload. It allows full customization with the 'opening-element' slot and
-   * exposes the 'openModal' function.
-   *
-   * @public
-   */
-  @Component({
-    components: { NoElement }
-  })
-  export default class BaseIdModalOpen extends Vue {
+  export default defineComponent({
     /**
-     * The modalId of the modal that will be opened.
+     * Component that allows to open a modal by emitting {@link XEventsTypes.UserClickedOpenModal}
+     * with the modalId as payload. It allows full customization with the 'opening-element' slot and
+     * exposes the 'openModal' function.
      *
      * @public
      */
-    @Prop({ required: true })
-    protected modalId!: string;
+    components: { NoElement },
+    props: {
+      /**
+       * The modalId of the modal that will be opened.
+       *
+       * @public
+       */
+      modalId: {
+        type: String,
+        required: true
+      }
+    },
+    setup(props) {
+      const $x = use$x();
+      /**
+       * Emits the {@link XEventsTypes.UserClickedOpenModal} event with the modalId as payload.
+       *
+       * @param event - The event triggering the function.
+       * @public
+       */
+      const emitOpenModalEvent = ({ target }: Event): void => {
+        $x.emit('UserClickedOpenModal', props.modalId, { target: target as HTMLElement });
+      };
 
-    /**
-     * Emits the {@link XEventsTypes.UserClickedOpenModal} event with the modalId as payload.
-     *
-     * @param event - The event triggering the function.
-     * @public
-     */
-    protected emitOpenModalEvent({ target }: Event): void {
-      this.$x.emit('UserClickedOpenModal', this.modalId, { target: target as HTMLElement });
+      return {
+        emitOpenModalEvent
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

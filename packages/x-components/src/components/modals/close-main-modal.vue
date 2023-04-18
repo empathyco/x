@@ -10,29 +10,32 @@
 </template>
 
 <script lang="ts">
-  import Component from 'vue-class-component';
-  import Vue from 'vue';
+  import { defineComponent } from 'vue';
   import { XEvent } from '../../wiring/events.types';
   import BaseEventsModalClose from './base-events-modal-close.vue';
 
-  /**
-   * Button to close the {@link MainModal}.
-   *
-   * @public
-   */
-  @Component({
+  export default defineComponent({
+    /**
+     * Button to close the {@link MainModal}.
+     *
+     * @public
+     */
     components: {
       BaseEventsModalClose
+    },
+    setup() {
+      /**
+       * Event to be emitted to close the {@link MainModal}.
+       *
+       * @internal
+       */
+      const closingEvent: XEvent = 'UserClickedCloseX';
+
+      return {
+        closingEvent
+      };
     }
-  })
-  export default class CloseMainModal extends Vue {
-    /**
-     * Event to be emitted to close the {@link MainModal}.
-     *
-     * @internal
-     */
-    protected closingEvent: XEvent = 'UserClickedCloseX';
-  }
+  });
 </script>
 
 <docs lang="mdx">
