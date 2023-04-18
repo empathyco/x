@@ -7,10 +7,11 @@
       :class="[cssClasses, buttonClass]"
       data-test="x-sort-button"
       :events="event"
+      :aria-pressed="item === selectedSort"
       role="listitem"
     >
       <slot v-bind="{ item, isSelected: item === selectedSort }">
-        {{ item || 'default' }}
+        {{ item }}
       </slot>
     </BaseEventButton>
   </component>

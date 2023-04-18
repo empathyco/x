@@ -186,12 +186,12 @@
               </template>
             </BaseColumnPickerList>
             <div class="x-flex x-gap-4 x-items-center">
-              <span>Sort:</span>
+              <span class="x-text1">Sort:</span>
               <SortList
                 :items="sortValues"
                 class="x-button-group"
                 buttonClass="x-button-outlined"
-              ></SortList>
+              />
             </div>
 
             <RenderlessExtraParams #default="{ value, updateValue }" name="store">
