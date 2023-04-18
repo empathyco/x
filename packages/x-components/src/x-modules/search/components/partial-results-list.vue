@@ -2,7 +2,7 @@
   <component
     :is="animation"
     v-if="partialResults.length"
-    class="x-list x-partial-results-list"
+    class="x-partial-results-list"
     data-test="partial-results"
     tag="ul"
   >
@@ -74,7 +74,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .x-partial-results {
+  .x-partial-results-list {
+    display: flex;
+    flex-flow: column nowrap;
     list-style-type: none;
     padding: 0;
   }

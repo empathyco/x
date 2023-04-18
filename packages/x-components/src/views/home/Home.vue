@@ -7,8 +7,8 @@
     <SnippetCallbacks />
     <OpenMainModal>Start</OpenMainModal>
     <h1 class="x-text-primary-50 x-text-4xl x-font-bold x-leading-[1.5]">Test controls</h1>
-    <ul class="x-test-controls x-list x-list--gap-05">
-      <li class="x-test-controls__item x-list__item">
+    <ul class="x-test-controls x-flex x-flex-col x-gap-16">
+      <li class="x-test-controls__item">
         <label for="searchInput.instant">
           search-input - instant
           <input
@@ -19,7 +19,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="searchInput.instantDebounceInMs">
           search-input - debounce
           <input
@@ -30,7 +30,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="popularSearches.maxItemsToRender">
           popular-searches - maxItemsToRender
           <input
@@ -41,7 +41,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="slicedFilters.max">
           sliced-filters - max
           <input
@@ -52,7 +52,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="historyQueries.maxItemsToRender">
           history-queries - maxItemsToRender
           <input
@@ -63,7 +63,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="nextQueriesPreview.maxItemsToRender">
           next-queries-preview - maxItemsToRender
           <input
@@ -74,7 +74,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="nextQueriesPreview.maxItemsToRender">
           next-queries-list - showOnlyAfterOffset
           <input
@@ -85,7 +85,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="adapter.e2eAdapter">
           Use mocked adapter
           <input
@@ -101,11 +101,9 @@
     <MainModal :animation="modalAnimation">
       <MultiColumnMaxWidthLayout class="x-bg-neutral-0">
         <template #header-middle>
-          <div
-            class="x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand"
-          >
+          <div class="x-flex x-flex-col x-gap-16 x-items-stretch x-flex-auto">
             <div class="x-input-group x-input-group-lead x-rounded-sm">
-              <div class="x-input x-search-input-placeholder-container">
+              <div class="x-input x-search-input-placeholder-container x-flex">
                 <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
                 <SearchInput
                   aria-label="Search for products"
@@ -136,7 +134,7 @@
               <template #sliding-panel-left-button>
                 <ChevronLeft />
               </template>
-              <RelatedTags class="x-list--gap-03" itemClass="x-tag-outlined" />
+              <RelatedTags class="x-gap-8" itemClass="x-tag-outlined" />
               <template #sliding-panel-right-button>
                 <ChevronRight />
               </template>
@@ -165,10 +163,7 @@
         </template>
 
         <template #toolbar-body>
-          <div
-            v-if="$x.totalResults > 0"
-            class="x-list x-list--horizontal x-list--align-center x-list--gap-04"
-          >
+          <div v-if="$x.totalResults > 0" class="x-flex x-items-center x-gap-12">
             <span class="x-text1">{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
               v-model="selectedColumns"
@@ -221,7 +216,7 @@
             <a @click="redirect" :href="redirection.url" data-test="redirection-link">
               {{ redirection.url }}
             </a>
-            <div class="x-list x-list--horizontal x-list--gap-07">
+            <div class="x-flex x-gap-32">
               <button @click="abortRedirect" class="x-button--ghost x-button x-text-neutral-25">
                 No, I'll stay here
               </button>

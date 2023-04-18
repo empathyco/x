@@ -1,5 +1,5 @@
-@import '../../variables';
-@import '../../mixins';
+@import '../../../design-system/variables';
+@import '../../../design-system/mixins';
 
 @each $size, $size-value in $sizes {
   .x-list--gap-#{$size}.x-list {

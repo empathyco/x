@@ -6,12 +6,7 @@
           @binding {Vue} animation - Animation to animate the elements.
     -->
     <slot name="layout" v-bind="{ animation, recommendations }">
-      <component
-        :is="animation"
-        tag="ul"
-        data-test="recommendations"
-        class="x-list x-recommendations"
-      >
+      <component :is="animation" tag="ul" data-test="recommendations" class="x-recommendations">
         <li
           v-for="recommendation in recommendations"
           :key="recommendation.id"
@@ -106,6 +101,8 @@
 
 <style lang="scss" scoped>
   .x-recommendations {
+    display: flex;
+    flex-flow: column nowrap;
     list-style-type: none;
   }
 </style>
