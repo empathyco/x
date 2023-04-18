@@ -87,7 +87,7 @@ describe('testing BaseHeaderTogglePanel component', () => {
     expect(wrapper.find(getDataTestSelector('toggle-status')).text()).toBe('open');
 
     await wrapper.find(getDataTestSelector('toggle-button')).trigger('click');
-
+    wrapper.vm.$nextTick();
     // closed
     expect(wrapper.find(getDataTestSelector('toggle-status')).text()).toBe('closed');
     expect(wrapper.find(getDataTestSelector('base-toggle-panel')).exists()).toBe(false);
@@ -98,7 +98,7 @@ describe('testing BaseHeaderTogglePanel component', () => {
       template: `
         <BaseHeaderTogglePanel :start-collaps="false">
           <template #header-content="{ open }">
-            <p data-test="header-content">{{ open ? "open" : "closed" }}</p> 
+            <p data-test="header-content">{{ open ? "open" : "closed" }}</p>
           </template>
           <p>Default slot</p>
         </BaseHeaderTogglePanel>
