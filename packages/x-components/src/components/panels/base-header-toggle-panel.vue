@@ -21,7 +21,12 @@
 </template>
 
 <script lang="ts">
-  import Vue, { defineComponent } from 'vue';
+  import {
+    DefineComponent,
+    defineComponent,
+    PropType,
+    ref
+  } from 'vue';
   import { NoElement } from '../no-element';
   import BaseTogglePanel from './base-toggle-panel.vue';
 
@@ -40,9 +45,9 @@
        * @public
        */
       animation: {
-        type: [Vue, String],
+        type: [String, Object, Function] as PropType<string | DefineComponent>,
         default: () => NoElement
-        // default: () => slots.default() ?? h()
+        //default: () => slots.default() ?? h()
       },
       /**
        * Handles if the panel is open by default.
@@ -60,7 +65,7 @@
        *
        * @internal
        */
-      let open = !props.startCollapsed;
+      let open = ref(!props.startCollapsed);
 
       /**
        * Emits open status event.
@@ -68,7 +73,7 @@
        * @internal
        */
       const emitOpenStatusEvent = (): void => {
-        emit(open ? 'open' : 'close');
+        emit(open.value ? 'open' : 'close');
       };
 
       /**
@@ -77,7 +82,7 @@
        * @internal
        */
       const toggleOpen = (): void => {
-        open = !open;
+        open.value = !open.value;
         emitOpenStatusEvent();
       };
 

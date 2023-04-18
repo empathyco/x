@@ -6,7 +6,7 @@
           @binding {String} query - The query that the suggestion belongs to
           @binding {Filter} filter - Suggestion's filter
       -->
-    <slot v-bind="{ suggestion, query, filter }">
+    <slot v-bind="{ query, suggestion, filter }">
       <Highlight class="x-suggestion__query" :text="suggestion.query" :highlight="query" />
       <span v-if="filter" class="x-suggestion__filter">{{ filter.label }}</span>
     </slot>
@@ -60,7 +60,8 @@
        */
       //TODO: set to true when the suggestions components pass it.
       feature: {
-        type: String as PropType<QueryFeature>
+        type: String as PropType<QueryFeature>,
+        required: false
       },
       /**
        * The {@link XEvent | XEvents} that will be emitted when selecting a suggestion.
@@ -82,6 +83,7 @@
       }
     },
     setup(props) {
+      const root = ref<HTMLElement | null>(null);
       const $x = use$x();
       /**
        * Returns the suggestion filter object.
@@ -124,10 +126,9 @@
        * @public
        */
       const emitEvents = (): void => {
-        const el = ref<HTMLElement | null>(null);
         forEach(events.value, (event, payload): void => {
           $x.emit(event, payload, {
-            target: el.value!,
+            target: root.value!,
             feature: props.feature
           });
         });
@@ -158,6 +159,7 @@
       });
 
       return {
+        root,
         filter,
         emitEvents,
         dynamicCSSClasses

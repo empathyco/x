@@ -87,7 +87,7 @@ describe('testing BaseHeaderTogglePanel component', () => {
     expect(wrapper.find(getDataTestSelector('toggle-status')).text()).toBe('open');
 
     await wrapper.find(getDataTestSelector('toggle-button')).trigger('click');
-
+    wrapper.vm.$nextTick();
     // closed
     expect(wrapper.find(getDataTestSelector('toggle-status')).text()).toBe('closed');
     expect(wrapper.find(getDataTestSelector('base-toggle-panel')).exists()).toBe(false);

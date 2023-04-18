@@ -15,7 +15,7 @@ function renderBaseSuggestion({
   query = 'bebe',
   suggestion = createPopularSearch('bebe lloron'),
   suggestionSelectedEvents = {},
-  template = '<BaseSuggestion :quey="query" :suggestion="suggestion" ' +
+  template = '<BaseSuggestion :query="query" :suggestion="suggestion" ' +
     ':suggestion-selected-events="suggestionSelectedEvents" />'
 }: BaseSuggestionOptions = {}): BaseSuggestionAPI {
   const [, localVue] = installNewXPlugin();

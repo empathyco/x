@@ -5,7 +5,7 @@ import BaseEventButton from '../base-event-button.vue';
 
 describe('testing Base Event Button Component', () => {
   const emitSpy = jest.fn();
-  const template = '<BaseEventButton :events="events" />';
+  const template = '<BaseEventButton :events="events" ><slot /></BaseEventButton>';
   const componentWrapper = mount(
     {
       components: { BaseEventButton },

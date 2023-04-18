@@ -66,7 +66,7 @@
        * @param level - The nest level where the variant is placed inside the result.
        * @public
        */
-      provide(SELECT_RESULT_VARIANT_KEY.valueOf(), (variant: ResultVariant, level = 0) => {
+      provide(SELECT_RESULT_VARIANT_KEY.valueOf(), (variant: ResultVariant, level = 0) =>
         if (selectedVariants[level] === variant) {
           return;
         }

@@ -8,8 +8,7 @@
 </template>
 
 <script lang="ts">
-  import Vue, { defineComponent } from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { DefineComponent, defineComponent, PropType } from 'vue';
 
   /**
    * Simple panel that receives its open state via prop, which is responsible of rendering
@@ -35,7 +34,7 @@
        * @public
        */
       animation: {
-        type: [Vue, String],
+        type: [String, Object, Function] as PropType<string | DefineComponent>,
         default: 'div'
       }
     }

@@ -57,7 +57,7 @@
      *
      * @public
      */
-    @Prop({ default: '' })
+    @Prop({ default: 'bebe' })
     public highlight!: string;
 
     /**
@@ -110,16 +110,10 @@
      */
     protected get matchParts(): HighlightMatch {
       const matcherIndex = normalizeString(this.text).indexOf(normalizeString(this.highlight));
-      const a =
-        matcherIndex !== -1 && this.highlight
-          ? this.splitAt(
-              this.text.trim(),
-              matcherIndex,
-              matcherIndex + this.highlight.trim().length
-            )
-          : { start: this.text, match: '', end: '' };
-      console.log(a);
-      return a;
+
+      return matcherIndex !== -1 && this.highlight
+        ? this.splitAt(this.text.trim(), matcherIndex, matcherIndex + this.highlight.trim().length)
+        : { start: this.text, match: '', end: '' };
     }
 
     /**
