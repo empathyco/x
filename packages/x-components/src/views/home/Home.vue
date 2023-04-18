@@ -352,7 +352,7 @@
 
             <!-- Partials -->
             <PartialResultsList
-              v-if="!$x.isNoResultsWithFilters && ($x.totalResults <= 4 || $x.isNoResults)"
+              v-if="!$x.fromNoResultsWithFilters && ($x.totalResults <= 4 || $x.noResults)"
               :animation="resultsAnimation"
             >
               <template #default="{ partialResult }">
