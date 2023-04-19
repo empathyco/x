@@ -12,8 +12,7 @@
 
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType } from 'vue';
   import { XEventsTypes } from '../../wiring/events.types';
   import BaseEventButton from '../base-event-button.vue';
 
@@ -23,29 +22,36 @@
    *
    * @public
    */
-  @Component({
-    components: { BaseEventButton }
-  })
-  export default class BaseResultAddToCart extends Vue {
-    /**
-     * (Required) The {@link @empathyco/x-types#Result | result} information.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected result!: Result;
+  export default defineComponent({
+    components: { BaseEventButton },
+    props: {
+      /**
+       * (Required) The {@link @empathyco/x-types#Result | result} information.
+       *
+       * @public
+       */
+      result: {
+        type: Object as PropType<Result>,
+        required: true
+      }
+    },
+    setup(props) {
+      /**
+       * The events to be emitted by the button.
+       *
+       * @returns Events {@link XEventsTypes} to emit.
+       *
+       * @public
+       */
+      const events = computed<Partial<XEventsTypes>>(() => {
+        return { UserClickedResultAddToCart: props.result };
+      });
 
-    /**
-     * The events to be emitted by the button.
-     *
-     * @returns Events {@link XEventsTypes} to emit.
-     *
-     * @public
-     */
-    protected get events(): Partial<XEventsTypes> {
-      return { UserClickedResultAddToCart: this.result };
+      return {
+        events
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
