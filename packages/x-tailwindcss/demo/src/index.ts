@@ -11,6 +11,7 @@ export { default as XdsLayout } from './components/xds-layout.vue';
 export { default as XdsLayoutTwoColumns } from './components/xds-layout-two-columns.vue';
 export { default as XdsLayoutUtils } from './components/xds-layout-utils.vue';
 export { default as XdsPicture } from './components/xds-picture.vue';
+export { default as XdsProgressBar } from './components/xds-progress-bar.vue';
 export { default as XdsScroll } from './components/xds-scroll.vue';
 export { default as XdsShowcase } from './components/xds-showcase.vue';
 export { default as XdsSlidingPanel } from './components/xds-sliding-panel.vue';

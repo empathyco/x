@@ -239,6 +239,7 @@ Given('a results API with no results', () => {
     req.reply(
       createSearchResponse({
         results: [],
+        facets: [],
         totalResults: 0
       })
     );

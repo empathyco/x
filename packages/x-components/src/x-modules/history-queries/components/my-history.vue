@@ -12,6 +12,7 @@
       <BaseSuggestions
         :suggestions="historyQueries"
         class="x-my-history-queries"
+        :class="queriesListClass"
         data-test="my-history-queries"
         :animation="animation"
       >
@@ -66,6 +67,7 @@
   import { groupItemsBy, isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { historyQueriesXModule } from '../x-module';
+  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
   import HistoryQueryComponent from './history-query.vue';
 
   /**
@@ -81,7 +83,7 @@
    */
   @Component({
     components: { HistoryQuery: HistoryQueryComponent, BaseSuggestions },
-    mixins: [xComponentMixin(historyQueriesXModule)]
+    mixins: [xComponentMixin(historyQueriesXModule), dynamicPropsMixin(['queriesListClass'])]
   })
   export default class MyHistory extends Vue {
     /**
@@ -366,6 +368,27 @@ icon to remove the history query.
     components: {
       MyHistory,
       CrossIcon
+    }
+  };
+</script>
+```
+
+### Customizing the items with classes
+
+The `queriesListClass` prop can be used to add classes to the suggestions list.
+
+```vue live
+<template>
+  <MyHistory #date="{ date }" queriesListClass="x-gap-16" />
+</template>
+
+<script>
+  import { MyHistory } from '@empathyco/x-components/history-queries';
+
+  export default {
+    name: 'MyHistoryDemo',
+    components: {
+      MyHistory
     }
   };
 </script>
