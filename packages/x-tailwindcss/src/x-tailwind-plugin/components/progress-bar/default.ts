@@ -16,7 +16,7 @@ export function progressBarDefault(helpers: TailwindHelpers) {
     backgroundColor: theme('colors.neutral.25'),
     overflow: 'hidden',
 
-    '& > &-line': {
+    '& > &-fill': {
       height: '100%',
       backgroundColor: `var(--progress-bar-color-50, ${theme('colors.neutral.90')})`
     },

@@ -12,7 +12,7 @@
         class="x-w-[320px]"
         :class="cssClass"
       >
-        <div class="x-progress-bar-line x-w-[30%]" />
+        <div class="x-progress-bar-fill x-w-[30%]" />
       </div>
     </div>
   </XdsBaseShowcase>
