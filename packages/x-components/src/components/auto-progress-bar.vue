@@ -1,6 +1,6 @@
 <template>
   <div v-if="isLoading" class="x-progress-bar" data-test="progress-bar" role="progressbar">
-    <div class="x-progress-bar-line" :style="cssStyles" data-test="progress-bar-line" />
+    <div class="x-progress-bar-fill" :style="cssStyles" data-test="progress-bar-line" />
   </div>
 </template>
 
@@ -60,7 +60,7 @@
     background-color: #dbe2e5;
     border-radius: 4px;
 
-    &-line {
+    &-fill {
       height: 4px;
       background-color: #283034;
       animation: slide linear;
