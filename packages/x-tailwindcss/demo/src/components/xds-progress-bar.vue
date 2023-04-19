@@ -2,15 +2,18 @@
   <XdsBaseShowcase
     title="Progress Bar"
     :sections="sections"
-    #default="{ cssClass, copyCssClassesToClipboard }"
+    #default="{ cssClass, copyCssClassesToClipboard, removeClassPrefix }"
   >
-    <div
-      @click="copyCssClassesToClipboard"
-      @keyup="copyCssClassesToClipboard"
-      class="x-w-[320px]"
-      :class="cssClass"
-    >
-      <div class="x-progress-bar-line x-w-[30%]" />
+    <div class="x-flex x-flex-col x-gap-4">
+      <h3 class="x-text-sm">{{ removeClassPrefix(cssClass, base).trim() || 'default' }}</h3>
+      <div
+        @click="copyCssClassesToClipboard"
+        @keyup="copyCssClassesToClipboard"
+        class="x-w-[320px]"
+        :class="cssClass"
+      >
+        <div class="x-progress-bar-line x-w-[30%]" />
+      </div>
     </div>
   </XdsBaseShowcase>
 </template>
