@@ -14,7 +14,9 @@
 </template>
 
 <script lang="ts">
-  import Vue, { defineComponent } from 'vue';
+  import Component from 'vue-class-component';
+  import Vue from 'vue';
+  import { Prop } from 'vue-property-decorator';
   import { XEvent } from '../../wiring/events.types';
   import BaseEventsModal from './base-events-modal.vue';
 
@@ -23,56 +25,45 @@
    *
    * @public
    */
-  export default defineComponent({
+  @Component({
     components: {
       BaseEventsModal
-    },
-    props: {
-      /**
-       * Animation to use for opening/closing the modal.
-       *
-       * @public
-       */
-      animation: {
-        type: [Vue, String]
-      },
-      /**
-       * Determines if the focused element changes to one inside the modal when it opens. Either the
-       * first element with a positive tabindex or just the first focusable element.
-       */
-      focusOnOpen: {
-        type: Boolean,
-        default: false
-      }
-    },
-    setup() {
-      /**
-       * Events to listen for opening the main modal.
-       *
-       * @internal
-       */
-      const openEvents: XEvent[] = ['UserClickedOpenX', 'UserOpenXProgrammatically'];
-      /**
-       * Events to listen for closing the main modal.
-       *
-       * @internal
-       */
-      const closeEvents: XEvent[] = ['UserClickedCloseX', 'UserClickedOutOfMainModal'];
-
-      /**
-       * Event to be emitted by the modal when clicked out of its content.
-       *
-       * @internal
-       */
-      const outOfModalClickEvent: XEvent = 'UserClickedOutOfMainModal';
-
-      return {
-        openEvents,
-        closeEvents,
-        outOfModalClickEvent
-      };
     }
-  });
+  })
+  export default class MainModal extends Vue {
+    /**
+     * Animation to use for opening/closing the modal.
+     *
+     * @public
+     */
+    @Prop()
+    public animation?: Vue | string;
+    /**
+     * Events to listen for opening the main modal.
+     *
+     * @internal
+     */
+    protected openEvents: XEvent[] = ['UserClickedOpenX', 'UserOpenXProgrammatically'];
+    /**
+     * Events to listen for closing the main modal.
+     *
+     * @internal
+     */
+    protected closeEvents: XEvent[] = ['UserClickedCloseX', 'UserClickedOutOfMainModal'];
+
+    /**
+     * Event to be emitted by the modal when clicked out of its content.
+     *
+     * @internal
+     */
+    protected outOfModalClickEvent: XEvent = 'UserClickedOutOfMainModal';
+    /**
+     * Determines if the focused element changes to one inside the modal when it opens. Either the
+     * first element with a positive tabindex or just the first focusable element.
+     */
+    @Prop({ default: false })
+    public focusOnOpen!: boolean;
+  }
 </script>
 
 <docs lang="mdx">

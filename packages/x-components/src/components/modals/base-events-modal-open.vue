@@ -12,37 +12,29 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue';
+  import Vue from 'vue';
+  import { Component, Prop } from 'vue-property-decorator';
   import { PropsWithType } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
   import BaseEventButton from '../base-event-button.vue';
 
-  export default defineComponent({
-    /**
-     * Component contains an event button that emits {@link XEventsTypes.UserClickedOpenEventsModal}
-     * when clicked. It has a default slot to customize its contents.
-     *
-     * @public
-     */
-    components: {
-      BaseEventButton
-    },
-    props: {
-      openingEvent: {
-        type: String as PropType<PropsWithType<XEventsTypes, void>>,
-        default: 'UserClickedOpenEventsModal'
-      }
-    },
-    setup(props) {
-      const events = computed<Partial<XEventsTypes>>(() => {
-        return { [props.openingEvent]: undefined };
-      });
+  /**
+   * Component contains an event button that emits {@link XEventsTypes.UserClickedOpenEventsModal}
+   * when clicked. It has a default slot to customize its contents.
+   *
+   * @public
+   */
+  @Component({
+    components: { BaseEventButton }
+  })
+  export default class BaseEventsModalOpen extends Vue {
+    @Prop({ default: 'UserClickedOpenEventsModal' })
+    protected openingEvent!: PropsWithType<XEventsTypes, void>;
 
-      return {
-        events
-      };
+    protected get events(): Partial<XEventsTypes> {
+      return { [this.openingEvent]: undefined };
     }
-  });
+  }
 </script>
 
 <docs lang="mdx">

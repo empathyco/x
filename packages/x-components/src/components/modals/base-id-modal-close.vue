@@ -19,50 +19,39 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import Vue from 'vue';
+  import { Component, Prop } from 'vue-property-decorator';
   import { NoElement } from '../no-element';
-  import { use$x } from '../../composables/index';
 
-  export default defineComponent({
+  /**
+   * Component that allows to close a modal by emitting {@link XEventsTypes.UserClickedCloseModal}.
+   * It allows full customization with the 'closing-element' slot and exposes the 'closeModal'
+   * function.
+   *
+   * @public
+   */
+  @Component({
+    components: { NoElement }
+  })
+  export default class BaseIdModalClose extends Vue {
     /**
-     * Component that allows to close a modal by emitting
-     * {@link XEventsTypes.UserClickedCloseModal}.
-     * It allows full customization with the 'closing-element' slot and exposes the 'closeModal'
-     * function.
+     * The modalId of the modal that will be closed.
      *
      * @public
      */
-    components: {
-      NoElement
-    },
-    props: {
-      /**
-       * The modalId of the modal that will be closed.
-       *
-       * @public
-       */
-      modalId: {
-        type: String,
-        required: true
-      }
-    },
-    setup(props) {
-      const $x = use$x();
-      /**
-       * Emits the {@link XEventsTypes.UserClickedCloseModal} event with the modalId as payload.
-       *
-       * @param event - The event triggering the function.
-       * @public
-       */
-      const emitCloseModalEvent = ({ target }: Event): void => {
-        $x.emit('UserClickedCloseModal', props.modalId, { target: target as HTMLElement });
-      };
+    @Prop({ required: true })
+    protected modalId!: string;
 
-      return {
-        emitCloseModalEvent
-      };
+    /**
+     * Emits the {@link XEventsTypes.UserClickedCloseModal} event with the modalId as payload.
+     *
+     * @param event - The event triggering the function.
+     * @public
+     */
+    protected emitCloseModalEvent({ target }: Event): void {
+      this.$x.emit('UserClickedCloseModal', this.modalId, { target: target as HTMLElement });
     }
-  });
+  }
 </script>
 
 <docs lang="mdx">
