@@ -20,6 +20,7 @@
     <XdsTag />
     <XdsBadge />
     <XdsFacetFilter />
+    <XdsProgressBar />
   </div>
 </template>
 <script lang="ts">
@@ -45,6 +46,7 @@
   import XdsLayoutSingleColumn from './xds-layout-single-column.vue';
   import XdsLayoutTwoColumns from './xds-layout-two-columns.vue';
   import XdsTag from './xds-tag.vue';
+  import XdsProgressBar from './xds-progress-bar.vue';
 
   @Component({
     components: {
@@ -67,7 +69,8 @@
       XdsPicture,
       XdsLayoutUtils,
       XdsTag,
-      XdsFacetFilter
+      XdsFacetFilter,
+      XdsProgressBar
     }
   })
   export default class XdsShowcase extends Vue {}
