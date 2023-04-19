@@ -15,12 +15,10 @@ export function progressBarDefault(helpers: TailwindHelpers) {
     display: 'inline-block',
     backgroundColor: theme('colors.neutral.25'),
     overflow: 'hidden',
-    maxWidth: '320px',
 
     '& > &-line': {
       height: '100%',
-      backgroundColor: `var(--progress-bar-color-50, ${theme('colors.neutral.90')})`,
-      transformOrigin: 'left'
+      backgroundColor: `var(--progress-bar-color-50, ${theme('colors.neutral.90')})`
     },
 
     ...progressBarSizes(helpers).md
