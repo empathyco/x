@@ -63,12 +63,12 @@ function renderSortList({
     onSelectedSortProvided,
     async clickNthItem(index) {
       await sortListWrapper
-        .findAll(getDataTestSelector('x-sort-button'))
+        .findAll(getDataTestSelector('sort-list-button'))
         .at(index)
         .trigger('click');
     },
     getButton(index) {
-      return wrapper.findAll(getDataTestSelector('x-sort-button')).wrappers[index].element;
+      return wrapper.findAll(getDataTestSelector('sort-list-button')).wrappers[index].element;
     },
     getSelectedItem() {
       return sortListWrapper.get('.x-sort-list__item--is-selected');
@@ -129,7 +129,7 @@ describe('testing SortList component', () => {
 
   it('allows adding classes to the button', () => {
     const { wrapper } = renderSortList({ buttonClass: 'custom-class' });
-    const buttons = wrapper.findAll(getDataTestSelector('x-sort-button'));
+    const buttons = wrapper.findAll(getDataTestSelector('sort-list-button'));
     expect(buttons.length).toBeTruthy();
     buttons.wrappers.forEach(button => {
       expect(button.classes('custom-class')).toBe(true);
@@ -143,7 +143,7 @@ describe('testing SortList component', () => {
     button.click();
     await wrapper.vm.$nextTick();
 
-    const buttons = wrapper.findAll(getDataTestSelector('x-sort-button')).wrappers;
+    const buttons = wrapper.findAll(getDataTestSelector('sort-list-button')).wrappers;
     expect(buttons[0].element).not.toHaveAttribute('aria-pressed');
     expect(buttons[1].element).toHaveAttribute('aria-pressed', 'true');
   });
@@ -153,7 +153,7 @@ describe('testing SortList component', () => {
     getButton(1).click();
     await wrapper.vm.$nextTick();
 
-    const buttons = wrapper.findAll(getDataTestSelector('x-sort-button')).wrappers;
+    const buttons = wrapper.findAll(getDataTestSelector('sort-list-button')).wrappers;
     expect(buttons[0].classes('x-sort-list__item--is-selected')).toBe(false);
     expect(buttons[0].classes('x-selected')).toBe(false);
 
