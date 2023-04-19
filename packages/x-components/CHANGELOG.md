@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.353](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.352...@empathyco/x-components@3.0.0-alpha.353) (2023-04-19)
+
+### Features
+
+- **search:** add fallback disclaimer component (#1122)
+  ([206db77](https://github.com/empathyco/x/commit/206db772b80cfe8a4cab23db19842ea8bd909733)),
+  closes [EX-8080](https://searchbroker.atlassian.net/browse/EX-8080)
+- **sliced-filters:** add dynamic prop to show more/less buttons (#1146)
+  ([08de5f8](https://github.com/empathyco/x/commit/08de5f827d4ce6b33f04c60655628dabeb19a3bd))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.352](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.351...@empathyco/x-components@3.0.0-alpha.352) (2023-04-18)
 
 ### Documentation
