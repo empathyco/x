@@ -20,7 +20,8 @@ function renderSortList({
       </template>
    </SortList>`,
   items = ['', 'Price low to high', 'Price high to low'],
-  selectedSort = items[0]
+  selectedSort = items[0],
+  buttonClass
 }: RenderSortListOptions = {}): RenderSortListAPI {
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -48,7 +49,8 @@ function renderSortList({
       localVue,
       store,
       propsData: {
-        items
+        items,
+        buttonClass
       }
     }
   );
@@ -61,12 +63,12 @@ function renderSortList({
     onSelectedSortProvided,
     async clickNthItem(index) {
       await sortListWrapper
-        .findAll(getDataTestSelector('x-sort-button'))
+        .findAll(getDataTestSelector('sort-list-button'))
         .at(index)
         .trigger('click');
     },
     getButton(index) {
-      return wrapper.vm.$el.children[index].children[0] as HTMLElement;
+      return wrapper.findAll(getDataTestSelector('sort-list-button')).wrappers[index].element;
     },
     getSelectedItem() {
       return sortListWrapper.get('.x-sort-list__item--is-selected');
@@ -125,6 +127,40 @@ describe('testing SortList component', () => {
     });
   });
 
+  it('allows adding classes to the button', () => {
+    const { wrapper } = renderSortList({ buttonClass: 'custom-class' });
+    const buttons = wrapper.findAll(getDataTestSelector('sort-list-button'));
+    expect(buttons.length).toBeTruthy();
+    buttons.wrappers.forEach(button => {
+      expect(button.classes('custom-class')).toBe(true);
+    });
+  });
+
+  it('adds the aria pressed attribute to the selected item', async () => {
+    const { wrapper, getButton } = renderSortList({ items: ['name', 'price'] });
+    const button = getButton(1);
+
+    button.click();
+    await wrapper.vm.$nextTick();
+
+    const buttons = wrapper.findAll(getDataTestSelector('sort-list-button')).wrappers;
+    expect(buttons[0].element).not.toHaveAttribute('aria-pressed');
+    expect(buttons[1].element).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('adds corresponding classes to the selected element', async () => {
+    const { wrapper, getButton } = renderSortList({ items: ['name', 'price'] });
+    getButton(1).click();
+    await wrapper.vm.$nextTick();
+
+    const buttons = wrapper.findAll(getDataTestSelector('sort-list-button')).wrappers;
+    expect(buttons[0].classes('x-sort-list__item--is-selected')).toBe(false);
+    expect(buttons[0].classes('x-selected')).toBe(false);
+
+    expect(buttons[1].classes('x-sort-list__item--is-selected')).toBe(true);
+    expect(buttons[1].classes('x-selected')).toBe(true);
+  });
+
   describe('slots', () => {
     it('allows to customize each item using the default slot', () => {
       const { getSelectedItem } = renderSortList({
@@ -149,6 +185,8 @@ interface RenderSortListOptions {
   items?: Sort[];
   /** The store selected sort value. The store state is reset with this sort in each test. */
   selectedSort?: Sort;
+  /** Class to customize the button element. */
+  buttonClass?: string;
 }
 
 interface RenderSortListAPI {

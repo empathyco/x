@@ -1,21 +1,19 @@
 <template>
-  <component :is="animation" tag="ul" class="x-option-list x-sort-list" data-test="sort-list">
-    <li
+  <component :is="animation" tag="div" class="x-sort-list" data-test="sort-list" role="list">
+    <BaseEventButton
       v-for="{ item, cssClasses, event } in listItems"
       :key="item"
-      :class="cssClasses"
-      class="x-option-list__item x-sort-list__item"
+      class="x-sort-list__item x-button"
+      :class="[cssClasses, buttonClass]"
+      data-test="sort-list-button"
+      :events="event"
+      :aria-pressed="item === selectedSort"
+      role="listitem"
     >
-      <BaseEventButton
-        class="x-sort-list__button x-button"
-        data-test="x-sort-button"
-        :events="event"
-      >
-        <slot v-bind="{ item, isSelected: item === selectedSort }">
-          {{ item }}
-        </slot>
-      </BaseEventButton>
-    </li>
+      <slot v-bind="{ item, isSelected: item === selectedSort }">
+        {{ item }}
+      </slot>
+    </BaseEventButton>
   </component>
 </template>
 
@@ -29,6 +27,7 @@
   import { VueCSSClasses } from '../../../utils';
   import { XEventsTypes } from '../../../wiring';
   import { searchXModule } from '../x-module';
+  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
   import SortMixin from './sort.mixin';
 
   /**
@@ -50,7 +49,7 @@
    * @public
    */
   @Component({
-    mixins: [xComponentMixin(searchXModule)],
+    mixins: [xComponentMixin(searchXModule), dynamicPropsMixin(['buttonClass'])],
     components: {
       BaseEventButton
     }
@@ -76,7 +75,7 @@
         cssClasses: [
           {
             'x-sort-list__item--is-selected': item === this.selectedSort,
-            'x-option-list__item--is-selected': item === this.selectedSort
+            'x-selected': item === this.selectedSort
           }
         ],
         event: { UserClickedASort: item }
@@ -156,6 +155,29 @@ the `default` slot.
         selectedSort: 'Price asc',
         sortValues: ['Relevance', 'Price asc', 'Price desc']
       };
+    }
+  };
+</script>
+```
+
+### Customizing the items with classes
+
+The `buttonClass` prop can be used to add classes to the sort items.
+
+```vue
+<template>
+  <SortList :items="sortValues" buttonClass="x-button-outlined" />
+</template>
+
+<script>
+  import { SortList } from '@empathyco/x-components/search';
+
+  export default {
+    components: {
+      SortList
+    },
+    data() {
+      return { sortValues: ['Relevance', 'Price asc', 'Price desc'] };
     }
   };
 </script>

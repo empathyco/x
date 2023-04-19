@@ -180,21 +180,17 @@
                 <span class="x-button-group-divider"></span>
               </template>
             </BaseColumnPickerList>
-            <SortDropdown
-              :items="sortValues"
-              class="x-dropdown--round x-dropdown--right x-dropdown--l"
-              :animation="sortDropdownAnimation"
-            >
-              <template #toggle="{ item }">
-                <span data-test="sort-dropdown-toggle">{{ item || 'default' }}</span>
-                <ChevronTinyDown />
-              </template>
-              <template #item="{ item, isSelected }">
-                <ChevronTinyRight />
-                <span>{{ item || 'default' }}</span>
-                <CheckTiny v-if="isSelected" />
-              </template>
-            </SortDropdown>
+            <div class="x-flex x-gap-4 x-items-center">
+              <span class="x-text1">Sort:</span>
+              <SortList
+                :items="sortValues"
+                class="x-button-group"
+                buttonClass="x-button-outlined"
+                #default="{ item }"
+              >
+                {{ item || 'default' }}
+              </SortList>
+            </div>
 
             <RenderlessExtraParams #default="{ value, updateValue }" name="store">
               <BaseDropdown
