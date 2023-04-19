@@ -10,7 +10,8 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import Component from 'vue-class-component';
+  import Vue from 'vue';
   import { XEvent } from '../../wiring/events.types';
   import BaseEventsModalOpen from './base-events-modal-open.vue';
 
@@ -19,23 +20,19 @@
    *
    * @public
    */
-  export default defineComponent({
+  @Component({
     components: {
       BaseEventsModalOpen
-    },
-    setup() {
-      /**
-       * Event to be emitted to open the {@link MainModal}.
-       *
-       * @internal
-       */
-      const openingEvent: XEvent = 'UserClickedOpenX';
-
-      return {
-        openingEvent
-      };
     }
-  });
+  })
+  export default class OpenMainModal extends Vue {
+    /**
+     * Event to be emitted to open the {@link MainModal}.
+     *
+     * @internal
+     */
+    protected openingEvent: XEvent = 'UserClickedOpenX';
+  }
 </script>
 
 <docs lang="mdx">

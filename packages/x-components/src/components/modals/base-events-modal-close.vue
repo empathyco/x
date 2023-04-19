@@ -12,37 +12,29 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue';
+  import Vue from 'vue';
+  import { Component, Prop } from 'vue-property-decorator';
   import { PropsWithType } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
   import BaseEventButton from '../base-event-button.vue';
 
-  export default defineComponent({
-    /**
-     * Component contains an event button that emits {@link
-     * XEventsTypes.UserClickedCloseEventsModal}
-     * when clicked. It has a default slot to customize its contents.
-     *
-     * @public
-     */
-    components: {
-      BaseEventButton
-    },
-    props: {
-      closingEvent: {
-        type: String as PropType<PropsWithType<XEventsTypes, void>>,
-        default: 'UserClickedCloseEventsModal'
-      }
-    },
-    setup(props) {
-      const events = computed<Partial<XEventsTypes>>(() => {
-        return { [props.closingEvent]: undefined };
-      });
-      return {
-        events
-      };
+  /**
+   * Component contains an event button that emits {@link XEventsTypes.UserClickedCloseEventsModal}
+   * when clicked. It has a default slot to customize its contents.
+   *
+   * @public
+   */
+  @Component({
+    components: { BaseEventButton }
+  })
+  export default class BaseEventsModalClose extends Vue {
+    @Prop({ default: 'UserClickedCloseEventsModal' })
+    protected closingEvent!: PropsWithType<XEventsTypes, void>;
+
+    protected get events(): Partial<XEventsTypes> {
+      return { [this.closingEvent]: undefined };
     }
-  });
+  }
 </script>
 
 <docs lang="mdx">
