@@ -129,6 +129,20 @@ export const setSearchPage = wireCommit('setPage');
 export const setSearchExtraParams = wireCommit('setParams');
 
 /**
+ * Resets the search state `isNoResults`.
+ *
+ * @public
+ */
+export const resetIsNoResults = wireCommit('setIsNoResults', false);
+
+/**
+ * Resets the search state `fromNoResultsWithFilters`.
+ *
+ * @public
+ */
+export const resetFromNoResultsWithFilters = wireCommit('setFromNoResultsWithFilters', false);
+
+/**
  * Increases the current search state `page` by one.
  *
  * @public
@@ -187,7 +201,9 @@ export const searchWiring = createWiring({
   },
   UserClearedQuery: {
     setSearchQuery,
-    cancelFetchAndSaveSearchResponseWire
+    cancelFetchAndSaveSearchResponseWire,
+    resetFromNoResultsWithFilters,
+    resetIsNoResults
   },
   UserClickedASort: {
     setSort

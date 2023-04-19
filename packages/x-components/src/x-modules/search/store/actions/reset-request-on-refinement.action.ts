@@ -12,9 +12,12 @@ import { SearchXStoreModule } from '../types';
  * @public
  */
 export const resetRequestOnRefinement: SearchXStoreModule['actions']['resetRequestOnRefinement'] = (
-  { commit },
+  { commit, state },
   { newRequest, oldRequest }
 ) => {
+  if (state.fromNoResultsWithFilters && state.results.length) {
+    commit('setFromNoResultsWithFilters', false);
+  }
   // is refining request
   if (!!newRequest && !!oldRequest) {
     const changedKeys = getNewAndUpdatedKeys(newRequest, oldRequest).filter(
