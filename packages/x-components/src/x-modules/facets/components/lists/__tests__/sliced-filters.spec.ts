@@ -9,10 +9,13 @@ import SlicedFilters from '../sliced-filters.vue';
 /**
  * Renders the `BaseShowMoreFilters` component, exposing a basic API for testing.
  *
- * @param max - The number filters to show.
+ * @param options - The options to render the component with.
  * @returns The API for testing the `BaseShowMoreFilters` component.
  */
-function renderBaseShowMoreFilters(max = 10): BaseShowMoreFiltersAPI {
+function renderBaseShowMoreFilters({
+  max = 10,
+  buttonClass
+}: BaseShowMoreFiltersOptions = {}): BaseShowMoreFiltersAPI {
   const filtersMock: Filter[] = [
     'Lego city',
     'Lego city 2',
@@ -27,9 +30,9 @@ function renderBaseShowMoreFilters(max = 10): BaseShowMoreFiltersAPI {
   const wrapper = mount(
     {
       components: { SlicedFilters },
-      props: ['filters', 'max'],
+      props: ['filters', 'max', 'buttonClass'],
       template: `
-          <SlicedFilters :filters="filters" :max="max">
+          <SlicedFilters :filters="filters" :max="max" :buttonClass="buttonClass">
             <template #default="{ slicedFilters }">
               <ul v-for="filter in slicedFilters" data-test="sliced-filters-list">
                 <li data-test="sliced-filters-list-item">{{ filter.label }}</li>
@@ -43,7 +46,8 @@ function renderBaseShowMoreFilters(max = 10): BaseShowMoreFiltersAPI {
     {
       propsData: {
         filters: filtersMock,
-        max: max
+        max,
+        buttonClass
       }
     }
   );
@@ -85,8 +89,9 @@ describe('testing BaseShowMoreFilters', () => {
   });
 
   it('slices the filters when the show more/less buttons are clicked', async () => {
-    const { getFiltersWrapper, getShowMoreButton, getShowLessButton } =
-      renderBaseShowMoreFilters(2);
+    const { getFiltersWrapper, getShowMoreButton, getShowLessButton } = renderBaseShowMoreFilters({
+      max: 2
+    });
 
     expect(getFiltersWrapper()).toHaveLength(2);
     expect(getShowMoreButton().text()).toEqual('Expand 6 more filters');
@@ -102,7 +107,9 @@ describe('testing BaseShowMoreFilters', () => {
   });
 
   it('emits Vue events when the show more/less buttons are clicked', async () => {
-    const { filterWrapper, getShowMoreButton, getShowLessButton } = renderBaseShowMoreFilters(2);
+    const { filterWrapper, getShowMoreButton, getShowLessButton } = renderBaseShowMoreFilters({
+      max: 2
+    });
 
     expect(filterWrapper.emitted('click:show-more')).toBeUndefined();
     expect(filterWrapper.emitted('click:show-less')).toBeUndefined();
@@ -113,7 +120,27 @@ describe('testing BaseShowMoreFilters', () => {
     await getShowLessButton().trigger('click');
     expect(filterWrapper.emitted('click:show-less')).toEqual([[expect.any(MouseEvent)]]);
   });
+
+  it('allows to add classes to the show more/less buttons', async () => {
+    const { getShowLessButton, getShowMoreButton } = renderBaseShowMoreFilters({
+      max: 2,
+      buttonClass: 'custom-class'
+    });
+
+    expect(getShowMoreButton().classes('custom-class')).toBe(true);
+
+    await getShowMoreButton().trigger('click');
+
+    expect(getShowLessButton().classes('custom-class')).toBe(true);
+  });
 });
+
+interface BaseShowMoreFiltersOptions {
+  /** The number filters to show. */
+  max?: number;
+  /** The class to add to the show more/less buttons. */
+  buttonClass?: string;
+}
 
 interface BaseShowMoreFiltersAPI {
   /** The wrapper of the container element. */
