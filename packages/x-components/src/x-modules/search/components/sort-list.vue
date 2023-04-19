@@ -5,7 +5,7 @@
       :key="item"
       class="x-sort-list__item x-button"
       :class="[cssClasses, buttonClass]"
-      data-test="x-sort-button"
+      data-test="sort-list-button"
       :events="event"
       :aria-pressed="item === selectedSort"
       role="listitem"
