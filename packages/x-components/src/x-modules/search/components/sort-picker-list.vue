@@ -76,9 +76,9 @@
 </script>
 
 <docs lang="mdx">
-## Sort Button Group
+## Sort Picker List
 
-The `SortButtonGroup` component can be used to change the way the search results are ordered.
+The `SortPickerList` component can be used to change the way the search results are ordered.
 
 To do so, the list of valid sort values has to be provided using the `items` prop. These are the
 values that can then be received in the `SearchAdapter`.
@@ -155,11 +155,11 @@ The `buttonClass` prop can be used to add classes to the sort items.
 </template>
 
 <script>
-  import { SortGroupButton } from '@empathyco/x-components/search';
+  import { SortPickerList } from '@empathyco/x-components/search';
 
   export default {
     components: {
-      SortGroupButton
+      SortPickerList
     },
     data() {
       return { sortValues: ['Relevance', 'Price asc', 'Price desc'] };
