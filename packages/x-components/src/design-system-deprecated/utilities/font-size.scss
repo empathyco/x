@@ -1,4 +1,4 @@
-@import '../../design-system/variables';
+@import '../variables';
 
 .x-font-size {
   @each $size, $size-value in $sizes {

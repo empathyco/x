@@ -1,4 +1,4 @@
-@import '../../../design-system/variables';
+@import '../../variables';
 
 @each $size, $size-value in $sizes {
   .x-row--gap-#{$size} {
