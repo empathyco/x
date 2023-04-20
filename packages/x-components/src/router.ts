@@ -19,21 +19,6 @@ const routes: RouteConfig[] = [
 if (process.env.NODE_ENV !== 'production') {
   routes.push(
     {
-      path: '/fixed-header-layout',
-      name: 'Fixed Header Layout',
-      component: () => import('./views/layouts/fixed-header-and-asides-layout.vue')
-    },
-    {
-      path: '/multi-column-layout',
-      name: 'Multi Column Layout',
-      component: () => import('./views/layouts/multi-column-layout.vue')
-    },
-    {
-      path: '/single-column-layout',
-      name: 'Single Column Layout',
-      component: () => import('./views/layouts/single-column-layout.vue')
-    },
-    {
       path: '/xds',
       name: 'XDS',
       component: () => import('@empathyco/x-tailwindcss/showcase').then(m => m.XdsShowcase)
