@@ -88,7 +88,6 @@
 <style lang="scss" scoped>
   .x-filters {
     display: flex;
-    flex-flow: column nowrap;
     list-style-type: none;
   }
 </style>
