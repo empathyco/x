@@ -34,11 +34,6 @@ if (process.env.NODE_ENV !== 'production') {
       component: () => import('./views/layouts/single-column-layout.vue')
     },
     {
-      path: '/design-system',
-      name: 'Design System',
-      component: () => import('./views/design-system/design-system.vue')
-    },
-    {
       path: '/xds',
       name: 'XDS',
       component: () => import('@empathyco/x-tailwindcss/showcase').then(m => m.XdsShowcase)
