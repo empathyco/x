@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "3.0.0-alpha.356",
+  "version": "3.0.0-alpha.357",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -76,13 +76,13 @@
     "@empathyco/x-types": "^10.0.0-alpha.63",
     "@empathyco/x-utils": "^1.0.0-alpha.19",
     "@vue/devtools-api": "~6.5.0",
+    "@vueuse/core": "~9.13.0",
     "rxjs": "~7.8.0",
     "tslib": "~2.5.0",
     "vue-class-component": "~7.2.6",
     "vue-global-events": "~1.2.1",
     "vue-property-decorator": "~8.5.0",
-    "vue-runtime-helpers": "~1.1.2",
-    "@vueuse/core": "~9.13.0"
+    "vue-runtime-helpers": "~1.1.2"
   },
   "peerDependencies": {
     "vue": "~2.7.0",
