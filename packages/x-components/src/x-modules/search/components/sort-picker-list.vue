@@ -1,9 +1,14 @@
 <template>
-  <div class="x-sort-picker-list x-button-group" data-test="sort-picker" role="list">
+  <component
+    :is="animation"
+    tag="div"
+    class="x-sort-picker-list"
+    data-test="sort-picker"
+    role="list"
+  >
     <BaseEventButton
       v-for="{ item, cssClasses, event } in listItems"
       :key="item"
-      class="x-button"
       :class="[cssClasses, buttonClass]"
       data-test="x-sort-picker-button"
       :events="event"
@@ -14,13 +19,14 @@
         {{ item }}
       </slot>
     </BaseEventButton>
-  </div>
+  </component>
 </template>
 
 <script lang="ts">
   import { Sort } from '@empathyco/x-types';
   import { mixins } from 'vue-class-component';
-  import { Component } from 'vue-property-decorator';
+  import { Component, Prop } from 'vue-property-decorator';
+  import Vue from 'vue';
   import { BaseEventButton } from '../../../components';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../utils';
@@ -54,6 +60,13 @@
     }
   })
   export default class SortPickerList extends mixins(SortMixin) {
+    /**
+     * The transition to use for rendering the list.
+     *
+     * @public
+     */
+    @Prop({ default: 'div' })
+    public animation?: string | typeof Vue;
     /**
      * Sort list items.
      *
