@@ -189,7 +189,7 @@
               <SortPickerList
                 :items="sortValues"
                 class="x-button-group"
-                buttonClass="x-button-outlined"
+                buttonClass="x-button x-button-outlined"
                 #default="{ item }"
               >
                 {{ item || 'default' }}
