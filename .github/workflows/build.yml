@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         task: [ lint, 'test:unit', 'test:unit-cypress', 'test:e2e:ci' ]
-      name: ${{ matrix.task }}
+    name: ${{ matrix.task }}
     container:
       image: cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
       # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
