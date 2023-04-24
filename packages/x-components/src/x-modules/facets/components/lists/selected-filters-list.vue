@@ -100,13 +100,6 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .x-selected-filters-list {
-    display: flex;
-    flex-flow: column nowrap;
-  }
-</style>
-
 <docs lang="mdx">
 ## Example
 

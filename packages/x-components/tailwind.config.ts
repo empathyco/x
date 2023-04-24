@@ -9,5 +9,6 @@ export default {
     './node_modules/@empathyco/x-tailwindcss/showcase/**/*.js'
   ],
   prefix: 'x-',
-  plugins: [xTailwindPlugin(options), oldDsPlugin]
+  plugins: [xTailwindPlugin(options), oldDsPlugin],
+  important: true
 } as Config;
