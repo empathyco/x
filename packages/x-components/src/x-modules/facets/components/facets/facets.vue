@@ -1,11 +1,5 @@
 <template>
-  <component
-    :is="animation"
-    v-if="hasFacets"
-    class="x-list x-facets-list"
-    data-test="facets"
-    tag="ul"
-  >
+  <component :is="animation" v-if="hasFacets" class="x-facets-list" data-test="facets" tag="ul">
     <li
       v-for="({ facet, slotNameById, slotNameByModelName }, facetId) in mappedFacets"
       :key="facetId"
@@ -212,6 +206,8 @@
 
 <style lang="scss" scoped>
   .x-facets-list {
+    display: flex;
+    flex-flow: column nowrap;
     list-style-type: none;
   }
 </style>

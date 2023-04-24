@@ -6,6 +6,7 @@
       <button
         @click="toggleOpen"
         class="x-header-toggle-panel__header"
+        :class="headerClass"
         data-test="toggle-panel-header"
       >
         <!-- @slot (Required) Slot used to just pass the content. -->
@@ -24,6 +25,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { NoElement } from '../no-element';
+  import { dynamicPropsMixin } from '../dynamic-props.mixin';
   import BaseTogglePanel from './base-toggle-panel.vue';
 
   /**
@@ -33,7 +35,8 @@
    * @public
    */
   @Component({
-    components: { BaseTogglePanel }
+    components: { BaseTogglePanel },
+    mixins: [dynamicPropsMixin(['headerClass'])]
   })
   export default class BaseHeaderTogglePanel extends Vue {
     /**
@@ -119,10 +122,31 @@ the panel.
 </BaseHeaderTogglePanel>
 ```
 
-## Events
+### Customizing default header with classes
 
-A list of events that the component will emit:
+The `headerClass` prop can be used to add classes to the header of the toggle panel.
 
-- `open`: the event is emitted after the user clicks the element and opens it.
-- `close`: the event is emitted after the user clicks the element and closes it.
+```vue
+<BaseHeaderTogglePanel
+  headerClass="custom-class"
+  :animation="collapseHeight"
+  :start-collapsed="false"
+>
+  <template #header-content="{ open }">
+    <p>Header, open: {{ open ? 'close' : 'open' }}</p>
+  </template>
+  <template>
+    <p>Default content</p>
+  </template>
+</BaseHeaderTogglePanel>
+```
+
+## Events A list of events that the component will emit: - `open`: the event is emitted after the
+
+user clicks the element and opens it. - `close`: the event is emitted after the user clicks the
+element and closes it.
+
+```
+
+```
 </docs>
