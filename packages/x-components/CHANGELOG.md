@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.359](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.358...@empathyco/x-components@3.0.0-alpha.359) (2023-04-24)
+
+### Bug Fixes
+
+- **search:** export `SortPickerList` (#1157)
+  ([eaf877d](https://github.com/empathyco/x/commit/eaf877db49b7c6578ce4daf707d91c711621eae2))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.358](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.357...@empathyco/x-components@3.0.0-alpha.358) (2023-04-24)
 
 ### Features
