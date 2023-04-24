@@ -87,7 +87,6 @@
 
 <style lang="scss" scoped>
   .x-filters {
-    display: flex;
     list-style-type: none;
   }
 </style>

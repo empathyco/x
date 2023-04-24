@@ -100,12 +100,6 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .x-selected-filters-list {
-    display: flex;
-  }
-</style>
-
 <docs lang="mdx">
 ## Example
 
