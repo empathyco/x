@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.360](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.359...@empathyco/x-components@3.0.0-alpha.360) (2023-04-24)
+
+### ⚠ BREAKING CHANGES
+
+- **design-system:** The `x-components` design system has been deprecated. The exported theme is no
+  longer available. If you need support for the old design system you should import
+  `@empathyco/x-components/design-system/deprecated-full-theme.css`.
+- **design-system:** `x-grid-list` and `x-grid-list__item` classes have been removed from `BaseGrid`
+  component.
+- **design-system:** `x-grid-list--cols-{columns}` has been renamed to `x-base-grid--cols-{columns}`
+- **design-system:** `x-list` class has been removed from the following components:
+
+  `BaseModal`, `BaseSuggetions`, `BaseTabsPanel`, `Facets`, `FiltersList`, `FiltersSearch`,
+  `IdentifierResults`, `MyHistory`, `PartialResultList`, `ResultVariantSelector`, `Recommendations`,
+  `RelatedTags`, `SlidingPanel`, `SelectedFiltersList`.
+
+- **design-system:** `FixedHeaderAndAsidesLayout` `MultiColumnMaxWidthLayout` and
+  `SingleColumnLayout` have been deprecated.
+- **design-system:** `BaseModal` default opacity has changed from `0.7` to `0.3`.
+- **design-system:** `x-list__item` class has been removed from `BaseTabsPanel` component.
+- **design-system:** `x-message` class has been removed from `Redirection` component.
+
+EMP-133
+
+Co-authored-by: Diego Pascual <diegopf@users.noreply.github.com> Co-authored-by: Manuel Navarro
+<manueln@empathy.co>
+
+### Features
+
+- **design-system:** deprecate old DS (#1138)
+  ([53b0558](https://github.com/empathyco/x/commit/53b05585551a07548bf8071d5112b94f4151544b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.359](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.358...@empathyco/x-components@3.0.0-alpha.359) (2023-04-24)
 
 ### Bug Fixes
