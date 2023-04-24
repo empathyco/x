@@ -16,8 +16,8 @@ async function build(): Promise<any> {
     const bundle = await rollup(rollupConfig);
     await bundle.write(rollupConfig.output);
 
-    const bundleCssDepracatedComponents = await rollup(cssDeprecatedComponentsRollupConfig);
-    await bundleCssDepracatedComponents.write(cssDeprecatedComponentsRollupConfig.output);
+    const bundleCssDeprecatedComponents = await rollup(cssDeprecatedComponentsRollupConfig);
+    await bundleCssDeprecatedComponents.write(cssDeprecatedComponentsRollupConfig.output);
 
     return removeTempFiles();
   } catch (error) {
