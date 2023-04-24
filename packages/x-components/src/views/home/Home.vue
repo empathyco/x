@@ -185,16 +185,14 @@
                 <span class="x-button-group-divider"></span>
               </template>
             </BaseColumnPickerList>
-            <div class="x-flex x-gap-4 x-items-center">
-              <SortPickerList
-                :items="sortValues"
-                class="x-button-group"
-                buttonClass="x-button x-button-outlined"
-                #default="{ item }"
-              >
-                {{ item || 'default' }}
-              </SortPickerList>
-            </div>
+            <SortPickerList
+              :items="sortValues"
+              class="x-button-group"
+              buttonClass="x-button x-button-outlined"
+              #default="{ item }"
+            >
+              {{ item || 'default' }}
+            </SortPickerList>
 
             <RenderlessExtraParams #default="{ value, updateValue }" name="store">
               <BaseDropdown

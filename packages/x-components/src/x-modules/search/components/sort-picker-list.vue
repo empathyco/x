@@ -10,7 +10,7 @@
       v-for="{ item, cssClasses, event } in listItems"
       :key="item"
       :class="[cssClasses, buttonClass]"
-      data-test="x-sort-picker-button"
+      data-test="sort-picker-button"
       :events="event"
       :aria-pressed="item === selectedSort"
       role="listitem"
