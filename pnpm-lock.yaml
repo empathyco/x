@@ -402,6 +402,9 @@ importers:
       '@vue/devtools-api':
         specifier: ~6.5.0
         version: 6.5.0
+      '@vueuse/core':
+        specifier: ~9.13.0
+        version: 9.13.0(vue@2.7.14)
       rxjs:
         specifier: ~7.8.0
         version: 7.8.0
@@ -478,9 +481,6 @@ importers:
       '@vue/vue2-jest':
         specifier: ~27.0.0-alpha.3
         version: 27.0.0(jest@27.5.0)(ts-jest@27.1.0)(vue-template-compiler@2.7.14)(vue@2.7.14)
-      '@vueuse/core':
-        specifier: ~9.13.0
-        version: 9.13.0(vue@2.7.14)
       autoprefixer:
         specifier: ~10.4.4
         version: 10.4.13(postcss@8.4.21)
@@ -4406,7 +4406,7 @@ packages:
       {
         integrity: sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==
       }
-    dev: true
+    dev: false
 
   /@types/webpack-env@1.18.0:
     resolution:
@@ -5609,14 +5609,14 @@ packages:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
-    dev: true
+    dev: false
 
   /@vueuse/metadata@9.13.0:
     resolution:
       {
         integrity: sha512-gdU7TKNAUVlXXLbaF+ZCfte8BjRJQWPCa2J55+7/h+yDtzw3vOoGQDRXzI6pyKyo6bXFT5/QoPE4hAknExjRLQ==
       }
-    dev: true
+    dev: false
 
   /@vueuse/shared@9.13.0(vue@2.7.14):
     resolution:
@@ -5628,7 +5628,7 @@ packages:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
-    dev: true
+    dev: false
 
   /@webassemblyjs/ast@1.11.1:
     resolution:
@@ -21668,7 +21668,7 @@ packages:
         optional: true
     dependencies:
       vue: 2.7.14
-    dev: true
+    dev: false
 
   /vue-docgen-api@4.67.0(vue@2.7.14):
     resolution:

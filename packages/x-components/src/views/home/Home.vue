@@ -180,17 +180,14 @@
                 <span class="x-button-group-divider"></span>
               </template>
             </BaseColumnPickerList>
-            <div class="x-flex x-gap-4 x-items-center">
-              <span class="x-text1">Sort:</span>
-              <SortList
-                :items="sortValues"
-                class="x-button-group"
-                buttonClass="x-button-outlined"
-                #default="{ item }"
-              >
-                {{ item || 'default' }}
-              </SortList>
-            </div>
+            <SortPickerList
+              :items="sortValues"
+              class="x-button-group"
+              buttonClass="x-button x-button-outlined"
+              #default="{ item }"
+            >
+              {{ item || 'default' }}
+            </SortPickerList>
 
             <RenderlessExtraParams #default="{ value, updateValue }" name="store">
               <BaseDropdown
@@ -231,6 +228,8 @@
           </Redirection>
 
           <template v-if="!$x.redirections.length">
+            <FallbackDisclaimer class="x-message" />
+
             <!--  No Results Message  -->
             <div
               v-if="$x.noResults && !$x.fromNoResultsWithFilters"
@@ -390,7 +389,6 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
-  import CollapseHeight from '../../components/animations/collapse-height.vue';
   import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
   import BaseDropdown from '../../components/base-dropdown.vue';
@@ -440,8 +438,7 @@
   import PromotedsList from '../../x-modules/search/components/promoteds-list.vue';
   import Redirection from '../../x-modules/search/components/redirection.vue';
   import ResultsList from '../../x-modules/search/components/results-list.vue';
-  import SortDropdown from '../../x-modules/search/components/sort-dropdown.vue';
-  import SortList from '../../x-modules/search/components/sort-list.vue';
+  import SortPickerList from '../../x-modules/search/components/sort-picker-list.vue';
   import SpellcheckButton from '../../x-modules/search/components/spellcheck-button.vue';
   import Spellcheck from '../../x-modules/search/components/spellcheck.vue';
   import Tagging from '../../x-modules/tagging/components/tagging.vue';
@@ -517,8 +514,7 @@
       SlidingPanel,
       SnippetCallbacks,
       SnippetConfigExtraParams,
-      SortDropdown,
-      SortList,
+      SortPickerList,
       Spellcheck,
       SpellcheckButton,
       Tagging,
@@ -538,9 +534,7 @@
     ];
     protected columnPickerValues = [0, 2, 4];
     protected resultsAnimation = StaggeredFadeAndSlide;
-    protected tabsPanelAnimation = StaggeredFadeAndSlide;
     protected modalAnimation = animateClipPath();
-    protected sortDropdownAnimation = CollapseHeight;
     protected selectedColumns = 4;
     protected sortValues = ['', 'price asc', 'price desc'];
 
