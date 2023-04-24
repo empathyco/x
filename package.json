@@ -9,7 +9,7 @@
     "lint": "lerna run lint -- --quiet --cache --cache-strategy content",
     "lint:fix": "lerna run lint -- --fix",
     "test": "lerna run test",
-    "test:unit": "jest",
+    "test:unit": "lerna run test:unit",
     "test:unit-cypress": "lerna run test:unit-cypress --parallel",
     "test:e2e:ci": "lerna run test:e2e:ci --parallel",
     "serve": "lerna run serve",
