@@ -14,12 +14,12 @@
   import { XEvent } from '../../wiring/events.types';
   import BaseEventsModalClose from './base-events-modal-close.vue';
 
+  /**
+   * Button to close the {@link MainModal}.
+   *
+   * @public
+   */
   export default defineComponent({
-    /**
-     * Button to close the {@link MainModal}.
-     *
-     * @public
-     */
     components: {
       BaseEventsModalClose
     },

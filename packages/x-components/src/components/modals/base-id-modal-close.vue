@@ -23,15 +23,15 @@
   import { NoElement } from '../no-element';
   import { use$x } from '../../composables/index';
 
+  /**
+   * Component that allows to close a modal by emitting
+   * {@link XEventsTypes.UserClickedCloseModal}.
+   * It allows full customization with the 'closing-element' slot and exposes the 'closeModal'
+   * function.
+   *
+   * @public
+   */
   export default defineComponent({
-    /**
-     * Component that allows to close a modal by emitting
-     * {@link XEventsTypes.UserClickedCloseModal}.
-     * It allows full customization with the 'closing-element' slot and exposes the 'closeModal'
-     * function.
-     *
-     * @public
-     */
     components: {
       NoElement
     },
@@ -48,6 +48,7 @@
     },
     setup(props) {
       const $x = use$x();
+
       /**
        * Emits the {@link XEventsTypes.UserClickedCloseModal} event with the modalId as payload.
        *

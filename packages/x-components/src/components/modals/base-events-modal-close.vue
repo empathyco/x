@@ -17,27 +17,30 @@
   import { XEventsTypes } from '../../wiring/events.types';
   import BaseEventButton from '../base-event-button.vue';
 
+  /**
+   * Component contains an event button that emits {@link
+   * XEventsTypes.UserClickedCloseEventsModal}
+   * when clicked. It has a default slot to customize its contents.
+   *
+   * @public
+   */
   export default defineComponent({
-    /**
-     * Component contains an event button that emits {@link
-     * XEventsTypes.UserClickedCloseEventsModal}
-     * when clicked. It has a default slot to customize its contents.
-     *
-     * @public
-     */
     components: {
       BaseEventButton
     },
     props: {
+      /**
+       * Event name to use for closing the modal.
+       *
+       * @public
+       */
       closingEvent: {
         type: String as PropType<PropsWithType<XEventsTypes, void>>,
         default: 'UserClickedCloseEventsModal'
       }
     },
     setup(props) {
-      const events = computed<Partial<XEventsTypes>>(() => {
-        return { [props.closingEvent]: undefined };
-      });
+      const events = computed<Partial<XEventsTypes>>(() => ({ [props.closingEvent]: undefined }));
       return {
         events
       };

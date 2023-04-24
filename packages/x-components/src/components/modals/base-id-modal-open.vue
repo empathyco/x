@@ -23,14 +23,14 @@
   import { NoElement } from '../no-element';
   import { use$x } from '../../composables/index';
 
+  /**
+   * Component that allows to open a modal by emitting {@link XEventsTypes.UserClickedOpenModal}
+   * with the modalId as payload. It allows full customization with the 'opening-element' slot and
+   * exposes the 'openModal' function.
+   *
+   * @public
+   */
   export default defineComponent({
-    /**
-     * Component that allows to open a modal by emitting {@link XEventsTypes.UserClickedOpenModal}
-     * with the modalId as payload. It allows full customization with the 'opening-element' slot and
-     * exposes the 'openModal' function.
-     *
-     * @public
-     */
     components: { NoElement },
     props: {
       /**
@@ -45,6 +45,7 @@
     },
     setup(props) {
       const $x = use$x();
+
       /**
        * Emits the {@link XEventsTypes.UserClickedOpenModal} event with the modalId as payload.
        *

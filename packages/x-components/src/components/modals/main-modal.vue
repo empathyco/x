@@ -52,6 +52,7 @@
        * @internal
        */
       const openEvents: XEvent[] = ['UserClickedOpenX', 'UserOpenXProgrammatically'];
+
       /**
        * Events to listen for closing the main modal.
        *
