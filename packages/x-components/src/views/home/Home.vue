@@ -185,21 +185,14 @@
                 <span class="x-button-group-divider"></span>
               </template>
             </BaseColumnPickerList>
-            <SortDropdown
+            <SortPickerList
               :items="sortValues"
-              class="x-dropdown--round x-dropdown--right x-dropdown--l"
-              :animation="sortDropdownAnimation"
+              class="x-button-group"
+              buttonClass="x-button x-button-outlined"
+              #default="{ item }"
             >
-              <template #toggle="{ item }">
-                <span data-test="sort-dropdown-toggle">{{ item || 'default' }}</span>
-                <ChevronTinyDown />
-              </template>
-              <template #item="{ item, isSelected }">
-                <ChevronTinyRight />
-                <span>{{ item || 'default' }}</span>
-                <CheckTiny v-if="isSelected" />
-              </template>
-            </SortDropdown>
+              {{ item || 'default' }}
+            </SortPickerList>
 
             <RenderlessExtraParams #default="{ value, updateValue }" name="store">
               <BaseDropdown
@@ -450,6 +443,7 @@
   import ResultsList from '../../x-modules/search/components/results-list.vue';
   import SortDropdown from '../../x-modules/search/components/sort-dropdown.vue';
   import SortList from '../../x-modules/search/components/sort-list.vue';
+  import SortPickerList from '../../x-modules/search/components/sort-picker-list.vue';
   import SpellcheckButton from '../../x-modules/search/components/spellcheck-button.vue';
   import Spellcheck from '../../x-modules/search/components/spellcheck.vue';
   import Tagging from '../../x-modules/tagging/components/tagging.vue';
@@ -527,6 +521,7 @@
       SnippetConfigExtraParams,
       SortDropdown,
       SortList,
+      SortPickerList,
       Spellcheck,
       SpellcheckButton,
       Tagging,
