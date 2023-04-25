@@ -14,18 +14,27 @@ import { createPopularSearch } from '../../../__stubs__/popular-searches-stubs.f
 function renderBaseSuggestion({
   query = 'bebe',
   suggestion = createPopularSearch('bebe lloron'),
-  suggestionSelectedEvents = {}
+  suggestionSelectedEvents = {},
+  template = '<BaseSuggestion :query="query" :suggestion="suggestion" ' +
+    ':suggestion-selected-events="suggestionSelectedEvents" />'
 }: BaseSuggestionOptions = {}): BaseSuggestionAPI {
   const [, localVue] = installNewXPlugin();
   const emit = jest.spyOn(XPlugin.bus, 'emit');
-  const wrapper = mount(BaseSuggestion, {
-    localVue,
-    propsData: {
-      query,
-      suggestion,
-      suggestionSelectedEvents
+  const wrapper = mount(
+    {
+      components: { BaseSuggestion },
+      props: ['query', 'suggestion', 'suggestionSelectedEvents'],
+      template
+    },
+    {
+      localVue,
+      propsData: {
+        query,
+        suggestion,
+        suggestionSelectedEvents
+      }
     }
-  });
+  );
 
   const wireMetadata = expect.objectContaining<Partial<WireMetadata>>({
     target: wrapper.element
@@ -155,6 +164,8 @@ interface BaseSuggestionOptions {
   suggestion?: Suggestion;
   /** The events to emit when selecting a suggestion. */
   suggestionSelectedEvents?: Partial<XEventsTypes>;
+
+  template?: string;
 }
 
 /**
