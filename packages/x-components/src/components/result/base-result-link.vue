@@ -1,6 +1,6 @@
 <template>
   <a
-    ref="root"
+    ref="el"
     @click="emitUserClickedAResult"
     @click.right="emitUserClickedAResult"
     @click.middle="emitUserClickedAResult"
@@ -29,7 +29,7 @@
    * @remarks
    * It has the logic to emit {@link XEventsTypes.UserClickedAResult} to the bus on click mouse
    * events. Additionally, this component may be injected other events to be emitted on click
-   * event, so, depending where it's used its father component may provide this events.
+   * event, so, depending on where it's used its father component may provide this events.
    *
    * @public
    */
@@ -47,12 +47,14 @@
     },
     setup(props) {
       const $x = use$x();
+
       /**
        * The rendered DOM element.
        *
        * @internal
        */
       const el = ref<HTMLElement | null>(null);
+
       /**
        * The list of additional events to be emitted by the component when user clicks the link.
        *
@@ -62,6 +64,7 @@
         'resultClickExtraEvents',
         []
       );
+
       /**
        * Emits the {@link XEventsTypes.UserClickedAResult} when user clicks on the result, and also
        * additional events if have been injected in the component.

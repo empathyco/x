@@ -43,9 +43,9 @@
        *
        * @public
        */
-      const events = computed<Partial<XEventsTypes>>(() => {
-        return { UserClickedResultAddToCart: props.result };
-      });
+      const events = computed<Partial<XEventsTypes>>(() => ({
+        UserClickedResultAddToCart: props.result
+      }));
 
       return {
         events

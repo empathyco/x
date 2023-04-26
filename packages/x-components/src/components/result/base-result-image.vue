@@ -43,6 +43,7 @@
   import { Result } from '@empathyco/x-types';
   import { computed, DefineComponent, defineComponent, PropType, Ref, ref, watch } from 'vue';
   import { NoElement } from '../no-element';
+  import { animationProp } from '../../utils/options-api';
 
   /**
    * Component to be reused that renders an `<img>`.
@@ -63,6 +64,7 @@
         type: Object as PropType<Result>,
         required: true
       },
+
       /**
        * Animation to use when switching between the placeholder, the loaded image, or the failed
        * image fallback.
@@ -70,17 +72,19 @@
        * @public
        */
       loadAnimation: {
-        type: [String, Object] as PropType<string | DefineComponent>,
+        type: animationProp,
         default: () => NoElement
       },
+
       /**
        * Animation to use when switching between the loaded image and the hover image.
        *
        * @public
        */
       hoverAnimation: {
-        type: [String, Object] as PropType<string | DefineComponent>
+        type: animationProp
       },
+
       /**
        * Indicates if the next valid image should be displayed on hover.
        *
@@ -91,6 +95,7 @@
         default: false
       }
     },
+
     setup(props) {
       /**
        * Copy of the images of the result.
@@ -100,19 +105,22 @@
        *
        * @internal
        */
-      let pendingImages: Ref<string[]> = ref([]);
+      const pendingImages: Ref<string[]> = ref([]);
+
       /**
        * Contains the images that have been loaded successfully.
        *
        * @internal
        */
-      let loadedImages: Ref<string[]> = ref([]);
+      const loadedImages: Ref<string[]> = ref([]);
+
       /**
        * Indicates if the user is hovering the image.
        *
        * @internal
        */
       const isHovering = ref(false);
+
       /**
        * Indicates if the user has hovered the image.
        *
@@ -136,6 +144,7 @@
       };
 
       const resultImages = ref(props.result.images!);
+
       /**
        * Initializes images state and resets when the result's images change.
        *
@@ -151,6 +160,7 @@
         },
         { immediate: true }
       );
+
       /**
        * Animation to be used.
        *
@@ -158,11 +168,12 @@
        *
        * @internal
        */
-      const animation = computed(() => {
+      const animation = computed<DefineComponent | string>(() => {
         return userHasHoveredImage
           ? props.hoverAnimation ?? props.loadAnimation
           : props.loadAnimation;
       });
+
       /**
        * Gets the src from the result image.
        *
@@ -175,6 +186,7 @@
           !props.showNextImageOnHover || !isHovering ? 0 : loadedImages.value.length - 1
         ];
       });
+
       /**
        * Indicates if the loader should try to load the next image.
        *
@@ -186,6 +198,7 @@
         const numImagesToLoad = props.showNextImageOnHover && userHasHoveredImage ? 2 : 1;
         return !!pendingImages.value.length && loadedImages.value.length < numImagesToLoad;
       });
+
       /**
        * Sets an image as failed.
        *
@@ -194,6 +207,7 @@
       const flagImageAsFailed = (): void => {
         pendingImages.value.shift();
       };
+
       /**
        * Sets an image as loaded.
        *

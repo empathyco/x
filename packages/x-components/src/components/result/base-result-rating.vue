@@ -56,6 +56,7 @@
         type: Object as PropType<Result>,
         required: true
       },
+
       /**
        * A link to redirect when rating is clicked.
        *
@@ -67,6 +68,7 @@
     },
     setup(props) {
       const $x = use$x();
+
       /**
        * Emits the `UserClickedAResultRating` event when user clicks this component, with the
        * {@link @empathyco/x-types#Result | Result} as payload.

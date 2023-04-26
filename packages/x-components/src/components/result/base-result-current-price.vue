@@ -63,11 +63,9 @@
        * and the boolean value tells if it should be added or not.
        * @internal
        */
-      const dynamicClasses = computed<VueCSSClasses>(() => {
-        return {
-          'x-result-current-price--on-sale': props.result.price?.hasDiscount ?? false
-        };
-      });
+      const dynamicClasses = computed<VueCSSClasses>(() => ({
+        'x-result-current-price--on-sale': props.result.price?.hasDiscount ?? false
+      }));
 
       return {
         dynamicClasses
