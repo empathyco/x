@@ -9,15 +9,15 @@ function renderBasePriceLabel({
   format,
   lessThan = 'Less than {max}',
   from = 'More than {min}',
-  fromTo = 'From {min} to {max}',
-  template = '<BasePriceFilterLabel :filter="filter" :format="format" ' +
-    ':less-than="lessThan" :from="from" :from-to="fromTo" />'
+  fromTo = 'From {min} to {max}'
 }: RenderBasePriceLabelOptions): Wrapper<Vue> {
   return mount(
     {
       components: { BasePriceFilterLabel },
       props: ['filter', 'lessThan', 'from', 'fromTo', 'format'],
-      template
+      template:
+        '<BasePriceFilterLabel :filter="filter" :format="format" ' +
+        ':less-than="lessThan" :from="from" :from-to="fromTo" />'
     },
     {
       propsData: {

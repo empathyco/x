@@ -26,14 +26,7 @@
    *
    * @public
    */
-
   export default defineComponent({
-    /**
-     * Renders a label for a rating filter, allowing to override the elements used to paint
-     * the rating.
-     *
-     * @public
-     */
     components: {
       BaseRating
     },
