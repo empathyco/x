@@ -1,5 +1,6 @@
 ---
-title: Related Tags UI
+title: Design the Related Tags UI experience
+sidebar_title: Related Tags UI
 tags:
   - tags
   - related keywords

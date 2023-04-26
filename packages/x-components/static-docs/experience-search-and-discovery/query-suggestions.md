@@ -1,5 +1,6 @@
 ---
-title: Query Suggestions UI
+title: Design the Query Suggestions UI experience
+sidebar_title: Query Suggestions UI
 tags:
   - search suggestions
   - search as you type

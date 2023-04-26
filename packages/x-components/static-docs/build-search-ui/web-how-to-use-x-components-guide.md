@@ -1,5 +1,6 @@
 ---
 title: How to use and configure Interface X Components in your project
+title: How to use the Interface X Components library in your project
 tags:
   - configuration
   - x configuration
