@@ -1,7 +1,7 @@
 <template>
   <component
     :is="animation"
-    ref="root"
+    ref="el"
     :style="style"
     class="x-grid-list x-base-grid"
     :class="cssClasses"
@@ -103,7 +103,8 @@
        *
        * @internal
        */
-      const renderedColumnsNumber = emit('RenderedColumnsNumberChanged', 0, { immediate: false });
+      emit('RenderedColumnsNumberChanged', { immediate: false });
+      let renderedColumnsNumber = 0;
       /**
        * It returns the items passed as props or the injected ones.
        *
@@ -168,8 +169,8 @@
        *
        * @internal
        */
+      const el = ref<HTMLElement | null>(null);
       const updateRenderedColumnsNumber = (): void => {
-        const el = ref<HTMLElement | null>(null);
         const { gridTemplateColumns } = getComputedStyle(el.value!);
         renderedColumnsNumber = gridTemplateColumns.split(' ').length;
       };
@@ -182,7 +183,9 @@
         const resizeObserver = new ResizeObserver(updateRenderedColumnsNumber);
         const el = ref<HTMLElement | null>(null);
         resizeObserver.observe(el.value!);
-        emit.on('hook:beforeDestroy', () => {
+        resizeObserver.disconnect();
+
+        this.$on('hook:beforeDestroy', () => {
           resizeObserver.disconnect();
         });
       });
@@ -190,7 +193,8 @@
       return {
         cssClasses,
         style,
-        gridItems
+        gridItems,
+        el
       };
     }
   });

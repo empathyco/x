@@ -1,12 +1,12 @@
 <script lang="ts">
+  import { defineComponent } from 'vue';
   import { reduce } from '@empathyco/x-utils';
-  import { Component } from 'vue-property-decorator';
   import { Observable, Subscription } from 'rxjs';
   import { EventPayload, SubjectPayload } from '@empathyco/x-bus';
   import { XEventListeners } from '../x-installer/api/api.types';
   import { WireMetadata } from '../wiring/wiring.types';
   import { XEventsTypes } from '../wiring/events.types';
-  import { NoElement } from './no-element';
+  import { use$x } from '../composables/index';
 
   /**
    * This component helps subscribing to any {@link XEvent} with custom callbacks using Vue
@@ -14,48 +14,48 @@
    *
    * @public
    */
-  @Component
-  export default class GlobalXBus extends NoElement {
-    /**
-     * Object with the {@link XEvent} listeners.
-     *
-     * @internal
-     */
-    public $listeners!: XEventListeners;
+  export default defineComponent({
+    setup() {
+      const $x = use$x();
+      /**
+       * Object with the {@link XEvent} listeners.
+       *
+       * @internal
+       */
+      const $listeners!: XEventListeners;
 
-    created(): void {
-      this.handleXEventSubscription();
+      /**
+       * Handles a subscription to all the events provided in the listeners with the function that
+       * will execute the callback. Also unsubscribes on beforeDestroy.
+       *
+       * @internal
+       */
+      const handleXEventSubscription = (): void => {
+        const subscription = reduce(
+          $listeners,
+          (subscription, eventName, callback) => {
+            subscription.add(
+              (
+                $x.on(eventName, true) as unknown as Observable<
+                  SubjectPayload<EventPayload<XEventsTypes, typeof eventName>, WireMetadata>
+                >
+              ).subscribe(({ eventPayload, metadata }) => {
+                callback(eventPayload as never, metadata);
+              })
+            );
+            return subscription;
+          },
+          new Subscription()
+        );
+
+        this.$on('hook:beforeDestroy', () => {
+          subscription.unsubscribe();
+        });
+      };
+
+      handleXEventSubscription();
     }
-
-    /**
-     * Handles a subscription to all the events provided in the listeners with the function that
-     * will execute the callback. Also unsubscribes on beforeDestroy.
-     *
-     * @internal
-     */
-    protected handleXEventSubscription(): void {
-      const subscription = reduce(
-        this.$listeners,
-        (subscription, eventName, callback) => {
-          subscription.add(
-            (
-              this.$x.on(eventName, true) as unknown as Observable<
-                SubjectPayload<EventPayload<XEventsTypes, typeof eventName>, WireMetadata>
-              >
-            ).subscribe(({ eventPayload, metadata }) => {
-              callback(eventPayload as never, metadata);
-            })
-          );
-          return subscription;
-        },
-        new Subscription()
-      );
-
-      this.$on('hook:beforeDestroy', () => {
-        subscription.unsubscribe();
-      });
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">
