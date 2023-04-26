@@ -14,7 +14,7 @@
   border-width: var(--x-size-border-width-progress-bar-default);
   border-radius: var(--x-size-border-radius-progress-bar-default);
 
-  &__line {
+  &__line, &-fill {
     //layout
     height: var(--x-size-height-progress-bar-line-default);
     width: var(--x-size-width-progress-bar-line-default);

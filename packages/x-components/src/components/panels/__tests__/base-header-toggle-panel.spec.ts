@@ -110,6 +110,18 @@ describe('testing BaseHeaderTogglePanel component', () => {
     await toggleOpen();
     expect(headerWrapper.text()).toBe('closed');
   });
+
+  it('allows adding classes to the header', () => {
+    const { wrapper } = renderBaseHeaderTogglePanel({
+      template: `
+        <BaseHeaderTogglePanel headerClass="custom-class">
+          <template #header-content>Header Content</template>
+          <p>Default Slot</p>
+        </BaseHeaderTogglePanel>`
+    });
+    const headerWrapper = wrapper.find(getDataTestSelector('toggle-panel-header'));
+    expect(headerWrapper.classes('custom-class')).toBe(true);
+  });
 });
 
 interface RenderBaseTogglePanelOptions {

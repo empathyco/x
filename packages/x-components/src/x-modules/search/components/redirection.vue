@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-if="redirection && $scopedSlots.default"
-    class="x-redirection x-message"
-    data-test="redirection"
-  >
+  <div v-if="redirection && $scopedSlots.default" class="x-redirection" data-test="redirection">
     <slot v-bind="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }" />
   </div>
 </template>
