@@ -1,6 +1,5 @@
 ---
-title: Design the Facets & Filters UI experience
-meta_title: Design the Facets & Filters UI experience
+title: Design the Facets and Filters UI experience
 sidebar_title: Facets & Filters UI
 tag:
   - faceted

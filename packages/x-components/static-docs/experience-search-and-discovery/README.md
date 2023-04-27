@@ -1,7 +1,7 @@
 ---
 title: Design your search and discovery UI
 meta_title: Search & discovery UI functional documentation
-sidebar_title: Design your search & discovery UI
+sidebar_title: Design search & discovery UI
 ---
 
 Search inevitably is key when people look for specific products in an online store. It's the door to
