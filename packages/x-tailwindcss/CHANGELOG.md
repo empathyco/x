@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.28...@empathyco/x-tailwindcss@1.0.0-alpha.29) (2023-04-26)
+
+**Note:** Version bump only for package @empathyco/x-tailwindcss
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.27...@empathyco/x-tailwindcss@1.0.0-alpha.28) (2023-04-19)
+
+### ⚠ BREAKING CHANGES
+
+- **design-system:** Old `design-system` `progress-bar` styles are now located in the
+  `deprecated-full-theme.css` file.
+- **design-system:** Renamed `x-progress-bar__line` class to `x-progress-bar-fill`.
+
+### Features
+
+- **design-system:** add XDS progress bar component (#1149)
+  ([21a52f5](https://github.com/empathyco/x/commit/21a52f5b3af3f4ac341e3b9844e0273b355153aa))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.26...@empathyco/x-tailwindcss@1.0.0-alpha.27) (2023-04-19)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss

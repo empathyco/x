@@ -3,6 +3,115 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.361](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.360...@empathyco/x-components@3.0.0-alpha.361) (2023-04-26)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.360](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.359...@empathyco/x-components@3.0.0-alpha.360) (2023-04-24)
+
+### ⚠ BREAKING CHANGES
+
+- **design-system:** The `x-components` design system has been deprecated. The exported theme is no
+  longer available. If you need support for the old design system you should import
+  `@empathyco/x-components/design-system/deprecated-full-theme.css`.
+- **design-system:** `x-grid-list` and `x-grid-list__item` classes have been removed from `BaseGrid`
+  component.
+- **design-system:** `x-grid-list--cols-{columns}` has been renamed to `x-base-grid--cols-{columns}`
+- **design-system:** `x-list` class has been removed from the following components:
+
+  `BaseModal`, `BaseSuggetions`, `BaseTabsPanel`, `Facets`, `FiltersList`, `FiltersSearch`,
+  `IdentifierResults`, `MyHistory`, `PartialResultList`, `ResultVariantSelector`, `Recommendations`,
+  `RelatedTags`, `SlidingPanel`, `SelectedFiltersList`.
+
+- **design-system:** `FixedHeaderAndAsidesLayout` `MultiColumnMaxWidthLayout` and
+  `SingleColumnLayout` have been deprecated.
+- **design-system:** `BaseModal` default opacity has changed from `0.7` to `0.3`.
+- **design-system:** `x-list__item` class has been removed from `BaseTabsPanel` component.
+- **design-system:** `x-message` class has been removed from `Redirection` component.
+
+EMP-133
+
+Co-authored-by: Diego Pascual <diegopf@users.noreply.github.com> Co-authored-by: Manuel Navarro
+<manueln@empathy.co>
+
+### Features
+
+- **design-system:** deprecate old DS (#1138)
+  ([53b0558](https://github.com/empathyco/x/commit/53b05585551a07548bf8071d5112b94f4151544b))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.359](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.358...@empathyco/x-components@3.0.0-alpha.359) (2023-04-24)
+
+### Bug Fixes
+
+- **search:** export `SortPickerList` (#1157)
+  ([eaf877d](https://github.com/empathyco/x/commit/eaf877db49b7c6578ce4daf707d91c711621eae2))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.358](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.357...@empathyco/x-components@3.0.0-alpha.358) (2023-04-24)
+
+### Features
+
+- **search:** add sort picker list component (#1155)
+  ([03beec8](https://github.com/empathyco/x/commit/03beec816b07d6532d01b97034110a354d52024c))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.357](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.356...@empathyco/x-components@3.0.0-alpha.357) (2023-04-20)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.356](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.355...@empathyco/x-components@3.0.0-alpha.356) (2023-04-20)
+
+### Features
+
+- export sticky modifier (#1151)
+  ([8bbd1ab](https://github.com/empathyco/x/commit/8bbd1ab6b0b595c94386bdc0f37d7061df072127))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.355](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.354...@empathyco/x-components@3.0.0-alpha.355) (2023-04-19)
+
+### ⚠ BREAKING CHANGES
+
+- **design-system:** Old `design-system` `progress-bar` styles are now located in the
+  `deprecated-full-theme.css` file.
+- **design-system:** Renamed `x-progress-bar__line` class to `x-progress-bar-fill`.
+
+### Features
+
+- **design-system:** add XDS progress bar component (#1149)
+  ([21a52f5](https://github.com/empathyco/x/commit/21a52f5b3af3f4ac341e3b9844e0273b355153aa))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.354](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.353...@empathyco/x-components@3.0.0-alpha.354) (2023-04-19)
 
 **Note:** Version bump only for package @empathyco/x-components

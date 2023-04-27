@@ -8,7 +8,7 @@
       <div
         v-if="open"
         ref="modalContent"
-        class="x-modal__content x-list"
+        class="x-modal__content"
         data-test="modal-content"
         role="dialog"
         :class="contentClass"
@@ -23,6 +23,7 @@
         @click="emitOverlayClicked"
         @keydown="emitOverlayClicked"
         class="x-modal__overlay"
+        :class="overlayClass"
         data-test="modal-overlay"
       />
     </component>
@@ -46,7 +47,9 @@
    * @public
    */
   @Component
-  export default class BaseModal extends Mixins(dynamicPropsMixin(['contentClass'])) {
+  export default class BaseModal extends Mixins(
+    dynamicPropsMixin(['contentClass', 'overlayClass'])
+  ) {
     /**
      * Animation to use for opening/closing the modal. This animation only affects the content.
      */
@@ -284,6 +287,8 @@
     z-index: 1;
 
     &__content {
+      display: flex;
+      flex-flow: column nowrap;
       z-index: 1;
     }
 
@@ -291,8 +296,8 @@
       width: 100%;
       height: 100%;
       position: absolute;
-      background-color: var(--x-modal-overlay-color, rgb(0, 0, 0));
-      opacity: var(--x-modal-overlay-opacity, 0.7);
+      background-color: rgb(0, 0, 0);
+      opacity: 0.3;
     }
   }
 </style>
@@ -359,7 +364,48 @@ The `contentClass` prop can be used to add classes to the modal content.
       :open="open"
       @click:overlay="open = false"
       referenceSelector=".header"
-      contentClass="x-background--neutral-35"
+      contentClass="x-bg-neutral-75"
+    >
+      <h1>Hello</h1>
+      <p>The modal is working</p>
+      <button @click="open = false">Close modal</button>
+    </BaseModal>
+  </div>
+</template>
+
+<script>
+  import { BaseModal, FadeAndSlide } from '@empathyco/x-components';
+  import Vue from 'vue';
+
+  Vue.component('fadeAndSlide', FadeAndSlide);
+
+  export default {
+    components: {
+      BaseModal
+    },
+    data() {
+      return {
+        open: false
+      };
+    }
+  };
+</script>
+```
+
+#### Customizing the overlay with classes
+
+The `overlayClass` prop can be used to add classes to the modal overlay.
+
+```vue
+<template>
+  <div>
+    <button @click="open = true">Open modal</button>
+    <BaseModal
+      :animation="fadeAndSlide"
+      :open="open"
+      @click:overlay="open = false"
+      referenceSelector=".header"
+      overlayClass="x-bg-neutral-75"
     >
       <h1>Hello</h1>
       <p>The modal is working</p>

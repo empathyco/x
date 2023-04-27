@@ -45,7 +45,7 @@
      */
     protected get cssClasses(): VueCSSClasses {
       return {
-        'x-switch--is-selected': this.value
+        'x-switch--is-selected x-selected': this.value
       };
     }
 
@@ -62,15 +62,15 @@
 
 <style lang="scss" scoped>
   .x-switch {
-    --x-switch-height: var(--x-size-base-05);
+    --x-switch-height: 16px;
     --x-switch-width: calc(2 * (var(--x-switch-height)) + 2 * var(--x-switch-padding));
-    --x-switch-background: var(--x-color-base-neutral-70);
-    --x-switch-padding: var(--x-size-base-01);
-    --x-switch-handle-size: calc(var(--x-switch-height));
+    --x-switch-background: #b3b3b3;
+    --x-switch-padding: 2px;
+    --x-switch-handle-size: var(--x-switch-height);
     box-sizing: content-box;
     height: var(--x-switch-height);
     padding: var(--x-switch-padding);
-    border-radius: var(--x-size-border-radius-base-pill);
+    border-radius: 99999px;
     background: var(--x-switch-background);
     width: var(--x-switch-width);
     border: none;
@@ -78,7 +78,7 @@
     cursor: pointer;
 
     &__handle {
-      background: var(--x-color-base-neutral-100);
+      background: #ffffff;
       border-radius: 50%;
       height: var(--x-switch-handle-size);
       width: var(--x-switch-handle-size);
@@ -88,15 +88,15 @@
 
     &--is-selected {
       --x-switch-translate-x: calc(var(--x-switch-padding) + var(--x-switch-width) / 2);
-      --x-switch-background: var(--x-color-base-neutral-10);
+      --x-switch-background: #1a1a1a;
     }
 
     &--sm {
-      --x-switch-height: var(--x-size-base-04);
+      --x-switch-height: 12px;
     }
 
     &--lg {
-      --x-switch-height: var(--x-size-base-06);
+      --x-switch-height: 24px;
     }
   }
 </style>

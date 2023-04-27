@@ -18,6 +18,7 @@ import { tag } from './components/tag';
 import { badge } from './components/badge';
 import { attach } from './components/attach';
 import { facetFilter } from './components/facet-filter';
+import { progressBar } from './components/progress-bar';
 
 /**
  * Default component styles.
@@ -48,6 +49,7 @@ export default function components(helpers: TailwindHelpers) {
     ...tag(helpers),
     ...badge(helpers),
     ...facetFilter(helpers),
+    ...progressBar(helpers),
     ...attach(helpers)
   };
 }

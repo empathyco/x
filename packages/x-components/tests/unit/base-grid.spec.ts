@@ -90,7 +90,7 @@ function renderBaseGrid({
 describe('testing BaseGrid', () => {
   it('allows configuring the number of columns and updates the css class accordingly', () => {
     const { getBaseGrid } = renderBaseGrid({ columns: 5 });
-    getBaseGrid().should('have.class', 'x-grid-list--cols-5');
+    getBaseGrid().should('have.class', 'x-base-grid--cols-5');
   });
 
   it('allows customizing the default slot', () => {

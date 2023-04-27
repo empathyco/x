@@ -1,0 +1,7 @@
+:root {
+  @import '../../variables';
+
+  @each $size, $size-value in $sizes {
+    --x-size-gap-row-#{$size}: var(--x-size-base-#{$size});
+  }
+}

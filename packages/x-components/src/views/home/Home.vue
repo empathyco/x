@@ -7,8 +7,8 @@
     <SnippetCallbacks />
     <OpenMainModal>Start</OpenMainModal>
     <h1 class="x-text-primary-50 x-text-4xl x-font-bold x-leading-[1.5]">Test controls</h1>
-    <ul class="x-test-controls x-list x-list--gap-05">
-      <li class="x-test-controls__item x-list__item">
+    <ul class="x-test-controls x-flex x-flex-col x-gap-16">
+      <li class="x-test-controls__item">
         <label for="searchInput.instant">
           search-input - instant
           <input
@@ -19,7 +19,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="searchInput.instantDebounceInMs">
           search-input - debounce
           <input
@@ -30,7 +30,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="popularSearches.maxItemsToRender">
           popular-searches - maxItemsToRender
           <input
@@ -41,7 +41,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="slicedFilters.max">
           sliced-filters - max
           <input
@@ -52,7 +52,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="historyQueries.maxItemsToRender">
           history-queries - maxItemsToRender
           <input
@@ -63,7 +63,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="nextQueriesPreview.maxItemsToRender">
           next-queries-preview - maxItemsToRender
           <input
@@ -74,7 +74,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="nextQueriesPreview.maxItemsToRender">
           next-queries-list - showOnlyAfterOffset
           <input
@@ -85,7 +85,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="adapter.e2eAdapter">
           Use mocked adapter
           <input
@@ -99,13 +99,11 @@
       </li>
     </ul>
     <MainModal :animation="modalAnimation">
-      <MultiColumnMaxWidthLayout class="x-background--neutral-100">
+      <MultiColumnMaxWidthLayout class="x-bg-neutral-0">
         <template #header-middle>
-          <div
-            class="x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand"
-          >
+          <div class="x-flex x-flex-col x-gap-16 x-items-stretch x-flex-auto">
             <div class="x-input-group x-input-group-lead x-rounded-sm">
-              <div class="x-input x-search-input-placeholder-container">
+              <div class="x-input x-search-input-placeholder-container x-flex">
                 <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
                 <SearchInput
                   aria-label="Search for products"
@@ -136,7 +134,7 @@
               <template #sliding-panel-left-button>
                 <ChevronLeft />
               </template>
-              <RelatedTags class="x-list--gap-03" itemClass="x-tag-outlined" />
+              <RelatedTags class="x-gap-8" itemClass="x-tag-outlined" />
               <template #sliding-panel-right-button>
                 <ChevronRight />
               </template>
@@ -165,10 +163,7 @@
         </template>
 
         <template #toolbar-body>
-          <div
-            v-if="$x.totalResults > 0"
-            class="x-list x-list--horizontal x-list--align-center x-list--gap-04"
-          >
+          <div v-if="$x.totalResults > 0" class="x-flex x-items-center x-gap-12">
             <span class="x-text1">{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
               v-model="selectedColumns"
@@ -185,21 +180,14 @@
                 <span class="x-button-group-divider"></span>
               </template>
             </BaseColumnPickerList>
-            <SortDropdown
+            <SortPickerList
               :items="sortValues"
-              class="x-dropdown--round x-dropdown--right x-dropdown--l"
-              :animation="sortDropdownAnimation"
+              class="x-button-group"
+              buttonClass="x-button x-button-outlined"
+              #default="{ item }"
             >
-              <template #toggle="{ item }">
-                <span data-test="sort-dropdown-toggle">{{ item || 'default' }}</span>
-                <ChevronTinyDown />
-              </template>
-              <template #item="{ item, isSelected }">
-                <ChevronTinyRight />
-                <span>{{ item || 'default' }}</span>
-                <CheckTiny v-if="isSelected" />
-              </template>
-            </SortDropdown>
+              {{ item || 'default' }}
+            </SortPickerList>
 
             <RenderlessExtraParams #default="{ value, updateValue }" name="store">
               <BaseDropdown
@@ -221,14 +209,14 @@
           <!--  Redirection  -->
           <Redirection
             #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
-            class="x-margin--top-03 x-margin--bottom-03"
+            class="x-p-28 x-flex x-flex-col x-gap-8 x-items-center x-bg-lead-25 x-my-8"
             :delayInSeconds="5"
           >
             <p>Your search matches a special place in our website. You are being redirected to:</p>
             <a @click="redirect" :href="redirection.url" data-test="redirection-link">
               {{ redirection.url }}
             </a>
-            <div class="x-list x-list--horizontal x-list--gap-07">
+            <div class="x-flex x-gap-32">
               <button @click="abortRedirect" class="x-button--ghost x-button x-text-neutral-25">
                 No, I'll stay here
               </button>
@@ -245,7 +233,7 @@
             <!--  No Results Message  -->
             <div
               v-if="$x.noResults && !$x.fromNoResultsWithFilters"
-              class="x-message x-margin--top-03 x-margin--bottom-03"
+              class="x-p-28 x-flex x-flex-col x-gap-8 x-items-center x-bg-lead-25 x-my-8"
               data-test="no-results-message"
             >
               <p>
@@ -289,6 +277,8 @@
                       :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
                     >
                       <BaseVariableColumnGrid
+                        style="--x-size-min-width-grid-item: 150px"
+                        class="x-gap-12"
                         :animation="resultsAnimation"
                         :columns="$x.device === 'mobile' ? 2 : 4"
                       >
@@ -311,7 +301,7 @@
                             :suggestion="nextQueries[0]"
                             :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
                             #default="{ results }"
-                            class="x-row__item x-row__item--span-9 x-padding--top-06"
+                            class="x-pt-24"
                           >
                             <h1 class="x-title2">Others clients have searched</h1>
                             <NextQuery
@@ -321,7 +311,7 @@
                             >
                               <span class="x-font-bold">{{ nextQueries[0].query }}</span>
                             </NextQuery>
-                            <div class="x-margin--bottom-06">
+                            <div class="x-mb-24">
                               <SlidingPanel :resetOnContentChange="false">
                                 <div class="x-flex x-flex-row x-gap-8">
                                   <Result
@@ -370,6 +360,7 @@
                 </PartialQueryButton>
               </template>
             </PartialResultsList>
+
             <!-- Recommendations -->
             <Recommendations v-if="!$x.query.search || $x.noResults" #layout="{ recommendations }">
               <BaseVariableColumnGrid
@@ -398,7 +389,6 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
-  import CollapseHeight from '../../components/animations/collapse-height.vue';
   import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
   import BaseDropdown from '../../components/base-dropdown.vue';
@@ -448,8 +438,7 @@
   import PromotedsList from '../../x-modules/search/components/promoteds-list.vue';
   import Redirection from '../../x-modules/search/components/redirection.vue';
   import ResultsList from '../../x-modules/search/components/results-list.vue';
-  import SortDropdown from '../../x-modules/search/components/sort-dropdown.vue';
-  import SortList from '../../x-modules/search/components/sort-list.vue';
+  import SortPickerList from '../../x-modules/search/components/sort-picker-list.vue';
   import SpellcheckButton from '../../x-modules/search/components/spellcheck-button.vue';
   import Spellcheck from '../../x-modules/search/components/spellcheck.vue';
   import Tagging from '../../x-modules/tagging/components/tagging.vue';
@@ -525,8 +514,7 @@
       SlidingPanel,
       SnippetCallbacks,
       SnippetConfigExtraParams,
-      SortDropdown,
-      SortList,
+      SortPickerList,
       Spellcheck,
       SpellcheckButton,
       Tagging,
@@ -546,9 +534,7 @@
     ];
     protected columnPickerValues = [0, 2, 4];
     protected resultsAnimation = StaggeredFadeAndSlide;
-    protected tabsPanelAnimation = StaggeredFadeAndSlide;
     protected modalAnimation = animateClipPath();
-    protected sortDropdownAnimation = CollapseHeight;
     protected selectedColumns = 4;
     protected sortValues = ['', 'price asc', 'price desc'];
 

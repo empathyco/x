@@ -1,0 +1,25 @@
+@use 'sass:string';
+
+@function zerofill($i) {
+  @return #{str-slice('00', 0, 2 - str-length(#{$i}))}#{$i};
+}
+
+@mixin safari() {
+  @media not all and (min-resolution: 0.001dpcm) {
+    @content;
+  }
+}
+
+@mixin safari-gap($horizontal-gap: false, $vertical-gap: false) {
+  @include safari {
+    gap: 0;
+    & > *:not(:last-child) {
+      @if $horizontal-gap {
+        margin-right: $horizontal-gap;
+      }
+      @if $vertical-gap {
+        margin-bottom: $vertical-gap;
+      }
+    }
+  }
+}

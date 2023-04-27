@@ -1,0 +1,44 @@
+// allow a flex item to grow and shrink as needed, ignoring its initial size
+.x-flex-1 {
+  flex: 1 1 0% !important;
+}
+
+// allow a flex item to grow and shrink, taking into account its initial size
+.x-flex-auto {
+  flex: 1 1 auto !important;
+}
+
+// allow a flex item to shrink but not grow, taking into account its initial size
+.x-flex-initial {
+  flex: 0 1 auto !important;
+}
+
+// allow a flex item to grow but not shrink, taking into account its initial size
+.x-flex-no-shrink {
+  flex: 1 0 auto !important;
+}
+
+// prevent a flex item from growing or shrinking
+.x-flex-none {
+  flex: none !important;
+}
+
+// self align
+.x-self-auto {
+  align-self: auto !important;
+}
+.x-self-start {
+  align-self: flex-start !important;
+}
+.x-self-end {
+  align-self: flex-end !important;
+}
+.x-self-center {
+  align-self: center !important;
+}
+.x-self-stretch {
+  align-self: stretch !important;
+}
+.x-self-baseline {
+  align-self: baseline !important;
+}

@@ -1,6 +1,6 @@
 <template>
   <div v-if="isLoading" class="x-progress-bar" data-test="progress-bar" role="progressbar">
-    <div class="x-progress-bar__line" :style="cssStyles" data-test="progress-bar-line"></div>
+    <div class="x-progress-bar-fill" :style="cssStyles" data-test="progress-bar-line" />
   </div>
 </template>
 
@@ -57,14 +57,12 @@
   .x-progress-bar {
     display: inline-block;
     overflow: hidden;
-    background-color: var(--x-color-background-progress-bar-default, #b3b3b3);
-    border-radius: var(--x-size-border-radius-progress-bar-default, 24px);
+    background-color: #dbe2e5;
+    border-radius: 4px;
 
-    &__line {
-      height: var(--x-size-height-progress-bar-line-default, 4px);
-      width: var(--x-size-width-progress-bar-line-default, 272px);
-      background-color: var(--x-color-background-progress-bar-line-default, #1a1a1a);
-      border-radius: var(--x-size-border-radius-progress-bar-default, 24px);
+    &-fill {
+      height: 4px;
+      background-color: #283034;
       animation: slide linear;
       transform-origin: left;
     }

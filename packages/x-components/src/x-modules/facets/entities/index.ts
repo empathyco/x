@@ -5,4 +5,5 @@ export * from './number-range-filter.entity';
 export * from './raw-filter.entity';
 export * from './simple-filter.entity';
 export * from './single-select.modifier';
+export * from './sticky.modifier';
 export * from './types';

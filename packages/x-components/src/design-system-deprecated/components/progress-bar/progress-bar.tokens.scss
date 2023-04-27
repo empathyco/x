@@ -1,0 +1,14 @@
+:root {
+  //layout
+  --x-size-height-progress-bar-line-default: var(--x-size-base-02);
+  --x-size-width-progress-bar-line-default: var(--x-size-base-20);
+
+  // color
+  --x-color-background-progress-bar-default: var(--x-color-base-neutral-70);
+  --x-color-border-progress-bar-default: var(--x-color-background-progress-bar-default);
+  --x-color-background-progress-bar-line-default: var(--x-color-base-neutral-10);
+
+  // border
+  --x-size-border-radius-progress-bar-default: var(--x-size-border-radius-base-pill);
+  --x-size-border-width-progress-bar-default: 0;
+}

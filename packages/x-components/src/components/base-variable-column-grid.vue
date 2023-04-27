@@ -204,4 +204,51 @@ Configuring the default columns to be rendered. These columns will be the defaul
   };
 </script>
 ```
+
+### Customizing the items width
+
+The `--x-size-min-width-grid-item` variable can be used to customize the min width of the grid
+items.
+
+```vue
+<template>
+  <BaseVariableColumnGrid
+    :animation="animation"
+    :items="items"
+    style="--x-size-min-width-grid-item: 150px"
+  >
+    <template #default="{ item }">
+      {{ `Default slot content: ${item.id}` }}
+    </template>
+  </BaseVariableColumnGrid>
+</template>
+
+<script>
+  import { BaseVariableColumnGrid, StaggeredFadeAndSlide } from '@empathyco/x-components';
+
+  export default {
+    name: 'ResultsSection',
+    components: {
+      BaseVariableColumnGrid
+    },
+    data() {
+      return {
+        animation: StaggeredFadeAndSlide,
+        items: [
+          {
+            id: 'res-1',
+            modelName: 'Result',
+            name: 'Product 1'
+          },
+          {
+            id: 'res-2',
+            modelName: 'Result',
+            name: 'Product 2'
+          }
+        ]
+      };
+    }
+  };
+</script>
+```
 </docs>

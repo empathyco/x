@@ -1,0 +1,7 @@
+@import '../variables';
+
+@each $color-name, $color-value in $colors {
+  .x-background--#{$color-name} {
+    background-color: var(--x-color-base-#{$color-name}) !important;
+  }
+}
