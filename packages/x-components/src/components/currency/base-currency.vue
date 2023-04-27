@@ -58,6 +58,7 @@
         type: Number,
         required: true
       },
+
       /**
        * The format as string.
        *
@@ -67,6 +68,7 @@
         type: String
       }
     },
+
     setup(props) {
       /**
        * The injected format as string.
@@ -74,6 +76,7 @@
        * @public
        */
       const injectedFormat = inject<string>('currencyFormat', 'i.iii,dd');
+
       /**
        * A format which can be passed through prop or injected.
        *
@@ -81,9 +84,8 @@
        *
        * @internal
        */
-      const renderedFormat = computed<string>(() => {
-        return props.format ?? injectedFormat;
-      });
+      const renderedFormat = computed<string>(() => props.format ?? injectedFormat);
+
       /**
        * Returns the formatted result as string.
        *
@@ -91,9 +93,7 @@
        *
        * @internal
        */
-      const currency = computed<string>(() => {
-        return currencyFormatter(props.value, renderedFormat.value);
-      });
+      const currency = computed<string>(() => currencyFormatter(props.value, renderedFormat.value));
 
       return {
         currency

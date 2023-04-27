@@ -44,6 +44,7 @@
         type: String,
         default: ''
       },
+
       /**
        * The suggestion to render and use in the default slot.
        *
@@ -53,6 +54,7 @@
         type: Object as PropType<Suggestion>,
         required: true
       },
+
       /**
        * The feature from which the events will be emitted.
        *
@@ -60,9 +62,9 @@
        */
       //TODO: set to true when the suggestions components pass it.
       feature: {
-        type: String as PropType<QueryFeature>,
-        required: false
+        type: String as PropType<QueryFeature>
       },
+
       /**
        * The {@link XEvent | XEvents} that will be emitted when selecting a suggestion.
        *
@@ -72,19 +74,22 @@
         type: Object as PropType<Partial<XEventsTypes>>,
         required: true
       },
+
       /**
        * Indicates if the curated suggestion should be highlighted.
        *
        * @public
        */
       highlightCurated: {
-        type: Boolean,
-        default: false
+        type: Boolean
       }
     },
+
     setup(props) {
       const root = ref<HTMLElement | null>(null);
+
       const $x = use$x();
+
       /**
        * Returns the suggestion filter object.
        * It is a BooleanFilter because the label is needed.
@@ -94,9 +99,10 @@
        * @returns The filter.
        * @public
        */
-      const filter = computed<BooleanFilter | undefined>(() => {
-        return props.suggestion.facets?.[0]?.filters[0] as BooleanFilter;
-      });
+      const filter = computed<BooleanFilter | undefined>(
+        () => props.suggestion.facets?.[0]?.filters[0] as BooleanFilter
+      );
+
       /**
        * The event handler that will be triggered when clicking on a suggestion.
        *
@@ -120,6 +126,7 @@
           ...filterEvent
         };
       });
+
       /**
        * Emits the events when the button is clicked.
        *
@@ -133,6 +140,7 @@
           });
         });
       };
+
       /**
        * Checks if the suggestion is curated and if it should be highlighted.
        *
@@ -140,9 +148,10 @@
        *
        * @internal
        */
-      const shouldHighlightCurated = computed<boolean>(() => {
-        return props.highlightCurated && !!props.suggestion.isCurated;
-      });
+      const shouldHighlightCurated = computed<boolean>(
+        () => props.highlightCurated && !!props.suggestion.isCurated
+      );
+
       /**
        * Generates css classes dynamically.
        *
@@ -152,11 +161,9 @@
        * @returns The {@link VueCSSClasses} classes.
        * @public
        */
-      const dynamicCSSClasses = computed<VueCSSClasses>(() => {
-        return {
-          'x-suggestion--is-curated': shouldHighlightCurated.value
-        };
-      });
+      const dynamicCSSClasses = computed<VueCSSClasses>(() => ({
+        'x-suggestion--is-curated': shouldHighlightCurated.value
+      }));
 
       return {
         root,
