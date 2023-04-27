@@ -8,7 +8,8 @@
 </template>
 
 <script lang="ts">
-  import { DefineComponent, defineComponent, PropType } from 'vue';
+  import { defineComponent } from 'vue';
+  import { animationProp } from '../../utils/options-api';
 
   /**
    * Simple panel that receives its open state via prop, which is responsible of rendering
@@ -34,7 +35,7 @@
        * @public
        */
       animation: {
-        type: [String, Object, Function] as PropType<string | DefineComponent>,
+        type: animationProp,
         default: 'div'
       }
     }
