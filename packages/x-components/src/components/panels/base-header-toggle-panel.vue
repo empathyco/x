@@ -22,7 +22,9 @@
 </template>
 
 <script lang="ts">
-  import { DefineComponent, defineComponent, PropType, ref } from 'vue';
+  import Vue from 'vue';
+  import { Component, Prop } from 'vue-property-decorator';
+  import { animationProp } from '../../utils/options-api';
   import { NoElement } from '../no-element';
   import { dynamicPropsMixin } from '../dynamic-props.mixin';
   import BaseTogglePanel from './base-toggle-panel.vue';
@@ -33,62 +35,49 @@
    *
    * @public
    */
-  export default defineComponent({
+  @Component({
     components: { BaseTogglePanel },
-    props: {
-      /**
-       * Animation component that will be used to animate the base-toggle-panel.
-       *
-       * @public
-       */
-      animation: {
-        type: [String, Object, Function] as PropType<string | DefineComponent>,
-        default: () => NoElement
-        //default: () => slots.default() ?? h()
-      },
-      /**
-       * Handles if the panel is open by default.
-       *
-       * @public
-       */
-      startCollapsed: {
-        type: Boolean,
-        default: false
-      }
-    },
-    setup(props, { emit }) {
-      /**
-       * Handles if the base panel is open or closed.
-       *
-       * @internal
-       */
-      let open = ref(!props.startCollapsed);
-
-      /**
-       * Emits open status event.
-       *
-       * @internal
-       */
-      const emitOpenStatusEvent = (): void => {
-        emit(open.value ? 'open' : 'close');
-      };
-
-      /**
-       * Toggles the open property.
-       *
-       * @internal
-       */
-      const toggleOpen = (): void => {
-        open.value = !open.value;
-        emitOpenStatusEvent();
-      };
-
-      return {
-        toggleOpen,
-        open
-      };
+    mixins: [dynamicPropsMixin(['headerClass'])]
+  })
+  export default class BaseHeaderTogglePanel extends Vue {
+    /**
+     * Animation component that will be used to animate the base-toggle-panel.
+     *
+     * @public
+     */
+    @Prop({ default: () => NoElement })
+    protected animation!: typeof animationProp;
+    /**
+     * Handles if the panel is open by default.
+     *
+     * @public
+     */
+    @Prop({ default: false })
+    protected startCollapsed!: boolean;
+    /**
+     * Handles if the base panel is open or closed.
+     *
+     * @internal
+     */
+    protected open = !this.startCollapsed;
+    /**
+     * Toggles the open property.
+     *
+     * @internal
+     */
+    protected toggleOpen(): void {
+      this.open = !this.open;
+      this.emitOpenStatusEvent();
     }
-  });
+    /**
+     * Emits open status event.
+     *
+     * @internal
+     */
+    protected emitOpenStatusEvent(): void {
+      this.$emit(this.open ? 'open' : 'close');
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
