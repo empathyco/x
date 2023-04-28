@@ -1,7 +1,0 @@
-@import '../variables';
-
-@each $color-name, $color-value in $colors {
-  .x-border-color--#{$color-name} {
-    border-color: var(--x-color-base-#{$color-name}) !important;
-  }
-}

@@ -1,7 +1,0 @@
-@import '../variables';
-
-:root {
-  @each $size, $size-value in $sizes {
-    --x-size-base-#{$size}: #{$size-value};
-  }
-}
