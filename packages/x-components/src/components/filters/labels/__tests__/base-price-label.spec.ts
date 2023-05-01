@@ -15,9 +15,8 @@ function renderBasePriceLabel({
     {
       components: { BasePriceFilterLabel },
       props: ['filter', 'lessThan', 'from', 'fromTo', 'format'],
-      template:
-        '<BasePriceFilterLabel :filter="filter" :format="format" ' +
-        ':less-than="lessThan" :from="from" :from-to="fromTo" />'
+      template: `<BasePriceFilterLabel :filter="filter" :format="format"
+        :less-than="lessThan" :from="from" :from-to="fromTo" />`
     },
     {
       propsData: {
