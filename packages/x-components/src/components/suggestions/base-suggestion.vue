@@ -1,5 +1,5 @@
 <template>
-  <button ref="root" @click="emitEvents" v-on="$listeners" :class="dynamicCSSClasses">
+  <button ref="el" @click="emitEvents" v-on="$listeners" :class="dynamicCSSClasses">
     <!--
       @slot Button content
           @binding {Suggestion} suggestion - Suggestion data
@@ -86,7 +86,7 @@
     },
 
     setup(props) {
-      const root = ref<HTMLElement | null>(null);
+      const el = ref<HTMLElement | null>(null);
 
       const $x = use$x();
 
@@ -135,7 +135,7 @@
       const emitEvents = (): void => {
         forEach(events.value, (event, payload): void => {
           $x.emit(event, payload, {
-            target: root.value!,
+            target: el.value!,
             feature: props.feature
           });
         });
@@ -166,7 +166,7 @@
       }));
 
       return {
-        root,
+        el,
         filter,
         emitEvents,
         dynamicCSSClasses
