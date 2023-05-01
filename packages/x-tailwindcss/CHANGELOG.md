@@ -3,6 +3,408 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.28...@empathyco/x-tailwindcss@1.0.0-alpha.29) (2023-04-26)
+
+**Note:** Version bump only for package @empathyco/x-tailwindcss
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.27...@empathyco/x-tailwindcss@1.0.0-alpha.28) (2023-04-19)
+
+### ⚠ BREAKING CHANGES
+
+- **design-system:** Old `design-system` `progress-bar` styles are now located in the
+  `deprecated-full-theme.css` file.
+- **design-system:** Renamed `x-progress-bar__line` class to `x-progress-bar-fill`.
+
+### Features
+
+- **design-system:** add XDS progress bar component (#1149)
+  ([21a52f5](https://github.com/empathyco/x/commit/21a52f5b3af3f4ac341e3b9844e0273b355153aa))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.26...@empathyco/x-tailwindcss@1.0.0-alpha.27) (2023-04-19)
+
+**Note:** Version bump only for package @empathyco/x-tailwindcss
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.25...@empathyco/x-tailwindcss@1.0.0-alpha.26) (2023-04-17)
+
+### Bug Fixes
+
+- styles for default and ghost variant (#1136)
+  ([e78e280](https://github.com/empathyco/x/commit/e78e280f5bd2638a869c996a3e59904976eeca1a))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.24...@empathyco/x-tailwindcss@1.0.0-alpha.25) (2023-04-13)
+
+### Features
+
+- **design-system:** update xds button (#1130)
+  ([eb3758b](https://github.com/empathyco/x/commit/eb3758b4b52f01c022c0ae8c254037bf164dde6e))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.23...@empathyco/x-tailwindcss@1.0.0-alpha.24) (2023-04-13)
+
+### Features
+
+- **design-system:** add simple filter variant (#1127)
+  ([9adf7b3](https://github.com/empathyco/x/commit/9adf7b30e63239e36ef673462ec43de11823491c))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.22...@empathyco/x-tailwindcss@1.0.0-alpha.23) (2023-04-12)
+
+**Note:** Version bump only for package @empathyco/x-tailwindcss
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.21...@empathyco/x-tailwindcss@1.0.0-alpha.22) (2023-04-10)
+
+### Features
+
+- **design-system:** add `xs` letter spacing (#1126)
+  ([1c5bd20](https://github.com/empathyco/x/commit/1c5bd2054e17a66881a42133b9e1dde78af95ea8))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.20...@empathyco/x-tailwindcss@1.0.0-alpha.21) (2023-04-10)
+
+### Features
+
+- **design-system:** add XDS filters (#1118)
+  ([56e9db2](https://github.com/empathyco/x/commit/56e9db2e7185e5c3927e0bb97bb5b9c8eefb1801)),
+  closes [EX-8062](https://searchbroker.atlassian.net/browse/EX-8062)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.19...@empathyco/x-tailwindcss@1.0.0-alpha.20) (2023-03-30)
+
+### Features
+
+- **design-system:** improve layout showcase (#1116)
+  ([e2f9b7d](https://github.com/empathyco/x/commit/e2f9b7d1f5ab284b535c57a1e0405652cac02b12))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.18...@empathyco/x-tailwindcss@1.0.0-alpha.19) (2023-03-29)
+
+### Features
+
+- Minor improvements. (#1109)
+  ([1c9dace](https://github.com/empathyco/x/commit/1c9dacea7c46eb0b27687730a8a4978d0e49b230)),
+  closes [EX-8130](https://searchbroker.atlassian.net/browse/EX-8130)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.17...@empathyco/x-tailwindcss@1.0.0-alpha.18) (2023-03-27)
+
+### ⚠ BREAKING CHANGES
+
+- `base-column-picker-list` structure changes. It now wraps the buttons in a div instead of using ul
+  and li. Additionally, the class for the selected option has been changed to `x-selected`.
+
+### Features
+
+- adapt `base-column-picker-list` to use the XDS component of button group (#1115)
+  ([7057b8f](https://github.com/empathyco/x/commit/7057b8f7cd7f1e20ad248c40e8da97450895cd26)),
+  closes [EX-8144](https://searchbroker.atlassian.net/browse/EX-8144)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.16...@empathyco/x-tailwindcss@1.0.0-alpha.17) (2023-03-22)
+
+### Features
+
+- **design-system:** add button group component (#1104)
+  ([e8745fe](https://github.com/empathyco/x/commit/e8745fe9f3f657e76091b3bacead7b0084017a34)),
+  closes [EX-8059](https://searchbroker.atlassian.net/browse/EX-8059)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.15...@empathyco/x-tailwindcss@1.0.0-alpha.16) (2023-03-20)
+
+### Features
+
+- **desing-system:** add padding top and bottom 0 to tag (#1111)
+  ([1d878c5](https://github.com/empathyco/x/commit/1d878c599b44406f5467268d761e568f315eee3b)),
+  closes [EX-8131](https://searchbroker.atlassian.net/browse/EX-8131)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.14...@empathyco/x-tailwindcss@1.0.0-alpha.15) (2023-03-14)
+
+### Features
+
+- **design-system:** add XDS badge component (#1100)
+  ([c0d8446](https://github.com/empathyco/x/commit/c0d84461b1cb72705e8570766c19078c2eef3abf)),
+  closes [EX-7992](https://searchbroker.atlassian.net/browse/EX-7992)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.13...@empathyco/x-tailwindcss@1.0.0-alpha.14) (2023-03-14)
+
+### Features
+
+- **design-system:** add XDS tag component (#1099)
+  ([3bb3d80](https://github.com/empathyco/x/commit/3bb3d80372f7929f8c1f3c629951780b0349957b)),
+  closes [EX-7990](https://searchbroker.atlassian.net/browse/EX-7990)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.12...@empathyco/x-tailwindcss@1.0.0-alpha.13) (2023-03-07)
+
+### Bug Fixes
+
+- **deps:** remove `only-allow` pnpm (#1097)
+  ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
+  closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.11...@empathyco/x-tailwindcss@1.0.0-alpha.12) (2023-03-02)
+
+### Bug Fixes
+
+- **design-system:** modify font-size by default in input component (#1094)
+  ([efc872f](https://github.com/empathyco/x/commit/efc872faca26d82518a5fd06789664cfcf872b3c)),
+  closes [EX-8078](https://searchbroker.atlassian.net/browse/EX-8078)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.10...@empathyco/x-tailwindcss@1.0.0-alpha.11) (2023-03-01)
+
+### Bug Fixes
+
+- **design-system:** fix wrong sliding panel spacing value (#1093)
+  ([0713e34](https://github.com/empathyco/x/commit/0713e34f510c3514c3dd8192f4b42aaecbd7ce38)),
+  closes [EX-7541](https://searchbroker.atlassian.net/browse/EX-7541)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.9...@empathyco/x-tailwindcss@1.0.0-alpha.10) (2023-03-01)
+
+### Features
+
+- **design-system:** update XDS spacing values (#1092)
+  ([913a1c8](https://github.com/empathyco/x/commit/913a1c88dc0848ed1d25fc56904257eef5feb40f)),
+  closes [EX-8071](https://searchbroker.atlassian.net/browse/EX-8071)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.8...@empathyco/x-tailwindcss@1.0.0-alpha.9) (2023-02-27)
+
+### Bug Fixes
+
+- **design-system:** Fix scroll in the Design System. (#1088)
+  ([f1df2cb](https://github.com/empathyco/x/commit/f1df2cbe2b6c14c96de4fa682df792c8be60321f)),
+  closes [EX-8055](https://searchbroker.atlassian.net/browse/EX-8055)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.7...@empathyco/x-tailwindcss@1.0.0-alpha.8) (2023-02-21)
+
+### Bug Fixes
+
+- **design-system:** Fix X Design System `Scroll` component appearing in mobile. (#1085)
+  ([b23d5ec](https://github.com/empathyco/x/commit/b23d5ec8cfb6a68ba704e42507ca71b000f141b4)),
+  closes [EX-8044](https://searchbroker.atlassian.net/browse/EX-8044)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.6...@empathyco/x-tailwindcss@1.0.0-alpha.7) (2023-02-15)
+
+### Features
+
+- **design-system:** Add `Input Group` component to the X Desing System. (#1066)
+  ([5f83b14](https://github.com/empathyco/x/commit/5f83b1460408e0e3b6a5f7fedaf91ee006d27a9c)),
+  closes [EX-7944](https://searchbroker.atlassian.net/browse/EX-7944)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.5...@empathyco/x-tailwindcss@1.0.0-alpha.6) (2023-02-15)
+
+### Features
+
+- **desing-system:** Add layout `layout-stack` util. (#1076)
+  ([38db5b3](https://github.com/empathyco/x/commit/38db5b3b4c10a2bd288e9e79b15232f063002156)),
+  closes [EX-8000](https://searchbroker.atlassian.net/browse/EX-8000)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.4...@empathyco/x-tailwindcss@1.0.0-alpha.5) (2023-02-10)
+
+### Features
+
+- **design-system:** add single column and fixed header layouts showcases (#1067)
+  ([5254f37](https://github.com/empathyco/x/commit/5254f37f8ffdf9c71ea843b2972cce04a4ae55b9)),
+  closes [EX-7972](https://searchbroker.atlassian.net/browse/EX-7972)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.3...@empathyco/x-tailwindcss@1.0.0-alpha.4) (2023-02-08)
+
+### Features
+
+- **design-system:** add layout item utilities (#1064)
+  ([792fabc](https://github.com/empathyco/x/commit/792fabcfd5f68b38302465e5867c477657e2749d)),
+  closes [EX-7824](https://searchbroker.atlassian.net/browse/EX-7824)
+
+### Continuous Integration
+
+- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+  ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
+  closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.2...@empathyco/x-tailwindcss@1.0.0-alpha.3) (2023-02-07)
+
+### Features
+
+- **design-system:** Add layout item to XDS (#1055)
+  ([6640c18](https://github.com/empathyco/x/commit/6640c18dae7d40a65c9ddf170138730425c907ac)),
+  closes [EX-7825](https://searchbroker.atlassian.net/browse/EX-7825)
+- **design-system:** Add scroll component (#1056)
+  ([e6fcd90](https://github.com/empathyco/x/commit/e6fcd90f77490a314016bfe5778e9cf0c87663fd)),
+  closes [EX-7956](https://searchbroker.atlassian.net/browse/EX-7956)
+
+### Continuous Integration
+
+- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+  ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
+  closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.1...@empathyco/x-tailwindcss@1.0.0-alpha.2) (2023-02-03)
+
+### Build System
+
+- **deps:** update deps (#1062)
+  ([59f29b9](https://github.com/empathyco/x/commit/59f29b9c5861f790a65b061eec628eb35d066b68))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.0...@empathyco/x-tailwindcss@1.0.0-alpha.1) (2023-02-01)
+
+### Features
+
+- **design-system:** add layout container to XDS (#1050)
+  ([f9a13af](https://github.com/empathyco/x/commit/f9a13af0fa1147042615d769e49c6cb462d9b4ac)),
+  closes [EX-7824](https://searchbroker.atlassian.net/browse/EX-7824)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.58...@empathyco/x-tailwindcss@1.0.0-alpha.0) (2023-01-26)
+
+### ⚠ BREAKING CHANGES
+
+- **components:** class `x-picture__image` renamed to `x-picture-image`, deprecate classes
+  `x-picture__image--placeholder` and `x-picture__image--fallback`
+
+### Features
+
+- **components:** deprecate x-picture\_\_image and placeholder/fallback styles (#1036)
+  ([73a08a5](https://github.com/empathyco/x/commit/73a08a576b3f9b715cccefee8cb452d00cd45bcb)),
+  closes [EX-7888](https://searchbroker.atlassian.net/browse/EX-7888)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [0.2.0-alpha.58](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@0.2.0-alpha.57...@empathyco/x-tailwindcss@0.2.0-alpha.58) (2023-01-25)
 
 ### Build System

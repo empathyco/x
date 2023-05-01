@@ -126,7 +126,9 @@ describe('testing Redirection component', () => {
     expect(onUserClickedARedirection).toHaveBeenCalledWith<[WirePayload<RedirectionModel>]>({
       eventPayload: stubRedirections[0],
       metadata: {
-        moduleName: 'search'
+        moduleName: 'search',
+        location: undefined,
+        replaceable: true
       }
     });
     expect(spy).toHaveBeenCalledTimes(1);
@@ -159,7 +161,9 @@ describe('testing Redirection component', () => {
     expect(onUserClickedARedirection).toHaveBeenCalledWith<[WirePayload<RedirectionModel>]>({
       eventPayload: stubRedirections[0],
       metadata: {
-        moduleName: 'search'
+        moduleName: 'search',
+        location: undefined,
+        replaceable: true
       }
     });
     expect(spy).toHaveBeenCalledTimes(1);

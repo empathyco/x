@@ -1,18 +1,17 @@
 <template functional>
   <svg
     :class="['x-icon'].concat(data.staticClass, data.class)"
-    viewBox="0 0 16 16"
-    version="1.1"
+    viewBox="0 0 8 8"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
   >
-    <g fill="none" fill-rule="evenodd">
-      <path
-        d="M14,14 L14,12.6666667 C14,11.1939073 12.6568542,10 11,10 L5,10 C3.34314575,10
-        2,11.1939073 2,12.6666667 L2,14"
-      />
-      <circle cx="8" cy="5" r="3" />
-    </g>
+    <path
+      d="M7 7V6.333C7 5.597 6.328 5 5.5 5H2.5C1.672 5 1 5.597 1 6.333V7M5.5 2.5C5.5 2.89782 5.34196 3.27936 5.06066 3.56066C4.77936 3.84196 4.39782 4 4 4C3.60218 4 3.22064 3.84196 2.93934 3.56066C2.65804 3.27936 2.5 2.89782 2.5 2.5C2.5 2.10218 2.65804 1.72064 2.93934 1.43934C3.22064 1.15804 3.60218 1 4 1C4.39782 1 4.77936 1.15804 5.06066 1.43934C5.34196 1.72064 5.5 2.10218 5.5 2.5V2.5Z"
+      stroke="currentColor"
+      stroke-width="0.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
   </svg>
 </template>
 

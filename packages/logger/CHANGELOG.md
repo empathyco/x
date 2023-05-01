@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-logger@1.2.0-alpha.10...@empathyco/x-logger@1.2.0-alpha.11) (2023-04-12)
+
+**Note:** Version bump only for package @empathyco/x-logger
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.2.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-logger@1.2.0-alpha.9...@empathyco/x-logger@1.2.0-alpha.10) (2023-03-07)
+
+### Bug Fixes
+
+- **deps:** remove `only-allow` pnpm (#1097)
+  ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
+  closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.2.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-logger@1.2.0-alpha.8...@empathyco/x-logger@1.2.0-alpha.9) (2023-02-08)
+
+### Continuous Integration
+
+- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+  ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
+  closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.2.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-logger@1.2.0-alpha.7...@empathyco/x-logger@1.2.0-alpha.8) (2023-02-07)
+
+### Continuous Integration
+
+- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+  ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
+  closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.2.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-logger@1.2.0-alpha.6...@empathyco/x-logger@1.2.0-alpha.7) (2023-01-25)
 
 ### Build System

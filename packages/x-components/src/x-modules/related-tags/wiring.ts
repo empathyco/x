@@ -108,7 +108,7 @@ export const relatedTagsWiring = createWiring({
   UserChangedExtraParams: {
     clearSelectedRelatedTags
   },
-  RelatedTagsRequestChanged: {
+  RelatedTagsRequestUpdated: {
     fetchAndSaveRelatedTagsWire
   },
   UserClearedQuery: {

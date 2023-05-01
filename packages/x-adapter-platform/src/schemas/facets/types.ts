@@ -3,6 +3,8 @@ import { FacetModelName } from '@empathyco/x-types';
 
 /**
  * Facet configuration containing the model name and the schema.
+ *
+ * @public
  */
 export interface FacetConfig {
   modelName: FacetModelName;

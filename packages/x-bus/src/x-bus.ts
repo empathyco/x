@@ -8,7 +8,6 @@ import {
   Emitters,
   Priority,
   SubjectPayload,
-  TimeoutId,
   EventPayload,
   XBus,
   XPriorityQueueNodeData
@@ -74,19 +73,18 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
   protected emitters: Emitters<SomeEvents, SomeEventMetadata> = {};
 
   /**
-   * A pending flush operation {@link TimeoutId | timeout identifier} or undefined if there's
-   * none pending.
+   * A pending flush operation timeout identifier or undefined if there's none pending.
    *
    * @internal
    */
-  protected pendingFlushId?: TimeoutId;
+  protected pendingFlushId?: number;
 
   /**
-   * A list of pending pop operations {@link TimeoutId | timeout identifiers}.
+   * A list of pending pop operations timeout identifiers.
    *
    * @internal
    */
-  protected pendingPopsIds: TimeoutId[] = [];
+  protected pendingPopsIds: number[] = [];
 
   /**
    * Creates a new instance of a {@link XPriorityBus}.
@@ -184,9 +182,9 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
     clearTimeout(this.pendingFlushId);
     this.clearPendingPopsIds();
 
-    this.pendingFlushId = setTimeout(() => {
+    this.pendingFlushId = window.setTimeout(() => {
       for (let i = 0; i < this.queue.size(); ++i) {
-        const popTimeoutId = setTimeout(() => {
+        const popTimeoutId = window.setTimeout(() => {
           const {
             key,
             data: { eventPayload, eventMetadata, resolve }
@@ -232,7 +230,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
     event: SomeEvent,
     withMetadata = false
   ): typeof withMetadata extends true
-    ? Observable<SubjectPayload<SomeEvents, SomeEvent, SomeEventMetadata>>
+    ? Observable<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>
     : Observable<EventPayload<SomeEvents, SomeEvent>> {
     // TODO: This type should work, but inference isn't working as expected. Check when updating ts.
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -241,7 +239,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
       ? this.getEmitter(event).asObservable()
       : this.getEmitter(event).pipe(
           map<
-            SubjectPayload<SomeEvents, SomeEvent, SomeEventMetadata>,
+            SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>,
             EventPayload<SomeEvents, SomeEvent>
           >(value => value.eventPayload)
         );
@@ -279,7 +277,7 @@ export class XPriorityBus<SomeEvents extends Dictionary, SomeEventMetadata exten
    */
   protected createEmitter<SomeEvent extends keyof SomeEvents>(event: SomeEvent): void {
     this.emitters[event] = new ReplaySubject<
-      SubjectPayload<SomeEvents, SomeEvent, SomeEventMetadata>
+      SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>
     >(1);
   }
 }

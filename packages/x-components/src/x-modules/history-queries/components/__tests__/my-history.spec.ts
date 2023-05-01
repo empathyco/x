@@ -3,7 +3,10 @@ import { DeepPartial, forEach } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
+import {
+  createHistoryQueries,
+  createHistoryQuery
+} from '../../../../__stubs__/history-queries-stubs.factory';
 import { RootXStoreState } from '../../../../store/store.types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -11,6 +14,7 @@ import { baseSnippetConfig } from '../../../../views/base-config';
 import { SnippetConfig } from '../../../../x-installer/api/api.types';
 import { historyQueriesXModule } from '../../x-module';
 import MyHistory from '../my-history.vue';
+import HistoryQueryComponent from '../history-query.vue';
 import { resetXHistoryQueriesStateWith } from './utils';
 
 const historyQueries: HistoryQuery[] = [
@@ -37,10 +41,11 @@ const historyQueries: HistoryQuery[] = [
 ];
 
 function renderMyHistory({
-  template = '<MyHistory :locale="locale" />',
+  template = '<MyHistory :locale="locale" :queriesListClass="queriesListClass" />',
   historyQueries = [],
   locale,
-  snippetConfig
+  snippetConfig,
+  queriesListClass
 }: MyHistoryOptions = {}): MyHistoryAPI {
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -53,18 +58,20 @@ function renderMyHistory({
     {
       template,
       components: {
-        MyHistory
+        MyHistory,
+        HistoryQuery: HistoryQueryComponent
       },
       provide: {
         snippetConfig
       },
-      props: ['locale']
+      props: ['locale', 'queriesListClass']
     },
     {
       localVue,
       store,
       propsData: {
-        locale
+        locale,
+        queriesListClass
       }
     }
   );
@@ -163,6 +170,40 @@ describe('testing MyHistory component', () => {
     });
   });
 
+  it('allows changing the history query', () => {
+    const historyQuery = createHistoryQuery({
+      query: 'testQuery',
+      timestamp: Date.parse('2023-01-23T09:40:00')
+    });
+
+    const { wrapper } = renderMyHistory({
+      template: `
+        <MyHistory>
+            <template #suggestion="{ suggestion, formatTime}">
+                <HistoryQuery :suggestion="suggestion">
+                    <span data-test="suggestion-query">{{ suggestion.query }}</span>
+                    <span data-test="suggestion-date">{{ formatTime(suggestion.timestamp) }}</span>
+                </HistoryQuery>
+            </template>
+        </MyHistory>
+      `,
+      historyQueries: [historyQuery]
+    });
+
+    expect(wrapper.get(getDataTestSelector('suggestion-query')).text()).toBe('testQuery');
+    expect(wrapper.get(getDataTestSelector('suggestion-date')).text()).toBe('09:40 AM');
+  });
+
+  it('allows to add classes to the queries list', () => {
+    const { wrapper } = renderMyHistory({
+      historyQueries,
+      queriesListClass: 'custom-class'
+    });
+    expect(wrapper.find(getDataTestSelector('my-history-queries')).classes('custom-class')).toBe(
+      true
+    );
+  });
+
   function expectValidHistoryContent(
     historyQueriesGroupedByDate: Record<string, HistoryQuery[]>,
     findAllInWrapper: MyHistoryAPI['findAllInWrapper'],
@@ -179,7 +220,7 @@ describe('testing MyHistory component', () => {
           minute: '2-digit'
         });
         expect(historyItemWrappers?.at(historyQueryIndex).text()).toMatch(
-          `${historyQuery.query}${hour}✕`
+          `${historyQuery.query} - ${hour} ✕`
         );
       });
     });
@@ -198,6 +239,8 @@ interface MyHistoryOptions {
   locale?: string;
   /** The provided {@link SnippetConfig}.*/
   snippetConfig?: SnippetConfig;
+  /** Class to add to the queries list. */
+  queriesListClass?: string;
 }
 
 /**

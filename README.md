@@ -116,17 +116,17 @@ We are working on many key features to consolidate Interface X, including these 
 - **Search box power-ups** such as
   [animated suggestions](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/search-box/x-components.search-input-placeholder.html)
   or [forbidden character](https://github.com/empathyco/x/pull/433) set to prevent code injection.
-  [![Release Docs](https://img.shields.io/badge/Released-November%202022-brightgreen)](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/search-box/x-components.search-input-placeholder.html)
-- **WCAG AA compliance**.
-  [![Release Docs](https://img.shields.io/badge/In%20Progress-Q1%202023-yellow)](https://www.w3.org/WAI/standards-guidelines/wcag/)
-- **Result Preview component** to rapidly discover more result attributed without leaving the SERP.
-  ![Release Docs](https://img.shields.io/badge/In%20Progress-Q1%202023-yellow)
-- **Suggestions with filters** that allows to select a query suggestion with a specific filter.
-  ![Release Docs](https://img.shields.io/badge/In%20Progress-Q1%202023-yellow)
-- **Events** that allows to select a query suggestion with a specific filter.
-  ![Release Docs](https://img.shields.io/badge/In%20Progress-Q1%202023-yellow)
+  [![Release Docs](https://img.shields.io/badge/Released-January%202023-brightgreen)](https://docs.empathy.co/develop-empathy-platform/ui-reference/components/search-box/x-components.search-input-placeholder.html)
 - Create the **x-bus**, a library that provides an event bus to help with event orchestration.
-  ![Release Docs](https://img.shields.io/badge/In%20Progress-Q1%202023-yellow)
+  [![Release Docs](https://img.shields.io/badge/Released-February%202023-brightgreen)](https://github.com/empathyco/x/tree/main/packages/x-bus)
+- **XDS: Interface X Design System Builder** is a Tailwind plugin thought to generate a new design
+  system for every customer, for every search experience look&feel. XDS brings the concept of
+  components to UI as X Components do with functional behavior.
+  [![Release Docs](https://img.shields.io/badge/Released-April%202023-brightgreen)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
+- **Suggestions with filters** that allows to select a query suggestion with a specific filter.
+  ![Release Docs](https://img.shields.io/badge/In%20Progress-Q2%202023-yellow)
+- **Result Preview component** to rapidly discover more result attributed without leaving the SERP.
+  ![Release Docs](https://img.shields.io/badge/Discovery-Q2%202023-blue)
 - **Vue 3 Migration**.
   [![Release Docs](https://img.shields.io/badge/Discovery-Q2%202023-blue)](https://vuejs.org/)
 - **Network Request failure transparency**.
@@ -135,17 +135,20 @@ We are working on many key features to consolidate Interface X, including these 
 
 ## How to install
 
-This project is a monorepo that is handled by [Lerna](https://github.com/lerna/lerna) using `npm`.
-To prepare your development environment, proceed as follows:
+This project is a monorepo that is handled by [Lerna](https://github.com/lerna/lerna) &
+[pnpm](https://pnpm.io/) & [Nx](https://nx.dev/). To prepare your development environment, proceed
+as follows:
 
-1. Fork the X repository and then clone it to your local environment:
+1. [Install pnpm](https://pnpm.io/installation)
+2. Fork the X repository and then clone it to your local environment:
    `git clone https://github.com/empathyco/x.git`.
-2. Install the dependencies in the root folder: `npm install`. This links all the projects.
-3. Run a build so that the linked projects work: `npm run build`.
+3. Install the dependencies in the root folder: `pnpm install --frozen-lockfile`. This links all the
+   projects.
 
-Have a look to
-[this article](https://medium.com/empathyco/moving-to-a-mono-repo-part-1-the-journey-eb63efd8ef64)
-to see why we moved to a mono repo and how we did it.
+> Have a look to
+> [this article](https://medium.com/empathyco/moving-to-a-mono-repo-part-1-the-journey-eb63efd8ef64)
+> to see why we moved to a mono repo and how we did it. Take into account that the article talks
+> about the previous version of this monorepo managed by Lerna & npm.
 
 ## How to implement Interface X
 

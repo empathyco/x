@@ -1,5 +1,7 @@
 ---
-title: Experience search & discovery
+title: Design your search and discovery UI
+meta_title: Search & discovery UI functional documentation
+sidebar_title: Design search & discovery UI
 ---
 
 Search inevitably is key when people look for specific products in an online store. It's the door to
@@ -10,7 +12,7 @@ However, it’s not enough. With the advanced features provided by some well-kno
 shoppers need a new dimension to **connect effortlessly** to the most relevant products, enjoy a
 **smooth user experience**, and take advantage of **outstanding search and discovery capabilities**.
 
-![Experience search and discovery](~@assets/x/interface/experience-search-intro.svg)
+![Design search and discovery](~@assets/x/interface/experience-search-intro.svg)
 
 
 ## Interface X and Interface X for Apps, the solution

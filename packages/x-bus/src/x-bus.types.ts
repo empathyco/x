@@ -2,15 +2,6 @@ import { Dictionary } from '@empathyco/x-utils';
 import { Observable, Subject } from 'rxjs';
 
 /**
- * Alias representing a
- * {@link https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#return_value | timeoutID}
- * value.
- *
- * @internal
- */
-export type TimeoutId = number;
-
-/**
  * Alias representing a positive number to represent the priority of an event in an
  * {@link XPriorityBus}.
  *
@@ -37,13 +28,9 @@ export type EventPayload<
  *
  * @public
  */
-export interface SubjectPayload<
-  SomeEvents extends Dictionary,
-  SomeEvent extends keyof SomeEvents,
-  SomeEventMetadata extends Dictionary
-> {
+export interface SubjectPayload<SomePayload, SomeEventMetadata extends Dictionary> {
   /** The payload of the event. */
-  eventPayload: EventPayload<SomeEvents, SomeEvent>;
+  eventPayload: SomePayload;
   /** Extra data of the event. */
   metadata: SomeEventMetadata;
 }
@@ -58,7 +45,7 @@ export type Emitter<
   SomeEvents extends Dictionary,
   SomeEvent extends keyof SomeEvents,
   SomeEventMetadata extends Dictionary
-> = Subject<SubjectPayload<SomeEvents, SomeEvent, SomeEventMetadata>>;
+> = Subject<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>;
 
 /**
  * Represents a dictionary where the key is an event name and its value is an {@link Emitter}.
@@ -174,6 +161,6 @@ export interface XBus<SomeEvents extends Dictionary, SomeEventMetadata extends D
     event: SomeEvent,
     withMetadata?: boolean
   ): typeof withMetadata extends true
-    ? Observable<SubjectPayload<SomeEvents, SomeEvent, SomeEventMetadata>>
+    ? Observable<SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeEventMetadata>>
     : Observable<EventPayload<SomeEvents, SomeEvent>>;
 }

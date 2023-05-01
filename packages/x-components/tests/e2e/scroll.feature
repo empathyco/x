@@ -32,7 +32,28 @@ Feature: Scroll component
       | query1 | resultId  | query2         |
       | lego   | result-12 | lego star wars |
 
-  Scenario Outline: 3. Scroll position is reset when a new filter is clicked
+  @regression @skip
+  Scenario Outline: 3. Scroll position is reset when query is cleared
+    Given a results API with 2 pages
+    When  start button is clicked
+    And   "<query1>" is searched
+    Then  related results are displayed
+    When  sort option "<sortOption>" is selected from the sort dropdown
+    When  scrolls down to next page
+    Then  url contains parameter "q" with value "<query1>"
+    Then  url contains parameter "page" with value "<page>"
+    Then  url contains parameter "sort" with value "<sortOption>"
+    When  clear search button is pressed
+    And   "<query2>" is searched
+    Then  url contains parameter "q" with value "<query2>"
+    And   url not contains parameter "page"
+    And   url not contains parameter "sort"
+
+    Examples:
+      | query1 | query2     | page  | sortOption |
+      | lego   | star wars  | 2     | price asc  |
+
+  Scenario Outline: 4. Scroll position is reset when a new filter is clicked
     When  start button is clicked
     And   "<query1>" is searched
     Then  related results are displayed
@@ -47,7 +68,7 @@ Feature: Scroll component
       | query1 | resultId  | filterIndex | filterFacet |
       | lego   | result-12 | 1           | brand_facet |
 
-  Scenario Outline: 4. Scroll position is reset when a related tag is clicked
+  Scenario Outline: 5. Scroll position is reset when a related tag is clicked
     Given a related tags API with a known response
     When  start button is clicked
     And   "<query1>" is searched
@@ -63,7 +84,7 @@ Feature: Scroll component
       | query1 | resultId  | relatedTagIndex |
       | lego   | result-12 | 0               |
 
-  Scenario Outline: 5. Scroll position is reset when an extra param is changed
+  Scenario Outline: 6. Scroll position is reset when an extra param is changed
     When  start button is clicked
     And   "<query1>" is searched
     Then  related results are displayed

@@ -83,8 +83,8 @@
     /**
      * Trigger navigation if this component is in control of it.
      *
-     * @param eventPayload - The {@link WirePayload.eventPayload}.
-     * @param metadata - The {@link WirePayload.metadata}.
+     * @param eventPayload - The {@link @empathyco/x-bus#SubjectPayload.eventPayload}.
+     * @param metadata - The {@link @empathyco/x-bus#SubjectPayload.metadata}.
      * @public
      */
     @XOn(component => (component as BaseKeyboardNavigation).navigationHijackerEvents)

@@ -2,11 +2,11 @@ import { mount } from 'cypress/vue2';
 import Vue from 'vue';
 import { getNextQueriesStub, getSearchResponseStub } from '../../src/__stubs__';
 import BaseGrid from '../../src/components/base-grid.vue';
-import { BaseXBus } from '../../src/plugins/x-bus';
 import { XPlugin } from '../../src/plugins/x-plugin';
 import { ListItem } from '../../src/utils';
 import { NextQueriesGroup } from '../../src/x-modules/next-queries/types';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
+import { XDummyBus } from '../../src/__tests__/bus.dummy';
 import { loadCss } from './css.utils';
 
 /**
@@ -65,7 +65,7 @@ function renderBaseGrid({
     },
     {
       vue: Vue.extend({}),
-      plugins: [[new XPlugin(new BaseXBus()), { adapter: e2eAdapter }]],
+      plugins: [[new XPlugin(new XDummyBus()), { adapter: e2eAdapter }]],
       propsData: {
         items: items ?? defaultItems,
         columns
@@ -90,7 +90,7 @@ function renderBaseGrid({
 describe('testing BaseGrid', () => {
   it('allows configuring the number of columns and updates the css class accordingly', () => {
     const { getBaseGrid } = renderBaseGrid({ columns: 5 });
-    getBaseGrid().should('have.class', 'x-grid-list--cols-5');
+    getBaseGrid().should('have.class', 'x-base-grid--cols-5');
   });
 
   it('allows customizing the default slot', () => {

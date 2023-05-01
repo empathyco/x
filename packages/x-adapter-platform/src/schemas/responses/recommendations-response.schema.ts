@@ -4,6 +4,11 @@ import { RecommendationsResponse } from '@empathyco/x-types';
 import { PlatformRecommendationsResponse } from '../../types/responses/recommendations-response.model';
 import { resultSchema } from '../models/result.schema';
 
+/**
+ * Default implementation for the RecommendationsResponseSchema.
+ *
+ * @public
+ */
 export const recommendationsResponseSchema = createMutableSchema<
   PlatformRecommendationsResponse,
   RecommendationsResponse

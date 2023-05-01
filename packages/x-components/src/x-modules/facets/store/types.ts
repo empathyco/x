@@ -7,6 +7,8 @@ import { XActionContext, XStoreModule } from '../../../store';
  * @public
  */
 export interface FacetsState {
+  /** The current facets config {@link FacetsState.config}. */
+  config: FacetsConfig;
   /** The current query {@link FacetsState.query}. */
   query: string;
   /** Record of all available filters indexed by its id. */
@@ -17,6 +19,8 @@ export interface FacetsState {
   facets: Record<Facet['id'], Omit<Facet, 'filters'>>;
   /** Record of preselected filters indexed by its id. */
   preselectedFilters: RawFilter[];
+  /** Record of sticky filters indexed by its id. */
+  stickyFilters: Record<Filter['id'], Filter>;
 }
 
 /**
@@ -29,6 +33,10 @@ export interface FacetsGetters {
    * List of all selected filters.
    */
   selectedFilters: Filter[];
+  /**
+   * List of all selected filters that conform to the filters for request strategy.
+   */
+  selectedFiltersForRequest: Filter[];
   /**
    * List of all selected filters grouped by their facet.
    */
@@ -101,6 +109,29 @@ export interface FacetsMutations {
    * @param facet - The facet to set in the store.
    */
   setFacet(facet: Facet): void;
+  /**
+   * Sets the {@link FacetsState.facets | facets} config.
+   *
+   * @param config - The new config.
+   */
+  setFacetsConfig(config: FacetsConfig): void;
+  /**
+   * Adds the filter to the {@link FacetsState.stickyFilters | sticky filters} record.
+   *
+   * @param filter - The filter to set in the store.
+   */
+  setStickyFilter(filter: RawFilter): void;
+  /**
+   * Removes the filter from the {@link FacetsState.stickyFilters | sticky filters} record.
+   *
+   * @param filter - The filter to set in the store.
+   */
+  removeStickyFilter(filter: RawFilter): void;
+  /**
+   * Removes all the filters from the {@link FacetsState.stickyFilters | sticky filters} record.
+   *
+   */
+  clearStickyFilters(): void;
 }
 
 /**
@@ -176,3 +207,20 @@ export interface MutateFilterPayload {
    */
   newFilterState: Partial<Filter>;
 }
+
+/**
+ * Configuration options for the {@link FacetsXModule}.
+ *
+ * @public
+ */
+export interface FacetsConfig {
+  /** The filter strategy to use when providing the selected filters for requests. */
+  filtersStrategyForRequest: filtersStrategyForRequest;
+}
+
+/**
+ * Type for the filter strategy to use when providing the selected filters.
+ *
+ * @public
+ */
+export type filtersStrategyForRequest = 'all' | 'leaves-only';

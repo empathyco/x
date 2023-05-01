@@ -3,6 +3,11 @@ import { isHierarchicalFilter, SearchRequest } from '@empathyco/x-types';
 import { reduce } from '@empathyco/x-utils';
 import { PlatformSearchRequest } from '../../types/requests/search-request.model';
 
+/**
+ * Default implementation for the SearchRequestSchema.
+ *
+ * @public
+ */
 export const searchRequestSchema = createMutableSchema<SearchRequest, PlatformSearchRequest>({
   query: 'query',
   origin: 'origin',

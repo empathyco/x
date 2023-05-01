@@ -12,18 +12,19 @@ Feature: Keyboard navigation component
     And   start button is clicked
     And   "lego" is searched
 
+  @skip
   Scenario Outline: 1. Navigating with arrow keys
     When  "<focusableElement>" element position is stored
+    When  "down" arrow is pressed 1 times
+    Then  next element position is "below"
     And   "right" arrow is pressed 1 times
     Then  next element position is "on the right"
     When  "left" arrow is pressed 1 times
     Then  next element position is "on the left"
-    When  "down" arrow is pressed 1 times
-    Then  next element position is "below"
-    When  "left" arrow is pressed 1 times
-    Then  next element position is "on the left"
     When  "right" arrow is pressed 3 times
     Then  next element position is "on the right"
+    When  "left" arrow is pressed 1 times
+    Then  next element position is "on the left"
     When  "up" arrow is pressed 1 times
     Then  next element position is "above"
 

@@ -17,9 +17,7 @@ export function suggestionGroupOutlined(helpers: TailwindHelpers) {
       gap: theme('spacing.4'),
       '&:hover': {
         backgroundColor: theme('colors.neutral.10'),
-        '.suggestion': {
-          textDecoration: 'none'
-        }
+        textDecoration: 'none'
       },
       '> *:first-child:not(.suggestion-group-button)': {
         marginInlineStart: theme('spacing.8')

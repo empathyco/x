@@ -2,6 +2,11 @@ import { createMutableSchema } from '@empathyco/x-adapter';
 import { NumberRangeFilter } from '@empathyco/x-types';
 import { PlatformFilter } from '../../../types/models/facet.model';
 
+/**
+ * Default implementation for the NumberFilterSchema.
+ *
+ * @public
+ */
 export const numberFilterSchema = createMutableSchema<PlatformFilter, NumberRangeFilter>({
   id: 'filter',
   facetId: (_, $context) => $context?.facetId as string,

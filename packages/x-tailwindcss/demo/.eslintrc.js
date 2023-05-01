@@ -3,5 +3,15 @@ module.exports = {
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: 'tsconfig.json'
+  },
+  rules: {
+    'vuejs-accessibility/label-has-for': [
+      'error',
+      {
+        required: {
+          some: ['nesting', 'id']
+        }
+      }
+    ]
   }
 };

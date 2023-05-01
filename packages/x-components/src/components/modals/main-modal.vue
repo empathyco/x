@@ -6,6 +6,7 @@
     :eventsToCloseModal="closeEvents"
     :bodyClickEvent="outOfModalClickEvent"
     :animation="animation"
+    :focusOnOpen="focusOnOpen"
     v-bind="$attrs"
   >
     <slot />
@@ -56,6 +57,12 @@
      * @internal
      */
     protected outOfModalClickEvent: XEvent = 'UserClickedOutOfMainModal';
+    /**
+     * Determines if the focused element changes to one inside the modal when it opens. Either the
+     * first element with a positive tabindex or just the first focusable element.
+     */
+    @Prop({ default: false })
+    public focusOnOpen!: boolean;
   }
 </script>
 
@@ -102,7 +109,7 @@ The `contentClass` prop can be used to add classes to the modal content.
 <template>
   <div>
     <OpenMainModal>Open X</OpenMainModal>
-    <MainModal contentClass="x-background--neutral-35">
+    <MainModal contentClass="x-bg-neutral-75">
       <CloseMainModal>Close X</CloseMainModal>
     </MainModal>
   </div>

@@ -4,6 +4,11 @@ import { RelatedTagsResponse } from '@empathyco/x-types';
 import { relatedTagsResponseSchema } from '../../schemas/responses/related-tags-response.schema';
 import { PlatformRelatedTagsResponse } from '../../types/responses/related-tags-response.model';
 
+/**
+ * Default implementation for the RelatedTagsResponseMapper.
+ *
+ * @public
+ */
 export const relatedTagsResponseMapper = schemaMapperFactory<
   PlatformRelatedTagsResponse,
   RelatedTagsResponse

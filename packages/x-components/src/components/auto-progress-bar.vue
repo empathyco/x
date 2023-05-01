@@ -1,61 +1,68 @@
 <template>
   <div v-if="isLoading" class="x-progress-bar" data-test="progress-bar" role="progressbar">
-    <div class="x-progress-bar__line" :style="cssStyles" data-test="progress-bar-line"></div>
+    <div class="x-progress-bar-fill" :style="cssStyles" data-test="progress-bar-line" />
   </div>
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent } from 'vue';
 
   /**
-   * An auto progress bar component.
+   * The auto progress bar component is useful for displaying a visual indicator of numerical data
+   * in a bar shape.
    *
    * @public
    */
-  @Component
-  export default class AutoProgressBar extends Vue {
-    /**
-     * A boolean flag indicating if the bar is loading.
-     *
-     * @public
-     */
-    @Prop({ default: true })
-    public isLoading!: boolean;
+  export default defineComponent({
+    props: {
+      /**
+       * A boolean flag indicating if the bar is loading.
+       *
+       * @public
+       */
+      isLoading: {
+        type: Boolean,
+        default: true
+      },
+      /**
+       * The duration in seconds of the progress bar.
+       *
+       * @public
+       */
+      durationInSeconds: {
+        type: Number,
+        default: 5
+      }
+    },
+    setup(props) {
+      /**
+       * Computed property to calculate the animation's duration.
+       *
+       * @returns The CSS styles of the animation.
+       *
+       * @internal
+       */
+      const cssStyles = computed<Partial<CSSStyleDeclaration>>(() => ({
+        animationDuration: `${props.durationInSeconds}s`
+      }));
 
-    /**
-     * The duration in seconds of the progress bar.
-     *
-     * @public
-     */
-    @Prop({ default: 5 })
-    public durationInSeconds!: number;
-
-    /**
-     * Computed property to calculate the animation's duration.
-     *
-     * @returns The CSS styles of the animation.
-     *
-     * @internal
-     */
-    protected get cssStyles(): Partial<CSSStyleDeclaration> {
-      return { animationDuration: `${this.durationInSeconds}s` };
+      return {
+        cssStyles
+      };
     }
-  }
+  });
 </script>
 
 <style lang="scss">
   .x-progress-bar {
     display: inline-block;
     overflow: hidden;
-    background-color: var(--x-color-background-progress-bar-default, #b3b3b3);
-    border-radius: var(--x-size-border-radius-progress-bar-default, 24px);
+    background-color: #dbe2e5;
+    border-radius: 4px;
 
-    &__line {
-      height: var(--x-size-height-progress-bar-line-default, 4px);
-      width: var(--x-size-width-progress-bar-line-default, 272px);
-      background-color: var(--x-color-background-progress-bar-line-default, #1a1a1a);
-      border-radius: var(--x-size-border-radius-progress-bar-default, 24px);
+    &-fill {
+      height: 4px;
+      background-color: #283034;
       animation: slide linear;
       transform-origin: left;
     }
@@ -75,14 +82,18 @@
 
 Here you have a basic example of how the auto progress bar is rendered.
 
-```vue
+```vue live
 <template>
-  <AutoProgressBar :isLoading="isLoading" :durationInSeconds="delayInSeconds" />
+  <AutoProgressBar :isLoading="isLoading" :durationInSeconds="durationInSeconds" />
 </template>
 
 <script>
+  import { AutoProgressBar } from '@empathyco/x-components';
   export default {
     name: 'AutoProgressBarDemo',
+    components: {
+      AutoProgressBar
+    },
     data() {
       return {
         isLoading: true,
@@ -98,14 +109,18 @@ Here you have a basic example of how the auto progress bar is rendered.
 In this example, the auto progress bar has been set to do an animation for 5 seconds. There is a way
 to cancel the animation by sending the isLoading prop to false.
 
-```vue
+```vue live
 <template>
   <AutoProgressBar :durationInSeconds="5" :isLoading="true" />
 </template>
 
 <script>
+  import { AutoProgressBar } from '@empathyco/x-components';
   export default {
-    name: 'AutoProgressBarDemo'
+    name: 'AutoProgressBarDemo',
+    components: {
+      AutoProgressBar
+    }
   };
 </script>
 ```

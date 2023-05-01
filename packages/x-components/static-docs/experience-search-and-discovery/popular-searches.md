@@ -1,5 +1,6 @@
 ---
-title: Popular Searches UI
+title: Design the Popular Searches UI experience
+sidebar_title: Popular Searches UI
 tags:
   - top searches
   - top terms

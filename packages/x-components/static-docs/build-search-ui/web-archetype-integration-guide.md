@@ -248,8 +248,15 @@ If page reload is not triggered after accepting cookies, update the `consent` pa
 
  </br>
 
-Although cookie acceptance is bound to the generation of the `sessionID` in local storage, Empathy
+Although cookie acceptance is bound to the generation of the `sessionId` in local storage, Empathy
 does **not use any cookies** in its libraries.
+
+<br/>
+
+The `sessionId` lasts until there are 30 minutes of inactivity. However, every time the shopper
+interacts with the commerce search (e.g. queries, clicks, etc.), the session expiration time is
+reset by adding 30 minutes from the time of that interaction. After 30 minutes of shopper
+inactivity, a new `sessionId` is generated.
 
 :::
 
@@ -305,6 +312,7 @@ functions to integrate Interface&nbsp;X in your website. You can access these fu
 | ------------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `init`             | [snippet configuration params](#snippet-configuration) - _Required_. Initialization options | [Initializes Interface&nbsp;X on demand](#initializing-interface-x-project-on-demand).                                                                                                                                                                                                                                                                                                                                                                       |
 | `search`           | `query` - _Optional_. Query to open Interface&nbsp;X                                        | Executes Interface&nbsp;X and triggers a search with the given query.                                                                                                                                                                                                                                                                                                                                                                                        |
+| `close`            | none                                                                                        | Closes Interface&nbsp;X search layer.                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `setSnippetConfig` | [snippet configuration params](#snippet-configuration) - _Required_. Initialization options | Changes initialization options so that all components react to the changes, i.e. changing both search engine and language without reloading the page.                                                                                                                                                                                                                                                                                                        |
 | `addProductToCart` | `productId` - _Optional._ Id of the product added to cart                                   | Sends tracking of the `AddToCart` event to the [Empathy Tagging microservice](https://docs.empathy.co/develop-empathy-platform/capture-interaction-signals/tagging-api-guide.html) for the product displayed on screen. This function is called from the product detail page (PDP) when the shopper clicks on the add-to-cart button. If the `productId` is not provided, the URL detects whether the shopper found the product via a search session or not. |
 
@@ -320,28 +328,28 @@ and _adult_ sections:
 
 ```html
 <script>
-    if (yourCommerceStoreEnvironment.section === 'kids') {
-      InterfaceX.setSnippetConfig({
-        queriesPreview: [
-          {
-            query: "backpack",
-            title: "Back to School!",
-          },
-          {
-            query: "pencil",
-            title: "Write with style!",
-          }
-        ]
-      })
-    } else if (yourCommerceStoreEnvironment.section === 'adult') {
-      InterfaceX.setSnippetConfig({
-        queriesPreview: [
-          {
-            query: "watch",
-            title: "Get on time!",
-          }
-        ]
-      })
-    }
-</script
+  if (yourCommerceStoreEnvironment.section === 'kids') {
+    InterfaceX.setSnippetConfig({
+      queriesPreview: [
+        {
+          query: 'backpack',
+          title: 'Back to School!'
+        },
+        {
+          query: 'pencil',
+          title: 'Write with style!'
+        }
+      ]
+    });
+  } else if (yourCommerceStoreEnvironment.section === 'adult') {
+    InterfaceX.setSnippetConfig({
+      queriesPreview: [
+        {
+          query: 'watch',
+          title: 'Get on time!'
+        }
+      ]
+    });
+  }
+</script>
 ```

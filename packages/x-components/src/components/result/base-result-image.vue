@@ -15,11 +15,12 @@
       loading="lazy"
       :src="pendingImages[0]"
       :style="loaderStyles"
+      class="x-picture-image"
       data-test="result-picture-loader"
       alt=""
       role="presentation"
     />
-    <component :is="animation" class="x-picture__image" :appear="false">
+    <component :is="animation" class="x-picture-image" :appear="false">
       <!-- @slot Fallback image content. It will be rendered when all the images failed -->
       <slot v-if="!loadedImages.length && !pendingImages.length" name="fallback" />
 
@@ -253,10 +254,10 @@ displayed while the real one is loaded.
 ```vue
 <BaseResultImage :result="result">
   <template #placeholder>
-    <img class="x-picture__image--placeholder" src="./placeholder-image.svg"/>
+    <img alt="Placeholder image" src="./placeholder-image.svg"/>
   </template>
   <template #fallback>
-    <img class="x-picture__image--fallback" src="./fallback-image.svg"/>
+    <img alt="Fallback image" src="./fallback-image.svg"/>
   </template>
 </BaseResultImage>
 ```

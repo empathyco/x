@@ -107,7 +107,7 @@ export const querySuggestionsWiring = createWiring({
     clearQuerySuggestionsQuery,
     cancelFetchAndSaveSuggestionsWire
   },
-  QuerySuggestionsRequestChanged: {
+  QuerySuggestionsRequestUpdated: {
     fetchAndSaveSuggestionsWire
   },
   ExtraParamsChanged: {

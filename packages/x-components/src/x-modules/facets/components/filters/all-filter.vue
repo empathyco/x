@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    class="x-filter x-all-filter"
+    class="x-facet-filter x-all-filter"
     data-test="all-filter"
     role="checkbox"
     :aria-checked="isSelected"
@@ -81,7 +81,7 @@
      */
     protected get cssClasses(): VueCSSClasses {
       return {
-        'x-filter--is-selected': this.isSelected,
+        'x-selected': this.isSelected,
         'x-all-filter--is-selected': this.isSelected
       };
     }

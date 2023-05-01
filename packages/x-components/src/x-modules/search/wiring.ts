@@ -1,3 +1,4 @@
+import { filterTruthyPayload, namespacedWireCommitWithoutPayload } from '../../wiring';
 import {
   namespacedWireCommit,
   namespacedWireDispatch,
@@ -19,6 +20,13 @@ const moduleName = 'search';
  * @internal
  */
 const wireCommit = namespacedWireCommit(moduleName);
+
+/**
+ * WireCommit without Payload for {@link SearchXModule}.
+ *
+ * @internal
+ */
+const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload(moduleName);
 
 /**
  * WireDispatch for {@link SearchXModule}.
@@ -121,6 +129,20 @@ export const setSearchPage = wireCommit('setPage');
 export const setSearchExtraParams = wireCommit('setParams');
 
 /**
+ * Resets the search state `isNoResults`.
+ *
+ * @public
+ */
+export const resetIsNoResults = wireCommit('setIsNoResults', false);
+
+/**
+ * Resets the search state `fromNoResultsWithFilters`.
+ *
+ * @public
+ */
+export const resetFromNoResultsWithFilters = wireCommit('setFromNoResultsWithFilters', false);
+
+/**
  * Increases the current search state `page` by one.
  *
  * @public
@@ -137,16 +159,27 @@ export const increasePageAppendingResultsWire = wireDispatchWithoutPayload(
 export const resetAppending = wireCommit('setIsAppendResults', false);
 
 /**
- * Batches state resets after {@link SearchGetters.request} parameters update.
+ * Resets the {@link SearchGetters.request} parameters when refining request and before the actual
+ * request is launched.
  *
  * @public
  */
-export const resetStateWire = wireDispatch(
-  'resetState',
+export const resetRequestOnRefinementWire = wireDispatch(
+  'resetRequestOnRefinement',
   ({ eventPayload: newRequest, metadata: { oldValue } }: WirePayload<InternalSearchRequest>) => ({
     newRequest,
     oldRequest: oldValue as InternalSearchRequest
   })
+);
+
+/**
+ * Resets the search state when the request is changed to null. See the
+ * {@link searchXStoreModule} for details.
+ *
+ * @public
+ */
+export const resetStateIfNoRequestWire = filterTruthyPayload<InternalSearchRequest | null>(
+  wireCommitWithoutPayload('resetState')
 );
 
 /**
@@ -168,7 +201,9 @@ export const searchWiring = createWiring({
   },
   UserClearedQuery: {
     setSearchQuery,
-    cancelFetchAndSaveSearchResponseWire
+    cancelFetchAndSaveSearchResponseWire,
+    resetFromNoResultsWithFilters,
+    resetIsNoResults
   },
   UserClickedASort: {
     setSort
@@ -179,16 +214,17 @@ export const searchWiring = createWiring({
   UserReachedResultsListEnd: {
     increasePageAppendingResultsWire
   },
-  SearchRequestChanged: {
+  SearchRequestUpdated: {
+    resetStateIfNoRequestWire,
     fetchAndSaveSearchResponseWire
   },
-  SearchRequestUpdated: {
-    resetStateWire
+  SearchRequestChanged: {
+    resetRequestOnRefinementWire
   },
   SelectedRelatedTagsChanged: {
     setRelatedTags
   },
-  SelectedFiltersChanged: {
+  SelectedFiltersForRequestChanged: {
     setSelectedFilters
   },
   ResultsChanged: {

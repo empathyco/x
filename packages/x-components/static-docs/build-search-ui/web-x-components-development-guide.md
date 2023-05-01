@@ -1,5 +1,6 @@
 ---
 title: Develop using the Interface X Components library
+meta_title: Develop a search UI with the Interface X Components library
 tags:
   - integration
   - interface x components integration
@@ -44,7 +45,7 @@ To integrate the X&nbsp;Components in a frontend UI, you need:
 3. Configure the **xPlugin**.
 4. Install and **initialize the xPlugin**.
 
-<VideoReference videoId="JjjIaQlG9aE" customDescription="Watch how to integrate the Interface X Components in a project from scratch."/>
+<VideoReference videoId="x-components-action" customDescription="Watch how to integrate the Interface X Components in a project from scratch."/>
 
 ## Installing the dependencies
 

@@ -4,6 +4,11 @@ import { IdentifierResultsResponse } from '@empathyco/x-types';
 import { PlatformIdentifierResultsResponse } from '../../types/responses/identifier-results-response.model';
 import { resultSchema } from '../models/result.schema';
 
+/**
+ * Default implementation for the IdentifierResultsResponseSchema.
+ *
+ * @public
+ */
 export const identifierResultsResponseSchema = createMutableSchema<
   PlatformIdentifierResultsResponse,
   IdentifierResultsResponse

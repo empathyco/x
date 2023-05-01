@@ -3,6 +3,11 @@ import { Result } from '@empathyco/x-types';
 import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
 import { PlatformResult } from '../../types/models/result.model';
 
+/**
+ * Default implementation for the ResultSchema.
+ *
+ * @public
+ */
 export const resultSchema = createMutableSchema<PlatformResult, Result>({
   id: '__id',
   images: '__images',

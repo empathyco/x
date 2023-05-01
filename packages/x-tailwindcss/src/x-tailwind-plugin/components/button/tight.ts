@@ -10,5 +10,20 @@ import { noHorizontalPadding } from './utils/no-horizontal-padding';
  * @returns The {@link CssStyleOptions} for the variant.
  */
 export function buttonTight(helpers: TailwindHelpers) {
-  return { tight: deepMerge(noBackground(helpers), noHorizontalPadding(helpers)) };
+  const { theme } = helpers;
+  return {
+    tight: deepMerge(noBackground(helpers), noHorizontalPadding(helpers), {
+      '&.selected': {
+        borderColor: 'transparent',
+        backgroundColor: 'transparent',
+        color: `var(--button-color-75,${theme('colors.neutral.100')})`,
+
+        '&:hover,&:active': {
+          borderColor: 'transparent',
+          backgroundColor: 'transparent',
+          color: `var(--button-color-50,${theme('colors.neutral.90')})`
+        }
+      }
+    })
+  };
 }

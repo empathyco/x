@@ -7,44 +7,67 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: cypress/browsers:node16.16.0-chrome105-ff104-edge
+      image: cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
       # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
       options: --user 1001
+
     steps:
-      - uses: actions/checkout@v3
+      - name: checkout repository
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           persist-credentials: false
-      # Using lerna, it is recommended to cache the whole node_modules folder https://github.com/actions/cache/blob/main/examples.md#node---lerna
-      # but this is not the standard, normally, only the node_modules/.cache should be cached. Also, as cypress image is used, node is already
-      # preinstalled, the expected action `setup-node` is not used.
-      # https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#about-caching-workflow-dependencies
-      - name: Cache node modules
-        id: cache-node-modules
+
+      # Install pnpm because it is not included in our container image
+      - name: install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: setup ENV variables
+        id: setup-env-vars
+        shell: bash
+        run: |
+          echo "CYPRESS_CACHE_FOLDER=$CYPRESS_CACHE_FOLDER" >> $GITHUB_OUTPUT
+          echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: setup pnpm cache
+        id: pnpm-cache
         uses: actions/cache@v3
         with:
           path: |
-           **/node_modules
-            ~/.cache/Cypress
-          key: node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Cache eslint
-        id: cache-eslint
+            ${{ steps.setup-env-vars.outputs.PNPM_STORE_PATH }}
+            ${{ steps.setup-env-vars.outputs.CYPRESS_CACHE_FOLDER }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: setup eslint cache
         uses: actions/cache@v3
         with:
-          path: .eslintcache
+          path: '**/.eslintcache'
           key: eslint-${{github.sha}}
           restore-keys: eslint-
-      - name: Install lerna and all packages
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: npm ci
-      - name: Build
-        if: steps.cache-node-modules.outputs.cache-hit == 'true'
-        run: npm run build
-      - name: Run linter in all packages
-        run: npm run lint
-      - name: Run tests in all packages
-        run: npm run test
-      - name: Release alpha on non-release pushes to main branch
+
+      - name: setup lerna cache
+        id: lerna-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules/.cache
+          key: lerna-cache-${{github.sha}}
+          restore-keys: lerna-cache-
+
+      - name: install dependencies
+        run: pnpm install
+
+      - name: lint packages
+        run: pnpm run lint
+
+      - name: test packages
+        run: pnpm run test
+
+      - name: release alpha on non-release pushes to main branch
         if:
           ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
           !startsWith(github.event.head_commit.message, 'chore(release):') }}

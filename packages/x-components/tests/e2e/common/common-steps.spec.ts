@@ -45,6 +45,9 @@ Given('an application the {string} filter preselected', (preselectedFilter: stri
       };
     }
   });
+  // TODO: Check why we need to wait a few ms so the preselected are actually pushed into the url
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(20);
 });
 
 Given('a URL with query parameter {string}', (query: string) => {
@@ -114,7 +117,25 @@ Then(
   function (this: any, simpleFilterIndex: number, facetName: string, isSelected: boolean) {
     cy.getByDataTest(`${facetName}-filter`)
       .contains(this[`clickedFilter${simpleFilterIndex}`])
-      .should(`${isSelected ? '' : 'not.'}to.have.class`, 'x-filter--is-selected');
+      .should(`${isSelected ? '' : 'not.'}to.have.class`, 'x-selected');
+  }
+);
+
+Then(
+  'filter number {int} in facet {string} is selected',
+  function (this: any, simpleFilterIndex: number, facetName: string) {
+    cy.getByDataTest(`${facetName}-filter`)
+      .eq(simpleFilterIndex)
+      .should('to.have.class', 'x-selected');
+  }
+);
+
+Then(
+  'filter number {int} in facet {string} is not selected',
+  function (this: any, simpleFilterIndex: number, facetName: string) {
+    cy.getByDataTest(`${facetName}-filter`)
+      .eq(simpleFilterIndex)
+      .should('not.to.have.class', 'x-selected');
   }
 );
 
@@ -208,6 +229,10 @@ When('{string} is searched', (query: string) => {
   });
 });
 
+When('{string} replaces current query', (query: string) => {
+  cy.replaceQuery(query);
+});
+
 When('clear search button is pressed', () => {
   cy.clearSearchInput();
 });
@@ -232,8 +257,7 @@ When('{string} is added to the search', (secondQuery: string) => {
 
 // Sort
 When('sort option {string} is selected from the sort dropdown', (sortOption: string) => {
-  cy.getByDataTest(`sort-dropdown-toggle`).click();
-  cy.getByDataTest(`dropdown-item`).contains(sortOption).click();
+  cy.getByDataTest(`sort-picker-button`).contains(sortOption).click();
 });
 
 // Spellcheck
@@ -333,6 +357,10 @@ When('the page is reloaded', () => {
 
 Then('url contains parameter {string} with value {string}', (key: string, value: string) => {
   cy.location('search').should('contain', `${key}=${encodeURIComponent(value)}`);
+});
+
+Then('url not contains parameter {string}', (key: string) => {
+  cy.location('search').should('not.contain', key);
 });
 
 When('navigating back', () => {

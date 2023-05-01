@@ -14,7 +14,9 @@ export function pictureDefault(helpers: TailwindHelpers) {
     overflow: 'hidden',
     '&-image': {
       aspectRatio: theme('aspectRatio.default'),
-      objectFit: 'contain'
+      objectFit: 'contain',
+      width: '100%',
+      height: '100%'
     }
   };
 }

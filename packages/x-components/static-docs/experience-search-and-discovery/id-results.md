@@ -1,5 +1,6 @@
 ---
-title: ID Results UI
+title: Design the ID Results UI experience
+sidebar_title: ID Results UI
 tags:
   - identifier results
 ---

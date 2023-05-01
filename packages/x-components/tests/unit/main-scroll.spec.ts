@@ -1,13 +1,13 @@
 import { mount } from 'cypress/vue2';
 import Vue from 'vue';
 import StaggeredFadeAndSlide from '../../src/components/animations/staggered-fade-and-slide.vue';
-import { BaseXBus } from '../../src/plugins/x-bus';
 import { XPlugin } from '../../src/plugins/x-plugin';
 import { UrlParams } from '../../src/types/url-params';
 import MainScrollItem from '../../src/x-modules/scroll/components/main-scroll-item.vue';
 import MainScroll from '../../src/x-modules/scroll/components/main-scroll.vue';
 import { scrollXModule } from '../../src/x-modules/scroll/x-module';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
+import { XDummyBus } from '../../src/__tests__/bus.dummy';
 import { loadCss } from './css.utils';
 
 /**
@@ -96,7 +96,7 @@ function renderMainScroll({
     {
       vue: Vue.extend({}),
       plugins: [
-        [new XPlugin(new BaseXBus()), { adapter: e2eAdapter, initialXModules: [scrollXModule] }]
+        [new XPlugin(new XDummyBus()), { adapter: e2eAdapter, initialXModules: [scrollXModule] }]
       ]
     }
   );

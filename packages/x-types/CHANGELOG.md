@@ -3,6 +3,74 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.63](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.62...@empathyco/x-types@10.0.0-alpha.63) (2023-04-12)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.62](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.61...@empathyco/x-types@10.0.0-alpha.62) (2023-03-07)
+
+### Bug Fixes
+
+- **deps:** remove `only-allow` pnpm (#1097)
+  ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
+  closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.61](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.60...@empathyco/x-types@10.0.0-alpha.61) (2023-02-27)
+
+### Features
+
+- **banner:** add support without title and no clickable (#1069)
+  ([7207767](https://github.com/empathyco/x/commit/72077675691dc8fab7361f64e0302aa8d33213fa))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.59...@empathyco/x-types@10.0.0-alpha.60) (2023-02-08)
+
+**Note:** Version bump only for package @empathyco/x-types
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.59](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.58...@empathyco/x-types@10.0.0-alpha.59) (2023-02-07)
+
+### Continuous Integration
+
+- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+  ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
+  closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.58](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.57...@empathyco/x-types@10.0.0-alpha.58) (2023-02-03)
+
+### Build System
+
+- **deps:** update deps (#1062)
+  ([59f29b9](https://github.com/empathyco/x/commit/59f29b9c5861f790a65b061eec628eb35d066b68))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.57](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.56...@empathyco/x-types@10.0.0-alpha.57) (2023-01-25)
 
 ### Build System

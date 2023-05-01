@@ -8,7 +8,10 @@
     >
       <h2 class="x-text-md x-w-128 x-text-right x-flex-none">{{ section }}</h2>
 
-      <div class="x-flex x-flex-row x-flex-wrap x-gap-16 x-items-baseline">
+      <div
+        class="x-flex x-flex-row x-flex-wrap x-gap-16 x-items-baseline"
+        :class="sectionsClasses[section] || ''"
+      >
         <div v-for="cssClass in classes" :key="cssClass">
           <slot v-bind="{ cssClass, section, copyCssClassesToClipboard, removeClassPrefix }" />
         </div>
@@ -25,7 +28,7 @@
 
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
-  import { ShowcaseSections } from '../types/types';
+  import { ShowcaseSectionsClasses, ShowcaseSections } from '../types/types';
 
   @Component
   export default class XdsBaseShowcase extends Vue {
@@ -36,6 +39,16 @@
      */
     @Prop({ required: true })
     public sections!: ShowcaseSections;
+
+    /**
+     * The classes to apply to the sections content.
+     *
+     * @public
+     */
+    @Prop({
+      default: () => ({})
+    })
+    public sectionsClasses!: ShowcaseSectionsClasses;
 
     /**
      * The title to display at the beginning of the component.

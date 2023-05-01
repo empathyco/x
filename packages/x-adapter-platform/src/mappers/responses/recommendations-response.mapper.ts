@@ -5,6 +5,11 @@ import { recommendationsResponseSchema } from '../../schemas/responses/recommend
 // eslint-disable-next-line max-len
 import { PlatformRecommendationsResponse } from '../../types/responses/recommendations-response.model';
 
+/**
+ * Default implementation for the RecommendationsResponseMapper.
+ *
+ * @public
+ */
 export const recommendationsResponseMapper = schemaMapperFactory<
   PlatformRecommendationsResponse,
   RecommendationsResponse

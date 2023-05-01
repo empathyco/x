@@ -3,6 +3,7 @@ import { WatchOptions } from 'vue';
 import { Returns } from '../../utils/types';
 import { XEvent, XEventPayload } from '../../wiring/events.types';
 import { AnyXStoreModule } from '../store.types';
+import { WireMetadata } from '../../wiring/wiring.types';
 
 /**
  * Selects a part of the store state or getters (AKA "getter" inside
@@ -45,6 +46,7 @@ export interface StateSelector<ReturnType, State extends Dictionary, Getters ext
    * @returns True if the value has really changed.
    */
   filter?(newValue: ReturnType, oldValue: ReturnType): boolean;
+  metadata?: Partial<WireMetadata>;
 }
 
 /**

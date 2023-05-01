@@ -6,10 +6,21 @@ import { baseInstallXOptions, baseSnippetConfig } from './views/base-config';
 import { XInstaller } from './x-installer/x-installer/x-installer';
 import { FilterEntityFactory } from './x-modules/facets/entities/filter-entity.factory';
 import { SingleSelectModifier } from './x-modules/facets/entities/single-select.modifier';
+import { StickyModifier } from './x-modules/facets/entities/sticky.modifier';
 import './tailwind/index.css';
 
 Vue.config.productionTip = false;
 FilterEntityFactory.instance.registerModifierByFacetId('age_facet', SingleSelectModifier);
+FilterEntityFactory.instance.registerModifierByFacetId(
+  'brand_facet',
+  StickyModifier,
+  SingleSelectModifier
+);
+FilterEntityFactory.instance.registerModifierByFacetId(
+  'price',
+  StickyModifier,
+  SingleSelectModifier
+);
 FilterEntityFactory.instance.registerModifierByFilterModelName(
   'HierarchicalFilter',
   SingleSelectModifier

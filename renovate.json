@@ -1,0 +1,45 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base", "group:allNonMajor", "group:linters"],
+  "timezone": "Europe/Madrid",
+  "rebaseWhen": "behind-base-branch",
+  "dependencyDashboard": true,
+  "labels": ["dependencies"],
+  "schedule": ["after 5pm on tuesday"],
+  "stabilityDays": 3,
+  "packageRules": [
+    {
+      "matchPackageNames": ["@vue/test-utils"],
+      "groupName": null,
+      "allowedVersions": "< 2"
+    },
+    {
+      "matchPackageNames": ["vue"],
+      "allowedVersions": "< 3"
+    },
+    {
+      "matchPackageNames": ["vuex"],
+      "allowedVersions": "< 4"
+    },
+    {
+      "matchPackageNames": ["vue-router"],
+      "allowedVersions": "< 4"
+    },
+    {
+      "matchPackageNames": ["vue-global-events"],
+      "allowedVersions": "< 2"
+    },
+    {
+      "matchPackageNames": ["vue-i18n"],
+      "allowedVersions": "< 9"
+    },
+    {
+      "extends": ["monorepo:react"],
+      "enabled": false
+    },
+    {
+      "matchPackagePatterns": ["^@types/react*"],
+      "enabled": false
+    }
+  ]
+}

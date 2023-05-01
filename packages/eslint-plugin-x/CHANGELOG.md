@@ -3,6 +3,70 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.32...@empathyco/eslint-plugin-x@2.0.0-alpha.33) (2023-03-29)
+
+### Features
+
+- Minor improvements. (#1109)
+  ([1c9dace](https://github.com/empathyco/x/commit/1c9dacea7c46eb0b27687730a8a4978d0e49b230)),
+  closes [EX-8130](https://searchbroker.atlassian.net/browse/EX-8130)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.31...@empathyco/eslint-plugin-x@2.0.0-alpha.32) (2023-03-14)
+
+### Bug Fixes
+
+- **build:** Fix issue with prettier-plugin-tailwindcss. (#1102)
+  ([b87f274](https://github.com/empathyco/x/commit/b87f2741815e9a6723a997a955a1b18784cb4ed4)),
+  closes [EX-8112](https://searchbroker.atlassian.net/browse/EX-8112)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.30...@empathyco/eslint-plugin-x@2.0.0-alpha.31) (2023-03-07)
+
+### Bug Fixes
+
+- **deps:** remove `only-allow` pnpm (#1097)
+  ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
+  closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.29...@empathyco/eslint-plugin-x@2.0.0-alpha.30) (2023-02-07)
+
+### Continuous Integration
+
+- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+  ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
+  closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.28...@empathyco/eslint-plugin-x@2.0.0-alpha.29) (2023-01-27)
+
+### Build System
+
+- **deps:** update deps (#1046)
+  ([b6957df](https://github.com/empathyco/x/commit/b6957df9d88c0d94c2543047991a63afadd707ff))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.27...@empathyco/eslint-plugin-x@2.0.0-alpha.28) (2023-01-25)
 
 ### Build System

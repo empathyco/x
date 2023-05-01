@@ -3,7 +3,7 @@
   --x-color-background-picture-default: var(--x-color-background-picture-colored);
 
   .x-picture {
-    &__image {
+    &-image {
       // others
       --x-mix-blend-mode-picture-default: var(--x-mix-blend-mode-picture-colored);
     }

@@ -17,12 +17,7 @@ export const searchEmitters = createStoreEmitters(searchXStoreModule, {
   PageChanged: state => state.page,
   ResultsChanged: state => state.results,
   SearchRequestChanged: (_, getters) => getters.request,
-  SearchRequestUpdated: {
-    selector: (_, getters) => getters.request!,
-    filter(newValue, oldValue): boolean {
-      return !!newValue && !!oldValue;
-    }
-  },
+  SearchRequestUpdated: (_, getters) => getters.request,
   SearchResponseChanged: {
     selector: (state, getters) => {
       return {
@@ -39,8 +34,11 @@ export const searchEmitters = createStoreEmitters(searchXStoreModule, {
         totalResults: state.totalResults
       };
     },
-    filter: (newValue, oldValue) =>
-      newValue.status !== oldValue.status && oldValue.status === 'loading' && !!newValue.request
+    filter: (newValue, oldValue) => {
+      return (
+        newValue.status !== oldValue.status && oldValue.status === 'loading' && !!newValue.request
+      );
+    }
   },
   SearchTaggingChanged: {
     selector: state => state.queryTagging,

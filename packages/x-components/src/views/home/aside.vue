@@ -1,20 +1,18 @@
 <template>
-  <div
-    class="x-list x-list--padding-05 x-list--padding-top x-list--gap-06 x-list--border x-list--border-top"
-  >
+  <div class="x-flex x-flex-col x-gap-24">
     <FacetsProvider :facets="staticFacets" />
     <ClearFilters />
     <SelectedFiltersList>
       <template #default="{ filter }">
-        <SimpleFilter :filter="filter" class="x-tag" />
+        <SimpleFilter :filter="filter" class="x-facet-filter-success" />
       </template>
     </SelectedFiltersList>
 
     <!-- Facets -->
-    <Facets class="x-list--gap-06">
+    <Facets class="x-gap-24">
       <!--  Hierarchical Facet    -->
       <template #hierarchical-facet="{ facet }">
-        <BaseHeaderTogglePanel class="x-facet">
+        <BaseHeaderTogglePanel headerClass="x-w-full x-flex x-justify-between x-py-8">
           <template #header-content>
             <span class="x-truncate">{{ facet.label }}</span>
             <ChevronDown />
@@ -22,7 +20,11 @@
           <!-- Filters -->
           <SlicedFilters max="4" :filters="facet.filters">
             <FiltersList v-slot="{ filter }">
-              <HierarchicalFilter :filter="filter" :data-test="`${facet.label}-filter`" />
+              <HierarchicalFilter
+                :filter="filter"
+                :data-test="`${facet.label}-filter`"
+                childrenFiltersClass="x-ml-16"
+              />
             </FiltersList>
           </SlicedFilters>
         </BaseHeaderTogglePanel>
@@ -30,7 +32,7 @@
 
       <!--  Range Facet    -->
       <template #number-range-facet="{ facet }">
-        <BaseHeaderTogglePanel class="x-facet">
+        <BaseHeaderTogglePanel headerClass="x-w-full x-flex x-justify-between x-py-8">
           <template #header-content>
             <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
             <ChevronDown />
@@ -52,7 +54,6 @@
                     <BasePriceFilterLabel
                       v-if="facet.id === 'price'"
                       :filter="filter"
-                      class="x-filter__label"
                       format="ii.dd €"
                       lessThan="Less than {max}"
                       fromTo="From {min} to {max}"
@@ -68,11 +69,11 @@
 
       <!--  Default Facet    -->
       <template #default="{ facet }">
-        <BaseHeaderTogglePanel class="x-facet">
+        <BaseHeaderTogglePanel headerClass="x-w-full x-flex x-py-8 x-gap-8">
           <template #header-content>
             <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
             <span data-test="total-filters">{{ facet.filters.length }}</span>
-            <ChevronDown />
+            <ChevronDown class="x-ml-auto" />
           </template>
 
           <!-- Filters -->

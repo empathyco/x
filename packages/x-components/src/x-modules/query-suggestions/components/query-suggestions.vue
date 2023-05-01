@@ -15,7 +15,7 @@
       <slot name="suggestion" v-bind="{ ...baseScope }">
         <QuerySuggestion
           :suggestion="baseScope.suggestion"
-          class="x-query-suggestions__suggestion"
+          class="x-query-suggestions__suggestion x-suggestion"
           #default="querySuggestionScope"
         >
           <!-- eslint-disable max-len -->

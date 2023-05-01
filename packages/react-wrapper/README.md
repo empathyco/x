@@ -9,7 +9,8 @@ To start using this library, simply add it to your React project dependencies, t
 `react`, `react-dom`, and `vue`:
 
 ```
-npm install --save @empathyco/react-wrapper react react-dom vue
+# or pnpm or yarn
+npm install @empathyco/react-wrapper react react-dom vue
 ```
 
 After installing these dependencies, you can start using the `ReactWrapper`. To do so, you just have
@@ -148,9 +149,7 @@ import React from 'react';
 function App() {
   return (
     <main>
-      <ReactWrapper
-        component={Button}
-      >
+      <ReactWrapper component={Button}>
         Hello <strong>World</strong>
       </ReactWrapper>
     </main>
@@ -170,7 +169,7 @@ function App() {
       <ReactWrapper
         component={Title}
         slots={{
-          default: ["Hello", <strong>World</strong>]
+          default: ['Hello', <strong>World</strong>]
         }}
       />
     </main>
@@ -211,7 +210,7 @@ import React from 'react';
 const article = {
   title: 'Vue slots API',
   body: 'A short guide about how to use vue slots.'
-}
+};
 
 function App() {
   return (
@@ -220,8 +219,8 @@ function App() {
         component={ArticlePreview}
         article={article}
         slots={{
-          author: (computedAuthor) => <strong>computedAuthor</strong>,
-          extra: <a href="#">Read more</a>
+          author: computedAuthor => <strong>computedAuthor</strong>,
+          extra: <a href='#'>Read more</a>
         }}
       />
     </main>

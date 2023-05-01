@@ -1,5 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import Vuex, { Store, StoreOptions } from 'vuex';
 import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
 //eslint-disable-next-line max-len
 import { getEmptySearchResponseStub } from '../../../../__stubs__/empty-search-response-stubs.factory';
@@ -33,7 +33,7 @@ describe('testing search module actions', () => {
   localVue.use(Vuex);
 
   const store: SafeStore<SearchState, SearchGetters, SearchMutations, SearchActions> = new Store(
-    searchXStoreModule as any
+    searchXStoreModule as unknown as StoreOptions<SearchState>
   );
   installNewXPlugin({ adapter, store }, localVue);
 
@@ -48,13 +48,8 @@ describe('testing search module actions', () => {
         query: 'lego'
       });
 
-      const searchResponse = await store.dispatch('fetchSearchResponse', store.getters.request);
+      const searchResponse = await store.dispatch('fetchSearchResponse', store.getters.request!);
       expect(searchResponse).toEqual(searchResponseStub);
-    });
-
-    it('should return empty search response if there is not request', async () => {
-      const searchResponse = await store.dispatch('fetchSearchResponse', store.getters.request);
-      expect(searchResponse).toEqual(emptySearchResponseStub);
     });
   });
 
@@ -138,31 +133,6 @@ describe('testing search module actions', () => {
       expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
     });
 
-    // eslint-disable-next-line max-len
-    it('should clear results, facets, banners, promoteds, redirections and query tagging in the state if the query is empty', async () => {
-      resetSearchStateWith(store, {
-        results: resultsStub,
-        facets: facetsStub,
-        banners: bannersStub,
-        promoteds: promotedsStub,
-        redirections: redirectionsStub,
-        queryTagging: searchResponseStub.queryTagging
-      });
-      expect(store.state.results).toEqual(resultsStub);
-      expect(store.state.facets).toEqual(facetsStub);
-      expect(store.state.banners).toEqual(bannersStub);
-      expect(store.state.promoteds).toEqual(promotedsStub);
-      expect(store.state.redirections).toEqual(redirectionsStub);
-      expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
-      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
-      expect(store.state.results).toEqual([]);
-      expect(store.state.facets).toEqual([]);
-      expect(store.state.banners).toEqual([]);
-      expect(store.state.promoteds).toEqual([]);
-      expect(store.state.redirections).toEqual([]);
-      expect(store.state.queryTagging).toEqual({ url: '', params: {} });
-    });
-
     it('should request and store total results in the state', async () => {
       resetSearchStateWith(store, {
         query: 'lego'
@@ -200,14 +170,6 @@ describe('testing search module actions', () => {
       const actionPromise = store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
       await actionPromise;
       expect(store.state.spellcheckedQuery).toBe('coche');
-    });
-
-    it('should clear the spellcheck in the state', async () => {
-      resetSearchStateWith(store, {
-        spellcheckedQuery: 'coche'
-      });
-      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
-      expect(store.state.spellcheckedQuery).toBe('');
     });
 
     it('should cancel the previous request if it is not yet resolved', async () => {
@@ -297,6 +259,33 @@ describe('testing search module actions', () => {
       expect(store.state.page).toEqual(1);
       expect(store.state.config.pageSize).toEqual(24);
       expect(store.state.queryTagging).toEqual(searchResponseStub.queryTagging);
+    });
+
+    it('sets the isNoResults flag when there is no results', () => {
+      expect(store.state.isNoResults).toEqual(false);
+      store.dispatch('saveSearchResponse', {
+        ...emptySearchResponseStub
+      });
+      expect(store.state.isNoResults).toEqual(true);
+      store.dispatch('saveSearchResponse', {
+        ...searchResponseStub
+      });
+      expect(store.state.isNoResults).toEqual(false);
+    });
+    // eslint-disable-next-line max-len
+    it('sets the FromNoResultsWithFilters flag when there is no results with filters applied', () => {
+      resetSearchStateWith(store, {
+        query: 'requestWithFilters',
+        selectedFilters: { brand: [{ id: 'test', selected: true, modelName: 'SimpleFilter' }] }
+      });
+      expect(store.state.fromNoResultsWithFilters).toEqual(false);
+      store.dispatch('saveSearchResponse', {
+        ...emptySearchResponseStub
+      });
+      expect(store.state.fromNoResultsWithFilters).toEqual(true);
+      store.dispatch('saveSearchResponse', {
+        ...searchResponseStub
+      });
     });
   });
 
@@ -409,7 +398,7 @@ describe('testing search module actions', () => {
     // does not modify all fields but only some of them.
     it('should not reset the page when the page parameter of the request changes', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2 });
-      await store.dispatch('resetState', {
+      await store.dispatch('resetRequestOnRefinement', {
         newRequest: {
           query: 'lego',
           page: 3
@@ -431,7 +420,7 @@ describe('testing search module actions', () => {
 
     it('should not reset the page nor the sort when there are no changes', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2, sort: 'desc' });
-      await store.dispatch('resetState', {
+      await store.dispatch('resetRequestOnRefinement', {
         newRequest: {
           query: 'lego',
           page: 2,
@@ -454,7 +443,7 @@ describe('testing search module actions', () => {
 
     it('should reset the page when the query changes', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2 });
-      await store.dispatch('resetState', {
+      await store.dispatch('resetRequestOnRefinement', {
         newRequest: {
           query: 'playmobil',
           page: 2
@@ -476,7 +465,7 @@ describe('testing search module actions', () => {
 
     it('should reset the page when the sort changes', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2 });
-      await store.dispatch('resetState', {
+      await store.dispatch('resetRequestOnRefinement', {
         newRequest: {
           query: 'lego',
           page: 2,
@@ -504,7 +493,7 @@ describe('testing search module actions', () => {
         { query: 'lego star wars', modelName: 'RelatedTag', tag: 'star wars' }
       ]);
       const newRequest = store.getters.request!;
-      await store.dispatch('resetState', { oldRequest, newRequest });
+      await store.dispatch('resetRequestOnRefinement', { oldRequest, newRequest });
 
       expect(store.state).toEqual(
         expect.objectContaining<Partial<SearchState>>({
@@ -519,7 +508,7 @@ describe('testing search module actions', () => {
 
     it('should reset the page when the filters change', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 2 });
-      await store.dispatch('resetState', {
+      await store.dispatch('resetRequestOnRefinement', {
         newRequest: {
           query: 'lego',
           page: 2,
@@ -550,7 +539,7 @@ describe('testing search module actions', () => {
 
     it('should reset the sort when the query parameter of the request changes', async () => {
       resetSearchStateWith(store, { query: 'lego', page: 1, sort: 'price asc' });
-      await store.dispatch('resetState', {
+      await store.dispatch('resetRequestOnRefinement', {
         newRequest: {
           query: 'playmobil',
           page: 1
@@ -579,7 +568,7 @@ describe('testing search module actions', () => {
           catalog: 'es'
         }
       });
-      await store.dispatch('resetState', {
+      await store.dispatch('resetRequestOnRefinement', {
         newRequest: {
           query: 'lego',
           page: 2,
@@ -602,6 +591,24 @@ describe('testing search module actions', () => {
           sort: ''
         })
       );
+    });
+
+    // eslint-disable-next-line max-len
+    it('should reset the FromNoResultsWithFilters flag when there is already results in the state and the flag is true', () => {
+      resetSearchStateWith(store, {
+        query: 'requestWithFilters',
+        fromNoResultsWithFilters: true,
+        results: getResultsStub()
+      });
+      expect(store.state.fromNoResultsWithFilters).toEqual(true);
+      store.dispatch('resetRequestOnRefinement', {
+        newRequest: {
+          query: 'requestWithFilters',
+          page: 1
+        },
+        oldRequest: store.getters.request!
+      });
+      expect(store.state.fromNoResultsWithFilters).toEqual(false);
     });
   });
 

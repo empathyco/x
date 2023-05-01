@@ -6,13 +6,17 @@ import { SearchActionContext, SearchState } from '../types';
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   SearchActionContext,
   InternalSearchRequest | null,
-  SearchResponse
+  SearchResponse | null
 >({
   fetch({ dispatch, state }, request) {
-    return dispatch('fetchSearchResponse', request ? enrichRequest(request, state) : null);
+    return request
+      ? dispatch('fetchSearchResponse', enrichRequest(request, state))
+      : Promise.resolve(null);
   },
   onSuccess({ dispatch }, response) {
-    dispatch('saveSearchResponse', response);
+    if (response !== null) {
+      dispatch('saveSearchResponse', response);
+    }
   }
 });
 

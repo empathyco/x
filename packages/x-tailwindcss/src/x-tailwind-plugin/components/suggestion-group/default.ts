@@ -24,7 +24,6 @@ export function suggestionGroupDefault(helpers: TailwindHelpers) {
     justifyContent: 'flex-start',
     alignItems: 'baseline',
     alignContent: 'center',
-    cursor: 'pointer',
 
     paddingInlineStart: 0,
     paddingInlineEnd: 0,
@@ -32,16 +31,17 @@ export function suggestionGroupDefault(helpers: TailwindHelpers) {
     color: theme('colors.neutral.90'),
     ...alignIconWithBaseline(),
 
+    '&:hover': {
+      textDecoration: 'underline'
+    },
+
     '.suggestion': {
       color: 'currentColor',
       minHeight: 'inherit',
       fontSize: 'inherit',
       fontFamily: 'inherit',
-      fontWeight: 'inherit'
-    },
-
-    '& > :last-child': {
-      justifySelf: 'end'
+      fontWeight: 'inherit',
+      textDecoration: 'inherit'
     }
   };
 }

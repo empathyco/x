@@ -12,6 +12,11 @@ import { taggingEndpointAdapter } from './endpoint-adapters/tagging.endpoint-ada
 // eslint-disable-next-line max-len
 import { querySuggestionsEndpointAdapter } from './endpoint-adapters/query-suggestions.endpoint-adapter';
 
+/**
+ * Default implementation for the PlatformAdapter.
+ *
+ * @public
+ */
 export const platformAdapter: PlatformAdapter = {
   search: searchEndpointAdapter,
   popularSearches: popularSearchesEndpointAdapter,

@@ -239,6 +239,7 @@ Given('a results API with no results', () => {
     req.reply(
       createSearchResponse({
         results: [],
+        facets: [],
         totalResults: 0
       })
     );
@@ -323,7 +324,17 @@ Given('a results API with a promoted', () => {
 
 Given('a results API with a banner', () => {
   cy.intercept(searchEndpoint, req => {
-    req.reply(createSearchResponse({ banners: [createBannerStub('Banner')] }));
+    req.reply(
+      createSearchResponse({
+        banners: [
+          createBannerStub('Banner', {
+            title: 'Banner',
+            url: '/banner/Banner',
+            image: '/img/test-image-1.jpeg'
+          })
+        ]
+      })
+    );
   }).as('interceptedResults');
 });
 

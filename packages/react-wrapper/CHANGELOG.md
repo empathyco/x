@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.22...@empathyco/x-react-wrapper@4.0.0-alpha.23) (2023-04-26)
+
+**Note:** Version bump only for package @empathyco/x-react-wrapper
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.21...@empathyco/x-react-wrapper@4.0.0-alpha.22) (2023-04-12)
+
+**Note:** Version bump only for package @empathyco/x-react-wrapper
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.20...@empathyco/x-react-wrapper@4.0.0-alpha.21) (2023-03-16)
+
+### Features
+
+- **plugin:** replace old bus implementation using the new `x-priority-bus` (#1086)
+  ([f64f9b6](https://github.com/empathyco/x/commit/f64f9b68225c4ee422eb007784e0eec813c95228)),
+  closes [EX-7283](https://searchbroker.atlassian.net/browse/EX-7283)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.19...@empathyco/x-react-wrapper@4.0.0-alpha.20) (2023-03-07)
+
+### Bug Fixes
+
+- **deps:** remove `only-allow` pnpm (#1097)
+  ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
+  closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.18...@empathyco/x-react-wrapper@4.0.0-alpha.19) (2023-02-08)
+
+### Continuous Integration
+
+- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+  ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
+  closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.17...@empathyco/x-react-wrapper@4.0.0-alpha.18) (2023-02-07)
+
+### Continuous Integration
+
+- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+  ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
+  closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [4.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.16...@empathyco/x-react-wrapper@4.0.0-alpha.17) (2023-01-25)
 
 ### Build System

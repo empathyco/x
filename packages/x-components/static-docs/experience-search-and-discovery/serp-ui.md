@@ -1,5 +1,6 @@
 ---
-title: SERP UI
+title: Design the SERP UI experience
+sidebar_title: SERP UI
 tags:
   - results layout
   - grid

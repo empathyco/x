@@ -11,7 +11,17 @@ import { facetsXStoreModule } from './module';
 export const facetsEmitters = createStoreEmitters(facetsXStoreModule, {
   SelectedFiltersChanged: {
     selector: (_, getters) => getters.selectedFilters,
-    filter: areFiltersDifferent
+    filter: areFiltersDifferent,
+    metadata: {
+      priority: 12
+    }
+  },
+  SelectedFiltersForRequestChanged: {
+    selector: (_, getters) => getters.selectedFiltersForRequest,
+    filter: areFiltersDifferent,
+    metadata: {
+      priority: 12
+    }
   },
   FacetsQueryChanged: {
     selector: state => state.query,

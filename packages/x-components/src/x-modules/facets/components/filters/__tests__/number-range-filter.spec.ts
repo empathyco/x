@@ -112,12 +112,12 @@ describe('testing NumberRangeFilter component', () => {
   it('adds selected classes to the rendered element when the filter is selected', async () => {
     const { wrapper, selectFilter } = renderNumberRangeFilter();
 
-    expect(wrapper.classes()).not.toContain('x-filter--is-selected');
+    expect(wrapper.classes()).not.toContain('x-selected');
     expect(wrapper.classes()).not.toContain('x-number-range-filter--is-selected');
 
     await selectFilter();
 
-    expect(wrapper.classes()).toContain('x-filter--is-selected');
+    expect(wrapper.classes()).toContain('x-selected');
     expect(wrapper.classes()).toContain('x-number-range-filter--is-selected');
   });
 });

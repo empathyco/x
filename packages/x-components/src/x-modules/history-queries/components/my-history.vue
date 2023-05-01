@@ -1,5 +1,5 @@
 <template>
-  <component :is="animation" v-if="hasHistoryQueries" class="x-my-history x-list" tag="ul">
+  <component :is="animation" v-if="hasHistoryQueries" class="x-my-history" tag="ul">
     <li
       v-for="(historyQueries, date) in groupByDate"
       :key="date"
@@ -12,6 +12,7 @@
       <BaseSuggestions
         :suggestions="historyQueries"
         class="x-my-history-queries"
+        :class="queriesListClass"
         data-test="my-history-queries"
         :animation="animation"
       >
@@ -20,24 +21,23 @@
         @slot History Query item
             @binding {Suggestion} suggestion - History Query suggestion data
             @binding {number} index - History Query suggestion index
+            @binding {() => string} formatTime - Callback to format time to `hh:mm [PM/AM]`
       -->
-          <slot name="suggestion" v-bind="{ suggestion, index }">
+          <slot name="suggestion" v-bind="{ suggestion, index, formatTime }">
             <HistoryQuery
               :suggestion="suggestion"
               data-test="history-query-item"
-              class="x-history-queries__item"
+              class="x-history-queries__item x-suggestion"
             >
               <template #default>
                 <!--
               @slot History Query content
                   @binding {Suggestion} suggestion - History Query suggestion data
                   @binding {number} index - History Query suggestion index
+                  @binding {() => string} formatTime - Callback to format time to `hh:mm [PM/AM]`
             -->
                 <slot name="suggestion-content" v-bind="{ suggestion, index, formatTime }">
-                  <div class="x-list x-list--vertical">
-                    <span>{{ suggestion.query }}</span>
-                    <span>{{ formatTime(suggestion.timestamp) }}</span>
-                  </div>
+                  {{ suggestion.query }} - {{ formatTime(suggestion.timestamp) }}
                 </slot>
               </template>
               <template #remove-button-content>
@@ -67,6 +67,7 @@
   import { groupItemsBy, isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { historyQueriesXModule } from '../x-module';
+  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
   import HistoryQueryComponent from './history-query.vue';
 
   /**
@@ -82,7 +83,7 @@
    */
   @Component({
     components: { HistoryQuery: HistoryQueryComponent, BaseSuggestions },
-    mixins: [xComponentMixin(historyQueriesXModule)]
+    mixins: [xComponentMixin(historyQueriesXModule), dynamicPropsMixin(['queriesListClass'])]
   })
   export default class MyHistory extends Vue {
     /**
@@ -192,6 +193,13 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .x-my-history {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+</style>
 
 <docs lang="mdx">
 ## Events
@@ -360,6 +368,27 @@ icon to remove the history query.
     components: {
       MyHistory,
       CrossIcon
+    }
+  };
+</script>
+```
+
+### Customizing the items with classes
+
+The `queriesListClass` prop can be used to add classes to the suggestions list.
+
+```vue live
+<template>
+  <MyHistory #date="{ date }" queriesListClass="x-gap-16" />
+</template>
+
+<script>
+  import { MyHistory } from '@empathyco/x-components/history-queries';
+
+  export default {
+    name: 'MyHistoryDemo',
+    components: {
+      MyHistory
     }
   };
 </script>
