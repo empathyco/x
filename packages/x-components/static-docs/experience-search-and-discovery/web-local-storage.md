@@ -1,5 +1,6 @@
 ---
 title: Interface X data privacy and browser local storage
+meta_title: Search data privacy & browser local storage
 tags:
   - x components
   - interface x

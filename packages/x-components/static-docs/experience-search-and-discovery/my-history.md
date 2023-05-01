@@ -1,5 +1,6 @@
 ---
-title: My History UI
+title: Design the My History UI experience
+sidebar_title: My History UI
 ---
 
 The My History UI component displays the complete list of history queries, allowing shoppers to

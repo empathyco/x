@@ -1,5 +1,6 @@
 ---
-title: Product results UI
+title: Design the product results UI experience
+sidebar_title: Product results UI
 tags:
   - results layout
 ---

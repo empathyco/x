@@ -1,5 +1,6 @@
 ---
-title: Recommendations UI
+title: Design the Recommendations UI experience
+sidebar_title: Recommendations UI
 tags:
   - top clicked
   - top searched

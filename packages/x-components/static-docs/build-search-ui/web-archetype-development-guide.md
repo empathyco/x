@@ -1,5 +1,6 @@
 ---
 title: Develop using Interface X Archetype
+meta_title: Develop a search UI layer with the Interface X Archetype
 tags:
   - development
   - archetype
