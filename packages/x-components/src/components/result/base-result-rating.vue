@@ -2,7 +2,7 @@
   <component
     :is="link ? 'a' : 'div'"
     v-if="result.rating && result.rating.value"
-    ref="root"
+    ref="el"
     @click="emitClickedEvent"
     :href="link"
     class="x-result-rating"

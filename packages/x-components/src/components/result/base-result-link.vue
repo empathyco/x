@@ -53,7 +53,7 @@
        *
        * @internal
        */
-      const el = ref<HTMLElement | null>(null);
+      const el = ref<HTMLElement | null>();
 
       /**
        * The list of additional events to be emitted by the component when user clicks the link.
