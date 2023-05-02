@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.362](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.361...@empathyco/x-components@3.0.0-alpha.362) (2023-05-02)
+
+### Features
+
+- add dynamic props for title to promoteds and banner (#1168)
+  ([1914f01](https://github.com/empathyco/x/commit/1914f01981a2de48c65d3a88cfcedc26c2a293fe))
+
+### Documentation
+
+- **titles:** adjusting page, seo, and sidebar titles (#1166)
+  ([510ebc3](https://github.com/empathyco/x/commit/510ebc33eecc667dbecc7e091a8bdfb99b8e71e7))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.361](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.360...@empathyco/x-components@3.0.0-alpha.361) (2023-04-26)
 
 **Note:** Version bump only for package @empathyco/x-components
