@@ -41,7 +41,16 @@
 
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
-  import { computed, DefineComponent, defineComponent, PropType, Ref, ref, watch } from 'vue';
+  import {
+    computed,
+    DefineComponent,
+    defineComponent,
+    PropType,
+    Ref,
+    ref,
+    toRef,
+    watch
+  } from 'vue';
   import { NoElement } from '../no-element';
   import { animationProp } from '../../utils/options-api';
 
@@ -143,7 +152,7 @@
         visibility: 'hidden !important'
       };
 
-      const resultImages = ref(props.result.images!);
+      const resultImages = toRef(props.result, 'images');
 
       /**
        * Initializes images state and resets when the result's images change.
