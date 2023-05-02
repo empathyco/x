@@ -7,8 +7,9 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/x
 import Banner from '../banner.vue';
 
 function renderBanner({
-  template = `<Banner :banner="banner"/>`,
-  banner = createBannerStub('default-banner')
+  template = `<Banner v-bind="$attrs" />`,
+  banner = createBannerStub('default-banner'),
+  titleClass
 }: RenderBannerOptions = {}): RenderBannerAPI {
   const [, localVue] = installNewXPlugin();
 
@@ -17,12 +18,12 @@ function renderBanner({
       components: {
         Banner
       },
-      props: ['banner'],
       template
     },
     {
       propsData: {
-        banner
+        banner,
+        titleClass
       },
       localVue
     }
@@ -97,6 +98,16 @@ describe('testing Banner component', () => {
 
     expect(listener).toHaveBeenCalledTimes(0);
   });
+
+  it('allows adding classes to the title', () => {
+    const { wrapper } = renderBanner({
+      banner: createBannerStub('banner', { title: 'Search UIs' }),
+      titleClass: 'custom-class'
+    });
+    const title = wrapper.get(getDataTestSelector('banner-title'));
+
+    expect(title.classes('custom-class')).toBe(true);
+  });
 });
 
 interface RenderBannerOptions {
@@ -104,6 +115,8 @@ interface RenderBannerOptions {
   banner?: BannerModel;
   /** The template to be rendered. */
   template?: string;
+  /** Class to customize the title element. */
+  titleClass?: string;
 }
 
 interface RenderBannerAPI {
