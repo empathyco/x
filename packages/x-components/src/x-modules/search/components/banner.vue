@@ -142,7 +142,7 @@ _Here you can see how the `Banner` component is rendered._
 
 ### Customizing the items with classes
 
-The `titleClass` prop can be used to add classes to the sort items.
+The `titleClass` prop can be used to add classes to the banner title.
 
 ```vue
 <template>
