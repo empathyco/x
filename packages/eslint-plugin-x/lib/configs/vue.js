@@ -10,7 +10,6 @@ module.exports = {
     ],
     rules: {
       'vue/attribute-hyphenation': 'off',
-      'vue/require-default-prop': 'off',
       'vue/attributes-order': [
         'error',
         {
