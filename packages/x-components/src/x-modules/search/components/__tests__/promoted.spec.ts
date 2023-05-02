@@ -7,8 +7,9 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/x
 import Promoted from '../promoted.vue';
 
 function renderPromoted({
-  template = `<Promoted :promoted="promoted"/>`,
-  promoted = createPromotedStub('default-promoted')
+  template = `<Promoted v-bind="$attrs"/>`,
+  promoted = createPromotedStub('default-promoted'),
+  titleClass
 }: RenderPromotedOptions = {}): RenderPromotedAPI {
   const [, localVue] = installNewXPlugin();
 
@@ -17,12 +18,12 @@ function renderPromoted({
       components: {
         Promoted
       },
-      props: ['promoted'],
       template
     },
     {
       propsData: {
-        promoted
+        promoted,
+        titleClass
       },
       localVue
     }
@@ -61,6 +62,15 @@ describe('testing Promoted component', () => {
 
     expect(wrapper.get(getDataTestSelector('promoted')).text()).toEqual('Search UIs');
   });
+
+  it('allows adding classes to the title', () => {
+    const { wrapper } = renderPromoted({
+      titleClass: 'custom-class'
+    });
+    const title = wrapper.get(getDataTestSelector('promoted-title'));
+
+    expect(title.classes('custom-class')).toBe(true);
+  });
 });
 
 interface RenderPromotedOptions {
@@ -68,6 +78,8 @@ interface RenderPromotedOptions {
   promoted?: PromotedModel;
   /** The template to be rendered. */
   template?: string;
+  /** Class to customize the title element. */
+  titleClass?: string;
 }
 
 interface RenderPromotedAPI {
