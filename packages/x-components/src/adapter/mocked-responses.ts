@@ -126,6 +126,7 @@ export const mockedResponses = {
         price: {
           hasDiscount: false,
           originalValue: 59.99,
+          futureValue: 59.99,
           value: 59.99
         }
       }),
@@ -134,6 +135,7 @@ export const mockedResponses = {
         price: {
           hasDiscount: false,
           originalValue: 29.99,
+          futureValue: 29.99,
           value: 29.99
         }
       }),
@@ -142,6 +144,7 @@ export const mockedResponses = {
         price: {
           hasDiscount: false,
           originalValue: 11.99,
+          futureValue: 11.99,
           value: 11.99
         }
       }),
@@ -150,6 +153,7 @@ export const mockedResponses = {
         price: {
           hasDiscount: false,
           originalValue: 39.99,
+          futureValue: 39.99,
           value: 39.99
         }
       }),
@@ -158,6 +162,7 @@ export const mockedResponses = {
         price: {
           hasDiscount: false,
           originalValue: 11.99,
+          futureValue: 11.99,
           value: 11.99
         }
       }),
@@ -166,6 +171,7 @@ export const mockedResponses = {
         price: {
           hasDiscount: false,
           originalValue: 11.99,
+          futureValue: 11.99,
           value: 11.99
         }
       }),
@@ -174,6 +180,7 @@ export const mockedResponses = {
         price: {
           hasDiscount: false,
           originalValue: 22.99,
+          futureValue: 22.99,
           value: 22.99
         }
       })

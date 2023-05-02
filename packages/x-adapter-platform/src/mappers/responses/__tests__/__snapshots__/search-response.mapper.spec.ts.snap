@@ -313,16 +313,12 @@ Object {
       "results": Array [
         Object {
           "id": "31335-U",
-          "identifier": Object {
-            "value": "31335-U",
-          },
-          "images": Array [
-            "https://assets.empathy.co/images-demo/31335.jpg",
-          ],
+          "identifier": Object {},
           "isWishlisted": false,
           "modelName": "Result",
           "name": "Locomotive Men Washed Blue Jeans",
           "price": Object {
+            "futureValue": 10,
             "hasDiscount": false,
             "originalValue": 10,
             "value": 10,
@@ -442,13 +438,11 @@ Object {
       "identifier": Object {
         "value": "31335-U",
       },
-      "images": Array [
-        "https://assets.empathy.co/images-demo/31335.jpg",
-      ],
       "isWishlisted": false,
       "modelName": "Result",
       "name": "Locomotive Men Washed Blue Jeans",
       "price": Object {
+        "futureValue": 10,
         "hasDiscount": false,
         "originalValue": 10,
         "value": 10,
