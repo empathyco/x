@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { VNode, defineComponent, PropType, provide, watch, computed, h } from 'vue';
+  import { VNode, defineComponent, PropType, provide, watch, computed, h, ref, Ref } from 'vue';
   import { Result, ResultVariant } from '@empathyco/x-types';
   import {
     RESULT_WITH_VARIANTS_KEY,
@@ -31,10 +31,11 @@
       },
       /**
        * The provider by default will auto select the first variants of all levels.
-       * This prop allows to limit the number of variants auto selected when the provider is created.
-       * Take into account that the depth will be the variants level + 1, so, setting autoSelectDepth
-       * to 0 will not select any variant, setting it to 1 will select only the first variant of the
-       * first level, and so on.
+       * This prop allows to limit the number of variants auto selected when the provider
+       * is created.
+       * Take into account that the depth will be the variants level + 1, so, setting
+       * autoSelectDepth to 0 will not select any variant, setting it to 1 will select only the
+       * first variant of the first level, and so on.
        */
       autoSelectDepth: {
         type: Number,
@@ -44,7 +45,9 @@
     setup(props, { slots }) {
       const $x = use$x();
 
-      provide<Result>(RESULT_WITH_VARIANTS_KEY.valueOf(), props.result);
+      const result: Ref<Result> = ref(props.result);
+
+      provide(RESULT_WITH_VARIANTS_KEY as string, result.value);
 
       /**
        * Array to keep track of the selected variants of the result.
@@ -54,7 +57,9 @@
        *
        * @public
        */
-      let selectedVariants = provide<ResultVariant[]>(SELECTED_VARIANTS_KEY.valueOf(), []);
+      let selectedVariants: Ref<ResultVariant[]> = ref([]);
+
+      provide(SELECTED_VARIANTS_KEY as string, selectedVariants.value);
 
       /**
        * Selects a variant of the result.
@@ -66,17 +71,19 @@
        * @param level - The nest level where the variant is placed inside the result.
        * @public
        */
-      provide(SELECT_RESULT_VARIANT_KEY.valueOf(), (variant: ResultVariant, level = 0) =>
-        if (selectedVariants[level] === variant) {
+      const selectResultVariant = (variant: ResultVariant, level = 0): void => {
+        if (selectedVariants.value[level] === variant) {
           return;
         }
-        selectedVariants.splice(level, Number.POSITIVE_INFINITY, variant);
+        selectedVariants.value.splice(level, Number.POSITIVE_INFINITY, variant);
         $x.emit('UserSelectedAResultVariant', {
           variant,
           level,
-          result: props.result
+          result: result.value
         });
-      });
+      };
+
+      provide(SELECT_RESULT_VARIANT_KEY as string, selectResultVariant);
 
       /**
        * Adds to the selectedVariants array the variants up to the autoSelectDepth level.
@@ -84,8 +91,8 @@
        * @param variant - Variant to add to the array.
        */
       const selectFirstVariants = (variant?: ResultVariant): void => {
-        if (!!variant && this.selectedVariants.length <= props.autoSelectDepth - 1) {
-          selectedVariants.push(variant);
+        if (!!variant && selectedVariants.value.length <= props.autoSelectDepth - 1) {
+          selectedVariants.value.push(variant);
           selectFirstVariants(variant.variants?.[0]);
         }
       };
@@ -96,10 +103,10 @@
        * and when the result is changed.
        */
       watch(
-        props.result,
+        result,
         () => {
-          selectedVariants = [];
-          selectFirstVariants(props.result?.variants?.[0]);
+          selectedVariants.value = [];
+          selectFirstVariants(result.value.variants?.[0]);
         },
         { immediate: true }
       );
@@ -112,16 +119,16 @@
        * @public
        */
       const resultToProvide = computed<Result>(() => {
-        if (!selectedVariants.length) {
-          return props.result;
+        if (!selectedVariants.value.length) {
+          return result.value;
         }
-        const mergedResult = selectedVariants.reduce<Result>((result, variant) => {
+        const mergedResult = selectedVariants.value.reduce<Result>((result, variant) => {
           return {
             ...result,
             ...variant
           };
-        }, props.result);
-        mergedResult.variants = props.result.variants;
+        }, result.value);
+        mergedResult.variants = result.value.variants;
         return mergedResult;
       });
 
@@ -141,7 +148,9 @@
         );
       };
 
-      return render;
+      return {
+        render
+      };
     }
   });
 </script>

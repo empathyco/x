@@ -76,7 +76,17 @@
 
 <script lang="ts">
   import { Identifiable } from '@empathyco/x-types';
-  import Vue, { defineComponent, PropType, computed, ref, watch, nextTick, readonly } from 'vue';
+  import Vue, {
+    defineComponent,
+    PropType,
+    computed,
+    ref,
+    watch,
+    nextTick,
+    isReadonly,
+    onBeforeUnmount,
+    Ref
+  } from 'vue';
   import { getTargetElement } from '../utils/html';
   import { normalizeString } from '../utils/normalize';
   import { isInRange } from '../utils/number';
@@ -84,7 +94,7 @@
   import { VueCSSClasses } from '../utils/types';
   import { NoElement } from './no-element';
 
-  type DropdownItem = string | number | Identifiable;
+  type DropdownItem = Identifiable;
 
   /**
    * Dropdown component that mimics a Select element behavior, but with the option
@@ -160,20 +170,20 @@
        *
        * @internal
        */
-      let isOpen = false;
+      let isOpen: Ref<boolean> = ref(false);
 
       /**
        * Index of the element that has the focus in the list. -1 means no element has focus.
        *
        * @internal
        */
-      let highlightedItemIndex = -1;
+      let highlightedItemIndex: Ref<number> = ref(-1);
       /**
        * String to search for the first element that starts with it.
        *
        * @internal
        */
-      let searchBuffer = '';
+      let searchBuffer: Ref<string> = ref('');
 
       /**
        * Resets the search buffer after a certain time has passed.
@@ -182,7 +192,9 @@
        */
       let restartResetSearchTimeout!: () => void;
 
-      const readonly listId = `x-dropdown-${dropdownCount++}`;
+      const listId = `x-dropdown-${dropdownCount++}`;
+
+      isReadonly(listId);
 
       /**
        * Dynamic CSS classes to add to the dropdown root element.
@@ -192,7 +204,7 @@
        */
       const dropdownCSSClasses = computed<VueCSSClasses>(() => {
         return {
-          'x-dropdown--is-open': isOpen
+          'x-dropdown--is-open': isOpen.value
         };
       });
 
@@ -206,7 +218,7 @@
         return props.items.map((item, index) => {
           return {
             'x-dropdown__item--is-selected': props.value === item,
-            'x-dropdown__item--is-highlighted': highlightedItemIndex === index
+            'x-dropdown__item--is-highlighted': highlightedItemIndex.value === index
           };
         });
       });
@@ -217,7 +229,7 @@
        * @internal
        */
       const close = (): void => {
-        isOpen = false;
+        isOpen.value = false;
       };
 
       /**
@@ -252,7 +264,7 @@
        *
        * @internal
        */
-      const beforeDestroy = (): void => removeDocumentCloseListeners();
+      onBeforeUnmount((): void => removeDocumentCloseListeners());
 
       /**
        * Opens the dropdown.
@@ -260,7 +272,7 @@
        * @internal
        */
       const open = (): void => {
-        isOpen = true;
+        isOpen.value = true;
       };
 
       /**
@@ -279,7 +291,7 @@
        * @internal
        */
       const toggle = (): void => {
-        isOpen = !isOpen;
+        isOpen.value = !isOpen.value;
       };
 
       /**
@@ -300,7 +312,7 @@
        */
       const highlightNextItem = (): void => {
         open();
-        highlightedItemIndex = (highlightedItemIndex + 1) % props.items.length;
+        highlightedItemIndex.value = (highlightedItemIndex.value + 1) % props.items.length;
       };
 
       /**
@@ -310,8 +322,8 @@
        */
       const highlightPreviousItem = (): void => {
         open();
-        highlightedItemIndex =
-          highlightedItemIndex > 0 ? highlightedItemIndex - 1 : props.items.length - 1;
+        highlightedItemIndex.value =
+          highlightedItemIndex.value > 0 ? highlightedItemIndex.value - 1 : props.items.length - 1;
       };
 
       /**
@@ -320,7 +332,7 @@
        * @internal
        */
       const highlightFirstItem = (): void => {
-        highlightedItemIndex = 0;
+        highlightedItemIndex.value = 0;
       };
 
       /**
@@ -329,7 +341,7 @@
        * @internal
        */
       const highlightLastItem = (): void => {
-        highlightedItemIndex = props.items.length - 1;
+        highlightedItemIndex.value = props.items.length - 1;
       };
 
       /**
@@ -341,7 +353,7 @@
       const updateSearchBuffer = (event: KeyboardEvent): void => {
         if (/^\w$/.test(event.key)) {
           const key = event.key;
-          searchBuffer += key;
+          searchBuffer.value += key;
           restartResetSearchTimeout();
         }
       };
@@ -371,9 +383,9 @@
             },
             []
           );
-          highlightedItemIndex =
+          highlightedItemIndex.value =
             // First matching item starting to search from the current highlighted element
-            matchingIndices.find(index => index >= highlightedItemIndex) ??
+            matchingIndices.find(index => index >= highlightedItemIndex.value) ??
             // First matching item
             matchingIndices[0] ??
             // First item
@@ -387,7 +399,7 @@
        * @internal
        */
       const resetSearch = (): void => {
-        searchBuffer = '';
+        searchBuffer.value = '';
       };
 
       /**
@@ -398,7 +410,7 @@
        * @internal
        */
       watch(
-        props.searchTimeoutMs,
+        ref(props.searchTimeoutMs),
         (searchTimeoutMs: number): void => {
           // eslint-disable-next-line @typescript-eslint/unbound-method
           restartResetSearchTimeout = debounce(resetSearch, searchTimeoutMs);
@@ -433,9 +445,9 @@
        */
       watch(isOpen, (isOpen: boolean): void => {
         if (isOpen) {
-          highlightedItemIndex = props.value === null ? 0 : props.items.indexOf(props.value!);
+          highlightedItemIndex.value = props.value === null ? 0 : props.items.indexOf(props.value!);
         } else {
-          highlightedItemIndex = -1;
+          highlightedItemIndex.value = -1;
         }
       });
 

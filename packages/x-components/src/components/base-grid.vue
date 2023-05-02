@@ -112,7 +112,7 @@
        *
        * @public
        */
-      const computedItems = computed<ListItem[]>(() => {
+      const computedItems = computed<ListItem[] | void>(() => {
         return (
           props.items ??
           injectedListItems ??
@@ -155,7 +155,7 @@
        * @internal
        */
       const gridItems = computed<GridItem[]>(() => {
-        return computedItems.value.map(item => {
+        return computedItems.value!.map(item => {
           const slotName = toKebabCase(item.modelName);
           return {
             slotName,

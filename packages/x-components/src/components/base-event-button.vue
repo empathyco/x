@@ -1,5 +1,5 @@
 <template>
-  <button ref="root" v-on="$listeners" @click="emitEvents" data-test="event-button">
+  <button ref="el" v-on="$listeners" @click="emitEvents" data-test="event-button">
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
   </button>
@@ -34,17 +34,17 @@
     },
     setup(props) {
       const $x = use$x();
-      const root = ref<HTMLElement | null>(null);
+      const el = ref<HTMLElement | null>();
 
       const emitEvents = (): void => {
         Object.entries(props.events).forEach(([event, payload]) => {
-          $x.emit(event as XEvent, payload, { target: root.value! });
+          $x.emit(event as XEvent, payload, { target: el.value! });
         });
       };
 
       return {
         emitEvents,
-        root
+        el
       };
     }
   });
