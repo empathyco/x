@@ -1,28 +1,31 @@
 <template>
   <a @click="emitClickEvent" :href="promoted.url" class="x-promoted" data-test="promoted">
     <img :src="promoted.image" class="x-promoted__image" :alt="promoted.title" />
-    <h2 class="x-promoted__title">{{ promoted.title }}</h2>
+    <h2 class="x-promoted__title" :class="titleClass">{{ promoted.title }}</h2>
   </a>
 </template>
 
 <script lang="ts">
   import { Promoted as PromotedModel } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Mixins, Prop } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
+  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
 
   /**
    * A promoted result is just an item that has been inserted into the search results to advertise
    * something. Usually it is one of the first items in the grid, and has the same shape as a
    * result. It just contains a link to the promoted content, an image, and a title.
    *
+   * Additionally, this component exposes the following props to modify the classes of the
+   * elements: `titleClass`.
+   *
    * @public
    */
   @Component({
     mixins: [xComponentMixin(searchXModule)]
   })
-  export default class Promoted extends Vue {
+  export default class Promoted extends Mixins(dynamicPropsMixin(['titleClass'])) {
     /**
      * The promoted data.
      *

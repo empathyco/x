@@ -14,7 +14,7 @@
       class="x-banner__image"
       data-test="banner-image"
     />
-    <h2 v-if="banner.title" class="x-banner__title">
+    <h2 v-if="banner.title" class="x-banner__title" :class="titleClass">
       {{ banner.title }}
     </h2>
   </component>
@@ -22,10 +22,10 @@
 
 <script lang="ts">
   import { Banner as BannerModel } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Mixins, Prop } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { searchXModule } from '../x-module';
+  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
 
   /**.
    * A banner result is just an item that has been inserted into the search results to advertise
@@ -35,12 +35,15 @@
    * or not. It contains an image and, optionally, a title. In case the image does not
    * load due to an error the banner will not be rendered.
    *
+   * Additionally, this component exposes the following props to modify the classes of the
+   * elements: `titleClass`.
+   *
    * @public
    */
   @Component({
     mixins: [xComponentMixin(searchXModule)]
   })
-  export default class Banner extends Vue {
+  export default class Banner extends Mixins(dynamicPropsMixin(['titleClass'])) {
     /**
      * The banner data.
      *
