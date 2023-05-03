@@ -1,3 +1,3 @@
 export * from './origin';
 export * from './url-params';
-export * from './AnimationProp';
+export * from './animation-prop';

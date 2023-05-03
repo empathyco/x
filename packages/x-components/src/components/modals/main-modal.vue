@@ -15,7 +15,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { animationProp } from '../../types/AnimationProp';
+  import { AnimationProp } from '../../types/animation-prop';
   import { XEvent } from '../../wiring/events.types';
   import BaseEventsModal from './base-events-modal.vue';
 
@@ -35,7 +35,7 @@
        * @public
        */
       animation: {
-        type: animationProp
+        type: AnimationProp
       },
       /**
        * Determines if the focused element changes to one inside the modal when it opens. Either the

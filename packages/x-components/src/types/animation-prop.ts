@@ -5,4 +5,4 @@ import { DefineComponent, PropType } from 'vue';
  *
  * @public
  */
-export const animationProp = [String, Object, Function] as PropType<DefineComponent | string>;
+export const AnimationProp = [String, Object, Function] as PropType<DefineComponent | string>;
