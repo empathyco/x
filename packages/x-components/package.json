@@ -51,7 +51,7 @@
     "gen:typescript-docs": "api-documenter markdown --input-folder dist/report --output-folder docs/API-reference/api",
     "gen:component-docs": "vue-docgen",
     "lint": "eslint . --ext .ts,.vue",
-    "test:unit": "jest --silent && pnpm run test:unit-cypress",
+    "test:unit": "jest --silent",
     "test:unit-jest": "jest",
     "test:unit-cypress": "cypress run --component --browser chrome",
     "test:unit-coverage": "jest --coverage",
