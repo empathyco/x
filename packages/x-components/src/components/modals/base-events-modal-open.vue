@@ -12,8 +12,7 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType } from 'vue';
   import { PropsWithType } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
   import BaseEventButton from '../base-event-button.vue';
@@ -24,17 +23,29 @@
    *
    * @public
    */
-  @Component({
-    components: { BaseEventButton }
-  })
-  export default class BaseEventsModalOpen extends Vue {
-    @Prop({ default: 'UserClickedOpenEventsModal' })
-    protected openingEvent!: PropsWithType<XEventsTypes, void>;
+  export default defineComponent({
+    components: {
+      BaseEventButton
+    },
+    props: {
+      /**
+       * Event name to use for opening the modal.
+       *
+       * @public
+       */
+      openingEvent: {
+        type: String as PropType<PropsWithType<XEventsTypes, void>>,
+        default: 'UserClickedOpenEventsModal'
+      }
+    },
+    setup(props) {
+      const events = computed<Partial<XEventsTypes>>(() => ({ [props.openingEvent]: undefined }));
 
-    protected get events(): Partial<XEventsTypes> {
-      return { [this.openingEvent]: undefined };
+      return {
+        events
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
