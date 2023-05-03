@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.364](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.363...@empathyco/x-components@3.0.0-alpha.364) (2023-05-03)
+
+### Features
+
+- migrate modals to vue 3 syntax (#1141)
+  ([d04b522](https://github.com/empathyco/x/commit/d04b522607787bdfe887896a26895d00fdd0d369))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.363](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.362...@empathyco/x-components@3.0.0-alpha.363) (2023-05-03)
 
 ### Features
