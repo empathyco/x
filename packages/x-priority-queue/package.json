@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@types/jest": "~27.5.0",
-    "concurrently": "~7.6.0",
+    "concurrently": "~8.0.0",
     "jest": "~27.5.0",
     "rimraf": "~3.0.2",
     "ts-jest": "~27.1.0",
