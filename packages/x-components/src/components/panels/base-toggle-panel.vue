@@ -9,7 +9,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { animationProp } from '../../utils/options-api';
+  import { AnimationProp } from '../../types/animation-prop';
 
   /**
    * Simple panel that receives its open state via prop, which is responsible of rendering
@@ -35,7 +35,7 @@
        * @public
        */
       animation: {
-        type: animationProp,
+        type: AnimationProp,
         default: 'div'
       }
     }

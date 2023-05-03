@@ -24,7 +24,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
-  import { animationProp } from '../../utils/options-api';
+  import { AnimationProp } from '../../types/animation-prop';
   import { NoElement } from '../no-element';
   import { dynamicPropsMixin } from '../dynamic-props.mixin';
   import BaseTogglePanel from './base-toggle-panel.vue';
@@ -46,7 +46,7 @@
      * @public
      */
     @Prop({ default: () => NoElement })
-    protected animation!: typeof animationProp;
+    protected animation!: typeof AnimationProp;
     /**
      * Handles if the panel is open by default.
      *
