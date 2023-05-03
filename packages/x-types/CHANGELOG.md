@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.64](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.63...@empathyco/x-types@10.0.0-alpha.64) (2023-05-03)
+
+### Features
+
+- Adapt Result mapping according to new API standard (#1039)
+  ([89186b6](https://github.com/empathyco/x/commit/89186b604d72f18bce257b88b536243c11c5ddf3))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [10.0.0-alpha.63](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.62...@empathyco/x-types@10.0.0-alpha.63) (2023-04-12)
 
 **Note:** Version bump only for package @empathyco/x-types
