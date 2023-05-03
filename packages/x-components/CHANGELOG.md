@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.365](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.364...@empathyco/x-components@3.0.0-alpha.365) (2023-05-03)
+
+### Features
+
+- migrate filters to vue 3 syntax (#1144)
+  ([6413883](https://github.com/empathyco/x/commit/641388380620ab0d66cea627244912b6f3b2210d))
+- migrate panels components to vue 3 syntax (#1150)
+  ([5ef137c](https://github.com/empathyco/x/commit/5ef137cbf84d5f68a611a5ecb51cb8454c0a7422))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.364](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.363...@empathyco/x-components@3.0.0-alpha.364) (2023-05-03)
 
 ### Features
