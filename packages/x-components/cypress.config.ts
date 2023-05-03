@@ -36,7 +36,6 @@ export default defineConfig({
     indexHtmlFile: 'tests/support/component-index.html',
     screenshotOnRunFailure: false,
     video: false,
-    experimentalSingleTabRunMode: true,
     devServer: {
       bundler: 'webpack',
       framework: 'vue-cli'
