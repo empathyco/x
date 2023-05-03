@@ -27,7 +27,7 @@ export default defineConfig({
       );
       return config;
     },
-    specPattern: 'tests/e2e/clear-filters/*.feature',
+    specPattern: 'tests/e2e/**/clear-filters.feature',
     experimentalRunAllSpecs: true
   },
   component: {
