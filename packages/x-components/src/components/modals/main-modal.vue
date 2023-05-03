@@ -15,7 +15,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { animationProp } from '../../utils/options-api';
+  import { animationProp } from '../../types/AnimationProp';
   import { XEvent } from '../../wiring/events.types';
   import BaseEventsModal from './base-events-modal.vue';
 
