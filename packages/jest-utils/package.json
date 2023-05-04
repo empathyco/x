@@ -20,7 +20,7 @@
     "directory": "packages/jest-utils"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
     "build": "tsc",
