@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.366](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.365...@empathyco/x-components@3.0.0-alpha.366) (2023-05-04)
+
+### Features
+
+- migrate results to vue 3 syntax (#1145)
+  ([820622a](https://github.com/empathyco/x/commit/820622ab6a37d03de1e4843df2bdbb9daea57e58))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [3.0.0-alpha.365](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.364...@empathyco/x-components@3.0.0-alpha.365) (2023-05-03)
 
 ### Features
