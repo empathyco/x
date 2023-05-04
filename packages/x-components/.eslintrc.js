@@ -7,7 +7,8 @@ module.exports = {
   },
   rules: {
     'no-dupe-class-members': 'off',
-    '@typescript-eslint/no-unused-vars-experimental': 'off'
+    '@typescript-eslint/no-unused-vars-experimental': 'off',
+    'vue/require-default-prop': 'off'
   },
   overrides: [
     {
