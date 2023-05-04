@@ -38,6 +38,10 @@ export default defineConfig({
     indexHtmlFile: 'tests/support/component-index.html',
     screenshotOnRunFailure: false,
     video: false,
+    retries: {
+      openMode: 0,
+      runMode: 1
+    },
     devServer: {
       bundler: 'webpack',
       framework: 'vue-cli'
