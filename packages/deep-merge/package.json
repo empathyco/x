@@ -25,7 +25,7 @@
     "directory": "packages/deep-merge"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
     "prebuild": "pnpm run clean",
