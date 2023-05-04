@@ -31,6 +31,8 @@ export default defineConfig({
     experimentalRunAllSpecs: true
   },
   component: {
+    defaultCommandTimeout: 7000,
+    experimentalSingleTabRunMode: true,
     specPattern: 'tests/unit/**/*.spec.ts',
     supportFile: 'tests/support/index.ts',
     indexHtmlFile: 'tests/support/component-index.html',
