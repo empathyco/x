@@ -24,6 +24,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
+  import { AnimationProp } from '../../types/animation-prop';
   import { NoElement } from '../no-element';
   import { dynamicPropsMixin } from '../dynamic-props.mixin';
   import BaseTogglePanel from './base-toggle-panel.vue';
@@ -45,8 +46,7 @@
      * @public
      */
     @Prop({ default: () => NoElement })
-    protected animation!: Vue | string;
-
+    protected animation!: typeof AnimationProp;
     /**
      * Handles if the panel is open by default.
      *
@@ -54,14 +54,12 @@
      */
     @Prop({ default: false })
     protected startCollapsed!: boolean;
-
     /**
      * Handles if the base panel is open or closed.
      *
      * @internal
      */
     protected open = !this.startCollapsed;
-
     /**
      * Toggles the open property.
      *
@@ -71,7 +69,6 @@
       this.open = !this.open;
       this.emitOpenStatusEvent();
     }
-
     /**
      * Emits open status event.
      *

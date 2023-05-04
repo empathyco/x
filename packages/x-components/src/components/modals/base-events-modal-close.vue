@@ -12,29 +12,40 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType } from 'vue';
   import { PropsWithType } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
   import BaseEventButton from '../base-event-button.vue';
 
   /**
-   * Component contains an event button that emits {@link XEventsTypes.UserClickedCloseEventsModal}
+   * Component contains an event button that emits {@link
+   * XEventsTypes.UserClickedCloseEventsModal}
    * when clicked. It has a default slot to customize its contents.
    *
    * @public
    */
-  @Component({
-    components: { BaseEventButton }
-  })
-  export default class BaseEventsModalClose extends Vue {
-    @Prop({ default: 'UserClickedCloseEventsModal' })
-    protected closingEvent!: PropsWithType<XEventsTypes, void>;
-
-    protected get events(): Partial<XEventsTypes> {
-      return { [this.closingEvent]: undefined };
+  export default defineComponent({
+    components: {
+      BaseEventButton
+    },
+    props: {
+      /**
+       * Event name to use for closing the modal.
+       *
+       * @public
+       */
+      closingEvent: {
+        type: String as PropType<PropsWithType<XEventsTypes, void>>,
+        default: 'UserClickedCloseEventsModal'
+      }
+    },
+    setup(props) {
+      const events = computed<Partial<XEventsTypes>>(() => ({ [props.closingEvent]: undefined }));
+      return {
+        events
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

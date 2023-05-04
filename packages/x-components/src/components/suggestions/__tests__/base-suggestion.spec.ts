@@ -18,14 +18,23 @@ function renderBaseSuggestion({
 }: BaseSuggestionOptions = {}): BaseSuggestionAPI {
   const [, localVue] = installNewXPlugin();
   const emit = jest.spyOn(XPlugin.bus, 'emit');
-  const wrapper = mount(BaseSuggestion, {
-    localVue,
-    propsData: {
-      query,
-      suggestion,
-      suggestionSelectedEvents
+  const wrapper = mount(
+    {
+      components: { BaseSuggestion },
+      props: ['query', 'suggestion', 'suggestionSelectedEvents'],
+      template:
+        '<BaseSuggestion :query="query" :suggestion="suggestion" ' +
+        ':suggestion-selected-events="suggestionSelectedEvents" />'
+    },
+    {
+      localVue,
+      propsData: {
+        query,
+        suggestion,
+        suggestionSelectedEvents
+      }
     }
-  });
+  );
 
   const wireMetadata = expect.objectContaining<Partial<WireMetadata>>({
     target: wrapper.element
@@ -155,6 +164,8 @@ interface BaseSuggestionOptions {
   suggestion?: Suggestion;
   /** The events to emit when selecting a suggestion. */
   suggestionSelectedEvents?: Partial<XEventsTypes>;
+
+  template?: string;
 }
 
 /**

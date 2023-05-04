@@ -11,14 +11,22 @@ describe('testing BaseResultLink component', () => {
     images: ['https://picsum.photos/seed/1/200/300', 'https://picsum.photos/seed/2/200/300']
   });
   let localVue: typeof Vue;
-  let resultLinkWrapper: Wrapper<BaseResultLink>;
+  let resultLinkWrapper: Wrapper<Vue>;
+  const template = '<BaseResultLink :result="result"/>';
 
   beforeEach(() => {
     [, localVue] = installNewXPlugin();
-    resultLinkWrapper = mount(BaseResultLink, {
-      localVue,
-      propsData: { result }
-    });
+    resultLinkWrapper = mount(
+      {
+        components: { BaseResultLink },
+        props: ['result'],
+        template
+      },
+      {
+        localVue,
+        propsData: { result }
+      }
+    );
   });
 
   // eslint-disable-next-line max-len
@@ -40,14 +48,21 @@ describe('testing BaseResultLink component', () => {
 
   it('emits events provided from parent element with provided location in metadata', () => {
     const listener = jest.fn();
-    const resultLinkWrapper = mount(BaseResultLink, {
-      provide: {
-        resultClickExtraEvents: <XEvent[]>['UserClickedResultAddToCart'],
-        location: <FeatureLocation>'no_query'
+    const resultLinkWrapper = mount(
+      {
+        components: { BaseResultLink },
+        props: ['result'],
+        template
       },
-      localVue,
-      propsData: { result }
-    });
+      {
+        provide: {
+          resultClickExtraEvents: <XEvent[]>['UserClickedResultAddToCart'],
+          location: <FeatureLocation>'no_query'
+        },
+        localVue,
+        propsData: { result }
+      }
+    );
     resultLinkWrapper.vm.$x.on('UserClickedResultAddToCart').subscribe(listener);
     resultLinkWrapper.trigger('click');
     expect(listener).toHaveBeenCalledWith(result);

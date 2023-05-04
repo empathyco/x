@@ -1,4 +1,5 @@
 import { SimpleFilter } from '@empathyco/x-types';
+import Vue from 'vue';
 import { mount, Wrapper } from '@vue/test-utils';
 import { getSimpleFilterStub } from '../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../__tests__/utils';
@@ -7,7 +8,7 @@ import BaseRatingFilterLabel from '../base-rating-filter-label.vue';
 function renderBaseRatingLabel({
   template = '<BaseRatingFilterLabel :filter="filter"/>',
   filter = getSimpleFilterStub({ label: '3' })
-}: RenderBaseRatingLabelOptions = {}): Wrapper<BaseRatingFilterLabel> {
+}: RenderBaseRatingLabelOptions = {}): Wrapper<Vue> {
   return mount(
     {
       components: { BaseRatingFilterLabel },
