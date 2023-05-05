@@ -1,4 +1,4 @@
-name: Check branch is releasable and release alpha on main branch update
+name: ci
 on: [push, pull_request]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
