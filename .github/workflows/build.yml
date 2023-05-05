@@ -4,7 +4,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
   cancel-in-progress: true
 jobs:
-  install:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
