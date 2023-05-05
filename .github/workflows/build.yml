@@ -68,6 +68,30 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      # Install pnpm because it is not included in our container image
+      - name: install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: setup ENV variables
+        id: setup-env-vars
+        shell: bash
+        run: |
+          echo "CYPRESS_CACHE_FOLDER=$CYPRESS_CACHE_FOLDER" >> $GITHUB_OUTPUT
+          echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: setup pnpm cache
+        id: pnpm-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ${{ steps.setup-env-vars.outputs.PNPM_STORE_PATH }}
+            ${{ steps.setup-env-vars.outputs.CYPRESS_CACHE_FOLDER }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
       - name: setup lerna cache
         id: lerna-cache
         uses: actions/cache@v3
@@ -76,6 +100,9 @@ jobs:
             node_modules/.cache
           key: lerna-cache-${{github.sha}}
           restore-keys: lerna-cache-
+
+      - name: install dependencies
+        run: pnpm install
 
       - name: Run tests
         run: pnpm run test:e2e:ci
@@ -94,6 +121,30 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      # Install pnpm because it is not included in our container image
+      - name: install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: setup ENV variables
+        id: setup-env-vars
+        shell: bash
+        run: |
+          echo "CYPRESS_CACHE_FOLDER=$CYPRESS_CACHE_FOLDER" >> $GITHUB_OUTPUT
+          echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: setup pnpm cache
+        id: pnpm-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ${{ steps.setup-env-vars.outputs.PNPM_STORE_PATH }}
+            ${{ steps.setup-env-vars.outputs.CYPRESS_CACHE_FOLDER }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
       - name: setup lerna cache
         id: lerna-cache
         uses: actions/cache@v3
@@ -102,6 +153,9 @@ jobs:
             node_modules/.cache
           key: lerna-cache-${{github.sha}}
           restore-keys: lerna-cache-
+
+      - name: install dependencies
+        run: pnpm install
 
       - name: Run tests
         run: pnpm run test:unit
