@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        task: [ lint, 'test:unit', 'test:e2e:ci' ]
+        task: [ lint, 'test:unit', 'test:unit-cypress', 'test:e2e:ci' ]
     name: ${{ matrix.task }}
     container:
       image: cypress/browsers:node-18.16.0-chrome-112.0.5615.121-1-ff-112.0.1-edge-112.0.1722.48-1

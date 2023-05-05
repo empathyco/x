@@ -10,6 +10,7 @@
     "lint:fix": "lerna run lint -- --fix",
     "test:e2e:ci": "lerna run test:e2e:ci",
     "test:unit": "lerna run test:unit",
+    "test:unit-cypress": "lerna run test:unit-cypress",
     "serve": "lerna run serve",
     "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
     "release:alpha": "lerna publish --conventional-commits --conventional-prerelease --yes --no-push",
