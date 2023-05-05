@@ -59,7 +59,7 @@ jobs:
         with:
           name: build
           if-no-files-found: error
-          path: path/**/dist/*
+          path: ./**/dist/*
 
   test-e2e:
     runs-on: ubuntu-latest
