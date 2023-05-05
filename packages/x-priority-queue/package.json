@@ -22,7 +22,7 @@
     "directory": "packages/x-priority-queue"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
     "prebuild": "rimraf dist ./*.tgz",
