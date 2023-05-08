@@ -31,7 +31,7 @@
     "postbuild": "pnpm pack",
     "lint": "eslint . --ext .ts",
     "prepublishOnly": "pnpm run build",
-    "test": "jest"
+    "test:unit": "jest"
   },
   "dependencies": {
     "tslib": "~2.5.0"

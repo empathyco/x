@@ -31,7 +31,7 @@
     "build:esm": "tsc --project tsconfig.esm.json",
     "postbuild": "pnpm pack",
     "lint": "eslint . --ext .ts",
-    "test": "jest",
+    "test:unit": "jest",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
