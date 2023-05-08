@@ -38,8 +38,8 @@
       mix-blend-mode: multiply;
     }
 
-    &--enter-active {
-      transform: translateY(-100%);
+    &--leave-active {
+      position: absolute;
     }
 
     &--leave-to,
