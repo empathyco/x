@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        task: [ lint, 'test:unit', 'test:unit-cypress', 'test:e2e:ci' ]
+        task: [lint, 'test:unit', 'test:unit-cypress', 'test:e2e:ci']
     name: ${{ matrix.task }}
     container:
       image: cypress/browsers:node-18.16.0-chrome-112.0.5615.121-1-ff-112.0.1-edge-112.0.1722.48-1
@@ -70,15 +70,48 @@ jobs:
 
       - name: Run ${{ matrix.task }}
         run: npm run ${{ matrix.task }}
-
   release:
-    needs: [ build ]
+    if:
+      ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
+      !startsWith(github.event.head_commit.message, 'chore(release):') }}
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      # Install pnpm because it is not included in our container image
+      - name: install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: setup pnpm cache
+        id: pnpm-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ${{ steps.setup-env-vars.outputs.PNPM_STORE_PATH }}
+            ${{ steps.setup-env-vars.outputs.CYPRESS_CACHE_FOLDER }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: setup lerna cache
+        id: lerna-cache
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            node_modules/.cache
+          restore-keys: |
+            lerna-cache-${{github.sha}}
+
+      - name: install dependencies
+        run: pnpm install
+
       - name: Release alpha on non-release pushes to main branch
-        if:
-          ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
-          !startsWith(github.event.head_commit.message, 'chore(release):') }}
         uses: ./.github/actions/release-alpha
         with:
           npm_token: ${{ secrets.NPM_TOKEN }}
