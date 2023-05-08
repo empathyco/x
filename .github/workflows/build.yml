@@ -60,9 +60,9 @@ jobs:
         with:
           path: |
             node_modules/.cache
-          key: lerna-cache-${{github.sha}}-${{matrix.task}}
+          key: lerna-cache-${{matrix.task}}-${{github.sha}}
           restore-keys: |
-            lerna-cache-${{github.sha}}
+            lerna-cache-${{matrix.task}}
             lerna-cache-
 
       - name: install dependencies
