@@ -63,7 +63,6 @@ jobs:
           key: lerna-cache-${{matrix.task}}-${{github.sha}}
           restore-keys: |
             lerna-cache-${{matrix.task}}
-            lerna-cache-
 
       - name: install dependencies
         run: pnpm install
