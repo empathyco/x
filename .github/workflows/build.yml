@@ -105,7 +105,7 @@ jobs:
           path: |
             node_modules/.cache
           restore-keys: |
-            lerna-cache-${{github.sha}}
+            lerna-cache-
 
       - name: install dependencies
         run: pnpm install
