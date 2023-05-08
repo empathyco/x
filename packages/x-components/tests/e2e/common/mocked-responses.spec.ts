@@ -351,7 +351,7 @@ When('waiting for search request intercept', () => {
 // Spellcheck
 Given('a results API response for a misspelled word', () => {
   cy.intercept(searchEndpoint, req => {
-    req.reply(createSearchResponse({ spellcheck: 'lego' }));
+    req.reply(createSearchResponse({ spellcheck: 'playmobil' }));
   });
 });
 

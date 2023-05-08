@@ -10,7 +10,6 @@ Feature: Spellcheck component
     And   no special config for layout view
     And   start button is clicked
 
-  @skip
   Scenario Outline: 1. Misspelled word is searched
     Given a results API response for a misspelled word
     When  "<misspelledQuery>" is searched
@@ -18,7 +17,7 @@ Feature: Spellcheck component
 
     Examples:
       | misspelledQuery | spellcheckedQuery |
-      | lgo             | lego              |
+      | paymobil        | playmobil         |
 
   Scenario Outline: 2. Correct word is searched
     Given a results API with a known response
@@ -39,4 +38,4 @@ Feature: Spellcheck component
 
     Examples:
       | misspelledQuery | spellcheckedQuery |
-      | lgo             | lego              |
+      | paymobil        | playmobil         |

@@ -23,8 +23,9 @@ Feature: Next queries component
     And   start button is clicked
     When  a "<query>" with results is typed
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
-    And   next query number <nextQueryItem> is clicked
-    And   the searched query is displayed in history queries
+    When  next query number <nextQueryItem> is clicked
+    And   search-input is focused
+    Then  the searched query is displayed in history queries
     When  clear search button is pressed
     And   a "<query>" with results is typed
     Then  next queries do not contain the history query is <hideSessionQueries>
