@@ -29,6 +29,7 @@
         type: Object as PropType<Result>,
         required: true
       },
+
       /**
        * The provider by default will auto select the first variants of all levels.
        * This prop allows to limit the number of variants auto selected when the provider
@@ -103,7 +104,7 @@
        * and when the result is changed.
        */
       watch(
-        result,
+        result.value,
         () => {
           selectedVariants.value = [];
           selectFirstVariants(result.value.variants?.[0]);
@@ -143,14 +144,12 @@
       const render = (): VNode => {
         return (
           slots.default?.({
-            result: resultToProvide
+            result: resultToProvide.value
           })?.[0] ?? h()
         );
       };
 
-      return {
-        render
-      };
+      return render;
     }
   });
 </script>

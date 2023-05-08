@@ -76,7 +76,7 @@
 
 <script lang="ts">
   import { Identifiable } from '@empathyco/x-types';
-  import Vue, {
+  import {
     defineComponent,
     PropType,
     computed,
@@ -92,6 +92,7 @@
   import { isInRange } from '../utils/number';
   import { debounce } from '../utils/debounce';
   import { VueCSSClasses } from '../utils/types';
+  import { AnimationProp } from '../types/index';
   import { NoElement } from './no-element';
 
   type DropdownItem = Identifiable;
@@ -133,7 +134,8 @@
        * @public
        */
       value: {
-        type: Object as PropType<DropdownItem>
+        type: [String, Number, Object] as PropType<DropdownItem>,
+        required: true
       },
       /**
        * Animation component to use for expanding the dropdown. This is a single element animation,
@@ -142,7 +144,7 @@
        * @public
        */
       animation: {
-        type: [Vue, String],
+        type: AnimationProp,
         default: 'NoElement'
       },
       /**
@@ -159,10 +161,10 @@
       let dropdownCount = 0;
 
       /** Array containing the dropdown list buttons HTMLElements. */
-      const itemButtons = ref<HTMLButtonElement[]>();
+      const itemButtons = ref<HTMLButtonElement[] | null>(null);
 
       /** The button that opens and closes the list of options. */
-      const toggleButton = ref<HTMLButtonElement>();
+      const toggleButton = ref<HTMLButtonElement | null>(null);
 
       /**
        * Property to track whether the dropdown is expanded and displaying the full
@@ -237,8 +239,8 @@
        *
        * @param event - The event to check if it has happen out of the dropdown component.
        */
+      const el = ref<HTMLElement | null>();
       const closeIfEventIsOutOfDropdown = (event: MouseEvent | TouchEvent | FocusEvent): void => {
-        const el = ref<HTMLElement | null>(null);
         if (!el.value!.contains(getTargetElement(event))) {
           close();
         }
@@ -369,29 +371,32 @@
        * @param search - The search string to find in the HTML.
        * @internal
        */
-      watch(searchBuffer, (search: string): void => {
-        if (search) {
-          const normalizedSearch = normalizeString(search);
-          const matchingIndices = itemButtons.value!.reduce<number[]>(
-            (matchingIndices, button, index) => {
-              const safeButtonWordCharacters = button.textContent!.replace(/[^\w]/g, '');
-              const normalizedButtonText = normalizeString(safeButtonWordCharacters);
-              if (normalizedButtonText.startsWith(normalizedSearch)) {
-                matchingIndices.push(index);
-              }
-              return matchingIndices;
-            },
-            []
-          );
-          highlightedItemIndex.value =
-            // First matching item starting to search from the current highlighted element
-            matchingIndices.find(index => index >= highlightedItemIndex.value) ??
-            // First matching item
-            matchingIndices[0] ??
-            // First item
-            0;
+      watch(
+        () => searchBuffer.value,
+        (search: string): void => {
+          if (search) {
+            const normalizedSearch = normalizeString(search);
+            const matchingIndices = itemButtons.value!.reduce<number[]>(
+              (matchingIndices, button, index) => {
+                const safeButtonWordCharacters = button.textContent!.replace(/[^\w]/g, '');
+                const normalizedButtonText = normalizeString(safeButtonWordCharacters);
+                if (normalizedButtonText.startsWith(normalizedSearch)) {
+                  matchingIndices.push(index);
+                }
+                return matchingIndices;
+              },
+              []
+            );
+            highlightedItemIndex.value =
+              // First matching item starting to search from the current highlighted element
+              matchingIndices.find(index => index >= highlightedItemIndex.value) ??
+              // First matching item
+              matchingIndices[0] ??
+              // First item
+              0;
+          }
         }
-      });
+      );
 
       /**
        * Resets the search buffer.
@@ -410,7 +415,7 @@
        * @internal
        */
       watch(
-        ref(props.searchTimeoutMs),
+        () => props.searchTimeoutMs,
         (searchTimeoutMs: number): void => {
           // eslint-disable-next-line @typescript-eslint/unbound-method
           restartResetSearchTimeout = debounce(resetSearch, searchTimeoutMs);
@@ -425,7 +430,7 @@
        * @internal
        */
       watch(
-        highlightedItemIndex,
+        () => highlightedItemIndex.value,
         (highlightedItemIndex: number): void => {
           nextTick(() => {
             if (itemButtons && isInRange(highlightedItemIndex, [0, props.items.length - 1])) {
@@ -443,13 +448,17 @@
        * @param isOpen - True if the dropdown is open, false otherwise.
        * @internal
        */
-      watch(isOpen, (isOpen: boolean): void => {
-        if (isOpen) {
-          highlightedItemIndex.value = props.value === null ? 0 : props.items.indexOf(props.value!);
-        } else {
-          highlightedItemIndex.value = -1;
+      watch(
+        () => isOpen.value,
+        (isOpen: boolean): void => {
+          if (isOpen) {
+            highlightedItemIndex.value =
+              props.value === null ? 0 : props.items.indexOf(props.value!);
+          } else {
+            highlightedItemIndex.value = -1;
+          }
         }
-      });
+      );
 
       /**
        * Adds listeners to the document element to detect if the focus has moved out from the
@@ -471,19 +480,22 @@
        * @param isOpen - True if the dropdown is open, false otherwise.
        * @internal
        */
-      watch(isOpen, (isOpen: boolean): void => {
-        /*
-         * Because there is an issue with Firefox in macOS and Safari that doesn't focus the target
-         * element of the `mousedown` events, the `focusout` event `relatedTarget` property can't be
-         * used to detect whether or not the user has blurred the dropdown. The hack here is to use
-         * document listeners that have the side effect of losing the focus.
-         */
-        if (isOpen) {
-          addDocumentCloseListeners();
-        } else {
-          removeDocumentCloseListeners();
+      watch(
+        () => isOpen.value,
+        (isOpen: boolean): void => {
+          /*
+           * Because there is an issue with Firefox in macOS and Safari that doesn't focus the target
+           * element of the `mousedown` events, the `focusout` event `relatedTarget` property can't be
+           * used to detect whether or not the user has blurred the dropdown. The hack here is to use
+           * document listeners that have the side effect of losing the focus.
+           */
+          if (isOpen) {
+            addDocumentCloseListeners();
+          } else {
+            removeDocumentCloseListeners();
+          }
         }
-      });
+      );
 
       return {
         updateSearchBuffer,
@@ -498,7 +510,8 @@
         highlightFirstItem,
         emitSelectedItemChanged,
         itemsCSSClasses,
-        highlightedItemIndex
+        highlightedItemIndex,
+        el
       };
     }
   });

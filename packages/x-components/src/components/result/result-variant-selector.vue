@@ -88,18 +88,21 @@
       const selectResultVariant = inject<(variant: ResultVariant, level?: number) => void>(
         SELECT_RESULT_VARIANT_KEY as string
       );
+
       /**
        * The original result, used to retrieve the available variants for the level.
        *
        * @public
        */
       const result = inject<Result>(RESULT_WITH_VARIANTS_KEY as string);
+
       /**
        * Array containing the selected variants.
        *
        * @public
        */
       const selectedVariants = inject<ResultVariant[]>(SELECTED_VARIANTS_KEY as string);
+
       /**
        * It retrieves the available variants from the result.
        *
@@ -112,6 +115,10 @@
         }
         return selectedVariants![props.level - 1].variants;
       });
+
+
+      console.log('variants:', variants.value);
+      console.log('result:', result);
       /**
        * Gets the selected variant of the current level.
        *
@@ -121,6 +128,7 @@
       const selectedVariant = computed<ResultVariant | undefined>(() => {
         return variants.value?.find(variant => variant === selectedVariants![props.level]);
       });
+
       /**
        * Calls the provided method to select a variant.
        *
@@ -130,6 +138,7 @@
       const selectVariant = (variant: ResultVariant): void => {
         selectResultVariant!(variant, props.level);
       };
+
       /**
        * Checks if a variant is selected.
        *
