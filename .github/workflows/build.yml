@@ -109,6 +109,7 @@ jobs:
         id: lerna-cache
         uses: actions/cache/restore@v3
         with:
+          key: lerna-cache-${{github.sha}}
           path: |
             node_modules/.cache
           restore-keys: |
