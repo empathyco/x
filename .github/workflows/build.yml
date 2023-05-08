@@ -108,11 +108,10 @@ jobs:
       - name: setup lerna cache
         id: lerna-cache
         uses: actions/cache/restore@v3
+        key: lerna-cache-
         with:
           path: |
             node_modules/.cache
-          restore-keys: |
-            lerna-cache-
 
       - name: install dependencies
         run: pnpm install
