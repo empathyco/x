@@ -152,6 +152,11 @@
         visibility: 'hidden !important'
       };
 
+      /**
+       * Reactive reference to the result images.
+       *
+       * @internal
+       */
       const resultImages = toRef(props.result, 'images');
 
       /**
@@ -192,7 +197,7 @@
        */
       const imageSrc = computed<string>(() => {
         return loadedImages.value[
-          !props.showNextImageOnHover || !isHovering ? 0 : loadedImages.value.length - 1
+          !props.showNextImageOnHover || !isHovering.value ? 0 : loadedImages.value.length - 1
         ];
       });
 
