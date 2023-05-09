@@ -24,7 +24,7 @@
     "directory": "packages/x-tailwindcss"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=16"
   },
   "scripts": {
     "dev": "vite serve demo",

@@ -24,7 +24,7 @@
     "directory": "packages/x-adapter-platform"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=16"
   },
   "scripts": {
     "prebuild": "rimraf ./dist ./*.tgz",
