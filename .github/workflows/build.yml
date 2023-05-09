@@ -54,16 +54,16 @@ jobs:
           key: eslint-${{github.sha}}
           restore-keys: eslint-
 
-      - name: setup lerna cache
-        id: lerna-cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules/.cache
-          key: lerna-cache-${{github.sha}}-${{matrix.task}}
-          restore-keys: |
-            lerna-cache-${{github.sha}}
-            lerna-cache-
+#      - name: setup lerna cache
+#        id: lerna-cache
+#        uses: actions/cache@v3
+#        with:
+#          path: |
+#            node_modules/.cache
+#          key: lerna-cache-${{github.sha}}-${{matrix.task}}
+#          restore-keys: |
+#            lerna-cache-${{github.sha}}
+#            lerna-cache-
 
       - name: install dependencies
         run: pnpm install
