@@ -58,7 +58,7 @@
     "test:unit-watch": "jest --watch",
     "test:e2e": "vue-cli-service test:e2e --e2e --browser chrome",
     "test:e2e:firefox": "vue-cli-service test:e2e --e2e --browser firefox",
-    "test:e2e:ci": "vue-cli-service test:e2e --browser chrome",
+    "test:e2e:ci": "vue-cli-service test:e2e --headless --browser chrome",
     "test": "pnpm run test:unit && pnpm run test:e2e:ci",
     "cypress:open": "cypress open --e2e --browser chrome",
     "cypress:open:firefox": "cypress open --e2e --browser firefox",
