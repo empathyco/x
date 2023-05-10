@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-logger@2.0.0-alpha.0...@empathyco/x-logger@2.0.0-alpha.0) (2023-05-09)
+
+**Note:** Version bump only for package @empathyco/x-logger
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.2.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-logger@1.2.0-alpha.10...@empathyco/x-logger@1.2.0-alpha.11) (2023-04-12)
 
 **Note:** Version bump only for package @empathyco/x-logger
