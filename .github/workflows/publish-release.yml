@@ -43,7 +43,7 @@ jobs:
           npm config set registry="https://registry.npmjs.org/"
           npm config set _authToken=${NPM_TOKEN}
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN_GRANULAR_ACCESS }}
 
       - name: publish the release
         run: pnpm run publish-release
