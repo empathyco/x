@@ -36,7 +36,7 @@ importers:
     dependencies:
       '@empathyco/x-utils':
         specifier: ^1.0.0-alpha.19
-        version: 1.0.0-alpha.19
+        version: link:../x-utils
       tslib:
         specifier: ~2.5.0
         version: 2.5.0
@@ -221,10 +221,10 @@ importers:
     dependencies:
       '@empathyco/x-deep-merge':
         specifier: ^1.3.0-alpha.34
-        version: 1.3.0-alpha.34
+        version: link:../deep-merge
       '@empathyco/x-utils':
         specifier: ^1.0.0-alpha.19
-        version: 1.0.0-alpha.19
+        version: link:../x-utils
       tslib:
         specifier: ~2.5.0
         version: 2.5.0
@@ -258,7 +258,7 @@ importers:
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: ^1.0.0-alpha.19
-        version: 1.0.0-alpha.19
+        version: link:../x-utils
       tslib:
         specifier: ~2.5.0
         version: 2.5.0
@@ -292,7 +292,7 @@ importers:
     dependencies:
       '@empathyco/x-deep-merge':
         specifier: ^1.3.0-alpha.34
-        version: 1.3.0-alpha.34
+        version: link:../deep-merge
       tslib:
         specifier: ~2.5.0
         version: 2.5.0
@@ -302,7 +302,7 @@ importers:
     devDependencies:
       '@empathyco/x-utils':
         specifier: ^1.0.0-alpha.19
-        version: 1.0.0-alpha.19
+        version: link:../x-utils
       '@types/jest':
         specifier: ~27.5.0
         version: 27.5.0
@@ -347,7 +347,7 @@ importers:
         version: link:../x-priority-queue
       '@empathyco/x-utils':
         specifier: ^1.0.0-alpha.19
-        version: 1.0.0-alpha.19
+        version: link:../x-utils
       rxjs:
         specifier: ~7.8.0
         version: 7.8.0
@@ -387,7 +387,7 @@ importers:
         version: link:../x-bus
       '@empathyco/x-deep-merge':
         specifier: ^1.3.0-alpha.34
-        version: 1.3.0-alpha.34
+        version: link:../deep-merge
       '@empathyco/x-logger':
         specifier: ^1.2.0-alpha.11
         version: 1.2.0-alpha.11
@@ -399,7 +399,7 @@ importers:
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: ^1.0.0-alpha.19
-        version: 1.0.0-alpha.19
+        version: link:../x-utils
       '@vue/devtools-api':
         specifier: ~6.5.0
         version: 6.5.0
@@ -578,7 +578,7 @@ importers:
     dependencies:
       '@empathyco/x-utils':
         specifier: ^1.0.0-alpha.19
-        version: 1.0.0-alpha.19
+        version: link:../x-utils
       tslib:
         specifier: ~2.5.0
         version: 2.5.0
@@ -627,10 +627,10 @@ importers:
     dependencies:
       '@empathyco/x-deep-merge':
         specifier: ^1.3.0-alpha.34
-        version: 1.3.0-alpha.34
+        version: link:../deep-merge
       '@empathyco/x-utils':
         specifier: ^1.0.0-alpha.19
-        version: 1.0.0-alpha.19
+        version: link:../x-utils
       tslib:
         specifier: ~2.5.0
         version: 2.5.0
@@ -688,7 +688,7 @@ importers:
     dependencies:
       '@empathyco/x-deep-merge':
         specifier: ^1.3.0-alpha.34
-        version: 1.3.0-alpha.34
+        version: link:../deep-merge
     devDependencies:
       '@types/jest':
         specifier: ~27.5.0
@@ -717,7 +717,7 @@ importers:
     devDependencies:
       '@empathyco/x-jest-utils':
         specifier: ^1.4.0-alpha.11
-        version: link:../jest-utils
+        version: 1.4.0-alpha.11
       '@microsoft/api-documenter':
         specifier: ~7.22.0
         version: 7.22.0(@types/node@16.18.0)
@@ -1646,34 +1646,17 @@ packages:
       - supports-color
     dev: true
 
-  /@empathyco/x-deep-merge@1.3.0-alpha.34:
-    resolution: {integrity: sha512-2TMI3jU139A/i2G5pUUujFsosAOVgWtSdTWD//f59FR1pMzlfTDhimSkJBt+joBIWJehbYWt6Bi4iN04Tu1/gA==}
+  /@empathyco/x-jest-utils@1.4.0-alpha.11:
+    resolution: {integrity: sha512-yl68CngEeXGfHXZAzqypIeRTnaHkuoLLBNJt13chvl1d9VgYixN8CXBlzfghMHeWGNyQNqGjqwlJ8f+P4xxV9g==}
     engines: {node: '>=16'}
-    dependencies:
-      '@empathyco/x-utils': 1.0.0-alpha.19
-      tslib: 2.5.0
-    dev: false
+    dev: true
 
   /@empathyco/x-logger@1.2.0-alpha.11:
     resolution: {integrity: sha512-fZMkFGcAV8HM0fKW6YyUAYMEf+snZyg41SSnxTezgsoOr6mhJr95SoPH/wlXx0fLEC5u9K2OPdMZtoLHMnBSJw==}
     engines: {node: '>=16'}
     dependencies:
       tslib: 2.5.0
-
-  /@empathyco/x-storage-service@2.0.0-alpha.11:
-    resolution: {integrity: sha512-qVd6DlTvvlnB1U2S97srAP3XZTGsBnfA3ivv8rH/wJlgdoqdyhH3Xr60WpsxYFzTjN9uiTKp5EIjsAZaykwyXQ==}
-    engines: {node: '>=16'}
-    dependencies:
-      '@empathyco/x-logger': 1.2.0-alpha.11
-      tslib: 2.5.0
-
-  /@empathyco/x-utils@1.0.0-alpha.19:
-    resolution: {integrity: sha512-SLdnCV/Hpr6V+g2n4rB6DtPLj15OtDqnHn/wyX3Z7H32BZ2YYLq9z/ZBis9A20ppoTRTdHYJKB+8Slhcpka0Pg==}
-    engines: {node: '>=16'}
-    dependencies:
-      '@empathyco/x-storage-service': 2.0.0-alpha.11
-      nanoid: 3.3.4
-      tslib: 2.5.0
+    dev: false
 
   /@es-joy/jsdoccomment@0.36.1:
     resolution: {integrity: sha512-922xqFsTpHs6D0BUiG4toiyPOMc8/jafnWKxz1KWgS4XzKPy2qXf1Pe6UFuNSCQqt6tOuhAWXBNuuyUhJmw9Vg==}
