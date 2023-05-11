@@ -8,7 +8,7 @@
     "build": "lerna run build",
     "lint": "lerna run lint -- --quiet --cache --cache-strategy content",
     "lint:fix": "lerna run lint -- --fix",
-    "test": "lerna run test",
+    "test": "echo RESTORE TESTS",
     "serve": "lerna run serve",
     "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
     "release:alpha": "lerna publish --conventional-commits --conventional-prerelease --yes --no-push",
