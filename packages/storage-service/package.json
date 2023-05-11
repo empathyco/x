@@ -33,7 +33,7 @@
     "build:watch": "tsc --watch",
     "postbuild": "pnpm pack",
     "lint": "eslint . --ext .ts",
-    "test:unit": "jest",
+    "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "prepublishOnly": "pnpm run build"
