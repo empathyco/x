@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.32...@empathyco/eslint-plugin-x@2.0.0-alpha.34) (2023-05-11)
+
+### ⚠ BREAKING CHANGES
+
+* minimum node version required is 18.
+
 ## [2.0.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.32...@empathyco/eslint-plugin-x@2.0.0-alpha.33) (2023-03-29)
 
 ### Features
