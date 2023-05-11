@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-logger",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "description": "Empathy simple logger",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -31,7 +31,7 @@
     "postbuild": "pnpm pack",
     "lint": "eslint . --ext .ts",
     "prepublishOnly": "pnpm run build",
-    "test:unit": "jest"
+    "test": "jest"
   },
   "dependencies": {
     "tslib": "~2.5.0"

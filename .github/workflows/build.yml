@@ -1,4 +1,4 @@
-name: ci
+name: Check branch is releasable and release alpha on main branch update
 on: [push, pull_request]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
@@ -6,10 +6,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        task: [lint, 'test:unit', 'test:unit-cypress', 'test:e2e:ci']
-    name: ${{ matrix.task }}
     container:
       image: cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
       # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
@@ -47,84 +43,25 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: setup eslint cache
-        if: ${{ matrix.task == 'lint' }}
         uses: actions/cache@v3
         with:
           path: '**/.eslintcache'
           key: eslint-${{github.sha}}
           restore-keys: eslint-
 
-      - name: setup lerna cache
-        id: lerna-cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules/.cache
-          key: lerna-cache-${{matrix.task}}-${{github.sha}}
-          restore-keys: |
-            lerna-cache-${{matrix.task}}
-
       - name: install dependencies
         run: pnpm install
 
-      - name: Run ${{ matrix.task }}
-        run: npm run ${{ matrix.task }}
+      - name: lint packages
+        run: pnpm run lint
 
-  release:
-    if:
-      ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
-      !startsWith(github.event.head_commit.message, 'chore(release):') }}
-    needs: [build]
-    runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
-      # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
-      options: --user 1001
+      - name: test packages
+        run: pnpm run test
 
-    steps:
-      - name: checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      # Install pnpm because it is not included in our container image
-      - name: install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7
-
-      - name: setup ENV variables
-        id: setup-env-vars
-        shell: bash
-        run: |
-          echo "CYPRESS_CACHE_FOLDER=$CYPRESS_CACHE_FOLDER" >> $GITHUB_OUTPUT
-          echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT    
-
-      - name: setup pnpm cache
-        id: pnpm-cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            ${{ steps.setup-env-vars.outputs.PNPM_STORE_PATH }}
-            ${{ steps.setup-env-vars.outputs.CYPRESS_CACHE_FOLDER }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: setup lerna cache
-        id: lerna-cache
-        uses: actions/cache@v3
-        with:
-          key: lerna-cache-${{github.sha}}
-          path: |
-            node_modules/.cache
-          restore-keys: |
-            lerna-cache-
-
-      - name: install dependencies
-        run: pnpm install
-
-      - name: Release alpha on non-release pushes to main branch
+      - name: release alpha on non-release pushes to main branch
+        if:
+          ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
+          !startsWith(github.event.head_commit.message, 'chore(release):') }}
         uses: ./.github/actions/release-alpha
         with:
           npm_token: ${{ secrets.NPM_TOKEN }}
