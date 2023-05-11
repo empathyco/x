@@ -1,5 +1,27 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [10.0.0-alpha.67](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.66...@empathyco/x-types@10.0.0-alpha.67) (2023-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** minimum node version required is 18.
+* **deps:** minimum version required is node v18
+
+EMP-274
+
+### Others
+
+* **deps:** update node to 18 (#1196) ([e0e6b35](https://github.com/empathyco/x/commit/e0e6b35eefb3ef83f22e341f662475b0e6066e94))
+* **deps:** update node to v18 (#1175) ([14e64e1](https://github.com/empathyco/x/commit/14e64e11fdf7f3d27d59baf56b027857df9e61e7))
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

@@ -1,5 +1,33 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.15...@empathyco/x-priority-queue@1.0.0-alpha.0) (2023-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** minimum node version required is 18.
+* **deps:** minimum version required is node v18
+
+EMP-274
+
+### Continuous Integration
+
+* parallelize steps (#1174) ([3013595](https://github.com/empathyco/x/commit/3013595857c8dac33f36b2c0d08e747b0735c6a0))
+* restore build workflow (#1194) ([076ee49](https://github.com/empathyco/x/commit/076ee492388ba000ebdfa49d9f4356562c8bef19))
+
+
+### Others
+
+* **deps:** update node to 18 (#1196) ([e0e6b35](https://github.com/empathyco/x/commit/e0e6b35eefb3ef83f22e341f662475b0e6066e94))
+* **deps:** update node to v18 (#1175) ([14e64e1](https://github.com/empathyco/x/commit/14e64e11fdf7f3d27d59baf56b027857df9e61e7))
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

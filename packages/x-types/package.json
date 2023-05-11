@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-types",
-  "version": "10.0.0-alpha.66",
+  "version": "10.0.0-alpha.67",
   "description": "Empathy search types",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -37,7 +37,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.0.0-alpha.28",
+    "@empathyco/x-adapter": "^8.0.0-alpha.29",
     "tslib": "~2.5.0"
   },
   "devDependencies": {

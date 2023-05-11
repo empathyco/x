@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.368](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.367...@empathyco/x-components@3.0.0-alpha.368) (2023-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** minimum node version required is 18.
+
+### Others
+
+* **deps:** update node to 18 (#1196) ([e0e6b35](https://github.com/empathyco/x/commit/e0e6b35eefb3ef83f22e341f662475b0e6066e94))
+
+
+
 ## [3.0.0-alpha.367](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.366...@empathyco/x-components@3.0.0-alpha.367) (2023-05-11)
 
 
