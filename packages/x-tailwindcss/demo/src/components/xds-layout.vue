@@ -16,6 +16,12 @@
             There are as many classes as spacing variables declared in the Tailwind theme:
             <code>x-layout-min-margin-[spacing-value]</code>
           </div>
+          <div
+            v-if="cssClass.includes('x-layout-container-mx-128')"
+            class="x-text-md x-mb-16 x-px-16"
+          >
+            Custom alignment is available with Tailwind spacing classes or arbitrary values:
+          </div>
           <code class="x-py-8 x-px-16">{{ cssClass }}</code>
           <div
             @click="copyCssClassesToClipboard"
@@ -62,10 +68,21 @@
     })
     public minMargin!: string[];
 
+    @Prop({
+      default: () => [
+        'x-layout-container-mx-128',
+        'x-layout-container-mr-128',
+        'x-layout-container-ml-128',
+        'x-layout-container-ml-[375px]'
+      ]
+    })
+    public customAlign!: string[];
+
     public modalContent = {
       Layout: [this.base],
       'Max Width': this.maxWidth.map(addParentClasses(this.base)),
-      'Min Width': this.minMargin.map(addParentClasses(this.base))
+      'Min Width': this.minMargin.map(addParentClasses(this.base)),
+      'Custom Alignment': this.customAlign.map(addParentClasses(this.base))
     };
 
     protected get sections(): ShowcaseSections {

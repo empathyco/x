@@ -1,4 +1,5 @@
 import { TailwindHelpers } from '../types';
+import { dynamicLayout } from './dynamic-components/layout';
 
 /**
  * Default dynamic component styles.
@@ -8,11 +9,10 @@ import { TailwindHelpers } from '../types';
  *
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export default function dynamicComponents(helpers: TailwindHelpers) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { theme } = helpers;
-  return {};
+  return {
+    ...dynamicLayout(helpers)
+  };
 }
 
 /**
