@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@2.0.0-alpha.1...@empathyco/x-jest-utils@2.0.0-alpha.1) (2023-05-11)
+
+**Note:** Version bump only for package @empathyco/x-jest-utils
+
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [2.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@2.0.0-alpha.0...@empathyco/x-jest-utils@2.0.0-alpha.0) (2023-05-09)
 
 **Note:** Version bump only for package @empathyco/x-jest-utils
