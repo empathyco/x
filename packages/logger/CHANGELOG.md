@@ -1,5 +1,19 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-logger@2.0.0-alpha.0...@empathyco/x-logger@2.0.0-alpha.2) (2023-05-11)
+
+
+### Continuous Integration
+
+* restore build workflow (#1194) ([076ee49](https://github.com/empathyco/x/commit/076ee492388ba000ebdfa49d9f4356562c8bef19))
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

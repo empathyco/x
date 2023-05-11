@@ -1,5 +1,40 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [3.0.0-alpha.367](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.366...@empathyco/x-components@3.0.0-alpha.367) (2023-05-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** minimum version required is node v18
+
+EMP-274
+
+### Features
+
+* migrate suggestions and currency components to vue 3 syntax (#1159) ([67beb82](https://github.com/empathyco/x/commit/67beb820722521e0db3cfdc9ae039e52e6d268f7))
+
+
+### Bug Fixes
+
+* `BaseResultImage` not showing the right size on load (#1176) ([c7ebf54](https://github.com/empathyco/x/commit/c7ebf54f03e23bdf8cd1a64e1e008369ca1a643d))
+
+
+### Others
+
+* **deps:** update node to v18 (#1175) ([14e64e1](https://github.com/empathyco/x/commit/14e64e11fdf7f3d27d59baf56b027857df9e61e7))
+
+
+### Continuous Integration
+
+* parallelize steps (#1174) ([3013595](https://github.com/empathyco/x/commit/3013595857c8dac33f36b2c0d08e747b0735c6a0))
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
