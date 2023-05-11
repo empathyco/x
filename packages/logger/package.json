@@ -23,7 +23,7 @@
     "directory": "packages/logger"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
     "build": "tsc && tsc --project tsconfig.esm.json",

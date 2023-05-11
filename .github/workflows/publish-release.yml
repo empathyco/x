@@ -8,7 +8,7 @@ jobs:
     if: github.event.pull_request.merged == true && github.head_ref == 'release'
     runs-on: ubuntu-latest
     container:
-      image: cypress/browsers:node16.16.0-chrome105-ff104-edge
+      image: cypress/browsers:node-18.16.0-chrome-112.0.5615.121-1-ff-112.0.1-edge-112.0.1722.48-1
       # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
       options: --user 1001
 
