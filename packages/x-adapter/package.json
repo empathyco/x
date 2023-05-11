@@ -23,7 +23,7 @@
     "directory": "packages/x-adapter"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
     "prebuild": "rimraf ./dist ./*.tgz",

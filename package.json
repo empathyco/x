@@ -27,8 +27,8 @@
     "prettier": "~2.8.3"
   },
   "engines": {
-    "node": ">=16",
-    "npm": ">=7"
+    "node": ">=18",
+    "npm": ">=9"
   },
   "prettier": "@empathyco/eslint-plugin-x/prettier-config",
   "lint-staged": {

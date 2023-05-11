@@ -22,7 +22,7 @@
     "directory": "packages/react-wrapper"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
     "serve": "vite serve tests/demo",
