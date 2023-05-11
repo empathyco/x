@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [1.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@1.0.0-alpha.4...@empathyco/x-svg-converter@1.0.0-alpha.6) (2023-05-12)
+## [1.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@1.0.0-alpha.4...@empathyco/x-svg-converter@1.0.0-alpha.6) (2023-05-09)
 
 ### ⚠ BREAKING CHANGES
 
