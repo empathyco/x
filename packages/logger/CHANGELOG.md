@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-logger@2.0.0-alpha.0...@empathyco/x-logger@2.0.0-alpha.3) (2023-05-11)
+
+### ⚠ BREAKING CHANGES
+
+* minimum node version required is 18 
+
 ## [2.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-logger@2.0.0-alpha.0...@empathyco/x-logger@2.0.0-alpha.2) (2023-05-11)
 
 
