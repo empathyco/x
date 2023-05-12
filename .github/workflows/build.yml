@@ -1,4 +1,4 @@
-name: Check branch is releasable and release alpha on main branch update
+name: ci
 on: [push, pull_request]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
@@ -6,10 +6,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node-18.16.0-chrome-112.0.5615.121-1-ff-112.0.1-edge-112.0.1722.48-1
-      # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
-      options: --user 1001
 
     steps:
       - name: checkout repository
@@ -18,47 +14,20 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      # Install pnpm because it is not included in our container image
-      - name: install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7
+      - name: Install
+        uses: ./.github/actions/install
 
-      - name: setup ENV variables
-        id: setup-env-vars
-        shell: bash
-        run: |
-          echo "CYPRESS_CACHE_FOLDER=$CYPRESS_CACHE_FOLDER" >> $GITHUB_OUTPUT
-          echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - name: setup pnpm cache
-        id: pnpm-cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            ${{ steps.setup-env-vars.outputs.PNPM_STORE_PATH }}
-            ${{ steps.setup-env-vars.outputs.CYPRESS_CACHE_FOLDER }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: setup eslint cache
-        uses: actions/cache@v3
-        with:
-          path: '**/.eslintcache'
-          key: eslint-${{github.sha}}
-          restore-keys: eslint-
-
-      - name: install dependencies
-        run: pnpm install
-
-      - name: lint packages
+      - name: Run lint
         run: pnpm run lint
 
-      - name: test packages
-        run: pnpm run test
+      - name: Run tests
+        run: pnpm run test:unit
 
-      - name: release alpha on non-release pushes to main branch
+      - name: Run e2e tests
+        timeout-minutes: 60
+        uses: ./.github/actions/run-e2e-tests
+
+      - name: release
         if:
           ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
           !startsWith(github.event.head_commit.message, 'chore(release):') }}

@@ -1,0 +1,20 @@
+name: Install
+description: Checkouts the repo and installs dependencies
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    # Install pnpm because it is not included in our container image
+    - name: install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 7
+
+    - name: Install deps
+      uses: cypress-io/github-action@v5
+      with:
+        runTests: false
