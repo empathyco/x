@@ -24,7 +24,7 @@ jobs:
         run: pnpm run test:unit
 
       - name: Run e2e tests
-        timeout-minutes: 60
+        timeout-minutes: 15
         uses: ./.github/actions/run-e2e-tests
 
       - name: release
