@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.30...@empathyco/x-tailwindcss@1.0.0-alpha.31) (2023-05-15)
+
+
+### Features
+
+* layout for custom alignment (#1195) ([a5bc7a4](https://github.com/empathyco/x/commit/a5bc7a476527102258aa58668b57b7b54f8bf8d9))
+
+
+
 ## [1.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.29...@empathyco/x-tailwindcss@1.0.0-alpha.30) (2023-05-11)
 
 
