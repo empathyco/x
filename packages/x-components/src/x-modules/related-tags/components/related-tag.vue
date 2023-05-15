@@ -85,6 +85,10 @@
         this.createEventMetadata()
       );
       this.$x.emit('UserPickedARelatedTag', this.relatedTag, this.createEventMetadata());
+
+      if (this.isSelected) {
+        (this.$el as HTMLElement).blur();
+      }
     }
 
     /**
