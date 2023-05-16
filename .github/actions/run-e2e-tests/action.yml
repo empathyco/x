@@ -1,0 +1,31 @@
+name: Run e2e tests
+description: Runs e2e tests
+
+runs:
+  using: 'composite'
+
+  steps:
+    - name: Cypress run X Components
+      uses: cypress-io/github-action@v5
+      with:
+        install: false
+        browser: chrome
+        start: npm run serve
+        working-directory: packages/x-components
+
+    - name: Cypress run X Components component
+      uses: cypress-io/github-action@v5
+      with:
+        install: false
+        browser: chrome
+        start: npm run serve
+        working-directory: packages/x-components
+        component: true
+
+    - name: Cypress run React Wrapper
+      uses: cypress-io/github-action@v5
+      with:
+        install: false
+        browser: chrome
+        start: npm run serve
+        working-directory: packages/react-wrapper
