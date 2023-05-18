@@ -48,8 +48,8 @@ importers:
         specifier: ~27.5.0
         version: 27.5.0(ts-node@10.9.1)
       rimraf:
-        specifier: ~3.0.2
-        version: 3.0.2
+        specifier: ~5.0.0
+        version: 5.0.0
       ts-jest:
         specifier: ~27.1.0
         version: 27.1.0(@babel/core@7.20.12)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
@@ -239,8 +239,8 @@ importers:
         specifier: ~27.5.0
         version: 27.5.0(ts-node@10.9.1)
       rimraf:
-        specifier: ~3.0.2
-        version: 3.0.2
+        specifier: ~5.0.0
+        version: 5.0.0
       ts-jest:
         specifier: ~27.1.0
         version: 27.1.0(@babel/core@7.20.12)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
@@ -279,8 +279,8 @@ importers:
         specifier: ~27.5.0
         version: 27.5.0(ts-node@10.9.1)
       rimraf:
-        specifier: ~3.0.2
-        version: 3.0.2
+        specifier: ~5.0.0
+        version: 5.0.0
       ts-jest:
         specifier: ~27.1.0
         version: 27.1.0(@babel/core@7.20.12)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
@@ -316,8 +316,8 @@ importers:
         specifier: ~27.5.0
         version: 27.5.0(ts-node@10.9.1)
       rimraf:
-        specifier: ~3.0.2
-        version: 3.0.2
+        specifier: ~5.0.0
+        version: 5.0.0
       rollup:
         specifier: ~2.79.1
         version: 2.79.1
@@ -365,8 +365,8 @@ importers:
         specifier: ~27.5.0
         version: 27.5.0(ts-node@10.9.1)
       rimraf:
-        specifier: ~3.0.2
-        version: 3.0.2
+        specifier: ~5.0.0
+        version: 5.0.0
       ts-jest:
         specifier: ~27.1.0
         version: 27.1.0(@babel/core@7.20.12)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
@@ -513,8 +513,8 @@ importers:
         specifier: ~4.0.2
         version: 4.0.2
       rimraf:
-        specifier: ~3.0.2
-        version: 3.0.2
+        specifier: ~5.0.0
+        version: 5.0.0
       rollup:
         specifier: ~2.79.1
         version: 2.79.1
@@ -593,8 +593,8 @@ importers:
         specifier: ~27.5.0
         version: 27.5.0(ts-node@10.9.1)
       rimraf:
-        specifier: ~3.0.2
-        version: 3.0.2
+        specifier: ~5.0.0
+        version: 5.0.0
       ts-jest:
         specifier: ~27.1.0
         version: 27.1.0(@babel/core@7.20.12)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
@@ -614,8 +614,8 @@ importers:
         specifier: ~27.5.0
         version: 27.5.0(ts-node@10.9.1)
       rimraf:
-        specifier: ~3.0.2
-        version: 3.0.2
+        specifier: ~5.0.0
+        version: 5.0.0
       ts-jest:
         specifier: ~27.1.0
         version: 27.1.0(@babel/core@7.20.12)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
@@ -648,8 +648,8 @@ importers:
         specifier: ~15.1.0
         version: 15.1.0(postcss@8.4.21)
       rimraf:
-        specifier: ~3.0.2
-        version: 3.0.2
+        specifier: ~5.0.0
+        version: 5.0.0
       rollup:
         specifier: ~2.79.1
         version: 2.79.1
@@ -762,8 +762,8 @@ importers:
         specifier: ~27.5.0
         version: 27.5.0(ts-node@10.9.1)
       rimraf:
-        specifier: ~3.0.2
-        version: 3.0.2
+        specifier: ~5.0.0
+        version: 5.0.0
       ts-jest:
         specifier: ~27.1.0
         version: 27.1.0(@babel/core@7.20.12)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
@@ -9166,16 +9166,6 @@ packages:
       path-is-absolute: 1.0.1
     dev: true
 
-  /glob@7.1.7:
-    resolution: {integrity: sha512-OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==}
-    dependencies:
-      fs.realpath: 1.0.0
-      inflight: 1.0.6
-      inherits: 2.0.4
-      minimatch: 3.1.2
-      once: 1.4.0
-      path-is-absolute: 1.0.1
-
   /glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
     dependencies:
@@ -9185,7 +9175,6 @@ packages:
       minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
-    dev: true
 
   /glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
@@ -14127,7 +14116,15 @@ packages:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     hasBin: true
     dependencies:
-      glob: 7.1.7
+      glob: 7.2.3
+
+  /rimraf@5.0.0:
+    resolution: {integrity: sha512-Jf9llaP+RvaEVS5nPShYFhtXIrb3LRKP281ib3So0KkeZKo2wIKyq0Re7TOSwanasA423PSr6CCIL4bP6T040g==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dependencies:
+      glob: 10.2.3
+    dev: true
 
   /rollup-plugin-copy@3.4.0:
     resolution: {integrity: sha512-rGUmYYsYsceRJRqLVlE9FivJMxJ7X6jDlP79fmFkL8sJs7VVMSVyA2yfyL+PGyO/vJs4A87hwhgVfz61njI+uQ==}
