@@ -1,6 +1,6 @@
 <template>
   <button
-    @click="emitEvents"
+    @click="clickRelatedTag"
     class="x-tag x-related-tag"
     data-test="related-tag"
     :class="dynamicClasses"
@@ -57,6 +57,27 @@
      */
     @State('relatedTags', 'selectedRelatedTags')
     public selectedRelatedTags!: RelatedTagModel[];
+
+    /**
+     * Blurs the related tag if it is selected.
+     *
+     * @public
+     */
+    protected blurRelatedTag(): void {
+      if (this.isSelected) {
+        (this.$el as HTMLElement).blur();
+      }
+    }
+
+    /**
+     * Handles the click on the button.
+     *
+     * @public
+     */
+    protected clickRelatedTag(): void {
+      this.emitEvents();
+      this.blurRelatedTag();
+    }
 
     /**
      * Generates the {@link WireMetadata | event metadata} object omitting the moduleName.
