@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.371](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.370...@empathyco/x-components@3.0.0-alpha.371) (2023-05-18)
+
+
+### Bug Fixes
+
+* blur related tag when deselected (#1199) ([e3c3efa](https://github.com/empathyco/x/commit/e3c3efa204c047d537f6cf92b0342327409ff3aa))
+
+
+
 ## [3.0.0-alpha.370](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.369...@empathyco/x-components@3.0.0-alpha.370) (2023-05-16)
 
 
