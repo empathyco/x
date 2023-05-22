@@ -5,3 +5,4 @@ export * from './popular-searches-response.model';
 export * from './related-tags-response.model';
 export * from './recommendations-response.model';
 export * from './search-response.model';
+export * from './semantic-queries-response.model';
