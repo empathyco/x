@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.372](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.371...@empathyco/x-components@3.0.0-alpha.372) (2023-05-22)
+
+
+### Bug Fixes
+
+* include tokens in deprecated theme css file (#1202) ([298163e](https://github.com/empathyco/x/commit/298163e722022efe5af59aa9fb08eb245584ffe1))
+
+
+
 ## [3.0.0-alpha.371](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.370...@empathyco/x-components@3.0.0-alpha.371) (2023-05-18)
 
 
