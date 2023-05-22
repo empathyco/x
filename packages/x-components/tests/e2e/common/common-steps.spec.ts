@@ -1,7 +1,6 @@
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { PageableRequest } from '@empathyco/x-types';
 import '../global/global-definitions';
-import { baseSnippetConfig } from '../../../src/views/base-config';
 
 let resultsList: string[] = [];
 
@@ -34,34 +33,10 @@ Given('no special config for layout view', () => {
   cy.visit('/');
 });
 
-Given('an application the {string} filter preselected', (preselectedFilter: string) => {
-  cy.visit('/', {
-    onBeforeLoad(win) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      win.initX = {
-        ...baseSnippetConfig,
-        filters: [preselectedFilter]
-      };
-    }
-  });
-  // TODO: Check why we need to wait a few ms so the preselected are actually pushed into the url
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(20);
-});
-
 Given('a URL with query parameter {string}', (query: string) => {
   cy.visit('/', {
     qs: {
       q: query
-    }
-  });
-});
-
-Given('a URL with a filter parameter {string}', (filter: string) => {
-  cy.visit('/', {
-    qs: {
-      filter
     }
   });
 });
@@ -75,7 +50,6 @@ When('close modal button is clicked', () => {
 });
 
 // Filters
-
 Then(
   'filters {string} are shown in the selected filters list',
   function (this: any, clickedFiltersIndex: string) {
@@ -85,10 +59,6 @@ Then(
     });
   }
 );
-
-Then('filter {string} is selected', function (filterLabel: string) {
-  cy.getByDataTest('selected-filters-list').should('contain.text', filterLabel);
-});
 
 // Extra params
 When('store is changed to {string}', (store: string) => {
