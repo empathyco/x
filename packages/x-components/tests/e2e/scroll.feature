@@ -32,7 +32,7 @@ Feature: Scroll component
       | query1 | resultId  | query2         |
       | lego   | result-12 | lego star wars |
 
-  @regression @skip
+  @regression
   Scenario Outline: 3. Scroll position is reset when query is cleared
     Given a results API with 2 pages
     When  start button is clicked

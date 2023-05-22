@@ -20,7 +20,6 @@ Feature: Tagging component
     And   "lego" is searched
     Then  query tagging request should be triggered
 
-  @skip
   Scenario: 3. Clicking a result triggers both the query and result click tagging.
     Given a results API with a known response
     And   no special config for layout view
@@ -70,7 +69,6 @@ Feature: Tagging component
     And   query tagging request is triggered
     And   second page query tagging request is triggered
 
-  @skip
   Scenario: 8. Tracking PDP add to cart
     Given a results API with a known response
     And   no special config for layout view

@@ -7,7 +7,7 @@ Feature: History queries component
     And   a popular searches API
     And   a related tags API
     And   a tracking API
-  @skip
+
   Scenario Outline:  1. History query is clicked
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
     And   start button is clicked
@@ -96,7 +96,6 @@ Feature: History queries component
       | false             | 150          | 6               | 8                | true    | 2                | puzzle, funko, lego, coche                                |
       | false             | 150          | 8               | 4                | true    | 3                | puzzle, funko, lego, coche, barbie, casa                  |
 
-  @skip
   Scenario Outline: 7. Rendered history queries list is empty if no results are provided
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
     And   a results API with no results

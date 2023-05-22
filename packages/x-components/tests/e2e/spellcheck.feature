@@ -10,7 +10,6 @@ Feature: Spellcheck component
     And   no special config for layout view
     And   start button is clicked
 
-  @skip
   Scenario Outline: 1. Misspelled word is searched
     Given a results API response for a misspelled word
     When  "<misspelledQuery>" is searched
