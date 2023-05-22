@@ -146,9 +146,7 @@ const commonCssOptions = createRollupOptions({
  */
 export const cssDeprecatedComponentsRollupConfig = createRollupOptions({
   ...commonCssOptions,
-  input: glob('src/design-system-deprecated/**/*.scss', {
-    ignore: 'src/design-system-deprecated/**/*.tokens.scss'
-  }),
+  input: glob('src/design-system-deprecated/**/*.scss'),
   plugins: [
     importTokens(),
     styles({ mode: ['extract', 'deprecated-full-theme.css'] }),
