@@ -6,4 +6,6 @@ import { semanticQueriesXStoreModule } from './module';
  *
  * @internal
  */
-export const semanticQueriesEmitters = createStoreEmitters(semanticQueriesXStoreModule, {});
+export const semanticQueriesEmitters = createStoreEmitters(semanticQueriesXStoreModule, {
+  SemanticQueryRequestUpdated: (_, getters) => getters.request
+});

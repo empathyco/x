@@ -2,6 +2,7 @@ import Vue from 'vue';
 import { SemanticQueriesXStoreModule } from './types';
 import { fetchSemanticQuery } from './actions/fetch-semantic-query.action';
 import { fetchAndSaveSemanticQuery } from './actions/fetch-and-save-semantic-query.action';
+import { request } from './getters/request.getter';
 
 /**
  * {@link XStoreModule} For the `semantic-queries` module.
@@ -11,12 +12,16 @@ import { fetchAndSaveSemanticQuery } from './actions/fetch-and-save-semantic-que
 export const semanticQueriesXStoreModule: SemanticQueriesXStoreModule = {
   state: () => ({
     config: {
-      maxItemsToRequest: 24
+      maxItemsToRequest: 24,
+      threshold: 5
     },
-    semanticQueries: {},
-    params: {}
+    semanticQueries: [],
+    params: {},
+    query: ''
   }),
-  getters: {},
+  getters: {
+    request
+  },
   mutations: {
     clearSemanticQuery(state, query) {
       Vue.delete(state.semanticQueries, query);
@@ -24,11 +29,11 @@ export const semanticQueriesXStoreModule: SemanticQueriesXStoreModule = {
     setParams(state, params) {
       state.params = params;
     },
-    setSemanticQuery(state, semanticQuery) {
-      Vue.set(state.semanticQueries, semanticQuery.request.query, semanticQuery);
+    setSemanticQueries(state, queries) {
+      state.semanticQueries = queries;
     },
-    setStatus(state, { query, status }) {
-      state.semanticQueries[query].status = status;
+    setQuery(state, query) {
+      state.query = query;
     }
   },
   actions: {

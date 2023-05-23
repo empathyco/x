@@ -19,6 +19,7 @@ import { SearchXEvents } from '../x-modules/search/events.types';
 import { TaggingXEvents } from '../x-modules/tagging/events.types';
 import { UrlXEvents } from '../x-modules/url/events.types';
 import { XModuleName } from '../x-modules/x-modules.types';
+import { SemanticQueriesXEvents } from '../x-modules/semantic-queries/index';
 import { WireMetadata } from './wiring.types';
 
 /**
@@ -64,6 +65,7 @@ export interface XEventsTypes
     ScrollXEvents,
     SearchBoxXEvents,
     SearchXEvents,
+    SemanticQueriesXEvents,
     TaggingXEvents,
     UrlXEvents {
   /**

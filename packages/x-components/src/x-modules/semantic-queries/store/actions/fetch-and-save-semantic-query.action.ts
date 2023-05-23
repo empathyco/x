@@ -13,28 +13,21 @@ import { SemanticQueriesXStoreModule } from '../types';
 // eslint-disable-next-line max-len
 export const fetchAndSaveSemanticQuery: SemanticQueriesXStoreModule['actions']['fetchAndSaveSemanticQuery'] =
   ({ dispatch, commit }, request) => {
+    if (!request) {
+      return;
+    }
     const { query } = request;
     if (!query) {
       return;
     }
-    commit('setSemanticQuery', {
-      request,
-      results: [],
-      status: 'loading',
-      totalResults: 0
-    });
     return dispatch('fetchSemanticQuery', request)
       .then(response => {
-        commit('setSemanticQuery', {
-          request,
-          results: response?.results ?? [],
-          status: 'success',
-          totalResults: response?.totalResults ?? 0
-        });
+        if (response) {
+          commit('setSemanticQueries', response.semanticQueries);
+        }
       })
       .catch(error => {
         // eslint-disable-next-line no-console
         console.error(error);
-        commit('setStatus', { query, status: 'error' });
       });
   };

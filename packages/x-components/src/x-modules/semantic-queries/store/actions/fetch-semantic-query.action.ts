@@ -15,11 +15,12 @@ export const fetchSemanticQuery: SemanticQueriesXStoreModule['actions']['fetchSe
   _context,
   request
 ) => {
+  if (!request) {
+    return null;
+  }
   const { query } = request;
   if (!query) {
     return null;
   }
-  return XPlugin.adapter.search(request, {
-    id: `fetchQueryPreview-${query}`
-  });
+  return XPlugin.adapter.semanticQueries(request);
 };

@@ -1,8 +1,8 @@
-import { Result, SearchRequest, SearchResponse } from '@empathyco/x-types';
+import { SemanticQueriesRequest, SemanticQueriesResponse, SemanticQuery } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext } from '../../../store/actions.types';
 import { XStoreModule } from '../../../store/store.types';
-import { RequestStatus, StatusState } from '../../../store/utils/status-store.utils';
+import { RequestStatus } from '../../../store/utils/status-store.utils';
 import { SemanticQueriesConfig } from '../config.types';
 
 /**
@@ -10,26 +10,10 @@ import { SemanticQueriesConfig } from '../config.types';
  *
  * @public
  */
-export interface SemanticQueryItem extends StatusState {
-  /**
-   * Request object to retrieve the semantic query using the search adapter, or null if there is
-   * no valid data to conform a valid request.
-   */
-  request: SearchRequest;
-  /** Results of the semantic query request. */
-  results: Result[];
-  /** The total number of results for the search query. */
-  totalResults: number;
-}
-
-/**
- * SemanticQueries store state.
- *
- * @public
- */
 export interface SemanticQueriesState {
+  query: string;
   /* The request and results */
-  semanticQueries: Dictionary<SemanticQueryItem>;
+  semanticQueries: SemanticQuery[];
   /** The configuration of the queries preview module. */
   config: SemanticQueriesConfig;
   /** The extra params property of the state. */
@@ -41,7 +25,9 @@ export interface SemanticQueriesState {
  *
  * @public
  */
-export interface SemanticQueriesGetters {}
+export interface SemanticQueriesGetters {
+  request: SemanticQueriesRequest | null;
+}
 
 /**
  * QueriesPreview store mutations.
@@ -49,6 +35,7 @@ export interface SemanticQueriesGetters {}
  * @public
  */
 export interface SemanticQueriesMutations {
+  setQuery(query: string): void;
   /**
    * Removes a query preview entry from the queries preview's dictionary.
    *
@@ -61,18 +48,8 @@ export interface SemanticQueriesMutations {
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
-  /**
-   * Adds a new entry to the queries preview's dictionary.
-   *
-   * @param semanticQuery - The query preview item to add.
-   */
-  setSemanticQuery(semanticQuery: SemanticQueryItem): void;
-  /**
-   * Sets the status of a query preview request.
-   *
-   * @param payload - Object containing the query and the status of a query preview item.
-   */
-  setStatus(payload: SemanticQueryStatusPayload): void;
+
+  setSemanticQueries(semanticQueries: SemanticQuery[]): void;
 }
 
 /**
@@ -83,18 +60,17 @@ export interface SemanticQueriesMutations {
 export interface SemanticQueriesActions {
   /**
    * Requests the results for a semantic query,
-   * limited by {@link SemanticQueriesConfig.maxItemsToRequest}.
    *
    * @param request - The request object to retrieve the semantic query.
    * @returns A search response based on the query.
    */
-  fetchSemanticQuery(request: SearchRequest): SearchResponse | null;
+  fetchSemanticQuery(request: SemanticQueriesRequest | null): SemanticQueriesResponse | null;
   /**
    * Requests the results for a semantic query and saves them in the state.
    *
    * @param request - The request object to retrieve the semantic query.
    */
-  fetchAndSaveSemanticQuery(request: SearchRequest): void;
+  fetchAndSaveSemanticQuery(request: SemanticQueriesRequest | null): void;
 }
 
 /**

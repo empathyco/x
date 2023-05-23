@@ -122,6 +122,9 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
     get selectedRelatedTags() {
       return component.$store.state.x.relatedTags?.selectedRelatedTags ?? [];
     },
+    get semanticQueries() {
+      return component.$store.state.x.semanticQueries?.semanticQueries ?? [];
+    },
     get spellcheckedQuery() {
       return component.$store.state.x.search?.spellcheckedQuery ?? null;
     },

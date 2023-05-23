@@ -3,6 +3,7 @@ import {
   namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
+import { createWireFromFunction } from '../../wiring/wires.factory';
 
 /**
  * `semanticQueries` {@link XModuleName | XModule name}.
@@ -61,5 +62,18 @@ export const semanticQueriesWiring = createWiring({
   },
   ExtraParamsChanged: {
     setSemanticQueriesExtraParamsWire
+  },
+  SearchResponseChanged: {
+    //TODO: extract to a wire
+    test: createWireFromFunction(({ eventPayload: searchResponse, store }) => {
+      const totalResults = searchResponse.totalResults;
+      const query = searchResponse.request.query;
+
+      console.log(searchResponse);
+
+      if (totalResults <= store.state.x.semanticQueries.config.threshold) {
+        store.commit('x/semanticQueries/setQuery', query);
+      }
+    })
   }
 });
