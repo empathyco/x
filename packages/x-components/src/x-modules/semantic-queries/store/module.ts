@@ -12,7 +12,6 @@ import { request } from './getters/request.getter';
 export const semanticQueriesXStoreModule: SemanticQueriesXStoreModule = {
   state: () => ({
     config: {
-      maxItemsToRequest: 24,
       threshold: 5
     },
     semanticQueries: [],

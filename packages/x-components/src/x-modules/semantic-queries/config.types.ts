@@ -4,9 +4,5 @@
  * @public
  */
 export interface SemanticQueriesConfig {
-  /**
-   * Maximum number of items to request.
-   */
-  maxItemsToRequest: number;
   threshold: number;
 }
