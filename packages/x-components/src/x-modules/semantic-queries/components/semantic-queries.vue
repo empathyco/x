@@ -3,11 +3,13 @@
     <slot name="default" :queries="queries">
       <ul class="x-semantic-queries">
         <li
-          v-for="{ query, distance } in $x.semanticQueries"
-          :key="query"
+          v-for="semanticQuery in $x.semanticQueries"
+          :key="semanticQuery.query"
           data-test="semantic-query"
         >
-          {{ query }} - {{ distance }}
+          <slot name="item" :query="semanticQuery">
+            {{ semanticQuery.query }} - {{ semanticQuery.distance }}
+          </slot>
         </li>
       </ul>
     </slot>

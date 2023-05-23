@@ -74,8 +74,8 @@ describe('testing SemanticQueries', () => {
     const wrappers = wrapper.findAll(getDataTestSelector('semantic-query')).wrappers;
 
     expect(wrappers).toHaveLength(2);
-    expect(wrappers.at(0)?.element).toHaveTextContent('test - 1');
-    expect(wrappers.at(1)?.element).toHaveTextContent('test 2 - 2');
+    expect(wrappers.at(0)?.text()).toEqual('test - 1');
+    expect(wrappers.at(1)?.text()).toEqual('test 2 - 2');
   });
 
   it('exposes a slot to overwrite the whole list', () => {
@@ -97,8 +97,29 @@ describe('testing SemanticQueries', () => {
     const wrappers = wrapper.findAll(getDataTestSelector('semantic-query')).wrappers;
 
     expect(wrappers).toHaveLength(2);
-    expect(wrappers.at(0)?.element).toHaveTextContent('test 1');
-    expect(wrappers.at(1)?.element).toHaveTextContent('test 2');
+    expect(wrappers.at(0)?.text()).toEqual('test 1');
+    expect(wrappers.at(1)?.text()).toEqual('test 2');
+  });
+
+  it('exposes a slot to overwrite the item', () => {
+    const { wrapper } = renderSemanticQueriesList({
+      template: `
+        <SemanticQueries #item="{ query }">
+          <span data-test="semantic-query-item">
+            {{ query.query }} - {{ query.distance }}
+          </span>
+        </SemanticQueries>`,
+      semanticQueries: [
+        createSemanticQuery({ query: 'test 1', distance: 1 }),
+        createSemanticQuery({ query: 'test 2', distance: 2 })
+      ]
+    });
+
+    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query-item')).wrappers;
+
+    expect(wrappers).toHaveLength(2);
+    expect(wrappers.at(0)?.text()).toEqual('test 1 - 1');
+    expect(wrappers.at(1)?.text()).toEqual('test 2 - 2');
   });
 });
 
