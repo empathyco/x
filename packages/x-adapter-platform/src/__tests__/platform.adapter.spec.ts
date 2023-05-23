@@ -545,13 +545,15 @@ describe('platformAdapter tests', () => {
       query: 'test',
       extraParams: {
         lang: 'en',
-        instance: 'empathy'
+        instance: 'empathy',
+        env: 'staging'
       }
     });
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
-      'https://semantics-api.internal.prod.empathy.co/search_single/empathy?q=test&lang=en',
+      // eslint-disable-next-line max-len
+      'https://api.staging.empathy.co/semantics-api/search-single/empathy?q=test&lang=en&env=staging',
       { signal: expect.anything() }
     );
 
