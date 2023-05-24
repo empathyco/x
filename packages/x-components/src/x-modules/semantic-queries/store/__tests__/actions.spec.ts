@@ -70,4 +70,49 @@ describe('semantic queries actions tests', () => {
       expect(results).toBeNull();
     });
   });
+
+  describe('fetchAndSaveSemanticQueries', () => {
+    it('should fetch and save the semantic queries to the state', async () => {
+      const request = {
+        query: 'test',
+        extraParams: {
+          lang: 'en'
+        }
+      };
+
+      adapter.semanticQueries.mockResolvedValueOnce({
+        semanticQueries: [
+          {
+            modelName: 'SemanticQuery',
+            query: 'test',
+            distance: 1
+          },
+          {
+            modelName: 'SemanticQuery',
+            query: 'test',
+            distance: 2
+          }
+        ]
+      });
+
+      await store.dispatch('fetchAndSaveSemanticQuery', request);
+
+      expect(store.state.semanticQueries).toEqual([
+        {
+          modelName: 'SemanticQuery',
+          query: 'test',
+          distance: 1
+        },
+        {
+          modelName: 'SemanticQuery',
+          query: 'test',
+          distance: 2
+        }
+      ]);
+
+      await store.dispatch('fetchAndSaveSemanticQuery', null);
+
+      expect(store.state.semanticQueries).toEqual([]);
+    });
+  });
 });
