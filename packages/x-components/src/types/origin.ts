@@ -42,7 +42,9 @@ export type ResultFeature =
   | 'recommendations'
   | 'next_query_results'
   | 'partial_results'
-  | 'identifier_result';
+  | 'identifier_result'
+  | 'brand_recommendations'
+  | 'semantics';
 
 /**
  * Indicates where the feature is placed.
@@ -59,10 +61,11 @@ export type FeatureLocation =
   | 'external'
   | 'my_history'
   | 'no_query'
+  | 'results'
   | 'no_results'
+  | 'low_results'
   | 'none'
   | 'predictive_layer'
-  | 'results'
   | 'pdp'
   | 'url_history'
   | 'url_history_pdp';
