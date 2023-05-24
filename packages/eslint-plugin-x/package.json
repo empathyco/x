@@ -41,7 +41,7 @@
     "eslint-plugin-tsdoc": "~0.2.17",
     "eslint-plugin-vue": "~8.7.1",
     "eslint-plugin-vuejs-accessibility": "~2.0.0",
-    "prettier-plugin-tailwindcss": "~0.2.5"
+    "prettier-plugin-tailwindcss": "~0.3.0"
   },
   "devDependencies": {
     "eslint": "~8.32.0",
