@@ -1,10 +1,13 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
+import { Result } from '@empathyco/x-types';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import { FeatureLocation } from '../../../types/origin';
-import { XEvent } from '../../../wiring/events.types';
+import { XEvent, XEventsTypes } from '../../../wiring/events.types';
 import BaseResultLink from '../base-result-link.vue';
+import { WireMetadata } from '../../../wiring/index';
+import { PropsWithType } from '../../../utils/index';
 
 describe('testing BaseResultLink component', () => {
   const result = createResultStub('Product 001', {
@@ -63,9 +66,64 @@ describe('testing BaseResultLink component', () => {
         propsData: { result }
       }
     );
-    resultLinkWrapper.vm.$x.on('UserClickedResultAddToCart').subscribe(listener);
+    resultLinkWrapper.vm.$x.on('UserClickedResultAddToCart', true).subscribe(listener);
     resultLinkWrapper.trigger('click');
-    expect(listener).toHaveBeenCalledWith(result);
+    expect(listener).toHaveBeenCalledWith({
+      eventPayload: result,
+      metadata: expect.objectContaining({
+        location: 'no_query'
+      })
+    });
+  });
+
+  it('emits events with the extra metadata provided from parent element', () => {
+    const injectedResultLinkMetadataPerEvent: Partial<
+      Record<
+        PropsWithType<XEventsTypes, Result>,
+        Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>
+      >
+    > = {
+      UserClickedAResult: {
+        ignoreInModules: ['tagging']
+      },
+      UserClickedResultAddToCart: {
+        replaceable: false
+      }
+    };
+    const resultClickListener = jest.fn();
+    const addToCartClickListener = jest.fn();
+
+    const resultLinkWrapper = mount(
+      {
+        components: { BaseResultLink },
+        props: ['result'],
+        template
+      },
+      {
+        provide: {
+          resultClickExtraEvents: <XEvent[]>['UserClickedResultAddToCart'],
+          resultLinkMetadataPerEvent: injectedResultLinkMetadataPerEvent
+        },
+        localVue,
+        propsData: { result }
+      }
+    );
+    resultLinkWrapper.vm.$x.on('UserClickedAResult', true).subscribe(resultClickListener);
+    resultLinkWrapper.vm.$x
+      .on('UserClickedResultAddToCart', true)
+      .subscribe(addToCartClickListener);
+    resultLinkWrapper.trigger('click');
+
+    expect(resultClickListener).toHaveBeenCalledWith({
+      eventPayload: result,
+      metadata: expect.objectContaining(injectedResultLinkMetadataPerEvent.UserClickedAResult)
+    });
+    expect(addToCartClickListener).toHaveBeenCalledWith({
+      eventPayload: result,
+      metadata: expect.objectContaining(
+        injectedResultLinkMetadataPerEvent.UserClickedResultAddToCart
+      )
+    });
   });
 
   it('renders the content overriding default slot', () => {
