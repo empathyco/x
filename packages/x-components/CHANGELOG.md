@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.375](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.374...@empathyco/x-components@3.0.0-alpha.375) (2023-05-24)
+
+
+### Features
+
+* **tagging:** add new type values to ResultFeature and FeatureLocation (#1209) ([a48dc72](https://github.com/empathyco/x/commit/a48dc720b10d7e8ad59445f684cee3fc18d9bb8d))
+
+
+
+## [3.0.0-alpha.374](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.373...@empathyco/x-components@3.0.0-alpha.374) (2023-05-24)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [3.0.0-alpha.373](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.372...@empathyco/x-components@3.0.0-alpha.373) (2023-05-24)
+
+
+### Bug Fixes
+
+* watch `props.result.images` directly (#1204) ([4ac9190](https://github.com/empathyco/x/commit/4ac9190754deb34ddd3eed7dc1913230e18a3040))
+
+
+
+## [3.0.0-alpha.372](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.371...@empathyco/x-components@3.0.0-alpha.372) (2023-05-22)
+
+
+### Bug Fixes
+
+* include tokens in deprecated theme css file (#1202) ([298163e](https://github.com/empathyco/x/commit/298163e722022efe5af59aa9fb08eb245584ffe1))
+
+
+
 ## [3.0.0-alpha.371](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.370...@empathyco/x-components@3.0.0-alpha.371) (2023-05-18)
 
 

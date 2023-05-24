@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-tailwindcss",
-  "version": "1.0.0-alpha.31",
+  "version": "1.0.0-alpha.32",
   "description": "Empathy X Tailwind plugin",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -57,7 +57,7 @@
     }
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "~24.1.0",
+    "@rollup/plugin-commonjs": "~25.0.0",
     "autoprefixer": "~10.4.4",
     "postcss": "~8.4.12",
     "postcss-import": "~15.1.0",
