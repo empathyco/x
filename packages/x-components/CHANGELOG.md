@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.373](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.372...@empathyco/x-components@3.0.0-alpha.373) (2023-05-24)
+
+
+### Bug Fixes
+
+* watch `props.result.images` directly (#1204) ([4ac9190](https://github.com/empathyco/x/commit/4ac9190754deb34ddd3eed7dc1913230e18a3040))
+
+
+
 ## [3.0.0-alpha.372](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.371...@empathyco/x-components@3.0.0-alpha.372) (2023-05-22)
 
 
