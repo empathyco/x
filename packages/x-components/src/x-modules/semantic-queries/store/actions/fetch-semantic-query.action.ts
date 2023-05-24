@@ -15,12 +15,5 @@ export const fetchSemanticQuery: SemanticQueriesXStoreModule['actions']['fetchSe
   _context,
   request
 ) => {
-  if (!request) {
-    return null;
-  }
-  const { query } = request;
-  if (!query) {
-    return null;
-  }
-  return XPlugin.adapter.semanticQueries(request);
+  return request?.query ? XPlugin.adapter.semanticQueries(request) : null;
 };
