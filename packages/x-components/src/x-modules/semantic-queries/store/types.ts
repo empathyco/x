@@ -12,6 +12,7 @@ import { SemanticQueriesConfig } from '../config.types';
  */
 export interface SemanticQueriesState {
   query: string;
+  totalResults: number;
   /* The request and results */
   semanticQueries: SemanticQuery[];
   /** The configuration of the queries preview module. */
@@ -36,6 +37,7 @@ export interface SemanticQueriesGetters {
  */
 export interface SemanticQueriesMutations {
   setQuery(query: string): void;
+  setTotalResults(totalResults: number): void;
   /**
    * Removes a query preview entry from the queries preview's dictionary.
    *
@@ -58,7 +60,7 @@ export interface SemanticQueriesMutations {
  * @public
  */
 export interface SemanticQueriesActions {
-  /**
+  /**.
    * Requests the results for a semantic query,
    *
    * @param request - The request object to retrieve the semantic query.

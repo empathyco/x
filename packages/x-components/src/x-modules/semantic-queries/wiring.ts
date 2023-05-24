@@ -3,7 +3,7 @@ import {
   namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
-import { createWireFromFunction } from '../../wiring/wires.factory';
+import { mapWire } from '../../wiring/wires.operators';
 
 /**
  * `semanticQueries` {@link XModuleName | XModule name}.
@@ -33,13 +33,11 @@ const wireDispatch = namespacedWireDispatch(moduleName);
  */
 export const fetchAndSaveSemanticQueryWire = wireDispatch('fetchAndSaveSemanticQuery');
 
-/**
- * Clears a semantic query from semantic queries module.
- *
- * @public
- */
+export const setQueryWire = wireCommit('setQuery');
 
-export const clearSemanticQueryWire = wireCommit('clearSemanticQuery');
+export const clearQueryWire = wireCommit('setQuery', '');
+
+export const setTotalResultsWire = wireCommit('setTotalResults');
 
 /**
  * Sets the semantic queries state `params`.
@@ -54,26 +52,22 @@ export const setSemanticQueriesExtraParamsWire = wireCommit('setParams');
  * @internal
  */
 export const semanticQueriesWiring = createWiring({
+  ParamsLoadedFromUrl: {
+    setQueryWire: mapWire(setQueryWire, ({ query }) => query)
+  },
+  UserClearedQuery: {
+    clearQueryWire
+  },
   SemanticQueryRequestUpdated: {
     fetchAndSaveSemanticQueryWire
-  },
-  SemanticQueryUnmountedHook: {
-    clearSemanticQueryWire
   },
   ExtraParamsChanged: {
     setSemanticQueriesExtraParamsWire
   },
+  UserAcceptedAQuery: {
+    setQueryWire
+  },
   SearchResponseChanged: {
-    //TODO: extract to a wire
-    test: createWireFromFunction(({ eventPayload: searchResponse, store }) => {
-      const totalResults = searchResponse.totalResults;
-      const query = searchResponse.request.query;
-
-      console.log(searchResponse);
-
-      if (totalResults <= store.state.x.semanticQueries.config.threshold) {
-        store.commit('x/semanticQueries/setQuery', query);
-      }
-    })
+    setTotalResultsWire: mapWire(setTotalResultsWire, ({ totalResults }) => totalResults)
   }
 });

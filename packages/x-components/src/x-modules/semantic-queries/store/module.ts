@@ -16,7 +16,8 @@ export const semanticQueriesXStoreModule: SemanticQueriesXStoreModule = {
     },
     semanticQueries: [],
     params: {},
-    query: ''
+    query: '',
+    totalResults: 0
   }),
   getters: {
     request
@@ -33,6 +34,9 @@ export const semanticQueriesXStoreModule: SemanticQueriesXStoreModule = {
     },
     setQuery(state, query) {
       state.query = query;
+    },
+    setTotalResults(state, totalResults) {
+      state.totalResults = totalResults;
     }
   },
   actions: {
