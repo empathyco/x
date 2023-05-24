@@ -7,4 +7,5 @@ export * from './partial-results.schema';
 export * from './promoted.schema';
 export * from './redirection.schema';
 export * from './result.schema';
+export * from './semantic-query.schema';
 export * from './suggestion.schema';

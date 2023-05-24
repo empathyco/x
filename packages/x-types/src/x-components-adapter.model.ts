@@ -7,6 +7,7 @@ import {
   RecommendationsRequest,
   RelatedTagsRequest,
   SearchRequest,
+  SemanticQueriesRequest,
   TaggingRequest
 } from './request';
 import {
@@ -16,7 +17,8 @@ import {
   QuerySuggestionsResponse,
   RecommendationsResponse,
   RelatedTagsResponse,
-  SearchResponse
+  SearchResponse,
+  SemanticQueriesResponse
 } from './response';
 
 export interface XComponentsAdapter {
@@ -28,4 +30,5 @@ export interface XComponentsAdapter {
   relatedTags: EndpointAdapter<RelatedTagsRequest, RelatedTagsResponse>;
   identifierResults: EndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
   tagging: EndpointAdapter<TaggingRequest, void>;
+  semanticQueries: EndpointAdapter<SemanticQueriesRequest, SemanticQueriesResponse>;
 }

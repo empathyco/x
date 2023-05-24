@@ -5,3 +5,4 @@ export * from './query-suggestions-request.schema';
 export * from './related-tags-request.schema';
 export * from './recommendations-request.schema';
 export * from './search-request.schema';
+export * from './semantic-queries-request.schema';

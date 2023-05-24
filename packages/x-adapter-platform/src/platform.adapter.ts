@@ -11,6 +11,8 @@ import { identifierResultsEndpointAdapter } from './endpoint-adapters/identifier
 import { taggingEndpointAdapter } from './endpoint-adapters/tagging.endpoint-adapter';
 // eslint-disable-next-line max-len
 import { querySuggestionsEndpointAdapter } from './endpoint-adapters/query-suggestions.endpoint-adapter';
+// eslint-disable-next-line max-len
+import { semanticQueriesEndpointAdapter } from './endpoint-adapters/semantic-queries.endpoint-adapter';
 
 /**
  * Default implementation for the PlatformAdapter.
@@ -25,5 +27,6 @@ export const platformAdapter: PlatformAdapter = {
   querySuggestions: querySuggestionsEndpointAdapter,
   relatedTags: relatedTagsEndpointAdapter,
   identifierResults: identifierResultsEndpointAdapter,
-  tagging: taggingEndpointAdapter
+  tagging: taggingEndpointAdapter,
+  semanticQueries: semanticQueriesEndpointAdapter
 };

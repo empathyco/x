@@ -13,6 +13,8 @@ import {
   RelatedTagsResponse,
   SearchRequest,
   SearchResponse,
+  SemanticQueriesRequest,
+  SemanticQueriesResponse,
   TaggingRequest,
   XComponentsAdapter
 } from '@empathyco/x-types';
@@ -31,5 +33,6 @@ export interface PlatformAdapter extends XComponentsAdapter {
   querySuggestions: ExtendableEndpointAdapter<QuerySuggestionsRequest, QuerySuggestionsResponse>;
   relatedTags: ExtendableEndpointAdapter<RelatedTagsRequest, RelatedTagsResponse>;
   identifierResults: ExtendableEndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
+  semanticQueries: ExtendableEndpointAdapter<SemanticQueriesRequest, SemanticQueriesResponse>;
   tagging: ExtendableEndpointAdapter<TaggingRequest, void>;
 }

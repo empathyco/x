@@ -6,5 +6,6 @@ export * from './promoted.model';
 export * from './redirection.model';
 export * from './related-tag.model';
 export * from './result.model';
+export * from './semantic-query.model';
 export * from './suggestion.model';
 export * from './tagging.model';
