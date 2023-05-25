@@ -33,10 +33,19 @@ const wireDispatch = namespacedWireDispatch(moduleName);
  */
 export const fetchAndSaveSemanticQueryWire = wireDispatch('fetchAndSaveSemanticQuery');
 
+/**
+ * @public
+ */
 export const setQueryWire = wireCommit('setQuery');
 
+/**
+ * @public
+ */
 export const clearQueryWire = wireCommit('setQuery', '');
 
+/**
+ * @public
+ */
 export const setTotalResultsWire = wireCommit('setTotalResults');
 
 /**
