@@ -47,3 +47,12 @@ Then('semantic queries results are displayed', () => {
       .should('have.length.at.least', 1);
   });
 });
+
+Then('semantic queries request is not fired after {int} ms', (timeToWait: number) => {
+  cy.wait(timeToWait);
+  cy.get('@interceptedSemanticQueries').should('be.null');
+});
+
+Then('semantic queries are not displayed', () => {
+  cy.getByDataTest('semantic-query-preview').should('not.exist');
+});

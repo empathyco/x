@@ -9,7 +9,7 @@ Feature: Semantic-queries component
     And a related tags API
     And a recommendations API with a known response
 
-  Scenario Outline: 1. Semantic queries are rendered if the results number are lower than the threshold
+  Scenario Outline: 1. Semantic queries are rendered if the results number is lower than the threshold
     Given an application with a semantic queries threshold of <threshold>
     And a results API with <resultsNumber> results
     When start button is clicked
@@ -22,7 +22,7 @@ Feature: Semantic-queries component
       | threshold | resultsNumber | query  |
       | 5         | 4             | jacket |
 
-  Scenario Outline: 1. Semantic queries are rendered if there are no results
+  Scenario Outline: 2. Semantic queries are rendered if there are no results
     Given an application with a semantic queries threshold of <threshold>
     And a results API with no results
     When start button is clicked
@@ -34,3 +34,16 @@ Feature: Semantic-queries component
     Examples:
       | threshold | query  |
       | 5         | jacket |
+
+  Scenario Outline: 3. Semantic queries are not rendered if the results number is higher than the threshold
+    Given an application with a semantic queries threshold of <threshold>
+    And a results API with <resultsNumber> results
+    When start button is clicked
+    And "<query>" is searched
+    Then related results are displayed
+    And semantic queries request is not fired after <msToWaitForRequest> ms
+    And semantic queries are not displayed
+
+    Examples:
+      | threshold | resultsNumber | query  | msToWaitForRequest |
+      | 5         | 6             | jacket | 200                |
