@@ -12,11 +12,12 @@ Feature: Preselected filters
   Scenario Outline: 1. Preselected filters are applied when there are no other filters in the url
     Given an application with "<preselectedFilter>" filter preselected
     When  start button is clicked
-    Then  url doesn't contain parameter "filter" with value "<preselectedFilter>"
+    Then  at most 10 popular searches are displayed
+    And   url doesn't contain parameter "filter" with value "<preselectedFilter>"
     When  "<query>" is searched
     Then  related results are displayed
-    And   url contains parameter "filter" with value "<preselectedFilter>"
     And   filter "<filterValue>" is selected
+    And   url contains parameter "filter" with value "<preselectedFilter>"
 
     Examples:
       | query | preselectedFilter     | filterValue |
@@ -27,18 +28,19 @@ Feature: Preselected filters
     And   a URL with a filter parameter "<urlFilter>"
     Then  url doesn't contain parameter "filter" with value "<preselectedFilter>"
     When  start button is clicked
+    Then  at most 10 popular searches are displayed
     And   "<query>" is searched
     Then  related results are displayed
-    And   url contains parameter "filter" with value "<urlFilter>"
-    And   url doesn't contain parameter "filter" with value "<preselectedFilter>"
     And   filter "<urlFilterValue>" is selected
     And   filter "<preselectedFilterValue>" is not selected
+    And   url contains parameter "filter" with value "<urlFilter>"
+    And   url doesn't contain parameter "filter" with value "<preselectedFilter>"
     When  the page is reloaded
     Then  related results are displayed
-    And   url contains parameter "filter" with value "<urlFilter>"
-    And   url doesn't contain parameter "filter" with value "<preselectedFilter>"
     And   filter "<urlFilterValue>" is selected
     And   filter "<preselectedFilterValue>" is not selected
+    And   url contains parameter "filter" with value "<urlFilter>"
+    And   url doesn't contain parameter "filter" with value "<preselectedFilter>"
 
     Examples:
       | query | preselectedFilter     | preselectedFilterValue | urlFilter                | urlFilterValue  |
