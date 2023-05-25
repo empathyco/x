@@ -23,6 +23,7 @@ export const getPopularSearchesEndpoint = `${mockedApiUrl}/popular-searches`;
 export const getNextQueriesEndpoint = `${mockedApiUrl}/next-queries`;
 export const searchEndpoint = `${mockedApiUrl}/search`;
 export const trackEndpoint = `${mockedApiUrl}/track`;
+export const getSemanticQueriesEndpoint = `${mockedApiUrl}/semantic-queries`;
 
 export const mockedResponses = {
   'identifier-results': {
