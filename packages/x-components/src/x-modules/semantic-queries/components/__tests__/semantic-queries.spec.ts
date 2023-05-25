@@ -63,6 +63,14 @@ describe('testing SemanticQueries', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('semanticQueries');
   });
 
+  it('wont render if there are not semantic queries', () => {
+    const { wrapper } = renderSemanticQueriesList({
+      semanticQueries: []
+    });
+
+    expect(wrapper.html()).toEqual('');
+  });
+
   it('renders a list with the semantic queries from the state', () => {
     const { wrapper } = renderSemanticQueriesList({
       semanticQueries: [

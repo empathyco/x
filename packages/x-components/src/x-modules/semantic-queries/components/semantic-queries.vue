@@ -1,5 +1,5 @@
 <template>
-  <NoElement>
+  <NoElement v-if="$x.semanticQueries.length">
     <slot name="default" :queries="queries">
       <ul class="x-semantic-queries">
         <li
