@@ -21,3 +21,16 @@ Feature: Semantic-queries component
     Examples:
       | threshold | resultsNumber | query  |
       | 5         | 4             | jacket |
+
+  Scenario Outline: 1. Semantic queries are rendered if there are no results
+    Given an application with a semantic queries threshold of <threshold>
+    And a results API with no results
+    When start button is clicked
+    And "<query>" is searched
+    Given a results API with a known response
+    Then semantic queries are displayed
+    And semantic queries results are displayed
+
+    Examples:
+      | threshold | query  |
+      | 5         | jacket |
