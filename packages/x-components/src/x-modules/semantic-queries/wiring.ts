@@ -52,9 +52,6 @@ export const setSemanticQueriesExtraParamsWire = wireCommit('setParams');
  * @internal
  */
 export const semanticQueriesWiring = createWiring({
-  ParamsLoadedFromUrl: {
-    setQueryWire: mapWire(setQueryWire, ({ query }) => query)
-  },
   UserClearedQuery: {
     clearQueryWire
   },
@@ -64,10 +61,8 @@ export const semanticQueriesWiring = createWiring({
   ExtraParamsChanged: {
     setSemanticQueriesExtraParamsWire
   },
-  UserAcceptedAQuery: {
-    setQueryWire
-  },
   SearchResponseChanged: {
+    setQueryWire: mapWire(setQueryWire, ({ request: { query } }) => query),
     setTotalResultsWire: mapWire(setTotalResultsWire, ({ totalResults }) => totalResults)
   }
 });

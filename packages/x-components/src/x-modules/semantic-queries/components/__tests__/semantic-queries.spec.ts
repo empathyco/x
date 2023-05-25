@@ -7,7 +7,7 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/i
 import SemanticQueries from '../semantic-queries.vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store/index';
-import { createSemanticQuery } from '../../../../__stubs__/index';
+import { createSemanticQuery } from '../../../../__stubs__/semantic-queries-stubs.factory';
 import { resetSemanticQueriesStateWith } from './utils';
 
 function renderSemanticQueriesList({
