@@ -4,6 +4,15 @@ import { SemanticQueriesState, semanticQueriesXStoreModule } from '../../store/i
 import { resetStoreXModuleState } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store/index';
 
+/**
+ * Reset semantic queries x-module state with its original state and the partial state passes as
+ * parameter.
+ *
+ * @param store - Root state of the x-modules.
+ * @param state - Partial semantic queries store state to be replaced.
+ *
+ * @internal
+ */
 export function resetSemanticQueriesStateWith(
   store: Store<DeepPartial<RootXStoreState>>,
   state?: DeepPartial<SemanticQueriesState>

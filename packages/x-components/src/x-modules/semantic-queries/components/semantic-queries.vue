@@ -23,6 +23,11 @@
   import { semanticQueriesXModule } from '../x-module';
   import { NoElement } from '../../../components/no-element';
 
+  /**
+   * Retrieves a list of semantic queries of a query and exposes them in the default slot.
+   *
+   * @public
+   */
   @Component({
     mixins: [xComponentMixin(semanticQueriesXModule)],
     components: { NoElement }

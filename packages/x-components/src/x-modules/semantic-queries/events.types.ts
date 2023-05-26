@@ -9,7 +9,7 @@ import { SemanticQueriesRequest } from '@empathyco/x-types';
 export interface SemanticQueriesXEvents {
   /**
    * Any property of the semantic queries request has changed.
-   * Payload: The new {@link @empathyco/x-types#SearchRequest | request}.
+   * Payload: The new {@link @empathyco/x-types#SemanticQueriesRequest | request}.
    */
   SemanticQueryRequestUpdated: SemanticQueriesRequest | null;
   /**

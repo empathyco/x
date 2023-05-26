@@ -34,16 +34,22 @@ const wireDispatch = namespacedWireDispatch(moduleName);
 export const fetchAndSaveSemanticQueryWire = wireDispatch('fetchAndSaveSemanticQuery');
 
 /**
+ * Sets the semantic query.
+ *
  * @public
  */
 export const setQueryWire = wireCommit('setQuery');
 
 /**
+ * Resets the semantic query to an empty one.
+ *
  * @public
  */
 export const clearQueryWire = wireCommit('setQuery', '');
 
 /**
+ * Sets the total results.
+ *
  * @public
  */
 export const setTotalResultsWire = wireCommit('setTotalResults');

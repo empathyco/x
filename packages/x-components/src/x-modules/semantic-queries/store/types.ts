@@ -11,18 +11,20 @@ import { SemanticQueriesConfig } from '../config.types';
  * @public
  */
 export interface SemanticQueriesState {
+  /** The query sending on the request. */
   query: string;
+  /** The number of the total results of the query. */
   totalResults: number;
-  /* The request and results */
+  /** The request and results. */
   semanticQueries: SemanticQuery[];
-  /** The configuration of the queries preview module. */
+  /** The configuration of the semantic queries' module. */
   config: SemanticQueriesConfig;
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
 }
 
 /**
- * QueriesPreview store getters.
+ * SemanticQueries store getters.
  *
  * @public
  */
@@ -31,7 +33,7 @@ export interface SemanticQueriesGetters {
 }
 
 /**
- * QueriesPreview store mutations.
+ * SemanticQueries store mutations.
  *
  * @public
  */
@@ -39,7 +41,7 @@ export interface SemanticQueriesMutations {
   setQuery(query: string): void;
   setTotalResults(totalResults: number): void;
   /**
-   * Removes a query preview entry from the queries preview's dictionary.
+   * Removes a semantic query entry from the semantic queries' dictionary.
    *
    * @param query - Query whose entry will be removed.
    */
@@ -55,7 +57,7 @@ export interface SemanticQueriesMutations {
 }
 
 /**
- * QueriesPreview store actions.
+ * SemanticQueries store actions.
  *
  * @public
  */

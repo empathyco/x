@@ -5,15 +5,15 @@ import { SemanticQueriesXStoreModule } from './store/types';
 import { semanticQueriesWiring } from './wiring';
 
 /**
- * QueriesPreview {@link XModule} alias.
+ * SemanticQueries {@link XModule} alias.
  *
  * @public
  */
 export type SemanticQueriesXModule = XModule<SemanticQueriesXStoreModule>;
 
 /**
- * QueriesPreview {@link XModule} implementation. This module is auto-registered as soon as you
- * import any component from the `queries-preview` entry point.
+ * SemanticQueries {@link XModule} implementation. This module is auto-registered as soon as you
+ * import any component from the `semantic-queries`entry point.
  *
  * @public
  */

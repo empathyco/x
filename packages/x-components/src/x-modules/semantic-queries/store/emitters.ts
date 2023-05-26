@@ -2,7 +2,7 @@ import { createStoreEmitters } from '../../../store/index';
 import { semanticQueriesXStoreModule } from './module';
 
 /**
- * {@link StoreEmitters} For the queries-preview module.
+ * {@link StoreEmitters} For the semantic-queries module.
  *
  * @internal
  */
