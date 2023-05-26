@@ -131,6 +131,13 @@ Then('next queries are displayed', () => {
   cy.getByDataTest('next-query').should('have.length.at.least', 1).invoke('text').as('nextQueries');
 });
 
+// Popular Searches
+Then('at most {int} popular searches are displayed', (maxItemsToRender: number) => {
+  cy.getByDataTest('popular-search')
+    .should('have.length.at.least', 1)
+    .and('have.length.at.most', maxItemsToRender);
+});
+
 // Query Suggestions
 Then('query suggestions are displayed', () => {
   cy.getByDataTest('query-suggestion').should('have.length.at.least', 1);

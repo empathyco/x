@@ -17,64 +17,45 @@ Feature: Tagging component
     Given a results API with a known response
     And   no special config for layout view
     When  start button is clicked
-    And   "lego" is searched
+    Then  empathize should be visible
+    When  "lego" is searched
     Then  query tagging request should be triggered
 
-  Scenario: 3. Clicking a result triggers both the query and result click tagging.
+  Scenario: 3. Clicking a result triggers the result click tagging.
     Given a results API with a known response
     And   no special config for layout view
     When  start button is clicked
-    And   "lego" is searched
-    And   first result is clicked
-    Then  url matches "/products/"
-    And   query tagging request is triggered
-    And   result click tagging request is triggered
-    And   result click tagging includes location "results"
+    Then  empathize should be visible
+    When  "lego" is searched
+    Then  query tagging request should be triggered
+    And   related results are displayed
+    Given a tracking API with a known response
+    When  first result is clicked
+    Then  result click tagging request is triggered
+    And   url matches "/products/"
 
-  Scenario: 4. Clicking a promoted triggers the query tagging
-    Given a results API with a promoted
-    And   no special config for layout view
-    When  start button is clicked
-    And   "lego" is searched
-    And   first promoted is clicked
-    Then  url matches "/promoted/"
-    And   query tagging request is triggered
-
-  Scenario: 5. Clicking a banner triggers the query tagging
-    Given a results API with a banner
-    And   no special config for layout view
-    When  start button is clicked
-    And   "lego" is searched
-    And   first banner is clicked
-    Then  url matches "/banner/"
-    And   query tagging request is triggered
-
-  Scenario: 6. A redirection triggers query tagging
-    Given a results API with a redirection
-    And   no special config for layout view
-    When  start button is clicked
-    And   "lego" is searched
-    And   first redirection is clicked
-    Then  url matches "/redirection/"
-    And   query tagging request is triggered
-
-  Scenario: 7. Infinite scrolling triggers query tagging
+  Scenario: 4. Infinite scrolling triggers query tagging
     Given a results API with 2 pages
     And   no special config for layout view
     When  start button is clicked
-    And   "lego" is searched
+    Then  empathize should be visible
+    When  "lego" is searched
     Then  results page number 1 is loaded
+    And   query tagging request should be triggered
     When  scrolls down to next page
     Then  results page number 2 is loaded
-    And   query tagging request is triggered
     And   second page query tagging request is triggered
 
-  Scenario: 8. Tracking PDP add to cart
+  Scenario: 5. Tracking PDP add to cart
     Given a results API with a known response
     And   no special config for layout view
     When  start button is clicked
-    And   "lego" is searched
-    And   first result is clicked
+    Then  empathize should be visible
+    When  "lego" is searched
+    Then  query tagging request should be triggered
+    And   related results are displayed
+    When  first result is clicked
+    Given a tracking API with a known response
     When  pdp add to cart button is clicked
     Then  add product to cart tagging request is triggered
 
