@@ -1,6 +1,6 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { SemanticQueriesResponse, SemanticQuery } from '@empathyco/x-types';
-import { DeepPartial } from '@empathyco/x-utils/src/index';
+import { DeepPartial } from '@empathyco/x-utils/src/types/utils.types';
 
 export function createSemanticQuery(semanticQuery: DeepPartial<SemanticQuery>): SemanticQuery {
   const query = {

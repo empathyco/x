@@ -12,9 +12,4 @@ export interface SemanticQueriesXEvents {
    * Payload: The new {@link @empathyco/x-types#SemanticQueriesRequest | request}.
    */
   SemanticQueryRequestUpdated: SemanticQueriesRequest | null;
-  /**
-   * The component that shows a Semantic query has been unmounted.
-   * Payload: The query whose preview has been removed.
-   */
-  SemanticQueryUnmountedHook: string;
 }

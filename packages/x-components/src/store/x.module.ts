@@ -33,9 +33,9 @@ export const RootXStoreModule: Module<XModuleState, any> = {
     scroll: null,
     search: null,
     searchBox: null,
+    semanticQueries: null,
     tagging: null,
-    url: null,
-    semanticQueries: null
+    url: null
   }),
   namespaced: true
 };

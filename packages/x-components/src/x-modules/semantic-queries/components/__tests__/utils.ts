@@ -1,8 +1,9 @@
 import { Store } from 'vuex';
 import { DeepPartial } from '@empathyco/x-utils';
-import { SemanticQueriesState, semanticQueriesXStoreModule } from '../../store/index';
+import { SemanticQueriesState } from '../../store/types';
+import { semanticQueriesXStoreModule } from '../../store/module';
 import { resetStoreXModuleState } from '../../../../__tests__/utils';
-import { RootXStoreState } from '../../../../store/index';
+import { RootXStoreState } from '../../../../store/store.types';
 
 /**
  * Reset semantic queries x-module state with its original state and the partial state passes as

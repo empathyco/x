@@ -341,7 +341,7 @@
             </LocationProvider>
 
             <SemanticQueries #default="{ queries }">
-              <section v-if="queries.length" class="x-mt-28">
+              <section class="x-mt-28">
                 <h1 class="x-title1">Similar Semantic Queries</h1>
                 <QueryPreviewList :queries="queries" #default="{ query, results }">
                   <div

@@ -387,7 +387,6 @@ Given('a tracking API with a known response', () => {
 });
 
 // Semantic Queries
-
 Given('a semantic queries API', () => {
   cy.intercept(getSemanticQueriesEndpoint, req => {
     req.reply(getSemanticQueriesStub());

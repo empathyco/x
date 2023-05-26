@@ -9,7 +9,8 @@ export const adapterConfig = {
   e2e: 'Cypress' in window ? true : false
 };
 
-// Set the provisional internal endpoint.
+// Provisional endpoint
+// TODO: Remove this once the endpoint is deployed to the Empathy API.
 platformAdapter.semanticQueries = semanticQueriesEndpointAdapter.extends({
   endpoint: 'https://semantics-api.internal.staging.empathy.co/search_single/{extraParams.instance}'
 });

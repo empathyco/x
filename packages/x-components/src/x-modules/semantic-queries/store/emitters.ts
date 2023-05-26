@@ -1,4 +1,4 @@
-import { createStoreEmitters } from '../../../store/index';
+import { createStoreEmitters } from '../../../store/utils/store-emitters.utils';
 import { semanticQueriesXStoreModule } from './module';
 
 /**

@@ -1,12 +1,12 @@
 import { Wrapper, mount, createLocalVue } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { DeepPartial } from '@empathyco/x-utils/src/index';
+import { DeepPartial } from '@empathyco/x-utils/src/types/utils.types';
 import { SemanticQuery } from '@empathyco/x-types';
-import { getXComponentXModuleName, isXComponent } from '../../../../components/index';
+import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import SemanticQueries from '../semantic-queries.vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { RootXStoreState } from '../../../../store/index';
+import { RootXStoreState } from '../../../../store/store.types';
 import { createSemanticQuery } from '../../../../__stubs__/semantic-queries-stubs.factory';
 import { resetSemanticQueriesStateWith } from './utils';
 
@@ -63,7 +63,7 @@ describe('testing SemanticQueries', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('semanticQueries');
   });
 
-  it('wont render if there are not semantic queries', () => {
+  it('wont render if there are no semantic queries', () => {
     const { wrapper } = renderSemanticQueriesList({
       semanticQueries: []
     });

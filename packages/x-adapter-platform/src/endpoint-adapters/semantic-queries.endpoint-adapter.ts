@@ -8,7 +8,6 @@ export const semanticQueriesEndpointAdapter = endpointAdapterFactory<
   SemanticQueriesRequest,
   SemanticQueriesResponse
 >({
-  //TODO: change environment with an extra param
   endpoint:
     'https://api.{extraParams.env(.)}empathy.co/semantics-api/search-single/{extraParams.instance}',
   requestMapper: semanticQueriesRequestMapper,

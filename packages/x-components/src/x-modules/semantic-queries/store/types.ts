@@ -2,7 +2,6 @@ import { SemanticQueriesRequest, SemanticQueriesResponse, SemanticQuery } from '
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext } from '../../../store/actions.types';
 import { XStoreModule } from '../../../store/store.types';
-import { RequestStatus } from '../../../store/utils/status-store.utils';
 import { SemanticQueriesConfig } from '../config.types';
 
 /**
@@ -100,19 +99,3 @@ export type SemanticQueriesActionContext = XActionContext<
   SemanticQueriesMutations,
   SemanticQueriesActions
 >;
-
-/**
- * Payload to use in the `setStatus` mutation.
- *
- * @public
- */
-export interface SemanticQueryStatusPayload {
-  /**
-   * The query whose request status to modify.
-   */
-  query: string;
-  /**
-   * The new request status.
-   */
-  status: RequestStatus;
-}

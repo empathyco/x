@@ -6,7 +6,7 @@ import { createWiring } from '../../wiring/wiring.utils';
 import { mapWire } from '../../wiring/wires.operators';
 
 /**
- * `semanticQueries` {@link XModuleName | XModule name}.
+ * `semanticQueries` {@link XModuleName name}.
  *
  * @internal
  */
