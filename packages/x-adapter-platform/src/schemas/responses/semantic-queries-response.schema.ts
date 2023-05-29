@@ -5,7 +5,7 @@ import { semanticQuerySchema } from '../models/semantic-query.schema';
 import { PlatformSemanticQueriesResponse } from '../../types/responses/semantic-queries-response.model';
 
 /**
- * Default implementation for the RelatedTagsResponseSchema.
+ * Default implementation for the SemanticQueriesResponseSchema.
  *
  * @public
  */
