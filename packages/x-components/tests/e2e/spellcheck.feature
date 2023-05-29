@@ -12,6 +12,7 @@ Feature: Spellcheck component
 
   Scenario Outline: 1. Misspelled word is searched
     Given a results API response for a misspelled word
+    And   empathize should be visible
     When  "<misspelledQuery>" is searched
     Then  spellcheck component is shown and its button contains the spellchecked query "<spellcheckedQuery>"
 
@@ -21,6 +22,7 @@ Feature: Spellcheck component
 
   Scenario Outline: 2. Correct word is searched
     Given a results API with a known response
+    And   empathize should be visible
     When  "<query>" is searched
     Then  spellcheck component is not shown
 
@@ -30,6 +32,7 @@ Feature: Spellcheck component
 
   Scenario Outline: 3. Clicking spellcheck button changes query in search-box
     Given a results API response for a misspelled word
+    And   empathize should be visible
     When  "<misspelledQuery>" is searched
     Then  the searched query is displayed in the search-box
     And   spellcheck button contains the spellchecked query "<spellcheckedQuery>"
