@@ -343,26 +343,28 @@
             <SemanticQueries #default="{ queries }">
               <section class="x-mt-28">
                 <h1 class="x-title1">Similar Semantic Queries</h1>
-                <QueryPreviewList :queries="queries" #default="{ query, results }">
-                  <div
-                    class="x-flex x-flex-col x-gap-8 x-mb-16"
-                    data-test="semantic-query-preview"
-                    :data-query="query"
-                  >
-                    <h1 class="x-title2" data-test="semantic-queries-query">{{ query }}</h1>
-                    <SlidingPanel :resetOnContentChange="false">
-                      <div class="x-flex x-gap-8">
-                        <Result
-                          v-for="result in results"
-                          :key="result.id"
-                          :result="result"
-                          style="max-width: 180px"
-                          data-test="semantic-query-result"
-                        />
-                      </div>
-                    </SlidingPanel>
-                  </div>
-                </QueryPreviewList>
+                <LocationProvider :location="$x.noResults ? 'no_results' : 'low_results'">
+                  <QueryPreviewList :queries="queries" #default="{ query, results }">
+                    <div
+                      class="x-flex x-flex-col x-gap-8 x-mb-16"
+                      data-test="semantic-query-preview"
+                      :data-query="query"
+                    >
+                      <h1 class="x-title2" data-test="semantic-queries-query">{{ query }}</h1>
+                      <SlidingPanel :resetOnContentChange="false">
+                        <div class="x-flex x-gap-8">
+                          <Result
+                            v-for="result in results"
+                            :key="result.id"
+                            :result="result"
+                            style="max-width: 180px"
+                            data-test="semantic-query-result"
+                          />
+                        </div>
+                      </SlidingPanel>
+                    </div>
+                  </QueryPreviewList>
+                </LocationProvider>
               </section>
             </SemanticQueries>
 
