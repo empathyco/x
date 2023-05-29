@@ -3,6 +3,11 @@ import { SemanticQueriesRequest } from '@empathyco/x-types';
 import { objectFilter } from '@empathyco/x-utils/src';
 import { PlatformSemanticQueriesRequest } from '../../types';
 
+/**
+ * Default implementation for the SemanticQueriesRequestSchema.
+ *
+ * @public
+ */
 export const semanticQueriesRequestSchema = createMutableSchema<
   SemanticQueriesRequest,
   PlatformSemanticQueriesRequest
