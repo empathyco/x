@@ -114,15 +114,20 @@ describe('testing BaseResultLink component', () => {
       .subscribe(addToCartClickListener);
     resultLinkWrapper.trigger('click');
 
+    expect(resultClickListener).toHaveBeenCalledTimes(1);
     expect(resultClickListener).toHaveBeenCalledWith({
       eventPayload: result,
-      metadata: expect.objectContaining(injectedResultLinkMetadataPerEvent.UserClickedAResult)
+      metadata:
+        expect.objectContaining(injectedResultLinkMetadataPerEvent.UserClickedAResult) &&
+        expect.not.objectContaining(injectedResultLinkMetadataPerEvent.UserClickedResultAddToCart)
     });
+
+    expect(addToCartClickListener).toHaveBeenCalledTimes(1);
     expect(addToCartClickListener).toHaveBeenCalledWith({
       eventPayload: result,
-      metadata: expect.objectContaining(
-        injectedResultLinkMetadataPerEvent.UserClickedResultAddToCart
-      )
+      metadata:
+        expect.objectContaining(injectedResultLinkMetadataPerEvent.UserClickedResultAddToCart) &&
+        expect.not.objectContaining(injectedResultLinkMetadataPerEvent.UserClickedAResult)
     });
   });
 
