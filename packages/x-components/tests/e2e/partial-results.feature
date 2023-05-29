@@ -11,6 +11,7 @@ Feature: Partial results component
     Given a results API
     And   no special config for layout view
     And   start button is clicked
+    Then  empathize should be visible
     When  "<query>" is searched
     Then  at least 4 related results are displayed
     And   no partial results are displayed
@@ -23,6 +24,7 @@ Feature: Partial results component
     Given a results API with partial results
     And   no special config for layout view
     And   start button is clicked
+    Then  empathize should be visible
     When  "<query>" is searched
     Then  less than 4 related results are displayed
     And   partial results are displayed
@@ -35,14 +37,15 @@ Feature: Partial results component
     Given a results API with partial results
     And   no special config for layout view
     And   start button is clicked
+    Then  empathize should be visible
     When  "<query>" is searched
     Then  less than 4 related results are displayed
     And   partial results are displayed
     And   "<query>" contains the partial query
     When  a results API
     And   first partial query button is clicked
-    Then  first partial query is displayed in the search-box
-    And   at least 4 related results are displayed
+    Then  at least 4 related results are displayed
+    And   first partial query is displayed in the search-box
     And   no partial results are displayed
 
     Examples:
