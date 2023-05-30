@@ -7,7 +7,7 @@ import { SemanticQueriesXStoreModule } from '../types';
  * @param _context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
  * @param request - The semantic query request to make.
- * @returns A Promise of a SearchResponse when it fetches the results.
+ * @returns A Promise of a SemanticQueriesResponse when it fetches the queries.
  *
  * @public
  */

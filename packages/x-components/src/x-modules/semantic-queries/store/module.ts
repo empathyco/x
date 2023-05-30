@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import { SemanticQueriesXStoreModule } from './types';
 import { fetchSemanticQuery } from './actions/fetch-semantic-query.action';
 import { fetchAndSaveSemanticQuery } from './actions/fetch-and-save-semantic-query.action';
@@ -23,9 +22,6 @@ export const semanticQueriesXStoreModule: SemanticQueriesXStoreModule = {
     request
   },
   mutations: {
-    clearSemanticQuery(state, query) {
-      Vue.delete(state.semanticQueries, query);
-    },
     setParams(state, params) {
       state.params = params;
     },

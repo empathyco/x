@@ -131,11 +131,22 @@ describe('testing SemanticQueries', () => {
   });
 });
 
+/**
+ * The options to render the {@link SemanticQueries} component.
+ */
 interface RenderSemanticQueriesListOptions {
+  /* The template to render the component. */
   template?: string;
+  /* The semantic queries to render. */
   semanticQueries?: SemanticQuery[];
+  /* The max number of results to show the semantic queries. */
   threshold?: number;
 }
+
+/**
+ * The API to test the {@link SemanticQueries} component.
+ */
 interface RenderSemanticQueriesListAPI {
+  /* The testing wrapper of the {@link SemanticQueries) component. */
   wrapper: Wrapper<Vue>;
 }

@@ -2,6 +2,13 @@ import { deepMerge } from '@empathyco/x-deep-merge';
 import { SemanticQueriesResponse, SemanticQuery } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils/src/types/utils.types';
 
+/**
+ * Creates a {@link SemanticQuery} stub with the provided options.
+ *
+ * @param semanticQuery - The data to create the stub.
+ *
+ * @returns A semantic query.
+ */
 export function createSemanticQuery(semanticQuery: DeepPartial<SemanticQuery>): SemanticQuery {
   const query = {
     modelName: 'SemanticQuery',
@@ -12,6 +19,11 @@ export function createSemanticQuery(semanticQuery: DeepPartial<SemanticQuery>): 
   return deepMerge(query, semanticQuery);
 }
 
+/**
+ * Creates a stub containing a list of {@link SemanticQuery}s.
+ *
+ * @returns A list of semantic queries stubs.
+ */
 export function getSemanticQueriesStub(): SemanticQueriesResponse {
   return {
     semanticQueries: [

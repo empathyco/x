@@ -28,6 +28,9 @@ export interface SemanticQueriesState {
  * @public
  */
 export interface SemanticQueriesGetters {
+  /**
+   * The request to fetch the semantic queries.
+   */
   request: SemanticQueriesRequest | null;
 }
 
@@ -37,14 +40,15 @@ export interface SemanticQueriesGetters {
  * @public
  */
 export interface SemanticQueriesMutations {
-  setQuery(query: string): void;
-  setTotalResults(totalResults: number): void;
   /**
-   * Removes a semantic query entry from the semantic queries' dictionary.
-   *
-   * @param query - Query whose entry will be removed.
+   * Sets the {@link SemanticQueriesState.query} property.
    */
-  clearSemanticQuery(query: string): void;
+  setQuery(query: string): void;
+
+  /**
+   * Sets the {@link SemanticQueriesState.totalResults} property.
+   */
+  setTotalResults(totalResults: number): void;
   /**
    * Sets the extra params of the module.
    *
@@ -52,6 +56,9 @@ export interface SemanticQueriesMutations {
    */
   setParams(params: Dictionary<unknown>): void;
 
+  /**
+   * Sets the {@link SemanticQueriesState.semanticQueries} property.
+   */
   setSemanticQueries(semanticQueries: SemanticQuery[]): void;
 }
 
@@ -64,14 +71,14 @@ export interface SemanticQueriesActions {
   /**.
    * Requests the results for a semantic query,
    *
-   * @param request - The request object to retrieve the semantic query.
-   * @returns A search response based on the query.
+   * @param request - The request object to retrieve the semantic queries.
+   * @returns A semantic queries response based on the query.
    */
   fetchSemanticQuery(request: SemanticQueriesRequest | null): SemanticQueriesResponse | null;
   /**
-   * Requests the results for a semantic query and saves them in the state.
+   * Requests the semantic queries similar to the requested query and saves them in the state.
    *
-   * @param request - The request object to retrieve the semantic query.
+   * @param request - The request object to retrieve the semantic queries.
    */
   fetchAndSaveSemanticQuery(request: SemanticQueriesRequest | null): void;
 }
