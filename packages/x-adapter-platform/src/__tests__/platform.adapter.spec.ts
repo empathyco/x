@@ -1,18 +1,17 @@
+/* eslint-disable max-len */
 import { DeepPartial } from '@empathyco/x-utils';
 import { Filter, NextQueriesRequest, RelatedTagsRequest } from '@empathyco/x-types';
 import { platformAdapter } from '../platform.adapter';
-// eslint-disable-next-line max-len
 import { PlatformQuerySuggestionsResponse } from '../types/responses/query-suggestions-response.model';
 import { PlatformSearchResponse } from '../types/responses/search-response.model';
-// eslint-disable-next-line max-len
 import { PlatformPopularSearchesResponse } from '../types/responses/popular-searches-response.model';
 import { PlatformRelatedTagsResponse } from '../types/responses/related-tags-response.model';
 import { PlatformNextQueriesResponse } from '../types/responses/next-queries-response.model';
-// eslint-disable-next-line max-len
 import { PlatformSemanticQueriesResponse } from '../types/responses/semantic-queries-response.model';
 import { getFetchMock } from './__mocks__/fetch.mock';
 import { platformIdentifierResultsResponse } from './__fixtures__/identifier-results.response';
 import { platformRecommendationsResponse } from './__fixtures__/recommendations.response';
+/* eslint-enable max-len */
 
 describe('platformAdapter tests', () => {
   beforeEach(jest.clearAllMocks);

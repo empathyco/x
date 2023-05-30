@@ -4,6 +4,11 @@ import { semanticQueriesRequestMapper } from '../mappers/requests/semantic-queri
 // eslint-disable-next-line max-len
 import { semanticQueriesResponseMapper } from '../mappers/responses/semantic-queries-response.mapper';
 
+/**
+ * Default adapter for the semantic queries endpoint.
+ *
+ * @public
+ */
 export const semanticQueriesEndpointAdapter = endpointAdapterFactory<
   SemanticQueriesRequest,
   SemanticQueriesResponse
