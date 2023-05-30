@@ -185,7 +185,7 @@
      */
     protected get emitQueryPreviewRequestUpdated(): DebouncedFunction<[SearchRequest]> {
       return debounce(request => {
-        this.$x.emit('QueryPreviewRequestUpdated', request, { priority: 0 });
+        this.$x.emit('QueryPreviewRequestUpdated', request, { priority: 0, replaceable: false });
       }, this.debounceTimeMs);
     }
 

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.377](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.376...@empathyco/x-components@3.0.0-alpha.377) (2023-05-30)
+
+
+### Features
+
+* **platform-adapter:** add semantic queries to platform adapter (#1212) ([82bd567](https://github.com/empathyco/x/commit/82bd56704638b050e323d486c43ebcb8cae1d41d))
+
+
+
+## [3.0.0-alpha.376](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.375...@empathyco/x-components@3.0.0-alpha.376) (2023-05-30)
+
+
+### Features
+
+* **queries-preview:** make the QueryPreviewRequestUpdated not replaceable (#1203) ([ccccd90](https://github.com/empathyco/x/commit/ccccd908110080afd2d5ee06c828e2c2293b67ac))
+
+
+
 ## [3.0.0-alpha.375](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.374...@empathyco/x-components@3.0.0-alpha.375) (2023-05-24)
 
 
