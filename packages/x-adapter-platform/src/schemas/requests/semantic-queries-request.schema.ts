@@ -1,6 +1,6 @@
 import { createMutableSchema } from '@empathyco/x-adapter';
 import { SemanticQueriesRequest } from '@empathyco/x-types';
-import { objectFilter } from '@empathyco/x-utils/src';
+import { objectFilter } from '@empathyco/x-utils';
 import { PlatformSemanticQueriesRequest } from '../../types';
 
 /**
