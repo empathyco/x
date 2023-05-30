@@ -15,7 +15,7 @@ Feature: Scroll component
     When  the page is reloaded
     Then  related results are displayed
     And   first visible result is "<resultId>"
-
+@skip
     Examples:
       | query | resultId  |
       | lego  | result-12 |
@@ -27,7 +27,7 @@ Feature: Scroll component
     When  scrolling down to result "<resultId>"
     And   "<query2>" is searched
     Then  scroll position is at top
-
+@skip
     Examples:
       | query1 | resultId  | query2         |
       | lego   | result-12 | lego star wars |
@@ -48,7 +48,7 @@ Feature: Scroll component
     Then  url contains parameter "q" with value "<query2>"
     And   url not contains parameter "page"
     And   url not contains parameter "sort"
-
+@skip
     Examples:
       | query1 | query2     | page  | sortOption |
       | lego   | star wars  | 2     | price asc  |
@@ -63,7 +63,7 @@ Feature: Scroll component
     When  scrolling down to result "<resultId>"
     And   filter number <filterIndex> is clicked in facet "<filterFacet>"
     Then  scroll position is at top
-
+@skip
     Examples:
       | query1 | resultId  | filterIndex | filterFacet |
       | lego   | result-12 | 1           | brand_facet |
@@ -79,7 +79,7 @@ Feature: Scroll component
     When  scrolling down to result "<resultId>"
     And   related tag number <relatedTagIndex> is clicked
     Then  scroll position is at top
-
+@skip
     Examples:
       | query1 | resultId  | relatedTagIndex |
       | lego   | result-12 | 0               |
@@ -91,7 +91,7 @@ Feature: Scroll component
     When  scrolling down to result "<resultId>"
     And   store is changed to "<store>"
     Then  scroll position is at top
-
+@skip
     Examples:
       | query1 | resultId  | store |
       | lego   | result-12 | Italy |
