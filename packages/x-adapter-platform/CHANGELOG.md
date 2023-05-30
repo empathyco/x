@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.73](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.72...@empathyco/x-adapter-platform@1.0.0-alpha.73) (2023-05-30)
+
+
+### Features
+
+* **platform-adapter:** add semantic queries to platform adapter (#1212) ([82bd567](https://github.com/empathyco/x/commit/82bd56704638b050e323d486c43ebcb8cae1d41d))
+
+
+
 ## [1.0.0-alpha.72](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.71...@empathyco/x-adapter-platform@1.0.0-alpha.72) (2023-05-11)
 
 
