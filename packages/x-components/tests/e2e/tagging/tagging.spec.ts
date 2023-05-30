@@ -48,7 +48,7 @@ Then('url matches {string}', (match: string) => {
 });
 
 When('pdp add to cart button is clicked', () => {
-  cy.getByDataTest('pdp-add-to-cart-button').click();
+  cy.getByDataTest('pdp-add-to-cart-button').should('be.visible').click();
 });
 
 Then('add product to cart tagging request is triggered', () => {

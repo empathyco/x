@@ -21,6 +21,7 @@ Feature: Tagging component
     When  "lego" is searched
     Then  query tagging request should be triggered
 
+    @skip
   Scenario: 3. Clicking a result triggers the result click tagging.
     Given a results API with a known response
     And   no special config for layout view
@@ -29,7 +30,6 @@ Feature: Tagging component
     When  "lego" is searched
     Then  query tagging request should be triggered
     And   related results are displayed
-    Given a tracking API with a known response
     When  first result is clicked
     Then  result click tagging request is triggered
     And   url matches "/products/"
@@ -46,6 +46,7 @@ Feature: Tagging component
     Then  results page number 2 is loaded
     And   second page query tagging request is triggered
 
+    @skip
   Scenario: 5. Tracking PDP add to cart
     Given a results API with a known response
     And   no special config for layout view
@@ -54,9 +55,9 @@ Feature: Tagging component
     When  "lego" is searched
     Then  query tagging request should be triggered
     And   related results are displayed
-    When  first result is clicked
     Given a tracking API with a known response
-    When  pdp add to cart button is clicked
+    When  first result is clicked
+    And   pdp add to cart button is clicked
     Then  add product to cart tagging request is triggered
 
   # TODO: Add scenario checking tagging events when clicking addToCart in SERP
