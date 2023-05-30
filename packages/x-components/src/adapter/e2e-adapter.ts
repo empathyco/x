@@ -44,6 +44,7 @@ export const e2eAdapter: XComponentsAdapter = {
   recommendations: mockEndpointAdapter('recommendations'),
   relatedTags: mockEndpointAdapter('related-tags'),
   search: mockEndpointAdapter('search'),
+  semanticQueries: mockEndpointAdapter('semantic-queries'),
   tagging: endpointAdapterFactory({
     endpoint: ({ url }) => url,
     requestMapper: ({ params }) => params,

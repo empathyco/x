@@ -1,16 +1,17 @@
+/* eslint-disable max-len */
 import { DeepPartial } from '@empathyco/x-utils';
 import { Filter, NextQueriesRequest, RelatedTagsRequest } from '@empathyco/x-types';
 import { platformAdapter } from '../platform.adapter';
-// eslint-disable-next-line max-len
 import { PlatformQuerySuggestionsResponse } from '../types/responses/query-suggestions-response.model';
 import { PlatformSearchResponse } from '../types/responses/search-response.model';
-// eslint-disable-next-line max-len
 import { PlatformPopularSearchesResponse } from '../types/responses/popular-searches-response.model';
 import { PlatformRelatedTagsResponse } from '../types/responses/related-tags-response.model';
 import { PlatformNextQueriesResponse } from '../types/responses/next-queries-response.model';
+import { PlatformSemanticQueriesResponse } from '../types/responses/semantic-queries-response.model';
 import { getFetchMock } from './__mocks__/fetch.mock';
 import { platformIdentifierResultsResponse } from './__fixtures__/identifier-results.response';
 import { platformRecommendationsResponse } from './__fixtures__/recommendations.response';
+/* eslint-enable max-len */
 
 describe('platformAdapter tests', () => {
   beforeEach(jest.clearAllMocks);
@@ -519,5 +520,55 @@ describe('platformAdapter tests', () => {
       'https://api.staging.empathy.co/tagging/v1/track/empathy/click?filtered=false&follow=false&lang=en&origin=search_box%3Anone&page=1&position=1&productId=12345-U&q=12345&scope=desktop&spellcheck=false&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree',
       { keepalive: true }
     );
+  });
+
+  it('should call the semantic queries adapter', async () => {
+    const platformResponse: PlatformSemanticQueriesResponse = {
+      data: {
+        candidates: [
+          {
+            query: 'test',
+            distance: 123
+          },
+          {
+            query: 'test 2',
+            distance: 456
+          }
+        ]
+      }
+    };
+
+    const fetchMock = jest.fn(getFetchMock(platformResponse));
+    window.fetch = fetchMock as any;
+    const response = await platformAdapter.semanticQueries({
+      query: 'test',
+      extraParams: {
+        lang: 'en',
+        instance: 'empathy',
+        env: 'staging'
+      }
+    });
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledWith(
+      // eslint-disable-next-line max-len
+      'https://api.staging.empathy.co/semantics-api/search-single/empathy?q=test&lang=en&env=staging',
+      { signal: expect.anything() }
+    );
+
+    expect(response).toStrictEqual({
+      semanticQueries: [
+        {
+          modelName: 'SemanticQuery',
+          query: 'test',
+          distance: 123
+        },
+        {
+          modelName: 'SemanticQuery',
+          query: 'test 2',
+          distance: 456
+        }
+      ]
+    });
   });
 });
