@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.74](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.73...@empathyco/x-adapter-platform@1.0.0-alpha.74) (2023-05-30)
+
+
+### Bug Fixes
+
+* **adapter-platform:** fix objectFilter import in semantic queries schema (#1216) ([361baca](https://github.com/empathyco/x/commit/361baca52208924fd513cccd48ca8311f4c04716))
+
+
+
 ## [1.0.0-alpha.73](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.72...@empathyco/x-adapter-platform@1.0.0-alpha.73) (2023-05-30)
 
 
