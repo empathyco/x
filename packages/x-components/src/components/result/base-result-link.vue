@@ -71,6 +71,7 @@
        * have extra events so this record pairs each event to its metadata.
        */
       const resultLinkMetadataPerEvent = inject<
+        // TODO: Refactor this inject key to the constants when doing EMP-909
         Partial<
           Record<
             PropsWithType<XEventsTypes, Result>,
