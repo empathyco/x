@@ -4,6 +4,8 @@ import {
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
 import { mapWire } from '../../wiring/wires.operators';
+import { SearchXEvents } from '../search/events.types';
+import { ExtractMutationPayload } from '../../store/store.types';
 
 /**
  * `semanticQueries` {@link XModuleName name}.
@@ -41,6 +43,16 @@ export const fetchAndSaveSemanticQueryWire = wireDispatch('fetchAndSaveSemanticQ
 export const setQueryWire = wireCommit('setQuery');
 
 /**
+ * Sets the query taking the {@link SearchXEvents.SearchResponseChanged} payload.
+ *
+ * @public
+ */
+export const setQueryFromSearchResponseChangedWire = mapWire<
+  SearchXEvents['SearchResponseChanged'],
+  ExtractMutationPayload<'semanticQueries', 'setQuery'>
+>(setQueryWire, ({ request: { query } }) => query);
+
+/**
  * Clears the query.
  *
  * @public
@@ -53,6 +65,16 @@ export const clearQueryWire = wireCommit('setQuery', '');
  * @public
  */
 export const setTotalResultsWire = wireCommit('setTotalResults');
+
+/**
+ * Sets the total results taking the {@link SearchXEvents.SearchResponseChanged} payload.
+ *
+ * @public
+ */
+export const setTotalResultsFromSearchResponseChangedWire = mapWire<
+  SearchXEvents['SearchResponseChanged'],
+  ExtractMutationPayload<'semanticQueries', 'setTotalResults'>
+>(setTotalResultsWire, ({ totalResults }) => totalResults);
 
 /**
  * Sets the semantic queries state `params`.
@@ -77,7 +99,7 @@ export const semanticQueriesWiring = createWiring({
     setSemanticQueriesExtraParamsWire
   },
   SearchResponseChanged: {
-    setQueryWire: mapWire(setQueryWire, ({ request: { query } }) => query),
-    setTotalResultsWire: mapWire(setTotalResultsWire, ({ totalResults }) => totalResults)
+    setQueryFromSearchResponseChangedWire,
+    setTotalResultsFromSearchResponseChangedWire
   }
 });

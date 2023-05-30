@@ -53,7 +53,7 @@ This component doesn't emit events.
 
 ## See it in action
 
-Here you have a basic example of how the SemanticQueries component is rendered. Keep in mind that
+Here you have a basic example of how the `SemanticQueries` component is rendered. Keep in mind that
 this component is intended to be used overriding one of its slots, by default it will only render a
 list of queries with their distance.
 
@@ -79,7 +79,7 @@ list of queries with their distance.
 The default slot is used to overwrite the whole content of the component.
 
 In this example, the `QueryPreviewList` component will be used to retrieve the results of the
-queries and display them..
+queries and display them.
 
 ```vue live
 <template>
