@@ -75,6 +75,7 @@ describe('testing plugin alias', () => {
       scroll: {},
       selectedFilters: [],
       selectedRelatedTags: [],
+      semanticQueries: [],
       spellcheckedQuery: null,
       totalResults: 0,
       selectedSort: ''

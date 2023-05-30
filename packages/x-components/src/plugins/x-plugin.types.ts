@@ -7,6 +7,7 @@ import {
   Redirection,
   RelatedTag,
   Result,
+  SemanticQuery,
   Suggestion,
   XComponentsAdapter
 } from '@empathyco/x-types';
@@ -142,6 +143,8 @@ export interface XComponentAliasAPI {
   readonly selectedFilters: Filter[];
   /** The {@link RelatedTagsXModule} selected related tags. */
   readonly selectedRelatedTags: ReadonlyArray<RelatedTag>;
+  /** The {@link SemanticQueriesXModule} queries. */
+  readonly semanticQueries: ReadonlyArray<SemanticQuery>;
   /** The {@link SearchXModule} spellchecked query. */
   readonly spellcheckedQuery: string | null;
   /** The status value of the different modules. */

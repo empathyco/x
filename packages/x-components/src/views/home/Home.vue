@@ -340,6 +340,34 @@
               </ResultsList>
             </LocationProvider>
 
+            <SemanticQueries #default="{ queries }">
+              <section class="x-mt-28">
+                <h1 class="x-title1">Similar Semantic Queries</h1>
+                <LocationProvider :location="$x.noResults ? 'no_results' : 'low_results'">
+                  <QueryPreviewList :queries="queries" #default="{ query, results }">
+                    <div
+                      class="x-flex x-flex-col x-gap-8 x-mb-16"
+                      data-test="semantic-query-preview"
+                      :data-query="query"
+                    >
+                      <h1 class="x-title2" data-test="semantic-queries-query">{{ query }}</h1>
+                      <SlidingPanel :resetOnContentChange="false">
+                        <div class="x-flex x-gap-8">
+                          <Result
+                            v-for="result in results"
+                            :key="result.id"
+                            :result="result"
+                            style="max-width: 180px"
+                            data-test="semantic-query-result"
+                          />
+                        </div>
+                      </SlidingPanel>
+                    </div>
+                  </QueryPreviewList>
+                </LocationProvider>
+              </section>
+            </SemanticQueries>
+
             <!-- Partials -->
             <PartialResultsList
               v-if="!$x.fromNoResultsWithFilters && ($x.totalResults <= 4 || $x.noResults)"
@@ -450,6 +478,7 @@
   import { adapterConfig } from '../adapter';
   import NextQuery from '../../x-modules/next-queries/components/next-query.vue';
   import FallbackDisclaimer from '../../x-modules/search/components/fallback-disclaimer.vue';
+  import SemanticQueries from '../../x-modules/semantic-queries/components/semantic-queries.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -511,6 +540,7 @@
       SearchIcon,
       SearchInput,
       SearchInputPlaceholder,
+      SemanticQueries,
       SlidingPanel,
       SnippetCallbacks,
       SnippetConfigExtraParams,

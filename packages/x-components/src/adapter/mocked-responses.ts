@@ -6,6 +6,7 @@ import {
   createPopularSearch,
   createQuerySuggestion,
   createResultStub,
+  createSemanticQuery,
   createSimpleFacetStub,
   getFacetsStub,
   getRelatedTagsStub,
@@ -23,6 +24,7 @@ export const getPopularSearchesEndpoint = `${mockedApiUrl}/popular-searches`;
 export const getNextQueriesEndpoint = `${mockedApiUrl}/next-queries`;
 export const searchEndpoint = `${mockedApiUrl}/search`;
 export const trackEndpoint = `${mockedApiUrl}/track`;
+export const getSemanticQueriesEndpoint = `${mockedApiUrl}/semantic-queries`;
 
 export const mockedResponses = {
   'identifier-results': {
@@ -187,6 +189,13 @@ export const mockedResponses = {
     ],
     totalResults: 7
   }),
+  'semantic-queries': {
+    semanticQueries: [
+      createSemanticQuery({ query: 'jacket', distance: 1 }),
+      createSemanticQuery({ query: 'blazer', distance: 2 }),
+      createSemanticQuery({ query: 'coat', distance: 3 })
+    ]
+  },
   'related-tags': {
     relatedTags: getRelatedTagsStub()
   }
