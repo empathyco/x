@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.378](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.377...@empathyco/x-components@3.0.0-alpha.378) (2023-05-30)
+
+
+### Features
+
+* **semantic-queries:** add semantic queries module and component (#1213) ([f1dc4a7](https://github.com/empathyco/x/commit/f1dc4a7e10e57d69bda37925fbb1113fc778b5c1))
+
+
+
 ## [3.0.0-alpha.377](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.376...@empathyco/x-components@3.0.0-alpha.377) (2023-05-30)
 
 
