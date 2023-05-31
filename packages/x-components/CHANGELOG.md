@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.380](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.379...@empathyco/x-components@3.0.0-alpha.380) (2023-05-31)
+
+
+### Features
+
+* **result:** set configuration for base-result-link to ignore tagging of click (#1211) ([3319bf8](https://github.com/empathyco/x/commit/3319bf81d2042fcc32eadffa4dfa1bf1b4afb2a4))
+
+
+
 ## [3.0.0-alpha.379](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.378...@empathyco/x-components@3.0.0-alpha.379) (2023-05-30)
 
 **Note:** Version bump only for package @empathyco/x-components
