@@ -53,6 +53,10 @@ export interface WireMetadata {
    * based on its priority.
    */
   replaceable?: boolean;
+  /**
+   * The event can be ignored if it is received in the wiring of the modules in the array.
+   */
+  ignoreInModules?: XModuleName[];
 }
 
 /**

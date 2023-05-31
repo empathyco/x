@@ -22,6 +22,7 @@
   import { PropsWithType } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
   import { use$x } from '../../composables/index';
+  import { WireMetadata } from '../../wiring';
 
   /**
    * Component to be reused that renders an `<a>` wrapping the result contents.
@@ -66,15 +67,32 @@
       );
 
       /**
+       * The metadata to be injected in the events emitted by the component. This component can emit
+       * have extra events so this record pairs each event to its metadata.
+       */
+      const resultLinkMetadataPerEvent = inject<
+        // TODO: Refactor this inject key to the constants when doing EMP-909
+        Partial<
+          Record<
+            PropsWithType<XEventsTypes, Result>,
+            Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>
+          >
+        >
+      >('resultLinkMetadataPerEvent', {});
+
+      /**
        * Emits the {@link XEventsTypes.UserClickedAResult} when user clicks on the result, and also
        * additional events if have been injected in the component.
        *
        * @internal
        */
       const emitUserClickedAResult = (): void => {
-        $x.emit('UserClickedAResult', props.result, { target: el.value! });
+        $x.emit('UserClickedAResult', props.result, {
+          target: el.value!,
+          ...resultLinkMetadataPerEvent['UserClickedAResult']
+        });
         resultClickExtraEvents.forEach(event => {
-          $x.emit(event, props.result, { target: el.value! });
+          $x.emit(event, props.result, { target: el.value!, ...resultLinkMetadataPerEvent[event] });
         });
       };
 

@@ -161,7 +161,8 @@ export function createTrackWire(property: keyof Tagging): Wire<Taggable> {
       taggingInfo.params.location = location as string;
       return taggingInfo;
     }),
-    ({ eventPayload: { tagging } }) => !!tagging?.[property]
+    ({ eventPayload: { tagging }, metadata: { ignoreInModules } }) =>
+      !!tagging?.[property] && !ignoreInModules?.includes(moduleName)
   );
 }
 
