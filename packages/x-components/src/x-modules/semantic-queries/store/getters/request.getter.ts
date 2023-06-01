@@ -1,4 +1,5 @@
 import { SemanticQueriesXStoreModule } from '../types';
+
 /**
  * Default implementation for the {@link SemanticQueriesGetters.request} getter.
  *
@@ -15,7 +16,15 @@ export const request: SemanticQueriesXStoreModule['getters']['request'] = ({
   query,
   params,
   totalResults,
-  config: { threshold }
+  config: { threshold, maxItemsToRequest }
 }) => {
-  return query && totalResults <= threshold ? { query, extraParams: params } : null;
+  return query && totalResults <= threshold
+    ? {
+        query,
+        extraParams: {
+          ...params,
+          k: maxItemsToRequest
+        }
+      }
+    : null;
 };

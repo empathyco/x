@@ -76,5 +76,27 @@ describe('semantic queries getters tests', () => {
 
       expect(store.getters.request).toBeNull();
     });
+
+    it('sets the `maxItemsToRequest` config as an extraParam in the request', () => {
+      resetSemanticQueriesStateWith(store, {
+        query: 'test',
+        totalResults: 2,
+        config: {
+          threshold: 3,
+          maxItemsToRequest: 5
+        },
+        params: {
+          lang: 'en'
+        }
+      });
+
+      expect(store.getters.request).toEqual({
+        query: 'test',
+        extraParams: {
+          k: 5,
+          lang: 'en'
+        }
+      });
+    });
   });
 });
