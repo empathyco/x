@@ -1,14 +1,14 @@
 import { Given, Then } from '@badeball/cypress-cucumber-preprocessor';
 import { InstallXOptions } from '../../../src/x-installer';
+import { XModuleOptions } from '../../../src/index';
 
 let semanticQueriesList: string[] = [];
+let semanticQueriesConfig: XModuleOptions<'semanticQueries'>['config'] = {};
 
-Given('an application with a semantic queries threshold of {int}', (threshold: number) => {
+Then('application is initialized with the custom semantic queries config', () => {
   const config: InstallXOptions['xModules'] = {
     semanticQueries: {
-      config: {
-        threshold
-      }
+      config: semanticQueriesConfig
     }
   };
 
@@ -17,6 +17,18 @@ Given('an application with a semantic queries threshold of {int}', (threshold: n
       xModules: JSON.stringify(config)
     }
   });
+});
+
+Given('a clean semantic queries config', () => {
+  semanticQueriesConfig = {};
+});
+
+Given('a semantic queries threshold config of {int}', (threshold: number) => {
+  semanticQueriesConfig!.threshold = threshold;
+});
+
+Given('a semantic queries max items to request config of {int}', (maxItemsToRequest: number) => {
+  semanticQueriesConfig!.maxItemsToRequest = maxItemsToRequest;
 });
 
 Then('semantic queries are displayed', () => {
@@ -55,4 +67,12 @@ Then('semantic queries request is not fired after {int} ms', (timeToWait: number
 
 Then('semantic queries are not displayed', () => {
   cy.getByDataTest('semantic-query-preview').should('not.exist');
+});
+
+Then('{int} semantic queries are requested', itemsToRequest => {
+  cy.get('@interceptedSemanticQueries')
+    .its('request.body')
+    .should((body: string) => {
+      expect(JSON.parse(body).extraParams).to.have.property('k', itemsToRequest);
+    });
 });

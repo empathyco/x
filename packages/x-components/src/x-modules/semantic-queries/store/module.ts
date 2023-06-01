@@ -12,7 +12,7 @@ export const semanticQueriesXStoreModule: SemanticQueriesXStoreModule = {
   state: () => ({
     config: {
       threshold: 5,
-      maxItemsToRequest: 10
+      maxItemsToRequest: 3
     },
     semanticQueries: [],
     params: {},
