@@ -9,7 +9,9 @@
         >
           <slot name="item" :query="semanticQuery">
             <SemanticQuery :suggestion="semanticQuery">
-              {{ semanticQuery.query }} - {{ semanticQuery.distance }}
+              <slot name="item-content" :query="semanticQuery">
+                {{ semanticQuery.query }} - {{ semanticQuery.distance }}
+              </slot>
             </SemanticQuery>
           </slot>
         </li>

@@ -129,6 +129,28 @@ describe('testing SemanticQueries', () => {
     expect(wrappers.at(0)?.text()).toEqual('test 1 - 1');
     expect(wrappers.at(1)?.text()).toEqual('test 2 - 2');
   });
+
+  it('exposes a slot to overwrite the item content', () => {
+    const { wrapper } = renderSemanticQueriesList({
+      template: `
+        <SemanticQueries #item-content="{ query }">
+          <span data-test="semantic-query-item-content">
+            {{ query.query }} - {{ query.distance }}
+          </span>
+        </SemanticQueries>
+      `,
+      semanticQueries: [
+        createSemanticQuery({ query: 'test 1', distance: 1 }),
+        createSemanticQuery({ query: 'test 2', distance: 2 })
+      ]
+    });
+
+    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query-item-content')).wrappers;
+
+    expect(wrappers).toHaveLength(2);
+    expect(wrappers.at(0)?.text()).toEqual('test 1 - 1');
+    expect(wrappers.at(1)?.text()).toEqual('test 2 - 2');
+  });
 });
 
 /**
