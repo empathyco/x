@@ -5,10 +5,12 @@
         <li
           v-for="semanticQuery in $x.semanticQueries"
           :key="semanticQuery.query"
-          data-test="semantic-query"
+          data-test="semantic-query-item"
         >
           <slot name="item" :query="semanticQuery">
-            {{ semanticQuery.query }} - {{ semanticQuery.distance }}
+            <SemanticQuery :suggestion="semanticQuery">
+              {{ semanticQuery.query }} - {{ semanticQuery.distance }}
+            </SemanticQuery>
           </slot>
         </li>
       </ul>
@@ -22,6 +24,7 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { semanticQueriesXModule } from '../x-module';
   import { NoElement } from '../../../components/no-element';
+  import SemanticQuery from './semantic-query.vue';
 
   /**
    * Retrieves a list of semantic queries from the state and exposes them in the slots.
@@ -30,7 +33,7 @@
    */
   @Component({
     mixins: [xComponentMixin(semanticQueriesXModule)],
-    components: { NoElement }
+    components: { SemanticQuery, NoElement }
   })
   export default class SemanticQueries extends Vue {
     /**

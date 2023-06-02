@@ -113,7 +113,7 @@ describe('testing SemanticQueries', () => {
     const { wrapper } = renderSemanticQueriesList({
       template: `
         <SemanticQueries #item="{ query }">
-          <span data-test="semantic-query-item">
+          <span data-test="semantic-query-item-content">
             {{ query.query }} - {{ query.distance }}
           </span>
         </SemanticQueries>`,
@@ -123,7 +123,7 @@ describe('testing SemanticQueries', () => {
       ]
     });
 
-    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query-item')).wrappers;
+    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query-item-content')).wrappers;
 
     expect(wrappers).toHaveLength(2);
     expect(wrappers.at(0)?.text()).toEqual('test 1 - 1');
