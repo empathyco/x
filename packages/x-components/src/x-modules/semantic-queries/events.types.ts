@@ -1,4 +1,4 @@
-import { SemanticQueriesRequest } from '@empathyco/x-types';
+import { SemanticQuery, SemanticQueriesRequest } from '@empathyco/x-types';
 
 /**
  * Dictionary of the events of {@link SemanticQueriesXModule},where each key
@@ -12,4 +12,6 @@ export interface SemanticQueriesXEvents {
    * Payload: The new {@link @empathyco/x-types#SemanticQueriesRequest | request}.
    */
   SemanticQueryRequestUpdated: SemanticQueriesRequest | null;
+
+  UserSelectedASemanticQuery: SemanticQuery;
 }
