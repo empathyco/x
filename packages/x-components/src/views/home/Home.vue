@@ -353,10 +353,9 @@
                       <SemanticQuery
                         class="x-suggestion x-title2 x-title2-md"
                         :semanticQuery="findSemanticQuery(query)"
-                        data-test="semantic-queries-query"
                         #default="{ query: { query } }"
                       >
-                        {{ query }}
+                        <span data-test="semantic-queries-query">{{ query }}</span>
                       </SemanticQuery>
                       <SlidingPanel :resetOnContentChange="false">
                         <div class="x-flex x-gap-8">
