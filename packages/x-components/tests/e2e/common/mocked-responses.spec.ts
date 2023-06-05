@@ -398,8 +398,8 @@ Given('a semantic queries API', () => {
 
 Given('a results API with a known response for semantic queries', () => {
   cy.intercept(searchEndpoint, req => {
-    const origin = JSON.parse(<string>req.body).origin as string;
-    if (origin.startsWith('semantics:')) {
+    const origin = JSON.parse(<string>req.body).origin as string | undefined;
+    if (origin?.startsWith('semantics:')) {
       req.reply(mockedResponses.search);
     }
   }).as('interceptedResults');
