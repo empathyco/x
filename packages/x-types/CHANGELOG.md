@@ -29,28 +29,13 @@ EMP-274
 
 
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.66](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.65...@empathyco/x-types@10.0.0-alpha.66) (2023-05-03)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.65](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.64...@empathyco/x-types@10.0.0-alpha.65) (2023-05-03)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.64](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.63...@empathyco/x-types@10.0.0-alpha.64) (2023-05-03)
 
@@ -59,19 +44,9 @@ All notable changes to this project will be documented in this file. See
 - Adapt Result mapping according to new API standard (#1039)
   ([89186b6](https://github.com/empathyco/x/commit/89186b604d72f18bce257b88b536243c11c5ddf3))
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.63](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.62...@empathyco/x-types@10.0.0-alpha.63) (2023-04-12)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.62](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.61...@empathyco/x-types@10.0.0-alpha.62) (2023-03-07)
 
@@ -81,11 +56,6 @@ All notable changes to this project will be documented in this file. See
   ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
   closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.61](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.60...@empathyco/x-types@10.0.0-alpha.61) (2023-02-27)
 
 ### Features
@@ -93,19 +63,9 @@ All notable changes to this project will be documented in this file. See
 - **banner:** add support without title and no clickable (#1069)
   ([7207767](https://github.com/empathyco/x/commit/72077675691dc8fab7361f64e0302aa8d33213fa))
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.59...@empathyco/x-types@10.0.0-alpha.60) (2023-02-08)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.59](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.58...@empathyco/x-types@10.0.0-alpha.59) (2023-02-07)
 
@@ -115,22 +75,12 @@ All notable changes to this project will be documented in this file. See
   ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
   closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.58](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.57...@empathyco/x-types@10.0.0-alpha.58) (2023-02-03)
 
 ### Build System
 
 - **deps:** update deps (#1062)
   ([59f29b9](https://github.com/empathyco/x/commit/59f29b9c5861f790a65b061eec628eb35d066b68))
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.57](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.56...@empathyco/x-types@10.0.0-alpha.57) (2023-01-25)
 
@@ -140,11 +90,6 @@ All notable changes to this project will be documented in this file. See
   (#993)
   ([500ab57](https://github.com/empathyco/x/commit/500ab57e4729f5c4dcefaa31ed4a8497ddd349b9)),
   closes [EX-7288](https://searchbroker.atlassian.net/browse/EX-7288)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.55...@empathyco/x-types@10.0.0-alpha.56) (2023-01-23)
 
@@ -162,11 +107,6 @@ All notable changes to this project will be documented in this file. See
 
 **Note:** Version bump only for package @empathyco/x-types
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.53](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.52...@empathyco/x-types@10.0.0-alpha.53) (2023-01-13)
 
 ### Build System
@@ -178,11 +118,6 @@ All notable changes to this project will be documented in this file. See
 
 **Note:** Version bump only for package @empathyco/x-types
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.51](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.50...@empathyco/x-types@10.0.0-alpha.51) (2023-01-06)
 
 ### Build System
@@ -190,22 +125,12 @@ All notable changes to this project will be documented in this file. See
 - **deps:** update dependencies
   ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.49...@empathyco/x-types@10.0.0-alpha.50) (2023-01-04)
 
 ### Features
 
 - rename `search-types` to `x-types` (#928)
   ([1ac0008](https://github.com/empathyco/x/commit/1ac00084a4f46f453741c6b04a7c18e88c637cee))
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.48...@empathyco/x-types@10.0.0-alpha.49) (2023-01-03)
 
@@ -215,11 +140,6 @@ All notable changes to this project will be documented in this file. See
   ([09fb0fe](https://github.com/empathyco/x/commit/09fb0fe5dbef020565571a4fafc89d2aac544c8e)),
   closes [EX-7730](https://searchbroker.atlassian.net/browse/EX-7730)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.47...@empathyco/x-types@10.0.0-alpha.48) (2022-12-30)
 
 **Note:** Version bump only for package @empathyco/x-types
@@ -228,46 +148,21 @@ All notable changes to this project will be documented in this file. See
 
 **Note:** Version bump only for package @empathyco/x-types
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.45...@empathyco/x-types@10.0.0-alpha.46) (2022-12-23)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.44...@empathyco/x-types@10.0.0-alpha.45) (2022-12-19)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.43...@empathyco/x-types@10.0.0-alpha.44) (2022-12-16)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.42...@empathyco/x-types@10.0.0-alpha.43) (2022-11-28)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.41...@empathyco/x-types@10.0.0-alpha.42) (2022-11-03)
 
@@ -281,11 +176,6 @@ All notable changes to this project will be documented in this file. See
   ([2014861](https://github.com/empathyco/x/commit/2014861453215808ee4279f9484f1d845780d7bf)),
   closes [EX-6346](https://searchbroker.atlassian.net/browse/EX-6346)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.40...@empathyco/x-types@10.0.0-alpha.41) (2022-11-02)
 
 ### Bug Fixes
@@ -294,11 +184,6 @@ All notable changes to this project will be documented in this file. See
   ([a2a8d5d](https://github.com/empathyco/x/commit/a2a8d5dcc03451e046d00f87f3545dfd46c050c5)),
   closes [EX-7333](https://searchbroker.atlassian.net/browse/EX-7333)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.39...@empathyco/x-types@10.0.0-alpha.40) (2022-10-31)
 
 ### Features
@@ -306,11 +191,6 @@ All notable changes to this project will be documented in this file. See
 - add position on Banner and Promoted models (#800)
   ([e7393fb](https://github.com/empathyco/x/commit/e7393fbce8d0767d3c762aa714fe94e162203a12)),
   closes [EX-7293](https://searchbroker.atlassian.net/browse/EX-7293)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.38...@empathyco/x-types@10.0.0-alpha.39) (2022-10-21)
 
@@ -325,11 +205,6 @@ All notable changes to this project will be documented in this file. See
   ([0e49156](https://github.com/empathyco/x/commit/0e49156308d4e77d667a2191697101674cdbf213)),
   closes [EX-7231](https://searchbroker.atlassian.net/browse/EX-7231)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.37...@empathyco/x-types@10.0.0-alpha.38) (2022-10-14)
 
 ### Continuous Integration
@@ -337,64 +212,29 @@ All notable changes to this project will be documented in this file. See
 - update `runners` version (#740)
   ([38f246c](https://github.com/empathyco/x/commit/38f246c306dac40c4afbcdea08336052981ca9b8))
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.36...@empathyco/x-types@10.0.0-alpha.37) (2022-09-27)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.35...@empathyco/x-types@10.0.0-alpha.36) (2022-09-16)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.34...@empathyco/x-types@10.0.0-alpha.35) (2022-09-13)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.33...@empathyco/x-types@10.0.0-alpha.34) (2022-09-09)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.32...@empathyco/x-types@10.0.0-alpha.33) (2022-08-24)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.31...@empathyco/x-types@10.0.0-alpha.32) (2022-08-19)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.30...@empathyco/x-types@10.0.0-alpha.31) (2022-08-10)
 
@@ -407,11 +247,6 @@ All notable changes to this project will be documented in this file. See
 - **result:** add `variants` support (#644)
   ([d5db09e](https://github.com/empathyco/x/commit/d5db09e9be92d0df65329680ee286959030ccecc)),
   closes [EX-6760](https://searchbroker.atlassian.net/browse/EX-6760)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.29...@empathyco/x-types@10.0.0-alpha.30) (2022-08-03)
 
@@ -427,11 +262,6 @@ All notable changes to this project will be documented in this file. See
   ([2bebaeb](https://github.com/empathyco/x/commit/2bebaeb2863fe794f1b3bea924904651b9302ef6)),
   closes [EX-6484](https://searchbroker.atlassian.net/browse/EX-6484)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.28...@empathyco/x-types@10.0.0-alpha.29) (2022-07-28)
 
 ### Features
@@ -440,28 +270,13 @@ All notable changes to this project will be documented in this file. See
   ([fc611fa](https://github.com/empathyco/x/commit/fc611faa39e63e5f916cd19928e9ab0755f8dc7f)),
   closes [EX-6119](https://searchbroker.atlassian.net/browse/EX-6119)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.27...@empathyco/x-types@10.0.0-alpha.28) (2022-07-26)
 
 **Note:** Version bump only for package @empathyco/x-types
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.26...@empathyco/x-types@10.0.0-alpha.27) (2022-06-24)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.25...@empathyco/x-types@10.0.0-alpha.26) (2022-06-23)
 
@@ -471,11 +286,6 @@ All notable changes to this project will be documented in this file. See
   ([104c7e1](https://github.com/empathyco/x/commit/104c7e10855a67b2adfa68d42d82431f9194ee15)),
   closes [EX-6437](https://searchbroker.atlassian.net/browse/EX-6437)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.24...@empathyco/x-types@10.0.0-alpha.25) (2022-06-16)
 
 ### Code Refactoring
@@ -483,11 +293,6 @@ All notable changes to this project will be documented in this file. See
 - make extra params optional (#553)
   ([ef7493a](https://github.com/empathyco/x/commit/ef7493a00a4da73f544f3a32b9e8a1fd68ba23a0)),
   closes [EX-6335](https://searchbroker.atlassian.net/browse/EX-6335)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.23...@empathyco/x-types@10.0.0-alpha.24) (2022-06-09)
 
@@ -497,11 +302,6 @@ All notable changes to this project will be documented in this file. See
   ([7998113](https://github.com/empathyco/x/commit/79981132fc510ee7a313393ad98b67caac2b6c7b)),
   closes [EX-6302](https://searchbroker.atlassian.net/browse/EX-6302)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.22...@empathyco/x-types@10.0.0-alpha.23) (2022-05-13)
 
 ### Features
@@ -509,11 +309,6 @@ All notable changes to this project will be documented in this file. See
 - move `response` types to `@empathyco/x-types`
   ([77fb812](https://github.com/empathyco/x/commit/77fb812b77fe0c84462a4b5b2eb7f0439e2d8061)),
   closes [EX-6092](https://searchbroker.atlassian.net/browse/EX-6092)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.21...@empathyco/x-types@10.0.0-alpha.22) (2022-05-11)
 
@@ -528,19 +323,9 @@ All notable changes to this project will be documented in this file. See
   ([7cc85c1](https://github.com/empathyco/x/commit/7cc85c1d371b604b3188d8cc2076eab5fc9460e4)),
   closes [EX-6066](https://searchbroker.atlassian.net/browse/EX-6066)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [10.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.20...@empathyco/x-types@10.0.0-alpha.21) (2022-04-29)
 
 **Note:** Version bump only for package @empathyco/x-types
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [10.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.19...@empathyco/x-types@10.0.0-alpha.20) (2022-03-31)
 

@@ -26,28 +26,13 @@ EMP-274
 
 
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [0.1.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.14...@empathyco/x-priority-queue@0.1.0-alpha.15) (2023-05-03)
 
 **Note:** Version bump only for package @empathyco/x-priority-queue
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [0.1.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.13...@empathyco/x-priority-queue@0.1.0-alpha.14) (2023-04-12)
 
 **Note:** Version bump only for package @empathyco/x-priority-queue
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [0.1.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.12...@empathyco/x-priority-queue@0.1.0-alpha.13) (2023-03-07)
 
@@ -57,11 +42,6 @@ All notable changes to this project will be documented in this file. See
   ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
   closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [0.1.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.11...@empathyco/x-priority-queue@0.1.0-alpha.12) (2023-02-08)
 
 ### Continuous Integration
@@ -70,11 +50,6 @@ All notable changes to this project will be documented in this file. See
   ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
   closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [0.1.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.10...@empathyco/x-priority-queue@0.1.0-alpha.11) (2023-02-07)
 
 ### Continuous Integration
@@ -82,11 +57,6 @@ All notable changes to this project will be documented in this file. See
 - migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
   ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
   closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [0.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.9...@empathyco/x-priority-queue@0.1.0-alpha.10) (2023-01-25)
 
@@ -117,11 +87,6 @@ All notable changes to this project will be documented in this file. See
   ([61f8a80](https://github.com/empathyco/x/commit/61f8a80b50d4a2e553000a11c658cdc4fef50302)),
   closes [EX-7789](https://searchbroker.atlassian.net/browse/EX-7789)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [0.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.5...@empathyco/x-priority-queue@0.1.0-alpha.6) (2023-01-06)
 
 ### Build System
@@ -129,19 +94,9 @@ All notable changes to this project will be documented in this file. See
 - **deps:** update dependencies
   ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [0.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.4...@empathyco/x-priority-queue@0.1.0-alpha.5) (2022-12-19)
 
 **Note:** Version bump only for package @empathyco/x-priority-queue
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [0.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.3...@empathyco/x-priority-queue@0.1.0-alpha.4) (2022-12-16)
 
@@ -150,11 +105,6 @@ All notable changes to this project will be documented in this file. See
 - use matrix steps and jest projects (#919)
   ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [0.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-priority-queue@0.1.0-alpha.2...@empathyco/x-priority-queue@0.1.0-alpha.3) (2022-11-28)
 
 ### Features
@@ -162,11 +112,6 @@ All notable changes to this project will be documented in this file. See
 - **priority-queue:** add `XPriorityQueue` (#876)
   ([9117359](https://github.com/empathyco/x/commit/91173598513d58e733de27358f999926d0cd0976)),
   closes [EX-7459](https://searchbroker.atlassian.net/browse/EX-7459)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## 0.1.0-alpha.2 (2022-11-22)
 
