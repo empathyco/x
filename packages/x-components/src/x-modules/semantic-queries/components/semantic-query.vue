@@ -1,10 +1,10 @@
 <template>
   <BaseSuggestion
     :suggestionSelectedEvents="suggestionSelectedEvents"
-    :suggestion="suggestion"
+    :suggestion="semanticQuery"
     data-test="semantic-query"
   >
-    <slot :suggestion="suggestion" />
+    <slot :query="semanticQuery" />
   </BaseSuggestion>
 </template>
 
@@ -23,11 +23,11 @@
   })
   export default class SemanticQuery extends Vue {
     @Prop()
-    public suggestion!: SemanticQueryModel;
+    public semanticQuery!: SemanticQueryModel;
 
     protected get suggestionSelectedEvents(): Partial<XEventsTypes> {
       return {
-        UserSelectedASemanticQuery: this.suggestion
+        UserSelectedASemanticQuery: this.semanticQuery
       };
     }
   }

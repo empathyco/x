@@ -1,14 +1,14 @@
 <template>
-  <NoElement v-if="$x.semanticQueries.length">
-    <slot name="default" :queries="queries">
+  <NoElement v-if="semanticQueries.length">
+    <slot name="default" v-bind="{ queries, semanticQueries, findSemanticQuery }">
       <ul class="x-semantic-queries">
         <li
-          v-for="semanticQuery in $x.semanticQueries"
+          v-for="semanticQuery in semanticQueries"
           :key="semanticQuery.query"
           data-test="semantic-query-item"
         >
           <slot name="item" :query="semanticQuery">
-            <SemanticQuery :suggestion="semanticQuery">
+            <SemanticQuery :semanticQuery="semanticQuery">
               <slot name="item-content" :query="semanticQuery">
                 {{ semanticQuery.query }} - {{ semanticQuery.distance }}
               </slot>
@@ -23,9 +23,11 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { SemanticQuery as SemanticQueryModel } from '@empathyco/x-types';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { semanticQueriesXModule } from '../x-module';
   import { NoElement } from '../../../components/no-element';
+  import { State } from '../../../components';
   import SemanticQuery from './semantic-query.vue';
 
   /**
@@ -39,14 +41,30 @@
   })
   export default class SemanticQueries extends Vue {
     /**
+     * The semantic queries from the state.
+     */
+    @State('semanticQueries', 'semanticQueries')
+    public semanticQueries!: SemanticQueryModel[];
+
+    /**
      * Maps the list of semantic queries to a list of queries, to make it compatible with
      * other components.
      *
      * @returns A list of queries.
      * @internal
      */
-    protected get queries(): string[] {
+    public get queries(): string[] {
       return this.$x.semanticQueries.map(semanticQuery => semanticQuery.query);
+    }
+
+    /**
+     * Finds a {@link SemanticQueryModel} given a query.
+     *
+     * @param query - The query to search.
+     * @returns The {@link SemanticQueryModel} or undefined if not found.
+     */
+    findSemanticQuery(query: string): SemanticQueryModel | undefined {
+      return this.semanticQueries.find(semanticQuery => semanticQuery.query === query);
     }
   }
 </script>

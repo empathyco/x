@@ -9,7 +9,7 @@ import { XPlugin } from '../../../../plugins/index';
 
 describe('semantic queries component', () => {
   function renderSemanticQuery({
-    template = '<SemanticQuery :suggestion="semanticQuery" v-bind="$attrs"/>',
+    template = '<SemanticQuery :semanticQuery="semanticQuery" v-bind="$attrs"/>',
     semanticQuery = createSemanticQuery({ query: 'jeans' })
   }: RenderSemanticQueryOptions = {}): RenderSemanticQueryAPI {
     const [, localVue] = installNewXPlugin();
@@ -55,9 +55,9 @@ describe('semantic queries component', () => {
   it('allows overriding its content with a slot', () => {
     const { wrapper } = renderSemanticQuery({
       template: `
-        <SemanticQuery :suggestion="semanticQuery" #default="{ suggestion }">
+        <SemanticQuery :semanticQuery="semanticQuery" #default="{ semanticQuery }">
           <span data-test="semantic-query-title">TITLE</span>
-          <span data-test="semantic-query-content">{{suggestion.query}}</span>
+          <span data-test="semantic-query-content">{{semanticQuery.query}}</span>
         </SemanticQuery>
       `,
       semanticQuery: createSemanticQuery({ query: 'test' })

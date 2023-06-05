@@ -89,24 +89,45 @@ describe('testing SemanticQueries', () => {
   it('exposes a slot to overwrite the whole list', () => {
     const { wrapper } = renderSemanticQueriesList({
       template: `
-        <SemanticQueries #default="{ queries }">
+        <SemanticQueries #default="{ semanticQueries }">
           <div>
-            <span v-for="query in queries" :key="query" data-test="semantic-query">
-              {{ query }}
+            <span
+              v-for="{query, distance} in semanticQueries"
+              :key="query"
+              data-test="semantic-query">
+              {{ query }} - {{ distance }}
             </span>
           </div>
         </SemanticQueries>`,
       semanticQueries: [
-        createSemanticQuery({ query: 'test 1' }),
-        createSemanticQuery({ query: 'test 2' })
+        createSemanticQuery({ query: 'test 1', distance: 1 }),
+        createSemanticQuery({ query: 'test 2', distance: 1 })
       ]
     });
 
     const wrappers = wrapper.findAll(getDataTestSelector('semantic-query')).wrappers;
 
     expect(wrappers).toHaveLength(2);
-    expect(wrappers.at(0)?.text()).toEqual('test 1');
-    expect(wrappers.at(1)?.text()).toEqual('test 2');
+    expect(wrappers.at(0)?.text()).toEqual('test 1 - 1');
+    expect(wrappers.at(1)?.text()).toEqual('test 2 - 1');
+  });
+
+  // eslint-disable-next-line max-len
+  it('exposes an array of queries and a method to find the semantic query in its default slot', () => {
+    const { wrapper } = renderSemanticQueriesList({
+      template: `
+        <SemanticQueries #default="{ queries, findSemanticQuery }">
+          <div v-for="query in queries" :key="query">
+            <span data-test="string-query">{{ query }}</span>
+            <span data-test="model-query">{{ findSemanticQuery(query).modelName }}</span>
+          </div>
+        </SemanticQueries>
+      `,
+      semanticQueries: [createSemanticQuery({ query: 'test', distance: 2 })]
+    });
+
+    expect(wrapper.find(getDataTestSelector('string-query')).text()).toEqual('test');
+    expect(wrapper.find(getDataTestSelector('model-query')).text()).toEqual('SemanticQuery');
   });
 
   it('exposes a slot to overwrite the item', () => {
