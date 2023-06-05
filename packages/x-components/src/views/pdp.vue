@@ -13,6 +13,8 @@
 </template>
 
 <script lang="ts">
+  import { merge } from 'rxjs';
+  import { delay } from 'rxjs/operators';
   import { defineComponent, onUnmounted, ref } from 'vue';
   import { use$x } from '../composables/use-$x';
   import { Tagging } from '../x-modules/tagging';
@@ -27,8 +29,10 @@
       const addProductToCart = (): void => window.InterfaceX?.addProductToCart();
 
       const showAddToCartButton = ref(false);
-      const subscription = $x
-        .on('ResultURLTrackingEnabled')
+      const resultURLTrackingEnabled$ = $x.on('ResultURLTrackingEnabled');
+      const pdpIsLoaded$ = $x.on('PDPIsLoaded');
+      const subscription = merge(resultURLTrackingEnabled$, pdpIsLoaded$)
+        .pipe(delay(500))
         .subscribe(() => (showAddToCartButton.value = true));
 
       onUnmounted(() => subscription.unsubscribe());
