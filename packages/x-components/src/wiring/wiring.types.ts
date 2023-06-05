@@ -3,7 +3,7 @@ import { Dictionary } from '@empathyco/x-utils';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from 'vuex';
 import { RootStoreStateAndGetters, RootXStoreState } from '../store/store.types';
-import { FeatureLocation, QueryFeature } from '../types/origin';
+import { FeatureLocation, QueryFeature, ResultFeature } from '../types/origin';
 import { FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils/types';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload, XEventsTypes } from './events.types';
@@ -30,7 +30,7 @@ export type Wire<PayloadType> = (
  */
 export interface WireMetadata {
   /** The {@link QueryFeature} that originated the event. */
-  feature?: QueryFeature;
+  feature?: QueryFeature | ResultFeature;
   /** The id of the component origin. */
   id?: string;
   /** The {@link FeatureLocation} from where the event has been emitted. */
@@ -57,6 +57,17 @@ export interface WireMetadata {
    * The event can be ignored if it is received in the wiring of the modules in the array.
    */
   ignoreInModules?: XModuleName[];
+  [key: string]: unknown;
+}
+
+/**
+ * Wire metadata specific for display wires.
+ *
+ * @public
+ */
+export interface DisplayWireMetadata extends WireMetadata {
+  /** The query that originated the display elements appearing. */
+  displayOriginalQuery: string;
 }
 
 /**

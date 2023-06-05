@@ -104,6 +104,11 @@ export interface XEventsTypes
    */
   UserClickedAResult: Result;
   /**
+   * The user has clicked on a display result.
+   * Payload: The {@link @empathyco/x-types#Result | result} that the user clicked.
+   */
+  UserClickedADisplayResult: Result;
+  /**
    * The user clicked the button to close the events modal.
    * Payload: none.
    */
