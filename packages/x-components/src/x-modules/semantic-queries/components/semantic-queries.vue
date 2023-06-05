@@ -156,15 +156,82 @@ queries and display them.
 </script>
 ```
 
+The default slot also exposes an array of semantic queries mapped to strings, and a method to find a
+semantic query given a string query.
+
+This is useful if you need an array of string queries, but also need to retrieve the original
+semantic query to use it in another element.
+
+```vue live
+<template>
+  <SemanticQueries #default="{ queries, findSemanticQuery }">
+    <section>
+      <QueryPreviewList :queries="queries" #slot="{ query, results }">
+        <div>
+          <SemanticQuery :semanticQuery="findSemanticQuery(query)" #default="{ query }">
+            {{ query.query }} ({{ query.distance }})
+          </SemanticQuery>
+          <ul>
+            <li v-for="result in results" :key="result.id">
+              {{ result.name }}
+            </li>
+          </ul>
+        </div>
+      </QueryPreviewList>
+    </section>
+  </SemanticQueries>
+</template>
+
+<script>
+  import { SemanticQueries, SemanticQuery } from '@empathyco/x-components/semantic-queries';
+  import { QueryPreviewList } from '@empathyco/x-components/queries-preview';
+
+  export default {
+    name: 'SemanticQueriesDefaultSlotDemo2',
+    components: {
+      SemanticQueries,
+      SemanticQuery,
+      QueryPreviewList
+    }
+  };
+</script>
+```
+
 ### Play with the item slot
 
-The item slot can be used to override only the content of each semantic query item.
+The item slot can be used to override each semantic query item.
 
 In this example, the query will be rendered along with the distance.
 
 ```vue live
 <template>
   <SemanticQueries #item="{ query: { query, distance } }">
+    <span>
+      ({{ distance }})
+      {{ query }}
+    </span>
+  </SemanticQueries>
+</template>
+
+<script>
+  import { SemanticQueries } from '@empathyco/x-components/semantic-queries';
+  export default {
+    name: 'SemanticQueriesItemSlotDemo',
+    components: {
+      SemanticQueries
+    }
+  };
+</script>
+```
+
+### Play with the item content slot
+
+The item content slot can be used to override only the content, but keep using the SemanticQuery
+component internally.
+
+```vue live
+<template>
+  <SemanticQueries #item-content="{ query: { query, distance } }">
     <span>
       ({{ distance }})
       {{ query }}
