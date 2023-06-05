@@ -395,3 +395,12 @@ Given('a semantic queries API', () => {
     req.reply(getSemanticQueriesStub());
   }).as('interceptedSemanticQueries');
 });
+
+Given('a results API with a known response for semantic queries', () => {
+  cy.intercept(searchEndpoint, req => {
+    const origin = JSON.parse(<string>req.body).origin as string;
+    if (origin.startsWith('semantics:')) {
+      req.reply(mockedResponses.search);
+    }
+  }).as('interceptedResults');
+});

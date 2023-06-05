@@ -29,8 +29,8 @@ Then('semantic queries are displayed', () => {
     })
     .then(() => {
       cy.getByDataTest('semantic-queries-query')
-        .should('be.visible')
         .should('have.length.at.least', semanticQueriesLength)
+        .should('be.visible')
         .each($query => {
           semanticQueriesList.push($query.text());
         });

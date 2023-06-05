@@ -344,7 +344,11 @@
               <section class="x-mt-28">
                 <h1 class="x-title1">Similar Semantic Queries</h1>
                 <LocationProvider :location="$x.noResults ? 'no_results' : 'low_results'">
-                  <QueryPreviewList :queries="queries" #default="{ query, results }">
+                  <QueryPreviewList
+                    :queries="queries"
+                    #default="{ query, results }"
+                    queryFeature="semantics"
+                  >
                     <div
                       class="x-flex x-flex-col x-gap-8 x-mb-16"
                       data-test="semantic-query-preview"
