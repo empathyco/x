@@ -45,7 +45,7 @@ describe('semantic queries getters tests', () => {
       });
     });
 
-    it('contains the query if the totalResults is equal than the threshold', () => {
+    it('contains the query if the totalResults are equal than the threshold', () => {
       resetSemanticQueriesStateWith(store, {
         query: 'test',
         totalResults: 2,
@@ -59,7 +59,7 @@ describe('semantic queries getters tests', () => {
       });
     });
 
-    it('is null if there is no query or the totalResults is higher than the threshold', () => {
+    it('is null if there is no query or the totalResults are greater than the threshold', () => {
       resetSemanticQueriesStateWith(store, {
         query: ''
       });
