@@ -31,7 +31,7 @@ describe('semantic queries component', () => {
 
     return {
       wrapper: wrapper.findComponent(SemanticQuery),
-      eventsSpy: jest.spyOn(XPlugin.bus, 'emit'),
+      emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
       semanticQuery
     };
   }
@@ -55,9 +55,9 @@ describe('semantic queries component', () => {
   it('allows overriding its content with a slot', () => {
     const { wrapper } = renderSemanticQuery({
       template: `
-        <SemanticQuery :semanticQuery="semanticQuery" #default="{ semanticQuery }">
+        <SemanticQuery :semanticQuery="semanticQuery" #default="{ query }">
           <span data-test="semantic-query-title">TITLE</span>
-          <span data-test="semantic-query-content">{{semanticQuery.query}}</span>
+          <span data-test="semantic-query-content">{{query.query}}</span>
         </SemanticQuery>
       `,
       semanticQuery: createSemanticQuery({ query: 'test' })
@@ -72,25 +72,25 @@ describe('semantic queries component', () => {
   });
 
   it('emits required events on click', () => {
-    const { eventsSpy, wrapper, semanticQuery } = renderSemanticQuery();
+    const { emitSpy, wrapper, semanticQuery } = renderSemanticQuery();
 
     wrapper.trigger('click');
 
-    expect(eventsSpy).toHaveBeenCalledTimes(3);
+    expect(emitSpy).toHaveBeenCalledTimes(3);
 
-    expect(eventsSpy).toHaveBeenNthCalledWith(
+    expect(emitSpy).toHaveBeenNthCalledWith(
       1,
       'UserAcceptedAQuery',
       semanticQuery.query,
       expect.anything()
     );
-    expect(eventsSpy).toHaveBeenNthCalledWith(
+    expect(emitSpy).toHaveBeenNthCalledWith(
       2,
       'UserSelectedASuggestion',
       semanticQuery,
       expect.anything()
     );
-    expect(eventsSpy).toHaveBeenNthCalledWith(
+    expect(emitSpy).toHaveBeenNthCalledWith(
       3,
       'UserSelectedASemanticQuery',
       semanticQuery,
@@ -99,13 +99,24 @@ describe('semantic queries component', () => {
   });
 });
 
+/**
+ * The options to render the {@link SemanticQuery} component.
+ */
 interface RenderSemanticQueryOptions {
+  /* The template to render the component. */
   template?: string;
+  /* The semantic query to render. */
   semanticQuery?: SemanticQueryModel;
 }
 
+/**
+ * The API to test the {@link SemanticQuery} component.
+ */
 interface RenderSemanticQueryAPI {
+  /* The testing wrapper of the {@link SemanticQuery} component. */
   wrapper: Wrapper<Vue>;
-  eventsSpy: ReturnType<typeof jest.spyOn>;
+  /* A jest spy of the X emit method. */
+  emitSpy: ReturnType<typeof jest.spyOn>;
+  /* The rendered semantic query. */
   semanticQuery: SemanticQueryModel;
 }
