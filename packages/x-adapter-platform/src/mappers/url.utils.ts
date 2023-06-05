@@ -21,6 +21,26 @@ export function getTaggingInfoFromUrl(taggingUrl: string): TaggingRequest {
 }
 
 /**
+ * Generates the displayClick tagging info.
+ *
+ * @param displayTaggingUrl - The url containing the displayClick tagging info.
+ * @returns The object with the tagging info.
+ *
+ * @public
+ */
+export function getDisplayClickTagging(displayTaggingUrl: string): TaggingRequest {
+  const displayClickTagging = getTaggingInfoFromUrl(displayTaggingUrl);
+  const displayClickTaggingParams = displayClickTagging.params;
+
+  if (displayClickTaggingParams) {
+    displayClickTaggingParams.displayId = displayClickTaggingParams.q;
+    delete displayClickTaggingParams.q;
+  }
+
+  return displayClickTagging;
+}
+
+/**
  * Returns the base url path and an object with the query parameters.
  *
  * @param url - The url string to manipulate.

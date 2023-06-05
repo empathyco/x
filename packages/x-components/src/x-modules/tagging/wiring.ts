@@ -7,8 +7,10 @@ import {
 import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
 import { filter, mapWire } from '../../wiring/wires.operators';
-import { Wire } from '../../wiring/wiring.types';
+import { DisplayWireMetadata, Wire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
+import { createOrigin } from '../../utils/index';
+import { FeatureLocation } from '../../types/index';
 import { DefaultPDPAddToCartService } from './service/pdp-add-to-cart.service';
 
 /**
@@ -151,7 +153,7 @@ export const trackAddToCartWire = createTrackWire('add2cart');
  *
  * @public
  */
-export const trackDisplayClickedWire = createTrackWire('displayClick');
+export const trackDisplayClickedWire = createTrackDisplayWire('displayClick');
 
 /**
  * Factory helper to create a wire for the track of a taggable element.
@@ -170,6 +172,33 @@ export function createTrackWire(property: keyof Tagging): Wire<Taggable> {
     }),
     ({ eventPayload: { tagging }, metadata: { ignoreInModules } }) =>
       !!tagging?.[property] && !ignoreInModules?.includes(moduleName)
+  );
+}
+
+/**
+ * Factory helper to create a wire for the track of the display click.
+ *
+ * @param property - Key of the tagging object to track.
+ * @returns A new wire for the display click of the taggable element.
+ *
+ * @public
+ */
+export function createTrackDisplayWire(property: keyof Tagging): Wire<Taggable> {
+  return filter(
+    wireDispatch('track', ({ eventPayload: { tagging }, metadata }) => {
+      const taggingInfo: TaggingRequest = tagging[property];
+      const location = metadata.location as FeatureLocation;
+
+      taggingInfo.params.location = location;
+      taggingInfo.params.displayFamily = createOrigin({
+        feature: metadata.feature,
+        location
+      })!;
+      taggingInfo.params.q = (metadata as DisplayWireMetadata).displayOriginalQuery;
+
+      return taggingInfo;
+    }),
+    ({ eventPayload: { tagging } }) => !!tagging?.[property]
   );
 }
 
