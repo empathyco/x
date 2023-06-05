@@ -32,7 +32,7 @@
       const resultURLTrackingEnabled$ = $x.on('ResultURLTrackingEnabled');
       const pdpIsLoaded$ = $x.on('PDPIsLoaded');
       const subscription = merge(resultURLTrackingEnabled$, pdpIsLoaded$)
-        .pipe(delay(500))
+        .pipe(delay(500)) // emulate loading time for customer PDP
         .subscribe(() => (showAddToCartButton.value = true));
 
       onUnmounted(() => subscription.unsubscribe());
