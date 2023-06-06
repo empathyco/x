@@ -28,7 +28,7 @@ export class BaseXAPI implements XAPI {
    *
    * @internal
    */
-  protected initCallback!: (config: SnippetConfig) => any;
+  protected initCallback!: (config: SnippetConfig) => Promise<any>;
 
   /**
    * Callback that allows to update the snippet config. The logic of initialization is out of this
@@ -63,7 +63,7 @@ export class BaseXAPI implements XAPI {
    *
    * @param initCallback - The callback to call.
    */
-  setInitCallback(initCallback: (config: SnippetConfig) => any): void {
+  setInitCallback(initCallback: (config: SnippetConfig) => Promise<any>): void {
     this.initCallback = initCallback;
   }
 
@@ -108,15 +108,18 @@ export class BaseXAPI implements XAPI {
    *
    * @param config - The config coming from the customer snippet.
    *
+   * @returns A promise that will be resolved once x components are initialized.
+   *
    * @public
    */
-  init(config: SnippetConfig): void {
+  init(config: SnippetConfig): Promise<void> {
     if (!this.isXInitialized) {
       this.isXInitialized = true;
-      this?.initCallback(config);
+      return this?.initCallback(config);
     } else {
       //eslint-disable-next-line no-console
       console.warn('We know X is awesome, but you only need to initialize it once.');
+      return Promise.resolve();
     }
   }
 
