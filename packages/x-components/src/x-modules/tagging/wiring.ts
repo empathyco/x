@@ -147,6 +147,13 @@ export const trackBannerClickedWire = createTrackWire('click');
 export const trackAddToCartWire = createTrackWire('add2cart');
 
 /**
+ * Performs a track of a display result being clicked.
+ *
+ * @public
+ */
+export const trackDisplayClickedWire = createTrackWire('displayClick');
+
+/**
  * Factory helper to create a wire for the track of a taggable element.
  *
  * @param property - Key of the tagging object to track.
@@ -206,5 +213,8 @@ export const taggingWiring = createWiring({
   },
   UserClickedABanner: {
     trackBannerClickedWire
+  },
+  UserClickedADisplayResult: {
+    trackDisplayClickedWire
   }
 });
