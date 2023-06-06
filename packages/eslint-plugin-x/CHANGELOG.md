@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.35...@empathyco/eslint-plugin-x@2.0.0-alpha.36) (2023-06-06)
+
+**Note:** Version bump only for package @empathyco/eslint-plugin-x
+
+
+
+
+
 ## [2.0.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.34...@empathyco/eslint-plugin-x@2.0.0-alpha.35) (2023-05-11)
 
 **Note:** Version bump only for package @empathyco/eslint-plugin-x

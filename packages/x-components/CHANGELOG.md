@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.381](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.380...@empathyco/x-components@3.0.0-alpha.381) (2023-06-06)
+
+
+### Features
+
+* **semantic-queries:** add maxItemsToRequest config (#1224) ([a124636](https://github.com/empathyco/x/commit/a124636d60170cc3f54a9d8a1e10351926f97aba))
+* **tagging:** track displayClick (#1222) ([e9a569e](https://github.com/empathyco/x/commit/e9a569e2b4d7b25b39aae9cad90dbd7da7203b3c))
+
+
+
 ## [3.0.0-alpha.380](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.379...@empathyco/x-components@3.0.0-alpha.380) (2023-05-31)
 
 
