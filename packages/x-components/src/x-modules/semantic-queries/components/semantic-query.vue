@@ -2,6 +2,7 @@
   <BaseSuggestion
     :suggestionSelectedEvents="suggestionSelectedEvents"
     :suggestion="semanticQuery"
+    :query="query"
     feature="semantics"
     data-test="semantic-query"
   >
@@ -13,7 +14,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { SemanticQuery as SemanticQueryModel } from '@empathyco/x-types';
-  import { xComponentMixin } from '../../../components';
+  import { Getter, xComponentMixin } from '../../../components';
   import { semanticQueriesXModule } from '../x-module';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
   import { XEventsTypes } from '../../../wiring';
@@ -31,6 +32,12 @@
     mixins: [xComponentMixin(semanticQueriesXModule)]
   })
   export default class SemanticQuery extends Vue {
+    /**
+     * The normalized query of the semantic queries module.
+     */
+    @Getter('semanticQueries', 'normalizedQuery')
+    public query!: string;
+
     /**
      * The {@link @empathyco/x-types#SemanticQuery} to render.
      */
