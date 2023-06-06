@@ -112,7 +112,7 @@ export class BaseXAPI implements XAPI {
    *
    * @public
    */
-  init(config: SnippetConfig): Promise<void> {
+  init(config: SnippetConfig): Promise<any> {
     if (!this.isXInitialized) {
       this.isXInitialized = true;
       return this?.initCallback(config);
