@@ -71,7 +71,7 @@ Here you can see that the semantic query query is rendered.
 
 ```vue live
 <template>
-  <SemanticQuery :semanticQuery="semanticQuery" />
+  <SemanticQuery :suggestion="semanticQuery" />
 </template>
 
 <script>
@@ -100,8 +100,9 @@ Here you can see that the semantic query query is rendered.
 In this example, we add the distance of the semantic query next to the query.
 
 <template>
-  <SemanticQuery :semanticQuery="semanticQuery">
-    <span>{{ semanticQuery.query}} - {{ semanticQuery.distance }}</span>
+  <SemanticQuery :suggestion="semanticQuery" #default="{ suggestion, query }">
+    <div>Original query: {{ query }}</div>
+    <div>Suggested semantic query: {{ suggestion.query}} - {{ suggestion.distance }}</div>
   </SemanticQuery>
 </template>
 
