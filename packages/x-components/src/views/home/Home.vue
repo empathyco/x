@@ -355,8 +355,8 @@
                     >
                       <SemanticQuery
                         class="x-suggestion x-title2 x-title2-md"
-                        :semanticQuery="findSemanticQuery(query)"
-                        #default="{ query: { query } }"
+                        :suggestion="findSemanticQuery(query)"
+                        #default="{ suggestion: { query } }"
                       >
                         <span data-test="semantic-queries-query">{{ query }}</span>
                       </SemanticQuery>

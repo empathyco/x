@@ -9,8 +9,8 @@ import { XPlugin } from '../../../../plugins/index';
 
 describe('semantic queries component', () => {
   function renderSemanticQuery({
-    template = '<SemanticQuery :semanticQuery="semanticQuery" v-bind="$attrs"/>',
-    semanticQuery = createSemanticQuery({ query: 'jeans' })
+    template = '<SemanticQuery :suggestion="suggestion" v-bind="$attrs"/>',
+    suggestion = createSemanticQuery({ query: 'jeans' })
   }: RenderSemanticQueryOptions = {}): RenderSemanticQueryAPI {
     const [, localVue] = installNewXPlugin();
 
@@ -23,7 +23,7 @@ describe('semantic queries component', () => {
         localVue,
         data() {
           return {
-            semanticQuery
+            suggestion
           };
         }
       }
@@ -32,7 +32,7 @@ describe('semantic queries component', () => {
     return {
       wrapper: wrapper.findComponent(SemanticQuery),
       emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
-      semanticQuery
+      suggestion
     };
   }
 
@@ -44,7 +44,7 @@ describe('semantic queries component', () => {
 
   it('renders the SemanticQuery passed by prop', () => {
     const { wrapper } = renderSemanticQuery({
-      semanticQuery: createSemanticQuery({ query: 'test query' })
+      suggestion: createSemanticQuery({ query: 'test query' })
     });
 
     expect(wrapper.get(getDataTestSelector('semantic-query')).element).toHaveTextContent(
@@ -55,12 +55,12 @@ describe('semantic queries component', () => {
   it('allows overriding its content with a slot', () => {
     const { wrapper } = renderSemanticQuery({
       template: `
-        <SemanticQuery :semanticQuery="semanticQuery" #default="{ query }">
+        <SemanticQuery :suggestion="suggestion" #default="{ suggestion }">
           <span data-test="semantic-query-title">TITLE</span>
-          <span data-test="semantic-query-content">{{query.query}}</span>
+          <span data-test="semantic-query-content">{{suggestion.query}}</span>
         </SemanticQuery>
       `,
-      semanticQuery: createSemanticQuery({ query: 'test' })
+      suggestion: createSemanticQuery({ query: 'test' })
     });
 
     expect(wrapper.get(getDataTestSelector('semantic-query-title')).element).toHaveTextContent(
@@ -72,7 +72,7 @@ describe('semantic queries component', () => {
   });
 
   it('emits required events on click', () => {
-    const { emitSpy, wrapper, semanticQuery } = renderSemanticQuery();
+    const { emitSpy, wrapper, suggestion } = renderSemanticQuery();
 
     wrapper.trigger('click');
 
@@ -81,7 +81,7 @@ describe('semantic queries component', () => {
     expect(emitSpy).toHaveBeenNthCalledWith(
       1,
       'UserAcceptedAQuery',
-      semanticQuery.query,
+      suggestion.query,
       expect.objectContaining({
         feature: 'semantics'
       })
@@ -89,7 +89,7 @@ describe('semantic queries component', () => {
     expect(emitSpy).toHaveBeenNthCalledWith(
       2,
       'UserSelectedASuggestion',
-      semanticQuery,
+      suggestion,
       expect.objectContaining({
         feature: 'semantics'
       })
@@ -97,7 +97,7 @@ describe('semantic queries component', () => {
     expect(emitSpy).toHaveBeenNthCalledWith(
       3,
       'UserSelectedASemanticQuery',
-      semanticQuery,
+      suggestion,
       expect.objectContaining({
         feature: 'semantics'
       })
@@ -112,7 +112,7 @@ interface RenderSemanticQueryOptions {
   /* The template to render the component. */
   template?: string;
   /* The semantic query to render. */
-  semanticQuery?: SemanticQueryModel;
+  suggestion?: SemanticQueryModel;
 }
 
 /**
@@ -124,5 +124,5 @@ interface RenderSemanticQueryAPI {
   /* A jest spy of the X emit method. */
   emitSpy: ReturnType<typeof jest.spyOn>;
   /* The rendered semantic query. */
-  semanticQuery: SemanticQueryModel;
+  suggestion: SemanticQueryModel;
 }

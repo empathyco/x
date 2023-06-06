@@ -1,12 +1,11 @@
 <template>
   <BaseSuggestion
-    :suggestionSelectedEvents="suggestionSelectedEvents"
-    :suggestion="semanticQuery"
-    :query="query"
+    v-bind="{ suggestionSelectedEvents, suggestion, query }"
     feature="semantics"
     data-test="semantic-query"
+    #default="baseScope"
   >
-    <slot :query="semanticQuery" />
+    <slot v-bind="baseScope" />
   </BaseSuggestion>
 </template>
 
@@ -42,7 +41,7 @@
      * The {@link @empathyco/x-types#SemanticQuery} to render.
      */
     @Prop()
-    public semanticQuery!: SemanticQueryModel;
+    public suggestion!: SemanticQueryModel;
 
     /**
      * The list of events that are going to be emitted when the button is pressed.
@@ -52,7 +51,7 @@
      */
     protected get suggestionSelectedEvents(): Partial<XEventsTypes> {
       return {
-        UserSelectedASemanticQuery: this.semanticQuery
+        UserSelectedASemanticQuery: this.suggestion
       };
     }
   }

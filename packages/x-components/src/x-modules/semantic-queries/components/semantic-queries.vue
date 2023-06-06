@@ -8,9 +8,9 @@
           data-test="semantic-query-item"
         >
           <slot name="item" :query="semanticQuery">
-            <SemanticQuery :semanticQuery="semanticQuery">
-              <slot name="item-content" :query="semanticQuery">
-                {{ semanticQuery.query }} - {{ semanticQuery.distance }}
+            <SemanticQuery :suggestion="semanticQuery" #default="{ suggestion }">
+              <slot name="item-content" :query="suggestion">
+                {{ suggestion.query }} - {{ suggestion.distance }}
               </slot>
             </SemanticQuery>
           </slot>
