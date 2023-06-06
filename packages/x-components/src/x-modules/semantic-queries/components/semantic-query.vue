@@ -5,7 +5,13 @@
     data-test="semantic-query"
     #default="baseScope"
   >
-    <slot v-bind="baseScope" />
+    <!-- eslint-disable max-len -->
+    <!--
+      @slot Semantic Query content
+          @binding {{suggestion: object - Suggestion data, query: string - The query that the suggestion belongs to}} v-bind BaseSuggestion bindings
+    -->
+    <!-- eslint-enable max-len -->
+    <slot v-bind="{ ...baseScope }" />
   </BaseSuggestion>
 </template>
 
@@ -99,10 +105,11 @@ Here you can see that the semantic query query is rendered.
 
 In this example, we add the distance of the semantic query next to the query.
 
+```vue live
 <template>
   <SemanticQuery :suggestion="semanticQuery" #default="{ suggestion, query }">
     <div>Original query: {{ query }}</div>
-    <div>Suggested semantic query: {{ suggestion.query}} - {{ suggestion.distance }}</div>
+    <div>Suggested semantic query: {{ suggestion.query }} - {{ suggestion.distance }}</div>
   </SemanticQuery>
 </template>
 
@@ -125,8 +132,5 @@ In this example, we add the distance of the semantic query next to the query.
     }
   };
 </script>
-
-```
-
 ```
 </docs>

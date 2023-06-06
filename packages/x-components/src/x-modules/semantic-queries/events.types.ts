@@ -13,5 +13,9 @@ export interface SemanticQueriesXEvents {
    */
   SemanticQueryRequestUpdated: SemanticQueriesRequest | null;
 
+  /**
+   * The user has selected a semantic query.
+   * Payload: The {@link SemanticQuery | semantic query} selected.
+   */
   UserSelectedASemanticQuery: SemanticQuery;
 }

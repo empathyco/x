@@ -1,5 +1,13 @@
 <template>
   <NoElement v-if="semanticQueries.length">
+    <!-- eslint-disable max-len -->
+    <!--
+      @slot Semantic Query content
+        @binding {string[]} queries - SemanticQueries mapped to strings
+        @binding {SemanticQuery[]} semanticQueries - SemanticQueries
+        @binding {(query: string) => SemanticQuery} findSemanticQuery - Method to find a semantic query given a query
+    -->
+    <!-- eslint-enable max-len -->
     <slot name="default" v-bind="{ queries, semanticQueries, findSemanticQuery }">
       <ul class="x-semantic-queries">
         <li
@@ -7,8 +15,16 @@
           :key="semanticQuery.query"
           data-test="semantic-query-item"
         >
+          <!--
+            @slot Semantic Query Item
+              @binding {SemanticQuery} query - The SemanticQuery to render
+          -->
           <slot name="item" :query="semanticQuery">
             <SemanticQuery :suggestion="semanticQuery" #default="{ suggestion }">
+              <!--
+                @slot Semantic Query Item Content
+                  @binding {SemanticQuery} query - The SemanticQuery to render
+              -->
               <slot name="item-content" :query="suggestion">
                 {{ suggestion.query }} - {{ suggestion.distance }}
               </slot>
