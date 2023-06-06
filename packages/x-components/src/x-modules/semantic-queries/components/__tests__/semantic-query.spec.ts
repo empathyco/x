@@ -82,19 +82,25 @@ describe('semantic queries component', () => {
       1,
       'UserAcceptedAQuery',
       semanticQuery.query,
-      expect.anything()
+      expect.objectContaining({
+        feature: 'semantics'
+      })
     );
     expect(emitSpy).toHaveBeenNthCalledWith(
       2,
       'UserSelectedASuggestion',
       semanticQuery,
-      expect.anything()
+      expect.objectContaining({
+        feature: 'semantics'
+      })
     );
     expect(emitSpy).toHaveBeenNthCalledWith(
       3,
       'UserSelectedASemanticQuery',
       semanticQuery,
-      expect.anything()
+      expect.objectContaining({
+        feature: 'semantics'
+      })
     );
   });
 });

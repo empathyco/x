@@ -2,6 +2,7 @@
   <BaseSuggestion
     :suggestionSelectedEvents="suggestionSelectedEvents"
     :suggestion="semanticQuery"
+    feature="semantics"
     data-test="semantic-query"
   >
     <slot :query="semanticQuery" />
