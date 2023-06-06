@@ -31,7 +31,7 @@
   })
   export default class SemanticQuery extends Vue {
     /**
-     * The {@link SemanticQueryModel} to render.
+     * The {@link @empathyco/x-types#SemanticQuery} to render.
      */
     @Prop()
     public semanticQuery!: SemanticQueryModel;

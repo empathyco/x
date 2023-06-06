@@ -58,10 +58,10 @@
     }
 
     /**
-     * Finds a {@link SemanticQueryModel} given a query.
+     * Finds a {@link @empathyco/x-types#SemanticQuery} given a query.
      *
      * @param query - The query to search.
-     * @returns The {@link SemanticQueryModel} or undefined if not found.
+     * @returns The {@link @empathyco/x-types#SemanticQuery} or undefined if not found.
      */
     findSemanticQuery(query: string): SemanticQueryModel | undefined {
       return this.semanticQueries.find(semanticQuery => semanticQuery.query === query);
