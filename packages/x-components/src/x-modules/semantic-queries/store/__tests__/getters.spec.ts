@@ -9,56 +9,59 @@ describe('semantic queries getters tests', () => {
   const store: Store<SemanticQueriesState> = new Store(semanticQueriesXStoreModule as any);
 
   describe('request getter', () => {
-    it('returns the query if the totalResults are less than the threshold', () => {
+    it('request contains all the necessary parameters', () => {
+      resetSemanticQueriesStateWith(store, {
+        query: 'test',
+        totalResults: 1,
+        config: {
+          threshold: 2,
+          maxItemsToRequest: 3
+        },
+        params: {
+          lang: 'en'
+        }
+      });
+
+      expect(store.getters.request).toEqual({
+        query: 'test',
+        extraParams: {
+          lang: 'en',
+          k: 3
+        }
+      });
+    });
+
+    it('contains the query if the totalResults are less than the threshold', () => {
       resetSemanticQueriesStateWith(store, {
         query: 'test',
         totalResults: 1,
         config: {
           threshold: 2
-        },
-        params: {
-          lang: 'en'
         }
       });
 
-      expect(store.getters.request).toEqual({
-        query: 'test',
-        extraParams: {
-          lang: 'en'
-        }
+      expect(store.getters.request).toMatchObject({
+        query: 'test'
       });
     });
 
-    it('returns the query if the totalResults is equal than the threshold', () => {
+    it('contains the query if the totalResults are equal than the threshold', () => {
       resetSemanticQueriesStateWith(store, {
         query: 'test',
         totalResults: 2,
         config: {
           threshold: 2
-        },
-        params: {
-          lang: 'en'
         }
       });
 
-      expect(store.getters.request).toEqual({
-        query: 'test',
-        extraParams: {
-          lang: 'en'
-        }
+      expect(store.getters.request).toMatchObject({
+        query: 'test'
       });
     });
 
-    it('is null if there is no query or the totalResults is higher than the threshold', () => {
+    it('is null if there is no query or the totalResults are greater than the threshold', () => {
       resetSemanticQueriesStateWith(store, {
-        query: '',
-        totalResults: 2,
-        config: {
-          threshold: 2
-        },
-        params: {
-          lang: 'en'
-        }
+        query: ''
       });
 
       expect(store.getters.request).toBeNull();
@@ -68,9 +71,6 @@ describe('semantic queries getters tests', () => {
         totalResults: 3,
         config: {
           threshold: 2
-        },
-        params: {
-          lang: 'en'
         }
       });
 
