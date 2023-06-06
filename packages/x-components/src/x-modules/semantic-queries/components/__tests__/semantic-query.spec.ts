@@ -1,18 +1,30 @@
-import { mount, Wrapper } from '@vue/test-utils';
+import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { SemanticQuery as SemanticQueryModel } from '@empathyco/x-types';
+import Vuex, { Store } from 'vuex';
+import { DeepPartial } from '@empathyco/x-utils';
 import SemanticQuery from '../semantic-query.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/index';
 import { createSemanticQuery } from '../../../../__stubs__/index';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { XPlugin } from '../../../../plugins/index';
+import { RootXStoreState } from '../../../../store/store.types';
+import { semanticQueriesXModule } from '../../x-module';
+import { resetSemanticQueriesStateWith } from './utils';
 
 describe('semantic queries component', () => {
   function renderSemanticQuery({
     template = '<SemanticQuery :suggestion="suggestion" v-bind="$attrs"/>',
-    suggestion = createSemanticQuery({ query: 'jeans' })
+    suggestion = createSemanticQuery({ query: 'jeans' }),
+    query = ''
   }: RenderSemanticQueryOptions = {}): RenderSemanticQueryAPI {
-    const [, localVue] = installNewXPlugin();
+    const localVue = createLocalVue();
+    localVue.use(Vuex);
+
+    const store = new Store<DeepPartial<RootXStoreState>>({});
+
+    installNewXPlugin({ store, initialXModules: [semanticQueriesXModule] }, localVue);
+    resetSemanticQueriesStateWith(store, { query });
 
     const wrapper = mount(
       {
@@ -21,6 +33,7 @@ describe('semantic queries component', () => {
       },
       {
         localVue,
+        store,
         data() {
           return {
             suggestion
@@ -55,20 +68,17 @@ describe('semantic queries component', () => {
   it('allows overriding its content with a slot', () => {
     const { wrapper } = renderSemanticQuery({
       template: `
-        <SemanticQuery :suggestion="suggestion" #default="{ suggestion }">
-          <span data-test="semantic-query-title">TITLE</span>
-          <span data-test="semantic-query-content">{{suggestion.query}}</span>
+        <SemanticQuery :suggestion="suggestion" #default="{ suggestion, query }">
+          <span data-test="state-query">{{ query }}</span>
+          <span data-test="semantic-query-content">{{ suggestion.query }}</span>
         </SemanticQuery>
       `,
-      suggestion: createSemanticQuery({ query: 'test' })
+      suggestion: createSemanticQuery({ query: 'blazer' }),
+      query: 'jacket'
     });
 
-    expect(wrapper.get(getDataTestSelector('semantic-query-title')).element).toHaveTextContent(
-      'TITLE'
-    );
-    expect(wrapper.get(getDataTestSelector('semantic-query-content')).element).toHaveTextContent(
-      'test'
-    );
+    expect(wrapper.get(getDataTestSelector('state-query')).text()).toEqual('jacket');
+    expect(wrapper.get(getDataTestSelector('semantic-query-content')).text()).toEqual('blazer');
   });
 
   it('emits required events on click', () => {
@@ -113,6 +123,8 @@ interface RenderSemanticQueryOptions {
   template?: string;
   /* The semantic query to render. */
   suggestion?: SemanticQueryModel;
+  /* The query from the semantic queries state. */
+  query?: string;
 }
 
 /**
