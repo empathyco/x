@@ -36,7 +36,7 @@ export interface XAPI {
    *
    * @internal
    */
-  setInitCallback(initCallback: (config: SnippetConfig) => Promise<any>): void;
+  setInitCallback(initCallback: (config: SnippetConfig) => void): void;
 
   /**
    * To set or update any property of the {@link SnippetConfig}.
@@ -72,7 +72,7 @@ export interface XAPI {
    *
    * @public
    */
-  init(config: SnippetConfig): Promise<any>;
+  init(config: SnippetConfig): void;
 }
 
 /**
