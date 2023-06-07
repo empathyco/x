@@ -13,23 +13,24 @@ describe('testing default X API', () => {
 
   it('should allow asynchronous initialization', async () => {
     const listener = jest.fn();
+    const someXAPI = new BaseXAPI();
     const someOtherBus = new XDummyBus();
-    defaultXAPI.setInitCallback(() => {
+    someXAPI.setInitCallback(() => {
       return new Promise(resolve => {
         setTimeout(() => {
-          defaultXAPI.setBus(someOtherBus);
+          someXAPI.setBus(someOtherBus);
           resolve(true);
         });
       });
     });
 
     someOtherBus.on('UserClickedOpenX').subscribe(listener);
-    await defaultXAPI.init({
+    await someXAPI.init({
       instance: 'test',
       scope: 'test',
       lang: 'es'
     });
-    defaultXAPI.search();
+    someXAPI.search();
 
     expect(listener).toHaveBeenCalled();
   });
