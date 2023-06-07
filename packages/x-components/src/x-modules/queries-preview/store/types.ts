@@ -41,7 +41,12 @@ export interface QueriesPreviewState {
  *
  * @public
  */
-export interface QueriesPreviewGetters {}
+export interface QueriesPreviewGetters {
+  /**
+   * The loaded previews from the state.
+   */
+  loadedQueriesPreview: Dictionary<QueryPreviewItem>;
+}
 
 /**
  * QueriesPreview store mutations.
