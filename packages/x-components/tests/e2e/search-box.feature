@@ -60,7 +60,6 @@ Feature: Search-box component
       | true              | 1500                | true    | lego      |
       | true              | 1500                | false   | lego      |
 
-  @skip
   Scenario Outline: 4. Adding or deleting words from a query (search-box is empty)
     Given following config: hide if equals query <hideIfEqualsQuery>, instant search <instant>, debounce <instantDebounceInMs>
     And   start button is clicked
