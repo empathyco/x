@@ -98,9 +98,7 @@ This component doesn't emit events.
 
 ## See it in action
 
-Here you have a basic example of how the `SemanticQueries` component is rendered. Keep in mind that
-this component is intended to be used overriding one of its slots, by default it will only render a
-list of queries with their distance.
+By default, the `SemanticQueries` component will render a list of semantic queries.
 
 ```vue
 <template>
@@ -119,60 +117,59 @@ list of queries with their distance.
 </script>
 ```
 
+### Play with props
+
+The component has the following props:
+
+- maxItemsToRender to limit the number of semantic queries to render.
+- animation to specify the animation to be used to animate the semantic queries.
+
+```vue live
+<template>
+  <SemanticQueries :animation="animation" :maxItemsToRender="3" />
+</template>
+
+<script>
+  import { FadeAndSlide } from '@empathyco/x-components';
+
+  export default {
+    name: 'SemanticQueriesPropsDemo',
+    data() {
+      return {
+        animation: FadeAndSlide
+      };
+    }
+  };
+</script>
+```
+
 ### Play with the default slot
 
 The default slot is used to overwrite the whole content of the component.
 
-In this example, the `QueryPreviewList` component will be used to retrieve the results of the
-queries and display them.
-
 ```vue live
 <template>
-  <SemanticQueries #default="{ queries }">
+  <SemanticQueries #default="{ suggestions }">
     <section>
-      <QueryPreviewList :queries="queries" #default="{ query, results }">
-        <div
-          class="x-flex x-flex-col x-gap-8 x-mb-16"
-          data-test="semantic-query-preview"
-          :data-query="query"
-        >
-          <h1 class="x-title2" data-test="semantic-queries-query">{{ query }}</h1>
-          <SlidingPanel :resetOnContentChange="false">
-            <article
-              v-for="result in results"
-              :key="result.id"
-              class="x-result"
-              style="max-width: 300px; overflow: hidden"
-            >
-              <BaseResultLink :result="result">
-                <BaseResultImage :result="result" class="x-result__picture" />
-              </BaseResultLink>
-              <div class="x-result__description">
-                <BaseResultLink :result="result">
-                  <h1 class="x-title3">{{ result.name }}</h1>
-                </BaseResultLink>
-              </div>
-            </article>
-          </SlidingPanel>
+      <SlidingPanel>
+        <div v-for="suggestion in suggestions">
+          {{ suggestion.query }}
+          {{ suggestion.distance }}
         </div>
-      </QueryPreviewList>
+      </SlidingPanel>
     </section>
   </SemanticQueries>
 </template>
 
 <script>
   import { SemanticQueries } from '@empathyco/x-components/semantic-queries';
-  import { QueryPreviewList } from '@empathyco/x-components/queries-preview';
-  import { SlidingPanel, BaseResultImage, BaseResultLink } from '@empathyco/x-components';
+  import { SlidingPanel } from '@empathyco/x-components';
 
   export default {
     name: 'SemanticQueriesDefaultSlotDemo',
     components: {
       SemanticQueries,
-      QueryPreviewList,
-      SlidingPanel,
-      BaseResultImage,
-      BaseResultLink
+      SlidingPanel
     }
   };
 </script>
@@ -219,15 +216,15 @@ semantic query to use it in another element.
 </script>
 ```
 
-### Play with the item slot
+### Play with the suggestion slot
 
-The item slot can be used to override each semantic query item.
+The suggestion slot can be used to override each semantic query item.
 
 In this example, the query will be rendered along with the distance.
 
 ```vue live
 <template>
-  <SemanticQueries #item="{ query: { query, distance } }">
+  <SemanticQueries #suggestion="{ suggestion: { query, distance } }">
     <span>
       ({{ distance }})
       {{ query }}
@@ -246,14 +243,14 @@ In this example, the query will be rendered along with the distance.
 </script>
 ```
 
-### Play with the item content slot
+### Play with the suggestion content slot
 
-The item content slot can be used to override only the content, but keep using the SemanticQuery
-component internally.
+The suggsetion content slot can be used to override only the content, but keep using the
+SemanticQuery component internally.
 
 ```vue live
 <template>
-  <SemanticQueries #item-content="{ query: { query, distance } }">
+  <SemanticQueries #suggestion-content="{ suggestion: { query, distance } }">
     <span>
       ({{ distance }})
       {{ query }}
