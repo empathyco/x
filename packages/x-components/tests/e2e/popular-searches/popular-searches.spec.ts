@@ -27,7 +27,7 @@ Given(
   }
 );
 
-// Scenario 1
+// Scenario 2
 When('popular search number {int} is clicked', (popularSearchItem: number) => {
   cy.getByDataTest('popular-search')
     .eq(popularSearchItem)

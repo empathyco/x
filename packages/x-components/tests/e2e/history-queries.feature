@@ -28,7 +28,7 @@ Feature: History queries component
       | true              | 150          | 15              | 5                | true    | 4                | puzzle, funko, puzzle 3d, funko pop, puzzle 3d harry, funko pop iron, puzzle 3d harry potter, funko pop iron man |
       | false             | 150          | 5               | 8                | true    | 4                | puzzle, funko, puzzle 3d, funko pop, puzzle 3d harry, funko pop iron, puzzle 3d harry potter, funko pop iron man |
 
-  Scenario Outline: 3. Clear history queries button is clicked
+  Scenario Outline: 2. Clear history queries button is clicked
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
     And   start button is clicked
     And   a "<list>" of queries already searched
@@ -41,7 +41,7 @@ Feature: History queries component
       | hideIfEqualsQuery | debounceInMs | maxItemsToStore | maxItemsToRender | instant | list                     |
       | true              | 150          | 15              | 5                | true    | puzzle, funko, puzzle 3d |
 
-  Scenario Outline: 4. Query containing a history query is typed
+  Scenario Outline: 3. Query containing a history query is typed
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
     And   start button is clicked
     And   no history queries are displayed
@@ -56,7 +56,7 @@ Feature: History queries component
       | true              | 150          | 15              | 5                | true    | le    | go             |
       | true              | 150          | 15              | 5                | true    | le    | go star wars   |
 
-  Scenario Outline: 5. History query is not stored if instant search is false
+  Scenario Outline: 4. History query is not stored if instant search is false
     Given a results API with a known response
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
     And   start button is clicked
@@ -68,7 +68,7 @@ Feature: History queries component
       | true              | 1000         | 15              | 5                | true    | barbie |
       | true              | 1000         | 15              | 5                | false   | barbie |
 
-  Scenario Outline: 6. Number and order of rendered history queries
+  Scenario Outline: 5. Number and order of rendered history queries
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
     And   start button is clicked
     And   a "<list>" of queries already searched
@@ -85,7 +85,7 @@ Feature: History queries component
       | false             | 150          | 4               | 6                | true    | 1                | puzzle, funko, lego, coche, barbie, casa, muñeca, peluche |
       | false             | 150          | 8               | 4                | true    | 3                | puzzle, funko, lego, coche, barbie, casa                  |
 
-  Scenario Outline: 7. Rendered history queries list is empty if no results are provided
+  Scenario Outline: 6. Rendered history queries list is empty if no results are provided
     Given following config: hide if equals query <hideIfEqualsQuery>, debounce <debounceInMs>, requested items <maxItemsToStore>, rendered <maxItemsToRender>, instant search <instant>
     And   a results API with no results
     And   start button is clicked
