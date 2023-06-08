@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.384](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.383...@empathyco/x-components@3.0.0-alpha.384) (2023-06-08)
+
+
+### Testing
+
+* review skipped tests (#1201) ([8c46a38](https://github.com/empathyco/x/commit/8c46a382dd37f2bf67849d8537c0faa668b430e2))
+
+
+
 ## [3.0.0-alpha.383](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.382...@empathyco/x-components@3.0.0-alpha.383) (2023-06-08)
 
 
