@@ -6,6 +6,7 @@ export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:8080',
     defaultCommandTimeout: 7000,
+    requestTimeout: 7000,
     viewportHeight: 1080,
     viewportWidth: 1920,
     screenshotOnRunFailure: false,
