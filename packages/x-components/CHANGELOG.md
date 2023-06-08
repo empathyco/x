@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.383](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.382...@empathyco/x-components@3.0.0-alpha.383) (2023-06-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vueuse/core to v10 (#1219) ([3761f17](https://github.com/empathyco/x/commit/3761f17226e1cba9b13a971e43ddb928d5f2f412))
+* **platform-adapter:** change semantics url path (#1230) ([b8210b5](https://github.com/empathyco/x/commit/b8210b59960474a3ad86ffe1a9ee6bc35567ea6e))
+
+
+
 ## [3.0.0-alpha.382](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.381...@empathyco/x-components@3.0.0-alpha.382) (2023-06-07)
 
 **Note:** Version bump only for package @empathyco/x-components

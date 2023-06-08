@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.77](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.76...@empathyco/x-adapter-platform@1.0.0-alpha.77) (2023-06-08)
+
+
+### Bug Fixes
+
+* **platform-adapter:** change semantics url path (#1230) ([b8210b5](https://github.com/empathyco/x/commit/b8210b59960474a3ad86ffe1a9ee6bc35567ea6e))
+
+
+
 ## [1.0.0-alpha.76](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.75...@empathyco/x-adapter-platform@1.0.0-alpha.76) (2023-06-07)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
