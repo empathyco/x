@@ -12,13 +12,14 @@ import { resetSemanticQueriesStateWith } from './utils';
 
 function renderSemanticQueriesList({
   template = `
-    <SemanticQueries/>
+    <SemanticQueries v-bind="$attrs"/>
   `,
   semanticQueries = [
     createSemanticQuery({ query: 'test', distance: 1 }),
     createSemanticQuery({ query: 'test 2', distance: 2 })
   ],
-  threshold = 5
+  threshold = 5,
+  maxItemsToRender
 }: RenderSemanticQueriesListOptions = {}): RenderSemanticQueriesListAPI {
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -49,7 +50,8 @@ function renderSemanticQueriesList({
     },
     {
       localVue,
-      store
+      store,
+      propsData: { maxItemsToRender }
     }
   );
 
@@ -74,25 +76,42 @@ describe('testing SemanticQueries', () => {
   it('renders a list with the semantic queries from the state', () => {
     const { wrapper } = renderSemanticQueriesList({
       semanticQueries: [
-        createSemanticQuery({ query: 'test', distance: 1 }),
-        createSemanticQuery({ query: 'test 2', distance: 2 })
+        createSemanticQuery({ query: 'test 1' }),
+        createSemanticQuery({ query: 'test 2' })
       ]
     });
 
     const wrappers = wrapper.findAll(getDataTestSelector('semantic-query')).wrappers;
 
     expect(wrappers).toHaveLength(2);
-    expect(wrappers.at(0)?.text()).toEqual('test - 1');
-    expect(wrappers.at(1)?.text()).toEqual('test 2 - 2');
+    expect(wrappers.at(0)?.text()).toEqual('test 1');
+    expect(wrappers.at(1)?.text()).toEqual('test 2');
+  });
+
+  it('renders up to the maxItemsToRender prop', () => {
+    const { wrapper } = renderSemanticQueriesList({
+      semanticQueries: [
+        createSemanticQuery({ query: 'test 1' }),
+        createSemanticQuery({ query: 'test 2' }),
+        createSemanticQuery({ query: 'test 3' })
+      ],
+      maxItemsToRender: 2
+    });
+
+    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query')).wrappers;
+
+    expect(wrappers).toHaveLength(2);
+    expect(wrappers.at(0)?.text()).toEqual('test 1');
+    expect(wrappers.at(1)?.text()).toEqual('test 2');
   });
 
   it('exposes a slot to overwrite the whole list', () => {
     const { wrapper } = renderSemanticQueriesList({
       template: `
-        <SemanticQueries #default="{ semanticQueries }">
+        <SemanticQueries #default="{ suggestions }">
           <div>
             <span
-              v-for="{query, distance} in semanticQueries"
+              v-for="{query, distance} in suggestions"
               :key="query"
               data-test="semantic-query">
               {{ query }} - {{ distance }}
@@ -130,12 +149,12 @@ describe('testing SemanticQueries', () => {
     expect(wrapper.find(getDataTestSelector('model-query')).text()).toEqual('SemanticQuery');
   });
 
-  it('exposes a slot to overwrite the item', () => {
+  it('exposes a slot to overwrite the suggestion', () => {
     const { wrapper } = renderSemanticQueriesList({
       template: `
-        <SemanticQueries #item="{ query }">
+        <SemanticQueries #suggestion="{ suggestion }">
           <span data-test="semantic-query-item-content">
-            {{ query.query }} - {{ query.distance }}
+            {{ suggestion.query }} - {{ suggestion.distance }}
           </span>
         </SemanticQueries>`,
       semanticQueries: [
@@ -151,12 +170,12 @@ describe('testing SemanticQueries', () => {
     expect(wrappers.at(1)?.text()).toEqual('test 2 - 2');
   });
 
-  it('exposes a slot to overwrite the item content', () => {
+  it('exposes a slot to overwrite the suggestion content', () => {
     const { wrapper } = renderSemanticQueriesList({
       template: `
-        <SemanticQueries #item-content="{ query }">
+        <SemanticQueries #suggestion-content="{ suggestion }">
           <span data-test="semantic-query-item-content">
-            {{ query.query }} - {{ query.distance }}
+            {{ suggestion.query }} - {{ suggestion.distance }}
           </span>
         </SemanticQueries>
       `,
@@ -184,6 +203,8 @@ interface RenderSemanticQueriesListOptions {
   semanticQueries?: SemanticQuery[];
   /* The max number of results to show the semantic queries. */
   threshold?: number;
+  /* The max number of semantic queries to render. */
+  maxItemsToRender?: number;
 }
 
 /**
