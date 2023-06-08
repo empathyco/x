@@ -66,5 +66,17 @@ describe('queries preview composables', () => {
       });
       expect(isAnyQueryLoadedInPreview(['someQuery', 'anotherQuery'])).toBe(false);
     });
+
+    it('returns false if the query is present but does not have results', () => {
+      resetXQueriesPreviewStateWith(store, {
+        queriesPreview: {
+          queryWithNoResults: createQueryPreviewItem('queryWithNoResults', {
+            totalResults: 0,
+            results: []
+          })
+        }
+      });
+      expect(isAnyQueryLoadedInPreview(['queryWithNoResults'])).toBe(false);
+    });
   });
 });
