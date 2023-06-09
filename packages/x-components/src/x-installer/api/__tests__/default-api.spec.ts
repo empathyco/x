@@ -11,10 +11,33 @@ describe('testing default X API', () => {
   defaultXAPI.setBus(bus);
   const query = 'maserati';
 
+  it('should allow asynchronous initialization', async () => {
+    const listener = jest.fn();
+    const someXAPI = new BaseXAPI();
+    const someOtherBus = new XDummyBus();
+    someXAPI.setInitCallback(() => {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          someXAPI.setBus(someOtherBus);
+          resolve(true);
+        });
+      });
+    });
+
+    someOtherBus.on('UserClickedOpenX').subscribe(listener);
+    await someXAPI.init({
+      instance: 'test',
+      scope: 'test',
+      lang: 'es'
+    });
+    someXAPI.search();
+
+    expect(listener).toHaveBeenCalled();
+  });
+
   it('should emit `UserAcceptedAQuery` through the `search` function', () => {
     const listener = jest.fn();
     bus.on('UserAcceptedAQuery').subscribe(listener);
-
     defaultXAPI.search(query);
 
     expect(listener).toHaveBeenCalledWith(query);
