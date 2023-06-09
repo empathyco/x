@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.385](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.384...@empathyco/x-components@3.0.0-alpha.385) (2023-06-09)
+
+
+### Features
+
+* make `XAPI` init method async (#1228) ([9d7d323](https://github.com/empathyco/x/commit/9d7d3230610761be23ca9efd117e7e3c4b9586b5))
+
+
+
 ## [3.0.0-alpha.384](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.383...@empathyco/x-components@3.0.0-alpha.384) (2023-06-08)
 
 
