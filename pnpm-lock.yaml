@@ -108,8 +108,8 @@ importers:
         specifier: ~2.0.0
         version: 2.0.0(eslint@8.32.0)
       prettier-plugin-tailwindcss:
-        specifier: ~0.2.5
-        version: 0.2.5(prettier@2.8.3)
+        specifier: ~0.3.0
+        version: 0.3.0(prettier@2.8.3)
     devDependencies:
       eslint:
         specifier: ~8.32.0
@@ -168,8 +168,8 @@ importers:
         specifier: ~16.9.0
         version: 16.9.17
       cypress:
-        specifier: ~12.12.0
-        version: 12.12.0
+        specifier: ~12.13.0
+        version: 12.13.0
       eslint-plugin-react:
         specifier: ~7.32.1
         version: 7.32.1(eslint@8.33.0)
@@ -183,8 +183,8 @@ importers:
         specifier: ~16.9.0
         version: 16.9.0(react@16.9.0)
       start-server-and-test:
-        specifier: ~1.15.2
-        version: 1.15.3
+        specifier: ~2.0.0
+        version: 2.0.0
       ts-jest:
         specifier: ~27.1.0
         version: 27.1.0(@babel/core@7.20.12)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
@@ -236,8 +236,8 @@ importers:
         specifier: ~27.5.0
         version: 27.5.0
       concurrently:
-        specifier: ~8.0.0
-        version: 8.0.0
+        specifier: ~8.1.0
+        version: 8.1.0
       jest:
         specifier: ~27.5.0
         version: 27.5.0(ts-node@10.9.1)
@@ -254,10 +254,10 @@ importers:
   packages/x-adapter-platform:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: ^8.0.0-alpha.30
+        specifier: ^8.0.0-alpha.31
         version: link:../x-adapter
       '@empathyco/x-types':
-        specifier: ^10.0.0-alpha.69
+        specifier: ^10.0.0-alpha.70
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: ^1.0.0-alpha.21
@@ -270,14 +270,14 @@ importers:
         specifier: ~7.22.0
         version: 7.22.0(@types/node@18.16.0)
       '@microsoft/api-extractor':
-        specifier: ~7.34.0
-        version: 7.34.0
+        specifier: ~7.35.0
+        version: 7.35.0(@types/node@18.16.0)
       '@types/jest':
         specifier: ~27.5.0
         version: 27.5.0
       concurrently:
-        specifier: ~8.0.0
-        version: 8.0.0
+        specifier: ~8.1.0
+        version: 8.1.0
       jest:
         specifier: ~27.5.0
         version: 27.5.0(ts-node@10.9.1)
@@ -346,7 +346,7 @@ importers:
   packages/x-bus:
     dependencies:
       '@empathyco/x-priority-queue':
-        specifier: ^1.0.0-alpha.1
+        specifier: ^1.0.0-alpha.2
         version: link:../x-priority-queue
       '@empathyco/x-utils':
         specifier: ^1.0.0-alpha.21
@@ -362,8 +362,8 @@ importers:
         specifier: ~27.5.0
         version: 27.5.0
       concurrently:
-        specifier: ~8.0.0
-        version: 8.0.0
+        specifier: ~8.1.0
+        version: 8.1.0
       jest:
         specifier: ~27.5.0
         version: 27.5.0(ts-node@10.9.1)
@@ -380,13 +380,13 @@ importers:
   packages/x-components:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: ^8.0.0-alpha.30
+        specifier: ^8.0.0-alpha.31
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: ^1.0.0-alpha.75
+        specifier: ^1.0.0-alpha.77
         version: link:../x-adapter-platform
       '@empathyco/x-bus':
-        specifier: ^1.0.0-alpha.1
+        specifier: ^1.0.0-alpha.2
         version: link:../x-bus
       '@empathyco/x-deep-merge':
         specifier: ^2.0.0-alpha.1
@@ -398,7 +398,7 @@ importers:
         specifier: ^2.0.0-alpha.14
         version: link:../storage-service
       '@empathyco/x-types':
-        specifier: ^10.0.0-alpha.69
+        specifier: ^10.0.0-alpha.70
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: ^1.0.0-alpha.21
@@ -407,8 +407,8 @@ importers:
         specifier: ~6.5.0
         version: 6.5.0
       '@vueuse/core':
-        specifier: ~9.13.0
-        version: 9.13.0(vue@2.7.14)
+        specifier: ~10.1.0
+        version: 10.1.0(vue@2.7.14)
       rxjs:
         specifier: ~7.8.0
         version: 7.8.0
@@ -429,14 +429,14 @@ importers:
         version: 1.1.2
     devDependencies:
       '@badeball/cypress-cucumber-preprocessor':
-        specifier: ~17.1.0
-        version: 17.1.0(cypress@12.12.0)
+        specifier: ~17.2.0
+        version: 17.2.0(cypress@12.13.0)
       '@bahmutov/cypress-esbuild-preprocessor':
         specifier: ~2.2.0
         version: 2.2.0(esbuild@0.17.19)
       '@cypress/vue2':
         specifier: ~2.0.1
-        version: 2.0.1(cypress@12.12.0)(vue@2.7.14)
+        version: 2.0.1(cypress@12.13.0)(vue@2.7.14)
       '@empathyco/x-tailwindcss':
         specifier: ^1.0.0-alpha.33
         version: link:../x-tailwindcss
@@ -444,8 +444,8 @@ importers:
         specifier: ~7.22.0
         version: 7.22.0(@types/node@18.16.0)
       '@microsoft/api-extractor':
-        specifier: ~7.34.0
-        version: 7.34.0
+        specifier: ~7.35.0
+        version: 7.35.0(@types/node@18.16.0)
       '@rollup/plugin-commonjs':
         specifier: ~25.0.0
         version: 25.0.0(rollup@2.79.1)
@@ -469,7 +469,7 @@ importers:
         version: 5.14.5
       '@vue/cli-plugin-e2e-cypress':
         specifier: ~5.0.4
-        version: 5.0.8(@vue/cli-service@5.0.8)(cypress@12.12.0)(eslint@8.33.0)
+        version: 5.0.8(@vue/cli-service@5.0.8)(cypress@12.13.0)(eslint@8.33.0)
       '@vue/cli-plugin-typescript':
         specifier: ~5.0.4
         version: 5.0.8(@vue/cli-service@5.0.8)(esbuild@0.17.19)(eslint@8.33.0)(typescript@4.9.4)(vue-template-compiler@2.7.14)(vue@2.7.14)
@@ -478,7 +478,7 @@ importers:
         version: 5.0.8(@vue/cli-service@5.0.8)
       '@vue/cli-service':
         specifier: ~5.0.4
-        version: 5.0.8(@babel/core@7.20.12)(esbuild@0.17.19)(sass-loader@13.2.0)(vue-template-compiler@2.7.14)(vue@2.7.14)
+        version: 5.0.8(@babel/core@7.20.12)(esbuild@0.17.19)(sass-loader@13.3.0)(vue-template-compiler@2.7.14)(vue@2.7.14)
       '@vue/test-utils':
         specifier: ~1.0.3
         version: 1.0.5(vue-template-compiler@2.7.14)(vue@2.7.14)
@@ -492,8 +492,8 @@ importers:
         specifier: ~2.0.0
         version: 2.0.0
       cypress:
-        specifier: ~12.12.0
-        version: 12.12.0
+        specifier: ~12.13.0
+        version: 12.13.0
       esbuild:
         specifier: 0.17.19
         version: 0.17.19
@@ -546,8 +546,8 @@ importers:
         specifier: ~1.62.0
         version: 1.62.0
       sass-loader:
-        specifier: ~13.2.0
-        version: 13.2.0(sass@1.62.0)(webpack@5.75.0)
+        specifier: ~13.3.0
+        version: 13.3.0(sass@1.62.0)(webpack@5.75.0)
       tailwindcss:
         specifier: ~3.3.0
         version: 3.3.0(postcss@8.4.21)(ts-node@10.9.1)
@@ -590,8 +590,8 @@ importers:
         specifier: ~27.5.0
         version: 27.5.0
       concurrently:
-        specifier: ~8.0.0
-        version: 8.0.0
+        specifier: ~8.1.0
+        version: 8.1.0
       jest:
         specifier: ~27.5.0
         version: 27.5.0(ts-node@10.9.1)
@@ -712,7 +712,7 @@ importers:
   packages/x-types:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: ^8.0.0-alpha.30
+        specifier: ^8.0.0-alpha.31
         version: link:../x-adapter
       tslib:
         specifier: ~2.5.0
@@ -725,8 +725,8 @@ importers:
         specifier: ~7.22.0
         version: 7.22.0(@types/node@18.16.0)
       '@microsoft/api-extractor':
-        specifier: ~7.34.0
-        version: 7.34.0
+        specifier: ~7.35.0
+        version: 7.35.0(@types/node@18.16.0)
       '@types/jest':
         specifier: ~27.5.0
         version: 27.5.0
@@ -1554,10 +1554,10 @@ packages:
       - supports-color
     dev: true
 
-  /@badeball/cypress-cucumber-preprocessor@17.1.0(cypress@12.12.0):
+  /@badeball/cypress-cucumber-preprocessor@17.2.0(cypress@12.13.0):
     resolution:
       {
-        integrity: sha512-68RhMZFQHEHiiUZT7VjJKNQ8OdP16SsVnpPfi3QI96LJ+m0R4nt51JFkqOeXo9Vd/5/hRq29EEYR5pBa1YAMug==
+        integrity: sha512-bxhaYgBfH+kFb6KKdjC2wBW+aOQmQ63iAZ7KTuIw+qdEwNpLeDSki4dE5C4Gmsxell/g4lyaFJQJiGGOMo7tPQ==
       }
     engines: { node: '>=18.0.0' }
     hasBin: true
@@ -1581,12 +1581,13 @@ packages:
       cli-table: 0.3.11
       common-ancestor-path: 1.0.1
       cosmiconfig: 8.1.3
-      cypress: 12.12.0
+      cypress: 12.13.0
       debug: 4.3.4(supports-color@8.1.1)
       error-stack-parser: 2.1.4
       esbuild: 0.17.19
       glob: 10.2.3
       is-path-inside: 3.0.3
+      seedrandom: 3.0.5
       source-map: 0.7.4
       uuid: 9.0.0
     transitivePeerDependencies:
@@ -1871,7 +1872,7 @@ packages:
       uuid: 8.3.2
     dev: true
 
-  /@cypress/vue2@2.0.1(cypress@12.12.0)(vue@2.7.14):
+  /@cypress/vue2@2.0.1(cypress@12.13.0)(vue@2.7.14):
     resolution:
       {
         integrity: sha512-pW0HFZxMm16UG3flZwUED357HlaRo1MgsHNE3rFs2cgdWFBunTcSbubYjrUFmeoRwEc//u6W0Hm77sOYSf7CLw==
@@ -1881,7 +1882,7 @@ packages:
       cypress: '>=4.5.0'
       vue: ^2.0.0
     dependencies:
-      cypress: 12.12.0
+      cypress: 12.13.0
       vue: 2.7.14
     dev: true
 
@@ -3036,17 +3037,6 @@ packages:
       - '@types/node'
     dev: true
 
-  /@microsoft/api-extractor-model@7.26.0:
-    resolution:
-      {
-        integrity: sha512-iUlscM9a3/scqgaL+sipTYsfbkF/frrZhdYWXm5+zEVMW6QlP5jDV6cYNeIEIdMeGSbzk1yxpBjyeBDAZQLdyA==
-      }
-    dependencies:
-      '@microsoft/tsdoc': 0.14.2
-      '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.53.3
-    dev: true
-
   /@microsoft/api-extractor-model@7.26.4(@types/node@18.16.0):
     resolution:
       {
@@ -3060,25 +3050,40 @@ packages:
       - '@types/node'
     dev: true
 
-  /@microsoft/api-extractor@7.34.0:
+  /@microsoft/api-extractor-model@7.27.0(@types/node@18.16.0):
     resolution:
       {
-        integrity: sha512-U9opcYpFrN0eIVunEx90SDSYzmjgO2mEVbttHwtJBjOHUhK2cY2QykH8uiBnJuVtuBvHVCdEFUGt6i/8LVexYA==
+        integrity: sha512-wHqIMiwSARmiuVLn/zmVpiRncq6hvBfC5GF+sjrN3w4FqVkqFYk7DetvfRNdy/3URdqqmYGrhJlcU9HpLnHOPg==
+      }
+    dependencies:
+      '@microsoft/tsdoc': 0.14.2
+      '@microsoft/tsdoc-config': 0.16.2
+      '@rushstack/node-core-library': 3.59.1(@types/node@18.16.0)
+    transitivePeerDependencies:
+      - '@types/node'
+    dev: true
+
+  /@microsoft/api-extractor@7.35.0(@types/node@18.16.0):
+    resolution:
+      {
+        integrity: sha512-yBGfPJeEtzk8sg2hE2/vOPRvnJBvstbWNGeyGV1jIEUSgytzQ0QPgPEkOsP2n7nBfnyRXmZaBa2vJPGOzVWy+g==
       }
     hasBin: true
     dependencies:
-      '@microsoft/api-extractor-model': 7.26.0
+      '@microsoft/api-extractor-model': 7.27.0(@types/node@18.16.0)
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.53.3
-      '@rushstack/rig-package': 0.3.17
-      '@rushstack/ts-command-line': 4.13.1
+      '@rushstack/node-core-library': 3.59.1(@types/node@18.16.0)
+      '@rushstack/rig-package': 0.3.19
+      '@rushstack/ts-command-line': 4.13.3
       colors: 1.2.5
       lodash: 4.17.21
       resolve: 1.22.1
       semver: 7.3.8
       source-map: 0.6.1
-      typescript: 4.8.4
+      typescript: 5.0.4
+    transitivePeerDependencies:
+      - '@types/node'
     dev: true
 
   /@microsoft/tsdoc-config@0.16.2:
@@ -3777,22 +3782,6 @@ packages:
       rollup: 2.79.1
     dev: true
 
-  /@rushstack/node-core-library@3.53.3:
-    resolution:
-      {
-        integrity: sha512-H0+T5koi5MFhJUd5ND3dI3bwLhvlABetARl78L3lWftJVQEPyzcgTStvTTRiIM5mCltyTM8VYm6BuCtNUuxD0Q==
-      }
-    dependencies:
-      '@types/node': 12.20.24
-      colors: 1.2.5
-      fs-extra: 7.0.1
-      import-lazy: 4.0.0
-      jju: 1.4.0
-      resolve: 1.17.0
-      semver: 7.3.8
-      z-schema: 5.0.5
-    dev: true
-
   /@rushstack/node-core-library@3.55.2(@types/node@18.16.0):
     resolution:
       {
@@ -3814,20 +3803,41 @@ packages:
       z-schema: 5.0.5
     dev: true
 
-  /@rushstack/rig-package@0.3.17:
+  /@rushstack/node-core-library@3.59.1(@types/node@18.16.0):
     resolution:
       {
-        integrity: sha512-nxvAGeIMnHl1LlZSQmacgcRV4y1EYtgcDIrw6KkeVjudOMonlxO482PhDj3LVZEp6L7emSf6YSO2s5JkHlwfZA==
+        integrity: sha512-iy/xaEhXGpX+DY1ZzAtNA+QPw+9+TJh773Im+JxG4R1fu00/vWq470UOEj6upxlUxmp0JxhnmNRxzfptHrn/Uw==
+      }
+    peerDependencies:
+      '@types/node': '*'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+    dependencies:
+      '@types/node': 18.16.0
+      colors: 1.2.5
+      fs-extra: 7.0.1
+      import-lazy: 4.0.0
+      jju: 1.4.0
+      resolve: 1.22.1
+      semver: 7.3.8
+      z-schema: 5.0.5
+    dev: true
+
+  /@rushstack/rig-package@0.3.19:
+    resolution:
+      {
+        integrity: sha512-2d0/Gn+qjOYneZbiHjn4SjyDwq9I0WagV37z0F1V71G+yONgH7wlt3K/UoNiDkhA8gTHYPRo2jz3CvttybwSag==
       }
     dependencies:
-      resolve: 1.17.0
+      resolve: 1.22.1
       strip-json-comments: 3.1.1
     dev: true
 
-  /@rushstack/ts-command-line@4.13.1:
+  /@rushstack/ts-command-line@4.13.2:
     resolution:
       {
-        integrity: sha512-UTQMRyy/jH1IS2U+6pyzyn9xQ2iMcoUKkTcZUzOP/aaMiKlWLwCTDiBVwhw/M1crDx6apF9CwyjuWO9r1SBdJQ==
+        integrity: sha512-bCU8qoL9HyWiciltfzg7GqdfODUeda/JpI0602kbN5YH22rzTxyqYvv7aRLENCM7XCQ1VRs7nMkEqgJUOU8Sag==
       }
     dependencies:
       '@types/argparse': 1.0.38
@@ -3836,10 +3846,10 @@ packages:
       string-argv: 0.3.1
     dev: true
 
-  /@rushstack/ts-command-line@4.13.2:
+  /@rushstack/ts-command-line@4.13.3:
     resolution:
       {
-        integrity: sha512-bCU8qoL9HyWiciltfzg7GqdfODUeda/JpI0602kbN5YH22rzTxyqYvv7aRLENCM7XCQ1VRs7nMkEqgJUOU8Sag==
+        integrity: sha512-6aQIv/o1EgsC/+SpgUyRmzg2QIAL6sudEzw3sWzJKwWuQTc5XRsyZpyldfE7WAmIqMXDao9QG35/NYORjHm5Zw==
       }
     dependencies:
       '@types/argparse': 1.0.38
@@ -4335,13 +4345,6 @@ packages:
     resolution:
       {
         integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
-      }
-    dev: true
-
-  /@types/node@12.20.24:
-    resolution:
-      {
-        integrity: sha512-yxDeaQIAJlMav7fH5AQqPH1u8YIuhYJXYBzxaQ4PifsU0GDO38MSdmEDeRlIxrKbC6NbEaaEHDanWb+y30U8SQ==
       }
     dev: true
 
@@ -4937,7 +4940,7 @@ packages:
       }
     dev: true
 
-  /@vue/cli-plugin-e2e-cypress@5.0.8(@vue/cli-service@5.0.8)(cypress@12.12.0)(eslint@8.33.0):
+  /@vue/cli-plugin-e2e-cypress@5.0.8(@vue/cli-service@5.0.8)(cypress@12.13.0)(eslint@8.33.0):
     resolution:
       {
         integrity: sha512-BasFHQSqDAmFvueaqk/d+s1hJnW0OtWEIgmHZRXg8hYkZJF4pu7kz66DmEAZl6DypfyoSxqwN7WHILYDuKAaEw==
@@ -4946,9 +4949,9 @@ packages:
       '@vue/cli-service': ^3.0.0 || ^4.0.0 || ^5.0.0-0
       cypress: '*'
     dependencies:
-      '@vue/cli-service': 5.0.8(@babel/core@7.20.12)(esbuild@0.17.19)(sass-loader@13.2.0)(vue-template-compiler@2.7.14)(vue@2.7.14)
+      '@vue/cli-service': 5.0.8(@babel/core@7.20.12)(esbuild@0.17.19)(sass-loader@13.3.0)(vue-template-compiler@2.7.14)(vue@2.7.14)
       '@vue/cli-shared-utils': 5.0.8
-      cypress: 12.12.0
+      cypress: 12.13.0
       eslint-plugin-cypress: 2.12.1(eslint@8.33.0)
     transitivePeerDependencies:
       - encoding
@@ -4963,7 +4966,7 @@ packages:
     peerDependencies:
       '@vue/cli-service': ^3.0.0 || ^4.0.0 || ^5.0.0-0
     dependencies:
-      '@vue/cli-service': 5.0.8(@babel/core@7.20.12)(esbuild@0.17.19)(sass-loader@13.2.0)(vue-template-compiler@2.7.14)(vue@2.7.14)
+      '@vue/cli-service': 5.0.8(@babel/core@7.20.12)(esbuild@0.17.19)(sass-loader@13.3.0)(vue-template-compiler@2.7.14)(vue@2.7.14)
       '@vue/cli-shared-utils': 5.0.8
     transitivePeerDependencies:
       - encoding
@@ -4988,7 +4991,7 @@ packages:
     dependencies:
       '@babel/core': 7.20.12
       '@types/webpack-env': 1.18.0
-      '@vue/cli-service': 5.0.8(@babel/core@7.20.12)(esbuild@0.17.19)(sass-loader@13.2.0)(vue-template-compiler@2.7.14)(vue@2.7.14)
+      '@vue/cli-service': 5.0.8(@babel/core@7.20.12)(esbuild@0.17.19)(sass-loader@13.3.0)(vue-template-compiler@2.7.14)(vue@2.7.14)
       '@vue/cli-shared-utils': 5.0.8
       babel-loader: 8.3.0(@babel/core@7.20.12)(webpack@5.75.0)
       fork-ts-checker-webpack-plugin: 6.5.2(eslint@8.33.0)(typescript@4.9.4)(vue-template-compiler@2.7.14)(webpack@5.75.0)
@@ -5017,10 +5020,10 @@ packages:
     peerDependencies:
       '@vue/cli-service': ^3.0.0 || ^4.0.0 || ^5.0.0-0
     dependencies:
-      '@vue/cli-service': 5.0.8(@babel/core@7.20.12)(esbuild@0.17.19)(sass-loader@13.2.0)(vue-template-compiler@2.7.14)(vue@2.7.14)
+      '@vue/cli-service': 5.0.8(@babel/core@7.20.12)(esbuild@0.17.19)(sass-loader@13.3.0)(vue-template-compiler@2.7.14)(vue@2.7.14)
     dev: true
 
-  /@vue/cli-service@5.0.8(@babel/core@7.20.12)(esbuild@0.17.19)(sass-loader@13.2.0)(vue-template-compiler@2.7.14)(vue@2.7.14):
+  /@vue/cli-service@5.0.8(@babel/core@7.20.12)(esbuild@0.17.19)(sass-loader@13.3.0)(vue-template-compiler@2.7.14)(vue@2.7.14):
     resolution:
       {
         integrity: sha512-nV7tYQLe7YsTtzFrfOMIHc5N2hp5lHG2rpYr0aNja9rNljdgcPZLyQRb2YRivTHqTv7lI962UXFURcpStHgyFw==
@@ -5097,7 +5100,7 @@ packages:
       postcss: 8.4.21
       postcss-loader: 6.2.1(postcss@8.4.21)(webpack@5.75.0)
       progress-webpack-plugin: 1.0.16(webpack@5.75.0)
-      sass-loader: 13.2.0(sass@1.62.0)(webpack@5.75.0)
+      sass-loader: 13.3.0(sass@1.62.0)(webpack@5.75.0)
       ssri: 8.0.1
       terser-webpack-plugin: 5.3.6(esbuild@0.17.19)(webpack@5.75.0)
       thread-loader: 3.0.4(webpack@5.75.0)
@@ -5623,35 +5626,35 @@ packages:
       }
     dev: true
 
-  /@vueuse/core@9.13.0(vue@2.7.14):
+  /@vueuse/core@10.1.0(vue@2.7.14):
     resolution:
       {
-        integrity: sha512-pujnclbeHWxxPRqXWmdkKV5OX4Wk4YeK7wusHqRwU0Q7EFusHoqNA/aPhB6KCh9hEqJkLAJo7bb0Lh9b+OIVzw==
+        integrity: sha512-3Znoa5m5RO+z4/C9w6DRaKTR3wCVJvD5rav8HTDGsr+7rOZRHtcgFJ8NcCs0ZvIpmev2kExTa311ns5j2RbzDQ==
       }
     dependencies:
       '@types/web-bluetooth': 0.0.16
-      '@vueuse/metadata': 9.13.0
-      '@vueuse/shared': 9.13.0(vue@2.7.14)
-      vue-demi: 0.13.11(vue@2.7.14)
+      '@vueuse/metadata': 10.1.0
+      '@vueuse/shared': 10.1.0(vue@2.7.14)
+      vue-demi: 0.14.5(vue@2.7.14)
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
     dev: false
 
-  /@vueuse/metadata@9.13.0:
+  /@vueuse/metadata@10.1.0:
     resolution:
       {
-        integrity: sha512-gdU7TKNAUVlXXLbaF+ZCfte8BjRJQWPCa2J55+7/h+yDtzw3vOoGQDRXzI6pyKyo6bXFT5/QoPE4hAknExjRLQ==
+        integrity: sha512-cM28HjDEw5FIrPE9rgSPFZvQ0ZYnOLAOr8hl1XM6tFl80U3WAR5ROdnAqiYybniwP5gt9MKKAJAqd/ab2aHkqg==
       }
     dev: false
 
-  /@vueuse/shared@9.13.0(vue@2.7.14):
+  /@vueuse/shared@10.1.0(vue@2.7.14):
     resolution:
       {
-        integrity: sha512-UrnhU+Cnufu4S6JLCPZnkWh0WwZGUp72ktOF2DFptMlOs3TOdVv8xJN53zhHGARmVOsz5KqOls09+J1NR6sBKw==
+        integrity: sha512-2X52ogu12i9DkKOQ01yeb/BKg9UO87RNnpm5sXkQvyORlbq8ONS5l39MYkjkeVWWjdT0teJru7a2S41dmHmqjQ==
       }
     dependencies:
-      vue-demi: 0.13.11(vue@2.7.14)
+      vue-demi: 0.14.5(vue@2.7.14)
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -7782,10 +7785,10 @@ packages:
       typedarray: 0.0.6
     dev: true
 
-  /concurrently@8.0.0:
+  /concurrently@8.1.0:
     resolution:
       {
-        integrity: sha512-1fjagjL+RgPRAx9Wi8Yv866Whtx34MRdk9qf6wwxpQoYL2mD+lUZMOe9RXYULC6eBl6e4sde6cu8bpyg9Rd9/w==
+        integrity: sha512-0AB6eOAtaW/r/kX2lCdolaWtT191ICeuJjEJvI9hT3zbPFuZ/iZaJwMRKwbuwADome7OKxk73L7od+fsveZ7tA==
       }
     engines: { node: ^14.13.0 || >=16.0.0 }
     hasBin: true
@@ -7794,11 +7797,11 @@ packages:
       date-fns: 2.29.3
       lodash: 4.17.21
       rxjs: 7.8.0
-      shell-quote: 1.7.4
+      shell-quote: 1.8.1
       spawn-command: 0.0.2-1
       supports-color: 8.1.1
       tree-kill: 1.2.2
-      yargs: 17.6.2
+      yargs: 17.7.2
     dev: true
 
   /condense-newlines@0.2.1:
@@ -8781,10 +8784,10 @@ packages:
         integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
       }
 
-  /cypress@12.12.0:
+  /cypress@12.13.0:
     resolution:
       {
-        integrity: sha512-UU5wFQ7SMVCR/hyKok/KmzG6fpZgBHHfrXcHzDmPHWrT+UUetxFzQgt7cxCszlwfozckzwkd22dxMwl/vNkWRw==
+        integrity: sha512-QJlSmdPk+53Zhy69woJMySZQJoWfEWun3X5OOenGsXjRPVfByVTHorxNehbzhZrEzH9RDUDqVcck0ahtlS+N/Q==
       }
     engines: { node: ^14.0.0 || ^16.0.0 || >=18.0.0 }
     hasBin: true
@@ -14363,7 +14366,7 @@ packages:
       }
     dependencies:
       picocolors: 1.0.0
-      shell-quote: 1.7.4
+      shell-quote: 1.8.1
     dev: true
 
   /lazy-ass@1.6.0:
@@ -16196,7 +16199,7 @@ packages:
       tsconfig-paths: 4.1.2
       tslib: 2.5.0
       v8-compile-cache: 2.3.0
-      yargs: 17.6.2
+      yargs: 17.7.2
       yargs-parser: 21.1.1
     transitivePeerDependencies:
       - debug
@@ -17668,15 +17671,14 @@ packages:
     dependencies:
       fast-diff: 1.2.0
 
-  /prettier-plugin-tailwindcss@0.2.5(prettier@2.8.3):
+  /prettier-plugin-tailwindcss@0.3.0(prettier@2.8.3):
     resolution:
       {
-        integrity: sha512-vZ/iKieyCx0WTxHbkf5E1rBlv/ybFk8WTT4hL5W2jlVxum2Zbe0jMUpuQdDrpa4z2vnPiJ5KIWCqL/kd16fKYg==
+        integrity: sha512-009/Xqdy7UmkcTBpwlq7jsViDqXAYSOMLDrHAdTMlVZOrKfM2o9Ci7EMWTMZ7SkKBFTG04UM9F9iM2+4i6boDA==
       }
     engines: { node: '>=12.17.0' }
     peerDependencies:
       '@ianvs/prettier-plugin-sort-imports': '*'
-      '@prettier/plugin-php': '*'
       '@prettier/plugin-pug': '*'
       '@shopify/prettier-plugin-liquid': '*'
       '@shufo/prettier-plugin-blade': '*'
@@ -17686,6 +17688,7 @@ packages:
       prettier-plugin-css-order: '*'
       prettier-plugin-import-sort: '*'
       prettier-plugin-jsdoc: '*'
+      prettier-plugin-marko: '*'
       prettier-plugin-organize-attributes: '*'
       prettier-plugin-organize-imports: '*'
       prettier-plugin-style-order: '*'
@@ -17693,8 +17696,6 @@ packages:
       prettier-plugin-twig-melody: '*'
     peerDependenciesMeta:
       '@ianvs/prettier-plugin-sort-imports':
-        optional: true
-      '@prettier/plugin-php':
         optional: true
       '@prettier/plugin-pug':
         optional: true
@@ -17711,6 +17712,8 @@ packages:
       prettier-plugin-import-sort:
         optional: true
       prettier-plugin-jsdoc:
+        optional: true
+      prettier-plugin-marko:
         optional: true
       prettier-plugin-organize-attributes:
         optional: true
@@ -18689,15 +18692,6 @@ packages:
     engines: { node: '>=10' }
     dev: true
 
-  /resolve@1.17.0:
-    resolution:
-      {
-        integrity: sha512-ic+7JYiV8Vi2yzQGFWOkiZD5Z9z7O2Zhm9XMaTxdJExKasieFCr+yXZ/WmXsckHiKl12ar0y6XiXDx3m4RHn1w==
-      }
-    dependencies:
-      path-parse: 1.0.7
-    dev: true
-
   /resolve@1.19.0:
     resolution:
       {
@@ -19067,15 +19061,15 @@ packages:
       }
     dev: true
 
-  /sass-loader@13.2.0(sass@1.62.0)(webpack@5.75.0):
+  /sass-loader@13.3.0(sass@1.62.0)(webpack@5.75.0):
     resolution:
       {
-        integrity: sha512-JWEp48djQA4nbZxmgC02/Wh0eroSUutulROUusYJO9P9zltRbNN80JCBHqRGzjd4cmZCa/r88xgfkjGD0TXsHg==
+        integrity: sha512-LeWNswSEujsZnwdn9AuA+Q5wZEAFlU+eORQsDKp35OtGAfFxYxpfk/Ylon+TGGkazSqxi2EHDTqdr3di8r7nCg==
       }
     engines: { node: '>= 14.15.0' }
     peerDependencies:
       fibers: '>= 3.1.0'
-      node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+      node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
       sass: ^1.3.0
       sass-embedded: '*'
       webpack: ^5.0.0
@@ -19189,6 +19183,13 @@ packages:
     resolution:
       {
         integrity: sha512-34EQV6AAHQGhoc0tn/96a9Fsi6v2xdqe/dMUwljGRaFOzR3EgRmECvD0O8vi8X+/uQ50LGHfkNu/Eue5TPKZkQ==
+      }
+    dev: true
+
+  /seedrandom@3.0.5:
+    resolution:
+      {
+        integrity: sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==
       }
     dev: true
 
@@ -19376,10 +19377,10 @@ packages:
       }
     engines: { node: '>=8' }
 
-  /shell-quote@1.7.4:
+  /shell-quote@1.8.1:
     resolution:
       {
-        integrity: sha512-8o/QEhSSRb1a5i7TFR0iM4G16Z0vYB2OQVs4G3aAFXjn3T6yEx8AZxy1PgDF7I00LZHYA3WxaSYIf5e5sAX8Rw==
+        integrity: sha512-6j1W9l1iAs/4xYBI1SYOVZyFcCis9b4KCLQ8fgAGG07QvzaRLVVRQvAy85yNmmZSjYjg4MWh4gNvlPujU/5LpA==
       }
     dev: true
 
@@ -19833,10 +19834,10 @@ packages:
       }
     dev: true
 
-  /start-server-and-test@1.15.3:
+  /start-server-and-test@2.0.0:
     resolution:
       {
-        integrity: sha512-4GqkqghvUR9cJ8buvtgkyT0AHgVwCJ5EN8eDEhe9grTChGwWUxGm2nqfSeE9+0PZkLRdFqcwTwxVHe1y3ViutQ==
+        integrity: sha512-UqKLw0mJbfrsG1jcRLTUlvuRi9sjNuUiDOLI42r7R5fA9dsFoywAy9DoLXNYys9B886E4RCKb+qM1Gzu96h7DQ==
       }
     engines: { node: '>=6' }
     hasBin: true
@@ -20991,15 +20992,6 @@ packages:
       }
     dev: true
 
-  /typescript@4.8.4:
-    resolution:
-      {
-        integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==
-      }
-    engines: { node: '>=4.2.0' }
-    hasBin: true
-    dev: true
-
   /typescript@4.9.4:
     resolution:
       {
@@ -21007,6 +20999,15 @@ packages:
       }
     engines: { node: '>=4.2.0' }
     hasBin: true
+
+  /typescript@5.0.4:
+    resolution:
+      {
+        integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==
+      }
+    engines: { node: '>=12.20' }
+    hasBin: true
+    dev: true
 
   /uglify-js@3.17.4:
     resolution:
@@ -21486,10 +21487,10 @@ packages:
     dependencies:
       vue: 2.7.14
 
-  /vue-demi@0.13.11(vue@2.7.14):
+  /vue-demi@0.14.5(vue@2.7.14):
     resolution:
       {
-        integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==
+        integrity: sha512-o9NUVpl/YlsGJ7t+xuqJKx8EBGf1quRhCiT6D/J0pfwmk9zUwYkC7yrF4SZCe6fETvSM3UNL2edcbYrSyc4QHA==
       }
     engines: { node: '>=12' }
     hasBin: true
@@ -22583,10 +22584,10 @@ packages:
       yargs-parser: 20.2.4
     dev: true
 
-  /yargs@17.6.2:
+  /yargs@17.7.2:
     resolution:
       {
-        integrity: sha512-1/9UrdHjDZc0eOU0HxOHoS78C69UD3JRMvzlJ7S79S2nTaWRA/whGCTV8o9e/N/1Va9YIV7Q4sOxD8VV4pCWOw==
+        integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==
       }
     engines: { node: '>=12' }
     dependencies:
@@ -22659,7 +22660,7 @@ packages:
     resolution: { directory: packages/eslint-plugin-x, type: directory }
     id: file:packages/eslint-plugin-x
     name: '@empathyco/eslint-plugin-x'
-    version: 2.0.0-alpha.36
+    version: 2.0.0-alpha.37
     engines: { node: '>=18' }
     peerDependencies:
       eslint: ~8.32.0
@@ -22681,10 +22682,9 @@ packages:
       eslint-plugin-vue: 8.7.1(eslint@8.33.0)
       eslint-plugin-vuejs-accessibility: 2.0.0(eslint@8.33.0)
       prettier: 2.8.3
-      prettier-plugin-tailwindcss: 0.2.5(prettier@2.8.3)
+      prettier-plugin-tailwindcss: 0.3.0(prettier@2.8.3)
     transitivePeerDependencies:
       - '@ianvs/prettier-plugin-sort-imports'
-      - '@prettier/plugin-php'
       - '@prettier/plugin-pug'
       - '@shopify/prettier-plugin-liquid'
       - '@shufo/prettier-plugin-blade'
@@ -22695,6 +22695,7 @@ packages:
       - prettier-plugin-css-order
       - prettier-plugin-import-sort
       - prettier-plugin-jsdoc
+      - prettier-plugin-marko
       - prettier-plugin-organize-attributes
       - prettier-plugin-organize-imports
       - prettier-plugin-style-order

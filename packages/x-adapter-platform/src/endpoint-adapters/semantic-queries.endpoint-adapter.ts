@@ -14,7 +14,7 @@ export const semanticQueriesEndpointAdapter = endpointAdapterFactory<
   SemanticQueriesResponse
 >({
   endpoint:
-    'https://api.{extraParams.env(.)}empathy.co/semantics-api/search-single/{extraParams.instance}',
+    'https://api.{extraParams.env(.)}empathy.co/semantics-api/search_single/{extraParams.instance}',
   requestMapper: semanticQueriesRequestMapper,
   responseMapper: semanticQueriesResponseMapper,
   defaultRequestOptions: {
