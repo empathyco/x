@@ -8,6 +8,7 @@ Feature: Next queries component
   Scenario Outline: 1. Next query is clicked
     Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, loadOnInit <loadOnInit>
     And   start button is clicked
+    Then  empathize should be visible
     When  a "<query>" with results is typed
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
     And   at most <maxItemsToRequest> next queries are displayed
@@ -21,6 +22,7 @@ Feature: Next queries component
   Scenario Outline: 2. Next query is not shown if it matches a session history query
     Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, loadOnInit <loadOnInit>
     And   start button is clicked
+    Then  empathize should be visible
     When  a "<query>" with results is typed
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
     And   next query number <nextQueryItem> is clicked
@@ -39,6 +41,7 @@ Feature: Next queries component
   Scenario Outline: 3. Next queries persistence
     Given following config: hide session queries <hideSessionQueries>, requested items <maxItemsToRequest>, loadOnInit <loadOnInit>
     And   start button is clicked
+    Then  empathize should be visible
     When  a "<query>" with results is typed
     Then  number of rows requested in "<request>" is <maxItemsToRequest>
     And   next queries are displayed

@@ -29,15 +29,16 @@ Feature: Clear selected filters
   Scenario Outline: 2. Clear filters deleting the query
     When  "<query>" is searched
     And   filter number <filter> is clicked in facet "<facetName>"
-    And   filter number <filter> is clicked in facet "<facetName2>"
-    And   filter number <filter> is clicked in facet "<facetName3>"
+    And   filter number <filter2> is clicked in facet "<facetName2>"
+    And   filter number <filter3> is clicked in facet "<facetName3>"
     Then  related results are displayed
+    And   filters "<filter>, <filter2>, <filter3>" are shown in the selected filters list
     When  clear search button is pressed
     Then  no filters are selected
 
     Examples:
-      | query | filter | facetName   | facetName2 | facetName3  |
-      | lego  | 0      | brand_facet | age_facet  | brand_facet |
+      | query | filter | filter2 | filter3 | facetName             | facetName2 | facetName3  |
+      | lego  | 0      | 1       | 2       | hierarchical_category | age_facet  | price_facet |
 
   Scenario Outline: 3. Remove single filter
     When  "<query>" is searched
@@ -45,6 +46,7 @@ Feature: Clear selected filters
     And   filter number <filter> is clicked in facet "<facetName2>"
     And   filter number <filter> is clicked in facet "<facetName3>"
     Then  related results are displayed
+    And   filters "<filter>, <filter>, <filter>" are shown in the selected filters list
     When  filter number <filter> is clicked in selected filters list
     Then  filter is removed from selected filters list
 

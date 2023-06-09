@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-adapter",
-  "version": "8.0.0-alpha.30",
+  "version": "8.0.0-alpha.31",
   "description": "A utils library to create a client for any API",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@types/jest": "~27.5.0",
-    "concurrently": "~8.0.0",
+    "concurrently": "~8.1.0",
     "jest": "~27.5.0",
     "rimraf": "~3.0.2",
     "ts-jest": "~27.1.0",

@@ -72,7 +72,7 @@ export interface XAPI {
    *
    * @public
    */
-  init(config: SnippetConfig): void;
+  init(config: SnippetConfig): Promise<void>;
 }
 
 /**

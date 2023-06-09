@@ -15,6 +15,16 @@ When('{string} element position is stored', (focusableElement: string) => {
   return cy.getByDataTest(focusableElement).last().focus().as('originalElement');
 });
 
+When('{string} arrow is pressed {int} times', (direction: Move, pressedTimes: number) => {
+  Array.from({ length: pressedTimes }).forEach(() => {
+    cy.focused().type(`{${direction}Arrow}`).as('originalElement');
+  });
+});
+
+Then('empathize should be visible', () => {
+  cy.getByDataTest('empathize').should('be.visible');
+});
+
 Then('next element position is "{direction}"', (expectedPosition: Direction) => {
   cy.focused().then($targetElement => {
     cy.get('@originalElement').should($originalElement => {
@@ -33,14 +43,6 @@ Then('next element position is "{direction}"', (expectedPosition: Direction) => 
           break;
       }
     });
-  });
-});
-
-When('{string} arrow is pressed {int} times', (direction: Move, pressedTimes: number) => {
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(10);
-  Array.from({ length: pressedTimes }).forEach(() => {
-    cy.focused().type(`{${direction}Arrow}`).as('originalElement');
   });
 });
 
