@@ -247,6 +247,7 @@
               <h1 class="x-mb-16 x-title1">Brand Recommendations</h1>
               <LocationProvider location="no_results">
                 <QueryPreviewList
+                  :debounceTimeMs="250"
                   :queries="queriesToPreview"
                   #default="{ query, totalResults, results }"
                 >
