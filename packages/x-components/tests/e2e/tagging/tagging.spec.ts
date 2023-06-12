@@ -35,10 +35,20 @@ Then('results page number {int} is loaded', (page: number) => {
   cy.getByDataTest('search-result').should('have.length', 24 * page);
 });
 
+// Scenario 5
 When('pdp add to cart button is clicked', () => {
   cy.getByDataTest('pdp-add-to-cart-button').should('be.visible').click();
 });
 
 When('pdp is loaded', () => {
   cy.getByDataTest('pdp-add-to-cart-button').should('be.visible').should('have.length', 1);
+});
+
+// Scenario 6
+When('first semantic query result is clicked', () => {
+  cy.getByDataTest('semantic-query-result').first().click();
+});
+
+Then('display result click tagging request is triggered', () => {
+  cy.wait('@displayClickTagging').should('exist');
 });

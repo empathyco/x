@@ -353,13 +353,15 @@
                       <h1 class="x-title2" data-test="semantic-queries-query">{{ query }}</h1>
                       <SlidingPanel :resetOnContentChange="false">
                         <div class="x-flex x-gap-8">
-                          <Result
-                            v-for="result in results"
-                            :key="result.id"
-                            :result="result"
-                            style="max-width: 180px"
-                            data-test="semantic-query-result"
-                          />
+                          <DisplayResultProvider>
+                            <Result
+                              v-for="result in results"
+                              :key="result.id"
+                              :result="result"
+                              style="max-width: 180px"
+                              data-test="semantic-query-result"
+                            />
+                          </DisplayResultProvider>
                         </div>
                       </SlidingPanel>
                     </div>
@@ -483,12 +485,14 @@
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
   import { HomeControls } from './types';
+  import DisplayResultProvider from './display-result-provider.vue';
 
   @Component({
     directives: {
       infiniteScroll
     },
     components: {
+      DisplayResultProvider,
       FallbackDisclaimer,
       QueryPreviewList,
       ArrowRight,
