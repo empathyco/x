@@ -28,7 +28,6 @@
    * of decimals provided from the adapter. Otherwise, when the component truncate the decimal
    * part, it deletes significant digits.
    *
-   * @example
    * Basic example:
    *
    * ```vue

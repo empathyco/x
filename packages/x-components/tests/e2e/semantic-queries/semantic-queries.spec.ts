@@ -1,4 +1,5 @@
 import { Given, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { SemanticQuery } from '@empathyco/x-types';
 import { InstallXOptions } from '../../../src/x-installer';
 import { XModuleOptions } from '../../../src/index';
 
@@ -33,20 +34,18 @@ Given('a semantic queries max items to request config of {int}', (maxItemsToRequ
 
 Then('semantic queries are displayed', () => {
   semanticQueriesList = [];
-  let semanticQueriesLength = 0;
 
-  cy.wait('@interceptedSemanticQueries')
-    .should(({ response }) => {
-      semanticQueriesLength = response?.body.semanticQueries.length;
-    })
-    .then(() => {
+  cy.wait('@interceptedSemanticQueries').then(({ response }) => {
+    const semanticQueries = response?.body.semanticQueries as SemanticQuery[];
+
+    semanticQueries.forEach(semanticQuery => {
       cy.getByDataTest('semantic-queries-query')
-        .should('be.visible')
-        .should('have.length.at.least', semanticQueriesLength)
-        .each($query => {
-          semanticQueriesList.push($query.text());
-        });
+        .get(`[data-query="${semanticQuery.query}"]`)
+        .scrollIntoView()
+        .should('be.visible');
+      semanticQueriesList.push(semanticQuery.query);
     });
+  });
 });
 
 Then('semantic queries results are displayed', () => {

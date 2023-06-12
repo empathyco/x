@@ -29,9 +29,9 @@ Feature: Semantic-queries component
   Scenario Outline: 2. Semantic queries are rendered if there are no results
     Given no special config for layout view
     And a results API with no results
+    And a results API with a known response for semantic queries
     When start button is clicked
     And "<query>" is searched
-    Given a results API with a known response
     Then semantic queries are displayed
     And semantic queries results are displayed
 
