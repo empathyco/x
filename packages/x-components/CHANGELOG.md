@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.386](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.385...@empathyco/x-components@3.0.0-alpha.386) (2023-06-12)
+
+
+### Features
+
+* **queries-preview:** add loaded previews getter (#1227) ([ab59fa2](https://github.com/empathyco/x/commit/ab59fa2c31440e1b47108cc5c334fe0cfaafad27))
+* **semantic-queries:** add SemanticQuery component (#1226) ([09ed3b4](https://github.com/empathyco/x/commit/09ed3b4ad9c01cc116d29a1b618c6dae48e14829))
+
+
+
 ## [3.0.0-alpha.385](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.384...@empathyco/x-components@3.0.0-alpha.385) (2023-06-09)
 
 
