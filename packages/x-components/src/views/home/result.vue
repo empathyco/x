@@ -17,6 +17,11 @@
         </template>
       </BaseResultImage>
     </BaseResultLink>
+    <div>
+      <BaseResultAddToCart :result="result" data-test="add-to-cart">
+        <span>Add to cart</span>
+      </BaseResultAddToCart>
+    </div>
     <div class="x-result__description">
       <BaseResultRating :result="result" :max="5" link="#" class="x-text1 x-text1-sm">
         <template #filled-icon>❤️</template>
@@ -33,6 +38,7 @@
   import Vue from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { Result } from '@empathyco/x-types';
+  import BaseResultAddToCart from '../../components/result/base-result-add-to-cart.vue';
   import BaseResultImage from '../../components/result/base-result-image.vue';
   import BaseResultLink from '../../components/result/base-result-link.vue';
   import BaseResultRating from '../../components/result/base-result-rating.vue';
@@ -40,6 +46,7 @@
 
   @Component({
     components: {
+      BaseResultAddToCart,
       BaseResultLink,
       BaseResultRating,
       BaseResultImage

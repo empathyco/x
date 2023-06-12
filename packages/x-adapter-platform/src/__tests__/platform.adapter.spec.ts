@@ -552,7 +552,7 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.staging.empathy.co/semantics-api/search-single/empathy?q=test&lang=en&env=staging',
+      'https://api.staging.empathy.co/semantics-api/search_single/empathy?q=test&lang=en&env=staging',
       { signal: expect.anything() }
     );
 
