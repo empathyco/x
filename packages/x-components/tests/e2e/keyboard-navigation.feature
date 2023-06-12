@@ -11,20 +11,19 @@ Feature: Keyboard navigation component
     And   no special config for layout view
     And   start button is clicked
     And   "lego" is searched
+    Then  related results are displayed
 
-  @skip
   Scenario Outline: 1. Navigating with arrow keys
     When  "<focusableElement>" element position is stored
+    Then  empathize should be visible
     When  "down" arrow is pressed 1 times
     Then  next element position is "below"
-    And   "right" arrow is pressed 1 times
-    Then  next element position is "on the right"
-    When  "left" arrow is pressed 1 times
+    And   "left" arrow is pressed 1 times
     Then  next element position is "on the left"
-    When  "right" arrow is pressed 3 times
+    When  "right" arrow is pressed 2 times
     Then  next element position is "on the right"
-    When  "left" arrow is pressed 1 times
-    Then  next element position is "on the left"
+    When  "down" arrow is pressed 2 times
+    Then  next element position is "below"
     When  "up" arrow is pressed 1 times
     Then  next element position is "above"
 

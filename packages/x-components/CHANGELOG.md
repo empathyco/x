@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.385](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.384...@empathyco/x-components@3.0.0-alpha.385) (2023-06-09)
+
+
+### Features
+
+* make `XAPI` init method async (#1228) ([9d7d323](https://github.com/empathyco/x/commit/9d7d3230610761be23ca9efd117e7e3c4b9586b5))
+
+
+
+## [3.0.0-alpha.384](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.383...@empathyco/x-components@3.0.0-alpha.384) (2023-06-08)
+
+
+### Testing
+
+* review skipped tests (#1201) ([8c46a38](https://github.com/empathyco/x/commit/8c46a382dd37f2bf67849d8537c0faa668b430e2))
+
+
+
+## [3.0.0-alpha.383](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.382...@empathyco/x-components@3.0.0-alpha.383) (2023-06-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vueuse/core to v10 (#1219) ([3761f17](https://github.com/empathyco/x/commit/3761f17226e1cba9b13a971e43ddb928d5f2f412))
+* **platform-adapter:** change semantics url path (#1230) ([b8210b5](https://github.com/empathyco/x/commit/b8210b59960474a3ad86ffe1a9ee6bc35567ea6e))
+
+
+
+## [3.0.0-alpha.382](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.381...@empathyco/x-components@3.0.0-alpha.382) (2023-06-07)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [3.0.0-alpha.381](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.380...@empathyco/x-components@3.0.0-alpha.381) (2023-06-06)
+
+
+### Features
+
+* **semantic-queries:** add maxItemsToRequest config (#1224) ([a124636](https://github.com/empathyco/x/commit/a124636d60170cc3f54a9d8a1e10351926f97aba))
+* **tagging:** track displayClick (#1222) ([e9a569e](https://github.com/empathyco/x/commit/e9a569e2b4d7b25b39aae9cad90dbd7da7203b3c))
+
+
+
 ## [3.0.0-alpha.380](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.379...@empathyco/x-components@3.0.0-alpha.380) (2023-05-31)
 
 

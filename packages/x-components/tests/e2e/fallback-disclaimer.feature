@@ -18,8 +18,8 @@ Feature: Fallback disclaimer component
     And   filter number <filterNumber> is clicked in facet "<facetName>"
     Given a results API with no results
     When  waiting for search request intercept
-    When  "<query2>" replaces current query
-    And   fallback disclaimer is displayed
+    And   "<query2>" replaces current query
+    Then  fallback disclaimer is displayed
     Given a results API with a known response
     When  "<query>" is searched
     Then  related results are displayed
