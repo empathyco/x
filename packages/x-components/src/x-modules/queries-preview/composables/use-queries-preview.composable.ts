@@ -2,6 +2,11 @@ import { computed } from 'vue';
 import { QueriesPreviewGetters } from '../store';
 import { XPlugin } from '../../../plugins/x-plugin';
 
+const store = XPlugin.store;
+const loadedQueriesPreview = computed<QueriesPreviewGetters['loadedQueriesPreview']>(
+  () => store.getters['x/queriesPreview/loadedQueriesPreview']
+);
+
 /**
  * Composable helpers for the QueriesPreview module.
  */
@@ -13,7 +18,26 @@ interface UseQueriesPreview {
    * @returns True if some query has results.
    */
   isAnyQueryLoadedInPreview: (queries: string[]) => boolean;
+  /**
+   * Checks if the query passed has results in the queries preview.
+   *
+   * @param query - The query to check.
+   * @returns True if the query has results.
+   */
+  isQueryLoadedInPreview: (query: string) => boolean;
 }
+
+/**
+ * Checks if the query passed has results in the queries preview.
+ *
+ * @param query - The query to check.
+ * @returns True if the query has results.
+ */
+const isQueryLoadedInPreview: UseQueriesPreview['isQueryLoadedInPreview'] = (
+  query: string
+): boolean => {
+  return Object.keys(loadedQueriesPreview.value).includes(query);
+};
 
 /**
  * Checks if any of the queries passed have results in the queries previews.
@@ -21,15 +45,10 @@ interface UseQueriesPreview {
  * @param queries - The queries to check.
  * @returns True if some query has results.
  */
-export const isAnyQueryLoadedInPreview: UseQueriesPreview['isAnyQueryLoadedInPreview'] = (
+const isAnyQueryLoadedInPreview: UseQueriesPreview['isAnyQueryLoadedInPreview'] = (
   queries: string[]
 ): boolean => {
-  const store = XPlugin.store;
-  const loadedQueriesPreview = computed<QueriesPreviewGetters['loadedQueriesPreview']>(
-    () => store.getters['x/queriesPreview/loadedQueriesPreview']
-  );
-  const loadedQueries = Object.keys(loadedQueriesPreview.value);
-  return queries.some(query => loadedQueries.includes(query));
+  return queries.some(isQueryLoadedInPreview);
 };
 
 /**
@@ -39,6 +58,7 @@ export const isAnyQueryLoadedInPreview: UseQueriesPreview['isAnyQueryLoadedInPre
  */
 export const useQueriesPreview = (): UseQueriesPreview => {
   return {
-    isAnyQueryLoadedInPreview
+    isAnyQueryLoadedInPreview,
+    isQueryLoadedInPreview
   };
 };
