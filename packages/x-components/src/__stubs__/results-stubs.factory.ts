@@ -66,7 +66,8 @@ function getResultTagging(productId: string): Tagging {
   return {
     click: getTaggingByAction('click', { productId }),
     add2cart: getTaggingByAction('add2cart', { productId }),
-    checkout: getTaggingByAction('checkout', { productId })
+    checkout: getTaggingByAction('checkout', { productId }),
+    displayClick: getTaggingByAction('displayClick', { productId })
   };
 }
 

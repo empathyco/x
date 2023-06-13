@@ -387,6 +387,7 @@ Given('a tracking API with a known response', () => {
   cy.intercept('**/track/query', { statusCode: 200, body: {} }).as('queryTagging');
   cy.intercept('**/track/click', { statusCode: 200, body: {} }).as('clickTagging');
   cy.intercept('**/track/add2cart', { statusCode: 200, body: {} }).as('addToCartTagging');
+  cy.intercept('**/track/displayClick', { statusCode: 200, body: {} }).as('displayClickTagging');
 });
 
 // Semantic Queries
