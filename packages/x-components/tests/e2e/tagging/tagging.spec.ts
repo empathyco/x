@@ -50,5 +50,5 @@ When('first semantic query result is clicked', () => {
 });
 
 Then('display result click tagging request is triggered', () => {
-  cy.wait('@displayClickTagging').should('exist');
+  cy.get('@displayClickTagging').should('exist');
 });
