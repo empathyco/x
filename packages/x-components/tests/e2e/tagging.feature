@@ -7,6 +7,8 @@ Feature: Tagging component
     And   a related tags API
     And   a recommendations API with a known response
     And   a tracking API with a known response
+    And   a semantic queries API
+    And   a clean semantic queries config
 
   Scenario: 1. Navigating to a URL with a query triggers the query tagging.
     Given a results API with a known response
@@ -58,3 +60,18 @@ Feature: Tagging component
     And   pdp is loaded
     When  pdp add to cart button is clicked
     Then  add product to cart tagging request is triggered
+
+  Scenario: 6. Clicking a display result triggers displayClick tagging
+    Given a semantic queries threshold config of 1
+    And   a semantic queries max items to request config of 1
+    And   a results API with 1 results
+    Then  application is initialized with the custom semantic queries config
+    When  start button is clicked
+    And   "lego" is searched
+    Then  related results are displayed
+    And   1 semantic queries are requested
+    And   semantic queries are displayed
+    And   semantic queries results are displayed
+    When  first semantic query result is clicked
+    Then  display result click tagging request is triggered
+

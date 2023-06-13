@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.386](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.385...@empathyco/x-components@3.0.0-alpha.386) (2023-06-12)
+
+
+### Features
+
+* **queries-preview:** add loaded previews getter (#1227) ([ab59fa2](https://github.com/empathyco/x/commit/ab59fa2c31440e1b47108cc5c334fe0cfaafad27))
+* **semantic-queries:** add SemanticQuery component (#1226) ([09ed3b4](https://github.com/empathyco/x/commit/09ed3b4ad9c01cc116d29a1b618c6dae48e14829))
+
+
+
+## [3.0.0-alpha.385](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.384...@empathyco/x-components@3.0.0-alpha.385) (2023-06-09)
+
+
+### Features
+
+* make `XAPI` init method async (#1228) ([9d7d323](https://github.com/empathyco/x/commit/9d7d3230610761be23ca9efd117e7e3c4b9586b5))
+
+
+
 ## [3.0.0-alpha.384](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.383...@empathyco/x-components@3.0.0-alpha.384) (2023-06-08)
 
 

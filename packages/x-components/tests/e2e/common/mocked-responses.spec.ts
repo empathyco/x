@@ -387,6 +387,7 @@ Given('a tracking API with a known response', () => {
   cy.intercept('**/track/query', { statusCode: 200, body: {} }).as('queryTagging');
   cy.intercept('**/track/click', { statusCode: 200, body: {} }).as('clickTagging');
   cy.intercept('**/track/add2cart', { statusCode: 200, body: {} }).as('addToCartTagging');
+  cy.intercept('**/track/displayClick', { statusCode: 200, body: {} }).as('displayClickTagging');
 });
 
 // Semantic Queries
@@ -394,4 +395,13 @@ Given('a semantic queries API', () => {
   cy.intercept(getSemanticQueriesEndpoint, req => {
     req.reply(getSemanticQueriesStub());
   }).as('interceptedSemanticQueries');
+});
+
+Given('a results API with a known response for semantic queries', () => {
+  cy.intercept(searchEndpoint, req => {
+    const origin = JSON.parse(<string>req.body).origin as string | undefined;
+    if (origin?.startsWith('semantics:')) {
+      req.reply(mockedResponses.search);
+    }
+  }).as('interceptedResults');
 });
