@@ -32,6 +32,11 @@ export interface SemanticQueriesGetters {
    * The request to fetch the semantic queries.
    */
   request: SemanticQueriesRequest | null;
+
+  /**
+   * The normalized module's query.
+   */
+  normalizedQuery: string;
 }
 
 /**

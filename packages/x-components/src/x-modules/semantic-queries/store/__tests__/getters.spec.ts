@@ -77,4 +77,16 @@ describe('semantic queries getters tests', () => {
       expect(store.getters.request).toBeNull();
     });
   });
+
+  describe('normalize query getter', () => {
+    it('should return a normalized query', () => {
+      const queries = ['espaÑita', 'aZúcaR', ' coraZón', 'baRça '];
+      const normalizedQueries = ['espanita', 'azucar', 'corazon', 'barca'];
+
+      queries.forEach((query, index) => {
+        resetSemanticQueriesStateWith(store, { query });
+        expect(store.getters.normalizedQuery).toEqual(normalizedQueries[index]);
+      });
+    });
+  });
 });

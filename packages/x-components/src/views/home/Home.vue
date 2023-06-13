@@ -340,17 +340,27 @@
               </ResultsList>
             </LocationProvider>
 
-            <SemanticQueries #default="{ queries }">
+            <SemanticQueries #default="{ queries, findSemanticQuery }">
               <section class="x-mt-28">
                 <h1 class="x-title1">Similar Semantic Queries</h1>
                 <LocationProvider :location="$x.noResults ? 'no_results' : 'low_results'">
-                  <QueryPreviewList :queries="queries" #default="{ query, results }">
+                  <QueryPreviewList
+                    :queries="queries"
+                    #default="{ query, results }"
+                    queryFeature="semantics"
+                  >
                     <div
                       class="x-flex x-flex-col x-gap-8 x-mb-16"
                       data-test="semantic-query-preview"
                       :data-query="query"
                     >
-                      <h1 class="x-title2" data-test="semantic-queries-query">{{ query }}</h1>
+                      <SemanticQuery
+                        class="x-suggestion x-title2 x-title2-md"
+                        :suggestion="findSemanticQuery(query)"
+                        #default="{ suggestion: { query } }"
+                      >
+                        <span data-test="semantic-queries-query">{{ query }}</span>
+                      </SemanticQuery>
                       <SlidingPanel :resetOnContentChange="false">
                         <div class="x-flex x-gap-8">
                           <DisplayResultProvider>
@@ -481,6 +491,7 @@
   import NextQuery from '../../x-modules/next-queries/components/next-query.vue';
   import FallbackDisclaimer from '../../x-modules/search/components/fallback-disclaimer.vue';
   import SemanticQueries from '../../x-modules/semantic-queries/components/semantic-queries.vue';
+  import SemanticQuery from '../../x-modules/semantic-queries/components/semantic-query.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -545,6 +556,7 @@
       SearchInput,
       SearchInputPlaceholder,
       SemanticQueries,
+      SemanticQuery,
       SlidingPanel,
       SnippetCallbacks,
       SnippetConfigExtraParams,

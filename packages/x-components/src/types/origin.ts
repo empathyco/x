@@ -30,7 +30,8 @@ export type QueryFeature =
   | 'partial_result'
   | 'related_tag'
   | 'spellcheck'
-  | 'customer';
+  | 'customer'
+  | 'semantics';
 
 /**
  * The name of the tool that generated the results.
