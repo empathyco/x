@@ -11,7 +11,8 @@ import {
   QueriesPreviewActions,
   QueryPreviewItem
 } from '../types';
-import { getQueryPreviewRequest, resetQueriesPreviewStateWith } from './utils';
+import { getQueryPreviewRequest } from '../../../../__stubs__/queries-preview-stubs.factory';
+import { resetQueriesPreviewStateWith } from './utils';
 
 describe('testing queries preview module actions', () => {
   const mockedSearchResponse = getSearchResponseStub();

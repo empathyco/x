@@ -11,7 +11,8 @@ import { queriesPreviewXStoreModule } from '../module';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getResultsStub } from '../../../../__stubs__';
 import { SafeStore } from '../../../../store/__tests__/utils';
-import { getQueryPreviewRequest, resetQueriesPreviewStateWith } from './utils';
+import { getQueryPreviewRequest } from '../../../../__stubs__/queries-preview-stubs.factory';
+import { resetQueriesPreviewStateWith } from './utils';
 
 describe('queries preview module getters', () => {
   const localVue = createLocalVue();
