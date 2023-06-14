@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.78](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.77...@empathyco/x-adapter-platform@1.0.0-alpha.78) (2023-06-14)
+
+
+### Features
+
+* **tagging:** track displayClick properties in result & tagging request (#1225) ([53a209e](https://github.com/empathyco/x/commit/53a209e5c9719a8ba0cff21f5d8d52b0dfe70c6d))
+
+
+
 ## [1.0.0-alpha.77](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.76...@empathyco/x-adapter-platform@1.0.0-alpha.77) (2023-06-08)
 
 

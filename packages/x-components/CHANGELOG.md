@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.387](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.386...@empathyco/x-components@3.0.0-alpha.387) (2023-06-14)
+
+
+### Features
+
+* **queries-preview:** add isAnyQueryLoadedInPreview composable (#1229) ([5c728e0](https://github.com/empathyco/x/commit/5c728e0304663c601283f1fae2c4dae297caa5ee))
+* **tagging:** track displayClick properties in result & tagging request (#1225) ([53a209e](https://github.com/empathyco/x/commit/53a209e5c9719a8ba0cff21f5d8d52b0dfe70c6d))
+
+
+
 ## [3.0.0-alpha.386](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.385...@empathyco/x-components@3.0.0-alpha.386) (2023-06-12)
 
 
