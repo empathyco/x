@@ -32,7 +32,7 @@ export function getDisplayClickTagging(displayTaggingUrl: string): TaggingReques
   const displayClickTagging = getTaggingInfoFromUrl(displayTaggingUrl);
   const displayClickTaggingParams = displayClickTagging.params;
 
-  displayClickTaggingParams.displayId = displayClickTaggingParams.q;
+  displayClickTaggingParams.displayId = displayClickTaggingParams.q ?? 'no_query';
   delete displayClickTaggingParams.q;
 
   return displayClickTagging;
