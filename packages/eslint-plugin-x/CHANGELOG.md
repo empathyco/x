@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.37...@empathyco/eslint-plugin-x@2.0.0-alpha.38) (2023-06-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vue/eslint-config-typescript to v11 (#1218) ([dcbaecd](https://github.com/empathyco/x/commit/dcbaecd8bdb585774a5c2a444b9a84d19384ed7b))
+
+
+
 ## [2.0.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.36...@empathyco/eslint-plugin-x@2.0.0-alpha.37) (2023-06-07)
 
 **Note:** Version bump only for package @empathyco/eslint-plugin-x
