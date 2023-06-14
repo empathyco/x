@@ -26,6 +26,8 @@ interface UseQueriesPreview {
  * Composable helpers for the QueriesPreview module.
  *
  * @returns Composable with helpers.
+ *
+ * @public
  */
 export const useQueriesPreview = (): UseQueriesPreview => {
   const store = XPlugin.store;
