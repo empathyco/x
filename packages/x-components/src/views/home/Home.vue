@@ -342,7 +342,9 @@
 
             <SemanticQueries #default="{ queries, findSemanticQuery }">
               <section class="x-mt-28">
-                <h1 class="x-title1">Similar Semantic Queries</h1>
+                <h1 v-if="isAnyQueryLoadedInPreview(queries)" class="x-title1">
+                  Similar Semantic Queries
+                </h1>
                 <LocationProvider :location="$x.noResults ? 'no_results' : 'low_results'">
                   <QueryPreviewList
                     :queries="queries"
@@ -492,6 +494,7 @@
   import FallbackDisclaimer from '../../x-modules/search/components/fallback-disclaimer.vue';
   import SemanticQueries from '../../x-modules/semantic-queries/components/semantic-queries.vue';
   import SemanticQuery from '../../x-modules/semantic-queries/components/semantic-query.vue';
+  import { useQueriesPreview } from '../../x-modules/queries-preview/composables/use-queries-preview.composable';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -583,6 +586,7 @@
     protected modalAnimation = animateClipPath();
     protected selectedColumns = 4;
     protected sortValues = ['', 'price asc', 'price desc'];
+    public isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview;
 
     @XProvide('controls')
     public controls: HomeControls = {
