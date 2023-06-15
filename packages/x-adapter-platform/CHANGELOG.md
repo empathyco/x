@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.79](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.78...@empathyco/x-adapter-platform@1.0.0-alpha.79) (2023-06-15)
+
+
+### Features
+
+* **tagging:** add fallback for displayId (#1235) ([8fa9512](https://github.com/empathyco/x/commit/8fa95120b7fdccaf430824ab9570c7ad43cd0539))
+
+
+
 ## [1.0.0-alpha.78](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.77...@empathyco/x-adapter-platform@1.0.0-alpha.78) (2023-06-14)
 
 
