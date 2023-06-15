@@ -63,5 +63,18 @@ describe('url utils methods tests', () => {
         follow: false
       });
     });
+
+    it('should set no_query tagging info when no q param exist as in topclicked response', () => {
+      const { url, params } = getDisplayClickTagging(
+        'https://api.empathy.co/?env=mobile&lang=english&lang=spanish'
+      );
+      expect(url).toBe('https://api.empathy.co/');
+      expect(params).toStrictEqual({
+        displayId: 'no_query',
+        env: 'mobile',
+        lang: ['english', 'spanish'],
+        follow: false
+      });
+    });
   });
 });
