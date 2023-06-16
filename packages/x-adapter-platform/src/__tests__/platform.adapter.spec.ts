@@ -248,14 +248,13 @@ describe('platformAdapter tests', () => {
   });
 
   // eslint-disable-next-line max-len
-  it('should call the query suggestions endpoint and work for title_raw instead of keywords', async () => {
+  it('should call the query suggestions endpoint and prioritize for title_raw over keywords', async () => {
     const rawPlatformQuerySuggestionsResponse: PlatformQuerySuggestionsResponse = {
       topTrends: {
         content: [
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           {
-            title_raw: 'shoes'
+            title_raw: 'shoes',
+            keywords: 'no_query'
           }
         ]
       }
