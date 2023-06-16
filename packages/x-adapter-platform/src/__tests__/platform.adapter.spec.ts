@@ -160,7 +160,7 @@ describe('platformAdapter tests', () => {
       topTrends: {
         content: [
           {
-            title_raw: 'shoes'
+            keywords: 'shoes'
           }
         ]
       }
@@ -204,6 +204,56 @@ describe('platformAdapter tests', () => {
     const rawPlatformQuerySuggestionsResponse: PlatformQuerySuggestionsResponse = {
       topTrends: {
         content: [
+          {
+            keywords: 'shoes'
+          }
+        ]
+      }
+    };
+
+    const fetchMock = jest.fn(getFetchMock(rawPlatformQuerySuggestionsResponse));
+    window.fetch = fetchMock as any;
+
+    const response = await platformAdapter.querySuggestions({
+      query: 'boots',
+      start: 0,
+      rows: 24,
+      extraParams: {
+        instance: 'empathy',
+        env: 'test',
+        lang: 'en',
+        device: 'tablet',
+        scope: 'tablet'
+      }
+    });
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledWith(
+      // eslint-disable-next-line max-len
+      'https://api.test.empathy.co/search/v1/query/empathy/empathize?internal=true&query=boots&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
+      { signal: expect.anything() }
+    );
+
+    expect(response).toStrictEqual({
+      suggestions: [
+        {
+          query: 'shoes',
+          isCurated: false,
+          facets: [],
+          modelName: 'QuerySuggestion',
+          key: 'shoes'
+        }
+      ]
+    });
+  });
+
+  // eslint-disable-next-line max-len
+  it('should call the query suggestions endpoint and work for title_raw instead of keywords', async () => {
+    const rawPlatformQuerySuggestionsResponse: PlatformQuerySuggestionsResponse = {
+      topTrends: {
+        content: [
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           {
             title_raw: 'shoes'
           }
