@@ -72,6 +72,6 @@ Feature: Tagging component
     And   1 semantic queries are requested
     And   semantic queries are displayed
     And   semantic queries results are displayed
-    When  first semantic query result is clicked
+    When  first semantic query result is right clicked
     Then  display result click tagging request is triggered
 
