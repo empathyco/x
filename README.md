@@ -123,12 +123,16 @@ We are working on many key features to consolidate Interface X, including these 
   system for every customer, for every search experience look&feel. XDS brings the concept of
   components to UI as X Components do with functional behavior.
   [![Release Docs](https://img.shields.io/badge/Released-April%202023-brightgreen)](https://github.com/empathyco/x/tree/main/packages/x-tailwindcss)
+- **[Vectorized Recommendations](https://docs.empathy.co/explore-empathy-platform/features/vector-recommendations-overview.html)**:
+  These recommendations are relevant product suggestions based on query semantic affinities. They
+  usually show up as product carousels to amaze shoppers with product discovery inspirations.
+  [![Release Docs](https://img.shields.io/badge/Released-June%202023-brightgreen)](https://docs.empathy.co/explore-empathy-platform/features/vector-recommendations-overview.html)
 - **Suggestions with filters** that allows to select a query suggestion with a specific filter.
-  ![Release Docs](https://img.shields.io/badge/In%20Progress-Q2%202023-yellow)
+  ![Release Docs](https://img.shields.io/badge/Discovery-Q3%202023-blue)
 - **Result Preview component** to rapidly discover more result attributed without leaving the SERP.
-  ![Release Docs](https://img.shields.io/badge/Discovery-Q2%202023-blue)
+  ![Release Docs](https://img.shields.io/badge/Discovery-Q4%202023-blue)
 - **Vue 3 Migration**.
-  [![Release Docs](https://img.shields.io/badge/Discovery-Q2%202023-blue)](https://vuejs.org/)
+  [![Release Docs](https://img.shields.io/badge/Discovery-Q4%202023-blue)](https://vuejs.org/)
 - **Network Request failure transparency**.
 - **Project generator CLI**.
 - **Observability**: Error capturing & monitoring.
