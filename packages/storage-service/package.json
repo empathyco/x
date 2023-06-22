@@ -34,6 +34,7 @@
     "postbuild": "pnpm pack",
     "lint": "eslint . --ext .ts",
     "test": "jest",
+    "test:unit": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "prepublishOnly": "pnpm run build"

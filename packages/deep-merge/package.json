@@ -34,7 +34,8 @@
     "postbuild": "pnpm pack",
     "lint": "eslint . --ext .ts",
     "prepublishOnly": "pnpm run build",
-    "test": "jest"
+    "test": "jest",
+    "test-unit": "jest"
   },
   "dependencies": {
     "@empathyco/x-utils": "^1.0.0-alpha.21",
