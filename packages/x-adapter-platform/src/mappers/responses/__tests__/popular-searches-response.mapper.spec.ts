@@ -6,7 +6,7 @@ describe('popularSearchesResponseMapper tests', () => {
   it('should map the response', () => {
     const platformPopularSearchesResponse: PlatformPopularSearchesResponse = {
       topTrends: {
-        content: [{ title_raw: 'sandal' }, { title_raw: 'sock' }, { title_raw: 'saree' }]
+        content: [{ keywords: 'sandal' }, { keywords: 'sock' }, { keywords: 'saree' }]
       }
     };
 

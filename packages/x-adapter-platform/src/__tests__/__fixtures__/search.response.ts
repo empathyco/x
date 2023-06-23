@@ -12,7 +12,9 @@ export const platformSearchResponse = {
           checkout:
             'https://api.staging.empathy.co/tagging/v1/track/empathy/checkout?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false',
           click:
-            'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false'
+            'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false',
+          displayClick:
+            'https://api.staging.empathy.co/tagging/v1/track/empathy/displayClick?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false'
         },
         gender: 'Men',
         color: 'Blue',
@@ -61,7 +63,9 @@ export const platformSearchResponse = {
               checkout:
                 'https://api.staging.empathy.co/tagging/v1/track/empathy/checkout?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false',
               click:
-                'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false'
+                'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false',
+              displayClick:
+                'https://api.staging.empathy.co/tagging/v1/track/empathy/displayClick?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false'
             },
             gender: 'Men',
             color: 'Blue',
