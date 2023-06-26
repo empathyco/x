@@ -49,6 +49,11 @@ When('close modal button is clicked', () => {
   cy.getByDataTest('close-main-modal').click();
 });
 
+// Brand Recommendation
+Given('brand recommendations are visible', () => {
+  cy.getByDataTest('query-preview-item').should('be.visible');
+});
+
 // Filters
 Then(
   'filters {string} are shown in the selected filters list',
