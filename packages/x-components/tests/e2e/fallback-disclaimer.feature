@@ -10,8 +10,9 @@ Feature: Fallback disclaimer component
     And   a tracking API
     And   no special config for layout view
     And   start button is clicked
+    And   empathize should be visible
 
-  Scenario Outline: 1. Fallback disclaimer is displayed when there is no results with filters
+  Scenario Outline: 1. Fallback disclaimer is displayed when there are no results with filters
     Given a results API with a known response
     When  "<query>" is searched
     Then  related results are displayed
@@ -27,8 +28,8 @@ Feature: Fallback disclaimer component
     Examples:
       | query | query2            | filterNumber | facetName   |
       | lego  | lego super mario  | 3            | price_facet |
-
-  Scenario Outline: 2. Fallback disclaimer is not displayed when there is no results
+@focus
+  Scenario Outline: 2. Fallback disclaimer is not displayed when there are no results
     Given a results API with no results
     When  "<query>" is searched
     Then  no results message is displayed
