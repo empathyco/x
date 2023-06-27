@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.390](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.389...@empathyco/x-components@3.0.0-alpha.390) (2023-06-27)
+
+
+### Testing
+
+* fix failing tests (#1241) ([41a1641](https://github.com/empathyco/x/commit/41a1641c591a4387891f359719e3c030339cc40c))
+
+
+
 ## [3.0.0-alpha.389](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.388...@empathyco/x-components@3.0.0-alpha.389) (2023-06-15)
 
 **Note:** Version bump only for package @empathyco/x-components
