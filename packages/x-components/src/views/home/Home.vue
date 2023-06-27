@@ -250,6 +250,7 @@
                   :debounceTimeMs="250"
                   :queries="queriesToPreview"
                   #default="{ query, totalResults, results }"
+                  data-test="brand-recommendation"
                 >
                   <div class="x-flex x-flex-col x-gap-8 x-mb-16">
                     <h1 class="x-title2">{{ query }} ({{ totalResults }})</h1>

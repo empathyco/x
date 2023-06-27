@@ -51,7 +51,7 @@ When('close modal button is clicked', () => {
 
 // Brand Recommendation
 Given('brand recommendations are visible', () => {
-  cy.getByDataTest('query-preview-item').should('be.visible');
+  cy.getByDataTest('brand-recommendation').should('be.visible');
 });
 
 // Filters
