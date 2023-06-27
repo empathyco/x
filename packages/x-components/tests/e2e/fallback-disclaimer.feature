@@ -28,7 +28,7 @@ Feature: Fallback disclaimer component
     Examples:
       | query | query2            | filterNumber | facetName   |
       | lego  | lego super mario  | 3            | price_facet |
-@focus
+
   Scenario Outline: 2. Fallback disclaimer is not displayed when there are no results
     Given a results API with no results
     When  "<query>" is searched
