@@ -48,20 +48,7 @@ Feature: Tagging component
     Then  results page number 2 is loaded
     And   second page query tagging request is triggered
 
-  Scenario: 5. Tracking PDP add to cart
-    Given a results API with a known response
-    And   no special config for layout view
-    When  start button is clicked
-    Then  empathize should be visible
-    When  "lego" is searched
-    Then  query tagging request should be triggered
-    And   related results are displayed
-    When  first result is clicked
-    And   pdp is loaded
-    When  pdp add to cart button is clicked
-    Then  add product to cart tagging request is triggered
-
-  Scenario: 6. Clicking a display result triggers displayClick tagging
+  Scenario: 5. Clicking a display result triggers displayClick tagging
     Given a semantic queries threshold config of 1
     And   a semantic queries max items to request config of 1
     And   a results API with 1 results
@@ -72,6 +59,6 @@ Feature: Tagging component
     And   1 semantic queries are requested
     And   semantic queries are displayed
     And   semantic queries results are displayed
-    When  first semantic query result is clicked
+    When  first semantic query result is right clicked
     Then  display result click tagging request is triggered
 

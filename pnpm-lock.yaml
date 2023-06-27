@@ -383,7 +383,7 @@ importers:
         specifier: ^8.0.0-alpha.31
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: ^1.0.0-alpha.79
+        specifier: ^1.0.0-alpha.80
         version: link:../x-adapter-platform
       '@empathyco/x-bus':
         specifier: ^1.0.0-alpha.2
@@ -22660,7 +22660,6 @@ packages:
     resolution: { directory: packages/eslint-plugin-x, type: directory }
     id: file:packages/eslint-plugin-x
     name: '@empathyco/eslint-plugin-x'
-    version: 2.0.0-alpha.38
     engines: { node: '>=18' }
     peerDependencies:
       eslint: ~8.32.0

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.80](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.79...@empathyco/x-adapter-platform@1.0.0-alpha.80) (2023-06-27)
+
+
+### Features
+
+* **adapter:** add mapping for keywords when there's no title_raw (#1236) ([5b1ce10](https://github.com/empathyco/x/commit/5b1ce10eb48cd5a48c41e88fe35f3321e5be516d))
+
+
+
 ## [1.0.0-alpha.79](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.78...@empathyco/x-adapter-platform@1.0.0-alpha.79) (2023-06-15)
 
 

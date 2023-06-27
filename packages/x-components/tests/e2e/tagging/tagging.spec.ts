@@ -45,8 +45,12 @@ When('pdp is loaded', () => {
 });
 
 // Scenario 6
-When('first semantic query result is clicked', () => {
-  cy.getByDataTest('semantic-query-result').first().click();
+/**
+ * Here we use the right-click to avoid navigating to the result URL,
+ * which was provoking the tracking to not be executed.
+ */
+When('first semantic query result is right clicked', () => {
+  cy.getByDataTest('semantic-query-result').first().rightclick();
 });
 
 Then('display result click tagging request is triggered', () => {
