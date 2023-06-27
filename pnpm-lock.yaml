@@ -38,7 +38,7 @@ importers:
   packages/deep-merge:
     dependencies:
       '@empathyco/x-utils':
-        specifier: ^1.0.0-alpha.21
+        specifier: ^1.0.0-alpha.22
         version: link:../x-utils
       tslib:
         specifier: ~2.5.0
@@ -223,10 +223,10 @@ importers:
   packages/x-adapter:
     dependencies:
       '@empathyco/x-deep-merge':
-        specifier: ^2.0.0-alpha.1
+        specifier: ^2.0.0-alpha.2
         version: link:../deep-merge
       '@empathyco/x-utils':
-        specifier: ^1.0.0-alpha.21
+        specifier: ^1.0.0-alpha.22
         version: link:../x-utils
       tslib:
         specifier: ~2.5.0
@@ -254,13 +254,13 @@ importers:
   packages/x-adapter-platform:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: ^8.0.0-alpha.31
+        specifier: ^8.0.0-alpha.32
         version: link:../x-adapter
       '@empathyco/x-types':
-        specifier: ^10.0.0-alpha.70
+        specifier: ^10.0.0-alpha.71
         version: link:../x-types
       '@empathyco/x-utils':
-        specifier: ^1.0.0-alpha.21
+        specifier: ^1.0.0-alpha.22
         version: link:../x-utils
       tslib:
         specifier: ~2.5.0
@@ -294,7 +294,7 @@ importers:
   packages/x-archetype-utils:
     dependencies:
       '@empathyco/x-deep-merge':
-        specifier: ^2.0.0-alpha.1
+        specifier: ^2.0.0-alpha.2
         version: link:../deep-merge
       tslib:
         specifier: ~2.5.0
@@ -304,7 +304,7 @@ importers:
         version: 8.28.2(vue@2.7.14)
     devDependencies:
       '@empathyco/x-utils':
-        specifier: ^1.0.0-alpha.21
+        specifier: ^1.0.0-alpha.22
         version: link:../x-utils
       '@types/jest':
         specifier: ~27.5.0
@@ -346,10 +346,10 @@ importers:
   packages/x-bus:
     dependencies:
       '@empathyco/x-priority-queue':
-        specifier: ^1.0.0-alpha.2
+        specifier: ^1.0.0-alpha.3
         version: link:../x-priority-queue
       '@empathyco/x-utils':
-        specifier: ^1.0.0-alpha.21
+        specifier: ^1.0.0-alpha.22
         version: link:../x-utils
       rxjs:
         specifier: ~7.8.0
@@ -380,28 +380,28 @@ importers:
   packages/x-components:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: ^8.0.0-alpha.31
+        specifier: ^8.0.0-alpha.32
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: ^1.0.0-alpha.80
+        specifier: ^1.0.0-alpha.81
         version: link:../x-adapter-platform
       '@empathyco/x-bus':
-        specifier: ^1.0.0-alpha.2
+        specifier: ^1.0.0-alpha.3
         version: link:../x-bus
       '@empathyco/x-deep-merge':
-        specifier: ^2.0.0-alpha.1
+        specifier: ^2.0.0-alpha.2
         version: link:../deep-merge
       '@empathyco/x-logger':
         specifier: ^1.2.0-alpha.11
         version: 1.2.0-alpha.11
       '@empathyco/x-storage-service':
-        specifier: ^2.0.0-alpha.14
+        specifier: ^2.0.0-alpha.15
         version: link:../storage-service
       '@empathyco/x-types':
-        specifier: ^10.0.0-alpha.70
+        specifier: ^10.0.0-alpha.71
         version: link:../x-types
       '@empathyco/x-utils':
-        specifier: ^1.0.0-alpha.21
+        specifier: ^1.0.0-alpha.22
         version: link:../x-utils
       '@vue/devtools-api':
         specifier: ~6.5.0
@@ -438,7 +438,7 @@ importers:
         specifier: ~2.0.1
         version: 2.0.1(cypress@12.13.0)(vue@2.7.14)
       '@empathyco/x-tailwindcss':
-        specifier: ^1.0.0-alpha.33
+        specifier: ^1.0.0-alpha.34
         version: link:../x-tailwindcss
       '@microsoft/api-documenter':
         specifier: ~7.22.0
@@ -580,7 +580,7 @@ importers:
   packages/x-priority-queue:
     dependencies:
       '@empathyco/x-utils':
-        specifier: ^1.0.0-alpha.21
+        specifier: ^1.0.0-alpha.22
         version: link:../x-utils
       tslib:
         specifier: ~2.5.0
@@ -629,10 +629,10 @@ importers:
   packages/x-tailwindcss:
     dependencies:
       '@empathyco/x-deep-merge':
-        specifier: ^2.0.0-alpha.1
+        specifier: ^2.0.0-alpha.2
         version: link:../deep-merge
       '@empathyco/x-utils':
-        specifier: ^1.0.0-alpha.21
+        specifier: ^1.0.0-alpha.22
         version: link:../x-utils
       tslib:
         specifier: ~2.5.0
@@ -690,7 +690,7 @@ importers:
   packages/x-translations:
     dependencies:
       '@empathyco/x-deep-merge':
-        specifier: ^2.0.0-alpha.1
+        specifier: ^2.0.0-alpha.2
         version: link:../deep-merge
     devDependencies:
       '@types/jest':
@@ -712,7 +712,7 @@ importers:
   packages/x-types:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: ^8.0.0-alpha.31
+        specifier: ^8.0.0-alpha.32
         version: link:../x-adapter
       tslib:
         specifier: ~2.5.0
@@ -749,7 +749,7 @@ importers:
   packages/x-utils:
     dependencies:
       '@empathyco/x-storage-service':
-        specifier: ^2.0.0-alpha.14
+        specifier: ^2.0.0-alpha.15
         version: link:../storage-service
       nanoid:
         specifier: ~3.3.0
