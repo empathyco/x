@@ -19,7 +19,7 @@ Feature: Clear selected filters
     Then  filters "<filter1>" are shown in the selected filters list
     When   filter number <filter2> is clicked in facet "<facetName2>"
     Then  filters "<filter1>, <filter2>" are shown in the selected filters list
-    And   filter number <filter3> is clicked in facet "<facetName3>"
+    When   filter number <filter3> is clicked in facet "<facetName3>"
     Then  filters "<filter1>, <filter2>, <filter3>" are shown in the selected filters list
     When  filter number 0 is clicked in selected filters list
     Then  filter is removed from selected filters list
