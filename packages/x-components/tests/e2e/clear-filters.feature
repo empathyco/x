@@ -17,7 +17,7 @@ Feature: Clear selected filters
     Then  related results are displayed
     When  filter number <filter1> is clicked in facet "<facetName>"
     Then  filters "<filter1>" are shown in the selected filters list
-    And   filter number <filter2> is clicked in facet "<facetName2>"
+    When   filter number <filter2> is clicked in facet "<facetName2>"
     Then  filters "<filter1>, <filter2>" are shown in the selected filters list
     And   filter number <filter3> is clicked in facet "<facetName3>"
     Then  filters "<filter1>, <filter2>, <filter3>" are shown in the selected filters list
