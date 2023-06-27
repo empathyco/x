@@ -6,7 +6,7 @@ describe('querySuggestionsResponseMapper tests', () => {
   it('should map the response', () => {
     const platformQuerySuggestionsResponse: PlatformQuerySuggestionsResponse = {
       topTrends: {
-        content: [{ title_raw: 'sandal' }, { title_raw: 'sock' }, { title_raw: 'saree' }]
+        content: [{ keywords: 'sandal' }, { keywords: 'sock' }, { keywords: 'saree' }]
       }
     };
 

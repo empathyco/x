@@ -12,7 +12,9 @@ export const platformIdentifierResultsResponse = {
           checkout:
             'https://api.staging.empathy.co/tagging/v1/track/empathy/checkout?q=12345&lang=en&scope=desktop&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree&productId=12345-U&position=1&page=1&follow=false&origin=search_box%3Anone&filtered=false&spellcheck=false',
           click:
-            'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=12345&lang=en&scope=desktop&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree&productId=12345-U&position=1&page=1&follow=false&origin=search_box%3Anone&filtered=false&spellcheck=false'
+            'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=12345&lang=en&scope=desktop&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree&productId=12345-U&position=1&page=1&follow=false&origin=search_box%3Anone&filtered=false&spellcheck=false',
+          displayClick:
+            'https://api.staging.empathy.co/tagging/v1/track/empathy/displayClick?q=12345&lang=en&scope=desktop&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree&productId=12345-U&position=1&page=1&follow=false&origin=search_box%3Anone&filtered=false&spellcheck=false'
         },
         __id: '12345-U',
         __externalId: '12345-U',
@@ -99,6 +101,22 @@ export const identifierResultsResponse = {
             title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
           },
           url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/click'
+        },
+        displayClick: {
+          params: {
+            displayId: '12345',
+            filtered: 'false',
+            follow: false,
+            lang: 'en',
+            origin: 'search_box:none',
+            page: '1',
+            position: '1',
+            productId: '12345-U',
+            scope: 'desktop',
+            spellcheck: 'false',
+            title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
+          },
+          url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/displayClick'
         }
       },
       type: 'Default'

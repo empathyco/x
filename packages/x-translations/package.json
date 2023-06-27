@@ -27,7 +27,8 @@
     "build": "tsc",
     "postbuild": "pnpm pack",
     "lint": "eslint . --ext .ts",
-    "test": "jest -i"
+    "test": "jest -i",
+    "test:unit": "jest -i"
   },
   "dependencies": {
     "@empathyco/x-deep-merge": "^2.0.0-alpha.1"

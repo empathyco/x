@@ -47,7 +47,7 @@ describe('url utils methods tests', () => {
     it('should not break when dealing with bad urls', () => {
       expect(getDisplayClickTagging('null')).toStrictEqual({
         url: 'null',
-        params: { displayId: undefined, follow: false }
+        params: { displayId: 'no_query', follow: false }
       });
     });
 

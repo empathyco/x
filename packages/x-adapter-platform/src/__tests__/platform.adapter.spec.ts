@@ -486,6 +486,22 @@ describe('platformAdapter tests', () => {
                 title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
               },
               url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/click'
+            },
+            displayClick: {
+              params: {
+                displayId: '12345',
+                filtered: 'false',
+                follow: false,
+                lang: 'en',
+                origin: 'search_box:none',
+                page: '1',
+                position: '1',
+                productId: '12345-U',
+                scope: 'desktop',
+                spellcheck: 'false',
+                title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
+              },
+              url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/displayClick'
             }
           },
           type: 'Default'
@@ -601,7 +617,7 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.staging.empathy.co/semantics-api/search_single/empathy?q=test&lang=en&env=staging',
+      'https://api.staging.empathy.co/semantics-api/search_single/empathy?q=test&lang=en&instance=empathy&env=staging',
       { signal: expect.anything() }
     );
 

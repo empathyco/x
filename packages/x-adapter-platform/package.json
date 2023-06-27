@@ -37,6 +37,7 @@
     "gen:docs": "pnpm run gen:model-docs && pnpm run gen:typescript-docs",
     "lint": "eslint . --ext .ts",
     "test": "jest",
+    "test:unit": "jest",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {

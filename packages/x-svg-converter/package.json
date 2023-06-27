@@ -28,7 +28,8 @@
     "build": "tsc --project tsconfig.build.json",
     "postbuild": "pnpm pack",
     "lint": "eslint . --ext .ts",
-    "test": "jest -i"
+    "test": "jest -i",
+    "test:unit": "jest -i"
   },
   "devDependencies": {
     "@types/jest": "~27.5.0",

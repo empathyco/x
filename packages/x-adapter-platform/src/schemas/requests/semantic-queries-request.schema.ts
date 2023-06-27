@@ -1,6 +1,5 @@
 import { createMutableSchema } from '@empathyco/x-adapter';
 import { SemanticQueriesRequest } from '@empathyco/x-types';
-import { objectFilter } from '@empathyco/x-utils';
 import { PlatformSemanticQueriesRequest } from '../../types';
 
 /**
@@ -13,7 +12,5 @@ export const semanticQueriesRequestSchema = createMutableSchema<
   PlatformSemanticQueriesRequest
 >({
   q: 'query',
-  extraParams: ({ extraParams }) => {
-    return objectFilter(extraParams, key => key !== 'instance');
-  }
+  extraParams: 'extraParams'
 });
