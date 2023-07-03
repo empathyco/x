@@ -54,11 +54,13 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
   select(filter: EditableNumberRangeFilter): void {
     const newFilterId = this.getNewFilterId(filter);
     this.removePreviousFilter(filter.facetId);
-    this.store.commit('x/facets/mutateFilter', {
-      filter,
-      newFilterState: { id: newFilterId, selected: this.isSelected(filter) }
-    });
-    addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet');
+    if (newFilterId != null) {
+      this.store.commit('x/facets/mutateFilter', {
+        filter,
+        newFilterState: { id: newFilterId, selected: this.isSelected(filter) }
+      });
+      addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet');
+    }
   }
 
   /**
@@ -68,8 +70,14 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    * @returns The new filter id.
    * @internal
    */
-  protected getNewFilterId(filter: Pick<EditableNumberRangeFilter, 'range' | 'facetId'>): string {
-    return `${filter.facetId}:${String(filter.range.min)}-${String(filter.range.max)}`;
+  protected getNewFilterId(
+    filter: Pick<EditableNumberRangeFilter, 'range' | 'facetId'>
+  ): string | null {
+    if (filter.range.min != null || filter.range.max != null) {
+      return `${filter.facetId}:${String(filter.range.min)}-${String(filter.range.max)}`;
+    } else {
+      return null;
+    }
   }
 
   /**
