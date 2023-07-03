@@ -6,7 +6,7 @@
       <template #default="{ filter }">
         <SimpleFilter :filter="filter" class="x-facet-filter-success">
           <template #label>
-            {{ filter.label ?? `${filter.range.min} - ${filter.range.max} ${filter.id}` }}
+            {{ filter.label ?? `${filter.range.min} - ${filter.range.max}` }}
           </template>
         </SimpleFilter>
       </template>
