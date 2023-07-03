@@ -69,7 +69,7 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    * @internal
    */
   protected getNewFilterId(filter: Pick<EditableNumberRangeFilter, 'range' | 'facetId'>): string {
-    return `${filter.facetId}:${String(filter.range.min)}_${String(filter.range.max)}`;
+    return `${filter.facetId}:${String(filter.range.min)}-${String(filter.range.max)}`;
   }
 
   /**
