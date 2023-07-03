@@ -4,7 +4,11 @@
     <ClearFilters />
     <SelectedFiltersList>
       <template #default="{ filter }">
-        <SimpleFilter :filter="filter" class="x-facet-filter-success" />
+        <SimpleFilter :filter="filter" class="x-facet-filter-success">
+          <template #label>
+            {{ filter.label ?? `${filter.range.min} - ${filter.range.max} ${filter.id}` }}
+          </template>
+        </SimpleFilter>
       </template>
     </SelectedFiltersList>
 
@@ -105,6 +109,8 @@
               </FiltersSearch>
             </SortedFilters>
           </ExcludeFiltersWithNoResults>
+          <!--  Editable Number Price Range Facet    -->
+          <EditableNumberPriceRangeFilter :filter="editableFilter" />
         </BaseHeaderTogglePanel>
       </template>
     </Facets>
@@ -112,11 +118,17 @@
 </template>
 
 <script lang="ts">
-  import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
+  import {
+    EditableNumberRangeFilter,
+    Facet,
+    SimpleFilter as SimpleFilterModel
+  } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { XInject } from '../../components';
   import BasePriceFilterLabel from '../../components/filters/labels/base-price-filter-label.vue';
+  // eslint-disable-next-line max-len
+  import EditableNumberPriceRangeFilter from '../../x-modules/facets/components/filters/editable-number-range-filter.vue';
   import ChevronDown from '../../components/icons/chevron-down.vue';
   import BaseHeaderTogglePanel from '../../components/panels/base-header-toggle-panel.vue';
   import ClearFilters from '../../x-modules/facets/components/clear-filters.vue';
@@ -142,6 +154,7 @@
       BasePriceFilterLabel,
       ChevronDown,
       ClearFilters,
+      EditableNumberPriceRangeFilter,
       ExcludeFiltersWithNoResults,
       Facets,
       FacetsProvider,
@@ -175,6 +188,17 @@
         ]
       }
     ];
+
+    protected editableFilter: EditableNumberRangeFilter = {
+      facetId: 'price',
+      selected: true,
+      id: 'price:primary',
+      modelName: 'EditableNumberRangeFilter',
+      range: {
+        min: null,
+        max: null
+      }
+    };
   }
 </script>
 
