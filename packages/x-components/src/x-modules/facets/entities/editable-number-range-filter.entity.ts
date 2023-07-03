@@ -32,7 +32,7 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
   deselect(filter: EditableNumberRangeFilter): void {
     const newFilterState: Pick<EditableNumberRangeFilter, 'range' | 'facetId' | 'selected'> = {
       facetId: filter.facetId,
-      range: { min: null, max: null },
+      range: { min: filter.range.min, max: filter.range.max },
       selected: false
     };
     this.removePreviousFilter(filter.facetId);
@@ -54,13 +54,14 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
   select(filter: EditableNumberRangeFilter): void {
     const newFilterId = this.getNewFilterId(filter);
     this.removePreviousFilter(filter.facetId);
-    if (newFilterId != null) {
-      this.store.commit('x/facets/mutateFilter', {
-        filter,
-        newFilterState: { id: newFilterId, selected: this.isSelected(filter) }
-      });
-      addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet');
-    }
+    this.store.commit('x/facets/mutateFilter', {
+      filter,
+      newFilterState: {
+        id: newFilterId,
+        selected: this.isSelected(filter)
+      }
+    });
+    addFacetIfNotPresent(this.store, filter.facetId, 'EditableNumberRangeFacet');
   }
 
   /**
