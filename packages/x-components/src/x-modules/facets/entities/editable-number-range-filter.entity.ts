@@ -24,8 +24,8 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
 
   /**
    * It sets {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter} to
-   * false and reset the {@link @empathyco/x-types#EditableNumberRangeFilter
-   * | EditableNumberRangeFilter} values to null.
+   * false. Range values are kept to be able to update the {@link FacetsGetters.selectedFilters}
+   * getter accordingly (as the id is built using the range).
    *
    * @param filter - The filter to deselect.
    */
@@ -71,14 +71,8 @@ export class EditableNumberRangeFilterEntity implements FilterEntity {
    * @returns The new filter id.
    * @internal
    */
-  protected getNewFilterId(
-    filter: Pick<EditableNumberRangeFilter, 'range' | 'facetId'>
-  ): string | null {
-    if (filter.range.min != null || filter.range.max != null) {
-      return `${filter.facetId}:${String(filter.range.min)}-${String(filter.range.max)}`;
-    } else {
-      return null;
-    }
+  protected getNewFilterId(filter: Pick<EditableNumberRangeFilter, 'range' | 'facetId'>): string {
+    return `${filter.facetId}:${String(filter.range.min)}-${String(filter.range.max)}`;
   }
 
   /**
