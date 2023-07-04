@@ -6,7 +6,7 @@
       <template #default="{ filter }">
         <SimpleFilter :filter="filter" class="x-facet-filter-success">
           <template #label>
-            {{ filter.label ?? `${filter.range.min} - ${filter.range.max}` }}
+            {{ filter.label ?? filter.id }}
           </template>
         </SimpleFilter>
       </template>
@@ -191,7 +191,7 @@
 
     protected editableFilter: EditableNumberRangeFilter = {
       facetId: 'price',
-      selected: true,
+      selected: false,
       id: 'price:primary',
       modelName: 'EditableNumberRangeFilter',
       range: {
