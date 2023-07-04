@@ -129,8 +129,8 @@ describe('testing facets service', () => {
       service.deselect(editableNumberRangeFilter);
       expect(isEditableNumberRangeFilterSelected(editableNumberRangeFilter)).toBe(false);
       expect(getStoreEditableNumberRangeFilter(editableNumberRangeFilter).range).toEqual({
-        min: null,
-        max: null
+        min: 0,
+        max: 40
       });
     });
 
@@ -202,8 +202,8 @@ describe('testing facets service', () => {
       service.toggle(getStoreEditableNumberRangeFilter(editableNumberRangeFilter));
       expect(isEditableNumberRangeFilterSelected(editableNumberRangeFilter)).toBe(false);
       expect(getStoreEditableNumberRangeFilter(editableNumberRangeFilter).range).toEqual({
-        min: null,
-        max: null
+        min: 0,
+        max: 30
       });
     });
   });
