@@ -32,18 +32,16 @@ describe('testing EditableNumberRangeFilterEntity', () => {
     expect(getStoreEditableNumberRangeFilter(store, filter.facetId).range).toEqual(range);
   });
 
-  it('allows deselecting a selected filter and set its range values to null', () => {
+  it('allows deselecting a selected filter and keeps its range values', () => {
     const store = prepareFacetsStore();
-    const filter = createEditableNumberRangeFilter('price', { min: 2, max: 10 }, true);
+    const range = { min: 2, max: 10 };
+    const filter = createEditableNumberRangeFilter('price', range, true);
     const filterEntity = new EditableNumberRangeFilterEntity(store);
 
     expect(filter.selected).toBe(true);
     filterEntity.deselect(filter);
     expect(isEditableNumberRangeFilterSelected(store, filter.facetId)).toBe(false);
-    expect(getStoreEditableNumberRangeFilter(store, filter.facetId).range).toEqual({
-      min: null,
-      max: null
-    });
+    expect(getStoreEditableNumberRangeFilter(store, filter.facetId).range).toEqual(range);
   });
 
   it('deselects a selected filter when filter range values are null', () => {
