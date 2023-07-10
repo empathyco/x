@@ -14,6 +14,21 @@
 
     <!-- Facets -->
     <Facets class="x-gap-24">
+      <!--  Editable Number Price Range Facet    -->
+      <template #editable-number-range-facet="{ facet }">
+        <BaseHeaderTogglePanel
+          :data-test="facet.label"
+          class="x-border-0 x-border-b x-border-neutral-10"
+        >
+          <template #header-content>
+            <span :data-test="facet.label" class="x-truncate">{{ facet.label }}</span>
+            <ChevronDown />
+          </template>
+          <!-- Filters -->
+          <EditableNumberPriceRangeFilter :filter="editableFilter" />
+        </BaseHeaderTogglePanel>
+      </template>
+
       <!--  Hierarchical Facet    -->
       <template #hierarchical-facet="{ facet }">
         <BaseHeaderTogglePanel headerClass="x-w-full x-flex x-justify-between x-py-8">
@@ -109,8 +124,6 @@
               </FiltersSearch>
             </SortedFilters>
           </ExcludeFiltersWithNoResults>
-          <!--  Editable Number Price Range Facet    -->
-          <EditableNumberPriceRangeFilter :filter="editableFilter" />
         </BaseHeaderTogglePanel>
       </template>
     </Facets>
@@ -185,6 +198,18 @@
             selected: false,
             label: 'In Offer'
           } as SimpleFilterModel
+        ]
+      },
+      {
+        modelName: 'EditableNumberRangeFacet',
+        label: 'Range',
+        id: 'price',
+        filters: [
+          {
+            modelName: 'EditableNumberRangeFilter',
+            id: 'price:primary',
+            selected: false
+          }
         ]
       }
     ];
