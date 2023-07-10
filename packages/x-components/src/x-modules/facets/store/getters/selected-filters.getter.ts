@@ -14,10 +14,7 @@ export const selectedFilters: FacetsXStoreModule['getters']['selectedFilters'] =
   const selectedFilters = Object.values(state.filters).filter(filter => filter.selected);
   Object.keys(state.stickyFilters).forEach(stickyFilterId => {
     const isSelected = selectedFilters.some(selectedFilter => selectedFilter.id === stickyFilterId);
-    const isEditable = selectedFilters.some(
-      selectedFilter => selectedFilter.modelName === 'EditableNumberRangeFilter'
-    );
-    if (!isSelected && !isEditable) {
+    if (!isSelected) {
       selectedFilters.push(state.stickyFilters[stickyFilterId]);
     }
   });
