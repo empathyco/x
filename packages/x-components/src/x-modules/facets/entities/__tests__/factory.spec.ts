@@ -126,10 +126,12 @@ describe('testing filters entity factory', () => {
 
     expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1);
     expect(isEditableNumberRangeFilterSelected(store, facetId)).toBe(false);
-    expect(getStoreEditableNumberRangeFilter(store, facetId).range).toEqual({
-      min: 10,
-      max: 20
-    });
+    expect(getStoreEditableNumberRangeFilter(store, facetId)).toEqual(
+      expect.objectContaining({
+        range: { min: 10, max: 20 },
+        selected: false
+      })
+    );
     expect(getStoreEditableNumberRangeFilter(store, facetId).id).toBe(previousFilterId);
   });
 

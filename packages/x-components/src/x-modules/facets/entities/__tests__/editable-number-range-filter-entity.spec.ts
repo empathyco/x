@@ -41,7 +41,12 @@ describe('testing EditableNumberRangeFilterEntity', () => {
     expect(filter.selected).toBe(true);
     filterEntity.deselect(filter);
     expect(isEditableNumberRangeFilterSelected(store, filter.facetId)).toBe(false);
-    expect(getStoreEditableNumberRangeFilter(store, filter.facetId).range).toEqual(range);
+    expect(getStoreEditableNumberRangeFilter(store, filter.facetId)).toEqual(
+      expect.objectContaining({
+        range: range,
+        selected: false
+      })
+    );
   });
 
   it('deselects a selected filter when filter range values are null', () => {

@@ -185,8 +185,11 @@ describe('testing single select modifier', () => {
 
     entity.deselect(ageLessThan10Filter);
     expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1);
-    expect(getStoreEditableNumberRangeFilter(store, facetId).range).toEqual(
-      ageLessThan10Filter.range
+    expect(getStoreEditableNumberRangeFilter(store, facetId)).toEqual(
+      expect.objectContaining({
+        range: ageLessThan10Filter.range,
+        selected: false
+      })
     );
   });
 
