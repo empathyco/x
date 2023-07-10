@@ -69,12 +69,14 @@
 <script lang="ts">
   import {
     EditableNumberRangeFilter as EditableNumberRangeFilterModel,
-    RangeValue
+    RangeValue,
+    Filter
   } from '@empathyco/x-types';
   import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
   import { VueCSSClasses } from '../../../../utils/types';
   import { facetsXModule } from '../../x-module';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
+  import { Getter, XOn } from '../../../../components';
 
   /**
    * Renders an editable number range filter. It has two input fields to handle min and max values,
@@ -135,6 +137,14 @@
     public hasClearButton!: boolean;
 
     /**
+     * The selected filters retrieved from the state.
+     *
+     * @internal
+     */
+    @Getter('facets', 'selectedFilters')
+    public selectedFilters!: Filter[];
+
+    /**
      * It watches the filter range values passed as property and updates component range values if
      * they change.
      *
@@ -159,6 +169,17 @@
       if (this.isInstant) {
         this.emitUserModifiedFilter();
       }
+    }
+
+    /**
+     * It resets the min/max range values to null if the
+     * {@link XEventsTypes.UserClickedClearAllFilters} event is fired.
+     *
+     * @public
+     */
+    @XOn('UserClickedClearAllFilters')
+    resetRanges(): void {
+      this.clearValues();
     }
 
     /**
@@ -207,7 +228,7 @@
     }
 
     /**
-     * It checks if component min and max values are different than the ones within the filter
+     * It checks if component min and max values are different from the ones within the filter
      * provided as property.
      *
      * @returns True if they are different.
@@ -253,7 +274,7 @@
     }
 
     /**
-     * It sets component `min` and `max` values to null and it emits the change if component is
+     * It sets component `min` and `max` values to null , and it emits the change if component is
      * working in instant mode.
      *
      * @internal
