@@ -164,7 +164,7 @@
 
     /**
      * It resets the min/max range values to null if the
-     * {@link XEventsTypes.UserClickedClearAllFilters} event is fired.
+     * {@link FacetsXEvents.UserClickedClearAllFilters} event is fired.
      *
      * @public
      */
