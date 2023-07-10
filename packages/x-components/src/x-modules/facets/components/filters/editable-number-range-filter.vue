@@ -69,14 +69,13 @@
 <script lang="ts">
   import {
     EditableNumberRangeFilter as EditableNumberRangeFilterModel,
-    RangeValue,
-    Filter
+    RangeValue
   } from '@empathyco/x-types';
   import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
   import { VueCSSClasses } from '../../../../utils/types';
   import { facetsXModule } from '../../x-module';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
-  import { Getter, XOn } from '../../../../components';
+  import { XOn } from '../../../../components';
 
   /**
    * Renders an editable number range filter. It has two input fields to handle min and max values,
@@ -135,14 +134,6 @@
      */
     @Prop({ default: true })
     public hasClearButton!: boolean;
-
-    /**
-     * The selected filters retrieved from the state.
-     *
-     * @internal
-     */
-    @Getter('facets', 'selectedFilters')
-    public selectedFilters!: Filter[];
 
     /**
      * It watches the filter range values passed as property and updates component range values if
