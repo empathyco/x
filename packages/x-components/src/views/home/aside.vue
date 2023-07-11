@@ -1,6 +1,6 @@
 <template>
   <div class="x-flex x-flex-col x-gap-24">
-    <FacetsProvider :facets="staticFacets" />
+    <FacetsProvider :facets="staticFacets" groupId="price" />
     <ClearFilters />
     <SelectedFiltersList>
       <template #default="{ filter }">
