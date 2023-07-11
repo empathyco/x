@@ -25,7 +25,7 @@
             <ChevronDown />
           </template>
           <!-- Filters -->
-          <EditableNumberPriceRangeFilter :filter="editableFilter" />
+          <EditableNumberPriceRangeFilter :filter="editableNumberRangeFilter" />
         </BaseHeaderTogglePanel>
       </template>
 
@@ -132,6 +132,7 @@
 
 <script lang="ts">
   import {
+    EditableNumberRangeFacet,
     EditableNumberRangeFilter,
     Facet,
     SimpleFilter as SimpleFilterModel
@@ -185,6 +186,17 @@
     @XInject('controls')
     public controls!: HomeControls;
 
+    protected editableNumberRangeFilter: EditableNumberRangeFilter = {
+      facetId: 'price',
+      selected: false,
+      id: 'price:primary',
+      modelName: 'EditableNumberRangeFilter',
+      range: {
+        min: null,
+        max: null
+      }
+    };
+
     protected staticFacets: Facet[] = [
       {
         modelName: 'SimpleFacet',
@@ -202,28 +214,11 @@
       },
       {
         modelName: 'EditableNumberRangeFacet',
-        label: 'Range',
+        label: 'Price range',
         id: 'price',
-        filters: [
-          {
-            modelName: 'EditableNumberRangeFilter',
-            id: 'price:primary',
-            selected: false
-          }
-        ]
-      }
+        filters: [this.editableNumberRangeFilter]
+      } as EditableNumberRangeFacet
     ];
-
-    protected editableFilter: EditableNumberRangeFilter = {
-      facetId: 'price',
-      selected: false,
-      id: 'price:primary',
-      modelName: 'EditableNumberRangeFilter',
-      range: {
-        min: null,
-        max: null
-      }
-    };
   }
 </script>
 
