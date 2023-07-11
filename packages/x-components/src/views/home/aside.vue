@@ -189,7 +189,7 @@
     protected editableNumberRangeFilter: EditableNumberRangeFilter = {
       facetId: 'price',
       selected: false,
-      id: 'price:primary',
+      id: 'price:null-null',
       modelName: 'EditableNumberRangeFilter',
       range: {
         min: null,
@@ -200,15 +200,15 @@
     protected staticFacets: Facet[] = [
       {
         modelName: 'SimpleFacet',
-        label: 'offer',
+        label: 'Offer',
         id: 'offer',
         filters: [
           {
             facetId: 'offer',
             modelName: 'SimpleFilter',
-            id: 'price:[0 TO 10]',
+            id: 'price:0-10',
             selected: false,
-            label: 'In Offer'
+            label: 'price:0-10'
           } as SimpleFilterModel
         ]
       },
