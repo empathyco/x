@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.392](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.391...@empathyco/x-components@3.0.0-alpha.392) (2023-07-11)
+
+
+### Bug Fixes
+
+* **search:** ignore page from url when going to a different query (#1244) ([311c5f8](https://github.com/empathyco/x/commit/311c5f871c279a7cb2dc03daf382ac14da4b23a6))
+
+
+
 ## [3.0.0-alpha.391](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.390...@empathyco/x-components@3.0.0-alpha.391) (2023-06-27)
 
 **Note:** Version bump only for package @empathyco/x-components
