@@ -127,8 +127,10 @@ export interface XComponentAliasAPI {
   readonly popularSearches: ReadonlyArray<Suggestion>;
   /** The query value of the different modules. */
   readonly query: XComponentAliasQueryAPI;
-  /** The {@link QuerySuggestionsXModule} query suggestions. */
+  /** The {@link QuerySuggestionsXModule} query suggestions that should be displayed. */
   readonly querySuggestions: ReadonlyArray<Suggestion>;
+  /** The {@link QuerySuggestionsXModule} query suggestions. */
+  readonly fullQuerySuggestions: ReadonlyArray<Suggestion>;
   /** The {@link RecommendationsXModule} recommendations. */
   readonly recommendations: ReadonlyArray<Result>;
   /** The {@link SearchXModule} redirections. */
