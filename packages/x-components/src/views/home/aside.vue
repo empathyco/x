@@ -25,7 +25,7 @@
             <ChevronDown />
           </template>
           <!-- Filters -->
-          <EditableNumberPriceRangeFilter :filter="editableNumberRangeFilter" />
+          <EditableNumberPriceRangeFilter :filter="facet.filters[0]" />
         </BaseHeaderTogglePanel>
       </template>
 
@@ -131,12 +131,7 @@
 </template>
 
 <script lang="ts">
-  import {
-    EditableNumberRangeFacet,
-    EditableNumberRangeFilter,
-    Facet,
-    SimpleFilter as SimpleFilterModel
-  } from '@empathyco/x-types';
+  import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { XInject } from '../../components';
@@ -186,17 +181,6 @@
     @XInject('controls')
     public controls!: HomeControls;
 
-    protected editableNumberRangeFilter: EditableNumberRangeFilter = {
-      facetId: 'price',
-      selected: false,
-      id: 'price:null-null',
-      modelName: 'EditableNumberRangeFilter',
-      range: {
-        min: null,
-        max: null
-      }
-    };
-
     protected staticFacets: Facet[] = [
       {
         modelName: 'SimpleFacet',
@@ -211,13 +195,7 @@
             label: 'price:0-10'
           } as SimpleFilterModel
         ]
-      },
-      {
-        modelName: 'EditableNumberRangeFacet',
-        label: 'Price range',
-        id: 'price',
-        filters: [this.editableNumberRangeFilter]
-      } as EditableNumberRangeFacet
+      }
     ];
   }
 </script>
