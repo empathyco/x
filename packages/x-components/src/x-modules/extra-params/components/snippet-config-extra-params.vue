@@ -5,7 +5,7 @@
 <script lang="ts">
   import { forEach, Dictionary } from '@empathyco/x-utils';
   import Vue from 'vue';
-  import { Component, Watch, Inject, Prop } from 'vue-property-decorator';
+  import { Component, Inject, Prop } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { extraParamsXModule } from '../x-module';
@@ -39,14 +39,26 @@
     protected values?: Dictionary<unknown>;
 
     /**
-     * Custom object containing the extra params from the snippet config.
+     * Custom object containing the extra params from the snippet config and the values prop.
      *
      * @remarks This object keeps manually the desired snippet config properties to avoid
      * unnecessary re-renders.
      *
+     * @returns A dictionary with the extra params.
+     *
      * @internal
      */
-    protected extraParams: Dictionary<unknown> = {};
+    protected get extraParams(): Dictionary<unknown> {
+      const newExtraParams = {};
+
+      forEach({ ...this.values, ...this.snippetConfig }, (name, value) => {
+        if (!this.excludedExtraParams.includes(name)) {
+          this.$set(newExtraParams, name, value);
+        }
+      });
+
+      return newExtraParams;
+    }
 
     /**
      * Collection of properties from the snippet config to exclude from the
@@ -68,22 +80,6 @@
       ]
     })
     protected excludedExtraParams!: Array<keyof SnippetConfig>;
-
-    /**
-     * Updates the extraParams object when the snippet config changes.
-     *
-     * @param snippetConfig - The new snippet config.
-     *
-     * @internal
-     */
-    @Watch('snippetConfig', { deep: true, immediate: true })
-    syncExtraParams(snippetConfig: SnippetConfig): void {
-      forEach({ ...this.values, ...snippetConfig }, (name, value) => {
-        if (!this.excludedExtraParams.includes(name)) {
-          this.$set(this.extraParams, name, value);
-        }
-      });
-    }
   }
 </script>
 
