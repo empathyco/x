@@ -341,32 +341,11 @@ describe('testing facets service', () => {
         createFilter({ min: 10, max: 18 }, true),
         createFilter({ min: 18, max: null }, true)
       ]);
-      const newPriceFacet = createEditableNumberRangeFacetStub('price', createFilter =>
-        createFilter({ min: null, max: 10 }, true)
-      );
 
-      service.updateFacets({
-        id: 'backend',
-        facets: [newColorFacet, newCategoryFacet, newAgeFacet, newPriceFacet]
-      });
-      expect(
-        areFiltersDifferent(getFilters(), [
-          ...newColorFacet.filters,
-          ...flatHierarchicalFilters(newCategoryFacet.filters),
-          ...newAgeFacet.filters,
-          getStoreEditableNumberRangeFilter(priceUpTo10Filter)
-        ])
-      ).toBe(false);
-      expect(
-        // Because newPriceFacet filter has a different id in this new group, it is de selected
-        areFiltersDifferent(getSelectedFilters(), [
-          redColorFilter,
-          menCategoryFilter,
-          age10To18Filter
-        ])
-      ).toBe(false);
+      // TODO: Add test for a backend change on EditableNumberRangeFacet when new behavior defined.
 
       // Saving a new group of facets shouldn't affect previous ones
+      // eslint-disable-next-line max-len
       const shipmentFacet = createSimpleFacetStub('shipment', createFilter => [
         createFilter('In store', true),
         createFilter('Express')
