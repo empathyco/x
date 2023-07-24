@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.394](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.393...@empathyco/x-components@3.0.0-alpha.394) (2023-07-24)
+
+
+### Features
+
+* make the snippet-config-extra-params component react to prop changes ([9f73735](https://github.com/empathyco/x/commit/9f737351324f2fdff044f7e6b6da8a38216b4ab9))
+
+
+
 ## [3.0.0-alpha.393](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.392...@empathyco/x-components@3.0.0-alpha.393) (2023-07-13)
 
 
