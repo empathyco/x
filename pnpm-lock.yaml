@@ -6397,6 +6397,7 @@ packages:
       {
         integrity: sha512-BSHWgDSAiKs50o2Re8ppvp3seVHXSRM44cdSsT9FfNEUUZLOGWVCsiWaRPWM1Znn+mqZ1OfVZ3z3DWEzSp7hRA==
       }
+    requiresBuild: true
     dev: true
 
   /asn1@0.2.6:
@@ -6413,6 +6414,7 @@ packages:
       {
         integrity: sha512-TaTivMB6pYI1kXwrFlEhLeGfOqoDNdTxjCdwRfFFkEA30Eu+k48W34nlok2EYWJfFFzqaEmichdNM7th6M5HNw==
       }
+    requiresBuild: true
     dev: true
 
   /assert-plus@1.0.0:
@@ -6682,6 +6684,7 @@ packages:
         integrity: sha512-GAwkz0AihzY5bkwIY5QDR+LvsRQgB/B+1foMPvi0FZPMl5fjD7ICiznUiBdLYMH1QYe6vqu4gWYytZOccLouFw==
       }
     engines: { node: '>= 10.0.0' }
+    requiresBuild: true
     dependencies:
       '@babel/types': 7.21.4
     dev: true
@@ -7219,6 +7222,7 @@ packages:
       {
         integrity: sha512-+UqJQjFEFaTAs3bNsF2j2kEN1baG/zghZbdqoYEDxGZtJo9LBzl1A+m0D4n3qKx8N2FNv8/Xp6yV9mQmBuptaw==
       }
+    requiresBuild: true
     dependencies:
       is-regex: 1.1.4
     dev: true
@@ -8199,6 +8203,7 @@ packages:
       {
         integrity: sha512-vCrqcSIq4//Gx74TXXCGnHpulY1dskqLTFGDmhrGxzeXL8lF8kvXv6mpNWlJj1uD4DW23D4ljAqbY4RRaaUZIw==
       }
+    requiresBuild: true
     dependencies:
       '@babel/parser': 7.21.4
       '@babel/types': 7.21.4
@@ -8374,6 +8379,7 @@ packages:
       {
         integrity: sha512-1j20GZTsvKNkc4BY3NpMOM8tt///wY3FpIzozTOFO2ffuZcV61nojHXVKIy3WM+7ADCy5FVhdZYHYDdgTU0yJw==
       }
+    requiresBuild: true
     dependencies:
       is-what: 3.14.1
     dev: true
@@ -8579,6 +8585,7 @@ packages:
       {
         integrity: sha512-UNIFik2RgSbiTwIW1IsFwXWn6vs+bYdq83LKTSOsx7NJR7WII9dxewkHLltfTLVppoUApHV0118a4RZRI9FLwA==
       }
+    requiresBuild: true
     dependencies:
       css: 2.2.4
     dev: true
@@ -8649,6 +8656,7 @@ packages:
       {
         integrity: sha512-oUnjmWpy0niI3x/mPL8dVEI1l7MnG3+HHyRPHf+YFSbK+svOhXpmSOcDURUh2aOCgl2grzrOPt1nHLuCVFULLw==
       }
+    requiresBuild: true
     dependencies:
       inherits: 2.0.4
       source-map: 0.6.1
@@ -8915,6 +8923,7 @@ packages:
       {
         integrity: sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
       }
+    requiresBuild: true
     peerDependencies:
       supports-color: '*'
     peerDependenciesMeta:
@@ -9235,6 +9244,7 @@ packages:
       {
         integrity: sha512-LLBi6pEqS6Do3EKQ3J0NqHWV5hhb78Pi8vvESYwyOy2c31ZEZVdtitdzsQsKb7878PEERhzUk0ftqGhG6Mz+pQ==
       }
+    requiresBuild: true
     dev: true
 
   /dom-accessibility-api@0.5.16:
@@ -12537,6 +12547,7 @@ packages:
         integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==
       }
     engines: { node: '>=0.10.0' }
+    requiresBuild: true
     dependencies:
       safer-buffer: 2.1.2
     dev: true
@@ -12910,6 +12921,7 @@ packages:
       {
         integrity: sha512-zMIXX63sxzG3XrkHkrAPvm/OVZVSCPNkwMHU8oTX7/U3AL78I0QXCEICXUM13BIa8TYGZ68PiTKfQz3yaTNr4A==
       }
+    requiresBuild: true
     dependencies:
       acorn: 7.4.1
       object-assign: 4.1.1
@@ -13127,6 +13139,7 @@ packages:
       {
         integrity: sha512-+lP4/6lKUBfQjZ2pdxThZvLUAafmZb8OAxFb8XXtiQmS35INgr85hdOGoEs124ez1FCnZJt6jau/T+alh58QFQ==
       }
+    requiresBuild: true
     dev: true
 
   /is-reference@1.2.1:
@@ -13267,6 +13280,7 @@ packages:
       {
         integrity: sha512-sNxgpk9793nzSs7bA6JQJGeIuRBQhAaNGG77kzYQgMkrID+lS6SlK07K5LaptscDlSaIgH+GPFzf+d75FVxozA==
       }
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -14039,6 +14053,7 @@ packages:
       {
         integrity: sha512-rtS5ATOo2Q5k1G+DADISilDA6lv79zIiwFd6CcjuIxGKLFm5C+RLImRscVap9k55i+MOZwgliw+NejvkLuGD5g==
       }
+    requiresBuild: true
     dev: true
 
   /js-tokens@4.0.0:
@@ -14277,6 +14292,7 @@ packages:
       {
         integrity: sha512-C9YK3Rf8q6VAPDCCU9fnqo3mAfOH6vUGnMcP4AQAYIEpWtfGLpwOTmZ+igtdK5y+VvI2n3CyYSzy4Qh34eq24A==
       }
+    requiresBuild: true
     dependencies:
       is-promise: 2.2.2
       promise: 7.3.1
@@ -17895,6 +17911,7 @@ packages:
       {
         integrity: sha512-nolQXZ/4L+bP/UGlkfaIujX9BKxGwmQ9OT4mOt5yvy8iK1h3wqTEJCijzGANTCCl9nWjY41juyAn2K3Q1hLLTg==
       }
+    requiresBuild: true
     dependencies:
       asap: 2.0.6
     dev: true
@@ -17981,6 +17998,7 @@ packages:
       {
         integrity: sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==
       }
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -18014,6 +18032,7 @@ packages:
       {
         integrity: sha512-azINV9dUtzPMFQktvTXciNAfAuVh/L/JCl0vtPCwvOA21uZrC08K/UnmrL+SXGEVc1FwzjW62+xw5S/uaLj6cA==
       }
+    requiresBuild: true
     dependencies:
       constantinople: 4.0.1
       js-stringify: 1.0.2
@@ -18025,6 +18044,7 @@ packages:
       {
         integrity: sha512-nJMhW16MbiGRiyR4miDTQMRWDgKplnHyeLvioEJYbk1RsPI3FuA3saEP8uwnTb2nTJEKBU90NFVWJBk4OU5qyg==
       }
+    requiresBuild: true
     dependencies:
       constantinople: 4.0.1
       doctypes: 1.1.0
@@ -18041,6 +18061,7 @@ packages:
       {
         integrity: sha512-sjiUsi9M4RAGHktC1drQfCr5C5eriu24Lfbt4s+7SykztEOwVZtbFk1RRq0tzLxcMxMYTBR+zMQaG07J/btayQ==
       }
+    requiresBuild: true
     dev: true
 
   /pug-filters@4.0.0:
@@ -18048,6 +18069,7 @@ packages:
       {
         integrity: sha512-yeNFtq5Yxmfz0f9z2rMXGw/8/4i1cCFecw/Q7+D0V2DdtII5UvqE12VaZ2AY7ri6o5RNXiweGH79OCq+2RQU4A==
       }
+    requiresBuild: true
     dependencies:
       constantinople: 4.0.1
       jstransformer: 1.0.0
@@ -18061,6 +18083,7 @@ packages:
       {
         integrity: sha512-0I6C62+keXlZPZkOJeVam9aBLVP2EnbeDw3An+k0/QlqdwH6rv8284nko14Na7c0TtqtogfWXcRoFE4O4Ff20w==
       }
+    requiresBuild: true
     dependencies:
       character-parser: 2.2.0
       is-expression: 4.0.0
@@ -18072,6 +18095,7 @@ packages:
       {
         integrity: sha512-gjD1yzp0yxbQqnzBAdlhbgoJL5qIFJw78juN1NpTLt/mfPJ5VgC4BvkoD3G23qKzJtIIXBbcCt6FioLSFLOHdw==
       }
+    requiresBuild: true
     dependencies:
       pug-error: 2.0.0
       pug-walk: 2.0.0
@@ -18082,6 +18106,7 @@ packages:
       {
         integrity: sha512-OCjTEnhLWZBvS4zni/WUMjH2YSUosnsmjGBB1An7CsKQarYSWQ0GCVyd4eQPMFJqZ8w9xgs01QdiZXKVjk92EQ==
       }
+    requiresBuild: true
     dependencies:
       object-assign: 4.1.1
       pug-walk: 2.0.0
@@ -18092,6 +18117,7 @@ packages:
       {
         integrity: sha512-ukiYM/9cH6Cml+AOl5kETtM9NR3WulyVP2y4HOU45DyMim1IeP/OOiyEWRr6qk5I5klpsBnbuHpwKmTx6WURnw==
       }
+    requiresBuild: true
     dependencies:
       pug-error: 2.0.0
       token-stream: 1.0.0
@@ -18102,6 +18128,7 @@ packages:
       {
         integrity: sha512-L50zbvrQ35TkpHwv0G6aLSuueDRwc/97XdY8kL3tOT0FmhgG7UypU3VztfV/LATAvmUfYi4wNxSajhSAeNN+Kg==
       }
+    requiresBuild: true
     dev: true
 
   /pug-strip-comments@2.0.0:
@@ -18109,6 +18136,7 @@ packages:
       {
         integrity: sha512-zo8DsDpH7eTkPHCXFeAk1xZXJbyoTfdPlNR0bK7rpOMuhBYb0f5qUVCO1xlsitYd3w5FQTK7zpNVKb3rZoUrrQ==
       }
+    requiresBuild: true
     dependencies:
       pug-error: 2.0.0
     dev: true
@@ -18118,6 +18146,7 @@ packages:
       {
         integrity: sha512-yYELe9Q5q9IQhuvqsZNwA5hfPkMJ8u92bQLIMcsMxf/VADjNtEYptU+inlufAFYcWdHlwNfZOEnOOQrZrcyJCQ==
       }
+    requiresBuild: true
     dev: true
 
   /pug@3.0.2:
@@ -18681,6 +18710,7 @@ packages:
         integrity: sha512-ZuF55hVUQaaczgOIwqWzkEcEidmlD/xl44x1UZnhOXcYuFN2S6+rcxpG+C1N3So0wvNI3DmJICUFfu2SxhBmvg==
       }
     deprecated: https://github.com/lydell/resolve-url#deprecated
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -19107,6 +19137,7 @@ packages:
       {
         integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
       }
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -19567,6 +19598,7 @@ packages:
         integrity: sha512-Htz+RnsXWk5+P2slx5Jh3Q66vhQj1Cllm0zvnaY98+NFx+Dv2CF/f5O/t8x+KaNdrdIAsruNzoh/KpialbqAnw==
       }
     deprecated: See https://github.com/lydell/source-map-resolve#deprecated
+    requiresBuild: true
     dependencies:
       atob: 2.1.2
       decode-uri-component: 0.2.2
@@ -19603,6 +19635,7 @@ packages:
         integrity: sha512-cPiFOTLUKvJFIg4SKVScy4ilPPW6rFgMgfuZJPNoDuMs3nC1HbMUycBoJw77xFIp6z1UJQJOfx6C9GMH80DiTw==
       }
     deprecated: See https://github.com/lydell/source-map-url#deprecated
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -20620,6 +20653,7 @@ packages:
       {
         integrity: sha512-VSsyNPPW74RpHwR8Fc21uubwHY7wMDeJLys2IX5zJNih+OnAnaifKHo+1LHT7DAdloQ7apeaaWg8l7qnf/TnEg==
       }
+    requiresBuild: true
     dev: true
 
   /toposort@2.0.2:
@@ -21173,6 +21207,7 @@ packages:
         integrity: sha512-Am1ousAhSLBeB9cG/7k7r2R0zj50uDRlZHPGbazid5s9rlF1F/QKYObEKSIunSjIOkJZqwRRLpvewjEkM7pSqg==
       }
     deprecated: Please see https://github.com/lydell/urix#deprecated
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -21475,6 +21510,7 @@ packages:
         integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==
       }
     engines: { node: '>=0.10.0' }
+    requiresBuild: true
     dev: true
 
   /vue-class-component@7.2.6(vue@2.7.14):
@@ -22292,6 +22328,7 @@ packages:
         integrity: sha512-RNGKj82nUPg3g5ygxkQl0R937xLyho1J24ItRCBTr/m1YnZkzJy1hUiHUJrc/VlsDQzsCnInEGSg3bci0Lmd4w==
       }
     engines: { node: '>= 10.0.0' }
+    requiresBuild: true
     dependencies:
       '@babel/parser': 7.21.4
       '@babel/types': 7.21.4
