@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.393](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.392...@empathyco/x-components@3.0.0-alpha.393) (2023-07-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* the property 'querySuggestions' in '' now returns the query suggestions that should be displayed based on the module's config. A new property called 'fullQuerySuggestions' returns all the query suggestions in the module
+
+EMP-1463
+
+### Features
+
+* add alias for the query suggestions that should be displayed (#1247) ([4de1ccc](https://github.com/empathyco/x/commit/4de1ccc2f287749f91a1014edc3c127c9207bc52))
+
+
+
+## [3.0.0-alpha.392](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.391...@empathyco/x-components@3.0.0-alpha.392) (2023-07-11)
+
+
+### Bug Fixes
+
+* **search:** ignore page from url when going to a different query (#1244) ([311c5f8](https://github.com/empathyco/x/commit/311c5f871c279a7cb2dc03daf382ac14da4b23a6))
+
+
+
 ## [3.0.0-alpha.391](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.390...@empathyco/x-components@3.0.0-alpha.391) (2023-06-27)
 
 **Note:** Version bump only for package @empathyco/x-components

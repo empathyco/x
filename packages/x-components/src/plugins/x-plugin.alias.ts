@@ -99,6 +99,9 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
       return component.$store.state.x.popularSearches?.popularSearches ?? [];
     },
     get querySuggestions() {
+      return component.$store.getters[getGetterPath('querySuggestions', 'querySuggestions')] ?? [];
+    },
+    get fullQuerySuggestions() {
       return component.$store.state.x.querySuggestions?.suggestions ?? [];
     },
     get recommendations() {

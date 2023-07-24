@@ -68,6 +68,7 @@ describe('testing plugin alias', () => {
       partialResults: [],
       popularSearches: [],
       querySuggestions: [],
+      fullQuerySuggestions: [],
       recommendations: [],
       redirections: [],
       relatedTags: [],
