@@ -236,7 +236,7 @@
      *
      * @returns True if the range of the filter allows any value.
      *
-     * @protected
+     * @internal
      */
     protected get isAnyRange(): boolean {
       return !this.min && this.max === null;
