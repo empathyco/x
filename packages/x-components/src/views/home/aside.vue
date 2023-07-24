@@ -131,31 +131,34 @@
 </template>
 
 <script lang="ts">
-  import { Facet, SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
+  /* eslint-disable max-len */
+  import {
+    EditableNumberRangeFacet,
+    EditableNumberRangeFilter,
+    Facet,
+    SimpleFilter as SimpleFilterModel
+  } from '@empathyco/x-types';
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { XInject } from '../../components';
   import BasePriceFilterLabel from '../../components/filters/labels/base-price-filter-label.vue';
-  // eslint-disable-next-line max-len
   import EditableNumberPriceRangeFilter from '../../x-modules/facets/components/filters/editable-number-range-filter.vue';
   import ChevronDown from '../../components/icons/chevron-down.vue';
   import BaseHeaderTogglePanel from '../../components/panels/base-header-toggle-panel.vue';
   import ClearFilters from '../../x-modules/facets/components/clear-filters.vue';
   import FacetsProvider from '../../x-modules/facets/components/facets/facets-provider.vue';
   import Facets from '../../x-modules/facets/components/facets/facets.vue';
-  // eslint-disable-next-line max-len
   import HierarchicalFilter from '../../x-modules/facets/components/filters/hierarchical-filter.vue';
   import SimpleFilter from '../../x-modules/facets/components/filters/simple-filter.vue';
-  // eslint-disable-next-line max-len
   import ExcludeFiltersWithNoResults from '../../x-modules/facets/components/lists/exclude-filters-with-no-results.vue';
   import FiltersList from '../../x-modules/facets/components/lists/filters-list.vue';
   import FiltersSearch from '../../x-modules/facets/components/lists/filters-search.vue';
-  // eslint-disable-next-line max-len
   import SelectedFiltersList from '../../x-modules/facets/components/lists/selected-filters-list.vue';
   import SelectedFilters from '../../x-modules/facets/components/lists/selected-filters.vue';
   import SlicedFilters from '../../x-modules/facets/components/lists/sliced-filters.vue';
   import SortedFilters from '../../x-modules/facets/components/lists/sorted-filters.vue';
   import { HomeControls } from './types';
+  /* eslint-enable max-len */
 
   @Component({
     components: {
@@ -181,6 +184,17 @@
     @XInject('controls')
     public controls!: HomeControls;
 
+    protected editableNumberRangeFilter: EditableNumberRangeFilter = {
+      facetId: 'salePrice',
+      selected: false,
+      id: 'price:0-*',
+      modelName: 'EditableNumberRangeFilter',
+      range: {
+        min: null,
+        max: null
+      }
+    };
+
     protected staticFacets: Facet[] = [
       {
         modelName: 'SimpleFacet',
@@ -195,7 +209,13 @@
             label: 'price:0-10'
           } as SimpleFilterModel
         ]
-      }
+      },
+      {
+        modelName: 'EditableNumberRangeFacet',
+        label: 'Price range',
+        id: 'salePrice',
+        filters: [this.editableNumberRangeFilter]
+      } as EditableNumberRangeFacet
     ];
   }
 </script>

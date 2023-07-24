@@ -22,7 +22,7 @@
         name="min"
         type="number"
         class="x-editable-number-range-filter__input x-editable-number-range-filter__input--min x-input"
-        :value="min"
+        :value="!isAnyRange ? min : null"
         data-test="range-min"
         :aria-label="rangeFilterMin"
       />
@@ -204,7 +204,7 @@
      * @internal
      */
     protected get renderClearButton(): boolean {
-      return this.hasClearButton && (this.min !== null || this.max !== null);
+      return this.hasClearButton && !this.isAnyRange;
     }
 
     /**
@@ -228,6 +228,18 @@
      */
     protected get areValuesDifferent(): boolean {
       return this.min !== this.filter.range.min || this.max !== this.filter.range.max;
+    }
+
+    /**
+     * Checks if the range of the filter allows any value, which happens when the min is
+     * null or 0 and the max is null.
+     *
+     * @returns True if the range of the filter allows any value.
+     *
+     * @protected
+     */
+    protected get isAnyRange(): boolean {
+      return !this.min && this.max === null;
     }
 
     /**
