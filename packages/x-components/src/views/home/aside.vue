@@ -5,9 +5,7 @@
     <SelectedFiltersList>
       <template #default="{ filter }">
         <SimpleFilter :filter="filter" class="x-facet-filter-success">
-          <template #label>
-            {{ filter.label ?? filter.id }}
-          </template>
+          <template #label>{{ filter.label ?? filter.id }}</template>
         </SimpleFilter>
       </template>
     </SelectedFiltersList>
