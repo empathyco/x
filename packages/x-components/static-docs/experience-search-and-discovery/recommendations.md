@@ -8,6 +8,10 @@ tags:
   - trending products
   - top products
   - popular
+redirect_from:
+  - /explore-empathy-platform/experience-search-and-discovery/recommendations.html
+  - /explore-empathy-platform/experience-search-and-discovery/recommendations
+
 ---
 
 Product recommendations, such as Top Products, Brand Recommendations, Next Products, and Vectorized Recommendations, help your shoppers explore your product catalogue, guiding them to specific products without the need to launch any queries.
@@ -44,7 +48,7 @@ Based on your business strategy and your shoppers’ needs, the Interface X Comp
 
 ::: details Top Products UI experience
 Use the Recommendations module to configure the layout of Top Products in your commerce search UI. You can:
-- Configure the position and place it wherever you prefer, although it commonly appears on the SERP, among the product results.
+- Configure the position and place it wherever you prefer, although it commonly appears in the results grid when low results are retrieved or in the no results layout after no matches are found.
 - Show as many product recommendations as you want.
 - Animate the display of the component at your ease.
 - Customize content. Show whatever you need: text, images, icons.
