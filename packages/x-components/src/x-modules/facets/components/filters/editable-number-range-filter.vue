@@ -22,7 +22,7 @@
         name="min"
         type="number"
         class="x-editable-number-range-filter__input x-editable-number-range-filter__input--min x-input"
-        :value="min"
+        :value="!isAnyRange ? min : null"
         data-test="range-min"
         :aria-label="rangeFilterMin"
       />
@@ -75,6 +75,7 @@
   import { VueCSSClasses } from '../../../../utils/types';
   import { facetsXModule } from '../../x-module';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
+  import { XOn } from '../../../../components';
 
   /**
    * Renders an editable number range filter. It has two input fields to handle min and max values,
@@ -162,6 +163,17 @@
     }
 
     /**
+     * It resets the min/max range values to null if the
+     * {@link FacetsXEvents.UserClickedClearAllFilters} event is fired.
+     *
+     * @public
+     */
+    @XOn('UserClickedClearAllFilters')
+    resetRanges(): void {
+      this.clearValues();
+    }
+
+    /**
      * Dynamic CSS classes.
      *
      * @returns Object which contains dynamic CSS classes.
@@ -192,7 +204,7 @@
      * @internal
      */
     protected get renderClearButton(): boolean {
-      return this.hasClearButton && (this.min !== null || this.max !== null);
+      return this.hasClearButton && !this.isAnyRange;
     }
 
     /**
@@ -207,7 +219,7 @@
     }
 
     /**
-     * It checks if component min and max values are different than the ones within the filter
+     * It checks if component min and max values are different from the ones within the filter
      * provided as property.
      *
      * @returns True if they are different.
@@ -216,6 +228,18 @@
      */
     protected get areValuesDifferent(): boolean {
       return this.min !== this.filter.range.min || this.max !== this.filter.range.max;
+    }
+
+    /**
+     * Checks if the range of the filter allows any value, which happens when the min is
+     * null or 0 and the max is null.
+     *
+     * @returns True if the range of the filter allows any value.
+     *
+     * @internal
+     */
+    protected get isAnyRange(): boolean {
+      return !this.min && this.max === null;
     }
 
     /**
@@ -253,7 +277,7 @@
     }
 
     /**
-     * It sets component `min` and `max` values to null and it emits the change if component is
+     * It sets component `min` and `max` values to null , and it emits the change if component is
      * working in instant mode.
      *
      * @internal

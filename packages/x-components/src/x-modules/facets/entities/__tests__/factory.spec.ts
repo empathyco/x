@@ -91,7 +91,7 @@ describe('testing filters entity factory', () => {
       editableNumberRangeFilter
     );
 
-    // Selecting a editable number range filter that is not in the store should add it as selected
+    // Selecting an editable number range filter that is not in the store should add it as selected
     // and set new range values
     editableNumberRangeFilterEntity.select(editableNumberRangeFilter);
     expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1);
@@ -101,7 +101,7 @@ describe('testing filters entity factory', () => {
       max: null
     });
 
-    // Selecting a editable number range filter already in the store but with other range of values,
+    // Selecting an editable number range filter already in the store but with other range values,
     // it should replace previous filter in the store and change the range values and the filter id.
     let previousFilter = getStoreEditableNumberRangeFilter(store, facetId);
     const newFilter: EditableNumberRangeFilter = {
@@ -118,19 +118,21 @@ describe('testing filters entity factory', () => {
     });
     expect(getStoreEditableNumberRangeFilter(store, facetId).id).not.toBe(previousFilter.id);
 
-    // Deselecting a editable number range filter should keep it in the store with selected
-    // to false and set the range values to null.
+    // Deselecting an editable number range filter should keep it in the store with selected
+    // to false and keep the range values.
     previousFilter = getStoreEditableNumberRangeFilter(store, facetId);
     const previousFilterId = previousFilter.id;
     editableNumberRangeFilterEntity.deselect(previousFilter);
 
     expect(getStoreFiltersByFacetId(store, facetId)).toHaveLength(1);
     expect(isEditableNumberRangeFilterSelected(store, facetId)).toBe(false);
-    expect(getStoreEditableNumberRangeFilter(store, facetId).range).toEqual({
-      min: null,
-      max: null
-    });
-    expect(getStoreEditableNumberRangeFilter(store, facetId).id).not.toBe(previousFilterId);
+    expect(getStoreEditableNumberRangeFilter(store, facetId)).toEqual(
+      expect.objectContaining({
+        range: { min: 10, max: 20 },
+        selected: false
+      })
+    );
+    expect(getStoreEditableNumberRangeFilter(store, facetId).id).toBe(previousFilterId);
   });
 
   describe('test raw behavior', () => {

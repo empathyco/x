@@ -2,6 +2,7 @@ import { PlatformFacetType } from '../../types/models/facet.model';
 import { hierarchicalFilterSchema } from '../models/filters/hierarchical-filter.schema';
 import { numberFilterSchema } from '../models/filters/number-filter.schema';
 import { simpleFilterSchema } from '../models/filters/simple-filter.schema';
+import { editableNumberFilterSchema } from '../models/filters/editable-number-filter.schema';
 import { FacetConfig } from './types';
 
 /**
@@ -25,6 +26,10 @@ export function getFacetConfig(type: PlatformFacetType): FacetConfig {
     range: {
       modelName: 'NumberRangeFacet',
       schema: numberFilterSchema
+    },
+    'editable-range': {
+      modelName: 'EditableNumberRangeFacet',
+      schema: editableNumberFilterSchema
     }
   };
   return typeConfigs[type] ?? typeConfigs.value;

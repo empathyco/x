@@ -17,7 +17,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### ⚠ BREAKING CHANGES
 
-* the property 'querySuggestions' in '' now returns the query suggestions that should be displayed based on the module's config. A new property called 'fullQuerySuggestions' returns all the query suggestions in the module
+* the property 'querySuggestions' in 'x-plugin' now returns the query suggestions that should be displayed based on the module's config. A new property called 'fullQuerySuggestions' returns all the query suggestions in the module
 
 EMP-1463
 

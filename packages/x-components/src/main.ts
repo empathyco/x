@@ -16,11 +16,7 @@ FilterEntityFactory.instance.registerModifierByFacetId(
   StickyModifier,
   SingleSelectModifier
 );
-FilterEntityFactory.instance.registerModifierByFacetId(
-  'price',
-  StickyModifier,
-  SingleSelectModifier
-);
+FilterEntityFactory.instance.registerModifierByFacetId('price', SingleSelectModifier);
 FilterEntityFactory.instance.registerModifierByFilterModelName(
   'HierarchicalFilter',
   SingleSelectModifier
