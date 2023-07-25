@@ -111,7 +111,7 @@
      *
      * @internal
      */
-    @XOn(['UserAcceptedAQuery', 'UserClearedQuery'])
+    @XOn(['UserAcceptedAQuery', 'UserClearedQuery', 'UserSelectedARelatedTag'])
     cancelRedirect(): void {
       clearTimeout(this.timeoutId);
       this.isRedirecting = false;
