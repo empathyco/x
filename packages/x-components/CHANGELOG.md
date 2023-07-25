@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.395](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.394...@empathyco/x-components@3.0.0-alpha.395) (2023-07-25)
+
+
+### Bug Fixes
+
+* **filters:** Editable number range filter should be unique (#1243) ([ec8b788](https://github.com/empathyco/x/commit/ec8b78829d16df0db50cfa35e0bdf5ba64529d26))
+
+
+
 ## [3.0.0-alpha.394](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.393...@empathyco/x-components@3.0.0-alpha.394) (2023-07-24)
 
 

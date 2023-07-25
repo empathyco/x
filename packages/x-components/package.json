@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "3.0.0-alpha.394",
+  "version": "3.0.0-alpha.395",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -68,7 +68,7 @@
   },
   "dependencies": {
     "@empathyco/x-adapter": "^8.0.0-alpha.32",
-    "@empathyco/x-adapter-platform": "^1.0.0-alpha.81",
+    "@empathyco/x-adapter-platform": "^1.0.0-alpha.82",
     "@empathyco/x-bus": "^1.0.0-alpha.3",
     "@empathyco/x-deep-merge": "^2.0.0-alpha.2",
     "@empathyco/x-logger": "^1.2.0-alpha.11",
