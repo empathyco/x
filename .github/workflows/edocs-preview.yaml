@@ -10,6 +10,7 @@ jobs:
   preview-edocs:
     uses: empathyco/platform-reusable-github-actions/.github/workflows/edocs-preview.yml@main
     with:
+      runner: ubuntu-latest
       teamRepo: 'x'
       branch: ${{ github.head_ref }}
       prNum: ${{ github.event.pull_request.number }}
