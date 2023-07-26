@@ -72,7 +72,6 @@ function renderEditableNumberRangeFilter({
   const clearButtonWrapper = filterWrapper.find(getDataTestSelector('range-clear'));
 
   return {
-    wrapper,
     filterWrapper,
     minInputWrapper,
     maxInputWrapper,
@@ -360,8 +359,6 @@ interface EditableNumberRangeFilterOptions {
 }
 
 interface EditableNumberRangeFilterAPI {
-  /** EditableNumberRangeFilter component wrapper. */
-  wrapper: Wrapper<Vue>;
   /** Apply button wrapper. */
   applyButtonWrapper: Wrapper<Vue>;
   /** Clear button wrapper. */
