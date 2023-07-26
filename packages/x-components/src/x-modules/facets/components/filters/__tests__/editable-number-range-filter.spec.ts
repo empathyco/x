@@ -29,12 +29,16 @@ function renderEditableNumberRangeFilter({
       :filter="filter"
       :isInstant="isInstant"
       :hasClearButton="hasClearButton"
+      :buttonsClass="buttonsClass"
+      :inputsClass="inputsClass"
     />
   `,
   range,
   filter = createEditableNumberRangeFilter('age', range),
   isInstant = false,
-  hasClearButton = true
+  hasClearButton = true,
+  buttonsClass,
+  inputsClass
 }: EditableNumberRangeFilterOptions = {}): EditableNumberRangeFilterAPI {
   Vue.observable(filter);
   const localVue = createLocalVue();
@@ -46,14 +50,16 @@ function renderEditableNumberRangeFilter({
   const wrapper = mount<EditableNumberRangeFilterComponent>(
     {
       components: { EditableNumberRangeFilterComponent },
-      props: ['filter', 'isInstant', 'hasClearButton'],
+      props: ['filter', 'isInstant', 'hasClearButton', 'buttonsClass', 'inputsClass'],
       template
     },
     {
       propsData: {
         filter,
         isInstant,
-        hasClearButton
+        hasClearButton,
+        buttonsClass,
+        inputsClass
       },
       localVue
     }
@@ -66,6 +72,7 @@ function renderEditableNumberRangeFilter({
   const clearButtonWrapper = filterWrapper.find(getDataTestSelector('range-clear'));
 
   return {
+    wrapper,
     filterWrapper,
     minInputWrapper,
     maxInputWrapper,
@@ -237,6 +244,25 @@ describe('testing BaseNumberRangeFilter component', () => {
       expect(clearButtonWrapper.text()).toBe('Clear');
     });
 
+    it('allows adding classes to the inputs and the buttons', () => {
+      const { maxInputWrapper, minInputWrapper, applyButtonWrapper, clearButtonWrapper } =
+        renderEditableNumberRangeFilter({
+          inputsClass: 'custom-inputs-class',
+          buttonsClass: 'custom-buttons-class',
+          hasClearButton: true,
+          range: {
+            min: 1,
+            max: 5
+          }
+        });
+
+      expect(minInputWrapper.classes()).toContain('custom-inputs-class');
+      expect(maxInputWrapper.classes()).toContain('custom-inputs-class');
+
+      expect(applyButtonWrapper.classes()).toContain('custom-buttons-class');
+      expect(clearButtonWrapper.classes()).toContain('custom-buttons-class');
+    });
+
     it('allows to customize the default slot', async () => {
       const { filterWrapper, applyButtonWrapper, clearButtonWrapper, typeMin, typeMax } =
         renderEditableNumberRangeFilter({
@@ -325,11 +351,17 @@ interface EditableNumberRangeFilterOptions {
   isInstant?: boolean;
   /** The {@link @empathyco/x-types#RangeValue | RangeValue} object to init the filter. */
   range?: RangeValue;
+  /** The class to be applied to the buttons. */
+  buttonsClass?: string;
+  /** The class to be applied to the inputs. */
+  inputsClass?: string;
   /** The template to be rendered. */
   template?: string;
 }
 
 interface EditableNumberRangeFilterAPI {
+  /** EditableNumberRangeFilter component wrapper. */
+  wrapper: Wrapper<Vue>;
   /** Apply button wrapper. */
   applyButtonWrapper: Wrapper<Vue>;
   /** Clear button wrapper. */
