@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.396](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.395...@empathyco/x-components@3.0.0-alpha.396) (2023-07-26)
+
+
+### Features
+
+* improve customization and add prop classes to editable-number-range-filter (#1253) ([fda4cc6](https://github.com/empathyco/x/commit/fda4cc69be19399647ba1128ebb872b8eb36e011))
+
+
+
 ## [3.0.0-alpha.395](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.394...@empathyco/x-components@3.0.0-alpha.395) (2023-07-25)
 
 
