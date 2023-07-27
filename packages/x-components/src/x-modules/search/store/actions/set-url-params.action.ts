@@ -17,6 +17,6 @@ export const setUrlParams: SearchXStoreModule['actions']['setUrlParams'] = (
   const currentQuery = state.query;
 
   commit('setQuery', query);
-  commit('setPage', currentQuery === query ? page : 1);
+  commit('setPage', !currentQuery || currentQuery === query ? page : 1);
   commit('setSort', sort);
 };
