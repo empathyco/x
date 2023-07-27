@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.398](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.397...@empathyco/x-components@3.0.0-alpha.398) (2023-07-27)
+
+
+### Bug Fixes
+
+* **search:** Redirection didn't cancel when a related tag was clicked (#1255) ([b9ff0dc](https://github.com/empathyco/x/commit/b9ff0dce2d41c040f8d3cc8a49f28cf5caa5a558))
+
+
+
 ## [3.0.0-alpha.397](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.396...@empathyco/x-components@3.0.0-alpha.397) (2023-07-27)
 
 **Note:** Version bump only for package @empathyco/x-components
