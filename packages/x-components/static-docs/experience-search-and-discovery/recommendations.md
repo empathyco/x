@@ -78,7 +78,7 @@ Use the Queries Preview module to configure the layout of Brand Recommendations 
 - Use different layouts: carousel, list, grid. Although, a carousel or horizontal slider panel is the preferred layout.
 - Animate the display of the component at your ease.
 - Customize content. Although, the name of product recommendations is shown by default.
-- Extend the performance with result-related components to display related content, such as product result images and links.
+- Customize the Result Cards by combining result data and result components as images or links to match the SERP or create a different component for this use case.
 
 :::
 
