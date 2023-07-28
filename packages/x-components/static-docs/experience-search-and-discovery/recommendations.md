@@ -94,9 +94,18 @@ Use the Next Query Preview component to configure the layout of Next Products in
 
 :::
 
+Note that the Interface X modules and components help you build a configurable UI experience. Even though the UI layout for product recommendations may be similar, sharing multiple configuration options, the source of data differs from one to another:
+
+| Type of product recommendation | X Components | Source of data 
+| ---------------- | ---------------- | ---------------- | ---------------- 
+| **Top Products** | [Recommendations](/develop-empathy-platform/ui-reference/components/recommendations/x-components.recommendations.md) component | [Search API](/develop-empathy-platform/api-reference/search-api.md) - Top Clicked endpoint 
+| **Vectorized Recommendations** | [Semantic Queries](/develop-empathy-platform/ui-reference/components/semantic-queries/) module | Semantics API 
+| **Brand Recommendations** | [Queries Preview](/develop-empathy-platform/ui-reference/components/queries-preview/) module | [Snippet configuration](/develop-empathy-platform/build-search-ui/web-archetype-integration-guide.md#snippet-configuration) - Initialization options (*Manually configured by merchants and brand managers)
+| **Next Products** | [Next Query Preview](/develop-empathy-platform/ui-reference/components/next-queries/x-components.next-query-preview.md) component| Next Queries endpoint from the [Beacon API](/develop-empathy-platform/api-reference/beacon-api.md) 
+
 ::: interact
 
-Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/components/recommendations/x-components.recommendations.md)
+Want to know more? Learn how to [configure](/develop-empathy-platform/ui-reference/)
 your web experience.
 
 :::
