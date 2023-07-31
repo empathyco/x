@@ -1,4 +1,4 @@
-import { RequiredProperties } from '@empathyco/x-utils';
+import { Dictionary, RequiredProperties } from '@empathyco/x-utils';
 import { XBus } from '@empathyco/x-bus';
 import { DocumentDirection } from '../../plugins/x-plugin.types';
 import { XEvent, XEventPayload, XEventsTypes } from '../../wiring/events.types';
@@ -135,6 +135,8 @@ export type NormalisedSnippetConfig = RequiredProperties<SnippetConfig, 'uiLang'
 export interface QueryPreviewInfo {
   /** The query to search for. */
   query: string;
+  /** The extra params to perform the search. */
+  extraParams?: Dictionary<unknown>;
   /** An optional title for the container. */
   title?: string;
   /** Any other additional information to render the preview with. */
