@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.399](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.398...@empathyco/x-components@3.0.0-alpha.399) (2023-07-31)
+
+
+### Bug Fixes
+
+* fix base rating component (#1256) ([b1616ca](https://github.com/empathyco/x/commit/b1616cac0310535bf1354c5e084ba0267fc1e01e))
+
+
+
 ## [3.0.0-alpha.398](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.397...@empathyco/x-components@3.0.0-alpha.398) (2023-07-27)
 
 
