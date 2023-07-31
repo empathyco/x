@@ -8,6 +8,7 @@
     -->
     <slot
       :query="query"
+      :injectedParams="injectedParams"
       :results="queryPreviewResults.results"
       :totalResults="queryPreviewResults.totalResults"
     >
@@ -73,6 +74,16 @@
       required: true
     })
     protected query!: string;
+
+    /**.
+     * Tqhvegtbhi
+     *
+     * @public
+     */
+    @Prop({
+      required: false
+    })
+    protected injectedParams!: string;
 
     /**
      * The origin property for the request.
@@ -154,10 +165,12 @@
         location: this.location
       });
 
+      const extraParams = Object.assign(this.params, this.injectedParams);
+
       return {
         query: this.query,
         rows: this.config.maxItemsToRequest,
-        extraParams: this.params,
+        extraParams: extraParams,
         ...(origin && { origin })
       };
     }

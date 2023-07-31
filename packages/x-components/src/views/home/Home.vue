@@ -249,6 +249,7 @@
                 <QueryPreviewList
                   :debounceTimeMs="250"
                   :queries="queriesToPreview"
+                  :injectedParams="paramsToRequest"
                   #default="{ query, totalResults, results }"
                   data-test="brand-recommendation"
                 >
@@ -616,6 +617,8 @@
     };
 
     protected queriesToPreview = ['sunglasses', 'handbag', 'earrings', 'jeans', 't-shirt'];
+
+    protected paramsToRequest = { store: 'gijón' };
 
     toggleE2EAdapter(): void {
       adapterConfig.e2e = !adapterConfig.e2e;
