@@ -618,7 +618,7 @@
 
     protected queriesToPreview = ['sunglasses', 'handbag', 'earrings', 'jeans', 't-shirt'];
 
-    protected paramsToRequest = { store: 'gijón' };
+    protected paramsToRequest = { sunglasses: { store: 'gijón' }, handbag: { store: 'prueba' } };
 
     toggleE2EAdapter(): void {
       adapterConfig.e2e = !adapterConfig.e2e;

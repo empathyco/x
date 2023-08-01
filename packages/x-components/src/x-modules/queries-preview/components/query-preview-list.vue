@@ -1,7 +1,13 @@
 <template>
   <component :is="animation" class="x-query-preview-list" tag="ul">
     <li v-for="query in renderedQueries" :key="query" data-test="query-preview-item">
-      <QueryPreview @load="flagAsLoaded" @error="flagAsFailed" v-bind="$attrs" :query="query">
+      <QueryPreview
+        @load="flagAsLoaded"
+        @error="flagAsFailed"
+        v-bind="$attrs"
+        :query="query"
+        :injectedParams="injectedParams"
+      >
         <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="scope">
           <slot :name="slotName" v-bind="scope" />
         </template>
@@ -52,6 +58,12 @@
      */
     @Prop({ required: true })
     public queries!: string[];
+
+    /**
+     * List of queries to preview.
+     */
+    @Prop({ required: true })
+    public injectedParams!: { string: unknown };
 
     /**
      * Contains the status of the preview requests, indexed by query.
