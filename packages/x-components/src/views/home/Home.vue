@@ -248,8 +248,8 @@
               <LocationProvider location="no_results">
                 <QueryPreviewList
                   :debounceTimeMs="250"
-                  :queries="queriesToPreview"
-                  :injectedParams="paramsToRequest"
+                  :queries="queries"
+                  :injectedParams="injectedParams"
                   #default="{ query, totalResults, results }"
                   data-test="brand-recommendation"
                 >
@@ -432,6 +432,7 @@
   /* eslint-disable max-len */
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { Dictionary } from '@empathyco/x-utils';
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
   import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
@@ -616,9 +617,26 @@
       }
     };
 
-    protected queriesToPreview = ['sunglasses', 'handbag', 'earrings', 'jeans', 't-shirt'];
+    protected queriesPreviewInfo = [
+      {
+        query: 'sunglasses',
+        extraParams: { store: 'gijón' }
+      },
+      {
+        query: 'marni summer dress',
+        extraParams: { store: 'barcelona' }
+      },
+      {
+        query: 'woven hat'
+      }
+    ];
+    protected get queries(): string[] {
+      return this.queriesPreviewInfo.map(item => item.query);
+    }
 
-    protected paramsToRequest = { 0: { store: 'gijón' }, 1: { store: 'prueba' }, 2: {} };
+    protected get injectedParams(): Dictionary[] {
+      return this.queriesPreviewInfo.map(item => item.extraParams ?? {});
+    }
 
     toggleE2EAdapter(): void {
       adapterConfig.e2e = !adapterConfig.e2e;
