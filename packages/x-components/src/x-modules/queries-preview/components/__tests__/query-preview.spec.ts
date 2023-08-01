@@ -1,6 +1,6 @@
 import { mount, Wrapper, createLocalVue, WrapperArray } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { DeepPartial } from '@empathyco/x-utils';
+import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import {
   findTestDataById,
@@ -21,6 +21,7 @@ describe('query preview', () => {
   function renderQueryPreview({
     maxItemsToRender,
     query = 'milk',
+    injectedParams,
     location,
     queryFeature,
     debounceTimeMs = 0,
@@ -66,6 +67,7 @@ describe('query preview', () => {
         propsData: {
           maxItemsToRender,
           query,
+          injectedParams,
           queryFeature,
           debounceTimeMs
         }
@@ -131,6 +133,42 @@ describe('query preview', () => {
     expect(QueryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(3, {
       extraParams: { store: 'Uganda' },
       origin: 'popular_search:none',
+      query: 'milk',
+      rows: 24
+    });
+  });
+
+  it('sends the `QueryPreviewRequestUpdated` event with injectedParams prop', async () => {
+    const { QueryPreviewRequestUpdatedSpy, wrapper, updateExtraParams } = renderQueryPreview({});
+    const injectedParams = { store: 'Gijón' };
+
+    await updateExtraParams({ store: 'Uganda' });
+    jest.advanceTimersToNextTimer();
+
+    expect(QueryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(1, {
+      extraParams: { store: 'Uganda' },
+      origin: undefined,
+      query: 'milk',
+      rows: 24
+    });
+
+    await wrapper.setProps({ injectedParams: injectedParams });
+    jest.advanceTimersToNextTimer();
+
+    expect(QueryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(2, {
+      extraParams: { store: 'Gijón' },
+      origin: undefined,
+      query: 'milk',
+      rows: 24
+    });
+
+    // InjectedParams can accept more than one param
+    await wrapper.setProps({ injectedParams: { store: 'Gijón', warehouse: '12300' } });
+    jest.advanceTimersToNextTimer();
+
+    expect(QueryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(3, {
+      extraParams: { store: 'Gijón', warehouse: '12300' },
+      origin: undefined,
       query: 'milk',
       rows: 24
     });
@@ -391,6 +429,8 @@ interface RenderQueryPreviewOptions {
   maxItemsToRender?: number;
   /** The query for which preview its results. */
   query?: string;
+  /** The extra params to retrieve the results preview. */
+  injectedParams?: Dictionary<unknown>;
   /** The location of the query preview in the DOM. */
   location?: string;
   /** The name of the tool that generated the query. */
@@ -413,6 +453,8 @@ interface RenderQueryPreviewAPI {
   QueryPreviewRequestUpdatedSpy?: jest.Mock;
   /** The query for which preview its results. */
   query: string;
+  /** The extra params to retrieve the results preview. */
+  injectedParams?: Dictionary<unknown>;
   /** The results preview for the passed query. */
   queryPreview: QueryPreviewItem | null;
   /** Find test data in the wrapper for the {@link QueryPreview} component. */
