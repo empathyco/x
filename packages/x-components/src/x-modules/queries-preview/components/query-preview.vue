@@ -165,7 +165,7 @@
         location: this.location
       });
 
-      const extraParams = { ...this.params, ...this.injectedParams[this.query] };
+      const extraParams = { ...this.params, ...this.injectedParams };
       return {
         query: this.query,
         rows: this.config.maxItemsToRequest,

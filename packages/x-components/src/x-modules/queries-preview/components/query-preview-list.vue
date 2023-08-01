@@ -1,12 +1,12 @@
 <template>
   <component :is="animation" class="x-query-preview-list" tag="ul">
-    <li v-for="query in renderedQueries" :key="query" data-test="query-preview-item">
+    <li v-for="(query, index) in renderedQueries" :key="index" data-test="query-preview-item">
       <QueryPreview
         @load="flagAsLoaded"
         @error="flagAsFailed"
         v-bind="$attrs"
         :query="query"
-        :injectedParams="injectedParams"
+        :injectedParams="injectedParams[index]"
       >
         <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="scope">
           <slot :name="slotName" v-bind="scope" />
