@@ -83,7 +83,7 @@
     @Prop({
       required: false
     })
-    protected injectedParams!: Dictionary<unknown>;
+    protected injectedParams!: Dictionary<Dictionary>;
 
     /**
      * The origin property for the request.
