@@ -1,6 +1,7 @@
 import { Result, XComponentsAdapter } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
+import { Dictionary } from '@empathyco/x-utils';
 import {
   createResultStub,
   getEmptySearchResponseStub,
@@ -17,6 +18,7 @@ function renderQueryPreviewList({
           {{ query }} - {{results[0].name}}
         </QueryPreviewList>`,
   queries = ['milk'],
+  injectedParams = [{ extraParams: { store: 'Gijón' } }],
   results = { milk: getResultsStub(1) }
 }: RenderQueryPreviewListOptions): RenderQueryPreviewListAPI {
   const localVue = createLocalVue();
@@ -42,7 +44,8 @@ function renderQueryPreviewList({
     {
       localVue,
       propsData: {
-        queries
+        queries,
+        injectedParams
       }
     }
   );
@@ -132,6 +135,8 @@ interface RenderQueryPreviewListOptions {
   template?: string;
   /** The queries for which preview its results. */
   queries?: string[];
+  /** The extra params to retrieve the results preview. */
+  injectedParams?: Dictionary<unknown>[];
   /** The results to return from the mocked search endpoint adapter. */
   results?: Record<string, Result[]>;
 }

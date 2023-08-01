@@ -630,11 +630,12 @@
         query: 'woven hat'
       }
     ];
+
     protected get queries(): string[] {
       return this.queriesPreviewInfo.map(item => item.query);
     }
 
-    protected get injectedParams(): Dictionary[] {
+    protected get injectedParams(): Dictionary<unknown>[] {
       return this.queriesPreviewInfo.map(item => item.extraParams ?? {});
     }
 

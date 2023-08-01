@@ -19,6 +19,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop, Watch } from 'vue-property-decorator';
+  import { Dictionary } from '@empathyco/x-utils';
   import StaggeredFadeAndSlide from '../../../components/animations/staggered-fade-and-slide.vue';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { RequestStatus } from '../../../store';
@@ -62,8 +63,8 @@
     /**
      * List of queries to preview.
      */
-    @Prop({ required: true })
-    public injectedParams!: { string: unknown };
+    @Prop({ required: false })
+    public injectedParams?: Dictionary<unknown>;
 
     /**
      * Contains the status of the preview requests, indexed by query.
