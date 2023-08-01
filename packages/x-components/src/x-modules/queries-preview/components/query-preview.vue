@@ -76,14 +76,14 @@
     protected query!: string;
 
     /**.
-     * Tqhvegtbhi
+     * The extra params to retrieve the results preview.
      *
      * @public
      */
     @Prop({
       required: false
     })
-    protected injectedParams!: string;
+    protected injectedParams!: Dictionary<unknown>;
 
     /**
      * The origin property for the request.
@@ -165,8 +165,7 @@
         location: this.location
       });
 
-      const extraParams = Object.assign(this.params, this.injectedParams);
-
+      const extraParams = { ...this.params, ...this.injectedParams[this.query] };
       return {
         query: this.query,
         rows: this.config.maxItemsToRequest,
