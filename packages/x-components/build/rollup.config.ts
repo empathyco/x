@@ -104,6 +104,7 @@ export const rollupConfig = createRollupOptions({
            })();
            const useBrowserInjector =
              (typeof STRIP_SSR_INJECTOR !== 'undefined' && STRIP_SSR_INJECTOR) || isBrowser;
+           console.log('${normalizePath(id)}',{source:${varname}})
            const injector = useBrowserInjector ? createInjector({}) : createInjectorSSR({});
            injector('${normalizePath(id)}',{source:${varname}});`
       ]
