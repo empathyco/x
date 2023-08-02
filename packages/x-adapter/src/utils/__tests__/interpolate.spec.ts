@@ -61,6 +61,18 @@ describe('testing interpolate function', () => {
         instance: 'demo'
       })
     ).toBe('https://search.empathy.co/demo');
+    expect(
+      interpolate('https://search.{(api-)env(.)}empathy.co/{instance}', {
+        env: '',
+        instance: 'demo'
+      })
+    ).toBe('https://search.empathy.co/demo');
+    expect(
+      interpolate('https://api.{env(.)}empathy.co/{instance}', {
+        env: '',
+        instance: 'demo'
+      })
+    ).toBe('https://api.empathy.co/demo');
   });
 
   it('interpolates values when the parameter is passed deeply inside an object', () => {
