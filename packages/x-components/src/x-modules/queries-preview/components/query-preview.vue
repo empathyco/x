@@ -3,6 +3,7 @@
     <!--
       @slot Query Preview default slot.
           @binding {string} query - query
+          @binding {Dictionary<unknown>} injectedParams - The extra params from the snippetConfig
           @binding {Result[]} results - The results preview of the query preview
           @binding {number} totalResults - The total results of the search request
     -->
@@ -76,7 +77,7 @@
     protected query!: string;
 
     /**.
-     * The extra params to retrieve the results preview.
+     * The {@link SnippetConfig.queriesPreview}'s injected extra params to make the request with.
      *
      * @public
      */
@@ -165,11 +166,10 @@
         location: this.location
       });
 
-      const extraParams = { ...this.params, ...this.injectedParams };
       return {
         query: this.query,
         rows: this.config.maxItemsToRequest,
-        extraParams: extraParams,
+        extraParams: { ...this.params, ...this.injectedParams },
         ...(origin && { origin })
       };
     }
