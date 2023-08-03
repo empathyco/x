@@ -14,6 +14,8 @@ import { QueriesPreviewXStoreModule } from '../types';
 export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fetchAndSaveQueryPreview'] =
   ({ dispatch, commit }, request) => {
     const { query } = request;
+    console.log('request', request);
+    console.log('R params', request.extraParams);
     if (!query) {
       return;
     }
