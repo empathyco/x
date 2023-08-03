@@ -3,7 +3,6 @@ import {
   namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
-import { setSearchQuery } from '../search/index';
 
 /**
  * `queriesPreview` {@link XModuleName | XModule name}.
@@ -34,13 +33,6 @@ const wireDispatch = namespacedWireDispatch(moduleName);
 export const fetchAndSaveQueryPreviewWire = wireDispatch('fetchAndSaveQueryPreview');
 
 /**
- * Performs a new search with the selected queryPreview.
- *
- * @public
- */
-export const setSearchQueryPreviewWire = wireDispatch('searchQueryPreview');
-
-/**
  * Clears a query preview from queries preview module.
  *
  * @public
@@ -66,9 +58,6 @@ export const queriesPreviewWiring = createWiring({
   },
   QueryPreviewUnmountedHook: {
     clearQueryPreviewWire
-  },
-  UserAcceptedAQueryPreview: {
-    setSearchQueryPreviewWire
   },
   ExtraParamsChanged: {
     setQueriesPreviewExtraParamsWire

@@ -94,20 +94,13 @@ export interface QueriesPreviewActions {
    * @returns A search response based on the query.
    */
   fetchQueryPreview(request: SearchRequest): SearchResponse | null;
+
   /**
    * Requests the results for a query preview and saves them in the state.
    *
    * @param request - The request object to retrieve the query preview.
    */
   fetchAndSaveQueryPreview(request: SearchRequest): void;
-
-  /**
-   * Performs a new search with the selected queryPreview.
-   *
-   * @param request - The request object to retrieve the query preview.
-   * @returns A search response based on the queryInfo.
-   */
-  searchQueryPreview(request: SearchRequest): SearchResponse | null;
 }
 
 /**

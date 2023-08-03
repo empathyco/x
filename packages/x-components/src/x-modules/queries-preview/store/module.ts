@@ -2,7 +2,6 @@ import Vue from 'vue';
 import { QueriesPreviewXStoreModule } from './types';
 import { fetchQueryPreview } from './actions/fetch-query-preview.action';
 import { fetchAndSaveQueryPreview } from './actions/fetch-and-save-query-preview.action';
-import { searchQueryPreview } from './actions/search-query-preview.action';
 import { loadedQueriesPreview } from './getters/loaded-queries-preview.getter';
 
 /**
@@ -35,7 +34,6 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
   },
   actions: {
     fetchQueryPreview,
-    fetchAndSaveQueryPreview,
-    searchQueryPreview
+    fetchAndSaveQueryPreview
   }
 };

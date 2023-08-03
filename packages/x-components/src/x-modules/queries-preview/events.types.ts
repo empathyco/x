@@ -1,5 +1,4 @@
 import { SearchRequest } from '@empathyco/x-types';
-import { QueryPreviewInfo } from '../../x-installer/index';
 
 /**
  * Dictionary of the events of QueriesPreview XModule, where each key is the event name, and the
@@ -18,10 +17,4 @@ export interface QueriesPreviewXEvents {
    * Payload: The query whose preview has been removed.
    */
   QueryPreviewUnmountedHook: string;
-
-  /**
-   * User accepted a QueryPreview.
-   * Payload: The {@link QueryPreviewInfo | query preview} selected.
-   */
-  UserAcceptedAQueryPreview: QueryPreviewInfo;
 }
