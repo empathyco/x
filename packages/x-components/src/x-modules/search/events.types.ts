@@ -108,9 +108,4 @@ export interface SearchXEvents {
    * The user has aborted a redirection.
    */
   UserClickedAbortARedirection: void;
-  /**
-   * User accepted a QueryPreview.
-   * Payload: The {@link QueryPreviewInfo | query preview} selected.
-   */
-  UserAcceptedAQueryPreview: InternalSearchRequest;
 }

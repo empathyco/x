@@ -4,6 +4,7 @@ import { XActionContext } from '../../../store/actions.types';
 import { XStoreModule } from '../../../store/store.types';
 import { RequestStatus, StatusState } from '../../../store/utils/status-store.utils';
 import { QueriesPreviewConfig } from '../config.types';
+import { QueryPreviewInfo } from '../../../x-installer/index';
 
 /**
  * QueriesPreview store state.
@@ -34,6 +35,8 @@ export interface QueriesPreviewState {
   config: QueriesPreviewConfig;
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
+  /** The selected query preview of the state. */
+  selectedQueryPreview: QueryPreviewInfo;
 }
 
 /**
@@ -78,6 +81,12 @@ export interface QueriesPreviewMutations {
    * @param payload - Object containing the query and the status of a query preview item.
    */
   setStatus(payload: QueryPreviewStatusPayload): void;
+  /**
+   * Sets the selected query preview of the module.
+   *
+   * @param selectedQueryPreview - The selected query preview to save to the state.
+   */
+  setSelectedQueryPreview(selectedQueryPreview: QueryPreviewInfo): void;
 }
 
 /**

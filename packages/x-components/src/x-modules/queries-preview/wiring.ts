@@ -33,6 +33,14 @@ const wireDispatch = namespacedWireDispatch(moduleName);
 export const fetchAndSaveQueryPreviewWire = wireDispatch('fetchAndSaveQueryPreview');
 
 /**
+ * Updates the state with the selected query preview.
+ *
+ * @public
+ */
+
+export const setSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview');
+
+/**
  * Clears a query preview from queries preview module.
  *
  * @public
@@ -58,6 +66,9 @@ export const queriesPreviewWiring = createWiring({
   },
   QueryPreviewUnmountedHook: {
     clearQueryPreviewWire
+  },
+  UserAcceptedAQueryPreview: {
+    setSelectedQueryPreviewWire
   },
   ExtraParamsChanged: {
     setQueriesPreviewExtraParamsWire
