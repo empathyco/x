@@ -92,5 +92,8 @@ export const queriesPreviewWiring = createWiring({
   },
   UserClearedQuery: {
     clearSelectedQueryPreviewWire
+  },
+  UserAcceptedAQuery: {
+    clearSelectedQueryPreviewWire
   }
 });
