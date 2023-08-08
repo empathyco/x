@@ -33,14 +33,6 @@ const wireDispatch = namespacedWireDispatch(moduleName);
 export const fetchAndSaveQueryPreviewWire = wireDispatch('fetchAndSaveQueryPreview');
 
 /**
- * Updates the state with the selected query preview.
- *
- * @public
- */
-
-export const setSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview');
-
-/**
  * Clears a query preview from queries preview module.
  *
  * @public
@@ -54,6 +46,25 @@ export const clearQueryPreviewWire = wireCommit('clearQueryPreview');
  * @public
  */
 export const setQueriesPreviewExtraParamsWire = wireCommit('setParams');
+
+/**
+ * Updates the state with the selected query preview object.
+ *
+ * @public
+ */
+
+export const setSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview');
+
+/**
+ * Clears the selected query preview object from queries preview module.
+ *
+ * @public
+ */
+
+export const clearSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview', {
+  query: '',
+  extraParams: {}
+});
 
 /**
  * Wiring configuration for the {@link QueriesPreviewXModule | queriesPreview module}.
@@ -72,5 +83,14 @@ export const queriesPreviewWiring = createWiring({
   },
   ExtraParamsChanged: {
     setQueriesPreviewExtraParamsWire
+  },
+  UserClickedCloseX: {
+    clearSelectedQueryPreviewWire
+  },
+  UserClickedOutOfMainModal: {
+    clearSelectedQueryPreviewWire
+  },
+  UserClearedQuery: {
+    clearSelectedQueryPreviewWire
   }
 });

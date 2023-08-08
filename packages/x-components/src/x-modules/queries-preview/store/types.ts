@@ -5,6 +5,7 @@ import { XStoreModule } from '../../../store/store.types';
 import { RequestStatus, StatusState } from '../../../store/utils/status-store.utils';
 import { QueriesPreviewConfig } from '../config.types';
 import { QueryPreviewInfo } from '../../../x-installer/index';
+import { InternalSearchRequest } from '../../search/index';
 
 /**
  * QueriesPreview store state.
@@ -49,6 +50,11 @@ export interface QueriesPreviewGetters {
    * The loaded previews from the state.
    */
   loadedQueriesPreview: Dictionary<QueryPreviewItem>;
+  /**
+   * The adapter request object for retrieving the results, or null if there is no
+   * valid data to create a request.
+   */
+  request: InternalSearchRequest | null;
 }
 
 /**

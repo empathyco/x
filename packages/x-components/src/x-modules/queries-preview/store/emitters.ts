@@ -6,4 +6,7 @@ import { queriesPreviewXStoreModule } from './module';
  *
  * @internal
  */
-export const queriesPreviewEmitters = createStoreEmitters(queriesPreviewXStoreModule, {});
+export const queriesPreviewEmitters = createStoreEmitters(queriesPreviewXStoreModule, {
+  SearchRequestUpdated: (_, getters) => getters.request
+  // Should we emit SearchRequestChanged here and pick the info from the queriesPreview state??
+});
