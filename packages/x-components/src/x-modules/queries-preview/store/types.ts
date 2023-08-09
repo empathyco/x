@@ -55,6 +55,7 @@ export interface QueriesPreviewGetters {
    * valid data to create a request.
    */
   request: InternalSearchRequest | null;
+  initialParams: Dictionary<unknown>;
 }
 
 /**

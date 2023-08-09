@@ -7,6 +7,7 @@ import { queriesPreviewXStoreModule } from './module';
  * @internal
  */
 export const queriesPreviewEmitters = createStoreEmitters(queriesPreviewXStoreModule, {
-  SearchRequestUpdated: (_, getters) => (getters.request?.query ? getters.request : null),
-  SetQueryPreviewQuery: (_, getters) => (getters.request ? getters.request.query : '')
+  SetQueryPreviewParams: (_, getters) =>
+    getters.request?.extraParams?.scope ? getters.request.extraParams : getters.initialParams,
+  SetQueryPreviewQuery: (_, getters) => (getters.request?.query ? getters.request.query : '')
 });

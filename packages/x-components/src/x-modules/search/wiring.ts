@@ -248,5 +248,11 @@ export const searchWiring = createWiring({
   },
   UserClickedOutOfMainModal: {
     clearSearchQuery
+  },
+  SetQueryPreviewParams: {
+    setSearchExtraParams
+  },
+  SetQueryPreviewQuery: {
+    setSearchQuery
   }
 });
