@@ -12,14 +12,12 @@ import { QueriesPreviewXStoreModule } from '../types';
  * @public
  */
 
-export const request: QueriesPreviewXStoreModule['getters']['request'] = ({
-  selectedQueryPreview
-}) => {
-  return selectedQueryPreview
-    ? {
-        query: selectedQueryPreview.query,
-        extraParams: selectedQueryPreview.extraParams,
-        page: 1
-      }
-    : null;
-};
+export const selectedQueryPreview: QueriesPreviewXStoreModule['getters']['selectedQueryPreview'] =
+  ({ selectedQueryPreview }) => {
+    return selectedQueryPreview
+      ? {
+          query: selectedQueryPreview.query,
+          extraParams: selectedQueryPreview.extraParams
+        }
+      : null;
+  };
