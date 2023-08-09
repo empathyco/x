@@ -129,5 +129,11 @@ export const nextQueriesWiring = createWiring({
   },
   NextQueryPreviewMountedHook: {
     fetchAndSaveNextQueryPreviewWire
+  },
+  SetQueryPreviewQuery: {
+    setNextQueriesQuery
+  },
+  SetQueryPreviewParams: {
+    setNextQueriesExtraParams
   }
 });
