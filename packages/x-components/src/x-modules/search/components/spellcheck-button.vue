@@ -58,12 +58,8 @@
      */
     protected emitEvents(): void {
       if (this.selectedQueryPreview.extraParams) {
-        this.selectedQueryPreview.query = this.spellcheckedQuery;
-        this.$x.emit(
-          'UserAcceptedAQueryPreview',
-          this.selectedQueryPreview,
-          this.createEventMetadata()
-        );
+        const updatedQueryPreview = { ...this.selectedQueryPreview, query: this.spellcheckedQuery };
+        this.$x.emit('UserAcceptedAQueryPreview', updatedQueryPreview, this.createEventMetadata());
         this.$x.emit(
           'UserAcceptedSpellcheckQuery',
           this.spellcheckedQuery,
