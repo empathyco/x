@@ -63,7 +63,7 @@ export const setSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview')
 
 export const clearSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview', {
   query: '',
-  extraParams: {}
+  extraParams: undefined
 });
 
 /**
