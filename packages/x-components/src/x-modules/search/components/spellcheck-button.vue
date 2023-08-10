@@ -16,6 +16,7 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchXModule } from '../x-module';
+  import { QueryPreviewInfo } from '../../../x-installer';
   /**
    * A button that when pressed emits the {@link XEventsTypes.UserAcceptedAQuery}
    * and {@link XEventsTypes.UserAcceptedSpellcheckQuery} events, expressing the user
@@ -47,6 +48,8 @@
         feature: 'spellcheck'
       };
     }
+    @State('queriesPreview', 'selectedQueryPreview')
+    public selectedQueryPreview!: QueryPreviewInfo;
 
     /**
      * Emits events when the button is clicked.
@@ -54,12 +57,26 @@
      * @public
      */
     protected emitEvents(): void {
-      this.$x.emit('UserAcceptedAQuery', this.spellcheckedQuery, this.createEventMetadata());
-      this.$x.emit(
-        'UserAcceptedSpellcheckQuery',
-        this.spellcheckedQuery,
-        this.createEventMetadata()
-      );
+      if (this.selectedQueryPreview.extraParams) {
+        this.selectedQueryPreview.query = this.spellcheckedQuery;
+        this.$x.emit(
+          'UserAcceptedAQueryPreview',
+          this.selectedQueryPreview,
+          this.createEventMetadata()
+        );
+        this.$x.emit(
+          'UserAcceptedSpellcheckQuery',
+          this.spellcheckedQuery,
+          this.createEventMetadata()
+        );
+      } else {
+        this.$x.emit('UserAcceptedAQuery', this.spellcheckedQuery, this.createEventMetadata());
+        this.$x.emit(
+          'UserAcceptedSpellcheckQuery',
+          this.spellcheckedQuery,
+          this.createEventMetadata()
+        );
+      }
     }
   }
 </script>
