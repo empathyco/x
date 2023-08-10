@@ -97,7 +97,7 @@ export const querySuggestionsWiring = createWiring({
     setQuerySuggestionsQueryDebounce: moduleDebounce(
       setQuerySuggestionsQuery,
       ({ state }) => state.config.debounceInMs,
-      { cancelOn: 'UserAcceptedAQuery' }
+      { cancelOn: ['UserAcceptedAQuery', 'UserAcceptedAQueryPreview'] }
     )
   },
   UserAcceptedAQuery: {
