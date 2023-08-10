@@ -7,7 +7,7 @@ import { QueriesPreviewXStoreModule } from '../types';
  * preview module.
  * @param getters - Current {@link https://vuex.vuejs.org/guide/getters.html | getters}
  * of the queries preview module.
- * @returns The search request to fetch data from the API.
+ * @returns A query preview object or null if no selection was made.
  *
  * @public
  */

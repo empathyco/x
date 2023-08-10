@@ -3,8 +3,8 @@ import { QueriesPreviewXStoreModule } from './types';
 import { fetchQueryPreview } from './actions/fetch-query-preview.action';
 import { fetchAndSaveQueryPreview } from './actions/fetch-and-save-query-preview.action';
 import { loadedQueriesPreview } from './getters/loaded-queries-preview.getter';
-import { selectedQueryPreview } from './getters/selected-query-preview';
-import { initialParams } from './getters/initial-params';
+import { selectedQueryPreview } from './getters/selected-query-preview.getter';
+import { initialParams } from './getters/initial-params.getter';
 
 /**
  * {@link XStoreModule} For the `queries-preview` module.

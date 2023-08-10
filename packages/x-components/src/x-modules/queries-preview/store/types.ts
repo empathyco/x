@@ -50,10 +50,12 @@ export interface QueriesPreviewGetters {
    */
   loadedQueriesPreview: Dictionary<QueryPreviewItem>;
   /**
-   * The adapter request object for retrieving the results, or null if there is no
-   * valid data to create a request.
+   * The selected query preview from the state or null if user didn't select one.
    */
   selectedQueryPreview: QueryPreviewInfo | null;
+  /**
+   * The initial params.
+   */
   initialParams: Dictionary<unknown>;
 }
 
