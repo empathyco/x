@@ -159,7 +159,7 @@
      *
      * @internal
      */
-    @Debounce(100, { leading: true })
+    @Debounce(50, { leading: true })
     restoreAndUpdateScroll(): void {
       this.$refs.scrollContainer.scroll({ left: 0, behavior: 'smooth' });
       this.updateScrollPosition();
@@ -176,7 +176,7 @@
         this.isScrollAtStart = !scrollLeft;
         /* The 2 px extra is to fix some cases in some resolutions where the scroll + client size is
          *  less than the scroll width even when the scroll is at the end */
-        this.isScrollAtEnd = scrollLeft + clientWidth + 2 >= scrollWidth && !this.isScrollAtStart;
+        this.isScrollAtEnd = scrollLeft + clientWidth + 2 >= scrollWidth;
       }
     }
 
@@ -186,7 +186,7 @@
      *
      * @internal
      */
-    @Debounce(100, { leading: true })
+    @Debounce(50, { leading: true })
     debouncedUpdateScrollPosition(): void {
       this.updateScrollPosition();
     }
