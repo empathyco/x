@@ -36,7 +36,6 @@
   import { XEventsTypes } from '../../../wiring/events.types';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchBoxXModule } from '../x-module';
-  import { QueryPreviewInfo } from '../../../x-installer';
 
   /**
    * This component renders an input field that allows the user to type a query. It also reacts to
@@ -91,9 +90,6 @@
     @State('searchBox', 'query')
     public query!: string;
 
-    @State('queriesPreview', 'selectedQueryPreview')
-    public selectedQueryPreview!: QueryPreviewInfo;
-
     /**
      * When event {@link XEventsTypes.UserReachedEmpathizeTop} or
      * {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
@@ -107,7 +103,7 @@
     }
 
     protected debouncedUserAcceptedAQuery!: DebouncedFunction<[string]>;
-    protected debouncedUserAcceptedAQueryPreview!: DebouncedFunction<[QueryPreviewInfo]>;
+
     /**
      * When event {@link XEventsTypes.UserAcceptedAQuery} or
      * {@link SearchBoxXEvents.UserClearedQuery} are emitted the pending debounced emit
@@ -118,17 +114,6 @@
     @XOn(['UserAcceptedAQuery', 'UserClearedQuery'])
     cancelDebouncedUserAcceptedAQuery(): void {
       this.debouncedUserAcceptedAQuery?.cancel();
-    }
-    /**
-     * When event UserAcceptedAQueryPreview or
-     * {@link SearchBoxXEvents.UserClearedQuery} are emitted the pending debounced emit
-     * `UserAcceptedAQueryPreview` is canceled.
-     *
-     * @internal
-     */
-    @XOn(['UserAcceptedAQueryPreview', 'UserClearedQuery'])
-    cancelDebouncedUserAcceptedAQueryPreview(): void {
-      this.debouncedUserAcceptedAQueryPreview?.cancel();
     }
 
     mounted(): void {
@@ -153,25 +138,6 @@
           );
         }
         this.debouncedUserAcceptedAQuery(query);
-      }
-    }
-
-    /**
-     * Emits UserAcceptedAQueryPreview event with a debounce configured in
-     * `instantDebounceInMs` prop.
-     *
-     * @internal
-     * @param queryPreview - The queryPreview that will be emitted.
-     */
-    emitDebouncedUserAcceptedAQueryPreview(queryPreview: QueryPreviewInfo): void {
-      if (this.instant) {
-        if (!this.debouncedUserAcceptedAQueryPreview) {
-          this.debouncedUserAcceptedAQueryPreview = debounce(
-            this.emitUserAcceptedAQueryPreview.bind(this),
-            this.instantDebounceInMs
-          );
-        }
-        this.debouncedUserAcceptedAQueryPreview(queryPreview);
       }
     }
 
@@ -242,21 +208,11 @@
      */
     protected emitUserIsTypingAQueryEvents(): void {
       const query = this.$refs.input.value;
-      const newQueryPreview = { ...this.selectedQueryPreview, query: query };
-      if (this.selectedQueryPreview.query) {
-        this.$x.emit('UserIsTypingAQuery', query, { target: this.$refs.input });
-        if (query.trim()) {
-          this.emitDebouncedUserAcceptedAQueryPreview(newQueryPreview);
-        } else {
-          this.cancelDebouncedUserAcceptedAQueryPreview();
-        }
+      this.$x.emit('UserIsTypingAQuery', query, { target: this.$refs.input });
+      if (query.trim()) {
+        this.emitDebouncedUserAcceptedAQuery(query);
       } else {
-        this.$x.emit('UserIsTypingAQuery', query, { target: this.$refs.input });
-        if (query.trim()) {
-          this.emitDebouncedUserAcceptedAQuery(query);
-        } else {
-          this.cancelDebouncedUserAcceptedAQuery();
-        }
+        this.cancelDebouncedUserAcceptedAQuery();
       }
     }
 
@@ -299,15 +255,6 @@
      */
     protected emitUserAcceptedAQuery(query: string): void {
       this.$x.emit('UserAcceptedAQuery', query, this.createEventMetadata());
-    }
-
-    /**
-     * Emits UserAcceptedAQueryPreview event.
-     *
-     * @param queryPreview - The query preview that will be emitted.
-     */
-    protected emitUserAcceptedAQueryPreview(queryPreview: QueryPreviewInfo): void {
-      this.$x.emit('UserAcceptedAQueryPreview', queryPreview, this.createEventMetadata());
     }
 
     /**
