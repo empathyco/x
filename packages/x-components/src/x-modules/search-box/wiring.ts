@@ -42,7 +42,23 @@ const setSearchBoxQuery = wireCommit('setQuery');
  * @public
  */
 const clearSearchBoxQuery = wireCommit('setQuery', '');
+/**
+ * Updates the state with the selected query preview object.
+ *
+ * @public
+ */
 
+export const setSelectedQueryPreviewSearchBoxWire = wireCommit('setSelectedQueryPreview');
+/**
+ * Clears the selected query preview object from search box module.
+ *
+ * @public
+ */
+
+export const clearSelectedQueryPreviewSearchBoxWire = wireCommit('setSelectedQueryPreview', {
+  query: '',
+  extraParams: undefined
+});
 /**
  * Sets the search state `query`.
  *
@@ -85,13 +101,16 @@ export const searchBoxWiring = createWiring({
     clearSearchBoxQuery
   },
   UserClickedCloseX: {
-    clearSearchBoxQuery
+    clearSearchBoxQuery,
+    clearSelectedQueryPreviewSearchBoxWire
   },
   UserClickedOutOfMainModal: {
-    clearSearchBoxQuery
+    clearSearchBoxQuery,
+    clearSelectedQueryPreviewSearchBoxWire
   },
   UserClearedQuery: {
-    transitionState: setInputStatus('UserClearedQuery')
+    transitionState: setInputStatus('UserClearedQuery'),
+    clearSelectedQueryPreviewSearchBoxWire
   },
   UserFocusedSearchBox: {
     transitionState: setInputStatus('UserFocusedSearchBox')
@@ -101,5 +120,8 @@ export const searchBoxWiring = createWiring({
   },
   SetQueryPreviewQuery: {
     setSearchBoxQuery
+  },
+  UserAcceptedAQueryPreview: {
+    setSelectedQueryPreviewSearchBoxWire
   }
 });

@@ -11,7 +11,11 @@ import { setInputStatus } from './actions/set-input-status.action';
 export const searchBoxXStoreModule: SearchBoxXStoreModule = {
   state: () => ({
     query: '',
-    inputStatus: 'initial'
+    inputStatus: 'initial',
+    selectedQueryPreview: {
+      query: '',
+      extraParams: undefined
+    }
   }),
   getters: {
     trimmedQuery(state) {
@@ -22,6 +26,9 @@ export const searchBoxXStoreModule: SearchBoxXStoreModule = {
     setQuery,
     setInputStatus(state, status) {
       state.inputStatus = status;
+    },
+    setSelectedQueryPreview(state, selectedQueryPreview) {
+      state.selectedQueryPreview = selectedQueryPreview;
     }
   },
   actions: {
