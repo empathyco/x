@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.401](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.400...@empathyco/x-components@3.0.0-alpha.401) (2023-08-16)
+
+
+### Documentation
+
+* **recommendations:** updated recommendations ui doc (#1249) ([432118a](https://github.com/empathyco/x/commit/432118a2d42e0e0964e2d0e1c0e08b1f5e06bb7b))
+
+
+
 ## [3.0.0-alpha.400](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.399...@empathyco/x-components@3.0.0-alpha.400) (2023-08-02)
 
 **Note:** Version bump only for package @empathyco/x-components
