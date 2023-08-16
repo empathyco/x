@@ -2,7 +2,6 @@ import { XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { UrlParams } from '../../../types/url-params';
 import { XEvent } from '../../../wiring/events.types';
-import { QueryPreviewInfo } from '../../../x-installer/index';
 
 /**
  * SearchBox store state.
@@ -18,10 +17,6 @@ export interface SearchBoxState extends QueryState {
    * The status of the search box input based on a state machine.
    */
   inputStatus: string;
-  /**
-   * The selected query preview from the state.
-   */
-  selectedQueryPreview: QueryPreviewInfo;
 }
 
 /**
@@ -52,12 +47,6 @@ export interface SearchBoxMutations extends QueryMutations {
    * @param inputStatus - The new {@link InputStatus} of the search-box.
    */
   setInputStatus(inputStatus: InputStatus): void;
-  /**
-   * Sets the selected query preview of the module.
-   *
-   * @param selectedQueryPreview - The selected query preview to save to the state.
-   */
-  setSelectedQueryPreview(selectedQueryPreview: QueryPreviewInfo): void;
 }
 
 /**

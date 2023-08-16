@@ -24,9 +24,4 @@ export interface QueriesPreviewXEvents {
    * of the selected {@link QueryPreviewItem | item}.
    */
   UserAcceptedAQueryPreview: QueryPreviewInfo;
-  /**
-   * A query preview has been clicked.
-   * Payload: The query from the query preview info.
-   */
-  SetQueryPreviewQuery: string;
 }
