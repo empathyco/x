@@ -11,6 +11,6 @@ export const queriesPreviewEmitters = createStoreEmitters(queriesPreviewXStoreMo
     getters.selectedQueryPreview?.extraParams
       ? getters.selectedQueryPreview.extraParams
       : getters.initialParams,
-  SetQueryPreviewQuery: (_, getters) =>
+  UserAcceptedAQuery: (_, getters) =>
     getters.selectedQueryPreview?.query ? getters.selectedQueryPreview.query : ''
 });

@@ -3,6 +3,7 @@ import {
   namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
+import { namespacedDebounce } from '../../wiring/index';
 
 /**
  * `queriesPreview` {@link XModuleName | XModule name}.
@@ -54,6 +55,10 @@ export const setQueriesPreviewExtraParamsWire = wireCommit('setParams');
  */
 
 export const setSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview');
+/**
+ * Debounce function for the module.
+ */
+const moduleDebounce = namespacedDebounce(moduleName);
 
 /**
  * Clears the selected query preview object from queries preview module.
@@ -85,15 +90,24 @@ export const queriesPreviewWiring = createWiring({
     setQueriesPreviewExtraParamsWire
   },
   UserClickedCloseX: {
-    clearSelectedQueryPreviewWire
+    clearSelectedQueryDebounce: moduleDebounce(clearSelectedQueryPreviewWire, () => 500, {
+      cancelOn: 'UserAcceptedAQuery'
+    })
   },
   UserClickedOutOfMainModal: {
-    clearSelectedQueryPreviewWire
+    clearSelectedQueryDebounce: moduleDebounce(
+      clearSelectedQueryPreviewWire,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ({ state }) => 2000,
+      { cancelOn: 'UserAcceptedAQuery' }
+    )
   },
   UserClearedQuery: {
-    clearSelectedQueryPreviewWire
-  },
-  UserAcceptedAQuery: {
-    clearSelectedQueryPreviewWire
+    clearSelectedQueryDebounce: moduleDebounce(
+      clearSelectedQueryPreviewWire,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ({ state }) => 2000,
+      { cancelOn: 'UserAcceptedAQuery' }
+    )
   }
 });
