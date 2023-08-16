@@ -99,8 +99,5 @@ export const urlWiring = createWiring({
   },
   UserScrolledToElement: {
     setUrlScroll
-  },
-  SetQueryPreviewQuery: {
-    setUrlQuery
   }
 });

@@ -251,8 +251,5 @@ export const searchWiring = createWiring({
   },
   SetQueryPreviewParams: {
     setSearchExtraParams
-  },
-  SetQueryPreviewQuery: {
-    setSearchQuery
   }
 });
