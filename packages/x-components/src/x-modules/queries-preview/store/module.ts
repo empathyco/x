@@ -14,7 +14,6 @@ import { initialParams } from './getters/initial-params.getter';
 export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
   state: () => ({
     config: {
-      debounceInMs: 200,
       maxItemsToRequest: 24
     },
     queriesPreview: {},
