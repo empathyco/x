@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.402](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.401...@empathyco/x-components@3.0.0-alpha.402) (2023-08-17)
+
+
+### Bug Fixes
+
+* restore sliding panel state after a search (#1259) ([c61f3ed](https://github.com/empathyco/x/commit/c61f3edaeb0138d759b583901fad89651bdfaefb))
+
+
+
 ## [3.0.0-alpha.401](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.400...@empathyco/x-components@3.0.0-alpha.401) (2023-08-16)
 
 
