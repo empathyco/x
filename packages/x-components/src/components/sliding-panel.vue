@@ -159,7 +159,7 @@
      *
      * @internal
      */
-    @Debounce(100, { leading: true })
+    @Debounce(50, { leading: true })
     restoreAndUpdateScroll(): void {
       this.$refs.scrollContainer.scroll({ left: 0, behavior: 'smooth' });
       this.updateScrollPosition();
@@ -186,7 +186,7 @@
      *
      * @internal
      */
-    @Debounce(100, { leading: true })
+    @Debounce(50, { leading: true })
     debouncedUpdateScrollPosition(): void {
       this.updateScrollPosition();
     }
