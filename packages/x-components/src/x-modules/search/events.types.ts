@@ -113,9 +113,5 @@ export interface SearchXEvents {
    * The selected query preview has changed.
    * Payload: The new selected query preview extra params.
    */
-
   SetQueryPreviewParams: Dictionary<unknown>;
-  /**
-   * The user has aborted a redirection.
-   */
 }
