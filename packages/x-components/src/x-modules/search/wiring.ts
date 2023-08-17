@@ -152,13 +152,6 @@ export const increasePageAppendingResultsWire = wireDispatchWithoutPayload(
 );
 
 /**
- * Performs a new search with the selected queryPreview.
- *
- * @public
- */
-export const setSearchQueryPreviewWire = wireDispatch('fetchAndSaveSearchResponse');
-
-/**
  * Resets the search state `isAppendingResults`.
  *
  * @public
