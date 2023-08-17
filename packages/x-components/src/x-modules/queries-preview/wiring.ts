@@ -27,6 +27,11 @@ const wireCommit = namespacedWireCommit(moduleName);
 const wireDispatch = namespacedWireDispatch(moduleName);
 
 /**
+ * Debounce function for the module.
+ */
+const moduleDebounce = namespacedDebounce(moduleName);
+
+/**
  * Requests and stores the query preview results.
  *
  * @public
@@ -38,7 +43,6 @@ export const fetchAndSaveQueryPreviewWire = wireDispatch('fetchAndSaveQueryPrevi
  *
  * @public
  */
-
 export const clearQueryPreviewWire = wireCommit('clearQueryPreview');
 
 /**
@@ -53,19 +57,13 @@ export const setQueriesPreviewExtraParamsWire = wireCommit('setParams');
  *
  * @public
  */
-
 export const setSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview');
-/**
- * Debounce function for the module.
- */
-const moduleDebounce = namespacedDebounce(moduleName);
 
 /**
  * Clears the selected query preview object from queries preview module.
  *
  * @public
  */
-
 export const clearSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview', {
   query: '',
   extraParams: undefined
@@ -89,24 +87,24 @@ export const queriesPreviewWiring = createWiring({
   ExtraParamsChanged: {
     setQueriesPreviewExtraParamsWire
   },
+  UserClearedQuery: {
+    clearSelectedQueryDebounce: moduleDebounce(
+      clearSelectedQueryPreviewWire,
+      ({ state }) => state.config.debounceInMs,
+      { cancelOn: 'UserAcceptedAQuery' }
+    )
+  },
   UserClickedCloseX: {
-    clearSelectedQueryDebounce: moduleDebounce(clearSelectedQueryPreviewWire, () => 500, {
-      cancelOn: 'UserAcceptedAQuery'
-    })
+    clearSelectedQueryDebounce: moduleDebounce(
+      clearSelectedQueryPreviewWire,
+      ({ state }) => state.config.debounceInMs,
+      { cancelOn: 'UserAcceptedAQuery' }
+    )
   },
   UserClickedOutOfMainModal: {
     clearSelectedQueryDebounce: moduleDebounce(
       clearSelectedQueryPreviewWire,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ({ state }) => 2000,
-      { cancelOn: 'UserAcceptedAQuery' }
-    )
-  },
-  UserClearedQuery: {
-    clearSelectedQueryDebounce: moduleDebounce(
-      clearSelectedQueryPreviewWire,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ({ state }) => 2000,
+      ({ state }) => state.config.debounceInMs,
       { cancelOn: 'UserAcceptedAQuery' }
     )
   }
