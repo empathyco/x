@@ -73,6 +73,7 @@
      */
     public queriesStatus: QueryPreviewStatusRecord = {};
 
+    // TODO: Remove this method: it is just for testing purposes
     protected onClick = (): void => {
       this.$x.emit('UserAcceptedAQueryPreview', {
         query: 'cortina',
