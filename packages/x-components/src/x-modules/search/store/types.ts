@@ -35,9 +35,9 @@ export interface SearchState extends StatusState, QueryState {
   facets: Facet[];
   /** A flag to indicate if new results are append to the current instead of replacing them. */
   isAppendResults: boolean;
-  /** Flag indicating if there is a no results situation */
+  /** Flag indicating if there is a no results situation. */
   isNoResults: boolean;
-  /** Flag indicating if there is a no results situation with filters selected */
+  /** Flag indicating if there is a no results situation with filters selected. */
   fromNoResultsWithFilters: boolean;
   /** The origin property of the request. */
   origin: QueryOrigin | null;
@@ -258,6 +258,12 @@ export interface SearchActions {
    * @returns The new search response.
    */
   fetchSearchResponse(request: SearchRequest): SearchResponse;
+  /**
+   * Fetches the selected query preview search response and returns them.
+   *
+   * @returns The new search response.
+   */
+  fetchSelectedQueryPreview(payload: any): void;
   /**
    * Checks if there are more pages of results to load. If there are, then increases the page
    * number in state and set to `true` the {@link SearchState.isAppendResults} flag.

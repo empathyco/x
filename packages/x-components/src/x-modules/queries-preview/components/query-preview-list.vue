@@ -1,5 +1,7 @@
 <template>
   <component :is="animation" class="x-query-preview-list" tag="ul">
+    <!-- TODO: Remove this btn: it is just for testing purposes -->
+    <button @click="onClick">ggggg</button>
     <li v-for="(query, index) in renderedQueries" :key="index" data-test="query-preview-item">
       <QueryPreview
         @load="flagAsLoaded"
@@ -70,6 +72,17 @@
      * Contains the status of the preview requests, indexed by query.
      */
     public queriesStatus: QueryPreviewStatusRecord = {};
+
+    protected onClick = (): void => {
+      this.$x.emit('UserAcceptedAQueryPreview', {
+        query: 'cortina',
+        extraParams: {
+          store: 'hola',
+          instance: 'empathy',
+          lang: 'en'
+        }
+      });
+    };
 
     /**
      * Gets all the queries to render, that are those that don't have an `error` status.

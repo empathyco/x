@@ -183,6 +183,13 @@ export const resetStateIfNoRequestWire = filterTruthyPayload<InternalSearchReque
 );
 
 /**
+ * Performs a new search with the selected queryPreview.
+ *
+ * @public
+ */
+export const fetchSelectedQueryPreviewWire = wireDispatch('fetchSelectedQueryPreview');
+
+/**
  * Search wiring.
  *
  * @internal
@@ -242,7 +249,8 @@ export const searchWiring = createWiring({
   UserClickedOutOfMainModal: {
     clearSearchQuery
   },
-  SetQueryPreviewParams: {
-    setSearchExtraParams
+  UserAcceptedAQueryPreview: {
+    fetchSelectedQueryPreviewWire,
+    saveOriginWire
   }
 });

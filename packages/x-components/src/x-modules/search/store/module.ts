@@ -16,6 +16,7 @@ import { setUrlParams } from './actions/set-url-params.action';
 import { query } from './getters/query.getter';
 import { request } from './getters/request.getter';
 import { SearchXStoreModule } from './types';
+import { fetchSelectedQueryPreview } from './actions/fetch-selected-query-preview.action';
 
 /**
  * {@link XStoreModule} For the search module.
@@ -117,6 +118,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     cancelFetchAndSaveSearchResponse,
     fetchSearchResponse,
     fetchAndSaveSearchResponse,
+    fetchSelectedQueryPreview,
     increasePageAppendingResults,
     resetRequestOnRefinement,
     saveSearchResponse,

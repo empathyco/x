@@ -98,5 +98,10 @@ export const searchBoxWiring = createWiring({
   },
   UserBlurredSearchBox: {
     transitionState: setInputStatus('UserBlurredSearchBox')
+  },
+  UserAcceptedAQueryPreview: {
+    //setSearchBoxQuery,
+    // set query preview query
+    //transitionState: setInputStatus('UserAcceptedAQuery')
   }
 });
