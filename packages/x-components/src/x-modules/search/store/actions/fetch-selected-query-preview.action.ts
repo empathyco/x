@@ -12,14 +12,16 @@ import { SearchXStoreModule } from '../types';
  * @public
  */
 export const fetchSelectedQueryPreview: SearchXStoreModule['actions']['fetchSelectedQueryPreview'] =
-  ({ dispatch }, payload) => {
-    const { extraParams } = payload;
+  ({ commit, dispatch }, payload) => {
+    const { extraParams, query } = payload;
     XPlugin.adapter
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       .search(payload, {
         parameters: extraParams
       })
       .then(response => {
+        commit('setQuery', query);
+        commit('setParams', { ...extraParams });
         dispatch('saveSearchResponse', response);
       });
   };
