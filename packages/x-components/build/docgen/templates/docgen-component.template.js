@@ -1,13 +1,17 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { removeLinks } = require('../utils');
+
 function createComponentTemplate(renderedUsage, doc) {
   const { displayName, description, docsBlocks } = doc;
   const title = kebabToPascalCase(displayName);
+  const modifiedDescription = removeLinks(description);
   return `
   ---
   title: ${title}
   ---
   # ${title}
 
-  ${description || ''}
+  ${modifiedDescription || ''}
 
   ${renderedUsage.props}
   ${renderedUsage.methods}
