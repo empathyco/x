@@ -49,7 +49,7 @@
     /**
      * Events list which are going to be emitted when a popular search is selected.
      *
-     * @returns The {@link XEvent | XEvents} to emit.
+     * @returns The {@link XEvent} to emit.
      * @public
      */
     protected get events(): Partial<XEventsTypes> {

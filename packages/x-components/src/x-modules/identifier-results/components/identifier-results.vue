@@ -27,7 +27,7 @@
 
   /**
    * Paints the list of identifier results stored in the state. Each identifier result should be
-   * represented by a {@link IdentifierResult | identifier result component} besides any
+   * represented by a {@link IdentifierResult} component besides any
    * other component.
    *
    * @public

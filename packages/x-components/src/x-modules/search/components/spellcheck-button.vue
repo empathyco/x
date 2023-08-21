@@ -36,7 +36,7 @@
     public spellcheckedQuery!: string;
 
     /**
-     * Generates the {@link WireMetadata | event metadata} object omitting the moduleName.
+     * Generates the {@link WireMetadata} object omitting the moduleName.
      *
      * @returns The {@link WireMetadata} object omitting the moduleName.
      * @internal

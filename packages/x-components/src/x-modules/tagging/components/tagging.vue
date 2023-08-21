@@ -6,12 +6,11 @@
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { taggingXModule } from '../x-module';
   import { TaggingConfig } from '../config.types';
-
+  /* eslint-disable max-len */
   /**
    * This component enables and manages the sending of information to the
-   * {@link https://docs.empathy.co/develop-empathy-platform/api-reference/tagging-api.html |
-   * Empathy Tagging API}. It allows to enable or disable the session id management through the
-   * `consent` prop.
+   * [Empathy Tagging API](https://docs.empathy.co/develop-empathy-platform/api-reference/tagging-api.html).
+   * It allows to enable or disable the session id management through the `consent` prop.
    *
    * @public
    */
@@ -28,7 +27,7 @@
     public clickedResultStorageTTLMs!: number;
 
     /**
-     * The Object key of the {@link @empathyco/x-types#Result | result} clicked by the user
+     * The Object key of the {@link @empathyco/x-types#Result} clicked by the user
      * that will be used as id for the storage. By default, the Result url will be used.
      *
      * @public

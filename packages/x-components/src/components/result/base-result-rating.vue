@@ -48,7 +48,7 @@
     },
     props: {
       /**
-       * The {@link @empathyco/x-types#Result | Result} to render its rating.
+       * The {@link @empathyco/x-types#Result} to render its rating.
        *
        * @public
        */
@@ -71,7 +71,7 @@
 
       /**
        * Emits the `UserClickedAResultRating` event when user clicks this component, with the
-       * {@link @empathyco/x-types#Result | Result} as payload.
+       * {@link @empathyco/x-types#Result} as payload.
        *
        * @internal
        */

@@ -34,7 +34,7 @@
 
     /**
      * The facets to provide to the `Facets X-Module` state. They have to include the
-     * {@link @empathyco/x-types#Filter | filters}.
+     * {@link @empathyco/x-types#Filter}.
      *
      * @internal
      */
