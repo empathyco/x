@@ -1,5 +1,7 @@
 <template>
   <component :is="animation" class="x-query-preview-list" tag="ul">
+    <!-- TODO: Remove this btn: it is just for testing purposes -->
+    <button @click="onClick">Cortina</button>
     <li v-for="(query, index) in renderedQueries" :key="index" data-test="query-preview-item">
       <QueryPreview
         @load="flagAsLoaded"
@@ -127,6 +129,18 @@
         this.$set(this.queriesStatus, queryToLoad, 'loading');
       }
     }
+
+    // TODO: Remove this method: it is just for testing purposes
+    protected onClick = (): void => {
+      this.$x.emit('UserAcceptedAQueryPreview', {
+        query: 'cortina',
+        extraParams: {
+          instance: 'lolahome',
+          store: 'hola',
+          lang: 'es'
+        }
+      });
+    };
   }
 </script>
 

@@ -20,6 +20,7 @@ import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
 import { UrlParams } from '../../../types/url-params';
 import { SearchConfig } from '../config.types';
 import { InternalSearchRequest, WatchedInternalSearchRequest } from '../types';
+import { QueryPreviewInfo } from '../../../x-installer/index';
 
 /**
  * Search store state.
@@ -230,6 +231,13 @@ export interface SearchMutations extends StatusMutations, QueryMutations {
    * @param result - A result containing at least an id, and the properties to modify.
    */
   updateResult(result: Partial<Result> & Pick<Result, 'id'>): void;
+
+  /**.
+   * Sets the selectedQueryPreview query.
+   *
+   * @param selectedQueryPreview - The selected query preview.
+   */
+  setSelectedQueryPreview(selectedQueryPreview: QueryPreviewInfo): void;
 }
 
 /**
