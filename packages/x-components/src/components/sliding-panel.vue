@@ -181,7 +181,7 @@
     }
 
     /**
-     * Debounced version of the {@link SlidingPanel.updateScrollPosition | updateScrollPosition}
+     * Debounced version of the {@link SlidingPanel.updateScrollPosition}
      * method.
      *
      * @internal

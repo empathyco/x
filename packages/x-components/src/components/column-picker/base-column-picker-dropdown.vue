@@ -38,10 +38,10 @@
   import ColumnPickerMixin from './column-picker.mixin';
 
   /**
-   * Column picker dropdown component renders {@link BaseDropdown | dropdown} component which
+   * Column picker dropdown component renders {@link BaseDropdown} component which
    * options are the different columns you can set for a grid.
    *
-   * It emits {@link XEventsTypes.UserClickedColumnPicker | UserClickedColumnPicker} on dropdown
+   * It emits {@link XEventsTypes.UserClickedColumnPicker} on dropdown
    * input.
    *
    * @remarks It extends {@link ColumnPickerMixin}.
@@ -61,8 +61,8 @@
     public animation?: string | typeof Vue;
 
     /**
-     * Emits a {@link XEventsTypes.UserClickedColumnPicker | UserClickedColumnPicker} and
-     * {@link XEventsTypes.ColumnsNumberProvided | ColumnsNumberProvided} events.
+     * Emits a {@link XEventsTypes.UserClickedColumnPicker} and
+     * {@link XEventsTypes.ColumnsNumberProvided} events.
      *
      * @param column - Column number payload.
      */

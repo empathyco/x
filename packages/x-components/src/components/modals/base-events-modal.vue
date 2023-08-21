@@ -22,8 +22,8 @@
   /**
    * Component containing a modal that emits a {@link XEventsTypes.UserClickedCloseEventsModal} when
    * clicking outside the content rendered in the default slot and can receive, through the
-   * eventsToCloseModal prop, a list of {@link XEvent | xEvents} to listen to in order to close
-   * also the modal, eventsToOpenModal prop,  another list of {@link XEvent | xEvents} to customize
+   * eventsToCloseModal prop, a list of {@link XEvent} to listen to in order to close
+   * also the modal, eventsToOpenModal prop,  another list of {@link XEvent} to customize
    * the events to listen to open the modal and a prop, displayOverlay, to display an
    * overlay over the rest of the html. The default slot offers the possibility to customize the
    * modal content.
@@ -40,13 +40,13 @@
     @Prop()
     public animation?: Vue | string;
     /**
-     * Array of {@link XEvent | xEvents} to listen to open the modal.
+     * Array of {@link XEvent} to listen to open the modal.
      */
     @Prop({ default: (): XEvent[] => ['UserClickedOpenEventsModal'] })
     public eventsToOpenModal!: XEvent[];
 
     /**
-     * Array of {@link XEvent | xEvents} to listen to close the modal.
+     * Array of {@link XEvent} to listen to close the modal.
      */
     @Prop({
       default: (): XEvent[] => ['UserClickedCloseEventsModal', 'UserClickedOutOfEventsModal']

@@ -127,7 +127,7 @@
 
     /**
      * Handler of the
-     * {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/pageshow_event | pageshow }
+     * [pageshow](https://developer.mozilla.org/en-US/docs/Web/API/Window/pageshow_event)
      * event.
      *
      * @remarks The pageshow event is listened to check if the browser has performed a navigation
@@ -166,9 +166,9 @@
     }
 
     /**
-     * Creates the wire metadata to include in every emitted {@link XEvent | XEvents}.
+     * Creates the wire metadata to include in every emitted {@link XEvent}.
      *
-     * @returns The {@link WireMetadata | metadata}.
+     * @returns The {@link WireMetadata}.
      * @internal
      */
     protected createWireMetadata(): Pick<WireMetadata, 'feature' | 'location'> {
@@ -179,10 +179,10 @@
     }
 
     /**
-     * Detects the {@link FeatureLocation | location} used to build the
-     * {@link QueryOriginInit | events metadata origin}.
+     * Detects the {@link FeatureLocation} used to build the
+     * {@link QueryOriginInit} data.
      *
-     * @returns The {@link FeatureLocation | location}.
+     * @returns The {@link FeatureLocation}.
      * @internal
      */
     protected detectLocation(): FeatureLocation {

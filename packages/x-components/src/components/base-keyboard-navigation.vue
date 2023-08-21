@@ -35,7 +35,7 @@
   @Component
   export default class BaseKeyboardNavigation extends Vue {
     /**
-     * An array of {@link TakeNavigationControl | navigation hijacker} objects defining when to
+     * An array of {@link TakeNavigationControl} objects defining when to
      * take control of the keyboard navigation.
      */
     @Prop({
@@ -53,7 +53,7 @@
     protected eventsForDirectionLimit!: Partial<EventsForDirectionLimit>;
 
     /**
-     * The {@link SpatialNavigation | navigation service} to use.
+     * The {@link SpatialNavigation} service to use.
      */
     protected navigationService!: SpatialNavigation;
 

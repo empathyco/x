@@ -98,7 +98,7 @@
     public injectedListItems!: ListItem[];
 
     /**
-     * Emits the {@link XEventsTypes.RenderedColumnsNumberChanged | RenderedColumnsNumberChanged}
+     * Emits the {@link XEventsTypes.RenderedColumnsNumberChanged}
      * event whenever the number of columns rendered inside the grid changes.
      *
      * @internal

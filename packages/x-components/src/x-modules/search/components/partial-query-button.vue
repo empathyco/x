@@ -64,8 +64,8 @@
 
 ### Basic example
 
-A button that when pressed emits the {@link XEventsTypes.UserAcceptedAQuery} and {@link
-SearchXEvents.UserClickedPartialQuery} events, expressing the user intention to set the partial
+A button that when pressed emits the `XEventsTypes.UserAcceptedAQuery` and
+`SearchXEvents.UserClickedPartialQuery` events, expressing the user intention to set the partial
 query.
 
 The component sets the current query as the new query and emits the `UserAcceptedAQuery` and

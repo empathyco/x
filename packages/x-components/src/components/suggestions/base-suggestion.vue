@@ -25,7 +25,7 @@
 
   /**
    * Renders a button with a default slot. It receives a query, which should be the query of the
-   * module using this component, a suggestion, the {@link XEvent | XEvents} that will be emitted
+   * module using this component, a suggestion, the {@link XEvent} that will be emitted
    * on click with a given feature.
    *
    * The default slot receives the suggestion and the matched query has props.
@@ -66,7 +66,7 @@
       },
 
       /**
-       * The {@link XEvent | XEvents} that will be emitted when selecting a suggestion.
+       * The {@link XEvent} that will be emitted when selecting a suggestion.
        *
        * @public
        */
@@ -112,7 +112,7 @@
        * UserClickedAFilter: suggestion.facets[0].filters[0]
        * Merges the events defined in the suggestionSelectedEvents prop and also emits them
        *
-       * @returns The {@link XEvent | XEvents} to emit.
+       * @returns The {@link XEvent} to emit.
        * @public
        */
       const events = computed<Partial<XEventsTypes>>(() => {
