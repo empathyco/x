@@ -100,6 +100,13 @@ export default class ScrollMixin extends Vue {
   protected scrollHeight = 0;
 
   /**
+   * Flag to stop watchers until clientHeight property stops changing.
+   *
+   * @internal
+   */
+  protected watchersFlag = false;
+
+  /**
    * Throttled version of the function that stores the DOM scroll related properties.
    * The duration of the throttle is configured through the
    * {@link ScrollMixin.throttleMs}.
@@ -108,7 +115,8 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   protected get throttledStoreScrollData(): () => void {
-    return throttle(this.storeScrollData, this.throttleMs);
+    this.watchersFlag = false;
+    return throttle(this.storeScrollData, 300);
   }
 
   /**
@@ -205,6 +213,11 @@ export default class ScrollMixin extends Vue {
       }
     });
   }
+  @Watch('clientHeight')
+  protected stopWatchers(): void {
+    this.watchersFlag = false;
+    throttle(this.storeClientHeightData, 300);
+  }
 
   /**
    * Emits the `scroll` event.
@@ -215,8 +228,10 @@ export default class ScrollMixin extends Vue {
    */
   @Watch('currentPosition')
   protected emitScroll(_newScrollPosition: number, oldScrollPosition: number): void {
-    this.$emit('scroll', this.currentPosition);
-    this.previousPosition = oldScrollPosition;
+    if (this.watchersFlag) {
+      this.$emit('scroll', this.currentPosition);
+      this.previousPosition = oldScrollPosition;
+    }
   }
 
   /**
@@ -227,7 +242,9 @@ export default class ScrollMixin extends Vue {
    */
   @Watch('hasScrollReachedStart')
   protected emitScrollReachedAtStart(isScrollAtStart: boolean): void {
-    this.$emit('scroll:at-start', isScrollAtStart);
+    if (this.watchersFlag) {
+      this.$emit('scroll:at-start', isScrollAtStart);
+    }
   }
 
   /**
@@ -238,7 +255,9 @@ export default class ScrollMixin extends Vue {
    */
   @Watch('hasScrollAlmostReachedEnd')
   protected emitScrollAlmostAtEnd(isScrollAlmostAtEnd: boolean): void {
-    this.$emit('scroll:almost-at-end', isScrollAlmostAtEnd);
+    if (this.watchersFlag) {
+      this.$emit('scroll:almost-at-end', isScrollAlmostAtEnd);
+    }
   }
 
   /**
@@ -249,7 +268,9 @@ export default class ScrollMixin extends Vue {
    */
   @Watch('hasScrollReachedEnd')
   protected emitScrollAtEnd(isScrollAtEnd: boolean): void {
-    this.$emit('scroll:at-end', isScrollAtEnd);
+    if (this.watchersFlag) {
+      this.$emit('scroll:at-end', isScrollAtEnd);
+    }
   }
 
   /**
@@ -260,7 +281,17 @@ export default class ScrollMixin extends Vue {
    */
   @Watch('scrollDirection')
   protected emitScrollDirection(direction: ScrollDirection): void {
-    this.$emit('scroll:direction-change', direction);
+    if (this.watchersFlag) {
+      this.$emit('scroll:direction-change', direction);
+    }
+  }
+
+  protected runWatchedFunctions(): void {
+    this.emitScroll(this.currentPosition, this.previousPosition);
+    this.emitScrollAlmostAtEnd(this.hasScrollAlmostReachedEnd);
+    this.emitScrollAtEnd(this.hasScrollReachedEnd);
+    this.emitScrollDirection(this.scrollDirection);
+    this.emitScrollReachedAtStart(this.hasScrollReachedStart);
   }
 
   /**
@@ -270,10 +301,23 @@ export default class ScrollMixin extends Vue {
    */
   protected storeScrollData(): void {
     if (this.$el) {
+      this.previousPosition = this.currentPosition;
       this.currentPosition = this.$el.scrollTop;
       this.scrollHeight = this.$el.scrollHeight;
       this.clientHeight = this.$el.clientHeight;
     }
+    this.watchersFlag = true;
+    //this.runWatchedFunctions();
+  }
+
+  protected storeClientHeightData(): void {
+    if (this.$el) {
+      this.previousPosition = this.currentPosition;
+      this.currentPosition = this.$el.scrollTop;
+      this.clientHeight = this.$el.clientHeight;
+    }
+    this.watchersFlag = true;
+    this.runWatchedFunctions();
   }
 }
 /*  eslint-enable @typescript-eslint/unbound-method */
