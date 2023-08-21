@@ -62,6 +62,13 @@ const setUrlParams = wireDispatch('setUrlParams');
 const setInputStatus = (event: XEvent): AnyWire => wireDispatch('setInputStatus', event);
 
 /**
+ * Sets the search state `query` with the selected query preview query.
+ *
+ * @public
+ */
+const setSearchBoxSelectedQueryPreview = wireCommit('setSelectedQueryPreview');
+
+/**
  * SearchBox wiring.
  *
  * @internal
@@ -100,8 +107,7 @@ export const searchBoxWiring = createWiring({
     transitionState: setInputStatus('UserBlurredSearchBox')
   },
   UserAcceptedAQueryPreview: {
-    //setSearchBoxQuery,
-    // set query preview query
-    //transitionState: setInputStatus('UserAcceptedAQuery')
+    setSearchBoxSelectedQueryPreview,
+    transitionState: setInputStatus('UserAcceptedAQuery')
   }
 });
