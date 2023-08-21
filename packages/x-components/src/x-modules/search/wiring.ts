@@ -190,6 +190,13 @@ export const resetStateIfNoRequestWire = filterTruthyPayload<InternalSearchReque
 export const SetSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview');
 
 /**
+ * Sets the search state `params` with the selected query preview extraParams.
+ *
+ * @public
+ */
+export const setSelectedQueryPreviewParamsWire = wireCommit('setSelectedQueryPreviewParams');
+
+/**
  * Search wiring.
  *
  * @internal
@@ -254,6 +261,7 @@ export const searchWiring = createWiring({
   },
   UserAcceptedAQueryPreview: {
     SetSelectedQueryPreviewWire,
+    setSelectedQueryPreviewParamsWire,
     saveOriginWire
   }
 });

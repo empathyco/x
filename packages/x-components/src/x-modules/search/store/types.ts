@@ -238,6 +238,13 @@ export interface SearchMutations extends StatusMutations, QueryMutations {
    * @param selectedQueryPreview - The selected query preview.
    */
   setSelectedQueryPreview(selectedQueryPreview: QueryPreviewInfo): void;
+
+  /**.
+   * Sets the selectedQueryPreview extraParams.
+   *
+   * @param selectedQueryPreview - The selected query preview.
+   */
+  setSelectedQueryPreviewParams(selectedQueryPreview: QueryPreviewInfo): void;
 }
 
 /**

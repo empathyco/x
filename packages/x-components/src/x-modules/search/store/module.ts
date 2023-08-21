@@ -114,6 +114,9 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setSelectedQueryPreview(state, selectedQueryPreview) {
       state.query = selectedQueryPreview.query;
+    },
+    setSelectedQueryPreviewParams(state, selectedQueryPreview) {
+      state.params = selectedQueryPreview.extraParams ?? state.params;
     }
   },
   actions: {

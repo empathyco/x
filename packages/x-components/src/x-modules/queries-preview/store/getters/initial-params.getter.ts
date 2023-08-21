@@ -14,7 +14,8 @@ import { QueriesPreviewXStoreModule } from '../types';
  */
 
 export const initialParams: QueriesPreviewXStoreModule['getters']['initialParams'] = ({
-  params
+  params,
+  selectedQueryPreview
 }) => {
-  return params;
+  return selectedQueryPreview?.extraParams ?? params;
 };
