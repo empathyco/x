@@ -21,7 +21,7 @@ function cleanMarkdown(input) {
  * @internal
  */
 function removeLinks(input) {
-  return input.replace(/ {@link/g, '').replace(/}/g, '');
+  return input.replace(/{@link /g, '').replace(/}/g, '');
 }
 
 const COMPONENTS_DOC_FOLDER = 'API-reference/components';
