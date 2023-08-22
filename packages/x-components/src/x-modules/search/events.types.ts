@@ -7,7 +7,6 @@ import {
   Promoted,
   Banner
 } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
 import { InternalSearchRequest, InternalSearchResponse } from './types';
 
 /**
@@ -109,9 +108,4 @@ export interface SearchXEvents {
    * The user has aborted a redirection.
    */
   UserClickedAbortARedirection: void;
-  /**
-   * The selected query preview has changed.
-   * Payload: The new selected query preview extra params.
-   */
-  SetQueryPreviewParams: Dictionary<unknown>;
 }

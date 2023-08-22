@@ -1,4 +1,5 @@
 import { SearchRequest } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
 import { QueryPreviewInfo } from '../../x-installer/index';
 
 /**
@@ -24,4 +25,10 @@ export interface QueriesPreviewXEvents {
    * of the selected {@link QueryPreviewItem | item}.
    */
   UserAcceptedAQueryPreview: QueryPreviewInfo;
+  /**
+   * The selected query preview has changed.
+   * Payload: The new selected query preview extra params or the initial module
+   * params if the query has been cleared.
+   */
+  SelectedQueryPreviewParamsChanged: Dictionary<unknown>;
 }
