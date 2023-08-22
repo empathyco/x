@@ -41,7 +41,10 @@ const setSearchBoxQuery = wireCommit('setQuery');
  *
  * @public
  */
-const setSearchBoxSelectedQueryPreview = wireCommit('setSelectedQueryPreview');
+const setSearchBoxSelectedQueryPreview = wireCommit(
+  'setQuery',
+  ({ eventPayload: { query } }) => query
+);
 
 /**
  * Clears the query of the search-box module.
