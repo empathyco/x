@@ -47,6 +47,16 @@ export const setSearchedQueriesInPopularSearches = wireCommit('setSearchedQuerie
 export const setPopularSearchesExtraParams = wireCommit('setParams');
 
 /**
+ * Sets the popular searches state `params` based on a QueryPreview extraParams.
+ *
+ * @public
+ */
+export const setPopularSearchesExtraParamsFromQueryPreview = wireCommit(
+  'setParams',
+  ({ eventPayload: { extraParams } }) => extraParams
+);
+
+/**
  * Wiring configuration for the popular searches modules.
  *
  * @internal
@@ -60,5 +70,8 @@ export const popularSearchesWiring = createWiring({
   },
   ExtraParamsChanged: {
     setPopularSearchesExtraParams
+  },
+  SelectedQueryPreviewChanged: {
+    setPopularSearchesExtraParamsFromQueryPreview
   }
 });

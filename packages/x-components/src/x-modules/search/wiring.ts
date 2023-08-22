@@ -262,10 +262,7 @@ export const searchWiring = createWiring({
   UserClickedOutOfMainModal: {
     clearSearchQuery
   },
-  SelectedQueryPreviewParamsChanged: {
-    setSearchExtraParams
-  },
-  UserAcceptedAQueryPreview: {
+  SelectedQueryPreviewChanged: {
     SetSelectedQueryPreviewWire,
     setSelectedQueryPreviewParamsWire,
     saveOriginWire

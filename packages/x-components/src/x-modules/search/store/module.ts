@@ -111,12 +111,6 @@ export const searchXStoreModule: SearchXStoreModule = {
       if (stateResult) {
         Object.assign(stateResult, result);
       }
-    },
-    setSelectedQueryPreview(state, { query }) {
-      state.query = query;
-    },
-    setSelectedQueryPreviewParams(state, { extraParams }) {
-      state.params = extraParams ?? state.params;
     }
   },
   actions: {

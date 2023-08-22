@@ -91,7 +91,7 @@ export const searchBoxWiring = createWiring({
     setSearchBoxQuery,
     transitionState: setInputStatus('UserAcceptedAQuery')
   },
-  UserAcceptedAQueryPreview: {
+  SelectedQueryPreviewChanged: {
     setSearchBoxSelectedQueryPreview,
     transitionState: setInputStatus('UserAcceptedAQuery')
   },

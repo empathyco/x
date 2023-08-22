@@ -22,9 +22,6 @@ export const searchBoxXStoreModule: SearchBoxXStoreModule = {
     setQuery,
     setInputStatus(state, status) {
       state.inputStatus = status;
-    },
-    setSelectedQueryPreview(state, { query }) {
-      state.query = query;
     }
   },
   actions: {

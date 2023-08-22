@@ -46,6 +46,16 @@ const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDi
 export const setNextQueriesQuery = wireCommit('setQuery');
 
 /**
+ * Sets the next queries state `query` based on a queryPreview query.
+ *
+ * @public
+ */
+export const setNextQueriesQueryPreview = wireCommit(
+  'setParams',
+  ({ eventPayload: { query } }) => query
+);
+
+/**
  * Sets the next queries state `query` from url.
  *
  * @public
@@ -58,6 +68,16 @@ const setUrlParams = wireDispatch('setUrlParams');
  * @public
  */
 export const setNextQueriesExtraParams = wireCommit('setParams');
+
+/**
+ * Sets the next queries state `params` based on a QueryPreview extraParams.
+ *
+ * @public
+ */
+export const setNextQueriesExtraParamsFromQueryPreview = wireCommit(
+  'setParams',
+  ({ eventPayload: { extraParams } }) => extraParams
+);
 
 /**
  * Requests and stores the next queries.
@@ -130,7 +150,8 @@ export const nextQueriesWiring = createWiring({
   NextQueryPreviewMountedHook: {
     fetchAndSaveNextQueryPreviewWire
   },
-  SetQueryPreviewParams: {
-    setNextQueriesExtraParams
+  SelectedQueryPreviewChanged: {
+    setNextQueriesQueryPreview,
+    setNextQueriesExtraParamsFromQueryPreview
   }
 });

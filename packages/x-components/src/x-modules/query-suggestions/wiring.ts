@@ -43,11 +43,31 @@ const wireDispatch = namespacedWireDispatch(moduleName);
 export const setQuerySuggestionsQuery = wireCommit('setQuery');
 
 /**
+ * Sets the query-suggestions module query based on a QueryPreview query.
+ *
+ * @public
+ */
+export const setQuerySuggestionsQueryPreview = wireCommit(
+  'setQuery',
+  ({ eventPayload: { query } }) => query
+);
+
+/**
  * Sets the query suggestions state `params`.
  *
  * @public
  */
 export const setQuerySuggestionsExtraParams = wireCommit('setParams');
+
+/**
+ * Sets the query suggestions state `params` based on a QueryPreview extraParams.
+ *
+ * @public
+ */
+export const setQuerySuggestionsExtraParamsFromQueryPreview = wireCommit(
+  'setParams',
+  ({ eventPayload: { extraParams } }) => extraParams
+);
 
 /**
  * Clears the query-suggestions module query.
@@ -118,5 +138,9 @@ export const querySuggestionsWiring = createWiring({
   },
   UserClickedOutOfMainModal: {
     clearQuerySuggestionsQuery
+  },
+  SelectedQueryPreviewChanged: {
+    setQuerySuggestionsQueryPreview,
+    setQuerySuggestionsExtraParamsFromQueryPreview
   }
 });

@@ -8,7 +8,7 @@ import { SearchXEvents } from '../search/events.types';
 import { ExtractMutationPayload } from '../../store/store.types';
 
 /**
- * `semanticQueries` {@link XModuleName name}.
+ * `semanticQueries` {@link XModuleName | name}.
  *
  * @internal
  */
@@ -84,6 +84,16 @@ export const setTotalResultsFromSearchResponseChangedWire = mapWire<
 export const setSemanticQueriesExtraParamsWire = wireCommit('setParams');
 
 /**
+ * Sets the semantic queries state `params` based on a QueryPreview extraParams.
+ *
+ * @public
+ */
+export const setSemanticQueriesExtraParamsFromQueryPreview = wireCommit(
+  'setParams',
+  ({ eventPayload: { extraParams } }) => extraParams
+);
+
+/**
  * Wiring configuration for the {@link SemanticQueriesXModule | semanticQueries module}.
  *
  * @internal
@@ -102,7 +112,7 @@ export const semanticQueriesWiring = createWiring({
     setQueryFromSearchResponseChangedWire,
     setTotalResultsFromSearchResponseChangedWire
   },
-  SetQueryPreviewParams: {
-    setSemanticQueriesExtraParamsWire
+  SelectedQueryPreviewChanged: {
+    setSemanticQueriesExtraParamsFromQueryPreview
   }
 });
