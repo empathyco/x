@@ -66,10 +66,7 @@ const moduleDebounce = namespacedDebounce(moduleName);
  * @public
  */
 
-export const clearSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview', {
-  query: '',
-  extraParams: undefined
-});
+export const clearSelectedQueryPreviewWire = wireCommit('resetSelectedQueryPreview');
 
 /**
  * Wiring configuration for the {@link QueriesPreviewXModule | queriesPreview module}.

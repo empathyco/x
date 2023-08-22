@@ -39,6 +39,13 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     },
     setSelectedQueryPreview(state, selectedQueryPreview) {
       state.selectedQueryPreview = selectedQueryPreview;
+    },
+    resetSelectedQueryPreview(state, selectedQueryPreview: any) {
+      state.selectedQueryPreview = selectedQueryPreview;
+      state.selectedQueryPreview = {
+        query: '',
+        extraParams: state.params
+      };
     }
   },
   actions: {

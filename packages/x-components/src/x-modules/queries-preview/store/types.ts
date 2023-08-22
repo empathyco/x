@@ -95,6 +95,12 @@ export interface QueriesPreviewMutations {
    * @param selectedQueryPreview - The selected query preview to save to the state.
    */
   setSelectedQueryPreview(selectedQueryPreview: QueryPreviewInfo): void;
+
+  /**
+   * Resets the selected query preview of the module.
+   *
+   */
+  resetSelectedQueryPreview(selectedQueryPreview: any): void;
 }
 
 /**

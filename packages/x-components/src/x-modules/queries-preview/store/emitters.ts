@@ -8,10 +8,10 @@ import { queriesPreviewXStoreModule } from './module';
  */
 export const queriesPreviewEmitters = createStoreEmitters(queriesPreviewXStoreModule, {
   // Este solo para los initial
-  SetQueryPreviewParams: (_, getters) =>
-    getters.selectedQueryPreview?.extraParams
-      ? getters.selectedQueryPreview.extraParams
-      : getters.initialParams
+  SetQueryPreviewParams: {
+    selector: state => state.selectedQueryPreview.extraParams!
+  }
+
   //UserAcceptedAQuery: (_, getters) =>
   //  getters.selectedQueryPreview?.query ? getters.selectedQueryPreview.query : ''
 });
