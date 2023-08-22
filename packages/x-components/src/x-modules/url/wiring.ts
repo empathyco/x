@@ -23,6 +23,16 @@ export const setUrlRelatedTags = wireCommit('setRelatedTags');
 export const setUrlQuery = wireCommit('setQuery');
 
 /**
+ * Sets the url state `query` but this query comes from a selected query preview.
+ *
+ * @public
+ */
+export const setUrlQueryFromQueryPreview = wireCommit(
+  'setQuery',
+  ({ eventPayload: { query } }) => query
+);
+
+/**
  * Sets the page of the url module.
  *
  * @public
@@ -42,6 +52,16 @@ export const setUrlSort = wireCommit('setSort');
  * @public
  */
 export const setParams = wireCommit('setParams');
+
+/**
+ * Sets the url state `params` but these are provided from the selected query preview.
+ *
+ * @public
+ */
+export const setUrlParamsFromQueryPreview = wireCommit(
+  'setParams',
+  ({ eventPayload: { extraParams } }) => extraParams
+);
 
 /**
  * Sets the scroll of the url module.
@@ -99,5 +119,9 @@ export const urlWiring = createWiring({
   },
   UserScrolledToElement: {
     setUrlScroll
+  },
+  UserAcceptedAQueryPreview: {
+    setUrlQueryFromQueryPreview,
+    setUrlParamsFromQueryPreview
   }
 });

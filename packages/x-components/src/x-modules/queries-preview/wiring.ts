@@ -90,7 +90,7 @@ export const queriesPreviewWiring = createWiring({
     setQueriesPreviewExtraParamsWire
   },
   UserClickedCloseX: {
-    clearSelectedQueryDebounce: moduleDebounce(clearSelectedQueryPreviewWire, () => 500, {
+    clearSelectedQueryDebounce: moduleDebounce(clearSelectedQueryPreviewWire, () => 200, {
       cancelOn: 'UserAcceptedAQuery'
     })
   },
@@ -98,7 +98,7 @@ export const queriesPreviewWiring = createWiring({
     clearSelectedQueryDebounce: moduleDebounce(
       clearSelectedQueryPreviewWire,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ({ state }) => 2000,
+      ({ state }) => 200,
       { cancelOn: 'UserAcceptedAQuery' }
     )
   },
@@ -106,7 +106,7 @@ export const queriesPreviewWiring = createWiring({
     clearSelectedQueryDebounce: moduleDebounce(
       clearSelectedQueryPreviewWire,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ({ state }) => 2000,
+      ({ state }) => 200,
       { cancelOn: 'UserAcceptedAQuery' }
     )
   }

@@ -87,6 +87,16 @@ export const setRelatedTags = wireCommit('setRelatedTags');
 export const setSearchQuery = wireCommit('setQuery');
 
 /**
+ * Sets the search state `query` but this query comes from a selected query preview.
+ *
+ * @public
+ */
+export const setSearchQueryFromQueryPreview = wireCommit(
+  'setQuery',
+  ({ eventPayload: { query } }) => query
+);
+
+/**
  * Clears the search state `query`.
  *
  * @public
@@ -127,6 +137,16 @@ export const setSearchPage = wireCommit('setPage');
  * @public
  */
 export const setSearchExtraParams = wireCommit('setParams');
+
+/**
+ * Sets the search state `params` but these are provided from the selected query preview.
+ *
+ * @public
+ */
+export const setSearchExtraParamsFromQueryPreview = wireCommit(
+  'setParams',
+  ({ eventPayload: { extraParams } }) => extraParams
+);
 
 /**
  * Resets the search state `isNoResults`.
@@ -249,7 +269,8 @@ export const searchWiring = createWiring({
   UserClickedOutOfMainModal: {
     clearSearchQuery
   },
-  SetQueryPreviewParams: {
-    setSearchExtraParams
+  UserAcceptedAQueryPreview: {
+    setSearchQueryFromQueryPreview,
+    setSearchExtraParamsFromQueryPreview
   }
 });

@@ -39,12 +39,31 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleNa
 export const setRelatedTagsQuery = wireCommit('setQuery');
 
 /**
+ * Sets the related tags state `query` but this query comes from a selected query preview.
+ *
+ * @public
+ */
+export const setRelatedTagsQueryFromQueryPreview = wireCommit(
+  'setQuery',
+  ({ eventPayload: { query } }) => query
+);
+
+/**
  * Sets the related tags state `params`.
  *
  * @public
  */
 export const setRelatedTagsExtraParams = wireCommit('setParams');
 
+/**
+ * Sets the related tags state `params` but these are provided from the selected query preview.
+ *
+ * @public
+ */
+export const setRelatedTagsExtraParamsFromQueryPreview = wireCommit(
+  'setParams',
+  ({ eventPayload: { extraParams } }) => extraParams
+);
 /**
  * Requests and stores the related tags.
  *
@@ -125,7 +144,9 @@ export const relatedTagsWiring = createWiring({
   UserClickedOutOfMainModal: {
     clearRelatedTagsQuery
   },
-  SetQueryPreviewParams: {
-    setRelatedTagsExtraParams
+  UserAcceptedAQueryPreview: {
+    setRelatedTagsQueryFromQueryPreview,
+    clearSelectedRelatedTags,
+    setRelatedTagsExtraParamsFromQueryPreview
   }
 });
