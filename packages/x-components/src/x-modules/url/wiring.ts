@@ -50,6 +50,11 @@ export const setUrlSort = wireCommit('setSort');
  */
 export const setParams = wireCommit('setParams');
 
+/**
+ * Sets the extra params of the url module based on a queryPreview's extraParams.
+ *
+ * @public
+ */
 export const setParamsFromQueryPreview = wireCommit(
   'setParams',
   ({ eventPayload: { extraParams } }) => extraParams
