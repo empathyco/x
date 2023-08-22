@@ -50,9 +50,9 @@ export interface QueriesPreviewGetters {
    */
   loadedQueriesPreview: Dictionary<QueryPreviewItem>;
   /**
-   * The selected query preview from the state or null if user didn't select one.
+   * The selected query preview from the state.
    */
-  selectedQueryPreview: QueryPreviewInfo | null;
+  selectedQueryPreview: QueryPreviewInfo;
   /**
    * The initial params.
    */

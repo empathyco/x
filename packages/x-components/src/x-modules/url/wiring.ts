@@ -53,6 +53,11 @@ export const setUrlSort = wireCommit('setSort');
  */
 export const setParams = wireCommit('setParams');
 
+export const setParamsFromQueryPreview = wireCommit(
+  'setParams',
+  ({ eventPayload: { extraParams } }) => extraParams
+);
+
 /**
  * Sets the scroll of the url module.
  *
@@ -86,8 +91,9 @@ export const urlWiring = createWiring({
   UserAcceptedAQuery: {
     setUrlQuery
   },
-  UserAcceptedAQueryPreview: {
-    setUrlQueryFromQueryPreview
+  SelectedQueryPreviewChanged: {
+    setUrlQueryFromQueryPreview,
+    setParamsFromQueryPreview
   },
   UserClearedQuery: {
     setUrlQuery
@@ -109,9 +115,6 @@ export const urlWiring = createWiring({
   },
   ExtraParamsInitialized: {
     setInitialExtraParams
-  },
-  SelectedQueryPreviewParamsChanged: {
-    setParams
   },
   UserScrolledToElement: {
     setUrlScroll
