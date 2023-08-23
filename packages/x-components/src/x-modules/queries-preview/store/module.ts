@@ -4,7 +4,7 @@ import { fetchQueryPreview } from './actions/fetch-query-preview.action';
 import { fetchAndSaveQueryPreview } from './actions/fetch-and-save-query-preview.action';
 import { loadedQueriesPreview } from './getters/loaded-queries-preview.getter';
 import { selectedQueryPreview } from './getters/selected-query-preview.getter';
-import { initialParams } from './getters/initial-params.getter';
+import { params } from './getters/params.getter';
 
 /**
  * {@link XStoreModule} For the `queries-preview` module.
@@ -24,7 +24,7 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     },
     params: {}
   }),
-  getters: { loadedQueriesPreview, selectedQueryPreview, initialParams },
+  getters: { loadedQueriesPreview, selectedQueryPreview, params },
   mutations: {
     clearQueryPreview(state, query) {
       Vue.delete(state.queriesPreview, query);

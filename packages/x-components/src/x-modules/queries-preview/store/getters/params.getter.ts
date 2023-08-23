@@ -1,7 +1,7 @@
 import { QueriesPreviewXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link QueriesPreviewGetters.initialParams} getter.
+ * Default implementation for the {@link QueriesPreviewGetters.params} getter.
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the queries
  * preview module.
@@ -13,7 +13,7 @@ import { QueriesPreviewXStoreModule } from '../types';
  * @public
  */
 
-export const initialParams: QueriesPreviewXStoreModule['getters']['initialParams'] = ({
+export const params: QueriesPreviewXStoreModule['getters']['params'] = ({
   params,
   selectedQueryPreview
 }) => {

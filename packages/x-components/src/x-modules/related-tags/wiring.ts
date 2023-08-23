@@ -145,9 +145,11 @@ export const relatedTagsWiring = createWiring({
   UserClickedOutOfMainModal: {
     clearRelatedTagsQuery
   },
-  SelectedQueryPreviewChanged: {
+  UserAcceptedAQueryPreview: {
     setRelatedTagsQueryPreview,
-    clearSelectedRelatedTags,
+    clearSelectedRelatedTags
+  },
+  SelectedQueryPreviewParamsChanged: {
     setRelatedTagsExtraParamsFromQueryPreview
   }
 });

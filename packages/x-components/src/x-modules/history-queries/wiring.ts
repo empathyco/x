@@ -163,6 +163,10 @@ export const historyQueriesWiring = createWiring({
     setHistoryQueriesQuery,
     addQueryToHistoryQueries
   },
+  UserAcceptedAQueryPreview: {
+    setHistoryQueriesQueryPreview,
+    addQueryPreviewToHistoryQueries
+  },
   UserIsTypingAQuery: {
     setHistoryQueriesQueryDebounce: moduleDebounce(
       setHistoryQueriesQuery,
@@ -190,9 +194,5 @@ export const historyQueriesWiring = createWiring({
   },
   SearchResponseChanged: {
     updateHistoryQueriesWithSearchResponse
-  },
-  SelectedQueryPreviewChanged: {
-    setHistoryQueriesQueryPreview,
-    addQueryPreviewToHistoryQueries
   }
 });

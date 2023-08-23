@@ -54,9 +54,9 @@ export interface QueriesPreviewGetters {
    */
   selectedQueryPreview: QueryPreviewInfo;
   /**
-   * The initial params.
+   * The params to load when a selectedQueryPreview changes.
    */
-  initialParams: Dictionary<unknown>;
+  params: Dictionary<unknown>;
 }
 
 /**

@@ -93,10 +93,6 @@ export const urlWiring = createWiring({
   UserAcceptedAQuery: {
     setUrlQuery
   },
-  SelectedQueryPreviewChanged: {
-    setUrlQueryPreview,
-    setParamsFromQueryPreview
-  },
   UserClearedQuery: {
     setUrlQuery
   },
@@ -120,5 +116,11 @@ export const urlWiring = createWiring({
   },
   UserScrolledToElement: {
     setUrlScroll
+  },
+  UserAcceptedAQueryPreview: {
+    setUrlQueryPreview
+  },
+  SelectedQueryPreviewParamsChanged: {
+    setParamsFromQueryPreview
   }
 });

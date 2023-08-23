@@ -139,8 +139,10 @@ export const querySuggestionsWiring = createWiring({
   UserClickedOutOfMainModal: {
     clearQuerySuggestionsQuery
   },
-  SelectedQueryPreviewChanged: {
-    setQuerySuggestionsQueryPreview,
+  UserAcceptedAQueryPreview: {
+    setQuerySuggestionsQueryPreview
+  },
+  SelectedQueryPreviewParamsChanged: {
     setQuerySuggestionsExtraParamsFromQueryPreview
   }
 });

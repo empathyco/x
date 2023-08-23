@@ -148,9 +148,11 @@ export const identifierResultsWiring = createWiring({
   UserClickedOutOfMainModal: {
     clearIdentifierResultsQuery
   },
-  SelectedQueryPreviewChanged: {
+  UserAcceptedAQueryPreview: {
     setIdentifierResultsQueryPreview,
-    saveIdentifierResultsOriginWire,
+    saveIdentifierResultsOriginWire
+  },
+  SelectedQueryPreviewParamsChanged: {
     setIdentifierResultsExtraParamsFromQueryPreview
   }
 });
