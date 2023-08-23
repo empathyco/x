@@ -37,7 +37,7 @@
   export default defineComponent({
     props: {
       /**
-       * (Required) The {@link @empathyco/x-types#Result | result} information.
+       * (Required) The {@link @empathyco/x-types#Result} information.
        *
        * @public
        */

@@ -74,7 +74,7 @@
     public clickEvents?: Partial<XEventsTypes>;
 
     /**
-     * The {@link XEventsTypes | events} to emit.
+     * The {@link XEventsTypes} to emit.
      *
      * @returns The events to emit when clicked.
      * @internal

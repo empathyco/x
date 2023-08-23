@@ -33,7 +33,7 @@
 
   /**
    * Renders a list with a list item per each
-   * {@link @empathyco/x-types#BooleanFilter | BooleanFilter} in the filters prop array.
+   * {@link @empathyco/x-types#BooleanFilter} in the filters prop array.
    * Each list item has a scoped slot, passing the filter as slot prop.
    *
    * @public

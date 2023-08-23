@@ -106,7 +106,7 @@
     public clickEvents!: Partial<XEventsTypes>;
 
     /**
-     * The {@link XEventsTypes | events} to emit.
+     * The {@link XEventsTypes} to emit.
      *
      * @returns The events to emit when clicked.
      * @internal
@@ -134,7 +134,7 @@
 
     /**
      * Gets the child filter click events, converting the payload of the events that have a
-     * {@link @empathyco/x-types#HierarchicalFilter} as payload to the corresponding child filter.
+     * {@link HierarchicalFilter} as payload to the corresponding child filter.
      *
      * @param childFilter - The child filter.
      * @returns The events to emit when clicking a child.

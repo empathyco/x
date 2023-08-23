@@ -44,7 +44,7 @@
      * @remarks
      * {@link HistoryQueriesXEvents.UserPressedRemoveHistoryQuery}: historyQuery
      *
-     * @returns The {@link XEvent | XEvents} to emit.
+     * @returns The {@link XEvent} to emit.
      * @public
      */
     protected get removeHistoryQueryEvent(): Partial<XEventsTypes> {

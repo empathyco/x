@@ -20,7 +20,7 @@
   import BaseCurrency from '../currency/base-currency.vue';
 
   /**
-   * Component that renders the {@link @empathyco/x-types#Result | result} previous price.
+   * Component that renders the {@link @empathyco/x-types#Result} previous price.
    *
    * @public
    */
@@ -28,7 +28,7 @@
     components: { BaseCurrency },
     props: {
       /**
-       * (Required) The {@link @empathyco/x-types#Result | result} information.
+       * (Required) The {@link @empathyco/x-types#Result} information.
        *
        * @public
        */

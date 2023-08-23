@@ -48,7 +48,7 @@
     protected animation!: Vue;
 
     /**
-     * Array of {@link XEvent | xEvents} to open the empathize.
+     * Array of {@link XEvent} to open the empathize.
      *
      * @public
      */
@@ -56,7 +56,7 @@
     protected eventsToOpenEmpathize!: XEvent[];
 
     /**
-     * Array of {@link XEvent | xEvents} to close the empathize.
+     * Array of {@link XEvent} to close the empathize.
      *
      * @public
      */
@@ -92,7 +92,7 @@
     protected hasContent = false;
 
     /**
-     * The Vue lifecycle hook {@link https://vuex.vuejs.org/guide/state.html | updated} is called
+     * The Vue lifecycle hook [https://vuex.vuejs.org/guide/state.html](updated) is called
      * after a data change causes the virtual DOM to be re-rendered and patched. Using it to detect
      * if the default slot content has been replaced.
      *
@@ -137,11 +137,11 @@
 
     /**
      * Changes the state of {@link Empathize.isOpen} assigning to it the value of `newOpenState`
-     * parameter. Also emits the {@link XEvent | XEvents} `EmpathizeOpened` or `EmpathizeClosed` if
+     * parameter. Also emits the {@link XEvent} `EmpathizeOpened` or `EmpathizeClosed` if
      * the state really changes.
      *
      * @param newOpenState - The new state to assign to {@link Empathize.isOpen}.
-     * @param metadata - The {@link WireMetadata} to emit the {@link XEvent | XEvents}. If it is
+     * @param metadata - The {@link WireMetadata} to emit the {@link XEvent}. If it is
      * undefined, this component is used as source of info for the metadata.
      *
      * @internal

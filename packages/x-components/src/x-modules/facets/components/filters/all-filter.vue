@@ -29,7 +29,7 @@
 
   /**
    * This component receives a required `facet` with
-   * {@link @empathyco/x-types#BooleanFilter | BooleanFilter} as prop and renders a button, which
+   * {@link @empathyco/x-types#BooleanFilter} as prop and renders a button, which
    * on clicked emits the {@link FacetsXEvents.UserClickedAllFilter} event. By default
    * the rendered button displays a message with the facet label but this content is customizable
    * through the default slot.

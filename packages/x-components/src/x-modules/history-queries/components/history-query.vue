@@ -84,7 +84,7 @@
      * The list of events that are going to be emitted when the suggestion button is pressed.
      *
      * @internal
-     * @returns The {@link XEvent | XEvents} to emit.
+     * @returns The {@link XEvent} to emit.
      */
     protected get suggestionSelectedEvents(): Partial<XEventsTypes> {
       return {

@@ -34,7 +34,7 @@
 
     /**
      * The facets to provide to the `Facets X-Module` state. They have to include the
-     * {@link @empathyco/x-types#Filter | filters}.
+     * {@link @empathyco/x-types#Filter}.
      *
      * @internal
      */
@@ -123,7 +123,7 @@
 
 This component allows to provide facets by prop, to add them to the state of the `Facets X-Module`.
 These facets will be added to the `Facets X-Module` state together with the facets emitted by the
-`Search X-Module` through the {@link SearchXEvents.FacetsChanged} event.
+`Search X-Module` through the `SearchXEvents.FacetsChanged` event.
 
 ```vue
 <template>

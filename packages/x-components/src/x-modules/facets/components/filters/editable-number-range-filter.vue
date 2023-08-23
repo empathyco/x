@@ -201,7 +201,7 @@
     }
 
     /**
-     * Returns {@link @empathyco/x-types#RangeValue | RangeValue} with component min and max
+     * Returns {@link @empathyco/x-types#RangeValue} with component min and max
      * values.
      *
      * @returns Range value object with component values.
