@@ -84,16 +84,6 @@ export const setTotalResultsFromSearchResponseChangedWire = mapWire<
 export const setSemanticQueriesExtraParamsWire = wireCommit('setParams');
 
 /**
- * Sets the semantic queries state `params` based on a QueryPreview extraParams.
- *
- * @public
- */
-export const setSemanticQueriesExtraParamsFromQueryPreview = wireCommit(
-  'setParams',
-  ({ eventPayload: { extraParams } }) => extraParams
-);
-
-/**
  * Wiring configuration for the {@link SemanticQueriesXModule | semanticQueries module}.
  *
  * @internal
@@ -111,8 +101,5 @@ export const semanticQueriesWiring = createWiring({
   SearchResponseChanged: {
     setQueryFromSearchResponseChangedWire,
     setTotalResultsFromSearchResponseChangedWire
-  },
-  SelectedQueryPreviewChanged: {
-    setSemanticQueriesExtraParamsFromQueryPreview
   }
 });

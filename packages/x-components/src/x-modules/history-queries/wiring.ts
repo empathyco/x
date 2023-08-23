@@ -57,7 +57,7 @@ export const addQueryPreviewToHistoryQueries = wireDispatch(
 export const setHistoryQueriesQuery = wireCommit('setQuery');
 
 /**
- * Sets the query of the history queries module based on a queryPreview.
+ * Sets the query of the history queries module from a selectedQueryPreview's query.
  * Used for searching into the history queries.
  *
  * @public
@@ -191,7 +191,7 @@ export const historyQueriesWiring = createWiring({
   SearchResponseChanged: {
     updateHistoryQueriesWithSearchResponse
   },
-  SelectedQueryPreviewChanged: {
+  UserAcceptedAQueryPreview: {
     setHistoryQueriesQueryPreview,
     addQueryPreviewToHistoryQueries
   }

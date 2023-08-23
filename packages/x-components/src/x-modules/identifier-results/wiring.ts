@@ -40,7 +40,7 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleNa
 export const setIdentifierResultsQuery = wireDispatch('saveQuery');
 
 /**
- * Sets the identifier-results module query based on a QueryPreview query.
+ * Sets the identifier-results module query from a selectedQueryPreview's query.
  *
  * @public
  */
@@ -97,16 +97,6 @@ export const saveIdentifierResultsOriginWire = wireDispatch(
 export const setIdentifierResultsExtraParams = wireCommit('setParams');
 
 /**
- * Sets the identifier result state `params` based on a QueryPreview extraParams.
- *
- * @public
- */
-export const setIdentifierResultsExtraParamsFromQueryPreview = wireCommit(
-  'setParams',
-  ({ eventPayload: { extraParams } }) => extraParams
-);
-
-/**
  * Debounce function for the module.
  */
 const moduleDebounce = namespacedDebounce(moduleName);
@@ -148,9 +138,8 @@ export const identifierResultsWiring = createWiring({
   UserClickedOutOfMainModal: {
     clearIdentifierResultsQuery
   },
-  SelectedQueryPreviewChanged: {
+  UserAcceptedAQueryPreview: {
     setIdentifierResultsQueryPreview,
-    saveIdentifierResultsOriginWire,
-    setIdentifierResultsExtraParamsFromQueryPreview
+    saveIdentifierResultsOriginWire
   }
 });

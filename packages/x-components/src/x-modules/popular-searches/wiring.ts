@@ -4,6 +4,7 @@ import {
 } from '../../wiring/namespaced-wires.factory';
 import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
+import { setSelectedQueryPreviewParamsWire } from '../search/index';
 
 /**
  * `popularSearches` {@link XModuleName | XModule name}.
@@ -12,7 +13,7 @@ import { createWiring } from '../../wiring/wiring.utils';
  */
 const moduleName = 'popularSearches';
 /**
- * WireDispatchfor {@link PopularSearchesXModule}.
+ * WireDispatch for {@link PopularSearchesXModule}.
  *
  * @internal
  */
@@ -47,16 +48,6 @@ export const setSearchedQueriesInPopularSearches = wireCommit('setSearchedQuerie
 export const setPopularSearchesExtraParams = wireCommit('setParams');
 
 /**
- * Sets the popular searches state `params` based on a QueryPreview extraParams.
- *
- * @public
- */
-export const setPopularSearchesExtraParamsFromQueryPreview = wireCommit(
-  'setParams',
-  ({ eventPayload: { extraParams } }) => extraParams
-);
-
-/**
  * Wiring configuration for the popular searches modules.
  *
  * @internal
@@ -72,6 +63,6 @@ export const popularSearchesWiring = createWiring({
     setPopularSearchesExtraParams
   },
   SelectedQueryPreviewChanged: {
-    setPopularSearchesExtraParamsFromQueryPreview
+    setSelectedQueryPreviewParamsWire
   }
 });

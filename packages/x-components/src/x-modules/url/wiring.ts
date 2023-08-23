@@ -23,7 +23,7 @@ export const setUrlRelatedTags = wireCommit('setRelatedTags');
 export const setUrlQuery = wireCommit('setQuery');
 
 /**
- * Sets the url state `query` but this query comes from a selected query preview.
+ * Sets the url state `query` with a selectedQueryPreview's query.
  *
  * @public
  */
@@ -51,7 +51,7 @@ export const setUrlSort = wireCommit('setSort');
 export const setParams = wireCommit('setParams');
 
 /**
- * Sets the extra params of the url module based on a queryPreview's extraParams.
+ * Sets the extra params of the url module from a selectedQueryPreview's extraParams.
  *
  * @public
  */
@@ -93,7 +93,7 @@ export const urlWiring = createWiring({
   UserAcceptedAQuery: {
     setUrlQuery
   },
-  SelectedQueryPreviewChanged: {
+  UserAcceptedAQueryPreview: {
     setUrlQueryPreview,
     setParamsFromQueryPreview
   },
