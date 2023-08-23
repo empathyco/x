@@ -498,6 +498,7 @@
   import SemanticQueries from '../../x-modules/semantic-queries/components/semantic-queries.vue';
   import SemanticQuery from '../../x-modules/semantic-queries/components/semantic-query.vue';
   import { useQueriesPreview } from '../../x-modules/queries-preview/composables/use-queries-preview.composable';
+  import { QueryPreviewInfo } from '../../x-installer';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -617,17 +618,23 @@
       }
     };
 
-    protected queriesPreviewInfo = [
+    protected queriesPreviewInfo: QueryPreviewInfo[] = [
       {
         query: 'sunglasses',
-        extraParams: { store: 'gijón' }
+        extraParams: { store: 'Gijón' }
       },
       {
-        query: 'marni summer dress',
-        extraParams: { store: 'barcelona' }
+        query: 'marni summer dress'
       },
       {
         query: 'woven hat'
+      },
+      {
+        query: 'jeans',
+        extraParams: { store: 'Gijón' }
+      },
+      {
+        query: 't-shirt'
       }
     ];
 
