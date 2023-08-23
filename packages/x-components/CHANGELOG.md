@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.404](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.403...@empathyco/x-components@3.0.0-alpha.404) (2023-08-23)
+
+
+### Documentation
+
+* remove jsdoc [@links](https://github.com/links) from generated documentation (#1261) ([9082fb2](https://github.com/empathyco/x/commit/9082fb2a9d2be89252cc58931d8b3035849a3123))
+
+
+
 ## [3.0.0-alpha.403](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.402...@empathyco/x-components@3.0.0-alpha.403) (2023-08-21)
 
 **Note:** Version bump only for package @empathyco/x-components
