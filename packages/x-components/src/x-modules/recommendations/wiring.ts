@@ -37,6 +37,11 @@ const fetchAndSaveRecommendations = wireDispatch('fetchAndSaveRecommendations');
  */
 export const setRecommendationsExtraParams = wireCommit('setParams');
 
+export const setRecommendationsExtraParamsFromQueryPreview = wireCommit(
+  'setParams',
+  ({ eventPayload: { extraParams } }) => extraParams
+);
+
 /**
  * Wiring configuration for the {@link RecommendationsXModule | recommendations module}.
  *
@@ -49,5 +54,8 @@ export const recommendationsWiring = createWiring({
   UserClickedColumnPicker: {},
   ExtraParamsChanged: {
     setRecommendationsExtraParams
+  },
+  SelectedQueryPreviewChanged: {
+    setRecommendationsExtraParamsFromQueryPreview
   }
 });
