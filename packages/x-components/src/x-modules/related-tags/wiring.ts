@@ -148,8 +148,5 @@ export const relatedTagsWiring = createWiring({
   UserAcceptedAQueryPreview: {
     setRelatedTagsQueryPreview,
     clearSelectedRelatedTags
-  },
-  SelectedQueryPreviewParamsChanged: {
-    setRelatedTagsExtraParamsFromQueryPreview
   }
 });

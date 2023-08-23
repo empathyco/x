@@ -70,8 +70,5 @@ export const popularSearchesWiring = createWiring({
   },
   ExtraParamsChanged: {
     setPopularSearchesExtraParams
-  },
-  SelectedQueryPreviewParamsChanged: {
-    setPopularSearchesExtraParamsFromQueryPreview
   }
 });

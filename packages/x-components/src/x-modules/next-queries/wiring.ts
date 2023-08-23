@@ -151,9 +151,7 @@ export const nextQueriesWiring = createWiring({
     fetchAndSaveNextQueryPreviewWire
   },
   UserAcceptedAQueryPreview: {
-    setNextQueriesQueryPreview
-  },
-  SelectedQueryPreviewParamsChanged: {
+    setNextQueriesQueryPreview,
     setNextQueriesExtraParamsFromQueryPreview
   }
 });

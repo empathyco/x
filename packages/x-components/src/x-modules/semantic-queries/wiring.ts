@@ -111,8 +111,5 @@ export const semanticQueriesWiring = createWiring({
   SearchResponseChanged: {
     setQueryFromSearchResponseChangedWire,
     setTotalResultsFromSearchResponseChangedWire
-  },
-  SelectedQueryPreviewParamsChanged: {
-    setSemanticQueriesExtraParamsFromQueryPreview
   }
 });

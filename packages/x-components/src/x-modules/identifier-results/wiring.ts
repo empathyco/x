@@ -151,8 +151,5 @@ export const identifierResultsWiring = createWiring({
   UserAcceptedAQueryPreview: {
     setIdentifierResultsQueryPreview,
     saveIdentifierResultsOriginWire
-  },
-  SelectedQueryPreviewParamsChanged: {
-    setIdentifierResultsExtraParamsFromQueryPreview
   }
 });

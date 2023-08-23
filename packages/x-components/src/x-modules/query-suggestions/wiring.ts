@@ -141,8 +141,5 @@ export const querySuggestionsWiring = createWiring({
   },
   UserAcceptedAQueryPreview: {
     setQuerySuggestionsQueryPreview
-  },
-  SelectedQueryPreviewParamsChanged: {
-    setQuerySuggestionsExtraParamsFromQueryPreview
   }
 });

@@ -118,9 +118,7 @@ export const urlWiring = createWiring({
     setUrlScroll
   },
   UserAcceptedAQueryPreview: {
-    setUrlQueryPreview
-  },
-  SelectedQueryPreviewParamsChanged: {
+    setUrlQueryPreview,
     setParamsFromQueryPreview
   }
 });
