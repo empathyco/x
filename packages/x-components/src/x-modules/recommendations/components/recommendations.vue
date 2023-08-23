@@ -112,8 +112,8 @@
 This component emits no events, but it makes components such as `BaseResultLink` emit additional
 events:
 
-- `UserClickedARecommendation`: the event is emitted after the user clicks the link of a
-  recommendation.
+- [`UserClickedARecommendation`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the link of a recommendation.
 
 ## See it in action
 

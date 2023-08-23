@@ -103,7 +103,9 @@
 <docs lang="mdx">
 ## Events
 
-This component emits the `NextQueryPreviewMountedHook` when it is mounted.
+This component emits the
+[`NextQueryPreviewMountedHook`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+when it is mounted.
 
 ## See it in action
 

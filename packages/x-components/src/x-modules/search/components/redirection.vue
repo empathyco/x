@@ -122,6 +122,15 @@
 <style lang="scss"></style>
 
 <docs lang="mdx">
+## Events
+
+This component emits the following events:
+
+- [`UserClickedARedirection`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+  after the user clicks the redirection button.
+- [`UserClickedAbortARedirection`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+  after the user clicks the abort redirection button.
+
 ## Play with the component
 
 In this example, a query has been searched in the search input resulting in a case where the
@@ -188,11 +197,4 @@ forcing the user to accept the redirection
   };
 </script>
 ```
-
-## Events
-
-This component emits the following events:
-
-- `UserClickedARedirection` after the user clicks the redirection button.
-- `UserClickedAbortARedirection` after the user clicks the abort redirection button.
 </docs>

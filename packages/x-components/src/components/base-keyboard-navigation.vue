@@ -145,6 +145,14 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+An event that the component will emit:
+
+- [`UserReachedEmpathizeTop`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event emitted by default when the container reaches its top navigation, but more events can be
+  emitted for each direction using the `eventsForDirectionLimit` prop.
+
 ## Examples
 
 This component has a slot to inject other components inside it. The component expects a required
@@ -200,12 +208,4 @@ reaching the navigation limit in any direction.
   <QuerySuggestions/>
 </KeyboardNavigation>
 ```
-
-## Events
-
-An event that the component will emit:
-
-- `UserReachedEmpathizeTop`: the event emitted by default when the container reaches its top
-  navigation, but more events can be emitted for each direction using the `eventsForDirectionLimit`
-  prop.
 </docs>

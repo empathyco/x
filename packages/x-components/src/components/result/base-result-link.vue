@@ -114,7 +114,7 @@
 
 This component emits the following event:
 
-- [`UserClickedAResult`](x-components.xeventstypes.userclickedaresult.md)
+- [`UserClickedAResult`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 The component can emit more events on click using the `resultClickExtraEvents` prop.
 

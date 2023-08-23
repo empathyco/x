@@ -65,6 +65,17 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+This component emits 2 different events:
+
+- [`UserAcceptedAQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the spellchecked query
+  data.
+- [`UserAcceptedSpellcheckQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the spellchecked query
+  data.
+
 ## Examples
 
 ### Basic example
@@ -87,13 +98,4 @@ and `UserAcceptedSpellcheckQuery` events.
   </template>
 </SpellcheckButton>
 ```
-
-## Events
-
-This component emits 2 different events:
-
-- UserAcceptedAQuery: the event is emitted after the user clicks the button. The event payload is
-  the spellchecked query data.
-- UserAcceptedSpellcheckQuery: the event is emitted after the user clicks the button. The event
-  payload is the spellchecked query data.
 </docs>

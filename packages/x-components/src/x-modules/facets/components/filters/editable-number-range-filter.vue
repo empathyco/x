@@ -334,6 +334,14 @@
 </style>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserModifiedEditableNumberRangeFilter`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  this event is emitted instantly after typing the value or clicking the submit button. The event
+  payload in both cases is an object containing the filter and the new value for the range.
+
 ## Example
 
 Renders an editable number range filter. It has two input fields to handle min and max values,
@@ -535,12 +543,4 @@ the component.
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserModifiedEditableNumberRangeFilter`: this event is emitted instantly after typing the value or
-  clicking the submit button. The event payload in both cases is an object containing the filter and
-  the new value for the range.
 </docs>

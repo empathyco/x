@@ -386,9 +386,9 @@
 
 This component emits the following events:
 
-- [`ParamsLoadedFromUrl`](./../../api/x-components.urlxevents.paramsloadedfromurl.md)
-- [`ExtraParamsLoadedFromUrl`](./../../api/x-components.urlxevents.extraparamsloadedfromurl.md)
-- [`UserOpenXProgrammatically`](./../../api/x-components.xeventstypes.useropenxprogrammatically.md)
+- [`ParamsLoadedFromUrl`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`ExtraParamsLoadedFromUrl`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserOpenXProgrammatically`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

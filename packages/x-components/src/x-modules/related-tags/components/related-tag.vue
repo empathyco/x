@@ -159,9 +159,9 @@
 
 This component emits the following events:
 
-- [`UserDeselectedARelatedTag`](./../../api/x-components.relatedtagsxevents.md)
-- [`UserPickedARelatedTag`](./../../api/x-components.relatedtagsxevents.md)
-- [`UserSelectedARelatedTag`](./../../api/x-components.relatedtagsxevents.md)
+- [`UserDeselectedARelatedTag`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserPickedARelatedTag`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserSelectedARelatedTag`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

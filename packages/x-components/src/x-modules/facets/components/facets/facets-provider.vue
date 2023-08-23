@@ -119,6 +119,17 @@
 </style>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserChangedSelectedFilters`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user performed an action that changed the selected filters. The
+  payload is the new list of selected filters.
+- [`FacetsGroupProvided`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after updating the facets prop with a new list of facets. The payload
+  contains a Facets Group with the facets and the group id.
+
 ## Example
 
 This component allows to provide facets by prop, to add them to the state of the `Facets X-Module`.
@@ -171,13 +182,4 @@ These facets will be added to the `Facets X-Module` state together with the face
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserChangedSelectedFilters`: the event is emitted after the user performed an action that changed
-  the selected filters. The payload is the new list of selected filters.
-- `FacetsGroupProvided`: the event is emitted after updating the facets prop with a new list of
-  facets. The payload contains a Facets Group with the facets and the group id.
 </docs>

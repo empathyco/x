@@ -82,7 +82,7 @@
 
 This component emits the following events:
 
-- [`UserClickedOutOfMainModal`](./../../api/x-components.xeventstypes.md)
+- [`UserClickedOutOfMainModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

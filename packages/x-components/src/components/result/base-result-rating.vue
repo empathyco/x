@@ -101,7 +101,7 @@
 
 This component emits the following events:
 
-- [`UserClickedAResultRating`](./../../api/x-components.searchboxxevents.md)
+- [`UserClickedAResultRating`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

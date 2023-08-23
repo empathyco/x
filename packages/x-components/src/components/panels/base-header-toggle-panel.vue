@@ -87,6 +87,13 @@
 </style>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- `open`: the event is emitted after the user clicks the element and opens it.
+- `close`: the event is emitted after the user clicks the element and closes it.
+
 ## Examples
 
 Toggle panel which uses the base toggle panel, adds a header and manage the open / close state of
@@ -136,14 +143,5 @@ The `headerClass` prop can be used to add classes to the header of the toggle pa
     <p>Default content</p>
   </template>
 </BaseHeaderTogglePanel>
-```
-
-## Events A list of events that the component will emit: - `open`: the event is emitted after the
-
-user clicks the element and opens it. - `close`: the event is emitted after the user clicks the
-element and closes it.
-
-```
-
 ```
 </docs>

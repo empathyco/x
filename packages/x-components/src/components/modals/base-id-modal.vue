@@ -94,6 +94,14 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserClickedOutOfModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks outside the modal. The event payload is the id of the
+  modal and a metadata with the target element that emitted it.
+
 ## Examples
 
 The `BaseIdModal` component reacts to the `UserClickedOpenModal`, `UserClickedCloseModal` and
@@ -160,11 +168,4 @@ The `contentClass` prop can be used to add classes to the modal content.
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedOutOfModal`: the event is emitted after the user clicks outside the modal. The event
-  payload is the id of the modal and a metadata with the target element that emitted it.
 </docs>

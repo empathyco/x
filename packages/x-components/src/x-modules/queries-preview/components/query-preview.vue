@@ -249,8 +249,9 @@
 
 A list of events that the component will emit:
 
-- `QueryPreviewRequestUpdated`: the event is emitted when the component is mounted and when the
-  properties of the request object changes. The event payload is the `queryPreviewRequest` object.
+- [`QueryPreviewRequestUpdated`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted when the component is mounted and when the properties of the request object
+  changes. The event payload is the `queryPreviewRequest` object.
 
 ## Vue Events
 

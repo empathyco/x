@@ -43,7 +43,7 @@
 
 This component emits the following events:
 
-- [`UserClickedOpenX`](./../../api/x-components.xeventstypes.md)
+- [`UserClickedOpenX`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

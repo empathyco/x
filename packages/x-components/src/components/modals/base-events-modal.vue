@@ -115,6 +115,16 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserClickedCloseEventsModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after clicking outside the content rendered in the default slot.
+- [`UserClickedOutOfEventsModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after clicking outside the modal.
+- Custom events to open or close the modal.
+
 ## Examples
 
 The `BaseEventsModal` component handles the modal open/close state via the events passed via props.
@@ -220,13 +230,4 @@ The `contentClass` prop can be used to add classes to the modal content.
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedCloseEventsModal`: the event is emitted after clicking outside the content rendered in
-  the default slot.
-- `UserClickedOutOfEventsModal`: the event is emitted after clicking outside the modal.
-- Custom events to open or close the modal.
 </docs>

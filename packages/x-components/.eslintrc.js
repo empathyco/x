@@ -16,6 +16,19 @@ module.exports = {
       rules: {
         'max-len': 'off'
       }
+    },
+    {
+      files: 'src/**/*.vue',
+      rules: {
+        'max-len': [
+          'error',
+          {
+            code: 100,
+            ignoreComments: false,
+            ignorePattern: 'https://github'
+          }
+        ]
+      }
     }
   ]
 };

@@ -70,7 +70,9 @@
 
 This component emits the following events:
 
-- [`UserSelectedAQuerySuggestion`] (./../../api/x-components.querysuggestionsxevents.md)
+- [`UserSelectedAQuerySuggestion`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the query suggestion
+  data.
 
 ## See it in action
 

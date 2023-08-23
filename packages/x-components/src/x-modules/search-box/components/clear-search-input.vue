@@ -65,8 +65,8 @@
 
 This component emits the following events:
 
-- [`UserPressedClearSearchBoxButton`](./../../api/x-components.searchboxxevents.md)
-- [`UserClearedQuery`](./../../api/x-components.searchboxxevents.md)
+- [`UserPressedClearSearchBoxButton`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserClearedQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

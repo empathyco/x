@@ -180,12 +180,14 @@
 
 This component emits the following events:
 
-- `UserAcceptedAQuery`: the event is emitted after the user clicks the button. The event payload is
-  the suggestion query data.
-- `UserSelectedASuggestion`: the event is emitted after the user clicks the button. The event
-  payload is the suggestion data.
-- `UserClickedAFilter`: the event is emitted after the user clicks the button if the suggestion
-  includes a filter. The event payload is the suggestion filter.
+- [`UserAcceptedAQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the suggestion query
+  data.
+- [`UserSelectedASuggestion`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the suggestion data.
+- [`UserClickedAFilter`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button if the suggestion includes a filter. The
+  event payload is the suggestion filter.
 - The component can emit more events on click using the `suggestionSelectedEvents` prop.
 
 ## See it in action

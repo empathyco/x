@@ -145,7 +145,7 @@
 
 This component emits the following events:
 
-- [`DeviceProvided`](./../../api/x-components.devicexevents.md)
+- [`DeviceProvided`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 
