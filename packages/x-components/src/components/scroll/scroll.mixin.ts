@@ -28,7 +28,7 @@ export default class ScrollMixin extends Vue {
   @Prop({ default: 100 })
   public distanceToBottom!: number;
   /**
-   * Positive vertical distance to still consider that the an element is the first one visible.
+   * Positive vertical distance to still consider that the element is the first one visible.
    * For example, if set to 100, after scrolling 100 pixels, the first rendered element
    * will still be considered the first one.
    */
@@ -137,9 +137,9 @@ export default class ScrollMixin extends Vue {
   }
 
   /**
-   * Returns distance missing to end position position.
+   * Returns distance missing to endPosition position.
    *
-   * @returns A number for knowing the distance missing to end position position.
+   * @returns A number for knowing the distance missing to endPosition position.
    * @internal
    */
   protected get distanceToEnd(): number {
