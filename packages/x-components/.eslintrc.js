@@ -19,7 +19,7 @@ module.exports = {
           {
             code: 100,
             ignoreComments: false,
-            ignorePattern: '(https://github) | (class=".*"$)'
+            ignorePattern: '|class=".*"$ |https://github'
           }
         ]
       }
