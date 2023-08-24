@@ -33,23 +33,22 @@ import { WireMetadata } from './wiring.types';
  * you arrived here from eDocs portal, please find the event you are looking for in the specific
  * module. In the following links you will find the events that are special for each module:
  *
- * [DeviceXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/device/events.types.ts)
- * [EmpathizeXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/empathize/events.types.ts)
- * [ExtraParamsXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/extra-params/events.types.ts)
- * [FacetsXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/facets/events.types.ts)
- * [HistoryQueriesXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/history-queries/events.types.ts)
- * [IdentifierResultsXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/identifier-results/events.types.ts)
- * [NextQueriesXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/next-queries/events.types.ts)
- * [PopularSearchesXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/popular-searches/events.types.ts)
- * [QueriesPreviewXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/queries-preview/events.types.ts)
- * [QuerySuggestionsXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/query-suggestions/events.types.ts)
- * [RecommendationsXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/recommendations/events.types.ts)
- * [RelatedTagsXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/related-tags/events.types.ts)
- * [ScrollXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/scroll/events.types.ts)
- * [SearchBoxXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/search-box/events.types.ts)
- * [SearchXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/search/events.types.ts)
- * [TaggingXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/tagging/events.types.ts)
- * [UrlXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/url/events.types.ts)
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/device/events.types.ts | DeviceXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/empathize/events.types.ts | EmpathizeXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/facets/events.types.ts | FacetsXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/history-queries/events.types.ts | HistoryQueriesXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/identifier-results/events.types.ts | IdentifierResultsXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/next-queries/events.types.ts | NextQueriesXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/popular-searches/events.types.ts | PopularSearchesXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/queries-preview/events.types.ts | QueriesPreviewXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/query-suggestions/events.types.ts | QuerySuggestionsXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/recommendations/events.types.ts | RecommendationsXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/related-tags/events.types.ts | RelatedTagsXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/scroll/events.types.ts | ScrollXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/search-box/events.types.ts | SearchBoxXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/search/events.types.ts | SearchXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/tagging/events.types.ts | TaggingXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/url/events.types.ts | UrlXEvents}
  *
  * @public
  */
