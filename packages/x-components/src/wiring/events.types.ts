@@ -21,31 +21,35 @@ import { UrlXEvents } from '../x-modules/url/events.types';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { SemanticQueriesXEvents } from '../x-modules/semantic-queries/events.types';
 import { WireMetadata } from './wiring.types';
-
-/**
+/* eslint-disable max-len */
+/**.
  * Dictionary of all the {@link XEvent | XEvents}, where each key is the event name, and the value
- * is the event payload type or `void` if it has no payload.
+ * is the event payload type or `void` if it has no payload. All the events listed in this file are
+ * common to all X components modules, so they might be fired by components of any module.
+ *
  *
  * @remarks
- * Aside from common {@link XEvent | XEvents}, this interface also extends the different XModule's
- * XEventsTypes:
- * {@link DeviceXEvents}
- * {@link EmpathizeXEvents}
- * {@link ExtraParamsXEvents}
- * {@link FacetsXEvents}
- * {@link HistoryQueriesXEvents}
- * {@link IdentifierResultsXEvents}
- * {@link NextQueriesXEvents}
- * {@link PopularSearchesXEvents}
- * {@link QueriesPreviewXEvents},
- * {@link QuerySuggestionsXEvents},
- * {@link RecommendationsXEvents}
- * {@link RelatedTagsXEvents}
- * {@link ScrollXEvents},
- * {@link SearchBoxXEvents}
- * {@link SearchXEvents}
- * {@link TaggingXEvents}
- * {@link UrlXEvents}
+ * Aside from common events, this interface also extends the different XModule's XEventsTypes. If
+ * you arrived here from eDocs portal, please find the event you are looking for in the specific
+ * module. In the following links you will find the events that are special for each module:
+ *
+ * [DeviceXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/device/events.types.ts)
+ * [EmpathizeXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/empathize/events.types.ts)
+ * [ExtraParamsXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/extra-params/events.types.ts)
+ * [FacetsXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/facets/events.types.ts)
+ * [HistoryQueriesXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/history-queries/events.types.ts)
+ * [IdentifierResultsXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/identifier-results/events.types.ts)
+ * [NextQueriesXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/next-queries/events.types.ts)
+ * [PopularSearchesXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/popular-searches/events.types.ts)
+ * [QueriesPreviewXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/queries-preview/events.types.ts)
+ * [QuerySuggestionsXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/query-suggestions/events.types.ts)
+ * [RecommendationsXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/recommendations/events.types.ts)
+ * [RelatedTagsXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/related-tags/events.types.ts)
+ * [ScrollXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/scroll/events.types.ts)
+ * [SearchBoxXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/search-box/events.types.ts)
+ * [SearchXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/search/events.types.ts)
+ * [TaggingXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/tagging/events.types.ts)
+ * [UrlXEvents](https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/url/events.types.ts)
  *
  * @public
  */
