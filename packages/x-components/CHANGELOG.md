@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.406](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.405...@empathyco/x-components@3.0.0-alpha.406) (2023-08-25)
+
+
+### Features
+
+* standardise all events links in component docs section (#1265) ([ff90da2](https://github.com/empathyco/x/commit/ff90da215d5c16b01f226a85d8656d10817521d0))
+
+
+
 ## [3.0.0-alpha.405](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.404...@empathyco/x-components@3.0.0-alpha.405) (2023-08-25)
 
 **Note:** Version bump only for package @empathyco/x-components
