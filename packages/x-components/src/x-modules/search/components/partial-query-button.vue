@@ -60,6 +60,17 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+This component emits 2 different events:
+
+- [`UserAcceptedAQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the partial query. The event payload is the partial
+  query data.
+- [`UserClickedPartialQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the partial query. The event payload is the partial
+  query data.
+
 ## Examples
 
 ### Basic example
@@ -100,13 +111,4 @@ The component sets the current query as the new query and emits the `UserAccepte
   };
 </script>
 ```
-
-## Events
-
-This component emits 2 different events:
-
-- UserAcceptedAQuery: the event is emitted after the user clicks the partial query. The event
-  payload is the partial query data.
-- UserClickedPartialQuery: the event is emitted after the user clicks the partial query. The event
-  payload is the partial query data.
 </docs>

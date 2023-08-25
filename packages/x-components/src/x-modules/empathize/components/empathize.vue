@@ -161,6 +161,17 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`EmpathizeOpened`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after receiving an event to change the state `isOpen` to `true`. The event
+  payload is undefined and can have a metadata with the module and the element that emitted it.
+- [`EmpathizeClosed`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after receiving an event to change the state `isOpen` to `false`. The event
+  payload is undefined and can have a metadata with the module and the element that emitted it.
+
 ## Examples
 
 This component will listen to the configured events in `eventsToOpenEmpathize` and
@@ -212,15 +223,4 @@ be a Component with a `Transition` with a slot inside:
   </template>
 </Empathize>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `EmpathizeOpened`: the event is emitted after receiving an event to change the state `isOpen` to
-  `true`. The event payload is undefined and can have a metadata with the module and the element
-  that emitted it.
-- `EmpathizeClosed`: the event is emitted after receiving an event to change the state `isOpen` to
-  `false`. The event payload is undefined and can have a metadata with the module and the element
-  that emitted it.
 </docs>

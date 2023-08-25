@@ -61,6 +61,14 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserSelectedAPopularSearch`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the popular search
+  data.
+
 ## Examples
 
 This components expects just a suggestion as a prop to be rendered. It has a slot to override the
@@ -127,11 +135,4 @@ content. By default, it renders the suggestion query of the popular search.
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserSelectedAPopularSearch`: the event is emitted after the user clicks the button. The event
-  payload is the popular search data.
 </docs>

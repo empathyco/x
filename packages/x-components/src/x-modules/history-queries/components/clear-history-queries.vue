@@ -78,6 +78,13 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserPressedClearHistoryQueries`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button.
+
 ## Examples
 
 ### Basic example
@@ -111,10 +118,4 @@ The component exposes a single default slot, where you can add icons or text.
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserPressedClearHistoryQueries`: the event is emitted after the user clicks the button.
 </docs>

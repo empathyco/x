@@ -71,8 +71,9 @@
 
 A list of events that the component will emit:
 
-- `UserClickedCloseModal`: the event is emitted after the user clicks the button. The event payload
-  is the id of the modal that is going to be closed.
+- [`UserClickedCloseModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the id of the modal
+  that is going to be closed.
 
 ## Examples
 

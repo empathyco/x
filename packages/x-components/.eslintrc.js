@@ -12,6 +12,19 @@ module.exports = {
   },
   overrides: [
     {
+      files: 'src/**/*.vue',
+      rules: {
+        'max-len': [
+          'error',
+          {
+            code: 100,
+            ignoreComments: false,
+            ignorePattern: '|class=".*"$ |https://github'
+          }
+        ]
+      }
+    },
+    {
       files: 'src/components/icons/*.vue',
       rules: {
         'max-len': 'off'

@@ -55,6 +55,13 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserClickedResultAddToCart`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the result data.
+
 ## Examples
 
 Renders a button with a default slot. It receives the result with the data and emits an event
@@ -70,11 +77,4 @@ This component is a button to emit `UserClickedResultAddToCart` whe clicked by t
   <span>Add to cart</span>
 </BaseResultAddToCart>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedResultAddToCart`: the event is emitted after the user clicks the button. The event
-  payload is the result data.
 </docs>

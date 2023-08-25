@@ -144,7 +144,7 @@
 
 A list of events that the component will emit:
 
-[`UserSelectedAResultVariant`](./../../api/x-components.userselectedaresultvariant.md).
+- [`UserSelectedAResultVariant`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

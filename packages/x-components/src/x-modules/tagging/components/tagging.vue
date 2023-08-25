@@ -120,8 +120,8 @@
 
 This component emits the following events:
 
-- [`ConsentProvided`](./../../api/x-components.taggingxevents.consentprovided.md)
-- [`TaggingConfigProvided`](./../../api/x-components.taggingxevents.taggingconfigprovided.md)
+- [`ConsentProvided`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`TaggingConfigProvided`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

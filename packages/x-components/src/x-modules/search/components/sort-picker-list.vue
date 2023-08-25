@@ -104,6 +104,18 @@ selected by default.
 This component also allows customizing each one of the possible sort values. This can be done with
 the `default` slot.
 
+## Events
+
+This component emits 2 different events:
+
+- [`SelectedSortProvided`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  To sync the selected sort with the store state value. This event is emitted as soon as the list of
+  items is received, whenever this list changes if there is no provided value, and when the provided
+  value changes.
+- [`UserClickedASort`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  As its name suggest, the event is emitted after the user clicks one of the sort options. This does
+  not mean that the sort has changed, only that the user has clicked it.
+
 ## Examples
 
 ### Only providing the list of items
@@ -180,14 +192,4 @@ The `buttonClass` prop can be used to add classes to the sort items.
   };
 </script>
 ```
-
-## Events
-
-This component emits 2 different events:
-
-- SelectedSortProvided: To sync the selected sort with the store state value. This event is emitted
-  as soon as the list of items is received, whenever this list changes if there is no provided
-  value, and when the provided value changes.
-- UserClickedASort: As its name suggest, the event is emitted after the user clicks one of the sort
-  options. This does not mean that the sort has changed, only that the user has clicked it.
 </docs>

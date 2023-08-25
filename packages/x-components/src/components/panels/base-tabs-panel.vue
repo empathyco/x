@@ -169,6 +169,10 @@
 </style>
 
 <docs lang="mdx">
+## Events
+
+This component emits no events.
+
 ## Examples
 
 This component renders a list of tabs based on the name of the slots passed on its template. By
@@ -469,8 +473,4 @@ The displayed tab name and a method to select a tab are exposed to the tab panel
   };
 </script>
 ```
-
-## Events
-
-This component emits no events.
 </docs>

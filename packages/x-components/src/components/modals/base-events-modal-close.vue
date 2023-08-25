@@ -48,6 +48,13 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserClickedCloseEventsModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button.
+
 ## Examples
 
 The `BaseEventsModalClose` component can be used to close the `BaseEventsModal` component.
@@ -98,10 +105,4 @@ This event can be changed using the `closingEvent` prop.
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedCloseEventsModal`: the event is emitted after the user clicks the button.
 </docs>
