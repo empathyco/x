@@ -35,10 +35,8 @@
   import Vue from 'vue';
   import { Component, Prop, Inject, Watch } from 'vue-property-decorator';
   import { Dictionary } from '@empathyco/x-utils';
-  import { SearchRequest, Result } from '@empathyco/x-types';
+  import { SearchRequest } from '@empathyco/x-types';
   import { State } from '../../../components/decorators/store.decorators';
-  import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
-  import { XProvide } from '../../../components/decorators/injection.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { NoElement } from '../../../components/no-element';
   import { RequestStatus } from '../../../store';
@@ -118,21 +116,6 @@
      */
     @State('queriesPreview', 'config')
     public config!: QueriesPreviewConfig;
-
-    /**
-     * The results to render from the state.
-     *
-     * @remarks The results list are provided with `items` key. It can be
-     * concatenated with list items from components such as `BannersList`, `PromotedsList`,
-     * `BaseGrid` or any component that injects the list.
-     *
-     * @returns A list of results.
-     * @public
-     */
-    @XProvide(LIST_ITEMS_KEY)
-    public get results(): Result[] | undefined {
-      return this.queryPreviewResults?.results;
-    }
 
     /**
      * It injects the provided {@link FeatureLocation} of the selected query in the search request.
@@ -236,8 +219,8 @@
      */
     @Watch('queryPreviewResults.status')
     emitLoad(status: RequestStatus | undefined): void {
-      if (status === 'success') {
-        this.$emit(this.results?.length ? 'load' : 'error', this.query);
+      if (status === 'loading') {
+        this.$emit('load', this.query);
       } else if (status === 'error') {
         this.$emit('error', this.query);
       }
