@@ -268,6 +268,6 @@ export const searchWiring = createWiring({
     saveOriginWire
   },
   SelectedQueryPreviewChanged: {
-    setSelectedQueryPreviewParamsWire
+    setSearchExtraParams
   }
 });

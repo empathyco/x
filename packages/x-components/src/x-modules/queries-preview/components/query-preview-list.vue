@@ -1,14 +1,11 @@
 <template>
   <component :is="animation" class="x-query-preview-list" tag="ul">
-    <!-- TODO: Remove this btn: it is just for testing purposes -->
-    <button @click="onClick">Cortina</button>
-    <li v-for="(query, index) in renderedQueries" :key="index" data-test="query-preview-item">
+    <li v-for="(queryPreview, index) in renderedQueryPreviews" :key="index" data-test="query-preview-item">
       <QueryPreview
         @load="flagAsLoaded"
         @error="flagAsFailed"
         v-bind="$attrs"
-        :query="query"
-        :injectedParams="injectedParams[index]"
+        :queryPreviewInfo="queryPreview"
       >
         <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="scope">
           <slot :name="slotName" v-bind="scope" />
@@ -27,6 +24,7 @@
   import { RequestStatus } from '../../../store';
   import { queriesPreviewXModule } from '../x-module';
   import QueryPreview from './query-preview.vue';
+  import {QueryPreviewInfo} from "../../../x-installer";
 
   interface QueryPreviewStatusRecord {
     [query: string]: RequestStatus;
@@ -56,22 +54,17 @@
     @Prop({ default: 'ul' })
     public animation!: Vue | string;
 
-    /**
-     * List of queries to preview.
-     */
-    @Prop({ required: true })
-    public queries!: string[];
-
-    /**
-     * List of queries to preview.
-     */
-    @Prop({ required: false })
-    public injectedParams?: Dictionary<unknown>;
+    @Prop({required: true})
+    public queriesPreviewInfo!: QueryPreviewInfo[];
 
     /**
      * Contains the status of the preview requests, indexed by query.
      */
     public queriesStatus: QueryPreviewStatusRecord = {};
+
+    protected get queries(): string[] {
+      return this.queriesPreviewInfo.map(item => item.query);
+    }
 
     /**
      * Gets all the queries to render, that are those that don't have an `error` status.
@@ -79,9 +72,9 @@
      * @returns A list of queries.
      * @internal
      */
-    protected get renderedQueries(): string[] {
-      return this.queries.filter(
-        query => this.queriesStatus[query] === 'success' || this.queriesStatus[query] === 'loading'
+    protected get renderedQueryPreviews(): QueryPreviewInfo[] {
+      return this.queriesPreviewInfo.filter(
+        ({ query }) => this.queriesStatus[query] === 'success' || this.queriesStatus[query] === 'loading'
       );
     }
 
@@ -91,7 +84,7 @@
      * @internal
      */
     @Watch('queries', { immediate: true })
-    protected resetStatusRecord(): void {
+    protected resetStatusRecord(newQueries: string[], oldQueries: string[]): void {
       this.queriesStatus = {};
       this.loadNext();
     }
@@ -129,18 +122,6 @@
         this.$set(this.queriesStatus, queryToLoad, 'loading');
       }
     }
-
-    // TODO: Remove this method: it is just for testing purposes
-    protected onClick = (): void => {
-      this.$x.emit('UserAcceptedAQueryPreview', {
-        query: 'cortina',
-        extraParams: {
-          instance: 'lolahome',
-          store: 'hola',
-          lang: 'es'
-        }
-      });
-    };
   }
 </script>
 

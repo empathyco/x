@@ -2,14 +2,13 @@
   <NoElement v-if="queryPreviewResults && queryPreviewResults.totalResults">
     <!--
       @slot Query Preview default slot.
-          @binding {string} query - query
+          @binding {QueryPreviewInfo} queryPreviewInfo - The information about the request of the query preview
           @binding {Dictionary<unknown>} injectedParams - The extra params from the snippetConfig
           @binding {Result[]} results - The results preview of the query preview
           @binding {number} totalResults - The total results of the search request
     -->
     <slot
-      :query="query"
-      :injectedParams="injectedParams"
+      :queryPreviewInfo="queryPreviewInfo"
       :results="queryPreviewResults.results"
       :totalResults="queryPreviewResults.totalResults"
     >
@@ -51,6 +50,7 @@
   import { createOrigin } from '../../../utils/origin';
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils';
+  import {QueryPreviewInfo} from "../../../x-installer";
 
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,
@@ -66,25 +66,8 @@
     mixins: [xComponentMixin(queriesPreviewXModule)]
   })
   export default class QueryPreview extends Vue {
-    /**
-     * The query to retrieve the results preview.
-     *
-     * @public
-     */
-    @Prop({
-      required: true
-    })
-    protected query!: string;
-
-    /**.
-     * The {@link SnippetConfig.queriesPreview}'s injected extra params to make the request with.
-     *
-     * @public
-     */
-    @Prop({
-      required: false
-    })
-    protected injectedParams?: Dictionary<unknown>;
+    @Prop({required: true})
+    protected queryPreviewInfo!: QueryPreviewInfo;
 
     /**
      * The origin property for the request.
@@ -154,6 +137,10 @@
     @Inject({ default: undefined })
     protected location?: FeatureLocation;
 
+    protected get query(): string {
+      return this.queryPreviewInfo.query;
+    }
+
     /**
      * The computed request object to be used to retrieve the query preview results.
      *
@@ -169,7 +156,7 @@
       return {
         query: this.query,
         rows: this.config.maxItemsToRequest,
-        extraParams: { ...this.params, ...this.injectedParams },
+        extraParams: { ...this.params, ...this.queryPreviewInfo.extraParams },
         ...(origin && { origin })
       };
     }

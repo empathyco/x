@@ -36,7 +36,7 @@ export interface QueriesPreviewState {
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
   /** The selected query preview of the state. */
-  selectedQueryPreview: QueryPreviewInfo;
+  selectedQueryPreview: QueryPreviewInfo | null;
 }
 
 /**
@@ -50,13 +50,10 @@ export interface QueriesPreviewGetters {
    */
   loadedQueriesPreview: Dictionary<QueryPreviewItem>;
   /**
-   * The selected query preview from the state.
-   */
-  selectedQueryPreview: QueryPreviewInfo;
-  /**
    * The initial params.
    */
   initialParams: Dictionary<unknown>;
+  activeParams: Dictionary<unknown>
 }
 
 /**
@@ -94,7 +91,7 @@ export interface QueriesPreviewMutations {
    *
    * @param selectedQueryPreview - The selected query preview to save to the state.
    */
-  setSelectedQueryPreview(selectedQueryPreview: QueryPreviewInfo): void;
+  setSelectedQueryPreview(selectedQueryPreview: QueryPreviewInfo | null): void;
 }
 
 /**

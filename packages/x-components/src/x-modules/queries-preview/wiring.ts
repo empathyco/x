@@ -3,7 +3,7 @@ import {
   namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
-import { namespacedDebounce } from '../../wiring/index';
+import {namespacedDebounce, wireCommitWithoutPayload} from '../../wiring/index';
 
 /**
  * `queriesPreview` {@link XModuleName | XModule name}.
@@ -64,10 +64,7 @@ export const setSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview')
  *
  * @public
  */
-export const clearSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview', {
-  query: '',
-  extraParams: undefined
-});
+export const clearSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview', null);
 
 /**
  * Wiring configuration for the {@link QueriesPreviewXModule | queriesPreview module}.

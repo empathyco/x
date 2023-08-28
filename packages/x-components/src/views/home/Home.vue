@@ -248,13 +248,14 @@
               <LocationProvider location="no_results">
                 <QueryPreviewList
                   :debounceTimeMs="250"
-                  :queries="queries"
-                  :injectedParams="injectedParams"
-                  #default="{ query, totalResults, results }"
+                  :queriesPreviewInfo="queriesPreviewInfo"
+                  #default="{ queryPreviewInfo: { query }, totalResults, results }"
                   data-test="brand-recommendation"
                 >
                   <div class="x-flex x-flex-col x-gap-8 x-mb-16">
-                    <h1 class="x-title2">{{ query }} ({{ totalResults }})</h1>
+                    <button class="x-button x-button-lg x-button-ghost x-w-fit" @click="emitUserAcceptedAQueryPreview(queryPreviewInfo)">
+                      {{ query }} ({{ totalResults }})
+                    </button>
                     <SlidingPanel :resetOnContentChange="false">
                       <div class="x-flex x-gap-8">
                         <Result
@@ -349,36 +350,11 @@
                 </h1>
                 <LocationProvider :location="$x.noResults ? 'no_results' : 'low_results'">
                   <QueryPreviewList
-                    :queries="queries"
-                    #default="{ query, results }"
+                    :queries-preview-info="[{query: 'tobacco'}, {query: 'botanical'}]"
+                    #default="{ queryPreviewInfo: { query }, results }"
                     queryFeature="semantics"
                   >
-                    <div
-                      class="x-flex x-flex-col x-gap-8 x-mb-16"
-                      data-test="semantic-query-preview"
-                      :data-query="query"
-                    >
-                      <SemanticQuery
-                        class="x-suggestion x-title2 x-title2-md"
-                        :suggestion="findSemanticQuery(query)"
-                        #default="{ suggestion: { query } }"
-                      >
-                        <span data-test="semantic-queries-query">{{ query }}</span>
-                      </SemanticQuery>
-                      <SlidingPanel :resetOnContentChange="false">
-                        <div class="x-flex x-gap-8">
-                          <DisplayResultProvider>
-                            <Result
-                              v-for="result in results"
-                              :key="result.id"
-                              :result="result"
-                              style="max-width: 180px"
-                              data-test="semantic-query-result"
-                            />
-                          </DisplayResultProvider>
-                        </div>
-                      </SlidingPanel>
-                    </div>
+                    QueryPreview: {{ query }}
                   </QueryPreviewList>
                 </LocationProvider>
               </section>
@@ -620,8 +596,12 @@
 
     protected queriesPreviewInfo: QueryPreviewInfo[] = [
       {
-        query: 'sunglasses',
-        extraParams: { store: 'Gijón' }
+        query: 'cortina',
+        extraParams: {
+          instance: 'lolahome',
+          store: 'hola',
+          lang: 'es'
+        }
       },
       {
         query: 'marni summer dress'
@@ -642,9 +622,9 @@
       return this.queriesPreviewInfo.map(item => item.query);
     }
 
-    protected get injectedParams(): Dictionary<unknown>[] {
-      return this.queriesPreviewInfo.map(item => item.extraParams ?? {});
-    }
+    protected emitUserAcceptedAQueryPreview = (queryPreviewInfo: QueryPreviewInfo): void => {
+      this.$x.emit('UserAcceptedAQueryPreview', queryPreviewInfo);
+    };
 
     toggleE2EAdapter(): void {
       adapterConfig.e2e = !adapterConfig.e2e;
