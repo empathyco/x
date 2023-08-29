@@ -249,12 +249,15 @@
                 <QueryPreviewList
                   :debounceTimeMs="250"
                   :queriesPreviewInfo="queriesPreviewInfo"
-                  #default="{ queryPreviewInfo: { query }, totalResults, results }"
+                  #default="{ queryPreviewInfo, totalResults, results }"
                   data-test="brand-recommendation"
                 >
                   <div class="x-flex x-flex-col x-gap-8 x-mb-16">
-                    <button class="x-button x-button-lg x-button-ghost x-w-fit" @click="emitUserAcceptedAQueryPreview(queryPreviewInfo)">
-                      {{ query }} ({{ totalResults }})
+                    <button
+                      @click="emitUserAcceptedAQueryPreview(queryPreviewInfo)"
+                      class="x-button x-button-lg x-button-ghost x-w-fit"
+                    >
+                      {{ queryPreviewInfo.query }} ({{ totalResults }})
                     </button>
                     <SlidingPanel :resetOnContentChange="false">
                       <div class="x-flex x-gap-8">
@@ -350,11 +353,36 @@
                 </h1>
                 <LocationProvider :location="$x.noResults ? 'no_results' : 'low_results'">
                   <QueryPreviewList
-                    :queries-preview-info="[{query: 'tobacco'}, {query: 'botanical'}]"
+                    :queries-preview-info="queries.map(q => ({ query: q }))"
                     #default="{ queryPreviewInfo: { query }, results }"
                     queryFeature="semantics"
                   >
-                    QueryPreview: {{ query }}
+                    <div
+                      class="x-flex x-flex-col x-gap-8 x-mb-16"
+                      data-test="semantic-query-preview"
+                      :data-query="query"
+                    >
+                      <SemanticQuery
+                        class="x-suggestion x-title2 x-title2-md"
+                        :suggestion="findSemanticQuery(query)"
+                        #default="{ suggestion: { query } }"
+                      >
+                        <span data-test="semantic-queries-query">{{ query }}</span>
+                      </SemanticQuery>
+                      <SlidingPanel :resetOnContentChange="false">
+                        <div class="x-flex x-gap-8">
+                          <DisplayResultProvider>
+                            <Result
+                              v-for="result in results"
+                              :key="result.id"
+                              :result="result"
+                              style="max-width: 180px"
+                              data-test="semantic-query-result"
+                            />
+                          </DisplayResultProvider>
+                        </div>
+                      </SlidingPanel>
+                    </div>
                   </QueryPreviewList>
                 </LocationProvider>
               </section>
@@ -408,7 +436,6 @@
   /* eslint-disable max-len */
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { Dictionary } from '@empathyco/x-utils';
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
   import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';

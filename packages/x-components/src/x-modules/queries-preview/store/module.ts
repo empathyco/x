@@ -41,7 +41,6 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
       state.queriesPreview[query].status = status;
     },
     setSelectedQueryPreview(state, selectedQueryPreview) {
-      console.log('setSelectedQueryPreview', selectedQueryPreview);
       state.selectedQueryPreview = selectedQueryPreview;
     }
   },

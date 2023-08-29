@@ -11,12 +11,10 @@ const machine = new StateMachine<InputStatus, XEvent>({
   states: {
     initial: {
       UserAcceptedAQuery: 'filled',
-      UserAcceptedAQueryPreview: 'filled',
       UserIsTypingAQuery: 'typing'
     },
     typing: {
       UserAcceptedAQuery: 'filled',
-      UserAcceptedAQueryPreview: 'filled',
       UserClearedQuery: 'empty'
     },
     filled: {
@@ -26,7 +24,6 @@ const machine = new StateMachine<InputStatus, XEvent>({
     },
     empty: {
       UserAcceptedAQuery: 'filled',
-      UserAcceptedAQueryPreview: 'filled',
       UserIsTypingAQuery: 'typing'
     },
     focused: {

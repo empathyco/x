@@ -3,7 +3,6 @@ import {
   namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
-import {namespacedDebounce, wireCommitWithoutPayload} from '../../wiring/index';
 
 /**
  * `queriesPreview` {@link XModuleName | XModule name}.
@@ -25,11 +24,6 @@ const wireCommit = namespacedWireCommit(moduleName);
  * @internal
  */
 const wireDispatch = namespacedWireDispatch(moduleName);
-
-/**
- * Debounce function for the module.
- */
-const moduleDebounce = namespacedDebounce(moduleName);
 
 /**
  * Requests and stores the query preview results.
@@ -85,24 +79,15 @@ export const queriesPreviewWiring = createWiring({
     setQueriesPreviewExtraParamsWire
   },
   UserClearedQuery: {
-    clearSelectedQueryDebounce: moduleDebounce(
-      clearSelectedQueryPreviewWire,
-      ({ state }) => state.config.debounceInMs,
-      { cancelOn: 'UserAcceptedAQuery' }
-    )
+    clearSelectedQueryPreviewWire
   },
   UserClickedCloseX: {
-    clearSelectedQueryDebounce: moduleDebounce(
-      clearSelectedQueryPreviewWire,
-      ({ state }) => state.config.debounceInMs,
-      { cancelOn: 'UserAcceptedAQuery' }
-    )
+    clearSelectedQueryPreviewWire
   },
   UserClickedOutOfMainModal: {
-    clearSelectedQueryDebounce: moduleDebounce(
-      clearSelectedQueryPreviewWire,
-      ({ state }) => state.config.debounceInMs,
-      { cancelOn: 'UserAcceptedAQuery' }
-    )
+    clearSelectedQueryPreviewWire
+  },
+  UserSelectedAHistoryQuery: {
+    clearSelectedQueryPreviewWire
   }
 });
