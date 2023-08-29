@@ -68,13 +68,6 @@
     protected isPagePersisted = false;
 
     /**
-     * Flag to know if the query from the url has special characters.
-     *
-     * @internal
-     */
-    protected hasSpecialKeys = false;
-
-    /**
      * Computed to know which params we must get from URL. It gets the params names from the initial
      * state, to get all default params names, and also from the `$attrs` to get the extra params
      * names to take into account.
@@ -163,10 +156,8 @@
     protected emitEvents(): void {
       const { all, extra } = this.parseUrlParams();
       const metadata = this.createWireMetadata();
-      this.preventSpecialKey(all.query);
-      if (!this.hasSpecialKeys) {
-        this.$x.emit('ParamsLoadedFromUrl', all, metadata);
-      }
+      all.query = this.hasSpecialKeys(all.query);
+      this.$x.emit('ParamsLoadedFromUrl', all, metadata);
       this.$x.emit('ExtraParamsLoadedFromUrl', extra, metadata);
       // TODO: Move this logic from here.
       if (all.query) {
@@ -176,14 +167,17 @@
     }
 
     /**
-     * Prevents the user from either typing or pasting special characters in the url query.
+     * Detects if the user typing or pasting special/forbidden characters in the URL query.
      *
      * @internal
      * @param query - Query from the url that will be checked for special characters.
+     * @returns Query without special characters.
      */
-    protected preventSpecialKey(query: string): void {
+    protected hasSpecialKeys(query: string): string {
       if (/[<>]/.test(query ?? '')) {
-        this.hasSpecialKeys = true;
+        return query.replace(/<.*>/g, '');
+      } else {
+        return query;
       }
     }
 
