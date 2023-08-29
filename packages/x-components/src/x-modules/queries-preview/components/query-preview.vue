@@ -35,7 +35,7 @@
   import Vue from 'vue';
   import { Component, Prop, Inject, Watch } from 'vue-property-decorator';
   import { Dictionary } from '@empathyco/x-utils';
-  import { SearchRequest } from '@empathyco/x-types';
+  import { Result, SearchRequest } from '@empathyco/x-types';
   import { State } from '../../../components/decorators/store.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { NoElement } from '../../../components/no-element';
@@ -47,6 +47,7 @@
   import { createOrigin } from '../../../utils/origin';
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils';
+  import { LIST_ITEMS_KEY, XProvide } from '../../../components';
 
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,
@@ -116,6 +117,21 @@
      */
     @State('queriesPreview', 'config')
     public config!: QueriesPreviewConfig;
+
+    /**
+     * The results to render from the state.
+     *
+     * @remarks The results list are provided with `items` key. It can be
+     * concatenated with list items from components such as `BannersList`, `PromotedsList`,
+     * `BaseGrid` or any component that injects the list.
+     *
+     * @returns A list of results.
+     * @public
+     */
+    @XProvide(LIST_ITEMS_KEY)
+    public get results(): Result[] | undefined {
+      return this.queryPreviewResults?.results;
+    }
 
     /**
      * It injects the provided {@link FeatureLocation} of the selected query in the search request.
@@ -219,7 +235,11 @@
      */
     @Watch('queryPreviewResults.status')
     emitLoad(status: RequestStatus | undefined): void {
-      if (status === 'loading') {
+      if (status === 'success') {
+        if (this.results?.length === undefined) {
+          this.$emit('error', this.query);
+        }
+      } else if (status === 'loading') {
         this.$emit('load', this.query);
       } else if (status === 'error') {
         this.$emit('error', this.query);
