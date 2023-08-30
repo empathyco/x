@@ -212,6 +212,16 @@
     }
 
     /**
+     * Removes all the QueriesPreview from the state when the component is destroyed.
+     * This will prevent re-rendering effects when a query is selected and then deleted from the searchbox.
+     *
+     * @internal
+     */
+    protected destroyed(): void {
+      this.$x.emit('QueriesPreviewDestroyedHook');
+    }
+
+    /**
      * Cancels the previous request when the debounced function changes (e.g: the debounceTimeMs
      * prop changes or there is a request in progress that cancels it).
      *
@@ -236,11 +246,7 @@
     @Watch('queryPreviewResults.status')
     emitLoad(status: RequestStatus | undefined): void {
       if (status === 'success') {
-        if (this.results?.length === undefined) {
-          this.$emit('error', this.query);
-        }
-      } else if (status === 'loading') {
-        this.$emit('load', this.query);
+        this.$emit(this.results?.length ? 'load' : 'error', this.query);
       } else if (status === 'error') {
         this.$emit('error', this.query);
       }

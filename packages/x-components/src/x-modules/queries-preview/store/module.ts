@@ -22,6 +22,9 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     clearQueryPreview(state, query) {
       Vue.delete(state.queriesPreview, query);
     },
+    removeQueriesPreview(state) {
+      state.queriesPreview = {};
+    },
     setParams(state, params) {
       state.params = params;
     },

@@ -61,6 +61,11 @@ export interface QueriesPreviewMutations {
    */
   clearQueryPreview(query: string): void;
   /**
+   * Removes all queries preview from the state.
+   *
+   */
+  removeQueriesPreview(): void;
+  /**
    * Sets the extra params of the module.
    *
    * @param params - The new extra params.
