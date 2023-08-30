@@ -428,7 +428,6 @@
 </template>
 
 <script lang="ts">
-  /* eslint-disable max-len */
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';

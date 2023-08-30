@@ -129,7 +129,6 @@
 </template>
 
 <script lang="ts">
-  /* eslint-disable max-len */
   import {
     EditableNumberRangeFacet,
     EditableNumberRangeFilter,
@@ -156,7 +155,6 @@
   import SlicedFilters from '../../x-modules/facets/components/lists/sliced-filters.vue';
   import SortedFilters from '../../x-modules/facets/components/lists/sorted-filters.vue';
   import { HomeControls } from './types';
-  /* eslint-enable max-len */
 
   @Component({
     components: {

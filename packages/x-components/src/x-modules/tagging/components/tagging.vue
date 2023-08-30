@@ -6,7 +6,7 @@
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { taggingXModule } from '../x-module';
   import { TaggingConfig } from '../config.types';
-  /* eslint-disable max-len */
+
   /**
    * This component enables and manages the sending of information to the
    * [Empathy Tagging API](https://docs.empathy.co/develop-empathy-platform/api-reference/tagging-api.html).
