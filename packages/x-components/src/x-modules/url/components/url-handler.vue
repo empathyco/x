@@ -156,7 +156,6 @@
     protected emitEvents(): void {
       const { all, extra } = this.parseUrlParams();
       const metadata = this.createWireMetadata();
-      all.query = this.hasSpecialKeys(all.query);
       this.$x.emit('ParamsLoadedFromUrl', all, metadata);
       this.$x.emit('ExtraParamsLoadedFromUrl', extra, metadata);
       // TODO: Move this logic from here.
@@ -167,17 +166,17 @@
     }
 
     /**
-     * Detects if the user typing or pasting special/forbidden characters in the URL query.
+     * Detects if the user typing or pasting special/forbidden characters in some URL param.
      *
      * @internal
-     * @param query - Query from the url that will be checked for special characters.
-     * @returns Query without special characters.
+     * @param urlValue - Param from the url that will be checked for special characters.
+     * @returns Param without special characters.
      */
-    protected hasSpecialKeys(query: string): string {
-      if (/[<>]/.test(query ?? '')) {
-        return query.replace(/<.*>/g, '');
+    protected hasSpecialKeys(urlValue: string): string {
+      if (/[<>]/.test(urlValue ?? '')) {
+        return urlValue.replace(/<.*>/g, '');
       } else {
-        return query;
+        return urlValue;
       }
     }
 
@@ -271,10 +270,13 @@
           const urlKey = this.getUrlKey(name);
           if (urlSearchParams.has(urlKey)) {
             if (name in initialUrlState) {
-              const urlValue = urlSearchParams.getAll(urlKey);
+              let urlValue = urlSearchParams.getAll(urlKey);
+              urlValue[0] = this.hasSpecialKeys(urlValue[0]);
               params.all[name] = this.parseUrlParam(name, urlValue);
             } else {
-              params.all[name] = params.extra[name] = urlSearchParams.get(urlKey);
+              let urlValueExtra = urlSearchParams.get(urlKey);
+              urlValueExtra = this.hasSpecialKeys(urlValueExtra!);
+              params.all[name] = params.extra[name] = urlValueExtra;
             }
           }
           return params;
