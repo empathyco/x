@@ -174,13 +174,13 @@
      */
     protected hasSpecialKeys(urlValue: string): string {
       if (/[<>]/.test(urlValue ?? '')) {
-        if (!/</.test(urlValue ?? '')) {
-          return urlValue.replace(/.*>/g, '');
-        } else if (!/>/.test(urlValue ?? '')) {
-          return urlValue.replace(/<.*/g, '');
-        } else {
-          return urlValue.replace(/<.*>/g, '');
+        let value = urlValue.replace(/<.*>/g, '');
+        if (!/</.test(value ?? '')) {
+          value = value.replace(/.*>/g, '');
+        } else if (!/>/.test(value ?? '')) {
+          value = value.replace(/<.*/g, '');
         }
+        return value;
       } else {
         return urlValue;
       }
