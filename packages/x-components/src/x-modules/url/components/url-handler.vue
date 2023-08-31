@@ -174,7 +174,13 @@
      */
     protected hasSpecialKeys(urlValue: string): string {
       if (/[<>]/.test(urlValue ?? '')) {
-        return urlValue.replace(/<.*>/g, '');
+        if (!/</.test(urlValue ?? '')) {
+          return urlValue.replace(/.*>/g, '');
+        } else if (!/>/.test(urlValue ?? '')) {
+          return urlValue.replace(/<.*/g, '');
+        } else {
+          return urlValue.replace(/<.*>/g, '');
+        }
       } else {
         return urlValue;
       }
