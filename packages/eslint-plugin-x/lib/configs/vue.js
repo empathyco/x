@@ -35,7 +35,17 @@ module.exports = {
       'vue/component-tags-order': 'warn',
       'vue/v-on-function-call': 'error',
       'vue/v-slot-style': 'off',
-      'vue/valid-v-slot': 'warn'
+      'vue/valid-v-slot': 'warn',
+      'vue/max-len': [
+        'error',
+        {
+          code: 100,
+          ignoreStrings: true,
+          ignoreTemplateLiterals: true,
+          ignoreUrls: true,
+          ignoreHTMLAttributeValues: true
+        }
+      ]
     }
   }
 };

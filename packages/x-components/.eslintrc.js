@@ -12,12 +12,8 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['src/**/*.vue'],
+      files: ['*.vue'],
       rules: {
-        /*
-         * We disable "max-len" rule to ".vue" files because it has some limitations
-         * https://github.com/vuejs/vue-eslint-parser#%EF%B8%8F-known-limitations.
-         */
         'max-len': 'off'
       }
     }
