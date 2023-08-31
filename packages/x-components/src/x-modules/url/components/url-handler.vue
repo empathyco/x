@@ -166,13 +166,13 @@
     }
 
     /**
-     * Detects if the user typing or pasting special/forbidden characters in some URL param.
+     * Detects if the user typing or pasting special/forbidden characters in some URL param and removes them.
      *
      * @internal
      * @param urlValue - Param from the url that will be checked for special characters.
      * @returns Param without special characters.
      */
-    protected hasSpecialKeys(urlValue: string): string {
+    protected removeSpecialKeys(urlValue: string): string {
       if (/[<>]/.test(urlValue ?? '')) {
         let value = urlValue.replace(/<.*>/g, '');
         if (!/</.test(value ?? '')) {
@@ -277,11 +277,11 @@
           if (urlSearchParams.has(urlKey)) {
             if (name in initialUrlState) {
               let urlValue = urlSearchParams.getAll(urlKey);
-              urlValue[0] = this.hasSpecialKeys(urlValue[0]);
+              urlValue[0] = this.removeSpecialKeys(urlValue[0]);
               params.all[name] = this.parseUrlParam(name, urlValue);
             } else {
               let urlValueExtra = urlSearchParams.get(urlKey);
-              urlValueExtra = this.hasSpecialKeys(urlValueExtra!);
+              urlValueExtra = this.removeSpecialKeys(urlValueExtra!);
               params.all[name] = params.extra[name] = urlValueExtra;
             }
           }
