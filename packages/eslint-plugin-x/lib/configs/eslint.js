@@ -9,7 +9,13 @@ module.exports = {
       indent: 'off',
       'max-len': [
         'error',
-        { code: 100, ignoreStrings: true, ignoreTemplateLiterals: true, ignoreUrls: true }
+        {
+          code: 100,
+          ignoreStrings: true,
+          ignoreTemplateLiterals: true,
+          ignoreUrls: true,
+          ignorePattern: 'class=".*"$'
+        }
       ],
       'no-alert': process.env.NODE_ENV === 'production' ? 'error' : 'off',
       'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
