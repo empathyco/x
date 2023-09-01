@@ -117,7 +117,7 @@
     "jest-scss-transform": "~1.0.1",
     "postcss": "~8.4.12",
     "postcss-dir-pseudo-class": "~7.0.0",
-    "postcss-logical": "~4.0.2",
+    "postcss-logical": "~7.0.0",
     "rimraf": "~3.0.2",
     "rollup": "~2.79.1",
     "rollup-plugin-copy": "~3.4.0",
