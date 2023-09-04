@@ -24,7 +24,7 @@ Object {
             "url": "https://assets.empathy.co/",
           },
           "url": "https://api.staging.empathy.co/tagging/v1/track/empathy/click",
-        }
+        },
       },
       "title": "Banner title",
       "url": "https://assets.empathy.co/",
@@ -392,7 +392,7 @@ Object {
       "image": "https://assets.empathy.co/images-demo/31335.jpg",
       "modelName": "Promoted",
       "tagging": Object {
-        "query": Object {
+        "click": Object {
           "params": Object {
             "follow": false,
           },
