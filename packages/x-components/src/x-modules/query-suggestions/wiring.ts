@@ -57,7 +57,7 @@ export const setQuerySuggestionsQueryPreview = wireCommit(
  *
  * @public
  */
-export const setSelectedQueryPreviewParamsWire = wireCommit(
+export const setQuerySuggestionsExtraParamsByQueryPreview = wireCommit(
   'setParams',
   ({ eventPayload: { extraParams } }) => extraParams
 );
@@ -140,7 +140,8 @@ export const querySuggestionsWiring = createWiring({
     clearQuerySuggestionsQuery
   },
   UserAcceptedAQueryPreview: {
-    setQuerySuggestionsQueryPreview
+    setQuerySuggestionsQueryPreview,
+    setQuerySuggestionsExtraParamsByQueryPreview
   },
   QueryPreviewUnselected: {
     setQuerySuggestionsExtraParams

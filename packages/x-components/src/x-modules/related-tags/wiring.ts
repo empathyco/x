@@ -53,7 +53,7 @@ export const setRelatedTagsQueryPreview = wireCommit(
  *
  * @public
  */
-export const setSelectedQueryPreviewParamsWire = wireCommit(
+export const setRelatedTagsParamsBySelectedQueryPreview = wireCommit(
   'setParams',
   ({ eventPayload: { extraParams } }) => extraParams
 );
@@ -148,7 +148,7 @@ export const relatedTagsWiring = createWiring({
   UserAcceptedAQueryPreview: {
     setRelatedTagsQueryPreview,
     clearSelectedRelatedTags,
-    setSelectedQueryPreviewParamsWire
+    setRelatedTagsParamsBySelectedQueryPreview
   },
   QueryPreviewUnselected: {
     setRelatedTagsExtraParams
