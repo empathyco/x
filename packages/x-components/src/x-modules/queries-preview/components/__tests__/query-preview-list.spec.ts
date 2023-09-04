@@ -1,7 +1,6 @@
 import { Result, XComponentsAdapter } from '@empathyco/x-types';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
-import { Dictionary } from '@empathyco/x-utils';
 import {
   createResultStub,
   getEmptySearchResponseStub,
@@ -11,14 +10,14 @@ import { XComponentsAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { queriesPreviewXModule } from '../../x-module';
 import QueryPreviewList from '../query-preview-list.vue';
+import { QueryPreviewInfo } from '../../../../x-installer/index';
 
 function renderQueryPreviewList({
   template = `
         <QueryPreviewList v-bind="$attrs" #default="{ query, results }">
           {{ query }} - {{results[0].name}}
         </QueryPreviewList>`,
-  queries = ['milk'],
-  injectedParams = [{ extraParams: { store: 'Gijón' } }],
+  queriesPreviewInfo = [{ query: 'milk' }],
   results = { milk: getResultsStub(1) }
 }: RenderQueryPreviewListOptions): RenderQueryPreviewListAPI {
   const localVue = createLocalVue();
@@ -44,8 +43,7 @@ function renderQueryPreviewList({
     {
       localVue,
       propsData: {
-        queries,
-        injectedParams
+        queriesPreviewInfo
       }
     }
   );
@@ -65,7 +63,7 @@ function renderQueryPreviewList({
 describe('testing QueryPreviewList', () => {
   it('renders a list of queries one by one', async () => {
     const { getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
-      queries: ['shirt', 'jeans'],
+      queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }],
       results: { shirt: [createResultStub('Cool shirt')], jeans: [createResultStub('Sick jeans')] }
     });
 
@@ -90,7 +88,7 @@ describe('testing QueryPreviewList', () => {
 
   it('hides queries with no results', async () => {
     const { getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
-      queries: ['noResults', 'shoes'],
+      queriesPreviewInfo: [{ query: 'noResults' }, { query: 'shoes' }],
       results: { noResults: [], shoes: [createResultStub('Crazy shoes')] }
     });
 
@@ -108,7 +106,7 @@ describe('testing QueryPreviewList', () => {
 
   it('hides queries that failed', async () => {
     const { adapter, getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
-      queries: ['willFail', 'shoes'],
+      queriesPreviewInfo: [{ query: 'willFail' }, { query: 'shoes' }],
       results: {
         willFail: [createResultStub('Will fail')],
         shoes: [createResultStub('Crazy shoes')]
@@ -134,9 +132,7 @@ interface RenderQueryPreviewListOptions {
   /** The template to render the {@link QueryPreviewList} component. */
   template?: string;
   /** The queries for which preview its results. */
-  queries?: string[];
-  /** The extra params to retrieve the results preview. */
-  injectedParams?: Dictionary<unknown>[];
+  queriesPreviewInfo?: QueryPreviewInfo[];
   /** The results to return from the mocked search endpoint adapter. */
   results?: Record<string, Result[]>;
 }

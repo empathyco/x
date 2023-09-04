@@ -1,6 +1,6 @@
 import { mount, Wrapper, createLocalVue, WrapperArray } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
-import { DeepPartial, Dictionary } from '@empathyco/x-utils';
+import { DeepPartial } from '@empathyco/x-utils';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import {
   findTestDataById,
@@ -15,20 +15,20 @@ import { QueryPreviewItem } from '../../store/types';
 import { queriesPreviewXModule } from '../../x-module';
 import QueryPreview from '../query-preview.vue';
 import { getEmptySearchResponseStub } from '../../../../__stubs__/index';
+import { QueryPreviewInfo } from '../../../../x-installer/index';
 import { resetXQueriesPreviewStateWith } from './utils';
 
 describe('query preview', () => {
   function renderQueryPreview({
     maxItemsToRender,
-    query = 'milk',
-    injectedParams,
+    queryPreviewInfo = { query: 'milk' },
     location,
     queryFeature,
     debounceTimeMs = 0,
     template = `<QueryPreview v-bind="$attrs" />`,
     queryPreview = {
       request: {
-        query
+        query: queryPreviewInfo.query
       },
       results: getResultsStub(4),
       status: 'success',
@@ -48,7 +48,7 @@ describe('query preview', () => {
     if (queryPreview) {
       resetXQueriesPreviewStateWith(store, {
         queriesPreview: {
-          [query]: queryPreview
+          [queryPreviewInfo.query]: queryPreview
         }
       });
     }
@@ -66,8 +66,7 @@ describe('query preview', () => {
         store,
         propsData: {
           maxItemsToRender,
-          query,
-          injectedParams,
+          queryPreviewInfo,
           queryFeature,
           debounceTimeMs
         }
@@ -77,7 +76,7 @@ describe('query preview', () => {
     return {
       wrapper,
       QueryPreviewRequestUpdatedSpy,
-      query,
+      queryPreviewInfo,
       queryPreview,
       findTestDataById: findTestDataById.bind(undefined, wrapper),
       updateExtraParams: async params => {
@@ -104,14 +103,18 @@ describe('query preview', () => {
   });
 
   it('sends the `QueryPreviewRequestUpdated` event', async () => {
-    const { QueryPreviewRequestUpdatedSpy, wrapper, updateExtraParams } = renderQueryPreview({});
+    const { QueryPreviewRequestUpdatedSpy, wrapper, updateExtraParams } = renderQueryPreview({
+      queryPreviewInfo: { query: 'shoes', extraParams: { directory: 'Magrathea' } }
+    });
 
     jest.advanceTimersByTime(0); // Wait for first emission.
     expect(QueryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1);
     expect(QueryPreviewRequestUpdatedSpy).toHaveBeenCalledWith({
-      extraParams: {},
+      extraParams: {
+        directory: 'Magrathea'
+      },
       origin: undefined,
-      query: 'milk',
+      query: 'shoes',
       rows: 24
     });
 
@@ -121,9 +124,11 @@ describe('query preview', () => {
     jest.advanceTimersToNextTimer();
 
     expect(QueryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(2, {
-      extraParams: {},
+      extraParams: {
+        directory: 'Magrathea'
+      },
       origin: 'popular_search:none',
-      query: 'milk',
+      query: 'shoes',
       rows: 24
     });
 
@@ -131,45 +136,12 @@ describe('query preview', () => {
     jest.advanceTimersToNextTimer();
 
     expect(QueryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(3, {
-      extraParams: { store: 'Uganda' },
+      extraParams: {
+        directory: 'Magrathea',
+        store: 'Uganda'
+      },
       origin: 'popular_search:none',
-      query: 'milk',
-      rows: 24
-    });
-  });
-
-  it('sends the `QueryPreviewRequestUpdated` event with injectedParams prop', async () => {
-    const { QueryPreviewRequestUpdatedSpy, wrapper, updateExtraParams } = renderQueryPreview({});
-    const injectedParams = { store: 'Gijón' };
-
-    await updateExtraParams({ store: 'Uganda' });
-    jest.advanceTimersToNextTimer();
-
-    expect(QueryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(1, {
-      extraParams: { store: 'Uganda' },
-      origin: undefined,
-      query: 'milk',
-      rows: 24
-    });
-
-    await wrapper.setProps({ injectedParams: injectedParams });
-    jest.advanceTimersToNextTimer();
-
-    expect(QueryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(2, {
-      extraParams: { store: 'Gijón' },
-      origin: undefined,
-      query: 'milk',
-      rows: 24
-    });
-
-    // InjectedParams can accept more than one param
-    await wrapper.setProps({ injectedParams: { store: 'Gijón', warehouse: '12300' } });
-    jest.advanceTimersToNextTimer();
-
-    expect(QueryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(3, {
-      extraParams: { store: 'Gijón', warehouse: '12300' },
-      origin: undefined,
-      query: 'milk',
+      query: 'shoes',
       rows: 24
     });
   });
@@ -177,7 +149,7 @@ describe('query preview', () => {
   it('sends the `QueryPreviewRequestUpdated` event with the correct location provided', () => {
     const { QueryPreviewRequestUpdatedSpy } = renderQueryPreview({
       location: 'predictive_layer',
-      query: 'shoes',
+      queryPreviewInfo: { query: 'shoes' },
       queryFeature: 'query_suggestion'
     });
 
@@ -212,10 +184,10 @@ describe('query preview', () => {
   it('exposes the query, the results and the totalResults in the default slot', () => {
     const template = `
       <QueryPreview
-          :query="$attrs.query"
-          #default="{ results, query, totalResults}">
+          :queryPreviewInfo="$attrs.queryPreviewInfo"
+          #default="{ results, queryPreviewInfo, totalResults}">
         <div>
-          <span data-test="query-preview-query">{{ query }}</span>
+          <span data-test="query-preview-query">{{ queryPreviewInfo.query }}</span>
           <span data-test="total-results">{{ totalResults }}</span>
           <div v-for="result in results" :key="result.id">
             <span data-test="result-name">{{result.name}}</span>
@@ -223,12 +195,12 @@ describe('query preview', () => {
         </div>
       </QueryPreview>`;
 
-    const { query, wrapper, queryPreview, findTestDataById } = renderQueryPreview({
+    const { queryPreviewInfo, wrapper, queryPreview, findTestDataById } = renderQueryPreview({
       template
     });
 
     expect(wrapper.find(getDataTestSelector('query-preview-query')).element).toHaveTextContent(
-      query
+      queryPreviewInfo.query
     );
     expect(wrapper.find(getDataTestSelector('total-results')).element).toHaveTextContent(
       queryPreview!.totalResults.toString()
@@ -243,7 +215,7 @@ describe('query preview', () => {
 
   it('allows changing the result content', () => {
     const template = `
-      <QueryPreview :query="$attrs.query" #result="{ result }">
+      <QueryPreview :queryPreviewInfo="$attrs.queryPreviewInfo" #result="{ result }">
         <span data-test="result-content">{{result.id}} - {{result.name}}</span>
       </QueryPreview>
     `;
@@ -274,9 +246,7 @@ describe('query preview', () => {
   it('emits load event on success', async () => {
     jest.useRealTimers();
 
-    const { wrapper, reRender } = renderQueryPreview({
-      query: 'milk'
-    });
+    const { wrapper, reRender } = renderQueryPreview();
 
     (XComponentsAdapterDummy.search as jest.Mock).mockResolvedValueOnce({
       ...getEmptySearchResponseStub(),
@@ -296,9 +266,7 @@ describe('query preview', () => {
   it('emits error event on success if results are empty', async () => {
     jest.useRealTimers();
 
-    const { wrapper, reRender } = renderQueryPreview({
-      query: 'milk'
-    });
+    const { wrapper, reRender } = renderQueryPreview();
 
     // The status will be success
     (XComponentsAdapterDummy.search as jest.Mock).mockResolvedValueOnce({
@@ -319,9 +287,7 @@ describe('query preview', () => {
   it('emits error event on error', async () => {
     jest.useRealTimers();
 
-    const { wrapper, reRender } = renderQueryPreview({
-      query: 'milk'
-    });
+    const { wrapper, reRender } = renderQueryPreview();
 
     (XComponentsAdapterDummy.search as jest.Mock).mockRejectedValueOnce('Some error');
 
@@ -338,7 +304,7 @@ describe('query preview', () => {
     it('requests immediately when debounce is set to 0', () => {
       const { QueryPreviewRequestUpdatedSpy } = renderQueryPreview({
         debounceTimeMs: 0,
-        query: 'bull'
+        queryPreviewInfo: { query: 'bull' }
       });
 
       jest.advanceTimersByTime(0);
@@ -353,7 +319,7 @@ describe('query preview', () => {
     it('does not emit subsequent requests that happen in less than the debounce time', async () => {
       const { wrapper, QueryPreviewRequestUpdatedSpy } = renderQueryPreview({
         debounceTimeMs: 250,
-        query: 'bull'
+        queryPreviewInfo: { query: 'bull' }
       });
 
       jest.advanceTimersByTime(249);
@@ -371,17 +337,17 @@ describe('query preview', () => {
       expect(QueryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1);
 
       // Emulates user is typing a new query
-      await wrapper.setProps({ query: 'secall' }); // Timer relaunched
+      await wrapper.setProps({ queryPreviewInfo: { query: 'secall' } }); // Timer relaunched
 
       jest.advanceTimersByTime(249);
       expect(QueryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1);
 
-      await wrapper.setProps({ query: 'secallona' }); // Timer relaunched
+      await wrapper.setProps({ queryPreviewInfo: { query: 'secallona' } }); // Timer relaunched
 
       jest.advanceTimersByTime(249);
       expect(QueryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1);
 
-      jest.advanceTimersByTime(1);
+      jest.advanceTimersByTime(251);
       expect(QueryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(2);
       expect(QueryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(2, {
         extraParams: {},
@@ -394,7 +360,7 @@ describe('query preview', () => {
     it('updates the debounced request reactively when the debounceTimeMs prop changes', async () => {
       const { wrapper, QueryPreviewRequestUpdatedSpy } = renderQueryPreview({
         debounceTimeMs: 250,
-        query: 'bull'
+        queryPreviewInfo: { query: 'bull' }
       });
 
       jest.advanceTimersByTime(249);
@@ -412,7 +378,7 @@ describe('query preview', () => {
     it('cancels pending requests when the component is destroyed', () => {
       const { wrapper, QueryPreviewRequestUpdatedSpy } = renderQueryPreview({
         debounceTimeMs: 250,
-        query: 'bull'
+        queryPreviewInfo: { query: 'bull' }
       });
       jest.advanceTimersByTime(249);
       expect(QueryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0);
@@ -427,10 +393,8 @@ describe('query preview', () => {
 interface RenderQueryPreviewOptions {
   /** The maximum number of results to render. */
   maxItemsToRender?: number;
-  /** The query for which preview its results. */
-  query?: string;
-  /** The extra params to retrieve the results preview. */
-  injectedParams?: Dictionary<unknown>;
+  /** The query preview info for which preview its results. */
+  queryPreviewInfo?: QueryPreviewInfo;
   /** The location of the query preview in the DOM. */
   location?: string;
   /** The name of the tool that generated the query. */
@@ -452,9 +416,7 @@ interface RenderQueryPreviewAPI {
   /** A Jest spy set in the {@link XPlugin} `on` function. */
   QueryPreviewRequestUpdatedSpy?: jest.Mock;
   /** The query for which preview its results. */
-  query: string;
-  /** The extra params to retrieve the results preview. */
-  injectedParams?: Dictionary<unknown>;
+  queryPreviewInfo: QueryPreviewInfo;
   /** The results preview for the passed query. */
   queryPreview: QueryPreviewItem | null;
   /** Find test data in the wrapper for the {@link QueryPreview} component. */

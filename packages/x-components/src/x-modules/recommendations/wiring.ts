@@ -60,7 +60,7 @@ export const recommendationsWiring = createWiring({
   ExtraParamsChanged: {
     setRecommendationsExtraParams
   },
-  SelectedQueryPreviewChanged: {
+  QueryPreviewUnselected: {
     setRecommendationsExtraParams
   }
 });

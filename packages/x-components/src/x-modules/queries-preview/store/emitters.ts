@@ -7,7 +7,7 @@ import { queriesPreviewXStoreModule } from './module';
  * @internal
  */
 export const queriesPreviewEmitters = createStoreEmitters(queriesPreviewXStoreModule, {
-  SelectedQueryPreviewChanged: {
+  QueryPreviewUnselected: {
     selector: state =>
       !state.selectedQueryPreview ? state.params : state.selectedQueryPreview.extraParams!,
     filter: (newValue, oldValue, state) => !state.selectedQueryPreview

@@ -53,6 +53,16 @@ export const setQuerySuggestionsQueryPreview = wireCommit(
 );
 
 /**
+ * Sets the query-suggestions module params from a selectedQueryPreview's extraParams.
+ *
+ * @public
+ */
+export const setSelectedQueryPreviewParamsWire = wireCommit(
+  'setParams',
+  ({ eventPayload: { extraParams } }) => extraParams
+);
+
+/**
  * Sets the query suggestions state `params`.
  *
  * @public
@@ -131,5 +141,8 @@ export const querySuggestionsWiring = createWiring({
   },
   UserAcceptedAQueryPreview: {
     setQuerySuggestionsQueryPreview
+  },
+  QueryPreviewUnselected: {
+    setQuerySuggestionsExtraParams
   }
 });

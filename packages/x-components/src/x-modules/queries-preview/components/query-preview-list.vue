@@ -181,10 +181,10 @@ In this example, the results will be rendered inside a sliding panel.
 <template>
   <QueryPreviewList
     :queriesPreviewInfo="queriesPreviewInfo"
-    #default="{ query, totalResults, results }"
+    #default="{ queryPreviewInfo, totalResults, results }"
   >
     <div class="x-flex x-flex-col x-gap-8 x-mb-16">
-      <h1 class="x-title2">{{ query }} ({{ totalResults }})</h1>
+      <h1 class="x-title2">{{ queryPreviewInfo.query }} ({{ totalResults }})</h1>
       <SlidingPanel :resetOnContentChange="false">
         <div class="x-flex x-gap-8">
           <Result

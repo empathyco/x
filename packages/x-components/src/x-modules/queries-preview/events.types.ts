@@ -30,5 +30,5 @@ export interface QueriesPreviewXEvents {
    * Payload: The new selected query preview with extra params or the initial module
    * params if the query has been cleared.
    */
-  SelectedQueryPreviewChanged: Dictionary<unknown>;
+  QueryPreviewUnselected: Dictionary<unknown>;
 }

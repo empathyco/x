@@ -4,7 +4,6 @@
       @slot Query Preview default slot.
           @binding {QueryPreviewInfo} queryPreviewInfo - The information about the request of the
           query preview
-          @binding {Dictionary<unknown>} injectedParams - The extra params from the snippetConfig
           @binding {Result[]} results - The results preview of the query preview
           @binding {number} totalResults - The total results of the search request
     -->
