@@ -114,6 +114,17 @@
         this.$set(this.queriesStatus, queryToLoad, 'loading');
       }
     }
+
+    /**
+     * Removes the QueriesPreview from the state when the component is destroyed.
+     * This will prevent re-rendering effects when a query is selected and then deleted
+     * from the searchbox.
+     *
+     * @internal
+     */
+    protected destroyed(): void {
+      this.$x.emit('QueriesPreviewDestroyedHook');
+    }
   }
 </script>
 
