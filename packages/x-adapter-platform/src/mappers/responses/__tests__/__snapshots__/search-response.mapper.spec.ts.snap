@@ -394,9 +394,20 @@ Object {
       "tagging": Object {
         "click": Object {
           "params": Object {
+            "filtered": "false",
             "follow": false,
+            "lang": "en",
+            "origin": "url:external",
+            "page": "1",
+            "position": "1",
+            "productId": "61f9223221c06701c2f98c17",
+            "q": "jeans",
+            "scope": "desktop",
+            "spellcheck": "false",
+            "title": "promoted title",
+            "url": "https://assets.empathy.co/",
           },
-          "url": "",
+          "url": "https://api.staging.empathy.co/tagging/v1/track/empathy/click",
         },
       },
       "title": "Promoted title",

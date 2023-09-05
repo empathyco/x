@@ -307,7 +307,11 @@ export const platformSearchResponse = {
         id: '61f9223221c06701c2f98c17',
         image_url: 'https://assets.empathy.co/images-demo/31335.jpg',
         title: 'Promoted title',
-        url: 'https://assets.empathy.co/'
+        url: 'https://assets.empathy.co/',
+        tagging: {
+          click:
+            'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=jeans&lang=en&scope=desktop&title=promoted+title&productId=61f9223221c06701c2f98c17&position=1&page=1&url=https://assets.empathy.co/&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false'
+        }
       }
     ]
   },
