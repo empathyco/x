@@ -36,7 +36,7 @@
   "dependencies": {
     "@empathyco/x-storage-service": "^2.0.0-alpha.15",
     "nanoid": "~3.3.0",
-    "tslib": "~2.5.0"
+    "tslib": "~2.6.0"
   },
   "devDependencies": {
     "@types/jest": "~27.5.0",
