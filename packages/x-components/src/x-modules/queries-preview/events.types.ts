@@ -1,6 +1,6 @@
 import { SearchRequest } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
-import { QueryPreviewInfo } from '../../x-installer/index';
+import { QueryPreviewInfo } from './store/index';
 
 /**
  * Dictionary of the events of QueriesPreview XModule, where each key is the event name, and the

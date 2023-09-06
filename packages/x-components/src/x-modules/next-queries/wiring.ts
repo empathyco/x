@@ -50,7 +50,7 @@ export const setNextQueriesQuery = wireCommit('setQuery');
  *
  * @public
  */
-export const setNextQueriesQueryPreview = wireCommit(
+export const setNextQueriesQueryFromPreview = wireCommit(
   'setParams',
   ({ eventPayload: { query } }) => query
 );
@@ -74,7 +74,7 @@ export const setNextQueriesExtraParams = wireCommit('setParams');
  *
  * @public
  */
-export const setNextQueriesExtraParamsFromQueryPreview = wireCommit(
+export const setNextQueriesExtraParamsFromPreview = wireCommit(
   'setParams',
   ({ eventPayload: { extraParams } }) => extraParams
 );
@@ -151,7 +151,7 @@ export const nextQueriesWiring = createWiring({
     fetchAndSaveNextQueryPreviewWire
   },
   UserAcceptedAQueryPreview: {
-    setNextQueriesQueryPreview,
-    setNextQueriesExtraParamsFromQueryPreview
+    setNextQueriesQueryFromPreview,
+    setNextQueriesExtraParamsFromPreview
   }
 });

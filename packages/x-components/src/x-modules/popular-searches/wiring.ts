@@ -4,7 +4,6 @@ import {
 } from '../../wiring/namespaced-wires.factory';
 import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
-import { setSelectedQueryPreviewParamsWire } from '../search/index';
 
 /**
  * `popularSearches` {@link XModuleName | XModule name}.
@@ -61,5 +60,5 @@ export const popularSearchesWiring = createWiring({
   },
   ExtraParamsChanged: {
     setPopularSearchesExtraParams
-  },
+  }
 });

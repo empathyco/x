@@ -187,7 +187,7 @@ export const resetStateIfNoRequestWire = filterTruthyPayload<InternalSearchReque
  *
  * @public
  */
-export const SetSelectedQueryPreviewWire = wireCommit(
+export const setSearchQueryFromPreview = wireCommit(
   'setQuery',
   ({ eventPayload: { query } }) => query
 );
@@ -197,7 +197,7 @@ export const SetSelectedQueryPreviewWire = wireCommit(
  *
  * @public
  */
-export const setSelectedQueryPreviewParamsWire = wireCommit(
+export const setSearchExtraParamsFromPreview = wireCommit(
   'setParams',
   ({ eventPayload: { extraParams } }) => extraParams
 );
@@ -263,8 +263,8 @@ export const searchWiring = createWiring({
     clearSearchQuery
   },
   UserAcceptedAQueryPreview: {
-    SetSelectedQueryPreviewWire,
-    setSelectedQueryPreviewParamsWire,
+    setSearchQueryFromPreview,
+    setSearchExtraParamsFromPreview,
     saveOriginWire
   },
   QueryPreviewUnselected: {

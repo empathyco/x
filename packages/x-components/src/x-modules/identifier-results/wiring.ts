@@ -44,7 +44,7 @@ export const setIdentifierResultsQuery = wireDispatch('saveQuery');
  *
  * @public
  */
-export const setIdentifierResultsQueryPreview = wireDispatch(
+export const setIdentifierResultsQueryFromPreview = wireDispatch(
   'saveQuery',
   ({ eventPayload: { query } }) => query
 );
@@ -139,7 +139,7 @@ export const identifierResultsWiring = createWiring({
     clearIdentifierResultsQuery
   },
   UserAcceptedAQueryPreview: {
-    setIdentifierResultsQueryPreview,
+    setIdentifierResultsQueryFromPreview,
     saveIdentifierResultsOriginWire
   }
 });

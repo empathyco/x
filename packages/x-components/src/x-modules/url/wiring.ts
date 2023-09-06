@@ -27,7 +27,10 @@ export const setUrlQuery = wireCommit('setQuery');
  *
  * @public
  */
-export const setUrlQueryPreview = wireCommit('setQuery', ({ eventPayload: { query } }) => query);
+export const setUrlQueryFromPreview = wireCommit(
+  'setQuery',
+  ({ eventPayload: { query } }) => query
+);
 
 /**
  * Sets the page of the url module.
@@ -55,7 +58,7 @@ export const setParams = wireCommit('setParams');
  *
  * @public
  */
-export const setParamsFromQueryPreview = wireCommit(
+export const setUrlParamsFromPreview = wireCommit(
   'setParams',
   ({ eventPayload: { extraParams } }) => extraParams
 );
@@ -94,8 +97,8 @@ export const urlWiring = createWiring({
     setUrlQuery
   },
   UserAcceptedAQueryPreview: {
-    setUrlQueryPreview,
-    setParamsFromQueryPreview
+    setUrlQueryFromPreview,
+    setUrlParamsFromPreview
   },
   UserClearedQuery: {
     setUrlQuery

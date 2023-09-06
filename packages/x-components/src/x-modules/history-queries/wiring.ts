@@ -44,7 +44,7 @@ export const addQueryToHistoryQueries = wireDispatch('addQueryToHistory');
  *
  * @public
  */
-export const addQueryPreviewToHistoryQueries = wireDispatch(
+export const addQueryToHistoryQueriesFromPreview = wireDispatch(
   'addQueryToHistory',
   ({ eventPayload: { query } }) => query
 );
@@ -62,7 +62,7 @@ export const setHistoryQueriesQuery = wireCommit('setQuery');
  *
  * @public
  */
-export const setHistoryQueriesQueryPreview = wireCommit(
+export const setHistoryQueriesQueryFromPreview = wireCommit(
   'setQuery',
   ({ eventPayload: { query } }) => query
 );
@@ -192,7 +192,7 @@ export const historyQueriesWiring = createWiring({
     updateHistoryQueriesWithSearchResponse
   },
   UserAcceptedAQueryPreview: {
-    setHistoryQueriesQueryPreview,
-    addQueryPreviewToHistoryQueries
+    setHistoryQueriesQueryFromPreview,
+    addQueryToHistoryQueriesFromPreview
   }
 });
