@@ -623,12 +623,7 @@
 
     protected queriesPreviewInfo: QueryPreviewInfo[] = [
       {
-        query: 'cortina',
-        extraParams: {
-          instance: 'lolahome',
-          store: 'hola',
-          lang: 'es'
-        }
+        query: 'cortina'
       },
       {
         query: 'marni summer dress'
