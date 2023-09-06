@@ -4,7 +4,6 @@ import { XActionContext } from '../../../store/actions.types';
 import { XStoreModule } from '../../../store/store.types';
 import { RequestStatus, StatusState } from '../../../store/utils/status-store.utils';
 import { QueriesPreviewConfig } from '../config.types';
-import { QueryPreviewInfo } from '../../../x-installer/index';
 
 /**
  * QueriesPreview store state.
@@ -15,12 +14,30 @@ export interface QueryPreviewItem extends StatusState {
   /**
    * Request object to retrieve the query preview using the search adapter, or null if there is
    * no valid data to conform a valid request.
+   *
+   * @public
    */
   request: SearchRequest;
   /** Results of the query preview request. */
   results: Result[];
   /** The total number of results for the search query. */
   totalResults: number;
+}
+
+/**
+ * Information to render or request a query preview with.
+ *
+ * @public
+ */
+export interface QueryPreviewInfo {
+  /** The query to search for. */
+  query: string;
+  /** The extra params to perform the search. */
+  extraParams?: Dictionary<unknown>;
+  /** An optional title for the container. */
+  title?: string;
+  /** Any other additional information to render the preview with. */
+  [extra: string]: unknown;
 }
 
 /**
@@ -53,7 +70,7 @@ export interface QueriesPreviewGetters {
    * The initial params.
    */
   initialParams: Dictionary<unknown>;
-  activeParams: Dictionary<unknown>
+  activeParams: Dictionary<unknown>;
 }
 
 /**

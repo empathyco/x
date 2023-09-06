@@ -26,7 +26,7 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { RequestStatus } from '../../../store';
   import { queriesPreviewXModule } from '../x-module';
-  import { QueryPreviewInfo } from '../../../x-installer';
+  import { QueryPreviewInfo } from '../store/types';
   import QueryPreview from './query-preview.vue';
 
   interface QueryPreviewStatusRecord {

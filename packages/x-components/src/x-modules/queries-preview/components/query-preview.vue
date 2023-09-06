@@ -44,13 +44,12 @@
   import { NoElement } from '../../../components/no-element';
   import { RequestStatus } from '../../../store';
   import { QueryFeature, FeatureLocation } from '../../../types/origin';
-  import { QueryPreviewItem } from '../store/types';
+  import { QueryPreviewInfo, QueryPreviewItem } from '../store/types';
   import { QueriesPreviewConfig } from '../config.types';
   import { queriesPreviewXModule } from '../x-module';
   import { createOrigin } from '../../../utils/origin';
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils';
-  import { QueryPreviewInfo } from '../../../x-installer';
 
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,

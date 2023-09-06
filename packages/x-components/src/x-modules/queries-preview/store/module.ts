@@ -22,9 +22,7 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
       query: '',
       extraParams: undefined
     },
-    params: {
-      store: ''
-    }
+    params: {}
   }),
   getters: { loadedQueriesPreview, initialParams, activeParams },
   mutations: {

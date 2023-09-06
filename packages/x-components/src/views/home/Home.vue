@@ -501,7 +501,7 @@
   import SemanticQueries from '../../x-modules/semantic-queries/components/semantic-queries.vue';
   import SemanticQuery from '../../x-modules/semantic-queries/components/semantic-query.vue';
   import { useQueriesPreview } from '../../x-modules/queries-preview/composables/use-queries-preview.composable';
-  import { QueryPreviewInfo } from '../../x-installer';
+  import { QueryPreviewInfo } from '../../x-modules/queries-preview/store/types';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -623,7 +623,12 @@
 
     protected queriesPreviewInfo: QueryPreviewInfo[] = [
       {
-        query: 'cortina'
+        query: 'cortina',
+        extraParams: {
+          instance: 'lolahome',
+          store: 'hola',
+          lang: 'es'
+        }
       },
       {
         query: 'marni summer dress'

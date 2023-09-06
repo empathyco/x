@@ -10,7 +10,7 @@ import { XComponentsAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { queriesPreviewXModule } from '../../x-module';
 import QueryPreviewList from '../query-preview-list.vue';
-import { QueryPreviewInfo } from '../../../../x-installer/index';
+import { QueryPreviewInfo } from '../../store/types';
 
 function renderQueryPreviewList({
   template = `
