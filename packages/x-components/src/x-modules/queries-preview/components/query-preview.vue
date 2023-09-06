@@ -98,6 +98,15 @@
     public debounceTimeMs!: number;
 
     /**
+     * Controls whether the QueryPreview should be removed from the state
+     * when the component is destroyed.
+     *
+     * @public
+     */
+    @Prop({ default: true })
+    public clearOnDestroy!: boolean;
+
+    /**
      * The results preview of the queries preview mounted.
      * It is a dictionary, indexed by the query preview query.
      */
@@ -204,11 +213,17 @@
     /**
      * Cancels the (remaining) requests when the component is destroyed
      * via the `debounce.cancel()` method.
+     * If the prop 'clearOnDestroy' is set to true, it also removes the QueryPreview
+     * from the state when the component is destroyed.
      *
      * @internal
      */
     protected beforeDestroy(): void {
       this.emitQueryPreviewRequestUpdated.cancel();
+
+      if (this.clearOnDestroy) {
+        this.$x.emit('QueryPreviewUnmountedHook', this.query, { priority: 0, replaceable: false });
+      }
     }
 
     /**
