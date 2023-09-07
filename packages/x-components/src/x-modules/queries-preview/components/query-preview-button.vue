@@ -24,7 +24,7 @@
 
   /**
    * Component containing an event button that emits
-   * {@link XEventsTypes.UserAcceptedAQueryPreview} when clicked with
+   * {@link QueriesPreviewXEvents.UserAcceptedAQueryPreview} when clicked with
    * the full query preview info as payload.
    *
    * It has a default slot to customize its contents.
@@ -54,7 +54,7 @@
      * The provided query preview with the base extra params from the module merged in.
      *
      * @returns The query preview info with the base extra params merged in.
-     * @private
+     * @public
      */
     protected get fullQueryPreviewInfo(): QueryPreviewInfo {
       return {
