@@ -14,8 +14,8 @@ import { QueryPreviewInfo } from '../../store/types';
 
 function renderQueryPreviewList({
   template = `
-        <QueryPreviewList v-bind="$attrs" #default="{ query, results }">
-          {{ query }} - {{results[0].name}}
+        <QueryPreviewList v-bind="$attrs" #default="{ queryPreviewInfo, results }">
+          {{ queryPreviewInfo.query }} - {{results[0].name}}
         </QueryPreviewList>`,
   queriesPreviewInfo = [{ query: 'milk' }],
   results = { milk: getResultsStub(1) }
