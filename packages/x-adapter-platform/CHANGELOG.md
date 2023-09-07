@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.84](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.83...@empathyco/x-adapter-platform@1.0.0-alpha.84) (2023-09-07)
+
+
+### Features
+
+* update tagging from banners and promoteds (#1274) ([4dd4666](https://github.com/empathyco/x/commit/4dd4666304e76a095d030e36be45590f913d1ad3))
+
+
+
 ## [1.0.0-alpha.83](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.82...@empathyco/x-adapter-platform@1.0.0-alpha.83) (2023-08-02)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
