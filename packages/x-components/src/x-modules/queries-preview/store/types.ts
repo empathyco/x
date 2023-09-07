@@ -66,11 +66,6 @@ export interface QueriesPreviewGetters {
    * The loaded previews from the state.
    */
   loadedQueriesPreview: Dictionary<QueryPreviewItem>;
-  /**
-   * The initial params.
-   */
-  initialParams: Dictionary<unknown>;
-  activeParams: Dictionary<unknown>;
 }
 
 /**
