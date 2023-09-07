@@ -625,7 +625,8 @@
 
     protected queriesPreviewInfo: QueryPreviewInfo[] = [
       {
-        query: 'cortina'
+        query: 'cortina',
+        extraParams: { store: 'Gijón' }
       },
       {
         query: 'marni summer dress'
