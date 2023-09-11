@@ -1,5 +1,10 @@
 <template>
-  <component :is="tag" v-on="$listeners" :data-scroll="item.id">
+  <component
+    :is="tag"
+    v-on="$listeners"
+    :data-scroll="item.id"
+    :style="{ scrollMarginBottom: `-${scrollTopOffset}px` }"
+  >
     <slot />
   </component>
 </template>
@@ -45,6 +50,14 @@
      */
     @Prop({ default: () => NoElement })
     public tag!: string | typeof Vue;
+
+    /**
+     * Top offset when automatically scrolling to this element in pixels.
+     *
+     * @public
+     */
+    @Prop({ default: 0 })
+    public scrollTopOffset!: number;
 
     /**
      * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem.item}
@@ -99,7 +112,9 @@
       oldObserver?.unobserve(this.$el);
       newObserver?.observe(this.$el);
       if (this.pendingScrollTo === this.item.id) {
-        this.$el.scrollIntoView();
+        this.$el.scrollIntoView({
+          block: 'nearest'
+        });
         this.$x.emit('ScrollRestoreSucceeded');
       }
     }
