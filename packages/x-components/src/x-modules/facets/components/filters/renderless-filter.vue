@@ -9,7 +9,7 @@
 
   /**
    * Renders default slot content. It binds to the default slot a
-   * {@link @empathyco/x-types#BooleanFilter | BooleanFilter}, the {@link XEvent | XEvents}
+   * {@link @empathyco/x-types#BooleanFilter}, the {@link XEvent}
    * that will be emitted when clicking the content, the css classes and if the content should be
    * disabled.
    *

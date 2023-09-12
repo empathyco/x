@@ -17,7 +17,7 @@
 
   /**
    * This component renders an identifier result value and highlights its matching part with the
-   * query from the state. Receives as prop the {@link @empathyco/x-types#Result | result data}.
+   * query from the state. Receives as prop the {@link @empathyco/x-types#Result} data.
    *
    * @public
    */
@@ -26,7 +26,7 @@
   })
   export default class IdentifierResult extends Vue {
     /**
-     * (Required) The {@link @empathyco/x-types#Result | result} information.
+     * (Required) The {@link @empathyco/x-types#Result} information.
      *
      * @public
      */

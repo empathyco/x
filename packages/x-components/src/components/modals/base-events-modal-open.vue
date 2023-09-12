@@ -49,6 +49,13 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserClickedOpenEventsModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button.
+
 ## Examples
 
 This component serves to open the `BaseEventsModal`.
@@ -103,10 +110,4 @@ This event can be changed using the `openingEvent` prop, but remember to change 
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedOpenEventsModal`: the event is emitted after the user clicks the button.
 </docs>

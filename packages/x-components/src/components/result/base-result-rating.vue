@@ -48,7 +48,7 @@
     },
     props: {
       /**
-       * The {@link @empathyco/x-types#Result | Result} to render its rating.
+       * The {@link @empathyco/x-types#Result} to render its rating.
        *
        * @public
        */
@@ -71,7 +71,7 @@
 
       /**
        * Emits the `UserClickedAResultRating` event when user clicks this component, with the
-       * {@link @empathyco/x-types#Result | Result} as payload.
+       * {@link @empathyco/x-types#Result} as payload.
        *
        * @internal
        */
@@ -101,7 +101,7 @@
 
 This component emits the following events:
 
-- [`UserClickedAResultRating`](./../../api/x-components.searchboxxevents.md)
+- [`UserClickedAResultRating`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

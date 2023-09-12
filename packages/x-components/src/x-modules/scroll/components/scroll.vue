@@ -119,6 +119,22 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserScrolled`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  emitted after the user scrolls in this container. The payload is the scroll top distance in
+  pixels.
+- [`UserChangedScrollDirection`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  emitted when the user changes the scroll direction. The payload is the new scrolling direction.
+- [`UserReachedScrollStart`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  emitted when the user scrolls up to the initial position of the scroll.
+- [`UserAlmostReachedScrollEnd`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  emitted when the user is about to reach the bottom part of the scroll.
+- [`UserReachedScrollEnd`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  emitted when the user has reached the bottom part of the scroll.
+
 ## Example
 
 The Scroll is a component that wraps the BaseScroll and provides it for a unique id.
@@ -243,17 +259,4 @@ You can use the XEvents subscribing to them.
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserScrolled`: emitted after the user scrolls in this container. The payload is the scroll top
-  distance in pixels.
-- `UserChangedScrollDirection`: emitted when the user changes the scroll direction. The payload is
-  the new scrolling direction.
-- `UserReachedScrollStart`: emitted when the user scrolls up to the initial position of the scroll.
-- `UserAlmostReachedScrollEnd`: emitted when the user is about to reach the bottom part of the
-  scroll.
-- `UserReachedScrollEnd`: emitted when the user has reached the bottom part of the scroll.
 </docs>

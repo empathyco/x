@@ -91,6 +91,35 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserScrolled`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user scrolls in this container. The payload is the scroll top
+  distance in pixels.
+- [`UserChangedScrollDirection`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted when the user changes the scroll direction. The payload is the new scrolling
+  direction.
+- [`UserReachedScrollStart`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted when the user scrolls up to the initial position of the scroll.
+- [`UserAlmostReachedScrollEnd`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted when the user is about to reach the bottom part of the scroll.
+- [`UserReachedScrollEnd`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted when the user has reached the bottom part of the scroll.
+
+## Vue Events
+
+- `scroll`: the event is emitted after the user scrolls in this container. The payload is the scroll
+  top distance in pixels.
+- `scroll:direction-change`: the event is emitted when the user changes the scroll direction. The
+  payload is the new scrolling direction.
+- `scroll:at-start`: the event is emitted when the user scrolls up to the initial position of the
+  scroll.
+- `scroll:almost-at-end`: the event is emitted when the user is about to reach the bottom part of
+  the scroll.
+- `scroll:at-end`: the event is emitted when the user has reached the bottom part of the scroll.
+
 ## Example
 
 The `WindowScroll` component manages the scroll state of the `body` or `html` elements. It does the
@@ -200,31 +229,4 @@ similar styles the corresponding style for tag body like in the next example.
   }
 </style>
 ```
-
-## Vue Events
-
-- `scroll`: the event is emitted after the user scrolls in this container. The payload is the scroll
-  top distance in pixels.
-- `scroll:direction-change`: the event is emitted when the user changes the scroll direction. The
-  payload is the new scrolling direction.
-- `scroll:at-start`: the event is emitted when the user scrolls up to the initial position of the
-  scroll.
-- `scroll:almost-at-end`: the event is emitted when the user is about to reach the bottom part of
-  the scroll.
-- `scroll:at-end`: the event is emitted when the user has reached the bottom part of the scroll.
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserScrolled`: the event is emitted after the user scrolls in this container. The payload is the
-  scroll top distance in pixels.
-- `UserChangedScrollDirection`: the event is emitted when the user changes the scroll direction. The
-  payload is the new scrolling direction.
-- `UserReachedScrollStart`: the event is emitted when the user scrolls up to the initial position of
-  the scroll.
-- `UserAlmostReachedScrollEnd`: the event is emitted when the user is about to reach the bottom part
-  of the scroll.
-- `UserReachedScrollEnd`: the event is emitted when the user has reached the bottom part of the
-  scroll.
 </docs>

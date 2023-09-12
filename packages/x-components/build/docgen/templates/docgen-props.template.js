@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { cleanMarkdown } = require('../utils');
+const { cleanMarkdown, removeLinks } = require('../utils');
 
 /**
  * Function to overwrite props template on vue-docgen.
@@ -33,7 +33,7 @@ function toPropsMarkdownTable({ name = '', type = {}, defaultValue = {}, descrip
   const value = defaultValue.value ? defaultValue.value : '';
 
   return `| <code>${cleanMarkdown(name)}</code> | ${cleanMarkdown(
-    description
+    removeLinks(description)
   )} | <code>${cleanMarkdown(typeName)}</code> | <code>${cleanMarkdown(value)}</code> |`;
 }
 

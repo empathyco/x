@@ -29,7 +29,7 @@
 
   /**
    * This component receives a required `facet` with
-   * {@link @empathyco/x-types#BooleanFilter | BooleanFilter} as prop and renders a button, which
+   * {@link @empathyco/x-types#BooleanFilter} as prop and renders a button, which
    * on clicked emits the {@link FacetsXEvents.UserClickedAllFilter} event. By default
    * the rendered button displays a message with the facet label but this content is customizable
    * through the default slot.
@@ -89,6 +89,14 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserClickedAllFilter`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the id of the facet
+  that this `AllFilter` component corresponds to.
+
 ## Examples
 
 This component receives a required `facet` as prop and renders a button, which on clicked emits the
@@ -136,11 +144,4 @@ but this content is customizable through the default slot.
   </template>
 </Facets>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedAllFilter`: the event is emitted after the user clicks the button. The event payload
-  is the id of the facet that this `AllFilter` component corresponds to.
 </docs>

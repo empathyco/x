@@ -44,7 +44,7 @@
      * @remarks
      * {@link HistoryQueriesXEvents.UserPressedRemoveHistoryQuery}: historyQuery
      *
-     * @returns The {@link XEvent | XEvents} to emit.
+     * @returns The {@link XEvent} to emit.
      * @public
      */
     protected get removeHistoryQueryEvent(): Partial<XEventsTypes> {
@@ -54,6 +54,14 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserPressedRemoveHistoryQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the history query
+  data.
+
 ## Examples
 
 ### Basic Example
@@ -65,11 +73,4 @@ You can customize the content that this component renders. To do so, simply use 
   <img class="x-history-query__icon" src="./my-awesome-clear-icon.svg"/>
 </RemoveHistoryQuery>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserPressedRemoveHistoryQuery`: the event is emitted after the user clicks the button. The event
-  payload is the history query data.
 </docs>

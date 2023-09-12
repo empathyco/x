@@ -432,7 +432,7 @@
   }
 
   /**
-   * Vue's VNode {@link https://vuejs.org/v2/api/#transition | transition} data props and events.
+   * Vue's VNode {@link https://vuejs.org/v2/api/#transition} data props and events.
    */
   interface TransitionData {
     name?: string;

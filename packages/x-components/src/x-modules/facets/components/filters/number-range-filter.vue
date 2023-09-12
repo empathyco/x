@@ -74,7 +74,7 @@
     public clickEvents?: Partial<XEventsTypes>;
 
     /**
-     * The {@link XEventsTypes | events} to emit.
+     * The {@link XEventsTypes} to emit.
      *
      * @returns The events to emit when clicked.
      * @internal
@@ -105,10 +105,10 @@
 
 This component emits the following events:
 
-- [`UserClickedAFilter`](x-components.xeventstypes.userclickedafilter.md): the event is emitted
-  after the user clicks the button, using the `filter` prop as its payload.
-- [`UserClickedANumberRangeFilter`](x-components.xeventstypes.userclickedanumberrangefilter.md): the
-  event is emitted after the user clicks the button, using the `filter` prop as its payload.
+- [`UserClickedAFilter`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button, using the `filter` prop as its payload.
+- [`UserClickedANumberRangeFilter`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button, using the `filter` prop as its payload.
 
 ## See it in action
 

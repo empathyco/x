@@ -98,6 +98,15 @@
     public debounceTimeMs!: number;
 
     /**
+     * Controls whether the QueryPreview should be removed from the state
+     * when the component is destroyed.
+     *
+     * @public
+     */
+    @Prop({ default: true })
+    public clearOnDestroy!: boolean;
+
+    /**
      * The results preview of the queries preview mounted.
      * It is a dictionary, indexed by the query preview query.
      */
@@ -208,11 +217,17 @@
     /**
      * Cancels the (remaining) requests when the component is destroyed
      * via the `debounce.cancel()` method.
+     * If the prop 'clearOnDestroy' is set to true, it also removes the QueryPreview
+     * from the state when the component is destroyed.
      *
      * @internal
      */
     protected beforeDestroy(): void {
       this.emitQueryPreviewRequestUpdated.cancel();
+
+      if (this.clearOnDestroy) {
+        this.$x.emit('QueryPreviewUnmountedHook', this.query, { priority: 0, replaceable: false });
+      }
     }
 
     /**
@@ -252,8 +267,9 @@
 
 A list of events that the component will emit:
 
-- `QueryPreviewRequestUpdated`: the event is emitted when the component is mounted and when the
-  properties of the request object changes. The event payload is the `queryPreviewRequest` object.
+- [`QueryPreviewRequestUpdated`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted when the component is mounted and when the properties of the request object
+  changes. The event payload is the `queryPreviewRequest` object.
 
 ## Vue Events
 

@@ -106,7 +106,7 @@
     public clickEvents!: Partial<XEventsTypes>;
 
     /**
-     * The {@link XEventsTypes | events} to emit.
+     * The {@link XEventsTypes} to emit.
      *
      * @returns The events to emit when clicked.
      * @internal
@@ -134,7 +134,7 @@
 
     /**
      * Gets the child filter click events, converting the payload of the events that have a
-     * {@link @empathyco/x-types#HierarchicalFilter} as payload to the corresponding child filter.
+     * {@link HierarchicalFilter} as payload to the corresponding child filter.
      *
      * @param childFilter - The child filter.
      * @returns The events to emit when clicking a child.
@@ -196,9 +196,9 @@
 
 A list of events that the component will emit:
 
-- [`UserClickedAFilter`](x-components.xeventstypes.userclickedafilter.md): the event is emitted
-  after the user clicks the button, using the `filter` prop as its payload.
-- [`UserClickedAHierarchicalFilter`](x-components.xeventstypes.userclickedahierarchicalfilter.md):
+- [`UserClickedAFilter`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button, using the `filter` prop as its payload.
+- [`UserClickedAHierarchicalFilter`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
   the event is emitted after the user clicks the button, using the `filter` prop as its payload.
   filter.
 

@@ -68,17 +68,14 @@
 
 A list of events that the component will emit:
 
-- [`UserClickedEnableHistoryQueries`]
-  (x-components.historyqueriesxevents.userclickedenablehistoryqueries.md): the event is emitted
-  whenever the user clicks the switch and the history queries are disabled.
-- [`UserClickedDisableHistoryQueries`]
-  (x-components.historyqueriesxevents.userclickeddisablehistoryqueries.md): the event is emitted
-  whenever the user clicks the switch when the history queries are enabled and the list of history
-  queries is not empty.
-- [`UserClickedConfirmDisableHistoryQueries`]
-  (x-components.historyqueriesxevents.userclickedconfirmdisablehistoryqueries.md): the event is
-  emitted whenever the user clicks the switch when the history queries are enabled and the list of
-  history queries is empty.
+- [`UserClickedEnableHistoryQueries`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted whenever the user clicks the switch and the history queries are disabled.
+- [`UserClickedDisableHistoryQueries`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted whenever the user clicks the switch when the history queries are enabled and
+  the list of history queries is not empty.
+- [`UserClickedConfirmDisableHistoryQueries`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted whenever the user clicks the switch when the history queries are enabled and
+  the list of history queries is empty.
 
 ## See it in action
 

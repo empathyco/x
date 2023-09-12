@@ -142,7 +142,7 @@
     }
 
     /**
-     * Generates the {@link WireMetadata | event metadata} object omitting the moduleName.
+     * Generates the {@link WireMetadata} object omitting the moduleName.
      *
      * @returns The {@link WireMetadata} object omitting the moduleName.
      * @internal
@@ -285,13 +285,13 @@
 
 This component emits the following events:
 
-- [`UserClickedSearchBox`](./../../api/x-components.searchboxxevents.md)
-- [`UserBlurredSearchBox`](./../../api/x-components.searchboxxevents.md)
-- [`UserFocusedSearchBox`](./../../api/x-components.searchboxxevents.md)
-- [`UserIsTypingAQuery`](./../../api/x-components.searchboxxevents.md)
-- [`UserPressedEnterKey`](./../../api/x-components.searchboxxevents.md)
-- [`UserPressedArrowKey`](./../../api/x-components.xeventstypes.md)
-- [`UserAcceptedAQuery`](./../../api/x-components.xeventstypes.md)
+- [`UserClickedSearchBox`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserBlurredSearchBox`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserFocusedSearchBox`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserIsTypingAQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserPressedEnterKey`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserPressedArrowKey`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserAcceptedAQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

@@ -53,7 +53,7 @@
 
 A list of events that the component will emit:
 
-[`PreselectedFiltersProvided`](./../../api/x-components.preselectedfiltersprovided.md).
+[`PreselectedFiltersProvided`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts).
 
 ## See it in action
 

@@ -28,7 +28,7 @@ export default class ScrollMixin extends Vue {
   @Prop({ default: 100 })
   public distanceToBottom!: number;
   /**
-   * Positive vertical distance to still consider that the an element is the first one visible.
+   * Positive vertical distance to still consider that the element is the first one visible.
    * For example, if set to 100, after scrolling 100 pixels, the first rendered element
    * will still be considered the first one.
    */
@@ -98,6 +98,31 @@ export default class ScrollMixin extends Vue {
    * @internal
    */
   protected scrollHeight = 0;
+  /**
+   * Flag to know if the property clientHeight is changing or gets the final value.
+   *
+   * @internal
+   */
+  protected isClientHeightChanging = false;
+  /**
+   * Property for setting the direction of scroll.
+   *
+   * @internal
+   */
+  protected scrollDirection: ScrollDirection = 'UP';
+
+  /**
+   * Restores the clientHeight flag when clientHeight property stops changing.
+   * Also sets a new previous position, before update the current one.
+   *
+   * @internal
+   */
+  protected restoreClientHeightFlag(): void {
+    this.isClientHeightChanging = false;
+    this.previousPosition = this.currentPosition;
+  }
+
+  protected throtteledCall = throttle(this.restoreClientHeightFlag, 100);
 
   /**
    * Throttled version of the function that stores the DOM scroll related properties.
@@ -112,9 +137,9 @@ export default class ScrollMixin extends Vue {
   }
 
   /**
-   * Returns distance missing to end position position.
+   * Returns distance missing to endPosition position.
    *
-   * @returns A number for knowing the distance missing to end position position.
+   * @returns A number for knowing the distance missing to endPosition position.
    * @internal
    */
   protected get distanceToEnd(): number {
@@ -150,16 +175,6 @@ export default class ScrollMixin extends Vue {
    */
   protected get hasScrollReachedStart(): boolean {
     return this.currentPosition === 0;
-  }
-
-  /**
-   * Returns direction of scroll based in {@link ScrollDirection}.
-   *
-   * @returns The scroll direction.
-   * @internal
-   */
-  protected get scrollDirection(): ScrollDirection {
-    return this.currentPosition > this.previousPosition ? 'DOWN' : 'UP';
   }
 
   /**
@@ -207,6 +222,19 @@ export default class ScrollMixin extends Vue {
   }
 
   /**
+   * Change the isClientHeightChanging flag when the property clientHeight is changing and
+   * calls throttleledCall method.
+   *
+   * @internal
+   */
+  @Watch('clientHeight', { immediate: true })
+  protected onClientHeightChanged(): void {
+    this.isClientHeightChanging = true;
+
+    this.throtteledCall();
+  }
+
+  /**
    * Emits the `scroll` event.
    *
    * @param _newScrollPosition - The new position of scroll.
@@ -217,6 +245,19 @@ export default class ScrollMixin extends Vue {
   protected emitScroll(_newScrollPosition: number, oldScrollPosition: number): void {
     this.$emit('scroll', this.currentPosition);
     this.previousPosition = oldScrollPosition;
+  }
+
+  /**
+   * Sets direction of scroll based in {@link ScrollDirection} when the current position
+   * has changed.
+   *
+   * @internal
+   */
+  @Watch('currentPosition')
+  protected setScrollDirection(): void {
+    if (!this.isClientHeightChanging && this.currentPosition !== this.previousPosition) {
+      this.scrollDirection = this.currentPosition > this.previousPosition ? 'DOWN' : 'UP';
+    }
   }
 
   /**
@@ -260,7 +301,9 @@ export default class ScrollMixin extends Vue {
    */
   @Watch('scrollDirection')
   protected emitScrollDirection(direction: ScrollDirection): void {
-    this.$emit('scroll:direction-change', direction);
+    if (!this.isClientHeightChanging) {
+      this.$emit('scroll:direction-change', direction);
+    }
   }
 
   /**

@@ -261,8 +261,8 @@
 
 This component emits the following events:
 
-[`UserScrolledToElement`](./../../api/x-components.scrollxevents.md)
-[`ScrollRestoreFailed`](./../../api/x-components.scrollxevents.md)
+- [`UserScrolledToElement`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`ScrollRestoreFailed`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

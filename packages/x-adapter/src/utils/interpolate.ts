@@ -99,7 +99,7 @@ export function interpolate(string: string, parameters: Record<string, unknown>)
         /* As the replacer function has a very dynamic signature, it is typed as a function with
          * `any` arguments. This makes it impossible for TS to infer the correct `string`
          * type that we are using as default values here. */
-        return value != null ? `${String(head)}${String(value)}${String(tail)}` : '';
+        return value ? `${String(head)}${String(value)}${String(tail)}` : '';
       }
     )
   );

@@ -37,11 +37,11 @@
 
   /**
    * It renders a list of recommendations from the
-   * {@link RecommendationsState.recommendations | Recommendations} state by default.
+   * {@link RecommendationsState.recommendations} state by default.
    * The component provides the slot layout which wraps the whole component with the
    * recommendations bounded. It also provides the default slot to customize the item, which is
    * within the layout slot, with the recommendation bounded. Each recommendation should be
-   * represented by a {@link BaseResultLink | result link component} besides any other component.
+   * represented by a {@link BaseResultLink} component besides any other component.
    *
    * @public
    */
@@ -112,8 +112,8 @@
 This component emits no events, but it makes components such as `BaseResultLink` emit additional
 events:
 
-- `UserClickedARecommendation`: the event is emitted after the user clicks the link of a
-  recommendation.
+- [`UserClickedARecommendation`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the link of a recommendation.
 
 ## See it in action
 

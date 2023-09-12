@@ -38,10 +38,10 @@
   import ColumnPickerMixin from './column-picker.mixin';
 
   /**
-   * Column picker dropdown component renders {@link BaseDropdown | dropdown} component which
+   * Column picker dropdown component renders {@link BaseDropdown} component which
    * options are the different columns you can set for a grid.
    *
-   * It emits {@link XEventsTypes.UserClickedColumnPicker | UserClickedColumnPicker} on dropdown
+   * It emits {@link XEventsTypes.UserClickedColumnPicker} on dropdown
    * input.
    *
    * @remarks It extends {@link ColumnPickerMixin}.
@@ -61,8 +61,8 @@
     public animation?: string | typeof Vue;
 
     /**
-     * Emits a {@link XEventsTypes.UserClickedColumnPicker | UserClickedColumnPicker} and
-     * {@link XEventsTypes.ColumnsNumberProvided | ColumnsNumberProvided} events.
+     * Emits a {@link XEventsTypes.UserClickedColumnPicker} and
+     * {@link XEventsTypes.ColumnsNumberProvided} events.
      *
      * @param column - Column number payload.
      */
@@ -74,6 +74,17 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+An event that the component will emit:
+
+- [`UserClickedColumnPicker`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks an item in the dropdown. The event payload is the
+  number of columns that the clicked item represents.
+- [`ColumnsNumberProvided`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted on component mount, and whenever the value changes. The event payload is the
+  current `selectedColumns` value.
+
 ## Example
 
 Column picker dropdown component renders a dropdown component which options are the different
@@ -174,13 +185,4 @@ with other column pickers.
   };
 </script>
 ```
-
-## Events
-
-An event that the component will emit:
-
-- `UserClickedColumnPicker`: the event is emitted after the user clicks an item in the dropdown. The
-  event payload is the number of columns that the clicked item represents.
-- `ColumnsNumberProvided`: the event is emitted on component mount, and whenever the value changes.
-  The event payload is the current `selectedColumns` value.
 </docs>

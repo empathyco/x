@@ -254,10 +254,10 @@ importers:
   packages/x-adapter-platform:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: ^8.0.0-alpha.32
+        specifier: ^8.0.0-alpha.33
         version: link:../x-adapter
       '@empathyco/x-types':
-        specifier: ^10.0.0-alpha.71
+        specifier: ^10.0.0-alpha.72
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: ^1.0.0-alpha.22
@@ -380,10 +380,10 @@ importers:
   packages/x-components:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: ^8.0.0-alpha.32
+        specifier: ^8.0.0-alpha.33
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: ^1.0.0-alpha.82
+        specifier: ^1.0.0-alpha.84
         version: link:../x-adapter-platform
       '@empathyco/x-bus':
         specifier: ^1.0.0-alpha.3
@@ -398,7 +398,7 @@ importers:
         specifier: ^2.0.0-alpha.15
         version: link:../storage-service
       '@empathyco/x-types':
-        specifier: ^10.0.0-alpha.71
+        specifier: ^10.0.0-alpha.72
         version: link:../x-types
       '@empathyco/x-utils':
         specifier: ^1.0.0-alpha.22
@@ -712,7 +712,7 @@ importers:
   packages/x-types:
     dependencies:
       '@empathyco/x-adapter':
-        specifier: ^8.0.0-alpha.32
+        specifier: ^8.0.0-alpha.33
         version: link:../x-adapter
       tslib:
         specifier: ~2.5.0

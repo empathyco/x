@@ -220,8 +220,9 @@ The `buttonClass` prop can be used to add classes to the buttons.
 
 A list of events that the component will emit:
 
-- `UserClickedColumnPicker`: the event is emitted after the user clicks an item. The event payload
-  is the number of columns that the clicked item represents.
-- `ColumnsNumberProvided`: the event is emitted on component mount. The event payload is the current
-  `selectedColumns` value.
+- [`UserClickedColumnPicker`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks an item. The event payload is the number of columns
+  that the clicked item represents.
+- [`ColumnsNumberProvided`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted on component mount. The event payload is the current `selectedColumns` value.
 </docs>

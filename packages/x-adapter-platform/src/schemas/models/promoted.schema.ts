@@ -16,6 +16,6 @@ export const promotedSchema = createMutableSchema<PlatformPromoted, Promoted>({
   position: 'position',
   modelName: () => 'Promoted',
   tagging: {
-    query: ({ tagging }) => getTaggingInfoFromUrl(tagging?.query ?? '')
+    click: ({ tagging }) => getTaggingInfoFromUrl(tagging?.click ?? '')
   }
 });

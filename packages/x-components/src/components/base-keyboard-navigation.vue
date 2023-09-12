@@ -35,7 +35,7 @@
   @Component
   export default class BaseKeyboardNavigation extends Vue {
     /**
-     * An array of {@link TakeNavigationControl | navigation hijacker} objects defining when to
+     * An array of {@link TakeNavigationControl} objects defining when to
      * take control of the keyboard navigation.
      */
     @Prop({
@@ -53,7 +53,7 @@
     protected eventsForDirectionLimit!: Partial<EventsForDirectionLimit>;
 
     /**
-     * The {@link SpatialNavigation | navigation service} to use.
+     * The {@link SpatialNavigation} service to use.
      */
     protected navigationService!: SpatialNavigation;
 
@@ -145,6 +145,14 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+An event that the component will emit:
+
+- [`UserReachedEmpathizeTop`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event emitted by default when the container reaches its top navigation, but more events can be
+  emitted for each direction using the `eventsForDirectionLimit` prop.
+
 ## Examples
 
 This component has a slot to inject other components inside it. The component expects a required
@@ -200,12 +208,4 @@ reaching the navigation limit in any direction.
   <QuerySuggestions/>
 </KeyboardNavigation>
 ```
-
-## Events
-
-An event that the component will emit:
-
-- `UserReachedEmpathizeTop`: the event emitted by default when the container reaches its top
-  navigation, but more events can be emitted for each direction using the `eventsForDirectionLimit`
-  prop.
 </docs>

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.32...@empathyco/x-adapter@8.0.0-alpha.33) (2023-08-02)
+
+
+### Features
+
+* make empty string point to live env ([1d20789](https://github.com/empathyco/x/commit/1d2078941a616bfa7bd8a0e7119f21fd11e511d9))
+
+
+
 ## [8.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.31...@empathyco/x-adapter@8.0.0-alpha.32) (2023-06-27)
 
 **Note:** Version bump only for package @empathyco/x-adapter

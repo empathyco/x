@@ -12,7 +12,7 @@
 
   /**
    * Component to be reused that renders a `<button>` with the logic of emitting events to the bus
-   * on click. The events are passed as an object to prop {@link XEventsTypes | events}.
+   * on click. The events are passed as an object to prop {@link XEventsTypes}.
    * The keys are the event name and the values are the payload of each event. All events are
    * emitted with its respective payload. If any event doesn't need payload a `undefined` must be
    * passed as value.

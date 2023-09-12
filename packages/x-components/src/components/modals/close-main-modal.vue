@@ -43,7 +43,7 @@
 
 This component emits the following events:
 
-- [`UserClickedCloseX`](./../../api/x-components.xeventstypes.md)
+- [`UserClickedCloseX`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

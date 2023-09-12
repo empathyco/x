@@ -84,7 +84,7 @@
      * The list of events that are going to be emitted when the suggestion button is pressed.
      *
      * @internal
-     * @returns The {@link XEvent | XEvents} to emit.
+     * @returns The {@link XEvent} to emit.
      */
     protected get suggestionSelectedEvents(): Partial<XEventsTypes> {
       return {
@@ -95,6 +95,14 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserSelectedAHistoryQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the history query
+  data.
+
 ## Examples
 
 ### Basic usage
@@ -230,11 +238,4 @@ The `removeButtonClass` prop can be used to add classes to the remove history qu
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserSelectedAHistoryQuery`: the event is emitted after the user clicks the button. The event
-  payload is the history query data.
 </docs>

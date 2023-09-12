@@ -111,7 +111,7 @@
 
 This components emits the following events:
 
-- [`ScrollRestoreSucceeded`](./../../api/x-components.scrollxevents.md)
+- [`ScrollRestoreSucceeded`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

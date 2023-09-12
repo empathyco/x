@@ -3,6 +3,83 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.407](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.406...@empathyco/x-components@3.0.0-alpha.407) (2023-09-07)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [3.0.0-alpha.406](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.405...@empathyco/x-components@3.0.0-alpha.406) (2023-08-25)
+
+
+### Features
+
+* standardise all events links in component docs section (#1265) ([ff90da2](https://github.com/empathyco/x/commit/ff90da215d5c16b01f226a85d8656d10817521d0))
+
+
+
+## [3.0.0-alpha.405](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.404...@empathyco/x-components@3.0.0-alpha.405) (2023-08-25)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [3.0.0-alpha.404](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.403...@empathyco/x-components@3.0.0-alpha.404) (2023-08-23)
+
+
+### Documentation
+
+* remove jsdoc [@links](https://github.com/links) from generated documentation (#1261) ([9082fb2](https://github.com/empathyco/x/commit/9082fb2a9d2be89252cc58931d8b3035849a3123))
+
+
+
+## [3.0.0-alpha.403](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.402...@empathyco/x-components@3.0.0-alpha.403) (2023-08-21)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [3.0.0-alpha.402](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.401...@empathyco/x-components@3.0.0-alpha.402) (2023-08-17)
+
+
+### Bug Fixes
+
+* restore sliding panel state after a search (#1259) ([c61f3ed](https://github.com/empathyco/x/commit/c61f3edaeb0138d759b583901fad89651bdfaefb))
+
+
+
+## [3.0.0-alpha.401](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.400...@empathyco/x-components@3.0.0-alpha.401) (2023-08-16)
+
+
+### Documentation
+
+* **recommendations:** updated recommendations ui doc (#1249) ([432118a](https://github.com/empathyco/x/commit/432118a2d42e0e0964e2d0e1c0e08b1f5e06bb7b))
+
+
+
+## [3.0.0-alpha.400](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.399...@empathyco/x-components@3.0.0-alpha.400) (2023-08-02)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [3.0.0-alpha.399](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.398...@empathyco/x-components@3.0.0-alpha.399) (2023-07-31)
+
+
+### Bug Fixes
+
+* fix base rating component (#1256) ([b1616ca](https://github.com/empathyco/x/commit/b1616cac0310535bf1354c5e084ba0267fc1e01e))
+
+
+
 ## [3.0.0-alpha.398](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.397...@empathyco/x-components@3.0.0-alpha.398) (2023-07-27)
 
 

@@ -78,6 +78,15 @@
 </style>
 
 <docs lang="mdx">
+## Events
+
+This component emits the following events:
+
+- [`UserClickedARedirection`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+  after the user clicks the redirection button.
+- [`UserClickedAbortARedirection`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+  after the user clicks the abort redirection button.
+
 ## See it in action
 
 Here you have a basic example of how the auto progress bar is rendered.
@@ -124,11 +133,4 @@ to cancel the animation by sending the isLoading prop to false.
   };
 </script>
 ```
-
-## Events
-
-This component emits the following events:
-
-- `UserClickedARedirection` after the user clicks the redirection button.
-- `UserClickedAbortARedirection` after the user clicks the abort redirection button.
 </docs>
