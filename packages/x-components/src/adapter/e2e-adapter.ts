@@ -53,5 +53,6 @@ export const e2eAdapter: XComponentsAdapter = {
     defaultRequestOptions: {
       properties: { keepalive: true }
     }
-  })
+  }),
+  xControls: mockEndpointAdapter('x-controls')
 };
