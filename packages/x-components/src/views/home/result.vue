@@ -1,5 +1,5 @@
 <template>
-  <article class="x-result" style="max-width: 300px; overflow: hidden">
+  <article class="x-result" style="max-width: 300px">
     <BaseResultLink :result="result">
       <BaseResultImage
         :result="result"

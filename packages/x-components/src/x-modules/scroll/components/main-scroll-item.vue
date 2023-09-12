@@ -3,7 +3,7 @@
     :is="tag"
     v-on="$listeners"
     :data-scroll="item.id"
-    :style="{ scrollMarginBottom: `-${scrollTopOffset}px` }"
+    :style="{ scrollMarginTop: `${scrollTopOffset}px` }"
   >
     <slot />
   </component>
@@ -112,8 +112,8 @@
       oldObserver?.unobserve(this.$el);
       newObserver?.observe(this.$el);
       if (this.pendingScrollTo === this.item.id) {
-        this.$el.scrollIntoView({
-          block: 'nearest'
+        Vue.nextTick(() => {
+          this.$el.scrollIntoView();
         });
         this.$x.emit('ScrollRestoreSucceeded');
       }
