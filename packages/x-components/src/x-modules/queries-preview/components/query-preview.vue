@@ -37,6 +37,8 @@
   import { Dictionary } from '@empathyco/x-utils';
   import { Result, SearchRequest } from '@empathyco/x-types';
   import { State } from '../../../components/decorators/store.decorators';
+  import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+  import { XProvide } from '../../../components/decorators/injection.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { NoElement } from '../../../components/no-element';
   import { RequestStatus } from '../../../store';
@@ -47,8 +49,6 @@
   import { createOrigin } from '../../../utils/origin';
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils';
-  import { LIST_ITEMS_KEY, XProvide } from '../../../components';
-
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,
    * along with the query preview and the totalResults of the search request.

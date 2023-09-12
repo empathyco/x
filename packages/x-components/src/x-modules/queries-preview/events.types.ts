@@ -17,8 +17,4 @@ export interface QueriesPreviewXEvents {
    * Payload: The query whose preview has been removed.
    */
   QueryPreviewUnmountedHook: string;
-  /**
-   * The component that shows a Query preview has been destroyed.
-   */
-  QueriesPreviewDestroyedHook: void;
 }
