@@ -37,7 +37,6 @@ export const fetchAndSaveQueryPreviewWire = wireDispatch('fetchAndSaveQueryPrevi
  *
  * @public
  */
-
 export const clearQueryPreviewWire = wireCommit('clearQueryPreview');
 
 /**

@@ -35,7 +35,7 @@
   import Vue from 'vue';
   import { Component, Prop, Inject, Watch } from 'vue-property-decorator';
   import { Dictionary } from '@empathyco/x-utils';
-  import { SearchRequest, Result } from '@empathyco/x-types';
+  import { Result, SearchRequest } from '@empathyco/x-types';
   import { State } from '../../../components/decorators/store.decorators';
   import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
   import { XProvide } from '../../../components/decorators/injection.decorators';
@@ -49,7 +49,6 @@
   import { createOrigin } from '../../../utils/origin';
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils';
-
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,
    * along with the query preview and the totalResults of the search request.
@@ -97,6 +96,15 @@
      */
     @Prop({ default: 0 })
     public debounceTimeMs!: number;
+
+    /**
+     * Controls whether the QueryPreview should be removed from the state
+     * when the component is destroyed.
+     *
+     * @public
+     */
+    @Prop({ default: true })
+    public clearOnDestroy!: boolean;
 
     /**
      * The results preview of the queries preview mounted.
@@ -205,11 +213,17 @@
     /**
      * Cancels the (remaining) requests when the component is destroyed
      * via the `debounce.cancel()` method.
+     * If the prop 'clearOnDestroy' is set to true, it also removes the QueryPreview
+     * from the state when the component is destroyed.
      *
      * @internal
      */
     protected beforeDestroy(): void {
       this.emitQueryPreviewRequestUpdated.cancel();
+
+      if (this.clearOnDestroy) {
+        this.$x.emit('QueryPreviewUnmountedHook', this.query, { priority: 0, replaceable: false });
+      }
     }
 
     /**
