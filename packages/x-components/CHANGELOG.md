@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.408](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.407...@empathyco/x-components@3.0.0-alpha.408) (2023-09-12)
+
+
+### Bug Fixes
+
+* prevent flickering animation on query preview list second load ([e7141a3](https://github.com/empathyco/x/commit/e7141a3941284896bd9a341b8a81bfdfa07515c5))
+
+
+
 ## [3.0.0-alpha.407](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.406...@empathyco/x-components@3.0.0-alpha.407) (2023-09-07)
 
 **Note:** Version bump only for package @empathyco/x-components
