@@ -19,6 +19,7 @@ import { SearchXModule } from './search/x-module';
 import { SemanticQueriesXModule } from './semantic-queries/x-module';
 import { TaggingXModule } from './tagging';
 import { UrlXModule } from './url';
+import { XControlsModule } from './xcontrols/x-module';
 
 /**
  * Gives each {@link XModule} a name, that can be used to retrieve then its value.
@@ -44,6 +45,7 @@ export interface XModulesTree {
   semanticQueries: SemanticQueriesXModule;
   tagging: TaggingXModule;
   url: UrlXModule;
+  xcontrols: XControlsModule;
 }
 
 /**

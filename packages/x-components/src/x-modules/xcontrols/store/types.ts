@@ -1,3 +1,4 @@
+import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { XControlsConfig } from '../config.types';
 
@@ -23,7 +24,9 @@ export interface XControlsState {
 /**
  * XControls store getters.
  */
-export interface XControlsGetters {}
+export interface XControlsGetters {
+  carousels: Dictionary<number>;
+}
 
 /**
  * XControls store mutations.
@@ -33,7 +36,9 @@ export interface XControlsMutations {}
 /**
  * XControls store actions.
  */
-export interface XControlsActions {}
+export interface XControlsActions {
+  fectchXControls(request: void): any;
+}
 
 /**
  * XControls type safe store module.
