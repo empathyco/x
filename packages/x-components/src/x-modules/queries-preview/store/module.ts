@@ -12,7 +12,6 @@ import { loadedQueriesPreview } from './getters/loaded-queries-preview.getter';
 export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
   state: () => ({
     config: {
-      debounceInMs: 250,
       maxItemsToRequest: 24
     },
     queriesPreview: {},

@@ -40,7 +40,7 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleNa
 export const addQueryToHistoryQueries = wireDispatch('addQueryToHistory');
 
 /**
- * Saves a new query from a selectedQueryPreview into the history queries.
+ * Saves the selectedQueryPreview query into the history queries.
  *
  * @public
  */

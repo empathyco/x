@@ -146,6 +146,6 @@ The content of the button is customizable via its default slot
 
 A list of events that the component will emit:
 
-- `UserClickedPanelToggleButton`: the event is emitted after the user clicks the button. The event
-  payload is the id of the panelId that is going to be toggled.
+- `UserAcceptedAQueryPreview`: the event is emitted after the user clicks the button. The event
+  payload is the `QueryPreviewInfo` of the query.
 </docs>
