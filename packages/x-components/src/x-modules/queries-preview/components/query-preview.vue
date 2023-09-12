@@ -35,9 +35,8 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop, Inject, Watch } from 'vue-property-decorator';
-  import { Dictionary } from '@empathyco/x-utils';
+  import { Dictionary, getNewAndUpdatedKeys } from '@empathyco/x-utils';
   import { SearchRequest, Result } from '@empathyco/x-types';
-  import { getNewAndUpdatedKeys } from '@empathyco/x-utils/src';
   import { State } from '../../../components/decorators/store.decorators';
   import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
   import { XProvide } from '../../../components/decorators/injection.decorators';
