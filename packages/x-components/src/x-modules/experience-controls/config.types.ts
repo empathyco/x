@@ -3,7 +3,7 @@
  *
  * @public
  */
-export interface XControlsConfig {
+export interface ExperienceControlsConfig {
   numberOfCarousels: number;
   resultsPerCarousels: number;
 }
