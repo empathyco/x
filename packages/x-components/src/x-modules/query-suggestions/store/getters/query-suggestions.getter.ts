@@ -45,10 +45,9 @@ export class QuerySuggestionsGetter implements GettersClass<QuerySuggestionsXSto
 
 const querySuggestionsGetter = new QuerySuggestionsGetter();
 
-/**.
- * {@inheritDoc QuerySuggestionsGetter.querySuggestions}
- *
+/**
  * @public
+ * {@inheritDoc QuerySuggestionsGetter.querySuggestions}
  */
 export const querySuggestions =
   querySuggestionsGetter.querySuggestions.bind(querySuggestionsGetter);

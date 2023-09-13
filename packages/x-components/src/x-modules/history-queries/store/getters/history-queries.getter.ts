@@ -51,9 +51,8 @@ export class HistoryQueriesGetter implements GettersClass<HistoryQueriesXStoreMo
 
 const historyQueriesGetter = new HistoryQueriesGetter();
 
-/**.
- * {@inheritDoc HistoryQueriesGetter.historyQueries}
- *
+/**
  * @public
+ * {@inheritDoc HistoryQueriesGetter.historyQueries}
  */
 export const historyQueries = historyQueriesGetter.historyQueries.bind(historyQueriesGetter);
