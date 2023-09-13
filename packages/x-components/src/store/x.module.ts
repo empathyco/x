@@ -36,7 +36,7 @@ export const RootXStoreModule: Module<XModuleState, any> = {
     semanticQueries: null,
     tagging: null,
     url: null,
-    xcontrols: null
+    experienceControls: null
   }),
   namespaced: true
 };

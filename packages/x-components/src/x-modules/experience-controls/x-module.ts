@@ -5,7 +5,7 @@ import { XModule } from '../x-modules.types';
  *
  * @public
  */
-export type XControlsModule = XModule<any>;
+export type ExperienceControlsXModule = XModule<any>;
 
 /**
  * Search {@link XModule} implementation. This module is auto-registered as soon as you
@@ -13,8 +13,8 @@ export type XControlsModule = XModule<any>;
  *
  * @public
  */
-export const xControlsXModule: XControlsModule = {
-  name: 'xcontrols',
+export const experienceControlsXModule: ExperienceControlsXModule = {
+  name: 'experienceControls',
   storeModule: {},
   storeEmitters: {},
   wiring: {}
