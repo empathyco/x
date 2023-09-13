@@ -31,8 +31,8 @@ export class HistoryQueriesGetter implements GettersClass<HistoryQueriesXStoreMo
    * @param normalizedQuery - The normalized query for search into the array.
    * @param hideIfEqualsQuery - If `true`, removes items that are exactly like
    * the current query.
-   * @returns A filter function for searching into the array of history queries
-   * with the provided params.
+   * @returns A filter function for searching into the array of history queries with
+   * the provided params.
    * @internal
    */
   protected searchInHistoryQueries(

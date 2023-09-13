@@ -28,8 +28,8 @@ export class QuerySuggestionsGetter implements GettersClass<QuerySuggestionsXSto
    * the current query.
    *
    * @param normalizedQuery - The normalized query for search into the array.
-   * @returns A filter function for searching into the array of suggestion queries
-   * with the provided params.
+   * @returns A filter function for searching into the array of suggestion queries with
+   * the provided params.
    * @internal
    */
   protected isInQuerySuggestions(normalizedQuery: string): (suggestion: Suggestion) => boolean {
