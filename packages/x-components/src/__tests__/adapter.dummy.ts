@@ -9,6 +9,5 @@ export const XComponentsAdapterDummy: XComponentsAdapter = {
   relatedTags: jest.fn(),
   search: jest.fn(),
   semanticQueries: jest.fn(),
-  tagging: jest.fn(),
-  xControls: jest.fn()
+  tagging: jest.fn()
 };

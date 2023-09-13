@@ -53,6 +53,5 @@ export const e2eAdapter: XComponentsAdapter = {
     defaultRequestOptions: {
       properties: { keepalive: true }
     }
-  }),
-  experienceControls: mockEndpointAdapter('experience-controls')
+  })
 };
