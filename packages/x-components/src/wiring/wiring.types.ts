@@ -160,9 +160,9 @@ export interface WireService<SomeService extends Record<string, MonadicFunction>
    * @param method - The method to invoke.
    * @returns A Wire that expects to receive the function parameter as payload.
    */
-  <SomeMethod extends keyof SomeService>(method: SomeMethod): Wire<
-    FirstParameter<SomeService[SomeMethod]>
-  >;
+  <SomeMethod extends keyof SomeService>(
+    method: SomeMethod
+  ): Wire<FirstParameter<SomeService[SomeMethod]>>;
   /**
    * Creates a wire that will invoke the given service function with the provided static payload.
    *
