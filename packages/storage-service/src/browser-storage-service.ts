@@ -9,7 +9,10 @@ import { StorageService } from './storage-service';
 export class BrowserStorageService implements StorageService {
   protected logger: Logger;
 
-  public constructor(private storage: Storage = localStorage, private prefix: string = 'empathy') {
+  public constructor(
+    private storage: Storage = localStorage,
+    private prefix: string = 'empathy'
+  ) {
     this.logger = logger.child(`[StorageService][${prefix}]`);
   }
 
