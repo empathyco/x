@@ -19,12 +19,8 @@ export class CssInjector implements XCSSInjector {
    * window object if it's required.
    *
    * @param setInWindow - Whether to set the injector instance in the window object.
-   * @param foo
    */
-  public constructor(
-    setInWindow = true,
-    private foo = false
-  ) {
+  public constructor(setInWindow = true) {
     if (!(instance instanceof CssInjector)) {
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       instance = this;
