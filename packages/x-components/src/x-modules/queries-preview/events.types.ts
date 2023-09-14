@@ -26,9 +26,9 @@ export interface QueriesPreviewXEvents {
    */
   UserAcceptedAQueryPreview: QueryPreviewInfo;
   /**
-   * The selected query preview has changed.
-   * Payload: The new selected query preview with extra params or the initial module
-   * params if the query has been cleared.
+   * The query preview has been unselected.
+   * Payload: The extra params to be restored in the modules affected by the
+   * query preview selection.
    */
   QueryPreviewUnselected: Dictionary<unknown>;
 }

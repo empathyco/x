@@ -35,7 +35,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop, Inject, Watch } from 'vue-property-decorator';
-  import { Dictionary, getNewAndUpdatedKeys } from '@empathyco/x-utils';
+  import { Dictionary } from '@empathyco/x-utils';
   import { SearchRequest, Result } from '@empathyco/x-types';
   import { State } from '../../../components/decorators/store.decorators';
   import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
@@ -206,7 +206,7 @@
       this.$watch(
         () => this.queryPreviewRequest,
         (newRequest, oldRequest) => {
-          if (getNewAndUpdatedKeys(newRequest, oldRequest).length) {
+          if (JSON.stringify(newRequest) !== JSON.stringify(oldRequest)) {
             this.emitQueryPreviewRequestUpdated(newRequest);
           }
         }
