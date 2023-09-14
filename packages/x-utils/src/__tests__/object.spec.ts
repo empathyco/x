@@ -1,6 +1,7 @@
 import {
   cleanEmpty,
   cleanUndefined,
+  deepEqual,
   every,
   flatObject,
   forEach,
@@ -600,6 +601,32 @@ describe('testing object utils', () => {
       );
       expect(result._anString_).toEqual(sampleObject.anString);
       expect(result).not.toHaveProperty('_anUndef_');
+    });
+  });
+
+  describe('deepEqual', () => {
+    it('should return true for identical objects', () => {
+      const obj1 = { a: 1, b: { c: 2 } };
+      const obj2 = { a: 1, b: { c: 2 } };
+      expect(deepEqual(obj1, obj2)).toEqual(true);
+    });
+
+    it('should return false for different objects', () => {
+      const obj1 = { a: 1, b: { c: 2 } };
+      const obj2 = { a: 1, b: { c: 3 } };
+      expect(deepEqual(obj1, obj2)).toEqual(false);
+    });
+
+    it('should return true for objects with different key order', () => {
+      const obj1 = { a: 1, b: 2 };
+      const obj2 = { b: 2, a: 1 };
+      expect(deepEqual(obj1, obj2)).toEqual(true);
+    });
+
+    it('should handle undefined correctly', () => {
+      const obj = { a: 1 };
+      expect(deepEqual(obj, undefined)).toEqual(false);
+      expect(deepEqual(undefined, undefined)).toEqual(true);
     });
   });
 });
