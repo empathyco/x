@@ -1,6 +1,6 @@
+import { XEventsTypes } from '../../../wiring';
 import { XStoreModule } from '../../../store/store.types';
-import { ExperienceControlsConfig } from '../config.types';
-
+import { XActionContext } from '../../../store';
 /**
  * Experience Controls store state.
  *
@@ -10,7 +10,8 @@ export interface ExperienceControlsState {
   /**
    * Configuration for the `ExperienceControls` module.
    */
-  config: ExperienceControlsConfig;
+  controls: { [key: string]: unknown };
+  events: Partial<XEventsTypes>;
 }
 
 /**
@@ -18,10 +19,7 @@ export interface ExperienceControlsState {
  *
  * @public
  */
-export interface ExperienceControlsGetters {
-  getNumberCarousels(state: any): number;
-  getResultsCarousels(state: any): number;
-}
+export interface ExperienceControlsGetters {}
 
 /**
  * Experience Controls store mutations.
@@ -30,11 +28,11 @@ export interface ExperienceControlsGetters {
  */
 export interface ExperienceControlsMutations {
   /**
-   * Sets the {@link ExperienceControlsState.config} property.
+   * Sets the {@link ExperienceControlsState.controls} property.
    *
    * @param experienceControlsConfig - The new {@link ExperienceControlsState.config}.
    */
-  setExperienceControlsConfig(experienceControlsConfig: ExperienceControlsConfig): void;
+  setControls(controls: { [key: string]: unknown }): void;
 }
 
 export interface ExperienceControlsActions {}
@@ -45,6 +43,18 @@ export interface ExperienceControlsActions {}
  * @public
  */
 export type ExperienceControlsXStoreModule = XStoreModule<
+  ExperienceControlsState,
+  ExperienceControlsGetters,
+  ExperienceControlsMutations,
+  ExperienceControlsActions
+>;
+
+/**
+ * Alias type for actions context of the {@link ExperienceControlsXStoreModule}.
+ *
+ * @public
+ */
+export type ExperienceControlsActionContext = XActionContext<
   ExperienceControlsState,
   ExperienceControlsGetters,
   ExperienceControlsMutations,
