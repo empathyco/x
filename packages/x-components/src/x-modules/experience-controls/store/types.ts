@@ -1,12 +1,12 @@
 import { XEventsTypes } from '../../../wiring';
 import { XStoreModule } from '../../../store/store.types';
-import { XActionContext } from '../../../store';
+import { StatusState, XActionContext } from '../../../store';
 /**
  * Experience Controls store state.
  *
  * @public
  */
-export interface ExperienceControlsState {
+export interface ExperienceControlsState extends StatusState {
   /**
    * Configuration for the `ExperienceControls` module.
    */
@@ -35,7 +35,20 @@ export interface ExperienceControlsMutations {
   setControls(controls: { [key: string]: unknown }): void;
 }
 
-export interface ExperienceControlsActions {}
+export interface ExperienceControlsActions {
+  /**
+   * Fetches the {@link ExperienceControlsState.controls} property.
+   *
+   * @param request - The request to fetch the {@link ExperienceControlsState.controls}.
+   * @returns A promise of the {@link ExperienceControlsState.controls}.
+   */
+  fetchControls(request: any): Promise<{ [key: string]: unknown }>;
+
+  /**
+   * Fetches and saves the {@link ExperienceControlsState.controls} property.
+   */
+  fetchAndSaveControls(request: any): void;
+}
 
 /**
  * Experience Controls type safe store module.

@@ -1,3 +1,5 @@
+import { fetchAndSaveControls } from './actions/fetch-and-save-controls.action';
+import { fetchControls } from './actions/fetch-controls.action';
 import { ExperienceControlsXStoreModule } from './types';
 
 /**
@@ -8,7 +10,8 @@ import { ExperienceControlsXStoreModule } from './types';
 export const experienceControlsXStoreModule: ExperienceControlsXStoreModule = {
   state: () => ({
     controls: {},
-    events: {}
+    events: {},
+    status: 'initial'
   }),
   getters: {},
   mutations: {
@@ -16,5 +19,8 @@ export const experienceControlsXStoreModule: ExperienceControlsXStoreModule = {
       Object.assign(state.config, experienceControlsConfig);
     }
   },
-  actions: {}
+  actions: {
+    fetchControls,
+    fetchAndSaveControls
+  }
 };
