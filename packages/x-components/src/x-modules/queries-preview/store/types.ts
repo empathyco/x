@@ -1,4 +1,4 @@
-import { Result, SearchRequest, SearchResponse } from '@empathyco/x-types';
+import { Filter, Result, SearchRequest, SearchResponse } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext } from '../../../store/actions.types';
 import { XStoreModule } from '../../../store/store.types';
@@ -34,6 +34,8 @@ export interface QueryPreviewInfo {
   query: string;
   /** The extra params to perform the search. */
   extraParams?: Dictionary<unknown>;
+  /** The filters to perform the search. */
+  filters?: Filter[];
   /** An optional title for the container. */
   title?: string;
   /** Any other additional information to render the preview with. */

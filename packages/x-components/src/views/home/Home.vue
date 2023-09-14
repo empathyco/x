@@ -436,6 +436,7 @@
   /* eslint-disable max-len */
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
+  import { HierarchicalFilter, SimpleFilter } from '@empathyco/x-types';
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
   import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
@@ -626,10 +627,35 @@
     protected queriesPreviewInfo: QueryPreviewInfo[] = [
       {
         query: 'cortina',
-        extraParams: { store: 'Gijón' }
+        extraParams: { store: 'Gijón' },
+        filters: [
+          {
+            facetId: 'categoryPaths',
+            modelName: 'HierarchicalFilter',
+            id: 'categoryIds:66dd06d9f',
+            selected: true,
+            label: 'suede'
+          } as HierarchicalFilter
+        ]
       },
       {
-        query: 'marni summer dress'
+        query: 'marni summer dress',
+        filters: [
+          {
+            facetId: 'categoryPaths',
+            modelName: 'HierarchicalFilter',
+            id: 'categoryIds:5b612edb5',
+            selected: true,
+            label: 'dress'
+          } as HierarchicalFilter,
+          {
+            facetId: 'fit',
+            modelName: 'SimpleFilter',
+            id: 'fit:regular',
+            selected: true,
+            label: 'regular'
+          } as SimpleFilter
+        ]
       },
       {
         query: 'woven hat'
