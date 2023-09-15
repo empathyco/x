@@ -1,19 +1,23 @@
 import { ExperienceControlsXStoreModule } from './types';
 
-/**
- * {@link XStoreModule} For the empathize module.
+/**.
+ * {@link XStoreModule} For the experience-controls module.
  *
  * @internal
  */
 export const experienceControlsXStoreModule: ExperienceControlsXStoreModule = {
   state: () => ({
     controls: {},
-    events: {}
+    events: {},
+    status: 'initial'
   }),
   getters: {},
   mutations: {
-    setControls(state: any, experienceControlsConfig: any) {
-      Object.assign(state.config, experienceControlsConfig);
+    setControls(state, controls) {
+      Object.assign(state.controls, controls);
+    },
+    setEvents(state, events) {
+      Object.assign(state.events, events);
     }
   },
   actions: {}
