@@ -102,7 +102,7 @@
      */
     @Watch('queries', { immediate: true })
     protected resetStatusRecord(newQueries: string[], oldQueries: string[]): void {
-      if (newQueries?.sort().toString() !== oldQueries?.sort().toString()) {
+      if (newQueries?.toString() !== oldQueries?.toString()) {
         this.queriesStatus = {};
         this.loadNext();
       }
