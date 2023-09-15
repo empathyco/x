@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.409](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.408...@empathyco/x-components@3.0.0-alpha.409) (2023-09-15)
+
+
+### Features
+
+* **scroll:** add top offset when automatically scrolling to main-scroll-item (#1277) ([42dc680](https://github.com/empathyco/x/commit/42dc680e3ee3af4ccda6454d967da0750d2bba7e))
+
+
+
 ## [3.0.0-alpha.408](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.407...@empathyco/x-components@3.0.0-alpha.408) (2023-09-12)
 
 
