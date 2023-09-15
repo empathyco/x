@@ -6,4 +6,8 @@ import { experienceControlsXStoreModule } from './module';
  *
  * @internal
  */
-export const experienceControlsEmitters = createStoreEmitters(experienceControlsXStoreModule, {});
+export const experienceControlsEmitters = createStoreEmitters(experienceControlsXStoreModule, {
+  ExperienceControlsClosed: {
+    selector: state => state.events
+  }
+});
