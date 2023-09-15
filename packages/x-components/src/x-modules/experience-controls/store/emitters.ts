@@ -1,6 +1,9 @@
+import { createStoreEmitters } from '../../../store';
+import { experienceControlsXStoreModule } from './module';
+
 /**
- * {@link StoreEmitters} For the experience-controls module.
+ * {@link StoreEmitters} For the {@link ExperienceControlsXModule}.
  *
  * @internal
  */
-export const experienceControlsEmitters = {};
+export const experienceControlsEmitters = createStoreEmitters(experienceControlsXStoreModule, {});
