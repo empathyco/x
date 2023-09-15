@@ -1,3 +1,4 @@
+import { Dictionary } from '@empathyco/x-utils';
 import { XEventsTypes } from '../../../wiring';
 import { XStoreModule } from '../../../store/store.types';
 import { StatusState, XActionContext } from '../../../store';
@@ -10,7 +11,7 @@ export interface ExperienceControlsState extends StatusState {
   /**
    * Configuration for the `ExperienceControls` module.
    */
-  controls: { [key: string]: unknown };
+  controls: Dictionary<unknown>;
   events: Partial<XEventsTypes>;
 }
 
@@ -30,9 +31,16 @@ export interface ExperienceControlsMutations {
   /**
    * Sets the {@link ExperienceControlsState.controls} property.
    *
-   * @param experienceControlsConfig - The new {@link ExperienceControlsState.config}.
+   * @param controls - The new {@link ExperienceControlsState.controls}.
    */
-  setControls(controls: { [key: string]: unknown }): void;
+  setControls(controls: Dictionary<unknown>): void;
+
+  /**
+   * Sets the {@link ExperienceControlsState.events} property.
+   *
+   * @param events - The new {@link ExperienceControlsState.events}.
+   */
+  setEvents(events: Partial<XEventsTypes>): void;
 }
 
 export interface ExperienceControlsActions {

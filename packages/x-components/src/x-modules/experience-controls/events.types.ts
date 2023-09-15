@@ -1,3 +1,5 @@
+import { XEventsTypes } from '../../wiring';
+
 /**
  * Dictionary of the events of Experience Controls XModule.
  *
@@ -8,5 +10,5 @@ export interface ExperienceControlsXEvents {
    * The experience-controls-events closed following its events configuration.
    * * Payload: none.
    */
-  ExperienceControlsClosed: void;
+  ExperienceControlsClosed: Partial<XEventsTypes>;
 }
