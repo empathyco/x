@@ -8,7 +8,7 @@ import { SearchXEvents } from '../search/events.types';
 import { ExtractMutationPayload } from '../../store/store.types';
 
 /**
- * `semanticQueries` {@link XModuleName name}.
+ * `semanticQueries` {@link XModuleName | name}.
  *
  * @internal
  */

@@ -248,12 +248,17 @@
               <LocationProvider location="no_results">
                 <QueryPreviewList
                   :debounceTimeMs="250"
-                  :queries="queriesToPreview"
-                  #default="{ query, totalResults, results }"
+                  :queriesPreviewInfo="queriesPreviewInfo"
+                  #default="{ queryPreviewInfo, totalResults, results }"
                   data-test="brand-recommendation"
                 >
                   <div class="x-flex x-flex-col x-gap-8 x-mb-16">
-                    <h1 class="x-title2">{{ query }} ({{ totalResults }})</h1>
+                    <QueryPreviewButton
+                      class="x-w-fit x-button-xl x-button-ghost"
+                      :queryPreviewInfo="queryPreviewInfo"
+                    >
+                      {{ `${queryPreviewInfo.query} (${totalResults})` }}
+                    </QueryPreviewButton>
                     <SlidingPanel :resetOnContentChange="false">
                       <div class="x-flex x-gap-8">
                         <Result
@@ -348,8 +353,8 @@
                 </h1>
                 <LocationProvider :location="$x.noResults ? 'no_results' : 'low_results'">
                   <QueryPreviewList
-                    :queries="queries"
-                    #default="{ query, results }"
+                    :queries-preview-info="queries.map(q => ({ query: q }))"
+                    #default="{ queryPreviewInfo: { query }, results }"
                     queryFeature="semantics"
                   >
                     <div
@@ -496,6 +501,8 @@
   import SemanticQueries from '../../x-modules/semantic-queries/components/semantic-queries.vue';
   import SemanticQuery from '../../x-modules/semantic-queries/components/semantic-query.vue';
   import { useQueriesPreview } from '../../x-modules/queries-preview/composables/use-queries-preview.composable';
+  import { QueryPreviewInfo } from '../../x-modules/queries-preview/store/types';
+  import QueryPreviewButton from '../../x-modules/queries-preview/components/query-preview-button.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -507,6 +514,7 @@
       infiniteScroll
     },
     components: {
+      QueryPreviewButton,
       DisplayResultProvider,
       FallbackDisclaimer,
       QueryPreviewList,
@@ -615,7 +623,29 @@
       }
     };
 
-    protected queriesToPreview = ['sunglasses', 'handbag', 'earrings', 'jeans', 't-shirt'];
+    protected queriesPreviewInfo: QueryPreviewInfo[] = [
+      {
+        query: 'cortina',
+        extraParams: { store: 'Gijón' }
+      },
+      {
+        query: 'marni summer dress'
+      },
+      {
+        query: 'woven hat'
+      },
+      {
+        query: 'jeans',
+        extraParams: { store: 'Gijón' }
+      },
+      {
+        query: 't-shirt'
+      }
+    ];
+
+    protected get queries(): string[] {
+      return this.queriesPreviewInfo.map(item => item.query);
+    }
 
     toggleE2EAdapter(): void {
       adapterConfig.e2e = !adapterConfig.e2e;

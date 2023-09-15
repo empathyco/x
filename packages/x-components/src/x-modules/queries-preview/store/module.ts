@@ -15,6 +15,10 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
       maxItemsToRequest: 24
     },
     queriesPreview: {},
+    selectedQueryPreview: {
+      query: '',
+      extraParams: undefined
+    },
     params: {}
   }),
   getters: { loadedQueriesPreview },
@@ -30,6 +34,9 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     },
     setStatus(state, { query, status }) {
       state.queriesPreview[query].status = status;
+    },
+    setSelectedQueryPreview(state, selectedQueryPreview) {
+      state.selectedQueryPreview = selectedQueryPreview;
     }
   },
   actions: {

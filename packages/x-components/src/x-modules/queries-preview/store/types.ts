@@ -14,12 +14,30 @@ export interface QueryPreviewItem extends StatusState {
   /**
    * Request object to retrieve the query preview using the search adapter, or null if there is
    * no valid data to conform a valid request.
+   *
+   * @public
    */
   request: SearchRequest;
   /** Results of the query preview request. */
   results: Result[];
   /** The total number of results for the search query. */
   totalResults: number;
+}
+
+/**
+ * Information to render or request a query preview with.
+ *
+ * @public
+ */
+export interface QueryPreviewInfo {
+  /** The query to search for. */
+  query: string;
+  /** The extra params to perform the search. */
+  extraParams?: Dictionary<unknown>;
+  /** An optional title for the container. */
+  title?: string;
+  /** Any other additional information to render the preview with. */
+  [extra: string]: unknown;
 }
 
 /**
@@ -34,6 +52,8 @@ export interface QueriesPreviewState {
   config: QueriesPreviewConfig;
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
+  /** The selected query preview of the state. */
+  selectedQueryPreview: QueryPreviewInfo | null;
 }
 
 /**
@@ -78,6 +98,12 @@ export interface QueriesPreviewMutations {
    * @param payload - Object containing the query and the status of a query preview item.
    */
   setStatus(payload: QueryPreviewStatusPayload): void;
+  /**
+   * Sets the selected query preview of the module.
+   *
+   * @param selectedQueryPreview - The selected query preview to save to the state.
+   */
+  setSelectedQueryPreview(selectedQueryPreview: QueryPreviewInfo | null): void;
 }
 
 /**
@@ -94,6 +120,7 @@ export interface QueriesPreviewActions {
    * @returns A search response based on the query.
    */
   fetchQueryPreview(request: SearchRequest): SearchResponse | null;
+
   /**
    * Requests the results for a query preview and saves them in the state.
    *
