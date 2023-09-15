@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.410](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.409...@empathyco/x-components@3.0.0-alpha.410) (2023-09-15)
+
+
+### Features
+
+* query preview components allow adding extra params to the request (#1270) ([84143a2](https://github.com/empathyco/x/commit/84143a2b1ee1b9944ddb431f701b3d27d1c20410))
+
+
+
 ## [3.0.0-alpha.409](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.408...@empathyco/x-components@3.0.0-alpha.409) (2023-09-15)
 
 
