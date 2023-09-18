@@ -626,10 +626,12 @@
     protected queriesPreviewInfo: QueryPreviewInfo[] = [
       {
         query: 'cortina',
-        extraParams: { store: 'Gijón' }
+        extraParams: { store: 'Gijón' },
+        filters: ['categoryIds:66dd06d9f']
       },
       {
-        query: 'marni summer dress'
+        query: 'marni summer dress',
+        filters: ['categoryIds:5b612edb5', 'fit:regular']
       },
       {
         query: 'woven hat'
