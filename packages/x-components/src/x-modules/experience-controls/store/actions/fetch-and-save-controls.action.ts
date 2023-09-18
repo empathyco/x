@@ -3,14 +3,16 @@ import { ExperienceControlsActionContext } from '../types';
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   ExperienceControlsActionContext,
+  //TODO: change types when the adapter is updated
   any,
   any
 >({
   fetch({ dispatch }, request) {
-    return dispatch('fetchControls', request);
+    return dispatch('fetchExperienceControlsResponse', request);
   },
   onSuccess({ commit }, controls) {
     commit('setControls', controls);
+    commit('setEvents', {});
   }
 });
 
@@ -19,7 +21,7 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
  *
  * @public
  */
-export const fetchAndSaveControls = fetchAndSave;
+export const fetchAndSaveExperienceControlsResponse = fetchAndSave;
 
 /**
  * Default implementation for {@link ExperienceControlsActions.cancelFetchAndSaveControls} action.

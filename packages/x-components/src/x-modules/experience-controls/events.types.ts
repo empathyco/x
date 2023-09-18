@@ -6,9 +6,5 @@ import { XEventsTypes } from '../../wiring';
  * @public
  */
 export interface ExperienceControlsXEvents {
-  /**
-   * The experience-controls-events closed following its events configuration.
-   * * Payload: none.
-   */
-  ExperienceControlsClosed: Partial<XEventsTypes>;
+  ExperienceControlsEventsChanged: Partial<XEventsTypes>;
 }

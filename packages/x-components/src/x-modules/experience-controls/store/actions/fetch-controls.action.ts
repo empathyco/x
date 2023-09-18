@@ -5,17 +5,33 @@ import { ExperienceControlsXStoreModule } from '../types';
  *
  * @param _context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param request - To be done.
- * @returns To be done.
+ * TODO: update when adapter is updateds.
+ * @param request
+ * @returns
  *
  * @public
  */
 
-export const fetchControls: ExperienceControlsXStoreModule['actions']['fetchControls'] = () => {
-  return fetch(
-    // eslint-disable-next-line max-len
-    'https://config-service.internal.test.empathy.co/public/configs?service=xcontrols&instance=empathy'
-  ).then(response => response.json());
+// eslint-disable-next-line max-len
+export const fetchExperienceControlsResponse: ExperienceControlsXStoreModule['actions']['fetchExperienceControlsResponse'] =
+  async () => {
+    const response = await fetch(
+      // eslint-disable-next-line max-len
+      'https://config-service.internal.test.empathy.co/public/configs?service=xcontrols&instance=empathy'
+    );
 
-  //return XPlugin.adapter.experienceControls(request).then(({ controls }) => controls);
-};
+    if (response.ok) {
+      const controls = await response.json();
+
+      const aux = {
+        controls,
+        events: {}
+      };
+
+      return aux;
+    } else {
+      throw new Error('Failed to fetch data');
+    }
+
+    //return XPlugin.adapter.experienceControls(request).then(({ controls }) => controls);
+  };

@@ -7,7 +7,7 @@ import { experienceControlsXStoreModule } from './module';
  * @internal
  */
 export const experienceControlsEmitters = createStoreEmitters(experienceControlsXStoreModule, {
-  ExperienceControlsClosed: {
+  ExperienceControlsEventsChanged: {
     selector: state => state.events
   }
 });
