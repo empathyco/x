@@ -630,8 +630,8 @@
         filters: ['categoryIds:66dd06d9f']
       },
       {
-        query: 'marni summer dress',
-        filters: ['categoryIds:5b612edb5', 'fit:regular']
+        query: 'summer dress',
+        filters: ['categoryIds:5b612edb5', 'brand:marni']
       },
       {
         query: 'woven hat'
