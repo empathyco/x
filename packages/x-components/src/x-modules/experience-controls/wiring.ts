@@ -1,4 +1,4 @@
-import { namespacedWireCommitWithoutPayload } from '../../wiring';
+import { namespacedWireCommit } from '../../wiring';
 import { createWiring } from '../../wiring/wiring.utils';
 
 const moduleName = 'experienceControls';
@@ -8,7 +8,7 @@ const moduleName = 'experienceControls';
  *
  * @internal
  */
-const wireCommit = namespacedWireCommitWithoutPayload(moduleName);
+const wireCommit = namespacedWireCommit(moduleName);
 
 /**
  * WireCommit for {@link ExperienceControlsXModule}.
