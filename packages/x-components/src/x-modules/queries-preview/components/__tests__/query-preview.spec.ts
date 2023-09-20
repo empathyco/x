@@ -103,7 +103,11 @@ describe('query preview', () => {
 
   it('sends the `QueryPreviewRequestUpdated` event', async () => {
     const { queryPreviewRequestUpdatedSpy, wrapper, updateExtraParams } = renderQueryPreview({
-      queryPreviewInfo: { query: 'shoes', extraParams: { directory: 'Magrathea' } }
+      queryPreviewInfo: {
+        query: 'shoes',
+        extraParams: { directory: 'Magrathea' },
+        filters: ['fit:regular']
+      }
     });
 
     jest.advanceTimersByTime(0); // Wait for first emission.
@@ -111,6 +115,15 @@ describe('query preview', () => {
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledWith({
       extraParams: {
         directory: 'Magrathea'
+      },
+      filters: {
+        fit: [
+          {
+            id: 'fit:regular',
+            modelName: 'RawFilter',
+            selected: true
+          }
+        ]
       },
       origin: undefined,
       query: 'shoes',
@@ -126,6 +139,15 @@ describe('query preview', () => {
       extraParams: {
         directory: 'Magrathea'
       },
+      filters: {
+        fit: [
+          {
+            id: 'fit:regular',
+            modelName: 'RawFilter',
+            selected: true
+          }
+        ]
+      },
       origin: 'popular_search:none',
       query: 'shoes',
       rows: 24
@@ -138,6 +160,15 @@ describe('query preview', () => {
       extraParams: {
         directory: 'Magrathea',
         store: 'Uganda'
+      },
+      filters: {
+        fit: [
+          {
+            id: 'fit:regular',
+            modelName: 'RawFilter',
+            selected: true
+          }
+        ]
       },
       origin: 'popular_search:none',
       query: 'shoes',

@@ -162,19 +162,21 @@
         feature: this.queryFeature,
         location: this.location
       });
-      const filtersApply = this.queryPreviewInfo.filters?.reduce((filtersList, filterId) => {
+      const filters = this.queryPreviewInfo.filters?.reduce((filtersList, filterId) => {
         const facetId = filterId.split(':')[0];
         const rawFilter = createRawFilter(filterId);
         filtersList[facetId] = filtersList[facetId]
           ? filtersList[facetId].concat(rawFilter)
           : [rawFilter];
+
         return filtersList;
       }, {} as Record<string, Filter[]>);
+
       return {
         query: this.queryPreviewInfo.query,
         rows: this.config.maxItemsToRequest,
         extraParams: { ...this.params, ...this.queryPreviewInfo.extraParams },
-        filters: filtersApply,
+        filters: filters,
         ...(origin && { origin })
       };
     }
