@@ -18,14 +18,19 @@ import { DefaultFacetsService } from './service/facets.service';
  */
 const moduleName = 'facets';
 
-const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload(moduleName);
-
 /**
- * WireCommit for {@link SearchXModule}.
+ * WireCommit for {@link FacetsXModule}.
  *
  * @internal
  */
 const wireCommit = namespacedWireCommit(moduleName);
+
+/**
+ * WireCommitWithoutPayload for {@link FacetsXModule}.
+ *
+ * @internal
+ */
+const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload(moduleName);
 
 /**
  * Wires factory for {@link DefaultFacetsService}.

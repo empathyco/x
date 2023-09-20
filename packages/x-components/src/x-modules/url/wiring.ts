@@ -1,6 +1,6 @@
 import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
-import { createRawFilters } from '../../utils/index';
+import { createRawFilters } from '../../utils/filters';
 
 /**
  * WireCommit for {@link UrlXModule}.

@@ -15,6 +15,7 @@ import { InternalSearchRequest } from './types';
  * @internal
  */
 const moduleName = 'search';
+
 /**
  * WireCommit for {@link SearchXModule}.
  *
