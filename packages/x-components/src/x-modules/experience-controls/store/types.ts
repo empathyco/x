@@ -42,6 +42,7 @@ export interface ExperienceControlsMutations {
    * @param events - The new {@link ExperienceControlsState.events}.
    */
   setEvents(events: Partial<XEventsTypes>): void;
+
   /**
    * Sets the extra params of the module.
    *
@@ -51,7 +52,6 @@ export interface ExperienceControlsMutations {
 }
 
 export interface ExperienceControlsActions {
-
   /**.
    * Fetches the {@link ExperienceControlsState.controls} property.
    *
