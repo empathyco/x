@@ -75,7 +75,9 @@
      * @internal
      */
     protected get events(): Partial<XEventsTypes> {
-      return { UserAcceptedAQueryPreview: this.fullQueryPreviewInfo };
+      return {
+        UserAcceptedAQueryPreview: this.fullQueryPreviewInfo
+      };
     }
   }
 </script>

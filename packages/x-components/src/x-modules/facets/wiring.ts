@@ -4,8 +4,22 @@ import { createRawFilters } from '../../utils/filters';
 import { wireCommit, wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
 import { filter, mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
-import { XEventPayload } from '../../wiring/index';
+import { namespacedWireCommit, XEventPayload } from '../../wiring/index';
 import { DefaultFacetsService } from './service/facets.service';
+
+/**
+ * `facets` {@link XModuleName | XModule name}.
+ *
+ * @internal
+ */
+const moduleName = 'facets';
+
+/**
+ * WireCommit for {@link SearchXModule}.
+ *
+ * @internal
+ */
+const wireCommitModule = namespacedWireCommit(moduleName);
 
 /**
  * Wires factory for {@link DefaultFacetsService}.
@@ -132,6 +146,16 @@ const clearStickyFilters = filter<XEventPayload<'SearchResponseChanged'>>(
 );
 
 /**
+ * Sets the filters of the facets module from a selectedQueryPreview's filters.
+ *
+ * @public
+ */
+export const setSelectedFiltersFromPreview = wireCommitModule(
+  'setFilters',
+  ({ eventPayload: { filters } }) => createRawFilters(filters)
+);
+
+/**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
  *
  * @internal
@@ -181,5 +205,8 @@ export const facetsWiring = createWiring({
   },
   SearchResponseChanged: {
     clearStickyFilters
+  },
+  UserAcceptedAQueryPreview: {
+    setSelectedFiltersFromPreview
   }
 });

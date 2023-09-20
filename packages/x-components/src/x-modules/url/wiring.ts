@@ -1,5 +1,6 @@
 import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
+import { createRawFilters } from '../../utils/index';
 
 /**
  * WireCommit for {@link UrlXModule}.
@@ -64,6 +65,16 @@ export const setUrlParamsFromPreview = wireCommit(
 );
 
 /**
+ * Sets the filters of the url module from a selectedQueryPreview's filters.
+ *
+ * @public
+ */
+export const setUrlSelectedFiltersFromPreview = wireCommit(
+  'setFilters',
+  ({ eventPayload: { filters } }) => createRawFilters(filters)
+);
+
+/**
  * Sets the scroll of the url module.
  *
  * @public
@@ -98,7 +109,8 @@ export const urlWiring = createWiring({
   },
   UserAcceptedAQueryPreview: {
     setUrlQueryFromPreview,
-    setUrlParamsFromPreview
+    setUrlParamsFromPreview,
+    setUrlSelectedFiltersFromPreview
   },
   UserClearedQuery: {
     setUrlQuery
