@@ -9,4 +9,3 @@ import { XEventsTypes } from '../../wiring';
 export interface ExperienceControlsXEvents {
   ExperienceControlsEventsChanged: Partial<XEventsTypes>;
 }
-
