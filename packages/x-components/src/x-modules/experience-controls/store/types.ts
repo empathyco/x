@@ -51,8 +51,10 @@ export interface ExperienceControlsMutations {
 }
 
 export interface ExperienceControlsActions {
-  /**
+  /**.
    * Fetches the {@link ExperienceControlsState.controls} property.
+   *
+   * TODO: change 'any' type
    *
    * @param request - The request to fetch the {@link ExperienceControlsState.controls}.
    * @returns A promise of the {@link ExperienceControlsState.controls}.
@@ -61,6 +63,7 @@ export interface ExperienceControlsActions {
 
   /**
    * Fetches and saves the {@link ExperienceControlsState.controls} property.
+   * TODO: change 'any' type.
    */
   fetchAndSaveExperienceControlsResponse(request: any): void;
 }

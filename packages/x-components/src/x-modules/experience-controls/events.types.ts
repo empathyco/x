@@ -5,6 +5,8 @@ import { XEventsTypes } from '../../wiring';
  *
  * @public
  */
+
 export interface ExperienceControlsXEvents {
   ExperienceControlsEventsChanged: Partial<XEventsTypes>;
 }
+

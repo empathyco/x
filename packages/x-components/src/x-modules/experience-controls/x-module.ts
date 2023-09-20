@@ -19,7 +19,7 @@ export type ExperienceControlsXModule = XModule<ExperienceControlsXStoreModule>;
  */
 export const experienceControlsXModule: ExperienceControlsXModule = {
   name: 'experienceControls',
-  storeEmitters: experienceControlsEmitters,
   storeModule: experienceControlsXStoreModule,
+  storeEmitters: experienceControlsEmitters,
   wiring: experienceControlsWiring
 };
