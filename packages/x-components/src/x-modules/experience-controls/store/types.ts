@@ -13,6 +13,7 @@ export interface ExperienceControlsState extends StatusState {
    */
   controls: Dictionary<unknown>;
   events: Partial<XEventsTypes>;
+  params: Dictionary<unknown>;
 }
 
 /**
@@ -41,9 +42,31 @@ export interface ExperienceControlsMutations {
    * @param events - The new {@link ExperienceControlsState.events}.
    */
   setEvents(events: Partial<XEventsTypes>): void;
+  /**
+   * Sets the extra params of the module.
+   *
+   * @param params - The new extra params.
+   */
+  setParams(params: Dictionary<unknown>): void;
 }
 
-export interface ExperienceControlsActions {}
+export interface ExperienceControlsActions {
+  /**.
+   * Fetches the {@link ExperienceControlsState.controls} property.
+   *
+   * TODO: change 'any' type
+   *
+   * @param request - The request to fetch the {@link ExperienceControlsState.controls}.
+   * @returns A promise of the {@link ExperienceControlsState.controls}.
+   */
+  fetchExperienceControlsResponse(request: any): Promise<{ [key: string]: unknown }>;
+
+  /**
+   * Fetches and saves the {@link ExperienceControlsState.controls} property.
+   * TODO: change 'any' type.
+   */
+  fetchAndSaveExperienceControlsResponse(request: any): void;
+}
 
 /**
  * Experience Controls type safe store module.
