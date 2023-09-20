@@ -152,7 +152,7 @@ const clearStickyFilters = filter<XEventPayload<'SearchResponseChanged'>>(
  */
 export const setSelectedFiltersFromPreview = wireCommitModule(
   'setFilters',
-  ({ eventPayload: { filters } }) => createRawFilters(filters)
+  ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : [])
 );
 
 /**

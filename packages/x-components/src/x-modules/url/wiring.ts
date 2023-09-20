@@ -71,7 +71,7 @@ export const setUrlParamsFromPreview = wireCommit(
  */
 export const setUrlSelectedFiltersFromPreview = wireCommit(
   'setFilters',
-  ({ eventPayload: { filters } }) => createRawFilters(filters)
+  ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : [])
 );
 
 /**
