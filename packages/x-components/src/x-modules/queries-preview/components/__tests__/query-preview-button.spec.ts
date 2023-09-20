@@ -11,7 +11,11 @@ import { QueryPreviewInfo } from '../../store/index';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/index';
 
 function renderQueryPreviewButton({
-  queryPreviewInfo = { query: 'milk', extraParams: { store: 'Magrathea' } },
+  queryPreviewInfo = {
+    query: 'milk',
+    extraParams: { store: 'Magrathea' },
+    filters: ['fit:regular']
+  },
   template = `<QueryPreviewButton v-bind="$attrs" />`
 }: RenderQueryPreviewButtonOptions = {}): RenderQueryPreviewButtonAPI {
   const localVue = createLocalVue();
@@ -98,7 +102,8 @@ describe('query preview button', () => {
       query: 'milk',
       extraParams: {
         store: 'Magrathea'
-      }
+      },
+      filters: ['fit:regular']
     });
 
     await updateExtraParams({ warehouse: 42 });
@@ -110,7 +115,8 @@ describe('query preview button', () => {
       extraParams: {
         store: 'Magrathea',
         warehouse: 42
-      }
+      },
+      filters: ['fit:regular']
     });
   });
 });

@@ -6,7 +6,7 @@ import {
 } from '../../wiring/namespaced-wires.factory';
 import { WirePayload } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
-import { createRawFilters } from '../../utils/index';
+import { createRawFilters } from '../../utils/filters';
 import { InternalSearchRequest } from './types';
 
 /**

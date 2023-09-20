@@ -1,10 +1,14 @@
 import { Facet } from '@empathyco/x-types';
 import { UrlParams } from '../../types/url-params';
 import { createRawFilters } from '../../utils/filters';
-import { wireCommit, wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
+import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
 import { filter, mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
-import { namespacedWireCommit, XEventPayload } from '../../wiring/index';
+import {
+  namespacedWireCommit,
+  namespacedWireCommitWithoutPayload,
+  XEventPayload
+} from '../../wiring/index';
 import { DefaultFacetsService } from './service/facets.service';
 
 /**
@@ -14,12 +18,14 @@ import { DefaultFacetsService } from './service/facets.service';
  */
 const moduleName = 'facets';
 
+const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload(moduleName);
+
 /**
  * WireCommit for {@link SearchXModule}.
  *
  * @internal
  */
-const wireCommitModule = namespacedWireCommit(moduleName);
+const wireCommit = namespacedWireCommit(moduleName);
 
 /**
  * Wires factory for {@link DefaultFacetsService}.
@@ -139,7 +145,7 @@ const setQuery = wireFacetsService('setQuery');
  * @internal
  */
 const clearStickyFilters = filter<XEventPayload<'SearchResponseChanged'>>(
-  wireCommit('x/facets/clearStickyFilters'),
+  wireCommitWithoutPayload('clearStickyFilters'),
   ({ eventPayload }) => {
     return eventPayload.totalResults === 0;
   }
@@ -150,7 +156,7 @@ const clearStickyFilters = filter<XEventPayload<'SearchResponseChanged'>>(
  *
  * @public
  */
-export const setSelectedFiltersFromPreview = wireCommitModule(
+export const setSelectedFiltersFromPreview = wireCommit(
   'setFilters',
   ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : [])
 );
