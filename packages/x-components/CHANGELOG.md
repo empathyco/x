@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.413](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.412...@empathyco/x-components@3.0.0-alpha.413) (2023-09-20)
+
+
+### Features
+
+* add filters to the query preview request (#1292) ([7f20022](https://github.com/empathyco/x/commit/7f20022eee593460681bfb1c4d574162f325cc05))
+* **query-preview:** use deep equal to compare request (#1291) ([cf3c3e7](https://github.com/empathyco/x/commit/cf3c3e7c738d8b2281183c42f00048b3bff918ea))
+
+
+
 ## [3.0.0-alpha.412](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.411...@empathyco/x-components@3.0.0-alpha.412) (2023-09-18)
 
 **Note:** Version bump only for package @empathyco/x-components
