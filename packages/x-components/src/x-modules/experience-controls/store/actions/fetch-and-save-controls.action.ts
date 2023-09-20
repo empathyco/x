@@ -10,9 +10,9 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   fetch({ dispatch }, request) {
     return dispatch('fetchExperienceControlsResponse', request);
   },
-  onSuccess({ commit }, controls) {
-    commit('setControls', controls);
-    commit('setEvents', {});
+  onSuccess({ commit }, experienceControlsResponse) {
+    commit('setControls', experienceControlsResponse.controls);
+    commit('setEvents', experienceControlsResponse.events);
   }
 });
 
