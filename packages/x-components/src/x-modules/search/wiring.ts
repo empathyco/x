@@ -210,7 +210,7 @@ export const setSearchExtraParamsFromPreview = wireCommit(
  */
 export const setSearchSelectedFiltersFromPreview = wireCommit(
   'setSelectedFilters',
-  ({ eventPayload: { filters } }) => createRawFilters(filters)
+  ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : [])
 );
 
 /**
