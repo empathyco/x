@@ -6,6 +6,7 @@ import {
 } from '../../wiring/namespaced-wires.factory';
 import { WirePayload } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
+import { createRawFilters } from '../../utils/filters';
 import { InternalSearchRequest } from './types';
 
 /**
@@ -14,6 +15,7 @@ import { InternalSearchRequest } from './types';
  * @internal
  */
 const moduleName = 'search';
+
 /**
  * WireCommit for {@link SearchXModule}.
  *
@@ -203,6 +205,16 @@ export const setSearchExtraParamsFromPreview = wireCommit(
 );
 
 /**
+ * Sets the search state `selectedFilters` with the selectedQueryPreview's filters.
+ *
+ * @public
+ */
+export const setSearchSelectedFiltersFromPreview = wireCommit(
+  'setSelectedFilters',
+  ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : [])
+);
+
+/**
  * Search wiring.
  *
  * @internal
@@ -265,6 +277,7 @@ export const searchWiring = createWiring({
   UserAcceptedAQueryPreview: {
     setSearchQueryFromPreview,
     setSearchExtraParamsFromPreview,
+    setSearchSelectedFiltersFromPreview,
     saveOriginWire
   },
   QueryPreviewUnselected: {
