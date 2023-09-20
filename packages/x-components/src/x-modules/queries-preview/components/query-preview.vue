@@ -35,8 +35,8 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop, Inject, Watch } from 'vue-property-decorator';
+  import { SearchRequest, Result, Filter } from '@empathyco/x-types';
   import { deepEqual, Dictionary } from '@empathyco/x-utils';
-  import { SearchRequest, Result } from '@empathyco/x-types';
   import { State } from '../../../components/decorators/store.decorators';
   import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
   import { XProvide } from '../../../components/decorators/injection.decorators';
@@ -50,6 +50,7 @@
   import { createOrigin } from '../../../utils/origin';
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils';
+  import { createRawFilter } from '../../../__stubs__/index';
 
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,
@@ -161,11 +162,21 @@
         feature: this.queryFeature,
         location: this.location
       });
+      const filters = this.queryPreviewInfo.filters?.reduce((filtersList, filterId) => {
+        const facetId = filterId.split(':')[0];
+        const rawFilter = createRawFilter(filterId);
+        filtersList[facetId] = filtersList[facetId]
+          ? filtersList[facetId].concat(rawFilter)
+          : [rawFilter];
+
+        return filtersList;
+      }, {} as Record<string, Filter[]>);
 
       return {
         query: this.queryPreviewInfo.query,
         rows: this.config.maxItemsToRequest,
         extraParams: { ...this.params, ...this.queryPreviewInfo.extraParams },
+        filters: filters,
         ...(origin && { origin })
       };
     }

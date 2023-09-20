@@ -34,6 +34,8 @@ export interface QueryPreviewInfo {
   query: string;
   /** The extra params to perform the search. */
   extraParams?: Dictionary<unknown>;
+  /** The filters to perform the search. */
+  filters?: string[];
   /** An optional title for the container. */
   title?: string;
   /** Any other additional information to render the preview with. */

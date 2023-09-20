@@ -62,7 +62,8 @@
         extraParams: {
           ...this.params,
           ...this.queryPreviewInfo.extraParams
-        }
+        },
+        filters: this.queryPreviewInfo.filters
       };
     }
 

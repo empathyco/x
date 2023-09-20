@@ -17,7 +17,8 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     queriesPreview: {},
     selectedQueryPreview: {
       query: '',
-      extraParams: undefined
+      extraParams: undefined,
+      filters: undefined
     },
     params: {}
   }),
