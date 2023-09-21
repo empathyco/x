@@ -3,20 +3,23 @@
   import { Component } from 'vue-property-decorator';
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { XEvent, XEventsTypes } from '../../../wiring/events.types';
-
-  /**
-   *This component subscribes to changes in the ExperienceControls module to fire the events that propagate the configuration.
-   *
-   * @param events - The list of the events on the module.
-   */
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { experienceControlsXModule } from '../x-module';
+
+  /**
+   * This component subscribes to changes in the ExperienceControls module to fire the events that propagate the configuration.
+   *
+   * @public
+   */
+
   @Component({
     mixins: [xComponentMixin(experienceControlsXModule)]
   })
   export default class ExperienceControls extends Vue {
-    /*
+    /**.
      * Iterates the list of XEvents received and emits them
+     *
+     * @param {Partial<XEventsTypes>} events events to be emitted
      */
     @XOn('ExperienceControlsEventsChanged')
     onEventsChanged(events: Partial<XEventsTypes>): void {
