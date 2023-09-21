@@ -101,7 +101,7 @@ number of columns that it is being selected when it is clicked.
 
 It is required to send the columns prop.
 
-```vue
+```vue live
 <template>
   <BaseColumnPickerList :columns="columns" />
 </template>
@@ -124,7 +124,7 @@ It is required to send the columns prop.
 It is possible to do two way binding in order to synchronize the value with the parents. It will be
 updated if it changed the value or if the parent changes it.
 
-```vue
+```vue live
 <template>
   <BaseColumnPickerList :columns="columns" v-model="selectedColumns" />
 </template>
@@ -148,7 +148,7 @@ updated if it changed the value or if the parent changes it.
 
 It is possible to override the column picker button content.
 
-```vue
+```vue live
 <template>
   <BaseColumnPickerList :columns="columns" #default="{ column, isSelected }">
     <span>{{ column }} {{ isSelected ? '🟢' : '' }}</span>
@@ -171,7 +171,7 @@ It is possible to override the column picker button content.
 It is also possible to add a divider element between the column picker buttons by overriding the
 `divider` slot.
 
-```vue
+```vue live
 <template>
   <BaseColumnPickerList :columns="columns">
     <template #divider>
@@ -198,7 +198,7 @@ It is also possible to add a divider element between the column picker buttons b
 
 The `buttonClass` prop can be used to add classes to the buttons.
 
-```vue
+```vue live
 <template>
   <BaseColumnPickerList :columns="columns" buttonClass="x-button--round" />
 </template>
