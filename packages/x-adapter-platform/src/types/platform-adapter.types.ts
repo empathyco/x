@@ -35,4 +35,5 @@ export interface PlatformAdapter extends XComponentsAdapter {
   identifierResults: ExtendableEndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
   semanticQueries: ExtendableEndpointAdapter<SemanticQueriesRequest, SemanticQueriesResponse>;
   tagging: ExtendableEndpointAdapter<TaggingRequest, void>;
+  experienceControls: ExtendableEndpointAdapter<any, any>;
 }
