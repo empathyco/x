@@ -1,13 +1,22 @@
 <script lang="ts">
   import Vue from 'vue';
+  import { Component } from 'vue-property-decorator';
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { XEvent, XEventsTypes } from '../../../wiring/events.types';
 
+  /**
+   *This component subscribes to changes in the ExperienceControls module to fire the events that propagate the configuration.
+   *
+   * @param events - The list of the events on the module.
+   */
+  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { experienceControlsXModule } from '../x-module';
+  @Component({
+    mixins: [xComponentMixin(experienceControlsXModule)]
+  })
   export default class ExperienceControls extends Vue {
-    /**
-     * This component hear to the change of events in the {@link XStoreModule}, receive them, iterate them and fire them.
-     *
-     * @param events - The list of the events on the module.
+    /*
+     * Iterates the list of XEvents received and emits them
      */
     @XOn('ExperienceControlsEventsChanged')
     onEventsChanged(events: Partial<XEventsTypes>): void {
@@ -15,21 +24,20 @@
         this.$x.emit(eventName as XEvent, eventPayload);
       });
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    render(): void {}
   }
 </script>
 
 <docs lang="mdx">
-## Events
+## Examples
 
-This component emits all the events of the module.
-
-## See it in action
-
-This component will fire the events when a change is made on the events of the module.
+This component will fire the events received in the `ExperienceControlsEventsChanged` event.
 
 ```vue
 <template>
-  <ExperienceControls></ExperienceControls>
+  <ExperienceControls />
 </template>
 <script>
   import { ExperienceControls } from '@empathyco/x-components/experience-controls';
