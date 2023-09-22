@@ -10,6 +10,6 @@ module.exports = {
   trailingComma: 'none',
   vueIndentScriptAndStyle: true,
   plugins: [
-    require('prettier-plugin-tailwindcss') // MUST come last
+    'prettier-plugin-tailwindcss' // MUST come last
   ]
 };

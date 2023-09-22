@@ -52,7 +52,10 @@ export interface FilterEntityModifier<Metadata extends Dictionary = Dictionary> 
 export abstract class BaseFilterEntityModifier<Metadata extends Dictionary = Dictionary>
   implements FilterEntity<Metadata>
 {
-  public constructor(protected store: Store<RootXStoreState>, protected entity: FilterEntity) {}
+  public constructor(
+    protected store: Store<RootXStoreState>,
+    protected entity: FilterEntity
+  ) {}
 
   /**
    * Selects the filter passed by parameter.

@@ -77,9 +77,9 @@ export type NamespacedWireCommitPayload<
  * @public
  */
 export interface NamespacedWireCommit<ModuleName extends XModuleName> {
-  <MutationName extends MutationNamesFor<ModuleName>>(mutation: MutationName): Wire<
-    ExtractMutationPayload<ModuleName, MutationName>
-  >;
+  <MutationName extends MutationNamesFor<ModuleName>>(
+    mutation: MutationName
+  ): Wire<ExtractMutationPayload<ModuleName, MutationName>>;
   <MutationName extends MutationNamesFor<ModuleName>>(
     mutation: MutationName,
     payload: NamespacedWireCommitPayload<ModuleName, MutationName>
@@ -132,9 +132,9 @@ export type NamespacedWireDispatchPayload<
  * @public
  */
 export interface NamespacedWireDispatch<ModuleName extends XModuleName> {
-  <ActionName extends ActionNamesFor<ModuleName>>(action: ActionName): Wire<
-    ExtractActionPayload<ModuleName, ActionName>
-  >;
+  <ActionName extends ActionNamesFor<ModuleName>>(
+    action: ActionName
+  ): Wire<ExtractActionPayload<ModuleName, ActionName>>;
   <ActionName extends ActionNamesFor<ModuleName>>(
     action: ActionName,
     payload: NamespacedWireDispatchPayload<ModuleName, ActionName>

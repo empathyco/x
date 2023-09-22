@@ -6,8 +6,10 @@ import { RelatedTag } from '@empathyco/x-types';
  * @public
  */
 export interface QueryState {
-  /** The query of the module. Different modules may have queries that differ in value
-   * or time. */
+  /**
+   * The query of the module. Different modules may have queries that differ in value
+   * or time.
+   */
   query: string;
 }
 
