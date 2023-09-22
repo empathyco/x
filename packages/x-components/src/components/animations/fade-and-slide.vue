@@ -61,7 +61,8 @@
     &--move,
     &--enter-active,
     &--leave-active {
-      transition: opacity $transition-opacity-duration ease-out,
+      transition:
+        opacity $transition-opacity-duration ease-out,
         transform $transition-transform-duration ease-out;
     }
 

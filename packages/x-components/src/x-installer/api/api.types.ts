@@ -3,6 +3,7 @@ import { XBus } from '@empathyco/x-bus';
 import { DocumentDirection } from '../../plugins/x-plugin.types';
 import { XEvent, XEventPayload, XEventsTypes } from '../../wiring/events.types';
 import { WireMetadata } from '../../wiring/wiring.types';
+import { QueryPreviewInfo } from '../../x-modules/queries-preview/index';
 
 /**
  * Interface with the API functions exposes as X
@@ -126,17 +127,3 @@ export interface SnippetConfig {
  * @public
  */
 export type NormalisedSnippetConfig = RequiredProperties<SnippetConfig, 'uiLang'>;
-
-/**
- * Information to render a query preview with.
- *
- * @public
- */
-export interface QueryPreviewInfo {
-  /** The query to search for. */
-  query: string;
-  /** An optional title for the container. */
-  title?: string;
-  /** Any other additional information to render the preview with. */
-  [extra: string]: unknown;
-}

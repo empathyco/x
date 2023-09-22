@@ -28,8 +28,9 @@ export default class LayoutsMixin extends Vue {
   protected hasContent(...slotNames: string[]): boolean {
     return (
       (this.devMode ||
-        slotNames.some(slotName =>
-          this.$scopedSlots[slotName]?.(undefined)?.some(vNode => vNode.tag !== undefined)
+        slotNames.some(
+          slotName =>
+            this.$scopedSlots[slotName]?.(undefined)?.some(vNode => vNode.tag !== undefined)
         )) ??
       false
     );

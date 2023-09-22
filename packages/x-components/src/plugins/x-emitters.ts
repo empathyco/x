@@ -31,9 +31,9 @@ export function registerStoreEmitters(
       selector(store.state.x[name], safeGettersProxy);
     const emit: (
       newValue: XEventPayload<typeof event>,
-      oldValue: XEventPayload<typeof event>
+      oldValue?: XEventPayload<typeof event>
     ) => void = (newValue, oldValue) => {
-      if (filter(newValue, oldValue)) {
+      if (filter(newValue, oldValue, store.state.x[name])) {
         bus.emit(event, newValue, { ...metadata, moduleName: name, oldValue });
       }
     };

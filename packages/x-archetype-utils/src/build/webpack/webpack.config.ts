@@ -30,7 +30,11 @@ export const webpackConfig = {
       ]
     },
     output: {
-      devtoolModuleFilenameTemplate: ({ resourcePath, hash, query }: webpackFilenameTemplateInfo) =>
+      devtoolModuleFilenameTemplate: ({
+        resourcePath,
+        hash,
+        query
+      }: webpackFilenameTemplateInfo) =>
         resourcePath.match(/\.vue$/) &&
         !query.match(/type=script/) &&
         !query.match(/\?rollup-plugin-vue=script.ts/)
