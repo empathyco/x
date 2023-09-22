@@ -35,7 +35,8 @@ export interface StateSelector<ReturnType, State extends Dictionary, Getters ext
   extends WatchOptions {
   selector: SimpleStateSelector<ReturnType, State, Getters>;
   /**
-   * Checks if the value of the selector has changed.
+   * Asserts if the event should really be emitted taking into account the new and old values and
+   * the module state.
    *
    * @remarks
    * This function exist because Vue will not stop reactivity propagation if the observed variable
@@ -43,9 +44,10 @@ export interface StateSelector<ReturnType, State extends Dictionary, Getters ext
    *
    * @param newValue - The new value.
    * @param oldValue - The old value.
+   * @param state - The state of the {@link XModule} where this selector is used.
    * @returns True if the value has really changed.
    */
-  filter?(newValue: ReturnType, oldValue: ReturnType): boolean;
+  filter?(newValue: ReturnType, oldValue: ReturnType, state: State): boolean;
   metadata?: Partial<WireMetadata>;
 }
 

@@ -1,4 +1,5 @@
 import { XEventsTypes } from '../../wiring';
+
 /**
  * Dictionary of the events of Experience Controls XModule.
  *

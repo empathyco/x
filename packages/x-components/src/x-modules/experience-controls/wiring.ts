@@ -1,4 +1,4 @@
-import { namespacedWireCommit } from '../../wiring';
+import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
 
 const moduleName = 'experienceControls';

@@ -47,6 +47,20 @@ export const clearQueryPreviewWire = wireCommit('clearQueryPreview');
 export const setQueriesPreviewExtraParamsWire = wireCommit('setParams');
 
 /**
+ * Updates the state with the selected query preview object.
+ *
+ * @public
+ */
+export const setSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview');
+
+/**
+ * Clears the selected query preview object from queries preview module.
+ *
+ * @public
+ */
+export const clearSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview', null);
+
+/**
  * Wiring configuration for the {@link QueriesPreviewXModule | queriesPreview module}.
  *
  * @internal
@@ -58,7 +72,22 @@ export const queriesPreviewWiring = createWiring({
   QueryPreviewUnmountedHook: {
     clearQueryPreviewWire
   },
+  UserAcceptedAQueryPreview: {
+    setSelectedQueryPreviewWire
+  },
   ExtraParamsChanged: {
     setQueriesPreviewExtraParamsWire
+  },
+  UserClearedQuery: {
+    clearSelectedQueryPreviewWire
+  },
+  UserClickedCloseX: {
+    clearSelectedQueryPreviewWire
+  },
+  UserClickedOutOfMainModal: {
+    clearSelectedQueryPreviewWire
+  },
+  UserSelectedAHistoryQuery: {
+    clearSelectedQueryPreviewWire
   }
 });

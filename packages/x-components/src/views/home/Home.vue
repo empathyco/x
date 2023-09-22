@@ -5,6 +5,7 @@
     <PreselectedFilters />
     <UrlHandler query="q" store="store" />
     <SnippetCallbacks />
+    <ExperienceControls />
     <OpenMainModal>Start</OpenMainModal>
     <h1 class="x-text-primary-50 x-text-4xl x-font-bold x-leading-[1.5]">Test controls</h1>
     <ul class="x-test-controls x-flex x-flex-col x-gap-16">
@@ -248,12 +249,17 @@
               <LocationProvider location="no_results">
                 <QueryPreviewList
                   :debounceTimeMs="250"
-                  :queries="queriesToPreview"
-                  #default="{ query, totalResults, results }"
+                  :queriesPreviewInfo="queriesPreviewInfo"
+                  #default="{ queryPreviewInfo, totalResults, results }"
                   data-test="brand-recommendation"
                 >
                   <div class="x-flex x-flex-col x-gap-8 x-mb-16">
-                    <h1 class="x-title2">{{ query }} ({{ totalResults }})</h1>
+                    <QueryPreviewButton
+                      class="x-w-fit x-button-xl x-button-ghost"
+                      :queryPreviewInfo="queryPreviewInfo"
+                    >
+                      {{ `${queryPreviewInfo.query} (${totalResults})` }}
+                    </QueryPreviewButton>
                     <SlidingPanel :resetOnContentChange="false">
                       <div class="x-flex x-gap-8">
                         <Result
@@ -348,8 +354,8 @@
                 </h1>
                 <LocationProvider :location="$x.noResults ? 'no_results' : 'low_results'">
                   <QueryPreviewList
-                    :queries="queries"
-                    #default="{ query, results }"
+                    :queries-preview-info="queries.map(q => ({ query: q }))"
+                    #default="{ queryPreviewInfo: { query }, results }"
                     queryFeature="semantics"
                   >
                     <div
@@ -447,6 +453,7 @@
   import ChevronTinyRight from '../../components/icons/chevron-tiny-right.vue';
   import ChevronUp from '../../components/icons/chevron-up.vue';
   import CrossIcon from '../../components/icons/cross.vue';
+  import ExperienceControls from '../../x-modules/experience-controls/components/experience-controls.vue';
   import Grid2Col from '../../components/icons/grid-2-col.vue';
   import Grid4Col from '../../components/icons/grid-4-col.vue';
   import LightBulbOn from '../../components/icons/light-bulb-on.vue';
@@ -496,6 +503,8 @@
   import SemanticQueries from '../../x-modules/semantic-queries/components/semantic-queries.vue';
   import SemanticQuery from '../../x-modules/semantic-queries/components/semantic-query.vue';
   import { useQueriesPreview } from '../../x-modules/queries-preview/composables/use-queries-preview.composable';
+  import { QueryPreviewInfo } from '../../x-modules/queries-preview/store/types';
+  import QueryPreviewButton from '../../x-modules/queries-preview/components/query-preview-button.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -507,6 +516,7 @@
       infiniteScroll
     },
     components: {
+      QueryPreviewButton,
       DisplayResultProvider,
       FallbackDisclaimer,
       QueryPreviewList,
@@ -531,6 +541,7 @@
       ClearSearchInput,
       CloseMainModal,
       CrossIcon,
+      ExperienceControls,
       Grid2Col,
       Grid4Col,
       LightBulbOn,
@@ -615,7 +626,31 @@
       }
     };
 
-    protected queriesToPreview = ['sunglasses', 'handbag', 'earrings', 'jeans', 't-shirt'];
+    protected queriesPreviewInfo: QueryPreviewInfo[] = [
+      {
+        query: 'cortina',
+        extraParams: { store: 'Gijón' },
+        filters: ['categoryIds:66dd06d9f']
+      },
+      {
+        query: 'summer dress',
+        filters: ['categoryIds:5b612edb5', 'brand:marni']
+      },
+      {
+        query: 'woven hat'
+      },
+      {
+        query: 'jeans',
+        extraParams: { store: 'Gijón' }
+      },
+      {
+        query: 't-shirt'
+      }
+    ];
+
+    protected get queries(): string[] {
+      return this.queriesPreviewInfo.map(item => item.query);
+    }
 
     toggleE2EAdapter(): void {
       adapterConfig.e2e = !adapterConfig.e2e;

@@ -12,7 +12,7 @@ import { createWiring } from '../../wiring/wiring.utils';
  */
 const moduleName = 'popularSearches';
 /**
- * WireDispatchfor {@link PopularSearchesXModule}.
+ * WireDispatch for {@link PopularSearchesXModule}.
  *
  * @internal
  */
