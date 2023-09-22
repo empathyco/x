@@ -19,6 +19,8 @@ import {
   XComponentsAdapter
 } from '@empathyco/x-types';
 import { ExtendableEndpointAdapter } from '@empathyco/x-adapter';
+// eslint-disable-next-line max-len
+import { ExperienceControlsRequest } from '../../../x-types/src/request/experience-controls-request.model';
 
 /**
  * Platform adapter interface.
@@ -35,5 +37,5 @@ export interface PlatformAdapter extends XComponentsAdapter {
   identifierResults: ExtendableEndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
   semanticQueries: ExtendableEndpointAdapter<SemanticQueriesRequest, SemanticQueriesResponse>;
   tagging: ExtendableEndpointAdapter<TaggingRequest, void>;
-  experienceControls: ExtendableEndpointAdapter<any, any>;
+  experienceControls: ExtendableEndpointAdapter<ExperienceControlsRequest, any>;
 }

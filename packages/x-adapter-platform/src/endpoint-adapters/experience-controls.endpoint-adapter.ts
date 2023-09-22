@@ -1,4 +1,6 @@
 import { endpointAdapterFactory } from '@empathyco/x-adapter';
+// eslint-disable-next-line max-len
+import { ExperienceControlsRequest } from '../../../x-types/src/request/experience-controls-request.model';
 
 /**.
  * Default adapter for the experience controls endpoint.
@@ -7,7 +9,10 @@ import { endpointAdapterFactory } from '@empathyco/x-adapter';
  *
  * @public
  */
-export const experienceControlsEndpointAdapter = endpointAdapterFactory<any, any>({
+export const experienceControlsEndpointAdapter = endpointAdapterFactory<
+  ExperienceControlsRequest,
+  any
+>({
   endpoint:
     'https://config-service.internal.test.empathy.co/public/configs' +
     '?service=xcontrols&instance={extraParams.instance}',
