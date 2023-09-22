@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.414](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.413...@empathyco/x-components@3.0.0-alpha.414) (2023-09-22)
+
+
+### Features
+
+* filter query preview (#1296) ([9543c47](https://github.com/empathyco/x/commit/9543c477cd8a305fd89edb9b24d046c774537c9b))
+
+
+### Documentation
+
+* **components:** fix column picker vue examples (#1293) ([fa0e817](https://github.com/empathyco/x/commit/fa0e817402261a5e7bddc9af6438ef0b3d1c7448))
+
+
+
 ## [3.0.0-alpha.413](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.412...@empathyco/x-components@3.0.0-alpha.413) (2023-09-20)
 
 
