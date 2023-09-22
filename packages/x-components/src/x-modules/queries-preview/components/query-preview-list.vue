@@ -1,7 +1,16 @@
 <template>
   <component :is="animation" class="x-query-preview-list" tag="ul">
-    <li v-for="query in renderedQueries" :key="query" data-test="query-preview-item">
-      <QueryPreview @load="flagAsLoaded" @error="flagAsFailed" v-bind="$attrs" :query="query">
+    <li
+      v-for="(queryPreview, index) in renderedQueryPreviews"
+      :key="index"
+      data-test="query-preview-item"
+    >
+      <QueryPreview
+        @load="flagAsLoaded"
+        @error="flagAsFailed"
+        v-bind="$attrs"
+        :queryPreviewInfo="queryPreview"
+      >
         <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="scope">
           <slot :name="slotName" v-bind="scope" />
         </template>
@@ -17,6 +26,7 @@
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { RequestStatus } from '../../../store';
   import { queriesPreviewXModule } from '../x-module';
+  import { QueryPreviewInfo } from '../store/types';
   import QueryPreview from './query-preview.vue';
 
   interface QueryPreviewStatusRecord {
@@ -24,8 +34,8 @@
   }
 
   /**
-   * Renders the results previews of a list of queries, and exposes the {@link QueryPreview} slots
-   * to modify the content.
+   * Renders the results previews of a list of objects with the information about the query preview,
+   * and exposes the {@link QueryPreview} slots to modify the content.
    * The requests are made in sequential order.
    *
    * @public
@@ -48,10 +58,12 @@
     public animation!: Vue | string;
 
     /**
-     * List of queries to preview.
+     * The list of queries preview to render.
+     *
+     * @public
      */
     @Prop({ required: true })
-    public queries!: string[];
+    public queriesPreviewInfo!: QueryPreviewInfo[];
 
     /**
      * Contains the status of the preview requests, indexed by query.
@@ -59,26 +71,41 @@
     public queriesStatus: QueryPreviewStatusRecord = {};
 
     /**
+     * The list of queries to preview.
+     *
+     * @returns The list of queries in the queriesPreviewInfo list.
+     * @internal
+     */
+    protected get queries(): string[] {
+      return this.queriesPreviewInfo.map(item => item.query);
+    }
+
+    /**
      * Gets all the queries to render, that are those that don't have an `error` status.
      *
      * @returns A list of queries.
      * @internal
      */
-    protected get renderedQueries(): string[] {
-      return this.queries.filter(
-        query => this.queriesStatus[query] === 'success' || this.queriesStatus[query] === 'loading'
+    protected get renderedQueryPreviews(): QueryPreviewInfo[] {
+      return this.queriesPreviewInfo.filter(
+        ({ query }) =>
+          this.queriesStatus[query] === 'success' || this.queriesStatus[query] === 'loading'
       );
     }
 
     /**
      * Resets the status of all queries if they change.
      *
+     * @param newQueries - The new queries.
+     * @param oldQueries - The old queries.
      * @internal
      */
     @Watch('queries', { immediate: true })
-    protected resetStatusRecord(): void {
-      this.queriesStatus = {};
-      this.loadNext();
+    protected resetStatusRecord(newQueries: string[], oldQueries: string[]): void {
+      if (newQueries?.toString() !== oldQueries?.toString()) {
+        this.queriesStatus = {};
+        this.loadNext();
+      }
     }
 
     /**
@@ -126,7 +153,7 @@ names of the results.
 
 ```vue live
 <template>
-  <QueryPreviewList :queries="queries" />
+  <QueryPreviewList :queriesPreviewInfo="queriesPreviewInfo" />
 </template>
 
 <script>
@@ -139,7 +166,7 @@ names of the results.
     },
     data() {
       return {
-        queries: ['sandals', 'tshirt', 'jacket']
+        queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }]
       };
     }
   };
@@ -152,9 +179,12 @@ In this example, the results will be rendered inside a sliding panel.
 
 ```vue live
 <template>
-  <QueryPreviewList :queries="queries" #default="{ query, totalResults, results }">
+  <QueryPreviewList
+    :queriesPreviewInfo="queriesPreviewInfo"
+    #default="{ queryPreviewInfo, totalResults, results }"
+  >
     <div class="x-flex x-flex-col x-gap-8 x-mb-16">
-      <h1 class="x-title2">{{ query }} ({{ totalResults }})</h1>
+      <h1 class="x-title2">{{ queryPreviewInfo.query }} ({{ totalResults }})</h1>
       <SlidingPanel :resetOnContentChange="false">
         <div class="x-flex x-gap-8">
           <Result
@@ -183,7 +213,7 @@ In this example, the results will be rendered inside a sliding panel.
     },
     data() {
       return {
-        queries: ['sandals', 'tshirt', 'jacket']
+        queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }]
       };
     }
   };
@@ -198,7 +228,11 @@ In this example, the ID of the results will be rendered along with the name.
 
 ```vue
 <template>
-  <QueryPreviewList class="x-flex x-gap-8" :queries="queries" #result="{ result }">
+  <QueryPreviewList
+    class="x-flex x-gap-8"
+    :queriesPreviewInfo="queriesPreviewInfo"
+    #result="{ result }"
+  >
     <span class="x-font-bold">{{ result.id }}:</span>
     <span>{{ result.name }}</span>
   </QueryPreviewList>
@@ -214,7 +248,7 @@ In this example, the ID of the results will be rendered along with the name.
     },
     data() {
       return {
-        queries: ['sandals', 'tshirt', 'jacket']
+        queriesPreviewInfo: [{ query: 'sandals' }, { query: 'tshirt' }, { query: 'jacket' }]
       };
     }
   };
