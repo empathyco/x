@@ -157,8 +157,16 @@ describe('testing MainScroll component', () => {
 
         restoreScrollToItem(5);
 
-        cy.log('Item 5 should be in view.');
-        getItem(5).should('be.visible');
+        cy.log('Item 5 should be the first one.');
+        getItem(5).should($item5 => {
+          expect($item5.get(0).getBoundingClientRect().top).to.be.eq(0);
+        });
+        cy.log("Item 4 shouldn't be visible");
+        getItem(4).should($item4 => {
+          const item4Bounds = $item4.get(0).getBoundingClientRect();
+          const item4Bottom = item4Bounds.top + item4Bounds.height;
+          expect(item4Bottom).to.be.eq(0);
+        });
       });
 
       it('restores the scroll with transitions enabled', () => {
@@ -186,7 +194,17 @@ describe('testing MainScroll component', () => {
         restoreScrollToItem(5);
 
         cy.log('Item 5 should be the first one.');
-        getItem(5).should('be.visible');
+        getItem(5)
+          .should('be.visible')
+          .should($item5 => {
+            expect($item5.get(0).getBoundingClientRect().top).to.be.eq(0);
+          });
+        cy.log("Item 4 shouldn't be visible");
+        getItem(4).should($item4 => {
+          const item4Bounds = $item4.get(0).getBoundingClientRect();
+          const item4Bottom = item4Bounds.top + item4Bounds.height;
+          expect(item4Bottom).to.be.eq(0);
+        });
       });
 
       it('allows configuring when to consider an element visible', () => {

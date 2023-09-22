@@ -77,10 +77,8 @@ describe('testing Filters component', () => {
 interface RenderExcludeFiltersWithNoResultsOptions {
   /** The filters data to render. */
   filters?: Filter[];
-  /**
-   * The template to render. Receives the `filters` via prop, and has registered the
-   * {@link ExcludeFiltersWithNoResults} component.
-   */
+  /** The template to render. Receives the `filters` via prop, and has registered the
+   * {@link ExcludeFiltersWithNoResults} component. */
   template?: string;
 }
 

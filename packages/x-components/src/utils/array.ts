@@ -88,17 +88,14 @@ export function groupItemsBy<ArrayType, ReturnType extends string | number>(
   array: ArrayType[],
   groupBy: (item: ArrayType, index: number) => ReturnType
 ): Record<ReturnType, ArrayType[]> {
-  return array.reduce<Record<ReturnType, ArrayType[]>>(
-    (accumulator, current, index) => {
-      const keyValue = groupBy(current, index);
-      if (!accumulator[keyValue]) {
-        accumulator[keyValue] = [];
-      }
-      accumulator[keyValue].push(current);
-      return accumulator;
-    },
-    {} as Record<ReturnType, ArrayType[]>
-  );
+  return array.reduce<Record<ReturnType, ArrayType[]>>((accumulator, current, index) => {
+    const keyValue = groupBy(current, index);
+    if (!accumulator[keyValue]) {
+      accumulator[keyValue] = [];
+    }
+    accumulator[keyValue].push(current);
+    return accumulator;
+  }, {} as Record<ReturnType, ArrayType[]>);
 }
 
 /**

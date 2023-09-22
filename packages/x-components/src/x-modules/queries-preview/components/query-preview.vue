@@ -2,13 +2,12 @@
   <NoElement v-if="queryPreviewResults && queryPreviewResults.totalResults">
     <!--
       @slot Query Preview default slot.
-          @binding {QueryPreviewInfo} queryPreviewInfo - The information about the request of the
-          query preview
+          @binding {string} query - query
           @binding {Result[]} results - The results preview of the query preview
           @binding {number} totalResults - The total results of the search request
     -->
     <slot
-      :queryPreviewInfo="queryPreviewInfo"
+      :query="query"
       :results="queryPreviewResults.results"
       :totalResults="queryPreviewResults.totalResults"
     >
@@ -35,8 +34,8 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop, Inject, Watch } from 'vue-property-decorator';
-  import { SearchRequest, Result, Filter } from '@empathyco/x-types';
-  import { deepEqual, Dictionary } from '@empathyco/x-utils';
+  import { Dictionary } from '@empathyco/x-utils';
+  import { Result, SearchRequest } from '@empathyco/x-types';
   import { State } from '../../../components/decorators/store.decorators';
   import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
   import { XProvide } from '../../../components/decorators/injection.decorators';
@@ -44,14 +43,12 @@
   import { NoElement } from '../../../components/no-element';
   import { RequestStatus } from '../../../store';
   import { QueryFeature, FeatureLocation } from '../../../types/origin';
-  import { QueryPreviewInfo, QueryPreviewItem } from '../store/types';
+  import { QueryPreviewItem } from '../store/types';
   import { QueriesPreviewConfig } from '../config.types';
   import { queriesPreviewXModule } from '../x-module';
   import { createOrigin } from '../../../utils/origin';
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils';
-  import { createRawFilter } from '../../../__stubs__/index';
-
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,
    * along with the query preview and the totalResults of the search request.
@@ -67,12 +64,14 @@
   })
   export default class QueryPreview extends Vue {
     /**
-     * The information about the request of the query preview.
+     * The query to retrieve the results preview.
      *
      * @public
      */
-    @Prop({ required: true })
-    protected queryPreviewInfo!: QueryPreviewInfo;
+    @Prop({
+      required: true
+    })
+    protected query!: string;
 
     /**
      * The origin property for the request.
@@ -162,24 +161,11 @@
         feature: this.queryFeature,
         location: this.location
       });
-      const filters = this.queryPreviewInfo.filters?.reduce(
-        (filtersList, filterId) => {
-          const facetId = filterId.split(':')[0];
-          const rawFilter = createRawFilter(filterId);
-          filtersList[facetId] = filtersList[facetId]
-            ? filtersList[facetId].concat(rawFilter)
-            : [rawFilter];
-
-          return filtersList;
-        },
-        {} as Record<string, Filter[]>
-      );
 
       return {
-        query: this.queryPreviewInfo.query,
+        query: this.query,
         rows: this.config.maxItemsToRequest,
-        extraParams: { ...this.params, ...this.queryPreviewInfo.extraParams },
-        filters: filters,
+        extraParams: this.params,
         ...(origin && { origin })
       };
     }
@@ -190,7 +176,7 @@
      * @returns The results preview of the actual query preview.
      */
     public get queryPreviewResults(): Partial<QueryPreviewItem> | undefined {
-      const previewResults = this.previewResults[this.queryPreviewInfo.query];
+      const previewResults = this.previewResults[this.query];
       return previewResults?.results
         ? {
             ...previewResults,
@@ -219,11 +205,7 @@
     protected created(): void {
       this.$watch(
         () => this.queryPreviewRequest,
-        (newRequest, oldRequest) => {
-          if (!deepEqual(newRequest, oldRequest)) {
-            this.emitQueryPreviewRequestUpdated(newRequest);
-          }
-        }
+        request => this.emitQueryPreviewRequestUpdated(request)
       );
       this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
     }
@@ -240,10 +222,7 @@
       this.emitQueryPreviewRequestUpdated.cancel();
 
       if (this.clearOnDestroy) {
-        this.$x.emit('QueryPreviewUnmountedHook', this.queryPreviewInfo.query, {
-          priority: 0,
-          replaceable: false
-        });
+        this.$x.emit('QueryPreviewUnmountedHook', this.query, { priority: 0, replaceable: false });
       }
     }
 
@@ -272,9 +251,9 @@
     @Watch('queryPreviewResults.status')
     emitLoad(status: RequestStatus | undefined): void {
       if (status === 'success') {
-        this.$emit(this.results?.length ? 'load' : 'error', this.queryPreviewInfo.query);
+        this.$emit(this.results?.length ? 'load' : 'error', this.query);
       } else if (status === 'error') {
-        this.$emit('error', this.queryPreviewInfo.query);
+        this.$emit('error', this.query);
       }
     }
   }
@@ -303,7 +282,7 @@ results.
 
 ```vue live
 <template>
-  <QueryPreview :queryPreviewInfo="queryPreviewInfo" />
+  <QueryPreview :query="query" />
 </template>
 
 <script>
@@ -316,7 +295,7 @@ results.
     },
     data() {
       return {
-        queryPreviewInfo: { query: 'sandals' }
+        query: 'sandals'
       };
     }
   };
@@ -329,7 +308,7 @@ In this example, the results will be rendered inside a sliding panel.
 
 ```vue live
 <template>
-  <QueryPreview :queryPreviewInfo="queryPreviewInfo" #default="{ totalResults, results }">
+  <QueryPreview :query="query" #default="{ totalResults, results }">
     <section>
       <p>Total results: {{ totalResults }}</p>
       <SlidingPanel :resetOnContentChange="false">
@@ -367,7 +346,7 @@ In this example, the results will be rendered inside a sliding panel.
     },
     data() {
       return {
-        queryPreviewInfo: { query: 'flip-flops' }
+        query: 'flip-flops'
       };
     }
   };
@@ -382,7 +361,7 @@ In this example, the ID of the results will be rendered along with the name.
 
 ```vue
 <template>
-  <QueryPreview :queryPreviewInfo="queryPreviewInfo" #result="{ result }">
+  <QueryPreview :query="query" #result="{ result }">
     <span>{{ result.id }}</span>
     <span>{{ result.name }}</span>
   </QueryPreview>
@@ -398,7 +377,7 @@ In this example, the ID of the results will be rendered along with the name.
     },
     data() {
       return {
-        queryPreviewInfo: { query: 'flip-flops' }
+        query: 'flips-flops'
       };
     }
   };
@@ -411,11 +390,7 @@ In this example, the query preview has been limited to render a maximum of 4 res
 
 ```vue
 <template>
-  <QueryPreview
-    :maxItemsToRender="maxItemsToRender"
-    :queryPreviewInfo="queryPreviewInfo"
-    #default="{ results }"
-  >
+  <QueryPreview :maxItemsToRender="maxItemsToRender" :query="query" #default="{ results }">
     <BaseGrid #default="{ item }" :items="results">
       <BaseResultLink :result="item">
         <BaseResultImage :result="item" />
@@ -439,7 +414,7 @@ In this example, the query preview has been limited to render a maximum of 4 res
     data() {
       return {
         maxItemsToRender: 4,
-        queryPreviewInfo: { query: 'flip-flops' }
+        query: 'flips-flops'
       };
     }
   };

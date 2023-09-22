@@ -97,7 +97,7 @@ unlike the `toggle`, which renders the same `item` slot defined by default.
 
 #### Default usage
 
-```vue live
+```vue
 <template>
   <BaseColumnPickerDropdown v-model="selectedColumns" :columns="[2, 4, 6]">
     <template #item="{ item, isSelected, isHighlighted }">
@@ -127,7 +127,7 @@ unlike the `toggle`, which renders the same `item` slot defined by default.
 
 #### Customizing toggle button
 
-```vue live
+```vue
 <template>
   <BaseColumnPickerDropdown v-model="selectedColumns" :columns="[2, 4, 6]">
     <template #toggle="{ item, isOpen }">Selected: {{ item }} {{ isOpen ? '🔼' : '🔽' }}️</template>
@@ -162,7 +162,7 @@ The component emits an X Event, `UserClickedColumnPicker`, on column change and 
 that event from outside, so you don't need to store the current column value to keep it synchronized
 with other column pickers.
 
-```vue live
+```vue
 <template>
   <BaseColumnPickerDropdown :columns="[2, 4, 6]">
     <template #toggle="{ item, isOpen }">Selected: {{ item }} {{ isOpen ? '🔼' : '🔽' }}️</template>

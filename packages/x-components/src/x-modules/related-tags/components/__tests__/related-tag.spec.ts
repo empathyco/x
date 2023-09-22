@@ -146,10 +146,8 @@ describe('testing related tag item component', () => {
 interface RenderRelatedTagOptions {
   /** The related tag data to render. */
   relatedTag?: RelatedTag;
-  /**
-   * The template to render. Receives the `relatedTag` via prop, and has registered the
-   * {@link RelatedTagComponent} as `RelatedTag`.
-   */
+  /** The template to render. Receives the `relatedTag` via prop, and has registered the
+   * {@link RelatedTagComponent} as `RelatedTag`. */
   template?: string;
 }
 

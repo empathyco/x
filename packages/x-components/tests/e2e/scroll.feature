@@ -15,7 +15,7 @@ Feature: Scroll component
     Then  url is updated with result "<resultId>"
     When  the page is reloaded
     Then  related results are displayed
-    And   "<resultId>" result is visible
+    And   first visible result is "<resultId>"
 
     Examples:
       | query | resultId  |

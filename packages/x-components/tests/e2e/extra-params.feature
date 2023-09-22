@@ -15,10 +15,10 @@ Feature: Extra-params component
     Then  popular searches request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
     And   recommendations request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
     # These are the initial query preview requests for the no-search carousels
-    And   search request contains extra parameter "<ExtraParamName>" with value "<QueryPreviewExtraParamValue>"
     And   search request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
     And   search request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
-    And   search request contains extra parameter "<ExtraParamName>" with value "<QueryPreviewExtraParamValue>"
+    And   search request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
+    And   search request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
     And   search request contains extra parameter "<ExtraParamName>" with value "<InitialExtraParamValue>"
     # End of query preview requests
 
@@ -45,5 +45,5 @@ Feature: Extra-params component
     And   related tags request contains extra parameter "<ExtraParamName>" with value "<NewExtraParamValue>"
 
     Examples:
-      | query | ExtraParamName | InitialExtraParamValue | QueryPreviewExtraParamValue | NewExtraParamValue |
-      | lego  | store          | Portugal               | Gijón                       | Spain              |
+      | query | ExtraParamName | InitialExtraParamValue | NewExtraParamValue |
+      | lego  | store          | Portugal               | Spain              |

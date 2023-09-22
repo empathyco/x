@@ -37,13 +37,6 @@ const wireDispatch = namespacedWireDispatch(moduleName);
 const setSearchBoxQuery = wireCommit('setQuery');
 
 /**
- * Sets the search state `query` with the selectedQueryPreview's query.
- *
- * @public
- */
-const setSearchBoxQueryFromPreview = wireCommit('setQuery', ({ eventPayload: { query } }) => query);
-
-/**
  * Clears the query of the search-box module.
  *
  * @public
@@ -86,10 +79,6 @@ export const searchBoxWiring = createWiring({
   },
   UserAcceptedAQuery: {
     setSearchBoxQuery,
-    transitionState: setInputStatus('UserAcceptedAQuery')
-  },
-  UserAcceptedAQueryPreview: {
-    setSearchBoxQueryFromPreview,
     transitionState: setInputStatus('UserAcceptedAQuery')
   },
   UserPressedClearSearchBoxButton: {

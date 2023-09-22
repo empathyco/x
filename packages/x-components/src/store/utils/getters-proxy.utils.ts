@@ -103,11 +103,10 @@ function defineGetterProxy<ModuleName extends XModuleName>(
   });
 }
 
-/**
- * Clean the cache (This is for testing purpose).
+/** Clean the cache (This is for testing purpose).
  *
  * @internal
- */
+ * */
 export function cleanGettersProxyCache(): void {
   cache = {};
 }

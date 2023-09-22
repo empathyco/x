@@ -40,32 +40,11 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleNa
 export const addQueryToHistoryQueries = wireDispatch('addQueryToHistory');
 
 /**
- * Saves the selectedQueryPreview query into the history queries.
- *
- * @public
- */
-export const addQueryToHistoryQueriesFromPreview = wireDispatch(
-  'addQueryToHistory',
-  ({ eventPayload: { query } }) => query
-);
-
-/**
  * Sets the query of the history queries module. Used for searching into the history queries.
  *
  * @public
  */
 export const setHistoryQueriesQuery = wireCommit('setQuery');
-
-/**
- * Sets the query of the history queries module from a selectedQueryPreview's query.
- * Used for searching into the history queries.
- *
- * @public
- */
-export const setHistoryQueriesQueryFromPreview = wireCommit(
-  'setQuery',
-  ({ eventPayload: { query } }) => query
-);
 
 /**
  * Sets the history queries state `query` from url.
@@ -190,9 +169,5 @@ export const historyQueriesWiring = createWiring({
   },
   SearchResponseChanged: {
     updateHistoryQueriesWithSearchResponse
-  },
-  UserAcceptedAQueryPreview: {
-    setHistoryQueriesQueryFromPreview,
-    addQueryToHistoryQueriesFromPreview
   }
 });

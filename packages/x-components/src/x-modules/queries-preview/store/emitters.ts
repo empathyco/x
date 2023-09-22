@@ -6,10 +6,4 @@ import { queriesPreviewXStoreModule } from './module';
  *
  * @internal
  */
-export const queriesPreviewEmitters = createStoreEmitters(queriesPreviewXStoreModule, {
-  QueryPreviewUnselected: {
-    selector: state =>
-      !state.selectedQueryPreview ? state.params : state.selectedQueryPreview.extraParams!,
-    filter: (newValue, oldValue, state) => !state.selectedQueryPreview
-  }
-});
+export const queriesPreviewEmitters = createStoreEmitters(queriesPreviewXStoreModule, {});

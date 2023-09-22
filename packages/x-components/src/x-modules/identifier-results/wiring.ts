@@ -40,16 +40,6 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleNa
 export const setIdentifierResultsQuery = wireDispatch('saveQuery');
 
 /**
- * Sets the identifier-results module query from a selectedQueryPreview's query.
- *
- * @public
- */
-export const setIdentifierResultsQueryFromPreview = wireDispatch(
-  'saveQuery',
-  ({ eventPayload: { query } }) => query
-);
-
-/**
  * Clears the identifier-results module query.
  *
  * @public
@@ -137,9 +127,5 @@ export const identifierResultsWiring = createWiring({
   },
   UserClickedOutOfMainModal: {
     clearIdentifierResultsQuery
-  },
-  UserAcceptedAQueryPreview: {
-    setIdentifierResultsQueryFromPreview,
-    saveIdentifierResultsOriginWire
   }
 });

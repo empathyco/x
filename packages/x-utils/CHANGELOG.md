@@ -3,15 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [1.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.22...@empathyco/x-utils@1.0.0-alpha.23) (2023-09-18)
-
-
-### Features
-
-* deep comparator for objects (#1287) ([fff4f07](https://github.com/empathyco/x/commit/fff4f0759cc751b639124ac17c21ce30ce22d96e))
-
-
-
 ## [1.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-utils@1.0.0-alpha.21...@empathyco/x-utils@1.0.0-alpha.22) (2023-06-27)
 
 **Note:** Version bump only for package @empathyco/x-utils

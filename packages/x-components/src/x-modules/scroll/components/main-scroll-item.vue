@@ -99,11 +99,7 @@
       oldObserver?.unobserve(this.$el);
       newObserver?.observe(this.$el);
       if (this.pendingScrollTo === this.item.id) {
-        Vue.nextTick(() => {
-          this.$el.scrollIntoView({
-            block: 'center'
-          });
-        });
+        this.$el.scrollIntoView();
         this.$x.emit('ScrollRestoreSucceeded');
       }
     }
