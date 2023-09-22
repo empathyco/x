@@ -7,11 +7,11 @@
   import { experienceControlsXModule } from '../x-module';
 
   /**
-   * This component subscribes to changes in the ExperienceControls module to fire the events that propagate the configuration.
+   * This component subscribes to changes in the ExperienceControls module to fire the events that
+   * propagate the configuration.
    *
    * @public
    */
-
   @Component({
     mixins: [xComponentMixin(experienceControlsXModule)]
   })
