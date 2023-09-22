@@ -3,6 +3,59 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.413](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.412...@empathyco/x-components@3.0.0-alpha.413) (2023-09-20)
+
+
+### Features
+
+* add filters to the query preview request (#1292) ([7f20022](https://github.com/empathyco/x/commit/7f20022eee593460681bfb1c4d574162f325cc05))
+* **query-preview:** use deep equal to compare request (#1291) ([cf3c3e7](https://github.com/empathyco/x/commit/cf3c3e7c738d8b2281183c42f00048b3bff918ea))
+
+
+
+## [3.0.0-alpha.412](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.411...@empathyco/x-components@3.0.0-alpha.412) (2023-09-18)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [3.0.0-alpha.411](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.410...@empathyco/x-components@3.0.0-alpha.411) (2023-09-18)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [3.0.0-alpha.410](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.409...@empathyco/x-components@3.0.0-alpha.410) (2023-09-15)
+
+### ⚠ BREAKING CHANGES
+
+- **queries-preview**: the `QueryPreviewList` component `queries` prop has changed name to
+  `queriesPreviewInfo` and the type is an array of `QueryPreviewInfo` as instead of an array of
+  strings. The QueryPreview component `query` prop has changed name to `queryPreviewInfo` and the
+  type is `QueryPreviewInfo` instead of `string`. `QueryPreviewInfo` type is now exported from
+  the module.
+
+EMP-1555
+
+### Features
+
+* **queries-preview**: query preview components allow adding extra params to the request (#1270) ([84143a2](https://github.com/empathyco/x/commit/84143a2b1ee1b9944ddb431f701b3d27d1c20410))
+
+
+
+## [3.0.0-alpha.409](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.408...@empathyco/x-components@3.0.0-alpha.409) (2023-09-15)
+
+
+### Features
+
+* **scroll:** add top offset when automatically scrolling to main-scroll-item (#1277) ([42dc680](https://github.com/empathyco/x/commit/42dc680e3ee3af4ccda6454d967da0750d2bba7e))
+
+
+
 ## [3.0.0-alpha.408](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.407...@empathyco/x-components@3.0.0-alpha.408) (2023-09-12)
 
 

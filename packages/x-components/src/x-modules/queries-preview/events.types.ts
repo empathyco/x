@@ -1,4 +1,6 @@
 import { SearchRequest } from '@empathyco/x-types';
+import { Dictionary } from '@empathyco/x-utils';
+import { QueryPreviewInfo } from './store/index';
 
 /**
  * Dictionary of the events of QueriesPreview XModule, where each key is the event name, and the
@@ -17,4 +19,16 @@ export interface QueriesPreviewXEvents {
    * Payload: The query whose preview has been removed.
    */
   QueryPreviewUnmountedHook: string;
+  /**
+   * User has clicked on a query preview.
+   * Payload: The {@link QueryPreviewInfo | query preview info}
+   * of the selected {@link QueryPreviewItem | item}.
+   */
+  UserAcceptedAQueryPreview: QueryPreviewInfo;
+  /**
+   * The query preview has been unselected.
+   * Payload: The extra params to be restored in the modules affected by the
+   * query preview selection.
+   */
+  QueryPreviewUnselected: Dictionary<unknown>;
 }
