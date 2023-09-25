@@ -162,18 +162,15 @@
         feature: this.queryFeature,
         location: this.location
       });
-      const filters = this.queryPreviewInfo.filters?.reduce(
-        (filtersList, filterId) => {
-          const facetId = filterId.split(':')[0];
-          const rawFilter = createRawFilter(filterId);
-          filtersList[facetId] = filtersList[facetId]
-            ? filtersList[facetId].concat(rawFilter)
-            : [rawFilter];
+      const filters = this.queryPreviewInfo.filters?.reduce((filtersList, filterId) => {
+        const facetId = filterId.split(':')[0];
+        const rawFilter = createRawFilter(filterId);
+        filtersList[facetId] = filtersList[facetId]
+          ? filtersList[facetId].concat(rawFilter)
+          : [rawFilter];
 
-          return filtersList;
-        },
-        {} as Record<string, Filter[]>
-      );
+        return filtersList;
+      }, {} as Record<string, Filter[]>);
 
       return {
         query: this.queryPreviewInfo.query,
@@ -316,7 +313,7 @@ results.
     },
     data() {
       return {
-        queryPreviewInfo: { query: 'sandals' }
+        queryPreviewInfo: { query: 'sandals', title: 'This is a title for the query sandals' }
       };
     }
   };
@@ -367,7 +364,7 @@ In this example, the results will be rendered inside a sliding panel.
     },
     data() {
       return {
-        queryPreviewInfo: { query: 'flip-flops' }
+        queryPreviewInfo: { query: 'flip-flops', title: 'This is a title for the query flip flops' }
       };
     }
   };
@@ -398,7 +395,10 @@ In this example, the ID of the results will be rendered along with the name.
     },
     data() {
       return {
-        queryPreviewInfo: { query: 'flip-flops' }
+        queryPreviewInfo: {
+          query: 'flips-flops',
+          title: 'This is a title for the query flip flops'
+        }
       };
     }
   };
@@ -439,7 +439,10 @@ In this example, the query preview has been limited to render a maximum of 4 res
     data() {
       return {
         maxItemsToRender: 4,
-        queryPreviewInfo: { query: 'flip-flops' }
+        queryPreviewInfo: {
+          query: 'flips-flops',
+          title: 'This is a title for the query flip flops'
+        }
       };
     }
   };
