@@ -12,8 +12,7 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType } from 'vue';
   import { PropsWithType } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
   import BaseEventButton from '../base-event-button.vue';
@@ -24,20 +23,38 @@
    *
    * @public
    */
-  @Component({
-    components: { BaseEventButton }
-  })
-  export default class BaseEventsModalClose extends Vue {
-    @Prop({ default: 'UserClickedCloseEventsModal' })
-    protected closingEvent!: PropsWithType<XEventsTypes, void>;
-
-    protected get events(): Partial<XEventsTypes> {
-      return { [this.closingEvent]: undefined };
+  export default defineComponent({
+    components: {
+      BaseEventButton
+    },
+    props: {
+      /**
+       * Event name to use for closing the modal.
+       *
+       * @public
+       */
+      closingEvent: {
+        type: String as PropType<PropsWithType<XEventsTypes, void>>,
+        default: 'UserClickedCloseEventsModal'
+      }
+    },
+    setup(props) {
+      const events = computed<Partial<XEventsTypes>>(() => ({ [props.closingEvent]: undefined }));
+      return {
+        events
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserClickedCloseEventsModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button.
+
 ## Examples
 
 The `BaseEventsModalClose` component can be used to close the `BaseEventsModal` component.
@@ -88,10 +105,4 @@ This event can be changed using the `closingEvent` prop.
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedCloseEventsModal`: the event is emitted after the user clicks the button.
 </docs>

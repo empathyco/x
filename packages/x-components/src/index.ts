@@ -6,6 +6,7 @@
 // TODO Write a complete description.
 
 export * from './components';
+export * from './composables';
 export * from './directives';
 export * from './plugins';
 export * from './services';
@@ -29,6 +30,7 @@ export * from './x-modules/related-tags';
 export * from './x-modules/scroll';
 export * from './x-modules/search';
 export * from './x-modules/search-box';
+export * from './x-modules/semantic-queries';
 export * from './x-modules/tagging';
 export * from './x-modules/url';
 export * from './x-modules/x-modules.types';

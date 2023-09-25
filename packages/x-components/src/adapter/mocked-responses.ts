@@ -6,6 +6,7 @@ import {
   createPopularSearch,
   createQuerySuggestion,
   createResultStub,
+  createSemanticQuery,
   createSimpleFacetStub,
   getFacetsStub,
   getRelatedTagsStub,
@@ -23,6 +24,7 @@ export const getPopularSearchesEndpoint = `${mockedApiUrl}/popular-searches`;
 export const getNextQueriesEndpoint = `${mockedApiUrl}/next-queries`;
 export const searchEndpoint = `${mockedApiUrl}/search`;
 export const trackEndpoint = `${mockedApiUrl}/track`;
+export const getSemanticQueriesEndpoint = `${mockedApiUrl}/semantic-queries`;
 
 export const mockedResponses = {
   'identifier-results': {
@@ -126,6 +128,7 @@ export const mockedResponses = {
         price: {
           hasDiscount: false,
           originalValue: 59.99,
+          futureValue: 59.99,
           value: 59.99
         }
       }),
@@ -134,6 +137,7 @@ export const mockedResponses = {
         price: {
           hasDiscount: false,
           originalValue: 29.99,
+          futureValue: 29.99,
           value: 29.99
         }
       }),
@@ -142,6 +146,7 @@ export const mockedResponses = {
         price: {
           hasDiscount: false,
           originalValue: 11.99,
+          futureValue: 11.99,
           value: 11.99
         }
       }),
@@ -150,6 +155,7 @@ export const mockedResponses = {
         price: {
           hasDiscount: false,
           originalValue: 39.99,
+          futureValue: 39.99,
           value: 39.99
         }
       }),
@@ -158,6 +164,7 @@ export const mockedResponses = {
         price: {
           hasDiscount: false,
           originalValue: 11.99,
+          futureValue: 11.99,
           value: 11.99
         }
       }),
@@ -166,6 +173,7 @@ export const mockedResponses = {
         price: {
           hasDiscount: false,
           originalValue: 11.99,
+          futureValue: 11.99,
           value: 11.99
         }
       }),
@@ -174,12 +182,20 @@ export const mockedResponses = {
         price: {
           hasDiscount: false,
           originalValue: 22.99,
+          futureValue: 22.99,
           value: 22.99
         }
       })
     ],
     totalResults: 7
   }),
+  'semantic-queries': {
+    semanticQueries: [
+      createSemanticQuery({ query: 'jacket', distance: 1 }),
+      createSemanticQuery({ query: 'blazer', distance: 2 }),
+      createSemanticQuery({ query: 'coat', distance: 3 })
+    ]
+  },
   'related-tags': {
     relatedTags: getRelatedTagsStub()
   }

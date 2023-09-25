@@ -15,14 +15,26 @@
           @binding {clearValues} function - It sets component min and max values to null.
           @binding {hasError} boolean - Returns true when there is an error with component values.
     -->
-    <slot v-bind="{ min, max, setMin, setMax, emitUserModifiedFilter, clearValues, hasError }">
+    <slot
+      v-bind="{
+        min,
+        max,
+        setMin,
+        setMax,
+        emitUserModifiedFilter,
+        clearValues,
+        hasError,
+        isAnyRange
+      }"
+    >
       <!-- eslint-disable max-len -->
       <input
         @change="setMin($event.target.valueAsNumber)"
         name="min"
         type="number"
         class="x-editable-number-range-filter__input x-editable-number-range-filter__input--min x-input"
-        :value="min"
+        :class="inputsClass"
+        :value="!isAnyRange ? min : null"
         data-test="range-min"
         :aria-label="rangeFilterMin"
       />
@@ -32,6 +44,7 @@
         name="max"
         type="number"
         class="x-editable-number-range-filter__input x-editable-number-range-filter__input--max x-input"
+        :class="inputsClass"
         :value="max"
         data-test="range-max"
         :aria-label="rangeFilterMax"
@@ -42,6 +55,7 @@
         v-if="!isInstant"
         @click="emitUserModifiedFilter"
         class="x-editable-number-range-filter__apply x-button"
+        :class="buttonsClass"
         :disabled="hasError"
         data-test="range-apply"
       >
@@ -55,6 +69,7 @@
         v-if="renderClearButton"
         @click="clearValues"
         class="x-editable-number-range-filter__clear x-button"
+        :class="buttonsClass"
         data-test="range-clear"
       >
         <!--
@@ -75,6 +90,8 @@
   import { VueCSSClasses } from '../../../../utils/types';
   import { facetsXModule } from '../../x-module';
   import { xComponentMixin } from '../../../../components/x-component.mixin';
+  import { XOn } from '../../../../components';
+  import { dynamicPropsMixin } from '../../../../components/dynamic-props.mixin';
 
   /**
    * Renders an editable number range filter. It has two input fields to handle min and max values,
@@ -92,7 +109,7 @@
    * @public
    */
   @Component({
-    mixins: [xComponentMixin(facetsXModule)]
+    mixins: [xComponentMixin(facetsXModule), dynamicPropsMixin(['inputsClass', 'buttonsClass'])]
   })
   export default class EditableNumberRangeFilter extends Vue {
     /**
@@ -162,6 +179,17 @@
     }
 
     /**
+     * It resets the min/max range values to null if the
+     * {@link FacetsXEvents.UserClickedClearAllFilters} event is fired.
+     *
+     * @public
+     */
+    @XOn('UserClickedClearAllFilters')
+    resetRanges(): void {
+      this.clearValues();
+    }
+
+    /**
      * Dynamic CSS classes.
      *
      * @returns Object which contains dynamic CSS classes.
@@ -173,7 +201,7 @@
     }
 
     /**
-     * Returns {@link @empathyco/x-types#RangeValue | RangeValue} with component min and max
+     * Returns {@link @empathyco/x-types#RangeValue} with component min and max
      * values.
      *
      * @returns Range value object with component values.
@@ -192,7 +220,7 @@
      * @internal
      */
     protected get renderClearButton(): boolean {
-      return this.hasClearButton && (this.min !== null || this.max !== null);
+      return this.hasClearButton && !this.isAnyRange;
     }
 
     /**
@@ -207,7 +235,7 @@
     }
 
     /**
-     * It checks if component min and max values are different than the ones within the filter
+     * It checks if component min and max values are different from the ones within the filter
      * provided as property.
      *
      * @returns True if they are different.
@@ -216,6 +244,18 @@
      */
     protected get areValuesDifferent(): boolean {
       return this.min !== this.filter.range.min || this.max !== this.filter.range.max;
+    }
+
+    /**
+     * Checks if the range of the filter allows any value, which happens when the min is
+     * null or 0 and the max is null.
+     *
+     * @returns True if the range of the filter allows any value.
+     *
+     * @internal
+     */
+    protected get isAnyRange(): boolean {
+      return !this.min && this.max === null;
     }
 
     /**
@@ -253,7 +293,7 @@
     }
 
     /**
-     * It sets component `min` and `max` values to null and it emits the change if component is
+     * It sets component `min` and `max` values to null , and it emits the change if component is
      * working in instant mode.
      *
      * @internal
@@ -294,6 +334,14 @@
 </style>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserModifiedEditableNumberRangeFilter`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  this event is emitted instantly after typing the value or clicking the submit button. The event
+  payload in both cases is an object containing the filter and the new value for the range.
+
 ## Example
 
 Renders an editable number range filter. It has two input fields to handle min and max values,
@@ -413,11 +461,20 @@ True by default.
 <template>
   <EditableNumberRangeFilter
     :filter="editableFilter"
-    #default="{ min, max, setMin, setMax, emitUserModifiedFilter, clearValues, hasError }"
+    #default="{
+      min,
+      max,
+      setMin,
+      setMax,
+      emitUserModifiedFilter,
+      clearValues,
+      hasError,
+      isAnyRange
+    }"
   >
     <button @click="emitUserModifiedFilter">✅ Apply!</button>
     <button @click="clearValues">🗑 Clear!</button>
-    <input :value="min" @change="setMin($event.target.valueAsNumber)" />
+    <input :value="!isAnyRange ? min : null" @change="setMin($event.target.valueAsNumber)" />
     <input :value="max" @change="setMax($event.target.valueAsNumber)" />
     <div class="has-error" v-if="hasError">⚠️ Invalid range values</div>
   </EditableNumberRangeFilter>
@@ -448,11 +505,42 @@ True by default.
 </script>
 ```
 
-## Events
+### Customizing the items with classes
 
-A list of events that the component will emit:
+The `buttonsClass` and `inputsClass` props can be used to add classes to the inputs and buttons of
+the component.
 
-- `UserModifiedEditableNumberRangeFilter`: this event is emitted instantly after typing the value or
-  clicking the submit button. The event payload in both cases is an object containing the filter and
-  the new value for the range.
+```
+<template>
+  <EditableNumberRangeFilter
+    :filter="editableFilter"
+    :inputsClass="'my-inputs-class'"
+    :buttonsClass="'my-buttons-class'"
+  />
+</template>
+
+<script>
+  import { EditableNumberRangeFilter } from '@empathyco/x-components/facets';
+
+  export default {
+    components: {
+      EditableNumberRangeFilter
+    },
+    data() {
+      return {
+        editableFilter: {
+          facetId: 'age',
+          id: 'age:primary',
+          label: 'primary',
+          modelName: 'EditableNumberRangeFilter',
+          range: {
+            min: null,
+            max: null
+          }
+        }
+      };
+    }
+  };
+</script>
+```
 </docs>

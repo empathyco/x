@@ -10,7 +10,7 @@ import { SearchXStoreModule } from '../types';
  * @public
  */
 export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchResponse'] = (
-  { commit, state },
+  { commit, state, getters },
   {
     results,
     partialResults,
@@ -23,6 +23,15 @@ export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchRespon
     queryTagging
   }
 ) => {
+  if (totalResults === 0) {
+    commit('setIsNoResults', true);
+    if (getters.request && Object.keys(getters.request.filters!).length > 0) {
+      commit('setFromNoResultsWithFilters', true);
+    }
+  } else {
+    commit('setIsNoResults', false);
+  }
+
   if (state.isAppendResults) {
     commit('appendResults', results);
   } else {

@@ -1,19 +1,15 @@
 <template>
-  <ul class="x-option-list x-column-picker-list" data-test="column-picker-list">
-    <li
-      v-for="{ column, cssClasses, events, isSelected } in columnsWithCssClasses"
-      :key="column"
-      :class="cssClasses"
-      class="x-option-list__item x-column-picker-list__item"
-      data-test="column-picker-item"
-    >
+  <div class="x-column-picker-list x-button-group" data-test="column-picker-list" role="list">
+    <template v-for="({ column, cssClasses, events, isSelected }, index) in columnsWithCssClasses">
       <BaseEventButton
-        class="column-picker-item__button x-button"
-        :class="buttonClass"
+        :key="column"
+        class="x-column-picker-list__button x-button"
+        :class="[buttonClass, cssClasses]"
         data-test="column-picker-button"
         :aria-pressed="isSelected"
         :events="events"
         :aria-label="`${column} columns`"
+        role="listitem"
       >
         <!--
           @slot Customized Column Picker Button content. Specifying a slot with the column value
@@ -25,8 +21,14 @@
           {{ column }}
         </slot>
       </BaseEventButton>
-    </li>
-  </ul>
+
+      <!--
+          @slot Customized Column Picker divider. Specify an element to act as divider for
+          the items in the column picker. Empty by default.
+        -->
+      <slot v-if="index !== columnsWithCssClasses.length - 1" name="divider"></slot>
+    </template>
+  </div>
 </template>
 
 <script lang="ts">
@@ -73,10 +75,9 @@
       return this.columns.map(column => ({
         column,
         cssClasses: [
-          `x-column-picker-list__item--${column}-cols`,
+          `x-column-picker-list__button--${column}-cols`,
           {
-            'x-column-picker-list__item--is-selected': this.selectedColumns === column,
-            'x-option-list__item--is-selected': this.selectedColumns === column
+            'x-selected': this.selectedColumns === column
           }
         ],
         isSelected: this.selectedColumns === column,
@@ -89,13 +90,6 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .x-column-picker-list {
-    display: flex;
-    list-style-type: none;
-  }
-</style>
-
 <docs lang="mdx">
 ## Examples
 
@@ -107,7 +101,7 @@ number of columns that it is being selected when it is clicked.
 
 It is required to send the columns prop.
 
-```vue
+```vue live
 <template>
   <BaseColumnPickerList :columns="columns" />
 </template>
@@ -130,7 +124,7 @@ It is required to send the columns prop.
 It is possible to do two way binding in order to synchronize the value with the parents. It will be
 updated if it changed the value or if the parent changes it.
 
-```vue
+```vue live
 <template>
   <BaseColumnPickerList :columns="columns" v-model="selectedColumns" />
 </template>
@@ -154,7 +148,7 @@ updated if it changed the value or if the parent changes it.
 
 It is possible to override the column picker button content.
 
-```vue
+```vue live
 <template>
   <BaseColumnPickerList :columns="columns" #default="{ column, isSelected }">
     <span>{{ column }} {{ isSelected ? '🟢' : '' }}</span>
@@ -174,11 +168,37 @@ It is possible to override the column picker button content.
 </script>
 ```
 
+It is also possible to add a divider element between the column picker buttons by overriding the
+`divider` slot.
+
+```vue live
+<template>
+  <BaseColumnPickerList :columns="columns">
+    <template #divider>
+      <ChevronRightIcon aria-hidden="true" />
+    </template>
+  </BaseColumnPickerList>
+</template>
+<script>
+  import { BaseColumnPickerList, ChevronRightIcon } from '@empathyco/xcomponents';
+
+  export default {
+    components: {
+      BaseColumnPickerList,
+      ChevronRightIcon
+    },
+    data() {
+      return { columns: [2, 4, 6] };
+    }
+  };
+</script>
+```
+
 #### Customizing the buttons with classes
 
 The `buttonClass` prop can be used to add classes to the buttons.
 
-```vue
+```vue live
 <template>
   <BaseColumnPickerList :columns="columns" buttonClass="x-button--round" />
 </template>
@@ -200,8 +220,9 @@ The `buttonClass` prop can be used to add classes to the buttons.
 
 A list of events that the component will emit:
 
-- `UserClickedColumnPicker`: the event is emitted after the user clicks an item. The event payload
-  is the number of columns that the clicked item represents.
-- `ColumnsNumberProvided`: the event is emitted on component mount. The event payload is the current
-  `selectedColumns` value.
+- [`UserClickedColumnPicker`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks an item. The event payload is the number of columns
+  that the clicked item represents.
+- [`ColumnsNumberProvided`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted on component mount. The event payload is the current `selectedColumns` value.
 </docs>

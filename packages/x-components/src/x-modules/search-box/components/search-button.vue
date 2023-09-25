@@ -41,7 +41,7 @@
     }
 
     /**
-     * Generates the {@link WireMetadata | event metadata} object omitting the moduleName.
+     * Generates the {@link WireMetadata} object omitting the moduleName.
      *
      * @returns The {@link WireMetadata} object omitting the moduleName.
      * @internal
@@ -78,8 +78,8 @@
 
 This component emits the following events:
 
-- [`UserAcceptedAQuery`](./../../api/x-components.xeventstypes.md)
-- [`UserPressedSearchButton`](./../../api/x-components.searchboxxevents.md)
+- [`UserAcceptedAQuery`]https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserPressedSearchButton`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 <!-- prettier-ignore-start -->
 :::warning

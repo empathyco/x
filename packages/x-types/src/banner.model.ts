@@ -11,9 +11,9 @@ import { Taggable } from './tagging.model';
  */
 export interface Banner extends NamedModel<'Banner'>, Identifiable, Taggable {
   /** Banner title. */
-  title: string;
+  title?: string;
   /** URL to redirect. */
-  url: string;
+  url?: string;
   /** Banner image. */
   image: string;
   /** Banner position (= row) inside the grid. */

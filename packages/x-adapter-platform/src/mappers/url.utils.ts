@@ -6,6 +6,8 @@ import { TaggingRequest } from '@empathyco/x-types';
  * @param taggingUrl - The url containing the tagging info.
  *
  * @returns The object with the tagging info.
+ *
+ * @public
  */
 export function getTaggingInfoFromUrl(taggingUrl: string): TaggingRequest {
   const { url, params } = extractUrlParameters(taggingUrl);
@@ -19,11 +21,31 @@ export function getTaggingInfoFromUrl(taggingUrl: string): TaggingRequest {
 }
 
 /**
+ * Generates the displayClick tagging info.
+ *
+ * @param displayTaggingUrl - The url containing the displayClick tagging info.
+ * @returns The object with the tagging info.
+ *
+ * @public
+ */
+export function getDisplayClickTagging(displayTaggingUrl: string): TaggingRequest {
+  const displayClickTagging = getTaggingInfoFromUrl(displayTaggingUrl);
+  const displayClickTaggingParams = displayClickTagging.params;
+
+  displayClickTaggingParams.displayId = displayClickTaggingParams.q ?? 'no_query';
+  delete displayClickTaggingParams.q;
+
+  return displayClickTagging;
+}
+
+/**
  * Returns the base url path and an object with the query parameters.
  *
  * @param url - The url string to manipulate.
  *
  * @returns The object with the url information.
+ *
+ * @public
  */
 export function extractUrlParameters(url: string): {
   url: string;

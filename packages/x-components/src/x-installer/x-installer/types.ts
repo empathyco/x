@@ -1,7 +1,8 @@
 import { ComponentOptions, PluginObject, VueConstructor } from 'vue';
-import { XBus } from '../../plugins/x-bus.types';
+import { XBus } from '@empathyco/x-bus';
 import { XPluginOptions } from '../../plugins/x-plugin.types';
 import { NormalisedSnippetConfig, XAPI } from '../api/api.types';
+import { WireMetadata, XEventsTypes } from '../../wiring/index';
 
 /**
  * Interface for the parameter of the constructor of {@link XInstaller} function. It is an extended
@@ -21,10 +22,10 @@ export interface InstallXOptions<API extends XAPI = XAPI> extends XPluginOptions
    */
   api?: API | false;
   /**
-   * The {@link XBus} used in the {@link XPlugin}. If not passed an instance of {@link BaseXBus}
-   * will be used.
+   * The {@link @empathyco/x-bus#XBus} used in the {@link XPlugin}. If not passed an instance of
+   * The {@link @empathyco/x-bus#XPriorityBus} will be used.
    */
-  bus?: XBus;
+  bus?: XBus<XEventsTypes, WireMetadata>;
   /**
    * An Element | string | function to indicate the HTML element that will contain the Vue
    * application. If it isn't passed, the {@link XInstaller} will create the target element.
@@ -65,7 +66,7 @@ export interface InstallXOptions<API extends XAPI = XAPI> extends XPluginOptions
   onCreateApp?: (app: Vue) => void;
   /**
    * Adds the option to install more Vue plugins, giving access to the {@link SnippetConfig} and
-   * the {@link XBus}.
+   * the {@link @empathyco/x-bus#XBus}.
    *
    * @param options - An object that contains utilities that might be helpful for installing Vue
    * plugins.
@@ -85,7 +86,7 @@ export interface ExtraPluginsOptions {
   /** The Vue instance that is being used. */
   vue: VueConstructor;
   /** The events bus instance used to communicate different part of the x-components. */
-  bus: XBus;
+  bus: XBus<XEventsTypes, WireMetadata>;
   /**
    * Configuration coming from the client website with options like the lang, or the active
    * currency.
@@ -110,8 +111,8 @@ export interface InitWrapper {
   app?: Vue;
   /** The {@link XAPI} to expose globally. */
   api?: XAPI;
-  /** The {@link XBus} used in the {@link XPlugin}. */
-  bus: XBus;
+  /** The {@link @empathyco/x-bus#XBus} used in the {@link XPlugin}. */
+  bus: XBus<XEventsTypes, WireMetadata>;
   /** The installed {@link XPlugin} instance. */
   plugin: PluginObject<XPluginOptions>;
 }

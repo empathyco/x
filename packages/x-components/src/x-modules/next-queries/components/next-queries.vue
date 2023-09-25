@@ -18,7 +18,7 @@
           #default="nextQueryScope"
           :suggestion="baseScope.suggestion"
           :highlightCurated="highlightCurated"
-          class="x-next-queries__suggestion"
+          class="x-next-queries__suggestion x-suggestion"
         >
           <!-- eslint-disable max-len -->
           <!--

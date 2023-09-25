@@ -4,6 +4,11 @@ import { PopularSearchesResponse } from '@empathyco/x-types';
 import { PlatformPopularSearchesResponse } from '../../types/responses/popular-searches-response.model';
 import { suggestionSchema } from '../models/suggestion.schema';
 
+/**
+ * Default implementation for the PopularSearchesResponseSchema.
+ *
+ * @public
+ */
 export const popularSearchesResponseSchema = createMutableSchema<
   PlatformPopularSearchesResponse,
   PopularSearchesResponse

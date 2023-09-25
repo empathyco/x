@@ -1,7 +1,49 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.14...@empathyco/x-storage-service@2.0.0-alpha.15) (2023-06-27)
+
+**Note:** Version bump only for package @empathyco/x-storage-service
+
+
+
+
+
+## [2.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.13...@empathyco/x-storage-service@2.0.0-alpha.14) (2023-06-06)
+
+**Note:** Version bump only for package @empathyco/x-storage-service
+
+
+
+
+
+## [2.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.12...@empathyco/x-storage-service@2.0.0-alpha.13) (2023-05-11)
+
+**Note:** Version bump only for package @empathyco/x-storage-service
+
+
+
+
+
+## [2.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.10...@empathyco/x-storage-service@2.0.0-alpha.12) (2023-05-11)
+
+### ⚠ BREAKING CHANGES
+
+* minimum node version required is 18.
+
+## [2.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.10...@empathyco/x-storage-service@2.0.0-alpha.11) (2023-04-12)
+
+**Note:** Version bump only for package @empathyco/x-storage-service
+
+## [2.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.9...@empathyco/x-storage-service@2.0.0-alpha.10) (2023-03-07)
+
+### Bug Fixes
+
+- **deps:** remove `only-allow` pnpm (#1097)
+  ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
+  closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
 
 ## [2.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.8...@empathyco/x-storage-service@2.0.0-alpha.9) (2023-02-08)
 
@@ -11,11 +53,6 @@ All notable changes to this project will be documented in this file. See
   ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
   closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.7...@empathyco/x-storage-service@2.0.0-alpha.8) (2023-02-07)
 
 ### Continuous Integration
@@ -23,11 +60,6 @@ All notable changes to this project will be documented in this file. See
 - migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
   ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
   closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.6...@empathyco/x-storage-service@2.0.0-alpha.7) (2023-01-25)
 
@@ -42,11 +74,6 @@ All notable changes to this project will be documented in this file. See
 
 **Note:** Version bump only for package @empathyco/x-storage-service
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.4...@empathyco/x-storage-service@2.0.0-alpha.5) (2023-01-06)
 
 ### Continuous Integration
@@ -59,22 +86,12 @@ All notable changes to this project will be documented in this file. See
 - **deps:** update dependencies
   ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.3...@empathyco/x-storage-service@2.0.0-alpha.4) (2022-10-14)
 
 ### Continuous Integration
 
 - update `runners` version (#740)
   ([38f246c](https://github.com/empathyco/x/commit/38f246c306dac40c4afbcdea08336052981ca9b8))
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.2...@empathyco/x-storage-service@2.0.0-alpha.3) (2022-09-09)
 
@@ -83,11 +100,6 @@ All notable changes to this project will be documented in this file. See
 - disable `@typescript-eslint/no-extra-parens` rule (#715)
   ([3718017](https://github.com/empathyco/x/commit/3718017c5528156f931bc8b1f2d208cdb50781ed)),
   closes [EX-6996](https://searchbroker.atlassian.net/browse/EX-6996)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-storage-service@2.0.0-alpha.1...@empathyco/x-storage-service@2.0.0-alpha.2) (2022-03-31)
 

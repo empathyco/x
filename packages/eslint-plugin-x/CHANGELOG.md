@@ -1,7 +1,70 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.37...@empathyco/eslint-plugin-x@2.0.0-alpha.38) (2023-06-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vue/eslint-config-typescript to v11 (#1218) ([dcbaecd](https://github.com/empathyco/x/commit/dcbaecd8bdb585774a5c2a444b9a84d19384ed7b))
+
+
+
+## [2.0.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.36...@empathyco/eslint-plugin-x@2.0.0-alpha.37) (2023-06-07)
+
+**Note:** Version bump only for package @empathyco/eslint-plugin-x
+
+
+
+
+
+## [2.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.35...@empathyco/eslint-plugin-x@2.0.0-alpha.36) (2023-06-06)
+
+**Note:** Version bump only for package @empathyco/eslint-plugin-x
+
+
+
+
+
+## [2.0.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.34...@empathyco/eslint-plugin-x@2.0.0-alpha.35) (2023-05-11)
+
+**Note:** Version bump only for package @empathyco/eslint-plugin-x
+
+
+
+
+
+## [2.0.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.32...@empathyco/eslint-plugin-x@2.0.0-alpha.34) (2023-05-11)
+
+### ⚠ BREAKING CHANGES
+
+* minimum node version required is 18.
+
+## [2.0.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.32...@empathyco/eslint-plugin-x@2.0.0-alpha.33) (2023-03-29)
+
+### Features
+
+- Minor improvements. (#1109)
+  ([1c9dace](https://github.com/empathyco/x/commit/1c9dacea7c46eb0b27687730a8a4978d0e49b230)),
+  closes [EX-8130](https://searchbroker.atlassian.net/browse/EX-8130)
+
+## [2.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.31...@empathyco/eslint-plugin-x@2.0.0-alpha.32) (2023-03-14)
+
+### Bug Fixes
+
+- **build:** Fix issue with prettier-plugin-tailwindcss. (#1102)
+  ([b87f274](https://github.com/empathyco/x/commit/b87f2741815e9a6723a997a955a1b18784cb4ed4)),
+  closes [EX-8112](https://searchbroker.atlassian.net/browse/EX-8112)
+
+## [2.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.30...@empathyco/eslint-plugin-x@2.0.0-alpha.31) (2023-03-07)
+
+### Bug Fixes
+
+- **deps:** remove `only-allow` pnpm (#1097)
+  ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
+  closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
 
 ## [2.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.29...@empathyco/eslint-plugin-x@2.0.0-alpha.30) (2023-02-07)
 
@@ -11,22 +74,12 @@ All notable changes to this project will be documented in this file. See
   ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
   closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.28...@empathyco/eslint-plugin-x@2.0.0-alpha.29) (2023-01-27)
 
 ### Build System
 
 - **deps:** update deps (#1046)
   ([b6957df](https://github.com/empathyco/x/commit/b6957df9d88c0d94c2543047991a63afadd707ff))
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.27...@empathyco/eslint-plugin-x@2.0.0-alpha.28) (2023-01-25)
 
@@ -37,11 +90,6 @@ All notable changes to this project will be documented in this file. See
   ([500ab57](https://github.com/empathyco/x/commit/500ab57e4729f5c4dcefaa31ed4a8497ddd349b9)),
   closes [EX-7288](https://searchbroker.atlassian.net/browse/EX-7288)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.26...@empathyco/eslint-plugin-x@2.0.0-alpha.27) (2023-01-24)
 
 ### Features
@@ -49,11 +97,6 @@ All notable changes to this project will be documented in this file. See
 - add `prettier-plugin-tailwindcss` (#1033)
   ([c3eae8b](https://github.com/empathyco/x/commit/c3eae8bef0a75fa1e78f1190947a74fa9269d6bd)),
   closes [EX-7884](https://searchbroker.atlassian.net/browse/EX-7884)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.25...@empathyco/eslint-plugin-x@2.0.0-alpha.26) (2023-01-23)
 
@@ -70,11 +113,6 @@ All notable changes to this project will be documented in this file. See
 - enable `allowWhitespace` in `jsdoc/no-multi-asterisks` (#1029)
   ([65b0d17](https://github.com/empathyco/x/commit/65b0d1734e1453a56fba67f0e6cb772f9d695452))
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.23...@empathyco/eslint-plugin-x@2.0.0-alpha.24) (2023-01-20)
 
 ### Build System
@@ -86,11 +124,6 @@ All notable changes to this project will be documented in this file. See
 
 **Note:** Version bump only for package @empathyco/eslint-plugin-x
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.21...@empathyco/eslint-plugin-x@2.0.0-alpha.22) (2023-01-06)
 
 ### Build System
@@ -100,37 +133,17 @@ All notable changes to this project will be documented in this file. See
 - **deps:** update dependencies
   ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.20...@empathyco/eslint-plugin-x@2.0.0-alpha.21) (2022-12-26)
 
 **Note:** Version bump only for package @empathyco/eslint-plugin-x
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.19...@empathyco/eslint-plugin-x@2.0.0-alpha.20) (2022-12-23)
 
 **Note:** Version bump only for package @empathyco/eslint-plugin-x
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.18...@empathyco/eslint-plugin-x@2.0.0-alpha.19) (2022-12-16)
 
 **Note:** Version bump only for package @empathyco/eslint-plugin-x
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.17...@empathyco/eslint-plugin-x@2.0.0-alpha.18) (2022-12-09)
 
@@ -138,11 +151,6 @@ All notable changes to this project will be documented in this file. See
 
 - **deps:** bump `@typescript-eslint/parser` (#909)
   ([9b8d2c4](https://github.com/empathyco/x/commit/9b8d2c4dda760e3d0a14d7098d0d1a521682afe4))
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.16...@empathyco/eslint-plugin-x@2.0.0-alpha.17) (2022-12-09)
 
@@ -152,11 +160,6 @@ All notable changes to this project will be documented in this file. See
   `eslint-import-resolver-typescript`
   ([cd63a4b](https://github.com/empathyco/x/commit/cd63a4b8fd7e7c605af86181e55e1e9379d59e95))
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.15...@empathyco/eslint-plugin-x@2.0.0-alpha.16) (2022-12-09)
 
 ### Build System
@@ -164,22 +167,12 @@ All notable changes to this project will be documented in this file. See
 - **deps:** update dependencies (#908)
   ([840da52](https://github.com/empathyco/x/commit/840da52dec32e04cf2b402cca2646b49c839e6e8))
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.14...@empathyco/eslint-plugin-x@2.0.0-alpha.15) (2022-10-14)
 
 ### Continuous Integration
 
 - update `runners` version (#740)
   ([38f246c](https://github.com/empathyco/x/commit/38f246c306dac40c4afbcdea08336052981ca9b8))
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.13...@empathyco/eslint-plugin-x@2.0.0-alpha.14) (2022-09-27)
 
@@ -189,11 +182,6 @@ All notable changes to this project will be documented in this file. See
   ([bd148ec](https://github.com/empathyco/x/commit/bd148ecb9682f8d4161d278c03f110f8f050d323)),
   closes [EX-7032](https://searchbroker.atlassian.net/browse/EX-7032)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.12...@empathyco/eslint-plugin-x@2.0.0-alpha.13) (2022-09-20)
 
 ### Features
@@ -202,11 +190,6 @@ All notable changes to this project will be documented in this file. See
   ([14dec97](https://github.com/empathyco/x/commit/14dec974174cd18e63cb5f4e9a690a9989de44bc)),
   closes [EX-6790](https://searchbroker.atlassian.net/browse/EX-6790)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.11...@empathyco/eslint-plugin-x@2.0.0-alpha.12) (2022-09-09)
 
 ### Features
@@ -214,11 +197,6 @@ All notable changes to this project will be documented in this file. See
 - disable `@typescript-eslint/no-extra-parens` rule (#715)
   ([3718017](https://github.com/empathyco/x/commit/3718017c5528156f931bc8b1f2d208cdb50781ed)),
   closes [EX-6996](https://searchbroker.atlassian.net/browse/EX-6996)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.10...@empathyco/eslint-plugin-x@2.0.0-alpha.11) (2022-08-03)
 
@@ -240,11 +218,6 @@ All notable changes to this project will be documented in this file. See
   ([912e968](https://github.com/empathyco/x/commit/912e9687851594871b3296a5fb26129327939d96)),
   closes [EX-6412](https://searchbroker.atlassian.net/browse/EX-6412)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.9...@empathyco/eslint-plugin-x@2.0.0-alpha.10) (2022-06-06)
 
 ### Features
@@ -252,11 +225,6 @@ All notable changes to this project will be documented in this file. See
 - disable v-slot-style
   ([2e8c2d9](https://github.com/empathyco/x/commit/2e8c2d93605b6a694e84c98f955ee7acfdfd35e3)),
   closes [EX-6284](https://searchbroker.atlassian.net/browse/EX-6284)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.8...@empathyco/eslint-plugin-x@2.0.0-alpha.9) (2022-05-11)
 
@@ -271,19 +239,9 @@ All notable changes to this project will be documented in this file. See
   ([7cc85c1](https://github.com/empathyco/x/commit/7cc85c1d371b604b3188d8cc2076eab5fc9460e4)),
   closes [EX-6066](https://searchbroker.atlassian.net/browse/EX-6066)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [2.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.7...@empathyco/eslint-plugin-x@2.0.0-alpha.8) (2022-05-05)
 
 **Note:** Version bump only for package @empathyco/eslint-plugin-x
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.6...@empathyco/eslint-plugin-x@2.0.0-alpha.7) (2022-04-29)
 
@@ -292,11 +250,6 @@ All notable changes to this project will be documented in this file. See
 - **deps:** update eslint-plugin dependencies (#447)
   ([51d60f0](https://github.com/empathyco/x/commit/51d60f0e11fa9667a784bbdb10ba1f39159b382f)),
   closes [EX-5383](https://searchbroker.atlassian.net/browse/EX-5383)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.5...@empathyco/eslint-plugin-x@2.0.0-alpha.6) (2022-04-19)
 
@@ -316,11 +269,6 @@ All notable changes to this project will be documented in this file. See
 - **deps:** Upgrade Cypress and Vue Cli plugins versions. (#399)
   ([630d6b0](https://github.com/empathyco/x/commit/630d6b0d767a3484140ecd252e2be10817e0900d)),
   closes [EX-5417](https://searchbroker.atlassian.net/browse/EX-5417)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [2.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.4...@empathyco/eslint-plugin-x@2.0.0-alpha.5) (2022-03-31)
 

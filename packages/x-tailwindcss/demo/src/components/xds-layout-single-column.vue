@@ -1,17 +1,16 @@
 <template>
   <XdsBaseShowcase #default="{ cssClass }" title="Layout single column" :sections="sections">
-    <button @click="openModal(cssClass)" class="x-button">Open layout example</button>
+    <label for="layout-single-column-modal" class="x-button">Open layout example</label>
+    <input id="layout-single-column-modal" type="checkbox" class="modal-toggle" />
 
-    <dialog :ref="cssClass" class="modal x-bg-neutral-10">
+    <div class="modal x-bg-neutral-10">
       <div :class="[cssClass, 'x-layout-min-margin-48']">
         <div class="x-layout-item x-bg-neutral-0 x-border-b-1 x-border-neutral-25">
           <div class="x-flex x-justify-between x-items-center x-py-8">
             <span class="x-title3">SINGLE COLUMN LAYOUT</span>
-            <form method="dialog" class="x-flex">
-              <button @click="enableScroll" class="x-button x-button-ghost" value="default">
-                Close
-              </button>
-            </form>
+            <label for="layout-single-column-modal" class="x-button x-button-ghost x-ml-auto">
+              Close
+            </label>
           </div>
         </div>
 
@@ -44,7 +43,7 @@
           <div class="x-flex x-justify-center x-p-16 x-title3">FOOTER</div>
         </div>
       </div>
-    </dialog>
+    </div>
   </XdsBaseShowcase>
 </template>
 
@@ -67,32 +66,11 @@
         '': [this.base]
       };
     }
-
-    openModal(layoutSize: string): void {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      (this.$refs[layoutSize] as any).showModal();
-      document.documentElement.style.overflow = 'hidden';
-    }
-
-    enableScroll(): void {
-      document.documentElement.style.overflow = '';
-    }
-
-    destroyed(): void {
-      this.enableScroll();
-    }
   }
 </script>
 
 <style lang="scss" scoped>
   code {
     text-decoration: underline;
-  }
-  .modal {
-    height: 100vh;
-    min-height: 100vh;
-    width: 100vw;
-    max-width: 100vw;
-    padding: 0;
   }
 </style>

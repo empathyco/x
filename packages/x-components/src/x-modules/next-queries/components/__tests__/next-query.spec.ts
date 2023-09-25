@@ -111,8 +111,10 @@ describe('testing next query item component', () => {
 interface RenderNextQueryOptions {
   /** The next query data to render. */
   suggestion?: NextQuery;
-  /** The template to render. Receives the `nextQuery` via prop, and has registered the
-   * {@link NextQueryComponent} as `NextQuery`. */
+  /**
+   * The template to render. Receives the `nextQuery` via prop, and has registered the
+   * {@link NextQueryComponent} as `NextQuery`.
+   */
   template?: string;
 }
 

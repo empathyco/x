@@ -6,7 +6,7 @@
   >
     <component
       :is="animation"
-      class="x-list x-selected-filters-list"
+      class="x-selected-filters-list"
       data-test="selected-filters-list"
       tag="ul"
     >

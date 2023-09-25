@@ -3,10 +3,8 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, inject } from 'vue';
   import { currencyFormatter } from '../../utils/currency-formatter';
-  import { XInject } from '../decorators/injection.decorators';
 
   /**
    * Renders the value received as a property which always must be a JavaScript number, with the
@@ -30,7 +28,6 @@
    * of decimals provided from the adapter. Otherwise, when the component truncate the decimal
    * part, it deletes significant digits.
    *
-   * @example
    * Basic example:
    *
    * ```vue
@@ -46,57 +43,62 @@
    *
    * @public
    */
-  @Component
-  export default class BaseCurrency extends Vue {
-    /**
-     * Numeric value to be formatted.
-     *
-     * @remarks Pass the value with 'v-bind:value' (or ':value' shortcut) instead of plain string.
-     * @remarks Be careful using numbers under Number.MAX_SAFE_INTEGER to avoid unexpected errors.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected value!: number;
+  export default defineComponent({
+    props: {
+      /**
+       * Numeric value to be formatted.
+       *
+       * @remarks Pass the value with 'v-bind:value' (or ':value' shortcut) instead of plain string.
+       * @remarks Be careful using numbers under Number.MAX_SAFE_INTEGER to avoid unexpected errors.
+       *
+       * @public
+       */
+      value: {
+        type: Number,
+        required: true
+      },
 
-    /**
-     * The format as string.
-     *
-     * @public
-     */
-    @Prop()
-    protected format?: string;
+      /**
+       * The format as string.
+       *
+       * @public
+       */
+      format: {
+        type: String
+      }
+    },
 
-    /**
-     * The injected format as string.
-     *
-     * @public
-     */
-    @XInject('currencyFormat')
-    public injectedFormat!: string;
+    setup(props) {
+      /**
+       * The injected format as string.
+       *
+       * @public
+       */
+      const injectedFormat = inject<string>('currencyFormat', 'i.iii,dd');
 
-    /**
-     * A format which can be passed through prop or injected.
-     *
-     * @returns A format as string.
-     *
-     * @internal
-     */
-    protected get renderedFormat(): string {
-      return this.format ?? this.injectedFormat ?? 'i.iii,dd';
+      /**
+       * A format which can be passed through prop or injected.
+       *
+       * @returns A format as string.
+       *
+       * @internal
+       */
+      const renderedFormat = computed<string>(() => props.format ?? injectedFormat);
+
+      /**
+       * Returns the formatted result as string.
+       *
+       * @returns Formatted number.
+       *
+       * @internal
+       */
+      const currency = computed<string>(() => currencyFormatter(props.value, renderedFormat.value));
+
+      return {
+        currency
+      };
     }
-
-    /**
-     * Returns the formatted result as string.
-     *
-     * @returns Formatted number.
-     *
-     * @internal
-     */
-    protected get currency(): string {
-      return currencyFormatter(this.value, this.renderedFormat);
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">

@@ -1,5 +1,6 @@
 import { namespacedWireCommit } from '../../wiring/namespaced-wires.factory';
 import { createWiring } from '../../wiring/wiring.utils';
+import { createRawFilters } from '../../utils/filters';
 
 /**
  * WireCommit for {@link UrlXModule}.
@@ -23,6 +24,16 @@ export const setUrlRelatedTags = wireCommit('setRelatedTags');
 export const setUrlQuery = wireCommit('setQuery');
 
 /**
+ * Sets the url state `query` with a selectedQueryPreview's query.
+ *
+ * @public
+ */
+export const setUrlQueryFromPreview = wireCommit(
+  'setQuery',
+  ({ eventPayload: { query } }) => query
+);
+
+/**
  * Sets the page of the url module.
  *
  * @public
@@ -42,6 +53,26 @@ export const setUrlSort = wireCommit('setSort');
  * @public
  */
 export const setParams = wireCommit('setParams');
+
+/**
+ * Sets the extra params of the url module from a selectedQueryPreview's extraParams.
+ *
+ * @public
+ */
+export const setUrlParamsFromPreview = wireCommit(
+  'setParams',
+  ({ eventPayload: { extraParams } }) => extraParams
+);
+
+/**
+ * Sets the filters of the url module from a selectedQueryPreview's filters.
+ *
+ * @public
+ */
+export const setUrlSelectedFiltersFromPreview = wireCommit(
+  'setFilters',
+  ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : [])
+);
 
 /**
  * Sets the scroll of the url module.
@@ -76,13 +107,18 @@ export const urlWiring = createWiring({
   UserAcceptedAQuery: {
     setUrlQuery
   },
+  UserAcceptedAQueryPreview: {
+    setUrlQueryFromPreview,
+    setUrlParamsFromPreview,
+    setUrlSelectedFiltersFromPreview
+  },
   UserClearedQuery: {
     setUrlQuery
   },
   SelectedRelatedTagsChanged: {
     setUrlRelatedTags
   },
-  SelectedFiltersChanged: {
+  SelectedFiltersForRequestChanged: {
     setUrlFilters
   },
   PageChanged: {

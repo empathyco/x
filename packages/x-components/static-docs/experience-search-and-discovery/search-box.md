@@ -1,5 +1,6 @@
 ---
-title: Search Box UI
+title: Design the Search Box UI experience
+sidebar_title: Search Box UI
 tags:
   - search input
   - search bar

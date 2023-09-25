@@ -104,6 +104,8 @@
   /**
    * Component for use as Layout to be filled with the rest of the Components.
    *
+   * @deprecated - The layout has been deprecated in favor of using new XDS layout.
+   *
    * @public
    */
   @Component({
@@ -157,7 +159,7 @@
 </style>
 
 <style lang="scss" scoped>
-  @import '../../design-system/utilities/dev-mode';
+  @import '../../design-system-deprecated/utilities/dev-mode';
 
   .x-layout {
     // custom properties
@@ -393,8 +395,9 @@
     &__collapse-aside {
       width: calc(
         (
-            100% - var(--x-size-gap-default) * (var(--x-number-columns-layout-columns, 5)) -
-              var(--x-size-margin-layout-columns)
+            100% - var(--x-size-gap-default) * (var(--x-number-columns-layout-columns, 5)) - var(
+                --x-size-margin-layout-columns
+              )
           ) / var(--x-number-columns-layout-columns, 5) + var(--x-size-gap-default)
       );
     }
@@ -410,7 +413,7 @@
       padding-right: calc(var(--x-size-margin-layout-columns) + var(--x-size-gap-default) - 16px);
 
       &.x-scroll {
-        --x-string-overflow-scroll: scroll;
+        overflow-y: scroll;
       }
     }
 

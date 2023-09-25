@@ -7,6 +7,8 @@ Feature: Tagging component
     And   a related tags API
     And   a recommendations API with a known response
     And   a tracking API with a known response
+    And   a semantic queries API
+    And   a clean semantic queries config
 
   Scenario: 1. Navigating to a URL with a query triggers the query tagging.
     Given a results API with a known response
@@ -17,65 +19,46 @@ Feature: Tagging component
     Given a results API with a known response
     And   no special config for layout view
     When  start button is clicked
-    And   "lego" is searched
+    Then  empathize should be visible
+    When  "lego" is searched
     Then  query tagging request should be triggered
 
-  Scenario: 3. Clicking a result triggers both the query and result click tagging.
+  Scenario: 3. Clicking add to cart triggers click and add2cart tagging.
     Given a results API with a known response
     And   no special config for layout view
     When  start button is clicked
-    And   "lego" is searched
-    And   first result is clicked
-    Then  url matches "/products/"
-    And   query tagging request is triggered
-    And   result click tagging request is triggered
-    And   result click tagging includes location "results"
+    Then  empathize should be visible
+    When  "lego" is searched
+    Then  query tagging request should be triggered
+    And   related results are displayed
+    Given a results API with a known response
+    When  add to cart button from first result is clicked
+    Then  result click tagging request is triggered
+    And   add product to cart tagging request is triggered
 
-  Scenario: 4. Clicking a promoted triggers the query tagging
-    Given a results API with a promoted
-    And   no special config for layout view
-    When  start button is clicked
-    And   "lego" is searched
-    And   first promoted is clicked
-    Then  url matches "/promoted/"
-    And   query tagging request is triggered
-
-  Scenario: 5. Clicking a banner triggers the query tagging
-    Given a results API with a banner
-    And   no special config for layout view
-    When  start button is clicked
-    And   "lego" is searched
-    And   first banner is clicked
-    Then  url matches "/banner/"
-    And   query tagging request is triggered
-
-  Scenario: 6. A redirection triggers query tagging
-    Given a results API with a redirection
-    And   no special config for layout view
-    When  start button is clicked
-    And   "lego" is searched
-    And   first redirection is clicked
-    Then  url matches "/redirection/"
-    And   query tagging request is triggered
-
-  Scenario: 7. Infinite scrolling triggers query tagging
+  Scenario: 4. Infinite scrolling triggers query tagging
     Given a results API with 2 pages
     And   no special config for layout view
     When  start button is clicked
-    And   "lego" is searched
+    Then  empathize should be visible
+    When  "lego" is searched
     Then  results page number 1 is loaded
+    And   query tagging request should be triggered
     When  scrolls down to next page
     Then  results page number 2 is loaded
-    And   query tagging request is triggered
     And   second page query tagging request is triggered
 
-  Scenario: 8. Tracking PDP add to cart
-    Given a results API with a known response
-    And   no special config for layout view
+  Scenario: 5. Clicking a display result triggers displayClick tagging
+    Given a semantic queries threshold config of 1
+    And   a semantic queries max items to request config of 1
+    And   a results API with 1 results
+    Then  application is initialized with the custom semantic queries config
     When  start button is clicked
     And   "lego" is searched
-    And   first result is clicked
-    When  pdp add to cart button is clicked
-    Then  add product to cart tagging request is triggered
+    Then  related results are displayed
+    And   1 semantic queries are requested
+    And   semantic queries are displayed
+    And   semantic queries results are displayed
+    When  first semantic query result is right clicked
+    Then  display result click tagging request is triggered
 
-  # TODO: Add scenario checking tagging events when clicking addToCart in SERP

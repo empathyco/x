@@ -1,5 +1,6 @@
 ---
-title: Empathize UI
+title: Design the Empathize UI experience
+sidebar_title: Empathize UI 
 tags:
   - predictive layer
   - search box

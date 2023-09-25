@@ -1,7 +1,89 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [4.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.30...@empathyco/x-react-wrapper@4.0.0-alpha.31) (2023-09-22)
+
+**Note:** Version bump only for package @empathyco/x-react-wrapper
+
+
+
+
+
+## [4.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.29...@empathyco/x-react-wrapper@4.0.0-alpha.30) (2023-06-07)
+
+**Note:** Version bump only for package @empathyco/x-react-wrapper
+
+
+
+
+
+## [4.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.28...@empathyco/x-react-wrapper@4.0.0-alpha.29) (2023-06-07)
+
+**Note:** Version bump only for package @empathyco/x-react-wrapper
+
+
+
+
+
+## [4.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.27...@empathyco/x-react-wrapper@4.0.0-alpha.28) (2023-06-06)
+
+**Note:** Version bump only for package @empathyco/x-react-wrapper
+
+
+
+
+
+## [4.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.26...@empathyco/x-react-wrapper@4.0.0-alpha.27) (2023-05-18)
+
+**Note:** Version bump only for package @empathyco/x-react-wrapper
+
+
+
+
+
+## [4.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.25...@empathyco/x-react-wrapper@4.0.0-alpha.26) (2023-05-11)
+
+**Note:** Version bump only for package @empathyco/x-react-wrapper
+
+
+
+
+
+## [4.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.23...@empathyco/x-react-wrapper@4.0.0-alpha.25) (2023-05-11)
+
+### ⚠ BREAKING CHANGES
+
+* minimum node version required is 18.
+
+## [4.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.23...@empathyco/x-react-wrapper@4.0.0-alpha.24) (2023-05-03)
+
+**Note:** Version bump only for package @empathyco/x-react-wrapper
+
+## [4.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.22...@empathyco/x-react-wrapper@4.0.0-alpha.23) (2023-04-26)
+
+**Note:** Version bump only for package @empathyco/x-react-wrapper
+
+## [4.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.21...@empathyco/x-react-wrapper@4.0.0-alpha.22) (2023-04-12)
+
+**Note:** Version bump only for package @empathyco/x-react-wrapper
+
+## [4.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.20...@empathyco/x-react-wrapper@4.0.0-alpha.21) (2023-03-16)
+
+### Features
+
+- **plugin:** replace old bus implementation using the new `x-priority-bus` (#1086)
+  ([f64f9b6](https://github.com/empathyco/x/commit/f64f9b68225c4ee422eb007784e0eec813c95228)),
+  closes [EX-7283](https://searchbroker.atlassian.net/browse/EX-7283)
+
+## [4.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.19...@empathyco/x-react-wrapper@4.0.0-alpha.20) (2023-03-07)
+
+### Bug Fixes
+
+- **deps:** remove `only-allow` pnpm (#1097)
+  ([b2a63d3](https://github.com/empathyco/x/commit/b2a63d308f20804d55a266189ab5d6242f88f6d8)),
+  closes [EX-8082](https://searchbroker.atlassian.net/browse/EX-8082)
 
 ## [4.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.18...@empathyco/x-react-wrapper@4.0.0-alpha.19) (2023-02-08)
 
@@ -11,11 +93,6 @@ All notable changes to this project will be documented in this file. See
   ([1af1503](https://github.com/empathyco/x/commit/1af1503ff118d6232fdbb27e203037a89b1b52e0)),
   closes [EX-7926](https://searchbroker.atlassian.net/browse/EX-7926)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [4.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.17...@empathyco/x-react-wrapper@4.0.0-alpha.18) (2023-02-07)
 
 ### Continuous Integration
@@ -23,11 +100,6 @@ All notable changes to this project will be documented in this file. See
 - migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
   ([aaaba4f](https://github.com/empathyco/x/commit/aaaba4f8a5498c16e17ea6daf9c18a1f49918f70)),
   closes [EX-7891](https://searchbroker.atlassian.net/browse/EX-7891)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [4.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.16...@empathyco/x-react-wrapper@4.0.0-alpha.17) (2023-01-25)
 
@@ -37,11 +109,6 @@ All notable changes to this project will be documented in this file. See
   (#993)
   ([500ab57](https://github.com/empathyco/x/commit/500ab57e4729f5c4dcefaa31ed4a8497ddd349b9)),
   closes [EX-7288](https://searchbroker.atlassian.net/browse/EX-7288)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [4.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.15...@empathyco/x-react-wrapper@4.0.0-alpha.16) (2023-01-20)
 
@@ -54,22 +121,12 @@ All notable changes to this project will be documented in this file. See
 
 **Note:** Version bump only for package @empathyco/x-react-wrapper
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [4.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.13...@empathyco/x-react-wrapper@4.0.0-alpha.14) (2023-01-06)
 
 ### Build System
 
 - **deps:** update dependencies
   ([491f9c5](https://github.com/empathyco/x/commit/491f9c5a27cf5eaa4dc3f31c97ea514bb8f3515b))
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [4.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.12...@empathyco/x-react-wrapper@4.0.0-alpha.13) (2023-01-03)
 
@@ -79,11 +136,6 @@ All notable changes to this project will be documented in this file. See
   ([09fb0fe](https://github.com/empathyco/x/commit/09fb0fe5dbef020565571a4fafc89d2aac544c8e)),
   closes [EX-7730](https://searchbroker.atlassian.net/browse/EX-7730)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [4.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.11...@empathyco/x-react-wrapper@4.0.0-alpha.12) (2023-01-02)
 
 ### Continuous Integration
@@ -91,11 +143,6 @@ All notable changes to this project will be documented in this file. See
 - make Cypress cache depend on package. Make eslint cache restore last version if no exact match.
   ([2498972](https://github.com/empathyco/x/commit/24989726d8e5c6c3450b344fbbc623a3f7246b53)),
   closes [EX-7721](https://searchbroker.atlassian.net/browse/EX-7721)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [4.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.10...@empathyco/x-react-wrapper@4.0.0-alpha.11) (2022-12-30)
 
@@ -105,22 +152,12 @@ All notable changes to this project will be documented in this file. See
   `@badeball/cypress-cucumber-preprocessor` (#747)
   ([2adb2cd](https://github.com/empathyco/x/commit/2adb2cd03591c37934fb385b120822ef271c359f))
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [4.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.9...@empathyco/x-react-wrapper@4.0.0-alpha.10) (2022-12-30)
 
 ### Continuous Integration
 
 - use matrix steps and jest projects (#919)
   ([dec53f5](https://github.com/empathyco/x/commit/dec53f5da572a4a5f3c8519222c1ed94ed981967))
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [4.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.8...@empathyco/x-react-wrapper@4.0.0-alpha.9) (2022-10-27)
 
@@ -129,22 +166,12 @@ All notable changes to this project will be documented in this file. See
 - replace `parcel` with `vite` (#739)
   ([7720502](https://github.com/empathyco/x/commit/7720502abfdee009506f4478ba3d71ea76051cb1))
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [4.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.7...@empathyco/x-react-wrapper@4.0.0-alpha.8) (2022-10-14)
 
 ### Continuous Integration
 
 - update `runners` version (#740)
   ([38f246c](https://github.com/empathyco/x/commit/38f246c306dac40c4afbcdea08336052981ca9b8))
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [4.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.6...@empathyco/x-react-wrapper@4.0.0-alpha.7) (2022-09-09)
 
@@ -154,11 +181,6 @@ All notable changes to this project will be documented in this file. See
   ([3718017](https://github.com/empathyco/x/commit/3718017c5528156f931bc8b1f2d208cdb50781ed)),
   closes [EX-6996](https://searchbroker.atlassian.net/browse/EX-6996)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [4.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.5...@empathyco/x-react-wrapper@4.0.0-alpha.6) (2022-08-31)
 
 ### Build System
@@ -167,11 +189,6 @@ All notable changes to this project will be documented in this file. See
   ([177e851](https://github.com/empathyco/x/commit/177e8511f4458fa13c627210cdfbbf6d42a85b17)),
   closes [EX-6918](https://searchbroker.atlassian.net/browse/EX-6918)
 
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
-
 ## [4.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.4...@empathyco/x-react-wrapper@4.0.0-alpha.5) (2022-04-04)
 
 ### Build System
@@ -179,11 +196,6 @@ All notable changes to this project will be documented in this file. See
 - **deps:** Upgrade Cypress and Vue Cli plugins versions. (#399)
   ([630d6b0](https://github.com/empathyco/x/commit/630d6b0d767a3484140ecd252e2be10817e0900d)),
   closes [EX-5417](https://searchbroker.atlassian.net/browse/EX-5417)
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [4.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.3...@empathyco/x-react-wrapper@4.0.0-alpha.4) (2022-03-31)
 

@@ -14,7 +14,8 @@ function mountBaseModal({
   defaultSlot = '<span data-test="default-slot">Modal</span>',
   open = false,
   focusOnOpen = true,
-  contentClass
+  contentClass,
+  overlayClass
 }: MountBaseModalOptions = {}): MountBaseModalAPI {
   const localVue = createLocalVue();
   const wrapper = mount(BaseModal, {
@@ -22,7 +23,8 @@ function mountBaseModal({
     propsData: {
       open,
       focusOnOpen,
-      contentClass
+      contentClass,
+      overlayClass
     },
     slots: {
       default: defaultSlot
@@ -50,12 +52,21 @@ function mountBaseModal({
       });
       appendToBody();
       document.body.appendChild(buttonWrapper.element);
+      jest.runAllTimers();
       await buttonWrapper.trigger('focusin');
     }
   };
 }
 
 describe('testing Base Modal  component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   it('renders only when the open prop is set to true', async () => {
     const { getModalContent, setOpen } = mountBaseModal();
 
@@ -153,6 +164,16 @@ describe('testing Base Modal  component', () => {
 
     expect(getModalContent().classes()).toContain('test-class');
   });
+
+  it('allows adding classes to the modal overlay', () => {
+    const { wrapper } = mountBaseModal({
+      overlayClass: 'custom-class',
+      open: true
+    });
+
+    const overlay = wrapper.find(getDataTestSelector('modal-overlay'));
+    expect(overlay.classes('custom-class')).toBe(true);
+  });
 });
 
 interface MountBaseModalOptions {
@@ -164,6 +185,8 @@ interface MountBaseModalOptions {
   focusOnOpen?: boolean;
   /** Class to add to the content element of the modal. */
   contentClass?: string;
+  /** Class to add to the overlay element of the modal. */
+  overlayClass?: string;
 }
 
 interface MountBaseModalAPI {

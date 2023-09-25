@@ -4,7 +4,33 @@ import { createRawFilters } from '../../utils/filters';
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
 import { filter, mapWire } from '../../wiring/wires.operators';
 import { createWiring } from '../../wiring/wiring.utils';
+import {
+  namespacedWireCommit,
+  namespacedWireCommitWithoutPayload,
+  XEventPayload
+} from '../../wiring/index';
 import { DefaultFacetsService } from './service/facets.service';
+
+/**
+ * `facets` {@link XModuleName | XModule name}.
+ *
+ * @internal
+ */
+const moduleName = 'facets';
+
+/**
+ * WireCommit for {@link FacetsXModule}.
+ *
+ * @internal
+ */
+const wireCommit = namespacedWireCommit(moduleName);
+
+/**
+ * WireCommitWithoutPayload for {@link FacetsXModule}.
+ *
+ * @internal
+ */
+const wireCommitWithoutPayload = namespacedWireCommitWithoutPayload(moduleName);
 
 /**
  * Wires factory for {@link DefaultFacetsService}.
@@ -61,12 +87,23 @@ const clearFiltersWire = wireFacetsService('clearFilters');
 const clearAllFiltersWire = wireFacetsServiceWithoutPayload('clearFilters');
 
 /**
+ * Deselects all selected filters but keep the sticky ones.
+ *
+ * @internal
+ */
+const clearAllFiltersButStickyWire = wireFacetsService('clearFiltersWithMetadata', {
+  metadata: {
+    keepSticky: true
+  }
+});
+
+/**
  * Deselects all selected filters only when oldValue is not empty.
  *
  * @public
  */
 const clearAllFiltersOnSecondQuery = filter(
-  clearAllFiltersWire,
+  clearAllFiltersButStickyWire,
   ({ metadata }) => !!metadata.oldValue
 );
 
@@ -108,6 +145,28 @@ const selectPreselectedFilterWire = wireFacetsService('selectPreselectedFilters'
 const setQuery = wireFacetsService('setQuery');
 
 /**
+ * Removes all the sticky filters from the state.
+ *
+ * @internal
+ */
+const clearStickyFilters = filter<XEventPayload<'SearchResponseChanged'>>(
+  wireCommitWithoutPayload('clearStickyFilters'),
+  ({ eventPayload }) => {
+    return eventPayload.totalResults === 0;
+  }
+);
+
+/**
+ * Sets the filters of the facets module from a selectedQueryPreview's filters.
+ *
+ * @public
+ */
+export const setSelectedFiltersFromPreview = wireCommit(
+  'setFilters',
+  ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : [])
+);
+
+/**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
  *
  * @internal
@@ -134,7 +193,7 @@ export const facetsWiring = createWiring({
     clearAllFiltersOnSecondQuery
   },
   UserChangedExtraParams: {
-    clearAllFiltersWire
+    clearAllFiltersButStickyWire
   },
   UserClickedAFilter: {
     toggleFilterWire
@@ -149,10 +208,16 @@ export const facetsWiring = createWiring({
     clearFiltersWire
   },
   UserClearedQuery: {
-    clearAllFiltersWire,
+    clearAllFiltersButStickyWire,
     setQuery
   },
   UserClickedOpenX: {
     selectPreselectedFilterWire
+  },
+  SearchResponseChanged: {
+    clearStickyFilters
+  },
+  UserAcceptedAQueryPreview: {
+    setSelectedFiltersFromPreview
   }
 });

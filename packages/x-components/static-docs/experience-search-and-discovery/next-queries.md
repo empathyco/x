@@ -1,5 +1,6 @@
 ---
-title: Next Queries UI
+title: Design the Next Queries UI experience
+sidebar_title: Next Queries UI
 tags:
   - popular next queries
   - what's next

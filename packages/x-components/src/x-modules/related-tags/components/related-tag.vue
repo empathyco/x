@@ -1,6 +1,6 @@
 <template>
   <button
-    @click="emitEvents"
+    @click="clickRelatedTag"
     class="x-tag x-related-tag"
     data-test="related-tag"
     :class="dynamicClasses"
@@ -59,7 +59,28 @@
     public selectedRelatedTags!: RelatedTagModel[];
 
     /**
-     * Generates the {@link WireMetadata | event metadata} object omitting the moduleName.
+     * Blurs the related tag if it is selected.
+     *
+     * @public
+     */
+    protected blurRelatedTag(): void {
+      if (this.isSelected) {
+        (this.$el as HTMLElement).blur();
+      }
+    }
+
+    /**
+     * Handles the click on the button.
+     *
+     * @public
+     */
+    protected clickRelatedTag(): void {
+      this.emitEvents();
+      this.blurRelatedTag();
+    }
+
+    /**
+     * Generates the {@link WireMetadata} object omitting the moduleName.
      *
      * @returns The {@link WireMetadata} object omitting the moduleName.
      * @internal
@@ -118,24 +139,13 @@
      */
     protected get dynamicClasses(): VueCSSClasses {
       return {
-        'x-tag--is-curated': this.shouldHighlightCurated,
-        'x-related-tag--is-curated': this.shouldHighlightCurated,
-        'x-tag--is-selected': this.isSelected,
-        'x-related-tag--is-selected': this.isSelected
+        'x-selected': this.isSelected,
+        'x-related-tag--is-selected': this.isSelected,
+        'x-related-tag--is-curated': this.shouldHighlightCurated
       };
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  .x-related-tag {
-    white-space: nowrap;
-
-    &--is-selected {
-      background: lightgrey;
-    }
-  }
-</style>
 
 <docs lang="mdx">
 ## Dynamic classes
@@ -149,9 +159,9 @@
 
 This component emits the following events:
 
-- [`UserDeselectedARelatedTag`](./../../api/x-components.relatedtagsxevents.md)
-- [`UserPickedARelatedTag`](./../../api/x-components.relatedtagsxevents.md)
-- [`UserSelectedARelatedTag`](./../../api/x-components.relatedtagsxevents.md)
+- [`UserDeselectedARelatedTag`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserPickedARelatedTag`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserSelectedARelatedTag`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

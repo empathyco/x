@@ -12,6 +12,18 @@ function cleanMarkdown(input) {
   return input.replace(/\r?\n/g, '<br />').replace(/\|/g, '\\|');
 }
 
+/**
+ * Replaces all the `{@link Component}` appearances to not be shown on generated docs.
+ *
+ * @param input - Input to be cleaned.
+ * @returns String cleaned markdown compatible string.
+ *
+ * @internal
+ */
+function removeLinks(input) {
+  return input.replace(/{@link /g, '').replace(/}/g, '');
+}
+
 const COMPONENTS_DOC_FOLDER = 'API-reference/components';
 
 /**
@@ -60,6 +72,7 @@ function generateDestination(folder, regex, file) {
 
 module.exports = {
   cleanMarkdown,
+  removeLinks,
   getDocumentFileDestination,
   COMPONENTS_DOC_FOLDER
 };

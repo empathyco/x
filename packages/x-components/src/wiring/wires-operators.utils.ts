@@ -1,21 +1,24 @@
 import { Subject, Observable, timer, race } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Store } from 'vuex';
-import { XBus } from '../plugins/x-bus.types';
+import { XBus } from '@empathyco/x-bus';
 import { RootXStoreState } from '../store/store.types';
 import { MaybeArray } from '../utils/types';
-import { XEvent } from './events.types';
-import { TimedWireOperatorOptions, TimeSelector } from './wiring.types';
+import { XEvent, XEventsTypes } from './events.types';
+import { TimedWireOperatorOptions, TimeSelector, WireMetadata } from './wiring.types';
 
 /**
  * Creates the observable for the events that will be racing the wire's execution.
  *
  * @param events - The events to merge its observables.
- * @param on - The on function of the {@link XBus} where the events will run.
+ * @param on - The on function of the {@link @empathyco/x-bus#XBus} where the events will run.
  * @returns The observable for the racing events.
  * @internal
  */
-export function mergeEvents(events: MaybeArray<XEvent>, on: XBus['on']): Observable<void> {
+export function mergeEvents(
+  events: MaybeArray<XEvent>,
+  on: XBus<XEventsTypes, WireMetadata>['on']
+): Observable<void> {
   const subject = new Subject<void>();
   const eventsList = Array.isArray(events) ? events : [events];
 
@@ -54,7 +57,7 @@ export function normalizeTime(
 export function createTimer(
   durationInMs: number,
   { cancelOn, forceOn }: TimedWireOperatorOptions,
-  on: XBus['on']
+  on: XBus<XEventsTypes, WireMetadata>['on']
 ): Observable<unknown> {
   let timerObservable: Observable<unknown> = timer(durationInMs);
   if (forceOn) {

@@ -9,7 +9,7 @@
 
   /**
    * Renders default slot content. It binds to the default slot a
-   * {@link @empathyco/x-types#BooleanFilter | BooleanFilter}, the {@link XEvent | XEvents}
+   * {@link @empathyco/x-types#BooleanFilter}, the {@link XEvent}
    * that will be emitted when clicking the content, the css classes and if the content should be
    * disabled.
    *
@@ -71,13 +71,7 @@
      * @internal
      */
     protected get cssClasses(): VueCSSClasses {
-      return [
-        'x-filter',
-        {
-          'x-filter--is-selected': this.filter.selected,
-          'x-filter--is-disabled': this.isDisabled
-        }
-      ];
+      return ['x-facet-filter', { 'x-selected': this.filter.selected }];
     }
 
     render(h: CreateElement): VNode {

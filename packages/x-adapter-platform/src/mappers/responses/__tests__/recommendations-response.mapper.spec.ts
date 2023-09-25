@@ -22,6 +22,7 @@ describe('recommendationsResponseMapper tests', () => {
           price: {
             hasDiscount: false,
             originalValue: 10,
+            futureValue: 10,
             value: 10
           },
           rating: {

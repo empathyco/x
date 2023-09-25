@@ -104,7 +104,9 @@ describe('testing SortList component', () => {
       eventPayload: 'offer',
       metadata: {
         moduleName: 'search',
-        target: buttonWrapper
+        target: buttonWrapper,
+        location: undefined,
+        replaceable: true
       }
     });
   });
@@ -119,7 +121,7 @@ describe('testing SortList component', () => {
     expect(onSelectedSortProvided).toHaveBeenCalledWith<[WirePayload<Sort>]>({
       eventPayload: '',
       // This event gets emitted immediately, before the component has been mounted
-      metadata: { moduleName: 'search' }
+      metadata: { moduleName: 'search', location: undefined, replaceable: true }
     });
   });
 

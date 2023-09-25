@@ -4,9 +4,9 @@ import Vuex, { Store } from 'vuex';
 import { createWireFromFunction } from '../../wiring/wires.factory';
 import { XComponentsAdapterDummy } from '../../__tests__/adapter.dummy';
 import { createXModule } from '../../__tests__/utils';
-import { BaseXBus } from '../x-bus';
 import { XPlugin } from '../x-plugin';
 import { XPluginOptions } from '../x-plugin.types';
+import { XDummyBus } from '../../__tests__/bus.dummy';
 
 const wireInstance = jest.fn();
 const usedClearedWireInstance = jest.fn();
@@ -56,7 +56,7 @@ describe('testing X Plugin emitters', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    plugin = new XPlugin(new BaseXBus());
+    plugin = new XPlugin(new XDummyBus());
     XPlugin.resetInstance();
     localVue = createLocalVue();
     localVue.use(Vuex);
@@ -256,7 +256,8 @@ describe('testing X Plugin emitters', () => {
         eventPayload: 'wheat',
         metadata: {
           moduleName: 'searchBox',
-          oldValue: ''
+          oldValue: '',
+          replaceable: true
         },
         store
       });
@@ -272,7 +273,8 @@ describe('testing X Plugin emitters', () => {
         eventPayload: 'wheat beer',
         metadata: {
           moduleName: 'searchBox',
-          oldValue: 'whe'
+          oldValue: 'whe',
+          replaceable: true
         },
         store
       });

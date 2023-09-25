@@ -8,13 +8,14 @@ Feature: Scroll component
 
   Scenario Outline: 1. Scroll is kept in the URL
     When  start button is clicked
-    And   "<query>" is searched
+    Then  empathize should be visible
+    When  "<query>" is searched
     Then  related results are displayed
     When  scrolling down to result "<resultId>"
     Then  url is updated with result "<resultId>"
     When  the page is reloaded
     Then  related results are displayed
-    And   first visible result is "<resultId>"
+    And   "<resultId>" result is visible
 
     Examples:
       | query | resultId  |
@@ -22,7 +23,8 @@ Feature: Scroll component
 
   Scenario Outline: 2. Scroll position is reset when a new query is searched
     When  start button is clicked
-    And   "<query1>" is searched
+    Then  empathize should be visible
+    When  "<query1>" is searched
     Then  related results are displayed
     When  scrolling down to result "<resultId>"
     And   "<query2>" is searched
@@ -36,7 +38,8 @@ Feature: Scroll component
   Scenario Outline: 3. Scroll position is reset when query is cleared
     Given a results API with 2 pages
     When  start button is clicked
-    And   "<query1>" is searched
+    Then  empathize should be visible
+    When  "<query1>" is searched
     Then  related results are displayed
     When  sort option "<sortOption>" is selected from the sort dropdown
     When  scrolls down to next page
@@ -55,7 +58,8 @@ Feature: Scroll component
 
   Scenario Outline: 4. Scroll position is reset when a new filter is clicked
     When  start button is clicked
-    And   "<query1>" is searched
+    Then  empathize should be visible
+    When  "<query1>" is searched
     Then  related results are displayed
     When  scrolling down to result "<resultId>"
     And   filter number <filterIndex> is clicked in facet "<filterFacet>"
@@ -71,7 +75,8 @@ Feature: Scroll component
   Scenario Outline: 5. Scroll position is reset when a related tag is clicked
     Given a related tags API with a known response
     When  start button is clicked
-    And   "<query1>" is searched
+    Then  empathize should be visible
+    When  "<query1>" is searched
     Then  related results are displayed
     When  scrolling down to result "<resultId>"
     And   related tag number <relatedTagIndex> is clicked
@@ -86,7 +91,8 @@ Feature: Scroll component
 
   Scenario Outline: 6. Scroll position is reset when an extra param is changed
     When  start button is clicked
-    And   "<query1>" is searched
+    Then  empathize should be visible
+    When  "<query1>" is searched
     Then  related results are displayed
     When  scrolling down to result "<resultId>"
     And   store is changed to "<store>"

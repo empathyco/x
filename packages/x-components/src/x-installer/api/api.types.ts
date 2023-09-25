@@ -1,8 +1,9 @@
 import { RequiredProperties } from '@empathyco/x-utils';
-import { XBus } from '../../plugins/x-bus.types';
+import { XBus } from '@empathyco/x-bus';
 import { DocumentDirection } from '../../plugins/x-plugin.types';
-import { XEvent, XEventPayload } from '../../wiring/events.types';
+import { XEvent, XEventPayload, XEventsTypes } from '../../wiring/events.types';
 import { WireMetadata } from '../../wiring/wiring.types';
+import { QueryPreviewInfo } from '../../x-modules/queries-preview/index';
 
 /**
  * Interface with the API functions exposes as X
@@ -21,12 +22,12 @@ export interface XAPI {
    */
   addProductToCart(productId?: string): void;
   /**
-   * To set the {@link XBus | bus} to the API. This bus will be used to emit the necessary
-   * events.
+   * To set the {@link @empathyco/x-bus#XBus | bus} to the API. This bus will be used to emit
+   * the necessary events.
    *
    * @internal
    */
-  setBus(bus: XBus): void;
+  setBus(bus: XBus<XEventsTypes, WireMetadata>): void;
 
   /**
    * To set the callback to call after the call to method init. This is used from {@link XInstaller}
@@ -72,7 +73,7 @@ export interface XAPI {
    *
    * @public
    */
-  init(config: SnippetConfig): void;
+  init(config: SnippetConfig): Promise<void>;
 }
 
 /**
@@ -126,17 +127,3 @@ export interface SnippetConfig {
  * @public
  */
 export type NormalisedSnippetConfig = RequiredProperties<SnippetConfig, 'uiLang'>;
-
-/**
- * Information to render a query preview with.
- *
- * @public
- */
-export interface QueryPreviewInfo {
-  /** The query to search for. */
-  query: string;
-  /** An optional title for the container. */
-  title?: string;
-  /** Any other additional information to render the preview with. */
-  [extra: string]: unknown;
-}

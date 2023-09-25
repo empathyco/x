@@ -1,16 +1,17 @@
+/* eslint-disable max-len */
 import { DeepPartial } from '@empathyco/x-utils';
 import { Filter, NextQueriesRequest, RelatedTagsRequest } from '@empathyco/x-types';
 import { platformAdapter } from '../platform.adapter';
-// eslint-disable-next-line max-len
 import { PlatformQuerySuggestionsResponse } from '../types/responses/query-suggestions-response.model';
 import { PlatformSearchResponse } from '../types/responses/search-response.model';
-// eslint-disable-next-line max-len
 import { PlatformPopularSearchesResponse } from '../types/responses/popular-searches-response.model';
 import { PlatformRelatedTagsResponse } from '../types/responses/related-tags-response.model';
 import { PlatformNextQueriesResponse } from '../types/responses/next-queries-response.model';
+import { PlatformSemanticQueriesResponse } from '../types/responses/semantic-queries-response.model';
 import { getFetchMock } from './__mocks__/fetch.mock';
 import { platformIdentifierResultsResponse } from './__fixtures__/identifier-results.response';
 import { platformRecommendationsResponse } from './__fixtures__/recommendations.response';
+/* eslint-enable max-len */
 
 describe('platformAdapter tests', () => {
   beforeEach(jest.clearAllMocks);
@@ -159,7 +160,7 @@ describe('platformAdapter tests', () => {
       topTrends: {
         content: [
           {
-            title_raw: 'shoes'
+            keywords: 'shoes'
           }
         ]
       }
@@ -204,7 +205,56 @@ describe('platformAdapter tests', () => {
       topTrends: {
         content: [
           {
-            title_raw: 'shoes'
+            keywords: 'shoes'
+          }
+        ]
+      }
+    };
+
+    const fetchMock = jest.fn(getFetchMock(rawPlatformQuerySuggestionsResponse));
+    window.fetch = fetchMock as any;
+
+    const response = await platformAdapter.querySuggestions({
+      query: 'boots',
+      start: 0,
+      rows: 24,
+      extraParams: {
+        instance: 'empathy',
+        env: 'test',
+        lang: 'en',
+        device: 'tablet',
+        scope: 'tablet'
+      }
+    });
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledWith(
+      // eslint-disable-next-line max-len
+      'https://api.test.empathy.co/search/v1/query/empathy/empathize?internal=true&query=boots&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
+      { signal: expect.anything() }
+    );
+
+    expect(response).toStrictEqual({
+      suggestions: [
+        {
+          query: 'shoes',
+          isCurated: false,
+          facets: [],
+          modelName: 'QuerySuggestion',
+          key: 'shoes'
+        }
+      ]
+    });
+  });
+
+  // eslint-disable-next-line max-len
+  it('should call the query suggestions endpoint and prioritize for title_raw over keywords', async () => {
+    const rawPlatformQuerySuggestionsResponse: PlatformQuerySuggestionsResponse = {
+      topTrends: {
+        content: [
+          {
+            title_raw: 'shoes',
+            keywords: 'no_query'
           }
         ]
       }
@@ -380,6 +430,9 @@ describe('platformAdapter tests', () => {
           modelName: 'Result',
           name: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree',
           price: {
+            value: 10,
+            originalValue: 10,
+            futureValue: 10,
             hasDiscount: false
           },
           rating: {
@@ -433,6 +486,22 @@ describe('platformAdapter tests', () => {
                 title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
               },
               url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/click'
+            },
+            displayClick: {
+              params: {
+                displayId: '12345',
+                filtered: 'false',
+                follow: false,
+                lang: 'en',
+                origin: 'search_box:none',
+                page: '1',
+                position: '1',
+                productId: '12345-U',
+                scope: 'desktop',
+                spellcheck: 'false',
+                title: 'Xoxo Women Maroon Pure Georgette Solid Ready-to-wear Saree'
+              },
+              url: 'https://api.staging.empathy.co/tagging/v1/track/empathy/displayClick'
             }
           },
           type: 'Default'
@@ -479,6 +548,7 @@ describe('platformAdapter tests', () => {
           price: {
             hasDiscount: false,
             originalValue: 10,
+            futureValue: 10,
             value: 10
           },
           rating: {
@@ -515,5 +585,55 @@ describe('platformAdapter tests', () => {
       'https://api.staging.empathy.co/tagging/v1/track/empathy/click?filtered=false&follow=false&lang=en&origin=search_box%3Anone&page=1&position=1&productId=12345-U&q=12345&scope=desktop&spellcheck=false&title=Xoxo+Women+Maroon+Pure+Georgette+Solid+Ready-to-wear+Saree',
       { keepalive: true }
     );
+  });
+
+  it('should call the semantic queries adapter', async () => {
+    const platformResponse: PlatformSemanticQueriesResponse = {
+      data: {
+        candidates: [
+          {
+            query: 'test',
+            distance: 123
+          },
+          {
+            query: 'test 2',
+            distance: 456
+          }
+        ]
+      }
+    };
+
+    const fetchMock = jest.fn(getFetchMock(platformResponse));
+    window.fetch = fetchMock as any;
+    const response = await platformAdapter.semanticQueries({
+      query: 'test',
+      extraParams: {
+        lang: 'en',
+        instance: 'empathy',
+        env: 'staging'
+      }
+    });
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledWith(
+      // eslint-disable-next-line max-len
+      'https://api.staging.empathy.co/semantics-api/search_single/empathy?q=test&lang=en&instance=empathy&env=staging',
+      { signal: expect.anything() }
+    );
+
+    expect(response).toStrictEqual({
+      semanticQueries: [
+        {
+          modelName: 'SemanticQuery',
+          query: 'test',
+          distance: 123
+        },
+        {
+          modelName: 'SemanticQuery',
+          query: 'test 2',
+          distance: 456
+        }
+      ]
+    });
   });
 });

@@ -12,5 +12,5 @@ export const nextQueriesEmitters = createStoreEmitters(nextQueriesXStoreModule, 
     selector: (_, getters) => getters.nextQueries,
     filter: createEmitterArrayFilter('query')
   },
-  NextQueriesRequestChanged: (_, getters) => getters.request
+  NextQueriesRequestUpdated: (_, getters) => getters.request
 });

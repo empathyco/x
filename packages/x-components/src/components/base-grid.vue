@@ -2,7 +2,7 @@
   <component
     :is="animation"
     :style="style"
-    class="x-grid-list x-base-grid"
+    class="x-base-grid"
     :class="cssClasses"
     tag="ul"
     data-test="grid"
@@ -11,7 +11,7 @@
       v-for="{ slotName, item, cssClass } in gridItems"
       :key="item.id"
       :class="cssClass"
-      class="x-grid-list__item x-base-grid__item"
+      class="x-base-grid__item"
     >
       <!--
         @slot Customized item rendering. Specifying a slot with the item's modelName will result in
@@ -98,7 +98,7 @@
     public injectedListItems!: ListItem[];
 
     /**
-     * Emits the {@link XEventsTypes.RenderedColumnsNumberChanged | RenderedColumnsNumberChanged}
+     * Emits the {@link XEventsTypes.RenderedColumnsNumberChanged}
      * event whenever the number of columns rendered inside the grid changes.
      *
      * @internal
@@ -132,7 +132,7 @@
      * @internal
      */
     protected get cssClasses(): VueCSSClasses {
-      return this.columns ? `x-grid-list--cols-${this.columns}` : 'x-grid-list--cols-auto';
+      return this.columns ? `x-base-grid--cols-${this.columns}` : 'x-base-grid--cols-auto';
     }
 
     /**
@@ -197,16 +197,29 @@
 
 <style lang="scss" scoped>
   .x-base-grid {
-    padding: var(--x-size-padding-grid, 0);
-    margin: 0;
     display: grid;
     grid-auto-flow: dense;
     list-style: none;
+    align-items: stretch;
 
     &__banner,
     &__next-queries-group {
       grid-column-start: 1;
       grid-column-end: -1;
+    }
+
+    &__item {
+      display: flex;
+      flex-flow: column nowrap;
+
+      > * {
+        flex-grow: 1;
+      }
+    }
+
+    &--cols-auto .x-base-grid__item {
+      // layout
+      min-width: var(--x-size-min-width-grid-item);
     }
   }
 </style>
@@ -279,6 +292,21 @@ and are rendered in different slots.
       <BaseResultLink :result="item">
         {{ item.name }}
       </BaseResultLink>
+    </template>
+  </BaseGrid>
+</template>
+```
+
+### Customizing the items width
+
+The `--x-size-min-width-grid-item` variable can be used to customize the min width of the grid
+items.
+
+```vue
+<template>
+  <BaseGrid :items="items" style="--x-size-min-width-grid-item: 150px">
+    <template #default="{ item }">
+      {{ `Default slot content: ${item.id}` }}
     </template>
   </BaseGrid>
 </template>

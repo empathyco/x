@@ -1,5 +1,6 @@
 ---
-title: History Queries UI
+title: Design the History Queries UI experience
+sidebar_title: History Queries UI
 ---
 
 The History Queries UI component displays the search history, allowing shoppers to check previous

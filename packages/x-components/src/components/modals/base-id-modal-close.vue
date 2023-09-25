@@ -19,39 +19,51 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import { NoElement } from '../no-element';
+  import { use$x } from '../../composables/index';
 
   /**
-   * Component that allows to close a modal by emitting {@link XEventsTypes.UserClickedCloseModal}.
+   * Component that allows to close a modal by emitting
+   * {@link XEventsTypes.UserClickedCloseModal}.
    * It allows full customization with the 'closing-element' slot and exposes the 'closeModal'
    * function.
    *
    * @public
    */
-  @Component({
-    components: { NoElement }
-  })
-  export default class BaseIdModalClose extends Vue {
-    /**
-     * The modalId of the modal that will be closed.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected modalId!: string;
+  export default defineComponent({
+    components: {
+      NoElement
+    },
+    props: {
+      /**
+       * The modalId of the modal that will be closed.
+       *
+       * @public
+       */
+      modalId: {
+        type: String,
+        required: true
+      }
+    },
+    setup(props) {
+      const $x = use$x();
 
-    /**
-     * Emits the {@link XEventsTypes.UserClickedCloseModal} event with the modalId as payload.
-     *
-     * @param event - The event triggering the function.
-     * @public
-     */
-    protected emitCloseModalEvent({ target }: Event): void {
-      this.$x.emit('UserClickedCloseModal', this.modalId, { target: target as HTMLElement });
+      /**
+       * Emits the {@link XEventsTypes.UserClickedCloseModal} event with the modalId as payload.
+       *
+       * @param event - The event triggering the function.
+       * @public
+       */
+      const emitCloseModalEvent = ({ target }: Event): void => {
+        $x.emit('UserClickedCloseModal', props.modalId, { target: target as HTMLElement });
+      };
+
+      return {
+        emitCloseModalEvent
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
@@ -59,8 +71,9 @@
 
 A list of events that the component will emit:
 
-- `UserClickedCloseModal`: the event is emitted after the user clicks the button. The event payload
-  is the id of the modal that is going to be closed.
+- [`UserClickedCloseModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the id of the modal
+  that is going to be closed.
 
 ## Examples
 

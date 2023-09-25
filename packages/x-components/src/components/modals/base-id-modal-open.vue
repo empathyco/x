@@ -19,9 +19,9 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import { NoElement } from '../no-element';
+  import { use$x } from '../../composables/index';
 
   /**
    * Component that allows to open a modal by emitting {@link XEventsTypes.UserClickedOpenModal}
@@ -30,28 +30,37 @@
    *
    * @public
    */
-  @Component({
-    components: { NoElement }
-  })
-  export default class BaseIdModalOpen extends Vue {
-    /**
-     * The modalId of the modal that will be opened.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected modalId!: string;
+  export default defineComponent({
+    components: { NoElement },
+    props: {
+      /**
+       * The modalId of the modal that will be opened.
+       *
+       * @public
+       */
+      modalId: {
+        type: String,
+        required: true
+      }
+    },
+    setup(props) {
+      const $x = use$x();
 
-    /**
-     * Emits the {@link XEventsTypes.UserClickedOpenModal} event with the modalId as payload.
-     *
-     * @param event - The event triggering the function.
-     * @public
-     */
-    protected emitOpenModalEvent({ target }: Event): void {
-      this.$x.emit('UserClickedOpenModal', this.modalId, { target: target as HTMLElement });
+      /**
+       * Emits the {@link XEventsTypes.UserClickedOpenModal} event with the modalId as payload.
+       *
+       * @param event - The event triggering the function.
+       * @public
+       */
+      const emitOpenModalEvent = ({ target }: Event): void => {
+        $x.emit('UserClickedOpenModal', props.modalId, { target: target as HTMLElement });
+      };
+
+      return {
+        emitOpenModalEvent
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
@@ -59,8 +68,9 @@
 
 A list of events that the component will emit:
 
-- `UserClickedOpenModal`: the event is emitted after the user clicks the button. The event payload
-  is the id of the modal that is going to be opened.
+- [`UserClickedOpenModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the id of the modal
+  that is going to be opened.
 
 ## Examples
 

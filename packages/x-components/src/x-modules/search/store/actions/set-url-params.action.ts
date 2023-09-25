@@ -11,10 +11,12 @@ import { SearchXStoreModule } from '../types';
  * @public
  */
 export const setUrlParams: SearchXStoreModule['actions']['setUrlParams'] = (
-  { commit },
+  { commit, state },
   { query, page, sort }
 ) => {
+  const currentQuery = state.query;
+
   commit('setQuery', query);
-  commit('setPage', page);
+  commit('setPage', !currentQuery || currentQuery === query ? page : 1);
   commit('setSort', sort);
 };

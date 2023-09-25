@@ -182,7 +182,9 @@ interface RenderSelectedFiltersAPI {
   selectedFiltersListWrapper: Wrapper<Vue>;
   /** Toggle nth filter of the facet provided. */
   toggleFacetNthFilter: (facetId: string, nth: number) => Promise<void>;
-  /** Retrieves the wrapper for the items of the list rendered by the {@link SelectedFiltersList}
-   * component. */
+  /**
+   * Retrieves the wrapper for the items of the list rendered by the {@link SelectedFiltersList}
+   * component.
+   */
   selectedFiltersItems: () => WrapperArray<Vue>;
 }

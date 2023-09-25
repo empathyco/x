@@ -35,7 +35,7 @@
     public query!: string;
 
     /**
-     * Generates the {@link WireMetadata | event metadata} object omitting the moduleName.
+     * Generates the {@link WireMetadata} object omitting the moduleName.
      *
      * @returns The {@link WireMetadata} object omitting the moduleName.
      * @internal
@@ -60,12 +60,23 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+This component emits 2 different events:
+
+- [`UserAcceptedAQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the partial query. The event payload is the partial
+  query data.
+- [`UserClickedPartialQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the partial query. The event payload is the partial
+  query data.
+
 ## Examples
 
 ### Basic example
 
-A button that when pressed emits the {@link XEventsTypes.UserAcceptedAQuery} and {@link
-SearchXEvents.UserClickedPartialQuery} events, expressing the user intention to set the partial
+A button that when pressed emits the `XEventsTypes.UserAcceptedAQuery` and
+`SearchXEvents.UserClickedPartialQuery` events, expressing the user intention to set the partial
 query.
 
 The component sets the current query as the new query and emits the `UserAcceptedAQuery` and
@@ -100,13 +111,4 @@ The component sets the current query as the new query and emits the `UserAccepte
   };
 </script>
 ```
-
-## Events
-
-This component emits 2 different events:
-
-- UserAcceptedAQuery: the event is emitted after the user clicks the partial query. The event
-  payload is the partial query data.
-- UserClickedPartialQuery: the event is emitted after the user clicks the partial query. The event
-  payload is the partial query data.
 </docs>

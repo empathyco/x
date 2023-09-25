@@ -5,14 +5,16 @@ export const platformSearchResponse = {
   catalog: {
     content: [
       {
-        image: 'https://assets.empathy.co/images-demo/31335.jpg',
+        _images: ['https://assets.empathy.co/images-demo/31335.jpg'],
         tagging: {
           add2cart:
             'https://api.staging.empathy.co/tagging/v1/track/empathy/add2cart?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false',
           checkout:
             'https://api.staging.empathy.co/tagging/v1/track/empathy/checkout?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false',
           click:
-            'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false'
+            'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false',
+          displayClick:
+            'https://api.staging.empathy.co/tagging/v1/track/empathy/displayClick?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false'
         },
         gender: 'Men',
         color: 'Blue',
@@ -21,18 +23,23 @@ export const platformSearchResponse = {
         usage: 'Casual',
         groupId: '31335',
         type: 'Jeans',
-        url: 'https://assets.empathy.co/images-demo/31335.jpg',
+        __url: 'https://assets.empathy.co/images-demo/31335.jpg',
         _jobProperties: {
           jobId: 'c1aceb24-271b-4270-a684-edebc1f3afa9',
           _eb_date_: '2022-01-26T11:34:24.868Z'
         },
         categoryIds: ['78d9b7366', '78d9b7366__8a4e61a33'],
         size: 'U',
-        price: 10,
+        __prices: {
+          current: {
+            value: 10
+          }
+        },
         popularity: 2,
-        name: 'Locomotive Men Washed Blue Jeans',
+        __name: 'Locomotive Men Washed Blue Jeans',
         season: 'Summer',
-        id: '31335-U',
+        __id: '31335-U',
+        __externalId: '31335-U',
         categories: ['Apparel', 'Bottomwear'],
         indexMetrics: {
           generatedTime: '2022-01-26T11:34:24.744Z',
@@ -56,7 +63,9 @@ export const platformSearchResponse = {
               checkout:
                 'https://api.staging.empathy.co/tagging/v1/track/empathy/checkout?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false',
               click:
-                'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false'
+                'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false',
+              displayClick:
+                'https://api.staging.empathy.co/tagging/v1/track/empathy/displayClick?q=jeans&lang=en&scope=desktop&title=Locomotive+Men+Washed+Blue+Jeans&productId=31335-U&position=1&page=1&url=https%3A%2F%2Fassets.empathy.co%2Fimages-demo%2F31335.jpg&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false'
             },
             gender: 'Men',
             color: 'Blue',
@@ -65,18 +74,22 @@ export const platformSearchResponse = {
             usage: 'Casual',
             groupId: '31335',
             type: 'Jeans',
-            url: 'https://assets.empathy.co/images-demo/31335.jpg',
+            __url: 'https://assets.empathy.co/images-demo/31335.jpg',
             _jobProperties: {
               jobId: 'c1aceb24-271b-4270-a684-edebc1f3afa9',
               _eb_date_: '2022-01-26T11:34:24.868Z'
             },
             categoryIds: ['78d9b7366', '78d9b7366__8a4e61a33'],
             size: 'U',
-            price: 10,
+            __prices: {
+              current: {
+                value: 10
+              }
+            },
             popularity: 2,
-            name: 'Locomotive Men Washed Blue Jeans',
+            __name: 'Locomotive Men Washed Blue Jeans',
             season: 'Summer',
-            id: '31335-U',
+            __id: '31335-U',
             categories: ['Apparel', 'Bottomwear'],
             indexMetrics: {
               generatedTime: '2022-01-26T11:34:24.744Z',
@@ -282,8 +295,6 @@ export const platformSearchResponse = {
         title: 'Banner title',
         url: 'https://assets.empathy.co/',
         tagging: {
-          query:
-            'https://api.staging.empathy.co/tagging/v1/track/empathy/query?q=jeans&lang=en&scope=desktop&title=banner+title&productId=61f9223221c06701c2f98c17&position=1&page=1&url=https://assets.empathy.co/&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false',
           click:
             'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=jeans&lang=en&scope=desktop&title=banner+title&productId=61f9223221c06701c2f98c17&position=1&page=1&url=https://assets.empathy.co/&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false'
         }
@@ -296,7 +307,11 @@ export const platformSearchResponse = {
         id: '61f9223221c06701c2f98c17',
         image_url: 'https://assets.empathy.co/images-demo/31335.jpg',
         title: 'Promoted title',
-        url: 'https://assets.empathy.co/'
+        url: 'https://assets.empathy.co/',
+        tagging: {
+          click:
+            'https://api.staging.empathy.co/tagging/v1/track/empathy/click?q=jeans&lang=en&scope=desktop&title=promoted+title&productId=61f9223221c06701c2f98c17&position=1&page=1&url=https://assets.empathy.co/&follow=false&origin=url%3Aexternal&filtered=false&spellcheck=false'
+        }
       }
     ]
   },

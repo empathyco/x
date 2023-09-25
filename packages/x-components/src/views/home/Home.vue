@@ -7,8 +7,8 @@
     <SnippetCallbacks />
     <OpenMainModal>Start</OpenMainModal>
     <h1 class="x-text-primary-50 x-text-4xl x-font-bold x-leading-[1.5]">Test controls</h1>
-    <ul class="x-test-controls x-list x-list--gap-05">
-      <li class="x-test-controls__item x-list__item">
+    <ul class="x-test-controls x-flex x-flex-col x-gap-16">
+      <li class="x-test-controls__item">
         <label for="searchInput.instant">
           search-input - instant
           <input
@@ -19,7 +19,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="searchInput.instantDebounceInMs">
           search-input - debounce
           <input
@@ -30,7 +30,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="popularSearches.maxItemsToRender">
           popular-searches - maxItemsToRender
           <input
@@ -41,7 +41,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="slicedFilters.max">
           sliced-filters - max
           <input
@@ -52,7 +52,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="historyQueries.maxItemsToRender">
           history-queries - maxItemsToRender
           <input
@@ -63,7 +63,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="nextQueriesPreview.maxItemsToRender">
           next-queries-preview - maxItemsToRender
           <input
@@ -74,7 +74,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="nextQueriesPreview.maxItemsToRender">
           next-queries-list - showOnlyAfterOffset
           <input
@@ -85,7 +85,7 @@
           />
         </label>
       </li>
-      <li class="x-test-controls__item x-list__item">
+      <li class="x-test-controls__item">
         <label for="adapter.e2eAdapter">
           Use mocked adapter
           <input
@@ -99,27 +99,28 @@
       </li>
     </ul>
     <MainModal :animation="modalAnimation">
-      <MultiColumnMaxWidthLayout class="x-background--neutral-100">
+      <MultiColumnMaxWidthLayout class="x-bg-neutral-0">
         <template #header-middle>
-          <div
-            class="x-list x-list--vertical x-list--gap-05 x-list--align-stretch x-list__item--expand"
-          >
-            <BaseKeyboardNavigation>
-              <div class="x-input-group x-input-group--card">
-                <div class="x-input">
-                  <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
-                  <SearchInput
-                    aria-label="Search for products"
-                    :instant="controls.searchInput.instant"
-                    :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
-                  />
-                </div>
-                <ClearSearchInput aria-label="Clear query">Clear</ClearSearchInput>
-                <SearchButton aria-label="Search" class="x-input-group__action">
-                  <SearchIcon />
-                </SearchButton>
+          <div class="x-flex x-flex-col x-gap-16 x-items-stretch x-flex-auto">
+            <div class="x-input-group x-input-group-lead x-rounded-sm">
+              <div class="x-input x-search-input-placeholder-container x-flex">
+                <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
+                <SearchInput
+                  aria-label="Search for products"
+                  :instant="controls.searchInput.instant"
+                  :instant-debounce-in-ms="controls.searchInput.instantDebounceInMs"
+                />
               </div>
-            </BaseKeyboardNavigation>
+              <ClearSearchInput
+                class="x-input-group-button x-input-group-button-rectangle"
+                aria-label="Clear query"
+              >
+                Clear
+              </ClearSearchInput>
+              <SearchButton aria-label="Search" class="x-input-group-button-primary">
+                <SearchIcon />
+              </SearchButton>
+            </div>
 
             <!-- Spellcheck -->
             <Spellcheck>
@@ -133,7 +134,7 @@
               <template #sliding-panel-left-button>
                 <ChevronLeft />
               </template>
-              <RelatedTags class="x-tag--card x-list--gap-03" />
+              <RelatedTags class="x-gap-8" itemClass="x-tag-outlined" />
               <template #sliding-panel-right-button>
                 <ChevronRight />
               </template>
@@ -162,39 +163,31 @@
         </template>
 
         <template #toolbar-body>
-          <div
-            v-if="$x.totalResults > 0"
-            class="x-list x-list--horizontal x-list--align-center x-list--gap-04"
-          >
+          <div v-if="$x.totalResults > 0" class="x-flex x-items-center x-gap-12">
             <span class="x-text1">{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
-              #default="{ column }"
               v-model="selectedColumns"
+              class="x-gap-4"
               :columns="columnPickerValues"
             >
-              <template v-if="column === 0">
-                <ChevronTinyRight />
-                <Grid1Col />
-                <ChevronTinyLeft />
+              <template #default="{ column }">
+                <span v-if="column === 0">Auto</span>
+                <Grid2Col v-else-if="column === 2" />
+                <Grid4Col v-else-if="column === 4" />
               </template>
-              <Grid1Col v-else-if="column === 4" />
-              <Grid2Col v-else-if="column === 6" />
+
+              <template #divider>
+                <span class="x-button-group-divider"></span>
+              </template>
             </BaseColumnPickerList>
-            <SortDropdown
+            <SortPickerList
               :items="sortValues"
-              class="x-dropdown--round x-dropdown--right x-dropdown--l"
-              :animation="sortDropdownAnimation"
+              class="x-button-group"
+              buttonClass="x-button x-button-outlined"
+              #default="{ item }"
             >
-              <template #toggle="{ item }">
-                <span data-test="sort-dropdown-toggle">{{ item || 'default' }}</span>
-                <ChevronTinyDown />
-              </template>
-              <template #item="{ item, isSelected }">
-                <ChevronTinyRight />
-                <span>{{ item || 'default' }}</span>
-                <CheckTiny v-if="isSelected" />
-              </template>
-            </SortDropdown>
+              {{ item || 'default' }}
+            </SortPickerList>
 
             <RenderlessExtraParams #default="{ value, updateValue }" name="store">
               <BaseDropdown
@@ -216,14 +209,14 @@
           <!--  Redirection  -->
           <Redirection
             #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
-            class="x-margin--top-03 x-margin--bottom-03"
+            class="x-p-28 x-flex x-flex-col x-gap-8 x-items-center x-bg-lead-25 x-my-8"
             :delayInSeconds="5"
           >
             <p>Your search matches a special place in our website. You are being redirected to:</p>
             <a @click="redirect" :href="redirection.url" data-test="redirection-link">
               {{ redirection.url }}
             </a>
-            <div class="x-list x-list--horizontal x-list--gap-07">
+            <div class="x-flex x-gap-32">
               <button @click="abortRedirect" class="x-button--ghost x-button x-text-neutral-25">
                 No, I'll stay here
               </button>
@@ -235,10 +228,12 @@
           </Redirection>
 
           <template v-if="!$x.redirections.length">
+            <FallbackDisclaimer class="x-message" />
+
             <!--  No Results Message  -->
             <div
-              v-if="$x.noResults"
-              class="x-message x-margin--top-03 x-margin--bottom-03"
+              v-if="$x.noResults && !$x.fromNoResultsWithFilters"
+              class="x-p-28 x-flex x-flex-col x-gap-8 x-items-center x-bg-lead-25 x-my-8"
               data-test="no-results-message"
             >
               <p>
@@ -249,34 +244,33 @@
             </div>
 
             <template v-if="!$x.query.searchBox">
-              <h1 class="x-margin--bottom-05 x-title1">Brand Recommendations</h1>
+              <h1 class="x-mb-16 x-title1">Brand Recommendations</h1>
               <LocationProvider location="no_results">
-                <BaseTabsPanel
-                  initialTab="summer"
-                  contentClass="x-padding--top-06"
-                  :contentAnimation="tabsPanelAnimation"
-                  tabClass="x-button-outlined x-button-neutral"
-                  tabsListClass="x-list--horizontal"
+                <QueryPreviewList
+                  :debounceTimeMs="250"
+                  :queriesPreviewInfo="queriesPreviewInfo"
+                  #default="{ queryPreviewInfo, totalResults, results }"
+                  data-test="brand-recommendation"
                 >
-                  <template #tab-content="{ tab }">
-                    <span class="x-capitalize">
-                      {{ tab }}
-                    </span>
-                  </template>
-
-                  <template #summer>
-                    <SlidingQueryPreview query="sunglasses" />
-                  </template>
-
-                  <template #women>
-                    <SlidingQueryPreview query="handbag" />
-                    <SlidingQueryPreview query="earrings" />
-                  </template>
-
-                  <template #men>
-                    <SlidingQueryPreview query="watch" />
-                  </template>
-                </BaseTabsPanel>
+                  <div class="x-flex x-flex-col x-gap-8 x-mb-16">
+                    <QueryPreviewButton
+                      class="x-w-fit x-button-xl x-button-ghost"
+                      :queryPreviewInfo="queryPreviewInfo"
+                    >
+                      {{ `${queryPreviewInfo.query} (${totalResults})` }}
+                    </QueryPreviewButton>
+                    <SlidingPanel :resetOnContentChange="false">
+                      <div class="x-flex x-gap-8">
+                        <Result
+                          v-for="result in results"
+                          :key="result.id"
+                          :result="result"
+                          style="max-width: 180px"
+                        />
+                      </div>
+                    </SlidingPanel>
+                  </div>
+                </QueryPreviewList>
               </LocationProvider>
             </template>
 
@@ -288,7 +282,12 @@
                     <NextQueriesList
                       :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
                     >
-                      <BaseVariableColumnGrid :animation="resultsAnimation">
+                      <BaseVariableColumnGrid
+                        style="--x-size-min-width-grid-item: 150px"
+                        class="x-gap-12"
+                        :animation="resultsAnimation"
+                        :columns="$x.device === 'mobile' ? 2 : 4"
+                      >
                         <template #result="{ item: result }">
                           <MainScrollItem :item="result">
                             <Result :result="result" data-test="search-result" />
@@ -308,17 +307,17 @@
                             :suggestion="nextQueries[0]"
                             :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
                             #default="{ results }"
-                            class="x-row__item x-row__item--span-9 x-padding--top-06"
+                            class="x-pt-24"
                           >
                             <h1 class="x-title2">Others clients have searched</h1>
                             <NextQuery
-                              class="x-text1 x-text1-lg"
+                              class="x-suggestion x-text1 x-text1-lg"
                               :suggestion="nextQueries[0]"
                               data-test="next-query-preview-name"
                             >
                               <span class="x-font-bold">{{ nextQueries[0].query }}</span>
                             </NextQuery>
-                            <div class="x-margin--bottom-06">
+                            <div class="x-mb-24">
                               <SlidingPanel :resetOnContentChange="false">
                                 <div class="x-flex x-flex-row x-gap-8">
                                   <Result
@@ -334,7 +333,7 @@
                             <NextQuery
                               :suggestion="nextQueries[0]"
                               data-test="view-all-results"
-                              class="x-tag x-tag--pill x-margin--left-auto x-margin--right-auto x-margin--top-03 x-padding--top-04 x-padding--bottom-04 x-padding--right-05 x-padding--left-05 x-border-color--lead x-margin--bottom-06 x-font-bold x-text-lead-50"
+                              class="x-button x-button-outlined x-rounded-full x-mx-auto x-mt-8 x-mb-24"
                             >
                               {{ 'View all results' }}
                             </NextQuery>
@@ -347,8 +346,53 @@
               </ResultsList>
             </LocationProvider>
 
+            <SemanticQueries #default="{ queries, findSemanticQuery }">
+              <section class="x-mt-28">
+                <h1 v-if="isAnyQueryLoadedInPreview(queries)" class="x-title1">
+                  Similar Semantic Queries
+                </h1>
+                <LocationProvider :location="$x.noResults ? 'no_results' : 'low_results'">
+                  <QueryPreviewList
+                    :queries-preview-info="queries.map(q => ({ query: q }))"
+                    #default="{ queryPreviewInfo: { query }, results }"
+                    queryFeature="semantics"
+                  >
+                    <div
+                      class="x-flex x-flex-col x-gap-8 x-mb-16"
+                      data-test="semantic-query-preview"
+                      :data-query="query"
+                    >
+                      <SemanticQuery
+                        class="x-suggestion x-title2 x-title2-md"
+                        :suggestion="findSemanticQuery(query)"
+                        #default="{ suggestion: { query } }"
+                      >
+                        <span data-test="semantic-queries-query">{{ query }}</span>
+                      </SemanticQuery>
+                      <SlidingPanel :resetOnContentChange="false">
+                        <div class="x-flex x-gap-8">
+                          <DisplayResultProvider>
+                            <Result
+                              v-for="result in results"
+                              :key="result.id"
+                              :result="result"
+                              style="max-width: 180px"
+                              data-test="semantic-query-result"
+                            />
+                          </DisplayResultProvider>
+                        </div>
+                      </SlidingPanel>
+                    </div>
+                  </QueryPreviewList>
+                </LocationProvider>
+              </section>
+            </SemanticQueries>
+
             <!-- Partials -->
-            <PartialResultsList :animation="resultsAnimation">
+            <PartialResultsList
+              v-if="!$x.fromNoResultsWithFilters && ($x.totalResults <= 4 || $x.noResults)"
+              :animation="resultsAnimation"
+            >
               <template #default="{ partialResult }">
                 <span data-test="partial-query">{{ partialResult.query }}</span>
                 <BaseGrid
@@ -389,11 +433,10 @@
 </template>
 
 <script lang="ts">
+  /* eslint-disable max-len */
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  // eslint-disable-next-line max-len
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
-  import CollapseHeight from '../../components/animations/collapse-height.vue';
   import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
   import BaseDropdown from '../../components/base-dropdown.vue';
@@ -409,12 +452,10 @@
   import ChevronTinyRight from '../../components/icons/chevron-tiny-right.vue';
   import ChevronUp from '../../components/icons/chevron-up.vue';
   import CrossIcon from '../../components/icons/cross.vue';
-  import Grid1Col from '../../components/icons/grid-1-col.vue';
   import Grid2Col from '../../components/icons/grid-2-col.vue';
+  import Grid4Col from '../../components/icons/grid-4-col.vue';
   import LightBulbOn from '../../components/icons/light-bulb-on.vue';
   import SearchIcon from '../../components/icons/search.vue';
-  import BaseEventButton from '../../components/base-event-button.vue';
-  // eslint-disable-next-line max-len
   import MultiColumnMaxWidthLayout from '../../components/layouts/multi-column-max-width-layout.vue';
   import LocationProvider from '../../components/location-provider.vue';
   import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
@@ -423,14 +464,12 @@
   import SlidingPanel from '../../components/sliding-panel.vue';
   import SnippetCallbacks from '../../components/snippet-callbacks.vue';
   import { infiniteScroll } from '../../directives/infinite-scroll/infinite-scroll';
-  // eslint-disable-next-line max-len
   import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue';
-  // eslint-disable-next-line max-len
   import SnippetConfigExtraParams from '../../x-modules/extra-params/components/snippet-config-extra-params.vue';
   import NextQueriesList from '../../x-modules/next-queries/components/next-queries-list.vue';
   import NextQueries from '../../x-modules/next-queries/components/next-queries.vue';
   import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue';
-  import { NextQuery } from '../../x-modules/next-queries/index';
+  import QueryPreviewList from '../../x-modules/queries-preview/components/query-preview-list.vue';
   import Recommendations from '../../x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from '../../x-modules/related-tags/components/related-tags.vue';
   import MainScrollItem from '../../x-modules/scroll/components/main-scroll-item.vue';
@@ -438,19 +477,16 @@
   import ClearSearchInput from '../../x-modules/search-box/components/clear-search-input.vue';
   import SearchButton from '../../x-modules/search-box/components/search-button.vue';
   import SearchInput from '../../x-modules/search-box/components/search-input.vue';
-  // eslint-disable-next-line max-len
   import SearchInputPlaceholder from '../../x-modules/search-box/components/search-input-placeholder.vue';
   import Banner from '../../x-modules/search/components/banner.vue';
   import BannersList from '../../x-modules/search/components/banners-list.vue';
-  import BaseTabsPanel from '../../components/panels/base-tabs-panel.vue';
   import PartialQueryButton from '../../x-modules/search/components/partial-query-button.vue';
   import PartialResultsList from '../../x-modules/search/components/partial-results-list.vue';
   import Promoted from '../../x-modules/search/components/promoted.vue';
   import PromotedsList from '../../x-modules/search/components/promoteds-list.vue';
   import Redirection from '../../x-modules/search/components/redirection.vue';
   import ResultsList from '../../x-modules/search/components/results-list.vue';
-  import SortDropdown from '../../x-modules/search/components/sort-dropdown.vue';
-  import SortList from '../../x-modules/search/components/sort-list.vue';
+  import SortPickerList from '../../x-modules/search/components/sort-picker-list.vue';
   import SpellcheckButton from '../../x-modules/search/components/spellcheck-button.vue';
   import Spellcheck from '../../x-modules/search/components/spellcheck.vue';
   import Tagging from '../../x-modules/tagging/components/tagging.vue';
@@ -458,20 +494,30 @@
   import MainModal from '../../components/modals/main-modal.vue';
   import OpenMainModal from '../../components/modals/open-main-modal.vue';
   import CloseMainModal from '../../components/modals/close-main-modal.vue';
-  import BaseKeyboardNavigation from '../../components/base-keyboard-navigation.vue';
   import { XProvide } from '../../components/decorators/injection.decorators';
   import { adapterConfig } from '../adapter';
+  import NextQuery from '../../x-modules/next-queries/components/next-query.vue';
+  import FallbackDisclaimer from '../../x-modules/search/components/fallback-disclaimer.vue';
+  import SemanticQueries from '../../x-modules/semantic-queries/components/semantic-queries.vue';
+  import SemanticQuery from '../../x-modules/semantic-queries/components/semantic-query.vue';
+  import { useQueriesPreview } from '../../x-modules/queries-preview/composables/use-queries-preview.composable';
+  import { QueryPreviewInfo } from '../../x-modules/queries-preview/store/types';
+  import QueryPreviewButton from '../../x-modules/queries-preview/components/query-preview-button.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
   import { HomeControls } from './types';
-  import SlidingQueryPreview from './sliding-query-preview.vue';
+  import DisplayResultProvider from './display-result-provider.vue';
 
   @Component({
     directives: {
       infiniteScroll
     },
     components: {
+      QueryPreviewButton,
+      DisplayResultProvider,
+      FallbackDisclaimer,
+      QueryPreviewList,
       ArrowRight,
       Aside,
       AutoProgressBar,
@@ -479,12 +525,9 @@
       BannersList,
       BaseColumnPickerList,
       BaseDropdown,
-      BaseEventButton,
       BaseGrid,
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
-      BaseKeyboardNavigation,
-      BaseTabsPanel,
       BaseVariableColumnGrid,
       CheckTiny,
       ChevronLeft,
@@ -496,8 +539,8 @@
       ClearSearchInput,
       CloseMainModal,
       CrossIcon,
-      Grid1Col,
       Grid2Col,
+      Grid4Col,
       LightBulbOn,
       LocationProvider,
       MainScrollItem,
@@ -524,12 +567,12 @@
       SearchIcon,
       SearchInput,
       SearchInputPlaceholder,
+      SemanticQueries,
+      SemanticQuery,
       SlidingPanel,
-      SlidingQueryPreview,
       SnippetCallbacks,
       SnippetConfigExtraParams,
-      SortDropdown,
-      SortList,
+      SortPickerList,
       Spellcheck,
       SpellcheckButton,
       Tagging,
@@ -547,13 +590,12 @@
       'Find handbags',
       'Find sunglasses'
     ];
-    protected columnPickerValues = [0, 4, 6];
+    protected columnPickerValues = [0, 2, 4];
     protected resultsAnimation = StaggeredFadeAndSlide;
-    protected tabsPanelAnimation = StaggeredFadeAndSlide;
     protected modalAnimation = animateClipPath();
-    protected sortDropdownAnimation = CollapseHeight;
     protected selectedColumns = 4;
     protected sortValues = ['', 'price asc', 'price desc'];
+    public isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview;
 
     @XProvide('controls')
     public controls: HomeControls = {
@@ -580,6 +622,32 @@
         useE2EAdapter: false
       }
     };
+
+    protected queriesPreviewInfo: QueryPreviewInfo[] = [
+      {
+        query: 'cortina',
+        extraParams: { store: 'Gijón' },
+        filters: ['categoryIds:66dd06d9f']
+      },
+      {
+        query: 'summer dress',
+        filters: ['categoryIds:5b612edb5', 'brand:marni']
+      },
+      {
+        query: 'woven hat'
+      },
+      {
+        query: 'jeans',
+        extraParams: { store: 'Gijón' }
+      },
+      {
+        query: 't-shirt'
+      }
+    ];
+
+    protected get queries(): string[] {
+      return this.queriesPreviewInfo.map(item => item.query);
+    }
 
     toggleE2EAdapter(): void {
       adapterConfig.e2e = !adapterConfig.e2e;

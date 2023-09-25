@@ -1,12 +1,12 @@
+import { Priority, SubjectPayload, XPriorityBus } from '@empathyco/x-bus';
 import { Dictionary } from '@empathyco/x-utils';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from 'vuex';
-import { XBus } from '../plugins/x-bus.types';
-import { RootStoreStateAndGetters, RootXStoreState } from '../store';
-import { FeatureLocation, QueryFeature } from '../types/origin';
-import { FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils';
+import { RootStoreStateAndGetters, RootXStoreState } from '../store/store.types';
+import { FeatureLocation, QueryFeature, ResultFeature } from '../types/origin';
+import { FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils/types';
 import { XModuleName } from '../x-modules/x-modules.types';
-import { XEvent, XEventPayload } from './events.types';
+import { XEvent, XEventPayload, XEventsTypes } from './events.types';
 
 /**
  * A Wire is a function that receives an observable, the store and the on function of the bus it
@@ -19,7 +19,7 @@ import { XEvent, XEventPayload } from './events.types';
 export type Wire<PayloadType> = (
   observable: Observable<WirePayload<PayloadType>>,
   store: Store<RootXStoreState>,
-  on: XBus['on']
+  on: XPriorityBus<XEventsTypes, WireMetadata>['on']
 ) => Subscription;
 
 /**
@@ -30,13 +30,15 @@ export type Wire<PayloadType> = (
  */
 export interface WireMetadata {
   /** The {@link QueryFeature} that originated the event. */
-  feature?: QueryFeature;
+  feature?: QueryFeature | ResultFeature;
   /** The id of the component origin. */
   id?: string;
   /** The {@link FeatureLocation} from where the event has been emitted. */
   location?: FeatureLocation;
-  /** The {@link XModule} name that emitted the event or `null` if it has been emitted from an
-   * unknown module. */
+  /**
+   * The {@link XModule} name that emitted the event or `null` if it has been emitted from an
+   * unknown module.
+   */
   moduleName: XModuleName | null;
   /** The old value of a watched selector triggering an emitter.  */
   oldValue?: unknown;
@@ -44,6 +46,28 @@ export interface WireMetadata {
   target?: HTMLElement;
   /** The component instance that triggered the event emission. */
   component?: Vue;
+  /** The event priority to use when sorting the bus queue for event batching. */
+  priority?: Priority;
+  /**
+   * The event replaces an existing entry of the same event in the bus, placing this new one
+   * based on its priority.
+   */
+  replaceable?: boolean;
+  /**
+   * The event can be ignored if it is received in the wiring of the modules in the array.
+   */
+  ignoreInModules?: XModuleName[];
+  [key: string]: unknown;
+}
+
+/**
+ * Wire metadata specific for display wires.
+ *
+ * @public
+ */
+export interface DisplayWireMetadata extends WireMetadata {
+  /** The query that originated the display elements appearing. */
+  displayOriginalQuery: string;
 }
 
 /**
@@ -54,12 +78,7 @@ export interface WireMetadata {
  *
  * @public
  */
-export interface WirePayload<PayloadType> {
-  /** The payload of the event, which must be of type {@link XEventPayload}. */
-  eventPayload: PayloadType;
-  /** An object containing information about the emission of the event. */
-  metadata: WireMetadata;
-}
+export interface WirePayload<PayloadType> extends SubjectPayload<PayloadType, WireMetadata> {}
 
 /**
  * Type not safe which allows the access to the State, the Getters, the payload and metadata of
@@ -141,9 +160,9 @@ export interface WireService<SomeService extends Record<string, MonadicFunction>
    * @param method - The method to invoke.
    * @returns A Wire that expects to receive the function parameter as payload.
    */
-  <SomeMethod extends keyof SomeService>(method: SomeMethod): Wire<
-    FirstParameter<SomeService[SomeMethod]>
-  >;
+  <SomeMethod extends keyof SomeService>(
+    method: SomeMethod
+  ): Wire<FirstParameter<SomeService[SomeMethod]>>;
   /**
    * Creates a wire that will invoke the given service function with the provided static payload.
    *

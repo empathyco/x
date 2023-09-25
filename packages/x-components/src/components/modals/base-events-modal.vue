@@ -22,8 +22,8 @@
   /**
    * Component containing a modal that emits a {@link XEventsTypes.UserClickedCloseEventsModal} when
    * clicking outside the content rendered in the default slot and can receive, through the
-   * eventsToCloseModal prop, a list of {@link XEvent | xEvents} to listen to in order to close
-   * also the modal, eventsToOpenModal prop,  another list of {@link XEvent | xEvents} to customize
+   * eventsToCloseModal prop, a list of {@link XEvent} to listen to in order to close
+   * also the modal, eventsToOpenModal prop,  another list of {@link XEvent} to customize
    * the events to listen to open the modal and a prop, displayOverlay, to display an
    * overlay over the rest of the html. The default slot offers the possibility to customize the
    * modal content.
@@ -40,13 +40,13 @@
     @Prop()
     public animation?: Vue | string;
     /**
-     * Array of {@link XEvent | xEvents} to listen to open the modal.
+     * Array of {@link XEvent} to listen to open the modal.
      */
     @Prop({ default: (): XEvent[] => ['UserClickedOpenEventsModal'] })
     public eventsToOpenModal!: XEvent[];
 
     /**
-     * Array of {@link XEvent | xEvents} to listen to close the modal.
+     * Array of {@link XEvent} to listen to close the modal.
      */
     @Prop({
       default: (): XEvent[] => ['UserClickedCloseEventsModal', 'UserClickedOutOfEventsModal']
@@ -115,6 +115,16 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserClickedCloseEventsModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after clicking outside the content rendered in the default slot.
+- [`UserClickedOutOfEventsModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after clicking outside the modal.
+- Custom events to open or close the modal.
+
 ## Examples
 
 The `BaseEventsModal` component handles the modal open/close state via the events passed via props.
@@ -201,7 +211,7 @@ The `contentClass` prop can be used to add classes to the modal content.
 <template>
   <div>
     <BaseEventsModalOpen>Open</BaseEventsModalOpen>
-    <BaseEventsModal contentClass="x-background--neutral-35">
+    <BaseEventsModal contentClass="x-bg-neutral-75">
       <BaseEventsModalClose>Close</BaseEventsModalClose>
       <img src="success.png" />
     </BaseEventsModal>
@@ -220,13 +230,4 @@ The `contentClass` prop can be used to add classes to the modal content.
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedCloseEventsModal`: the event is emitted after clicking outside the content rendered in
-  the default slot.
-- `UserClickedOutOfEventsModal`: the event is emitted after clicking outside the modal.
-- Custom events to open or close the modal.
 </docs>

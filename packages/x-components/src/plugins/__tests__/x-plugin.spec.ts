@@ -9,9 +9,9 @@ import { createWiring } from '../../wiring/wiring.utils';
 import { AnyXModule } from '../../x-modules/x-modules.types';
 import { XComponentsAdapterDummy } from '../../__tests__/adapter.dummy';
 import { installNewXPlugin } from '../../__tests__/utils';
-import { BaseXBus } from '../x-bus';
 import { XPlugin } from '../x-plugin';
 import { PrivateXModulesOptions, XModulesOptions, XPluginOptions } from '../x-plugin.types';
+import { XDummyBus } from '../../__tests__/bus.dummy';
 
 const wireToReplace: AnyWire = jest.fn();
 const wireToRemove: AnyWire = jest.fn();
@@ -86,7 +86,7 @@ describe('testing X Plugin', () => {
 
   describe('install XPlugin without overriding options', () => {
     it('throws an error if no options are passed', () => {
-      const plugin = new XPlugin(new BaseXBus());
+      const plugin = new XPlugin(new XDummyBus());
       expect(() => localVue.use(plugin)).toThrow();
     });
 
@@ -450,9 +450,7 @@ describe('testing X Plugin', () => {
         ' value are emitted asynchronously but consecutively',
       async () => {
         component.vm.$x.emit('UserIsTypingAQuery', 'New York strip steak');
-        await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
         component.vm.$x.emit('UserIsTypingAQuery', 'Prime rib');
-        await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
         component.vm.$x.emit('UserIsTypingAQuery', 'Tomahawk steak');
 
         await waitNextTick();
@@ -461,7 +459,8 @@ describe('testing X Plugin', () => {
         expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
           eventPayload: 'Tomahawk steak',
           metadata: expect.objectContaining({
-            moduleName: 'searchBox'
+            moduleName: 'searchBox',
+            replaceable: true
           }),
           store
         });

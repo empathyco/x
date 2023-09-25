@@ -1,7 +1,6 @@
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { PageableRequest } from '@empathyco/x-types';
 import '../global/global-definitions';
-import { baseSnippetConfig } from '../../../src/views/base-config';
 
 let resultsList: string[] = [];
 
@@ -34,31 +33,10 @@ Given('no special config for layout view', () => {
   cy.visit('/');
 });
 
-Given('an application the {string} filter preselected', (preselectedFilter: string) => {
-  cy.visit('/', {
-    onBeforeLoad(win) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      win.initX = {
-        ...baseSnippetConfig,
-        filters: [preselectedFilter]
-      };
-    }
-  });
-});
-
 Given('a URL with query parameter {string}', (query: string) => {
   cy.visit('/', {
     qs: {
       q: query
-    }
-  });
-});
-
-Given('a URL with a filter parameter {string}', (filter: string) => {
-  cy.visit('/', {
-    qs: {
-      filter
     }
   });
 });
@@ -71,8 +49,12 @@ When('close modal button is clicked', () => {
   cy.getByDataTest('close-main-modal').click();
 });
 
-// Filters
+// Brand Recommendation
+Given('brand recommendations are visible', () => {
+  cy.getByDataTest('brand-recommendation').should('be.visible');
+});
 
+// Filters
 Then(
   'filters {string} are shown in the selected filters list',
   function (this: any, clickedFiltersIndex: string) {
@@ -82,10 +64,6 @@ Then(
     });
   }
 );
-
-Then('filter {string} is selected', function (filterLabel: string) {
-  cy.getByDataTest('selected-filters-list').should('contain.text', filterLabel);
-});
 
 // Extra params
 When('store is changed to {string}', (store: string) => {
@@ -114,7 +92,25 @@ Then(
   function (this: any, simpleFilterIndex: number, facetName: string, isSelected: boolean) {
     cy.getByDataTest(`${facetName}-filter`)
       .contains(this[`clickedFilter${simpleFilterIndex}`])
-      .should(`${isSelected ? '' : 'not.'}to.have.class`, 'x-filter--is-selected');
+      .should(`${isSelected ? '' : 'not.'}to.have.class`, 'x-selected');
+  }
+);
+
+Then(
+  'filter number {int} in facet {string} is selected',
+  function (this: any, simpleFilterIndex: number, facetName: string) {
+    cy.getByDataTest(`${facetName}-filter`)
+      .eq(simpleFilterIndex)
+      .should('to.have.class', 'x-selected');
+  }
+);
+
+Then(
+  'filter number {int} in facet {string} is not selected',
+  function (this: any, simpleFilterIndex: number, facetName: string) {
+    cy.getByDataTest(`${facetName}-filter`)
+      .eq(simpleFilterIndex)
+      .should('not.to.have.class', 'x-selected');
   }
 );
 
@@ -138,6 +134,13 @@ Then('the searched query is displayed in history queries', function () {
 // Next Queries
 Then('next queries are displayed', () => {
   cy.getByDataTest('next-query').should('have.length.at.least', 1).invoke('text').as('nextQueries');
+});
+
+// Popular Searches
+Then('at most {int} popular searches are displayed', (maxItemsToRender: number) => {
+  cy.getByDataTest('popular-search')
+    .should('have.length.at.least', 1)
+    .and('have.length.at.most', maxItemsToRender);
 });
 
 // Query Suggestions
@@ -208,6 +211,10 @@ When('{string} is searched', (query: string) => {
   });
 });
 
+When('{string} replaces current query', (query: string) => {
+  cy.replaceQuery(query);
+});
+
 When('clear search button is pressed', () => {
   cy.clearSearchInput();
 });
@@ -232,8 +239,7 @@ When('{string} is added to the search', (secondQuery: string) => {
 
 // Sort
 When('sort option {string} is selected from the sort dropdown', (sortOption: string) => {
-  cy.getByDataTest(`sort-dropdown-toggle`).click();
-  cy.getByDataTest(`dropdown-item`).contains(sortOption).click();
+  cy.getByDataTest(`sort-picker-button`).contains(sortOption).click();
 });
 
 // Spellcheck

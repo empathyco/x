@@ -1,23 +1,55 @@
 import { createLocalVue } from '@vue/test-utils';
 import { XComponentsAdapterDummy } from '../../../__tests__/adapter.dummy';
-import { BaseXBus } from '../../../plugins/x-bus';
 import { XInstaller } from '../../x-installer/x-installer';
 import { SnippetConfig } from '../api.types';
 import { BaseXAPI } from '../base-api';
+import { XDummyBus } from '../../../__tests__/bus.dummy';
 
 describe('testing default X API', () => {
   const defaultXAPI = new BaseXAPI();
-  const bus = new BaseXBus();
+  const bus = new XDummyBus();
   defaultXAPI.setBus(bus);
   const query = 'maserati';
+
+  it('should allow asynchronous initialization', async () => {
+    const listener = jest.fn();
+    const someXAPI = new BaseXAPI();
+    const someOtherBus = new XDummyBus();
+    someXAPI.setInitCallback(() => {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          someXAPI.setBus(someOtherBus);
+          resolve(true);
+        });
+      });
+    });
+
+    someOtherBus.on('UserClickedOpenX').subscribe(listener);
+    await someXAPI.init({
+      instance: 'test',
+      scope: 'test',
+      lang: 'es'
+    });
+    someXAPI.search();
+
+    expect(listener).toHaveBeenCalled();
+  });
 
   it('should emit `UserAcceptedAQuery` through the `search` function', () => {
     const listener = jest.fn();
     bus.on('UserAcceptedAQuery').subscribe(listener);
-
     defaultXAPI.search(query);
 
     expect(listener).toHaveBeenCalledWith(query);
+  });
+
+  it('should emit `UserClickedCloseX` through the `close` function', () => {
+    const listener = jest.fn();
+    bus.on('UserClickedCloseX').subscribe(listener);
+
+    defaultXAPI.close();
+
+    expect(listener).toHaveBeenCalled();
   });
 
   it('should emit `UserClickedPDPAddToCart` through the `addProductToCart` function', () => {

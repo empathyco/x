@@ -24,9 +24,10 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Mixins, Prop } from 'vue-property-decorator';
   import { ListItem } from '../utils/types';
   import { toKebabCase } from '../utils/string';
+  import { dynamicPropsMixin } from './dynamic-props.mixin';
 
   /**
    * It renders a list of {@link ListItem} providing a slot for each `slotName` which depends on
@@ -35,7 +36,7 @@
    * @public
    */
   @Component
-  export default class ItemsList extends Vue {
+  export default class ItemsList extends Mixins(dynamicPropsMixin(['itemClass'])) {
     /**
      * Animation component that will be used to animate the list.
      *
@@ -61,14 +62,14 @@
      */
     protected get computedItems(): {
       dataTest: string;
-      class: string[];
+      class: Array<string | undefined>;
     }[] {
       return this.items.map(item => {
         const modelName = toKebabCase(item.modelName);
         return {
           ...item,
           dataTest: `${modelName}s-list-item`,
-          class: [`x-${modelName}s-list-item`],
+          class: [`x-${modelName}s-list-item`, this.itemClass],
           slotName: modelName
         };
       });

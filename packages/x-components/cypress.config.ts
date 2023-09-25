@@ -6,6 +6,7 @@ export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:8080',
     defaultCommandTimeout: 7000,
+    requestTimeout: 7000,
     viewportHeight: 1080,
     viewportWidth: 1920,
     screenshotOnRunFailure: false,
@@ -27,14 +28,21 @@ export default defineConfig({
       );
       return config;
     },
-    specPattern: 'tests/e2e/**/*.feature'
+    specPattern: 'tests/e2e/**/*.feature',
+    experimentalRunAllSpecs: true
   },
   component: {
+    defaultCommandTimeout: 7000,
+    experimentalSingleTabRunMode: true,
     specPattern: 'tests/unit/**/*.spec.ts',
     supportFile: 'tests/support/index.ts',
     indexHtmlFile: 'tests/support/component-index.html',
     screenshotOnRunFailure: false,
     video: false,
+    retries: {
+      openMode: 0,
+      runMode: 1
+    },
     devServer: {
       bundler: 'webpack',
       framework: 'vue-cli'

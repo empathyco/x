@@ -13,11 +13,18 @@ import {
   RelatedTagsResponse,
   SearchRequest,
   SearchResponse,
+  SemanticQueriesRequest,
+  SemanticQueriesResponse,
   TaggingRequest,
   XComponentsAdapter
 } from '@empathyco/x-types';
 import { ExtendableEndpointAdapter } from '@empathyco/x-adapter';
 
+/**
+ * Platform adapter interface.
+ *
+ * @public
+ */
 export interface PlatformAdapter extends XComponentsAdapter {
   search: ExtendableEndpointAdapter<SearchRequest, SearchResponse>;
   popularSearches: ExtendableEndpointAdapter<PopularSearchesRequest, PopularSearchesResponse>;
@@ -26,5 +33,6 @@ export interface PlatformAdapter extends XComponentsAdapter {
   querySuggestions: ExtendableEndpointAdapter<QuerySuggestionsRequest, QuerySuggestionsResponse>;
   relatedTags: ExtendableEndpointAdapter<RelatedTagsRequest, RelatedTagsResponse>;
   identifierResults: ExtendableEndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
+  semanticQueries: ExtendableEndpointAdapter<SemanticQueriesRequest, SemanticQueriesResponse>;
   tagging: ExtendableEndpointAdapter<TaggingRequest, void>;
 }

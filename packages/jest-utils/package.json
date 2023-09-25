@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-jest-utils",
-  "version": "1.4.0-alpha.9",
+  "version": "2.0.0-alpha.5",
   "description": "Jest extensions for easier testing",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -20,10 +20,9 @@
     "directory": "packages/jest-utils"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "postbuild": "pnpm pack",
@@ -31,9 +30,9 @@
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
-    "@types/jest": "~27.0.3",
-    "jest": "~27.3.1",
-    "ts-jest": "~27.0.7",
+    "@types/jest": "~27.5.0",
+    "jest": "~27.5.0",
+    "ts-jest": "~27.1.0",
     "typescript": "~4.9.4"
   },
   "publishConfig": {

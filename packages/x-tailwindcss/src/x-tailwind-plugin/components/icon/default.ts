@@ -25,6 +25,8 @@ export function iconDefault(helpers: TailwindHelpers) {
     fontSize: 'var(--enableIconOffset) var(--fontSize)',
     // When flag is enabled, `translateY` will be applied.
     transform: 'var(--enableIconOffset, translateY(var(--iconVerticalOffset,0)))',
+    // Sets the margin top to avoid alignment problems when the icon is large.
+    marginTop: 'var(--enableIconOffset, calc(var(--iconVerticalOffset) * -1))',
 
     ...iconSizes(helpers).md
   };

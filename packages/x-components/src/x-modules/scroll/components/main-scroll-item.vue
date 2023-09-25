@@ -99,7 +99,11 @@
       oldObserver?.unobserve(this.$el);
       newObserver?.observe(this.$el);
       if (this.pendingScrollTo === this.item.id) {
-        this.$el.scrollIntoView();
+        Vue.nextTick(() => {
+          this.$el.scrollIntoView({
+            block: 'center'
+          });
+        });
         this.$x.emit('ScrollRestoreSucceeded');
       }
     }
@@ -111,7 +115,7 @@
 
 This components emits the following events:
 
-- [`ScrollRestoreSucceeded`](./../../api/x-components.scrollxevents.md)
+- [`ScrollRestoreSucceeded`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

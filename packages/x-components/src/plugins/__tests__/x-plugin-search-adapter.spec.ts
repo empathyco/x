@@ -1,7 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { VueConstructor } from 'vue';
-import { BaseXBus } from '../x-bus';
 import { XPlugin } from '../x-plugin';
+import { XDummyBus } from '../../__tests__/bus.dummy';
 
 describe('testing adapter configuration', () => {
   let xPlugin: XPlugin;
@@ -9,7 +9,7 @@ describe('testing adapter configuration', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    xPlugin = new XPlugin(new BaseXBus());
+    xPlugin = new XPlugin(new XDummyBus());
     localVue = createLocalVue();
   });
 

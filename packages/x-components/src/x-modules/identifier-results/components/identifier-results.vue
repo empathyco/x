@@ -1,10 +1,5 @@
 <template>
-  <component
-    :is="animation"
-    v-if="identifierResults.length"
-    tag="ul"
-    class="x-list x-identifier-results"
-  >
+  <component :is="animation" v-if="identifierResults.length" tag="ul" class="x-identifier-results">
     <li
       v-for="identifierResult in identifierResultsToRender"
       :key="identifierResult.id"
@@ -32,7 +27,7 @@
 
   /**
    * Paints the list of identifier results stored in the state. Each identifier result should be
-   * represented by a {@link IdentifierResult | identifier result component} besides any
+   * represented by a {@link IdentifierResult} component besides any
    * other component.
    *
    * @public
@@ -87,6 +82,13 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .x-identifier-results {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+</style>
 
 <docs lang="mdx">
 ## Examples

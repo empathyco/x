@@ -32,7 +32,7 @@
      *
      * @public
      */
-    @XEmit('ExtraParamsProvided', { deep: true })
+    @XEmit('ExtraParamsProvided', { immediate: false, deep: true })
     @Prop({ required: true })
     public values!: Dictionary<unknown>;
 
@@ -50,9 +50,7 @@
 <docs lang="mdx">
 ## Events
 
-- [`ExtraParamsProvided`][1]
-
-[1](./../../api/x-components.extraparamsxevents.extraparamsprovided.md)
+- [`ExtraParamsProvided`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

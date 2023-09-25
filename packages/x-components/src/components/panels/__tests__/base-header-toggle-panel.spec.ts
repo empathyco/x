@@ -87,7 +87,6 @@ describe('testing BaseHeaderTogglePanel component', () => {
     expect(wrapper.find(getDataTestSelector('toggle-status')).text()).toBe('open');
 
     await wrapper.find(getDataTestSelector('toggle-button')).trigger('click');
-
     // closed
     expect(wrapper.find(getDataTestSelector('toggle-status')).text()).toBe('closed');
     expect(wrapper.find(getDataTestSelector('base-toggle-panel')).exists()).toBe(false);
@@ -98,7 +97,7 @@ describe('testing BaseHeaderTogglePanel component', () => {
       template: `
         <BaseHeaderTogglePanel :start-collaps="false">
           <template #header-content="{ open }">
-            <p data-test="header-content">{{ open ? "open" : "closed" }}</p> 
+            <p data-test="header-content">{{ open ? "open" : "closed" }}</p>
           </template>
           <p>Default slot</p>
         </BaseHeaderTogglePanel>
@@ -109,6 +108,18 @@ describe('testing BaseHeaderTogglePanel component', () => {
     expect(headerWrapper.text()).toBe('open');
     await toggleOpen();
     expect(headerWrapper.text()).toBe('closed');
+  });
+
+  it('allows adding classes to the header', () => {
+    const { wrapper } = renderBaseHeaderTogglePanel({
+      template: `
+        <BaseHeaderTogglePanel headerClass="custom-class">
+          <template #header-content>Header Content</template>
+          <p>Default Slot</p>
+        </BaseHeaderTogglePanel>`
+    });
+    const headerWrapper = wrapper.find(getDataTestSelector('toggle-panel-header'));
+    expect(headerWrapper.classes('custom-class')).toBe(true);
   });
 });
 

@@ -5,4 +5,5 @@ export * from './query-suggestions.endpoint-adapter';
 export * from './recommendations.endpoint-adapter';
 export * from './related-tags.endpoint-adapter';
 export * from './search.endpoint-adapter';
+export * from './semantic-queries.endpoint-adapter';
 export * from './tagging.endpoint-adapter';

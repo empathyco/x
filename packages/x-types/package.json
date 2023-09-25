@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-types",
-  "version": "10.0.0-alpha.60",
+  "version": "10.0.0-alpha.73",
   "description": "Empathy search types",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -25,10 +25,9 @@
     "directory": "packages/x-types"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "build": "rollup -c && npm run gen:docs",
     "build:watch": "rollup -c -w",
     "gen:model-docs": "api-extractor run -c x-types-extractor.json -l && api-extractor run -c schema-extractor.json -l && api-extractor run -l",
@@ -38,15 +37,15 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.0.0-alpha.25",
-    "tslib": "~2.4.1"
+    "@empathyco/x-adapter": "^8.0.0-alpha.34",
+    "tslib": "~2.5.0"
   },
   "devDependencies": {
-    "@empathyco/x-jest-utils": "^1.4.0-alpha.9",
-    "@microsoft/api-documenter": "~7.21.3",
-    "@microsoft/api-extractor": "~7.33.7",
-    "@types/jest": "~27.0.3",
-    "jest": "~27.3.1",
+    "@empathyco/x-jest-utils": "^1.4.0-alpha.11",
+    "@microsoft/api-documenter": "~7.22.0",
+    "@microsoft/api-extractor": "~7.35.0",
+    "@types/jest": "~27.5.0",
+    "jest": "~27.5.0",
     "rollup": "~2.79.1",
     "rollup-plugin-delete": "~2.0.0",
     "rollup-plugin-typescript2": "~0.34.1",

@@ -22,7 +22,7 @@ export interface NextQueriesXEvents {
    * Payload: The new next-queries request or `null` if there is not enough data in the state
    * to conform a valid request.
    */
-  NextQueriesRequestChanged: NextQueriesRequest | null;
+  NextQueriesRequestUpdated: NextQueriesRequest | null;
   /**
    * The user has selected a next-query
    * Payload: The next query that has been selected by the user.

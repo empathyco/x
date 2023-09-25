@@ -1,8 +1,11 @@
 <script lang="ts">
   import { reduce } from '@empathyco/x-utils';
   import { Component } from 'vue-property-decorator';
-  import { Subscription } from 'rxjs';
+  import { Observable, Subscription } from 'rxjs';
+  import { EventPayload, SubjectPayload } from '@empathyco/x-bus';
   import { XEventListeners } from '../x-installer/api/api.types';
+  import { WireMetadata } from '../wiring/wiring.types';
+  import { XEventsTypes } from '../wiring/events.types';
   import { NoElement } from './no-element';
 
   /**
@@ -35,7 +38,11 @@
         this.$listeners,
         (subscription, eventName, callback) => {
           subscription.add(
-            this.$x.on(eventName, true).subscribe(({ eventPayload, metadata }) => {
+            (
+              this.$x.on(eventName, true) as unknown as Observable<
+                SubjectPayload<EventPayload<XEventsTypes, typeof eventName>, WireMetadata>
+              >
+            ).subscribe(({ eventPayload, metadata }) => {
               callback(eventPayload as never, metadata);
             })
           );

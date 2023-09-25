@@ -2,9 +2,9 @@ import { mount } from 'cypress/vue2';
 // eslint-disable-next-line max-len
 import BaseColumnPickerDropdown from '../../src/components/column-picker/base-column-picker-dropdown.vue';
 import BaseColumnPickerList from '../../src/components/column-picker/base-column-picker-list.vue';
-import { BaseXBus } from '../../src/plugins/x-bus';
 import { XPlugin } from '../../src/plugins/x-plugin';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
+import { XDummyBus } from '../../src/__tests__/bus.dummy';
 
 /**
  * Mounts a {@link BaseColumnPickerList} and {@link BaseColumnPickerDropdown} component with the
@@ -50,7 +50,7 @@ function mountBaseColumnPickerComponents({
       }
     },
     {
-      plugins: [[new XPlugin(new BaseXBus()), { adapter: e2eAdapter }]],
+      plugins: [[new XPlugin(new XDummyBus()), { adapter: e2eAdapter }]],
       propsData: { columns, selectedColumns }
     }
   );
@@ -58,14 +58,13 @@ function mountBaseColumnPickerComponents({
   return {
     clickListNthItem(columns: number) {
       cy.getByDataTest('column-picker-list')
-        .children(`.x-column-picker-list__item--${columns}-cols`)
+        .children(`.x-column-picker-list__button--${columns}-cols`)
         .click();
     },
     getListNthItem(columns: number) {
       return cy
         .getByDataTest('column-picker-list')
-        .children(`.x-column-picker-list__item--${columns}-cols`)
-        .getByDataTest('column-picker-button');
+        .children(`.x-column-picker-list__button--${columns}-cols`);
     },
     clickDropdownNthItem(index: number) {
       cy.getByDataTest('dropdown-toggle').click();

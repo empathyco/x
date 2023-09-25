@@ -8,7 +8,7 @@ inputs:
     description: Token to push code to github
     required: true
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Configure git user
       run: |
@@ -19,13 +19,15 @@ runs:
     - name: Configure npm auth
       run: |
         npm config set registry="https://registry.npmjs.org/"
-        npm config set _authToken=${NPM_TOKEN}
+        npm config set //registry.npmjs.org/:_authToken=${NPM_TOKEN}
       shell: bash
       env:
         NPM_TOKEN: ${{ inputs.npm_token }}
 
     - name: Publish release
-      run: pnpm run release:alpha
+      run: |
+        git restore ./pnpm-lock.yaml
+        pnpm run release:alpha
       shell: bash
 
     - name: Push tags

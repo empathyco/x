@@ -4,5 +4,7 @@
  * @public
  */
 export interface PlatformSuggestion {
-  title_raw: string;
+  // TODO: Remove title_raw when endpoint changes and removes it permanently
+  title_raw?: string;
+  keywords: string;
 }

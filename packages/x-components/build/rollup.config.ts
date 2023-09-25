@@ -4,18 +4,13 @@ import { sync as glob } from 'glob';
 import { RollupOptions } from 'rollup';
 import copy from 'rollup-plugin-copy';
 import del from 'rollup-plugin-delete';
-import rename from 'rollup-plugin-rename';
 import styles from 'rollup-plugin-styles';
 import typescript from 'rollup-plugin-typescript2';
 import vue, { VuePluginOptions } from 'rollup-plugin-vue';
 import packageJSON from '../package.json';
 import { normalizePath } from './build.utils';
 import { apiDocumentation } from './docgen/documentation.rollup-plugin';
-import {
-  importTokens,
-  omitJsFiles,
-  renameComponentCssFile
-} from './rollup-plugins/design-system.rollup-plugin';
+import { importTokens, omitJsFiles } from './rollup-plugins/design-system.rollup-plugin';
 import { generateEntryFiles } from './rollup-plugins/x-components.rollup-plugin';
 
 const rootDir = path.resolve(__dirname, '../');
@@ -76,7 +71,7 @@ export const rollupConfig = createRollupOptions({
           './src/main.ts',
           '**/__tests__/**',
           '**/__stubs__/**',
-          './src/design-system'
+          './src/design-system-deprecated'
         ]
       }
     }),
@@ -147,73 +142,14 @@ const commonCssOptions = createRollupOptions({
 });
 
 /**
- * The config to generate one `.css` file for each Design System Component, including the CSS
- * and the tokens.
- */
-export const cssComponentsRollupConfig = createRollupOptions({
-  ...commonCssOptions,
-  input: glob('src/design-system/**/*.scss', { ignore: 'src/design-system/**/*.tokens.scss' }),
-  plugins: [
-    importTokens(),
-    rename({ map: renameComponentCssFile }),
-    styles({ mode: 'extract' }),
-    omitJsFiles()
-  ]
-});
-
-/**
  * The config to generate one `.css` file with all the deprecated styles.
  */
 export const cssDeprecatedComponentsRollupConfig = createRollupOptions({
   ...commonCssOptions,
-  input: glob('src/design-system-deprecated/**/*.scss', {
-    ignore: 'src/design-system-deprecated/**/*.tokens.scss'
-  }),
+  input: glob('src/design-system-deprecated/**/*.scss'),
   plugins: [
     importTokens(),
     styles({ mode: ['extract', 'deprecated-full-theme.css'] }),
-    omitJsFiles()
-  ]
-});
-
-/**
- * The config to generate the components `base.css` file with the base tokens.
- */
-export const cssBaseRollupConfig = createRollupOptions({
-  ...commonCssOptions,
-  input: glob('src/design-system/base/**/*.scss'),
-  plugins: [styles({ mode: ['extract', 'base.css'] }), omitJsFiles()]
-});
-
-/**
- * The config to generate the components `default-theme.css` file with the base tokens and the
- * default version of the components.
- */
-export const cssDefaultThemeRollupConfig = createRollupOptions({
-  ...commonCssOptions,
-  input: [
-    ...glob('src/design-system/**/*default*.scss'),
-    ...glob('src/design-system/base/**/*.scss')
-  ],
-  plugins: [
-    importTokens(),
-    styles({
-      mode: ['extract', 'default-theme.css']
-    }),
-    omitJsFiles()
-  ]
-});
-
-/**
- * The config to generate the components `full-theme.css` file with all the Design System included.
- */
-export const cssFullThemeRollupConfig = createRollupOptions({
-  ...commonCssOptions,
-  input: glob('src/design-system/**/*.scss'),
-  plugins: [
-    styles({
-      mode: ['extract', 'full-theme.css']
-    }),
     omitJsFiles()
   ]
 });

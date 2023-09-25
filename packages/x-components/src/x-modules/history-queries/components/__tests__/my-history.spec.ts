@@ -41,10 +41,11 @@ const historyQueries: HistoryQuery[] = [
 ];
 
 function renderMyHistory({
-  template = '<MyHistory :locale="locale" />',
+  template = '<MyHistory :locale="locale" :queriesListClass="queriesListClass" />',
   historyQueries = [],
   locale,
-  snippetConfig
+  snippetConfig,
+  queriesListClass
 }: MyHistoryOptions = {}): MyHistoryAPI {
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -63,13 +64,14 @@ function renderMyHistory({
       provide: {
         snippetConfig
       },
-      props: ['locale']
+      props: ['locale', 'queriesListClass']
     },
     {
       localVue,
       store,
       propsData: {
-        locale
+        locale,
+        queriesListClass
       }
     }
   );
@@ -192,6 +194,16 @@ describe('testing MyHistory component', () => {
     expect(wrapper.get(getDataTestSelector('suggestion-date')).text()).toBe('09:40 AM');
   });
 
+  it('allows to add classes to the queries list', () => {
+    const { wrapper } = renderMyHistory({
+      historyQueries,
+      queriesListClass: 'custom-class'
+    });
+    expect(wrapper.find(getDataTestSelector('my-history-queries')).classes('custom-class')).toBe(
+      true
+    );
+  });
+
   function expectValidHistoryContent(
     historyQueriesGroupedByDate: Record<string, HistoryQuery[]>,
     findAllInWrapper: MyHistoryAPI['findAllInWrapper'],
@@ -208,7 +220,7 @@ describe('testing MyHistory component', () => {
           minute: '2-digit'
         });
         expect(historyItemWrappers?.at(historyQueryIndex).text()).toMatch(
-          `${historyQuery.query}${hour}✕`
+          `${historyQuery.query} - ${hour} ✕`
         );
       });
     });
@@ -227,6 +239,8 @@ interface MyHistoryOptions {
   locale?: string;
   /** The provided {@link SnippetConfig}.*/
   snippetConfig?: SnippetConfig;
+  /** Class to add to the queries list. */
+  queriesListClass?: string;
 }
 
 /**

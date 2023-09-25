@@ -12,8 +12,7 @@
 
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType } from 'vue';
   import { XEventsTypes } from '../../wiring/events.types';
   import BaseEventButton from '../base-event-button.vue';
 
@@ -23,32 +22,46 @@
    *
    * @public
    */
-  @Component({
-    components: { BaseEventButton }
-  })
-  export default class BaseResultAddToCart extends Vue {
-    /**
-     * (Required) The {@link @empathyco/x-types#Result | result} information.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected result!: Result;
+  export default defineComponent({
+    components: { BaseEventButton },
+    props: {
+      /**
+       * (Required) The {@link @empathyco/x-types#Result} information.
+       *
+       * @public
+       */
+      result: {
+        type: Object as PropType<Result>,
+        required: true
+      }
+    },
+    setup(props) {
+      /**
+       * The events to be emitted by the button.
+       *
+       * @returns Events {@link XEventsTypes} to emit.
+       *
+       * @public
+       */
+      const events = computed<Partial<XEventsTypes>>(() => ({
+        UserClickedResultAddToCart: props.result
+      }));
 
-    /**
-     * The events to be emitted by the button.
-     *
-     * @returns Events {@link XEventsTypes} to emit.
-     *
-     * @public
-     */
-    protected get events(): Partial<XEventsTypes> {
-      return { UserClickedResultAddToCart: this.result };
+      return {
+        events
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserClickedResultAddToCart`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the result data.
+
 ## Examples
 
 Renders a button with a default slot. It receives the result with the data and emits an event
@@ -64,11 +77,4 @@ This component is a button to emit `UserClickedResultAddToCart` whe clicked by t
   <span>Add to cart</span>
 </BaseResultAddToCart>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedResultAddToCart`: the event is emitted after the user clicks the button. The event
-  payload is the result data.
 </docs>

@@ -9,21 +9,21 @@ import { TailwindHelpers } from '../../../types';
 export function inputSizes({ theme }: TailwindHelpers) {
   return {
     sm: {
-      minHeight: theme('spacing.32'),
-      fontSize: theme('fontSize.xs'),
-      '&::placeholder': {
-        fontSize: theme('fontSize.xs')
-      }
-    },
-    md: {
-      minHeight: theme('spacing.40'),
+      height: theme('spacing.32'),
       fontSize: theme('fontSize.sm'),
       '&::placeholder': {
         fontSize: theme('fontSize.sm')
       }
     },
+    md: {
+      height: theme('spacing.40'),
+      fontSize: theme('fontSize.md'),
+      '&::placeholder': {
+        fontSize: theme('fontSize.md')
+      }
+    },
     lg: {
-      minHeight: theme('spacing.48'),
+      height: theme('spacing.48'),
       fontSize: theme('fontSize.md'),
       '&::placeholder': {
         fontSize: theme('fontSize.md')

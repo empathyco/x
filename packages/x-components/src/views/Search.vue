@@ -141,10 +141,4 @@
       margin: 0 0 0 1em;
     }
   }
-
-  .x-filter {
-    &--is-selected {
-      font-weight: bold;
-    }
-  }
 </style>

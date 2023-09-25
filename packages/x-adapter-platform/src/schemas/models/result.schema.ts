@@ -1,25 +1,31 @@
 import { createMutableSchema } from '@empathyco/x-adapter';
 import { Result } from '@empathyco/x-types';
-import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
+import { getDisplayClickTagging, getTaggingInfoFromUrl } from '../../mappers/url.utils';
 import { PlatformResult } from '../../types/models/result.model';
 
+/**
+ * Default implementation for the ResultSchema.
+ *
+ * @public
+ */
 export const resultSchema = createMutableSchema<PlatformResult, Result>({
-  id: 'id',
-  images: ({ image }) => {
-    return image ? [image] : [];
-  },
-  name: 'name',
-  url: 'url',
+  id: '__id',
+  images: '__images',
+  name: '__name',
+  url: '__url',
   identifier: {
-    value: 'id'
+    value: '__externalId'
   },
   rating: {
     value: () => null
   },
   price: {
-    value: 'price',
-    originalValue: 'price',
-    hasDiscount: () => false
+    value: '__prices.current.value',
+    originalValue: ({ __prices: rawPrices }) =>
+      rawPrices.previous?.value ?? rawPrices.current.value,
+    futureValue: ({ __prices: rawPrices }) => rawPrices.future?.value ?? rawPrices.current.value,
+    hasDiscount: ({ __prices: rawPrices }) =>
+      rawPrices.current.value < (rawPrices.previous?.value ?? rawPrices.current.value)
   },
   type: () => 'Default',
   modelName: () => 'Result',
@@ -29,7 +35,8 @@ export const resultSchema = createMutableSchema<PlatformResult, Result>({
     $subSchema: {
       add2cart: ({ add2cart }) => getTaggingInfoFromUrl(add2cart),
       checkout: ({ checkout }) => getTaggingInfoFromUrl(checkout),
-      click: ({ click }) => getTaggingInfoFromUrl(click)
+      click: ({ click }) => getTaggingInfoFromUrl(click),
+      displayClick: ({ displayClick }) => getDisplayClickTagging(displayClick)
     }
   }
 });

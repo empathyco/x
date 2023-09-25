@@ -2,7 +2,7 @@
   <section v-if="getTabs().length > 0" class="x-tabs-panel" data-test="base-tabs-panel">
     <component
       :is="tabsAnimation"
-      class="x-tabs-panel__items-list x-list"
+      class="x-tabs-panel__items-list"
       :class="tabsListClass"
       data-test="base-tabs-panel-list"
       role="tablist"
@@ -22,7 +22,7 @@
           :key="tab"
           @click="selectTab(tab)"
           :id="`base-tabs-panel-${tab}`"
-          class="x-tabs-panel__list-item x-list__item x-tabs-panel__button x-button"
+          class="x-tabs-panel__list-item x-tabs-panel__button x-button"
           :class="tabIsSelected(tab) ? activeTabClass : tabClass"
           :aria-selected="tabIsSelected(tab)"
           data-test="base-tabs-panel-button"
@@ -162,7 +162,17 @@
   }
 </script>
 
+<style lang="scss" scoped>
+  .x-tabs-panel__items-list {
+    display: flex;
+  }
+</style>
+
 <docs lang="mdx">
+## Events
+
+This component emits no events.
+
 ## Examples
 
 This component renders a list of tabs based on the name of the slots passed on its template. By
@@ -285,9 +295,9 @@ behavior is disabled.
 <template>
   <BaseTabsPanel
     activeTabClass="x-button-auxiliary"
-    contentClass="x-padding--04 x-background--auxiliary"
+    contentClass="x-p-12 x-bg-auxiliary-25"
     tabClass="x-button-ghost"
-    tabsListClass="x-list--horizontal"
+    tabListClass="x-flex-col"
   >
     <template #summer>
       <div>Summer Top Sales</div>
@@ -463,8 +473,4 @@ The displayed tab name and a method to select a tab are exposed to the tab panel
   };
 </script>
 ```
-
-## Events
-
-This component emits no events.
 </docs>

@@ -69,6 +69,14 @@
 </script>
 
 <docs lang="mdx">
+## Events
+
+A list of events that the component will emit:
+
+- [`UserClickedPanelToggleButton`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the id of the panelId
+  that is going to be toggled.
+
 ## Examples
 
 ### Basic example
@@ -116,11 +124,4 @@ The component rendering content passed to the default slot and opening the panel
   };
 </script>
 ```
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserClickedPanelToggleButton`: the event is emitted after the user clicks the button. The event
-  payload is the id of the panelId that is going to be toggled.
 </docs>

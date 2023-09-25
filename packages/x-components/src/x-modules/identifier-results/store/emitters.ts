@@ -12,5 +12,5 @@ export const identifierResultsEmitters = createStoreEmitters(identifierResultsXS
     selector: state => state.identifierResults,
     filter: createEmitterArrayFilter('id')
   },
-  IdentifierResultsRequestChanged: (_, getters) => getters.identifierResultsRequest
+  IdentifierResultsRequestUpdated: (_, getters) => getters.identifierResultsRequest
 });

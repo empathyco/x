@@ -61,7 +61,7 @@ describe('testing snippet config extra params component', () => {
   });
 
   // eslint-disable-next-line max-len
-  it('emits the ExtraParamsProvided event when the component is loaded and when the snippet config changes', async () => {
+  it('emits the ExtraParamsProvided event when the component is loaded, when the values prop changes, and when the snippet config changes', async () => {
     const { wrapper, setSnippetConfig } = renderSnippetConfigExtraParams();
     const extraParamsProvidedCallback = jest.fn();
 
@@ -74,12 +74,21 @@ describe('testing snippet config extra params component', () => {
       })
     );
 
-    await setSnippetConfig({ warehouse: 45678 });
+    await wrapper.setProps({ values: { store: 'myStore' } });
 
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       2,
       expect.objectContaining({
-        eventPayload: { warehouse: 45678 }
+        eventPayload: { warehouse: 1234, store: 'myStore' }
+      })
+    );
+
+    await setSnippetConfig({ warehouse: 45679 });
+
+    expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
+      3,
+      expect.objectContaining({
+        eventPayload: { warehouse: 45679, store: 'myStore' }
       })
     );
   });

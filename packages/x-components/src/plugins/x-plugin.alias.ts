@@ -71,6 +71,12 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
     get fullHistoryQueries() {
       return component.$store.state.x.historyQueries?.historyQueries ?? [];
     },
+    get isHistoryQueriesEnabled() {
+      return component.$store.state.x.historyQueries?.isEnabled ?? false;
+    },
+    get fromNoResultsWithFilters() {
+      return component.$store.state.x.search?.fromNoResultsWithFilters ?? false;
+    },
     get identifierResults() {
       return component.$store.state.x.identifierResults?.identifierResults ?? [];
     },
@@ -84,7 +90,7 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
       return component.$store.getters[getGetterPath('nextQueries', 'nextQueries')] ?? [];
     },
     get noResults() {
-      return !this.totalResults && !!this.query.search && this.status.search === 'success';
+      return component.$store.state.x.search?.isNoResults ?? false;
     },
     get partialResults() {
       return component.$store.state.x.search?.partialResults ?? [];
@@ -93,6 +99,9 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
       return component.$store.state.x.popularSearches?.popularSearches ?? [];
     },
     get querySuggestions() {
+      return component.$store.getters[getGetterPath('querySuggestions', 'querySuggestions')] ?? [];
+    },
+    get fullQuerySuggestions() {
       return component.$store.state.x.querySuggestions?.suggestions ?? [];
     },
     get recommendations() {
@@ -115,6 +124,9 @@ export function getAliasAPI(component: Vue): XComponentAliasAPI {
     },
     get selectedRelatedTags() {
       return component.$store.state.x.relatedTags?.selectedRelatedTags ?? [];
+    },
+    get semanticQueries() {
+      return component.$store.state.x.semanticQueries?.semanticQueries ?? [];
     },
     get spellcheckedQuery() {
       return component.$store.state.x.search?.spellcheckedQuery ?? null;

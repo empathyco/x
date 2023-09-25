@@ -43,6 +43,7 @@ function renderMainModal({
       return wrapper.find(getDataTestSelector('modal-content'));
     },
     async focusOutOfModal() {
+      jest.runAllTimers();
       document.body.dispatchEvent(new FocusEvent('focusin'));
       await localVue.nextTick();
     }
@@ -50,6 +51,14 @@ function renderMainModal({
 }
 
 describe('testing Main Modal  component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   it('opens and closes when UserClickedOpenX and UserClickedClosedX are emitted', async () => {
     const { emit, getModalContent } = renderMainModal();
     expect(getModalContent().exists()).toBe(false);

@@ -37,6 +37,11 @@ export interface FacetsXEvents {
    */
   SelectedFiltersChanged: Filter[];
   /**
+   * The selected filters that conform to the filters for request strategy have changed.
+   * Payload: the new list of selected filters.
+   */
+  SelectedFiltersForRequestChanged: Filter[];
+  /**
    * A user action has changed the selected filters.
    * Payload: The new list of selected filters.
    */

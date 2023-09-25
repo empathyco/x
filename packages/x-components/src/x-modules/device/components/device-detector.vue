@@ -17,7 +17,7 @@
   type MaxWidth = number;
 
   /**
-   * This component helps detecting or setting a device, that can be used later to create
+   * This component helps to detect or setting a device, that can be used later to create
    * different layouts optimized for different devices. This detected device is available under
    * the {@link XComponentAliasAPI.device} property.
    *
@@ -145,7 +145,7 @@
 
 This component emits the following events:
 
-- [`DeviceProvided`](./../../api/x-components.devicexevents.md)
+- [`DeviceProvided`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 
@@ -154,7 +154,7 @@ name given an object containing all the possible breakpoints.
 
 _Try resizing the browser window!_
 
-```vue
+```vue live
 <template>
   <div>
     <DeviceDetector :breakpoints="breakpoints" />
@@ -190,7 +190,7 @@ matter what the window width is.
 
 _Try resizing the window to check that it never changes_
 
-```vue
+```vue live
 <template>
   <div>
     <DeviceDetector force="mobile" :breakpoints="breakpoints" />
@@ -226,7 +226,7 @@ payload. This device is stored in a data variable and then displayed.
 
 _Try resizing the browser window!_
 
-```vue
+```vue live
 <template>
   <div>
     <DeviceDetector :breakpoints="breakpoints" @DeviceProvided="storeDevice" />

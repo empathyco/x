@@ -2,15 +2,15 @@
   <NextQueryPreview
     :suggestion="suggestion"
     #default="{ results, totalResults, suggestion }"
-    class="x-list x-list--gap-03"
+    class="x-flex x-flex-col x-gap-8"
   >
     <h1 class="x-title2">Others clients have searched</h1>
-    <NextQuery class="x-text1 x-text1-lg" :suggestion="suggestion">
+    <NextQuery class="x-suggestion x-text1 x-text1-lg" :suggestion="suggestion">
       <span class="x-font-bold">{{ suggestion.query }}</span>
       ({{ totalResults }})
     </NextQuery>
     <SlidingPanel :resetOnContentChange="false">
-      <div class="x-list x-list--gap-03">
+      <div class="x-flex x-flex-col x-gap-8">
         <Result
           v-for="result in results"
           :key="result.id"

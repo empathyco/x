@@ -183,7 +183,7 @@ function fakeIncrementalMovement(element: HTMLElement): void {
     ({
       left: position++,
       top: position++
-    } as DOMRect);
+    }) as DOMRect;
 }
 
 // Method for enter in hooks of component afterEnter

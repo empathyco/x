@@ -5,6 +5,11 @@ import { identifierResultsRequestSchema } from '../../schemas/requests/identifie
 // eslint-disable-next-line max-len
 import { PlatformIdentifierResultsRequest } from '../../types/requests/identifier-results-request.model';
 
+/**
+ * Default mapper for IdentifierResultsRequest.
+ *
+ * @public
+ */
 export const identifierResultsRequestMapper = schemaMapperFactory<
   IdentifierResultsRequest,
   PlatformIdentifierResultsRequest

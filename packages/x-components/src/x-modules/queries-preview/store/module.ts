@@ -2,6 +2,7 @@ import Vue from 'vue';
 import { QueriesPreviewXStoreModule } from './types';
 import { fetchQueryPreview } from './actions/fetch-query-preview.action';
 import { fetchAndSaveQueryPreview } from './actions/fetch-and-save-query-preview.action';
+import { loadedQueriesPreview } from './getters/loaded-queries-preview.getter';
 
 /**
  * {@link XStoreModule} For the `queries-preview` module.
@@ -14,9 +15,14 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
       maxItemsToRequest: 24
     },
     queriesPreview: {},
+    selectedQueryPreview: {
+      query: '',
+      extraParams: undefined,
+      filters: undefined
+    },
     params: {}
   }),
-  getters: {},
+  getters: { loadedQueriesPreview },
   mutations: {
     clearQueryPreview(state, query) {
       Vue.delete(state.queriesPreview, query);
@@ -29,6 +35,9 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     },
     setStatus(state, { query, status }) {
       state.queriesPreview[query].status = status;
+    },
+    setSelectedQueryPreview(state, selectedQueryPreview) {
+      state.selectedQueryPreview = selectedQueryPreview;
     }
   },
   actions: {

@@ -12,7 +12,7 @@ import { createWiring } from '../../wiring/wiring.utils';
  */
 const moduleName = 'popularSearches';
 /**
- * WireDispatchfor {@link PopularSearchesXModule}.
+ * WireDispatch for {@link PopularSearchesXModule}.
  *
  * @internal
  */
@@ -52,7 +52,7 @@ export const setPopularSearchesExtraParams = wireCommit('setParams');
  * @internal
  */
 export const popularSearchesWiring = createWiring({
-  PopularSearchesRequestChanged: {
+  PopularSearchesRequestUpdated: {
     retrievePopularSuggestions
   },
   SessionHistoryQueriesChanged: {

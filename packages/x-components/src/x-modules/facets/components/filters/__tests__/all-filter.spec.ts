@@ -101,7 +101,9 @@ describe('testing AllFilter component', () => {
       eventPayload: [facet.id],
       metadata: {
         moduleName: 'facets',
-        target: wrapper.element
+        target: wrapper.element,
+        location: undefined,
+        replaceable: true
       }
     });
   });

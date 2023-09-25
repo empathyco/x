@@ -1,6 +1,5 @@
 import Vuex, { Store } from 'vuex';
 import { createLocalVue } from '@vue/test-utils';
-import { SearchRequest } from '@empathyco/x-types';
 import { getSearchResponseStub } from '../../../../__stubs__/search-response-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
@@ -12,17 +11,11 @@ import {
   QueriesPreviewActions,
   QueryPreviewItem
 } from '../types';
+import { getQueryPreviewRequest } from '../../../../__stubs__/queries-preview-stubs.factory';
 import { resetQueriesPreviewStateWith } from './utils';
 
 describe('testing queries preview module actions', () => {
   const mockedSearchResponse = getSearchResponseStub();
-  const getQueryPreviewRequest = (query: string): SearchRequest => ({
-    query,
-    rows: 3,
-    extraParams: {
-      extraParam: 'extra param'
-    }
-  });
 
   const adapter = getMockedAdapter({
     search: mockedSearchResponse

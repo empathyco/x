@@ -40,6 +40,7 @@ export function createResultStub(name: string, result?: Partial<Result>): Result
     price: {
       hasDiscount: false,
       originalValue: 10,
+      futureValue: 10,
       value: 10
     },
     rating: {
@@ -65,7 +66,8 @@ function getResultTagging(productId: string): Tagging {
   return {
     click: getTaggingByAction('click', { productId }),
     add2cart: getTaggingByAction('add2cart', { productId }),
-    checkout: getTaggingByAction('checkout', { productId })
+    checkout: getTaggingByAction('checkout', { productId }),
+    displayClick: getTaggingByAction('displayClick', { productId })
   };
 }
 

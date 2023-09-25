@@ -1,12 +1,12 @@
 <template>
-  <button @click="emitEvents" v-on="$listeners" :class="dynamicCSSClasses" class="x-suggestion">
+  <button ref="el" @click="emitEvents" v-on="$listeners" :class="dynamicCSSClasses">
     <!--
       @slot Button content
           @binding {Suggestion} suggestion - Suggestion data
           @binding {String} query - The query that the suggestion belongs to
           @binding {Filter} filter - Suggestion's filter
       -->
-    <slot v-bind="{ suggestion, query, filter }">
+    <slot v-bind="{ query, suggestion, filter }">
       <Highlight class="x-suggestion__query" :text="suggestion.query" :highlight="query" />
       <span v-if="filter" class="x-suggestion__filter">{{ filter.label }}</span>
     </slot>
@@ -16,143 +16,163 @@
 <script lang="ts">
   import { BooleanFilter, Suggestion } from '@empathyco/x-types';
   import { forEach } from '@empathyco/x-utils';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType, ref } from 'vue';
   import { QueryFeature } from '../../types';
   import { VueCSSClasses } from '../../utils/types';
   import { XEventsTypes } from '../../wiring/events.types';
   import Highlight from '../highlight.vue';
+  import { use$x } from '../../composables/index';
 
   /**
    * Renders a button with a default slot. It receives a query, which should be the query of the
-   * module using this component, a suggestion, the {@link XEvent | XEvents} that will be emitted
+   * module using this component, a suggestion, the {@link XEvent} that will be emitted
    * on click with a given feature.
    *
    * The default slot receives the suggestion and the matched query has props.
    *
    * @public
    */
-  @Component({
-    components: { Highlight }
-  })
-  export default class BaseSuggestion extends Vue {
-    /**
-     * The normalized query of the module using this component.
-     *
-     * @public
-     */
-    @Prop({ default: '' })
-    protected query!: string;
+  export default defineComponent({
+    components: { Highlight },
+    props: {
+      /**
+       * The normalized query of the module using this component.
+       *
+       * @public
+       */
+      query: {
+        type: String,
+        default: ''
+      },
 
-    /**
-     * The suggestion to render and use in the default slot.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected suggestion!: Suggestion;
+      /**
+       * The suggestion to render and use in the default slot.
+       *
+       * @public
+       */
+      suggestion: {
+        type: Object as PropType<Suggestion>,
+        required: true
+      },
 
-    /**
-     * The feature from which the events will be emitted.
-     *
-     * @public
-     */
-    @Prop() //TODO: set to true when the suggestions components pass it.
-    protected feature?: QueryFeature;
+      /**
+       * The feature from which the events will be emitted.
+       *
+       * @public
+       */
+      //TODO: set to true when the suggestions components pass it.
+      feature: {
+        type: String as PropType<QueryFeature>
+      },
 
-    /**
-     * The {@link XEvent | XEvents} that will be emitted when selecting a suggestion.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected suggestionSelectedEvents!: Partial<XEventsTypes>;
+      /**
+       * The {@link XEvent} that will be emitted when selecting a suggestion.
+       *
+       * @public
+       */
+      suggestionSelectedEvents: {
+        type: Object as PropType<Partial<XEventsTypes>>,
+        required: true
+      },
 
-    /**
-     * Indicates if the curated suggestion should be highlighted.
-     *
-     * @public
-     */
-    @Prop({ default: false, type: Boolean })
-    protected highlightCurated!: boolean;
+      /**
+       * Indicates if the curated suggestion should be highlighted.
+       *
+       * @public
+       */
+      highlightCurated: {
+        type: Boolean
+      }
+    },
 
-    /**
-     * The event handler that will be triggered when clicking on a suggestion.
-     *
-     * @remarks
-     * UserAcceptedAQuery: suggestion.query
-     * UserSelectedASuggestion: suggestion
-     * UserClickedAFilter: suggestion.facets[0].filters[0]
-     * Merges the events defined in the suggestionSelectedEvents prop and also emits them
-     *
-     * @returns The {@link XEvent | XEvents} to emit.
-     * @public
-     */
-    protected get events(): Partial<XEventsTypes> {
-      const filterEvent: Partial<XEventsTypes> = this.filter
-        ? { UserClickedAFilter: this.filter }
-        : {};
-      return {
-        UserAcceptedAQuery: this.suggestion.query,
-        UserSelectedASuggestion: this.suggestion,
-        ...this.suggestionSelectedEvents,
-        ...filterEvent
-      };
-    }
+    setup(props) {
+      const el = ref<HTMLElement | null>(null);
 
-    /**
-     * Emits the events when the button is clicked.
-     *
-     * @public
-     */
-    protected emitEvents(): void {
-      forEach(this.events, (event, payload) => {
-        this.$x.emit(event, payload, {
-          target: this.$el as HTMLElement,
-          feature: this.feature
-        });
+      const $x = use$x();
+
+      /**
+       * Returns the suggestion filter object.
+       * It is a BooleanFilter because the label is needed.
+       * It returns only the first element because the facets and filters are being planned
+       * in the BaseSuggestions component.
+       *
+       * @returns The filter.
+       * @public
+       */
+      const filter = computed<BooleanFilter | undefined>(
+        () => props.suggestion.facets?.[0]?.filters[0] as BooleanFilter
+      );
+
+      /**
+       * The event handler that will be triggered when clicking on a suggestion.
+       *
+       * @remarks
+       * UserAcceptedAQuery: suggestion.query
+       * UserSelectedASuggestion: suggestion
+       * UserClickedAFilter: suggestion.facets[0].filters[0]
+       * Merges the events defined in the suggestionSelectedEvents prop and also emits them
+       *
+       * @returns The {@link XEvent} to emit.
+       * @public
+       */
+      const events = computed<Partial<XEventsTypes>>(() => {
+        const filterEvent: Partial<XEventsTypes> = filter.value
+          ? { UserClickedAFilter: filter.value }
+          : {};
+        return {
+          UserAcceptedAQuery: props.suggestion.query,
+          UserSelectedASuggestion: props.suggestion,
+          ...props.suggestionSelectedEvents,
+          ...filterEvent
+        };
       });
-    }
 
-    /**
-     * Returns the suggestion filter object.
-     * It is a BooleanFilter because the label is needed.
-     * It returns only the first element because the facets and filters are being planned
-     * in the BaseSuggestions component.
-     *
-     * @returns The filter.
-     * @public
-     */
-    protected get filter(): BooleanFilter | undefined {
-      return this.suggestion.facets?.[0]?.filters[0] as BooleanFilter;
-    }
+      /**
+       * Emits the events when the button is clicked.
+       *
+       * @public
+       */
+      const emitEvents = (): void => {
+        forEach(events.value, (event, payload): void => {
+          $x.emit(event, payload, {
+            target: el.value!,
+            feature: props.feature
+          });
+        });
+      };
 
-    /**
-     * Checks if the suggestion is curated and if it should be highlighted.
-     *
-     * @returns True if the suggestion is curated and should be highlighted.
-     *
-     * @internal
-     */
-    protected get shouldHighlightCurated(): boolean {
-      return this.highlightCurated && !!this.suggestion.isCurated;
-    }
+      /**
+       * Checks if the suggestion is curated and if it should be highlighted.
+       *
+       * @returns True if the suggestion is curated and should be highlighted.
+       *
+       * @internal
+       */
+      const shouldHighlightCurated = computed<boolean>(
+        () => props.highlightCurated && !!props.suggestion.isCurated
+      );
 
-    /**
-     * Generates css classes dynamically.
-     *
-     * @remarks
-     * 'x-suggestion--matching added when the query should be matched.
-     *
-     * @returns The {@link VueCSSClasses} classes.
-     * @public
-     */
-    protected get dynamicCSSClasses(): VueCSSClasses {
+      /**
+       * Generates css classes dynamically.
+       *
+       * @remarks
+       * 'x-suggestion--matching added when the query should be matched.
+       *
+       * @returns The {@link VueCSSClasses} classes.
+       * @public
+       */
+      const dynamicCSSClasses = computed<VueCSSClasses>(() => ({
+        'x-suggestion--is-curated': shouldHighlightCurated.value
+      }));
+
       return {
-        'x-suggestion--is-curated': this.shouldHighlightCurated
+        el,
+        filter,
+        emitEvents,
+        dynamicCSSClasses
       };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
@@ -160,12 +180,14 @@
 
 This component emits the following events:
 
-- `UserAcceptedAQuery`: the event is emitted after the user clicks the button. The event payload is
-  the suggestion query data.
-- `UserSelectedASuggestion`: the event is emitted after the user clicks the button. The event
-  payload is the suggestion data.
-- `UserClickedAFilter`: the event is emitted after the user clicks the button if the suggestion
-  includes a filter. The event payload is the suggestion filter.
+- [`UserAcceptedAQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the suggestion query
+  data.
+- [`UserSelectedASuggestion`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the suggestion data.
+- [`UserClickedAFilter`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button if the suggestion includes a filter. The
+  event payload is the suggestion filter.
 - The component can emit more events on click using the `suggestionSelectedEvents` prop.
 
 ## See it in action

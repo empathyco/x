@@ -9,6 +9,7 @@
     "lint": "lerna run lint -- --quiet --cache --cache-strategy content",
     "lint:fix": "lerna run lint -- --fix",
     "test": "lerna run test",
+    "test:unit": "lerna run test:unit",
     "serve": "lerna run serve",
     "prepare-release:stable": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version --yes",
     "release:alpha": "lerna publish --conventional-commits --conventional-prerelease --yes --no-push",
@@ -22,13 +23,13 @@
     "cross-env": "~7.0.3",
     "eslint": "~8.33.0",
     "husky": "~8.0.3",
-    "lerna": "~6.4.1",
-    "lint-staged": "~13.1.0",
-    "prettier": "~2.8.3"
+    "lerna": "~6.6.0",
+    "lint-staged": "~13.2.0",
+    "prettier": "~3.0.3"
   },
   "engines": {
-    "node": ">=16",
-    "npm": ">=7"
+    "node": ">=18",
+    "npm": ">=9"
   },
   "prettier": "@empathyco/eslint-plugin-x/prettier-config",
   "lint-staged": {

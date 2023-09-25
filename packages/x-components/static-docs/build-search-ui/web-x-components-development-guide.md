@@ -1,5 +1,6 @@
 ---
 title: Develop using the Interface X Components library
+meta_title: Develop a search UI with the Interface X Components library
 tags:
   - integration
   - interface x components integration

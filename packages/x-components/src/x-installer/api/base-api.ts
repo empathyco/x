@@ -1,4 +1,5 @@
-import { XBus } from '../../plugins/x-bus.types';
+import { XBus } from '@empathyco/x-bus';
+import { WireMetadata, XEventsTypes } from '../../wiring/index';
 import { SnippetConfig, XAPI } from './api.types';
 
 /**
@@ -19,7 +20,7 @@ export class BaseXAPI implements XAPI {
    *
    * @internal
    */
-  protected bus!: XBus;
+  protected bus!: XBus<XEventsTypes, WireMetadata>;
 
   /**
    * The callback to call from the init method. The logic of initialization is out of this API
@@ -47,13 +48,13 @@ export class BaseXAPI implements XAPI {
   }
 
   /**
-   * Setter for the {@link XBus}.
+   * Setter for the {@link @empathyco/x-bus#XBus}.
    *
-   * @param bus - The {@link XBus} received to emit events.
+   * @param bus - The {@link @empathyco/x-bus#XBus} received to emit events.
    *
    * @internal
    */
-  setBus(bus: XBus): void {
+  setBus(bus: XBus<XEventsTypes, WireMetadata>): void {
     this.bus = bus;
   }
 
@@ -107,15 +108,26 @@ export class BaseXAPI implements XAPI {
    *
    * @param config - The config coming from the customer snippet.
    *
+   * @returns A promise that will be resolved once x components are initialized.
+   *
    * @public
    */
-  init(config: SnippetConfig): void {
+  async init(config: SnippetConfig): Promise<void> {
     if (!this.isXInitialized) {
       this.isXInitialized = true;
-      this?.initCallback(config);
+      await this?.initCallback(config);
     } else {
       //eslint-disable-next-line no-console
       console.warn('We know X is awesome, but you only need to initialize it once.');
     }
+  }
+
+  /**
+   * Closes the Application.
+   *
+   * @public
+   */
+  close(): void {
+    this.bus?.emit('UserClickedCloseX');
   }
 }

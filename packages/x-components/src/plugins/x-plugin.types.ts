@@ -7,11 +7,13 @@ import {
   Redirection,
   RelatedTag,
   Result,
+  SemanticQuery,
   Suggestion,
   XComponentsAdapter
 } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
 import { Store } from 'vuex';
+import { XBus } from '@empathyco/x-bus';
 import { ActionsTree } from '../store/actions.types';
 import { GettersTree } from '../store/getters.types';
 import { MutationsTree } from '../store/mutations.types';
@@ -24,7 +26,6 @@ import { WireMetadata, Wiring } from '../wiring/wiring.types';
 import { ScrollComponentState } from '../x-modules/scroll/index';
 import { AnyXModule, ExtractState, XModuleName, XModulesTree } from '../x-modules/x-modules.types';
 import { InputStatus } from '../x-modules/search-box/store/types';
-import { XBus } from './x-bus.types';
 
 /**
  * {@link XPlugin} Installation options.
@@ -63,7 +64,7 @@ export interface XPluginOptions {
 export type DocumentDirection = 'ltr' | 'rtl';
 
 /**
- * The XComponentAPI exposes access to the {@link XBus}, and store aliases to the
+ * The XComponentAPI exposes access to the {@link @empathyco/x-bus#XBus}, and store aliases to the
  * components.
  *
  * @public
@@ -71,14 +72,14 @@ export type DocumentDirection = 'ltr' | 'rtl';
 export interface XComponentAPI extends XComponentBusAPI, XComponentAliasAPI {}
 
 /**
- * API for emitting and subscribing to events of the {@link XBus}.
+ * API for emitting and subscribing to events of the {@link @empathyco/x-bus#XBus}.
  *
  * @public
  */
 export interface XComponentBusAPI {
   /* eslint-disable jsdoc/require-description-complete-sentence */
   /** {@inheritDoc XBus.(on:1)} */
-  on: XBus['on'];
+  on: XBus<XEventsTypes, WireMetadata>['on'];
   /** {@inheritDoc XBus.(emit:1)} */
   emit(event: PropsWithType<XEventsTypes, void>): void;
   /** {@inheritDoc XBus.(emit:2)} */
@@ -106,6 +107,10 @@ export interface XComponentAliasAPI {
   readonly historyQueriesWithResults: ReadonlyArray<HistoryQuery>;
   /** The {@link HistoryQueriesXModule} history queries. */
   readonly fullHistoryQueries: ReadonlyArray<HistoryQuery>;
+  /** The {@link HistoryQueriesXModule} history queries enabled flag. */
+  readonly isHistoryQueriesEnabled: Readonly<boolean>;
+  /** The {@link SearchXModule} no results with filters flag. */
+  readonly fromNoResultsWithFilters: Readonly<boolean>;
   /** The {@link IdentifierResultsXModule} results. */
   readonly identifierResults: ReadonlyArray<Result>;
   /** The {@link SearchBoxXModule } input status. */
@@ -122,8 +127,10 @@ export interface XComponentAliasAPI {
   readonly popularSearches: ReadonlyArray<Suggestion>;
   /** The query value of the different modules. */
   readonly query: XComponentAliasQueryAPI;
-  /** The {@link QuerySuggestionsXModule} query suggestions. */
+  /** The {@link QuerySuggestionsXModule} query suggestions that should be displayed. */
   readonly querySuggestions: ReadonlyArray<Suggestion>;
+  /** The {@link QuerySuggestionsXModule} query suggestions. */
+  readonly fullQuerySuggestions: ReadonlyArray<Suggestion>;
   /** The {@link RecommendationsXModule} recommendations. */
   readonly recommendations: ReadonlyArray<Result>;
   /** The {@link SearchXModule} redirections. */
@@ -138,6 +145,8 @@ export interface XComponentAliasAPI {
   readonly selectedFilters: Filter[];
   /** The {@link RelatedTagsXModule} selected related tags. */
   readonly selectedRelatedTags: ReadonlyArray<RelatedTag>;
+  /** The {@link SemanticQueriesXModule} queries. */
+  readonly semanticQueries: ReadonlyArray<SemanticQuery>;
   /** The {@link SearchXModule} spellchecked query. */
   readonly spellcheckedQuery: string | null;
   /** The status value of the different modules. */

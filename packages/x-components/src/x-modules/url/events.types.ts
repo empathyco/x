@@ -23,10 +23,10 @@ export interface UrlXEvents {
    * Url state changed with a change to add new entry to browser URL History State.
    * * Payload: The new URL params.
    */
-  PushableUrlStateChanged: UrlParams;
+  PushableUrlStateUpdated: UrlParams;
   /**
    * Url state changed with a change to replace the current entry to browser URL History State.
    * * Payload: The new URL params.
    */
-  ReplaceableUrlStateChanged: UrlParams;
+  ReplaceableUrlStateUpdated: UrlParams;
 }

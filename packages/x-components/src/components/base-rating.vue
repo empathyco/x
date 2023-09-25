@@ -83,6 +83,7 @@
   .x-rating {
     position: relative;
     display: inline-block;
+    max-width: fit-content;
 
     &--empty {
       overflow: hidden;

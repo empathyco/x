@@ -109,7 +109,7 @@
      *
      * @param newUrlParams - The new params to update browser URL.
      */
-    @XOn('PushableUrlStateChanged')
+    @XOn('PushableUrlStateUpdated')
     updateUrlWithPush(newUrlParams: UrlParams): void {
       this.updateUrl(newUrlParams, window.history.pushState.bind(window.history));
     }
@@ -120,14 +120,14 @@
      *
      * @param newUrlParams - The new params to update browser URL.
      */
-    @XOn('ReplaceableUrlStateChanged')
+    @XOn('ReplaceableUrlStateUpdated')
     updateUrlWithReplace(newUrlParams: UrlParams): void {
       this.updateUrl(newUrlParams, window.history.replaceState.bind(window.history));
     }
 
     /**
      * Handler of the
-     * {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/pageshow_event | pageshow }
+     * [pageshow](https://developer.mozilla.org/en-US/docs/Web/API/Window/pageshow_event)
      * event.
      *
      * @remarks The pageshow event is listened to check if the browser has performed a navigation
@@ -166,9 +166,9 @@
     }
 
     /**
-     * Creates the wire metadata to include in every emitted {@link XEvent | XEvents}.
+     * Creates the wire metadata to include in every emitted {@link XEvent}.
      *
-     * @returns The {@link WireMetadata | metadata}.
+     * @returns The {@link WireMetadata}.
      * @internal
      */
     protected createWireMetadata(): Pick<WireMetadata, 'feature' | 'location'> {
@@ -179,10 +179,10 @@
     }
 
     /**
-     * Detects the {@link FeatureLocation | location} used to build the
-     * {@link QueryOriginInit | events metadata origin}.
+     * Detects the {@link FeatureLocation} used to build the
+     * {@link QueryOriginInit} data.
      *
-     * @returns The {@link FeatureLocation | location}.
+     * @returns The {@link FeatureLocation}.
      * @internal
      */
     protected detectLocation(): FeatureLocation {
@@ -386,9 +386,9 @@
 
 This component emits the following events:
 
-- [`ParamsLoadedFromUrl`](./../../api/x-components.urlxevents.paramsloadedfromurl.md)
-- [`ExtraParamsLoadedFromUrl`](./../../api/x-components.urlxevents.extraparamsloadedfromurl.md)
-- [`UserOpenXProgrammatically`](./../../api/x-components.xeventstypes.useropenxprogrammatically.md)
+- [`ParamsLoadedFromUrl`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`ExtraParamsLoadedFromUrl`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+- [`UserOpenXProgrammatically`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

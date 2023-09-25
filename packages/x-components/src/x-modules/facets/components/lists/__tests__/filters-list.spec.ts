@@ -83,8 +83,10 @@ describe('testing Filters component', () => {
 interface RenderFiltersOptions {
   /** The filters data to render. */
   filters?: Filter[];
-  /** The template to render. Receives the `filters` via prop, and has registered the
-   * {@link FiltersComponent} as `Filters`. */
+  /**
+   * The template to render. Receives the `filters` via prop, and has registered the
+   * {@link FiltersComponent} as `Filters`.
+   */
   template?: string;
 }
 

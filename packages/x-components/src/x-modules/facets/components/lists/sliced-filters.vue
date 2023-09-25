@@ -9,7 +9,8 @@
       <button
         v-if="showMoreFilters"
         @click="toggleShowMoreFilters"
-        class="x-filter x-sliced-filters__button x-sliced-filters__button--show-more"
+        class="x-facet-filter x-sliced-filters__button x-sliced-filters__button--show-more"
+        :class="buttonClass"
         data-test="sliced-filters-show-more-button"
       >
         <!--
@@ -25,7 +26,8 @@
       <button
         v-else
         @click="toggleShowMoreFilters"
-        class="x-filter x-sliced-filters__button x-sliced-filters__button--show-less"
+        class="x-facet-filter x-sliced-filters__button x-sliced-filters__button--show-less"
+        :class="buttonClass"
         data-test="sliced-filters-show-less-button"
       >
         <!--
@@ -49,6 +51,7 @@
   import { xComponentMixin, XProvide } from '../../../../components';
   import { VueCSSClasses } from '../../../../utils';
   import { facetsXModule } from '../../x-module';
+  import { dynamicPropsMixin } from '../../../../components/dynamic-props.mixin';
   import FiltersInjectionMixin from './filters-injection.mixin';
 
   /**
@@ -59,13 +62,14 @@
    * @public
    */
   @Component({
-    mixins: [xComponentMixin(facetsXModule)]
+    mixins: [xComponentMixin(facetsXModule), dynamicPropsMixin(['buttonClass'])]
   })
   export default class SlicedFilters extends mixins(FiltersInjectionMixin) {
-    /** The maximum number of filters to show.
+    /**
+     * The maximum number of filters to show.
      *
      * @public
-     * */
+     */
     @Prop({ required: true })
     protected max!: number;
 
@@ -200,6 +204,22 @@ filters list to their children, it is mandatory to send it as prop.
       <Filters v-slot="{ filter }">
         <SimpleFilter :filter="filter"/>
       </Filters>
+    <template #show-more="{ difference }">Show {{ difference }} more filters</template>
+    <template #show-less="{ difference }">Show {{ difference }} less filters</template>
+  </SlicedFilters>
+</Facets>
+```
+
+### Customizing the items with classes
+
+The `buttonClass` prop can be used to add classes to the show more/less buttons.
+
+```vue live
+<Facets v-slot="{ facet }">
+  <SlicedFilters :filters="facet.filters" :max="4" buttonClass="x-facet-filter-lg">
+    <Filters v-slot="{ filter }">
+      <SimpleFilter :filter="filter"/>
+    </Filters>
     <template #show-more="{ difference }">Show {{ difference }} more filters</template>
     <template #show-less="{ difference }">Show {{ difference }} less filters</template>
   </SlicedFilters>

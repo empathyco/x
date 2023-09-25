@@ -59,8 +59,10 @@
 <docs lang="mdx">
 ## Events
 
-The `SnippetCallbacks` will emit the `SnippetCallbackExecuted` each time a callback provided by the
-snippetConfig is fired.
+The `SnippetCallbacks` will emit these events:
+
+- [`SnippetCallbackExecuted`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  each time a callback provided by the snippetConfig is fired.
 
 ## See it in action
 

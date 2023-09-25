@@ -10,6 +10,6 @@ export interface PlatformPromoted {
   image_url: string;
   position?: number;
   tagging?: {
-    query: string;
+    click?: string;
   };
 }

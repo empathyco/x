@@ -16,7 +16,7 @@
       @transitionend="debouncedUpdateScrollPosition"
       @animationend="debouncedUpdateScrollPosition"
       :class="scrollContainerClass"
-      class="x-list x-list--horizontal x-sliding-panel__scroll"
+      class="x-sliding-panel__scroll"
       data-test="sliding-panel-scroll"
     >
       <!-- @slot (Required) Sliding panel content -->
@@ -159,7 +159,7 @@
      *
      * @internal
      */
-    @Debounce(100, { leading: true })
+    @Debounce(50, { leading: true })
     restoreAndUpdateScroll(): void {
       this.$refs.scrollContainer.scroll({ left: 0, behavior: 'smooth' });
       this.updateScrollPosition();
@@ -181,12 +181,12 @@
     }
 
     /**
-     * Debounced version of the {@link SlidingPanel.updateScrollPosition | updateScrollPosition}
+     * Debounced version of the {@link SlidingPanel.updateScrollPosition}
      * method.
      *
      * @internal
      */
-    @Debounce(100, { leading: true })
+    @Debounce(50, { leading: true })
     debouncedUpdateScrollPosition(): void {
       this.updateScrollPosition();
     }
@@ -230,7 +230,6 @@
     align-items: center;
     display: flex;
     flex-flow: row nowrap;
-    height: 100%;
     position: relative;
 
     &__button {

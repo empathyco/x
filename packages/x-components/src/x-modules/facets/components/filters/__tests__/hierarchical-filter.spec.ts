@@ -1,4 +1,7 @@
-import { HierarchicalFilter as HierarchicalFilterModel } from '@empathyco/x-types';
+import {
+  HierarchicalFacet,
+  HierarchicalFilter as HierarchicalFilterModel
+} from '@empathyco/x-types';
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
 import Vue from 'vue';
 import { createHierarchicalFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
@@ -12,10 +15,14 @@ import { resetXFacetsStateWith } from '../../__tests__/utils';
 import HierarchicalFilter from '../hierarchical-filter.vue';
 
 function renderHierarchicalFilter({
-  template = `<HierarchicalFilter :filter="filter" :clickEvents="clickEvents" />`,
-  clickEvents
-}: HierarchicalFilterOptions = {}): HierarchicalFilterAPI {
-  const facet = createHierarchicalFacetStub('category', createFilter => [
+  template = `
+    <HierarchicalFilter
+      :filter="filter"
+      :clickEvents="clickEvents"
+      :childrenFiltersClass="childrenFiltersClass"
+      :filterItemClass="filterItemClass"
+      />`,
+  facet = createHierarchicalFacetStub('category', createFilter => [
     // Partially selected
     createFilter('root', false, createFilter => [
       // Partially selected
@@ -25,8 +32,11 @@ function renderHierarchicalFilter({
       ]),
       createFilter('child-1', false) // Unselected
     ])
-  ]);
-
+  ]),
+  childrenFiltersClass = '',
+  filterItemClass = '',
+  clickEvents
+}: HierarchicalFilterOptions = {}): HierarchicalFilterAPI {
   const [, localVue] = installNewXPlugin({ initialXModules: [facetsXModule] });
   const emit = jest.spyOn(XPlugin.bus, 'emit');
   const store = XPlugin.store;
@@ -42,6 +52,12 @@ function renderHierarchicalFilter({
         clickEvents() {
           return clickEvents;
         }
+      },
+      data() {
+        return {
+          childrenFiltersClass,
+          filterItemClass
+        };
       }
     },
     {
@@ -129,11 +145,15 @@ describe('testing `HierarchicalFilter` component', () => {
     expect(emit).toHaveBeenCalledTimes(2);
     expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter, {
       target: getFilterWrapper().element,
-      moduleName: 'facets'
+      moduleName: 'facets',
+      location: undefined,
+      replaceable: true
     });
     expect(emit).toHaveBeenCalledWith('UserClickedAHierarchicalFilter', filter, {
       target: getFilterWrapper().element,
-      moduleName: 'facets'
+      moduleName: 'facets',
+      location: undefined,
+      replaceable: true
     });
   });
 
@@ -151,16 +171,22 @@ describe('testing `HierarchicalFilter` component', () => {
     ['UserClickedAFilter', 'UserClickedAHierarchicalFilter'].forEach(event => {
       expect(emit).toHaveBeenCalledWith(event, filter, {
         target: getFilterWrapper().element,
-        moduleName: 'facets'
+        moduleName: 'facets',
+        location: undefined,
+        replaceable: true
       });
     });
     expect(emit).toHaveBeenCalledWith('UserAcceptedAQuery', 'potato', {
       target: getFilterWrapper().element,
-      moduleName: 'facets'
+      moduleName: 'facets',
+      location: undefined,
+      replaceable: true
     });
     expect(emit).toHaveBeenCalledWith('UserBlurredSearchBox', undefined, {
       target: getFilterWrapper().element,
-      moduleName: 'facets'
+      moduleName: 'facets',
+      location: undefined,
+      replaceable: true
     });
   });
 
@@ -194,7 +220,9 @@ describe('testing `HierarchicalFilter` component', () => {
     expect(emit).toHaveBeenCalledTimes(2);
     const expectedMetadata = {
       target: customLabelWrapper.element,
-      moduleName: 'facets'
+      moduleName: 'facets',
+      location: undefined,
+      replaceable: true
     };
     expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter, expectedMetadata);
     expect(emit).toHaveBeenCalledWith('UserClickedAHierarchicalFilter', filter, expectedMetadata);
@@ -224,10 +252,10 @@ describe('testing `HierarchicalFilter` component', () => {
     expect(getFilterWrapper().classes()).toHaveLength(4);
     expect(getFilterWrapper().classes()).toEqual(
       expect.arrayContaining([
-        'x-filter',
+        'x-facet-filter',
         'x-hierarchical-filter',
         'x-hierarchical-filter--is-partially-selected',
-        'x-filter--is-partially-selected'
+        'x-facet-filter--is-partially-selected'
       ])
     );
 
@@ -237,26 +265,25 @@ describe('testing `HierarchicalFilter` component', () => {
     expect(getFilterWrapper().classes()).toHaveLength(6);
     expect(getFilterWrapper().classes()).toEqual(
       expect.arrayContaining([
-        'x-filter',
-        'x-filter--is-selected',
+        'x-facet-filter',
+        'x-selected',
         'x-hierarchical-filter',
         'x-hierarchical-filter--is-selected',
         'x-hierarchical-filter--is-partially-selected',
-        'x-filter--is-partially-selected'
+        'x-facet-filter--is-partially-selected'
       ])
     );
 
     await mutateFilter(filter, { totalResults: 0, selected: false });
 
     expect(getFilterWrapper().attributes()).toHaveProperty('disabled');
-    expect(getFilterWrapper().classes()).toHaveLength(5);
+    expect(getFilterWrapper().classes()).toHaveLength(4);
     expect(getFilterWrapper().classes()).toEqual(
       expect.arrayContaining([
-        'x-filter',
+        'x-facet-filter',
         'x-hierarchical-filter',
-        'x-filter--is-disabled',
         'x-hierarchical-filter--is-partially-selected',
-        'x-filter--is-partially-selected'
+        'x-facet-filter--is-partially-selected'
       ])
     );
   });
@@ -265,14 +292,14 @@ describe('testing `HierarchicalFilter` component', () => {
     const { getFilterWrapper, mutateFilter, getRootFilter } = renderHierarchicalFilter();
 
     expect(getFilterWrapper().classes()).not.toEqual(
-      expect.arrayContaining(['x-filter--is-selected', 'x-hierarchical-filter--is-selected'])
+      expect.arrayContaining(['x-selected', 'x-hierarchical-filter--is-selected'])
     );
 
     const filter = getRootFilter();
     await mutateFilter(filter, { selected: true });
 
     expect(getFilterWrapper().classes()).toEqual(
-      expect.arrayContaining(['x-filter--is-selected', 'x-hierarchical-filter--is-selected'])
+      expect.arrayContaining(['x-selected', 'x-hierarchical-filter--is-selected'])
     );
   });
 
@@ -321,11 +348,15 @@ describe('testing `HierarchicalFilter` component', () => {
         expect(emit).toHaveBeenCalledTimes(2);
         expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter, {
           target: filterWrapper.element,
-          moduleName: 'facets'
+          moduleName: 'facets',
+          location: undefined,
+          replaceable: true
         });
         expect(emit).toHaveBeenCalledWith('UserClickedAHierarchicalFilter', filter, {
           target: filterWrapper.element,
-          moduleName: 'facets'
+          moduleName: 'facets',
+          location: undefined,
+          replaceable: true
         });
       });
     });
@@ -347,16 +378,22 @@ describe('testing `HierarchicalFilter` component', () => {
         ['UserClickedAFilter', 'UserClickedAHierarchicalFilter'].forEach(event => {
           expect(emit).toHaveBeenCalledWith(event, filter, {
             target: filterWrapper.element,
-            moduleName: 'facets'
+            moduleName: 'facets',
+            location: undefined,
+            replaceable: true
           });
         });
         expect(emit).toHaveBeenCalledWith('UserAcceptedAQuery', 'potato', {
           target: filterWrapper.element,
-          moduleName: 'facets'
+          moduleName: 'facets',
+          location: undefined,
+          replaceable: true
         });
         expect(emit).toHaveBeenCalledWith('UserBlurredSearchBox', undefined, {
           target: filterWrapper.element,
-          moduleName: 'facets'
+          moduleName: 'facets',
+          location: undefined,
+          replaceable: true
         });
       });
     });
@@ -403,15 +440,15 @@ describe('testing `HierarchicalFilter` component', () => {
       const grandChild0Data = getFilters()[2];
       expect(grandChild0Wrapper.classes()).toHaveLength(2);
       expect(grandChild0Wrapper.classes()).toEqual(
-        expect.arrayContaining(['x-filter', 'x-hierarchical-filter'])
+        expect.arrayContaining(['x-facet-filter', 'x-hierarchical-filter'])
       );
 
       /* Filters with totalResults===0 should be disabled. */
       await mutateFilter(grandChild0Data, { totalResults: 0 });
       expect(grandChild0Wrapper.attributes()).toHaveProperty('disabled');
-      expect(grandChild0Wrapper.classes()).toHaveLength(3);
+      expect(grandChild0Wrapper.classes()).toHaveLength(2);
       expect(grandChild0Wrapper.classes()).toEqual(
-        expect.arrayContaining(['x-filter', 'x-hierarchical-filter', 'x-filter--is-disabled'])
+        expect.arrayContaining(['x-facet-filter', 'x-hierarchical-filter'])
       );
 
       /* As grand-child-0 is deselected and grand-child-1 selected, child-0 should have partial
@@ -422,9 +459,9 @@ describe('testing `HierarchicalFilter` component', () => {
       expect(child0Wrapper.classes()).toHaveLength(6);
       expect(child0Wrapper.classes()).toEqual(
         expect.arrayContaining([
-          'x-filter',
-          'x-filter--is-selected',
-          'x-filter--is-partially-selected',
+          'x-facet-filter',
+          'x-selected',
+          'x-facet-filter--is-partially-selected',
           'x-hierarchical-filter',
           'x-hierarchical-filter--is-selected',
           'x-hierarchical-filter--is-partially-selected'
@@ -437,9 +474,9 @@ describe('testing `HierarchicalFilter` component', () => {
       expect(grandChild0Wrapper.classes()).toHaveLength(4);
       expect(grandChild0Wrapper.classes()).toEqual(
         expect.arrayContaining([
-          'x-filter',
+          'x-facet-filter',
           'x-hierarchical-filter',
-          'x-filter--is-selected',
+          'x-selected',
           'x-hierarchical-filter--is-selected'
         ])
       );
@@ -447,19 +484,59 @@ describe('testing `HierarchicalFilter` component', () => {
       expect(child0Wrapper.classes()).toHaveLength(4);
       expect(child0Wrapper.classes()).toEqual(
         expect.arrayContaining([
-          'x-filter',
-          'x-filter--is-selected',
+          'x-facet-filter',
+          'x-selected',
           'x-hierarchical-filter',
           'x-hierarchical-filter--is-selected'
         ])
       );
+    });
+
+    it('allows adding classes to the inner filters lists', () => {
+      const { hierarchicalFilterWrapper } = renderHierarchicalFilter({
+        childrenFiltersClass: 'custom-class',
+        facet: createHierarchicalFacetStub('category', createFilter => [
+          createFilter('root', false, createFilter => [
+            createFilter('filter 1', true),
+            createFilter('filter 2', false, createFilter => [createFilter('filter 3', false)])
+          ])
+        ])
+      });
+
+      const wrappers = hierarchicalFilterWrapper.findAll(getDataTestSelector('children-filters'));
+      expect(wrappers).toHaveLength(2);
+
+      wrappers.wrappers.forEach(wrapper => {
+        expect(wrapper.classes('custom-class')).toBe(true);
+      });
+    });
+
+    it('allows adding classes to the filter item', () => {
+      const { hierarchicalFilterWrapper } = renderHierarchicalFilter({
+        filterItemClass: 'custom-class',
+        facet: createHierarchicalFacetStub('category', createFilter => [
+          createFilter('root', false, createFilter => [
+            createFilter('filter 1', true),
+            createFilter('filter 2', false, createFilter => [createFilter('filter 3', false)])
+          ])
+        ])
+      });
+
+      const wrappers = hierarchicalFilterWrapper.findAll(getDataTestSelector('filter'));
+      expect(wrappers).toHaveLength(4);
+
+      wrappers.wrappers.forEach(wrapper => {
+        expect(wrapper.classes('custom-class')).toBe(true);
+      });
     });
   });
 });
 
 interface HierarchicalFilterOptions {
   clickEvents?: Partial<XEventsTypes>;
-  filter?: HierarchicalFilterModel;
+  facet?: HierarchicalFacet;
+  childrenFiltersClass?: string;
+  filterItemClass?: string;
   template?: string;
 }
 

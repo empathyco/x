@@ -5,6 +5,11 @@ import { identifierResultsRequestMapper } from '../mappers/requests/identifier-r
 // eslint-disable-next-line max-len
 import { identifierResultsResponseMapper } from '../mappers/responses/identifier-results-response.mapper';
 
+/**
+ * Default adapter for the identifier results endpoint.
+ *
+ * @public
+ */
 export const identifierResultsEndpointAdapter = endpointAdapterFactory<
   IdentifierResultsRequest,
   IdentifierResultsResponse

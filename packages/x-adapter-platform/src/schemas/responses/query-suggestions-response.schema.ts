@@ -4,6 +4,11 @@ import { QuerySuggestionsResponse } from '@empathyco/x-types';
 import { PlatformQuerySuggestionsResponse } from '../../types/responses/query-suggestions-response.model';
 import { suggestionSchema } from '../models/suggestion.schema';
 
+/**
+ * Default implementation for the QuerySuggestionsResponseSchema.
+ *
+ * @public
+ */
 export const querySuggestionsResponseSchema = createMutableSchema<
   PlatformQuerySuggestionsResponse,
   QuerySuggestionsResponse

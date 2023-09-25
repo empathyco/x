@@ -2,12 +2,13 @@
   <NoElement v-if="queryPreviewResults && queryPreviewResults.totalResults">
     <!--
       @slot Query Preview default slot.
-          @binding {string} query - query
+          @binding {QueryPreviewInfo} queryPreviewInfo - The information about the request of the
+          query preview
           @binding {Result[]} results - The results preview of the query preview
           @binding {number} totalResults - The total results of the search request
     -->
     <slot
-      :query="query"
+      :queryPreviewInfo="queryPreviewInfo"
       :results="queryPreviewResults.results"
       :totalResults="queryPreviewResults.totalResults"
     >
@@ -21,7 +22,7 @@
           <!--
           @slot Query Preview result slot.
               @binding {Result} result - A Query Preview result
-        -->
+          -->
           <slot name="result" :result="result">
             <span data-test="result-name">{{ result.name }}</span>
           </slot>
@@ -34,20 +35,22 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Prop, Inject, Watch } from 'vue-property-decorator';
-  import { Dictionary } from '@empathyco/x-utils';
-  import { SearchRequest, Result } from '@empathyco/x-types';
+  import { SearchRequest, Result, Filter } from '@empathyco/x-types';
+  import { deepEqual, Dictionary } from '@empathyco/x-utils';
   import { State } from '../../../components/decorators/store.decorators';
   import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
   import { XProvide } from '../../../components/decorators/injection.decorators';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { NoElement } from '../../../components/no-element';
+  import { RequestStatus } from '../../../store';
   import { QueryFeature, FeatureLocation } from '../../../types/origin';
-  import { QueryPreviewItem } from '../store/types';
+  import { QueryPreviewInfo, QueryPreviewItem } from '../store/types';
   import { QueriesPreviewConfig } from '../config.types';
   import { queriesPreviewXModule } from '../x-module';
   import { createOrigin } from '../../../utils/origin';
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils';
+  import { createRawFilter } from '../../../__stubs__/index';
 
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,
@@ -64,14 +67,12 @@
   })
   export default class QueryPreview extends Vue {
     /**
-     * The query to retrieve the results preview.
+     * The information about the request of the query preview.
      *
      * @public
      */
-    @Prop({
-      required: true
-    })
-    protected query!: string;
+    @Prop({ required: true })
+    protected queryPreviewInfo!: QueryPreviewInfo;
 
     /**
      * The origin property for the request.
@@ -96,6 +97,15 @@
      */
     @Prop({ default: 0 })
     public debounceTimeMs!: number;
+
+    /**
+     * Controls whether the QueryPreview should be removed from the state
+     * when the component is destroyed.
+     *
+     * @public
+     */
+    @Prop({ default: true })
+    public clearOnDestroy!: boolean;
 
     /**
      * The results preview of the queries preview mounted.
@@ -152,13 +162,41 @@
         feature: this.queryFeature,
         location: this.location
       });
+      const filters = this.queryPreviewInfo.filters?.reduce(
+        (filtersList, filterId) => {
+          const facetId = filterId.split(':')[0];
+          const rawFilter = createRawFilter(filterId);
+          filtersList[facetId] = filtersList[facetId]
+            ? filtersList[facetId].concat(rawFilter)
+            : [rawFilter];
+
+          return filtersList;
+        },
+        {} as Record<string, Filter[]>
+      );
 
       return {
-        query: this.query,
+        query: this.queryPreviewInfo.query,
         rows: this.config.maxItemsToRequest,
-        extraParams: this.params,
+        extraParams: { ...this.params, ...this.queryPreviewInfo.extraParams },
+        filters: filters,
         ...(origin && { origin })
       };
+    }
+
+    /**
+     * Gets from the state the results preview of the query preview.
+     *
+     * @returns The results preview of the actual query preview.
+     */
+    public get queryPreviewResults(): Partial<QueryPreviewItem> | undefined {
+      const previewResults = this.previewResults[this.queryPreviewInfo.query];
+      return previewResults?.results
+        ? {
+            ...previewResults,
+            results: previewResults.results.slice(0, this.maxItemsToRender)
+          }
+        : undefined;
     }
 
     /**
@@ -167,9 +205,9 @@
      * @returns The search request object.
      * @internal
      */
-    protected get emitQueryPreviewRequestChanged(): DebouncedFunction<[SearchRequest]> {
+    protected get emitQueryPreviewRequestUpdated(): DebouncedFunction<[SearchRequest]> {
       return debounce(request => {
-        this.$x.emit('QueryPreviewRequestChanged', request);
+        this.$x.emit('QueryPreviewRequestUpdated', request, { priority: 0, replaceable: false });
       }, this.debounceTimeMs);
     }
 
@@ -181,19 +219,32 @@
     protected created(): void {
       this.$watch(
         () => this.queryPreviewRequest,
-        request => this.emitQueryPreviewRequestChanged(request)
+        (newRequest, oldRequest) => {
+          if (!deepEqual(newRequest, oldRequest)) {
+            this.emitQueryPreviewRequestUpdated(newRequest);
+          }
+        }
       );
-      this.emitQueryPreviewRequestChanged(this.queryPreviewRequest);
+      this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
     }
 
     /**
      * Cancels the (remaining) requests when the component is destroyed
      * via the `debounce.cancel()` method.
+     * If the prop 'clearOnDestroy' is set to true, it also removes the QueryPreview
+     * from the state when the component is destroyed.
      *
      * @internal
      */
     protected beforeDestroy(): void {
-      this.emitQueryPreviewRequestChanged.cancel();
+      this.emitQueryPreviewRequestUpdated.cancel();
+
+      if (this.clearOnDestroy) {
+        this.$x.emit('QueryPreviewUnmountedHook', this.queryPreviewInfo.query, {
+          priority: 0,
+          replaceable: false
+        });
+      }
     }
 
     /**
@@ -204,8 +255,8 @@
      * @param old - The previous debounced function.
      * @internal
      */
-    @Watch('emitQueryPreviewRequestChanged')
-    protected cancelEmitPreviewRequestChanged(
+    @Watch('emitQueryPreviewRequestUpdated')
+    protected cancelEmitPreviewRequestUpdated(
       _new: DebouncedFunction<[SearchRequest]>,
       old: DebouncedFunction<[SearchRequest]>
     ): void {
@@ -213,18 +264,18 @@
     }
 
     /**
-     * Gets from the state the results preview of the query preview.
+     * Emits an event when the query results are loaded or fail to load.
      *
-     * @returns The results preview of the actual query preview.
+     * @param status - The status of the query preview request.
+     * @internal
      */
-    public get queryPreviewResults(): Partial<QueryPreviewItem> | undefined {
-      const previewResults = this.previewResults[this.query];
-      return previewResults?.results
-        ? {
-            totalResults: previewResults.totalResults,
-            results: previewResults.results.slice(0, this.maxItemsToRender)
-          }
-        : undefined;
+    @Watch('queryPreviewResults.status')
+    emitLoad(status: RequestStatus | undefined): void {
+      if (status === 'success') {
+        this.$emit(this.results?.length ? 'load' : 'error', this.queryPreviewInfo.query);
+      } else if (status === 'error') {
+        this.$emit('error', this.queryPreviewInfo.query);
+      }
     }
   }
 </script>
@@ -233,8 +284,16 @@
 
 A list of events that the component will emit:
 
-- `QueryPreviewRequestChanged`: the event is emitted when the component is mounted and when the
-  properties of the request object changes. The event payload is the `queryPreviewRequest` object.
+- [`QueryPreviewRequestUpdated`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted when the component is mounted and when the properties of the request object
+  changes. The event payload is the `queryPreviewRequest` object.
+
+## Vue Events
+
+A list of vue events that the component will emit:
+
+- `load`: the event is emitted when the query results have been loaded.
+- `error`: the event is emitted if there is some error when retrieving the query results.
 
 ## See it in action
 
@@ -244,7 +303,7 @@ results.
 
 ```vue live
 <template>
-  <QueryPreview :query="query" />
+  <QueryPreview :queryPreviewInfo="queryPreviewInfo" />
 </template>
 
 <script>
@@ -257,7 +316,7 @@ results.
     },
     data() {
       return {
-        query: 'sandals'
+        queryPreviewInfo: { query: 'sandals' }
       };
     }
   };
@@ -270,7 +329,7 @@ In this example, the results will be rendered inside a sliding panel.
 
 ```vue live
 <template>
-  <QueryPreview :query="query" #default="{ totalResults, results }">
+  <QueryPreview :queryPreviewInfo="queryPreviewInfo" #default="{ totalResults, results }">
     <section>
       <p>Total results: {{ totalResults }}</p>
       <SlidingPanel :resetOnContentChange="false">
@@ -308,7 +367,7 @@ In this example, the results will be rendered inside a sliding panel.
     },
     data() {
       return {
-        query: 'flip-flops'
+        queryPreviewInfo: { query: 'flip-flops' }
       };
     }
   };
@@ -323,7 +382,7 @@ In this example, the ID of the results will be rendered along with the name.
 
 ```vue live
 <template>
-  <QueryPreview :query="query" #result="{ result }">
+  <QueryPreview :queryPreviewInfo="queryPreviewInfo" #result="{ result }">
     <span>{{ result.id }}</span>
     <span>{{ result.name }}</span>
   </QueryPreview>
@@ -339,7 +398,7 @@ In this example, the ID of the results will be rendered along with the name.
     },
     data() {
       return {
-        query: 'flips-flops'
+        queryPreviewInfo: { query: 'flip-flops' }
       };
     }
   };
@@ -352,7 +411,11 @@ In this example, the query preview has been limited to render a maximum of 4 res
 
 ```vue live
 <template>
-  <QueryPreview :maxItemsToRender="maxItemsToRender" :query="query" #default="{ results }">
+  <QueryPreview
+    :maxItemsToRender="maxItemsToRender"
+    :queryPreviewInfo="queryPreviewInfo"
+    #default="{ results }"
+  >
     <BaseGrid #default="{ item }" :items="results">
       <BaseResultLink :result="item">
         <BaseResultImage :result="item" />
@@ -376,7 +439,7 @@ In this example, the query preview has been limited to render a maximum of 4 res
     data() {
       return {
         maxItemsToRender: 4,
-        query: 'flips-flops'
+        queryPreviewInfo: { query: 'flip-flops' }
       };
     }
   };

@@ -6,6 +6,7 @@ import {
 } from '../../wiring/namespaced-wires.factory';
 import { WirePayload } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
+import { createRawFilters } from '../../utils/filters';
 import { InternalSearchRequest } from './types';
 
 /**
@@ -14,6 +15,7 @@ import { InternalSearchRequest } from './types';
  * @internal
  */
 const moduleName = 'search';
+
 /**
  * WireCommit for {@link SearchXModule}.
  *
@@ -129,6 +131,20 @@ export const setSearchPage = wireCommit('setPage');
 export const setSearchExtraParams = wireCommit('setParams');
 
 /**
+ * Resets the search state `isNoResults`.
+ *
+ * @public
+ */
+export const resetIsNoResults = wireCommit('setIsNoResults', false);
+
+/**
+ * Resets the search state `fromNoResultsWithFilters`.
+ *
+ * @public
+ */
+export const resetFromNoResultsWithFilters = wireCommit('setFromNoResultsWithFilters', false);
+
+/**
  * Increases the current search state `page` by one.
  *
  * @public
@@ -169,6 +185,36 @@ export const resetStateIfNoRequestWire = filterTruthyPayload<InternalSearchReque
 );
 
 /**
+ * Sets the search state `query` with the selectedQueryPreview's query.
+ *
+ * @public
+ */
+export const setSearchQueryFromPreview = wireCommit(
+  'setQuery',
+  ({ eventPayload: { query } }) => query
+);
+
+/**
+ * Sets the search state `params` with the selectedQueryPreview's extraParams.
+ *
+ * @public
+ */
+export const setSearchExtraParamsFromPreview = wireCommit(
+  'setParams',
+  ({ eventPayload: { extraParams } }) => extraParams
+);
+
+/**
+ * Sets the search state `selectedFilters` with the selectedQueryPreview's filters.
+ *
+ * @public
+ */
+export const setSearchSelectedFiltersFromPreview = wireCommit(
+  'setSelectedFilters',
+  ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : [])
+);
+
+/**
  * Search wiring.
  *
  * @internal
@@ -187,7 +233,9 @@ export const searchWiring = createWiring({
   },
   UserClearedQuery: {
     setSearchQuery,
-    cancelFetchAndSaveSearchResponseWire
+    cancelFetchAndSaveSearchResponseWire,
+    resetFromNoResultsWithFilters,
+    resetIsNoResults
   },
   UserClickedASort: {
     setSort
@@ -198,17 +246,17 @@ export const searchWiring = createWiring({
   UserReachedResultsListEnd: {
     increasePageAppendingResultsWire
   },
-  SearchRequestChanged: {
+  SearchRequestUpdated: {
     resetStateIfNoRequestWire,
     fetchAndSaveSearchResponseWire
   },
-  SearchRequestUpdated: {
+  SearchRequestChanged: {
     resetRequestOnRefinementWire
   },
   SelectedRelatedTagsChanged: {
     setRelatedTags
   },
-  SelectedFiltersChanged: {
+  SelectedFiltersForRequestChanged: {
     setSelectedFilters
   },
   ResultsChanged: {
@@ -225,5 +273,14 @@ export const searchWiring = createWiring({
   },
   UserClickedOutOfMainModal: {
     clearSearchQuery
+  },
+  UserAcceptedAQueryPreview: {
+    setSearchQueryFromPreview,
+    setSearchExtraParamsFromPreview,
+    setSearchSelectedFiltersFromPreview,
+    saveOriginWire
+  },
+  QueryPreviewUnselected: {
+    setSearchExtraParams
   }
 });

@@ -166,7 +166,9 @@ describe('testing ClearFilters component', () => {
       eventPayload: facetsIds,
       metadata: {
         moduleName: 'facets',
-        target: wrapper.element
+        target: wrapper.element,
+        location: undefined,
+        replaceable: true
       }
     });
   });
@@ -185,7 +187,9 @@ describe('testing ClearFilters component', () => {
       eventPayload: undefined,
       metadata: {
         moduleName: 'facets',
-        target: wrapper.element
+        target: wrapper.element,
+        location: undefined,
+        replaceable: true
       }
     });
   });

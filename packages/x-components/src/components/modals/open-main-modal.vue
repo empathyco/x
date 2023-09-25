@@ -10,8 +10,7 @@
 </template>
 
 <script lang="ts">
-  import Component from 'vue-class-component';
-  import Vue from 'vue';
+  import { defineComponent } from 'vue';
   import { XEvent } from '../../wiring/events.types';
   import BaseEventsModalOpen from './base-events-modal-open.vue';
 
@@ -20,19 +19,23 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
     components: {
       BaseEventsModalOpen
+    },
+    setup() {
+      /**
+       * Event to be emitted to open the {@link MainModal}.
+       *
+       * @internal
+       */
+      const openingEvent: XEvent = 'UserClickedOpenX';
+
+      return {
+        openingEvent
+      };
     }
-  })
-  export default class OpenMainModal extends Vue {
-    /**
-     * Event to be emitted to open the {@link MainModal}.
-     *
-     * @internal
-     */
-    protected openingEvent: XEvent = 'UserClickedOpenX';
-  }
+  });
 </script>
 
 <docs lang="mdx">
@@ -40,7 +43,7 @@
 
 This component emits the following events:
 
-- [`UserClickedOpenX`](./../../api/x-components.xeventstypes.md)
+- [`UserClickedOpenX`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
 
 ## See it in action
 

@@ -25,11 +25,14 @@ import { SearchXStoreModule } from './types';
 export const searchXStoreModule: SearchXStoreModule = {
   state: () => ({
     ...resettableState(),
+    selectedFilters: {},
     params: {},
     config: {
       pageSize: 24
     },
-    status: 'initial'
+    status: 'initial',
+    isNoResults: false,
+    fromNoResultsWithFilters: false
   }),
   getters: {
     request,
@@ -84,6 +87,12 @@ export const searchXStoreModule: SearchXStoreModule = {
     setIsAppendResults(state, isAppendResults) {
       state.isAppendResults = isAppendResults;
     },
+    setIsNoResults(state, isNoResults) {
+      state.isNoResults = isNoResults;
+    },
+    setFromNoResultsWithFilters(state, fromNoResultsWithFilters) {
+      state.fromNoResultsWithFilters = fromNoResultsWithFilters;
+    },
     setStatus,
     setParams(state, params) {
       state.params = params;
@@ -134,7 +143,6 @@ export function resettableState() {
     relatedTags: [],
     banners: [],
     promoteds: [],
-    selectedFilters: {},
     totalResults: 0,
     spellcheckedQuery: '',
     sort: '',

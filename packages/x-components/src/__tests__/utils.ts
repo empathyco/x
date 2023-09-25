@@ -11,10 +11,10 @@ import {
   PopularSearchesResponse,
   QuerySuggestionsResponse,
   RelatedTagsResponse,
-  SearchResponse
+  SearchResponse,
+  SemanticQueriesResponse
 } from '@empathyco/x-types';
 import { XPluginOptions } from '../plugins';
-import { BaseXBus } from '../plugins/x-bus';
 import { XPlugin } from '../plugins/x-plugin';
 import { ActionsDictionary } from '../store/actions.types';
 import { MutationsDictionary } from '../store/mutations.types';
@@ -22,6 +22,7 @@ import { RootXStoreState, XStoreModule } from '../store/store.types';
 import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
 import { ExtractState, XModule, XModuleName } from '../x-modules/x-modules.types';
 import { XComponentsAdapterDummy } from './adapter.dummy';
+import { XDummyBus } from './bus.dummy';
 import Mock = jest.Mock;
 
 export type MockedXComponentsAdapter = {
@@ -42,6 +43,7 @@ interface MockedAdapterFeatures {
   recommendations: RecommendationsResponse;
   relatedTags: RelatedTagsResponse;
   search: SearchResponse;
+  semanticQueries: SemanticQueriesResponse;
   tagging: void;
 }
 
@@ -155,6 +157,7 @@ export function getMockedAdapter(
     recommendations: getMockedAdapterFunction(responseFeatures?.recommendations!),
     relatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!),
     search: getMockedAdapterFunction(responseFeatures?.search!),
+    semanticQueries: getMockedAdapterFunction(responseFeatures?.semanticQueries!),
     tagging: getMockedAdapterFunction(undefined)
     /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
   };
@@ -190,7 +193,7 @@ export function installNewXPlugin(
   localVue: typeof Vue = createLocalVue()
 ): [XPlugin, typeof Vue] {
   XPlugin.resetInstance();
-  const xPlugin = new XPlugin(new BaseXBus());
+  const xPlugin = new XPlugin(new XDummyBus());
   const installOptions: XPluginOptions = {
     adapter: XComponentsAdapterDummy,
     ...options

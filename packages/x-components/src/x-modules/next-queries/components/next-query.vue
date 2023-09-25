@@ -59,7 +59,7 @@
     /**
      * Events list which are going to be emitted when a next query is selected.
      *
-     * @returns The {@link XEvent | XEvents} to emit.
+     * @returns The {@link XEvent} to emit.
      * @public
      */
     protected get events(): Partial<XEventsTypes> {
@@ -82,6 +82,19 @@
 </script>
 
 <docs lang="mdx">
+## Dynamic Classes
+
+`NextQuery` uses the following dynamic CSS classes so you can style it when is:
+
+- Curated: `x-next-query--is-curated`.
+
+## Events
+
+A list of events that the component will emit:
+
+- [`UserSelectedANextQuery`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
+  the event is emitted after the user clicks the button. The event payload is the next query data.
+
 ## Examples
 
 This components expects just a suggestion as a prop to be rendered. It has a slot to override the
@@ -155,17 +168,4 @@ The default slot allows you to replace the content of the suggestion button.
   };
 </script>
 ```
-
-## Dynamic Classes
-
-`NextQuery` uses the following dynamic CSS classes so you can style it when is:
-
-- Curated: `x-next-query--is-curated`.
-
-## Events
-
-A list of events that the component will emit:
-
-- `UserSelectedANextQuery`: the event is emitted after the user clicks the button. The event payload
-  is the next query data.
 </docs>

@@ -14,8 +14,3 @@ When('selecting store {string}', (store: string) => {
   cy.getByDataTest('store-selector').getByDataTest('dropdown-toggle').click();
   cy.getByDataTest('store-selector').contains(store).click();
 });
-
-// Scenario 5
-When('{string} replaces current query', (query: string) => {
-  cy.replaceQuery(query);
-});
