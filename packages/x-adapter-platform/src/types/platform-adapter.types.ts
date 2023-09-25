@@ -16,11 +16,11 @@ import {
   SemanticQueriesRequest,
   SemanticQueriesResponse,
   TaggingRequest,
+  ExperienceControlsRequest,
   XComponentsAdapter
 } from '@empathyco/x-types';
 import { ExtendableEndpointAdapter } from '@empathyco/x-adapter';
 // eslint-disable-next-line max-len
-import { ExperienceControlsRequest } from '../../../x-types/src/request/experience-controls-request.model';
 
 /**
  * Platform adapter interface.

@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-len
 import { createMutableSchema } from '@empathyco/x-adapter';
 // eslint-disable-next-line max-len
-import { ExperienceControlsRequest } from '../../../../x-types/src/request/experience-controls-request.model';
+import { ExperienceControlsRequest } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { PlatformExperienceControlsRequest } from '../../types/requests/experience-controls-request.model';
 
