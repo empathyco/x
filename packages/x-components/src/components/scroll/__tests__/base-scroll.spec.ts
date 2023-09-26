@@ -241,10 +241,8 @@ interface RenderBaseScrollOptions {
   clientHeight?: number;
   /** Distance to the end of the scroll. */
   distanceToBottom?: number;
-  /**
-   * Flag to enable or disable resetting the scroll when the events at {@link BaseScroll.resetOn}
-   * are emitted.
-   */
+  /** Flag to enable or disable resetting the scroll when the events at {@link BaseScroll.resetOn}
+   * are emitted. */
   resetOnChange?: boolean;
   /** List of events to reset the scroll when they are emitted. */
   resetOn?: XEvent[];

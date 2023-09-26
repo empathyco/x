@@ -395,9 +395,8 @@
     &__collapse-aside {
       width: calc(
         (
-            100% - var(--x-size-gap-default) * (var(--x-number-columns-layout-columns, 5)) - var(
-                --x-size-margin-layout-columns
-              )
+            100% - var(--x-size-gap-default) * (var(--x-number-columns-layout-columns, 5)) -
+              var(--x-size-margin-layout-columns)
           ) / var(--x-number-columns-layout-columns, 5) + var(--x-size-gap-default)
       );
     }
