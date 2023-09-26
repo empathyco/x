@@ -17,10 +17,6 @@ describe('testing experience controls module actions', () => {
 
   describe('fetchControls', () => {
     it('should return controls', async () => {
-      resetExperienceControlsStateWith(store, {
-        controls: { numberOfCarousels: 10, resultsPerCarousels: 21 }
-      });
-
       const response = await store.dispatch('fetchExperienceControlsResponse');
       expect(response.controls).toEqual(mockedControls);
     });
