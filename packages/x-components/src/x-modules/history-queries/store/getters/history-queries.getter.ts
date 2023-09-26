@@ -25,14 +25,13 @@ export class HistoryQueriesGetter implements GettersClass<HistoryQueriesXStoreMo
   }
 
   /**
-   * Creates a function for searching in the history queries array the items
-   * that match the current query.
+   * Creates a function for searching in the history queries array the items that match the current
+   * query.
    *
    * @param normalizedQuery - The normalized query for search into the array.
-   * @param hideIfEqualsQuery - If `true`, removes items that are exactly like
-   * the current query.
-   * @returns A filter function for searching into the array of history queries with
-   * the provided params.
+   * @param hideIfEqualsQuery - If `true`, removes items that are exactly like the current query.
+   * @returns A filter function for searching into the array of history queries with the provided
+   * params.
    * @internal
    */
   protected searchInHistoryQueries(
@@ -51,8 +50,10 @@ export class HistoryQueriesGetter implements GettersClass<HistoryQueriesXStoreMo
 
 const historyQueriesGetter = new HistoryQueriesGetter();
 
+// eslint-disable-next-line jsdoc/require-description-complete-sentence
 /**
- * @public
  * {@inheritDoc HistoryQueriesGetter.historyQueries}
+ *
+ * @public
  */
 export const historyQueries = historyQueriesGetter.historyQueries.bind(historyQueriesGetter);
