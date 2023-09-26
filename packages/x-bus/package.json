@@ -42,11 +42,11 @@
     "@empathyco/x-priority-queue": "^1.0.0-alpha.4",
     "@empathyco/x-utils": "^1.0.0-alpha.23",
     "rxjs": "~7.8.0",
-    "tslib": "~2.5.0"
+    "tslib": "~2.6.0"
   },
   "devDependencies": {
     "@types/jest": "~27.5.0",
-    "concurrently": "~8.1.0",
+    "concurrently": "~8.2.0",
     "jest": "~27.5.0",
     "rimraf": "~3.0.2",
     "ts-jest": "~27.1.0",
