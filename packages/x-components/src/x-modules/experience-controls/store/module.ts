@@ -1,3 +1,4 @@
+import { setStatus } from '../../../store/utils/status-store.utils';
 import { fetchAndSaveExperienceControlsResponse } from './actions/fetch-and-save-controls.action';
 import { fetchExperienceControlsResponse } from './actions/fetch-controls.action';
 import { ExperienceControlsXStoreModule } from './types';
@@ -22,6 +23,7 @@ export const experienceControlsXStoreModule: ExperienceControlsXStoreModule = {
     setEvents(state, events) {
       Object.assign(state.events, events);
     },
+    setStatus,
     setParams(state, params) {
       state.params = params;
     }
