@@ -1,11 +1,11 @@
 import { endpointAdapterFactory } from '@empathyco/x-adapter';
-// eslint-disable-next-line max-len
 import { ExperienceControlsRequest } from '@empathyco/x-types';
+import { experienceControlsRequestMapper } from '../mappers';
 
 /**.
  * Default adapter for the experience controls endpoint.
  *
- * TODO: change RequestMapper and ResponseMapper
+ * TODO: change ResponseMapper
  *
  * @public
  */
@@ -13,15 +13,13 @@ export const experienceControlsEndpointAdapter = endpointAdapterFactory<
   ExperienceControlsRequest,
   any
 >({
-  endpoint:
-    'https://config-service.internal.test.empathy.co/public/configs' +
-    '?service=xcontrols&instance={extraParams.instance}',
-  requestMapper: undefined,
+  endpoint: 'https://config-service.internal.test.empathy.co/public/configs',
+  requestMapper: experienceControlsRequestMapper,
   responseMapper: undefined,
   defaultRequestOptions: {
     id: 'experience-controls',
     parameters: {
-      internal: true
+      service: 'xcontrols'
     }
   }
 });

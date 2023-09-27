@@ -32,5 +32,5 @@ export interface XComponentsAdapter {
   identifierResults: EndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
   tagging: EndpointAdapter<TaggingRequest, void>;
   semanticQueries: EndpointAdapter<SemanticQueriesRequest, SemanticQueriesResponse>;
-  experienceControls: EndpointAdapter<ExperienceControlsRequest, void>;
+  experienceControls: EndpointAdapter<ExperienceControlsRequest, any>;
 }
