@@ -158,7 +158,8 @@ export function getMockedAdapter(
     relatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!),
     search: getMockedAdapterFunction(responseFeatures?.search!),
     semanticQueries: getMockedAdapterFunction(responseFeatures?.semanticQueries!),
-    tagging: getMockedAdapterFunction(undefined)
+    tagging: getMockedAdapterFunction(undefined),
+    experienceControls: getMockedAdapterFunction(undefined)
     /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
   };
 }

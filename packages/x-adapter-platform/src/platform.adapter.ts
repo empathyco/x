@@ -9,6 +9,7 @@ import { identifierResultsEndpointAdapter } from './endpoint-adapters/identifier
 import { taggingEndpointAdapter } from './endpoint-adapters/tagging.endpoint-adapter';
 import { querySuggestionsEndpointAdapter } from './endpoint-adapters/query-suggestions.endpoint-adapter';
 import { semanticQueriesEndpointAdapter } from './endpoint-adapters/semantic-queries.endpoint-adapter';
+import { experienceControlsEndpointAdapter } from './endpoint-adapters/experience-controls.endpoint-adapter';
 /* eslint-enable max-len */
 
 /**
@@ -25,5 +26,6 @@ export const platformAdapter: PlatformAdapter = {
   relatedTags: relatedTagsEndpointAdapter,
   identifierResults: identifierResultsEndpointAdapter,
   tagging: taggingEndpointAdapter,
-  semanticQueries: semanticQueriesEndpointAdapter
+  semanticQueries: semanticQueriesEndpointAdapter,
+  experienceControls: experienceControlsEndpointAdapter
 };

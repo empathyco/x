@@ -1,5 +1,6 @@
 import { EndpointAdapter } from '@empathyco/x-adapter';
 import {
+  ExperienceControlsRequest,
   IdentifierResultsRequest,
   NextQueriesRequest,
   PopularSearchesRequest,
@@ -31,4 +32,5 @@ export interface XComponentsAdapter {
   identifierResults: EndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
   tagging: EndpointAdapter<TaggingRequest, void>;
   semanticQueries: EndpointAdapter<SemanticQueriesRequest, SemanticQueriesResponse>;
+  experienceControls: EndpointAdapter<ExperienceControlsRequest, any>;
 }
