@@ -4,6 +4,10 @@ import { createExperienceControlsStore, resetExperienceControlsStateWith } from 
 
 describe('testing experience controls module actions', () => {
   const mockedControls = { numberOfCarousels: 10, resultsPerCarousels: 21 };
+  const mockedResponse = {
+    controls: { numberOfCarousels: 10, resultsPerCarousels: 21 },
+    events: {}
+  };
   // TODO: Remove this fetchMock when adapter is implemented
   const fetchMock = jest.fn(getFetchMock(mockedControls));
   window.fetch = fetchMock as any;
@@ -18,15 +22,17 @@ describe('testing experience controls module actions', () => {
   describe('fetchControls', () => {
     it('should return controls', async () => {
       const response = await store.dispatch('fetchExperienceControlsResponse');
-      expect(response.controls).toEqual(mockedControls);
+      expect(response).toEqual(mockedResponse);
     });
   });
 
   describe('fetchAndSaveControls', () => {
-    it('should request and store controls in the state', async () => {
-      resetExperienceControlsStateWith(store, {
-        controls: { numberOfCarousels: 10, resultsPerCarousels: 21 }
-      });
+    it('should request and store controls and events in the state', async () => {
+      const mockedResponseWithEvents = {
+        controls: mockedControls,
+        events: { ColumnsNumberProvided: 6 }
+      };
+      resetExperienceControlsStateWith(store, mockedResponseWithEvents);
 
       const actionPromise = store.dispatch(
         'fetchAndSaveExperienceControlsResponse',
@@ -34,7 +40,9 @@ describe('testing experience controls module actions', () => {
       );
       expect(store.state.status).toEqual('loading');
       await actionPromise;
-      expect(store.state.controls).toEqual(mockedControls);
+
+      expect(store.state.controls).toEqual(mockedResponseWithEvents.controls);
+      expect(store.state.events).toEqual(mockedResponseWithEvents.events);
       expect(store.state.status).toEqual('success');
     });
   });
