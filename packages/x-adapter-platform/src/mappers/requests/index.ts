@@ -7,3 +7,4 @@ export * from './related-tags-request.mapper';
 export * from './search-request.mapper';
 export * from './semantic-queries-request.mapper';
 export * from './tagging-request.mapper';
+export * from './experience-controls-request.mapper';
