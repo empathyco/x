@@ -9,10 +9,8 @@ const FORMAT_REGEX = /(i([^id]+))?i+(([^id?]+)(d+)(\?)?)?/;
 interface CurrencyConfig {
   /** The character between a group of three integer 'i's and the following one. */
   integerSeparator: string;
-  /**
-   * The character between a group of three integer 'i's and the following one. It also
-   * supports more than one single character.
-   */
+  /** The character between a group of three integer 'i's and the following one. It also
+   * supports more than one single character. */
   decimalSeparator: string;
   /** Length of decimals numbers. It counts the number of 'd's after the integer part. */
   decimalsNumber: number;

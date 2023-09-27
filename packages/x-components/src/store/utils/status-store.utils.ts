@@ -4,10 +4,8 @@
  * @public
  */
 export interface StatusState {
-  /**
-   * The request status. Useful for changing the displayed component depending on whether the
-   * request has succeeded, has not been fulfilled or has failed.
-   */
+  /** The request status. Useful for changing the displayed component depending on whether the
+   * request has succeeded, has not been fulfilled or has failed. */
   status: RequestStatus;
 }
 

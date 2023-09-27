@@ -12,10 +12,7 @@ export class RequestError extends Error {
    *
    * @public
    */
-  public constructor(
-    public readonly message: string,
-    public readonly response: Response
-  ) {
+  public constructor(public readonly message: string, public readonly response: Response) {
     super(message);
   }
 }
