@@ -1,6 +1,7 @@
 import { endpointAdapterFactory } from '@empathyco/x-adapter';
 import { ExperienceControlsRequest } from '@empathyco/x-types';
-import { experienceControlsRequestMapper } from '../mappers';
+// eslint-disable-next-line max-len
+import { experienceControlsRequestMapper } from '../mappers/requests/experience-controls-request.mapper';
 
 /**.
  * Default adapter for the experience controls endpoint.

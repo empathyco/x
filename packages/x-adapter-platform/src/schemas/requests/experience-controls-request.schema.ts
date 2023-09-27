@@ -4,7 +4,7 @@ import { ExperienceControlsRequest } from '@empathyco/x-types';
 import { PlatformExperienceControlsRequest } from '../../types/requests/experience-controls-request.model';
 
 /**
- * Default implementation for the ExperienceControlsSchema.
+ * Default implementation for the ExperienceControlsRequestSchema.
  *
  * @public
  */
