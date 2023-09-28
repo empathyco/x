@@ -12,7 +12,8 @@ import {
   QuerySuggestionsResponse,
   RelatedTagsResponse,
   SearchResponse,
-  SemanticQueriesResponse
+  SemanticQueriesResponse,
+  ExperienceControlsResponse
 } from '@empathyco/x-types';
 import { XPluginOptions } from '../plugins';
 import { XPlugin } from '../plugins/x-plugin';
@@ -45,6 +46,7 @@ interface MockedAdapterFeatures {
   search: SearchResponse;
   semanticQueries: SemanticQueriesResponse;
   tagging: void;
+  experienceControls: ExperienceControlsResponse;
 }
 
 /**
@@ -159,7 +161,7 @@ export function getMockedAdapter(
     search: getMockedAdapterFunction(responseFeatures?.search!),
     semanticQueries: getMockedAdapterFunction(responseFeatures?.semanticQueries!),
     tagging: getMockedAdapterFunction(undefined),
-    experienceControls: getMockedAdapterFunction(undefined)
+    experienceControls: getMockedAdapterFunction(responseFeatures?.experienceControls!)
     /* eslint-enable @typescript-eslint/no-non-null-asserted-optional-chain */
   };
 }

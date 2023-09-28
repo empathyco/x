@@ -19,7 +19,8 @@ import {
   RecommendationsResponse,
   RelatedTagsResponse,
   SearchResponse,
-  SemanticQueriesResponse
+  SemanticQueriesResponse,
+  ExperienceControlsResponse
 } from './response';
 
 export interface XComponentsAdapter {
@@ -32,5 +33,5 @@ export interface XComponentsAdapter {
   identifierResults: EndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
   tagging: EndpointAdapter<TaggingRequest, void>;
   semanticQueries: EndpointAdapter<SemanticQueriesRequest, SemanticQueriesResponse>;
-  experienceControls: EndpointAdapter<ExperienceControlsRequest, any>;
+  experienceControls: EndpointAdapter<ExperienceControlsRequest, ExperienceControlsResponse>;
 }
