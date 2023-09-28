@@ -5,7 +5,4 @@ import { Dictionary } from '@empathyco/x-utils';
  *
  * @public
  */
-export interface PlatformExperienceControlsResponse {
-  controls: Dictionary;
-  events: Dictionary;
-}
+export interface PlatformExperienceControlsResponse extends Dictionary<unknown> {}
