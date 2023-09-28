@@ -1,14 +1,15 @@
 import { schemaMapperFactory } from '@empathyco/x-adapter';
 import { ExperienceControlsResponse } from '@empathyco/x-types';
 import { PlatformExperienceControlsResponse } from '../../types';
-import { experienceControlsSchema } from '../../schemas/models/experience-controls.schema';
+// eslint-disable-next-line max-len
+import { experienceControlsResponseSchema } from '../../schemas/responses/experience-controls-response.schema';
 
 /**
- * Default implementation for the NextQueriesResponseMapper.
+ * Default implementation for the ExperienceControlsResponseMapper.
  *
  * @public
  */
 export const experienceControlsResponseMapper = schemaMapperFactory<
   PlatformExperienceControlsResponse,
   ExperienceControlsResponse
->(experienceControlsSchema);
+>(experienceControlsResponseSchema);

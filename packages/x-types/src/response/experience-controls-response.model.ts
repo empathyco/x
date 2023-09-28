@@ -1,9 +1,10 @@
+import { Dictionary } from '@empathyco/x-utils';
 /**
  * Response for the experience controls endpoint.
  *
  * @public
  */
 export interface ExperienceControlsResponse {
-  numberOfCarousels: number;
-  resultsPerCarousels: number;
+  controls: Dictionary;
+  events: Dictionary;
 }
