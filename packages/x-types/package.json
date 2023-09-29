@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@empathyco/x-adapter": "^8.0.0-alpha.34",
+    "@empathyco/x-utils": "^1.0.0-alpha.23",
     "tslib": "~2.5.0"
   },
   "devDependencies": {
