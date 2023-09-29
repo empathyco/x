@@ -1,4 +1,5 @@
 import { Dictionary } from '@empathyco/x-utils';
+import { ExperienceControlsRequest } from '@empathyco/x-types';
 import { XEventsTypes } from '../../../wiring';
 import { XStoreModule } from '../../../store/store.types';
 import { StatusState, XActionContext } from '../../../store';
@@ -55,18 +56,18 @@ export interface ExperienceControlsActions {
   /**.
    * Fetches the {@link ExperienceControlsState.controls} property.
    *
-   * TODO: change 'any' type
    *
    * @param request - The request to fetch the {@link ExperienceControlsState.controls}.
    * @returns A promise of the {@link ExperienceControlsState.controls}.
    */
-  fetchExperienceControlsResponse(request: any): Promise<{ [key: string]: unknown }>;
+  fetchExperienceControlsResponse(request: ExperienceControlsRequest): Dictionary<unknown>;
 
   /**
    * Fetches and saves the {@link ExperienceControlsState.controls} property.
-   * TODO: change 'any' type.
+   *
+   * @param request - The request to fetch the {@link ExperienceControlsState.controls}.
    */
-  fetchAndSaveExperienceControlsResponse(request: any): void;
+  fetchAndSaveExperienceControlsResponse(request: ExperienceControlsRequest): void;
 }
 
 /**
