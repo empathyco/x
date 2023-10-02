@@ -1,3 +1,4 @@
+import { ExperienceControlsResponse } from '@empathyco/x-types';
 import { ExperienceControlsXStoreModule } from '../types';
 import { XPlugin } from '../../../../plugins/x-plugin';
 
@@ -14,7 +15,8 @@ import { XPlugin } from '../../../../plugins/x-plugin';
  */
 // eslint-disable-next-line max-len
 export const fetchExperienceControlsResponse: ExperienceControlsXStoreModule['actions']['fetchExperienceControlsResponse'] =
-  async (_context, request) => {
-    const { controls } = await XPlugin.adapter.experienceControls(request);
-    return controls;
+  (_context, request) => {
+    return request
+      ? XPlugin.adapter.experienceControls(request).then(response => response)
+      : ({} as ExperienceControlsResponse);
   };

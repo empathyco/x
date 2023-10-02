@@ -1,12 +1,11 @@
 import { ExperienceControlsRequest, ExperienceControlsResponse } from '@empathyco/x-types';
-import { Dictionary } from '@empathyco/x-utils';
 import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
 import { ExperienceControlsActionContext } from '../types';
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   ExperienceControlsActionContext,
   ExperienceControlsRequest,
-  ExperienceControlsResponse | Dictionary<any>
+  ExperienceControlsResponse
 >({
   fetch({ dispatch }, request) {
     return dispatch('fetchExperienceControlsResponse', request);
