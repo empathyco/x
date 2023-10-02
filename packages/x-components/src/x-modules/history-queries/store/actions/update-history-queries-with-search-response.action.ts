@@ -37,7 +37,8 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
           const newHistoryQueries = state.historyQueries.slice();
           newHistoryQueries[indexOfHistoryQuery] = {
             ...historyQuery,
-            totalResults: searchResponse.totalResults
+            totalResults: searchResponse.totalResults,
+            facets: searchResponse.request.filters
           };
           return dispatch('setHistoryQueries', newHistoryQueries);
         }

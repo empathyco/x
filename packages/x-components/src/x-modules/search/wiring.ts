@@ -8,6 +8,7 @@ import { WirePayload } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 import { createRawFilters } from '../../utils/filters';
 import { InternalSearchRequest } from './types';
+import { Facet, Filter } from '@empathyco/x-types';
 
 /**
  * `search` {@link XModuleName | XModule name}.
@@ -215,6 +216,21 @@ export const setSearchSelectedFiltersFromPreview = wireCommit(
 );
 
 /**
+ * Sets the search state `selectedFilters` with a previewable's filters.
+ *
+ * @public
+ */
+export const setSearchSelectedFiltersFromPreviewable = wireCommit(
+  'setSelectedFilters',
+  ({ eventPayload: { facets } }) =>
+    facets
+      ? (facets as Facet[]).reduce<Filter[]>((filters, facet) => {
+          return filters.concat(...facet.filters.filter(filter => filter.selected));
+        }, [])
+      : []
+);
+
+/**
  * Search wiring.
  *
  * @internal
@@ -282,5 +298,8 @@ export const searchWiring = createWiring({
   },
   QueryPreviewUnselected: {
     setSearchExtraParams
+  },
+  UserSelectedAHistoryQuery: {
+    setSearchSelectedFiltersFromPreviewable
   }
 });
