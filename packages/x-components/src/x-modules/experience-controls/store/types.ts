@@ -22,7 +22,13 @@ export interface ExperienceControlsState extends StatusState {
  *
  * @public
  */
-export interface ExperienceControlsGetters {}
+export interface ExperienceControlsGetters {
+  /**
+   * The adapter request object for retrieving the controls request, or null if there is not
+   * valid data to create a request.
+   */
+  experienceControlsResultsRequest: ExperienceControlsRequest | null;
+}
 
 /**
  * Experience Controls store mutations.
@@ -60,14 +66,16 @@ export interface ExperienceControlsActions {
    * @param request - The request to fetch the experience controls.
    * @returns the experience controls.
    */
-  fetchExperienceControlsResponse(request: ExperienceControlsRequest): ExperienceControlsResponse;
+  fetchExperienceControlsResponse(
+    request: ExperienceControlsRequest | null
+  ): ExperienceControlsResponse;
 
   /**
    * Requests the experience controls and saves them in the module.
    *
    * @param request - The request to fetch the experience controls.
    */
-  fetchAndSaveExperienceControlsResponse(request: ExperienceControlsRequest): void;
+  fetchAndSaveExperienceControlsResponse(request: ExperienceControlsRequest | null): void;
 }
 
 /**

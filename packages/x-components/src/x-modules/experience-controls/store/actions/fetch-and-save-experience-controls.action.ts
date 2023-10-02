@@ -4,7 +4,7 @@ import { ExperienceControlsActionContext } from '../types';
 
 const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   ExperienceControlsActionContext,
-  ExperienceControlsRequest,
+  ExperienceControlsRequest | null,
   ExperienceControlsResponse
 >({
   fetch({ dispatch }, request) {

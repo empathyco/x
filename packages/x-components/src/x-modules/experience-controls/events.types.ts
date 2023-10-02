@@ -1,3 +1,4 @@
+import { ExperienceControlsRequest } from '@empathyco/x-types';
 import { XEventsTypes } from '../../wiring';
 
 /**
@@ -7,4 +8,5 @@ import { XEventsTypes } from '../../wiring';
  */
 export interface ExperienceControlsXEvents {
   ExperienceControlsEventsChanged: Partial<XEventsTypes>;
+  ExperienceControlsRequestUpdated: ExperienceControlsRequest | null;
 }

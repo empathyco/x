@@ -9,5 +9,6 @@ import { experienceControlsXStoreModule } from './module';
 export const experienceControlsEmitters = createStoreEmitters(experienceControlsXStoreModule, {
   ExperienceControlsEventsChanged: {
     selector: state => state.events
-  }
+  },
+  ExperienceControlsRequestUpdated: (_, getters) => getters.experienceControlsResultsRequest
 });
