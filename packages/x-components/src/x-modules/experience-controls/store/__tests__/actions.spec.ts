@@ -1,4 +1,4 @@
-import { getFetchMock, installNewXPlugin } from '../../../../__tests__/utils';
+import { getFetchMock, getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { fetchExperienceControlsResponse } from '../actions/fetch-controls.action';
 import { createExperienceControlsStore, resetExperienceControlsStateWith } from './utils';
 
@@ -12,8 +12,10 @@ describe('testing experience controls module actions', () => {
   const fetchMock = jest.fn(getFetchMock(mockedControls));
   window.fetch = fetchMock as any;
 
+  const adapter = getMockedAdapter({ experienceControls: mockedResponse });
+
   const store = createExperienceControlsStore();
-  installNewXPlugin({ store });
+  installNewXPlugin({ adapter, store });
 
   beforeEach(() => {
     resetExperienceControlsStateWith(store);
