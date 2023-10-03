@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import Vue from 'vue';
 import { setStatus } from '../../../store/utils/status-store.utils';
 import { fetchAndSaveExperienceControlsResponse } from './actions/fetch-and-save-experience-controls.action';
 import { fetchExperienceControlsResponse } from './actions/fetch-experience-controls.action';
@@ -23,10 +24,10 @@ export const experienceControlsXStoreModule: ExperienceControlsXStoreModule = {
   },
   mutations: {
     setControls(state, controls) {
-      Object.assign(state.controls, controls);
+      Vue.set(state, 'controls', controls);
     },
     setEvents(state, events) {
-      Object.assign(state.events, events);
+      Vue.set(state, 'events', events);
     },
     setParams(state, params) {
       state.params = params;
