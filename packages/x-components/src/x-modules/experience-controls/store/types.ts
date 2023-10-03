@@ -1,7 +1,9 @@
 import { Dictionary } from '@empathyco/x-utils';
+import { ExperienceControlsRequest, ExperienceControlsResponse } from '@empathyco/x-types';
 import { XEventsTypes } from '../../../wiring';
 import { XStoreModule } from '../../../store/store.types';
-import { StatusState, XActionContext } from '../../../store';
+import { StatusMutations, StatusState, XActionContext } from '../../../store';
+
 /**
  * Experience Controls store state.
  *
@@ -21,14 +23,20 @@ export interface ExperienceControlsState extends StatusState {
  *
  * @public
  */
-export interface ExperienceControlsGetters {}
+export interface ExperienceControlsGetters {
+  /**
+   * The adapter request object for retrieving the controls request, or null if there is not
+   * valid data to create a request.
+   */
+  experienceControlsRequest: ExperienceControlsRequest | null;
+}
 
 /**
  * Experience Controls store mutations.
  *
  * @public
  */
-export interface ExperienceControlsMutations {
+export interface ExperienceControlsMutations extends StatusMutations {
   /**
    * Sets the {@link ExperienceControlsState.controls} property.
    *
@@ -53,20 +61,22 @@ export interface ExperienceControlsMutations {
 
 export interface ExperienceControlsActions {
   /**.
-   * Fetches the {@link ExperienceControlsState.controls} property.
+   * Requests the experience controls
    *
-   * TODO: change 'any' type
    *
-   * @param request - The request to fetch the {@link ExperienceControlsState.controls}.
-   * @returns A promise of the {@link ExperienceControlsState.controls}.
+   * @param request - The request to fetch the experience controls.
+   * @returns the experience controls.
    */
-  fetchExperienceControlsResponse(request: any): Promise<{ [key: string]: unknown }>;
+  fetchExperienceControlsResponse(
+    request: ExperienceControlsRequest | null
+  ): ExperienceControlsResponse;
 
   /**
-   * Fetches and saves the {@link ExperienceControlsState.controls} property.
-   * TODO: change 'any' type.
+   * Requests the experience controls and saves them in the module.
+   *
+   * @param request - The request to fetch the experience controls.
    */
-  fetchAndSaveExperienceControlsResponse(request: any): void;
+  fetchAndSaveExperienceControlsResponse(request: ExperienceControlsRequest | null): void;
 }
 
 /**
