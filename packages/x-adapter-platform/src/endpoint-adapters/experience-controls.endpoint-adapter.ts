@@ -14,7 +14,7 @@ export const experienceControlsEndpointAdapter = endpointAdapterFactory<
   ExperienceControlsRequest,
   ExperienceControlsResponse
 >({
-  endpoint: 'https://config-service.internal.test.empathy.co/public/configs',
+  endpoint: 'https://api.{extraParams.env(.)}empathy.co/config/v1/public/configs',
   requestMapper: experienceControlsRequestMapper,
   responseMapper: experienceControlsResponseMapper,
   defaultRequestOptions: {
