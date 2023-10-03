@@ -1,5 +1,5 @@
 import { getFetchMock, getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
-import { fetchExperienceControlsResponse } from '../actions/fetch-controls.action';
+import { fetchExperienceControlsResponse } from '../actions/fetch-experience-controls.action';
 import { createExperienceControlsStore, resetExperienceControlsStateWith } from './utils';
 
 describe('testing experience controls module actions', () => {
