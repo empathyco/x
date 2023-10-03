@@ -1,7 +1,7 @@
 import { ExperienceControlsXStoreModule } from '../types';
 
 /**
- * Default implementation for the {@link ExperienceControlsGetters.experienceControlsResultsRequest}
+ * Default implementation for the {@link ExperienceControlsGetters.experienceControlsRequest}
  * getter.
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the controls

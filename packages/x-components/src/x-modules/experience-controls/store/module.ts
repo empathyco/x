@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import { setStatus } from '../../../store/utils/status-store.utils';
 import { fetchAndSaveExperienceControlsResponse } from './actions/fetch-and-save-experience-controls.action';
 import { fetchExperienceControlsResponse } from './actions/fetch-experience-controls.action';
 import { experienceControlsRequest } from './getters/experience-controls-results-request.getter';
@@ -29,7 +30,8 @@ export const experienceControlsXStoreModule: ExperienceControlsXStoreModule = {
     },
     setParams(state, params) {
       state.params = params;
-    }
+    },
+    setStatus
   },
   actions: {
     fetchExperienceControlsResponse,

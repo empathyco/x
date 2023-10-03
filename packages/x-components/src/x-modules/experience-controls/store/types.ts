@@ -2,7 +2,8 @@ import { Dictionary } from '@empathyco/x-utils';
 import { ExperienceControlsRequest, ExperienceControlsResponse } from '@empathyco/x-types';
 import { XEventsTypes } from '../../../wiring';
 import { XStoreModule } from '../../../store/store.types';
-import { StatusState, XActionContext } from '../../../store';
+import { StatusMutations, StatusState, XActionContext } from '../../../store';
+
 /**
  * Experience Controls store state.
  *
@@ -35,7 +36,7 @@ export interface ExperienceControlsGetters {
  *
  * @public
  */
-export interface ExperienceControlsMutations {
+export interface ExperienceControlsMutations extends StatusMutations {
   /**
    * Sets the {@link ExperienceControlsState.controls} property.
    *
