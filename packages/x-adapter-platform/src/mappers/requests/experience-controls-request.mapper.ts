@@ -6,7 +6,7 @@ import { experienceControlsRequestSchema } from '../../schemas/requests/experien
 /* eslint-enable max-len */
 
 /**
- * Default mapper for the ExperienceControlsMappers.
+ * Default implementation for the ExperienceControlsRequestMapper.
  *
  * @public
  */
