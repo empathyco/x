@@ -27,7 +27,7 @@ export interface ExperienceControlsGetters {
    * The adapter request object for retrieving the controls request, or null if there is not
    * valid data to create a request.
    */
-  experienceControlsResultsRequest: ExperienceControlsRequest | null;
+  experienceControlsRequest: ExperienceControlsRequest | null;
 }
 
 /**

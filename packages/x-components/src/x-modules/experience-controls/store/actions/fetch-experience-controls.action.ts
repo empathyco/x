@@ -3,13 +3,13 @@ import { ExperienceControlsXStoreModule } from '../types';
 import { XPlugin } from '../../../../plugins/x-plugin';
 
 /**
- * Default implementation for the {@link ExperienceControlsActions.fetchControls}.
+Default implementation for the {@link ExperienceControlsActions.fetchExperienceControlsResponse}.
  *
  * @param _context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
  *
- * @param request - Parameters are empty for this action.
- * @returns 'controls' data with the controls data configuration.
+ * @param request - The experience controls request to make.
+ * @returns A experience controls response.
  *
  * @public
  */

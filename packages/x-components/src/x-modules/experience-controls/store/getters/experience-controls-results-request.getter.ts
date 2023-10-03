@@ -10,13 +10,10 @@ import { ExperienceControlsXStoreModule } from '../types';
  *
  * @public
  */
-
 // eslint-disable-next-line max-len
-export const experienceControlsResultsRequest: ExperienceControlsXStoreModule['getters']['experienceControlsResultsRequest'] =
-  ({ params, controls }) => {
-    return controls
-      ? {
-          extraParams: params
-        }
-      : null;
+export const experienceControlsRequest: ExperienceControlsXStoreModule['getters']['experienceControlsRequest'] =
+  ({ params }) => {
+    return {
+      extraParams: params
+    };
   };
