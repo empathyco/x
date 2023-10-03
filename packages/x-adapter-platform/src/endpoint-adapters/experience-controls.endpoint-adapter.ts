@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { endpointAdapterFactory } from '@empathyco/x-adapter';
-import { ExperienceControlsRequest } from '@empathyco/x-types';
+import { ExperienceControlsRequest, ExperienceControlsResponse } from '@empathyco/x-types';
 import { experienceControlsRequestMapper } from '../mappers/requests/experience-controls-request.mapper';
 import { experienceControlsResponseMapper } from '../mappers/responses/experience-controls-response.mapper';
 /* eslint-enable max-len */
@@ -12,7 +12,7 @@ import { experienceControlsResponseMapper } from '../mappers/responses/experienc
  */
 export const experienceControlsEndpointAdapter = endpointAdapterFactory<
   ExperienceControlsRequest,
-  any
+  ExperienceControlsResponse
 >({
   endpoint: 'https://config-service.internal.test.empathy.co/public/configs',
   requestMapper: experienceControlsRequestMapper,
