@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 importers:
 
@@ -17601,7 +17605,3 @@ packages:
       - supports-color
       - typescript
     dev: true
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

@@ -8,6 +8,7 @@ import { PlatformPopularSearchesResponse } from '../types/responses/popular-sear
 import { PlatformRelatedTagsResponse } from '../types/responses/related-tags-response.model';
 import { PlatformNextQueriesResponse } from '../types/responses/next-queries-response.model';
 import { PlatformSemanticQueriesResponse } from '../types/responses/semantic-queries-response.model';
+import { PlatformExperienceControlsResponse } from '../types';
 import { getFetchMock } from './__mocks__/fetch.mock';
 import { platformIdentifierResultsResponse } from './__fixtures__/identifier-results.response';
 import { platformRecommendationsResponse } from './__fixtures__/recommendations.response';
@@ -634,6 +635,39 @@ describe('platformAdapter tests', () => {
           distance: 456
         }
       ]
+    });
+  });
+
+  it('should call the experiences control adapter', async () => {
+    const platformResponse: PlatformExperienceControlsResponse = {
+      grid: {
+        columns: 2
+      }
+    };
+
+    const fetchMock = jest.fn(getFetchMock(platformResponse));
+    window.fetch = fetchMock as any;
+
+    const response = await platformAdapter.experienceControls({
+      extraParams: {
+        instance: 'empathy',
+        env: 'staging'
+      }
+    });
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledWith(
+      // eslint-disable-next-line max-len
+      'https://api.staging.empathy.co/config/v1/public/configs?service=xcontrols&instance=empathy&env=staging',
+      { signal: expect.anything() }
+    );
+    expect(response).toStrictEqual({
+      controls: {
+        grid: {
+          columns: 2
+        }
+      },
+      events: {}
     });
   });
 });

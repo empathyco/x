@@ -21,7 +21,6 @@ import {
   XComponentsAdapter
 } from '@empathyco/x-types';
 import { ExtendableEndpointAdapter } from '@empathyco/x-adapter';
-// eslint-disable-next-line max-len
 
 /**
  * Platform adapter interface.
