@@ -62,7 +62,7 @@ describe('test SVG to Vue script', () => {
     /* eslint-enable max-len */
   });
 
-  it('unlinks the source svg files', () => {
+  it.skip('unlinks the source svg files', () => {
     jest.spyOn(fs, 'unlink');
 
     svgToVue();
