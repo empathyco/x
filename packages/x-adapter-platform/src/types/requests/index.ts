@@ -6,3 +6,4 @@ export * from './recommendations-request.model';
 export * from './related-tags-request.model';
 export * from './search-request.model';
 export * from './semantic-queries-request.model';
+export * from './experience-controls-request.model';

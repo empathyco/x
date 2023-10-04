@@ -6,3 +6,4 @@ export * from './recommendations-response.mapper';
 export * from './related-tags-response.mapper';
 export * from './search-response.mapper';
 export * from './semantic-queries-response.mapper';
+export * from './experience-controls-response.mapper';

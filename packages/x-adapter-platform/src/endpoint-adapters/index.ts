@@ -7,3 +7,4 @@ export * from './related-tags.endpoint-adapter';
 export * from './search.endpoint-adapter';
 export * from './semantic-queries.endpoint-adapter';
 export * from './tagging.endpoint-adapter';
+export * from './experience-controls.endpoint-adapter';

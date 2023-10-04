@@ -20,6 +20,7 @@ import { TaggingXEvents } from '../x-modules/tagging/events.types';
 import { UrlXEvents } from '../x-modules/url/events.types';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { SemanticQueriesXEvents } from '../x-modules/semantic-queries/events.types';
+import { ExperienceControlsXEvents } from '../x-modules/experience-controls/events.types';
 import { WireMetadata } from './wiring.types';
 /* eslint-disable max-len */
 /**.
@@ -70,6 +71,7 @@ export interface XEventsTypes
     SearchXEvents,
     SemanticQueriesXEvents,
     TaggingXEvents,
+    ExperienceControlsXEvents,
     UrlXEvents {
   /**
    * The provided number of columns of a grid has changed.

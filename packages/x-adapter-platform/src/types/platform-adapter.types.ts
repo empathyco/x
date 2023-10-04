@@ -16,6 +16,8 @@ import {
   SemanticQueriesRequest,
   SemanticQueriesResponse,
   TaggingRequest,
+  ExperienceControlsRequest,
+  ExperienceControlsResponse,
   XComponentsAdapter
 } from '@empathyco/x-types';
 import { ExtendableEndpointAdapter } from '@empathyco/x-adapter';
@@ -35,4 +37,8 @@ export interface PlatformAdapter extends XComponentsAdapter {
   identifierResults: ExtendableEndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
   semanticQueries: ExtendableEndpointAdapter<SemanticQueriesRequest, SemanticQueriesResponse>;
   tagging: ExtendableEndpointAdapter<TaggingRequest, void>;
+  experienceControls: ExtendableEndpointAdapter<
+    ExperienceControlsRequest,
+    ExperienceControlsResponse
+  >;
 }
