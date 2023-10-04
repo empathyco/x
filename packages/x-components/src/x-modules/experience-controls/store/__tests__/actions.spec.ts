@@ -1,18 +1,21 @@
-import { getFetchMock, getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
-import { fetchExperienceControlsResponse } from '../actions/fetch-experience-controls.action';
+import { ExperienceControlsResponse } from '@empathyco/x-types';
+import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { createExperienceControlsStore, resetExperienceControlsStateWith } from './utils';
 
 describe('testing experience controls module actions', () => {
   const mockedControls = { numberOfCarousels: 10, resultsPerCarousels: 21 };
-  const mockedResponse = {
+  const mockedResponse: ExperienceControlsResponse = {
     controls: { numberOfCarousels: 10, resultsPerCarousels: 21 },
     events: {}
   };
-  // TODO: Remove this fetchMock when adapter is implemented
-  const fetchMock = jest.fn(getFetchMock(mockedControls));
-  window.fetch = fetchMock as any;
+  const mockedResponseWithEvents = {
+    controls: mockedControls,
+    events: { ColumnsNumberProvided: 6 }
+  };
 
-  const adapter = getMockedAdapter({ experienceControls: mockedResponse });
+  const adapter = getMockedAdapter({
+    experienceControls: mockedResponse
+  });
 
   const store = createExperienceControlsStore();
   installNewXPlugin({ adapter, store });
@@ -23,22 +26,21 @@ describe('testing experience controls module actions', () => {
 
   describe('fetchControls', () => {
     it('should return controls', async () => {
-      const response = await store.dispatch('fetchExperienceControlsResponse');
-      expect(response).toEqual(mockedResponse);
+      const experienceControls = await store.dispatch(
+        'fetchExperienceControlsResponse',
+        store.getters.request
+      );
+      expect(experienceControls).toEqual(mockedResponse);
     });
   });
 
   describe('fetchAndSaveControls', () => {
     it('should request and store controls and events in the state', async () => {
-      const mockedResponseWithEvents = {
-        controls: mockedControls,
-        events: { ColumnsNumberProvided: 6 }
-      };
       resetExperienceControlsStateWith(store, mockedResponseWithEvents);
 
       const actionPromise = store.dispatch(
         'fetchAndSaveExperienceControlsResponse',
-        fetchExperienceControlsResponse
+        store.getters.request
       );
       expect(store.state.status).toEqual('loading');
       await actionPromise;
@@ -56,7 +58,7 @@ describe('testing experience controls module actions', () => {
       });
       const previousControls = store.state.controls;
       await Promise.all([
-        store.dispatch('fetchAndSaveExperienceControlsResponse', fetchExperienceControlsResponse),
+        store.dispatch('fetchAndSaveExperienceControlsResponse', store.getters.request),
         store.dispatch('cancelFetchAndSaveControls')
       ]);
       expect(store.state.controls).toEqual(previousControls);
