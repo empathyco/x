@@ -59,6 +59,11 @@ export interface ExperienceControlsMutations extends StatusMutations {
   setParams(params: Dictionary<unknown>): void;
 }
 
+/**
+ * Experience Controls store actions.
+ *
+ * @public
+ */
 export interface ExperienceControlsActions {
   /**.
    * Requests the experience controls
