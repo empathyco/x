@@ -1,7 +1,10 @@
 /* eslint-disable max-len */
 import Vue from 'vue';
 import { setStatus } from '../../../store/utils/status-store.utils';
-import { fetchAndSaveExperienceControlsResponse } from './actions/fetch-and-save-experience-controls.action';
+import {
+  cancelFetchAndSaveControls,
+  fetchAndSaveExperienceControlsResponse
+} from './actions/fetch-and-save-experience-controls.action';
 import { fetchExperienceControlsResponse } from './actions/fetch-experience-controls.action';
 import { experienceControlsRequest } from './getters/experience-controls-results-request.getter';
 import { ExperienceControlsXStoreModule } from './types';
@@ -36,6 +39,7 @@ export const experienceControlsXStoreModule: ExperienceControlsXStoreModule = {
   },
   actions: {
     fetchExperienceControlsResponse,
-    fetchAndSaveExperienceControlsResponse
+    fetchAndSaveExperienceControlsResponse,
+    cancelFetchAndSaveControls
   }
 };
