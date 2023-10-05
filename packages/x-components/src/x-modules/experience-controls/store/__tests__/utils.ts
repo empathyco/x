@@ -3,7 +3,13 @@ import Vuex, { Store } from 'vuex';
 import { createLocalVue } from '@vue/test-utils';
 import { resetStoreModuleState } from '../../../../__tests__/utils';
 import { experienceControlsXStoreModule } from '../module';
-import { ExperienceControlsState } from '../types';
+import {
+  ExperienceControlsActions,
+  ExperienceControlsGetters,
+  ExperienceControlsMutations,
+  ExperienceControlsState
+} from '../types';
+import { SafeStore } from '../../../../store/__tests__/utils';
 
 /**
  * Resets the experience controls module state, optionally modifying its default values.
@@ -28,17 +34,18 @@ export function resetExperienceControlsStateWith(
  *
  * @internal
  */
-export function createExperienceControlsStore(
-  state?: Partial<ExperienceControlsState>
-): Store<ExperienceControlsState> {
+export function createExperienceControlsStore(): Store<ExperienceControlsState> {
   const localVue = createLocalVue();
   localVue.config.productionTip = false; // Silent production console messages.
   localVue.use(Vuex);
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  const store = new Store<ExperienceControlsState>(experienceControlsXStoreModule as any);
-
-  resetExperienceControlsStateWith(store, state);
+  const store: SafeStore<
+    ExperienceControlsState,
+    ExperienceControlsGetters,
+    ExperienceControlsMutations,
+    ExperienceControlsActions
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  > = new Store(experienceControlsXStoreModule as any);
 
   return store;
 }
