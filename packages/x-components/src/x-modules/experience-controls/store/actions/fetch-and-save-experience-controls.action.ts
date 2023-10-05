@@ -17,14 +17,14 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
 });
 
 /**
- * Default implementation for {@link ExperienceControlsActions.fetchAndSaveControls} action.
+ * Default implementation for fetchAndSaveExperienceControls action.
  *
  * @public
  */
 export const fetchAndSaveExperienceControlsResponse = fetchAndSave;
 
 /**
- * Default implementation for {@link ExperienceControlsActions.cancelFetchAndSaveControls} action.
+ * Default implementation for fetchAndSaveExperienceControls action.
  *
  * @public
  */

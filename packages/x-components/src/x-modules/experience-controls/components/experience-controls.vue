@@ -19,7 +19,7 @@
     /**.
      * Iterates the list of XEvents received and emits them
      *
-     * @param {Partial<XEventsTypes>} events events to be emitted
+     * @param events - events to be emitted
      */
     @XOn('ExperienceControlsEventsChanged')
     onEventsChanged(events: Partial<XEventsTypes>): void {
