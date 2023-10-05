@@ -1,15 +1,12 @@
 import { ExperienceControlsResponse } from '@empathyco/x-types';
+import Vuex from 'vuex';
+import { createLocalVue } from '@vue/test-utils';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { createExperienceControlsStore, resetExperienceControlsStateWith } from './utils';
 
 describe('testing experience controls module actions', () => {
-  const mockedControls = { numberOfCarousels: 10, resultsPerCarousels: 21 };
   const mockedResponse: ExperienceControlsResponse = {
     controls: { numberOfCarousels: 10, resultsPerCarousels: 21 },
-    events: {}
-  };
-  const mockedResponseWithEvents = {
-    controls: mockedControls,
     events: { ColumnsNumberProvided: 6 }
   };
 
@@ -17,8 +14,11 @@ describe('testing experience controls module actions', () => {
     experienceControls: mockedResponse
   });
 
+  const localVue = createLocalVue();
+  localVue.config.productionTip = false; // Silent production console messages.
+  localVue.use(Vuex);
   const store = createExperienceControlsStore();
-  installNewXPlugin({ adapter, store });
+  installNewXPlugin({ adapter, store }, localVue);
 
   beforeEach(() => {
     resetExperienceControlsStateWith(store);
@@ -28,7 +28,7 @@ describe('testing experience controls module actions', () => {
     it('should return controls', async () => {
       const experienceControls = await store.dispatch(
         'fetchExperienceControlsResponse',
-        store.getters.request
+        store.getters.experienceControlsRequest
       );
       expect(experienceControls).toEqual(mockedResponse);
     });
@@ -36,17 +36,17 @@ describe('testing experience controls module actions', () => {
 
   describe('fetchAndSaveControls', () => {
     it('should request and store controls and events in the state', async () => {
-      resetExperienceControlsStateWith(store, mockedResponseWithEvents);
+      resetExperienceControlsStateWith(store, {});
 
       const actionPromise = store.dispatch(
         'fetchAndSaveExperienceControlsResponse',
-        store.getters.request
+        store.getters.experienceControlsRequest
       );
       expect(store.state.status).toEqual('loading');
       await actionPromise;
 
-      expect(store.state.controls).toEqual(mockedResponseWithEvents.controls);
-      expect(store.state.events).toEqual(mockedResponseWithEvents.events);
+      expect(store.state.controls).toEqual(mockedResponse.controls);
+      expect(store.state.events).toEqual(mockedResponse.events);
       expect(store.state.status).toEqual('success');
     });
   });
@@ -58,7 +58,10 @@ describe('testing experience controls module actions', () => {
       });
       const previousControls = store.state.controls;
       await Promise.all([
-        store.dispatch('fetchAndSaveExperienceControlsResponse', store.getters.request),
+        store.dispatch(
+          'fetchAndSaveExperienceControlsResponse',
+          store.getters.experienceControlsRequest
+        ),
         store.dispatch('cancelFetchAndSaveControls')
       ]);
       expect(store.state.controls).toEqual(previousControls);
