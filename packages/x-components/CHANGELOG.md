@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.417](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.416...@empathyco/x-components@3.0.0-alpha.417) (2023-10-05)
+
+
+### Features
+
+* utils for the mutation of states with config (#1313) ([97dfb3e](https://github.com/empathyco/x/commit/97dfb3e2d37f6ec037f55ccc3279b9427d90d1c5))
+
+
+
 ## [3.0.0-alpha.416](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.415...@empathyco/x-components@3.0.0-alpha.416) (2023-10-05)
 
 
