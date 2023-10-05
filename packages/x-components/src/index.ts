@@ -33,4 +33,5 @@ export * from './x-modules/search-box';
 export * from './x-modules/semantic-queries';
 export * from './x-modules/tagging';
 export * from './x-modules/url';
+export * from './x-modules/experience-controls';
 export * from './x-modules/x-modules.types';
