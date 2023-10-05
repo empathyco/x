@@ -84,6 +84,13 @@ export const setTotalResultsFromSearchResponseChangedWire = mapWire<
 export const setSemanticQueriesExtraParamsWire = wireCommit('setParams');
 
 /**
+ * Sets the semantic queries state `config`.
+ *
+ * @public
+ */
+export const changeSemanticQueriesConfiguration = wireCommit('setConfig');
+
+/**
  * Wiring configuration for the {@link SemanticQueriesXModule | semanticQueries module}.
  *
  * @internal
@@ -101,5 +108,8 @@ export const semanticQueriesWiring = createWiring({
   SearchResponseChanged: {
     setQueryFromSearchResponseChangedWire,
     setTotalResultsFromSearchResponseChangedWire
+  },
+  SemanticQueryNewConfig: {
+    changeSemanticQueriesConfiguration
   }
 });

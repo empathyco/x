@@ -36,6 +36,12 @@ export const semanticQueriesXStoreModule: SemanticQueriesXStoreModule = {
     },
     setTotalResults(state, totalResults) {
       state.totalResults = totalResults;
+    },
+    setConfig(state, config) {
+      state.config = {
+        ...state.config,
+        ...config
+      };
     }
   },
   actions: {

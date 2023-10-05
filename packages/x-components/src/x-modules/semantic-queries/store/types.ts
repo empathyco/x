@@ -65,6 +65,8 @@ export interface SemanticQueriesMutations {
    * Sets the {@link SemanticQueriesState.semanticQueries} property.
    */
   setSemanticQueries(semanticQueries: SemanticQuery[]): void;
+
+  setConfig(config: Dictionary<unknown>): void;
 }
 
 /**
