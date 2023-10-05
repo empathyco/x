@@ -136,6 +136,10 @@ export const updateHistoryQueriesWithSearchResponse = wireDispatch(
   'updateHistoryQueriesWithSearchResponse'
 );
 
+export const setSearchSelectedFilters = wireCommit(
+  'setSearchSelectedFilters',
+  ({ eventPayload: { filters } }) => filters
+);
 /**
  * Debounce function for the module.
  */
@@ -162,6 +166,9 @@ export const historyQueriesWiring = createWiring({
   UserAcceptedAQuery: {
     setHistoryQueriesQuery,
     addQueryToHistoryQueries
+  },
+  UserSelectedAHistoryQuery: {
+    setSearchSelectedFilters
   },
   UserIsTypingAQuery: {
     setHistoryQueriesQueryDebounce: moduleDebounce(

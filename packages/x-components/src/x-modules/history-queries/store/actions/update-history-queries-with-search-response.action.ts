@@ -1,3 +1,4 @@
+import { Filter } from '@empathyco/x-types';
 import { HistoryQueriesXStoreModule } from '../types';
 
 /**
@@ -32,13 +33,23 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
         if (
           !isCurrentSessionHistoryQuery ||
           historyQuery.totalResults == null ||
-          historyQuery.totalResults < searchResponse.totalResults
+          historyQuery.totalResults !== searchResponse.totalResults
         ) {
+          const filtersApplied: Filter[] = [];
+          if (searchResponse.request.filters) {
+            Object.keys(searchResponse.request.filters).forEach(key => {
+              const facet = searchResponse.request.filters![key];
+              facet.forEach(filter => {
+                filtersApplied.push(filter);
+              });
+            });
+          }
+
           const newHistoryQueries = state.historyQueries.slice();
           newHistoryQueries[indexOfHistoryQuery] = {
             ...historyQuery,
             totalResults: searchResponse.totalResults,
-            facets: searchResponse.request.filters
+            filters: filtersApplied
           };
           return dispatch('setHistoryQueries', newHistoryQueries);
         }

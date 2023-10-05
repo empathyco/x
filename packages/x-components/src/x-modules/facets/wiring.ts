@@ -166,6 +166,11 @@ export const setSelectedFiltersFromPreview = wireCommit(
   ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : [])
 );
 
+export const setSelectedFiltersFromHitoryQueries = wireCommit(
+  'setFilters',
+  ({ eventPayload: { filters } }) => filters
+);
+
 /**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
  *
@@ -219,5 +224,8 @@ export const facetsWiring = createWiring({
   },
   UserAcceptedAQueryPreview: {
     setSelectedFiltersFromPreview
+  },
+  UserSelectedAHistoryQuery: {
+    setSelectedFiltersFromHitoryQueries
   }
 });
