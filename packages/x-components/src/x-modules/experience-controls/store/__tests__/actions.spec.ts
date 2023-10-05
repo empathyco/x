@@ -1,14 +1,11 @@
-import { ExperienceControlsResponse } from '@empathyco/x-types';
 import Vuex from 'vuex';
 import { createLocalVue } from '@vue/test-utils';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import { getExperienceControlsStub } from '../../../../__stubs__/experience-controls-subs.factory';
 import { createExperienceControlsStore, resetExperienceControlsStateWith } from './utils';
 
 describe('testing experience controls module actions', () => {
-  const mockedResponse: ExperienceControlsResponse = {
-    controls: { numberOfCarousels: 10, resultsPerCarousels: 21 },
-    events: { ColumnsNumberProvided: 6 }
-  };
+  const mockedResponse = getExperienceControlsStub();
 
   const adapter = getMockedAdapter({
     experienceControls: mockedResponse
