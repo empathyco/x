@@ -10,5 +10,5 @@ export const experienceControlsEmitters = createStoreEmitters(experienceControls
   ExperienceControlsEventsChanged: {
     selector: state => state.events
   },
-  ExperienceControlsRequestUpdated: (_, getters) => getters.experienceControlsResultsRequest
+  ExperienceControlsRequestUpdated: (_, getters) => getters.experienceControlsRequest
 });
