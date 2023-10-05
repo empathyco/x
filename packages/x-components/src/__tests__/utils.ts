@@ -222,7 +222,6 @@ export function createXModule<
   return xModule;
 }
 
-// TODO: Remove this fetchMock when adapter is implemented as we won't need it
 /**
  * Mocks a `fetch` API call.
  *
