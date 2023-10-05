@@ -46,6 +46,27 @@ describe('testing experience controls module actions', () => {
       expect(store.state.events).toEqual(mockedResponse.events);
       expect(store.state.status).toEqual('success');
     });
+
+    it('should cancel the previous request if it is not yet resolved', async () => {
+      const initialExperienceControls = store.state.controls;
+      adapter.experienceControls.mockResolvedValueOnce(mockedResponse);
+
+      const firstRequest = store.dispatch(
+        'fetchAndSaveExperienceControlsResponse',
+        store.getters.experienceControlsRequest
+      );
+      const secondRequest = store.dispatch(
+        'fetchAndSaveExperienceControlsResponse',
+        store.getters.experienceControlsRequest
+      );
+
+      await firstRequest;
+      expect(store.state.status).toEqual('loading');
+      expect(store.state.controls).toBe(initialExperienceControls);
+      await secondRequest;
+      expect(store.state.status).toEqual('success');
+      expect(store.state.controls).toEqual(mockedResponse.controls);
+    });
   });
 
   describe('cancelFetchAndSaveControls', () => {
