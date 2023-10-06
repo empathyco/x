@@ -40,7 +40,12 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
             Object.keys(searchResponse.request.filters).forEach(key => {
               const facet = searchResponse.request.filters![key];
               facet.forEach(filter => {
-                filtersApplied.push(filter);
+                if (filtersApplied.includes(filter)) {
+                  const filterIndex = filtersApplied.findIndex(value => value.id === filter.id);
+                  filtersApplied.splice(filterIndex, 1);
+                } else {
+                  filtersApplied.push(filter);
+                }
               });
             });
           }
