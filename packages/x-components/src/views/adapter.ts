@@ -1,4 +1,10 @@
-import { PlatformAdapter, platformAdapter } from '@empathyco/x-adapter-platform';
+import {
+  PlatformAdapter,
+  PlatformExperienceControlsResponse,
+  experienceControlsResponseSchema,
+  platformAdapter
+} from '@empathyco/x-adapter-platform';
+import { ExperienceControlsResponse } from '@empathyco/x-types';
 import { e2eAdapter } from '../adapter/e2e-adapter';
 
 export const adapterConfig = {
@@ -10,6 +16,18 @@ const experienceControlsAdapter = platformAdapter.experienceControls.extends({
 });
 
 platformAdapter.experienceControls = experienceControlsAdapter;
+
+experienceControlsResponseSchema.$override<
+  PlatformExperienceControlsResponse,
+  Partial<ExperienceControlsResponse>
+>({
+  events: response => ({
+    SemanticQueryNewConfig: {
+      threshold: response['resultsPerCarousels'],
+      maxItemsToRequest: response['numberOfCarousels']
+    }
+  })
+});
 
 export const adapter = new Proxy(platformAdapter, {
   get: (obj: PlatformAdapter, prop: keyof PlatformAdapter) =>
