@@ -94,9 +94,9 @@ export interface HistoryQueriesMutations extends QueryMutations {
    */
   setIsEnabled(isEnabled: boolean): void;
   /**
-   * Sets the {@link HistoryQueriesState.historyQueries.filters } property.
+   * Sets the {@link HistoryQueriesState.historyQueries } filters property.
    *
-   * @param filters - The new {@link HistoryQueriesState.historyQueries.filters }.
+   * @param filters - The new {@link HistoryQueriesState.historyQueries } filters.
    */
   setSearchSelectedFilters(filters: Filter[]): void;
 }
