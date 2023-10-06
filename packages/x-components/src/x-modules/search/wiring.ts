@@ -215,19 +215,13 @@ export const setSearchSelectedFiltersFromPreview = wireCommit(
 );
 
 /**
- * Sets the search state `selectedFilters` with a previewable's filters.
+ * Sets the search state `selectedFilters` with a selectedHistoryQuery's filters.
  *
  * @public
  */
 export const setSearchSelectedFiltersFromPreviewable = wireCommit(
   'setSelectedFilters',
   ({ eventPayload: { filters } }) => filters
-  /*({ eventPayload: { facets } }) =>
-    facets
-      ? (facets as Facet[]).reduce<Filter[]>((filters, facet) => {
-          return filters.concat(...facet.filters.filter(filter => filter.selected));
-        }, [])
-      : []*/
 );
 
 /**

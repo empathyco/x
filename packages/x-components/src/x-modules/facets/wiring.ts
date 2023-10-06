@@ -166,6 +166,11 @@ export const setSelectedFiltersFromPreview = wireCommit(
   ({ eventPayload: { filters } }) => (filters ? createRawFilters(filters) : [])
 );
 
+/**
+ * Sets the filters of the facets module from a selectedHistoryQuery's filters.
+ *
+ * @public
+ */
 export const setSelectedFiltersFromHitoryQueries = wireCommit(
   'setFilters',
   ({ eventPayload: { filters } }) => filters

@@ -136,6 +136,11 @@ export const updateHistoryQueriesWithSearchResponse = wireDispatch(
   'updateHistoryQueriesWithSearchResponse'
 );
 
+/**
+ * Sets the history queries state `filters` with a selectedHistoryQuery's filters.
+ *
+ * @public
+ */
 export const setSearchSelectedFilters = wireCommit(
   'setSearchSelectedFilters',
   ({ eventPayload: { filters } }) => filters
