@@ -1,8 +1,7 @@
 import { ExperienceControlsResponse } from '@empathyco/x-types';
 
 /**
- * Creates a {@link @empathyco/x-types#ExperienceControlsResponse |
- * experience controls response} stub.
+ * Creates a an experience controls response stub.
  *
  * @returns An experience controls stub.
  *

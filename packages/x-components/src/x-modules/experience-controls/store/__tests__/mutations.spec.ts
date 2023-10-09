@@ -1,8 +1,13 @@
 import { Dictionary } from '@empathyco/x-utils';
+import Vuex from 'vuex';
+import { createLocalVue } from '@vue/test-utils';
 import { XEventsTypes } from '../../../../wiring/index';
 import { createExperienceControlsStore } from './utils';
 
 describe('testing experience controls module mutations', () => {
+  const localVue = createLocalVue();
+  localVue.config.productionTip = false; // Silent production console messages.
+  localVue.use(Vuex);
   const store = createExperienceControlsStore();
 
   describe('setControls', () => {

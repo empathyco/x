@@ -7,7 +7,6 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/i
 import ExperienceControls from '../experience-controls.vue';
 
 function renderExperienceControls(): RenderExperienceControlsApi {
-  XPlugin.resetInstance();
   const [, localVue] = installNewXPlugin();
   XPlugin.registerXModule(experienceControlsXModule);
 

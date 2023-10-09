@@ -1,6 +1,5 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import Vuex, { Store } from 'vuex';
-import { createLocalVue } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { resetStoreModuleState } from '../../../../__tests__/utils';
 import { experienceControlsXStoreModule } from '../module';
 import {
@@ -35,10 +34,6 @@ export function resetExperienceControlsStateWith(
  * @internal
  */
 export function createExperienceControlsStore(): Store<ExperienceControlsState> {
-  const localVue = createLocalVue();
-  localVue.config.productionTip = false; // Silent production console messages.
-  localVue.use(Vuex);
-
   const store: SafeStore<
     ExperienceControlsState,
     ExperienceControlsGetters,

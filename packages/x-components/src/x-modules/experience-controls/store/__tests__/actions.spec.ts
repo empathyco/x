@@ -1,7 +1,7 @@
 import Vuex from 'vuex';
 import { createLocalVue } from '@vue/test-utils';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
-import { getExperienceControlsStub } from '../../../../__stubs__/experience-controls-subs.factory';
+import { getExperienceControlsStub } from '../../../../__stubs__/experience-controls-stubs.factory';
 import { createExperienceControlsStore, resetExperienceControlsStateWith } from './utils';
 
 describe('testing experience controls module actions', () => {
@@ -33,7 +33,6 @@ describe('testing experience controls module actions', () => {
 
   describe('fetchAndSaveControls', () => {
     it('should request and store controls and events in the state', async () => {
-
       const actionPromise = store.dispatch(
         'fetchAndSaveExperienceControlsResponse',
         store.getters.experienceControlsRequest
