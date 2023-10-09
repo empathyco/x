@@ -111,6 +111,12 @@ export const searchXStoreModule: SearchXStoreModule = {
       if (stateResult) {
         Object.assign(stateResult, result);
       }
+    },
+    setPageSizeDictinary(state, config) {
+      state.config = {
+        ...state.config,
+        ...config
+      };
     }
   },
   actions: {

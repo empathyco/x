@@ -23,8 +23,13 @@ experienceControlsResponseSchema.$override<
 >({
   events: response => ({
     SemanticQueryNewConfig: {
-      threshold: response['resultsPerCarousels'],
-      maxItemsToRequest: response['numberOfCarousels']
+      threshold: (response.controls as any).semanticQueries.resultsPerCarousels as number | unknown,
+      maxItemsToRequest: (response.controls as any).semanticQueries.numberOfCarousels as
+        | number
+        | unknown
+    },
+    SearchNewConfig: {
+      pageSize: (response.controls as any).semanticQueries.resultsPerCarousels as number | unknown
     }
   })
 });

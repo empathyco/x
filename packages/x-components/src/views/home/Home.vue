@@ -370,9 +370,9 @@
                       >
                         <span data-test="semantic-queries-query">{{ query }}</span>
                       </SemanticQuery>
-                      <SlidingPanel :resetOnContentChange="false">
-                        <div class="x-flex x-gap-8">
-                          <DisplayResultProvider>
+                      <DisplayResultProvider>
+                        <SlidingPanel :resetOnContentChange="false">
+                          <div class="x-flex x-gap-8">
                             <Result
                               v-for="result in results"
                               :key="result.id"
@@ -380,9 +380,9 @@
                               style="max-width: 180px"
                               data-test="semantic-query-result"
                             />
-                          </DisplayResultProvider>
-                        </div>
-                      </SlidingPanel>
+                          </div>
+                        </SlidingPanel>
+                      </DisplayResultProvider>
                     </div>
                   </QueryPreviewList>
                 </LocationProvider>

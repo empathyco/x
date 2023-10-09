@@ -131,6 +131,13 @@ export const setSearchPage = wireCommit('setPage');
 export const setSearchExtraParams = wireCommit('setParams');
 
 /**
+ * Sets the search state `page`.
+ *
+ * @public
+ */
+export const setPageSizeExtraParams = wireCommit('setPageSizeDictinary');
+
+/**
  * Resets the search state `isNoResults`.
  *
  * @public
@@ -282,5 +289,8 @@ export const searchWiring = createWiring({
   },
   QueryPreviewUnselected: {
     setSearchExtraParams
+  },
+  SearchNewConfig: {
+    setPageSizeExtraParams
   }
 });

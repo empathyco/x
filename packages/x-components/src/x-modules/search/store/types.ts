@@ -230,6 +230,8 @@ export interface SearchMutations extends StatusMutations, QueryMutations {
    * @param result - A result containing at least an id, and the properties to modify.
    */
   updateResult(result: Partial<Result> & Pick<Result, 'id'>): void;
+
+  setPageSizeDictinary(config: Dictionary<unknown>): void;
 }
 
 /**
