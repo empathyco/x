@@ -22,7 +22,7 @@ describe('testing experience controls module actions', () => {
   });
 
   describe('fetchControls', () => {
-    it('should return controls', async () => {
+    it('should return experience controls response', async () => {
       const experienceControls = await store.dispatch(
         'fetchExperienceControlsResponse',
         store.getters.experienceControlsRequest
