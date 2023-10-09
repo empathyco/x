@@ -33,7 +33,6 @@ describe('testing experience controls module actions', () => {
 
   describe('fetchAndSaveControls', () => {
     it('should request and store controls and events in the state', async () => {
-      resetExperienceControlsStateWith(store, {});
 
       const actionPromise = store.dispatch(
         'fetchAndSaveExperienceControlsResponse',
