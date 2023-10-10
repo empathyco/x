@@ -171,10 +171,7 @@ export const setSelectedFiltersFromPreview = wireCommit(
  *
  * @public
  */
-export const setQueryFromPreview = wireCommit(
-  'setQuery',
-  ({ eventPayload: { query } }) => query
-);
+export const setQueryFromPreview = wireCommit('setQuery', ({ eventPayload: { query } }) => query);
 
 /**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
