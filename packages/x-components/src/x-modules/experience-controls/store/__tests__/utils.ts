@@ -28,7 +28,6 @@ export function resetExperienceControlsStateWith(
 /**
  * Creates an experience controls store with the state passed as parameter.
  *
- * @param state - Partial experience controls store state to replace the original one.
  * @returns Store - The new store created.
  *
  * @internal
