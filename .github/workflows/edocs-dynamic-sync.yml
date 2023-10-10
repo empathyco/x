@@ -18,7 +18,10 @@ jobs:
       - name: Trigger eDocs repository action
         run: |
           curl --request POST \
-          --header 'authorization: Bearer ${{ github.token }}' \
+          -u empathyco:${GITHUB_TOKEN} \
           --header 'content-type: application/json' \
           --url https://api.github.com/repos/empathyco/docs-empathy/actions/workflows/40134850/dispatches \
           --data '{"ref": "main",  "inputs": {"branchName": "${{ env.BRANCH_NAME }}", "version": "${{ steps.package-version.outputs.current-version }}"}}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
+
