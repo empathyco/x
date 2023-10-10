@@ -183,7 +183,6 @@ export const setSelectedFiltersFromHistoryQueries = wireCommit(
  */
 export const setQueryFromPreview = wireCommit('setQuery', ({ eventPayload: { query } }) => query);
 
-
 /**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
  *
