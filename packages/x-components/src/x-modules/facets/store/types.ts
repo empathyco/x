@@ -114,7 +114,7 @@ export interface FacetsMutations {
    *
    * @param config - The new config.
    */
-  setFacetsConfig(config: FacetsConfig): void;
+  setConfig(config: FacetsConfig): void;
   /**
    * Adds the filter to the {@link FacetsState.stickyFilters | sticky filters} record.
    *

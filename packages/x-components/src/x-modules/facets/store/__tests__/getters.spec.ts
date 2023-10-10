@@ -239,7 +239,7 @@ describe('testing facets module getters', () => {
       );
 
       const store = createFacetsStore([parentFilter, childFilter, parentFilterWithoutChild], []);
-      store.commit('setFacetsConfig', {
+      store.commit('setConfig', {
         filtersStrategyForRequest: 'leaves-only'
       });
 
