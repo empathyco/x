@@ -182,7 +182,7 @@ function mergeStates<State extends Dictionary>(
 }
 
 /**
- * Makes a clean install of the's the {@link XPlugin} into the passed Vue object.
+ * Makes a clean install of the {@link XPlugin} into the passed Vue object.
  * This also resets the bus, and all the hardcoded dependencies of the XPlugin.
  *
  * @param options - The options for installing the {@link XPlugin}. The
@@ -220,4 +220,30 @@ export function createXModule<
   xModule: XModule<XStoreModule<State, Getters, Mutations, Actions>>
 ): XModule<XStoreModule<State, Getters, Mutations, Actions>> {
   return xModule;
+}
+
+/**
+ * Mocks a `fetch` API call.
+ *
+ * @param response - The expected response resolved by calling `fetch()`.
+ * @returns A Promise object.
+ *
+ * @internal
+ */
+export function getFetchMock(
+  response: unknown
+): (url: string, params: RequestInit) => Promise<Response> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  return _url => {
+    return new Promise<Response>(resolve => {
+      setTimeout(() => {
+        resolve({
+          ok: true,
+          status: 200,
+          json: () => Promise.resolve(response),
+          text: () => Promise.resolve(JSON.stringify(response))
+        } as Response);
+      });
+    });
+  };
 }

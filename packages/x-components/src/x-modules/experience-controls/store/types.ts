@@ -82,6 +82,11 @@ export interface ExperienceControlsActions {
    * @param request - The request to fetch the experience controls.
    */
   fetchAndSaveExperienceControlsResponse(request: ExperienceControlsRequest | null): void;
+
+  /**
+   * Cancels the {@link ExperienceControlsActions.fetchAndSaveExperienceControlsResponse}.
+   */
+  cancelFetchAndSaveControls: () => void;
 }
 
 /**
