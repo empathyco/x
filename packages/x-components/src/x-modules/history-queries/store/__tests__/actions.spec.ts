@@ -280,7 +280,7 @@ describe('testing history queries module actions', () => {
 
     beforeEach(() => {
       [gato, perro] = ['gato', 'perro'].map(query =>
-        createHistoryQuery({ query, timestamp: store.state.sessionTimeStampInMs + 1 })
+        createHistoryQuery({ query, timestamp: store.state.sessionTimeStampInMs + 1, filters: [] })
       );
       resetStateWith({ historyQueries: [gato, perro] });
     });
@@ -355,7 +355,7 @@ describe('testing history queries module actions', () => {
       expectHistoryQueriesToEqual([{ ...gato, totalResults }, perro]);
     });
 
-    it('does not update a history query if the new totalResults is lower', async () => {
+    it('updates a history query if the new totalResults is lower', async () => {
       gato.totalResults = 50;
       resetStateWith({ historyQueries: [gato, perro] });
       await store.dispatch('updateHistoryQueriesWithSearchResponse', {
@@ -367,7 +367,7 @@ describe('testing history queries module actions', () => {
         results,
         totalResults
       });
-      expectHistoryQueriesToEqual([gato, perro]);
+      expectHistoryQueriesToEqual([{ ...gato, totalResults }, perro]);
     });
   });
 });

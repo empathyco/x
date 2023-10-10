@@ -8,8 +8,7 @@ import { HistoryQueriesXStoreModule } from '../types';
  * The matching history query will only be updated on the following scenarios:
  * 1. If it is part of a previous session, not the current one.
  * 2. If its total results count has not been registered yet.
- * 3. If its total results count registered is less than the one specified on the search response,
- * meaning that the previous update was part of a filtered request.
+ * 3. If there is a new search response.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
@@ -30,34 +29,45 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
       if (indexOfHistoryQuery >= 0) {
         const historyQuery = state.historyQueries[indexOfHistoryQuery];
         const isCurrentSessionHistoryQuery = historyQuery.timestamp > state.sessionTimeStampInMs;
-        if (
-          !isCurrentSessionHistoryQuery ||
-          historyQuery.totalResults == null ||
-          historyQuery.totalResults !== searchResponse.totalResults
-        ) {
-          const filtersApplied: Filter[] = [];
+        let filters: Filter[] = [];
+        if (!isCurrentSessionHistoryQuery || historyQuery.totalResults == null || searchResponse) {
           if (searchResponse.request.filters) {
-            Object.keys(searchResponse.request.filters).forEach(key => {
-              const facet = searchResponse.request.filters![key];
-              facet.forEach(filter => {
-                if (filtersApplied.includes(filter)) {
-                  const filterIndex = filtersApplied.findIndex(value => value.id === filter.id);
-                  filtersApplied.splice(filterIndex, 1);
-                } else {
-                  filtersApplied.push(filter);
-                }
-              });
-            });
+            filters = checkFilters(searchResponse.request.filters);
           }
 
           const newHistoryQueries = state.historyQueries.slice();
           newHistoryQueries[indexOfHistoryQuery] = {
             ...historyQuery,
             totalResults: searchResponse.totalResults,
-            filters: filtersApplied
+            filters: filters
           };
           return dispatch('setHistoryQueries', newHistoryQueries);
         }
       }
     }
   };
+
+// eslint-disable-next-line jsdoc/require-description
+/**
+ * Take filters from the request and push them into a list.
+ *
+ * @param requestFilters - Filters from the request.
+ *
+ * @returns A list of selected filters in the history query.
+ *
+ */
+function checkFilters(requestFilters: Record<string, Filter[]>): Filter[] {
+  const filtersApplied: Filter[] = [];
+  Object.keys(requestFilters).forEach(key => {
+    const facet = requestFilters[key];
+    facet.forEach(filter => {
+      if (filtersApplied.includes(filter)) {
+        const filterIndex = filtersApplied.findIndex(value => value.id === filter.id);
+        filtersApplied.splice(filterIndex, 1);
+      } else {
+        filtersApplied.push(filter);
+      }
+    });
+  });
+  return filtersApplied;
+}
