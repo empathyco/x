@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.87](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.86...@empathyco/x-adapter-platform@1.0.0-alpha.87) (2023-10-09)
+
+
+### Features
+
+* experience controls adapter tests ([27de0ce](https://github.com/empathyco/x/commit/27de0ce41887b50ec7c37f87685f335f374c59ff))
+
+
+
+## [1.0.0-alpha.86](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.85...@empathyco/x-adapter-platform@1.0.0-alpha.86) (2023-10-04)
+
+
+### Features
+
+* **experience-controls:** experience controls module and adapter (#1307) ([6ae3f6b](https://github.com/empathyco/x/commit/6ae3f6b3d537910781dbfebf3b2e670eff391911))
+
+
+
 ## [1.0.0-alpha.85](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.84...@empathyco/x-adapter-platform@1.0.0-alpha.85) (2023-09-18)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform

@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.418](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.417...@empathyco/x-components@3.0.0-alpha.418) (2023-10-09)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [3.0.0-alpha.417](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.416...@empathyco/x-components@3.0.0-alpha.417) (2023-10-05)
+
+
+### Features
+
+* utils for the mutation of states with config (#1313) ([97dfb3e](https://github.com/empathyco/x/commit/97dfb3e2d37f6ec037f55ccc3279b9427d90d1c5))
+
+
+
+## [3.0.0-alpha.416](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.415...@empathyco/x-components@3.0.0-alpha.416) (2023-10-05)
+
+
+### Bug Fixes
+
+* exports for experience controls (#1312) ([3f02cea](https://github.com/empathyco/x/commit/3f02cea34463b2fe13b539f348c4f42af1f2dc71))
+
+
+
+## [3.0.0-alpha.415](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.414...@empathyco/x-components@3.0.0-alpha.415) (2023-10-04)
+
+
+### Features
+
+* **experience-controls:** experience controls module and adapter (#1307) ([6ae3f6b](https://github.com/empathyco/x/commit/6ae3f6b3d537910781dbfebf3b2e670eff391911))
+
+
+
 ## [3.0.0-alpha.414](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.413...@empathyco/x-components@3.0.0-alpha.414) (2023-09-22)
 
 

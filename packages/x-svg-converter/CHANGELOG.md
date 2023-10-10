@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@1.0.0-alpha.9...@empathyco/x-svg-converter@1.0.0-alpha.10) (2023-10-04)
+
+
+### Features
+
+* **experience-controls:** experience controls module and adapter (#1307) ([6ae3f6b](https://github.com/empathyco/x/commit/6ae3f6b3d537910781dbfebf3b2e670eff391911))
+
+
+
 ## [1.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@1.0.0-alpha.8...@empathyco/x-svg-converter@1.0.0-alpha.9) (2023-06-27)
 
 **Note:** Version bump only for package @empathyco/x-svg-converter

@@ -5,6 +5,7 @@
     <PreselectedFilters />
     <UrlHandler query="q" store="store" />
     <SnippetCallbacks />
+    <ExperienceControls />
     <OpenMainModal>Start</OpenMainModal>
     <h1 class="x-text-primary-50 x-text-4xl x-font-bold x-leading-[1.5]">Test controls</h1>
     <ul class="x-test-controls x-flex x-flex-col x-gap-16">
@@ -369,9 +370,9 @@
                       >
                         <span data-test="semantic-queries-query">{{ query }}</span>
                       </SemanticQuery>
-                      <SlidingPanel :resetOnContentChange="false">
-                        <div class="x-flex x-gap-8">
-                          <DisplayResultProvider>
+                      <DisplayResultProvider>
+                        <SlidingPanel :resetOnContentChange="false">
+                          <div class="x-flex x-gap-8">
                             <Result
                               v-for="result in results"
                               :key="result.id"
@@ -379,9 +380,9 @@
                               style="max-width: 180px"
                               data-test="semantic-query-result"
                             />
-                          </DisplayResultProvider>
-                        </div>
-                      </SlidingPanel>
+                          </div>
+                        </SlidingPanel>
+                      </DisplayResultProvider>
                     </div>
                   </QueryPreviewList>
                 </LocationProvider>
@@ -452,6 +453,7 @@
   import ChevronTinyRight from '../../components/icons/chevron-tiny-right.vue';
   import ChevronUp from '../../components/icons/chevron-up.vue';
   import CrossIcon from '../../components/icons/cross.vue';
+  import ExperienceControls from '../../x-modules/experience-controls/components/experience-controls.vue';
   import Grid2Col from '../../components/icons/grid-2-col.vue';
   import Grid4Col from '../../components/icons/grid-4-col.vue';
   import LightBulbOn from '../../components/icons/light-bulb-on.vue';
@@ -539,6 +541,7 @@
       ClearSearchInput,
       CloseMainModal,
       CrossIcon,
+      ExperienceControls,
       Grid2Col,
       Grid4Col,
       LightBulbOn,

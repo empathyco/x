@@ -8,3 +8,4 @@ export * from './request.model';
 export * from './search-request.model';
 export * from './tagging-request.model';
 export * from './semantic-queries-request.model';
+export * from './experience-controls-request.model';

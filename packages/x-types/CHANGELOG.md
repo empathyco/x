@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.74](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.73...@empathyco/x-types@10.0.0-alpha.74) (2023-10-04)
+
+
+### Features
+
+* **experience-controls:** experience controls module and adapter (#1307) ([6ae3f6b](https://github.com/empathyco/x/commit/6ae3f6b3d537910781dbfebf3b2e670eff391911))
+
+
+
 ## [10.0.0-alpha.73](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.72...@empathyco/x-types@10.0.0-alpha.73) (2023-09-18)
 
 **Note:** Version bump only for package @empathyco/x-types

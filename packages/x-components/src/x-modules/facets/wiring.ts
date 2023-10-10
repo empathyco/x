@@ -157,7 +157,7 @@ const clearStickyFilters = filter<XEventPayload<'SearchResponseChanged'>>(
 );
 
 /**
- * Sets the filters of the facets module from a selectedQueryPreview's filters.
+ * Sets the filters of the facets module from a queryPreview's filters.
  *
  * @public
  */
@@ -175,6 +175,14 @@ export const setSelectedFiltersFromHistoryQueries = wireCommit(
   'setFilters',
   ({ eventPayload: { filters } }) => filters
 );
+
+/**
+ * Sets the query of the facets module from a queryPreview.
+ *
+ * @public
+ */
+export const setQueryFromPreview = wireCommit('setQuery', ({ eventPayload: { query } }) => query);
+
 
 /**
  * Wiring configuration for the {@link FacetsXModule | facets module}.
@@ -228,6 +236,7 @@ export const facetsWiring = createWiring({
     clearStickyFilters
   },
   UserAcceptedAQueryPreview: {
+    setQueryFromPreview,
     setSelectedFiltersFromPreview
   },
   UserSelectedAHistoryQuery: {
