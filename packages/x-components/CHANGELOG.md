@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.419](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.418...@empathyco/x-components@3.0.0-alpha.419) (2023-10-10)
+
+
+### Features
+
+* Create experience controls module tests (#1303) ([98acc0f](https://github.com/empathyco/x/commit/98acc0f68a184f6774acb1f8f6506ec9f5d1ed48))
+
+
+### Bug Fixes
+
+* move the display-results-provider to fix semantics sliding panel (#1317) ([018d2c5](https://github.com/empathyco/x/commit/018d2c59620deda073dfbe12c04cafe8b5ecd349))
+* set query in facets module from selecting a query preview (#1318) ([5868a24](https://github.com/empathyco/x/commit/5868a24e73017bd4173fe0e842bf4de853f758bb))
+
+
+### Code Refactoring
+
+* move flie design-system.md to design-system-deprecated (#1319) ([dcea015](https://github.com/empathyco/x/commit/dcea015abb708916e1057dc47d187f09d352b7db))
+
+
+
 ## [3.0.0-alpha.418](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.417...@empathyco/x-components@3.0.0-alpha.418) (2023-10-09)
 
 **Note:** Version bump only for package @empathyco/x-components
