@@ -97,7 +97,7 @@ export const setConsent = wireCommit('setConsent');
  *
  * @public
  */
-export const setTaggingConfig = wireCommit('setTaggingConfig');
+export const setTaggingConfig = wireCommit('mergeConfig');
 
 /**
  * Tracks the tagging of the query.

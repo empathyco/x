@@ -52,7 +52,7 @@ export interface TaggingMutations {
    *
    * @param taggingConfig - The new {@link TaggingState.config}.
    */
-  setTaggingConfig(taggingConfig: TaggingConfig): void;
+  mergeConfig(taggingConfig: TaggingConfig): void;
 }
 
 /**
