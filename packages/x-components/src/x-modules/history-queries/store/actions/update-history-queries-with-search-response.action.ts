@@ -1,5 +1,6 @@
 import { Filter } from '@empathyco/x-types';
 import { HistoryQueriesXStoreModule } from '../types';
+import { InternalSearchResponse } from '../../../search/index';
 
 /**
  * Default implementation for the
@@ -29,17 +30,14 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
       if (indexOfHistoryQuery >= 0) {
         const historyQuery = state.historyQueries[indexOfHistoryQuery];
         const isCurrentSessionHistoryQuery = historyQuery.timestamp > state.sessionTimeStampInMs;
-        let filters: Filter[] = [];
         if (!isCurrentSessionHistoryQuery || historyQuery.totalResults == null || searchResponse) {
-          if (searchResponse.request.filters) {
-            filters = checkFilters(searchResponse.request.filters);
-          }
+          const filters = createHistoryQueriesFiltersList(searchResponse.request.filters);
 
           const newHistoryQueries = state.historyQueries.slice();
           newHistoryQueries[indexOfHistoryQuery] = {
             ...historyQuery,
             totalResults: searchResponse.totalResults,
-            filters: filters
+            filters
           };
           return dispatch('setHistoryQueries', newHistoryQueries);
         }
@@ -55,18 +53,13 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
  * @returns A list of selected filters in the history query.
  *
  */
-function checkFilters(requestFilters: Record<string, Filter[]>): Filter[] {
-  const filtersApplied: Filter[] = [];
-  Object.keys(requestFilters).forEach(key => {
-    const facet = requestFilters[key];
-    facet.forEach(filter => {
-      if (filtersApplied.includes(filter)) {
-        const filterIndex = filtersApplied.findIndex(value => value.id === filter.id);
-        filtersApplied.splice(filterIndex, 1);
-      } else {
-        filtersApplied.push(filter);
-      }
-    });
-  });
-  return filtersApplied;
+function createHistoryQueriesFiltersList(
+  requestFilters: InternalSearchResponse['request']['filters']
+): Filter[] {
+  return requestFilters
+    ? Object.values(requestFilters).reduce((accFilters, filters) => {
+        accFilters.push(...filters);
+        return accFilters;
+      }, [])
+    : [];
 }

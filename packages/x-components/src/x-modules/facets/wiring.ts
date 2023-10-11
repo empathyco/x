@@ -171,7 +171,7 @@ export const setSelectedFiltersFromPreview = wireCommit(
  *
  * @public
  */
-export const setSelectedFiltersFromHistoryQueries = wireCommit(
+export const setFiltersFromHistoryQueries = wireCommit(
   'setFilters',
   ({ eventPayload: { filters } }) => filters
 );
@@ -239,6 +239,6 @@ export const facetsWiring = createWiring({
     setSelectedFiltersFromPreview
   },
   UserSelectedAHistoryQuery: {
-    setSelectedFiltersFromHistoryQueries
+    setFiltersFromHistoryQueries
   }
 });

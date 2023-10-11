@@ -11,5 +11,5 @@ export interface HistoryQuery extends Previewable, NamedModel<'HistoryQuery'> {
   /** Timestamp when the history query was created. */
   timestamp: number;
   /** Filters selected for the query to search for. */
-  filters?: Filter[];
+  selectedFilters?: Filter[];
 }
