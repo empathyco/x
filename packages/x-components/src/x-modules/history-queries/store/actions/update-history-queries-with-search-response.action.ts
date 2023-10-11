@@ -37,7 +37,7 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
           newHistoryQueries[indexOfHistoryQuery] = {
             ...historyQuery,
             totalResults: searchResponse.totalResults,
-            filters
+            selectedFilters: filters
           };
           return dispatch('setHistoryQueries', newHistoryQueries);
         }
