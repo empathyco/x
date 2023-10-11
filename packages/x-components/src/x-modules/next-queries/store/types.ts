@@ -12,6 +12,7 @@ import { StatusMutations, StatusState } from '../../../store/utils/status-store.
 import { UrlParams } from '../../../types/url-params';
 import { NextQueriesConfig } from '../config.types';
 import { FeatureLocation } from '../../../types/index';
+import { ConfigMutations } from '../../../store/utils/config-store.utils';
 
 /**
  * Next queries module state.
@@ -54,7 +55,10 @@ export interface NextQueriesGetters {
  *
  * @public
  */
-export interface NextQueriesMutations extends StatusMutations, QueryMutations {
+export interface NextQueriesMutations
+  extends StatusMutations,
+    QueryMutations,
+    ConfigMutations<NextQueriesState> {
   /**
    * Sets the query of the module, which is used to retrieve the next-queries.
    *
@@ -96,6 +100,12 @@ export interface NextQueriesMutations extends StatusMutations, QueryMutations {
    * @param config - The new config.
    */
   setConfig(config: NextQueriesConfig): void;
+  /**
+   * Merges a new config with the current one.
+   *
+   * @param config - The config to be merged.
+   */
+  mergeConfig(config: NextQueriesConfig): void;
 }
 
 /**

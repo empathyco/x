@@ -1,6 +1,6 @@
 import { Facet } from '@empathyco/x-types';
 import Vue from 'vue';
-import { setConfig } from '../../../store/utils/config-store.utils';
+import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 import { setQuery } from '../../../store/utils/query.utils';
 import { facets } from './getters/facets.getter';
 import { selectedFiltersByFacet } from './getters/selected-filters-by-facet.getter';
@@ -58,6 +58,7 @@ export const facetsXStoreModule: FacetsXStoreModule = {
       Vue.set(state.facets, facet.id, facet);
     },
     setConfig,
+    mergeConfig,
     setQuery,
     setStickyFilter(state, filter) {
       if (!state.stickyFilters[filter.id]) {

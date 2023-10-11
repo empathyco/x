@@ -1,5 +1,6 @@
 import { XStoreModule } from '../../../store';
 import { EmpathizeConfig } from '../config.types';
+import { ConfigMutations } from '../../../store/utils/config-store.utils';
 
 /**
  * Empathize store state.
@@ -33,7 +34,7 @@ export interface EmpathizeGetters {}
  *
  * @public
  */
-export interface EmpathizeMutations {
+export interface EmpathizeMutations extends ConfigMutations<EmpathizeState> {
   /**
    * Sets the isOpen state of the module, which is used in the Alias API.
    *
@@ -46,6 +47,12 @@ export interface EmpathizeMutations {
    * @param config - The new config.
    */
   setConfig(config: EmpathizeConfig): void;
+  /**
+   * Merges a new config with the current one.
+   *
+   * @param config - The config to be merged.
+   */
+  mergeConfig(config: EmpathizeConfig): void;
 }
 
 /**

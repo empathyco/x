@@ -1,6 +1,6 @@
 import { setQuery } from '../../../store/utils/query.utils';
 import { localStorageService } from '../../../utils/storage';
-import { setConfig } from '../../../store/utils/config-store.utils';
+import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 import { addQueryToHistory } from './actions/add-query-to-history.action';
 // eslint-disable-next-line max-len
 import { loadHistoryQueriesFromBrowserStorage } from './actions/load-history-queries-from-browser-storage.action';
@@ -53,6 +53,7 @@ export const historyQueriesXStoreModule: HistoryQueriesXStoreModule = {
     },
     setQuery,
     setConfig,
+    mergeConfig,
     setIsEnabled(state, isEnabled) {
       state.isEnabled = isEnabled;
     }

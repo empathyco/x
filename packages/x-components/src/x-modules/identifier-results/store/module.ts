@@ -1,6 +1,6 @@
 import { setQuery } from '../../../store/utils/query.utils';
 import { setStatus } from '../../../store/utils/status-store.utils';
-import { setConfig } from '../../../store/utils/config-store.utils';
+import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 import {
   cancelFetchAndSaveIdentifierResults,
   fetchAndSaveIdentifierResults
@@ -49,7 +49,8 @@ export const identifierResultsXStoreModule: IdentifierResultsXStoreModule = {
     },
     setQuery,
     setStatus,
-    setConfig
+    setConfig,
+    mergeConfig
   },
   actions: {
     cancelFetchAndSaveIdentifierResults,

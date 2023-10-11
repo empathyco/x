@@ -116,6 +116,12 @@ export interface FacetsMutations {
    */
   setConfig(config: FacetsConfig): void;
   /**
+   * Merges a new config with the current one.
+   *
+   * @param config - The config to be merged.
+   */
+  mergeConfig(config: FacetsConfig): void;
+  /**
    * Adds the filter to the {@link FacetsState.stickyFilters | sticky filters} record.
    *
    * @param filter - The filter to set in the store.

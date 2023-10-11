@@ -5,6 +5,7 @@ import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
 import { IdentifierResultsConfig } from '../config.types';
+import { ConfigMutations } from '../../../store/utils/config-store.utils';
 
 /**
  * IdentifierResults store state.
@@ -49,7 +50,10 @@ export interface IdentifierResultsGetters {
  *
  * @public
  */
-export interface IdentifierResultsMutations extends StatusMutations, QueryMutations {
+export interface IdentifierResultsMutations
+  extends StatusMutations,
+    QueryMutations,
+    ConfigMutations<IdentifierResultsState> {
   /**
    * Sets the identifier results of the module.
    *
@@ -81,6 +85,12 @@ export interface IdentifierResultsMutations extends StatusMutations, QueryMutati
    * @param config - The new config.
    */
   setConfig(config: IdentifierResultsConfig): void;
+  /**
+   * Merges a new config with the current one.
+   *
+   * @param config - The config to be merged.
+   */
+  mergeConfig(config: IdentifierResultsConfig): void;
 }
 
 /**
