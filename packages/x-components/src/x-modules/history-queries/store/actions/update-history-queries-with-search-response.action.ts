@@ -47,7 +47,6 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
     }
   };
 
-// eslint-disable-next-line jsdoc/require-description
 /**
  * Take filters from the request and push them into a list.
  *
