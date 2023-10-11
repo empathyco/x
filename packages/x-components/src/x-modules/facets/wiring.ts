@@ -173,7 +173,7 @@ export const setSelectedFiltersFromPreview = wireCommit(
  */
 export const setFiltersFromHistoryQueries = wireCommit(
   'setFilters',
-  ({ eventPayload: { filters } }) => filters
+  ({ eventPayload: { selectedFilters } }) => selectedFilters
 );
 
 /**

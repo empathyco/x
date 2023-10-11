@@ -221,7 +221,7 @@ export const setSearchSelectedFiltersFromPreview = wireCommit(
  */
 export const setSearchSelectedFiltersFromPreviewable = wireCommit(
   'setSelectedFilters',
-  ({ eventPayload: { filters } }) => filters
+  ({ eventPayload: { selectedFilters } }) => selectedFilters
 );
 
 /**
