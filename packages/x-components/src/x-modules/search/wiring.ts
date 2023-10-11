@@ -215,6 +215,16 @@ export const setSearchSelectedFiltersFromPreview = wireCommit(
 );
 
 /**
+ * Sets the search state `selectedFilters` with a selectedHistoryQuery's filters.
+ *
+ * @public
+ */
+export const setSearchSelectedFiltersFromPreviewable = wireCommit(
+  'setSelectedFilters',
+  ({ eventPayload: { selectedFilters } }) => selectedFilters
+);
+
+/**
  * Search wiring.
  *
  * @internal
@@ -282,5 +292,8 @@ export const searchWiring = createWiring({
   },
   QueryPreviewUnselected: {
     setSearchExtraParams
+  },
+  UserSelectedAHistoryQuery: {
+    setSearchSelectedFiltersFromPreviewable
   }
 });

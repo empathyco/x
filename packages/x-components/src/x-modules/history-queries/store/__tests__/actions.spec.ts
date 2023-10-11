@@ -1,4 +1,4 @@
-import { HistoryQuery, Result } from '@empathyco/x-types';
+import { Filter, HistoryQuery, Result } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
@@ -276,11 +276,24 @@ describe('testing history queries module actions', () => {
       { modelName: 'Result', id: '2' }
     ];
     const totalResults = results.length;
+    const requestFilters: Record<string, Filter[]> = {
+      categoryPaths: [
+        {
+          id: 'categoryIds:c018019b6',
+          selected: true,
+          modelName: 'HierarchicalFilter'
+        }
+      ]
+    };
     let gato: HistoryQuery, perro: HistoryQuery;
 
     beforeEach(() => {
       [gato, perro] = ['gato', 'perro'].map(query =>
-        createHistoryQuery({ query, timestamp: store.state.sessionTimeStampInMs + 1 })
+        createHistoryQuery({
+          query,
+          timestamp: store.state.sessionTimeStampInMs + 1,
+          selectedFilters: []
+        })
       );
       resetStateWith({ historyQueries: [gato, perro] });
     });
@@ -340,8 +353,8 @@ describe('testing history queries module actions', () => {
       expectHistoryQueriesToEqual([{ ...gato, totalResults }, perro]);
     });
 
-    it('updates a history query if the new totalResults is higher', async () => {
-      gato.totalResults = 1;
+    it('updates a history query if search response change', async () => {
+      gato.totalResults = 10;
       resetStateWith({ historyQueries: [gato, perro] });
       await store.dispatch('updateHistoryQueriesWithSearchResponse', {
         request: {
@@ -355,19 +368,22 @@ describe('testing history queries module actions', () => {
       expectHistoryQueriesToEqual([{ ...gato, totalResults }, perro]);
     });
 
-    it('does not update a history query if the new totalResults is lower', async () => {
+    // eslint-disable-next-line max-len
+    it('updates a history query if search response change because a filter is selected', async () => {
       gato.totalResults = 50;
+      const selectedFilters = Object.values(requestFilters)[0];
       resetStateWith({ historyQueries: [gato, perro] });
       await store.dispatch('updateHistoryQueriesWithSearchResponse', {
         request: {
           query: 'gato',
-          page: 1
+          page: 1,
+          filters: requestFilters
         },
         status: 'success',
         results,
         totalResults
       });
-      expectHistoryQueriesToEqual([gato, perro]);
+      expectHistoryQueriesToEqual([{ ...gato, totalResults, selectedFilters }, perro]);
     });
   });
 });

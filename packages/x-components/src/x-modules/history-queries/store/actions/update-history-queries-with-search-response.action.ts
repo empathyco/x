@@ -1,4 +1,6 @@
+import { Filter } from '@empathyco/x-types';
 import { HistoryQueriesXStoreModule } from '../types';
+import { InternalSearchResponse } from '../../../search/index';
 
 /**
  * Default implementation for the
@@ -7,8 +9,7 @@ import { HistoryQueriesXStoreModule } from '../types';
  * The matching history query will only be updated on the following scenarios:
  * 1. If it is part of a previous session, not the current one.
  * 2. If its total results count has not been registered yet.
- * 3. If its total results count registered is less than the one specified on the search response,
- * meaning that the previous update was part of a filtered request.
+ * 3. If there is a new search response.
  *
  * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
@@ -29,18 +30,36 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
       if (indexOfHistoryQuery >= 0) {
         const historyQuery = state.historyQueries[indexOfHistoryQuery];
         const isCurrentSessionHistoryQuery = historyQuery.timestamp > state.sessionTimeStampInMs;
-        if (
-          !isCurrentSessionHistoryQuery ||
-          historyQuery.totalResults == null ||
-          historyQuery.totalResults < searchResponse.totalResults
-        ) {
+        if (!isCurrentSessionHistoryQuery || historyQuery.totalResults == null || searchResponse) {
+          const filters = createHistoryQueriesFiltersList(searchResponse.request.filters);
+
           const newHistoryQueries = state.historyQueries.slice();
           newHistoryQueries[indexOfHistoryQuery] = {
             ...historyQuery,
-            totalResults: searchResponse.totalResults
+            totalResults: searchResponse.totalResults,
+            selectedFilters: filters
           };
           return dispatch('setHistoryQueries', newHistoryQueries);
         }
       }
     }
   };
+
+/**
+ * Take filters from the request and push them into a list.
+ *
+ * @param requestFilters - Filters from the request.
+ *
+ * @returns A list of selected filters in the history query.
+ *
+ */
+function createHistoryQueriesFiltersList(
+  requestFilters: InternalSearchResponse['request']['filters']
+): Filter[] {
+  return requestFilters
+    ? Object.values(requestFilters).reduce((accFilters, filters) => {
+        accFilters.push(...filters);
+        return accFilters;
+      }, [])
+    : [];
+}

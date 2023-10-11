@@ -167,6 +167,16 @@ export const setSelectedFiltersFromPreview = wireCommit(
 );
 
 /**
+ * Sets the filters of the facets module from a selectedHistoryQuery's filters.
+ *
+ * @public
+ */
+export const setFiltersFromHistoryQueries = wireCommit(
+  'setFilters',
+  ({ eventPayload: { selectedFilters } }) => selectedFilters
+);
+
+/**
  * Sets the query of the facets module from a queryPreview.
  *
  * @public
@@ -227,5 +237,8 @@ export const facetsWiring = createWiring({
   UserAcceptedAQueryPreview: {
     setQueryFromPreview,
     setSelectedFiltersFromPreview
+  },
+  UserSelectedAHistoryQuery: {
+    setFiltersFromHistoryQueries
   }
 });

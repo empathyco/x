@@ -1,4 +1,4 @@
-import { HistoryQuery } from '@empathyco/x-types';
+import { Filter, HistoryQuery } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { UrlParams } from '../../../types/url-params';
@@ -93,6 +93,12 @@ export interface HistoryQueriesMutations extends QueryMutations {
    * @param isEnabled - The new {@link HistoryQueriesState.isEnabled }.
    */
   setIsEnabled(isEnabled: boolean): void;
+  /**
+   * Sets the {@link HistoryQueriesState.historyQueries } filters property.
+   *
+   * @param filters - The new {@link HistoryQueriesState.historyQueries } filters.
+   */
+  setSearchSelectedFilters(filters: Filter[]): void;
 }
 /**
  * HistoryQueries store actions.

@@ -53,6 +53,9 @@ export const historyQueriesXStoreModule: HistoryQueriesXStoreModule = {
     setQuery,
     setIsEnabled(state, isEnabled) {
       state.isEnabled = isEnabled;
+    },
+    setSearchSelectedFilters(state, filters) {
+      state.historyQueries[0].selectedFilters = filters;
     }
   },
   actions: {
