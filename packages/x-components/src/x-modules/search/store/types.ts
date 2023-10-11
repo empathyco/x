@@ -147,11 +147,11 @@ export interface SearchMutations extends StatusMutations, QueryMutations {
    */
   setPage(page: number): void;
   /**
-   * Sets the page size of the module.
+   * Sets the {@link SearchState.config } config.
    *
-   * @param pageSize - The new page size.
+   * @param config - The new config.
    */
-  setPageSize(pageSize: number): void;
+  setConfig(config: SearchConfig): void;
   /**
    * Sets the extra params of the module.
    *
