@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.421](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.420...@empathyco/x-components@3.0.0-alpha.421) (2023-10-11)
+
+
+### Features
+
+* filters in history queries (#1315) ([1e266d9](https://github.com/empathyco/x/commit/1e266d9ce8dbf5661488800bc9566f117c1616f5))
+
+
+
 ## [3.0.0-alpha.420](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.419...@empathyco/x-components@3.0.0-alpha.420) (2023-10-11)
 
 **Note:** Version bump only for package @empathyco/x-components

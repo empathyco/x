@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.0.0-alpha.75](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.74...@empathyco/x-types@10.0.0-alpha.75) (2023-10-11)
+
+
+### Features
+
+* filters in history queries (#1315) ([1e266d9](https://github.com/empathyco/x/commit/1e266d9ce8dbf5661488800bc9566f117c1616f5))
+
+
+
 ## [10.0.0-alpha.74](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.73...@empathyco/x-types@10.0.0-alpha.74) (2023-10-04)
 
 
