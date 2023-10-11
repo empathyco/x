@@ -49,7 +49,6 @@ export interface SemanticQueriesMutations {
    * Sets the {@link SemanticQueriesState.query} property.
    */
   setQuery(query: string): void;
-
   /**
    * Sets the {@link SemanticQueriesState.totalResults} property.
    */
@@ -60,11 +59,16 @@ export interface SemanticQueriesMutations {
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
-
   /**
    * Sets the {@link SemanticQueriesState.semanticQueries} property.
    */
   setSemanticQueries(semanticQueries: SemanticQuery[]): void;
+  /**
+   * Sets the {@link SemanticQueriesState.config } config.
+   *
+   * @param config - The new config.
+   */
+  setConfig(config: SemanticQueriesConfig): void;
 }
 
 /**

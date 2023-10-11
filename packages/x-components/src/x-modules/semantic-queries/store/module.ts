@@ -1,3 +1,4 @@
+import { setConfig } from '../../../store/utils/config-store.utils';
 import { SemanticQueriesXStoreModule } from './types';
 import { fetchSemanticQuery } from './actions/fetch-semantic-query.action';
 import { fetchAndSaveSemanticQuery } from './actions/fetch-and-save-semantic-query.action';
@@ -36,7 +37,8 @@ export const semanticQueriesXStoreModule: SemanticQueriesXStoreModule = {
     },
     setTotalResults(state, totalResults) {
       state.totalResults = totalResults;
-    }
+    },
+    setConfig
   },
   actions: {
     fetchSemanticQuery,

@@ -1,4 +1,5 @@
 import { setStatus } from '../../../store/utils/status-store.utils';
+import { setConfig } from '../../../store/utils/config-store.utils';
 import {
   cancelFetchAndSaveSuggestions,
   fetchAndSaveSuggestions
@@ -38,7 +39,8 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
     setStatus,
     setParams(state, params) {
       state.params = params;
-    }
+    },
+    setConfig
   },
   actions: {
     cancelFetchAndSaveSuggestions,

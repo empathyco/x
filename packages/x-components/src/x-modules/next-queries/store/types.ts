@@ -42,7 +42,7 @@ export interface NextQueriesState extends StatusState, QueryState {
 export interface NextQueriesGetters {
   /**
    * Request object to retrieve the next queries using the search adapter, or null if there is
-   * not valid data to conform a valid request.
+   * no valid data to conform a valid request.
    */
   request: NextQueriesRequest | null;
   /** List of next queries that have not been searched before. */
@@ -79,7 +79,6 @@ export interface NextQueriesMutations extends StatusMutations, QueryMutations {
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
-
   /**
    * Adds a new entry to the result's dictionary.
    *
@@ -87,11 +86,16 @@ export interface NextQueriesMutations extends StatusMutations, QueryMutations {
    * the totalResults and the results to add.
    */
   setResultsPreview(resultsPreview: Dictionary<PreviewResults>): void;
-
   /**
    * Resets the result's dictionary.
    */
   resetResultsPreview(): void;
+  /**
+   * Sets the {@link NextQueriesState.config } config.
+   *
+   * @param config - The new config.
+   */
+  setConfig(config: NextQueriesConfig): void;
 }
 
 /**

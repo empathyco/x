@@ -75,6 +75,12 @@ export interface IdentifierResultsMutations extends StatusMutations, QueryMutati
    * @param newQuery - The new query to save to the state.
    */
   setQuery(newQuery: string): void;
+  /**
+   * Sets the {@link IdentifierResultsState.config } config.
+   *
+   * @param config - The new config.
+   */
+  setConfig(config: IdentifierResultsConfig): void;
 }
 
 /**

@@ -63,6 +63,12 @@ export interface QuerySuggestionsMutations extends StatusMutations, QueryMutatio
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
+  /**
+   * Sets the {@link QuerySuggestionsState.config } config.
+   *
+   * @param config - The new config.
+   */
+  setConfig(config: QuerySuggestionsConfig): void;
 }
 
 /**

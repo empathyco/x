@@ -40,6 +40,12 @@ export interface EmpathizeMutations {
    * @param isOpen - The new isOpen state to save.
    */
   setIsOpen(isOpen: boolean): void;
+  /**
+   * Sets the {@link EmpathizeState.config } config.
+   *
+   * @param config - The new config.
+   */
+  setConfig(config: EmpathizeConfig): void;
 }
 
 /**

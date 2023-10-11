@@ -64,6 +64,12 @@ export interface RelatedTagsMutations extends StatusMutations, QueryMutations {
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
+  /**
+   * Sets the {@link RelatedTagsState.config } config.
+   *
+   * @param config - The new config.
+   */
+  setConfig(config: RelatedTagsConfig): void;
 }
 /**
  * RelatedTags store actions.

@@ -55,6 +55,12 @@ export interface RecommendationsMutations extends StatusMutations {
    * and the properties to modify.
    */
   updateRecommendation(recommendation: Partial<Result> & Pick<Result, 'id'>): void;
+  /**
+   * Sets the {@link RecommendationsState.config } config.
+   *
+   * @param config - The new config.
+   */
+  setConfig(config: RecommendationsConfig): void;
 }
 
 /**

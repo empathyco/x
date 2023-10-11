@@ -57,6 +57,12 @@ export interface PopularSearchesMutations extends StatusMutations {
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
+  /**
+   * Sets the {@link PopularSearchesState.config } config.
+   *
+   * @param config - The new config.
+   */
+  setConfig(config: PopularSearchesConfig): void;
 }
 
 /**

@@ -106,6 +106,12 @@ export interface QueriesPreviewMutations {
    * @param selectedQueryPreview - The selected query preview to save to the state.
    */
   setSelectedQueryPreview(selectedQueryPreview: QueryPreviewInfo | null): void;
+  /**
+   * Sets the {@link QueriesPreviewState.config } config.
+   *
+   * @param config - The new config.
+   */
+  setConfig(config: QueriesPreviewConfig): void;
 }
 
 /**

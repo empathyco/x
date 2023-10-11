@@ -88,6 +88,12 @@ export interface HistoryQueriesMutations extends QueryMutations {
    */
   setQuery(query: string): void;
   /**
+   * Sets the {@link HistoryQueriesState.config } config.
+   *
+   * @param config - The new config.
+   */
+  setConfig(config: HistoryQueriesConfig): void;
+  /**
    * Sets the {@link HistoryQueriesState.isEnabled } property.
    *
    * @param isEnabled - The new {@link HistoryQueriesState.isEnabled }.

@@ -1,4 +1,5 @@
 import { setStatus } from '../../../store/utils/status-store.utils';
+import { setConfig } from '../../../store/utils/config-store.utils';
 import {
   cancelFetchAndSaveRecommendations,
   fetchAndSaveRecommendations
@@ -41,7 +42,8 @@ export const recommendationsXStoreModule: RecommendationsXStoreModule = {
       if (stateRecommendation) {
         Object.assign(stateRecommendation, recommendation);
       }
-    }
+    },
+    setConfig
   },
   actions: {
     cancelFetchAndSaveRecommendations,
