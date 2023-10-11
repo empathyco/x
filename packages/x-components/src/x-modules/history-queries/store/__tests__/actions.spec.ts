@@ -289,7 +289,11 @@ describe('testing history queries module actions', () => {
 
     beforeEach(() => {
       [gato, perro] = ['gato', 'perro'].map(query =>
-        createHistoryQuery({ query, timestamp: store.state.sessionTimeStampInMs + 1, filters: [] })
+        createHistoryQuery({
+          query,
+          timestamp: store.state.sessionTimeStampInMs + 1,
+          selectedFilters: []
+        })
       );
       resetStateWith({ historyQueries: [gato, perro] });
     });
@@ -367,7 +371,7 @@ describe('testing history queries module actions', () => {
     // eslint-disable-next-line max-len
     it('updates a history query if search response change because a filter is selected', async () => {
       gato.totalResults = 50;
-      const filters = Object.values(requestFilters)[0];
+      const selectedFilters = Object.values(requestFilters)[0];
       resetStateWith({ historyQueries: [gato, perro] });
       await store.dispatch('updateHistoryQueriesWithSearchResponse', {
         request: {
@@ -379,7 +383,7 @@ describe('testing history queries module actions', () => {
         results,
         totalResults
       });
-      expectHistoryQueriesToEqual([{ ...gato, totalResults, filters }, perro]);
+      expectHistoryQueriesToEqual([{ ...gato, totalResults, selectedFilters }, perro]);
     });
   });
 });
