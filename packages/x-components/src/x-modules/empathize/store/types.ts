@@ -41,18 +41,6 @@ export interface EmpathizeMutations extends ConfigMutations<EmpathizeState> {
    * @param isOpen - The new isOpen state to save.
    */
   setIsOpen(isOpen: boolean): void;
-  /**
-   * Sets the {@link EmpathizeState.config } config.
-   *
-   * @param config - The new config.
-   */
-  setConfig(config: EmpathizeConfig): void;
-  /**
-   * Merges a new config with the current one.
-   *
-   * @param config - The config to be merged.
-   */
-  mergeConfig(config: EmpathizeConfig): void;
 }
 
 /**

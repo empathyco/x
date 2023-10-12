@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { setConfig } from '../../../store/utils/config-store.utils';
+import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 import { QueriesPreviewXStoreModule } from './types';
 import { fetchQueryPreview } from './actions/fetch-query-preview.action';
 import { fetchAndSaveQueryPreview } from './actions/fetch-and-save-query-preview.action';
@@ -40,7 +40,8 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     setSelectedQueryPreview(state, selectedQueryPreview) {
       state.selectedQueryPreview = selectedQueryPreview;
     },
-    setConfig
+    setConfig,
+    mergeConfig
   },
   actions: {
     fetchQueryPreview,

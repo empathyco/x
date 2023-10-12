@@ -94,18 +94,6 @@ export interface NextQueriesMutations
    * Resets the result's dictionary.
    */
   resetResultsPreview(): void;
-  /**
-   * Sets the {@link NextQueriesState.config } config.
-   *
-   * @param config - The new config.
-   */
-  setConfig(config: NextQueriesConfig): void;
-  /**
-   * Merges a new config with the current one.
-   *
-   * @param config - The config to be merged.
-   */
-  mergeConfig(config: NextQueriesConfig): void;
 }
 
 /**

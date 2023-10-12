@@ -2,7 +2,7 @@ import { isFacetFilter } from '@empathyco/x-types';
 import { setQuery } from '../../../store/utils/query.utils';
 import { setStatus } from '../../../store/utils/status-store.utils';
 import { groupItemsBy } from '../../../utils/array';
-import { setConfig } from '../../../store/utils/config-store.utils';
+import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 // eslint-disable-next-line max-len
 import {
   cancelFetchAndSaveSearchResponse,
@@ -83,6 +83,7 @@ export const searchXStoreModule: SearchXStoreModule = {
       state.page = page;
     },
     setConfig,
+    mergeConfig,
     setIsAppendResults(state, isAppendResults) {
       state.isAppendResults = isAppendResults;
     },

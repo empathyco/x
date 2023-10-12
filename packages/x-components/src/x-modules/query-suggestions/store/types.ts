@@ -5,6 +5,7 @@ import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { UrlParams } from '../../../types/url-params';
 import { QuerySuggestionsConfig } from '../config.types';
+import { ConfigMutations } from '../../../store/utils/config-store.utils';
 
 /**
  * QuerySuggestions store state.
@@ -44,7 +45,10 @@ export interface QuerySuggestionsGetters {
  *
  * @public
  */
-export interface QuerySuggestionsMutations extends StatusMutations, QueryMutations {
+export interface QuerySuggestionsMutations
+  extends StatusMutations,
+    QueryMutations,
+    ConfigMutations<QuerySuggestionsState> {
   /**
    * Sets the query of the query suggestions module.
    *
@@ -63,12 +67,6 @@ export interface QuerySuggestionsMutations extends StatusMutations, QueryMutatio
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
-  /**
-   * Sets the {@link QuerySuggestionsState.config } config.
-   *
-   * @param config - The new config.
-   */
-  setConfig(config: QuerySuggestionsConfig): void;
 }
 
 /**

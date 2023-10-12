@@ -1,6 +1,6 @@
 import { setQuery } from '../../../store/utils/query.utils';
 import { setStatus } from '../../../store/utils/status-store.utils';
-import { setConfig } from '../../../store/utils/config-store.utils';
+import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 import {
   cancelFetchAndSaveSuggestions,
   fetchAndSaveSuggestions
@@ -43,7 +43,8 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
     setParams(state, params) {
       state.params = params;
     },
-    setConfig
+    setConfig,
+    mergeConfig
   },
   actions: {
     cancelFetchAndSaveSuggestions,

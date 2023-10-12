@@ -1,5 +1,6 @@
 import { Facet, Filter, RawFilter } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
+import { ConfigMutations } from '../../../store/utils/config-store.utils';
 
 /**
  * Facets store state.
@@ -52,7 +53,7 @@ export interface FacetsGetters {
  *
  * @public
  */
-export interface FacetsMutations {
+export interface FacetsMutations extends ConfigMutations<FacetsState> {
   /**
    * Updates the state of a filter.
    *
@@ -109,18 +110,6 @@ export interface FacetsMutations {
    * @param facet - The facet to set in the store.
    */
   setFacet(facet: Facet): void;
-  /**
-   * Sets the {@link FacetsState.facets | facets} config.
-   *
-   * @param config - The new config.
-   */
-  setConfig(config: FacetsConfig): void;
-  /**
-   * Merges a new config with the current one.
-   *
-   * @param config - The config to be merged.
-   */
-  mergeConfig(config: FacetsConfig): void;
   /**
    * Adds the filter to the {@link FacetsState.stickyFilters | sticky filters} record.
    *
