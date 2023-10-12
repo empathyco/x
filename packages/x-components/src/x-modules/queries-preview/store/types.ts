@@ -4,7 +4,6 @@ import { XActionContext } from '../../../store/actions.types';
 import { XStoreModule } from '../../../store/store.types';
 import { RequestStatus, StatusState } from '../../../store/utils/status-store.utils';
 import { QueriesPreviewConfig } from '../config.types';
-import { ConfigMutations } from '../../../store/utils/config-store.utils';
 
 /**
  * QueriesPreview store state.
@@ -76,7 +75,7 @@ export interface QueriesPreviewGetters {
  *
  * @public
  */
-export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewState> {
+export interface QueriesPreviewMutations {
   /**
    * Removes a query preview entry from the queries preview's dictionary.
    *

@@ -3,7 +3,6 @@ import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { PopularSearchesConfig } from '../config.types';
-import { ConfigMutations } from '../../../store/utils/config-store.utils';
 
 /**
  * Popular searches module state.
@@ -39,9 +38,7 @@ export interface PopularSearchesGetters {
  *
  * @public
  */
-export interface PopularSearchesMutations
-  extends StatusMutations,
-    ConfigMutations<PopularSearchesState> {
+export interface PopularSearchesMutations extends StatusMutations {
   /**
    * Sets the suggestions of the module.
    *

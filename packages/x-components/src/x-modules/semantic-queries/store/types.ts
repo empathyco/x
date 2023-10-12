@@ -3,7 +3,6 @@ import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext } from '../../../store/actions.types';
 import { XStoreModule } from '../../../store/store.types';
 import { SemanticQueriesConfig } from '../config.types';
-import { ConfigMutations } from '../../../store/utils/config-store.utils';
 
 /**
  * SemanticQueries store state.
@@ -45,11 +44,12 @@ export interface SemanticQueriesGetters {
  *
  * @public
  */
-export interface SemanticQueriesMutations extends ConfigMutations<SemanticQueriesState> {
+export interface SemanticQueriesMutations {
   /**
    * Sets the {@link SemanticQueriesState.query} property.
    */
   setQuery(query: string): void;
+
   /**
    * Sets the {@link SemanticQueriesState.totalResults} property.
    */
@@ -60,6 +60,7 @@ export interface SemanticQueriesMutations extends ConfigMutations<SemanticQuerie
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
+
   /**
    * Sets the {@link SemanticQueriesState.semanticQueries} property.
    */

@@ -1,7 +1,6 @@
 import { TaggingRequest } from '@empathyco/x-types';
 import { XStoreModule } from '../../../store';
 import { TaggingConfig } from '../config.types';
-import { ConfigMutations } from '../../../store/utils/config-store.utils';
 /**
  * Tagging store state.
  *
@@ -34,7 +33,7 @@ export interface TaggingGetters {}
  *
  * @public
  */
-export interface TaggingMutations extends ConfigMutations<TaggingState> {
+export interface TaggingMutations {
   /**
    * Sets the {@link TaggingState.consent } property.
    *
@@ -47,6 +46,13 @@ export interface TaggingMutations extends ConfigMutations<TaggingState> {
    * @param queryTaggingInfo - The new {@link TaggingState.queryTaggingInfo}.
    */
   setQueryTaggingInfo(queryTaggingInfo: TaggingRequest): void;
+
+  /**
+   * Sets the {@link TaggingState.config} property.
+   *
+   * @param taggingConfig - The new {@link TaggingState.config}.
+   */
+  setTaggingConfig(taggingConfig: TaggingConfig): void;
 }
 
 /**

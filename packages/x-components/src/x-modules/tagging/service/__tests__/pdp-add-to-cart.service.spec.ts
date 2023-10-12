@@ -37,7 +37,7 @@ function commitTaggingConfig(
   store: Store<RootXStoreState>,
   taggingConfig: Partial<TaggingConfig>
 ): void {
-  store.commit('x/tagging/mergeConfig', taggingConfig);
+  store.commit('x/tagging/setTaggingConfig', taggingConfig);
 }
 
 describe('testing pdp add to cart', () => {

@@ -1,5 +1,4 @@
 import { setStatus } from '../../../store/utils/status-store.utils';
-import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 import {
   cancelFetchAndSaveSuggestions,
   fetchAndSaveSuggestions
@@ -36,12 +35,10 @@ export const popularSearchesXStoreModule: PopularSearchesXStoreModule = {
     setSearchedQueries(state, searchedQueries) {
       state.searchedQueries = searchedQueries;
     },
+    setStatus,
     setParams(state, params) {
       state.params = params;
-    },
-    setStatus,
-    setConfig,
-    mergeConfig
+    }
   },
   actions: {
     cancelFetchAndSaveSuggestions,

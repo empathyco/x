@@ -5,7 +5,6 @@ import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
 import { IdentifierResultsConfig } from '../config.types';
-import { ConfigMutations } from '../../../store/utils/config-store.utils';
 
 /**
  * IdentifierResults store state.
@@ -50,10 +49,7 @@ export interface IdentifierResultsGetters {
  *
  * @public
  */
-export interface IdentifierResultsMutations
-  extends StatusMutations,
-    QueryMutations,
-    ConfigMutations<IdentifierResultsState> {
+export interface IdentifierResultsMutations extends StatusMutations, QueryMutations {
   /**
    * Sets the identifier results of the module.
    *
