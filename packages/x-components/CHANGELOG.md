@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.422](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.421...@empathyco/x-components@3.0.0-alpha.422) (2023-10-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* setPageSize search module mutation has been replaced by the setConfig mutation. 
+setTaggingConfig tagging module mutation and setFacetsConfig facets module mutation have been replaced by the mergeConfig mutation.
+
+EMP-2328
+
+* (feat) Implement config utils in the modules with config (#1321) ([393d758](https://github.com/empathyco/x/commit/393d7588d19e01d7b012b8a6b92f01babb080f3e))
+
+
+
 ## [3.0.0-alpha.421](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.420...@empathyco/x-components@3.0.0-alpha.421) (2023-10-11)
 
 
