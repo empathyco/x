@@ -1,6 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { default as Vue, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
+import { setQuery } from '../../store/utils/query.utils';
 import { createWireFromFunction } from '../../wiring/wires.factory';
 import { XComponentsAdapterDummy } from '../../__tests__/adapter.dummy';
 import { createXModule } from '../../__tests__/utils';
@@ -35,9 +36,7 @@ const xModule = createXModule({
     },
     actions: {},
     mutations: {
-      setQuery(state, query: string): void {
-        state.query = query;
-      }
+      setQuery
     }
   }
 });

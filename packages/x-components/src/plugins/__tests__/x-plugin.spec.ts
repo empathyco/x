@@ -12,6 +12,7 @@ import { installNewXPlugin } from '../../__tests__/utils';
 import { XPlugin } from '../x-plugin';
 import { PrivateXModulesOptions, XModulesOptions, XPluginOptions } from '../x-plugin.types';
 import { XDummyBus } from '../../__tests__/bus.dummy';
+import { setQuery } from '../../store/utils/query.utils';
 
 const wireToReplace: AnyWire = jest.fn();
 const wireToRemove: AnyWire = jest.fn();
@@ -364,9 +365,7 @@ describe('testing X Plugin', () => {
         }
       },
       mutations: {
-        setQuery(state, query) {
-          state.query = query;
-        }
+        setQuery
       },
       state: () => ({ query: '' })
     };
