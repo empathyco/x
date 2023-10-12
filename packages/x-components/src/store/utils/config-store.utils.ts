@@ -45,5 +45,5 @@ export function mergeConfig<T extends { config: T['config'] }>(
   state: T,
   config: Partial<T['config']>
 ): void {
-  Object.assign(state.config!, config);
+  Object.assign(<object>state.config, config);
 }
