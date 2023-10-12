@@ -12,6 +12,7 @@ import { StatusMutations, StatusState } from '../../../store/utils/status-store.
 import { UrlParams } from '../../../types/url-params';
 import { NextQueriesConfig } from '../config.types';
 import { FeatureLocation } from '../../../types/index';
+import { ConfigMutations } from '../../../store/utils/config-store.utils';
 
 /**
  * Next queries module state.
@@ -42,7 +43,7 @@ export interface NextQueriesState extends StatusState, QueryState {
 export interface NextQueriesGetters {
   /**
    * Request object to retrieve the next queries using the search adapter, or null if there is
-   * not valid data to conform a valid request.
+   * no valid data to conform a valid request.
    */
   request: NextQueriesRequest | null;
   /** List of next queries that have not been searched before. */
@@ -54,7 +55,10 @@ export interface NextQueriesGetters {
  *
  * @public
  */
-export interface NextQueriesMutations extends StatusMutations, QueryMutations {
+export interface NextQueriesMutations
+  extends StatusMutations,
+    QueryMutations,
+    ConfigMutations<NextQueriesState> {
   /**
    * Sets the query of the module, which is used to retrieve the next-queries.
    *
@@ -79,7 +83,6 @@ export interface NextQueriesMutations extends StatusMutations, QueryMutations {
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
-
   /**
    * Adds a new entry to the result's dictionary.
    *
@@ -87,7 +90,6 @@ export interface NextQueriesMutations extends StatusMutations, QueryMutations {
    * the totalResults and the results to add.
    */
   setResultsPreview(resultsPreview: Dictionary<PreviewResults>): void;
-
   /**
    * Resets the result's dictionary.
    */

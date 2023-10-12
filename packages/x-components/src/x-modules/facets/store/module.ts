@@ -1,9 +1,11 @@
 import { Facet } from '@empathyco/x-types';
 import Vue from 'vue';
+import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
+import { setQuery } from '../../../store/utils/query.utils';
 import { facets } from './getters/facets.getter';
 import { selectedFiltersByFacet } from './getters/selected-filters-by-facet.getter';
 import { selectedFilters } from './getters/selected-filters.getter';
-import { FacetGroupEntry, FacetsConfig, FacetsXStoreModule } from './types';
+import { FacetGroupEntry, FacetsXStoreModule } from './types';
 import { selectedFiltersForRequest } from './getters/selected-filters-for-request.getter';
 
 /**
@@ -55,12 +57,9 @@ export const facetsXStoreModule: FacetsXStoreModule = {
     setFacet(state, facet: Facet) {
       Vue.set(state.facets, facet.id, facet);
     },
-    setFacetsConfig(state, config: FacetsConfig) {
-      state.config = config;
-    },
-    setQuery(state, query) {
-      state.query = query;
-    },
+    setConfig,
+    mergeConfig,
+    setQuery,
     setStickyFilter(state, filter) {
       if (!state.stickyFilters[filter.id]) {
         Vue.set(state.stickyFilters, filter.id, filter);

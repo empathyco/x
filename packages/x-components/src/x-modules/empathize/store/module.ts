@@ -1,3 +1,4 @@
+import { setConfig, mergeConfig } from '../../../store/utils/config-store.utils';
 import { EmpathizeXStoreModule } from './types';
 
 /**
@@ -14,7 +15,9 @@ export const empathizeXStoreModule: EmpathizeXStoreModule = {
   mutations: {
     setIsOpen(state, isOpen) {
       state.isOpen = isOpen;
-    }
+    },
+    setConfig,
+    mergeConfig
   },
   actions: {}
 };

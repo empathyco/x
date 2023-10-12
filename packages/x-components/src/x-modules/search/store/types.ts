@@ -20,6 +20,7 @@ import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
 import { UrlParams } from '../../../types/url-params';
 import { SearchConfig } from '../config.types';
 import { InternalSearchRequest, WatchedInternalSearchRequest } from '../types';
+import { ConfigMutations } from '../../../store/utils/config-store.utils';
 
 /**
  * Search store state.
@@ -92,7 +93,10 @@ export interface SearchGetters {
  *
  * @public
  */
-export interface SearchMutations extends StatusMutations, QueryMutations {
+export interface SearchMutations
+  extends StatusMutations,
+    QueryMutations,
+    ConfigMutations<SearchState> {
   /**
    * Append the results to the results state.
    *
@@ -146,12 +150,6 @@ export interface SearchMutations extends StatusMutations, QueryMutations {
    * @param page - The new page.
    */
   setPage(page: number): void;
-  /**
-   * Sets the page size of the module.
-   *
-   * @param pageSize - The new page size.
-   */
-  setPageSize(pageSize: number): void;
   /**
    * Sets the extra params of the module.
    *

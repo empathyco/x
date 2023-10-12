@@ -3,6 +3,7 @@ import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { RecommendationsConfig } from '../config.types';
+import { ConfigMutations } from '../../../store/utils/config-store.utils';
 
 /**
  * Recommendations store state.
@@ -35,7 +36,9 @@ export interface RecommendationsGetters {
  *
  * @public
  */
-export interface RecommendationsMutations extends StatusMutations {
+export interface RecommendationsMutations
+  extends StatusMutations,
+    ConfigMutations<RecommendationsState> {
   /**
    * Sets the recommendations of the module.
    *

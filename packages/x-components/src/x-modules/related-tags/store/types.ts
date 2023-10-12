@@ -5,6 +5,7 @@ import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
 import { UrlParams } from '../../../types/url-params';
 import { RelatedTagsConfig } from '../config.types';
+import { ConfigMutations } from '../../../store/utils/config-store.utils';
 
 /**
  * RelatedTags store state.
@@ -45,7 +46,10 @@ export interface RelatedTagsGetters {
  *
  * @public
  */
-export interface RelatedTagsMutations extends StatusMutations, QueryMutations {
+export interface RelatedTagsMutations
+  extends StatusMutations,
+    QueryMutations,
+    ConfigMutations<RelatedTagsState> {
   /**
    * Sets the related tags of the module.
    *

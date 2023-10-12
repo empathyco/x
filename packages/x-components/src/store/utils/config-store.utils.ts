@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 /**
  * Config mutations, containing a method to change the current config and other to merge
  * a new one.
@@ -28,7 +30,7 @@ export interface ConfigMutations<T extends { config: T['config'] }> {
  * @public
  */
 export function setConfig<T extends { config: T['config'] }>(state: T, config: T['config']): void {
-  state.config = config;
+  Vue.set(state, 'config', config);
 }
 
 /**
@@ -43,8 +45,5 @@ export function mergeConfig<T extends { config: T['config'] }>(
   state: T,
   config: Partial<T['config']>
 ): void {
-  state.config = {
-    ...state.config,
-    ...config
-  };
+  Object.assign(<object>state.config, config);
 }

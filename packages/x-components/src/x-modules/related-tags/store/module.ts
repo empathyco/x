@@ -1,5 +1,6 @@
 import { setQuery } from '../../../store/utils/query.utils';
 import { setStatus } from '../../../store/utils/status-store.utils';
+import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 import {
   cancelFetchAndSaveRelatedTags,
   fetchAndSaveRelatedTags
@@ -45,7 +46,9 @@ export const relatedTagsXStoreModule: RelatedTagsXStoreModule = {
     setStatus,
     setParams(state, params) {
       state.params = params;
-    }
+    },
+    setConfig,
+    mergeConfig
   },
   actions: {
     cancelFetchAndSaveRelatedTags,

@@ -4,6 +4,7 @@ import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 import { UrlParams } from '../../../types/url-params';
 import { HistoryQueriesConfig } from '../config.types';
 import { InternalSearchResponse } from '../../search/index';
+import { ConfigMutations } from '../../../store/utils/config-store.utils';
 
 /**
  * HistoryQueries store state.
@@ -68,7 +69,9 @@ export interface HistoryQueriesGetters {
  *
  * @public
  */
-export interface HistoryQueriesMutations extends QueryMutations {
+export interface HistoryQueriesMutations
+  extends QueryMutations,
+    ConfigMutations<HistoryQueriesState> {
   /**
    * Sets the {@link HistoryQueriesState.historyQueries} property.
    *
