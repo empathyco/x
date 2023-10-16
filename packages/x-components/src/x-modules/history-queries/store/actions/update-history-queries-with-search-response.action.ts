@@ -31,7 +31,7 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
         const historyQuery = state.historyQueries[indexOfHistoryQuery];
         const isCurrentSessionHistoryQuery = historyQuery.timestamp > state.sessionTimeStampInMs;
         if (!isCurrentSessionHistoryQuery || historyQuery.totalResults == null || searchResponse) {
-          const filters = createHistoryQueriesFiltersList(searchResponse.request.filters);
+          const filters = createHistoryQueriesFiltersList(searchResponse.facets);
 
           const newHistoryQueries = state.historyQueries.slice();
           newHistoryQueries[indexOfHistoryQuery] = {
@@ -46,19 +46,23 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
   };
 
 /**
- * Take filters from the request and push them into a list.
+ * Take facets from the response and push the selected filters into a list.
  *
- * @param requestFilters - Filters from the request.
+ * @param responseFacets - Facets from the response.
  *
  * @returns A list of selected filters in the history query.
  *
  */
 function createHistoryQueriesFiltersList(
-  requestFilters: InternalSearchResponse['request']['filters']
+  responseFacets: InternalSearchResponse['facets']
 ): Filter[] {
-  return requestFilters
-    ? Object.values(requestFilters).reduce((accFilters, filters) => {
-        accFilters.push(...filters);
+  return responseFacets
+    ? Object.values(responseFacets).reduce((accFilters, facet) => {
+        facet.filters.forEach(filter => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          return filter.selected ? accFilters.push(filter) : [];
+        });
         return accFilters;
       }, [])
     : [];
