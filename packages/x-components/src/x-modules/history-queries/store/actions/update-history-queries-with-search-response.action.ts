@@ -56,7 +56,7 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
 export function createHistoryQueriesFiltersList(
   responseFacets: InternalSearchResponse['facets']
 ): Filter[] {
-  return responseFacets && responseFacets !== undefined
+  return responseFacets
     ? Object.values(responseFacets).reduce((accFilters: Filter[], facet) => {
         facet.filters.forEach(filter => {
           return filter.selected ? accFilters.push(filter) : [];
