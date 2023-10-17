@@ -168,8 +168,8 @@ All notable changes to this project will be documented in this file. See
 
 ## 1.1.0 (05/06/2020)
 
-> EX-1843 Add ESM build
+- Add ESM build
 
 ## 1.0.0
 
-> Initial release
+- Initial release
