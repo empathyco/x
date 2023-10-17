@@ -53,14 +53,12 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
  * @returns A list of selected filters in the history query.
  *
  */
-function createHistoryQueriesFiltersList(
+export function createHistoryQueriesFiltersList(
   responseFacets: InternalSearchResponse['facets']
 ): Filter[] {
   return responseFacets
-    ? Object.values(responseFacets).reduce((accFilters, facet) => {
+    ? Object.values(responseFacets).reduce((accFilters: Filter[], facet) => {
         facet.filters.forEach(filter => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           return filter.selected ? accFilters.push(filter) : [];
         });
         return accFilters;
