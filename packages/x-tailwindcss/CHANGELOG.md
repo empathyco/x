@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.35...@empathyco/x-tailwindcss@1.0.0) (2023-10-17)
+
+**Note:** Version bump only for package @empathyco/x-tailwindcss
+
+
+
+
+
 ## [1.0.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.0.0-alpha.34...@empathyco/x-tailwindcss@1.0.0-alpha.35) (2023-09-18)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
