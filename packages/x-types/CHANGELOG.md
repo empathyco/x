@@ -54,7 +54,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Others
 
-- **deps:** update node to 18 (#1196) 
+- **deps:** update node to 18 (#1196)
 - **deps:** update node to v18 (#1175)
 
 ## [10.0.0-alpha.66](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.65...@empathyco/x-types@10.0.0-alpha.66) (2023-05-03)
@@ -465,8 +465,8 @@ All notable changes to this project will be documented in this file. See
 
 ## 7.0.0 (2021/03/03)
 
-- Add `Identifiable` interface to `Banner`, `Facet`, `Filter`, `Next-queries`, `Promoted`,
-> `Redirection` and `Result`.
+- Add `Identifiable` interface to `Banner`, `Facet`, `Filter`, `Next-queries`,
+  `Promoted`,`Redirection` and `Result`.
 - Add `BooleanFilter` and `EditableNumberRange`.
 - Add `Banner` and `Promoted` to `ModelNameType`.
 
@@ -486,7 +486,8 @@ All notable changes to this project will be documented in this file. See
 - Close tags within the documentation between backslashes
 - Add ESM build keeping also the old CommonJS
 - Changed next query schema facets to be an array instead of an object.
-- Unified Suggestion like models properties (`RelatedTag`, `NextQuery`, `Suggestion`, `HistoryTerm`, `PartialResult`)
+- Unified Suggestion like models properties (`RelatedTag`, `NextQuery`, `Suggestion`, `HistoryTerm`,
+  `PartialResult`)
 - Add type to the attribute `modelName` in the interface `NamedModel`
 
 ## 4.0.0 (2020/02/04)

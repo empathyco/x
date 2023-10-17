@@ -2150,8 +2150,6 @@ All notable changes to this project will be documented in this file. See
 ### Testing
 
 - Restructure files for non global step def (#382)
-  [EX-5739](https://searchbroker.atlassian.net/browse/EX-5739)
-  [EX-5739](https://searchbroker.atlassian.net/browse/EX-5739)
 
 ## [3.0.0-alpha.79](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.78...@empathyco/x-components@3.0.0-alpha.79) (2022-04-04)
 
@@ -2205,7 +2203,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Testing
 
-- E2E tests maintenance (#371) [[EX-5618](https://searchbroker.atlassian.net/browse/EX-5618)]
+- E2E tests maintenance (#371)
 
 ## [3.0.0-alpha.70](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.69...@empathyco/x-components@3.0.0-alpha.70) (2022-03-21)
 
@@ -2368,8 +2366,7 @@ All notable changes to this project will be documented in this file. See
 
 - **components:** Add `payload` and `metadata` to the `SnippetCallbackExecuted` event payload
 - **components:** Allow `BaseResultAddToCart` to use external listeners.
-- **EX-3539:** track PDP add to cart (#306)
-  [EX-3538](https://searchbroker.atlassian.net/browse/EX-3538)
+- track PDP add to cart (#306)
 
 ## [3.0.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.45...@empathyco/x-components@3.0.0-alpha.46) (2022-01-24)
 
@@ -2410,7 +2407,7 @@ All notable changes to this project will be documented in this file. See
 
 - **design-system:** Fix some style issues and add two missing utilities
 - **identifier-results:** Fix default plugin config. (#296)
-  [EX-5247](https://searchbroker.atlassian.net/browse/EX-5247)
+-
 
 ## [3.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.42...@empathyco/x-components@3.0.0-alpha.43) (2022-01-06)
 
@@ -2479,7 +2476,7 @@ All notable changes to this project will be documented in this file. See
 
 - **scroll:** remove animations on pending element to scroll
 - **tagging:** Include 'location' parameter to track result events. (#273)
-  [EX-5163](https://searchbroker.atlassian.net/browse/EX-5163)
+-
 
 ## [3.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.35...@empathyco/x-components@3.0.0-alpha.36) (2021-12-15)
 
@@ -3374,9 +3371,6 @@ All notable changes to this project will be documented in this file. See
 
 - **e2e:** homogenise and standardise common-steps and test cases
 - **x-plugin:** extract `XComponentAliasAPI` logic to separate file and improve aliases generation
-  [EX-3189](https://searchbroker.atlassian.net/browse/EX-3189)
-  [EX-3288](https://searchbroker.atlassian.net/browse/EX-3288)
-  [feature/EX-3189](https://searchbroker.atlassian.net/browse/EX-3189)
 
 ### Testing
 
