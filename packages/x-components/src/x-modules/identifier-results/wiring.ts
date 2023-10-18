@@ -64,7 +64,7 @@ export const clearIdentifierResultsQuery = wireCommit('setQuery', '');
 const setUrlParams = wireDispatch('saveQuery', ({ eventPayload: { query } }) => query);
 
 /**
- * Requests and stores a new set of identifier results for the {@link IdentifierResultsState.query}.
+ * Requests and stores a new set of identifier results for the query.
  *
  * @public
  */

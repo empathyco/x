@@ -40,7 +40,7 @@ export interface HistoryQueriesState extends QueryState {
 export interface HistoryQueriesGetters {
   /**
    * A sub-set of the {@link HistoryQueriesState.historyQueries}. If the
-   * {@link HistoryQueriesState.query} property is not empty, this list will only contain
+   * query property is not empty, this list will only contain
    * suggestions whose query matches with it.
    */
   historyQueries: HistoryQuery[];
