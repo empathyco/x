@@ -31,7 +31,10 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
         const historyQuery = state.historyQueries[indexOfHistoryQuery];
         const isCurrentSessionHistoryQuery = historyQuery.timestamp > state.sessionTimeStampInMs;
         if (!isCurrentSessionHistoryQuery || historyQuery.totalResults == null || searchResponse) {
-          const filters = createHistoryQueriesFiltersList(searchResponse.facets);
+          const filters = getHistoryQueriesFiltersList(
+            searchResponse.facets,
+            searchResponse.request.filters
+          );
 
           const newHistoryQueries = state.historyQueries.slice();
           newHistoryQueries[indexOfHistoryQuery] = {
@@ -46,21 +49,30 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
   };
 
 /**
- * Take facets from the response and push the selected filters into a list.
+ * Creates a selected filters list by comparing request filters and response facets.
+ * Uses the 'filter.id' to match and merge the objects in a single one with all the keys.
  *
  * @param responseFacets - Facets from the response.
+ * @param requestFilters - Filters from the request.
  *
  * @returns A list of selected filters in the history query.
  *
  */
-export function createHistoryQueriesFiltersList(
-  responseFacets: InternalSearchResponse['facets']
+export function getHistoryQueriesFiltersList(
+  responseFacets: InternalSearchResponse['facets'],
+  requestFilters: InternalSearchResponse['request']['filters']
 ): Filter[] {
-  return responseFacets
-    ? Object.values(responseFacets).reduce((accFilters: Filter[], facet) => {
-        facet.filters.forEach(filter => {
-          return filter.selected ? accFilters.push(filter) : [];
-        });
+  return requestFilters && responseFacets
+    ? Object.values(requestFilters).reduce((accFilters, filters) => {
+        responseFacets.map(facet =>
+          facet.filters.forEach(filter => {
+            filters.forEach(requestFilter => {
+              if (requestFilter.id === filter.id) {
+                accFilters.push(Object.assign(requestFilter, filter));
+              }
+            });
+          })
+        );
         return accFilters;
       }, [])
     : [];

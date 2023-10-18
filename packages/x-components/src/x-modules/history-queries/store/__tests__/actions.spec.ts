@@ -18,7 +18,7 @@ import {
 } from '../types';
 import { InternalSearchResponse } from '../../../search/index';
 // eslint-disable-next-line max-len
-import { createHistoryQueriesFiltersList } from '../actions/update-history-queries-with-search-response.action';
+import { getHistoryQueriesFiltersList } from '../actions/update-history-queries-with-search-response.action';
 import { resetHistoryQueriesStateWith } from './utils';
 
 describe('testing history queries module actions', () => {
@@ -393,7 +393,7 @@ describe('testing history queries module actions', () => {
     // eslint-disable-next-line max-len
     it('updates a history query when the search response changes because a filter is selected', async () => {
       gato.totalResults = 50;
-      const selectedFilters = createHistoryQueriesFiltersList(responseFacets);
+      const selectedFilters = getHistoryQueriesFiltersList(responseFacets, requestFilters);
       resetStateWith({ historyQueries: [gato, perro] });
       await store.dispatch('updateHistoryQueriesWithSearchResponse', {
         request: {
