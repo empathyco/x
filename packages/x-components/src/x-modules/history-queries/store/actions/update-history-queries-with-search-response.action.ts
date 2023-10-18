@@ -62,18 +62,16 @@ function getHistoryQueriesFiltersList(
   responseFacets: InternalSearchResponse['facets'],
   requestFilters: InternalSearchResponse['request']['filters']
 ): Filter[] {
-  return requestFilters && responseFacets
-    ? Object.values(requestFilters).reduce((accFilters, filters) => {
-        responseFacets.map(facet =>
-          facet.filters.forEach(filter => {
-            filters.forEach(requestFilter => {
-              if (requestFilter.id === filter.id) {
-                accFilters.push(Object.assign(requestFilter, filter));
-              }
-            });
-          })
-        );
-        return accFilters;
-      }, [])
-    : [];
+  if (!requestFilters || !responseFacets) {
+    return [];
+  }
+
+  return Object.values(requestFilters).flatMap(filters =>
+    filters.map(requestFilter => ({
+      ...requestFilter,
+      ...responseFacets
+        .flatMap(facet => facet.filters)
+        .find(filter => filter.id === requestFilter.id)
+    }))
+  );
 }
