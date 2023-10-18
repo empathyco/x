@@ -71,12 +71,6 @@ export interface IdentifierResultsMutations
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
-  /**
-   * Sets the query of the module, which is used to retrieve the identifier-results.
-   *
-   * @param newQuery - The new query to save to the state.
-   */
-  setQuery(newQuery: string): void;
 }
 
 /**

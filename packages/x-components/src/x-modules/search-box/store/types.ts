@@ -32,12 +32,6 @@ export interface SearchBoxGetters {
  */
 export interface SearchBoxMutations extends QueryMutations {
   /**
-   * Sets the new query of the search-box.
-   *
-   * @param newQuery - The new query of the search-box.
-   */
-  setQuery(newQuery: string): void;
-  /**
    * Sets the new input status of the search-box.
    *
    * @param inputStatus - The new {@link InputStatus} of the search-box.

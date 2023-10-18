@@ -48,10 +48,6 @@ export interface SemanticQueriesMutations
   extends QueryMutations,
     ConfigMutations<SemanticQueriesState> {
   /**
-   * Sets the {@link SemanticQueriesState.query} property.
-   */
-  setQuery(query: string): void;
-  /**
    * Sets the {@link SemanticQueriesState.totalResults} property.
    */
   setTotalResults(totalResults: number): void;

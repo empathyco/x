@@ -48,12 +48,6 @@ export interface QuerySuggestionsMutations
     QueryMutations,
     ConfigMutations<QuerySuggestionsState> {
   /**
-   * Sets the query of the query suggestions module.
-   *
-   * @param newQuery - The new query.
-   */
-  setQuery(newQuery: string): void;
-  /**
    * Sets the suggestions of the module.
    *
    * @param suggestions - The suggestions list.

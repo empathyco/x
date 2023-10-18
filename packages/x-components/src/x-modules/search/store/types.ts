@@ -167,12 +167,6 @@ export interface SearchMutations
    */
   setPromoteds(promoteds: Promoted[]): void;
   /**
-   * Sets the query of the module, which is used to retrieve the results.
-   *
-   * @param newQuery - The new query to save to the state.
-   */
-  setQuery(newQuery: string): void;
-  /**
    * Sets the query tagging of the module, which is used to track the query.
    *
    * @param queryTagging - The new query tagging object to save to the state.

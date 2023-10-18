@@ -5,6 +5,7 @@ import { fetchSemanticQuery } from './actions/fetch-semantic-query.action';
 import { fetchAndSaveSemanticQuery } from './actions/fetch-and-save-semantic-query.action';
 import { request } from './getters/request.getter';
 import { normalizedQuery } from './getters/normalized-query.getter';
+
 /**
  * {@link XStoreModule} For the `semantic-queries` module.
  *

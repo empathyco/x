@@ -58,12 +58,6 @@ export interface NextQueriesMutations
     QueryMutations,
     ConfigMutations<NextQueriesState> {
   /**
-   * Sets the query of the module, which is used to retrieve the next-queries.
-   *
-   * @param newQuery - The new query to save to the state.
-   */
-  setQuery(newQuery: string): void;
-  /**
    * Sets the next queries of the module.
    *
    * @param nextQueries - The new next queries to save to the state.

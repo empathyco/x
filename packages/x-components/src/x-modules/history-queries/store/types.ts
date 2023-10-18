@@ -82,12 +82,6 @@ export interface HistoryQueriesMutations
    */
   setSessionTimeStamp(timeStamp: number): void;
   /**
-   * Sets the {@link HistoryQueriesState.query } property.
-   *
-   * @param query - The new {@link HistoryQueriesState.query }.
-   */
-  setQuery(query: string): void;
-  /**
    * Sets the {@link HistoryQueriesState.isEnabled } property.
    *
    * @param isEnabled - The new {@link HistoryQueriesState.isEnabled }.
