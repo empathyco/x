@@ -25,10 +25,7 @@ export interface HistoryQueriesState extends QueryState {
    * search sessions.
    */
   historyQueries: HistoryQuery[];
-  /**
-   * The current query for searching into the {@link HistoryQueriesState.historyQueries}.
-   */
-  query: string;
+
   /**
    * Whether the history queries are enabled or disabled.
    */

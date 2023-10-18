@@ -21,8 +21,6 @@ export interface IdentifierResultsState extends StatusState, QueryState {
   origin: QueryOrigin | null;
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
-  /** The internal query of the module. Used to request the identifier results. */
-  query: string;
 }
 
 /**

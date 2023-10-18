@@ -12,8 +12,6 @@ import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
  * @public
  */
 export interface SemanticQueriesState extends QueryState {
-  /** The query sending on the request. */
-  query: string;
   /** The number of the total results of the query. */
   totalResults: number;
   /** The request and results. */

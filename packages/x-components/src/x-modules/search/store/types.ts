@@ -50,8 +50,6 @@ export interface SearchState extends StatusState, QueryState {
   partialResults: PartialResult[];
   /** The list of the promoted, related to the `query` property of the state. */
   promoteds: Promoted[];
-  /** The internal query of the module. Used to request the search results. */
-  query: string;
   /** The query tagging used to track the search events. */
   queryTagging: TaggingRequest;
   /** The redirections associated to the `query`. */

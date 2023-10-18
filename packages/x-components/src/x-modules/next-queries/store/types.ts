@@ -20,8 +20,6 @@ import { ConfigMutations } from '../../../store/utils/config-store.utils';
  * @public
  */
 export interface NextQueriesState extends StatusState, QueryState {
-  /** The internal query of the module. Used to request the next queries. */
-  query: string;
   /** The list of the next queries, related to the `query` property of the state. */
   nextQueries: NextQuery[];
   /** The list of the searched queries, related to the `query` property of the state. */
