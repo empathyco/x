@@ -4,6 +4,9 @@ inputs:
   npm_token:
     description: Token to push code to npm
     required: true
+  github_token:
+    description: Token to push code to github
+    required: true
 runs:
   using: 'composite'
   steps:
@@ -30,5 +33,6 @@ runs:
     - name: Push tags
       uses: ad-m/github-push-action@master
       with:
+        github_token: ${{ inputs.github_token }}
         branch: ${{ github.ref }}
         tags: true

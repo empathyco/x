@@ -28,3 +28,4 @@ jobs:
         uses: ./.github/actions/release-alpha
         with:
           npm_token: ${{ secrets.NPM_TOKEN_GRANULAR_ACCESS }}
+          github_token: ${{ secrets.SUPPORT_TOKEN }}
