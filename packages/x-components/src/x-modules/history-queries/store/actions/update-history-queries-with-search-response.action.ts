@@ -58,7 +58,7 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
  * @returns A list of selected filters in the history query.
  *
  */
-export function getHistoryQueriesFiltersList(
+function getHistoryQueriesFiltersList(
   responseFacets: InternalSearchResponse['facets'],
   requestFilters: InternalSearchResponse['request']['filters']
 ): Filter[] {

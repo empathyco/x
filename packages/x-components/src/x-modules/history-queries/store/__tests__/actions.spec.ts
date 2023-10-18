@@ -17,8 +17,6 @@ import {
   HistoryQueriesState
 } from '../types';
 import { InternalSearchResponse } from '../../../search/index';
-// eslint-disable-next-line max-len
-import { getHistoryQueriesFiltersList } from '../actions/update-history-queries-with-search-response.action';
 import { resetHistoryQueriesStateWith } from './utils';
 
 describe('testing history queries module actions', () => {
@@ -288,6 +286,18 @@ describe('testing history queries module actions', () => {
         }
       ]
     };
+    const selectedFilters: Filter[] = [
+      {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        facetId: 'categoryPaths',
+        id: 'categoryIds:66dd06d9f',
+        label: 'suede',
+        modelName: 'HierarchicalFilter',
+        selected: true,
+        totalResults: 2
+      }
+    ];
     const responseFacets: InternalSearchResponse['facets'] = [
       {
         filters: [
@@ -393,7 +403,6 @@ describe('testing history queries module actions', () => {
     // eslint-disable-next-line max-len
     it('updates a history query when the search response changes because a filter is selected', async () => {
       gato.totalResults = 50;
-      const selectedFilters = getHistoryQueriesFiltersList(responseFacets, requestFilters);
       resetStateWith({ historyQueries: [gato, perro] });
       await store.dispatch('updateHistoryQueriesWithSearchResponse', {
         request: {
