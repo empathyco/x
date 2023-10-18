@@ -50,7 +50,7 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
 
 /**
  * Creates a selected filters list by comparing request filters and response facets.
- * Uses the 'filter.id' to match the response filters inside each facet with the requested filters.
+ * Uses the 'filter.id' to match and merge the objects in a single one with all the keys.
  *
  * @param responseFacets - Facets from the response.
  * @param requestFilters - Filters from the request.
@@ -66,8 +66,11 @@ function getHistoryQueriesFiltersList(
     ? Object.values(requestFilters).reduce((accFilters, filters) => {
         responseFacets.map(facet =>
           facet.filters.forEach(filter => {
-            filters.filter(requestFilter => requestFilter.id === filter.id);
-            accFilters = filters;
+            filters.forEach(requestFilter => {
+              if (requestFilter.id === filter.id) {
+                accFilters.push(Object.assign(requestFilter, filter));
+              }
+            });
           })
         );
         return accFilters;
