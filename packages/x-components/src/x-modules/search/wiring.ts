@@ -219,9 +219,9 @@ export const setSearchSelectedFiltersFromPreview = wireCommit(
  *
  * @public
  */
-export const setSearchSelectedFiltersFromPreviewable = wireCommit(
+export const setSearchSelectedFiltersFromHistoryQuery = wireCommit(
   'setSelectedFilters',
-  ({ eventPayload: { selectedFilters } }) => selectedFilters
+  ({ eventPayload: { selectedFilters } }) => selectedFilters ?? []
 );
 
 /**
@@ -294,6 +294,6 @@ export const searchWiring = createWiring({
     setSearchExtraParams
   },
   UserSelectedAHistoryQuery: {
-    setSearchSelectedFiltersFromPreviewable
+    setSearchSelectedFiltersFromHistoryQuery
   }
 });
