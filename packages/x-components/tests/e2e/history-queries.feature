@@ -82,7 +82,7 @@ Feature: History queries component
 
     Examples:
       | hideIfEqualsQuery | debounceInMs | maxItemsToStore | maxItemsToRender | instant | historyQueryItem | list                                                      |
-      | false             | 150          | 4               | 6                | true    | 1                | puzzle, funko, lego, coche, barbie, casa, muñeca, peluche |
+      | false             | 150          | 4               | 6                | true    | 1                | puzzle, coche, lego, funko, barbie, casa, muñeca, peluche |
       | false             | 150          | 8               | 4                | true    | 3                | puzzle, funko, lego, coche, barbie, casa                  |
 
   Scenario Outline: 6. Rendered history queries list is empty if no results are provided
