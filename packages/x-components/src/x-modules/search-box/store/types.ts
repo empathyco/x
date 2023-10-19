@@ -10,10 +10,6 @@ import { XEvent } from '../../../wiring/events.types';
  */
 export interface SearchBoxState extends QueryState {
   /**
-   * The query of the search box input.
-   */
-  query: string;
-  /**
    * The status of the search box input based on a state machine.
    */
   inputStatus: string;
@@ -35,12 +31,6 @@ export interface SearchBoxGetters {
  * @public
  */
 export interface SearchBoxMutations extends QueryMutations {
-  /**
-   * Sets the new query of the search-box.
-   *
-   * @param newQuery - The new query of the search-box.
-   */
-  setQuery(newQuery: string): void;
   /**
    * Sets the new input status of the search-box.
    *

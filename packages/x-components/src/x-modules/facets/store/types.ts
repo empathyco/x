@@ -1,6 +1,7 @@
 import { Facet, Filter, RawFilter } from '@empathyco/x-types';
 import { XActionContext, XStoreModule } from '../../../store';
 import { ConfigMutations } from '../../../store/utils/config-store.utils';
+import { QueryMutations } from '../../../store/utils/query.utils';
 
 /**
  * Facets store state.
@@ -53,7 +54,7 @@ export interface FacetsGetters {
  *
  * @public
  */
-export interface FacetsMutations extends ConfigMutations<FacetsState> {
+export interface FacetsMutations extends QueryMutations, ConfigMutations<FacetsState> {
   /**
    * Updates the state of a filter.
    *
@@ -92,12 +93,6 @@ export interface FacetsMutations extends ConfigMutations<FacetsState> {
    * @param filters - The filters to add.
    */
   setPreselectedFilters(filters: RawFilter[]): void;
-  /**
-   * Sets the {@link FacetsState.query} property.
-   *
-   * @param query - The new {@link FacetsState.query}.
-   */
-  setQuery(query: string): void;
   /**
    * Removes the facet from the {@link FacetsState.facets | facets} record.
    *
