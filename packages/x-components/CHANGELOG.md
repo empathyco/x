@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.423](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.422...@empathyco/x-components@3.0.0-alpha.423) (2023-10-19)
+
+
+### Code Refactoring
+
+* use `setQuery` util in the x modules (#1322) ([9749462](https://github.com/empathyco/x/commit/9749462a08308a121cda61a74209789dabad7b46))
+
+
+
 ## [3.0.0-alpha.422](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.421...@empathyco/x-components@3.0.0-alpha.422) (2023-10-12)
 
 ### Features
