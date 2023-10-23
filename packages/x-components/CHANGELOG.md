@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-alpha.424](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.423...@empathyco/x-components@3.0.0-alpha.424) (2023-10-23)
+
+
+### Bug Fixes
+
+* **history-queries:** legacy history queries stored in the browser without selected filters (#1333) ([96608f8](https://github.com/empathyco/x/commit/96608f87a0b6c3e6c76b7a919cd085d3c2d6c133))
+
+
+
 ## [3.0.0-alpha.423](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.422...@empathyco/x-components@3.0.0-alpha.423) (2023-10-19)
 
 
