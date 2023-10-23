@@ -2420,7 +2420,7 @@ All notable changes to this project will be documented in this file. See
 ### Features
 
 - **design-system:** Add more utility classes.
-- **desing-system:** Add `Grid2RowsIcon` component
+- **design-system:** Add `Grid2RowsIcon` component
 
 ### Bug Fixes
 
