@@ -398,7 +398,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- add dynamic props for title to promoteds and banner [(#1168)](https://github.com/empathyco/x/pull/1168)
+- **search:** add dynamic title prop to promoted and banner component [(#1168)](https://github.com/empathyco/x/pull/1168)
 
 ### Documentation
 
