@@ -1240,7 +1240,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- make base dropdown based components accesible [(#846)](https://github.com/empathyco/x/pull/846)
+- **components:** make base dropdown based components accessible [(#846)](https://github.com/empathyco/x/pull/846)
 
 ### Bug Fixes
 
