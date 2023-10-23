@@ -2613,7 +2613,7 @@ All notable changes to this project will be documented in this file. See
 ### Features
 
 - **components:** add new fixed header and aside layout
-- **design-system:** Add Desing System Message and Progress Bar components
+- **design-system:** Add Design System Message and Progress Bar components
 - **extra-params:** Add support to `UrlHandler` for handling `extra-params`
 - **search:** add Redirection and AutoProgressBar components
 - update x-components browserslist
