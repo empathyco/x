@@ -693,7 +693,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **design-system:** Add `Input Group` component to the X Desing System. [(#1066)](https://github.com/empathyco/x/pull/1066)
+- **design-system:** Add `Input Group` component to the X Design System. [(#1066)](https://github.com/empathyco/x/pull/1066)
 
 ## [3.0.0-alpha.314](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.313...@empathyco/x-components@3.0.0-alpha.314) (2023-02-15)
 
