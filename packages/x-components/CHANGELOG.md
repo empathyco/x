@@ -2650,7 +2650,7 @@ All notable changes to this project will be documented in this file. See
 - **components:** move `maxItemsToRender` prop to `BaseSuggestions`. Add `maxItemsToRender` prop to
   `Recommendations`.
 - **plugin:** minimise initial duplicated requests using debounce
-- **url:** refactor module logic movig some logic to UrlHandler Component
+- **url:** refactor module logic moving some logic to UrlHandler Component
 - **url:** syncronize url and state with the facets and remove query from facets module
 - **url:** syncronize url and state with the page
 
