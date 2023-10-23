@@ -417,5 +417,41 @@ describe('testing history queries module actions', () => {
       });
       expectHistoryQueriesToEqual([{ ...gato, totalResults, selectedFilters }, perro]);
     });
+
+    // eslint-disable-next-line max-len
+    it('updates a history query when the search response changes although the facet id is unknown', async () => {
+      gato.totalResults = 50;
+      resetStateWith({ historyQueries: [gato, perro] });
+      await store.dispatch('updateHistoryQueriesWithSearchResponse', {
+        request: {
+          query: 'gato',
+          page: 1,
+          filters: requestFilters
+        },
+        status: 'success',
+        facets: [
+          {
+            filters: [
+              {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                facetId: 'categoryPaths',
+                id: 'categoryIds:66dd06d9f',
+                label: 'suede',
+                modelName: 'HierarchicalFilter',
+                selected: true,
+                totalResults: 2
+              }
+            ],
+            id: '__unknown__',
+            label: '__unknown-facet__',
+            modelName: 'HierarchicalFacet'
+          }
+        ],
+        results,
+        totalResults
+      });
+      expectHistoryQueriesToEqual([{ ...gato, totalResults, selectedFilters }, perro]);
+    });
   });
 });
