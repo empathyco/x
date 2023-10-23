@@ -45,7 +45,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- filters in history queries [(#1315)](https://github.com/empathyco/x/pull/1315)
+- **history-queries:** filters in history queries [(#1315)](https://github.com/empathyco/x/pull/1315)
 
 ## [3.0.0-alpha.420](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.419...@empathyco/x-components@3.0.0-alpha.420) (2023-10-11)
 
@@ -55,7 +55,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- Create experience controls module tests [(#1303)](https://github.com/empathyco/x/pull/1303)
+- **experience-controls:** Create experience controls module tests [(#1303)](https://github.com/empathyco/x/pull/1303)
 
 ### Bug Fixes
 
@@ -92,7 +92,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- filter query preview [(#1296)](https://github.com/empathyco/x/pull/1296)
+- **queries-preview:** filter query preview [(#1296)](https://github.com/empathyco/x/pull/1296)
 
 ### Documentation
 
@@ -167,7 +167,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- restore sliding panel state after search [(#1259)](https://github.com/empathyco/x/pull/1259)
+- **components:** restore sliding panel state after search [(#1259)](https://github.com/empathyco/x/pull/1259)
 
 ## [3.0.0-alpha.401](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.400...@empathyco/x-components@3.0.0-alpha.401) (2023-08-16)
 
@@ -199,7 +199,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- improve customization and add prop classes to editable-number-range-filter [(#1253)](https://github.com/empathyco/x/pull/1253)
+- **facets:** improve customization and add prop classes to editable-number-range-filter [(#1253)](https://github.com/empathyco/x/pull/1253)
 
 ## [3.0.0-alpha.395](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.394...@empathyco/x-components@3.0.0-alpha.395) (2023-07-25)
 
@@ -211,7 +211,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- make the snippet-config-extra-params component react to prop changes
+- **extra-params:** make the snippet-config-extra-params component react to prop changes
 
 ## [3.0.0-alpha.393](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.392...@empathyco/x-components@3.0.0-alpha.393) (2023-07-13)
 
@@ -297,7 +297,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **result:** set configuration for base-result-link to ignore tagging of click [(#1211)](https://github.com/empathyco/x/pull/1211)
+- **component:** set configuration for base-result-link to ignore tagging of click [(#1211)](https://github.com/empathyco/x/pull/1211)
 
 ## [3.0.0-alpha.379](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.378...@empathyco/x-components@3.0.0-alpha.379) (2023-05-30)
 
