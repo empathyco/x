@@ -2577,7 +2577,7 @@ All notable changes to this project will be documented in this file. See
 ### Features
 
 - **components:** add `LocationProvider` component
-- **components:** replace `BaseEventButton` for an html button
+- **components:** replace `BaseEventButton` for a html button
 - **identifier-results:** add query origin in the identifier results search
 - remove x installer from router hooks
 - **scroll:** add `MainScroll` and `MainScrollItem`
