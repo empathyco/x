@@ -66,12 +66,22 @@ function getHistoryQueriesFiltersList(
     return [];
   }
 
-  return Object.values(requestFilters).flatMap(filters =>
-    filters.map(requestFilter => ({
-      ...requestFilter,
-      ...responseFacets
-        .flatMap(facet => facet.filters)
-        .find(filter => filter.id === requestFilter.id)
-    }))
-  );
+  return Object.entries(requestFilters).flatMap(([facetId, facetFilters]) => {
+    const matchingFacet =
+      facetId !== '__unknown__' ? responseFacets.find(facet => facet.id === facetId) : null;
+
+    return facetFilters.reduce<Filter[]>((accFilters, requestFilter) => {
+      const matchingFilter = matchingFacet
+        ? matchingFacet.filters.find(filter => filter.id === requestFilter.id)
+        : responseFacets
+            .flatMap(facet => facet.filters)
+            .find(filter => filter.id === requestFilter.id);
+
+      if (matchingFilter) {
+        accFilters.push({ ...matchingFilter, ...requestFilter });
+      }
+
+      return accFilters;
+    }, []);
+  });
 }
