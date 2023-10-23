@@ -2460,7 +2460,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **desing-system:** Add new color tokens. [(#275)](https://github.com/empathyco/x/pull/275)
+- **design-system:** Add new color tokens. [(#275)](https://github.com/empathyco/x/pull/275)
 - **test:** refactor base tests to cypress component testing
 - **x-plugin:** Add selected sort [(#274)](https://github.com/empathyco/x/pull/274)
 
