@@ -64,24 +64,24 @@ function getHistoryQueriesFiltersList(
 ): Filter[] {
   if (!requestFilters || !responseFacets) {
     return [];
+  } else {
+    return Object.entries(requestFilters).flatMap(([facetId, facetFilters]) => {
+      const matchingFacet =
+        facetId !== '__unknown__' ? responseFacets.find(facet => facet.id === facetId) : null;
+
+      return facetFilters.reduce<Filter[]>((accFilters, requestFilter) => {
+        const matchingFilter = matchingFacet
+          ? matchingFacet.filters.find(filter => filter.id === requestFilter.id)
+          : responseFacets
+              .flatMap(facet => facet.filters)
+              .find(filter => filter.id === requestFilter.id);
+
+        if (matchingFilter) {
+          accFilters.push({ ...matchingFilter, ...requestFilter });
+        }
+
+        return accFilters;
+      }, []);
+    });
   }
-
-  return Object.entries(requestFilters).flatMap(([facetId, facetFilters]) => {
-    const matchingFacet =
-      facetId !== '__unknown__' ? responseFacets.find(facet => facet.id === facetId) : null;
-
-    return facetFilters.reduce<Filter[]>((accFilters, requestFilter) => {
-      const matchingFilter = matchingFacet
-        ? matchingFacet.filters.find(filter => filter.id === requestFilter.id)
-        : responseFacets
-            .flatMap(facet => facet.filters)
-            .find(filter => filter.id === requestFilter.id);
-
-      if (matchingFilter) {
-        accFilters.push({ ...matchingFilter, ...requestFilter });
-      }
-
-      return accFilters;
-    }, []);
-  });
 }
