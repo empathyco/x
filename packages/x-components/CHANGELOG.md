@@ -1833,7 +1833,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- **components:** now properly checks if has content [(#612)](https://github.com/empathyco/x/pull/612)
+- **components:** now properly checks if it has content [(#612)](https://github.com/empathyco/x/pull/612)
 
 ## [3.0.0-alpha.133](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.132...@empathyco/x-components@3.0.0-alpha.133) (2022-07-15)
 
