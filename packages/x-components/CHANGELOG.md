@@ -1250,7 +1250,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- adding edocs preview
+- adding e-docs portal live preview
 
 ## [3.0.0-alpha.227](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.226...@empathyco/x-components@3.0.0-alpha.227) (2022-11-15)
 
