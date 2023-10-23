@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-translations",
-  "version": "2.0.0-alpha.3",
+  "version": "2.0.0",
   "description": "A project which allows the user to import and export the translations.",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -31,7 +31,7 @@
     "test:unit": "jest -i"
   },
   "dependencies": {
-    "@empathyco/x-deep-merge": "^2.0.0-alpha.3"
+    "@empathyco/x-deep-merge": "^2.0.0"
   },
   "devDependencies": {
     "@types/jest": "~27.5.0",
