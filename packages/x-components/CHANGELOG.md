@@ -477,7 +477,7 @@ All notable changes to this project will be documented in this file. See
 ### Features
 
 - **search:** add fallback disclaimer component [(#1122)](https://github.com/empathyco/x/pull/1122)
-- **sliced-filters:** add dynamic prop to show more/less buttons [(#1146)](https://github.com/empathyco/x/pull/1146)
+- **facets:** add dynamic prop to show more/less buttons in sliced-filters [(#1146)](https://github.com/empathyco/x/pull/1146)
 
 ## [3.0.0-alpha.352](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.351...@empathyco/x-components@3.0.0-alpha.352) (2023-04-18)
 
