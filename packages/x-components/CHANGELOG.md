@@ -699,7 +699,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **desing-system:** Add layout `layout-stack` util. [(#1076)](https://github.com/empathyco/x/pull/1076)
+- **design-system:** Add layout `layout-stack` util. [(#1076)](https://github.com/empathyco/x/pull/1076)
 
 ## [3.0.0-alpha.313](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.312...@empathyco/x-components@3.0.0-alpha.313) (2023-02-14)
 
