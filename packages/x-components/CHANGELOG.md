@@ -2496,7 +2496,7 @@ All notable changes to this project will be documented in this file. See
 - **plugin:** move alias creation from created hook to beforeCreated
 - **tagging:** track pending query
 - **tagging:** track result click events
-- **tagging:** track the 'UserClickedResultAddToCart'event in tagging
+- **tagging:** track the 'UserClickedResultAddToCart' event in tagging
 - **wiring:** add force and cancel support to debounce and throttle wire operators. Update rxjs to
 
 ### Bug Fixes
