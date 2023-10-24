@@ -1,39 +1,30 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
 ## [3.0.0](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.424...@empathyco/x-components@3.0.0) (2023-10-23)
 
 **Note:** Version bump only for package @empathyco/x-components
 
-
-
-
-
 ## [3.0.0-alpha.424](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.423...@empathyco/x-components@3.0.0-alpha.424) (2023-10-23)
-
 
 ### Bug Fixes
 
-* **history-queries:** legacy history queries stored in the browser without selected filters (#1333) ([96608f8](https://github.com/empathyco/x/commit/96608f87a0b6c3e6c76b7a919cd085d3c2d6c133))
-
-
+- **history-queries:** legacy history queries stored in the browser without selected filters (#1333)
 
 ## [3.0.0-alpha.423](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.422...@empathyco/x-components@3.0.0-alpha.423) (2023-10-19)
 
-
 ### Code Refactoring
 
-* use `setQuery` util in the x modules (#1322) ([9749462](https://github.com/empathyco/x/commit/9749462a08308a121cda61a74209789dabad7b46))
-
-
+- use `setQuery` util in the x modules (#1322)
 
 ## [3.0.0-alpha.422](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.421...@empathyco/x-components@3.0.0-alpha.422) (2023-10-12)
 
 ### Features
 
-- Implement config utils in the modules with config [(#1321)](https://github.com/empathyco/x/pull/1321)
+- Implement config utils in the modules with config
+  [(#1321)](https://github.com/empathyco/x/pull/1321)
 
 ### ⚠ BREAKING CHANGES
 
@@ -45,7 +36,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **history-queries:** filters in history queries [(#1315)](https://github.com/empathyco/x/pull/1315)
+- **history-queries:** filters in history queries
+  [(#1315)](https://github.com/empathyco/x/pull/1315)
 
 ## [3.0.0-alpha.420](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.419...@empathyco/x-components@3.0.0-alpha.420) (2023-10-11)
 
@@ -55,16 +47,20 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **experience-controls:** Create experience controls module tests [(#1303)](https://github.com/empathyco/x/pull/1303)
+- **experience-controls:** Create experience controls module tests
+  [(#1303)](https://github.com/empathyco/x/pull/1303)
 
 ### Bug Fixes
 
-- move the display-results-provider to fix semantics sliding panel [(#1317)](https://github.com/empathyco/x/pull/1317)
-- set query in facets module from selecting query preview [(#1318)](https://github.com/empathyco/x/pull/1318)
+- move the display-results-provider to fix semantics sliding panel
+  [(#1317)](https://github.com/empathyco/x/pull/1317)
+- set query in facets module from selecting query preview
+  [(#1318)](https://github.com/empathyco/x/pull/1318)
 
 ### Code Refactoring
 
-- move file `design-system.md` to design-system-deprecated [(#1319)](https://github.com/empathyco/x/pull/1319)
+- move file `design-system.md` to design-system-deprecated
+  [(#1319)](https://github.com/empathyco/x/pull/1319)
 
 ## [3.0.0-alpha.418](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.417...@empathyco/x-components@3.0.0-alpha.418) (2023-10-09)
 
@@ -86,7 +82,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **experience-controls:** experience controls module and adapter [(#1307)](https://github.com/empathyco/x/pull/1307)
+- **experience-controls:** experience controls module and adapter
+  [(#1307)](https://github.com/empathyco/x/pull/1307)
 
 ## [3.0.0-alpha.414](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.413...@empathyco/x-components@3.0.0-alpha.414) (2023-09-22)
 
@@ -102,8 +99,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **queries-preview:** add filters to the query preview request [(#1292)](https://github.com/empathyco/x/pull/1292)
-- **queries-preview:** use deep equal to compare request [(#1291)](https://github.com/empathyco/x/pull/1291)
+- **queries-preview:** add filters to the query preview request
+  [(#1292)](https://github.com/empathyco/x/pull/1292)
+- **queries-preview:** use deep equal to compare request
+  [(#1291)](https://github.com/empathyco/x/pull/1291)
 
 ## [3.0.0-alpha.412](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.411...@empathyco/x-components@3.0.0-alpha.412) (2023-09-18)
 
@@ -125,13 +124,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **queries-preview:** query preview components allow adding extra params to the request [(#1270)](https://github.com/empathyco/x/pull/1270)
+- **queries-preview:** query preview components allow adding extra params to the request
+  [(#1270)](https://github.com/empathyco/x/pull/1270)
 
 ## [3.0.0-alpha.409](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.408...@empathyco/x-components@3.0.0-alpha.409) (2023-09-15)
 
 ### Features
 
-- **scroll:** add top offset when automatically scrolling to main-scroll-item [(#1277)](https://github.com/empathyco/x/pull/1277)
+- **scroll:** add top offset when automatically scrolling to main-scroll-item
+  [(#1277)](https://github.com/empathyco/x/pull/1277)
 
 ## [3.0.0-alpha.408](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.407...@empathyco/x-components@3.0.0-alpha.408) (2023-09-12)
 
@@ -147,7 +148,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- standardise all events links in component docs section [(#1265)](https://github.com/empathyco/x/pull/1265)
+- standardise all events links in component docs section
+  [(#1265)](https://github.com/empathyco/x/pull/1265)
 
 ## [3.0.0-alpha.405](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.404...@empathyco/x-components@3.0.0-alpha.405) (2023-08-25)
 
@@ -157,7 +159,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Documentation
 
-- remove jsdoc [@links](https://github.com/links) from generated documentation [(#1261)](https://github.com/empathyco/x/pull/1261)
+- remove jsdoc [@links](https://github.com/links) from generated documentation
+  [(#1261)](https://github.com/empathyco/x/pull/1261)
 
 ## [3.0.0-alpha.403](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.402...@empathyco/x-components@3.0.0-alpha.403) (2023-08-21)
 
@@ -167,13 +170,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- **components:** restore sliding panel state after search [(#1259)](https://github.com/empathyco/x/pull/1259)
+- **components:** restore sliding panel state after search
+  [(#1259)](https://github.com/empathyco/x/pull/1259)
 
 ## [3.0.0-alpha.401](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.400...@empathyco/x-components@3.0.0-alpha.401) (2023-08-16)
 
 ### Documentation
 
-- **recommendations:** updated recommendations ui doc [(#1249)](https://github.com/empathyco/x/pull/1249)
+- **recommendations:** updated recommendations ui doc
+  [(#1249)](https://github.com/empathyco/x/pull/1249)
 
 ## [3.0.0-alpha.400](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.399...@empathyco/x-components@3.0.0-alpha.400) (2023-08-02)
 
@@ -189,7 +194,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- **search:** Redirection didn't cancel when related tag was clicked [(#1255)](https://github.com/empathyco/x/pull/1255)
+- **search:** Redirection didn't cancel when related tag was clicked
+  [(#1255)](https://github.com/empathyco/x/pull/1255)
 
 ## [3.0.0-alpha.397](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.396...@empathyco/x-components@3.0.0-alpha.397) (2023-07-27)
 
@@ -199,13 +205,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **facets:** improve customization and add prop classes to editable-number-range-filter [(#1253)](https://github.com/empathyco/x/pull/1253)
+- **facets:** improve customization and add prop classes to editable-number-range-filter
+  [(#1253)](https://github.com/empathyco/x/pull/1253)
 
 ## [3.0.0-alpha.395](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.394...@empathyco/x-components@3.0.0-alpha.395) (2023-07-25)
 
 ### Bug Fixes
 
-- **filters:** Editable number range filter should be unique [(#1243)](https://github.com/empathyco/x/pull/1243)
+- **filters:** Editable number range filter should be unique
+  [(#1243)](https://github.com/empathyco/x/pull/1243)
 
 ## [3.0.0-alpha.394](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.393...@empathyco/x-components@3.0.0-alpha.394) (2023-07-24)
 
@@ -223,13 +231,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- add alias for the query suggestions that should be displayed [(#1247)](https://github.com/empathyco/x/pull/1247)
+- add alias for the query suggestions that should be displayed
+  [(#1247)](https://github.com/empathyco/x/pull/1247)
 
 ## [3.0.0-alpha.392](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.391...@empathyco/x-components@3.0.0-alpha.392) (2023-07-11)
 
 ### Bug Fixes
 
-- **search:** ignore page from url when going to different query [(#1244)](https://github.com/empathyco/x/pull/1244)
+- **search:** ignore page from url when going to different query
+  [(#1244)](https://github.com/empathyco/x/pull/1244)
 
 ## [3.0.0-alpha.391](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.390...@empathyco/x-components@3.0.0-alpha.391) (2023-06-27)
 
@@ -253,15 +263,19 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **queries-preview:** add isAnyQueryLoadedInPreview composable [(#1229)](https://github.com/empathyco/x/pull/1229)
-- **tagging:** track displayClick properties in result & tagging request [(#1225)](https://github.com/empathyco/x/pull/1225)
+- **queries-preview:** add isAnyQueryLoadedInPreview composable
+  [(#1229)](https://github.com/empathyco/x/pull/1229)
+- **tagging:** track displayClick properties in result & tagging request
+  [(#1225)](https://github.com/empathyco/x/pull/1225)
 
 ## [3.0.0-alpha.386](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.385...@empathyco/x-components@3.0.0-alpha.386) (2023-06-12)
 
 ### Features
 
-- **queries-preview:** add loaded previews getter [(#1227)](https://github.com/empathyco/x/pull/1227)
-- **semantic-queries:** add SemanticQuery component [(#1226)](https://github.com/empathyco/x/pull/1226)
+- **queries-preview:** add loaded previews getter
+  [(#1227)](https://github.com/empathyco/x/pull/1227)
+- **semantic-queries:** add SemanticQuery component
+  [(#1226)](https://github.com/empathyco/x/pull/1226)
 
 ## [3.0.0-alpha.385](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.384...@empathyco/x-components@3.0.0-alpha.385) (2023-06-09)
 
@@ -279,8 +293,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- **deps:** update dependency @vueuse/core to v10 [(#1219)](https://github.com/empathyco/x/pull/1219)
-- **platform-adapter:** change semantics url path [(#1230)](https://github.com/empathyco/x/pull/1230)
+- **deps:** update dependency @vueuse/core to v10
+  [(#1219)](https://github.com/empathyco/x/pull/1219)
+- **platform-adapter:** change semantics url path
+  [(#1230)](https://github.com/empathyco/x/pull/1230)
 
 ## [3.0.0-alpha.382](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.381...@empathyco/x-components@3.0.0-alpha.382) (2023-06-07)
 
@@ -290,14 +306,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **semantic-queries:** add maxItemsToRequest config [(#1224)](https://github.com/empathyco/x/pull/1224)
+- **semantic-queries:** add maxItemsToRequest config
+  [(#1224)](https://github.com/empathyco/x/pull/1224)
 - **tagging:** track displayClick [(#1222)](https://github.com/empathyco/x/pull/1222)
 
 ## [3.0.0-alpha.380](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.379...@empathyco/x-components@3.0.0-alpha.380) (2023-05-31)
 
 ### Features
 
-- **component:** set configuration for base-result-link to ignore tagging of click [(#1211)](https://github.com/empathyco/x/pull/1211)
+- **component:** set configuration for base-result-link to ignore tagging of click
+  [(#1211)](https://github.com/empathyco/x/pull/1211)
 
 ## [3.0.0-alpha.379](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.378...@empathyco/x-components@3.0.0-alpha.379) (2023-05-30)
 
@@ -307,25 +325,29 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **semantic-queries:** add semantic queries module and component [(#1213)](https://github.com/empathyco/x/pull/1213)
+- **semantic-queries:** add semantic queries module and component
+  [(#1213)](https://github.com/empathyco/x/pull/1213)
 
 ## [3.0.0-alpha.377](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.376...@empathyco/x-components@3.0.0-alpha.377) (2023-05-30)
 
 ### Features
 
-- **platform-adapter:** add semantic queries to platform adapter [(#1212)](https://github.com/empathyco/x/pull/1212)
+- **platform-adapter:** add semantic queries to platform adapter
+  [(#1212)](https://github.com/empathyco/x/pull/1212)
 
 ## [3.0.0-alpha.376](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.375...@empathyco/x-components@3.0.0-alpha.376) (2023-05-30)
 
 ### Features
 
-- **queries-preview:** make the QueryPreviewRequestUpdated not replaceable [(#1203)](https://github.com/empathyco/x/pull/1203)
+- **queries-preview:** make the QueryPreviewRequestUpdated not replaceable
+  [(#1203)](https://github.com/empathyco/x/pull/1203)
 
 ## [3.0.0-alpha.375](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.374...@empathyco/x-components@3.0.0-alpha.375) (2023-05-24)
 
 ### Features
 
-- **tagging:** add new type values to ResultFeature and FeatureLocation [(#1209)](https://github.com/empathyco/x/pull/1209)
+- **tagging:** add new type values to ResultFeature and FeatureLocation
+  [(#1209)](https://github.com/empathyco/x/pull/1209)
 
 ## [3.0.0-alpha.374](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.373...@empathyco/x-components@3.0.0-alpha.374) (2023-05-24)
 
@@ -377,11 +399,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- migrate suggestions and currency components to vue 3 syntax [(#1159)](https://github.com/empathyco/x/pull/1159)
+- migrate suggestions and currency components to vue 3 syntax
+  [(#1159)](https://github.com/empathyco/x/pull/1159)
 
 ### Bug Fixes
 
-- `BaseResultImage` not showing the right size on load [(#1176)](https://github.com/empathyco/x/pull/1176)
+- `BaseResultImage` not showing the right size on load
+  [(#1176)](https://github.com/empathyco/x/pull/1176)
 
 ### Others
 
@@ -414,17 +438,20 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- Adapt Result mapping according to new API standard [(#1039)](https://github.com/empathyco/x/pull/1039)
+- Adapt Result mapping according to new API standard
+  [(#1039)](https://github.com/empathyco/x/pull/1039)
 
 ## [3.0.0-alpha.362](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.361...@empathyco/x-components@3.0.0-alpha.362) (2023-05-02)
 
 ### Features
 
-- **search:** add dynamic title prop to promoted and banner component [(#1168)](https://github.com/empathyco/x/pull/1168)
+- **search:** add dynamic title prop to promoted and banner component
+  [(#1168)](https://github.com/empathyco/x/pull/1168)
 
 ### Documentation
 
-- **titles:** adjusting page, seo, and sidebar titles [(#1166)](https://github.com/empathyco/x/pull/1166)
+- **titles:** adjusting page, seo, and sidebar titles
+  [(#1166)](https://github.com/empathyco/x/pull/1166)
 
 ## [3.0.0-alpha.361](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.360...@empathyco/x-components@3.0.0-alpha.361) (2023-04-26)
 
@@ -488,7 +515,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **design-system:** add XDS progress bar component [(#1149)](https://github.com/empathyco/x/pull/1149)
+- **design-system:** add XDS progress bar component
+  [(#1149)](https://github.com/empathyco/x/pull/1149)
 
 ## [3.0.0-alpha.354](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.353...@empathyco/x-components@3.0.0-alpha.354) (2023-04-19)
 
@@ -499,19 +527,22 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - **search:** add fallback disclaimer component [(#1122)](https://github.com/empathyco/x/pull/1122)
-- **facets:** add dynamic prop to show more/less buttons in sliced-filters [(#1146)](https://github.com/empathyco/x/pull/1146)
+- **facets:** add dynamic prop to show more/less buttons in sliced-filters
+  [(#1146)](https://github.com/empathyco/x/pull/1146)
 
 ## [3.0.0-alpha.352](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.351...@empathyco/x-components@3.0.0-alpha.352) (2023-04-18)
 
 ### Documentation
 
-- **integration:** add information about sessionId duration [(#1139)](https://github.com/empathyco/x/pull/1139)
+- **integration:** add information about sessionId duration
+  [(#1139)](https://github.com/empathyco/x/pull/1139)
 
 ## [3.0.0-alpha.351](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.350...@empathyco/x-components@3.0.0-alpha.351) (2023-04-17)
 
 ### Features
 
-- add `filterItemClass` prop to `HierarchicalFilter` [(#1135)](https://github.com/empathyco/x/pull/1135)
+- add `filterItemClass` prop to `HierarchicalFilter`
+  [(#1135)](https://github.com/empathyco/x/pull/1135)
 
 ## [3.0.0-alpha.350](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.349...@empathyco/x-components@3.0.0-alpha.350) (2023-04-17)
 
@@ -535,7 +566,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **facets:** implement strategy to decide what filters are sent in the request [(#1124)](https://github.com/empathyco/x/pull/1124)
+- **facets:** implement strategy to decide what filters are sent in the request
+  [(#1124)](https://github.com/empathyco/x/pull/1124)
 
 ## [3.0.0-alpha.345](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.344...@empathyco/x-components@3.0.0-alpha.345) (2023-04-10)
 
@@ -574,13 +606,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- adapt `base-column-picker-list` to use the XDS component of button group [(#1115)](https://github.com/empathyco/x/pull/1115)
+- adapt `base-column-picker-list` to use the XDS component of button group
+  [(#1115)](https://github.com/empathyco/x/pull/1115)
 
 ## [3.0.0-alpha.338](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.337...@empathyco/x-components@3.0.0-alpha.338) (2023-03-23)
 
 ### Features
 
-- **components:** add `columns` prop in `BaseVariableColumnGrid` [(#1112)](https://github.com/empathyco/x/pull/1112)
+- **components:** add `columns` prop in `BaseVariableColumnGrid`
+  [(#1112)](https://github.com/empathyco/x/pull/1112)
 
 ## [3.0.0-alpha.337](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.336...@empathyco/x-components@3.0.0-alpha.337) (2023-03-22)
 
@@ -601,13 +635,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **design-system:** deprecate old DS `Tag` component [(#1103)](https://github.com/empathyco/x/pull/1103)
+- **design-system:** deprecate old DS `Tag` component
+  [(#1103)](https://github.com/empathyco/x/pull/1103)
 
 ## [3.0.0-alpha.334](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.333...@empathyco/x-components@3.0.0-alpha.334) (2023-03-16)
 
 ### Features
 
-- **plugin:** replace old bus implementation using the new `x-priority-bus` [(#1086)](https://github.com/empathyco/x/pull/1086)
+- **plugin:** replace old bus implementation using the new `x-priority-bus`
+  [(#1086)](https://github.com/empathyco/x/pull/1086)
 
 ## [3.0.0-alpha.333](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.332...@empathyco/x-components@3.0.0-alpha.333) (2023-03-15)
 
@@ -627,7 +663,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Code Refactoring
 
-- **components:** migrate `AutoProgressBar` to `Composition API` [(#1087)](https://github.com/empathyco/x/pull/1087)
+- **components:** migrate `AutoProgressBar` to `Composition API`
+  [(#1087)](https://github.com/empathyco/x/pull/1087)
 
 ## [3.0.0-alpha.329](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.328...@empathyco/x-components@3.0.0-alpha.329) (2023-03-09)
 
@@ -663,7 +700,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **queries-preview:** add query preview list component to orchestrate requests [(#1084)](https://github.com/empathyco/x/pull/1084)
+- **queries-preview:** add query preview list component to orchestrate requests
+  [(#1084)](https://github.com/empathyco/x/pull/1084)
 
 ## [3.0.0-alpha.323](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.322...@empathyco/x-components@3.0.0-alpha.323) (2023-03-01)
 
@@ -681,19 +719,22 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- **design-system:** fix deprecated typography and picture components [(#1090)](https://github.com/empathyco/x/pull/1090)
+- **design-system:** fix deprecated typography and picture components
+  [(#1090)](https://github.com/empathyco/x/pull/1090)
 
 ## [3.0.0-alpha.320](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.319...@empathyco/x-components@3.0.0-alpha.320) (2023-02-28)
 
 ### Bug Fixes
 
-- **components:** Fix open issue when focused on body. Fix `SearchInputPlaceholder` styles. [(#1078)](https://github.com/empathyco/x/pull/1078)
+- **components:** Fix open issue when focused on body. Fix `SearchInputPlaceholder` styles.
+  [(#1078)](https://github.com/empathyco/x/pull/1078)
 
 ## [3.0.0-alpha.319](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.318...@empathyco/x-components@3.0.0-alpha.319) (2023-02-27)
 
 ### Features
 
-- **banner:** add support without title and no clickable [(#1069)](https://github.com/empathyco/x/pull/1069)
+- **banner:** add support without title and no clickable
+  [(#1069)](https://github.com/empathyco/x/pull/1069)
 
 ## [3.0.0-alpha.318](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.317...@empathyco/x-components@3.0.0-alpha.318) (2023-02-21)
 
@@ -703,25 +744,29 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Build System
 
-- **dependencies:** bump `@bahmutov/cypress-esbuild-preprocessor` from `2.1.5` to `2.2.0` [(#1082)](https://github.com/empathyco/x/pull/1082)
+- **dependencies:** bump `@bahmutov/cypress-esbuild-preprocessor` from `2.1.5` to `2.2.0`
+  [(#1082)](https://github.com/empathyco/x/pull/1082)
 
 ## [3.0.0-alpha.316](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.315...@empathyco/x-components@3.0.0-alpha.316) (2023-02-16)
 
 ### Features
 
-- remove `x-suggestion` class from `BaseSuggestion` component [(#1077)](https://github.com/empathyco/x/pull/1077)
+- remove `x-suggestion` class from `BaseSuggestion` component
+  [(#1077)](https://github.com/empathyco/x/pull/1077)
 
 ## [3.0.0-alpha.315](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.314...@empathyco/x-components@3.0.0-alpha.315) (2023-02-15)
 
 ### Features
 
-- **design-system:** Add `Input Group` component to the X Design System. [(#1066)](https://github.com/empathyco/x/pull/1066)
+- **design-system:** Add `Input Group` component to the X Design System.
+  [(#1066)](https://github.com/empathyco/x/pull/1066)
 
 ## [3.0.0-alpha.314](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.313...@empathyco/x-components@3.0.0-alpha.314) (2023-02-15)
 
 ### Features
 
-- **design-system:** Add layout `layout-stack` util. [(#1076)](https://github.com/empathyco/x/pull/1076)
+- **design-system:** Add layout `layout-stack` util.
+  [(#1076)](https://github.com/empathyco/x/pull/1076)
 
 ## [3.0.0-alpha.313](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.312...@empathyco/x-components@3.0.0-alpha.313) (2023-02-14)
 
@@ -732,11 +777,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **design-system:** deprecate old x-scroll styles [(#1073)](https://github.com/empathyco/x/pull/1073)
+- **design-system:** deprecate old x-scroll styles
+  [(#1073)](https://github.com/empathyco/x/pull/1073)
 
 ### Bug Fixes
 
-- **modal:** set focusOnOpen for the main-modal to false [(#1074)](https://github.com/empathyco/x/pull/1074)
+- **modal:** set focusOnOpen for the main-modal to false
+  [(#1074)](https://github.com/empathyco/x/pull/1074)
 
 ## [3.0.0-alpha.312](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.311...@empathyco/x-components@3.0.0-alpha.312) (2023-02-14)
 
@@ -752,17 +799,20 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- **search:** reset `query`, `page` and `sort` on clear query [(#1045)](https://github.com/empathyco/x/pull/1045)
+- **search:** reset `query`, `page` and `sort` on clear query
+  [(#1045)](https://github.com/empathyco/x/pull/1045)
 
 ### Continuous Integration
 
-- refactor `lint` command to benefit from `nx parallelisation` [(#1051)](https://github.com/empathyco/x/pull/1051)
+- refactor `lint` command to benefit from `nx parallelisation`
+  [(#1051)](https://github.com/empathyco/x/pull/1051)
 
 ## [3.0.0-alpha.309](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.308...@empathyco/x-components@3.0.0-alpha.309) (2023-02-07)
 
 ### Continuous Integration
 
-- migrate from `npm` & `lerna bootstrap` to `pnpm` [(#1047)](https://github.com/empathyco/x/pull/1047)
+- migrate from `npm` & `lerna bootstrap` to `pnpm`
+  [(#1047)](https://github.com/empathyco/x/pull/1047)
 
 ## [3.0.0-alpha.308](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.307...@empathyco/x-components@3.0.0-alpha.308) (2023-02-06)
 
@@ -789,13 +839,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **history-queries:** emit click event on HistoryQuery click [(#1048)](https://github.com/empathyco/x/pull/1048)
+- **history-queries:** emit click event on HistoryQuery click
+  [(#1048)](https://github.com/empathyco/x/pull/1048)
 
 ## [3.0.0-alpha.304](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.303...@empathyco/x-components@3.0.0-alpha.304) (2023-01-30)
 
 ### Features
 
-- **history-queries:** bind formatTime callback to MyHistory suggestion slot [(#1049)](https://github.com/empathyco/x/pull/1049)
+- **history-queries:** bind formatTime callback to MyHistory suggestion slot
+  [(#1049)](https://github.com/empathyco/x/pull/1049)
 
 ## [3.0.0-alpha.303](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.302...@empathyco/x-components@3.0.0-alpha.303) (2023-01-27)
 
@@ -812,7 +864,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **components:** deprecate x-picture\_\_image and placeholder/fallback styles [(#1036)](https://github.com/empathyco/x/pull/1036)
+- **components:** deprecate x-picture\_\_image and placeholder/fallback styles
+  [(#1036)](https://github.com/empathyco/x/pull/1036)
 
 ## [3.0.0-alpha.301](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.300...@empathyco/x-components@3.0.0-alpha.301) (2023-01-25)
 
@@ -845,7 +898,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- remove duplicates from image placeholder/fallback classes [(#1032)](https://github.com/empathyco/x/pull/1032)
+- remove duplicates from image placeholder/fallback classes
+  [(#1032)](https://github.com/empathyco/x/pull/1032)
 
 ## [3.0.0-alpha.295](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.294...@empathyco/x-components@3.0.0-alpha.295) (2023-01-24)
 
@@ -873,7 +927,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **design-system:** add `product-image` `XDS` component [(#1025)](https://github.com/empathyco/x/pull/1025)
+- **design-system:** add `product-image` `XDS` component
+  [(#1025)](https://github.com/empathyco/x/pull/1025)
 
 ## [3.0.0-alpha.293](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.292...@empathyco/x-components@3.0.0-alpha.293) (2023-01-23)
 
@@ -917,7 +972,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **history-queries:** add dynamic classes to the history query suggestion [(#1014)](https://github.com/empathyco/x/pull/1014)
+- **history-queries:** add dynamic classes to the history query suggestion
+  [(#1014)](https://github.com/empathyco/x/pull/1014)
 
 ## [3.0.0-alpha.285](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.284...@empathyco/x-components@3.0.0-alpha.285) (2023-01-17)
 
@@ -943,13 +999,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- add dynamic classes to the suggestion item inside the `base-suggestions` [(#1008)](https://github.com/empathyco/x/pull/1008)
+- add dynamic classes to the suggestion item inside the `base-suggestions`
+  [(#1008)](https://github.com/empathyco/x/pull/1008)
 
 ## [3.0.0-alpha.281](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.280...@empathyco/x-components@3.0.0-alpha.281) (2023-01-16)
 
 ### Features
 
-- **history-queries:** add dynamic classes to the remove history query button [(#1007)](https://github.com/empathyco/x/pull/1007)
+- **history-queries:** add dynamic classes to the remove history query button
+  [(#1007)](https://github.com/empathyco/x/pull/1007)
 
 ## [3.0.0-alpha.280](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.279...@empathyco/x-components@3.0.0-alpha.280) (2023-01-13)
 
@@ -983,7 +1041,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **history-queries:** expose `historyQueriesWithResults` in the alias API [(#991)](https://github.com/empathyco/x/pull/991)
+- **history-queries:** expose `historyQueriesWithResults` in the alias API
+  [(#991)](https://github.com/empathyco/x/pull/991)
 
 ## [3.0.0-alpha.273](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.272...@empathyco/x-components@3.0.0-alpha.273) (2023-01-09)
 
@@ -994,13 +1053,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **design-system:** deprecate old suggestion and suggestion group styles [(#975)](https://github.com/empathyco/x/pull/975)
+- **design-system:** deprecate old suggestion and suggestion group styles
+  [(#975)](https://github.com/empathyco/x/pull/975)
 
 ## [3.0.0-alpha.272](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.271...@empathyco/x-components@3.0.0-alpha.272) (2023-01-09)
 
 ### Features
 
-- **design-system:** deprecate old typography styles [(#973)](https://github.com/empathyco/x/pull/973)
+- **design-system:** deprecate old typography styles
+  [(#973)](https://github.com/empathyco/x/pull/973)
 
 ## [3.0.0-alpha.271](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.270...@empathyco/x-components@3.0.0-alpha.271) (2023-01-06)
 
@@ -1051,7 +1112,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **design-system:** Add suggestion group component [(#943)](https://github.com/empathyco/x/pull/943)
+- **design-system:** Add suggestion group component
+  [(#943)](https://github.com/empathyco/x/pull/943)
 
 ## [3.0.0-alpha.262](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.261...@empathyco/x-components@3.0.0-alpha.262) (2022-12-29)
 
@@ -1061,7 +1123,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- **build:** use the default `vue-cli` `webpack` configuration in `rollup-plugin-vue` [(#961)](https://github.com/empathyco/x/pull/961)
+- **build:** use the default `vue-cli` `webpack` configuration in `rollup-plugin-vue`
+  [(#961)](https://github.com/empathyco/x/pull/961)
 
 ## [3.0.0-alpha.260](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.259...@empathyco/x-components@3.0.0-alpha.260) (2022-12-26)
 
@@ -1073,7 +1136,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- modify base-events-modal-close and base-events-modal-open for WCAG compliance [(#946)](https://github.com/empathyco/x/pull/946)
+- modify base-events-modal-close and base-events-modal-open for WCAG compliance
+  [(#946)](https://github.com/empathyco/x/pull/946)
 
 ## [3.0.0-alpha.258](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.257...@empathyco/x-components@3.0.0-alpha.258) (2022-12-26)
 
@@ -1103,7 +1167,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - Rename lifecycle hook events [(#939)](https://github.com/empathyco/x/pull/939)
-- **scroll:** capture listeners in MainScrollItem component [(#942)](https://github.com/empathyco/x/pull/942)
+- **scroll:** capture listeners in MainScrollItem component
+  [(#942)](https://github.com/empathyco/x/pull/942)
 
 ## [3.0.0-alpha.253](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.252...@empathyco/x-components@3.0.0-alpha.253) (2022-12-19)
 
@@ -1129,7 +1194,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **recommendations:** emit `RecommendationsChanged` [(#922)](https://github.com/empathyco/x/pull/922)
+- **recommendations:** emit `RecommendationsChanged`
+  [(#922)](https://github.com/empathyco/x/pull/922)
 
 ## [3.0.0-alpha.248](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.247...@empathyco/x-components@3.0.0-alpha.248) (2022-12-12)
 
@@ -1149,7 +1215,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Code Refactoring
 
-- **plugin:** Rename `inputStatus` to `searchBoxStatus` in Alias API. [(#913)](https://github.com/empathyco/x/pull/913)
+- **plugin:** Rename `inputStatus` to `searchBoxStatus` in Alias API.
+  [(#913)](https://github.com/empathyco/x/pull/913)
 
 ## [3.0.0-alpha.245](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.244...@empathyco/x-components@3.0.0-alpha.245) (2022-12-09)
 
@@ -1166,13 +1233,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **components:** Use `Highlight` component inside suggestion components.[(#894)](https://github.com/empathyco/x/pull/894)
+- **components:** Use `Highlight` component inside suggestion
+  components.[(#894)](https://github.com/empathyco/x/pull/894)
 
 ## [3.0.0-alpha.243](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.242...@empathyco/x-components@3.0.0-alpha.243) (2022-12-08)
 
 ### Testing
 
-- **e2e:** make `HistoryQueries` test wait for no results [(#906)](https://github.com/empathyco/x/pull/906)
+- **e2e:** make `HistoryQueries` test wait for no results
+  [(#906)](https://github.com/empathyco/x/pull/906)
 
 ## [3.0.0-alpha.242](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.241...@empathyco/x-components@3.0.0-alpha.242) (2022-12-07)
 
@@ -1192,7 +1261,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **history-queries:** Hide history queries with no results [(#865)](https://github.com/empathyco/x/pull/865)
+- **history-queries:** Hide history queries with no results
+  [(#865)](https://github.com/empathyco/x/pull/865)
 
 ## [3.0.0-alpha.239](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.238...@empathyco/x-components@3.0.0-alpha.239) (2022-12-01)
 
@@ -1202,17 +1272,20 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **components:** add `getTargetElement` util to retrieve the `event.target` [(#870)](https://github.com/empathyco/x/pull/870)
+- **components:** add `getTargetElement` util to retrieve the `event.target`
+  [(#870)](https://github.com/empathyco/x/pull/870)
 
 ### Bug Fixes
 
-- **components:** reset`BaseResultImage` images state when `result` `prop` changes [(#888)](https://github.com/empathyco/x/pull/888)
+- **components:** reset`BaseResultImage` images state when `result` `prop` changes
+  [(#888)](https://github.com/empathyco/x/pull/888)
 
 ## [3.0.0-alpha.237](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.236...@empathyco/x-components@3.0.0-alpha.237) (2022-12-01)
 
 ### Features
 
-- **recommendations:** add `updateRecommendation` mutation [(#891)](https://github.com/empathyco/x/pull/891)
+- **recommendations:** add `updateRecommendation` mutation
+  [(#891)](https://github.com/empathyco/x/pull/891)
 
 ## [3.0.0-alpha.236](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.235...@empathyco/x-components@3.0.0-alpha.236) (2022-11-29)
 
@@ -1250,23 +1323,27 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- **components:** Fix InfiniteScroll get root element inside Shadow DOM. [(#874)](https://github.com/empathyco/x/pull/874)
+- **components:** Fix InfiniteScroll get root element inside Shadow DOM.
+  [(#874)](https://github.com/empathyco/x/pull/874)
 
 ## [3.0.0-alpha.230](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.229...@empathyco/x-components@3.0.0-alpha.230) (2022-11-24)
 
 ### Features
 
-- Emit SearchResponseProvided event from Search Module [(#864)](https://github.com/empathyco/x/pull/864)
+- Emit SearchResponseProvided event from Search Module
+  [(#864)](https://github.com/empathyco/x/pull/864)
 
 ## [3.0.0-alpha.229](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.228...@empathyco/x-components@3.0.0-alpha.229) (2022-11-22)
 
 ### Features
 
-- **components:** make base dropdown based components accessible [(#846)](https://github.com/empathyco/x/pull/846)
+- **components:** make base dropdown based components accessible
+  [(#846)](https://github.com/empathyco/x/pull/846)
 
 ### Bug Fixes
 
-- make `appear` attribute configurable on animations that have it set to `true` by default [(#862)](https://github.com/empathyco/x/pull/862)
+- make `appear` attribute configurable on animations that have it set to `true` by default
+  [(#862)](https://github.com/empathyco/x/pull/862)
 
 ## [3.0.0-alpha.228](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.227...@empathyco/x-components@3.0.0-alpha.228) (2022-11-17)
 
@@ -1278,14 +1355,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **design-system:** add `suggestion` component to the XDS [(#838)](https://github.com/empathyco/x/pull/838)
+- **design-system:** add `suggestion` component to the XDS
+  [(#838)](https://github.com/empathyco/x/pull/838)
 - history-queries-switch wai aria adjustments [(#847)](https://github.com/empathyco/x/pull/847)
 
 ## [3.0.0-alpha.226](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.225...@empathyco/x-components@3.0.0-alpha.226) (2022-11-14)
 
 ### Features
 
-- Change suggestion components to bind $attrs to base suggestions [(#831)](https://github.com/empathyco/x/pull/831)
+- Change suggestion components to bind $attrs to base suggestions
+  [(#831)](https://github.com/empathyco/x/pull/831)
 
 ## [3.0.0-alpha.225](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.224...@empathyco/x-components@3.0.0-alpha.225) (2022-11-11)
 
@@ -1306,7 +1385,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **x-plugin:** Add function as possible value of `domElement` in InstallXOptions.[(#836)](https://github.com/empathyco/x/pull/836)
+- **x-plugin:** Add function as possible value of `domElement` in
+  InstallXOptions.[(#836)](https://github.com/empathyco/x/pull/836)
 
 ## [3.0.0-alpha.221](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.220...@empathyco/x-components@3.0.0-alpha.221) (2022-11-10)
 
@@ -1318,7 +1398,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **empathize:** show Empathize only when it has content [(#820)](https://github.com/empathyco/x/pull/820)
+- **empathize:** show Empathize only when it has content
+  [(#820)](https://github.com/empathyco/x/pull/820)
 
 ## [3.0.0-alpha.219](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.218...@empathyco/x-components@3.0.0-alpha.219) (2022-11-09)
 
@@ -1336,13 +1417,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **design-system:** deprecate old design system button styles [(#830)](https://github.com/empathyco/x/pull/830)
+- **design-system:** deprecate old design system button styles
+  [(#830)](https://github.com/empathyco/x/pull/830)
 
 ## [3.0.0-alpha.217](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.216...@empathyco/x-components@3.0.0-alpha.217) (2022-11-08)
 
 ### Bug Fixes
 
-- remove `resize-observer-browser` types from tsconfig [(#833)](https://github.com/empathyco/x/pull/833)
+- remove `resize-observer-browser` types from tsconfig
+  [(#833)](https://github.com/empathyco/x/pull/833)
 
 ## [3.0.0-alpha.216](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.215...@empathyco/x-components@3.0.0-alpha.216) (2022-11-08)
 
@@ -1358,7 +1441,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **design-system:** add tailwind showcase component [(#778)](https://github.com/empathyco/x/pull/778)
+- **design-system:** add tailwind showcase component
+  [(#778)](https://github.com/empathyco/x/pull/778)
 
 ## [3.0.0-alpha.213](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.212...@empathyco/x-components@3.0.0-alpha.213) (2022-11-03)
 
@@ -1380,7 +1464,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **components:** insert promoteds in the grid using position [(#801)](https://github.com/empathyco/x/pull/801)
+- **components:** insert promoteds in the grid using position
+  [(#801)](https://github.com/empathyco/x/pull/801)
 
 ### Bug Fixes
 
@@ -1394,13 +1479,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **components:** Emit ColumnsNumberRendered event on BaseGrid [(#806)](https://github.com/empathyco/x/pull/806)
+- **components:** Emit ColumnsNumberRendered event on BaseGrid
+  [(#806)](https://github.com/empathyco/x/pull/806)
 
 ## [3.0.0-alpha.208](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.207...@empathyco/x-components@3.0.0-alpha.208) (2022-11-02)
 
 ### Features
 
-- apply dynamic css mixin to sliding panel and column picker list buttons [(#815)](https://github.com/empathyco/x/pull/815)
+- apply dynamic css mixin to sliding panel and column picker list buttons
+  [(#815)](https://github.com/empathyco/x/pull/815)
 
 ## [3.0.0-alpha.207](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.206...@empathyco/x-components@3.0.0-alpha.207) (2022-11-02)
 
@@ -1443,7 +1530,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **tagging:** make `tagging` and `queryTagging` optional [(#797)](https://github.com/empathyco/x/pull/797)
+- **tagging:** make `tagging` and `queryTagging` optional
+  [(#797)](https://github.com/empathyco/x/pull/797)
 
 ## [3.0.0-alpha.200](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.199...@empathyco/x-components@3.0.0-alpha.200) (2022-10-21)
 
@@ -1455,13 +1543,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Documentation
 
-- **functional:** titles refactor and change image source [(#790)](https://github.com/empathyco/x/pull/790)
+- **functional:** titles refactor and change image source
+  [(#790)](https://github.com/empathyco/x/pull/790)
 
 ## [3.0.0-alpha.198](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.197...@empathyco/x-components@3.0.0-alpha.198) (2022-10-20)
 
 ### Bug Fixes
 
-- **related-tags:** use `query` instead of `tag` as `key` to ensure unique values [(#792)](https://github.com/empathyco/x/pull/792)
+- **related-tags:** use `query` instead of `tag` as `key` to ensure unique values
+  [(#792)](https://github.com/empathyco/x/pull/792)
 
 ## [3.0.0-alpha.197](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.196...@empathyco/x-components@3.0.0-alpha.197) (2022-10-19)
 
@@ -1471,7 +1561,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **search-box:** add `SearchInputPlaceholder` component [(#771)](https://github.com/empathyco/x/pull/771)
+- **search-box:** add `SearchInputPlaceholder` component
+  [(#771)](https://github.com/empathyco/x/pull/771)
 
 ## [3.0.0-alpha.195](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.194...@empathyco/x-components@3.0.0-alpha.195) (2022-10-19)
 
@@ -1481,7 +1572,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **components:** Add new origins to the `animateClipPath` animation factory. [(#777)](https://github.com/empathyco/x/pull/777)
+- **components:** Add new origins to the `animateClipPath` animation factory.
+  [(#777)](https://github.com/empathyco/x/pull/777)
 
 ## [3.0.0-alpha.193](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.192...@empathyco/x-components@3.0.0-alpha.193) (2022-10-17)
 
@@ -1516,13 +1608,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- wait for the extra params to make the initial requests [(#754)](https://github.com/empathyco/x/pull/754)
+- wait for the extra params to make the initial requests
+  [(#754)](https://github.com/empathyco/x/pull/754)
 
 ## [3.0.0-alpha.187](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.186...@empathyco/x-components@3.0.0-alpha.187) (2022-10-05)
 
 ### Features
 
-- **queries-preview:** Add `debounceTimeMs` to `QueryPreview` component. [(#752)](https://github.com/empathyco/x/pull/752)
+- **queries-preview:** Add `debounceTimeMs` to `QueryPreview` component.
+  [(#752)](https://github.com/empathyco/x/pull/752)
 
 ## [3.0.0-alpha.186](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.185...@empathyco/x-components@3.0.0-alpha.186) (2022-10-03)
 
@@ -1546,7 +1640,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **next-queries:** add `origin` to `next queries preview` [(#746)](https://github.com/empathyco/x/pull/746)
+- **next-queries:** add `origin` to `next queries preview`
+  [(#746)](https://github.com/empathyco/x/pull/746)
 
 ## [3.0.0-alpha.182](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.181...@empathyco/x-components@3.0.0-alpha.182) (2022-09-27)
 
@@ -1562,7 +1657,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **queries-preview:** add `origin` to `QueryPreview` component [(#737)](https://github.com/empathyco/x/pull/737)
+- **queries-preview:** add `origin` to `QueryPreview` component
+  [(#737)](https://github.com/empathyco/x/pull/737)
 
 ## [3.0.0-alpha.180](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.179...@empathyco/x-components@3.0.0-alpha.180) (2022-09-27)
 
@@ -1572,7 +1668,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- add `vue devtools` plugin to ease `XEvents` and `wiring` visualization [(#215)](https://github.com/empathyco/x/pull/215)
+- add `vue devtools` plugin to ease `XEvents` and `wiring` visualization
+  [(#215)](https://github.com/empathyco/x/pull/215)
 
 ## [3.0.0-alpha.178](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.177...@empathyco/x-components@3.0.0-alpha.178) (2022-09-21)
 
@@ -1602,7 +1699,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **design-system:** generate old design system tokens with tailwind values [(#675)](https://github.com/empathyco/x/pull/675)
+- **design-system:** generate old design system tokens with tailwind values
+  [(#675)](https://github.com/empathyco/x/pull/675)
 
 ## [3.0.0-alpha.173](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.172...@empathyco/x-components@3.0.0-alpha.173) (2022-09-16)
 
@@ -1612,7 +1710,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **next-queries:** add `concatWhenNoMoreItems` prop [(#705)](https://github.com/empathyco/x/pull/705)
+- **next-queries:** add `concatWhenNoMoreItems` prop
+  [(#705)](https://github.com/empathyco/x/pull/705)
 
 ## [3.0.0-alpha.171](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.170...@empathyco/x-components@3.0.0-alpha.171) (2022-09-13)
 
@@ -1625,7 +1724,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - **components:** add disable animation mixin [(#703)](https://github.com/empathyco/x/pull/703)
-- disable `@typescript-eslint/no-extra-parens` rule [(#715)](https://github.com/empathyco/x/pull/715)
+- disable `@typescript-eslint/no-extra-parens` rule
+  [(#715)](https://github.com/empathyco/x/pull/715)
 
 ## [3.0.0-alpha.169](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.168...@empathyco/x-components@3.0.0-alpha.169) (2022-09-08)
 
@@ -1637,7 +1737,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- **components:** Fix the error on console in `BaseResultImage` with `CrossFade` Animation. [(#688)](https://github.com/empathyco/x/pull/688)
+- **components:** Fix the error on console in `BaseResultImage` with `CrossFade` Animation.
+  [(#688)](https://github.com/empathyco/x/pull/688)
 
 ## [3.0.0-alpha.167](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.166...@empathyco/x-components@3.0.0-alpha.167) (2022-09-06)
 
@@ -1649,7 +1750,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- Make `Home` grid next queries use grid data rather than state data. [(#687)](https://github.com/empathyco/x/pull/687)
+- Make `Home` grid next queries use grid data rather than state data.
+  [(#687)](https://github.com/empathyco/x/pull/687)
 
 ## [3.0.0-alpha.165](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.164...@empathyco/x-components@3.0.0-alpha.165) (2022-08-31)
 
@@ -1667,7 +1769,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Documentation
 
-- **functional:** add my history ui and related docs [(#685)](https://github.com/empathyco/x/pull/685)
+- **functional:** add my history ui and related docs
+  [(#685)](https://github.com/empathyco/x/pull/685)
 
 ## [3.0.0-alpha.162](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.161...@empathyco/x-components@3.0.0-alpha.162) (2022-08-29)
 
@@ -1698,7 +1801,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - **adapter:** disable cancel http client [(#658)](https://github.com/empathyco/x/pull/658)
-- **queries-preview:** create `queriesPreview` module [(#670)](https://github.com/empathyco/x/pull/670)
+- **queries-preview:** create `queriesPreview` module
+  [(#670)](https://github.com/empathyco/x/pull/670)
 
 ### Bug Fixes
 
@@ -1708,7 +1812,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **queries-preview:** create `queriesPreview` module [(#670)](https://github.com/empathyco/x/pull/670)
+- **queries-preview:** create `queriesPreview` module
+  [(#670)](https://github.com/empathyco/x/pull/670)
 
 ## [3.0.0-alpha.156](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.155...@empathyco/x-components@3.0.0-alpha.156) (2022-08-19)
 
@@ -1731,7 +1836,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **next-queries:** add `maxItemsToRender` prop to `NextQueryPreview` component [(#646)](https://github.com/empathyco/x/pull/646)
+- **next-queries:** add `maxItemsToRender` prop to `NextQueryPreview` component
+  [(#646)](https://github.com/empathyco/x/pull/646)
 
 ## [3.0.0-alpha.152](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.151...@empathyco/x-components@3.0.0-alpha.152) (2022-08-10)
 
@@ -1753,19 +1859,22 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **components:** make `BaseIdModalOpen` rendering configurable [(#637)](https://github.com/empathyco/x/pull/637)
+- **components:** make `BaseIdModalOpen` rendering configurable
+  [(#637)](https://github.com/empathyco/x/pull/637)
 
 ## [3.0.0-alpha.149](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.148...@empathyco/x-components@3.0.0-alpha.149) (2022-08-08)
 
 ### Bug Fixes
 
-- **facets:** fix `SingleSelectModifier` handling for selecting hierar… [(#643)](https://github.com/empathyco/x/pull/643)
+- **facets:** fix `SingleSelectModifier` handling for selecting hierar…
+  [(#643)](https://github.com/empathyco/x/pull/643)
 
 ## [3.0.0-alpha.148](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.147...@empathyco/x-components@3.0.0-alpha.148) (2022-08-04)
 
 ### Features
 
-- **next-queries:** add next query preview component [(#631)](https://github.com/empathyco/x/pull/631)
+- **next-queries:** add next query preview component
+  [(#631)](https://github.com/empathyco/x/pull/631)
 
 ## [3.0.0-alpha.147](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.146...@empathyco/x-components@3.0.0-alpha.147) (2022-08-03)
 
@@ -1777,7 +1886,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **facets:** Move filters flattening from `x-adapter-platform` to `x-components`. [(#626)](https://github.com/empathyco/x/pull/626)
+- **facets:** Move filters flattening from `x-adapter-platform` to `x-components`.
+  [(#626)](https://github.com/empathyco/x/pull/626)
 
 ## [3.0.0-alpha.146](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.145...@empathyco/x-components@3.0.0-alpha.146) (2022-08-03)
 
@@ -1804,7 +1914,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **components:** make `BaseIdModalClose` rendering configurable [(#627)](https://github.com/empathyco/x/pull/627)
+- **components:** make `BaseIdModalClose` rendering configurable
+  [(#627)](https://github.com/empathyco/x/pull/627)
 
 ## [3.0.0-alpha.142](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.141...@empathyco/x-components@3.0.0-alpha.142) (2022-07-29)
 
@@ -1837,31 +1948,36 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **components:** add `MainModal`, `OpenMainModal` and `CloseMainModal` [(#609)](https://github.com/empathyco/x/pull/609)
+- **components:** add `MainModal`, `OpenMainModal` and `CloseMainModal`
+  [(#609)](https://github.com/empathyco/x/pull/609)
 
 ## [3.0.0-alpha.136](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.135...@empathyco/x-components@3.0.0-alpha.136) (2022-07-21)
 
 ### Bug Fixes
 
-- `pointer-events` affecting scrolling in sliding panel in `SingleColumnLayout` aside [(#614)](https://github.com/empathyco/x/pull/614)
+- `pointer-events` affecting scrolling in sliding panel in `SingleColumnLayout` aside
+  [(#614)](https://github.com/empathyco/x/pull/614)
 
 ## [3.0.0-alpha.135](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.134...@empathyco/x-components@3.0.0-alpha.135) (2022-07-21)
 
 ### Testing
 
-- **e2e:** search modal re-opens properly after being closed [(#613)](https://github.com/empathyco/x/pull/613)
+- **e2e:** search modal re-opens properly after being closed
+  [(#613)](https://github.com/empathyco/x/pull/613)
 
 ## [3.0.0-alpha.134](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.133...@empathyco/x-components@3.0.0-alpha.134) (2022-07-20)
 
 ### Bug Fixes
 
-- **components:** now properly checks if it has content [(#612)](https://github.com/empathyco/x/pull/612)
+- **components:** now properly checks if it has content
+  [(#612)](https://github.com/empathyco/x/pull/612)
 
 ## [3.0.0-alpha.133](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.132...@empathyco/x-components@3.0.0-alpha.133) (2022-07-15)
 
 ### Bug Fixes
 
-- **components:** Add option to extend transitions with listeners and attributes [(#600)](https://github.com/empathyco/x/pull/600)
+- **components:** Add option to extend transitions with listeners and attributes
+  [(#600)](https://github.com/empathyco/x/pull/600)
 
 ## [3.0.0-alpha.132](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.131...@empathyco/x-components@3.0.0-alpha.132) (2022-07-14)
 
@@ -1873,19 +1989,22 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **history-queries:** add `HistoryQueriesSwitch` component [(#593)](https://github.com/empathyco/x/pull/593)
+- **history-queries:** add `HistoryQueriesSwitch` component
+  [(#593)](https://github.com/empathyco/x/pull/593)
 
 ## [3.0.0-alpha.130](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.129...@empathyco/x-components@3.0.0-alpha.130) (2022-07-12)
 
 ### Features
 
-- Move `XAPI` from `window.X` to `window.InterfaceX` [(#599)](https://github.com/empathyco/x/pull/599)
+- Move `XAPI` from `window.X` to `window.InterfaceX`
+  [(#599)](https://github.com/empathyco/x/pull/599)
 
 ## [3.0.0-alpha.129](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.128...@empathyco/x-components@3.0.0-alpha.129) (2022-07-11)
 
 ### Features
 
-- **history-queries:** bind `formatTime` to `suggestion-content` slot [(#598)](https://github.com/empathyco/x/pull/598)
+- **history-queries:** bind `formatTime` to `suggestion-content` slot
+  [(#598)](https://github.com/empathyco/x/pull/598)
 
 ## [3.0.0-alpha.128](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.127...@empathyco/x-components@3.0.0-alpha.128) (2022-07-11)
 
@@ -1937,7 +2056,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **components:** add grid-4-col and update light-bulb icons [(#579)](https://github.com/empathyco/x/pull/579)
+- **components:** add grid-4-col and update light-bulb icons
+  [(#579)](https://github.com/empathyco/x/pull/579)
 
 ## [3.0.0-alpha.120](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.119...@empathyco/x-components@3.0.0-alpha.120) (2022-06-27)
 
@@ -1951,7 +2071,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **identifier-results:** add maxItemsToRender prop [(#576)](https://github.com/empathyco/x/pull/576)
+- **identifier-results:** add maxItemsToRender prop
+  [(#576)](https://github.com/empathyco/x/pull/576)
 
 ## [3.0.0-alpha.117](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.116...@empathyco/x-components@3.0.0-alpha.117) (2022-06-23)
 
@@ -1961,7 +2082,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- Remove `@empathyco/x-platform-adapter` dependency from library code. [(#575)](https://github.com/empathyco/x/pull/575)
+- Remove `@empathyco/x-platform-adapter` dependency from library code.
+  [(#575)](https://github.com/empathyco/x/pull/575)
 
 ## [3.0.0-alpha.116](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.115...@empathyco/x-components@3.0.0-alpha.116) (2022-06-22)
 
@@ -2177,7 +2299,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Build System
 
-- **deps:** Upgrade Cypress and Vue Cli plugins versions. [(#399)](https://github.com/empathyco/x/pull/399)
+- **deps:** Upgrade Cypress and Vue Cli plugins versions.
+  [(#399)](https://github.com/empathyco/x/pull/399)
 
 ## [3.0.0-alpha.78](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.77...@empathyco/x-components@3.0.0-alpha.78) (2022-04-04)
 
@@ -2197,7 +2320,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Documentation
 
-- fix links and update repository information and development setup for `x-components` [(#394)](https://github.com/empathyco/x/pull/394)
+- fix links and update repository information and development setup for `x-components`
+  [(#394)](https://github.com/empathyco/x/pull/394)
 
 ## [3.0.0-alpha.75](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.74...@empathyco/x-components@3.0.0-alpha.75) (2022-03-31)
 
@@ -2428,14 +2552,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 - **design-system:** Fix some style issues and add two missing utilities
-- **identifier-results:** Fix default plugin config. [(#296)](https://github.com/empathyco/x/pull/296)
+- **identifier-results:** Fix default plugin config.
+  [(#296)](https://github.com/empathyco/x/pull/296)
 -
 
 ## [3.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.42...@empathyco/x-components@3.0.0-alpha.43) (2022-01-06)
 
 ### Features
 
-- **components:** Add icons for Arrows UP DOWN LEFT and RIGHT. [(#295)](https://github.com/empathyco/x/pull/295)
+- **components:** Add icons for Arrows UP DOWN LEFT and RIGHT.
+  [(#295)](https://github.com/empathyco/x/pull/295)
 
 ## [3.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.41...@empathyco/x-components@3.0.0-alpha.42) (2022-01-05)
 
@@ -2463,10 +2589,13 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- **components:** `SlidingPanel` can now disable the resetting scroll … [(#286)](https://github.com/empathyco/x/pull/286)
+- **components:** `SlidingPanel` can now disable the resetting scroll …
+  [(#286)](https://github.com/empathyco/x/pull/286)
 - **related-tags:** clear selected related tags when user changes extra params
-- **search:** batch state reset calls after search.request parameter changes [(#283)](https://github.com/empathyco/x/pull/283)
-- **search:** next page is now requested if it has less than the page size results. [(#284)](https://github.com/empathyco/x/pull/284)
+- **search:** batch state reset calls after search.request parameter changes
+  [(#283)](https://github.com/empathyco/x/pull/283)
+- **search:** next page is now requested if it has less than the page size results.
+  [(#284)](https://github.com/empathyco/x/pull/284)
 
 ## [3.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.38...@empathyco/x-components@3.0.0-alpha.39) (2021-12-22)
 
@@ -2488,7 +2617,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- **components:** Fix infinite scroll not working in Android Chrome. [(#277)](https://github.com/empathyco/x/pull/277)
+- **components:** Fix infinite scroll not working in Android Chrome.
+  [(#277)](https://github.com/empathyco/x/pull/277)
 - **search:** rows and start parameters calculations moved from getter to action to avoid multiple
   requests
 
@@ -2497,7 +2627,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - **scroll:** remove animations on pending element to scroll
-- **tagging:** Include 'location' parameter to track result events. [(#273)](https://github.com/empathyco/x/pull/273)
+- **tagging:** Include 'location' parameter to track result events.
+  [(#273)](https://github.com/empathyco/x/pull/273)
 -
 
 ## [3.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.35...@empathyco/x-components@3.0.0-alpha.36) (2021-12-15)
@@ -2514,7 +2645,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-- **components:** fix 'BaseRating' component styles [(#264)](https://github.com/empathyco/x/pull/264)
+- **components:** fix 'BaseRating' component styles
+  [(#264)](https://github.com/empathyco/x/pull/264)
 - **plugin:** move alias creation from created hook to beforeCreated
 - **tagging:** track pending query
 - **tagging:** track result click events
