@@ -7,6 +7,15 @@ All notable changes to this project will be documented in this file. See
 
 **Note:** Version bump only for package @empathyco/x-components
 
+## [3.0.0-alpha.425](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.424...@empathyco/x-components@3.0.0-alpha.425) (2023-10-23)
+
+
+### Documentation
+
+* **integration:** update integration documentation for query preview with filters (#1336) ([b6d6b70](https://github.com/empathyco/x/commit/b6d6b70a6dff5fa22beac9980026e837aded8f8a))
+
+
+
 ## [3.0.0-alpha.424](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.423...@empathyco/x-components@3.0.0-alpha.424) (2023-10-23)
 
 ### Bug Fixes
