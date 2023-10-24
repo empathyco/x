@@ -41,7 +41,7 @@ jobs:
       - name: configure npm auth
         run: |
           npm config set registry="https://registry.npmjs.org/"
-          npm config set _authToken=${NPM_TOKEN}
+          npm config set //registry.npmjs.org/:_authToken=${NPM_TOKEN}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN_GRANULAR_ACCESS }}
 
