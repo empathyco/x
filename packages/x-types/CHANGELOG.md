@@ -11,13 +11,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- filters in history queries (#1315)
+- filters in history queries [(#1315)](https://github.com/empathyco/x/pull/1315)
 
 ## [10.0.0-alpha.74](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.73...@empathyco/x-types@10.0.0-alpha.74) (2023-10-04)
 
 ### Features
 
-- **experience-controls:** experience controls module and adapter (#1307)
+- **experience-controls:** experience controls module and adapter [(#1307)](https://github.com/empathyco/x/pull/1307)
 
 ## [10.0.0-alpha.73](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.72...@empathyco/x-types@10.0.0-alpha.73) (2023-09-18)
 
@@ -43,7 +43,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **platform-adapter:** add semantic queries to platform adapter (#1212)
+- **platform-adapter:** add semantic queries to platform adapter [(#1212)](https://github.com/empathyco/x/pull/1212)
 
 ## [10.0.0-alpha.67](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.66...@empathyco/x-types@10.0.0-alpha.67) (2023-05-11)
 
@@ -54,8 +54,8 @@ All notable changes to this project will be documented in this file. See
 
 ### Others
 
-- **deps:** update node to 18 (#1196)
-- **deps:** update node to v18 (#1175)
+- **deps:** update node to 18 [(#1196)](https://github.com/empathyco/x/pull/1196)
+- **deps:** update node to v18 [(#1175)](https://github.com/empathyco/x/pull/1175)
 
 ## [10.0.0-alpha.66](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.65...@empathyco/x-types@10.0.0-alpha.66) (2023-05-03)
 
@@ -69,7 +69,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- Adapt Result mapping according to new API standard (#1039)
+- Adapt Result mapping according to new API standard [(#1039)](https://github.com/empathyco/x/pull/1039)
 
 ## [10.0.0-alpha.63](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.62...@empathyco/x-types@10.0.0-alpha.63) (2023-04-12)
 
@@ -79,13 +79,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- **deps:** remove `only-allow` pnpm (#1097)
+- **deps:** remove `only-allow` pnpm [(#1097)](https://github.com/empathyco/x/pull/1097)
 
 ## [10.0.0-alpha.61](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.60...@empathyco/x-types@10.0.0-alpha.61) (2023-02-27)
 
 ### Features
 
-- **banner:** add support without title and no clickable (#1069)
+- **banner:** add support without title and no clickable [(#1069)](https://github.com/empathyco/x/pull/1069)
 
 ## [10.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.59...@empathyco/x-types@10.0.0-alpha.60) (2023-02-08)
 
@@ -95,26 +95,26 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+- migrate from `npm` & `lerna bootstrap` to `pnpm` [(#1047)](https://github.com/empathyco/x/pull/1047)
 
 ## [10.0.0-alpha.58](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.57...@empathyco/x-types@10.0.0-alpha.58) (2023-02-03)
 
 ### Build System
 
-- **deps:** update deps (#1062)
+- **deps:** update deps [(#1062)](https://github.com/empathyco/x/pull/1062)
 
 ## [10.0.0-alpha.57](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.56...@empathyco/x-types@10.0.0-alpha.57) (2023-01-25)
 
 ### Build System
 
 - **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
-  (#993)
+  [(#993)](https://github.com/empathyco/x/pull/993)
 
 ## [10.0.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.55...@empathyco/x-types@10.0.0-alpha.56) (2023-01-23)
 
 ### Styling
 
-- update prettier and format code (#1026)
+- update prettier and format code [(#1026)](https://github.com/empathyco/x/pull/1026)
 
 ## [10.0.0-alpha.55](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.54...@empathyco/x-types@10.0.0-alpha.55) (2023-01-20)
 
@@ -128,7 +128,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Build System
 
-- **deps:** update dependencies (#1004)
+- **deps:** update dependencies [(#1004)](https://github.com/empathyco/x/pull/1004)
 
 ## [10.0.0-alpha.52](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.51...@empathyco/x-types@10.0.0-alpha.52) (2023-01-10)
 
@@ -144,13 +144,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- rename `search-types` to `x-types` (#928)
+- rename `search-types` to `x-types` [(#928)](https://github.com/empathyco/x/pull/928)
 
 ## [10.0.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.48...@empathyco/x-types@10.0.0-alpha.49) (2023-01-03)
 
 ### Build System
 
-- **deps:** update `vue` to version `2.7` (#971)
+- **deps:** update `vue` to version `2.7` [(#971)](https://github.com/empathyco/x/pull/971)
 
 ## [10.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.47...@empathyco/x-types@10.0.0-alpha.48) (2022-12-30)
 
@@ -184,19 +184,19 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **components:** add filters to base-suggestions (#758)
+- **components:** add filters to base-suggestions [(#758)](https://github.com/empathyco/x/pull/758)
 
 ## [10.0.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.40...@empathyco/x-types@10.0.0-alpha.41) (2022-11-02)
 
 ### Bug Fixes
 
-- make promoted and banner position optional (#817)
+- make promoted and banner position optional [(#817)](https://github.com/empathyco/x/pull/817)
 
 ## [10.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.39...@empathyco/x-types@10.0.0-alpha.40) (2022-10-31)
 
 ### Features
 
-- add position on Banner and Promoted models (#800)
+- add position on Banner and Promoted models [(#800)](https://github.com/empathyco/x/pull/800)
 
 ## [10.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.38...@empathyco/x-types@10.0.0-alpha.39) (2022-10-21)
 
@@ -207,13 +207,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **tagging:** make `tagging` and `queryTagging` optional (#797)
+- **tagging:** make `tagging` and `queryTagging` optional [(#797)](https://github.com/empathyco/x/pull/797)
 
 ## [10.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.37...@empathyco/x-types@10.0.0-alpha.38) (2022-10-14)
 
 ### Continuous Integration
 
-- update `runners` version (#740)
+- update `runners` version [(#740)](https://github.com/empathyco/x/pull/740)
 
 ## [10.0.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.36...@empathyco/x-types@10.0.0-alpha.37) (2022-09-27)
 
@@ -247,7 +247,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **result:** add `variants` support (#644)
+- **result:** add `variants` support [(#644)](https://github.com/empathyco/x/pull/644)
 
 ## [10.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.29...@empathyco/x-types@10.0.0-alpha.30) (2022-08-03)
 
@@ -259,13 +259,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **facets:** Move filters flattening from `x-adapter-platform` to `x-components`. (#626)
+- **facets:** Move filters flattening from `x-adapter-platform` to `x-components`. [(#626)](https://github.com/empathyco/x/pull/626)
 
 ## [10.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.28...@empathyco/x-types@10.0.0-alpha.29) (2022-07-28)
 
 ### Features
 
-- **next-queries:** add next query preview logic (#611)
+- **next-queries:** add next query preview logic [(#611)](https://github.com/empathyco/x/pull/611)
 
 ## [10.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.27...@empathyco/x-types@10.0.0-alpha.28) (2022-07-26)
 
@@ -279,13 +279,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- Remove `@empathyco/x-platform-adapter` dependency from library code. (#575)
+- Remove `@empathyco/x-platform-adapter` dependency from library code. [(#575)](https://github.com/empathyco/x/pull/575)
 
 ## [10.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.24...@empathyco/x-types@10.0.0-alpha.25) (2022-06-16)
 
 ### Code Refactoring
 
-- make extra params optional (#553)
+- make extra params optional [(#553)](https://github.com/empathyco/x/pull/553)
 
 ## [10.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.23...@empathyco/x-types@10.0.0-alpha.24) (2022-06-09)
 
@@ -327,7 +327,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- move related tags concatenation logic (#365)
+- move related tags concatenation logic [(#365)](https://github.com/empathyco/x/pull/365)
 
 ## [10.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.0-alpha.17...@empathyco/x-types@10.0.0-alpha.18) (2022-03-08)
 
@@ -432,7 +432,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- **x-types:** Fix filters models inheritance. (#51)
+- **x-types:** Fix filters models inheritance. [(#51)](https://github.com/empathyco/x/pull/51)
 
 ## [9.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-types@9.1.0-alpha.1...@empathyco/x-types@9.1.0-alpha.2) (2021-07-20)
 
@@ -442,7 +442,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- Fix publishing in x-components. Normalize build scripts. (#46)
+- Fix publishing in x-components. Normalize build scripts. [(#46)](https://github.com/empathyco/x/pull/46)
 
 ## 9.1.0-alpha.0 (2021-07-14)
 

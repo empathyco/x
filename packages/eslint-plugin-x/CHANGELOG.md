@@ -11,7 +11,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- **deps:** update dependency @vue/eslint-config-typescript to v11 (#1218)
+- **deps:** update dependency @vue/eslint-config-typescript to v11 [(#1218)](https://github.com/empathyco/x/pull/1218)
 
 ## [2.0.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.36...@empathyco/eslint-plugin-x@2.0.0-alpha.37) (2023-06-07)
 
@@ -35,62 +35,62 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- Minor improvements. (#1109)
+- Minor improvements. [(#1109)](https://github.com/empathyco/x/pull/1109)
 
 ## [2.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.31...@empathyco/eslint-plugin-x@2.0.0-alpha.32) (2023-03-14)
 
 ### Bug Fixes
 
-- **build:** Fix issue with prettier-plugin-tailwindcss. (#1102)
+- **build:** Fix issue with prettier-plugin-tailwindcss. [(#1102)](https://github.com/empathyco/x/pull/1102)
 
 ## [2.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.30...@empathyco/eslint-plugin-x@2.0.0-alpha.31) (2023-03-07)
 
 ### Bug Fixes
 
-- **deps:** remove `only-allow` pnpm (#1097)
+- **deps:** remove `only-allow` pnpm [(#1097)](https://github.com/empathyco/x/pull/1097)
 
 ## [2.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.29...@empathyco/eslint-plugin-x@2.0.0-alpha.30) (2023-02-07)
 
 ### Continuous Integration
 
-- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+- migrate from `npm` & `lerna bootstrap` to `pnpm` [(#1047)](https://github.com/empathyco/x/pull/1047)
 
 ## [2.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.28...@empathyco/eslint-plugin-x@2.0.0-alpha.29) (2023-01-27)
 
 ### Build System
 
-- **deps:** update deps (#1046)
+- **deps:** update deps [(#1046)](https://github.com/empathyco/x/pull/1046)
 
 ## [2.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.27...@empathyco/eslint-plugin-x@2.0.0-alpha.28) (2023-01-25)
 
 ### Build System
 
 - **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
-  (#993)
+  [(#993)](https://github.com/empathyco/x/pull/993)
 
 ## [2.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.26...@empathyco/eslint-plugin-x@2.0.0-alpha.27) (2023-01-24)
 
 ### Features
 
-- add `prettier-plugin-tailwindcss` (#1033)
+- add `prettier-plugin-tailwindcss` [(#1033)](https://github.com/empathyco/x/pull/1033)
 
 ## [2.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.25...@empathyco/eslint-plugin-x@2.0.0-alpha.26) (2023-01-23)
 
 ### Styling
 
-- update prettier and format code (#1026)
+- update prettier and format code [(#1026)](https://github.com/empathyco/x/pull/1026)
 
 ## [2.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.24...@empathyco/eslint-plugin-x@2.0.0-alpha.25) (2023-01-23)
 
 ### Features
 
-- enable `allowWhitespace` in `jsdoc/no-multi-asterisks` (#1029)
+- enable `allowWhitespace` in `jsdoc/no-multi-asterisks` [(#1029)](https://github.com/empathyco/x/pull/1029)
 
 ## [2.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.23...@empathyco/eslint-plugin-x@2.0.0-alpha.24) (2023-01-20)
 
 ### Build System
 
-- **deps:** update dependencies (#1024)
+- **deps:** update dependencies [(#1024)](https://github.com/empathyco/x/pull/1024)
 
 ## [2.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.22...@empathyco/eslint-plugin-x@2.0.0-alpha.23) (2023-01-20)
 
@@ -100,7 +100,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Build System
 
-- Add `eslint` and `prettier` to `devDependencies` in eslint-plugin-x (#987)
+- Add `eslint` and `prettier` to `devDependencies` in eslint-plugin-x [(#987)](https://github.com/empathyco/x/pull/987)
 - **deps:** update dependencies
 
 ## [2.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.20...@empathyco/eslint-plugin-x@2.0.0-alpha.21) (2022-12-26)
@@ -119,7 +119,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Build System
 
-- **deps:** bump `@typescript-eslint/parser` (#909)
+- **deps:** bump `@typescript-eslint/parser` [(#909)](https://github.com/empathyco/x/pull/909)
 
 ## [2.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.16...@empathyco/eslint-plugin-x@2.0.0-alpha.17) (2022-12-09)
 
@@ -132,31 +132,31 @@ All notable changes to this project will be documented in this file. See
 
 ### Build System
 
-- **deps:** update dependencies (#908)
+- **deps:** update dependencies [(#908)](https://github.com/empathyco/x/pull/908)
 
 ## [2.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.14...@empathyco/eslint-plugin-x@2.0.0-alpha.15) (2022-10-14)
 
 ### Continuous Integration
 
-- update `runners` version (#740)
+- update `runners` version [(#740)](https://github.com/empathyco/x/pull/740)
 
 ## [2.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.13...@empathyco/eslint-plugin-x@2.0.0-alpha.14) (2022-09-27)
 
 ### Features
 
-- add `vue devtools` plugin to ease `XEvents` and `wiring` visualization (#215)
+- add `vue devtools` plugin to ease `XEvents` and `wiring` visualization [(#215)](https://github.com/empathyco/x/pull/215)
 
 ## [2.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.12...@empathyco/eslint-plugin-x@2.0.0-alpha.13) (2022-09-20)
 
 ### Features
 
-- Improve tailwindcss types. (#725)
+- Improve tailwindcss types. [(#725)](https://github.com/empathyco/x/pull/725)
 
 ## [2.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.11...@empathyco/eslint-plugin-x@2.0.0-alpha.12) (2022-09-09)
 
 ### Features
 
-- disable `@typescript-eslint/no-extra-parens` rule (#715)
+- disable `@typescript-eslint/no-extra-parens` rule [(#715)](https://github.com/empathyco/x/pull/715)
 
 ## [2.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.10...@empathyco/eslint-plugin-x@2.0.0-alpha.11) (2022-08-03)
 
@@ -168,11 +168,11 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **facets:** Move filters flattening from `x-adapter-platform` to `x-components`. (#626)
+- **facets:** Move filters flattening from `x-adapter-platform` to `x-components`. [(#626)](https://github.com/empathyco/x/pull/626)
 
 ### Build System
 
-- sync duplicated dependencies (#567)
+- sync duplicated dependencies [(#567)](https://github.com/empathyco/x/pull/567)
 
 ## [2.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.9...@empathyco/eslint-plugin-x@2.0.0-alpha.10) (2022-06-06)
 
@@ -199,19 +199,19 @@ All notable changes to this project will be documented in this file. See
 
 ### Build System
 
-- **deps:** update eslint-plugin dependencies (#447)
+- **deps:** update eslint-plugin dependencies [(#447)](https://github.com/empathyco/x/pull/447)
 
 ## [2.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.5...@empathyco/eslint-plugin-x@2.0.0-alpha.6) (2022-04-19)
 
 ### Features
 
-- **eslint:** add `vuejs-accessibility` plugin (#427)
+- **eslint:** add `vuejs-accessibility` plugin [(#427)](https://github.com/empathyco/x/pull/427)
 - extract SessionService to x-utils package
 - **typeguards:** add isPath
 
 ### Build System
 
-- **deps:** Upgrade Cypress and Vue Cli plugins versions. (#399)
+- **deps:** Upgrade Cypress and Vue Cli plugins versions. [(#399)](https://github.com/empathyco/x/pull/399)
 
 ## [2.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.4...@empathyco/eslint-plugin-x@2.0.0-alpha.5) (2022-03-31)
 

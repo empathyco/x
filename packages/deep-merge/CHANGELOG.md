@@ -28,13 +28,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- parallelize steps (#1174)
-- restore build workflow (#1194)
+- parallelize steps [(#1174)](https://github.com/empathyco/x/pull/1174)
+- restore build workflow [(#1194)](https://github.com/empathyco/x/pull/1194)
 
 ### Others
 
-- **deps:** update node to 18 (#1196)
-- **deps:** update node to v18 (#1175)
+- **deps:** update node to 18 [(#1196)](https://github.com/empathyco/x/pull/1196)
+- **deps:** update node to v18 [(#1175)](https://github.com/empathyco/x/pull/1175)
 
 ## [1.3.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.33...@empathyco/x-deep-merge@1.3.0-alpha.34) (2023-04-12)
 
@@ -44,32 +44,32 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- **deps:** remove `only-allow` pnpm (#1097)
+- **deps:** remove `only-allow` pnpm [(#1097)](https://github.com/empathyco/x/pull/1097)
 
 ## [1.3.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.31...@empathyco/x-deep-merge@1.3.0-alpha.32) (2023-02-08)
 
 ### Continuous Integration
 
-- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+- refactor `lint` command to benefit from `nx parallelisation` [(#1051)](https://github.com/empathyco/x/pull/1051)
 
 ## [1.3.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.30...@empathyco/x-deep-merge@1.3.0-alpha.31) (2023-02-07)
 
 ### Continuous Integration
 
-- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+- migrate from `npm` & `lerna bootstrap` to `pnpm` [(#1047)](https://github.com/empathyco/x/pull/1047)
 
 ## [1.3.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.29...@empathyco/x-deep-merge@1.3.0-alpha.30) (2023-01-25)
 
 ### Build System
 
 - **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
-  (#993)
+  [(#993)](https://github.com/empathyco/x/pull/993)
 
 ## [1.3.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.28...@empathyco/x-deep-merge@1.3.0-alpha.29) (2023-01-23)
 
 ### Styling
 
-- update prettier and format code (#1026)
+- update prettier and format code [(#1026)](https://github.com/empathyco/x/pull/1026)
 
 ## [1.3.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.27...@empathyco/x-deep-merge@1.3.0-alpha.28) (2023-01-20)
 
@@ -85,7 +85,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- use matrix steps and jest projects (#919)
+- use matrix steps and jest projects [(#919)](https://github.com/empathyco/x/pull/919)
 
 ## [1.3.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.24...@empathyco/x-deep-merge@1.3.0-alpha.25) (2022-11-28)
 
@@ -95,7 +95,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- update `runners` version (#740)
+- update `runners` version [(#740)](https://github.com/empathyco/x/pull/740)
 
 ## [1.3.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@1.3.0-alpha.22...@empathyco/x-deep-merge@1.3.0-alpha.23) (2022-09-27)
 
@@ -243,7 +243,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- Fix publishing in x-components. Normalize build scripts. (#46)
+- Fix publishing in x-components. Normalize build scripts. [(#46)](https://github.com/empathyco/x/pull/46)
 
 ### 1.2.2-alpha.0 (2021-07-14)
 

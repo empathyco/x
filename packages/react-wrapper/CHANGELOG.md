@@ -53,38 +53,38 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **plugin:** replace old bus implementation using the new `x-priority-bus` (#1086)
+- **plugin:** replace old bus implementation using the new `x-priority-bus` [(#1086)](https://github.com/empathyco/x/pull/1086)
 
 ## [4.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.19...@empathyco/x-react-wrapper@4.0.0-alpha.20) (2023-03-07)
 
 ### Bug Fixes
 
-- **deps:** remove `only-allow` pnpm (#1097)
+- **deps:** remove `only-allow` pnpm [(#1097)](https://github.com/empathyco/x/pull/1097)
 
 ## [4.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.18...@empathyco/x-react-wrapper@4.0.0-alpha.19) (2023-02-08)
 
 ### Continuous Integration
 
-- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+- refactor `lint` command to benefit from `nx parallelisation` [(#1051)](https://github.com/empathyco/x/pull/1051)
 
 ## [4.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.17...@empathyco/x-react-wrapper@4.0.0-alpha.18) (2023-02-07)
 
 ### Continuous Integration
 
-- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+- migrate from `npm` & `lerna bootstrap` to `pnpm` [(#1047)](https://github.com/empathyco/x/pull/1047)
 
 ## [4.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.16...@empathyco/x-react-wrapper@4.0.0-alpha.17) (2023-01-25)
 
 ### Build System
 
 - **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
-  (#993)
+  [(#993)](https://github.com/empathyco/x/pull/993)
 
 ## [4.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.15...@empathyco/x-react-wrapper@4.0.0-alpha.16) (2023-01-20)
 
 ### Build System
 
-- **deps:** update dependencies (#1024)
+- **deps:** update dependencies [(#1024)](https://github.com/empathyco/x/pull/1024)
 
 ## [4.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.14...@empathyco/x-react-wrapper@4.0.0-alpha.15) (2023-01-20)
 
@@ -100,7 +100,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Build System
 
-- **deps:** update `vue` to version `2.7` (#971)
+- **deps:** update `vue` to version `2.7` [(#971)](https://github.com/empathyco/x/pull/971)
 
 ## [4.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.11...@empathyco/x-react-wrapper@4.0.0-alpha.12) (2023-01-02)
 
@@ -113,43 +113,43 @@ All notable changes to this project will be documented in this file. See
 ### Testing
 
 - **e2e:** update `cypress` to version `12.1.0` and replace `cypress-cucumber-preprocessor` with
-  `@badeball/cypress-cucumber-preprocessor` (#747)
+  `@badeball/cypress-cucumber-preprocessor` [(#747)](https://github.com/empathyco/x/pull/747)
 
 ## [4.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.9...@empathyco/x-react-wrapper@4.0.0-alpha.10) (2022-12-30)
 
 ### Continuous Integration
 
-- use matrix steps and jest projects (#919)
+- use matrix steps and jest projects [(#919)](https://github.com/empathyco/x/pull/919)
 
 ## [4.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.8...@empathyco/x-react-wrapper@4.0.0-alpha.9) (2022-10-27)
 
 ### Features
 
-- replace `parcel` with `vite` (#739)
+- replace `parcel` with `vite` [(#739)](https://github.com/empathyco/x/pull/739)
 
 ## [4.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.7...@empathyco/x-react-wrapper@4.0.0-alpha.8) (2022-10-14)
 
 ### Continuous Integration
 
-- update `runners` version (#740)
+- update `runners` version [(#740)](https://github.com/empathyco/x/pull/740)
 
 ## [4.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.6...@empathyco/x-react-wrapper@4.0.0-alpha.7) (2022-09-09)
 
 ### Features
 
-- disable `@typescript-eslint/no-extra-parens` rule (#715)
+- disable `@typescript-eslint/no-extra-parens` rule [(#715)](https://github.com/empathyco/x/pull/715)
 
 ## [4.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.5...@empathyco/x-react-wrapper@4.0.0-alpha.6) (2022-08-31)
 
 ### Build System
 
-- **dependencies:** fix Vue & Vuex versions (#686)
+- **dependencies:** fix Vue & Vuex versions [(#686)](https://github.com/empathyco/x/pull/686)
 
 ## [4.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.4...@empathyco/x-react-wrapper@4.0.0-alpha.5) (2022-04-04)
 
 ### Build System
 
-- **deps:** Upgrade Cypress and Vue Cli plugins versions. (#399)
+- **deps:** Upgrade Cypress and Vue Cli plugins versions. [(#399)](https://github.com/empathyco/x/pull/399)
 
 ## [4.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.3...@empathyco/x-react-wrapper@4.0.0-alpha.4) (2022-03-31)
 
@@ -220,7 +220,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **facets-next:** add `HierarchicalFilterEntity` (#75)
+- **facets-next:** add `HierarchicalFilterEntity` [(#75)](https://github.com/empathyco/x/pull/75)
 
 ### Build System
 

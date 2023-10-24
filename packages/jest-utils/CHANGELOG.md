@@ -25,7 +25,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- restore build workflow (#1194)
+- restore build workflow [(#1194)](https://github.com/empathyco/x/pull/1194)
 
 ## [2.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@2.0.0-alpha.1...@empathyco/x-jest-utils@2.0.0-alpha.1) (2023-05-11)
 
@@ -43,26 +43,26 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- **deps:** remove `only-allow` pnpm (#1097)
+- **deps:** remove `only-allow` pnpm [(#1097)](https://github.com/empathyco/x/pull/1097)
 
 ## [1.4.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@1.4.0-alpha.8...@empathyco/x-jest-utils@1.4.0-alpha.9) (2023-02-08)
 
 ### Continuous Integration
 
-- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+- refactor `lint` command to benefit from `nx parallelisation` [(#1051)](https://github.com/empathyco/x/pull/1051)
 
 ## [1.4.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@1.4.0-alpha.7...@empathyco/x-jest-utils@1.4.0-alpha.8) (2023-02-07)
 
 ### Continuous Integration
 
-- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+- migrate from `npm` & `lerna bootstrap` to `pnpm` [(#1047)](https://github.com/empathyco/x/pull/1047)
 
 ## [1.4.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@1.4.0-alpha.6...@empathyco/x-jest-utils@1.4.0-alpha.7) (2023-01-25)
 
 ### Build System
 
 - **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
-  (#993)
+  [(#993)](https://github.com/empathyco/x/pull/993)
 
 ## [1.4.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@1.4.0-alpha.5...@empathyco/x-jest-utils@1.4.0-alpha.6) (2023-01-20)
 
@@ -72,13 +72,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- update `runners` version (#740)
+- update `runners` version [(#740)](https://github.com/empathyco/x/pull/740)
 
 ## [1.4.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@1.4.0-alpha.3...@empathyco/x-jest-utils@1.4.0-alpha.4) (2022-04-29)
 
 ### Build System
 
-- **deps:** update eslint-plugin dependencies (#447)
+- **deps:** update eslint-plugin dependencies [(#447)](https://github.com/empathyco/x/pull/447)
 
 ## [1.4.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@1.4.0-alpha.2...@empathyco/x-jest-utils@1.4.0-alpha.3) (2022-03-31)
 
@@ -134,7 +134,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- **eslint:** add dependency (#52)
+- **eslint:** add dependency [(#52)](https://github.com/empathyco/x/pull/52)
 
 ### [1.3.1-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-jest-utils@1.3.1-alpha.1...@empathyco/x-jest-utils@1.3.1-alpha.2) (2021-07-20)
 
@@ -144,7 +144,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- Fix publishing in x-components. Normalize build scripts. (#46)
+- Fix publishing in x-components. Normalize build scripts. [(#46)](https://github.com/empathyco/x/pull/46)
 
 ### 1.3.1-alpha.0 (2021-07-14)
 

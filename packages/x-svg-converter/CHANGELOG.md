@@ -11,7 +11,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **experience-controls:** experience controls module and adapter (#1307)
+- **experience-controls:** experience controls module and adapter [(#1307)](https://github.com/empathyco/x/pull/1307)
 
 ## [1.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@1.0.0-alpha.8...@empathyco/x-svg-converter@1.0.0-alpha.9) (2023-06-27)
 
@@ -39,7 +39,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- **deps:** remove `only-allow` pnpm (#1097)
+- **deps:** remove `only-allow` pnpm [(#1097)](https://github.com/empathyco/x/pull/1097)
 
 ## [1.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@1.0.0-alpha.2...@empathyco/x-svg-converter@1.0.0-alpha.3) (2023-02-13)
 
@@ -49,13 +49,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+- refactor `lint` command to benefit from `nx parallelisation` [(#1051)](https://github.com/empathyco/x/pull/1051)
 
 ## [1.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@1.0.0-alpha.0...@empathyco/x-svg-converter@1.0.0-alpha.1) (2023-02-07)
 
 ### Continuous Integration
 
-- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+- migrate from `npm` & `lerna bootstrap` to `pnpm` [(#1047)](https://github.com/empathyco/x/pull/1047)
 
 ## [1.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@0.2.0-alpha.4...@empathyco/x-svg-converter@1.0.0-alpha.0) (2023-02-06)
 
@@ -66,39 +66,39 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **design-system:** add `icon` to XDS (#1053)
+- **design-system:** add `icon` to XDS [(#1053)](https://github.com/empathyco/x/pull/1053)
 
 ## [0.2.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@0.2.0-alpha.3...@empathyco/x-svg-converter@0.2.0-alpha.4) (2023-01-25)
 
 ### Features
 
-- add `x-priority-bus` (#990)
+- add `x-priority-bus` [(#990)](https://github.com/empathyco/x/pull/990)
 
 ### Build System
 
 - **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
-  (#993)
+  [(#993)](https://github.com/empathyco/x/pull/993)
 
 ## [0.2.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@0.2.0-alpha.2...@empathyco/x-svg-converter@0.2.0-alpha.3) (2023-01-20)
 
 ### Continuous Integration
 
-- use matrix steps and jest projects (#919)
+- use matrix steps and jest projects [(#919)](https://github.com/empathyco/x/pull/919)
 
 ## [0.2.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@0.2.0-alpha.1...@empathyco/x-svg-converter@0.2.0-alpha.2) (2022-12-09)
 
 ### Bug Fixes
 
-- **svg-converter:** change `sourcePath` method resolve (#915)
+- **svg-converter:** change `sourcePath` method resolve [(#915)](https://github.com/empathyco/x/pull/915)
 
 ## [0.2.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-svg-converter@0.2.0-alpha.0...@empathyco/x-svg-converter@0.2.0-alpha.1) (2022-12-07)
 
 ### Bug Fixes
 
-- **svg-converter:** check if file exist before unlink it (#904)
+- **svg-converter:** check if file exist before unlink it [(#904)](https://github.com/empathyco/x/pull/904)
 
 ## 0.2.0-alpha.0 (2022-12-02)
 
 ### Features
 
-- script to import SVGs into Vue components for the XDS (#885)
+- script to import SVGs into Vue components for the XDS [(#885)](https://github.com/empathyco/x/pull/885)

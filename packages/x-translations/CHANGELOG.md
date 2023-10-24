@@ -28,13 +28,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- parallelize steps (#1174)
-- restore build workflow (#1194)
+- parallelize steps [(#1174)](https://github.com/empathyco/x/pull/1174)
+- restore build workflow [(#1194)](https://github.com/empathyco/x/pull/1194)
 
 ### Others
 
-- **deps:** update node to 18 (#1196)
-- **deps:** update node to v18 (#1175)
+- **deps:** update node to 18 [(#1196)](https://github.com/empathyco/x/pull/1196)
+- **deps:** update node to v18 [(#1175)](https://github.com/empathyco/x/pull/1175)
 
 ## [1.1.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.37...@empathyco/x-translations@1.1.0-alpha.38) (2023-04-12)
 
@@ -44,32 +44,32 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- **deps:** remove `only-allow` pnpm (#1097)
+- **deps:** remove `only-allow` pnpm [(#1097)](https://github.com/empathyco/x/pull/1097)
 
 ## [1.1.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.35...@empathyco/x-translations@1.1.0-alpha.36) (2023-02-08)
 
 ### Continuous Integration
 
-- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+- refactor `lint` command to benefit from `nx parallelisation` [(#1051)](https://github.com/empathyco/x/pull/1051)
 
 ## [1.1.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.34...@empathyco/x-translations@1.1.0-alpha.35) (2023-02-07)
 
 ### Continuous Integration
 
-- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+- migrate from `npm` & `lerna bootstrap` to `pnpm` [(#1047)](https://github.com/empathyco/x/pull/1047)
 
 ## [1.1.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.33...@empathyco/x-translations@1.1.0-alpha.34) (2023-01-25)
 
 ### Build System
 
 - **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
-  (#993)
+  [(#993)](https://github.com/empathyco/x/pull/993)
 
 ## [1.1.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.32...@empathyco/x-translations@1.1.0-alpha.33) (2023-01-23)
 
 ### Styling
 
-- update prettier and format code (#1026)
+- update prettier and format code [(#1026)](https://github.com/empathyco/x/pull/1026)
 
 ## [1.1.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.31...@empathyco/x-translations@1.1.0-alpha.32) (2023-01-20)
 
@@ -83,7 +83,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- use matrix steps and jest projects (#919)
+- use matrix steps and jest projects [(#919)](https://github.com/empathyco/x/pull/919)
 
 ## [1.1.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.28...@empathyco/x-translations@1.1.0-alpha.29) (2022-11-28)
 
@@ -93,7 +93,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- update `runners` version (#740)
+- update `runners` version [(#740)](https://github.com/empathyco/x/pull/740)
 
 ## [1.1.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.26...@empathyco/x-translations@1.1.0-alpha.27) (2022-09-27)
 
@@ -115,7 +115,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- end of line character issue on `csv-to-json` script (#610)
+- end of line character issue on `csv-to-json` script [(#610)](https://github.com/empathyco/x/pull/610)
 
 ## [1.1.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-translations@1.1.0-alpha.21...@empathyco/x-translations@1.1.0-alpha.22) (2022-06-23)
 

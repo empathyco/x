@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Documentation
 
-* **integration:** update integration documentation for query preview with filters (#1336) ([b6d6b70](https://github.com/empathyco/x/commit/b6d6b70a6dff5fa22beac9980026e837aded8f8a))
+* **integration:** update integration documentation for query preview with filters [(#1336)](https://github.com/empathyco/x/pull/1336) ([b6d6b70](https://github.com/empathyco/x/commit/b6d6b70a6dff5fa22beac9980026e837aded8f8a))
 
 
 
@@ -20,7 +20,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- **history-queries:** legacy history queries stored in the browser without selected filters (#1333)
+- **history-queries:** legacy history queries stored in the browser without selected filters [(#1333)](https://github.com/empathyco/x/pull/1333)
 
 ## [3.0.0-alpha.423](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.422...@empathyco/x-components@3.0.0-alpha.423) (2023-10-19)
 

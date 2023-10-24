@@ -32,13 +32,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- parallelize steps (#1174)
-- restore build workflow (#1194)
+- parallelize steps [[(#1174)](https://github.com/empathyco/x/pull/1174)](https://github.com/empathyco/x/pull/1174)
+- restore build workflow [(#1194)](https://github.com/empathyco/x/pull/1194)
 
 ### Others
 
-- **deps:** update node to 18 (#1196)
-- **deps:** update node to v18 (#1175)
+- **deps:** update node to 18 [(#1196)](https://github.com/empathyco/x/pull/1196)
+- **deps:** update node to v18 [(#1175)](https://github.com/empathyco/x/pull/1175)
 
 ## [0.1.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-bus@0.1.0-alpha.11...@empathyco/x-bus@0.1.0-alpha.12) (2023-05-03)
 
@@ -52,42 +52,42 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **plugin:** replace old bus implementation using the new `x-priority-bus` (#1086)
+- **plugin:** replace old bus implementation using the new `x-priority-bus` [(#1086)](https://github.com/empathyco/x/pull/1086)
 
 ## [0.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-bus@0.1.0-alpha.8...@empathyco/x-bus@0.1.0-alpha.9) (2023-03-07)
 
 ### Bug Fixes
 
-- **deps:** remove `only-allow` pnpm (#1097)
+- **deps:** remove `only-allow` pnpm [(#1097)](https://github.com/empathyco/x/pull/1097)
 
 ## [0.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-bus@0.1.0-alpha.7...@empathyco/x-bus@0.1.0-alpha.8) (2023-02-08)
 
 ### Continuous Integration
 
-- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+- refactor `lint` command to benefit from `nx parallelisation` [(#1051)](https://github.com/empathyco/x/pull/1051)
 
 ## [0.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-bus@0.1.0-alpha.6...@empathyco/x-bus@0.1.0-alpha.7) (2023-02-07)
 
 ### Continuous Integration
 
-- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+- migrate from `npm` & `lerna bootstrap` to `pnpm` [(#1047)](https://github.com/empathyco/x/pull/1047)
 
 ## [0.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-bus@0.1.0-alpha.5...@empathyco/x-bus@0.1.0-alpha.6) (2023-02-01)
 
 ### Bug Fixes
 
-- add missing `rxjs` dependency and narrow `setTimeout` type (#1052)
+- add missing `rxjs` dependency and narrow `setTimeout` type [(#1052)](https://github.com/empathyco/x/pull/1052)
 
 ## [0.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-bus@0.1.0-alpha.4...@empathyco/x-bus@0.1.0-alpha.5) (2023-01-25)
 
 ### Features
 
-- add `x-priority-bus` (#990)
+- add `x-priority-bus` [(#990)](https://github.com/empathyco/x/pull/990)
 
 ### Build System
 
 - **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
-  (#993)
+  [(#993)](https://github.com/empathyco/x/pull/993)
 
 ## [0.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-bus@0.1.0-alpha.3...@empathyco/x-bus@0.1.0-alpha.4) (2023-01-20)
 
@@ -103,7 +103,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- use matrix steps and jest projects (#919)
+- use matrix steps and jest projects [(#919)](https://github.com/empathyco/x/pull/919)
 
 ## 0.1.0-alpha.1 (2022-11-17)
 

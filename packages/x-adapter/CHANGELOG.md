@@ -38,13 +38,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- parallelize steps (#1174)
-- restore build workflow (#1194)
+- parallelize steps [(#1174)](https://github.com/empathyco/x/pull/1174)
+- restore build workflow [(#1194)](https://github.com/empathyco/x/pull/1194)
 
 ### Others
 
-- **deps:** update node to 18 (#1196)
-- **deps:** update node to v18 (#1175)
+- **deps:** update node to 18 [(#1196)](https://github.com/empathyco/x/pull/1196)
+- **deps:** update node to v18 [(#1175)](https://github.com/empathyco/x/pull/1175)
 
 ## [8.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.27...@empathyco/x-adapter@8.0.0-alpha.28) (2023-05-03)
 
@@ -58,26 +58,26 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- **deps:** remove `only-allow` pnpm (#1097)
+- **deps:** remove `only-allow` pnpm [(#1097)](https://github.com/empathyco/x/pull/1097)
 
 ## [8.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.24...@empathyco/x-adapter@8.0.0-alpha.25) (2023-02-08)
 
 ### Continuous Integration
 
-- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+- refactor `lint` command to benefit from `nx parallelisation` [(#1051)](https://github.com/empathyco/x/pull/1051)
 
 ## [8.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.23...@empathyco/x-adapter@8.0.0-alpha.24) (2023-02-07)
 
 ### Continuous Integration
 
-- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+- migrate from `npm` & `lerna bootstrap` to `pnpm` [(#1047)](https://github.com/empathyco/x/pull/1047)
 
 ## [8.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.22...@empathyco/x-adapter@8.0.0-alpha.23) (2023-01-25)
 
 ### Build System
 
 - **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
-  (#993)
+  [(#993)](https://github.com/empathyco/x/pull/993)
 
 ## [8.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.21...@empathyco/x-adapter@8.0.0-alpha.22) (2023-01-23)
 
@@ -91,13 +91,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Documentation
 
-- add `license` and improve `readme` (#968)
+- add `license` and improve `readme` [(#968)](https://github.com/empathyco/x/pull/968)
 
 ## [8.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.18...@empathyco/x-adapter@8.0.0-alpha.19) (2023-01-10)
 
 ### Documentation
 
-- add mutable schemas examples (#967)
+- add mutable schemas examples [(#967)](https://github.com/empathyco/x/pull/967)
 
 ## [8.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.17...@empathyco/x-adapter@8.0.0-alpha.18) (2023-01-06)
 
@@ -109,13 +109,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Build System
 
-- **deps:** update `vue` to version `2.7` (#971)
+- **deps:** update `vue` to version `2.7` [(#971)](https://github.com/empathyco/x/pull/971)
 
 ## [8.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.15...@empathyco/x-adapter@8.0.0-alpha.16) (2022-12-30)
 
 ### Documentation
 
-- create Readme for x-adapter (#921)
+- create Readme for x-adapter [(#921)](https://github.com/empathyco/x/pull/921)
 
 ## [8.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.14...@empathyco/x-adapter@8.0.0-alpha.15) (2022-12-29)
 
@@ -126,7 +126,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- mutable schema types (#960)
+- mutable schema types [(#960)](https://github.com/empathyco/x/pull/960)
 
 ## [8.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.13...@empathyco/x-adapter@8.0.0-alpha.14) (2022-12-19)
 
@@ -136,13 +136,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Code Refactoring
 
-- add types to `getSafePropertyChain` and move it to `@empatyco/x-utils` (#940)
+- add types to `getSafePropertyChain` and move it to `@empatyco/x-utils` [(#940)](https://github.com/empathyco/x/pull/940)
 
 ## [8.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.12...@empathyco/x-adapter@8.0.0-alpha.13) (2022-12-16)
 
 ### Continuous Integration
 
-- use matrix steps and jest projects (#919)
+- use matrix steps and jest projects [(#919)](https://github.com/empathyco/x/pull/919)
 
 ## [8.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.11...@empathyco/x-adapter@8.0.0-alpha.12) (2022-11-28)
 
@@ -152,7 +152,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- update `runners` version (#740)
+- update `runners` version [(#740)](https://github.com/empathyco/x/pull/740)
 
 ## [8.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.9...@empathyco/x-adapter@8.0.0-alpha.10) (2022-09-27)
 
@@ -162,7 +162,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **x-adapter:** clean empty params (#716)
+- **x-adapter:** clean empty params [(#716)](https://github.com/empathyco/x/pull/716)
 
 ## [8.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.7...@empathyco/x-adapter@8.0.0-alpha.8) (2022-09-13)
 
@@ -172,13 +172,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- disable `@typescript-eslint/no-extra-parens` rule (#715)
+- disable `@typescript-eslint/no-extra-parens` rule [(#715)](https://github.com/empathyco/x/pull/715)
 
 ## [8.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.5...@empathyco/x-adapter@8.0.0-alpha.6) (2022-08-24)
 
 ### Features
 
-- **adapter:** disable cancel http client (#658)
+- **adapter:** disable cancel http client [(#658)](https://github.com/empathyco/x/pull/658)
 
 ## [8.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.4...@empathyco/x-adapter@8.0.0-alpha.5) (2022-08-19)
 
@@ -188,25 +188,25 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- Do not flatten body params in fetch http client. (#624)
+- Do not flatten body params in fetch http client. [(#624)](https://github.com/empathyco/x/pull/624)
 
 ## [8.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.2...@empathyco/x-adapter@8.0.0-alpha.3) (2022-06-24)
 
 ### Features
 
-- **x-adapter:** Add `sendParamsInBody` option to `RequestOptions` (#577)
+- **x-adapter:** Add `sendParamsInBody` option to `RequestOptions` [(#577)](https://github.com/empathyco/x/pull/577)
 
 ## [8.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter@8.0.0-alpha.1...@empathyco/x-adapter@8.0.0-alpha.2) (2022-06-23)
 
 ### Bug Fixes
 
-- Remove `@empathyco/x-platform-adapter` dependency from library code. (#575)
+- Remove `@empathyco/x-platform-adapter` dependency from library code. [(#575)](https://github.com/empathyco/x/pull/575)
 
 ## [8.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.33...@empathyco/x-adapter@8.0.0-alpha.1) (2022-06-21)
 
 ### Features
 
-- remove old adapter package and use the new one (#568)
+- remove old adapter package and use the new one [(#568)](https://github.com/empathyco/x/pull/568)
 
 ## [8.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-adapter-next@0.1.1-alpha.0...@empathyco/x-adapter-next@0.2.0-alpha.0) (2022-03-16)
 
@@ -214,11 +214,11 @@ All notable changes to this project will be documented in this file. See
 
 - add basic types
 - **utils:** add `interpolate` function
-- add `endpointAdapterFactory` (#378)
-- **schemas:** add Schema types (#388)
-- **mappers:** Add `schemaMapperFactory` (#411)
+- add `endpointAdapterFactory` [(#378)](https://github.com/empathyco/x/pull/378)
+- **schemas:** add Schema types [(#388)](https://github.com/empathyco/x/pull/388)
+- **mappers:** Add `schemaMapperFactory` [(#411)](https://github.com/empathyco/x/pull/411)
 - **http-clients:** add `fetchHttpClient`
-- **http-clients:** Add `beaconHttpClient` (#420)
+- **http-clients:** Add `beaconHttpClient` [(#420)](https://github.com/empathyco/x/pull/420)
 - **schemas:** add `createMutableSchema` utility
 - default implementation
 - split adapter interface into `EndpointAdapter` and `ExtendableEndpointAdapter`
@@ -230,8 +230,8 @@ All notable changes to this project will be documented in this file. See
 ### Build System
 
 - change `config`
-- **deps:** update eslint-plugin dependencies (#447)
-- Add suppport to interpolate deep paramteres in the endpoint. (#523)
+- **deps:** update eslint-plugin dependencies [(#447)](https://github.com/empathyco/x/pull/447)
+- Add suppport to interpolate deep paramteres in the endpoint. [(#523)](https://github.com/empathyco/x/pull/523)
 
 ### Code Refactoring
 
@@ -321,7 +321,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- move related tags concatenation logic (#365)
+- move related tags concatenation logic [(#365)](https://github.com/empathyco/x/pull/365)
 
 ## [7.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-adapter@7.0.0-alpha.13...@empathyco/x-adapter@7.0.0-alpha.14) (2022-03-08)
 
@@ -461,14 +461,14 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- Fix publishing in x-components. Normalize build scripts. (#46)
+- Fix publishing in x-components. Normalize build scripts. [(#46)](https://github.com/empathyco/x/pull/46)
 
 ## 6.2.0-alpha.0 (2021-07-14)
 
 ### Features
 
 - prepare `search-adapter` for the mono-repo
-- update `search-adapter` package information (#33)
+- update `search-adapter` package information [(#33)](https://github.com/empathyco/x/pull/33)
 
 ## 6.1.0 (2020/06/03)
 

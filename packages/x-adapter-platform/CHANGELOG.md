@@ -21,7 +21,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **experience-controls:** experience controls module and adapter (#1307)
+- **experience-controls:** experience controls module and adapter [(#1307)](https://github.com/empathyco/x/pull/1307)
 
 ## [1.0.0-alpha.85](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.84...@empathyco/x-adapter-platform@1.0.0-alpha.85) (2023-09-18)
 
@@ -31,7 +31,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- update tagging from banners and promoteds (#1274)
+- update tagging from banners and promoteds [(#1274)](https://github.com/empathyco/x/pull/1274)
 
 ## [1.0.0-alpha.83](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.82...@empathyco/x-adapter-platform@1.0.0-alpha.83) (2023-08-02)
 
@@ -41,7 +41,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- **filters:** Editable number range filter should be unique (#1243)
+- **filters:** Editable number range filter should be unique [(#1243)](https://github.com/empathyco/x/pull/1243)
 
 ## [1.0.0-alpha.81](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.80...@empathyco/x-adapter-platform@1.0.0-alpha.81) (2023-06-27)
 
@@ -51,25 +51,25 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **adapter:** add mapping for keywords when there's no title_raw (#1236)
+- **adapter:** add mapping for keywords when there's no title_raw [(#1236)](https://github.com/empathyco/x/pull/1236)
 
 ## [1.0.0-alpha.79](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.78...@empathyco/x-adapter-platform@1.0.0-alpha.79) (2023-06-15)
 
 ### Features
 
-- **tagging:** add fallback for displayId (#1235)
+- **tagging:** add fallback for displayId [(#1235)](https://github.com/empathyco/x/pull/1235)
 
 ## [1.0.0-alpha.78](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.77...@empathyco/x-adapter-platform@1.0.0-alpha.78) (2023-06-14)
 
 ### Features
 
-- **tagging:** track displayClick properties in result & tagging request (#1225)
+- **tagging:** track displayClick properties in result & tagging request [(#1225)](https://github.com/empathyco/x/pull/1225)
 
 ## [1.0.0-alpha.77](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.76...@empathyco/x-adapter-platform@1.0.0-alpha.77) (2023-06-08)
 
 ### Bug Fixes
 
-- **platform-adapter:** change semantics url path (#1230)
+- **platform-adapter:** change semantics url path [(#1230)](https://github.com/empathyco/x/pull/1230)
 
 ## [1.0.0-alpha.76](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.75...@empathyco/x-adapter-platform@1.0.0-alpha.76) (2023-06-07)
 
@@ -83,13 +83,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- **adapter-platform:** fix objectFilter import in semantic queries schema (#1216)
+- **adapter-platform:** fix objectFilter import in semantic queries schema [(#1216)](https://github.com/empathyco/x/pull/1216)
 
 ## [1.0.0-alpha.73](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.72...@empathyco/x-adapter-platform@1.0.0-alpha.73) (2023-05-30)
 
 ### Features
 
-- **platform-adapter:** add semantic queries to platform adapter (#1212)
+- **platform-adapter:** add semantic queries to platform adapter [(#1212)](https://github.com/empathyco/x/pull/1212)
 
 ## [1.0.0-alpha.72](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.71...@empathyco/x-adapter-platform@1.0.0-alpha.72) (2023-05-11)
 
@@ -100,13 +100,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- parallelize steps (#1174)
-- restore build workflow (#1194)
+- parallelize steps [(#1174)](https://github.com/empathyco/x/pull/1174)
+- restore build workflow [(#1194)](https://github.com/empathyco/x/pull/1194)
 
 ### Others
 
-- **deps:** update node to 18 (#1196)
-- **deps:** update node to v18 (#1175)
+- **deps:** update node to 18 [(#1196)](https://github.com/empathyco/x/pull/1196)
+- **deps:** update node to v18 [(#1175)](https://github.com/empathyco/x/pull/1175)
 
 ## [1.0.0-alpha.71](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.70...@empathyco/x-adapter-platform@1.0.0-alpha.71) (2023-05-03)
 
@@ -120,7 +120,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- Adapt Result mapping according to new API standard (#1039)
+- Adapt Result mapping according to new API standard [(#1039)](https://github.com/empathyco/x/pull/1039)
 
 ## [1.0.0-alpha.68](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.67...@empathyco/x-adapter-platform@1.0.0-alpha.68) (2023-04-12)
 
@@ -130,19 +130,19 @@ All notable changes to this project will be documented in this file. See
 
 ### Documentation
 
-- add missing release-tags and documentation (#1106)
+- add missing release-tags and documentation [(#1106)](https://github.com/empathyco/x/pull/1106)
 
 ## [1.0.0-alpha.66](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.65...@empathyco/x-adapter-platform@1.0.0-alpha.66) (2023-03-09)
 
 ### Build System
 
-- add `report` folder to packed `tarball` (#1101)
+- add `report` folder to packed `tarball` [(#1101)](https://github.com/empathyco/x/pull/1101)
 
 ## [1.0.0-alpha.65](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.64...@empathyco/x-adapter-platform@1.0.0-alpha.65) (2023-03-07)
 
 ### Bug Fixes
 
-- **deps:** remove `only-allow` pnpm (#1097)
+- **deps:** remove `only-allow` pnpm [(#1097)](https://github.com/empathyco/x/pull/1097)
 
 ## [1.0.0-alpha.64](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.63...@empathyco/x-adapter-platform@1.0.0-alpha.64) (2023-02-27)
 
@@ -152,26 +152,26 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- refactor `lint` command to benefit from `nx parallelisation` (#1051)
+- refactor `lint` command to benefit from `nx parallelisation` [(#1051)](https://github.com/empathyco/x/pull/1051)
 
 ## [1.0.0-alpha.62](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.61...@empathyco/x-adapter-platform@1.0.0-alpha.62) (2023-02-07)
 
 ### Continuous Integration
 
-- migrate from `npm` & `lerna bootstrap` to `pnpm` (#1047)
+- migrate from `npm` & `lerna bootstrap` to `pnpm` [(#1047)](https://github.com/empathyco/x/pull/1047)
 
 ## [1.0.0-alpha.61](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.60...@empathyco/x-adapter-platform@1.0.0-alpha.61) (2023-02-03)
 
 ### Build System
 
-- **deps:** update deps (#1062)
+- **deps:** update deps [(#1062)](https://github.com/empathyco/x/pull/1062)
 
 ## [1.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.59...@empathyco/x-adapter-platform@1.0.0-alpha.60) (2023-01-25)
 
 ### Build System
 
 - **dependencies:** update `typescript` to `4.9.4` and its dependencies to their latest version
-  (#993)
+  [(#993)](https://github.com/empathyco/x/pull/993)
 
 ## [1.0.0-alpha.59](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.58...@empathyco/x-adapter-platform@1.0.0-alpha.59) (2023-01-23)
 
@@ -185,19 +185,19 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **endpoint-adapters:** add `internal` field to all `requests` but `tagging` (#1016)
+- **endpoint-adapters:** add `internal` field to all `requests` but `tagging` [(#1016)](https://github.com/empathyco/x/pull/1016)
 
 ## [1.0.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.55...@empathyco/x-adapter-platform@1.0.0-alpha.56) (2023-01-18)
 
 ### Documentation
 
-- add `license` and improve `readme` (#968)
+- add `license` and improve `readme` [(#968)](https://github.com/empathyco/x/pull/968)
 
 ## [1.0.0-alpha.55](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.54...@empathyco/x-adapter-platform@1.0.0-alpha.55) (2023-01-13)
 
 ### Build System
 
-- **deps:** update dependencies (#1004)
+- **deps:** update dependencies [(#1004)](https://github.com/empathyco/x/pull/1004)
 
 ## [1.0.0-alpha.54](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.53...@empathyco/x-adapter-platform@1.0.0-alpha.54) (2023-01-10)
 
@@ -217,7 +217,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Build System
 
-- **deps:** update `vue` to version `2.7` (#971)
+- **deps:** update `vue` to version `2.7` [(#971)](https://github.com/empathyco/x/pull/971)
 
 ## [1.0.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.49...@empathyco/x-adapter-platform@1.0.0-alpha.50) (2022-12-30)
 
@@ -232,7 +232,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- mutable schema types (#960)
+- mutable schema types [(#960)](https://github.com/empathyco/x/pull/960)
 
 ## [1.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.47...@empathyco/x-adapter-platform@1.0.0-alpha.48) (2022-12-23)
 
@@ -246,7 +246,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- use matrix steps and jest projects (#919)
+- use matrix steps and jest projects [(#919)](https://github.com/empathyco/x/pull/919)
 
 ## [1.0.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.44...@empathyco/x-adapter-platform@1.0.0-alpha.45) (2022-11-28)
 
@@ -256,13 +256,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- number filter schema to map the right values (#861)
+- number filter schema to map the right values [(#861)](https://github.com/empathyco/x/pull/861)
 
 ## [1.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.42...@empathyco/x-adapter-platform@1.0.0-alpha.43) (2022-11-09)
 
 ### Features
 
-- **banners:** add tagging info banners in platform adapter (#823)
+- **banners:** add tagging info banners in platform adapter [(#823)](https://github.com/empathyco/x/pull/823)
 
 ## [1.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.41...@empathyco/x-adapter-platform@1.0.0-alpha.42) (2022-11-03)
 
@@ -272,19 +272,19 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-- make promoted and banner position optional (#817)
+- make promoted and banner position optional [(#817)](https://github.com/empathyco/x/pull/817)
 
 ## [1.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.39...@empathyco/x-adapter-platform@1.0.0-alpha.40) (2022-10-31)
 
 ### Features
 
-- add position on Banner and Promoted models (#800)
+- add position on Banner and Promoted models [(#800)](https://github.com/empathyco/x/pull/800)
 
 ## [1.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.38...@empathyco/x-adapter-platform@1.0.0-alpha.39) (2022-10-24)
 
 ### Features
 
-- Add facets type field on Platform adapter (#784)
+- Add facets type field on Platform adapter [(#784)](https://github.com/empathyco/x/pull/784)
 
 ## [1.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.37...@empathyco/x-adapter-platform@1.0.0-alpha.38) (2022-10-21)
 
@@ -294,7 +294,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Continuous Integration
 
-- update `runners` version (#740)
+- update `runners` version [(#740)](https://github.com/empathyco/x/pull/740)
 
 ## [1.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.35...@empathyco/x-adapter-platform@1.0.0-alpha.36) (2022-09-27)
 
@@ -316,7 +316,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **adapter:** disable cancel http client (#658)
+- **adapter:** disable cancel http client [(#658)](https://github.com/empathyco/x/pull/658)
 
 ## [1.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.30...@empathyco/x-adapter-platform@1.0.0-alpha.31) (2022-08-19)
 
@@ -336,7 +336,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **facets:** Move filters flattening from `x-adapter-platform` to `x-components`. (#626)
+- **facets:** Move filters flattening from `x-adapter-platform` to `x-components`. [(#626)](https://github.com/empathyco/x/pull/626)
 
 ## [1.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.27...@empathyco/x-adapter-platform@1.0.0-alpha.28) (2022-07-28)
 
@@ -350,13 +350,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- change endpoint adapter ids in platform adapter (#616)
+- change endpoint adapter ids in platform adapter [(#616)](https://github.com/empathyco/x/pull/616)
 
 ## [1.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.24...@empathyco/x-adapter-platform@1.0.0-alpha.25) (2022-07-04)
 
 ### Features
 
-- **search:** add partial results support (#580)
+- **search:** add partial results support [(#580)](https://github.com/empathyco/x/pull/580)
 
 ## [1.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.23...@empathyco/x-adapter-platform@1.0.0-alpha.24) (2022-06-27)
 
@@ -366,43 +366,43 @@ All notable changes to this project will be documented in this file. See
 
 ### Features
 
-- **x-adapter:** Add `sendParamsInBody` option to `RequestOptions` (#577)
+- **x-adapter:** Add `sendParamsInBody` option to `RequestOptions` [(#577)](https://github.com/empathyco/x/pull/577)
 
 ## [1.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.21...@empathyco/x-adapter-platform@1.0.0-alpha.22) (2022-06-23)
 
 ### Bug Fixes
 
-- Remove `@empathyco/x-platform-adapter` dependency from library code. (#575)
+- Remove `@empathyco/x-platform-adapter` dependency from library code. [(#575)](https://github.com/empathyco/x/pull/575)
 
 ## [1.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.20...@empathyco/x-adapter-platform@1.0.0-alpha.21) (2022-06-21)
 
 ### Features
 
-- remove old adapter package and use the new one (#568)
+- remove old adapter package and use the new one [(#568)](https://github.com/empathyco/x/pull/568)
 
 ## [1.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.19...@empathyco/x-adapter-platform@1.0.0-alpha.20) (2022-06-21)
 
 ### Build System
 
-- sync duplicated dependencies (#567)
+- sync duplicated dependencies [(#567)](https://github.com/empathyco/x/pull/567)
 
 ## [1.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.18...@empathyco/x-adapter-platform@1.0.0-alpha.19) (2022-06-20)
 
 ### Documentation
 
-- **api-extractor:** add API extractor to `x-adapter-platform` (#563)
+- **api-extractor:** add API extractor to `x-adapter-platform` [(#563)](https://github.com/empathyco/x/pull/563)
 
 ## [1.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.17...@empathyco/x-adapter-platform@1.0.0-alpha.18) (2022-06-16)
 
 ### Code Refactoring
 
-- make extra params optional (#553)
+- make extra params optional [(#553)](https://github.com/empathyco/x/pull/553)
 
 ## [1.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.16...@empathyco/x-adapter-platform@1.0.0-alpha.17) (2022-06-16)
 
 ### Bug Fixes
 
-- **schemas:** flatten hierarchical filters (#543)
+- **schemas:** flatten hierarchical filters [(#543)](https://github.com/empathyco/x/pull/543)
 
 ## [1.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.15...@empathyco/x-adapter-platform@1.0.0-alpha.16) (2022-06-13)
 
@@ -414,19 +414,19 @@ All notable changes to this project will be documented in this file. See
 
 ### Code Refactoring
 
-- search in platform adapter (#540)
+- search in platform adapter [(#540)](https://github.com/empathyco/x/pull/540)
 
 ## [1.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.13...@empathyco/x-adapter-platform@1.0.0-alpha.14) (2022-06-13)
 
 ### Code Refactoring
 
-- recommendations in platform adapter (#538)
+- recommendations in platform adapter [(#538)](https://github.com/empathyco/x/pull/538)
 
 ## [1.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.12...@empathyco/x-adapter-platform@1.0.0-alpha.13) (2022-06-13)
 
 ### Code Refactoring
 
-- tagging in platform adapter (#539)
+- tagging in platform adapter [(#539)](https://github.com/empathyco/x/pull/539)
 
 ## [1.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.11...@empathyco/x-adapter-platform@1.0.0-alpha.12) (2022-06-10)
 
@@ -444,13 +444,13 @@ All notable changes to this project will be documented in this file. See
 
 ### Code Refactoring
 
-- query suggestions in platform adapter (#528)
+- query suggestions in platform adapter [(#528)](https://github.com/empathyco/x/pull/528)
 
 ## [1.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.8...@empathyco/x-adapter-platform@1.0.0-alpha.9) (2022-06-10)
 
 ### Code Refactoring
 
-- popular searches in platform adapter (#531)
+- popular searches in platform adapter [(#531)](https://github.com/empathyco/x/pull/531)
 
 ## [1.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.0.0-alpha.7...@empathyco/x-adapter-platform@1.0.0-alpha.8) (2022-06-09)
 
