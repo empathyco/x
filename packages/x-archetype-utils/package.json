@@ -43,7 +43,7 @@
   "devDependencies": {
     "@empathyco/x-utils": "^1.0.1-alpha.0",
     "@types/jest": "~27.5.0",
-    "@types/node": "~18.16.0",
+    "@types/node": "~20.8.0",
     "@vue/test-utils": "~1.0.3",
     "jest": "~27.5.0",
     "rimraf": "~3.0.2",
