@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1-alpha.1](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.1-alpha.0...@empathyco/eslint-plugin-x@2.0.1-alpha.1) (2023-10-24)
+
+
+### Build System
+
+* pin `prettier-plugin-tailwindcss` to 0.3.0 version (#1331) ([9d70cf4](https://github.com/empathyco/x/commit/9d70cf4ea23619d065be538f571f9fca1d53e10a))
+
+
+
 ## [2.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/eslint-plugin-x@2.0.0-alpha.38...@empathyco/eslint-plugin-x@2.0.1-alpha.0) (2023-10-24)
 
 **Note:** Version bump only for package @empathyco/eslint-plugin-x
