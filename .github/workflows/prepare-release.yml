@@ -39,7 +39,7 @@ jobs:
       - name: create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.SUPPORT_TOKEN }}
+          token: ${{ github.token }}
           commit-message: "chore(release): prepare stable release"
           committer: Interface X <x@empathy.co>
           title: Stable release
