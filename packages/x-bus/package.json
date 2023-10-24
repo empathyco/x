@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-bus",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0",
   "description": "Event bus to help with events orchestration",
   "author": "Empathy Systems Corporation S.L.",
   "homepage": "https://github.com/empathyco/x/tree/main/packages/x-bus#readme",
@@ -39,8 +39,8 @@
     "url": "https://github.com/empathyco/x/issues"
   },
   "dependencies": {
-    "@empathyco/x-priority-queue": "^1.0.0-alpha.4",
-    "@empathyco/x-utils": "^1.0.0-alpha.23",
+    "@empathyco/x-priority-queue": "^1.0.0",
+    "@empathyco/x-utils": "^1.0.0",
     "rxjs": "~7.8.0",
     "tslib": "~2.5.0"
   },
