@@ -1,6 +1,5 @@
 name: Release a new version
 on: [workflow_dispatch]
-
 jobs:
   release:
     runs-on: ubuntu-latest
