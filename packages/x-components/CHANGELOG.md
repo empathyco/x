@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.1-alpha.0...@empathyco/x-components@3.0.1-alpha.1) (2023-10-26)
+
+
+### Bug Fixes
+
+* **history-queries:** map selected filters correctly when coming from Query Preview (#1325) ([61fdfd1](https://github.com/empathyco/x/commit/61fdfd1f4af0183952084abfd8a72ecdd76ee6ee))
+
+
+
 ## [3.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.0-alpha.425...@empathyco/x-components@3.0.1-alpha.0) (2023-10-24)
 
 **Note:** Version bump only for package @empathyco/x-components
