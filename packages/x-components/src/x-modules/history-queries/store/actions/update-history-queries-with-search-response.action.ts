@@ -77,7 +77,7 @@ function getHistoryQueriesFiltersList(
               .find(filter => filter.id === requestFilter.id);
 
         if (matchingFilter) {
-          accFilters.push({ ...matchingFilter, ...requestFilter });
+          accFilters.push({ ...matchingFilter, selected: requestFilter.selected });
         }
 
         return accFilters;
