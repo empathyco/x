@@ -5,8 +5,8 @@ tags:
   - tags
   - related keywords
 redirect_from:
-    - /explore-empathy-platform/experience-search-and-discovery/related-tags.html
-    - /explore-empathy-platform/experience-search-and-discovery/related-tags
+  - /explore-empathy-platform/experience-search-and-discovery/related-tags.html
+  - /explore-empathy-platform/experience-search-and-discovery/related-tags
 ---
 
 The Related Tags UI component helps your shoppers to refine a specific search query and find what

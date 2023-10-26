@@ -5,8 +5,8 @@ tags:
   - popular next queries
   - what's next
 redirect_from:
-    - /explore-empathy-platform/experience-search-and-discovery/next-queries.html
-    - /explore-empathy-platform/experience-search-and-discovery/next-queries
+  - /explore-empathy-platform/experience-search-and-discovery/next-queries.html
+  - /explore-empathy-platform/experience-search-and-discovery/next-queries
 ---
 
 The Next Queries UI component provides shoppers with ideas on what to search for next based on their
@@ -29,7 +29,8 @@ supports this feature.
 
 ::: interact
 
-Can't quite capture the concept? Learn about [Next Queries](/understand-empathy-platform/search-features/next-queries-overview.md).
+Can't quite capture the concept? Learn about
+[Next Queries](/understand-empathy-platform/search-features/next-queries-overview.md).
 
 :::
 
@@ -65,7 +66,7 @@ next queries that shoppers haven't already used in the session.
 ::: warning
 
 To display only new next queries, the
-[History Queries](/understand-empathy-platform/search-features/history-queries-overview.md) feature must be
-implemented.
+[History Queries](/understand-empathy-platform/search-features/history-queries-overview.md) feature
+must be implemented.
 
 :::

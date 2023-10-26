@@ -2,8 +2,8 @@
 title: Design the History Queries UI experience
 sidebar_title: History Queries UI
 redirect_from:
-    - /explore-empathy-platform/experience-search-and-discovery/history-queries.html
-    - /explore-empathy-platform/experience-search-and-discovery/history-queries
+  - /explore-empathy-platform/experience-search-and-discovery/history-queries.html
+  - /explore-empathy-platform/experience-search-and-discovery/history-queries
 ---
 
 The History Queries UI component displays the search history, allowing shoppers to check previous

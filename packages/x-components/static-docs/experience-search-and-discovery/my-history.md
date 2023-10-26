@@ -2,8 +2,8 @@
 title: Design the My History UI experience
 sidebar_title: My History UI
 redirect_from:
-    - /explore-empathy-platform/experience-search-and-discovery/my-history.html
-    - /explore-empathy-platform/experience-search-and-discovery/my-history
+  - /explore-empathy-platform/experience-search-and-discovery/my-history.html
+  - /explore-empathy-platform/experience-search-and-discovery/my-history
 ---
 
 The My History UI component displays the complete list of history queries, allowing shoppers to

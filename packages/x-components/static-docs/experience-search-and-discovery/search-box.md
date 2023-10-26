@@ -19,7 +19,8 @@ button.
 
 ::: interact
 
-Can't quite capture the concept? Learn more about [Search Box](/understand-empathy-platform/search-basics/search-box-overview.md).
+Can't quite capture the concept? Learn more about
+[Search Box](/understand-empathy-platform/search-basics/search-box-overview.md).
 
 :::
 
@@ -30,9 +31,10 @@ field to the selected suggestion and the search is launched.
 
 ::: warning
 
-To modify the query syntax using [Query Suggestions](/understand-empathy-platform/search-features/query-suggestions-overview.md) or
-[Next Queries](/understand-empathy-platform/search-features/next-queries-overview.md), make sure that your current search service
-supports this type of feature.
+To modify the query syntax using
+[Query Suggestions](/understand-empathy-platform/search-features/query-suggestions-overview.md) or
+[Next Queries](/understand-empathy-platform/search-features/next-queries-overview.md), make sure
+that your current search service supports this type of feature.
 
 :::
 

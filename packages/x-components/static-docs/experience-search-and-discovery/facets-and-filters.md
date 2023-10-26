@@ -4,8 +4,8 @@ sidebar_title: Facets & Filters UI
 tag:
   - faceted
 redirect_from:
-    - /explore-empathy-platform/experience-search-and-discovery/facets-and-filters.html
-    - /explore-empathy-platform/experience-search-and-discovery/facets-and-filters
+  - /explore-empathy-platform/experience-search-and-discovery/facets-and-filters.html
+  - /explore-empathy-platform/experience-search-and-discovery/facets-and-filters
 ---
 
 Facets and Filters allow your shoppers to organize your product catalogue in different categories

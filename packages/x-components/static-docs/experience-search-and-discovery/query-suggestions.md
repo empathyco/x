@@ -5,8 +5,8 @@ tags:
   - search suggestions
   - search as you type
 redirect_from:
-    - /explore-empathy-platform/experience-search-and-discovery/query-suggestions.html
-    - /explore-empathy-platform/experience-search-and-discovery/query-suggestions
+  - /explore-empathy-platform/experience-search-and-discovery/query-suggestions.html
+  - /explore-empathy-platform/experience-search-and-discovery/query-suggestions
 ---
 
 The Query Suggestions UI component helps your shoppers with hints of what to look for to get

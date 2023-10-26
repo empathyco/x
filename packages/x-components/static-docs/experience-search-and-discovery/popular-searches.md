@@ -8,8 +8,8 @@ tags:
   - top queries
   - trending
 redirect_from:
-    - /explore-empathy-platform/experience-search-and-discovery/popular-searches.html
-    - /explore-empathy-platform/experience-search-and-discovery/popular-searches
+  - /explore-empathy-platform/experience-search-and-discovery/popular-searches.html
+  - /explore-empathy-platform/experience-search-and-discovery/popular-searches
 ---
 
 The Popular Searches UI component displays what are the top search queries during a specific time.

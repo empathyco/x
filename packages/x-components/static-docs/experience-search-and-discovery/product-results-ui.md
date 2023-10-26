@@ -4,8 +4,8 @@ sidebar_title: Product results UI
 tags:
   - results layout
 redirect_from:
-    - /explore-empathy-platform/experience-search-and-discovery/product-results.html
-    - /explore-empathy-platform/experience-search-and-discovery/product-results
+  - /explore-empathy-platform/experience-search-and-discovery/product-results.html
+  - /explore-empathy-platform/experience-search-and-discovery/product-results
 ---
 
 After launching a search, some shoppers may just want to take a quick look around, reviewing only
