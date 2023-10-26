@@ -31,7 +31,10 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
         const historyQuery = state.historyQueries[indexOfHistoryQuery];
         const isCurrentSessionHistoryQuery = historyQuery.timestamp > state.sessionTimeStampInMs;
         if (!isCurrentSessionHistoryQuery || historyQuery.totalResults == null || searchResponse) {
-          const filters = createHistoryQueriesFiltersList(searchResponse.request.filters);
+          const filters = getHistoryQueriesFiltersList(
+            searchResponse.facets,
+            searchResponse.request.filters
+          );
 
           const newHistoryQueries = state.historyQueries.slice();
           newHistoryQueries[indexOfHistoryQuery] = {
@@ -46,20 +49,39 @@ export const updateHistoryQueriesWithSearchResponse: HistoryQueriesXStoreModule[
   };
 
 /**
- * Take filters from the request and push them into a list.
+ * Creates a selected filters list by comparing request filters and response facets.
+ * Uses the 'filter.id' to match and merge the objects in a single one with all the keys.
  *
+ * @param responseFacets - Facets from the response.
  * @param requestFilters - Filters from the request.
  *
  * @returns A list of selected filters in the history query.
  *
  */
-function createHistoryQueriesFiltersList(
+function getHistoryQueriesFiltersList(
+  responseFacets: InternalSearchResponse['facets'],
   requestFilters: InternalSearchResponse['request']['filters']
 ): Filter[] {
-  return requestFilters
-    ? Object.values(requestFilters).reduce((accFilters, filters) => {
-        accFilters.push(...filters);
+  if (!requestFilters || !responseFacets) {
+    return [];
+  } else {
+    return Object.entries(requestFilters).flatMap(([facetId, facetFilters]) => {
+      const matchingFacet =
+        facetId !== '__unknown__' ? responseFacets.find(facet => facet.id === facetId) : null;
+
+      return facetFilters.reduce<Filter[]>((accFilters, requestFilter) => {
+        const matchingFilter = matchingFacet
+          ? matchingFacet.filters.find(filter => filter.id === requestFilter.id)
+          : responseFacets
+              .flatMap(facet => facet.filters)
+              .find(filter => filter.id === requestFilter.id);
+
+        if (matchingFilter) {
+          accFilters.push({ ...matchingFilter, selected: requestFilter.selected });
+        }
+
         return accFilters;
-      }, [])
-    : [];
+      }, []);
+    });
+  }
 }

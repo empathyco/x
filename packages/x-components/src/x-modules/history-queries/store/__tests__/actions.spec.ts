@@ -16,6 +16,7 @@ import {
   HistoryQueriesMutations,
   HistoryQueriesState
 } from '../types';
+import { InternalSearchResponse } from '../../../search/index';
 import { resetHistoryQueriesStateWith } from './utils';
 
 describe('testing history queries module actions', () => {
@@ -279,12 +280,43 @@ describe('testing history queries module actions', () => {
     const requestFilters: Record<string, Filter[]> = {
       categoryPaths: [
         {
-          id: 'categoryIds:c018019b6',
+          id: 'categoryIds:66dd06d9f',
           selected: true,
           modelName: 'HierarchicalFilter'
         }
       ]
     };
+    const selectedFilters: Filter[] = [
+      {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        facetId: 'categoryPaths',
+        id: 'categoryIds:66dd06d9f',
+        label: 'suede',
+        modelName: 'HierarchicalFilter',
+        selected: true,
+        totalResults: 2
+      }
+    ];
+    const responseFacets: InternalSearchResponse['facets'] = [
+      {
+        filters: [
+          {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            facetId: 'categoryPaths',
+            id: 'categoryIds:66dd06d9f',
+            label: 'suede',
+            modelName: 'HierarchicalFilter',
+            selected: true,
+            totalResults: 2
+          }
+        ],
+        id: 'categoryPaths',
+        label: 'categoryPaths',
+        modelName: 'HierarchicalFacet'
+      }
+    ];
     let gato: HistoryQuery, perro: HistoryQuery;
 
     beforeEach(() => {
@@ -369,9 +401,8 @@ describe('testing history queries module actions', () => {
     });
 
     // eslint-disable-next-line max-len
-    it('updates a history query if search response change because a filter is selected', async () => {
+    it('updates a history query when the search response changes because a filter is selected', async () => {
       gato.totalResults = 50;
-      const selectedFilters = Object.values(requestFilters)[0];
       resetStateWith({ historyQueries: [gato, perro] });
       await store.dispatch('updateHistoryQueriesWithSearchResponse', {
         request: {
@@ -380,6 +411,33 @@ describe('testing history queries module actions', () => {
           filters: requestFilters
         },
         status: 'success',
+        facets: responseFacets,
+        results,
+        totalResults
+      });
+      expectHistoryQueriesToEqual([{ ...gato, totalResults, selectedFilters }, perro]);
+    });
+
+    // eslint-disable-next-line max-len
+    it('updates a history query when the search response changes although the facet id is unknown', async () => {
+      gato.totalResults = 50;
+      resetStateWith({ historyQueries: [gato, perro] });
+      await store.dispatch('updateHistoryQueriesWithSearchResponse', {
+        request: {
+          query: 'gato',
+          page: 1,
+          filters: {
+            __unknown__: [
+              {
+                id: 'categoryIds:66dd06d9f',
+                selected: true,
+                modelName: 'RawFilter'
+              }
+            ]
+          }
+        },
+        status: 'success',
+        facets: responseFacets,
         results,
         totalResults
       });
