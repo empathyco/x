@@ -426,28 +426,18 @@ describe('testing history queries module actions', () => {
         request: {
           query: 'gato',
           page: 1,
-          filters: requestFilters
+          filters: {
+            __unknown__: [
+              {
+                id: 'categoryIds:66dd06d9f',
+                selected: true,
+                modelName: 'RawFilter'
+              }
+            ]
+          }
         },
         status: 'success',
-        facets: [
-          {
-            filters: [
-              {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                facetId: 'categoryPaths',
-                id: 'categoryIds:66dd06d9f',
-                label: 'suede',
-                modelName: 'HierarchicalFilter',
-                selected: true,
-                totalResults: 2
-              }
-            ],
-            id: '__unknown__',
-            label: '__unknown-facet__',
-            modelName: 'HierarchicalFacet'
-          }
-        ],
+        facets: responseFacets,
         results,
         totalResults
       });
