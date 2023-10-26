@@ -3,6 +3,9 @@ title: Design the ID Results UI experience
 sidebar_title: ID Results UI
 tags:
   - identifier results
+redirect_from:
+    - /explore-empathy-platform/experience-search-and-discovery/id-results.html
+    - /explore-empathy-platform/experience-search-and-discovery/id-results
 ---
 
 The Identifier Results UI component presents a type of search results intended for product reference
@@ -22,7 +25,7 @@ correct performance, make sure that your current search service supports this ty
 ::: interact
 
 Don't quite understand ID results? Learn more about
-[ID Results](../features/id-results-overview.md).
+[ID Results](/understand-empathy-platform/search-features/id-results-overview.md).
 
 :::
 

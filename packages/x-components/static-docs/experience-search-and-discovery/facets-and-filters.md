@@ -3,6 +3,9 @@ title: Design the Facets and Filters UI experience
 sidebar_title: Facets & Filters UI
 tag:
   - faceted
+redirect_from:
+    - /explore-empathy-platform/experience-search-and-discovery/facets-and-filters.html
+    - /explore-empathy-platform/experience-search-and-discovery/facets-and-filters
 ---
 
 Facets and Filters allow your shoppers to organize your product catalogue in different categories
@@ -28,7 +31,7 @@ having to search.-->
 ::: interact
 
 Can't quite capture the concept? Learn more about
-[Facets and Filters](../overview/facets-and-filters-overview.md).
+[Facets and Filters](/understand-empathy-platform/search-basics/facets-and-filters-overview.md).
 
 :::
 

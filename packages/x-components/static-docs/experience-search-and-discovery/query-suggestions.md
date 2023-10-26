@@ -4,6 +4,9 @@ sidebar_title: Query Suggestions UI
 tags:
   - search suggestions
   - search as you type
+redirect_from:
+    - /explore-empathy-platform/experience-search-and-discovery/query-suggestions.html
+    - /explore-empathy-platform/experience-search-and-discovery/query-suggestions
 ---
 
 The Query Suggestions UI component helps your shoppers with hints of what to look for to get
@@ -23,7 +26,7 @@ type of feature.
 ::: interact
 
 Can't quite capture the concept? Learn more about
-[Query Suggestions](../features/query-suggestions-overview.md).
+[Query Suggestions](/understand-empathy-platform/search-features/query-suggestions-overview.md).
 
 :::
 

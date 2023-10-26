@@ -2,6 +2,8 @@
 title: Design your search and discovery UI
 meta_title: Search & discovery UI functional documentation
 sidebar_title: Design search & discovery UI
+redirect_from:
+    - /explore-empathy-platform/experience-search-and-discovery/
 ---
 
 Search inevitably is key when people look for specific products in an online store. It's the door to

@@ -8,6 +8,10 @@ tags:
   - local storage
   - history queries
   - cookieless
+redirect_from:
+- /explore-empathy-platform/experience-search-and-discovery/web-local-storage.html
+- /explore-empathy-platform/experience-search-and-discovery/web-local-storage
+- /explore-empathy-platform/experience-search-and-discovery/web-local-storage.html
 ---
 
 Interface&nbsp;X for web **does not use cookies** for storing data. The

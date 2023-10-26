@@ -3,6 +3,9 @@ title: Design the product results UI experience
 sidebar_title: Product results UI
 tags:
   - results layout
+redirect_from:
+    - /explore-empathy-platform/experience-search-and-discovery/product-results.html
+    - /explore-empathy-platform/experience-search-and-discovery/product-results
 ---
 
 After launching a search, some shoppers may just want to take a quick look around, reviewing only
@@ -72,8 +75,8 @@ experience.
 
 Traditionally, search results are displayed on the SERP after the query is launched or instantly as
 you type. However, result data is also used by features such as
-[Recommendations](/explore-empathy-platform/experience-search-and-discovery/recommendations.md) and
-[ID Results](/explore-empathy-platform/experience-search-and-discovery/id-results.md). You can
+[Recommendations](/onboard-empathy-platform/experience-search-and-discovery/recommendations.md) and
+[ID Results](/onboard-empathy-platform/experience-search-and-discovery/id-results.md). You can
 combine results-related components with these modules to get advanced display options. Include
 additional product information in Recommendations and Identifier Results such as prices and pictures
 for better recognition and understanding of the products displayed.

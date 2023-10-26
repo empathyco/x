@@ -4,6 +4,9 @@ sidebar_title: Related Tags UI
 tags:
   - tags
   - related keywords
+redirect_from:
+    - /explore-empathy-platform/experience-search-and-discovery/related-tags.html
+    - /explore-empathy-platform/experience-search-and-discovery/related-tags
 ---
 
 The Related Tags UI component helps your shoppers to refine a specific search query and find what
@@ -17,7 +20,7 @@ Platform Interface X supports displaying them anywhere on the SERP instead.
 ::: interact
 
 Can't quite capture the concept? Learn more about
-[Related Tags](../features/related-tags-overview.md).
+[Related Tags](/understand-empathy-platform/search-features/related-tags-overview.md).
 
 :::
 

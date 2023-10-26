@@ -4,12 +4,15 @@ sidebar_title: Empathize UI
 tags:
   - predictive layer
   - search box
+redirect_from:
+    - /explore-empathy-platform/experience-search-and-discovery/empathize.html
+    - /explore-empathy-platform/experience-search-and-discovery/empathize
 ---
 
 Empathize is a UI container, but not just any container. It’s the
-**[predictive layer](/explore-empathy-platform/overview/predictive-layer.md)** for your search
+**[predictive layer](/understand-empathy-platform/search-basics/predictive-layer.md)** for your search
 experience that is usually displayed below the search box. Consider it the natural companion of the
-**[search box](search-box.md)**, featuring search suggestions and recommendations.
+**[search box](/onboard-empathy-platform/experience-search-and-discovery/search-box.md)**, featuring search suggestions and recommendations.
 
 ![Empathize](~@assets/x/interface/x-empathize.gif)
 
@@ -25,11 +28,11 @@ Being the face of your predictive layer, Empathize comes into play before the se
 and only makes sense when used with other components.
 
 Thanks to the nature of Interface&nbsp;X&nbsp;Components, you can
-[mix and match the components](/explore-empathy-platform/experience-search-and-discovery/readme.md#mix-and-match-your-experience)
+[mix and match the components](/onboard-empathy-platform/experience-search-and-discovery/readme.md#mix-and-match-your-experience)
 you use within Empathize. For example, provide shoppers with search ideas and use Empathize to
 display popular search terms and trending products. Anticipate your shoppers’ intent with recent
 searches and query suggestions. Or give shoppers access to their
-[complete search history](my-history.md) and let them control tracking search data. There are lots
+[complete search history](/onboard-empathy-platform/experience-search-and-discovery/my-history.md) and let them control tracking search data. There are lots
 of handy possibilities that you might want to place close to the search box.
 
 **Combine Empathize with:**

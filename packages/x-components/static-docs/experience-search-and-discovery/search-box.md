@@ -6,6 +6,9 @@ tags:
   - search bar
   - search field
   - input
+ redirect_from:
+    - /explore-empathy-platform/experience-search-and-discovery/search-box.html
+    - /explore-empathy-platform/experience-search-and-discovery/search-box
 ---
 
 The Search&nbsp;Box UI Component is the main entry point for search where shoppers can type what
@@ -16,7 +19,7 @@ button.
 
 ::: interact
 
-Can't quite capture the concept? Learn more about [Search Box](../overview/search-box-overview.md).
+Can't quite capture the concept? Learn more about [Search Box](/understand-empathy-platform/search-basics/search-box-overview.md).
 
 :::
 
@@ -27,8 +30,8 @@ field to the selected suggestion and the search is launched.
 
 ::: warning
 
-To modify the query syntax using [Query Suggestions](../features/query-suggestions-overview.md) or
-[Next Queries](../features/next-queries-overview.md), make sure that your current search service
+To modify the query syntax using [Query Suggestions](/understand-empathy-platform/search-features/query-suggestions-overview.md) or
+[Next Queries](/understand-empathy-platform/search-features/next-queries-overview.md), make sure that your current search service
 supports this type of feature.
 
 :::
