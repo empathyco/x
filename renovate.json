@@ -44,6 +44,10 @@
     {
       "matchPackagePatterns": ["^@types/react*"],
       "enabled": false
+    },
+    {
+      "matchPackageNames": ["prettier-plugin-tailwindcss"],
+      "enabled": false
     }
   ]
 }

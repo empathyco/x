@@ -126,7 +126,9 @@ We are working on many key features to consolidate Interface X, including these 
 - **[Vectorized Recommendations](https://docs.empathy.co/explore-empathy-platform/features/vector-recommendations-overview.html)**:
   These recommendations are relevant product suggestions based on query semantic affinities. They
   usually show up as product carousels to amaze shoppers with product discovery inspirations.
-  [![Release Docs](https://img.shields.io/badge/Released-June%202023-brightgreen)](https://docs.empathy.co/explore-empathy-platform/features/vector-recommendations-overview.html)
+- **Filtering Strategies**: Added filtering capabilities to History Queries and Brand
+  Recommendations
+  [![Release Docs](https://img.shields.io/badge/Released-October%202023-brightgreen)](https://docs.empathy.co/explore-empathy-platform/experience-search-and-discovery/history-queries.html)
 - **Suggestions with filters** that allows to select a query suggestion with a specific filter.
   ![Release Docs](https://img.shields.io/badge/Discovery-Q3%202023-blue)
 - **Result Preview component** to rapidly discover more result attributed without leaving the SERP.

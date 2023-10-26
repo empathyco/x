@@ -21,8 +21,6 @@ export interface IdentifierResultsState extends StatusState, QueryState {
   origin: QueryOrigin | null;
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
-  /** The internal query of the module. Used to request the identifier results. */
-  query: string;
 }
 
 /**
@@ -73,12 +71,6 @@ export interface IdentifierResultsMutations
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
-  /**
-   * Sets the query of the module, which is used to retrieve the identifier-results.
-   *
-   * @param newQuery - The new query to save to the state.
-   */
-  setQuery(newQuery: string): void;
 }
 
 /**

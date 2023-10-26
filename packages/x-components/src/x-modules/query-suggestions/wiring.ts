@@ -84,7 +84,7 @@ export const clearQuerySuggestionsQuery = wireCommit('setQuery', '');
 const setUrlParams = wireDispatch('setUrlParams');
 
 /**
- * Requests and stores a new set of query suggestions for the {@link QuerySuggestionsState.query}.
+ * Requests and stores a new set of query suggestions for the query.
  *
  * @public
  */

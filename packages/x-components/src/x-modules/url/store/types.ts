@@ -50,12 +50,6 @@ export interface UrlMutations extends QueryMutations {
    */
   setParams(params: Partial<UrlParams>): void;
   /**
-   * Sets the new query.
-   *
-   * @param query - The new query of the Url.
-   */
-  setQuery(query: string): void;
-  /**
    * Sets the related tags.
    *
    * @param relatedTags - The new related tags of the url.

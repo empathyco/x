@@ -319,9 +319,14 @@ functions to integrate Interface&nbsp;X in your website. You can access these fu
 ### Dynamic query results preview
 
 The `queriesPreview` parameter settings can be changed to dynamically preview product results from
-the queries you define according to your brand's strategy. Use the `setSnippetConfig` function in
-the [`X API`](#x-api) object to determine the queries to be previewed dynamically depending on the
-section the shopper is visiting in your commerce store, for instance, or any other scenario.
+the queries you define according to your brand's strategy.
+
+You may set the `queriesPreview` in two ways:
+
+- In the initialization object as parameter.
+- Later on , using the `setSnippetConfig` function in the [`X API`](#x-api) object to determine the
+  queries to be previewed dynamically depending on the section the shopper is visiting in your
+  commerce store, for instance, or any other scenario.
 
 The following example shows you how to change dynamically the preview of query results in the _kids_
 and _adult_ sections:
@@ -351,5 +356,52 @@ and _adult_ sections:
       ]
     });
   }
+</script>
+```
+
+#### Adding filters
+
+The `queriesPreview` accept additional parameters that allow to filter the result set. See the
+following example:
+
+```html
+<script>
+  InterfaceX.setSnippetConfig({
+    queriesPreview: [
+      {
+        query: 'backpack',
+        title: 'Back to School!',
+        filters: ['brand:acme', 'collection:summer']
+      }
+    ]
+  });
+</script>
+```
+
+::: note
+
+The syntax to each filter is the same one as the one sent to the search request when selecting a
+filter in the interface.
+
+:::
+
+#### Adding extra params
+
+On top of that, extra parameters can be added to the search request of the `queriesPreview`, for
+instance:
+
+```html
+<script>
+  InterfaceX.setSnippetConfig({
+    queriesPreview: [
+      {
+        query: 'backpack',
+        title: 'Back to School!',
+        extraParams: {
+          sort: 'price desc'
+        }
+      }
+    ]
+  });
 </script>
 ```

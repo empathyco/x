@@ -25,10 +25,7 @@ export interface HistoryQueriesState extends QueryState {
    * search sessions.
    */
   historyQueries: HistoryQuery[];
-  /**
-   * The current query for searching into the {@link HistoryQueriesState.historyQueries}.
-   */
-  query: string;
+
   /**
    * Whether the history queries are enabled or disabled.
    */
@@ -43,7 +40,7 @@ export interface HistoryQueriesState extends QueryState {
 export interface HistoryQueriesGetters {
   /**
    * A sub-set of the {@link HistoryQueriesState.historyQueries}. If the
-   * {@link HistoryQueriesState.query} property is not empty, this list will only contain
+   * query property is not empty, this list will only contain
    * suggestions whose query matches with it.
    */
   historyQueries: HistoryQuery[];
@@ -84,12 +81,6 @@ export interface HistoryQueriesMutations
    * @param timeStamp - The new {@link HistoryQueriesState.sessionTimeStampInMs }.
    */
   setSessionTimeStamp(timeStamp: number): void;
-  /**
-   * Sets the {@link HistoryQueriesState.query } property.
-   *
-   * @param query - The new {@link HistoryQueriesState.query }.
-   */
-  setQuery(query: string): void;
   /**
    * Sets the {@link HistoryQueriesState.isEnabled } property.
    *

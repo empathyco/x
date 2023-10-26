@@ -4,15 +4,14 @@ import { XActionContext } from '../../../store/actions.types';
 import { XStoreModule } from '../../../store/store.types';
 import { SemanticQueriesConfig } from '../config.types';
 import { ConfigMutations } from '../../../store/utils/config-store.utils';
+import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
 
 /**
  * SemanticQueries store state.
  *
  * @public
  */
-export interface SemanticQueriesState {
-  /** The query sending on the request. */
-  query: string;
+export interface SemanticQueriesState extends QueryState {
   /** The number of the total results of the query. */
   totalResults: number;
   /** The request and results. */
@@ -45,11 +44,9 @@ export interface SemanticQueriesGetters {
  *
  * @public
  */
-export interface SemanticQueriesMutations extends ConfigMutations<SemanticQueriesState> {
-  /**
-   * Sets the {@link SemanticQueriesState.query} property.
-   */
-  setQuery(query: string): void;
+export interface SemanticQueriesMutations
+  extends QueryMutations,
+    ConfigMutations<SemanticQueriesState> {
   /**
    * Sets the {@link SemanticQueriesState.totalResults} property.
    */

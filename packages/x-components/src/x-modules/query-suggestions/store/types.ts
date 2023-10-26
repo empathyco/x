@@ -13,8 +13,6 @@ import { ConfigMutations } from '../../../store/utils/config-store.utils';
  * @public
  */
 export interface QuerySuggestionsState extends StatusState, QueryState {
-  /** The query of the query suggestions module. Used to request the suggestions. */
-  query: string;
   /** The suggestions for the query of the state. */
   suggestions: Suggestion[];
   /** The configuration of the query suggestions module. */
@@ -49,12 +47,6 @@ export interface QuerySuggestionsMutations
   extends StatusMutations,
     QueryMutations,
     ConfigMutations<QuerySuggestionsState> {
-  /**
-   * Sets the query of the query suggestions module.
-   *
-   * @param newQuery - The new query.
-   */
-  setQuery(newQuery: string): void;
   /**
    * Sets the suggestions of the module.
    *

@@ -20,8 +20,6 @@ import { ConfigMutations } from '../../../store/utils/config-store.utils';
  * @public
  */
 export interface NextQueriesState extends StatusState, QueryState {
-  /** The internal query of the module. Used to request the next queries. */
-  query: string;
   /** The list of the next queries, related to the `query` property of the state. */
   nextQueries: NextQuery[];
   /** The list of the searched queries, related to the `query` property of the state. */
@@ -59,12 +57,6 @@ export interface NextQueriesMutations
   extends StatusMutations,
     QueryMutations,
     ConfigMutations<NextQueriesState> {
-  /**
-   * Sets the query of the module, which is used to retrieve the next-queries.
-   *
-   * @param newQuery - The new query to save to the state.
-   */
-  setQuery(newQuery: string): void;
   /**
    * Sets the next queries of the module.
    *
