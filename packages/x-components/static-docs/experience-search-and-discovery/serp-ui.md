@@ -5,6 +5,9 @@ tags:
   - results layout
   - grid
   - results grid
+redirect_from:
+  - /explore-empathy-platform/experience-search-and-discovery/serp-ui.html
+  - /explore-empathy-platform/experience-search-and-discovery/serp-ui
 ---
 
 To handle and display search results, the layout of results and other related discovery features is
@@ -36,14 +39,14 @@ However, the grid is not the only element to consider when designing the SERP:
 - Provide a **[sorting system](/explore-empathy-platform/overview/sorting-overview.md)** (D) so that
   your shoppers can arrange results according to different criteria such as relevance, price,
   alphabetical order…
-- Include **[pagination](/explore-empathy-platform/overview/pagination-overview.md)** options to
-  browse results throughout the different result pages available or apply infinite scroll to ease
-  navigation.
+- Include **[pagination](/understand-empathy-platform/search-basics/pagination-overview.md)**
+  options to browse results throughout the different result pages available or apply infinite scroll
+  to ease navigation.
 - Apply **infinite scroll** to ease navigation and add a **scroll-to-top button** (E) to quickly
   move to the top of the results page.
 - Indicate your shoppers whether the
-  **[Spell Check](/explore-empathy-platform/features/spellcheck-overview.md)** feature is applied or
-  not.
+  **[Spell Check](/understand-empathy-platform/search-features/spellcheck-overview.md)** feature is
+  applied or not.
 
 ::: note
 

@@ -1,6 +1,9 @@
 ---
 title: Design the My History UI experience
 sidebar_title: My History UI
+redirect_from:
+  - /explore-empathy-platform/experience-search-and-discovery/my-history.html
+  - /explore-empathy-platform/experience-search-and-discovery/my-history
 ---
 
 The My History UI component displays the complete list of history queries, allowing shoppers to
@@ -24,7 +27,7 @@ shoppers to enable or disable search history.
 
 To show the complete list of history queries, My History component uses the history records saved on
 the shopper’s browser local history. See
-[Interface X data privacy and browser local storage](/explore-empathy-platform/experience-search-and-discovery/web-local-storage.md)
+[Interface X data privacy and browser local storage](/onboard-empathy-platform/experience-search-and-discovery/web-local-storage.md)
 to check out the information stored locally on the shopper’s device.
 
 :::

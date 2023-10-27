@@ -7,6 +7,9 @@ tags:
   - search trends
   - top queries
   - trending
+redirect_from:
+  - /explore-empathy-platform/experience-search-and-discovery/popular-searches.html
+  - /explore-empathy-platform/experience-search-and-discovery/popular-searches
 ---
 
 The Popular Searches UI component displays what are the top search queries during a specific time.
@@ -26,7 +29,7 @@ feature.
 ::: interact
 
 Can't quite capture the concept? Learn about
-[Popular Searches](../features/popular-searches-overview.md).
+[Popular Searches](/understand-empathy-platform/search-features/popular-searches-overview.md).
 
 :::
 
