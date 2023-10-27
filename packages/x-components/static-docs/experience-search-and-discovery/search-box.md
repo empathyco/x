@@ -6,9 +6,9 @@ tags:
   - search bar
   - search field
   - input
- redirect_from:
-    - /explore-empathy-platform/experience-search-and-discovery/search-box.html
-    - /explore-empathy-platform/experience-search-and-discovery/search-box
+redirect_from:
+  - /explore-empathy-platform/experience-search-and-discovery/search-box.html
+  - /explore-empathy-platform/experience-search-and-discovery/search-box
 ---
 
 The Search&nbsp;Box UI Component is the main entry point for search where shoppers can type what
