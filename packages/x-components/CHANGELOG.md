@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.1-alpha.1...@empathyco/x-components@3.0.1-alpha.2) (2023-10-27)
+
+
+### Documentation
+
+* **static-docs:** added redirections in static docs metadata (#1341) ([8c1d27f](https://github.com/empathyco/x/commit/8c1d27fdef0ff5b95a274d0693c98495799436bb))
+
+
+
 ## [3.0.1-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.1-alpha.0...@empathyco/x-components@3.0.1-alpha.1) (2023-10-26)
 
 
