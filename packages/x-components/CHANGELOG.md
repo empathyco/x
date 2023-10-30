@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.1-alpha.2...@empathyco/x-components@3.0.1-alpha.3) (2023-10-30)
+
+
+### Bug Fixes
+
+* identation error in search-box.md ([614407e](https://github.com/empathyco/x/commit/614407e17a4f198e9c8ad11ca324a00ee7275fa6))
+
+
+
 ## [3.0.1-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.1-alpha.1...@empathyco/x-components@3.0.1-alpha.2) (2023-10-27)
 
 
