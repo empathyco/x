@@ -40,12 +40,15 @@ export type QueryFeature =
  */
 export type ResultFeature =
   | 'search'
-  | 'recommendations'
-  | 'next_query_results'
+  | 'topclicked_recommendations'
+  | 'brand_recommendations'
+  | 'next_query_recommendations'
+  | 'semantic_recommendations'
   | 'partial_results'
   | 'identifier_result'
-  | 'brand_recommendations'
-  | 'semantics';
+  | 'recommendations' // TODO remove in major version. Deprecated value
+  | 'next_query_results' // TODO remove in major version. Deprecated value
+  | 'semantics'; // TODO remove in major version. Deprecated value
 
 /**
  * Indicates where the feature is placed.
