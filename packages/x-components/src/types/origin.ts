@@ -33,6 +33,12 @@ export type QueryFeature =
   | 'customer'
   | 'semantics';
 
+// TODO remove in major version. Deprecated value
+/**
+ * @deprecated Use other features instead.
+ */
+type deprecatedFeatureNames = 'recommendations' | 'next_query_results' | 'semantics';
+
 /**
  * The name of the tool that generated the results.
  *
@@ -46,7 +52,7 @@ export type ResultFeature =
   | 'semantic_recommendations'
   | 'partial_results'
   | 'identifier_result'
-  | deprecatedFeatureNames
+  | deprecatedFeatureNames;
 
 /**
  * Indicates where the feature is placed.
