@@ -46,9 +46,7 @@ export type ResultFeature =
   | 'semantic_recommendations'
   | 'partial_results'
   | 'identifier_result'
-  | 'recommendations' // TODO remove in major version. Deprecated value
-  | 'next_query_results' // TODO remove in major version. Deprecated value
-  | 'semantics'; // TODO remove in major version. Deprecated value
+  | deprecatedFeatureNames
 
 /**
  * Indicates where the feature is placed.
