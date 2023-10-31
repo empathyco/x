@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.1-alpha.3...@empathyco/x-components@3.0.1-alpha.4) (2023-10-31)
+
+
+### Bug Fixes
+
+* **x-plugin:** improve ResultFeature type values (#1344) ([c4c9f6e](https://github.com/empathyco/x/commit/c4c9f6e69d9f9f2a68619d6f10e918c649b42894))
+
+
+
 ## [3.0.1-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.1-alpha.2...@empathyco/x-components@3.0.1-alpha.3) (2023-10-30)
 
 
