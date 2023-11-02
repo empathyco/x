@@ -405,3 +405,60 @@ instance:
   });
 </script>
 ```
+
+#### Tracking the Add2Cart event from PDP
+
+The X interface incorporates a mechanism that enables the tracking of the client's Add2Cart interaction by the shopper. The approach to achieving this varies depending on the website's structure.
+
+**NON-SPA**
+1. When initialising the script a new param `productId` should be added.
+
+```html
+window.InterfaceX.init({
+    instance: "instanceName",
+    lang: "es",
+    documentDirection: "ltr",
+    scope: t,
+    currency: "EUR",
+    consent: !0,
+    env: void 0,
+    isSPA: !0,
+    queriesPreview: []
+        {
+            query: 'coats',
+            title: 'Winter Coats'
+        }
+    ],
+    callbacks: {
+        UserClickedAResult: function(a, b, e, t) {}
+    },
+    productId: '11776347-ES' // Add this parameter
+})
+```
+
+2. Once X is initialized the `InterfaceX.addProductToCart('11776347-ES');` function should be called when the add to cart button is clicked.
+
+```html
+addToCartButton.addEventListener('click', () =>
+  InterfaceX.addProductToCart('11776347-ES');
+);
+```
+
+**SPA**
+1. When a new page that is of type "Product Details Page" is loaded, this function should be called:
+`InterfaceX.bus.emit('PDPIsLoaded')`
+
+```html
+if (yourCommerceStoreEnvironment.isPDP && InterfaceX.getSnippetConfig.isSpa) {
+  InterfaceX.bus.emit('PDPIsLoaded')
+}
+```
+
+2. When the add to cart button is clicked :  
+`InterfaceX.addProductToCart()`
+
+```html
+addToCartButton.addEventListener('click', () =>
+  InterfaceX.addProductToCart();
+);
+```
