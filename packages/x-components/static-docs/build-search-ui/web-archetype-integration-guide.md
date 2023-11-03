@@ -418,11 +418,10 @@ window.InterfaceX.init({
     instance: "instanceName",
     lang: "es",
     documentDirection: "ltr",
-    scope: t,
+    scope: 'desktop',
     currency: "EUR",
-    consent: !0,
-    env: void 0,
-    isSPA: !0,
+    consent: true,
+    isSPA: false,
     queriesPreview: []
         {
             query: 'coats',
