@@ -406,7 +406,7 @@ instance:
 </script>
 ```
 
-#### Tracking the Add2Cart event from PDP
+### Tracking the Add2Cart event from PDP
 
 The X interface incorporates a mechanism that enables the tracking of the client's Add2Cart interaction by the shopper. The approach to achieving this varies depending on the website's structure.
 
