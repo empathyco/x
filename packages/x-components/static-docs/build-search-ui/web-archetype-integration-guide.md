@@ -438,17 +438,18 @@ window.InterfaceX.init({
 2. Once X is initialized the `InterfaceX.addProductToCart('11776347-ES');` function should be called when the add to cart button is clicked.
 
 ```html
-addToCartButton.addEventListener('click', () =>
+yourCommerceStoreEnvironment.addToCartButton.addEventListener('click', () =>
   InterfaceX.addProductToCart('11776347-ES');
 );
 ```
 
-**SPA**
+
+#### SPA
 1. When a new page that is of type "Product Details Page" is loaded, this function should be called:
 `InterfaceX.bus.emit('PDPIsLoaded')`
 
 ```html
-if (yourCommerceStoreEnvironment.isPDP && InterfaceX.getSnippetConfig.isSpa) {
+if (yourCommerceStoreEnvironment.isPDP && window.initX.isSpa) {
   InterfaceX.bus.emit('PDPIsLoaded')
 }
 ```
@@ -457,7 +458,7 @@ if (yourCommerceStoreEnvironment.isPDP && InterfaceX.getSnippetConfig.isSpa) {
 `InterfaceX.addProductToCart()`
 
 ```html
-addToCartButton.addEventListener('click', () =>
+yourCommerceStoreEnvironment.addToCartButton.addEventListener('click', () =>
   InterfaceX.addProductToCart();
 );
 ```
