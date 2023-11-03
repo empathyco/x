@@ -435,7 +435,7 @@ window.InterfaceX.init({
 })
 ```
 
-2. Once X is initialized the `InterfaceX.addProductToCart('11776347-ES');` function should be called when the add to cart button is clicked.
+2. Once X is initialized the `InterfaceX.addProductToCart('11776347-ES')` function should be called when the add to cart button is clicked.
 
 ```html
 yourCommerceStoreEnvironment.addToCartButton.addEventListener('click', () =>
