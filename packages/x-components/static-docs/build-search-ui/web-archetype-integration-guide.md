@@ -410,7 +410,7 @@ instance:
 
 The X interface incorporates a mechanism that enables the tracking of the client's Add2Cart interaction by the shopper. The approach to achieving this varies depending on the website's structure.
 
-**NON-SPA**
+#### NON-SPA
 1. When initialising the script a new param `productId` should be added.
 
 ```html
