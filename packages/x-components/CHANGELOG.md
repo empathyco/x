@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.1-alpha.4...@empathyco/x-components@3.1.0-alpha.0) (2023-11-06)
+
+
+### Features
+
+* **extra-params:** allow currency to be an extra param as default ([319851d](https://github.com/empathyco/x/commit/319851da07f04a79aae128081c9c45cd7ae1b1e9))
+
+
+
 ## [3.0.1-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@3.0.1-alpha.3...@empathyco/x-components@3.0.1-alpha.4) (2023-10-31)
 
 
