@@ -266,7 +266,7 @@ describe('testing facets module getters', () => {
         createNumberRangeFilter('price', { min: 25, max: 50 }, true),
         createEditableNumberRangeFilter('age', { min: null, max: 5 }),
         createEditableNumberRangeFilter('size', { min: null, max: null }),
-        // Raw filters don't belong to a facet so they will be under `__unknown-facet__` key
+        // Raw filters don't belong to a facet, so they will be under `__unknown__` key
         createRawFilter('size:xl')
       ]);
 
@@ -275,7 +275,7 @@ describe('testing facets module getters', () => {
         category: [store.state.filters['category:Shorts']],
         price: [store.state.filters['price:25-50']],
         age: [store.state.filters['age:*-5']],
-        ['__unknown-facet__']: [store.state.filters['size:xl']]
+        ['__unknown__']: [store.state.filters['size:xl']]
       });
     });
 
@@ -326,7 +326,7 @@ describe('testing facets module getters', () => {
       const store = createFacetsStore([createRawFilter('size:xl')]);
 
       expect(store.getters.selectedFiltersByFacet).toEqual({
-        ['__unknown-facet__']: [store.state.filters['size:xl']]
+        ['__unknown__']: [store.state.filters['size:xl']]
       });
     });
   });

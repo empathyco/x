@@ -13,7 +13,7 @@ import { FacetsXStoreModule, FiltersByFacet } from '../types';
  *
  * @returns A record containing the selected filters indexed by its facet id.
  * @remarks If there are filters without facet Id (RawFilter), they will be grouped under
- * `__unknown-facet__` key.
+ * `__unknown__` key.
  *
  * @public
  */
@@ -24,7 +24,7 @@ export const selectedFiltersByFacet: FacetsXStoreModule['getters']['selectedFilt
   // The `emptyRecord` is to return an empty array for those facets that haven't selected filters.
   const emptyRecord: FiltersByFacet = map(state.facets, () => []);
   const filtersByFacet = groupItemsBy(getters.selectedFilters, filter =>
-    isFacetFilter(filter) ? filter.facetId : '__unknown-facet__'
+    isFacetFilter(filter) ? filter.facetId : '__unknown__'
   );
   return Object.assign(emptyRecord, filtersByFacet);
 };

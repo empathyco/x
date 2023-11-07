@@ -49,7 +49,7 @@ export class FilterEntityFactory {
    *
    * @internal
    */
-  protected cache: Record<Facet['id'] | '__unknown-facet__', FilterEntity> = {};
+  protected cache: Record<Facet['id'] | '__unknown__', FilterEntity> = {};
 
   /**
    * Creates a new FilterEntity from a filter.
@@ -61,7 +61,7 @@ export class FilterEntityFactory {
    * @returns The {@link FilterEntity} created by the factory.
    */
   getFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
-    const cacheKey = isFacetFilter(filter) ? filter.facetId : '__unknown-facet__';
+    const cacheKey = isFacetFilter(filter) ? filter.facetId : '__unknown__';
     return this.cache[cacheKey] ?? (this.cache[cacheKey] = this.createFilterEntity(store, filter));
   }
 

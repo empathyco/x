@@ -14,7 +14,7 @@ import { FacetsXStoreModule } from '../types';
  */
 export const facets: FacetsXStoreModule['getters']['facets'] = state => {
   const filtersByFacet = groupItemsBy(Object.values(state.filters), filter =>
-    isFacetFilter(filter) ? filter.facetId : '__unknown-facet__'
+    isFacetFilter(filter) ? filter.facetId : '__unknown__'
   );
   return map(state.facets, (_id, facet) => ({
     ...facet,
