@@ -106,7 +106,7 @@ It is required to send the columns prop.
   <BaseColumnPickerList :columns="columns" />
 </template>
 <script>
-  import { BaseColumnPickerList } from '@empathyco/xcomponents';
+  import { BaseColumnPickerList } from '@empathyco/x-components';
 
   export default {
     components: {
@@ -129,7 +129,7 @@ updated if it changed the value or if the parent changes it.
   <BaseColumnPickerList :columns="columns" v-model="selectedColumns" />
 </template>
 <script>
-  import { BaseColumnPickerList } from '@empathyco/xcomponents';
+  import { BaseColumnPickerList } from '@empathyco/x-components';
 
   export default {
     components: {
@@ -155,7 +155,7 @@ It is possible to override the column picker button content.
   </BaseColumnPickerList>
 </template>
 <script>
-  import { BaseColumnPickerList } from '@empathyco/xcomponents';
+  import { BaseColumnPickerList } from '@empathyco/x-components';
 
   export default {
     components: {
@@ -180,7 +180,7 @@ It is also possible to add a divider element between the column picker buttons b
   </BaseColumnPickerList>
 </template>
 <script>
-  import { BaseColumnPickerList, ChevronRightIcon } from '@empathyco/xcomponents';
+  import { BaseColumnPickerList, ChevronRightIcon } from '@empathyco/x-components';
 
   export default {
     components: {
@@ -203,7 +203,7 @@ The `buttonClass` prop can be used to add classes to the buttons.
   <BaseColumnPickerList :columns="columns" buttonClass="x-button--round" />
 </template>
 <script>
-  import { BaseColumnPickerList } from '@empathyco/xcomponents';
+  import { BaseColumnPickerList } from '@empathyco/x-components';
 
   export default {
     components: {
