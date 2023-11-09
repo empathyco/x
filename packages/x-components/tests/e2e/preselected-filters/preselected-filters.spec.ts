@@ -15,7 +15,7 @@ Given('an application with {string} filter preselected', (preselectedFilter: str
   });
   // TODO: Check why we need to wait a few ms so the preselected are actually pushed into the url
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(60);
+  cy.wait(200);
 });
 
 Then('filter {string} is selected', function (filterLabel: string) {
