@@ -25,8 +25,8 @@ export interface GenerateEntryFilesOptions {
 /**
  * Rollup plugin to generate one common entry point with shared code, and one for each x-module.
  * This is needed because x-modules have side effects on import (like registering the wiring, and
- * store modules). If these x-modules were imported from a single barrel file, then they will be
- * executed always, except if the build had tree-shaking step that removed them from the code. Tree
+ * store modules). If these x-modules were imported from a single barrel file, then they will always
+ * be executed, except if the build had tree-shaking step that removed them from the code. Tree
  * shaking is a costly step that is only run for production builds normally. So, for consistency
  * between dev and prod builds, creating an entry point per each x-module is the safest way to
  * achieve this.
@@ -60,7 +60,7 @@ const X_MODULES_DIR_NAME = 'x-modules';
  * Generates an entry point for each x-component, and another one for the shared code.
  *
  * @param buildPath - The path where the build will go.
- * @param outputDirectory - The directory to load it's barrel and generate the entry points.
+ * @param outputDirectory - The directory to load its barrel and generate the entry points.
  * @param extension - The type of files to generate the entry points (i.e. `d.ts`, `js`).
  */
 function generateEntryPoints(buildPath: string, outputDirectory: string, extension: string): void {
@@ -107,12 +107,12 @@ function generateEntryPointsRecord(
     const xModuleFileName = getXModuleNameFromExport(line);
     const adjustedExport = adjustExport(relativeOutputDirectory, line);
     if (xModuleFileName) {
-      // If it is a file from a x-module, we adjust the export, and add it to an array with the
+      // If it is a file from an x-module, we adjust the export, and add it to an array with the
       // x module name
       files[xModuleFileName] = files[xModuleFileName] || [];
       files[xModuleFileName].push(adjustedExport);
     } else {
-      // If it is not an export from a x-module, we keep that export on the core file, adjusting
+      // If it is not an export from an x-module, we keep that export on the core file, adjusting
       // its location
       files.core = files.core || [];
       files.core.push(adjustedExport);

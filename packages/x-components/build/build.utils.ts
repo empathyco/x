@@ -14,7 +14,7 @@ export function ensureFilePathExists(filePath: string): void {
 /**
  * Asserts a directory exist recursively, creating it if it does not.
  *
- * @param directoryPath - The full directory path, that may or may not exists.
+ * @param directoryPath - The full directory path, that may or may not exist.
  */
 export function ensureDirectoryPathExists(directoryPath: string): void {
   if (!fs.existsSync(directoryPath)) {
