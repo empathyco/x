@@ -73,7 +73,6 @@
         'uiLang',
         'consent',
         'documentDirection',
-        'currency',
         'filters',
         'isSpa',
         'queriesPreview'
