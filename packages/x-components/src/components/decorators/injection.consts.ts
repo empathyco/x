@@ -58,4 +58,4 @@ export const SELECT_RESULT_VARIANT_KEY: XInjectKey<
  *
  * @internal
  */
-export const FACET_KEY: string | number = '__unknown__';
+export const UNKNOWN_FACET_KEY: string = '__unknown__';
