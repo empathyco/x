@@ -4,7 +4,7 @@ import { setStatus } from '../../../store/utils/status-store.utils';
 import { groupItemsBy } from '../../../utils/array';
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 // eslint-disable-next-line max-len
-import { FACET_KEY } from '../../../components/index';
+import { UNKNOWN_FACET_KEY } from '../../facets/store/constants';
 import {
   cancelFetchAndSaveSearchResponse,
   fetchAndSaveSearchResponse
@@ -62,7 +62,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     setSelectedFilters(state, selectedFilters) {
       state.selectedFilters = groupItemsBy(selectedFilters, filter =>
-        isFacetFilter(filter) ? filter.facetId : FACET_KEY
+        isFacetFilter(filter) ? filter.facetId : UNKNOWN_FACET_KEY
       );
     },
     setBanners(state, banners) {

@@ -2,7 +2,7 @@ import { Filter } from '@empathyco/x-types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { HistoryQueriesActions, HistoryQueriesXStoreModule } from '../types';
 import { InternalSearchResponse } from '../../../search/index';
-import { FACET_KEY } from '../../../../components/index';
+import { UNKNOWN_FACET_KEY } from '../../../facets/store/constants';
 
 /**
  * Default implementation for the
@@ -69,7 +69,7 @@ function getHistoryQueriesFiltersList(
   } else {
     return Object.entries(requestFilters).flatMap(([facetId, facetFilters]) => {
       const matchingFacet =
-        facetId !== FACET_KEY ? responseFacets.find(facet => facet.id === facetId) : null;
+        facetId !== UNKNOWN_FACET_KEY ? responseFacets.find(facet => facet.id === facetId) : null;
 
       return facetFilters.reduce<Filter[]>((accFilters, requestFilter) => {
         const matchingFilter = matchingFacet

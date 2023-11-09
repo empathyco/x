@@ -427,7 +427,7 @@ describe('testing history queries module actions', () => {
           query: 'gato',
           page: 1,
           filters: {
-            FACET_KEY: [
+            UNKNOWN_FACET_KEY: [
               {
                 id: 'categoryIds:66dd06d9f',
                 selected: true,

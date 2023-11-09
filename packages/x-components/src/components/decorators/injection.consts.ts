@@ -52,10 +52,3 @@ export const SELECTED_VARIANTS_KEY: XInjectKey<ResultVariant[]> = 'selectedVaria
 export const SELECT_RESULT_VARIANT_KEY: XInjectKey<
   (variant: ResultVariant, level?: number) => void
 > = 'selectResultVariant';
-
-/**
- * It's used to identify filters without facetId.
- *
- * @internal
- */
-export const UNKNOWN_FACET_KEY: string = '__unknown__';
