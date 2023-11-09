@@ -36,7 +36,12 @@ export const rollupConfig = createRollupOptions({
      * Because of that, when rollup detects a circular dependency (it emits a warning), we stop
      * the build with an error */
     if (warning.code === 'CIRCULAR_DEPENDENCY') {
-      throw Error(`Circular dependency found: ${warning.cycle?.join(' ') as string}`);
+      const dependencies: string[] | undefined = warning.ids;
+      if (dependencies !== undefined) {
+        throw Error(`Circular dependency found: ${dependencies.join(' ')}`);
+      } else {
+        throw Error(`Circular dependency found`);
+      }
     }
   },
   external(id) {
@@ -136,9 +141,9 @@ export const rollupConfig = createRollupOptions({
 const commonCssOptions = createRollupOptions({
   output: {
     dir: cssOutputDirectory,
-    assetFileNames: '[name][extname]'
-  },
-  preserveModules: true
+    assetFileNames: '[name][extname]',
+    preserveModules: true
+  }
 });
 
 /**
