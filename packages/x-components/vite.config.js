@@ -28,6 +28,6 @@ export default defineConfig({
     port: 8080
   },
   optimizeDeps: {
-    exclude: ['@empathyco/x-components', '@empathyco/xcomponents']
+    exclude: ['@empathyco/x-components']
   }
 });
