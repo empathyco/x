@@ -213,6 +213,7 @@ out further information about:
 - **Functions supported by the [X&nbsp;API object](#x-api)** to initialize Interface&nbsp;X
 - Notes on how to set up [**the preview of query results**](#dynamic-query-results-preview) for
   determined queries at the pre-search stage
+- [**Tracking options for add to cart events**](#tracking-events-for-add-to-cart-on-product-detail-pages) from product detail pages
 
 ### Snippet configuration
 
@@ -406,59 +407,63 @@ instance:
 </script>
 ```
 
-### Tracking the Add2Cart event from PDP
+### Tracking events for add to cart on product detail pages
 
-The X interface incorporates a mechanism that enables the tracking of the client's Add2Cart interaction by the shopper. The approach to achieving this varies depending on the website's structure.
+Empathy Platform Interface X allows you to track shoppers' add-to-cart interactions from any product detail page (PDP) in your commerce store, regardless of whether your commerce store is running on a **single-page application or not**.
 
-#### NON-SPA
-1. When initialising the script a new param `productId` should be added.
+#### Tracking add-to-cart events on non-SPA webpages
+To track your shoppers' add-to-cart interactions from any PDP based on a non-spa structured webpage, follow these steps:
 
-```html
-window.InterfaceX.init({
-    instance: "instanceName",
-    lang: "es",
-    documentDirection: "ltr",
-    scope: 'desktop',
-    currency: "EUR",
-    consent: true,
-    isSPA: false,
-    queriesPreview: []
-        {
-            query: 'coats',
-            title: 'Winter Coats'
-        }
-    ],
-    callbacks: {
-        UserClickedAResult: function(a, b, e, t) {}
-    },
-    productId: '11776347-ES' // Add this parameter
-})
-```
+1. Add the `productId` parameter when initializing the script.
 
-2. Once X is initialized the `InterfaceX.addProductToCart('11776347-ES')` function should be called when the add to cart button is clicked.
+    ```html
+    window.InterfaceX.init({
+        instance: "instanceName",
+        lang: "es",
+        documentDirection: "ltr",
+        scope: 'desktop',
+        currency: "EUR",
+        consent: true,
+        isSPA: false,
+        queriesPreview: []
+            {
+                query: 'coats',
+                title: 'Winter Coats'
+            }
+        ],
+        callbacks: {
+            UserClickedAResult: function(a, b, e, t) {}
+        },
+        productId: '11776347-ES' // Add this parameter
+    })
+    ```
 
-```html
-yourCommerceStoreEnvironment.addToCartButton.addEventListener('click', () =>
-  InterfaceX.addProductToCart('11776347-ES');
-);
-```
+2. Call the `InterfaceX.addProductToCart('11776347-ES')` function to track the event when the add-to-cart button is clicekd.
+
+    ```html
+    yourCommerceStoreEnvironment.addToCartButton.addEventListener('click', () =>
+      InterfaceX.addProductToCart('11776347-ES');
+   );
+   ```
 
 
-#### SPA
-1. When a new page that is of type "Product Details Page" is loaded, this function should be called:
-`InterfaceX.bus.emit('PDPIsLoaded')`
+#### Tracking add-to-cart events on SPA webpages
+To track your shoppers' add-to-cart interactions from any PDP based on a SPA structured webpage, follow these steps:
 
-```html
-if (yourCommerceStoreEnvironment.isPDP && window.initX.isSpa) {
-  InterfaceX.bus.emit('PDPIsLoaded')
-}
-```
+1. Call the `InterfaceX.bus.emit('PDPIsLoaded')` function any time a new PDP-type page is loaded.
 
-2. When the add to cart button is clicked :  
-`InterfaceX.addProductToCart()`
 
-```html
-yourCommerceStoreEnvironment.addToCartButton.addEventListener('click', () =>
-  InterfaceX.addProductToCart();
-);
-```
+    ```html
+    if (yourCommerceStoreEnvironment.isPDP && window.initX.isSpa) {
+      InterfaceX.bus.emit('PDPIsLoaded')
+    }
+    ```
+
+2. Call the `InterfaceX.addProductToCart()` function to track the event when the add-to-cart button is clicked:  
+
+
+    ```html
+    yourCommerceStoreEnvironment.addToCartButton.addEventListener('click', () =>
+      InterfaceX.addProductToCart();
+    );
+    ```
