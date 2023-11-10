@@ -438,7 +438,7 @@ To track your shoppers' add-to-cart interactions from any PDP based on a non-spa
     })
     ```
 
-2. Call the `InterfaceX.addProductToCart('11776347-ES')` function to track the event when the add-to-cart button is clicekd.
+2. Call the `InterfaceX.addProductToCart('11776347-ES')` function to track the event when the add-to-cart button is clicked.
 
     ```html
     yourCommerceStoreEnvironment.addToCartButton.addEventListener('click', () =>
