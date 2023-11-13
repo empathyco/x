@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@3.1.0-alpha.2...@empathyco/x-components@3.1.0-alpha.3) (2023-11-13)
+
+
+### Features
+
+* migrate from `vue-cli` to `vite` (#1350) ([52a3b6e](https://github.com/empathyco/x/commit/52a3b6e7d94587f6934e838a2e68c99af97f7999))
+
+
+
 ## [3.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@3.1.0-alpha.1...@empathyco/x-components@3.1.0-alpha.2) (2023-11-13)
 
 
