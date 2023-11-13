@@ -31,14 +31,13 @@ export const rollupConfig = createRollupOptions({
     sourcemap: true,
     preserveModules: true
   },
-  onwarn(warning) {
+  onwarn(log) {
     /* Circular dependencies are dangerous, and can result in an `undefined` error in runtime.
      * Because of that, when rollup detects a circular dependency (it emits a warning), we stop
      * the build with an error */
-    if (warning.code === 'CIRCULAR_DEPENDENCY') {
-      const dependencies: string[] | undefined = warning.ids;
-      if (dependencies !== undefined) {
-        throw Error(`Circular dependency found: ${dependencies.join(' ')}`);
+    if (log.code === 'CIRCULAR_DEPENDENCY') {
+      if (log.ids) {
+        throw Error(`Circular dependency found: ${log.ids.join(' ')}`);
       } else {
         throw Error(`Circular dependency found`);
       }
