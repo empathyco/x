@@ -10,7 +10,7 @@ runs:
       with:
         install: false
         browser: chrome
-        start: npm run serve
+        start: npm run preview
         working-directory: packages/x-components
 
     - name: Cypress run X Components component

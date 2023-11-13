@@ -44,8 +44,8 @@ export default defineConfig({
       runMode: 1
     },
     devServer: {
-      bundler: 'webpack',
-      framework: 'vue-cli'
+      framework: 'vue',
+      bundler: 'vite'
     }
   }
 });
