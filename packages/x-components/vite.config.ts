@@ -18,7 +18,6 @@ export default defineConfig({
     })
   ],
   resolve: {
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     alias: {
       'vue-runtime-helpers': 'node_modules/vue-runtime-helpers'
     }
