@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.1-alpha.0...@empathyco/x-react-wrapper@4.1.0-alpha.0) (2023-11-13)
+
+
+### Features
+
+* migrate from `vue-cli` to `vite` (#1350) ([52a3b6e](https://github.com/empathyco/x/commit/52a3b6e7d94587f6934e838a2e68c99af97f7999))
+
+
+
 ## [4.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-react-wrapper@4.0.0-alpha.31...@empathyco/x-react-wrapper@4.0.1-alpha.0) (2023-10-24)
 
 **Note:** Version bump only for package @empathyco/x-react-wrapper
