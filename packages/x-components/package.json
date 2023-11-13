@@ -119,7 +119,7 @@
     "postcss-dir-pseudo-class": "~7.0.0",
     "postcss-logical": "~4.0.2",
     "rimraf": "~3.0.2",
-    "rollup": "~4.0.0",
+    "rollup": "~4.4.0",
     "rollup-plugin-copy": "~3.5.0",
     "rollup-plugin-delete": "~2.0.0",
     "rollup-plugin-rename": "~1.0.1",
