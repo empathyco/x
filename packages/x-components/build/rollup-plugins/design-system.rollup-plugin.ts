@@ -56,7 +56,7 @@ export function importTokens(): Plugin {
  * This function returns a {@link Plugin | RollupJS Plugin} to omit the `.js` files from the
  * output generation. This is necessary because the `rollup-plugin-styles` plugin outputs `.js`
  * files together with the `.css`, to import them as module. It has a mode to only "emit" CSS,
- * but it needs another plugin (lintcss) and is failing right now.
+ * but it needs another plugin (lit-css) and is failing right now.
  *
  * @returns The plugin object to use in the Rollup config.
  * @internal
