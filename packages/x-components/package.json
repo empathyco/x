@@ -44,7 +44,7 @@
   },
   "scripts": {
     "serve": "vite",
-    "preview": "vite build && vite preview --port 8080",
+    "preview": "vite build && vite preview",
     "build": "ts-node --project ./build/tsconfig.json ./build/build.ts",
     "build:website": "vite build",
     "postbuild": "pnpm pack --pack-destination ..",
