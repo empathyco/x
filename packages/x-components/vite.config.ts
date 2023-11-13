@@ -5,7 +5,7 @@ import Inspector from 'vite-plugin-vue-inspector';
 const vueDocsPlugin = {
   name: 'vue-docs',
   transform(code: string, id: string) {
-    return !/vue&type=docs/.test(id) ? '' : `export default ''`;
+    return !/vue&type=docs/.test(id) ? undefined : `export default ''`;
   }
 };
 
