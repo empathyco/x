@@ -638,7 +638,7 @@ importers:
     devDependencies:
       '@rollup/plugin-commonjs':
         specifier: ~25.0.0
-        version: 25.0.0(rollup@2.79.1)
+        version: 25.0.0(rollup@4.4.0)
       autoprefixer:
         specifier: ~10.4.4
         version: 10.4.4(postcss@8.4.12)
@@ -652,11 +652,11 @@ importers:
         specifier: ~3.0.2
         version: 3.0.2
       rollup:
-        specifier: ~2.79.1
-        version: 2.79.1
+        specifier: ~4.4.0
+        version: 4.4.0
       rollup-plugin-typescript2:
         specifier: ~0.36.0
-        version: 0.36.0(rollup@2.79.1)(typescript@4.9.4)
+        version: 0.36.0(rollup@4.4.0)(typescript@4.9.4)
       rollup-plugin-vue:
         specifier: ~5.1.9
         version: 5.1.9(postcss@8.4.12)(vue-template-compiler@2.7.14)
@@ -3482,24 +3482,6 @@ packages:
       picocolors: 1.0.0
       tslib: 2.6.2
 
-  /@rollup/plugin-commonjs@25.0.0(rollup@2.79.1):
-    resolution: {integrity: sha512-hoho2Kay9TZrLu0bnDsTTCaj4Npa+THk9snajP/XDNb9a9mmjTjh52EQM9sKl3HD1LsnihX7js+eA2sd2uKAhw==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^2.68.0||^3.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-    dependencies:
-      '@rollup/pluginutils': 5.0.2(rollup@2.79.1)
-      commondir: 1.0.1
-      estree-walker: 2.0.2
-      glob: 8.1.0
-      is-reference: 1.2.1
-      magic-string: 0.27.0
-      rollup: 2.79.1
-    dev: true
-
   /@rollup/plugin-commonjs@25.0.0(rollup@4.4.0):
     resolution: {integrity: sha512-hoho2Kay9TZrLu0bnDsTTCaj4Npa+THk9snajP/XDNb9a9mmjTjh52EQM9sKl3HD1LsnihX7js+eA2sd2uKAhw==}
     engines: {node: '>=14.0.0'}
@@ -3536,21 +3518,6 @@ packages:
     dependencies:
       estree-walker: 2.0.2
       picomatch: 2.3.1
-    dev: true
-
-  /@rollup/pluginutils@5.0.2(rollup@2.79.1):
-    resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^1.20.0||^2.0.0||^3.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-    dependencies:
-      '@types/estree': 1.0.1
-      estree-walker: 2.0.2
-      picomatch: 2.3.1
-      rollup: 2.79.1
     dev: true
 
   /@rollup/pluginutils@5.0.2(rollup@4.4.0):
@@ -13432,21 +13399,6 @@ packages:
       rollup: 4.4.0
       source-map-js: 1.0.2
       tslib: 2.5.0
-    dev: true
-
-  /rollup-plugin-typescript2@0.36.0(rollup@2.79.1)(typescript@4.9.4):
-    resolution: {integrity: sha512-NB2CSQDxSe9+Oe2ahZbf+B4bh7pHwjV5L+RSYpCu7Q5ROuN94F9b6ioWwKfz3ueL3KTtmX4o2MUH2cgHDIEUsw==}
-    peerDependencies:
-      rollup: '>=1.26.3'
-      typescript: '>=2.4.0'
-    dependencies:
-      '@rollup/pluginutils': 4.2.1
-      find-cache-dir: 3.3.2
-      fs-extra: 10.1.0
-      rollup: 2.79.1
-      semver: 7.5.4
-      tslib: 2.6.2
-      typescript: 4.9.4
     dev: true
 
   /rollup-plugin-typescript2@0.36.0(rollup@4.4.0)(typescript@4.9.4):
