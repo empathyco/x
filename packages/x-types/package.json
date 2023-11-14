@@ -28,8 +28,8 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs && npm run gen:docs",
-    "build:watch": "rollup -c --bundleConfigAsCjs -w",
+    "build": "rollup -c && npm run gen:docs",
+    "build:watch": "rollup -c -w",
     "gen:model-docs": "api-extractor run -c x-types-extractor.json -l && api-extractor run -c schema-extractor.json -l && api-extractor run -l",
     "gen:typescript-docs": "api-documenter markdown -i report -o docs",
     "gen:docs": "npm run gen:model-docs && npm run gen:typescript-docs",
