@@ -30,7 +30,7 @@
     "dev": "vite serve demo",
     "dev:build": "vite build demo",
     "prebuild": "rimraf ./dist ./showcase ./*.tgz",
-    "build": "rollup -c && rollup -c demo/rollup.config.js",
+    "build": "rollup -c && rollup -c demo/rollup.config.mjs",
     "postbuild": "pnpm pack",
     "lint": "eslint . --ext .ts,.vue",
     "prepublishOnly": "pnpm run build"
@@ -62,7 +62,7 @@
     "postcss": "~8.4.12",
     "postcss-import": "~15.1.0",
     "rimraf": "~3.0.2",
-    "rollup": "~2.79.1",
+    "rollup": "~4.4.0",
     "rollup-plugin-typescript2": "~0.36.0",
     "rollup-plugin-vue": "~5.1.9",
     "tailwindcss": "~3.3.0",

@@ -1,12 +1,15 @@
-import { resolve } from 'path';
+import path, { resolve } from 'path';
+import { fileURLToPath } from 'url';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 export default {
   input: resolve(__dirname, 'src/index.ts'),
-  output: [{ format: 'esm', dir: resolve(__dirname, '../showcase') }],
-  preserveModules: true,
+  output: [{ format: 'esm', dir: resolve(__dirname, '../showcase'), preserveModules: true }],
   external: [
     'vue',
     'vue-property-decorator',
