@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@3.1.0-alpha.3...@empathyco/x-components@4.0.0-alpha.0) (2023-11-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **components:** remove deprecated origins from (#1344)
+* **facets:** The '__unknown-facet__' value for a facetId is deprecated: it has been replaced by the UNKNOWN_FACET_KEY constant, whose value is '__unknown__'.
+
+Co-authored-by: Guillermo Cacheda <cachedacodes@gmail.com>
+
+### Features
+
+* **components:** remove deprecated origins (#1355) ([3d7c981](https://github.com/empathyco/x/commit/3d7c981380bd8af30724780f7810808d563db471))
+* **facets:** Unify __unknown__ and __unknown-facet__ in a constant (#1351) ([30585f2](https://github.com/empathyco/x/commit/30585f2d57653aa33c68f748ff10f93202f1887e))
+
+
+
 ## [3.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@3.1.0-alpha.2...@empathyco/x-components@3.1.0-alpha.3) (2023-11-13)
 
 
