@@ -12,29 +12,37 @@ import { QueriesPreviewXStoreModule } from '../types';
  */
 // eslint-disable-next-line max-len
 export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fetchAndSaveQueryPreview'] =
-  ({ dispatch, commit }, request) => {
+  ({ dispatch, commit, getters }, request) => {
     const { query } = request;
+
     if (!query) {
       return;
     }
-    commit('setQueryPreview', {
-      request,
-      results: [],
-      status: 'loading',
-      totalResults: 0
-    });
-    return dispatch('fetchQueryPreview', request)
-      .then(response => {
-        commit('setQueryPreview', {
-          request,
-          results: response?.results ?? [],
-          status: 'success',
-          totalResults: response?.totalResults ?? 0
-        });
-      })
-      .catch(error => {
-        // eslint-disable-next-line no-console
-        console.error(error);
-        commit('setStatus', { query, status: 'error' });
+
+    if (!getters.loadedQueriesPreview[query]) {
+      commit('setQueryPreview', {
+        request,
+        results: [],
+        status: 'loading',
+        totalResults: 0
       });
+
+      return dispatch('fetchQueryPreview', request)
+        .then(response => {
+          commit('setQueryPreview', {
+            request,
+            results: response?.results ?? [],
+            status: 'success',
+            totalResults: response?.totalResults ?? 0
+          });
+        })
+        .catch(error => {
+          // eslint-disable-next-line no-console
+          console.error(error);
+          commit('setStatus', { query, status: 'error' });
+        })
+        .then(() => {
+          return dispatch('updateQueryPreviewHistory', request);
+        });
+    }
   };
