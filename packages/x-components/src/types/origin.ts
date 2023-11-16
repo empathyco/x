@@ -14,7 +14,6 @@ export type QueryOrigin = `${QueryFeature}:${FeatureLocation}`;
  * @public
  */
 export type ResultOrigin = `${ResultFeature}:${FeatureLocation}`;
-
 /**
  * The name of the tool that generated the query.
  *

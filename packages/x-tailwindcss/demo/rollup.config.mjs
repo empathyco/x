@@ -2,6 +2,8 @@ import { resolve } from 'path';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import vue from 'rollup-plugin-vue';
+import * as url from 'url';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 export default {
   input: resolve(__dirname, 'src/index.ts'),

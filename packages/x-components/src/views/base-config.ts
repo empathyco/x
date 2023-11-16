@@ -19,6 +19,7 @@ export const baseInstallXOptions: InstallXOptions = {
       config: {
         filtersStrategyForRequest: 'leaves-only'
       }
-    }
+    },
+    search: {}
   }
 };
