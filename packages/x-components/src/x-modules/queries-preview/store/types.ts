@@ -51,6 +51,8 @@ export interface QueryPreviewInfo {
 export interface QueriesPreviewState {
   /* The request and results */
   queriesPreview: Dictionary<QueryPreviewItem>;
+  /* List of the most recent used queries preview */
+  queryPreviewHistory: QueryPreviewItem[];
   /** The configuration of the queries preview module. */
   config: QueriesPreviewConfig;
   /** The extra params property of the state. */
@@ -107,6 +109,22 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
    * @param selectedQueryPreview - The selected query preview to save to the state.
    */
   setSelectedQueryPreview(selectedQueryPreview: QueryPreviewInfo | null): void;
+  /**
+   * Adds a new entry to the queryPreviewHistory list.
+   *
+   * @param queryPreview - The query preview item to add.
+   */
+  setQueryPreviewHistory(queryPreview: QueryPreviewItem): void;
+  /**
+   * Removes a queryPreview item from the queryPreviewHistory list.
+   *
+   * @param queryPreview - The query preview item to remove.
+   */
+  removeFromQueryPreviewHistory(queryPreview: QueryPreviewItem): void;
+  /**
+   * Removes the last item from the queryPreviewHistory list.
+   */
+  popQueryPreviewHistory(): void;
 }
 
 /**
@@ -130,6 +148,14 @@ export interface QueriesPreviewActions {
    * @param request - The request object to retrieve the query preview.
    */
   fetchAndSaveQueryPreview(request: SearchRequest): void;
+
+  /**
+   * Prepends the QueryPreviewItem to the queryPreviewHistory in the state.
+   * Limited by {@link QueriesPreviewConfig.maxQueryPreviewHistoryLength}.
+   *
+   * @param request - The request object to retrieve the query preview.
+   */
+  updateQueryPreviewHistory(request: SearchRequest): void;
 }
 
 /**
