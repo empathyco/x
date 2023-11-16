@@ -2,6 +2,7 @@ import { isFacetFilter } from '@empathyco/x-types';
 import { map } from '@empathyco/x-utils';
 import { groupItemsBy } from '../../../../utils/array';
 import { FacetsXStoreModule } from '../types';
+import { UNKNOWN_FACET_KEY } from '../constants';
 
 /**
  * Default implementation for the {@link FacetsGetters.facets} getter.
@@ -14,7 +15,7 @@ import { FacetsXStoreModule } from '../types';
  */
 export const facets: FacetsXStoreModule['getters']['facets'] = state => {
   const filtersByFacet = groupItemsBy(Object.values(state.filters), filter =>
-    isFacetFilter(filter) ? filter.facetId : '__unknown-facet__'
+    isFacetFilter(filter) ? filter.facetId : UNKNOWN_FACET_KEY
   );
   return map(state.facets, (_id, facet) => ({
     ...facet,

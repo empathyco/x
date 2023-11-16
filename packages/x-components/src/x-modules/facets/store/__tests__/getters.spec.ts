@@ -19,6 +19,7 @@ import { SafeStore } from '../../../../store/__tests__/utils';
 import { arrayToObject } from '../../../../utils/array';
 import { facetsXStoreModule } from '../module';
 import { FacetsActions, FacetsGetters, FacetsMutations, FacetsState } from '../types';
+import { UNKNOWN_FACET_KEY } from '../constants';
 import { resetFacetsStateWith } from './utils';
 
 describe('testing facets module getters', () => {
@@ -266,7 +267,7 @@ describe('testing facets module getters', () => {
         createNumberRangeFilter('price', { min: 25, max: 50 }, true),
         createEditableNumberRangeFilter('age', { min: null, max: 5 }),
         createEditableNumberRangeFilter('size', { min: null, max: null }),
-        // Raw filters don't belong to a facet so they will be under `__unknown-facet__` key
+        // Raw filters don't belong to a facet, so they will be under UNKNOWN_FACET_KEY key
         createRawFilter('size:xl')
       ]);
 
@@ -275,7 +276,7 @@ describe('testing facets module getters', () => {
         category: [store.state.filters['category:Shorts']],
         price: [store.state.filters['price:25-50']],
         age: [store.state.filters['age:*-5']],
-        ['__unknown-facet__']: [store.state.filters['size:xl']]
+        [UNKNOWN_FACET_KEY]: [store.state.filters['size:xl']]
       });
     });
 
@@ -326,7 +327,7 @@ describe('testing facets module getters', () => {
       const store = createFacetsStore([createRawFilter('size:xl')]);
 
       expect(store.getters.selectedFiltersByFacet).toEqual({
-        ['__unknown-facet__']: [store.state.filters['size:xl']]
+        [UNKNOWN_FACET_KEY]: [store.state.filters['size:xl']]
       });
     });
   });
