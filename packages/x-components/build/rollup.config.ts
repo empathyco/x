@@ -119,7 +119,7 @@ export const rollupConfig = createRollupOptions({
     copy({
       targets: [
         {
-          src: ['build-helpers', 'CHANGELOG.md', 'package.json', 'README.md', 'docs'],
+          src: ['CHANGELOG.md', 'package.json', 'README.md', 'docs'],
           dest: buildPath
         }
       ],
