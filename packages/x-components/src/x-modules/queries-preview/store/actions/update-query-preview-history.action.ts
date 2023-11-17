@@ -1,3 +1,4 @@
+import { deepEqual } from '@empathyco/x-utils';
 import { QueriesPreviewXStoreModule } from '../types';
 
 /**
@@ -16,7 +17,7 @@ export const updateQueryPreviewHistory: QueriesPreviewXStoreModule['actions']['u
     const loadedQueryPreview = getters.loadedQueriesPreview[query];
 
     // If the query preview item was already stored, remove the old one.
-    if (state.queryPreviewHistory.some(item => item === loadedQueryPreview)) {
+    if (state.queryPreviewHistory.some(item => deepEqual(item, loadedQueryPreview))) {
       commit('removeFromQueryPreviewHistory', {
         request,
         results: loadedQueryPreview.results,
