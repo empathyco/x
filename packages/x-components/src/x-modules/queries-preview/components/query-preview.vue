@@ -104,7 +104,7 @@
      *
      * @public
      */
-    @Prop({ default: true })
+    @Prop({ default: false })
     public clearOnDestroy!: boolean;
 
     /**
@@ -127,6 +127,9 @@
      */
     @State('queriesPreview', 'config')
     public config!: QueriesPreviewConfig;
+
+    @State('queriesPreview', 'queryPreviewHistory')
+    public queryPreviewHistory!: QueryPreviewItem[];
 
     /**
      * The results to render from the state.
@@ -223,6 +226,19 @@
         }
       );
       this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
+    }
+
+    /**
+     * Checks whether the current queryPreviewItem has been saved
+     * in the queryPreviewHistory in the state and emits load accordingly.
+     *
+     * @internal
+     */
+    protected beforeMount(): void {
+      const previewItem = this.previewResults[this.queryPreviewInfo.query];
+      if (this.queryPreviewHistory.some(item => deepEqual(item, previewItem))) {
+        this.$emit('load', this.queryPreviewInfo.query);
+      }
     }
 
     /**
