@@ -8,7 +8,8 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tailwind.config.ts",
-    "vite.config.ts"
+    "vite.config.ts",
+    "histoire.config.ts"
   ],
   "exclude": ["node_modules"]
 }

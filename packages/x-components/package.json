@@ -44,6 +44,7 @@
   },
   "scripts": {
     "serve": "vite",
+    "story:dev": "histoire dev",
     "preview": "vite build && vite preview",
     "build": "ts-node --project ./build/tsconfig.json ./build/build.ts",
     "build:website": "vite build",
@@ -95,6 +96,7 @@
     "@bahmutov/cypress-esbuild-preprocessor": "~2.2.0",
     "@cypress/vue2": "~2.0.1",
     "@empathyco/x-tailwindcss": "^1.1.0-alpha.0",
+    "@histoire/plugin-vue2": "^0.17.4",
     "@microsoft/api-documenter": "~7.22.0",
     "@microsoft/api-extractor": "~7.35.0",
     "@rollup/plugin-commonjs": "~25.0.0",
@@ -112,6 +114,7 @@
     "cypress": "~13.2.0",
     "esbuild": "0.17.19",
     "glob": "~10.2.0",
+    "histoire": "^0.17.5",
     "jest": "~27.5.0",
     "jest-scss-transform": "~1.0.1",
     "postcss": "~8.4.12",

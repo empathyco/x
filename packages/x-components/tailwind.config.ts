@@ -6,6 +6,7 @@ export default {
   content: [
     './public/index.html',
     './src/**/*.vue',
+    './src/**/*.story.vue',
     './node_modules/@empathyco/x-tailwindcss/showcase/**/*.js'
   ],
   prefix: 'x-',
