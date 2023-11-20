@@ -1,6 +1,5 @@
 name: Prepare stable release
 on: [workflow_dispatch]
-description: Warning - Be sure that last chore commit has a green pipeline before lauhching this workflow
 jobs:
   prepare-release:
     runs-on: ubuntu-latest
