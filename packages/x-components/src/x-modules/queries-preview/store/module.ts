@@ -48,8 +48,8 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     setQueryPreviewHistory(state, queryPreview) {
       state.queryPreviewHistory.push(queryPreview);
     },
-    removeFromQueryPreviewHistory(state, queryPreview) {
-      state.queryPreviewHistory.filter(item => item === queryPreview);
+    removeFromQueryPreviewHistory(state, queryPreviewItem) {
+      state.queryPreviewHistory.splice(state.queryPreviewHistory.indexOf(queryPreviewItem), 1);
     },
     popQueryPreviewHistory(state) {
       state.queryPreviewHistory.pop();
