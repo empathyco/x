@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.0-alpha.0...@empathyco/x-components@4.0.0-alpha.1) (2023-11-20)
+
+
+### Bug Fixes
+
+* use `cypress run` for headless testing (#1357) ([bc88050](https://github.com/empathyco/x/commit/bc88050a6c525e65d8b0e2d1adacf5d823df9137))
+
+
+
 ## [4.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@3.1.0-alpha.3...@empathyco/x-components@4.0.0-alpha.0) (2023-11-16)
 
 
