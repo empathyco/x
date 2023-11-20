@@ -128,6 +128,10 @@
     @State('queriesPreview', 'config')
     public config!: QueriesPreviewConfig;
 
+    /**
+     * The queryPreviewHistory of the queries that have been searched.
+     * It is a list of QueryPreviewItems.
+     */
     @State('queriesPreview', 'queryPreviewHistory')
     public queryPreviewHistory!: QueryPreviewItem[];
 
