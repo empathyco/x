@@ -26,12 +26,6 @@ export const updateQueryPreviewHistory: QueriesPreviewXStoreModule['actions']['u
       });
     }
 
-    // If the queryPreviewHistory list exceeds the configured max.length to store,
-    // pop the last item
-    if (state.queryPreviewHistory.length === state.config.maxQueryPreviewHistoryLength) {
-      commit('popQueryPreviewHistory');
-    }
-
     // Add query preview item to the queryPreviewHistory.
     commit('setQueryPreviewHistory', {
       request,

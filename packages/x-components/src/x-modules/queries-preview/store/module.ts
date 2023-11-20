@@ -14,8 +14,7 @@ import { updateQueryPreviewHistory } from './actions/update-query-preview-histor
 export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
   state: () => ({
     config: {
-      maxItemsToRequest: 24,
-      maxQueryPreviewHistoryLength: 5
+      maxItemsToRequest: 24
     },
     queriesPreview: {},
     queryPreviewHistory: [],
@@ -50,9 +49,6 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     },
     removeFromQueryPreviewHistory(state, queryPreviewItem) {
       state.queryPreviewHistory.splice(state.queryPreviewHistory.indexOf(queryPreviewItem), 1);
-    },
-    popQueryPreviewHistory(state) {
-      state.queryPreviewHistory.pop();
     }
   },
   actions: {

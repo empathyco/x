@@ -121,10 +121,6 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
    * @param queryPreview - The query preview item to remove.
    */
   removeFromQueryPreviewHistory(queryPreview: QueryPreviewItem): void;
-  /**
-   * Removes the last item from the queryPreviewHistory list.
-   */
-  popQueryPreviewHistory(): void;
 }
 
 /**
@@ -151,7 +147,6 @@ export interface QueriesPreviewActions {
 
   /**
    * Prepends the QueryPreviewItem to the queryPreviewHistory in the state.
-   * Limited by {@link QueriesPreviewConfig.maxQueryPreviewHistoryLength}.
    *
    * @param request - The request object to retrieve the query preview.
    */
