@@ -1,6 +1,6 @@
 import { SearchRequest } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
-import { QueryPreviewInfo } from './store/index';
+import { QueryPreviewInfo, QueryPreviewItem } from './store/index';
 
 /**
  * Dictionary of the events of QueriesPreview XModule, where each key is the event name, and the
@@ -16,9 +16,9 @@ export interface QueriesPreviewXEvents {
   QueryPreviewRequestUpdated: SearchRequest;
   /**
    * The component that shows a Query preview has been unmounted.
-   * Payload: The query whose preview has been removed.
+   * Payload: The query preview item.
    */
-  QueryPreviewUnmountedHook: string;
+  QueryPreviewUnmountedHook: QueryPreviewItem;
   /**
    * User has clicked on a query preview.
    * Payload: The {@link QueryPreviewInfo | query preview info}

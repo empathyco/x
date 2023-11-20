@@ -18,7 +18,7 @@ export const updateQueryPreviewHistory: QueriesPreviewXStoreModule['actions']['u
 
     // If the query preview item was already stored, remove the old one.
     if (state.queryPreviewHistory.some(item => deepEqual(item, loadedQueryPreview))) {
-      commit('removeFromQueryPreviewHistory', {
+      commit('clearFromQueryPreviewHistory', {
         request,
         results: loadedQueryPreview.results,
         status: loadedQueryPreview.status,

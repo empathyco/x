@@ -120,7 +120,7 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
    *
    * @param queryPreview - The query preview item to remove.
    */
-  removeFromQueryPreviewHistory(queryPreview: QueryPreviewItem): void;
+  clearFromQueryPreviewHistory(queryPreview: QueryPreviewItem): void;
 }
 
 /**

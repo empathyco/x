@@ -253,7 +253,8 @@
       this.emitQueryPreviewRequestUpdated.cancel();
 
       if (this.clearOnDestroy) {
-        this.$x.emit('QueryPreviewUnmountedHook', this.queryPreviewInfo.query, {
+        const previewItem = this.previewResults[this.queryPreviewInfo.query];
+        this.$x.emit('QueryPreviewUnmountedHook', previewItem, {
           priority: 0,
           replaceable: false
         });

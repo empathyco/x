@@ -37,7 +37,17 @@ export const fetchAndSaveQueryPreviewWire = wireDispatch('fetchAndSaveQueryPrevi
  *
  * @public
  */
-export const clearQueryPreviewWire = wireCommit('clearQueryPreview');
+export const clearQueryPreviewWire = wireCommit(
+  'clearQueryPreview',
+  ({ eventPayload: { request } }) => request['query']
+);
+
+/**
+ * Clears a query preview from the query preview history list.
+ *
+ * @public
+ */
+export const clearFromQueryPreviewHistoryWire = wireCommit('clearFromQueryPreviewHistory');
 
 /**
  * Sets the queries preview state `params`.
@@ -70,7 +80,8 @@ export const queriesPreviewWiring = createWiring({
     fetchAndSaveQueryPreviewWire
   },
   QueryPreviewUnmountedHook: {
-    clearQueryPreviewWire
+    clearQueryPreviewWire,
+    clearFromQueryPreviewHistoryWire
   },
   UserAcceptedAQueryPreview: {
     setSelectedQueryPreviewWire
