@@ -26,8 +26,12 @@ jobs:
       - name: lint packages
         run: pnpm run lint
 
-      - name: test packages
-        run: pnpm run test
+      - name: Run tests
+        run: pnpm run test:unit
+
+      - name: Run e2e tests
+        timeout-minutes: 15
+        uses: ./.github/actions/run-e2e-tests
 
       - name: configure git user
         run: |
