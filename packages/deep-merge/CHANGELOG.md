@@ -10,7 +10,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-
 ## [2.0.2-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-deep-merge@2.0.1-alpha.0...@empathyco/x-deep-merge@2.0.2-alpha.0) (2023-11-22)
 
 **Note:** Version bump only for package @empathyco/x-deep-merge
