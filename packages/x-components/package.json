@@ -91,7 +91,7 @@
     "vuex": "^3.0.0"
   },
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "~17.2.0",
+    "@badeball/cypress-cucumber-preprocessor": "~19.1.0",
     "@bahmutov/cypress-esbuild-preprocessor": "~2.2.0",
     "@cypress/vue2": "~2.0.1",
     "@empathyco/x-tailwindcss": "^1.1.1",
