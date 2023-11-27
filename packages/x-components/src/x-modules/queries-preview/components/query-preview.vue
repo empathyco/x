@@ -216,6 +216,19 @@
     }
 
     /**
+     * Checks whether the current queryPreviewItem has been saved
+     * in the queryPreviewHistory in the state.
+     *
+     * @internal
+     *
+     * @returns True if the query has been saved.
+     */
+    protected get isSavedQuery(): boolean {
+      const previewItem = this.previewResults[this.queryPreviewInfo.query];
+      return this.queryPreviewHistory.some(item => deepEqual(item, previewItem));
+    }
+
+    /**
      * Initialises watcher to emit debounced requests, and first value for the requests.
      *
      * @internal
@@ -229,19 +242,12 @@
           }
         }
       );
-      this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
-    }
 
-    /**
-     * Checks whether the current queryPreviewItem has been saved
-     * in the queryPreviewHistory in the state and emits load accordingly.
-     *
-     * @internal
-     */
-    protected beforeMount(): void {
-      const previewItem = this.previewResults[this.queryPreviewInfo.query];
-      if (this.queryPreviewHistory.some(item => deepEqual(item, previewItem))) {
+      // If the query has been saved it will emit load instead of the emitting the updated request.
+      if (this.isSavedQuery) {
         this.$emit('load', this.queryPreviewInfo.query);
+      } else {
+        this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
       }
     }
 
