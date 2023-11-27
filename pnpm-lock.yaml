@@ -720,8 +720,8 @@ importers:
         version: 2.5.0
     devDependencies:
       '@empathyco/x-jest-utils':
-        specifier: ^1.4.0-alpha.11
-        version: 1.4.0-alpha.11
+        specifier: ^2.0.0
+        version: link:../jest-utils
       '@microsoft/api-documenter':
         specifier: ~7.22.0
         version: 7.22.0(@types/node@18.16.0)
@@ -2017,11 +2017,6 @@ packages:
       lodash.once: 4.1.1
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /@empathyco/x-jest-utils@1.4.0-alpha.11:
-    resolution: {integrity: sha512-yl68CngEeXGfHXZAzqypIeRTnaHkuoLLBNJt13chvl1d9VgYixN8CXBlzfghMHeWGNyQNqGjqwlJ8f+P4xxV9g==}
-    engines: {node: '>=16'}
     dev: true
 
   /@empathyco/x-logger@1.2.0-alpha.11:
