@@ -66,7 +66,10 @@ evolves.
   such as [prettier](https://prettier.io/).
 - **[@empathyco/x-jest-utils](/packages/jest-utils)** - Jest extensions for easier testing.
 - **[@empathyco/x-logger](/packages/logger)** - A custom implementation of a logger.
-- **[@empathyco/x-adapter](/packages/search-adapter)** - A search client for Empathy's Search API.
+- **[@empathyco/x-adapter](/packages/x-adapter)** - A set of tools to manage trough schemas API
+  calls and transform the responses to map it to x-types
+- **[@empathyco/x-adapter-platform](/packages/x-adapter-platform)** - A x-adapter implementation to
+  manage requests and responses to Empathy Platform APIs
 - **[@empathyco/x-types](/packages/x-types)** - TypeScript types & guards for X models.
 - **[@empathyco/x-storage-service](/packages/storage-service)** - Storage service with TTL.
 - **[@empathyco/x-react-wrapper](/packages/react-wrapper)** - A proxy that transforms Vue components
@@ -74,6 +77,12 @@ evolves.
 - **[@empathyco/x-translations](/packages/x-translations)** - A project that allows you to import
   and export the translations.
 - **[@empathyco/x-utils](/packages/x-utils)** - provides utilities to ease the development.
+- **[@empathyco/x-archetype-utils](/packages/x-archetype-utils)** - provides utilities to ease the
+  development. It's used in the Interface X Archetype project.
+- **[@empathyco/x-bus](/packages/x-bus)** - provides an event bus to help with event orchestration.
+- **[@empathyco/x-tailwind](/packages/x-tailwind)** - Empathy X Tailwind plugin that represent a
+  design system builder. With this package you are able to create a design system through a
+  cofiguration file
 
 ## How to contribute
 
@@ -117,7 +126,8 @@ development environment, proceed as follows:
 
 1. Fork the X repo and then clone it to your local environment:
    `git clone https://github.com/empathyco/x.git`.
-2. Install the dependencies in the root folder: `npm install`. This links all the projects.
+2. Install the dependencies in the root folder: `pnpm install --frozen-lockfile`. This links all the
+   projects.
 3. Run a build so that the linked projects work: `npm run build`.
 
 ### Pull requests

@@ -129,12 +129,10 @@ We are working on many key features to consolidate Interface X, including these 
 - **Filtering Strategies**: Added filtering capabilities to History Queries and Brand
   Recommendations
   [![Release Docs](https://img.shields.io/badge/Released-October%202023-brightgreen)](https://docs.empathy.co/explore-empathy-platform/experience-search-and-discovery/history-queries.html)
-- **Suggestions with filters** that allows to select a query suggestion with a specific filter.
-  ![Release Docs](https://img.shields.io/badge/Discovery-Q3%202023-blue)
-- **Result Preview component** to rapidly discover more result attributed without leaving the SERP.
-  ![Release Docs](https://img.shields.io/badge/Discovery-Q4%202023-blue)
+- **Experience Controls**: Add capability of loading configurations from an external service
+  [![Release Docs](https://img.shields.io/badge/In%20Progress-yellow)](https://vuejs.org/)
 - **Vue 3 Migration**.
-  [![Release Docs](https://img.shields.io/badge/Discovery-Q4%202023-blue)](https://vuejs.org/)
+  [![Release Docs](https://img.shields.io/badge/In%20Progress-yellow)](https://vuejs.org/)
 - **Network Request failure transparency**.
 - **Project generator CLI**.
 - **Observability**: Error capturing & monitoring.
