@@ -47,7 +47,10 @@ export const clearQueryPreviewWire = wireCommit(
  *
  * @public
  */
-export const clearFromQueryPreviewHistoryWire = wireCommit('clearFromQueryPreviewHistory');
+export const clearFromQueryPreviewHistoryWire = wireCommit(
+  'clearFromQueryPreviewHistory',
+  ({ eventPayload: { request } }) => request['query']
+);
 
 /**
  * Sets the queries preview state `params`.

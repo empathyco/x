@@ -130,10 +130,10 @@
 
     /**
      * The queryPreviewHistory of the queries that have been searched.
-     * It is a list of QueryPreviewItems.
+     * It is a list of queries.
      */
     @State('queriesPreview', 'queryPreviewHistory')
-    public queryPreviewHistory!: QueryPreviewItem[];
+    public queryPreviewHistory!: string[];
 
     /**
      * The results to render from the state.
@@ -216,7 +216,7 @@
     }
 
     /**
-     * Checks whether the current queryPreviewItem has been saved
+     * Checks whether the current queryPreviewItem query has been saved
      * in the queryPreviewHistory in the state.
      *
      * @internal
@@ -224,8 +224,10 @@
      * @returns True if the query has been saved.
      */
     protected get isSavedQuery(): boolean {
-      const previewItem = this.previewResults[this.queryPreviewInfo.query];
-      return this.queryPreviewHistory.some(item => deepEqual(item, previewItem));
+      const previewItemQuery = this.previewResults[this.queryPreviewInfo.query];
+      return previewItemQuery
+        ? this.queryPreviewHistory.some(item => item === previewItemQuery.request.query)
+        : false;
     }
 
     /**

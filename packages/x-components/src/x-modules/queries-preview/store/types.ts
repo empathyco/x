@@ -51,8 +51,8 @@ export interface QueryPreviewInfo {
 export interface QueriesPreviewState {
   /* The request and results */
   queriesPreview: Dictionary<QueryPreviewItem>;
-  /* List of the most recent used queries preview */
-  queryPreviewHistory: QueryPreviewItem[];
+  /* List of the most recent used queries preview queries */
+  queryPreviewHistory: string[];
   /** The configuration of the queries preview module. */
   config: QueriesPreviewConfig;
   /** The extra params property of the state. */
@@ -112,15 +112,15 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
   /**
    * Adds a new entry to the queryPreviewHistory list.
    *
-   * @param queryPreview - The query preview item to add.
+   * @param query - The query to add.
    */
-  setQueryPreviewHistory(queryPreview: QueryPreviewItem): void;
+  setQueryPreviewHistory(query: string): void;
   /**
-   * Removes a queryPreview item from the queryPreviewHistory list.
+   * Removes a query from the queryPreviewHistory list.
    *
-   * @param queryPreview - The query preview item to remove.
+   * @param query - The query to remove.
    */
-  clearFromQueryPreviewHistory(queryPreview: QueryPreviewItem): void;
+  clearFromQueryPreviewHistory(query: string): void;
   /**
    * Removes the first item from the queryPreviewHistory list.
    */

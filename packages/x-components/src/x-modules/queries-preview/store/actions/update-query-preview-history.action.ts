@@ -1,4 +1,3 @@
-import { deepEqual } from '@empathyco/x-utils';
 import { QueriesPreviewXStoreModule } from '../types';
 
 /**
@@ -14,29 +13,23 @@ import { QueriesPreviewXStoreModule } from '../types';
 export const updateQueryPreviewHistory: QueriesPreviewXStoreModule['actions']['updateQueryPreviewHistory'] =
   ({ commit, state, getters }, request) => {
     const { query } = request;
-    const loadedQueryPreview = getters.loadedQueriesPreview[query];
+    const loadedQueryPreview = getters.loadedQueriesPreview[query].request.query;
 
-    // If the query preview item was already stored, remove the old one.
-    if (state.queryPreviewHistory.some(item => deepEqual(item, loadedQueryPreview))) {
-      commit('clearFromQueryPreviewHistory', {
-        request,
-        results: loadedQueryPreview.results,
-        status: loadedQueryPreview.status,
-        totalResults: loadedQueryPreview.totalResults
-      });
+    // If the query preview was already stored, remove the old one.
+    if (state.queryPreviewHistory.some(item => item === loadedQueryPreview)) {
+      commit('clearFromQueryPreviewHistory', query);
     }
 
     // If the queryPreviewHistory list exceeds the configured max.length to store,
-    // remove the first item
+    // remove the first item from the list and from the QueriesPreview state.
     if (state.queryPreviewHistory.length === state.config.maxQueryPreviewHistoryLength) {
       commit('shiftQueryPreviewHistory');
+      commit(
+        'clearQueryPreview',
+        state.queriesPreview[Object.keys(state.queriesPreview)[0]].request.query
+      );
     }
 
-    // Add query preview item to the queryPreviewHistory.
-    commit('setQueryPreviewHistory', {
-      request,
-      results: loadedQueryPreview.results,
-      status: loadedQueryPreview.status,
-      totalResults: loadedQueryPreview.totalResults
-    });
+    // Add the query preview item query to the queryPreviewHistory.
+    commit('setQueryPreviewHistory', query);
   };

@@ -45,11 +45,11 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     },
     setConfig,
     mergeConfig,
-    setQueryPreviewHistory(state, queryPreview) {
-      state.queryPreviewHistory.push(queryPreview);
+    setQueryPreviewHistory(state, query) {
+      state.queryPreviewHistory.push(query);
     },
-    clearFromQueryPreviewHistory(state, queryPreviewItem) {
-      state.queryPreviewHistory.splice(state.queryPreviewHistory.indexOf(queryPreviewItem), 1);
+    clearFromQueryPreviewHistory(state, query) {
+      state.queryPreviewHistory.splice(state.queryPreviewHistory.indexOf(query), 1);
     },
     shiftQueryPreviewHistory(state) {
       state.queryPreviewHistory.shift();
