@@ -13,10 +13,10 @@ import { QueriesPreviewXStoreModule } from '../types';
 export const updateQueryPreviewHistory: QueriesPreviewXStoreModule['actions']['updateQueryPreviewHistory'] =
   ({ commit, state, getters }, request) => {
     const { query } = request;
-    const loadedQueryPreview = getters.loadedQueriesPreview[query].request.query;
+    const loadedQueryPreview = getters.loadedQueriesPreview[query]?.request?.query ?? undefined;
 
     // If the query preview was already stored, remove the old one.
-    if (state.queryPreviewHistory.some(item => item === loadedQueryPreview)) {
+    if (loadedQueryPreview && state.queryPreviewHistory.some(item => item === loadedQueryPreview)) {
       commit('clearFromQueryPreviewHistory', query);
     }
 
