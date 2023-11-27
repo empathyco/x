@@ -202,8 +202,8 @@ importers:
   packages/storage-service:
     dependencies:
       '@empathyco/x-logger':
-        specifier: ^1.2.0-alpha.11
-        version: 1.2.0-alpha.11
+        specifier: ^2.0.0
+        version: link:../logger
       tslib:
         specifier: ~2.5.0
         version: 2.5.0
@@ -393,8 +393,8 @@ importers:
         specifier: ^2.0.2
         version: link:../deep-merge
       '@empathyco/x-logger':
-        specifier: ^1.2.0-alpha.11
-        version: 1.2.0-alpha.11
+        specifier: ^2.0.0
+        version: link:../logger
       '@empathyco/x-storage-service':
         specifier: ^2.0.2
         version: link:../storage-service
@@ -2023,13 +2023,6 @@ packages:
     resolution: {integrity: sha512-yl68CngEeXGfHXZAzqypIeRTnaHkuoLLBNJt13chvl1d9VgYixN8CXBlzfghMHeWGNyQNqGjqwlJ8f+P4xxV9g==}
     engines: {node: '>=16'}
     dev: true
-
-  /@empathyco/x-logger@1.2.0-alpha.11:
-    resolution: {integrity: sha512-fZMkFGcAV8HM0fKW6YyUAYMEf+snZyg41SSnxTezgsoOr6mhJr95SoPH/wlXx0fLEC5u9K2OPdMZtoLHMnBSJw==}
-    engines: {node: '>=16'}
-    dependencies:
-      tslib: 2.5.0
-    dev: false
 
   /@es-joy/jsdoccomment@0.36.1:
     resolution: {integrity: sha512-922xqFsTpHs6D0BUiG4toiyPOMc8/jafnWKxz1KWgS4XzKPy2qXf1Pe6UFuNSCQqt6tOuhAWXBNuuyUhJmw9Vg==}
