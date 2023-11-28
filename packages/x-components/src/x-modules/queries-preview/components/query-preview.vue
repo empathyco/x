@@ -263,10 +263,8 @@
      */
     protected beforeDestroy(): void {
       this.emitQueryPreviewRequestUpdated.cancel();
-
       if (this.clearOnDestroy) {
-        const previewItem = this.previewResults[this.queryPreviewInfo.query];
-        this.$x.emit('QueryPreviewUnmountedHook', previewItem, {
+        this.$x.emit('QueryPreviewUnmountedHook', this.queryPreviewInfo.query, {
           priority: 0,
           replaceable: false
         });
