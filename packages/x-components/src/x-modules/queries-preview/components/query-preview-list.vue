@@ -72,7 +72,7 @@
      *
      * @public
      */
-    @Prop({ default: false })
+    @Prop({ default: true })
     public clearOnDestroy!: boolean;
 
     /**
