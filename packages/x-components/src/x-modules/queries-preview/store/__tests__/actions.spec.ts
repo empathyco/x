@@ -5,10 +5,10 @@ import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { queriesPreviewXStoreModule } from '../module';
 import {
-  QueriesPreviewState,
+  QueriesPreviewActions,
   QueriesPreviewGetters,
   QueriesPreviewMutations,
-  QueriesPreviewActions,
+  QueriesPreviewState,
   QueryPreviewItem
 } from '../types';
 import { getQueryPreviewRequest } from '../../../../__stubs__/queries-preview-stubs.factory';
@@ -103,6 +103,53 @@ describe('testing queries preview module actions', () => {
 
       expect('milk' in store.state.queriesPreview).toBeTruthy();
       expect('cookies' in store.state.queriesPreview).toBeTruthy();
+    });
+  });
+
+  describe('updateQueryPreviewHistory', () => {
+    it('should store the searched query when a request has been made', async () => {
+      const firstRequest = getQueryPreviewRequest('sandals');
+      const secondRequest = getQueryPreviewRequest('socks');
+
+      await store.dispatch('fetchAndSaveQueryPreview', firstRequest);
+      expect(store.state.queryPreviewHistory).toHaveLength(1);
+
+      await store.dispatch('fetchAndSaveQueryPreview', secondRequest);
+      expect(store.state.queryPreviewHistory).toHaveLength(2);
+    });
+
+    // eslint-disable-next-line max-len
+    it('should remove the query preview if it was already stored and reboot the list with the new one', async () => {
+      const firstRequest = getQueryPreviewRequest('lego');
+      const secondRequest = getQueryPreviewRequest('spiderman');
+      const thirdRequest = getQueryPreviewRequest('lego');
+
+      await store.dispatch('fetchAndSaveQueryPreview', firstRequest);
+      await store.dispatch('fetchAndSaveQueryPreview', secondRequest);
+      expect(store.state.queryPreviewHistory).toEqual(['lego', 'spiderman']);
+
+      await store.dispatch('fetchAndSaveQueryPreview', thirdRequest);
+      expect(store.state.queryPreviewHistory).toHaveLength(2);
+      expect(store.state.queryPreviewHistory).toEqual(['spiderman', 'lego']);
+    });
+
+    // eslint-disable-next-line max-len
+    it('should remove the first query from the state if the queryPreviewHistory list exceeds the configured max.length to store', async () => {
+      const firstRequest = getQueryPreviewRequest('butterfly');
+      const secondRequest = getQueryPreviewRequest('panda');
+      const thirdRequest = getQueryPreviewRequest('crocodile');
+      store.state.config.maxQueryPreviewHistoryLength = 2;
+
+      await store.dispatch('fetchAndSaveQueryPreview', firstRequest);
+      await store.dispatch('fetchAndSaveQueryPreview', secondRequest);
+      await store.dispatch('fetchAndSaveQueryPreview', thirdRequest);
+
+      expect(store.state.queryPreviewHistory).toEqual(['panda', 'crocodile']);
+      expect('butterfly' in store.state.queriesPreview).toBeFalsy();
+
+      await store.dispatch('fetchAndSaveQueryPreview', firstRequest);
+      expect(store.state.queryPreviewHistory).toEqual(['crocodile', 'butterfly']);
+      expect('panda' in store.state.queriesPreview).toBeFalsy();
     });
   });
 });
