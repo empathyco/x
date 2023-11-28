@@ -10,7 +10,6 @@
         @error="flagAsFailed"
         v-bind="$attrs"
         :queryPreviewInfo="queryPreview"
-        :clearOnDestroy="clearOnDestroy"
       >
         <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="scope">
           <slot :name="slotName" v-bind="scope" />
@@ -65,15 +64,6 @@
      */
     @Prop({ required: true })
     public queriesPreviewInfo!: QueryPreviewInfo[];
-
-    /**
-     * Controls whether the QueryPreview should be removed from the state
-     * when the component is destroyed.
-     *
-     * @public
-     */
-    @Prop({ default: true })
-    public clearOnDestroy!: boolean;
 
     /**
      * Contains the status of the preview requests, indexed by query.

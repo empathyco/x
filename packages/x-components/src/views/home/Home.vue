@@ -252,6 +252,7 @@
                   :queriesPreviewInfo="queriesPreviewInfo"
                   #default="{ queryPreviewInfo, totalResults, results }"
                   data-test="brand-recommendation"
+                  :clearOnDestroy="false"
                 >
                   <div class="x-flex x-flex-col x-gap-8 x-mb-16">
                     <QueryPreviewButton
@@ -357,7 +358,6 @@
                     :queries-preview-info="queries.map(q => ({ query: q }))"
                     #default="{ queryPreviewInfo: { query }, results }"
                     queryFeature="semantics"
-                    :clearOnDestroy="true"
                   >
                     <div
                       class="x-flex x-flex-col x-gap-8 x-mb-16"
