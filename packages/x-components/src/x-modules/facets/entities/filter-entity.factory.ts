@@ -1,6 +1,7 @@
 import { Facet, FilterModelName, Filter, isFacetFilter } from '@empathyco/x-types';
 import { Store } from 'vuex';
 import { RootXStoreState } from '../../../store/store.types';
+import { UNKNOWN_FACET_KEY } from '../store/constants';
 import { EditableNumberRangeFilterEntity } from './editable-number-range-filter.entity';
 import { HierarchicalFilterEntity } from './hierarchical-filter.entity';
 import { NumberRangeFilterEntity } from './number-range-filter.entity';
@@ -49,7 +50,7 @@ export class FilterEntityFactory {
    *
    * @internal
    */
-  protected cache: Record<Facet['id'] | '__unknown-facet__', FilterEntity> = {};
+  protected cache: Record<Facet['id'] | typeof UNKNOWN_FACET_KEY, FilterEntity> = {};
 
   /**
    * Creates a new FilterEntity from a filter.
@@ -61,7 +62,7 @@ export class FilterEntityFactory {
    * @returns The {@link FilterEntity} created by the factory.
    */
   getFilterEntity(store: Store<RootXStoreState>, filter: Filter): FilterEntity {
-    const cacheKey = isFacetFilter(filter) ? filter.facetId : '__unknown-facet__';
+    const cacheKey = isFacetFilter(filter) ? filter.facetId : UNKNOWN_FACET_KEY;
     return this.cache[cacheKey] ?? (this.cache[cacheKey] = this.createFilterEntity(store, filter));
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-storage-service",
-  "version": "2.0.1-alpha.0",
+  "version": "2.0.3-alpha.0",
   "description": "Storage service with TTL",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@empathyco/x-logger": "^1.2.0-alpha.11",
-    "tslib": "~2.5.0"
+    "tslib": "~2.6.0"
   },
   "devDependencies": {
     "@types/jest": "~27.5.0",

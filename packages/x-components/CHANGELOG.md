@@ -3,6 +3,64 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.2-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.1...@empathyco/x-components@4.0.2-alpha.0) (2023-11-29)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [4.0.1](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.1-alpha.0...@empathyco/x-components@4.0.1) (2023-11-24)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [4.0.1-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.0-alpha.1...@empathyco/x-components@4.0.1-alpha.0) (2023-11-22)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [4.0.0](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.0-alpha.1...@empathyco/x-components@4.0.0) (2023-11-21)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [4.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.0-alpha.0...@empathyco/x-components@4.0.0-alpha.1) (2023-11-20)
+
+
+### Bug Fixes
+
+* use `cypress run` for headless testing (#1357) ([bc88050](https://github.com/empathyco/x/commit/bc88050a6c525e65d8b0e2d1adacf5d823df9137))
+
+
+
+## [4.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@3.1.0-alpha.3...@empathyco/x-components@4.0.0-alpha.0) (2023-11-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **components:** remove deprecated origins from (#1344)
+* **facets:** The '__unknown-facet__' value for a facetId is deprecated: it has been replaced by the UNKNOWN_FACET_KEY constant, whose value is '__unknown__'.
+
+Co-authored-by: Guillermo Cacheda <cachedacodes@gmail.com>
+
+### Features
+
+* **components:** remove deprecated origins (#1355) ([3d7c981](https://github.com/empathyco/x/commit/3d7c981380bd8af30724780f7810808d563db471))
+* **facets:** Unify __unknown__ and __unknown-facet__ in a constant (#1351) ([30585f2](https://github.com/empathyco/x/commit/30585f2d57653aa33c68f748ff10f93202f1887e))
+
+
+
 ## [3.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@3.1.0-alpha.2...@empathyco/x-components@3.1.0-alpha.3) (2023-11-13)
 
 

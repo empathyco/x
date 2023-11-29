@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-types",
-  "version": "10.0.1-alpha.0",
+  "version": "10.0.3-alpha.0",
   "description": "Empathy search types",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -37,14 +37,14 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@empathyco/x-adapter": "^8.0.1-alpha.0",
-    "@empathyco/x-utils": "^1.0.1-alpha.0",
-    "tslib": "~2.5.0"
+    "@empathyco/x-adapter": "^8.0.3-alpha.0",
+    "@empathyco/x-utils": "^1.0.3-alpha.0",
+    "tslib": "~2.6.0"
   },
   "devDependencies": {
     "@empathyco/x-jest-utils": "^1.4.0-alpha.11",
-    "@microsoft/api-documenter": "~7.22.0",
-    "@microsoft/api-extractor": "~7.35.0",
+    "@microsoft/api-documenter": "~7.23.0",
+    "@microsoft/api-extractor": "~7.38.0",
     "@types/jest": "~27.5.0",
     "jest": "~27.5.0",
     "rollup": "~4.4.1",

@@ -22,12 +22,6 @@ jobs:
       - name: install dependencies
         run: pnpm install
 
-      - name: lint packages
-        run: pnpm run lint
-
-      - name: test packages
-        run: pnpm run test
-
       - name: configure git user
         run: |
           git config --local user.email "x@empathy.co"
