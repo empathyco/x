@@ -39,17 +39,17 @@
   "dependencies": {
     "@empathyco/x-adapter": "^8.0.2",
     "@empathyco/x-utils": "^1.0.2",
-    "tslib": "~2.5.0"
+    "tslib": "~2.6.0"
   },
   "devDependencies": {
     "@empathyco/x-jest-utils": "^1.4.0-alpha.11",
-    "@microsoft/api-documenter": "~7.22.0",
-    "@microsoft/api-extractor": "~7.35.0",
+    "@microsoft/api-documenter": "~7.23.0",
+    "@microsoft/api-extractor": "~7.38.0",
     "@types/jest": "~27.5.0",
     "jest": "~27.5.0",
     "rollup": "~2.79.1",
     "rollup-plugin-delete": "~2.0.0",
-    "rollup-plugin-typescript2": "~0.34.1",
+    "rollup-plugin-typescript2": "~0.36.0",
     "typescript": "~4.9.4"
   },
   "publishConfig": {
