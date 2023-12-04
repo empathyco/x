@@ -36,7 +36,7 @@ jobs:
           token: ${{ github.token }}
           commit-message: "chore(release): prepare stable release"
           committer: Interface X <x@empathy.co>
-          title: Stable release
+          title: "chore(release): prepare stable release"
           body: Release preparation
           branch: release
           delete-branch: true
