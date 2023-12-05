@@ -105,7 +105,7 @@
      * @public
      */
     @Prop({ default: false })
-    public clearOnDestroy!: boolean;
+    public saveCache!: boolean;
 
     /**
      * The results preview of the queries preview mounted.
@@ -127,13 +127,6 @@
      */
     @State('queriesPreview', 'config')
     public config!: QueriesPreviewConfig;
-
-    /**
-     * The queryPreviewHistory of the queries that have been searched.
-     * It is a list of queries.
-     */
-    @State('queriesPreview', 'queryPreviewHistory')
-    public queryPreviewHistory!: string[];
 
     /**
      * The results to render from the state.
@@ -217,17 +210,15 @@
 
     /**
      * Checks whether the current queryPreviewItem query has been saved
-     * in the queryPreviewHistory in the state.
+     * in the queriesPreview in the state.
      *
      * @internal
      *
      * @returns True if the query has been saved.
      */
     protected get isSavedQuery(): boolean {
-      const previewItemQuery = this.previewResults[this.queryPreviewInfo.query];
-      return previewItemQuery
-        ? this.queryPreviewHistory.some(item => item === previewItemQuery.request.query)
-        : false;
+      const previewItemQuery = this.queryPreviewInfo.query;
+      return !!this.previewResults[previewItemQuery];
     }
 
     /**
@@ -256,14 +247,14 @@
     /**
      * Cancels the (remaining) requests when the component is destroyed
      * via the `debounce.cancel()` method.
-     * If the prop 'clearOnDestroy' is set to true, it also removes the QueryPreview
+     * If the prop 'useCache' is set to true, it also removes the QueryPreview
      * from the state when the component is destroyed.
      *
      * @internal
      */
     protected beforeDestroy(): void {
       this.emitQueryPreviewRequestUpdated.cancel();
-      if (this.clearOnDestroy) {
+      if (!this.saveCache) {
         this.$x.emit('QueryPreviewUnmountedHook', this.queryPreviewInfo.query, {
           priority: 0,
           replaceable: false

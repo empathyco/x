@@ -39,8 +39,5 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
         // eslint-disable-next-line no-console
         console.error(error);
         commit('setStatus', { query, status: 'error' });
-      })
-      .then(() => {
-        return dispatch('updateQueryPreviewHistory', request);
       });
   };

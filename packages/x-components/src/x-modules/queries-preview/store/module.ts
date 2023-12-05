@@ -4,7 +4,6 @@ import { QueriesPreviewXStoreModule } from './types';
 import { fetchQueryPreview } from './actions/fetch-query-preview.action';
 import { fetchAndSaveQueryPreview } from './actions/fetch-and-save-query-preview.action';
 import { loadedQueriesPreview } from './getters/loaded-queries-preview.getter';
-import { updateQueryPreviewHistory } from './actions/update-query-preview-history.action';
 
 /**
  * {@link XStoreModule} For the `queries-preview` module.
@@ -14,11 +13,9 @@ import { updateQueryPreviewHistory } from './actions/update-query-preview-histor
 export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
   state: () => ({
     config: {
-      maxItemsToRequest: 24,
-      maxQueryPreviewHistoryLength: 5
+      maxItemsToRequest: 24
     },
     queriesPreview: {},
-    queryPreviewHistory: [],
     selectedQueryPreview: {
       query: '',
       extraParams: undefined,
@@ -44,20 +41,10 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
       state.selectedQueryPreview = selectedQueryPreview;
     },
     setConfig,
-    mergeConfig,
-    setQueryPreviewHistory(state, query) {
-      state.queryPreviewHistory.push(query);
-    },
-    clearFromQueryPreviewHistory(state, query) {
-      state.queryPreviewHistory.splice(state.queryPreviewHistory.indexOf(query), 1);
-    },
-    shiftQueryPreviewHistory(state) {
-      state.queryPreviewHistory.shift();
-    }
+    mergeConfig
   },
   actions: {
     fetchQueryPreview,
-    fetchAndSaveQueryPreview,
-    updateQueryPreviewHistory
+    fetchAndSaveQueryPreview
   }
 };
