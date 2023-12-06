@@ -22,6 +22,7 @@ function renderQueryPreview({
   queryPreviewInfo = { query: 'milk' },
   location,
   queryFeature,
+  saveCache = false,
   debounceTimeMs = 0,
   template = `<QueryPreview v-bind="$attrs" />`,
   queryPreview = {
@@ -66,7 +67,8 @@ function renderQueryPreview({
         maxItemsToRender,
         queryPreviewInfo,
         queryFeature,
-        debounceTimeMs
+        debounceTimeMs,
+        saveCache
       }
     }
   ).findComponent(QueryPreview);
@@ -103,6 +105,7 @@ describe('query preview', () => {
 
   it('sends the `QueryPreviewRequestUpdated` event', async () => {
     const { queryPreviewRequestUpdatedSpy, wrapper, updateExtraParams } = renderQueryPreview({
+      saveCache: false,
       queryPreviewInfo: {
         query: 'shoes',
         extraParams: { directory: 'Magrathea' },
@@ -425,6 +428,8 @@ interface RenderQueryPreviewOptions {
   maxItemsToRender?: number;
   /** The query preview info for which preview its results. */
   queryPreviewInfo?: QueryPreviewInfo;
+  /** Boolean to save queries preview in the cache. */
+  saveCache?: boolean;
   /** The location of the query preview in the DOM. */
   location?: string;
   /** The name of the tool that generated the query. */

@@ -237,7 +237,7 @@
       );
 
       // If the query has been saved it will emit load instead of the emitting the updated request.
-      if (this.isSavedQuery) {
+      if (this.isSavedQuery && this.saveCache) {
         this.$emit('load', this.queryPreviewInfo.query);
       } else {
         this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
