@@ -103,6 +103,20 @@ describe('query preview', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toBe('queriesPreview');
   });
 
+  it('no sends the `QueryPreviewRequestUpdated` event', () => {
+    const { queryPreviewRequestUpdatedSpy } = renderQueryPreview({
+      saveCache: true,
+      queryPreviewInfo: {
+        query: 'shoes',
+        extraParams: { directory: 'Magrathea' },
+        filters: ['fit:regular']
+      }
+    });
+
+    jest.advanceTimersByTime(0); // Wait for first emission.
+    expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0);
+  });
+
   it('sends the `QueryPreviewRequestUpdated` event', async () => {
     const { queryPreviewRequestUpdatedSpy, wrapper, updateExtraParams } = renderQueryPreview({
       saveCache: false,

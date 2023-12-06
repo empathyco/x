@@ -247,7 +247,7 @@
     /**
      * Cancels the (remaining) requests when the component is destroyed
      * via the `debounce.cancel()` method.
-     * If the prop 'saveCache' is set to true, it also removes the QueryPreview
+     * If the prop 'saveCache' is set to false, it also removes the QueryPreview
      * from the state when the component is destroyed.
      *
      * @internal
