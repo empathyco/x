@@ -105,7 +105,7 @@
      * @public
      */
     @Prop({ default: false })
-    public saveCache!: boolean;
+    public persistInCache!: boolean;
 
     /**
      * The results preview of the queries preview mounted.
@@ -209,19 +209,6 @@
     }
 
     /**
-     * Checks whether the current queryPreviewItem query has been saved
-     * in the queriesPreview in the state.
-     *
-     * @internal
-     *
-     * @returns True if the query has been saved.
-     */
-    protected get isSavedQuery(): boolean {
-      const previewItemQuery = this.queryPreviewInfo.query;
-      return !!this.previewResults[previewItemQuery];
-    }
-
-    /**
      * Initialises watcher to emit debounced requests, and first value for the requests.
      *
      * @internal
@@ -235,10 +222,12 @@
           }
         }
       );
+      const previewItemQuery = this.queryPreviewInfo.query;
+      const isSavedQuery = !!this.previewResults[previewItemQuery];
 
       // If the query has been saved it will emit load instead of the emitting the updated request.
-      if (this.isSavedQuery && this.saveCache) {
-        this.$emit('load', this.queryPreviewInfo.query);
+      if (isSavedQuery && this.persistInCache) {
+        this.emitLoad(this.previewResults[previewItemQuery].status);
       } else {
         this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
       }
@@ -247,14 +236,14 @@
     /**
      * Cancels the (remaining) requests when the component is destroyed
      * via the `debounce.cancel()` method.
-     * If the prop 'saveCache' is set to false, it also removes the QueryPreview
+     * If the prop 'persistInCache' is set to false, it also removes the QueryPreview
      * from the state when the component is destroyed.
      *
      * @internal
      */
     protected beforeDestroy(): void {
       this.emitQueryPreviewRequestUpdated.cancel();
-      if (!this.saveCache) {
+      if (!this.persistInCache) {
         this.$x.emit('QueryPreviewUnmountedHook', this.queryPreviewInfo.query, {
           priority: 0,
           replaceable: false

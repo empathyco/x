@@ -22,7 +22,7 @@ function renderQueryPreview({
   queryPreviewInfo = { query: 'milk' },
   location,
   queryFeature,
-  saveCache = false,
+  persistInCache = false,
   debounceTimeMs = 0,
   template = `<QueryPreview v-bind="$attrs" />`,
   queryPreview = {
@@ -68,7 +68,7 @@ function renderQueryPreview({
         queryPreviewInfo,
         queryFeature,
         debounceTimeMs,
-        saveCache
+        persistInCache
       }
     }
   ).findComponent(QueryPreview);
@@ -103,9 +103,10 @@ describe('query preview', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toBe('queriesPreview');
   });
 
-  it('no sends the `QueryPreviewRequestUpdated` event if saveCache is true, but emits load', () => {
+  // eslint-disable-next-line max-len
+  it('does not send the `QueryPreviewRequestUpdated` event if saveCache is true, but emits load', () => {
     const { queryPreviewRequestUpdatedSpy, wrapper } = renderQueryPreview({
-      saveCache: true,
+      persistInCache: true,
       queryPreviewInfo: {
         query: 'shoes',
         extraParams: { directory: 'Magrathea' },
@@ -119,9 +120,24 @@ describe('query preview', () => {
     expect(wrapper.emitted('load')?.[0]).toEqual(['shoes']);
   });
 
+  it('does not remove the query before destroy the component', () => {
+    const { wrapper } = renderQueryPreview({
+      persistInCache: true,
+      queryPreviewInfo: {
+        query: 'shoes',
+        extraParams: { directory: 'Magrathea' },
+        filters: ['fit:regular']
+      }
+    });
+
+    wrapper.destroy();
+    expect(wrapper.emitted('load')?.length).toBe(1);
+    expect(wrapper.emitted('load')?.[0]).toEqual(['shoes']);
+  });
+
   it('sends the `QueryPreviewRequestUpdated` event', async () => {
     const { queryPreviewRequestUpdatedSpy, wrapper, updateExtraParams } = renderQueryPreview({
-      saveCache: false,
+      persistInCache: false,
       queryPreviewInfo: {
         query: 'shoes',
         extraParams: { directory: 'Magrathea' },
@@ -445,7 +461,7 @@ interface RenderQueryPreviewOptions {
   /** The query preview info for which preview its results. */
   queryPreviewInfo?: QueryPreviewInfo;
   /** Boolean to save queries preview in the cache. */
-  saveCache?: boolean;
+  persistInCache?: boolean;
   /** The location of the query preview in the DOM. */
   location?: string;
   /** The name of the tool that generated the query. */
