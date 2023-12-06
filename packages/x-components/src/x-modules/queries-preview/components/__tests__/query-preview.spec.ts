@@ -103,8 +103,8 @@ describe('query preview', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toBe('queriesPreview');
   });
 
-  it('no sends the `QueryPreviewRequestUpdated` event', () => {
-    const { queryPreviewRequestUpdatedSpy } = renderQueryPreview({
+  it('no sends the `QueryPreviewRequestUpdated` event if saveCache is true, but emits load', () => {
+    const { queryPreviewRequestUpdatedSpy, wrapper } = renderQueryPreview({
       saveCache: true,
       queryPreviewInfo: {
         query: 'shoes',
@@ -115,6 +115,8 @@ describe('query preview', () => {
 
     jest.advanceTimersByTime(0); // Wait for first emission.
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0);
+    expect(wrapper.emitted('load')?.length).toBe(1);
+    expect(wrapper.emitted('load')?.[0]).toEqual(['shoes']);
   });
 
   it('sends the `QueryPreviewRequestUpdated` event', async () => {
