@@ -104,7 +104,7 @@ describe('query preview', () => {
   });
 
   // eslint-disable-next-line max-len
-  it('does not send the `QueryPreviewRequestUpdated` event if saveCache is true, but emits load', () => {
+  it('does not send the `QueryPreviewRequestUpdated` event if persistInCache is true, but emits load', () => {
     const { queryPreviewRequestUpdatedSpy, wrapper } = renderQueryPreview({
       persistInCache: true,
       queryPreviewInfo: {
@@ -120,7 +120,7 @@ describe('query preview', () => {
     expect(wrapper.emitted('load')?.[0]).toEqual(['shoes']);
   });
 
-  it('does not remove the query before destroy the component', () => {
+  it('does not remove the query before destroying the component', () => {
     const { wrapper } = renderQueryPreview({
       persistInCache: true,
       queryPreviewInfo: {
