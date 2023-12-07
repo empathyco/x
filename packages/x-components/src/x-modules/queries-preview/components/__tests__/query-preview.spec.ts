@@ -131,9 +131,6 @@ describe('query preview', () => {
     });
 
     wrapper.destroy();
-    expect(
-      wrapper.vm.$store.getters['x/queriesPreview/loadedQueriesPreview']['shoes']
-    ).toBeTruthy();
     expect(wrapper.emitted('load')?.length).toBe(1);
     expect(wrapper.emitted('load')?.[0]).toEqual(['shoes']);
   });
@@ -150,7 +147,6 @@ describe('query preview', () => {
 
     jest.advanceTimersByTime(0); // Wait for first emission
     wrapper.destroy();
-    expect(wrapper.vm.$store.getters['x/queriesPreview/loadedQueriesPreview']['shoes']).toBeFalsy();
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1);
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledWith({
       extraParams: {

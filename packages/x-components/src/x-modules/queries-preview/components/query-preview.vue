@@ -224,15 +224,11 @@
       );
 
       const previewItemQuery = this.queryPreviewInfo.query;
-      const isSavedQuery = !!this.previewResults[previewItemQuery];
+      const cachedQueryPreview = this.previewResults[previewItemQuery];
 
       // If the query has been saved it will emit load instead of the emitting the updated request.
-      if (isSavedQuery && this.persistInCache) {
-        if (this.previewResults[previewItemQuery].status !== 'error') {
-          this.$emit('load', this.queryPreviewInfo.query);
-        } else {
-          this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
-        }
+      if (cachedQueryPreview?.status === 'success' && this.persistInCache) {
+        this.$emit('load', this.queryPreviewInfo.query);
       } else {
         this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
       }
@@ -249,7 +245,7 @@
     protected beforeDestroy(): void {
       this.emitQueryPreviewRequestUpdated.cancel();
       if (!this.persistInCache) {
-        this.$x.emit('QueryPreviewUnmountedHook', this.queryPreviewInfo.query, {
+        this.$x.emit('NonCacheableQueryPreviewUnmounted', this.queryPreviewInfo.query, {
           priority: 0,
           replaceable: false
         });
