@@ -28,12 +28,12 @@ export class XPlugin implements PluginObject<XPluginOptions> {
   protected static pendingXModules: Partial<Record<XModuleName, AnyXModule>> = {};
 
   public wiring: Partial<Record<XModuleName, Partial<Record<XEvent, string[]>>>> = {};
-  protected bus: XBus<XEventsTypes, WireMetadata>;
-  protected adapter!: XComponentsAdapter;
+  public bus: XBus<XEventsTypes, WireMetadata>;
+  public adapter!: XComponentsAdapter;
   protected installedXModules = new Set<string>();
   protected isInstalled = false;
   protected options!: XPluginOptions;
-  protected store!: Store<any>;
+  public store!: Store<any>;
   protected vue!: VueConstructor;
 
   public constructor(bus: XBus<XEventsTypes, WireMetadata>) {
@@ -46,6 +46,11 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     } else {
       this.lazyRegisterXModule(xModule);
     }
+  }
+
+  static resetInstance(): void {
+    cleanGettersProxyCache();
+    this.instance = undefined;
   }
 
   protected static lazyRegisterXModule(xModule: AnyXModule): void {
@@ -68,7 +73,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     this.isInstalled = true;
   }
 
-  protected registerXModule(xModule: AnyXModule): void {
+  registerXModule(xModule: AnyXModule): void {
     if (!this.installedXModules.has(xModule.name)) {
       const customizedXModule = this.customizeXModule(xModule);
       this.registerStoreModule(customizedXModule);
@@ -170,26 +175,35 @@ export class XPlugin implements PluginObject<XPluginOptions> {
  * Composable function to expose some XPlugin methods.
  *
  * @param module - The x module to register.
- * @returns Install, resetInstance & registerModule methods.
+ * @returns Instances and install, resetInstance & registerModule methods.
  */
-export function useXPlugin(module: AnyXModule): {
+export function useXPlugin(module?: AnyXModule): {
+  adapter: XComponentsAdapter;
+  bus: XBus<XEventsTypes, WireMetadata>;
+  store: Store<RootXStoreState>;
   install: (vue: VueConstructor, options?: XPluginOptions) => void;
   resetInstance: () => void;
   registerXModule: (module: AnyXModule) => void;
 } {
+  const instance = new XPlugin(bus);
+  const adapterInstance: XComponentsAdapter = instance.adapter;
+  const busInstance: XBus<XEventsTypes, WireMetadata> = instance.bus;
+  const storeInstance: Store<RootXStoreState> = instance.store;
+
   const install = (vue: VueConstructor, options?: XPluginOptions): void => {
-    const instance = new XPlugin(bus);
     instance.install(vue, options);
     XPlugin.instance = instance;
   };
-  const resetInstance = (): void => {
-    cleanGettersProxyCache();
-    XPlugin.instance = undefined;
-  };
   const registerXModule = (): void => {
-    XPlugin.registerXModule(module);
+    XPlugin.registerXModule(module!);
+  };
+  const resetInstance = (): void => {
+    XPlugin.resetInstance();
   };
   return {
+    adapter: adapterInstance,
+    bus: busInstance,
+    store: storeInstance,
     install,
     resetInstance,
     registerXModule
