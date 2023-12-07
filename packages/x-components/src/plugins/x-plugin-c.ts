@@ -27,9 +27,9 @@ import { assertXPluginOptionsAreValid } from './x-plugin.utils';
 // Based on properties and methods that arise when creating a new XPlugin instance
 export interface XPluginObject extends PluginObject<XPluginOptions> {
   // XPluginOptions types
-  adapter: XComponentsAdapter; // baseInstallXOptions
+  adapter?: XComponentsAdapter; // baseInstallXOptions
   bus: XBus<XEventsTypes, WireMetadata>;
-  store?: Store<any>;
+  store: Store<any> | Store<RootXStoreState>;
   initialXModules?: AnyXModule[];
   xModules?: XModulesOptions; // baseInstallXOptions
   __PRIVATE__xModules?: PrivateXModulesOptions;
@@ -68,14 +68,168 @@ export interface XPluginObject extends PluginObject<XPluginOptions> {
   installedXModules: Set<string>;
   wiring: Partial<Record<XModuleName, Partial<Record<XEvent, string[]>>>>;
   isInstalled: boolean;
-  vue: VueConstructor;
-  options: XPluginOptions;
+  // vue?: VueConstructor;
+  // options?: XPluginOptions;
+  // instance?: XPluginObject;
 }
+
+const initialXPluginState = {
+  isInstalled: false,
+  bus: bus,
+  wiring: {},
+  vue: undefined,
+  options: undefined,
+  instance: undefined,
+  adapter: undefined,
+  store: {},
+  installedXModules: new Set<string>(),
+  pendingXModules: {}
+};
 
 // The protected static instance in the XPlugin class is what we'll return as a global XPluginObject
 export const useXPlugin = (): XPluginObject => {
   const XPlugin: XPluginObject = {
-    install(): void {}
+    ...initialXPluginState,
+    getAdapter(): XComponentsAdapter {
+      return this.getInstance().adapter!;
+    },
+    getBus(): XBus<XEventsTypes, WireMetadata> {
+      return this.getInstance().bus;
+    },
+    getStore(): Store<RootXStoreState> {
+      return this.getInstance().store;
+    },
+    getInstance(): XPluginObject {
+      if (!this.instance) {
+        throw Error("XPlugin must be installed before accessing it's API.");
+      }
+      return this.instance;
+    },
+    constructor(bus: XBus<XEventsTypes, WireMetadata>) {
+      console.log(bus, 'XPlugin instance with bus as a param');
+      this.bus = bus;
+    },
+    install(vue: VueConstructor, options?: XPluginOptions): void {
+      if (this.isInstalled) {
+        throw new Error('XPlugin has already been installed');
+      }
+      assertXPluginOptionsAreValid(options);
+      XPlugin.instance = this;
+      this.vue = vue;
+      this.options = options;
+      this.adapter = options.adapter;
+      this.registerStore();
+      this.applyMixins();
+      this.registerInitialModules();
+      this.registerPendingXModules();
+      this.isInstalled = true;
+    },
+    registerStore(): void {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      this.vue.use(Vuex); // We can safely install Vuex because if it is already installed Vue
+      // will simply ignore it
+      this.store =
+        this.options!.store ??
+        new Store({
+          strict: process.env.NODE_ENV !== 'production'
+        });
+      if (!this.options!.store) {
+        this.vue!.prototype.$store = this.store;
+      }
+      this.store.registerModule('x', RootXStoreModule);
+    },
+    applyMixins(): void {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      this.vue.mixin(createXComponentAPIMixin(this.bus));
+    },
+    registerInitialModules(): void {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      this.options.initialXModules?.forEach(xModule => {
+        this.registerXModule(xModule);
+      });
+    },
+    registerPendingXModules(): void {
+      forEach(XPlugin.pendingXModules, (_, xModule) => {
+        this.registerXModule(xModule);
+      });
+      XPlugin.pendingXModules = {};
+    },
+    registerXModule(xModule: AnyXModule): void {
+      if (this.instance) {
+        if (!this.installedXModules.has(xModule.name)) {
+          const customizedXModule = this.customizeXModule(xModule);
+          this.registerStoreModule(customizedXModule);
+          this.registerStoreEmitters(customizedXModule);
+          this.registerWiring(customizedXModule);
+          // The wiring must be registered after the store emitters
+          // to allow lazy loaded modules work properly.
+          this.installedXModules.add(xModule.name);
+          this.bus.emit('ModuleRegistered', xModule.name);
+        }
+      } else {
+        this.lazyRegisterXModule(xModule);
+      }
+    },
+    lazyRegisterXModule(xModule: AnyXModule): void {
+      this.pendingXModules[xModule.name] = xModule;
+    },
+    customizeXModule({
+      name,
+      wiring,
+      storeModule,
+      storeEmitters,
+      ...restXModule
+    }: AnyXModule): AnyXModule {
+      const { wiring: wiringOptions, config }: XModuleOptions<XModuleName> =
+        this.options.xModules?.[name] ?? {};
+
+      const { storeModule: storeModuleOptions, storeEmitters: emittersOptions } =
+        this.options.__PRIVATE__xModules?.[name] ?? {};
+
+      return {
+        name,
+        wiring: wiringOptions ? deepMerge({}, wiring, wiringOptions) : wiring,
+        storeModule: this.customizeStoreModule(storeModule, storeModuleOptions ?? {}, config),
+        storeEmitters: emittersOptions
+          ? deepMerge({}, storeEmitters, emittersOptions)
+          : storeEmitters,
+        ...restXModule
+      };
+    },
+    customizeStoreModule(
+      { state: defaultState, ...actionsGettersMutations }: AnyXStoreModule,
+      { state: xModuleState, ...newActionsGettersMutations }: AnyXStoreModuleOption,
+      configOptions: unknown
+    ): AnyXStoreModule {
+      const configOptionsObject = configOptions ? { config: configOptions } : {};
+      const customizedModule = deepMerge({}, actionsGettersMutations, newActionsGettersMutations);
+      customizedModule.state = deepMerge(defaultState(), xModuleState, configOptionsObject);
+      return customizedModule;
+    },
+    registerStoreModule({ name, storeModule }: AnyXModule): void {
+      (storeModule as Module<any, any>).namespaced = true;
+      this.store.registerModule(['x', name], storeModule);
+    },
+    registerStoreEmitters(xModule: AnyXModule): void {
+      registerStoreEmitters(xModule, this.bus, this.store);
+    },
+    registerWiring({ wiring, name }: AnyXModule): void {
+      sendWiringToDevtools(name, wiring);
+      forEach(wiring, (event, wires: Dictionary<AnyWire>) => {
+        // Obtain the observable
+        const observable = this.bus.on(event, true) as unknown as Observable<
+          SubjectPayload<EventPayload<XEventsTypes, typeof event>, WireMetadata>
+        >;
+        // Register event wires
+        forEach(wires, (_, wire) => {
+          wire(observable, this.store as Store<RootXStoreState>, this.bus.on.bind(this.bus));
+        });
+      });
+    },
+    resetInstance(): void {
+      cleanGettersProxyCache();
+      this.instance = undefined;
+    }
   };
 
   return {
