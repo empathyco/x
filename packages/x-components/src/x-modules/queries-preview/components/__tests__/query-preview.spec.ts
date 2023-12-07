@@ -44,6 +44,11 @@ function renderQueryPreview({
   const queryPreviewRequestUpdatedSpy = jest.fn();
   XPlugin.bus.on('QueryPreviewRequestUpdated').subscribe(queryPreviewRequestUpdatedSpy);
 
+  const nonCacheableQueryPreviewUnmountedSpy = jest.fn();
+  XPlugin.bus
+    .on('NonCacheableQueryPreviewUnmounted')
+    .subscribe(nonCacheableQueryPreviewUnmountedSpy);
+
   if (queryPreview) {
     resetXQueriesPreviewStateWith(store, {
       queriesPreview: {
@@ -76,6 +81,7 @@ function renderQueryPreview({
   return {
     wrapper,
     queryPreviewRequestUpdatedSpy,
+    nonCacheableQueryPreviewUnmountedSpy,
     queryPreviewInfo,
     queryPreview,
     findTestDataById: findTestDataById.bind(undefined, wrapper),
@@ -120,23 +126,8 @@ describe('query preview', () => {
     expect(wrapper.emitted('load')?.[0]).toEqual(['shoes']);
   });
 
-  it('does not remove the query before destroying the component', () => {
-    const { wrapper } = renderQueryPreview({
-      persistInCache: true,
-      queryPreviewInfo: {
-        query: 'shoes',
-        extraParams: { directory: 'Magrathea' },
-        filters: ['fit:regular']
-      }
-    });
-
-    wrapper.destroy();
-    expect(wrapper.emitted('load')?.length).toBe(1);
-    expect(wrapper.emitted('load')?.[0]).toEqual(['shoes']);
-  });
-
-  it('removes the query before destroying the component', () => {
-    const { queryPreviewRequestUpdatedSpy, wrapper } = renderQueryPreview({
+  it('emits `NonCacheableQueryPreviewUnmounted` only if `persistInCache` is false', () => {
+    const { nonCacheableQueryPreviewUnmountedSpy, wrapper } = renderQueryPreview({
       persistInCache: false,
       queryPreviewInfo: {
         query: 'shoes',
@@ -147,24 +138,21 @@ describe('query preview', () => {
 
     jest.advanceTimersByTime(0); // Wait for first emission
     wrapper.destroy();
-    expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1);
-    expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledWith({
-      extraParams: {
-        directory: 'Magrathea'
-      },
-      filters: {
-        fit: [
-          {
-            id: 'fit:regular',
-            modelName: 'RawFilter',
-            selected: true
-          }
-        ]
-      },
-      origin: undefined,
-      query: 'shoes',
-      rows: 24
-    });
+    expect(nonCacheableQueryPreviewUnmountedSpy).toHaveBeenCalledTimes(1);
+
+    const { nonCacheableQueryPreviewUnmountedSpy: unmountedEvent, wrapper: newWrapper } =
+      renderQueryPreview({
+        persistInCache: true,
+        queryPreviewInfo: {
+          query: 'shoes',
+          extraParams: { directory: 'Magrathea' },
+          filters: ['fit:regular']
+        }
+      });
+
+    jest.advanceTimersByTime(0); // Wait for first emission
+    newWrapper.destroy();
+    expect(unmountedEvent).toHaveBeenCalledTimes(0);
   });
 
   it('sends the `QueryPreviewRequestUpdated` event', async () => {
@@ -514,6 +502,8 @@ interface RenderQueryPreviewAPI {
   wrapper: Wrapper<Vue>;
   /** A Jest spy set in the {@link XPlugin} `on` function. */
   queryPreviewRequestUpdatedSpy?: jest.Mock;
+  /** A Jest spy set in the {@link XPlugin} `on` function. */
+  nonCacheableQueryPreviewUnmountedSpy?: jest.Mock;
   /** The query for which preview its results. */
   queryPreviewInfo: QueryPreviewInfo;
   /** The results preview for the passed query. */
