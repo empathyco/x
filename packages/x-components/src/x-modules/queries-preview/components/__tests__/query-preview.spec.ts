@@ -131,8 +131,44 @@ describe('query preview', () => {
     });
 
     wrapper.destroy();
+    expect(
+      wrapper.vm.$store.getters['x/queriesPreview/loadedQueriesPreview']['shoes']
+    ).toBeTruthy();
     expect(wrapper.emitted('load')?.length).toBe(1);
     expect(wrapper.emitted('load')?.[0]).toEqual(['shoes']);
+  });
+
+  it('removes the query before destroying the component', () => {
+    const { queryPreviewRequestUpdatedSpy, wrapper } = renderQueryPreview({
+      persistInCache: false,
+      queryPreviewInfo: {
+        query: 'shoes',
+        extraParams: { directory: 'Magrathea' },
+        filters: ['fit:regular']
+      }
+    });
+
+    jest.advanceTimersByTime(0); // Wait for first emission
+    wrapper.destroy();
+    expect(wrapper.vm.$store.getters['x/queriesPreview/loadedQueriesPreview']['shoes']).toBeFalsy();
+    expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1);
+    expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledWith({
+      extraParams: {
+        directory: 'Magrathea'
+      },
+      filters: {
+        fit: [
+          {
+            id: 'fit:regular',
+            modelName: 'RawFilter',
+            selected: true
+          }
+        ]
+      },
+      origin: undefined,
+      query: 'shoes',
+      rows: 24
+    });
   });
 
   it('sends the `QueryPreviewRequestUpdated` event', async () => {

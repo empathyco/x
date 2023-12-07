@@ -222,12 +222,17 @@
           }
         }
       );
+
       const previewItemQuery = this.queryPreviewInfo.query;
       const isSavedQuery = !!this.previewResults[previewItemQuery];
 
       // If the query has been saved it will emit load instead of the emitting the updated request.
       if (isSavedQuery && this.persistInCache) {
-        this.emitLoad(this.previewResults[previewItemQuery].status);
+        if (this.previewResults[previewItemQuery].status !== 'error') {
+          this.$emit('load', this.queryPreviewInfo.query);
+        } else {
+          this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
+        }
       } else {
         this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
       }
