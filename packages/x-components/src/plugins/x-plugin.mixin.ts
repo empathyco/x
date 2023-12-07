@@ -113,7 +113,7 @@ function createWireMetadata(
 }
 
 /**
- * Given a component, finds the root XComponent in the ancestors hierarchy.
+ * Given a component, finds the root XComponent in the ancestors' hierarchy.
  *
  * @param component - The component to find its root XComponent.
  * @returns The root XComponent or undefined if it has not.

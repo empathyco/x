@@ -243,7 +243,7 @@ export class XInstaller {
     pluginOptions: XPluginOptions,
     bus: XBus<XEventsTypes, WireMetadata>
   ): PluginObject<XPluginOptions> {
-    const plugin = this.options.plugin ?? new XPlugin(bus);
+    const plugin = this.options.plugin ?? new XPlugin(bus); // calls the XPlugin.constructor f()
     const vue = this.getVue();
     vue.use(plugin, pluginOptions);
     return plugin;
