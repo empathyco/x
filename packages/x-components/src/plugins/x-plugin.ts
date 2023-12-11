@@ -187,7 +187,7 @@ export function useXPlugin(bus: XBus<XEventsTypes, WireMetadata>): XPluginObject
     app.use(Vuex); // We can safely install Vuex because if it is already installed Vue
     // will simply ignore it
     const _store = store ?? new Store({ strict: process.env.NODE_ENV !== 'production' });
-    if (!_store) {
+    if (!store) {
       app.prototype.$store = _store;
     }
     _store.registerModule('x', RootXStoreModule);
