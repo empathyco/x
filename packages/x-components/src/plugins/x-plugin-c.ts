@@ -32,10 +32,8 @@ interface XPluginObject extends PluginObject<XPluginOptions> {
   xModules?: XModulesOptions;
   __PRIVATE__xModules?: PrivateXModulesOptions;
   instance?: XPluginObject;
-  getInstance: () => XPluginObject;
   isInstalled: boolean;
   resetInstance: () => void;
-  constructor: (bus: XBus<XEventsTypes, WireMetadata>) => void;
   install: (vue: VueConstructor, options?: XPluginOptions) => void;
   registerXModule: (xModule: AnyXModule) => void;
   installedXModules: Set<string>;
@@ -43,13 +41,7 @@ interface XPluginObject extends PluginObject<XPluginOptions> {
   wiring: Partial<Record<XModuleName, Partial<Record<XEvent, string[]>>>>;
 }
 
-const xPluginProperties = {
-  /**
-   * Bus for retrieving the observables when registering the wiring.
-   *
-   * @internal
-   */
-  bus: bus,
+const xPluginInitialState = {
   /**
    * Adapter for the API, responsible for transforming requests and responses.
    *
@@ -109,77 +101,26 @@ const xPluginProperties = {
 /**
  * Function which returns the XPluginObject for initializing x-component's library.
  *
+ * @param bus - The bus to create the XPlugin.
  * @returns The XPluginObject with properties and methods to install and register modules.
  *
  * @public
  */
-export function useXPlugin(): XPluginObject {
+export function useXPlugin(bus: XBus<XEventsTypes, WireMetadata>): XPluginObject {
   /**
    * Vue plugin that initializes the properties needed by the x-components, and exposes the
    * events bus and the adapter after it has been installed.
    *
    * @public
    */
-  const XPlugin: XPluginObject = {
-    ...xPluginProperties,
+  const xPlugin: XPluginObject = {
+    ...xPluginInitialState,
     /**
-     * {@link @empathyco/x-typesm#XComponentsAdapter | XComponentsAdapter} Is the middleware
-     * between the components and our API where data can be mapped to client needs.
-     * This property is only available after installing the plugin.
+     * Bus for retrieving the observables when registering the wiring.
      *
-     * @returns The installed adapter.
-     * @throws If this property is accessed before calling `Vue.use(xPlugin)`.
-     * @public
-     */
-    get adapter(): XComponentsAdapter {
-      return this.getInstance().adapter!;
-    },
-    /**
-     * Exposed {@link @empathyco/x-bus#XBus}, so any kind of application can subscribe to
-     * {@link XEventsTypes} without having to pass through a component.
-     * This property is only available after installing the plugin.
-     *
-     * @returns The installed bus.
-     * @throws If this property is accessed before calling `Vue.use(xPlugin)`.
-     * @public
-     */
-    get bus(): XBus<XEventsTypes, WireMetadata> {
-      return this.getInstance().bus;
-    },
-    /**
-     * {@link https://vuex.vuejs.org | Vuex Store} Is the place where all shared data
-     * is saved.
-     *
-     * @returns The installed store.
-     * @throws If this property is accessed before calling `Vue.use(xPlugin)`.
-     * @public
-     */
-    get store(): Store<RootXStoreState> {
-      return this.getInstance().store!;
-    },
-    /**
-     * Safely retrieves the installed instance of the XPlugin.
-     *
-     * @returns The installed instance of the XPlugin.
-     * @throws If this method is called before calling `Vue.use(xPlugin)`.
      * @internal
      */
-    getInstance(): XPluginObject {
-      if (!XPlugin.instance) {
-        throw Error("XPlugin must be installed before accessing it's API.");
-      }
-      return XPlugin.instance;
-    },
-    /**
-     * Creates a new instance of the XPlugin with the given bus passed as parameter.
-     *
-     * @param bus - The {@link @empathyco/x-bus#XBus} implementation to use for the plugin.
-     *
-     * @public
-     */
-    constructor(bus: XBus<XEventsTypes, WireMetadata>) {
-      this.bus = bus;
-    },
+    bus: bus,
     /**
      * Installs the plugin into the Vue instance.
      *
@@ -194,7 +135,7 @@ export function useXPlugin(): XPluginObject {
         throw new Error('XPlugin has already been installed');
       }
       assertXPluginOptionsAreValid(options);
-      XPlugin.instance = this;
+      xPlugin.instance = this;
       this.vue = app;
       this.options = options;
       this.adapter = options.adapter;
@@ -213,7 +154,7 @@ export function useXPlugin(): XPluginObject {
      * @public
      */
     registerXModule(xModule: AnyXModule): void {
-      if (XPlugin.instance) {
+      if (xPlugin.instance) {
         registerXModule(xModule);
       } else {
         lazyRegisterXModule(xModule);
@@ -273,15 +214,15 @@ export function useXPlugin(): XPluginObject {
    * @internal
    */
   function registerXModule(xModule: AnyXModule): void {
-    if (!XPlugin.installedXModules.has(xModule.name)) {
+    if (!xPlugin.installedXModules.has(xModule.name)) {
       const customizedXModule = customizeXModule(xModule);
       registerStoreModule(customizedXModule);
-      registerStoreEmitters(customizedXModule, XPlugin.bus, XPlugin.store as Store<any>);
+      registerStoreEmitters(customizedXModule, xPlugin.bus, xPlugin.store as Store<any>);
       registerWiring(customizedXModule);
       // The wiring must be registered after the store emitters
       // to allow lazy loaded modules work properly.
-      XPlugin.installedXModules.add(xModule.name);
-      XPlugin.bus.emit('ModuleRegistered', xModule.name);
+      xPlugin.installedXModules.add(xModule.name);
+      xPlugin.bus.emit('ModuleRegistered', xModule.name);
     }
   }
 
@@ -294,7 +235,7 @@ export function useXPlugin(): XPluginObject {
    * @internal
    */
   function lazyRegisterXModule(xModule: AnyXModule): void {
-    XPlugin.pendingXModules[xModule.name] = xModule;
+    xPlugin.pendingXModules[xModule.name] = xModule;
   }
 
   /**
@@ -313,9 +254,9 @@ export function useXPlugin(): XPluginObject {
     ...restXModule
   }: AnyXModule): AnyXModule {
     const { wiring: wiringOptions, config }: XModuleOptions<XModuleName> =
-      XPlugin.options.xModules?.[name] ?? {};
+      xPlugin.options.xModules?.[name] ?? {};
     const { storeModule: storeModuleOptions, storeEmitters: emittersOptions } =
-      XPlugin.options.__PRIVATE__xModules?.[name] ?? {};
+      xPlugin.options.__PRIVATE__xModules?.[name] ?? {};
 
     return {
       name,
@@ -364,7 +305,7 @@ export function useXPlugin(): XPluginObject {
    */
   function registerStoreModule({ name, storeModule }: AnyXModule): void {
     (storeModule as Module<any, any>).namespaced = true;
-    XPlugin.store!.registerModule(['x', name], storeModule);
+    xPlugin.store!.registerModule(['x', name], storeModule);
   }
 
   /**
@@ -379,12 +320,12 @@ export function useXPlugin(): XPluginObject {
     sendWiringToDevtools(name, wiring);
     forEach(wiring, (event, wires: Dictionary<AnyWire>) => {
       // Obtain the observable
-      const observable = XPlugin.bus.on(event, true) as unknown as Observable<
+      const observable = xPlugin.bus.on(event, true) as unknown as Observable<
         SubjectPayload<EventPayload<XEventsTypes, typeof event>, WireMetadata>
       >;
       // Register event wires
       forEach(wires, (_, wire) => {
-        wire(observable, XPlugin.store as Store<RootXStoreState>, XPlugin.bus.on.bind(XPlugin.bus));
+        wire(observable, xPlugin.store as Store<RootXStoreState>, xPlugin.bus.on.bind(xPlugin.bus));
       });
     });
   }
@@ -396,14 +337,14 @@ export function useXPlugin(): XPluginObject {
    * @internal
    */
   function registerPendingXModules(): void {
-    forEach(XPlugin.pendingXModules, (_, xModule) => {
+    forEach(xPlugin.pendingXModules, (_, xModule) => {
       registerXModule(xModule);
     });
-    XPlugin.pendingXModules = {};
+    xPlugin.pendingXModules = {};
   }
 
   return {
-    ...XPlugin
+    ...xPlugin
   };
 }
 
@@ -431,4 +372,5 @@ export function useXPlugin(): XPluginObject {
  * ```
  * @public
  */
-export const xPlugin = useXPlugin().constructor(bus);
+
+export const XPlugin = useXPlugin(bus);
