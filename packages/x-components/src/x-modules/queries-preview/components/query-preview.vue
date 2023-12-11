@@ -104,8 +104,8 @@
      *
      * @public
      */
-    @Prop({ default: true })
-    public clearOnDestroy!: boolean;
+    @Prop({ default: false })
+    public persistInCache!: boolean;
 
     /**
      * The results preview of the queries preview mounted.
@@ -222,22 +222,30 @@
           }
         }
       );
-      this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
+
+      const previewItemQuery = this.queryPreviewInfo.query;
+      const cachedQueryPreview = this.previewResults[previewItemQuery];
+
+      // If the query has been saved it will emit load instead of the emitting the updated request.
+      if (cachedQueryPreview?.status === 'success' && this.persistInCache) {
+        this.$emit('load', this.queryPreviewInfo.query);
+      } else {
+        this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
+      }
     }
 
     /**
      * Cancels the (remaining) requests when the component is destroyed
      * via the `debounce.cancel()` method.
-     * If the prop 'clearOnDestroy' is set to true, it also removes the QueryPreview
+     * If the prop 'persistInCache' is set to false, it also removes the QueryPreview
      * from the state when the component is destroyed.
      *
      * @internal
      */
     protected beforeDestroy(): void {
       this.emitQueryPreviewRequestUpdated.cancel();
-
-      if (this.clearOnDestroy) {
-        this.$x.emit('QueryPreviewUnmountedHook', this.queryPreviewInfo.query, {
+      if (!this.persistInCache) {
+        this.$x.emit('NonCacheableQueryPreviewUnmounted', this.queryPreviewInfo.query, {
           priority: 0,
           replaceable: false
         });

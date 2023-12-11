@@ -5,10 +5,10 @@ import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { queriesPreviewXStoreModule } from '../module';
 import {
-  QueriesPreviewState,
+  QueriesPreviewActions,
   QueriesPreviewGetters,
   QueriesPreviewMutations,
-  QueriesPreviewActions,
+  QueriesPreviewState,
   QueryPreviewItem
 } from '../types';
 import { getQueryPreviewRequest } from '../../../../__stubs__/queries-preview-stubs.factory';
