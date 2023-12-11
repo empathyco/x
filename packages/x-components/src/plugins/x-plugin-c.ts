@@ -23,7 +23,6 @@ import {
   XPluginOptions
 } from './x-plugin.types';
 import { assertXPluginOptionsAreValid } from './x-plugin.utils';
-import { XPlugin } from './x-plugin';
 
 interface XPluginObject extends PluginObject<XPluginOptions> {
   adapter?: XComponentsAdapter;
@@ -114,7 +113,7 @@ const xPluginProperties = {
  *
  * @public
  */
-export const useXPlugin = (): XPluginObject => {
+export function useXPlugin(): XPluginObject {
   /**
    * Vue plugin that initializes the properties needed by the x-components, and exposes the
    * events bus and the adapter after it has been installed.
@@ -406,7 +405,7 @@ export const useXPlugin = (): XPluginObject => {
   return {
     ...XPlugin
   };
-};
+}
 
 /**
  * Vue plugin that modifies each component instance, extending them with the
@@ -432,4 +431,4 @@ export const useXPlugin = (): XPluginObject => {
  * ```
  * @public
  */
-export const xPlugin = XPlugin.constructor(bus);
+export const xPlugin = useXPlugin().constructor(bus);
