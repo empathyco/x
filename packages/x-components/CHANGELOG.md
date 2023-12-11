@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.2-alpha.0...@empathyco/x-components@4.1.0-alpha.0) (2023-12-11)
+
+
+### Features
+
+* **query-preview:** use cached query-previews (#1360) ([2579ca4](https://github.com/empathyco/x/commit/2579ca42d52c6f6c428b9129d63dc4a0ddb4788c))
+
+
+
 ## [4.0.2-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.1...@empathyco/x-components@4.0.2-alpha.0) (2023-11-29)
 
 **Note:** Version bump only for package @empathyco/x-components
