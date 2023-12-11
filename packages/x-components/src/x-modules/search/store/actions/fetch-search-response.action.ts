@@ -1,4 +1,4 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
+import { XPlugin } from '../../../../plugins/index';
 import { SearchXStoreModule } from '../types';
 
 /**
@@ -14,4 +14,4 @@ import { SearchXStoreModule } from '../types';
 export const fetchSearchResponse: SearchXStoreModule['actions']['fetchSearchResponse'] = (
   _context,
   request
-) => XPlugin.adapter.search(request);
+) => XPlugin.adapter!.search(request);

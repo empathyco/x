@@ -1,7 +1,7 @@
 import { forEach, isFunction } from '@empathyco/x-utils';
 import Vue, { PluginObject, VueConstructor } from 'vue';
 import { XBus } from '@empathyco/x-bus';
-import { XPlugin } from '../../plugins/x-plugin';
+import { useXPlugin } from '../../plugins/index';
 import { XPluginOptions } from '../../plugins/x-plugin.types';
 import { NormalisedSnippetConfig, SnippetConfig, XAPI } from '../api/api.types';
 import { BaseXAPI } from '../api/base-api';
@@ -22,7 +22,7 @@ declare global {
  * of {@link XPluginOptions} with all the options for the plugin and some options more.
  *
  * This class does multiple things:
- * 1. Install the {@link XPlugin} with the {@link XPluginOptions}.
+ * 1. Install the {@link xPlugin} with the {@link XPluginOptions}.
  * 2. Creates the public {@link XAPI} and add it to global window.
  * 3. Creates the Vue Application for the customer project.
  *
@@ -152,7 +152,7 @@ export class XInstaller {
    * @param snippetConfig - The {@link SnippetConfig} that receives from snippet integration.
    *
    * @returns If {@link SnippetConfig | snippet config} is passed or configured in window.initX,
-   * returns an object with the {@link XAPI}, the {@link @empathyco/x-bus#XBus}, the {@link XPlugin}
+   * returns an object with the {@link XAPI}, the {@link @empathyco/x-bus#XBus}, the {@link xPlugin}
    * and the Vue App used in the application. Else, a rejected promise is returned.
    *
    * @public
@@ -199,7 +199,8 @@ export class XInstaller {
   }
 
   /**
-   * This method returns the bus instance to be used in the {@link XPlugin} and in the {@link XAPI}.
+   * This method returns the bus instance to be used in the
+   * {@link useXPlugin} and in the {@link XAPI}.
    * It returns the `bus` parameter in the {@link InstallXOptions} or if not provided, then
    * creates a new instance of {@link @empathyco/x-bus#XPriorityBus | bus}.
    *
@@ -243,7 +244,7 @@ export class XInstaller {
     pluginOptions: XPluginOptions,
     bus: XBus<XEventsTypes, WireMetadata>
   ): PluginObject<XPluginOptions> {
-    const plugin = this.options.plugin ?? new XPlugin(bus); // calls the XPlugin.constructor f()
+    const plugin = this.options.plugin ?? useXPlugin(bus);
     const vue = this.getVue();
     vue.use(plugin, pluginOptions);
     return plugin;

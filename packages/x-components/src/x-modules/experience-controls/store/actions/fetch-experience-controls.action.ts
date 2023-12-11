@@ -1,6 +1,6 @@
 import { ExperienceControlsResponse } from '@empathyco/x-types';
 import { ExperienceControlsXStoreModule } from '../types';
-import { XPlugin } from '../../../../plugins/x-plugin';
+import { XPlugin } from '../../../../plugins/index';
 
 /**
  * Default implementation for the {@link ExperienceControlsActions.fetchExperienceControlsResponse}.
@@ -16,6 +16,6 @@ import { XPlugin } from '../../../../plugins/x-plugin';
 export const fetchExperienceControlsResponse: ExperienceControlsXStoreModule['actions']['fetchExperienceControlsResponse'] =
   (_context, request) => {
     return request
-      ? XPlugin.adapter.experienceControls(request).then(response => response)
+      ? XPlugin.adapter!.experienceControls(request).then(response => response)
       : ({} as ExperienceControlsResponse);
   };

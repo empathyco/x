@@ -1,5 +1,4 @@
 import Vue, { ComponentOptions } from 'vue';
-// import useXPlugin from '../plugins/x-plugin-c';
 import { AnyXModule } from '../x-modules/x-modules.types';
 import { XPlugin } from '../plugins/index';
 
@@ -15,8 +14,6 @@ import { XPlugin } from '../plugins/index';
  */
 export function xComponentMixin(module: AnyXModule): ComponentOptions<Vue> {
   XPlugin.registerXModule(module);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  // useXPlugin().registerXModule(module);
   return {
     xModule: module.name
   };
