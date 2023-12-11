@@ -33,7 +33,7 @@ import { InputStatus } from '../x-modules/search-box/store/types';
  * @public
  */
 export interface XPluginOptions {
-  /** The adapter transforms the request for the the search and tagging APIs and its responses. */
+  /** The adapter transforms the request for the search and tagging APIs and its responses. */
   adapter: XComponentsAdapter;
   /**
    * A Vuex store to install the X module. If not passed a new one will be created and injected
