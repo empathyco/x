@@ -16,6 +16,7 @@ import { registerStoreEmitters } from './x-emitters';
 import { createXComponentAPIMixin } from './x-plugin.mixin';
 import { AnyXStoreModuleOption, XModuleOptions, XPluginOptions } from './x-plugin.types';
 import { assertXPluginOptionsAreValid } from './x-plugin.utils';
+import { bus as xBus } from './x-bus';
 
 interface XPluginObject extends PluginObject<XPluginOptions> {
   adapter: XComponentsAdapter;
@@ -94,10 +95,10 @@ export function useXPlugin(bus?: XBus<XEventsTypes, WireMetadata>): XPluginObjec
   const xPlugin: XPluginObject = {
     ...xPluginProperties,
     /**
-     * Exposed {@link @empathyco/x-bus#XBus}, it is passed as a parameter by
-     * the {@link @empathyco/x-installer#XInstaller}.
+     * Exposed {@link @empathyco/x-bus#XBus}, it can be imported locally or either
+     * passed as a parameter by the {@link @empathyco/x-installer#XInstaller}.
      */
-    bus: bus!,
+    bus: bus ?? xBus,
 
     /**
      * Installs the plugin into the Vue instance.
