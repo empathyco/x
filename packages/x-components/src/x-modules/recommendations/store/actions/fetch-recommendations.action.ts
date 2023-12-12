@@ -1,4 +1,4 @@
-import { XPlugin } from '../../../../plugins';
+import { useXPlugin } from '../../../../plugins';
 import { RecommendationsXStoreModule } from '../types';
 
 /**
@@ -13,5 +13,9 @@ import { RecommendationsXStoreModule } from '../types';
  */
 export const fetchRecommendations: RecommendationsXStoreModule['actions']['fetchRecommendations'] =
   (_context, request) => {
-    return request ? XPlugin.adapter.recommendations(request).then(({ results }) => results) : [];
+    return request
+      ? useXPlugin()
+          .adapter.recommendations(request)
+          .then(({ results }) => results)
+      : [];
   };

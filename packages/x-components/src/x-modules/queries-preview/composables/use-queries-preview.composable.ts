@@ -1,6 +1,6 @@
 import { computed } from 'vue';
 import { QueriesPreviewGetters } from '../store';
-import { XPlugin } from '../../../plugins/x-plugin';
+import { useXPlugin } from '../../../plugins/x-plugin';
 
 /**
  * Composable helpers for the QueriesPreview module.
@@ -30,7 +30,7 @@ interface UseQueriesPreview {
  * @public
  */
 export const useQueriesPreview = (): UseQueriesPreview => {
-  const store = XPlugin.store;
+  const store = useXPlugin().store;
   const loadedQueriesPreview = computed<QueriesPreviewGetters['loadedQueriesPreview']>(
     () => store.getters['x/queriesPreview/loadedQueriesPreview']
   );

@@ -1,5 +1,5 @@
 import { NextQueriesXStoreModule } from '../types';
-import { XPlugin } from '../../../../plugins/x-plugin';
+import { useXPlugin } from '../../../../plugins/x-plugin';
 import { createOrigin } from '../../../../utils/origin';
 
 /**
@@ -21,7 +21,7 @@ export const fetchNextQueryPreview: NextQueriesXStoreModule['actions']['fetchNex
   }
   const origin = createOrigin({ feature: 'next_query', location }) ?? undefined;
 
-  return XPlugin.adapter.search(
+  return useXPlugin().adapter.search(
     {
       query,
       rows: state.config.maxPreviewItemsToRequest,

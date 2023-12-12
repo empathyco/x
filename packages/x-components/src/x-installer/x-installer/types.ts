@@ -23,7 +23,7 @@ export interface InstallXOptions<API extends XAPI = XAPI> extends XPluginOptions
   api?: API | false;
   /**
    * The {@link @empathyco/x-bus#XBus} used in the {@link XPlugin}. If not passed an instance of
-   * The {@link @empathyco/x-bus#XPriorityBus} will be used.
+   * the {@link @empathyco/x-bus#XPriorityBus} will be used.
    */
   bus?: XBus<XEventsTypes, WireMetadata>;
   /**

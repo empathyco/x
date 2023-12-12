@@ -1,4 +1,4 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
+import { useXPlugin } from '../../../../plugins/x-plugin';
 import { NextQueriesXStoreModule } from '../types';
 
 /**
@@ -17,6 +17,8 @@ export const fetchNextQueries: NextQueriesXStoreModule['actions']['fetchNextQuer
   request
 ) => {
   return request
-    ? XPlugin.adapter.nextQueries(request).then(({ nextQueries }) => nextQueries)
+    ? useXPlugin()
+        .adapter.nextQueries(request)
+        .then(({ nextQueries }) => nextQueries)
     : null;
 };

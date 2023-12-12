@@ -1,4 +1,4 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
+import { useXPlugin } from '../../../../plugins/x-plugin';
 import { PopularSearchesXStoreModule } from '../types';
 
 /**
@@ -15,5 +15,7 @@ export const fetchSuggestions: PopularSearchesXStoreModule['actions']['fetchSugg
   _context,
   request
 ) => {
-  return XPlugin.adapter.popularSearches(request).then(({ suggestions }) => suggestions);
+  return useXPlugin()
+    .adapter.popularSearches(request)
+    .then(({ suggestions }) => suggestions);
 };

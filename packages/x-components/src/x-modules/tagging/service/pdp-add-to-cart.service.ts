@@ -2,7 +2,7 @@ import { Store } from 'vuex';
 import { Result } from '@empathyco/x-types';
 import { BrowserStorageService, StorageService } from '@empathyco/x-storage-service';
 import { RootXStoreState } from '../../../store/index';
-import { XPlugin } from '../../../plugins/index';
+import { useXPlugin } from '../../../plugins/index';
 import { PDPAddToCartService } from './types';
 
 /**
@@ -29,7 +29,7 @@ export class DefaultPDPAddToCartService implements PDPAddToCartService {
   ) {}
 
   protected get store(): Store<RootXStoreState> {
-    return XPlugin.store;
+    return useXPlugin().store;
   }
 
   protected get clickedResultStorageKey(): string {

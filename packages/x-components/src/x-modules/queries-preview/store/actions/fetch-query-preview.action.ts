@@ -1,4 +1,4 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
+import { useXPlugin } from '../../../../plugins/x-plugin';
 import { QueriesPreviewXStoreModule } from '../types';
 
 /**
@@ -19,7 +19,7 @@ export const fetchQueryPreview: QueriesPreviewXStoreModule['actions']['fetchQuer
   if (!query) {
     return null;
   }
-  return XPlugin.adapter.search(request, {
+  return useXPlugin().adapter.search(request, {
     id: `fetchQueryPreview-${query}`
   });
 };

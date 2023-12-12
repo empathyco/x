@@ -1,7 +1,7 @@
 import { Facet, Filter, isFacetFilter, isHierarchicalFacet } from '@empathyco/x-types';
 import { Store } from 'vuex';
 import { Dictionary } from '@empathyco/x-utils';
-import { XPlugin } from '../../../plugins/index';
+import { useXPlugin } from '../../../plugins/index';
 import { RootXStoreState } from '../../../store/index';
 import { arrayToObject, groupItemsBy, isArrayEmpty } from '../../../utils/index';
 import { FilterEntityFactory } from '../entities/filter-entity.factory';
@@ -32,7 +32,7 @@ export class DefaultFacetsService implements FacetsService {
    * @internal
    */
   protected get store(): Store<RootXStoreState> {
-    return XPlugin.store;
+    return useXPlugin().store;
   }
 
   setFacets(facetsGroup: FacetsGroup): void {

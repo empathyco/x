@@ -1,4 +1,4 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
+import { useXPlugin } from '../../../../plugins/x-plugin';
 import { IdentifierResultsXStoreModule } from '../types';
 
 /**
@@ -15,5 +15,9 @@ import { IdentifierResultsXStoreModule } from '../types';
 //eslint-disable-next-line max-len
 export const fetchIdentifierResults: IdentifierResultsXStoreModule['actions']['fetchIdentifierResults'] =
   (_context, request) => {
-    return request ? XPlugin.adapter.identifierResults(request).then(({ results }) => results) : [];
+    return request
+      ? useXPlugin()
+          .adapter.identifierResults(request)
+          .then(({ results }) => results)
+      : [];
   };

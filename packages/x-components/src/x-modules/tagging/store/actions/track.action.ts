@@ -1,6 +1,6 @@
 import { TaggingRequest } from '@empathyco/x-types';
 import { DefaultSessionService } from '@empathyco/x-utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
+import { useXPlugin } from '../../../../plugins/x-plugin';
 import { TaggingXStoreModule } from '../types';
 
 /**
@@ -20,7 +20,7 @@ export const track: TaggingXStoreModule['actions']['track'] = ({ state }, taggin
   const session = sessionId && { session: sessionId };
 
   taggingInfos.forEach(({ url, params }: TaggingRequest) => {
-    XPlugin.adapter.tagging({
+    useXPlugin().adapter.tagging({
       url,
       params: {
         ...params,

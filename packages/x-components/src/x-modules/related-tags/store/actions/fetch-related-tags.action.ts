@@ -1,4 +1,4 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
+import { useXPlugin } from '../../../../plugins/x-plugin';
 import { RelatedTagsXStoreModule } from '../types';
 
 /**
@@ -15,5 +15,9 @@ export const fetchRelatedTags: RelatedTagsXStoreModule['actions']['fetchRelatedT
   _context,
   request
 ) => {
-  return request ? XPlugin.adapter.relatedTags(request).then(({ relatedTags }) => relatedTags) : [];
+  return request
+    ? useXPlugin()
+        .adapter.relatedTags(request)
+        .then(({ relatedTags }) => relatedTags)
+    : [];
 };

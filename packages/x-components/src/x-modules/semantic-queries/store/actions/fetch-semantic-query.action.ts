@@ -1,4 +1,4 @@
-import { XPlugin } from '../../../../plugins/x-plugin';
+import { useXPlugin } from '../../../../plugins/x-plugin';
 import { SemanticQueriesXStoreModule } from '../types';
 
 /**
@@ -15,5 +15,5 @@ export const fetchSemanticQuery: SemanticQueriesXStoreModule['actions']['fetchSe
   _context,
   request
 ) => {
-  return request?.query ? XPlugin.adapter.semanticQueries(request) : null;
+  return request?.query ? useXPlugin().adapter.semanticQueries(request) : null;
 };

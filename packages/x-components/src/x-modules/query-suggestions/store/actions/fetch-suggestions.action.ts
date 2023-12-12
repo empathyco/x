@@ -1,4 +1,4 @@
-import { XPlugin } from '../../../../plugins';
+import { useXPlugin } from '../../../../plugins';
 import { QuerySuggestionsXStoreModule } from '../types';
 
 /**
@@ -17,6 +17,8 @@ export const fetchSuggestions: QuerySuggestionsXStoreModule['actions']['fetchSug
   request
 ) => {
   return request
-    ? XPlugin.adapter.querySuggestions(request).then(({ suggestions }) => suggestions)
+    ? useXPlugin()
+        .adapter.querySuggestions(request)
+        .then(({ suggestions }) => suggestions)
     : [];
 };
