@@ -22,7 +22,6 @@ interface XPluginObject extends PluginObject<XPluginOptions> {
   bus: XBus<XEventsTypes, WireMetadata>;
   store: Store<any>;
   options?: XPluginOptions;
-  instance?: XPluginObject;
   isInstalled: boolean;
   installedXModules: Set<string>;
   install: (vue: VueConstructor, options?: XPluginOptions) => void;
@@ -114,7 +113,6 @@ export function useXPlugin(bus?: XBus<XEventsTypes, WireMetadata>): XPluginObjec
         throw new Error('XPlugin has already been installed');
       }
       assertXPluginOptionsAreValid(options);
-      xPlugin.instance = this;
       this.vue = app;
       this.options = options;
       this.adapter = options.adapter;
@@ -134,7 +132,7 @@ export function useXPlugin(bus?: XBus<XEventsTypes, WireMetadata>): XPluginObjec
      * @public
      */
     registerXModule(xModule: AnyXModule): void {
-      if (xPlugin.instance) {
+      if (xPlugin) {
         registerXModule(xModule);
       } else {
         lazyRegisterXModule(xModule);
@@ -142,7 +140,7 @@ export function useXPlugin(bus?: XBus<XEventsTypes, WireMetadata>): XPluginObjec
     },
 
     /**
-     * Utility method for resetting the installed instance of the plugin.
+     * Utility method for resetting the installed plugin.
      *
      * @remarks Use only for testing.
      *
@@ -150,7 +148,9 @@ export function useXPlugin(bus?: XBus<XEventsTypes, WireMetadata>): XPluginObjec
      */
     resetInstance(): void {
       cleanGettersProxyCache();
-      this.instance = undefined;
+      // TODO: Check if this is enough to reset the plugin:
+      //  Notice that now we don't need to have/access to an instance, as now xPlugin is not a class
+      xPlugin.isInstalled = false;
     }
   };
 
@@ -167,11 +167,12 @@ export function useXPlugin(bus?: XBus<XEventsTypes, WireMetadata>): XPluginObjec
   function registerStore(app: VueConstructor, store?: Store<any>): void {
     app.use(Vuex); // We can safely install Vuex because if it is already installed Vue
     // will simply ignore it
-    xPlugin.store = store ?? new Store({ strict: process.env.NODE_ENV !== 'production' });
+    const _store = store ?? new Store({ strict: process.env.NODE_ENV !== 'production' });
     if (!store) {
-      app.prototype.$store = xPlugin.store;
+      app.prototype.$store = _store;
     }
-    xPlugin.store.registerModule('x', RootXStoreModule);
+    _store.registerModule('x', RootXStoreModule);
+    xPluginProperties.store = _store;
   }
 
   /**
@@ -235,9 +236,9 @@ export function useXPlugin(bus?: XBus<XEventsTypes, WireMetadata>): XPluginObjec
     ...restXModule
   }: AnyXModule): AnyXModule {
     const { wiring: wiringOptions, config }: XModuleOptions<XModuleName> =
-      xPlugin.options!.xModules?.[name] ?? {};
+      xPlugin.options?.xModules?.[name] ?? {};
     const { storeModule: storeModuleOptions, storeEmitters: emittersOptions } =
-      xPlugin.options!.__PRIVATE__xModules?.[name] ?? {};
+      xPlugin.options?.__PRIVATE__xModules?.[name] ?? {};
 
     return {
       name,
