@@ -32,13 +32,14 @@ interface XPluginObject extends PluginObject<XPluginOptions> {
   wiring: Partial<Record<XModuleName, Partial<Record<XEvent, string[]>>>>;
 }
 
-const xPluginProperties = {
+const xPluginProps = {
   /**
    * Adapter for the API, responsible for transforming requests and responses.
    *
    * @internal
    */
-  // We need to declare this ion order to not get possible undefined in x-modules actions
+  // TODO: Check if we can do this in another way: We need to declare it in order to
+  //  not get possible undefined in x-modules actions
   adapter: {} as XComponentsAdapter,
   /**
    * The Vuex store, to pass to the wires for its registration, and to register the store
@@ -46,7 +47,8 @@ const xPluginProperties = {
    *
    * @internal
    */
-  // We need to declare this ion order to not get possible undefined in pdp-add-to-cart.service.ts
+  // TODO: Check if we can do this in another way: We need to declare it in order to
+  //  not get possible undefined in pdp-add-to-cart.service.ts
   store: {} as Store<any>,
   /**
    * True if the plugin has been installed in a Vue instance, in this case
@@ -93,7 +95,7 @@ export function useXPlugin(bus?: XBus<XEventsTypes, WireMetadata>): XPluginObjec
    * @public
    */
   const xPlugin: XPluginObject = {
-    ...xPluginProperties,
+    ...xPluginProps,
     /**
      * Exposed {@link @empathyco/x-bus#XBus}, it can be imported locally or either
      * passed as a parameter by the {@link @empathyco/x-installer#XInstaller}.
@@ -116,7 +118,7 @@ export function useXPlugin(bus?: XBus<XEventsTypes, WireMetadata>): XPluginObjec
       assertXPluginOptionsAreValid(options);
       this.vue = app;
       this.options = options;
-      xPluginProperties.adapter = options.adapter;
+      xPluginProps.adapter = options.adapter;
       registerStore(app, options.store);
       app.mixin(createXComponentAPIMixin(this.bus));
       registerInitialModules(options.initialXModules);
@@ -173,7 +175,7 @@ export function useXPlugin(bus?: XBus<XEventsTypes, WireMetadata>): XPluginObjec
       app.prototype.$store = _store;
     }
     _store.registerModule('x', RootXStoreModule);
-    xPluginProperties.store = _store;
+    xPluginProps.store = _store;
   }
 
   /**
@@ -183,7 +185,6 @@ export function useXPlugin(bus?: XBus<XEventsTypes, WireMetadata>): XPluginObjec
    * @internal
    */
   function registerInitialModules(initialXModules: AnyXModule[] | undefined): void {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     initialXModules?.forEach(xModule => {
       registerXModule(xModule);
     });
@@ -244,7 +245,6 @@ export function useXPlugin(bus?: XBus<XEventsTypes, WireMetadata>): XPluginObjec
     return {
       name,
       wiring: wiringOptions ? deepMerge({}, wiring, wiringOptions) : wiring,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       storeModule: customizeStoreModule(storeModule, storeModuleOptions ?? {}, config),
       storeEmitters: emittersOptions
         ? deepMerge({}, storeEmitters, emittersOptions)
