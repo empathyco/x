@@ -12,69 +12,50 @@ import { XEvent, XEventsTypes } from '../wiring/events.types';
 import { AnyWire, WireMetadata } from '../wiring/wiring.types';
 import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
 import { sendWiringToDevtools } from './devtools/wiring.devtools';
-import { bus } from './x-bus';
 import { registerStoreEmitters } from './x-emitters';
 import { createXComponentAPIMixin } from './x-plugin.mixin';
-import {
-  AnyXStoreModuleOption,
-  PrivateXModulesOptions,
-  XModuleOptions,
-  XModulesOptions,
-  XPluginOptions
-} from './x-plugin.types';
+import { AnyXStoreModuleOption, XModuleOptions, XPluginOptions } from './x-plugin.types';
 import { assertXPluginOptionsAreValid } from './x-plugin.utils';
 
 interface XPluginObject extends PluginObject<XPluginOptions> {
-  adapter?: XComponentsAdapter;
+  adapter: XComponentsAdapter;
   bus: XBus<XEventsTypes, WireMetadata>;
-  store?: Store<any>;
-  initialXModules?: AnyXModule[];
-  xModules?: XModulesOptions;
-  __PRIVATE__xModules?: PrivateXModulesOptions;
+  store: Store<any>;
+  options?: XPluginOptions;
   instance?: XPluginObject;
   isInstalled: boolean;
-  resetInstance: () => void;
-  install: (vue: VueConstructor, options?: XPluginOptions) => void;
-  registerXModule: (xModule: AnyXModule) => void;
   installedXModules: Set<string>;
+  install: (vue: VueConstructor, options?: XPluginOptions) => void;
   pendingXModules: Partial<Record<XModuleName, AnyXModule>>;
+  registerXModule: (xModule: AnyXModule) => void;
+  resetInstance: () => void;
   wiring: Partial<Record<XModuleName, Partial<Record<XEvent, string[]>>>>;
 }
 
-const xPluginInitialState = {
+const xPluginProperties = {
   /**
    * Adapter for the API, responsible for transforming requests and responses.
    *
    * @internal
    */
-  adapter: undefined,
+  // We need to declare this ion order to not get possible undefined in x-modules actions
+  adapter: {} as XComponentsAdapter,
   /**
    * The Vuex store, to pass to the wires for its registration, and to register the store
    * modules on it.
    *
    * @internal
    */
-  store: undefined,
+  // We need to declare this ion order to not get possible undefined in pdp-add-to-cart.service.ts
+  store: {} as Store<any>,
   /**
-   * The installation options of the plugin, where all the customization of
-   * {@link XModule | XModules} is done.
+   * True if the plugin has been installed in a Vue instance, in this case
+   * {@link XModule | XModules} will be installed immediately. False otherwise, in this case
+   * they will be installed lazily when the {@link XPlugin#install} method is called.
    *
    * @internal
    */
-  options: undefined,
-  /**
-   * Collection of {@link @empathyco/x-components/wiring/wiring.types#Wire | Wire} functions
-   * that react to events of an XModule.
-   *
-   * @internal
-   */
-  wiring: {},
-  /**
-   * Instance of the installed plugin. Used to expose the bus and the adapter.
-   *
-   * @internal
-   */
-  instance: undefined,
+  isInstalled: false,
   /**
    * Set of the already installed {@link XModule | XModules} to avoid re-registering them.
    *
@@ -88,14 +69,12 @@ const xPluginInitialState = {
    */
   pendingXModules: {},
   /**
-   * True if the plugin has been installed in a Vue instance, in this case
-   * {@link XModule |XModules} will be installed immediately. False otherwise, in this case
-   * {@link XModule | XModules} will be installed lazily when the {@link XPlugin#install} method
-   * is called.
+   * Collection of {@link @empathyco/x-components/wiring/wiring.types#Wire | Wire} functions
+   * that react to events of an XModule.
    *
    * @internal
    */
-  isInstalled: false
+  wiring: {}
 };
 
 /**
@@ -106,7 +85,7 @@ const xPluginInitialState = {
  *
  * @public
  */
-export function useXPlugin(bus: XBus<XEventsTypes, WireMetadata>): XPluginObject {
+export function useXPlugin(bus?: XBus<XEventsTypes, WireMetadata>): XPluginObject {
   /**
    * Vue plugin that initializes the properties needed by the x-components, and exposes the
    * events bus and the adapter after it has been installed.
@@ -114,13 +93,13 @@ export function useXPlugin(bus: XBus<XEventsTypes, WireMetadata>): XPluginObject
    * @public
    */
   const xPlugin: XPluginObject = {
-    ...xPluginInitialState,
+    ...xPluginProperties,
     /**
-     * Bus for retrieving the observables when registering the wiring.
-     *
-     * @internal
+     * Exposed {@link @empathyco/x-bus#XBus}, it is passed as a parameter by
+     * the {@link @empathyco/x-installer#XInstaller}.
      */
-    bus: bus,
+    bus: bus!,
+
     /**
      * Installs the plugin into the Vue instance.
      *
@@ -145,6 +124,7 @@ export function useXPlugin(bus: XBus<XEventsTypes, WireMetadata>): XPluginObject
       registerPendingXModules();
       this.isInstalled = true;
     },
+
     /**
      * If the plugin has already been installed, it immediately registers a {@link XModule}. If it
      * has not been installed yet, it stores the module in a list until the plugin is installed.
@@ -160,6 +140,7 @@ export function useXPlugin(bus: XBus<XEventsTypes, WireMetadata>): XPluginObject
         lazyRegisterXModule(xModule);
       }
     },
+
     /**
      * Utility method for resetting the installed instance of the plugin.
      *
@@ -186,11 +167,11 @@ export function useXPlugin(bus: XBus<XEventsTypes, WireMetadata>): XPluginObject
   function registerStore(app: VueConstructor, store?: Store<any>): void {
     app.use(Vuex); // We can safely install Vuex because if it is already installed Vue
     // will simply ignore it
-    const _store = store ?? new Store({ strict: process.env.NODE_ENV !== 'production' });
+    xPlugin.store = store ?? new Store({ strict: process.env.NODE_ENV !== 'production' });
     if (!store) {
-      app.prototype.$store = _store;
+      app.prototype.$store = xPlugin.store;
     }
-    _store.registerModule('x', RootXStoreModule);
+    xPlugin.store.registerModule('x', RootXStoreModule);
   }
 
   /**
@@ -217,7 +198,7 @@ export function useXPlugin(bus: XBus<XEventsTypes, WireMetadata>): XPluginObject
     if (!xPlugin.installedXModules.has(xModule.name)) {
       const customizedXModule = customizeXModule(xModule);
       registerStoreModule(customizedXModule);
-      registerStoreEmitters(customizedXModule, xPlugin.bus, xPlugin.store as Store<any>);
+      registerStoreEmitters(customizedXModule, xPlugin.bus, xPlugin.store);
       registerWiring(customizedXModule);
       // The wiring must be registered after the store emitters
       // to allow lazy loaded modules work properly.
@@ -254,9 +235,9 @@ export function useXPlugin(bus: XBus<XEventsTypes, WireMetadata>): XPluginObject
     ...restXModule
   }: AnyXModule): AnyXModule {
     const { wiring: wiringOptions, config }: XModuleOptions<XModuleName> =
-      xPlugin.options.xModules?.[name] ?? {};
+      xPlugin.options!.xModules?.[name] ?? {};
     const { storeModule: storeModuleOptions, storeEmitters: emittersOptions } =
-      xPlugin.options.__PRIVATE__xModules?.[name] ?? {};
+      xPlugin.options!.__PRIVATE__xModules?.[name] ?? {};
 
     return {
       name,
@@ -305,7 +286,7 @@ export function useXPlugin(bus: XBus<XEventsTypes, WireMetadata>): XPluginObject
    */
   function registerStoreModule({ name, storeModule }: AnyXModule): void {
     (storeModule as Module<any, any>).namespaced = true;
-    xPlugin.store!.registerModule(['x', name], storeModule);
+    xPlugin.store.registerModule(['x', name], storeModule);
   }
 
   /**
@@ -343,34 +324,5 @@ export function useXPlugin(bus: XBus<XEventsTypes, WireMetadata>): XPluginObject
     xPlugin.pendingXModules = {};
   }
 
-  return {
-    ...xPlugin
-  };
+  return xPlugin;
 }
-
-/**
- * Vue plugin that modifies each component instance, extending them with the
- * {@link XComponentAPI | X Component API }.
- *
- * @example
- * Minimal installation example. An API adapter is needed to connect the X Components with the
- * suggestions, search, or tagging APIs. In this example we are using the default Empathy's platform
- * adapter.
- *
- * ```typescript
- *  import { platformAdapter } from '@empathyco/x-adapter-platform';
- *  Vue.use(xPlugin, { adapter: platformAdapter });
- * ```
- *
- * @example
- * If you are using {@link https://vuex.vuejs.org/ | Vuex} in your project you must install its
- *   plugin, and instantiate a store before installing the XPlugin:
- * ```typescript
- * Vue.use(Vuex);
- * const store = new Store({ ... });
- * Vue.use(xPlugin, { adapter, store });
- * ```
- * @public
- */
-
-export const XPlugin = useXPlugin(bus);
