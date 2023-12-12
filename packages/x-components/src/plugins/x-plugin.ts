@@ -116,7 +116,7 @@ export function useXPlugin(bus?: XBus<XEventsTypes, WireMetadata>): XPluginObjec
       assertXPluginOptionsAreValid(options);
       this.vue = app;
       this.options = options;
-      this.adapter = options.adapter;
+      xPluginProperties.adapter = options.adapter;
       registerStore(app, options.store);
       app.mixin(createXComponentAPIMixin(this.bus));
       registerInitialModules(options.initialXModules);
