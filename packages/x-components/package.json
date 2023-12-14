@@ -30,7 +30,7 @@
     "./tests/**/*",
     "**/*.scss",
     "**/*.scss.js",
-    "**/*vue_styles.*.vue.js",
+    "**/*.vue*.js",
     "**/*.css",
     "**/*.vue"
   ],
