@@ -519,9 +519,6 @@ importers:
       rollup-plugin-delete:
         specifier: ~2.0.0
         version: 2.0.0
-      rollup-plugin-rename:
-        specifier: ~1.0.1
-        version: 1.0.1(rollup@4.4.1)
       rollup-plugin-sourcemaps:
         specifier: ~0.6.3
         version: 0.6.3(@types/node@18.18.0)(rollup@4.4.1)
@@ -13583,16 +13580,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       del: 5.1.0
-    dev: true
-
-  /rollup-plugin-rename@1.0.1(rollup@4.4.1):
-    resolution: {integrity: sha512-gISyKmUmIMNcHASejxuxFWOSjnAM5ehqiMo0o0xnmCnguwojYXRZ6maM9xhlYKZ8PPCAo1oTSyC79wiI0LKX5g==}
-    dependencies:
-      '@rollup/pluginutils': 3.1.0(rollup@4.4.1)
-      estree-walker: 2.0.2
-      magic-string: 0.25.9
-    transitivePeerDependencies:
-      - rollup
     dev: true
 
   /rollup-plugin-sourcemaps@0.6.3(@types/node@18.18.0)(rollup@4.4.1):
