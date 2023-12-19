@@ -14,10 +14,6 @@
       "allowedVersions": "< 2"
     },
     {
-      "matchPackageNames": ["rollup"],
-      "allowedVersions": "< 3"
-    },
-    {
       "matchPackageNames": ["vue"],
       "allowedVersions": "< 3"
     },
