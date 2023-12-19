@@ -47,6 +47,13 @@ export const clearQueryPreviewWire = wireCommit('clearQueryPreview');
 export const setQueriesPreviewExtraParamsWire = wireCommit('setParams');
 
 /**
+ * Sets the queries preview cache param.
+ *
+ * @public
+ */
+export const setQueryPreviewCacheWire = wireCommit('setCache');
+
+/**
  * Updates the state with the selected query preview object.
  *
  * @public
@@ -89,5 +96,8 @@ export const queriesPreviewWiring = createWiring({
   },
   UserSelectedAHistoryQuery: {
     clearSelectedQueryPreviewWire
+  },
+  EnableCacheForQueryPreview: {
+    setQueryPreviewCacheWire
   }
 });

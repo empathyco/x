@@ -31,4 +31,9 @@ export interface QueriesPreviewXEvents {
    * query preview selection.
    */
   QueryPreviewUnselected: Dictionary<unknown>;
+  /**
+   * The query preview has been cached.
+   * Payload: The query whose preview has been cached.
+   */
+  EnableCacheForQueryPreview: string;
 }

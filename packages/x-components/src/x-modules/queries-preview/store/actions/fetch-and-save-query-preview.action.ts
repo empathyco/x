@@ -18,6 +18,7 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
     if (!query) {
       return;
     }
+    //const persistInCache = request.extraParams?.persistInCache as boolean;
 
     commit('setQueryPreview', {
       request,
@@ -33,6 +34,7 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
           results: response?.results ?? [],
           status: 'success',
           totalResults: response?.totalResults ?? 0
+          //cache: persistInCache ?? false
         });
       })
       .catch(error => {

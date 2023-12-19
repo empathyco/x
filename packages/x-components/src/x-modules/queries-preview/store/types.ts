@@ -23,6 +23,8 @@ export interface QueryPreviewItem extends StatusState {
   results: Result[];
   /** The total number of results for the search query. */
   totalResults: number;
+  /** A flag to know if we should keep the query preview in the state. */
+  cache?: boolean;
 }
 
 /**
@@ -83,6 +85,8 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
    * @param query - Query whose entry will be removed.
    */
   clearQueryPreview(query: string): void;
+
+  setCache(query: string): void;
   /**
    * Sets the extra params of the module.
    *

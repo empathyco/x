@@ -51,6 +51,7 @@
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils';
   import { createRawFilter } from '../../../__stubs__/index';
+  import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview';
 
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,
@@ -152,6 +153,13 @@
     protected location?: FeatureLocation;
 
     /**
+     * Query Preview key converted into a unique id.
+     *
+     * @internal
+     */
+    public queryOfQueryPreview = getHashFromQueryPreviewInfo(this.queryPreviewInfo);
+
+    /**
      * The computed request object to be used to retrieve the query preview results.
      *
      * @returns The search request object.
@@ -175,7 +183,10 @@
       return {
         query: this.queryPreviewInfo.query,
         rows: this.config.maxItemsToRequest,
-        extraParams: { ...this.params, ...this.queryPreviewInfo.extraParams },
+        extraParams: {
+          ...this.params,
+          ...this.queryPreviewInfo.extraParams
+        },
         filters: filters,
         ...(origin && { origin })
       };
@@ -187,7 +198,7 @@
      * @returns The results preview of the actual query preview.
      */
     public get queryPreviewResults(): Partial<QueryPreviewItem> | undefined {
-      const previewResults = this.previewResults[this.queryPreviewInfo.query];
+      const previewResults = this.previewResults[this.queryOfQueryPreview];
       return previewResults?.results
         ? {
             ...previewResults,
@@ -223,14 +234,21 @@
         }
       );
 
-      const previewItemQuery = this.queryPreviewInfo.query;
+      const previewItemQuery = this.queryOfQueryPreview;
       const cachedQueryPreview = this.previewResults[previewItemQuery];
 
       // If the query has been saved it will emit load instead of the emitting the updated request.
-      if (cachedQueryPreview?.status === 'success' && this.persistInCache) {
-        this.$emit('load', this.queryPreviewInfo.query);
+      if (cachedQueryPreview?.status === 'success') {
+        this.$emit('load', previewItemQuery);
       } else {
         this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
+      }
+    }
+
+    @Watch('queryPreviewResults')
+    protected enableCache(): void {
+      if (this.persistInCache && !this.previewResults[this.queryOfQueryPreview].cache) {
+        this.$x.emit('EnableCacheForQueryPreview', this.queryOfQueryPreview);
       }
     }
 
@@ -245,7 +263,7 @@
     protected beforeDestroy(): void {
       this.emitQueryPreviewRequestUpdated.cancel();
       if (!this.persistInCache) {
-        this.$x.emit('NonCacheableQueryPreviewUnmounted', this.queryPreviewInfo.query, {
+        this.$x.emit('NonCacheableQueryPreviewUnmounted', this.queryOfQueryPreview, {
           priority: 0,
           replaceable: false
         });
@@ -277,9 +295,9 @@
     @Watch('queryPreviewResults.status')
     emitLoad(status: RequestStatus | undefined): void {
       if (status === 'success') {
-        this.$emit(this.results?.length ? 'load' : 'error', this.queryPreviewInfo.query);
+        this.$emit(this.results?.length ? 'load' : 'error', this.queryOfQueryPreview);
       } else if (status === 'error') {
-        this.$emit('error', this.queryPreviewInfo.query);
+        this.$emit('error', this.queryOfQueryPreview);
       }
     }
   }
