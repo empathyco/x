@@ -5,6 +5,8 @@ import { QueriesPreviewXStoreModule } from './types';
 import { fetchQueryPreview } from './actions/fetch-query-preview.action';
 import { fetchAndSaveQueryPreview } from './actions/fetch-and-save-query-preview.action';
 import { loadedQueriesPreview } from './getters/loaded-queries-preview.getter';
+// eslint-disable-next-line max-len
+import { fetchAndSaveQueryPreviewNonCache } from './actions/fetch-and-save-query-preview-non-cache.action';
 
 /**
  * {@link XStoreModule} For the `queries-preview` module.
@@ -16,7 +18,8 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     config: {
       maxItemsToRequest: 24
     },
-    queriesPreview: {},
+    queriesPreviewCached: {},
+    queriesPreviewNonCached: {},
     selectedQueryPreview: {
       query: '',
       extraParams: undefined,
@@ -27,21 +30,23 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
   getters: { loadedQueriesPreview },
   mutations: {
     clearQueryPreview(state, query) {
-      if (state.queriesPreview[query].cache !== true) {
-        Vue.delete(state.queriesPreview, query);
-      }
+      Vue.delete(state.queriesPreviewNonCached, query);
     },
     setParams(state, params) {
       state.params = params;
     },
-    setQueryPreview(state, queryPreview) {
-      Vue.set(state.queriesPreview, getHashFromQueryPreviewItem(queryPreview), queryPreview);
+    setQueryPreviewCached(state, queryPreview) {
+      Vue.set(state.queriesPreviewCached, getHashFromQueryPreviewItem(queryPreview), queryPreview);
+    },
+    setQueryPreviewNonCached(state, queryPreview) {
+      Vue.set(
+        state.queriesPreviewNonCached,
+        getHashFromQueryPreviewItem(queryPreview),
+        queryPreview
+      );
     },
     setStatus(state, { query, status }) {
-      state.queriesPreview[query].status = status;
-    },
-    setCache(state, query) {
-      state.queriesPreview[query].cache = true;
+      state.queriesPreviewCached[query].status = status;
     },
     setSelectedQueryPreview(state, selectedQueryPreview) {
       state.selectedQueryPreview = selectedQueryPreview;
@@ -51,6 +56,7 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
   },
   actions: {
     fetchQueryPreview,
-    fetchAndSaveQueryPreview
+    fetchAndSaveQueryPreview,
+    fetchAndSaveQueryPreviewNonCache
   }
 };

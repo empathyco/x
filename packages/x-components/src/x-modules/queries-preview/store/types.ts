@@ -23,8 +23,6 @@ export interface QueryPreviewItem extends StatusState {
   results: Result[];
   /** The total number of results for the search query. */
   totalResults: number;
-  /** A flag to know if we should keep the query preview in the state. */
-  cache?: boolean;
 }
 
 /**
@@ -51,8 +49,10 @@ export interface QueryPreviewInfo {
  * @public
  */
 export interface QueriesPreviewState {
-  /* The request and results */
-  queriesPreview: Dictionary<QueryPreviewItem>;
+  /** The list of cached queries preview. */
+  queriesPreviewCached: Dictionary<QueryPreviewItem>;
+  /** The list of not cached queries preview. */
+  queriesPreviewNonCached: Dictionary<QueryPreviewItem>;
   /** The configuration of the queries preview module. */
   config: QueriesPreviewConfig;
   /** The extra params property of the state. */
@@ -85,8 +85,6 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
    * @param query - Query whose entry will be removed.
    */
   clearQueryPreview(query: string): void;
-
-  setCache(query: string): void;
   /**
    * Sets the extra params of the module.
    *
@@ -94,11 +92,17 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
    */
   setParams(params: Dictionary<unknown>): void;
   /**
-   * Adds a new entry to the queries preview's dictionary.
+   * Adds a new entry to the cached queries preview's dictionary.
    *
    * @param queryPreview - The query preview item to add.
    */
-  setQueryPreview(queryPreview: QueryPreviewItem): void;
+  setQueryPreviewCached(queryPreview: QueryPreviewItem): void;
+  /**
+   * Adds a new entry to the no cached queries preview's dictionary.
+   *
+   * @param queryPreview - The query preview item to add.
+   */
+  setQueryPreviewNonCached(queryPreview: QueryPreviewItem): void;
   /**
    * Sets the status of a query preview request.
    *
@@ -129,11 +133,18 @@ export interface QueriesPreviewActions {
   fetchQueryPreview(request: SearchRequest): SearchResponse | null;
 
   /**
-   * Requests the results for a query preview and saves them in the state.
+   * Requests the results for a cacheable query preview and saves them in the state.
    *
    * @param request - The request object to retrieve the query preview.
    */
   fetchAndSaveQueryPreview(request: SearchRequest): void;
+
+  /**
+   * Requests the results for a no cacheable query preview and saves them in the state.
+   *
+   * @param request - The request object to retrieve the query preview.
+   */
+  fetchAndSaveQueryPreviewNonCache(request: SearchRequest): void;
 }
 
 /**

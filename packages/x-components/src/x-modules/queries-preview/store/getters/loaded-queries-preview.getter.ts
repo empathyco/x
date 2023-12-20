@@ -10,8 +10,16 @@ import { QueriesPreviewXStoreModule } from '../types';
  * @returns The loaded previews from the state.
  */
 export const loadedQueriesPreview: QueriesPreviewXStoreModule['getters']['loadedQueriesPreview'] =
-  ({ queriesPreview }) => {
-    return objectFilter(queriesPreview, (_, preview) => {
+  ({ queriesPreviewCached, queriesPreviewNonCached }) => {
+    const cachedQueries = objectFilter(queriesPreviewCached, (_, preview) => {
       return preview.status === 'success' && preview.totalResults > 0;
     });
+
+    const nonCachedQueries = objectFilter(queriesPreviewNonCached, (_, preview) => {
+      return preview.status === 'success' && preview.totalResults > 0;
+    });
+
+    return Object.fromEntries(
+      Object.entries(cachedQueries).concat(Object.entries(nonCachedQueries))
+    );
   };

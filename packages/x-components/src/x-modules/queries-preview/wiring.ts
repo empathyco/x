@@ -26,11 +26,20 @@ const wireCommit = namespacedWireCommit(moduleName);
 const wireDispatch = namespacedWireDispatch(moduleName);
 
 /**
- * Requests and stores the query preview results.
+ * Requests and stores the cacheable query preview results.
  *
  * @public
  */
 export const fetchAndSaveQueryPreviewWire = wireDispatch('fetchAndSaveQueryPreview');
+
+/**
+ * Requests and stores the no cacheable query preview results.
+ *
+ * @public
+ */
+export const fetchAndSaveQueryPreviewNonCacheWire = wireDispatch(
+  'fetchAndSaveQueryPreviewNonCache'
+);
 
 /**
  * Clears a query preview from queries preview module.
@@ -45,13 +54,6 @@ export const clearQueryPreviewWire = wireCommit('clearQueryPreview');
  * @public
  */
 export const setQueriesPreviewExtraParamsWire = wireCommit('setParams');
-
-/**
- * Sets the queries preview cache param.
- *
- * @public
- */
-export const setQueryPreviewCacheWire = wireCommit('setCache');
 
 /**
  * Updates the state with the selected query preview object.
@@ -76,6 +78,9 @@ export const queriesPreviewWiring = createWiring({
   QueryPreviewRequestUpdated: {
     fetchAndSaveQueryPreviewWire
   },
+  QueryPreviewRequestUpdatedForNoCache: {
+    fetchAndSaveQueryPreviewNonCacheWire
+  },
   NonCacheableQueryPreviewUnmounted: {
     clearQueryPreviewWire
   },
@@ -96,8 +101,5 @@ export const queriesPreviewWiring = createWiring({
   },
   UserSelectedAHistoryQuery: {
     clearSelectedQueryPreviewWire
-  },
-  EnableCacheForQueryPreview: {
-    setQueryPreviewCacheWire
   }
 });

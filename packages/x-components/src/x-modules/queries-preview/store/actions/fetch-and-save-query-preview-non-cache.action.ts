@@ -11,7 +11,7 @@ import { QueriesPreviewXStoreModule } from '../types';
  * @public
  */
 // eslint-disable-next-line max-len
-export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fetchAndSaveQueryPreview'] =
+export const fetchAndSaveQueryPreviewNonCache: QueriesPreviewXStoreModule['actions']['fetchAndSaveQueryPreviewNonCache'] =
   ({ dispatch, commit }, request) => {
     const { query } = request;
 
@@ -20,7 +20,7 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
     }
     //const persistInCache = request.extraParams?.persistInCache as boolean;
 
-    commit('setQueryPreviewCached', {
+    commit('setQueryPreviewNonCached', {
       request,
       results: [],
       status: 'loading',
@@ -29,7 +29,7 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
 
     return dispatch('fetchQueryPreview', request)
       .then(response => {
-        commit('setQueryPreviewCached', {
+        commit('setQueryPreviewNonCached', {
           request,
           results: response?.results ?? [],
           status: 'success',

@@ -109,11 +109,18 @@
     public persistInCache!: boolean;
 
     /**
-     * The results preview of the queries preview mounted.
+     * The results preview of the queries preview cacheable mounted.
      * It is a dictionary, indexed by the query preview query.
      */
-    @State('queriesPreview', 'queriesPreview')
-    public previewResults!: Dictionary<QueryPreviewItem>;
+    @State('queriesPreview', 'queriesPreviewCached')
+    public previewResultsCached!: Dictionary<QueryPreviewItem>;
+
+    /**
+     * The results preview of the queries preview no cacheable mounted.
+     * It is a dictionary, indexed by the query preview query.
+     */
+    @State('queriesPreview', 'queriesPreviewNonCached')
+    public previewResultsNonCached!: Dictionary<QueryPreviewItem>;
 
     /**
      * As the request is handled in this component, we need
@@ -198,7 +205,15 @@
      * @returns The results preview of the actual query preview.
      */
     public get queryPreviewResults(): Partial<QueryPreviewItem> | undefined {
-      const previewResults = this.previewResults[this.queryOfQueryPreview];
+      let previewResults: QueryPreviewItem | undefined;
+      if (this.persistInCache) {
+        previewResults = this.previewResultsCached[this.queryOfQueryPreview];
+      } else {
+        previewResults = this.previewResultsCached[this.queryOfQueryPreview]
+          ? this.previewResultsCached[this.queryOfQueryPreview]
+          : this.previewResultsNonCached[this.queryOfQueryPreview];
+      }
+
       return previewResults?.results
         ? {
             ...previewResults,
@@ -208,7 +223,8 @@
     }
 
     /**
-     * The debounce method to trigger the request after the debounceTimeMs defined.
+     * The debounce method to trigger the request after the debounceTimeMs defined
+     * for cacheable queries.
      *
      * @returns The search request object.
      * @internal
@@ -216,6 +232,22 @@
     protected get emitQueryPreviewRequestUpdated(): DebouncedFunction<[SearchRequest]> {
       return debounce(request => {
         this.$x.emit('QueryPreviewRequestUpdated', request, { priority: 0, replaceable: false });
+      }, this.debounceTimeMs);
+    }
+
+    /**
+     * The debounce method to trigger the request after the debounceTimeMs defined
+     * for no cacheable queries.
+     *
+     * @returns The search request object.
+     * @internal
+     */
+    protected get emitQueryPreviewRequestUpdatedForNoCache(): DebouncedFunction<[SearchRequest]> {
+      return debounce(request => {
+        this.$x.emit('QueryPreviewRequestUpdatedForNoCache', request, {
+          priority: 0,
+          replaceable: false
+        });
       }, this.debounceTimeMs);
     }
 
@@ -235,20 +267,17 @@
       );
 
       const previewItemQuery = this.queryOfQueryPreview;
-      const cachedQueryPreview = this.previewResults[previewItemQuery];
+      const cachedQueryPreview = this.previewResultsCached[previewItemQuery];
 
       // If the query has been saved it will emit load instead of the emitting the updated request.
       if (cachedQueryPreview?.status === 'success') {
         this.$emit('load', previewItemQuery);
       } else {
-        this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
-      }
-    }
-
-    @Watch('queryPreviewResults')
-    protected enableCache(): void {
-      if (this.persistInCache && !this.previewResults[this.queryOfQueryPreview].cache) {
-        this.$x.emit('EnableCacheForQueryPreview', this.queryOfQueryPreview);
+        if (this.persistInCache) {
+          this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
+        } else {
+          this.emitQueryPreviewRequestUpdatedForNoCache(this.queryPreviewRequest);
+        }
       }
     }
 
