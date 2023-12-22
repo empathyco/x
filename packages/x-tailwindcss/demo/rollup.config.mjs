@@ -7,8 +7,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 export default {
   input: resolve(__dirname, 'src/index.ts'),
-  output: [{ format: 'esm', dir: resolve(__dirname, '../showcase') }],
-  preserveModules: true,
+  output: [{ format: 'esm', dir: resolve(__dirname, '../showcase'), preserveModules: true }],
   external: [
     'vue',
     'vue-property-decorator',
