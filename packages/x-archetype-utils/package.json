@@ -37,11 +37,11 @@
   },
   "dependencies": {
     "@empathyco/x-deep-merge": "^2.0.3-alpha.0",
+    "@empathyco/x-utils": "workspace:^1.0.3-alpha.0",
     "tslib": "~2.6.0",
     "vue-i18n": "~8.28.2"
   },
   "devDependencies": {
-    "@empathyco/x-utils": "^1.0.3-alpha.0",
     "@types/jest": "~27.5.0",
     "@types/node": "~18.18.0",
     "@vue/test-utils": "~1.0.3",

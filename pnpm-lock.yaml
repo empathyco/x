@@ -297,6 +297,9 @@ importers:
       '@empathyco/x-deep-merge':
         specifier: ^2.0.3-alpha.0
         version: link:../deep-merge
+      '@empathyco/x-utils':
+        specifier: workspace:^1.0.3-alpha.0
+        version: link:../x-utils
       tslib:
         specifier: ~2.6.0
         version: 2.6.0
@@ -304,9 +307,6 @@ importers:
         specifier: ~8.28.2
         version: 8.28.2(vue@2.7.14)
     devDependencies:
-      '@empathyco/x-utils':
-        specifier: ^1.0.3-alpha.0
-        version: link:../x-utils
       '@types/jest':
         specifier: ~27.5.0
         version: 27.5.0
