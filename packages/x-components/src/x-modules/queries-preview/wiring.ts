@@ -33,15 +33,6 @@ const wireDispatch = namespacedWireDispatch(moduleName);
 export const fetchAndSaveQueryPreviewWire = wireDispatch('fetchAndSaveQueryPreview');
 
 /**
- * Requests and stores the no cacheable query preview results.
- *
- * @public
- */
-export const fetchAndSaveQueryPreviewNonCacheWire = wireDispatch(
-  'fetchAndSaveQueryPreviewNonCache'
-);
-
-/**
  * Clears a query preview from queries preview module.
  *
  * @public
@@ -77,9 +68,6 @@ export const clearSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview
 export const queriesPreviewWiring = createWiring({
   QueryPreviewRequestUpdated: {
     fetchAndSaveQueryPreviewWire
-  },
-  QueryPreviewRequestUpdatedForNoCache: {
-    fetchAndSaveQueryPreviewNonCacheWire
   },
   NonCacheableQueryPreviewUnmounted: {
     clearQueryPreviewWire

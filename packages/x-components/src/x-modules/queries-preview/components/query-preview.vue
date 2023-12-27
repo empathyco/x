@@ -1,5 +1,5 @@
 <template>
-  <NoElement v-if="queryPreviewResults && queryPreviewResults.totalResults">
+  <NoElement v-if="internalPreviewResults && internalPreviewResults.totalResults">
     <!--
       @slot Query Preview default slot.
           @binding {QueryPreviewInfo} queryPreviewInfo - The information about the request of the
@@ -9,12 +9,12 @@
     -->
     <slot
       :queryPreviewInfo="queryPreviewInfo"
-      :results="queryPreviewResults.results"
-      :totalResults="queryPreviewResults.totalResults"
+      :results="internalPreviewResults.results"
+      :totalResults="internalPreviewResults.totalResults"
     >
       <ul data-test="query-preview" class="x-query-preview">
         <li
-          v-for="result in queryPreviewResults.results"
+          v-for="result in internalPreviewResults.results"
           :key="result.id"
           class="x-query-preview__item"
           data-test="query-preview-item"
@@ -112,15 +112,8 @@
      * The results preview of the queries preview cacheable mounted.
      * It is a dictionary, indexed by the query preview query.
      */
-    @State('queriesPreview', 'queriesPreviewCached')
-    public previewResultsCached!: Dictionary<QueryPreviewItem>;
-
-    /**
-     * The results preview of the queries preview no cacheable mounted.
-     * It is a dictionary, indexed by the query preview query.
-     */
-    @State('queriesPreview', 'queriesPreviewNonCached')
-    public previewResultsNonCached!: Dictionary<QueryPreviewItem>;
+    @State('queriesPreview', 'queriesPreview')
+    public previewResults!: Dictionary<QueryPreviewItem>;
 
     /**
      * As the request is handled in this component, we need
@@ -166,6 +159,8 @@
      */
     public queryOfQueryPreview = getHashFromQueryPreviewInfo(this.queryPreviewInfo);
 
+    public cachedPreviewResults!: QueryPreviewItem;
+
     /**
      * The computed request object to be used to retrieve the query preview results.
      *
@@ -205,15 +200,7 @@
      * @returns The results preview of the actual query preview.
      */
     public get queryPreviewResults(): Partial<QueryPreviewItem> | undefined {
-      let previewResults: QueryPreviewItem | undefined;
-      if (this.persistInCache) {
-        previewResults = this.previewResultsCached[this.queryOfQueryPreview];
-      } else {
-        previewResults = this.previewResultsCached[this.queryOfQueryPreview]
-          ? this.previewResultsCached[this.queryOfQueryPreview]
-          : this.previewResultsNonCached[this.queryOfQueryPreview];
-      }
-
+      const previewResults = this.previewResults[this.queryOfQueryPreview];
       return previewResults?.results
         ? {
             ...previewResults,
@@ -236,22 +223,6 @@
     }
 
     /**
-     * The debounce method to trigger the request after the debounceTimeMs defined
-     * for no cacheable queries.
-     *
-     * @returns The search request object.
-     * @internal
-     */
-    protected get emitQueryPreviewRequestUpdatedForNoCache(): DebouncedFunction<[SearchRequest]> {
-      return debounce(request => {
-        this.$x.emit('QueryPreviewRequestUpdatedForNoCache', request, {
-          priority: 0,
-          replaceable: false
-        });
-      }, this.debounceTimeMs);
-    }
-
-    /**
      * Initialises watcher to emit debounced requests, and first value for the requests.
      *
      * @internal
@@ -267,18 +238,21 @@
       );
 
       const previewItemQuery = this.queryOfQueryPreview;
-      const cachedQueryPreview = this.previewResultsCached[previewItemQuery];
+      const cachedQueryPreview = this.previewResults[previewItemQuery];
 
       // If the query has been saved it will emit load instead of the emitting the updated request.
       if (cachedQueryPreview?.status === 'success') {
         this.$emit('load', previewItemQuery);
       } else {
-        if (this.persistInCache) {
-          this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
-        } else {
-          this.emitQueryPreviewRequestUpdatedForNoCache(this.queryPreviewRequest);
-        }
+        this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
       }
+    }
+
+    protected get internalPreviewResults(): QueryPreviewItem {
+      this.cachedPreviewResults = this.previewResults[this.queryOfQueryPreview]
+        ? this.previewResults[this.queryOfQueryPreview]
+        : this.cachedPreviewResults;
+      return this.cachedPreviewResults;
     }
 
     /**

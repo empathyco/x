@@ -50,9 +50,7 @@ export interface QueryPreviewInfo {
  */
 export interface QueriesPreviewState {
   /** The list of cached queries preview. */
-  queriesPreviewCached: Dictionary<QueryPreviewItem>;
-  /** The list of not cached queries preview. */
-  queriesPreviewNonCached: Dictionary<QueryPreviewItem>;
+  queriesPreview: Dictionary<QueryPreviewItem>;
   /** The configuration of the queries preview module. */
   config: QueriesPreviewConfig;
   /** The extra params property of the state. */
@@ -97,12 +95,6 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
    * @param queryPreview - The query preview item to add.
    */
   setQueryPreviewCached(queryPreview: QueryPreviewItem): void;
-  /**
-   * Adds a new entry to the no cached queries preview's dictionary.
-   *
-   * @param queryPreview - The query preview item to add.
-   */
-  setQueryPreviewNonCached(queryPreview: QueryPreviewItem): void;
   /**
    * Sets the status of a query preview request.
    *

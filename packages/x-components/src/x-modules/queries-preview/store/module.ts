@@ -18,8 +18,7 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     config: {
       maxItemsToRequest: 24
     },
-    queriesPreviewCached: {},
-    queriesPreviewNonCached: {},
+    queriesPreview: {},
     selectedQueryPreview: {
       query: '',
       extraParams: undefined,
@@ -30,23 +29,16 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
   getters: { loadedQueriesPreview },
   mutations: {
     clearQueryPreview(state, query) {
-      Vue.delete(state.queriesPreviewNonCached, query);
+      Vue.delete(state.queriesPreview, query);
     },
     setParams(state, params) {
       state.params = params;
     },
     setQueryPreviewCached(state, queryPreview) {
-      Vue.set(state.queriesPreviewCached, getHashFromQueryPreviewItem(queryPreview), queryPreview);
-    },
-    setQueryPreviewNonCached(state, queryPreview) {
-      Vue.set(
-        state.queriesPreviewNonCached,
-        getHashFromQueryPreviewItem(queryPreview),
-        queryPreview
-      );
+      Vue.set(state.queriesPreview, getHashFromQueryPreviewItem(queryPreview), queryPreview);
     },
     setStatus(state, { query, status }) {
-      state.queriesPreviewCached[query].status = status;
+      state.queriesPreview[query].status = status;
     },
     setSelectedQueryPreview(state, selectedQueryPreview) {
       state.selectedQueryPreview = selectedQueryPreview;
