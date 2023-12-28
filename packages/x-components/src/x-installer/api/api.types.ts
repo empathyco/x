@@ -49,6 +49,15 @@ export interface XAPI {
   setSnippetConfig(config: Partial<SnippetConfig>): void;
 
   /**
+   * To set or update any property of the snippet config getter.
+   *
+   * @param snippetConfigGetter - A function that returns the snippet config object.
+   *
+   * @public
+   */
+  setSnippetConfigGetter(snippetConfigGetter: () => SnippetConfig): void;
+
+  /**
    * To set the snippet config callback.
    *
    * @param callback - Function to be called.

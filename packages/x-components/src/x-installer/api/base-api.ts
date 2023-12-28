@@ -31,6 +31,13 @@ export class BaseXAPI implements XAPI {
   protected initCallback!: (config: SnippetConfig) => any;
 
   /**
+   * Gets the snippet config object.
+   *
+   * @public
+   */
+  protected getSnippetConfig!: () => SnippetConfig;
+
+  /**
    * Callback that allows to update the snippet config. The logic of initialization is out of this
    * API since this API is just a facade.
    *
@@ -76,6 +83,17 @@ export class BaseXAPI implements XAPI {
    */
   setSnippetConfigCallback(snippetCallback: (config: Partial<SnippetConfig>) => void): void {
     this.snippetCallback = snippetCallback;
+  }
+
+  /**
+   * Sets or updates the snippet config getter.
+   *
+   * @param snippetConfigGetter - A function that returns the snippet config.
+   *
+   * @public
+   */
+  setSnippetConfigGetter(snippetConfigGetter: () => SnippetConfig): void {
+    this.getSnippetConfig = snippetConfigGetter;
   }
 
   /**

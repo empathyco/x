@@ -126,6 +126,7 @@ export class XInstaller {
       this.api = api ?? new BaseXAPI();
       this.api.setInitCallback(this.init.bind(this));
       this.api.setSnippetConfigCallback(this.updateSnippetConfig.bind(this));
+      this.api.setSnippetConfigGetter(this.getSnippetConfig.bind(this));
       window.InterfaceX = this.api;
     }
   }
@@ -354,5 +355,16 @@ export class XInstaller {
     forEach(this.normaliseSnippetConfig(newSnippetConfig), (name, value) => {
       this.getVue().set(this.snippetConfig!, name, value);
     });
+  }
+
+  /**
+   * It saves the configuration of the snippetConfig.
+   *
+   * @returns The object of the current configuration.
+   *
+   * @internal
+   */
+  protected getSnippetConfig(): SnippetConfig {
+    return this.snippetConfig as SnippetConfig;
   }
 }
