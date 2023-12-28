@@ -35,7 +35,7 @@ export class BaseXAPI implements XAPI {
    *
    * @public
    */
-  protected getSnippetConfig!: () => SnippetConfig;
+  public getSnippetConfig!: () => SnippetConfig;
 
   /**
    * Callback that allows to update the snippet config. The logic of initialization is out of this

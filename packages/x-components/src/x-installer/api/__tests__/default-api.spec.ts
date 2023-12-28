@@ -104,4 +104,17 @@ describe('testing default X API', () => {
     await vue.nextTick();
     expect(storeElement).toHaveTextContent('Portugal');
   });
+
+  it('should allow set the snippetConfig getter', () => {
+    const snippetConfig: SnippetConfig = {
+      instance: 'test',
+      scope: 'test',
+      lang: 'es'
+    };
+    defaultXAPI?.setSnippetConfigGetter(() => snippetConfig);
+
+    const snippet = defaultXAPI?.getSnippetConfig();
+
+    expect(snippet).toEqual(snippetConfig);
+  });
 });
