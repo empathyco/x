@@ -23,6 +23,8 @@ export interface QueryPreviewItem extends StatusState {
   results: Result[];
   /** The total number of results for the search query. */
   totalResults: number;
+  /** The number of instances showing the query preview*/
+  instances: number;
 }
 
 /**
@@ -107,6 +109,8 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
    * @param selectedQueryPreview - The selected query preview to save to the state.
    */
   setSelectedQueryPreview(selectedQueryPreview: QueryPreviewInfo | null): void;
+  addQueryPreviewInstance(query: string): void;
+  removeQueryPreviewInstance({ query, cache }: { query: string; cache: boolean }): void;
 }
 
 /**

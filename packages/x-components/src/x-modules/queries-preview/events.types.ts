@@ -36,4 +36,6 @@ export interface QueriesPreviewXEvents {
    * query preview selection.
    */
   QueryPreviewUnselected: Dictionary<unknown>;
+  QueryPreviewMounted: string;
+  QueryPreviewUnmounted: { query: string; cache: boolean };
 }

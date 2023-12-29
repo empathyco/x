@@ -24,7 +24,8 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
       request,
       results: [],
       status: 'loading',
-      totalResults: 0
+      totalResults: 0,
+      instances: 1
     });
 
     return dispatch('fetchQueryPreview', request)
@@ -33,8 +34,8 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
           request,
           results: response?.results ?? [],
           status: 'success',
-          totalResults: response?.totalResults ?? 0
-          //cache: persistInCache ?? false
+          totalResults: response?.totalResults ?? 0,
+          instances: 1
         });
       })
       .catch(error => {

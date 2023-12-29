@@ -44,7 +44,16 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
       state.selectedQueryPreview = selectedQueryPreview;
     },
     setConfig,
-    mergeConfig
+    mergeConfig,
+    addQueryPreviewInstance(state, query: string) {
+      state.queriesPreview[query].instances += 1;
+    },
+    removeQueryPreviewInstance(state, { query, cache }: { query: string; cache: boolean }) {
+      state.queriesPreview[query].instances -= 1;
+      if (!cache && state.queriesPreview[query].instances === 0) {
+        Vue.delete(state.queriesPreview, query);
+      }
+    }
   },
   actions: {
     fetchQueryPreview,

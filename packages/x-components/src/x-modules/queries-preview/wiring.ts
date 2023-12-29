@@ -60,6 +60,9 @@ export const setSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview')
  */
 export const clearSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview', null);
 
+export const addQueryPreviewInstanceWire = wireCommit('addQueryPreviewInstance');
+export const removeQueryPreviewInstanceWire = wireCommit('removeQueryPreviewInstance');
+
 /**
  * Wiring configuration for the {@link QueriesPreviewXModule | queriesPreview module}.
  *
@@ -89,5 +92,11 @@ export const queriesPreviewWiring = createWiring({
   },
   UserSelectedAHistoryQuery: {
     clearSelectedQueryPreviewWire
+  },
+  QueryPreviewMounted: {
+    addQueryPreviewInstanceWire
+  },
+  QueryPreviewUnmounted: {
+    removeQueryPreviewInstanceWire
   }
 });

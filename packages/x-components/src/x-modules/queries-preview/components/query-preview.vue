@@ -243,6 +243,10 @@
       // If the query has been saved it will emit load instead of the emitting the updated request.
       if (cachedQueryPreview?.status === 'success') {
         this.$emit('load', previewItemQuery);
+        this.$x.emit('QueryPreviewMounted', this.queryOfQueryPreview, {
+          priority: 0,
+          replaceable: false
+        });
       } else {
         this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
       }
@@ -265,12 +269,14 @@
      */
     protected beforeDestroy(): void {
       this.emitQueryPreviewRequestUpdated.cancel();
-      if (!this.persistInCache) {
-        this.$x.emit('NonCacheableQueryPreviewUnmounted', this.queryOfQueryPreview, {
+      this.$x.emit(
+        'QueryPreviewUnmounted',
+        { query: this.queryOfQueryPreview, cache: this.persistInCache },
+        {
           priority: 0,
           replaceable: false
-        });
-      }
+        }
+      );
     }
 
     /**
