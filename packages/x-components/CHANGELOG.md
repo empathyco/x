@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.3...@empathyco/x-components@4.1.0-alpha.4) (2023-12-29)
+
+
+### Features
+
+* **x-plugin:** add snippet config getter to XAPI (#1378) ([a76e1b7](https://github.com/empathyco/x/commit/a76e1b716b9aa86fc6853bcf4d1bb7aaa9478f4a))
+
+
+
 ## [4.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.2...@empathyco/x-components@4.1.0-alpha.3) (2023-12-29)
 
 
