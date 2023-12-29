@@ -358,13 +358,13 @@ export class XInstaller {
   }
 
   /**
-   * It saves the configuration of the snippetConfig.
+   * Getter for the snippet config object.
    *
-   * @returns The object of the current configuration.
+   * @returns The {@link NormalisedSnippetConfig | snippetConfig} object.
    *
-   * @internal
+   * @public
    */
-  protected getSnippetConfig(): SnippetConfig {
-    return this.snippetConfig as SnippetConfig;
+  protected getSnippetConfig(): NormalisedSnippetConfig {
+    return this.snippetConfig!;
   }
 }

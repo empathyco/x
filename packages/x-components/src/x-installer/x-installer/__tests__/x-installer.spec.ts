@@ -8,7 +8,7 @@ import { XComponentsAdapterDummy } from '../../../__tests__/adapter.dummy';
 import { AnyXModule } from '../../../x-modules/x-modules.types';
 import { InitWrapper, InstallXOptions } from '../types';
 import { XInstaller } from '../x-installer';
-import { BaseXAPI, SnippetConfig } from '../../api/index';
+import { SnippetConfig } from '../../api/index';
 
 describe('testing `XInstaller` utility', () => {
   const adapter = XComponentsAdapterDummy;
@@ -188,18 +188,21 @@ describe('testing `XInstaller` utility', () => {
     expect(app?.$el).toHaveTextContent('test-2');
   });
 
-  it('should allow set the snippetConfig getter', () => {
-    const defaultXAPI = new BaseXAPI();
-    const snippetConfig: SnippetConfig = {
+  it('should set the snippetConfig getter', async () => {
+    const vue = createLocalVue();
+    window.initX = getMinimumSnippetConfig();
+    await new XInstaller({
+      adapter,
+      vue,
+      app: createSnippetConfigComponent()
+    }).init();
+    const snippetConfig = window.InterfaceX?.getSnippetConfig();
+    expect(snippetConfig).toEqual({
       instance: 'test',
+      lang: 'test',
       scope: 'test',
-      lang: 'es'
-    };
-    defaultXAPI?.setSnippetConfigGetter(() => snippetConfig);
-
-    const snippet = defaultXAPI?.getSnippetConfig();
-
-    expect(snippet).toEqual(snippetConfig);
+      uiLang: 'test'
+    });
   });
 
   // eslint-disable-next-line max-len

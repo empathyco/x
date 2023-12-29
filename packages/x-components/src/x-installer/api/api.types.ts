@@ -21,6 +21,16 @@ export interface XAPI {
    * getting the previously stored result information.
    */
   addProductToCart(productId?: string): void;
+
+  /**
+   * To get the snippet config object.
+   *
+   * @returns The {@link NormalisedSnippetConfig | snippetConfig} object.
+   *
+   * @public
+   */
+  getSnippetConfig(): SnippetConfig;
+
   /**
    * To set the {@link @empathyco/x-bus#XBus | bus} to the API. This bus will be used to emit
    * the necessary events.
@@ -53,9 +63,9 @@ export interface XAPI {
    *
    * @param snippetConfigGetter - A function that returns the snippet config object.
    *
-   * @public
+   * @internal
    */
-  setSnippetConfigGetter(snippetConfigGetter: () => SnippetConfig): void;
+  setSnippetConfigGetter(snippetConfigGetter: () => NormalisedSnippetConfig): void;
 
   /**
    * To set the snippet config callback.

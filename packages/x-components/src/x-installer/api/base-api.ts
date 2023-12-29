@@ -1,6 +1,6 @@
 import { XBus } from '@empathyco/x-bus';
 import { WireMetadata, XEventsTypes } from '../../wiring/index';
-import { SnippetConfig, XAPI } from './api.types';
+import { NormalisedSnippetConfig, SnippetConfig, XAPI } from './api.types';
 
 /**
  * Default implementation for {@link XAPI}.
@@ -31,7 +31,9 @@ export class BaseXAPI implements XAPI {
   protected initCallback!: (config: SnippetConfig) => any;
 
   /**
-   * Gets the snippet config object.
+   * Getter for the snippet config object.
+   *
+   * @returns The {@link NormalisedSnippetConfig | snippetConfig} object.
    *
    * @public
    */
@@ -90,9 +92,9 @@ export class BaseXAPI implements XAPI {
    *
    * @param snippetConfigGetter - A function that returns the snippet config.
    *
-   * @public
+   * @internal
    */
-  setSnippetConfigGetter(snippetConfigGetter: () => SnippetConfig): void {
+  setSnippetConfigGetter(snippetConfigGetter: () => NormalisedSnippetConfig): void {
     this.getSnippetConfig = snippetConfigGetter;
   }
 
