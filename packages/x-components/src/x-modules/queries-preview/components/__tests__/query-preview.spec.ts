@@ -22,6 +22,7 @@ function renderQueryPreview({
   queryPreviewInfo = { query: 'milk' },
   location,
   queryFeature,
+  persistInCache = false,
   debounceTimeMs = 0,
   template = `<QueryPreview v-bind="$attrs" />`,
   queryPreview = {
@@ -42,6 +43,11 @@ function renderQueryPreview({
 
   const queryPreviewRequestUpdatedSpy = jest.fn();
   XPlugin.bus.on('QueryPreviewRequestUpdated').subscribe(queryPreviewRequestUpdatedSpy);
+
+  const nonCacheableQueryPreviewUnmountedSpy = jest.fn();
+  XPlugin.bus
+    .on('NonCacheableQueryPreviewUnmounted')
+    .subscribe(nonCacheableQueryPreviewUnmountedSpy);
 
   if (queryPreview) {
     resetXQueriesPreviewStateWith(store, {
@@ -66,7 +72,8 @@ function renderQueryPreview({
         maxItemsToRender,
         queryPreviewInfo,
         queryFeature,
-        debounceTimeMs
+        debounceTimeMs,
+        persistInCache
       }
     }
   ).findComponent(QueryPreview);
@@ -74,6 +81,7 @@ function renderQueryPreview({
   return {
     wrapper,
     queryPreviewRequestUpdatedSpy,
+    nonCacheableQueryPreviewUnmountedSpy,
     queryPreviewInfo,
     queryPreview,
     findTestDataById: findTestDataById.bind(undefined, wrapper),
@@ -101,8 +109,55 @@ describe('query preview', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toBe('queriesPreview');
   });
 
+  // eslint-disable-next-line max-len
+  it('does not send the `QueryPreviewRequestUpdated` event if persistInCache is true, but emits load', () => {
+    const { queryPreviewRequestUpdatedSpy, wrapper } = renderQueryPreview({
+      persistInCache: true,
+      queryPreviewInfo: {
+        query: 'shoes',
+        extraParams: { directory: 'Magrathea' },
+        filters: ['fit:regular']
+      }
+    });
+
+    jest.advanceTimersByTime(0); // Wait for first emission.
+    expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0);
+    expect(wrapper.emitted('load')?.length).toBe(1);
+    expect(wrapper.emitted('load')?.[0]).toEqual(['shoes']);
+  });
+
+  it('emits `NonCacheableQueryPreviewUnmounted` only if `persistInCache` is false', () => {
+    const { nonCacheableQueryPreviewUnmountedSpy, wrapper } = renderQueryPreview({
+      persistInCache: false,
+      queryPreviewInfo: {
+        query: 'shoes',
+        extraParams: { directory: 'Magrathea' },
+        filters: ['fit:regular']
+      }
+    });
+
+    jest.advanceTimersByTime(0); // Wait for first emission
+    wrapper.destroy();
+    expect(nonCacheableQueryPreviewUnmountedSpy).toHaveBeenCalledTimes(1);
+
+    const { nonCacheableQueryPreviewUnmountedSpy: unmountedEvent, wrapper: newWrapper } =
+      renderQueryPreview({
+        persistInCache: true,
+        queryPreviewInfo: {
+          query: 'shoes',
+          extraParams: { directory: 'Magrathea' },
+          filters: ['fit:regular']
+        }
+      });
+
+    jest.advanceTimersByTime(0); // Wait for first emission
+    newWrapper.destroy();
+    expect(unmountedEvent).toHaveBeenCalledTimes(0);
+  });
+
   it('sends the `QueryPreviewRequestUpdated` event', async () => {
     const { queryPreviewRequestUpdatedSpy, wrapper, updateExtraParams } = renderQueryPreview({
+      persistInCache: false,
       queryPreviewInfo: {
         query: 'shoes',
         extraParams: { directory: 'Magrathea' },
@@ -425,6 +480,8 @@ interface RenderQueryPreviewOptions {
   maxItemsToRender?: number;
   /** The query preview info for which preview its results. */
   queryPreviewInfo?: QueryPreviewInfo;
+  /** Boolean to save queries preview in the cache. */
+  persistInCache?: boolean;
   /** The location of the query preview in the DOM. */
   location?: string;
   /** The name of the tool that generated the query. */
@@ -445,6 +502,8 @@ interface RenderQueryPreviewAPI {
   wrapper: Wrapper<Vue>;
   /** A Jest spy set in the {@link XPlugin} `on` function. */
   queryPreviewRequestUpdatedSpy?: jest.Mock;
+  /** A Jest spy set in the {@link XPlugin} `on` function. */
+  nonCacheableQueryPreviewUnmountedSpy?: jest.Mock;
   /** The query for which preview its results. */
   queryPreviewInfo: QueryPreviewInfo;
   /** The results preview for the passed query. */

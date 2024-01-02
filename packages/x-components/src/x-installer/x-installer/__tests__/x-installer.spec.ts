@@ -188,6 +188,23 @@ describe('testing `XInstaller` utility', () => {
     expect(app?.$el).toHaveTextContent('test-2');
   });
 
+  it('should set the snippetConfig getter', async () => {
+    const vue = createLocalVue();
+    window.initX = getMinimumSnippetConfig();
+    await new XInstaller({
+      adapter,
+      vue,
+      app: createSnippetConfigComponent()
+    }).init();
+    const snippetConfig = window.InterfaceX?.getSnippetConfig();
+    expect(snippetConfig).toEqual({
+      instance: 'test',
+      lang: 'test',
+      scope: 'test',
+      uiLang: 'test'
+    });
+  });
+
   // eslint-disable-next-line max-len
   it('initializes the app when window.initX is a function retrieving the snippet config', async () => {
     const vue = createLocalVue();

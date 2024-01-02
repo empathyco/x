@@ -69,7 +69,7 @@ export const queriesPreviewWiring = createWiring({
   QueryPreviewRequestUpdated: {
     fetchAndSaveQueryPreviewWire
   },
-  QueryPreviewUnmountedHook: {
+  NonCacheableQueryPreviewUnmounted: {
     clearQueryPreviewWire
   },
   UserAcceptedAQueryPreview: {
