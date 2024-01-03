@@ -20,6 +20,7 @@ export function getSearchResponseStub(): SearchResponse {
     partialResults: [],
     promoteds: getPromotedsStub(),
     queryTagging: getTaggingResponseStub(),
+    displayTagging: getTaggingResponseStub(),
     redirections: getRedirectionsStub(),
     results: getResultsStub(),
     spellcheck: '',
