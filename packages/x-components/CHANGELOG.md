@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.4...@empathyco/x-components@4.1.0-alpha.5) (2024-01-03)
+
+
+### Documentation
+
+* **integration:** add getSnippetConfig info (#1387) ([622286b](https://github.com/empathyco/x/commit/622286be7b9e552f3dd1e5563a295c7bd267cc49))
+
+
+
 ## [4.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.3...@empathyco/x-components@4.1.0-alpha.4) (2023-12-29)
 
 
