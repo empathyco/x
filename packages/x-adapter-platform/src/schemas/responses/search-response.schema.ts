@@ -41,5 +41,6 @@ export const searchResponseSchema = createMutableSchema<PlatformSearchResponse, 
     $path: 'catalog.partials',
     $subSchema: partialResultsSchema
   },
-  queryTagging: ({ catalog }) => getTaggingInfoFromUrl(catalog?.tagging?.query)
+  queryTagging: ({ catalog }) => getTaggingInfoFromUrl(catalog?.tagging?.query),
+  displayTagging: ({ catalog }) => getTaggingInfoFromUrl(catalog?.tagging?.display)
 });
