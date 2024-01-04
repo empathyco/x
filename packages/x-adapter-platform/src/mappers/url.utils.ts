@@ -28,7 +28,7 @@ export function getTaggingInfoFromUrl(taggingUrl: string): TaggingRequest {
  *
  * @public
  */
-export function getDisplayClickTagging(displayTaggingUrl: string): TaggingRequest {
+export function getDisplayTaggingInfoFromUrl(displayTaggingUrl: string): TaggingRequest {
   const displayClickTagging = getTaggingInfoFromUrl(displayTaggingUrl);
   const displayClickTaggingParams = displayClickTagging.params;
 

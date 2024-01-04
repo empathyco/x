@@ -30,6 +30,20 @@ Object {
       "url": "https://assets.empathy.co/",
     },
   ],
+  "displayTagging": Object {
+    "params": Object {
+      "filtered": "true",
+      "follow": false,
+      "lang": "en",
+      "origin": "url:external",
+      "page": "1",
+      "q": "jeans",
+      "scope": "desktop",
+      "spellcheck": "false",
+      "totalHits": "686",
+    },
+    "url": "https://api.staging.empathy.co/tagging/v1/track/empathy/display",
+  },
   "facets": Array [
     Object {
       "filters": Array [
