@@ -1,6 +1,6 @@
 import { createMutableSchema } from '@empathyco/x-adapter';
 import { Result } from '@empathyco/x-types';
-import { getDisplayClickTagging, getTaggingInfoFromUrl } from '../../mappers/url.utils';
+import { getDisplayTaggingInfoFromUrl, getTaggingInfoFromUrl } from '../../mappers/url.utils';
 import { PlatformResult } from '../../types/models/result.model';
 
 /**
@@ -36,7 +36,7 @@ export const resultSchema = createMutableSchema<PlatformResult, Result>({
       add2cart: ({ add2cart }) => getTaggingInfoFromUrl(add2cart),
       checkout: ({ checkout }) => getTaggingInfoFromUrl(checkout),
       click: ({ click }) => getTaggingInfoFromUrl(click),
-      displayClick: ({ displayClick }) => getDisplayClickTagging(displayClick)
+      displayClick: ({ displayClick }) => getDisplayTaggingInfoFromUrl(displayClick)
     }
   }
 });
