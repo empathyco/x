@@ -156,6 +156,13 @@ export const trackAddToCartWire = createTrackWire('add2cart');
 export const trackDisplayClickedWire = createTrackDisplayWire('displayClick');
 
 /**
+ * Performs a track of a display element appearing.
+ *
+ * @public
+ */
+export const trackElementDisplayedWire = createTrackDisplayWire('display');
+
+/**
  * Factory helper to create a wire for the track of a taggable element.
  *
  * @param property - Key of the tagging object to track.
@@ -225,6 +232,9 @@ export const taggingWiring = createWiring({
   },
   SearchTaggingReceived: {
     trackQueryWire
+  },
+  TrackableElementDisplayed: {
+    trackElementDisplayedWire
   },
   TaggingConfigProvided: {
     setTaggingConfig

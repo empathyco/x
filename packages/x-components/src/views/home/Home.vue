@@ -250,28 +250,30 @@
                 <QueryPreviewList
                   :debounceTimeMs="250"
                   :queriesPreviewInfo="queriesPreviewInfo"
-                  #default="{ queryPreviewInfo, totalResults, results }"
+                  #default="{ queryPreviewInfo, totalResults, results, displayTagging }"
                   data-test="brand-recommendation"
                   :persistInCache="true"
                 >
-                  <div class="x-flex x-flex-col x-gap-8 x-mb-16">
-                    <QueryPreviewButton
-                      class="x-w-fit x-button-xl x-button-ghost"
-                      :queryPreviewInfo="queryPreviewInfo"
-                    >
-                      {{ `${queryPreviewInfo.query} (${totalResults})` }}
-                    </QueryPreviewButton>
-                    <SlidingPanel :resetOnContentChange="false">
-                      <div class="x-flex x-gap-8">
-                        <Result
-                          v-for="result in results"
-                          :key="result.id"
-                          :result="result"
-                          style="max-width: 180px"
-                        />
-                      </div>
-                    </SlidingPanel>
-                  </div>
+                  <DisplayEmitter :payload="displayTagging">
+                    <div class="x-flex x-flex-col x-gap-8 x-mb-16">
+                      <QueryPreviewButton
+                        class="x-w-fit x-button-xl x-button-ghost"
+                        :queryPreviewInfo="queryPreviewInfo"
+                      >
+                        {{ `${queryPreviewInfo.query} (${totalResults})` }}
+                      </QueryPreviewButton>
+                      <SlidingPanel :resetOnContentChange="false">
+                        <div class="x-flex x-gap-8">
+                          <Result
+                            v-for="result in results"
+                            :key="result.id"
+                            :result="result"
+                            style="max-width: 180px"
+                          />
+                        </div>
+                      </SlidingPanel>
+                    </div>
+                  </DisplayEmitter>
                 </QueryPreviewList>
               </LocationProvider>
             </template>
@@ -506,6 +508,7 @@
   import { useQueriesPreview } from '../../x-modules/queries-preview/composables/use-queries-preview.composable';
   import { QueryPreviewInfo } from '../../x-modules/queries-preview/store/types';
   import QueryPreviewButton from '../../x-modules/queries-preview/components/query-preview-button.vue';
+  import DisplayEmitter from '../../components/display-emitter.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -517,6 +520,7 @@
       infiniteScroll
     },
     components: {
+      DisplayEmitter,
       QueryPreviewButton,
       DisplayResultProvider,
       FallbackDisclaimer,

@@ -35,6 +35,11 @@ export interface TaggingXEvents {
    */
   SearchTaggingReceived: TaggingRequest;
   /**
+   * Display trackable element has appeared in the viewport.
+   * Payload: The display tagging info.
+   */
+  TrackableElementDisplayed: TaggingRequest;
+  /**
    * The user has clicked on the add to cart button from PDP.
    * Payload: The id of the {@link @empathyco/x-types#Result | result} that the user clicked.
    */
