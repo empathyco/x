@@ -55,7 +55,13 @@ export const rollupConfig: RollupOptions = {
     );
   },
   plugins: [
-    del({ targets: [`${buildPath}/*`, `${path.join(rootDir, 'docs')}/*`] }),
+    del({
+      targets: [
+        `${buildPath}/*`,
+        `${path.join(rootDir, 'docs')}/*`,
+        `${path.join(rootDir, 'temp')}/*`
+      ]
+    }),
     typescript({
       useTsconfigDeclarationDir: true,
       tsconfig: path.resolve(rootDir, 'tsconfig.json'),
@@ -81,6 +87,7 @@ export const rollupConfig: RollupOptions = {
       }
     }) as Plugin,
     styles({
+      minimize: true,
       mode: [
         'inject',
         varname => {
