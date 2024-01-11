@@ -31,5 +31,5 @@ async function build(): Promise<any> {
  * Function for deleting useless folders.
  */
 function removeTempFiles(): void {
-  fs.rmdirSync(path.join(rootDir, 'temp'), { recursive: true });
+  fs.rmSync(path.join(rootDir, 'temp'), { recursive: true });
 }
