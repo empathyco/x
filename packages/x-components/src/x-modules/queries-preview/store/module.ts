@@ -5,8 +5,6 @@ import { QueriesPreviewXStoreModule } from './types';
 import { fetchQueryPreview } from './actions/fetch-query-preview.action';
 import { fetchAndSaveQueryPreview } from './actions/fetch-and-save-query-preview.action';
 import { loadedQueriesPreview } from './getters/loaded-queries-preview.getter';
-// eslint-disable-next-line max-len
-import { fetchAndSaveQueryPreviewNonCache } from './actions/fetch-and-save-query-preview-non-cache.action';
 
 /**
  * {@link XStoreModule} For the `queries-preview` module.
@@ -57,7 +55,6 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
   },
   actions: {
     fetchQueryPreview,
-    fetchAndSaveQueryPreview,
-    fetchAndSaveQueryPreviewNonCache
+    fetchAndSaveQueryPreview
   }
 };

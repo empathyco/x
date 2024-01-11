@@ -23,7 +23,7 @@ export interface QueryPreviewItem extends StatusState {
   results: Result[];
   /** The total number of results for the search query. */
   totalResults: number;
-  /** The number of instances showing the query preview*/
+  /** The number of instances showing the query preview .*/
   instances: number;
 }
 
@@ -134,13 +134,6 @@ export interface QueriesPreviewActions {
    * @param request - The request object to retrieve the query preview.
    */
   fetchAndSaveQueryPreview(request: SearchRequest): void;
-
-  /**
-   * Requests the results for a no cacheable query preview and saves them in the state.
-   *
-   * @param request - The request object to retrieve the query preview.
-   */
-  fetchAndSaveQueryPreviewNonCache(request: SearchRequest): void;
 }
 
 /**

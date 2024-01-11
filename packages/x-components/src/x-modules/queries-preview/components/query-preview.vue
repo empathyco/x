@@ -1,5 +1,5 @@
 <template>
-  <NoElement v-if="internalPreviewResults && internalPreviewResults.totalResults">
+  <NoElement v-if="queryPreviewResults && queryPreviewResults.totalResults > 0">
     <!--
       @slot Query Preview default slot.
           @binding {QueryPreviewInfo} queryPreviewInfo - The information about the request of the
@@ -9,12 +9,12 @@
     -->
     <slot
       :queryPreviewInfo="queryPreviewInfo"
-      :results="internalPreviewResults.results"
-      :totalResults="internalPreviewResults.totalResults"
+      :results="queryPreviewResults.results"
+      :totalResults="queryPreviewResults.totalResults"
     >
       <ul data-test="query-preview" class="x-query-preview">
         <li
-          v-for="result in internalPreviewResults.results"
+          v-for="result in queryPreviewResults.results"
           :key="result.id"
           class="x-query-preview__item"
           data-test="query-preview-item"
@@ -250,13 +250,6 @@
       } else {
         this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
       }
-    }
-
-    protected get internalPreviewResults(): QueryPreviewItem {
-      this.cachedPreviewResults = this.previewResults[this.queryOfQueryPreview]
-        ? this.previewResults[this.queryOfQueryPreview]
-        : this.cachedPreviewResults;
-      return this.cachedPreviewResults;
     }
 
     /**

@@ -1,4 +1,5 @@
-import { QueriesPreviewXStoreModule } from '../types';
+import { QueriesPreviewXStoreModule, QueryPreviewItem } from '../types';
+import { getHashFromQueryPreviewItem } from '../../utils/get-hash-from-query-preview';
 
 /**
  * Default implementation for the {@link QueriesPreviewActions.fetchAndSaveQueryPreview}.
@@ -18,15 +19,16 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
     if (!query) {
       return;
     }
-    //const persistInCache = request.extraParams?.persistInCache as boolean;
 
-    commit('setQueryPreviewCached', {
+    const queryPreviewItem: QueryPreviewItem = {
       request,
       results: [],
       status: 'loading',
       totalResults: 0,
       instances: 1
-    });
+    };
+
+    commit('setQueryPreviewCached', queryPreviewItem);
 
     return dispatch('fetchQueryPreview', request)
       .then(response => {
@@ -41,6 +43,7 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
       .catch(error => {
         // eslint-disable-next-line no-console
         console.error(error);
+        const query = getHashFromQueryPreviewItem(queryPreviewItem);
         commit('setStatus', { query, status: 'error' });
       });
   };
