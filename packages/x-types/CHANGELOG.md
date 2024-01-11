@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.3-alpha.1...@empathyco/x-types@10.1.0-alpha.0) (2024-01-11)
+
+
+### Features
+
+* update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
+
+
+
 ## [10.0.3-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.3-alpha.0...@empathyco/x-types@10.0.3-alpha.1) (2023-12-27)
 
 **Note:** Version bump only for package @empathyco/x-types
