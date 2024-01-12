@@ -1,4 +1,8 @@
-import { extractUrlParameters, getDisplayClickTagging, getTaggingInfoFromUrl } from '../url.utils';
+import {
+  extractUrlParameters,
+  getDisplayTaggingInfoFromUrl,
+  getTaggingInfoFromUrl
+} from '../url.utils';
 
 describe('url utils methods tests', () => {
   describe('extractUrlParameters', () => {
@@ -45,14 +49,14 @@ describe('url utils methods tests', () => {
 
   describe('getDisplayClickTagging', () => {
     it('should not break when dealing with bad urls', () => {
-      expect(getDisplayClickTagging('null')).toStrictEqual({
+      expect(getDisplayTaggingInfoFromUrl('null')).toStrictEqual({
         url: 'null',
         params: { displayId: 'no_query', follow: false }
       });
     });
 
     it('should retrieve the tagging info from the url, replacing q with displayId', () => {
-      const { url, params } = getDisplayClickTagging(
+      const { url, params } = getDisplayTaggingInfoFromUrl(
         'https://api.empathy.co/?q=chips&env=mobile&lang=english&lang=spanish'
       );
       expect(url).toBe('https://api.empathy.co/');
@@ -65,7 +69,7 @@ describe('url utils methods tests', () => {
     });
 
     it('should set no_query tagging info when no q param exist as in topclicked response', () => {
-      const { url, params } = getDisplayClickTagging(
+      const { url, params } = getDisplayTaggingInfoFromUrl(
         'https://api.empathy.co/?env=mobile&lang=english&lang=spanish'
       );
       expect(url).toBe('https://api.empathy.co/');

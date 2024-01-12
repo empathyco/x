@@ -221,6 +221,10 @@ export function createSearchResponse(partial?: Partial<SearchResponse>): SearchR
       url: `${trackEndpoint}/query`,
       params: { page: 1 }
     },
+    displayTagging: {
+      url: `${trackEndpoint}/display`,
+      params: { page: 1 }
+    },
     spellcheck: '',
     ...partial
   };

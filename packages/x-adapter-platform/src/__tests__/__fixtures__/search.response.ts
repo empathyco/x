@@ -101,6 +101,8 @@ export const platformSearchResponse = {
       }
     ],
     tagging: {
+      display:
+        'https://api.staging.empathy.co/tagging/v1/track/empathy/display?q=jeans&lang=en&scope=desktop&totalHits=686&page=1&origin=url%3Aexternal&filtered=true&spellcheck=false',
       query:
         'https://api.staging.empathy.co/tagging/v1/track/empathy/query?q=jeans&lang=en&scope=desktop&totalHits=686&page=1&origin=url%3Aexternal&filtered=true&spellcheck=false'
     },

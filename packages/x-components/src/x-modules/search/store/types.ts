@@ -52,6 +52,8 @@ export interface SearchState extends StatusState, QueryState {
   promoteds: Promoted[];
   /** The query tagging used to track the search events. */
   queryTagging: TaggingRequest;
+  /** The display tagging used to track the search events. */
+  displayTagging: TaggingRequest;
   /** The redirections associated to the `query`. */
   redirections: Redirection[];
   /** The list of the related tags, related to the `query` property of the state. */
@@ -172,6 +174,12 @@ export interface SearchMutations
    * @param queryTagging - The new query tagging object to save to the state.
    */
   setQueryTagging(queryTagging: TaggingRequest): void;
+  /**
+   * Sets the display tagging of the module.
+   *
+   * @param displayTagging - The new display tagging object to save to the state.
+   */
+  setDisplayTagging(DisplayTagging: TaggingRequest): void;
   /**
    * Sets the redirection of the module.
    *
