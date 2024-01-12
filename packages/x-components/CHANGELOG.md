@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.6...@empathyco/x-components@4.1.0-alpha.7) (2024-01-12)
+
+
+### Features
+
+* **search:** handle display tagging from search response (#1388) ([b6b5d86](https://github.com/empathyco/x/commit/b6b5d8657947b8510f9d23530d709e757e5e3ecf))
+
+
+
 ## [4.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.5...@empathyco/x-components@4.1.0-alpha.6) (2024-01-11)
 
 

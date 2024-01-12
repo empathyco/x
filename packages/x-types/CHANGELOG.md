@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.0...@empathyco/x-types@10.1.0-alpha.1) (2024-01-12)
+
+
+### Features
+
+* **search:** handle display tagging from search response (#1388) ([b6b5d86](https://github.com/empathyco/x/commit/b6b5d8657947b8510f9d23530d709e757e5e3ecf))
+
+
+
 ## [10.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-types@10.0.3-alpha.1...@empathyco/x-types@10.1.0-alpha.0) (2024-01-11)
 
 
