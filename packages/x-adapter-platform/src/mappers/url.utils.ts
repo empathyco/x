@@ -29,13 +29,13 @@ export function getTaggingInfoFromUrl(taggingUrl: string): TaggingRequest {
  * @public
  */
 export function getDisplayTaggingInfoFromUrl(displayTaggingUrl: string): TaggingRequest {
-  const displayClickTagging = getTaggingInfoFromUrl(displayTaggingUrl);
-  const displayClickTaggingParams = displayClickTagging.params;
+  const displayTagging = getTaggingInfoFromUrl(displayTaggingUrl);
+  const displayTaggingParams = displayTagging.params;
 
-  displayClickTaggingParams.displayId = displayClickTaggingParams.q ?? 'no_query';
-  delete displayClickTaggingParams.q;
+  displayTaggingParams.displayId = displayTaggingParams.q ?? 'no_query';
+  delete displayTaggingParams.q;
 
-  return displayClickTagging;
+  return displayTagging;
 }
 
 /**

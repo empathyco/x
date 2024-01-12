@@ -20,7 +20,8 @@ export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchRespon
     totalResults,
     spellcheck,
     redirections,
-    queryTagging
+    queryTagging,
+    displayTagging
   }
 ) => {
   if (totalResults === 0) {
@@ -50,6 +51,11 @@ export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchRespon
   if (queryTagging) {
     commit('setQueryTagging', queryTagging);
   }
+
+  if (displayTagging) {
+    commit('setDisplayTagging', displayTagging);
+  }
+
   commit('setTotalResults', totalResults);
   commit('setSpellcheck', spellcheck ?? '');
 };
