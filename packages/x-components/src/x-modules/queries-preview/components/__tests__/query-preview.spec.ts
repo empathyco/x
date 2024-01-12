@@ -26,7 +26,7 @@ function renderQueryPreview({
   persistInCache = false,
   debounceTimeMs = 0,
   template = `<QueryPreview v-bind="$attrs" />`,
-  queryPreview = {
+  queryPreviewInState = {
     request: {
       query: queryPreviewInfo.query
     },
@@ -49,10 +49,10 @@ function renderQueryPreview({
   const queryPreviewUnmounted = jest.fn();
   XPlugin.bus.on('QueryPreviewUnmounted').subscribe(queryPreviewUnmounted);
 
-  if (queryPreview) {
+  if (queryPreviewInState) {
     resetXQueriesPreviewStateWith(store, {
       queriesPreview: {
-        [getHashFromQueryPreviewInfo(queryPreviewInfo)]: queryPreview
+        [getHashFromQueryPreviewInfo(queryPreviewInfo)]: queryPreviewInState
       }
     });
   }
@@ -83,7 +83,7 @@ function renderQueryPreview({
     queryPreviewRequestUpdatedSpy,
     queryPreviewUnmounted,
     queryPreviewInfo,
-    queryPreview,
+    queryPreviewInState,
     findTestDataById: findTestDataById.bind(undefined, wrapper),
     updateExtraParams: async params => {
       store.commit('x/queriesPreview/setParams', params);
@@ -251,11 +251,11 @@ describe('query preview', () => {
   });
 
   it('renders the results names in the default slot', () => {
-    const { queryPreview, findTestDataById } = renderQueryPreview();
+    const { queryPreviewInState, findTestDataById } = renderQueryPreview();
 
     const wrappers = findTestDataById('result-name');
 
-    queryPreview!.results.forEach((result, index) => {
+    queryPreviewInState!.results.forEach((result, index) => {
       expect(wrappers.at(index).element).toHaveTextContent(result.name!);
     });
   });
@@ -283,20 +283,22 @@ describe('query preview', () => {
         </div>
       </QueryPreview>`;
 
-    const { queryPreviewInfo, wrapper, queryPreview, findTestDataById } = renderQueryPreview({
-      template
-    });
+    const { queryPreviewInfo, wrapper, queryPreviewInState, findTestDataById } = renderQueryPreview(
+      {
+        template
+      }
+    );
 
     expect(wrapper.find(getDataTestSelector('query-preview-query')).element).toHaveTextContent(
       queryPreviewInfo.query
     );
     expect(wrapper.find(getDataTestSelector('total-results')).element).toHaveTextContent(
-      queryPreview!.totalResults.toString()
+      queryPreviewInState!.totalResults.toString()
     );
 
     const resultsWrappers = findTestDataById('result-name');
 
-    queryPreview!.results.forEach((result, index) => {
+    queryPreviewInState!.results.forEach((result, index) => {
       expect(resultsWrappers.at(index).element).toHaveTextContent(result.name!);
     });
   });
@@ -307,18 +309,18 @@ describe('query preview', () => {
         <span data-test="result-content">{{result.id}} - {{result.name}}</span>
       </QueryPreview>
     `;
-    const { findTestDataById, queryPreview } = renderQueryPreview({ template });
+    const { findTestDataById, queryPreviewInState } = renderQueryPreview({ template });
 
     const resultsWrapper = findTestDataById('result-content');
 
-    queryPreview!.results.forEach((result, index) => {
+    queryPreviewInState!.results.forEach((result, index) => {
       expect(resultsWrapper.at(index).element).toHaveTextContent(`${result.id} - ${result.name!}`);
     });
   });
 
   it('wont render if there are no results', () => {
     const { wrapper } = renderQueryPreview({
-      queryPreview: {
+      queryPreviewInState: {
         request: {
           query: 'milk'
         },
@@ -357,7 +359,7 @@ describe('query preview', () => {
   it('emits error event on success if results are empty', async () => {
     jest.useRealTimers();
     const { wrapper, reRender, queryPreviewInfo } = renderQueryPreview({
-      queryPreview: {
+      queryPreviewInState: {
         request: {
           query: 'milk'
         },
@@ -380,25 +382,21 @@ describe('query preview', () => {
   });
 
   it('emits error event on error', async () => {
-    const { wrapper, localVue } = renderQueryPreview({
-      queryPreviewInfo: undefined,
-      queryPreview: undefined
-    });
-
+    jest.useRealTimers();
     (XComponentsAdapterDummy.search as jest.Mock).mockRejectedValueOnce('Some error');
 
-    await wrapper.setProps({ queryPreviewInfo: { query: 'shoes' } });
+    const { wrapper, reRender } = renderQueryPreview({
+      queryPreviewInState: null
+    });
 
-    jest.advanceTimersByTime(0);
+    const query = getHashFromQueryPreviewInfo({ query: 'milk' });
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    await localVue.nextTick();
-
-    const query = getHashFromQueryPreviewInfo({ query: 'shoes' });
+    await reRender();
 
     expect(wrapper.emitted('error')?.length).toBe(1);
     expect(wrapper.emitted('error')?.[0]).toEqual([query]);
     expect(wrapper.emitted('load')).toBeUndefined();
+    jest.useFakeTimers();
   });
 
   describe('debounce', () => {
@@ -501,7 +499,7 @@ interface RenderQueryPreviewOptions {
   /** The name of the tool that generated the query. */
   queryFeature?: string;
   /** The results preview for the passed query. */
-  queryPreview?: QueryPreviewItem;
+  queryPreviewInState?: QueryPreviewItem | null;
   /** Time to debounce requests.  */
   debounceTimeMs?: number;
   /**
@@ -521,7 +519,7 @@ interface RenderQueryPreviewAPI {
   /** The query for which preview its results. */
   queryPreviewInfo: QueryPreviewInfo;
   /** The results preview for the passed query. */
-  queryPreview: QueryPreviewItem | null;
+  queryPreviewInState: QueryPreviewItem | null;
   /** Find test data in the wrapper for the {@link QueryPreview} component. */
   findTestDataById: (testDataId: string) => WrapperArray<Vue>;
   /** Updates the extra params in the module state. */

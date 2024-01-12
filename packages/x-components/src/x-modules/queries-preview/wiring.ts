@@ -60,7 +60,18 @@ export const setSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview')
  */
 export const clearSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview', null);
 
+/**
+ * Adds a new instance in a query preview.
+ *
+ * @public
+ */
 export const addQueryPreviewInstanceWire = wireCommit('addQueryPreviewInstance');
+
+/**
+ * Removes an instance in a query preview.
+ *
+ * @public
+ */
 export const removeQueryPreviewInstanceWire = wireCommit('removeQueryPreviewInstance');
 
 /**
