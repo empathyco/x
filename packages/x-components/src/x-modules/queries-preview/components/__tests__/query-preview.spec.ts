@@ -128,7 +128,7 @@ describe('query preview', () => {
     expect(wrapper.emitted('load')?.[0]).toEqual([query]);
   });
 
-  it('emits `QueryPreviewUnmounted` when the component is been destroying', () => {
+  it('emits `QueryPreviewUnmounted` when the component is being destroyed', () => {
     const { queryPreviewUnmounted, wrapper } = renderQueryPreview({
       persistInCache: false,
       queryPreviewInfo: {
@@ -526,5 +526,6 @@ interface RenderQueryPreviewAPI {
   updateExtraParams: (params: any) => Promise<void>;
   /** Flushes all pending promises to cause the component to be in its final state. */
   reRender: () => Promise<void>;
+  /** A local copy of Vue created by createLocalVue to use when mounting the component. */
   localVue: any;
 }
