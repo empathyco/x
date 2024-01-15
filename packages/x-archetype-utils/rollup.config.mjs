@@ -4,17 +4,19 @@ import typescript from 'rollup-plugin-typescript2';
 
 export default {
   input: 'src/index.ts',
-  preserveModules: true,
   output: [
     {
       format: 'cjs',
-      dir: 'dist/cjs'
+      dir: 'dist/cjs',
+      preserveModules: true
     },
     {
       format: 'esm',
-      dir: 'dist/esm'
+      dir: 'dist/esm',
+      preserveModules: true
     }
   ],
+  external: ['@empathyco/x-deep-merge', '@empathyco/x-utils', 'vue-i18n'],
   plugins: [
     del({ targets: 'dist' }),
     copy({
