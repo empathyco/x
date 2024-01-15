@@ -5,7 +5,7 @@
 <script lang="ts">
   import { forEach, Dictionary } from '@empathyco/x-utils';
   import Vue from 'vue';
-  import { Component, Inject, Prop } from 'vue-property-decorator';
+  import { Component, Inject, Prop, Watch } from 'vue-property-decorator';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { extraParamsXModule } from '../x-module';
@@ -48,16 +48,21 @@
      *
      * @internal
      */
-    protected get extraParams(): Dictionary<unknown> {
-      const newExtraParams = {};
+    protected extraParams: Dictionary<unknown> = {};
 
+    /**
+     * Updates the extraParams object when the snippet config or the values prop changes.
+     *
+     * @internal
+     */
+    @Watch('snippetConfig', { deep: true, immediate: true })
+    @Watch('values', { deep: true, immediate: true })
+    syncExtraParams(): void {
       forEach({ ...this.values, ...this.snippetConfig }, (name, value) => {
         if (!this.excludedExtraParams.includes(name)) {
-          this.$set(newExtraParams, name, value);
+          this.$set(this.extraParams, name, value);
         }
       });
-
-      return newExtraParams;
     }
 
     /**
