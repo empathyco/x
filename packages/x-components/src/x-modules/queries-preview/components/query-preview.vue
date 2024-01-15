@@ -159,8 +159,6 @@
      */
     public queryOfQueryPreview = getHashFromQueryPreviewInfo(this.queryPreviewInfo);
 
-    public cachedPreviewResults!: QueryPreviewItem;
-
     /**
      * The computed request object to be used to retrieve the query preview results.
      *
