@@ -3,6 +3,67 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.6...@empathyco/x-components@4.1.0-alpha.7) (2024-01-12)
+
+
+### Features
+
+* **search:** handle display tagging from search response (#1388) ([b6b5d86](https://github.com/empathyco/x/commit/b6b5d8657947b8510f9d23530d709e757e5e3ecf))
+
+
+
+## [4.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.5...@empathyco/x-components@4.1.0-alpha.6) (2024-01-11)
+
+
+### Features
+
+* update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
+
+
+
+## [4.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.4...@empathyco/x-components@4.1.0-alpha.5) (2024-01-03)
+
+
+### Documentation
+
+* **integration:** add getSnippetConfig info (#1387) ([622286b](https://github.com/empathyco/x/commit/622286be7b9e552f3dd1e5563a295c7bd267cc49))
+
+
+
+## [4.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.3...@empathyco/x-components@4.1.0-alpha.4) (2023-12-29)
+
+
+### Features
+
+* **x-plugin:** add snippet config getter to XAPI (#1378) ([a76e1b7](https://github.com/empathyco/x/commit/a76e1b716b9aa86fc6853bcf4d1bb7aaa9478f4a))
+
+
+
+## [4.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.2...@empathyco/x-components@4.1.0-alpha.3) (2023-12-29)
+
+
+### Documentation
+
+* optimize images for SEO (#1379) ([b115a08](https://github.com/empathyco/x/commit/b115a08caa450447f0515532c3d9c9fd1125a1a4))
+
+
+
+## [4.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.1...@empathyco/x-components@4.1.0-alpha.2) (2023-12-28)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [4.1.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.0...@empathyco/x-components@4.1.0-alpha.1) (2023-12-27)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## [4.1.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@4.0.2-alpha.0...@empathyco/x-components@4.1.0-alpha.0) (2023-12-11)
 
 

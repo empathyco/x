@@ -22,6 +22,7 @@ export interface PlatformSearchResponse {
     partials: PlatformPartialResult[];
     tagging: {
       query: string;
+      display: string;
     };
   };
   direct: {

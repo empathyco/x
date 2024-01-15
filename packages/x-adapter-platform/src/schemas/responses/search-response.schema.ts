@@ -1,6 +1,6 @@
 import { createMutableSchema } from '@empathyco/x-adapter';
 import { SearchResponse } from '@empathyco/x-types';
-import { getTaggingInfoFromUrl } from '../../mappers/url.utils';
+import { getDisplayTaggingInfoFromUrl, getTaggingInfoFromUrl } from '../../mappers/url.utils';
 import { PlatformSearchResponse } from '../../types/responses/search-response.model';
 import { bannerSchema } from '../models/banner.schema';
 import { facetSchema } from '../models/facet.schema';
@@ -41,5 +41,6 @@ export const searchResponseSchema = createMutableSchema<PlatformSearchResponse, 
     $path: 'catalog.partials',
     $subSchema: partialResultsSchema
   },
-  queryTagging: ({ catalog }) => getTaggingInfoFromUrl(catalog?.tagging?.query)
+  queryTagging: ({ catalog }) => getTaggingInfoFromUrl(catalog?.tagging?.query),
+  displayTagging: ({ catalog }) => getDisplayTaggingInfoFromUrl(catalog?.tagging?.display)
 });

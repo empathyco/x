@@ -28,6 +28,7 @@ export const searchEmitters = createStoreEmitters(searchXStoreModule, {
         partialResults: state.partialResults,
         promoteds: state.promoteds,
         queryTagging: state.queryTagging,
+        displayTagging: state.displayTagging,
         redirections: state.redirections,
         results: state.results,
         spellcheck: state.spellcheckedQuery,

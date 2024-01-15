@@ -106,6 +106,9 @@ export const searchXStoreModule: SearchXStoreModule = {
     setQueryTagging(state, queryTagging) {
       state.queryTagging = queryTagging;
     },
+    setDisplayTagging(state, displayTagging) {
+      state.displayTagging = displayTagging;
+    },
     updateResult(state, result) {
       const stateResult = state.results.find(stateResult => result.id === stateResult.id);
       if (stateResult) {
@@ -151,6 +154,10 @@ export function resettableState() {
     isAppendResults: false,
     redirections: [],
     queryTagging: {
+      url: '',
+      params: {}
+    },
+    displayTagging: {
       url: '',
       params: {}
     }

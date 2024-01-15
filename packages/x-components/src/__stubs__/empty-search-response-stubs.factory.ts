@@ -17,6 +17,10 @@ export function getEmptySearchResponseStub(): SearchResponse {
       params: {},
       url: ''
     },
+    displayTagging: {
+      params: {},
+      url: ''
+    },
     redirections: [],
     results: [],
     spellcheck: '',

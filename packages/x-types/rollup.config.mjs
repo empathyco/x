@@ -4,15 +4,16 @@ import typescript from 'rollup-plugin-typescript2';
 /* Models - CJS & ESM build */
 const models = {
   input: 'src/index.ts',
-  preserveModules: true,
   output: [
     {
       format: 'cjs',
-      dir: 'dist/cjs'
+      dir: 'dist/cjs',
+      preserveModules: true
     },
     {
       format: 'esm',
-      dir: 'dist/esm'
+      dir: 'dist/esm',
+      preserveModules: true
     }
   ],
   plugins: [
