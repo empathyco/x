@@ -70,6 +70,15 @@ describe('testing queries preview module actions', () => {
           },
           query: 'tshirt',
           rows: 3
+        },
+        displayTagging: {
+          params: {
+            follow: false,
+            lang: 'es',
+            q: 'lego',
+            totalHits: '789'
+          },
+          url: 'https://api.empathybroker.com/tagging/v1/track/query'
         }
       };
 

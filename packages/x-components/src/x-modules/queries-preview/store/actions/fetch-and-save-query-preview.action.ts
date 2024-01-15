@@ -32,6 +32,7 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
           request,
           results: response?.results ?? [],
           status: 'success',
+          displayTagging: response?.displayTagging ?? undefined,
           totalResults: response?.totalResults ?? 0
         });
       })
