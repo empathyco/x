@@ -110,7 +110,7 @@
     "autoprefixer": "~10.4.4",
     "convert-source-map": "~2.0.0",
     "cypress": "~13.6.0",
-    "esbuild": "0.19.10",
+    "esbuild": "0.19.11",
     "glob": "~10.3.0",
     "jest": "~27.5.0",
     "jest-scss-transform": "~1.0.1",
