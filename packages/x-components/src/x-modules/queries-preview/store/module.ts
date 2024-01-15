@@ -44,12 +44,17 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     setConfig,
     mergeConfig,
     addQueryPreviewInstance(state, query: string) {
-      state.queriesPreview[query].instances += 1;
+      if (state.queriesPreview[query]) {
+        state.queriesPreview[query].instances += 1;
+      }
     },
     removeQueryPreviewInstance(state, { query, cache }: { query: string; cache: boolean }) {
-      state.queriesPreview[query].instances -= 1;
-      if (!cache && state.queriesPreview[query].instances === 0) {
-        Vue.delete(state.queriesPreview, query);
+      if (state.queriesPreview[query]) {
+        state.queriesPreview[query].instances -= 1;
+
+        if (!cache && state.queriesPreview[query].instances === 0) {
+          Vue.delete(state.queriesPreview, query);
+        }
       }
     }
   },
