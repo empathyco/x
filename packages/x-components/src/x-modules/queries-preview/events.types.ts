@@ -15,16 +15,6 @@ export interface QueriesPreviewXEvents {
    */
   QueryPreviewRequestUpdated: SearchRequest;
   /**
-   * Any property of no cacheable queries preview request has changed.
-   * Payload: The new {@link @empathyco/x-types#SearchRequest | request}.
-   */
-  QueryPreviewRequestUpdatedForNoCache: SearchRequest;
-  /**
-   * The component that shows a Query preview has been unmounted.
-   * Payload: The query whose preview has been removed.
-   */
-  NonCacheableQueryPreviewUnmounted: string;
-  /**
    * User has clicked on a query preview.
    * Payload: The {@link QueryPreviewInfo | query preview info}
    * of the selected {@link QueryPreviewItem | item}.
