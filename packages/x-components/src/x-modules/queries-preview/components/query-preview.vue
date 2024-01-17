@@ -11,6 +11,7 @@
       :queryPreviewInfo="queryPreviewInfo"
       :results="queryPreviewResults.results"
       :totalResults="queryPreviewResults.totalResults"
+      :displayTagging="queryPreviewResults.displayTagging"
     >
       <ul data-test="query-preview" class="x-query-preview">
         <li

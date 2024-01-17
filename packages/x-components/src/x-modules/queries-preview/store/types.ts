@@ -1,4 +1,4 @@
-import { Result, SearchRequest, SearchResponse } from '@empathyco/x-types';
+import { Result, SearchRequest, SearchResponse, TaggingRequest } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext } from '../../../store/actions.types';
 import { XStoreModule } from '../../../store/store.types';
@@ -21,6 +21,8 @@ export interface QueryPreviewItem extends StatusState {
   request: SearchRequest;
   /** Results of the query preview request. */
   results: Result[];
+  /** Display tagging info */
+  displayTagging?: TaggingRequest;
   /** The total number of results for the search query. */
   totalResults: number;
   /** The number of instances showing the query preview .*/
