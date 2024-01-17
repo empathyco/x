@@ -405,8 +405,8 @@ importers:
         specifier: ^1.0.3-alpha.0
         version: link:../x-utils
       '@vue/devtools-api':
-        specifier: ~6.5.0
-        version: 6.5.0
+        specifier: ~7.0.0
+        version: 7.0.10
       '@vueuse/core':
         specifier: ~10.7.1
         version: 10.7.1(vue@2.7.14)
@@ -4833,8 +4833,31 @@ packages:
       - whiskers
     dev: true
 
-  /@vue/devtools-api@6.5.0:
-    resolution: {integrity: sha512-o9KfBeaBmCKl10usN4crU53fYtC1r7jJwdGKjPT24t348rHxgfpZ0xL3Xm/gLUYnc0oTp8LAmrxOeLyu6tbk2Q==}
+  /@vue/devtools-api@7.0.10:
+    resolution: {integrity: sha512-ahyPg7WfNChvFBBoXuksPWYetbfKQq+9s+1HFFtAW3ZT/KrHw+12K30OARscUVd5waOd8wSf8COdLUZMdV/3rw==}
+    dependencies:
+      '@vue/devtools-kit': 7.0.10
+    dev: false
+
+  /@vue/devtools-kit@7.0.10:
+    resolution: {integrity: sha512-50EALBgt5blOQTR5yGXAVWcXGF77AvjPrY3wL5iEzel3TPL1mRsL5+1FHcaIpKN1g9AoIF/5NMrEjJd0VBz/dA==}
+    dependencies:
+      '@vue/devtools-schema': 7.0.10
+      '@vue/devtools-shared': 7.0.10
+      hookable: 5.5.3
+      mitt: 3.0.1
+      perfect-debounce: 1.0.0
+      speakingurl: 14.0.1
+    dev: false
+
+  /@vue/devtools-schema@7.0.10:
+    resolution: {integrity: sha512-0HSXzvxsW3M1MZVpUzoHD/jr+LGB4rtfpcBA5slalbUMy0bohDZ1xKUcGMNDcn/lE8HdzHDwrnByW8DgqG/EpA==}
+    dev: false
+
+  /@vue/devtools-shared@7.0.10:
+    resolution: {integrity: sha512-aZhyQLtmX5IQIHvCLk9fYaRY2PLDfIT1k4JjOM4/NGB45eZ0ebjyDhqZgkxmXEkVFLxKg4HtwYKLesxKmF/j5g==}
+    dependencies:
+      rfdc: 1.3.0
     dev: false
 
   /@vue/eslint-config-prettier@7.0.0(eslint@8.32.0)(prettier@2.8.3):
@@ -9262,6 +9285,10 @@ packages:
     hasBin: true
     dev: true
 
+  /hookable@5.5.3:
+    resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==}
+    dev: false
+
   /hosted-git-info@2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
     dev: true
@@ -11420,6 +11447,10 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /mitt@3.0.1:
+    resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
+    dev: false
+
   /mkdirp-infer-owner@2.0.0:
     resolution: {integrity: sha512-sdqtiFt3lkOaYvTXSRIUjkIdPTcxgv5+fgqYE/5qgwdw12cOrAuzzgzvVExIkH/ul1oeHN3bCLOWSG3XOqbKKw==}
     engines: {node: '>=10'}
@@ -12314,6 +12345,10 @@ packages:
   /pend@1.2.0:
     resolution: {integrity: sha512-F3asv42UuXchdzt+xXqfW1OGlVBe+mxa2mqI0pg5yAHZPvFmY3Y6drSf/GQ1A86WgWEN9Kzh/WrgKa6iGcHXLg==}
     dev: true
+
+  /perfect-debounce@1.0.0:
+    resolution: {integrity: sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA==}
+    dev: false
 
   /performance-now@2.1.0:
     resolution: {integrity: sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==}
@@ -13553,7 +13588,6 @@ packages:
 
   /rfdc@1.3.0:
     resolution: {integrity: sha512-V2hovdzFbOi77/WajaSMXk2OLm+xNIeQdMMuB7icj7bk6zi2F8GGAxigcnDFpJHbNyNcgyJDiP+8nOrY5cZGrA==}
-    dev: true
 
   /rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
@@ -14070,6 +14104,11 @@ packages:
 
   /spdx-license-ids@3.0.13:
     resolution: {integrity: sha512-XkD+zwiqXHikFZm4AX/7JSCXA98U5Db4AFd5XUg/+9UNtnH75+Z9KxtpYiJZx36mUDVOwH83pl7yvCer6ewM3w==}
+
+  /speakingurl@14.0.1:
+    resolution: {integrity: sha512-1POYv7uv2gXoyGFpBCmpDVSNV74IfsWlDW216UPjbWufNf+bSU6GdbDsxdcxtfwb4xlI3yxzOTKClUosxARYrQ==}
+    engines: {node: '>=0.10.0'}
+    dev: false
 
   /split-on-first@1.1.0:
     resolution: {integrity: sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw==}
