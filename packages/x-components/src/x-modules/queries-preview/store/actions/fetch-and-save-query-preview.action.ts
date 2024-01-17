@@ -37,9 +37,8 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
           results: response?.results ?? [],
           status: 'success',
           totalResults: response?.totalResults ?? 0,
-          instances: 1
-          displayTagging: response?.displayTagging ?? undefined,
-
+          instances: 1,
+          displayTagging: response?.displayTagging ?? undefined
         });
       })
       .catch(error => {
