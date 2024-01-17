@@ -1,23 +1,29 @@
 import { mount, Wrapper } from '@vue/test-utils';
-import Vue, { ref } from 'vue';
-import { Component } from 'vue-property-decorator';
+import Vue, { ref, nextTick, Ref } from 'vue';
 import { TaggingRequest } from '@empathyco/x-types';
-import { useElementVisibility } from '@vueuse/core';
+import { useEmitDisplayEvent } from '../../composables';
 import DisplayEmitter from '../display-emitter.vue';
+import { getDataTestSelector } from '../../__tests__/utils';
 
-@Component({
-  template: `
-    <button data-test="child" />
-  `
-})
-class Child extends Vue {}
+jest.mock('../../composables', () => ({
+  useEmitDisplayEvent: jest.fn()
+}));
 
+let emitDisplayEventElementSpy: Ref<Vue | null> = ref(null);
+let emitDisplayEventPayloadSpy: TaggingRequest = { url: '', params: {} };
+const unwatchDisplaySpy = jest.fn();
 const refElementVisibility = ref(false);
+(useEmitDisplayEvent as jest.Mock).mockImplementation(({ element, taggingRequest }) => {
+  // jest doesn't handle well evaluation of dynamic references with `toHaveBeenCalledWith`
+  // so we need a spy
+  emitDisplayEventElementSpy = element;
+  emitDisplayEventPayloadSpy = taggingRequest;
 
-/* eslint-disable */
-// @ts-ignore
-useElementVisibility = jest.fn().mockReturnValue(refElementVisibility);
-/* eslint-enable */
+  return {
+    isElementVisible: refElementVisibility,
+    unwatchDisplay: unwatchDisplaySpy
+  };
+});
 
 /**
  * Renders the {@link DisplayEmitter} component, exposing a basic API for testing.
@@ -29,43 +35,26 @@ useElementVisibility = jest.fn().mockReturnValue(refElementVisibility);
 function renderDisplayEmitter(
   { payload }: RenderDisplayEmitterOptions = { payload: { url: '', params: {} } }
 ): RenderDisplayEmitterAPI {
-  const emitSpy = jest.fn();
-
   const wrapper = mount(
     {
       components: {
-        DisplayEmitter,
-        Child
+        DisplayEmitter
       },
       template: `
         <DisplayEmitter :payload="payload">
-          <Child v-show="showChild" />
+          <div data-test="child" />
         </DisplayEmitter>`,
-      props: ['payload', 'showChild']
+      props: ['payload']
     },
     {
       propsData: {
-        payload,
-        showChild: false
-      },
-      mocks: {
-        $x: {
-          emit: emitSpy
-        }
+        payload
       }
     }
   );
 
-  const toggleChildVisibility = async (): Promise<void> => {
-    refElementVisibility.value = !refElementVisibility.value;
-    await wrapper.vm.$nextTick();
-  };
-
   return {
-    wrapper,
-    child: wrapper.findComponent<Child>(Child),
-    emitSpy,
-    toggleChildVisibility
+    wrapper
   };
 }
 
@@ -75,37 +64,43 @@ describe('testing DisplayEmitter component', () => {
   });
 
   it('renders everything passed to its default slot', () => {
-    const { child } = renderDisplayEmitter();
+    const { wrapper } = renderDisplayEmitter();
 
-    expect(child.exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('child')).exists()).toBe(true);
+  });
+
+  it('uses `useEmitDisplayEvent` underneath', () => {
+    renderDisplayEmitter();
+
+    expect(useEmitDisplayEvent).toHaveBeenCalled();
+  });
+
+  it('provides `useEmitDisplayEvent` with the element in the slot to watch', async () => {
+    renderDisplayEmitter();
+
+    await nextTick();
+
+    expect(emitDisplayEventElementSpy.value).not.toBe(null);
+    expect(emitDisplayEventElementSpy.value?.$el.getAttribute('data-test')).toBe('child');
   });
 
   // eslint-disable-next-line max-len
-  it('emits TrackableElementDisplayed with provided payload when the child is visible', async () => {
+  it('provides `useEmitDisplayEvent` with the payload to emit with the display event', () => {
     const payload = { url: 'test-url', params: { test: 'param' } };
-    const { emitSpy, toggleChildVisibility } = renderDisplayEmitter({
+    renderDisplayEmitter({
       payload
     });
 
-    await toggleChildVisibility();
-
-    expect(emitSpy).toHaveBeenCalledTimes(1);
-    expect(emitSpy).toHaveBeenCalledWith('TrackableElementDisplayed', payload);
+    expect(useEmitDisplayEvent).toHaveBeenCalled();
+    expect(emitDisplayEventPayloadSpy).toBe(payload);
   });
 
-  // eslint-disable-next-line max-len
-  it('emits TrackableElementDisplayed when the child is visible only for the first time', async () => {
-    const { emitSpy, toggleChildVisibility } = renderDisplayEmitter();
+  it('removes the watcher on unmount', async () => {
+    const { wrapper } = renderDisplayEmitter();
 
-    await toggleChildVisibility();
-
-    expect(emitSpy).toHaveBeenCalledTimes(1);
-    expect(emitSpy).toHaveBeenCalledWith('TrackableElementDisplayed', expect.anything());
-
-    await toggleChildVisibility();
-    await toggleChildVisibility();
-
-    expect(emitSpy).toHaveBeenCalledTimes(1);
+    wrapper.destroy();
+    await nextTick();
+    expect(unwatchDisplaySpy).toHaveBeenCalled();
   });
 });
 
@@ -117,10 +112,4 @@ interface RenderDisplayEmitterOptions {
 interface RenderDisplayEmitterAPI {
   /** The wrapper testing component instance. */
   wrapper: Wrapper<Vue>;
-  /** The wrapper for the child component inside the display emitter. */
-  child: Wrapper<Child>;
-  /** The emit spy. */
-  emitSpy: jest.Mock;
-  /** Toggle child visibility. */
-  toggleChildVisibility: () => Promise<void>;
 }

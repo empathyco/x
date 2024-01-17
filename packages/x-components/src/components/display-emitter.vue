@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, ref, watch } from 'vue';
-  import { useElementVisibility } from '@vueuse/core';
+  import { defineComponent, onUnmounted, PropType, Ref, ref } from 'vue';
+  import { MaybeElement } from '@vueuse/core';
   import { TaggingRequest } from '@empathyco/x-types';
-  import { use$x } from '../composables';
+  import { useEmitDisplayEvent } from '../composables';
   import { NoElement } from './no-element';
 
   /**
@@ -31,19 +31,12 @@
     },
     setup(props) {
       const root = ref(null);
-      const isElementVisible = useElementVisibility(root);
-      const $x = use$x();
-
-      /**
-       * Emit the display event when the element is visible and stop watching the visibility of the
-       * element.
-       */
-      const unwatchDisplay = watch(isElementVisible, newValue => {
-        if (newValue) {
-          $x.emit('TrackableElementDisplayed', props.payload);
-          unwatchDisplay();
-        }
+      const { unwatchDisplay } = useEmitDisplayEvent({
+        element: root as Ref<MaybeElement>,
+        taggingRequest: props.payload
       });
+
+      onUnmounted(unwatchDisplay);
 
       return {
         root
