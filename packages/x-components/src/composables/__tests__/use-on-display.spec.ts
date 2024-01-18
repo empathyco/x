@@ -1,7 +1,9 @@
 import { ref, nextTick } from 'vue';
 import { useElementVisibility } from '@vueuse/core';
+import { TaggingRequest } from '@empathyco/x-types';
 import { useEmitDisplayEvent, useOnDisplay } from '../use-on-display';
 import { use$x } from '../use-$x';
+import { WireMetadata } from '../../wiring';
 
 jest.mock('@vueuse/core', () => ({
   useElementVisibility: jest.fn()
@@ -123,11 +125,13 @@ describe(`testing ${useEmitDisplayEvent.name} composable`, () => {
     taggingRequest = {
       url: '',
       params: {}
-    }
+    },
+    eventMetadata = {}
   }: RenderUseEmitDisplayEventOptions = {}): RenderUseEmitDisplayEventAPI {
     const { isElementVisible, unwatchDisplay } = useEmitDisplayEvent({
       element,
-      taggingRequest
+      taggingRequest,
+      eventMetadata
     });
 
     const toggleElementVisibility = async (): Promise<void> => {
@@ -154,21 +158,49 @@ describe(`testing ${useEmitDisplayEvent.name} composable`, () => {
   });
 
   // eslint-disable-next-line max-len
-  it('emits `TrackableElementDisplayed` when the element is visible with the provided tagging request', async () => {
+  it('emits `TrackableElementDisplayed` when the element is visible with the provided tagging request converted to display taggable', async () => {
+    const taggingRequest = {
+      url: 'test-url',
+      params: { test: 'param' }
+    };
+
     const { toggleElementVisibility } = renderUseEmitDisplayEvent({
-      taggingRequest: {
-        url: 'test-url',
-        params: { test: 'param' }
-      }
+      taggingRequest
     });
 
     await toggleElementVisibility();
 
     expect($xEmitSpy).toHaveBeenCalled();
-    expect($xEmitSpy).toHaveBeenCalledWith('TrackableElementDisplayed', {
-      params: { test: 'param' },
-      url: 'test-url'
+    expect($xEmitSpy).toHaveBeenCalledWith(
+      'TrackableElementDisplayed',
+      {
+        tagging: {
+          display: taggingRequest
+        }
+      },
+      expect.anything()
+    );
+  });
+
+  // eslint-disable-next-line max-len
+  it('emits `TrackableElementDisplayed` when the element is visible with the provided event metadata', async () => {
+    const eventMetadata = {
+      feature: 'test-feature',
+      location: 'test-location'
+    };
+
+    const { toggleElementVisibility } = renderUseEmitDisplayEvent({
+      eventMetadata
     });
+
+    await toggleElementVisibility();
+
+    expect($xEmitSpy).toHaveBeenCalled();
+    expect($xEmitSpy).toHaveBeenCalledWith(
+      'TrackableElementDisplayed',
+      expect.anything(),
+      eventMetadata
+    );
   });
 
   it('emits the event only once', async () => {
@@ -234,7 +266,9 @@ type RenderUseEmitDisplayEventOptions = {
   /** The element to watch. */
   element?: HTMLElement;
   /** The payload for the `TrackableElementDisplayed` event. */
-  taggingRequest?: any;
+  taggingRequest?: TaggingRequest;
+  /** The event metadata. */
+  eventMetadata?: Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>;
 };
 
 /**

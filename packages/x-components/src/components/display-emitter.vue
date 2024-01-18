@@ -9,6 +9,7 @@
   import { MaybeElement } from '@vueuse/core';
   import { TaggingRequest } from '@empathyco/x-types';
   import { useEmitDisplayEvent } from '../composables';
+  import { WireMetadata } from '../wiring';
   import { NoElement } from './no-element';
 
   /**
@@ -27,13 +28,22 @@
       payload: {
         type: Object as PropType<TaggingRequest>,
         required: true
+      },
+      /**
+       * Optional event metadata.
+       *
+       * @public
+       */
+      eventMetadata: {
+        type: Object as PropType<Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>>
       }
     },
     setup(props) {
       const root = ref(null);
       const { unwatchDisplay } = useEmitDisplayEvent({
         element: root as Ref<MaybeElement>,
-        taggingRequest: props.payload
+        taggingRequest: props.payload,
+        ...(props.eventMetadata && { eventMetadata: props.eventMetadata })
       });
 
       onUnmounted(unwatchDisplay);

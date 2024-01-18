@@ -254,7 +254,10 @@
                   data-test="brand-recommendation"
                   :persistInCache="true"
                 >
-                  <DisplayEmitter :payload="displayTagging">
+                  <DisplayEmitter
+                    :payload="displayTagging"
+                    :eventMetadata="{ feature: 'customer' }"
+                  >
                     <div class="x-flex x-flex-col x-gap-8 x-mb-16">
                       <QueryPreviewButton
                         class="x-w-fit x-button-xl x-button-ghost"

@@ -1,6 +1,7 @@
 import { Ref, watch, WatchStopHandle } from 'vue';
 import { MaybeElement, useElementVisibility } from '@vueuse/core';
 import { TaggingRequest } from '@empathyco/x-types';
+import { WireMetadata } from '../wiring';
 import { use$x } from './use-$x';
 
 /**
@@ -50,14 +51,15 @@ export function useOnDisplay({
  */
 export function useEmitDisplayEvent({
   element,
-  taggingRequest
+  taggingRequest,
+  eventMetadata = {}
 }: UseEmitDisplayEventOptions): UseOnDisplayReturn {
   const $x = use$x();
 
   const { isElementVisible, unwatchDisplay } = useOnDisplay({
     element,
     callback: () => {
-      $x.emit('TrackableElementDisplayed', taggingRequest);
+      $x.emit('TrackableElementDisplayed', { tagging: { display: taggingRequest } }, eventMetadata);
     }
   });
 
@@ -90,4 +92,5 @@ type UseOnDisplayReturn = {
 type UseEmitDisplayEventOptions = {
   element: UseOnDisplayOptions['element'];
   taggingRequest: TaggingRequest;
+  eventMetadata?: Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>;
 };
