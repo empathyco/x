@@ -8,7 +8,7 @@
   import { defineComponent, onUnmounted, PropType, Ref, ref } from 'vue';
   import { MaybeElement } from '@vueuse/core';
   import { TaggingRequest } from '@empathyco/x-types';
-  import { useEmitDisplayEvent } from '../composables';
+  import { useEmitDisplayEvent } from '../composables/use-on-display';
   import { WireMetadata } from '../wiring';
   import { NoElement } from './no-element';
 

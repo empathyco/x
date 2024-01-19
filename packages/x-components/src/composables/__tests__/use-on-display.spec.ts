@@ -28,7 +28,7 @@ describe(`testing ${useOnDisplay.name} composable`, () => {
 
   function renderUseOnDisplayTester({
     element = document.createElement('div'),
-    triggerOnce = true
+    triggerOnce
   }: RenderUseOnDisplayTesterOptions = {}): RenderUseOnDisplayTesterAPI {
     const callbackSpy = jest.fn();
 
@@ -70,14 +70,22 @@ describe(`testing ${useOnDisplay.name} composable`, () => {
     expect(callbackSpy).toHaveBeenCalled();
   });
 
-  it('triggers the callback only once by default', async () => {
-    const { callbackSpy, toggleElementVisibility } = renderUseOnDisplayTester();
+  it('triggers the callback only once by default and when passing true', async () => {
+    let useOnDisplayReturn = renderUseOnDisplayTester();
 
-    await toggleElementVisibility();
-    await toggleElementVisibility();
-    await toggleElementVisibility();
+    await useOnDisplayReturn.toggleElementVisibility();
+    await useOnDisplayReturn.toggleElementVisibility();
+    await useOnDisplayReturn.toggleElementVisibility();
 
-    expect(callbackSpy).toHaveBeenCalledTimes(1);
+    expect(useOnDisplayReturn.callbackSpy).toHaveBeenCalledTimes(1);
+
+    useOnDisplayReturn = renderUseOnDisplayTester({ triggerOnce: true });
+
+    await useOnDisplayReturn.toggleElementVisibility();
+    await useOnDisplayReturn.toggleElementVisibility();
+    await useOnDisplayReturn.toggleElementVisibility();
+
+    expect(useOnDisplayReturn.callbackSpy).toHaveBeenCalledTimes(1);
   });
 
   it('can remove the triggering repetition limitation', async () => {
