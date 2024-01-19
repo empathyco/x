@@ -1,11 +1,11 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue, { ref, nextTick, Ref } from 'vue';
 import { TaggingRequest } from '@empathyco/x-types';
-import { useEmitDisplayEvent } from '../../composables';
+import { useEmitDisplayEvent } from '../../composables/use-on-display';
 import DisplayEmitter from '../display-emitter.vue';
 import { getDataTestSelector } from '../../__tests__/utils';
 
-jest.mock('../../composables', () => ({
+jest.mock('../../composables/use-on-display', () => ({
   useEmitDisplayEvent: jest.fn()
 }));
 
