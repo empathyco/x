@@ -6,7 +6,6 @@
 
 <script lang="ts">
   import { defineComponent, onUnmounted, PropType, Ref, ref } from 'vue';
-  import { MaybeElement } from '@vueuse/core';
   import { TaggingRequest } from '@empathyco/x-types';
   import { useEmitDisplayEvent } from '../composables/use-on-display';
   import { WireMetadata } from '../wiring';
@@ -41,7 +40,7 @@
     setup(props) {
       const root = ref(null);
       const { unwatchDisplay } = useEmitDisplayEvent({
-        element: root as Ref<MaybeElement>,
+        element: root as Ref<HTMLElement | null>,
         taggingRequest: props.payload,
         ...(props.eventMetadata && { eventMetadata: props.eventMetadata })
       });

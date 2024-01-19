@@ -1,5 +1,5 @@
 import { Ref, watch, WatchStopHandle } from 'vue';
-import { MaybeElement, useElementVisibility } from '@vueuse/core';
+import { useElementVisibility } from '@vueuse/core';
 import { TaggingRequest } from '@empathyco/x-types';
 import { WireMetadata } from '../wiring';
 import { use$x } from './use-$x';
@@ -73,7 +73,7 @@ export function useEmitDisplayEvent({
  * Options for the {@link useOnDisplay} composable.
  */
 type UseOnDisplayOptions = {
-  element: HTMLElement | Ref<MaybeElement>;
+  element: HTMLElement | Ref<HTMLElement | null>;
   callback: () => void;
   triggerOnce?: boolean;
 };
