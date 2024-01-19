@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.9...@empathyco/x-components@4.1.0-alpha.10) (2024-01-17)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [4.1.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.8...@empathyco/x-components@4.1.0-alpha.9) (2024-01-17)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [4.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.7...@empathyco/x-components@4.1.0-alpha.8) (2024-01-15)
+
+
+### Features
+
+* **queries-preview:** display tagging from QP request accessible in QP component (#1389) ([27dfec8](https://github.com/empathyco/x/commit/27dfec8dc2725a7c2300e306d82617a2d1de130f))
+
+
+
+## [4.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.6...@empathyco/x-components@4.1.0-alpha.7) (2024-01-12)
+
+
+### Features
+
+* **search:** handle display tagging from search response (#1388) ([b6b5d86](https://github.com/empathyco/x/commit/b6b5d8657947b8510f9d23530d709e757e5e3ecf))
+
+
+
+## [4.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.5...@empathyco/x-components@4.1.0-alpha.6) (2024-01-11)
+
+
+### Features
+
+* update to rollup 4 (#1370) ([a5c471b](https://github.com/empathyco/x/commit/a5c471b7d139393b7c2c0dffd88973029f2ced31))
+
+
+
+## [4.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.4...@empathyco/x-components@4.1.0-alpha.5) (2024-01-03)
+
+
+### Documentation
+
+* **integration:** add getSnippetConfig info (#1387) ([622286b](https://github.com/empathyco/x/commit/622286be7b9e552f3dd1e5563a295c7bd267cc49))
+
+
+
 ## [4.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.3...@empathyco/x-components@4.1.0-alpha.4) (2023-12-29)
 
 

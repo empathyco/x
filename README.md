@@ -130,7 +130,7 @@ We are working on many key features to consolidate Interface X, including these 
   Recommendations
   [![Release Docs](https://img.shields.io/badge/Released-October%202023-brightgreen)](https://docs.empathy.co/explore-empathy-platform/experience-search-and-discovery/history-queries.html)
 - **Experience Controls**: Add capability of loading configurations from an external service
-  [![Release Docs](https://img.shields.io/badge/In%20Progress-yellow)](https://vuejs.org/)
+  [![Release Docs](https://img.shields.io/badge/Released-November%202023-brightgreen)](https://vuejs.org/)
 - **Vue 3 Migration**.
   [![Release Docs](https://img.shields.io/badge/In%20Progress-yellow)](https://vuejs.org/)
 - **Network Request failure transparency**.
