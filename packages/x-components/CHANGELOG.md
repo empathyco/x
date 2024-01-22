@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.10...@empathyco/x-components@4.1.0-alpha.11) (2024-01-22)
+
+
+### Bug Fixes
+
+* prevent snippet-config-extra-params of firing change event with no changes (#1393) ([73a7a1b](https://github.com/empathyco/x/commit/73a7a1b4168fbcbca23b665baf45fd0e7398f494))
+
+
+
 ## [4.1.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.9...@empathyco/x-components@4.1.0-alpha.10) (2024-01-17)
 
 **Note:** Version bump only for package @empathyco/x-components
