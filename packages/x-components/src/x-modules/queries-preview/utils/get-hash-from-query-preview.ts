@@ -9,15 +9,12 @@ import { QueryPreviewInfo, QueryPreviewItem } from '../store/index';
  * @returns A unique id that will be used as a key to store the QueryPreviewItem in the state.
  */
 export const getHashFromQueryPreviewItem = (queryPreview: QueryPreviewItem): string => {
-  let queryPreviewFilters = '';
-  if (queryPreview.request.filters) {
-    const queryPreviewFiltersKeys = Object.keys(queryPreview.request.filters);
-    queryPreviewFiltersKeys.forEach(key => {
-      queryPreview.request.filters![key].forEach(filter => {
-        queryPreviewFilters = queryPreviewFilters.concat('-' + filter.id.toString());
-      });
-    });
-  }
+  const queryPreviewFilters = queryPreview.request.filters
+    ? Object.values(queryPreview.request.filters)
+        .flat()
+        .map(filter => filter.id.toString())
+        .join('-')
+    : '';
 
   return md5(queryPreview.request.query.concat(queryPreviewFilters));
 };
@@ -29,12 +26,7 @@ export const getHashFromQueryPreviewItem = (queryPreview: QueryPreviewItem): str
  * @returns A unique id that will be used as a key to check the QueryPreview in the state.
  */
 export const getHashFromQueryPreviewInfo = (queryPreviewInfo: QueryPreviewInfo): string => {
-  let queryPreviewFilters = '';
-  if (queryPreviewInfo.filters) {
-    queryPreviewInfo.filters.forEach(filter => {
-      queryPreviewFilters = queryPreviewFilters.concat('-' + filter);
-    });
-  }
+  const queryPreviewFilters = queryPreviewInfo.filters ? queryPreviewInfo.filters.join('-') : '';
 
   return md5(queryPreviewInfo.query.concat(queryPreviewFilters));
 };

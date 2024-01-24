@@ -89,8 +89,11 @@
      */
     protected get renderedQueryPreviews(): QueryPreviewInfo[] {
       return this.queriesPreviewInfo.filter(item => {
-        const query = getHashFromQueryPreviewInfo(item);
-        return this.queriesStatus[query] === 'success' || this.queriesStatus[query] === 'loading';
+        const queryPreviewHash = getHashFromQueryPreviewInfo(item);
+        return (
+          this.queriesStatus[queryPreviewHash] === 'success' ||
+          this.queriesStatus[queryPreviewHash] === 'loading'
+        );
       });
     }
 

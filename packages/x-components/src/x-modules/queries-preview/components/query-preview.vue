@@ -156,9 +156,12 @@
     /**
      * Query Preview key converted into a unique id.
      *
+     * @returns The query hash.
      * @internal
      */
-    public queryOfQueryPreviewHash = getHashFromQueryPreviewInfo(this.queryPreviewInfo);
+    public get queryPreviewHash(): string {
+      return getHashFromQueryPreviewInfo(this.queryPreviewInfo);
+    }
 
     /**
      * The computed request object to be used to retrieve the query preview results.
@@ -199,7 +202,7 @@
      * @returns The results preview of the actual query preview.
      */
     public get queryPreviewResults(): Partial<QueryPreviewItem> | undefined {
-      const previewResults = this.previewResults[this.queryOfQueryPreviewHash];
+      const previewResults = this.previewResults[this.queryPreviewHash];
       return previewResults?.results
         ? {
             ...previewResults,
@@ -236,12 +239,12 @@
         }
       );
 
-      const cachedQueryPreview = this.previewResults[this.queryOfQueryPreviewHash];
+      const cachedQueryPreview = this.previewResults[this.queryPreviewHash];
 
       // If the query has been saved it will emit load instead of the emitting the updated request.
       if (cachedQueryPreview?.status === 'success') {
-        this.$emit('load', this.queryOfQueryPreviewHash);
-        this.$x.emit('QueryPreviewMounted', this.queryOfQueryPreviewHash, {
+        this.$emit('load', this.queryPreviewHash);
+        this.$x.emit('QueryPreviewMounted', this.queryPreviewHash, {
           priority: 0,
           replaceable: false
         });
@@ -262,7 +265,7 @@
       this.emitQueryPreviewRequestUpdated.cancel();
       this.$x.emit(
         'QueryPreviewUnmounted',
-        { query: this.queryOfQueryPreviewHash, cache: this.persistInCache },
+        { query: this.queryPreviewHash, cache: this.persistInCache },
         {
           priority: 0,
           replaceable: false
@@ -295,9 +298,9 @@
     @Watch('queryPreviewResults.status')
     emitLoad(status: RequestStatus | undefined): void {
       if (status === 'success') {
-        this.$emit(this.results?.length ? 'load' : 'error', this.queryOfQueryPreviewHash);
+        this.$emit(this.results?.length ? 'load' : 'error', this.queryPreviewHash);
       } else if (status === 'error') {
-        this.$emit('error', this.queryOfQueryPreviewHash);
+        this.$emit('error', this.queryPreviewHash);
       }
     }
   }

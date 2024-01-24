@@ -44,7 +44,7 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
       .catch(error => {
         // eslint-disable-next-line no-console
         console.error(error);
-        const query = getHashFromQueryPreviewItem(queryPreviewItem);
-        commit('setStatus', { query, status: 'error' });
+        const queryPreviewHash = getHashFromQueryPreviewItem(queryPreviewItem);
+        commit('setStatus', { queryPreviewHash, status: 'error' });
       });
   };

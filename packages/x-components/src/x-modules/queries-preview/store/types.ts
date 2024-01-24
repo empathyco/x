@@ -21,7 +21,7 @@ export interface QueryPreviewItem extends StatusState {
   request: SearchRequest;
   /** Results of the query preview request. */
   results: Result[];
-  /** Display tagging info */
+  /** Display tagging info. */
   displayTagging?: TaggingRequest;
   /** The total number of results for the search query. */
   totalResults: number;
@@ -84,9 +84,9 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
   /**
    * Removes a query preview entry from the queries preview's dictionary.
    *
-   * @param query - Query whose entry will be removed.
+   * @param queryPreviewHash - Query hash whose entry will be removed.
    */
-  clearQueryPreview(query: string): void;
+  clearQueryPreview(queryPreviewHash: string): void;
   /**
    * Sets the extra params of the module.
    *
@@ -111,8 +111,14 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
    * @param selectedQueryPreview - The selected query preview to save to the state.
    */
   setSelectedQueryPreview(selectedQueryPreview: QueryPreviewInfo | null): void;
-  addQueryPreviewInstance(query: string): void;
-  removeQueryPreviewInstance({ query, cache }: { query: string; cache: boolean }): void;
+  addQueryPreviewInstance(queryPreviewHash: string): void;
+  removeQueryPreviewInstance({
+    queryPreviewHash,
+    cache
+  }: {
+    queryPreviewHash: string;
+    cache: boolean;
+  }): void;
 }
 
 /**
@@ -169,9 +175,9 @@ export type QueriesPreviewActionContext = XActionContext<
  */
 export interface QueryPreviewStatusPayload {
   /**
-   * The query whose request status to modify.
+   * The query hash whose request status to modify.
    */
-  query: string;
+  queryPreviewHash: string;
   /**
    * The new request status.
    */

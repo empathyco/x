@@ -26,8 +26,8 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
   }),
   getters: { loadedQueriesPreview },
   mutations: {
-    clearQueryPreview(state, query) {
-      Vue.delete(state.queriesPreview, query);
+    clearQueryPreview(state, queryPreviewHash) {
+      Vue.delete(state.queriesPreview, queryPreviewHash);
     },
     setParams(state, params) {
       state.params = params;
@@ -35,25 +35,28 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     setQueryPreviewCached(state, queryPreview) {
       Vue.set(state.queriesPreview, getHashFromQueryPreviewItem(queryPreview), queryPreview);
     },
-    setStatus(state, { query, status }) {
-      state.queriesPreview[query].status = status;
+    setStatus(state, { queryPreviewHash, status }) {
+      state.queriesPreview[queryPreviewHash].status = status;
     },
     setSelectedQueryPreview(state, selectedQueryPreview) {
       state.selectedQueryPreview = selectedQueryPreview;
     },
     setConfig,
     mergeConfig,
-    addQueryPreviewInstance(state, query: string) {
-      if (state.queriesPreview[query]) {
-        state.queriesPreview[query].instances += 1;
+    addQueryPreviewInstance(state, queryPreviewHash: string) {
+      if (state.queriesPreview[queryPreviewHash]) {
+        state.queriesPreview[queryPreviewHash].instances += 1;
       }
     },
-    removeQueryPreviewInstance(state, { query, cache }: { query: string; cache: boolean }) {
-      if (state.queriesPreview[query]) {
-        state.queriesPreview[query].instances -= 1;
+    removeQueryPreviewInstance(
+      state,
+      { queryPreviewHash, cache }: { queryPreviewHash: string; cache: boolean }
+    ) {
+      if (state.queriesPreview[queryPreviewHash]) {
+        state.queriesPreview[queryPreviewHash].instances -= 1;
 
-        if (!cache && state.queriesPreview[query].instances === 0) {
-          Vue.delete(state.queriesPreview, query);
+        if (!cache && state.queriesPreview[queryPreviewHash].instances === 0) {
+          Vue.delete(state.queriesPreview, queryPreviewHash);
         }
       }
     }

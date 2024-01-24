@@ -45,6 +45,15 @@ describe('testing queries preview module utils', () => {
       status: 'success',
       request: {
         query: 'tshirt',
+        filters: {
+          fit: [
+            {
+              id: 'fit:regular',
+              modelName: 'RawFilter',
+              selected: true
+            }
+          ]
+        },
         rows: 3
       }
     };
@@ -56,11 +65,11 @@ describe('testing queries preview module utils', () => {
   });
 
   it('should check if a query hash from a QueryPreviewInfo is created correctly', () => {
-    const queryPreviewInfo: QueryPreviewInfo = { query: 'tshirt' };
+    const queryPreviewInfo: QueryPreviewInfo = { query: 'tshirt', filters: ['fit:regular'] };
 
     const queryPreviewHash = getHashFromQueryPreviewInfo(queryPreviewInfo);
 
-    expect(queryPreviewHash).toBe('8f58dcbfc41b2074e9311014903a1a5f');
+    expect(queryPreviewHash).toBe('ba83786514cc76ebfd00da880b8068b2');
   });
 
   // eslint-disable-next-line max-len
@@ -72,12 +81,21 @@ describe('testing queries preview module utils', () => {
       status: 'success',
       request: {
         query: 'tshirt',
+        filters: {
+          fit: [
+            {
+              id: 'fit:regular',
+              modelName: 'RawFilter',
+              selected: true
+            }
+          ]
+        },
         rows: 3
       }
     };
     const queryPreviewItemHash = getHashFromQueryPreviewItem(queryPreviewItem);
 
-    const queryPreviewInfo: QueryPreviewInfo = { query: 'tshirt' };
+    const queryPreviewInfo: QueryPreviewInfo = { query: 'tshirt', filters: ['fit:regular'] };
     const queryPreviewInfoHash = getHashFromQueryPreviewInfo(queryPreviewInfo);
 
     expect(queryPreviewItemHash).toBe(queryPreviewInfoHash);
