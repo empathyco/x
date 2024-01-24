@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import {
   BrowserStorageService,
   InMemoryStorageService,
@@ -39,7 +38,8 @@ export class DefaultSessionService implements SessionService {
    * @public
    */
   getSessionId(): string {
-    const sessionId = this.storageService.getItem(DefaultSessionService.SESSION_ID_KEY) ?? nanoid();
+    const sessionId =
+      this.storageService.getItem(DefaultSessionService.SESSION_ID_KEY) ?? self.crypto.randomUUID();
     this.storageService.setItem(DefaultSessionService.SESSION_ID_KEY, sessionId, this.ttlMs);
     return sessionId;
   }
