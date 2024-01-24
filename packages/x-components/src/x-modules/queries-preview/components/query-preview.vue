@@ -265,7 +265,7 @@
       this.emitQueryPreviewRequestUpdated.cancel();
       this.$x.emit(
         'QueryPreviewUnmounted',
-        { query: this.queryPreviewHash, cache: this.persistInCache },
+        { queryPreviewHash: this.queryPreviewHash, cache: this.persistInCache },
         {
           priority: 0,
           replaceable: false

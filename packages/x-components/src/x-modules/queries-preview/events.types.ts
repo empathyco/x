@@ -35,5 +35,5 @@ export interface QueriesPreviewXEvents {
    * The query preview has been unmounted.
    * Payload: The query preview's unique id (query hash) and its cache value.
    */
-  QueryPreviewUnmounted: { query: string; cache: boolean };
+  QueryPreviewUnmounted: { queryPreviewHash: string; cache: boolean };
 }
