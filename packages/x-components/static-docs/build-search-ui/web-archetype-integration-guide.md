@@ -213,7 +213,8 @@ out further information about:
 - **Functions supported by the [X&nbsp;API object](#x-api)** to initialize Interface&nbsp;X
 - Notes on how to set up [**the preview of query results**](#dynamic-query-results-preview) for
   determined queries at the pre-search stage
-- [**Tracking options for add to cart events**](#tracking-events-for-add-to-cart-on-product-detail-pages) from product detail pages
+- [**Tracking options for add to cart events**](#tracking-events-for-add-to-cart-on-product-detail-pages)
+  from product detail pages
 
 ### Snippet configuration
 
@@ -410,61 +411,48 @@ instance:
 
 ### Tracking events for add to cart on product detail pages
 
-Empathy Platform Interface X allows you to track shoppers' add-to-cart interactions from any product detail page (PDP) in your commerce store, regardless of whether your commerce store is running on a **single-page application or not**.
+Empathy Platform Interface X allows you to track shoppers' add-to-cart interactions from any product
+detail page (PDP) in your commerce store, regardless of whether your commerce store is running on a
+**single-page application or not**.
 
 #### Tracking add-to-cart events on non-SPA webpages
-To track your shoppers' add-to-cart interactions from any PDP based on a non-spa structured webpage, follow these steps:
+
+To track your shoppers' add-to-cart interactions from any PDP based on a non-spa structured webpage,
+follow these steps:
 
 1. Add the `productId` parameter when initializing the script.
 
-    ```html
-    window.InterfaceX.init({
-        instance: "instanceName",
-        lang: "es",
-        documentDirection: "ltr",
-        scope: 'desktop',
-        currency: "EUR",
-        consent: true,
-        isSPA: false,
-        queriesPreview: []
-            {
-                query: 'coats',
-                title: 'Winter Coats'
-            }
-        ],
-        callbacks: {
-            UserClickedAResult: function(a, b, e, t) {}
-        },
-        productId: '11776347-ES' // Add this parameter
-    })
-    ```
-
-2. Call the `InterfaceX.addProductToCart('11776347-ES')` function to track the event when the add-to-cart button is clicked.
-
-    ```html
-    yourCommerceStoreEnvironment.addToCartButton.addEventListener('click', () =>
-      InterfaceX.addProductToCart('11776347-ES');
-   );
+   ```html
+   window.InterfaceX.init({ instance: "instanceName", lang: "es", documentDirection: "ltr", scope:
+   'desktop', currency: "EUR", consent: true, isSPA: false, queriesPreview: [] { query: 'coats',
+   title: 'Winter Coats' } ], callbacks: { UserClickedAResult: function(a, b, e, t) {} }, productId:
+   '11776347-ES' // Add this parameter })
    ```
 
+2. Call the `InterfaceX.addProductToCart('11776347-ES')` function to track the event when the
+   add-to-cart button is clicked.
+
+   ```html
+   yourCommerceStoreEnvironment.addToCartButton.addEventListener('click', () =>
+   InterfaceX.addProductToCart('11776347-ES'); );
+   ```
 
 #### Tracking add-to-cart events on SPA webpages
-To track your shoppers' add-to-cart interactions from any PDP based on a SPA structured webpage, follow these steps:
+
+To track your shoppers' add-to-cart interactions from any PDP based on a SPA structured webpage,
+follow these steps:
 
 1. Call the `InterfaceX.bus.emit('PDPIsLoaded')` function any time a new PDP-type page is loaded.
 
+   ```html
+   if (yourCommerceStoreEnvironment.isPDP && window.initX.isSpa) {
+   InterfaceX.bus.emit('PDPIsLoaded') }
+   ```
 
-    ```html
-    if (yourCommerceStoreEnvironment.isPDP && window.initX.isSpa) {
-      InterfaceX.bus.emit('PDPIsLoaded')
-    }
-    ```
+2. Call the `InterfaceX.addProductToCart()` function to track the event when the add-to-cart button
+   is clicked:
 
-2. Call the `InterfaceX.addProductToCart()` function to track the event when the add-to-cart button is clicked:  
-
-
-    ```html
-    yourCommerceStoreEnvironment.addToCartButton.addEventListener('click', () =>
-      InterfaceX.addProductToCart();
-    );
-    ```
+   ```html
+   yourCommerceStoreEnvironment.addToCartButton.addEventListener('click', () =>
+   InterfaceX.addProductToCart(); );
+   ```
