@@ -86,7 +86,7 @@ describe('testing QueryPreviewList', () => {
     expect(queryPreviews.at(1).text()).toEqual('jeans - Sick jeans');
   });
 
-  // TODO Uncomment when the 'error' event is fixed
+  // TODO Uncomment when the 'error' event is fixed. EMP-3402 task
   // eslint-disable-next-line jest/no-commented-out-tests
   /*it('hides queries with no results', async () => {
     const { getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({

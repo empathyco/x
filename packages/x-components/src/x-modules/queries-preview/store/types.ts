@@ -111,7 +111,20 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
    * @param selectedQueryPreview - The selected query preview to save to the state.
    */
   setSelectedQueryPreview(selectedQueryPreview: QueryPreviewInfo | null): void;
+  /**
+   * Increases in 1 the instance counter.
+   *
+   * @param queryPreviewHash - The query preview key to save to the number of instances.
+   */
   addQueryPreviewInstance(queryPreviewHash: string): void;
+  /**
+   * Decreases in 1 the instance counter and removes the query preview if the counter is 0
+   * and cache is false.
+   *
+   * @param QueryPreviewCacheInfo - Information needed to change QueryPreview state.
+   * queryPreviewHash is the query preview key to find the QueryPreview saved in the state.
+   * cache is a boolean to know if we should remove the QueryPreview or not.
+   */
   removeQueryPreviewInstance({
     queryPreviewHash,
     cache

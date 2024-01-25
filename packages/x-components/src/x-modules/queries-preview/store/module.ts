@@ -43,15 +43,12 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
     },
     setConfig,
     mergeConfig,
-    addQueryPreviewInstance(state, queryPreviewHash: string) {
+    addQueryPreviewInstance(state, queryPreviewHash) {
       if (state.queriesPreview[queryPreviewHash]) {
         state.queriesPreview[queryPreviewHash].instances += 1;
       }
     },
-    removeQueryPreviewInstance(
-      state,
-      { queryPreviewHash, cache }: { queryPreviewHash: string; cache: boolean }
-    ) {
+    removeQueryPreviewInstance(state, { queryPreviewHash, cache }) {
       if (state.queriesPreview[queryPreviewHash]) {
         state.queriesPreview[queryPreviewHash].instances -= 1;
 
