@@ -19,6 +19,7 @@ export const createQueryPreviewItem: (
   return {
     results: results,
     totalResults: results.length,
+    instances: 1,
     status: 'success',
     request: getQueryPreviewRequest(query),
     ...queryPreviewItem

@@ -15,6 +15,7 @@ import { QueryPreviewInfo, QueryPreviewItem } from '../../store/types';
 import { queriesPreviewXModule } from '../../x-module';
 import QueryPreview from '../query-preview.vue';
 import { getEmptySearchResponseStub } from '../../../../__stubs__/index';
+import { getHashFromQueryPreviewInfo } from '../../utils/get-hash-from-query-preview';
 import { resetXQueriesPreviewStateWith } from './utils';
 
 function renderQueryPreview({
@@ -25,12 +26,13 @@ function renderQueryPreview({
   persistInCache = false,
   debounceTimeMs = 0,
   template = `<QueryPreview v-bind="$attrs" />`,
-  queryPreview = {
+  queryPreviewInState = {
     request: {
       query: queryPreviewInfo.query
     },
     results: getResultsStub(4),
     status: 'success',
+    instances: 1,
     totalResults: 100
   }
 }: RenderQueryPreviewOptions = {}): RenderQueryPreviewAPI {
@@ -44,15 +46,13 @@ function renderQueryPreview({
   const queryPreviewRequestUpdatedSpy = jest.fn();
   XPlugin.bus.on('QueryPreviewRequestUpdated').subscribe(queryPreviewRequestUpdatedSpy);
 
-  const nonCacheableQueryPreviewUnmountedSpy = jest.fn();
-  XPlugin.bus
-    .on('NonCacheableQueryPreviewUnmounted')
-    .subscribe(nonCacheableQueryPreviewUnmountedSpy);
+  const queryPreviewUnmounted = jest.fn();
+  XPlugin.bus.on('QueryPreviewUnmounted').subscribe(queryPreviewUnmounted);
 
-  if (queryPreview) {
+  if (queryPreviewInState) {
     resetXQueriesPreviewStateWith(store, {
       queriesPreview: {
-        [queryPreviewInfo.query]: queryPreview
+        [getHashFromQueryPreviewInfo(queryPreviewInfo)]: queryPreviewInState
       }
     });
   }
@@ -81,15 +81,16 @@ function renderQueryPreview({
   return {
     wrapper,
     queryPreviewRequestUpdatedSpy,
-    nonCacheableQueryPreviewUnmountedSpy,
+    queryPreviewUnmounted,
     queryPreviewInfo,
-    queryPreview,
+    queryPreviewInState,
     findTestDataById: findTestDataById.bind(undefined, wrapper),
     updateExtraParams: async params => {
       store.commit('x/queriesPreview/setParams', params);
       await localVue.nextTick();
     },
-    reRender: () => new Promise(resolve => setTimeout(resolve))
+    reRender: () => new Promise(resolve => setTimeout(resolve)),
+    localVue
   };
 }
 
@@ -111,7 +112,7 @@ describe('query preview', () => {
 
   // eslint-disable-next-line max-len
   it('does not send the `QueryPreviewRequestUpdated` event if persistInCache is true, but emits load', () => {
-    const { queryPreviewRequestUpdatedSpy, wrapper } = renderQueryPreview({
+    const { queryPreviewRequestUpdatedSpy, wrapper, queryPreviewInfo } = renderQueryPreview({
       persistInCache: true,
       queryPreviewInfo: {
         query: 'shoes',
@@ -119,15 +120,16 @@ describe('query preview', () => {
         filters: ['fit:regular']
       }
     });
+    const query = getHashFromQueryPreviewInfo(queryPreviewInfo);
 
     jest.advanceTimersByTime(0); // Wait for first emission.
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0);
     expect(wrapper.emitted('load')?.length).toBe(1);
-    expect(wrapper.emitted('load')?.[0]).toEqual(['shoes']);
+    expect(wrapper.emitted('load')?.[0]).toEqual([query]);
   });
 
-  it('emits `NonCacheableQueryPreviewUnmounted` only if `persistInCache` is false', () => {
-    const { nonCacheableQueryPreviewUnmountedSpy, wrapper } = renderQueryPreview({
+  it('emits `QueryPreviewUnmounted` when the component is being destroyed', () => {
+    const { queryPreviewUnmounted, wrapper } = renderQueryPreview({
       persistInCache: false,
       queryPreviewInfo: {
         query: 'shoes',
@@ -138,26 +140,10 @@ describe('query preview', () => {
 
     jest.advanceTimersByTime(0); // Wait for first emission
     wrapper.destroy();
-    expect(nonCacheableQueryPreviewUnmountedSpy).toHaveBeenCalledTimes(1);
+    expect(queryPreviewUnmounted).toHaveBeenCalledTimes(1);
 
-    const { nonCacheableQueryPreviewUnmountedSpy: unmountedEvent, wrapper: newWrapper } =
-      renderQueryPreview({
-        persistInCache: true,
-        queryPreviewInfo: {
-          query: 'shoes',
-          extraParams: { directory: 'Magrathea' },
-          filters: ['fit:regular']
-        }
-      });
-
-    jest.advanceTimersByTime(0); // Wait for first emission
-    newWrapper.destroy();
-    expect(unmountedEvent).toHaveBeenCalledTimes(0);
-  });
-
-  it('sends the `QueryPreviewRequestUpdated` event', async () => {
-    const { queryPreviewRequestUpdatedSpy, wrapper, updateExtraParams } = renderQueryPreview({
-      persistInCache: false,
+    const { queryPreviewUnmounted: unmountedEvent, wrapper: newWrapper } = renderQueryPreview({
+      persistInCache: true,
       queryPreviewInfo: {
         query: 'shoes',
         extraParams: { directory: 'Magrathea' },
@@ -165,6 +151,22 @@ describe('query preview', () => {
       }
     });
 
+    jest.advanceTimersByTime(0); // Wait for first emission
+    newWrapper.destroy();
+    expect(unmountedEvent).toHaveBeenCalledTimes(1);
+  });
+
+  it('sends the `QueryPreviewRequestUpdated` event', async () => {
+    const { queryPreviewRequestUpdatedSpy, wrapper, updateExtraParams } = renderQueryPreview({
+      persistInCache: false
+    });
+    await wrapper.setProps({
+      queryPreviewInfo: {
+        query: 'shoes',
+        extraParams: { directory: 'Magrathea' },
+        filters: ['fit:regular']
+      }
+    });
     jest.advanceTimersByTime(0); // Wait for first emission.
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1);
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledWith({
@@ -231,16 +233,17 @@ describe('query preview', () => {
     });
   });
 
-  it('sends the `QueryPreviewRequestUpdated` event with the correct location provided', () => {
-    const { queryPreviewRequestUpdatedSpy } = renderQueryPreview({
-      location: 'predictive_layer',
+  // eslint-disable-next-line max-len
+  it('sends the `QueryPreviewRequestUpdated` event with the correct location provided', async () => {
+    const { queryPreviewRequestUpdatedSpy, wrapper } = renderQueryPreview({
       queryPreviewInfo: { query: 'shoes' },
-      queryFeature: 'query_suggestion'
+      location: 'predictive_layer'
     });
-
+    await wrapper.setProps({ queryFeature: 'query_suggestion' });
     jest.advanceTimersToNextTimer();
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(1, {
       extraParams: {},
+      filters: undefined,
       origin: 'query_suggestion:predictive_layer',
       query: 'shoes',
       rows: 24
@@ -248,11 +251,11 @@ describe('query preview', () => {
   });
 
   it('renders the results names in the default slot', () => {
-    const { queryPreview, findTestDataById } = renderQueryPreview();
+    const { queryPreviewInState, findTestDataById } = renderQueryPreview();
 
     const wrappers = findTestDataById('result-name');
 
-    queryPreview!.results.forEach((result, index) => {
+    queryPreviewInState!.results.forEach((result, index) => {
       expect(wrappers.at(index).element).toHaveTextContent(result.name!);
     });
   });
@@ -280,20 +283,22 @@ describe('query preview', () => {
         </div>
       </QueryPreview>`;
 
-    const { queryPreviewInfo, wrapper, queryPreview, findTestDataById } = renderQueryPreview({
-      template
-    });
+    const { queryPreviewInfo, wrapper, queryPreviewInState, findTestDataById } = renderQueryPreview(
+      {
+        template
+      }
+    );
 
     expect(wrapper.find(getDataTestSelector('query-preview-query')).element).toHaveTextContent(
       queryPreviewInfo.query
     );
     expect(wrapper.find(getDataTestSelector('total-results')).element).toHaveTextContent(
-      queryPreview!.totalResults.toString()
+      queryPreviewInState!.totalResults.toString()
     );
 
     const resultsWrappers = findTestDataById('result-name');
 
-    queryPreview!.results.forEach((result, index) => {
+    queryPreviewInState!.results.forEach((result, index) => {
       expect(resultsWrappers.at(index).element).toHaveTextContent(result.name!);
     });
   });
@@ -304,24 +309,25 @@ describe('query preview', () => {
         <span data-test="result-content">{{result.id}} - {{result.name}}</span>
       </QueryPreview>
     `;
-    const { findTestDataById, queryPreview } = renderQueryPreview({ template });
+    const { findTestDataById, queryPreviewInState } = renderQueryPreview({ template });
 
     const resultsWrapper = findTestDataById('result-content');
 
-    queryPreview!.results.forEach((result, index) => {
+    queryPreviewInState!.results.forEach((result, index) => {
       expect(resultsWrapper.at(index).element).toHaveTextContent(`${result.id} - ${result.name!}`);
     });
   });
 
   it('wont render if there are no results', () => {
     const { wrapper } = renderQueryPreview({
-      queryPreview: {
+      queryPreviewInState: {
         request: {
           query: 'milk'
         },
         results: [],
         status: 'initial',
-        totalResults: 0
+        totalResults: 0,
+        instances: 1
       }
     });
 
@@ -331,7 +337,7 @@ describe('query preview', () => {
   it('emits load event on success', async () => {
     jest.useRealTimers();
 
-    const { wrapper, reRender } = renderQueryPreview();
+    const { wrapper, reRender, queryPreviewInfo } = renderQueryPreview();
 
     (XComponentsAdapterDummy.search as jest.Mock).mockResolvedValueOnce({
       ...getEmptySearchResponseStub(),
@@ -339,10 +345,12 @@ describe('query preview', () => {
       totalResults: 1
     });
 
+    const query = getHashFromQueryPreviewInfo(queryPreviewInfo);
+
     await reRender();
 
     expect(wrapper.emitted('load')?.length).toBe(1);
-    expect(wrapper.emitted('load')?.[0]).toEqual(['milk']);
+    expect(wrapper.emitted('load')?.[0]).toEqual([query]);
     expect(wrapper.emitted('error')).toBeUndefined();
 
     jest.useFakeTimers();
@@ -350,20 +358,24 @@ describe('query preview', () => {
 
   it('emits error event on success if results are empty', async () => {
     jest.useRealTimers();
-
-    const { wrapper, reRender } = renderQueryPreview();
-
-    // The status will be success
-    (XComponentsAdapterDummy.search as jest.Mock).mockResolvedValueOnce({
-      ...getEmptySearchResponseStub(),
-      results: [],
-      totalResults: 0
+    const { wrapper, reRender, queryPreviewInfo } = renderQueryPreview({
+      queryPreviewInState: {
+        request: {
+          query: 'milk'
+        },
+        results: [],
+        status: 'initial',
+        totalResults: 0,
+        instances: 1
+      }
     });
+
+    const query = getHashFromQueryPreviewInfo(queryPreviewInfo);
 
     await reRender();
 
     expect(wrapper.emitted('error')?.length).toBe(1);
-    expect(wrapper.emitted('error')?.[0]).toEqual(['milk']);
+    expect(wrapper.emitted('error')?.[0]).toEqual([query]);
     expect(wrapper.emitted('load')).toBeUndefined();
 
     jest.useFakeTimers();
@@ -371,27 +383,28 @@ describe('query preview', () => {
 
   it('emits error event on error', async () => {
     jest.useRealTimers();
-
-    const { wrapper, reRender } = renderQueryPreview();
-
     (XComponentsAdapterDummy.search as jest.Mock).mockRejectedValueOnce('Some error');
+
+    const { wrapper, reRender } = renderQueryPreview({
+      queryPreviewInState: null
+    });
+
+    const query = getHashFromQueryPreviewInfo({ query: 'milk' });
 
     await reRender();
 
     expect(wrapper.emitted('error')?.length).toBe(1);
-    expect(wrapper.emitted('error')?.[0]).toEqual(['milk']);
+    expect(wrapper.emitted('error')?.[0]).toEqual([query]);
     expect(wrapper.emitted('load')).toBeUndefined();
-
     jest.useFakeTimers();
   });
 
   describe('debounce', () => {
-    it('requests immediately when debounce is set to 0', () => {
-      const { queryPreviewRequestUpdatedSpy } = renderQueryPreview({
-        debounceTimeMs: 0,
-        queryPreviewInfo: { query: 'bull' }
+    it('requests immediately when debounce is set to 0', async () => {
+      const { queryPreviewRequestUpdatedSpy, wrapper } = renderQueryPreview({
+        debounceTimeMs: 0
       });
-
+      await wrapper.setProps({ queryPreviewInfo: { query: 'bull' } });
       jest.advanceTimersByTime(0);
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1);
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenNthCalledWith(1, {
@@ -403,10 +416,9 @@ describe('query preview', () => {
 
     it('does not emit subsequent requests that happen in less than the debounce time', async () => {
       const { wrapper, queryPreviewRequestUpdatedSpy } = renderQueryPreview({
-        debounceTimeMs: 250,
-        queryPreviewInfo: { query: 'bull' }
+        debounceTimeMs: 250
       });
-
+      await wrapper.setProps({ queryPreviewInfo: { query: 'bull' } });
       jest.advanceTimersByTime(249);
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0);
 
@@ -487,7 +499,7 @@ interface RenderQueryPreviewOptions {
   /** The name of the tool that generated the query. */
   queryFeature?: string;
   /** The results preview for the passed query. */
-  queryPreview?: QueryPreviewItem;
+  queryPreviewInState?: QueryPreviewItem | null;
   /** Time to debounce requests.  */
   debounceTimeMs?: number;
   /**
@@ -503,15 +515,17 @@ interface RenderQueryPreviewAPI {
   /** A Jest spy set in the {@link XPlugin} `on` function. */
   queryPreviewRequestUpdatedSpy?: jest.Mock;
   /** A Jest spy set in the {@link XPlugin} `on` function. */
-  nonCacheableQueryPreviewUnmountedSpy?: jest.Mock;
+  queryPreviewUnmounted?: jest.Mock;
   /** The query for which preview its results. */
   queryPreviewInfo: QueryPreviewInfo;
   /** The results preview for the passed query. */
-  queryPreview: QueryPreviewItem | null;
+  queryPreviewInState: QueryPreviewItem | null;
   /** Find test data in the wrapper for the {@link QueryPreview} component. */
   findTestDataById: (testDataId: string) => WrapperArray<Vue>;
   /** Updates the extra params in the module state. */
   updateExtraParams: (params: any) => Promise<void>;
   /** Flushes all pending promises to cause the component to be in its final state. */
   reRender: () => Promise<void>;
+  /** A local copy of Vue created by createLocalVue to use when mounting the component. */
+  localVue: any;
 }

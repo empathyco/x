@@ -9,9 +9,11 @@ import {
   QueriesPreviewGetters,
   QueriesPreviewMutations,
   QueriesPreviewState,
+  QueryPreviewInfo,
   QueryPreviewItem
 } from '../types';
 import { getQueryPreviewRequest } from '../../../../__stubs__/queries-preview-stubs.factory';
+import { getHashFromQueryPreviewInfo } from '../../utils/get-hash-from-query-preview';
 import { resetQueriesPreviewStateWith } from './utils';
 
 describe('testing queries preview module actions', () => {
@@ -57,12 +59,14 @@ describe('testing queries preview module actions', () => {
 
   describe('fetchAndSaveQueryPreview', () => {
     it('should request and store query preview results in the state', async () => {
-      const query = 'tshirt';
-      const request = getQueryPreviewRequest(query);
+      const queryPreview: QueryPreviewInfo = { query: 'tshirt' };
+      const request = getQueryPreviewRequest(queryPreview.query);
       const stateResults = store.state.queriesPreview;
+      const queryId = getHashFromQueryPreviewInfo(queryPreview);
       const expectedResults: QueryPreviewItem = {
         totalResults: mockedSearchResponse.totalResults,
         results: mockedSearchResponse.results,
+        instances: 1,
         status: 'success',
         request: {
           extraParams: {
@@ -83,22 +87,25 @@ describe('testing queries preview module actions', () => {
       };
 
       const actionPromise = store.dispatch('fetchAndSaveQueryPreview', request);
-      expect(stateResults[query].status).toEqual('loading');
+      expect(stateResults[queryId].status).toEqual('loading');
 
       await actionPromise;
-      expect(stateResults[query]).toEqual(expectedResults);
+      expect(stateResults[queryId]).toEqual(expectedResults);
     });
 
     it('should set the status to error when it fails', async () => {
       adapter.search.mockRejectedValueOnce('Generic error');
-      const query = 'sandals';
-      const request = getQueryPreviewRequest(query);
-      await store.dispatch('fetchAndSaveQueryPreview', request);
+      const queryPreview: QueryPreviewInfo = { query: 'sandals' };
+      const request = getQueryPreviewRequest(queryPreview.query);
+      const queryId = getHashFromQueryPreviewInfo(queryPreview);
 
-      expect(store.state.queriesPreview[query].status).toEqual('error');
+      await store.dispatch('fetchAndSaveQueryPreview', request);
+      expect(store.state.queriesPreview[queryId].status).toEqual('error');
     });
 
     it('should send multiple requests if the queries are different', async () => {
+      const firstQuery = getHashFromQueryPreviewInfo({ query: 'milk' });
+      const secondQuery = getHashFromQueryPreviewInfo({ query: 'cookies' });
       const firstRequest = store.dispatch(
         'fetchAndSaveQueryPreview',
         getQueryPreviewRequest('milk')
@@ -110,8 +117,8 @@ describe('testing queries preview module actions', () => {
 
       await Promise.all([firstRequest, secondRequest]);
 
-      expect('milk' in store.state.queriesPreview).toBeTruthy();
-      expect('cookies' in store.state.queriesPreview).toBeTruthy();
+      expect(firstQuery in store.state.queriesPreview).toBeTruthy();
+      expect(secondQuery in store.state.queriesPreview).toBeTruthy();
     });
   });
 });
