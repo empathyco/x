@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.12...@empathyco/x-components@4.1.0-alpha.13) (2024-01-25)
+
+
+### Features
+
+* **queries-preview:** allow queries preview with same query but different filters or params (#1392) ([4c1f63a](https://github.com/empathyco/x/commit/4c1f63aaf4e9fc75d3b8298b2ea41c1fc207940a))
+
+
+
 ## [4.1.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.11...@empathyco/x-components@4.1.0-alpha.12) (2024-01-25)
 
 
