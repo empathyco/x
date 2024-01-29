@@ -1,8 +1,6 @@
 import { createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { TaggingRequest } from '@empathyco/x-types';
-import { BrowserStorageService } from '@empathyco/x-storage-service';
-import { DefaultSessionService } from '@empathyco/x-utils/src/index';
 import { getTaggingResponseStub } from '../../../../__stubs__/tagging-response-stubs.factory';
 import { XComponentsAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import { installNewXPlugin } from '../../../../__tests__/utils';
@@ -17,6 +15,16 @@ describe('testing tagging module actions', () => {
   const localVue = createLocalVue();
   localVue.config.productionTip = false; // Silent production console messages.
   localVue.use(Vuex);
+
+  const mockedSessionId = 'beabb84c-c0aa-4d3a-911b-54779f7f4a8f';
+  const selfSpy = jest.spyOn(self, 'self', 'get');
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  selfSpy.mockImplementation(() => ({
+    crypto: {
+      randomUUID: () => mockedSessionId
+    }
+  }));
 
   const store: SafeStore<TaggingState, TaggingGetters, TaggingMutations, TaggingActions> =
     new Store(taggingXStoreModule as any);
@@ -51,11 +59,6 @@ describe('testing tagging module actions', () => {
     it('should track with a session id if the consent is true', async () => {
       resetTaggingStateWith(store, { consent: true });
 
-      const storageKey = DefaultSessionService.SESSION_ID_KEY;
-      const sessionStorage = new BrowserStorageService(localStorage);
-
-      const session1Id = 'beabb84c-c0aa-4d3a-911b-54779f7f4a8f';
-      sessionStorage.setItem(storageKey, session1Id, 1000);
       await store.dispatch('track', queryTagging);
 
       expect(adapter.tagging).toHaveBeenCalled();
