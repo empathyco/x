@@ -16,6 +16,16 @@ describe('testing tagging module actions', () => {
   localVue.config.productionTip = false; // Silent production console messages.
   localVue.use(Vuex);
 
+  const selfSpy = jest.spyOn(self, 'self', 'get') as jest.SpyInstance<{
+    crypto: { randomUUID: () => string };
+  }>;
+
+  selfSpy.mockImplementation(() => ({
+    crypto: {
+      randomUUID: () => Math.floor(Math.random() * 1000000000).toString()
+    }
+  }));
+
   const store: SafeStore<TaggingState, TaggingGetters, TaggingMutations, TaggingActions> =
     new Store(taggingXStoreModule as any);
   installNewXPlugin({ adapter, store }, localVue);
