@@ -5,13 +5,14 @@ describe('testing session id service', () => {
   const mockedStorageService = new InMemoryStorageService();
   const sessionService = new DefaultSessionService(mockedStorageService, 1);
   const storageKey = DefaultSessionService.SESSION_ID_KEY;
-  const mockedSessionId = 'beabb84c-c0aa-4d3a-911b-54779f7f4a8f';
-  const selfSpy = jest.spyOn(self, 'self', 'get');
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+
+  const selfSpy = jest.spyOn(self, 'self', 'get') as jest.SpyInstance<{
+    crypto: { randomUUID: () => string };
+  }>;
+
   selfSpy.mockImplementation(() => ({
     crypto: {
-      randomUUID: () => mockedSessionId
+      randomUUID: () => Math.floor(Math.random() * 1000000000).toString()
     }
   }));
 
@@ -51,14 +52,7 @@ describe('testing session id service', () => {
     jest.advanceTimersByTime(999);
     const session2 = sessionService.getSessionId();
     expect(session1).toEqual(session2);
-    jest.advanceTimersByTime(1001);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    selfSpy.mockImplementation(() => ({
-      crypto: {
-        randomUUID: () => 'beabb84c-c0aa-4d3a-552n-54779f7f4a8f'
-      }
-    }));
+    jest.advanceTimersByTime(1000);
     const session3 = sessionService.getSessionId();
     expect(session1).not.toEqual(session3);
   });

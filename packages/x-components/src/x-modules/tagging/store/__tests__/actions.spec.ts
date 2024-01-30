@@ -16,13 +16,13 @@ describe('testing tagging module actions', () => {
   localVue.config.productionTip = false; // Silent production console messages.
   localVue.use(Vuex);
 
-  const mockedSessionId = 'beabb84c-c0aa-4d3a-911b-54779f7f4a8f';
-  const selfSpy = jest.spyOn(self, 'self', 'get');
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+  const selfSpy = jest.spyOn(self, 'self', 'get') as jest.SpyInstance<{
+    crypto: { randomUUID: () => string };
+  }>;
+
   selfSpy.mockImplementation(() => ({
     crypto: {
-      randomUUID: () => mockedSessionId
+      randomUUID: () => Math.floor(Math.random() * 1000000000).toString()
     }
   }));
 
