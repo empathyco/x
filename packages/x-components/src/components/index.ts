@@ -19,6 +19,7 @@ export { default as BaseKeyboardNavigation } from './base-keyboard-navigation.vu
 export { default as BaseRating } from './base-rating.vue';
 export { default as BaseSwitch } from './base-switch.vue';
 export { default as BaseVariableColumnGrid } from './base-variable-column-grid.vue';
+export { default as DisplayEmitter } from './display-emitter.vue';
 export { default as GlobalXBus } from './global-x-bus.vue';
 export { default as Highlight } from './highlight.vue';
 export { default as ItemsList } from './items-list.vue';

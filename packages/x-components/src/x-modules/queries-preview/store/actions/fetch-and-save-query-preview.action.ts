@@ -1,4 +1,5 @@
-import { QueriesPreviewXStoreModule } from '../types';
+import { QueriesPreviewXStoreModule, QueryPreviewItem } from '../types';
+import { getHashFromQueryPreviewItem } from '../../utils/get-hash-from-query-preview';
 
 /**
  * Default implementation for the {@link QueriesPreviewActions.fetchAndSaveQueryPreview}.
@@ -19,26 +20,31 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
       return;
     }
 
-    commit('setQueryPreview', {
+    const queryPreviewItem: QueryPreviewItem = {
       request,
       results: [],
       status: 'loading',
-      totalResults: 0
-    });
+      totalResults: 0,
+      instances: 1
+    };
+
+    commit('setQueryPreviewCached', queryPreviewItem);
 
     return dispatch('fetchQueryPreview', request)
       .then(response => {
-        commit('setQueryPreview', {
+        commit('setQueryPreviewCached', {
           request,
           results: response?.results ?? [],
           status: 'success',
-          displayTagging: response?.displayTagging ?? undefined,
-          totalResults: response?.totalResults ?? 0
+          totalResults: response?.totalResults ?? 0,
+          instances: 1,
+          displayTagging: response?.displayTagging ?? undefined
         });
       })
       .catch(error => {
         // eslint-disable-next-line no-console
         console.error(error);
-        commit('setStatus', { query, status: 'error' });
+        const queryPreviewHash = getHashFromQueryPreviewItem(queryPreviewItem);
+        commit('setStatus', { queryPreviewHash, status: 'error' });
       });
   };

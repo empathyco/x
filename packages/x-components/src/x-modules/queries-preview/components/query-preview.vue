@@ -1,5 +1,5 @@
 <template>
-  <NoElement v-if="queryPreviewResults && queryPreviewResults.totalResults">
+  <NoElement v-if="queryPreviewResults && queryPreviewResults.totalResults > 0">
     <!--
       @slot Query Preview default slot.
           @binding {QueryPreviewInfo} queryPreviewInfo - The information about the request of the
@@ -52,6 +52,7 @@
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils';
   import { createRawFilter } from '../../../__stubs__/index';
+  import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview';
 
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,
@@ -109,7 +110,7 @@
     public persistInCache!: boolean;
 
     /**
-     * The results preview of the queries preview mounted.
+     * The results preview of the queries preview cacheable mounted.
      * It is a dictionary, indexed by the query preview query.
      */
     @State('queriesPreview', 'queriesPreview')
@@ -153,6 +154,16 @@
     protected location?: FeatureLocation;
 
     /**
+     * Query Preview key converted into a unique id.
+     *
+     * @returns The query hash.
+     * @internal
+     */
+    public get queryPreviewHash(): string {
+      return getHashFromQueryPreviewInfo(this.queryPreviewInfo);
+    }
+
+    /**
      * The computed request object to be used to retrieve the query preview results.
      *
      * @returns The search request object.
@@ -176,7 +187,10 @@
       return {
         query: this.queryPreviewInfo.query,
         rows: this.config.maxItemsToRequest,
-        extraParams: { ...this.params, ...this.queryPreviewInfo.extraParams },
+        extraParams: {
+          ...this.params,
+          ...this.queryPreviewInfo.extraParams
+        },
         filters: filters,
         ...(origin && { origin })
       };
@@ -188,7 +202,7 @@
      * @returns The results preview of the actual query preview.
      */
     public get queryPreviewResults(): Partial<QueryPreviewItem> | undefined {
-      const previewResults = this.previewResults[this.queryPreviewInfo.query];
+      const previewResults = this.previewResults[this.queryPreviewHash];
       return previewResults?.results
         ? {
             ...previewResults,
@@ -198,7 +212,8 @@
     }
 
     /**
-     * The debounce method to trigger the request after the debounceTimeMs defined.
+     * The debounce method to trigger the request after the debounceTimeMs defined
+     * for cacheable queries.
      *
      * @returns The search request object.
      * @internal
@@ -224,12 +239,15 @@
         }
       );
 
-      const previewItemQuery = this.queryPreviewInfo.query;
-      const cachedQueryPreview = this.previewResults[previewItemQuery];
+      const cachedQueryPreview = this.previewResults[this.queryPreviewHash];
 
       // If the query has been saved it will emit load instead of the emitting the updated request.
-      if (cachedQueryPreview?.status === 'success' && this.persistInCache) {
-        this.$emit('load', this.queryPreviewInfo.query);
+      if (cachedQueryPreview?.status === 'success') {
+        this.$emit('load', this.queryPreviewHash);
+        this.$x.emit('QueryPreviewMounted', this.queryPreviewHash, {
+          priority: 0,
+          replaceable: false
+        });
       } else {
         this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
       }
@@ -245,12 +263,14 @@
      */
     protected beforeDestroy(): void {
       this.emitQueryPreviewRequestUpdated.cancel();
-      if (!this.persistInCache) {
-        this.$x.emit('NonCacheableQueryPreviewUnmounted', this.queryPreviewInfo.query, {
+      this.$x.emit(
+        'QueryPreviewUnmounted',
+        { queryPreviewHash: this.queryPreviewHash, cache: this.persistInCache },
+        {
           priority: 0,
           replaceable: false
-        });
-      }
+        }
+      );
     }
 
     /**
@@ -278,9 +298,9 @@
     @Watch('queryPreviewResults.status')
     emitLoad(status: RequestStatus | undefined): void {
       if (status === 'success') {
-        this.$emit(this.results?.length ? 'load' : 'error', this.queryPreviewInfo.query);
+        this.$emit(this.results?.length ? 'load' : 'error', this.queryPreviewHash);
       } else if (status === 'error') {
-        this.$emit('error', this.queryPreviewInfo.query);
+        this.$emit('error', this.queryPreviewHash);
       }
     }
   }

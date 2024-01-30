@@ -26,7 +26,7 @@ const wireCommit = namespacedWireCommit(moduleName);
 const wireDispatch = namespacedWireDispatch(moduleName);
 
 /**
- * Requests and stores the query preview results.
+ * Requests and stores the cacheable query preview results.
  *
  * @public
  */
@@ -61,6 +61,20 @@ export const setSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview')
 export const clearSelectedQueryPreviewWire = wireCommit('setSelectedQueryPreview', null);
 
 /**
+ * Adds a new instance in a query preview.
+ *
+ * @public
+ */
+export const addQueryPreviewInstanceWire = wireCommit('addQueryPreviewInstance');
+
+/**
+ * Removes an instance in a query preview.
+ *
+ * @public
+ */
+export const removeQueryPreviewInstanceWire = wireCommit('removeQueryPreviewInstance');
+
+/**
  * Wiring configuration for the {@link QueriesPreviewXModule | queriesPreview module}.
  *
  * @internal
@@ -89,5 +103,11 @@ export const queriesPreviewWiring = createWiring({
   },
   UserSelectedAHistoryQuery: {
     clearSelectedQueryPreviewWire
+  },
+  QueryPreviewMounted: {
+    addQueryPreviewInstanceWire
+  },
+  QueryPreviewUnmounted: {
+    removeQueryPreviewInstanceWire
   }
 });

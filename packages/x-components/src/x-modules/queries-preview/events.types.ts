@@ -10,15 +10,10 @@ import { QueryPreviewInfo } from './store/index';
  */
 export interface QueriesPreviewXEvents {
   /**
-   * Any property of the queries preview request has changed.
+   * Any property of cacheable queries preview request has changed.
    * Payload: The new {@link @empathyco/x-types#SearchRequest | request}.
    */
   QueryPreviewRequestUpdated: SearchRequest;
-  /**
-   * The component that shows a Query preview has been unmounted.
-   * Payload: The query whose preview has been removed.
-   */
-  NonCacheableQueryPreviewUnmounted: string;
   /**
    * User has clicked on a query preview.
    * Payload: The {@link QueryPreviewInfo | query preview info}
@@ -31,4 +26,14 @@ export interface QueriesPreviewXEvents {
    * query preview selection.
    */
   QueryPreviewUnselected: Dictionary<unknown>;
+  /**
+   * The query preview has been mounted.
+   * Payload: The query preview query as a key converted into a unique id (query hash).
+   */
+  QueryPreviewMounted: string;
+  /**
+   * The query preview has been unmounted.
+   * Payload: The query preview's unique id (query hash) and its cache value.
+   */
+  QueryPreviewUnmounted: { queryPreviewHash: string; cache: boolean };
 }

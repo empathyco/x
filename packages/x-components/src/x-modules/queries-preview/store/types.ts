@@ -21,10 +21,12 @@ export interface QueryPreviewItem extends StatusState {
   request: SearchRequest;
   /** Results of the query preview request. */
   results: Result[];
-  /** Display tagging info */
+  /** Display tagging info. */
   displayTagging?: TaggingRequest;
   /** The total number of results for the search query. */
   totalResults: number;
+  /** The number of instances showing the query preview .*/
+  instances: number;
 }
 
 /**
@@ -51,7 +53,7 @@ export interface QueryPreviewInfo {
  * @public
  */
 export interface QueriesPreviewState {
-  /* The request and results */
+  /** The list of cached queries preview. */
   queriesPreview: Dictionary<QueryPreviewItem>;
   /** The configuration of the queries preview module. */
   config: QueriesPreviewConfig;
@@ -82,9 +84,9 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
   /**
    * Removes a query preview entry from the queries preview's dictionary.
    *
-   * @param query - Query whose entry will be removed.
+   * @param queryPreviewHash - Query hash whose entry will be removed.
    */
-  clearQueryPreview(query: string): void;
+  clearQueryPreview(queryPreviewHash: string): void;
   /**
    * Sets the extra params of the module.
    *
@@ -92,11 +94,11 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
    */
   setParams(params: Dictionary<unknown>): void;
   /**
-   * Adds a new entry to the queries preview's dictionary.
+   * Adds a new entry to the cached queries preview's dictionary.
    *
    * @param queryPreview - The query preview item to add.
    */
-  setQueryPreview(queryPreview: QueryPreviewItem): void;
+  setQueryPreviewCached(queryPreview: QueryPreviewItem): void;
   /**
    * Sets the status of a query preview request.
    *
@@ -109,6 +111,27 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
    * @param selectedQueryPreview - The selected query preview to save to the state.
    */
   setSelectedQueryPreview(selectedQueryPreview: QueryPreviewInfo | null): void;
+  /**
+   * Increases in 1 the instance counter.
+   *
+   * @param queryPreviewHash - The query preview key to save to the number of instances.
+   */
+  addQueryPreviewInstance(queryPreviewHash: string): void;
+  /**
+   * Decreases in 1 the instance counter and removes the query preview if the counter is 0
+   * and cache is false.
+   *
+   * @param QueryPreviewCacheInfo - Information needed to change QueryPreview state.
+   * queryPreviewHash is the query preview key to find the QueryPreview saved in the state.
+   * cache is a boolean to know if we should remove the QueryPreview or not.
+   */
+  removeQueryPreviewInstance({
+    queryPreviewHash,
+    cache
+  }: {
+    queryPreviewHash: string;
+    cache: boolean;
+  }): void;
 }
 
 /**
@@ -127,7 +150,7 @@ export interface QueriesPreviewActions {
   fetchQueryPreview(request: SearchRequest): SearchResponse | null;
 
   /**
-   * Requests the results for a query preview and saves them in the state.
+   * Requests the results for a cacheable query preview and saves them in the state.
    *
    * @param request - The request object to retrieve the query preview.
    */
@@ -165,9 +188,9 @@ export type QueriesPreviewActionContext = XActionContext<
  */
 export interface QueryPreviewStatusPayload {
   /**
-   * The query whose request status to modify.
+   * The query hash whose request status to modify.
    */
-  query: string;
+  queryPreviewHash: string;
   /**
    * The new request status.
    */

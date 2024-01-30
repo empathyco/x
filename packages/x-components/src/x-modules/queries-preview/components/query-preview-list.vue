@@ -27,6 +27,7 @@
   import { RequestStatus } from '../../../store';
   import { queriesPreviewXModule } from '../x-module';
   import { QueryPreviewInfo } from '../store/types';
+  import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview';
   import QueryPreview from './query-preview.vue';
 
   interface QueryPreviewStatusRecord {
@@ -77,7 +78,7 @@
      * @internal
      */
     protected get queries(): string[] {
-      return this.queriesPreviewInfo.map(item => item.query);
+      return this.queriesPreviewInfo.map(item => getHashFromQueryPreviewInfo(item));
     }
 
     /**
@@ -87,10 +88,13 @@
      * @internal
      */
     protected get renderedQueryPreviews(): QueryPreviewInfo[] {
-      return this.queriesPreviewInfo.filter(
-        ({ query }) =>
-          this.queriesStatus[query] === 'success' || this.queriesStatus[query] === 'loading'
-      );
+      return this.queriesPreviewInfo.filter(item => {
+        const queryPreviewHash = getHashFromQueryPreviewInfo(item);
+        return (
+          this.queriesStatus[queryPreviewHash] === 'success' ||
+          this.queriesStatus[queryPreviewHash] === 'loading'
+        );
+      });
     }
 
     /**

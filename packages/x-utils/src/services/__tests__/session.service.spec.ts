@@ -6,6 +6,16 @@ describe('testing session id service', () => {
   const sessionService = new DefaultSessionService(mockedStorageService, 1);
   const storageKey = DefaultSessionService.SESSION_ID_KEY;
 
+  const selfSpy = jest.spyOn(self, 'self', 'get') as jest.SpyInstance<{
+    crypto: { randomUUID: () => string };
+  }>;
+
+  selfSpy.mockImplementation(() => ({
+    crypto: {
+      randomUUID: () => Math.floor(Math.random() * 1000000000).toString()
+    }
+  }));
+
   const getItemSpy = jest.spyOn(mockedStorageService, 'getItem');
   const setItemSpy = jest.spyOn(mockedStorageService, 'setItem');
   const removeItemSpy = jest.spyOn(mockedStorageService, 'removeItem');

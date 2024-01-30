@@ -1,4 +1,4 @@
-import { TaggingRequest } from '@empathyco/x-types';
+import { Taggable, TaggingRequest } from '@empathyco/x-types';
 import { TaggingConfig } from './config.types';
 
 /**
@@ -34,6 +34,11 @@ export interface TaggingXEvents {
    * Payload: The new query tagging info.
    */
   SearchTaggingReceived: TaggingRequest;
+  /**
+   * Display trackable element has appeared in the viewport.
+   * Payload: The display tagging info.
+   */
+  TrackableElementDisplayed: Taggable;
   /**
    * The user has clicked on the add to cart button from PDP.
    * Payload: The id of the {@link @empathyco/x-types#Result | result} that the user clicked.

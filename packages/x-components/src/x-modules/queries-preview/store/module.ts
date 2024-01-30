@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
+import { getHashFromQueryPreviewItem } from '../utils/get-hash-from-query-preview';
 import { QueriesPreviewXStoreModule } from './types';
 import { fetchQueryPreview } from './actions/fetch-query-preview.action';
 import { fetchAndSaveQueryPreview } from './actions/fetch-and-save-query-preview.action';
@@ -25,23 +26,37 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
   }),
   getters: { loadedQueriesPreview },
   mutations: {
-    clearQueryPreview(state, query) {
-      Vue.delete(state.queriesPreview, query);
+    clearQueryPreview(state, queryPreviewHash) {
+      Vue.delete(state.queriesPreview, queryPreviewHash);
     },
     setParams(state, params) {
       state.params = params;
     },
-    setQueryPreview(state, queryPreview) {
-      Vue.set(state.queriesPreview, queryPreview.request.query, queryPreview);
+    setQueryPreviewCached(state, queryPreview) {
+      Vue.set(state.queriesPreview, getHashFromQueryPreviewItem(queryPreview), queryPreview);
     },
-    setStatus(state, { query, status }) {
-      state.queriesPreview[query].status = status;
+    setStatus(state, { queryPreviewHash, status }) {
+      state.queriesPreview[queryPreviewHash].status = status;
     },
     setSelectedQueryPreview(state, selectedQueryPreview) {
       state.selectedQueryPreview = selectedQueryPreview;
     },
     setConfig,
-    mergeConfig
+    mergeConfig,
+    addQueryPreviewInstance(state, queryPreviewHash) {
+      if (state.queriesPreview[queryPreviewHash]) {
+        state.queriesPreview[queryPreviewHash].instances += 1;
+      }
+    },
+    removeQueryPreviewInstance(state, { queryPreviewHash, cache }) {
+      if (state.queriesPreview[queryPreviewHash]) {
+        state.queriesPreview[queryPreviewHash].instances -= 1;
+
+        if (!cache && state.queriesPreview[queryPreviewHash].instances === 0) {
+          Vue.delete(state.queriesPreview, queryPreviewHash);
+        }
+      }
+    }
   },
   actions: {
     fetchQueryPreview,

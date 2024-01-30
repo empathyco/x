@@ -37,7 +37,8 @@ describe('queries preview module getters', () => {
         results: getResultsStub(),
         status: 'success',
         totalResults: getResultsStub().length,
-        request: getQueryPreviewRequest('queryWithResults')
+        request: getQueryPreviewRequest('queryWithResults'),
+        instances: 1
       };
 
       resetQueriesPreviewStateWith(store, {

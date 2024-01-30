@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "4.1.0-alpha.11",
+  "version": "4.1.0-alpha.13",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -79,6 +79,7 @@
     "@empathyco/x-utils": "^1.0.3-alpha.0",
     "@vue/devtools-api": "~6.5.0",
     "@vueuse/core": "~10.7.1",
+    "js-md5": "^0.8.3",
     "rxjs": "~7.8.0",
     "tslib": "~2.6.0",
     "vue-class-component": "~7.2.6",
