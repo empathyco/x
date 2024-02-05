@@ -1,26 +1,33 @@
 import { computed, ComputedRef, getCurrentInstance } from 'vue';
 import { Store } from 'vuex';
+import { Dictionary } from '@empathyco/x-utils';
 import { ExtractState, XModuleName } from '../x-modules/x-modules.types';
 
 /**
  * Function which returns the `$store` object from the current component instance
- * and the selected state.
+ * and the selected state as a dictionary of paths.
  *
  * @param module - The {@link XModuleName} of the getter.
- * @param path - The state path.
  * @returns The state properties of the module and the `$store`.
  *
  * @public
  */
 export function useStore<Module extends XModuleName, Path extends keyof ExtractState<Module>>(
-  module?: Module,
-  path?: Path
+  module?: Module
 ): UseStore<Module, Path> {
   const store = (getCurrentInstance()?.proxy as { $store: Store<any> }).$store;
-  const state = computed(() => store.state.x[module][path]);
+  const useState = (module: Module, paths: Path[]): ComputedRef<Dictionary<keyof Path>> => {
+    return paths.reduce<ComputedRef<Dictionary<keyof Path>>>((state, path) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      state[path] = computed(() => store.state.x[module][path]);
+      return state;
+    }, {} as ComputedRef<Dictionary<keyof Path>>);
+  };
+  const useStateWithModule = useState.bind(module);
   return {
     store,
-    state
+    useState: module ? useStateWithModule : useState
   };
 }
 
@@ -29,5 +36,5 @@ export function useStore<Module extends XModuleName, Path extends keyof ExtractS
  */
 type UseStore<Module extends XModuleName, Path extends keyof ExtractState<Module>> = {
   store: Store<any>;
-  state: ComputedRef<ExtractState<Module>[Path]>;
+  useState: (module: Module, paths: Path[]) => ComputedRef<Dictionary<keyof Path>>;
 };
