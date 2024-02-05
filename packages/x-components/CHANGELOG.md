@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.13...@empathyco/x-components@4.1.0-alpha.14) (2024-02-05)
+
+
+### Features
+
+* **components:** create useStore composable (#1401) ([b4e42b9](https://github.com/empathyco/x/commit/b4e42b95bdee4dcc869908e9505830cc15e975a8))
+* creating useRegisterXModule composable (#1399) ([850a741](https://github.com/empathyco/x/commit/850a741f3a144ae79374d85e7e2f6a2f1c502946))
+
+
+### Code Refactoring
+
+* **tagging:** change sessionId creation logic from nanoId to UUID (#1398) ([be06367](https://github.com/empathyco/x/commit/be063673bb74559efab5be9bf6f7ec56688c71f9))
+
+
+
 ## [4.1.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.12...@empathyco/x-components@4.1.0-alpha.13) (2024-01-25)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-archetype-utils",
-  "version": "1.1.0-alpha.0",
+  "version": "1.1.0-alpha.1",
   "description": "Utilities for x-archetype",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -36,8 +36,8 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@empathyco/x-deep-merge": "^2.0.3-alpha.0",
-    "@empathyco/x-utils": "workspace:^1.0.3-alpha.0",
+    "@empathyco/x-deep-merge": "^2.0.3-alpha.1",
+    "@empathyco/x-utils": "workspace:^1.0.3-alpha.1",
     "tslib": "~2.6.0",
     "vue-i18n": "~8.28.2"
   },
