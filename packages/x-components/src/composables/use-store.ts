@@ -2,10 +2,9 @@ import { getCurrentInstance } from 'vue';
 import { Store } from 'vuex';
 
 /**
- * Function which returns the `$store` object from the current component instance
- * and the selected state as a dictionary of paths.
+ * Function which returns the `$store` object from the current component instance.
  *
- * @returns The state properties of the module and the `$store`.
+ * @returns The `$store` object from the current component instance.
  *
  * @public
  */
