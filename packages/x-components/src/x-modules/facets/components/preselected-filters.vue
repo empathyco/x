@@ -18,7 +18,7 @@
      *
      * @internal
      */
-    @Inject()
+    @Inject('snippetConfig')
     public snippetConfig?: SnippetConfig;
 
     /**
