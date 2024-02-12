@@ -12,13 +12,13 @@ import { useStore } from './use-store';
  *
  * @public
  */
-export function useState<Module extends XModuleName, Paths extends keyof ExtractState<Module>>(
+export function useState<Module extends XModuleName, Path extends keyof ExtractState<Module>>(
   module: Module,
-  paths: Paths[]
-): Dictionary<ComputedRef> {
+  paths: Path[]
+): Dictionary<ComputedRef<Path[]>> {
   const store = useStore();
 
-  return paths.reduce<Dictionary<ComputedRef>>((state, path) => {
+  return paths.reduce<Dictionary<ComputedRef<Path[]>>>((state, path) => {
     state[path as string] = computed(() => store.state.x[module][path]);
     return state;
   }, {});
