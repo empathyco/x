@@ -4,6 +4,7 @@ import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { useGetter } from '../use-getter';
 import { historyQueriesXStoreModule } from '../../x-modules/history-queries';
+import { AnyXStoreModule } from '../../store/index';
 
 const TestComponent = defineComponent({
   setup() {
@@ -14,7 +15,7 @@ const TestComponent = defineComponent({
   }
 });
 
-describe('testing useState composable', () => {
+describe('testing useGetter composable', () => {
   let component: Wrapper<any>;
 
   beforeEach(() => {
@@ -29,7 +30,7 @@ describe('testing useState composable', () => {
         x: {
           namespaced: true,
           modules: {
-            historyQueries: { namespaced: true, ...historyQueriesXStoreModule } as any
+            historyQueries: { namespaced: true, ...historyQueriesXStoreModule } as AnyXStoreModule
           }
         }
       }
@@ -42,7 +43,7 @@ describe('testing useState composable', () => {
     });
   });
 
-  it('maps store state', () => {
+  it('maps store getters', () => {
     expect(component.vm.historyQueriesGetter.storageKey.value).toEqual('history-queries');
     expect(component.vm.historyQueriesGetter.historyQueries.value).toHaveLength(0);
 
