@@ -4,6 +4,7 @@ import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { useState } from '../use-state';
 import { searchBoxXStoreModule } from '../../x-modules/search-box/index';
+import { AnyXStoreModule } from '../../store/index';
 
 const TestComponent = defineComponent({
   setup() {
@@ -29,7 +30,7 @@ describe('testing useState composable', () => {
         x: {
           namespaced: true,
           modules: {
-            searchBox: { namespaced: true, ...searchBoxXStoreModule } as any
+            searchBox: { namespaced: true, ...searchBoxXStoreModule } as AnyXStoreModule
           }
         }
       }
