@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.14...@empathyco/x-components@4.1.0-alpha.15) (2024-02-13)
+
+
+### Features
+
+* **composables:** create useState composable (#1402) ([435af42](https://github.com/empathyco/x/commit/435af4222a2ed08d44d728a973406c0e1122b862))
+
+
+
 ## [4.1.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.13...@empathyco/x-components@4.1.0-alpha.14) (2024-02-05)
 
 
