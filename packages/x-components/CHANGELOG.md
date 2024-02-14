@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.16...@empathyco/x-components@4.1.0-alpha.17) (2024-02-14)
+
+
+### Features
+
+* **composables:** create use getter composable (#1407) ([44a1488](https://github.com/empathyco/x/commit/44a148848ab027a624a3a1980ed4a62cb0956dea))
+
+
+
 ## [4.1.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.15...@empathyco/x-components@4.1.0-alpha.16) (2024-02-14)
 
 
