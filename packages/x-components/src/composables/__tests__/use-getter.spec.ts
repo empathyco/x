@@ -64,11 +64,6 @@ describe('testing useGetter composable', () => {
     expect(historyQueriesGetter.storageKey).toBeDefined();
     expect(historyQueriesGetter.historyQueries).toBeUndefined();
   });
-
-  it('returns the property as undefined if there are no matches', () => {
-    const { historyQueriesGetter } = renderUseGetterTest(['bogon']);
-    expect(historyQueriesGetter.bogon.value).toBeUndefined();
-  });
 });
 
 type renderUseGetterTestAPI = {

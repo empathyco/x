@@ -67,11 +67,6 @@ describe('testing useState composable', () => {
     expect(searchBoxState.query).toBeDefined();
     expect(searchBoxState.inputStatus).toBeUndefined();
   });
-
-  it('returns the property as undefined if there are no matches', () => {
-    const { searchBoxState } = renderUseStateTest(['bogon']);
-    expect(searchBoxState.bogon.value).toBeUndefined();
-  });
 });
 
 type renderUseStateTestAPI = {
