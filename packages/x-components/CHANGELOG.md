@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.15...@empathyco/x-components@4.1.0-alpha.16) (2024-02-14)
+
+
+### Testing
+
+* uncomment tests that were expected to fail (#1405) ([f2310a4](https://github.com/empathyco/x/commit/f2310a43133a1b6e1531d59d8e392912eff96894))
+
+
+
 ## [4.1.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.14...@empathyco/x-components@4.1.0-alpha.15) (2024-02-13)
 
 
