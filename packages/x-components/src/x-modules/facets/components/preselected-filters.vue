@@ -61,15 +61,6 @@
       this.emitPreselectedFilters();
     }
 
-    /**
-     * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
-     * preselectedFilters computed property changes.
-     */
-    @Watch('preselectedFilters')
-    syncPreselectedFilters(): void {
-      this.emitPreselectedFilters();
-    }
-
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     render(): void {}
   }
