@@ -1,58 +1,75 @@
-import { defineComponent } from 'vue';
+import { ComputedRef, defineComponent } from 'vue';
 import Vuex, { Store } from 'vuex';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
+import { Dictionary } from '@empathyco/x-utils';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { useState } from '../use-state';
 import { searchBoxXStoreModule } from '../../x-modules/search-box/index';
 import { AnyXStoreModule } from '../../store/index';
+import { ExtractState } from '../../x-modules/x-modules.types';
 
-const TestComponent = defineComponent({
-  setup() {
-    const searchBoxState = useState('searchBox', ['query', 'inputStatus']);
-    return {
-      searchBoxState
-    };
-  }
-});
+const renderUseStateTest = (modulePropertyPaths: string[]): renderUseStateTestAPI => {
+  const testComponent = defineComponent({
+    setup() {
+      const searchBoxState = useState(
+        'searchBox',
+        modulePropertyPaths as (keyof ExtractState<'searchBox'>)[]
+      );
+      return {
+        searchBoxState
+      };
+    }
+  });
 
-describe('testing useState composable', () => {
-  let component: Wrapper<any>;
+  const localVue = createLocalVue();
+  localVue.use(Vuex);
 
-  beforeEach(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    component?.vm.$destroy();
-    jest.clearAllMocks();
-    const localVue = createLocalVue();
-    localVue.use(Vuex);
-
-    const store = new Store({
-      modules: {
-        x: {
-          namespaced: true,
-          modules: {
-            searchBox: { namespaced: true, ...searchBoxXStoreModule } as AnyXStoreModule
-          }
+  const store = new Store({
+    modules: {
+      x: {
+        namespaced: true,
+        modules: {
+          searchBox: { namespaced: true, ...searchBoxXStoreModule } as AnyXStoreModule
         }
       }
-    });
-    installNewXPlugin({ store }, localVue);
+    }
+  });
+  installNewXPlugin({ store }, localVue);
 
-    component = mount(TestComponent, {
-      localVue,
-      store
-    });
+  const wrapper = mount(testComponent, {
+    localVue,
+    store
   });
 
+  return {
+    searchBoxState: (wrapper.vm as any).searchBoxState,
+    store
+  };
+};
+
+describe('testing useState composable', () => {
   it('maps store state', () => {
-    expect(component.vm.searchBoxState.query.value).toEqual('');
-    expect(component.vm.searchBoxState.inputStatus.value).toEqual('initial');
+    const { searchBoxState, store } = renderUseStateTest(['query', 'inputStatus']);
+    expect(searchBoxState.query.value).toEqual('');
+    expect(searchBoxState.inputStatus.value).toEqual('initial');
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    component.vm.$store.commit('x/searchBox/setQuery', 'pork shoulder ');
+    store.commit('x/searchBox/setQuery', 'pork shoulder ');
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    component.vm.$store.commit('x/searchBox/setInputStatus', 'filled');
+    store.commit('x/searchBox/setInputStatus', 'filled');
 
-    expect(component.vm.searchBoxState.query.value).toEqual('pork shoulder ');
-    expect(component.vm.searchBoxState.inputStatus.value).toEqual('filled');
+    expect(searchBoxState.query.value).toEqual('pork shoulder ');
+    expect(searchBoxState.inputStatus.value).toEqual('filled');
+  });
+
+  it('does not return not requested state properties', () => {
+    const { searchBoxState } = renderUseStateTest(['query']);
+    expect(searchBoxState.query).toBeDefined();
+    expect(searchBoxState.inputStatus).toBeUndefined();
   });
 });
+
+type renderUseStateTestAPI = {
+  searchBoxState: Dictionary<ComputedRef<string[]>>;
+  store: Store<any>;
+};
