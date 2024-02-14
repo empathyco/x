@@ -86,9 +86,7 @@ describe('testing QueryPreviewList', () => {
     expect(queryPreviews.at(1).text()).toEqual('jeans - Sick jeans');
   });
 
-  // TODO Uncomment when the 'error' event is fixed. EMP-3402 task
-  // eslint-disable-next-line jest/no-commented-out-tests
-  /*it('hides queries with no results', async () => {
+  it('hides queries with no results', async () => {
     const { getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
       queriesPreviewInfo: [{ query: 'noResults' }, { query: 'shoes' }],
       results: { noResults: [], shoes: [createResultStub('Crazy shoes')] }
@@ -127,7 +125,7 @@ describe('testing QueryPreviewList', () => {
     queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews.wrappers).toHaveLength(1);
     expect(queryPreviews.at(0).text()).toEqual('shoes - Crazy shoes');
-  });*/
+  });
 });
 
 interface RenderQueryPreviewListOptions {
