@@ -46,6 +46,7 @@
      * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} to save
      * the provided filters in the state.
      */
+    @Watch('preselectedFilters')
     protected emitPreselectedFilters(): void {
       if (!isArrayEmpty(this.preselectedFilters)) {
         this.$x.emit('PreselectedFiltersProvided', createRawFilters(this.preselectedFilters));
