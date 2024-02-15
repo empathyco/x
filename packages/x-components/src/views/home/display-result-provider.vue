@@ -5,17 +5,31 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, PropType, provide } from 'vue';
+  import { TaggingRequest } from '@empathyco/x-types';
   import { NoElement } from '../../components/no-element';
 
   export default defineComponent({
     components: {
       NoElement
     },
-    provide() {
-      return {
-        resultClickExtraEvents: ['UserClickedADisplayResult']
-      };
+    props: {
+      queryTagging: {
+        type: Object as PropType<TaggingRequest>,
+        required: false
+      }
+    },
+    setup(props) {
+      provide('resultClickExtraEvents', [
+        'UserClickedADisplayResult',
+        'UserClickedADisplayResultWithQuery'
+      ]);
+
+      provide('resultLinkMetadataPerEvent', {
+        UserClickedADisplayResultWithQuery: {
+          queryTagging: props.queryTagging
+        }
+      });
     }
   });
 </script>
