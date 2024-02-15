@@ -24,3 +24,22 @@ export function getXComponentXModuleName(component: Vue | undefined): XModuleNam
 export function isXComponent(component: Vue): boolean {
   return !!getXComponentXModuleName(component);
 }
+
+/**
+ * Given a component, finds the root XComponent in the ancestors hierarchy.
+ *
+ * @param component - The component to find its root XComponent.
+ * @returns The root XComponent or undefined if it has not.
+ * @public
+ */
+export function getRootXComponent(component: Vue): Vue | undefined {
+  let xComponent: Vue | undefined;
+  let currentComponent: Vue | null = component;
+  while (currentComponent != null) {
+    if (isXComponent(currentComponent)) {
+      xComponent = currentComponent;
+    }
+    currentComponent = currentComponent.$parent;
+  }
+  return xComponent;
+}
