@@ -145,13 +145,6 @@ export const setQueryTaggingFromQueryPreview = wireCommit(
 export const trackResultClickedWire = createTrackWire('click');
 
 /**
- * Tracks the tagging of the query of the clicked result.
- *
- * @public
- */
-export const trackQueryResultClickWire = createTrackQueryWire('query');
-
-/**
  * Tracks the tagging of the banner.
  *
  * @public
@@ -197,22 +190,6 @@ export function createTrackWire(property: keyof Tagging): Wire<Taggable> {
     ({ eventPayload: { tagging }, metadata: { ignoreInModules } }) =>
       !!tagging?.[property] && !ignoreInModules?.includes(moduleName)
   );
-}
-
-/**
- * Factory helper to create a wire for the track of a taggable element.
- *
- * @param property - Key of the tagging object to track.
- * @returns A new wire for the query of the taggable element.
- *
- * @public
- */
-export function createTrackQueryWire(property: keyof Tagging): Wire<Taggable> {
-  return wireDispatch('track', ({ eventPayload: { tagging }, metadata: { queryTagging } }) => {
-    const taggingInfo: TaggingRequest = tagging[property];
-    taggingInfo.params = (queryTagging as TaggingRequest).params;
-    return taggingInfo;
-  });
 }
 
 /**
@@ -290,7 +267,6 @@ export const taggingWiring = createWiring({
     trackDisplayClickedWire
   },
   UserClickedADisplayResultWithQuery: {
-    setQueryTaggingFromQueryPreview,
-    trackQueryResultClickWire
+    setQueryTaggingFromQueryPreview
   }
 });

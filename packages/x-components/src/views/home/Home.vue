@@ -277,7 +277,6 @@
                             <Result
                               v-for="result in results"
                               :key="result.id"
-                              @click="emitTracking(queryTagging)"
                               :result="result"
                               style="max-width: 180px"
                             />
