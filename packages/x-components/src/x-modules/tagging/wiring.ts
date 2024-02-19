@@ -7,7 +7,7 @@ import {
 import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
 import { filter, mapWire } from '../../wiring/wires.operators';
-import { DisplayWireMetadata, Wire } from '../../wiring/wiring.types';
+import { AnyWire, DisplayWireMetadata, Wire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 import { createOrigin } from '../../utils/index';
 import { FeatureLocation } from '../../types/index';
@@ -132,10 +132,7 @@ export const setQueryTaggingInfo = moduleDebounce(
  *
  * @public
  */
-export const setQueryTaggingFromQueryPreview = wireCommit(
-  'setQueryTaggingInfo',
-  ({ metadata: { queryTagging } }) => queryTagging as TaggingRequest
-);
+export const setQueryTaggingFromQueryPreview = createSetQueryTaggingFromQueryPreview();
 
 /**
  * Tracks the tagging of the result.
@@ -216,6 +213,23 @@ export function createTrackDisplayWire(property: keyof Tagging): Wire<Taggable> 
       return taggingInfo;
     }),
     ({ eventPayload: { tagging } }) => !!tagging?.[property]
+  );
+}
+
+/**
+ * Factory helper to create a wire for set the queryTagging.
+ *
+ * @returns A new wire for the query of a result of a queryPreview.
+ *
+ * @public
+ */
+export function createSetQueryTaggingFromQueryPreview(): AnyWire {
+  return filter(
+    wireCommit(
+      'setQueryTaggingInfo',
+      ({ metadata: { queryTagging } }) => queryTagging as TaggingRequest
+    ),
+    ({ metadata: { queryTagging } }) => !!queryTagging
   );
 }
 
