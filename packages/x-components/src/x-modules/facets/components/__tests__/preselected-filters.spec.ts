@@ -1,4 +1,6 @@
-import { mount } from '@vue/test-utils';
+import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import Vue from 'vue';
+import Vuex from 'vuex';
 import { createRawFilters } from '../../../../utils/filters';
 import { baseSnippetConfig } from '../../../../views/base-config';
 import PreselectedFilters from '../preselected-filters.vue';
@@ -8,11 +10,17 @@ function renderPreselectedFilters({
   snippetFilters
 }: RenderPreselectedFiltersOptions = {}): RenderPreselectedFiltersAPI {
   const emit = jest.fn();
-  mount(PreselectedFilters, {
+  const localVue = createLocalVue();
+  localVue.use(Vuex);
+
+  const wrapper = mount(PreselectedFilters, {
     provide: {
       snippetConfig: { ...baseSnippetConfig, filters: snippetFilters }
     },
-    propsData: { filters },
+    propsData: {
+      filters
+    },
+    localVue,
     mocks: {
       $x: {
         emit
@@ -21,6 +29,7 @@ function renderPreselectedFilters({
   });
 
   return {
+    wrapper,
     emit
   };
 }
@@ -79,6 +88,25 @@ describe('testing Preselected filters component', () => {
       createRawFilters(snippetFilters)
     );
   });
+
+  it('emits the event when the filters change', async () => {
+    const filters = ['{!tag=brand_facet}brand_facet:"Lego"'];
+    const newFilters = ['{!tag=brand_facet}brand_facet:"Playmobil"'];
+
+    const { emit, wrapper } = renderPreselectedFilters({
+      filters
+    });
+
+    expect(wrapper.props()).toEqual({ filters: filters });
+    expect(emit).toHaveBeenCalledTimes(1);
+    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(filters));
+
+    await wrapper.setProps({ filters: newFilters });
+
+    expect(wrapper.props()).toEqual({ filters: newFilters });
+    expect(emit).toHaveBeenCalledTimes(2);
+    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(newFilters));
+  });
 });
 
 /**
@@ -97,4 +125,6 @@ interface RenderPreselectedFiltersOptions {
 interface RenderPreselectedFiltersAPI {
   /** Mock of the {@link XBus.emit} function. */
   emit: jest.Mock;
+  /** The wrapper of the container element.*/
+  wrapper: Wrapper<Vue>;
 }
