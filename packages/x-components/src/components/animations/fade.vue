@@ -15,6 +15,7 @@
    * @public
    */
   export default defineComponent({
+    name: 'Fade',
     inheritAttrs: false,
     props: {
       /**
