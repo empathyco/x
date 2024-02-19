@@ -97,7 +97,7 @@ describe('testing Preselected filters component', () => {
     );
   });
 
-  it('emits the event when the filters change', async () => {
+  it('emits the event when the prop filters change', async () => {
     const filters = ['{!tag=brand_facet}brand_facet:"Lego"'];
     const newFilters = ['{!tag=brand_facet}brand_facet:"Playmobil"'];
 
