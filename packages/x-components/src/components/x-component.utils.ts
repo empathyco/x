@@ -32,7 +32,7 @@ export function isXComponent(component: Vue): boolean {
  * @returns The root XComponent or undefined if it has not.
  * @public
  */
-export function getRootXComponent(component: Vue): Vue | undefined {
+export function getRootXComponent(component: Vue | null): Vue | undefined {
   let xComponent: Vue | undefined;
   let currentComponent: Vue | null = component;
   while (currentComponent != null) {
