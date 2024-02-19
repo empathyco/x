@@ -22,7 +22,7 @@
         required: true
       }
     },
-    emits: ['change'],
+    emits: ['change', 'input'],
     setup(props, { emit }) {
       const cssClasses = ref<VueCSSClasses>({
         'x-switch--is-selected x-selected': props.value
@@ -34,6 +34,8 @@
           'x-switch--is-selected': newValue,
           'x-selected': newValue
         };
+
+        emit('input', newValue);
         emit('change', newValue);
       };
 
