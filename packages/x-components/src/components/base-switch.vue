@@ -11,53 +11,38 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, ref } from 'vue';
   import { VueCSSClasses } from '../utils/types';
 
-  /**
-   * Basic switch component to handle boolean values. This component receives
-   * its selected state using a prop, and emits a Vue event whenever the user
-   * clicks it.
-   *
-   * @public
-   */
-  @Component({
-    model: {
-      event: 'change'
-    }
-  })
-  export default class BaseSwitch extends Vue {
-    /**
-     * The selected value of the switch.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public value!: boolean;
+  export default defineComponent({
+    name: 'BaseSwitch',
+    props: {
+      value: {
+        type: Boolean,
+        required: true
+      }
+    },
+    emits: ['change'],
+    setup(props, { emit }) {
+      const cssClasses = ref<VueCSSClasses>({
+        'x-switch--is-selected x-selected': props.value
+      });
 
-    /**
-     * Dynamic CSS classes to add to the switch component
-     * depending on its internal state.
-     *
-     * @returns A boolean dictionary with dynamic CSS classes.
-     * @internal
-     */
-    protected get cssClasses(): VueCSSClasses {
+      const toggle = (): void => {
+        const newValue = !props.value;
+        cssClasses.value = {
+          'x-switch--is-selected': newValue,
+          'x-selected': newValue
+        };
+        emit('change', newValue);
+      };
+
       return {
-        'x-switch--is-selected x-selected': this.value
+        cssClasses,
+        toggle
       };
     }
-
-    /**
-     * Emits a change event with the desired value of the switch.
-     *
-     * @internal
-     */
-    protected toggle(): void {
-      this.$emit('change', !this.value);
-    }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
