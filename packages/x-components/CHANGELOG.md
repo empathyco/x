@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.17...@empathyco/x-components@4.1.0-alpha.18) (2024-02-16)
+
+
+### Code Refactoring
+
+* **components:** migrate animate-width component to vue 2.7 (#1411) ([47c26fb](https://github.com/empathyco/x/commit/47c26fba64025ae6fc391979e8d82fd366afe5b9))
+
+
+
 ## [4.1.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.16...@empathyco/x-components@4.1.0-alpha.17) (2024-02-14)
 
 

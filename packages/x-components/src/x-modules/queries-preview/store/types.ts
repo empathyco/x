@@ -23,6 +23,8 @@ export interface QueryPreviewItem extends StatusState {
   results: Result[];
   /** Display tagging info. */
   displayTagging?: TaggingRequest;
+  /** Query tagging info. */
+  queryTagging?: TaggingRequest;
   /** The total number of results for the search query. */
   totalResults: number;
   /** The number of instances showing the query preview .*/
