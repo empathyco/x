@@ -264,9 +264,7 @@ export const taggingWiring = createWiring({
     trackBannerClickedWire
   },
   UserClickedADisplayResult: {
-    trackDisplayClickedWire
-  },
-  UserClickedADisplayResultWithQuery: {
+    trackDisplayClickedWire,
     setQueryTaggingFromQueryPreview
   }
 });

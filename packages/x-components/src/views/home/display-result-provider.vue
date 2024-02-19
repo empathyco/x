@@ -20,13 +20,10 @@
       }
     },
     setup(props) {
-      provide('resultClickExtraEvents', [
-        'UserClickedADisplayResult',
-        'UserClickedADisplayResultWithQuery'
-      ]);
+      provide('resultClickExtraEvents', ['UserClickedADisplayResult']);
 
       provide('resultLinkMetadataPerEvent', {
-        UserClickedADisplayResultWithQuery: {
+        UserClickedADisplayResult: {
           queryTagging: props.queryTagging
         }
       });
