@@ -128,6 +128,16 @@ export const setQueryTaggingInfo = moduleDebounce(
 );
 
 /**
+ * Sets the tagging state of the query tagging info using.
+ *
+ * @public
+ */
+export const setQueryTaggingFromQueryPreview = wireCommit(
+  'setQueryTaggingInfo',
+  ({ metadata: { queryTagging } }) => queryTagging as TaggingRequest
+);
+
+/**
  * Tracks the tagging of the result.
  *
  * @public
@@ -254,6 +264,7 @@ export const taggingWiring = createWiring({
     trackBannerClickedWire
   },
   UserClickedADisplayResult: {
-    trackDisplayClickedWire
+    trackDisplayClickedWire,
+    setQueryTaggingFromQueryPreview
   }
 });
