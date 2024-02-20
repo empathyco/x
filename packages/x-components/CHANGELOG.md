@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.18...@empathyco/x-components@4.1.0-alpha.19) (2024-02-20)
+
+
+### Features
+
+* **composables:** create XBus composable (#1412) ([5246135](https://github.com/empathyco/x/commit/5246135aaf2581e338dcf1934aeb8fb781cfe0a0))
+* **tagging:** send query event when a result from a QP is clicked (#1409) ([2236948](https://github.com/empathyco/x/commit/22369482f51fc2e9b36c7b8280ad0da3ab5e504d))
+
+
+### Code Refactoring
+
+* migrate cross-fade component to vue 2.7 (#1414) ([7f28d20](https://github.com/empathyco/x/commit/7f28d20f3d644cd69da0914ff7a1f3e2819b2966))
+* migrate fade component to vue 2.7 (#1413) ([4a8d016](https://github.com/empathyco/x/commit/4a8d0166f34876c71a77ac5326af0f44e4956e77))
+* move getRottXComponent to a util (#1410) ([6f93f23](https://github.com/empathyco/x/commit/6f93f238fae6da2db7251eb8b2524e306e415814))
+
+
+
 ## [4.1.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.17...@empathyco/x-components@4.1.0-alpha.18) (2024-02-16)
 
 
