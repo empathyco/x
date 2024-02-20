@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.19...@empathyco/x-components@4.1.0-alpha.20) (2024-02-20)
+
+
+### Bug Fixes
+
+* **tagging:** fix e2e test when a display result has no queryTagging (#1416) ([6193307](https://github.com/empathyco/x/commit/6193307e609ab340fcd5f1f047d87b352c571e72))
+
+
+
 ## [4.1.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.18...@empathyco/x-components@4.1.0-alpha.19) (2024-02-20)
 
 
