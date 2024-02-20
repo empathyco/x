@@ -7,6 +7,7 @@ import { computed, ComputedRef, inject } from 'vue';
  * @param key - The key of the value to inject.
  * @param defaultValue - The default value to use if the value is not provided.
  * @returns The computed value of the injected value.
+ * @public
  */
 export function useHybridInject<SomeValue>(
   key: string,
