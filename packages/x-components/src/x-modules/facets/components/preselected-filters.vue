@@ -3,7 +3,7 @@
   import { createRawFilters } from '../../../utils/filters';
   import { isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
-  import { use$x } from '../../../composables/index';
+  import { use$x, useNoElementRender } from '../../../composables/index';
 
   /**
    * This component emits {@link FacetsXEvents.PreselectedFiltersProvided} when a preselected filter
@@ -27,7 +27,7 @@
         default: () => []
       }
     },
-    setup(props) {
+    setup(props, { slots }) {
       const $x = use$x();
       /**
        * Injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
@@ -45,9 +45,8 @@
         }
       });
 
-      return {
-        props
-      };
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      return () => useNoElementRender(slots);
     }
   });
 </script>
