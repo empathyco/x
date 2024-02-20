@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import Vue, { ComponentOptions } from 'vue';
 import { createRawFilters } from '../../../../utils/filters';
 import { baseSnippetConfig } from '../../../../views/base-config';
 import PreselectedFilters from '../preselected-filters.vue';
@@ -8,7 +9,7 @@ function renderPreselectedFilters({
   snippetFilters
 }: RenderPreselectedFiltersOptions = {}): RenderPreselectedFiltersAPI {
   const emit = jest.fn();
-  mount(PreselectedFilters, {
+  mount(PreselectedFilters as ComponentOptions<Vue>, {
     provide: {
       snippetConfig: { ...baseSnippetConfig, filters: snippetFilters }
     },
