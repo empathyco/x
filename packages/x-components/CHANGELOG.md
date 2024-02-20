@@ -3,6 +3,68 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.19...@empathyco/x-components@4.1.0-alpha.20) (2024-02-20)
+
+
+### Bug Fixes
+
+* **tagging:** fix e2e test when a display result has no queryTagging (#1416) ([6193307](https://github.com/empathyco/x/commit/6193307e609ab340fcd5f1f047d87b352c571e72))
+
+
+
+## [4.1.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.18...@empathyco/x-components@4.1.0-alpha.19) (2024-02-20)
+
+
+### Features
+
+* **composables:** create XBus composable (#1412) ([5246135](https://github.com/empathyco/x/commit/5246135aaf2581e338dcf1934aeb8fb781cfe0a0))
+* **tagging:** send query event when a result from a QP is clicked (#1409) ([2236948](https://github.com/empathyco/x/commit/22369482f51fc2e9b36c7b8280ad0da3ab5e504d))
+
+
+### Code Refactoring
+
+* migrate cross-fade component to vue 2.7 (#1414) ([7f28d20](https://github.com/empathyco/x/commit/7f28d20f3d644cd69da0914ff7a1f3e2819b2966))
+* migrate fade component to vue 2.7 (#1413) ([4a8d016](https://github.com/empathyco/x/commit/4a8d0166f34876c71a77ac5326af0f44e4956e77))
+* move getRottXComponent to a util (#1410) ([6f93f23](https://github.com/empathyco/x/commit/6f93f238fae6da2db7251eb8b2524e306e415814))
+
+
+
+## [4.1.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.17...@empathyco/x-components@4.1.0-alpha.18) (2024-02-16)
+
+
+### Code Refactoring
+
+* **components:** migrate animate-width component to vue 2.7 (#1411) ([47c26fb](https://github.com/empathyco/x/commit/47c26fba64025ae6fc391979e8d82fd366afe5b9))
+
+
+
+## [4.1.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.16...@empathyco/x-components@4.1.0-alpha.17) (2024-02-14)
+
+
+### Features
+
+* **composables:** create use getter composable (#1407) ([44a1488](https://github.com/empathyco/x/commit/44a148848ab027a624a3a1980ed4a62cb0956dea))
+
+
+
+## [4.1.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.15...@empathyco/x-components@4.1.0-alpha.16) (2024-02-14)
+
+
+### Testing
+
+* uncomment tests that were expected to fail (#1405) ([f2310a4](https://github.com/empathyco/x/commit/f2310a43133a1b6e1531d59d8e392912eff96894))
+
+
+
+## [4.1.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.14...@empathyco/x-components@4.1.0-alpha.15) (2024-02-13)
+
+
+### Features
+
+* **composables:** create useState composable (#1402) ([435af42](https://github.com/empathyco/x/commit/435af4222a2ed08d44d728a973406c0e1122b862))
+
+
+
 ## [4.1.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.13...@empathyco/x-components@4.1.0-alpha.14) (2024-02-05)
 
 

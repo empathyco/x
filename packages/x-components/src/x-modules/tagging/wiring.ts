@@ -128,6 +128,13 @@ export const setQueryTaggingInfo = moduleDebounce(
 );
 
 /**
+ * Sets the tagging state of the query tagging info using.
+ *
+ * @public
+ */
+export const setQueryTaggingFromQueryPreview = createSetQueryTaggingFromQueryPreview();
+
+/**
  * Tracks the tagging of the result.
  *
  * @public
@@ -210,6 +217,23 @@ export function createTrackDisplayWire(property: keyof Tagging): Wire<Taggable> 
 }
 
 /**
+ * Factory helper to create a wire to set the queryTagging.
+ *
+ * @returns A new wire for the query of a result of a queryPreview.
+ *
+ * @public
+ */
+export function createSetQueryTaggingFromQueryPreview(): Wire<Taggable> {
+  return filter(
+    wireCommit(
+      'setQueryTaggingInfo',
+      ({ metadata: { queryTagging } }) => queryTagging as TaggingRequest
+    ),
+    ({ metadata: { queryTagging } }) => !!queryTagging
+  );
+}
+
+/**
  * Wiring configuration for the {@link TaggingXModule | tagging module}.
  *
  * @internal
@@ -254,6 +278,7 @@ export const taggingWiring = createWiring({
     trackBannerClickedWire
   },
   UserClickedADisplayResult: {
-    trackDisplayClickedWire
+    trackDisplayClickedWire,
+    setQueryTaggingFromQueryPreview
   }
 });

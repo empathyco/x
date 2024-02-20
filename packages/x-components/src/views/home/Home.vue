@@ -250,7 +250,13 @@
                 <QueryPreviewList
                   :debounceTimeMs="250"
                   :queriesPreviewInfo="queriesPreviewInfo"
-                  #default="{ queryPreviewInfo, totalResults, results, displayTagging }"
+                  #default="{
+                    queryPreviewInfo,
+                    totalResults,
+                    results,
+                    displayTagging,
+                    queryTagging
+                  }"
                   data-test="brand-recommendation"
                   :persistInCache="true"
                 >
@@ -265,16 +271,18 @@
                       >
                         {{ `${queryPreviewInfo.query} (${totalResults})` }}
                       </QueryPreviewButton>
-                      <SlidingPanel :resetOnContentChange="false">
-                        <div class="x-flex x-gap-8">
-                          <Result
-                            v-for="result in results"
-                            :key="result.id"
-                            :result="result"
-                            style="max-width: 180px"
-                          />
-                        </div>
-                      </SlidingPanel>
+                      <DisplayResultProvider :queryTagging="queryTagging">
+                        <SlidingPanel :resetOnContentChange="false">
+                          <div class="x-flex x-gap-8">
+                            <Result
+                              v-for="result in results"
+                              :key="result.id"
+                              :result="result"
+                              style="max-width: 180px"
+                            />
+                          </div>
+                        </SlidingPanel>
+                      </DisplayResultProvider>
                     </div>
                   </DisplayEmitter>
                 </QueryPreviewList>
