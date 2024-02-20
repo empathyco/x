@@ -7,7 +7,7 @@ import {
 import { namespacedDebounce } from '../../wiring/namespaced-wires.operators';
 import { wireService, wireServiceWithoutPayload } from '../../wiring/wires.factory';
 import { filter, mapWire } from '../../wiring/wires.operators';
-import { AnyWire, DisplayWireMetadata, Wire } from '../../wiring/wiring.types';
+import { DisplayWireMetadata, Wire } from '../../wiring/wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
 import { createOrigin } from '../../utils/index';
 import { FeatureLocation } from '../../types/index';
@@ -217,13 +217,13 @@ export function createTrackDisplayWire(property: keyof Tagging): Wire<Taggable> 
 }
 
 /**
- * Factory helper to create a wire for set the queryTagging.
+ * Factory helper to create a wire to set the queryTagging.
  *
  * @returns A new wire for the query of a result of a queryPreview.
  *
  * @public
  */
-export function createSetQueryTaggingFromQueryPreview(): AnyWire {
+export function createSetQueryTaggingFromQueryPreview(): Wire<Taggable> {
   return filter(
     wireCommit(
       'setQueryTaggingInfo',
