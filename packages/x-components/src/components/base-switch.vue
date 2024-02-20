@@ -14,8 +14,21 @@
   import { defineComponent, ref } from 'vue';
   import { VueCSSClasses } from '../utils/types';
 
+  /**
+   * Basic switch component to handle boolean values. This component receives
+   * its selected state using a prop, and emits a Vue event whenever the user
+   * clicks it.
+   *
+   * @public
+   */
+
   export default defineComponent({
     name: 'BaseSwitch',
+    /**
+     * The selected value of the switch.
+     *
+     * @public
+     */
     props: {
       value: {
         type: Boolean,
@@ -24,10 +37,22 @@
     },
     emits: ['change', 'input'],
     setup(props, { emit }) {
+      /**
+       * Dynamic CSS classes to add to the switch component
+       * depending on its internal state.
+       *
+       * @returns A boolean dictionary with dynamic CSS classes.
+       * @internal
+       */
       const cssClasses = ref<VueCSSClasses>({
         'x-switch--is-selected x-selected': props.value
       });
 
+      /**
+       * Emits a change and input event with the desired value of the switch.
+       *
+       * @internal
+       */
       const toggle = (): void => {
         const newValue = !props.value;
         cssClasses.value = {
