@@ -6,8 +6,7 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
 
   /**
    * Renders a transition wrapping the element passed in the default slot. The animation just fades
@@ -15,19 +14,19 @@
    *
    * @public
    */
-  @Component({
-    inheritAttrs: false
-  })
-  export default class Fade extends Vue {
-    /**
-     * Indicates if the transition must be applied on the initial render of the node.
-     */
-    @Prop({
-      type: Boolean,
-      default: true
-    })
-    public appear!: boolean;
-  }
+  export default defineComponent({
+    name: 'Fade',
+    inheritAttrs: false,
+    props: {
+      /**
+       * Indicates if the transition must be applied on the initial render of the node.
+       */
+      appear: {
+        type: Boolean,
+        default: true
+      }
+    }
+  });
 </script>
 
 <style lang="scss" scoped>

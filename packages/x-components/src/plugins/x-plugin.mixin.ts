@@ -1,7 +1,7 @@
 import Vue, { ComponentOptions } from 'vue';
 import { Store } from 'vuex';
 import { XBus } from '@empathyco/x-bus';
-import { getXComponentXModuleName, isXComponent } from '../components/x-component.utils';
+import { getRootXComponent, getXComponentXModuleName } from '../components/x-component.utils';
 import { RootXStoreState } from '../store/store.types';
 import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
@@ -110,23 +110,4 @@ function createWireMetadata(
       }
     }
   );
-}
-
-/**
- * Given a component, finds the root XComponent in the ancestors hierarchy.
- *
- * @param component - The component to find its root XComponent.
- * @returns The root XComponent or undefined if it has not.
- * @public
- */
-export function getRootXComponent(component: Vue): Vue | undefined {
-  let xComponent: Vue | undefined;
-  let currentComponent: Vue | null = component;
-  while (currentComponent != null) {
-    if (isXComponent(currentComponent)) {
-      xComponent = currentComponent;
-    }
-    currentComponent = currentComponent.$parent;
-  }
-  return xComponent;
 }
