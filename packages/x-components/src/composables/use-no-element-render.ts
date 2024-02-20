@@ -6,6 +6,8 @@ import { VNode } from 'vue/types/vnode';
  *
  * @param slots - The slots object from the component.
  * @returns The result of the rendering function to use.
+ *
+ * @public
  */
 export function useNoElementRender(
   slots: { [key: string]: VNode[] | undefined } | SetupContext['slots']
