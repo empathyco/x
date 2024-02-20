@@ -11,8 +11,7 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, ref } from 'vue';
   import { VueCSSClasses } from '../utils/types';
 
   /**
@@ -22,42 +21,55 @@
    *
    * @public
    */
-  @Component({
-    model: {
-      event: 'change'
-    }
-  })
-  export default class BaseSwitch extends Vue {
+
+  export default defineComponent({
+    name: 'BaseSwitch',
     /**
      * The selected value of the switch.
      *
      * @public
      */
-    @Prop({ required: true })
-    public value!: boolean;
+    props: {
+      value: {
+        type: Boolean,
+        required: true
+      }
+    },
+    emits: ['change', 'input'],
+    setup(props, { emit }) {
+      /**
+       * Dynamic CSS classes to add to the switch component
+       * depending on its internal state.
+       *
+       * @returns A boolean dictionary with dynamic CSS classes.
+       * @internal
+       */
+      const cssClasses = ref<VueCSSClasses>({
+        'x-switch--is-selected x-selected': props.value
+      });
 
-    /**
-     * Dynamic CSS classes to add to the switch component
-     * depending on its internal state.
-     *
-     * @returns A boolean dictionary with dynamic CSS classes.
-     * @internal
-     */
-    protected get cssClasses(): VueCSSClasses {
+      /**
+       * Emits a change and input event with the desired value of the switch.
+       *
+       * @internal
+       */
+      const toggle = (): void => {
+        const newValue = !props.value;
+        cssClasses.value = {
+          'x-switch--is-selected': newValue,
+          'x-selected': newValue
+        };
+
+        emit('input', newValue);
+        emit('change', newValue);
+      };
+
       return {
-        'x-switch--is-selected x-selected': this.value
+        cssClasses,
+        toggle
       };
     }
-
-    /**
-     * Emits a change event with the desired value of the switch.
-     *
-     * @internal
-     */
-    protected toggle(): void {
-      this.$emit('change', !this.value);
-    }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
