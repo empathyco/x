@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { computed, defineComponent } from 'vue';
   import StarIcon from './icons/star.vue';
 
   /**
@@ -58,7 +58,7 @@
         default: 5
       }
     },
-    computed: {
+    setup(props) {
       /**
        * Calculates the width of the filled elements wrapper.
        *
@@ -66,9 +66,10 @@
        *
        * @internal
        */
-      calculateFilledWrapperWidth(): string {
-        return this.value < 0 ? '0%' : `${(this.value * 100) / this.max}%`;
-      },
+      const calculateFilledWrapperWidth = computed(() => {
+        return props.value < 0 ? '0%' : `${(props.value * 100) / props.max}%`;
+      });
+
       /**
        * Creates the aria label for accessibility purpose.
        *
@@ -76,9 +77,14 @@
        *
        * @internal
        */
-      ariaLabel(): string {
-        return `${this.value}/${this.max}`;
-      }
+      const ariaLabel = computed(() => {
+        return `${props.value}/${props.max}`;
+      });
+
+      return {
+        calculateFilledWrapperWidth,
+        ariaLabel
+      };
     }
   });
 </script>
