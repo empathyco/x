@@ -12,19 +12,19 @@
   export default defineComponent({
     name: 'LocationProvider',
     props: {
+      /**
+       * The {@link FeatureLocation} to provide.
+       *
+       * @public
+       */
       location: {
         type: String as PropType<FeatureLocation>,
         required: true
       }
     },
     setup(props, { slots }) {
-      const locationFeature = toRef(props, 'location');
-      /**
-       * The {@link FeatureLocation} to provide.
-       *
-       * @public
-       */
-      provide('location', locationFeature);
+      const featureLocation = toRef(props, 'location');
+      provide('location', featureLocation);
 
       return () => useNoElementRender(slots);
     }
