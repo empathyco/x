@@ -2,7 +2,7 @@ import { computed, ComputedRef, inject } from 'vue';
 
 /**
  * Function to use a hybrid inject, which allows to inject a value provided by the regular provide
- * of vue  or by the XProvide decorator.
+ * of vue or by the XProvide decorator.
  *
  * @param key - The key of the value to inject.
  * @param defaultValue - The default value to use if the value is not provided.
