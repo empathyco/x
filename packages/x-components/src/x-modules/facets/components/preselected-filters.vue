@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { defineComponent, inject, PropType, onMounted } from 'vue';
+  import { defineComponent, inject, PropType, onMounted, watch, computed, ComputedRef } from 'vue';
   import { createRawFilters } from '../../../utils/filters';
   import { isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
@@ -29,23 +29,50 @@
     },
     setup(props, { slots }) {
       const $x = use$x();
+
       /**
        * Injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
        *
        * @internal
        */
       const snippetConfig = inject<SnippetConfig | undefined>('snippetConfig');
+
       /**
-       * Emits the provided preselected filters prioritizing the {@link SnippetConfig} over the filters prop.
+       * Gets the provided preselected filters prioritizing the {@link SnippetConfig} over the
+       * filters prop.
+       *
+       * @returns An array of filter's ids.
        */
-      onMounted(() => {
-        const preselectedFilters = snippetConfig?.filters ?? props.filters;
-        if (!isArrayEmpty(preselectedFilters)) {
-          $x.emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters));
-        }
+      const preselectedFilters: ComputedRef<string[]> = computed(() => {
+        return snippetConfig?.filters ?? props.filters;
       });
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      /**
+       * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} to save
+       * the provided filters in the state.
+       */
+      const emitPreselectedFilters = (): void => {
+        if (!isArrayEmpty(preselectedFilters.value)) {
+          $x.emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters.value));
+        }
+      };
+
+      /**
+       * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
+       * computed prop changes.
+       */
+      watch(preselectedFilters, () => {
+        emitPreselectedFilters();
+      });
+
+      /**
+       * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
+       * component is mounted.
+       */
+      onMounted(() => {
+        emitPreselectedFilters();
+      });
+
       return () => useNoElementRender(slots);
     }
   });

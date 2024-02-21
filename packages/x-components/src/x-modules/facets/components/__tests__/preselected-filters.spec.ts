@@ -1,5 +1,7 @@
-import { mount } from '@vue/test-utils';
+import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vue, { ComponentOptions } from 'vue';
+import Vuex from 'vuex';
+import { Dictionary } from '@empathyco/x-utils';
 import { createRawFilters } from '../../../../utils/filters';
 import { baseSnippetConfig } from '../../../../views/base-config';
 import PreselectedFilters from '../preselected-filters.vue';
@@ -9,11 +11,18 @@ function renderPreselectedFilters({
   snippetFilters
 }: RenderPreselectedFiltersOptions = {}): RenderPreselectedFiltersAPI {
   const emit = jest.fn();
-  mount(PreselectedFilters as ComponentOptions<Vue>, {
+  const localVue = createLocalVue();
+  const snippetConfig = Vue.observable({ ...baseSnippetConfig, filters: snippetFilters });
+  localVue.use(Vuex);
+
+  const wrapper = mount(PreselectedFilters as ComponentOptions<Vue>, {
     provide: {
-      snippetConfig: { ...baseSnippetConfig, filters: snippetFilters }
+      snippetConfig: snippetConfig
     },
-    propsData: { filters },
+    propsData: {
+      filters
+    },
+    localVue,
     mocks: {
       $x: {
         emit
@@ -21,8 +30,15 @@ function renderPreselectedFilters({
     }
   });
 
+  function setSnippetConfig(newValue: Dictionary<unknown>): Promise<void> {
+    Object.assign(snippetConfig, newValue);
+    return localVue.nextTick();
+  }
+
   return {
-    emit
+    wrapper,
+    emit,
+    setSnippetConfig
   };
 }
 
@@ -80,6 +96,50 @@ describe('testing Preselected filters component', () => {
       createRawFilters(snippetFilters)
     );
   });
+
+  it('emits the event when the prop filters change', async () => {
+    const filters = ['{!tag=brand_facet}brand_facet:"Lego"'];
+    const newFilters = ['{!tag=brand_facet}brand_facet:"Playmobil"'];
+
+    const { emit, wrapper } = renderPreselectedFilters({
+      filters
+    });
+
+    expect(wrapper.props()).toEqual({ filters: filters });
+    expect(emit).toHaveBeenCalledTimes(1);
+    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(filters));
+
+    await wrapper.setProps({ filters: newFilters });
+
+    expect(wrapper.props()).toEqual({ filters: newFilters });
+    expect(emit).toHaveBeenCalledTimes(2);
+    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(newFilters));
+  });
+
+  it('emits the event when the snippetConfig filters change', async () => {
+    const filters = ['{!tag=brand_facet}brand_facet:"Chorizo"'];
+    const newFilters = ['{!tag=brand_facet}brand_facet:"Chistorra"'];
+
+    const { emit, wrapper, setSnippetConfig } = renderPreselectedFilters({
+      filters
+    });
+
+    expect(wrapper.props()).toEqual({ filters: filters });
+    expect(emit).toHaveBeenCalledTimes(1);
+    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(filters));
+
+    await setSnippetConfig({ filters: newFilters });
+
+    // Prop filters remains the same while the provided SnippetConfig is updated with new filters
+    expect(wrapper.props()).toEqual({ filters: filters });
+    expect(wrapper.vm.$options.provide).toEqual({
+      snippetConfig: { ...baseSnippetConfig, filters: newFilters }
+    });
+
+    // The event is called again with the newFilters provided
+    expect(emit).toHaveBeenCalledTimes(2);
+    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(newFilters));
+  });
 });
 
 /**
@@ -98,4 +158,8 @@ interface RenderPreselectedFiltersOptions {
 interface RenderPreselectedFiltersAPI {
   /** Mock of the {@link XBus.emit} function. */
   emit: jest.Mock;
+  /** The wrapper of the container element.*/
+  wrapper: Wrapper<Vue>;
+  /** Helper method to change the snippet config. */
+  setSnippetConfig: (newSnippetConfig: Dictionary<unknown>) => void | Promise<void>;
 }

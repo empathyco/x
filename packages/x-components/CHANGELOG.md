@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.21...@empathyco/x-components@4.1.0-alpha.22) (2024-02-21)
+
+
+### Features
+
+* **filters:** update preselected filters component so it reacts to snippetConfig changes (#1404) ([05983f3](https://github.com/empathyco/x/commit/05983f352830b7d52c2b586566938749fa9ce44e))
+
+
+
+## [4.1.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.20...@empathyco/x-components@4.1.0-alpha.21) (2024-02-20)
+
+
+### Features
+
+* migrate base-switch to use defineComponent sintax (#1415) ([0592ec9](https://github.com/empathyco/x/commit/0592ec94f7f47c91946d0e3a465dde134dd12021))
+
+
+
 ## [4.1.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.19...@empathyco/x-components@4.1.0-alpha.20) (2024-02-20)
 
 
