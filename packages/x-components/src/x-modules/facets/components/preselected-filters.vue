@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Component, Inject, Prop } from 'vue-property-decorator';
+  import { Component, Inject, Prop, Watch } from 'vue-property-decorator';
   import Vue from 'vue';
   import { createRawFilters } from '../../../utils/filters';
   import { isArrayEmpty } from '../../../utils/array';
@@ -18,7 +18,7 @@
      *
      * @internal
      */
-    @Inject()
+    @Inject('snippetConfig')
     public snippetConfig?: SnippetConfig;
 
     /**
@@ -33,14 +33,32 @@
     public filters!: string[];
 
     /**
-     * Emits the provided preselected filters prioritizing the {@link SnippetConfig} over the
+     * Gets the provided preselected filters prioritizing the {@link SnippetConfig} over the
      * filters prop.
+     *
+     * @returns An array of filter's ids.
+     */
+    protected get preselectedFilters(): string[] {
+      return this.snippetConfig?.filters ?? this.filters;
+    }
+
+    /**
+     * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} to save
+     * the provided filters in the state.
+     */
+    @Watch('preselectedFilters')
+    protected emitPreselectedFilters(): void {
+      if (!isArrayEmpty(this.preselectedFilters)) {
+        this.$x.emit('PreselectedFiltersProvided', createRawFilters(this.preselectedFilters));
+      }
+    }
+
+    /**
+     * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
+     * component is created.
      */
     created(): void {
-      const preselectedFilters = this.snippetConfig?.filters ?? this.filters;
-      if (!isArrayEmpty(preselectedFilters)) {
-        this.$x.emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters));
-      }
+      this.emitPreselectedFilters();
     }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
