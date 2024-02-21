@@ -132,10 +132,7 @@ export const setQueryTaggingInfo = moduleDebounce(
  *
  * @public
  */
-export const setQueryTaggingFromQueryPreview = wireCommit(
-  'setQueryTaggingInfo',
-  ({ metadata: { queryTagging } }) => queryTagging as TaggingRequest
-);
+export const setQueryTaggingFromQueryPreview = createSetQueryTaggingFromQueryPreview();
 
 /**
  * Tracks the tagging of the result.
@@ -216,6 +213,23 @@ export function createTrackDisplayWire(property: keyof Tagging): Wire<Taggable> 
       return taggingInfo;
     }),
     ({ eventPayload: { tagging } }) => !!tagging?.[property]
+  );
+}
+
+/**
+ * Factory helper to create a wire to set the queryTagging.
+ *
+ * @returns A new wire for the query of a result of a queryPreview.
+ *
+ * @public
+ */
+export function createSetQueryTaggingFromQueryPreview(): Wire<Taggable> {
+  return filter(
+    wireCommit(
+      'setQueryTaggingInfo',
+      ({ metadata: { queryTagging } }) => queryTagging as TaggingRequest
+    ),
+    ({ metadata: { queryTagging } }) => !!queryTagging
   );
 }
 
