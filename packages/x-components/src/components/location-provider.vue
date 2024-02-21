@@ -13,7 +13,8 @@
     name: 'LocationProvider',
     props: {
       location: {
-        type: String as PropType<FeatureLocation>
+        type: String as PropType<FeatureLocation>,
+        required: true
       }
     },
     setup(props, { slots }) {
