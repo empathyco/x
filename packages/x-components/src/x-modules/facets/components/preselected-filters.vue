@@ -3,8 +3,7 @@
   import { createRawFilters } from '../../../utils/filters';
   import { isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
-  import { useHybridInject, useNoElementRender } from '../../../composables/index';
-  import { useXBus } from '../../../composables/use-x-bus';
+  import { use$x, useHybridInject, useNoElementRender } from '../../../composables/index';
 
   /**
    * This component emits {@link FacetsXEvents.PreselectedFiltersProvided} when a preselected filter
@@ -29,8 +28,7 @@
       }
     },
     setup(props, { slots }) {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      const { emit } = useXBus();
+      const $x = use$x();
 
       /**
        * Injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
@@ -55,7 +53,7 @@
        */
       const emitPreselectedFilters = (): void => {
         if (!isArrayEmpty(preselectedFilters.value)) {
-          emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters.value));
+          $x.emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters.value));
         }
       };
 
