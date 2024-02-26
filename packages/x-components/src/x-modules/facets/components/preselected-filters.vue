@@ -44,7 +44,7 @@
        * @returns An array of filter's ids.
        */
       const preselectedFilters: ComputedRef<string[]> = computed(() => {
-        return snippetConfig?.filters ?? props.filters;
+        return snippetConfig?.value?.filters ?? props.filters;
       });
 
       /**
