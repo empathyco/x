@@ -61,9 +61,7 @@
        * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
        * computed prop changes.
        */
-      watch(preselectedFilters, () => {
-        emitPreselectedFilters();
-      });
+      watch(preselectedFilters, emitPreselectedFilters);
 
       /**
        * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
