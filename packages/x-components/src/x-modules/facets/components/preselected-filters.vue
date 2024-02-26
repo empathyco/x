@@ -35,7 +35,7 @@
        *
        * @internal
        */
-      const snippetConfig = inject<SnippetConfig | undefined>('snippetConfig');
+      const snippetConfig = useHybridInject<SnippetConfig>('snippetConfig');
 
       /**
        * Gets the provided preselected filters prioritizing the {@link SnippetConfig} over the
