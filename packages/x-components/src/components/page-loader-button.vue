@@ -16,7 +16,7 @@
       :events="{ UserReachedResultsListEnd: undefined }"
     >
       <!-- @slot (Required) Button content with a text, an icon or both -->
-      <slot name="buttonContent" />
+      <slot name="buttonContent">Load</slot>
     </BaseEventButton>
   </div>
 </template>
@@ -52,3 +52,71 @@
     }
   });
 </script>
+
+<docs lang="mdx">
+## Events
+
+This component emits the "UserReachedResultsListEnd" event.
+
+## See it in action
+
+Here you have a basic example of how the page loader component is rendered. Notice that if the
+renderedCount slot is not included, it won't be rendered.
+
+```vue live
+<template>
+  <PageLoaderButton>
+    <template #buttonContent></template>
+  </PageLoaderButton>
+</template>
+
+<script>
+  import { PageLoaderButton } from '@empathyco/x-components';
+
+  export default {
+    name: 'PageLoaderButtonDemo',
+    components: {
+      PageLoaderButton
+    }
+  };
+</script>
+```
+
+### Customise the layout
+
+This component allows to customise both the renderedCount and the buttonContent slots. The
+renderedCount's slot layout can be replaced entirely (or removed, as seen above), while the
+buttonContent's slot enables wrapping content inside and customizing its style using the
+buttonClasses prop.
+
+```vue live
+<template>
+  <PageLoaderButton :buttonClasses="buttonClasses">
+    <template #renderedCount>
+      <div class="x-flex x-gap-4 x-text">
+        <span class="x-text-accent-50 x-font-bold">{{ $x.results.length }}</span>
+        <span>of</span>
+        <span class="x-text-accent-50">{{ $x.totalResults }}</span>
+      </div>
+    </template>
+    <template #buttonContent>Load more results</template>
+  </PageLoaderButton>
+</template>
+
+<script>
+  import { PageLoaderButton } from '@empathyco/x-components';
+
+  export default {
+    name: 'PageLoaderButtonDemo',
+    components: {
+      PageLoaderButton
+    },
+    data() {
+      return {
+        buttonClasses: 'x-rounded-full'
+      };
+    }
+  };
+</script>
+```
+</docs>
