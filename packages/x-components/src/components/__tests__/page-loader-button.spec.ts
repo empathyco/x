@@ -25,7 +25,7 @@ function renderPageLoaderButton({
         totalResults
       }
     },
-    slots: scopedSlots
+    scopedSlots: scopedSlots
   });
 
   return {
