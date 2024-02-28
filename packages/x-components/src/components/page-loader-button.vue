@@ -1,11 +1,12 @@
 <template>
   <div
-    v-if="$x.query.searchBox && $x.results.length > 0"
+    v-if="$x.query && $x.results.length > 0"
     class="x-flex x-flex-col x-items-center x-py-32"
+    data-test="page-loader"
   >
     <!-- @slot Rendered count with a text and the number of results displayed & remaining. If not provided, it won't render anything. -->
     <slot v-if="$scopedSlots.renderedCount" name="renderedCount">
-      <p class="x-text x-py-16">
+      <p class="x-text x-py-16" data-test="results-count">
         You are seeing {{ $x.results.length }} of {{ $x.totalResults }} results
       </p>
     </slot>
@@ -61,13 +62,12 @@ This component emits the "UserReachedResultsListEnd" event.
 ## See it in action
 
 Here you have a basic example of how the page loader component is rendered. Notice that if the
-renderedCount slot is not included, it won't be rendered.
+renderedCount slot is not included, it won't be rendered, while the buttonContent slot will be
+rendered with a default text.
 
 ```vue live
 <template>
-  <PageLoaderButton>
-    <template #buttonContent></template>
-  </PageLoaderButton>
+  <PageLoaderButton />
 </template>
 
 <script>
