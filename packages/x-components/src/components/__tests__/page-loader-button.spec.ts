@@ -9,7 +9,7 @@ function renderPageLoaderButton({
   scopedSlots,
   query = 'dress',
   results = getResultsStub(48),
-  totalResults = results.length
+  totalResults = 100
 }: RenderPageLoaderButtonOptions = {}): RenderPageLoaderButtonAPI {
   const emit = jest.fn();
 
@@ -48,15 +48,15 @@ describe('testing PageLoaderButton component', () => {
 
     expect(wrapper.find(getDataTestSelector('page-loader')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('results-count')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('event-button')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(true);
   });
 
   it('only renders the buttonContent slot with its default content if any slot is passed', () => {
     const { wrapper } = renderPageLoaderButton();
 
     expect(wrapper.find(getDataTestSelector('results-count')).exists()).toBe(false);
-    expect(wrapper.find(getDataTestSelector('event-button')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('event-button')).text().trim()).toBe('Load');
+    expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('load-content')).text().trim()).toBe('Load');
   });
 
   it('renders a base event button with custom button classes if passed as props', async () => {
@@ -65,7 +65,7 @@ describe('testing PageLoaderButton component', () => {
     wrapper.setProps({ buttonClasses: 'x-rounded-full' });
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.find(getDataTestSelector('event-button')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(true);
     expect(wrapper.find('.x-rounded-full').exists()).toBe(true);
   });
 
