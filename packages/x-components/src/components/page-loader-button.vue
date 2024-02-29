@@ -15,6 +15,8 @@
       class="x-button"
       :class="buttonClasses"
       :events="{ UserReachedResultsListEnd: undefined }"
+      data-test="load-content"
+      aria-label="Load"
     >
       <!-- @slot (Required) Button content with a text, an icon or both -->
       <slot name="buttonContent">Load</slot>
