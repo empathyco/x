@@ -3,7 +3,8 @@
   import { createRawFilters } from '../../../utils/filters';
   import { isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
-  import { use$x, useHybridInject, useNoElementRender } from '../../../composables/index';
+  import { useHybridInject, useNoElementRender } from '../../../composables/index';
+  import { useXBus } from '../../../composables/use-x-bus';
 
   /**
    * This component emits {@link FacetsXEvents.PreselectedFiltersProvided} when a preselected filter
@@ -28,7 +29,8 @@
       }
     },
     setup(props, { slots }) {
-      const $x = use$x();
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      const { emit } = useXBus();
 
       /**
        * Injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
@@ -44,7 +46,7 @@
        * @returns An array of filter's ids.
        */
       const preselectedFilters: ComputedRef<string[]> = computed(() => {
-        return snippetConfig?.value?.filters ?? props.filters;
+        return snippetConfig.value?.filters ?? props.filters;
       });
 
       /**
@@ -53,7 +55,7 @@
        */
       const emitPreselectedFilters = (): void => {
         if (!isArrayEmpty(preselectedFilters.value)) {
-          $x.emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters.value));
+          emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters.value));
         }
       };
 
