@@ -5,7 +5,7 @@
     data-test="page-loader"
   >
     <!-- @slot Rendered count with a text and the number of results displayed & remaining. If not provided, it won't render anything. -->
-    <slot v-if="$scopedSlots.renderedCount" name="renderedCount">
+    <slot v-if="$scopedSlots.resultsCount" name="resultsCount">
       <p class="x-text x-py-16" data-test="results-count">
         You are seeing {{ $x.results.length }} of {{ $x.totalResults }} results
       </p>
