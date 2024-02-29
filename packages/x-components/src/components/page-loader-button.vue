@@ -1,12 +1,8 @@
 <template>
-  <div
-    v-if="$x.query && $x.results.length > 0"
-    class="x-flex x-flex-col x-items-center x-py-32"
-    data-test="page-loader"
-  >
-    <!-- @slot Rendered count with a text and the number of results displayed & remaining. If not provided, it won't render anything. -->
-    <slot v-if="$scopedSlots.resultsCount" name="resultsCount">
-      <p class="x-text x-py-16" data-test="results-count">
+  <div class="x-flex x-flex-col x-items-center x-py-32" data-test="page-loader">
+    <!-- @slot Rendered count with a text and the number of results displayed & remaining. -->
+    <slot name="textContent">
+      <p class="x-text x-py-16" data-test="text-content">
         You are seeing {{ $x.results.length }} of {{ $x.totalResults }} results
       </p>
     </slot>
@@ -18,7 +14,7 @@
       data-test="load-content"
       aria-label="Load"
     >
-      <!-- @slot (Required) Button content with a text, an icon or both -->
+      <!-- @slot Button content with a text, an icon or both -->
       <slot name="buttonContent">Load</slot>
     </BaseEventButton>
   </div>
@@ -30,9 +26,9 @@
   import BaseEventButton from './base-event-button.vue';
 
   /**
-   * Component to be reused that renders a `<BaseEventButton>` with the logic of emitting the
-   * "UserReachedResultsListEnd" event to load more results on click. It can also render a text
-   * with the number of rendered results and the remaining ones.
+   * Component that renders a text with the number of rendered results and
+   * the remaining ones and a `<BaseEventButton>` with the logic of emitting
+   * the event "UserReachedResultsListEnd" to load more results on click.
    *
    * @public
    */
@@ -63,9 +59,7 @@ This component emits the "UserReachedResultsListEnd" event.
 
 ## See it in action
 
-Here you have a basic example of how the page loader component is rendered. Notice that if the
-renderedCount slot is not included, it won't be rendered, while the buttonContent slot will be
-rendered with a default text.
+Here you have a basic example of how the page loader component is rendered.
 
 ```vue live
 <template>
@@ -86,15 +80,14 @@ rendered with a default text.
 
 ### Customise the layout
 
-This component allows to customise both the renderedCount and the buttonContent slots. The
-renderedCount's slot layout can be replaced entirely (or removed, as seen above), while the
-buttonContent's slot enables wrapping content inside and customizing its style using the
-buttonClasses prop.
+This component allows to customise both the textContent and the buttonContent slots. The
+textContent's slot layout can be replaced entirely, while the buttonContent's slot enables wrapping
+content inside and customizing its style using the buttonClasses prop.
 
 ```vue live
 <template>
   <PageLoaderButton :buttonClasses="buttonClasses">
-    <template #renderedCount>
+    <template #textContent>
       <div class="x-flex x-gap-4 x-text">
         <span class="x-text-accent-50 x-font-bold">{{ $x.results.length }}</span>
         <span>of</span>
