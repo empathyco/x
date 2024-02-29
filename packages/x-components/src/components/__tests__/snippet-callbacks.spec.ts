@@ -3,6 +3,7 @@ import { installNewXPlugin } from '../../__tests__/utils';
 import { baseSnippetConfig } from '../../views/base-config';
 import { XEventListeners } from '../../x-installer/api/api.types';
 import SnippetCallbacks from '../snippet-callbacks.vue';
+import { bus } from '../../plugins/index';
 
 function renderSnippetCallbacks({
   callbacks = {}
@@ -24,14 +25,14 @@ describe('testing SnippetCallbacks component', () => {
   it('executes a callback injected from the snippetConfig', () => {
     const acceptedAQueryCallback = jest.fn(payload => payload);
     const clickedColumnPickerCallback = jest.fn(payload => payload);
-    const { wrapper } = renderSnippetCallbacks({
+    renderSnippetCallbacks({
       callbacks: {
         UserAcceptedAQuery: acceptedAQueryCallback,
         UserClickedColumnPicker: clickedColumnPickerCallback
       }
     });
 
-    wrapper.vm.$x.emit('UserAcceptedAQuery', 'lego');
+    bus.emit('UserAcceptedAQuery', 'lego');
 
     expect(acceptedAQueryCallback).toHaveBeenCalledTimes(1);
     expect(acceptedAQueryCallback).toHaveBeenCalledWith('lego', {
@@ -42,7 +43,7 @@ describe('testing SnippetCallbacks component', () => {
 
     expect(clickedColumnPickerCallback).not.toHaveBeenCalled();
 
-    wrapper.vm.$x.emit('UserClickedColumnPicker', 1);
+    bus.emit('UserClickedColumnPicker', 1);
 
     expect(acceptedAQueryCallback).toHaveBeenCalledTimes(1);
 
@@ -57,7 +58,7 @@ describe('testing SnippetCallbacks component', () => {
   it('emits a SnippetCallbackExecuted event when a callback is executed', () => {
     const acceptedAQueryCallback = jest.fn((payload: string) => payload + '1');
     const clickedColumnPickerCallback = jest.fn((payload: number) => payload + 1);
-    const { wrapper } = renderSnippetCallbacks({
+    renderSnippetCallbacks({
       callbacks: {
         UserAcceptedAQuery: acceptedAQueryCallback,
         UserClickedColumnPicker: clickedColumnPickerCallback
@@ -65,9 +66,9 @@ describe('testing SnippetCallbacks component', () => {
     });
 
     const eventSpy = jest.fn();
-    wrapper.vm.$x.on('SnippetCallbackExecuted').subscribe(eventSpy);
+    bus.on('SnippetCallbackExecuted').subscribe(eventSpy);
 
-    wrapper.vm.$x.emit('UserAcceptedAQuery', 'playmobil');
+    bus.emit('UserAcceptedAQuery', 'playmobil');
     expect(eventSpy).toHaveBeenCalledTimes(1);
     expect(eventSpy).toHaveBeenCalledWith({
       event: 'UserAcceptedAQuery',
@@ -76,7 +77,7 @@ describe('testing SnippetCallbacks component', () => {
       metadata: expect.any(Object)
     });
 
-    wrapper.vm.$x.emit('UserClickedColumnPicker', 3);
+    bus.emit('UserClickedColumnPicker', 3);
     expect(eventSpy).toHaveBeenCalledTimes(2);
     expect(eventSpy).toHaveBeenCalledWith({
       event: 'UserClickedColumnPicker',
