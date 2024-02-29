@@ -2,12 +2,12 @@
   import { reduce } from '@empathyco/x-utils';
   import { Observable, Subscription } from 'rxjs';
   import { EventPayload, SubjectPayload } from '@empathyco/x-bus';
-  import { defineComponent, getCurrentInstance, onBeforeUnmount } from 'vue';
+  import { defineComponent, onBeforeUnmount } from 'vue';
+  import { XEventListeners } from '../x-installer/api/api.types';
   import { WireMetadata } from '../wiring/wiring.types';
   import { XEventsTypes } from '../wiring/events.types';
+  import { useNoElementRender } from '../composables';
   import { useXBus } from '../composables/use-x-bus';
-  import { XEventListeners } from '../x-installer/api/api.types';
-  import { NoElement } from './no-element';
 
   /**
    * This component helps subscribing to any {@link XEvent} with custom callbacks using Vue
@@ -17,16 +17,8 @@
    */
   export default defineComponent({
     name: 'GlobalXBus',
-    extends: NoElement,
-
-    setup() {
-      /**
-       * Object with the {@link XEvent} listeners.
-       *
-       * @internal
-       */
-      //TODO: When we get to vue 3 remove $listeners and use $attrs instead
-      const listeners: XEventListeners = getCurrentInstance()?.proxy?.$listeners ?? {};
+    setup(_, { listeners }) {
+      const xBus = useXBus();
 
       /**
        * Handles a subscription to all the events provided in the listeners with the function that
@@ -34,29 +26,29 @@
        *
        * @internal
        */
-      const handleXEventSubscription = (): void => {
-        const subscription = reduce(
-          listeners,
-          (subscription, eventName, callback) => {
-            subscription.add(
-              (
-                useXBus().on(eventName, true) as unknown as Observable<
-                  SubjectPayload<EventPayload<XEventsTypes, typeof eventName>, WireMetadata>
-                >
-              ).subscribe(({ eventPayload, metadata }: any) => {
-                callback(eventPayload as never, metadata);
-              })
-            );
-            return subscription;
-          },
-          new Subscription()
-        );
+      const subscription = reduce(
+        listeners as XEventListeners,
+        (subscription, eventName, callback) => {
+          subscription.add(
+            (
+              xBus.on(eventName, true) as unknown as Observable<
+                SubjectPayload<EventPayload<XEventsTypes, typeof eventName>, WireMetadata>
+              >
+            ).subscribe(({ eventPayload, metadata }) => {
+              callback(eventPayload as never, metadata);
+            })
+          );
+          return subscription;
+        },
+        new Subscription()
+      );
 
-        onBeforeUnmount(() => {
-          subscription.unsubscribe();
-        });
-      };
-      handleXEventSubscription();
+      onBeforeUnmount(() => {
+        subscription.unsubscribe();
+      });
+    },
+    render() {
+      return useNoElementRender(this.$slots);
     }
   });
 </script>
