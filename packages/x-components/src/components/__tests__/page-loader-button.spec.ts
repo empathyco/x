@@ -9,12 +9,7 @@ function renderPageLoaderButton({
   query = 'dress',
   results = getResultsStub(48),
   totalResults = 100,
-  scopedSlots = {
-    resultsCount: `<p class="x-text x-py-16" data-test="results-count">
-        You are seeing ${results.length} of ${totalResults} results
-      </p>`,
-    buttonContent: `<span>Load</span>`
-  }
+  scopedSlots
 }: RenderPageLoaderButtonOptions = {}): RenderPageLoaderButtonAPI {
   const emit = jest.fn();
 
@@ -44,20 +39,27 @@ describe('testing PageLoaderButton component', () => {
     jest.clearAllMocks();
   });
 
-  it('renders a page loader button component with slots', () => {
+  it('renders a page loader button component with default slots', () => {
     const { wrapper } = renderPageLoaderButton();
 
     expect(wrapper.find(getDataTestSelector('page-loader')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('results-count')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(true);
-  });
-
-  it('only renders the buttonContent slot with its default content if any slot is passed', () => {
-    const { wrapper } = renderPageLoaderButton({ scopedSlots: { resultsCount: `` } });
-
-    expect(wrapper.find(getDataTestSelector('results-count')).exists()).toBe(false);
+    expect(wrapper.find(getDataTestSelector('text-content')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('load-content')).text().trim()).toBe('Load');
+  });
+
+  it('allows customizing its slots', () => {
+    const { wrapper } = renderPageLoaderButton({
+      scopedSlots: {
+        textContent: `<p data-test="replaced-slot">Click to see more results</p>`,
+        buttonContent: `<span>Load More</span>`
+      }
+    });
+
+    expect(wrapper.find(getDataTestSelector('text-content')).exists()).toBe(false);
+    expect(wrapper.find(getDataTestSelector('replaced-slot')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('load-content')).text().trim()).toBe('Load More');
   });
 
   it('renders a base event button with custom button classes if passed as props', async () => {
@@ -90,23 +92,8 @@ describe('testing PageLoaderButton component', () => {
     });
 
     expect(wrapper.find(getDataTestSelector('page-loader')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('results-count')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('text-content')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(false);
-  });
-
-  it('does not render the component if a query has not been searched', () => {
-    const { wrapper } = renderPageLoaderButton({
-      query: ''
-    });
-    expect(wrapper.find(getDataTestSelector('page-loader')).exists()).toBe(false);
-  });
-
-  it('does not render the component if there are no results', () => {
-    const { wrapper } = renderPageLoaderButton({
-      results: getResultsStub(0)
-    });
-
-    expect(wrapper.find(getDataTestSelector('page-loader')).exists()).toBe(false);
   });
 });
 
