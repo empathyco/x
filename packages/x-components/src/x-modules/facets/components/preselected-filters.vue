@@ -1,9 +1,11 @@
+<template>
+  <div></div>
+</template>
 <script lang="ts">
-  import { defineComponent, PropType, onMounted, watch, computed, ComputedRef } from 'vue';
+  import { defineComponent, PropType, onMounted, watch, computed, ref, inject } from 'vue';
   import { createRawFilters } from '../../../utils/filters';
   import { isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
-  import { useHybridInject, useNoElementRender } from '../../../composables/index';
   import { useXBus } from '../../../composables/use-x-bus';
 
   /**
@@ -28,7 +30,7 @@
         default: () => []
       }
     },
-    setup(props, { slots }) {
+    setup() {
       // eslint-disable-next-line @typescript-eslint/unbound-method
       const { emit } = useXBus();
 
@@ -37,7 +39,7 @@
        *
        * @internal
        */
-      const snippetConfig = useHybridInject<SnippetConfig>('snippetConfig');
+      const snippetConfig = inject<SnippetConfig>('snippetConfig');
 
       /**
        * Gets the provided preselected filters prioritizing the {@link SnippetConfig} over the
@@ -45,9 +47,11 @@
        *
        * @returns An array of filter's ids.
        */
-      const preselectedFilters: ComputedRef<string[]> = computed(() => {
-        return snippetConfig.value?.filters ?? props.filters;
-      });
+      const preselectedFilters = ref(
+        computed(() => {
+          return snippetConfig?.filters;
+        })
+      );
 
       /**
        * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} to save
@@ -63,7 +67,7 @@
        * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
        * computed prop changes.
        */
-      watch(preselectedFilters, emitPreselectedFilters);
+      watch(() => snippetConfig?.filters, emitPreselectedFilters);
 
       /**
        * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
@@ -73,7 +77,10 @@
         emitPreselectedFilters();
       });
 
-      return () => useNoElementRender(slots);
+      return {
+        snippetConfig,
+        preselectedFilters
+      };
     }
   });
 </script>
