@@ -50,7 +50,7 @@ export const setNextQueriesQuery = wireCommit('setQuery');
  *
  * @public
  */
-export const setRelatedTags = wireCommit('setRelatedTags');
+export const setNextQueriesRelatedTags = wireCommit('setRelatedTags');
 
 /**
  * Sets the next queries state `query` with a selectedQueryPreview's query.
@@ -144,7 +144,7 @@ export const nextQueriesWiring = createWiring({
     setNextQueriesQuery
   },
   SelectedRelatedTagsChanged: {
-    setRelatedTags
+    setNextQueriesRelatedTags
   },
   SessionHistoryQueriesChanged: {
     setSearchedQueries,
