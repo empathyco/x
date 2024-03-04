@@ -2,11 +2,22 @@
   <div></div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, onMounted, watch, computed, ref, inject } from 'vue';
+  import {
+    defineComponent,
+    PropType,
+    onMounted,
+    watch,
+    computed,
+    ref,
+    inject,
+    ComputedRef
+  } from 'vue';
   import { createRawFilters } from '../../../utils/filters';
   import { isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { useXBus } from '../../../composables/use-x-bus';
+  //import { useHybridInject } from '../../../composables';
+  import { baseSnippetConfig } from '../../../views/base-config';
 
   /**
    * This component emits {@link FacetsXEvents.PreselectedFiltersProvided} when a preselected filter
@@ -30,16 +41,19 @@
         default: () => []
       }
     },
-    setup() {
+    setup(props) {
       // eslint-disable-next-line @typescript-eslint/unbound-method
       const { emit } = useXBus();
 
       /**
-       * Injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
+       * Injects {@link SnippetConfig} provided by an ancestor as snippetConfig
+       * and sets is as a ref to get synced when it changes.
        *
        * @internal
        */
-      const snippetConfig = inject<SnippetConfig>('snippetConfig');
+      // TODO: check a way to make it work with Hybrid inject
+      // const snippetConfig = ref(useHybridInject<SnippetConfig>('snippetConfig', baseSnippetConfig));
+      const snippetConfig = ref(inject<SnippetConfig>('snippetConfig', baseSnippetConfig));
 
       /**
        * Gets the provided preselected filters prioritizing the {@link SnippetConfig} over the
@@ -47,11 +61,9 @@
        *
        * @returns An array of filter's ids.
        */
-      const preselectedFilters = ref(
-        computed(() => {
-          return snippetConfig?.filters;
-        })
-      );
+      const preselectedFilters: ComputedRef<string[]> = computed(() => {
+        return snippetConfig.value.filters ?? props.filters;
+      });
 
       /**
        * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} to save
@@ -67,7 +79,7 @@
        * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
        * computed prop changes.
        */
-      watch(() => snippetConfig?.filters, emitPreselectedFilters);
+      watch(preselectedFilters, emitPreselectedFilters);
 
       /**
        * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
