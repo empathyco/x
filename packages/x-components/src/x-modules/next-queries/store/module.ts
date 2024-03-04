@@ -24,6 +24,7 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     query: '',
     nextQueries: [],
     searchedQueries: [],
+    relatedTags: [],
     status: 'initial',
     config: {
       maxItemsToRequest: 20,
@@ -45,6 +46,9 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
     },
     setSearchedQueries(state, searchedQueries) {
       state.searchedQueries = searchedQueries;
+    },
+    setRelatedTags(state, relatedTags) {
+      state.relatedTags = relatedTags;
     },
     setStatus,
     setParams(state, params) {
