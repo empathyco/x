@@ -5,12 +5,13 @@ import { Dictionary } from '@empathyco/x-utils';
 import { createRawFilters } from '../../../../utils/filters';
 import { baseSnippetConfig } from '../../../../views/base-config';
 import PreselectedFilters from '../preselected-filters.vue';
+import { bus } from '../../../../plugins/index';
 
 function renderPreselectedFilters({
   filters,
   snippetFilters
 }: RenderPreselectedFiltersOptions = {}): RenderPreselectedFiltersAPI {
-  const emit = jest.fn();
+  const emit = jest.spyOn(bus, 'emit');
   const localVue = createLocalVue();
   const snippetConfig = Vue.observable({ ...baseSnippetConfig, filters: snippetFilters });
   localVue.use(Vuex);
@@ -24,11 +25,17 @@ function renderPreselectedFilters({
     },
     localVue,
     mocks: {
-      $x: {
+      emit: {
         emit
       }
     }
   });
+
+  const eventMetadata = {
+    moduleName: null,
+    location: 'none',
+    replaceable: true
+  };
 
   function setSnippetConfig(newValue: Dictionary<unknown>): Promise<void> {
     Object.assign(snippetConfig, newValue);
@@ -38,7 +45,8 @@ function renderPreselectedFilters({
   return {
     wrapper,
     emit,
-    setSnippetConfig
+    setSnippetConfig,
+    eventMetadata
   };
 }
 
@@ -49,7 +57,6 @@ describe('testing Preselected filters component', () => {
 
   it('does not emit the event when neither filters nor snippet config filters are provided', () => {
     const { emit } = renderPreselectedFilters();
-
     expect(emit).not.toHaveBeenCalled();
   });
 
@@ -58,25 +65,30 @@ describe('testing Preselected filters component', () => {
       '{!tag=brand_facet}brand_facet:"Lego"',
       '{!tag=age_facet}age_facet:"toddler"'
     ];
-    const { emit } = renderPreselectedFilters({
+    const { emit, eventMetadata } = renderPreselectedFilters({
       snippetFilters
     });
 
     expect(emit).toHaveBeenCalledTimes(1);
     expect(emit).toHaveBeenCalledWith(
       'PreselectedFiltersProvided',
-      createRawFilters(snippetFilters)
+      createRawFilters(snippetFilters),
+      eventMetadata
     );
   });
 
   it('emits the event when filters are provided by the prop', () => {
     const filters = ['{!tag=brand_facet}brand_facet:"Lego"', '{!tag=age_facet}age_facet:"toddler"'];
-    const { emit } = renderPreselectedFilters({
+    const { emit, eventMetadata } = renderPreselectedFilters({
       filters
     });
 
     expect(emit).toHaveBeenCalledTimes(1);
-    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(filters));
+    expect(emit).toHaveBeenCalledWith(
+      'PreselectedFiltersProvided',
+      createRawFilters(filters),
+      eventMetadata
+    );
   });
 
   it('emits the event using the snippet config filters as payload when both are provided', () => {
@@ -85,7 +97,7 @@ describe('testing Preselected filters component', () => {
       '{!tag=brand_facet}brand_facet:"Nintendo"',
       '{!tag=age_facet}age_facet:"kids"'
     ];
-    const { emit } = renderPreselectedFilters({
+    const { emit, eventMetadata } = renderPreselectedFilters({
       filters,
       snippetFilters
     });
@@ -93,7 +105,8 @@ describe('testing Preselected filters component', () => {
     expect(emit).toHaveBeenCalledTimes(1);
     expect(emit).toHaveBeenCalledWith(
       'PreselectedFiltersProvided',
-      createRawFilters(snippetFilters)
+      createRawFilters(snippetFilters),
+      eventMetadata
     );
   });
 
@@ -101,32 +114,44 @@ describe('testing Preselected filters component', () => {
     const filters = ['{!tag=brand_facet}brand_facet:"Lego"'];
     const newFilters = ['{!tag=brand_facet}brand_facet:"Playmobil"'];
 
-    const { emit, wrapper } = renderPreselectedFilters({
+    const { emit, eventMetadata, wrapper } = renderPreselectedFilters({
       filters
     });
 
     expect(wrapper.props()).toEqual({ filters: filters });
     expect(emit).toHaveBeenCalledTimes(1);
-    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(filters));
+    expect(emit).toHaveBeenCalledWith(
+      'PreselectedFiltersProvided',
+      createRawFilters(filters),
+      eventMetadata
+    );
 
     await wrapper.setProps({ filters: newFilters });
 
     expect(wrapper.props()).toEqual({ filters: newFilters });
     expect(emit).toHaveBeenCalledTimes(2);
-    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(newFilters));
+    expect(emit).toHaveBeenCalledWith(
+      'PreselectedFiltersProvided',
+      createRawFilters(newFilters),
+      eventMetadata
+    );
   });
 
   it('emits the event when the snippetConfig filters change', async () => {
     const filters = ['{!tag=brand_facet}brand_facet:"Chorizo"'];
     const newFilters = ['{!tag=brand_facet}brand_facet:"Chistorra"'];
 
-    const { emit, wrapper, setSnippetConfig } = renderPreselectedFilters({
+    const { emit, eventMetadata, wrapper, setSnippetConfig } = renderPreselectedFilters({
       filters
     });
 
     expect(wrapper.props()).toEqual({ filters: filters });
     expect(emit).toHaveBeenCalledTimes(1);
-    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(filters));
+    expect(emit).toHaveBeenCalledWith(
+      'PreselectedFiltersProvided',
+      createRawFilters(filters),
+      eventMetadata
+    );
 
     await setSnippetConfig({ filters: newFilters });
 
@@ -138,7 +163,11 @@ describe('testing Preselected filters component', () => {
 
     // The event is called again with the newFilters provided
     expect(emit).toHaveBeenCalledTimes(2);
-    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(newFilters));
+    expect(emit).toHaveBeenCalledWith(
+      'PreselectedFiltersProvided',
+      createRawFilters(newFilters),
+      eventMetadata
+    );
   });
 });
 
@@ -157,9 +186,11 @@ interface RenderPreselectedFiltersOptions {
  */
 interface RenderPreselectedFiltersAPI {
   /** Mock of the {@link XBus.emit} function. */
-  emit: jest.Mock;
+  emit: jest.SpyInstance;
   /** The wrapper of the container element.*/
   wrapper: Wrapper<Vue>;
   /** Helper method to change the snippet config. */
   setSnippetConfig: (newSnippetConfig: Dictionary<unknown>) => void | Promise<void>;
+  /** Metadata object returned by the {@link XBus.emit} function. */
+  eventMetadata: Dictionary<unknown>;
 }
