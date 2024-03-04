@@ -2,21 +2,12 @@
   <div></div>
 </template>
 <script lang="ts">
-  import {
-    defineComponent,
-    PropType,
-    onMounted,
-    watch,
-    computed,
-    ref,
-    inject,
-    ComputedRef
-  } from 'vue';
+  import { defineComponent, PropType, onMounted, watch, computed, ref, ComputedRef } from 'vue';
   import { createRawFilters } from '../../../utils/filters';
   import { isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { useXBus } from '../../../composables/use-x-bus';
-  //import { useHybridInject } from '../../../composables';
+  import { useHybridInject } from '../../../composables';
   import { baseSnippetConfig } from '../../../views/base-config';
 
   /**
@@ -51,9 +42,7 @@
        *
        * @internal
        */
-      // TODO: check a way to make it work with Hybrid inject
-      // const snippetConfig = ref(useHybridInject<SnippetConfig>('snippetConfig', baseSnippetConfig));
-      const snippetConfig = ref(inject<SnippetConfig>('snippetConfig', baseSnippetConfig));
+      const snippetConfig = ref(useHybridInject<SnippetConfig>('snippetConfig', baseSnippetConfig));
 
       /**
        * Gets the provided preselected filters prioritizing the {@link SnippetConfig} over the
@@ -62,7 +51,7 @@
        * @returns An array of filter's ids.
        */
       const preselectedFilters: ComputedRef<string[]> = computed(() => {
-        return snippetConfig.value.filters ?? props.filters;
+        return snippetConfig.value?.filters ?? props.filters;
       });
 
       /**
