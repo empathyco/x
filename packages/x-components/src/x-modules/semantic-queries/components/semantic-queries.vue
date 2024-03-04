@@ -49,6 +49,7 @@
   import { NoElement } from '../../../components/no-element';
   import { State, XOn } from '../../../components';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
+  import SemanticQuery from './semantic-query.vue';
 
   /**
    * Retrieves a list of semantic queries from the state and exposes them in the slots.
@@ -58,7 +59,7 @@
   @Component({
     inheritAttrs: false,
     mixins: [xComponentMixin(semanticQueriesXModule)],
-    components: { BaseSuggestions, NoElement }
+    components: { BaseSuggestions, NoElement, SemanticQuery }
   })
   export default class SemanticQueries extends Vue {
     /**
