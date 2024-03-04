@@ -42,7 +42,9 @@ const makeInjectionReactive = <SomeValue>(
  */
 /* eslint-disable */
 export function useHybridInject<SomeValue>(key: string, defaultValue: SomeValue): SomeValue;
+/** @public */
 export function useHybridInject<SomeValue>(key: string): SomeValue | undefined;
+/** @public */
 export function useHybridInject<SomeValue>(key: string, defaultValue?: SomeValue) {
   /* eslint-enable */
   type WrappedValue = { value: SomeValue };
