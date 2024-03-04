@@ -308,7 +308,7 @@ Given('a results API with {int} pages', (numberOfPages: number) => {
         totalResults: numberOfPages * rows,
         queryTagging: {
           url: `${trackEndpoint}/query`,
-          params: { page: 2 }
+          params: { page: 2, totalHits: 5 }
         }
       })
     );
