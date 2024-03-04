@@ -49,6 +49,8 @@ export interface NextQueriesGetters {
   request: NextQueriesRequest | null;
   /** List of next queries that have not been searched before. */
   nextQueries: NextQuery[];
+  /** The combination of the query and the selected related tags. */
+  query: string;
 }
 
 /**

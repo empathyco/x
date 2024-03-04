@@ -11,6 +11,7 @@ import { setUrlParams } from './actions/set-url-params.action';
 import { fetchNextQueryPreview } from './actions/fetch-next-query-preview.action';
 import { fetchAndSaveNextQueryPreview } from './actions/fetch-and-save-next-query-preview.action';
 import { nextQueries } from './getters/next-queries.getter';
+import { query } from './getters/next-queries-query.getter';
 import { request } from './getters/request.getter';
 import { NextQueriesXStoreModule } from './types';
 
@@ -37,7 +38,8 @@ export const nextQueriesXStoreModule: NextQueriesXStoreModule = {
   }),
   getters: {
     request,
-    nextQueries
+    nextQueries,
+    query
   },
   mutations: {
     setQuery,
