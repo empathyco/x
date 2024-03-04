@@ -10,6 +10,7 @@ import {
   SemanticQuery,
   Suggestion
 } from '@empathyco/x-types';
+import { ComputedRef } from 'vue';
 import { ScrollComponentState } from '../x-modules/scroll/index';
 import { InputStatus } from '../x-modules/search-box/index';
 import { XComponentAliasQueryAPI, XComponentAliasStatusAPI } from '../plugins/index';
@@ -64,90 +65,109 @@ export function useAliasApi(): UseAliasAPI {
     });
   }, {} as UseAliasStatusAPI);
 
+  const searchState = useState('search', [
+    'fromNoResultsWithFilters',
+    'isNoResults',
+    'partialResults',
+    'redirections',
+    'results',
+    'spellcheckedQuery',
+    'totalResults',
+    'sort'
+  ]);
+
+  const historyQueriesState = useState('historyQueries', ['historyQueries', 'isEnabled']);
+
+  const historyQueriesGetter = useGetter('historyQueries', [
+    'historyQueries',
+    'historyQueriesWithResults'
+  ]);
+
+  const facetsGetter = useGetter('facets', ['selectedFilters', 'facets']);
+
   return {
     query,
     status,
     get device() {
-      const deviceName = useState('device', ['name']);
-      return deviceName?.name.value ?? null;
+      return useState('device', ['name']).name.value ?? null;
     },
     get facets() {
-      return useGetter('facets', ['facets']).facets.value ?? {};
+      return facetsGetter.facets ?? {};
     },
     get historyQueries() {
-      return useGetter('historyQueries', ['historyQueries']) ?? [];
+      return historyQueriesGetter.historyQueries ?? [];
     },
     get historyQueriesWithResults() {
-      return useGetter('historyQueries', ['historyQueriesWithResults']) ?? [];
+      return historyQueriesGetter.historyQueriesWithResults ?? [];
     },
     get fullHistoryQueries() {
-      return useState('historyQueries', ['historyQueries']) ?? [];
+      return historyQueriesState.historyQueries ?? [];
     },
     get isHistoryQueriesEnabled() {
-      return useState('historyQueries', ['isEnabled']) ?? false;
+      return historyQueriesState.isEnabled ?? false;
     },
     get fromNoResultsWithFilters() {
-      return useState('search', ['fromNoResultsWithFilters']) ?? false;
+      return searchState.fromNoResultsWithFilters ?? false;
     },
     get identifierResults() {
-      return useState('identifierResults', ['identifierResults']) ?? [];
+      return useState('identifierResults', ['identifierResults']).identifierResults ?? [];
     },
     get searchBoxStatus() {
-      return useState('searchBox', ['inputStatus']) ?? undefined;
+      return useState('searchBox', ['inputStatus']).inputStatus ?? undefined;
     },
     get isEmpathizeOpen() {
-      return useState('empathize', ['isOpen']) ?? false;
+      return useState('empathize', ['isOpen']).isOpen ?? false;
     },
     get nextQueries() {
-      return useGetter('nextQueries', ['nextQueries']) ?? [];
+      return useGetter('nextQueries', ['nextQueries']).nextQueries ?? [];
     },
     get noResults() {
-      return useState('search', ['isNoResults']) ?? false;
+      return searchState.isNoResults ?? false;
     },
     get partialResults() {
-      return useState('search', ['partialResults']) ?? [];
+      return searchState.partialResults ?? [];
     },
     get popularSearches() {
-      return useState('popularSearches', ['popularSearches']) ?? [];
+      return useState('popularSearches', ['popularSearches']).popularSearches ?? [];
     },
     get querySuggestions() {
-      return useGetter('querySuggestions', ['querySuggestions']) ?? [];
+      return useGetter('querySuggestions', ['querySuggestions']).querySuggestions ?? [];
     },
     get fullQuerySuggestions() {
-      return useState('querySuggestions', ['suggestions']) ?? [];
+      return useState('querySuggestions', ['suggestions']).suggestions ?? [];
     },
     get recommendations() {
-      return useState('recommendations', ['recommendations']) ?? [];
+      return useState('recommendations', ['recommendations']).recommendations ?? [];
     },
     get redirections() {
-      return useState('search', ['redirections']) ?? [];
+      return searchState.redirections ?? [];
     },
     get relatedTags() {
-      return useGetter('relatedTags', ['relatedTags']) ?? [];
+      return useGetter('relatedTags', ['relatedTags']).relatedTags ?? [];
     },
     get results() {
-      return useState('search', ['results']) ?? [];
+      return searchState.results ?? [];
     },
     get scroll() {
-      return useState('scroll', ['data']) ?? {};
+      return useState('scroll', ['data']).data ?? {};
     },
     get selectedFilters() {
-      return useGetter('facets', ['selectedFilters']) ?? [];
+      return facetsGetter.selectedFilters ?? [];
     },
     get selectedRelatedTags() {
-      return useState('relatedTags', ['selectedRelatedTags']) ?? [];
+      return useState('relatedTags', ['selectedRelatedTags']).selectedRelatedTags ?? [];
     },
     get semanticQueries() {
-      return useState('semanticQueries', ['semanticQueries']) ?? [];
+      return useState('semanticQueries', ['semanticQueries']).semanticQueries ?? [];
     },
     get spellcheckedQuery() {
-      return useState('search', ['spellcheckedQuery']) ?? null;
+      return searchState.spellcheckedQuery ?? null;
     },
     get totalResults() {
-      return useState('search', ['totalResults']) ?? 0;
+      return searchState.totalResults ?? 0;
     },
     get selectedSort() {
-      return useState('search', ['sort']) ?? '';
+      return searchState.sort ?? '';
     }
   };
 }
@@ -159,63 +179,63 @@ export function useAliasApi(): UseAliasAPI {
  */
 interface UseAliasAPI {
   /** The {@link DeviceXModule} detected device. */
-  readonly device: string | null;
+  readonly device: ComputedRef<string | null>;
   /** The {@link FacetsXModule} facets. */
-  readonly facets: ReadonlyArray<Facet>;
+  readonly facets: ComputedRef<ReadonlyArray<Facet>>;
   /** The {@link HistoryQueriesXModule} history queries matching the query. */
-  readonly historyQueries: ReadonlyArray<HistoryQuery>;
+  readonly historyQueries: ComputedRef<ReadonlyArray<HistoryQuery>>;
   /** The {@link HistoryQueriesXModule} history queries with 1 or more results. */
-  readonly historyQueriesWithResults: ReadonlyArray<HistoryQuery>;
+  readonly historyQueriesWithResults: ComputedRef<ReadonlyArray<HistoryQuery>>;
   /** The {@link HistoryQueriesXModule} history queries. */
-  readonly fullHistoryQueries: ReadonlyArray<HistoryQuery>;
+  readonly fullHistoryQueries: ComputedRef<ReadonlyArray<HistoryQuery>>;
   /** The {@link HistoryQueriesXModule} history queries enabled flag. */
-  readonly isHistoryQueriesEnabled: Readonly<boolean>;
+  readonly isHistoryQueriesEnabled: ComputedRef<Readonly<boolean>>;
   /** The {@link SearchXModule} no results with filters flag. */
-  readonly fromNoResultsWithFilters: Readonly<boolean>;
+  readonly fromNoResultsWithFilters: ComputedRef<Readonly<boolean>>;
   /** The {@link IdentifierResultsXModule} results. */
-  readonly identifierResults: ReadonlyArray<Result>;
+  readonly identifierResults: ComputedRef<ReadonlyArray<Result>>;
   /** The {@link SearchBoxXModule } input status. */
-  readonly searchBoxStatus: InputStatus | undefined;
+  readonly searchBoxStatus: ComputedRef<InputStatus | undefined>;
   /** The {@link Empathize} is open state. */
-  readonly isEmpathizeOpen: boolean;
+  readonly isEmpathizeOpen: ComputedRef<boolean>;
   /** The {@link NextQueriesXModule} next queries. */
-  readonly nextQueries: ReadonlyArray<NextQuery>;
+  readonly nextQueries: ComputedRef<ReadonlyArray<NextQuery>>;
   /** The {@link SearchXModule} no results situation. */
-  readonly noResults: boolean;
+  readonly noResults: ComputedRef<boolean>;
   /** The {@link SearchXModule} partial results. */
-  readonly partialResults: ReadonlyArray<PartialResult>;
+  readonly partialResults: ComputedRef<ReadonlyArray<PartialResult>>;
   /** The {@link PopularSearchesXModule} popular searches. */
-  readonly popularSearches: ReadonlyArray<Suggestion>;
+  readonly popularSearches: ComputedRef<ReadonlyArray<Suggestion>>;
   /** The query value of the different modules. */
   readonly query: XComponentAliasQueryAPI;
   /** The {@link QuerySuggestionsXModule} query suggestions that should be displayed. */
-  readonly querySuggestions: ReadonlyArray<Suggestion>;
+  readonly querySuggestions: ComputedRef<ReadonlyArray<Suggestion>>;
   /** The {@link QuerySuggestionsXModule} query suggestions. */
-  readonly fullQuerySuggestions: ReadonlyArray<Suggestion>;
+  readonly fullQuerySuggestions: ComputedRef<ReadonlyArray<Suggestion>>;
   /** The {@link RecommendationsXModule} recommendations. */
-  readonly recommendations: ReadonlyArray<Result>;
+  readonly recommendations: ComputedRef<ReadonlyArray<Result>>;
   /** The {@link SearchXModule} redirections. */
-  readonly redirections: ReadonlyArray<Redirection>;
+  readonly redirections: ComputedRef<ReadonlyArray<Redirection>>;
   /** The {@link RelatedTagsXModule} related tags (Both selected and deselected). */
-  readonly relatedTags: ReadonlyArray<RelatedTag>;
+  readonly relatedTags: ComputedRef<ReadonlyArray<RelatedTag>>;
   /** The {@link SearchXModule} search results. */
-  readonly results: ReadonlyArray<Result>;
+  readonly results: ComputedRef<ReadonlyArray<Result>>;
   /** The {@link ScrollXModule} data state. */
-  readonly scroll: Record<string, ScrollComponentState>;
+  readonly scroll: ComputedRef<Record<string, ScrollComponentState>>;
   /** The {@link FacetsXModule} selected filters. */
-  readonly selectedFilters: Filter[];
+  readonly selectedFilters: ComputedRef<Filter[]>;
   /** The {@link RelatedTagsXModule} selected related tags. */
-  readonly selectedRelatedTags: ReadonlyArray<RelatedTag>;
+  readonly selectedRelatedTags: ComputedRef<ReadonlyArray<RelatedTag>>;
   /** The {@link SemanticQueriesXModule} queries. */
-  readonly semanticQueries: ReadonlyArray<SemanticQuery>;
+  readonly semanticQueries: ComputedRef<ReadonlyArray<SemanticQuery>>;
   /** The {@link SearchXModule} spellchecked query. */
-  readonly spellcheckedQuery: string | null;
+  readonly spellcheckedQuery: ComputedRef<string | null>;
   /** The status value of the different modules. */
   readonly status: XComponentAliasStatusAPI;
   /** The {@link SearchXModule} total results. */
-  readonly totalResults: number;
+  readonly totalResults: ComputedRef<number>;
   /** The {@link SearchXModule} selected sort. */
-  readonly selectedSort: string;
+  readonly selectedSort: ComputedRef<string>;
 }
 
 /**

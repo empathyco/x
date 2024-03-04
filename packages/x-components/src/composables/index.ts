@@ -7,3 +7,4 @@ export * from './use-store';
 export * from './use-state';
 export * from './use-getter';
 export * from './use-hybrid-inject';
+export * from './use-alias-api';
