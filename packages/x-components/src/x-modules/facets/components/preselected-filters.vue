@@ -1,13 +1,10 @@
-<template>
-  <div></div>
-</template>
 <script lang="ts">
   import { defineComponent, PropType, onMounted, watch, computed, ref, ComputedRef } from 'vue';
   import { createRawFilters } from '../../../utils/filters';
   import { isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { useXBus } from '../../../composables/use-x-bus';
-  import { useHybridInject } from '../../../composables';
+  import { useHybridInject, useNoElementRender } from '../../../composables';
   import { baseSnippetConfig } from '../../../views/base-config';
 
   /**
@@ -32,7 +29,7 @@
         default: () => []
       }
     },
-    setup(props) {
+    setup(props, { slots }) {
       // eslint-disable-next-line @typescript-eslint/unbound-method
       const { emit } = useXBus();
 
@@ -78,10 +75,7 @@
         emitPreselectedFilters();
       });
 
-      return {
-        snippetConfig,
-        preselectedFilters
-      };
+      return () => useNoElementRender(slots);
     }
   });
 </script>
