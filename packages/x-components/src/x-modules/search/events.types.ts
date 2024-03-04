@@ -7,6 +7,7 @@ import {
   Promoted,
   Banner
 } from '@empathyco/x-types';
+import { SemanticsQueryTaggingPayload } from '../tagging/index';
 import { InternalSearchRequest, InternalSearchResponse } from './types';
 
 /**
@@ -108,4 +109,9 @@ export interface SearchXEvents {
    * The user has aborted a redirection.
    */
   UserClickedAbortARedirection: void;
+  /**
+   * Query tagging when there are no results and semantics.
+   * Payload: The new query tagging object.
+   */
+  QueryTaggingWithNoResults: SemanticsQueryTaggingPayload;
 }

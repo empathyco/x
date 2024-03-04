@@ -2,6 +2,7 @@ import { TaggingRequest } from '@empathyco/x-types';
 import { XStoreModule } from '../../../store';
 import { TaggingConfig } from '../config.types';
 import { ConfigMutations } from '../../../store/utils/config-store.utils';
+import { XModuleName } from '../../x-modules.types';
 /**
  * Tagging store state.
  *
@@ -12,6 +13,10 @@ export interface TaggingState {
    * The current consent for tracking.
    */
   consent: boolean | null;
+  /**
+   * Value to know if Semantics module is register.
+   */
+  hasSemantics: boolean;
   /**
    * Configuration for the `Tagging` module.
    */
@@ -47,6 +52,18 @@ export interface TaggingMutations extends ConfigMutations<TaggingState> {
    * @param queryTaggingInfo - The new {@link TaggingState.queryTaggingInfo}.
    */
   setQueryTaggingInfo(queryTaggingInfo: TaggingRequest): void;
+  /**
+   * Sets the totalHits property.
+   *
+   * @param totalHits - The new value of totalHits in {@link TaggingState.queryTaggingInfo}.
+   */
+  updateTotalHits(totalHits: string): void;
+  /**
+   * Sets the hasSemantics property.
+   *
+   * @param module - The name of the register module.
+   */
+  setHasSemantics(module: XModuleName): void;
 }
 
 /**
@@ -61,6 +78,18 @@ export interface TaggingActions {
    * @param tagging - The information of the event to track.
    */
   track(tagging: TaggingRequest | TaggingRequest[]): void;
+  /**
+   * Filters queryTagging and tracks user interaction.
+   *
+   * @param tagging - The information of the event to track.
+   */
+  trackQueryWithResults(tagging: TaggingRequest | TaggingRequest[]): void;
+  /**
+   * Updates query tagging information.
+   *
+   * @param tagging - The information of the event to update and set.
+   */
+  updateQueryTaggingInfo(tagging: SemanticsQueryTaggingPayload): void;
 }
 
 /**
@@ -74,3 +103,19 @@ export type TaggingXStoreModule = XStoreModule<
   TaggingMutations,
   TaggingActions
 >;
+
+/**
+ * Payload to use in the `updateQueryTaggingInfo` action.
+ *
+ * @public
+ */
+export interface SemanticsQueryTaggingPayload {
+  /**
+   * The query tagging info.
+   */
+  queryTagging: TaggingRequest;
+  /**
+   * The param to modify.
+   */
+  totalHits: string;
+}

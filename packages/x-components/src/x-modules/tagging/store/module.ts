@@ -2,6 +2,8 @@ import { TaggingRequest } from '@empathyco/x-types';
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 import { track } from './actions/track.action';
 import { TaggingXStoreModule } from './types';
+import { updateQueryTaggingInfo } from './actions/update-query-tagging-info.action';
+import { trackQueryWithResults } from './actions/index';
 
 /**
  * {@link XStoreModule} For the tagging module.
@@ -17,6 +19,7 @@ export const taggingXStoreModule: TaggingXStoreModule = {
       clickedResultStorageTTLMs: null
     },
     consent: null,
+    hasSemantics: false,
     queryTaggingInfo: null
   }),
   getters: {},
@@ -27,10 +30,20 @@ export const taggingXStoreModule: TaggingXStoreModule = {
     setQueryTaggingInfo(state, queryTaggingInfo: TaggingRequest) {
       state.queryTaggingInfo = queryTaggingInfo;
     },
+    updateTotalHits(state, totalHits: string) {
+      state.queryTaggingInfo!.params.totalHits = totalHits;
+    },
+    setHasSemantics(state, module) {
+      if (module === 'semanticQueries') {
+        state.hasSemantics = true;
+      }
+    },
     setConfig,
     mergeConfig
   },
   actions: {
-    track
+    track,
+    updateQueryTaggingInfo,
+    trackQueryWithResults
   }
 };

@@ -93,6 +93,13 @@ const clearSessionWire = filter(
 export const setConsent = wireCommit('setConsent');
 
 /**
+ * Sets the tagging state `hasSemantics`.
+ *
+ * @public
+ */
+export const setHasSemantics = wireCommit('setHasSemantics');
+
+/**
  * Sets the tagging config state.
  *
  * @public
@@ -104,7 +111,7 @@ export const setTaggingConfig = wireCommit('mergeConfig');
  *
  * @public
  */
-export const trackQueryWire = wireDispatch('track');
+export const trackQueryWire = wireDispatch('trackQueryWithResults');
 
 /**
  * Sets the tagging state of the query tagging info using a debounce which ends if the user
@@ -125,6 +132,16 @@ export const setQueryTaggingInfo = moduleDebounce(
       'UserReachedResultsListEnd'
     ]
   }
+);
+
+/**
+ * Updates the totalHits param and tracks the new tagging of the query.
+ *
+ * @public
+ */
+export const setQueryTaggingWithNoResults = moduleDebounce(
+  wireDispatch('updateQueryTaggingInfo'),
+  ({ state }) => state.config.queryTaggingDebounceMs
 );
 
 /**
@@ -280,5 +297,11 @@ export const taggingWiring = createWiring({
   UserClickedADisplayResult: {
     trackDisplayClickedWire,
     setQueryTaggingFromQueryPreview
+  },
+  QueryTaggingWithNoResults: {
+    setQueryTaggingWithNoResults
+  },
+  ModuleRegistered: {
+    setHasSemantics
   }
 });

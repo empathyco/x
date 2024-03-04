@@ -369,7 +369,7 @@
                 <LocationProvider :location="$x.noResults ? 'no_results' : 'low_results'">
                   <QueryPreviewList
                     :queries-preview-info="queries.map(q => ({ query: q }))"
-                    #default="{ queryPreviewInfo: { query }, results }"
+                    #default="{ queryPreviewInfo: { query }, results, queryTagging }"
                     queryFeature="semantics"
                   >
                     <div
@@ -384,7 +384,7 @@
                       >
                         <span data-test="semantic-queries-query">{{ query }}</span>
                       </SemanticQuery>
-                      <DisplayResultProvider>
+                      <DisplayResultProvider :queryTagging="queryTagging">
                         <SlidingPanel :resetOnContentChange="false">
                           <div class="x-flex x-gap-8">
                             <Result
