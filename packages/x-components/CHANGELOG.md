@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.26...@empathyco/x-components@4.1.0-alpha.27) (2024-03-04)
+
+
+### Features
+
+* change useHybridInject so it works more like vue inject (#1427) ([f7e2946](https://github.com/empathyco/x/commit/f7e2946771213c06b6b7f6c9b4987ba971303463))
+
+
+
 ## [4.1.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.25...@empathyco/x-components@4.1.0-alpha.26) (2024-02-23)
 
 
