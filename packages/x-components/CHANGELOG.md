@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.25...@empathyco/x-components@4.1.0-alpha.26) (2024-02-23)
+
+
+### Documentation
+
+* replace enable/disable with activate/deactivate (#1420) ([5370c7c](https://github.com/empathyco/x/commit/5370c7c908db1f78d1b315dfd46a518cb534ca8d))
+
+
+
+## [4.1.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.24...@empathyco/x-components@4.1.0-alpha.25) (2024-02-23)
+
+
+### Code Refactoring
+
+* **components:** migrate location-provider component to vue 2.7 (#1421) ([98377e8](https://github.com/empathyco/x/commit/98377e8fb4e3a65dce7aa8ddd144cd69f2ab1395))
+
+
+
+## [4.1.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.23...@empathyco/x-components@4.1.0-alpha.24) (2024-02-21)
+
+
+### Features
+
+* migrating base-rating component using defineComponent sintax (#1419) ([3fb116a](https://github.com/empathyco/x/commit/3fb116ad5a28addcf53c6d66035072e7013a7818))
+
+
+
+## [4.1.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.22...@empathyco/x-components@4.1.0-alpha.23) (2024-02-21)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## [4.1.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.21...@empathyco/x-components@4.1.0-alpha.22) (2024-02-21)
 
 

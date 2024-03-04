@@ -13,7 +13,7 @@
   import { isArrayEmpty } from '../../../utils/array';
 
   /**
-   * History Queries Switch is a component to enable or disable the history queries.
+   * History Queries Switch is a component to activate or deactivate the history queries.
    * This component emits events depending on the `isEnabled` value.
    *
    * @public
@@ -69,13 +69,13 @@
 A list of events that the component will emit:
 
 - [`UserClickedEnableHistoryQueries`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
-  the event is emitted whenever the user clicks the switch and the history queries are disabled.
+  the event is emitted whenever the user clicks the switch and the history queries are deactivated.
 - [`UserClickedDisableHistoryQueries`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
-  the event is emitted whenever the user clicks the switch when the history queries are enabled and
-  the list of history queries is not empty.
+  the event is emitted whenever the user clicks the switch when the history queries are activated
+  and the list of history queries is not empty.
 - [`UserClickedConfirmDisableHistoryQueries`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts):
-  the event is emitted whenever the user clicks the switch when the history queries are enabled and
-  the list of history queries is empty.
+  the event is emitted whenever the user clicks the switch when the history queries are activated
+  and the list of history queries is empty.
 
 ## See it in action
 
