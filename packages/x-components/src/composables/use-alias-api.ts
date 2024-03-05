@@ -11,10 +11,9 @@ import {
   Suggestion
 } from '@empathyco/x-types';
 import { ComputedRef } from 'vue';
-import { ScrollComponentState } from '../x-modules/scroll/index';
-import { InputStatus } from '../x-modules/search-box/index';
-import { XComponentAliasQueryAPI, XComponentAliasStatusAPI } from '../plugins/index';
-import { RequestStatus } from '../store/index';
+import { ScrollComponentState } from '../x-modules/scroll/store/types';
+import { InputStatus } from '../x-modules/search-box/store/types';
+import { RequestStatus } from '../store/utils/status-store.utils';
 import { useStore } from './use-store';
 import { useGetter } from './use-getter';
 import { useState } from './use-state';
@@ -88,87 +87,33 @@ export function useAliasApi(): UseAliasAPI {
   return {
     query,
     status,
-    get device() {
-      return useState('device', ['name']).name.value ?? null;
-    },
-    get facets() {
-      return facetsGetter.facets ?? {};
-    },
-    get historyQueries() {
-      return historyQueriesGetter.historyQueries ?? [];
-    },
-    get historyQueriesWithResults() {
-      return historyQueriesGetter.historyQueriesWithResults ?? [];
-    },
-    get fullHistoryQueries() {
-      return historyQueriesState.historyQueries ?? [];
-    },
-    get isHistoryQueriesEnabled() {
-      return historyQueriesState.isEnabled ?? false;
-    },
-    get fromNoResultsWithFilters() {
-      return searchState.fromNoResultsWithFilters ?? false;
-    },
-    get identifierResults() {
-      return useState('identifierResults', ['identifierResults']).identifierResults ?? [];
-    },
-    get searchBoxStatus() {
-      return useState('searchBox', ['inputStatus']).inputStatus ?? undefined;
-    },
-    get isEmpathizeOpen() {
-      return useState('empathize', ['isOpen']).isOpen ?? false;
-    },
-    get nextQueries() {
-      return useGetter('nextQueries', ['nextQueries']).nextQueries ?? [];
-    },
-    get noResults() {
-      return searchState.isNoResults ?? false;
-    },
-    get partialResults() {
-      return searchState.partialResults ?? [];
-    },
-    get popularSearches() {
-      return useState('popularSearches', ['popularSearches']).popularSearches ?? [];
-    },
-    get querySuggestions() {
-      return useGetter('querySuggestions', ['querySuggestions']).querySuggestions ?? [];
-    },
-    get fullQuerySuggestions() {
-      return useState('querySuggestions', ['suggestions']).suggestions ?? [];
-    },
-    get recommendations() {
-      return useState('recommendations', ['recommendations']).recommendations ?? [];
-    },
-    get redirections() {
-      return searchState.redirections ?? [];
-    },
-    get relatedTags() {
-      return useGetter('relatedTags', ['relatedTags']).relatedTags ?? [];
-    },
-    get results() {
-      return searchState.results ?? [];
-    },
-    get scroll() {
-      return useState('scroll', ['data']).data ?? {};
-    },
-    get selectedFilters() {
-      return facetsGetter.selectedFilters ?? [];
-    },
-    get selectedRelatedTags() {
-      return useState('relatedTags', ['selectedRelatedTags']).selectedRelatedTags ?? [];
-    },
-    get semanticQueries() {
-      return useState('semanticQueries', ['semanticQueries']).semanticQueries ?? [];
-    },
-    get spellcheckedQuery() {
-      return searchState.spellcheckedQuery ?? null;
-    },
-    get totalResults() {
-      return searchState.totalResults ?? 0;
-    },
-    get selectedSort() {
-      return searchState.sort ?? '';
-    }
+    device: useState('device', ['name']).name ?? null,
+    facets: facetsGetter.facets ?? {},
+    historyQueries: historyQueriesGetter.historyQueries ?? [],
+    historyQueriesWithResults: historyQueriesGetter.historyQueriesWithResults ?? [],
+    fullHistoryQueries: historyQueriesState.historyQueries ?? [],
+    isHistoryQueriesEnabled: historyQueriesState.isEnabled ?? false,
+    fromNoResultsWithFilters: searchState.fromNoResultsWithFilters ?? false,
+    identifierResults: useState('identifierResults', ['identifierResults']).identifierResults ?? [],
+    searchBoxStatus: useState('searchBox', ['inputStatus']).inputStatus ?? undefined,
+    isEmpathizeOpen: useState('empathize', ['isOpen']).isOpen ?? false,
+    nextQueries: useGetter('nextQueries', ['nextQueries']).nextQueries ?? [],
+    noResults: searchState.isNoResults ?? false,
+    partialResults: searchState.partialResults ?? [],
+    popularSearches: useState('popularSearches', ['popularSearches']).popularSearches ?? [],
+    querySuggestions: useGetter('querySuggestions', ['querySuggestions']).querySuggestions ?? [],
+    fullQuerySuggestions: useState('querySuggestions', ['suggestions']).suggestions ?? [],
+    recommendations: useState('recommendations', ['recommendations']).recommendations ?? [],
+    redirections: searchState.redirections ?? [],
+    relatedTags: useGetter('relatedTags', ['relatedTags']).relatedTags ?? [],
+    results: searchState.results ?? [],
+    scroll: useState('scroll', ['data']).data ?? {},
+    selectedFilters: facetsGetter.selectedFilters ?? [],
+    selectedRelatedTags: useState('relatedTags', ['selectedRelatedTags']).selectedRelatedTags ?? [],
+    semanticQueries: useState('semanticQueries', ['semanticQueries']).semanticQueries ?? [],
+    spellcheckedQuery: searchState.spellcheckedQuery ?? null,
+    totalResults: searchState.totalResults ?? 0,
+    selectedSort: searchState.sort ?? ''
   };
 }
 
@@ -207,7 +152,7 @@ interface UseAliasAPI {
   /** The {@link PopularSearchesXModule} popular searches. */
   readonly popularSearches: ComputedRef<ReadonlyArray<Suggestion>>;
   /** The query value of the different modules. */
-  readonly query: XComponentAliasQueryAPI;
+  readonly query: UseAliasQueryAPI;
   /** The {@link QuerySuggestionsXModule} query suggestions that should be displayed. */
   readonly querySuggestions: ComputedRef<ReadonlyArray<Suggestion>>;
   /** The {@link QuerySuggestionsXModule} query suggestions. */
@@ -231,7 +176,7 @@ interface UseAliasAPI {
   /** The {@link SearchXModule} spellchecked query. */
   readonly spellcheckedQuery: ComputedRef<string | null>;
   /** The status value of the different modules. */
-  readonly status: XComponentAliasStatusAPI;
+  readonly status: UseAliasStatusAPI;
   /** The {@link SearchXModule} total results. */
   readonly totalResults: ComputedRef<number>;
   /** The {@link SearchXModule} selected sort. */
