@@ -39,7 +39,7 @@
        *
        * @internal
        */
-      const snippetConfig = ref(useHybridInject<SnippetConfig>('snippetConfig', baseSnippetConfig));
+      const snippetConfig = ref(useHybridInject<SnippetConfig>('snippetConfig'));
 
       /**
        * Gets the provided preselected filters prioritizing the {@link SnippetConfig} over the
