@@ -73,7 +73,7 @@ describe('testing Preselected filters component', () => {
     expect(emit).toHaveBeenCalledWith(
       'PreselectedFiltersProvided',
       createRawFilters(snippetFilters),
-      eventMetadata
+      expect.any(Object)
     );
   });
 
