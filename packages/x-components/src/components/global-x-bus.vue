@@ -6,7 +6,7 @@
   import { XEventListeners } from '../x-installer/api/api.types';
   import { WireMetadata } from '../wiring/wiring.types';
   import { XEventsTypes } from '../wiring/events.types';
-  import { useNoElementRender } from '../composables';
+  import { useNoElementRender } from '../composables/use-no-element-render';
   import { useXBus } from '../composables/use-x-bus';
 
   /**

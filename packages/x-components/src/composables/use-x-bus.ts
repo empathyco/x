@@ -1,10 +1,11 @@
 import Vue, { getCurrentInstance, inject } from 'vue';
 import { XBus } from '@empathyco/x-bus';
 import { bus } from '../plugins/x-bus';
-import { WireMetadata, XEvent, XEventPayload, XEventsTypes } from '../wiring/index';
-import { getRootXComponent, getXComponentXModuleName } from '../components/index';
-import { FeatureLocation } from '../types/index';
-import { PropsWithType } from '../utils/index';
+import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
+import { WireMetadata } from '../wiring/wiring.types';
+import { getRootXComponent, getXComponentXModuleName } from '../components/x-component.utils';
+import { FeatureLocation } from '../types/origin';
+import { PropsWithType } from '../utils/types';
 
 /**
  * Composable which injects the current location,
