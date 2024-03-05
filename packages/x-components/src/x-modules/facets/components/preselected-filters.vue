@@ -65,15 +65,7 @@
        * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
        * computed prop changes.
        */
-      watch(preselectedFilters, emitPreselectedFilters);
-
-      /**
-       * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
-       * component is mounted.
-       */
-      onMounted(() => {
-        emitPreselectedFilters();
-      });
+      watch(preselectedFilters, emitPreselectedFilters, { immediate: true });
 
       return () => useNoElementRender(slots);
     }
