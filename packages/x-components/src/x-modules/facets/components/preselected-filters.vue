@@ -1,11 +1,10 @@
 <script lang="ts">
-  import { defineComponent, PropType, onMounted, watch, computed, ref, ComputedRef } from 'vue';
+  import { defineComponent, PropType, watch, computed, ref } from 'vue';
   import { createRawFilters } from '../../../utils/filters';
   import { isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { useXBus } from '../../../composables/use-x-bus';
   import { useHybridInject, useNoElementRender } from '../../../composables';
-  import { baseSnippetConfig } from '../../../views/base-config';
 
   /**
    * This component emits {@link FacetsXEvents.PreselectedFiltersProvided} when a preselected filter
