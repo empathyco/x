@@ -1,53 +1,63 @@
-import { mount } from '@vue/test-utils';
+import { mount, Wrapper } from '@vue/test-utils';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { baseSnippetConfig } from '../../views/base-config';
 import { XEventListeners } from '../../x-installer/api/api.types';
 import SnippetCallbacks from '../snippet-callbacks.vue';
-import { bus } from '../../plugins/x-bus';
-function renderSnippetCallbacks({ callbacks = {} }: RenderSnippetCallbacksOptions = {}): void {
+
+function renderSnippetCallbacks({
+  callbacks = {}
+}: RenderSnippetCallbacksOptions = {}): RenderSnippetCallbacksAPI {
   const [, localVue] = installNewXPlugin();
-  mount(SnippetCallbacks, {
+  const wrapper = mount(SnippetCallbacks, {
     provide: {
       snippetConfig: localVue.observable({ ...baseSnippetConfig, callbacks })
     },
     localVue
   });
+
+  return {
+    wrapper
+  };
 }
 
 describe('testing SnippetCallbacks component', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
   it('executes a callback injected from the snippetConfig', () => {
     const acceptedAQueryCallback = jest.fn(payload => payload);
     const clickedColumnPickerCallback = jest.fn(payload => payload);
-    renderSnippetCallbacks({
+    const { wrapper } = renderSnippetCallbacks({
       callbacks: {
         UserAcceptedAQuery: acceptedAQueryCallback,
         UserClickedColumnPicker: clickedColumnPickerCallback
       }
     });
 
-    bus.emit('UserAcceptedAQuery', 'lego');
+    wrapper.vm.$x.emit('UserAcceptedAQuery', 'lego');
 
     expect(acceptedAQueryCallback).toHaveBeenCalledTimes(1);
-    expect(acceptedAQueryCallback).toHaveBeenCalledWith('lego', expect.any(Object));
+    expect(acceptedAQueryCallback).toHaveBeenCalledWith('lego', {
+      location: undefined,
+      moduleName: null,
+      replaceable: true
+    });
 
     expect(clickedColumnPickerCallback).not.toHaveBeenCalled();
 
-    bus.emit('UserClickedColumnPicker', 1);
+    wrapper.vm.$x.emit('UserClickedColumnPicker', 1);
 
     expect(acceptedAQueryCallback).toHaveBeenCalledTimes(1);
 
     expect(clickedColumnPickerCallback).toHaveBeenCalledTimes(1);
-    expect(clickedColumnPickerCallback).toHaveBeenCalledWith(1, expect.any(Object));
+    expect(clickedColumnPickerCallback).toHaveBeenCalledWith(1, {
+      location: undefined,
+      moduleName: null,
+      replaceable: true
+    });
   });
 
   it('emits a SnippetCallbackExecuted event when a callback is executed', () => {
     const acceptedAQueryCallback = jest.fn((payload: string) => payload + '1');
     const clickedColumnPickerCallback = jest.fn((payload: number) => payload + 1);
-    renderSnippetCallbacks({
+    const { wrapper } = renderSnippetCallbacks({
       callbacks: {
         UserAcceptedAQuery: acceptedAQueryCallback,
         UserClickedColumnPicker: clickedColumnPickerCallback
@@ -55,9 +65,9 @@ describe('testing SnippetCallbacks component', () => {
     });
 
     const eventSpy = jest.fn();
-    bus.on('SnippetCallbackExecuted').subscribe(eventSpy);
+    wrapper.vm.$x.on('SnippetCallbackExecuted').subscribe(eventSpy);
 
-    bus.emit('UserAcceptedAQuery', 'playmobil');
+    wrapper.vm.$x.emit('UserAcceptedAQuery', 'playmobil');
     expect(eventSpy).toHaveBeenCalledTimes(1);
     expect(eventSpy).toHaveBeenCalledWith({
       event: 'UserAcceptedAQuery',
@@ -66,7 +76,7 @@ describe('testing SnippetCallbacks component', () => {
       metadata: expect.any(Object)
     });
 
-    bus.emit('UserClickedColumnPicker', 3);
+    wrapper.vm.$x.emit('UserClickedColumnPicker', 3);
     expect(eventSpy).toHaveBeenCalledTimes(2);
     expect(eventSpy).toHaveBeenCalledWith({
       event: 'UserClickedColumnPicker',
@@ -83,4 +93,12 @@ describe('testing SnippetCallbacks component', () => {
 interface RenderSnippetCallbacksOptions {
   /** The callbacks value to be provided. */
   callbacks?: XEventListeners;
+}
+
+/**
+ * Tools to test how the snippet callbacks component behaves.
+ */
+interface RenderSnippetCallbacksAPI {
+  /** The wrapper of the container element. */
+  wrapper: Wrapper<Vue>;
 }
