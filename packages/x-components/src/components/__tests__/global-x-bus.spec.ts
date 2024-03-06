@@ -1,12 +1,16 @@
-import { mount } from '@vue/test-utils';
+import { mount, Wrapper } from '@vue/test-utils';
 import Vue, { ComponentOptions } from 'vue';
 import { installNewXPlugin } from '../../__tests__/utils';
 import GlobalXBus from '../global-x-bus.vue';
 import { bus } from '../../plugins/x-bus';
 
-function renderGlobalXBus({ listeners = {} }: RenderGlobalXBusOptions = {}): void {
+function renderGlobalXBus({ listeners = {} }: RenderGlobalXBusOptions = {}): RenderGlobalXBusAPI {
   const [, localVue] = installNewXPlugin();
-  mount(GlobalXBus, { listeners, localVue });
+  const wrapper = mount(GlobalXBus, { listeners, localVue });
+
+  return {
+    wrapper
+  };
 }
 
 describe('testing GlobalXBus component', function () {
@@ -24,12 +28,18 @@ describe('testing GlobalXBus component', function () {
       }
     });
 
-    bus.emit('UserAcceptedAQuery', 'lego', expect.any(Object));
+    const eventMetadata = {
+      location: undefined,
+      moduleName: null,
+      replaceable: true
+    };
+
+    bus.emit('UserAcceptedAQuery', 'lego', eventMetadata);
 
     jest.runAllTimers();
 
     expect(acceptedAQueryCallback).toHaveBeenCalledTimes(1);
-    expect(acceptedAQueryCallback).toHaveBeenCalledWith('lego', expect.any(Object));
+    expect(acceptedAQueryCallback).toHaveBeenCalledWith('lego', eventMetadata);
 
     expect(clickedColumnPickerCallback).not.toHaveBeenCalled();
   });
@@ -41,4 +51,12 @@ describe('testing GlobalXBus component', function () {
 interface RenderGlobalXBusOptions {
   /** The listeners object in the component.*/
   listeners?: ComponentOptions<Vue>['methods'];
+}
+
+/**
+ * Options to configure how the global X bus component should be rendered.
+ */
+interface RenderGlobalXBusAPI {
+  /** The wrapper for the global X bus component. */
+  wrapper: Wrapper<Vue>;
 }
