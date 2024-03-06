@@ -28,7 +28,7 @@
         default: () => []
       }
     },
-    setup(props, { slots }) {
+    setup(props) {
       // eslint-disable-next-line @typescript-eslint/unbound-method
       const { emit } = useXBus();
 
@@ -65,8 +65,9 @@
        * computed prop changes.
        */
       watch(preselectedFilters, emitPreselectedFilters, { immediate: true });
-
-      return () => useNoElementRender(slots);
+    },
+    render() {
+      return useNoElementRender(this.$slots);
     }
   });
 </script>
