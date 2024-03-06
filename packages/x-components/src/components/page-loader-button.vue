@@ -7,7 +7,6 @@
       </p>
     </slot>
     <BaseEventButton
-      v-if="$x.results.length < $x.totalResults"
       class="x-button"
       :class="buttonClasses"
       :events="{ UserReachedResultsListEnd: undefined }"
@@ -45,9 +44,6 @@
         type: String as PropType<VueCSSClasses>,
         default: ''
       }
-    },
-    setup(props) {
-      return { props };
     }
   });
 </script>

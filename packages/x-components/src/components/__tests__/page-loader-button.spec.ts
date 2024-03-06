@@ -84,17 +84,6 @@ describe('testing PageLoaderButton component', () => {
       target: baseEventButton.element
     });
   });
-
-  it('does not render the button if there are no more results to be rendered', () => {
-    const { wrapper } = renderPageLoaderButton({
-      results: getResultsStub(24),
-      totalResults: 24
-    });
-
-    expect(wrapper.find(getDataTestSelector('page-loader')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('text-content')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('load-content')).exists()).toBe(false);
-  });
 });
 
 /**
