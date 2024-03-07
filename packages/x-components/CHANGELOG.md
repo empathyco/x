@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.27...@empathyco/x-components@4.1.0-alpha.28) (2024-03-07)
+
+
+### Bug Fixes
+
+*  Next Queries not being calculated when using Related Tags (#1428) ([50306b6](https://github.com/empathyco/x/commit/50306b600c681c1bd54e209ee048893295a016cb))
+
+
+
 ## [4.1.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.26...@empathyco/x-components@4.1.0-alpha.27) (2024-03-04)
 
 
