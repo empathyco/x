@@ -46,6 +46,13 @@ const wireDispatch: NamespacedWireDispatch<typeof moduleName> = namespacedWireDi
 export const setNextQueriesQuery = wireCommit('setQuery');
 
 /**
+ * Sets the next queries state `relatedTags`.
+ *
+ * @public
+ */
+export const setNextQueriesRelatedTags = wireCommit('setRelatedTags');
+
+/**
  * Sets the next queries state `query` with a selectedQueryPreview's query.
  *
  * @public
@@ -135,6 +142,9 @@ export const nextQueriesWiring = createWiring({
   },
   UserAcceptedAQuery: {
     setNextQueriesQuery
+  },
+  SelectedRelatedTagsChanged: {
+    setNextQueriesRelatedTags
   },
   SessionHistoryQueriesChanged: {
     setSearchedQueries,

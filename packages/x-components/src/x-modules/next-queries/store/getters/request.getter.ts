@@ -5,16 +5,18 @@ import { NextQueriesXStoreModule } from '../types';
  *
  * @param state - Current {@link https://vuex.vuejs.org/guide/state.html | state} of the next
  * queries module.
+ * @param getters - Current {@link https://vuex.vuejs.org/guide/getters.html | getters} of the
+ * search module.
+ *
  * @returns The next queries request to fetch data from the API.
  *
  * @public
  */
-export const request: NextQueriesXStoreModule['getters']['request'] = ({
-  query,
-  config,
-  params
-}) => {
-  return query.trim()
+export const request: NextQueriesXStoreModule['getters']['request'] = (
+  { config, params },
+  { query }
+) => {
+  return query
     ? {
         query,
         rows: config.maxItemsToRequest,

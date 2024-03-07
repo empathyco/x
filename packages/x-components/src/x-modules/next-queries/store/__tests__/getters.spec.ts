@@ -2,7 +2,11 @@ import { NextQueriesRequest } from '@empathyco/x-types';
 import { map } from '@empathyco/x-utils';
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
-import { createHistoryQueries, getNextQueriesStub } from '../../../../__stubs__';
+import {
+  createHistoryQueries,
+  createRelatedTagStub,
+  getNextQueriesStub
+} from '../../../../__stubs__';
 import { nextQueriesXStoreModule } from '../module';
 import { NextQueriesState } from '../types';
 import { resetNextQueriesStateWith } from './utils';
@@ -46,6 +50,29 @@ describe('testing next queries module getters', () => {
       resetNextQueriesStateWith(store, { query: ' ' });
       expect(store.getters[gettersKeys.request]).toBeNull();
     });
+
+    // eslint-disable-next-line max-len
+    it('should return a request object with a query concatenated with a related tag if there is so', () => {
+      resetNextQueriesStateWith(store, {
+        query: 'novela',
+        relatedTags: [createRelatedTagStub('novela', 'policíaca')],
+        config: {
+          maxItemsToRequest: 5
+        },
+        params: {
+          catalog: 'es'
+        }
+      });
+
+      expect(store.getters[gettersKeys.request]).toEqual<NextQueriesRequest>({
+        query: 'novela policíaca',
+        rows: 5,
+        start: 0,
+        extraParams: {
+          catalog: 'es'
+        }
+      });
+    });
   });
 
   describe(`${gettersKeys.nextQueries} getter`, () => {
@@ -75,6 +102,24 @@ describe('testing next queries module getters', () => {
         }
       });
       expect(store.getters[gettersKeys.nextQueries]).toEqual(nextQueries);
+    });
+  });
+
+  describe(`${gettersKeys.query} getter`, () => {
+    it('returns the query when there are no selected related tags', () => {
+      resetNextQueriesStateWith(store, {
+        query: 'novela',
+        relatedTags: []
+      });
+      expect(store.getters.query).toEqual('novela');
+    });
+
+    it('returns the query and the selected related tags concatenated', () => {
+      resetNextQueriesStateWith(store, {
+        query: 'novela',
+        relatedTags: [createRelatedTagStub('novela negra', 'negra')]
+      });
+      expect(store.getters.query).toEqual('novela negra');
     });
   });
 });
