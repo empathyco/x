@@ -15,7 +15,8 @@ function renderPageLoaderButton({
 
   const wrapper = mount(PageLoaderButton as ComponentOptions<Vue>, {
     propsData: {
-      buttonClasses: ''
+      buttonClasses: '',
+      buttonEvents: {}
     },
     mocks: {
       $x: {
@@ -81,6 +82,25 @@ describe('testing PageLoaderButton component', () => {
 
     expect(emit).toHaveBeenCalledTimes(1);
     expect(emit).toHaveBeenCalledWith('UserReachedResultsListEnd', undefined, {
+      target: baseEventButton.element
+    });
+  });
+
+  it('emits an event passed via prop', async () => {
+    const { wrapper, emit } = renderPageLoaderButton();
+    const baseEventButton = wrapper.find(getDataTestSelector('load-content'));
+
+    wrapper.setProps({ buttonEvents: { UserClickedCloseX: undefined } });
+    await wrapper.vm.$nextTick();
+
+    baseEventButton.trigger('click');
+    await nextTick();
+
+    expect(emit).toHaveBeenCalledTimes(2);
+    expect(emit).toHaveBeenCalledWith('UserReachedResultsListEnd', undefined, {
+      target: baseEventButton.element
+    });
+    expect(emit).toHaveBeenCalledWith('UserClickedCloseX', undefined, {
       target: baseEventButton.element
     });
   });
