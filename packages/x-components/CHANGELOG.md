@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.28...@empathyco/x-components@4.1.0-alpha.29) (2024-03-08)
+
+
+### Features
+
+* create load next page component (#1424) ([cf05167](https://github.com/empathyco/x/commit/cf05167904dfdc018e36f33c7d0df2ff0e5de4a9))
+
+
+
 ## [4.1.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.27...@empathyco/x-components@4.1.0-alpha.28) (2024-03-07)
 
 
