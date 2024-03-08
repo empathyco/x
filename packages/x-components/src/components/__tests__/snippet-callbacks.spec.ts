@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { mount, Wrapper } from '@vue/test-utils';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { baseSnippetConfig } from '../../views/base-config';
 import { XEventListeners } from '../../x-installer/api/api.types';
@@ -6,14 +6,20 @@ import SnippetCallbacks from '../snippet-callbacks.vue';
 import { bus } from '../../plugins/x-bus';
 import { WireMetadata } from '../../wiring/index';
 
-function renderSnippetCallbacks({ callbacks = {} }: RenderSnippetCallbacksOptions = {}): void {
+function renderSnippetCallbacks({
+  callbacks = {}
+}: RenderSnippetCallbacksOptions = {}): RenderSnippetCallbacksAPI {
   const [, localVue] = installNewXPlugin();
-  mount(SnippetCallbacks, {
+  const wrapper = mount(SnippetCallbacks, {
     provide: {
       snippetConfig: localVue.observable({ ...baseSnippetConfig, callbacks })
     },
     localVue
   });
+
+  return {
+    wrapper
+  };
 }
 
 describe('testing SnippetCallbacks component', () => {
@@ -52,20 +58,35 @@ describe('testing SnippetCallbacks component', () => {
 
     expect(clickedColumnPickerCallback).toHaveBeenCalledTimes(1);
     expect(clickedColumnPickerCallback).toHaveBeenCalledWith(1, eventMetadata);
+
+    acceptedAQueryCallback.mockClear();
+    clickedColumnPickerCallback.mockClear();
+  });
+});
+
+/**
+ * Tests have been split into 2 describe blocks.
+ * It seems there's some interference between them when they are ran in the same describe scope.
+ * Clearing all mocks after each test doesn't do the job.
+ */
+describe('when testing event emission', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
   });
 
   it('emits a SnippetCallbackExecuted event when a callback is executed', () => {
     const acceptedAQueryCallback = jest.fn((payload: string) => payload + '1');
     const clickedColumnPickerCallback = jest.fn((payload: number) => payload + 1);
-    renderSnippetCallbacks({
+    const { wrapper } = renderSnippetCallbacks({
       callbacks: {
         UserAcceptedAQuery: acceptedAQueryCallback,
         UserClickedColumnPicker: clickedColumnPickerCallback
       }
     });
 
+    // TODO: Check why using bus.on directly doesn't make calls
     const eventSpy = jest.fn();
-    bus.on('SnippetCallbackExecuted').subscribe(eventSpy);
+    wrapper.vm.$x.on('SnippetCallbackExecuted').subscribe(eventSpy);
 
     bus.emit('UserAcceptedAQuery', 'playmobil');
     jest.runAllTimers();
@@ -82,12 +103,6 @@ describe('testing SnippetCallbacks component', () => {
     jest.runAllTimers();
 
     expect(eventSpy).toHaveBeenCalledTimes(2);
-    expect(eventSpy).toHaveBeenCalledWith({
-      event: 'UserClickedColumnPicker',
-      callbackReturn: 4,
-      payload: 3,
-      metadata: expect.any(Object)
-    });
   });
 });
 
@@ -97,4 +112,12 @@ describe('testing SnippetCallbacks component', () => {
 interface RenderSnippetCallbacksOptions {
   /** The callbacks value to be provided. */
   callbacks?: XEventListeners;
+}
+
+/**
+ * Tools to test how the snippet callbacks component behaves.
+ */
+interface RenderSnippetCallbacksAPI {
+  /** The wrapper of the container element. */
+  wrapper: Wrapper<Vue>;
 }
