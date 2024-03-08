@@ -1,16 +1,12 @@
-import { mount, Wrapper } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Vue, { ComponentOptions } from 'vue';
 import { installNewXPlugin } from '../../__tests__/utils';
 import GlobalXBus from '../global-x-bus.vue';
 import { bus } from '../../plugins/x-bus';
 
-function renderGlobalXBus({ listeners = {} }: RenderGlobalXBusOptions = {}): RenderGlobalXBusAPI {
+function renderGlobalXBus({ listeners = {} }: RenderGlobalXBusOptions = {}): void {
   const [, localVue] = installNewXPlugin();
-  const wrapper = mount(GlobalXBus, { listeners, localVue });
-
-  return {
-    wrapper
-  };
+  mount(GlobalXBus, { listeners, localVue });
 }
 
 describe('testing GlobalXBus component', function () {
@@ -51,12 +47,4 @@ describe('testing GlobalXBus component', function () {
 interface RenderGlobalXBusOptions {
   /** The listeners object in the component.*/
   listeners?: ComponentOptions<Vue>['methods'];
-}
-
-/**
- * Options to configure how the global X bus component should be rendered.
- */
-interface RenderGlobalXBusAPI {
-  /** The wrapper for the global X bus component. */
-  wrapper: Wrapper<Vue>;
 }
