@@ -15,7 +15,7 @@ import { PropsWithType } from '../utils/types';
  * @returns An object with the `on` and `emit` functions.
  */
 export function useXBus(): UseXBusAPI {
-  const location = inject<FeatureLocation>('location', undefined as any);
+  const location = inject<FeatureLocation>('location', 'none');
 
   const currentComponent: PrivateExtendedVueComponent | undefined | null =
     getCurrentInstance()?.proxy;
