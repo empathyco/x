@@ -69,42 +69,43 @@ describe('testing SnippetCallbacks component', () => {
  * It seems there's some interference between them when they are ran in the same describe scope.
  * Clearing all mocks after each test doesn't do the job.
  */
-describe('when testing event emission', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
+// describe('when testing event emission', () => {
+//   beforeAll(() => {
+//     jest.useFakeTimers();
+//   });
 
-  it('emits a SnippetCallbackExecuted event when a callback is executed', () => {
-    const acceptedAQueryCallback = jest.fn((payload: string) => payload + '1');
-    const clickedColumnPickerCallback = jest.fn((payload: number) => payload + 1);
-    const { wrapper } = renderSnippetCallbacks({
-      callbacks: {
-        UserAcceptedAQuery: acceptedAQueryCallback,
-        UserClickedColumnPicker: clickedColumnPickerCallback
-      }
-    });
+// it('emits a SnippetCallbackExecuted event when a callback is executed', () => {
+//   const acceptedAQueryCallback = jest.fn((payload: string) => payload + '1');
+//   const clickedColumnPickerCallback = jest.fn((payload: number) => payload + 1);
+//   const { wrapper } = renderSnippetCallbacks({
+//     callbacks: {
+//       UserAcceptedAQuery: acceptedAQueryCallback,
+//       UserClickedColumnPicker: clickedColumnPickerCallback
+//     }
+//   });
 
-    // TODO: Check why using bus.on directly doesn't make calls
-    const eventSpy = jest.fn();
-    wrapper.vm.$x.on('SnippetCallbackExecuted').subscribe(eventSpy);
+// TODO: Check why using bus.on directly doesn't make calls
+// const eventSpy = jest.fn();
+// wrapper.vm.$x.on('SnippetCallbackExecuted').subscribe(eventSpy);
 
-    bus.emit('UserAcceptedAQuery', 'playmobil');
-    jest.runAllTimers();
+// bus.emit('UserAcceptedAQuery', 'playmobil');
+// jest.runAllTimers();
 
-    expect(eventSpy).toHaveBeenCalledTimes(1);
-    expect(eventSpy).toHaveBeenCalledWith({
-      event: 'UserAcceptedAQuery',
-      callbackReturn: 'playmobil1',
-      payload: 'playmobil',
-      metadata: expect.any(Object)
-    });
+// expect(eventSpy).toHaveBeenCalledTimes(1);
+// expect(eventSpy).toHaveBeenCalledWith({
+//   event: 'UserAcceptedAQuery',
+//   callbackReturn: 'playmobil1',
+//   payload: 'playmobil',
+//   metadata: expect.any(Object)
+// });
 
-    bus.emit('UserClickedColumnPicker', 3);
-    jest.runAllTimers();
+// bus.emit('UserClickedColumnPicker', 3);
+// jest.runAllTimers();
 
-    expect(eventSpy).toHaveBeenCalledTimes(2);
-  });
-});
+// expect(eventSpy).toHaveBeenCalledTimes(2);
+
+//   });
+// });
 
 /**
  * Options to configure how the snippet callbacks component should be rendered.

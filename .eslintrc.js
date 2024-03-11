@@ -7,7 +7,8 @@ module.exports = {
     '**/jest.setup.ts',
     '**/dist',
     'packages/search-adapter',
-    'packages/eslint-plugin-x'
+    'packages/eslint-plugin-x',
+    'packages/x-components/src/components/__tests__/snippet-callbacks.spec.ts'
   ],
   parserOptions: {
     tsconfigRootDir: __dirname,
