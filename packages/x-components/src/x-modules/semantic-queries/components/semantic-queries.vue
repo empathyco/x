@@ -43,11 +43,11 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
-  import { SemanticQuery as SemanticQueryModel, TaggingRequest } from '@empathyco/x-types';
+  import { SemanticQuery as SemanticQueryModel } from '@empathyco/x-types';
   import { xComponentMixin } from '../../../components/x-component.mixin';
   import { semanticQueriesXModule } from '../x-module';
   import { NoElement } from '../../../components/no-element';
-  import { State, XOn } from '../../../components';
+  import { State } from '../../../components';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import SemanticQuery from './semantic-query.vue';
 
@@ -87,25 +87,6 @@
      */
     findSemanticQuery(query: string): SemanticQueryModel | undefined {
       return this.suggestions.find(suggestion => suggestion.query === query);
-    }
-
-    /**
-     * The queryTagging from the search module state.
-     */
-    @State('search', 'queryTagging')
-    public queryTagging!: TaggingRequest;
-
-    /**
-     * Emits `QueryTaggingWithNoResults` event when the semantic queries response changed.
-     *
-     * @param semanticQueries - The new semantic queries list.
-     */
-    @XOn('SemanticQueriesResponseChanged')
-    emitQueryTaggingFromSemantics(semanticQueries: SemanticQueryModel[]): void {
-      if (this.queryTagging.params.totalHits === '0') {
-        const totalHits = semanticQueries.length > 0 ? '-1' : '0';
-        this.$x.emit('QueryTaggingWithNoResults', { queryTagging: this.queryTagging, totalHits });
-      }
     }
   }
 </script>
