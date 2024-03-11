@@ -93,11 +93,13 @@ const clearSessionWire = filter(
 export const setConsent = wireCommit('setConsent');
 
 /**
- * Sets the tagging state `hasSemantics`.
+ * Sets the tagging state `semanticQueriesModuleRegistered`.
  *
  * @public
  */
-export const setHasSemantics = wireCommit('setHasSemantics');
+export const setSemanticQueriesModuleRegisteredWire = wireCommit(
+  'setSemanticQueriesModuleRegistered'
+);
 
 /**
  * Sets the tagging config state.
@@ -114,7 +116,8 @@ export const setTaggingConfig = wireCommit('mergeConfig');
 export const trackQueryWire = filter(
   wireDispatch('track'),
   ({ eventPayload, store }) =>
-    (eventPayload as TaggingRequest).params.totalHits > 0 || !store.state.x.tagging.hasSemantics
+    (eventPayload as TaggingRequest).params.totalHits > 0 ||
+    !store.state.x.tagging.semanticQueriesModuleRegistered
 );
 
 /**
@@ -325,6 +328,6 @@ export const taggingWiring = createWiring({
     trackNoResultsQueryWithSemanticsWireDebounced
   },
   ModuleRegistered: {
-    setHasSemantics
+    setSemanticQueriesModuleRegisteredWire
   }
 });

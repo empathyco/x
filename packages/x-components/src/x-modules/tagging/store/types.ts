@@ -16,7 +16,7 @@ export interface TaggingState {
   /**
    * Value to know if Semantics module is register.
    */
-  hasSemantics: boolean;
+  semanticQueriesModuleRegistered: boolean;
   /**
    * Configuration for the `Tagging` module.
    */
@@ -53,11 +53,11 @@ export interface TaggingMutations extends ConfigMutations<TaggingState> {
    */
   setQueryTaggingInfo(queryTaggingInfo: TaggingRequest): void;
   /**
-   * Sets the hasSemantics property.
+   * Sets the semanticQueriesModuleRegistered property.
    *
    * @param module - The name of the register module.
    */
-  setHasSemantics(module: XModuleName): void;
+  setSemanticQueriesModuleRegistered(module: XModuleName): void;
 }
 
 /**
