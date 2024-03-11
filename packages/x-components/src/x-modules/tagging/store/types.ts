@@ -78,18 +78,6 @@ export interface TaggingActions {
    * @param tagging - The information of the event to track.
    */
   track(tagging: TaggingRequest | TaggingRequest[]): void;
-  /**
-   * Filters queryTagging and tracks user interaction.
-   *
-   * @param tagging - The information of the event to track.
-   */
-  trackQueryWithResults(tagging: TaggingRequest | TaggingRequest[]): void;
-  /**
-   * Updates query tagging information.
-   *
-   * @param tagging - The information of the event to update and set.
-   */
-  updateQueryTaggingInfo(tagging: SemanticsQueryTaggingPayload): void;
 }
 
 /**

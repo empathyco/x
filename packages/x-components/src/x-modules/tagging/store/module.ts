@@ -2,8 +2,6 @@ import { TaggingRequest } from '@empathyco/x-types';
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 import { track } from './actions/track.action';
 import { TaggingXStoreModule } from './types';
-import { updateQueryTaggingInfo } from './actions/update-query-tagging-info.action';
-import { trackQueryWithResults } from './actions/index';
 
 /**
  * {@link XStoreModule} For the tagging module.
@@ -42,8 +40,6 @@ export const taggingXStoreModule: TaggingXStoreModule = {
     mergeConfig
   },
   actions: {
-    track,
-    updateQueryTaggingInfo,
-    trackQueryWithResults
+    track
   }
 };

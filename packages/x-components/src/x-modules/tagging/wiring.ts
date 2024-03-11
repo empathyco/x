@@ -111,7 +111,11 @@ export const setTaggingConfig = wireCommit('mergeConfig');
  *
  * @public
  */
-export const trackQueryWire = wireDispatch('trackQueryWithResults');
+export const trackQueryWire = filter(
+  wireDispatch('track'),
+  ({ eventPayload, store }) =>
+    (eventPayload as TaggingRequest).params.totalHits > 0 || !store.state.x.tagging.hasSemantics
+);
 
 /**
  * Sets the tagging state of the query tagging info using a debounce which ends if the user
@@ -132,16 +136,6 @@ export const setQueryTaggingInfo = moduleDebounce(
       'UserReachedResultsListEnd'
     ]
   }
-);
-
-/**
- * Updates the totalHits param and tracks the new tagging of the query.
- *
- * @public
- */
-export const setQueryTaggingWithNoResults = moduleDebounce(
-  wireDispatch('updateQueryTaggingInfo'),
-  ({ state }) => state.config.queryTaggingDebounceMs
 );
 
 /**
