@@ -28,9 +28,6 @@ export const taggingXStoreModule: TaggingXStoreModule = {
     setQueryTaggingInfo(state, queryTaggingInfo: TaggingRequest) {
       state.queryTaggingInfo = queryTaggingInfo;
     },
-    updateTotalHits(state, totalHits: string) {
-      state.queryTaggingInfo!.params.totalHits = totalHits;
-    },
     setHasSemantics(state, module) {
       if (module === 'semanticQueries') {
         state.hasSemantics = true;

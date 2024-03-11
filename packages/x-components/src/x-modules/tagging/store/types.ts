@@ -53,12 +53,6 @@ export interface TaggingMutations extends ConfigMutations<TaggingState> {
    */
   setQueryTaggingInfo(queryTaggingInfo: TaggingRequest): void;
   /**
-   * Sets the totalHits property.
-   *
-   * @param totalHits - The new value of totalHits in {@link TaggingState.queryTaggingInfo}.
-   */
-  updateTotalHits(totalHits: string): void;
-  /**
    * Sets the hasSemantics property.
    *
    * @param module - The name of the register module.
@@ -91,19 +85,3 @@ export type TaggingXStoreModule = XStoreModule<
   TaggingMutations,
   TaggingActions
 >;
-
-/**
- * Payload to use in the `updateQueryTaggingInfo` action.
- *
- * @public
- */
-export interface SemanticsQueryTaggingPayload {
-  /**
-   * The query tagging info.
-   */
-  queryTagging: TaggingRequest;
-  /**
-   * The param to modify.
-   */
-  totalHits: string;
-}
