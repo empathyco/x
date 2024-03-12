@@ -14,6 +14,12 @@ export interface SemanticQueriesXEvents {
   SemanticQueryRequestUpdated: SemanticQueriesRequest | null;
 
   /**
+   * The response list of semantic queries has changed.
+   * Payload: The new {@link SemanticQuery | semantic query} list.
+   */
+  SemanticQueriesResponseChanged: SemanticQuery[];
+
+  /**
    * The user has selected a semantic query.
    * Payload: The {@link SemanticQuery | semantic query} selected.
    */

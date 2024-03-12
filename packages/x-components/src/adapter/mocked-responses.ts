@@ -219,11 +219,11 @@ export function createSearchResponse(partial?: Partial<SearchResponse>): SearchR
     totalResults: 24,
     queryTagging: {
       url: `${trackEndpoint}/query`,
-      params: { page: 1 }
+      params: { page: 1, totalHits: 5 }
     },
     displayTagging: {
       url: `${trackEndpoint}/display`,
-      params: { page: 1 }
+      params: { page: 1, totalHits: 5 }
     },
     spellcheck: '',
     ...partial

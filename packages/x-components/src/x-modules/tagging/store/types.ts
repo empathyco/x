@@ -2,6 +2,7 @@ import { TaggingRequest } from '@empathyco/x-types';
 import { XStoreModule } from '../../../store';
 import { TaggingConfig } from '../config.types';
 import { ConfigMutations } from '../../../store/utils/config-store.utils';
+import { XModuleName } from '../../x-modules.types';
 /**
  * Tagging store state.
  *
@@ -12,6 +13,11 @@ export interface TaggingState {
    * The current consent for tracking.
    */
   consent: boolean | null;
+  /**
+   * Flag to enable the tagging of the fallback solution to
+   * no results page.
+   */
+  noResultsTaggingEnabled: boolean;
   /**
    * Configuration for the `Tagging` module.
    */
@@ -47,6 +53,12 @@ export interface TaggingMutations extends ConfigMutations<TaggingState> {
    * @param queryTaggingInfo - The new {@link TaggingState.queryTaggingInfo}.
    */
   setQueryTaggingInfo(queryTaggingInfo: TaggingRequest): void;
+  /**
+   * Sets the noResultsTaggingEnabled property.
+   *
+   * @param module - The name of the register module.
+   */
+  setNoResultsTaggingEnabled(module: XModuleName): void;
 }
 
 /**

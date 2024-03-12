@@ -59,7 +59,7 @@
   @Component({
     inheritAttrs: false,
     mixins: [xComponentMixin(semanticQueriesXModule)],
-    components: { BaseSuggestions, SemanticQuery, NoElement }
+    components: { BaseSuggestions, NoElement, SemanticQuery }
   })
   export default class SemanticQueries extends Vue {
     /**
