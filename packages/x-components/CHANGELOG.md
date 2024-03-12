@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.29...@empathyco/x-components@4.1.0-alpha.30) (2024-03-12)
+
+
+### Features
+
+* send totalHits -1 when there are no results and semantics (#1425) ([d393649](https://github.com/empathyco/x/commit/d39364944d2ee76ee5412480e9c3cdeb55fc4fa1))
+
+
+
 ## [4.1.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.28...@empathyco/x-components@4.1.0-alpha.29) (2024-03-08)
 
 
