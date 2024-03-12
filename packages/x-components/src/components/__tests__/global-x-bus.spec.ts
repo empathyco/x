@@ -1,12 +1,14 @@
-import { mount } from '@vue/test-utils';
+import { mount, Wrapper } from '@vue/test-utils';
 import Vue, { ComponentOptions } from 'vue';
-import { installNewXPlugin } from '../../__tests__/utils';
 import GlobalXBus from '../global-x-bus.vue';
 import { bus } from '../../plugins/x-bus';
 
-function renderGlobalXBus({ listeners = {} }: RenderGlobalXBusOptions = {}): void {
-  const [, localVue] = installNewXPlugin();
-  mount(GlobalXBus, { listeners, localVue });
+function renderGlobalXBus({ listeners = {} }: RenderGlobalXBusOptions = {}): RenderGlobalXBusAPI {
+  const wrapper = mount(GlobalXBus, { listeners });
+
+  return {
+    wrapper
+  };
 }
 
 describe('testing GlobalXBus component', function () {
@@ -24,20 +26,37 @@ describe('testing GlobalXBus component', function () {
       }
     });
 
-    const eventMetadata = {
-      location: undefined,
-      moduleName: null,
-      replaceable: true
-    };
-
-    bus.emit('UserAcceptedAQuery', 'lego', eventMetadata);
+    bus.emit('UserAcceptedAQuery', 'lego');
 
     jest.runAllTimers();
 
     expect(acceptedAQueryCallback).toHaveBeenCalledTimes(1);
-    expect(acceptedAQueryCallback).toHaveBeenCalledWith('lego', eventMetadata);
+    expect(acceptedAQueryCallback).toHaveBeenCalledWith('lego', expect.any(Object));
 
     expect(clickedColumnPickerCallback).not.toHaveBeenCalled();
+  });
+
+  it('unsubscribes from the listeners when the component is unmounted', function () {
+    const clickedColumnPickerCallback = jest.fn(payload => payload);
+
+    const { wrapper } = renderGlobalXBus({
+      listeners: {
+        UserClickedColumnPicker: clickedColumnPickerCallback
+      }
+    });
+
+    bus.emit('UserClickedColumnPicker');
+
+    jest.runAllTimers();
+
+    expect(clickedColumnPickerCallback).toHaveBeenCalledTimes(1);
+
+    wrapper.destroy();
+
+    bus.emit('UserClickedColumnPicker');
+
+    jest.runAllTimers();
+    expect(clickedColumnPickerCallback).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -47,4 +66,11 @@ describe('testing GlobalXBus component', function () {
 interface RenderGlobalXBusOptions {
   /** The listeners object in the component.*/
   listeners?: ComponentOptions<Vue>['methods'];
+}
+
+/**
+ * API for the renderGlobalXBus.
+ */
+interface RenderGlobalXBusAPI {
+  wrapper: Wrapper<Vue>;
 }
