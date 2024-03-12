@@ -93,11 +93,11 @@ const clearSessionWire = filter(
 export const setConsent = wireCommit('setConsent');
 
 /**
- * Sets the tagging state `semanticQueriesModuleRegistered`.
+ * Sets the tagging state `noResultsTaggingEnabled`.
  *
  * @public
  */
-export const setSemanticQueriesModuleRegisteredWire = wireCommit('setNoResultsTaggingEnabled');
+export const setNoResultsTaggingEnabledWire = wireCommit('setNoResultsTaggingEnabled');
 
 /**
  * Sets the tagging config state.
@@ -326,6 +326,6 @@ export const taggingWiring = createWiring({
     trackNoResultsQueryWithSemanticsWireDebounced
   },
   ModuleRegistered: {
-    setSemanticQueriesModuleRegisteredWire
+    setNoResultsTaggingEnabledWire
   }
 });
