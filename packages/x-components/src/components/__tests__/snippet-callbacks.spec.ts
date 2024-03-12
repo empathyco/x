@@ -20,6 +20,7 @@ function renderSnippetCallbacks({
   };
 }
 
+// TODO: Refactor in EMP-3380
 // eslint-disable-next-line jest/no-disabled-tests
 describe.skip('testing SnippetCallbacks component', () => {
   it('executes a callback injected from the snippetConfig', () => {
