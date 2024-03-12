@@ -97,9 +97,7 @@ export const setConsent = wireCommit('setConsent');
  *
  * @public
  */
-export const setSemanticQueriesModuleRegisteredWire = wireCommit(
-  'setSemanticQueriesModuleRegistered'
-);
+export const setSemanticQueriesModuleRegisteredWire = wireCommit('setNoResultsTaggingEnabled');
 
 /**
  * Sets the tagging config state.
@@ -117,7 +115,7 @@ export const trackQueryWire = filter(
   wireDispatch('track'),
   ({ eventPayload, store }) =>
     (eventPayload as TaggingRequest).params.totalHits > 0 ||
-    !store.state.x.tagging.semanticQueriesModuleRegistered
+    !store.state.x.tagging.noResultsTaggingEnabled
 );
 
 /**

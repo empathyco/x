@@ -17,7 +17,7 @@ export const taggingXStoreModule: TaggingXStoreModule = {
       clickedResultStorageTTLMs: null
     },
     consent: null,
-    semanticQueriesModuleRegistered: false,
+    noResultsTaggingEnabled: false,
     queryTaggingInfo: null
   }),
   getters: {},
@@ -28,9 +28,9 @@ export const taggingXStoreModule: TaggingXStoreModule = {
     setQueryTaggingInfo(state, queryTaggingInfo: TaggingRequest) {
       state.queryTaggingInfo = queryTaggingInfo;
     },
-    setSemanticQueriesModuleRegistered(state, module) {
+    setNoResultsTaggingEnabled(state, module) {
       if (module === 'semanticQueries') {
-        state.semanticQueriesModuleRegistered = true;
+        state.noResultsTaggingEnabled = true;
       }
     },
     setConfig,

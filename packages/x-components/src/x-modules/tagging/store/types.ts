@@ -14,9 +14,10 @@ export interface TaggingState {
    */
   consent: boolean | null;
   /**
-   * Value to know if Semantics module is register.
+   * Flag to enable the tagging of the fallback solution to
+   * no results page.
    */
-  semanticQueriesModuleRegistered: boolean;
+  noResultsTaggingEnabled: boolean;
   /**
    * Configuration for the `Tagging` module.
    */
@@ -53,11 +54,11 @@ export interface TaggingMutations extends ConfigMutations<TaggingState> {
    */
   setQueryTaggingInfo(queryTaggingInfo: TaggingRequest): void;
   /**
-   * Sets the semanticQueriesModuleRegistered property.
+   * Sets the noResultsTaggingEnabled property.
    *
    * @param module - The name of the register module.
    */
-  setSemanticQueriesModuleRegistered(module: XModuleName): void;
+  setNoResultsTaggingEnabled(module: XModuleName): void;
 }
 
 /**
