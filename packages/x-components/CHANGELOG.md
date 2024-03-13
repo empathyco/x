@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.31...@empathyco/x-components@4.1.0-alpha.32) (2024-03-13)
+
+
+### Code Refactoring
+
+* migrate preselected filters component (#1422) ([4a38318](https://github.com/empathyco/x/commit/4a383186b5ca669938ffbc230c9c3d02805e866b))
+
+
+
 ## [4.1.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.30...@empathyco/x-components@4.1.0-alpha.31) (2024-03-13)
 
 
