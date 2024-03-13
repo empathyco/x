@@ -29,8 +29,7 @@
       }
     },
     setup(props) {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      const { emit } = useXBus();
+      const xBus = useXBus();
 
       /**
        * Injects {@link SnippetConfig} provided by an ancestor as snippetConfig
@@ -45,6 +44,7 @@
        * filters prop.
        *
        * @returns An array of filter's ids.
+       * @internal
        */
       const preselectedFilters = computed<string[]>(() => {
         return snippetConfig.value?.filters ?? props.filters;
@@ -53,10 +53,12 @@
       /**
        * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} to save
        * the provided filters in the state.
+       *
+       * @internal
        */
       const emitPreselectedFilters = (): void => {
         if (!isArrayEmpty(preselectedFilters.value)) {
-          emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters.value));
+          xBus.emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters.value));
         }
       };
 
