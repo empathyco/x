@@ -122,7 +122,7 @@ export function useAliasApi(): UseAliasAPI {
  *
  * @public
  */
-interface UseAliasAPI {
+export interface UseAliasAPI {
   /** The {@link DeviceXModule} detected device. */
   readonly device: ComputedRef<string | null>;
   /** The {@link FacetsXModule} facets. */
@@ -188,7 +188,7 @@ interface UseAliasAPI {
  *
  * @public
  */
-interface UseAliasQueryAPI {
+export interface UseAliasQueryAPI {
   /** The {@link FacetsXModule} query. */
   readonly facets: string;
   /** The {@link SearchBoxXModule} query. */
@@ -208,7 +208,7 @@ interface UseAliasQueryAPI {
  *
  * @public
  */
-interface UseAliasStatusAPI {
+export interface UseAliasStatusAPI {
   /** The {@link IdentifierResultsXModule} status. */
   readonly identifierResults: RequestStatus | undefined;
   /** The {@link NextQueriesXModule} status. */
