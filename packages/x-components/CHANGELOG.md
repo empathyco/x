@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.30...@empathyco/x-components@4.1.0-alpha.31) (2024-03-13)
+
+
+### Code Refactoring
+
+* migrate global-x-bus component (#1429) ([48c8ff5](https://github.com/empathyco/x/commit/48c8ff58f112c7ff11df4568358bde8542f32b0a))
+
+
+
 ## [4.1.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.29...@empathyco/x-components@4.1.0-alpha.30) (2024-03-12)
 
 
