@@ -1,21 +1,22 @@
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import Vue, { ComponentOptions } from 'vue';
 import Vuex from 'vuex';
 import { Dictionary } from '@empathyco/x-utils';
 import { createRawFilters } from '../../../../utils/filters';
 import { baseSnippetConfig } from '../../../../views/base-config';
 import PreselectedFilters from '../preselected-filters.vue';
+import { bus } from '../../../../plugins/index';
 
 function renderPreselectedFilters({
   filters,
   snippetFilters
 }: RenderPreselectedFiltersOptions = {}): RenderPreselectedFiltersAPI {
-  const emit = jest.fn();
+  const emit = jest.spyOn(bus, 'emit');
   const localVue = createLocalVue();
   const snippetConfig = Vue.observable({ ...baseSnippetConfig, filters: snippetFilters });
   localVue.use(Vuex);
 
-  const wrapper = mount(PreselectedFilters, {
+  const wrapper = mount(PreselectedFilters as ComponentOptions<Vue>, {
     provide: {
       snippetConfig: snippetConfig
     },
@@ -24,7 +25,7 @@ function renderPreselectedFilters({
     },
     localVue,
     mocks: {
-      $x: {
+      emit: {
         emit
       }
     }
@@ -49,7 +50,6 @@ describe('testing Preselected filters component', () => {
 
   it('does not emit the event when neither filters nor snippet config filters are provided', () => {
     const { emit } = renderPreselectedFilters();
-
     expect(emit).not.toHaveBeenCalled();
   });
 
@@ -65,7 +65,8 @@ describe('testing Preselected filters component', () => {
     expect(emit).toHaveBeenCalledTimes(1);
     expect(emit).toHaveBeenCalledWith(
       'PreselectedFiltersProvided',
-      createRawFilters(snippetFilters)
+      createRawFilters(snippetFilters),
+      expect.any(Object)
     );
   });
 
@@ -76,7 +77,11 @@ describe('testing Preselected filters component', () => {
     });
 
     expect(emit).toHaveBeenCalledTimes(1);
-    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(filters));
+    expect(emit).toHaveBeenCalledWith(
+      'PreselectedFiltersProvided',
+      createRawFilters(filters),
+      expect.any(Object)
+    );
   });
 
   it('emits the event using the snippet config filters as payload when both are provided', () => {
@@ -93,7 +98,8 @@ describe('testing Preselected filters component', () => {
     expect(emit).toHaveBeenCalledTimes(1);
     expect(emit).toHaveBeenCalledWith(
       'PreselectedFiltersProvided',
-      createRawFilters(snippetFilters)
+      createRawFilters(snippetFilters),
+      expect.any(Object)
     );
   });
 
@@ -107,13 +113,21 @@ describe('testing Preselected filters component', () => {
 
     expect(wrapper.props()).toEqual({ filters: filters });
     expect(emit).toHaveBeenCalledTimes(1);
-    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(filters));
+    expect(emit).toHaveBeenCalledWith(
+      'PreselectedFiltersProvided',
+      createRawFilters(filters),
+      expect.any(Object)
+    );
 
     await wrapper.setProps({ filters: newFilters });
 
     expect(wrapper.props()).toEqual({ filters: newFilters });
     expect(emit).toHaveBeenCalledTimes(2);
-    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(newFilters));
+    expect(emit).toHaveBeenCalledWith(
+      'PreselectedFiltersProvided',
+      createRawFilters(newFilters),
+      expect.any(Object)
+    );
   });
 
   it('emits the event when the snippetConfig filters change', async () => {
@@ -126,7 +140,11 @@ describe('testing Preselected filters component', () => {
 
     expect(wrapper.props()).toEqual({ filters: filters });
     expect(emit).toHaveBeenCalledTimes(1);
-    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(filters));
+    expect(emit).toHaveBeenCalledWith(
+      'PreselectedFiltersProvided',
+      createRawFilters(filters),
+      expect.any(Object)
+    );
 
     await setSnippetConfig({ filters: newFilters });
 
@@ -138,7 +156,11 @@ describe('testing Preselected filters component', () => {
 
     // The event is called again with the newFilters provided
     expect(emit).toHaveBeenCalledTimes(2);
-    expect(emit).toHaveBeenCalledWith('PreselectedFiltersProvided', createRawFilters(newFilters));
+    expect(emit).toHaveBeenCalledWith(
+      'PreselectedFiltersProvided',
+      createRawFilters(newFilters),
+      expect.any(Object)
+    );
   });
 });
 
@@ -157,7 +179,7 @@ interface RenderPreselectedFiltersOptions {
  */
 interface RenderPreselectedFiltersAPI {
   /** Mock of the {@link XBus.emit} function. */
-  emit: jest.Mock;
+  emit: jest.SpyInstance;
   /** The wrapper of the container element.*/
   wrapper: Wrapper<Vue>;
   /** Helper method to change the snippet config. */
