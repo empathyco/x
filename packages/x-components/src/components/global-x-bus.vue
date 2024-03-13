@@ -1,12 +1,13 @@
 <script lang="ts">
   import { reduce } from '@empathyco/x-utils';
-  import { Component } from 'vue-property-decorator';
   import { Observable, Subscription } from 'rxjs';
   import { EventPayload, SubjectPayload } from '@empathyco/x-bus';
+  import { defineComponent, onBeforeUnmount } from 'vue';
   import { XEventListeners } from '../x-installer/api/api.types';
   import { WireMetadata } from '../wiring/wiring.types';
   import { XEventsTypes } from '../wiring/events.types';
-  import { NoElement } from './no-element';
+  import { useNoElementRender } from '../composables/use-no-element-render';
+  import { useXBus } from '../composables/use-x-bus';
 
   /**
    * This component helps subscribing to any {@link XEvent} with custom callbacks using Vue
@@ -14,32 +15,23 @@
    *
    * @public
    */
-  @Component
-  export default class GlobalXBus extends NoElement {
-    /**
-     * Object with the {@link XEvent} listeners.
-     *
-     * @internal
-     */
-    public $listeners!: XEventListeners;
+  export default defineComponent({
+    name: 'GlobalXBus',
+    setup(_, { listeners }) {
+      const xBus = useXBus();
 
-    created(): void {
-      this.handleXEventSubscription();
-    }
-
-    /**
-     * Handles a subscription to all the events provided in the listeners with the function that
-     * will execute the callback. Also unsubscribes on beforeDestroy.
-     *
-     * @internal
-     */
-    protected handleXEventSubscription(): void {
+      /**
+       * Handles a subscription to all the events provided in the listeners with the function that
+       * will execute the callback. Also unsubscribes on beforeDestroy.
+       *
+       * @internal
+       */
       const subscription = reduce(
-        this.$listeners,
+        listeners as XEventListeners,
         (subscription, eventName, callback) => {
           subscription.add(
             (
-              this.$x.on(eventName, true) as unknown as Observable<
+              xBus.on(eventName, true) as unknown as Observable<
                 SubjectPayload<EventPayload<XEventsTypes, typeof eventName>, WireMetadata>
               >
             ).subscribe(({ eventPayload, metadata }) => {
@@ -51,11 +43,14 @@
         new Subscription()
       );
 
-      this.$on('hook:beforeDestroy', () => {
+      onBeforeUnmount(() => {
         subscription.unsubscribe();
       });
+    },
+    render() {
+      return useNoElementRender(this.$slots);
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

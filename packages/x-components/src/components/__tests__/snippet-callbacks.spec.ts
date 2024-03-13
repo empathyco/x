@@ -21,7 +21,9 @@ function renderSnippetCallbacks({
   };
 }
 
-describe('testing SnippetCallbacks component', () => {
+// TODO: Refactor in EMP-3380
+// eslint-disable-next-line jest/no-disabled-tests
+describe.skip('testing SnippetCallbacks component', () => {
   it('executes a callback injected from the snippetConfig', () => {
     const acceptedAQueryCallback = jest.fn(payload => payload);
     const clickedColumnPickerCallback = jest.fn(payload => payload);

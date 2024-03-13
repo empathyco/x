@@ -1,0 +1,206 @@
+<template>
+  <div class="x-flex x-flex-col x-items-center x-py-32" data-test="page-loader">
+    <!--
+      @slot default
+          @binding {number} resultsLength - The search result's length
+          @binding {number} totalResults - The totalResults of a searched query
+      -->
+    <slot v-bind="{ resultsLength, totalResults }">
+      <!-- @slot Rendered count with a text and the number of results displayed & remaining. -->
+      <slot name="textContent" :resultsLength="resultsLength" :totalResults="totalResults">
+        <p class="x-text x-py-16" data-test="text-content">
+          You are seeing {{ resultsLength }} of {{ totalResults }} results
+        </p>
+      </slot>
+      <BaseEventButton
+        class="x-button"
+        :class="buttonClasses"
+        :events="events"
+        data-test="load-content"
+        aria-label="Load"
+      >
+        <!-- @slot Button content with a text, an icon or both -->
+        <slot name="buttonContent">Load</slot>
+      </BaseEventButton>
+    </slot>
+  </div>
+</template>
+
+<script lang="ts">
+  import { computed, defineComponent, PropType } from 'vue';
+  import { VueCSSClasses } from '../utils/types';
+  import { use$x } from '../composables';
+  import { XEventsTypes } from '../wiring';
+  import BaseEventButton from './base-event-button.vue';
+
+  /**
+   * Component that renders a text with the number of rendered results and
+   * the remaining ones and a `<BaseEventButton>` with the logic of emitting
+   * the event "UserReachedResultsListEnd" to load more results on click.
+   *
+   * @public
+   */
+  export default defineComponent({
+    name: 'PageLoaderButton',
+    components: { BaseEventButton },
+    props: {
+      /**
+       * CSS classes to customize the loader button.
+       *
+       * @internal
+       */
+      buttonClasses: {
+        type: String as PropType<VueCSSClasses>,
+        default: ''
+      },
+      /**
+       * Events to customize what will be emitted by the loader button.
+       *
+       * @internal
+       */
+      buttonEvents: {
+        type: Object as PropType<Partial<XEventsTypes>>
+      }
+    },
+    setup(props) {
+      const $x = use$x();
+      const resultsLength = computed(() => $x.results.length);
+      const totalResults = computed(() => $x.totalResults);
+
+      /**
+       * The events that will be emitted when clicking on the loader button.
+       *
+       * @returns The {@link XEvent} to emit.
+       * @public
+       */
+      const events = computed<Partial<XEventsTypes>>(() => {
+        return { UserReachedResultsListEnd: undefined, ...props.buttonEvents };
+      });
+
+      return {
+        resultsLength,
+        totalResults,
+        events
+      };
+    }
+  });
+</script>
+
+<docs lang="mdx">
+## Events
+
+This component emits the "UserReachedResultsListEnd" event by default. This can be changed using the
+buttonEvents prop:
+
+```vue live
+<template>
+  <PageLoaderButton :buttonEvents="{ UserClickedCloseX: undefined }" />
+</template>
+
+<script>
+  import { PageLoaderButton } from '@empathyco/x-components';
+
+  export default {
+    name: 'PageLoaderButtonDemo',
+    components: {
+      PageLoaderButton
+    }
+  };
+</script>
+```
+
+## See it in action
+
+Here you have a basic example of how the page loader component is rendered.
+
+```vue live
+<template>
+  <PageLoaderButton />
+</template>
+
+<script>
+  import { PageLoaderButton } from '@empathyco/x-components';
+
+  export default {
+    name: 'PageLoaderButtonDemo',
+    components: {
+      PageLoaderButton
+    }
+  };
+</script>
+```
+
+### Customise the default layout
+
+This component has a default slot which allows to customise the entire layout.
+
+```vue live
+<template>
+  <PageLoaderButton>
+    <template #default="{ resultsLength, totalResults }">
+      <div class="x-flex x-flex-col">
+        <div class="x-flex x-gap-4 x-text">
+          <span class="x-text-accent-50 x-font-bold">{{ resultsLength }}</span>
+          <span>of</span>
+          <span class="x-text-accent-50">{{ totalResults }}</span>
+        </div>
+        <button
+          @click="$x.emit('UserReachedResultsListEnd', undefined)"
+          class="x-button x-button-ghost"
+        >
+          Load more
+        </button>
+      </div>
+    </template>
+  </PageLoaderButton>
+</template>
+
+<script>
+  import { PageLoaderButton } from '@empathyco/x-components';
+
+  export default {
+    name: 'PageLoaderButtonDemo',
+    components: {
+      PageLoaderButton
+    }
+  };
+</script>
+```
+
+### Customise the slots
+
+This component allows to customise both the textContent and the buttonContent slots. The
+textContent's slot layout can be replaced entirely, while the buttonContent's slot enables wrapping
+content inside and customizing its style using the buttonClasses prop.
+
+```vue live
+<template>
+  <PageLoaderButton :buttonClasses="buttonClasses">
+    <template #textContent="{ resultsLength, totalResults }">
+      <div class="x-flex x-gap-4 x-text">
+        <span class="x-text-accent-50 x-font-bold">{{ resultsLength }}</span>
+        <span>of</span>
+        <span class="x-text-accent-50">{{ totalResults }}</span>
+      </div>
+    </template>
+    <template #buttonContent>Load more results</template>
+  </PageLoaderButton>
+</template>
+
+<script>
+  import { PageLoaderButton } from '@empathyco/x-components';
+
+  export default {
+    name: 'PageLoaderButtonDemo',
+    components: {
+      PageLoaderButton
+    },
+    data() {
+      return {
+        buttonClasses: 'x-rounded-full'
+      };
+    }
+  };
+</script>
+```
+</docs>

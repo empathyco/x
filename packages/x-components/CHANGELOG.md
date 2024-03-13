@@ -3,6 +3,87 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.31...@empathyco/x-components@4.1.0-alpha.32) (2024-03-13)
+
+
+### Code Refactoring
+
+* migrate preselected filters component (#1422) ([4a38318](https://github.com/empathyco/x/commit/4a383186b5ca669938ffbc230c9c3d02805e866b))
+
+
+
+## [4.1.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.30...@empathyco/x-components@4.1.0-alpha.31) (2024-03-13)
+
+
+### Code Refactoring
+
+* migrate global-x-bus component (#1429) ([48c8ff5](https://github.com/empathyco/x/commit/48c8ff58f112c7ff11df4568358bde8542f32b0a))
+
+
+
+## [4.1.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.29...@empathyco/x-components@4.1.0-alpha.30) (2024-03-12)
+
+
+### Features
+
+* send totalHits -1 when there are no results and semantics (#1425) ([d393649](https://github.com/empathyco/x/commit/d39364944d2ee76ee5412480e9c3cdeb55fc4fa1))
+
+
+
+## [4.1.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.28...@empathyco/x-components@4.1.0-alpha.29) (2024-03-08)
+
+
+### Features
+
+* create load next page component (#1424) ([cf05167](https://github.com/empathyco/x/commit/cf05167904dfdc018e36f33c7d0df2ff0e5de4a9))
+
+
+
+## [4.1.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.27...@empathyco/x-components@4.1.0-alpha.28) (2024-03-07)
+
+
+### Bug Fixes
+
+*  Next Queries not being calculated when using Related Tags (#1428) ([50306b6](https://github.com/empathyco/x/commit/50306b600c681c1bd54e209ee048893295a016cb))
+
+
+
+## [4.1.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.26...@empathyco/x-components@4.1.0-alpha.27) (2024-03-04)
+
+
+### Features
+
+* change useHybridInject so it works more like vue inject (#1427) ([f7e2946](https://github.com/empathyco/x/commit/f7e2946771213c06b6b7f6c9b4987ba971303463))
+
+
+
+## [4.1.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.25...@empathyco/x-components@4.1.0-alpha.26) (2024-02-23)
+
+
+### Documentation
+
+* replace enable/disable with activate/deactivate (#1420) ([5370c7c](https://github.com/empathyco/x/commit/5370c7c908db1f78d1b315dfd46a518cb534ca8d))
+
+
+
+## [4.1.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.24...@empathyco/x-components@4.1.0-alpha.25) (2024-02-23)
+
+
+### Code Refactoring
+
+* **components:** migrate location-provider component to vue 2.7 (#1421) ([98377e8](https://github.com/empathyco/x/commit/98377e8fb4e3a65dce7aa8ddd144cd69f2ab1395))
+
+
+
+## [4.1.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.23...@empathyco/x-components@4.1.0-alpha.24) (2024-02-21)
+
+
+### Features
+
+* migrating base-rating component using defineComponent sintax (#1419) ([3fb116a](https://github.com/empathyco/x/commit/3fb116ad5a28addcf53c6d66035072e7013a7818))
+
+
+
 ## [4.1.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.22...@empathyco/x-components@4.1.0-alpha.23) (2024-02-21)
 
 **Note:** Version bump only for package @empathyco/x-components

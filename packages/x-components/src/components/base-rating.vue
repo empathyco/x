@@ -24,8 +24,7 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent } from 'vue';
   import StarIcon from './icons/star.vue';
 
   /**
@@ -34,49 +33,60 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'BaseRating',
     components: {
       DefaultIcon: StarIcon
-    }
-  })
-  export default class BaseRating extends Vue {
-    /**
-     * Numeric value used to calculates the width of the filled elements.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected value!: number;
-    /**
-     * Maximum number of elements to paint.
-     *
-     * @public
-     */
-    @Prop({ default: 5 })
-    protected max!: number;
+    },
+    props: {
+      /**
+       * Numeric value used to calculates the width of the filled elements.
+       *
+       * @public
+       */
+      value: {
+        type: Number,
+        required: true
+      },
+      /**
+       * Maximum number of elements to paint.
+       *
+       * @public
+       */
+      max: {
+        type: Number,
+        default: 5
+      }
+    },
+    setup(props) {
+      /**
+       * Calculates the width of the filled elements wrapper.
+       *
+       * @returns The % of the wrapper width.
+       *
+       * @internal
+       */
+      const calculateFilledWrapperWidth = computed(() => {
+        return props.value < 0 ? '0%' : `${(props.value * 100) / props.max}%`;
+      });
 
-    /**
-     * Calculates the width of the filled elements wrapper.
-     *
-     * @returns The % of the wrapper width.
-     *
-     * @internal
-     */
-    protected get calculateFilledWrapperWidth(): string {
-      return this.value < 0 ? '0%' : `${(this.value * 100) / this.max}%`;
-    }
+      /**
+       * Creates the aria label for accessibility purpose.
+       *
+       * @returns The aria label.
+       *
+       * @internal
+       */
+      const ariaLabel = computed(() => {
+        return `${props.value}/${props.max}`;
+      });
 
-    /**
-     * Creates the aria label for accessibility purpose.
-     *
-     * @returns The aria label.
-     *
-     * @internal
-     */
-    protected get ariaLabel(): string {
-      return `${this.value}/${this.max}`;
+      return {
+        calculateFilledWrapperWidth,
+        ariaLabel
+      };
     }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>

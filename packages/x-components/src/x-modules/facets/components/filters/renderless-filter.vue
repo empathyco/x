@@ -11,7 +11,7 @@
    * Renders default slot content. It binds to the default slot a
    * {@link @empathyco/x-types#BooleanFilter}, the {@link XEvent}
    * that will be emitted when clicking the content, the css classes and if the content should be
-   * disabled.
+   * deactivated.
    *
    * @remarks The default slot expects a root element, if it receives a list of elements, it will
    * renders the first element.
@@ -92,7 +92,7 @@
 ## Examples
 
 Renders default slot content. It binds to the default slot a filter, the events that will be emitted
-when clicking the content, the css classes and if the content should be disabled.
+when clicking the content, the CSS classes and if the content should be deactivated.
 
 ### Basic usage
 

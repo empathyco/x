@@ -3,7 +3,8 @@ import {
   NextQuery,
   NextQueriesRequest,
   SearchResponse,
-  PreviewResults
+  PreviewResults,
+  RelatedTag
 } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
@@ -25,6 +26,8 @@ export interface NextQueriesState extends StatusState, QueryState {
   /** The list of the searched queries, related to the `query` property of the state. */
   //TODO Changes to uses the base extended class Previewable or what we decide.
   searchedQueries: HistoryQuery[];
+  /** The list of the related tags, related to the `query` property of the state. */
+  relatedTags: RelatedTag[];
   /** Configuration options of the next queries module. */
   config: NextQueriesConfig;
   /** The extra params property of the state. */
@@ -46,6 +49,8 @@ export interface NextQueriesGetters {
   request: NextQueriesRequest | null;
   /** List of next queries that have not been searched before. */
   nextQueries: NextQuery[];
+  /** The combination of the query and the selected related tags. */
+  query: string;
 }
 
 /**
@@ -69,6 +74,12 @@ export interface NextQueriesMutations
    * @param searchedQueries - The searched queries to save to the state.
    */
   setSearchedQueries(searchedQueries: HistoryQuery[]): void;
+  /**
+   * Sets the related tags of the module.
+   *
+   * @param relatedTags - The new related tags to save to the state.
+   */
+  setRelatedTags(relatedTags: RelatedTag[]): void;
   /**
    * Sets the extra params of the module.
    *

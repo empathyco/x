@@ -1,10 +1,11 @@
 import Vue, { getCurrentInstance, inject } from 'vue';
 import { XBus } from '@empathyco/x-bus';
 import { bus } from '../plugins/x-bus';
-import { WireMetadata, XEvent, XEventPayload, XEventsTypes } from '../wiring/index';
-import { getRootXComponent, getXComponentXModuleName } from '../components/index';
-import { FeatureLocation } from '../types/index';
-import { PropsWithType } from '../utils/index';
+import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
+import { WireMetadata } from '../wiring/wiring.types';
+import { getRootXComponent, getXComponentXModuleName } from '../components/x-component.utils';
+import { FeatureLocation } from '../types/origin';
+import { PropsWithType } from '../utils/types';
 
 /**
  * Composable which injects the current location,
@@ -14,7 +15,7 @@ import { PropsWithType } from '../utils/index';
  * @returns An object with the `on` and `emit` functions.
  */
 export function useXBus(): UseXBusAPI {
-  const location = inject<FeatureLocation>('location');
+  const location = inject<FeatureLocation>('location', 'none');
 
   const currentComponent: PrivateExtendedVueComponent | undefined | null =
     getCurrentInstance()?.proxy;

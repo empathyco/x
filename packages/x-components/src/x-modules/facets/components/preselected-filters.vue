@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { Component, Inject, Prop, Watch } from 'vue-property-decorator';
-  import Vue from 'vue';
+  import { defineComponent, PropType, watch, computed, ref } from 'vue';
   import { createRawFilters } from '../../../utils/filters';
   import { isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
+  import { useXBus } from '../../../composables/use-x-bus';
+  import { useHybridInject, useNoElementRender } from '../../../composables';
 
   /**
    * This component emits {@link FacetsXEvents.PreselectedFiltersProvided} when a preselected filter
@@ -11,59 +12,66 @@
    *
    * @public
    */
-  @Component
-  export default class PreselectedFilters extends Vue {
-    /**
-     * Injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
-     *
-     * @internal
-     */
-    @Inject('snippetConfig')
-    public snippetConfig?: SnippetConfig;
-
-    /**
-     * A list of filters to preselect.
-     *
-     * @remarks Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
-     * component is created.
-     *
-     * @public
-     */
-    @Prop({ default: () => [] })
-    public filters!: string[];
-
-    /**
-     * Gets the provided preselected filters prioritizing the {@link SnippetConfig} over the
-     * filters prop.
-     *
-     * @returns An array of filter's ids.
-     */
-    protected get preselectedFilters(): string[] {
-      return this.snippetConfig?.filters ?? this.filters;
-    }
-
-    /**
-     * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} to save
-     * the provided filters in the state.
-     */
-    @Watch('preselectedFilters')
-    protected emitPreselectedFilters(): void {
-      if (!isArrayEmpty(this.preselectedFilters)) {
-        this.$x.emit('PreselectedFiltersProvided', createRawFilters(this.preselectedFilters));
+  export default defineComponent({
+    name: 'PreselectedFilters',
+    props: {
+      /**
+       * A list of filters to preselect.
+       *
+       * @remarks Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
+       * component is created.
+       *
+       * @public
+       */
+      filters: {
+        type: Array as PropType<string[]>,
+        default: () => []
       }
-    }
+    },
+    setup(props) {
+      const xBus = useXBus();
 
-    /**
-     * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
-     * component is created.
-     */
-    created(): void {
-      this.emitPreselectedFilters();
-    }
+      /**
+       * Injects {@link SnippetConfig} provided by an ancestor as snippetConfig
+       * and sets is as a ref to get synced when it changes.
+       *
+       * @internal
+       */
+      const snippetConfig = ref(useHybridInject<SnippetConfig>('snippetConfig'));
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    render(): void {}
-  }
+      /**
+       * Gets the provided preselected filters prioritizing the {@link SnippetConfig} over the
+       * filters prop.
+       *
+       * @returns An array of filter's ids.
+       * @internal
+       */
+      const preselectedFilters = computed<string[]>(() => {
+        return snippetConfig.value?.filters ?? props.filters;
+      });
+
+      /**
+       * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} to save
+       * the provided filters in the state.
+       *
+       * @internal
+       */
+      const emitPreselectedFilters = (): void => {
+        if (!isArrayEmpty(preselectedFilters.value)) {
+          xBus.emit('PreselectedFiltersProvided', createRawFilters(preselectedFilters.value));
+        }
+      };
+
+      /**
+       * Emits the {@link FacetsXEvents.PreselectedFiltersProvided} when the
+       * computed prop changes.
+       */
+      watch(preselectedFilters, emitPreselectedFilters, { immediate: true });
+    },
+    render() {
+      return useNoElementRender(this.$slots);
+    }
+  });
 </script>
 
 <docs lang="mdx">

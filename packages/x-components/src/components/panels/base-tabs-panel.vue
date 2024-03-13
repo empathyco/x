@@ -253,7 +253,7 @@ which tab should be opened at first.
 
 The prop `allowTabDeselect` allows the tabs to be deselected. When a tab that is already selected is
 clicked again, the tab will be deselected and no panel content will be displayed. By default, this
-behavior is disabled.
+behavior is deactivated.
 
 ```vue
 <template>
