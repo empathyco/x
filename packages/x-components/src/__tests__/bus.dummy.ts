@@ -1,5 +1,6 @@
 import { Dictionary } from '@empathyco/x-utils';
-import { EmittedData, EventPayload, XPriorityBus } from '@empathyco/x-bus';
+import { EmittedData, EventPayload, SubjectPayload, XPriorityBus } from '@empathyco/x-bus';
+import { Subject } from 'rxjs';
 import { WireMetadata, XEventsTypes } from '../wiring';
 
 export class XDummyBus<
@@ -20,5 +21,11 @@ export class XDummyBus<
     emitter.next(emittedPayload);
 
     return Promise.resolve({ event, ...emittedPayload });
+  }
+
+  createEmitter<SomeEvent extends keyof SomeEvents>(event: SomeEvent): void {
+    this.emitters[event] = new Subject<
+      SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeMetadata>
+    >();
   }
 }

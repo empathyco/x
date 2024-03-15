@@ -40,7 +40,7 @@
        *
        */
       const eventListeners = computed<XEventListeners>(() => {
-        const callbacks = snippetConfig.value?.callbacks;
+        const callbacks = snippetConfig?.callbacks;
 
         return callbacks
           ? map(callbacks, (eventName, callback) => {
