@@ -22,10 +22,18 @@ export class XDummyBus<
 
     return Promise.resolve({ event, ...emittedPayload });
   }
+}
 
-  createEmitter<SomeEvent extends keyof SomeEvents>(event: SomeEvent): void {
-    this.emitters[event] = new Subject<
-      SubjectPayload<EventPayload<SomeEvents, SomeEvent>, SomeMetadata>
-    >();
-  }
+/**
+ * Dummy function to create an emitter for a given event.
+ *
+ * @param event - The event to create the emitter for.
+ */
+export function dummyCreateEmitter<SomeEvent extends keyof XEventsTypes>(
+  this: XPriorityBus<any, any>,
+  event: SomeEvent
+): void {
+  this.emitters[event] = new Subject<
+    SubjectPayload<EventPayload<XEventsTypes, SomeEvent>, WireMetadata>
+  >();
 }
