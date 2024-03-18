@@ -2,7 +2,12 @@ import { mount, Wrapper } from '@vue/test-utils';
 import { baseSnippetConfig } from '../../views/base-config';
 import { XEventListeners } from '../../x-installer/api/api.types';
 import SnippetCallbacks from '../snippet-callbacks.vue';
-import { bus } from '../../plugins/index';
+import { bus } from '../../plugins/x-bus';
+import { XDummyBus } from '../../__tests__/bus.dummy';
+
+// Making bus not repeat subjects
+const dummyBus = new XDummyBus();
+jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyBus.createEmitter.bind(bus) as any);
 
 function renderSnippetCallbacks({
   callbacks = {}
