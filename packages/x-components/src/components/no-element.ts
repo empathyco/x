@@ -1,4 +1,5 @@
-import Vue, { CreateElement, VNode } from 'vue';
+import { defineComponent } from 'vue';
+import { useNoElementRender } from '../composables/index';
 
 /**
  * The purpose of this Component is to use as default value for props that receive a Component that
@@ -6,8 +7,8 @@ import Vue, { CreateElement, VNode } from 'vue';
  *
  * @internal
  */
-export const NoElement = Vue.extend({
-  render(h: CreateElement): VNode {
-    return this.$slots.default?.[0] ?? h();
+export const NoElement = defineComponent({
+  render() {
+    return useNoElementRender(this.$slots);
   }
 });
