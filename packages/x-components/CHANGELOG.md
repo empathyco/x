@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.33...@empathyco/x-components@4.1.0-alpha.34) (2024-03-19)
+
+
+### Code Refactoring
+
+* migrate no-element component to vue 2.7 ([29d6a61](https://github.com/empathyco/x/commit/29d6a613aa5a46a6584fcb99015a5cbd99d43b42))
+
+
+
 ## [4.1.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.32...@empathyco/x-components@4.1.0-alpha.33) (2024-03-19)
 
 
