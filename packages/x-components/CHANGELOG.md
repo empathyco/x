@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.32...@empathyco/x-components@4.1.0-alpha.33) (2024-03-19)
+
+
+### Code Refactoring
+
+* migrate snippet-callbacks to vue 2.7 (#1431) ([168ff1d](https://github.com/empathyco/x/commit/168ff1db8ac964fd12c307c61756d23d84e6ad76))
+
+
+
 ## [4.1.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.31...@empathyco/x-components@4.1.0-alpha.32) (2024-03-13)
 
 
