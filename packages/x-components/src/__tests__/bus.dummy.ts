@@ -1,5 +1,6 @@
 import { Dictionary } from '@empathyco/x-utils';
-import { EmittedData, EventPayload, XPriorityBus } from '@empathyco/x-bus';
+import { EmittedData, EventPayload, SubjectPayload, XPriorityBus } from '@empathyco/x-bus';
+import { Subject } from 'rxjs';
 import { WireMetadata, XEventsTypes } from '../wiring';
 
 export class XDummyBus<
@@ -21,4 +22,18 @@ export class XDummyBus<
 
     return Promise.resolve({ event, ...emittedPayload });
   }
+}
+
+/**
+ * Dummy function to create an emitter for a given event.
+ *
+ * @param event - The event to create the emitter for.
+ */
+export function dummyCreateEmitter<SomeEvent extends keyof XEventsTypes>(
+  this: XPriorityBus<any, any>,
+  event: SomeEvent
+): void {
+  this.emitters[event] = new Subject<
+    SubjectPayload<EventPayload<XEventsTypes, SomeEvent>, WireMetadata>
+  >();
 }
