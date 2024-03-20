@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.34...@empathyco/x-components@4.1.0-alpha.35) (2024-03-20)
+
+
+### Code Refactoring
+
+* create alias api composable (#1426) ([6badb3a](https://github.com/empathyco/x/commit/6badb3a9815f880f0f411f948b3755f50e9e60a7))
+
+
+
 ## [4.1.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.33...@empathyco/x-components@4.1.0-alpha.34) (2024-03-19)
 
 
