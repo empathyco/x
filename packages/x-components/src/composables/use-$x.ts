@@ -11,8 +11,7 @@ import { useXBus, UseXBusAPI } from './use-x-bus';
 export function use$x(): UseXComponentAPI {
   const xAliasAPI = useAliasApi();
   const xBusAPI = useXBus();
-  const $x = Object.assign(xAliasAPI, xBusAPI);
-  return $x;
+  return Object.assign(xAliasAPI, xBusAPI);
 }
 
 /**

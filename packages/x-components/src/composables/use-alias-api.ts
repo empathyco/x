@@ -23,7 +23,7 @@ import { useStore } from './use-store';
  *
  * @internal
  */
-export function useAliasApi(this: any): UseAliasAPI {
+export function useAliasApi(): UseAliasAPI {
   const queryModules = [
     'facets',
     'searchBox',
