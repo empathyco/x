@@ -84,7 +84,7 @@ const renderUseAliasApiTest = (registerXModules = true): renderUseAliasApiTestAP
 };
 describe('testing useAliasApi composable', () => {
   it('returns default values when no module is registered', () => {
-    const { xAliasAPI, query, status } = renderUseAliasApiTest(false);
+    const { xAliasAPI } = renderUseAliasApiTest(false);
 
     const defaultValues = {
       query: {
@@ -132,13 +132,7 @@ describe('testing useAliasApi composable', () => {
       totalResults: 0,
       selectedSort: ''
     };
-    expect(query).toMatchObject(defaultValues.query);
-    expect(status).toMatchObject(defaultValues.status);
-    expect({ ...xAliasAPI }).toMatchObject({
-      ...defaultValues,
-      query: expect.any(Object),
-      status: expect.any(Object)
-    });
+    expect(xAliasAPI).toMatchObject(defaultValues);
   });
   it('updates the query values when the module is registered', () => {
     const { store, query } = renderUseAliasApiTest();
