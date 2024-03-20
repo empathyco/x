@@ -16,10 +16,10 @@ import { useStore } from './use-store';
 export function useGetter<
   Module extends XModuleName,
   GetterName extends keyof ExtractGetters<Module> & string
->(module: Module, getters: GetterName[]): Dictionary<ComputedRef<GetterName[]>> {
+>(module: Module, getters: GetterName[]): Dictionary<ComputedRef> {
   const store = useStore();
 
-  return getters.reduce<Dictionary<ComputedRef<GetterName[]>>>((getterDictionary, getterName) => {
+  return getters.reduce<Dictionary<ComputedRef>>((getterDictionary, getterName) => {
     const getterPath = getGetterPath(module, getterName);
     getterDictionary[getterName] = computed(() => store.getters[getterPath]);
     return getterDictionary;
