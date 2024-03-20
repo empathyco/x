@@ -14,7 +14,7 @@ import { popularSearchesXStoreModule } from '../../x-modules/popular-searches/in
 import { recommendationsXStoreModule } from '../../x-modules/recommendations/index';
 import { historyQueriesXStoreModule } from '../../x-modules/history-queries/index';
 
-const renderUseAliasApiTest = (): renderUseAliasApiTestAPI => {
+const renderUseAliasApiTest = (registerXModules = true): renderUseAliasApiTestAPI => {
   const testComponent = defineComponent({
     setup() {
       const xAliasAPI = useAliasApi();
@@ -25,7 +25,8 @@ const renderUseAliasApiTest = (): renderUseAliasApiTestAPI => {
         status,
         xAliasAPI
       };
-    }
+    },
+    template: '<div></div>'
   });
 
   const localVue = createLocalVue();
@@ -35,24 +36,35 @@ const renderUseAliasApiTest = (): renderUseAliasApiTestAPI => {
     modules: {
       x: {
         namespaced: true,
-        modules: {
-          searchBox: { namespaced: true, ...searchBoxXStoreModule } as AnyXStoreModule,
-          nextQueries: { namespaced: true, ...nextQueriesXStoreModule } as AnyXStoreModule,
-          querySuggestions: {
-            namespaced: true,
-            ...querySuggestionsXStoreModule
-          } as AnyXStoreModule,
-          relatedTags: { namespaced: true, ...relatedTagsXStoreModule } as AnyXStoreModule,
-          search: { namespaced: true, ...searchXStoreModule } as AnyXStoreModule,
-          facets: { namespaced: true, ...facetsXStoreModule } as AnyXStoreModule,
-          historyQueries: { namespaced: true, ...historyQueriesXStoreModule } as AnyXStoreModule,
-          identifierResults: {
-            namespaced: true,
-            ...identifierResultsXStoreModule
-          } as AnyXStoreModule,
-          popularSearches: { namespaced: true, ...popularSearchesXStoreModule } as AnyXStoreModule,
-          recommendations: { namespaced: true, ...recommendationsXStoreModule } as AnyXStoreModule
-        }
+        modules: registerXModules
+          ? {
+              searchBox: { namespaced: true, ...searchBoxXStoreModule } as AnyXStoreModule,
+              nextQueries: { namespaced: true, ...nextQueriesXStoreModule } as AnyXStoreModule,
+              querySuggestions: {
+                namespaced: true,
+                ...querySuggestionsXStoreModule
+              } as AnyXStoreModule,
+              relatedTags: { namespaced: true, ...relatedTagsXStoreModule } as AnyXStoreModule,
+              search: { namespaced: true, ...searchXStoreModule } as AnyXStoreModule,
+              facets: { namespaced: true, ...facetsXStoreModule } as AnyXStoreModule,
+              historyQueries: {
+                namespaced: true,
+                ...historyQueriesXStoreModule
+              } as AnyXStoreModule,
+              identifierResults: {
+                namespaced: true,
+                ...identifierResultsXStoreModule
+              } as AnyXStoreModule,
+              popularSearches: {
+                namespaced: true,
+                ...popularSearchesXStoreModule
+              } as AnyXStoreModule,
+              recommendations: {
+                namespaced: true,
+                ...recommendationsXStoreModule
+              } as AnyXStoreModule
+            }
+          : {}
       }
     }
   });
@@ -71,6 +83,63 @@ const renderUseAliasApiTest = (): renderUseAliasApiTestAPI => {
   };
 };
 describe('testing useAliasApi composable', () => {
+  it('returns default values when no module is registered', () => {
+    const { xAliasAPI, query, status } = renderUseAliasApiTest(false);
+
+    const defaultValues = {
+      query: {
+        facets: '',
+        searchBox: '',
+        nextQueries: '',
+        querySuggestions: '',
+        relatedTags: '',
+        search: ''
+      },
+      status: {
+        identifierResults: undefined,
+        nextQueries: undefined,
+        popularSearches: undefined,
+        querySuggestions: undefined,
+        recommendations: undefined,
+        relatedTags: undefined,
+        search: undefined
+      },
+      device: null,
+      facets: {},
+      historyQueries: [],
+      historyQueriesWithResults: [],
+      fullHistoryQueries: [],
+      isHistoryQueriesEnabled: false,
+      fromNoResultsWithFilters: false,
+      identifierResults: [],
+      searchBoxStatus: undefined,
+      isEmpathizeOpen: false,
+      nextQueries: [],
+      noResults: false,
+      partialResults: [],
+      popularSearches: [],
+      querySuggestions: [],
+      fullQuerySuggestions: [],
+      recommendations: [],
+      redirections: [],
+      relatedTags: [],
+      results: [],
+      scroll: {},
+      selectedFilters: [],
+      selectedRelatedTags: [],
+      semanticQueries: [],
+      spellcheckedQuery: null,
+      totalResults: 0,
+      selectedSort: ''
+    };
+    expect(query).toMatchObject(defaultValues.query);
+    expect(status).toMatchObject(defaultValues.status);
+    expect({ ...xAliasAPI }).toMatchObject({
+      ...defaultValues,
+      query: expect.any(Object),
+      status: expect.any(Object)
+    });
+  });
   it('updates the query values when the module is registered', () => {
     const { store, query } = renderUseAliasApiTest();
 
@@ -114,13 +183,47 @@ describe('testing useAliasApi composable', () => {
       search: expect.stringMatching(REQUEST_STATUS_REGEX)
     });
   });
-  it('updates a property', () => {
+  it('reacts dynamically to referenced values changing', () => {
     const { store, xAliasAPI } = renderUseAliasApiTest();
-    expect(xAliasAPI.historyQueries.value[0]).toBeUndefined();
+    expect(xAliasAPI.historyQueries[0]).toBeUndefined();
 
     store.dispatch('x/historyQueries/addQueryToHistory', 'chorizo');
 
-    expect(xAliasAPI.historyQueries.value[0].query).toEqual('chorizo');
+    expect(xAliasAPI.historyQueries[0].query).toEqual('chorizo');
+  });
+  it('has every property defined as a getter', () => {
+    const { xAliasAPI } = renderUseAliasApiTest();
+    /**
+     * Checks that every property defined by the object and keys is a getter or an object that
+     * only contains getters.
+     *
+     * @param obj - The object to check.
+     * @param keys - The subset of keys from the object to check.
+     * @returns True when the object properties defined by the keys are getters or object with
+     * getters.
+     */
+    function isJSGetterOrDictionaryOfJSGetters(
+      // object and string[] are the parameters used by getOwnPropertyDescriptor.
+      // eslint-disable-next-line @typescript-eslint/ban-types
+      obj: object,
+      keys: string[]
+    ): boolean {
+      return keys.every(key => {
+        const descriptor = Object.getOwnPropertyDescriptor(obj, key);
+        const value = obj[key as keyof typeof obj];
+        return (
+          (descriptor?.set === undefined &&
+            descriptor?.value === undefined &&
+            descriptor?.get !== undefined) ||
+          (typeof value === 'object' &&
+            isJSGetterOrDictionaryOfJSGetters(value, Object.keys(value)))
+        );
+      });
+    }
+
+    const aliasKeys = Object.keys(xAliasAPI);
+
+    expect(isJSGetterOrDictionaryOfJSGetters(xAliasAPI, aliasKeys)).toEqual(true);
   });
 });
 
