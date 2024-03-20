@@ -73,7 +73,7 @@ interface PrivateExtendedVueComponent extends Vue {
   xComponent?: Vue | undefined;
 }
 
-interface UseXBusAPI {
+export interface UseXBusAPI {
   /* eslint-disable jsdoc/require-description-complete-sentence */
   /** {@inheritDoc XBus.(on:1)} */
   on: XBus<XEventsTypes, WireMetadata>['on'];
