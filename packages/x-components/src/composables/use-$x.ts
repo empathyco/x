@@ -1,5 +1,6 @@
-import { getCurrentInstance } from 'vue';
 import { XComponentAPI } from '../plugins';
+import { useAliasApi } from './use-alias-api';
+import { useXBus } from './use-x-bus';
 
 /**
  * Function which returns the `$x` object from the current component instance.
@@ -9,5 +10,8 @@ import { XComponentAPI } from '../plugins';
  * @public
  */
 export function use$x(): XComponentAPI {
-  return (getCurrentInstance()?.proxy as unknown as { $x: XComponentAPI }).$x;
+  const xAliasAPI = useAliasApi();
+  const xBusAPI = useXBus();
+  const $x = Object.assign(xAliasAPI, xBusAPI);
+  return $x;
 }
