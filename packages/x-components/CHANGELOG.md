@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.35...@empathyco/x-components@4.1.0-alpha.36) (2024-03-21)
+
+
+### Bug Fixes
+
+* bus handling of a location ref (#1432) ([b980638](https://github.com/empathyco/x/commit/b98063826f5657088bb613db1a529a446389ed67))
+
+
+
 ## [4.1.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.34...@empathyco/x-components@4.1.0-alpha.35) (2024-03-20)
 
 
