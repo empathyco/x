@@ -136,9 +136,7 @@
     Facet,
     SimpleFilter as SimpleFilterModel
   } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
-  import { XInject } from '../../components';
+  import { defineComponent } from 'vue';
   import BasePriceFilterLabel from '../../components/filters/labels/base-price-filter-label.vue';
   import EditableNumberPriceRangeFilter from '../../x-modules/facets/components/filters/editable-number-range-filter.vue';
   import ChevronDown from '../../components/icons/chevron-down.vue';
@@ -155,10 +153,12 @@
   import SelectedFilters from '../../x-modules/facets/components/lists/selected-filters.vue';
   import SlicedFilters from '../../x-modules/facets/components/lists/sliced-filters.vue';
   import SortedFilters from '../../x-modules/facets/components/lists/sorted-filters.vue';
+  import { useHybridInject } from '../../composables';
   import { HomeControls } from './types';
   /* eslint-enable max-len */
 
-  @Component({
+  export default defineComponent({
+    name: 'Aside',
     components: {
       BaseHeaderTogglePanel,
       BasePriceFilterLabel,
@@ -176,46 +176,45 @@
       SelectedFiltersList,
       SlicedFilters,
       SortedFilters
+    },
+    setup() {
+      const controls = useHybridInject<HomeControls>('controls');
+      const editableNumberRangeFilter: EditableNumberRangeFilter = {
+        facetId: 'salePrice',
+        selected: false,
+        id: 'price:0-*',
+        modelName: 'EditableNumberRangeFilter',
+        range: {
+          min: null,
+          max: null
+        }
+      };
+      const staticFacets: Facet[] = [
+        {
+          modelName: 'SimpleFacet',
+          label: 'Offer',
+          id: 'offer',
+          filters: [
+            {
+              facetId: 'offer',
+              modelName: 'SimpleFilter',
+              id: 'price:0-10',
+              selected: false,
+              label: 'price:0-10'
+            } as SimpleFilterModel
+          ]
+        },
+        {
+          modelName: 'EditableNumberRangeFacet',
+          label: 'Price range',
+          id: 'salePrice',
+          filters: [editableNumberRangeFilter]
+        } as EditableNumberRangeFacet
+      ];
+
+      return { controls, staticFacets };
     }
-  })
-  export default class Aside extends Vue {
-    @XInject('controls')
-    public controls!: HomeControls;
-
-    protected editableNumberRangeFilter: EditableNumberRangeFilter = {
-      facetId: 'salePrice',
-      selected: false,
-      id: 'price:0-*',
-      modelName: 'EditableNumberRangeFilter',
-      range: {
-        min: null,
-        max: null
-      }
-    };
-
-    protected staticFacets: Facet[] = [
-      {
-        modelName: 'SimpleFacet',
-        label: 'Offer',
-        id: 'offer',
-        filters: [
-          {
-            facetId: 'offer',
-            modelName: 'SimpleFilter',
-            id: 'price:0-10',
-            selected: false,
-            label: 'price:0-10'
-          } as SimpleFilterModel
-        ]
-      },
-      {
-        modelName: 'EditableNumberRangeFacet',
-        label: 'Price range',
-        id: 'salePrice',
-        filters: [this.editableNumberRangeFilter]
-      } as EditableNumberRangeFacet
-    ];
-  }
+  });
 </script>
 
 <style scoped lang="scss"></style>
