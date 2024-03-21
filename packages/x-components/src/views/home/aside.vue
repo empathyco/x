@@ -178,7 +178,7 @@
       SortedFilters
     },
     setup() {
-      const controls = useHybridInject<HomeControls>('controls');
+      const controls = useHybridInject<HomeControls>('controls') as HomeControls;
       const editableNumberRangeFilter: EditableNumberRangeFilter = {
         facetId: 'salePrice',
         selected: false,
