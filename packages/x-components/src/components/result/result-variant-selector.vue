@@ -49,16 +49,15 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent } from 'vue';
   import { Result, ResultVariant } from '@empathyco/x-types';
   import { NoElement } from '../no-element';
-  import { XInject } from '../decorators/injection.decorators';
   import {
     RESULT_WITH_VARIANTS_KEY,
     SELECTED_VARIANTS_KEY,
     SELECT_RESULT_VARIANT_KEY
   } from '../decorators/injection.consts';
+  import { useHybridInject } from '../../composables';
 
   /**
    * Component to show and select the available variants of a product for a given nest level.
@@ -66,90 +65,98 @@
    *
    * @public
    */
-  @Component({
-    components: {
-      NoElement
-    }
-  })
-  export default class ResultVariantSelector extends Vue {
-    /**
-     * Callback to be called when a variant is selected.
-     *
-     * @public
-     */
-    @XInject(SELECT_RESULT_VARIANT_KEY)
-    public selectResultVariant!: (variant: ResultVariant, level?: number) => void;
-
-    /**
-     * The original result, used to retrieve the available variants for the level.
-     *
-     * @public
-     */
-    @XInject(RESULT_WITH_VARIANTS_KEY)
-    public result!: Result;
-
-    /**
-     * Array containing the selected variants.
-     *
-     * @public
-     */
-    @XInject(SELECTED_VARIANTS_KEY)
-    public selectedVariants!: ResultVariant[];
-
-    /**
-     * The nest level of the variants to be rendered.
-     *
-     * @public
-     */
-    @Prop({
-      default: 0
-    })
-    public level!: number;
-
-    /**
-     * It retrieves the available variants from the result.
-     *
-     * @returns - The variants of the result for the current level.
-     * @internal
-     */
-    protected get variants(): ResultVariant[] | undefined {
-      if (this.level === 0) {
-        return this.result.variants;
+  export default defineComponent({
+    name: 'ResultVariantSelector',
+    components: { NoElement },
+    props: {
+      /**
+       * The nest level of the variants to be rendered.
+       *
+       * @public
+       */
+      level: {
+        type: Number,
+        default: 0
       }
-      return this.selectedVariants[this.level - 1]?.variants;
-    }
+    },
+    setup(props) {
+      /**
+       * Callback to be called when a variant is selected.
+       *
+       * @public
+       */
+      const selectResultVariant: ((variant: ResultVariant, level?: number) => void) | undefined =
+        useHybridInject(SELECT_RESULT_VARIANT_KEY as string);
 
-    /**
-     * Gets the selected variant of the current level.
-     *
-     * @returns - The selected variant.
-     * @internal
-     */
-    protected get selectedVariant(): ResultVariant | undefined {
-      return this.variants?.find(variant => variant === this.selectedVariants[this.level]);
-    }
+      /**
+       * The original result, used to retrieve the available variants for the level.
+       *
+       * @public
+       */
+      const result: Result | undefined = useHybridInject(RESULT_WITH_VARIANTS_KEY as string);
 
-    /**
-     * Calls the provided method to select a variant.
-     *
-     * @param variant - Variant to select.
-     * @internal
-     */
-    protected selectVariant(variant: ResultVariant): void {
-      this.selectResultVariant(variant, this.level);
-    }
+      /**
+       * Array containing the selected variants.
+       *
+       * @public
+       */
+      const selectedVariants: ResultVariant[] | undefined = useHybridInject(
+        SELECTED_VARIANTS_KEY as string
+      );
 
-    /**
-     * Checks if a variant is selected.
-     *
-     * @param variant - Variant to check.
-     * @returns True if the variant is selected, false if not.
-     * @internal
-     */
-    protected variantIsSelected(variant: ResultVariant): boolean {
-      return this.selectedVariant === variant;
+      /**
+       * It retrieves the available variants from the result.
+       *
+       * @returns - The variants of the result for the current level.
+       * @internal
+       */
+      const variants = computed<ResultVariant[] | undefined>(() => {
+        if (props.level === 0) {
+          return result!.variants;
+        }
+        return selectedVariants![props.level - 1]?.variants;
+      });
+
+      /**
+       * Gets the selected variant of the current level.
+       *
+       * @returns - The selected variant.
+       * @internal
+       */
+      const selectedVariant = computed<ResultVariant | undefined>(() => {
+        return variants.value?.find(variant => variant === selectedVariants![props.level]);
+      });
+
+      /**
+       * Calls the provided method to select a variant.
+       *
+       * @param variant - Variant to select.
+       * @internal
+       */
+      const selectVariant = (variant: ResultVariant): void => {
+        selectResultVariant!(variant, props.level);
+      };
+
+      /**
+       * Checks if a variant is selected.
+       *
+       * @param variant - Variant to check.
+       * @returns True if the variant is selected, false if not.
+       * @internal
+       */
+      const variantIsSelected = (variant: ResultVariant): boolean => {
+        return selectedVariant.value === variant;
+      };
+
+      return {
+        result,
+        selectedVariant,
+        selectVariant,
+        variantIsSelected,
+        variants
+      };
     }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
