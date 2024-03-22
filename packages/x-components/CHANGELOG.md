@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.36...@empathyco/x-components@4.1.0-alpha.37) (2024-03-22)
+
+
+### Code Refactoring
+
+* migrate aside to vue 2.7 and use hybridInject (#1433) ([3c94afc](https://github.com/empathyco/x/commit/3c94afc813e58d6c70943e103f814129a17c7eff))
+
+
+
 ## [4.1.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.35...@empathyco/x-components@4.1.0-alpha.36) (2024-03-21)
 
 
