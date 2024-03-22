@@ -2,8 +2,8 @@ import { Result } from '@empathyco/x-types';
 import { mount, WrapperArray } from '@vue/test-utils';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
-import { XComponentBusAPI } from '../../../plugins/x-plugin.types';
 import BaseResultRating from '../base-result-rating.vue';
+import { bus } from '../../../plugins/index';
 
 const result = createResultStub('Product Test', {
   rating: {
@@ -37,13 +37,17 @@ function renderBaseResultRating({
     getEmptyIcons: (): WrapperArray<Vue> =>
       wrapper.find(getDataTestSelector('rating-empty')).findAll(':scope > *'),
     clickRating: async () => {
-      wrapper.findComponent(BaseResultRating).trigger('click');
-      return await wrapper.vm.$nextTick();
-    },
-    on: wrapper.vm.$x.on
+      await wrapper.findComponent(BaseResultRating).trigger('click');
+      jest.runAllTimers();
+    }
   };
 }
+
 describe('testing BaserResultRating component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
   it('renders the default icons a number of times based on the max prop', () => {
     const { getFilledIcons, getEmptyIcons } = renderBaseResultRating({
       template: `<BaseResultRating :result="result" :max="10" />`,
@@ -76,12 +80,12 @@ describe('testing BaserResultRating component', () => {
   });
 
   it('emits event when clicked with the result as payload', async () => {
-    const { on, clickRating } = renderBaseResultRating({
+    const { clickRating } = renderBaseResultRating({
       template: `<BaseResultRating :result="result" :max="10" />`,
       result
     });
     const eventListener = jest.fn();
-    on('UserClickedAResultRating').subscribe(eventListener);
+    bus.on('UserClickedAResultRating').subscribe(eventListener);
 
     await clickRating();
     expect(eventListener).toHaveBeenCalledWith(result);
@@ -89,14 +93,19 @@ describe('testing BaserResultRating component', () => {
 });
 
 interface RenderBaseResultRatingOptions {
+  /** The template to render. */
   template: string;
+  /** The result with the rating to be interacted with. */
   result: Result;
 }
 
 interface RenderBaseResultRatingApi {
+  /** Retrieves the wrapper with the main html content. */
   getHtml: () => string;
+  /** Retrieves the wrapper that matches the rating filled icons. */
   getFilledIcons: () => WrapperArray<Vue>;
+  /** Retrieves the wrapper that matches the rating empty icons. */
   getEmptyIcons: () => WrapperArray<Vue>;
+  /** Clicks the rating icons and waits for the view to update. */
   clickRating: () => Promise<void>;
-  on: XComponentBusAPI['on'];
 }
