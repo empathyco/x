@@ -1,9 +1,10 @@
 import { mount, Wrapper } from '@vue/test-utils';
-import Vue, { ComponentOptions, nextTick } from 'vue';
+import Vue, { ComponentOptions } from 'vue';
 import { Result } from '@empathyco/x-types';
-import { getDataTestSelector } from '../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
 import PageLoaderButton from '../page-loader-button.vue';
 import { getResultsStub } from '../../__stubs__/index';
+import { bus } from '../../plugins/index';
 
 function renderPageLoaderButton({
   query = 'dress',
@@ -11,33 +12,33 @@ function renderPageLoaderButton({
   totalResults = 100,
   scopedSlots
 }: RenderPageLoaderButtonOptions = {}): RenderPageLoaderButtonAPI {
-  const emit = jest.fn();
+  const [, localVue] = installNewXPlugin();
 
   const wrapper = mount(PageLoaderButton as ComponentOptions<Vue>, {
     propsData: {
       buttonClasses: '',
       buttonEvents: {}
     },
-    mocks: {
-      $x: {
-        emit,
+    localVue,
+    scopedSlots,
+    data() {
+      return {
         query,
         results,
         totalResults
-      }
-    },
-    scopedSlots
+      };
+    }
   });
 
   return {
-    emit,
-    wrapper
+    wrapper,
+    emitSpy: jest.spyOn(bus, 'emit')
   };
 }
 
 describe('testing PageLoaderButton component', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
+  beforeAll(() => {
+    jest.useFakeTimers();
   });
 
   it('renders a page loader button component with default slots', () => {
@@ -73,34 +74,33 @@ describe('testing PageLoaderButton component', () => {
     expect(wrapper.find('.x-rounded-full').exists()).toBe(true);
   });
 
-  it('emits the event UserReachedResultsListEnd when the button is clicked', async () => {
-    const { wrapper, emit } = renderPageLoaderButton();
+  it('emits the event UserReachedResultsListEnd when the button is clicked', () => {
+    const { wrapper, emitSpy } = renderPageLoaderButton();
     const baseEventButton = wrapper.find(getDataTestSelector('load-content'));
 
     baseEventButton.trigger('click');
-    await nextTick();
 
-    expect(emit).toHaveBeenCalledTimes(1);
-    expect(emit).toHaveBeenCalledWith('UserReachedResultsListEnd', undefined, {
+    expect(emitSpy).toHaveBeenCalledTimes(1);
+    expect(emitSpy).toHaveBeenCalledWith('UserReachedResultsListEnd', undefined, {
       target: baseEventButton.element
     });
   });
 
   it('emits an event passed via prop', async () => {
-    const { wrapper, emit } = renderPageLoaderButton();
+    const { wrapper, emitSpy } = renderPageLoaderButton();
     const baseEventButton = wrapper.find(getDataTestSelector('load-content'));
 
     wrapper.setProps({ buttonEvents: { UserClickedCloseX: undefined } });
     await wrapper.vm.$nextTick();
 
     baseEventButton.trigger('click');
-    await nextTick();
+    jest.runAllTimers();
 
-    expect(emit).toHaveBeenCalledTimes(2);
-    expect(emit).toHaveBeenCalledWith('UserReachedResultsListEnd', undefined, {
+    expect(emitSpy).toHaveBeenCalledTimes(2);
+    expect(emitSpy).toHaveBeenCalledWith('UserReachedResultsListEnd', undefined, {
       target: baseEventButton.element
     });
-    expect(emit).toHaveBeenCalledWith('UserClickedCloseX', undefined, {
+    expect(emitSpy).toHaveBeenCalledWith('UserClickedCloseX', undefined, {
       target: baseEventButton.element
     });
   });
@@ -124,8 +124,8 @@ interface RenderPageLoaderButtonOptions {
  * Options to configure how the page loader button component should be rendered.
  */
 interface RenderPageLoaderButtonAPI {
-  /** Mock of the {@link XBus.emit} function. */
-  emit: jest.Mock;
   /** The wrapper for the page loader button component. */
   wrapper: Wrapper<Vue>;
+  /* A jest spy of the X emit method. */
+  emitSpy: ReturnType<typeof jest.spyOn>;
 }
