@@ -6,11 +6,11 @@ import { ComponentOptions } from 'vue';
 import { createHistoryQuery } from '../../../../__stubs__/history-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { historyQueriesXModule } from '../../x-module';
 import HistoryQuery from '../history-query.vue';
+import { bus } from '../../../../plugins/index';
 import { resetXHistoryQueriesStateWith } from './utils';
 
 function renderHistoryQuery({
@@ -46,7 +46,7 @@ function renderHistoryQuery({
   return {
     wrapper: wrapper.findComponent(HistoryQuery),
     suggestion,
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: jest.spyOn(bus, 'emit'),
     getSuggestionWrapper() {
       return wrapper.get(getDataTestSelector('history-query'));
     },
@@ -60,6 +60,10 @@ function renderHistoryQuery({
 }
 
 describe('testing history-query component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
   it('is an XComponent that belongs to the history queries', () => {
     const { wrapper } = renderHistoryQuery();
     expect(isXComponent(wrapper.vm)).toEqual(true);
@@ -116,9 +120,13 @@ describe('testing history-query component', () => {
   });
 
   it('emits `UserPressedRemoveHistoryQuery` when `RemoveHistoryQuery` button is clicked', () => {
-    const { getRemoveWrapper, emitSpy, suggestion } = renderHistoryQuery();
+    const { emitSpy, suggestion, getRemoveWrapper } = renderHistoryQuery({
+      suggestion: createHistoryQuery({ query: 'milk' })
+    });
 
     getRemoveWrapper().trigger('click');
+
+    expect(emitSpy).toHaveBeenCalledTimes(1);
     expect(emitSpy).toHaveBeenCalledWith(
       'UserPressedRemoveHistoryQuery',
       suggestion,
