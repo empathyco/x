@@ -1,15 +1,14 @@
 <template>
-  <component :is="tag" v-on="$listeners" :data-scroll="item.id">
+  <component :is="tag" ref="el" v-on="$listeners" :data-scroll="item.id">
     <slot />
   </component>
 </template>
 <script lang="ts">
   import { Identifiable } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { NoElement, State, xComponentMixin } from '../../../components';
-  import { XInject } from '../../../components/decorators/injection.decorators';
+  import Vue, { defineComponent, nextTick, PropType, ref } from 'vue';
+  import { NoElement } from '../../../components';
   import { scrollXModule } from '../x-module';
+  import { useState, useHybridInject, useRegisterXModule, use$x } from '../../../composables';
   import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
 
@@ -19,50 +18,84 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(scrollXModule)]
-  })
-  export default class MainScrollItem extends Vue {
-    /**
-     * Rendered HTML node.
-     *
-     * @public
-     */
-    public $el!: HTMLElement;
+  export default defineComponent({
+    name: 'MainScrollItem',
+    props: {
+      /**
+       * The item data. Used to set the scroll identifier.
+       *
+       * @public
+       */
+      item: {
+        type: Object as PropType<Identifiable>,
+        required: true
+      },
+      /**
+       * The tag to render.
+       *
+       * @public
+       */
+      tag: {
+        type: [String, Object] as PropType<string | typeof Vue>,
+        default: () => NoElement
+      }
+    },
 
-    /**
-     * The item data. Used to set the scroll identifier.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public item!: Identifiable;
+    setup(props) {
+      useRegisterXModule(scrollXModule);
+      const $x = use$x();
+      /**
+       * Rendered HTML node.
+       *
+       * @public
+       */
+      const el = ref<HTMLElement | null>(null);
 
-    /**
-     * The tag to render.
-     *
-     * @public
-     */
-    @Prop({ default: () => NoElement })
-    public tag!: string | typeof Vue;
+      /**
+       * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem.item}
+       * `id` property, this component should be scrolled into view.
+       *
+       * @internal
+       */
+      const pendingScrollTo: string = useState('scroll', ['pendingScrollTo']).pendingScrollTo.value;
 
-    /**
-     * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem.item}
-     * `id` property, this component should be scrolled into view.
-     *
-     * @internal
-     */
-    @State('scroll', 'pendingScrollTo')
-    public pendingScrollTo!: string;
+      /**
+       * Observer to detect the first visible element.
+       *
+       * @internal
+       */
+      const firstVisibleItemObserver = useHybridInject<ScrollVisibilityObserver>(
+        ScrollObserverKey as string
+      ) as ScrollVisibilityObserver;
 
-    /**
-     * Observer to detect the first visible element.
-     *
-     * @internal
-     */
-    @XInject(ScrollObserverKey)
-    public firstVisibleItemObserver!: ScrollVisibilityObserver | null;
+      /**
+       * Initialises the element visibility observation, stopping the previous one if it has.
+       *
+       * @param newObserver - The new observer for the HTML element.
+       * @param oldObserver - The old observer for the HTML element.
+       */
+      const observeItem = (
+        newObserver: ScrollVisibilityObserver | null,
+        oldObserver: ScrollVisibilityObserver | null
+      ): void => {
+        {
+          if (el.value !== null && el.value instanceof HTMLElement) {
+            oldObserver?.unobserve(el.value);
+            newObserver?.observe(el.value);
+            if (pendingScrollTo === props.item.id) {
+              Vue.nextTick(() => {
+                el.value?.scrollIntoView({
+                  block: 'center'
+                });
+              });
+              $x.emit('ScrollRestoreSucceeded');
+            }
+          }
+        }
+      };
 
+      return { el, firstVisibleItemObserver, observeItem };
+    },
     /**
      * Initialise scroll behavior.
      * - Observes the rendered element to detect if it is the first visible item.
@@ -71,43 +104,25 @@
      *
      * @internal
      */
-    async mounted(): Promise<void> {
-      await this.$nextTick(); // Mounted does not guarantee that child components are mounted too
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      this.$watch('firstVisibleItemObserver', this.observeItem, { immediate: true });
-    }
+    mounted() {
+      nextTick(() => {
+        // Mounted does not guarantee that child components are mounted too
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        this.$watch('firstVisibleItemObserver', this.observeItem, { immediate: true });
+      });
+    },
 
     /**
      * Detaches the observer from the rendered element to prevent memory leaks.
      *
      * @internal
      */
-    beforeDestroy(): void {
-      this.firstVisibleItemObserver?.unobserve(this.$el);
-    }
-
-    /**
-     * Initialises the element visibility observation, stopping the previous one if it has.
-     *
-     * @param newObserver - The new observer for the HTML element.
-     * @param oldObserver - The old observer for the HTML element.
-     */
-    observeItem(
-      newObserver: ScrollVisibilityObserver | null,
-      oldObserver: ScrollVisibilityObserver | null
-    ): void {
-      oldObserver?.unobserve(this.$el);
-      newObserver?.observe(this.$el);
-      if (this.pendingScrollTo === this.item.id) {
-        Vue.nextTick(() => {
-          this.$el.scrollIntoView({
-            block: 'center'
-          });
-        });
-        this.$x.emit('ScrollRestoreSucceeded');
+    beforeDestroy() {
+      if (this.el !== null && this.el instanceof HTMLElement) {
+        this.firstVisibleItemObserver?.unobserve(this.el);
       }
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
