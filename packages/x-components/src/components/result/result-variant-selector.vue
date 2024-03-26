@@ -87,7 +87,7 @@
        * @returns The 'selectResultVariant' injection key.
        */
       const selectResultVariant = useHybridInject<
-        Ref<(variant: ResultVariant, level?: number) => void | undefined>
+        Ref<(variant: ResultVariant, level?: number) => void>
       >(SELECT_RESULT_VARIANT_KEY as string);
 
       /**
@@ -102,7 +102,7 @@
        *
        * @public
        */
-      const selectedVariants: ResultVariant[] | undefined = useHybridInject(
+      const selectedVariants = useHybridInject<Ref<ResultVariant[]>>(
         SELECTED_VARIANTS_KEY as string
       );
 
@@ -116,7 +116,7 @@
         if (props.level === 0) {
           return result!.variants;
         }
-        return selectedVariants![props.level - 1]?.variants;
+        return selectedVariants!.value[props.level - 1]?.variants;
       });
 
       /**
@@ -126,7 +126,7 @@
        * @internal
        */
       const selectedVariant = computed<ResultVariant | undefined>(() => {
-        return variants.value?.find(variant => variant === selectedVariants![props.level]);
+        return variants.value?.find(variant => variant === selectedVariants!.value[props.level]);
       });
 
       /**

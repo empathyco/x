@@ -21,7 +21,7 @@ const makeInjectionReactive = <SomeValue>(
   ) {
     const xRefValue = injection.value;
 
-    if (xRefValue && typeof xRefValue === 'object') {
+    if (xRefValue && typeof xRefValue === 'object' && !Array.isArray(xRefValue)) {
       return reactive(xRefValue);
     } else {
       return ref<SomeValue>(xRefValue);
