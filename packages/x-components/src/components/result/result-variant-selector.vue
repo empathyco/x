@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from 'vue';
+  import { computed, defineComponent, Ref } from 'vue';
   import { Result, ResultVariant } from '@empathyco/x-types';
   import { NoElement } from '../no-element';
   import {
@@ -86,9 +86,9 @@
        * @public
        * @returns The 'selectResultVariant' injection key.
        */
-      const selectResultVariant:
-        | ((variant: ResultVariant, level?: number) => void)
-        | undefined = () => useHybridInject(SELECT_RESULT_VARIANT_KEY as string);
+      const selectResultVariant = useHybridInject<
+        Ref<(variant: ResultVariant, level?: number) => void | undefined>
+      >(SELECT_RESULT_VARIANT_KEY as string);
 
       /**
        * The original result, used to retrieve the available variants for the level.
@@ -136,7 +136,7 @@
        * @internal
        */
       const selectVariant = (variant: ResultVariant): void => {
-        selectResultVariant(variant, props.level);
+        selectResultVariant!.value(variant, props.level);
       };
 
       /**
