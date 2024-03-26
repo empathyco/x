@@ -8,9 +8,10 @@
   import Vue, { defineComponent, nextTick, PropType, ref } from 'vue';
   import { NoElement } from '../../../components';
   import { scrollXModule } from '../x-module';
-  import { useState, useHybridInject, useRegisterXModule, use$x } from '../../../composables';
+  import { useState, useHybridInject, useRegisterXModule } from '../../../composables';
   import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
+  import { useXBus } from '../../../composables/use-x-bus';
 
   /**
    * Wrapper for elements contained in the {@link MainScroll} that should store/restore its
@@ -44,7 +45,7 @@
 
     setup(props) {
       useRegisterXModule(scrollXModule);
-      const $x = use$x();
+      const xBus = useXBus();
 
       /**
        * Rendered HTML node.
@@ -54,7 +55,7 @@
       const el = ref<HTMLElement | null>(null);
 
       /**
-       * Pending identifier scroll position to restore. If it matches the item
+       * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem} item
        * `id` property, this component should be scrolled into view.
        *
        * @internal
@@ -90,7 +91,7 @@
                   block: 'center'
                 });
               });
-              $x.emit('ScrollRestoreSucceeded');
+              xBus.emit('ScrollRestoreSucceeded');
             }
           }
         }

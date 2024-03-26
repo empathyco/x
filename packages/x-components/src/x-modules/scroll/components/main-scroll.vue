@@ -90,7 +90,7 @@
     protected restoreScrollFailTimeoutId?: number;
 
     /**
-     * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem.item}
+     * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem} item
      * `id` property, this component should be scrolled into view.
      *
      * @internal
