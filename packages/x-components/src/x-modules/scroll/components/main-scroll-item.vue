@@ -54,7 +54,7 @@
       const el = ref<HTMLElement | null>(null);
 
       /**
-       * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem.item}
+       * Pending identifier scroll position to restore. If it matches the {@link props.item}
        * `id` property, this component should be scrolled into view.
        *
        * @internal
