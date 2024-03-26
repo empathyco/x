@@ -84,9 +84,11 @@
        * Callback to be called when a variant is selected.
        *
        * @public
+       * @returns The 'selectResultVariant' injection key.
        */
-      const selectResultVariant: ((variant: ResultVariant, level?: number) => void) | undefined =
-        useHybridInject(SELECT_RESULT_VARIANT_KEY as string);
+      const selectResultVariant:
+        | ((variant: ResultVariant, level?: number) => void)
+        | undefined = () => useHybridInject(SELECT_RESULT_VARIANT_KEY as string);
 
       /**
        * The original result, used to retrieve the available variants for the level.
@@ -134,7 +136,7 @@
        * @internal
        */
       const selectVariant = (variant: ResultVariant): void => {
-        selectResultVariant!(variant, props.level);
+        selectResultVariant(variant, props.level);
       };
 
       /**
