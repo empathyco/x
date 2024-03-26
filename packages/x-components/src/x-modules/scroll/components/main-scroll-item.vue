@@ -30,6 +30,7 @@
         type: Object as PropType<Identifiable>,
         required: true
       },
+
       /**
        * The tag to render.
        *
@@ -44,6 +45,7 @@
     setup(props) {
       useRegisterXModule(scrollXModule);
       const $x = use$x();
+
       /**
        * Rendered HTML node.
        *
@@ -96,6 +98,7 @@
 
       return { el, firstVisibleItemObserver, observeItem };
     },
+
     /**
      * Initialise scroll behavior.
      * - Observes the rendered element to detect if it is the first visible item.
