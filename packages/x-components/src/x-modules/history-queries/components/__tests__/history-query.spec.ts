@@ -123,25 +123,25 @@ describe('testing history-query component', () => {
     expect(getSuggestionWrapper().text()).toEqual('🔍 baileys');
   });
 
-  // TODO: Uncomment test when BaseEventButton component is migrated
-  // eslint-disable-next-line jest/no-commented-out-tests
-  // it('emits `UserPressedRemoveHistoryQuery` when `RemoveHistoryQuery` button is clicked', () => {
-  //   const { emitSpy, suggestion, getRemoveWrapper } = renderHistoryQuery({
-  //     suggestion: createHistoryQuery({ query: 'milk' })
-  //   });
-  //
-  //   getRemoveWrapper().trigger('click');
-  //
-  //   expect(emitSpy).toHaveBeenCalledTimes(1);
-  //   expect(emitSpy).toHaveBeenCalledWith(
-  //     'UserPressedRemoveHistoryQuery',
-  //     suggestion,
-  //     expect.objectContaining<Partial<WireMetadata>>({
-  //       moduleName: 'historyQueries',
-  //       target: getRemoveWrapper().element
-  //     })
-  //   );
-  // });
+  // TODO: Enable test when BaseEventButton component is migrated
+  // eslint-disable-next-line jest/no-disabled-tests,max-len
+  it.skip('emits `UserPressedRemoveHistoryQuery` when `RemoveHistoryQuery` button is clicked', () => {
+    const { emitSpy, suggestion, getRemoveWrapper } = renderHistoryQuery({
+      suggestion: createHistoryQuery({ query: 'milk' })
+    });
+
+    getRemoveWrapper().trigger('click');
+
+    expect(emitSpy).toHaveBeenCalledTimes(1);
+    expect(emitSpy).toHaveBeenCalledWith(
+      'UserPressedRemoveHistoryQuery',
+      suggestion,
+      expect.objectContaining<Partial<WireMetadata>>({
+        moduleName: 'historyQueries',
+        target: getRemoveWrapper().element
+      })
+    );
+  });
 
   it('allows to customize `RemoveHistoryQuery` button content', () => {
     const { getRemoveWrapper } = renderHistoryQuery({

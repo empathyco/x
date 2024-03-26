@@ -78,49 +78,49 @@ describe('testing PageLoaderButton component', () => {
     expect(wrapper.find('.x-rounded-full').exists()).toBe(true);
   });
 
-  // TODO: Uncomment test when BaseEventButton component is migrated
-  // eslint-disable-next-line jest/no-commented-out-tests
-  // it('emits the event UserReachedResultsListEnd when the button is clicked', () => {
-  //   const { wrapper, emitSpy } = renderPageLoaderButton();
-  //   const baseEventButton = wrapper.find(getDataTestSelector('load-content'));
-  //
-  //   baseEventButton.trigger('click');
-  //
-  //   expect(emitSpy).toHaveBeenCalledTimes(1);
-  //   expect(emitSpy).toHaveBeenCalledWith('UserReachedResultsListEnd', undefined, {
-  //     target: baseEventButton.element,
-  //     location: 'none',
-  //     moduleName: null,
-  //     replaceable: true
-  //   });
-  // });
+  // TODO: Enable test when BaseEventButton component is migrated
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('emits the event UserReachedResultsListEnd when the button is clicked', () => {
+    const { wrapper, emitSpy } = renderPageLoaderButton();
+    const baseEventButton = wrapper.find(getDataTestSelector('load-content'));
 
-  // TODO: Uncomment test when BaseEventButton component is migrated
-  // eslint-disable-next-line jest/no-commented-out-tests
-  // it('emits an event passed via prop', async () => {
-  //   const { wrapper, emitSpy } = renderPageLoaderButton();
-  //   const baseEventButton = wrapper.find(getDataTestSelector('load-content'));
-  //
-  //   wrapper.setProps({ buttonEvents: { UserClickedCloseX: undefined } });
-  //   await wrapper.vm.$nextTick();
-  //
-  //   baseEventButton.trigger('click');
-  //   jest.runAllTimers();
-  //
-  //   expect(emitSpy).toHaveBeenCalledTimes(2);
-  //   expect(emitSpy).toHaveBeenCalledWith('UserReachedResultsListEnd', undefined, {
-  //     target: baseEventButton.element,
-  //     location: 'none',
-  //     moduleName: null,
-  //     replaceable: true
-  //   });
-  //   expect(emitSpy).toHaveBeenCalledWith('UserClickedCloseX', undefined, {
-  //     target: baseEventButton.element,
-  //     location: 'none',
-  //     moduleName: null,
-  //     replaceable: true
-  //   });
-  // });
+    baseEventButton.trigger('click');
+
+    expect(emitSpy).toHaveBeenCalledTimes(1);
+    expect(emitSpy).toHaveBeenCalledWith('UserReachedResultsListEnd', undefined, {
+      target: baseEventButton.element,
+      location: 'none',
+      moduleName: null,
+      replaceable: true
+    });
+  });
+
+  // TODO: Enable test when BaseEventButton component is migrated
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('emits an event passed via prop', async () => {
+    const { wrapper, emitSpy } = renderPageLoaderButton();
+    const baseEventButton = wrapper.find(getDataTestSelector('load-content'));
+
+    wrapper.setProps({ buttonEvents: { UserClickedCloseX: undefined } });
+    await wrapper.vm.$nextTick();
+
+    baseEventButton.trigger('click');
+    jest.runAllTimers();
+
+    expect(emitSpy).toHaveBeenCalledTimes(2);
+    expect(emitSpy).toHaveBeenCalledWith('UserReachedResultsListEnd', undefined, {
+      target: baseEventButton.element,
+      location: 'none',
+      moduleName: null,
+      replaceable: true
+    });
+    expect(emitSpy).toHaveBeenCalledWith('UserClickedCloseX', undefined, {
+      target: baseEventButton.element,
+      location: 'none',
+      moduleName: null,
+      replaceable: true
+    });
+  });
 });
 
 /**
