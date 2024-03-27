@@ -9,9 +9,9 @@
   import { NoElement } from '../../../components';
   import { scrollXModule } from '../x-module';
   import { useState, useHybridInject, useRegisterXModule } from '../../../composables';
+  import { useXBus } from '../../../composables/use-x-bus';
   import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
-  import { useXBus } from '../../../composables/use-x-bus';
 
   /**
    * Wrapper for elements contained in the {@link MainScroll} that should store/restore its
