@@ -138,7 +138,7 @@
        * and when the result is changed.
        */
       watch(
-        result.value,
+        result,
         () => {
           selectedVariants.value = [];
           selectFirstVariants(result.value?.variants?.[0]);
