@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, Ref } from 'vue';
+  import { computed, defineComponent, inject, Ref } from 'vue';
   import { Result, ResultVariant } from '@empathyco/x-types';
   import { NoElement } from '../no-element';
   import {
@@ -57,7 +57,6 @@
     SELECTED_VARIANTS_KEY,
     SELECT_RESULT_VARIANT_KEY
   } from '../decorators/injection.consts';
-  import { useHybridInject } from '../../composables';
 
   /**
    * Component to show and select the available variants of a product for a given nest level.
@@ -86,25 +85,23 @@
        * @public
        * @returns The 'selectResultVariant' injection key.
        */
-      const selectResultVariant = useHybridInject<
-        Ref<(variant: ResultVariant, level?: number) => void>
-      >(SELECT_RESULT_VARIANT_KEY as string);
+      const selectResultVariant = inject<(variant: ResultVariant, level?: number) => void>(
+        SELECT_RESULT_VARIANT_KEY as string
+      );
 
       /**
        * The original result, used to retrieve the available variants for the level.
        *
        * @public
        */
-      const result: Result | undefined = useHybridInject(RESULT_WITH_VARIANTS_KEY as string);
+      const result = inject<Ref<Result>>(RESULT_WITH_VARIANTS_KEY as string);
 
       /**
        * Array containing the selected variants.
        *
        * @public
        */
-      const selectedVariants = useHybridInject<Ref<ResultVariant[]>>(
-        SELECTED_VARIANTS_KEY as string
-      );
+      const selectedVariants = inject<Ref<ResultVariant[]>>(SELECTED_VARIANTS_KEY as string);
 
       /**
        * It retrieves the available variants from the result.
@@ -114,7 +111,7 @@
        */
       const variants = computed<ResultVariant[] | undefined>(() => {
         if (props.level === 0) {
-          return result!.variants;
+          return result!.value.variants;
         }
         return selectedVariants!.value[props.level - 1]?.variants;
       });
@@ -136,7 +133,7 @@
        * @internal
        */
       const selectVariant = (variant: ResultVariant): void => {
-        selectResultVariant!.value(variant, props.level);
+        selectResultVariant!(variant, props.level);
       };
 
       /**
