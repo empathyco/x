@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.37...@empathyco/x-components@4.1.0-alpha.38) (2024-03-27)
+
+
+### Bug Fixes
+
+* make arrays reactive with ref in useHybridInject (#1437) ([75e6fbf](https://github.com/empathyco/x/commit/75e6fbf0b5c2cc95a2bb6f5549afed5eeca635ca))
+
+
+
 ## [4.1.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.36...@empathyco/x-components@4.1.0-alpha.37) (2024-03-22)
 
 
