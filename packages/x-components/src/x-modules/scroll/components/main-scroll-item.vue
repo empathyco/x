@@ -52,7 +52,7 @@
        *
        * @public
        */
-      const el = ref<HTMLElement | null>(null);
+      const el = ref<any>(null);
 
       /**
        * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem} item
@@ -82,12 +82,12 @@
         oldObserver: ScrollVisibilityObserver | null
       ): void => {
         {
-          if (el.value !== null && el.value instanceof HTMLElement) {
-            oldObserver?.unobserve(el.value);
-            newObserver?.observe(el.value);
+          if (el.value !== null) {
+            oldObserver?.unobserve(el.value.$el);
+            newObserver?.observe(el.value.$el);
             if (pendingScrollTo === props.item.id) {
               Vue.nextTick(() => {
-                el.value?.scrollIntoView({
+                el.value?.$el.scrollIntoView({
                   block: 'center'
                 });
               });
@@ -122,8 +122,8 @@
      * @internal
      */
     beforeDestroy() {
-      if (this.el !== null && this.el instanceof HTMLElement) {
-        this.firstVisibleItemObserver?.unobserve(this.el);
+      if (this.el !== null) {
+        this.firstVisibleItemObserver?.unobserve(this.el.$el);
       }
     }
   });
