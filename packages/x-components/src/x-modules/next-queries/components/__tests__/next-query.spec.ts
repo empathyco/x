@@ -5,45 +5,51 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { default as NextQueryComponent } from '../next-query.vue';
-import { XComponentAPI } from '../../../../plugins/x-plugin.types';
+import { bus } from '../../../../plugins/index';
+import { dummyCreateEmitter } from '../../../../__tests__/bus.dummy';
+
+function renderNextQuery({
+  suggestion = createNextQueryStub('milk'),
+  template = '<NextQuery :suggestion="suggestion" />'
+}: RenderNextQueryOptions = {}): RenderNextQueryAPI {
+  // Making bus not repeat subjects
+  jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any);
+
+  const [, localVue] = installNewXPlugin();
+  const wrapperTemplate = mount(
+    {
+      props: ['suggestion', 'highlightCurated'],
+      components: {
+        NextQuery: NextQueryComponent
+      },
+      template
+    },
+    {
+      localVue,
+      propsData: { suggestion }
+    }
+  );
+  const wrapper = wrapperTemplate.findComponent(NextQueryComponent);
+
+  return {
+    wrapper,
+    suggestion,
+    async clickNextQuery() {
+      wrapper.trigger('click');
+      await localVue.nextTick();
+    },
+    hasIsCuratedClass() {
+      return wrapper
+        .find(getDataTestSelector('next-query'))
+        .element.classList.contains('x-next-query--is-curated');
+    }
+  };
+}
 
 describe('testing next query item component', () => {
-  function renderNextQuery({
-    suggestion = createNextQueryStub('milk'),
-    template = '<NextQuery :suggestion="suggestion" />'
-  }: RenderNextQueryOptions = {}): RenderNextQueryAPI {
-    const [, localVue] = installNewXPlugin();
-    const wrapperTemplate = mount(
-      {
-        props: ['suggestion', 'highlightCurated'],
-        components: {
-          NextQuery: NextQueryComponent
-        },
-        template
-      },
-      {
-        localVue,
-        propsData: { suggestion }
-      }
-    );
-    const wrapper = wrapperTemplate.findComponent(NextQueryComponent);
-    const $x = wrapperTemplate.vm.$x;
-
-    return {
-      wrapper,
-      $x,
-      suggestion,
-      async clickNextQuery() {
-        wrapper.trigger('click');
-        await localVue.nextTick();
-      },
-      hasIsCuratedClass() {
-        return wrapper
-          .find(getDataTestSelector('next-query'))
-          .element.classList.contains('x-next-query--is-curated');
-      }
-    };
-  }
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
 
   it('is an XComponent and has an XModule', () => {
     const { wrapper } = renderNextQuery();
@@ -52,10 +58,12 @@ describe('testing next query item component', () => {
   });
 
   it('emits UserSelectedANextQuery when a next query is selected', async () => {
+    const { clickNextQuery, suggestion, wrapper } = renderNextQuery();
     const listener = jest.fn();
-    const { $x, clickNextQuery, suggestion, wrapper } = renderNextQuery();
-    $x.on('UserSelectedANextQuery', true).subscribe(listener);
+    bus.on('UserSelectedANextQuery', true).subscribe(listener);
+
     await clickNextQuery();
+    jest.runAllTimers();
 
     expect(listener).toHaveBeenCalled();
     expect(listener).toHaveBeenCalledWith({
@@ -111,8 +119,10 @@ describe('testing next query item component', () => {
 interface RenderNextQueryOptions {
   /** The next query data to render. */
   suggestion?: NextQuery;
-  /** The template to render. Receives the `nextQuery` via prop, and has registered the
-   * {@link NextQueryComponent} as `NextQuery`. */
+  /**
+   * The template to render. Receives the `nextQuery` via prop, and has registered the
+   * {@link NextQueryComponent} as `NextQuery`.
+   */
   template?: string;
 }
 
@@ -120,8 +130,6 @@ interface RenderNextQueryAPI {
   /** The Vue testing utils wrapper for the {@link NextQueryComponent}. */
   wrapper: Wrapper<Vue>;
   /** The {@link XComponentAPI} used by the rendered {@link NextQueryComponent}. */
-  $x: XComponentAPI;
-  /** The rendered next query data. */
   suggestion: NextQuery;
   /** Clicks the next query and waits for the view to update. */
   clickNextQuery: () => Promise<void>;

@@ -23,7 +23,7 @@ import { useStore } from './use-store';
  *
  * @internal
  */
-export function useAliasApi(this: any): UseAliasAPI {
+export function useAliasApi(): UseAliasAPI {
   const queryModules = [
     'facets',
     'searchBox',
@@ -158,7 +158,7 @@ export interface UseAliasAPI {
   /** The {@link DeviceXModule} detected device. */
   readonly device: string | null;
   /** The {@link FacetsXModule} facets. */
-  readonly facets: ReadonlyArray<Facet>;
+  readonly facets: Record<Facet['id'], Facet>;
   /** The {@link HistoryQueriesXModule} history queries matching the query. */
   readonly historyQueries: ReadonlyArray<HistoryQuery>;
   /** The {@link HistoryQueriesXModule} history queries with 1 or more results. */

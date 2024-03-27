@@ -2,6 +2,8 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseIdModalOpen from '../base-id-modal-open.vue';
+import { bus } from '../../../plugins/x-bus';
+import { dummyCreateEmitter } from '../../../__tests__/bus.dummy';
 
 /**
  * Renders the {@link BaseIdModalOpen} with the provided options.
@@ -13,6 +15,9 @@ function renderBaseIdModalOpen({
   id = 'myModal',
   template = `<BaseIdModalOpen modalId="${id}" v-bind="$attrs"/>`
 }: RenderBaseIdModalOpenOptions = {}): RenderBaseIdModalOpenAPI {
+  // Making bus not repeat subjects
+  jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any);
+
   const [, localVue] = installNewXPlugin();
   const containerWrapper = mount(
     {
@@ -21,7 +26,10 @@ function renderBaseIdModalOpen({
       },
       template
     },
-    { propsData: { modalId: id }, localVue }
+    {
+      propsData: { modalId: id },
+      localVue
+    }
   );
 
   const wrapper = containerWrapper.findComponent(BaseIdModalOpen);
@@ -32,15 +40,20 @@ function renderBaseIdModalOpen({
     modalId,
     async click() {
       await wrapper.trigger('click');
+      jest.runAllTimers();
     }
   };
 }
 
 describe('testing Open Button component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
   it("emits UserClickedOpenModal with the component's id as payload", async () => {
-    const { wrapper, modalId, click } = renderBaseIdModalOpen();
+    const { modalId, click } = renderBaseIdModalOpen();
     const listener = jest.fn();
-    wrapper.vm.$x.on('UserClickedOpenModal').subscribe(listener);
+    bus.on('UserClickedOpenModal').subscribe(listener);
 
     await click();
 
@@ -69,20 +82,22 @@ describe('testing Open Button component', () => {
     });
 
     const listener = jest.fn();
-    wrapper.vm.$x.on('UserClickedOpenModal').subscribe(listener);
+    bus.on('UserClickedOpenModal').subscribe(listener);
 
     await click();
 
     expect(listener).toHaveBeenCalledTimes(0);
 
     wrapper.find(getDataTestSelector('custom-open-modal')).trigger('click');
+    jest.runAllTimers();
+
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith(modalId);
   });
 });
 
 interface RenderBaseIdModalOpenOptions {
-  /** Id of the modal to open. */
+  /** The id of the modal to open. */
   id?: string;
   /** The template to render. */
   template?: string;

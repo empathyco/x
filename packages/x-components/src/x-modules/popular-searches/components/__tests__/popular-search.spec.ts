@@ -5,11 +5,11 @@ import Vuex, { Store } from 'vuex';
 import { createPopularSearch } from '../../../../__stubs__/popular-searches-stubs.factory';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { popularSearchesXModule } from '../../x-module';
 import PopularSearch from '../popular-search.vue';
+import { bus } from '../../../../plugins/index';
 
 function renderPopularSearch({
   suggestion = createPopularSearch('baileys'),
@@ -38,11 +38,15 @@ function renderPopularSearch({
   return {
     wrapper: wrapper.findComponent(PopularSearch),
     suggestion,
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit')
+    emitSpy: jest.spyOn(bus, 'emit')
   };
 }
 
 describe('testing popular-search component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
   it('is an XComponent that belongs to the popular searches', () => {
     const { wrapper } = renderPopularSearch();
     expect(isXComponent(wrapper.vm)).toEqual(true);

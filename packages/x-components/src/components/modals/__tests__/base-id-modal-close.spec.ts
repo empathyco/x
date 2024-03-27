@@ -2,6 +2,8 @@ import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseIdModalClose from '../base-id-modal-close.vue';
+import { bus } from '../../../plugins/index';
+import { dummyCreateEmitter } from '../../../__tests__/bus.dummy';
 
 /**
  * Renders the {@link BaseIdModalClose} with the provided options.
@@ -13,6 +15,9 @@ function renderBaseIdModalClose({
   id = 'random',
   template = `<BaseIdModalClose modalId="${id}" v-bind="$attrs"/>`
 }: RenderBaseIdModalCloseOptions = {}): RenderBaseIdModalCloseAPI {
+  // Making bus not repeat subjects
+  jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any);
+
   const [, localVue] = installNewXPlugin();
   const containerWrapper = mount(
     {
@@ -32,15 +37,20 @@ function renderBaseIdModalClose({
     modalId,
     async click() {
       await wrapper.trigger('click');
+      jest.runAllTimers();
     }
   };
 }
 
 describe('testing Close Button component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
   it("emits UserClickedCloseModal with the component's id as payload", async () => {
-    const { wrapper, modalId, click } = renderBaseIdModalClose();
+    const { modalId, click } = renderBaseIdModalClose();
     const listener = jest.fn();
-    wrapper.vm.$x.on('UserClickedCloseModal').subscribe(listener);
+    bus.on('UserClickedCloseModal').subscribe(listener);
 
     await click();
 
@@ -69,20 +79,22 @@ describe('testing Close Button component', () => {
     });
 
     const listener = jest.fn();
-    wrapper.vm.$x.on('UserClickedCloseModal').subscribe(listener);
+    bus.on('UserClickedCloseModal').subscribe(listener);
 
     await click();
 
     expect(listener).toHaveBeenCalledTimes(0);
 
     wrapper.find(getDataTestSelector('custom-close-modal')).trigger('click');
+    jest.runAllTimers();
+
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith(modalId);
   });
 });
 
 interface RenderBaseIdModalCloseOptions {
-  /** Id of the modal to close. */
+  /** The id of the modal to close. */
   id?: string;
   /** The template to render. */
   template?: string;
