@@ -44,6 +44,9 @@
     },
 
     setup(props) {
+      interface ElementRef {
+        $el: HTMLElement;
+      }
       useRegisterXModule(scrollXModule);
       const xBus = useXBus();
 
@@ -52,7 +55,7 @@
        *
        * @public
        */
-      const el = ref<any>(null);
+      const el = ref<ElementRef | null>(null);
 
       /**
        * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem} item
