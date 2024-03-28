@@ -4,7 +4,7 @@ import { createResultStub } from '../../../__stubs__/index';
 import { findTestDataById, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import ResultVariantsProvider from '../result-variants-provider.vue';
 import ResultVariantSelector from '../result-variant-selector.vue';
-import { bus } from '../../../plugins/index';
+import { XPlugin } from '../../../plugins/index';
 
 const variants = [
   {
@@ -51,7 +51,8 @@ const renderResultVariantsProvider = ({
   autoSelectDepth
 }: ResultVariantsProviderOptions): ResultVariantsProviderApi => {
   const [, localVue] = installNewXPlugin();
-  const eventsBusSpy = jest.spyOn(bus, 'emit');
+
+  const eventsBusSpy = jest.spyOn(XPlugin.bus, 'emit');
 
   const wrapper = mount(
     {
@@ -104,14 +105,6 @@ const renderResultVariantsProvider = ({
 };
 
 describe('results with variants', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
   it('provider exposes the result in the default slot', () => {
     const template = `
       <span data-test="result-name">{{newResult.name}}</span>
@@ -287,10 +280,6 @@ describe('results with variants', () => {
   });
 
   describe('result variant selector', () => {
-    beforeAll(() => {
-      jest.useFakeTimers();
-    });
-
     it('renders the whole variant by default', () => {
       const { wrapper } = renderResultVariantsProvider({ result });
       const button = wrapper.find(getDataTestSelector('variant-button'));
@@ -496,7 +485,7 @@ interface ResultVariantsProviderApi {
    */
   setResult: (result: Result) => Promise<void>;
   /**
-   * A Jest spy set in the {@link bus} bus `emit` function,
+   * A Jest spy set in the {@link XPlugin} bus `emit` function,
    * useful to test events emitted in the first lifecycle hooks of the component.
    */
   eventsBusSpy: jest.SpyInstance;

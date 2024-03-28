@@ -85,7 +85,7 @@
        * @public
        * @returns The 'selectResultVariant' injection key.
        */
-      const selectResultVariant = inject<(variant: ResultVariant, level?: number) => void>(
+      const selectResultVariant = inject<Ref<(variant: ResultVariant, level?: number) => void>>(
         SELECT_RESULT_VARIANT_KEY as string
       );
 
@@ -111,9 +111,9 @@
        */
       const variants = computed<ResultVariant[] | undefined>(() => {
         if (props.level === 0) {
-          return result!.value.variants;
+          return result?.value?.variants;
         }
-        return selectedVariants!.value[props.level - 1]?.variants;
+        return selectedVariants?.value[props.level - 1]?.variants;
       });
 
       /**
@@ -133,7 +133,7 @@
        * @internal
        */
       const selectVariant = (variant: ResultVariant): void => {
-        selectResultVariant!(variant, props.level);
+        selectResultVariant!.value(variant, props.level);
       };
 
       /**
