@@ -136,7 +136,7 @@
     Facet,
     SimpleFilter as SimpleFilterModel
   } from '@empathyco/x-types';
-  import { defineComponent } from 'vue';
+  import { defineComponent, inject } from 'vue';
   import BasePriceFilterLabel from '../../components/filters/labels/base-price-filter-label.vue';
   import EditableNumberPriceRangeFilter from '../../x-modules/facets/components/filters/editable-number-range-filter.vue';
   import ChevronDown from '../../components/icons/chevron-down.vue';
@@ -153,7 +153,6 @@
   import SelectedFilters from '../../x-modules/facets/components/lists/selected-filters.vue';
   import SlicedFilters from '../../x-modules/facets/components/lists/sliced-filters.vue';
   import SortedFilters from '../../x-modules/facets/components/lists/sorted-filters.vue';
-  import { useHybridInject } from '../../composables';
   import { HomeControls } from './types';
   /* eslint-enable max-len */
 
@@ -178,7 +177,7 @@
       SortedFilters
     },
     setup() {
-      const controls = useHybridInject<HomeControls>('controls') as HomeControls;
+      const controls = inject<HomeControls>('controls') as HomeControls;
       const editableNumberRangeFilter: EditableNumberRangeFilter = {
         facetId: 'salePrice',
         selected: false,
