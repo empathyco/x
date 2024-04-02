@@ -5,10 +5,10 @@
 </template>
 <script lang="ts">
   import { Identifiable } from '@empathyco/x-types';
-  import Vue, { defineComponent, nextTick, PropType, ref } from 'vue';
+  import Vue, { defineComponent, inject, nextTick, PropType, ref } from 'vue';
   import { NoElement } from '../../../components';
   import { scrollXModule } from '../x-module';
-  import { useState, useHybridInject, useRegisterXModule } from '../../../composables';
+  import { useState, useRegisterXModule } from '../../../composables';
   import { useXBus } from '../../../composables/use-x-bus';
   import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
@@ -47,6 +47,10 @@
       interface ElementRef {
         $el: HTMLElement;
       }
+      interface InjectedScrollVisibilityObserver {
+        value: ScrollVisibilityObserver;
+      }
+
       useRegisterXModule(scrollXModule);
       const xBus = useXBus();
 
@@ -70,9 +74,9 @@
        *
        * @internal
        */
-      const firstVisibleItemObserver = useHybridInject<ScrollVisibilityObserver>(
-        ScrollObserverKey as string
-      ) as ScrollVisibilityObserver;
+      const firstVisibleItemObserver = (
+        inject(ScrollObserverKey as string) as InjectedScrollVisibilityObserver
+      ).value;
 
       /**
        * Initialises the element visibility observation, stopping the previous one if it has.
