@@ -352,7 +352,7 @@ describe('results with variants', () => {
 
     it('wont render if no result is injected', () => {
       const { wrapper } = renderResultVariantsProvider({
-        result: null
+        result: {}
       });
 
       expect(wrapper.find(getDataTestSelector('variants-list')).exists()).toBe(false);
@@ -453,7 +453,7 @@ describe('results with variants', () => {
  */
 interface ResultVariantsProviderOptions {
   /** The result containing the variants. */
-  result: Result | null;
+  result: Result | Record<string, never>;
   /** The template to render inside the provider's default slot. */
   template?: string;
   /** Indicates the number of levels to auto select the first variants. */
