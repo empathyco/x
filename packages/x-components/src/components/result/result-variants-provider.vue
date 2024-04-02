@@ -29,6 +29,7 @@
    * @public
    */
   export default defineComponent({
+    name: 'ResultVariantsProvider',
     props: {
       /**
        * The original result containing the variants.
