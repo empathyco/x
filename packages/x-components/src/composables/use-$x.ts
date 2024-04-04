@@ -1,5 +1,5 @@
-import { getCurrentInstance } from 'vue';
-import { XComponentAPI } from '../plugins';
+import { UseAliasAPI, useAliasApi } from './use-alias-api';
+import { useXBus, UseXBusAPI } from './use-x-bus';
 
 /**
  * Function which returns the `$x` object from the current component instance.
@@ -8,6 +8,16 @@ import { XComponentAPI } from '../plugins';
  *
  * @public
  */
-export function use$x(): XComponentAPI {
-  return (getCurrentInstance()?.proxy as unknown as { $x: XComponentAPI }).$x;
+export function use$x(): UseXComponentAPI {
+  const xAliasAPI = useAliasApi();
+  const xBusAPI = useXBus();
+  return Object.assign(xAliasAPI, xBusAPI);
 }
+
+/**
+ * The XComponentAPI exposes access to the {@link @empathyco/x-bus#XBus}, and store aliases to the
+ * components.
+ *
+ * @public
+ */
+export interface UseXComponentAPI extends UseXBusAPI, UseAliasAPI {}

@@ -5,11 +5,11 @@ import Vuex, { Store } from 'vuex';
 import { createQuerySuggestion } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { querySuggestionsXModule } from '../../x-module';
 import QuerySuggestion from '../query-suggestion.vue';
+import { bus } from '../../../../plugins/index';
 import { resetXQuerySuggestionsStateWith } from './utils';
 
 function renderQuerySuggestion({
@@ -41,7 +41,7 @@ function renderQuerySuggestion({
   return {
     wrapper: wrapper.findComponent(QuerySuggestion),
     suggestion,
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: jest.spyOn(bus, 'emit'),
     getMatchingPart() {
       return wrapper.get(getDataTestSelector('matching-part'));
     }
@@ -49,6 +49,10 @@ function renderQuerySuggestion({
 }
 
 describe('testing query-suggestion component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
   it('is an XComponent that belongs to the query suggestions', () => {
     const { wrapper } = renderQuerySuggestion();
     expect(isXComponent(wrapper.vm)).toEqual(true);

@@ -2,7 +2,6 @@ import { Suggestion } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { createQuerySuggestion } from '../../../__stubs__/index';
-import { XPlugin } from '../../../plugins/x-plugin';
 import { normalizeString } from '../../../utils/normalize';
 import { XEventsTypes } from '../../../wiring/events.types';
 import { WireMetadata } from '../../../wiring/wiring.types';
@@ -10,6 +9,7 @@ import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils
 import BaseSuggestion from '../base-suggestion.vue';
 import { createSimpleFacetStub } from '../../../__stubs__/facets-stubs.factory';
 import { createPopularSearch } from '../../../__stubs__/popular-searches-stubs.factory';
+import { bus } from '../../../plugins/index';
 
 function renderBaseSuggestion({
   query = 'bebe',
@@ -17,7 +17,7 @@ function renderBaseSuggestion({
   suggestionSelectedEvents = {}
 }: BaseSuggestionOptions = {}): BaseSuggestionAPI {
   const [, localVue] = installNewXPlugin();
-  const emit = jest.spyOn(XPlugin.bus, 'emit');
+  const emit = jest.spyOn(bus, 'emit');
   const wrapper = mount(
     {
       components: { BaseSuggestion },
@@ -56,6 +56,14 @@ function renderBaseSuggestion({
 }
 
 describe('testing Base Suggestion component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('renders a basic suggestion', () => {
     const { wrapper } = renderBaseSuggestion({
       suggestion: createPopularSearch('milk')
