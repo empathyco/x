@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { defineComponent, PropType, watch, computed, ref } from 'vue';
+  import { defineComponent, PropType, watch, computed, inject } from 'vue';
   import { createRawFilters } from '../../../utils/filters';
   import { isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { useXBus } from '../../../composables/use-x-bus';
-  import { useHybridInject, useNoElementRender } from '../../../composables';
+  import { useNoElementRender } from '../../../composables';
 
   /**
    * This component emits {@link FacetsXEvents.PreselectedFiltersProvided} when a preselected filter
@@ -37,7 +37,7 @@
        *
        * @internal
        */
-      const snippetConfig = ref(useHybridInject<SnippetConfig>('snippetConfig'));
+      const snippetConfig = inject<SnippetConfig>('snippetConfig');
 
       /**
        * Gets the provided preselected filters prioritizing the {@link SnippetConfig} over the
@@ -47,7 +47,7 @@
        * @internal
        */
       const preselectedFilters = computed<string[]>(() => {
-        return snippetConfig.value?.filters ?? props.filters;
+        return snippetConfig?.filters ?? props.filters;
       });
 
       /**
