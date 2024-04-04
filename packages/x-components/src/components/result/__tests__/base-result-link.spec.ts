@@ -8,6 +8,8 @@ import { XEvent, XEventsTypes } from '../../../wiring/events.types';
 import BaseResultLink from '../base-result-link.vue';
 import { WireMetadata } from '../../../wiring/index';
 import { PropsWithType } from '../../../utils/index';
+import { bus } from '../../../plugins/index';
+import { dummyCreateEmitter } from '../../../__tests__/bus.dummy';
 
 describe('testing BaseResultLink component', () => {
   const result = createResultStub('Product 001', {
@@ -16,6 +18,12 @@ describe('testing BaseResultLink component', () => {
   let localVue: typeof Vue;
   let resultLinkWrapper: Wrapper<Vue>;
   const template = '<BaseResultLink :result="result"/>';
+  // Making bus not repeat subjects
+  jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any);
+
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
 
   beforeEach(() => {
     [, localVue] = installNewXPlugin();
@@ -33,24 +41,26 @@ describe('testing BaseResultLink component', () => {
   });
 
   // eslint-disable-next-line max-len
-  it('emits UserClickedAResult when the user clicks in the left, middle or right button on the component', () => {
+  it('emits UserClickedAResult when the user clicks in the left, middle or right button on the component', async () => {
     const listener = jest.fn();
-    resultLinkWrapper.vm.$x.on('UserClickedAResult').subscribe(listener);
+    bus.on('UserClickedAResult').subscribe(listener);
 
-    resultLinkWrapper.trigger('click');
+    await resultLinkWrapper.trigger('click');
+    jest.runAllTimers();
     expect(listener).toHaveBeenNthCalledWith(1, result);
 
-    resultLinkWrapper.trigger('click', { button: 1 });
+    await resultLinkWrapper.trigger('click', { button: 1 });
+    jest.runAllTimers();
     expect(listener).toHaveBeenNthCalledWith(2, result);
 
-    resultLinkWrapper.trigger('click', { button: 2 });
+    await resultLinkWrapper.trigger('click', { button: 2 });
+    jest.runAllTimers();
     expect(listener).toHaveBeenNthCalledWith(3, result);
 
     expect(listener).toHaveBeenCalledTimes(3);
   });
 
-  it('emits events provided from parent element with provided location in metadata', () => {
-    const listener = jest.fn();
+  it('emits events provided from parent element with provided location in metadata', async () => {
     const resultLinkWrapper = mount(
       {
         components: { BaseResultLink },
@@ -66,8 +76,13 @@ describe('testing BaseResultLink component', () => {
         propsData: { result }
       }
     );
-    resultLinkWrapper.vm.$x.on('UserClickedResultAddToCart', true).subscribe(listener);
-    resultLinkWrapper.trigger('click');
+
+    const listener = jest.fn();
+    bus.on('UserClickedResultAddToCart', true).subscribe(listener);
+
+    await resultLinkWrapper.trigger('click');
+    jest.runAllTimers();
+
     expect(listener).toHaveBeenCalledWith({
       eventPayload: result,
       metadata: expect.objectContaining({
@@ -76,7 +91,7 @@ describe('testing BaseResultLink component', () => {
     });
   });
 
-  it('emits events with the extra metadata provided from parent element', () => {
+  it('emits events with the extra metadata provided from parent element', async () => {
     const injectedResultLinkMetadataPerEvent: Partial<
       Record<
         PropsWithType<XEventsTypes, Result>,
@@ -90,8 +105,6 @@ describe('testing BaseResultLink component', () => {
         replaceable: false
       }
     };
-    const resultClickListener = jest.fn();
-    const addToCartClickListener = jest.fn();
 
     const resultLinkWrapper = mount(
       {
@@ -108,11 +121,15 @@ describe('testing BaseResultLink component', () => {
         propsData: { result }
       }
     );
-    resultLinkWrapper.vm.$x.on('UserClickedAResult', true).subscribe(resultClickListener);
-    resultLinkWrapper.vm.$x
-      .on('UserClickedResultAddToCart', true)
-      .subscribe(addToCartClickListener);
-    resultLinkWrapper.trigger('click');
+
+    const resultClickListener = jest.fn();
+    bus.on('UserClickedAResult', true).subscribe(resultClickListener);
+
+    const addToCartClickListener = jest.fn();
+    bus.on('UserClickedResultAddToCart', true).subscribe(addToCartClickListener);
+
+    await resultLinkWrapper.trigger('click');
+    jest.runAllTimers();
 
     expect(resultClickListener).toHaveBeenCalledTimes(1);
     expect(resultClickListener).toHaveBeenCalledWith({

@@ -2,7 +2,7 @@ import { Ref, watch, WatchStopHandle } from 'vue';
 import { useElementVisibility } from '@vueuse/core';
 import { TaggingRequest } from '@empathyco/x-types';
 import { WireMetadata } from '../wiring';
-import { use$x } from './use-$x';
+import { useXBus } from './use-x-bus';
 
 /**
  * Composable that triggers a callback whenever the provided element appears in the viewport.
@@ -54,12 +54,16 @@ export function useEmitDisplayEvent({
   taggingRequest,
   eventMetadata = {}
 }: UseEmitDisplayEventOptions): UseOnDisplayReturn {
-  const $x = use$x();
+  const bus = useXBus();
 
   const { isElementVisible, unwatchDisplay } = useOnDisplay({
     element,
     callback: () => {
-      $x.emit('TrackableElementDisplayed', { tagging: { display: taggingRequest } }, eventMetadata);
+      bus.emit(
+        'TrackableElementDisplayed',
+        { tagging: { display: taggingRequest } },
+        eventMetadata
+      );
     }
   });
 
