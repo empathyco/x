@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.38...@empathyco/x-components@4.1.0-alpha.39) (2024-04-04)
+
+
+### Features
+
+* modify use-$x composable (#1434) ([cd9a0d1](https://github.com/empathyco/x/commit/cd9a0d1acc95e9b79142aa1abe4b5df5d04aef40))
+
+
+
 ## [4.1.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.37...@empathyco/x-components@4.1.0-alpha.38) (2024-03-27)
 
 
