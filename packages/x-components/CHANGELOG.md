@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.40...@empathyco/x-components@4.1.0-alpha.41) (2024-04-08)
+
+
+### Features
+
+* migrate base-grid component to vue 2.7 (#1441) ([1974715](https://github.com/empathyco/x/commit/19747154d727bec6cbee171df7d655c34f714db0))
+
+
+
 ## [4.1.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.39...@empathyco/x-components@4.1.0-alpha.40) (2024-04-04)
 
 
