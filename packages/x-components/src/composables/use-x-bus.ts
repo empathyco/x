@@ -1,4 +1,4 @@
-import Vue, { getCurrentInstance, isRef, Ref } from 'vue';
+import Vue, { getCurrentInstance, inject, Ref } from 'vue';
 import { XBus } from '@empathyco/x-bus';
 import { bus } from '../plugins/x-bus';
 import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
@@ -6,7 +6,6 @@ import { WireMetadata } from '../wiring/wiring.types';
 import { getRootXComponent, getXComponentXModuleName } from '../components/x-component.utils';
 import { FeatureLocation } from '../types/origin';
 import { PropsWithType } from '../utils/types';
-import { useHybridInject } from './use-hybrid-inject';
 
 /**
  * Composable which injects the current location,
@@ -16,10 +15,7 @@ import { useHybridInject } from './use-hybrid-inject';
  * @returns An object with the `on` and `emit` functions.
  */
 export function useXBus(): UseXBusAPI {
-  const injectedLocation = useHybridInject<Ref<FeatureLocation> | FeatureLocation>(
-    'location',
-    'none'
-  );
+  const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location', 'none');
 
   const currentComponent: PrivateExtendedVueComponent | undefined | null =
     getCurrentInstance()?.proxy;
@@ -35,7 +31,10 @@ export function useXBus(): UseXBusAPI {
       payload?: XEventPayload<Event>,
       metadata: Omit<WireMetadata, 'moduleName'> = {}
     ) => {
-      const location = isRef(injectedLocation) ? injectedLocation.value : injectedLocation;
+      const location =
+        typeof injectedLocation === 'object' && 'value' in injectedLocation
+          ? injectedLocation.value
+          : injectedLocation;
 
       bus.emit(event, payload, createWireMetadata(metadata, currentComponent, location));
       currentXComponent?.$emit(event, payload);
@@ -79,7 +78,7 @@ interface PrivateExtendedVueComponent extends Vue {
   xComponent?: Vue | undefined;
 }
 
-interface UseXBusAPI {
+export interface UseXBusAPI {
   /* eslint-disable jsdoc/require-description-complete-sentence */
   /** {@inheritDoc XBus.(on:1)} */
   on: XBus<XEventsTypes, WireMetadata>['on'];
