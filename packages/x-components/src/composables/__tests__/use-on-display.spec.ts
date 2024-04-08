@@ -2,8 +2,8 @@ import { ref, nextTick } from 'vue';
 import { useElementVisibility } from '@vueuse/core';
 import { TaggingRequest } from '@empathyco/x-types';
 import { useEmitDisplayEvent, useOnDisplay } from '../use-on-display';
-import { use$x } from '../use-$x';
 import { WireMetadata } from '../../wiring';
+import { bus } from '../../plugins/index';
 
 jest.mock('@vueuse/core', () => ({
   useElementVisibility: jest.fn()
@@ -12,14 +12,8 @@ jest.mock('@vueuse/core', () => ({
 const refElementVisibility = ref(false);
 (useElementVisibility as jest.Mock).mockReturnValue(refElementVisibility);
 
-jest.mock('../use-$x', () => ({
-  use$x: jest.fn()
-}));
-
-const $xEmitSpy = jest.fn();
-(use$x as jest.Mock).mockReturnValue({
-  emit: $xEmitSpy
-});
+const emitSpy = jest.fn();
+jest.spyOn(bus, 'emit' as any).mockImplementation(emitSpy);
 
 describe(`testing ${useOnDisplay.name} composable`, () => {
   beforeEach(() => {
@@ -178,8 +172,8 @@ describe(`testing ${useEmitDisplayEvent.name} composable`, () => {
 
     await toggleElementVisibility();
 
-    expect($xEmitSpy).toHaveBeenCalled();
-    expect($xEmitSpy).toHaveBeenCalledWith(
+    expect(emitSpy).toHaveBeenCalled();
+    expect(emitSpy).toHaveBeenCalledWith(
       'TrackableElementDisplayed',
       {
         tagging: {
@@ -203,11 +197,11 @@ describe(`testing ${useEmitDisplayEvent.name} composable`, () => {
 
     await toggleElementVisibility();
 
-    expect($xEmitSpy).toHaveBeenCalled();
-    expect($xEmitSpy).toHaveBeenCalledWith(
+    expect(emitSpy).toHaveBeenCalled();
+    expect(emitSpy).toHaveBeenCalledWith(
       'TrackableElementDisplayed',
       expect.anything(),
-      eventMetadata
+      expect.objectContaining({ ...eventMetadata })
     );
   });
 
@@ -218,7 +212,7 @@ describe(`testing ${useEmitDisplayEvent.name} composable`, () => {
     await toggleElementVisibility();
     await toggleElementVisibility();
 
-    expect($xEmitSpy).toHaveBeenCalledTimes(1);
+    expect(emitSpy).toHaveBeenCalledTimes(1);
   });
 
   it('exposes the current visibility of the element', async () => {
@@ -239,7 +233,7 @@ describe(`testing ${useEmitDisplayEvent.name} composable`, () => {
     unwatchDisplay();
 
     await toggleElementVisibility();
-    expect($xEmitSpy).not.toHaveBeenCalled();
+    expect(emitSpy).not.toHaveBeenCalled();
   });
 });
 

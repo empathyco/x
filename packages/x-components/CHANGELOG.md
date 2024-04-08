@@ -3,6 +3,51 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.39...@empathyco/x-components@4.1.0-alpha.40) (2024-04-04)
+
+
+### Code Refactoring
+
+* remove useHybridInject (#1439) ([f3f6c75](https://github.com/empathyco/x/commit/f3f6c75b9860937869eee89249a50a65480054b8))
+
+
+
+## [4.1.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.38...@empathyco/x-components@4.1.0-alpha.39) (2024-04-04)
+
+
+### Features
+
+* modify use-$x composable (#1434) ([cd9a0d1](https://github.com/empathyco/x/commit/cd9a0d1acc95e9b79142aa1abe4b5df5d04aef40))
+
+
+
+## [4.1.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.37...@empathyco/x-components@4.1.0-alpha.38) (2024-03-27)
+
+
+### Bug Fixes
+
+* make arrays reactive with ref in useHybridInject (#1437) ([75e6fbf](https://github.com/empathyco/x/commit/75e6fbf0b5c2cc95a2bb6f5549afed5eeca635ca))
+
+
+
+## [4.1.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.36...@empathyco/x-components@4.1.0-alpha.37) (2024-03-22)
+
+
+### Code Refactoring
+
+* migrate aside to vue 2.7 and use hybridInject (#1433) ([3c94afc](https://github.com/empathyco/x/commit/3c94afc813e58d6c70943e103f814129a17c7eff))
+
+
+
+## [4.1.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.35...@empathyco/x-components@4.1.0-alpha.36) (2024-03-21)
+
+
+### Bug Fixes
+
+* bus handling of a location ref (#1432) ([b980638](https://github.com/empathyco/x/commit/b98063826f5657088bb613db1a529a446389ed67))
+
+
+
 ## [4.1.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.34...@empathyco/x-components@4.1.0-alpha.35) (2024-03-20)
 
 
