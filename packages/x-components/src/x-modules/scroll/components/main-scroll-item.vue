@@ -44,9 +44,9 @@
     },
 
     setup(props) {
-      interface ElementRef {
+      type ElementRef = {
         $el: HTMLElement;
-      }
+      };
       interface InjectedScrollVisibilityObserver {
         value: ScrollVisibilityObserver;
       }
@@ -59,7 +59,7 @@
        *
        * @public
        */
-      const el = ref<ElementRef | null>(null);
+      const el = ref<ElementRef | HTMLElement | null>(null);
 
       /**
        * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem} item
@@ -79,6 +79,17 @@
       ).value;
 
       /**
+       * Checks if a given value is an `ElementRef` object.
+       *
+       * @param value - The value to check.
+       * @returns `true` if the value is an `ElementRef` object, `false` otherwise.
+       *
+       * @internal
+       */
+      const isElementRef = (value: any): value is ElementRef => {
+        return value && value.$el instanceof HTMLElement;
+      };
+      /**
        * Initialises the element visibility observation, stopping the previous one if it has.
        *
        * @param newObserver - The new observer for the HTML element.
@@ -90,11 +101,13 @@
       ): void => {
         {
           if (el.value !== null) {
-            oldObserver?.unobserve(el.value.$el);
-            newObserver?.observe(el.value.$el);
+            const htmlElement = isElementRef(el.value) ? el.value.$el : el.value;
+
+            oldObserver?.unobserve(htmlElement);
+            newObserver?.observe(htmlElement);
             if (pendingScrollTo === props.item.id) {
               Vue.nextTick(() => {
-                el.value?.$el.scrollIntoView({
+                htmlElement.scrollIntoView({
                   block: 'center'
                 });
               });
@@ -104,7 +117,7 @@
         }
       };
 
-      return { el, firstVisibleItemObserver, observeItem };
+      return { el, firstVisibleItemObserver, observeItem, isElementRef };
     },
 
     /**
@@ -130,7 +143,8 @@
      */
     beforeDestroy() {
       if (this.el !== null) {
-        this.firstVisibleItemObserver?.unobserve(this.el.$el);
+        const htmlElement = this.isElementRef(this.el) ? this.el.$el : this.el;
+        this.firstVisibleItemObserver?.unobserve(htmlElement);
       }
     }
   });
