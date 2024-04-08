@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.42...@empathyco/x-components@4.1.0-alpha.43) (2024-04-08)
+
+
+### Features
+
+* migrate result variant provider (#1440) ([b981d9b](https://github.com/empathyco/x/commit/b981d9ba35394288957e13adbffbaaded142e6c7))
+
+
+
 ## [4.1.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.41...@empathyco/x-components@4.1.0-alpha.42) (2024-04-08)
 
 
