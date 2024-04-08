@@ -7,6 +7,7 @@ import { ListItem } from '../../src/utils';
 import { NextQueriesGroup } from '../../src/x-modules/next-queries/types';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
 import { XDummyBus } from '../../src/__tests__/bus.dummy';
+import { useXBus } from '../../src/composables/use-x-bus';
 import { loadCss } from './css.utils';
 
 /**
@@ -60,7 +61,7 @@ function renderBaseGrid({
       props: ['items', 'columns'],
       template,
       beforeCreate() {
-        XPlugin.bus.on('RenderedColumnsNumberChanged').subscribe(renderedColumnsNumberChangedSpy);
+        useXBus().on('RenderedColumnsNumberChanged').subscribe(renderedColumnsNumberChangedSpy);
       }
     },
     {
