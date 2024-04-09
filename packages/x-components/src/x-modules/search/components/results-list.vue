@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, ComputedRef, defineComponent, provide, Ref, ref, watchPostEffect } from 'vue';
+  import { computed, ComputedRef, defineComponent, provide, Ref, ref, watch } from 'vue';
   import { Result } from '@empathyco/x-types';
   import {
     HAS_MORE_ITEMS_KEY,
@@ -109,7 +109,7 @@
       /**
        * The status of the search request, taken from the state.
        */
-      const searchStatus: RequestStatus = useState('search', ['status']).status.value;
+      const searchStatus: Ref<RequestStatus> = useState('search', ['status']).status;
 
       /**
        * The query of the search request, taken from the state.
@@ -134,7 +134,7 @@
        *
        * @param status - The status of the search request.
        */
-      watchPostEffect(() => updateQuery(searchStatus));
+      watch(searchStatus, () => updateQuery(searchStatus.value), { immediate: true });
 
       /**
        * It emits an {@link SearchXEvents.UserReachedResultsListEnd} event.
