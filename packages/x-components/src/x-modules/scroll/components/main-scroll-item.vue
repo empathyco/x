@@ -5,7 +5,18 @@
 </template>
 <script lang="ts">
   import { Identifiable } from '@empathyco/x-types';
-  import Vue, { defineComponent, inject, nextTick, PropType, ref } from 'vue';
+  import Vue, {
+    defineComponent,
+    inject,
+    nextTick,
+    onBeforeUnmount,
+    onMounted,
+    PropType,
+    ref,
+    watch,
+    Ref,
+    WatchCallback
+  } from 'vue';
   import { NoElement } from '../../../components';
   import { scrollXModule } from '../x-module';
   import { useState, useRegisterXModule } from '../../../composables';
@@ -47,9 +58,6 @@
       type ElementRef = {
         $el: HTMLElement;
       };
-      interface InjectedScrollVisibilityObserver {
-        value: ScrollVisibilityObserver;
-      }
 
       useRegisterXModule(scrollXModule);
       const xBus = useXBus();
@@ -74,10 +82,9 @@
        *
        * @internal
        */
-      const firstVisibleItemObserver = (
-        inject(ScrollObserverKey as string) as InjectedScrollVisibilityObserver
-      ).value;
-
+      const firstVisibleItemObserver: Ref<ScrollVisibilityObserver> = inject<
+        Ref<ScrollVisibilityObserver>
+      >(ScrollObserverKey as string) as Ref<ScrollVisibilityObserver>;
       /**
        * Checks if a given value is an `ElementRef` object.
        *
@@ -95,7 +102,7 @@
        * @param newObserver - The new observer for the HTML element.
        * @param oldObserver - The old observer for the HTML element.
        */
-      const observeItem = (
+      const observeItem: WatchCallback<ScrollVisibilityObserver> = (
         newObserver: ScrollVisibilityObserver | null,
         oldObserver: ScrollVisibilityObserver | null
       ): void => {
@@ -117,35 +124,34 @@
         }
       };
 
-      return { el, firstVisibleItemObserver, observeItem, isElementRef };
-    },
-
-    /**
-     * Initialise scroll behavior.
-     * - Observes the rendered element to detect if it is the first visible item.
-     * - If the rendered element matches the {@link MainScrollItem.pendingScrollTo}, scrolls the
-     * element into the first position of the view.
-     *
-     * @internal
-     */
-    mounted() {
-      nextTick(() => {
-        // Mounted does not guarantee that child components are mounted too
-        // eslint-disable-next-line @typescript-eslint/unbound-method
-        this.$watch('firstVisibleItemObserver', this.observeItem, { immediate: true });
+      /**
+       * Detaches the observer from the rendered element to prevent memory leaks.
+       *
+       * @internal
+       */
+      onBeforeUnmount(() => {
+        if (el.value !== null) {
+          const htmlElement = isElementRef(el.value) ? el.value.$el : el.value;
+          firstVisibleItemObserver?.value.unobserve(htmlElement);
+        }
       });
-    },
 
-    /**
-     * Detaches the observer from the rendered element to prevent memory leaks.
-     *
-     * @internal
-     */
-    beforeDestroy() {
-      if (this.el !== null) {
-        const htmlElement = this.isElementRef(this.el) ? this.el.$el : this.el;
-        this.firstVisibleItemObserver?.unobserve(htmlElement);
-      }
+      /**
+       * Initialise scroll behavior.
+       * - Observes the rendered element to detect if it is the first visible item.
+       * - If the rendered element matches the {@link MainScrollItem.pendingScrollTo}, scrolls the
+       * element into the first position of the view.
+       *
+       * @internal
+       */
+      onMounted(() => {
+        nextTick(() => {
+          // Mounted does not guarantee that child components are mounted too
+          watch(ref(firstVisibleItemObserver.value), observeItem, { immediate: true });
+        });
+      });
+
+      return { el, firstVisibleItemObserver, observeItem, isElementRef };
     }
   });
 </script>
