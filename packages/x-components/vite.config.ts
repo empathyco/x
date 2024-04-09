@@ -11,7 +11,15 @@ const vueDocsPlugin = {
 
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          compatConfig: {
+            MODE: 2
+          }
+        }
+      }
+    }),
     vueDocsPlugin,
     Inspector({
       vue: 2
@@ -19,6 +27,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
+      vue: '@vue/compat',
       'vue-runtime-helpers': 'node_modules/vue-runtime-helpers'
     }
   },
