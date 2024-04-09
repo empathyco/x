@@ -224,7 +224,7 @@ describe('testing BaseNumberRangeFilter component', () => {
     it('allows to customize apply-content slot', () => {
       const { applyButtonWrapper } = renderEditableNumberRangeFilter({
         template: `<EditableNumberRangeFilterComponent :filter="filter">
-                     <template slot="apply-content">Apply</template>
+                     <template v-slot:apply-content>Apply</template>
                    </EditableNumberRangeFilterComponent>`,
         range: { min: 1, max: 5 }
       });
@@ -235,7 +235,7 @@ describe('testing BaseNumberRangeFilter component', () => {
     it('allows to customize clear-content slot', () => {
       const { clearButtonWrapper } = renderEditableNumberRangeFilter({
         template: `<EditableNumberRangeFilterComponent :filter="filter">
-                     <template slot="clear-content">Clear</template>
+                     <template v-slot:clear-content>Clear</template>
                    </EditableNumberRangeFilterComponent>`,
         range: { min: 1, max: 5 }
       });
