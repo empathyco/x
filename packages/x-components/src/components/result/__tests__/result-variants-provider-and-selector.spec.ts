@@ -4,7 +4,7 @@ import { createResultStub } from '../../../__stubs__/index';
 import { findTestDataById, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import ResultVariantsProvider from '../result-variants-provider.vue';
 import ResultVariantSelector from '../result-variant-selector.vue';
-import { XPlugin } from '../../../plugins/index';
+import { bus } from '../../../plugins/index';
 
 const variants = [
   {
@@ -51,8 +51,7 @@ const renderResultVariantsProvider = ({
   autoSelectDepth
 }: ResultVariantsProviderOptions): ResultVariantsProviderApi => {
   const [, localVue] = installNewXPlugin();
-
-  const eventsBusSpy = jest.spyOn(XPlugin.bus, 'emit');
+  const eventsBusSpy = jest.spyOn(bus, 'emit');
 
   const wrapper = mount(
     {
@@ -105,6 +104,10 @@ const renderResultVariantsProvider = ({
 };
 
 describe('results with variants', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('provider exposes the result in the default slot', () => {
     const template = `
       <span data-test="result-name">{{newResult.name}}</span>
@@ -349,7 +352,7 @@ describe('results with variants', () => {
 
     it('wont render if no result is injected', () => {
       const { wrapper } = renderResultVariantsProvider({
-        result: null
+        result: {}
       });
 
       expect(wrapper.find(getDataTestSelector('variants-list')).exists()).toBe(false);
@@ -450,7 +453,7 @@ describe('results with variants', () => {
  */
 interface ResultVariantsProviderOptions {
   /** The result containing the variants. */
-  result: Result | null;
+  result: Result | Record<string, never>;
   /** The template to render inside the provider's default slot. */
   template?: string;
   /** Indicates the number of levels to auto select the first variants. */
@@ -485,7 +488,7 @@ interface ResultVariantsProviderApi {
    */
   setResult: (result: Result) => Promise<void>;
   /**
-   * A Jest spy set in the {@link XPlugin} bus `emit` function,
+   * A Jest spy set in the {@link bus} bus `emit` function,
    * useful to test events emitted in the first lifecycle hooks of the component.
    */
   eventsBusSpy: jest.SpyInstance;
