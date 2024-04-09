@@ -7,12 +7,16 @@ import SemanticQuery from '../semantic-query.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/index';
 import { createSemanticQuery } from '../../../../__stubs__/index';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { XPlugin } from '../../../../plugins/index';
+import { bus } from '../../../../plugins/index';
 import { RootXStoreState } from '../../../../store/store.types';
 import { semanticQueriesXModule } from '../../x-module';
 import { resetSemanticQueriesStateWith } from './utils';
 
 describe('semantic queries component', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
   function renderSemanticQuery({
     template = '<SemanticQuery :suggestion="suggestion" v-bind="$attrs"/>',
     suggestion = createSemanticQuery({ query: 'jeans' }),
@@ -44,7 +48,7 @@ describe('semantic queries component', () => {
 
     return {
       wrapper: wrapper.findComponent(SemanticQuery),
-      emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+      emitSpy: jest.spyOn(bus, 'emit'),
       suggestion
     };
   }

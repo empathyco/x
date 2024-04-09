@@ -4,10 +4,9 @@
 
 <script lang="ts">
   import { map } from '@empathyco/x-utils';
-  import { computed, defineComponent } from 'vue';
+  import { computed, defineComponent, inject } from 'vue';
   import { WireMetadata } from '../wiring';
   import { SnippetConfig, XEventListeners } from '../x-installer/api/api.types';
-  import { useHybridInject } from '../composables';
   import { useXBus } from '../composables/use-x-bus';
   import GlobalXBus from './global-x-bus.vue';
 
@@ -28,7 +27,7 @@
        *
        * @internal
        */
-      const snippetConfig = useHybridInject<SnippetConfig>('snippetConfig');
+      const snippetConfig = inject<SnippetConfig>('snippetConfig');
 
       /**
        * It maps all the callbacks provided by the snippetConfig and adds an emit to each one.

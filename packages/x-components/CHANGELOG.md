@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.42...@empathyco/x-components@4.1.0-alpha.43) (2024-04-08)
+
+
+### Features
+
+* migrate result variant provider (#1440) ([b981d9b](https://github.com/empathyco/x/commit/b981d9ba35394288957e13adbffbaaded142e6c7))
+
+
+
+## [4.1.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.41...@empathyco/x-components@4.1.0-alpha.42) (2024-04-08)
+
+
+### Features
+
+* migrate result variants selector component (#1438) ([1e6d681](https://github.com/empathyco/x/commit/1e6d681d7368ca04810df5d8d6116e702face4ff))
+
+
+
+## [4.1.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.40...@empathyco/x-components@4.1.0-alpha.41) (2024-04-08)
+
+
+### Features
+
+* migrate base-grid component to vue 2.7 (#1441) ([1974715](https://github.com/empathyco/x/commit/19747154d727bec6cbee171df7d655c34f714db0))
+
+
+
+## [4.1.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.39...@empathyco/x-components@4.1.0-alpha.40) (2024-04-04)
+
+
+### Code Refactoring
+
+* remove useHybridInject (#1439) ([f3f6c75](https://github.com/empathyco/x/commit/f3f6c75b9860937869eee89249a50a65480054b8))
+
+
+
+## [4.1.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.38...@empathyco/x-components@4.1.0-alpha.39) (2024-04-04)
+
+
+### Features
+
+* modify use-$x composable (#1434) ([cd9a0d1](https://github.com/empathyco/x/commit/cd9a0d1acc95e9b79142aa1abe4b5df5d04aef40))
+
+
+
+## [4.1.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.37...@empathyco/x-components@4.1.0-alpha.38) (2024-03-27)
+
+
+### Bug Fixes
+
+* make arrays reactive with ref in useHybridInject (#1437) ([75e6fbf](https://github.com/empathyco/x/commit/75e6fbf0b5c2cc95a2bb6f5549afed5eeca635ca))
+
+
+
 ## [4.1.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.36...@empathyco/x-components@4.1.0-alpha.37) (2024-03-22)
 
 
