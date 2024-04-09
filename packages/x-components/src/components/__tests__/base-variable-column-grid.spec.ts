@@ -22,8 +22,8 @@ function renderComponent({ items = itemsStub }: RenderOptions = {}): RenderAPI {
       },
       localVue,
       scopedSlots: {
-        default: '<span data-test="default-slot" slot-scope="{ item }">{{ item.id }}</span>',
-        result: '<span data-test="result-slot" slot-scope="{ item }">{{ item.name }}</span>'
+        default: '<span data-test="default-slot" v-slot="{ item }">{{ item.id }}</span>',
+        result: '<span data-test="result-slot" v-slot="{ item }">{{ item.name }}</span>'
       }
     });
   }

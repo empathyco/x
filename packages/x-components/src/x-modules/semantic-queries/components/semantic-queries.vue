@@ -185,7 +185,7 @@ semantic query to use it in another element.
 <template>
   <SemanticQueries #default="{ queries, findSemanticQuery }">
     <section>
-      <QueryPreviewList :queries="queries" #slot="{ query, results }">
+      <QueryPreviewList :queries="queries" v-slot="{ query, results }">
         <div>
           <SemanticQuery :semanticQuery="findSemanticQuery(query)" #default="{ query }">
             {{ query.query }} ({{ query.distance }})

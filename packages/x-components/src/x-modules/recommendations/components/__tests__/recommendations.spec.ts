@@ -20,7 +20,7 @@ function mountRecommendations({
   recommendations = getResultsStub(),
   scopedSlots = {
     default: `
-      <span data-test="default-slot" slot-scope="{ recommendation }">
+      <span data-test="default-slot" v-slot="{ recommendation }">
         {{ recommendation.name }}
       </span>
     `
@@ -87,7 +87,7 @@ describe('testing recommendations component', () => {
     const { wrapper, recommendations } = mountRecommendations({
       scopedSlots: {
         default: `
-          <span data-test="custom-default-slot" slot-scope="{ recommendation }">
+          <span data-test="custom-default-slot" v-slot="{ recommendation }">
             {{ recommendation.name }}
           </span>
         `
@@ -106,7 +106,7 @@ describe('testing recommendations component', () => {
     const { isScopedSlotOverridden } = mountRecommendations({
       scopedSlots: {
         layout: `
-          <ul data-test="custom-layout" slot-scope="{ recommendations }">
+          <ul data-test="custom-layout" v-slot="{ recommendations }">
             <li v-for="recommendation in recommendations" data-test="custom-recommendation">
               {{ recommendation.name }}
             </li>
