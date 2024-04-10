@@ -88,7 +88,8 @@
     "vue-runtime-helpers": "~1.1.2"
   },
   "peerDependencies": {
-    "vue": "~2.7.0",
+    "@vue/compat": "^3.4.21",
+    "vue": "^3.4.21",
     "vuex": "^3.0.0"
   },
   "devDependencies": {
