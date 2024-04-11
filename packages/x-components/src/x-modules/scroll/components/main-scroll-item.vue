@@ -15,7 +15,8 @@
     ref,
     watch,
     Ref,
-    WatchCallback
+    WatchCallback,
+    ComputedRef
   } from 'vue';
   import { NoElement } from '../../../components';
   import { scrollXModule } from '../x-module';
@@ -75,7 +76,9 @@
        *
        * @internal
        */
-      const pendingScrollTo: string = useState('scroll', ['pendingScrollTo']).pendingScrollTo.value;
+      const pendingScrollTo: ComputedRef<string> = useState('scroll', [
+        'pendingScrollTo'
+      ]).pendingScrollTo;
 
       /**
        * Observer to detect the first visible element.
@@ -112,7 +115,7 @@
 
             oldObserver?.unobserve(htmlElement);
             newObserver?.observe(htmlElement);
-            if (pendingScrollTo === props.item.id) {
+            if (pendingScrollTo.value === props.item.id) {
               Vue.nextTick(() => {
                 htmlElement.scrollIntoView({
                   block: 'center'
@@ -147,7 +150,7 @@
       onMounted(() => {
         nextTick(() => {
           // Mounted does not guarantee that child components are mounted too
-          watch(ref(firstVisibleItemObserver.value), observeItem, { immediate: true });
+          watch(firstVisibleItemObserver, observeItem, { immediate: true });
         });
       });
 
