@@ -4,17 +4,7 @@
   </NoElement>
 </template>
 <script lang="ts">
-  import {
-    computed,
-    ComputedRef,
-    defineComponent,
-    onBeforeUnmount,
-    onMounted,
-    provide,
-    ref,
-    watch
-  } from 'vue';
-  import { Dictionary } from '@empathyco/x-utils';
+  import { computed, defineComponent, onBeforeUnmount, onMounted, provide, ref, watch } from 'vue';
   import { NoElement } from '../../../components/no-element';
   import { VueCSSClasses } from '../../../utils/index';
   import { scrollXModule } from '../x-module';
@@ -231,10 +221,10 @@
        * @param pendingScrollTo - The position the scroll should be restored to.
        * @internal
        */
-      watch(ref(pendingScrollTo.value), (pendingScrollTo: Dictionary<ComputedRef<any>> | null) => {
+      watch(pendingScrollTo.pendingScrollTo, () => {
         // TODO Move this logic to the wiring. A cancelable delay operator is needed
         clearTimeout(restoreScrollFailTimeoutId);
-        if (pendingScrollTo!.pendingScrollTo.value) {
+        if (pendingScrollTo.pendingScrollTo.value) {
           restoreScrollFailTimeoutId = window.setTimeout(() => {
             xBus.emit('ScrollRestoreFailed');
           }, props.restoreScrollTimeoutMs);
