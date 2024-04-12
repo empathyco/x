@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue2';
 import Inspector from 'vite-plugin-vue-inspector';
 
-const vueDocsPlugin = {
+export const vueDocsPlugin = {
   name: 'vue-docs',
   transform(code: string, id: string) {
     return !/vue&type=docs/.test(id) ? undefined : `export default ''`;

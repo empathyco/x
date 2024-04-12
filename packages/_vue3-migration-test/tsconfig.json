@@ -1,0 +1,3 @@
+{
+  "extends": "../x-components/tsconfig.json"
+}
