@@ -40,6 +40,22 @@
     "@empathyco/x-utils": "^1.0.3-alpha.1",
     "tslib": "~2.6.0"
   },
+  "peerDependencies": {
+    "vue": "^2.7.0",
+    "vue-class-component": "^7.1.0",
+    "vue-property-decorator": "^8.3.0"
+  },
+  "peerDependenciesMeta": {
+    "vue-class-component": {
+      "optional": true
+    },
+    "vue-property-decorator": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "~25.0.7",
     "autoprefixer": "~10.4.4",
