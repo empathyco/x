@@ -1,11 +1,11 @@
 import Vue, { getCurrentInstance, inject, Ref } from 'vue';
 import { XBus } from '@empathyco/x-bus';
-import { bus } from '../plugins/x-bus';
 import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
 import { getRootXComponent, getXComponentXModuleName } from '../components/x-component.utils';
 import { FeatureLocation } from '../types/origin';
 import { PropsWithType } from '../utils/types';
+import { XPlugin } from '../plugins/x-plugin';
 
 /**
  * Composable which injects the current location,
@@ -23,7 +23,7 @@ export function useXBus(): UseXBusAPI {
   if (currentComponent && currentXComponent) {
     currentComponent.xComponent = currentXComponent;
   }
-
+  const bus = XPlugin.bus;
   return {
     on: bus.on.bind(bus),
     emit: <Event extends XEvent>(
@@ -36,7 +36,7 @@ export function useXBus(): UseXBusAPI {
           ? injectedLocation.value
           : injectedLocation;
 
-      bus.emit(event, payload, createWireMetadata(metadata, currentComponent, location));
+      bus.emit(event, payload!, createWireMetadata(metadata, currentComponent, location));
       currentXComponent?.$emit(event, payload);
     }
   };
