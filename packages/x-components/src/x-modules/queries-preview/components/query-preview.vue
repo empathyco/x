@@ -41,7 +41,6 @@
     defineComponent,
     inject,
     onBeforeUnmount,
-    onMounted,
     PropType,
     provide,
     Ref,
@@ -93,7 +92,7 @@
        * @public
        */
       queryFeature: {
-        type: Object as PropType<QueryFeature>
+        type: String as PropType<QueryFeature>
       },
       /**
        * Number of query preview results to be rendered.
@@ -252,26 +251,24 @@
        *
        * @internal
        */
-      onMounted(() => {
-        watch(queryPreviewRequest, (newRequest, oldRequest) => {
-          if (!deepEqual(newRequest, oldRequest)) {
-            emitQueryPreviewRequestUpdated.value(newRequest);
-          }
-        });
-
-        const cachedQueryPreview = previewResults.value[queryPreviewHash.value];
-
-        // If the query has been saved it will emit load instead of the emitting the updated request.
-        if (cachedQueryPreview?.status === 'success') {
-          emit('load', queryPreviewHash.value);
-          xBus.emit('QueryPreviewMounted', queryPreviewHash.value, {
-            priority: 0,
-            replaceable: false
-          });
-        } else {
-          emitQueryPreviewRequestUpdated.value(queryPreviewRequest.value);
+      watch(queryPreviewRequest, (newRequest, oldRequest) => {
+        if (!deepEqual(newRequest, oldRequest)) {
+          emitQueryPreviewRequestUpdated.value(newRequest);
         }
       });
+
+      const cachedQueryPreview = previewResults.value[queryPreviewHash.value];
+
+      // If the query has been saved it will emit load instead of the emitting the updated request.
+      if (cachedQueryPreview?.status === 'success') {
+        emit('load', queryPreviewHash.value);
+        xBus.emit('QueryPreviewMounted', queryPreviewHash.value, {
+          priority: 0,
+          replaceable: false
+        });
+      } else {
+        emitQueryPreviewRequestUpdated.value(queryPreviewRequest.value);
+      }
 
       /**
        * Cancels the (remaining) requests when the component is destroyed
