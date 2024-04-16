@@ -270,9 +270,13 @@
           ? ''
           : firstVisibleElement.dataset.scroll!;
       });
-      watch(firstVisibleElement, () => {
-        xBus.emit('UserScrolledToElement', firstVisibleElement.value);
-      });
+      watch(
+        firstVisibleElement,
+        () => {
+          xBus.emit('UserScrolledToElement', firstVisibleElement.value);
+        },
+        { immediate: true }
+      );
 
       return {
         el,
