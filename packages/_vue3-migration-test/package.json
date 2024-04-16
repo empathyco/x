@@ -4,17 +4,20 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.vue",
+    "build": "vue-tsc && vite build"
   },
   "dependencies": {
-    "@vue/compat": "^3.4.21",
-    "vue": "^3.4.21"
+    "@vue/compat": "^3.4.22",
+    "vue": "^3.4.22",
+    "vue-router": "^4.3.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/runtime-dom": "^3.4.22",
     "typescript": "~4.9.4",
     "vite": "^4.5.0",
-    "vue-tsc": "^2.0.12"
+    "vue-tsc": "^2.0.13"
   }
 }
