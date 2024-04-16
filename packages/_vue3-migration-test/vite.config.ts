@@ -1,4 +1,5 @@
 import vue from '@vitejs/plugin-vue';
+import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import { vueDocsPlugin } from '../x-components/vite.config';
 
@@ -17,7 +18,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      vue: '@vue/compat'
+      vue: resolve(__dirname, 'node_modules/@vue/compat')
     }
   }
 });

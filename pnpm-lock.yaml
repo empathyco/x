@@ -497,9 +497,6 @@ importers:
       '@vitejs/plugin-vue2':
         specifier: ^2.2.0
         version: 2.2.0(vite@4.5.0)(vue@2.7.14)
-      '@vue/compat':
-        specifier: ^3.4.21
-        version: 3.4.21(vue@2.7.14)
       '@vue/test-utils':
         specifier: ~1.0.3
         version: 1.0.3(vue-template-compiler@2.7.14)(vue@2.7.14)
@@ -5926,20 +5923,6 @@ packages:
       '@babel/plugin-syntax-jsx': 7.22.5(@babel/core@7.22.9)
       '@vue/babel-plugin-transform-vue-jsx': 1.4.0(@babel/core@7.22.9)
       camelcase: 5.3.1
-    dev: true
-
-  /@vue/compat@3.4.21(vue@2.7.14):
-    resolution:
-      {
-        integrity: sha512-hKM6C5tTqduZcNOwp4oBa6qplAQ0NsMvGtLCTKmkhjVqrFzUfS9CyLN6ktzEfPwbgeC/wYYd7PtH+H8jNGvTjQ==
-      }
-    peerDependencies:
-      vue: 3.4.21
-    dependencies:
-      '@babel/parser': 7.24.4
-      estree-walker: 2.0.2
-      source-map-js: 1.0.2
-      vue: 2.7.14
     dev: true
 
   /@vue/compat@3.4.21(vue@3.4.21):
