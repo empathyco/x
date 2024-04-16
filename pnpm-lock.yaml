@@ -4,6 +4,8 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+packageExtensionsChecksum: 6e77104a76cbb0b0d5180c4dc2fd2c1e
+
 importers:
   .:
     devDependencies:
@@ -55,7 +57,7 @@ importers:
         version: 4.5.0(@types/node@18.19.3)(sass@1.70.0)
       vue-tsc:
         specifier: ^2.0.12
-        version: 2.0.12(typescript@4.9.4)
+        version: 2.0.12(typescript@4.9.4)(vue@3.4.21)
 
   packages/deep-merge:
     dependencies:
@@ -590,7 +592,7 @@ importers:
         version: 3.6.5(vue@2.7.14)
       vue-template-compiler:
         specifier: ~2.7.14
-        version: 2.7.14
+        version: 2.7.14(vue@2.7.14)
       vuex:
         specifier: ~3.6.2
         version: 3.6.2(vue@2.7.14)
@@ -704,7 +706,7 @@ importers:
         version: 8.5.0(vue-class-component@7.2.6)(vue@2.7.14)
       vue-template-compiler:
         specifier: ~2.7.14
-        version: 2.7.14
+        version: 2.7.14(vue@2.7.14)
 
   packages/x-translations:
     dependencies:
@@ -6147,7 +6149,7 @@ packages:
       postcss: 8.4.12
       postcss-modules-sync: 1.0.0
       source-map: 0.6.1
-      vue-template-compiler: 2.7.14
+      vue-template-compiler: 2.7.14(vue@2.7.14)
     optionalDependencies:
       less: 3.13.1
       pug: 3.0.2
@@ -6294,7 +6296,7 @@ packages:
       - supports-color
     dev: true
 
-  /@vue/language-core@2.0.12(typescript@4.9.4):
+  /@vue/language-core@2.0.12(typescript@4.9.4)(vue@3.4.21):
     resolution:
       {
         integrity: sha512-aIStDPt69SHOpiIckGTIIjEz/sXc6ZfCMS5uWYL1AcbcRMhzFCLZscGAVte1+ad+RRFepSpKBjGttyPcgKJ7ww==
@@ -6312,7 +6314,9 @@ packages:
       minimatch: 9.0.3
       path-browserify: 1.0.1
       typescript: 4.9.4
-      vue-template-compiler: 2.7.14
+      vue-template-compiler: 2.7.14(vue@3.4.21)
+    transitivePeerDependencies:
+      - vue
     dev: true
 
   /@vue/reactivity-transform@3.3.4:
@@ -6393,7 +6397,7 @@ packages:
       lodash: 4.17.21
       pretty: 2.0.0
       vue: 2.7.14
-      vue-template-compiler: 2.7.14
+      vue-template-compiler: 2.7.14(vue@2.7.14)
     dev: true
 
   /@vue/vue2-jest@27.0.0-alpha.3(@babel/core@7.23.3)(jest@27.5.0)(ts-jest@27.1.0)(vue-template-compiler@2.7.14)(vue@2.7.14):
@@ -6421,7 +6425,7 @@ packages:
       source-map: 0.5.6
       ts-jest: 27.1.0(@babel/core@7.23.3)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
       vue: 2.7.14
-      vue-template-compiler: 2.7.14
+      vue-template-compiler: 2.7.14(vue@2.7.14)
     transitivePeerDependencies:
       - arc-templates
       - atpl
@@ -18460,7 +18464,7 @@ packages:
       rollup-pluginutils: 2.8.2
       source-map: 0.7.3
       vue-runtime-helpers: 1.1.2
-      vue-template-compiler: 2.7.14
+      vue-template-compiler: 2.7.14(vue@2.7.14)
     transitivePeerDependencies:
       - arc-templates
       - atpl
@@ -20658,7 +20662,7 @@ packages:
       source-map: 0.7.4
       vite: 4.5.0(@types/node@18.19.3)(sass@1.70.0)
       vue-template-babel-compiler: 1.2.0(vue-template-compiler@2.7.14)
-      vue-template-compiler: 2.7.14
+      vue-template-compiler: 2.7.14(vue@2.7.14)
     transitivePeerDependencies:
       - arc-templates
       - atpl
@@ -20997,19 +21001,35 @@ packages:
       '@babel/plugin-transform-spread': 7.22.5(@babel/core@7.23.3)
       '@babel/types': 7.23.3
       deepmerge: 4.3.1
-      vue-template-compiler: 2.7.14
+      vue-template-compiler: 2.7.14(vue@2.7.14)
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vue-template-compiler@2.7.14:
+  /vue-template-compiler@2.7.14(vue@2.7.14):
     resolution:
       {
         integrity: sha512-zyA5Y3ArvVG0NacJDkkzJuPQDF8RFeRlzV2vLeSnhSpieO6LK2OVbdLPi5MPPs09Ii+gMO8nY4S3iKQxBxDmWQ==
       }
+    peerDependencies:
+      vue: ~2.7.0
     dependencies:
       de-indent: 1.0.2
       he: 1.2.0
+      vue: 2.7.14
+    dev: true
+
+  /vue-template-compiler@2.7.14(vue@3.4.21):
+    resolution:
+      {
+        integrity: sha512-zyA5Y3ArvVG0NacJDkkzJuPQDF8RFeRlzV2vLeSnhSpieO6LK2OVbdLPi5MPPs09Ii+gMO8nY4S3iKQxBxDmWQ==
+      }
+    peerDependencies:
+      vue: ~2.7.0
+    dependencies:
+      de-indent: 1.0.2
+      he: 1.2.0
+      vue: 3.4.21(typescript@4.9.4)
     dev: true
 
   /vue-template-es2015-compiler@1.9.1:
@@ -21019,7 +21039,7 @@ packages:
       }
     dev: true
 
-  /vue-tsc@2.0.12(typescript@4.9.4):
+  /vue-tsc@2.0.12(typescript@4.9.4)(vue@3.4.21):
     resolution:
       {
         integrity: sha512-thlBBWlPYrNdba535oDdxz7PRUufZgRZRVP5Aql5wBVpGSWSeqou4EzFXeKVoZr59lp9hJROubDVzlhACmcEhg==
@@ -21029,9 +21049,11 @@ packages:
       typescript: '*'
     dependencies:
       '@volar/typescript': 2.2.0-alpha.7
-      '@vue/language-core': 2.0.12(typescript@4.9.4)
+      '@vue/language-core': 2.0.12(typescript@4.9.4)(vue@3.4.21)
       semver: 7.5.4
       typescript: 4.9.4
+    transitivePeerDependencies:
+      - vue
     dev: true
 
   /vue@2.7.14:

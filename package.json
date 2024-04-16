@@ -38,5 +38,14 @@
       "cross-env NODE_ENV=production eslint --fix"
     ],
     "*.{md,js,json}": "prettier --write"
+  },
+  "pnpm": {
+    "packageExtensions": {
+      "vue-template-compiler": {
+        "peerDependencies": {
+          "vue": "~2.7.0"
+        }
+      }
+    }
   }
 }
