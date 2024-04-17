@@ -10,16 +10,14 @@ runs:
       with:
         install: false
         browser: chrome
-        start: pnpm run preview
-        working-directory: packages/x-components
+        start: pnpm --filter @empathyco/x-components run preview
 
     - name: Cypress run X Components component
       uses: cypress-io/github-action@v5
       with:
         install: false
         browser: chrome
-        start: pnpm run serve
-        working-directory: packages/x-components
+        start: pnpm --filter @empathyco/x-components run serve
         component: true
 
     - name: Cypress run React Wrapper
@@ -27,5 +25,4 @@ runs:
       with:
         install: false
         browser: chrome
-        start: pnpm run serve
-        working-directory: packages/react-wrapper
+        start: pnpm --filter @empathyco/x-react-wrapper run serve
