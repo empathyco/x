@@ -90,7 +90,7 @@ function renderMainScroll({
       beforeCreate() {
         bus.on('UserScrolledToElement').subscribe(userScrolledToElementSpy);
         if (pendingScroll) {
-          bus.emit('ParamsLoadedFromUrl', <UrlParams>{ scroll: `item-${pendingScroll}` });
+          XPlugin.bus.emit('ParamsLoadedFromUrl', <UrlParams>{ scroll: `item-${pendingScroll}` });
         }
       }
     },
