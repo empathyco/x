@@ -198,7 +198,11 @@
        *
        * @internal
        */
-      const location = inject<FeatureLocation | undefined>('location', undefined);
+      const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location', 'none');
+      const location =
+        typeof injectedLocation === 'object' && 'value' in injectedLocation
+          ? injectedLocation.value
+          : injectedLocation;
 
       /**
        * The computed request object to be used to retrieve the query preview results.
