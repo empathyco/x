@@ -10,7 +10,7 @@ runs:
       with:
         install: false
         browser: chrome
-        start: npm run preview
+        start: pnpm run preview
         working-directory: packages/x-components
 
     - name: Cypress run X Components component
@@ -18,7 +18,7 @@ runs:
       with:
         install: false
         browser: chrome
-        start: npm run serve
+        start: pnpm run serve
         working-directory: packages/x-components
         component: true
 
@@ -27,5 +27,5 @@ runs:
       with:
         install: false
         browser: chrome
-        start: npm run serve
+        start: pnpm run serve
         working-directory: packages/react-wrapper
