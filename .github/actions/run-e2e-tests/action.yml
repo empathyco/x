@@ -5,12 +5,6 @@ runs:
   using: 'composite'
 
   steps:
-    - name: Cypress install X Components
-      uses: cypress-io/github-action@v5
-      with:
-        runTests: false
-        working-directory: packages/x-components
-
     - name: Cypress run X Components
       uses: cypress-io/github-action@v5
       with:
@@ -27,12 +21,6 @@ runs:
         start: npm run serve
         working-directory: packages/x-components
         component: true
-
-    - name: Cypress install React Wrapper
-      uses: cypress-io/github-action@v5
-      with:
-        runTests: false
-        working-directory: packages/react-wrapper
 
     - name: Cypress run React Wrapper
       uses: cypress-io/github-action@v5
