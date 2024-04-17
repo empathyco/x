@@ -5,27 +5,39 @@ runs:
   using: 'composite'
 
   steps:
+    - name: Cypress install X Components
+      uses: cypress-io/github-action@v5
+      with:
+        runTests: false
+        working-directory: packages/x-components
+
     - name: Cypress run X Components
       uses: cypress-io/github-action@v5
       with:
         install: false
         browser: chrome
-        start: pnpm --filter @empathyco/x-components run preview
-        project: packages/x-components
+        start: npm run preview
+        working-directory: packages/x-components
 
     - name: Cypress run X Components component
       uses: cypress-io/github-action@v5
       with:
         install: false
         browser: chrome
-        start: pnpm --filter @empathyco/x-components run serve
-        project: packages/x-components
+        start: npm run serve
+        working-directory: packages/x-components
         component: true
+
+    - name: Cypress install React Wrapper
+      uses: cypress-io/github-action@v5
+      with:
+        runTests: false
+        working-directory: packages/react-wrapper
 
     - name: Cypress run React Wrapper
       uses: cypress-io/github-action@v5
       with:
         install: false
         browser: chrome
-        start: pnpm --filter @empathyco/x-react-wrapper run serve
-        project: packages/x-components
+        start: npm run serve
+        working-directory: packages/react-wrapper
