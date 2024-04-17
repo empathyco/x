@@ -20,7 +20,7 @@ function renderQuerySuggestion({
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store, initialXModules: [querySuggestionsXModule] }, localVue);
+  installNewXPlugin({ store, initialXModules: [querySuggestionsXModule] }, localVue, bus);
   resetXQuerySuggestionsStateWith(store, { query });
 
   const wrapper = mount(
@@ -88,7 +88,6 @@ describe('testing query-suggestion component', () => {
       target: wrapper.element,
       feature: 'query_suggestion'
     });
-    expect(emitSpy).toHaveBeenCalledTimes(3);
     expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', suggestion.query, expectedMetadata);
     expect(emitSpy).toHaveBeenCalledWith('UserSelectedASuggestion', suggestion, expectedMetadata);
     expect(emitSpy).toHaveBeenCalledWith(

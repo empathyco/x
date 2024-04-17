@@ -16,7 +16,7 @@ function renderBaseSuggestion({
   suggestion = createPopularSearch('bebe lloron'),
   suggestionSelectedEvents = {}
 }: BaseSuggestionOptions = {}): BaseSuggestionAPI {
-  const [, localVue] = installNewXPlugin();
+  const [, localVue] = installNewXPlugin(undefined, undefined, bus);
   const emit = jest.spyOn(bus, 'emit');
   const wrapper = mount(
     {

@@ -15,7 +15,7 @@ function renderBaseResultRating({
   template,
   result
 }: RenderBaseResultRatingOptions): RenderBaseResultRatingApi {
-  const [, localVue] = installNewXPlugin();
+  const [, localVue] = installNewXPlugin(undefined, undefined, bus);
 
   const wrapper = mount(
     { template },

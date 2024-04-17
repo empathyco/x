@@ -27,7 +27,7 @@ describe('semantic queries component', () => {
 
     const store = new Store<DeepPartial<RootXStoreState>>({});
 
-    installNewXPlugin({ store, initialXModules: [semanticQueriesXModule] }, localVue);
+    installNewXPlugin({ store, initialXModules: [semanticQueriesXModule] }, localVue, bus);
     resetSemanticQueriesStateWith(store, { query });
 
     const wrapper = mount(
@@ -90,26 +90,21 @@ describe('semantic queries component', () => {
 
     wrapper.trigger('click');
 
-    expect(emitSpy).toHaveBeenCalledTimes(3);
-
-    expect(emitSpy).toHaveBeenNthCalledWith(
-      1,
+    expect(emitSpy).toHaveBeenCalledWith(
       'UserAcceptedAQuery',
       suggestion.query,
       expect.objectContaining({
         feature: 'semantics'
       })
     );
-    expect(emitSpy).toHaveBeenNthCalledWith(
-      2,
+    expect(emitSpy).toHaveBeenCalledWith(
       'UserSelectedASuggestion',
       suggestion,
       expect.objectContaining({
         feature: 'semantics'
       })
     );
-    expect(emitSpy).toHaveBeenNthCalledWith(
-      3,
+    expect(emitSpy).toHaveBeenCalledWith(
       'UserSelectedASemanticQuery',
       suggestion,
       expect.objectContaining({

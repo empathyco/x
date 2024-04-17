@@ -26,7 +26,7 @@ describe('testing BaseResultLink component', () => {
   });
 
   beforeEach(() => {
-    [, localVue] = installNewXPlugin();
+    [, localVue] = installNewXPlugin(undefined, undefined, bus);
     resultLinkWrapper = mount(
       {
         components: { BaseResultLink },

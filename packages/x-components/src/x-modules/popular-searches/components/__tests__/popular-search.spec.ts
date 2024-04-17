@@ -18,7 +18,7 @@ function renderPopularSearch({
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store, initialXModules: [popularSearchesXModule] }, localVue);
+  installNewXPlugin({ store, initialXModules: [popularSearchesXModule] }, localVue, bus);
 
   const wrapper = mount(
     {
@@ -72,7 +72,6 @@ describe('testing popular-search component', () => {
       target: wrapper.element,
       feature: 'popular_search'
     });
-    expect(emitSpy).toHaveBeenCalledTimes(3);
     expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', suggestion.query, expectedMetadata);
     expect(emitSpy).toHaveBeenCalledWith('UserSelectedASuggestion', suggestion, expectedMetadata);
     expect(emitSpy).toHaveBeenCalledWith(

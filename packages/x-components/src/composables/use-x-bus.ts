@@ -6,6 +6,7 @@ import { getRootXComponent, getXComponentXModuleName } from '../components/x-com
 import { FeatureLocation } from '../types/origin';
 import { PropsWithType } from '../utils/types';
 import { XPlugin } from '../plugins/x-plugin';
+import { bus as xBus } from '../plugins/x-bus';
 
 /**
  * Composable which injects the current location,
@@ -23,7 +24,12 @@ export function useXBus(): UseXBusAPI {
   if (currentComponent && currentXComponent) {
     currentComponent.xComponent = currentXComponent;
   }
-  const bus = XPlugin.bus;
+  let bus: XBus<XEventsTypes, WireMetadata>;
+  try {
+    bus = XPlugin.bus;
+  } catch (error) {
+    bus = xBus;
+  }
   return {
     on: bus.on.bind(bus),
     emit: <Event extends XEvent>(

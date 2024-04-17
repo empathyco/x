@@ -15,7 +15,7 @@ function renderNextQuery({
   // Making bus not repeat subjects
   jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any);
 
-  const [, localVue] = installNewXPlugin();
+  const [, localVue] = installNewXPlugin(undefined, undefined, bus);
   const wrapperTemplate = mount(
     {
       props: ['suggestion', 'highlightCurated'],

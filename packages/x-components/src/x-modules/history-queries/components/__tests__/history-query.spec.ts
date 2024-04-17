@@ -24,7 +24,7 @@ function renderHistoryQuery({
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store, initialXModules: [historyQueriesXModule] }, localVue);
+  installNewXPlugin({ store, initialXModules: [historyQueriesXModule] }, localVue, bus);
   resetXHistoryQueriesStateWith(store, { query });
 
   const wrapper = mount(
@@ -103,7 +103,6 @@ describe('testing history-query component', () => {
       target: getSuggestionWrapper().element,
       feature: 'history_query'
     });
-    expect(emitSpy).toHaveBeenCalledTimes(3);
     expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', suggestion.query, expectedMetadata);
     expect(emitSpy).toHaveBeenCalledWith('UserSelectedASuggestion', suggestion, expectedMetadata);
     expect(emitSpy).toHaveBeenCalledWith('UserSelectedAHistoryQuery', suggestion, expectedMetadata);

@@ -50,7 +50,7 @@ const renderResultVariantsProvider = ({
   result,
   autoSelectDepth
 }: ResultVariantsProviderOptions): ResultVariantsProviderApi => {
-  const [, localVue] = installNewXPlugin();
+  const [, localVue] = installNewXPlugin(undefined, undefined, bus);
   const eventsBusSpy = jest.spyOn(bus, 'emit');
 
   const wrapper = mount(
