@@ -1,5 +1,6 @@
-import { defineConfig } from 'vite';
+import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue2';
+import { defineConfig } from 'vite';
 import Inspector from 'vite-plugin-vue-inspector';
 
 export const vueDocsPlugin = {
@@ -19,6 +20,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
+      vue: resolve(__dirname, 'node_modules/vue'),
       'vue-runtime-helpers': 'node_modules/vue-runtime-helpers'
     }
   },
