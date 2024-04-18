@@ -1,20 +1,20 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import { Sort } from '@empathyco/x-types';
+import { createLocalVue, mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import Vuex, { Store } from 'vuex';
+import { dummyCreateEmitter } from '../../../../__tests__/bus.dummy';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
+import { bus } from '../../../../plugins';
+import { searchXModule } from '../../x-module';
 import SortDropdown from '../sort-dropdown.vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { XPlugin } from '../../../../plugins/x-plugin';
-import { searchXModule } from '../../x-module';
-import { WirePayload } from '../../../../wiring/wiring.types';
 import { resetXSearchStateWith } from './utils';
 
 function renderSortDropdown({
   template = `
-   <SortDropdown v-bind="$attrs">
+   <SortDropdown :items="items">
       <template #toggle="{ item }">
         {{ item }}
       </template>
@@ -22,73 +22,58 @@ function renderSortDropdown({
         {{ item }}
       </template>
    </SortDropdown>`,
-  items = ['', 'Price low to high', 'Price high to low'],
+  items = ['default', 'Price low to high', 'Price high to low'],
   selectedSort = items[0]
-}: RenderSortDropdownOptions = {}): RenderSortDropdownAPI {
+}: Partial<{ template?: string; items?: any[]; selectedSort?: any }> = {}) {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
 
-  XPlugin.resetInstance();
+  installNewXPlugin({ store }, localVue, bus);
   XPlugin.registerXModule(searchXModule);
-  resetXSearchStateWith(store, {
-    sort: selectedSort
-  });
-
-  installNewXPlugin({ store }, localVue);
+  resetXSearchStateWith(store, { sort: selectedSort });
 
   const onSelectedSortProvided = jest.fn();
-  XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided);
+  bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided);
   const onUserClickedASort = jest.fn();
-  XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort);
+  bus.on('UserClickedASort', true).subscribe(onUserClickedASort);
 
   const wrapper = mount(
     {
+      template,
       components: { SortDropdown },
-      template
+      props: ['items']
     },
     {
       localVue,
       store,
-      propsData: {
-        items
-      }
+      propsData: { items }
     }
   );
+  jest.runAllTimers(); // For `SelectedSortProvided` immediate emission
 
-  const sortDropdownWrapper = wrapper.findComponent(SortDropdown);
-
+  const sortDropdown = wrapper.findComponent(SortDropdown);
   return {
-    wrapper: sortDropdownWrapper,
+    wrapper: sortDropdown,
     onSelectedSortProvided,
     onUserClickedASort,
-    async clickToggleButton() {
-      await sortDropdownWrapper.get(getDataTestSelector('dropdown-toggle')).trigger('click');
-    },
-    async clickNthItem(index) {
-      await sortDropdownWrapper
-        .findAll(getDataTestSelector('dropdown-item'))
-        .at(index)
-        .trigger('click');
-    },
-    getSelectedItem() {
-      return sortDropdownWrapper.get('[aria-selected=true]');
-    },
-    getToggleButton() {
-      return sortDropdownWrapper.get(getDataTestSelector('dropdown-toggle'));
-    },
-    getHighlightedItem() {
-      return sortDropdownWrapper.get('[aria-selected=true]');
-    },
-    async setItems(items) {
-      await wrapper.setProps({
-        items
-      });
+    getSelectedItem: () => sortDropdown.find('.x-dropdown__item--is-selected'),
+    getToggleButton: () => sortDropdown.find(getDataTestSelector('dropdown-toggle')),
+    clickToggleButton: async () =>
+      await sortDropdown.find(getDataTestSelector('dropdown-toggle')).trigger('click'),
+    clickNthItem: async (index: number) => {
+      await sortDropdown.findAll(getDataTestSelector('dropdown-item')).at(index).trigger('click');
     }
-  };
+  } as const;
 }
 
 describe('testing SortDropdown component', () => {
+  // Making bus not repeat subjects
+  jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any);
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
   it('is an XComponent', () => {
     const { wrapper } = renderSortDropdown();
     expect(isXComponent(wrapper.vm)).toBe(true);
@@ -106,46 +91,47 @@ describe('testing SortDropdown component', () => {
       clickToggleButton,
       getToggleButton,
       getSelectedItem,
-      getHighlightedItem,
       onUserClickedASort
-    } = renderSortDropdown({ items: ['price', 'relevance', 'offer'] });
+    } = renderSortDropdown({
+      items: ['price', 'relevance', 'offer']
+    });
 
     await clickToggleButton();
     await clickNthItem(2);
     await clickToggleButton();
+    jest.runAllTimers();
+    await nextTick();
 
-    expect(getToggleButton().text()).toEqual('offer');
-    expect(getSelectedItem().text()).toEqual('offer');
-    expect(getHighlightedItem().text()).toEqual('offer');
     expect(onUserClickedASort).toHaveBeenCalledTimes(1);
-    expect(onUserClickedASort).toHaveBeenCalledWith<[WirePayload<Sort>]>({
+    expect(onUserClickedASort).toHaveBeenCalledWith({
       eventPayload: 'offer',
       metadata: {
         moduleName: 'search',
         target: wrapper.vm.$el as HTMLElement,
-        location: undefined,
+        location: 'none',
         replaceable: true
       }
     });
+    expect(getToggleButton().text()).toEqual('offer');
+    expect(getSelectedItem().text()).toEqual('offer');
   });
-  // eslint-disable-next-line max-len
-  it('returns a default empty string at first', () => {
+
+  it('returns the first item as default', () => {
     const { onSelectedSortProvided } = renderSortDropdown();
 
     expect(onSelectedSortProvided).toHaveBeenCalledTimes(1);
-    expect(onSelectedSortProvided).toHaveBeenCalledWith<[WirePayload<Sort>]>({
-      eventPayload: '',
-      // This event gets emitted immediately, before the component has been mounted
-      metadata: { moduleName: 'search', target: undefined, location: undefined, replaceable: true }
+    // This event gets emitted immediately, before the component has been mounted
+    expect(onSelectedSortProvided).toHaveBeenCalledWith({
+      eventPayload: 'default',
+      metadata: { moduleName: 'search', location: 'none', replaceable: true }
     });
   });
 
   describe('slots', () => {
     it('allows to customize each item using the slots', async () => {
-      const { getSelectedItem, getHighlightedItem, clickToggleButton } = renderSortDropdown({
-        items: ['', 'Price low to high', 'Price high to low'],
+      const { getSelectedItem, clickToggleButton } = renderSortDropdown({
         template: `
-          <SortDropdown v-bind="$attrs">
+          <SortDropdown :items="items">
             <template #item="{ item, isSelected, isHighlighted }">
               <span v-if="isSelected">✅</span>
               <span v-if="isHighlighted">🟢</span>
@@ -155,80 +141,22 @@ describe('testing SortDropdown component', () => {
       });
 
       await clickToggleButton();
-
-      expect(getSelectedItem().text()).toBe(`✅ 🟢`);
-      expect(getHighlightedItem().text()).toBe(`✅ 🟢`);
+      expect(getSelectedItem().text()).toEqual(`✅ 🟢 default`);
     });
 
     it('allows to customize the toggle button', async () => {
       const { getToggleButton, clickToggleButton } = renderSortDropdown({
-        items: ['', 'Price low to high', 'Price high to low'],
         template: `
-          <SortDropdown v-bind="$attrs">
+          <SortDropdown :items="items">
             <template #toggle="{ item, isOpen }">
               {{ item }} {{ isOpen ? '🔽' : '🔼'}}
             </template>
           </SortDropdown>`
       });
 
-      expect(getToggleButton().text()).toBe('🔼');
-
+      expect(getToggleButton().text()).toEqual('default 🔼');
       await clickToggleButton();
-
-      expect(getToggleButton().text()).toBe('🔽');
+      expect(getToggleButton().text()).toEqual('default 🔽');
     });
   });
 });
-
-interface RenderSortDropdownOptions {
-  /** The template to render in the test, including the `SortDropdown` component. */
-  template?: string;
-  /** The possible values of the sort dropdown. Passed as prop to the `SortDropdown`. */
-  items?: Sort[];
-  /** The store selected sort value. The store state is reset with this sort in each test. */
-  selectedSort?: Sort;
-}
-
-interface RenderSortDropdownAPI {
-  /** The test wrapper of the {@link SortDropdown} component. */
-  wrapper: Wrapper<Vue>;
-  /** Jest mock listener for the {@link SearchXEvents.SelectedSortProvided} event. */
-  onSelectedSortProvided: jest.Mock;
-  /** Jest mock listener for the {@link SearchXEvents.UserClickedASort} event. */
-  onUserClickedASort: jest.Mock;
-  /** Retrieves the wrapper for the button that opens and closes the dropdown. */
-  getToggleButton: () => Wrapper<Vue>;
-  /**
-   * Retrieves the highlighted item wrapper.
-   * The dropdown must be open before this function is called.
-   *
-   * @returns A test wrapper for the highlighted item.
-   */
-  getHighlightedItem: () => Wrapper<Vue>;
-  /**
-   * Retrieves the selected item wrapper.
-   * The dropdown must be open before this function is called.
-   *
-   * @returns A test wrapper for the selected item.
-   */
-  getSelectedItem: () => Wrapper<Vue>;
-  /**
-   * Clicks the button to open or close the dropdown.
-   *
-   * @returns A promise that resolves after the view has been updated.
-   */
-  clickToggleButton: () => Promise<void>;
-  /**
-   * Clicks the item with the provided index.
-   * The dropdown must be open before this function is called.
-   *
-   * @returns A promise that resolves after the view has been updated.
-   */
-  clickNthItem: (index: number) => Promise<void>;
-  /**
-   * Updates the `items` prop of the {@link SortDropdown} component.
-   *
-   * @returns A promise that resolves after the view has been updated.
-   */
-  setItems: (items: Sort[]) => Promise<void>;
-}
