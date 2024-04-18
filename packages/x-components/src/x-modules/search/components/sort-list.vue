@@ -21,68 +21,74 @@
 
 <script lang="ts">
   import { Sort } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { mixins } from 'vue-class-component';
-  import { Component, Prop } from 'vue-property-decorator';
+  import Vue, { computed, defineComponent, PropType, watch } from 'vue';
   import { BaseEventButton } from '../../../components';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { use$x, useRegisterXModule, useState } from '../../../composables';
   import { VueCSSClasses } from '../../../utils';
   import { XEventsTypes } from '../../../wiring';
   import { searchXModule } from '../x-module';
-  import SortMixin from './sort.mixin';
 
   /**
    * Sort list item options.
-   *
-   * @public
    */
   interface SortListItem {
     item: Sort;
     cssClasses: VueCSSClasses;
     event: Partial<XEventsTypes>;
   }
+
   /**
    * The `SortList` component allows user to select the search results order. This component
    * also allows to change the selected sort programmatically.
-   *
-   * @remarks It extends {@link SortMixin}.
-   *
-   * @public
    */
-  @Component({
-    mixins: [xComponentMixin(searchXModule)],
-    components: {
-      BaseEventButton
+  export default defineComponent({
+    name: 'SortList',
+    xModule: searchXModule.name,
+    components: { BaseEventButton },
+    props: {
+      /** The list of possible sort values. */
+      items: {
+        type: Array as PropType<Sort[]>,
+        required: true
+      },
+      /** The transition to use for rendering the list. */
+      animation: {
+        type: String as PropType<string | typeof Vue>,
+        default: () => 'ul'
+      }
+    },
+    setup(props) {
+      useRegisterXModule(searchXModule);
+      const $x = use$x();
+
+      const { sort: selectedSort } = useState('search', ['sort']);
+
+      watch(selectedSort, (value: Sort) => $x.emit('SelectedSortProvided', value), {
+        immediate: true
+      });
+
+      /**
+       * Sort list items.
+       *
+       * @returns A list of items with their css class and the event associate to it.
+       */
+      const listItems = computed<SortListItem[]>(() =>
+        props.items.map(item => ({
+          item,
+          cssClasses: {
+            'x-sort-list__item--is-selected': item === selectedSort.value,
+            'x-option-list__item--is-selected': item === selectedSort.value
+          },
+          event: { UserClickedASort: item }
+        }))
+      );
+
+      return {
+        listItems,
+        selectedSort
+      };
     }
-  })
-  export default class SortList extends mixins(SortMixin) {
-    /**
-     * The transition to use for rendering the list.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    public animation?: string | typeof Vue;
-    /**
-     * Sort list items.
-     *
-     * @returns A list of items with their css class and the event associate to it.
-     *
-     * @internal
-     */
-    protected get listItems(): SortListItem[] {
-      return this.items.map(item => ({
-        item,
-        cssClasses: [
-          {
-            'x-sort-list__item--is-selected': item === this.selectedSort,
-            'x-option-list__item--is-selected': item === this.selectedSort
-          }
-        ],
-        event: { UserClickedASort: item }
-      }));
-    }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>

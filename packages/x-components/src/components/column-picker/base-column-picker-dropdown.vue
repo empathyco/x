@@ -1,29 +1,29 @@
 <template>
   <BaseDropdown
-    @change="emitEvent"
-    :value="selectedColumns"
+    @update:modelValue="emitEvent"
+    :modelValue="selectedColumns"
     :items="columns"
     :animation="animation"
     aria-label="Select number of columns"
   >
     <template v-if="$scopedSlots.toggle" #toggle="{ item, isOpen }">
       <!--
-           @slot From `BaseDropdown` component: Used to render the contents of the dropdown toggle
-           button. If not provided, it uses the `item` slot as fallback.
-           @binding {string|number|Identifiable} item - The item data to render.
-           @binding {boolean} isOpen - True if the dropdown is opened, and false if it is
-           closed.
-        -->
+       @slot From `BaseDropdown` component: Used to render the contents of the dropdown toggle
+       button. If not provided, it uses the `item` slot as fallback.
+       @binding {string|number|Identifiable} item - The item data to render.
+       @binding {boolean} isOpen - True if the dropdown is opened, and false if it is
+       closed.
+      -->
       <slot name="toggle" v-bind="{ item, isOpen }" />
     </template>
     <template #item="{ item, isSelected, isHighlighted }">
       <!--
-           @slot (required) From `BaseDropdown` component: Used to render each one of the items
-           content, and as fallback for the toggle button content slot if it is not provided.
-             @binding {string|number|Identifiable} item - Item to render
-             @binding {boolean} isHighlighted - True when the item has the focus.
-             @binding {boolean} isSelected - True when the item is selected.
-        -->
+       @slot (required) From `BaseDropdown` component: Used to render each one of the items
+       content, and as fallback for the toggle button content slot if it is not provided.
+       @binding {string|number|Identifiable} item - Item to render
+       @binding {boolean} isHighlighted - True when the item has the focus.
+       @binding {boolean} isSelected - True when the item is selected.
+      -->
       <slot name="item" v-bind="{ item, isSelected, isHighlighted }" />
     </template>
   </BaseDropdown>
