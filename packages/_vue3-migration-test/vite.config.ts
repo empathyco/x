@@ -20,5 +20,8 @@ export default defineConfig({
     alias: {
       vue: resolve(__dirname, 'node_modules/@vue/compat')
     }
+  },
+  optimizeDeps: {
+    exclude: ['@empathyco/x-components']
   }
 });
