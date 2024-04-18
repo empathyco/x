@@ -1,9 +1,8 @@
 import { NextQuery } from '@empathyco/x-types';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue, { ComponentOptions, VueConstructor } from 'vue';
+import Vue, { ComponentOptions, computed, defineComponent, provide, VueConstructor } from 'vue';
 import Vuex, { Store } from 'vuex';
-import Component from 'vue-class-component';
 import { createNextQueryStub } from '../../../../__stubs__/next-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { ItemsListInjectionMixin } from '../../../../components/items-list-injection.mixin';
@@ -12,7 +11,6 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { ListItem } from '../../../../utils/types';
 import { nextQueriesXModule } from '../../x-module';
 import NextQueriesList from '../next-queries-list.vue';
-import { XProvide } from '../../../../components/decorators/injection.decorators';
 import { QUERY_KEY } from '../../../../components/decorators/injection.consts';
 import { RequestStatus } from '../../../../store/utils/status-store.utils';
 import { resetXNextQueriesStateWith } from './utils';
@@ -45,15 +43,16 @@ function renderNextQueriesList({
   extraItems,
   ...props
 }: RenderNextQueriesListOptions = {}): RenderNextQueriesListAPI {
-  @Component({
+  const ProviderWrapper = defineComponent({
+    name: 'ProviderWrapper',
+    setup() {
+      const searchQueryComputed = computed(() => searchQuery);
+      provide(QUERY_KEY as string, searchQueryComputed);
+    },
     template: `
       <div><slot /></div>
     `
-  })
-  class ProviderWrapper extends Vue {
-    @XProvide(QUERY_KEY)
-    public searchQuery = searchQuery;
-  }
+  });
 
   const localVue = createLocalVue();
   localVue.use(Vuex);
@@ -68,12 +67,6 @@ function renderNextQueriesList({
         ProviderWrapper,
         NextQueriesList,
         ...components
-      },
-      mixins: [ItemsListInjectionMixin],
-      computed: {
-        items() {
-          return extraItems;
-        }
       }
     },
     {
