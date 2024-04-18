@@ -1,9 +1,16 @@
 import { Promoted } from '@empathyco/x-types';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue, { VueConstructor, ComponentOptions } from 'vue';
+import Vue, {
+  VueConstructor,
+  ComponentOptions,
+  defineComponent,
+  computed,
+  provide,
+  inject,
+  Ref
+} from 'vue';
 import Vuex, { Store } from 'vuex';
-import Component from 'vue-class-component';
 import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
@@ -13,7 +20,6 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import PromotedsList from '../promoteds-list.vue';
 import { getPromotedsStub } from '../../../../__stubs__/promoteds-stubs.factory';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
-import { XInject, XProvide } from '../../../../components/decorators/injection.decorators';
 import { LIST_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
 import { resetXSearchStateWith } from './utils';
 
@@ -130,33 +136,36 @@ describe('testing PromotedsList component', () => {
     });
 
     /* It provides an array with some results */
-    @Component({
+    const Provider = defineComponent({
+      name: 'Provider',
+      setup() {
+        const providedStub = computed((): ListItem[] => resultsStub);
+        provide(LIST_ITEMS_KEY as string, providedStub);
+      },
       template: `
         <div><slot /></div>
       `
-    })
-    class Provider extends Vue {
-      @XProvide(LIST_ITEMS_KEY)
-      public providedStub: ListItem[] = resultsStub;
-    }
+    });
 
     /*
      * It should inject an array with the result from the Provider and the banner concatenated from
      * BannersList
      */
-    @Component({
+    const Child = defineComponent({
+      name: 'Child',
+      setup() {
+        const injectedListItems = inject<Ref<ListItem[] | undefined>>(LIST_ITEMS_KEY as string);
+        const injectedListItemsString = computed(
+          (): string => injectedListItems?.value!.map(item => item.id).join(',') ?? ''
+        );
+        return {
+          injectedListItemsString
+        };
+      },
       template: `
         <p>{{ injectedListItemsString }}</p>
       `
-    })
-    class Child extends Vue {
-      @XInject(LIST_ITEMS_KEY)
-      public injectedListItems: ListItem[] | undefined;
-
-      protected get injectedListItemsString(): string {
-        return this.injectedListItems?.map(item => item.id).join(',') ?? '';
-      }
-    }
+    });
 
     const wrapper = mount(
       {
