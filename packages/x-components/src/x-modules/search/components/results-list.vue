@@ -49,6 +49,7 @@
       NoElement,
       ItemsList
     },
+    xModule: 'search',
     directives: { 'infinite-scroll': infiniteScroll },
     props: {
       /**
@@ -80,13 +81,13 @@
        *
        * @public
        */
-      const items: Ref<Result[]> = useState('search', ['results']).results;
-      provide<Ref<Result[]>>(LIST_ITEMS_KEY as string, items);
+      const items: ComputedRef<Result[]> = useState('search', ['results']).results;
+      provide<ComputedRef<Result[]>>(LIST_ITEMS_KEY as string, items);
 
       /**
        * The total number of results, taken from the state.
        */
-      const totalResults: number = useState('search', ['totalResults']).totalResults.value;
+      const totalResults: ComputedRef<number> = useState('search', ['totalResults']).totalResults;
 
       /**
        * It provides the search query.
@@ -102,7 +103,7 @@
        * @public
        */
       const hasMoreItems = computed<boolean>(() => {
-        return items.value.length < totalResults;
+        return items.value.length < totalResults.value;
       });
       provide<ComputedRef<boolean>>(HAS_MORE_ITEMS_KEY as string, hasMoreItems);
 
@@ -114,7 +115,7 @@
       /**
        * The query of the search request, taken from the state.
        */
-      const searchQuery: string = useState('search', ['query']).query.value;
+      const searchQuery: ComputedRef<string> = useState('search', ['query']).query;
 
       /**
        * Updates the query to be provided to the child components
@@ -124,7 +125,7 @@
        */
       const updateQuery = (status: RequestStatus): void => {
         if (status === 'success') {
-          providedQuery.value = searchQuery;
+          providedQuery.value = searchQuery.value;
         }
       };
 

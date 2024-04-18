@@ -1,9 +1,8 @@
 import { Result } from '@empathyco/x-types';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper, VueClass } from '@vue/test-utils';
-import Vue, { VueConstructor, ComponentOptions } from 'vue';
+import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import Vue, { VueConstructor, ComponentOptions, defineComponent, inject, Ref } from 'vue';
 import Vuex, { Store } from 'vuex';
-import Component from 'vue-class-component';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -12,7 +11,6 @@ import { ListItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import ResultsList from '../results-list.vue';
 import { InfiniteScroll } from '../../../../directives/infinite-scroll/infinite-scroll.types';
-import { XInject } from '../../../../components/decorators/injection.decorators';
 import {
   HAS_MORE_ITEMS_KEY,
   LIST_ITEMS_KEY,
@@ -141,15 +139,17 @@ describe('testing Results list component', () => {
   });
 
   it('provides the results from state with the key `item`', () => {
-    @Component({
+    const Child = defineComponent({
+      name: 'Child',
+      setup() {
+        const items = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
+
+        return { items };
+      },
       template: `
         <div>{{ items[0].id }}</div>
       `
-    })
-    class Child extends Vue {
-      @XInject(LIST_ITEMS_KEY)
-      public items!: ListItem[];
-    }
+    });
 
     const { wrapper, getResults } = renderResultsList({
       template: '<ResultsList><Child /></ResultsList>',
@@ -164,16 +164,17 @@ describe('testing Results list component', () => {
 
   // eslint-disable-next-line max-len
   it('provides the query with the key `query`, only updating it if the status is success', async () => {
-    @Component({
+    const Child = defineComponent({
+      name: 'Child',
+      setup() {
+        const searchQuery = inject<Ref<string>>(QUERY_KEY as string);
+
+        return { searchQuery };
+      },
       template: `
         <div>{{ searchQuery }}</div>
       `
-    })
-    class Child extends Vue {
-      @XInject(QUERY_KEY)
-      public searchQuery!: string;
-    }
-
+    });
     const { wrapper, commit } = renderResultsList({
       template: `<ResultsList><Child/></ResultsList>`,
       components: {
@@ -215,31 +216,37 @@ describe('testing Results list component', () => {
   });
 
   it('provides a flag indicating if there are more results with the key `hasMoreItems`', () => {
-    @Component({
+    const Child = defineComponent({
+      name: 'Child',
+      setup() {
+        const hasMoreItems = inject<Ref<boolean>>(HAS_MORE_ITEMS_KEY as string);
+
+        return { hasMoreItems };
+      },
       template: `
         <div></div>
       `
-    })
-    class Child extends Vue {
-      @XInject(HAS_MORE_ITEMS_KEY)
-      public hasMoreItems!: boolean;
-    }
+    });
 
     const { commit, wrapper } = renderResultsList({
-      template: '<ResultsList><Child /></ResultsList>',
+      template: `<ResultsList><Child /></ResultsList>`,
       components: {
         Child
       }
     });
 
-    const childWrapper = wrapper.findComponent(Child as VueClass<Child>);
+    const childWrapper = wrapper.findComponent(Child);
 
     // Initially, the number of `items` and `totalResults` should match.
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     expect(childWrapper.vm.hasMoreItems).toBe(false);
 
     commit('setTotalResults', 1000);
 
     // Now the `totalResults` is higher than the number of `items`
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     expect(childWrapper.vm.hasMoreItems).toBe(true);
   });
 });
