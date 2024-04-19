@@ -4,6 +4,7 @@ import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils
 import BaseIdModalOpen from '../base-id-modal-open.vue';
 import { bus } from '../../../plugins/x-bus';
 import { dummyCreateEmitter } from '../../../__tests__/bus.dummy';
+import { XPlugin } from '../../../plugins/index';
 
 /**
  * Renders the {@link BaseIdModalOpen} with the provided options.
@@ -18,7 +19,7 @@ function renderBaseIdModalOpen({
   // Making bus not repeat subjects
   jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any);
 
-  const [, localVue] = installNewXPlugin(undefined, undefined, bus);
+  const [, localVue] = installNewXPlugin();
   const containerWrapper = mount(
     {
       components: {
@@ -40,20 +41,15 @@ function renderBaseIdModalOpen({
     modalId,
     async click() {
       await wrapper.trigger('click');
-      jest.runAllTimers();
     }
   };
 }
 
 describe('testing Open Button component', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
   it("emits UserClickedOpenModal with the component's id as payload", async () => {
     const { modalId, click } = renderBaseIdModalOpen();
     const listener = jest.fn();
-    bus.on('UserClickedOpenModal').subscribe(listener);
+    XPlugin.bus.on('UserClickedOpenModal').subscribe(listener);
 
     await click();
 
@@ -82,14 +78,13 @@ describe('testing Open Button component', () => {
     });
 
     const listener = jest.fn();
-    bus.on('UserClickedOpenModal').subscribe(listener);
+    XPlugin.bus.on('UserClickedOpenModal').subscribe(listener);
 
     await click();
 
     expect(listener).toHaveBeenCalledTimes(0);
 
     wrapper.find(getDataTestSelector('custom-open-modal')).trigger('click');
-    jest.runAllTimers();
 
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith(modalId);

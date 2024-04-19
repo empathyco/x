@@ -9,7 +9,7 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { popularSearchesXModule } from '../../x-module';
 import PopularSearch from '../popular-search.vue';
-import { bus } from '../../../../plugins/index';
+import { XPlugin } from '../../../../plugins/index';
 
 function renderPopularSearch({
   suggestion = createPopularSearch('baileys'),
@@ -18,7 +18,7 @@ function renderPopularSearch({
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store, initialXModules: [popularSearchesXModule] }, localVue, bus);
+  installNewXPlugin({ store, initialXModules: [popularSearchesXModule] }, localVue);
 
   const wrapper = mount(
     {
@@ -38,15 +38,11 @@ function renderPopularSearch({
   return {
     wrapper: wrapper.findComponent(PopularSearch),
     suggestion,
-    emitSpy: jest.spyOn(bus, 'emit')
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit')
   };
 }
 
 describe('testing popular-search component', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
   it('is an XComponent that belongs to the popular searches', () => {
     const { wrapper } = renderPopularSearch();
     expect(isXComponent(wrapper.vm)).toEqual(true);

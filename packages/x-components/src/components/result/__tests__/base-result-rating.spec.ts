@@ -3,7 +3,7 @@ import { mount, WrapperArray } from '@vue/test-utils';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseResultRating from '../base-result-rating.vue';
-import { bus } from '../../../plugins/index';
+import { XPlugin } from '../../../plugins/index';
 
 const result = createResultStub('Product Test', {
   rating: {
@@ -15,7 +15,7 @@ function renderBaseResultRating({
   template,
   result
 }: RenderBaseResultRatingOptions): RenderBaseResultRatingApi {
-  const [, localVue] = installNewXPlugin(undefined, undefined, bus);
+  const [, localVue] = installNewXPlugin();
 
   const wrapper = mount(
     { template },
@@ -38,16 +38,11 @@ function renderBaseResultRating({
       wrapper.find(getDataTestSelector('rating-empty')).findAll(':scope > *'),
     clickRating: async () => {
       await wrapper.findComponent(BaseResultRating).trigger('click');
-      jest.runAllTimers();
     }
   };
 }
 
 describe('testing BaserResultRating component', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
   it('renders the default icons a number of times based on the max prop', () => {
     const { getFilledIcons, getEmptyIcons } = renderBaseResultRating({
       template: `<BaseResultRating :result="result" :max="10" />`,
@@ -85,7 +80,7 @@ describe('testing BaserResultRating component', () => {
       result
     });
     const eventListener = jest.fn();
-    bus.on('UserClickedAResultRating').subscribe(eventListener);
+    XPlugin.bus.on('UserClickedAResultRating').subscribe(eventListener);
 
     await clickRating();
     expect(eventListener).toHaveBeenCalledWith(result);

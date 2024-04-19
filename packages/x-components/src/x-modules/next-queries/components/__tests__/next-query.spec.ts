@@ -5,17 +5,13 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { default as NextQueryComponent } from '../next-query.vue';
-import { bus } from '../../../../plugins/index';
-import { dummyCreateEmitter } from '../../../../__tests__/bus.dummy';
+import { XPlugin } from '../../../../plugins/index';
 
 function renderNextQuery({
   suggestion = createNextQueryStub('milk'),
   template = '<NextQuery :suggestion="suggestion" />'
 }: RenderNextQueryOptions = {}): RenderNextQueryAPI {
-  // Making bus not repeat subjects
-  jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any);
-
-  const [, localVue] = installNewXPlugin(undefined, undefined, bus);
+  const [, localVue] = installNewXPlugin();
   const wrapperTemplate = mount(
     {
       props: ['suggestion', 'highlightCurated'],
@@ -47,10 +43,6 @@ function renderNextQuery({
 }
 
 describe('testing next query item component', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
   it('is an XComponent and has an XModule', () => {
     const { wrapper } = renderNextQuery();
     expect(isXComponent(wrapper.vm)).toEqual(true);
@@ -60,10 +52,9 @@ describe('testing next query item component', () => {
   it('emits UserSelectedANextQuery when a next query is selected', async () => {
     const { clickNextQuery, suggestion, wrapper } = renderNextQuery();
     const listener = jest.fn();
-    bus.on('UserSelectedANextQuery', true).subscribe(listener);
+    XPlugin.bus.on('UserSelectedANextQuery', true).subscribe(listener);
 
     await clickNextQuery();
-    jest.runAllTimers();
 
     expect(listener).toHaveBeenCalled();
     expect(listener).toHaveBeenCalledWith({

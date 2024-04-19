@@ -9,7 +9,7 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { querySuggestionsXModule } from '../../x-module';
 import QuerySuggestion from '../query-suggestion.vue';
-import { bus } from '../../../../plugins/index';
+import { XPlugin } from '../../../../plugins/index';
 import { resetXQuerySuggestionsStateWith } from './utils';
 
 function renderQuerySuggestion({
@@ -20,7 +20,7 @@ function renderQuerySuggestion({
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store, initialXModules: [querySuggestionsXModule] }, localVue, bus);
+  installNewXPlugin({ store, initialXModules: [querySuggestionsXModule] }, localVue);
   resetXQuerySuggestionsStateWith(store, { query });
 
   const wrapper = mount(
@@ -41,7 +41,7 @@ function renderQuerySuggestion({
   return {
     wrapper: wrapper.findComponent(QuerySuggestion),
     suggestion,
-    emitSpy: jest.spyOn(bus, 'emit'),
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     getMatchingPart() {
       return wrapper.get(getDataTestSelector('matching-part'));
     }
@@ -49,10 +49,6 @@ function renderQuerySuggestion({
 }
 
 describe('testing query-suggestion component', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
   it('is an XComponent that belongs to the query suggestions', () => {
     const { wrapper } = renderQuerySuggestion();
     expect(isXComponent(wrapper.vm)).toEqual(true);
