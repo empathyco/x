@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.44...@empathyco/x-components@4.1.0-alpha.45) (2024-04-19)
+
+
+### Features
+
+* **bus:** make `useXBus` get bus from `XPlugin` (#1447) ([c57d1af](https://github.com/empathyco/x/commit/c57d1aff8df162e5b99b78822ba5013b617d4aba))
+
+
+
 ## [4.1.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.43...@empathyco/x-components@4.1.0-alpha.44) (2024-04-19)
 
 
