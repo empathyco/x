@@ -2,9 +2,7 @@ import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import Vuex, { Store } from 'vuex';
-import { dummyCreateEmitter } from '../../../../__tests__/bus.dummy';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { bus } from '../../../../plugins';
 import { searchXModule } from '../../x-module';
 import SortDropdown from '../sort-dropdown.vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
@@ -29,14 +27,14 @@ function renderSortDropdown({
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
 
-  installNewXPlugin({ store }, localVue, bus);
+  installNewXPlugin({ store }, localVue);
   XPlugin.registerXModule(searchXModule);
   resetXSearchStateWith(store, { sort: selectedSort });
 
   const onSelectedSortProvided = jest.fn();
-  bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided);
+  XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided);
   const onUserClickedASort = jest.fn();
-  bus.on('UserClickedASort', true).subscribe(onUserClickedASort);
+  XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort);
 
   const wrapper = mount(
     {
@@ -50,7 +48,6 @@ function renderSortDropdown({
       propsData: { items }
     }
   );
-  jest.runAllTimers(); // For `SelectedSortProvided` immediate emission
 
   const sortDropdown = wrapper.findComponent(SortDropdown);
   return {
@@ -68,12 +65,6 @@ function renderSortDropdown({
 }
 
 describe('testing SortDropdown component', () => {
-  // Making bus not repeat subjects
-  jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any);
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
   it('is an XComponent', () => {
     const { wrapper } = renderSortDropdown();
     expect(isXComponent(wrapper.vm)).toBe(true);
@@ -99,7 +90,6 @@ describe('testing SortDropdown component', () => {
     await clickToggleButton();
     await clickNthItem(2);
     await clickToggleButton();
-    jest.runAllTimers();
     await nextTick();
 
     expect(onUserClickedASort).toHaveBeenCalledTimes(1);
