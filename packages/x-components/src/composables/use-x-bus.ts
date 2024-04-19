@@ -13,6 +13,9 @@ import { bus as xBus } from '../plugins/x-bus';
  * returns the `on` and `emit` functions from the `XBus`, applying location
  * and component metadata.
  *
+ * @remarks This composable tries to use the `XPlugin` bus and catches the exception thrown
+ * by the `XPlugin` if it was not instantiated and uses the default `xBus` as fallback.
+ *
  * @returns An object with the `on` and `emit` functions.
  */
 export function useXBus(): UseXBusAPI {
