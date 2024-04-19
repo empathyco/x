@@ -7,21 +7,9 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent, ref } from 'vue';
+<script setup lang="ts">
+  import { ref } from 'vue';
   import AnimateWidth from '../../../../x-components/src/components/animations/animate-width.vue';
 
-  export default defineComponent({
-    name: 'TestAnimateWidth',
-    components: {
-      AnimateWidth
-    },
-    setup: function () {
-      const visible = ref(true);
-
-      return {
-        visible
-      };
-    }
-  });
+  const visible = ref(true);
 </script>
