@@ -2,9 +2,7 @@ import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import Vuex, { Store } from 'vuex';
-import { dummyCreateEmitter } from '../../../../__tests__/bus.dummy';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { bus } from '../../../../plugins';
 import SortPickerList from '../sort-picker-list.vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store/store.types';
@@ -27,14 +25,14 @@ function renderSortPickerList({
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
 
-  installNewXPlugin({ store }, localVue, bus);
+  installNewXPlugin({ store }, localVue);
   XPlugin.registerXModule(searchXModule);
   resetXSearchStateWith(store, { sort: selectedSort });
 
   const onSelectedSortProvided = jest.fn();
-  bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided);
+  XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided);
   const onUserClickedASort = jest.fn();
-  bus.on('UserClickedASort', true).subscribe(onUserClickedASort);
+  XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort);
 
   const wrapper = mount(
     {
@@ -51,7 +49,6 @@ function renderSortPickerList({
       }
     }
   );
-  jest.runAllTimers(); // For `SelectedSortProvided` immediate emission
 
   const sortPickerList = wrapper.findComponent(SortPickerList);
 
@@ -66,19 +63,12 @@ function renderSortPickerList({
         .findAll(getDataTestSelector('sort-picker-button'))
         .at(index)
         .trigger('click');
-      jest.runAllTimers();
       await nextTick();
     }
   };
 }
 
 describe('testing SortPickerList component', () => {
-  // Making bus not repeat subjects
-  jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any);
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
   it('is an XComponent', () => {
     const { wrapper } = renderSortPickerList();
     expect(isXComponent(wrapper.vm)).toBeTruthy();

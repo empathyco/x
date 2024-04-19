@@ -2,9 +2,7 @@ import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import Vuex, { Store } from 'vuex';
-import { dummyCreateEmitter } from '../../../../__tests__/bus.dummy';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { bus } from '../../../../plugins';
 import SortList from '../sort-list.vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store/store.types';
@@ -26,14 +24,14 @@ function renderSortList({
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
 
-  installNewXPlugin({ store }, localVue, bus);
+  installNewXPlugin({ store }, localVue);
   XPlugin.registerXModule(searchXModule);
   resetXSearchStateWith(store, { sort: selectedSort });
 
   const onSelectedSortProvided = jest.fn();
-  bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided);
+  XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided);
   const onUserClickedASort = jest.fn();
-  bus.on('UserClickedASort', true).subscribe(onUserClickedASort);
+  XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort);
 
   const wrapper = mount(
     {
@@ -47,7 +45,6 @@ function renderSortList({
       propsData: { items }
     }
   );
-  jest.runAllTimers(); // For `SelectedSortProvided` immediate emission
 
   const sortList = wrapper.findComponent(SortList);
 
@@ -59,19 +56,12 @@ function renderSortList({
     getSelectedItem: () => sortList.get('.x-sort-list__item--is-selected'),
     clickNthItem: async (index: number) => {
       await sortList.findAll(getDataTestSelector('x-sort-button')).at(index).trigger('click');
-      jest.runAllTimers();
       await nextTick();
     }
   };
 }
 
 describe('testing SortList component', () => {
-  // Making bus not repeat subjects
-  jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any);
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
   it('is an XComponent', () => {
     const { wrapper } = renderSortList();
     expect(isXComponent(wrapper.vm)).toBeTruthy();
