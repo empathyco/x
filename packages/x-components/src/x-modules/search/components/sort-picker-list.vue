@@ -25,10 +25,10 @@
 <script lang="ts">
   import { Sort } from '@empathyco/x-types';
   import Vue, { computed, defineComponent, PropType, watch } from 'vue';
-  import { BaseEventButton } from '../../../components';
+  import BaseEventButton from '../../../components/base-event-button.vue';
   import { use$x, useRegisterXModule, useState } from '../../../composables';
-  import { VueCSSClasses } from '../../../utils';
-  import { XEventsTypes } from '../../../wiring';
+  import { VueCSSClasses } from '../../../utils/types';
+  import { XEventsTypes } from '../../../wiring/events.types';
   import { searchXModule } from '../x-module';
 
   /**

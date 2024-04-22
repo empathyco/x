@@ -87,7 +87,10 @@
     ref,
     watch
   } from 'vue';
-  import { getTargetElement, normalizeString, isInRange, debounceFunction } from '../utils';
+  import { getTargetElement } from '../utils/html';
+  import { normalizeString } from '../utils/normalize';
+  import { isInRange } from '../utils/number';
+  import { debounce as debounceFunction } from '../utils/debounce';
   import { NoElement } from './no-element';
 
   type DropdownItem = string | number | Identifiable;
