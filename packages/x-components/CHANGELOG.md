@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.45...@empathyco/x-components@4.1.0-alpha.46) (2024-04-22)
+
+
+### Features
+
+* export pageLoaderButton component (#1449) ([115f744](https://github.com/empathyco/x/commit/115f7448fc92cee5be4151191d4b1a347fd570a1))
+
+
+
+## [4.1.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.44...@empathyco/x-components@4.1.0-alpha.45) (2024-04-19)
+
+
+### Features
+
+* **bus:** make `useXBus` get bus from `XPlugin` (#1447) ([c57d1af](https://github.com/empathyco/x/commit/c57d1aff8df162e5b99b78822ba5013b617d4aba))
+
+
+
+## [4.1.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.43...@empathyco/x-components@4.1.0-alpha.44) (2024-04-19)
+
+
+### Features
+
+* EMP-3849 Create vue3-migration-test package ([399fe51](https://github.com/empathyco/x/commit/399fe5176b8c0a5206ed7da4edf9c54c1219f70b))
+
+
+### Bug Fixes
+
+* Fix @vue/compat alias for x-components imports ([d6d7e2f](https://github.com/empathyco/x/commit/d6d7e2f26e6944af7453c213b8d0a1d28ff359eb))
+* Fix Vue alias for Cypress component testing ([6a71960](https://github.com/empathyco/x/commit/6a71960ffeef4c4b964084c924feac76e25850b5))
+
+
+
 ## [4.1.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.42...@empathyco/x-components@4.1.0-alpha.43) (2024-04-08)
 
 

@@ -1,16 +1,20 @@
 import Vue, { getCurrentInstance, inject, Ref } from 'vue';
 import { XBus } from '@empathyco/x-bus';
-import { bus } from '../plugins/x-bus';
 import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
 import { getRootXComponent, getXComponentXModuleName } from '../components/x-component.utils';
 import { FeatureLocation } from '../types/origin';
 import { PropsWithType } from '../utils/types';
+import { XPlugin } from '../plugins/x-plugin';
+import { bus as xBus } from '../plugins/x-bus';
 
 /**
  * Composable which injects the current location,
  * returns the `on` and `emit` functions from the `XBus`, applying location
  * and component metadata.
+ *
+ * @remarks This composable tries to use the `XPlugin` bus and catches the exception thrown
+ * by the `XPlugin` if it was not instantiated and uses the default `xBus` as fallback.
  *
  * @returns An object with the `on` and `emit` functions.
  */
@@ -23,7 +27,12 @@ export function useXBus(): UseXBusAPI {
   if (currentComponent && currentXComponent) {
     currentComponent.xComponent = currentXComponent;
   }
-
+  let bus: XBus<XEventsTypes, WireMetadata>;
+  try {
+    bus = XPlugin.bus;
+  } catch (error) {
+    bus = xBus;
+  }
   return {
     on: bus.on.bind(bus),
     emit: <Event extends XEvent>(
@@ -36,7 +45,7 @@ export function useXBus(): UseXBusAPI {
           ? injectedLocation.value
           : injectedLocation;
 
-      bus.emit(event, payload, createWireMetadata(metadata, currentComponent, location));
+      bus.emit(event, payload!, createWireMetadata(metadata, currentComponent, location));
       currentXComponent?.$emit(event, payload);
     }
   };
