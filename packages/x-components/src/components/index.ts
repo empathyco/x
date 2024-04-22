@@ -27,6 +27,7 @@ export { default as LocationProvider } from './location-provider.vue';
 export { NoElement } from './no-element';
 export { default as SlidingPanel } from './sliding-panel.vue';
 export { default as SnippetCallbacks } from './snippet-callbacks.vue';
+export { default as PageLoaderButton } from './page-loader-button.vue';
 
 // Utils
 export * from './decorators/bus.decorators';
