@@ -183,7 +183,7 @@
        */
       function closeAndFocusToggleButton() {
         close();
-        toggleButtonRef?.value?.focus();
+        toggleButtonRef.value?.focus();
       }
 
       /**

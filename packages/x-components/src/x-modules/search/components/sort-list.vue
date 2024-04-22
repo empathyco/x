@@ -53,7 +53,7 @@
       },
       /** The transition to use for rendering the list. */
       animation: {
-        type: String as PropType<string | typeof Vue>,
+        type: [String, Object] as PropType<string | typeof Vue>,
         default: () => 'ul'
       }
     },
