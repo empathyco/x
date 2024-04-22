@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.45...@empathyco/x-components@4.1.0-alpha.46) (2024-04-22)
+
+
+### Features
+
+* export pageLoaderButton component (#1449) ([115f744](https://github.com/empathyco/x/commit/115f7448fc92cee5be4151191d4b1a347fd570a1))
+
+
+
 ## [4.1.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.44...@empathyco/x-components@4.1.0-alpha.45) (2024-04-19)
 
 
