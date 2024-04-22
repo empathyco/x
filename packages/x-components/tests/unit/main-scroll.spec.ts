@@ -8,7 +8,6 @@ import MainScroll from '../../src/x-modules/scroll/components/main-scroll.vue';
 import { scrollXModule } from '../../src/x-modules/scroll/x-module';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
 import { XDummyBus } from '../../src/__tests__/bus.dummy';
-import { bus } from '../../src/plugins/x-bus';
 import { loadCss } from './css.utils';
 
 /**
@@ -88,7 +87,7 @@ function renderMainScroll({
         };
       },
       beforeCreate() {
-        bus.on('UserScrolledToElement').subscribe(userScrolledToElementSpy);
+        XPlugin.bus.on('UserScrolledToElement').subscribe(userScrolledToElementSpy);
         if (pendingScroll) {
           XPlugin.bus.emit('ParamsLoadedFromUrl', <UrlParams>{ scroll: `item-${pendingScroll}` });
         }
