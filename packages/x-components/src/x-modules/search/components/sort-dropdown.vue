@@ -54,7 +54,7 @@
         required: true
       },
       /** The transition to use for opening and closing the dropdown. */
-      animation: Object as PropType<string | typeof Vue>
+      animation: [String, Object] as PropType<string | typeof Vue>
     },
     emits: ['change'],
     setup(_, { emit }) {
@@ -74,7 +74,7 @@
        * @param sort - The selected sort.
        */
       function emitUserClickedASort(sort: Sort) {
-        $x.emit('UserClickedASort', sort, { target: (rootRef.value as any)?.$el });
+        $x.emit('UserClickedASort', sort, { target: rootRef.value?.$el });
         emit('change', sort);
       }
 

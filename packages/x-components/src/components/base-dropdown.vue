@@ -87,7 +87,10 @@
     ref,
     watch
   } from 'vue';
-  import { getTargetElement, normalizeString, isInRange, debounceFunction } from '../utils';
+  import { getTargetElement } from '../utils/html';
+  import { normalizeString } from '../utils/normalize';
+  import { isInRange } from '../utils/number';
+  import { debounce as debounceFunction } from '../utils/debounce';
   import { NoElement } from './no-element';
 
   type DropdownItem = string | number | Identifiable;
@@ -180,7 +183,7 @@
        */
       function closeAndFocusToggleButton() {
         close();
-        toggleButtonRef?.value?.focus();
+        toggleButtonRef.value?.focus();
       }
 
       /**
@@ -437,7 +440,7 @@ provided, the `item` slot will be used for that.
 
 ```vue
 <template>
-  <BaseDropdown @update:modelValue="val => (value = val)" :modelValue="value" :items="items">
+  <BaseDropdown v-model="value" :items="items">
     <template #toggle="{ item, isOpen }">{{ item }} {{ isOpen ? '🔼' : '🔽' }}️</template>
 
     <template #item="{ item, isSelected, isHighlighted }">
@@ -459,7 +462,7 @@ provided, the `item` slot will be used for that.
     data() {
       return {
         items: ['a', 2, { id: '3' }],
-        value: 'a'
+        value: ['a']
       };
     }
   };
