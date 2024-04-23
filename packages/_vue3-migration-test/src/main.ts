@@ -6,7 +6,9 @@ import router from './router';
 const VUE_COMPAT_MODE = Number(import.meta.env.VITE_VUE_COMPAT_MODE);
 if (VUE_COMPAT_MODE === 2) {
   configureCompat({
-    INSTANCE_LISTENERS: 'suppress-warning'
+    INSTANCE_LISTENERS: 'suppress-warning',
+    RENDER_FUNCTION: false,
+    COMPONENT_V_MODEL: false
   });
 }
 

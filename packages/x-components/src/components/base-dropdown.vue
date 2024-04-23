@@ -462,7 +462,7 @@ provided, the `item` slot will be used for that.
     data() {
       return {
         items: ['a', 2, { id: '3' }],
-        value: ['a']
+        value: 'a'
       };
     }
   };

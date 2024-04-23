@@ -27,6 +27,7 @@ export default defineConfig(({ mode }) => {
     ],
     resolve: {
       alias: {
+        '@vueuse/core': resolve(__dirname, 'node_modules/@vueuse/core'),
         vue: resolve(__dirname, 'node_modules/@vue/compat')
       }
     },
