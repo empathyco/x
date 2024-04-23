@@ -1,9 +1,5 @@
 <template>
-  <BaseDropdown
-    @update:modelValue="payload => (modelValue = payload)"
-    :modelValue="modelValue"
-    :items="items"
-  >
+  <BaseDropdown v-model="value" :items="items">
     <template #toggle="{ item, isOpen }">{{ item }} {{ isOpen ? '🔼' : '🔽' }}️</template>
     <template #item="{ item, isSelected, isHighlighted }">
       <span v-if="isHighlighted">🟢</span>
@@ -22,5 +18,5 @@
 
   const items: Array<BaseDropdownItem> = ['a', 2, { id: '3' }];
 
-  const modelValue = ref<BaseDropdownItem>(items[0]);
+  const value = ref<BaseDropdownItem>(items[0]);
 </script>

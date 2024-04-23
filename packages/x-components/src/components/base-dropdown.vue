@@ -440,7 +440,7 @@ provided, the `item` slot will be used for that.
 
 ```vue
 <template>
-  <BaseDropdown @update:modelValue="val => (value = val)" :modelValue="value" :items="items">
+  <BaseDropdown v-model="value" :items="items">
     <template #toggle="{ item, isOpen }">{{ item }} {{ isOpen ? '🔼' : '🔽' }}️</template>
 
     <template #item="{ item, isSelected, isHighlighted }">
