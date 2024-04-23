@@ -71,10 +71,13 @@
       /**
        * Emits the events related to the selection of a sort value.
        *
+       * @remarks `(rootRef.value as any)?.$el` because rollup-plugin-vue understands
+       * `ref<typeof BaseDropdown>` as VueConstructor which doesn't contain $el.
+       *
        * @param sort - The selected sort.
        */
       function emitUserClickedASort(sort: Sort) {
-        $x.emit('UserClickedASort', sort, { target: rootRef.value?.$el });
+        $x.emit('UserClickedASort', sort, { target: (rootRef.value as any)?.$el });
         emit('change', sort);
       }
 
