@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.46...@empathyco/x-components@5.0.0-alpha.0) (2024-04-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sort-mixin:** base-dropdown component will no longer emit the `change` event, use `update:modelValue` instead. 
+base-dropdown prop for the selected item was renamed from `value` to `modelValue`.
+
+### Code Refactoring
+
+* **sort-mixin:** get rid of SortMixin and refactor components which use it (#1448) ([de0a287](https://github.com/empathyco/x/commit/de0a28754d8fefe8c4db6aa7b7cb5d8407016be2))
+
+
+
 ## [4.1.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.45...@empathyco/x-components@4.1.0-alpha.46) (2024-04-22)
 
 
