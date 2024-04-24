@@ -18,9 +18,10 @@
     WatchCallback,
     ComputedRef
   } from 'vue';
-  import { NoElement } from '../../../components';
+  import { NoElement } from '../../../components/no-element';
   import { scrollXModule } from '../x-module';
-  import { useState, useRegisterXModule } from '../../../composables';
+  import { useState } from '../../../composables/use-state';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useXBus } from '../../../composables/use-x-bus';
   import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';

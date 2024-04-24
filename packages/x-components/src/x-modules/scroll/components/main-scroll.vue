@@ -6,10 +6,11 @@
 <script lang="ts">
   import { computed, defineComponent, onBeforeUnmount, onMounted, provide, ref, watch } from 'vue';
   import { NoElement } from '../../../components/no-element';
-  import { VueCSSClasses } from '../../../utils/index';
+  import { VueCSSClasses } from '../../../utils/types';
   import { scrollXModule } from '../x-module';
   import { DISABLE_ANIMATIONS_KEY } from '../../../components/decorators/injection.consts';
-  import { useRegisterXModule, useState } from '../../../composables/index';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
   import { useXBus } from '../../../composables/use-x-bus';
   import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
