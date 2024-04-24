@@ -191,7 +191,9 @@ describe('testing MyHistory component', () => {
     });
 
     expect(wrapper.get(getDataTestSelector('suggestion-query')).text()).toBe('testQuery');
-    expect(wrapper.get(getDataTestSelector('suggestion-date')).text()).toBe('09:40 AM');
+    expect(wrapper.get(getDataTestSelector('suggestion-date')).text().replace(/\s/g, '')).toEqual(
+      '09:40AM'
+    );
   });
 
   it('allows to add classes to the queries list', () => {

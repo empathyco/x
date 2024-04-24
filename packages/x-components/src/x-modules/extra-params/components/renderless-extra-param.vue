@@ -75,7 +75,7 @@ default value of it.
 ```vue
 <template>
   <RenderlessExtraParam #default="{ value, updateValue }" name="store">
-    <BaseDropdown @change="updateValue" :value="value" :items="items" />
+    <BaseDropdown @update:modelValue="updateValue" :modelValue="value" :items="items" />
   </RenderlessExtraParam>
 </template>
 
