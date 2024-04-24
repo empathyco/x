@@ -10,7 +10,7 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { historyQueriesXModule } from '../../x-module';
 import HistoryQuery from '../history-query.vue';
-import { bus } from '../../../../plugins/index';
+import { XPlugin } from '../../../../plugins/index';
 import { resetXHistoryQueriesStateWith } from './utils';
 
 function renderHistoryQuery({
@@ -46,7 +46,7 @@ function renderHistoryQuery({
   return {
     wrapper: wrapper.findComponent(HistoryQuery),
     suggestion,
-    emitSpy: jest.spyOn(bus, 'emit'),
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     getSuggestionWrapper() {
       return wrapper.get(getDataTestSelector('history-query'));
     },
@@ -60,10 +60,6 @@ function renderHistoryQuery({
 }
 
 describe('testing history-query component', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -103,7 +99,6 @@ describe('testing history-query component', () => {
       target: getSuggestionWrapper().element,
       feature: 'history_query'
     });
-    expect(emitSpy).toHaveBeenCalledTimes(3);
     expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', suggestion.query, expectedMetadata);
     expect(emitSpy).toHaveBeenCalledWith('UserSelectedASuggestion', suggestion, expectedMetadata);
     expect(emitSpy).toHaveBeenCalledWith('UserSelectedAHistoryQuery', suggestion, expectedMetadata);

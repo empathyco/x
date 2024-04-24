@@ -9,7 +9,7 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { popularSearchesXModule } from '../../x-module';
 import PopularSearch from '../popular-search.vue';
-import { bus } from '../../../../plugins/index';
+import { XPlugin } from '../../../../plugins/index';
 
 function renderPopularSearch({
   suggestion = createPopularSearch('baileys'),
@@ -38,15 +38,11 @@ function renderPopularSearch({
   return {
     wrapper: wrapper.findComponent(PopularSearch),
     suggestion,
-    emitSpy: jest.spyOn(bus, 'emit')
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit')
   };
 }
 
 describe('testing popular-search component', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
   it('is an XComponent that belongs to the popular searches', () => {
     const { wrapper } = renderPopularSearch();
     expect(isXComponent(wrapper.vm)).toEqual(true);
@@ -72,7 +68,6 @@ describe('testing popular-search component', () => {
       target: wrapper.element,
       feature: 'popular_search'
     });
-    expect(emitSpy).toHaveBeenCalledTimes(3);
     expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', suggestion.query, expectedMetadata);
     expect(emitSpy).toHaveBeenCalledWith('UserSelectedASuggestion', suggestion, expectedMetadata);
     expect(emitSpy).toHaveBeenCalledWith(

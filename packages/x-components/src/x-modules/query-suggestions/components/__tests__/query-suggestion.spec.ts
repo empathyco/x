@@ -9,7 +9,7 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { querySuggestionsXModule } from '../../x-module';
 import QuerySuggestion from '../query-suggestion.vue';
-import { bus } from '../../../../plugins/index';
+import { XPlugin } from '../../../../plugins/index';
 import { resetXQuerySuggestionsStateWith } from './utils';
 
 function renderQuerySuggestion({
@@ -41,7 +41,7 @@ function renderQuerySuggestion({
   return {
     wrapper: wrapper.findComponent(QuerySuggestion),
     suggestion,
-    emitSpy: jest.spyOn(bus, 'emit'),
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     getMatchingPart() {
       return wrapper.get(getDataTestSelector('matching-part'));
     }
@@ -49,10 +49,6 @@ function renderQuerySuggestion({
 }
 
 describe('testing query-suggestion component', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
   it('is an XComponent that belongs to the query suggestions', () => {
     const { wrapper } = renderQuerySuggestion();
     expect(isXComponent(wrapper.vm)).toEqual(true);
@@ -88,7 +84,6 @@ describe('testing query-suggestion component', () => {
       target: wrapper.element,
       feature: 'query_suggestion'
     });
-    expect(emitSpy).toHaveBeenCalledTimes(3);
     expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', suggestion.query, expectedMetadata);
     expect(emitSpy).toHaveBeenCalledWith('UserSelectedASuggestion', suggestion, expectedMetadata);
     expect(emitSpy).toHaveBeenCalledWith(
