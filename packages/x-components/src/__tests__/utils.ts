@@ -182,21 +182,23 @@ function mergeStates<State extends Dictionary>(
 }
 
 /**
- * Makes a clean install of the {@link XPlugin} into the passed Vue object.
+ * Makes a clean installation of the {@link XPlugin} into the passed Vue object.
  * This also resets the bus, and all the hardcoded dependencies of the XPlugin.
  *
  * @param options - The options for installing the {@link XPlugin}. The
  * {@link XComponentsAdapterDummy}  is added by default.
  * @param localVue - A clone of the Vue constructor to isolate tests.
+ * @param bus - The event bus to use.
  * If not provided, one will be created.
  * @returns An array containing the `xPlugin` singleton and the `localVue` and objects.
  */
 export function installNewXPlugin(
   options: Partial<XPluginOptions> = {},
-  localVue: typeof Vue = createLocalVue()
+  localVue: typeof Vue = createLocalVue(),
+  bus = new XDummyBus()
 ): [XPlugin, typeof Vue] {
   XPlugin.resetInstance();
-  const xPlugin = new XPlugin(new XDummyBus());
+  const xPlugin = new XPlugin(bus);
   const installOptions: XPluginOptions = {
     adapter: XComponentsAdapterDummy,
     ...options

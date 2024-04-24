@@ -4,7 +4,7 @@ import { createResultStub } from '../../../__stubs__/index';
 import { findTestDataById, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import ResultVariantsProvider from '../result-variants-provider.vue';
 import ResultVariantSelector from '../result-variant-selector.vue';
-import { bus } from '../../../plugins/index';
+import { XPlugin } from '../../../plugins/index';
 
 const variants = [
   {
@@ -51,7 +51,7 @@ const renderResultVariantsProvider = ({
   autoSelectDepth
 }: ResultVariantsProviderOptions): ResultVariantsProviderApi => {
   const [, localVue] = installNewXPlugin();
-  const eventsBusSpy = jest.spyOn(bus, 'emit');
+  const eventsBusSpy = jest.spyOn(XPlugin.bus, 'emit');
 
   const wrapper = mount(
     {
