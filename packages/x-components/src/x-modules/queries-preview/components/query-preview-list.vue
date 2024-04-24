@@ -6,12 +6,12 @@
       data-test="query-preview-item"
     >
       <QueryPreview
+        v-model="$attrs"
         @load="flagAsLoaded"
         @error="flagAsFailed"
-        v-bind="$attrs"
         :queryPreviewInfo="queryPreview"
       >
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="scope">
+        <template v-for="(_, slotName) in scopedSlots" v-slot:[slotName]="scope">
           <slot :name="slotName" v-bind="scope" />
         </template>
       </QueryPreview>
@@ -66,8 +66,10 @@
         required: true
       }
     },
-    setup(props) {
+    setup(props, { slots }) {
       useRegisterXModule(queriesPreviewXModule);
+
+      const scopedSlots = slots;
 
       /**
        * Contains the status of the preview requests, indexed by query.
@@ -156,7 +158,8 @@
       return {
         renderedQueryPreviews,
         flagAsFailed,
-        flagAsLoaded
+        flagAsLoaded,
+        scopedSlots
       };
     }
   });
