@@ -1,4 +1,6 @@
+import { XComponentsAdapter } from '@empathyco/x-types';
 import { Component, configureCompat, createApp } from 'vue';
+import { xPlugin } from '../../x-components/src/plugins/x-plugin';
 import App from './App.vue';
 import router from './router';
 
@@ -12,6 +14,9 @@ if (VUE_COMPAT_MODE === 2) {
   });
 }
 
+const adapter = {} as XComponentsAdapter;
+
 createApp(App as Component)
   .use(router)
+  .use(xPlugin, { adapter })
   .mount('#app');
