@@ -6,9 +6,9 @@
       data-test="query-preview-item"
     >
       <QueryPreview
-        v-model="$attrs"
         @load="flagAsLoaded"
         @error="flagAsFailed"
+        v-bind="$attrs"
         :queryPreviewInfo="queryPreview"
       >
         <template v-for="(_, slotName) in scopedSlots" v-slot:[slotName]="scope">
