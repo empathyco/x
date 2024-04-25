@@ -12,7 +12,7 @@
       :class="[cssClasses, buttonClass]"
       data-test="sort-picker-button"
       :events="event"
-      :aria-pressed="item === selectedSort"
+      :aria-pressed="item === selectedSort || null"
       role="listitem"
     >
       <slot v-bind="{ item, isSelected: item === selectedSort }">
