@@ -1,9 +1,10 @@
 <template>
   <BaseDropdown
-    @change="emitUserClickedASort"
-    :animation="animation"
+    ref="rootRef"
+    @update:modelValue="emitUserClickedASort"
     :items="items"
-    :value="selectedSort"
+    :modelValue="selectedSort"
+    :animation="animation"
     class="x-sort-dropdown"
     data-test="sort-dropdown"
     aria-label="Select sorting"
@@ -32,48 +33,61 @@
 
 <script lang="ts">
   import { Sort } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { mixins } from 'vue-class-component';
-  import { Component, Prop } from 'vue-property-decorator';
+  import Vue, { defineComponent, PropType, ref, watch } from 'vue';
+
   import BaseDropdown from '../../../components/base-dropdown.vue';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { use$x, useRegisterXModule, useState } from '../../../composables';
   import { searchXModule } from '../x-module';
-  import SortMixin from './sort.mixin';
 
   /**
    * The `SortDropdown` component allows user to select the search results order. This component
    * also allows to change the selected sort programmatically.
-   *
-   * @remarks It extends {@link SortMixin}.
-   *
-   * @public
    */
-  @Component({
-    mixins: [xComponentMixin(searchXModule)],
+  export default defineComponent({
+    name: 'SortDropdown',
+    xModule: searchXModule.name,
     components: { BaseDropdown },
-    model: {
-      event: 'change'
+    props: {
+      /** The list of possible sort values. */
+      items: {
+        type: Array as PropType<Sort[]>,
+        required: true
+      },
+      /** The transition to use for opening and closing the dropdown. */
+      animation: [String, Object] as PropType<string | typeof Vue>
+    },
+    emits: ['change'],
+    setup(_, { emit }) {
+      useRegisterXModule(searchXModule);
+      const $x = use$x();
+
+      const { sort: selectedSort } = useState('search', ['sort']);
+      const rootRef = ref<typeof BaseDropdown>();
+
+      watch(selectedSort, (value: Sort) => $x.emit('SelectedSortProvided', value), {
+        immediate: true
+      });
+
+      /**
+       * Emits the events related to the selection of a sort value.
+       *
+       * @remarks `(rootRef.value as any)?.$el` because rollup-plugin-vue understands
+       * `ref<typeof BaseDropdown>` as VueConstructor which doesn't contain $el.
+       *
+       * @param sort - The selected sort.
+       */
+      function emitUserClickedASort(sort: Sort) {
+        $x.emit('UserClickedASort', sort, { target: (rootRef.value as any)?.$el });
+        emit('change', sort);
+      }
+
+      return {
+        emitUserClickedASort,
+        rootRef,
+        selectedSort
+      };
     }
-  })
-  export default class SortDropdown extends mixins(SortMixin) {
-    /**
-     * The transition to use for opening and closing the dropdown.
-     *
-     * @public
-     */
-    @Prop()
-    public animation?: string | typeof Vue;
-    /**
-     * Emits the events related to the selection of a sort value.
-     *
-     * @param sort - The selected sort.
-     * @internal
-     */
-    protected emitUserClickedASort(sort: Sort): void {
-      this.$x.emit('UserClickedASort', sort, { target: this.$el as HTMLElement });
-      this.$emit('change', sort);
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">

@@ -5,3 +5,6 @@ window.ResizeObserver = jest.fn().mockImplementation(() => ({
   unobserve: jest.fn(),
   disconnect: jest.fn()
 }));
+
+// Disable console warnings to reduce noise overwriting entirely modules in the store
+console.warn = () => {};

@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="rootRef"
     @keydown="updateSearchBuffer"
     @keydown.down.prevent="highlightNextItem"
     @keydown.up.prevent="highlightPreviousItem"
@@ -7,7 +8,7 @@
     class="x-dropdown"
   >
     <button
-      ref="toggleButton"
+      ref="toggleButtonRef"
       @click="toggle"
       @keydown.up.down.prevent.stop="open"
       class="x-dropdown__toggle"
@@ -25,10 +26,10 @@
        @binding {string|number|Identifiable} item - The item data to render.
        @binding {boolean} isOpen - True if the dropdown is opened, and false if it is closed.
      -->
-      <slot v-if="$scopedSlots.toggle" :isOpen="isOpen" :item="value" name="toggle">
-        {{ value }}
+      <slot v-if="hasToggleSlot" :isOpen="isOpen" :item="modelValue" name="toggle">
+        {{ modelValue }}
       </slot>
-      <slot v-else :item="value" name="item">{{ value }}</slot>
+      <slot v-else :item="modelValue" name="item">{{ modelValue }}</slot>
     </button>
 
     <component :is="animation">
@@ -39,14 +40,15 @@
         @keydown.home="highlightFirstItem"
         :id="listId"
         class="x-dropdown__items-list"
+        data-test="dropdown-list"
         role="listbox"
         tabindex="-1"
       >
         <li v-for="(item, index) in items" :key="item.id || item" class="x-dropdown__list-item">
           <button
-            ref="itemButtons"
+            :ref="el => (itemsButtonRefs[index] = el)"
             @click="emitSelectedItemChanged(item)"
-            :aria-selected="(item === value).toString()"
+            :aria-selected="(item === modelValue).toString()"
             :class="itemsCSSClasses[index]"
             class="x-dropdown__item"
             data-test="dropdown-item"
@@ -61,7 +63,7 @@
              -->
             <slot
               :isHighlighted="index === highlightedItemIndex"
-              :isSelected="item === value"
+              :isSelected="item === modelValue"
               :item="item"
               name="item"
             >
@@ -76,13 +78,19 @@
 
 <script lang="ts">
   import { Identifiable } from '@empathyco/x-types';
-  import { Component, Prop, Watch } from 'vue-property-decorator';
-  import Vue from 'vue';
+  import Vue, {
+    computed,
+    defineComponent,
+    nextTick,
+    onBeforeUnmount,
+    PropType,
+    ref,
+    watch
+  } from 'vue';
   import { getTargetElement } from '../utils/html';
   import { normalizeString } from '../utils/normalize';
   import { isInRange } from '../utils/number';
-  import { debounce } from '../utils/debounce';
-  import { VueCSSClasses } from '../utils/types';
+  import { debounce as debounceFunction } from '../utils/debounce';
   import { NoElement } from './no-element';
 
   type DropdownItem = string | number | Identifiable;
@@ -91,382 +99,312 @@
   /**
    * Dropdown component that mimics a Select element behavior, but with the option
    * to customize the toggle button and each item contents.
-   *
-   * @public
    */
-  @Component({
-    components: {
-      NoElement
+  export default defineComponent({
+    name: 'BaseDropdown',
+    components: { NoElement },
+    props: {
+      /** List of items to display.*/
+      items: {
+        type: Array as PropType<DropdownItem[]>,
+        required: true
+      },
+      /** The selected item. */
+      modelValue: {
+        type: null as unknown as PropType<DropdownItem | null>,
+        validator: (v: any) =>
+          typeof v === 'string' || typeof v === 'number' || typeof v === 'object' || v === null,
+        required: true
+      },
+      /** Description of what the dropdown is used for. */
+      ariaLabel: String,
+      /**
+       * Animation component to use for expanding the dropdown. This is a single element animation,
+       * so only `<transition>` components are allowed.
+       */
+      animation: {
+        type: Object as PropType<string | typeof Vue>,
+        default: () => NoElement
+      },
+      /** Time to wait without receiving any keystroke before resetting the items search query. */
+      searchTimeoutMs: {
+        type: Number,
+        default: 1000
+      }
     },
-    model: {
-      event: 'change'
-    }
-  })
-  export default class BaseDropdown extends Vue {
-    /**
-     * List of items to display.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public items!: DropdownItem[];
-
-    /**
-     * Description of what the dropdown is used for.
-     *
-     * @public
-     */
-    @Prop()
-    public ariaLabel?: string;
-
-    /**
-     * The selected item.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public value!: DropdownItem | null;
-
-    /**
-     * Animation component to use for expanding the dropdown. This is a single element animation,
-     * so only `<transition>` components are allowed.
-     *
-     * @public
-     */
-    @Prop({ default: 'NoElement' })
-    public animation!: typeof Vue | string;
-
-    /**
-     * Time to wait without receiving any keystroke before resetting the items search query.
-     *
-     * @public
-     */
-    @Prop({ default: 1000 })
-    public searchTimeoutMs!: number;
-
-    public $refs!: {
-      /** Array containing the dropdown list buttons HTMLElements. */
-      itemButtons: HTMLButtonElement[];
+    emits: ['update:modelValue'],
+    setup(props, { emit, slots }) {
+      const rootRef = ref<HTMLElement>();
       /** The button that opens and closes the list of options. */
-      toggleButton: HTMLButtonElement;
-    };
+      const toggleButtonRef = ref<HTMLButtonElement>();
+      /** Array containing the dropdown list buttons HTMLElements. */
+      const itemsButtonRefs = ref<HTMLButtonElement[]>([]);
 
-    /**
-     * Property to track whether the dropdown is expanded and displaying the full
-     * list of items, or closed.
-     *
-     * @internal
-     */
-    protected isOpen = false;
+      /** Property to check whether the dropdown is expanded or closed. */
+      const isOpen = ref(false);
+      /** Index of the element that has the focus in the list. -1 means no element has focus. */
+      const highlightedItemIndex = ref(-1);
+      /** String to search for the first element that starts with it. */
+      const searchBuffer = ref('');
 
-    /**
-     * Index of the element that has the focus in the list. -1 means no element has focus.
-     *
-     * @internal
-     */
-    protected highlightedItemIndex = -1;
+      /** Resets the search buffer after a certain time has passed. */
+      let restartResetSearchTimeout: () => void;
+      /* Unique ID to identify the dropdown. */
+      const listId = `x-dropdown-${dropdownCount++}`;
 
-    /**
-     * String to search for the first element that starts with it.
-     *
-     * @internal
-     */
-    protected searchBuffer = '';
+      /**
+       * Dynamic CSS classes to add to the dropdown root element.
+       *
+       * @returns An object containing the CSS classes to add to the dropdown root element.
+       */
+      const dropdownCSSClasses = computed(() => ({ 'x-dropdown--is-open': isOpen }));
 
-    /**
-     * Resets the search buffer after a certain time has passed.
-     *
-     * @internal
-     */
-    protected restartResetSearchTimeout!: () => void;
+      /**
+       * Dynamic CSS classes to add to each one of the items.
+       *
+       * @returns An object containing the CSS classes to add to each item.
+       */
+      const itemsCSSClasses = computed(() =>
+        props.items.map((item, index) => ({
+          'x-dropdown__item--is-selected': props.modelValue === item,
+          'x-dropdown__item--is-highlighted': highlightedItemIndex.value === index
+        }))
+      );
 
-    protected readonly listId = `x-dropdown-${dropdownCount++}`;
-    /**
-     * Dynamic CSS classes to add to the dropdown root element.
-     *
-     * @returns An object containing the CSS classes to add to the dropdown root element.
-     * @internal
-     */
-    protected get dropdownCSSClasses(): VueCSSClasses {
-      return {
-        'x-dropdown--is-open': this.isOpen
-      };
-    }
+      /* Opens the dropdown. */
+      const open = () => (isOpen.value = true);
+      /* Closes the dropdown. */
+      const close = () => (isOpen.value = false);
+      /* Toggles the dropdown. */
+      const toggle = () => (isOpen.value = !isOpen.value);
 
-    /**
-     * Dynamic CSS classes to add to each one of the items.
-     *
-     * @returns An object containing the CSS classes to add to each item.
-     * @internal
-     */
-    protected get itemsCSSClasses(): VueCSSClasses[] {
-      return this.items.map((item, index) => {
-        return {
-          'x-dropdown__item--is-selected': this.value === item,
-          'x-dropdown__item--is-highlighted': this.highlightedItemIndex === index
-        };
-      });
-    }
-
-    /**
-     * If the dropdown is destroyed before removing the document listeners, it ensures that they
-     * are removed too.
-     *
-     * @internal
-     */
-    protected beforeDestroy(): void {
-      this.removeDocumentCloseListeners();
-    }
-
-    /**
-     * Opens the dropdown.
-     *
-     * @internal
-     */
-    protected open(): void {
-      this.isOpen = true;
-    }
-
-    /**
-     * Closes the dropdown.
-     *
-     * @internal
-     */
-    protected close(): void {
-      this.isOpen = false;
-    }
-
-    /**
-     * Closes the modal and focuses the toggle button.
-     *
-     * @internal
-     */
-    protected closeAndFocusToggleButton(): void {
-      this.close();
-      this.$refs.toggleButton.focus();
-    }
-
-    /**
-     * If the dropdown is opened it closes it. If it is closed it opens it.
-     *
-     * @internal
-     */
-    protected toggle(): void {
-      this.isOpen = !this.isOpen;
-    }
-
-    /**
-     * Emits the event that the selected item has changed.
-     *
-     * @param item - The new selected item.
-     * @internal
-     */
-    protected emitSelectedItemChanged(item: DropdownItem): void {
-      this.$emit('change', item);
-      this.closeAndFocusToggleButton();
-    }
-
-    /**
-     * Highlights the item after the one that is currently highlighted.
-     *
-     * @internal
-     */
-    protected highlightNextItem(): void {
-      this.open();
-      this.highlightedItemIndex = (this.highlightedItemIndex + 1) % this.items.length;
-    }
-
-    /**
-     * Highlights the item before the one that is currently highlighted.
-     *
-     * @internal
-     */
-    protected highlightPreviousItem(): void {
-      this.open();
-      this.highlightedItemIndex =
-        this.highlightedItemIndex > 0 ? this.highlightedItemIndex - 1 : this.items.length - 1;
-    }
-
-    /**
-     * Highlights the first of the provided items.
-     *
-     * @internal
-     */
-    protected highlightFirstItem(): void {
-      this.highlightedItemIndex = 0;
-    }
-
-    /**
-     * Highlights the last of the provided items.
-     *
-     * @internal
-     */
-    protected highlightLastItem(): void {
-      this.highlightedItemIndex = this.items.length - 1;
-    }
-
-    /**
-     * Updates the variable that is used to search in the filters.
-     *
-     * @param event - The event coming from the user typing.
-     * @internal
-     */
-    protected updateSearchBuffer(event: KeyboardEvent): void {
-      if (/^\w$/.test(event.key)) {
-        const key = event.key;
-        this.searchBuffer += key;
-        this.restartResetSearchTimeout();
+      /**
+       * Closes the modal and focuses the toggle button.
+       */
+      function closeAndFocusToggleButton() {
+        close();
+        toggleButtonRef.value?.focus();
       }
-    }
 
-    /**
-     * Highlights the item that matches the search buffer. To do so it checks the list buttons
-     * text content. It highlights items folowing this priority:
-     * - If an element is already highlighted, it starts searching from that element.
-     * - If no element is found starting from the previously highlighted, it returns the first one.
-     * - If no element is found matching the search query it highlights the first element.
-     *
-     * @param search - The search string to find in the HTML.
-     * @internal
-     */
-    @Watch('searchBuffer')
-    protected highlightMatchingItem(search: string): void {
-      if (search) {
-        const normalizedSearch = normalizeString(search);
-        const matchingIndices = this.$refs.itemButtons.reduce<number[]>(
-          (matchingIndices, button, index) => {
-            const safeButtonWordCharacters = button.textContent!.replace(/[^\w]/g, '');
-            const normalizedButtonText = normalizeString(safeButtonWordCharacters);
-            if (normalizedButtonText.startsWith(normalizedSearch)) {
-              matchingIndices.push(index);
-            }
-            return matchingIndices;
-          },
-          []
-        );
-        this.highlightedItemIndex =
-          // First matching item starting to search from the current highlighted element
-          matchingIndices.find(index => index >= this.highlightedItemIndex) ??
-          // First matching item
-          matchingIndices[0] ??
-          // First item
-          0;
+      /**
+       * Emits the event that the selected item has changed.
+       *
+       * @param item - The new selected item.
+       */
+      function emitSelectedItemChanged(item: DropdownItem) {
+        emit('update:modelValue', item);
+        closeAndFocusToggleButton();
       }
-    }
 
-    /**
-     * Resets the search buffer.
-     *
-     * @internal
-     */
-    protected resetSearch(): void {
-      this.searchBuffer = '';
-    }
+      /**
+       * Highlights the item after the one that is currently highlighted.
+       */
+      function highlightNextItem() {
+        open();
+        highlightedItemIndex.value = (highlightedItemIndex.value + 1) % props.items.length;
+      }
 
-    /**
-     * Updates the debounced function to reset the search.
-     *
-     * @param searchTimeoutMs - The new milliseconds that have to pass without typing before
-     * resetting the search.
-     * @internal
-     */
-    @Watch('searchTimeoutMs', { immediate: true })
-    protected updateSearchTimeout(searchTimeoutMs: number): void {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      this.restartResetSearchTimeout = debounce(this.resetSearch, searchTimeoutMs);
-    }
+      /**
+       * Highlights the item before the one that is currently highlighted.
+       */
+      function highlightPreviousItem() {
+        const currentIndex = highlightedItemIndex.value;
+        open();
+        highlightedItemIndex.value = currentIndex > 0 ? currentIndex - 1 : props.items.length - 1;
+      }
 
-    /**
-     * Focuses the DOM element which matches the `highlightedItemIndex`.
-     *
-     * @param highlightedItemIndex - The index of the HTML element to focus.
-     * @internal
-     */
-    @Watch('highlightedItemIndex', { immediate: true })
-    protected focusHighlightedItem(highlightedItemIndex: number): void {
-      this.$nextTick(() => {
-        if (this.$refs.itemButtons && isInRange(highlightedItemIndex, [0, this.items.length - 1])) {
-          const newItem = this.$refs.itemButtons[this.highlightedItemIndex];
-          newItem.focus();
+      /**
+       * Highlights the first of the provided items.
+       */
+      function highlightFirstItem() {
+        highlightedItemIndex.value = 0;
+      }
+
+      /**
+       * Highlights the last of the provided items.
+       */
+      function highlightLastItem() {
+        highlightedItemIndex.value = props.items.length - 1;
+      }
+
+      /**
+       * Updates the variable that is used to search in the filters.
+       *
+       * @param event - The event coming from the user typing.
+       */
+      function updateSearchBuffer(event: KeyboardEvent) {
+        if (/^\w$/.test(event.key)) {
+          const key = event.key;
+          searchBuffer.value += key;
+          restartResetSearchTimeout();
+        }
+      }
+
+      /**
+       * Resets the search buffer.
+       */
+      function resetSearchBuffer() {
+        searchBuffer.value = '';
+      }
+
+      /**
+       * Closes the dropdown if the passed event has happened on an element out of the dropdown.
+       *
+       * @param event - The event to check if it has happened out of the dropdown component.
+       */
+      function closeIfEventIsOutOfDropdown(event: MouseEvent | TouchEvent | FocusEvent) {
+        if (!rootRef.value?.contains(getTargetElement(event))) {
+          close();
+        }
+      }
+
+      /**
+       * Adds listeners to the document element to detect if the focus has moved out from the
+       * dropdown.
+       */
+      function addDocumentCloseListeners() {
+        document.addEventListener('mousedown', closeIfEventIsOutOfDropdown);
+        document.addEventListener('touchstart', closeIfEventIsOutOfDropdown);
+        document.addEventListener('focusin', closeIfEventIsOutOfDropdown);
+      }
+
+      /**
+       * Removes the listeners of the document element to detect if the focus has moved out from the
+       * dropdown.
+       */
+      function removeDocumentCloseListeners() {
+        document.removeEventListener('mousedown', closeIfEventIsOutOfDropdown);
+        document.removeEventListener('touchstart', closeIfEventIsOutOfDropdown);
+        document.removeEventListener('focusin', closeIfEventIsOutOfDropdown);
+      }
+
+      /**
+       * Highlights the item that matches the search buffer. To do so it checks the list buttons
+       * text content. It highlights items following this priority:
+       * - If an element is already highlighted, it starts searching from that element.
+       * - If no element is found starting from the previously highlighted, it returns the first one.
+       * - If no element is found matching the search query it highlights the first element.
+       *
+       * @param search - The search string to find in the HTML.
+       */
+      watch(searchBuffer, search => {
+        if (search) {
+          const normalizedSearch = normalizeString(search);
+          const matchingIndices = itemsButtonRefs?.value?.reduce<number[]>(
+            (matchingIndices, button, index) => {
+              const safeButtonWordCharacters = button.textContent!.replace(/[^\w]/g, '');
+              const normalizedButtonText = normalizeString(safeButtonWordCharacters);
+              if (normalizedButtonText.startsWith(normalizedSearch)) {
+                matchingIndices.push(index);
+              }
+              return matchingIndices;
+            },
+            []
+          );
+          highlightedItemIndex.value =
+            // First matching item starting to search from the current highlighted element
+            matchingIndices?.find(index => index >= highlightedItemIndex.value) ??
+            // First matching item
+            matchingIndices?.[0] ??
+            // First item
+            0;
         }
       });
-    }
 
-    /**
-     * When the dropdown is open it sets the focused element to the one that is selected.
-     *
-     * @param isOpen - True if the dropdown is open, false otherwise.
-     * @internal
-     */
-    @Watch('isOpen')
-    protected updateHighlightedItem(isOpen: boolean): void {
-      if (isOpen) {
-        this.highlightedItemIndex = this.value === null ? 0 : this.items.indexOf(this.value);
-      } else {
-        this.highlightedItemIndex = -1;
-      }
-    }
-
-    /**
-     * Adds and removes listeners to close the dropdown when it loses the focus.
-     *
-     * @param isOpen - True if the dropdown is open, false otherwise.
-     * @internal
-     */
-    @Watch('isOpen')
-    protected syncCloseListeners(isOpen: boolean): void {
-      /*
-       * Because there is an issue with Firefox in macOS and Safari that doesn't focus the target
-       * element of the `mousedown` events, the `focusout` event `relatedTarget` property can't be
-       * used to detect whether or not the user has blurred the dropdown. The hack here is to use
-       * document listeners that have the side effect of losing the focus.
+      /**
+       * Updates the debounced function to reset the search.
+       *
+       * @param searchTimeoutMs - The new milliseconds that have to pass without typing before
+       * resetting the search.
        */
-      if (isOpen) {
-        this.addDocumentCloseListeners();
-      } else {
-        this.removeDocumentCloseListeners();
-      }
-    }
+      watch(
+        () => props.searchTimeoutMs,
+        searchTimeoutMs => {
+          restartResetSearchTimeout = debounceFunction(resetSearchBuffer, searchTimeoutMs);
+        },
+        { immediate: true }
+      );
 
-    /**
-     * Adds listeners to the document element to detect if the focus has moved out from the
-     * dropdown.
-     *
-     * @internal
-     */
-    protected addDocumentCloseListeners(): void {
-      /* eslint-disable @typescript-eslint/unbound-method */
-      document.addEventListener('mousedown', this.closeIfEventIsOutOfDropdown);
-      document.addEventListener('touchstart', this.closeIfEventIsOutOfDropdown);
-      document.addEventListener('focusin', this.closeIfEventIsOutOfDropdown);
-      /* eslint-enable @typescript-eslint/unbound-method */
-    }
+      /**
+       * Focuses the DOM element which matches the `highlightedItemIndex`.
+       *
+       * @param highlightedItemIndex - The index of the HTML element to focus.
+       */
+      watch(
+        highlightedItemIndex,
+        highlightedItemIndex => {
+          nextTick(() => {
+            if (itemsButtonRefs && isInRange(highlightedItemIndex, [0, props.items.length - 1])) {
+              const newItem = itemsButtonRefs?.value?.[highlightedItemIndex];
+              newItem?.focus();
+            }
+          });
+        },
+        { immediate: true }
+      );
 
-    /**
-     * Removes the listeners of the document element to detect if the focus has moved out from the
-     * dropdown.
-     *
-     * @internal
-     */
-    protected removeDocumentCloseListeners(): void {
-      /* eslint-disable @typescript-eslint/unbound-method */
-      document.removeEventListener('mousedown', this.closeIfEventIsOutOfDropdown);
-      document.removeEventListener('touchstart', this.closeIfEventIsOutOfDropdown);
-      document.removeEventListener('focusin', this.closeIfEventIsOutOfDropdown);
-      /* eslint-enable @typescript-eslint/unbound-method */
-    }
+      /**
+       * When the dropdown is open it sets the focused element to the one that is selected.
+       *
+       * @param isOpen - True if the dropdown is open, false otherwise.
+       */
+      watch(isOpen, isOpen => {
+        highlightedItemIndex.value = isOpen
+          ? props.modelValue === null
+            ? 0
+            : props.items.indexOf(props.modelValue)
+          : -1;
+      });
 
-    /**
-     * Closes the dropdown if the passed event has happened on an element out of the dropdown.
-     *
-     * @param event - The event to check if it has happen out of the dropdown component.
-     */
-    protected closeIfEventIsOutOfDropdown(event: MouseEvent | TouchEvent | FocusEvent): void {
-      if (!this.$el.contains(getTargetElement(event))) {
-        this.close();
-      }
+      /**
+       * Adds and removes listeners to close the dropdown when it loses the focus.
+       *
+       * @param isOpen - True if the dropdown is open, false otherwise.
+       */
+      watch(isOpen, isOpen => {
+        /*
+         * Because there is an issue with Firefox in macOS and Safari that doesn't focus the target
+         * element of the `mousedown` events, the `focusout` event `relatedTarget` property can't be
+         * used to detect whether the user has blurred the dropdown. The hack here is to use
+         * document listeners that have the side effect of losing the focus.
+         */
+        if (isOpen) {
+          addDocumentCloseListeners();
+        } else {
+          removeDocumentCloseListeners();
+        }
+      });
+
+      /**
+       * If the dropdown is destroyed before removing the document listeners, it ensures that they
+       * are removed too.
+       */
+      onBeforeUnmount(() => {
+        removeDocumentCloseListeners();
+      });
+
+      return {
+        hasToggleSlot: !!slots.toggle,
+        closeAndFocusToggleButton,
+        dropdownCSSClasses,
+        emitSelectedItemChanged,
+        highlightFirstItem,
+        highlightLastItem,
+        highlightNextItem,
+        highlightPreviousItem,
+        highlightedItemIndex,
+        isOpen,
+        itemsButtonRefs,
+        itemsCSSClasses,
+        listId,
+        open,
+        rootRef,
+        toggle,
+        toggleButtonRef,
+        updateSearchBuffer
+      };
     }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
@@ -502,7 +440,7 @@ provided, the `item` slot will be used for that.
 
 ```vue
 <template>
-  <BaseDropdown :items="items" v-model="value">
+  <BaseDropdown v-model="value" :items="items">
     <template #toggle="{ item, isOpen }">{{ item }} {{ isOpen ? '🔼' : '🔽' }}️</template>
 
     <template #item="{ item, isSelected, isHighlighted }">
@@ -524,7 +462,7 @@ provided, the `item` slot will be used for that.
     data() {
       return {
         items: ['a', 2, { id: '3' }],
-        value: ['a']
+        value: 'a'
       };
     }
   };

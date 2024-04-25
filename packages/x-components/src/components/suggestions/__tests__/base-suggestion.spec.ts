@@ -9,7 +9,7 @@ import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils
 import BaseSuggestion from '../base-suggestion.vue';
 import { createSimpleFacetStub } from '../../../__stubs__/facets-stubs.factory';
 import { createPopularSearch } from '../../../__stubs__/popular-searches-stubs.factory';
-import { bus } from '../../../plugins/index';
+import { XPlugin } from '../../../plugins/index';
 
 function renderBaseSuggestion({
   query = 'bebe',
@@ -17,7 +17,7 @@ function renderBaseSuggestion({
   suggestionSelectedEvents = {}
 }: BaseSuggestionOptions = {}): BaseSuggestionAPI {
   const [, localVue] = installNewXPlugin();
-  const emit = jest.spyOn(bus, 'emit');
+  const emit = jest.spyOn(XPlugin.bus, 'emit');
   const wrapper = mount(
     {
       components: { BaseSuggestion },
@@ -56,10 +56,6 @@ function renderBaseSuggestion({
 }
 
 describe('testing Base Suggestion component', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
   beforeEach(() => {
     jest.clearAllMocks();
   });

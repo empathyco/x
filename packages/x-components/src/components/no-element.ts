@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue';
-import { useNoElementRender } from '../composables/index';
+import { useNoElementRender } from '../composables/use-no-element-render';
 
 /**
  * The purpose of this Component is to use as default value for props that receive a Component that
