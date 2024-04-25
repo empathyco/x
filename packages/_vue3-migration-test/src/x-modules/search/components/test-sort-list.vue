@@ -1,8 +1,7 @@
 <template>
   <SortList :items="sortValues">
-    <template #default="{ item, isHighlighted, isSelected }">
+    <template #default="{ item, isSelected }">
       <span v-if="isSelected">✅</span>
-      <span v-if="isHighlighted">🟢</span>
       {{ item }}
     </template>
   </SortList>
