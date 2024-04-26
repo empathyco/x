@@ -6,15 +6,9 @@
 </script>
 
 <template>
-  <MainScroll>
-    <ul class="list" data-test="scroll">
-      <MainScrollItem
-        v-for="item in items"
-        :key="item - id"
-        class="item"
-        tag="article"
-        :item="item"
-      >
+  <MainScroll root-selector="#rootScroll">
+    <ul id="rootScroll" class="list" data-test="scroll">
+      <MainScrollItem v-for="item in items" :key="item.id" class="item" tag="article" :item="item">
         {{ item.id }}
       </MainScrollItem>
     </ul>

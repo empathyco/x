@@ -1,11 +1,10 @@
 <template>
-  <NoElement ref="el" :class="dynamicClasses">
+  <div :class="dynamicClasses">
     <slot />
-  </NoElement>
+  </div>
 </template>
 <script lang="ts">
   import { computed, defineComponent, onBeforeUnmount, onMounted, provide, ref, watch } from 'vue';
-  import { NoElement } from '../../../components/no-element';
   import { VueCSSClasses } from '../../../utils/types';
   import { scrollXModule } from '../x-module';
   import { DISABLE_ANIMATIONS_KEY } from '../../../components/decorators/injection.consts';
@@ -26,8 +25,14 @@
    */
   export default defineComponent({
     name: 'MainScroll',
-    components: { NoElement },
     props: {
+      /**
+       * The css selector of the element that will be used as the root of the intersection observer.
+       */
+      rootSelector: {
+        type: String,
+        default: ''
+      },
       /**
        * If `true`, sets this scroll instance to the main of the application. Being the main
        * scroll implies that features like restoring the scroll when the query changes, or storing
@@ -69,15 +74,9 @@
       }
     },
     setup(props) {
-      type ElementRef = {
-        $el: HTMLElement;
-      };
-
       useRegisterXModule(scrollXModule);
 
       const xBus = useXBus();
-
-      const el = ref<HTMLElement | null>(null);
 
       /**
        * The elements that are currently considered visible.
@@ -162,24 +161,15 @@
         });
       };
 
-      /**
-       * Checks if a given value is an `ElementRef` object.
-       *
-       * @param value - The value to check.
-       * @returns `true` if the value is an `ElementRef` object, `false` otherwise.
-       *
-       * @internal
-       */
-      const isElementRef = (value: any): value is ElementRef => {
-        return value && value.$el instanceof HTMLElement;
-      };
+      const rootElement = ref<HTMLElement | null>(null);
 
       /**
        * Initialise the observer after mounting the component.
        */
       onMounted(() => {
+        rootElement.value = document.querySelector(props.rootSelector);
         intersectionObserver.value = new IntersectionObserver(updateVisibleElements, {
-          root: props.useWindow ? document : isElementRef(el.value) ? el.value.$el : el.value,
+          root: props.useWindow ? document : rootElement.value,
           threshold: props.threshold,
           rootMargin: props.margin
         });
@@ -266,8 +256,7 @@
               : firstVisibleElement;
           }
         );
-        const htmlElement = isElementRef(el.value) ? el.value.$el : el.value;
-        return firstVisibleElement === htmlElement?.querySelector('[data-scroll]')
+        return firstVisibleElement === rootElement.value?.querySelector('[data-scroll]')
           ? ''
           : firstVisibleElement.dataset.scroll!;
       });
@@ -280,11 +269,10 @@
       );
 
       return {
-        el,
         dynamicClasses,
         firstVisibleElement,
         visibleElementsObserver,
-        isElementRef,
+        rootElement,
         intersectingElements
       };
     }

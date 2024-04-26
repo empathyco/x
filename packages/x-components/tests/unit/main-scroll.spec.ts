@@ -24,8 +24,9 @@ function renderMainScroll({
   useWindow,
   windowScrollingElement,
   template = `
-      <MainScroll v-bind="{ threshold, margin, useWindow }">
-        <div class="container" ${!useWindow ? `data-test="scroll"` : ''}>
+      <MainScroll v-bind="{ threshold, margin, useWindow }"
+                  root-selector="#rootScroll" class="root-scroll">
+        <div id="rootScroll" class="container" ${!useWindow ? `data-test="scroll"` : ''}>
           <MainScrollItem
             v-for="item in items"
             class="item"
@@ -51,7 +52,7 @@ function renderMainScroll({
     `${windowScrollingElement === 'body' ? 'html { overflow: hidden; }' : ''}
     html,
     body,
-    [data-cy-root] {
+    [data-cy-root], .root-scroll {
       margin: 0;
       height: 100%;
       max-height: 100%;
@@ -165,8 +166,8 @@ describe('testing MainScroll component', () => {
         const { restoreScrollToItem, getItem } = renderMainScroll({
           ...defaultParameters,
           template: `
-            <MainScroll v-bind="{ threshold, margin, useWindow }">
-              <div data-test="main-scroll">
+            <MainScroll v-bind="{ threshold, margin, useWindow }" root-selector="#rootScroll">
+              <div data-test="main-scroll" id="rootScroll">
                 <StaggeredFadeAndSlide>
                   <MainScrollItem
                     v-for="item in items"
@@ -201,7 +202,7 @@ describe('testing MainScroll component', () => {
         userScrolledToElementSpy().should('have.been.calledWith', 'item-5');
         userScrolledToElementSpy().should('not.have.been.calledWith', 'item-6');
         /* By just scrolling 1 px down, as we require the 100% of the element to intersect to be
-         considered visible, the 5th element does no longer meet this condition. Therefore the 6th
+         considered visible, the 5th element does no longer meet this condition. Therefore, the 6th
          element is considered the first one.  */
         scrollBy(1);
         userScrolledToElementSpy().should('have.been.calledWith', 'item-6');
