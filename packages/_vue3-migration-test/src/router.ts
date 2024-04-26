@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import TestScroll from './components/scroll/test-scroll.vue';
-import { TestAnimateWidth, TestBaseDropdown, TestFade } from './';
-
+import { TestAnimateWidth, TestBaseDropdown, TestFade, TestScroll } from './';
 
 const routes = [
   {
@@ -15,7 +13,6 @@ const routes = [
     component: TestFade
   },
   {
-
     path: '/scroll',
     name: 'Scroll',
     component: TestScroll
