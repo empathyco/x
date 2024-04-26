@@ -192,11 +192,11 @@
 
             <RenderlessExtraParams #default="{ value, updateValue }" name="store">
               <BaseDropdown
-                @change="updateValue"
+                @update:modelValue="updateValue"
+                :modelValue="value"
+                :items="stores"
                 class="x-dropdown x-dropdown--round x-dropdown--right x-dropdown--l"
                 data-test="store-selector"
-                :value="value"
-                :items="stores"
               />
             </RenderlessExtraParams>
           </div>
