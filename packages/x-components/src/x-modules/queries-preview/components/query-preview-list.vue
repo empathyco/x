@@ -11,7 +11,7 @@
         v-bind="$attrs"
         :queryPreviewInfo="queryPreview"
       >
-        <template v-for="(_, slotName) in scopedSlots" v-slot:[slotName]="scope">
+        <template v-for="(_, slotName) in renderSlots" v-slot:[slotName]="scope">
           <slot :name="slotName" v-bind="scope" />
         </template>
       </QueryPreview>
@@ -21,13 +21,12 @@
 
 <script lang="ts">
   import Vue, { computed, defineComponent, PropType, ref, watch } from 'vue';
-  import StaggeredFadeAndSlide from '../../../components/animations/staggered-fade-and-slide.vue';
   import { RequestStatus } from '../../../store';
   import { queriesPreviewXModule } from '../x-module';
   import { QueryPreviewInfo } from '../store/types';
   import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview';
-  import { AnimationProp } from '../../../types/index';
-  import { useRegisterXModule } from '../../../composables/index';
+  import { AnimationProp } from '../../../types/animation-prop';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import QueryPreview from './query-preview.vue';
 
   interface QueryPreviewStatusRecord {
@@ -43,19 +42,10 @@
    */
   export default defineComponent({
     name: 'QueryPreviewList',
-    xModule: 'queriesPreview',
-    components: { QueryPreview, StaggeredFadeAndSlide },
+    xModule: queriesPreviewXModule.name,
+    components: { QueryPreview },
     inheritAttrs: false,
     props: {
-      /**
-       * Animation component that will be used to animate the elements.
-       *
-       * @public
-       */
-      animation: {
-        type: AnimationProp,
-        default: 'ul'
-      },
       /**
        * The list of queries preview to render.
        *
@@ -64,12 +54,21 @@
       queriesPreviewInfo: {
         type: Array as PropType<QueryPreviewInfo[]>,
         required: true
+      },
+      /**
+       * Animation component that will be used to animate the elements.
+       *
+       * @public
+       */
+      animation: {
+        type: AnimationProp,
+        default: 'ul'
       }
     },
     setup(props, { slots }) {
       useRegisterXModule(queriesPreviewXModule);
 
-      const scopedSlots = slots;
+      const renderSlots = slots;
 
       /**
        * Contains the status of the preview requests, indexed by query.
@@ -82,9 +81,9 @@
        * @returns The list of queries in the queriesPreviewInfo list.
        * @internal
        */
-      const queries = computed((): string[] => {
-        return props.queriesPreviewInfo.map(item => getHashFromQueryPreviewInfo(item));
-      });
+      const queries = computed((): string[] =>
+        props.queriesPreviewInfo.map(item => getHashFromQueryPreviewInfo(item))
+      );
 
       /**
        * Gets all the queries to render, that are those that don't have an `error` status.
@@ -130,7 +129,7 @@
             loadNext();
           }
         },
-        { immediate: true }
+        { immediate: true, deep: true }
       );
 
       /**
@@ -159,7 +158,7 @@
         renderedQueryPreviews,
         flagAsFailed,
         flagAsLoaded,
-        scopedSlots
+        renderSlots
       };
     }
   });
