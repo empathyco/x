@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.0...@empathyco/x-components@5.0.0-alpha.1) (2024-04-29)
+
+
+### Code Refactoring
+
+* **query-preview:** migrate query preview component x provide (#1452) ([a60c62a](https://github.com/empathyco/x/commit/a60c62a35d7ba3f13e6561583a0af9f5a46c61b2))
+
+
+
 ## [5.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.46...@empathyco/x-components@5.0.0-alpha.0) (2024-04-24)
 
 
