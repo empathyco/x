@@ -15,8 +15,7 @@
     ref,
     watch,
     Ref,
-    WatchCallback,
-    ComputedRef
+    WatchCallback
   } from 'vue';
   import { NoElement } from '../../../components/no-element';
   import { scrollXModule } from '../x-module';
@@ -77,9 +76,7 @@
        *
        * @internal
        */
-      const pendingScrollTo: ComputedRef<string> = useState('scroll', [
-        'pendingScrollTo'
-      ]).pendingScrollTo;
+      const { pendingScrollTo } = useState('scroll', ['pendingScrollTo']);
 
       /**
        * Observer to detect the first visible element.
