@@ -99,7 +99,7 @@
        *
        * @internal
        */
-      const pendingScrollTo = useState('scroll', ['pendingScrollTo']);
+      const { pendingScrollTo } = useState('scroll', ['pendingScrollTo']);
 
       /**
        * Disables the animations.
@@ -107,7 +107,7 @@
        * @returns A boolean to disable the animations.
        * @internal
        */
-      const disableAnimations = computed((): boolean => !!pendingScrollTo.pendingScrollTo.value);
+      const disableAnimations = computed((): boolean => !!pendingScrollTo.value);
       provide(DISABLE_ANIMATIONS_KEY as string, disableAnimations);
 
       /**
@@ -212,10 +212,10 @@
        * @param pendingScrollTo - The position the scroll should be restored to.
        * @internal
        */
-      watch(pendingScrollTo.pendingScrollTo, () => {
+      watch(pendingScrollTo, () => {
         // TODO Move this logic to the wiring. A cancelable delay operator is needed
         clearTimeout(restoreScrollFailTimeoutId);
-        if (pendingScrollTo.pendingScrollTo.value) {
+        if (pendingScrollTo.value) {
           restoreScrollFailTimeoutId = window.setTimeout(() => {
             xBus.emit('ScrollRestoreFailed');
           }, props.restoreScrollTimeoutMs);
@@ -231,7 +231,7 @@
        */
       const dynamicClasses = computed((): VueCSSClasses => {
         return {
-          'x-main-scroll--no-transition': !!pendingScrollTo.pendingScrollTo.value
+          'x-main-scroll--no-transition': !!pendingScrollTo.value
         };
       });
 
