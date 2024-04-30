@@ -1,5 +1,5 @@
 <template>
-  <transition name="x-fade-" :appear="appear">
+  <transition v-on="$listeners" name="x-fade-" :appear="appear">
     <!-- @slot (Required) to add content to the transition -->
     <slot />
   </transition>

@@ -1,5 +1,5 @@
 <template>
-  <transition name="x-animate-width-">
+  <transition v-on="$listeners" name="x-animate-width-">
     <!-- @slot (Required) Transition content -->
     <slot />
   </transition>
