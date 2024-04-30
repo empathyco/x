@@ -452,6 +452,7 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
+  import AnimateWidth from '../../components/animations/animate-width.vue';
   import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
   import BaseDropdown from '../../components/base-dropdown.vue';
@@ -531,6 +532,7 @@
       infiniteScroll
     },
     components: {
+      AnimateWidth,
       DisplayEmitter,
       QueryPreviewButton,
       DisplayResultProvider,
