@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { installNewXPlugin } from '../../../../__tests__/utils';
+import { XPlugin } from '../../../../plugins';
 import ClearSearchInput from '../clear-search-input.vue';
 
 describe('testing ClearSearchInput component', () => {
@@ -7,8 +8,13 @@ describe('testing ClearSearchInput component', () => {
 
   it('emits UserPressedClearSearchBoxButton event when clicked', () => {
     const clearSearchInput = mount(ClearSearchInput, { localVue });
-    const target = { target: clearSearchInput.element };
-    const emitSpy = jest.spyOn(clearSearchInput.vm.$children[0].$x, 'emit');
+    const target = {
+      location: 'none',
+      moduleName: 'searchBox',
+      replaceable: true,
+      target: clearSearchInput.element
+    };
+    const emitSpy = jest.spyOn(XPlugin.bus, 'emit');
 
     clearSearchInput.trigger('click');
 
