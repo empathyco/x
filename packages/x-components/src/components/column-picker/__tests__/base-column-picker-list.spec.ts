@@ -97,7 +97,7 @@ describe('testing Base Column Picker List', () => {
       metadata: {
         moduleName: null, // no module registered for this base component
         target: wrapper.findAll(getDataTestSelector('column-picker-button')).at(index).element,
-        location: undefined,
+        location: 'none',
         replaceable: true
       }
     });
@@ -110,7 +110,7 @@ describe('testing Base Column Picker List', () => {
       metadata: {
         moduleName: null, // no module registered for this base component
         target: wrapper.findAll(getDataTestSelector('column-picker-button')).at(index).element,
-        location: undefined,
+        location: 'none',
         replaceable: true
       }
     });
