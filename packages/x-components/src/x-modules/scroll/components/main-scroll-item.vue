@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" ref="el" v-on="$listeners" :data-scroll="item.id">
+  <component :is="tag" ref="rootRef" v-on="$listeners" :data-scroll="item.id">
     <slot />
   </component>
 </template>
@@ -69,7 +69,7 @@
        *
        * @public
        */
-      const el = ref<ElementRef | HTMLElement | null>(null);
+      const rootRef = ref<ElementRef | HTMLElement | null>(null);
 
       /**
        * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem} item
@@ -111,8 +111,8 @@
         oldObserver: ScrollVisibilityObserver | null
       ): void => {
         {
-          if (el.value !== null) {
-            const htmlElement = isElementRef(el.value) ? el.value.$el : el.value;
+          if (rootRef.value !== null) {
+            const htmlElement = isElementRef(rootRef.value) ? rootRef.value.$el : rootRef.value;
 
             oldObserver?.unobserve(htmlElement);
             newObserver?.observe(htmlElement);
@@ -134,8 +134,8 @@
        * @internal
        */
       onBeforeUnmount(() => {
-        if (el.value !== null) {
-          const htmlElement = isElementRef(el.value) ? el.value.$el : el.value;
+        if (rootRef.value !== null) {
+          const htmlElement = isElementRef(rootRef.value) ? rootRef.value.$el : rootRef.value;
           firstVisibleItemObserver?.value.unobserve(htmlElement);
         }
       });
@@ -155,7 +155,7 @@
         });
       });
 
-      return { el, firstVisibleItemObserver, observeItem, isElementRef };
+      return { rootRef, firstVisibleItemObserver, observeItem, isElementRef };
     }
   });
 </script>
