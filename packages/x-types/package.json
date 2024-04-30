@@ -43,11 +43,11 @@
   },
   "devDependencies": {
     "@empathyco/x-jest-utils": "^1.4.0-alpha.11",
-    "@microsoft/api-documenter": "~7.23.0",
-    "@microsoft/api-extractor": "~7.39.0",
+    "@microsoft/api-documenter": "~7.24.0",
+    "@microsoft/api-extractor": "~7.43.0",
     "@types/jest": "~27.5.0",
     "jest": "~27.5.0",
-    "rollup": "~4.9.1",
+    "rollup": "~4.17.0",
     "rollup-plugin-delete": "~2.0.0",
     "rollup-plugin-typescript2": "~0.36.0",
     "typescript": "~4.9.4"
