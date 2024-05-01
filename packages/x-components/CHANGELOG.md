@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.1...@empathyco/x-components@5.0.0-alpha.2) (2024-05-01)
+
+
+### Documentation
+
+* fix typo (#1455) ([44eae35](https://github.com/empathyco/x/commit/44eae359b33f9642eb9af02701fd6a3295a2deb9))
+
+
+
 ## [5.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.0...@empathyco/x-components@5.0.0-alpha.1) (2024-04-29)
 
 
