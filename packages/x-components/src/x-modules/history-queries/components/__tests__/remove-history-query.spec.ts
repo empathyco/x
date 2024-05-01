@@ -30,7 +30,7 @@ describe('testing RemoveHistoryQuery component', () => {
       metadata: {
         moduleName: 'historyQueries',
         target: removeHistoryQuery.element,
-        location: undefined,
+        location: 'none',
         replaceable: true
       }
     });

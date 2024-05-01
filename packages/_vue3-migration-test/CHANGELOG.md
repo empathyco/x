@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.1](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.0...vue3-migration-test@1.0.0-alpha.1) (2024-05-01)
+
+
+### Code Refactoring
+
+* **base-event-button:** migrate base-event-button component to Composition API (#1457) ([39a7a8e](https://github.com/empathyco/x/commit/39a7a8ed4767ae78d447e6ddca530c41f9f681dc))
+
+
+
 ## [1.0.0-alpha.0](https://github.com/empathyco/x/compare/vue3-migration-test@0.1.0-alpha.0...vue3-migration-test@1.0.0-alpha.0) (2024-04-24)
 
 

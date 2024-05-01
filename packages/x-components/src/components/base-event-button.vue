@@ -8,11 +8,11 @@
 <script lang="ts">
   import { defineComponent, PropType, ref } from 'vue';
   import { use$x } from '../composables/use-$x';
-  import { XEvent, XEventsTypes } from '../wiring';
+  import { XEvent, XEventsTypes } from '../wiring/events.types';
 
   /**
    * Component to be reused that renders a `<button>` with the logic of emitting events to the bus
-   * on click. The events are passed as an object to prop {@link XEventsTypes}.
+   * on click. The events are passed as an object to prop {@link XEvent}.
    * The keys are the event name and the values are the payload of each event. All events are
    * emitted with its respective payload. If any event doesn't need payload a `undefined` must be
    * passed as value.
@@ -22,32 +22,29 @@
   export default defineComponent({
     name: 'BaseEventButton',
     props: {
-      /**
-       * An object where the keys are the {@link XEvent} and the values are the payload of each
-       * event.
-       */
+      /** An object where the keys are the {@link XEvent} and the values are the payload. */
       events: {
         type: Object as PropType<Partial<XEventsTypes>>,
         required: true
       }
     },
-    setup: function (props) {
+    setup(props) {
       const $x = use$x();
 
-      const rootRef = ref<HTMLElement>();
+      const rootRef = ref<HTMLButtonElement>();
 
       /**
-       * Emits events when the button is clicked.
+       * Emits `events` prop to the X bus with the payload given by it.
        */
-      function emitEvents(): void {
-        Object.entries(props.events).forEach(([event, payload]) => {
-          $x.emit(event as XEvent, payload, { target: rootRef.value });
-        });
+      function emitEvents() {
+        Object.entries(props.events).forEach(([event, payload]) =>
+          $x.emit(event as XEvent, payload, { target: rootRef.value })
+        );
       }
 
       return {
-        rootRef,
-        emitEvents
+        emitEvents,
+        rootRef
       };
     }
   });

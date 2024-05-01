@@ -487,11 +487,11 @@
 ### Basic example
 
 Apart from all the props and events that the classic transition group has, the staggering transition
-group also exposes a new `stagger` property, which allows to configure the delay for each one of the
-nodes when animating.
+group also exposes a new `staggering` property, which allows to configure the delay for each one of
+the nodes when animating.
 
 ```vue
-<staggering-transition-group appear :stagger="50" name="staggered-fade-slide-">
+<staggering-transition-group appear :staggering="50" name="staggered-fade-slide-">
   <!-- @slot (Required) Transition-group content -->
   <slot />
 </staggering-transition-group>

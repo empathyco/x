@@ -11,7 +11,7 @@
         v-bind="$attrs"
         :queryPreviewInfo="queryPreview"
       >
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="scope">
+        <template v-for="(_, slotName) in renderSlots" v-slot:[slotName]="scope">
           <slot :name="slotName" v-bind="scope" />
         </template>
       </QueryPreview>
@@ -20,14 +20,13 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop, Watch } from 'vue-property-decorator';
-  import StaggeredFadeAndSlide from '../../../components/animations/staggered-fade-and-slide.vue';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import Vue, { computed, defineComponent, PropType, ref, watch } from 'vue';
   import { RequestStatus } from '../../../store';
   import { queriesPreviewXModule } from '../x-module';
   import { QueryPreviewInfo } from '../store/types';
   import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview';
+  import { AnimationProp } from '../../../types/animation-prop';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import QueryPreview from './query-preview.vue';
 
   interface QueryPreviewStatusRecord {
@@ -41,111 +40,128 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'QueryPreviewList',
+    xModule: queriesPreviewXModule.name,
+    components: { QueryPreview },
     inheritAttrs: false,
-    components: {
-      QueryPreview,
-      StaggeredFadeAndSlide
+    props: {
+      /**
+       * The list of queries preview to render.
+       *
+       * @public
+       */
+      queriesPreviewInfo: {
+        type: Array as PropType<QueryPreviewInfo[]>,
+        required: true
+      },
+      /**
+       * Animation component that will be used to animate the elements.
+       *
+       * @public
+       */
+      animation: {
+        type: AnimationProp,
+        default: 'ul'
+      }
     },
-    mixins: [xComponentMixin(queriesPreviewXModule)]
-  })
-  export default class QueryPreviewList extends Vue {
-    /**
-     * Animation component that will be used to animate the elements.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    public animation!: Vue | string;
+    setup(props, { slots }) {
+      useRegisterXModule(queriesPreviewXModule);
 
-    /**
-     * The list of queries preview to render.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public queriesPreviewInfo!: QueryPreviewInfo[];
+      const renderSlots = slots;
 
-    /**
-     * Contains the status of the preview requests, indexed by query.
-     */
-    public queriesStatus: QueryPreviewStatusRecord = {};
+      /**
+       * Contains the status of the preview requests, indexed by query.
+       */
+      let queriesStatus = ref<QueryPreviewStatusRecord>({});
 
-    /**
-     * The list of queries to preview.
-     *
-     * @returns The list of queries in the queriesPreviewInfo list.
-     * @internal
-     */
-    protected get queries(): string[] {
-      return this.queriesPreviewInfo.map(item => getHashFromQueryPreviewInfo(item));
-    }
+      /**
+       * The list of queries to preview.
+       *
+       * @returns The list of queries in the queriesPreviewInfo list.
+       * @internal
+       */
+      const queries = computed((): string[] =>
+        props.queriesPreviewInfo.map(item => getHashFromQueryPreviewInfo(item))
+      );
 
-    /**
-     * Gets all the queries to render, that are those that don't have an `error` status.
-     *
-     * @returns A list of queries.
-     * @internal
-     */
-    protected get renderedQueryPreviews(): QueryPreviewInfo[] {
-      return this.queriesPreviewInfo.filter(item => {
-        const queryPreviewHash = getHashFromQueryPreviewInfo(item);
-        return (
-          this.queriesStatus[queryPreviewHash] === 'success' ||
-          this.queriesStatus[queryPreviewHash] === 'loading'
-        );
+      /**
+       * Gets all the queries to render, that are those that don't have an `error` status.
+       *
+       * @returns A list of queries.
+       * @internal
+       */
+      const renderedQueryPreviews = computed((): QueryPreviewInfo[] => {
+        return props.queriesPreviewInfo.filter(item => {
+          const queryPreviewHash = getHashFromQueryPreviewInfo(item);
+          return (
+            queriesStatus.value[queryPreviewHash] === 'success' ||
+            queriesStatus.value[queryPreviewHash] === 'loading'
+          );
+        });
       });
-    }
 
-    /**
-     * Resets the status of all queries if they change.
-     *
-     * @param newQueries - The new queries.
-     * @param oldQueries - The old queries.
-     * @internal
-     */
-    @Watch('queries', { immediate: true })
-    protected resetStatusRecord(newQueries: string[], oldQueries: string[]): void {
-      if (newQueries?.toString() !== oldQueries?.toString()) {
-        this.queriesStatus = {};
-        this.loadNext();
-      }
-    }
+      /**
+       * Tries to load the next query.
+       *
+       * @internal
+       */
+      const loadNext = (): void => {
+        const queryToLoad = queries.value.find(query => !(query in queriesStatus.value));
+        if (queryToLoad) {
+          //TODO - change this logic when we migrate to vue@3. It won't be necessary. Check this link https://v2.vuejs.org/v2/guide/migration-vue-2-7#Behavior-Differences-from-Vue-3
+          Vue.set(queriesStatus.value, queryToLoad, 'loading');
+        }
+      };
 
-    /**
-     * Sets the status of a given query to `success`.
-     *
-     * @param loadedQuery - The query to flag as loaded.
-     * @internal
-     */
-    protected flagAsLoaded(loadedQuery: string): void {
-      this.queriesStatus[loadedQuery] = 'success';
-      this.loadNext();
-    }
+      /**
+       * Resets the status of all queries if they change.
+       *
+       * @param newQueries - The new queries.
+       * @param oldQueries - The old queries.
+       * @internal
+       */
+      watch(
+        queries,
+        (newQueries: string[], oldQueries: string[] | undefined) => {
+          if (newQueries.toString() !== oldQueries?.toString()) {
+            queriesStatus.value = {};
+            loadNext();
+          }
+        },
+        { immediate: true, deep: true }
+      );
 
-    /**
-     * Sets the status of a given query to `error`.
-     *
-     * @param failedQuery - The query to flag as failed.
-     * @internal
-     */
-    protected flagAsFailed(failedQuery: string): void {
-      this.queriesStatus[failedQuery] = 'error';
-      this.loadNext();
-    }
+      /**
+       * Sets the status of a given query to `success`.
+       *
+       * @param loadedQuery - The query to flag as loaded.
+       * @internal
+       */
+      const flagAsLoaded = (loadedQuery: string): void => {
+        queriesStatus.value[loadedQuery] = 'success';
+        loadNext();
+      };
 
-    /**
-     * Tries to load the next query.
-     *
-     * @internal
-     */
-    protected loadNext(): void {
-      const queryToLoad = this.queries.find(query => !(query in this.queriesStatus));
-      if (queryToLoad) {
-        this.$set(this.queriesStatus, queryToLoad, 'loading');
-      }
+      /**
+       * Sets the status of a given query to `error`.
+       *
+       * @param failedQuery - The query to flag as failed.
+       * @internal
+       */
+      const flagAsFailed = (failedQuery: string): void => {
+        queriesStatus.value[failedQuery] = 'error';
+        loadNext();
+      };
+
+      return {
+        renderedQueryPreviews,
+        flagAsFailed,
+        flagAsLoaded,
+        renderSlots
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
