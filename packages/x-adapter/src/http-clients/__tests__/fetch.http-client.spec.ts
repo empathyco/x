@@ -59,6 +59,20 @@ describe('fetch httpClient testing', () => {
     expectFetchCallWith(endpoint);
   });
 
+  it('maps empty values if configured to do so', async () => {
+    await fetchHttpClient(endpoint, {
+      sendEmptyParams: true,
+      parameters: {
+        q: undefined,
+        r: '',
+        s: null,
+        t: [],
+        u: {}
+      }
+    });
+    expectFetchCallWith(`${endpoint}?r=&s=null`);
+  });
+
   it('cancels equal endpoint requests if no requestId parameter is passed', async () => {
     await Promise.all([
       expect(
@@ -182,6 +196,43 @@ describe('fetch httpClient testing', () => {
           q: 'shirt',
           extraParams: {
             lang: 'en'
+          }
+        })
+      });
+    });
+
+    it('sends empty values in the body if configured to do so', async () => {
+      await fetchHttpClient(endpoint, {
+        sendParamsInBody: true,
+        sendEmptyParams: true,
+        parameters: {
+          q: 'shirt',
+          a: undefined,
+          b: null,
+          c: '',
+          d: [],
+          extraParams: {
+            lang: 'en',
+            e: undefined,
+            f: null,
+            g: '',
+            h: [],
+            i: {}
+          }
+        }
+      });
+      expectFetchCallWith(endpoint, {
+        body: JSON.stringify({
+          q: 'shirt',
+          b: null,
+          c: '',
+          d: [],
+          extraParams: {
+            lang: 'en',
+            f: null,
+            g: '',
+            h: [],
+            i: {}
           }
         })
       });
