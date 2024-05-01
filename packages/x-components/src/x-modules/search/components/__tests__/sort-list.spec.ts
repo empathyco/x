@@ -85,7 +85,7 @@ describe('testing SortList component', () => {
       metadata: {
         moduleName: 'search',
         target: getButton(2),
-        location: undefined, // TODO - Emission by BaseEventButton in the old way. `none` when use$x
+        location: 'none',
         replaceable: true
       }
     });

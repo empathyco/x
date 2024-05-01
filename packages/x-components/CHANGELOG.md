@@ -3,6 +3,51 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.4...@empathyco/x-components@5.0.0-alpha.5) (2024-05-01)
+
+
+### Testing
+
+* add Sort components to Vue 3 migration test (#1454) ([7ccffb0](https://github.com/empathyco/x/commit/7ccffb084cdf6521c57977eca4d19d93f6586a2d))
+
+
+
+## [5.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.3...@empathyco/x-components@5.0.0-alpha.4) (2024-05-01)
+
+
+### Bug Fixes
+
+* **query-preview-list:** enable inherit attrs (#1458) ([1adbfe0](https://github.com/empathyco/x/commit/1adbfe04665e289aa0c325daced40f257669fe2d))
+
+
+
+## [5.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.2...@empathyco/x-components@5.0.0-alpha.3) (2024-05-01)
+
+
+### Code Refactoring
+
+* **base-event-button:** migrate base-event-button component to Composition API (#1457) ([39a7a8e](https://github.com/empathyco/x/commit/39a7a8ed4767ae78d447e6ddca530c41f9f681dc))
+
+
+
+## [5.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.1...@empathyco/x-components@5.0.0-alpha.2) (2024-05-01)
+
+
+### Documentation
+
+* fix typo (#1455) ([44eae35](https://github.com/empathyco/x/commit/44eae359b33f9642eb9af02701fd6a3295a2deb9))
+
+
+
+## [5.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.0...@empathyco/x-components@5.0.0-alpha.1) (2024-04-29)
+
+
+### Code Refactoring
+
+* **query-preview:** migrate query preview component x provide (#1452) ([a60c62a](https://github.com/empathyco/x/commit/a60c62a35d7ba3f13e6561583a0af9f5a46c61b2))
+
+
+
 ## [5.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-components@4.1.0-alpha.46...@empathyco/x-components@5.0.0-alpha.0) (2024-04-24)
 
 

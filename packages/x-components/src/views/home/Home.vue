@@ -250,6 +250,7 @@
                 <QueryPreviewList
                   :debounceTimeMs="250"
                   :queriesPreviewInfo="queriesPreviewInfo"
+                  data-wysiwyg="query-preview-list"
                   #default="{
                     queryPreviewInfo,
                     totalResults,
@@ -257,7 +258,7 @@
                     displayTagging,
                     queryTagging
                   }"
-                  data-test="brand-recommendation"
+                  data-test="brand-recommendations-list"
                   :persistInCache="true"
                 >
                   <DisplayEmitter

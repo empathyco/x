@@ -7,10 +7,12 @@ import {
   getResultsStub
 } from '../../../../__stubs__/index';
 import { XComponentsAdapterDummy } from '../../../../__tests__/adapter.dummy';
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
+import { installNewXPlugin } from '../../../../__tests__/utils';
 import { queriesPreviewXModule } from '../../x-module';
 import QueryPreviewList from '../query-preview-list.vue';
 import { QueryPreviewInfo } from '../../store/types';
+import { QueryFeature } from '../../../../types';
+import { QueryPreview } from '../index';
 
 function renderQueryPreviewList({
   template = `
@@ -18,7 +20,11 @@ function renderQueryPreviewList({
           {{ queryPreviewInfo.query }} - {{results[0].name}}
         </QueryPreviewList>`,
   queriesPreviewInfo = [{ query: 'milk' }],
-  results = { milk: getResultsStub(1) }
+  results = { milk: getResultsStub(1) },
+  debounceTimeMs = 0,
+  persistInCache = true,
+  queryFeature = 'search_box',
+  maxItemsToRender = 4
 }: RenderQueryPreviewListOptions): RenderQueryPreviewListAPI {
   const localVue = createLocalVue();
   const adapter: XComponentsAdapter = {
@@ -37,13 +43,18 @@ function renderQueryPreviewList({
     {
       template,
       components: {
-        QueryPreviewList
+        QueryPreviewList,
+        QueryPreview
       }
     },
     {
       localVue,
       propsData: {
-        queriesPreviewInfo
+        queriesPreviewInfo,
+        debounceTimeMs,
+        persistInCache,
+        queryFeature,
+        maxItemsToRender
       }
     }
   );
@@ -51,7 +62,7 @@ function renderQueryPreviewList({
     adapter,
     wrapper: wrapper.findComponent(QueryPreviewList),
     getQueryPreviewItemWrappers() {
-      return wrapper.findAll(getDataTestSelector('query-preview-item'));
+      return wrapper.findAllComponents(QueryPreview);
     },
     reRender() {
       // A timeout with no time should resolve after all reactivity + promises involved
@@ -84,6 +95,31 @@ describe('testing QueryPreviewList', () => {
     expect(queryPreviews.wrappers).toHaveLength(2);
     expect(queryPreviews.at(0).text()).toEqual('shirt - Cool shirt');
     expect(queryPreviews.at(1).text()).toEqual('jeans - Sick jeans');
+  });
+
+  it('should propagate global props from the list to each item', async () => {
+    const debounceTimeMsStub = 200;
+    const persistInCacheStub = false;
+    const queryFeatureStub: QueryFeature = 'history_query';
+    const maxItemsToRenderStub = 2;
+    const { getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
+      queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }],
+      results: { shirt: [createResultStub('Cool shirt')], jeans: [createResultStub('Sick jeans')] },
+      debounceTimeMs: debounceTimeMsStub,
+      persistInCache: persistInCacheStub,
+      queryFeature: queryFeatureStub,
+      maxItemsToRender: maxItemsToRenderStub
+    });
+
+    // Shirt, Jeans query previews
+    await reRender();
+    const queryPreviews = getQueryPreviewItemWrappers();
+    queryPreviews.wrappers.forEach(queryPreview => {
+      expect(queryPreview.props().debounceTimeMs).toEqual(debounceTimeMsStub);
+      expect(queryPreview.props().persistInCache).toEqual(persistInCacheStub);
+      expect(queryPreview.props().queryFeature).toEqual(queryFeatureStub);
+      expect(queryPreview.props().maxItemsToRender).toEqual(maxItemsToRenderStub);
+    });
   });
 
   it('hides queries with no results', async () => {
@@ -135,6 +171,10 @@ interface RenderQueryPreviewListOptions {
   queriesPreviewInfo?: QueryPreviewInfo[];
   /** The results to return from the mocked search endpoint adapter. */
   results?: Record<string, Result[]>;
+  persistInCache?: boolean;
+  debounceTimeMs?: number;
+  queryFeature?: QueryFeature;
+  maxItemsToRender?: number;
 }
 
 interface RenderQueryPreviewListAPI {
