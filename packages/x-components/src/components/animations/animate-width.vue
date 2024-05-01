@@ -15,6 +15,7 @@
    * @public
    */
   export default defineComponent({
+    name: 'AnimateWidth',
     inheritAttrs: false
   });
 </script>

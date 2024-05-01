@@ -102,7 +102,7 @@ describe('testing AllFilter component', () => {
       metadata: {
         moduleName: 'facets',
         target: wrapper.element,
-        location: undefined,
+        location: 'none',
         replaceable: true
       }
     });

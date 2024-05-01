@@ -167,7 +167,7 @@ describe('testing ClearFilters component', () => {
       metadata: {
         moduleName: 'facets',
         target: wrapper.element,
-        location: undefined,
+        location: 'none',
         replaceable: true
       }
     });
@@ -188,7 +188,7 @@ describe('testing ClearFilters component', () => {
       metadata: {
         moduleName: 'facets',
         target: wrapper.element,
-        location: undefined,
+        location: 'none',
         replaceable: true
       }
     });
