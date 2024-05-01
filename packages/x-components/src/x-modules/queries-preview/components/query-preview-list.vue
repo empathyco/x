@@ -28,10 +28,9 @@
   import { queriesPreviewXModule } from '../x-module';
   import { QueryPreviewInfo } from '../store/types';
   import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview';
-  import { AnimationProp } from '../../../types/animation-prop';
+  import { AnimationProp, QueryFeature } from '../../../types';
   import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import QueryPreview from './query-preview.vue';
-  import { QueryFeature } from '../../../types';
 
   interface QueryPreviewStatusRecord {
     [query: string]: RequestStatus;
