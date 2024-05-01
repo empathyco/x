@@ -8,7 +8,10 @@
       <QueryPreview
         @load="flagAsLoaded"
         @error="flagAsFailed"
-        v-bind="$attrs"
+        :debounceTimeMs="debounceTimeMs"
+        :maxItemsToRender="maxItemsToRender"
+        :persistInCache="persistInCache"
+        :queryFeature="queryFeature"
         :queryPreviewInfo="queryPreview"
       >
         <template v-for="(_, slotName) in renderSlots" v-slot:[slotName]="scope">
@@ -25,7 +28,7 @@
   import { queriesPreviewXModule } from '../x-module';
   import { QueryPreviewInfo } from '../store/types';
   import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview';
-  import { AnimationProp } from '../../../types/animation-prop';
+  import { AnimationProp, QueryFeature } from '../../../types';
   import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import QueryPreview from './query-preview.vue';
 
@@ -44,7 +47,6 @@
     name: 'QueryPreviewList',
     xModule: queriesPreviewXModule.name,
     components: { QueryPreview },
-    inheritAttrs: false,
     props: {
       /**
        * The list of queries preview to render.
@@ -55,6 +57,39 @@
         type: Array as PropType<QueryPreviewInfo[]>,
         required: true
       },
+      /**
+       * The origin property for the request on each query preview.
+       *
+       * @public
+       */
+      queryFeature: {
+        type: String as PropType<QueryFeature>
+      },
+      /**
+       * Number of query preview results to be rendered on each query preview.
+       *
+       * @public
+       */
+      maxItemsToRender: {
+        type: Number
+      },
+      /**
+       * Debounce time in milliseconds for triggering the search requests
+       * on each query preview.
+       * It will default to 0 to fit the most common use case (pre-search),
+       * and it would work properly with a 250 value inside empathize.
+       */
+      debounceTimeMs: {
+        type: Number,
+        default: 0
+      },
+      /**
+       * Controls whether all the QueryPreview should be removed from the state
+       * when the component is destroyed.
+       *
+       * @public
+       */
+      persistInCache: Boolean,
       /**
        * Animation component that will be used to animate the elements.
        *
