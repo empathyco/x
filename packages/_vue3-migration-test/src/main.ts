@@ -30,5 +30,17 @@ const store = createStore({});
 createApp(App as Component)
   .use(router)
   .use(store)
-  .use(xPlugin, { adapter, store })
+  .use(xPlugin, {
+    adapter,
+    store,
+    __PRIVATE__xModules: {
+      scroll: {
+        storeModule: {
+          state: {
+            pendingScrollTo: 'item-10'
+          }
+        }
+      }
+    }
+  })
   .mount('#app');
