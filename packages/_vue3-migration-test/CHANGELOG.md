@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.2](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.1...vue3-migration-test@1.0.0-alpha.2) (2024-05-01)
+
+
+### Testing
+
+* add Sort components to Vue 3 migration test (#1454) ([7ccffb0](https://github.com/empathyco/x/commit/7ccffb084cdf6521c57977eca4d19d93f6586a2d))
+
+
+
 ## [1.0.0-alpha.1](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.0...vue3-migration-test@1.0.0-alpha.1) (2024-05-01)
 
 
