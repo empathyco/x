@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.3...@empathyco/x-components@5.0.0-alpha.4) (2024-05-01)
+
+
+### Bug Fixes
+
+* **query-preview-list:** enable inherit attrs (#1458) ([1adbfe0](https://github.com/empathyco/x/commit/1adbfe04665e289aa0c325daced40f257669fe2d))
+
+
+
 ## [5.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.2...@empathyco/x-components@5.0.0-alpha.3) (2024-05-01)
 
 
