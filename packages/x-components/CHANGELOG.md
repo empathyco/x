@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.2...@empathyco/x-components@5.0.0-alpha.3) (2024-05-01)
+
+
+### Code Refactoring
+
+* **base-event-button:** migrate base-event-button component to Composition API (#1457) ([39a7a8e](https://github.com/empathyco/x/commit/39a7a8ed4767ae78d447e6ddca530c41f9f681dc))
+
+
+
 ## [5.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.1...@empathyco/x-components@5.0.0-alpha.2) (2024-05-01)
 
 
