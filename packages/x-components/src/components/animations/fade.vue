@@ -17,6 +17,7 @@
    */
   export default defineComponent({
     name: 'Fade',
+    inheritAttrs: false,
     props: {
       /** Indicates if the transition must be applied on the initial render of the node. */
       appear: {
