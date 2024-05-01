@@ -18,7 +18,8 @@ if (VUE_COMPAT_MODE === 2) {
      */
     INSTANCE_LISTENERS: 'suppress-warning',
     RENDER_FUNCTION: false,
-    COMPONENT_V_MODEL: false
+    COMPONENT_V_MODEL: false,
+    WATCH_ARRAY: false
   });
 }
 
