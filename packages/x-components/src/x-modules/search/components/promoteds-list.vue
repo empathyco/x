@@ -7,7 +7,7 @@
     -->
     <slot v-bind="{ items, animation }">
       <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ item }">
+        <template v-for="(_, slotName) in renderSlots" v-slot:[slotName]="{ item }">
           <slot :name="slotName" :item="item" />
         </template>
       </ItemsList>
@@ -57,10 +57,12 @@
         default: 'ul'
       }
     },
-    setup() {
+    setup(props, { slots }) {
       useRegisterXModule(searchXModule);
 
       const $x = use$x();
+
+      const renderSlots = slots;
       /**
        * The promoteds to render from the state.
        *
@@ -117,7 +119,8 @@
       provide(LIST_ITEMS_KEY as string, items);
 
       return {
-        items
+        items,
+        renderSlots
       };
     }
   });

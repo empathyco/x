@@ -151,9 +151,9 @@ describe('testing BannersList component', () => {
     const Child = defineComponent({
       name: 'Child',
       setup() {
-        const injectedListItems = inject<Ref<ListItem[] | undefined>>(LIST_ITEMS_KEY as string);
+        const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
         const injectedListItemsString = computed(
-          (): string => injectedListItems?.value!.map(item => item.id).join(',') ?? ''
+          (): string => injectedListItems?.value.map(item => item.id).join(',') ?? ''
         );
         return {
           injectedListItemsString

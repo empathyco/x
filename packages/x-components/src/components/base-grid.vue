@@ -19,7 +19,7 @@
         the item using that slot composition to render.
             @binding {item} item - Item to render
       -->
-      <slot v-if="$scopedSlots[slotName]" :name="slotName" :item="item" />
+      <slot v-if="renderSlots[slotName]" :name="slotName" :item="item" />
       <!--
         @slot (required) Default item rendering. This slot will be used by default for rendering
         the item without an specific slot implementation.
@@ -41,7 +41,7 @@
     ref,
     watch
   } from 'vue';
-  import { useResizeObserver } from '@vueuse/core';
+  import { MaybeComputedElementRef, MaybeElement, useResizeObserver } from '@vueuse/core';
   import { toKebabCase } from '../utils/string';
   import { ListItem, VueCSSClasses } from '../utils/types';
   import { AnimationProp } from '../types/index';
@@ -103,7 +103,13 @@
         type: Array as PropType<ListItem[]>
       }
     },
-    setup(props) {
+    setup(props, { slots }) {
+      type ElementRef = {
+        $el: HTMLElement;
+      };
+
+      const renderSlots = slots;
+
       const xBus = useXBus();
       /**
        * It injects {@link ListItem} provided by an ancestor.
@@ -112,7 +118,7 @@
        */
       const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
 
-      const gridEl = ref<HTMLElement | null>(null);
+      const gridEl = ref<ElementRef | HTMLElement | null>(null);
 
       let renderedColumnsNumber = ref(0);
       /**
@@ -194,15 +200,27 @@
       );
 
       /**
+       * Checks if a given value is an `ElementRef` object.
+       *
+       * @param value - The value to check.
+       * @returns `true` if the value is an `ElementRef` object, `false` otherwise.
+       *
+       * @internal
+       */
+      const isElementRef = (value: any): value is ElementRef => {
+        return value && value.$el instanceof HTMLElement;
+      };
+
+      /**
        * Updates the number of columns rendered inside the grid.
        *
        * @internal
        */
       const updateRenderedColumnsNumber = (): void => {
-        if (gridEl.value !== null && gridEl.value instanceof HTMLElement) {
-          const { gridTemplateColumns } = getComputedStyle(gridEl.value);
-          renderedColumnsNumber.value = gridTemplateColumns.split(' ').length;
-        }
+        const { gridTemplateColumns } = getComputedStyle(
+          isElementRef(gridEl.value) ? gridEl.value.$el : (gridEl.value as Element)
+        );
+        renderedColumnsNumber.value = gridTemplateColumns.split(' ').length;
       };
 
       /**
@@ -211,14 +229,18 @@
        * @internal
        */
       // eslint-disable-next-line @typescript-eslint/unbound-method
-      const resizeObserver = useResizeObserver(gridEl, updateRenderedColumnsNumber);
+      const resizeObserver = useResizeObserver(
+        gridEl as MaybeComputedElementRef<MaybeElement>,
+        updateRenderedColumnsNumber
+      );
       onBeforeUnmount(() => resizeObserver.stop());
 
       return {
         gridItems,
         cssClasses,
         style,
-        gridEl
+        gridEl,
+        renderSlots
       };
     }
   });

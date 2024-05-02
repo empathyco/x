@@ -1,17 +1,24 @@
 import { NextQuery } from '@empathyco/x-types';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue, { ComponentOptions, computed, defineComponent, provide, VueConstructor } from 'vue';
+import Vue, {
+  ComponentOptions,
+  computed,
+  defineComponent,
+  inject,
+  provide,
+  Ref,
+  VueConstructor
+} from 'vue';
 import Vuex, { Store } from 'vuex';
 import { createNextQueryStub } from '../../../../__stubs__/next-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { ItemsListInjectionMixin } from '../../../../components/items-list-injection.mixin';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { ListItem } from '../../../../utils/types';
 import { nextQueriesXModule } from '../../x-module';
 import NextQueriesList from '../next-queries-list.vue';
-import { QUERY_KEY } from '../../../../components/decorators/injection.consts';
+import { LIST_ITEMS_KEY, QUERY_KEY } from '../../../../components/decorators/injection.consts';
 import { RequestStatus } from '../../../../store/utils/status-store.utils';
 import { resetXNextQueriesStateWith } from './utils';
 
@@ -67,6 +74,10 @@ function renderNextQueriesList({
         ProviderWrapper,
         NextQueriesList,
         ...components
+      },
+      setup() {
+        const items = computed(() => extraItems);
+        provide(LIST_ITEMS_KEY as string, items);
       }
     },
     {
@@ -245,13 +256,20 @@ describe('testing NextQueriesList component', () => {
   });
 
   it('provides the modified list of list items', () => {
-    const CustomList: ComponentOptions<Vue> = {
-      mixins: [ItemsListInjectionMixin],
+    const CustomList = defineComponent({
+      name: 'CustomList',
+      setup() {
+        const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
+
+        return {
+          injectedListItems
+        };
+      },
       template: `
         <ul>
         <li class="search-item" v-for="item in injectedListItems">{{ item.id }}</li>
         </ul>`
-    };
+    });
     const nextQueries = createNextQueries('rib chop', 'shoulder steak');
     const extraItems = createExtraItems(4);
     const { wrapper } = renderNextQueriesList({

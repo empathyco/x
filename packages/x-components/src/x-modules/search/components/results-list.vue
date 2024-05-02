@@ -7,7 +7,7 @@
     -->
     <slot v-bind="{ items, animation }">
       <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ item }">
+        <template v-for="(_, slotName) in renderSlots" v-slot:[slotName]="{ item }">
           <slot :name="slotName" :item="item" />
         </template>
       </ItemsList>
@@ -64,9 +64,10 @@
     },
     emits: ['UserReachedResultsListEnd'],
 
-    setup() {
+    setup(props, { slots }) {
       const xBus = useXBus();
 
+      const renderSlots = slots;
       /**
        * The {@link searchXModule | searchXModule } registered.
        */
@@ -153,7 +154,8 @@
         hasMoreItems,
         searchStatus,
         searchQuery,
-        onInfiniteScrollEnd
+        onInfiniteScrollEnd,
+        renderSlots
       };
     }
   });

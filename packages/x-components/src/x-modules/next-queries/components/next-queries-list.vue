@@ -8,7 +8,7 @@
     -->
     <slot v-bind="{ items, animation }">
       <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ item }">
+        <template v-for="(_, slotName) in renderSlots" v-slot:[slotName]="{ item }">
           <slot :name="slotName" :item="item" />
         </template>
       </ItemsList>
@@ -45,7 +45,7 @@
       NoElement,
       ItemsList
     },
-    xModule: 'nextQueries',
+    xModule: nextQueriesXModule.name,
     props: {
       /**
        * Animation component that will be used to animate the next queries groups.
@@ -53,7 +53,8 @@
        * @public
        */
       animation: {
-        type: AnimationProp
+        type: AnimationProp,
+        default: 'ul'
       },
       /**
        * The first index to insert a group of next queries at.
@@ -101,10 +102,12 @@
         default: false
       }
     },
-    setup(props) {
+    setup(props, { slots }) {
       useRegisterXModule(nextQueriesXModule);
 
       const $x = use$x();
+
+      const renderSlots = slots;
 
       /**
        * The state next queries.
@@ -133,7 +136,7 @@
        */
       const nextQueriesGroups = computed((): NextQueriesGroup[] => {
         return Object.values(
-          groupItemsBy(nextQueries.value, (_, index) =>
+          groupItemsBy(nextQueries?.value, (_, index) =>
             Math.floor(index / props.maxNextQueriesPerGroup)
           )
         )
@@ -150,7 +153,7 @@
        *
        * @internal
        */
-      const injectedListItems = inject<Ref<ListItem[] | undefined>>(LIST_ITEMS_KEY as string);
+      const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
 
       /**
        * Checks if the next queries are outdated taking into account the injected query.
@@ -160,7 +163,7 @@
        */
       const nextQueriesAreOutdated = computed((): boolean => {
         return (
-          !!injectedQuery &&
+          !!injectedQuery?.value &&
           ($x.query.nextQueries !== injectedQuery.value || $x.status.nextQueries !== 'success')
         );
       });
@@ -175,10 +178,10 @@
       const hasNotEnoughListItems = computed((): boolean => {
         return (
           !props.showOnlyAfterOffset &&
-          !hasMoreItems!.value &&
-          injectedListItems!.value !== undefined &&
-          injectedListItems!.value.length > 0 &&
-          props.offset > injectedListItems!.value.length
+          !hasMoreItems?.value &&
+          injectedListItems !== undefined &&
+          injectedListItems.value.length > 0 &&
+          props.offset > injectedListItems.value.length
         );
       });
 
@@ -190,16 +193,16 @@
        */
 
       const items = computed((): ListItem[] => {
-        if (!injectedListItems!.value) {
+        if (!injectedListItems?.value) {
           return nextQueriesGroups.value;
         }
         if (nextQueriesAreOutdated.value) {
-          return injectedListItems!.value;
+          return injectedListItems.value;
         }
         if (hasNotEnoughListItems.value) {
-          return injectedListItems!.value.concat(nextQueriesGroups.value[0] ?? []);
+          return injectedListItems.value.concat(nextQueriesGroups.value[0] ?? []);
         }
-        return nextQueriesGroups.value.reduce(
+        return nextQueriesGroups?.value.reduce(
           (items, nextQueriesGroup, index) => {
             const targetIndex = props.offset + props.frequency * index;
             if (targetIndex <= items.length) {
@@ -207,7 +210,7 @@
             }
             return items;
           },
-          [...injectedListItems!.value]
+          [...injectedListItems.value]
         );
       });
 
@@ -223,7 +226,7 @@
 
       return {
         items,
-        injectedListItems
+        renderSlots
       };
     }
   });

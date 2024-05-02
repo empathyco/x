@@ -7,7 +7,7 @@
     -->
     <slot v-bind="{ items, animation }">
       <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ item }">
+        <template v-for="(_, slotName) in renderSlots" v-slot:[slotName]="{ item }">
           <slot :name="slotName" :item="item" />
         </template>
       </ItemsList>
@@ -17,7 +17,9 @@
 
 <script lang="ts">
   import { Banner } from '@empathyco/x-types';
-  import { computed, ComputedRef, defineComponent, inject, provide, Ref } from 'vue';
+  import { computed, ComputedRef, defineComponent, inject, provide, ref, Ref } from 'vue';
+  import { Observable } from 'rxjs';
+  import { EventPayload, SubjectPayload } from '@empathyco/x-bus';
   import { NoElement } from '../../../components/no-element';
   import ItemsList from '../../../components/items-list.vue';
   import { FeatureLocation } from '../../../types/origin';
@@ -25,8 +27,8 @@
   import { searchXModule } from '../x-module';
   import { AnimationProp } from '../../../types/index';
   import { use$x, useRegisterXModule, useState } from '../../../composables/index';
-  import { useXBus } from '../../../composables/use-x-bus';
   import { LIST_ITEMS_KEY } from '../../../components/index';
+  import { WireMetadata, XEventsTypes } from '../../../wiring/index';
 
   /**
    * It renders a {@link ItemsList} list of banners from {@link SearchState.banners} by
@@ -58,10 +60,12 @@
         default: 'ul'
       }
     },
-    setup() {
+    setup(props, { slots }) {
       useRegisterXModule(searchXModule);
+
       const $x = use$x();
-      const xBus = useXBus();
+
+      const renderSlots = slots;
 
       /**
        * The banners to render from the state.
@@ -75,7 +79,10 @@
        *
        * @internal
        */
-      const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location', 'none');
+      const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation | undefined>(
+        'location',
+        undefined
+      );
       const location =
         typeof injectedLocation === 'object' && 'value' in injectedLocation
           ? injectedLocation.value
@@ -86,7 +93,7 @@
        *
        * @internal
        */
-      let columnsNumber = 0;
+      let columnsNumber = ref(0);
 
       /**
        * Handler to update the number of columns when it changes.
@@ -96,9 +103,13 @@
        *
        * @internal
        */
-      xBus.on('RenderedColumnsNumberChanged', true).subscribe(({ eventPayload, metadata }) => {
+      (
+        $x.on('RenderedColumnsNumberChanged', true) as unknown as Observable<
+          SubjectPayload<EventPayload<XEventsTypes, keyof XEventsTypes>, WireMetadata>
+        >
+      ).subscribe(({ eventPayload, metadata }) => {
         if (metadata.location === location) {
-          columnsNumber = eventPayload;
+          columnsNumber.value = eventPayload as number;
         }
       });
 
@@ -134,7 +145,7 @@
           }
           const rowsDiff = row - previousBannerRow;
           if (rowsDiff > 1) {
-            index += (rowsDiff - 1) * columnsNumber;
+            index += (rowsDiff - 1) * columnsNumber.value;
           }
           const isIndexInLoadedPages = index <= items.length;
           const areAllPagesLoaded = $x.results.length === $x.totalResults;
@@ -159,7 +170,8 @@
       provide(LIST_ITEMS_KEY as string, items);
 
       return {
-        items
+        items,
+        renderSlots
       };
     }
   });
