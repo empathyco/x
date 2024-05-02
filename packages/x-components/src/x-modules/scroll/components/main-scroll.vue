@@ -25,6 +25,7 @@
    */
   export default defineComponent({
     name: 'MainScroll',
+    xModule: scrollXModule.name,
     props: {
       /**
        * If `true`, sets this scroll instance to the main of the application. Being the main

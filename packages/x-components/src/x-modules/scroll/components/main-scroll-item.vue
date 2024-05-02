@@ -33,6 +33,7 @@
    */
   export default defineComponent({
     name: 'MainScrollItem',
+    xModule: scrollXModule.name,
     props: {
       /**
        * The item data. Used to set the scroll identifier.
