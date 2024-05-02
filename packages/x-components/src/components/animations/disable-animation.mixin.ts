@@ -21,7 +21,7 @@ export default class DisableAnimationMixin extends Vue {
    *
    * @public
    */
-  @Inject(DISABLE_ANIMATIONS_KEY as string)
+  @Inject({ from: DISABLE_ANIMATIONS_KEY as string, default: false })
   public disableAnimation!: boolean;
 
   /**
