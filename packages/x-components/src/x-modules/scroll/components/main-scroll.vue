@@ -1,5 +1,5 @@
 <template>
-  <div :class="dynamicClasses">
+  <div ref="rootRef" :class="dynamicClasses">
     <slot />
   </div>
 </template>
@@ -26,13 +26,6 @@
   export default defineComponent({
     name: 'MainScroll',
     props: {
-      /**
-       * The css selector of the element that will be used as the root of the intersection observer.
-       */
-      rootSelector: {
-        type: String,
-        default: ''
-      },
       /**
        * If `true`, sets this scroll instance to the main of the application. Being the main
        * scroll implies that features like restoring the scroll when the query changes, or storing
@@ -84,6 +77,12 @@
        * @internal
        */
       const intersectingElements = ref<HTMLElement[]>([]);
+      /**
+       * The reference to the root element of the component.
+       *
+       * @internal
+       */
+      const rootRef = ref<HTMLDivElement | null>(null);
 
       /**
        * Intersection observer to determine visibility of the elements.
@@ -161,15 +160,12 @@
         });
       };
 
-      const rootElement = ref<HTMLElement | null>(null);
-
       /**
        * Initialise the observer after mounting the component.
        */
       onMounted(() => {
-        rootElement.value = document.querySelector(props.rootSelector);
         intersectionObserver.value = new IntersectionObserver(updateVisibleElements, {
-          root: props.useWindow ? document : rootElement.value,
+          root: props.useWindow ? document : rootRef.value,
           threshold: props.threshold,
           rootMargin: props.margin
         });
@@ -256,7 +252,7 @@
               : firstVisibleElement;
           }
         );
-        return firstVisibleElement === rootElement.value?.querySelector('[data-scroll]')
+        return firstVisibleElement === rootRef.value?.querySelector('[data-scroll]')
           ? ''
           : firstVisibleElement.dataset.scroll!;
       });
@@ -269,10 +265,10 @@
       );
 
       return {
+        rootRef,
         dynamicClasses,
         firstVisibleElement,
         visibleElementsObserver,
-        rootElement,
         intersectingElements
       };
     }
