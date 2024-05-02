@@ -83,9 +83,10 @@
        *
        * @internal
        */
-      const firstVisibleItemObserver: Ref<ScrollVisibilityObserver> = inject<
-        Ref<ScrollVisibilityObserver>
-      >(ScrollObserverKey as string) as Ref<ScrollVisibilityObserver>;
+      const firstVisibleItemObserver = inject<Ref<ScrollVisibilityObserver> | null>(
+        ScrollObserverKey as string,
+        null
+      );
       /**
        * Checks if a given value is an `ElementRef` object.
        *
@@ -148,7 +149,9 @@
       onMounted(() => {
         nextTick(() => {
           // Mounted does not guarantee that child components are mounted too
-          watch(firstVisibleItemObserver, observeItem, { immediate: true });
+          if (firstVisibleItemObserver) {
+            watch(firstVisibleItemObserver, observeItem, { immediate: true });
+          }
         });
       });
 
