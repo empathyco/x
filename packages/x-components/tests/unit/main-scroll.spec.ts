@@ -25,7 +25,7 @@ function renderMainScroll({
   windowScrollingElement,
   template = `
       <MainScroll v-bind="{ threshold, margin, useWindow }"
-                  root-selector="#rootScroll" class="root-scroll">
+                  class="root-scroll">
         <div id="rootScroll" class="container" ${!useWindow ? `data-test="scroll"` : ''}>
           <MainScrollItem
             v-for="item in items"
@@ -166,7 +166,7 @@ describe('testing MainScroll component', () => {
         const { restoreScrollToItem, getItem } = renderMainScroll({
           ...defaultParameters,
           template: `
-            <MainScroll v-bind="{ threshold, margin, useWindow }" root-selector="#rootScroll">
+            <MainScroll v-bind="{ threshold, margin, useWindow }">
               <div data-test="main-scroll" id="rootScroll">
                 <StaggeredFadeAndSlide>
                   <MainScrollItem
