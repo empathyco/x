@@ -32,6 +32,10 @@ export interface RequestOptions {
    */
   sendParamsInBody?: boolean;
   /**
+   * A flag to always send the parameters even if their values are empty.
+   */
+  sendEmptyParams?: boolean;
+  /**
    * A list of parameters to send to the API.
    */
   parameters?: Dictionary<unknown>;
