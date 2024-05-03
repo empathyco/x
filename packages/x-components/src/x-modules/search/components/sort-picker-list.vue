@@ -12,7 +12,7 @@
       :class="[cssClasses, buttonClass]"
       data-test="sort-picker-button"
       :events="event"
-      :aria-pressed="item === selectedSort"
+      :aria-pressed="item === selectedSort || null"
       role="listitem"
     >
       <slot v-bind="{ item, isSelected: item === selectedSort }">
@@ -24,68 +24,75 @@
 
 <script lang="ts">
   import { Sort } from '@empathyco/x-types';
-  import { mixins } from 'vue-class-component';
-  import { Component, Prop } from 'vue-property-decorator';
-  import Vue from 'vue';
-  import { BaseEventButton } from '../../../components';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { VueCSSClasses } from '../../../utils';
-  import { XEventsTypes } from '../../../wiring';
+  import Vue, { computed, defineComponent, PropType, watch } from 'vue';
+  import BaseEventButton from '../../../components/base-event-button.vue';
+  import { use$x, useRegisterXModule, useState } from '../../../composables';
+  import { VueCSSClasses } from '../../../utils/types';
+  import { XEventsTypes } from '../../../wiring/events.types';
   import { searchXModule } from '../x-module';
-  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
-  import SortMixin from './sort.mixin';
 
   /**
    * Sort Picker item options.
-   *
-   * @public
    */
   interface SortPickerItem {
     item: Sort;
     cssClasses: VueCSSClasses;
     event: Partial<XEventsTypes>;
   }
+
   /**
    * The `SortPickerList` component allows user to select the search results order. This component
    * also allows to change the selected sort programmatically.
-   *
-   * @remarks It extends {@link SortMixin}.
-   *
-   * @public
    */
-  @Component({
-    mixins: [xComponentMixin(searchXModule), dynamicPropsMixin(['buttonClass'])],
-    components: {
-      BaseEventButton
+  export default defineComponent({
+    name: 'SortPickerList',
+    xModule: searchXModule.name,
+    components: { BaseEventButton },
+    props: {
+      /** The list of possible sort values. */
+      items: {
+        type: Array as PropType<Sort[]>,
+        required: true
+      },
+      /** The transition to use for rendering the list. */
+      animation: {
+        type: [String, Object] as PropType<string | typeof Vue>,
+        default: () => 'div'
+      },
+      /** Class inherited by each sort button. */
+      buttonClass: String
+    },
+    setup(props) {
+      useRegisterXModule(searchXModule);
+      const $x = use$x();
+
+      const { sort: selectedSort } = useState('search', ['sort']);
+
+      watch(selectedSort, (value: Sort) => $x.emit('SelectedSortProvided', value), {
+        immediate: true
+      });
+
+      /**
+       * Sort list items.
+       *
+       * @returns A list of items with their css class and the event associate to it.
+       */
+      const listItems = computed<SortPickerItem[]>(() =>
+        props.items.map(item => ({
+          item,
+          cssClasses: {
+            'x-selected': item === selectedSort.value
+          },
+          event: { UserClickedASort: item }
+        }))
+      );
+
+      return {
+        listItems,
+        selectedSort
+      };
     }
-  })
-  export default class SortPickerList extends mixins(SortMixin) {
-    /**
-     * The transition to use for rendering the list.
-     *
-     * @public
-     */
-    @Prop({ default: 'div' })
-    public animation?: string | typeof Vue;
-    /**
-     * Sort list items.
-     *
-     * @returns A list of items with their css class and the event associate to it.
-     *
-     * @internal
-     */
-    protected get listItems(): SortPickerItem[] {
-      return this.items.map(item => ({
-        item,
-        cssClasses: [
-          {
-            'x-selected': item === this.selectedSort
-          }
-        ],
-        event: { UserClickedASort: item }
-      }));
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">

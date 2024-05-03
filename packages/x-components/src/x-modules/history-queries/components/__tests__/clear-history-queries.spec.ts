@@ -57,7 +57,7 @@ describe('testing ClearHistoryQueries component', () => {
       metadata: {
         moduleName: 'historyQueries',
         target: clearHistoryQueries.element,
-        location: undefined,
+        location: 'none',
         replaceable: true
       }
     });

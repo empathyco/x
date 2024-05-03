@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.2](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.1...vue3-migration-test@1.0.0-alpha.2) (2024-05-01)
+
+
+### Testing
+
+* add Sort components to Vue 3 migration test (#1454) ([7ccffb0](https://github.com/empathyco/x/commit/7ccffb084cdf6521c57977eca4d19d93f6586a2d))
+
+
+
+## [1.0.0-alpha.1](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.0...vue3-migration-test@1.0.0-alpha.1) (2024-05-01)
+
+
+### Code Refactoring
+
+* **base-event-button:** migrate base-event-button component to Composition API (#1457) ([39a7a8e](https://github.com/empathyco/x/commit/39a7a8ed4767ae78d447e6ddca530c41f9f681dc))
+
+
+
+## [1.0.0-alpha.0](https://github.com/empathyco/x/compare/vue3-migration-test@0.1.0-alpha.0...vue3-migration-test@1.0.0-alpha.0) (2024-04-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sort-mixin:** base-dropdown component will no longer emit the `change` event, use `update:modelValue` instead. 
+base-dropdown prop for the selected item was renamed from `value` to `modelValue`.
+
+### Code Refactoring
+
+* **sort-mixin:** get rid of SortMixin and refactor components which use it (#1448) ([de0a287](https://github.com/empathyco/x/commit/de0a28754d8fefe8c4db6aa7b7cb5d8407016be2))
+
+
+
 ## 0.1.0-alpha.0 (2024-04-19)
 
 

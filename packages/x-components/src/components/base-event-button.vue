@@ -1,41 +1,53 @@
 <template>
-  <button v-on="$listeners" @click="emitEvents" data-test="event-button">
+  <button ref="rootRef" v-on="$listeners" @click="emitEvents" data-test="event-button">
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
   </button>
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { XEvent, XEventsTypes } from '../wiring';
+  import { defineComponent, PropType, ref } from 'vue';
+  import { use$x } from '../composables/use-$x';
+  import { XEvent, XEventsTypes } from '../wiring/events.types';
 
   /**
    * Component to be reused that renders a `<button>` with the logic of emitting events to the bus
-   * on click. The events are passed as an object to prop {@link XEventsTypes}.
+   * on click. The events are passed as an object to prop {@link XEvent}.
    * The keys are the event name and the values are the payload of each event. All events are
    * emitted with its respective payload. If any event doesn't need payload a `undefined` must be
    * passed as value.
    *
    * @public
    */
-  @Component
-  export default class BaseEventButton extends Vue {
-    /**
-     * (Required) A object where the keys are the {@link XEvent} and the values
-     * are the payload of each event.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected events!: Partial<XEventsTypes>;
+  export default defineComponent({
+    name: 'BaseEventButton',
+    props: {
+      /** An object where the keys are the {@link XEvent} and the values are the payload. */
+      events: {
+        type: Object as PropType<Partial<XEventsTypes>>,
+        required: true
+      }
+    },
+    setup(props) {
+      const $x = use$x();
 
-    protected emitEvents(): void {
-      Object.entries(this.events).forEach(([event, payload]) => {
-        this.$x.emit(event as XEvent, payload, { target: this.$el as HTMLElement });
-      });
+      const rootRef = ref<HTMLButtonElement>();
+
+      /**
+       * Emits `events` prop to the X bus with the payload given by it.
+       */
+      function emitEvents() {
+        Object.entries(props.events).forEach(([event, payload]) =>
+          $x.emit(event as XEvent, payload, { target: rootRef.value })
+        );
+      }
+
+      return {
+        emitEvents,
+        rootRef
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

@@ -1,5 +1,6 @@
 <template>
-  <transition v-on="$listeners" name="x-fade-" v-bind="$attrs" :appear="appear">
+  <!-- eslint-disable-next-line vue/attributes-order -->
+  <transition v-bind="$attrs" v-on="$listeners" name="x-fade-" :appear="appear">
     <!-- @slot (Required) to add content to the transition -->
     <slot />
   </transition>
@@ -18,9 +19,7 @@
     name: 'Fade',
     inheritAttrs: false,
     props: {
-      /**
-       * Indicates if the transition must be applied on the initial render of the node.
-       */
+      /** Indicates if the transition must be applied on the initial render of the node. */
       appear: {
         type: Boolean,
         default: true

@@ -1,5 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { TestAnimateWidth, TestFade } from './';
+import {
+  TestAnimateWidth,
+  TestBaseDropdown,
+  TestBaseEventButton,
+  TestFade,
+  TestSortDropdown,
+  TestSortList,
+  TestSortPickerList
+} from './';
 
 const routes = [
   {
@@ -11,6 +19,31 @@ const routes = [
     path: '/fade',
     name: 'Fade',
     component: TestFade
+  },
+  {
+    path: '/base-dropdown',
+    name: 'BaseDropdown',
+    component: TestBaseDropdown
+  },
+  {
+    path: '/base-event-button',
+    name: 'BaseEventButton',
+    component: TestBaseEventButton
+  },
+  {
+    path: '/sort-dropdown',
+    name: 'SortDropdown',
+    component: TestSortDropdown
+  },
+  {
+    path: '/sort-list',
+    name: 'SortList',
+    component: TestSortList
+  },
+  {
+    path: '/sort-picker-list',
+    name: 'SortPickerList',
+    component: TestSortPickerList
   }
 ];
 

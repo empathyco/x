@@ -35,16 +35,21 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop, Inject, Watch } from 'vue-property-decorator';
+  import {
+    computed,
+    ComputedRef,
+    defineComponent,
+    inject,
+    onBeforeUnmount,
+    PropType,
+    provide,
+    Ref,
+    watch
+  } from 'vue';
   import { SearchRequest, Result, Filter } from '@empathyco/x-types';
   import { deepEqual, Dictionary } from '@empathyco/x-utils';
-  import { State } from '../../../components/decorators/store.decorators';
   import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
-  import { XProvide } from '../../../components/decorators/injection.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { NoElement } from '../../../components/no-element';
-  import { RequestStatus } from '../../../store';
   import { QueryFeature, FeatureLocation } from '../../../types/origin';
   import { QueryPreviewInfo, QueryPreviewItem } from '../store/types';
   import { QueriesPreviewConfig } from '../config.types';
@@ -52,8 +57,11 @@
   import { createOrigin } from '../../../utils/origin';
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils';
-  import { createRawFilter } from '../../../__stubs__/index';
+  import { createRawFilter } from '../../../__stubs__/filters-stubs.factory';
   import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
+  import { useXBus } from '../../../composables/use-x-bus';
 
   /**
    * Retrieves a preview of the results of a query and exposes them in the default slot,
@@ -62,249 +70,267 @@
    *
    * @public
    */
-  @Component({
+
+  export default defineComponent({
+    name: 'QueryPreview',
     components: {
       NoElement
     },
-    mixins: [xComponentMixin(queriesPreviewXModule)]
-  })
-  export default class QueryPreview extends Vue {
-    /**
-     * The information about the request of the query preview.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected queryPreviewInfo!: QueryPreviewInfo;
+    xModule: queriesPreviewXModule.name,
+    props: {
+      /**
+       * The information about the request of the query preview.
+       *
+       * @public
+       */
+      queryPreviewInfo: {
+        type: Object as PropType<QueryPreviewInfo>,
+        required: true
+      },
+      /**
+       * The origin property for the request.
+       *
+       * @public
+       */
+      queryFeature: {
+        type: String as PropType<QueryFeature>
+      },
+      /**
+       * Number of query preview results to be rendered.
+       *
+       * @public
+       */
+      maxItemsToRender: {
+        type: Number
+      },
+      /**
+       * Debounce time in milliseconds for triggering the search requests.
+       * It will default to 0 to fit the most common use case (pre-search),
+       * and it would work properly with a 250 value inside empathize.
+       */
+      debounceTimeMs: {
+        type: Number,
+        default: 0
+      },
+      /**
+       * Controls whether the QueryPreview should be removed from the state
+       * when the component is destroyed.
+       *
+       * @public
+       */
+      persistInCache: {
+        type: Boolean,
+        default: false
+      }
+    },
+    emits: ['load', 'error'],
+    setup(props, { emit }) {
+      useRegisterXModule(queriesPreviewXModule);
 
-    /**
-     * The origin property for the request.
-     *
-     * @public
-     */
-    @Prop()
-    protected queryFeature?: QueryFeature;
+      const xBus = useXBus();
 
-    /**
-     * Number of query preview results to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
+      const queriesPreviewState = useState('queriesPreview', [
+        'queriesPreview',
+        'params',
+        'config'
+      ]);
 
-    /**
-     * Debounce time in milliseconds for triggering the search requests.
-     * It will default to 0 to fit the most common use case (pre-search),
-     * and it would work properly with a 250 value inside empathize.
-     */
-    @Prop({ default: 0 })
-    public debounceTimeMs!: number;
+      /**
+       * The results preview of the queries preview cacheable mounted.
+       * It is a dictionary, indexed by the query preview query.
+       */
+      const previewResults: ComputedRef<Dictionary<QueryPreviewItem>> =
+        queriesPreviewState.queriesPreview;
 
-    /**
-     * Controls whether the QueryPreview should be removed from the state
-     * when the component is destroyed.
-     *
-     * @public
-     */
-    @Prop({ default: false })
-    public persistInCache!: boolean;
+      /**
+       * As the request is handled in this component, we need
+       * the extra params that will be used in the request.
+       */
+      const params: ComputedRef<Dictionary<unknown>> = queriesPreviewState.params;
 
-    /**
-     * The results preview of the queries preview cacheable mounted.
-     * It is a dictionary, indexed by the query preview query.
-     */
-    @State('queriesPreview', 'queriesPreview')
-    public previewResults!: Dictionary<QueryPreviewItem>;
+      /**
+       * As the request is handled in this component, we need
+       * the config that will be used in the request.
+       */
+      const config: ComputedRef<QueriesPreviewConfig> = queriesPreviewState.config;
 
-    /**
-     * As the request is handled in this component, we need
-     * the extra params that will be used in the request.
-     */
-    @State('queriesPreview', 'params')
-    public params!: Dictionary<unknown>;
-
-    /**
-     * As the request is handled in this component, we need
-     * the config that will be used in the request.
-     */
-    @State('queriesPreview', 'config')
-    public config!: QueriesPreviewConfig;
-
-    /**
-     * The results to render from the state.
-     *
-     * @remarks The results list are provided with `items` key. It can be
-     * concatenated with list items from components such as `BannersList`, `PromotedsList`,
-     * `BaseGrid` or any component that injects the list.
-     *
-     * @returns A list of results.
-     * @public
-     */
-    @XProvide(LIST_ITEMS_KEY)
-    public get results(): Result[] | undefined {
-      return this.queryPreviewResults?.results;
-    }
-
-    /**
-     * It injects the provided {@link FeatureLocation} of the selected query in the search request.
-     *
-     * @internal
-     */
-    @Inject({ default: undefined })
-    protected location?: FeatureLocation;
-
-    /**
-     * Query Preview key converted into a unique id.
-     *
-     * @returns The query hash.
-     * @internal
-     */
-    public get queryPreviewHash(): string {
-      return getHashFromQueryPreviewInfo(this.queryPreviewInfo);
-    }
-
-    /**
-     * The computed request object to be used to retrieve the query preview results.
-     *
-     * @returns The search request object.
-     * @internal
-     */
-    protected get queryPreviewRequest(): SearchRequest {
-      const origin = createOrigin({
-        feature: this.queryFeature,
-        location: this.location
+      /**
+       * Query Preview key converted into a unique id.
+       *
+       * @returns The query hash.
+       * @internal
+       */
+      const queryPreviewHash = computed((): string => {
+        return getHashFromQueryPreviewInfo(props.queryPreviewInfo);
       });
-      const filters = this.queryPreviewInfo.filters?.reduce((filtersList, filterId) => {
-        const facetId = filterId.split(':')[0];
-        const rawFilter = createRawFilter(filterId);
-        filtersList[facetId] = filtersList[facetId]
-          ? filtersList[facetId].concat(rawFilter)
-          : [rawFilter];
 
-        return filtersList;
-      }, {} as Record<string, Filter[]>);
+      /**
+       * Gets from the state the results preview of the query preview.
+       *
+       * @returns The results preview of the actual query preview.
+       */
+      const queryPreviewResults = computed((): Partial<QueryPreviewItem> | undefined => {
+        const resultsPreview = previewResults.value[queryPreviewHash.value];
+        return resultsPreview?.results
+          ? {
+              ...resultsPreview,
+              results: resultsPreview.results.slice(0, props.maxItemsToRender)
+            }
+          : undefined;
+      });
 
-      return {
-        query: this.queryPreviewInfo.query,
-        rows: this.config.maxItemsToRequest,
-        extraParams: {
-          ...this.params,
-          ...this.queryPreviewInfo.extraParams
-        },
-        filters: filters,
-        ...(origin && { origin })
-      };
-    }
+      /**
+       * The results to render from the state.
+       *
+       * @remarks The results list are provided with `items` key. It can be
+       * concatenated with list items from components such as `BannersList`, `PromotedsList`,
+       * `BaseGrid` or any component that injects the list.
+       *
+       * @returns A list of results.
+       * @public
+       */
+      const results = computed((): Result[] | undefined => {
+        return queryPreviewResults.value?.results;
+      });
+      provide<Ref<Result[] | undefined>>(LIST_ITEMS_KEY as string, results);
 
-    /**
-     * Gets from the state the results preview of the query preview.
-     *
-     * @returns The results preview of the actual query preview.
-     */
-    public get queryPreviewResults(): Partial<QueryPreviewItem> | undefined {
-      const previewResults = this.previewResults[this.queryPreviewHash];
-      return previewResults?.results
-        ? {
-            ...previewResults,
-            results: previewResults.results.slice(0, this.maxItemsToRender)
-          }
-        : undefined;
-    }
+      /**
+       * It injects the provided {@link FeatureLocation} of the selected query in the search request.
+       *
+       * @internal
+       */
+      const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location', 'none');
+      const location =
+        typeof injectedLocation === 'object' && 'value' in injectedLocation
+          ? injectedLocation.value
+          : injectedLocation;
 
-    /**
-     * The debounce method to trigger the request after the debounceTimeMs defined
-     * for cacheable queries.
-     *
-     * @returns The search request object.
-     * @internal
-     */
-    protected get emitQueryPreviewRequestUpdated(): DebouncedFunction<[SearchRequest]> {
-      return debounce(request => {
-        this.$x.emit('QueryPreviewRequestUpdated', request, { priority: 0, replaceable: false });
-      }, this.debounceTimeMs);
-    }
+      /**
+       * The computed request object to be used to retrieve the query preview results.
+       *
+       * @returns The search request object.
+       * @internal
+       */
+      const queryPreviewRequest = computed((): SearchRequest => {
+        const origin = createOrigin({
+          feature: props.queryFeature,
+          location: location
+        });
+        const filters = props.queryPreviewInfo.filters?.reduce((filtersList, filterId) => {
+          const facetId = filterId.split(':')[0];
+          const rawFilter = createRawFilter(filterId);
+          filtersList[facetId] = filtersList[facetId]
+            ? filtersList[facetId].concat(rawFilter)
+            : [rawFilter];
 
-    /**
-     * Initialises watcher to emit debounced requests, and first value for the requests.
-     *
-     * @internal
-     */
-    protected created(): void {
-      this.$watch(
-        () => this.queryPreviewRequest,
-        (newRequest, oldRequest) => {
-          if (!deepEqual(newRequest, oldRequest)) {
-            this.emitQueryPreviewRequestUpdated(newRequest);
-          }
+          return filtersList;
+        }, {} as Record<string, Filter[]>);
+
+        return {
+          query: props.queryPreviewInfo.query,
+          rows: config.value.maxItemsToRequest,
+          extraParams: {
+            ...params.value,
+            ...props.queryPreviewInfo.extraParams
+          },
+          filters: filters,
+          ...(origin && { origin })
+        };
+      });
+
+      /**
+       * The debounce method to trigger the request after the debounceTimeMs defined
+       * for cacheable queries.
+       *
+       * @returns The search request object.
+       * @internal
+       */
+      const emitQueryPreviewRequestUpdated = computed((): DebouncedFunction<[SearchRequest]> => {
+        return debounce(request => {
+          xBus.emit('QueryPreviewRequestUpdated', request, { priority: 0, replaceable: false });
+        }, props.debounceTimeMs);
+      });
+
+      /**
+       * Initialises watcher to emit debounced requests, and first value for the requests.
+       *
+       * @internal
+       */
+      watch(queryPreviewRequest, (newRequest, oldRequest) => {
+        if (!deepEqual(newRequest, oldRequest)) {
+          emitQueryPreviewRequestUpdated.value(newRequest);
         }
-      );
+      });
 
-      const cachedQueryPreview = this.previewResults[this.queryPreviewHash];
+      const cachedQueryPreview = previewResults.value[queryPreviewHash.value];
 
       // If the query has been saved it will emit load instead of the emitting the updated request.
       if (cachedQueryPreview?.status === 'success') {
-        this.$emit('load', this.queryPreviewHash);
-        this.$x.emit('QueryPreviewMounted', this.queryPreviewHash, {
+        emit('load', queryPreviewHash.value);
+        xBus.emit('QueryPreviewMounted', queryPreviewHash.value, {
           priority: 0,
           replaceable: false
         });
       } else {
-        this.emitQueryPreviewRequestUpdated(this.queryPreviewRequest);
+        emitQueryPreviewRequestUpdated.value(queryPreviewRequest.value);
       }
-    }
 
-    /**
-     * Cancels the (remaining) requests when the component is destroyed
-     * via the `debounce.cancel()` method.
-     * If the prop 'persistInCache' is set to false, it also removes the QueryPreview
-     * from the state when the component is destroyed.
-     *
-     * @internal
-     */
-    protected beforeDestroy(): void {
-      this.emitQueryPreviewRequestUpdated.cancel();
-      this.$x.emit(
-        'QueryPreviewUnmounted',
-        { queryPreviewHash: this.queryPreviewHash, cache: this.persistInCache },
-        {
-          priority: 0,
-          replaceable: false
+      /**
+       * Cancels the (remaining) requests when the component is destroyed
+       * via the `debounce.cancel()` method.
+       * If the prop 'persistInCache' is set to false, it also removes the QueryPreview
+       * from the state when the component is destroyed.
+       *
+       * @internal
+       */
+      onBeforeUnmount(() => {
+        emitQueryPreviewRequestUpdated.value.cancel();
+        xBus.emit(
+          'QueryPreviewUnmounted',
+          { queryPreviewHash: queryPreviewHash.value, cache: props.persistInCache },
+          {
+            priority: 0,
+            replaceable: false
+          }
+        );
+      });
+
+      /**
+       * Cancels the previous request when the debounced function changes (e.g: the debounceTimeMs
+       * prop changes or there is a request in progress that cancels it).
+       *
+       * @param _new - The new debounced function.
+       * @param old - The previous debounced function.
+       * @internal
+       */
+      watch(
+        emitQueryPreviewRequestUpdated,
+        (_new: DebouncedFunction<[SearchRequest]>, old: DebouncedFunction<[SearchRequest]>) => {
+          old.cancel();
         }
       );
-    }
 
-    /**
-     * Cancels the previous request when the debounced function changes (e.g: the debounceTimeMs
-     * prop changes or there is a request in progress that cancels it).
-     *
-     * @param _new - The new debounced function.
-     * @param old - The previous debounced function.
-     * @internal
-     */
-    @Watch('emitQueryPreviewRequestUpdated')
-    protected cancelEmitPreviewRequestUpdated(
-      _new: DebouncedFunction<[SearchRequest]>,
-      old: DebouncedFunction<[SearchRequest]>
-    ): void {
-      old.cancel();
-    }
+      const queryPreviewResultsStatus = computed(() => queryPreviewResults.value?.status);
 
-    /**
-     * Emits an event when the query results are loaded or fail to load.
-     *
-     * @param status - The status of the query preview request.
-     * @internal
-     */
-    @Watch('queryPreviewResults.status')
-    emitLoad(status: RequestStatus | undefined): void {
-      if (status === 'success') {
-        this.$emit(this.results?.length ? 'load' : 'error', this.queryPreviewHash);
-      } else if (status === 'error') {
-        this.$emit('error', this.queryPreviewHash);
-      }
+      /**
+       * Emits an event when the query results are loaded or fail to load.
+       *
+       * @param status - The status of the query preview request.
+       * @internal
+       */
+      watch(queryPreviewResultsStatus, () => {
+        if (queryPreviewResultsStatus.value === 'success') {
+          emit(results.value?.length ? 'load' : 'error', queryPreviewHash.value);
+        } else if (queryPreviewResultsStatus.value === 'error') {
+          emit('error', queryPreviewHash.value);
+        }
+      });
+
+      return {
+        queryPreviewResults
+      };
     }
-  }
+  });
 </script>
 <docs lang="mdx">
 ## Events
