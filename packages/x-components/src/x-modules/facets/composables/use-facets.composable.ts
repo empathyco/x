@@ -7,8 +7,7 @@ import { FiltersByFacet } from '../store/types';
 /**
  * Composable to share Facets logic.
  *
- * @param params - Composable props.
- * @param props
+ * @param props - Composable props.
  * @returns Composable.
  *
  * @public
