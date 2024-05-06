@@ -26,7 +26,7 @@ function renderMainScroll({
   template = `
       <MainScroll v-bind="{ threshold, margin, useWindow }"
                   class="root-scroll">
-        <div id="rootScroll" class="container" ${!useWindow ? `data-test="scroll"` : ''}>
+        <div class="container" ${!useWindow ? `data-test="scroll"` : ''}>
           <MainScrollItem
             v-for="item in items"
             class="item"
