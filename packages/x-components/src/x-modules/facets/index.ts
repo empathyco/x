@@ -4,6 +4,7 @@ export * from './wiring';
 export * from './service';
 export * from './entities';
 export * from './components';
+export * from './composables';
 export * from './events.types';
 export * from './utils';
 export { default as FacetsMixin } from './components/facets.mixin';
