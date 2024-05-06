@@ -21,7 +21,7 @@
           facet id. It renders the filter label by default.
               @binding {Filter} filter - Filter to render.
         -->
-        <slot v-if="$scopedSlots[slotName]" :name="slotName" :filter="selectedFilter">
+        <slot v-if="hasSlot(slotName)" :name="slotName" :filter="selectedFilter">
           <span class="x-tag">{{ selectedFilter.label }}</span>
         </slot>
 
@@ -38,11 +38,10 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { Filter, isFacetFilter } from '@empathyco/x-types';
-  import { xComponentMixin } from '../../../../components/x-component.mixin';
+  import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
+  import Vue, { defineComponent, PropType } from 'vue';
   import { toKebabCase } from '../../../../utils/string';
-  import FacetsMixin from '../facets.mixin';
+  import { useFacets } from '../../composables/use-facets.composable';
   import { facetsXModule } from '../../x-module';
   import SelectedFilters from './selected-filters.vue';
 
@@ -65,39 +64,58 @@
    *
    * The property "alwaysVisible" handles if the component is rendered if no filters are selected.
    *
-   * @remarks It extends {@link FacetsMixin}.
-   *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'SelectedFiltersList',
+    xModule: facetsXModule.name,
     components: { SelectedFilters },
-    mixins: [xComponentMixin(facetsXModule)]
-  })
-  export default class SelectedFiltersList extends FacetsMixin {
-    /**
-     * Animation component that will be used to animate the selected filters list.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue | string;
+    props: {
+      /** Array of facets ids used to get the selected filters for those facets. */
+      facetsIds: Array as PropType<Array<Facet['id']>>,
+      /** Flag to render the component even if there are no filters selected. */
+      alwaysVisible: Boolean,
+      /** Animation component that will be used to animate the selected filters list. */
+      animation: {
+        type: [String, Object] as PropType<string | Vue>,
+        default: 'ul'
+      }
+    },
+    setup: function (props, { slots }) {
+      const { selectedFilters } = useFacets(props);
 
-    /**
-     * Transforms a dictionary of Filters including the slot name.
-     *
-     * @param selectedFilters - A list of selected filters without slot name.
-     *
-     * @returns A dictionary of facets with the slot name.
-     *
-     * @internal
-     */
-    protected mapSlot(selectedFilters: Filter[]): RenderFilter[] {
-      return selectedFilters.map(filter => ({
-        slotName: isFacetFilter(filter) ? toKebabCase(filter.facetId as string) : 'default',
-        selectedFilter: filter
-      }));
+      /**
+       * Transforms a dictionary of Filters including the slot name.
+       *
+       * @param selectedFilters - A list of selected filters without slot name.
+       *
+       * @returns A dictionary of facets with the slot name.
+       */
+      function mapSlot(selectedFilters: Filter[]): RenderFilter[] {
+        return selectedFilters.map(filter => ({
+          slotName: isFacetFilter(filter) ? toKebabCase(filter.facetId as string) : 'default',
+          selectedFilter: filter
+        }));
+      }
+
+      /**
+       * Whether the slot is present in the template or not.
+       *
+       * @param name - The slot name.
+       *
+       * @returns True is the slot is present in the template. False otherwise.
+       */
+      function hasSlot(name: string): boolean {
+        return !!slots[name];
+      }
+
+      return {
+        selectedFilters,
+        mapSlot,
+        hasSlot
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

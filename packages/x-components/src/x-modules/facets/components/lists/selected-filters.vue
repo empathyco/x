@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts">
-  import Component from 'vue-class-component';
-  import { NoElement } from '../../../../components';
-  import { xComponentMixin } from '../../../../components/x-component.mixin';
-  import FacetsMixin from '../facets.mixin';
+  import { Facet } from '@empathyco/x-types';
+  import { defineComponent, PropType } from 'vue';
+  import { NoElement } from '../../../../components/no-element';
+  import { useFacets } from '../../composables/use-facets.composable';
   import { facetsXModule } from '../../x-module';
 
   /**
@@ -18,17 +18,27 @@
    * The default slot renders the length of the selected filters array.
    * The property "alwaysVisible" handles if the component is rendered if no filters are selected.
    *
-   * @remarks It extends {@link FacetsMixin}.
-   *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(facetsXModule)],
-    components: {
-      NoElement
+  export default defineComponent({
+    name: 'SelectedFilters',
+    xModule: facetsXModule.name,
+    components: { NoElement },
+    props: {
+      /** Array of facets ids used to get the selected filters for those facets. */
+      facetsIds: Array as PropType<Array<Facet['id']>>,
+      /** Flag to render the component even if there are no filters selected. */
+      alwaysVisible: Boolean
+    },
+    setup: function (props) {
+      const { selectedFilters, isVisible } = useFacets(props);
+
+      return {
+        selectedFilters,
+        isVisible
+      };
     }
-  })
-  export default class SelectedFilters extends FacetsMixin {}
+  });
 </script>
 
 <docs lang="mdx">
