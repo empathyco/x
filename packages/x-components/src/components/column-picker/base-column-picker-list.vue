@@ -6,7 +6,7 @@
         class="x-column-picker-list__button x-button"
         :class="[buttonClass, cssClasses]"
         data-test="column-picker-button"
-        :aria-pressed="isSelected"
+        :aria-pressed="isSelected.toString()"
         :events="events"
         :aria-label="`${column} columns`"
         role="listitem"
@@ -32,13 +32,11 @@
 </template>
 
 <script lang="ts">
-  import { mixins } from 'vue-class-component';
-  import { Component } from 'vue-property-decorator';
+  import { computed, defineComponent, onBeforeMount, PropType, ref, watch } from 'vue';
+  import { use$x } from '../../composables/use-$x';
   import { VueCSSClasses } from '../../utils/types';
   import { XEventsTypes } from '../../wiring';
   import BaseEventButton from '../base-event-button.vue';
-  import { dynamicPropsMixin } from '../dynamic-props.mixin';
-  import ColumnPickerMixin from './column-picker.mixin';
 
   interface ColumnPickerItem {
     column: number;
@@ -53,41 +51,92 @@
    * Additionally, this component exposes the following props to modify the classes of the
    * elements: `buttonClass`.
    *
-   * @remarks It extends {@link ColumnPickerMixin}.
-   *
    * @public
    */
-  @Component({
-    components: { BaseEventButton }
-  })
-  export default class BaseColumnPickerList extends mixins(
-    ColumnPickerMixin,
-    dynamicPropsMixin(['buttonClass'])
-  ) {
-    /**
-     * Maps the column to an object containing: the `column` and `CSS classes`.
-     *
-     * @returns An array of objects containing the column number and CSS classes.
-     *
-     * @internal
-     */
-    protected get columnsWithCssClasses(): ColumnPickerItem[] {
-      return this.columns.map(column => ({
-        column,
-        cssClasses: [
-          `x-column-picker-list__button--${column}-cols`,
-          {
-            'x-selected': this.selectedColumns === column
-          }
-        ],
-        isSelected: this.selectedColumns === column,
-        events: {
-          UserClickedColumnPicker: column,
-          ColumnsNumberProvided: column
+  export default defineComponent({
+    name: 'BaseColumnPickerList',
+    components: { BaseEventButton },
+    props: {
+      /** An array of numbers that represents the number of columns to render. */
+      columns: {
+        type: Array as PropType<number[]>,
+        required: true
+      },
+      /** The value of the selected columns number. */
+      modelValue: Number,
+      /** Class inherited by each button. */
+      buttonClass: String
+    },
+    emits: ['update:modelValue'],
+    setup(props, { emit }) {
+      const $x = use$x();
+
+      const providedSelectedColumns = computed(() => props.modelValue ?? props.columns[0]);
+      const selectedColumns = ref(providedSelectedColumns.value);
+
+      /**
+       * Assigns `selectedColumns` value and emits `ColumnsNumberProvided`.
+       *
+       * @param column - Column number provided.
+       */
+      function emitColumnsNumberProvided(column: number) {
+        selectedColumns.value = column;
+        $x.emit('ColumnsNumberProvided', column);
+      }
+
+      /**
+       * Emits `update:modelValue` with the column selected.
+       *
+       * @param column - Column number selected.
+       */
+      function emitUpdateModelValue(column: number) {
+        if (props.modelValue !== column) {
+          emit('update:modelValue', column);
         }
-      }));
+      }
+
+      watch(providedSelectedColumns, emitColumnsNumberProvided);
+      watch(selectedColumns, emitUpdateModelValue);
+
+      $x.on('ColumnsNumberProvided').subscribe(column => (selectedColumns.value = column));
+
+      /**
+       * Synchronizes the columns number before mounting the component. If the real number of selected
+       * columns equals the provided columns, it emits the event to sync it with every other component.
+       * If it is not equal it means that the user has already selected a number of columns, so we emit
+       * a `update:modelValue` event so developers can sync the provided value.
+       */
+      onBeforeMount(() => {
+        if (selectedColumns.value === providedSelectedColumns.value) {
+          emitColumnsNumberProvided(selectedColumns.value);
+        } else {
+          emitUpdateModelValue(selectedColumns.value);
+        }
+      });
+
+      /**
+       * Maps the column to an object containing: the `column` and `CSS classes`.
+       *
+       * @returns An array of objects containing the column number and CSS classes.
+       */
+      const columnsWithCssClasses = computed<ColumnPickerItem[]>(() =>
+        props.columns.map(column => ({
+          column,
+          cssClasses: [
+            `x-column-picker-list__button--${column}-cols`,
+            { 'x-selected': selectedColumns.value === column }
+          ],
+          isSelected: selectedColumns.value === column,
+          events: {
+            UserClickedColumnPicker: column,
+            ColumnsNumberProvided: column
+          }
+        }))
+      );
+
+      return { columnsWithCssClasses };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
