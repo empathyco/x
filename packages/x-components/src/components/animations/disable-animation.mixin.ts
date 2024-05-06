@@ -1,5 +1,5 @@
-import Vue, { inject } from 'vue';
-import { Component } from 'vue-property-decorator';
+import Vue from 'vue';
+import { Component, Inject } from 'vue-property-decorator';
 import { DISABLE_ANIMATIONS_KEY } from '../decorators/injection.consts';
 
 /**
@@ -21,7 +21,8 @@ export default class DisableAnimationMixin extends Vue {
    *
    * @public
    */
-  public disableAnimation = inject(DISABLE_ANIMATIONS_KEY as string, false);
+  @Inject({ from: DISABLE_ANIMATIONS_KEY as string, default: false })
+  public disableAnimation!: boolean;
 
   /**
    * The animation's name based on the {@link DisableAnimationMixin.disableAnimation} flag.
