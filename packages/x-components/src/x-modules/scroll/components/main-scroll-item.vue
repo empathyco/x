@@ -17,7 +17,6 @@
     Ref,
     WatchCallback
   } from 'vue';
-  import { NoElement } from '../../../components/no-element';
   import { scrollXModule } from '../x-module';
   import { useState } from '../../../composables/use-state';
   import { useRegisterXModule } from '../../../composables/use-register-x-module';
@@ -52,7 +51,7 @@
        */
       tag: {
         type: [String, Object] as PropType<string | typeof Vue>,
-        default: () => NoElement
+        default: 'div'
       }
     },
 
