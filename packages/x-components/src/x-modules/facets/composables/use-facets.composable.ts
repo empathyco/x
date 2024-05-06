@@ -7,15 +7,13 @@ import { FiltersByFacet } from '../store/types';
 /**
  * Composable to share Facets logic.
  *
- * @param params - Composable params.
+ * @param params - Composable props.
+ * @param props
  * @returns Composable.
  *
  * @public
  */
-export function useFacets({
-  facetsIds,
-  alwaysVisible = false
-}: {
+export function useFacets(props: {
   /** Array of facets ids used to get the selected filters for those facets. */
   facetsIds?: Array<Facet['id']>;
   /** Flag to render the component even if there are no filters selected. */
@@ -39,8 +37,8 @@ export function useFacets({
    * @returns Array of selected filters depends on there are facets ids or not.
    */
   const selectedFilters = computed<Filter[]>(() => {
-    if (facetsIds) {
-      return (facetsIds as string[]).reduce(
+    if (props.facetsIds) {
+      return (props.facetsIds as string[]).reduce(
         (selectedFilters, facetId) => [
           ...selectedFilters,
           ...selectedFiltersByFacet.value[facetId]
@@ -65,7 +63,7 @@ export function useFacets({
    * @returns True whenever alwaysVisible is true or has selected filters. False
    * otherwise.
    */
-  const isVisible = computed<boolean>(() => alwaysVisible || hasSelectedFilters.value);
+  const isVisible = computed<boolean>(() => !!props.alwaysVisible || hasSelectedFilters.value);
 
   return {
     selectedFiltersByFacet,
