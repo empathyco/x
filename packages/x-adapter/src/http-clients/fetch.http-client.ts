@@ -14,12 +14,22 @@ import { buildUrl, toJson } from './utils';
  */
 export const fetchHttpClient: HttpClient = (
   endpoint,
-  { id = endpoint, cancelable = true, parameters = {}, properties, sendParamsInBody = false } = {}
+  {
+    id = endpoint,
+    cancelable = true,
+    parameters = {},
+    properties,
+    sendParamsInBody = false,
+    sendEmptyParams = false
+  } = {}
 ) => {
   const signal = cancelable ? { signal: abortAndGetNewAbortSignal(id) } : {};
+  if (!sendEmptyParams) {
+    parameters = cleanEmpty(parameters);
+  }
   const flatParameters = flatObject(parameters);
-  const url = sendParamsInBody ? endpoint : buildUrl(endpoint, cleanEmpty(flatParameters));
-  const bodyParameters = sendParamsInBody ? { body: JSON.stringify(cleanEmpty(parameters)) } : {};
+  const url = sendParamsInBody ? endpoint : buildUrl(endpoint, flatParameters);
+  const bodyParameters = sendParamsInBody ? { body: JSON.stringify(parameters) } : {};
 
   return fetch(url, {
     ...properties,

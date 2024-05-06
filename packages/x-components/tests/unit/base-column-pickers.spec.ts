@@ -27,13 +27,18 @@ function mountBaseColumnPickerComponents({
       template: `
         <div>
           <BaseColumnPickerList
-            v-model="selectedColumns"
+            @update:modelValue="col => selectedColumns = col"
+            :modelValue="selectedColumns"
             :columns="columns"
             #default="{ column, isSelected }"
           >
             <span>{{ column }} {{ isSelected ? '🟢' : '' }}</span>
           </BaseColumnPickerList>
-          <BaseColumnPickerDropdown v-model="selectedColumns" :columns="columns">
+          <BaseColumnPickerDropdown
+            @update:modelValue="col => selectedColumns = col"
+            :modelValue="selectedColumns"
+            :columns="columns"
+          >
             <template #toggle="{ item, isOpen }">
               Selected: {{ item }} {{ isOpen ? '🔼' : '🔽' }}
               ️</template>

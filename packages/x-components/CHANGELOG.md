@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.6...@empathyco/x-components@5.0.0-alpha.7) (2024-05-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **ColumnPickerMixin:** `BaseColumnPickerDropdown` component will no longer emit the `change` event, use `update:modelValue` instead. 
+`BaseColumnPickerDropdown` prop for the selected columns was renamed from `value` to `modelValue`.
+
+`BaseColumnPickerList` component will no longer emit the `change` event, use `update:modelValue` instead. 
+`BaseColumnPickerList` prop for the selected columns was renamed from `value` to `modelValue`.
+
+`ColumnPickerMixin` has been removed.
+
+### Code Refactoring
+
+* **ColumnPickerMixin:** get rid of `ColumnPickerMixin` and refactor components which use it (#1461) ([c5b84da](https://github.com/empathyco/x/commit/c5b84da32b75a37d028e91b64220016a2cfb3037))
+
+
+
+## [5.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.5...@empathyco/x-components@5.0.0-alpha.6) (2024-05-03)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## [5.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.4...@empathyco/x-components@5.0.0-alpha.5) (2024-05-01)
 
 
