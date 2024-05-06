@@ -13,7 +13,7 @@
             @binding {Filter[]} selectedFilters - List of selected filters of the given facet
       -->
       <slot
-        v-if="$scopedSlots[slotNameById]"
+        v-if="hasSlot(slotNameById)"
         v-bind="{
           facet,
           selectedFilters: selectedFiltersByFacet[facetId] || []
@@ -27,7 +27,7 @@
             @binding {Filter[]} selectedFilters - List of selected filters of the given facet
       -->
       <slot
-        v-else-if="$scopedSlots[slotNameByModelName]"
+        v-else-if="hasSlot(slotNameByModelName)"
         v-bind="{
           facet,
           selectedFilters: selectedFiltersByFacet[facetId] || []
@@ -56,11 +56,10 @@
 <script lang="ts">
   import { Facet } from '@empathyco/x-types';
   import { Dictionary, map, objectFilter } from '@empathyco/x-utils';
-  import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { Getter } from '../../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../../components/x-component.mixin';
+  import Vue, { computed, ComputedRef, defineComponent, PropType } from 'vue';
+  import { useGetter } from '../../../../composables/use-getter';
   import { toKebabCase } from '../../../../utils/string';
-  import FacetsMixin from '../facets.mixin';
+  import { useFacets } from '../../composables/use-facets.composable';
   import { facetsXModule } from '../../x-module';
 
   /**
@@ -81,127 +80,135 @@
    * - A custom slot for each facet with the facetId as its name. This allows each facet to be
    * rendered differently based on its needs.
    *
-   * @remarks It extends {@link FacetsMixin}.
-   *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(facetsXModule)]
-  })
-  export default class Facets extends FacetsMixin {
-    /**
-     * Animation component that will be used to animate the facets.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    public animation!: Vue | string;
+  export default defineComponent({
+    name: 'Facets',
+    xModule: facetsXModule.name,
+    props: {
+      /** Array of facets ids used to get the selected filters for those facets. */
+      facetsIds: Array as PropType<Array<Facet['id']>>,
+      /** Flag to render the component even if there are no filters selected. */
+      alwaysVisible: Boolean,
+      /** Animation component that will be used to animate the facets. */
+      animation: {
+        type: [String, Object] as PropType<string | Vue>,
+        default: 'ul'
+      },
+      /**
+       * Discriminates the facets rendered by this component. It expects a string containing facets
+       * ids, comma separated. This property will include or exclude facets based on its value.
+       * The default value is an empty string and the component will render all existing facets.
+       *
+       * @remarks
+       * To behave as a `include`, simply set the facets ids, comma separated:
+       * `existingFacets=[{ brand: ... }, category: { ... }, color: { ... }, price: { ... }]`
+       * `renderableFacets="brand, category"`
+       *
+       * The component will render brand and category facets.
+       *
+       * On the other hand, to simulate an `exclude` behaviour and exclude a facet from being
+       * rendered, append a '!' before its id:
+       * `existingFacets=[{ brand: ... }, category: { ... }, color: { ... }, price: { ... }]`
+       * `renderableFacets="!brand,!price"`
+       *
+       * The component will render category and color facets.
+       */
+      renderableFacets: String
+    },
+    setup: function (props, { slots }) {
+      const { selectedFiltersByFacet } = useFacets(props);
 
-    /**
-     * Discriminates the facets rendered by this component. It expects a string containing facets
-     * ids, comma separated. This property will include or exclude facets based on its value.
-     * The default value is an empty string and the component will render all existing facets.
-     *
-     * @remarks
-     * To behave as a `include`, simply set the facets ids, comma separated:
-     * `existingFacets=[{ brand: ... }, category: { ... }, color: { ... }, price: { ... }]`
-     * `renderableFacets="brand, category"`
-     *
-     * The component will render brand and category facets.
-     *
-     * On the other hand, to simulate an `exclude` behaviour and exclude a facet from being
-     * rendered, append a '!' before its id:
-     * `existingFacets=[{ brand: ... }, category: { ... }, color: { ... }, price: { ... }]`
-     * `renderableFacets="!brand,!price"`
-     *
-     * The component will render category and color facets.
-     *
-     * @public
-     */
-    @Prop()
-    public renderableFacets!: string | undefined;
+      const { facets } = useGetter('facets', ['facets']) as {
+        /** Dictionary of facets in the state. */
+        facets: ComputedRef<Record<Facet['id'], Facet>>;
+      };
 
-    /**
-     * Dictionary of facets in the state.
-     *
-     * @internal
-     */
-    @Getter('facets', 'facets')
-    public facets!: Record<Facet['id'], Facet>;
+      /**
+       * The facets to be rendered after filtering {@link Facets.facets} by
+       * {@link Facets.renderableFacets} content.
+       *
+       * @returns The list of facets to be rendered.
+       */
+      const facetsToRender = computed<Dictionary<Facet>>(() => {
+        if (!props.renderableFacets) {
+          return facets.value;
+        } else {
+          const excludedRegExp = /^!/;
+          const facetIds: string[] = props.renderableFacets
+            .split(',')
+            .map(facetId => facetId.trim());
+          const included: string[] = [];
+          const excluded: string[] = [];
+          facetIds.forEach(facetId => {
+            if (excludedRegExp.test(facetId)) {
+              excluded.push(facetId.replace(excludedRegExp, ''));
+            } else {
+              included.push(facetId);
+            }
+          });
 
-    /**
-     * Transforms a dictionary of Facets including the slot name.
-     *
-     * @returns A dictionary of facets with the slot name.
-     *
-     * @internal
-     */
-    protected get mappedFacets(): Dictionary<RenderFacet> {
-      return map(this.facetsToRender, (facetId, facet) => ({
-        slotNameById: toKebabCase(facetId),
-        slotNameByModelName: toKebabCase(facet.modelName),
-        facet
-      }));
-    }
-
-    /**
-     * The facets to be rendered after filtering {@link Facets.facets} by
-     * {@link Facets.renderableFacets} content.
-     *
-     * @returns The list of facets to be rendered.
-     *
-     * @internal
-     */
-    protected get facetsToRender(): Dictionary<Facet> {
-      if (!this.renderableFacets) {
-        return this.facets;
-      } else {
-        const excludedRegExp = /^!/;
-        const facetIds: string[] = this.renderableFacets.split(',').map(facetId => facetId.trim());
-        const included: string[] = [];
-        const excluded: string[] = [];
-        facetIds.forEach(facetId => {
-          if (excludedRegExp.test(facetId)) {
-            excluded.push(facetId.replace(excludedRegExp, ''));
-          } else {
-            included.push(facetId);
-          }
-        });
-
-        return this.filterFacetsToRender(included, excluded);
-      }
-    }
-
-    /**
-     * Indicates if there are facets available to show.
-     *
-     * @returns True if there are facets available and false otherwise.
-     * @internal
-     */
-    protected get hasFacets(): boolean {
-      return !!Object.keys(this.facetsToRender).length;
-    }
-
-    /**
-     * Filter facets dictionary retrieving those included and/or removing excluded.
-     *
-     * @param included - List of facets to render.
-     * @param excluded - List of not renderable facets.
-     *
-     * @returns The filtered list of facets to render.
-     *
-     * @internal
-     */
-    private filterFacetsToRender(included: string[], excluded: string[]): Dictionary<Facet> {
-      const hasAnyFacetIncluded = included.length > 0;
-      return objectFilter(this.facets, facetKey => {
-        const isIncluded = included.includes(String(facetKey));
-        const isExcluded = excluded.includes(String(facetKey));
-
-        return hasAnyFacetIncluded ? isIncluded && !isExcluded : !isExcluded;
+          return filterFacetsToRender(included, excluded);
+        }
       });
+
+      /**
+       * Transforms a dictionary of Facets including the slot name.
+       *
+       * @returns A dictionary of facets with the slot name.
+       */
+      const mappedFacets = computed<Dictionary<RenderFacet>>(() => {
+        return map(facetsToRender.value, (facetId, facet) => ({
+          slotNameById: toKebabCase(facetId),
+          slotNameByModelName: toKebabCase(facet.modelName),
+          facet
+        }));
+      });
+
+      /**
+       * Indicates if there are facets available to show.
+       *
+       * @returns True if there are facets available and false otherwise.
+       */
+      const hasFacets = computed<boolean>(() => !!Object.keys(facetsToRender.value).length);
+
+      /**
+       * Filter facets dictionary retrieving those included and/or removing excluded.
+       *
+       * @param included - List of facets to render.
+       * @param excluded - List of not renderable facets.
+       *
+       * @returns The filtered list of facets to render.
+       */
+      function filterFacetsToRender(included: string[], excluded: string[]): Dictionary<Facet> {
+        const hasAnyFacetIncluded = included.length > 0;
+        return objectFilter(facets.value, facetKey => {
+          const isIncluded = included.includes(String(facetKey));
+          const isExcluded = excluded.includes(String(facetKey));
+
+          return hasAnyFacetIncluded ? isIncluded && !isExcluded : !isExcluded;
+        });
+      }
+
+      /**
+       * Whether the slot is present in the template or not.
+       *
+       * @param name - The slot name.
+       *
+       * @returns True is the slot is present in the template. False otherwise.
+       */
+      function hasSlot(name: string): boolean {
+        return !!slots[name];
+      }
+
+      return {
+        selectedFiltersByFacet,
+        hasFacets,
+        mappedFacets,
+        hasSlot
+      };
     }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
