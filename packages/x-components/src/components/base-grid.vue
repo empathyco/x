@@ -19,7 +19,7 @@
         the item using that slot composition to render.
             @binding {item} item - Item to render
       -->
-      <slot v-if="renderSlots[slotName]" :name="slotName" :item="item" />
+      <slot v-if="slots[slotName]" :name="slotName" :item="item" />
       <!--
         @slot (required) Default item rendering. This slot will be used by default for rendering
         the item without an specific slot implementation.
@@ -107,8 +107,6 @@
       type ElementRef = {
         $el: HTMLElement;
       };
-
-      const renderSlots = slots;
 
       const xBus = useXBus();
       /**
@@ -240,7 +238,7 @@
         cssClasses,
         style,
         gridEl,
-        renderSlots
+        slots
       };
     }
   });

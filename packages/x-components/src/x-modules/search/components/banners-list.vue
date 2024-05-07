@@ -7,7 +7,7 @@
     -->
     <slot v-bind="{ items, animation }">
       <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in renderSlots" v-slot:[slotName]="{ item }">
+        <template v-for="(_, slotName) in slots" v-slot:[slotName]="{ item }">
           <slot :name="slotName" :item="item" />
         </template>
       </ItemsList>
@@ -65,8 +65,6 @@
       useRegisterXModule(searchXModule);
 
       const $x = use$x();
-
-      const renderSlots = slots;
 
       /**
        * The banners to render from the state.
@@ -172,7 +170,7 @@
 
       return {
         items,
-        renderSlots
+        slots
       };
     }
   });
