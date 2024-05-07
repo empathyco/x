@@ -23,11 +23,10 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Mixins, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType } from 'vue';
   import { ListItem } from '../utils/types';
   import { toKebabCase } from '../utils/string';
-  import { dynamicPropsMixin } from './dynamic-props.mixin';
+  import { animationProp } from '../utils/options-api';
 
   /**
    * It renders a list of {@link ListItem} providing a slot for each `slotName` which depends on
@@ -35,44 +34,58 @@
    *
    * @public
    */
-  @Component
-  export default class ItemsList extends Mixins(dynamicPropsMixin(['itemClass'])) {
-    /**
-     * Animation component that will be used to animate the list.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue | string;
+  export default defineComponent({
+    name: 'ItemsList',
+    props: {
+      /**
+       * Animation component that will be used to animate the list.
+       *
+       * @public
+       */
+      animation: {
+        type: animationProp,
+        default: 'ul'
+      },
 
-    /**
-     * List of items.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected items!: ListItem[];
+      /**
+       * List of items.
+       *
+       * @public
+       */
+      items: {
+        type: Array as PropType<ListItem[]>,
+        required: true
+      },
+      itemClass: {
+        type: String
+      }
+    },
+    setup(props) {
+      /**
+       * The list of the items with additional properties.
+       *
+       * @returns A list of items with `dataTest`, `class` and the `slotName` for each item.
+       *
+       * @internal
+       */
+      const computedItems = computed(
+        (): {
+          dataTest: string;
+          class: Array<string | undefined>;
+        }[] => {
+          return props.items.map(item => {
+            const modelName = toKebabCase(item.modelName);
+            return {
+              ...item,
+              dataTest: `${modelName}s-list-item`,
+              class: [`x-${modelName}s-list-item`, props.itemClass],
+              slotName: modelName
+            };
+          });
+        }
+      );
 
-    /**
-     * The list of the items with additional properties.
-     *
-     * @returns A list of items with `dataTest`, `class` and the `slotName` for each item.
-     *
-     * @internal
-     */
-    protected get computedItems(): {
-      dataTest: string;
-      class: Array<string | undefined>;
-    }[] {
-      return this.items.map(item => {
-        const modelName = toKebabCase(item.modelName);
-        return {
-          ...item,
-          dataTest: `${modelName}s-list-item`,
-          class: [`x-${modelName}s-list-item`, this.itemClass],
-          slotName: modelName
-        };
-      });
+      return { computedItems };
     }
-  }
+  });
 </script>

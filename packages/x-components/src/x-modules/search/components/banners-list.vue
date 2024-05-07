@@ -1,5 +1,5 @@
 <template>
-  <NoElement>
+  <div v-if="items.length > 0">
     <!--
       @slot Customized BannersList layout.
         @binding {Banner[]} items - Banners plus the injected list items to render.
@@ -12,7 +12,7 @@
         </template>
       </ItemsList>
     </slot>
-  </NoElement>
+  </div>
 </template>
 
 <script lang="ts">
@@ -20,15 +20,17 @@
   import { computed, ComputedRef, defineComponent, inject, provide, ref, Ref } from 'vue';
   import { Observable } from 'rxjs';
   import { EventPayload, SubjectPayload } from '@empathyco/x-bus';
-  import { NoElement } from '../../../components/no-element';
   import ItemsList from '../../../components/items-list.vue';
   import { FeatureLocation } from '../../../types/origin';
   import { ListItem } from '../../../utils/types';
   import { searchXModule } from '../x-module';
-  import { AnimationProp } from '../../../types/index';
-  import { use$x, useRegisterXModule, useState } from '../../../composables/index';
-  import { LIST_ITEMS_KEY } from '../../../components/index';
-  import { WireMetadata, XEventsTypes } from '../../../wiring/index';
+  import { AnimationProp } from '../../../types/animation-prop';
+  import { use$x } from '../../../composables/use-$x';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
+  import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+  import { WireMetadata } from '../../../wiring/wiring.types';
+  import { XEventsTypes } from '../../../wiring/events.types';
 
   /**
    * It renders a {@link ItemsList} list of banners from {@link SearchState.banners} by
@@ -45,10 +47,9 @@
   export default defineComponent({
     name: 'BannersList',
     components: {
-      ItemsList,
-      NoElement
+      ItemsList
     },
-    xModule: 'search',
+    xModule: searchXModule.name,
     props: {
       /**
        * Animation component that will be used to animate the banners.
@@ -60,7 +61,7 @@
         default: 'ul'
       }
     },
-    setup(props, { slots }) {
+    setup(_, { slots }) {
       useRegisterXModule(searchXModule);
 
       const $x = use$x();

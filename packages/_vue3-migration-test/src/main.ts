@@ -2,6 +2,10 @@ import { XComponentsAdapter } from '@empathyco/x-types';
 import { Component, configureCompat, createApp } from 'vue';
 import { createStore } from 'vuex';
 import { xPlugin } from '../../x-components/src/plugins/x-plugin';
+import { getResultsStub } from '../../x-components/src/__stubs__/results-stubs.factory';
+import { getBannersStub } from '../../x-components/src/__stubs__/banners-stubs.factory';
+import { getPromotedsStub } from '../../x-components/src/__stubs__/promoteds-stubs.factory';
+import { getNextQueriesStub } from '../../x-components/src/__stubs__/next-queries-stubs.factory';
 import App from './App.vue';
 import router from './router';
 
@@ -30,5 +34,30 @@ const store = createStore({});
 createApp(App as Component)
   .use(router)
   .use(store)
-  .use(xPlugin, { adapter, store })
+  .use(xPlugin, {
+    adapter,
+    store,
+    __PRIVATE__xModules: {
+      search: {
+        storeModule: {
+          state: {
+            query: 'dress',
+            results: getResultsStub(10),
+            promoteds: getPromotedsStub(),
+            banners: getBannersStub(),
+            status: 'success'
+          }
+        }
+      },
+      nextQueries: {
+        storeModule: {
+          state: {
+            query: 'dress',
+            nextQueries: getNextQueriesStub(),
+            status: 'success'
+          }
+        }
+      }
+    }
+  })
   .mount('#app');

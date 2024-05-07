@@ -101,7 +101,7 @@ describe('testing BannersList component', () => {
         </BannersList>`
     });
 
-    expect(wrapper.classes('x-items-list')).toBe(true);
+    expect(wrapper.find(getDataTestSelector('items-list')).classes('x-items-list')).toBe(true);
     expect(wrapper.find(getDataTestSelector('banners-list-item')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('banner-slot-overridden')).text()).toBe(
       `Custom banner: ${getBanners()[0].id}`

@@ -1,5 +1,5 @@
 <template>
-  <NoElement>
+  <div v-if="items.length > 0">
     <!--
       @slot Next queries list layout.
         @binding {SearchItem[]} items - Next queries groups plus the injected list items to
@@ -13,13 +13,12 @@
         </template>
       </ItemsList>
     </slot>
-  </NoElement>
+  </div>
 </template>
 
 <script lang="ts">
   import { computed, ComputedRef, defineComponent, inject, provide, Ref } from 'vue';
   import { NextQuery } from '@empathyco/x-types';
-  import { NoElement } from '../../../components/no-element';
   import ItemsList from '../../../components/items-list.vue';
   import { groupItemsBy } from '../../../utils/array';
   import { ListItem } from '../../../utils/types';
@@ -31,7 +30,9 @@
     QUERY_KEY
   } from '../../../components/decorators/injection.consts';
   import { AnimationProp } from '../../../types/index';
-  import { use$x, useGetter, useRegisterXModule } from '../../../composables/index';
+  import { use$x } from '../../../composables/use-$x';
+  import { useGetter } from '../../../composables/use-getter';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
 
   /**
    * Component that inserts groups of next queries in different positions of the injected search
@@ -42,7 +43,6 @@
   export default defineComponent({
     name: 'NextQueriesList',
     components: {
-      NoElement,
       ItemsList
     },
     xModule: nextQueriesXModule.name,
@@ -88,9 +88,7 @@
        *
        * @public
        */
-      maxGroups: {
-        type: Number
-      },
+      maxGroups: Number,
       /**
        * Determines if a group is added to the injected items list in case the number
        * of items is smaller than the offset.
@@ -126,7 +124,7 @@
       /**
        * Indicates if there are more available results than the injected.
        */
-      const hasMoreItems = inject<Ref<boolean>>(HAS_MORE_ITEMS_KEY as string);
+      const hasMoreItems = inject<Ref<boolean | undefined>>(HAS_MORE_ITEMS_KEY as string);
 
       /**
        * The grouped next queries based on the given config.

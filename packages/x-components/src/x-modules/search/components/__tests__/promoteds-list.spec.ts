@@ -101,7 +101,7 @@ describe('testing PromotedsList component', () => {
         </PromotedsList>`
     });
 
-    expect(wrapper.classes('x-items-list')).toBe(true);
+    expect(wrapper.find(getDataTestSelector('items-list')).classes('x-items-list')).toBe(true);
     expect(wrapper.find(getDataTestSelector('promoteds-list-item')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('promoted-slot-overridden')).text()).toBe(
       `Custom promoted: ${getPromoteds()[0].title}`

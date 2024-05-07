@@ -1,5 +1,5 @@
 <template>
-  <NoElement>
+  <div v-if="items.length > 0">
     <!--
       @slot Customize ResultsList.
         @binding {Result[]} items - Results to render.
@@ -12,7 +12,7 @@
         </template>
       </ItemsList>
     </slot>
-  </NoElement>
+  </div>
 </template>
 
 <script lang="ts">
@@ -23,7 +23,6 @@
     LIST_ITEMS_KEY,
     QUERY_KEY
   } from '../../../components/decorators/injection.consts';
-  import { NoElement } from '../../../components/no-element';
   import ItemsList from '../../../components/items-list.vue';
   import { RequestStatus } from '../../../store/utils/status-store.utils';
   import { infiniteScroll } from '../../../directives';
@@ -46,10 +45,9 @@
   export default defineComponent({
     name: 'ResultsList',
     components: {
-      NoElement,
       ItemsList
     },
-    xModule: 'search',
+    xModule: searchXModule.name,
     directives: { 'infinite-scroll': infiniteScroll },
     props: {
       /**
@@ -149,11 +147,6 @@
 
       return {
         items,
-        totalResults,
-        providedQuery,
-        hasMoreItems,
-        searchStatus,
-        searchQuery,
         onInfiniteScrollEnd,
         renderSlots
       };

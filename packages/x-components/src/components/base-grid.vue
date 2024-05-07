@@ -41,10 +41,10 @@
     ref,
     watch
   } from 'vue';
-  import { MaybeComputedElementRef, MaybeElement, useResizeObserver } from '@vueuse/core';
+  import { MaybeComputedElementRef, useResizeObserver } from '@vueuse/core';
   import { toKebabCase } from '../utils/string';
   import { ListItem, VueCSSClasses } from '../utils/types';
-  import { AnimationProp } from '../types/index';
+  import { AnimationProp } from '../types/animation-prop';
   import { useXBus } from '../composables/use-x-bus';
   import { LIST_ITEMS_KEY } from './decorators/injection.consts';
 
@@ -230,7 +230,7 @@
        */
       // eslint-disable-next-line @typescript-eslint/unbound-method
       const resizeObserver = useResizeObserver(
-        gridEl as MaybeComputedElementRef<MaybeElement>,
+        gridEl as MaybeComputedElementRef,
         updateRenderedColumnsNumber
       );
       onBeforeUnmount(() => resizeObserver.stop());

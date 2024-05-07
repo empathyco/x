@@ -1,5 +1,5 @@
 <template>
-  <NoElement>
+  <div v-if="items.length > 0">
     <!--
       @slot Customized Promoteds List layout.
         @binding {Promoted[]} items - Promoteds plus the injected list items to render.
@@ -12,19 +12,20 @@
         </template>
       </ItemsList>
     </slot>
-  </NoElement>
+  </div>
 </template>
 
 <script lang="ts">
   import { Promoted } from '@empathyco/x-types';
   import { computed, ComputedRef, defineComponent, inject, provide, Ref } from 'vue';
-  import { NoElement } from '../../../components/no-element';
   import ItemsList from '../../../components/items-list.vue';
   import { ListItem } from '../../../utils/types';
   import { searchXModule } from '../x-module';
-  import { AnimationProp } from '../../../types/index';
-  import { use$x, useRegisterXModule, useState } from '../../../composables/index';
-  import { LIST_ITEMS_KEY } from '../../../components/index';
+  import { AnimationProp } from '../../../types/animation-prop';
+  import { use$x } from '../../../composables/use-$x';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
+  import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
 
   /**
    * It renders a {@link ItemsList} of promoteds from {@link SearchState.promoteds} by default
@@ -42,10 +43,9 @@
   export default defineComponent({
     name: 'PromotedsList',
     components: {
-      NoElement,
       ItemsList
     },
-    xModule: 'search',
+    xModule: searchXModule.name,
     props: {
       /**
        * Animation component that will be used to animate the promoteds.
@@ -57,7 +57,7 @@
         default: 'ul'
       }
     },
-    setup(props, { slots }) {
+    setup(_, { slots }) {
       useRegisterXModule(searchXModule);
 
       const $x = use$x();
