@@ -138,6 +138,9 @@
       /**
        * It emits an {@link SearchXEvents.UserReachedResultsListEnd} event.
        *
+       * @remarks This function is going to be executed when the observer
+       * is fired in {@link infiniteScroll}.
+       *
        * @internal
        */
       const onInfiniteScrollEnd = (): void => {
