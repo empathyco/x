@@ -3,7 +3,11 @@ import {
   TestAnimateWidth,
   TestBaseDropdown,
   TestBaseEventButton,
+  TestClearFilters,
+  TestFacets,
   TestFade,
+  TestSelectedFilters,
+  TestSelectedFiltersList,
   TestSortDropdown,
   TestSortList,
   TestSortPickerList
@@ -29,6 +33,26 @@ const routes = [
     path: '/base-event-button',
     name: 'BaseEventButton',
     component: TestBaseEventButton
+  },
+  {
+    path: '/facets',
+    name: 'Facets',
+    component: TestFacets
+  },
+  {
+    path: '/selected-filters',
+    name: 'SelectedFilters',
+    component: TestSelectedFilters
+  },
+  {
+    path: '/selected-filters-list',
+    name: 'SelectedFiltersList',
+    component: TestSelectedFiltersList
+  },
+  {
+    path: '/clear-filters',
+    name: 'ClearFilters',
+    component: TestClearFilters
   },
   {
     path: '/sort-dropdown',
