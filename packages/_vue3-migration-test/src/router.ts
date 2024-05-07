@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import {
   TestAnimateWidth,
+  TestBaseColumnPickerDropdown,
+  TestBaseColumnPickerList,
   TestBaseDropdown,
   TestBaseEventButton,
   TestClearFilters,
@@ -33,6 +35,16 @@ const routes = [
     path: '/base-event-button',
     name: 'BaseEventButton',
     component: TestBaseEventButton
+  },
+  {
+    path: '/base-column-picker-dropdown',
+    name: 'BaseColumnPickerDropdown',
+    component: TestBaseColumnPickerDropdown
+  },
+  {
+    path: '/base-column-picker-list',
+    name: 'BaseColumnPickerList',
+    component: TestBaseColumnPickerList
   },
   {
     path: '/facets',
