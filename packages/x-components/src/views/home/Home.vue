@@ -167,7 +167,8 @@
           <div v-if="$x.totalResults > 0" class="x-flex x-items-center x-gap-12">
             <span class="x-text1">{{ $x.totalResults }} Results</span>
             <BaseColumnPickerList
-              v-model="selectedColumns"
+              @update:modelValue="col => (selectedColumns = col)"
+              :modelValue="selectedColumns"
               class="x-gap-4"
               :columns="columnPickerValues"
             >
