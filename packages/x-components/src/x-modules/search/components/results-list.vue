@@ -101,7 +101,7 @@
        * @returns Boolean.
        * @public
        */
-      const hasMoreItems = computed<boolean>(() => {
+      const hasMoreItems = computed(() => {
         return items.value.length < totalResults.value;
       });
       provide<ComputedRef<boolean>>(HAS_MORE_ITEMS_KEY as string, hasMoreItems);

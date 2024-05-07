@@ -132,8 +132,8 @@
        * @returns A list of next queries groups.
        * @internal
        */
-      const nextQueriesGroups = computed((): NextQueriesGroup[] => {
-        return Object.values(
+      const nextQueriesGroups = computed<NextQueriesGroup[]>(() =>
+        Object.values(
           groupItemsBy(nextQueries?.value, (_, index) =>
             Math.floor(index / props.maxNextQueriesPerGroup)
           )
@@ -143,8 +143,8 @@
             modelName: 'NextQueriesGroup' as const,
             id: nextQueries.map(nextQuery => nextQuery.query).join(','),
             nextQueries
-          }));
-      });
+          }))
+      );
 
       /**
        * It injects {@link ListItem} provided by an ancestor as injectedListItems.
@@ -159,7 +159,7 @@
        * @returns True if the next queries are outdated, false if not.
        * @internal
        */
-      const nextQueriesAreOutdated = computed((): boolean => {
+      const nextQueriesAreOutdated = computed(() => {
         return (
           !!injectedQuery?.value &&
           ($x.query.nextQueries !== injectedQuery.value || $x.status.nextQueries !== 'success')
@@ -173,7 +173,7 @@
        * @returns True if a group should be added, false if not.
        * @internal
        */
-      const hasNotEnoughListItems = computed((): boolean => {
+      const hasNotEnoughListItems = computed(() => {
         return (
           !props.showOnlyAfterOffset &&
           !hasMoreItems?.value &&

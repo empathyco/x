@@ -56,6 +56,12 @@
         type: Array as PropType<ListItem[]>,
         required: true
       },
+
+      /**
+       * Item's classes.
+       *
+       * @public
+       */
       itemClass: {
         type: String
       }
