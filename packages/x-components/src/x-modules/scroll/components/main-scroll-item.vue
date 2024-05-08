@@ -43,7 +43,6 @@
         type: Object as PropType<Identifiable>,
         required: true
       },
-
       /**
        * The tag to render.
        *
@@ -54,7 +53,6 @@
         default: 'div'
       }
     },
-
     setup(props) {
       type ElementRef = {
         $el: HTMLElement;
