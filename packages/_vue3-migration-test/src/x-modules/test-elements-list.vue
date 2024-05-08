@@ -30,14 +30,10 @@
 </template>
 
 <script setup lang="ts">
-  // eslint-disable-next-line max-len
-  import PromotedsList from '../../../../../x-components/src/x-modules/search/components/promoteds-list.vue';
-  // eslint-disable-next-line max-len
-  import ResultsList from '../../../../../x-components/src/x-modules/search/components/results-list.vue';
-  // eslint-disable-next-line max-len
-  import BannersList from '../../../../../x-components/src/x-modules/search/components/banners-list.vue';
-  import BaseGrid from '../../../../../x-components/src/components/base-grid.vue';
-  import LocationProvider from '../../../../../x-components/src/components/location-provider.vue';
-  // eslint-disable-next-line max-len
-  import NextQueriesList from '../../../../../x-components/src/x-modules/next-queries/components/next-queries-list.vue';
+  import PromotedsList from '../../../x-components/src/x-modules/search/components/promoteds-list.vue';
+  import ResultsList from '../../../x-components/src/x-modules/search/components/results-list.vue';
+  import BannersList from '../../../x-components/src/x-modules/search/components/banners-list.vue';
+  import BaseGrid from '../../../x-components/src/components/base-grid.vue';
+  import LocationProvider from '../../../x-components/src/components/location-provider.vue';
+  import NextQueriesList from '../../../x-components/src/x-modules/next-queries/components/next-queries-list.vue';
 </script>
