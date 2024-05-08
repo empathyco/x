@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import MainScroll from '../../../../x-components/src/x-modules/scroll/components/main-scroll.vue';
-  // eslint-disable-next-line max-len
   import MainScrollItem from '../../../../x-components/src/x-modules/scroll/components/main-scroll-item.vue';
   const items = Array.from({ length: 24 }, (_, index) => ({ id: `item-${index}` }));
 </script>
