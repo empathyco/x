@@ -1,43 +1,65 @@
 <script lang="ts">
   import { BooleanFilter, Filter, isBooleanFilter } from '@empathyco/x-types';
-  import { mixins } from 'vue-class-component';
-  import { Component } from 'vue-property-decorator';
-  import { CreateElement, VNode } from 'vue';
-  import { xComponentMixin, XProvide } from '../../../../components';
+  import { computed, CreateElement, defineComponent, PropType, provide, VNode } from 'vue';
   import { isArrayEmpty } from '../../../../utils';
   import { facetsXModule } from '../../x-module';
-  import FiltersInjectionMixin from './filters-injection.mixin';
+  import { useRegisterXModule } from '../../../../composables/use-register-x-module';
+  import { useFiltersInjection } from '../../../../composables/use-filters-injection';
 
   /**
    * Component that sorts a list of filters and returns them using the default scoped slot.
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(facetsXModule)]
-  })
-  export default class SortedFilters extends mixins(FiltersInjectionMixin) {
-    /**
-     * An array of filters with the selected filters at the beginning of the list.
-     *
-     * @returns Array of filters.
-     * @internal
-     */
-    @XProvide('filters')
-    public get sortedFilters(): Filter[] {
-      if (!isArrayEmpty(this.renderedFilters) && isBooleanFilter(this.renderedFilters[0])) {
-        return ([...this.renderedFilters] as BooleanFilter[]).sort(({ selected }) => {
-          return selected ? -1 : 1;
-        });
+  export default defineComponent({
+    name: 'SortedFilters',
+    xModule: facetsXModule.name,
+    props: {
+      /**
+       * The list of filters to be rendered as slots.
+       *
+       * @public
+       */
+      filters: Array as PropType<Filter[]>,
+
+      /**
+       * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
+       * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
+       *
+       * @public
+       */
+      parentId: {
+        type: String as PropType<Filter['id']>,
+        required: false
       }
+    },
+    setup(props) {
+      useRegisterXModule(facetsXModule);
+      const renderedFilters = useFiltersInjection(props);
 
-      return this.renderedFilters;
-    }
+      /**
+       * An array of filters with the selected filters at the beginning of the list.
+       *
+       * @returns Array of filters.
+       * @internal
+       */
+      const sortedFilters = computed((): Filter[] => {
+        if (!isArrayEmpty(renderedFilters.value) && isBooleanFilter(renderedFilters.value[0])) {
+          return ([...renderedFilters.value] as BooleanFilter[]).sort(({ selected }) => {
+            return selected ? -1 : 1;
+          });
+        }
 
+        return renderedFilters.value;
+      });
+      provide('filters', sortedFilters);
+
+      return { sortedFilters };
+    },
     render(h: CreateElement): VNode {
       return this.$scopedSlots.default?.({ filters: this.sortedFilters })?.[0] ?? h();
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

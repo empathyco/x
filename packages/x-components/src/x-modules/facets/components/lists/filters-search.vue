@@ -27,90 +27,123 @@
 
 <script lang="ts">
   import { Filter, isBooleanFilter } from '@empathyco/x-types';
-  import { mixins } from 'vue-class-component';
-  import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { xComponentMixin, XProvide } from '../../../../components';
+  import { computed, defineComponent, PropType, provide, ref, watch } from 'vue';
   import { debounce } from '../../../../utils/debounce';
   import { normalizeString } from '../../../../utils/normalize';
   import { DebouncedFunction, VueCSSClasses } from '../../../../utils/types';
   import { facetsXModule } from '../../x-module';
-  import FiltersInjectionMixin from './filters-injection.mixin';
+  import { useRegisterXModule } from '../../../../composables/use-register-x-module';
+  import { useFiltersInjection } from '../../../../composables/use-filters-injection';
 
   /**
    * Renders the filters sifted with the input query.
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(facetsXModule)]
-  })
-  export default class FiltersSearch extends mixins(FiltersInjectionMixin) {
-    /** The debounce time for applying the filter sifting. */
-    @Prop({ default: 200 })
-    protected debounceInMs!: number;
+  export default defineComponent({
+    name: 'FiltersSearch',
+    xModule: facetsXModule.name,
+    props: {
+      /**
+       * The list of filters to be rendered as slots.
+       *
+       * @public
+       */
+      filters: Array as PropType<Filter[]>,
 
-    protected query = '';
-    protected setQueryDebounced!: DebouncedFunction<[string]>;
+      /**
+       * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
+       * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
+       *
+       * @public
+       */
+      parentId: {
+        type: String as PropType<Filter['id']>,
+        required: false
+      },
 
-    protected filtersSearchInputMessage = 'search into the filter values';
+      /** The debounce time for applying the filter sifting. */
+      debounceInMs: {
+        type: Number,
+        default: 200
+      }
+    },
+    setup(props) {
+      useRegisterXModule(facetsXModule);
+      const renderedFilters = useFiltersInjection(props);
 
-    /**
-     * Set the debounce function for setting the query debounced.
-     *
-     * @internal
-     */
-    @Watch('debounceInMs', { immediate: true })
-    updateSetQueryDebounced(): void {
-      this.setQueryDebounced = debounce(query => {
-        this.query = query;
-      }, this.debounceInMs);
-    }
+      let query = ref('');
+      let setQueryDebounced!: DebouncedFunction<[string]>;
+      const filtersSearchInputMessage = 'search into the filter values';
 
-    /**
-     * Sift the array of filters which matches with the query.
-     *
-     * @returns Array of sifted filters.
-     * @internal
-     */
-    @XProvide('filters')
-    public get siftedFilters(): Filter[] {
-      const normalizedQuery = normalizeString(this.query);
-      return this.renderedFilters.filter(
-        filter => isBooleanFilter(filter) && normalizeString(filter.label).includes(normalizedQuery)
-      );
-    }
+      const debounceInMs = computed(() => props.debounceInMs);
 
-    /**
-     * Adds the dynamic css classes to the component.
-     *
-     * @returns The class to be added to the component.
-     * @internal
-     */
-    protected get cssClasses(): VueCSSClasses {
+      /**
+       * Set the debounce function for setting the query debounced.
+       *
+       * @internal
+       */
+      const updateSetQueryDebounced = () => {
+        setQueryDebounced = debounce(queryDebounced => {
+          query.value = queryDebounced;
+        }, props.debounceInMs);
+      };
+      watch(debounceInMs, updateSetQueryDebounced, { immediate: true });
+
+      /**
+       * Sift the array of filters which matches with the query.
+       *
+       * @returns Array of sifted filters.
+       * @internal
+       */
+      const siftedFilters = computed((): Filter[] => {
+        const normalizedQuery = normalizeString(query.value);
+        return renderedFilters.value.filter(
+          filter =>
+            isBooleanFilter(filter) && normalizeString(filter.label).includes(normalizedQuery)
+        );
+      });
+      provide('filters', siftedFilters);
+
+      /**
+       * Adds the dynamic css classes to the component.
+       *
+       * @returns The class to be added to the component.
+       * @internal
+       */
+      const cssClasses = computed((): VueCSSClasses => {
+        return { 'x-filters-search--is-sifted': !!query.value };
+      });
+
+      /**
+       * Set the query through the debounced function.
+       *
+       * @param query - The query to sift filters.
+       * @internal
+       */
+      const setQuery = (query: string): void => {
+        setQueryDebounced(query);
+      };
+
+      /**
+       * Clear the query.
+       *
+       * @internal
+       */
+      const clearQuery = (): void => {
+        query.value = '';
+      };
+
       return {
-        'x-filters-search--is-sifted': !!this.query
+        filtersSearchInputMessage,
+        clearQuery,
+        setQuery,
+        cssClasses,
+        siftedFilters,
+        query
       };
     }
-
-    /**
-     * Set the query through the debounced function.
-     *
-     * @param query - The query to sift filters.
-     * @internal
-     */
-    protected setQuery(query: string): void {
-      this.setQueryDebounced(query);
-    }
-
-    /**
-     * Clear the query.
-     *
-     * @internal
-     */
-    protected clearQuery(): void {
-      this.query = '';
-    }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
