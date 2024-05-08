@@ -2,12 +2,10 @@ import { XComponentsAdapter } from '@empathyco/x-types';
 import { Component, configureCompat, createApp } from 'vue';
 import { createStore } from 'vuex';
 import { xPlugin } from '../../x-components/src/plugins/x-plugin';
-import { getResultsStub } from '../../x-components/src/__stubs__/results-stubs.factory';
-import { getBannersStub } from '../../x-components/src/__stubs__/banners-stubs.factory';
-import { getPromotedsStub } from '../../x-components/src/__stubs__/promoteds-stubs.factory';
-import { getNextQueriesStub } from '../../x-components/src/__stubs__/next-queries-stubs.factory';
 import App from './App.vue';
 import router from './router';
+import { searchXModule } from './x-modules/search/x-module';
+import { nextQueriesXModule } from './x-modules/next-queries/x-module';
 
 // Warnings that cannot be solved in Vue 2 (a.k.a. breaking  changes) are suppressed
 const VUE_COMPAT_MODE = Number(import.meta.env.VITE_VUE_COMPAT_MODE);
@@ -38,26 +36,8 @@ createApp(App as Component)
     adapter,
     store,
     __PRIVATE__xModules: {
-      search: {
-        storeModule: {
-          state: {
-            query: 'dress',
-            results: getResultsStub(10),
-            promoteds: getPromotedsStub(),
-            banners: getBannersStub(),
-            status: 'success'
-          }
-        }
-      },
-      nextQueries: {
-        storeModule: {
-          state: {
-            query: 'dress',
-            nextQueries: getNextQueriesStub(),
-            status: 'success'
-          }
-        }
-      }
+      search: searchXModule,
+      nextQueries: nextQueriesXModule
     }
   })
   .mount('#app');
