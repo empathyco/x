@@ -226,7 +226,6 @@
        *
        * @internal
        */
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       const resizeObserver = useResizeObserver(
         gridEl as MaybeComputedElementRef,
         updateRenderedColumnsNumber
