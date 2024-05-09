@@ -35,6 +35,5 @@ export * from './decorators/debounce.decorators';
 export * from './decorators/injection.consts';
 export * from './decorators/injection.decorators';
 export * from './decorators/store.decorators';
-export * from './items-list-injection.mixin';
 export * from './x-component.mixin';
 export * from './x-component.utils';
