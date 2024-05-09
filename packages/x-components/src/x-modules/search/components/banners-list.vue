@@ -1,5 +1,5 @@
 <template>
-  <NoElement>
+  <div v-if="items.length > 0">
     <!--
       @slot Customized BannersList layout.
         @binding {Banner[]} items - Banners plus the injected list items to render.
@@ -7,28 +7,30 @@
     -->
     <slot v-bind="{ items, animation }">
       <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ item }">
+        <template v-for="(_, slotName) in slots" v-slot:[slotName]="{ item }">
           <slot :name="slotName" :item="item" />
         </template>
       </ItemsList>
     </slot>
-  </NoElement>
+  </div>
 </template>
 
 <script lang="ts">
   import { Banner } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Inject, Prop } from 'vue-property-decorator';
-  import { XOn } from '../../../components/decorators/bus.decorators';
-  import { State } from '../../../components/decorators/store.decorators';
-  import { NoElement } from '../../../components/no-element';
-  import { ItemsListInjectionMixin } from '../../../components/items-list-injection.mixin';
+  import { computed, ComputedRef, defineComponent, inject, provide, ref, Ref } from 'vue';
+  import { Observable } from 'rxjs';
+  import { EventPayload, SubjectPayload } from '@empathyco/x-bus';
   import ItemsList from '../../../components/items-list.vue';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { FeatureLocation } from '../../../types/origin';
   import { ListItem } from '../../../utils/types';
-  import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchXModule } from '../x-module';
+  import { AnimationProp } from '../../../types/animation-prop';
+  import { use$x } from '../../../composables/use-$x';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
+  import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+  import { WireMetadata } from '../../../wiring/wiring.types';
+  import { XEventsTypes } from '../../../wiring/events.types';
 
   /**
    * It renders a {@link ItemsList} list of banners from {@link SearchState.banners} by
@@ -42,99 +44,136 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'BannersList',
     components: {
-      ItemsList,
-      NoElement
+      ItemsList
     },
-    mixins: [xComponentMixin(searchXModule)]
-  })
-  export default class BannersList extends ItemsListInjectionMixin {
-    /**
-     * The banners to render from the state.
-     *
-     * @public
-     */
-    @State('search', 'banners')
-    public stateItems!: Banner[];
-
-    /**
-     * Animation component that will be used to animate the banners.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue | string;
-
-    /**
-     * The provided {@link FeatureLocation} for the component.
-     *
-     * @internal
-     */
-    @Inject({ default: undefined })
-    protected location?: FeatureLocation;
-
-    /**
-     * Number of columns the grid is being divided into.
-     *
-     * @internal
-     */
-    protected columnsNumber = 0;
-
-    /**
-     * Handler to update the number of columns when it changes.
-     *
-     * @param newColumnsNumber - The new columns value.
-     * @param metadata - The {@link @empathyco/x-bus#SubjectPayload.metadata}.
-     *
-     * @internal
-     */
-    @XOn(['RenderedColumnsNumberChanged'])
-    setColumnsNumber(newColumnsNumber: number, { location }: WireMetadata): void {
-      if (location === this.location) {
-        this.columnsNumber = newColumnsNumber;
+    xModule: searchXModule.name,
+    props: {
+      /**
+       * Animation component that will be used to animate the banners.
+       *
+       * @public
+       */
+      animation: {
+        type: AnimationProp,
+        default: 'ul'
       }
+    },
+    setup(_, { slots }) {
+      useRegisterXModule(searchXModule);
+
+      const $x = use$x();
+
+      /**
+       * The banners to render from the state.
+       *
+       * @public
+       */
+      const stateItems: ComputedRef<Banner[]> = useState('search', ['banners']).banners;
+
+      /**
+       * The provided {@link FeatureLocation} for the component.
+       *
+       * @internal
+       */
+      const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation | undefined>(
+        'location',
+        undefined
+      );
+      const location =
+        typeof injectedLocation === 'object' && 'value' in injectedLocation
+          ? injectedLocation.value
+          : injectedLocation;
+
+      /**
+       * Number of columns the grid is being divided into.
+       *
+       * @internal
+       */
+      let columnsNumber = ref(0);
+
+      /**
+       * Handler to update the number of columns when it changes.
+       *
+       * @param newColumnsNumber - The new columns value.
+       * @param metadata - The {@link @empathyco/x-bus#SubjectPayload.metadata}.
+       *
+       * @internal
+       */
+      (
+        $x.on('RenderedColumnsNumberChanged', true) as unknown as Observable<
+          SubjectPayload<EventPayload<XEventsTypes, keyof XEventsTypes>, WireMetadata>
+        >
+      ).subscribe(({ eventPayload, metadata }) => {
+        if (metadata.location === location) {
+          columnsNumber.value = eventPayload as number;
+        }
+      });
+
+      /**
+       * It injects {@link ListItem} provided by an ancestor as injectedListItems.
+       *
+       * @internal
+       */
+      const injectedListItems = inject<Ref<ListItem[] | undefined>>(LIST_ITEMS_KEY as string);
+
+      /**
+       * The `stateItems` concatenated with the `injectedListItems` if there are.
+       *
+       * @remarks This computed defines the merging strategy of the `stateItems` and the
+       * `injectedListItems`.
+       *
+       * @returns List of {@link ListItem}.
+       *
+       * @internal
+       */
+      const items = computed((): ListItem[] => {
+        if (!injectedListItems?.value!.length) {
+          return stateItems.value;
+        }
+        const items = [...injectedListItems.value];
+        let index = 0,
+          previousBannerRow = -1;
+        for (const item of stateItems.value) {
+          const position = item.position ?? 1;
+          let row = position - 1;
+          if (row <= previousBannerRow) {
+            row = previousBannerRow + 1;
+          }
+          const rowsDiff = row - previousBannerRow;
+          if (rowsDiff > 1) {
+            index += (rowsDiff - 1) * columnsNumber.value;
+          }
+          const isIndexInLoadedPages = index <= items.length;
+          const areAllPagesLoaded = $x.results.length === $x.totalResults;
+          if (!isIndexInLoadedPages && !areAllPagesLoaded) {
+            break;
+          }
+          items.splice(index, 0, item);
+          index++;
+          previousBannerRow = row;
+        }
+        return items;
+      });
+
+      /**
+       * The computed list items of the entity that uses the mixin.
+       *
+       * @remarks It should be overridden in the component that uses the mixin and it's intended to be
+       * filled with items from the state. Vue doesn't allow mixins as abstract classes.
+       * @returns An empty array as fallback in case it is not overridden.
+       * @internal
+       */
+      provide(LIST_ITEMS_KEY as string, items);
+
+      return {
+        items,
+        slots
+      };
     }
-
-    /**
-     * The `stateItems` concatenated with the `injectedListItems` if there are.
-     *
-     * @remarks This computed defines the merging strategy of the `stateItems` and the
-     * `injectedListItems`.
-     *
-     * @returns List of {@link ListItem}.
-     *
-     * @internal
-     */
-    public override get items(): ListItem[] {
-      if (!this.injectedListItems?.length) {
-        return this.stateItems;
-      }
-      const items = [...this.injectedListItems];
-      let index = 0,
-        previousBannerRow = -1;
-      for (const item of this.stateItems) {
-        const position = item.position ?? 1;
-        let row = position - 1;
-        if (row <= previousBannerRow) {
-          row = previousBannerRow + 1;
-        }
-        const rowsDiff = row - previousBannerRow;
-        if (rowsDiff > 1) {
-          index += (rowsDiff - 1) * this.columnsNumber;
-        }
-        const isIndexInLoadedPages = index <= items.length;
-        const areAllPagesLoaded = this.$x.results.length === this.$x.totalResults;
-        if (!isIndexInLoadedPages && !areAllPagesLoaded) {
-          break;
-        }
-        items.splice(index, 0, item);
-        index++;
-        previousBannerRow = row;
-      }
-      return items;
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">

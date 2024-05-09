@@ -1,5 +1,5 @@
 <template>
-  <NoElement>
+  <div v-if="items.length > 0">
     <!--
       @slot Customize ResultsList.
         @binding {Result[]} items - Results to render.
@@ -7,31 +7,29 @@
     -->
     <slot v-bind="{ items, animation }">
       <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ item }">
+        <template v-for="(_, slotName) in slots" v-slot:[slotName]="{ item }">
           <slot :name="slotName" :item="item" />
         </template>
       </ItemsList>
     </slot>
-  </NoElement>
+  </div>
 </template>
 
 <script lang="ts">
+  import { computed, ComputedRef, defineComponent, provide, Ref, ref, watch } from 'vue';
   import { Result } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop, Watch } from 'vue-property-decorator';
   import {
     HAS_MORE_ITEMS_KEY,
     LIST_ITEMS_KEY,
     QUERY_KEY
   } from '../../../components/decorators/injection.consts';
-  import { XProvide } from '../../../components/decorators/injection.decorators';
-  import { State } from '../../../components/decorators/store.decorators';
-  import { NoElement } from '../../../components/no-element';
   import ItemsList from '../../../components/items-list.vue';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { InfiniteScroll } from '../../../directives/infinite-scroll/infinite-scroll.types';
-  import { searchXModule } from '../x-module';
   import { RequestStatus } from '../../../store/utils/status-store.utils';
+  import { infiniteScroll } from '../../../directives';
+  import { animationProp } from '../../../utils/options-api';
+  import { useRegisterXModule, useState } from '../../../composables';
+  import { searchXModule } from '../x-module';
+  import { useXBus } from '../../../composables/use-x-bus';
 
   /**
    * It renders a {@link ItemsList} list with the results from {@link SearchState.results} by
@@ -44,93 +42,118 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'ResultsList',
     components: {
-      NoElement,
       ItemsList
     },
-    mixins: [xComponentMixin(searchXModule)]
-  })
-  export default class ResultsList extends Vue implements InfiniteScroll {
-    /**
-     * The results to render from the state.
-     *
-     * @remarks The results list are provided with `items` key. It can be
-     * concatenated with list items from components such as `BannersList`, `PromotedsList`,
-     * `BaseGrid` or any component that injects the list.
-     *
-     * @public
-     */
-    @XProvide(LIST_ITEMS_KEY)
-    @State('search', 'results')
-    public items!: Result[];
-
-    /**
-     * It provides the search query.
-     * This query is updated only when the search request has succeeded.
-     */
-    @XProvide(QUERY_KEY)
-    public providedQuery = '';
-
-    /**
-     * Indicates if there are more available results that have not been injected.
-     *
-     * @returns Boolean.
-     * @public
-     */
-    @XProvide(HAS_MORE_ITEMS_KEY)
-    public get hasMoreItems(): boolean {
-      return this.items.length < this.totalResults;
-    }
-
-    /**
-     * The total number of results, taken from the state.
-     */
-    @State('search', 'totalResults')
-    public totalResults!: number;
-
-    /**
-     * The status of the search request, taken from the state.
-     */
-    @State('search', 'status')
-    public searchStatus!: RequestStatus;
-
-    /**
-     * The query of the search request, taken from the state.
-     */
-    @State('search', 'query')
-    public searchQuery!: string;
-
-    /**
-     * Animation component that will be used to animate the results.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue | string;
-
-    /**
-     * Updates the query to be provided to the child components
-     * when the search request has succeeded.
-     *
-     * @param status - The status of the search request.
-     */
-    @Watch('searchStatus')
-    updateQuery(status: RequestStatus): void {
-      if (status === 'success') {
-        this.providedQuery = this.searchQuery;
+    xModule: searchXModule.name,
+    directives: { 'infinite-scroll': infiniteScroll },
+    props: {
+      /**
+       * Animation component that will be used to animate the results.
+       *
+       * @public
+       */
+      animation: {
+        type: animationProp,
+        default: 'ul'
       }
-    }
+    },
+    emits: ['UserReachedResultsListEnd'],
 
-    /**
-     * It emits an {@link SearchXEvents.UserReachedResultsListEnd} event.
-     *
-     * @internal
-     */
-    onInfiniteScrollEnd(): void {
-      this.$x.emit('UserReachedResultsListEnd');
+    setup(props, { slots }) {
+      const xBus = useXBus();
+
+      /**
+       * The {@link searchXModule | searchXModule } registered.
+       */
+      useRegisterXModule(searchXModule);
+
+      /**
+       * The results to render from the state.
+       *
+       * @remarks The results list are provided with `items` key. It can be
+       * concatenated with list items from components such as `BannersList`, `PromotedsList`,
+       * `BaseGrid` or any component that injects the list.
+       *
+       * @public
+       */
+      const items: ComputedRef<Result[]> = useState('search', ['results']).results;
+      provide<ComputedRef<Result[]>>(LIST_ITEMS_KEY as string, items);
+
+      /**
+       * The total number of results, taken from the state.
+       */
+      const totalResults: ComputedRef<number> = useState('search', ['totalResults']).totalResults;
+
+      /**
+       * It provides the search query.
+       * This query is updated only when the search request has succeeded.
+       */
+      let providedQuery = ref('');
+      provide<Ref<string>>(QUERY_KEY as string, providedQuery);
+
+      /**
+       * Indicates if there are more available results that have not been injected.
+       *
+       * @returns Boolean.
+       * @public
+       */
+      const hasMoreItems = computed(() => {
+        return items.value.length < totalResults.value;
+      });
+      provide<ComputedRef<boolean>>(HAS_MORE_ITEMS_KEY as string, hasMoreItems);
+
+      /**
+       * The status of the search request, taken from the state.
+       */
+      const searchStatus: Ref<RequestStatus> = useState('search', ['status']).status;
+
+      /**
+       * The query of the search request, taken from the state.
+       */
+      const searchQuery: ComputedRef<string> = useState('search', ['query']).query;
+
+      /**
+       * Updates the query to be provided to the child components
+       * when the search request has succeeded.
+       *
+       * @param status - The status of the search request.
+       */
+      const updateQuery = (status: RequestStatus): void => {
+        if (status === 'success') {
+          providedQuery.value = searchQuery.value;
+        }
+      };
+
+      /**
+       * Watches the searchStatus and triggers updateQuery as callback
+       * when it changes.
+       *
+       * @param status - The status of the search request.
+       */
+      watch(searchStatus, () => updateQuery(searchStatus.value), { immediate: true });
+
+      /**
+       * It emits an {@link SearchXEvents.UserReachedResultsListEnd} event.
+       *
+       * @remarks This function is going to be executed when the observer
+       * is fired in {@link infiniteScroll}.
+       *
+       * @internal
+       */
+      const onInfiniteScrollEnd = (): void => {
+        xBus.emit('UserReachedResultsListEnd');
+      };
+
+      return {
+        items,
+        onInfiniteScrollEnd,
+        slots
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

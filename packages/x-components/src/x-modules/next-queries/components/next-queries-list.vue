@@ -1,5 +1,5 @@
 <template>
-  <NoElement>
+  <div v-if="items.length > 0">
     <!--
       @slot Next queries list layout.
         @binding {SearchItem[]} items - Next queries groups plus the injected list items to
@@ -8,30 +8,31 @@
     -->
     <slot v-bind="{ items, animation }">
       <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ item }">
+        <template v-for="(_, slotName) in slots" v-slot:[slotName]="{ item }">
           <slot :name="slotName" :item="item" />
         </template>
       </ItemsList>
     </slot>
-  </NoElement>
+  </div>
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
+  import { computed, ComputedRef, defineComponent, inject, provide, Ref } from 'vue';
   import { NextQuery } from '@empathyco/x-types';
-  import { mixins } from 'vue-class-component';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { Getter } from '../../../components/decorators/store.decorators';
-  import { NoElement } from '../../../components/no-element';
-  import { ItemsListInjectionMixin } from '../../../components/items-list-injection.mixin';
   import ItemsList from '../../../components/items-list.vue';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { groupItemsBy } from '../../../utils/array';
   import { ListItem } from '../../../utils/types';
   import { NextQueriesGroup } from '../types';
   import { nextQueriesXModule } from '../x-module';
-  import { XInject } from '../../../components/decorators/injection.decorators';
-  import { HAS_MORE_ITEMS_KEY, QUERY_KEY } from '../../../components/decorators/injection.consts';
+  import {
+    HAS_MORE_ITEMS_KEY,
+    LIST_ITEMS_KEY,
+    QUERY_KEY
+  } from '../../../components/decorators/injection.consts';
+  import { AnimationProp } from '../../../types/index';
+  import { use$x } from '../../../composables/use-$x';
+  import { useGetter } from '../../../composables/use-getter';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
 
   /**
    * Component that inserts groups of next queries in different positions of the injected search
@@ -39,162 +40,192 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'NextQueriesList',
     components: {
-      NoElement,
       ItemsList
     },
-    mixins: [xComponentMixin(nextQueriesXModule)]
-  })
-  export default class NextQueriesList extends mixins(ItemsListInjectionMixin) {
-    /**
-     * Animation component that will be used to animate the next queries groups.
-     *
-     * @public
-     */
-    @Prop()
-    protected animation?: Vue | string;
+    xModule: nextQueriesXModule.name,
+    props: {
+      /**
+       * Animation component that will be used to animate the next queries groups.
+       *
+       * @public
+       */
+      animation: {
+        type: AnimationProp,
+        default: 'ul'
+      },
+      /**
+       * The first index to insert a group of next queries at.
+       *
+       * @public
+       */
+      offset: {
+        type: Number,
+        default: 24
+      },
+      /**
+       * The items cycle size to keep inserting next queries groups at.
+       *
+       * @public
+       */
+      frequency: {
+        type: Number,
+        default: 24
+      },
+      /**
+       * The maximum amount of next queries to add in a single group.
+       *
+       * @public
+       */
+      maxNextQueriesPerGroup: {
+        type: Number,
+        default: 4
+      },
+      /**
+       * The maximum number of groups to insert into the injected list items list.
+       *
+       * @public
+       */
+      maxGroups: Number,
+      /**
+       * Determines if a group is added to the injected items list in case the number
+       * of items is smaller than the offset.
+       *
+       * @public
+       */
+      showOnlyAfterOffset: {
+        type: Boolean,
+        default: false
+      }
+    },
+    setup(props, { slots }) {
+      useRegisterXModule(nextQueriesXModule);
 
-    /**
-     * The first index to insert a group of next queries at.
-     *
-     * @public
-     */
-    @Prop({ default: 24 })
-    public offset!: number;
+      const $x = use$x();
 
-    /**
-     * The items cycle size to keep inserting next queries groups at.
-     *
-     * @public
-     */
-    @Prop({ default: 24 })
-    public frequency!: number;
+      /**
+       * The state next queries.
+       *
+       * @internal
+       */
+      const nextQueries: ComputedRef<NextQuery[]> = useGetter('nextQueries', [
+        'nextQueries'
+      ]).nextQueries;
 
-    /**
-     * The maximum amount of next queries to add in a single group.
-     *
-     * @public
-     */
-    @Prop({ default: 4 })
-    public maxNextQueriesPerGroup!: number;
+      /**
+       * Injected query, updated when the related request(s) have succeeded.
+       */
+      const injectedQuery = inject<Ref<string | undefined>>(QUERY_KEY as string);
 
-    /**
-     * The maximum number of groups to insert into the injected list items list.
-     *
-     * @public
-     */
-    @Prop()
-    public maxGroups!: number;
+      /**
+       * Indicates if there are more available results than the injected.
+       */
+      const hasMoreItems = inject<Ref<boolean | undefined>>(HAS_MORE_ITEMS_KEY as string);
 
-    /**
-     * Determines if a group is added to the injected items list in case the number
-     * of items is smaller than the offset.
-     *
-     * @public
-     */
-    @Prop({ default: false })
-    public showOnlyAfterOffset!: boolean;
-
-    /**
-     * The state next queries.
-     *
-     * @internal
-     */
-    @Getter('nextQueries', 'nextQueries')
-    public nextQueries!: NextQuery[];
-
-    /**
-     * Injected query, updated when the related request(s) have succeeded.
-     */
-    @XInject(QUERY_KEY)
-    public injectedQuery!: string | undefined;
-
-    /**
-     * Indicates if there are more available results than the injected.
-     */
-    @XInject(HAS_MORE_ITEMS_KEY)
-    public hasMoreItems!: boolean;
-
-    /**
-     * The grouped next queries based on the given config.
-     *
-     * @returns A list of next queries groups.
-     * @internal
-     */
-    protected get nextQueriesGroups(): NextQueriesGroup[] {
-      return Object.values(
-        groupItemsBy(this.nextQueries, (_, index) =>
-          Math.floor(index / this.maxNextQueriesPerGroup)
+      /**
+       * The grouped next queries based on the given config.
+       *
+       * @returns A list of next queries groups.
+       * @internal
+       */
+      const nextQueriesGroups = computed<NextQueriesGroup[]>(() =>
+        Object.values(
+          groupItemsBy(nextQueries?.value, (_, index) =>
+            Math.floor(index / props.maxNextQueriesPerGroup)
+          )
         )
-      )
-        .slice(0, this.maxGroups)
-        .map(nextQueries => ({
-          modelName: 'NextQueriesGroup' as const,
-          id: nextQueries.map(nextQuery => nextQuery.query).join(','),
-          nextQueries
-        }));
-    }
-
-    /**
-     * New list of {@link ListItem}s to render.
-     *
-     * @returns The new list of {@link ListItem}s with the next queries groups inserted.
-     * @internal
-     */
-    public override get items(): ListItem[] {
-      if (!this.injectedListItems) {
-        return this.nextQueriesGroups;
-      }
-      if (this.nextQueriesAreOutdated) {
-        return this.injectedListItems;
-      }
-      if (this.hasNotEnoughListItems) {
-        return this.injectedListItems.concat(this.nextQueriesGroups[0] ?? []);
-      }
-      return this.nextQueriesGroups.reduce(
-        (items, nextQueriesGroup, index) => {
-          const targetIndex = this.offset + this.frequency * index;
-          if (targetIndex <= items.length) {
-            items.splice(targetIndex, 0, nextQueriesGroup);
-          }
-          return items;
-        },
-        [...this.injectedListItems]
+          .slice(0, props.maxGroups)
+          .map(nextQueries => ({
+            modelName: 'NextQueriesGroup' as const,
+            id: nextQueries.map(nextQuery => nextQuery.query).join(','),
+            nextQueries
+          }))
       );
-    }
 
-    /**
-     * Checks if the next queries are outdated taking into account the injected query.
-     *
-     * @returns True if the next queries are outdated, false if not.
-     * @internal
-     */
-    protected get nextQueriesAreOutdated(): boolean {
-      return (
-        !!this.injectedQuery &&
-        (this.$x.query.nextQueries !== this.injectedQuery ||
-          this.$x.status.nextQueries !== 'success')
-      );
-    }
+      /**
+       * It injects {@link ListItem} provided by an ancestor as injectedListItems.
+       *
+       * @internal
+       */
+      const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
 
-    /**
-     * Checks if the number of items is smaller than the offset so a group
-     * should be added to the injected items list.
-     *
-     * @returns True if a group should be added, false if not.
-     * @internal
-     */
-    protected get hasNotEnoughListItems(): boolean {
-      return (
-        !this.showOnlyAfterOffset &&
-        !this.hasMoreItems &&
-        this.injectedListItems !== undefined &&
-        this.injectedListItems.length > 0 &&
-        this.offset > this.injectedListItems.length
-      );
+      /**
+       * Checks if the next queries are outdated taking into account the injected query.
+       *
+       * @returns True if the next queries are outdated, false if not.
+       * @internal
+       */
+      const nextQueriesAreOutdated = computed(() => {
+        return (
+          !!injectedQuery?.value &&
+          ($x.query.nextQueries !== injectedQuery.value || $x.status.nextQueries !== 'success')
+        );
+      });
+
+      /**
+       * Checks if the number of items is smaller than the offset so a group
+       * should be added to the injected items list.
+       *
+       * @returns True if a group should be added, false if not.
+       * @internal
+       */
+      const hasNotEnoughListItems = computed(() => {
+        return (
+          !props.showOnlyAfterOffset &&
+          !hasMoreItems?.value &&
+          injectedListItems !== undefined &&
+          injectedListItems.value.length > 0 &&
+          props.offset > injectedListItems.value.length
+        );
+      });
+
+      /**
+       * New list of {@link ListItem}s to render.
+       *
+       * @returns The new list of {@link ListItem}s with the next queries groups inserted.
+       * @internal
+       */
+
+      const items = computed((): ListItem[] => {
+        if (!injectedListItems?.value) {
+          return nextQueriesGroups.value;
+        }
+        if (nextQueriesAreOutdated.value) {
+          return injectedListItems.value;
+        }
+        if (hasNotEnoughListItems.value) {
+          return injectedListItems.value.concat(nextQueriesGroups.value[0] ?? []);
+        }
+        return nextQueriesGroups?.value.reduce(
+          (items, nextQueriesGroup, index) => {
+            const targetIndex = props.offset + props.frequency * index;
+            if (targetIndex <= items.length) {
+              items.splice(targetIndex, 0, nextQueriesGroup);
+            }
+            return items;
+          },
+          [...injectedListItems.value]
+        );
+      });
+
+      /**
+       * The computed list items of the entity that uses the mixin.
+       *
+       * @remarks It should be overridden in the component that uses the mixin and it's intended to be
+       * filled with items from the state. Vue doesn't allow mixins as abstract classes.
+       * @returns An empty array as fallback in case it is not overridden.
+       * @internal
+       */
+      provide(LIST_ITEMS_KEY as string, items);
+
+      return {
+        items,
+        slots
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

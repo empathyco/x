@@ -1,7 +1,7 @@
 <script lang="ts">
   import { defineComponent, PropType, provide, toRef } from 'vue';
   import { FeatureLocation } from '../types';
-  import { useNoElementRender } from '../composables/index';
+  import { useNoElementRender } from '../composables/use-no-element-render';
 
   /**
    * Location Provider component.

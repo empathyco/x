@@ -1,5 +1,5 @@
 <template>
-  <NoElement>
+  <div v-if="items.length > 0">
     <!--
       @slot Customized Promoteds List layout.
         @binding {Promoted[]} items - Promoteds plus the injected list items to render.
@@ -7,25 +7,25 @@
     -->
     <slot v-bind="{ items, animation }">
       <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in $scopedSlots" v-slot:[slotName]="{ item }">
+        <template v-for="(_, slotName) in slots" v-slot:[slotName]="{ item }">
           <slot :name="slotName" :item="item" />
         </template>
       </ItemsList>
     </slot>
-  </NoElement>
+  </div>
 </template>
 
 <script lang="ts">
   import { Promoted } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { State } from '../../../components/decorators/store.decorators';
-  import { NoElement } from '../../../components/no-element';
-  import { ItemsListInjectionMixin } from '../../../components/items-list-injection.mixin';
+  import { computed, ComputedRef, defineComponent, inject, provide, Ref } from 'vue';
   import ItemsList from '../../../components/items-list.vue';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { ListItem } from '../../../utils/types';
   import { searchXModule } from '../x-module';
+  import { AnimationProp } from '../../../types/animation-prop';
+  import { use$x } from '../../../composables/use-$x';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
+  import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
 
   /**
    * It renders a {@link ItemsList} of promoteds from {@link SearchState.promoteds} by default
@@ -39,61 +39,90 @@
    *
    * @public
    */
-  @Component({
+
+  export default defineComponent({
+    name: 'PromotedsList',
     components: {
-      NoElement,
       ItemsList
     },
-    mixins: [xComponentMixin(searchXModule)]
-  })
-  export default class PromotedsList extends ItemsListInjectionMixin {
-    /**
-     * The promoteds to render from the state.
-     *
-     * @public
-     */
-    @State('search', 'promoteds')
-    public stateItems!: Promoted[];
-
-    /**
-     * Animation component that will be used to animate the promoteds.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue | string;
-
-    /**
-     * The `stateItems` concatenated with the `injectedListItems` if there are.
-     *
-     * @remarks This computed defines the merging strategy of the `stateItems` and the
-     * `injectedListItems`.
-     *
-     * @returns List of {@link ListItem}.
-     *
-     * @internal
-     */
-    public override get items(): ListItem[] {
-      if (!this.injectedListItems?.length) {
-        return this.stateItems;
+    xModule: searchXModule.name,
+    props: {
+      /**
+       * Animation component that will be used to animate the promoteds.
+       *
+       * @public
+       */
+      animation: {
+        type: AnimationProp,
+        default: 'ul'
       }
-      const items = [...this.injectedListItems];
-      for (const item of this.stateItems) {
-        const position = item.position ?? 1;
-        let index = position - 1;
-        while (items.at(index)?.modelName === 'Promoted') {
-          index++;
+    },
+    setup(_, { slots }) {
+      useRegisterXModule(searchXModule);
+
+      const $x = use$x();
+
+      /**
+       * The promoteds to render from the state.
+       *
+       * @public
+       */
+      const stateItems: ComputedRef<Promoted[]> = useState('search', ['promoteds']).promoteds;
+
+      /**
+       * It injects {@link ListItem} provided by an ancestor as injectedListItems.
+       *
+       * @internal
+       */
+      const injectedListItems = inject<Ref<ListItem[] | undefined>>(LIST_ITEMS_KEY as string);
+
+      /**
+       * The `stateItems` concatenated with the `injectedListItems` if there are.
+       *
+       * @remarks This computed defines the merging strategy of the `stateItems` and the
+       * `injectedListItems`.
+       *
+       * @returns List of {@link ListItem}.
+       *
+       * @internal
+       */
+      const items = computed((): ListItem[] => {
+        if (!injectedListItems?.value!.length) {
+          return stateItems.value;
         }
-        const isIndexInLoadedPages = index <= items.length;
-        const areAllPagesLoaded = this.$x.results.length === this.$x.totalResults;
-        if (!isIndexInLoadedPages && !areAllPagesLoaded) {
-          break;
+        const items = [...injectedListItems.value];
+        for (const item of stateItems.value) {
+          const position = item.position ?? 1;
+          let index = position - 1;
+          while (items.at(index)?.modelName === 'Promoted') {
+            index++;
+          }
+          const isIndexInLoadedPages = index <= items.length;
+          const areAllPagesLoaded = $x.results.length === $x.totalResults;
+          if (!isIndexInLoadedPages && !areAllPagesLoaded) {
+            break;
+          }
+          items.splice(index, 0, item);
         }
-        items.splice(index, 0, item);
-      }
-      return items;
+        return items;
+      });
+
+      /**
+       * The computed list items of the entity that uses the mixin.
+       *
+       * @remarks It should be overridden in the component that uses the mixin and it's intended to be
+       * filled with items from the state. Vue doesn't allow mixins as abstract classes.
+       * @returns An empty array as fallback in case it is not overridden.
+       * @internal
+       */
+      provide(LIST_ITEMS_KEY as string, items);
+
+      return {
+        items,
+        slots
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

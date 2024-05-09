@@ -4,6 +4,8 @@ import { createStore } from 'vuex';
 import { xPlugin } from '../../x-components/src/plugins/x-plugin';
 import App from './App.vue';
 import router from './router';
+import { searchXModule } from './x-modules/search/x-module';
+import { nextQueriesXModule } from './x-modules/next-queries/x-module';
 import { scrollXModule } from './x-modules/scroll/x-module';
 
 // Warnings that cannot be solved in Vue 2 (a.k.a. breaking  changes) are suppressed
@@ -35,6 +37,8 @@ createApp(App as Component)
     adapter,
     store,
     __PRIVATE__xModules: {
+      search: searchXModule,
+      nextQueries: nextQueriesXModule,
       scroll: scrollXModule
     }
   })
