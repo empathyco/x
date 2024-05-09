@@ -40,6 +40,7 @@
 <script lang="ts">
   import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
   import Vue, { defineComponent, PropType } from 'vue';
+  import { useRegisterXModule } from '../../../../composables/use-register-x-module';
   import { toKebabCase } from '../../../../utils/string';
   import { useFacets } from '../../composables/use-facets';
   import { facetsXModule } from '../../x-module';
@@ -82,6 +83,8 @@
       }
     },
     setup: function (props, { slots }) {
+      useRegisterXModule(facetsXModule);
+
       const { selectedFilters } = useFacets(props);
 
       /**
