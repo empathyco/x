@@ -8,7 +8,7 @@
   import { Facet } from '@empathyco/x-types';
   import { defineComponent, PropType } from 'vue';
   import { NoElement } from '../../../../components/no-element';
-  import { useFacets } from '../../composables/use-facets.composable';
+  import { useFacets } from '../../composables/use-facets';
   import { facetsXModule } from '../../x-module';
 
   /**

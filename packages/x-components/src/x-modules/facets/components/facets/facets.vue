@@ -59,7 +59,7 @@
   import Vue, { computed, ComputedRef, defineComponent, PropType } from 'vue';
   import { useGetter } from '../../../../composables/use-getter';
   import { toKebabCase } from '../../../../utils/string';
-  import { useFacets } from '../../composables/use-facets.composable';
+  import { useFacets } from '../../composables/use-facets';
   import { facetsXModule } from '../../x-module';
 
   /**

@@ -41,7 +41,7 @@
   import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
   import Vue, { defineComponent, PropType } from 'vue';
   import { toKebabCase } from '../../../../utils/string';
-  import { useFacets } from '../../composables/use-facets.composable';
+  import { useFacets } from '../../composables/use-facets';
   import { facetsXModule } from '../../x-module';
   import SelectedFilters from './selected-filters.vue';
 

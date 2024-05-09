@@ -1,1 +1,1 @@
-export * from './use-facets.composable';
+export * from './use-facets';

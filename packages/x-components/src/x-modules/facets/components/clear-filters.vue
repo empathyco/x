@@ -17,7 +17,7 @@
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { VueCSSClasses } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
-  import { useFacets } from '../composables/use-facets.composable';
+  import { useFacets } from '../composables/use-facets';
   import { facetsXModule } from '../x-module';
 
   /**
