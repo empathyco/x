@@ -69,7 +69,7 @@
         </Scroll>
       </BaseIdTogglePanel>
 
-      <MainScroll>
+      <MainScroll class="x-flex x-flex-auto">
         <Scroll v-if="hasContent('main-body')" id="main-scroll" class="x-layout__body-scroll">
           <section class="x-layout__main-body x-list x-list--vertical">
             <!-- @slot Slot that can be used to insert the body content. -->

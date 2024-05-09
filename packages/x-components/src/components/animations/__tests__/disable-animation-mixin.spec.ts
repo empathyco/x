@@ -1,14 +1,13 @@
 import { mount, Wrapper } from '@vue/test-utils';
-import { Component, Prop } from 'vue-property-decorator';
+import { Component, Prop, Provide } from 'vue-property-decorator';
 import Vue, { ComponentOptions, CreateElement, VNode } from 'vue';
 import DisableAnimationMixin from '../disable-animation.mixin';
-import { XProvide } from '../../decorators/injection.decorators';
 import { DISABLE_ANIMATIONS_KEY } from '../../decorators/injection.consts';
 
 @Component
 class Provider extends Vue {
   @Prop()
-  @XProvide(DISABLE_ANIMATIONS_KEY)
+  @Provide(DISABLE_ANIMATIONS_KEY as string)
   public disableAnimation!: boolean;
 
   render(h: CreateElement): VNode {

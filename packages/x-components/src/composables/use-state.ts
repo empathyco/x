@@ -19,7 +19,7 @@ export function useState<
   const store = useStore();
 
   return paths.reduce<Dictionary<ComputedRef>>((stateDictionary, path) => {
-    stateDictionary[path] = computed(() => store.state.x[module]?.[path]);
+    stateDictionary[path] = computed(() => store?.state.x[module]?.[path]);
     return stateDictionary;
   }, {});
 }

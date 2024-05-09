@@ -8,6 +8,7 @@ import {
   TestSortDropdown,
   TestSortList,
   TestSortPickerList,
+  TestScroll,
   TestBaseColumnPickerDropdown
 } from './';
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/fade',
     name: 'Fade',
     component: TestFade
+  },
+  {
+    path: '/scroll',
+    name: 'Scroll',
+    component: TestScroll
   },
   {
     path: '/base-dropdown',
