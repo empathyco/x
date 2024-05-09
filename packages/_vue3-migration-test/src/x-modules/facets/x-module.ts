@@ -1,10 +1,8 @@
 import { Facet } from '@empathyco/x-types';
 import { createSimpleFacetStub } from '../../../../x-components/src/__stubs__/facets-stubs.factory';
+import { PrivateXModuleOptions } from '../../../../x-components/src/plugins/x-plugin.types';
 import { arrayToObject } from '../../../../x-components/src/utils/array';
-import {
-  facetsXModule,
-  FacetsXModule
-} from '../../../../x-components/src/x-modules/facets/x-module';
+import { FacetsXModule } from '../../../../x-components/src/x-modules/facets/x-module';
 
 const facets: Record<Facet['id'], Facet> = {
   gender: createSimpleFacetStub('gender', createFilter => [
@@ -25,14 +23,11 @@ const filters = arrayToObject(
   'id'
 );
 
-export const testFacetsXModule: FacetsXModule = {
-  ...facetsXModule,
+export const facetsXModule: PrivateXModuleOptions<FacetsXModule> = {
   storeModule: {
-    ...facetsXModule.storeModule,
-    state: () => ({
-      ...facetsXModule.storeModule.state(),
+    state: {
       facets,
       filters
-    })
+    }
   }
 };

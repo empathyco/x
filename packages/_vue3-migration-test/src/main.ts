@@ -4,7 +4,7 @@ import { createStore } from 'vuex';
 import { xPlugin } from '../../x-components/src/plugins/x-plugin';
 import App from './App.vue';
 import router from './router';
-import { scrollXModule, testFacetsXModule } from './';
+import { facetsXModule, scrollXModule } from './';
 
 // Warnings that cannot be solved in Vue 2 (a.k.a. breaking  changes) are suppressed
 const VUE_COMPAT_MODE = Number(import.meta.env.VITE_VUE_COMPAT_MODE);
@@ -34,8 +34,8 @@ createApp(App as Component)
   .use(xPlugin, {
     adapter,
     store,
-    initialXModules: [testFacetsXModule],
     __PRIVATE__xModules: {
+      facets: facetsXModule,
       scroll: scrollXModule
     }
   })
