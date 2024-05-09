@@ -12,55 +12,63 @@
 </template>
 
 <script lang="ts">
-  import Component from 'vue-class-component';
-  import { xComponentMixin } from '../../../components';
+  import { Facet } from '@empathyco/x-types';
+  import { computed, defineComponent, PropType } from 'vue';
   import BaseEventButton from '../../../components/base-event-button.vue';
-  import { VueCSSClasses } from '../../../utils';
-  import { XEventsTypes } from '../../../wiring';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { VueCSSClasses } from '../../../utils/types';
+  import { XEventsTypes } from '../../../wiring/events.types';
+  import { useFacets } from '../composables/use-facets';
   import { facetsXModule } from '../x-module';
-  import FacetsMixin from './facets.mixin';
 
   /**
    * Renders a simple button, emitting the needed events when clicked.
    *
-   * @remarks It extends {@link FacetsMixin}.
-   *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'ClearFilters',
+    xModule: facetsXModule.name,
     components: { BaseEventButton },
-    mixins: [xComponentMixin(facetsXModule)]
-  })
-  export default class ClearFilters extends FacetsMixin {
-    /**
-     * The events that will be emitted when the button clear filters is clicked.
-     *
-     * @returns The events to be emitted when the button clear filters is clicked.
-     * @internal
-     */
-    protected get events(): Partial<XEventsTypes> {
-      return this.facetsIds
-        ? {
-            UserClickedClearAllFilters: this.facetsIds
-          }
-        : {
-            UserClickedClearAllFilters: undefined
-          };
-    }
+    props: {
+      /** Array of facets ids used to get the selected filters for those facets. */
+      facetsIds: Array as PropType<Array<Facet['id']>>,
+      /** Flag to render the component even if there are no filters selected. */
+      alwaysVisible: Boolean
+    },
+    setup: function (props) {
+      useRegisterXModule(facetsXModule);
 
-    /**
-     * Dynamic CSS classes to apply to the component.
-     *
-     * @returns The dynamic CSS classes to apply to the component.
-     * @internal
-     */
-    protected get cssClasses(): VueCSSClasses {
+      const { selectedFilters, hasSelectedFilters, isVisible } = useFacets(props);
+
+      /**
+       * The events that will be emitted when the button clear filters is clicked.
+       *
+       * @returns The events to be emitted when the button clear filters is clicked.
+       */
+      const events = computed<Partial<XEventsTypes>>(() => ({
+        UserClickedClearAllFilters: props.facetsIds
+      }));
+
+      /**
+       * Dynamic CSS classes to apply to the component.
+       *
+       * @returns The dynamic CSS classes to apply to the component.
+       */
+      const cssClasses = computed<VueCSSClasses>(() => ({
+        'x-clear-filters--has-not-selected-filters': !hasSelectedFilters.value,
+        'x-clear-filters--has-selected-filters': hasSelectedFilters.value
+      }));
+
       return {
-        'x-clear-filters--has-not-selected-filters': !this.hasSelectedFilters,
-        'x-clear-filters--has-selected-filters': this.hasSelectedFilters
+        selectedFilters,
+        hasSelectedFilters,
+        isVisible,
+        events,
+        cssClasses
       };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
