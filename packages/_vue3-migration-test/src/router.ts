@@ -8,6 +8,7 @@ import {
   TestClearFilters,
   TestFacets,
   TestFade,
+  TestScroll,
   TestSelectedFilters,
   TestSelectedFiltersList,
   TestSortDropdown,
@@ -65,6 +66,11 @@ const routes = [
     path: '/clear-filters',
     name: 'ClearFilters',
     component: TestClearFilters
+  },
+  {
+    path: '/scroll',
+    name: 'Scroll',
+    component: TestScroll
   },
   {
     path: '/sort-dropdown',

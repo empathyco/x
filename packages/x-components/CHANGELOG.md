@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.7...@empathyco/x-components@5.0.0-alpha.8) (2024-05-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* `MainScroll` drops the usage of `NoElement` as root element and uses a div instead. This extra div could break the style of an application that relies on `MainScroll` rendering their content directly.
+`MainScrollItem` drops the usage of `NoElement` if no `tag` prop is passed and uses a div as fallback.
+
+### Features
+
+* migrate `MainScroll` and `MainScrollItem` components (#1456) ([b720132](https://github.com/empathyco/x/commit/b7201322bbf1f5696e80e00622d21d653228177c))
+
+
+
 ## [5.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.6...@empathyco/x-components@5.0.0-alpha.7) (2024-05-06)
 
 
