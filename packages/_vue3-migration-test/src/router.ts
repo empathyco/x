@@ -1,16 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import {
   TestAnimateWidth,
+  TestBaseColumnPickerDropdown,
   TestBaseColumnPickerList,
   TestBaseDropdown,
   TestBaseEventButton,
+  TestElementsList,
+  TestFacets,
   TestFade,
+  TestScroll,
   TestSortDropdown,
   TestSortList,
   TestSortPickerList,
-  TestElementsList,
-  TestScroll,
-  TestBaseColumnPickerDropdown,
   TestFiltersInjection
 } from './';
 
@@ -24,11 +25,6 @@ const routes = [
     path: '/fade',
     name: 'Fade',
     component: TestFade
-  },
-  {
-    path: '/scroll',
-    name: 'Scroll',
-    component: TestScroll
   },
   {
     path: '/base-dropdown',
@@ -49,6 +45,16 @@ const routes = [
     path: '/base-column-picker-list',
     name: 'BaseColumnPickerList',
     component: TestBaseColumnPickerList
+  },
+  {
+    path: '/facets',
+    name: 'Facets',
+    component: TestFacets
+  },
+  {
+    path: '/scroll',
+    name: 'Scroll',
+    component: TestScroll
   },
   {
     path: '/sort-dropdown',

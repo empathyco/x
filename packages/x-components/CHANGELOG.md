@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.8...@empathyco/x-components@5.0.0-alpha.9) (2024-05-09)
+
+
+### Features
+
+* migrate `ItemsListInjection` mixin (#1460) ([a89fb51](https://github.com/empathyco/x/commit/a89fb5179de040695f13d56f43de50917e1c7f97))
+
+
+
 ## [5.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.7...@empathyco/x-components@5.0.0-alpha.8) (2024-05-08)
 
 

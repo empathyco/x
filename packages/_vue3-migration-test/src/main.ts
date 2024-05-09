@@ -4,10 +4,7 @@ import { createStore } from 'vuex';
 import { xPlugin } from '../../x-components/src/plugins/x-plugin';
 import App from './App.vue';
 import router from './router';
-import { searchXModule } from './x-modules/search/x-module';
-import { nextQueriesXModule } from './x-modules/next-queries/x-module';
-import { scrollXModule } from './x-modules/scroll/x-module';
-import { facetsXModule } from './x-modules/facets/x-module';
+import { facetsXModule, nextQueriesXModule, scrollXModule, searchXModule } from './';
 
 // Warnings that cannot be solved in Vue 2 (a.k.a. breaking  changes) are suppressed
 const VUE_COMPAT_MODE = Number(import.meta.env.VITE_VUE_COMPAT_MODE);
@@ -38,10 +35,10 @@ createApp(App as Component)
     adapter,
     store,
     __PRIVATE__xModules: {
-      search: searchXModule,
+      facets: facetsXModule,
       nextQueries: nextQueriesXModule,
       scroll: scrollXModule,
-      facets: facetsXModule
+      search: searchXModule
     }
   })
   .mount('#app');

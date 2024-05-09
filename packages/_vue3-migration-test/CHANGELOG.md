@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.6](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.5...vue3-migration-test@1.0.0-alpha.6) (2024-05-09)
+
+
+### Features
+
+* migrate `ItemsListInjection` mixin (#1460) ([a89fb51](https://github.com/empathyco/x/commit/a89fb5179de040695f13d56f43de50917e1c7f97))
+
+
+
 ## [1.0.0-alpha.5](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.4...vue3-migration-test@1.0.0-alpha.5) (2024-05-08)
 
 

@@ -7,7 +7,7 @@ import { FacetsXModule } from '../../../../x-components/src/x-modules/facets/x-m
 const facets: Record<Facet['id'], Facet> = {
   gender: createSimpleFacetStub('gender', createFilter => [
     createFilter('Men', false),
-    createFilter('Women', true)
+    createFilter('Women', false)
   ]),
   brand: createSimpleFacetStub('brand', createFilter => [
     createFilter('Audi', true),
