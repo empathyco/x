@@ -33,7 +33,7 @@
         required: false
       }
     },
-    setup(props) {
+    setup(props, { slots }) {
       useRegisterXModule(facetsXModule);
       const renderedFilters = useFiltersInjection(props);
 
@@ -54,10 +54,10 @@
       });
       provide('filters', sortedFilters);
 
-      return { sortedFilters };
+      return { sortedFilters, slots };
     },
     render(h: CreateElement): VNode {
-      return this.$scopedSlots.default?.({ filters: this.sortedFilters })?.[0] ?? h();
+      return this.slots.default?.({ filters: this.sortedFilters })?.[0] ?? h();
     }
   });
 </script>
