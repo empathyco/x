@@ -5,6 +5,9 @@ import {
   TestBaseColumnPickerList,
   TestBaseDropdown,
   TestBaseEventButton,
+  TestCollapseHeight,
+  TestCollapseWidth,
+  TestCrossFade,
   TestElementsList,
   TestFacets,
   TestFade,
@@ -19,6 +22,21 @@ const routes = [
     path: '/animate-width',
     name: 'AnimateWidth',
     component: TestAnimateWidth
+  },
+  {
+    path: '/collapse-height',
+    name: 'CollapseHeight',
+    component: TestCollapseHeight
+  },
+  {
+    path: '/collapse-width',
+    name: 'CollapseWidth',
+    component: TestCollapseWidth
+  },
+  {
+    path: '/cross-fade',
+    name: 'CrossFade',
+    component: TestCrossFade
   },
   {
     path: '/fade',
