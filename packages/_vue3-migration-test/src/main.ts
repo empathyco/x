@@ -5,6 +5,8 @@ import { xPlugin } from '../../x-components/src/plugins/x-plugin';
 import { facetsXModule } from '../../x-components/src/x-modules/facets/x-module';
 import App from './App.vue';
 import router from './router';
+import { searchXModule } from './x-modules/search/x-module';
+import { nextQueriesXModule } from './x-modules/next-queries/x-module';
 import { scrollXModule, testFacetsXModule } from './';
 
 // Warnings that cannot be solved in Vue 2 (a.k.a. breaking  changes) are suppressed
@@ -38,7 +40,9 @@ createApp(App as Component)
     initialXModules: [facetsXModule],
     __PRIVATE__xModules: {
       facets: testFacetsXModule,
-      scroll: scrollXModule
+      nextQueries: nextQueriesXModule,
+      scroll: scrollXModule,
+      search: searchXModule
     }
   })
   .mount('#app');

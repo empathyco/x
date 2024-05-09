@@ -5,6 +5,7 @@ import {
   TestBaseColumnPickerList,
   TestBaseDropdown,
   TestBaseEventButton,
+  TestElementsList,
   TestFacets,
   TestFade,
   TestScroll,
@@ -68,6 +69,11 @@ const routes = [
     path: '/sort-picker-list',
     name: 'SortPickerList',
     component: TestSortPickerList
+  },
+  {
+    path: '/elements-list',
+    name: 'ElementsList',
+    component: TestElementsList
   }
 ];
 
