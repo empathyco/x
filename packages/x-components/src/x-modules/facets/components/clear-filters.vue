@@ -43,15 +43,9 @@
        *
        * @returns The events to be emitted when the button clear filters is clicked.
        */
-      const events = computed<Partial<XEventsTypes>>(() =>
-        props.facetsIds
-          ? {
-              UserClickedClearAllFilters: props.facetsIds
-            }
-          : {
-              UserClickedClearAllFilters: undefined
-            }
-      );
+      const events = computed<Partial<XEventsTypes>>(() => ({
+        UserClickedClearAllFilters: props.facetsIds
+      }));
 
       /**
        * Dynamic CSS classes to apply to the component.
