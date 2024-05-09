@@ -23,7 +23,7 @@ const filters = arrayToObject(
   'id'
 );
 
-export const facetsXModule: PrivateXModuleOptions<FacetsXModule> = {
+export const testFacetsXModule: PrivateXModuleOptions<FacetsXModule> = {
   storeModule: {
     state: {
       facets,

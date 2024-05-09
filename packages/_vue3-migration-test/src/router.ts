@@ -5,12 +5,9 @@ import {
   TestBaseColumnPickerList,
   TestBaseDropdown,
   TestBaseEventButton,
-  TestClearFilters,
   TestFacets,
   TestFade,
   TestScroll,
-  TestSelectedFilters,
-  TestSelectedFiltersList,
   TestSortDropdown,
   TestSortList,
   TestSortPickerList
@@ -51,21 +48,6 @@ const routes = [
     path: '/facets',
     name: 'Facets',
     component: TestFacets
-  },
-  {
-    path: '/selected-filters',
-    name: 'SelectedFilters',
-    component: TestSelectedFilters
-  },
-  {
-    path: '/selected-filters-list',
-    name: 'SelectedFiltersList',
-    component: TestSelectedFiltersList
-  },
-  {
-    path: '/clear-filters',
-    name: 'ClearFilters',
-    component: TestClearFilters
   },
   {
     path: '/scroll',
