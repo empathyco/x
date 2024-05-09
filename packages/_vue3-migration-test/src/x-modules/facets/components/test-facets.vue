@@ -6,7 +6,10 @@
         <h3>{{ facet.label }}</h3>
         <ul>
           <li v-for="filter in facet.filters" :key="filter.id">
-            {{ filter.label }}
+            <BaseEventButton :events="{ UserClickedAFilter: filter }">
+              {{ filter.label }}
+              <span v-if="filter.selected">✅</span>
+            </BaseEventButton>
           </li>
         </ul>
       </template>
@@ -31,6 +34,7 @@
 </template>
 
 <script setup lang="ts">
+  import BaseEventButton from '../../../../../x-components/src/components/base-event-button.vue';
   import ClearFilters from '../../../../../x-components/src/x-modules/facets/components/clear-filters.vue';
   import Facets from '../../../../../x-components/src/x-modules/facets/components/facets/facets.vue';
   import SelectedFilters from '../../../../../x-components/src/x-modules/facets/components/lists/selected-filters.vue';
