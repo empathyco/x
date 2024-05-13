@@ -24,7 +24,7 @@ export function useFiltersInjection(props: {
    *
    * @public
    */
-  const injectedFilters = inject<Ref<Filter[]> | undefined>('filters');
+  const injectedFilters = inject<Ref<Filter[]> | undefined>('filters', undefined);
 
   /**
    * An array of filters formed by those that are passed through prop or injected.
