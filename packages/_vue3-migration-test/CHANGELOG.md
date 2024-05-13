@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.8](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.7...vue3-migration-test@1.0.0-alpha.8) (2024-05-13)
+
+
+### Features
+
+* replace `AnimationsMixin` with `useCollapseAnimation` composable (#1468) ([e3ee9d9](https://github.com/empathyco/x/commit/e3ee9d94f9acc4abdcd1c591a754c86d9a6abbb7))
+
+
+
 ## [1.0.0-alpha.7](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.6...vue3-migration-test@1.0.0-alpha.7) (2024-05-09)
 
 
