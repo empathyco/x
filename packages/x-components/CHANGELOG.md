@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.10...@empathyco/x-components@5.0.0-alpha.11) (2024-05-13)
+
+
+### Features
+
+* replace `AnimationsMixin` with `useCollapseAnimation` composable (#1468) ([e3ee9d9](https://github.com/empathyco/x/commit/e3ee9d94f9acc4abdcd1c591a754c86d9a6abbb7))
+
+
+
+## [5.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.9...@empathyco/x-components@5.0.0-alpha.10) (2024-05-09)
+
+
+### Features
+
+* Replace FacetsMixin by useFacets composable (#1462) ([bb7e0ce](https://github.com/empathyco/x/commit/bb7e0cede8653d82e436db696e80c1bdbcb9cc41))
+
+
+
 ## [5.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.8...@empathyco/x-components@5.0.0-alpha.9) (2024-05-09)
 
 

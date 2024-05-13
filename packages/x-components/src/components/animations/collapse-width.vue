@@ -14,9 +14,8 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { createCollapseAnimationMixin } from './animations.mixin';
+  import { defineComponent } from 'vue';
+  import { useCollapseAnimation } from './use-collapse-animation';
 
   /**
    * Renders a transition wrapping the element passed in the default slot and animating
@@ -24,21 +23,23 @@
    *
    * @public
    */
-  @Component({
-    mixins: [createCollapseAnimationMixin('width')],
-    inheritAttrs: false
-  })
-  export default class CollapseWidth extends Vue {
-    /**
-     * Indicates if the transition must be applied on the initial render of the node.
-     */
-    @Prop({
-      type: Boolean,
-      default: true
-    })
-    public appear!: boolean;
+  export default defineComponent({
+    name: 'CollapseWidth',
+    inheritAttrs: false,
+    props: {
+      /**
+       * Indicates if the transition must be applied on the initial render of the node.
+       */
+      appear: {
+        type: Boolean,
+        default: true
+      }
+    },
+    setup: function () {
+      return useCollapseAnimation('width');
+    }
     // TODO Add support for extending enter, after-enter and leave transitions
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
