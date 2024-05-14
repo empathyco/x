@@ -96,9 +96,9 @@ or the `stagger` props:
 
 ```vue
 <StaggeredFadeAndSlide tag="ul" :stagger="50">
-  <li>Element to animate</li>
-  <li>Element to animate</li>
-  <li>Element to animate</li>
+  <li key="1">Element to animate</li>
+  <li key="2">Element to animate</li>
+  <li key="3">Element to animate</li>
 </StaggeredFadeAndSlide>
 ```
 </docs>
