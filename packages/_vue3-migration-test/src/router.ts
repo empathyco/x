@@ -11,6 +11,7 @@ import {
   TestElementsList,
   TestFacets,
   TestFade,
+  TestFadeAndSlide,
   TestScroll,
   TestSortDropdown,
   TestSortList,
@@ -41,7 +42,8 @@ import {
   TestNextQueries,
   TestIdentifierResults,
   TestExtraParams,
-  TestSearch
+  TestSearch,
+  TestStaggeredFadeAndSlide
 } from './';
 
 const routes = [
@@ -79,6 +81,16 @@ const routes = [
     path: '/base-modal',
     name: 'BaseModal',
     component: TestBaseModal
+  },
+  {
+    path: '/fade-and-slide',
+    name: 'FadeAndSlide',
+    component: TestFadeAndSlide
+  },
+  {
+    path: '/staggered-fade-and-slide',
+    name: 'StaggeredFadeAndSlide',
+    component: TestStaggeredFadeAndSlide
   },
   {
     path: '/base-dropdown',
