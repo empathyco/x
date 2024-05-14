@@ -12,37 +12,42 @@
 </template>
 
 <script lang="ts">
-  import { mixins } from 'vue-class-component';
-  import { Component, Prop } from 'vue-property-decorator';
-  import StaggeringTransitionGroup from '../animations/staggering-transition-group.vue';
-  import DisableAnimationMixin from './disable-animation.mixin';
+  import { defineComponent } from 'vue';
+  import StaggeringTransitionGroup from './staggering-transition-group.vue';
+  import { useDisableAnimation } from './use-disable-animation';
 
   /**
    * Renders a transition group wrapping the elements passed in the default slot and animating
-   * them with an staggered fade and slide animation.
+   * them with a staggered fade and slide animation.
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'StaggeredFadeAndSlide',
     components: { StaggeringTransitionGroup },
-    inheritAttrs: false
-  })
-  export default class StaggeredFadeAndSlide extends mixins(DisableAnimationMixin) {
-    /**
-     * Indicates if the transition must be applied on the initial render of the node.
-     */
-    @Prop({
-      type: Boolean,
-      default: true
-    })
-    public appear!: boolean;
-    /**
-     * The name of the animation.
-     *
-     * @public
-     */
-    protected animationName = 'x-staggered-fade-and-slide-';
-  }
+    inheritAttrs: false,
+    props: {
+      /**
+       * Indicates if the transition must be applied on the initial render of the node.
+       */
+      appear: {
+        type: Boolean,
+        default: true
+      }
+    },
+    setup: function () {
+      /**
+       * The name of the animation.
+       */
+      const animationName = 'x-staggered-fade-and-slide-';
+
+      const { name } = useDisableAnimation(animationName);
+
+      return {
+        name
+      };
+    }
+  });
 </script>
 
 <style lang="scss" scoped>
