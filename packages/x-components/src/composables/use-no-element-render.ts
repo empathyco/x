@@ -11,9 +11,8 @@ import { VNode } from 'vue/types/vnode';
  */
 export function useNoElementRender(
   slots: { [key: string]: VNode[] | undefined } | SetupContext['slots']
-): VNode {
-  const defaultSlotContent =
-    typeof slots.default === 'function' ? slots.default()?.[0] : slots.default?.[0];
+): VNode | VNode[] {
+  const defaultSlotContent = typeof slots.default === 'function' ? slots.default() : slots.default;
 
   return defaultSlotContent ?? h();
 }
