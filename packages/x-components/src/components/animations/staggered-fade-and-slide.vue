@@ -1,11 +1,13 @@
 <template>
+  <!-- eslint-disable vue/attributes-order -->
   <staggering-transition-group
+    v-bind="$attrs"
     v-on="$listeners"
     class="x-staggered-fade-and-slide"
     :name="name"
-    v-bind="$attrs"
     :appear="appear"
   >
+    <!-- eslint-enable -->
     <!-- @slot (Required) Transition-group content -->
     <slot />
   </staggering-transition-group>

@@ -1,12 +1,14 @@
 <template>
+  <!-- eslint-disable vue/attributes-order -->
   <transition-group
+    v-bind="$attrs"
     v-on="$listeners"
     class="x-fade-and-slide"
     :name="name"
     :tag="tag"
-    v-bind="$attrs"
     :appear="appear"
   >
+    <!-- eslint-enable -->
     <!-- @slot (Required) Transition-group content -->
     <slot />
   </transition-group>
