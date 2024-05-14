@@ -27,7 +27,7 @@
   import { Filter } from '@empathyco/x-types';
   import { VueCSSClasses } from '../../../../utils/types';
   import { facetsXModule } from '../../x-module';
-  import { AnimationProp } from '../../../../types/index';
+  import { AnimationProp } from '../../../../types/animation-prop';
   import { useRegisterXModule } from '../../../../composables/use-register-x-module';
   import { useFiltersInjection } from '../../../../composables/use-filters-injection';
 
