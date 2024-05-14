@@ -14,7 +14,7 @@
         type="search"
         class="x-filters-search__input x-input"
         data-test="filters-search-input"
-        :aria-label="filtersSearchInputMessage"
+        :aria-label="'search into the filter values'"
       />
     </slot>
     <!--
@@ -73,8 +73,7 @@
       const renderedFilters = useFiltersInjection(props);
 
       let query = ref('');
-      let setQueryDebounced!: DebouncedFunction<[string]>;
-      const filtersSearchInputMessage = 'search into the filter values';
+      let setQueryDebounced: DebouncedFunction<[string]>;
 
       const debounceInMs = computed(() => props.debounceInMs);
 
@@ -135,7 +134,6 @@
       };
 
       return {
-        filtersSearchInputMessage,
         clearQuery,
         setQuery,
         cssClasses,

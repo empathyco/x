@@ -14,8 +14,7 @@ import {
   TestScroll,
   TestSortDropdown,
   TestSortList,
-  TestSortPickerList,
-  TestFiltersInjection
+  TestSortPickerList
 } from './';
 
 const routes = [
@@ -93,11 +92,6 @@ const routes = [
     path: '/elements-list',
     name: 'ElementsList',
     component: TestElementsList
-  },
-  {
-    path: '/filters-injection',
-    name: 'FiltersInjection',
-    component: TestFiltersInjection
   }
 ];
 

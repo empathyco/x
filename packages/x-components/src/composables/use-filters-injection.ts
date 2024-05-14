@@ -1,6 +1,6 @@
 import { Filter, HierarchicalFilter, isHierarchicalFilter } from '@empathyco/x-types';
 import { computed, inject, Ref } from 'vue';
-import { isArrayEmpty } from '../utils/index';
+import { isArrayEmpty } from '../utils/array';
 
 /**
  * Composable to share filters injection logic.
@@ -12,7 +12,7 @@ import { isArrayEmpty } from '../utils/index';
  */
 export function useFiltersInjection(props: {
   /** The list of filters to be rendered as slots. */
-  filters?: Filter[] | undefined;
+  filters?: Filter[];
   /**
     This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
    to make the `renderedFilters` to return only the filters of each level of the hierarchy.
