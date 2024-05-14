@@ -1,67 +1,95 @@
 import { mount } from '@vue/test-utils';
-import { default as Vue } from 'vue';
+import { defineComponent } from 'vue';
+import { installNewXPlugin } from '../../__tests__/utils';
+import { XPlugin } from '../../plugins';
 import { useXBus } from '../use-x-bus';
-import { bus } from '../../plugins/x-bus';
+
+function install() {
+  installNewXPlugin();
+
+  return {
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    onSpy: jest.spyOn(XPlugin.bus, 'on')
+  };
+}
+
+let onColumnsNumberProvidedMock = jest.fn();
+
+function render(withMetadata = true) {
+  const component = defineComponent({
+    xModule: 'searchBox',
+    setup: () => {
+      const bus = useXBus();
+      bus.on('ColumnsNumberProvided', withMetadata).subscribe(onColumnsNumberProvidedMock);
+      bus.emit('ColumnsNumberProvided', 10, { customMetadata: 'custom' });
+    },
+    template: `<div/>`
+  });
+
+  return {
+    wrapper: mount(component, { provide: { location: 'Magrathea' } })
+  };
+}
 
 describe('testing useXBus', () => {
-  const emitSpy = jest.spyOn(bus, 'emit');
-  const onSpy = jest.spyOn(bus, 'on');
-
   beforeEach(() => {
-    jest.clearAllMocks();
+    onColumnsNumberProvidedMock = jest.fn();
   });
 
-  it('exposes an API containing `on` and `emit` functions that use the `XBus`', () => {
-    /* eslint-disable-next-line @typescript-eslint/unbound-method */
-    const { on, emit } = useXBus();
-    on('ColumnsNumberProvided', true);
-    emit('ColumnsNumberProvided', 2, { customMetadata: 'custom' });
+  it('should emit and on subscription in the bus for registered events', () => {
+    const { onSpy, emitSpy } = install();
+    render();
+    const metadata = {
+      customMetadata: 'custom',
+      moduleName: 'searchBox',
+      location: 'Magrathea',
+      replaceable: true
+    };
 
+    expect(emitSpy).toHaveBeenCalledTimes(1);
+    expect(emitSpy).toHaveBeenCalledWith('ColumnsNumberProvided', 10, metadata);
     expect(onSpy).toHaveBeenCalledTimes(1);
     expect(onSpy).toHaveBeenCalledWith('ColumnsNumberProvided', true);
-    expect(emitSpy).toHaveBeenCalledTimes(1);
-    expect(emitSpy).toHaveBeenCalledWith(
-      'ColumnsNumberProvided',
-      2,
-      expect.objectContaining({
-        replaceable: true,
-        customMetadata: 'custom'
-      })
-    );
+    expect(onColumnsNumberProvidedMock).toHaveBeenCalledWith({ eventPayload: 10, metadata });
   });
 
-  // eslint-disable-next-line max-len
-  it('emits the event with the metadata regarding location and moduleName of root X component', () => {
-    const location = 'Magrathea';
-    const moduleName = 'searchBox';
+  it('should not emit metadata if it was not configured for', () => {
+    install();
+    render(false);
 
-    const nonXComponent = Vue.extend({
-      setup() {
-        /* eslint-disable-next-line @typescript-eslint/unbound-method */
-        const { on, emit } = useXBus();
-        on('ColumnsNumberProvided', true);
-        emit('ColumnsNumberProvided', 2);
+    expect(onColumnsNumberProvidedMock).toHaveBeenCalledWith(10);
+  });
 
-        return {};
-      },
-      template: '<div></div>'
-    });
+  it('should emit events natively in Vue', () => {
+    install();
+    const { wrapper } = render();
 
-    mount({
-      xModule: moduleName,
-      render(h) {
-        return h(nonXComponent);
-      },
-      provide: {
-        location: 'Magrathea'
-      }
-    });
+    expect(wrapper.emitted()).toEqual({ ColumnsNumberProvided: [[10]] });
+  });
 
-    expect(emitSpy).toHaveBeenCalledTimes(1);
-    expect(emitSpy).toHaveBeenCalledWith('ColumnsNumberProvided', 2, {
-      replaceable: true,
-      moduleName,
-      location
-    });
+  it('should unsubscribe from events when component is unmounted', async () => {
+    install();
+    const { wrapper } = render();
+    const payloadGenerator = (eventPayload: number) => expect.objectContaining({ eventPayload });
+
+    expect(onColumnsNumberProvidedMock).toHaveBeenCalledTimes(1); // Component mounting
+    expect(onColumnsNumberProvidedMock).toHaveBeenNthCalledWith(1, payloadGenerator(10));
+    await XPlugin.bus.emit('ColumnsNumberProvided', 50);
+    expect(onColumnsNumberProvidedMock).toHaveBeenCalledTimes(2); // Bus emission
+    expect(onColumnsNumberProvidedMock).toHaveBeenNthCalledWith(2, payloadGenerator(50));
+
+    wrapper.destroy();
+
+    await XPlugin.bus.emit('ColumnsNumberProvided', 60);
+    expect(onColumnsNumberProvidedMock).toHaveBeenCalledTimes(2); // No listener on unmounted
+
+    render();
+
+    expect(onColumnsNumberProvidedMock).toHaveBeenCalledTimes(4); // ReplaySubject + component mounting
+    expect(onColumnsNumberProvidedMock).toHaveBeenNthCalledWith(3, payloadGenerator(60));
+    expect(onColumnsNumberProvidedMock).toHaveBeenNthCalledWith(4, payloadGenerator(10));
+    await XPlugin.bus.emit('ColumnsNumberProvided', 70);
+    expect(onColumnsNumberProvidedMock).toHaveBeenCalledTimes(5); // Bus emission
+    expect(onColumnsNumberProvidedMock).toHaveBeenNthCalledWith(5, payloadGenerator(70));
   });
 });
