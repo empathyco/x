@@ -7,3 +7,4 @@ export * from './use-store';
 export * from './use-state';
 export * from './use-getter';
 export * from './use-alias-api';
+export * from './use-scroll';

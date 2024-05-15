@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { mixins } from 'vue-class-component';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { ScrollDirection, ScrollMixin, xComponentMixin } from '../../../components';
-  import { WireMetadata } from '../../../wiring';
+  import { defineComponent, onBeforeUnmount, PropType, ref } from 'vue';
+  import { ScrollDirection } from '../../../components';
+  import { WireMetadata, XEvent } from '../../../wiring';
   import { scrollXModule } from '../x-module';
+  import { use$x, useRegisterXModule, useScroll } from '../../../composables/index';
   import { MainScrollId } from './scroll.const';
 
   type ScrollableElement = 'html' | 'body';
@@ -15,79 +15,171 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(scrollXModule)]
-  })
-  export default class WindowScroll extends mixins(ScrollMixin) {
-    /**
-     * Tag to identify the main scrollable element.
-     *
-     * @public
-     */
-    @Prop({ default: 'html' })
-    protected scrollableElement!: ScrollableElement;
-    /**
-     * Id to identify the component.
-     *
-     * @public
-     */
-    @Prop({ default: MainScrollId })
-    protected id!: string;
+  export default defineComponent({
+    name: 'WindowScroll',
+    xModule: scrollXModule.name,
+    props: {
+      /**
+       * Distance to the end of the scroll that when reached will emit the
+       * `scroll:about-to-end` event.
+       *
+       * @public
+       */
+      distanceToBottom: {
+        type: Number,
+        default: 100
+      },
+      /**
+       * Positive vertical distance to still consider that the element is the first one visible.
+       * For example, if set to 100, after scrolling 100 pixels, the first rendered element
+       * will still be considered the first one.
+       */
+      firstElementThresholdPx: {
+        type: Number,
+        default: 100
+      },
+      /**
+       * Time duration to ignore the subsequent scroll events after an emission.
+       * Higher values will decrease events precision but can prevent performance issues.
+       *
+       * @public
+       */
+      throttleMs: {
+        type: Number,
+        default: 100
+      },
+      /**
+       * If true (default), sets the scroll position to the top when certain events are emitted.
+       *
+       * @public
+       */
+      resetOnChange: {
+        type: Boolean,
+        default: true
+      },
+      /**
+       * List of events that should reset the scroll when emitted.
+       *
+       * @public
+       */
+      resetOn: {
+        type: Array as PropType<XEvent | XEvent[]>,
+        default: () => [
+          'SearchBoxQueryChanged',
+          'SortChanged',
+          'SelectedFiltersChanged',
+          'SelectedFiltersForRequestChanged',
+          'SelectedRelatedTagsChanged',
+          'UserChangedExtraParams'
+        ]
+      },
+      /**
+       * Tag to identify the main scrollable element.
+       *
+       * @public
+       */
+      scrollableElement: {
+        type: String as PropType<ScrollableElement>,
+        default: 'html'
+      },
+      /**
+       * Id to identify the component.
+       *
+       * @public
+       */
+      id: {
+        type: String,
+        default: MainScrollId
+      }
+    },
+    emits: [
+      'scroll',
+      'scroll:at-start',
+      'scroll:almost-at-end',
+      'scroll:at-end',
+      'scroll:direction-change'
+    ],
+    setup(props, { emit }) {
+      useRegisterXModule(scrollXModule);
+      const x = use$x();
+      const throttledStoreScrollData = useScroll(props, emit).throttledStoreScrollData;
 
-    mounted(): void {
+      type ElementRef = {
+        $el: HTMLElement;
+      };
+
+      const el = ref<ElementRef | HTMLElement | null>(null);
+
+      /**
+       * Checks if a given value is an `ElementRef` object.
+       *
+       * @param value - The value to check.
+       * @returns `true` if the value is an `ElementRef` object, `false` otherwise.
+       *
+       * @internal
+       */
+      const isElementRef = (value: any): value is ElementRef => {
+        return value && value.$el instanceof HTMLElement;
+      };
+
+      let $el = isElementRef(el.value) ? el.value.$el : (el.value as Element);
+
+      /**
+       * Creates the metadata for the events of this component.
+       *
+       * @returns A {@link WireMetadata} for the events emitted by this component.
+       * @internal
+       */
+      const createXEventMetadata = (): Partial<WireMetadata> => {
+        return { target: $el as HTMLElement, id: props.id };
+      };
+
+      /**
+       * Sets the HTML element depending on {@link WindowScroll.scrollableElement}, and initialises
+       * its events.
+       *
+       * @internal
+       */
+      const initAndListenElement = () => {
+        $el = props.scrollableElement === 'body' ? document.body : document.documentElement;
+        $el.addEventListener('scroll', throttledStoreScrollData.value);
+      };
+
+      /**
+       * Cleanup listeners.
+       */
+      onBeforeUnmount(() => {
+        $el.removeEventListener('scroll', throttledStoreScrollData.value);
+      });
+
+      return {
+        throttledStoreScrollData,
+        initAndListenElement,
+        createXEventMetadata,
+        x
+      };
+    },
+    mounted() {
       this.initAndListenElement();
       this.$on('scroll', (position: number) => {
-        this.$x.emit('UserScrolled', position, this.createXEventMetadata());
+        this.x.emit('UserScrolled', position, this.createXEventMetadata());
       });
       this.$on('scroll:direction-change', (direction: ScrollDirection) => {
-        this.$x.emit('UserChangedScrollDirection', direction, this.createXEventMetadata());
+        this.x.emit('UserChangedScrollDirection', direction, this.createXEventMetadata());
       });
       this.$on('scroll:at-start', (hasReachedStart: boolean) => {
-        this.$x.emit('UserReachedScrollStart', hasReachedStart, this.createXEventMetadata());
+        this.x.emit('UserReachedScrollStart', hasReachedStart, this.createXEventMetadata());
       });
       this.$on('scroll:almost-at-end', (hasAlmostReachedEnd: boolean) => {
-        this.$x.emit(
-          'UserAlmostReachedScrollEnd',
-          hasAlmostReachedEnd,
-          this.createXEventMetadata()
-        );
+        this.x.emit('UserAlmostReachedScrollEnd', hasAlmostReachedEnd, this.createXEventMetadata());
       });
       this.$on('scroll:at-end', (hasReachedEnd: boolean) => {
-        this.$x.emit('UserReachedScrollEnd', hasReachedEnd, this.createXEventMetadata());
+        this.x.emit('UserReachedScrollEnd', hasReachedEnd, this.createXEventMetadata());
       });
     }
-
-    /**
-     * Sets the HTML element depending on {@link WindowScroll.scrollableElement}, and initialises
-     * its events.
-     *
-     * @internal
-     */
-    protected initAndListenElement(): void {
-      this.$el = this.scrollableElement === 'body' ? document.body : document.documentElement;
-      this.$el.addEventListener('scroll', this.throttledStoreScrollData);
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    render(): void {}
-
-    /**
-     * Cleanup listeners.
-     */
-    beforeDestroy(): void {
-      this.$el.removeEventListener('scroll', this.throttledStoreScrollData);
-    }
-
-    /**
-     * Creates the metadata for the events of this component.
-     *
-     * @returns A {@link WireMetadata} for the events emitted by this component.
-     * @internal
-     */
-    protected createXEventMetadata(): Partial<WireMetadata> {
-      return { target: this.$el, id: this.id };
-    }
-  }
+    // eslint-disable-next-line vue/require-render-return
+    //render(): void {}
+  });
 </script>
 
 <docs lang="mdx">

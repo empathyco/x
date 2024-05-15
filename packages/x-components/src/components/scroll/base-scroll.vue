@@ -5,9 +5,9 @@
 </template>
 
 <script lang="ts">
-  import { mixins } from 'vue-class-component';
-  import { Component } from 'vue-property-decorator';
-  import ScrollMixin from './scroll.mixin';
+  import { defineComponent, PropType } from 'vue';
+  import { XEvent } from '../../wiring/index';
+  import { useScroll } from '../../composables/use-scroll';
 
   /**
    * Base scroll component that depending on the user interactivity emits different events for
@@ -15,8 +15,79 @@
    *
    * @public
    */
-  @Component
-  export default class BaseScroll extends mixins(ScrollMixin) {}
+  export default defineComponent({
+    name: 'BaseScroll',
+    props: {
+      /**
+       * Distance to the end of the scroll that when reached will emit the
+       * `scroll:about-to-end` event.
+       *
+       * @public
+       */
+      distanceToBottom: {
+        type: Number,
+        default: 100
+      },
+      /**
+       * Positive vertical distance to still consider that the element is the first one visible.
+       * For example, if set to 100, after scrolling 100 pixels, the first rendered element
+       * will still be considered the first one.
+       */
+      firstElementThresholdPx: {
+        type: Number,
+        default: 100
+      },
+      /**
+       * Time duration to ignore the subsequent scroll events after an emission.
+       * Higher values will decrease events precision but can prevent performance issues.
+       *
+       * @public
+       */
+      throttleMs: {
+        type: Number,
+        default: 100
+      },
+      /**
+       * If true (default), sets the scroll position to the top when certain events are emitted.
+       *
+       * @public
+       */
+      resetOnChange: {
+        type: Boolean,
+        default: true
+      },
+      /**
+       * List of events that should reset the scroll when emitted.
+       *
+       * @public
+       */
+      resetOn: {
+        type: Array as PropType<XEvent | XEvent[]>,
+        default: () => [
+          'SearchBoxQueryChanged',
+          'SortChanged',
+          'SelectedFiltersChanged',
+          'SelectedFiltersForRequestChanged',
+          'SelectedRelatedTagsChanged',
+          'UserChangedExtraParams'
+        ]
+      }
+    },
+    emits: [
+      'scroll',
+      'scroll:at-start',
+      'scroll:almost-at-end',
+      'scroll:at-end',
+      'scroll:direction-change'
+    ],
+    setup(props, { emit }) {
+      const throttledStoreScrollData = useScroll(props, emit).throttledStoreScrollData;
+
+      return {
+        throttledStoreScrollData
+      };
+    }
+  });
 </script>
 
 <docs lang="mdx">
