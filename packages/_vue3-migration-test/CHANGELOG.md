@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.9](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.8...vue3-migration-test@1.0.0-alpha.9) (2024-05-15)
+
+
+### Features
+
+* migrate `FiltersInjection` mixin (#1467) ([839c663](https://github.com/empathyco/x/commit/839c66334c98ed399ce354a2c5a3a842734ed54c))
+
+
+
 ## [1.0.0-alpha.8](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.7...vue3-migration-test@1.0.0-alpha.8) (2024-05-13)
 
 
