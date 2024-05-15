@@ -4,8 +4,8 @@ import { mount, Wrapper } from '@vue/test-utils';
 import {
   createHierarchicalFilter,
   createSimpleFilter
-} from '../../__stubs__/filters-stubs.factory';
-import { useFiltersInjection } from '../../x-modules/facets/composables/use-filters-injection';
+} from '../../../../__stubs__/filters-stubs.factory';
+import { useFiltersInjection } from '../use-filters-injection';
 
 const Provider = defineComponent({
   name: 'Provider',
