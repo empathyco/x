@@ -1,4 +1,5 @@
 import { computed, nextTick, onMounted, Ref, ref, watch } from 'vue';
+import { isArray } from '@empathyco/x-utils';
 import { XEvent } from '../wiring/events.types';
 import { ScrollDirection } from '../components/scroll/scroll.types';
 import { throttle } from '../utils/throttle';
@@ -294,13 +295,25 @@ export function useScroll(
    * @internal
    */
   const $x = use$x();
-  $x.on(props.resetOn as XEvent, true).subscribe(() => {
-    nextTick().then(() => {
-      if (props.resetOnChange) {
-        scrollEl.value?.scrollTo({ top: 0 });
-      }
+  if (isArray(props.resetOn)) {
+    props.resetOn.forEach(event =>
+      $x.on(event, true).subscribe(() => {
+        nextTick().then(() => {
+          if (props.resetOnChange) {
+            scrollEl.value?.scrollTo({ top: 0 });
+          }
+        });
+      })
+    );
+  } else {
+    $x.on(props.resetOn, true).subscribe(() => {
+      nextTick().then(() => {
+        if (props.resetOnChange) {
+          scrollEl.value?.scrollTo({ top: 0 });
+        }
+      });
     });
-  });
+  }
 
   return { throttledStoreScrollData };
 }
