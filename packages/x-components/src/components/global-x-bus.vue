@@ -17,7 +17,7 @@
    */
   export default defineComponent({
     name: 'GlobalXBus',
-    setup(_, { listeners }) {
+    setup(_, { listeners, slots }) {
       const xBus = useXBus();
 
       /**
@@ -46,9 +46,8 @@
       onBeforeUnmount(() => {
         subscription.unsubscribe();
       });
-    },
-    render() {
-      return useNoElementRender(this.$slots);
+
+      return () => useNoElementRender(slots);
     }
   });
 </script>
