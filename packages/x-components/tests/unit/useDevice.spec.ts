@@ -1,5 +1,5 @@
 import { mount } from 'cypress/vue2';
-import { createUseDevice } from '../../src/composables/create-use-device.composable';
+import { createUseDevice } from '../../src/composables/create-use-device';
 
 /**
  * Mounts a test component displaying all the values of the composable created with
@@ -21,7 +21,7 @@ function mountTestComponent<Device extends string>(
     template: `
         <div>
           <div v-for="(value, device) in devices" :key="device">
-            {{ device }}: 
+            {{ device }}:
             <span :data-test="device">{{ value.value }}</span>
           </div>
         </div>

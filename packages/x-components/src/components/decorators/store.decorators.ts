@@ -12,7 +12,9 @@ import { ExtractGetters, ExtractState, XModuleName } from '../../x-modules/x-mod
  * @param module - The {@link XModuleName} of the getter.
  * @param path - The state path.
  * @returns Decorator with the state properties of the module.
+ *
  * @public
+ * @deprecated Use {@link useState} composable instead.
  */
 export function State<Module extends XModuleName, Path extends keyof ExtractState<Module>>(
   module: Module,
@@ -38,7 +40,9 @@ export function State<Module extends XModuleName, Path extends keyof ExtractStat
  * @param module - The {@link XModuleName} of the getter.
  * @param getter - The getter name.
  * @returns Decorator with the getters of the module.
+ *
  * @public
+ * @deprecated Use {@link useGetter} composable instead.
  */
 export function Getter<Module extends XModuleName, GetterName extends keyof ExtractGetters<Module>>(
   module: Module,

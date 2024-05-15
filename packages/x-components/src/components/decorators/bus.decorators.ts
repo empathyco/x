@@ -22,7 +22,9 @@ import { WireMetadata } from '../../wiring/wiring.types';
  * execution.
  * @returns Decorator that creates a subscription to an {@link XEvent} and un-subscribes on the
  * beforeDestroy hook.
+ *
  * @public
+ * @deprecated Use {@link useXBus} composable instead.
  */
 export function XOn<Event extends XEvent>(
   xEvent: Event | Event[] | ((component: Vue) => Event | Event[]),
@@ -141,7 +143,9 @@ interface SubscriptionMetadata<Event extends XEvent> {
  * @param xEvent - The event to emit.
  * @param watcherOptions - Options for Vue's watcher.
  * @returns Decorator that makes the component emit an event when the decorated property changes.
+ *
  * @public
+ * @deprecated Use {@link useXBus} composable instead.
  */
 export function XEmit<Event extends XEvent>(
   xEvent: Event,
