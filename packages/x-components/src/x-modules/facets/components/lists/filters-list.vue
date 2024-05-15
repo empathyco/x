@@ -23,13 +23,13 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { mixins } from 'vue-class-component';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { xComponentMixin } from '../../../../components';
+  import { computed, defineComponent, PropType } from 'vue';
+  import { Filter } from '@empathyco/x-types';
   import { VueCSSClasses } from '../../../../utils/types';
   import { facetsXModule } from '../../x-module';
-  import FiltersInjectionMixin from './filters-injection.mixin';
+  import { AnimationProp } from '../../../../types/animation-prop';
+  import { useRegisterXModule } from '../../../../composables/use-register-x-module';
+  import { useFiltersInjection } from '../../composables/use-filters-injection';
 
   /**
    * Renders a list with a list item per each
@@ -38,51 +38,83 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(facetsXModule)]
-  })
-  export default class FiltersList extends mixins(FiltersInjectionMixin) {
-    /**
-     * Animation component that will be used to animate the base filters.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue | string;
+  export default defineComponent({
+    name: 'FiltersList',
+    xModule: facetsXModule.name,
+    props: {
+      /**
+       * The list of filters to be rendered as slots.
+       *
+       * @public
+       */
+      filters: Array as PropType<Filter[]>,
 
-    /**
-     * It handles if the filters should be rendered.
-     *
-     * @returns True if there are filters.
-     *
-     * @public
-     */
-    protected get hasFiltersToRender(): boolean {
-      return this.renderedFilters?.length > 0;
-    }
+      /**
+       * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
+       * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
+       *
+       * @public
+       */
+      parentId: {
+        type: String as PropType<Filter['id']>,
+        required: false
+      },
 
-    /**
-     * Checks if at least one filter is selected.
-     *
-     * @returns True if at least one filter is selected. False otherwise.
-     * @internal
-     */
-    protected get hasSelectedFilters(): boolean {
-      return !!this.renderedFilters?.some(filter => filter.selected);
-    }
+      /**
+       * Animation component that will be used to animate the base filters.
+       *
+       * @public
+       */
+      animation: {
+        type: AnimationProp,
+        default: 'ul'
+      }
+    },
+    setup(props) {
+      useRegisterXModule(facetsXModule);
 
-    /**
-     * Dynamic CSS classes for the root element of this component.
-     *
-     * @returns An object containing the dynamic CSS classes and a boolean indicating if they should
-     * be added or not.
-     */
-    protected get cssClasses(): VueCSSClasses {
+      const renderedFilters = useFiltersInjection(props);
+
+      /**
+       * It handles if the filters should be rendered.
+       *
+       * @returns True if there are filters.
+       *
+       * @public
+       */
+      const hasFiltersToRender = computed(() => {
+        return renderedFilters?.value.length > 0;
+      });
+
+      /**
+       * Checks if at least one filter is selected.
+       *
+       * @returns True if at least one filter is selected. False otherwise.
+       * @internal
+       */
+      const hasSelectedFilters = computed(() => {
+        return !!renderedFilters?.value.some(filter => filter.selected);
+      });
+
+      /**
+       * Dynamic CSS classes for the root element of this component.
+       *
+       * @returns An object containing the dynamic CSS classes and a boolean indicating if they should
+       * be added or not.
+       */
+      const cssClasses = computed((): VueCSSClasses => {
+        return {
+          'x-filters--has-selected-filters': hasSelectedFilters.value
+        };
+      });
+
       return {
-        'x-filters--has-selected-filters': this.hasSelectedFilters
+        hasFiltersToRender,
+        cssClasses,
+        renderedFilters
       };
     }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>

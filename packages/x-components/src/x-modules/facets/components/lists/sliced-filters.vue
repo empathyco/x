@@ -46,13 +46,11 @@
 
 <script lang="ts">
   import { Filter } from '@empathyco/x-types';
-  import { mixins } from 'vue-class-component';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { xComponentMixin, XProvide } from '../../../../components';
+  import { computed, defineComponent, PropType, provide, ref } from 'vue';
   import { VueCSSClasses } from '../../../../utils';
   import { facetsXModule } from '../../x-module';
-  import { dynamicPropsMixin } from '../../../../components/dynamic-props.mixin';
-  import FiltersInjectionMixin from './filters-injection.mixin';
+  import { useRegisterXModule } from '../../../../composables/use-register-x-module';
+  import { useFiltersInjection } from '../../composables/use-filters-injection';
 
   /**
    * Component that slices a list of filters and returns them using the default scoped slot,
@@ -61,76 +59,112 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(facetsXModule), dynamicPropsMixin(['buttonClass'])]
-  })
-  export default class SlicedFilters extends mixins(FiltersInjectionMixin) {
-    /**
-     * The maximum number of filters to show.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected max!: number;
+  export default defineComponent({
+    name: 'SlicedFilters',
+    xModule: facetsXModule.name,
+    props: {
+      /**
+       * The list of filters to be rendered as slots.
+       *
+       * @public
+       */
+      filters: Array as PropType<Filter[]>,
 
-    /** For showing the remaining filters. */
-    public showMoreFilters = true;
+      /**
+       * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
+       * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
+       *
+       * @public
+       */
+      parentId: {
+        type: String as PropType<Filter['id']>,
+        required: false
+      },
 
-    /**
-     * Show the buttons template when length filters is greater than property max.
-     *
-     * @returns Boolean if length filters is greater than property max.
-     * @internal
-     */
-    protected get showButton(): boolean {
-      return this.renderedFilters.length > this.max;
-    }
+      /**
+       * The maximum number of filters to show.
+       *
+       * @public
+       */
+      max: {
+        type: Number,
+        required: true
+      },
 
-    /**
-     * Sliced the array of filters depends on click button show more.
-     *
-     * @returns Array of sliced filters or all filters.
-     * @internal
-     */
-    @XProvide('filters')
-    public get slicedFilters(): Filter[] {
-      return this.showMoreFilters ? this.renderedFilters.slice(0, this.max) : this.renderedFilters;
-    }
+      buttonClass: String
+    },
+    emits: ['click:show-less', 'click:show-more'],
+    setup(props, { emit }) {
+      useRegisterXModule(facetsXModule);
 
-    /**
-     * The difference between length filters and max to show.
-     *
-     * @returns Number of remaining filters to show.
-     * @internal
-     */
-    protected get difference(): number {
-      return this.renderedFilters.length - this.max;
-    }
+      /** For showing the remaining filters. */
+      let showMoreFilters = ref(true);
 
-    /**
-     * Show or hide the remaining filters. It also emits a Vue event based on the clicked button.
-     *
-     * @param event - The click event.
-     *
-     * @internal
-     */
-    protected toggleShowMoreFilters(event: MouseEvent): void {
-      this.showMoreFilters = !this.showMoreFilters;
-      this.$emit(this.showMoreFilters ? 'click:show-less' : 'click:show-more', event);
-    }
+      const renderedFilters = useFiltersInjection(props);
 
-    /**
-     * Adds the dynamic css classes to the component.
-     *
-     * @returns The classes to be added to the component.
-     * @internal
-     */
-    protected get cssClasses(): VueCSSClasses {
+      /**
+       * Show the buttons template when length filters is greater than property max.
+       *
+       * @returns Boolean if length filters is greater than property max.
+       * @internal
+       */
+      const showButton = computed(() => renderedFilters.value.length > props.max);
+
+      /**
+       * Sliced the array of filters depends on click button show more.
+       *
+       * @returns Array of sliced filters or all filters.
+       * @internal
+       */
+      const slicedFilters = computed((): Filter[] => {
+        return showMoreFilters.value
+          ? renderedFilters.value.slice(0, props.max)
+          : renderedFilters.value;
+      });
+      provide('filters', slicedFilters);
+
+      /**
+       * The difference between length filters and max to show.
+       *
+       * @returns Number of remaining filters to show.
+       * @internal
+       */
+      const difference = computed(() => renderedFilters.value.length - props.max);
+
+      /**
+       * Show or hide the remaining filters. It also emits a Vue event based on the clicked button.
+       *
+       * @param event - The click event.
+       *
+       * @internal
+       */
+      const toggleShowMoreFilters = (event: MouseEvent): void => {
+        showMoreFilters.value = !showMoreFilters.value;
+        emit(showMoreFilters.value ? 'click:show-less' : 'click:show-more', event);
+      };
+
+      /**
+       * Adds the dynamic css classes to the component.
+       *
+       * @returns The classes to be added to the component.
+       * @internal
+       */
+      const cssClasses = computed((): VueCSSClasses => {
+        return {
+          'x-sliced-filters--is-sliced': showButton.value
+        };
+      });
+
       return {
-        'x-sliced-filters--is-sliced': this.showButton
+        cssClasses,
+        toggleShowMoreFilters,
+        showButton,
+        difference,
+        slicedFilters,
+        showMoreFilters
       };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

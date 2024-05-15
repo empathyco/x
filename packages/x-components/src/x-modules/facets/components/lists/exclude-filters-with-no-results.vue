@@ -1,11 +1,9 @@
 <script lang="ts">
   import { Filter, isBooleanFilter } from '@empathyco/x-types';
-  import { CreateElement, VNode } from 'vue';
-  import { mixins } from 'vue-class-component';
-  import { Component } from 'vue-property-decorator';
-  import { xComponentMixin, XProvide } from '../../../../components';
+  import { computed, defineComponent, PropType, provide, h } from 'vue';
   import { facetsXModule } from '../../x-module';
-  import FiltersInjectionMixin from './filters-injection.mixin';
+  import { useRegisterXModule } from '../../../../composables/use-register-x-module';
+  import { useFiltersInjection } from '../../composables/use-filters-injection';
 
   /**
    * The `ExcludeFiltersWithNoResults` component filters the provided list of filters, excluding
@@ -17,27 +15,47 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(facetsXModule)]
-  })
-  export default class ExcludeFiltersWithNoResults extends mixins(FiltersInjectionMixin) {
-    /**
-     * Removes the filters that have exactly 0 results associated.
-     *
-     * @returns A sublist of the filters prop, excluding the ones with no results.
-     * @internal
-     */
-    @XProvide('filters')
-    public get filtersWithResults(): Filter[] {
-      return this.renderedFilters.filter(
-        filter => !isBooleanFilter(filter) || filter.totalResults !== 0
-      );
-    }
+  export default defineComponent({
+    name: 'ExcludeFiltersWithNoResults',
+    xModule: facetsXModule.name,
+    props: {
+      /**
+       * The list of filters to be rendered as slots.
+       *
+       * @public
+       */
+      filters: Array as PropType<Filter[]>,
 
-    render(h: CreateElement): VNode {
-      return this.$scopedSlots.default?.({ filters: this.filtersWithResults })?.[0] ?? h();
+      /**
+       * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
+       * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
+       *
+       * @public
+       */
+      parentId: {
+        type: String as PropType<Filter['id']>
+      }
+    },
+    setup(props, { slots }) {
+      useRegisterXModule(facetsXModule);
+      const renderedFilters = useFiltersInjection(props);
+
+      /**
+       * Removes the filters that have exactly 0 results associated.
+       *
+       * @returns A sublist of the filters prop, excluding the ones with no results.
+       * @internal
+       */
+      const filtersWithResults = computed((): Filter[] => {
+        return renderedFilters.value.filter(
+          filter => !isBooleanFilter(filter) || filter.totalResults !== 0
+        );
+      });
+      provide('filters', filtersWithResults);
+
+      return () => (slots.default ? slots.default({ filters: filtersWithResults.value }) : h());
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

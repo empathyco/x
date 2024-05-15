@@ -14,7 +14,6 @@ export { default as PreselectedFilters } from './preselected-filters.vue';
 // Lists
 // eslint-disable-next-line max-len
 export { default as ExcludeFiltersWithNoResults } from './lists/exclude-filters-with-no-results.vue';
-export { default as FiltersInjectionMixin } from './lists/filters-injection.mixin';
 export { default as FiltersList } from './lists/filters-list.vue';
 export { default as FiltersSearch } from './lists/filters-search.vue';
 export { default as SelectedFilters } from './lists/selected-filters.vue';
