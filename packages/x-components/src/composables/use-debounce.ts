@@ -10,6 +10,7 @@ import { DebounceOptions } from '../utils/types';
  * @param debounceTimeInMs - Time of debounce in ms.
  * @param debounceOptions - The options for the debounce strategy.
  * @returns Debounced function obtained from `fn` parameter.
+ * @public
  */
 export function useDebounce<Params extends any[]>(
   fn: (...args: Params) => void,

@@ -17,6 +17,7 @@ import { bus as xBus } from '../plugins/x-bus';
  * by the `XPlugin` if it was not instantiated and uses the default `xBus` as fallback.
  *
  * @returns An object with the `on` and `emit` functions.
+ * @public
  */
 export function useXBus(): UseXBusAPI {
   const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location', 'none');
@@ -87,6 +88,11 @@ interface PrivateExtendedVueComponent extends Vue {
   xComponent?: Vue | undefined;
 }
 
+/**.
+ * UseXBus API interface
+ *
+ * @public
+ */
 export interface UseXBusAPI {
   /* eslint-disable jsdoc/require-description-complete-sentence */
   /** {@inheritDoc XBus.(on:1)} */
