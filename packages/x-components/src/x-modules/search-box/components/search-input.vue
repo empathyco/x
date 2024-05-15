@@ -25,18 +25,14 @@
 
 <script lang="ts">
   import { Suggestion } from '@empathyco/x-types';
-  import Vue, { computed, defineComponent, onMounted, PropType, ref } from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { XOn } from '../../../components/decorators/bus.decorators';
-  import { State } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { defineComponent, onMounted, PropType, ref } from 'vue';
   import { ArrowKey, PropsWithType } from '../../../utils';
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { WireMetadata } from '../../../wiring/wiring.types';
+  import { use$x, useRegisterXModule, useState } from '../../../composables';
   import { searchBoxXModule } from '../x-module';
-  import { use$x, useRegisterXModule, useState, useStore } from '../../../composables';
 
   /**
    * This component renders an input field that allows the user to type a query. It also reacts to

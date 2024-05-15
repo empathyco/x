@@ -12,10 +12,10 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { animateTranslate, State, xComponentMixin, XOn } from '../../../components';
+  import { computed, defineComponent, onBeforeUnmount, PropType, ref, watch } from 'vue';
+  import { animateTranslate } from '../../../components';
   import { searchBoxXModule } from '../x-module';
+  import { use$x, useRegisterXModule, useState } from '../../../composables';
 
   /**.
    * This component renders an animated placeholder for the search input in the shape of a list of
@@ -23,203 +23,209 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(searchBoxXModule)]
-  })
-  export default class SearchInputPlaceholder extends Vue {
-    /**
-     * List of messages to animate.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected messages!: Array<string>;
+  export default defineComponent({
+    name: 'SearchInputPlaceholder',
+    props: {
+      /**
+       * List of messages to animate.
+       *
+       * @public
+       */
+      messages: {
+        type: Array as PropType<string[]>,
+        required: true
+      },
+      /**
+       * Animation component used for the messages.
+       *
+       * @public
+       */
+      animation: {
+        type: Object,
+        default: () => animateTranslate('bottom-to-top')
+      },
+      /**
+       * Time in milliseconds during which each message is visible.
+       *
+       * @public
+       */
+      animationIntervalMs: {
+        type: Number,
+        default: 1500
+      },
+      /**
+       * Whether the messages animation is active only when hovering the search input or always.
+       *
+       * @public
+       */
+      animateOnlyOnHover: Boolean
+    },
+    setup: function (props) {
+      useRegisterXModule(searchBoxXModule);
 
-    /**
-     * Animation component used for the messages.
-     *
-     * @public
-     */
-    @Prop({ default: () => animateTranslate('bottom-to-top') })
-    protected animation!: Vue;
+      const $x = use$x();
 
-    /**
-     * Time in milliseconds during which each message is visible.
-     *
-     * @public
-     */
-    @Prop({ default: 1500 })
-    protected animationIntervalMs!: number;
+      /**.
+       * The search box written query
+       *
+       * @internal
+       */
+      const { query } = useState('searchBox', ['query']);
 
-    /**
-     * Whether the messages animation is active only when hovering the search input or always.
-     *
-     * @public
-     */
-    @Prop({ default: false })
-    protected animateOnlyOnHover!: boolean;
+      /**.
+       * The search box hover status
+       *
+       * @internal
+       */
+      const isSearchBoxHovered = ref(false);
 
-    /**.
-     * The search box written query
-     *
-     * @internal
-     */
-    @State('searchBox', 'query')
-    public query!: string;
+      /**.
+       * The search box focus status
+       *
+       * @internal
+       */
+      const isSearchBoxFocused = ref(false);
 
-    /**.
-     * The search box hover status
-     *
-     * @internal
-     */
-    protected isSearchBoxHovered = false;
+      /**
+       * The index used to point to the current animation message in the list.
+       *
+       * @internal
+       */
+      const animationMessageIndex = ref(0);
 
-    /**.
-     * The search box focus status
-     *
-     * @internal
-     */
-    protected isSearchBoxFocused = false;
+      /**
+       * The interval used for the animation.
+       *
+       * @internal
+       */
+      const animationInterval = ref<number | undefined>(undefined);
 
-    /**
-     * The index used to point to the current animation message in the list.
-     *
-     * @internal
-     */
-    protected animationMessageIndex = 0;
+      /**
+       * The visibility state of the component.
+       *
+       * @returns The visibility state based on the search input state (query & focus).
+       *
+       * @internal
+       */
+      const isVisible = computed((): boolean => !query.value && !isSearchBoxFocused.value);
 
-    /**
-     * The interval used for the animation.
-     *
-     * @internal
-     */
-    protected animationInterval: number | undefined;
+      /**
+       * The animation state of the component.
+       *
+       * @returns Whether the animation is active or not.
+       *
+       * @internal
+       */
+      const isBeingAnimated = computed(
+        (): boolean => isVisible.value && (!props.animateOnlyOnHover || isSearchBoxHovered.value)
+      );
 
-    /**
-     * The visibility state of the component.
-     *
-     * @returns The visibility state based on the search input state (query & focus).
-     *
-     * @internal
-     */
-    protected get isVisible(): boolean {
-      return !this.query && !this.isSearchBoxFocused;
-    }
+      /**
+       * The current placeholder message.
+       *
+       * @returns The message to display as placeholder at any moment.
+       *
+       * @internal
+       */
+      const message = computed((): string | undefined =>
+        isBeingAnimated.value ? props.messages[animationMessageIndex.value] : props.messages[0]
+      );
 
-    /**
-     * The animation state of the component.
-     *
-     * @returns Whether the animation is active or not.
-     *
-     * @internal
-     */
-    protected get isBeingAnimated(): boolean {
-      return this.isVisible && (!this.animateOnlyOnHover || this.isSearchBoxHovered);
-    }
-
-    /**
-     * The current placeholder message.
-     *
-     * @returns The message to display as placeholder at any moment.
-     *
-     * @internal
-     */
-    protected get message(): string | undefined {
-      return this.isBeingAnimated ? this.messages[this.animationMessageIndex] : this.messages[0];
-    }
-
-    /**
-     * Starts or stops the animation depending on the current animation state.
-     *
-     * @internal
-     */
-    @Watch('isBeingAnimated', { immediate: true })
-    @Watch('messages', { deep: true })
-    @Watch('animationIntervalMs')
-    protected resetAnimation(): void {
-      this.stopAnimationInterval();
-
-      if (this.isBeingAnimated) {
-        this.animationInterval = window.setInterval((): void => {
-          this.incrementAnimationMessageIndex();
-        }, this.animationIntervalMs);
-      }
-    }
-
-    /**
-     * Clears the interval used for the animation.
-     *
-     * @internal
-     */
-    protected stopAnimationInterval(): void {
-      if (this.animationInterval) {
-        clearInterval(this.animationInterval);
-        this.animationInterval = undefined;
-      }
-    }
-
-    /**
-     * Increments animation message index; if the new index exceeds the messages list length, it is
-     * reset to 0.
-     *
-     * @internal
-     */
-    protected incrementAnimationMessageIndex(): void {
-      this.animationMessageIndex = (this.animationMessageIndex + 1) % this.messages.length;
-    }
-
-    /**
-     * Sets the animation message index with the right value for the next future iteration when the
-     * current one stops,assuring the user will see always a new message on each animation state
-     * change.
-     *
-     * @internal
-     */
-    @Watch('isBeingAnimated', { immediate: true })
-    protected prepareMessageIndexForNextAnimation(): void {
-      if (!this.isBeingAnimated) {
-        if (this.animateOnlyOnHover) {
-          this.resetAnimationMessageIndex();
+      /**
+       * Clears the interval used for the animation.
+       *
+       * @internal
+       */
+      const stopAnimationInterval = (): void => {
+        if (animationInterval.value) {
+          clearInterval(animationInterval.value);
+          animationInterval.value = undefined;
         }
-        this.incrementAnimationMessageIndex();
-      }
-    }
+      };
 
-    /**
-     * Resets the animation message index to zero.
-     *
-     * @internal
-     */
-    @Watch('messages', { deep: true })
-    protected resetAnimationMessageIndex(): void {
-      this.animationMessageIndex = 0;
-    }
+      /**
+       * Increments animation message index; if the new index exceeds the messages list length, it is
+       * reset to 0.
+       *
+       * @internal
+       */
+      const incrementAnimationMessageIndex = (): void => {
+        animationMessageIndex.value = (animationMessageIndex.value + 1) % props.messages.length;
+      };
 
-    // TODO: EX-7173 - Get search input state(s) from the store instead of using events
-    @XOn('UserHoveredInSearchBox')
-    onUserHoveredInSearchBox(): void {
-      this.isSearchBoxHovered = true;
-    }
+      $x.on('UserHoveredInSearchBox').subscribe(() => (isSearchBoxHovered.value = true));
 
-    @XOn('UserHoveredOutSearchBox')
-    onUserHoveredOutSearchBox(): void {
-      this.isSearchBoxHovered = false;
-    }
+      $x.on('UserHoveredOutSearchBox').subscribe(() => (isSearchBoxHovered.value = false));
 
-    @XOn('UserFocusedSearchBox')
-    onUserFocusedSearchBox(): void {
-      this.isSearchBoxFocused = true;
-    }
+      $x.on('UserFocusedSearchBox').subscribe(() => (isSearchBoxFocused.value = true));
+      
+      $x.on('UserBlurredSearchBox').subscribe(() => (isSearchBoxFocused.value = false));
 
-    @XOn('UserBlurredSearchBox')
-    onUserBlurredSearchBox(): void {
-      this.isSearchBoxFocused = false;
-    }
+      /**
+       * Starts or stops the animation depending on the current animation state.
+       *
+       * @internal
+       */
+      const resetAnimation = (): void => {
+        stopAnimationInterval();
+        if (isBeingAnimated.value) {
+          animationInterval.value = window.setInterval((): void => {
+            incrementAnimationMessageIndex();
+          }, props.animationIntervalMs);
+        }
+      };
 
-    beforeDestroy(): void {
-      this.stopAnimationInterval();
+      watch(() => 'animationIntervalMs', resetAnimation);
+
+      /**
+       * Resets the animation message index to zero.
+       *
+       * @internal
+       */
+      const resetAnimationMessageIndex = (): void => {
+        animationMessageIndex.value = 0;
+      };
+
+      watch(
+        () => props.messages,
+        () => {
+          resetAnimationMessageIndex();
+          resetAnimation();
+        },
+        { deep: true }
+      );
+
+      /**
+       * Sets the animation message index with the right value for the next future iteration when the
+       * current one stops,assuring the user will see always a new message on each animation state
+       * change.
+       *
+       * @internal
+       */
+      watch(
+        () => 'isBeingAnimated',
+        () => {
+          if (!isBeingAnimated.value) {
+            if (props.animateOnlyOnHover) {
+              resetAnimationMessageIndex();
+            }
+            incrementAnimationMessageIndex();
+          }
+          resetAnimation();
+        },
+        { immediate: true }
+      );
+
+      onBeforeUnmount(() => {
+        stopAnimationInterval();
+      });
+
+      return {
+        isVisible,
+        message
+      };
     }
-  }
+  });
 </script>
 
 <style lang="scss">
