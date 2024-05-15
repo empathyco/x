@@ -1,6 +1,6 @@
 <template>
   <input
-    ref="input"
+    ref="inputElement"
     @mouseenter="emitUserHoveredInSearchBox"
     @mouseleave="emitUserHoveredOutSearchBox"
     @blur="emitUserBlurredSearchBox"
@@ -25,7 +25,7 @@
 
 <script lang="ts">
   import { Suggestion } from '@empathyco/x-types';
-  import Vue from 'vue';
+  import Vue, { computed, defineComponent, onMounted, PropType, ref } from 'vue';
   import { Component, Prop } from 'vue-property-decorator';
   import { XOn } from '../../../components/decorators/bus.decorators';
   import { State } from '../../../components/decorators/store.decorators';
@@ -36,6 +36,7 @@
   import { XEventsTypes } from '../../../wiring/events.types';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchBoxXModule } from '../x-module';
+  import { use$x, useRegisterXModule, useState, useStore } from '../../../composables';
 
   /**
    * This component renders an input field that allows the user to type a query. It also reacts to
@@ -43,232 +44,260 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(searchBoxXModule)]
-  })
-  export default class SearchInput extends Vue {
-    public $refs!: { input: HTMLInputElement };
-
-    protected searchInputMessage = 'type your query here';
-
-    /**
-     * Maximum characters allowed in the input search.
-     */
-    @Prop({ default: 64 })
-    protected maxLength!: number;
-
-    /**
-     * Allows input autofocus when the search field is rendered.
-     */
-    @Prop({ default: true })
-    protected autofocus!: boolean;
-
-    /**
-     * Enables the auto-accept query after debounce.
-     */
-    @Prop({ default: true })
-    protected instant!: boolean;
-
-    /**
-     * Debounce time for the instant.
-     */
-    @Prop({ default: 500 })
-    protected instantDebounceInMs!: number;
-
-    /**
-     * Keyboard keys to accept the autocomplete suggestion.
-     */
-    @Prop({ default: () => ['ArrowRight'] })
-    protected autocompleteKeyboardKeys!: string[]; // https://keycode.info/
-
-    /**
-     * Event that retrieves the autocomplete suggestion.
-     */
-    @Prop({ default: 'QuerySuggestionsChanged' })
-    protected autocompleteSuggestionsEvent!: PropsWithType<XEventsTypes, Suggestion[]>;
-
-    @State('searchBox', 'query')
-    public query!: string;
-
-    /**
-     * When event {@link XEventsTypes.UserReachedEmpathizeTop} or
-     * {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
-     * are emitted the search input is focused.
-     *
-     * @internal
-     */
-    @XOn(['UserReachedEmpathizeTop', 'UserPressedClearSearchBoxButton'])
-    focusInput(): void {
-      this.$refs.input?.focus();
-    }
-
-    protected debouncedUserAcceptedAQuery!: DebouncedFunction<[string]>;
-
-    /**
-     * When event {@link XEventsTypes.UserAcceptedAQuery} or
-     * {@link SearchBoxXEvents.UserClearedQuery} are emitted the pending debounced emit
-     * {@link XEvent} `UserAcceptedAQuery` is canceled.
-     *
-     * @internal
-     */
-    @XOn(['UserAcceptedAQuery', 'UserClearedQuery'])
-    cancelDebouncedUserAcceptedAQuery(): void {
-      this.debouncedUserAcceptedAQuery?.cancel();
-    }
-
-    mounted(): void {
-      if (this.autofocus) {
-        this.focusInput();
+  export default defineComponent({
+    name: 'SearchInput',
+    props: {
+      /**
+       * Maximum characters allowed in the input search.
+       */
+      maxLength: {
+        type: Number,
+        default: 64
+      },
+      /**
+       * Allows input autofocus when the search field is rendered.
+       */
+      autofocus: {
+        type: Boolean,
+        default: true
+      },
+      /**
+       * Enables the auto-accept query after debounce.
+       */
+      instant: {
+        type: Boolean,
+        default: true
+      },
+      /**
+       * Debounce time for the instant.
+       */
+      instantDebounceInMs: {
+        type: Number,
+        default: 500
+      },
+      /**
+       * Keyboard keys to accept the autocomplete suggestion.
+       */
+      autocompleteKeyboardKeys: {
+        type: Array as PropType<string[]>, // https://keycode.info/
+        default: () => ['ArrowRight']
+      },
+      /**
+       * Event that retrieves the autocomplete suggestion.
+       */
+      autocompleteSuggestionsEvent: {
+        type: Object as PropType<PropsWithType<XEventsTypes, Suggestion[]>>,
+        default: 'QuerySuggestionsChanged'
       }
-    }
+    },
+    setup: function (props) {
+      useRegisterXModule(searchBoxXModule);
 
-    /**
-     * Emits {@link XEventsTypes.UserAcceptedAQuery} event with a debounce configured in
-     * `instantDebounceInMs` prop.
-     *
-     * @internal
-     * @param query - The query that will be emitted.
-     */
-    emitDebouncedUserAcceptedAQuery(query: string): void {
-      if (this.instant) {
-        if (!this.debouncedUserAcceptedAQuery) {
-          this.debouncedUserAcceptedAQuery = debounce(
-            this.emitUserAcceptedAQuery.bind(this),
-            this.instantDebounceInMs
-          );
+      const $x = use$x();
+
+      const { query } = useState('searchBox', ['query']);
+
+      const inputElement = ref<HTMLInputElement>();
+
+      const searchInputMessage = ref('type your query here');
+
+      const debouncedUserAcceptedAQuery = ref<DebouncedFunction<[string]>>();
+
+      /**
+       * Emits {@link XEventsTypes.UserAcceptedAQuery} event with a debounce configured in
+       * `instantDebounceInMs` prop.
+       *
+       * @internal
+       * @param query - The query that will be emitted.
+       */
+      const emitDebouncedUserAcceptedAQuery = (query: string): void => {
+        if (props.instant) {
+          if (!debouncedUserAcceptedAQuery) {
+            Object.assign(
+              debouncedUserAcceptedAQuery,
+              debounce(emitUserAcceptedAQuery.bind(this), props.instantDebounceInMs)
+            );
+          }
+          debouncedUserAcceptedAQuery.value?.(query);
         }
-        this.debouncedUserAcceptedAQuery(query);
-      }
-    }
+      };
 
-    /**
-     * Generates the {@link WireMetadata} object omitting the moduleName.
-     *
-     * @returns The {@link WireMetadata} object omitting the moduleName.
-     * @internal
-     */
-    protected createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
+      /**
+       * Generates the {@link WireMetadata} object omitting the moduleName.
+       *
+       * @returns The {@link WireMetadata} object omitting the moduleName.
+       * @internal
+       */
+      const createEventMetadata = (): Omit<WireMetadata, 'moduleName'> => {
+        return {
+          target: inputElement.value,
+          feature: 'search_box'
+        };
+      };
+
+      /**
+       * Emits event {@link SearchBoxXEvents.UserHoveredInSearchBox} when search box is hovered in.
+       *
+       * @internal
+       */
+      const emitUserHoveredInSearchBox = (): void => {
+        $x.emit('UserHoveredInSearchBox', undefined, { target: inputElement.value });
+      };
+
+      /**
+       * Emits event {@link SearchBoxXEvents.UserHoveredOutSearchBox} when search box is hovered out.
+       *
+       * @internal
+       */
+      const emitUserHoveredOutSearchBox = (): void => {
+        $x.emit('UserHoveredOutSearchBox', undefined, { target: inputElement.value });
+      };
+
+      /**
+       * Emits event {@link SearchBoxXEvents.UserBlurredSearchBox} when search box loses focus.
+       *
+       * @internal
+       */
+      const emitUserBlurredSearchBox = (): void => {
+        $x.emit('UserBlurredSearchBox', undefined, { target: inputElement.value });
+      };
+
+      /**
+       * Emits event {@link SearchBoxXEvents.UserClickedSearchBox} when user clicks  the search input.
+       *
+       * @internal
+       */
+      const emitUserClickedSearchBox = (): void => {
+        $x.emit('UserClickedSearchBox', undefined, { target: inputElement.value });
+      };
+
+      /**
+       * Emits event {@link SearchBoxXEvents.UserFocusedSearchBox} when search box gains focus.
+       *
+       * @internal
+       */
+      const emitUserFocusedSearchBox = (): void => {
+        $x.emit('UserFocusedSearchBox', undefined, { target: inputElement.value });
+      };
+
+      /**
+       * Emits event {@link SearchBoxXEvents.UserIsTypingAQuery} when the user typed/pasted something
+       * into the search-box. Also emits event {@link SearchBoxXEvents.UserClearedQuery} when the user
+       * removes all characters in the search-box.
+       *
+       * @internal
+       */
+      const emitUserIsTypingAQueryEvents = (): void => {
+        const query = inputElement.value.value;
+        $x.emit('UserIsTypingAQuery', query, { target: inputElement.value });
+        if (query.trim()) {
+          emitDebouncedUserAcceptedAQuery(query);
+        } else {
+          cancelDebouncedUserAcceptedAQuery();
+        }
+      };
+
+      /**
+       * Emits event {@link XEventsTypes.UserPressedArrowKey} when the user pressed an arrow key.
+       *
+       * @param event - The keyboard event with the arrow key pressed.
+       * @internal
+       */
+      const emitUserPressedArrowKey = (event: KeyboardEvent): void => {
+        $x.emit('UserPressedArrowKey', event.key as ArrowKey, createEventMetadata());
+      };
+
+      /**
+       * Emits multiple events when the user pressed the enter key.
+       *
+       * @remarks
+       * Emitted events are:
+       * {@link SearchBoxXEvents.UserPressedEnterKey}
+       * {@link XEventsTypes.UserAcceptedAQuery}
+       *
+       * @internal
+       */
+      const emitUserPressedEnterKey = (): void => {
+        const query = inputElement.value?.value.trim();
+        if (!!query && query.length > 0) {
+          $x.emit('UserPressedEnterKey', query, createEventMetadata());
+          emitUserAcceptedAQuery(query);
+        }
+        inputElement.value?.blur();
+      };
+
+      /**
+       * Emits {@link XEventsTypes.UserAcceptedAQuery} event.
+       *
+       * @remarks It is necessary in a separated method to use it as the parameter of debounce in
+       * emitDebouncedUserAcceptedAQuery method.
+       * @internal
+       * @param query - The query that will be emitted.
+       */
+      const emitUserAcceptedAQuery = (query: string): void => {
+        $x.emit('UserAcceptedAQuery', query, createEventMetadata());
+      };
+
+      /**
+       * Prevents the user from either typing or pasting special characters in the input field.
+       *
+       * @internal
+       * @param event - The event that will be checked for special characters.
+       */
+      const preventSpecialKey = (event: InputEvent): void => {
+        if (/[<>]/.test(event.data ?? '')) {
+          event.preventDefault();
+        }
+      };
+
+      /**
+       * When event {@link XEventsTypes.UserReachedEmpathizeTop} or
+       * {@link SearchBoxXEvents.UserPressedClearSearchBoxButton}
+       * are emitted the search input is focused.
+       *
+       * @internal
+       */
+      $x.on('UserReachedEmpathizeTop').subscribe(focusInput);
+      $x.on('UserPressedClearSearchBoxButton').subscribe(focusInput);
+      function focusInput(): void {
+        inputElement.value?.focus();
+      }
+
+      /**
+       * When event {@link XEventsTypes.UserAcceptedAQuery} or
+       * {@link SearchBoxXEvents.UserClearedQuery} are emitted the pending debounced emit
+       * {@link XEvent} `UserAcceptedAQuery` is canceled.
+       *
+       * @internal
+       */
+      $x.on('UserAcceptedAQuery').subscribe(cancelDebouncedUserAcceptedAQuery);
+      $x.on('UserClearedQuery').subscribe(cancelDebouncedUserAcceptedAQuery);
+      function cancelDebouncedUserAcceptedAQuery(): void {
+        debouncedUserAcceptedAQuery.value?.cancel();
+      }
+
+      onMounted(() => {
+        if (props.autofocus) {
+          focusInput();
+        }
+      });
+
       return {
-        target: this.$refs.input,
-        feature: 'search_box'
+        query,
+        inputElement,
+        searchInputMessage,
+        emitUserHoveredInSearchBox,
+        emitUserHoveredOutSearchBox,
+        emitUserBlurredSearchBox,
+        emitUserClickedSearchBox,
+        emitUserFocusedSearchBox,
+        emitUserIsTypingAQueryEvents,
+        emitUserPressedEnterKey,
+        emitUserPressedArrowKey,
+        preventSpecialKey
       };
     }
-
-    /**
-     * Emits event {@link SearchBoxXEvents.UserHoveredInSearchBox} when search box is hovered in.
-     *
-     * @internal
-     */
-    protected emitUserHoveredInSearchBox(): void {
-      this.$x.emit('UserHoveredInSearchBox', undefined, { target: this.$refs.input });
-    }
-
-    /**
-     * Emits event {@link SearchBoxXEvents.UserHoveredOutSearchBox} when search box is hovered out.
-     *
-     * @internal
-     */
-    protected emitUserHoveredOutSearchBox(): void {
-      this.$x.emit('UserHoveredOutSearchBox', undefined, { target: this.$refs.input });
-    }
-
-    /**
-     * Emits event {@link SearchBoxXEvents.UserBlurredSearchBox} when search box loses focus.
-     *
-     * @internal
-     */
-    protected emitUserBlurredSearchBox(): void {
-      this.$x.emit('UserBlurredSearchBox', undefined, { target: this.$refs.input });
-    }
-
-    /**
-     * Emits event {@link SearchBoxXEvents.UserClickedSearchBox} when user clicks  the search input.
-     *
-     * @internal
-     */
-    protected emitUserClickedSearchBox(): void {
-      this.$x.emit('UserClickedSearchBox', undefined, { target: this.$refs.input });
-    }
-
-    /**
-     * Emits event {@link SearchBoxXEvents.UserFocusedSearchBox} when search box gains focus.
-     *
-     * @internal
-     */
-    protected emitUserFocusedSearchBox(): void {
-      this.$x.emit('UserFocusedSearchBox', undefined, { target: this.$refs.input });
-    }
-
-    /**
-     * Emits event {@link SearchBoxXEvents.UserIsTypingAQuery} when the user typed/pasted something
-     * into the search-box. Also emits event {@link SearchBoxXEvents.UserClearedQuery} when the user
-     * removes all characters in the search-box.
-     *
-     * @internal
-     */
-    protected emitUserIsTypingAQueryEvents(): void {
-      const query = this.$refs.input.value;
-      this.$x.emit('UserIsTypingAQuery', query, { target: this.$refs.input });
-      if (query.trim()) {
-        this.emitDebouncedUserAcceptedAQuery(query);
-      } else {
-        this.cancelDebouncedUserAcceptedAQuery();
-      }
-    }
-
-    /**
-     * Emits event {@link XEventsTypes.UserPressedArrowKey} when the user pressed an arrow key.
-     *
-     * @param event - The keyboard event with the arrow key pressed.
-     * @internal
-     */
-    protected emitUserPressedArrowKey(event: KeyboardEvent): void {
-      this.$x.emit('UserPressedArrowKey', event.key as ArrowKey, this.createEventMetadata());
-    }
-
-    /**
-     * Emits multiple events when the user pressed the enter key.
-     *
-     * @remarks
-     * Emitted events are:
-     * {@link SearchBoxXEvents.UserPressedEnterKey}
-     * {@link XEventsTypes.UserAcceptedAQuery}
-     *
-     * @internal
-     */
-    protected emitUserPressedEnterKey(): void {
-      const query = this.$refs.input.value.trim();
-      if (query.length > 0) {
-        this.$x.emit('UserPressedEnterKey', query, this.createEventMetadata());
-        this.emitUserAcceptedAQuery(query);
-      }
-      this.$refs.input?.blur();
-    }
-
-    /**
-     * Emits {@link XEventsTypes.UserAcceptedAQuery} event.
-     *
-     * @remarks It is necessary in a separated method to use it as the parameter of debounce in
-     * emitDebouncedUserAcceptedAQuery method.
-     * @internal
-     * @param query - The query that will be emitted.
-     */
-    protected emitUserAcceptedAQuery(query: string): void {
-      this.$x.emit('UserAcceptedAQuery', query, this.createEventMetadata());
-    }
-
-    /**
-     * Prevents the user from either typing or pasting special characters in the input field.
-     *
-     * @internal
-     * @param event - The event that will be checked for special characters.
-     */
-    protected preventSpecialKey(event: InputEvent): void {
-      if (/[<>]/.test(event.data ?? '')) {
-        event.preventDefault();
-      }
-    }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
