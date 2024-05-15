@@ -1,6 +1,6 @@
 import { computed, nextTick, onMounted, Ref, ref, watch } from 'vue';
-import { XEvent } from '../wiring/index';
-import { ScrollDirection } from '../components/index';
+import { XEvent } from '../wiring/events.types';
+import { ScrollDirection } from '../components/scroll/scroll.types';
 import { throttle } from '../utils/throttle';
 import { use$x } from './use-$x';
 
@@ -17,8 +17,9 @@ type EmitType = (
 /**
  * Composable to share Scroll logic.
  *
- * @param props
- * @param emit
+ * @param props - Composable props.
+ * @param emit - Emit function.
+ * @param scrollEl - The scrolling container reference.
  * @returns A throttled version of the function to store the scroll data.
  * @public
  */
@@ -57,19 +58,9 @@ export function useScroll(
      */
     resetOn: XEvent | XEvent[];
   },
-  emit: EmitType
+  emit: EmitType,
+  scrollEl: Ref<HTMLElement | undefined>
 ) {
-  type ElementRef = {
-    $el: HTMLElement;
-  };
-
-  /**
-   * The scrolling container reference.
-   *
-   * @public
-   */
-  const el = ref<ElementRef | HTMLElement | null>(null);
-
   /**
    * Property for getting the client height of scroll.
    *
@@ -83,13 +74,6 @@ export function useScroll(
    * @internal
    */
   const currentPosition = ref(0);
-
-  /**
-   * Property for getting the direction of scroll.
-   *
-   * @internal
-   */
-  //const direction!: ScrollDirection;
 
   /**
    * Property for getting the previous position of scroll.
@@ -132,27 +116,15 @@ export function useScroll(
   const throtteledCall = throttle(restoreClientHeightFlag, 100);
 
   /**
-   * Checks if a given value is an `ElementRef` object.
-   *
-   * @param value - The value to check.
-   * @returns `true` if the value is an `ElementRef` object, `false` otherwise.
-   *
-   * @internal
-   */
-  const isElementRef = (value: any): value is ElementRef => {
-    return value && value.$el instanceof HTMLElement;
-  };
-  const $el = isElementRef(el.value) ? el.value.$el : (el.value as Element);
-  /**
    * Updates scroll related properties.
    *
    * @internal
    */
   const storeScrollData = () => {
-    if ($el) {
-      currentPosition.value = $el.scrollTop;
-      scrollHeight.value = $el.scrollHeight;
-      clientHeight.value = $el.clientHeight;
+    if (scrollEl.value) {
+      currentPosition.value = scrollEl.value.scrollTop;
+      scrollHeight.value = scrollEl.value.scrollHeight;
+      clientHeight.value = scrollEl.value.clientHeight;
     }
   };
 
@@ -221,7 +193,7 @@ export function useScroll(
 
   onMounted(() => {
     nextTick().then(() => {
-      if (!$el) {
+      if (!scrollEl) {
         // TODO Replace with Empathy's logger
         // eslint-disable-next-line no-console
         console.warn(
@@ -263,6 +235,18 @@ export function useScroll(
   });
 
   /**
+   * Sets direction of scroll based in {@link ScrollDirection} when the current position
+   * has changed.
+   *
+   * @internal
+   */
+  watch(currentPosition, () => {
+    if (!isClientHeightChanging.value && currentPosition.value !== previousPosition.value) {
+      scrollDirection.value = currentPosition.value > previousPosition.value ? 'DOWN' : 'UP';
+    }
+  });
+
+  /**
    * Emits the 'scroll:almost-at-end' event when the user is about to reach to end.
    *
    * @param isScrollAlmostAtEnd - For knowing if the user is about to reach to end.
@@ -299,7 +283,7 @@ export function useScroll(
    * @internal
    */
   watch(scrollDirection, (direction: ScrollDirection) => {
-    if (!isClientHeightChanging) {
+    if (!isClientHeightChanging.value) {
       emit('scroll:direction-change', direction);
     }
   });
@@ -313,7 +297,7 @@ export function useScroll(
   $x.on(props.resetOn as XEvent, true).subscribe(() => {
     nextTick().then(() => {
       if (props.resetOnChange) {
-        $el.scrollTo({ top: 0 });
+        scrollEl.value?.scrollTo({ top: 0 });
       }
     });
   });

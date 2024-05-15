@@ -1,12 +1,17 @@
 <template>
-  <div @scroll="throttledStoreScrollData" class="x-scroll x-base-scroll" data-test="base-scroll">
+  <div
+    ref="baseScrollEl"
+    @scroll="throttledStoreScrollData"
+    class="x-scroll x-base-scroll"
+    data-test="base-scroll"
+  >
     <slot />
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { XEvent } from '../../wiring/index';
+  import { defineComponent, PropType, ref } from 'vue';
+  import { XEvent } from '../../wiring/events.types';
   import { useScroll } from '../../composables/use-scroll';
 
   /**
@@ -81,10 +86,17 @@
       'scroll:direction-change'
     ],
     setup(props, { emit }) {
-      const throttledStoreScrollData = useScroll(props, emit).throttledStoreScrollData;
+      const baseScrollEl = ref<HTMLElement>();
+
+      const throttledStoreScrollData = useScroll(
+        props,
+        emit,
+        baseScrollEl
+      ).throttledStoreScrollData;
 
       return {
-        throttledStoreScrollData
+        throttledStoreScrollData,
+        baseScrollEl
       };
     }
   });
