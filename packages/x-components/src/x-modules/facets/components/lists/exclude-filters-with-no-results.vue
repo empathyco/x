@@ -3,7 +3,7 @@
   import { computed, defineComponent, PropType, provide, h } from 'vue';
   import { facetsXModule } from '../../x-module';
   import { useRegisterXModule } from '../../../../composables/use-register-x-module';
-  import { useFiltersInjection } from '../../../../composables/use-filters-injection';
+  import { useFiltersInjection } from '../../composables/use-filters-injection';
 
   /**
    * The `ExcludeFiltersWithNoResults` component filters the provided list of filters, excluding

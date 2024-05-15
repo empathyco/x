@@ -33,7 +33,7 @@
   import { DebouncedFunction, VueCSSClasses } from '../../../../utils/types';
   import { facetsXModule } from '../../x-module';
   import { useRegisterXModule } from '../../../../composables/use-register-x-module';
-  import { useFiltersInjection } from '../../../../composables/use-filters-injection';
+  import { useFiltersInjection } from '../../composables/use-filters-injection';
 
   /**
    * Renders the filters sifted with the input query.

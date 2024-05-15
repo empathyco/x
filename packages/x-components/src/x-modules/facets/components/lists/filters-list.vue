@@ -29,7 +29,7 @@
   import { facetsXModule } from '../../x-module';
   import { AnimationProp } from '../../../../types/animation-prop';
   import { useRegisterXModule } from '../../../../composables/use-register-x-module';
-  import { useFiltersInjection } from '../../../../composables/use-filters-injection';
+  import { useFiltersInjection } from '../../composables/use-filters-injection';
 
   /**
    * Renders a list with a list item per each

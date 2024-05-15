@@ -4,7 +4,7 @@
   import { isArrayEmpty } from '../../../../utils';
   import { facetsXModule } from '../../x-module';
   import { useRegisterXModule } from '../../../../composables/use-register-x-module';
-  import { useFiltersInjection } from '../../../../composables/use-filters-injection';
+  import { useFiltersInjection } from '../../composables/use-filters-injection';
 
   /**
    * Component that sorts a list of filters and returns them using the default scoped slot.

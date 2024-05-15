@@ -17,16 +17,11 @@ const facets: Record<Facet['id'], Facet> = {
     createFilter('red', true),
     createFilter('blue', false)
   ]),
-  category: createSimpleFacetStub('category', createFilter => [
-    createFilter('dress', false),
-    createFilter('floral', false, 5),
-    createFilter('skirt', false, 9),
-    createFilter('print', false, 9),
-    createFilter('midi', false, 3),
-    createFilter('fitted', false, 0),
-    createFilter('short', false),
-    createFilter('long', false, 15)
-  ])
+  category: createSimpleFacetStub('category', createFilter =>
+    ['dress', 'floral', 'skirt', 'print', 'midi', 'fitted', 'short', 'long'].map((query, index) =>
+      createFilter(query, false, index)
+    )
+  )
 };
 const filters = arrayToObject(
   Object.values(facets).flatMap(facet => facet.filters),
