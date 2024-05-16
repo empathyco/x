@@ -5,16 +5,6 @@ import { ScrollDirection } from '../components/scroll/scroll.types';
 import { throttle } from '../utils/throttle';
 import { use$x } from './use-$x';
 
-type EmitType = (
-  event:
-    | 'scroll'
-    | 'scroll:at-start'
-    | 'scroll:almost-at-end'
-    | 'scroll:at-end'
-    | 'scroll:direction-change',
-  ...args: any[]
-) => void;
-
 /**
  * Composable to share Scroll logic.
  *
@@ -59,7 +49,15 @@ export function useScroll(
      */
     resetOn: XEvent | XEvent[];
   },
-  emit: EmitType,
+  emit: (
+    event:
+      | 'scroll'
+      | 'scroll:at-start'
+      | 'scroll:almost-at-end'
+      | 'scroll:at-end'
+      | 'scroll:direction-change',
+    ...args: any[]
+  ) => void,
   scrollEl: Ref<HTMLElement | undefined>
 ) {
   /**
