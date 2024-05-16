@@ -28,7 +28,7 @@ function mountNewSearchInput(overrideProps: Partial<SearchInputProps> = {}): Tes
     localVue,
     propsData: overrideProps
   });
-  const input = wrapper.vm.$refs.input as HTMLInputElement;
+  const input = wrapper.vm.$refs.inputElement as HTMLInputElement;
 
   return {
     wrapper,

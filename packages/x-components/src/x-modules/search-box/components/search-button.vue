@@ -30,6 +30,7 @@
    */
   export default defineComponent({
     name: 'SearchButton',
+    xModule: searchBoxXModule.name,
     setup: function () {
       useRegisterXModule(searchBoxXModule);
 
@@ -47,7 +48,6 @@
 
       function createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
         return {
-          moduleName: 'searchBox',
           target: buttonRef.value,
           feature: 'search_box'
         };

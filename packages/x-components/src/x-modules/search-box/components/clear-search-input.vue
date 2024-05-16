@@ -31,6 +31,7 @@
   export default defineComponent({
     name: 'ClearSearchInput',
     components: { BaseEventButton },
+    xModule: searchBoxXModule.name,
     setup: function () {
       useRegisterXModule(searchBoxXModule);
 

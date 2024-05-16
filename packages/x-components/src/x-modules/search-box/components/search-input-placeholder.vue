@@ -25,6 +25,7 @@
    */
   export default defineComponent({
     name: 'SearchInputPlaceholder',
+    xModule: searchBoxXModule.name,
     props: {
       /**
        * List of messages to animate.
