@@ -35,7 +35,7 @@
             <ChevronDown />
           </template>
           <!-- Filters -->
-          <SlicedFilters max="4" :filters="facet.filters">
+          <SlicedFilters :max="4" :filters="facet.filters">
             <FiltersList v-slot="{ filter }">
               <HierarchicalFilter
                 :filter="filter"

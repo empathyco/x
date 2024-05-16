@@ -1,29 +1,42 @@
+import Vue, { ComponentOptions, defineComponent, PropType, provide, ref } from 'vue';
 import { Filter } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
-import Vue, { ComponentOptions } from 'vue';
-import { Component, Prop } from 'vue-property-decorator';
 import {
   createHierarchicalFilter,
   createSimpleFilter
-} from '../../../../../__stubs__/filters-stubs.factory';
-import { XProvide } from '../../../../../components/decorators/injection.decorators';
-import FiltersInjectionMixin from '../filters-injection.mixin';
+} from '../../../../__stubs__/filters-stubs.factory';
+import { useFiltersInjection } from '../use-filters-injection';
 
-@Component({
+const Provider = defineComponent({
+  name: 'Provider',
+  props: {
+    injectedData: {
+      type: Array as PropType<Filter[]>
+    }
+  },
+  setup(props) {
+    const filters = ref(props.injectedData);
+    provide('filters', filters);
+  },
   template: `
     <div>
       <slot />
     </div>
   `
-})
-class Provider extends Vue {
-  @Prop()
-  @XProvide('filters')
-  public injectedData!: any;
-}
+});
 
 const Filters: ComponentOptions<Vue> = {
-  mixins: [FiltersInjectionMixin],
+  props: {
+    filters: Array as PropType<Filter[]>,
+    parentId: {
+      type: String as PropType<Filter['id']>,
+      required: false
+    }
+  },
+  setup(props) {
+    const renderedFilters = useFiltersInjection(props);
+    return { renderedFilters };
+  },
   template: `
     <div>
     <li v-for="filter of renderedFilters" :key="filter.id">{{ filter.id }}</li>
@@ -31,8 +44,8 @@ const Filters: ComponentOptions<Vue> = {
   `
 };
 
-describe('test filters injection mixin', () => {
-  function renderFiltersMixin({
+describe('test filters injection composable', () => {
+  function renderFiltersComposable({
     propFilters,
     injectedFilters,
     parentId
@@ -76,7 +89,7 @@ describe('test filters injection mixin', () => {
     const whiteFilter = createSimpleFilter('color', 'white');
     const blackFilter = createSimpleFilter('color', 'black');
     const blueFilter = createSimpleFilter('color', 'blue');
-    const { setPropFilters, getRenderedFilterIds } = renderFiltersMixin({
+    const { setPropFilters, getRenderedFilterIds } = renderFiltersComposable({
       propFilters: [whiteFilter, blackFilter]
     });
     let renderedIds = getRenderedFilterIds();
@@ -96,7 +109,7 @@ describe('test filters injection mixin', () => {
     const whiteFilter = createSimpleFilter('color', 'white');
     const blackFilter = createSimpleFilter('color', 'black');
     const blueFilter = createSimpleFilter('color', 'blue');
-    const { getRenderedFilterIds } = renderFiltersMixin({
+    const { getRenderedFilterIds } = renderFiltersComposable({
       injectedFilters: [whiteFilter, blackFilter, blueFilter]
     });
     const renderedIds = getRenderedFilterIds();
@@ -110,7 +123,7 @@ describe('test filters injection mixin', () => {
     const whiteFilter = createSimpleFilter('color', 'white');
     const blackFilter = createSimpleFilter('color', 'black');
     const blueFilter = createSimpleFilter('color', 'blue');
-    const { getRenderedFilterIds } = renderFiltersMixin({
+    const { getRenderedFilterIds } = renderFiltersComposable({
       propFilters: [whiteFilter, blackFilter],
       injectedFilters: [blueFilter]
     });
@@ -137,7 +150,7 @@ describe('test filters injection mixin', () => {
     categoryShirts.parentId = categoryJeans.parentId = categoryMen.id;
     const categoryWomen = createHierarchicalFilter('category', 'women', false);
 
-    const { getRenderedFilterIds } = renderFiltersMixin({
+    const { getRenderedFilterIds } = renderFiltersComposable({
       propFilters: [categoryShirts, categoryJeans, categoryMen, categoryWomen]
     });
     const renderedIds = getRenderedFilterIds();
@@ -164,7 +177,7 @@ describe('test filters injection mixin', () => {
     categoryShirts.parentId = categoryJeans.parentId = categoryMen.id;
     const categoryWomen = createHierarchicalFilter('category', 'women', false);
 
-    const { getRenderedFilterIds } = renderFiltersMixin({
+    const { getRenderedFilterIds } = renderFiltersComposable({
       propFilters: [categoryShirts, categoryJeans, categoryMen, categoryWomen],
       parentId: categoryMen.id
     });

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.11...@empathyco/x-components@5.0.0-alpha.12) (2024-05-15)
+
+
+### Features
+
+* migrate `FiltersInjection` mixin (#1467) ([839c663](https://github.com/empathyco/x/commit/839c66334c98ed399ce354a2c5a3a842734ed54c))
+
+
+
 ## [5.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.10...@empathyco/x-components@5.0.0-alpha.11) (2024-05-13)
 
 
