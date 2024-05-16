@@ -1,4 +1,4 @@
-import { computed, nextTick, onMounted, Ref, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, Ref, ref, SetupContext, watch } from 'vue';
 import { isArray } from '@empathyco/x-utils';
 import { XEvent } from '../wiring/events.types';
 import { ScrollDirection } from '../components/scroll/scroll.types';
@@ -9,7 +9,7 @@ import { use$x } from './use-$x';
  * Composable to share Scroll logic.
  *
  * @param props - Composable props.
- * @param emit - Emit function.
+ * @param context - Component setup context.
  * @param scrollEl - The scrolling container reference.
  * @returns A throttled version of the function to store the scroll data.
  * @public
@@ -49,15 +49,7 @@ export function useScroll(
      */
     resetOn: XEvent | XEvent[];
   },
-  emit: (
-    event:
-      | 'scroll'
-      | 'scroll:at-start'
-      | 'scroll:almost-at-end'
-      | 'scroll:at-end'
-      | 'scroll:direction-change',
-    ...args: any[]
-  ) => void,
+  context: SetupContext<any>,
   scrollEl: Ref<HTMLElement | undefined>
 ) {
   /**
@@ -229,7 +221,7 @@ export function useScroll(
    * @internal
    */
   watch(currentPosition, (_newScrollPosition: number, oldScrollPosition: number) => {
-    emit('scroll', currentPosition.value);
+    context.emit('scroll', currentPosition.value);
     previousPosition.value = oldScrollPosition;
   });
 
@@ -252,7 +244,7 @@ export function useScroll(
    * @internal
    */
   watch(hasScrollReachedStart, (isScrollAtStart: boolean) => {
-    emit('scroll:at-start', isScrollAtStart);
+    context.emit('scroll:at-start', isScrollAtStart);
   });
 
   /**
@@ -262,7 +254,7 @@ export function useScroll(
    * @internal
    */
   watch(hasScrollAlmostReachedEnd, (isScrollAlmostAtEnd: boolean) => {
-    emit('scroll:almost-at-end', isScrollAlmostAtEnd);
+    context.emit('scroll:almost-at-end', isScrollAlmostAtEnd);
   });
 
   /**
@@ -272,7 +264,7 @@ export function useScroll(
    * @internal
    */
   watch(hasScrollReachedEnd, (isScrollAtEnd: boolean) => {
-    emit('scroll:at-end', isScrollAtEnd);
+    context.emit('scroll:at-end', isScrollAtEnd);
   });
 
   /**
@@ -283,7 +275,7 @@ export function useScroll(
    */
   watch(scrollDirection, (direction: ScrollDirection) => {
     if (!isClientHeightChanging.value) {
-      emit('scroll:direction-change', direction);
+      context.emit('scroll:direction-change', direction);
     }
   });
 

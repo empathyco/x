@@ -85,12 +85,12 @@
       'scroll:at-end',
       'scroll:direction-change'
     ],
-    setup(props, { emit }) {
+    setup(props, context) {
       const baseScrollEl = ref<HTMLElement>();
 
       const throttledStoreScrollData = useScroll(
         props,
-        emit,
+        context,
         baseScrollEl
       ).throttledStoreScrollData;
 
