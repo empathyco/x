@@ -13,9 +13,9 @@
 
 <script lang="ts">
   import { computed, defineComponent, onBeforeUnmount, PropType, ref, watch } from 'vue';
-  import { animateTranslate } from '../../../components';
-  import { searchBoxXModule } from '../x-module';
+  import { animateTranslate } from '../../../components/animations/animate-translate/animate-translate.factory';
   import { use$x, useRegisterXModule, useState } from '../../../composables';
+  import { searchBoxXModule } from '../x-module';
 
   /**.
    * This component renders an animated placeholder for the search input in the shape of a list of
