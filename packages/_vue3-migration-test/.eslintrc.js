@@ -5,6 +5,8 @@ module.exports = {
     project: 'tsconfig.eslint.json'
   },
   rules: {
-    'max-len': 'off'
+    'max-len': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'vue/no-multiple-template-root': 'off'
   }
 };
