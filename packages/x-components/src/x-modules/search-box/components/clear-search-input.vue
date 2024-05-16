@@ -11,10 +11,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue';
+  import { defineComponent, computed, ref } from 'vue';
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { VueCSSClasses } from '../../../utils/types';
-  import { XEventsTypes } from '../../../wiring/events.types';
   import { useRegisterXModule, useState } from '../../../composables';
   import { searchBoxXModule } from '../x-module';
 
@@ -37,20 +36,20 @@
 
       const { query } = useState('searchBox', ['query']);
 
-      const isQueryEmpty = computed(() => query.value.length === 0);
-
-      const dynamicClasses = computed<VueCSSClasses>(() => ({
-        'x-clear-search-input--has-empty-query': isQueryEmpty.value
-      }));
-
       /**
        * The events dictionary that are going to be emitted when the button is pressed.
        *
        * @internal
        */
-      const clearSearchInputEvents: Partial<XEventsTypes> = {
+      const clearSearchInputEvents = ref({
         UserPressedClearSearchBoxButton: undefined
-      };
+      });
+
+      const isQueryEmpty = computed(() => query.value.length === 0);
+
+      const dynamicClasses = computed<VueCSSClasses>(() => ({
+        'x-clear-search-input--has-empty-query': isQueryEmpty.value
+      }));
 
       return {
         dynamicClasses,

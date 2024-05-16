@@ -158,7 +158,7 @@
       $x.on('UserHoveredOutSearchBox').subscribe(() => (isSearchBoxHovered.value = false));
 
       $x.on('UserFocusedSearchBox').subscribe(() => (isSearchBoxFocused.value = true));
-      
+
       $x.on('UserBlurredSearchBox').subscribe(() => (isSearchBoxFocused.value = false));
 
       /**

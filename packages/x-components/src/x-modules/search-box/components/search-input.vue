@@ -184,12 +184,14 @@
        * @internal
        */
       const emitUserIsTypingAQueryEvents = (): void => {
-        const query = inputElement.value.value;
-        $x.emit('UserIsTypingAQuery', query, { target: inputElement.value });
-        if (query.trim()) {
-          emitDebouncedUserAcceptedAQuery(query);
-        } else {
-          cancelDebouncedUserAcceptedAQuery();
+        const query = inputElement.value?.value;
+        if (query) {
+          $x.emit('UserIsTypingAQuery', query, { target: inputElement.value });
+          if (query.trim()) {
+            emitDebouncedUserAcceptedAQuery(query);
+          } else {
+            cancelDebouncedUserAcceptedAQuery();
+          }
         }
       };
 

@@ -1,5 +1,6 @@
 <template>
   <button
+    ref="buttonRef"
     @click="emitEvents"
     class="x-search-button x-button"
     :class="dynamicClasses"
@@ -34,7 +35,7 @@
 
       const $x = use$x();
 
-      const $el = ref<HTMLElement | null>(null);
+      const buttonRef = ref<HTMLElement | null>(null);
 
       const { query } = useState('searchBox', ['query']);
 
@@ -46,7 +47,8 @@
 
       function createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
         return {
-          target: $el.value,
+          moduleName: 'searchBox',
+          target: buttonRef.value,
           feature: 'search_box'
         };
       }
@@ -65,6 +67,7 @@
 
       return {
         dynamicClasses,
+        buttonRef,
         emitEvents
       };
     }
