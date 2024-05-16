@@ -82,7 +82,7 @@
        * Event that retrieves the autocomplete suggestion.
        */
       autocompleteSuggestionsEvent: {
-        type: Object as PropType<PropsWithType<XEventsTypes, Suggestion[]>>,
+        type: String as PropType<PropsWithType<XEventsTypes, Suggestion[]>>,
         default: 'QuerySuggestionsChanged'
       }
     },
@@ -98,6 +98,31 @@
       const searchInputMessage = ref('type your query here');
 
       const debouncedUserAcceptedAQuery = ref<DebouncedFunction<[string]>>();
+
+      /**
+       * Generates the {@link WireMetadata} object omitting the moduleName.
+       *
+       * @returns The {@link WireMetadata} object omitting the moduleName.
+       * @internal
+       */
+      const createEventMetadata = (): Omit<WireMetadata, 'moduleName'> => {
+        return {
+          target: inputElement.value,
+          feature: 'search_box'
+        };
+      };
+
+      /**
+       * Emits {@link XEventsTypes.UserAcceptedAQuery} event.
+       *
+       * @remarks It is necessary in a separated method to use it as the parameter of debounce in
+       * emitDebouncedUserAcceptedAQuery method.
+       * @internal
+       * @param query - The query that will be emitted.
+       */
+      const emitUserAcceptedAQuery = (query: string): void => {
+        $x.emit('UserAcceptedAQuery', query, createEventMetadata());
+      };
 
       /**
        * Emits {@link XEventsTypes.UserAcceptedAQuery} event with a debounce configured in
@@ -116,19 +141,6 @@
           }
           debouncedUserAcceptedAQuery.value?.(query);
         }
-      };
-
-      /**
-       * Generates the {@link WireMetadata} object omitting the moduleName.
-       *
-       * @returns The {@link WireMetadata} object omitting the moduleName.
-       * @internal
-       */
-      const createEventMetadata = (): Omit<WireMetadata, 'moduleName'> => {
-        return {
-          target: inputElement.value,
-          feature: 'search_box'
-        };
       };
 
       /**
@@ -222,18 +234,6 @@
           emitUserAcceptedAQuery(query);
         }
         inputElement.value?.blur();
-      };
-
-      /**
-       * Emits {@link XEventsTypes.UserAcceptedAQuery} event.
-       *
-       * @remarks It is necessary in a separated method to use it as the parameter of debounce in
-       * emitDebouncedUserAcceptedAQuery method.
-       * @internal
-       * @param query - The query that will be emitted.
-       */
-      const emitUserAcceptedAQuery = (query: string): void => {
-        $x.emit('UserAcceptedAQuery', query, createEventMetadata());
       };
 
       /**

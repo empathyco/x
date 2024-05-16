@@ -29,7 +29,7 @@
    * @public
    */
   export default defineComponent({
-    name: 'SearchButton ',
+    name: 'SearchButton',
     setup: function () {
       useRegisterXModule(searchBoxXModule);
 
