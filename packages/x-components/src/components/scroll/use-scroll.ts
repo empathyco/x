@@ -1,9 +1,9 @@
 import { computed, nextTick, onMounted, Ref, ref, SetupContext, watch } from 'vue';
 import { isArray } from '@empathyco/x-utils';
-import { XEvent } from '../wiring/events.types';
-import { ScrollDirection } from '../components/scroll/scroll.types';
-import { throttle } from '../utils/throttle';
-import { use$x } from './use-$x';
+import { XEvent } from '../../wiring/events.types';
+import { throttle } from '../../utils/throttle';
+import { use$x } from '../../composables/use-$x';
+import { ScrollDirection } from './scroll.types';
 
 /**
  * Composable to share Scroll logic.
@@ -49,7 +49,7 @@ export function useScroll(
      */
     resetOn: XEvent | XEvent[];
   },
-  context: SetupContext<any>,
+  { emit }: SetupContext<any>,
   scrollEl: Ref<HTMLElement | undefined>
 ) {
   /**
@@ -127,9 +127,7 @@ export function useScroll(
    * @returns A throttled version of the function to store the scroll data.
    * @internal
    */
-  const throttledStoreScrollData = computed(() => {
-    return throttle(storeScrollData, props.throttleMs);
-  });
+  const throttledStoreScrollData = computed(() => throttle(storeScrollData, props.throttleMs));
 
   /**
    * Returns end position of scroll.
@@ -137,9 +135,7 @@ export function useScroll(
    * @returns A number for knowing end position of scroll.
    * @internal
    */
-  const scrollEndPosition = computed(() => {
-    return scrollHeight.value - clientHeight.value;
-  });
+  const scrollEndPosition = computed(() => scrollHeight.value - clientHeight.value);
 
   /**
    * Returns distance missing to endPosition position.
@@ -147,9 +143,7 @@ export function useScroll(
    * @returns A number for knowing the distance missing to endPosition position.
    * @internal
    */
-  const distanceToEnd = computed(() => {
-    return scrollEndPosition.value - currentPosition.value;
-  });
+  const distanceToEnd = computed(() => scrollEndPosition.value - currentPosition.value);
 
   /**
    * Returns `true` when there is no more content to scroll.
@@ -157,9 +151,7 @@ export function useScroll(
    * @returns A boolean for knowing if the user scrolls to the end.
    * @internal
    */
-  const hasScrollReachedEnd = computed(() => {
-    return currentPosition.value === scrollEndPosition.value;
-  });
+  const hasScrollReachedEnd = computed(() => currentPosition.value === scrollEndPosition.value);
 
   /**
    * Returns `true` when the scroll is at the initial position.
@@ -167,9 +159,7 @@ export function useScroll(
    * @returns A boolean for knowing if the user scrolls to the start.
    * @internal
    */
-  const hasScrollReachedStart = computed(() => {
-    return currentPosition.value === 0;
-  });
+  const hasScrollReachedStart = computed(() => currentPosition.value === 0);
 
   /**
    * Returns `true` when the amount of pixels scrolled is greater than
@@ -178,18 +168,19 @@ export function useScroll(
    * @returns A boolean for knowing if the user is about to reaching to the end.
    * @internal
    */
-  const hasScrollAlmostReachedEnd = computed(() => {
-    return !hasScrollReachedStart.value && props.distanceToBottom > distanceToEnd.value;
-  });
+  const hasScrollAlmostReachedEnd = computed(
+    () => !hasScrollReachedStart.value && props.distanceToBottom > distanceToEnd.value
+  );
 
   onMounted(() => {
     nextTick().then(() => {
-      if (!scrollEl) {
+      if (!scrollEl.value) {
         // TODO Replace with Empathy's logger
         // eslint-disable-next-line no-console
         console.warn(
-          '[ScrollMixin]',
-          'Components using this mixin must set `this.$el` to the HTML node that is scrolling.'
+          '[useScroll]',
+          // eslint-disable-next-line max-len
+          'Components using this composable must pass `scrollEl` as the HTML node that is scrolling.'
         );
       } else {
         storeScrollData();
@@ -221,7 +212,7 @@ export function useScroll(
    * @internal
    */
   watch(currentPosition, (_newScrollPosition: number, oldScrollPosition: number) => {
-    context.emit('scroll', currentPosition.value);
+    emit('scroll', currentPosition.value);
     previousPosition.value = oldScrollPosition;
   });
 
@@ -244,7 +235,7 @@ export function useScroll(
    * @internal
    */
   watch(hasScrollReachedStart, (isScrollAtStart: boolean) => {
-    context.emit('scroll:at-start', isScrollAtStart);
+    emit('scroll:at-start', isScrollAtStart);
   });
 
   /**
@@ -254,7 +245,7 @@ export function useScroll(
    * @internal
    */
   watch(hasScrollAlmostReachedEnd, (isScrollAlmostAtEnd: boolean) => {
-    context.emit('scroll:almost-at-end', isScrollAlmostAtEnd);
+    emit('scroll:almost-at-end', isScrollAlmostAtEnd);
   });
 
   /**
@@ -264,7 +255,7 @@ export function useScroll(
    * @internal
    */
   watch(hasScrollReachedEnd, (isScrollAtEnd: boolean) => {
-    context.emit('scroll:at-end', isScrollAtEnd);
+    emit('scroll:at-end', isScrollAtEnd);
   });
 
   /**
@@ -275,7 +266,7 @@ export function useScroll(
    */
   watch(scrollDirection, (direction: ScrollDirection) => {
     if (!isClientHeightChanging.value) {
-      context.emit('scroll:direction-change', direction);
+      emit('scroll:direction-change', direction);
     }
   });
 
@@ -285,25 +276,16 @@ export function useScroll(
    * @internal
    */
   const $x = use$x();
-  if (isArray(props.resetOn)) {
-    props.resetOn.forEach(event =>
-      $x.on(event, true).subscribe(() => {
-        nextTick().then(() => {
-          if (props.resetOnChange) {
-            scrollEl.value?.scrollTo({ top: 0 });
-          }
-        });
-      })
-    );
-  } else {
-    $x.on(props.resetOn, true).subscribe(() => {
+  const resetOnEvents = isArray(props.resetOn) ? props.resetOn : [props.resetOn];
+  resetOnEvents.forEach(event =>
+    $x.on(event, false).subscribe(() =>
       nextTick().then(() => {
         if (props.resetOnChange) {
           scrollEl.value?.scrollTo({ top: 0 });
         }
-      });
-    });
-  }
+      })
+    )
+  );
 
   return { throttledStoreScrollData };
 }

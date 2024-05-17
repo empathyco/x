@@ -12,7 +12,7 @@
 <script lang="ts">
   import { defineComponent, PropType, ref } from 'vue';
   import { XEvent } from '../../wiring/events.types';
-  import { useScroll } from '../../composables/use-scroll';
+  import { useScroll } from './use-scroll';
 
   /**
    * Base scroll component that depending on the user interactivity emits different events for
@@ -88,11 +88,7 @@
     setup(props, context) {
       const baseScrollEl = ref<HTMLElement>();
 
-      const throttledStoreScrollData = useScroll(
-        props,
-        context,
-        baseScrollEl
-      ).throttledStoreScrollData;
+      const { throttledStoreScrollData } = useScroll(props, context, baseScrollEl);
 
       return {
         throttledStoreScrollData,
