@@ -121,8 +121,7 @@ export function useScroll(
 
   /**
    * Throttled version of the function that stores the DOM scroll related properties.
-   * The duration of the throttle is configured through the
-   * {@link ScrollMixin.throttleMs}.
+   * The duration of the throttle is configured through the `throttleMs` prop passed as parameter.
    *
    * @returns A throttled version of the function to store the scroll data.
    * @internal
@@ -163,7 +162,7 @@ export function useScroll(
 
   /**
    * Returns `true` when the amount of pixels scrolled is greater than
-   * the {@link ScrollMixin.distanceToBottom}.
+   * the `distanceToBottom` prop passed as parameter.
    *
    * @returns A boolean for knowing if the user is about to reaching to the end.
    * @internal
