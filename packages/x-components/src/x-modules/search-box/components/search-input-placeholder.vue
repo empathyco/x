@@ -204,7 +204,7 @@
        * @internal
        */
       watch(
-        () => 'isBeingAnimated',
+        isBeingAnimated,
         () => {
           if (!isBeingAnimated.value) {
             if (props.animateOnlyOnHover) {
