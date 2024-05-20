@@ -1,7 +1,8 @@
-import { endpointAdapterFactory } from '@empathyco/x-adapter';
+import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter';
 import { NextQueriesRequest, NextQueriesResponse } from '@empathyco/x-types';
 import { nextQueriesRequestMapper } from '../mappers/requests/next-queries-request.mapper';
 import { nextQueriesResponseMapper } from '../mappers/responses/next-queries-response.mapper';
+import { getBeaconServiceUrl } from './utils';
 
 /**
  * This endpoint does not support pagination in the request.
@@ -12,7 +13,8 @@ export const nextQueriesEndpointAdapter = endpointAdapterFactory<
   NextQueriesRequest,
   NextQueriesResponse
 >({
-  endpoint: 'https://api.{extraParams.env(.)}empathy.co/nextqueries/{extraParams.instance}',
+  endpoint: from =>
+    interpolate(`${getBeaconServiceUrl(from)}/nextqueries/{extraParams.instance}`, from),
   requestMapper: nextQueriesRequestMapper,
   responseMapper: nextQueriesResponseMapper,
   defaultRequestOptions: {

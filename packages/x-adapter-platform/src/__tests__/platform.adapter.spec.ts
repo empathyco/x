@@ -117,7 +117,7 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.test.empathy.co/search/v1/query/empathy/search?internal=true&query=chips&origin=popular_search%3Apredictive_layer&start=0&rows=0&sort=price+asc&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0&instance=empathy&env=test&lang=es&device=mobile&scope=mobile',
+      'https://search.internal.test.empathy.co/query/empathy/search?internal=true&query=chips&origin=popular_search%3Apredictive_layer&start=0&rows=0&sort=price+asc&filter=categoryIds%3Affc61e1e9__be257cb26&filter=gender%3Amen&filter=price%3A10.0-20.0&instance=empathy&env=test&lang=es&device=mobile&scope=mobile',
       { signal: expect.anything() }
     );
     expect(response.totalResults).toBe(0);
@@ -184,7 +184,7 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.test.empathy.co/search/v1/query/empathy/empathize?internal=true&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
+      'https://search.internal.test.empathy.co/query/empathy/empathize?internal=true&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
       { signal: expect.anything() }
     );
 
@@ -231,7 +231,7 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.test.empathy.co/search/v1/query/empathy/empathize?internal=true&query=boots&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
+      'https://search.internal.test.empathy.co/query/empathy/empathize?internal=true&query=boots&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
       { signal: expect.anything() }
     );
 
@@ -280,7 +280,7 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.test.empathy.co/search/v1/query/empathy/empathize?internal=true&query=boots&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
+      'https://search.internal.test.empathy.co/query/empathy/empathize?internal=true&query=boots&start=0&rows=24&instance=empathy&env=test&lang=en&device=tablet&scope=tablet',
       { signal: expect.anything() }
     );
 
@@ -531,7 +531,7 @@ describe('platformAdapter tests', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       // eslint-disable-next-line max-len
-      'https://api.test.empathy.co/search/v1/query/empathy/topclicked?internal=true&start=0&rows=24&origin=search_box%3Anone&instance=empathy&env=test&lang=en&device=desktop&scope=desktop',
+      'https://search.internal.test.empathy.co/query/empathy/topclicked?internal=true&start=0&rows=24&origin=search_box%3Anone&instance=empathy&env=test&lang=en&device=desktop&scope=desktop',
       { signal: expect.anything() }
     );
 
