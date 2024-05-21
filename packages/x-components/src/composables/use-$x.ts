@@ -1,5 +1,5 @@
-import { UseAliasAPI, useAliasApi } from './use-alias-api';
-import { useXBus, UseXBusAPI } from './use-x-bus';
+import { useAliasApi } from './use-alias-api';
+import { useXBus } from './use-x-bus';
 
 /**
  * Function which returns the `$x` object from the current component instance.
@@ -8,16 +8,8 @@ import { useXBus, UseXBusAPI } from './use-x-bus';
  *
  * @public
  */
-export function use$x(): UseXComponentAPI {
+export function use$x() {
   const xAliasAPI = useAliasApi();
   const xBusAPI = useXBus();
   return Object.assign(xAliasAPI, xBusAPI);
 }
-
-/**
- * The XComponentAPI exposes access to the {@link @empathyco/x-bus#XBus}, and store aliases to the
- * components.
- *
- * @public
- */
-export interface UseXComponentAPI extends UseXBusAPI, UseAliasAPI {}

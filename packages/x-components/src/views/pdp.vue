@@ -13,10 +13,9 @@
 </template>
 
 <script lang="ts">
-  import { merge } from 'rxjs';
-  import { delay } from 'rxjs/operators';
-  import { defineComponent, onUnmounted, ref } from 'vue';
+  import { defineComponent, ref } from 'vue';
   import { use$x } from '../composables/use-$x';
+  import { XEvent } from '../wiring';
   import { Tagging } from '../x-modules/tagging';
 
   export default defineComponent({
@@ -29,13 +28,12 @@
       const addProductToCart = (): void => window.InterfaceX?.addProductToCart();
 
       const showAddToCartButton = ref(false);
-      const resultURLTrackingEnabled$ = $x.on('ResultURLTrackingEnabled');
-      const pdpIsLoaded$ = $x.on('PDPIsLoaded');
-      const subscription = merge(resultURLTrackingEnabled$, pdpIsLoaded$)
-        .pipe(delay(500)) // emulate loading time for customer PDP
-        .subscribe(() => (showAddToCartButton.value = true));
-
-      onUnmounted(() => subscription.unsubscribe());
+      setTimeout(() => {
+        const events: XEvent[] = ['ResultURLTrackingEnabled', 'PDPIsLoaded'];
+        events.forEach(event =>
+          $x.on(event, false).subscribe(() => (showAddToCartButton.value = true))
+        );
+      }, 500); // emulate loading time for customer PDP
 
       return {
         addProductToCart,

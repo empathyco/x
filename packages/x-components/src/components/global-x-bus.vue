@@ -1,16 +1,12 @@
 <script lang="ts">
-  import { reduce } from '@empathyco/x-utils';
-  import { Observable, Subscription } from 'rxjs';
-  import { EventPayload, SubjectPayload } from '@empathyco/x-bus';
-  import { defineComponent, onBeforeUnmount } from 'vue';
+  import { defineComponent } from 'vue';
   import { XEventListeners } from '../x-installer/api/api.types';
-  import { WireMetadata } from '../wiring/wiring.types';
-  import { XEventsTypes } from '../wiring/events.types';
+  import { XEvent } from '../wiring/events.types';
   import { useNoElementRender } from '../composables/use-no-element-render';
   import { useXBus } from '../composables/use-x-bus';
 
   /**
-   * This component helps subscribing to any {@link XEvent} with custom callbacks using Vue
+   * This component helps to subscribe to any {@link XEvent} with custom callbacks using Vue
    * listeners API.
    *
    * @public
@@ -22,29 +18,12 @@
 
       /**
        * Handles a subscription to all the events provided in the listeners with the function that
-       * will execute the callback. Also unsubscribes on beforeDestroy.
-       *
-       * @internal
+       * will execute the callback.
        */
-      const subscription = reduce(
-        listeners as XEventListeners,
-        (subscription, eventName, callback) => {
-          subscription.add(
-            (
-              xBus.on(eventName, true) as unknown as Observable<
-                SubjectPayload<EventPayload<XEventsTypes, typeof eventName>, WireMetadata>
-              >
-            ).subscribe(({ eventPayload, metadata }) => {
-              callback(eventPayload as never, metadata);
-            })
-          );
-          return subscription;
-        },
-        new Subscription()
-      );
-
-      onBeforeUnmount(() => {
-        subscription.unsubscribe();
+      Object.entries(listeners as XEventListeners).forEach(([eventName, callback]) => {
+        xBus.on(eventName as XEvent, true).subscribe(({ eventPayload, metadata }) => {
+          callback(eventPayload as never, metadata);
+        });
       });
     },
     render() {

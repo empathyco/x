@@ -22,6 +22,7 @@
     // eslint-disable-next-line no-console
     _$x.on(event as XEvent, true).subscribe(args => console.log('BaseEventButton emission:', args))
   );
+
   // eslint-disable-next-line no-console
   const onFocusin = (): void => console.log('$listeners working on Vue3!');
 </script>
