@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.2...@empathyco/x-adapter-platform@1.1.0-alpha.3) (2024-05-21)
+
+
+### Features
+
+* **adapter-platform:** support platform test environment (#1477) ([6b433a4](https://github.com/empathyco/x/commit/6b433a45e63d853f24823eccc3db5874e5b7d501))
+
+
+
 ## [1.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.1...@empathyco/x-adapter-platform@1.1.0-alpha.2) (2024-05-03)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
