@@ -1,14 +1,14 @@
 import { mount } from '@vue/test-utils';
 import { defineComponent } from 'vue';
-import { installNewXPlugin } from '../../__tests__/utils';
-import { XPlugin } from '../../plugins/x-plugin';
-import { useXBus } from '../use-x-bus';
 import { XDummyBus } from '../../__tests__/bus.dummy';
+import { installNewXPlugin } from '../../__tests__/utils';
+import { XPlugin } from '../../plugins';
+import { useXBus } from '../use-x-bus';
 
-let onColumnsNumberProvidedMock = jest.fn();
+let dummyBus = new XDummyBus();
+const onColumnsNumberProvidedMock = jest.fn();
 
 function render(withMetadata = true) {
-  const dummyBus = new XDummyBus();
   const emitSpy = jest.spyOn(dummyBus, 'emit');
   const onSpy = jest.spyOn(dummyBus, 'on');
   const component = defineComponent({
@@ -20,14 +20,14 @@ function render(withMetadata = true) {
     },
     template: `<div/>`
   });
-  const wrapper = mount(component, {
-    global: {
-      plugins: [installNewXPlugin({}, dummyBus)],
-      provide: { location: 'Magrathea' }
-    }
-  });
+
   return {
-    wrapper,
+    wrapper: mount(component, {
+      global: {
+        plugins: [installNewXPlugin({}, dummyBus)],
+        provide: { location: 'Magrathea' }
+      }
+    }),
     emitSpy,
     onSpy
   };
@@ -35,12 +35,12 @@ function render(withMetadata = true) {
 
 describe('testing useXBus', () => {
   beforeEach(() => {
-    onColumnsNumberProvidedMock = jest.fn();
+    dummyBus = new XDummyBus();
+    onColumnsNumberProvidedMock.mockReset();
   });
 
-  it('should emit and on subscription in the bus for registered events', () => {
-    const { onSpy, emitSpy } = render();
-
+  it('should emit and on subscription in the bus for registered events', async () => {
+    const { emitSpy, onSpy } = render();
     const metadata = {
       customMetadata: 'custom',
       moduleName: 'searchBox',
@@ -52,12 +52,14 @@ describe('testing useXBus', () => {
     expect(emitSpy).toHaveBeenCalledWith('ColumnsNumberProvided', 10, metadata);
     expect(onSpy).toHaveBeenCalledTimes(1);
     expect(onSpy).toHaveBeenCalledWith('ColumnsNumberProvided', true);
+    expect(onColumnsNumberProvidedMock).toHaveBeenCalledTimes(1);
     expect(onColumnsNumberProvidedMock).toHaveBeenCalledWith({ eventPayload: 10, metadata });
   });
 
   it('should not emit metadata if it was not configured for', () => {
     render(false);
 
+    expect(onColumnsNumberProvidedMock).toHaveBeenCalledTimes(1);
     expect(onColumnsNumberProvidedMock).toHaveBeenCalledWith(10);
   });
 

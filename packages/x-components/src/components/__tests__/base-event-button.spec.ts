@@ -39,7 +39,9 @@ describe('testing Base Event Button Component', () => {
   it('emits an event with a payload', async () => {
     const { wrapper, emitSpy, expectedMetadata } = render();
 
-    await wrapper.setProps({ events: { testEvent: 'test-payload' } as Partial<XEventsTypes> });
+    await wrapper.setProps({
+      events: { testEvent: 'test-payload' } as Partial<XEventsTypes>
+    } as any);
     await wrapper.trigger('click');
 
     expect(emitSpy).toHaveBeenCalledTimes(1);
@@ -49,7 +51,7 @@ describe('testing Base Event Button Component', () => {
   it('emits an event with no payload', async () => {
     const { wrapper, emitSpy, expectedMetadata } = render();
 
-    await wrapper.setProps({ events: { testEvent: undefined } as Partial<XEventsTypes> });
+    await wrapper.setProps({ events: { testEvent: undefined } as Partial<XEventsTypes> } as any);
     await wrapper.trigger('click');
 
     expect(emitSpy).toHaveBeenCalledTimes(1);
@@ -64,7 +66,7 @@ describe('testing Base Event Button Component', () => {
       testEvent2: 'test-payload-2',
       testEvent3: undefined
     } as Partial<XEventsTypes>;
-    await wrapper.setProps({ events });
+    await wrapper.setProps({ events } as any);
     await wrapper.trigger('click');
 
     expect(emitSpy).toHaveBeenCalledTimes(3);
