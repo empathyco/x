@@ -1,9 +1,10 @@
-import { endpointAdapterFactory } from '@empathyco/x-adapter';
+import { endpointAdapterFactory, interpolate } from '@empathyco/x-adapter';
 import { QuerySuggestionsRequest, QuerySuggestionsResponse } from '@empathyco/x-types';
 // eslint-disable-next-line max-len
 import { querySuggestionsRequestMapper } from '../mappers/requests/query-suggestions-request.mapper';
 // eslint-disable-next-line max-len
 import { querySuggestionsResponseMapper } from '../mappers/responses/query-suggestions-response.mapper';
+import { getSearchServiceUrl } from './utils';
 
 /**
  * Default adapter for the query suggestions endpoint.
@@ -14,8 +15,8 @@ export const querySuggestionsEndpointAdapter = endpointAdapterFactory<
   QuerySuggestionsRequest,
   QuerySuggestionsResponse
 >({
-  endpoint:
-    'https://api.{extraParams.env(.)}empathy.co/search/v1/query/{extraParams.instance}/empathize',
+  endpoint: from =>
+    interpolate(`${getSearchServiceUrl(from)}/query/{extraParams.instance}/empathize`, from),
   requestMapper: querySuggestionsRequestMapper,
   responseMapper: querySuggestionsResponseMapper,
   defaultRequestOptions: {
