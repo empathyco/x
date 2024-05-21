@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.12...@empathyco/x-components@5.0.0-alpha.13) (2024-05-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **scroll:** `WindowScroll' component will no longer be available and has been removed.
+
+### Features
+
+* **scroll:** replace `ScrollMixin` by `UseScroll` composable (#1473) ([26244cd](https://github.com/empathyco/x/commit/26244cdc8ced863918f0ceb8138ca89bf6792461))
+
+
+
 ## [5.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.11...@empathyco/x-components@5.0.0-alpha.12) (2024-05-15)
 
 
