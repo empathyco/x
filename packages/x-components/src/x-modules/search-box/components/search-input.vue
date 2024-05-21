@@ -29,7 +29,7 @@
   import { ArrowKey, PropsWithType } from '../../../utils';
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils/types';
-  import { XEventsTypes } from '../../../wiring/events.types';
+  import { XEvent, XEventsTypes } from '../../../wiring/events.types';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { use$x } from '../../../composables/use-$x';
   import { useRegisterXModule } from '../../../composables/use-register-x-module';
@@ -91,7 +91,7 @@
 
       const inputElement = ref<HTMLInputElement>();
 
-      const debouncedUserAcceptedAQuery = ref<DebouncedFunction<[string]>>();
+      let debouncedUserAcceptedAQuery: DebouncedFunction<[string]>;
 
       /**
        * Generates the {@link WireMetadata} object omitting the moduleName.
@@ -128,12 +128,12 @@
       const emitDebouncedUserAcceptedAQuery = (query: string): void => {
         if (props.instant) {
           if (!debouncedUserAcceptedAQuery) {
-            Object.assign(
-              debouncedUserAcceptedAQuery,
-              debounce(emitUserAcceptedAQuery.bind(this), props.instantDebounceInMs)
+            debouncedUserAcceptedAQuery = debounce(
+              emitUserAcceptedAQuery,
+              props.instantDebounceInMs
             );
           }
-          debouncedUserAcceptedAQuery.value?.(query);
+          debouncedUserAcceptedAQuery(query);
         }
       };
 
@@ -248,8 +248,9 @@
        *
        * @internal
        */
-      $x.on('UserReachedEmpathizeTop').subscribe(focusInput);
-      $x.on('UserPressedClearSearchBoxButton').subscribe(focusInput);
+      ['UserReachedEmpathizeTop', 'UserPressedClearSearchBoxButton'].forEach(event =>
+        $x.on(event as XEvent).subscribe(focusInput)
+      );
       function focusInput(): void {
         inputElement.value?.focus();
       }
@@ -261,10 +262,11 @@
        *
        * @internal
        */
-      $x.on('UserAcceptedAQuery').subscribe(cancelDebouncedUserAcceptedAQuery);
-      $x.on('UserClearedQuery').subscribe(cancelDebouncedUserAcceptedAQuery);
+      ['UserAcceptedAQuery', 'UserClearedQuery'].forEach(event =>
+        $x.on(event as XEvent).subscribe(cancelDebouncedUserAcceptedAQuery)
+      );
       function cancelDebouncedUserAcceptedAQuery(): void {
-        debouncedUserAcceptedAQuery.value?.cancel();
+        debouncedUserAcceptedAQuery?.cancel();
       }
 
       onMounted(() => {
