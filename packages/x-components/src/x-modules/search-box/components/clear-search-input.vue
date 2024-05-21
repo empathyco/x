@@ -14,7 +14,8 @@
   import { defineComponent, computed, ref } from 'vue';
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { VueCSSClasses } from '../../../utils/types';
-  import { useRegisterXModule, useState } from '../../../composables';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
   import { searchBoxXModule } from '../x-module';
 
   /**

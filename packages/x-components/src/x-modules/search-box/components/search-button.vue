@@ -15,7 +15,9 @@
   import { computed, defineComponent, ref } from 'vue';
   import { VueCSSClasses } from '../../../utils/types';
   import { WireMetadata } from '../../../wiring/wiring.types';
-  import { use$x, useRegisterXModule, useState } from '../../../composables';
+  import { use$x } from '../../../composables/use-$x';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
   import { searchBoxXModule } from '../x-module';
 
   /**
