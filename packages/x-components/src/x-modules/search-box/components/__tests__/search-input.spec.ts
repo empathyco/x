@@ -3,7 +3,7 @@ import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
-import { installNewXPlugin } from '../../../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import SearchInput from '../search-input.vue';
 import { resetXSearchBoxStateWith } from './utils';
@@ -28,7 +28,7 @@ function mountNewSearchInput(overrideProps: Partial<SearchInputProps> = {}): Tes
     localVue,
     propsData: overrideProps
   });
-  const input = wrapper.vm.$refs.inputElement as HTMLInputElement;
+  const input = wrapper.find(getDataTestSelector('search-input')).element as HTMLInputElement;
 
   return {
     wrapper,

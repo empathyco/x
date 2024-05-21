@@ -91,8 +91,6 @@
 
       const inputElement = ref<HTMLInputElement>();
 
-      const searchInputMessage = ref('type your query here');
-
       const debouncedUserAcceptedAQuery = ref<DebouncedFunction<[string]>>();
 
       /**
@@ -278,7 +276,6 @@
       return {
         query,
         inputElement,
-        searchInputMessage,
         emitUserHoveredInSearchBox,
         emitUserHoveredOutSearchBox,
         emitUserBlurredSearchBox,
