@@ -73,13 +73,6 @@
         default: 500
       },
       /**
-       * Keyboard keys to accept the autocomplete suggestion.
-       */
-      autocompleteKeyboardKeys: {
-        type: Array as PropType<string[]>, // https://keycode.info/
-        default: () => ['ArrowRight']
-      },
-      /**
        * Event that retrieves the autocomplete suggestion.
        */
       autocompleteSuggestionsEvent: {
