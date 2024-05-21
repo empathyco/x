@@ -19,7 +19,7 @@
     inputmode="search"
     type="search"
     data-test="search-input"
-    :aria-label="searchInputMessage"
+    aria-label="type your query here"
   />
 </template>
 
