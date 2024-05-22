@@ -7,12 +7,7 @@
       </RouterLink>
     </nav>
     <main>
-      <RouterView v-slot="{ Component }">
-        <!-- Components are mounted only once with keep-alive -->
-        <KeepAlive>
-          <component :is="Component" />
-        </KeepAlive>
-      </RouterView>
+      <RouterView />
     </main>
   </div>
 </template>

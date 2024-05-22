@@ -11,8 +11,8 @@ const renderUseNoElementRender = ({
   const wrapper = mount(
     component ??
       (defineComponent({
-        render() {
-          return useNoElementRender(this.$slots);
+        setup(props, { slots }) {
+          return () => useNoElementRender(slots);
         }
       }) as ComponentOptions<Vue>),
     {
