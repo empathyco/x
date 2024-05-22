@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.11](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.10...vue3-migration-test@1.0.0-alpha.11) (2024-05-21)
+
+
+### Features
+
+* **use-x-bus:** unsubscribe from bus events when component is unmounted (#1472) ([36f542a](https://github.com/empathyco/x/commit/36f542ad255096816fccba4c7dcec8e5a9571550))
+
+
+
 ## [1.0.0-alpha.10](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.9...vue3-migration-test@1.0.0-alpha.10) (2024-05-17)
 
 

@@ -17,9 +17,7 @@
 
 <script lang="ts">
   import { Banner } from '@empathyco/x-types';
-  import { computed, ComputedRef, defineComponent, inject, provide, ref, Ref } from 'vue';
-  import { Observable } from 'rxjs';
-  import { EventPayload, SubjectPayload } from '@empathyco/x-bus';
+  import { computed, ComputedRef, defineComponent, inject, isRef, provide, ref, Ref } from 'vue';
   import ItemsList from '../../../components/items-list.vue';
   import { FeatureLocation } from '../../../types/origin';
   import { ListItem } from '../../../utils/types';
@@ -29,8 +27,6 @@
   import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
   import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
-  import { WireMetadata } from '../../../wiring/wiring.types';
-  import { XEventsTypes } from '../../../wiring/events.types';
 
   /**
    * It renders a {@link ItemsList} list of banners from {@link SearchState.banners} by
@@ -82,10 +78,7 @@
         'location',
         undefined
       );
-      const location =
-        typeof injectedLocation === 'object' && 'value' in injectedLocation
-          ? injectedLocation.value
-          : injectedLocation;
+      const location = isRef(injectedLocation) ? injectedLocation.value : injectedLocation;
 
       /**
        * Number of columns the grid is being divided into.
@@ -102,13 +95,9 @@
        *
        * @internal
        */
-      (
-        $x.on('RenderedColumnsNumberChanged', true) as unknown as Observable<
-          SubjectPayload<EventPayload<XEventsTypes, keyof XEventsTypes>, WireMetadata>
-        >
-      ).subscribe(({ eventPayload, metadata }) => {
+      $x.on('RenderedColumnsNumberChanged', true).subscribe(({ eventPayload, metadata }) => {
         if (metadata.location === location) {
-          columnsNumber.value = eventPayload as number;
+          columnsNumber.value = eventPayload;
         }
       });
 

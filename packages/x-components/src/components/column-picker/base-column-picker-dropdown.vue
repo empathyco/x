@@ -88,7 +88,7 @@
       watch(providedSelectedColumns, emitColumnsNumberProvided);
       watch(selectedColumns, emitUpdateModelValue);
 
-      $x.on('ColumnsNumberProvided').subscribe(column => (selectedColumns.value = column));
+      $x.on('ColumnsNumberProvided', false).subscribe(column => (selectedColumns.value = column));
 
       /**
        * Synchronizes the columns number before mounting the component. If the real number of selected
