@@ -13,7 +13,7 @@
    */
   export default defineComponent({
     name: 'GlobalXBus',
-    setup(_, { listeners }) {
+    setup(_, { listeners, slots }) {
       const xBus = useXBus();
 
       /**
@@ -25,9 +25,8 @@
           callback(eventPayload as never, metadata);
         });
       });
-    },
-    render() {
-      return useNoElementRender(this.$slots);
+
+      return () => useNoElementRender(slots);
     }
   });
 </script>

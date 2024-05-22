@@ -28,7 +28,7 @@
         default: () => []
       }
     },
-    setup(props) {
+    setup(props, { slots }) {
       const xBus = useXBus();
 
       /**
@@ -67,9 +67,8 @@
        * computed prop changes.
        */
       watch(preselectedFilters, emitPreselectedFilters, { immediate: true });
-    },
-    render() {
-      return useNoElementRender(this.$slots);
+
+      return () => useNoElementRender(slots);
     }
   });
 </script>
