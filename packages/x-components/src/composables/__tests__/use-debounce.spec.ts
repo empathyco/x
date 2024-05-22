@@ -49,6 +49,7 @@ describe('testing useDebounce composable', () => {
     expect(fnMock).toHaveBeenCalledTimes(0);
     jest.advanceTimersByTime(50);
     expect(fnMock).toHaveBeenCalledTimes(1);
+    expect(fnMock).toHaveBeenCalledWith(fnParamStub);
   });
 
   it('should propagate options to the debounce util', async () => {
@@ -59,6 +60,7 @@ describe('testing useDebounce composable', () => {
     await runDebouncedFnMock();
     jest.advanceTimersByTime(200);
     expect(fnMock).toHaveBeenCalledTimes(2);
+    expect(fnMock).toHaveBeenCalledWith(fnParamStub);
   });
 
   it('should cancel debounce fn when component is unmounted', async () => {
