@@ -156,13 +156,13 @@
         animationMessageIndex.value = (animationMessageIndex.value + 1) % props.messages.length;
       };
 
-      $x.on('UserHoveredInSearchBox').subscribe(() => (isSearchBoxHovered.value = true));
+      $x.on('UserHoveredInSearchBox', false).subscribe(() => (isSearchBoxHovered.value = true));
 
-      $x.on('UserHoveredOutSearchBox').subscribe(() => (isSearchBoxHovered.value = false));
+      $x.on('UserHoveredOutSearchBox', false).subscribe(() => (isSearchBoxHovered.value = false));
 
-      $x.on('UserFocusedSearchBox').subscribe(() => (isSearchBoxFocused.value = true));
+      $x.on('UserFocusedSearchBox', false).subscribe(() => (isSearchBoxFocused.value = true));
 
-      $x.on('UserBlurredSearchBox').subscribe(() => (isSearchBoxFocused.value = false));
+      $x.on('UserBlurredSearchBox', false).subscribe(() => (isSearchBoxFocused.value = false));
 
       /**
        * Starts or stops the animation depending on the current animation state.

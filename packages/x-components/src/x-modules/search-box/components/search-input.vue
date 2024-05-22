@@ -249,7 +249,7 @@
        * @internal
        */
       ['UserReachedEmpathizeTop', 'UserPressedClearSearchBoxButton'].forEach(event =>
-        $x.on(event as XEvent).subscribe(focusInput)
+        $x.on(event as XEvent, false).subscribe(focusInput)
       );
       function focusInput(): void {
         inputElement.value?.focus();
@@ -263,7 +263,7 @@
        * @internal
        */
       ['UserAcceptedAQuery', 'UserClearedQuery'].forEach(event =>
-        $x.on(event as XEvent).subscribe(cancelDebouncedUserAcceptedAQuery)
+        $x.on(event as XEvent, false).subscribe(cancelDebouncedUserAcceptedAQuery)
       );
       function cancelDebouncedUserAcceptedAQuery(): void {
         debouncedUserAcceptedAQuery?.cancel();
