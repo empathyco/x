@@ -63,6 +63,7 @@ type AnyInjectKey<Type> = XInjectKey<Type> | string;
  * type.
  *
  * @public
+ * @deprecated Use native Vue `provide` instead.
  */
 export function XProvide<Type>(provideKey: AnyInjectKey<Type>): DecoratorFor<Type> {
   return createDecorator((options, componentKey) => {
@@ -108,6 +109,7 @@ export function XProvide<Type>(provideKey: AnyInjectKey<Type>): DecoratorFor<Typ
  *     \@XInject(myKey)
  *
  * @public
+ * @deprecated Use native Vue `inject` instead.
  */
 export function XInject<Type>(
   injectKey: AnyInjectKey<Type>,

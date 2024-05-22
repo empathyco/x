@@ -21,6 +21,7 @@ interface PrivateExtendedVueComponent extends Vue {
  * by the `XPlugin` if it was not instantiated and uses the default `xBus` as fallback.
  *
  * @returns An object with the `on` and `emit` functions.
+ * @public
  */
 export function useXBus() {
   const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location', 'none');

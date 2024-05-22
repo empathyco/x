@@ -14,6 +14,7 @@ import { DebounceOptions, DecoratorFor } from '../../utils/types';
  * @returns Decorator that applies debounce.
  *
  * @public
+ * @deprecated Use {@link useDebounce} composable instead.
  */
 export function Debounce(
   debounceTimeInMs: number,

@@ -10,7 +10,6 @@ import { useStore } from './use-store';
  * @param module - The {@link XModuleName} of the getter.
  * @param getters - List of getters names.
  * @returns The requested getters from the module.
- *
  * @public
  */
 export function useGetter<
