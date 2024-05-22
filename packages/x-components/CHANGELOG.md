@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.16...@empathyco/x-components@5.0.0-alpha.17) (2024-05-22)
+
+
+### Features
+
+* **use-debounce:** create useDebounce composable to deprecate Debounce decorator (#1475) ([67f0e42](https://github.com/empathyco/x/commit/67f0e42079839ec9c0f74a9d25ecf9bb2de9a9ab))
+
+
+
 ## [5.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.15...@empathyco/x-components@5.0.0-alpha.16) (2024-05-22)
 
 
