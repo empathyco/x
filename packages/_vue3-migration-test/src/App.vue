@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>vue3-migration-test</h1>
+    <h1 class="header">vue3-migration-test</h1>
     <nav>
       <RouterLink v-for="route in $router.options.routes" :key="route.path" :to="route.path">
         {{ route.name }}

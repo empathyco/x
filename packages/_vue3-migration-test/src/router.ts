@@ -15,7 +15,8 @@ import {
   TestSortDropdown,
   TestSortList,
   TestSortPickerList,
-  TestBaseScroll
+  TestBaseScroll,
+  TestBaseModal
 } from './';
 
 const routes = [
@@ -43,6 +44,11 @@ const routes = [
     path: '/fade',
     name: 'Fade',
     component: TestFade
+  },
+  {
+    path: '/base-modal',
+    name: 'BaseModal',
+    component: TestBaseModal
   },
   {
     path: '/base-dropdown',
