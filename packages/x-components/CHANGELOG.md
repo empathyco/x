@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.15...@empathyco/x-components@5.0.0-alpha.16) (2024-05-22)
+
+
+### Code Refactoring
+
+* **noElement:** use the full array of VNodes from the default slot (#1474) ([8fb904c](https://github.com/empathyco/x/commit/8fb904caf9be32ab573bcc9acba4dbc602dd1bc6))
+
+
+
 ## [5.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.14...@empathyco/x-components@5.0.0-alpha.15) (2024-05-21)
 
 **Note:** Version bump only for package @empathyco/x-components
