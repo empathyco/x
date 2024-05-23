@@ -74,15 +74,13 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { mixins } from 'vue-class-component';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
   import Scroll from '../../x-modules/scroll/components/scroll.vue';
   import { animateTranslate } from '../animations/animate-translate/animate-translate.factory';
   import BaseIdModal from '../modals/base-id-modal.vue';
   import BaseScroll from '../scroll/base-scroll.vue';
-  import LayoutsMixin from './layouts.mixin';
+  import { useLayouts } from './use-layouts';
 
   /**
    * Component for use as Layout to be filled with the rest of the Components.
@@ -91,18 +89,35 @@
    *
    * @public
    */
-  @Component({
-    components: { BaseIdModal, BaseScroll, MainScroll, Scroll }
-  })
-  export default class SingleColumnLayout extends mixins(LayoutsMixin) {
-    /**
-     * The animation used for the Main Aside.
-     *
-     * @public
-     */
-    @Prop({ default: () => animateTranslate('right') })
-    protected asideAnimation!: Vue;
-  }
+  export default defineComponent({
+    name: 'SingleColumnLayout',
+    components: { BaseIdModal, BaseScroll, MainScroll, Scroll },
+    props: {
+      /**
+       * The animation used for the Main Aside.
+       *
+       * @public
+       */
+      asideAnimation: {
+        type: Object,
+        default: () => animateTranslate('right')
+      },
+      /**
+       * Enables the devMode, which shows the available slots to use with its names.
+       *
+       * @public
+       */
+      devMode: {
+        type: Boolean,
+        default: false
+      }
+    },
+    setup: function (props, context) {
+      const { hasContent } = useLayouts(props.devMode, context);
+
+      return { hasContent };
+    }
+  });
 </script>
 
 <style scoped lang="scss">
