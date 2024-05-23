@@ -18,6 +18,7 @@
   import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
   import { searchBoxXModule } from '../x-module';
+  import { AnimationProp } from '../../../types';
 
   /**.
    * This component renders an animated placeholder for the search input in the shape of a list of
@@ -44,7 +45,7 @@
        * @public
        */
       animation: {
-        type: Object,
+        type: AnimationProp,
         default: () => animateTranslate('bottom-to-top')
       },
       /**

@@ -24,12 +24,11 @@
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathyco/x-types';
-  import { defineComponent, onMounted, PropType, ref } from 'vue';
-  import { ArrowKey, PropsWithType } from '../../../utils';
+  import { defineComponent, onMounted, ref } from 'vue';
+  import { ArrowKey } from '../../../utils';
   import { debounce } from '../../../utils/debounce';
   import { DebouncedFunction } from '../../../utils/types';
-  import { XEvent, XEventsTypes } from '../../../wiring/events.types';
+  import { XEvent } from '../../../wiring/events.types';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { use$x } from '../../../composables/use-$x';
   import { useRegisterXModule } from '../../../composables/use-register-x-module';
@@ -73,13 +72,6 @@
       instantDebounceInMs: {
         type: Number,
         default: 500
-      },
-      /**
-       * Event that retrieves the autocomplete suggestion.
-       */
-      autocompleteSuggestionsEvent: {
-        type: String as PropType<PropsWithType<XEventsTypes, Suggestion[]>>,
-        default: 'QuerySuggestionsChanged'
       }
     },
     setup: function (props) {
