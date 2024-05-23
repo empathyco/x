@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.12](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.11...vue3-migration-test@1.0.0-alpha.12) (2024-05-23)
+
+
+### Features
+
+* **search-box:** migrate search-box x-module components to Composition API (#1476) ([5c2b7bc](https://github.com/empathyco/x/commit/5c2b7bcf47281f9a3bb2ea65a1bfb73c6d850260))
+
+
+
 ## [1.0.0-alpha.11](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.10...vue3-migration-test@1.0.0-alpha.11) (2024-05-21)
 
 
