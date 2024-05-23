@@ -15,7 +15,8 @@ import {
   TestSortDropdown,
   TestSortList,
   TestSortPickerList,
-  TestBaseScroll
+  TestBaseScroll,
+  TestLayoutsComposable
 } from './';
 
 const routes = [
@@ -98,6 +99,11 @@ const routes = [
     path: '/elements-list',
     name: 'ElementsList',
     component: TestElementsList
+  },
+  {
+    path: '/test-layouts-composable',
+    name: 'TestLayoutsComposable',
+    component: TestLayoutsComposable
   }
 ];
 
