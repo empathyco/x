@@ -48,6 +48,12 @@
         'x-search-button--has-empty-query': isQueryEmpty.value
       }));
 
+      /**
+       * Generates the {@link WireMetadata} object omitting the moduleName.
+       *
+       * @returns The {@link WireMetadata} object omitting the moduleName.
+       * @internal
+       */
       function createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
         return {
           target: buttonRef.value,

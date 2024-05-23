@@ -248,12 +248,12 @@
        *
        * @internal
        */
-      ['UserReachedEmpathizeTop', 'UserPressedClearSearchBoxButton'].forEach(event =>
-        $x.on(event as XEvent, false).subscribe(focusInput)
-      );
       function focusInput(): void {
         inputElement.value?.focus();
       }
+      ['UserReachedEmpathizeTop', 'UserPressedClearSearchBoxButton'].forEach(event =>
+        $x.on(event as XEvent, false).subscribe(focusInput)
+      );
 
       /**
        * When event {@link XEventsTypes.UserAcceptedAQuery} or
@@ -262,12 +262,12 @@
        *
        * @internal
        */
-      ['UserAcceptedAQuery', 'UserClearedQuery'].forEach(event =>
-        $x.on(event as XEvent, false).subscribe(cancelDebouncedUserAcceptedAQuery)
-      );
       function cancelDebouncedUserAcceptedAQuery(): void {
         debouncedUserAcceptedAQuery?.cancel();
       }
+      ['UserAcceptedAQuery', 'UserClearedQuery'].forEach(event =>
+        $x.on(event as XEvent, false).subscribe(cancelDebouncedUserAcceptedAQuery)
+      );
 
       onMounted(() => {
         if (props.autofocus) {
