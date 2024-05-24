@@ -87,10 +87,10 @@
 
 <script lang="ts">
   import { computed, defineComponent, ref } from 'vue';
-  import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
   import { animateTranslate } from '../animations/animate-translate/animate-translate.factory';
   import BaseIdModal from '../modals/base-id-modal.vue';
   import Scroll from '../../x-modules/scroll/components/scroll.vue';
+  import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
   import { useLayouts } from './use-layouts';
 
   /**

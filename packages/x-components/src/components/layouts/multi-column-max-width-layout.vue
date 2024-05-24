@@ -93,8 +93,8 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
   import Scroll from '../../x-modules/scroll/components/scroll.vue';
+  import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
   import AnimateWidth from '../animations/animate-width.vue';
   import BaseIdTogglePanel from '../panels/base-id-toggle-panel.vue';
   import { useLayouts } from './use-layouts';
