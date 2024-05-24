@@ -16,7 +16,8 @@ import {
   TestSortList,
   TestSortPickerList,
   TestBaseScroll,
-  TestSearchBox
+  TestSearchBox,
+  TestEmpathize
 } from './';
 
 const routes = [
@@ -99,6 +100,11 @@ const routes = [
     path: '/search-box',
     name: 'SearchBox',
     component: TestSearchBox
+  },
+  {
+    path: '/empathize',
+    name: 'Empathize',
+    component: TestEmpathize
   },
   {
     path: '/elements-list',
