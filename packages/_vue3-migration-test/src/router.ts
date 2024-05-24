@@ -16,6 +16,7 @@ import {
   TestSortList,
   TestSortPickerList,
   TestBaseScroll,
+  TestSearchBox,
   TestLayoutsComposable
 } from './';
 
@@ -94,6 +95,11 @@ const routes = [
     path: '/sort-picker-list',
     name: 'SortPickerList',
     component: TestSortPickerList
+  },
+  {
+    path: '/search-box',
+    name: 'SearchBox',
+    component: TestSearchBox
   },
   {
     path: '/elements-list',

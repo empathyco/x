@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.17...@empathyco/x-components@5.0.0-alpha.18) (2024-05-23)
+
+
+### Features
+
+* **search-box:** migrate search-box x-module components to Composition API (#1476) ([5c2b7bc](https://github.com/empathyco/x/commit/5c2b7bcf47281f9a3bb2ea65a1bfb73c6d850260))
+
+
+
 ## [5.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.16...@empathyco/x-components@5.0.0-alpha.17) (2024-05-22)
 
 

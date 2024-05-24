@@ -11,13 +11,11 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { defineComponent, computed, ref } from 'vue';
   import BaseEventButton from '../../../components/base-event-button.vue';
-  import { State } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { VueCSSClasses } from '../../../utils/types';
-  import { XEventsTypes } from '../../../wiring/events.types';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
   import { searchBoxXModule } from '../x-module';
 
   /**
@@ -31,33 +29,36 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'ClearSearchInput',
     components: { BaseEventButton },
-    mixins: [xComponentMixin(searchBoxXModule)]
-  })
-  export default class ClearSearchInput extends Vue {
-    @State('searchBox', 'query')
-    public query!: string;
+    xModule: searchBoxXModule.name,
+    setup: function () {
+      useRegisterXModule(searchBoxXModule);
 
-    protected get isQueryEmpty(): boolean {
-      return this.query.length === 0;
-    }
+      const { query } = useState('searchBox', ['query']);
 
-    protected get dynamicClasses(): VueCSSClasses {
+      /**
+       * The events dictionary that are going to be emitted when the button is pressed.
+       *
+       * @internal
+       */
+      const clearSearchInputEvents = ref({
+        UserPressedClearSearchBoxButton: undefined
+      });
+
+      const isQueryEmpty = computed(() => query.value.length === 0);
+
+      const dynamicClasses = computed<VueCSSClasses>(() => ({
+        'x-clear-search-input--has-empty-query': isQueryEmpty.value
+      }));
+
       return {
-        'x-clear-search-input--has-empty-query': this.isQueryEmpty
+        dynamicClasses,
+        clearSearchInputEvents
       };
     }
-
-    /**
-     * The events dictionary that are going to be emitted when the button is pressed.
-     *
-     * @internal
-     */
-    protected clearSearchInputEvents: Partial<XEventsTypes> = {
-      UserPressedClearSearchBoxButton: undefined
-    };
-  }
+  });
 </script>
 
 <docs lang="mdx">

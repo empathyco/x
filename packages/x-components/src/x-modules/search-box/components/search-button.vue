@@ -1,5 +1,6 @@
 <template>
   <button
+    ref="buttonRef"
     @click="emitEvents"
     class="x-search-button x-button"
     :class="dynamicClasses"
@@ -11,12 +12,12 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
-  import { State } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { computed, defineComponent, ref } from 'vue';
   import { VueCSSClasses } from '../../../utils/types';
   import { WireMetadata } from '../../../wiring/wiring.types';
+  import { use$x } from '../../../composables/use-$x';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
   import { searchBoxXModule } from '../x-module';
 
   /**
@@ -29,48 +30,56 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(searchBoxXModule)]
-  })
-  export default class SearchButton extends Vue {
-    @State('searchBox', 'query')
-    public query!: string;
+  export default defineComponent({
+    name: 'SearchButton',
+    xModule: searchBoxXModule.name,
+    setup: function () {
+      useRegisterXModule(searchBoxXModule);
 
-    protected get isQueryEmpty(): boolean {
-      return this.query.length === 0;
-    }
+      const $x = use$x();
 
-    /**
-     * Generates the {@link WireMetadata} object omitting the moduleName.
-     *
-     * @returns The {@link WireMetadata} object omitting the moduleName.
-     * @internal
-     */
-    protected createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
-      return {
-        target: this.$el as HTMLElement,
-        feature: 'search_box'
-      };
-    }
+      const buttonRef = ref<HTMLElement | null>(null);
 
-    /**
-     * Emits events when the button is clicked.
-     *
-     * @public
-     */
-    protected emitEvents(): void {
-      if (!this.isQueryEmpty) {
-        this.$x.emit('UserAcceptedAQuery', this.query, this.createEventMetadata());
-        this.$x.emit('UserPressedSearchButton', this.query, this.createEventMetadata());
+      const { query } = useState('searchBox', ['query']);
+
+      const isQueryEmpty = computed(() => query.value.length === 0);
+
+      const dynamicClasses = computed<VueCSSClasses>(() => ({
+        'x-search-button--has-empty-query': isQueryEmpty.value
+      }));
+
+      /**
+       * Generates the {@link WireMetadata} object omitting the moduleName.
+       *
+       * @returns The {@link WireMetadata} object omitting the moduleName.
+       * @internal
+       */
+      function createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
+        return {
+          target: buttonRef.value,
+          feature: 'search_box'
+        };
       }
-    }
 
-    protected get dynamicClasses(): VueCSSClasses {
+      /**
+       * Emits events when the button is clicked.
+       *
+       * @public
+       */
+      function emitEvents() {
+        if (!isQueryEmpty.value) {
+          $x.emit('UserAcceptedAQuery', query.value, createEventMetadata());
+          $x.emit('UserPressedSearchButton', query.value, createEventMetadata());
+        }
+      }
+
       return {
-        'x-search-button--has-empty-query': this.isQueryEmpty
+        dynamicClasses,
+        buttonRef,
+        emitEvents
       };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
