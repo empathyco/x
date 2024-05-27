@@ -114,7 +114,7 @@
       }
     },
     setup: function (props, context) {
-      const { hasContent } = useLayouts(props.devMode, context);
+      const { hasContent } = useLayouts(props.devMode, context.slots);
 
       return { hasContent };
     }
