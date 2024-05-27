@@ -1,4 +1,5 @@
 <template>
+  <button @click="devMode = !devMode">{{ devMode ? 'Hide slots' : 'Show slots' }}</button>
   <header v-if="hasContent('header')">
     <!-- @slot Slot that is used to insert content into the Header. -->
     <slot name="header">
@@ -22,18 +23,14 @@
 </template>
 
 <script setup>
+  import { useSlots, ref } from 'vue';
   import { useLayouts } from '../../../x-components/src/components/layouts/use-layouts';
 
-  const slots = defineSlots();
+  const slots = useSlots();
 
-  const props = defineProps({
-    devMode: {
-      type: Boolean,
-      default: true
-    }
-  });
+  const devMode = ref(true);
 
-  const { hasContent } = useLayouts(props.devMode, slots);
+  const { hasContent } = useLayouts(devMode.value, slots);
 </script>
 
 <style scoped></style>

@@ -1,4 +1,4 @@
-import { SetupContext, VNode } from 'vue';
+import { VNode } from 'vue';
 /**
  * Composable to share Layout logic.
  *
@@ -8,7 +8,10 @@ import { SetupContext, VNode } from 'vue';
  * @returns True if the slot has rendered content or false otherwise.
  * @public
  */
-export function useLayouts(devMode: boolean, context: SetupContext<any>) {
+export function useLayouts(
+  devMode: boolean,
+  slots: { [key: string]: (...args: any[]) => VNode[] }
+) {
   /**
    * Function to check if an slot has rendered content or not.
    *
@@ -21,7 +24,7 @@ export function useLayouts(devMode: boolean, context: SetupContext<any>) {
     return (
       (devMode ||
         slotNames.some(slotName =>
-          context.slots[slotName]?.(undefined)?.some((vNode: VNode) => vNode.tag !== undefined)
+          slots[slotName]?.()?.some((vNode: VNode) => vNode.tag !== undefined)
         )) ??
       false
     );
