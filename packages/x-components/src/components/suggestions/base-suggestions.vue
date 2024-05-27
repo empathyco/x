@@ -69,7 +69,7 @@
         default: false
       },
       /**
-       * When {@link BaseSuggestions.showFacets} is true, it indicates if the suggestion without
+       * When `showFacets` property of `BaseSuggestions` component is true, it indicates if the suggestion without
        * filter should be rendered.
        *
        * @public
