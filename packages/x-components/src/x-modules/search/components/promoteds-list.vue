@@ -1,5 +1,5 @@
 <template>
-  <div v-if="items.length > 0">
+  <NoElement>
     <!--
       @slot Customized Promoteds List layout.
         @binding {Promoted[]} items - Promoteds plus the injected list items to render.
@@ -12,7 +12,7 @@
         </template>
       </ItemsList>
     </slot>
-  </div>
+  </NoElement>
 </template>
 
 <script lang="ts">
@@ -26,6 +26,7 @@
   import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
   import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
+  import { NoElement } from '../../../components/no-element';
 
   /**
    * It renders a {@link ItemsList} of promoteds from {@link SearchState.promoteds} by default
@@ -43,7 +44,8 @@
   export default defineComponent({
     name: 'PromotedsList',
     components: {
-      ItemsList
+      ItemsList,
+      NoElement
     },
     xModule: searchXModule.name,
     props: {

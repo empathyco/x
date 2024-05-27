@@ -1,7 +1,7 @@
 <template>
-  <div ref="rootRef" :class="dynamicClasses">
-    <slot />
-  </div>
+  <NoElement :class="dynamicClasses">
+    <slot ref="rootRef" />
+  </NoElement>
 </template>
 <script lang="ts">
   import { computed, defineComponent, onBeforeUnmount, onMounted, provide, ref, watch } from 'vue';
@@ -11,6 +11,7 @@
   import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
   import { useXBus } from '../../../composables/use-x-bus';
+  import { NoElement } from '../../../components/no-element';
   import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
 
@@ -25,6 +26,9 @@
    */
   export default defineComponent({
     name: 'MainScroll',
+    components: {
+      NoElement
+    },
     xModule: scrollXModule.name,
     props: {
       /**
