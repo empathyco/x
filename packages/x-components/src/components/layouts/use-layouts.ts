@@ -1,13 +1,14 @@
 import { SetupContext, VNode } from 'vue';
-export function useLayouts(
-  /**
-   * Enables the devMode, which shows the available slots to use with its names.
-   *
-   * @public
-   */
-  devMode: boolean,
-  context: SetupContext<any>
-) {
+/**
+ * Composable to share Layout logic.
+ *
+ * @param devMode - Shows the available slots to use with its names if it is enabled.
+ * @param context - Component setup context.
+ *
+ * @returns True if the slot has rendered content or false otherwise.
+ * @public
+ */
+export function useLayouts(devMode: boolean, context: SetupContext<any>) {
   /**
    * Function to check if an slot has rendered content or not.
    *
