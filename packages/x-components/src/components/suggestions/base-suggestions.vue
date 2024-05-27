@@ -22,6 +22,7 @@
   import { computed, defineComponent, PropType } from 'vue';
   import { Suggestion, Facet, Filter } from '@empathyco/x-types';
   import { isArrayEmpty } from '../../utils/array';
+  import { AnimationProp } from '../../types';
 
   /**
    * Paints a list of suggestions passed in by prop. Requires a component for a single suggestion
@@ -49,7 +50,7 @@
        * @public
        */
       animation: {
-        type: [Object, String],
+        type: AnimationProp,
         default: 'ul'
       },
       /**
