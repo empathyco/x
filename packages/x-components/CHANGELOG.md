@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.18...@empathyco/x-components@5.0.0-alpha.19) (2024-05-27)
+
+
+### Features
+
+* Replace `layoutsmixin` by `useLayouts` composable (#1480) ([71feaae](https://github.com/empathyco/x/commit/71feaae8493fb683919967bdf52de161a4e4fbf2))
+
+
+
 ## [5.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.17...@empathyco/x-components@5.0.0-alpha.18) (2024-05-23)
 
 

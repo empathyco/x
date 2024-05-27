@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.13](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.12...vue3-migration-test@1.0.0-alpha.13) (2024-05-27)
+
+
+### Features
+
+* Replace `layoutsmixin` by `useLayouts` composable (#1480) ([71feaae](https://github.com/empathyco/x/commit/71feaae8493fb683919967bdf52de161a4e4fbf2))
+
+
+
 ## [1.0.0-alpha.12](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.11...vue3-migration-test@1.0.0-alpha.12) (2024-05-23)
 
 
