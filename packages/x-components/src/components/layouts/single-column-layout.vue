@@ -80,6 +80,7 @@
   import { animateTranslate } from '../animations/animate-translate/animate-translate.factory';
   import BaseIdModal from '../modals/base-id-modal.vue';
   import BaseScroll from '../scroll/base-scroll.vue';
+  import { AnimationProp } from '../../types';
   import { useLayouts } from './use-layouts';
 
   /**
@@ -99,7 +100,7 @@
        * @public
        */
       asideAnimation: {
-        type: Object,
+        type: AnimationProp,
         default: () => animateTranslate('right')
       },
       /**

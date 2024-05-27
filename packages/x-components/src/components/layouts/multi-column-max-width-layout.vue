@@ -97,6 +97,7 @@
   import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
   import AnimateWidth from '../animations/animate-width.vue';
   import BaseIdTogglePanel from '../panels/base-id-toggle-panel.vue';
+  import { AnimationProp } from '../../types';
   import { useLayouts } from './use-layouts';
 
   /**
@@ -116,7 +117,7 @@
        * @public
        */
       asideAnimation: {
-        type: Object,
+        type: AnimationProp,
         default: () => AnimateWidth
       },
       /**
