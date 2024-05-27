@@ -118,8 +118,8 @@
         default: false
       }
     },
-    setup: function (props, context) {
-      const { hasContent } = useLayouts(props.devMode, context.slots);
+    setup: function (props, { slots }) {
+      const { hasContent } = useLayouts(props.devMode, slots);
 
       const scrollPosition = ref(0);
 
