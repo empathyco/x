@@ -92,14 +92,13 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import Component, { mixins } from 'vue-class-component';
-  import { Prop } from 'vue-property-decorator';
-  import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
+  import { defineComponent } from 'vue';
   import Scroll from '../../x-modules/scroll/components/scroll.vue';
+  import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
   import AnimateWidth from '../animations/animate-width.vue';
   import BaseIdTogglePanel from '../panels/base-id-toggle-panel.vue';
-  import LayoutsMixin from './layouts.mixin';
+  import { AnimationProp } from '../../types';
+  import { useLayouts } from './use-layouts';
 
   /**
    * Component for use as Layout to be filled with the rest of the Components.
@@ -108,18 +107,35 @@
    *
    * @public
    */
-  @Component({
-    components: { BaseIdTogglePanel, MainScroll, Scroll }
-  })
-  export default class MultiColumnMaxWidthLayout extends mixins(LayoutsMixin) {
-    /**
-     * The animation used for the Main Aside.
-     *
-     * @public
-     */
-    @Prop({ default: () => AnimateWidth })
-    protected asideAnimation!: Vue;
-  }
+  export default defineComponent({
+    name: 'MultiColumnMaxWidthLayout',
+    components: { BaseIdTogglePanel, MainScroll, Scroll },
+    props: {
+      /**
+       * The animation used for the Main Aside.
+       *
+       * @public
+       */
+      asideAnimation: {
+        type: AnimationProp,
+        default: () => AnimateWidth
+      },
+      /**
+       * Enables the devMode, which shows the available slots to use with its names.
+       *
+       * @public
+       */
+      devMode: {
+        type: Boolean,
+        default: false
+      }
+    },
+    setup: function (props, { slots }) {
+      const { hasContent } = useLayouts(props.devMode, slots);
+
+      return { hasContent };
+    }
+  });
 </script>
 
 <style lang="scss">
