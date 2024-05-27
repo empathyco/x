@@ -19,11 +19,9 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Mixins, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType } from 'vue';
   import { Suggestion, Facet, Filter } from '@empathyco/x-types';
   import { isArrayEmpty } from '../../utils/array';
-  import { dynamicPropsMixin } from '../dynamic-props.mixin';
 
   /**
    * Paints a list of suggestions passed in by prop. Requires a component for a single suggestion
@@ -31,136 +29,144 @@
    *
    * @public
    */
-  @Component
-  export default class BaseSuggestions extends Mixins(dynamicPropsMixin(['suggestionItemClass'])) {
-    /**
-     * The list of suggestions to render.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected suggestions!: Suggestion[];
+  export default defineComponent({
+    name: 'BaseSuggestions',
+    props: {
+      /** Class inherited by content element. */
+      suggestionItemClass: String,
+      /**
+       * The list of suggestions to render.
+       *
+       * @public
+       */
+      suggestions: {
+        type: Array as PropType<Suggestion[]>,
+        required: true
+      },
+      /**
+       * Animation component that will be used to animate the suggestion.
+       *
+       * @public
+       */
+      animation: {
+        type: [Object, String],
+        default: 'ul'
+      },
+      /**
+       * Number of suggestions to be rendered.
+       *
+       * @public
+       */
+      maxItemsToRender: Number,
+      /**
+       * Boolean value to indicate if the facets should be rendered.
+       *
+       * @public
+       */
+      showFacets: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * When {@link BaseSuggestions.showFacets} is true, it indicates if the suggestion without
+       * filter should be rendered.
+       *
+       * @public
+       */
+      showPlainSuggestion: {
+        type: Boolean,
+        default: false
+      }
+    },
+    setup: function (props) {
+      /**
+       * Creates a suggestion for each one of the filter inside each facet.
+       *
+       * @param suggestion - Suggestion to expand.
+       * @returns A list of suggestions, each one with a single filter.
+       *
+       * @internal
+       */
+      const expandSuggestionFilters = (suggestion: Suggestion): Suggestion[] => {
+        return (
+          suggestion.facets?.flatMap(facet =>
+            facet.filters.map(filter => ({
+              ...suggestion,
+              facets: [{ ...facet, filters: [filter] }]
+            }))
+          ) ?? []
+        );
+      };
 
-    /**
-     * Animation component that will be used to animate the suggestion.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue | string;
+      /**
+       * Creates a list of suggestions to render based on the configuration of this component.
+       *
+       * @returns - The list of suggestions to be rendered by this component.
+       *
+       * @internal
+       */
+      const suggestionsToRender = computed((): Suggestion[] => {
+        return props.suggestions
+          .flatMap(suggestion =>
+            props.showFacets && suggestion.facets?.length
+              ? props.showPlainSuggestion
+                ? [{ ...suggestion, facets: [] }, ...expandSuggestionFilters(suggestion)]
+                : expandSuggestionFilters(suggestion)
+              : { ...suggestion, facets: [] }
+          )
+          .slice(0, props.maxItemsToRender);
+      });
 
-    /**
-     * Number of suggestions to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
+      /**
+       * Generates a string from the given facet.
+       *
+       * @param facet - The facet to reduce to a string.
+       * @returns - A string representing the facet.
+       * @internal
+       */
+      const getFacetKey = (facet: Facet): string => {
+        return facet.filters.map(filter => filter.id).join('&');
+      };
 
-    /**
-     * Boolean value to indicate if the facets should be rendered.
-     *
-     * @public
-     */
-    @Prop({ default: false, type: Boolean })
-    protected showFacets!: boolean;
+      /**
+       * Generates a string from the given facets.
+       *
+       * @param facets - The list of facets to reduce to a string.
+       * @returns - A string representing the list of facets.
+       * @internal
+       */
+      const getFacetsKey = (facets: Facet[]): string => {
+        return facets.map(getFacetKey).join('&');
+      };
 
-    /**
-     * When {@link BaseSuggestions.showFacets} is true, it indicates if the suggestion without
-     * filter should be rendered.
-     *
-     * @public
-     */
-    @Prop({ default: false, type: Boolean })
-    protected showPlainSuggestion!: boolean;
+      /**
+       * An array with the unique keys for each suggestion. Required by the `v-for` loop.
+       *
+       * @returns An array with the unique keys of the suggestions.
+       * @internal
+       */
+      const suggestionsKeys = computed((): string[] => {
+        return suggestionsToRender.value.map(suggestion =>
+          isArrayEmpty(suggestion.facets)
+            ? suggestion.query
+            : `${suggestion.query}-in-${getFacetsKey(suggestion.facets)}`
+        );
+      });
 
-    /**
-     * An array with the unique keys for each suggestion. Required by the `v-for` loop.
-     *
-     * @returns An array with the unique keys of the suggestions.
-     * @internal
-     */
-    protected get suggestionsKeys(): string[] {
-      return this.suggestionsToRender.map(suggestion =>
-        isArrayEmpty(suggestion.facets)
-          ? suggestion.query
-          : `${suggestion.query}-in-${this.getFacetsKey(suggestion.facets)}`
-      );
+      /**
+       * Returns the filter contained by the suggestion.
+       *
+       * @param suggestion - Suggestion containing the filter.
+       * @returns The suggestion filter.
+       * @internal
+       */
+      const getSuggestionFilter = (suggestion: Suggestion): Filter | undefined => {
+        return suggestion.facets?.[0]?.filters[0];
+      };
+
+      return { suggestionsToRender, suggestionsKeys, getSuggestionFilter };
     }
-
-    /**
-     * Generates a string from the given facets.
-     *
-     * @param facets - The list of facets to reduce to a string.
-     * @returns - A string representing the list of facets.
-     * @internal
-     */
-    protected getFacetsKey(facets: Facet[]): string {
-      // Component methods are bound by Vue:
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      return facets.map(this.getFacetKey).join('&');
-    }
-
-    /**
-     * Generates a string from the given facet.
-     *
-     * @param facet - The facet to reduce to a string.
-     * @returns - A string representing the facet.
-     * @internal
-     */
-    protected getFacetKey(facet: Facet): string {
-      return facet.filters.map(filter => filter.id).join('&');
-    }
-
-    /**
-     * Creates a list of suggestions to render based on the configuration of this component.
-     *
-     * @returns - The list of suggestions to be rendered by this component.
-     *
-     * @internal
-     */
-    protected get suggestionsToRender(): Suggestion[] {
-      return this.suggestions
-        .flatMap(suggestion =>
-          this.showFacets && suggestion.facets?.length
-            ? this.showPlainSuggestion
-              ? [{ ...suggestion, facets: [] }, ...this.expandSuggestionFilters(suggestion)]
-              : this.expandSuggestionFilters(suggestion)
-            : { ...suggestion, facets: [] }
-        )
-        .slice(0, this.maxItemsToRender);
-    }
-
-    /**
-     * Creates a suggestion for each one of the filter inside each facet.
-     *
-     * @param suggestion - Suggestion to expand.
-     * @returns A list of suggestions, each one with a single filter.
-     *
-     * @internal
-     */
-    protected expandSuggestionFilters(suggestion: Suggestion): Suggestion[] {
-      return (
-        suggestion.facets?.flatMap(facet =>
-          facet.filters.map(filter => ({
-            ...suggestion,
-            facets: [{ ...facet, filters: [filter] }]
-          }))
-        ) ?? []
-      );
-    }
-
-    /**
-     * Returns the filter contained by the suggestion.
-     *
-     * @param suggestion - Suggestion containing the filter.
-     * @returns The suggestion filter.
-     * @internal
-     */
-    protected getSuggestionFilter(suggestion: Suggestion): Filter | undefined {
-      return suggestion.facets?.[0]?.filters[0];
-    }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
