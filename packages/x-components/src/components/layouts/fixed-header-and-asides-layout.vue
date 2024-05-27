@@ -86,14 +86,12 @@
 </template>
 
 <script lang="ts">
-  import { Component } from 'vue-property-decorator';
-  import { mixins } from 'vue-class-component';
-  import { VueConstructor } from 'vue';
-  import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
+  import { computed, defineComponent, ref } from 'vue';
   import { animateTranslate } from '../animations/animate-translate/animate-translate.factory';
   import BaseIdModal from '../modals/base-id-modal.vue';
   import Scroll from '../../x-modules/scroll/components/scroll.vue';
-  import LayoutsMixin from './layouts.mixin';
+  import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
+  import { useLayouts } from './use-layouts';
 
   /**
    * Component for use as Layout to be filled with the rest of the components.
@@ -102,26 +100,46 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'FixedHeaderAndAsidesLayout',
     components: {
       BaseIdModal,
       MainScroll,
       Scroll
-    }
-  })
-  export default class FixedHeaderAndAsidesLayout extends mixins(LayoutsMixin) {
-    protected scrollPosition = 0;
-    protected rightAsideAnimation: VueConstructor = animateTranslate('right');
-    protected leftAsideAnimation: VueConstructor = animateTranslate('left');
+    },
+    props: {
+      /**
+       * Enables the devMode, which shows the available slots to use with its names.
+       *
+       * @public
+       */
+      devMode: {
+        type: Boolean,
+        default: false
+      }
+    },
+    setup: function (props, { slots }) {
+      const { hasContent } = useLayouts(props.devMode, slots);
 
-    protected setPosition(position: number): void {
-      this.scrollPosition = position;
-    }
+      const scrollPosition = ref(0);
 
-    protected get isBackdropVisible(): boolean {
-      return this.scrollPosition > 0;
+      const rightAsideAnimation = animateTranslate('right');
+      const leftAsideAnimation = animateTranslate('left');
+
+      const setPosition = (position: number): void => {
+        scrollPosition.value = position;
+      };
+      const isBackdropVisible = computed(() => scrollPosition.value > 0);
+
+      return {
+        hasContent,
+        rightAsideAnimation,
+        leftAsideAnimation,
+        setPosition,
+        isBackdropVisible
+      };
     }
-  }
+  });
 </script>
 
 <style scoped lang="scss">
