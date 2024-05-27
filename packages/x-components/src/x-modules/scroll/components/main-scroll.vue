@@ -1,6 +1,6 @@
 <template>
-  <NoElement :class="dynamicClasses">
-    <slot ref="rootRef" />
+  <NoElement ref="rootRef" :class="dynamicClasses">
+    <slot />
   </NoElement>
 </template>
 <script lang="ts">
@@ -87,7 +87,7 @@
        *
        * @internal
        */
-      const rootRef = ref<HTMLDivElement | null>(null);
+      const rootRef = ref<typeof NoElement | null>(null);
 
       /**
        * Intersection observer to determine visibility of the elements.
@@ -169,11 +169,13 @@
        * Initialise the observer after mounting the component.
        */
       onMounted(() => {
-        intersectionObserver.value = new IntersectionObserver(updateVisibleElements, {
-          root: props.useWindow ? document : rootRef.value,
-          threshold: props.threshold,
-          rootMargin: props.margin
-        });
+        if (rootRef.value?.$el) {
+          intersectionObserver.value = new IntersectionObserver(updateVisibleElements, {
+            root: props.useWindow ? document : rootRef.value.$el,
+            threshold: props.threshold,
+            rootMargin: props.margin
+          });
+        }
       });
 
       /**
@@ -257,7 +259,8 @@
               : firstVisibleElement;
           }
         );
-        return firstVisibleElement === rootRef.value?.querySelector('[data-scroll]')
+        return firstVisibleElement ===
+          (rootRef.value?.$el as HTMLElement).querySelector('[data-scroll]')
           ? ''
           : firstVisibleElement.dataset.scroll!;
       });
