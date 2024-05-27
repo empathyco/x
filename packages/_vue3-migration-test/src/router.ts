@@ -16,7 +16,8 @@ import {
   TestSortList,
   TestSortPickerList,
   TestBaseScroll,
-  TestSearchBox
+  TestSearchBox,
+  TestBaseSuggestions
 } from './';
 
 const routes = [
@@ -104,6 +105,11 @@ const routes = [
     path: '/elements-list',
     name: 'ElementsList',
     component: TestElementsList
+  },
+  {
+    path: '/base-suggestions',
+    name: 'BaseSuggestions',
+    component: TestBaseSuggestions
   }
 ];
 
