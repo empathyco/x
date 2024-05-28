@@ -18,6 +18,7 @@ import {
   TestBaseScroll,
   TestSearchBox,
   TestBaseVariableColumnGrid,
+  TestEmpathize,
   TestUseLayouts
 } from './';
 
@@ -101,6 +102,11 @@ const routes = [
     path: '/search-box',
     name: 'SearchBox',
     component: TestSearchBox
+  },
+  {
+    path: '/empathize',
+    name: 'Empathize',
+    component: TestEmpathize
   },
   {
     path: '/elements-list',
