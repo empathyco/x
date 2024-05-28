@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.14](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.13...vue3-migration-test@1.0.0-alpha.14) (2024-05-28)
+
+
+### Features
+
+* **empathize:** migrate empathize component to composition API (#1481) ([ae34083](https://github.com/empathyco/x/commit/ae34083978ea658f7b740f7a4f701b3dd74c0b2f))
+
+
+
 ## [1.0.0-alpha.13](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.12...vue3-migration-test@1.0.0-alpha.13) (2024-05-27)
 
 
