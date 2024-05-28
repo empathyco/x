@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.20...@empathyco/x-components@5.0.0-alpha.21) (2024-05-28)
+
+
+### Features
+
+* replace extra divs with `NoElement` (#1484) ([cc7042e](https://github.com/empathyco/x/commit/cc7042e5f144f2abc9eb39e3834c8a153795f558))
+
+
+
+## [5.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.19...@empathyco/x-components@5.0.0-alpha.20) (2024-05-28)
+
+
+### Features
+
+* **empathize:** migrate empathize component to composition API (#1481) ([ae34083](https://github.com/empathyco/x/commit/ae34083978ea658f7b740f7a4f701b3dd74c0b2f))
+
+
+
+## [5.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.18...@empathyco/x-components@5.0.0-alpha.19) (2024-05-27)
+
+
+### Features
+
+* Replace `layoutsmixin` by `useLayouts` composable (#1480) ([71feaae](https://github.com/empathyco/x/commit/71feaae8493fb683919967bdf52de161a4e4fbf2))
+
+
+
 ## [5.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.17...@empathyco/x-components@5.0.0-alpha.18) (2024-05-23)
 
 
