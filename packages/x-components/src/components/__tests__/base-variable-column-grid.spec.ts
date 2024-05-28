@@ -1,9 +1,10 @@
 import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import Vue, { nextTick } from 'vue';
 import { getSearchResponseStub } from '../../__stubs__/search-response-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
 import { ListItem } from '../../utils/types';
 import BaseVariableColumnGrid from '../base-variable-column-grid.vue';
+import { XPlugin } from '../../plugins/x-plugin';
 
 const searchResponse = getSearchResponseStub();
 const itemsStub = [
@@ -45,12 +46,12 @@ function renderComponent({ items = itemsStub }: RenderOptions = {}): RenderAPI {
 describe('testing BaseVariableColumnGrid component', () => {
   it('renders the columns number emitted by the ColumnsNumberProvided event', async () => {
     const newColumns = 4;
-    const { wrapper, hasColumns } = renderComponent();
+    const { hasColumns } = renderComponent();
 
     expect(hasColumns(newColumns)).toBe(false);
 
-    wrapper.vm.$x.emit('ColumnsNumberProvided', newColumns);
-    await wrapper.vm.$nextTick();
+    XPlugin.bus.emit('ColumnsNumberProvided', newColumns);
+    await nextTick();
     expect(hasColumns(newColumns)).toBe(true);
   });
 
@@ -62,10 +63,10 @@ describe('testing BaseVariableColumnGrid component', () => {
   });
 
   it('re-renders custom content for the available scoped slots', async () => {
-    const { wrapper, hasColumns, mountComponent } = renderComponent();
-    wrapper.vm.$x.emit('ColumnsNumberProvided', 6);
+    const { hasColumns, mountComponent } = renderComponent();
+    XPlugin.bus.emit('ColumnsNumberProvided', 6);
 
-    await wrapper.vm.$nextTick();
+    await nextTick();
     expect(hasColumns(6)).toBe(true);
 
     const wrapper2 = mountComponent();
