@@ -17,7 +17,8 @@ import {
   TestSortPickerList,
   TestBaseScroll,
   TestSearchBox,
-  TestBaseVariableColumnGrid
+  TestBaseVariableColumnGrid,
+  TestUseLayouts
 } from './';
 
 const routes = [
@@ -110,6 +111,11 @@ const routes = [
     path: '/base-variable-column-grid',
     name: 'BaseVariableColumnGrid',
     component: TestBaseVariableColumnGrid
+  },
+  {
+    path: '/test-use-layouts',
+    name: 'TestUseLayouts',
+    component: TestUseLayouts
   }
 ];
 
