@@ -1,5 +1,5 @@
 <template>
-  <div v-if="items.length > 0">
+  <NoElement>
     <!--
       @slot Customize ResultsList.
         @binding {Result[]} items - Results to render.
@@ -12,7 +12,7 @@
         </template>
       </ItemsList>
     </slot>
-  </div>
+  </NoElement>
 </template>
 
 <script lang="ts">
@@ -30,6 +30,7 @@
   import { useRegisterXModule, useState } from '../../../composables';
   import { searchXModule } from '../x-module';
   import { useXBus } from '../../../composables/use-x-bus';
+  import { NoElement } from '../../../components/no-element';
 
   /**
    * It renders a {@link ItemsList} list with the results from {@link SearchState.results} by
@@ -45,7 +46,8 @@
   export default defineComponent({
     name: 'ResultsList',
     components: {
-      ItemsList
+      ItemsList,
+      NoElement
     },
     xModule: searchXModule.name,
     directives: { 'infinite-scroll': infiniteScroll },

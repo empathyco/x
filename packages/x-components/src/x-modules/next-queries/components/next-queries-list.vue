@@ -1,5 +1,5 @@
 <template>
-  <div v-if="items.length > 0">
+  <NoElement>
     <!--
       @slot Next queries list layout.
         @binding {SearchItem[]} items - Next queries groups plus the injected list items to
@@ -13,7 +13,7 @@
         </template>
       </ItemsList>
     </slot>
-  </div>
+  </NoElement>
 </template>
 
 <script lang="ts">
@@ -33,6 +33,7 @@
   import { use$x } from '../../../composables/use-$x';
   import { useGetter } from '../../../composables/use-getter';
   import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { NoElement } from '../../../components/no-element';
 
   /**
    * Component that inserts groups of next queries in different positions of the injected search
@@ -43,7 +44,8 @@
   export default defineComponent({
     name: 'NextQueriesList',
     components: {
-      ItemsList
+      ItemsList,
+      NoElement
     },
     xModule: nextQueriesXModule.name,
     props: {

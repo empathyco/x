@@ -1,7 +1,7 @@
 <template>
-  <div ref="rootRef" :class="dynamicClasses">
+  <NoElement ref="rootRef" :class="dynamicClasses">
     <slot />
-  </div>
+  </NoElement>
 </template>
 <script lang="ts">
   import { computed, defineComponent, onBeforeUnmount, onMounted, provide, ref, watch } from 'vue';
@@ -11,6 +11,7 @@
   import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
   import { useXBus } from '../../../composables/use-x-bus';
+  import { NoElement } from '../../../components/no-element';
   import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
 
@@ -25,6 +26,9 @@
    */
   export default defineComponent({
     name: 'MainScroll',
+    components: {
+      NoElement
+    },
     xModule: scrollXModule.name,
     props: {
       /**
@@ -83,7 +87,7 @@
        *
        * @internal
        */
-      const rootRef = ref<HTMLDivElement | null>(null);
+      const rootRef = ref<typeof NoElement | null>(null);
 
       /**
        * Intersection observer to determine visibility of the elements.
@@ -165,11 +169,13 @@
        * Initialise the observer after mounting the component.
        */
       onMounted(() => {
-        intersectionObserver.value = new IntersectionObserver(updateVisibleElements, {
-          root: props.useWindow ? document : rootRef.value,
-          threshold: props.threshold,
-          rootMargin: props.margin
-        });
+        if (rootRef.value?.$el) {
+          intersectionObserver.value = new IntersectionObserver(updateVisibleElements, {
+            root: props.useWindow ? document : rootRef.value.$el,
+            threshold: props.threshold,
+            rootMargin: props.margin
+          });
+        }
       });
 
       /**
@@ -253,7 +259,8 @@
               : firstVisibleElement;
           }
         );
-        return firstVisibleElement === rootRef.value?.querySelector('[data-scroll]')
+        return firstVisibleElement ===
+          (rootRef.value?.$el as HTMLElement).querySelector('[data-scroll]')
           ? ''
           : firstVisibleElement.dataset.scroll!;
       });
