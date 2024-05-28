@@ -22,11 +22,10 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, ref } from 'vue';
   import { AnimationProp } from '../../types/animation-prop';
   import { NoElement } from '../no-element';
-  import { dynamicPropsMixin } from '../dynamic-props.mixin';
+  import { use$x } from '../../composables';
   import BaseTogglePanel from './base-toggle-panel.vue';
 
   /**
@@ -35,49 +34,59 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'BaseHeaderTogglePanel',
     components: { BaseTogglePanel },
-    mixins: [dynamicPropsMixin(['headerClass'])]
-  })
-  export default class BaseHeaderTogglePanel extends Vue {
-    /**
-     * Animation component that will be used to animate the base-toggle-panel.
-     *
-     * @public
-     */
-    @Prop({ default: () => NoElement })
-    protected animation!: typeof AnimationProp;
-    /**
-     * Handles if the panel is open by default.
-     *
-     * @public
-     */
-    @Prop({ default: false })
-    protected startCollapsed!: boolean;
-    /**
-     * Handles if the base panel is open or closed.
-     *
-     * @internal
-     */
-    protected open = !this.startCollapsed;
-    /**
-     * Toggles the open property.
-     *
-     * @internal
-     */
-    protected toggleOpen(): void {
-      this.open = !this.open;
-      this.emitOpenStatusEvent();
+    props: {
+      /** Class inherited by content element. */
+      headerClass: String,
+      /**
+       * Animation component that will be used to animate the base-toggle-panel.
+       *
+       * @public
+       */
+      animation: { type: AnimationProp, default: () => NoElement },
+      /**
+       * Handles if the panel is open by default.
+       *
+       * @public
+       */
+      startCollapsed: { type: Boolean, default: false }
+    },
+    setup: function (props) {
+      const $x = use$x();
+      /**
+       * Handles if the base panel is open or closed.
+       *
+       * @internal
+       */
+      const open = ref(!props.startCollapsed);
+
+      /**
+       * Emits open status event.
+       *
+       * @internal
+       */
+      const emitOpenStatusEvent = (): void => {
+        $x.emit(open.value ? 'open' : 'close');
+      };
+
+      /**
+       * Toggles the open property.
+       *
+       * @internal
+       */
+      const toggleOpen = (): void => {
+        open.value = !open.value;
+        emitOpenStatusEvent();
+      };
+
+      return {
+        open,
+        toggleOpen
+      };
     }
-    /**
-     * Emits open status event.
-     *
-     * @internal
-     */
-    protected emitOpenStatusEvent(): void {
-      this.$emit(this.open ? 'open' : 'close');
-    }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>

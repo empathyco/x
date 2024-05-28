@@ -6,10 +6,10 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { XOn } from '../decorators/bus.decorators';
+  import { defineComponent, ref, watch } from 'vue';
   import { NoElement } from '../no-element';
+  import { AnimationProp } from '../../types';
+  import { use$x } from '../../composables';
   import BaseTogglePanel from './base-toggle-panel.vue';
 
   /**
@@ -24,68 +24,82 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'BaseIdTogglePanel',
     components: {
       BaseTogglePanel
-    }
-  })
-  export default class BaseIdTogglePanel extends Vue {
-    /**
-     * Shows the panel open at the beginning or not, depending on its state.
-     *
-     * @public
-     */
-    @Prop({ default: true })
-    protected startOpen!: boolean;
-
-    /** Whether the toggle panel is open or not. */
-    protected isOpen = this.startOpen;
-
-    /**
-     * Animation component that will be used to animate the panel content.
-     *
-     * @public
-     */
-    @Prop({ default: () => NoElement })
-    protected animation!: Vue;
-
-    /**
-     * The id to link with the BaseIdTogglePanelButton.
-     * Both components must use the same Id to make them interact.
-     */
-    @Prop({ required: true })
-    public panelId!: string;
-
-    /**
-     * Method to subscribe to the {@link XEventsTypes.UserClickedPanelToggleButton} event.
-     *
-     * @param panelId - The payload of the {@link XEventsTypes.UserClickedPanelToggleButton} event.
-     *
-     * @public
-     */
-    @XOn('UserClickedPanelToggleButton')
-    togglePanel(panelId: string): void {
-      if (this.panelId === panelId) {
-        this.isOpen = !this.isOpen;
+    },
+    props: {
+      /**
+       * Shows the panel open at the beginning or not, depending on its state.
+       *
+       * @public
+       */
+      startOpen: {
+        type: Boolean,
+        default: true
+      },
+      /**
+       * Animation component that will be used to animate the panel content.
+       *
+       * @public
+       */
+      animation: {
+        type: AnimationProp,
+        default: () => NoElement
+      },
+      /**
+       * The id to link with the BaseIdTogglePanelButton.
+       * Both components must use the same Id to make them interact.
+       */
+      panelId: {
+        type: String,
+        required: true
       }
-    }
+    },
+    setup: function (props) {
+      const $x = use$x();
 
-    /**
-     * Emits the {@link XEventsTypes.TogglePanelStateChanged} event, when the internal state
-     * changes.
-     *
-     * @remarks This event is necessary to link the state with the {@link BaseIdTogglePanelButton}
-     * component.
-     * @public
-     */
-    @Watch('isOpen', { immediate: true })
-    emitStateEvent(): void {
-      this.$x.emit('TogglePanelStateChanged', this.isOpen, {
-        id: this.panelId,
-        target: this.$el as HTMLElement
-      });
+      /** Whether the toggle panel is open or not. */
+      const isOpen = ref(props.startOpen);
+
+      /**
+       * Method to subscribe to the {@link XEventsTypes.UserClickedPanelToggleButton} event.
+       *
+       * @param panelId - The payload of the {@link XEventsTypes.UserClickedPanelToggleButton} event.
+       *
+       * @public
+       */
+      const togglePanel = (panelId: string): void => {
+        if (props.panelId === panelId) {
+          isOpen.value = !isOpen.value;
+        }
+      };
+
+      $x.on('UserClickedPanelToggleButton', false).subscribe(togglePanel);
+
+      /**
+       * Emits the {@link XEventsTypes.TogglePanelStateChanged} event, when the internal state
+       * changes.
+       *
+       * @remarks This event is necessary to link the state with the {@link BaseIdTogglePanelButton}
+       * component.
+       * @public
+       */
+      watch(
+        () => isOpen.value,
+        () => {
+          $x.emit('TogglePanelStateChanged', isOpen.value, {
+            id: props.panelId,
+            target: document.getElementById(props.panelId) as HTMLElement
+          });
+        },
+        { immediate: true }
+      );
+
+      return { isOpen };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

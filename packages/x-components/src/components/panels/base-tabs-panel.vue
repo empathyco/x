@@ -65,101 +65,118 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { mixins } from 'vue-class-component';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, ref } from 'vue';
   import { NoElement } from '../no-element';
-  import { dynamicPropsMixin } from '../dynamic-props.mixin';
+  import { AnimationProp } from '../../types';
 
   /**
    * Base Tabs Panel.
    *
    * @public
    */
-  @Component
-  export default class BaseTabsPanel extends mixins(
-    dynamicPropsMixin(['activeTabClass', 'contentClass', 'tabClass', 'tabsListClass'])
-  ) {
-    /**
-     * Animation component that will be used to animate the tabs list.
-     *
-     * @public
-     */
-    @Prop({ default: 'header' })
-    public tabsAnimation!: Vue | string;
-
-    /**
-     * Animation component that will be used to animate the selected tab content.
-     *
-     * @public
-     */
-    @Prop({ default: () => NoElement })
-    public contentAnimation!: Vue | string;
-
-    /**
-     * The tab to be initially selected.
-     *
-     * @public
-     */
-    @Prop({ default: '' })
-    public initialTab!: string;
-
-    /**
-     * Allows the tabs to be unselected.
-     *
-     * @public
-     */
-    @Prop({ default: false, type: Boolean })
-    public allowTabDeselect!: boolean;
-
-    /**
-     * The currently selected tab.
-     *
-     * @internal
-     */
-    protected selectedTab: string = this.initialTab;
-
-    /**
-     * Extracts the tab from the slots.
-     *
-     * @returns The list of tabs.
-     *
-     * @internal
-     */
-    protected getTabs(): string[] {
-      return Object.keys(this.$scopedSlots).filter(
-        slotName => !['tab', 'tab-content'].includes(slotName)
-      );
-    }
-
-    /**
-     * Changes the current selected tab. If the tab is already selected
-     * and `allowTabDeselect` is `true`, the tab will be unselected.
-     *
-     * @param tab - The tab to be selected.
-     *
-     * @internal
-     */
-    protected selectTab(tab: string): void {
-      if (this.allowTabDeselect && this.selectedTab === tab) {
-        this.selectedTab = '';
-      } else {
-        this.selectedTab = tab;
+  export default defineComponent({
+    name: 'BaseTabsPanel',
+    props: {
+      /** Class inherited by content element. */
+      activeTabClass: String,
+      /** Class inherited by content element. */
+      contentClass: String,
+      /** Class inherited by content element. */
+      tabClass: String,
+      /** Class inherited by content element. */
+      tabsListClass: String,
+      /**
+       * Animation component that will be used to animate the tabs list.
+       *
+       * @public
+       */
+      tabsAnimation: {
+        type: AnimationProp,
+        default: 'header'
+      },
+      /**
+       * Animation component that will be used to animate the selected tab content.
+       *
+       * @public
+       */
+      contentAnimation: {
+        type: AnimationProp,
+        default: () => NoElement
+      },
+      /**
+       * The tab to be initially selected.
+       *
+       * @public
+       */
+      initialTab: {
+        type: String,
+        default: ''
+      },
+      /**
+       * Allows the tabs to be unselected.
+       *
+       * @public
+       */
+      allowTabDeselect: {
+        type: Boolean,
+        default: false
       }
-    }
+    },
+    setup: function (props, { slots }) {
+      /**
+       * The currently selected tab.
+       *
+       * @internal
+       */
+      const selectedTab = ref(props.initialTab);
 
-    /**
-     * Checks if a tab is selected.
-     *
-     * @param tab - Tab to check.
-     * @returns True if the tab is selected, false otherwise.
-     *
-     * @internal
-     */
-    protected tabIsSelected(tab: string): boolean {
-      return this.selectedTab === tab;
+      /**
+       * Extracts the tab from the slots.
+       *
+       * @returns The list of tabs.
+       *
+       * @internal
+       */
+      const getTabs = function (): string[] {
+        return Object.keys(slots).filter(slotName => !['tab', 'tab-content'].includes(slotName));
+      };
+
+      /**
+       * Changes the current selected tab. If the tab is already selected
+       * and `allowTabDeselect` is `true`, the tab will be unselected.
+       *
+       * @param tab - The tab to be selected.
+       *
+       * @internal
+       */
+      const selectTab = function (tab: string): void {
+        if (props.allowTabDeselect && selectedTab.value === tab) {
+          selectedTab.value = '';
+        } else {
+          selectedTab.value = tab;
+        }
+      };
+
+      /**
+       * Checks if a tab is selected.
+       *
+       * @param tab - Tab to check.
+       * @returns True if the tab is selected, false otherwise.
+       *
+       * @internal
+       */
+      const tabIsSelected = function (tab: string): boolean {
+        return selectedTab.value === tab;
+      };
+
+      return {
+        selectedTab,
+        getTabs,
+        selectTab,
+        tabIsSelected
+      };
     }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>

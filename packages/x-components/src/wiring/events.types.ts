@@ -225,6 +225,14 @@ export interface XEventsTypes
    * Payload: The name of the XModule that has been registered.
    */
   ModuleRegistered: XModuleName;
+  /**
+   * The user opened the base header toggle panel.
+   */
+  open: string;
+  /**
+   * The user closed the base header toggle panel.
+   */
+  close: string;
 }
 
 /**
