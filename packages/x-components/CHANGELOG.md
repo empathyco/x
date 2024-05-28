@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.20...@empathyco/x-components@5.0.0-alpha.21) (2024-05-28)
+
+
+### Features
+
+* replace extra divs with `NoElement` (#1484) ([cc7042e](https://github.com/empathyco/x/commit/cc7042e5f144f2abc9eb39e3834c8a153795f558))
+
+
+
 ## [5.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.19...@empathyco/x-components@5.0.0-alpha.20) (2024-05-28)
 
 
