@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.15](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.14...vue3-migration-test@1.0.0-alpha.15) (2024-05-28)
+
+
+### Code Refactoring
+
+* migrate `BaseVariableColumnGrid` to Composition API (#1482) ([b7e292a](https://github.com/empathyco/x/commit/b7e292ae55560f557dd7db3cfbceed993c7b318e))
+
+
+
 ## [1.0.0-alpha.14](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.13...vue3-migration-test@1.0.0-alpha.14) (2024-05-28)
 
 

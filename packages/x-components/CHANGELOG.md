@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.21...@empathyco/x-components@5.0.0-alpha.22) (2024-05-28)
+
+
+### Code Refactoring
+
+* migrate `BaseVariableColumnGrid` to Composition API (#1482) ([b7e292a](https://github.com/empathyco/x/commit/b7e292ae55560f557dd7db3cfbceed993c7b318e))
+
+
+
 ## [5.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.20...@empathyco/x-components@5.0.0-alpha.21) (2024-05-28)
 
 
