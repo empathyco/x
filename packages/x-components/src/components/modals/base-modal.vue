@@ -1,5 +1,5 @@
 <template>
-  <div v-show="isWaitingForLeave || open" ref="modal" class="x-modal" data-test="modal">
+  <div v-show="isWaitingForLeave || open" ref="modalRef" class="x-modal" data-test="modal">
     <component
       :is="animation"
       @before-leave="isWaitingForLeave = true"
@@ -7,7 +7,7 @@
     >
       <div
         v-if="open"
-        ref="modalContent"
+        ref="modalContentRef"
         class="x-modal__content"
         data-test="modal-content"
         role="dialog"
@@ -31,14 +31,20 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop, Mixins } from 'vue-property-decorator';
+  import Vue, {
+    defineComponent,
+    nextTick,
+    onBeforeUnmount,
+    onMounted,
+    PropType,
+    ref,
+    watch
+  } from 'vue';
+  import { useDebounce } from '../../composables/use-debounce';
   import { getTargetElement } from '../../utils/html';
   import Fade from '../animations/fade.vue';
   import { NoElement } from '../no-element';
   import { FOCUSABLE_SELECTORS } from '../../utils/focus';
-  import { Debounce } from '../decorators/debounce.decorators';
-  import { dynamicPropsMixin } from '../dynamic-props.mixin';
 
   /**
    * Base component with no XPlugin dependencies that serves as a utility for constructing more
@@ -46,232 +52,200 @@
    *
    * @public
    */
-  @Component
-  export default class BaseModal extends Mixins(
-    dynamicPropsMixin(['contentClass', 'overlayClass'])
-  ) {
-    /**
-     * Animation to use for opening/closing the modal. This animation only affects the content.
-     */
-    @Prop({ default: () => NoElement })
-    public animation!: Vue | string;
-
-    /**
-     * Animation to use for the overlay (backdrop) part of the modal. By default, it uses
-     * a fade transition.
-     */
-    @Prop({ default: () => Fade })
-    public overlayAnimation!: Vue | string;
-
-    /**
-     * Determines if the modal is open or not.
-     */
-    @Prop({ required: true })
-    public open!: boolean;
-
-    /**
-     * Determines if the focused element changes to one inside the modal when it opens. Either the
-     * first element with a positive tabindex or just the first focusable element.
-     */
-    @Prop({ default: true })
-    public focusOnOpen!: boolean;
-
-    /**
-     * The reference selector of a DOM element to use as reference to position the modal.
-     * This selector can be an ID or a class, if it is a class, it will use the first
-     * element that matches.
-     */
-    @Prop()
-    public referenceSelector?: string;
-
-    /**
-     * The previous value of the body overflow style.
-     */
-    protected previousBodyOverflow = '';
-    /**
-     * The previous value of the HTML element overflow style.
-     */
-    protected previousHTMLOverflow = '';
-    /**
-     * Boolean to delay the leave animation until it has completed.
-     */
-    protected isWaitingForLeave = false;
-    /**
-     * The reference element to use to find the modal's position.
-     */
-    protected referenceElement!: HTMLElement;
-
-    public $refs!: {
+  export default defineComponent({
+    name: 'BaseModal',
+    components: { NoElement },
+    props: {
+      /** Determines if the modal is open or not. */
+      open: {
+        type: Boolean,
+        required: true
+      },
       /**
-       * Reference to the modal element in the DOM.
+       * Determines if the focused element changes to one inside the modal when it opens. Either the
+       * first element with a positive tabindex or just the first focusable element.
        */
-      modal: HTMLDivElement;
+      focusOnOpen: {
+        type: Boolean,
+        default: true
+      },
       /**
-       * Reference to the modal content element in the DOM.
+       * The reference selector of a DOM element to use as reference to position the modal.
+       * This selector can be an ID or a class, if it is a class, it will use the first
+       * element that matches.
        */
-      modalContent: HTMLDivElement;
-    };
+      referenceSelector: String,
+      /** Animation to use for opening/closing the modal.This animation only affects the content. */
+      animation: {
+        type: Object as PropType<string | typeof Vue>,
+        default: () => NoElement
+      },
+      /**
+       * Animation to use for the overlay (backdrop) part of the modal. By default, it uses
+       * a fade transition.
+       */
+      overlayAnimation: {
+        type: Object as PropType<string | typeof Vue>,
+        default: () => Fade
+      },
+      /** Class inherited by content element. */
+      contentClass: String,
+      /** Class inherited by overlay element. */
+      overlayClass: String
+    },
+    emits: ['click:overlay', 'focusin:body'],
+    setup(props, { emit }) {
+      /** Reference to the modal element in the DOM. */
+      const modalRef = ref<HTMLDivElement>();
+      /** Reference to the modal content element in the DOM. */
+      const modalContentRef = ref<HTMLDivElement>();
 
-    protected mounted(): void {
-      /* Watcher added after mount to prevent SSR from breaking */
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      this.$watch('open', this.syncBody);
-      if (this.open) {
-        this.syncBody(true);
+      /** The previous value of the body overflow style. */
+      const previousBodyOverflow = ref('');
+      /** The previous value of the HTML element overflow style. */
+      const previousHTMLOverflow = ref('');
+      /** Boolean to delay the leave animation until it has completed. */
+      const isWaitingForLeave = ref(false);
+      /** The reference element to use to find the modal's position. */
+      let referenceElement: HTMLElement;
+
+      /** Disables the scroll of both the body and the window. */
+      function disableScroll() {
+        previousBodyOverflow.value = document.body.style.overflow;
+        previousHTMLOverflow.value = document.documentElement.style.overflow;
+        document.body.style.overflow = document.documentElement.style.overflow = 'hidden';
       }
 
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      const resizeObserver = new ResizeObserver(this.updatePosition);
+      /** Restores the scroll of both the body and the window. */
+      function enableScroll() {
+        document.body.style.overflow = previousBodyOverflow.value;
+        document.documentElement.style.overflow = previousHTMLOverflow.value;
+      }
 
-      this.$watch(
-        'clientHeaderSelector',
-        () => {
-          if (this.referenceSelector) {
-            const element = document.querySelector(this.referenceSelector) as HTMLElement;
-            if (element) {
-              this.referenceElement = element;
-              resizeObserver.observe(element);
-            }
+      /**
+       * Emits the `click:overlay` event if the click has been triggered in the overlay layer.
+       *
+       * @param event - The click event.
+       */
+      function emitOverlayClicked(event: MouseEvent) {
+        emit('click:overlay', event);
+      }
+
+      /**
+       * Emits the `focusin:body` event if a focus event has been triggered outside the modal.
+       *
+       * @param event - The focusin event.
+       */
+      function emitFocusInBody(event: FocusEvent) {
+        if (!modalContentRef.value?.contains(getTargetElement(event))) {
+          emit('focusin:body', event);
+        }
+      }
+
+      /**
+       * Adds listeners to the body element ot detect if the modal should be closed.
+       *
+       * @remarks TODO find a better solution and remove the timeout
+       * To avoid emit the focusin on opening X that provokes closing it immediately.
+       * This is because this event was emitted after the open of main modal when the user clicks
+       * on the customer website search box (focus event). This way we avoid add the listener before
+       * the open and the avoid the event that provokes the close.
+       */
+      function addBodyListeners() {
+        setTimeout(() => {
+          document.body.addEventListener('focusin', emitFocusInBody);
+        });
+      }
+
+      /** Removes the body listeners. */
+      function removeBodyListeners() {
+        document.body.removeEventListener('focusin', emitFocusInBody);
+      }
+
+      /**
+       * Sets the focused element to the first element either the first element with a positive
+       * tabindex or, if there isn't any, the first focusable element inside the modal.
+       */
+      function setFocus() {
+        const candidates: HTMLElement[] = Array.from(
+          modalContentRef.value?.querySelectorAll(FOCUSABLE_SELECTORS) ?? []
+        );
+        const element = candidates.find(element => element.tabIndex) ?? candidates[0];
+        element?.focus();
+      }
+
+      /**
+       * Syncs the body to the open state of the modal, adding or removing styles and listeners.
+       *
+       * @remarks nextTick() to wait for `modalContentRef` to be updated to look for focusable
+       * candidates inside.
+       *
+       * @param isOpen - True when the modal is opened.
+       */
+      async function syncBody(isOpen: boolean) {
+        if (isOpen) {
+          disableScroll();
+          addBodyListeners();
+          if (props.focusOnOpen) {
+            await nextTick();
+            setFocus();
           }
+        } else {
+          enableScroll();
+          removeBodyListeners();
+        }
+      }
+
+      /**
+       * Updates the position of the modal setting the top of the element depending
+       * on the selector. The modal will be placed under this selector.
+       */
+      const debouncedUpdatePosition = useDebounce(
+        () => {
+          const { height, y } = referenceElement?.getBoundingClientRect() ?? { height: 0, y: 0 };
+          modalRef.value!.style.top = `${height + y}px`;
+          modalRef.value!.style.bottom = '0';
+          modalRef.value!.style.height = 'auto';
         },
-        { immediate: true }
+        100,
+        { leading: true }
       );
 
-      this.$on('hook:beforeDestroy', () => {
+      let resizeObserver: ResizeObserver;
+
+      onMounted(() => {
+        watch(() => props.open, syncBody);
+        if (props.open) {
+          syncBody(true);
+        }
+
+        resizeObserver = new ResizeObserver(debouncedUpdatePosition);
+
+        if (props.referenceSelector) {
+          const element = document.querySelector(props.referenceSelector) as HTMLElement;
+          if (element) {
+            referenceElement = element;
+            resizeObserver.observe(element);
+          }
+        }
+      });
+
+      onBeforeUnmount(() => {
+        if (props.open) {
+          removeBodyListeners();
+          enableScroll();
+        }
         resizeObserver.disconnect();
       });
+
+      return {
+        emitOverlayClicked,
+        isWaitingForLeave,
+        modalContentRef,
+        modalRef
+      };
     }
-
-    /**
-     * Updates the position of the modal setting the top of the element depending
-     * on the selector. The modal will be placed under this selector.
-     *
-     * @internal
-     */
-    @Debounce(100, { leading: true })
-    updatePosition(): void {
-      const { height, y } = this.referenceElement?.getBoundingClientRect() ?? { height: 0, y: 0 };
-      this.$refs.modal.style.top = `${height + y}px`;
-      this.$refs.modal.style.bottom = '0';
-      this.$refs.modal.style.height = 'auto';
-    }
-
-    /**
-     * Syncs the body to the open state of the modal, adding or removing styles and listeners.
-     *
-     * @param isOpen - True when the modal is opened.
-     * @internal
-     */
-    protected syncBody(isOpen: boolean): void {
-      if (isOpen) {
-        this.disableScroll();
-        this.addBodyListeners();
-        /* eslint-disable @typescript-eslint/unbound-method */
-        this.$on('hook:beforeDestroy', this.removeBodyListeners);
-        this.$on('hook:beforeDestroy', this.enableScroll);
-        /* eslint-enable @typescript-eslint/unbound-method */
-        if (this.focusOnOpen) {
-          this.setFocus();
-        }
-      } else {
-        this.enableScroll();
-        this.removeBodyListeners();
-        /* eslint-disable @typescript-eslint/unbound-method */
-        this.$off('hook:beforeDestroy', this.removeBodyListeners);
-        this.$off('hook:beforeDestroy', this.enableScroll);
-        /* eslint-enable @typescript-eslint/unbound-method */
-      }
-    }
-
-    /**
-     * Disables the scroll of both the body and the window.
-     *
-     * @internal
-     */
-    protected disableScroll(): void {
-      this.previousBodyOverflow = document.body.style.overflow;
-      this.previousHTMLOverflow = document.documentElement.style.overflow;
-      document.body.style.overflow = document.documentElement.style.overflow = 'hidden';
-    }
-
-    /**
-     * Restores the scroll of both the body and the window.
-     *
-     * @internal
-     */
-    protected enableScroll(): void {
-      document.body.style.overflow = this.previousBodyOverflow;
-      document.documentElement.style.overflow = this.previousHTMLOverflow;
-    }
-
-    /**
-     * Adds listeners to the body element ot detect if the modal should be closed.
-     *
-     * @internal
-     */
-    protected addBodyListeners(): void {
-      // TODO find a better solution and remove the timeout
-      // to avoid emit the focusin on opening X that provokes closing it immediately.
-      // This is because this event was emitted after the open of main modal when the user clicks
-      // on the customer website search box (focus event). This way we avoid add the listener before
-      // the open and the avoid the event that provokes the close.
-      setTimeout(() => {
-        /* eslint-disable @typescript-eslint/unbound-method */
-        document.body.addEventListener('focusin', this.emitFocusInBody);
-        /* eslint-enable @typescript-eslint/unbound-method */
-      });
-    }
-
-    /**
-     * Removes the body listeners.
-     *
-     * @internal
-     */
-    protected removeBodyListeners(): void {
-      /* eslint-disable @typescript-eslint/unbound-method */
-      document.body.removeEventListener('focusin', this.emitFocusInBody);
-      /* eslint-enable @typescript-eslint/unbound-method */
-    }
-
-    /**
-     * Emits the `click:overlay` event if the click has been triggered in the overlay layer.
-     *
-     * @param event - The click event.
-     * @internal
-     */
-    protected emitOverlayClicked(event: MouseEvent): void {
-      this.$emit('click:overlay', event);
-    }
-
-    /**
-     * Emits the `focusin:body` event if a focus event has been triggered outside the modal.
-     *
-     * @param event - The focusin event.
-     * @internal
-     */
-    protected emitFocusInBody(event: FocusEvent): void {
-      if (!this.$refs.modalContent?.contains(getTargetElement(event))) {
-        this.$emit('focusin:body', event);
-      }
-    }
-
-    /**
-     * Sets the focused element to the first element either the first element with a positive
-     * tabindex or, if there isn't any, the first focusable element inside the modal.
-     *
-     * @internal
-     */
-    protected setFocus(): void {
-      const focusCandidates: HTMLElement[] = Array.from(
-        this.$refs.modalContent.querySelectorAll(FOCUSABLE_SELECTORS)
-      );
-
-      const elementToFocus =
-        focusCandidates.find(element => element.tabIndex) ?? focusCandidates[0];
-
-      elementToFocus?.focus();
-    }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>

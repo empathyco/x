@@ -16,6 +16,7 @@ import {
   TestSortList,
   TestSortPickerList,
   TestBaseScroll,
+  TestBaseModal,
   TestSearchBox,
   TestBaseVariableColumnGrid,
   TestEmpathize,
@@ -47,6 +48,11 @@ const routes = [
     path: '/fade',
     name: 'Fade',
     component: TestFade
+  },
+  {
+    path: '/base-modal',
+    name: 'BaseModal',
+    component: TestBaseModal
   },
   {
     path: '/base-dropdown',
