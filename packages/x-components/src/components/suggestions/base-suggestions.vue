@@ -106,8 +106,8 @@
        *
        * @internal
        */
-      const suggestionsToRender = computed((): Suggestion[] => {
-        return props.suggestions
+      const suggestionsToRender = computed((): Suggestion[] =>
+        props.suggestions
           .flatMap(suggestion =>
             props.showFacets && suggestion.facets?.length
               ? props.showPlainSuggestion
@@ -115,8 +115,8 @@
                 : expandSuggestionFilters(suggestion)
               : { ...suggestion, facets: [] }
           )
-          .slice(0, props.maxItemsToRender);
-      });
+          .slice(0, props.maxItemsToRender)
+      );
 
       /**
        * Generates a string from the given facet.
@@ -125,9 +125,7 @@
        * @returns - A string representing the facet.
        * @internal
        */
-      const getFacetKey = (facet: Facet): string => {
-        return facet.filters.map(filter => filter.id).join('&');
-      };
+      const getFacetKey = (facet: Facet) => facet.filters.map(filter => filter.id).join('&');
 
       /**
        * Generates a string from the given facets.
@@ -136,9 +134,7 @@
        * @returns - A string representing the list of facets.
        * @internal
        */
-      const getFacetsKey = (facets: Facet[]): string => {
-        return facets.map(getFacetKey).join('&');
-      };
+      const getFacetsKey = (facets: Facet[]) => facets.map(getFacetKey).join('&');
 
       /**
        * An array with the unique keys for each suggestion. Required by the `v-for` loop.
@@ -146,13 +142,13 @@
        * @returns An array with the unique keys of the suggestions.
        * @internal
        */
-      const suggestionsKeys = computed((): string[] => {
-        return suggestionsToRender.value.map(suggestion =>
+      const suggestionsKeys = computed(() =>
+        suggestionsToRender.value.map(suggestion =>
           isArrayEmpty(suggestion.facets)
             ? suggestion.query
             : `${suggestion.query}-in-${getFacetsKey(suggestion.facets)}`
-        );
-      });
+        )
+      );
 
       /**
        * Returns the filter contained by the suggestion.
@@ -161,9 +157,8 @@
        * @returns The suggestion filter.
        * @internal
        */
-      const getSuggestionFilter = (suggestion: Suggestion): Filter | undefined => {
-        return suggestion.facets?.[0]?.filters[0];
-      };
+      const getSuggestionFilter = (suggestion: Suggestion): Filter | undefined =>
+        suggestion.facets?.[0]?.filters[0];
 
       return { suggestionsToRender, suggestionsKeys, getSuggestionFilter };
     }
