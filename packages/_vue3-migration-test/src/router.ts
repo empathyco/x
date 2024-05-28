@@ -20,7 +20,8 @@ import {
   TestSearchBox,
   TestBaseVariableColumnGrid,
   TestEmpathize,
-  TestUseLayouts
+  TestUseLayouts,
+  TestSlidingPanel
 } from './';
 
 const routes = [
@@ -73,6 +74,11 @@ const routes = [
     path: '/base-column-picker-list',
     name: 'BaseColumnPickerList',
     component: TestBaseColumnPickerList
+  },
+  {
+    path: '/sliding-panel',
+    name: 'SlidingPanel',
+    component: TestSlidingPanel
   },
   {
     path: '/facets',

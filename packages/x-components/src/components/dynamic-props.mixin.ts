@@ -19,7 +19,7 @@ import { ExtendedVue } from 'vue/types/vue';
  *   }
  * ```
  * @returns Mixin for the component.
- *
+ * @deprecated Use props.
  */
 export function dynamicPropsMixin<PropNames extends string>(
   propNames: PropNames[]
