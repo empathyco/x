@@ -78,15 +78,8 @@
 
 <script lang="ts">
   import { Identifiable } from '@empathyco/x-types';
-  import Vue, {
-    computed,
-    defineComponent,
-    nextTick,
-    onBeforeUnmount,
-    PropType,
-    ref,
-    watch
-  } from 'vue';
+  import { computed, defineComponent, nextTick, onBeforeUnmount, PropType, ref, watch } from 'vue';
+  import { AnimationProp } from '../types';
   import { getTargetElement } from '../utils/html';
   import { normalizeString } from '../utils/normalize';
   import { isInRange } from '../utils/number';
@@ -123,7 +116,7 @@
        * so only `<transition>` components are allowed.
        */
       animation: {
-        type: Object as PropType<string | typeof Vue>,
+        type: AnimationProp,
         default: () => NoElement
       },
       /** Time to wait without receiving any keystroke before resetting the items search query. */
