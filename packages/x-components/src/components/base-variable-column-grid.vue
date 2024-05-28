@@ -14,8 +14,8 @@
 <script lang="ts">
   import { computed, defineComponent, PropType, ref } from 'vue';
   import { ListItem } from '../utils/types';
-  import { AnimationProp } from '../types/index';
-  import { useXBus } from '../composables/index';
+  import { AnimationProp } from '../types/animation-prop';
+  import { useXBus } from '../composables/use-x-bus';
   import BaseGrid from './base-grid.vue';
 
   /**
@@ -89,7 +89,7 @@
        */
       bus
         .on('ColumnsNumberProvided', false)
-        .subscribe((newColumns: number) => (providedColumns.value = newColumns));
+        .subscribe(newColumns => (providedColumns.value = newColumns));
 
       return {
         columnsToRender,
