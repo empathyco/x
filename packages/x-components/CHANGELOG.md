@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.22...@empathyco/x-components@5.0.0-alpha.23) (2024-05-28)
+
+
+### Features
+
+* **base-modal:** migrate base-modal component and side effects (#1479) ([610ec16](https://github.com/empathyco/x/commit/610ec16e20b10a344936b2914c61085e22a09dfd))
+* **sliding-panel:** migrate sliding-panel component to composition API (#1485) ([bf9e1a3](https://github.com/empathyco/x/commit/bf9e1a38364a23402562a19ce8095452da5f02d7))
+
+
+
 ## [5.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.21...@empathyco/x-components@5.0.0-alpha.22) (2024-05-28)
 
 
