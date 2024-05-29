@@ -31,11 +31,12 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  import Vue, { defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
   import { useDebounce } from '../../composables/use-debounce';
   import { AnimationProp } from '../../types';
   import { getTargetElement } from '../../utils/html';
-  import * as Fade from '../animations/fade.vue';
+  import Fade from '../animations/fade.vue';
   import { NoElement } from '../no-element';
   import { FOCUSABLE_SELECTORS } from '../../utils/focus';
 
