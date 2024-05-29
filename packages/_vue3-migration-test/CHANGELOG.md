@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.17](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.16...vue3-migration-test@1.0.0-alpha.17) (2024-05-29)
+
+
+### Bug Fixes
+
+* handle dynamic content in empathize (#1492) ([db082ef](https://github.com/empathyco/x/commit/db082efdcfa6fda3863a344f884cd05848bac97d))
+
+
+
 ## [1.0.0-alpha.16](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.15...vue3-migration-test@1.0.0-alpha.16) (2024-05-28)
 
 

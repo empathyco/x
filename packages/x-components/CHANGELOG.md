@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.23...@empathyco/x-components@5.0.0-alpha.24) (2024-05-29)
+
+
+### Bug Fixes
+
+* handle dynamic content in empathize (#1492) ([db082ef](https://github.com/empathyco/x/commit/db082efdcfa6fda3863a344f884cd05848bac97d))
+
+
+
 ## [5.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.22...@empathyco/x-components@5.0.0-alpha.23) (2024-05-28)
 
 
