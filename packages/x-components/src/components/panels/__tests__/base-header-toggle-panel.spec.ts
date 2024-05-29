@@ -1,7 +1,7 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getDataTestSelector } from '../../../__tests__/utils';
-import BaseHeaderTogglePanelComponent from '../base-header-toggle-panel.vue';
+import BaseHeaderTogglePanel from '../base-header-toggle-panel.vue';
 
 /**
  * Function that returns a BaseHeaderTogglePanel wrapper. The animation prop is not gonna be tested
@@ -16,12 +16,12 @@ function renderBaseHeaderTogglePanel({
 }: RenderBaseTogglePanelOptions = {}): RenderBaseHeaderTogglePanelAPI {
   const wrapperContainer = mount({
     components: {
-      BaseHeaderTogglePanel: BaseHeaderTogglePanelComponent
+      BaseHeaderTogglePanel
     },
     template
   });
 
-  const wrapper = wrapperContainer.findComponent(BaseHeaderTogglePanelComponent);
+  const wrapper = wrapperContainer.findComponent(BaseHeaderTogglePanel);
   const headerWrapper = wrapper.find(getDataTestSelector('toggle-panel-header'));
 
   return {
@@ -62,6 +62,7 @@ describe('testing BaseHeaderTogglePanel component', () => {
 
   it('emits its open status as an event on header click', async () => {
     const { wrapper, toggleOpen } = renderBaseHeaderTogglePanel();
+
     await toggleOpen();
     expect(wrapper.emitted().close).toHaveLength(1);
     await toggleOpen();

@@ -25,7 +25,6 @@
   import { defineComponent, ref } from 'vue';
   import { AnimationProp } from '../../types/animation-prop';
   import { NoElement } from '../no-element';
-  import { use$x } from '../../composables';
   import BaseTogglePanel from './base-toggle-panel.vue';
 
   /**
@@ -53,8 +52,7 @@
        */
       startCollapsed: { type: Boolean, default: false }
     },
-    setup: function (props) {
-      const $x = use$x();
+    setup: function (props, { emit }) {
       /**
        * Handles if the base panel is open or closed.
        *
@@ -68,7 +66,7 @@
        * @internal
        */
       const emitOpenStatusEvent = (): void => {
-        $x.emit(open.value ? 'open' : 'close');
+        emit(open.value ? 'open' : 'close');
       };
 
       /**

@@ -137,9 +137,8 @@
        *
        * @internal
        */
-      const getTabs = function (): string[] {
-        return Object.keys(slots).filter(slotName => !['tab', 'tab-content'].includes(slotName));
-      };
+      const getTabs = () =>
+        Object.keys(slots).filter(slotName => !['tab', 'tab-content'].includes(slotName));
 
       /**
        * Changes the current selected tab. If the tab is already selected
@@ -165,9 +164,7 @@
        *
        * @internal
        */
-      const tabIsSelected = function (tab: string): boolean {
-        return selectedTab.value === tab;
-      };
+      const tabIsSelected = (tab: string) => selectedTab.value === tab;
 
       return {
         selectedTab,
