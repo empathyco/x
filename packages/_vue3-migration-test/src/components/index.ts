@@ -4,3 +4,4 @@ export { default as TestBaseColumnPickerList } from './column-picker/test-base-c
 export { default as TestBaseDropdown } from './test-base-dropdown.vue';
 export { default as TestBaseEventButton } from './test-base-event-button.vue';
 export { default as TestUseLayouts } from './test-use-layouts.vue';
+export { default as TestBasePanel } from './test-base-panel.vue';

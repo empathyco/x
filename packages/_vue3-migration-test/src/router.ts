@@ -18,7 +18,8 @@ import {
   TestBaseScroll,
   TestSearchBox,
   TestEmpathize,
-  TestUseLayouts
+  TestUseLayouts,
+  TestBasePanel
 } from './';
 
 const routes = [
@@ -116,6 +117,11 @@ const routes = [
     path: '/test-use-layouts',
     name: 'TestUseLayouts',
     component: TestUseLayouts
+  },
+  {
+    path: '/test-base-panel',
+    name: 'TestBasePanel',
+    component: TestBasePanel
   }
 ];
 
