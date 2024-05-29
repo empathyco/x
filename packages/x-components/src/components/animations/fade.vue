@@ -37,7 +37,7 @@
 
     &--leave-to,
     &--enter {
-      opacity: 0;
+      opacity: 0 !important;
     }
   }
 </style>

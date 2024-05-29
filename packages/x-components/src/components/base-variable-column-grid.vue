@@ -1,6 +1,6 @@
 <template>
   <BaseGrid :animation="animation" :columns="columnsToRender" :items="items">
-    <template v-for="(_, name) in $scopedSlots" v-slot:[name]="{ item }">
+    <template v-for="(_, name) in slots" v-slot:[name]="{ item }">
       <!--
         @slot Customized item rendering. The slot name can either be default or the item's model
          name.
@@ -12,11 +12,11 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType, ref } from 'vue';
   import { ListItem } from '../utils/types';
+  import { AnimationProp } from '../types/animation-prop';
+  import { useXBus } from '../composables/use-x-bus';
   import BaseGrid from './base-grid.vue';
-  import { XOn } from './decorators/bus.decorators';
 
   /**
    * The `BaseVariableColumnGrid` component is a wrapper of the `BaseGrid` component that listens to
@@ -26,69 +26,77 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'BaseVariableColumnGrid',
     components: {
       BaseGrid
+    },
+    props: {
+      /**
+       * Animation component that will be used to animate the grid.
+       *
+       * @public
+       */
+      animation: {
+        type: AnimationProp,
+        default: 'ul'
+      },
+      /**
+       * The list of items to be rendered.
+       *
+       * @remarks The items must have an id property.
+       *
+       * @public
+       */
+      items: Array as PropType<ListItem[]>,
+      /**
+       * The columns to render by default in the grid. This property is used when the user has not
+       * selected any value in the column picker.
+       *
+       * @internal
+       */
+      columns: {
+        type: Number,
+        default: 0
+      }
+    },
+    setup(props, { slots }) {
+      const bus = useXBus();
+      /**
+       * The number of columns provided by a user interaction.
+       *
+       * @internal
+       */
+      const providedColumns = ref<number | null>(null);
+
+      /**
+       * The number of columns to render in the grid.
+       *
+       * @returns The number of columns.
+       *
+       * @internal
+       */
+      const columnsToRender = computed(() =>
+        providedColumns.value === null ? props.columns : providedColumns.value
+      );
+
+      /**
+       * Handler to update the number of columns when the user selects a new value.
+       *
+       * @param newColumns - The new columns value.
+       *
+       * @internal
+       */
+      bus
+        .on('ColumnsNumberProvided', false)
+        .subscribe(newColumns => (providedColumns.value = newColumns));
+
+      return {
+        columnsToRender,
+        slots
+      };
     }
-  })
-  export default class BaseVariableColumnGrid extends Vue {
-    /**
-     * Animation component that will be used to animate the grid.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue | string;
-
-    /**
-     * The list of items to be rendered.
-     *
-     * @remarks The items must have an id property.
-     *
-     * @public
-     */
-    @Prop()
-    protected items?: ListItem[];
-
-    /**
-     * The columns to render by default in the grid. This property is used when the user has not
-     * selected any value in the column picker.
-     *
-     * @internal
-     */
-    @Prop({ default: 0 })
-    protected columns!: number;
-
-    /**
-     * The number of columns provided by a user interaction.
-     *
-     * @internal
-     */
-    protected providedColumns: number | null = null;
-
-    /**
-     * The number of columns to render in the grid.
-     *
-     * @returns The number of columns.
-     *
-     * @internal
-     */
-    protected get columnsToRender(): number {
-      return this.providedColumns === null ? this.columns : this.providedColumns;
-    }
-
-    /**
-     * Handler to update the number of columns when the user selects a new value.
-     *
-     * @param newColumns - The new columns value.
-     *
-     * @internal
-     */
-    @XOn(['ColumnsNumberProvided'])
-    setColumns(newColumns: number): void {
-      this.providedColumns = newColumns;
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">

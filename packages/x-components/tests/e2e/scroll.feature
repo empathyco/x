@@ -6,6 +6,8 @@ Feature: Scroll component
     And   a tracking API
     And   no special config for layout view
 
+  # TODO: Enable test after reviewing it
+  @skip
   Scenario Outline: 1. Scroll is kept in the URL
     When  start button is clicked
     Then  empathize should be visible

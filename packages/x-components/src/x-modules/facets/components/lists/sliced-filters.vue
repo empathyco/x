@@ -69,28 +69,19 @@
        * @public
        */
       filters: Array as PropType<Filter[]>,
-
       /**
        * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
        * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
-       *
-       * @public
        */
       parentId: {
         type: String as PropType<Filter['id']>,
         required: false
       },
-
-      /**
-       * The maximum number of filters to show.
-       *
-       * @public
-       */
+      /** The maximum number of filters to show. */
       max: {
         type: Number,
         required: true
       },
-
       buttonClass: String
     },
     emits: ['click:show-less', 'click:show-more'],
