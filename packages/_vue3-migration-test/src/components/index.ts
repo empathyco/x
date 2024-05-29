@@ -11,3 +11,4 @@ export { default as TestBaseSuggestions } from './suggestions/test-base-suggesti
 export { default as TestHighlight } from './test-highlight.vue';
 export { default as TestBaseResultImages } from './result/test-base-result-images.vue';
 export { default as TestBasePanel } from './panels/test-base-panel.vue';
+export { default as TestBaseKeyboardNavigation } from './test-base-keyboard-navigation.vue';
