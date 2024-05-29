@@ -16,9 +16,12 @@ import {
   TestSortList,
   TestSortPickerList,
   TestBaseScroll,
+  TestBaseModal,
   TestSearchBox,
+  TestBaseVariableColumnGrid,
   TestEmpathize,
   TestUseLayouts,
+  TestSlidingPanel,
   TestBaseSuggestions
 } from './';
 
@@ -49,6 +52,11 @@ const routes = [
     component: TestFade
   },
   {
+    path: '/base-modal',
+    name: 'BaseModal',
+    component: TestBaseModal
+  },
+  {
     path: '/base-dropdown',
     name: 'BaseDropdown',
     component: TestBaseDropdown
@@ -67,6 +75,11 @@ const routes = [
     path: '/base-column-picker-list',
     name: 'BaseColumnPickerList',
     component: TestBaseColumnPickerList
+  },
+  {
+    path: '/sliding-panel',
+    name: 'SlidingPanel',
+    component: TestSlidingPanel
   },
   {
     path: '/facets',
@@ -112,6 +125,11 @@ const routes = [
     path: '/elements-list',
     name: 'ElementsList',
     component: TestElementsList
+  },
+  {
+    path: '/base-variable-column-grid',
+    name: 'BaseVariableColumnGrid',
+    component: TestBaseVariableColumnGrid
   },
   {
     path: '/test-use-layouts',

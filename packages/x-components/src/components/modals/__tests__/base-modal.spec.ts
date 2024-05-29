@@ -1,5 +1,4 @@
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
 import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseModal from '../base-modal.vue';
 
@@ -14,58 +13,52 @@ function mountBaseModal({
   defaultSlot = '<span data-test="default-slot">Modal</span>',
   open = false,
   focusOnOpen = true,
-  contentClass,
-  overlayClass
-}: MountBaseModalOptions = {}): MountBaseModalAPI {
-  const localVue = createLocalVue();
-  const wrapper = mount(BaseModal, {
-    localVue,
-    propsData: {
-      open,
-      focusOnOpen,
-      contentClass,
-      overlayClass
+  contentClass = '',
+  overlayClass = ''
+} = {}) {
+  const wrapper = mount(
+    {
+      template: `
+        <BaseModal
+          :open="open"
+          :focusOnOpen="focusOnOpen"
+          :contentClass="contentClass"
+          :overlayClass="overlayClass"
+        >
+          <slot/>
+        </BaseModal>`,
+      components: { BaseModal },
+      props: ['open', 'focusOnOpen', 'contentClass', 'overlayClass']
     },
-    slots: {
-      default: defaultSlot
+    {
+      propsData: { open, focusOnOpen, contentClass, overlayClass },
+      slots: { default: defaultSlot }
     }
-  });
-  const appendToBody = (): void => {
-    document.body.appendChild(wrapper.element);
-  };
+  );
+
+  const baseModalWrapper = wrapper.findComponent(BaseModal);
+  const appendToBody = () => document.body.appendChild(wrapper.element);
 
   return {
-    wrapper,
-    getModalContent() {
-      return wrapper.find(getDataTestSelector('modal-content'));
-    },
-    async setOpen(open) {
-      await wrapper.setProps({ open });
-    },
-    async closeModal() {
-      await wrapper.find(getDataTestSelector('modal-overlay'))?.trigger('click');
-    },
+    wrapper: baseModalWrapper,
+    getModalContent: () => baseModalWrapper.find(getDataTestSelector('modal-content')),
+    setOpen: async (open: boolean) => await wrapper.setProps({ open }),
+    closeModal: async () =>
+      await baseModalWrapper.find(getDataTestSelector('modal-overlay'))?.trigger('click'),
     appendToBody,
-    async fakeFocusIn() {
-      const buttonWrapper = mount({
-        template: `<button>Button</button>`
-      });
+    fakeFocusIn: async () => {
+      const buttonWrapper = mount({ template: `<button>Button</button>` });
       appendToBody();
       document.body.appendChild(buttonWrapper.element);
       jest.runAllTimers();
       await buttonWrapper.trigger('focusin');
     }
-  };
+  } as const;
 }
 
 describe('testing Base Modal  component', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
-  afterAll(() => {
-    jest.useRealTimers();
-  });
+  beforeAll(() => jest.useFakeTimers());
+  afterAll(() => jest.useRealTimers());
 
   it('renders only when the open prop is set to true', async () => {
     const { getModalContent, setOpen } = mountBaseModal();
@@ -104,13 +97,15 @@ describe('testing Base Modal  component', () => {
       open: true
     });
 
-    expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBeTruthy();
   });
 
   it('changes the focus to the correct element when the modal opens', async () => {
+    const dataTestSelector = 'expected-focus';
     let { wrapper, setOpen, appendToBody } = mountBaseModal({
-      defaultSlot: `<div>
-          <button data-test="expected-focus">First button</button>
+      defaultSlot: `
+        <div>
+          <button data-test="${dataTestSelector}">First button</button>
           <button>Second button</button>
         </div>`,
       open: false
@@ -119,14 +114,15 @@ describe('testing Base Modal  component', () => {
     appendToBody();
     await setOpen(true);
 
-    expect(wrapper.find(getDataTestSelector('expected-focus')).element).toBe(
+    expect(wrapper.find(getDataTestSelector(dataTestSelector)).element).toEqual(
       document.activeElement
     );
 
     ({ wrapper, setOpen, appendToBody } = mountBaseModal({
-      defaultSlot: `<div>
+      defaultSlot: `
+        <div>
           <button>First button</button>
-          <button tabindex="1" data-test="expected-focus">Second button</button>
+          <button tabindex="1" data-test="${dataTestSelector}">Second button</button>
         </div>`,
       open: false
     }));
@@ -134,14 +130,15 @@ describe('testing Base Modal  component', () => {
     appendToBody();
     await setOpen(true);
 
-    expect(wrapper.find(getDataTestSelector('expected-focus')).element).toBe(
+    expect(wrapper.find(getDataTestSelector(dataTestSelector)).element).toEqual(
       document.activeElement
     );
   });
 
   it("doesn't change the focus if the focusOnOpen prop is false", async () => {
     const { setOpen, appendToBody } = mountBaseModal({
-      defaultSlot: `<div>
+      defaultSlot: `
+        <div>
           <button tabindex="1">First button</button>
           <button>Second button</button>
         </div>`,
@@ -153,7 +150,7 @@ describe('testing Base Modal  component', () => {
     const focusedElementBeforeOpen = document.activeElement;
     await setOpen(true);
 
-    expect(focusedElementBeforeOpen).toBe(document.activeElement);
+    expect(focusedElementBeforeOpen).toEqual(document.activeElement);
   });
 
   it('allows adding classes to the modal content', () => {
@@ -172,34 +169,6 @@ describe('testing Base Modal  component', () => {
     });
 
     const overlay = wrapper.find(getDataTestSelector('modal-overlay'));
-    expect(overlay.classes('custom-class')).toBe(true);
+    expect(overlay.classes('custom-class')).toBeTruthy();
   });
 });
-
-interface MountBaseModalOptions {
-  /** The default slot to render. */
-  defaultSlot?: string;
-  /** Events that when emitted should open the modal. */
-  open?: boolean;
-  /** Indicates if the focus changes to an element inside the modal when it opens. */
-  focusOnOpen?: boolean;
-  /** Class to add to the content element of the modal. */
-  contentClass?: string;
-  /** Class to add to the overlay element of the modal. */
-  overlayClass?: string;
-}
-
-interface MountBaseModalAPI {
-  /** The wrapper for the modal component. */
-  wrapper: Wrapper<Vue>;
-  /** Fakes a click on the close button. */
-  setOpen: (open: boolean) => Promise<void>;
-  /** Retrieves the modal container wrapper. */
-  getModalContent: () => Wrapper<Vue>;
-  /** Fakes a click on the modal close. */
-  closeModal: () => Promise<void>;
-  /** Appends the component's element the body. */
-  appendToBody: () => void;
-  /** Fakes a focusin event in another HTMLElement of the body. */
-  fakeFocusIn: () => Promise<void>;
-}

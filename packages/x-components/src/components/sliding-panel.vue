@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$slots.default" class="x-sliding-panel" :class="cssClasses" data-test="sliding-panel">
+  <div v-if="slots.default" class="x-sliding-panel" :class="cssClasses" data-test="sliding-panel">
     <button
       v-if="showButtons"
       @click="scrollLeft"
@@ -11,10 +11,10 @@
       <slot name="sliding-panel-left-button">ᐸ</slot>
     </button>
     <div
-      ref="scrollContainer"
-      @scroll="debouncedUpdateScrollPosition"
-      @transitionend="debouncedUpdateScrollPosition"
-      @animationend="debouncedUpdateScrollPosition"
+      ref="scrollContainerRef"
+      @scroll="debouncedUpdateScroll"
+      @transitionend="debouncedUpdateScroll"
+      @animationend="debouncedUpdateScroll"
       :class="scrollContainerClass"
       class="x-sliding-panel__scroll"
       data-test="sliding-panel-scroll"
@@ -36,10 +36,8 @@
 </template>
 
 <script lang="ts">
-  import { Component, Mixins, Prop } from 'vue-property-decorator';
-  import { VueCSSClasses } from '../utils/types';
-  import { Debounce } from './decorators/debounce.decorators';
-  import { dynamicPropsMixin } from './dynamic-props.mixin';
+  import { computed, defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+  import { useDebounce } from '../composables/use-debounce';
 
   /**
    * This component allows for any other component or element inside it to be horizontally
@@ -51,178 +49,146 @@
    *
    * @public
    */
-  @Component
-  export default class SlidingPanel extends Mixins(
-    dynamicPropsMixin(['buttonClass', 'scrollContainerClass'])
-  ) {
-    /**
-     * Scroll factor that will dictate how much the scroll moves when pressing a navigation button.
-     *
-     * @public
-     */
-    @Prop({ default: 0.7 })
-    public scrollFactor!: number;
+  export default defineComponent({
+    name: 'SlidingPanel',
+    props: {
+      /**
+       * Scroll factor that will dictate how much the scroll moves when pressing a navigation button.
+       */
+      scrollFactor: {
+        type: Number,
+        default: 0.7
+      },
+      /** Would make the navigation buttons visible when they're needed or always hide them. */
+      showButtons: {
+        type: Boolean,
+        default: true
+      },
+      /**
+       * When true, whenever the DOM content in the sliding panel slot changes, it will reset
+       * the scroll position to 0.
+       */
+      resetOnContentChange: {
+        type: Boolean,
+        default: true
+      },
+      buttonClass: String,
+      scrollContainerClass: String
+    },
+    setup(props, { slots }) {
+      /** Indicates if the scroll is at the start of the sliding panel. */
+      const isScrollAtStart = ref(true);
+      /** Indicates if the scroll is at the end of the sliding panel. */
+      const isScrollAtEnd = ref(true);
+      const scrollContainerRef = ref<HTMLDivElement>();
 
-    /**
-     * Would make the navigation buttons visible when they're needed or always hide them.
-     *
-     * @public
-     */
-    @Prop({ default: true })
-    public showButtons!: boolean;
+      /**
+       * Updates the values of the scroll positions to show or hide the buttons depending on it.
+       *
+       * @remarks The 2px extra is to fix some cases in some resolutions where the scroll + client
+       * size is less than the scroll width even when the scroll is at the end.
+       */
+      function updateScrollPosition() {
+        if (scrollContainerRef.value) {
+          const { scrollLeft, clientWidth, scrollWidth } = scrollContainerRef.value;
+          isScrollAtStart.value = !scrollLeft;
+          isScrollAtEnd.value = scrollLeft + clientWidth + 2 >= scrollWidth;
+        }
+      }
 
-    /**
-     * When true, whenever the DOM content in the sliding panel slot changes, it will reset
-     * the scroll position to 0.
-     *
-     * @public
-     */
-    @Prop({ default: true })
-    public resetOnContentChange!: boolean;
+      /**
+       * Debounced version of the {@link SlidingPanel.updateScrollPosition} method.
+       */
+      const debouncedUpdateScroll = useDebounce(updateScrollPosition, 50, { leading: true });
 
-    /**
-     * Indicates if the scroll is at the start of the sliding panel.
-     *
-     * @internal
-     */
-    protected isScrollAtStart = true;
-
-    /**
-     * Indicates if the scroll is at the end of the sliding panel.
-     *
-     * @internal
-     */
-    protected isScrollAtEnd = true;
-
-    /**
-     * HTMLElement referencing the scroll of the component.
-     *
-     * @internal
-     */
-    public $refs!: {
-      scrollContainer: HTMLElement;
-    };
-
-    /**
-     * CSS classes to apply based on the scroll position.
-     *
-     * @returns The CSS classes to apply.
-     *
-     * @internal
-     */
-    protected get cssClasses(): VueCSSClasses {
-      return {
-        'x-sliding-panel-at-start': this.isScrollAtStart,
-        'x-sliding-panel-at-end': this.isScrollAtEnd
-      };
-    }
-
-    /**
-     * Initialises browser platform code:
-     * - Creates a mutation observer to detect content changes and reset scroll position.
-     * - Stores initial size and scroll position values.
-     *
-     * @internal
-     */
-    mounted(): void {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      const resizeObserver = new ResizeObserver(this.debouncedUpdateScrollPosition);
-      resizeObserver.observe(this.$el);
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      const contentChangedObserver = new MutationObserver(this.restoreAndUpdateScroll);
-      this.$watch(
-        () => this.resetOnContentChange,
-        shouldReset => {
-          if (shouldReset) {
-            contentChangedObserver.observe(this.$refs.scrollContainer, {
-              attributes: false,
-              childList: true,
-              subtree: true,
-              characterData: false
-            });
-          } else {
-            contentChangedObserver.disconnect();
-          }
+      /**
+       * Resets the scroll and updates the values of the scroll for the buttons to react.
+       */
+      const debouncedRestoreAndUpdateScroll = useDebounce(
+        () => {
+          scrollContainerRef.value!.scroll({ left: 0, behavior: 'smooth' });
+          updateScrollPosition();
         },
-        { immediate: true }
+        50,
+        { leading: true }
       );
-      this.$on('hook:beforeDestroy', () => {
+
+      /**
+       * Scrolls the wrapper element towards the provided scroll value.
+       *
+       * @param scrollValue - The value the scroll will go towards.
+       */
+      function scrollTo(scrollValue: number) {
+        scrollContainerRef.value!.scrollBy({
+          left: scrollValue * props.scrollFactor,
+          behavior: 'smooth'
+        });
+      }
+
+      /** Scrolls the wrapper element to the left. */
+      function scrollLeft() {
+        scrollTo(-scrollContainerRef.value!.clientWidth);
+      }
+
+      /** Scrolls the wrapper element to the right. */
+      function scrollRight() {
+        scrollTo(scrollContainerRef.value!.clientWidth);
+      }
+
+      /** CSS classes to apply based on the scroll position. */
+      const cssClasses = computed(() => ({
+        'x-sliding-panel-at-start': isScrollAtStart.value,
+        'x-sliding-panel-at-end': isScrollAtEnd.value
+      }));
+
+      let resizeObserver: ResizeObserver;
+      let contentChangedObserver: MutationObserver;
+
+      /**
+       * Initialises browser platform code:
+       * - Creates a mutation observer to detect content changes and reset scroll position.
+       * - Stores initial size and scroll position values.
+       */
+      onMounted(() => {
+        resizeObserver = new ResizeObserver(debouncedUpdateScroll);
+        resizeObserver.observe(scrollContainerRef.value!);
+        contentChangedObserver = new MutationObserver(debouncedRestoreAndUpdateScroll);
+
+        watch(
+          () => props.resetOnContentChange,
+          shouldReset => {
+            if (shouldReset) {
+              contentChangedObserver.observe(scrollContainerRef.value!, {
+                subtree: true,
+                childList: true,
+                attributes: false,
+                characterData: false
+              });
+            } else {
+              contentChangedObserver.disconnect();
+            }
+          },
+          { immediate: true }
+        );
+
+        updateScrollPosition();
+      });
+
+      onBeforeUnmount(() => {
         contentChangedObserver.disconnect();
         resizeObserver.disconnect();
       });
 
-      this.updateScrollPosition();
+      return {
+        cssClasses,
+        debouncedUpdateScroll,
+        scrollContainerRef,
+        scrollLeft,
+        scrollRight,
+        slots
+      };
     }
-
-    /**
-     * Resets the scroll and updates the values of the scroll for the buttons to react.
-     *
-     * @internal
-     */
-    @Debounce(50, { leading: true })
-    restoreAndUpdateScroll(): void {
-      this.$refs.scrollContainer.scroll({ left: 0, behavior: 'smooth' });
-      this.updateScrollPosition();
-    }
-
-    /**
-     * Updates the values of the scroll positions to show or hide the buttons depending on it.
-     *
-     * @internal
-     */
-    protected updateScrollPosition(): void {
-      if (this.$refs.scrollContainer !== undefined) {
-        const { scrollLeft, clientWidth, scrollWidth } = this.$refs.scrollContainer;
-        this.isScrollAtStart = !scrollLeft;
-        /* The 2 px extra is to fix some cases in some resolutions where the scroll + client size is
-         *  less than the scroll width even when the scroll is at the end */
-        this.isScrollAtEnd = scrollLeft + clientWidth + 2 >= scrollWidth;
-      }
-    }
-
-    /**
-     * Debounced version of the {@link SlidingPanel.updateScrollPosition}
-     * method.
-     *
-     * @internal
-     */
-    @Debounce(50, { leading: true })
-    debouncedUpdateScrollPosition(): void {
-      this.updateScrollPosition();
-    }
-
-    /**
-     * Scrolls the wrapper element to the left.
-     *
-     * @internal
-     */
-    protected scrollLeft(): void {
-      this.scrollTo(-this.$refs.scrollContainer.clientWidth);
-    }
-
-    /**
-     * Scrolls the wrapper element to the right.
-     *
-     * @internal
-     */
-    protected scrollRight(): void {
-      this.scrollTo(this.$refs.scrollContainer.clientWidth);
-    }
-
-    /**
-     * Scrolls the wrapper element towards the provided scroll value.
-     *
-     * @param scrollValue - The value the scroll will go towards.
-     *
-     * @internal
-     */
-    protected scrollTo(scrollValue: number): void {
-      this.$refs.scrollContainer.scrollBy({
-        left: scrollValue * this.scrollFactor,
-        behavior: 'smooth'
-      });
-    }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
