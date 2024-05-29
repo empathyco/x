@@ -37,8 +37,6 @@
     name: 'BaseHeaderTogglePanel',
     components: { BaseTogglePanel },
     props: {
-      /** Class inherited by content element. */
-      headerClass: String,
       /**
        * Animation component that will be used to animate the base-toggle-panel.
        *
@@ -50,7 +48,9 @@
        *
        * @public
        */
-      startCollapsed: { type: Boolean, default: false }
+      startCollapsed: { type: Boolean, default: false },
+      /** Class inherited by content element. */
+      headerClass: String
     },
     setup: function (props, { emit }) {
       /**

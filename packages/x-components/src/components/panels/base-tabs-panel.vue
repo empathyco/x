@@ -77,14 +77,6 @@
   export default defineComponent({
     name: 'BaseTabsPanel',
     props: {
-      /** Class inherited by content element. */
-      activeTabClass: String,
-      /** Class inherited by content element. */
-      contentClass: String,
-      /** Class inherited by content element. */
-      tabClass: String,
-      /** Class inherited by content element. */
-      tabsListClass: String,
       /**
        * Animation component that will be used to animate the tabs list.
        *
@@ -120,7 +112,15 @@
       allowTabDeselect: {
         type: Boolean,
         default: false
-      }
+      },
+      /** Class inherited by content element. */
+      activeTabClass: String,
+      /** Class inherited by content element. */
+      contentClass: String,
+      /** Class inherited by content element. */
+      tabClass: String,
+      /** Class inherited by content element. */
+      tabsListClass: String
     },
     setup: function (props, { slots }) {
       /**
