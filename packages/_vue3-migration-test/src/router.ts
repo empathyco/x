@@ -21,7 +21,8 @@ import {
   TestBaseVariableColumnGrid,
   TestEmpathize,
   TestUseLayouts,
-  TestSlidingPanel
+  TestSlidingPanel,
+  TestBaseSuggestions
 } from './';
 
 const routes = [
@@ -134,6 +135,11 @@ const routes = [
     path: '/test-use-layouts',
     name: 'TestUseLayouts',
     component: TestUseLayouts
+  },
+  {
+    path: '/base-suggestions',
+    name: 'BaseSuggestions',
+    component: TestBaseSuggestions
   }
 ];
 
