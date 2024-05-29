@@ -34,10 +34,10 @@
 </template>
 
 <script setup>
-  import BaseHeaderTogglePanel from '../../../x-components/src/components/panels/base-header-toggle-panel.vue';
-  import BaseIdTogglePanelButton from '../../../x-components/src/components/panels/base-id-toggle-panel-button.vue';
-  import BaseIdTogglePanel from '../../../x-components/src/components/panels/base-id-toggle-panel.vue';
-  import BaseTabsPanel from '../../../x-components/src/components/panels/base-tabs-panel.vue';
+  import BaseHeaderTogglePanel from '../../../../x-components/src/components/panels/base-header-toggle-panel.vue';
+  import BaseIdTogglePanelButton from '../../../../x-components/src/components/panels/base-id-toggle-panel-button.vue';
+  import BaseIdTogglePanel from '../../../../x-components/src/components/panels/base-id-toggle-panel.vue';
+  import BaseTabsPanel from '../../../../x-components/src/components/panels/base-tabs-panel.vue';
 </script>
 
 <style scoped></style>
