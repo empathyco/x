@@ -70,7 +70,7 @@
        *
        * @public
        */
-      const togglePanel = (panelId: string): void => {
+      const togglePanel = (panelId: string) => {
         if (props.panelId === panelId) {
           isOpen.value = !isOpen.value;
         }

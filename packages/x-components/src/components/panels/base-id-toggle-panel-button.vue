@@ -65,7 +65,7 @@
        * @param newState - The new isOpen state of the panel.
        * @param id - The `panelId`.
        */
-      const updatePanelState = (newState: boolean, { id }: WireMetadata): void => {
+      const updatePanelState = (newState: boolean, { id }: WireMetadata) => {
         if (props.panelId === id) {
           isPanelOpen.value = newState;
         }

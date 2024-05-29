@@ -65,7 +65,7 @@
        *
        * @internal
        */
-      const emitOpenStatusEvent = (): void => {
+      const emitOpenStatusEvent = () => {
         emit(open.value ? 'open' : 'close');
       };
 
@@ -74,7 +74,7 @@
        *
        * @internal
        */
-      const toggleOpen = (): void => {
+      const toggleOpen = () => {
         open.value = !open.value;
         emitOpenStatusEvent();
       };

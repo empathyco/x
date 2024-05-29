@@ -148,7 +148,7 @@
        *
        * @internal
        */
-      const selectTab = function (tab: string): void {
+      const selectTab = (tab: string) => {
         if (props.allowTabDeselect && selectedTab.value === tab) {
           selectedTab.value = '';
         } else {
