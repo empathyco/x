@@ -20,7 +20,7 @@
 
 <script lang="ts">
   import { computed, defineComponent, PropType } from 'vue';
-  import { Suggestion, Facet, Filter } from '@empathyco/x-types';
+  import { Suggestion, Facet } from '@empathyco/x-types';
   import { isArrayEmpty } from '../../utils/array';
   import { AnimationProp } from '../../types';
 
@@ -33,8 +33,6 @@
   export default defineComponent({
     name: 'BaseSuggestions',
     props: {
-      /** Class inherited by content element. */
-      suggestionItemClass: String,
       /**
        * The list of suggestions to render.
        *
@@ -77,7 +75,9 @@
       showPlainSuggestion: {
         type: Boolean,
         default: false
-      }
+      },
+      /** Class inherited by content element. */
+      suggestionItemClass: String
     },
     setup: function (props) {
       /**
@@ -106,7 +106,7 @@
        *
        * @internal
        */
-      const suggestionsToRender = computed((): Suggestion[] =>
+      const suggestionsToRender = computed(() =>
         props.suggestions
           .flatMap(suggestion =>
             props.showFacets && suggestion.facets?.length
@@ -157,8 +157,7 @@
        * @returns The suggestion filter.
        * @internal
        */
-      const getSuggestionFilter = (suggestion: Suggestion): Filter | undefined =>
-        suggestion.facets?.[0]?.filters[0];
+      const getSuggestionFilter = (suggestion: Suggestion) => suggestion.facets?.[0]?.filters[0];
 
       return { suggestionsToRender, suggestionsKeys, getSuggestionFilter };
     }
