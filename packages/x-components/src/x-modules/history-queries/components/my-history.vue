@@ -59,7 +59,7 @@
 <script lang="ts">
   import { HistoryQuery as HistoryQueryType } from '@empathyco/x-types';
   import { Dictionary } from '@empathyco/x-utils';
-  import { computed, defineComponent, inject } from 'vue';
+  import { computed, ComputedRef, defineComponent, inject } from 'vue';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { groupItemsBy, isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
@@ -117,7 +117,9 @@
        *
        * @internal
        */
-      const historyQueries = useState('historyQueries', ['historyQueries']).historyQueries;
+      const historyQueries: ComputedRef<HistoryQueryType[]> = useState('historyQueries', [
+        'historyQueries'
+      ]).historyQueries;
 
       /**
        * The provided {@link SnippetConfig}.

@@ -3,7 +3,8 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from 'vue';
+  import { computed, ComputedRef, defineComponent } from 'vue';
+  import { HistoryQuery } from '@empathyco/x-types';
   import BaseSwitch from '../../../components/base-switch.vue';
   import { historyQueriesXModule } from '../x-module';
   import { isArrayEmpty } from '../../../utils/array';
@@ -38,7 +39,9 @@
       /**
        * The history queries from the state.
        */
-      const historyQueries = useState('historyQueries', ['historyQueries']).historyQueries;
+      const historyQueries: ComputedRef<HistoryQuery[] | undefined> = useState('historyQueries', [
+        'historyQueries'
+      ]).historyQueries;
 
       /**
        * Checks if there are history queries.
