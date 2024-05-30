@@ -42,7 +42,7 @@
 
     <component :is="contentAnimation">
       <div
-        v-if="selectedTab && $scopedSlots[selectedTab]"
+        v-if="selectedTab && $slots[selectedTab]"
         :key="selectedTab"
         :class="contentClass"
         :aria-labelledby="`base-tabs-panel-${selectedTab}`"
