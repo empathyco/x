@@ -22,6 +22,7 @@ import {
   TestEmpathize,
   TestUseLayouts,
   TestSlidingPanel,
+  TestBaseSuggestions,
   TestBasePanel
 } from './';
 
@@ -135,6 +136,11 @@ const routes = [
     path: '/test-use-layouts',
     name: 'TestUseLayouts',
     component: TestUseLayouts
+  },
+  {
+    path: '/base-suggestions',
+    name: 'BaseSuggestions',
+    component: TestBaseSuggestions
   },
   {
     path: '/test-base-panel',

@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType, ref } from 'vue';
+  import { defineComponent, PropType, ref } from 'vue';
   import { NoElement } from '../../../components/no-element';
   import { useDebounce } from '../../../composables/use-debounce';
   import { useRegisterXModule } from '../../../composables/use-register-x-module';
@@ -64,7 +64,7 @@
       const empathizeRef = ref<HTMLDivElement>();
 
       const isOpen = ref(false);
-      const hasContent = computed(() => !!empathizeRef.value?.children.length);
+      const hasContent = ref(!!empathizeRef.value?.children.length);
 
       /**
        * Changes the state of {@link Empathize.isOpen} assigning to it the value of `newOpen`
@@ -87,6 +87,7 @@
        * element.
        */
       function open() {
+        hasContent.value = !!empathizeRef.value?.children.length;
         if (hasContent.value) {
           changeOpen(true);
         }

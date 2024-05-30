@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.24...@empathyco/x-components@5.0.0-alpha.25) (2024-05-29)
+
+
+### Features
+
+* migrate base suggestions component to composition API ([34bd833](https://github.com/empathyco/x/commit/34bd833e58f9b5f559df17ec2781e529476cdda8))
+
+
+### Bug Fixes
+
+* build ([f3b6ea9](https://github.com/empathyco/x/commit/f3b6ea91039dcfb1a2d2a50977b65aec7c5cd4c8))
+* fix type of prop ([fbfca6f](https://github.com/empathyco/x/commit/fbfca6f09f3d5145f87b4a2b7f6e4f7084468996))
+
+
+### Code Refactoring
+
+* use implicit return ([99dce8d](https://github.com/empathyco/x/commit/99dce8d461c0b966fabca4ef61ced10ab44b20e2))
+* use implicit return ([4405835](https://github.com/empathyco/x/commit/440583514bf78eae6b8531d89ef28a22718831ea))
+
+
+
+## [5.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.23...@empathyco/x-components@5.0.0-alpha.24) (2024-05-29)
+
+
+### Bug Fixes
+
+* handle dynamic content in empathize (#1492) ([db082ef](https://github.com/empathyco/x/commit/db082efdcfa6fda3863a344f884cd05848bac97d))
+
+
+
 ## [5.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.22...@empathyco/x-components@5.0.0-alpha.23) (2024-05-28)
 
 
