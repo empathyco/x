@@ -32,14 +32,10 @@
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
-  import Highlight from '../../../components/highlight.vue';
+  import { defineComponent } from 'vue';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
-  import { Getter } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { querySuggestionsXModule } from '../x-module';
+  import { useGetter, useRegisterXModule } from '../../../composables';
   import QuerySuggestion from './query-suggestion.vue';
 
   /**
@@ -49,20 +45,24 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'QuerySuggestions',
+    components: { BaseSuggestions, QuerySuggestion },
     inheritAttrs: false,
-    components: { Highlight, BaseSuggestions, QuerySuggestion },
-    mixins: [xComponentMixin(querySuggestionsXModule)]
-  })
-  export default class QuerySuggestions extends Vue {
-    /**
-     * The module's list of suggestions.
-     *
-     * @internal
-     */
-    @Getter('querySuggestions', 'querySuggestions')
-    public suggestions!: Suggestion[];
-  }
+    xModule: querySuggestionsXModule.name,
+    setup: function () {
+      useRegisterXModule(querySuggestionsXModule);
+
+      /**
+       * The module's list of suggestions.
+       *
+       * @internal
+       */
+      const suggestions = useGetter('querySuggestions', ['querySuggestions']).querySuggestions;
+
+      return { suggestions };
+    }
+  });
 </script>
 
 <docs lang="mdx">
