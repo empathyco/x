@@ -67,7 +67,7 @@
        * @public
        */
       resetOn: {
-        type: Array as PropType<XEvent | XEvent[]>,
+        type: [String, Array] as PropType<XEvent | XEvent[]>,
         default: () => [
           'SearchBoxQueryChanged',
           'SortChanged',
