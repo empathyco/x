@@ -3,14 +3,11 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
-  import { HistoryQuery } from '@empathyco/x-types';
+  import { computed, defineComponent } from 'vue';
   import BaseSwitch from '../../../components/base-switch.vue';
-  import { State } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { historyQueriesXModule } from '../x-module';
   import { isArrayEmpty } from '../../../utils/array';
+  import { use$x, useRegisterXModule, useState } from '../../../composables/index';
 
   /**
    * History Queries Switch is a component to activate or deactivate the history queries.
@@ -18,49 +15,57 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(historyQueriesXModule)],
-    components: { BaseSwitch }
-  })
-  export default class HistoryQueriesSwitch extends Vue {
-    /**
-     * A boolean with the isEnabled value coming from the store state.
-     *
-     * @internal
-     */
-    @State('historyQueries', 'isEnabled')
-    public isEnabled!: boolean;
+  export default defineComponent({
+    name: 'HistoryQueriesSwitch',
+    xModule: historyQueriesXModule.name,
+    components: {
+      BaseSwitch
+    },
+    setup() {
+      useRegisterXModule(historyQueriesXModule);
 
-    /**
-     * The history queries from the state.
-     */
-    @State('historyQueries', 'historyQueries')
-    public historyQueries!: HistoryQuery[];
+      const $x = use$x();
 
-    /**
-     * Checks if there are history queries.
-     *
-     * @returns True if there are history queries; false otherwise.
-     */
-    protected get hasHistoryQueries(): boolean {
-      return !isArrayEmpty(this.historyQueries);
+      /**
+       * A boolean with the isEnabled value coming from the store state.
+       *
+       * @internal
+       */
+      const isEnabled = useState('historyQueries', ['isEnabled']).isEnabled;
+
+      /**
+       * The history queries from the state.
+       */
+      const historyQueries = useState('historyQueries', ['historyQueries']).historyQueries;
+
+      /**
+       * Checks if there are history queries.
+       *
+       * @returns True if there are history queries; false otherwise.
+       */
+      const hasHistoryQueries = computed(() => !isArrayEmpty(historyQueries.value));
+
+      /**
+       * Emits an event based on the switch state.
+       *
+       * @internal
+       */
+      const toggle = (): void => {
+        $x.emit(
+          isEnabled.value
+            ? hasHistoryQueries.value
+              ? 'UserClickedDisableHistoryQueries'
+              : 'UserClickedConfirmDisableHistoryQueries'
+            : 'UserClickedEnableHistoryQueries'
+        );
+      };
+
+      return {
+        toggle,
+        isEnabled
+      };
     }
-
-    /**
-     * Emits an event based on the switch state.
-     *
-     * @internal
-     */
-    protected toggle(): void {
-      this.$x.emit(
-        this.isEnabled
-          ? this.hasHistoryQueries
-            ? 'UserClickedDisableHistoryQueries'
-            : 'UserClickedConfirmDisableHistoryQueries'
-          : 'UserClickedEnableHistoryQueries'
-      );
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">

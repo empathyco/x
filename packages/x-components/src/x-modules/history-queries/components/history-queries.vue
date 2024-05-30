@@ -47,13 +47,10 @@
 </template>
 
 <script lang="ts">
-  import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
-  import { Getter } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { historyQueriesXModule } from '../x-module';
+  import { useGetter, useRegisterXModule } from '../../../composables/index';
   import HistoryQuery from './history-query.vue';
 
   /**
@@ -63,20 +60,31 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'HistoryQueries',
+    xModule: historyQueriesXModule.name,
+    components: {
+      BaseSuggestions,
+      HistoryQuery
+    },
     inheritAttrs: false,
-    components: { BaseSuggestions, HistoryQuery },
-    mixins: [xComponentMixin(historyQueriesXModule)]
-  })
-  export default class HistoryQueries extends Vue {
-    /**
-     * The filtered list of history queries.
-     *
-     * @internal
-     */
-    @Getter('historyQueries', 'historyQueriesWithResults')
-    public historyQueries!: HistoryQueryModel[];
-  }
+    setup() {
+      useRegisterXModule(historyQueriesXModule);
+
+      /**
+       * The filtered list of history queries.
+       *
+       * @internal
+       */
+      const historyQueries = useGetter('historyQueries', [
+        'historyQueriesWithResults'
+      ]).historyQueriesWithResults;
+
+      return {
+        historyQueries
+      };
+    }
+  });
 </script>
 
 <!--eslint-disable max-len -->

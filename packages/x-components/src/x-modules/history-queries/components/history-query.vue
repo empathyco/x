@@ -7,7 +7,7 @@
       @property {MouseEvent} event - The original mouse event
     -->
     <BaseSuggestion
-      @click="$emit('click', suggestion, $event)"
+      @click="clickHistoryQuery"
       class="x-history-query__suggestion"
       :class="suggestionClass"
       v-bind="{ suggestion, suggestionSelectedEvents, query }"
@@ -40,14 +40,11 @@
 
 <script lang="ts">
   import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
-  import { Component, Mixins, Prop } from 'vue-property-decorator';
-  import { Getter } from '../../../components/decorators/store.decorators';
-  import Highlight from '../../../components/highlight.vue';
+  import { computed, defineComponent, PropType } from 'vue';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';
-  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
+  import { useGetter, useRegisterXModule } from '../../../composables/index';
   import RemoveHistoryQuery from './remove-history-query.vue';
 
   /**
@@ -57,41 +54,57 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(historyQueriesXModule)],
-    components: { Highlight, RemoveHistoryQuery, BaseSuggestion }
-  })
-  export default class HistoryQuery extends Mixins(
-    dynamicPropsMixin(['removeButtonClass', 'suggestionClass'])
-  ) {
-    /**
-     * The history query suggestion to render.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected suggestion!: HistoryQueryModel;
+  export default defineComponent({
+    name: 'HistoryQuery',
+    xModule: historyQueriesXModule.name,
+    components: { RemoveHistoryQuery, BaseSuggestion },
+    props: {
+      /**
+       * The history query suggestion to render.
+       *
+       * @public
+       */
+      suggestion: {
+        type: Object as PropType<HistoryQueryModel>,
+        required: true
+      },
+      /** Class inherited by content element. */
+      removeButtonClass: String,
+      /** Class inherited by content element. */
+      suggestionClass: String
+    },
+    emits: ['click'],
+    setup(props, { emit }) {
+      useRegisterXModule(historyQueriesXModule);
 
-    /**
-     * The normalized query of the history-queries module.
-     *
-     * @internal
-     */
-    @Getter('historyQueries', 'normalizedQuery')
-    public query!: string;
+      /**
+       * The normalized query of the history-queries module.
+       *
+       * @internal
+       */
+      const query = useGetter('historyQueries', ['normalizedQuery']).normalizedQuery;
 
-    /**
-     * The list of events that are going to be emitted when the suggestion button is pressed.
-     *
-     * @internal
-     * @returns The {@link XEvent} to emit.
-     */
-    protected get suggestionSelectedEvents(): Partial<XEventsTypes> {
+      /**
+       * The list of events that are going to be emitted when the suggestion button is pressed.
+       *
+       * @internal
+       * @returns The {@link XEvent} to emit.
+       */
+      const suggestionSelectedEvents = computed((): Partial<XEventsTypes> => {
+        return {
+          UserSelectedAHistoryQuery: props.suggestion
+        };
+      });
+
+      const clickHistoryQuery = () => emit('click', props.suggestion, event);
+
       return {
-        UserSelectedAHistoryQuery: this.suggestion
+        query,
+        suggestionSelectedEvents,
+        clickHistoryQuery
       };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
