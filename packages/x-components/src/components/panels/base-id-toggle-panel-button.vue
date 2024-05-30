@@ -54,9 +54,9 @@
        *
        * @internal
        */
-      const events = computed((): Partial<XEventsTypes> => {
-        return { UserClickedPanelToggleButton: props.panelId };
-      });
+      const events = computed(
+        (): Partial<XEventsTypes> => ({ UserClickedPanelToggleButton: props.panelId })
+      );
 
       /**
        * The subscription to the {@link XEventsTypes.TogglePanelStateChanged} event
