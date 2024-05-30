@@ -65,7 +65,8 @@
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { historyQueriesXModule } from '../x-module';
   import { AnimationProp } from '../../../types/index';
-  import { useRegisterXModule, useState } from '../../../composables/index';
+  import { useState } from '../../../composables/use-state';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import HistoryQueryComponent from './history-query.vue';
 
   /**

@@ -50,7 +50,8 @@
   import { defineComponent } from 'vue';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { historyQueriesXModule } from '../x-module';
-  import { useGetter, useRegisterXModule } from '../../../composables/index';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useGetter } from '../../../composables/use-getter';
   import HistoryQuery from './history-query.vue';
 
   /**

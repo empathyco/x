@@ -7,7 +7,9 @@
   import BaseSwitch from '../../../components/base-switch.vue';
   import { historyQueriesXModule } from '../x-module';
   import { isArrayEmpty } from '../../../utils/array';
-  import { use$x, useRegisterXModule, useState } from '../../../composables/index';
+  import { use$x } from '../../../composables/use-$x';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
 
   /**
    * History Queries Switch is a component to activate or deactivate the history queries.

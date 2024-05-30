@@ -44,7 +44,8 @@
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';
-  import { useGetter, useRegisterXModule } from '../../../composables/index';
+  import { useGetter } from '../../../composables/use-getter';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import RemoveHistoryQuery from './remove-history-query.vue';
 
   /**

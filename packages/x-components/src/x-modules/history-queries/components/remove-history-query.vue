@@ -15,7 +15,7 @@
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';
-  import { useRegisterXModule } from '../../../composables/index';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
 
   /**
    * Button that when it is pressed emits the

@@ -18,7 +18,8 @@
   import { VueCSSClasses } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';
-  import { useRegisterXModule, useState } from '../../../composables/index';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
 
   /**
    * A button that when is pressed, emits the
