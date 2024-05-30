@@ -2,6 +2,7 @@ import { XComponentsAdapter } from '@empathyco/x-types';
 import { Component, configureCompat, createApp } from 'vue';
 import { createStore } from 'vuex';
 import { xPlugin } from '../../x-components/src/plugins/x-plugin';
+import { getQuerySuggestionsStub } from '../../x-components/src/__stubs__/query-suggestions-stubs.factory';
 import App from './App.vue';
 import router from './router';
 import { facetsXModule, nextQueriesXModule, scrollXModule, searchXModule } from './';
@@ -26,7 +27,14 @@ if (VUE_COMPAT_MODE === 2) {
   });
 }
 
-const adapter = {} as XComponentsAdapter;
+const adapter = {
+  querySuggestions: request => {
+    return new Promise(resolve => {
+      const suggestions = getQuerySuggestionsStub(request.query, 5);
+      resolve({ suggestions });
+    });
+  }
+} as XComponentsAdapter;
 
 const store = createStore({});
 
