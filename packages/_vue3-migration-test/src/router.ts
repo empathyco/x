@@ -23,6 +23,7 @@ import {
   TestUseLayouts,
   TestSlidingPanel,
   TestBaseSuggestions,
+  TestHighlight,
   TestBasePanel
 } from './';
 
@@ -141,6 +142,11 @@ const routes = [
     path: '/base-suggestions',
     name: 'BaseSuggestions',
     component: TestBaseSuggestions
+  },
+  {
+    path: '/highlight',
+    name: 'Highlight',
+    component: TestHighlight
   },
   {
     path: '/test-base-panel',

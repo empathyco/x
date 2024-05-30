@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.26...@empathyco/x-components@5.0.0-alpha.27) (2024-05-30)
+
+
+### Features
+
+* **highlight:** migrate highlight component to composition API (#1486) ([10dd541](https://github.com/empathyco/x/commit/10dd5417f861d6e1152483abbd510059d2917f48))
+
+
+
+## [5.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.25...@empathyco/x-components@5.0.0-alpha.26) (2024-05-30)
+
+
+### Bug Fixes
+
+* **animation:** fix Expected Object, got Function on animations props (#1489) ([4467edc](https://github.com/empathyco/x/commit/4467edcb08c8d4f59044209d0f9a800745f6d6af))
+
+
+
 ## [5.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.24...@empathyco/x-components@5.0.0-alpha.25) (2024-05-29)
 
 

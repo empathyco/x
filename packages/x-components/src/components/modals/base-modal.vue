@@ -31,16 +31,10 @@
 </template>
 
 <script lang="ts">
-  import Vue, {
-    defineComponent,
-    nextTick,
-    onBeforeUnmount,
-    onMounted,
-    PropType,
-    ref,
-    watch
-  } from 'vue';
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  import Vue, { defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
   import { useDebounce } from '../../composables/use-debounce';
+  import { AnimationProp } from '../../types';
   import { getTargetElement } from '../../utils/html';
   import Fade from '../animations/fade.vue';
   import { NoElement } from '../no-element';
@@ -77,7 +71,7 @@
       referenceSelector: String,
       /** Animation to use for opening/closing the modal.This animation only affects the content. */
       animation: {
-        type: Object as PropType<string | typeof Vue>,
+        type: AnimationProp,
         default: () => NoElement
       },
       /**
@@ -85,7 +79,7 @@
        * a fade transition.
        */
       overlayAnimation: {
-        type: Object as PropType<string | typeof Vue>,
+        type: AnimationProp,
         default: () => Fade
       },
       /** Class inherited by content element. */

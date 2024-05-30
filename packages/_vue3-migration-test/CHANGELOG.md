@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.19](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.18...vue3-migration-test@1.0.0-alpha.19) (2024-05-30)
+
+
+### Features
+
+* **highlight:** migrate highlight component to composition API (#1486) ([10dd541](https://github.com/empathyco/x/commit/10dd5417f861d6e1152483abbd510059d2917f48))
+
+
+
 ## [1.0.0-alpha.18](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.17...vue3-migration-test@1.0.0-alpha.18) (2024-05-29)
 
 
