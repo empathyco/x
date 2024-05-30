@@ -7,7 +7,7 @@
       @property {MouseEvent} event - The original mouse event
     -->
     <BaseSuggestion
-      @click="clickHistoryQuery"
+      @click="$emit('click', suggestion, $event)"
       class="x-history-query__suggestion"
       :class="suggestionClass"
       v-bind="{ suggestion, suggestionSelectedEvents, query }"
@@ -75,7 +75,7 @@
       suggestionClass: String
     },
     emits: ['click'],
-    setup(props, { emit }) {
+    setup(props) {
       useRegisterXModule(historyQueriesXModule);
 
       /**
@@ -97,12 +97,9 @@
         };
       });
 
-      const clickHistoryQuery = () => emit('click', props.suggestion, event);
-
       return {
         query,
-        suggestionSelectedEvents,
-        clickHistoryQuery
+        suggestionSelectedEvents
       };
     }
   });

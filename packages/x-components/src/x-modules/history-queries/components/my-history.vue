@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts">
-  import { HistoryQuery } from '@empathyco/x-types';
+  import { HistoryQuery as HistoryQueryType } from '@empathyco/x-types';
   import { Dictionary } from '@empathyco/x-utils';
   import { computed, defineComponent, inject } from 'vue';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
@@ -67,7 +67,7 @@
   import { AnimationProp } from '../../../types/index';
   import { useState } from '../../../composables/use-state';
   import { useRegisterXModule } from '../../../composables/use-register-x-module';
-  import HistoryQueryComponent from './history-query.vue';
+  import HistoryQuery from './history-query.vue';
 
   /**
    * The component renders the full history of user searched queries grouped by the day
@@ -84,7 +84,7 @@
     name: 'MyHistory',
     xModule: historyQueriesXModule.name,
     components: {
-      HistoryQuery: HistoryQueryComponent,
+      HistoryQuery,
       BaseSuggestions
     },
     props: {
@@ -158,7 +158,7 @@
        * @returns The history queries grouped by date.
        * @internal
        */
-      const groupByDate = computed((): Dictionary<HistoryQuery[]> => {
+      const groupByDate = computed((): Dictionary<HistoryQueryType[]> => {
         return groupItemsBy(historyQueries.value, current => {
           return new Date(current.timestamp).toLocaleDateString(usedLocale.value, {
             day: 'numeric',
