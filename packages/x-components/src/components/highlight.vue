@@ -27,11 +27,10 @@
 </template>
 
 <script lang="ts">
-  import { Component, Mixins, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent } from 'vue';
   import { normalizeString } from '../utils/normalize';
   import { VueCSSClasses } from '../utils/types';
   import { NoElement } from './no-element';
-  import { dynamicPropsMixin } from './dynamic-props.mixin';
 
   /**
    * Highlights the given part of the text. The component is smart enough to do matches
@@ -39,101 +38,121 @@
    *
    * @public
    */
-  @Component({
-    components: { NoElement }
-  })
-  export default class Highlight extends Mixins(
-    dynamicPropsMixin(['noMatchClass', 'matchingPartClass'])
-  ) {
-    /**
-     * The text to highlight some part of it.
-     *
-     * @public
-     */
-    @Prop({ default: '' })
-    public text!: string;
-
-    /**
-     * The part of the text to be highlighted.
-     *
-     * @public
-     */
-    @Prop({ default: '' })
-    public highlight!: string;
-
-    /**
-     * CSS Class to add when the `text` string contains the `highlight` string.
-     */
-    @Prop({ default: '' })
-    public matchClass!: string;
-
-    /**
-     * Checks if the normalized suggestion query matches with the module's query, so it has a
-     * matching part.
-     *
-     * @returns True if there is a match between the text and the highlight strings.
-     * @internal
-     */
-    protected get hasMatch(): boolean {
-      return !!this.matchParts.match;
-    }
-
-    /**
-     * CSS classes to add depending on the component state.
-     *
-     * @remarks
-     * `x-highlight--has-match`: When there is a match between the text and the part to highlight.
-     * `[matchClass]`: When there is a match between the text and
-     * the part to highlight.
-     * `[noMatchClass]`: when there is no match between the text to highlight.
-     * @returns The {@link VueCSSClasses} classes.
-     * @internal
-     */
-    protected get dynamicCSSClasses(): VueCSSClasses {
-      const classes: VueCSSClasses = {
-        'x-highlight--has-match': this.hasMatch,
-        'x-highlight-text': this.hasMatch,
-        [this.matchClass]: this.hasMatch
-      };
-      if (this.noMatchClass) {
-        classes[this.noMatchClass] = !this.hasMatch;
+  export default defineComponent({
+    name: 'Highlight',
+    components: { NoElement },
+    props: {
+      /**
+       * The text to highlight some part of it.
+       *
+       * @public
+       */
+      text: {
+        type: String,
+        default: ''
+      },
+      /**
+       * The part of the text to be highlighted.
+       *
+       * @public
+       */
+      highlight: {
+        type: String,
+        default: ''
+      },
+      /**
+       * CSS Class to add when the `text` string contains the `highlight` string.
+       */
+      matchClass: {
+        type: String,
+        default: ''
+      },
+      /**
+       * CSS Class to add when the given `text` doesn't contain the `highlight` string.
+       */
+      noMatchClass: {
+        type: String,
+        default: ''
+      },
+      /**
+       * CSS Class to add to the matching text.
+       */
+      matchingPartClass: {
+        type: String,
+        default: ''
       }
-      return classes;
-    }
+    },
+    setup: function (props) {
+      /**
+       * Splits the text to highlight into 3 parts: a starting part, the matching part
+       * and the ending part. If there is no match between the text and the highlight, the `start`
+       * property will contain the whole text.
+       *
+       * @returns An object containing the different parts of the text.
+       * @internal
+       */
+      const matchParts = computed((): HighlightMatch => {
+        const matcherIndex = normalizeString(props.text).indexOf(normalizeString(props.highlight));
+        return matcherIndex !== -1 && props.highlight
+          ? splitAt(props.text.trim(), matcherIndex, matcherIndex + props.highlight.trim().length)
+          : { start: props.text, match: '', end: '' };
+      });
 
-    /**
-     * Splits the text to highlight into 3 parts: a starting part, the matching part
-     * and the ending part. If there is no match between the text and the highlight, the `start`
-     * property will contain the whole text.
-     *
-     * @returns An object containing the different parts of the text.
-     * @internal
-     */
-    protected get matchParts(): HighlightMatch {
-      const matcherIndex = normalizeString(this.text).indexOf(normalizeString(this.highlight));
-      return matcherIndex !== -1 && this.highlight
-        ? this.splitAt(this.text.trim(), matcherIndex, matcherIndex + this.highlight.trim().length)
-        : { start: this.text, match: '', end: '' };
-    }
+      /**
+       * Checks if the normalized suggestion query matches with the module's query, so it has a
+       * matching part.
+       *
+       * @returns True if there is a match between the text and the highlight strings.
+       * @internal
+       */
+      const hasMatch = computed((): boolean => {
+        return !!matchParts.value.match;
+      });
 
-    /**
-     * Splits the label in three parts based on two indexes.
-     *
-     * @param label - The string that will be divided in three parts.
-     * @param start - The first index that the label will be divided by.
-     * @param end - The second index that the label will be divided by.
-     *
-     * @returns The three parts of the divided label.
-     * @internal
-     */
-    protected splitAt(label: string, start: number, end: number): HighlightMatch {
-      return {
-        start: label.substring(0, start),
-        match: label.substring(start, end),
-        end: label.substring(end)
-      };
+      /**
+       * CSS classes to add depending on the component state.
+       *
+       * @remarks
+       * `x-highlight--has-match`: When there is a match between the text and the part to highlight.
+       * `[matchClass]`: When there is a match between the text and
+       * the part to highlight.
+       * `[noMatchClass]`: when there is no match between the text to highlight.
+       * @returns The {@link VueCSSClasses} classes.
+       * @internal
+       */
+      const dynamicCSSClasses = computed((): VueCSSClasses => {
+        const classes: VueCSSClasses = {
+          'x-highlight--has-match': hasMatch.value,
+          'x-highlight-text': hasMatch.value,
+          [props.matchClass]: hasMatch.value
+        };
+        if (props.noMatchClass) {
+          classes[props.noMatchClass] = !hasMatch.value;
+        }
+        return classes;
+      });
+
+      /**
+       * Splits the label in three parts based on two indexes.
+       *
+       * @param label - The string that will be divided in three parts.
+       * @param start - The first index that the label will be divided by.
+       * @param end - The second index that the label will be divided by.
+       *
+       * @returns The three parts of the divided label.
+       * @internal
+       */
+      function splitAt(label: string, start: number, end: number): HighlightMatch {
+        return {
+          start: label.substring(0, start),
+          match: label.substring(start, end),
+          end: label.substring(end)
+        };
+      }
+
+      return { hasMatch, matchParts, dynamicCSSClasses };
     }
-  }
+  });
 
   /**
    * Contains the different parts of a string match.

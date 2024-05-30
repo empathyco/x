@@ -8,3 +8,4 @@ export { default as TestBaseVariableColumnGrid } from './test-base-variable-colu
 export { default as TestSlidingPanel } from './test-sliding-panel.vue';
 export { default as TestUseLayouts } from './test-use-layouts.vue';
 export { default as TestBaseSuggestions } from './suggestions/test-base-suggestions.vue';
+export { default as TestHighlight } from './test-highlight.vue';
