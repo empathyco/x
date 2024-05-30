@@ -24,6 +24,7 @@ import {
   TestSlidingPanel,
   TestBaseSuggestions,
   TestHighlight,
+  TestBaseResultImages,
   TestQuerySuggestions
 } from './';
 
@@ -147,6 +148,11 @@ const routes = [
     path: '/highlight',
     name: 'Highlight',
     component: TestHighlight
+  },
+  {
+    path: '/base-result-images',
+    name: 'BaseResultImages',
+    component: TestBaseResultImages
   },
   {
     path: '/query-suggestions',
