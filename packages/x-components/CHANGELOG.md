@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.26...@empathyco/x-components@5.0.0-alpha.27) (2024-05-30)
+
+
+### Features
+
+* **highlight:** migrate highlight component to composition API (#1486) ([10dd541](https://github.com/empathyco/x/commit/10dd5417f861d6e1152483abbd510059d2917f48))
+
+
+
 ## [5.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.25...@empathyco/x-components@5.0.0-alpha.26) (2024-05-30)
 
 
