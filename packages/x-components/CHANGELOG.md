@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.28...@empathyco/x-components@5.0.0-alpha.29) (2024-05-31)
+
+
+### Features
+
+* **keyboard-navigation:** migrate keyboard-navigation component to composition API (#1493) ([4cf31c9](https://github.com/empathyco/x/commit/4cf31c9df4b751514deaaef4c9abfe4ee5ddfc40))
+
+
+
 ## [5.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.27...@empathyco/x-components@5.0.0-alpha.28) (2024-05-31)
 
 

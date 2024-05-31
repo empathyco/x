@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.21](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.20...vue3-migration-test@1.0.0-alpha.21) (2024-05-31)
+
+
+### Features
+
+* **keyboard-navigation:** migrate keyboard-navigation component to composition API (#1493) ([4cf31c9](https://github.com/empathyco/x/commit/4cf31c9df4b751514deaaef4c9abfe4ee5ddfc40))
+
+
+
 ## [1.0.0-alpha.20](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.19...vue3-migration-test@1.0.0-alpha.20) (2024-05-31)
 
 
