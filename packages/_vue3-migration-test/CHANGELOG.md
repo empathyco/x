@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.20](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.19...vue3-migration-test@1.0.0-alpha.20) (2024-05-31)
+
+
+### Features
+
+* **panels:** migrate `base-panels` components to composition api (#1491) ([077ad4d](https://github.com/empathyco/x/commit/077ad4d1bcc1dcf0ae2e16a02f1ac073481a1892))
+* **result-images:** migrate result images components to composition API (#1496) ([624fb45](https://github.com/empathyco/x/commit/624fb459e71b3c0905e53ba70c1a3a15f581a0fc))
+
+
+
 ## [1.0.0-alpha.19](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.18...vue3-migration-test@1.0.0-alpha.19) (2024-05-30)
 
 
