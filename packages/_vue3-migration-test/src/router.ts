@@ -26,7 +26,8 @@ import {
   TestHighlight,
   TestBaseResultImages,
   TestBasePanel,
-  TestBaseKeyboardNavigation
+  TestBaseKeyboardNavigation,
+  TestBaseIdModal
 } from './';
 
 const routes = [
@@ -164,6 +165,11 @@ const routes = [
     path: '/base-keyboard-navigation',
     name: 'TestBaseKeyboardNavigation',
     component: TestBaseKeyboardNavigation
+  },
+  {
+    path: '/test-base-id-modal',
+    name: 'TestBaseIdModal',
+    component: TestBaseIdModal
   }
 ];
 
