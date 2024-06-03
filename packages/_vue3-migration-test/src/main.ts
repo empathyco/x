@@ -30,8 +30,7 @@ if (VUE_COMPAT_MODE === 2) {
 const adapter = {
   querySuggestions: request => {
     return new Promise(resolve => {
-      const suggestions = getQuerySuggestionsStub(request.query, 5);
-      resolve({ suggestions });
+      resolve({ suggestions: getQuerySuggestionsStub(request.query, 5) });
     });
   }
 } as XComponentsAdapter;
