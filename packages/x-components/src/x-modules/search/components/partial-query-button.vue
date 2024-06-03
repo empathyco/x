@@ -1,5 +1,6 @@
 <template>
   <button
+    ref="partialButtonEl"
     @click="emitEvents"
     class="x-partial-query-button x-button"
     data-test="partial-query-button"
@@ -9,11 +10,11 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { defineComponent, ref } from 'vue';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchXModule } from '../x-module';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { use$x } from '../../../composables/use-$x';
 
   /**
    * A button that when pressed emits the {@link XEventsTypes.UserAcceptedAQuery}
@@ -22,41 +23,54 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(searchXModule)]
-  })
-  export default class PartialQueryButton extends Vue {
-    /**
-     * The query property.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public query!: string;
+  export default defineComponent({
+    name: 'PartialQueryButton',
+    xModule: searchXModule.name,
+    props: {
+      /**
+       * The query property.
+       *
+       * @public
+       */
+      query: {
+        type: String,
+        required: true
+      }
+    },
+    setup(props) {
+      useRegisterXModule(searchXModule);
 
-    /**
-     * Generates the {@link WireMetadata} object omitting the moduleName.
-     *
-     * @returns The {@link WireMetadata} object omitting the moduleName.
-     * @internal
-     */
-    protected createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
-      return {
-        target: this.$el as HTMLElement,
+      const $x = use$x();
+
+      const partialButtonEl = ref<HTMLElement>();
+
+      /**
+       * Generates the {@link WireMetadata} object omitting the moduleName.
+       *
+       * @returns The {@link WireMetadata} object omitting the moduleName.
+       * @internal
+       */
+      const createEventMetadata = (): Omit<WireMetadata, 'moduleName'> => ({
+        target: partialButtonEl.value as HTMLElement,
         feature: 'partial_result'
+      });
+
+      /**
+       * Emits events when the button is clicked.
+       *
+       * @public
+       */
+      const emitEvents = () => {
+        $x.emit('UserAcceptedAQuery', props.query, createEventMetadata());
+        $x.emit('UserClickedPartialQuery', props.query, createEventMetadata());
+      };
+
+      return {
+        emitEvents,
+        partialButtonEl
       };
     }
-
-    /**
-     * Emits events when the button is clicked.
-     *
-     * @public
-     */
-    protected emitEvents(): void {
-      this.$x.emit('UserAcceptedAQuery', this.query, this.createEventMetadata());
-      this.$x.emit('UserClickedPartialQuery', this.query, this.createEventMetadata());
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">
