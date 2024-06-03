@@ -1,5 +1,6 @@
 <template>
   <button
+    ref="buttonEl"
     @click="clickRelatedTag"
     class="x-tag x-related-tag"
     data-test="related-tag"
@@ -16,14 +17,15 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, ComputedRef, defineComponent, PropType, ref } from 'vue';
   import { RelatedTag as RelatedTagModel } from '@empathyco/x-types';
-  import { State } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { Dictionary } from '@empathyco/x-utils';
   import { VueCSSClasses } from '../../../utils/types';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { relatedTagsXModule } from '../x-module';
+  import { use$x } from '../../../composables/use-$x';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
 
   /**
    * This component renders a related tag for a query. A related tag is a descriptive keyword
@@ -32,119 +34,138 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(relatedTagsXModule)]
-  })
-  export default class RelatedTag extends Vue {
-    /**
-     * Indicates if the curated related tag should be highlighted.
-     *
-     * @public
-     */
-    @Prop({ default: false, type: Boolean })
-    protected highlightCurated!: boolean;
-    /**
-     * The related tag model data.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected relatedTag!: RelatedTagModel;
-    /**
-     * The selected related tags.
-     *
-     * @internal
-     */
-    @State('relatedTags', 'selectedRelatedTags')
-    public selectedRelatedTags!: RelatedTagModel[];
-
-    /**
-     * Blurs the related tag if it is selected.
-     *
-     * @public
-     */
-    protected blurRelatedTag(): void {
-      if (this.isSelected) {
-        (this.$el as HTMLElement).blur();
+  export default defineComponent({
+    name: 'RelatedTag',
+    xModule: relatedTagsXModule.name,
+    props: {
+      /**
+       * Indicates if the curated related tag should be highlighted.
+       *
+       * @public
+       */
+      highlightCurated: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * The related tag model data.
+       *
+       * @public
+       */
+      relatedTag: {
+        type: Object as PropType<RelatedTagModel>,
+        required: true
       }
-    }
+    },
+    setup(props) {
+      useRegisterXModule(relatedTagsXModule);
 
-    /**
-     * Handles the click on the button.
-     *
-     * @public
-     */
-    protected clickRelatedTag(): void {
-      this.emitEvents();
-      this.blurRelatedTag();
-    }
+      const $x = use$x();
 
-    /**
-     * Generates the {@link WireMetadata} object omitting the moduleName.
-     *
-     * @returns The {@link WireMetadata} object omitting the moduleName.
-     * @internal
-     */
-    protected createEventMetadata(): Omit<WireMetadata, 'moduleName'> {
-      return {
-        target: this.$el as HTMLElement,
-        feature: 'related_tag'
-      };
-    }
+      const buttonEl = ref<HTMLElement | undefined>();
 
-    /**
-     * Emits events when the button is clicked.
-     *
-     * @public
-     */
-    protected emitEvents(): void {
-      // We have to emit this events first to avoid the UserPickedARelatedTag wires to change the
-      // isSelected value before emitting this selection events.
-      this.$x.emit(
-        this.isSelected ? 'UserDeselectedARelatedTag' : 'UserSelectedARelatedTag',
-        this.relatedTag,
-        this.createEventMetadata()
+      /**
+       * The selected related tags.
+       *
+       * @internal
+       */
+      const { selectedRelatedTags }: Dictionary<ComputedRef<RelatedTagModel[]>> = useState(
+        'relatedTags',
+        ['selectedRelatedTags']
       );
-      this.$x.emit('UserPickedARelatedTag', this.relatedTag, this.createEventMetadata());
-    }
 
-    /**
-     * Check if the related tag is selected or not.
-     *
-     * @returns If the related tag is selected.
-     *
-     * @internal
-     */
-    protected get isSelected(): boolean {
-      return this.selectedRelatedTags.includes(this.relatedTag);
-    }
+      /**
+       * Check if the related tag is selected or not.
+       *
+       * @returns If the related tag is selected.
+       *
+       * @internal
+       */
+      const isSelected = computed(() => selectedRelatedTags.value.includes(props.relatedTag));
 
-    /**
-     * Check if the related tag is curated and should be highlighted.
-     *
-     * @returns True if the related tag is curated and should be highlighted.
-     *
-     * @internal
-     */
-    protected get shouldHighlightCurated(): boolean {
-      return this.highlightCurated && (this.relatedTag.isCurated ?? false);
-    }
+      /**
+       * Blurs the related tag if it is selected.
+       *
+       * @public
+       */
+      const blurRelatedTag = () => {
+        if (isSelected.value) {
+          buttonEl.value?.blur();
+        }
+      };
 
-    /**
-     * Adds the dynamic css classes to the component.
-     *
-     * @returns The class to be added to the component.
-     *
-     * @internal
-     */
-    protected get dynamicClasses(): VueCSSClasses {
+      /**
+       * Generates the {@link WireMetadata} object omitting the moduleName.
+       *
+       * @returns The {@link WireMetadata} object omitting the moduleName.
+       * @internal
+       */
+      const createEventMetadata = (): Omit<WireMetadata, 'moduleName'> => ({
+        target: buttonEl.value as HTMLElement,
+        feature: 'related_tag'
+      });
+
+      /**
+       * Emits events when the button is clicked.
+       *
+       * @public
+       */
+      const emitEvents = () => {
+        // We have to emit this events first to avoid the UserPickedARelatedTag wires to change the
+        // isSelected value before emitting this selection events.
+        $x.emit(
+          isSelected.value ? 'UserDeselectedARelatedTag' : 'UserSelectedARelatedTag',
+          props.relatedTag,
+          createEventMetadata()
+        );
+        $x.emit('UserPickedARelatedTag', props.relatedTag, createEventMetadata());
+      };
+
+      /**
+       * Handles the click on the button.
+       *
+       * @public
+       */
+      const clickRelatedTag = () => {
+        emitEvents();
+        blurRelatedTag();
+      };
+
+      /**
+       * Check if the related tag is curated and should be highlighted.
+       *
+       * @returns True if the related tag is curated and should be highlighted.
+       *
+       * @internal
+       */
+      const shouldHighlightCurated = computed(
+        () => props.highlightCurated && (props.relatedTag.isCurated ?? false)
+      );
+
+      /**
+       * Adds the dynamic css classes to the component.
+       *
+       * @returns The class to be added to the component.
+       *
+       * @internal
+       */
+      const dynamicClasses = computed(
+        (): VueCSSClasses => ({
+          'x-selected': isSelected.value,
+          'x-related-tag--is-selected': isSelected.value,
+          'x-related-tag--is-curated': shouldHighlightCurated.value
+        })
+      );
+
       return {
-        'x-selected': this.isSelected,
-        'x-related-tag--is-selected': this.isSelected,
-        'x-related-tag--is-curated': this.shouldHighlightCurated
+        buttonEl,
+        dynamicClasses,
+        isSelected,
+        clickRelatedTag,
+        shouldHighlightCurated
       };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
