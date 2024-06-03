@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.28...@empathyco/x-components@5.0.0-alpha.29) (2024-05-31)
+
+
+### Features
+
+* **keyboard-navigation:** migrate keyboard-navigation component to composition API (#1493) ([4cf31c9](https://github.com/empathyco/x/commit/4cf31c9df4b751514deaaef4c9abfe4ee5ddfc40))
+
+
+
+## [5.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.27...@empathyco/x-components@5.0.0-alpha.28) (2024-05-31)
+
+
+### Features
+
+* **panels:** migrate `base-panels` components to composition api (#1491) ([077ad4d](https://github.com/empathyco/x/commit/077ad4d1bcc1dcf0ae2e16a02f1ac073481a1892))
+* **result-images:** migrate result images components to composition API (#1496) ([624fb45](https://github.com/empathyco/x/commit/624fb459e71b3c0905e53ba70c1a3a15f581a0fc))
+
+
+
 ## [5.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.26...@empathyco/x-components@5.0.0-alpha.27) (2024-05-30)
 
 

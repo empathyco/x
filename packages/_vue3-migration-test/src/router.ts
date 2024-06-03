@@ -25,6 +25,8 @@ import {
   TestBaseSuggestions,
   TestHighlight,
   TestBaseResultImages,
+  TestBasePanel,
+  TestBaseKeyboardNavigation,
   TestQuerySuggestions
 } from './';
 
@@ -153,6 +155,16 @@ const routes = [
     path: '/base-result-images',
     name: 'BaseResultImages',
     component: TestBaseResultImages
+  },
+  {
+    path: '/test-base-panel',
+    name: 'TestBasePanel',
+    component: TestBasePanel
+  },
+  {
+    path: '/base-keyboard-navigation',
+    name: 'TestBaseKeyboardNavigation',
+    component: TestBaseKeyboardNavigation
   },
   {
     path: '/query-suggestions',

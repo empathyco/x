@@ -12,12 +12,11 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, ref, computed } from 'vue';
   import { XEventsTypes } from '../../wiring/events.types';
   import { WireMetadata } from '../../wiring/wiring.types';
   import BaseEventButton from '../base-event-button.vue';
-  import { XOn } from '../decorators/bus.decorators';
+  import { useXBus } from '../../composables';
 
   /**
    * Component containing an event button that emits
@@ -28,44 +27,60 @@
    *
    * @public
    */
-  @Component({
-    components: { BaseEventButton }
-  })
-  export default class BaseIdTogglePanelButton extends Vue {
-    /**
-     * The panel state to pass through the slot.
-     */
-    protected isPanelOpen = false;
-
-    /** The panelId to use for the toggle event listeners. */
-    @Prop({ required: true })
-    protected panelId!: string;
-
-    /**
-     * List of events to emit by the BaseEventButton.
-     *
-     * @returns An object with the event and payload.
-     *
-     * @internal
-     */
-    protected get events(): Partial<XEventsTypes> {
-      return { UserClickedPanelToggleButton: this.panelId };
-    }
-
-    /**
-     * The subscription to the {@link XEventsTypes.TogglePanelStateChanged} event
-     * to update the `isPanelOpen` property.
-     *
-     * @param newState - The new isOpen state of the panel.
-     * @param id - The `panelId`.
-     */
-    @XOn('TogglePanelStateChanged')
-    updatePanelState(newState: boolean, { id }: WireMetadata): void {
-      if (this.panelId === id) {
-        this.isPanelOpen = newState;
+  export default defineComponent({
+    name: 'BaseIdTogglePanelButton',
+    components: { BaseEventButton },
+    props: {
+      /**
+       * The panelId to use for the toggle event listeners.
+       */
+      panelId: {
+        type: String,
+        required: true
       }
+    },
+    setup: function (props) {
+      const bus = useXBus();
+
+      /**
+       * The panel state to pass through the slot.
+       */
+      const isPanelOpen = ref(false);
+
+      /**
+       * List of events to emit by the BaseEventButton.
+       *
+       * @returns An object with the event and payload.
+       *
+       * @internal
+       */
+      const events = computed(
+        (): Partial<XEventsTypes> => ({ UserClickedPanelToggleButton: props.panelId })
+      );
+
+      /**
+       * The subscription to the {@link XEventsTypes.TogglePanelStateChanged} event
+       * to update the `isPanelOpen` property.
+       *
+       * @param newState - The new isOpen state of the panel.
+       * @param id - The `panelId`.
+       */
+      const updatePanelState = (newState: boolean, { id }: WireMetadata) => {
+        if (props.panelId === id) {
+          isPanelOpen.value = newState;
+        }
+      };
+
+      bus
+        .on('TogglePanelStateChanged', false)
+        .subscribe(newState => updatePanelState(newState, { id: props.panelId, moduleName: null }));
+
+      return {
+        isPanelOpen,
+        events
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
