@@ -168,7 +168,7 @@ const routes = [
   },
   {
     path: '/base-events-modal',
-    name: 'TestBaseEventsModal',
+    name: 'BaseEventsModal',
     component: TestBaseEventsModal
   }
 ];

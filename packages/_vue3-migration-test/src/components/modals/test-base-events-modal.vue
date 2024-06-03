@@ -37,7 +37,7 @@
     }
 
     .overlay {
-      background-color: red;
+      background-color: #00ff80;
     }
   }
 </style>
