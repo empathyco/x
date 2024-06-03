@@ -1,5 +1,6 @@
 <template>
   <BaseModal
+    ref="baseModalEl"
     @click:overlay="emitBodyClickEvent"
     @focusin:body="emitBodyClickEvent"
     :animation="animation"
@@ -11,12 +12,11 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, PropType, ref } from 'vue';
   import { XEvent } from '../../wiring/events.types';
-  import { XOn } from '../decorators/bus.decorators';
-  import { WireMetadata } from '../../wiring/wiring.types';
   import { getTargetElement, isElementEqualOrContained } from '../../utils/html';
+  import { AnimationProp } from '../../types/animation-prop';
+  import { use$x } from '../../composables/use-$x';
   import BaseModal from './base-modal.vue';
 
   /**
@@ -30,88 +30,109 @@
    *
    * @public
    */
-  @Component({
-    components: { BaseModal }
-  })
-  export default class BaseEventsModal extends Vue {
-    /**
-     * Animation to use for opening/closing the modal.
-     */
-    @Prop()
-    public animation?: Vue | string;
-    /**
-     * Array of {@link XEvent} to listen to open the modal.
-     */
-    @Prop({ default: (): XEvent[] => ['UserClickedOpenEventsModal'] })
-    public eventsToOpenModal!: XEvent[];
+  export default defineComponent({
+    name: 'BaseEventsModal',
+    components: {
+      BaseModal
+    },
+    props: {
+      /**
+       * Animation to use for opening/closing the modal.
+       */
+      animation: AnimationProp,
 
-    /**
-     * Array of {@link XEvent} to listen to close the modal.
-     */
-    @Prop({
-      default: (): XEvent[] => ['UserClickedCloseEventsModal', 'UserClickedOutOfEventsModal']
-    })
-    public eventsToCloseModal!: XEvent[];
+      /**
+       * Array of {@link XEvent} to listen to open the modal.
+       */
+      eventsToOpenModal: {
+        type: Array as PropType<XEvent[]>,
+        default: (): XEvent[] => ['UserClickedOpenEventsModal']
+      },
 
-    /**
-     * Event to emit when any part of the website out of the modal has been clicked.
-     */
-    @Prop({ default: 'UserClickedOutOfEventsModal' })
-    public bodyClickEvent!: XEvent;
+      /**
+       * Array of {@link XEvent} to listen to close the modal.
+       */
+      eventsToCloseModal: {
+        type: Array as PropType<XEvent[]>,
+        default: (): XEvent[] => ['UserClickedCloseEventsModal', 'UserClickedOutOfEventsModal']
+      },
 
-    /**
-     * Whether the modal is open or not.
-     */
-    protected isOpen = false;
-
-    /** The element that opened the modal. */
-    protected openerElement?: HTMLElement;
-
-    /**
-     * Opens the modal.
-     *
-     * @param _payload - The payload of the event that opened the modal.
-     * @param metadata - The metadata of the event that opened the modal.
-     *
-     * @internal
-     */
-    @XOn(component => (component as BaseEventsModal).eventsToOpenModal)
-    openModal(_payload: unknown, metadata: WireMetadata): void {
-      if (!this.isOpen) {
-        this.openerElement = metadata.target;
-        this.isOpen = true;
+      /**
+       * Event to emit when any part of the website out of the modal has been clicked.
+       */
+      bodyClickEvent: {
+        type: String as PropType<XEvent>,
+        default: 'UserClickedOutOfEventsModal'
       }
-    }
+    },
+    setup(props) {
+      const $x = use$x();
 
-    /**
-     * Closes the modal.
-     *
-     * @internal
-     */
-    @XOn(component => (component as BaseEventsModal).eventsToCloseModal)
-    closeModal(): void {
-      if (this.isOpen) {
-        this.isOpen = false;
-      }
-    }
+      /**
+       * Whether the modal is open or not.
+       */
+      const isOpen = ref(false);
 
-    /**
-     * Emits the event defined in the {@link BaseEventsModal.bodyClickEvent} event unless the passed
-     * event target is the button that opened the modal.
-     *
-     * @param event - The event that triggered the close attempt.
-     * @public
-     */
-    protected emitBodyClickEvent(event: MouseEvent | FocusEvent): void {
-      // Prevents clicking the open button when the panel is already open to close the panel.
-      if (
-        !this.openerElement ||
-        !isElementEqualOrContained(this.openerElement, getTargetElement(event))
-      ) {
-        this.$x.emit(this.bodyClickEvent, undefined, { target: this.$el as HTMLElement });
-      }
+      /** The element that opened the modal. */
+      const openerElement = ref<HTMLElement>();
+
+      const baseModalEl = ref<HTMLElement>();
+
+      /**
+       * Opens the modal.
+       *
+       * @param _payload - The payload of the event that opened the modal.
+       * @param metadata - The metadata of the event that opened the modal.
+       *
+       * @internal
+       */
+      props.eventsToOpenModal?.forEach(event =>
+        $x.on(event, true).subscribe(({ metadata }) => {
+          if (!isOpen.value) {
+            openerElement.value = metadata.target;
+            isOpen.value = true;
+          }
+        })
+      );
+
+      /**
+       * Closes the modal.
+       *
+       * @internal
+       */
+      props.eventsToCloseModal?.forEach(event =>
+        $x.on(event, false).subscribe(() => {
+          if (isOpen.value) {
+            isOpen.value = false;
+          }
+        })
+      );
+
+      /**
+       * Emits the event defined in the {@link BaseEventsModal.bodyClickEvent} event unless the passed
+       * event target is the button that opened the modal.
+       *
+       * @param event - The event that triggered the close attempt.
+       * @public
+       */
+      const emitBodyClickEvent = (event: MouseEvent | FocusEvent) => {
+        // Prevents clicking the open button when the panel is already open to close the panel.
+        if (
+          !openerElement.value ||
+          !isElementEqualOrContained(openerElement.value, getTargetElement(event))
+        ) {
+          $x.emit(props.bodyClickEvent, undefined, { target: baseModalEl.value as HTMLElement });
+        }
+      };
+
+      return {
+        isOpen,
+        emitBodyClickEvent,
+        openerElement,
+        baseModalEl
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
