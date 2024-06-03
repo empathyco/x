@@ -117,9 +117,10 @@
        *
        * @internal
        */
-      const historyQueries: ComputedRef<HistoryQueryType[]> = useState('historyQueries', [
-        'historyQueries'
-      ]).historyQueries;
+      const { historyQueries }: Dictionary<ComputedRef<HistoryQueryType[]>> = useState(
+        'historyQueries',
+        ['historyQueries']
+      );
 
       /**
        * The provided {@link SnippetConfig}.
@@ -135,9 +136,7 @@
        * @returns The locale to be used.
        * @internal
        */
-      const usedLocale = computed(() => {
-        return snippetConfig?.lang ?? props.locale;
-      });
+      const usedLocale = computed(() => snippetConfig?.lang ?? props.locale);
 
       /**
        * Returns a record of history queries grouped by date.

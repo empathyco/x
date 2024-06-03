@@ -53,9 +53,9 @@
        * @returns The {@link XEvent} to emit.
        * @public
        */
-      const removeHistoryQueryEvent = computed((): Partial<XEventsTypes> => {
-        return { UserPressedRemoveHistoryQuery: props.historyQuery };
-      });
+      const removeHistoryQueryEvent = computed(
+        (): Partial<XEventsTypes> => ({ UserPressedRemoveHistoryQuery: props.historyQuery })
+      );
 
       return {
         removeHistoryQueryEvent

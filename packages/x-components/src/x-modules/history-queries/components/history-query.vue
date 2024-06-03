@@ -91,11 +91,11 @@
        * @internal
        * @returns The {@link XEvent} to emit.
        */
-      const suggestionSelectedEvents = computed((): Partial<XEventsTypes> => {
-        return {
+      const suggestionSelectedEvents = computed(
+        (): Partial<XEventsTypes> => ({
           UserSelectedAHistoryQuery: props.suggestion
-        };
-      });
+        })
+      );
 
       return {
         query,

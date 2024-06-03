@@ -1,7 +1,7 @@
 <template>
   <BaseSuggestions
     v-bind="$attrs"
-    :suggestions="historyQueries"
+    :suggestions="historyQueriesWithResults"
     class="x-history-queries"
     data-test="history-queries"
   >
@@ -77,12 +77,12 @@
        *
        * @internal
        */
-      const historyQueries = useGetter('historyQueries', [
+      const { historyQueriesWithResults } = useGetter('historyQueries', [
         'historyQueriesWithResults'
-      ]).historyQueriesWithResults;
+      ]);
 
       return {
-        historyQueries
+        historyQueriesWithResults
       };
     }
   });

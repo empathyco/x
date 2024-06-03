@@ -42,7 +42,7 @@
        *
        * @internal
        */
-      const historyQueries = useState('historyQueries', ['historyQueries']).historyQueries;
+      const { historyQueries } = useState('historyQueries', ['historyQueries']);
 
       /**
        * Returns if the array of history queries is empty.
@@ -59,11 +59,11 @@
        * tells if it should be added or not.
        * @internal
        */
-      const dynamicClasses = computed((): VueCSSClasses => {
-        return {
+      const dynamicClasses = computed(
+        (): VueCSSClasses => ({
           'x-clear-history-queries--is-empty': isHistoryQueriesEmpty.value
-        };
-      });
+        })
+      );
 
       /**
        * The list of events that are going to be emitted when the button is pressed.

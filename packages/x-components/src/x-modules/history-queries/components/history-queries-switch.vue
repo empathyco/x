@@ -5,6 +5,7 @@
 <script lang="ts">
   import { computed, ComputedRef, defineComponent } from 'vue';
   import { HistoryQuery } from '@empathyco/x-types';
+  import { Dictionary } from '@empathyco/x-utils';
   import BaseSwitch from '../../../components/base-switch.vue';
   import { historyQueriesXModule } from '../x-module';
   import { isArrayEmpty } from '../../../utils/array';
@@ -34,14 +35,15 @@
        *
        * @internal
        */
-      const isEnabled = useState('historyQueries', ['isEnabled']).isEnabled;
+      const { isEnabled } = useState('historyQueries', ['isEnabled']);
 
       /**
        * The history queries from the state.
        */
-      const historyQueries: ComputedRef<HistoryQuery[] | undefined> = useState('historyQueries', [
-        'historyQueries'
-      ]).historyQueries;
+      const { historyQueries }: Dictionary<ComputedRef<HistoryQuery[] | undefined>> = useState(
+        'historyQueries',
+        ['historyQueries']
+      );
 
       /**
        * Checks if there are history queries.
