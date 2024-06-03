@@ -1,7 +1,7 @@
 <template>
   <BaseSuggestions
     v-bind="$attrs"
-    :suggestions="suggestions"
+    :suggestions="querySuggestions"
     class="x-query-suggestions"
     data-test="query-suggestions"
   >
@@ -58,9 +58,9 @@
        *
        * @internal
        */
-      const suggestions = useGetter('querySuggestions', ['querySuggestions']).querySuggestions;
+      const { querySuggestions } = useGetter('querySuggestions', ['querySuggestions']);
 
-      return { suggestions };
+      return { querySuggestions };
     }
   });
 </script>

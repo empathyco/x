@@ -1,6 +1,6 @@
 <template>
   <BaseSuggestion
-    v-bind="{ query, suggestion, suggestionSelectedEvents: event }"
+    v-bind="{ query, suggestion, suggestionSelectedEvents }"
     class="x-query-suggestion"
     data-test="query-suggestion"
     feature="query_suggestion"
@@ -61,13 +61,13 @@
        *
        * @internal
        */
-      const event = {
+      const suggestionSelectedEvents = {
         UserSelectedAQuerySuggestion: props.suggestion
       };
 
       return {
         query,
-        event
+        suggestionSelectedEvents
       };
     }
   });
