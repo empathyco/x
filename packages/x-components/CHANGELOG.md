@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.29...@empathyco/x-components@5.0.0-alpha.30) (2024-06-04)
+
+
+### Features
+
+* **base-id-modal:** migrate to composition API (#1500) ([6274c67](https://github.com/empathyco/x/commit/6274c676946536c9c1c4e54205ebda18c79b8f55))
+
+
+
 ## [5.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.28...@empathyco/x-components@5.0.0-alpha.29) (2024-05-31)
 
 
