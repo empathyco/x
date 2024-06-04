@@ -27,7 +27,8 @@ import {
   TestBaseResultImages,
   TestBasePanel,
   TestBaseKeyboardNavigation,
-  TestPartialResultsList
+  TestPartialResultsList,
+  TestBaseIdModal
 } from './';
 
 const routes = [
@@ -170,6 +171,11 @@ const routes = [
     path: '/partial-results-list',
     name: 'PartialResultsList',
     component: TestPartialResultsList
+  },
+  {
+    path: '/test-base-id-modal',
+    name: 'TestBaseIdModal',
+    component: TestBaseIdModal
   }
 ];
 
