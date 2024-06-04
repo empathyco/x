@@ -1,11 +1,11 @@
 <template>
   <BaseModal
+    v-bind="$attrs"
     ref="baseModalEl"
     @click:overlay="emitBodyClickEvent"
     @focusin:body="emitBodyClickEvent"
     :animation="animation"
     :open="isOpen"
-    v-bind="$attrs"
   >
     <slot />
   </BaseModal>
@@ -127,9 +127,9 @@
 
       return {
         isOpen,
-        emitBodyClickEvent,
         openerElement,
-        baseModalEl
+        baseModalEl,
+        emitBodyClickEvent
       };
     }
   });
