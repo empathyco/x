@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.30...@empathyco/x-components@5.0.0-alpha.31) (2024-06-04)
+
+
+### Features
+
+* migrate BaseEventsModal to composition API ([7ef04b6](https://github.com/empathyco/x/commit/7ef04b65bcef2eb9b9dc5bc107bc02823831d444))
+
+
+
 ## [5.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.29...@empathyco/x-components@5.0.0-alpha.30) (2024-06-04)
 
 
