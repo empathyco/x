@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.23](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.22...vue3-migration-test@1.0.0-alpha.23) (2024-06-04)
+
+
+### Features
+
+* add BaseEventsModal to the playground ([3e437c5](https://github.com/empathyco/x/commit/3e437c56d4e3f314b373b486e8926c4f4b028fc6))
+
+
+
+## [1.0.0-alpha.22](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.21...vue3-migration-test@1.0.0-alpha.22) (2024-06-04)
+
+
+### Features
+
+* **base-id-modal:** migrate to composition API (#1500) ([6274c67](https://github.com/empathyco/x/commit/6274c676946536c9c1c4e54205ebda18c79b8f55))
+
+
+
 ## [1.0.0-alpha.21](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.20...vue3-migration-test@1.0.0-alpha.21) (2024-05-31)
 
 
