@@ -51,7 +51,7 @@
        * @internal
        */
       const createEventMetadata = (): Omit<WireMetadata, 'moduleName'> => ({
-        target: partialButtonEl.value as HTMLElement,
+        target: partialButtonEl.value,
         feature: 'partial_result'
       });
 
@@ -66,8 +66,8 @@
       };
 
       return {
-        emitEvents,
-        partialButtonEl
+        partialButtonEl,
+        emitEvents
       };
     }
   });

@@ -13,7 +13,7 @@
 
   <div v-if="clickPartialQueryButton" class="text-content">
     <span>The user has clicked on a partial query button!!</span>
-    <button @click="restartParialQueryButton" class="text-button">return</button>
+    <button @click="restartParialQueryButton" class="text-button">Restart</button>
   </div>
 </template>
 
