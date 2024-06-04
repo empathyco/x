@@ -27,7 +27,8 @@ import {
   TestBaseResultImages,
   TestBasePanel,
   TestBaseKeyboardNavigation,
-  TestBaseEventsModal
+  TestBaseEventsModal,
+  TestBaseIdModal
 } from './';
 
 const routes = [
@@ -170,6 +171,11 @@ const routes = [
     path: '/base-events-modal',
     name: 'BaseEventsModal',
     component: TestBaseEventsModal
+  },
+  {
+    path: '/test-base-id-modal',
+    name: 'TestBaseIdModal',
+    component: TestBaseIdModal
   }
 ];
 
