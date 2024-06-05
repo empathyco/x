@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
-  import { State, xComponentMixin } from '../../../components';
+  import { defineComponent } from 'vue';
   import { searchXModule } from '../x-module';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
 
   /**
    * The `Spellcheck` component allows to inform the user with a friendly message that he
@@ -20,26 +20,25 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(searchXModule)]
-  })
-  export default class Spellcheck extends Vue {
-    /**
-     * The query from the search state.
-     *
-     * @public
-     */
-    @State('search', 'query')
-    public query!: string;
+  export default defineComponent({
+    name: 'Spellcheck',
+    xModule: searchXModule.name,
+    setup() {
+      useRegisterXModule(searchXModule);
 
-    /**
-     * The spellcheckedQuery from the search state.
-     *
-     * @public
-     */
-    @State('search', 'spellcheckedQuery')
-    public spellcheckedQuery!: string;
-  }
+      /**
+       * The query and the spellcheckedQuery from the search state.
+       *
+       * @public
+       */
+      const { query, spellcheckedQuery } = useState('search', ['query', 'spellcheckedQuery']);
+
+      return {
+        query,
+        spellcheckedQuery
+      };
+    }
+  });
 </script>
 
 <docs lang="mdx">
