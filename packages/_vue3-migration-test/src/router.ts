@@ -27,6 +27,7 @@ import {
   TestBaseResultImages,
   TestBasePanel,
   TestBaseKeyboardNavigation,
+  TestPartialResultsList,
   TestBaseEventsModal,
   TestBaseIdModal
 } from './';
@@ -166,6 +167,11 @@ const routes = [
     path: '/base-keyboard-navigation',
     name: 'TestBaseKeyboardNavigation',
     component: TestBaseKeyboardNavigation
+  },
+  {
+    path: '/partial-results-list',
+    name: 'PartialResultsList',
+    component: TestPartialResultsList
   },
   {
     path: '/base-events-modal',

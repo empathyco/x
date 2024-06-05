@@ -23,11 +23,11 @@
 
 <script lang="ts">
   import { PartialResult } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { State } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { computed, ComputedRef, defineComponent } from 'vue';
   import { searchXModule } from '../x-module';
+  import { AnimationProp } from '../../../types/animation-prop';
+  import { useRegisterXModule } from '../../../composables/use-register-x-module';
+  import { useState } from '../../../composables/use-state';
 
   /**
    * It renders a list of partial results from {@link SearchState.partialResults} by default.
@@ -35,42 +35,56 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(searchXModule)]
-  })
-  export default class PartialResultsList extends Vue {
-    /**
-     * Animation component that will be used to animate the partial results.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue | string;
-    /**
-     * The partials results from the search state.
-     *
-     * @public
-     */
-    @State('search', 'partialResults')
-    public items!: PartialResult[];
-    /**
-     * Maximum number of partial results to show.
-     *
-     * @public
-     */
-    @Prop({ default: 5 })
-    protected maxItemsToRender!: number;
-    /**
-     * A limited number of partial results.
-     *
-     * @returns The partial results sliced by the maxItemsToRender.
-     *
-     * @internal
-     */
-    protected get partialResults(): PartialResult[] {
-      return this.items.slice(0, this.maxItemsToRender);
+  export default defineComponent({
+    name: 'PartialResultsList',
+    xModule: searchXModule.name,
+    props: {
+      /**
+       * Animation component that will be used to animate the partial results.
+       *
+       * @public
+       */
+      animation: {
+        type: AnimationProp,
+        default: 'ul'
+      },
+
+      /**
+       * Maximum number of partial results to show.
+       *
+       * @public
+       */
+      maxItemsToRender: {
+        type: Number,
+        default: 5
+      }
+    },
+    setup(props) {
+      useRegisterXModule(searchXModule);
+
+      /**
+       * The partials results from the search state.
+       *
+       * @public
+       */
+      const items: ComputedRef<PartialResult[]> = useState('search', [
+        'partialResults'
+      ]).partialResults;
+
+      /**
+       * A limited number of partial results.
+       *
+       * @returns The partial results sliced by the maxItemsToRender.
+       *
+       * @internal
+       */
+      const partialResults = computed(() => items.value.slice(0, props.maxItemsToRender));
+
+      return {
+        partialResults
+      };
     }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
