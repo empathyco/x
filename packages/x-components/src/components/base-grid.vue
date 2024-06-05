@@ -114,7 +114,7 @@
        *
        * @internal
        */
-      const injectedListItems = inject<Ref<ListItem[]> | []>(LIST_ITEMS_KEY as string, []);
+      const injectedListItems = inject<Ref<ListItem[] | []>>(LIST_ITEMS_KEY as string, []);
 
       const gridEl = ref<ElementRef | HTMLElement | null>(null);
 
@@ -140,14 +140,8 @@
        *
        * @public
        */
-      const computedItems = computed((): ListItem[] | void => {
-        return (
-          props.items ??
-          injectedListItems?.value ??
-          //TODO: add here logger
-          //eslint-disable-next-line no-console
-          console.warn('It is necessary to pass a prop or inject the list of filters')
-        );
+      const computedItems = computed((): ListItem[] | [] | void => {
+        return props.items ?? injectedListItems?.value.length ? injectedListItems?.value : [];
       });
 
       /**
