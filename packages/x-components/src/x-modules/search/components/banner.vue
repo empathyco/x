@@ -22,11 +22,9 @@
 
 <script lang="ts">
   import { Banner as BannerModel } from '@empathyco/x-types';
-  import { Component, Prop } from 'vue-property-decorator';
-  import Vue from 'vue';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { defineComponent, PropType, ref } from 'vue';
   import { searchXModule } from '../x-module';
-  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
+  import { useRegisterXModule, useXBus } from '../../../composables';
 
   /**.
    * A banner result is just an item that has been inserted into the search results to advertise
@@ -41,51 +39,62 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(searchXModule), dynamicPropsMixin(['titleClass'])]
-  })
-  export default class Banner extends Vue {
-    /**
-     * The banner data.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public banner!: BannerModel;
+  export default defineComponent({
+    name: 'Banner',
+    xModule: searchXModule.name,
+    props: {
+      /**
+       * The banner data.
+       *
+       * @public
+       */
+      banner: {
+        type: Object as PropType<BannerModel>,
+        required: true
+      },
+      titleClass: String
+    },
+    setup(props) {
+      useRegisterXModule(searchXModule);
+      const xBus = useXBus();
 
-    /**
-     * Flag to handle banner image errors.
-     *
-     * @public
-     */
-    protected imageFailed = false;
+      /**
+       * Flag to handle banner image errors.
+       *
+       * @public
+       */
+      const imageFailed = ref(false);
 
-    /**
-     * Emits the banner click event.
-     *
-     * @internal
-     */
-    protected emitClickEvent(): void {
-      this.$x.emit('UserClickedABanner', this.banner);
-    }
+      /**
+       * Emits the banner click event.
+       *
+       * @internal
+       */
+      const emitClickEvent = (): void => {
+        xBus.emit('UserClickedABanner', props.banner);
+      };
 
-    /**
-     * Returns the events supported by the anchor.
-     *
-     * @returns Events supported by the anchor.
-     *
-     * @internal
-     */
-    protected anchorEvents(): Partial<{
-      [key in keyof GlobalEventHandlersEventMap]: () => void;
-    }> {
+      /**
+       * Returns the events supported by the anchor.
+       *
+       * @returns Events supported by the anchor.
+       *
+       * @internal
+       */
+      const anchorEvents = (): Partial<{
+        [key in keyof GlobalEventHandlersEventMap]: () => void;
+      }> => ({
+        click: () => emitClickEvent(),
+        auxclick: () => emitClickEvent(),
+        contextmenu: () => emitClickEvent()
+      });
+
       return {
-        click: () => this.emitClickEvent(),
-        auxclick: () => this.emitClickEvent(),
-        contextmenu: () => this.emitClickEvent()
+        imageFailed,
+        anchorEvents
       };
     }
-  }
+  });
 </script>
 
 <style lang="scss">

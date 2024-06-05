@@ -9,11 +9,9 @@
 
 <script lang="ts">
   import { Promoted as PromotedModel } from '@empathyco/x-types';
-  import { Component, Prop } from 'vue-property-decorator';
-  import Vue from 'vue';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { defineComponent, PropType } from 'vue';
   import { searchXModule } from '../x-module';
-  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
+  import { useRegisterXModule, useXBus } from '../../../composables';
 
   /**
    * A promoted result is just an item that has been inserted into the search results to advertise
@@ -25,27 +23,40 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(searchXModule), dynamicPropsMixin(['titleClass'])]
-  })
-  export default class Promoted extends Vue {
-    /**
-     * The promoted data.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public promoted!: PromotedModel;
+  export default defineComponent({
+    name: 'Promoted',
+    xModule: searchXModule.name,
+    props: {
+      /**
+       * The promoted data.
+       *
+       * @public
+       */
+      promoted: {
+        type: Object as PropType<PromotedModel>,
+        required: true
+      },
+      titleClass: String
+    },
+    setup(props) {
+      useRegisterXModule(searchXModule);
 
-    /**
-     * Emits the promoted click event.
-     *
-     * @internal
-     */
-    protected emitClickEvent(): void {
-      this.$x.emit('UserClickedAPromoted', this.promoted);
+      const xBus = useXBus();
+
+      /**
+       * Emits the promoted click event.
+       *
+       * @internal
+       */
+      const emitClickEvent = () => {
+        xBus.emit('UserClickedAPromoted', props.promoted);
+      };
+
+      return {
+        emitClickEvent
+      };
     }
-  }
+  });
 </script>
 
 <style lang="scss">
