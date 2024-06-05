@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.31...@empathyco/x-components@5.0.0-alpha.32) (2024-06-05)
+
+
+### Features
+
+* migrate PartialQueryButton and PartialResultsList (#1501) ([5e87123](https://github.com/empathyco/x/commit/5e87123d4a6c1edeb05f83c31ee8f096b5558e0f))
+
+
+
 ## [5.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.30...@empathyco/x-components@5.0.0-alpha.31) (2024-06-04)
 
 
