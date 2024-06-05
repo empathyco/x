@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.32...@empathyco/x-components@5.0.0-alpha.33) (2024-06-05)
+
+
+### Code Refactoring
+
+* **keyboard-navigation:** use xBus only (#1502) ([8bb3c60](https://github.com/empathyco/x/commit/8bb3c604f308598a124719345bb4cf15a4d83103))
+
+
+
 ## [5.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.31...@empathyco/x-components@5.0.0-alpha.32) (2024-06-05)
 
 
