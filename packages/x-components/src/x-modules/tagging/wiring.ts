@@ -227,7 +227,8 @@ export const trackNoResultsQueryWithSemanticsWire = filter(
  */
 export const trackNoResultsQueryWithSemanticsWireDebounced = moduleDebounce(
   trackNoResultsQueryWithSemanticsWire,
-  ({ state }) => state.config.queryTaggingDebounceMs
+  ({ state }) => state.config.queryTaggingDebounceMs,
+  { cancelOn: 'QueryPreviewUnmounted' }
 );
 
 /**
