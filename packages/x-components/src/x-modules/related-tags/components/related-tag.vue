@@ -34,6 +34,7 @@
    *
    * @public
    */
+  useRegisterXModule(relatedTagsXModule);
   export default defineComponent({
     name: 'RelatedTag',
     xModule: relatedTagsXModule.name,
@@ -58,8 +59,6 @@
       }
     },
     setup(props) {
-      useRegisterXModule(relatedTagsXModule);
-
       const $x = use$x();
 
       const buttonEl = ref<HTMLElement | undefined>();

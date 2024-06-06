@@ -60,7 +60,7 @@
    *
    * @public
    */
-
+  useRegisterXModule(relatedTagsXModule);
   export default defineComponent({
     name: 'RelatedTags',
     xModule: relatedTagsXModule.name,
@@ -99,8 +99,6 @@
       itemClass: String
     },
     setup(props) {
-      useRegisterXModule(relatedTagsXModule);
-
       const storedRelatedTags: ComputedRef<RelatedTagModel[]> = useGetter('relatedTags', [
         'relatedTags'
       ]).relatedTags;
