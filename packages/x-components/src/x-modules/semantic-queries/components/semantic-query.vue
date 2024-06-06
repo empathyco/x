@@ -49,7 +49,7 @@
       /**
        * The normalized query of the semantic queries module.
        */
-      const query = useGetter('querySuggestions', ['normalizedQuery']).normalizedQuery;
+      const query = useGetter('semanticQueries', ['normalizedQuery']).normalizedQuery;
 
       /**
        * The list of events that are going to be emitted when the button is pressed.
