@@ -140,8 +140,14 @@
        *
        * @public
        */
-      const computedItems = computed((): ListItem[] | [] | void => {
-        return props.items ?? injectedListItems?.value.length ? injectedListItems?.value : [];
+      const computedItems = computed((): ListItem[] | void => {
+        return (
+          props.items ??
+          injectedListItems?.value ??
+          //TODO: add here logger
+          //eslint-disable-next-line no-console
+          console.warn('It is necessary to pass a prop or inject the list of filters')
+        );
       });
 
       /**
