@@ -28,7 +28,8 @@ import {
   TestBasePanel,
   TestBaseKeyboardNavigation,
   TestBaseEventsModal,
-  TestBaseIdModal
+  TestBaseIdModal,
+  TestSemanticQueries
 } from './';
 
 const routes = [
@@ -176,6 +177,11 @@ const routes = [
     path: '/test-base-id-modal',
     name: 'TestBaseIdModal',
     component: TestBaseIdModal
+  },
+  {
+    path: '/test-semantic-queries',
+    name: 'TestSemanticQueries',
+    component: TestSemanticQueries
   }
 ];
 
