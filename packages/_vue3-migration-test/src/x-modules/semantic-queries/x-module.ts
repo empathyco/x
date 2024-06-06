@@ -1,7 +1,7 @@
 import { PrivateXModuleOptions } from '../../../../x-components/src/plugins/x-plugin.types';
 import { SemanticQueriesXModule } from '../../../../x-components/src/x-modules/semantic-queries/x-module';
-import { QueriesPreviewXModule } from '../../../../x-components/src/index';
-import { getResultsStub } from '../../../../x-components/src/__stubs__/index';
+import { QueriesPreviewXModule } from '../../../../x-components/src/x-modules/queries-preview/x-module';
+import { getResultsStub } from '../../../../x-components/src/__stubs__/results-stubs.factory';
 
 export const semanticQueriesXModule: PrivateXModuleOptions<SemanticQueriesXModule> = {
   storeModule: {
