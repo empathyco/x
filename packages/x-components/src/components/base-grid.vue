@@ -114,7 +114,10 @@
        *
        * @internal
        */
-      const injectedListItems = inject<Ref<ListItem[] | []>>(LIST_ITEMS_KEY as string, ref([]));
+      const injectedListItems = inject<Ref<ListItem[]> | undefined>(
+        LIST_ITEMS_KEY as string,
+        undefined
+      );
 
       const gridEl = ref<ElementRef | HTMLElement | null>(null);
 
