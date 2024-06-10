@@ -45,7 +45,6 @@
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';
   import { useGetter } from '../../../composables/use-getter';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import RemoveHistoryQuery from './remove-history-query.vue';
 
   /**
@@ -76,8 +75,6 @@
     },
     emits: ['click'],
     setup(props) {
-      useRegisterXModule(historyQueriesXModule);
-
       /**
        * The normalized query of the history-queries module.
        *
