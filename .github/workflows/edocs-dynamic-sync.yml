@@ -4,6 +4,14 @@ jobs:
   connect-with-edocs:
     runs-on: ubuntu-latest
     steps:
+      # Use GitHub App token as a workaround to allow bypassing branch-protection rules
+      # https://github.com/orgs/community/discussions/13836#discussioncomment-8535364
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.GH_TOKENS_APP_ID }}
+          private-key: ${{ secrets.GH_TOKENS_APP_PRIVATE_KEY }}
+
       - name: Checkout X mono-repo
         uses: actions/checkout@v4
         with:
@@ -23,5 +31,5 @@ jobs:
           --url https://api.github.com/repos/empathyco/docs-framework/actions/workflows/93444504/dispatches \
           --data '{"ref": "main",  "inputs": {"branchName": "${{ env.BRANCH_NAME }}", "version": "${{ steps.package-version.outputs.current-version }}"}}'
         env:
-          GITHUB_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
