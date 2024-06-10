@@ -3,12 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [5.0.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.33...@empathyco/x-components@5.0.0-alpha.34) (2024-06-06)
+## [5.0.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.34...@empathyco/x-components@5.0.0-alpha.35) (2024-06-07)
 
 **Note:** Version bump only for package @empathyco/x-components
 
 
+## [5.0.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.33...@empathyco/x-components@5.0.0-alpha.34) (2024-06-06)
 
+**Note:** Version bump only for package @empathyco/x-components
 
 
 ## [5.0.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.32...@empathyco/x-components@5.0.0-alpha.33) (2024-06-05)
@@ -272,10 +274,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### ⚠ BREAKING CHANGES
 
-* **ColumnPickerMixin:** `BaseColumnPickerDropdown` component will no longer emit the `change` event, use `update:modelValue` instead. 
+* **ColumnPickerMixin:** `BaseColumnPickerDropdown` component will no longer emit the `change` event, use `update:modelValue` instead.
 `BaseColumnPickerDropdown` prop for the selected columns was renamed from `value` to `modelValue`.
 
-`BaseColumnPickerList` component will no longer emit the `change` event, use `update:modelValue` instead. 
+`BaseColumnPickerList` component will no longer emit the `change` event, use `update:modelValue` instead.
 `BaseColumnPickerList` prop for the selected columns was renamed from `value` to `modelValue`.
 
 `ColumnPickerMixin` has been removed.
@@ -344,7 +346,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### ⚠ BREAKING CHANGES
 
-* **sort-mixin:** base-dropdown component will no longer emit the `change` event, use `update:modelValue` instead. 
+* **sort-mixin:** base-dropdown component will no longer emit the `change` event, use `update:modelValue` instead.
 base-dropdown prop for the selected item was renamed from `value` to `modelValue`.
 
 ### Code Refactoring
