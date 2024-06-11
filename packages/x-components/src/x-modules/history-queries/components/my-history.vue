@@ -59,7 +59,7 @@
 <script lang="ts">
   import { HistoryQuery as HistoryQueryType } from '@empathyco/x-types';
   import { Dictionary } from '@empathyco/x-utils';
-  import { computed, ComputedRef, defineComponent, inject } from 'vue';
+  import { computed, defineComponent, inject } from 'vue';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { groupItemsBy, isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
@@ -117,10 +117,7 @@
        *
        * @internal
        */
-      const { historyQueries }: Dictionary<ComputedRef<HistoryQueryType[]>> = useState(
-        'historyQueries',
-        ['historyQueries']
-      );
+      const { historyQueries } = useState('historyQueries', ['historyQueries']);
 
       /**
        * The provided {@link SnippetConfig}.
@@ -160,7 +157,7 @@
        * @internal
        */
       const groupByDate = computed((): Dictionary<HistoryQueryType[]> => {
-        return groupItemsBy(historyQueries.value, current => {
+        return groupItemsBy(historyQueries.value as HistoryQueryType[], current => {
           return new Date(current.timestamp).toLocaleDateString(usedLocale.value, {
             day: 'numeric',
             weekday: 'long',
@@ -198,13 +195,15 @@
        * @returns True if there are history queries; false otherwise.
        * @internal
        */
-      const hasHistoryQueries = computed(() => !isArrayEmpty(historyQueries.value));
+      const hasHistoryQueries = computed(
+        () => !isArrayEmpty(historyQueries.value as HistoryQueryType[])
+      );
 
       return {
         hasHistoryQueries,
-        formatTime,
         groupByDate,
-        historyQueries
+        historyQueries,
+        formatTime
       };
     }
   });

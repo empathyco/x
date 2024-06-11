@@ -3,9 +3,8 @@
 </template>
 
 <script lang="ts">
-  import { computed, ComputedRef, defineComponent } from 'vue';
+  import { computed, defineComponent } from 'vue';
   import { HistoryQuery } from '@empathyco/x-types';
-  import { Dictionary } from '@empathyco/x-utils';
   import BaseSwitch from '../../../components/base-switch.vue';
   import { historyQueriesXModule } from '../x-module';
   import { isArrayEmpty } from '../../../utils/array';
@@ -31,26 +30,29 @@
       const $x = use$x();
 
       /**
-       * A boolean with the isEnabled value coming from the store state.
+       * An object with the isEnabled value and the history queries coming from the store state.
        *
        * @internal
        */
-      const { isEnabled } = useState('historyQueries', ['isEnabled']);
-
-      /**
-       * The history queries from the state.
-       */
-      const { historyQueries }: Dictionary<ComputedRef<HistoryQuery[] | undefined>> = useState(
-        'historyQueries',
-        ['historyQueries']
-      );
+      const { isEnabled, historyQueries } = useState('historyQueries', [
+        'isEnabled',
+        'historyQueries'
+      ]);
 
       /**
        * Checks if there are history queries.
        *
        * @returns True if there are history queries; false otherwise.
        */
-      const hasHistoryQueries = computed(() => !isArrayEmpty(historyQueries.value));
+      const hasHistoryQueries = computed(
+        () => !isArrayEmpty(historyQueries.value as HistoryQuery[])
+      );
+
+      const disableEvent = computed(() =>
+        hasHistoryQueries.value
+          ? 'UserClickedDisableHistoryQueries'
+          : 'UserClickedConfirmDisableHistoryQueries'
+      );
 
       /**
        * Emits an event based on the switch state.
@@ -58,13 +60,7 @@
        * @internal
        */
       const toggle = (): void => {
-        $x.emit(
-          isEnabled.value
-            ? hasHistoryQueries.value
-              ? 'UserClickedDisableHistoryQueries'
-              : 'UserClickedConfirmDisableHistoryQueries'
-            : 'UserClickedEnableHistoryQueries'
-        );
+        $x.emit(isEnabled.value ? disableEvent.value : 'UserClickedEnableHistoryQueries');
       };
 
       return {
