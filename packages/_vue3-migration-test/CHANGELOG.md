@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.24](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.23...vue3-migration-test@1.0.0-alpha.24) (2024-06-05)
+
+
+### Features
+
+* migrate PartialQueryButton and PartialResultsList (#1501) ([5e87123](https://github.com/empathyco/x/commit/5e87123d4a6c1edeb05f83c31ee8f096b5558e0f))
+
+
+
+## [1.0.0-alpha.23](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.22...vue3-migration-test@1.0.0-alpha.23) (2024-06-04)
+
+
+### Features
+
+* add BaseEventsModal to the playground ([3e437c5](https://github.com/empathyco/x/commit/3e437c56d4e3f314b373b486e8926c4f4b028fc6))
+
+
+
+## [1.0.0-alpha.22](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.21...vue3-migration-test@1.0.0-alpha.22) (2024-06-04)
+
+
+### Features
+
+* **base-id-modal:** migrate to composition API (#1500) ([6274c67](https://github.com/empathyco/x/commit/6274c676946536c9c1c4e54205ebda18c79b8f55))
+
+
+
+## [1.0.0-alpha.21](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.20...vue3-migration-test@1.0.0-alpha.21) (2024-05-31)
+
+
+### Features
+
+* **keyboard-navigation:** migrate keyboard-navigation component to composition API (#1493) ([4cf31c9](https://github.com/empathyco/x/commit/4cf31c9df4b751514deaaef4c9abfe4ee5ddfc40))
+
+
+
+## [1.0.0-alpha.20](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.19...vue3-migration-test@1.0.0-alpha.20) (2024-05-31)
+
+
+### Features
+
+* **panels:** migrate `base-panels` components to composition api (#1491) ([077ad4d](https://github.com/empathyco/x/commit/077ad4d1bcc1dcf0ae2e16a02f1ac073481a1892))
+* **result-images:** migrate result images components to composition API (#1496) ([624fb45](https://github.com/empathyco/x/commit/624fb459e71b3c0905e53ba70c1a3a15f581a0fc))
+
+
+
 ## [1.0.0-alpha.19](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.18...vue3-migration-test@1.0.0-alpha.19) (2024-05-30)
 
 

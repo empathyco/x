@@ -9,3 +9,8 @@ export { default as TestSlidingPanel } from './test-sliding-panel.vue';
 export { default as TestUseLayouts } from './test-use-layouts.vue';
 export { default as TestBaseSuggestions } from './suggestions/test-base-suggestions.vue';
 export { default as TestHighlight } from './test-highlight.vue';
+export { default as TestBaseResultImages } from './result/test-base-result-images.vue';
+export { default as TestBasePanel } from './panels/test-base-panel.vue';
+export { default as TestBaseKeyboardNavigation } from './test-base-keyboard-navigation.vue';
+export { default as TestBaseEventsModal } from './modals/test-base-events-modal.vue';
+export { default as TestBaseIdModal } from './modals/test-base-id-modal.vue';

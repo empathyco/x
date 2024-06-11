@@ -25,7 +25,13 @@ import {
   TestBaseSuggestions,
   TestHighlight,
   TestHistoryQueries,
-  TestMyHistory
+  TestMyHistory,
+  TestBaseResultImages,
+  TestBasePanel,
+  TestBaseKeyboardNavigation,
+  TestPartialResultsList,
+  TestBaseEventsModal,
+  TestBaseIdModal
 } from './';
 
 const routes = [
@@ -158,6 +164,36 @@ const routes = [
     path: '/my-history',
     name: 'MyHistory',
     component: TestMyHistory
+  },
+  {
+    path: '/base-result-images',
+    name: 'BaseResultImages',
+    component: TestBaseResultImages
+  },
+  {
+    path: '/test-base-panel',
+    name: 'TestBasePanel',
+    component: TestBasePanel
+  },
+  {
+    path: '/base-keyboard-navigation',
+    name: 'TestBaseKeyboardNavigation',
+    component: TestBaseKeyboardNavigation
+  },
+  {
+    path: '/partial-results-list',
+    name: 'PartialResultsList',
+    component: TestPartialResultsList
+  },
+  {
+    path: '/base-events-modal',
+    name: 'BaseEventsModal',
+    component: TestBaseEventsModal
+  },
+  {
+    path: '/test-base-id-modal',
+    name: 'TestBaseIdModal',
+    component: TestBaseIdModal
   }
 ];
 

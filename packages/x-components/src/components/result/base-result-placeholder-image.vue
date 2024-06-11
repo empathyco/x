@@ -1,6 +1,5 @@
-<template functional>
+<template>
   <svg
-    :class="[].concat(data.staticClass, data.class)"
     version="1.1"
     viewBox="0 0 256 371"
     xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +46,3 @@
     ></path>
   </svg>
 </template>
-
-<script lang="ts">
-  export default {};
-</script>
