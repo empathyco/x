@@ -21,7 +21,6 @@ jobs:
         with:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
-          persist-credentials: false
 
       # Install pnpm because it is not included in our container image
       - name: install pnpm
