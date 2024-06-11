@@ -18,7 +18,6 @@
   import { VueCSSClasses } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
 
   /**
@@ -35,8 +34,6 @@
       BaseEventButton
     },
     setup() {
-      useRegisterXModule(historyQueriesXModule);
-
       /**
        * The whole history queries.
        *

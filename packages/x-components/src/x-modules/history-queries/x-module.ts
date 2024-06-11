@@ -1,3 +1,4 @@
+import { XPlugin } from '../../plugins/x-plugin';
 import { XModule } from '../x-modules.types';
 import { historyQueriesEmitters } from './store/emitters';
 import { historyQueriesXStoreModule } from './store/module';
@@ -23,3 +24,5 @@ export const historyQueriesXModule: HistoryQueriesXModule = {
   storeEmitters: historyQueriesEmitters,
   wiring: historyQueriesWiring
 };
+
+XPlugin.registerXModule(historyQueriesXModule);

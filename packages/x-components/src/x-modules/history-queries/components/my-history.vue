@@ -66,7 +66,6 @@
   import { historyQueriesXModule } from '../x-module';
   import { AnimationProp } from '../../../types/index';
   import { useState } from '../../../composables/use-state';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import HistoryQuery from './history-query.vue';
 
   /**
@@ -110,8 +109,6 @@
       queriesListClass: String
     },
     setup(props) {
-      useRegisterXModule(historyQueriesXModule);
-
       /**
        * The list of history queries.
        *

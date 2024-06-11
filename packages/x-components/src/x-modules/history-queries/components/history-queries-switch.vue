@@ -9,7 +9,6 @@
   import { historyQueriesXModule } from '../x-module';
   import { isArrayEmpty } from '../../../utils/array';
   import { use$x } from '../../../composables/use-$x';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
 
   /**
@@ -25,8 +24,6 @@
       BaseSwitch
     },
     setup() {
-      useRegisterXModule(historyQueriesXModule);
-
       const $x = use$x();
 
       /**

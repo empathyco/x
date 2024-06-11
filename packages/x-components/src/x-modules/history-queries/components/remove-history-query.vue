@@ -15,7 +15,6 @@
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
 
   /**
    * Button that when it is pressed emits the
@@ -42,8 +41,6 @@
       }
     },
     setup(props) {
-      useRegisterXModule(historyQueriesXModule);
-
       /**
        * The event handler that will be triggered when clicking on the clear history query button.
        *

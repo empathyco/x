@@ -50,7 +50,6 @@
   import { defineComponent } from 'vue';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { historyQueriesXModule } from '../x-module';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useGetter } from '../../../composables/use-getter';
   import HistoryQuery from './history-query.vue';
 
@@ -70,8 +69,6 @@
     },
     inheritAttrs: false,
     setup() {
-      useRegisterXModule(historyQueriesXModule);
-
       /**
        * The filtered list of history queries.
        *
