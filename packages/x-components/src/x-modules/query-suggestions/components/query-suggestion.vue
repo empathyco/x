@@ -21,7 +21,7 @@
   import { Suggestion } from '@empathyco/x-types';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
   import { querySuggestionsXModule } from '../x-module';
-  import { useGetter, useRegisterXModule } from '../../../composables';
+  import { useGetter } from '../../../composables';
 
   /**
    * This component renders a suggestion for a query. A query suggestion is a recommended query
@@ -32,34 +32,22 @@
    */
   export default defineComponent({
     name: 'QuerySuggestion',
-    components: { BaseSuggestion },
     xModule: querySuggestionsXModule.name,
+    components: { BaseSuggestion },
     props: {
-      /**
-       * The suggestion to render.
-       *
-       * @public
-       */
+      /** The suggestion to render. */
       suggestion: {
         type: Object as PropType<Suggestion>,
         required: true
       }
     },
-    setup: function (props) {
-      useRegisterXModule(querySuggestionsXModule);
-
-      /**
-       * The normalized query of the query-suggestions module.
-       *
-       * @internal
-       */
+    setup(props) {
+      /** The normalized query of the query-suggestions module. */
       const query = useGetter('querySuggestions', ['normalizedQuery']).normalizedQuery;
 
       /**
        * Emits {@link QuerySuggestionsXEvents.UserSelectedAQuerySuggestion} with the suggestion as
        * payload when selecting the query suggestion.
-       *
-       * @internal
        */
       const suggestionSelectedEvents = {
         UserSelectedAQuerySuggestion: props.suggestion

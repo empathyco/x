@@ -1,7 +1,7 @@
 <template>
   <BaseSuggestions
     v-bind="$attrs"
-    :suggestions="querySuggestions"
+    :suggestions="suggestions"
     class="x-query-suggestions"
     data-test="query-suggestions"
   >
@@ -34,8 +34,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
+  import { useGetter } from '../../../composables';
   import { querySuggestionsXModule } from '../x-module';
-  import { useGetter, useRegisterXModule } from '../../../composables';
   import QuerySuggestion from './query-suggestion.vue';
 
   /**
@@ -47,20 +47,14 @@
    */
   export default defineComponent({
     name: 'QuerySuggestions',
+    xModule: querySuggestionsXModule.name,
     components: { BaseSuggestions, QuerySuggestion },
     inheritAttrs: false,
-    xModule: querySuggestionsXModule.name,
-    setup: function () {
-      useRegisterXModule(querySuggestionsXModule);
-
-      /**
-       * The module's list of suggestions.
-       *
-       * @internal
-       */
+    setup() {
+      /** The module's list of suggestions. */
       const { querySuggestions } = useGetter('querySuggestions', ['querySuggestions']);
 
-      return { querySuggestions };
+      return { suggestions: querySuggestions };
     }
   });
 </script>
