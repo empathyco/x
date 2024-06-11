@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.34...@empathyco/x-components@5.0.0-alpha.39) (2024-06-11)
+
+
+### Bug Fixes
+
+* **semantic-queries:** cancel track no results query on QueryPreviewUnmounted event (#1507) ([cc6518e](https://github.com/empathyco/x/commit/cc6518efe8e00bf02240ca54e39ef77d05a3139f))
+
+
+### Continuous Integration
+
+* add token to checkout action (#1511) ([c7cd70a](https://github.com/empathyco/x/commit/c7cd70a5b6df5701b5e46b4558b82485bc40f953))
+* fix package version and remove `persist-credentials` (#1513) ([c3add80](https://github.com/empathyco/x/commit/c3add8033ac5515e715e1ffff636b6df8133bccc))
+
+
+
 ## [5.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.37...@empathyco/x-components@5.0.0-alpha.38) (2024-06-11)
 
 **Note:** Version bump only for package @empathyco/x-components
