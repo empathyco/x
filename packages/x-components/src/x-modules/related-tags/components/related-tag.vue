@@ -24,7 +24,6 @@
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { relatedTagsXModule } from '../x-module';
   import { use$x } from '../../../composables/use-$x';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
 
   /**
@@ -34,7 +33,6 @@
    *
    * @public
    */
-  useRegisterXModule(relatedTagsXModule);
   export default defineComponent({
     name: 'RelatedTag',
     xModule: relatedTagsXModule.name,

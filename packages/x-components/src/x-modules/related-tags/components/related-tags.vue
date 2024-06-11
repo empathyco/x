@@ -47,7 +47,6 @@
   import { computed, ComputedRef, defineComponent } from 'vue';
   import { relatedTagsXModule } from '../x-module';
   import { AnimationProp } from '../../../types/index';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useGetter } from '../../../composables/use-getter';
   import RelatedTag from './related-tag.vue';
 
@@ -60,7 +59,6 @@
    *
    * @public
    */
-  useRegisterXModule(relatedTagsXModule);
   export default defineComponent({
     name: 'RelatedTags',
     xModule: relatedTagsXModule.name,
