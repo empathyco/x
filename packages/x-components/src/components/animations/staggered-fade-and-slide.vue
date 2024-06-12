@@ -1,16 +1,14 @@
 <template>
-  <!-- eslint-disable vue/attributes-order -->
-  <staggering-transition-group
-    v-bind="$attrs"
+  <StaggeringTransitionGroup
     v-on="$listeners"
+    v-bind="$attrs"
     class="x-staggered-fade-and-slide"
     :name="name"
     :appear="appear"
   >
-    <!-- eslint-enable -->
     <!-- @slot (Required) Transition-group content -->
     <slot />
-  </staggering-transition-group>
+  </StaggeringTransitionGroup>
 </template>
 
 <script lang="ts">
@@ -45,9 +43,7 @@
 
       const { name } = useDisableAnimation(animationName);
 
-      return {
-        name
-      };
+      return { name };
     }
   });
 </script>

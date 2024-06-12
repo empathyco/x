@@ -24,7 +24,5 @@ export function useDisableAnimation(animationName: string) {
     return disableAnimation ? '__no-animation__' : animationName;
   });
 
-  return {
-    name
-  };
+  return { name };
 }

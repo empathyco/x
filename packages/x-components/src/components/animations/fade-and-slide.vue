@@ -48,9 +48,7 @@
 
       const { name } = useDisableAnimation(animationName);
 
-      return {
-        name
-      };
+      return { name };
     }
   });
 </script>

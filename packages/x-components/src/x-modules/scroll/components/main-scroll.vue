@@ -107,7 +107,7 @@
        * @internal
        */
       const disableAnimations = computed((): boolean => !!pendingScrollTo.value);
-      provide(DISABLE_ANIMATIONS_KEY as string, disableAnimations);
+      provide(DISABLE_ANIMATIONS_KEY as string, disableAnimations.value);
 
       /**
        * Removes an element from the {@link MainScroll.intersectingElements} list.
