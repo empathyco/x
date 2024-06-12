@@ -9,11 +9,19 @@ jobs:
       options: --user 1001
 
     steps:
+      # Use GitHub App token as a workaround to allow bypassing branch-protection rules
+      # https://github.com/orgs/community/discussions/13836#discussioncomment-8535364
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.GH_TOKENS_APP_ID }}
+          private-key: ${{ secrets.GH_TOKENS_APP_PRIVATE_KEY }}
+
       - name: checkout repository
         uses: actions/checkout@v4
         with:
+          token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
-          persist-credentials: false
 
       # Install pnpm because it is not included in our container image
       - name: install pnpm
@@ -28,4 +36,4 @@ jobs:
         uses: ./.github/actions/release-alpha
         with:
           npm_token: ${{ secrets.NPM_TOKEN_GRANULAR_ACCESS }}
-          github_token: ${{ secrets.SUPPORT_TOKEN }}
+          github_token: ${{ steps.app-token.outputs.token }}

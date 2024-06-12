@@ -1,21 +1,23 @@
 <template>
   <BaseModal
+    v-bind="$attrs"
+    :ref="el"
     @click:overlay="emitClickOutOfModal"
     @focusin:body="emitClickOutOfModal"
     :animation="animation"
     :open="isOpen"
-    v-bind="$attrs"
   >
     <slot />
   </BaseModal>
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { XOn } from '../decorators/bus.decorators';
+  import { defineComponent, ref } from 'vue';
   import { WireMetadata } from '../../wiring/wiring.types';
   import { getTargetElement, isElementEqualOrContained } from '../../utils/html';
+  import { useXBus } from '../../composables';
+  import { AnimationProp } from '../../types/animation-prop';
+  import { XEvent } from '../../wiring/events.types';
   import BaseModal from './base-modal.vue';
 
   /**
@@ -26,71 +28,94 @@
    *
    * @public
    */
-  @Component({
-    components: { BaseModal }
-  })
-  export default class BaseIdModal extends Vue {
-    /** Animation to use for opening/closing the modal. */
-    @Prop()
-    public animation?: Vue | string;
-
-    /** The modalId to use for the open and close event listeners. */
-    @Prop({ required: true })
-    public modalId!: string;
-
-    /** Whether the modal is open or not. */
-    protected isOpen = false;
-
-    /** The element that opened the modal. */
-    protected openerElement?: HTMLElement;
-
-    /**
-     * Opens the modal.
-     *
-     * @param modalId - The payload of the {@link XEventsTypes.UserClickedOpenModal} event.
-     * @param metadata - The metadata of the emitted event.
-     * @public
-     */
-    @XOn('UserClickedOpenModal')
-    openModal(modalId: string, metadata: WireMetadata): void {
-      if (!this.isOpen && this.modalId === modalId) {
-        this.openerElement = metadata.target;
-        this.isOpen = true;
+  export default defineComponent({
+    name: 'BaseIdModal',
+    components: { BaseModal },
+    props: {
+      /**
+       * Animation to use for opening/closing the modal.
+       */
+      animation: {
+        type: AnimationProp
+      },
+      /**
+       * The modalId to use for the open and close event listeners.
+       */
+      modalId: {
+        type: String,
+        required: true
       }
-    }
+    },
+    setup(props) {
+      /** The element that opened the modal. */
+      let openerElement: HTMLElement | undefined;
 
-    /**
-     * Closes the modal.
-     *
-     * @param payload - The payload of the closing events:
-     * {@link XEventsTypes.UserClickedCloseModal} or {@link XEventsTypes.UserClickedOutOfModal}.
-     *
-     * @public
-     */
-    @XOn(['UserClickedCloseModal', 'UserClickedOutOfModal'])
-    closeModal(payload: string): void {
-      if (this.isOpen && this.modalId === payload) {
-        this.isOpen = false;
-      }
-    }
+      /** Whether the modal is open or not. */
+      const isOpen = ref(false);
 
-    /**
-     * Emits a {@link XEventsTypes.UserClickedOutOfModal} event unless the passed event target
-     * is the button that opened the modal.
-     *
-     * @param event - The event that triggered the close attempt.
-     * @public
-     */
-    protected emitClickOutOfModal(event: MouseEvent | FocusEvent): void {
-      // Prevents clicking the open button when the panel is already open to close the panel.
-      if (
-        !this.openerElement ||
-        !isElementEqualOrContained(this.openerElement, getTargetElement(event))
-      ) {
-        this.$x.emit('UserClickedOutOfModal', this.modalId, { target: this.$el as HTMLElement });
+      const el = ref<HTMLElement>();
+
+      const closeModalEvents: XEvent[] = ['UserClickedCloseModal', 'UserClickedOutOfModal'];
+
+      const xBus = useXBus();
+
+      /**
+       * Opens the modal.
+       *
+       * @param modalId - The payload of the {@link XEventsTypes.UserClickedOpenModal} event.
+       * @param metadata - The metadata of the emitted event.
+       * @public
+       */
+      function openModal(modalId: string, metadata: WireMetadata): void {
+        if (!isOpen.value && props.modalId === modalId) {
+          openerElement = metadata.target;
+          isOpen.value = true;
+        }
       }
+
+      /**
+       * Closes the modal.
+       *
+       * @param payload - The payload of the closing events:
+       * {@link XEventsTypes.UserClickedCloseModal} or {@link XEventsTypes.UserClickedOutOfModal}.
+       *
+       * @public
+       */
+      function closeModal(payload: string): void {
+        if (isOpen.value && props.modalId === payload) {
+          isOpen.value = false;
+        }
+      }
+
+      /**
+       * Emits a {@link XEventsTypes.UserClickedOutOfModal} event unless the passed event target
+       * is the button that opened the modal.
+       *
+       * @param event - The event that triggered the close attempt.
+       * @public
+       */
+      function emitClickOutOfModal(event: MouseEvent | FocusEvent): void {
+        // Prevents clicking the open button when the panel is already open to close the panel.
+        if (!openerElement || !isElementEqualOrContained(openerElement, getTargetElement(event))) {
+          xBus.emit('UserClickedOutOfModal', props.modalId, { target: el.value as HTMLElement });
+        }
+      }
+
+      xBus
+        .on('UserClickedOpenModal', true)
+        .subscribe(({ eventPayload, metadata }) => openModal(eventPayload, metadata));
+
+      closeModalEvents.forEach(event => {
+        xBus.on(event, false).subscribe(eventPayload => closeModal(eventPayload as string));
+      });
+
+      return {
+        el,
+        isOpen,
+        emitClickOutOfModal
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

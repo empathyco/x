@@ -11,10 +11,8 @@
 
 <script lang="ts">
   import { HistoryQuery } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType } from 'vue';
   import BaseEventButton from '../../../components/base-event-button.vue';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { historyQueriesXModule } from '../x-module';
 
@@ -25,32 +23,42 @@
    *
    * @public
    */
-  @Component({
-    components: { BaseEventButton },
-    mixins: [xComponentMixin(historyQueriesXModule)]
-  })
-  export default class RemoveHistoryQuery extends Vue {
-    /**
-     * The historyQuery that will be removed when clicking the clear button.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected historyQuery!: HistoryQuery;
+  export default defineComponent({
+    name: 'RemoveHistoryQuery',
+    xModule: historyQueriesXModule.name,
+    components: {
+      BaseEventButton
+    },
+    props: {
+      /**
+       * The historyQuery that will be removed when clicking the clear button.
+       *
+       * @public
+       */
+      historyQuery: {
+        type: Object as PropType<HistoryQuery>,
+        required: true
+      }
+    },
+    setup(props) {
+      /**
+       * The event handler that will be triggered when clicking on the clear history query button.
+       *
+       * @remarks
+       * {@link HistoryQueriesXEvents.UserPressedRemoveHistoryQuery}: historyQuery
+       *
+       * @returns The {@link XEvent} to emit.
+       * @public
+       */
+      const removeHistoryQueryEvent = computed(
+        (): Partial<XEventsTypes> => ({ UserPressedRemoveHistoryQuery: props.historyQuery })
+      );
 
-    /**
-     * The event handler that will be triggered when clicking on the clear history query button.
-     *
-     * @remarks
-     * {@link HistoryQueriesXEvents.UserPressedRemoveHistoryQuery}: historyQuery
-     *
-     * @returns The {@link XEvent} to emit.
-     * @public
-     */
-    protected get removeHistoryQueryEvent(): Partial<XEventsTypes> {
-      return { UserPressedRemoveHistoryQuery: this.historyQuery };
+      return {
+        removeHistoryQueryEvent
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

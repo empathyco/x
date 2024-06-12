@@ -57,18 +57,16 @@
 </template>
 
 <script lang="ts">
-  import { HistoryQuery } from '@empathyco/x-types';
+  import { HistoryQuery as HistoryQueryType } from '@empathyco/x-types';
   import { Dictionary } from '@empathyco/x-utils';
-  import Vue from 'vue';
-  import { Component, Inject, Prop } from 'vue-property-decorator';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { State } from '../../../components/decorators/store.decorators';
+  import { computed, defineComponent, inject } from 'vue';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
   import { groupItemsBy, isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { historyQueriesXModule } from '../x-module';
-  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
-  import HistoryQueryComponent from './history-query.vue';
+  import { AnimationProp } from '../../../types/index';
+  import { useState } from '../../../composables/use-state';
+  import HistoryQuery from './history-query.vue';
 
   /**
    * The component renders the full history of user searched queries grouped by the day
@@ -81,117 +79,131 @@
    * made in the past.
    * @public
    */
-  @Component({
-    components: { HistoryQuery: HistoryQueryComponent, BaseSuggestions },
-    mixins: [xComponentMixin(historyQueriesXModule), dynamicPropsMixin(['queriesListClass'])]
-  })
-  export default class MyHistory extends Vue {
-    /**
-     * Animation component that will be used to animate the suggestions.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue | string;
+  export default defineComponent({
+    name: 'MyHistory',
+    xModule: historyQueriesXModule.name,
+    components: {
+      HistoryQuery,
+      BaseSuggestions
+    },
+    props: {
+      /**
+       * Animation component that will be used to animate the suggestions.
+       *
+       * @public
+       */
+      animation: {
+        type: AnimationProp,
+        default: 'ul'
+      },
+      /**
+       * The current locale.
+       *
+       * @public
+       */
+      locale: {
+        type: String,
+        default: 'en'
+      },
+      /** Class inherited by content element. */
+      queriesListClass: String
+    },
+    setup(props) {
+      /**
+       * The list of history queries.
+       *
+       * @internal
+       */
+      const { historyQueries } = useState('historyQueries', ['historyQueries']);
 
-    /**
-     * The current locale.
-     *
-     * @public
-     */
-    @Prop({ default: 'en' })
-    protected locale!: string;
+      /**
+       * The provided {@link SnippetConfig}.
+       *
+       * @internal
+       */
+      const snippetConfig = inject<SnippetConfig | undefined>('snippetConfig');
 
-    /**
-     * The list of history queries.
-     *
-     * @internal
-     */
-    @State('historyQueries', 'historyQueries')
-    public historyQueries!: HistoryQuery[];
+      /**
+       * The locale that it is going to be used. It can be the one send it by the snippet config or
+       * the one pass it using the prop.
+       *
+       * @returns The locale to be used.
+       * @internal
+       */
+      const usedLocale = computed(() => snippetConfig?.lang ?? props.locale);
 
-    /**
-     * The provided {@link SnippetConfig}.
-     *
-     * @internal
-     */
-    @Inject('snippetConfig')
-    public snippetConfig?: SnippetConfig;
-
-    /**
-     * Returns a record of history queries grouped by date.
-     *
-     * @example
-     * ```typescript
-     *  const historyQueriesGrouped = {
-     *    'Monday, January 10th, 2022' : [{
-     *      query: 'lego',
-     *      modelName: 'HistoryQuery',
-     *      timestamp: 121312312
-     *    }],
-     *    'Tuesday, January 11th, 2022' : [{
-     *      query: 'barbie',
-     *      modelName: 'HistoryQuery',
-     *      timestamp: 15221212
-     *    }]
-     *  }
-     * ```
-     * @returns The history queries grouped by date.
-     * @internal
-     */
-    protected get groupByDate(): Dictionary<HistoryQuery[]> {
-      return groupItemsBy(this.historyQueries, current => {
-        return new Date(current.timestamp).toLocaleDateString(this.usedLocale, {
-          day: 'numeric',
-          weekday: 'long',
-          month: 'long',
-          year: 'numeric'
+      /**
+       * Returns a record of history queries grouped by date.
+       *
+       * @example
+       * ```typescript
+       *  const historyQueriesGrouped = {
+       *    'Monday, January 10th, 2022' : [{
+       *      query: 'lego',
+       *      modelName: 'HistoryQuery',
+       *      timestamp: 121312312
+       *    }],
+       *    'Tuesday, January 11th, 2022' : [{
+       *      query: 'barbie',
+       *      modelName: 'HistoryQuery',
+       *      timestamp: 15221212
+       *    }]
+       *  }
+       * ```
+       * @returns The history queries grouped by date.
+       * @internal
+       */
+      const groupByDate = computed((): Dictionary<HistoryQueryType[]> => {
+        return groupItemsBy(historyQueries.value as HistoryQueryType[], current => {
+          return new Date(current.timestamp).toLocaleDateString(usedLocale.value, {
+            day: 'numeric',
+            weekday: 'long',
+            month: 'long',
+            year: 'numeric'
+          });
         });
       });
-    }
 
-    /**
-     * Formats a timestamp into `hh:mm [PM/AM]` format.
-     *
-     * @example
-     * ```typescript
-     * // locale 'es'
-     * console.log(formatTime(Date.now()) // '16:54'.
-     *
-     * // locale 'en'
-     * console.log(formatTime(Date.now()) // '16:54 PM'.
-     * ```
-     * @param timestamp - The timestamp to format.
-     * @returns The formatted time.
-     * @internal
-     */
-    protected formatTime(timestamp: number): string {
-      return new Date(timestamp).toLocaleTimeString(this.usedLocale, {
-        hour: '2-digit',
-        minute: '2-digit'
-      });
+      /**
+       * Formats a timestamp into `hh:mm [PM/AM]` format.
+       *
+       * @example
+       * ```typescript
+       * // locale 'es'
+       * console.log(formatTime(Date.now()) // '16:54'.
+       *
+       * // locale 'en'
+       * console.log(formatTime(Date.now()) // '16:54 PM'.
+       * ```
+       * @param timestamp - The timestamp to format.
+       * @returns The formatted time.
+       * @internal
+       */
+      const formatTime = (timestamp: number) =>
+        new Date(timestamp).toLocaleTimeString(usedLocale.value, {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+
+      /**
+       * The `hasHistoryQueries` computed property is a flag representing if there are history queries
+       * stored.
+       *
+       * @returns True if there are history queries; false otherwise.
+       * @internal
+       */
+      const hasHistoryQueries = computed(
+        () => !isArrayEmpty(historyQueries.value as HistoryQueryType[])
+      );
+
+      return {
+        hasHistoryQueries,
+        groupByDate,
+        historyQueries,
+        formatTime
+      };
     }
-    /**
-     * The `hasHistoryQueries` computed property is a flag representing if there are history queries
-     * stored.
-     *
-     * @returns True if there are history queries; false otherwise.
-     * @internal
-     */
-    protected get hasHistoryQueries(): boolean {
-      return !isArrayEmpty(this.historyQueries);
-    }
-    /**
-     * The locale that it is going to be used. It can be the one send it by the snippet config or
-     * the one pass it using the prop.
-     *
-     * @returns The locale to be used.
-     * @internal
-     */
-    protected get usedLocale(): string {
-      return this.snippetConfig?.lang ?? this.locale;
-    }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
