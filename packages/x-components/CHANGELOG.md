@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.41...@empathyco/x-components@5.0.0-alpha.42) (2024-06-12)
+
+
+### Features
+
+* migrate `Banner` and `Promoted` to composition API (#1506) ([c102fd9](https://github.com/empathyco/x/commit/c102fd96b26425df2ed8d73d58b3db8fc454deeb))
+* migrate RTs module to composition API (#1498) ([22c5325](https://github.com/empathyco/x/commit/22c5325666441121e8ee64bfaa4c51ddad11939a))
+
+
+
 ## [5.0.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.40...@empathyco/x-components@5.0.0-alpha.41) (2024-06-12)
 
 

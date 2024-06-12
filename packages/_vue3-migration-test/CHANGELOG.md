@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.27](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.26...vue3-migration-test@1.0.0-alpha.27) (2024-06-12)
+
+
+### Features
+
+* migrate RTs module to composition API (#1498) ([22c5325](https://github.com/empathyco/x/commit/22c5325666441121e8ee64bfaa4c51ddad11939a))
+
+
+
 ## [1.0.0-alpha.26](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.25...vue3-migration-test@1.0.0-alpha.26) (2024-06-12)
 
 
