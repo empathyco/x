@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.40...@empathyco/x-components@5.0.0-alpha.41) (2024-06-12)
+
+
+### Features
+
+* migrate `query suggestions` module to composition api (#1497) ([4a9c742](https://github.com/empathyco/x/commit/4a9c742007476367328be6c978d16ec16ae115c1))
+
+
+
 ## [5.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.39...@empathyco/x-components@5.0.0-alpha.40) (2024-06-12)
 
 
