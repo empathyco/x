@@ -2,9 +2,16 @@ import { XComponentsAdapter } from '@empathyco/x-types';
 import { Component, configureCompat, createApp } from 'vue';
 import { createStore } from 'vuex';
 import { xPlugin } from '../../x-components/src/plugins/x-plugin';
+import { getRelatedTagsStub } from '../../x-components/src/__stubs__/related-tags-stubs.factory';
 import App from './App.vue';
 import router from './router';
-import { facetsXModule, nextQueriesXModule, scrollXModule, searchXModule } from './';
+import {
+  facetsXModule,
+  nextQueriesXModule,
+  scrollXModule,
+  searchXModule,
+  relatedTagsXModule
+} from './';
 
 // Warnings that cannot be solved in Vue 2 (a.k.a. breaking  changes) are suppressed
 const VUE_COMPAT_MODE = Number(import.meta.env.VITE_VUE_COMPAT_MODE);
@@ -26,7 +33,12 @@ if (VUE_COMPAT_MODE === 2) {
   });
 }
 
-const adapter = {} as XComponentsAdapter;
+const adapter = {
+  relatedTags: () =>
+    new Promise(resolve => {
+      resolve({ relatedTags: getRelatedTagsStub(10) });
+    })
+} as unknown as XComponentsAdapter;
 
 const store = createStore({});
 
@@ -40,7 +52,8 @@ createApp(App as Component)
       facets: facetsXModule,
       nextQueries: nextQueriesXModule,
       scroll: scrollXModule,
-      search: searchXModule
+      search: searchXModule,
+      relatedTags: relatedTagsXModule
     }
   })
   .mount('#app');

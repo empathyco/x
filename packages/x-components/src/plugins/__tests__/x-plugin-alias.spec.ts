@@ -50,7 +50,7 @@ describe('testing plugin alias', () => {
         popularSearches: undefined,
         querySuggestions: undefined,
         recommendations: undefined,
-        relatedTags: undefined,
+        relatedTags: 'initial', // It is already registered by the `relatedTagsXModule` import itself
         search: undefined
       },
       device: null,
