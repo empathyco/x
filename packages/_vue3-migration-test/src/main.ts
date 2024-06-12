@@ -1,4 +1,4 @@
-import { XComponentsAdapter } from '@empathyco/x-types';
+import { QuerySuggestionsRequest, XComponentsAdapter } from '@empathyco/x-types';
 import { Component, configureCompat, createApp } from 'vue';
 import { createStore } from 'vuex';
 import { xPlugin } from '../../x-components/src/plugins/x-plugin';
