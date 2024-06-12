@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.25](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.24...vue3-migration-test@1.0.0-alpha.25) (2024-06-12)
+
+
+### Features
+
+* migrate history queries x module to composition api (#1494) ([cd51e9b](https://github.com/empathyco/x/commit/cd51e9bb2afb77bbb8f935445bfda360dcfaafde))
+
+
+
 ## [1.0.0-alpha.24](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.23...vue3-migration-test@1.0.0-alpha.24) (2024-06-05)
 
 
