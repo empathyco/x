@@ -18,7 +18,7 @@
   import { ArrowKey, EventsForDirectionLimit, TakeNavigationControl } from '../utils/types';
   import { XEventsOf } from '../wiring/events.types';
   import { WireMetadata } from '../wiring/wiring.types';
-  import { use$x, useXBus } from '../composables';
+  import { useXBus } from '../composables';
 
   /**
    * Base component to handle keyboard navigation for elements inside it. It has a required slot to
@@ -56,8 +56,6 @@
     },
     setup: function (props) {
       const el = ref<HTMLElement>();
-
-      const $x = use$x();
       const xBus = useXBus();
 
       /**
@@ -132,7 +130,7 @@
       function emitDirectionalLimitReached(direction: ArrowKey): void {
         const xEvent = props.eventsForDirectionLimit?.[direction];
         if (xEvent) {
-          $x.emit(xEvent, undefined, { target: elementToFocus });
+          xBus.emit(xEvent, undefined, { target: elementToFocus });
         }
       }
 
