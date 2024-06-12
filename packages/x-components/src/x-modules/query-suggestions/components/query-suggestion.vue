@@ -1,6 +1,6 @@
 <template>
   <BaseSuggestion
-    v-bind="{ query, suggestion, suggestionSelectedEvents: event }"
+    v-bind="{ query, suggestion, suggestionSelectedEvents }"
     class="x-query-suggestion"
     data-test="query-suggestion"
     feature="query_suggestion"
@@ -17,13 +17,11 @@
 </template>
 
 <script lang="ts">
+  import { defineComponent, PropType } from 'vue';
   import { Suggestion } from '@empathyco/x-types';
-  import { Component, Prop, Vue } from 'vue-property-decorator';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
-  import { Getter } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { XEventsTypes } from '../../../wiring/events.types';
   import { querySuggestionsXModule } from '../x-module';
+  import { useGetter } from '../../../composables';
 
   /**
    * This component renders a suggestion for a query. A query suggestion is a recommended query
@@ -32,37 +30,35 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'QuerySuggestion',
+    xModule: querySuggestionsXModule.name,
     components: { BaseSuggestion },
-    mixins: [xComponentMixin(querySuggestionsXModule)]
-  })
-  export default class QuerySuggestion extends Vue {
-    /**
-     * The normalized query of the query-suggestions module.
-     *
-     * @internal
-     */
-    @Getter('querySuggestions', 'normalizedQuery')
-    public query!: string;
+    props: {
+      /** The suggestion to render. */
+      suggestion: {
+        type: Object as PropType<Suggestion>,
+        required: true
+      }
+    },
+    setup(props) {
+      /** The normalized query of the query-suggestions module. */
+      const query = useGetter('querySuggestions', ['normalizedQuery']).normalizedQuery;
 
-    /**
-     * The suggestion to render.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected suggestion!: Suggestion;
+      /**
+       * Emits {@link QuerySuggestionsXEvents.UserSelectedAQuerySuggestion} with the suggestion as
+       * payload when selecting the query suggestion.
+       */
+      const suggestionSelectedEvents = {
+        UserSelectedAQuerySuggestion: props.suggestion
+      };
 
-    /**
-     * Emits {@link QuerySuggestionsXEvents.UserSelectedAQuerySuggestion} with the suggestion as
-     * payload when selecting the query suggestion.
-     *
-     * @internal
-     */
-    protected event: Partial<XEventsTypes> = {
-      UserSelectedAQuerySuggestion: this.suggestion
-    };
-  }
+      return {
+        query,
+        suggestionSelectedEvents
+      };
+    }
+  });
 </script>
 
 <docs lang="mdx">

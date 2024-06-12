@@ -32,7 +32,8 @@ import {
   TestRelatedTags,
   TestPartialResultsList,
   TestBaseEventsModal,
-  TestBaseIdModal
+  TestBaseIdModal,
+  TestQuerySuggestions
 } from './';
 
 const routes = [
@@ -200,6 +201,11 @@ const routes = [
     path: '/test-base-id-modal',
     name: 'TestBaseIdModal',
     component: TestBaseIdModal
+  },
+  {
+    path: '/query-suggestions',
+    name: 'QuerySuggestions',
+    component: TestQuerySuggestions
   }
 ];
 
