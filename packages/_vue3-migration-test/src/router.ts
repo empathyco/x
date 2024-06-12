@@ -29,6 +29,7 @@ import {
   TestBaseResultImages,
   TestBasePanel,
   TestBaseKeyboardNavigation,
+  TestRelatedTags,
   TestPartialResultsList,
   TestBaseEventsModal,
   TestBaseIdModal,
@@ -180,6 +181,11 @@ const routes = [
     path: '/base-keyboard-navigation',
     name: 'TestBaseKeyboardNavigation',
     component: TestBaseKeyboardNavigation
+  },
+  {
+    path: '/related-tags',
+    name: 'RelatedTags',
+    component: TestRelatedTags
   },
   {
     path: '/partial-results-list',
