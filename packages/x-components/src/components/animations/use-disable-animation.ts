@@ -1,4 +1,4 @@
-import { computed, inject } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { DISABLE_ANIMATIONS_KEY } from '../decorators/injection.consts';
 
 /**
@@ -13,18 +13,14 @@ export function useDisableAnimation(animationName: string) {
   /**
    * Flag to disable the animation.
    */
-  const disableAnimation = inject(DISABLE_ANIMATIONS_KEY as string, false);
+  const disableAnimation = inject(DISABLE_ANIMATIONS_KEY as string, ref(false));
 
   /**
    * The animation's name based on the DISABLE_ANIMATIONS_KEY flag.
    *
    * @returns The animation name.
    */
-  const name = computed<string>(() => {
-    return disableAnimation ? '__no-animation__' : animationName;
-  });
+  const name = computed(() => (disableAnimation.value ? '__no-animation__' : animationName));
 
-  return {
-    name
-  };
+  return { name };
 }

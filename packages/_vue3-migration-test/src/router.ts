@@ -39,8 +39,7 @@ import {
   TestSemanticQueries,
   TestRecommendations,
   TestNextQueries,
-  TestIdentifierResults,
-  TestStaggeredFadeAndSlide
+  TestIdentifierResults
 } from './';
 
 const routes = [
@@ -78,11 +77,6 @@ const routes = [
     path: '/fade-and-slide',
     name: 'FadeAndSlide',
     component: TestFadeAndSlide
-  },
-  {
-    path: '/staggered-fade-and-slide',
-    name: 'StaggeredFadeAndSlide',
-    component: TestStaggeredFadeAndSlide
   },
   {
     path: '/base-dropdown',

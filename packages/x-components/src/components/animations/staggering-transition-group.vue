@@ -1,5 +1,14 @@
 <script lang="ts">
-  import { computed, defineComponent, h, onBeforeUpdate, onMounted, onUpdated, VNode } from 'vue';
+  import {
+    computed,
+    defineComponent,
+    h,
+    onBeforeUpdate,
+    onMounted,
+    onUpdated,
+    ref,
+    VNode
+  } from 'vue';
   import { noOp } from '../../utils/function';
 
   /* eslint-disable @typescript-eslint/unbound-method */
@@ -38,8 +47,12 @@
         default: 25
       }
     },
-    setup: function (props, { attrs, listeners, slots }) {
-      let rootVNode: VNode;
+    setup(props, { attrs, listeners, slots }) {
+      /**
+       * The reference to the element rendered by the component.
+       * Passed to the 'h' render function which will set the ref when the element is created.
+       */
+      const el = ref<HTMLElement>();
 
       /**
        * The CSS class for the moving transitions.
@@ -116,11 +129,11 @@
       });
 
       onBeforeUpdate(() => {
-        wrapperBounds = (rootVNode.elm as HTMLElement).getBoundingClientRect();
+        wrapperBounds = el.value!.getBoundingClientRect();
       });
 
       onUpdated(() => {
-        wrapperBounds = (rootVNode.elm as HTMLElement).getBoundingClientRect();
+        wrapperBounds = el.value!.getBoundingClientRect();
         newChildren.forEach(recordNewPosition);
         const { leavingNodes, stayingNodes, enteringNodes } = getNodesByTransitionType();
 
@@ -368,8 +381,7 @@
         newChildren.forEach(addTransitionData);
         oldChildren.forEach(syncOldNodes);
 
-        rootVNode = h(props.tag, { staticClass: 'x-staggering-transition-group' }, newChildren);
-        return rootVNode;
+        return h(props.tag, { ref: el, class: 'x-staggering-transition-group' }, newChildren);
       };
     }
   });

@@ -9,7 +9,6 @@
     name="x-collapse-width-"
     :appear="appear"
   >
-    <!-- eslint-enable -->
     <!-- @slot (Required) to add content to the transition -->
     <slot />
   </transition>

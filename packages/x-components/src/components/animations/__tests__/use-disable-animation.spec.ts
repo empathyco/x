@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { defineComponent, provide } from 'vue';
+import { defineComponent, provide, ref } from 'vue';
 import { DISABLE_ANIMATIONS_KEY } from '../../decorators/injection.consts';
 import { useDisableAnimation } from '../use-disable-animation';
 
@@ -8,7 +8,7 @@ const Provider = defineComponent({
     disableAnimation: Boolean
   },
   setup(props) {
-    provide(DISABLE_ANIMATIONS_KEY as string, props.disableAnimation);
+    provide(DISABLE_ANIMATIONS_KEY as string, ref(props.disableAnimation));
   },
   render(h) {
     return this.$slots.default?.[0] ?? h();

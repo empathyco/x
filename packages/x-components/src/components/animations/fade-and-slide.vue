@@ -8,7 +8,6 @@
     :tag="tag"
     :appear="appear"
   >
-    <!-- eslint-enable -->
     <!-- @slot (Required) Transition-group content -->
     <slot />
   </transition-group>
@@ -48,9 +47,7 @@
 
       const { name } = useDisableAnimation(animationName);
 
-      return {
-        name
-      };
+      return { name };
     }
   });
 </script>
