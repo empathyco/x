@@ -1,6 +1,5 @@
-import { Suggestion } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { createQuerySuggestion } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
@@ -16,12 +15,13 @@ function renderQuerySuggestions({
     createQuerySuggestion('milk chocolate'),
     createQuerySuggestion('chocolate milk')
   ],
-  maxItemsToRender,
+  maxItemsToRender = 5,
   template = '<QuerySuggestions v-bind="$attrs" />'
-}: RenderQuerySuggestionsOptions = {}): RenderQuerySuggestionsApi {
+} = {}) {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
+
   installNewXPlugin({ store, initialXModules: [querySuggestionsXModule] }, localVue);
   resetXQuerySuggestionsStateWith(store, { suggestions });
 
@@ -29,41 +29,34 @@ function renderQuerySuggestions({
     {
       template,
       inheritAttrs: false,
-      components: {
-        QuerySuggestions
-      }
+      components: { QuerySuggestions }
     },
     {
       localVue,
       store,
-      propsData: {
-        maxItemsToRender
-      }
+      propsData: { maxItemsToRender }
     }
   );
 
   return {
     wrapper: wrapper.findComponent(QuerySuggestions),
     suggestions,
-    async setMaxItemsToRender(max) {
-      return await wrapper.setProps({ maxItemsToRender: max });
-    },
-    getSuggestionItemWrappers() {
-      return wrapper.findAll(getDataTestSelector('suggestion-item'));
-    }
+    getSuggestionItemWrappers: () => wrapper.findAll(getDataTestSelector('suggestion-item'))
   };
 }
 
 describe('testing Query Suggestions component', () => {
   it('is an XComponent that belongs to the query suggestions module', () => {
     const { wrapper } = renderQuerySuggestions();
-    expect(isXComponent(wrapper.vm)).toEqual(true);
+
+    expect(isXComponent(wrapper.vm)).toBeTruthy();
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('querySuggestions');
   });
 
   it('does not render anything when suggestions are empty', () => {
     const { wrapper } = renderQuerySuggestions({ suggestions: [] });
-    expect(wrapper.html()).toBe('');
+
+    expect(wrapper.html()).toEqual('');
   });
 
   it('renders the state list of suggestions', () => {
@@ -87,8 +80,7 @@ describe('testing Query Suggestions component', () => {
             <span>🔍</span>
             <span>{{ suggestion.query }}</span>
           </button>
-        </QuerySuggestions>
-      `
+        </QuerySuggestions>`
     });
 
     const suggestionItemWrappers = getSuggestionItemWrappers();
@@ -108,8 +100,7 @@ describe('testing Query Suggestions component', () => {
         <QuerySuggestions #suggestion-content="{ suggestion }">
           <span>🔍</span>
           <span>{{ suggestion.query }}</span>
-        </QuerySuggestions>
-      `
+        </QuerySuggestions>`
     });
 
     const suggestionItemWrappers = getSuggestionItemWrappers();
@@ -120,9 +111,8 @@ describe('testing Query Suggestions component', () => {
     });
   });
 
-  // eslint-disable-next-line max-len
   it('renders at most the number of QuerySuggestion defined by `maxItemsToRender` prop', async () => {
-    const { getSuggestionItemWrappers, setMaxItemsToRender, suggestions } = renderQuerySuggestions({
+    const { wrapper, getSuggestionItemWrappers, suggestions } = renderQuerySuggestions({
       suggestions: [
         createQuerySuggestion('shirt'),
         createQuerySuggestion('jeans'),
@@ -131,33 +121,13 @@ describe('testing Query Suggestions component', () => {
       ]
     });
 
-    await setMaxItemsToRender(suggestions.length - 1);
+    await wrapper.setProps({ maxItemsToRender: suggestions.length - 1 });
     expect(getSuggestionItemWrappers().wrappers).toHaveLength(suggestions.length - 1);
 
-    await setMaxItemsToRender(suggestions.length);
+    await wrapper.setProps({ maxItemsToRender: suggestions.length });
     expect(getSuggestionItemWrappers().wrappers).toHaveLength(suggestions.length);
 
-    await setMaxItemsToRender(suggestions.length + 1);
+    await wrapper.setProps({ maxItemsToRender: suggestions.length });
     expect(getSuggestionItemWrappers().wrappers).toHaveLength(suggestions.length);
   });
 });
-
-interface RenderQuerySuggestionsOptions {
-  /** The suggestions list to render. */
-  suggestions?: Suggestion[];
-  /** The maximum number of items to render. */
-  maxItemsToRender?: string;
-  /** The template to render. */
-  template?: string;
-}
-
-interface RenderQuerySuggestionsApi {
-  /** QuerySuggestions component testing wrapper. */
-  wrapper: Wrapper<Vue>;
-  /** Retrieves the list item of each suggestion. */
-  getSuggestionItemWrappers: () => WrapperArray<Vue>;
-  /** Updates the maximum number of items to render. */
-  setMaxItemsToRender: (max: number) => Promise<void>;
-  /** Rendered suggestions data. */
-  suggestions: Suggestion[];
-}
