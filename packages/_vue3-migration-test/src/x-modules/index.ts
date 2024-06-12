@@ -5,6 +5,7 @@ export * from './search';
 export * from './search-box';
 export { default as TestElementsList } from './test-elements-list.vue';
 export * from './scroll';
+export * from './related-tags';
 export * from './history-queries';
 export * from './query-suggestions';
 export * from './semantic-queries';

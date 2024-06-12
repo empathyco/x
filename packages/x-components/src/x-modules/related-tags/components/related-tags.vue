@@ -44,12 +44,10 @@
 
 <script lang="ts">
   import { RelatedTag as RelatedTagModel } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { Getter } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { computed, ComputedRef, defineComponent } from 'vue';
   import { relatedTagsXModule } from '../x-module';
-  import { dynamicPropsMixin } from '../../../components/dynamic-props.mixin';
+  import { AnimationProp } from '../../../types/index';
+  import { useGetter } from '../../../composables/use-getter';
   import RelatedTag from './related-tag.vue';
 
   /**
@@ -61,42 +59,57 @@
    *
    * @public
    */
-  @Component({
-    components: { RelatedTag },
-    mixins: [xComponentMixin(relatedTagsXModule), dynamicPropsMixin(['itemClass'])]
-  })
-  export default class RelatedTags extends Vue {
-    /**
-     * Animation component that will be used to animate the suggestion.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue;
+  export default defineComponent({
+    name: 'RelatedTags',
+    xModule: relatedTagsXModule.name,
+    components: {
+      RelatedTag
+    },
+    props: {
+      /**
+       * Animation component that will be used to animate the suggestion.
+       *
+       * @public
+       */
+      animation: {
+        type: AnimationProp,
+        default: 'ul'
+      },
 
-    /**
-     * Number of related tags to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
+      /**
+       * Number of related tags to be rendered.
+       *
+       * @public
+       */
+      maxItemsToRender: Number,
 
-    /**
-     * Flag to indicate if the curated tags should be displayed different.
-     *
-     * @public
-     */
-    @Prop({ default: false, type: Boolean })
-    protected highlightCurated!: boolean;
+      /**
+       * Flag to indicate if the curated tags should be displayed different.
+       *
+       * @public
+       */
+      highlightCurated: {
+        type: Boolean,
+        default: false
+      },
 
-    @Getter('relatedTags', 'relatedTags')
-    public storedRelatedTags!: RelatedTagModel[];
+      /** Class inherited by content element. */
+      itemClass: String
+    },
+    setup(props) {
+      const storedRelatedTags: ComputedRef<RelatedTagModel[]> = useGetter('relatedTags', [
+        'relatedTags'
+      ]).relatedTags;
 
-    protected get relatedTags(): RelatedTagModel[] {
-      return this.storedRelatedTags.slice(0, this.maxItemsToRender);
+      const relatedTags = computed((): RelatedTagModel[] =>
+        storedRelatedTags.value.slice(0, props.maxItemsToRender)
+      );
+
+      return {
+        relatedTags
+      };
     }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
