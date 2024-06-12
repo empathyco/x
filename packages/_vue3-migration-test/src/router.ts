@@ -24,6 +24,8 @@ import {
   TestSlidingPanel,
   TestBaseSuggestions,
   TestHighlight,
+  TestHistoryQueries,
+  TestMyHistory,
   TestBaseResultImages,
   TestBasePanel,
   TestBaseKeyboardNavigation,
@@ -152,6 +154,16 @@ const routes = [
     path: '/highlight',
     name: 'Highlight',
     component: TestHighlight
+  },
+  {
+    path: '/history-queries',
+    name: 'HistoryQueries',
+    component: TestHistoryQueries
+  },
+  {
+    path: '/my-history',
+    name: 'MyHistory',
+    component: TestMyHistory
   },
   {
     path: '/base-result-images',
