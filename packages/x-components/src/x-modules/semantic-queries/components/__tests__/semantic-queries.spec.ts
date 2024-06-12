@@ -1,8 +1,6 @@
-import { Wrapper, mount, createLocalVue } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { DeepPartial } from '@empathyco/x-utils/src/types/utils.types';
-import { SemanticQuery } from '@empathyco/x-types';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import SemanticQueries from '../semantic-queries.vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
@@ -11,30 +9,23 @@ import { createSemanticQuery } from '../../../../__stubs__/semantic-queries-stub
 import { resetSemanticQueriesStateWith } from './utils';
 
 function renderSemanticQueriesList({
-  template = `
-    <SemanticQueries v-bind="$attrs"/>
-  `,
+  template = `<SemanticQueries v-bind="$attrs"/>`,
   semanticQueries = [
     createSemanticQuery({ query: 'test', distance: 1 }),
     createSemanticQuery({ query: 'test 2', distance: 2 })
   ],
   threshold = 5,
-  maxItemsToRender
-}: RenderSemanticQueriesListOptions = {}): RenderSemanticQueriesListAPI {
+  maxItemsToRender = 5
+} = {}) {
   const localVue = createLocalVue();
   localVue.use(Vuex);
-
   const store = new Store<DeepPartial<RootXStoreState>>({});
 
   installNewXPlugin(
     {
       store,
       xModules: {
-        semanticQueries: {
-          config: {
-            threshold
-          }
-        }
+        semanticQueries: { config: { threshold } }
       }
     },
     localVue
@@ -44,9 +35,7 @@ function renderSemanticQueriesList({
   const wrapper = mount(
     {
       template,
-      components: {
-        SemanticQueries
-      }
+      components: { SemanticQueries }
     },
     {
       localVue,
@@ -55,13 +44,14 @@ function renderSemanticQueriesList({
     }
   );
 
-  return { wrapper: wrapper.findComponent(SemanticQueries) };
+  return { wrapper: wrapper.findComponent(SemanticQueries) } as const;
 }
 
 describe('testing SemanticQueries', () => {
   it('is an X Component that belongs to the semantic queries module', () => {
     const { wrapper } = renderSemanticQueriesList();
-    expect(isXComponent(wrapper.vm)).toEqual(true);
+
+    expect(isXComponent(wrapper.vm)).toBeTruthy();
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('semanticQueries');
   });
 
@@ -131,7 +121,6 @@ describe('testing SemanticQueries', () => {
     expect(wrappers.at(1)?.text()).toEqual('test 2 - 1');
   });
 
-  // eslint-disable-next-line max-len
   it('exposes an array of queries and a method to find the semantic query in its default slot', () => {
     const { wrapper } = renderSemanticQueriesList({
       template: `
@@ -177,8 +166,7 @@ describe('testing SemanticQueries', () => {
           <span data-test="semantic-query-item-content">
             {{ suggestion.query }} - {{ suggestion.distance }}
           </span>
-        </SemanticQueries>
-      `,
+        </SemanticQueries>`,
       semanticQueries: [
         createSemanticQuery({ query: 'test 1', distance: 1 }),
         createSemanticQuery({ query: 'test 2', distance: 2 })
@@ -192,25 +180,3 @@ describe('testing SemanticQueries', () => {
     expect(wrappers.at(1)?.text()).toEqual('test 2 - 2');
   });
 });
-
-/**
- * The options to render the {@link SemanticQueries} component.
- */
-interface RenderSemanticQueriesListOptions {
-  /* The template to render the component. */
-  template?: string;
-  /* The semantic queries to render. */
-  semanticQueries?: SemanticQuery[];
-  /* The max number of results to show the semantic queries. */
-  threshold?: number;
-  /* The max number of semantic queries to render. */
-  maxItemsToRender?: number;
-}
-
-/**
- * The API to test the {@link SemanticQueries} component.
- */
-interface RenderSemanticQueriesListAPI {
-  /* The testing wrapper of the {@link SemanticQueries) component. */
-  wrapper: Wrapper<Vue>;
-}

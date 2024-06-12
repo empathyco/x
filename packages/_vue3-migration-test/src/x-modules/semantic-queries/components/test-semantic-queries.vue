@@ -1,21 +1,12 @@
 <template>
-  <SemanticQueries #default="{ queries, findSemanticQuery }">
+  <SemanticQueries #default="{ suggestions, findSemanticQuery }">
     <QueryPreviewList
-      :queries-preview-info="queries.map(q => ({ query: q }))"
-      #default="{ queryPreviewInfo: { query }, results }"
-      queryFeature="semantics"
+      :queriesPreviewInfo="suggestions"
+      #default="{ queryPreviewInfo: { query }, totalResults, results }"
     >
-      <div
-        class="x-flex x-flex-col x-gap-8 x-mb-16"
-        data-test="semantic-query-preview"
-        :data-query="query"
-      >
-        <SemanticQuery
-          class="x-suggestion x-title2 x-title2-md"
-          :suggestion="findSemanticQuery(query)"
-          #default="{ suggestion: { query } }"
-        >
-          <span data-test="semantic-queries-query">{{ query }}</span>
+      <div>
+        <SemanticQuery :suggestion="findSemanticQuery(query)">
+          <span>{{ query }} ({{ totalResults }})</span>
         </SemanticQuery>
         <ul v-for="result in results" :key="result.id">
           <li>{{ result.id }}</li>

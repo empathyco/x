@@ -1,4 +1,4 @@
-import { QuerySuggestionsRequest, XComponentsAdapter } from '@empathyco/x-types';
+import { XComponentsAdapter } from '@empathyco/x-types';
 import { Component, configureCompat, createApp } from 'vue';
 import { createStore } from 'vuex';
 import { xPlugin } from '../../x-components/src/plugins/x-plugin';
@@ -35,7 +35,7 @@ if (VUE_COMPAT_MODE === 2) {
 }
 
 const adapter = {
-  querySuggestions: (request: QuerySuggestionsRequest) =>
+  querySuggestions: request =>
     new Promise(resolve => {
       resolve({ suggestions: getQuerySuggestionsStub(request.query, 5) });
     })

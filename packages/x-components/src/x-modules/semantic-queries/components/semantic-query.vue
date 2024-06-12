@@ -1,6 +1,8 @@
 <template>
   <BaseSuggestion
-    v-bind="{ suggestionSelectedEvents, suggestion, query }"
+    :query="query"
+    :suggestion="suggestion"
+    :suggestionSelectedEvents="suggestionSelectedEvents"
     feature="semantics"
     data-test="semantic-query"
     #default="baseScope"
@@ -17,12 +19,10 @@
 
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
-  import { SemanticQuery as SemanticQueryModel } from '@empathyco/x-types';
+  import { SemanticQuery } from '@empathyco/x-types';
   import { semanticQueriesXModule } from '../x-module';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
-  import { useGetter, useRegisterXModule } from '../../../composables';
-
-  useRegisterXModule(semanticQueriesXModule);
+  import { useGetter } from '../../../composables/use-getter';
 
   /**
    * This component renders a semantic query. A semantic query is a recommended query
@@ -34,29 +34,20 @@
    */
   export default defineComponent({
     name: 'SemanticQuery',
-    components: { BaseSuggestion },
     xModule: semanticQueriesXModule.name,
+    components: { BaseSuggestion },
     props: {
-      /**
-       * The {@link @empathyco/x-types#SemanticQuery} to render.
-       */
+      /** The {@link @empathyco/x-types#SemanticQuery} to render. */
       suggestion: {
-        type: Object as PropType<SemanticQueryModel>,
+        type: Object as PropType<SemanticQuery>,
         required: true
       }
     },
-    setup: function (props) {
-      /**
-       * The normalized query of the semantic queries module.
-       */
+    setup(props) {
+      /** The normalized query of the semantic queries module. */
       const query = useGetter('semanticQueries', ['normalizedQuery']).normalizedQuery;
 
-      /**
-       * The list of events that are going to be emitted when the button is pressed.
-       *
-       * @internal
-       * @returns The {@link XEvent} to emit.
-       */
+      /** The list of events that are going to be emitted when the button is pressed. */
       const suggestionSelectedEvents = {
         UserSelectedASemanticQuery: props.suggestion
       };

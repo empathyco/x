@@ -46,10 +46,9 @@
   import { semanticQueriesXModule } from '../x-module';
   import { NoElement } from '../../../components/no-element';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
-  import { useRegisterXModule, useState } from '../../../composables';
+  import { useState } from '../../../composables/use-state';
   import SemanticQuery from './semantic-query.vue';
 
-  useRegisterXModule(semanticQueriesXModule);
   /**
    * Retrieves a list of semantic queries from the state and exposes them in the slots.
    *
@@ -57,13 +56,11 @@
    */
   export default defineComponent({
     name: 'SemanticQueries',
+    xModule: semanticQueriesXModule.name,
     components: { BaseSuggestions, NoElement, SemanticQuery },
     inheritAttrs: false,
-    xModule: semanticQueriesXModule.name,
-    setup: function () {
-      /**
-       * The semantic queries from the state.
-       */
+    setup() {
+      /** The semantic queries from the state. */
       const suggestions: ComputedRef<SemanticQueryModel[]> = useState('semanticQueries', [
         'semanticQueries'
       ]).semanticQueries;
@@ -71,9 +68,6 @@
       /**
        * Maps the list of semantic queries to a list of queries, to make it compatible with
        * other components.
-       *
-       * @returns A list of queries.
-       * @internal
        */
       const queries = computed(() => suggestions.value.map(suggestion => suggestion.query));
 
@@ -83,9 +77,8 @@
        * @param query - The query to search.
        * @returns The {@link @empathyco/x-types#SemanticQuery} or undefined if not found.
        */
-      const findSemanticQuery = (query: string): SemanticQueryModel | undefined => {
-        return suggestions.value.find(suggestion => suggestion.query === query);
-      };
+      const findSemanticQuery = (query: string) =>
+        suggestions.value.find(suggestion => suggestion.query === query);
 
       return { suggestions, queries, findSemanticQuery };
     }

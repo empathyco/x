@@ -144,7 +144,7 @@ const routes = [
   },
   {
     path: '/test-use-layouts',
-    name: 'TestUseLayouts',
+    name: 'UseLayouts',
     component: TestUseLayouts
   },
   {
@@ -174,12 +174,12 @@ const routes = [
   },
   {
     path: '/test-base-panel',
-    name: 'TestBasePanel',
+    name: 'BasePanel',
     component: TestBasePanel
   },
   {
     path: '/base-keyboard-navigation',
-    name: 'TestBaseKeyboardNavigation',
+    name: 'BaseKeyboardNavigation',
     component: TestBaseKeyboardNavigation
   },
   {
@@ -194,7 +194,7 @@ const routes = [
   },
   {
     path: '/test-base-id-modal',
-    name: 'TestBaseIdModal',
+    name: 'BaseIdModal',
     component: TestBaseIdModal
   },
   {
@@ -204,7 +204,7 @@ const routes = [
   },
   {
     path: '/test-semantic-queries',
-    name: 'TestSemanticQueries',
+    name: 'SemanticQueries',
     component: TestSemanticQueries
   }
 ];

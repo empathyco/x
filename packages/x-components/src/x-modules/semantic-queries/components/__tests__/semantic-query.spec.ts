@@ -1,6 +1,4 @@
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import { SemanticQuery as SemanticQueryModel } from '@empathyco/x-types';
+import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { DeepPartial } from '@empathyco/x-utils';
 import SemanticQuery from '../semantic-query.vue';
@@ -12,47 +10,43 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { semanticQueriesXModule } from '../../x-module';
 import { resetSemanticQueriesStateWith } from './utils';
 
+function renderSemanticQuery({
+  template = '<SemanticQuery :suggestion="suggestion" v-bind="$attrs"/>',
+  suggestion = createSemanticQuery({ query: 'jeans' }),
+  query = ''
+} = {}) {
+  const localVue = createLocalVue();
+  localVue.use(Vuex);
+  const store = new Store<DeepPartial<RootXStoreState>>({});
+
+  installNewXPlugin({ store, initialXModules: [semanticQueriesXModule] }, localVue);
+  resetSemanticQueriesStateWith(store, { query });
+
+  const wrapper = mount(
+    {
+      template,
+      components: { SemanticQuery }
+    },
+    {
+      localVue,
+      store,
+      data: () => ({ suggestion })
+    }
+  );
+
+  return {
+    wrapper: wrapper.findComponent(SemanticQuery),
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
+    suggestion
+  } as const;
+}
+
 describe('semantic queries component', () => {
-  function renderSemanticQuery({
-    template = '<SemanticQuery :suggestion="suggestion" v-bind="$attrs"/>',
-    suggestion = createSemanticQuery({ query: 'jeans' }),
-    query = ''
-  }: RenderSemanticQueryOptions = {}): RenderSemanticQueryAPI {
-    const localVue = createLocalVue();
-    localVue.use(Vuex);
-
-    const store = new Store<DeepPartial<RootXStoreState>>({});
-
-    installNewXPlugin({ store, initialXModules: [semanticQueriesXModule] }, localVue);
-    resetSemanticQueriesStateWith(store, { query });
-
-    const wrapper = mount(
-      {
-        template,
-        components: { SemanticQuery }
-      },
-      {
-        localVue,
-        store,
-        data() {
-          return {
-            suggestion
-          };
-        }
-      }
-    );
-
-    return {
-      wrapper: wrapper.findComponent(SemanticQuery),
-      emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
-      suggestion
-    };
-  }
-
   it('is an X Component of the Semantic Queries XModule', () => {
     const { wrapper } = renderSemanticQuery();
-    expect(isXComponent(wrapper.vm)).toEqual(true);
-    expect(getXComponentXModuleName(wrapper.vm)).toBe('semanticQueries');
+
+    expect(isXComponent(wrapper.vm)).toBeTruthy();
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('semanticQueries');
   });
 
   it('renders the SemanticQuery passed by prop', () => {
@@ -71,8 +65,7 @@ describe('semantic queries component', () => {
         <SemanticQuery :suggestion="suggestion" #default="{ suggestion, query }">
           <span data-test="state-query">{{ query }}</span>
           <span data-test="semantic-query-content">{{ suggestion.query }}</span>
-        </SemanticQuery>
-      `,
+        </SemanticQuery>`,
       suggestion: createSemanticQuery({ query: 'blazer' }),
       query: 'jacket'
     });
@@ -109,27 +102,3 @@ describe('semantic queries component', () => {
     );
   });
 });
-
-/**
- * The options to render the {@link SemanticQuery} component.
- */
-interface RenderSemanticQueryOptions {
-  /* The template to render the component. */
-  template?: string;
-  /* The semantic query to render. */
-  suggestion?: SemanticQueryModel;
-  /* The query from the semantic queries state. */
-  query?: string;
-}
-
-/**
- * The API to test the {@link SemanticQuery} component.
- */
-interface RenderSemanticQueryAPI {
-  /* The testing wrapper of the {@link SemanticQuery} component. */
-  wrapper: Wrapper<Vue>;
-  /* A jest spy of the X emit method. */
-  emitSpy: ReturnType<typeof jest.spyOn>;
-  /* The rendered semantic query. */
-  suggestion: SemanticQueryModel;
-}

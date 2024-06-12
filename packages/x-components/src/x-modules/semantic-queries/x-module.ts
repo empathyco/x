@@ -1,3 +1,4 @@
+import { XPlugin } from '../../plugins/x-plugin';
 import { XModule } from '../x-modules.types';
 import { semanticQueriesEmitters } from './store/emitters';
 import { semanticQueriesXStoreModule } from './store/module';
@@ -23,3 +24,5 @@ export const semanticQueriesXModule: SemanticQueriesXModule = {
   storeEmitters: semanticQueriesEmitters,
   wiring: semanticQueriesWiring
 };
+
+XPlugin.registerXModule(semanticQueriesXModule);
