@@ -5,13 +5,7 @@ import { xPlugin } from '../../x-components/src/plugins/x-plugin';
 import { getRelatedTagsStub } from '../../x-components/src/__stubs__/related-tags-stubs.factory';
 import App from './App.vue';
 import router from './router';
-import {
-  facetsXModule,
-  nextQueriesXModule,
-  scrollXModule,
-  searchXModule,
-  relatedTagsXModule
-} from './';
+import { facetsXModule, nextQueriesXModule, scrollXModule, searchXModule } from './';
 
 // Warnings that cannot be solved in Vue 2 (a.k.a. breaking  changes) are suppressed
 const VUE_COMPAT_MODE = Number(import.meta.env.VITE_VUE_COMPAT_MODE);
@@ -52,8 +46,7 @@ createApp(App as Component)
       facets: facetsXModule,
       nextQueries: nextQueriesXModule,
       scroll: scrollXModule,
-      search: searchXModule,
-      relatedTags: relatedTagsXModule
+      search: searchXModule
     }
   })
   .mount('#app');
