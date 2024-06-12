@@ -148,8 +148,7 @@
        */
       const dynamicClasses = computed(
         (): VueCSSClasses => ({
-          'x-selected': isSelected.value,
-          'x-related-tag--is-selected': isSelected.value,
+          'x-selected x-related-tag--is-selected': isSelected.value,
           'x-related-tag--is-curated': shouldHighlightCurated.value
         })
       );
