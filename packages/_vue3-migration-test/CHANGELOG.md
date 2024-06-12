@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.26](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.25...vue3-migration-test@1.0.0-alpha.26) (2024-06-12)
+
+
+### Features
+
+* migrate `query suggestions` module to composition api (#1497) ([4a9c742](https://github.com/empathyco/x/commit/4a9c742007476367328be6c978d16ec16ae115c1))
+
+
+
+## [1.0.0-alpha.25](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.24...vue3-migration-test@1.0.0-alpha.25) (2024-06-12)
+
+
+### Features
+
+* migrate history queries x module to composition api (#1494) ([cd51e9b](https://github.com/empathyco/x/commit/cd51e9bb2afb77bbb8f935445bfda360dcfaafde))
+
+
+
+## [1.0.0-alpha.24](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.23...vue3-migration-test@1.0.0-alpha.24) (2024-06-05)
+
+
+### Features
+
+* migrate PartialQueryButton and PartialResultsList (#1501) ([5e87123](https://github.com/empathyco/x/commit/5e87123d4a6c1edeb05f83c31ee8f096b5558e0f))
+
+
+
 ## [1.0.0-alpha.23](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.22...vue3-migration-test@1.0.0-alpha.23) (2024-06-04)
 
 

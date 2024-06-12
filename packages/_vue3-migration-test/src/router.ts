@@ -24,11 +24,15 @@ import {
   TestSlidingPanel,
   TestBaseSuggestions,
   TestHighlight,
+  TestHistoryQueries,
+  TestMyHistory,
   TestBaseResultImages,
   TestBasePanel,
   TestBaseKeyboardNavigation,
+  TestPartialResultsList,
   TestBaseEventsModal,
   TestBaseIdModal,
+  TestQuerySuggestions,
   TestSemanticQueries
 } from './';
 
@@ -154,6 +158,16 @@ const routes = [
     component: TestHighlight
   },
   {
+    path: '/history-queries',
+    name: 'HistoryQueries',
+    component: TestHistoryQueries
+  },
+  {
+    path: '/my-history',
+    name: 'MyHistory',
+    component: TestMyHistory
+  },
+  {
     path: '/base-result-images',
     name: 'BaseResultImages',
     component: TestBaseResultImages
@@ -169,6 +183,11 @@ const routes = [
     component: TestBaseKeyboardNavigation
   },
   {
+    path: '/partial-results-list',
+    name: 'PartialResultsList',
+    component: TestPartialResultsList
+  },
+  {
     path: '/base-events-modal',
     name: 'BaseEventsModal',
     component: TestBaseEventsModal
@@ -177,6 +196,11 @@ const routes = [
     path: '/test-base-id-modal',
     name: 'TestBaseIdModal',
     component: TestBaseIdModal
+  },
+  {
+    path: '/query-suggestions',
+    name: 'QuerySuggestions',
+    component: TestQuerySuggestions
   },
   {
     path: '/test-semantic-queries',
