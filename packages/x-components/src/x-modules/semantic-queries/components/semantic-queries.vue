@@ -41,14 +41,12 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { computed, ComputedRef, defineComponent } from 'vue';
   import { SemanticQuery as SemanticQueryModel } from '@empathyco/x-types';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { semanticQueriesXModule } from '../x-module';
   import { NoElement } from '../../../components/no-element';
-  import { State } from '../../../components';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
+  import { useState } from '../../../composables/use-state';
   import SemanticQuery from './semantic-query.vue';
 
   /**
@@ -56,39 +54,35 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'SemanticQueries',
+    xModule: semanticQueriesXModule.name,
+    components: { BaseSuggestions, NoElement, SemanticQuery },
     inheritAttrs: false,
-    mixins: [xComponentMixin(semanticQueriesXModule)],
-    components: { BaseSuggestions, NoElement, SemanticQuery }
-  })
-  export default class SemanticQueries extends Vue {
-    /**
-     * The semantic queries from the state.
-     */
-    @State('semanticQueries', 'semanticQueries')
-    public suggestions!: SemanticQueryModel[];
+    setup() {
+      /** The semantic queries from the state. */
+      const suggestions: ComputedRef<SemanticQueryModel[]> = useState('semanticQueries', [
+        'semanticQueries'
+      ]).semanticQueries;
 
-    /**
-     * Maps the list of semantic queries to a list of queries, to make it compatible with
-     * other components.
-     *
-     * @returns A list of queries.
-     * @internal
-     */
-    public get queries(): string[] {
-      return this.suggestions.map(suggestion => suggestion.query);
-    }
+      /**
+       * Maps the list of semantic queries to a list of queries, to make it compatible with
+       * other components.
+       */
+      const queries = computed(() => suggestions.value.map(suggestion => suggestion.query));
 
-    /**
-     * Finds a {@link @empathyco/x-types#SemanticQuery} given a query.
-     *
-     * @param query - The query to search.
-     * @returns The {@link @empathyco/x-types#SemanticQuery} or undefined if not found.
-     */
-    findSemanticQuery(query: string): SemanticQueryModel | undefined {
-      return this.suggestions.find(suggestion => suggestion.query === query);
+      /**
+       * Finds a {@link @empathyco/x-types#SemanticQuery} given a query.
+       *
+       * @param query - The query to search.
+       * @returns The {@link @empathyco/x-types#SemanticQuery} or undefined if not found.
+       */
+      const findSemanticQuery = (query: string) =>
+        suggestions.value.find(suggestion => suggestion.query === query);
+
+      return { suggestions, queries, findSemanticQuery };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

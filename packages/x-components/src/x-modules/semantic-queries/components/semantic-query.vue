@@ -1,6 +1,8 @@
 <template>
   <BaseSuggestion
-    v-bind="{ suggestionSelectedEvents, suggestion, query }"
+    :query="query"
+    :suggestion="suggestion"
+    :suggestionSelectedEvents="suggestionSelectedEvents"
     feature="semantics"
     data-test="semantic-query"
     #default="baseScope"
@@ -16,13 +18,11 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { SemanticQuery as SemanticQueryModel } from '@empathyco/x-types';
-  import { Getter, xComponentMixin } from '../../../components';
+  import { defineComponent, PropType } from 'vue';
+  import { SemanticQuery } from '@empathyco/x-types';
   import { semanticQueriesXModule } from '../x-module';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
-  import { XEventsTypes } from '../../../wiring';
+  import { useGetter } from '../../../composables/use-getter';
 
   /**
    * This component renders a semantic query. A semantic query is a recommended query
@@ -32,35 +32,32 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'SemanticQuery',
+    xModule: semanticQueriesXModule.name,
     components: { BaseSuggestion },
-    mixins: [xComponentMixin(semanticQueriesXModule)]
-  })
-  export default class SemanticQuery extends Vue {
-    /**
-     * The normalized query of the semantic queries module.
-     */
-    @Getter('semanticQueries', 'normalizedQuery')
-    public query!: string;
+    props: {
+      /** The {@link @empathyco/x-types#SemanticQuery} to render. */
+      suggestion: {
+        type: Object as PropType<SemanticQuery>,
+        required: true
+      }
+    },
+    setup(props) {
+      /** The normalized query of the semantic queries module. */
+      const query = useGetter('semanticQueries', ['normalizedQuery']).normalizedQuery;
 
-    /**
-     * The {@link @empathyco/x-types#SemanticQuery} to render.
-     */
-    @Prop()
-    public suggestion!: SemanticQueryModel;
+      /** The list of events that are going to be emitted when the button is pressed. */
+      const suggestionSelectedEvents = {
+        UserSelectedASemanticQuery: props.suggestion
+      };
 
-    /**
-     * The list of events that are going to be emitted when the button is pressed.
-     *
-     * @internal
-     * @returns The {@link XEvent} to emit.
-     */
-    protected get suggestionSelectedEvents(): Partial<XEventsTypes> {
       return {
-        UserSelectedASemanticQuery: this.suggestion
+        query,
+        suggestionSelectedEvents
       };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
