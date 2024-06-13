@@ -7,17 +7,15 @@ import {
   Redirection,
   RelatedTag,
   Result,
-  Sort,
-  TaggingRequest,
   SearchRequest,
-  SearchResponse
+  SearchResponse,
+  Sort,
+  TaggingRequest
 } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
-import { XActionContext, XStoreModule } from '../../../store';
+import { StatusMutations, StatusState, XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
-import { StatusMutations, StatusState } from '../../../store/utils/status-store.utils';
-import { QueryOrigin, QueryOriginInit } from '../../../types/origin';
-import { UrlParams } from '../../../types/url-params';
+import { QueryOrigin, QueryOriginInit, UrlParams } from '../../../types';
 import { SearchConfig } from '../config.types';
 import { InternalSearchRequest, WatchedInternalSearchRequest } from '../types';
 import { ConfigMutations } from '../../../store/utils/config-store.utils';
@@ -108,6 +106,11 @@ export interface SearchMutations
    * {@link searchXStoreModule} for details.
    */
   resetState(): void;
+  /**
+   * Resets the "resettable" part of the Search state like {@link SearchMutations.resetState} but
+   * maintains the values required to perform the search request again.
+   */
+  resetStateForReload(): void;
   /**
    * Sets the banners of the module.
    *

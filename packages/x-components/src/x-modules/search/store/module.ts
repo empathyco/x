@@ -1,18 +1,18 @@
 import { isFacetFilter } from '@empathyco/x-types';
 import { setQuery } from '../../../store/utils/query.utils';
-import { setStatus } from '../../../store/utils/status-store.utils';
+import { setStatus } from '../../../store';
 import { groupItemsBy } from '../../../utils/array';
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 import { UNKNOWN_FACET_KEY } from '../../facets/store/constants';
 import {
   cancelFetchAndSaveSearchResponse,
-  fetchAndSaveSearchResponse
-} from './actions/fetch-and-save-search-response.action';
-import { fetchSearchResponse } from './actions/fetch-search-response.action';
-import { increasePageAppendingResults } from './actions/increase-page-apending-results.action';
-import { resetRequestOnRefinement } from './actions/reset-request-on-refinement.action';
+  fetchAndSaveSearchResponse,
+  fetchSearchResponse,
+  increasePageAppendingResults,
+  resetRequestOnRefinement,
+  saveSearchResponse
+} from './actions';
 import { saveOrigin } from './actions/save-origin.action';
-import { saveSearchResponse } from './actions/save-search-response.action';
 import { setUrlParams } from './actions/set-url-params.action';
 import { query } from './getters/query.getter';
 import { request } from './getters/request.getter';
@@ -45,6 +45,10 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     resetState(state) {
       Object.assign(state, resettableState());
+    },
+    resetStateForReload(state) {
+      const { query, facets, sort, page, ...resettable } = resettableState();
+      Object.assign(state, resettable);
     },
     setQuery,
     setResults(state, results) {
