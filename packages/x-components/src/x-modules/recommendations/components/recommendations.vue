@@ -25,15 +25,14 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Provide } from 'vue-property-decorator';
   import { Result } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { State } from '../../../components/decorators/store.decorators';
+  import { computed, defineComponent, provide, ComputedRef } from 'vue';
   import { NoElement } from '../../../components/no-element';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { PropsWithType } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { recommendationsXModule } from '../x-module';
+  import { AnimationProp } from '../../../types/animation-prop';
+  import { useState } from '../../../composables/use-state';
 
   /**
    * It renders a list of recommendations from the
@@ -45,58 +44,64 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(recommendationsXModule)],
+  export default defineComponent({
+    name: 'Recommendations',
+    xModule: recommendationsXModule.name,
     components: {
       NoElement
+    },
+    props: {
+      /**
+       * Animation component that will be used to animate the recommendations.
+       *
+       * @public
+       */
+      animation: {
+        type: AnimationProp,
+        default: 'ul'
+      },
+      /**
+       * Number of recommendations to be rendered.
+       *
+       * @public
+       */
+      maxItemsToRender: Number
+    },
+    setup(props) {
+      /**
+       * The module's list of recommendations.
+       *
+       * @public
+       */
+      const storedRecommendations: ComputedRef<Result[]> = useState('recommendations', [
+        'recommendations'
+      ]).recommendations;
+
+      /**
+       * The additional events to be emitted by the mandatory {@link BaseResultLink} component.
+       *
+       * @public
+       */
+      provide<PropsWithType<XEventsTypes, Result>[]>('resultClickExtraEvents', [
+        'UserClickedARecommendation'
+      ]);
+
+      /**
+       * Slices the recommendations from the state.
+       *
+       * @returns - The list of recommendations slice by the number of items to render.
+       *
+       * @internal
+       */
+      const recommendations = computed(() =>
+        storedRecommendations.value.slice(0, props.maxItemsToRender)
+      );
+
+      return {
+        recommendations
+      };
     }
-  })
-  export default class Recommendations extends Vue {
-    /**
-     * The module's list of recommendations.
-     *
-     * @public
-     */
-    @State('recommendations', 'recommendations')
-    public storedRecommendations!: Result[];
-
-    /**
-     * Animation component that will be used to animate the recommendations.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue;
-
-    /**
-     * Number of recommendations to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
-
-    /**
-     * The additional events to be emitted by the mandatory {@link BaseResultLink} component.
-     *
-     * @public
-     */
-    @Provide()
-    protected resultClickExtraEvents: PropsWithType<XEventsTypes, Result>[] = [
-      'UserClickedARecommendation'
-    ];
-
-    /**
-     * Slices the recommendations from the state.
-     *
-     * @returns - The list of recommendations slice by the number of items to render.
-     *
-     * @internal
-     */
-    protected get recommendations(): Result[] {
-      return this.storedRecommendations.slice(0, this.maxItemsToRender);
-    }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
