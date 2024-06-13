@@ -24,12 +24,17 @@ import {
   TestSlidingPanel,
   TestBaseSuggestions,
   TestHighlight,
+  TestHistoryQueries,
+  TestMyHistory,
   TestBaseResultImages,
   TestBasePanel,
   TestBaseKeyboardNavigation,
+  TestRelatedTags,
+  TestPartialResultsList,
   TestBaseEventsModal,
   TestBaseIdModal,
-  TestSpellcheck
+  TestSpellcheck,
+  TestQuerySuggestions
 } from './';
 
 const routes = [
@@ -154,6 +159,16 @@ const routes = [
     component: TestHighlight
   },
   {
+    path: '/history-queries',
+    name: 'HistoryQueries',
+    component: TestHistoryQueries
+  },
+  {
+    path: '/my-history',
+    name: 'MyHistory',
+    component: TestMyHistory
+  },
+  {
     path: '/base-result-images',
     name: 'BaseResultImages',
     component: TestBaseResultImages
@@ -169,6 +184,16 @@ const routes = [
     component: TestBaseKeyboardNavigation
   },
   {
+    path: '/related-tags',
+    name: 'RelatedTags',
+    component: TestRelatedTags
+  },
+  {
+    path: '/partial-results-list',
+    name: 'PartialResultsList',
+    component: TestPartialResultsList
+  },
+  {
     path: '/base-events-modal',
     name: 'BaseEventsModal',
     component: TestBaseEventsModal
@@ -182,6 +207,11 @@ const routes = [
     path: '/test-spellcheck',
     name: 'Spellcheck',
     component: TestSpellcheck
+  },
+  {
+    path: '/query-suggestions',
+    name: 'QuerySuggestions',
+    component: TestQuerySuggestions
   }
 ];
 

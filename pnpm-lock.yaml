@@ -15911,7 +15911,10 @@ packages:
     dev: true
 
   /vuex@4.0.2(vue@3.4.22):
-    resolution: {integrity: sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==}
+    resolution:
+      {
+        integrity: sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==
+      }
     peerDependencies:
       vue: ^3.0.2
     dependencies:

@@ -1,5 +1,6 @@
 // XModule
 import { XModule } from '../x-modules.types';
+import { XPlugin } from '../../plugins/x-plugin';
 import { relatedTagsEmitters } from './store/emitters';
 import { relatedTagsXStoreModule } from './store/module';
 import { RelatedTagsXStoreModule } from './store/types';
@@ -26,3 +27,5 @@ export const relatedTagsXModule: RelatedTagsXModule = {
   storeEmitters: relatedTagsEmitters,
   wiring: relatedTagsWiring
 };
+
+XPlugin.registerXModule(relatedTagsXModule);

@@ -1,6 +1,5 @@
-import { Suggestion } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { createQuerySuggestion } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
@@ -15,26 +14,25 @@ import { resetXQuerySuggestionsStateWith } from './utils';
 function renderQuerySuggestion({
   suggestion = createQuerySuggestion('baileys'),
   query = '',
-  template = '<QuerySuggestion v-bind="$attrs"/>'
-}: RenderQuerySuggestionOptions = {}): RenderQuerySuggestionApi {
+  template = '<QuerySuggestion :suggestion="suggestion"/>'
+} = {}) {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
+
   installNewXPlugin({ store, initialXModules: [querySuggestionsXModule] }, localVue);
   resetXQuerySuggestionsStateWith(store, { query });
 
   const wrapper = mount(
     {
       template,
-      inheritAttrs: false,
-      components: {
-        QuerySuggestion
-      }
+      components: { QuerySuggestion },
+      props: ['suggestion']
     },
     {
       localVue,
-      propsData: { suggestion },
-      store
+      store,
+      propsData: { suggestion }
     }
   );
 
@@ -42,16 +40,15 @@ function renderQuerySuggestion({
     wrapper: wrapper.findComponent(QuerySuggestion),
     suggestion,
     emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
-    getMatchingPart() {
-      return wrapper.get(getDataTestSelector('matching-part'));
-    }
-  };
+    getMatchingPart: () => wrapper.get(getDataTestSelector('matching-part'))
+  } as const;
 }
 
 describe('testing query-suggestion component', () => {
   it('is an XComponent that belongs to the query suggestions', () => {
     const { wrapper } = renderQuerySuggestion();
-    expect(isXComponent(wrapper.vm)).toEqual(true);
+
+    expect(isXComponent(wrapper.vm)).toBeTruthy();
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('querySuggestions');
   });
 
@@ -59,6 +56,7 @@ describe('testing query-suggestion component', () => {
     const { wrapper } = renderQuerySuggestion({
       suggestion: createQuerySuggestion('milk')
     });
+
     expect(wrapper.text()).toEqual('milk');
   });
 
@@ -97,33 +95,12 @@ describe('testing query-suggestion component', () => {
     const { wrapper } = renderQuerySuggestion({
       suggestion: createQuerySuggestion('baileys'),
       template: `
-      <QuerySuggestion v-bind="$attrs" #default="{ suggestion }">
+      <QuerySuggestion :suggestion="suggestion" #default="{ suggestion }">
         <span>🔍</span>
         <span>{{ suggestion.query }}</span>
-      </QuerySuggestion>
-      `
+      </QuerySuggestion>`
     });
 
     expect(wrapper.text()).toEqual('🔍 baileys');
   });
 });
-
-interface RenderQuerySuggestionOptions {
-  /** The suggestion data to render. */
-  suggestion?: Suggestion;
-  /** The query that the suggestions belong to. */
-  query?: string;
-  /** The template to render. */
-  template?: string;
-}
-
-interface RenderQuerySuggestionApi {
-  /** Testing wrapper of the {@link QuerySuggestion} component. */
-  wrapper: Wrapper<Vue>;
-  /** Retrieves the wrapper that matches the query in the {@link QuerySuggestion} component. */
-  getMatchingPart: () => Wrapper<Vue>;
-  /** The {@link XBus.emit} spy. */
-  emitSpy: jest.SpyInstance;
-  /** Rendered {@link Suggestion} model data. */
-  suggestion: Suggestion;
-}

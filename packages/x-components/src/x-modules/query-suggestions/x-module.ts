@@ -1,4 +1,4 @@
-// XModule
+import { XPlugin } from '../../plugins/x-plugin';
 import { XModule } from '../x-modules.types';
 import { querySuggestionsEmitters } from './store/emitters';
 import { querySuggestionsXStoreModule } from './store/module';
@@ -24,3 +24,5 @@ export const querySuggestionsXModule: QuerySuggestionsXModule = {
   storeEmitters: querySuggestionsEmitters,
   wiring: querySuggestionsWiring
 };
+
+XPlugin.registerXModule(querySuggestionsXModule);

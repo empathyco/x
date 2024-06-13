@@ -3,6 +3,89 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.41...@empathyco/x-components@5.0.0-alpha.42) (2024-06-12)
+
+
+### Features
+
+* migrate `Banner` and `Promoted` to composition API (#1506) ([c102fd9](https://github.com/empathyco/x/commit/c102fd96b26425df2ed8d73d58b3db8fc454deeb))
+* migrate RTs module to composition API (#1498) ([22c5325](https://github.com/empathyco/x/commit/22c5325666441121e8ee64bfaa4c51ddad11939a))
+
+
+
+## [5.0.0-alpha.41](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.40...@empathyco/x-components@5.0.0-alpha.41) (2024-06-12)
+
+
+### Features
+
+* migrate `query suggestions` module to composition api (#1497) ([4a9c742](https://github.com/empathyco/x/commit/4a9c742007476367328be6c978d16ec16ae115c1))
+
+
+
+## [5.0.0-alpha.40](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.39...@empathyco/x-components@5.0.0-alpha.40) (2024-06-12)
+
+
+### Features
+
+* migrate history queries x module to composition api (#1494) ([cd51e9b](https://github.com/empathyco/x/commit/cd51e9bb2afb77bbb8f935445bfda360dcfaafde))
+
+
+
+## [5.0.0-alpha.39](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.34...@empathyco/x-components@5.0.0-alpha.39) (2024-06-11)
+
+
+### Bug Fixes
+
+* **semantic-queries:** cancel track no results query on QueryPreviewUnmounted event (#1507) ([cc6518e](https://github.com/empathyco/x/commit/cc6518efe8e00bf02240ca54e39ef77d05a3139f))
+
+
+### Continuous Integration
+
+* add token to checkout action (#1511) ([c7cd70a](https://github.com/empathyco/x/commit/c7cd70a5b6df5701b5e46b4558b82485bc40f953))
+* fix package version and remove `persist-credentials` (#1513) ([c3add80](https://github.com/empathyco/x/commit/c3add8033ac5515e715e1ffff636b6df8133bccc))
+
+
+
+## [5.0.0-alpha.38](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.37...@empathyco/x-components@5.0.0-alpha.38) (2024-06-11)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [5.0.0-alpha.37](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.36...@empathyco/x-components@5.0.0-alpha.37) (2024-06-10)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [5.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.35...@empathyco/x-components@5.0.0-alpha.36) (2024-06-10)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+## [5.0.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.34...@empathyco/x-components@5.0.0-alpha.35) (2024-06-07)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+## [5.0.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.33...@empathyco/x-components@5.0.0-alpha.34) (2024-06-06)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+## [5.0.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.32...@empathyco/x-components@5.0.0-alpha.33) (2024-06-05)
+
+
+### Code Refactoring
+
+* **keyboard-navigation:** use xBus only (#1502) ([8bb3c60](https://github.com/empathyco/x/commit/8bb3c604f308598a124719345bb4cf15a4d83103))
+
+
+
+## [5.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.31...@empathyco/x-components@5.0.0-alpha.32) (2024-06-05)
+
+
+### Features
+
+* migrate PartialQueryButton and PartialResultsList (#1501) ([5e87123](https://github.com/empathyco/x/commit/5e87123d4a6c1edeb05f83c31ee8f096b5558e0f))
+
+
+
 ## [5.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.30...@empathyco/x-components@5.0.0-alpha.31) (2024-06-04)
 
 
@@ -246,10 +329,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### ⚠ BREAKING CHANGES
 
-* **ColumnPickerMixin:** `BaseColumnPickerDropdown` component will no longer emit the `change` event, use `update:modelValue` instead. 
+* **ColumnPickerMixin:** `BaseColumnPickerDropdown` component will no longer emit the `change` event, use `update:modelValue` instead.
 `BaseColumnPickerDropdown` prop for the selected columns was renamed from `value` to `modelValue`.
 
-`BaseColumnPickerList` component will no longer emit the `change` event, use `update:modelValue` instead. 
+`BaseColumnPickerList` component will no longer emit the `change` event, use `update:modelValue` instead.
 `BaseColumnPickerList` prop for the selected columns was renamed from `value` to `modelValue`.
 
 `ColumnPickerMixin` has been removed.
@@ -318,7 +401,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### ⚠ BREAKING CHANGES
 
-* **sort-mixin:** base-dropdown component will no longer emit the `change` event, use `update:modelValue` instead. 
+* **sort-mixin:** base-dropdown component will no longer emit the `change` event, use `update:modelValue` instead.
 base-dropdown prop for the selected item was renamed from `value` to `modelValue`.
 
 ### Code Refactoring

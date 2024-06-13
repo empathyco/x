@@ -1,7 +1,9 @@
-import { XComponentsAdapter } from '@empathyco/x-types';
+import { QuerySuggestionsRequest, XComponentsAdapter } from '@empathyco/x-types';
 import { Component, configureCompat, createApp } from 'vue';
 import { createStore } from 'vuex';
 import { xPlugin } from '../../x-components/src/plugins/x-plugin';
+import { getRelatedTagsStub } from '../../x-components/src/__stubs__/related-tags-stubs.factory';
+import { getQuerySuggestionsStub } from '../../x-components/src/__stubs__/query-suggestions-stubs.factory';
 import App from './App.vue';
 import router from './router';
 import { facetsXModule, nextQueriesXModule, scrollXModule, searchXModule } from './';
@@ -26,7 +28,16 @@ if (VUE_COMPAT_MODE === 2) {
   });
 }
 
-const adapter = {} as XComponentsAdapter;
+const adapter = {
+  relatedTags: () =>
+    new Promise(resolve => {
+      resolve({ relatedTags: getRelatedTagsStub(10) });
+    }),
+  querySuggestions: (request: QuerySuggestionsRequest) =>
+    new Promise(resolve => {
+      resolve({ suggestions: getQuerySuggestionsStub(request.query, 5) });
+    })
+} as unknown as XComponentsAdapter;
 
 const store = createStore({});
 
