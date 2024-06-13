@@ -34,7 +34,8 @@ import {
   TestBaseEventsModal,
   TestBaseIdModal,
   TestQuerySuggestions,
-  TestSemanticQueries
+  TestSemanticQueries,
+  TestRecommendations
 } from './';
 
 const routes = [
@@ -212,6 +213,11 @@ const routes = [
     path: '/test-semantic-queries',
     name: 'SemanticQueries',
     component: TestSemanticQueries
+  },
+  {
+    path: '/recommendations',
+    name: 'Recommendations',
+    component: TestRecommendations
   }
 ];
 

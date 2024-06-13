@@ -10,6 +10,7 @@ import {
   facetsXModule,
   nextQueriesXModule,
   queriesPreviewXModule,
+  recommendationsXModule,
   scrollXModule,
   searchXModule,
   semanticQueriesXModule
@@ -60,7 +61,8 @@ createApp(App as Component)
       scroll: scrollXModule,
       search: searchXModule,
       queriesPreview: queriesPreviewXModule,
-      semanticQueries: semanticQueriesXModule
+      semanticQueries: semanticQueriesXModule,
+      recommendations: recommendationsXModule
     }
   })
   .mount('#app');
