@@ -7,11 +7,11 @@ import { SearchXModule } from '../../../../x-components/src/x-modules/search';
 export const searchXModule = {
   storeModule: {
     state: {
-      query: 'dress',
       results: getResultsStub(10),
       promoteds: getPromotedsStub(),
       banners: getBannersStub(),
-      status: 'success'
+      status: 'success',
+      spellcheckedQuery: 'spellcheckedQuery'
     }
   }
 } as PrivateXModuleOptions<SearchXModule>;

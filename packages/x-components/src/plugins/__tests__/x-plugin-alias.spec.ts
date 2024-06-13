@@ -51,7 +51,7 @@ describe('testing plugin alias', () => {
         querySuggestions: undefined,
         recommendations: undefined,
         relatedTags: undefined,
-        search: undefined
+        search: 'initial' // It is already registered by the `searchXModule` import itself
       },
       device: null,
       facets: {},
@@ -77,7 +77,7 @@ describe('testing plugin alias', () => {
       selectedFilters: [],
       selectedRelatedTags: [],
       semanticQueries: [],
-      spellcheckedQuery: null,
+      spellcheckedQuery: '', // It is already registered by the `searchXModule` import itself
       totalResults: 0,
       selectedSort: ''
     };

@@ -28,7 +28,8 @@ import {
   TestBasePanel,
   TestBaseKeyboardNavigation,
   TestBaseEventsModal,
-  TestBaseIdModal
+  TestBaseIdModal,
+  TestSpellcheck
 } from './';
 
 const routes = [
@@ -176,6 +177,11 @@ const routes = [
     path: '/test-base-id-modal',
     name: 'TestBaseIdModal',
     component: TestBaseIdModal
+  },
+  {
+    path: '/test-spellcheck',
+    name: 'Spellcheck',
+    component: TestSpellcheck
   }
 ];
 

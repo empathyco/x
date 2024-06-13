@@ -7,7 +7,6 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { searchXModule } from '../x-module';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
 
   /**
@@ -24,8 +23,6 @@
     name: 'Spellcheck',
     xModule: searchXModule.name,
     setup() {
-      useRegisterXModule(searchXModule);
-
       /**
        * The query and the spellcheckedQuery from the search state.
        *

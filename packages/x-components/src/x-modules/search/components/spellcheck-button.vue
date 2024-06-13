@@ -15,7 +15,6 @@
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchXModule } from '../x-module';
   import { use$x } from '../../../composables/use-$x';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
 
   /**
@@ -29,8 +28,6 @@
     name: 'SpellcheckButton',
     xModule: searchXModule.name,
     setup() {
-      useRegisterXModule(searchXModule);
-
       const $x = use$x();
 
       const el = ref<HTMLElement>();
