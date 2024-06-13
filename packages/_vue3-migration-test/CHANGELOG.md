@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.28](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.27...vue3-migration-test@1.0.0-alpha.28) (2024-06-13)
+
+
+### Features
+
+* migrate semantics queries module to composition api (#1508) ([72914a2](https://github.com/empathyco/x/commit/72914a25195e2e546da343d32c6a4544b38bdd91))
+
+
+
 ## [1.0.0-alpha.27](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.26...vue3-migration-test@1.0.0-alpha.27) (2024-06-12)
 
 

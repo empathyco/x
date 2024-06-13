@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.42...@empathyco/x-components@5.0.0-alpha.43) (2024-06-13)
+
+
+### Features
+
+* migrate semantics queries module to composition api (#1508) ([72914a2](https://github.com/empathyco/x/commit/72914a25195e2e546da343d32c6a4544b38bdd91))
+
+
+
 ## [5.0.0-alpha.42](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.41...@empathyco/x-components@5.0.0-alpha.42) (2024-06-12)
 
 
