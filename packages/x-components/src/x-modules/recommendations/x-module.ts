@@ -1,4 +1,5 @@
 import { XModule } from '../x-modules.types';
+import { XPlugin } from '../../plugins/x-plugin';
 import { recommendationsEmitters } from './store/emitters';
 import { recommendationsXStoreModule } from './store/module';
 import { RecommendationsXStoreModule } from './store/types';
@@ -24,3 +25,5 @@ export const recommendationsXModule: RecommendationsXModule = {
   storeEmitters: recommendationsEmitters,
   wiring: recommendationsWiring
 };
+
+XPlugin.registerXModule(recommendationsXModule);
