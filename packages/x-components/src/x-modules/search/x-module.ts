@@ -1,5 +1,6 @@
 // XModule
 import { XModule } from '../x-modules.types';
+import { XPlugin } from '../../plugins/x-plugin';
 import { searchEmitters } from './store/emitters';
 import { searchXStoreModule } from './store/module';
 import { SearchXStoreModule } from './store/types';
@@ -24,3 +25,5 @@ export const searchXModule: SearchXModule = {
   storeEmitters: searchEmitters,
   wiring: searchWiring
 };
+
+XPlugin.registerXModule(searchXModule);

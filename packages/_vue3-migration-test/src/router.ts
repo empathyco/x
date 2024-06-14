@@ -33,6 +33,7 @@ import {
   TestPartialResultsList,
   TestBaseEventsModal,
   TestBaseIdModal,
+  TestSpellcheck,
   TestQuerySuggestions,
   TestSemanticQueries
 } from './';
@@ -202,6 +203,11 @@ const routes = [
     path: '/test-base-id-modal',
     name: 'BaseIdModal',
     component: TestBaseIdModal
+  },
+  {
+    path: '/test-spellcheck',
+    name: 'Spellcheck',
+    component: TestSpellcheck
   },
   {
     path: '/query-suggestions',

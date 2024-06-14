@@ -8,12 +8,12 @@ import { getPartialResultsStub } from '../../../../x-components/src/__stubs__/pa
 export const searchXModule = {
   storeModule: {
     state: {
-      query: 'dress',
       results: getResultsStub(10),
       promoteds: getPromotedsStub(),
       banners: getBannersStub(),
-      partialResults: getPartialResultsStub(),
-      status: 'success'
+      status: 'success',
+      spellcheckedQuery: 'spellcheckedQuery',
+      partialResults: getPartialResultsStub()
     }
   }
 } as PrivateXModuleOptions<SearchXModule>;
