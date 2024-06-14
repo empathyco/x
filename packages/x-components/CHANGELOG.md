@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.43...@empathyco/x-components@5.0.0-alpha.44) (2024-06-14)
+
+
+### Features
+
+* migrate `Spellcheck` and `SpellcheckButton` components to composition api (#1518) ([0e848a7](https://github.com/empathyco/x/commit/0e848a70d69a780b4a053d5bc78b432178f21327))
+
+
+
 ## [5.0.0-alpha.43](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.42...@empathyco/x-components@5.0.0-alpha.43) (2024-06-13)
 
 
