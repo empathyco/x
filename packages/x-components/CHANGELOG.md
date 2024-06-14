@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.45](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.44...@empathyco/x-components@5.0.0-alpha.45) (2024-06-14)
+
+
+### Features
+
+* **recommendations:** migrate recommendations x-module to composition api (#1519) ([5d44214](https://github.com/empathyco/x/commit/5d44214092af033d9cbf88ec9f306d15a1ded120))
+
+
+
 ## [5.0.0-alpha.44](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.43...@empathyco/x-components@5.0.0-alpha.44) (2024-06-14)
 
 

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.30](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.29...vue3-migration-test@1.0.0-alpha.30) (2024-06-14)
+
+
+### Features
+
+* **recommendations:** migrate recommendations x-module to composition api (#1519) ([5d44214](https://github.com/empathyco/x/commit/5d44214092af033d9cbf88ec9f306d15a1ded120))
+
+
+
 ## [1.0.0-alpha.29](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.28...vue3-migration-test@1.0.0-alpha.29) (2024-06-14)
 
 
