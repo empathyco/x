@@ -19,7 +19,6 @@
   import { defineComponent, PropType, ref } from 'vue';
   import { NoElement } from '../../../components/no-element';
   import { useDebounce } from '../../../composables/use-debounce';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { use$x } from '../../../composables/use-$x';
   import { AnimationProp } from '../../../types';
   import { XEvent } from '../../../wiring';
@@ -58,7 +57,6 @@
       }
     },
     setup(props) {
-      useRegisterXModule(empathizeXModule);
       const $x = use$x();
 
       const empathizeRef = ref<HTMLDivElement>();

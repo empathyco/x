@@ -46,10 +46,10 @@ describe('testing plugin alias', () => {
       },
       status: {
         identifierResults: undefined,
-        nextQueries: undefined,
+        nextQueries: 'initial', // It is already registered by the `nextQueriesXModule` import itself
         popularSearches: undefined,
         querySuggestions: 'initial', // It is already registered by the `querySuggestionsXModule` import itself
-        recommendations: 'initial', // It is already registered by the `relatedTagsXModule` import itself
+        recommendations: 'initial', // It is already registered by the `recommendationsXModule` import itself
         relatedTags: 'initial', // It is already registered by the `relatedTagsXModule` import itself
         search: 'initial' // It is already registered by the `searchXModule` import itself
       },
@@ -61,7 +61,7 @@ describe('testing plugin alias', () => {
       isHistoryQueriesEnabled: false,
       fromNoResultsWithFilters: false,
       identifierResults: [],
-      searchBoxStatus: undefined,
+      searchBoxStatus: 'initial', // It is already registered by the `searchBoxXModule` import itself
       isEmpathizeOpen: false,
       nextQueries: [],
       noResults: false,

@@ -13,7 +13,6 @@
   import { defineComponent, ref } from 'vue';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { searchXModule } from '../x-module';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { use$x } from '../../../composables/use-$x';
 
   /**
@@ -38,8 +37,6 @@
       }
     },
     setup(props) {
-      useRegisterXModule(searchXModule);
-
       const $x = use$x();
 
       const partialButtonEl = ref<HTMLElement>();

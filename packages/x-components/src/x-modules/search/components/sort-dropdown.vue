@@ -36,7 +36,8 @@
   import Vue, { defineComponent, PropType, ref, watch } from 'vue';
 
   import BaseDropdown from '../../../components/base-dropdown.vue';
-  import { use$x, useRegisterXModule, useState } from '../../../composables';
+  import { use$x } from '../../../composables/use-$x';
+  import { useState } from '../../../composables/use-state';
   import { searchXModule } from '../x-module';
 
   /**
@@ -58,7 +59,6 @@
     },
     emits: ['change'],
     setup(_, { emit }) {
-      useRegisterXModule(searchXModule);
       const $x = use$x();
 
       const { sort: selectedSort } = useState('search', ['sort']);

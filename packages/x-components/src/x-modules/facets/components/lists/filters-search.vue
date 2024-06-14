@@ -32,7 +32,6 @@
   import { normalizeString } from '../../../../utils/normalize';
   import { DebouncedFunction, VueCSSClasses } from '../../../../utils/types';
   import { facetsXModule } from '../../x-module';
-  import { useRegisterXModule } from '../../../../composables/use-register-x-module';
   import { useFiltersInjection } from '../../composables/use-filters-injection';
 
   /**
@@ -69,7 +68,6 @@
       }
     },
     setup(props) {
-      useRegisterXModule(facetsXModule);
       const renderedFilters = useFiltersInjection(props);
 
       let query = ref('');

@@ -8,6 +8,7 @@ import { XPlugin } from '../plugins/x-plugin';
  *
  * @param module - The module associated to the X-Component that is being registered.
  * @public
+ * @deprecated Use `XPlugin.registerXModule(xModule)` instead.
  */
 export function useRegisterXModule(module: AnyXModule): void {
   XPlugin.registerXModule(module);

@@ -1,3 +1,4 @@
+import { XPlugin } from '../../plugins/x-plugin';
 import { XModule } from '../x-modules.types';
 import { scrollEmitters } from './store/emitters';
 import { scrollXStoreModule } from './store/module';
@@ -23,3 +24,5 @@ export const scrollXModule: ScrollXModule = {
   storeEmitters: scrollEmitters,
   wiring: scrollWiring
 };
+
+XPlugin.registerXModule(scrollXModule);
