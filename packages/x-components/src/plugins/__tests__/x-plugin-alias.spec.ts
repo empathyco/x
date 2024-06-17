@@ -45,7 +45,7 @@ describe('testing plugin alias', () => {
         search: ''
       },
       status: {
-        identifierResults: undefined,
+        identifierResults: 'initial', // It is already registered by the `relatedTagsXModule` import itself
         nextQueries: undefined,
         popularSearches: undefined,
         querySuggestions: 'initial', // It is already registered by the `querySuggestionsXModule` import itself

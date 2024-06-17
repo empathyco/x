@@ -1,4 +1,5 @@
 import { XModule } from '../x-modules.types';
+import { XPlugin } from '../../plugins/index';
 import { identifierResultsEmitters } from './store/emitters';
 import { identifierResultsXStoreModule } from './store/module';
 import { IdentifierResultsXStoreModule } from './store/types';
@@ -23,3 +24,5 @@ export const identifierResultsXModule: IdentifierResultsXModule = {
   storeEmitters: identifierResultsEmitters,
   wiring: identifierResultsWiring
 };
+
+XPlugin.registerXModule(identifierResultsXModule);
