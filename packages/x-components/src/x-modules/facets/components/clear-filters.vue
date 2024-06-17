@@ -15,7 +15,6 @@
   import { Facet } from '@empathyco/x-types';
   import { computed, defineComponent, PropType } from 'vue';
   import BaseEventButton from '../../../components/base-event-button.vue';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { VueCSSClasses } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { useFacets } from '../composables/use-facets';
@@ -37,8 +36,6 @@
       alwaysVisible: Boolean
     },
     setup: function (props) {
-      useRegisterXModule(facetsXModule);
-
       const { selectedFilters, hasSelectedFilters, isVisible } = useFacets(props);
 
       /**

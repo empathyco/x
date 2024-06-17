@@ -31,7 +31,6 @@
   import { XEvent } from '../../../wiring/events.types';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { use$x } from '../../../composables/use-$x';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
   import { searchBoxXModule } from '../x-module';
 
@@ -75,8 +74,6 @@
       }
     },
     setup: function (props) {
-      useRegisterXModule(searchBoxXModule);
-
       const $x = use$x();
 
       const { query } = useState('searchBox', ['query']);

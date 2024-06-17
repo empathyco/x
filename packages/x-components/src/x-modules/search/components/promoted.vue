@@ -11,7 +11,7 @@
   import { Promoted as PromotedModel } from '@empathyco/x-types';
   import { defineComponent, PropType } from 'vue';
   import { searchXModule } from '../x-module';
-  import { useRegisterXModule, useXBus } from '../../../composables';
+  import { useXBus } from '../../../composables/use-x-bus';
 
   /**
    * A promoted result is just an item that has been inserted into the search results to advertise
@@ -39,8 +39,6 @@
       titleClass: String
     },
     setup(props) {
-      useRegisterXModule(searchXModule);
-
       const xBus = useXBus();
 
       /**

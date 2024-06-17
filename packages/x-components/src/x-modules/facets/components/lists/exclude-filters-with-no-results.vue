@@ -2,7 +2,6 @@
   import { Filter, isBooleanFilter } from '@empathyco/x-types';
   import { computed, defineComponent, PropType, provide, h } from 'vue';
   import { facetsXModule } from '../../x-module';
-  import { useRegisterXModule } from '../../../../composables/use-register-x-module';
   import { useFiltersInjection } from '../../composables/use-filters-injection';
 
   /**
@@ -37,7 +36,6 @@
       }
     },
     setup(props, { slots }) {
-      useRegisterXModule(facetsXModule);
       const renderedFilters = useFiltersInjection(props);
 
       /**
