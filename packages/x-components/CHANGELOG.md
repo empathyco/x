@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.46...@empathyco/x-components@5.0.0-alpha.47) (2024-06-17)
+
+
+### Bug Fixes
+
+* **x-module:** deprecate useRegisterXModule composable in favour of register the x-module itself in the import (#1520) ([525b020](https://github.com/empathyco/x/commit/525b020f033b1e44d95e5b4042c8201636c87287))
+
+
+
 ## [5.0.0-alpha.46](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.45...@empathyco/x-components@5.0.0-alpha.46) (2024-06-17)
 
 
