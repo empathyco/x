@@ -4,7 +4,7 @@
       <PromotedsList>
         <BannersList>
           <NextQueriesList>
-            <BaseGrid>
+            <BaseGrid :animation="StaggeredFadeAndSlide">
               <template #result="{ item: result }">
                 {{ result.id }}
               </template>
@@ -36,4 +36,5 @@
   import BaseGrid from '../../../x-components/src/components/base-grid.vue';
   import LocationProvider from '../../../x-components/src/components/location-provider.vue';
   import NextQueriesList from '../../../x-components/src/x-modules/next-queries/components/next-queries-list.vue';
+  import StaggeredFadeAndSlide from '../../../x-components/src/components/animations/staggered-fade-and-slide.vue';
 </script>
