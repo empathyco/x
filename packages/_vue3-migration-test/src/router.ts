@@ -36,7 +36,8 @@ import {
   TestSpellcheck,
   TestQuerySuggestions,
   TestSemanticQueries,
-  TestRecommendations
+  TestRecommendations,
+  TestNextQueries
 } from './';
 
 const routes = [
@@ -224,6 +225,11 @@ const routes = [
     path: '/recommendations',
     name: 'Recommendations',
     component: TestRecommendations
+  },
+  {
+    path: '/next-queries',
+    name: 'NextQueries',
+    component: TestNextQueries
   }
 ];
 

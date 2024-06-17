@@ -4,6 +4,12 @@ import { createStore } from 'vuex';
 import { xPlugin } from '../../x-components/src/plugins/x-plugin';
 import { getRelatedTagsStub } from '../../x-components/src/__stubs__/related-tags-stubs.factory';
 import { getQuerySuggestionsStub } from '../../x-components/src/__stubs__/query-suggestions-stubs.factory';
+import {
+  getBannersStub,
+  getNextQueriesStub,
+  getPromotedsStub,
+  getResultsStub
+} from '../../x-components/src/__stubs__/index';
 import App from './App.vue';
 import router from './router';
 import {
@@ -44,6 +50,31 @@ const adapter = {
   querySuggestions: (request: QuerySuggestionsRequest) =>
     new Promise(resolve => {
       resolve({ suggestions: getQuerySuggestionsStub(request.query, 5) });
+    }),
+  nextQueries: () =>
+    new Promise(resolve => {
+      resolve({
+        nextQueries: [
+          ...getNextQueriesStub(),
+          {
+            facets: [],
+            isCurated: false,
+            modelName: 'NextQuery',
+            query: 'next_query_preview',
+            results: getResultsStub(10),
+            totalResults: 10
+          }
+        ]
+      });
+    }),
+  search: () =>
+    new Promise(resolve => {
+      resolve({
+        results: getResultsStub(10),
+        totalResults: 50,
+        promoteds: getPromotedsStub(),
+        banners: getBannersStub()
+      });
     })
 } as unknown as XComponentsAdapter;
 
