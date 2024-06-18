@@ -59,9 +59,7 @@
        *
        * @internal
        */
-      const facetsGroup = computed(() => {
-        return { id: props.groupId, facets: props.facets };
-      });
+      const facetsGroup = computed(() => ({ id: props.groupId, facets: props.facets }));
 
       /**
        * Emits the {@link FacetsXEvents.UserChangedSelectedFilters} event when the user changes
