@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.48...@empathyco/x-components@5.0.0-alpha.49) (2024-06-18)
+
+
+### Features
+
+* migrate `next-queries` module to composition API ([324d5d8](https://github.com/empathyco/x/commit/324d5d866167352b9ad5e1b2858853ce197fe7fe))
+
+
+
 ## [5.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.47...@empathyco/x-components@5.0.0-alpha.48) (2024-06-18)
 
 

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.32](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.31...vue3-migration-test@1.0.0-alpha.32) (2024-06-18)
+
+
+### Features
+
+* add next-queries to the playground ([74efb22](https://github.com/empathyco/x/commit/74efb221aa34c5d52dfa808559933dac12a906cd))
+
+
+
 ## [1.0.0-alpha.31](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.30...vue3-migration-test@1.0.0-alpha.31) (2024-06-18)
 
 
