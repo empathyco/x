@@ -42,11 +42,11 @@
    */
   export default defineComponent({
     name: 'NextQueriesList',
+    xModule: nextQueriesXModule.name,
     components: {
       ItemsList,
       NoElement
     },
-    xModule: nextQueriesXModule.name,
     props: {
       /**
        * Animation component that will be used to animate the next queries groups.

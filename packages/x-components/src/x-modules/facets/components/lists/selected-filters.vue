@@ -8,7 +8,6 @@
   import { Facet } from '@empathyco/x-types';
   import { defineComponent, PropType } from 'vue';
   import { NoElement } from '../../../../components/no-element';
-  import { useRegisterXModule } from '../../../../composables/use-register-x-module';
   import { useFacets } from '../../composables/use-facets';
   import { facetsXModule } from '../../x-module';
 
@@ -32,8 +31,6 @@
       alwaysVisible: Boolean
     },
     setup: function (props) {
-      useRegisterXModule(facetsXModule);
-
       const { selectedFilters, isVisible } = useFacets(props);
 
       return {

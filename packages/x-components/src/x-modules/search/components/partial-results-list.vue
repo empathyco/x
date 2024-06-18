@@ -26,7 +26,6 @@
   import { computed, ComputedRef, defineComponent } from 'vue';
   import { searchXModule } from '../x-module';
   import { AnimationProp } from '../../../types/animation-prop';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
 
   /**
@@ -60,8 +59,6 @@
       }
     },
     setup(props) {
-      useRegisterXModule(searchXModule);
-
       /**
        * The partials results from the search state.
        *

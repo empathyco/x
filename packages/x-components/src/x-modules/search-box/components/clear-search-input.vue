@@ -14,7 +14,6 @@
   import { defineComponent, computed, ref } from 'vue';
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { VueCSSClasses } from '../../../utils/types';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
   import { searchBoxXModule } from '../x-module';
 
@@ -34,8 +33,6 @@
     components: { BaseEventButton },
     xModule: searchBoxXModule.name,
     setup: function () {
-      useRegisterXModule(searchBoxXModule);
-
       const { query } = useState('searchBox', ['query']);
 
       /**

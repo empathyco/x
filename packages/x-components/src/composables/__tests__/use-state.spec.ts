@@ -3,7 +3,6 @@ import { mount } from '@vue/test-utils';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { XPlugin } from '../../plugins';
 import { ExtractState } from '../../x-modules/x-modules.types';
-import { useRegisterXModule } from '../use-register-x-module';
 import { useState } from '../use-state';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
 import { useStore } from '../use-store';
@@ -17,7 +16,7 @@ function render(modulePaths: (keyof ExtractState<'searchBox'> & string)[]) {
   const component = defineComponent({
     xModule: 'searchBox',
     setup: () => {
-      useRegisterXModule(searchBoxXModule);
+      XPlugin.registerXModule(searchBoxXModule);
       const searchBoxUseState = useState('searchBox', modulePaths);
       return { searchBoxUseState };
     },

@@ -37,7 +37,8 @@ import {
   TestQuerySuggestions,
   TestSemanticQueries,
   TestRecommendations,
-  TestNextQueries
+  TestNextQueries,
+  TestIdentifierResults
 } from './';
 
 const routes = [
@@ -230,6 +231,11 @@ const routes = [
     path: '/next-queries',
     name: 'NextQueries',
     component: TestNextQueries
+  },
+  {
+    path: '/identifier-results',
+    name: 'IdentifierResults',
+    component: TestIdentifierResults
   }
 ];
 

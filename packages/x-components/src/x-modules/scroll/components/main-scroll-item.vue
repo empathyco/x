@@ -19,7 +19,6 @@
   } from 'vue';
   import { scrollXModule } from '../x-module';
   import { useState } from '../../../composables/use-state';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useXBus } from '../../../composables/use-x-bus';
   import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
@@ -58,7 +57,6 @@
         $el: HTMLElement;
       };
 
-      useRegisterXModule(scrollXModule);
       const xBus = useXBus();
 
       /**

@@ -1,12 +1,13 @@
-import { filterTruthyPayload, namespacedWireCommitWithoutPayload } from '../../wiring';
 import {
+  createWiring,
+  filterTruthyPayload,
   namespacedWireCommit,
+  namespacedWireCommitWithoutPayload,
   namespacedWireDispatch,
-  namespacedWireDispatchWithoutPayload
-} from '../../wiring/namespaced-wires.factory';
-import { WirePayload } from '../../wiring/wiring.types';
-import { createWiring } from '../../wiring/wiring.utils';
-import { createRawFilters } from '../../utils/filters';
+  namespacedWireDispatchWithoutPayload,
+  WirePayload
+} from '../../wiring';
+import { createRawFilters } from '../../utils';
 import { InternalSearchRequest } from './types';
 
 /**
@@ -129,6 +130,13 @@ export const setSearchPage = wireCommit('setPage');
  * @public
  */
 export const setSearchExtraParams = wireCommit('setParams');
+
+/**
+ * Resets the search state to reload the current search.
+ *
+ * @public
+ */
+export const resetStateForReloadWire = wireCommitWithoutPayload('resetStateForReload');
 
 /**
  * Resets the search state `isNoResults`.
@@ -271,6 +279,9 @@ export const searchWiring = createWiring({
   },
   ResultsChanged: {
     resetAppending
+  },
+  ReloadSearchRequested: {
+    resetStateForReloadWire
   },
   SelectedSortProvided: {
     setSort

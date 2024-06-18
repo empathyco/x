@@ -19,7 +19,8 @@ import {
   recommendationsXModule,
   scrollXModule,
   searchXModule,
-  semanticQueriesXModule
+  semanticQueriesXModule,
+  identifierResultsXModule
 } from './';
 
 // Warnings that cannot be solved in Vue 2 (a.k.a. breaking  changes) are suppressed
@@ -93,7 +94,8 @@ createApp(App as Component)
       search: searchXModule,
       queriesPreview: queriesPreviewXModule,
       semanticQueries: semanticQueriesXModule,
-      recommendations: recommendationsXModule
+      recommendations: recommendationsXModule,
+      identifierResults: identifierResultsXModule
     }
   })
   .mount('#app');

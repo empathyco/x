@@ -1,3 +1,4 @@
+import { XPlugin } from '../../plugins/x-plugin';
 import { XModule } from '../x-modules.types';
 import { queriesPreviewEmitters } from './store/emitters';
 import { queriesPreviewXStoreModule } from './store/module';
@@ -23,3 +24,5 @@ export const queriesPreviewXModule: QueriesPreviewXModule = {
   storeEmitters: queriesPreviewEmitters,
   wiring: queriesPreviewWiring
 };
+
+XPlugin.registerXModule(queriesPreviewXModule);

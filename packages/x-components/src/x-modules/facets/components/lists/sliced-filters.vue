@@ -49,7 +49,6 @@
   import { computed, defineComponent, PropType, provide, ref } from 'vue';
   import { VueCSSClasses } from '../../../../utils';
   import { facetsXModule } from '../../x-module';
-  import { useRegisterXModule } from '../../../../composables/use-register-x-module';
   import { useFiltersInjection } from '../../composables/use-filters-injection';
 
   /**
@@ -86,8 +85,6 @@
     },
     emits: ['click:show-less', 'click:show-more'],
     setup(props, { emit }) {
-      useRegisterXModule(facetsXModule);
-
       /** For showing the remaining filters. */
       let showMoreFilters = ref(true);
 

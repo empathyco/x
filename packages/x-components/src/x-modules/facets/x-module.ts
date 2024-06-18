@@ -1,3 +1,4 @@
+import { XPlugin } from '../../plugins/x-plugin';
 import { XModule } from '../x-modules.types';
 import { facetsEmitters } from './store/emitters';
 import { facetsXStoreModule } from './store/module';
@@ -23,3 +24,5 @@ export const facetsXModule: FacetsXModule = {
   storeEmitters: facetsEmitters,
   wiring: facetsWiring
 };
+
+XPlugin.registerXModule(facetsXModule);

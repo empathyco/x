@@ -1,3 +1,4 @@
+import { XPlugin } from '../../plugins/x-plugin';
 import { XModule } from '../x-modules.types';
 import { empathizeEmitters } from './store/emitters';
 import { empathizeXStoreModule } from './store/module';
@@ -23,3 +24,5 @@ export const empathizeXModule: EmpathizeXModule = {
   storeEmitters: empathizeEmitters,
   wiring: empathizeWiring
 };
+
+XPlugin.registerXModule(empathizeXModule);
