@@ -1,6 +1,5 @@
 import { XPlugin } from '../../plugins/x-plugin';
 import { XModule } from '../x-modules.types';
-import { XPlugin } from '../../plugins/x-plugin';
 import { nextQueriesEmitters } from './store/emitters';
 import { nextQueriesXStoreModule } from './store/module';
 import { NextQueriesXStoreModule } from './store/types';
