@@ -21,8 +21,8 @@
   import { PropsWithType } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { identifierResultsXModule } from '../x-module';
-  import { AnimationProp } from '../../../types';
-  import { useState } from '../../../composables';
+  import { AnimationProp } from '../../../types/animation-prop';
+  import { useState } from '../../../composables/use-state';
 
   /**
    * Paints the list of identifier results stored in the state. Each identifier result should be

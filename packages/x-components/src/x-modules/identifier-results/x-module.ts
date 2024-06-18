@@ -1,5 +1,5 @@
 import { XModule } from '../x-modules.types';
-import { XPlugin } from '../../plugins/index';
+import { XPlugin } from '../../plugins/x-plugin';
 import { identifierResultsEmitters } from './store/emitters';
 import { identifierResultsXStoreModule } from './store/module';
 import { IdentifierResultsXStoreModule } from './store/types';

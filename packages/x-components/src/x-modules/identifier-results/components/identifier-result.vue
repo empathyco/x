@@ -11,7 +11,8 @@
   import { Result } from '@empathyco/x-types';
   import { computed, defineComponent, PropType } from 'vue';
   import { identifierResultsXModule } from '../x-module';
-  import { useGetter, useState } from '../../../composables';
+  import { useGetter } from '../../../composables/use-getter';
+  import { useState } from '../../../composables/use-state';
 
   /**
    * This component renders an identifier result value and highlights its matching part with the
@@ -57,7 +58,7 @@
        * @returns String - The identifier result s query with the matching part inside a `<span>` tag.
        * @public
        */
-      const highlightedQueryHTML = computed((): string => {
+      const highlightedQueryHTML = computed(() => {
         const identifierValue = props.result.identifier?.value ?? '';
         if (identifierValue && identifierHighlightRegexp.value) {
           return identifierValue.replace(
