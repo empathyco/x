@@ -30,13 +30,11 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, onMounted, PropType } from 'vue';
   import { NextQuery, PreviewResults } from '@empathyco/x-types';
-  import { Dictionary } from '@empathyco/x-utils';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { nextQueriesXModule } from '../x-module';
-  import { State } from '../../../components/decorators/store.decorators';
+  import { use$x } from '../../../composables/use-$x';
+  import { useState } from '../../../composables/use-state';
 
   /**
    * Retrieves a preview of the results of a next query and exposes them in the default slot,
@@ -45,59 +43,59 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(nextQueriesXModule)]
-  })
-  export default class NextQueryPreview extends Vue {
-    /**
-     * The next query to retrieve the results preview.
-     *
-     * @public
-     */
-    @Prop({
-      required: true
-    })
-    protected suggestion!: NextQuery;
+  export default defineComponent({
+    name: 'NextQueryPreview',
+    xModule: nextQueriesXModule.name,
+    props: {
+      /**
+       * The next query to retrieve the results preview.
+       *
+       * @public
+       */
+      suggestion: {
+        type: Object as PropType<NextQuery>,
+        required: true
+      },
+      /**
+       * Number of suggestion results to be rendered.
+       *
+       * @public
+       */
+      maxItemsToRender: Number
+    },
+    setup(props) {
+      const $x = use$x();
+      /**
+       * The results preview of the next queries mounted.
+       * It is a dictionary, indexed by the next query query.
+       */
+      const { resultsPreview } = useState('nextQueries', ['resultsPreview']);
 
-    /**
-     * Number of suggestion results to be rendered.
-     *
-     * @public
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
+      /**
+       * The component emits the NextQueryPreviewMountedHook event to retrieve the results preview
+       * of the next query.
+       */
+      onMounted(() => $x.emit('NextQueryPreviewMountedHook', props.suggestion.query));
 
-    /**
-     * The results preview of the next queries mounted.
-     * It is a dictionary, indexed by the next query query.
-     */
-    @State('nextQueries', 'resultsPreview')
-    public previewResults!: Dictionary<PreviewResults>;
+      /**
+       * Gets from the state the results preview of the next query.
+       *
+       * @returns The results preview of the actual next query.
+       */
+      const suggestionResults = computed((): PreviewResults | undefined => {
+        const previewResults = resultsPreview.value[props.suggestion.query] as PreviewResults;
 
-    /**
-     * The component emits the NextQueryPreviewMountedHook event to retrieve the results preview
-     * of the next query.
-     */
-    mounted(): void {
-      this.$x.emit('NextQueryPreviewMountedHook', this.suggestion.query);
+        return previewResults
+          ? {
+              ...previewResults,
+              items: previewResults.items.slice(0, props.maxItemsToRender)
+            }
+          : undefined;
+      });
+
+      return { suggestionResults };
     }
-
-    /**
-     * Gets from the state the results preview of the next query.
-     *
-     * @returns The results preview of the actual next query.
-     */
-    public get suggestionResults(): PreviewResults | undefined {
-      const previewResults = this.previewResults[this.suggestion.query];
-
-      return previewResults
-        ? {
-            ...previewResults,
-            items: previewResults.items.slice(0, this.maxItemsToRender)
-          }
-        : undefined;
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">

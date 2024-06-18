@@ -29,7 +29,7 @@
     LIST_ITEMS_KEY,
     QUERY_KEY
   } from '../../../components/decorators/injection.consts';
-  import { AnimationProp } from '../../../types/index';
+  import { AnimationProp } from '../../../types/animation-prop';
   import { use$x } from '../../../composables/use-$x';
   import { useGetter } from '../../../composables/use-getter';
   import { NoElement } from '../../../components/no-element';
