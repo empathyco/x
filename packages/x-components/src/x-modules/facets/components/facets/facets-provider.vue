@@ -6,7 +6,7 @@
   import { GroupId } from '../../store/types';
   import { flatHierarchicalFilters } from '../../utils';
   import { facetsXModule } from '../../x-module';
-  import { use$x } from '../../../../composables';
+  import { use$x } from '../../../../composables/use-$x';
 
   /**
    * This component allows to provide facets by prop, to add them to the state of the
