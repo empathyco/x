@@ -36,12 +36,10 @@
 
 <script lang="ts">
   import { NextQuery as NextQueryModel } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType } from 'vue';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
-  import { Getter } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { nextQueriesXModule } from '../x-module';
+  import { useGetter } from '../../../composables/use-getter';
   import NextQuery from './next-query.vue';
 
   /**
@@ -53,45 +51,49 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'NextQueries',
+    xModule: nextQueriesXModule.name,
+    components: {
+      NextQuery,
+      BaseSuggestions
+    },
     inheritAttrs: false,
-    components: { NextQuery, BaseSuggestions },
-    mixins: [xComponentMixin(nextQueriesXModule)]
-  })
-  export default class NextQueries extends Vue {
-    /**
-     * Flag to indicate if the curated next queries should be displayed different.
-     *
-     * @public
-     */
-    @Prop({ default: false, type: Boolean })
-    public highlightCurated!: boolean;
+    props: {
+      /**
+       * Flag to indicate if the curated next queries should be displayed different.
+       *
+       * @public
+       */
+      highlightCurated: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * NextQueries list to be used instead of state NextQueries.
+       *
+       * @public
+       */
+      suggestions: Array as PropType<NextQueryModel[]>
+    },
+    setup(props) {
+      /**
+       * The list of next queries from the state.
+       *
+       * @internal
+       */
+      const stateNextQueries = useGetter('nextQueries', ['nextQueries']).nextQueries;
 
-    /**
-     * NextQueries list to be used instead of state NextQueries.
-     *
-     * @public
-     */
-    @Prop()
-    public suggestions?: NextQueryModel[];
+      /**.
+       * The list of next queries finally rendered
+       *
+       * @internal
+       */
+      const renderedNextQueries = computed(() => props.suggestions ?? stateNextQueries.value);
 
-    /**
-     * The list of next queries from the state.
-     *
-     * @internal
-     */
-    @Getter('nextQueries', 'nextQueries')
-    public stateNextQueries!: NextQueryModel[];
-
-    /**.
-     * The list of next queries finally rendered
-     *
-     * @internal
-     */
-    protected get renderedNextQueries(): NextQueryModel[] {
-      return this.suggestions ?? this.stateNextQueries;
+      return { renderedNextQueries };
     }
-  }
+  });
 </script>
 
 <!--eslint-disable max-len -->

@@ -36,7 +36,9 @@ import {
   TestSpellcheck,
   TestQuerySuggestions,
   TestSemanticQueries,
-  TestRecommendations
+  TestRecommendations,
+  TestNextQueries,
+  TestIdentifierResults
 } from './';
 
 const routes = [
@@ -224,6 +226,16 @@ const routes = [
     path: '/recommendations',
     name: 'Recommendations',
     component: TestRecommendations
+  },
+  {
+    path: '/next-queries',
+    name: 'NextQueries',
+    component: TestNextQueries
+  },
+  {
+    path: '/identifier-results',
+    name: 'IdentifierResults',
+    component: TestIdentifierResults
   }
 ];
 

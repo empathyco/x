@@ -2,7 +2,6 @@ import { defineComponent } from 'vue';
 import { mount } from '@vue/test-utils';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { useGetter } from '../use-getter';
-import { useRegisterXModule } from '../use-register-x-module';
 import { ExtractGetters } from '../../x-modules/x-modules.types';
 import { useStore } from '../use-store';
 import { XPlugin } from '../../plugins';
@@ -17,7 +16,7 @@ function render(modulePaths: (keyof ExtractGetters<'historyQueries'>)[]) {
   const component = defineComponent({
     xModule: 'historyQueries',
     setup: () => {
-      useRegisterXModule(historyQueriesXModule);
+      XPlugin.registerXModule(historyQueriesXModule);
       const historyQueriesGetter = useGetter('historyQueries', modulePaths);
       return { historyQueriesGetter };
     },

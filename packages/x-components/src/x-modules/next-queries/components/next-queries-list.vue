@@ -29,10 +29,9 @@
     LIST_ITEMS_KEY,
     QUERY_KEY
   } from '../../../components/decorators/injection.consts';
-  import { AnimationProp } from '../../../types/index';
+  import { AnimationProp } from '../../../types/animation-prop';
   import { use$x } from '../../../composables/use-$x';
   import { useGetter } from '../../../composables/use-getter';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { NoElement } from '../../../components/no-element';
 
   /**
@@ -43,11 +42,11 @@
    */
   export default defineComponent({
     name: 'NextQueriesList',
+    xModule: nextQueriesXModule.name,
     components: {
       ItemsList,
       NoElement
     },
-    xModule: nextQueriesXModule.name,
     props: {
       /**
        * Animation component that will be used to animate the next queries groups.
@@ -103,8 +102,6 @@
       }
     },
     setup(props, { slots }) {
-      useRegisterXModule(nextQueriesXModule);
-
       const $x = use$x();
 
       /**

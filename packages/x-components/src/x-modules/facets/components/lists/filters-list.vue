@@ -28,7 +28,6 @@
   import { VueCSSClasses } from '../../../../utils/types';
   import { facetsXModule } from '../../x-module';
   import { AnimationProp } from '../../../../types/animation-prop';
-  import { useRegisterXModule } from '../../../../composables/use-register-x-module';
   import { useFiltersInjection } from '../../composables/use-filters-injection';
 
   /**
@@ -71,8 +70,6 @@
       }
     },
     setup(props) {
-      useRegisterXModule(facetsXModule);
-
       const renderedFilters = useFiltersInjection(props);
 
       /**

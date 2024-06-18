@@ -59,7 +59,6 @@
   import { DebouncedFunction } from '../../../utils';
   import { createRawFilter } from '../../../__stubs__/filters-stubs.factory';
   import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
   import { useXBus } from '../../../composables/use-x-bus';
 
@@ -73,10 +72,8 @@
 
   export default defineComponent({
     name: 'QueryPreview',
-    components: {
-      NoElement
-    },
     xModule: queriesPreviewXModule.name,
+    components: { NoElement },
     props: {
       /**
        * The information about the request of the query preview.
@@ -125,8 +122,6 @@
     },
     emits: ['load', 'error'],
     setup(props, { emit }) {
-      useRegisterXModule(queriesPreviewXModule);
-
       const xBus = useXBus();
 
       const queriesPreviewState = useState('queriesPreview', [

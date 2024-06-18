@@ -27,7 +27,7 @@
   import { RequestStatus } from '../../../store/utils/status-store.utils';
   import { infiniteScroll } from '../../../directives';
   import { animationProp } from '../../../utils/options-api';
-  import { useRegisterXModule, useState } from '../../../composables';
+  import { useState } from '../../../composables/use-state';
   import { searchXModule } from '../x-module';
   import { useXBus } from '../../../composables/use-x-bus';
   import { NoElement } from '../../../components/no-element';
@@ -64,13 +64,8 @@
     },
     emits: ['UserReachedResultsListEnd'],
 
-    setup(props, { slots }) {
+    setup(_, { slots }) {
       const xBus = useXBus();
-
-      /**
-       * The {@link searchXModule | searchXModule } registered.
-       */
-      useRegisterXModule(searchXModule);
 
       /**
        * The results to render from the state.

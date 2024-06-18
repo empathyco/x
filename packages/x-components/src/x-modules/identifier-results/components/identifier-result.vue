@@ -9,11 +9,10 @@
 
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { Getter, State } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { computed, ComputedRef, defineComponent, PropType } from 'vue';
   import { identifierResultsXModule } from '../x-module';
+  import { useGetter } from '../../../composables/use-getter';
+  import { useState } from '../../../composables/use-state';
 
   /**
    * This component renders an identifier result value and highlights its matching part with the
@@ -21,52 +20,61 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(identifierResultsXModule)]
-  })
-  export default class IdentifierResult extends Vue {
-    /**
-     * (Required) The {@link @empathyco/x-types#Result} information.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected result!: Result;
-
-    /**
-     * Query from the module state.
-     *
-     * @public
-     */
-    @State('identifierResults', 'query')
-    public query!: string;
-
-    /**
-     * The RegExp with the current query from the state adding the separatorChars after each
-     * matching character.
-     *
-     * @public
-     */
-    @Getter('identifierResults', 'identifierHighlightRegexp')
-    public identifierHighlightRegexp!: RegExp;
-
-    /**
-     * Highlights the matching part of the identifier result with the query from the state.
-     *
-     * @returns String - The identifier result s query with the matching part inside a `<span>` tag.
-     * @public
-     */
-    protected get highlightedQueryHTML(): string {
-      const identifierValue = this.result.identifier?.value ?? '';
-      if (identifierValue && this.identifierHighlightRegexp) {
-        return identifierValue.replace(
-          this.identifierHighlightRegexp,
-          '<span class="x-identifier-result__matching-part">$1</span>'
-        );
+  export default defineComponent({
+    name: 'IdentifierResult',
+    xModule: identifierResultsXModule.name,
+    props: {
+      /**
+       * (Required) The {@link @empathyco/x-types#Result} information.
+       *
+       * @public
+       */
+      result: {
+        type: Object as PropType<Result>,
+        required: true
       }
-      return identifierValue;
+    },
+    setup: function (props) {
+      /**
+       * Query from the module state.
+       *
+       * @public
+       */
+      const { query } = useState('identifierResults', ['query']);
+
+      /**
+       * The RegExp with the current query from the state adding the separatorChars after each
+       * matching character.
+       *
+       * @public
+       */
+      const identifierHighlightRegexp: ComputedRef<RegExp> = useGetter('identifierResults', [
+        'identifierHighlightRegexp'
+      ]).identifierHighlightRegexp;
+
+      /**
+       * Highlights the matching part of the identifier result with the query from the state.
+       *
+       * @returns String - The identifier result s query with the matching part inside a `<span>` tag.
+       * @public
+       */
+      const highlightedQueryHTML = computed(() => {
+        const identifierValue = props.result.identifier?.value ?? '';
+        if (identifierValue && identifierHighlightRegexp.value) {
+          return identifierValue.replace(
+            identifierHighlightRegexp.value,
+            '<span class="x-identifier-result__matching-part">$1</span>'
+          );
+        }
+        return identifierValue;
+      });
+
+      return {
+        query,
+        highlightedQueryHTML
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">

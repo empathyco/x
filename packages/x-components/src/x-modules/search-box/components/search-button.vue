@@ -16,7 +16,6 @@
   import { VueCSSClasses } from '../../../utils/types';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import { use$x } from '../../../composables/use-$x';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
   import { searchBoxXModule } from '../x-module';
 
@@ -34,8 +33,6 @@
     name: 'SearchButton',
     xModule: searchBoxXModule.name,
     setup: function () {
-      useRegisterXModule(searchBoxXModule);
-
       const $x = use$x();
 
       const buttonRef = ref<HTMLElement | null>(null);
