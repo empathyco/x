@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.47...@empathyco/x-components@5.0.0-alpha.48) (2024-06-18)
+
+
+### Features
+
+* migrate `identifier-results` x-module to composition API (#1521) ([81b18d0](https://github.com/empathyco/x/commit/81b18d03b3ae2ba9df05f5c288a7eab0e0e7966c))
+
+
+
 ## [5.0.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.46...@empathyco/x-components@5.0.0-alpha.47) (2024-06-17)
 
 

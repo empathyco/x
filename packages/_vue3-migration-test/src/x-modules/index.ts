@@ -11,3 +11,4 @@ export * from './query-suggestions';
 export * from './semantic-queries';
 export * from './recommendations';
 export * from './popular-searches';
+export * from './identifier-results';

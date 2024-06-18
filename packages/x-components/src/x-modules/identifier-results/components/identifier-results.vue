@@ -17,13 +17,12 @@
 
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
-  import { Component, Prop, Provide } from 'vue-property-decorator';
-  import Vue from 'vue';
-  import { State } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { computed, defineComponent, provide } from 'vue';
   import { PropsWithType } from '../../../utils/types';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { identifierResultsXModule } from '../x-module';
+  import { AnimationProp } from '../../../types/animation-prop';
+  import { useState } from '../../../composables/use-state';
 
   /**
    * Paints the list of identifier results stored in the state. Each identifier result should be
@@ -32,55 +31,60 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(identifierResultsXModule)]
-  })
-  export default class IdentifierResults extends Vue {
-    /**
-     * Animation component that will be used to animate the identifier results.
-     *
-     * @public
-     */
-    @Prop({ default: 'ul' })
-    protected animation!: Vue;
+  export default defineComponent({
+    name: 'IdentifierResults',
+    xModule: identifierResultsXModule.name,
+    props: {
+      /**
+       * Animation component that will be used to animate the identifier results.
+       *
+       * @public
+       */
+      animation: {
+        type: AnimationProp,
+        default: 'ul'
+      },
+      /**
+       * Number of identifier results to render.
+       *
+       * @public
+       */
+      maxItemsToRender: Number
+    },
+    setup: function (props) {
+      /**
+       * The module's list of identifier results.
+       *
+       * @public
+       */
+      const { identifierResults } = useState('identifierResults', ['identifierResults']);
 
-    /**
-     * Number of identifier results to render.
-     *
-     * @public
-     */
-    @Prop()
-    protected maxItemsToRender?: number;
+      /**
+       * The additional events to be emitted by the mandatory {@link BaseResultLink} component.
+       *
+       * @public
+       */
+      provide<PropsWithType<XEventsTypes, Result>[]>('resultClickExtraEvents', [
+        'UserClickedAIdentifierResult'
+      ]);
 
-    /**
-     * The module's list of identifier results.
-     *
-     * @public
-     */
-    @State('identifierResults', 'identifierResults')
-    public identifierResults!: Result[];
+      /**
+       * Slices the identifier results from the state.
+       *
+       * @returns - The list of identifier results sliced by the number of items to render.
+       *
+       * @internal
+       */
+      const identifierResultsToRender = computed(() =>
+        (identifierResults.value as Result[]).slice(0, props.maxItemsToRender)
+      );
 
-    /**
-     * The additional events to be emitted by the mandatory {@link BaseResultLink} component.
-     *
-     * @public
-     */
-    @Provide()
-    protected resultClickExtraEvents: PropsWithType<XEventsTypes, Result>[] = [
-      'UserClickedAIdentifierResult'
-    ];
-
-    /**
-     * Slices the identifier results from the state.
-     *
-     * @returns - The list of identifier results sliced by the number of items to render.
-     *
-     * @internal
-     */
-    public get identifierResultsToRender(): Result[] {
-      return this.identifierResults.slice(0, this.maxItemsToRender);
+      return {
+        identifierResults,
+        identifierResultsToRender
+      };
     }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>

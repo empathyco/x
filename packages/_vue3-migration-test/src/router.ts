@@ -37,7 +37,9 @@ import {
   TestQuerySuggestions,
   TestSemanticQueries,
   TestRecommendations,
-  TestPopularSearches
+  TestPopularSearches,
+  TestNextQueries,
+  TestIdentifierResults
 } from './';
 
 const routes = [
@@ -230,6 +232,16 @@ const routes = [
     path: '/popular-searches',
     name: 'PopularSearches',
     component: TestPopularSearches
+  },
+  {
+    path: '/next-queries',
+    name: 'NextQueries',
+    component: TestNextQueries
+  },
+  {
+    path: '/identifier-results',
+    name: 'IdentifierResults',
+    component: TestIdentifierResults
   }
 ];
 
