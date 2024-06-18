@@ -9,7 +9,7 @@
 
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType } from 'vue';
+  import { computed, ComputedRef, defineComponent, PropType } from 'vue';
   import { identifierResultsXModule } from '../x-module';
   import { useGetter } from '../../../composables/use-getter';
   import { useState } from '../../../composables/use-state';
@@ -48,9 +48,9 @@
        *
        * @public
        */
-      const { identifierHighlightRegexp } = useGetter('identifierResults', [
+      const identifierHighlightRegexp: ComputedRef<RegExp> = useGetter('identifierResults', [
         'identifierHighlightRegexp'
-      ]);
+      ]).identifierHighlightRegexp;
 
       /**
        * Highlights the matching part of the identifier result with the query from the state.
