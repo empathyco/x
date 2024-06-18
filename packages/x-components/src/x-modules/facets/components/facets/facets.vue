@@ -58,7 +58,6 @@
   import { Dictionary, map, objectFilter } from '@empathyco/x-utils';
   import Vue, { computed, ComputedRef, defineComponent, PropType } from 'vue';
   import { useGetter } from '../../../../composables/use-getter';
-  import { useRegisterXModule } from '../../../../composables/use-register-x-module';
   import { toKebabCase } from '../../../../utils/string';
   import { useFacets } from '../../composables/use-facets';
   import { facetsXModule } from '../../x-module';
@@ -118,8 +117,6 @@
       renderableFacets: String
     },
     setup: function (props, { slots }) {
-      useRegisterXModule(facetsXModule);
-
       const { selectedFiltersByFacet } = useFacets(props);
 
       const { facets } = useGetter('facets', ['facets']) as {

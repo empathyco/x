@@ -1,11 +1,11 @@
 import {
+  Banner,
   Facet,
+  Promoted,
+  Redirection,
   Result,
   Sort,
-  Redirection,
-  TaggingRequest,
-  Promoted,
-  Banner
+  TaggingRequest
 } from '@empathyco/x-types';
 import { InternalSearchRequest, InternalSearchResponse } from './types';
 
@@ -26,6 +26,10 @@ export interface SearchXEvents {
    * Payload: The new page number.
    */
   PageChanged: number;
+  /**
+   * Reload the current search has been requested.
+   */
+  ReloadSearchRequested: void;
   /**
    * Results have been changed.
    * Payload: The new {@link @empathyco/x-types#Result | results}.

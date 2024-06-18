@@ -1,3 +1,4 @@
+import { XPlugin } from '../../plugins/x-plugin';
 import { XModule } from '../x-modules.types';
 import { nextQueriesEmitters } from './store/emitters';
 import { nextQueriesXStoreModule } from './store/module';
@@ -23,3 +24,5 @@ export const nextQueriesXModule: NextQueriesXModule = {
   storeEmitters: nextQueriesEmitters,
   wiring: nextQueriesWiring
 };
+
+XPlugin.registerXModule(nextQueriesXModule);

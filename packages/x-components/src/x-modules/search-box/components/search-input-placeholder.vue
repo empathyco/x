@@ -15,7 +15,6 @@
   import { computed, defineComponent, onBeforeUnmount, PropType, ref, watch } from 'vue';
   import { animateTranslate } from '../../../components/animations/animate-translate/animate-translate.factory';
   import { use$x } from '../../../composables/use-$x';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
   import { searchBoxXModule } from '../x-module';
   import { AnimationProp } from '../../../types';
@@ -65,8 +64,6 @@
       animateOnlyOnHover: Boolean
     },
     setup: function (props) {
-      useRegisterXModule(searchBoxXModule);
-
       const $x = use$x();
 
       /**.

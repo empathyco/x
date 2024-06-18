@@ -29,7 +29,6 @@
   import { QueryPreviewInfo } from '../store/types';
   import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview';
   import { AnimationProp, QueryFeature } from '../../../types';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import QueryPreview from './query-preview.vue';
 
   interface QueryPreviewStatusRecord {
@@ -101,8 +100,6 @@
       }
     },
     setup(props, { slots }) {
-      useRegisterXModule(queriesPreviewXModule);
-
       const renderSlots = slots;
 
       /**

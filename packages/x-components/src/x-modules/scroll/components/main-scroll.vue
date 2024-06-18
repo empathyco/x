@@ -8,7 +8,6 @@
   import { VueCSSClasses } from '../../../utils/types';
   import { scrollXModule } from '../x-module';
   import { DISABLE_ANIMATIONS_KEY } from '../../../components/decorators/injection.consts';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
   import { useXBus } from '../../../composables/use-x-bus';
   import { NoElement } from '../../../components/no-element';
@@ -26,10 +25,8 @@
    */
   export default defineComponent({
     name: 'MainScroll',
-    components: {
-      NoElement
-    },
     xModule: scrollXModule.name,
+    components: { NoElement },
     props: {
       /**
        * If `true`, sets this scroll instance to the main of the application. Being the main
@@ -72,8 +69,6 @@
       }
     },
     setup(props) {
-      useRegisterXModule(scrollXModule);
-
       const xBus = useXBus();
 
       /**

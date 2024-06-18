@@ -5,6 +5,7 @@
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { useXBus } from '../../../composables/use-x-bus';
   import { useNoElementRender } from '../../../composables';
+  import { facetsXModule } from '../x-module';
 
   /**
    * This component emits {@link FacetsXEvents.PreselectedFiltersProvided} when a preselected filter
@@ -14,6 +15,7 @@
    */
   export default defineComponent({
     name: 'PreselectedFilters',
+    xModule: facetsXModule.name,
     props: {
       /**
        * A list of filters to preselect.

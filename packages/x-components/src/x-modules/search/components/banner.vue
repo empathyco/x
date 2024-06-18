@@ -23,8 +23,8 @@
 <script lang="ts">
   import { Banner as BannerModel } from '@empathyco/x-types';
   import { defineComponent, PropType, ref } from 'vue';
+  import { useXBus } from '../../../composables/use-x-bus';
   import { searchXModule } from '../x-module';
-  import { useRegisterXModule, useXBus } from '../../../composables';
 
   /**.
    * A banner result is just an item that has been inserted into the search results to advertise
@@ -55,7 +55,6 @@
       titleClass: String
     },
     setup(props) {
-      useRegisterXModule(searchXModule);
       const xBus = useXBus();
 
       /**

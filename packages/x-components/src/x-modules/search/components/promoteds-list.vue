@@ -23,7 +23,6 @@
   import { searchXModule } from '../x-module';
   import { AnimationProp } from '../../../types/animation-prop';
   import { use$x } from '../../../composables/use-$x';
-  import { useRegisterXModule } from '../../../composables/use-register-x-module';
   import { useState } from '../../../composables/use-state';
   import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
   import { NoElement } from '../../../components/no-element';
@@ -60,8 +59,6 @@
       }
     },
     setup(_, { slots }) {
-      useRegisterXModule(searchXModule);
-
       const $x = use$x();
 
       /**
