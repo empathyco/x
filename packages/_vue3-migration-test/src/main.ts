@@ -9,6 +9,7 @@ import router from './router';
 import {
   facetsXModule,
   nextQueriesXModule,
+  popularSearchesXModule,
   queriesPreviewXModule,
   recommendationsXModule,
   scrollXModule,
@@ -62,7 +63,8 @@ createApp(App as Component)
       search: searchXModule,
       queriesPreview: queriesPreviewXModule,
       semanticQueries: semanticQueriesXModule,
-      recommendations: recommendationsXModule
+      recommendations: recommendationsXModule,
+      popularSearches: popularSearchesXModule
     }
   })
   .mount('#app');
