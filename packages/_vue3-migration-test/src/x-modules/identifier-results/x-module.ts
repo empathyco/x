@@ -1,5 +1,7 @@
 import { PrivateXModuleOptions } from '../../../../x-components/src/plugins/x-plugin.types';
 import { IdentifierResultsXModule } from '../../../../x-components/src/x-modules/identifier-results/x-module';
+import { createResultStub } from '../../../../x-components/src/__stubs__/results-stubs.factory';
+
 export const identifierResultsXModule: PrivateXModuleOptions<IdentifierResultsXModule> = {
   storeModule: {
     state: {
@@ -9,28 +11,7 @@ export const identifierResultsXModule: PrivateXModuleOptions<IdentifierResultsXM
         identifierDetectionRegexp: '^[0-9]{2,}$',
         separatorChars: '-/ '
       },
-      identifierResults: [
-        {
-          identifier: {
-            value: '123A'
-          }
-        },
-        {
-          identifier: {
-            value: '123B'
-          }
-        },
-        {
-          identifier: {
-            value: '123C'
-          }
-        },
-        {
-          identifier: {
-            value: '123D'
-          }
-        }
-      ],
+      identifierResults: ['123A', '123B', '123C', '123D'].map(id => createResultStub(id)),
       origin: null,
       query: 'test',
       params: {},
