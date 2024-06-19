@@ -15,6 +15,7 @@ import router from './router';
 import {
   facetsXModule,
   nextQueriesXModule,
+  popularSearchesXModule,
   queriesPreviewXModule,
   recommendationsXModule,
   scrollXModule,
@@ -95,6 +96,7 @@ createApp(App as Component)
       queriesPreview: queriesPreviewXModule,
       semanticQueries: semanticQueriesXModule,
       recommendations: recommendationsXModule,
+      popularSearches: popularSearchesXModule,
       identifierResults: identifierResultsXModule
     }
   })
