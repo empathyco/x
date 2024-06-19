@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.49...@empathyco/x-components@5.0.0-alpha.50) (2024-06-19)
+
+
+### Features
+
+* migrate `facets provider` component to use Composition API (#1523) ([eff7b8d](https://github.com/empathyco/x/commit/eff7b8d92c54aece07061c2d8ce58507a56e7d01))
+
+
+
 ## [5.0.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.48...@empathyco/x-components@5.0.0-alpha.49) (2024-06-18)
 
 
