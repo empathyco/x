@@ -1,18 +1,17 @@
-import { BooleanFilter } from '@empathyco/x-types';
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
+import { nextTick, reactive } from 'vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
-import { XEventsTypes } from '../../../../../wiring/events.types';
 import {
   createSimpleFilter,
   getSimpleFilterStub
 } from '../../../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils';
 import RenderlessFilter from '../renderless-filter.vue';
+import { XPlugin } from '../../../../../plugins/x-plugin';
 
 function renderComponent({
-  filter = createSimpleFilter('category', 'food'),
-  clickEvents,
+  filter = reactive(createSimpleFilter('category', 'food')),
+  clickEvents = {},
   template = `
         <RenderlessFilter
         :filter="filter"
@@ -28,9 +27,11 @@ function renderComponent({
           </button>
         </RenderlessFilter>
       `
-}: RenderOptions = {}): RenderAPI {
-  Vue.observable(filter);
-  const emit = jest.fn();
+} = {}) {
+  installNewXPlugin();
+
+  //Vue.observable(filter);
+
   const wrapper = mount(
     {
       components: { RenderlessFilter },
@@ -41,11 +42,6 @@ function renderComponent({
       propsData: {
         filter,
         clickEvents
-      },
-      mocks: {
-        $x: {
-          emit
-        }
       }
     }
   );
@@ -54,14 +50,14 @@ function renderComponent({
 
   return {
     wrapper: renderlessFilterWrapper,
-    emit,
+    emit: jest.spyOn(XPlugin.bus, 'emit'),
     filter,
-    clickFilter() {
+    clickFilter: () => {
       renderlessFilterWrapper.trigger('click');
     },
-    async selectFilter() {
+    selectFilter: async () => {
       filter.selected = true;
-      await Vue.nextTick();
+      await nextTick();
     }
   };
 }
@@ -80,7 +76,7 @@ describe('testing Renderless Filter component', () => {
   });
 
   it('emits UserClickedAFilter and other custom events when clicked', () => {
-    const filter = getSimpleFilterStub();
+    const filter = reactive(getSimpleFilterStub());
     const { wrapper, clickFilter, emit } = renderComponent({
       filter,
       clickEvents: {
@@ -117,39 +113,14 @@ describe('testing Renderless Filter component', () => {
   });
 
   it('disables the filter when it has no results', async () => {
-    const filter = createSimpleFilter('category', 'men', false);
+    const filter = reactive(createSimpleFilter('category', 'men', false));
     const { wrapper } = renderComponent({ filter });
 
     expect(wrapper.attributes('disabled')).toBeUndefined();
 
     filter.totalResults = 0;
-    await wrapper.vm.$nextTick();
+    await nextTick();
 
     expect(wrapper.attributes('disabled')).toBe('disabled');
   });
 });
-
-interface RenderOptions {
-  /** The template containing the {@link RenderlessFilter} component to render. */
-  template?: string;
-  /** The filter data. Passed as prop to the {@link RenderlessFilter} component. */
-  filter?: BooleanFilter;
-  /**
-   * Additional events to emit when the filter is clicked.
-   * Passed as prop to the {@link RenderlessFilter} component.
-   */
-  clickEvents?: Partial<XEventsTypes>;
-}
-
-interface RenderAPI {
-  /** Wrapper of the {@link RenderlessFilter} component. */
-  wrapper: Wrapper<Vue>;
-  /** Mock of the {@link XBus.emit} function. */
-  emit: jest.Mock;
-  /** The rendered filter data. */
-  filter: BooleanFilter;
-  /** Fakes a click on the filter component. */
-  clickFilter: () => void;
-  /** Sets the {@link RenderAPI.filter} `selected` property to `true`. */
-  selectFilter: () => Promise<void>;
-}

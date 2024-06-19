@@ -1,6 +1,6 @@
 import { SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
 import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import Vue, { nextTick } from 'vue';
 import { createSimpleFilter } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
@@ -44,11 +44,11 @@ function renderSimpleFilter({
     },
     selectFilter() {
       filter.selected = true;
-      return Vue.nextTick();
+      return nextTick();
     },
     updateFilter(newFields) {
       Object.assign(filter, newFields);
-      return Vue.nextTick();
+      return nextTick();
     }
   };
 }
