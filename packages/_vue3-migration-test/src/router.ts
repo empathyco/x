@@ -44,7 +44,8 @@ import {
   TestIdentifierResults,
   TestRedirection,
   TestExtraParams,
-  TestSearch
+  TestSearch,
+  TestExperienceControls
 } from './';
 
 const routes = [
@@ -272,6 +273,11 @@ const routes = [
     path: '/snippet-config-extraparams',
     name: 'SnippetConfigExtraparams',
     component: TestExtraParams
+  },
+  {
+    path: '/experience-controls',
+    name: 'ExperienceControls',
+    component: TestExperienceControls
   }
 ];
 
