@@ -46,6 +46,7 @@
   import { computed, defineComponent, PropType } from 'vue';
   import { XEventsTypes } from '../../../../wiring/events.types';
   import { facetsXModule } from '../../x-module';
+  import RenderlessFilter from './renderless-filter.vue';
 
   /**
    * Renders a simple filter, emitting the needed events when clicked.
@@ -55,6 +56,7 @@
   export default defineComponent({
     name: 'SimpleFilter',
     xModule: facetsXModule.name,
+    components: { RenderlessFilter },
     props: {
       /** The filter data to render. */
       filter: {
