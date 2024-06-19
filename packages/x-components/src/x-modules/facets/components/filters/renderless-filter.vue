@@ -1,11 +1,9 @@
 <script lang="ts">
-  import Vue, { CreateElement, VNode } from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, h, PropType, ref } from 'vue';
   import { BooleanFilter } from '@empathyco/x-types';
-  import { xComponentMixin } from '../../../../components';
-  import { VueCSSClasses } from '../../../../utils/types';
   import { XEvent, XEventsTypes } from '../../../../wiring/events.types';
   import { facetsXModule } from '../../x-module';
+  import { use$x } from '../../../../composables/use-$x';
 
   /**
    * Renders default slot content. It binds to the default slot a
@@ -18,74 +16,77 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(facetsXModule)]
-  })
-  export default class RenderlessFilter extends Vue {
-    /** The filter data to render. */
-    @Prop({ required: true })
-    public filter!: BooleanFilter;
+  export default defineComponent({
+    name: 'RenderlessFilter',
+    module: facetsXModule.name,
+    props: {
+      /** The filter data to render. */
+      filter: {
+        type: Object as PropType<BooleanFilter>,
+        required: true
+      },
+      /** Additional events with its payload to emit when the filter is clicked. */
+      clickEvents: Object as PropType<Partial<XEventsTypes>>
+    },
+    setup: function (props, { slots }) {
+      const $x = use$x();
 
-    /** Additional events with its payload to emit when the filter is clicked. */
-    @Prop()
-    public clickEvents?: Partial<XEventsTypes>;
+      const rootElement = ref<HTMLElement | undefined>();
 
-    /**
-     * The events that will be emitted when the filter is clicked.
-     *
-     * @returns The events to be emitted when the filter is clicked.
-     * @internal
-     */
-    protected get events(): Partial<XEventsTypes> {
-      return {
-        UserClickedAFilter: this.filter,
-        ...this.clickEvents
+      /**
+       * The events that will be emitted when the filter is clicked.
+       *
+       * @returns The events to be emitted when the filter is clicked.
+       * @internal
+       */
+      const events = computed(() => {
+        return {
+          UserClickedAFilter: props.filter,
+          ...props.clickEvents
+        };
+      });
+
+      /**
+       * Returns `true` when the filter should be disabled.
+       *
+       * @returns `true` if the filter should be disabled.
+       * @internal
+       */
+      const isDisabled = computed(() => props.filter.totalResults === 0);
+
+      /**
+       * Dynamic CSS classes to apply to the component.
+       *
+       * @returns The dynamic CSS classes to apply to the component.
+       * @internal
+       */
+      const cssClasses = computed(() => {
+        return ['x-facet-filter', { 'x-selected': props.filter.selected }];
+      });
+
+      /**
+       * The events to emit to the bus.
+       *
+       * @internal
+       */
+      const emitEvents = () => {
+        Object.entries(events.value).forEach(([event, payload]) => {
+          $x.emit(event as XEvent, payload, { target: rootElement.value as HTMLElement });
+        });
+      };
+
+      return () => {
+        return (
+          slots.default?.({
+            filter: props.filter,
+            clickFilter: emitEvents,
+            cssClasses: cssClasses.value,
+            isDisabled: isDisabled.value
+          })?.[0] ?? h()
+        );
       };
     }
-
-    /**
-     * The events to emit to the bus.
-     *
-     * @internal
-     */
-    protected emitEvents(): void {
-      Object.entries(this.events).forEach(([event, payload]) => {
-        this.$x.emit(event as XEvent, payload, { target: this.$el as HTMLElement });
-      });
-    }
-
-    /**
-     * Returns `true` when the filter should be disabled.
-     *
-     * @returns `true` if the filter should be disabled.
-     * @internal
-     */
-    protected get isDisabled(): boolean {
-      return this.filter.totalResults === 0;
-    }
-
-    /**
-     * Dynamic CSS classes to apply to the component.
-     *
-     * @returns The dynamic CSS classes to apply to the component.
-     * @internal
-     */
-    protected get cssClasses(): VueCSSClasses {
-      return ['x-facet-filter', { 'x-selected': this.filter.selected }];
-    }
-
-    render(h: CreateElement): VNode {
-      return (
-        this.$scopedSlots.default?.({
-          filter: this.filter,
-          // eslint-disable-next-line @typescript-eslint/unbound-method
-          clickFilter: this.emitEvents,
-          cssClasses: this.cssClasses,
-          isDisabled: this.isDisabled
-        })?.[0] ?? h()
-      );
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">
