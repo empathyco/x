@@ -82,7 +82,7 @@
             clickFilter: emitEvents,
             cssClasses: cssClasses.value,
             isDisabled: isDisabled.value
-          })?.[0] ?? h()
+          }) ?? h()
         );
       };
     }
