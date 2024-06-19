@@ -1,18 +1,19 @@
 <template>
   <span style="display: block">
     Controls:
-    <b>{{ experienceControls }}</b>
+    <b>{{ controls }}</b>
   </span>
   <ExperienceControls />
   <div v-for="(item, index) in items" :key="index">
-    <div>{{ item }}-{{ index }}</div>
+    <div>This is an item {{ item }}-{{ index }}</div>
   </div>
 </template>
 
 <script setup>
   import ExperienceControls from '../../../../../x-components/src/x-modules/experience-controls/components/experience-controls.vue';
-  import { useState } from '../../../../../x-components/src';
+  import { useState } from '../../../../../x-components/src/composables/use-state.ts';
 
-  const experienceControls = useState('experienceControls', ['controls']);
-  const items = experienceControls.resultsPerCarousels;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  const { controls } = useState('experienceControls', ['controls']);
+  const items = controls.value.resultsPerCarousels;
 </script>
