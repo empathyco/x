@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.51](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.50...@empathyco/x-components@5.0.0-alpha.51) (2024-06-19)
+
+
+### Features
+
+* migrate popular-searches x-module (#1524) ([f79456d](https://github.com/empathyco/x/commit/f79456d4589b3f9dee5fd86fad9625b853dde267))
+
+
+
 ## [5.0.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.49...@empathyco/x-components@5.0.0-alpha.50) (2024-06-19)
 
 

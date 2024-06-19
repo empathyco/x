@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.33](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.32...vue3-migration-test@1.0.0-alpha.33) (2024-06-19)
+
+
+### Features
+
+* migrate popular-searches x-module (#1524) ([f79456d](https://github.com/empathyco/x/commit/f79456d4589b3f9dee5fd86fad9625b853dde267))
+
+
+
 ## [1.0.0-alpha.32](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.31...vue3-migration-test@1.0.0-alpha.32) (2024-06-18)
 
 
