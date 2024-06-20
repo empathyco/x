@@ -40,14 +40,7 @@ if (VUE_COMPAT_MODE === 2) {
     INSTANCE_ATTRS_CLASS_STYLE: 'suppress-warning',
     RENDER_FUNCTION: false,
     COMPONENT_V_MODEL: false,
-    WATCH_ARRAY: false,
-    /**
-     * An attribute with v-bind value `false` will render it as false instead of removing it in Vue 3.
-     * To remove the attribute, use `null` or `undefined` instead.
-     * The compat behavior is disabled to cover such cases where this behaviour is intended, such as aria-checked:
-     * https://v3-migration.vuejs.org/breaking-changes/attribute-coercion.html.
-     */
-    ATTR_FALSE_VALUE: false
+    WATCH_ARRAY: false
   });
 }
 
