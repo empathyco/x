@@ -3,7 +3,7 @@
     class="x-facet-filter x-all-filter"
     data-test="all-filter"
     role="checkbox"
-    :aria-checked="isSelected"
+    :aria-checked="isSelected.toString()"
     :events="clickEvent"
     :class="cssClasses"
   >
