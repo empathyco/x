@@ -1,7 +1,7 @@
 <template>
   <SearchInput />
   <Redirection
-    #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
+    #default="{ redirection, redirect, abortRedirect }"
     class="redirection-container"
     :delayInSeconds="5"
   >
@@ -9,17 +9,15 @@
     <a @click="redirect" :href="redirection.url" data-test="redirection-link">
       {{ redirection.url }}
     </a>
-    <div class="x-flex x-gap-32">
-      <button @click="abortRedirect" class="">No, I'll stay here</button>
-      <button @click="redirect" class="">Yes, redirect me</button>
+    <div>
+      <button @click="abortRedirect">No, I'll stay here</button>
+      <button @click="redirect">Yes, redirect me</button>
     </div>
-    <AutoProgressBar :isLoading="isRedirecting" :durationInSeconds="delayInSeconds" />
   </Redirection>
 </template>
 
 <script setup>
   import Redirection from '../../../../../x-components/src/x-modules/search/components/redirection.vue';
-  import AutoProgressBar from '../../../../../x-components/src/components/auto-progress-bar.vue';
   import SearchInput from '../../../../../x-components/src/x-modules/search-box/components/search-input.vue';
 </script>
 
