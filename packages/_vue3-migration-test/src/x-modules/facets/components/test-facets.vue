@@ -8,9 +8,13 @@
           <SortedFilters>
             <FiltersSearch :data-test="`filters-search-${facet.id}`">
               <SlicedFilters :max="4" :data-test="`${facet.label}-sliced-filters`">
-                <AllFilter :facet="facet" class="x-facet-filter-lg x-mb-8 x-w-full">
+                <AllFilter
+                  v-slot="{ isSelected }"
+                  :facet="facet"
+                  class="x-facet-filter-lg x-mb-8 x-w-full"
+                >
                   <label for="all">
-                    <input id="all" type="checkbox" />
+                    <input id="all" type="checkbox" :checked="isSelected" />
                     All
                   </label>
                 </AllFilter>
