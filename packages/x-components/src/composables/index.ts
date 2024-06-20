@@ -5,7 +5,6 @@ export * from './use-debounce';
 export * from './use-getter';
 export * from './use-no-element-render';
 export * from './use-on-display';
-export * from './use-register-x-module';
 export * from './use-state';
 export * from './use-store';
 export * from './use-x-bus';
