@@ -4,11 +4,16 @@
     <Facets :renderableFacets="facetsIds.join(',')">
       <template #default="{ facet }">
         <h3>{{ facet.label }}</h3>
-
         <ExcludeFiltersWithNoResults :filters="facet.filters">
           <SortedFilters>
             <FiltersSearch :data-test="`filters-search-${facet.id}`">
               <SlicedFilters :max="4" :data-test="`${facet.label}-sliced-filters`">
+                <AllFilter :facet="facet" class="x-facet-filter-lg x-mb-8 x-w-full">
+                  <label for="all">
+                    <input id="all" type="checkbox" />
+                    All
+                  </label>
+                </AllFilter>
                 <FiltersList
                   v-slot="{
                     // eslint-disable-next-line vue/no-unused-vars
@@ -57,6 +62,7 @@
   import FiltersSearch from '../../../../../x-components/src/x-modules/facets/components/lists/filters-search.vue';
   import ExcludeFiltersWithNoResults from '../../../../../x-components/src/x-modules/facets/components/lists/exclude-filters-with-no-results.vue';
   import FiltersList from '../../../../../x-components/src/x-modules/facets/components/lists/filters-list.vue';
+  import AllFilter from '../../../../../x-components/src/x-modules/facets/components/filters/all-filter.vue';
 
   const facetsIds = ['gender', 'brand', 'category'];
 </script>
