@@ -4,6 +4,7 @@ import { createStore } from 'vuex';
 import { getRelatedTagsStub } from '../../x-components/src/__stubs__/related-tags-stubs.factory';
 import { getQuerySuggestionsStub } from '../../x-components/src/__stubs__/query-suggestions-stubs.factory';
 import {
+  createResultStub,
   getBannersStub,
   getNextQueriesStub,
   getPromotedsStub,
@@ -76,7 +77,11 @@ const adapter = {
         promoteds: getPromotedsStub(),
         banners: getBannersStub()
       });
-    })
+    }),
+  identifierResults: () =>
+    new Promise(resolve =>
+      resolve({ results: ['123A', '123B', '123C', '123D'].map(id => createResultStub(id)) })
+    )
 } as unknown as XComponentsAdapter;
 
 const store = createStore({});
