@@ -4,7 +4,7 @@
 
 <script lang="ts">
   import { forEach, Dictionary } from '@empathyco/x-utils';
-  import { defineComponent, inject, ref, watch } from 'vue';
+  import { defineComponent, inject, PropType, ref, watch } from 'vue';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { extraParamsXModule } from '../x-module';
   import ExtraParams from './extra-params.vue';
@@ -17,11 +17,10 @@
     },
     props: {
       values: {
-        type: Object as () => Dictionary<unknown>,
-        required: true
+        type: Object as PropType<Dictionary<unknown>>
       },
       excludedExtraParams: {
-        type: Array as () => Array<keyof SnippetConfig>,
+        type: Array as PropType<Array<keyof SnippetConfig>>,
         default: (): Array<keyof SnippetConfig> => [
           'callbacks',
           'productId',

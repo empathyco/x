@@ -1,7 +1,6 @@
 import { QuerySuggestionsRequest, XComponentsAdapter } from '@empathyco/x-types';
 import { Component, configureCompat, createApp } from 'vue';
 import { createStore } from 'vuex';
-import { xPlugin } from '../../x-components/src/plugins/x-plugin';
 import { getRelatedTagsStub } from '../../x-components/src/__stubs__/related-tags-stubs.factory';
 import { getQuerySuggestionsStub } from '../../x-components/src/__stubs__/query-suggestions-stubs.factory';
 import {
@@ -10,6 +9,7 @@ import {
   getPromotedsStub,
   getResultsStub
 } from '../../x-components/src/__stubs__/index';
+import { XInstaller } from '../../x-components/src/x-installer/x-installer/x-installer';
 import App from './App.vue';
 import router from './router';
 import {
@@ -84,18 +84,23 @@ const store = createStore({});
 createApp(App as Component)
   .use(router)
   .use(store)
-  .use(xPlugin, {
-    adapter,
-    store,
-    __PRIVATE__xModules: {
-      facets: facetsXModule,
-      nextQueries: nextQueriesXModule,
-      scroll: scrollXModule,
-      search: searchXModule,
-      queriesPreview: queriesPreviewXModule,
-      semanticQueries: semanticQueriesXModule,
-      recommendations: recommendationsXModule,
-      identifierResults: identifierResultsXModule
-    }
-  })
   .mount('#app');
+
+window.initX = {
+  instance: 'empathy',
+  lang: 'en'
+};
+new XInstaller({
+  adapter,
+  store,
+  __PRIVATE__xModules: {
+    facets: facetsXModule,
+    nextQueries: nextQueriesXModule,
+    scroll: scrollXModule,
+    search: searchXModule,
+    queriesPreview: queriesPreviewXModule,
+    semanticQueries: semanticQueriesXModule,
+    recommendations: recommendationsXModule,
+    identifierResults: identifierResultsXModule
+  }
+}).init();

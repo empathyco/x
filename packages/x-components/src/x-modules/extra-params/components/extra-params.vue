@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Dictionary } from '@empathyco/x-utils';
-  import { defineComponent, watch } from 'vue';
+  import { defineComponent, PropType, watch } from 'vue';
   import { extraParamsXModule } from '../x-module';
   import { use$x } from '../../../composables/use-$x';
   import { useState } from '../../../composables/use-state';
@@ -17,7 +17,7 @@
     xModule: extraParamsXModule.name,
     props: {
       values: {
-        type: Object as () => Dictionary<unknown>,
+        type: Object as PropType<Dictionary<unknown>>,
         required: true
       }
     },
