@@ -107,6 +107,7 @@ new XInstaller({
     queriesPreview: queriesPreviewXModule,
     semanticQueries: semanticQueriesXModule,
     recommendations: recommendationsXModule,
-    identifierResults: identifierResultsXModule
+    identifierResults: identifierResultsXModule,
+    popularSearches: popularSearchesXModule
   }
 }).init();
