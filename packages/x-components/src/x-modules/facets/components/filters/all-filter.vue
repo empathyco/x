@@ -16,16 +16,16 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, ComputedRef, defineComponent, PropType } from 'vue';
   import { Facet } from '@empathyco/x-types';
-  import { Getter, xComponentMixin } from '../../../../components';
+  import { Dictionary } from '@empathyco/x-utils';
   import BaseEventButton from '../../../../components/base-event-button.vue';
   import { isArrayEmpty } from '../../../../utils/array';
   import { VueCSSClasses } from '../../../../utils/types';
   import { XEventsTypes } from '../../../../wiring/events.types';
   import { FiltersByFacet } from '../../store';
   import { facetsXModule } from '../../x-module';
+  import { useGetter } from '../../../../composables';
 
   /**
    * This component receives a required `facet` with
@@ -36,56 +36,69 @@
    *
    * @public
    */
-  @Component({
-    components: { BaseEventButton },
-    mixins: [xComponentMixin(facetsXModule)]
-  })
-  export default class AllFilter extends Vue {
-    /** The facet data. */
-    @Prop({ required: true })
-    public facet!: Facet;
+  export default defineComponent({
+    name: 'AllFilter',
+    components: {
+      BaseEventButton
+    },
+    xModule: facetsXModule.name,
+    props: {
+      /** The facet data. */
+      facet: {
+        type: Object as PropType<Facet>,
+        required: true
+      }
+    },
 
-    /** The getter of the selectedFiltersByFacet. */
-    @Getter('facets', 'selectedFiltersByFacet')
-    public selectedFiltersByFacet!: FiltersByFacet;
+    setup(props) {
+      /** The getter of the selectedFiltersByFacet. */
+      const { selectedFiltersByFacet }: Dictionary<ComputedRef<FiltersByFacet>> = useGetter(
+        'facets',
+        ['selectedFiltersByFacet']
+      );
 
-    /**
-     * The event that will be emitted when the all filter button is clicked.
-     *
-     * @returns The event to emit on click.
-     * @internal
-     */
-    protected get clickEvent(): Partial<XEventsTypes> {
+      /**
+       * The event that will be emitted when the all filter button is clicked.
+       *
+       * @returns The event to emit on click.
+       * @internal
+       */
+      const clickEvent = computed((): Partial<XEventsTypes> => {
+        return { UserClickedAllFilter: [props.facet.id] };
+      });
+
+      /**
+       * Computed to retrieve the selected state of this component.
+       *
+       * @returns True if is selected false otherwise.
+       */
+      const isSelected = computed((): boolean => {
+        return isArrayEmpty(selectedFiltersByFacet.value?.[props.facet.id]);
+      });
+
+      /**
+       * Dynamic CSS classes to apply to the component.
+       *
+       * @remarks This is only valid considering that in the case of HierarchicalFilters, ancestors
+       * of nested selected filters are also selected.
+       *
+       * @returns The dynamic CSS classes to apply to the component.
+       * @internal
+       */
+      const cssClasses = computed((): VueCSSClasses => {
+        return {
+          'x-selected': isSelected.value,
+          'x-all-filter--is-selected': isSelected.value
+        };
+      });
+
       return {
-        UserClickedAllFilter: [this.facet.id]
+        clickEvent,
+        cssClasses,
+        isSelected
       };
     }
-
-    /**
-     * Computed to retrieve the selected state of this component.
-     *
-     * @returns True if is selected false otherwise.
-     */
-    protected get isSelected(): boolean {
-      return isArrayEmpty(this.selectedFiltersByFacet?.[this.facet.id]);
-    }
-
-    /**
-     * Dynamic CSS classes to apply to the component.
-     *
-     * @remarks This is only valid considering that in the case of HierarchicalFilters, ancestors
-     * of nested selected filters are also selected.
-     *
-     * @returns The dynamic CSS classes to apply to the component.
-     * @internal
-     */
-    protected get cssClasses(): VueCSSClasses {
-      return {
-        'x-selected': this.isSelected,
-        'x-all-filter--is-selected': this.isSelected
-      };
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">
