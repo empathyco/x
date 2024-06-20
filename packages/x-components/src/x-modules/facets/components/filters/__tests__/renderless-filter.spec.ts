@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { nextTick, reactive } from 'vue';
+import { nextTick, ref } from 'vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import {
   createSimpleFilter,
@@ -10,7 +10,7 @@ import RenderlessFilter from '../renderless-filter.vue';
 import { XPlugin } from '../../../../../plugins/x-plugin';
 
 function renderComponent({
-  filter = reactive(createSimpleFilter('category', 'food')),
+  filter = ref(createSimpleFilter('category', 'food')),
   clickEvents = {},
   template = `
         <RenderlessFilter
@@ -56,7 +56,7 @@ function renderComponent({
       renderlessFilterWrapper.trigger('click');
     },
     selectFilter: async () => {
-      filter.selected = true;
+      filter.value.selected = true;
       await nextTick();
     }
   };
@@ -76,21 +76,21 @@ describe('testing Renderless Filter component', () => {
   });
 
   it('emits UserClickedAFilter and other custom events when clicked', () => {
-    const filter = reactive(getSimpleFilterStub());
+    const filter = ref(getSimpleFilterStub());
     const { wrapper, clickFilter, emit } = renderComponent({
       filter,
       clickEvents: {
-        UserClickedASimpleFilter: filter
+        UserClickedASimpleFilter: filter.value
       }
     });
 
     clickFilter();
 
     expect(emit).toHaveBeenCalledTimes(2);
-    expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter, {
+    expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter.value, {
       target: wrapper.element
     });
-    expect(emit).toHaveBeenCalledWith('UserClickedASimpleFilter', filter, {
+    expect(emit).toHaveBeenCalledWith('UserClickedASimpleFilter', filter.value, {
       target: wrapper.element
     });
   });
@@ -99,7 +99,7 @@ describe('testing Renderless Filter component', () => {
     const { wrapper, filter } = renderComponent();
 
     const customLabel = wrapper.find(getDataTestSelector('custom-label'));
-    expect(customLabel.text()).toEqual(filter.label);
+    expect(customLabel.text()).toEqual(filter.value.label);
   });
 
   it('adds selected classes to the rendered element when the filter is selected', async () => {
@@ -113,12 +113,12 @@ describe('testing Renderless Filter component', () => {
   });
 
   it('disables the filter when it has no results', async () => {
-    const filter = reactive(createSimpleFilter('category', 'men', false));
+    const filter = ref(createSimpleFilter('category', 'men', false));
     const { wrapper } = renderComponent({ filter });
 
     expect(wrapper.attributes('disabled')).toBeUndefined();
 
-    filter.totalResults = 0;
+    filter.value.totalResults = 0;
     await nextTick();
 
     expect(wrapper.attributes('disabled')).toBe('disabled');
