@@ -5,6 +5,7 @@ import { xPlugin } from '../../x-components/src/plugins/x-plugin';
 import { getRelatedTagsStub } from '../../x-components/src/__stubs__/related-tags-stubs.factory';
 import { getQuerySuggestionsStub } from '../../x-components/src/__stubs__/query-suggestions-stubs.factory';
 import {
+  createRedirectionStub,
   getBannersStub,
   getNextQueriesStub,
   getPromotedsStub,
@@ -74,7 +75,8 @@ const adapter = {
         results: getResultsStub(10),
         totalResults: 50,
         promoteds: getPromotedsStub(),
-        banners: getBannersStub()
+        banners: getBannersStub(),
+        redirections: [createRedirectionStub('redirection')]
       });
     })
 } as unknown as XComponentsAdapter;
