@@ -36,46 +36,32 @@
       BaseModal
     },
     props: {
-      /**
-       * Animation to use for opening/closing the modal.
-       */
-      animation: AnimationProp,
-
-      /**
-       * Array of {@link XEvent} to listen to open the modal.
-       */
+      /** Array of {@link XEvent} to listen to open the modal. */
       eventsToOpenModal: {
         type: Array as PropType<XEvent[]>,
         default: (): XEvent[] => ['UserClickedOpenEventsModal']
       },
-
-      /**
-       * Array of {@link XEvent} to listen to close the modal.
-       */
+      /** Array of {@link XEvent} to listen to close the modal. */
       eventsToCloseModal: {
         type: Array as PropType<XEvent[]>,
         default: (): XEvent[] => ['UserClickedCloseEventsModal', 'UserClickedOutOfEventsModal']
       },
-
-      /**
-       * Event to emit when any part of the website out of the modal has been clicked.
-       */
+      /** Event to emit when any part of the website out of the modal has been clicked. */
       bodyClickEvent: {
         type: String as PropType<XEvent>,
         default: 'UserClickedOutOfEventsModal'
-      }
+      },
+      /** Animation to use for opening/closing the modal. */
+      animation: AnimationProp
     },
     setup(props) {
       const $x = use$x();
 
-      /**
-       * Whether the modal is open or not.
-       */
+      /** Whether the modal is open or not. */
       const isOpen = ref(false);
 
       /** The element that opened the modal. */
       const openerElement = ref<HTMLElement>();
-
       const baseModalEl = ref<HTMLElement>();
 
       /**
@@ -83,8 +69,6 @@
        *
        * @param _payload - The payload of the event that opened the modal.
        * @param metadata - The metadata of the event that opened the modal.
-       *
-       * @internal
        */
       props.eventsToOpenModal?.forEach(event =>
         $x.on(event, true).subscribe(({ metadata }) => {
@@ -95,11 +79,7 @@
         })
       );
 
-      /**
-       * Closes the modal.
-       *
-       * @internal
-       */
+      /** Closes the modal. */
       props.eventsToCloseModal?.forEach(event =>
         $x.on(event, false).subscribe(() => {
           if (isOpen.value) {
@@ -113,7 +93,6 @@
        * event target is the button that opened the modal.
        *
        * @param event - The event that triggered the close attempt.
-       * @public
        */
       const emitBodyClickEvent = (event: MouseEvent | FocusEvent) => {
         // Prevents clicking the open button when the panel is already open to close the panel.
