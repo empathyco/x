@@ -37,6 +37,7 @@ import {
   TestQuerySuggestions,
   TestSemanticQueries,
   TestRecommendations,
+  TestPopularSearches,
   TestNextQueries,
   TestIdentifierResults,
   TestExtraParams
@@ -227,6 +228,11 @@ const routes = [
     path: '/recommendations',
     name: 'Recommendations',
     component: TestRecommendations
+  },
+  {
+    path: '/popular-searches',
+    name: 'PopularSearches',
+    component: TestPopularSearches
   },
   {
     path: '/next-queries',

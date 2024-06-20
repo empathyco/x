@@ -16,6 +16,7 @@ import router from './router';
 import {
   facetsXModule,
   nextQueriesXModule,
+  popularSearchesXModule,
   queriesPreviewXModule,
   recommendationsXModule,
   scrollXModule,
