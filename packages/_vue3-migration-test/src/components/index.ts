@@ -14,4 +14,4 @@ export { default as TestBasePanel } from './panels/test-base-panel.vue';
 export { default as TestBaseKeyboardNavigation } from './test-base-keyboard-navigation.vue';
 export { default as TestBaseEventsModal } from './modals/test-base-events-modal.vue';
 export { default as TestBaseIdModal } from './modals/test-base-id-modal.vue';
-export { default as TestExtraParams } from './extra-params/test-extraparams.vue';
+export { default as TestExtraParams } from './extra-params/test-extra-params.vue';
