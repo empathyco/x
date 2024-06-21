@@ -6,13 +6,17 @@ import { getXComponentXModuleName, isXComponent } from '../../../../../component
 import SimpleFilter from '../simple-filter.vue';
 import { XPlugin } from '../../../../../plugins/index';
 
-function renderSimpleFilter({
+const metadata = {
+  moduleName: 'facets',
+  location: 'none',
+  replaceable: true
+};
+
+function render({
   template = '<SimpleFilter :filter="filter" :clickEvents="clickEvents" />',
   filter = ref(createSimpleFilter('category', 'women')),
   clickEvents = {}
 } = {}) {
-  //Vue.observable(filter);
-
   installNewXPlugin();
 
   const wrapper = mount(
@@ -22,10 +26,7 @@ function renderSimpleFilter({
       template
     },
     {
-      propsData: {
-        filter,
-        clickEvents
-      }
+      propsData: { filter, clickEvents }
     }
   );
 
@@ -33,77 +34,63 @@ function renderSimpleFilter({
 
   return {
     wrapper: filterWrapper,
-    emit: jest.spyOn(XPlugin.bus, 'emit'),
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     filter,
-    clickFilter: () => {
-      wrapper.trigger('click');
-    },
+    clickFilter: () => wrapper.trigger('click'),
     selectFilter: () => {
       filter.value.selected = true;
-      return nextTick();
-    },
-    updateFilter: (newFields: unknown) => {
-      Object.assign(filter, newFields);
       return nextTick();
     }
   };
 }
 
 describe('testing SimpleFilter component', () => {
-  it('is an x-component', () => {
-    const { wrapper } = renderSimpleFilter();
+  it('is an XComponent that belongs to the facets', () => {
+    const { wrapper } = render();
 
-    expect(isXComponent(wrapper.vm)).toEqual(true);
-  });
-
-  it('belongs to the `facets` x-module', () => {
-    const { wrapper } = renderSimpleFilter();
-
+    expect(isXComponent(wrapper.vm)).toBeTruthy();
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('facets');
   });
 
   it('renders the provided filter by default', () => {
-    const { wrapper, filter } = renderSimpleFilter();
+    const { wrapper, filter } = render();
 
     expect(wrapper.text()).toEqual(filter.value.label);
   });
 
-  it('emits `UserClickedAFilter` & `UserClickedASimpleFilter` events when clicked', () => {
-    const { wrapper, clickFilter, emit, filter } = renderSimpleFilter();
+  it('emits `UserClickedAFilter` & `UserClickedASimpleFilter` events when clicked', async () => {
+    const { clickFilter, emitSpy, filter } = render();
 
-    clickFilter();
+    await clickFilter();
 
-    expect(emit).toHaveBeenCalledTimes(2);
+    expect(emitSpy).toHaveBeenCalledTimes(2);
     ['UserClickedAFilter', 'UserClickedASimpleFilter'].forEach(event => {
-      expect(emit).toHaveBeenCalledWith(event, filter.value, { target: wrapper.element });
+      expect(emitSpy).toHaveBeenCalledWith(event, filter.value, metadata);
     });
   });
 
-  it('emits configured events when clicked', () => {
-    const { wrapper, clickFilter, emit, filter } = renderSimpleFilter({
+  it('emits configured events when clicked', async () => {
+    const { clickFilter, emitSpy, filter } = render({
       clickEvents: { UserAcceptedAQuery: 'potato' }
     });
 
-    clickFilter();
+    await clickFilter();
 
-    expect(emit).toHaveBeenCalledTimes(3);
+    expect(emitSpy).toHaveBeenCalledTimes(3);
     ['UserClickedAFilter', 'UserClickedASimpleFilter'].forEach(event => {
-      expect(emit).toHaveBeenCalledWith(event, filter.value, { target: wrapper.element });
+      expect(emitSpy).toHaveBeenCalledWith(event, filter.value, metadata);
     });
-    expect(emit).toHaveBeenNthCalledWith(3, 'UserAcceptedAQuery', 'potato', {
-      target: wrapper.element
-    });
+    expect(emitSpy).toHaveBeenNthCalledWith(3, 'UserAcceptedAQuery', 'potato', metadata);
   });
 
   it('allows customizing the default button content', () => {
-    const { wrapper, filter } = renderSimpleFilter({
+    const { wrapper, filter } = render({
       template: `
       <SimpleFilter :filter="filter" :clickEvents="clickEvents">
         <template #label="{ filter }">
           <span data-test="custom-label">{{ filter.label }}</span>
         </template>
-      </SimpleFilter>
-      `
+      </SimpleFilter>`
     });
 
     const customLabel = wrapper.find(getDataTestSelector('custom-label'));
@@ -111,7 +98,7 @@ describe('testing SimpleFilter component', () => {
   });
 
   it('allows replacing the root element of the component', () => {
-    const { wrapper, emit, filter } = renderSimpleFilter({
+    const { wrapper, emitSpy, filter } = render({
       template: `
       <SimpleFilter :filter="filter" :clickEvents="clickEvents" v-slot="{ filter, clickFilter }">
         <label data-test="label">
@@ -121,23 +108,22 @@ describe('testing SimpleFilter component', () => {
           />
           {{ filter.label }}
         </label>
-      </SimpleFilter>
-      `
+      </SimpleFilter>`
     });
     const labelWrapper = wrapper.get(getDataTestSelector('label'));
     const inputWrapper = wrapper.get(getDataTestSelector('input'));
 
-    expect(labelWrapper.text()).toBe(filter.value.label);
+    expect(labelWrapper.text()).toEqual(filter.value.label);
 
     inputWrapper.trigger('change');
-    expect(emit).toHaveBeenCalledTimes(2);
+    expect(emitSpy).toHaveBeenCalledTimes(2);
     ['UserClickedAFilter', 'UserClickedASimpleFilter'].forEach(event => {
-      expect(emit).toHaveBeenCalledWith(event, filter.value, { target: wrapper.element });
+      expect(emitSpy).toHaveBeenCalledWith(event, filter.value, metadata);
     });
   });
 
   it('exposes proper css classes and attributes in the default slot', async () => {
-    const { wrapper, selectFilter, updateFilter } = renderSimpleFilter({
+    const { wrapper, selectFilter, filter } = render({
       template: `
       <SimpleFilter
         :filter="filter"
@@ -150,8 +136,7 @@ describe('testing SimpleFilter component', () => {
           :aria-checked="filter.selected.toString()">
           {{ filter.label }}
         </button>
-      </SimpleFilter>
-      `
+      </SimpleFilter>`
     });
     const buttonWrapper = wrapper.get(getDataTestSelector('button'));
 
@@ -162,7 +147,7 @@ describe('testing SimpleFilter component', () => {
     expect(buttonWrapper.attributes()).toHaveProperty('aria-checked', 'false');
     expect(buttonWrapper.element).toHaveProperty('disabled', false);
 
-    await selectFilter(); // Faking filter selection because XBus is mocked.
+    await selectFilter();
     expect(buttonWrapper.attributes('aria-checked')).toBe('true');
     expect(buttonWrapper.classes()).toHaveLength(4);
     expect(buttonWrapper.classes()).toEqual(
@@ -174,15 +159,17 @@ describe('testing SimpleFilter component', () => {
       ])
     );
 
-    await updateFilter({ totalResults: 0 });
+    filter.value.totalResults = 0;
+    await nextTick();
     expect(buttonWrapper.element).toHaveProperty('disabled', true);
 
-    await updateFilter({ totalResults: undefined });
+    filter.value.totalResults = undefined;
+    await nextTick();
     expect(buttonWrapper.element).toHaveProperty('disabled', false);
   });
 
   it('adds selected classes to the rendered element when the filter is selected', async () => {
-    const { wrapper, selectFilter } = renderSimpleFilter();
+    const { wrapper, selectFilter } = render();
 
     expect(wrapper.classes()).not.toContain('x-selected');
     expect(wrapper.classes()).not.toContain('x-simple-filter--is-selected');

@@ -63,38 +63,20 @@
         type: Object as PropType<SimpleFilterModel>,
         required: true
       },
-      /**
-       * Additional events, with their payload, to emit when the filter is clicked.
-       *
-       * @public
-       */
+      /** Additional events, with their payload, to emit when the filter is clicked. */
       clickEvents: Object as PropType<Partial<XEventsTypes>>
     },
-    setup: function (props) {
-      /**
-       * The {@link XEventsTypes} to emit.
-       *
-       * @returns The events to emit when clicked.
-       * @internal
-       */
-      const clickEventsEmit = computed(() => {
-        return {
-          UserClickedASimpleFilter: props.filter,
-          ...props.clickEvents
-        };
-      });
+    setup(props) {
+      /** The {@link XEventsTypes} to emit. */
+      const clickEventsEmit = computed(() => ({
+        UserClickedASimpleFilter: props.filter,
+        ...props.clickEvents
+      }));
 
-      /**
-       * Dynamic CSS classes to apply to the component.
-       *
-       * @returns The dynamic CSS classes to apply to the component.
-       * @internal
-       */
-      const cssClasses = computed(() => {
-        return {
-          'x-simple-filter--is-selected': props.filter.selected
-        };
-      });
+      /** Dynamic CSS classes to apply to the component. */
+      const cssClasses = computed(() => ({
+        'x-simple-filter--is-selected': props.filter.selected
+      }));
 
       return {
         clickEventsEmit,

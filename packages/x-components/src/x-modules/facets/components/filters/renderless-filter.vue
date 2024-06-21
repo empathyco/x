@@ -1,24 +1,24 @@
 <script lang="ts">
-  import { computed, defineComponent, h, PropType, ref } from 'vue';
+  import { computed, defineComponent, h, PropType } from 'vue';
   import { BooleanFilter } from '@empathyco/x-types';
+  import { useXBus } from '../../../../composables/use-x-bus';
   import { XEvent, XEventsTypes } from '../../../../wiring/events.types';
   import { facetsXModule } from '../../x-module';
-  import { use$x } from '../../../../composables/use-$x';
 
   /**
    * Renders default slot content. It binds to the default slot a
    * {@link @empathyco/x-types#BooleanFilter}, the {@link XEvent}
-   * that will be emitted when clicking the content, the css classes and if the content should be
+   * that will be emitted when clicking the content, the CSS classes and if the content should be
    * deactivated.
    *
    * @remarks The default slot expects a root element, if it receives a list of elements, it will
-   * renders the first element.
+   * render the first element.
    *
    * @public
    */
   export default defineComponent({
     name: 'RenderlessFilter',
-    module: facetsXModule.name,
+    xModule: facetsXModule.name,
     props: {
       /** The filter data to render. */
       filter: {
@@ -28,63 +28,38 @@
       /** Additional events with its payload to emit when the filter is clicked. */
       clickEvents: Object as PropType<Partial<XEventsTypes>>
     },
-    setup: function (props, { slots }) {
-      const $x = use$x();
+    setup(props, { slots }) {
+      const xBus = useXBus();
 
-      const rootElement = ref<HTMLElement | undefined>();
-
-      /**
-       * The events that will be emitted when the filter is clicked.
-       *
-       * @returns The events to be emitted when the filter is clicked.
-       * @internal
-       */
-      const events = computed(() => {
-        return {
-          UserClickedAFilter: props.filter,
-          ...props.clickEvents
-        };
-      });
-
-      /**
-       * Returns `true` when the filter should be disabled.
-       *
-       * @returns `true` if the filter should be disabled.
-       * @internal
-       */
+      /** Returns `true` when the filter should be disabled. */
       const isDisabled = computed(() => props.filter.totalResults === 0);
 
-      /**
-       * Dynamic CSS classes to apply to the component.
-       *
-       * @returns The dynamic CSS classes to apply to the component.
-       * @internal
-       */
-      const cssClasses = computed(() => {
-        return ['x-facet-filter', { 'x-selected': props.filter.selected }];
-      });
+      /** Dynamic CSS classes to apply to the component. */
+      const cssClasses = computed(() => [
+        'x-facet-filter',
+        { 'x-selected': props.filter.selected }
+      ]);
 
-      /**
-       * The events to emit to the bus.
-       *
-       * @internal
-       */
+      /** The events that will be emitted when the filter is clicked. */
+      const events = computed(() => ({
+        UserClickedAFilter: props.filter,
+        ...props.clickEvents
+      }));
+
+      /** Emit events to the bus. */
       const emitEvents = () => {
         Object.entries(events.value).forEach(([event, payload]) => {
-          $x.emit(event as XEvent, payload, { target: rootElement.value as HTMLElement });
+          xBus.emit(event as XEvent, payload);
         });
       };
 
-      return () => {
-        return (
-          slots.default?.({
-            filter: props.filter,
-            clickFilter: emitEvents,
-            cssClasses: cssClasses.value,
-            isDisabled: isDisabled.value
-          }) ?? h()
-        );
-      };
+      return () =>
+        slots.default?.({
+          filter: props.filter,
+          clickFilter: emitEvents,
+          cssClasses: cssClasses.value,
+          isDisabled: isDisabled.value
+        }) ?? h();
     }
   });
 </script>
