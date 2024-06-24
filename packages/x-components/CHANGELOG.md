@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.54](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.53...@empathyco/x-components@5.0.0-alpha.54) (2024-06-24)
+
+
+### Features
+
+* replace DisableAnimationMixin by useDisableAnimation composable (#1469) ([f498d3f](https://github.com/empathyco/x/commit/f498d3fba5d294391dcfca47f9724558e98f50f0))
+
+
+
 ## [5.0.0-alpha.53](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.52...@empathyco/x-components@5.0.0-alpha.53) (2024-06-24)
 
 
