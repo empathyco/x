@@ -1,10 +1,11 @@
 <template>
+  <!-- eslint-disable vue/attributes-order -->
   <transition-group
+    v-bind="$attrs"
     v-on="$listeners"
     class="x-fade-and-slide"
     :name="name"
     :tag="tag"
-    v-bind="$attrs"
     :appear="appear"
   >
     <!-- @slot (Required) Transition-group content -->
@@ -13,9 +14,8 @@
 </template>
 
 <script lang="ts">
-  import { mixins } from 'vue-class-component';
-  import { Prop, Component } from 'vue-property-decorator';
-  import DisableAnimationMixin from './disable-animation.mixin';
+  import { defineComponent } from 'vue';
+  import { useDisableAnimation } from './use-disable-animation';
 
   /**
    * Renders a transition group wrapping the elements passed in the default slot and animating
@@ -23,34 +23,33 @@
    *
    * @public
    */
-  @Component({
-    inheritAttrs: false
-  })
-  export default class FadeAndSlide extends mixins(DisableAnimationMixin) {
-    /**
-     * The name of the animation.
-     *
-     * @public
-     */
-    protected animationName = 'x-fade-and-slide-';
+  export default defineComponent({
+    name: 'FadeAndSlide',
+    inheritAttrs: false,
+    props: {
+      /**
+       * HTML Element that the transition-group children will be wrapped in.
+       */
+      tag: String,
+      /**
+       * Indicates if the transition must be applied on the initial render of the node.
+       */
+      appear: {
+        type: Boolean,
+        default: true
+      }
+    },
+    setup: function () {
+      /**
+       * The name of the animation.
+       */
+      const animationName = 'x-fade-and-slide-';
 
-    /**
-     * HTML Element that the transition-group children will be wrapped in.
-     *
-     * @public
-     */
-    @Prop()
-    protected tag!: string;
+      const { name } = useDisableAnimation(animationName);
 
-    /**
-     * Indicates if the transition must be applied on the initial render of the node.
-     */
-    @Prop({
-      type: Boolean,
-      default: true
-    })
-    public appear!: boolean;
-  }
+      return { name };
+    }
+  });
 </script>
 
 <style lang="scss" scoped>

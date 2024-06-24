@@ -40,8 +40,7 @@ if (VUE_COMPAT_MODE === 2) {
     INSTANCE_LISTENERS: 'suppress-warning',
     INSTANCE_ATTRS_CLASS_STYLE: 'suppress-warning',
     RENDER_FUNCTION: false,
-    COMPONENT_V_MODEL: false,
-    WATCH_ARRAY: false
+    COMPONENT_V_MODEL: false
   });
 }
 

@@ -1,5 +1,6 @@
 <template>
-  <transition v-on="$listeners" name="x-cross-fade-" v-bind="$attrs" :appear="appear">
+  <!-- eslint-disable-next-line vue/attributes-order -->
+  <transition v-bind="$attrs" v-on="$listeners" name="x-cross-fade-" :appear="appear">
     <!-- @slot (Required) to add content to the transition -->
     <slot />
   </transition>

@@ -1,36 +1,33 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import { Component, Prop, Provide } from 'vue-property-decorator';
-import Vue, { ComponentOptions, CreateElement, VNode } from 'vue';
-import DisableAnimationMixin from '../disable-animation.mixin';
+import { mount } from '@vue/test-utils';
+import { defineComponent, provide, ref } from 'vue';
 import { DISABLE_ANIMATIONS_KEY } from '../../decorators/injection.consts';
+import { useDisableAnimation } from '../use-disable-animation';
 
-@Component
-class Provider extends Vue {
-  @Prop()
-  @Provide(DISABLE_ANIMATIONS_KEY as string)
-  public disableAnimation!: boolean;
-
-  render(h: CreateElement): VNode {
+const Provider = defineComponent({
+  props: {
+    disableAnimation: Boolean
+  },
+  setup(props) {
+    provide(DISABLE_ANIMATIONS_KEY as string, ref(props.disableAnimation));
+  },
+  render(h) {
     return this.$slots.default?.[0] ?? h();
   }
-}
+});
 
 /**
  * Animation component.
  */
-const Animation: ComponentOptions<Vue> = {
-  mixins: [DisableAnimationMixin],
+const Animation = defineComponent({
+  setup() {
+    return useDisableAnimation('x-animation');
+  },
   template: `
     <transition-group :name="name">
      <p>Animation</p>
     </transition-group>
-  `,
-  data() {
-    return {
-      animationName: 'x-animation'
-    };
-  }
-};
+  `
+});
 
 /**
  * Function that returns an Animation wrapper.
@@ -38,9 +35,7 @@ const Animation: ComponentOptions<Vue> = {
  * @param disableAnimation - Flag to disable the animation.
  * @returns Animation wrapper.
  */
-function renderDisableAnimation({
-  disableAnimation = true
-}: DisableAnimationOptions = {}): DisableAnimationAPI {
+function renderDisableAnimation({ disableAnimation = true }: DisableAnimationOptions = {}) {
   const wrapper = mount({
     template: `
         <Provider :disableAnimation="disableAnimation">
@@ -77,9 +72,4 @@ describe('testing disable animation', () => {
 interface DisableAnimationOptions {
   /** Flag to disable the animation. */
   disableAnimation?: boolean;
-}
-
-interface DisableAnimationAPI {
-  /** The wrapper of the mounted component. */
-  wrapper: Wrapper<Vue>;
 }
