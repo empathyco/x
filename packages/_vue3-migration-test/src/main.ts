@@ -1,15 +1,6 @@
-import { QuerySuggestionsRequest, XComponentsAdapter } from '@empathyco/x-types';
 import { Component, configureCompat, createApp } from 'vue';
 import { createStore } from 'vuex';
-import { getRelatedTagsStub } from '../../x-components/src/__stubs__/related-tags-stubs.factory';
-import { getQuerySuggestionsStub } from '../../x-components/src/__stubs__/query-suggestions-stubs.factory';
-import {
-  createResultStub,
-  getBannersStub,
-  getNextQueriesStub,
-  getPromotedsStub,
-  getResultsStub
-} from '../../x-components/src/__stubs__/index';
+import { platformAdapter } from '../../x-adapter-platform/src/platform.adapter';
 import { XInstaller } from '../../x-components/src/x-installer/x-installer/x-installer';
 import App from './App.vue';
 import router from './router';
@@ -45,45 +36,7 @@ if (VUE_COMPAT_MODE === 2) {
   });
 }
 
-const adapter = {
-  relatedTags: () =>
-    new Promise(resolve => {
-      resolve({ relatedTags: getRelatedTagsStub(10) });
-    }),
-  querySuggestions: (request: QuerySuggestionsRequest) =>
-    new Promise(resolve => {
-      resolve({ suggestions: getQuerySuggestionsStub(request.query, 5) });
-    }),
-  nextQueries: () =>
-    new Promise(resolve => {
-      resolve({
-        nextQueries: [
-          ...getNextQueriesStub(),
-          {
-            facets: [],
-            isCurated: false,
-            modelName: 'NextQuery',
-            query: 'next_query_preview',
-            results: getResultsStub(10),
-            totalResults: 10
-          }
-        ]
-      });
-    }),
-  search: () =>
-    new Promise(resolve => {
-      resolve({
-        results: getResultsStub(10),
-        totalResults: 50,
-        promoteds: getPromotedsStub(),
-        banners: getBannersStub()
-      });
-    }),
-  identifierResults: () =>
-    new Promise(resolve =>
-      resolve({ results: ['123A', '123B', '123C', '123D'].map(id => createResultStub(id)) })
-    )
-} as unknown as XComponentsAdapter;
+const adapter = platformAdapter;
 
 const store = createStore({});
 
@@ -96,6 +49,7 @@ window.initX = {
   instance: 'empathy',
   lang: 'en'
 };
+
 new XInstaller({
   adapter,
   store,

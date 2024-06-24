@@ -40,10 +40,16 @@ import {
   TestPopularSearches,
   TestNextQueries,
   TestIdentifierResults,
-  TestExtraParams
+  TestExtraParams,
+  TestSearch
 } from './';
 
 const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: TestSearch
+  },
   {
     path: '/animate-width',
     name: 'AnimateWidth',
