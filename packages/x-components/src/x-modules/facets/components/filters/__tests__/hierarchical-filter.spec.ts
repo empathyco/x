@@ -1,20 +1,21 @@
-import {
-  HierarchicalFacet,
-  HierarchicalFilter as HierarchicalFilterModel
-} from '@empathyco/x-types';
+import { HierarchicalFilter as HierarchicalFilterModel } from '@empathyco/x-types';
 import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue from 'vue';
 import { createHierarchicalFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import { XPlugin } from '../../../../../plugins/x-plugin';
-import { XEventsTypes } from '../../../../../wiring/events.types';
 import { flatHierarchicalFilters } from '../../../utils';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import HierarchicalFilter from '../hierarchical-filter.vue';
 
-function renderHierarchicalFilter({
+const metadata = {
+  moduleName: 'facets',
+  location: 'none',
+  replaceable: true
+};
+
+function render({
   template = `
     <HierarchicalFilter
       :filter="filter"
@@ -35,10 +36,9 @@ function renderHierarchicalFilter({
   ]),
   childrenFiltersClass = '',
   filterItemClass = '',
-  clickEvents
-}: HierarchicalFilterOptions = {}): HierarchicalFilterAPI {
+  clickEvents = {}
+} = {}) {
   const [, localVue] = installNewXPlugin({ initialXModules: [facetsXModule] });
-  const emit = jest.spyOn(XPlugin.bus, 'emit');
   const store = XPlugin.store;
   resetXFacetsStateWith(store, { category: facet });
   const wrapper = mount(
@@ -109,7 +109,7 @@ function renderHierarchicalFilter({
     getFiltersWrappers,
     getFilterWrapperByText,
     hierarchicalFilterWrapper,
-    emit,
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     getRootFilter,
     getFilters,
     getPartiallySelectedFilters,
@@ -120,45 +120,35 @@ function renderHierarchicalFilter({
 
 describe('testing `HierarchicalFilter` component', () => {
   it('is an x-component', () => {
-    const { hierarchicalFilterWrapper } = renderHierarchicalFilter();
+    const { hierarchicalFilterWrapper } = render();
 
     expect(isXComponent(hierarchicalFilterWrapper.vm)).toEqual(true);
   });
 
   it('belongs to the `facets` x-module', () => {
-    const { hierarchicalFilterWrapper } = renderHierarchicalFilter();
+    const { hierarchicalFilterWrapper } = render();
 
     expect(getXComponentXModuleName(hierarchicalFilterWrapper.vm)).toEqual('facets');
   });
 
   it('renders the provided filter by default', () => {
-    const { getFilterWrapper, getRootFilter } = renderHierarchicalFilter();
+    const { getFilterWrapper, getRootFilter } = render();
 
     expect(getFilterWrapper().text()).toEqual(getRootFilter().label);
   });
 
   it('emits `UserClickedAFilter` and `UserClickedAHierarchicalFilter` event when clicked', () => {
-    const { getFilterWrapper, clickFilter, emit, getRootFilter } = renderHierarchicalFilter();
+    const { clickFilter, emitSpy, getRootFilter } = render();
     const filter = getRootFilter();
     clickFilter();
 
-    expect(emit).toHaveBeenCalledTimes(2);
-    expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter, {
-      target: getFilterWrapper().element,
-      moduleName: 'facets',
-      location: undefined,
-      replaceable: true
-    });
-    expect(emit).toHaveBeenCalledWith('UserClickedAHierarchicalFilter', filter, {
-      target: getFilterWrapper().element,
-      moduleName: 'facets',
-      location: undefined,
-      replaceable: true
-    });
+    expect(emitSpy).toHaveBeenCalledTimes(2);
+    expect(emitSpy).toHaveBeenCalledWith('UserClickedAFilter', filter, metadata);
+    expect(emitSpy).toHaveBeenCalledWith('UserClickedAHierarchicalFilter', filter, metadata);
   });
 
   it('emits configured events when clicked', () => {
-    const { getFilterWrapper, clickFilter, emit, getRootFilter } = renderHierarchicalFilter({
+    const { clickFilter, emitSpy, getRootFilter } = render({
       clickEvents: {
         UserAcceptedAQuery: 'potato',
         UserBlurredSearchBox: undefined
@@ -167,31 +157,16 @@ describe('testing `HierarchicalFilter` component', () => {
     const filter = getRootFilter();
     clickFilter();
 
-    expect(emit).toHaveBeenCalledTimes(4);
+    expect(emitSpy).toHaveBeenCalledTimes(4);
     ['UserClickedAFilter', 'UserClickedAHierarchicalFilter'].forEach(event => {
-      expect(emit).toHaveBeenCalledWith(event, filter, {
-        target: getFilterWrapper().element,
-        moduleName: 'facets',
-        location: undefined,
-        replaceable: true
-      });
+      expect(emitSpy).toHaveBeenCalledWith(event, filter, metadata);
     });
-    expect(emit).toHaveBeenCalledWith('UserAcceptedAQuery', 'potato', {
-      target: getFilterWrapper().element,
-      moduleName: 'facets',
-      location: undefined,
-      replaceable: true
-    });
-    expect(emit).toHaveBeenCalledWith('UserBlurredSearchBox', undefined, {
-      target: getFilterWrapper().element,
-      moduleName: 'facets',
-      location: undefined,
-      replaceable: true
-    });
+    expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', 'potato', metadata);
+    expect(emitSpy).toHaveBeenCalledWith('UserBlurredSearchBox', undefined, metadata);
   });
 
   it('allows replacing the root element of the component', () => {
-    const { hierarchicalFilterWrapper, getRootFilter, emit } = renderHierarchicalFilter({
+    const { hierarchicalFilterWrapper, getRootFilter, emitSpy } = render({
       template: `
         <HierarchicalFilter
           :filter="filter"
@@ -217,19 +192,14 @@ describe('testing `HierarchicalFilter` component', () => {
 
     customInputWrapper.trigger('change');
 
-    expect(emit).toHaveBeenCalledTimes(2);
-    const expectedMetadata = {
-      target: customLabelWrapper.element,
-      moduleName: 'facets',
-      location: undefined,
-      replaceable: true
-    };
-    expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter, expectedMetadata);
-    expect(emit).toHaveBeenCalledWith('UserClickedAHierarchicalFilter', filter, expectedMetadata);
+    expect(emitSpy).toHaveBeenCalledTimes(2);
+
+    expect(emitSpy).toHaveBeenCalledWith('UserClickedAFilter', filter, metadata);
+    expect(emitSpy).toHaveBeenCalledWith('UserClickedAHierarchicalFilter', filter, metadata);
   });
 
   it('allows customizing the rendered label content with an slot', () => {
-    const { getFilterWrapper, getRootFilter } = renderHierarchicalFilter({
+    const { getFilterWrapper, getRootFilter } = render({
       template: `
         <HierarchicalFilter :filter="filter" :clickEvents="clickEvents">
           <template #label :filter="filter">
@@ -246,7 +216,7 @@ describe('testing `HierarchicalFilter` component', () => {
   });
 
   it('exposes proper css classes and attributes in the default slot', async () => {
-    const { getFilterWrapper, mutateFilter, getRootFilter } = renderHierarchicalFilter();
+    const { getFilterWrapper, mutateFilter, getRootFilter } = render();
 
     expect(getFilterWrapper().attributes()).not.toHaveProperty('disabled');
     expect(getFilterWrapper().classes()).toHaveLength(4);
@@ -289,7 +259,7 @@ describe('testing `HierarchicalFilter` component', () => {
   });
 
   it('adds selected classes to the rendered element when the filter is selected', async () => {
-    const { getFilterWrapper, mutateFilter, getRootFilter } = renderHierarchicalFilter();
+    const { getFilterWrapper, mutateFilter, getRootFilter } = render();
 
     expect(getFilterWrapper().classes()).not.toEqual(
       expect.arrayContaining(['x-selected', 'x-hierarchical-filter--is-selected'])
@@ -305,7 +275,7 @@ describe('testing `HierarchicalFilter` component', () => {
 
   describe('children testing', () => {
     it('allows customizing the slot for all the children', () => {
-      const { getFiltersWrappers, getFilters } = renderHierarchicalFilter({
+      const { getFiltersWrappers, getFilters } = render({
         template: `
           <HierarchicalFilter :filter="filter" :clickEvents="clickEvents" #label="{ filter }">
             Custom - {{ filter.label }}
@@ -322,7 +292,7 @@ describe('testing `HierarchicalFilter` component', () => {
 
     it('renders children filter only when available', async () => {
       const { hierarchicalFilterWrapper, getFiltersWrappers, mutateFilter, getRootFilter } =
-        renderHierarchicalFilter();
+        render();
       const filter = getRootFilter();
       await mutateFilter(filter, { children: [] });
       const childrenFiltersWrapper = hierarchicalFilterWrapper.find(
@@ -338,31 +308,21 @@ describe('testing `HierarchicalFilter` component', () => {
 
     // eslint-disable-next-line max-len
     it('emits `UserClickedAFilter` and `UserClickedAHierarchicalFilter` events when a child is clicked', () => {
-      const { getFiltersWrappers, emit } = renderHierarchicalFilter();
+      const { getFiltersWrappers, emitSpy } = render();
       expect(getFiltersWrappers().wrappers.length).toBeGreaterThan(1);
       getFiltersWrappers().wrappers.forEach(filterWrapper => {
-        emit.mockClear();
+        emitSpy.mockClear();
         filterWrapper.trigger('click');
         const filter = (filterWrapper.vm as any).filter;
 
-        expect(emit).toHaveBeenCalledTimes(2);
-        expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter, {
-          target: filterWrapper.element,
-          moduleName: 'facets',
-          location: undefined,
-          replaceable: true
-        });
-        expect(emit).toHaveBeenCalledWith('UserClickedAHierarchicalFilter', filter, {
-          target: filterWrapper.element,
-          moduleName: 'facets',
-          location: undefined,
-          replaceable: true
-        });
+        expect(emitSpy).toHaveBeenCalledTimes(2);
+        expect(emitSpy).toHaveBeenCalledWith('UserClickedAFilter', filter, metadata);
+        expect(emitSpy).toHaveBeenCalledWith('UserClickedAHierarchicalFilter', filter, metadata);
       });
     });
 
     it('emits configured events when a child is clicked', () => {
-      const { getFiltersWrappers, emit } = renderHierarchicalFilter({
+      const { getFiltersWrappers, emitSpy } = render({
         clickEvents: {
           UserAcceptedAQuery: 'potato',
           UserBlurredSearchBox: undefined
@@ -370,36 +330,21 @@ describe('testing `HierarchicalFilter` component', () => {
       });
       expect(getFiltersWrappers().wrappers.length).toBeGreaterThan(1);
       getFiltersWrappers().wrappers.forEach(filterWrapper => {
-        emit.mockClear();
+        emitSpy.mockClear();
         filterWrapper.trigger('click');
         const filter = (filterWrapper.vm as any).filter;
 
-        expect(emit).toHaveBeenCalledTimes(4);
+        expect(emitSpy).toHaveBeenCalledTimes(4);
         ['UserClickedAFilter', 'UserClickedAHierarchicalFilter'].forEach(event => {
-          expect(emit).toHaveBeenCalledWith(event, filter, {
-            target: filterWrapper.element,
-            moduleName: 'facets',
-            location: undefined,
-            replaceable: true
-          });
+          expect(emitSpy).toHaveBeenCalledWith(event, filter, metadata);
         });
-        expect(emit).toHaveBeenCalledWith('UserAcceptedAQuery', 'potato', {
-          target: filterWrapper.element,
-          moduleName: 'facets',
-          location: undefined,
-          replaceable: true
-        });
-        expect(emit).toHaveBeenCalledWith('UserBlurredSearchBox', undefined, {
-          target: filterWrapper.element,
-          moduleName: 'facets',
-          location: undefined,
-          replaceable: true
-        });
+        expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', 'potato', metadata);
+        expect(emitSpy).toHaveBeenCalledWith('UserBlurredSearchBox', undefined, metadata);
       });
     });
 
     it('adds a CSS class when the filter is partially selected', () => {
-      const { getFiltersWrappers, getPartiallySelectedFilters } = renderHierarchicalFilter();
+      const { getFiltersWrappers, getPartiallySelectedFilters } = render();
       const partiallySelectedIds = getPartiallySelectedFilters().map(filter => filter.id);
 
       expect(getFiltersWrappers().length).toBeGreaterThan(0);
@@ -417,7 +362,7 @@ describe('testing `HierarchicalFilter` component', () => {
     });
 
     it('exposes proper css classes and attributes in the default slot to children', async () => {
-      const { mutateFilter, getFilterWrapperByText, getFilters } = renderHierarchicalFilter({
+      const { mutateFilter, getFilterWrapperByText, getFilters } = render({
         template: `
            <HierarchicalFilter
              :filter="filter"
@@ -493,7 +438,7 @@ describe('testing `HierarchicalFilter` component', () => {
     });
 
     it('allows adding classes to the inner filters lists', () => {
-      const { hierarchicalFilterWrapper } = renderHierarchicalFilter({
+      const { hierarchicalFilterWrapper } = render({
         childrenFiltersClass: 'custom-class',
         facet: createHierarchicalFacetStub('category', createFilter => [
           createFilter('root', false, createFilter => [
@@ -512,7 +457,7 @@ describe('testing `HierarchicalFilter` component', () => {
     });
 
     it('allows adding classes to the filter item', () => {
-      const { hierarchicalFilterWrapper } = renderHierarchicalFilter({
+      const { hierarchicalFilterWrapper } = render({
         filterItemClass: 'custom-class',
         facet: createHierarchicalFacetStub('category', createFilter => [
           createFilter('root', false, createFilter => [
@@ -531,71 +476,3 @@ describe('testing `HierarchicalFilter` component', () => {
     });
   });
 });
-
-interface HierarchicalFilterOptions {
-  clickEvents?: Partial<XEventsTypes>;
-  facet?: HierarchicalFacet;
-  childrenFiltersClass?: string;
-  filterItemClass?: string;
-  template?: string;
-}
-
-interface HierarchicalFilterAPI {
-  /**
-   * Clicks the root filter.
-   *
-   * @returns A promise that resolves after Vue updates the view.
-   */
-  clickFilter: () => Promise<void>;
-  /** Mock for the `$x.emit` function. Can be used to check the emitted events. */
-  emit: jest.SpyInstance;
-  /**
-   * Get the filter wrapper. This is the clickable element that represents the filter.
-   *
-   * @returns The filter Wrapper.
-   */
-  getFilterWrapper: () => Wrapper<Vue>;
-  /**
-   * Gets a filter wrapper by the rendered button text.
-   *
-   * @param text - The rendered filter text.
-   * @returns The filter Wrapper.
-   */
-  getFilterWrapperByText: (text: string) => Wrapper<Vue> | undefined;
-  /**
-   * Get all the filters including children.
-   *
-   * @returns The filters WrapperArray.
-   */
-  getFiltersWrappers: () => WrapperArray<Vue>;
-  /** The hierarchical filter wrapper.*/
-  hierarchicalFilterWrapper: Wrapper<Vue>;
-  /**
-   * Returns the root filter.
-   *
-   * @returns The root filter.
-   */
-  getRootFilter: () => HierarchicalFilterModel;
-  /**
-   * Saves a new filter in the store.
-   *
-   * @param filter - The filter to save in the store.
-   * @returns A promise that resolves after re-rendering the component.
-   */
-  mutateFilter: (
-    filter: HierarchicalFilterModel,
-    newFilterState: Partial<HierarchicalFilterModel>
-  ) => Promise<void>;
-  /**
-   * Returns all the filters of the hierarchical facet.
-   *
-   * @returns All the filters of the hierarchical facet.
-   */
-  getFilters: () => HierarchicalFilterModel[];
-  /**
-   * Returns all the partially selected filters of the hierarchical facet.
-   *
-   * @returns All the partially selected filters of the hierarchical facet.
-   */
-  getPartiallySelectedFilters: () => HierarchicalFilterModel[];
-}
