@@ -1,7 +1,12 @@
 <template>
   <div>
     <h2>Simple Filter</h2>
-    <SimpleFilter :filter="filter" />
+    <SimpleFilter v-slot="{ clickFilter, cssClasses }" :filter="filter">
+      <label :class="cssClasses" for="filter">
+        <input @change="clickFilter" id="filter" :checked="filter.selected" type="checkbox" />
+        {{ filter.label }}
+      </label>
+    </SimpleFilter>
   </div>
 </template>
 
