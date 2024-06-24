@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.53](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.52...@empathyco/x-components@5.0.0-alpha.53) (2024-06-24)
+
+
+### Features
+
+* **extra-params:** migrate extra params and snippet config extra params (#1531) ([d869f18](https://github.com/empathyco/x/commit/d869f1886c11f74af8a6350033d7567385ad629d))
+
+
+
 ## [5.0.0-alpha.52](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.51...@empathyco/x-components@5.0.0-alpha.52) (2024-06-20)
 
 

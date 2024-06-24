@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.34](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.33...vue3-migration-test@1.0.0-alpha.34) (2024-06-24)
+
+
+### Features
+
+* **extra-params:** migrate extra params and snippet config extra params (#1531) ([d869f18](https://github.com/empathyco/x/commit/d869f1886c11f74af8a6350033d7567385ad629d))
+
+
+
 ## [1.0.0-alpha.33](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.32...vue3-migration-test@1.0.0-alpha.33) (2024-06-19)
 
 
