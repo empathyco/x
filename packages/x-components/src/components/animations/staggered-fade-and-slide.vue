@@ -1,21 +1,21 @@
 <template>
-  <staggering-transition-group
-    v-on="$listeners"
-    class="x-staggered-fade-and-slide"
-    :name="name"
+  <!-- eslint-disable vue/attributes-order -->
+  <TransitionGroup
     v-bind="$attrs"
+    v-on="$listeners"
+    @enter="enter"
+    @after-enter="afterEnter"
     :appear="appear"
+    :name="name"
+    :tag="tag"
   >
-    <!-- @slot (Required) Transition-group content -->
     <slot />
-  </staggering-transition-group>
+  </TransitionGroup>
 </template>
 
 <script lang="ts">
-  import { mixins } from 'vue-class-component';
-  import { Component, Prop } from 'vue-property-decorator';
-  import StaggeringTransitionGroup from '../animations/staggering-transition-group.vue';
-  import DisableAnimationMixin from './disable-animation.mixin';
+  import { defineComponent, ref } from 'vue';
+  // import { useDisableAnimation } from './use-disable-animation';
 
   /**
    * Renders a transition group wrapping the elements passed in the default slot and animating
@@ -23,52 +23,125 @@
    *
    * @public
    */
-  @Component({
-    components: { StaggeringTransitionGroup },
-    inheritAttrs: false
-  })
-  export default class StaggeredFadeAndSlide extends mixins(DisableAnimationMixin) {
-    /**
-     * Indicates if the transition must be applied on the initial render of the node.
-     */
-    @Prop({
-      type: Boolean,
-      default: true
-    })
-    public appear!: boolean;
-    /**
-     * The name of the animation.
-     *
-     * @public
-     */
-    protected animationName = 'x-staggered-fade-and-slide-';
-  }
+  export default defineComponent({
+    name: 'StaggeredFadeAndSlide',
+    inheritAttrs: false,
+    props: {
+      /**
+       * Indicates if the transition must be applied on the initial render of the node.
+       */
+      appear: {
+        type: Boolean,
+        default: true
+      },
+      /**
+       * The tag of the node to render to the DOM.
+       */
+      tag: {
+        type: String,
+        default: 'div'
+      },
+      /**
+       * The time in ms to stagger each item.
+       */
+      stagger: {
+        type: Number,
+        default: 25
+      }
+    },
+    setup(props) {
+      /**
+       * The duration of the transition in ms.
+       */
+      const transitionDuration = 250;
+      /**
+       * The counter to keep track of the staggered delay.
+       */
+      const staggerCounter = ref(0);
+      /**
+       * The counter to keep track of the animations.
+       */
+      const animationList = ref<HTMLElement[]>([]);
+      /**
+       * The name of the animation.
+       */
+      const animationName = ref('x-staggered-fade-and-slide');
+      /**
+       * The name of the animation.
+       */
+      const name = animationName.value;
+
+      /**
+       * Calculate the delay for the next element.
+       *
+       * @returns The delay in ms.
+       */
+      function getNextTransitionDelay(): number {
+        return staggerCounter.value++ * props.stagger;
+      }
+
+      /**
+       * The enter transition.
+       *
+       * @param el
+       * @param done
+       */
+      function enter(el: HTMLElement, done: () => void) {
+        animationList.value.push(el);
+        const delay = getNextTransitionDelay();
+        el.style.transitionDelay = `${delay}ms`;
+        setTimeout(() => {
+          el.style.transitionDelay = '0ms';
+          done();
+        }, transitionDuration + delay);
+      }
+
+      /**
+       * The after enter transition.
+       *
+       * @param el
+       */
+      function afterEnter(el: HTMLElement) {
+        animationList.value = animationList.value.filter(item => item !== el);
+        if (animationList.value.length === 0) {
+          staggerCounter.value = 0;
+        }
+      }
+
+      return {
+        name,
+        enter,
+        afterEnter
+      };
+    }
+  });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   $transition-duration: 0.25s;
+  /* 1. Declare transitions */
+  .x-staggered-fade-and-slide-enter-active,
+  .x-staggered-fade-and-slide-leave-active {
+    transition: $transition-duration ease-out;
+    transition-property: opacity, transform;
+  }
 
-  .x-staggered-fade-and-slide {
-    z-index: 0;
+  .x-staggered-fade-and-slide-move {
+    transition: transform $transition-duration ease-out;
+  }
 
-    &::v-deep .x-staggered-fade-and-slide {
-      &--enter-active,
-      &--leave-active {
-        transition: $transition-duration ease-out;
-        transition-property: opacity, transform;
-      }
+  /* 2. declare enter from and leave to state */
+  .x-staggered-fade-and-slide-enter,
+  .x-staggered-fade-and-slide-enter-from,
+  .x-staggered-fade-and-slide-leave-to {
+    opacity: 0;
+    transform: translate3d(0, 50%, 0);
+  }
 
-      &--move {
-        transition: transform $transition-duration ease-out;
-      }
-
-      &--enter,
-      &--leave-to {
-        transform: translate3d(0, 50%, 0);
-        opacity: 0;
-        z-index: -1;
-      }
-    }
+  /* 3. ensure leaving items are taken out of layout flow so that moving
+      animations can be calculated correctly. */
+  .x-staggered-fade-and-slide-leave-active {
+    position: absolute;
   }
 </style>
 

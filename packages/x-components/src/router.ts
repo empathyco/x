@@ -10,6 +10,11 @@ const routes: RouteConfig[] = [
     component: () => import('./views/home/Home.vue')
   },
   {
+    path: '/animations',
+    name: 'Animations Test',
+    component: () => import('./views/home/animations-test.vue')
+  },
+  {
     path: '/products/:id',
     name: 'Product page',
     component: () => import('./views/pdp.vue')

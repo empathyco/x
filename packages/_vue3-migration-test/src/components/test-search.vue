@@ -18,6 +18,7 @@
     <BaseVariableColumnGrid
       style="--x-size-min-width-grid-item: 150px"
       class="x-gap-12"
+      :animation="StaggeredFadeAndSlide"
       :columns="4"
     >
       <template #result="{ item: result }">
@@ -52,6 +53,7 @@
   import SearchButton from '../../../x-components/src/x-modules/search-box/components/search-button.vue';
   import CrossFade from '../../../x-components/src/components/animations/cross-fade.vue';
   import { use$x } from '../../../x-components/src/composables/use-$x';
+  import StaggeredFadeAndSlide from '../../../x-components/src/components/animations/staggered-fade-and-slide.vue';
   // TODO `$x` name cannot be used while XPlugin defines its own `this.$x` in the mixin
   const _$x = use$x();
 </script>

@@ -41,6 +41,7 @@ import {
   TestNextQueries,
   TestIdentifierResults,
   TestExtraParams,
+  TestStaggeredFadeAndSlide,
   TestSearch
 } from './';
 
@@ -74,6 +75,11 @@ const routes = [
     path: '/fade',
     name: 'Fade',
     component: TestFade
+  },
+  {
+    path: '/fadeandslide',
+    name: 'StaggeredFadeAndSlide',
+    component: TestStaggeredFadeAndSlide
   },
   {
     path: '/base-modal',
