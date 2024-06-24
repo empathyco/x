@@ -39,7 +39,8 @@ import {
   TestRecommendations,
   TestPopularSearches,
   TestNextQueries,
-  TestIdentifierResults
+  TestIdentifierResults,
+  TestExtraParams
 } from './';
 
 const routes = [
@@ -242,6 +243,11 @@ const routes = [
     path: '/identifier-results',
     name: 'IdentifierResults',
     component: TestIdentifierResults
+  },
+  {
+    path: '/snippet-config-extraparams',
+    name: 'SnippetConfigExtraparams',
+    component: TestExtraParams
   }
 ];
 
