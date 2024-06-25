@@ -19,10 +19,8 @@
 
 <script lang="ts">
   import { Suggestion } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType } from 'vue';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { popularSearchesXModule } from '../x-module';
 
@@ -33,31 +31,35 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'PopularSearch',
+    xModule: popularSearchesXModule.name,
     components: { BaseSuggestion },
-    mixins: [xComponentMixin(popularSearchesXModule)]
-  })
-  export default class PopularSearch extends Vue {
-    /**
-     * The suggestion to render and use in the default slot.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected suggestion!: Suggestion;
+    props: {
+      /**
+       * The suggestion to render and use in the default slot.
+       *
+       * @public
+       */
+      suggestion: {
+        type: Object as PropType<Suggestion>,
+        required: true
+      }
+    },
+    setup(props) {
+      /**
+       * Events list which are going to be emitted when a popular search is selected.
+       *
+       * @returns The {@link XEvent} to emit.
+       * @public
+       */
+      const events = computed(
+        (): Partial<XEventsTypes> => ({ UserSelectedAPopularSearch: props.suggestion })
+      );
 
-    /**
-     * Events list which are going to be emitted when a popular search is selected.
-     *
-     * @returns The {@link XEvent} to emit.
-     * @public
-     */
-    protected get events(): Partial<XEventsTypes> {
-      return {
-        UserSelectedAPopularSearch: this.suggestion
-      };
+      return { events };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
