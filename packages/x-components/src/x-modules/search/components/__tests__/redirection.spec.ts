@@ -156,7 +156,7 @@ describe('testing Redirection component', () => {
     const { onUserClickedARedirection } = renderRedirection({ delayInSeconds: 0 });
 
     // The delay 0 runs so fast the we need to force the test to simulate a wait.
-    jest.advanceTimersByTime(0);
+    jest.advanceTimersByTime(1);
 
     expect(onUserClickedARedirection).toHaveBeenCalledTimes(1);
     expect(onUserClickedARedirection).toHaveBeenCalledWith<[WirePayload<RedirectionModel>]>({

@@ -50,6 +50,15 @@
       const { redirections } = useState('search', ['redirections']);
 
       /**
+       * List of events to stop the animation.
+       */
+      const eventsToStopAnimation: XEvent[] = [
+        'UserAcceptedAQuery',
+        'UserClearedQuery',
+        'UserSelectedARelatedTag'
+      ];
+
+      /**
        * The timeout id, used to cancel the redirection.
        *
        * @internal
@@ -73,6 +82,18 @@
       const redirection = computed((): RedirectionModel | null => redirections?.value[0] ?? null);
 
       /**
+       * Stops the animation if the user search another query.
+       *
+       * @internal
+       */
+      const cancelRedirect = () => {
+        clearTimeout(timeoutId.value);
+        isRedirecting.value = false;
+      };
+
+      eventsToStopAnimation.forEach(event => $x.on(event, false).subscribe(cancelRedirect));
+
+      /**
        * Dispatches the redirection, updating the url.
        *
        * @public
@@ -81,6 +102,16 @@
         clearTimeout(timeoutId.value);
         $x.emit('UserClickedARedirection', redirection.value!);
         window.location.replace(redirection.value!.url);
+      };
+
+      /**
+       * Stops the redirection, emitting `UserClickedAbortARedirection` event.
+       *
+       * @public
+       */
+      const abortRedirect = () => {
+        cancelRedirect();
+        $x.emit('UserClickedAbortARedirection');
       };
 
       /**
@@ -100,34 +131,6 @@
         },
         { immediate: true }
       );
-
-      /**
-       * Stops the animation if the user search another query.
-       *
-       * @internal
-       */
-      const eventsToStopAnimation: XEvent[] = [
-        'UserAcceptedAQuery',
-        'UserClearedQuery',
-        'UserSelectedARelatedTag'
-      ];
-
-      const cancelRedirect = () => {
-        clearTimeout(timeoutId.value);
-        isRedirecting.value = false;
-      };
-
-      eventsToStopAnimation.forEach(event => $x.on(event, false).subscribe(cancelRedirect));
-
-      /**
-       * Stops the redirection, emitting `UserClickedAbortARedirection` event.
-       *
-       * @public
-       */
-      const abortRedirect = () => {
-        cancelRedirect();
-        $x.emit('UserClickedAbortARedirection');
-      };
 
       return {
         redirection,
