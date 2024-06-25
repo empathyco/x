@@ -4,7 +4,7 @@ import { createStore } from 'vuex';
 import { getRelatedTagsStub } from '../../x-components/src/__stubs__/related-tags-stubs.factory';
 import { getQuerySuggestionsStub } from '../../x-components/src/__stubs__/query-suggestions-stubs.factory';
 import {
-
+  createResultStub,
   createRedirectionStub,
   getBannersStub,
   getNextQueriesStub,
