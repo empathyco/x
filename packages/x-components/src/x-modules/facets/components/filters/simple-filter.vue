@@ -68,7 +68,7 @@
     },
     setup(props) {
       /** The {@link XEventsTypes} to emit. */
-      const clickEventsEmit = computed(() => ({
+      const clickEventsToEmit = computed(() => ({
         UserClickedASimpleFilter: props.filter,
         ...props.clickEvents
       }));
@@ -79,7 +79,7 @@
       }));
 
       return {
-        clickEventsEmit,
+        clickEventsToEmit,
         cssClasses
       };
     }
