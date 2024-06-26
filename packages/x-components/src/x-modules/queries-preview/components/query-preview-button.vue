@@ -13,14 +13,12 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { Dictionary } from '@empathyco/x-utils';
-  import { State } from '../../../components/decorators/store.decorators';
+  import { computed, defineComponent, PropType } from 'vue';
   import { QueryPreviewInfo } from '../store/types';
   import { XEventsTypes } from '../../../wiring/events.types';
-  import { BaseEventButton, xComponentMixin } from '../../../components';
+  import { BaseEventButton } from '../../../components';
   import { queriesPreviewXModule } from '../x-module';
+  import { useState } from '../../../composables/use-state';
 
   /**
    * Component containing an event button that emits
@@ -31,55 +29,61 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'QueryPreviewButton',
+    xModule: queriesPreviewXModule.name,
     components: { BaseEventButton },
-    mixins: [xComponentMixin(queriesPreviewXModule)]
-  })
-  export default class QueryPreviewButton extends Vue {
-    /**
-     * The information about the request of the query preview.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected queryPreviewInfo!: QueryPreviewInfo;
+    props: {
+      /**
+       * The information about the request of the query preview.
+       *
+       * @public
+       */
+      queryPreviewInfo: {
+        type: Object as PropType<QueryPreviewInfo>,
+        required: true
+      }
+    },
+    setup(props) {
+      /**
+       * We use the module extra params to combine them with the query preview's extra params.
+       */
+      const { params } = useState('queriesPreview', ['params']);
 
-    /**
-     * We use the module extra params to combine them with the query preview's extra params.
-     */
-    @State('queriesPreview', 'params')
-    public params!: Dictionary<unknown>;
+      /**
+       * The provided query preview with the base extra params from the module merged in.
+       *
+       * @returns The query preview info with the base extra params merged in.
+       * @public
+       */
+      const fullQueryPreviewInfo = computed(
+        (): QueryPreviewInfo => ({
+          ...props.queryPreviewInfo,
+          extraParams: {
+            ...params.value,
+            ...props.queryPreviewInfo.extraParams
+          },
+          filters: props.queryPreviewInfo.filters
+        })
+      );
 
-    /**
-     * The provided query preview with the base extra params from the module merged in.
-     *
-     * @returns The query preview info with the base extra params merged in.
-     * @public
-     */
-    protected get fullQueryPreviewInfo(): QueryPreviewInfo {
+      /**
+       * List of events to emit by the BaseEventButton.
+       *
+       * @returns An object with the event and payload.
+       *
+       * @internal
+       */
+      const events = computed(
+        (): Partial<XEventsTypes> => ({ UserAcceptedAQueryPreview: fullQueryPreviewInfo.value })
+      );
+
       return {
-        ...this.queryPreviewInfo,
-        extraParams: {
-          ...this.params,
-          ...this.queryPreviewInfo.extraParams
-        },
-        filters: this.queryPreviewInfo.filters
+        fullQueryPreviewInfo,
+        events
       };
     }
-
-    /**
-     * List of events to emit by the BaseEventButton.
-     *
-     * @returns An object with the event and payload.
-     *
-     * @internal
-     */
-    protected get events(): Partial<XEventsTypes> {
-      return {
-        UserAcceptedAQueryPreview: this.fullQueryPreviewInfo
-      };
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">

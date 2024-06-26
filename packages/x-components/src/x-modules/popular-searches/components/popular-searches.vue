@@ -32,13 +32,10 @@
 </template>
 
 <script lang="ts">
-  import { Suggestion } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import BaseSuggestions from '../../../components/suggestions/base-suggestions.vue';
-  import { Getter } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { popularSearchesXModule } from '../x-module';
+  import { useGetter } from '../../../composables/use-getter';
   import PopularSearch from './popular-search.vue';
 
   /**
@@ -49,20 +46,25 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'PopularSearches',
+    xModule: popularSearchesXModule.name,
+    components: {
+      PopularSearch,
+      BaseSuggestions
+    },
     inheritAttrs: false,
-    components: { PopularSearch, BaseSuggestions },
-    mixins: [xComponentMixin(popularSearchesXModule)]
-  })
-  export default class PopularSearches extends Vue {
-    /**
-     * The list of popular searches.
-     *
-     * @internal
-     */
-    @Getter('popularSearches', 'popularSearches')
-    public popularSearches!: Suggestion[];
-  }
+    setup() {
+      /**
+       * The list of popular searches.
+       *
+       * @internal
+       */
+      const { popularSearches } = useGetter('popularSearches', ['popularSearches']);
+
+      return { popularSearches };
+    }
+  });
 </script>
 
 <!--eslint-disable max-len -->
