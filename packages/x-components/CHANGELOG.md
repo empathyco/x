@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.55](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.54...@empathyco/x-components@5.0.0-alpha.55) (2024-06-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **use-register-x-module:** get rid of useRegisterXModule composable. Use XPlugin.registerXModule(xModule) or InstallXOptions.initialXModules instead
+
+### Code Refactoring
+
+* **use-register-x-module:** get rid of register x-module composable and deprecated the mixin for the same (#1534) ([4dabc84](https://github.com/empathyco/x/commit/4dabc84c67720e4bfca739b685f3fed5d100f693))
+
+
+
 ## [5.0.0-alpha.54](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.53...@empathyco/x-components@5.0.0-alpha.54) (2024-06-24)
 
 
