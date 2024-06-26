@@ -87,8 +87,7 @@
        */
       const cssClasses = computed((): VueCSSClasses => {
         return {
-          'x-selected': isSelected.value,
-          'x-all-filter--is-selected': isSelected.value
+          'x-selected x-all-filter--is-selected': isSelected.value
         };
       });
 
