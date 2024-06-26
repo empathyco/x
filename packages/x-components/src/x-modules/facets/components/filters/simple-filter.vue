@@ -2,7 +2,7 @@
   <RenderlessFilter
     v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
     :class="cssClasses"
-    :clickEvents="clickEventsEmit"
+    :clickEvents="clickEventsToEmit"
     :filter="filter"
     class="x-simple-filter"
   >
