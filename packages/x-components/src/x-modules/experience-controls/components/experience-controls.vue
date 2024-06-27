@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, h } from 'vue';
   import { XEvent, XEventsTypes } from '../../../wiring/events.types';
   import { experienceControlsXModule } from '../x-module';
-  import { useNoElementRender, useXBus } from '../../../composables';
+  import { useXBus } from '../../../composables';
 
   /**
    * This component subscribes to changes in the ExperienceControls module to fire the events that
@@ -13,7 +13,7 @@
   export default defineComponent({
     name: 'ExperienceControls',
     xModule: experienceControlsXModule.name,
-    setup(_, { slots }) {
+    setup() {
       const xBus = useXBus();
 
       /**
@@ -29,7 +29,9 @@
 
       xBus.on('ExperienceControlsEventsChanged', false).subscribe(event => onEventsChanged(event));
 
-      return () => useNoElementRender(slots);
+      return () => {
+        return h();
+      };
     }
   });
 </script>
