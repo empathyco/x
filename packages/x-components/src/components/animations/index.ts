@@ -5,6 +5,7 @@ export { default as CrossFade } from './cross-fade.vue';
 export { default as Fade } from './fade.vue';
 export { default as FadeAndSlide } from './fade-and-slide.vue';
 export { default as StaggeredFadeAndSlide } from './staggered-fade-and-slide.vue';
+export { default as Vue3StaggeredFadeAndSlide } from './vue3-staggered-fade-and-slide.vue';
 export { default as StaggeringTransitionGroup } from './staggering-transition-group.vue';
 export { createDirectionalAnimationFactory } from './create-directional-animation-factory';
 export { animateClipPath } from './animate-clip-path/animate-clip-path.factory';
