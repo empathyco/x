@@ -21,11 +21,10 @@
   import { Dictionary } from '@empathyco/x-utils';
   import BaseEventButton from '../../../../components/base-event-button.vue';
   import { isArrayEmpty } from '../../../../utils/array';
-  import { VueCSSClasses } from '../../../../utils/types';
   import { XEventsTypes } from '../../../../wiring/events.types';
   import { FiltersByFacet } from '../../store';
   import { facetsXModule } from '../../x-module';
-  import { useGetter } from '../../../../composables';
+  import { useGetter } from '../../../../composables/use-getter';
 
   /**
    * This component receives a required `facet` with
@@ -49,7 +48,6 @@
         required: true
       }
     },
-
     setup(props) {
       /** The getter of the selectedFiltersByFacet. */
       const { selectedFiltersByFacet }: Dictionary<ComputedRef<FiltersByFacet>> = useGetter(
@@ -72,7 +70,7 @@
        *
        * @returns True if is selected false otherwise.
        */
-      const isSelected = computed((): boolean => {
+      const isSelected = computed(() => {
         return isArrayEmpty(selectedFiltersByFacet.value?.[props.facet.id]);
       });
 
@@ -85,7 +83,7 @@
        * @returns The dynamic CSS classes to apply to the component.
        * @internal
        */
-      const cssClasses = computed((): VueCSSClasses => {
+      const cssClasses = computed(() => {
         return {
           'x-selected x-all-filter--is-selected': isSelected.value
         };

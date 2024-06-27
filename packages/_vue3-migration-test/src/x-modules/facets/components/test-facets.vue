@@ -13,8 +13,8 @@
                   :facet="facet"
                   class="x-facet-filter-lg x-mb-8 x-w-full"
                 >
-                  <label for="all">
-                    <input id="all" type="checkbox" :checked="isSelected" />
+                  <label :for="facet.id">
+                    <input :id="facet.id" type="checkbox" :checked="isSelected" />
                     All
                   </label>
                 </AllFilter>
