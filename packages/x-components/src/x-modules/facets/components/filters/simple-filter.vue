@@ -1,10 +1,9 @@
 <template>
   <RenderlessFilter
-    v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
+    v-slot="{ filter, clickFilter, cssClasses: slotCssClasses, isDisabled }"
     :class="cssClasses"
     :clickEvents="clickEventsToEmit"
     :filter="filter"
-    class="x-simple-filter"
   >
     <!--
       @slot The control element to render
@@ -19,14 +18,14 @@
       v-bind="{
         filter,
         clickFilter,
-        cssClasses,
+        cssClasses: { ...slotCssClasses, ...cssClasses },
         isDisabled
       }"
     >
       <button
         @click="clickFilter"
         :aria-checked="filter.selected.toString()"
-        :class="cssClasses"
+        :class="[slotCssClasses, cssClasses]"
         :disabled="isDisabled"
         data-test="filter"
         role="checkbox"
@@ -75,6 +74,7 @@
 
       /** Dynamic CSS classes to apply to the component. */
       const cssClasses = computed(() => ({
+        'x-simple-filter': true,
         'x-simple-filter--is-selected': props.filter.selected
       }));
 

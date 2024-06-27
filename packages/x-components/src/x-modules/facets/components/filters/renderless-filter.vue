@@ -35,10 +35,10 @@
       const isDisabled = computed(() => props.filter.totalResults === 0);
 
       /** Dynamic CSS classes to apply to the component. */
-      const cssClasses = computed(() => [
-        'x-facet-filter',
-        { 'x-selected': props.filter.selected }
-      ]);
+      const cssClasses = computed(() => ({
+        'x-facet-filter': true,
+        'x-selected': props.filter.selected
+      }));
 
       /** The events that will be emitted when the filter is clicked. */
       const events = computed(() => ({
