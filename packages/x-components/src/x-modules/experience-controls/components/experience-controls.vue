@@ -2,7 +2,7 @@
   import { defineComponent, h } from 'vue';
   import { XEvent, XEventsTypes } from '../../../wiring/events.types';
   import { experienceControlsXModule } from '../x-module';
-  import { useXBus } from '../../../composables';
+  import { useXBus } from '../../../composables/use-x-bus';
 
   /**
    * This component subscribes to changes in the ExperienceControls module to fire the events that
