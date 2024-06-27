@@ -1,17 +1,16 @@
 import { QuerySuggestionsRequest, XComponentsAdapter } from '@empathyco/x-types';
 import { Component, configureCompat, createApp } from 'vue';
 import { createStore } from 'vuex';
+import { platformAdapter } from '@empathyco/x-adapter-platform';
 import { getRelatedTagsStub } from '../../x-components/src/__stubs__/related-tags-stubs.factory';
 import { getQuerySuggestionsStub } from '../../x-components/src/__stubs__/query-suggestions-stubs.factory';
 import {
   createResultStub,
-  createRedirectionStub,
-  getBannersStub,
   getNextQueriesStub,
-  getPromotedsStub,
   getResultsStub
 } from '../../x-components/src/__stubs__/index';
 import { XInstaller } from '../../x-components/src/x-installer/x-installer/x-installer';
+import { baseSnippetConfig } from '../../x-components/src/views/base-config';
 import App from './App.vue';
 import router from './router';
 import {
@@ -46,6 +45,7 @@ if (VUE_COMPAT_MODE === 2) {
 }
 
 const adapter = {
+  ...platformAdapter,
   relatedTags: () =>
     new Promise(resolve => {
       resolve({ relatedTags: getRelatedTagsStub(10) });
@@ -70,16 +70,6 @@ const adapter = {
         ]
       });
     }),
-  search: () =>
-    new Promise(resolve => {
-      resolve({
-        results: getResultsStub(10),
-        totalResults: 50,
-        promoteds: getPromotedsStub(),
-        banners: getBannersStub(),
-        redirections: [createRedirectionStub('redirection')]
-      });
-    }),
   identifierResults: () =>
     new Promise(resolve =>
       resolve({ results: ['123A', '123B', '123C', '123D'].map(id => createResultStub(id)) })
@@ -93,10 +83,8 @@ createApp(App as Component)
   .use(store)
   .mount('#app');
 
-window.initX = {
-  instance: 'empathy',
-  lang: 'en'
-};
+window.initX = baseSnippetConfig;
+
 new XInstaller({
   adapter,
   store,
