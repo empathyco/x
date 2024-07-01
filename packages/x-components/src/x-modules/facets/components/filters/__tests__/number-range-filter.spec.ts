@@ -36,13 +36,10 @@ function render({
   const filterWrapper = wrapper.findComponent(NumberRangeFilter);
 
   return {
-    wrapper,
-    filterWrapper,
+    wrapper: filterWrapper,
     emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     filter,
-    clickFilter: () => {
-      wrapper.trigger('click');
-    },
+    clickFilter: () => wrapper.trigger('click'),
     selectFilter: () => {
       filter.value.selected = true;
       return nextTick();
@@ -51,16 +48,11 @@ function render({
 }
 
 describe('testing NumberRangeFilter component', () => {
-  it('is an x-component', () => {
-    const { filterWrapper } = render();
+  it('is an XComponent that belongs to the facets', () => {
+    const { wrapper } = render();
 
-    expect(isXComponent(filterWrapper.vm)).toEqual(true);
-  });
-
-  it('belongs to the `facets` x-module', () => {
-    const { filterWrapper } = render();
-
-    expect(getXComponentXModuleName(filterWrapper.vm)).toEqual('facets');
+    expect(isXComponent(wrapper.vm)).toBeTruthy();
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('facets');
   });
 
   it('renders the provided filter by default', () => {
@@ -69,10 +61,10 @@ describe('testing NumberRangeFilter component', () => {
     expect(wrapper.text()).toEqual(filter.value.label);
   });
 
-  it('emits `UserClickedAFilter` & `UserClickedANumberRangeFilter` events when clicked', () => {
+  it('emits `UserClickedAFilter` & `UserClickedANumberRangeFilter` events when clicked', async () => {
     const { clickFilter, emitSpy, filter } = render();
 
-    clickFilter();
+    await clickFilter();
 
     expect(emitSpy).toHaveBeenCalledTimes(2);
     ['UserClickedAFilter', 'UserClickedANumberRangeFilter'].forEach(event => {
@@ -80,12 +72,12 @@ describe('testing NumberRangeFilter component', () => {
     });
   });
 
-  it('emits configured events when clicked', () => {
+  it('emits configured events when clicked', async () => {
     const { clickFilter, emitSpy, filter } = render({
       clickEvents: { UserAcceptedAQuery: 'potato' }
     });
 
-    clickFilter();
+    await clickFilter();
 
     expect(emitSpy).toHaveBeenCalledTimes(3);
     ['UserClickedAFilter', 'UserClickedANumberRangeFilter'].forEach(event => {
@@ -97,10 +89,9 @@ describe('testing NumberRangeFilter component', () => {
   it('allows customizing the rendered content with an slot', () => {
     const { wrapper, filter } = render({
       template: `
-      <NumberRangeFilter :filter="filter" :clickEvents="clickEvents" v-slot="{ filter }">
-        <span data-test="custom-label">{{ filter.label }}</span>
-      </NumberRangeFilter>
-      `
+        <NumberRangeFilter :filter="filter" :clickEvents="clickEvents" v-slot="{ filter }">
+          <span data-test="custom-label">{{ filter.label }}</span>
+        </NumberRangeFilter>`
     });
 
     const customLabel = wrapper.find(getDataTestSelector('custom-label'));

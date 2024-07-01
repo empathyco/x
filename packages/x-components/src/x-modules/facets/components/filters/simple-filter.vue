@@ -1,31 +1,31 @@
 <template>
   <RenderlessFilter
-    v-slot="{ filter, clickFilter, cssClasses: slotCssClasses, isDisabled }"
-    :class="cssClasses"
-    :clickEvents="clickEventsToEmit"
+    v-slot="{ filter, clickFilter, isDisabled, cssClasses }"
     :filter="filter"
+    :clickEvents="innerClickEvents"
+    :cssClasses="innerCssClasses"
   >
     <!--
       @slot The control element to render
       @binding {Filter} filter - The filter data
       @binding {() => void} clickFilter - Method that will invoke the needed actions after the user
       clicks the filter.
-      @binding {Object} cssClasses - Object containing CSS classes to add to the button
       @binding {Boolean} isDisabled - True if the filter shouldn't be able to be selected by the
       user
+      @binding {Object} cssClasses - Object containing CSS classes to add to the button
     -->
     <slot
       v-bind="{
         filter,
         clickFilter,
-        cssClasses: { ...slotCssClasses, ...cssClasses },
-        isDisabled
+        isDisabled,
+        cssClasses
       }"
     >
       <button
         @click="clickFilter"
         :aria-checked="filter.selected.toString()"
-        :class="[slotCssClasses, cssClasses]"
+        :class="cssClasses"
         :disabled="isDisabled"
         data-test="filter"
         role="checkbox"
@@ -42,6 +42,7 @@
 
 <script lang="ts">
   import { SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
+  import { Dictionary } from '@empathyco/x-utils';
   import { computed, defineComponent, PropType } from 'vue';
   import { XEventsTypes } from '../../../../wiring/events.types';
   import { facetsXModule } from '../../x-module';
@@ -63,24 +64,30 @@
         required: true
       },
       /** Additional events, with their payload, to emit when the filter is clicked. */
-      clickEvents: Object as PropType<Partial<XEventsTypes>>
+      clickEvents: Object as PropType<Partial<XEventsTypes>>,
+      /** Inheritance CSS classes. */
+      cssClasses: {
+        type: Array as PropType<(string | Dictionary<boolean>)[]>,
+        default: () => []
+      }
     },
     setup(props) {
       /** The {@link XEventsTypes} to emit. */
-      const clickEventsToEmit = computed(() => ({
+      const innerClickEvents = computed(() => ({
         UserClickedASimpleFilter: props.filter,
         ...props.clickEvents
       }));
 
-      /** Dynamic CSS classes to apply to the component. */
-      const cssClasses = computed(() => ({
-        'x-simple-filter': true,
-        'x-simple-filter--is-selected': props.filter.selected
-      }));
+      /** CSS classes to apply to the element. */
+      const innerCssClasses = computed(() => [
+        'x-simple-filter',
+        { 'x-simple-filter--is-selected': props.filter.selected },
+        ...props.cssClasses
+      ]);
 
       return {
-        clickEventsToEmit,
-        cssClasses
+        innerClickEvents,
+        innerCssClasses
       };
     }
   });

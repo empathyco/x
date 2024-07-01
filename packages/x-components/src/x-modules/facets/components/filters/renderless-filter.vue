@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Dictionary } from '@empathyco/x-utils';
   import { computed, defineComponent, h, PropType } from 'vue';
   import { BooleanFilter } from '@empathyco/x-types';
   import { useXBus } from '../../../../composables/use-x-bus';
@@ -26,7 +27,12 @@
         required: true
       },
       /** Additional events with its payload to emit when the filter is clicked. */
-      clickEvents: Object as PropType<Partial<XEventsTypes>>
+      clickEvents: Object as PropType<Partial<XEventsTypes>>,
+      /** Inheritance CSS classes. */
+      cssClasses: {
+        type: Array as PropType<(string | Dictionary<boolean>)[]>,
+        default: () => []
+      }
     },
     setup(props, { slots }) {
       const xBus = useXBus();
@@ -34,30 +40,31 @@
       /** Returns `true` when the filter should be disabled. */
       const isDisabled = computed(() => props.filter.totalResults === 0);
 
-      /** Dynamic CSS classes to apply to the component. */
-      const cssClasses = computed(() => ({
-        'x-facet-filter': true,
-        'x-selected': props.filter.selected
-      }));
+      /** CSS classes to apply to the element. */
+      const innerCssClasses = computed(() => [
+        'x-facet-filter',
+        { 'x-selected': props.filter.selected },
+        ...props.cssClasses
+      ]);
 
       /** The events that will be emitted when the filter is clicked. */
-      const events = computed(() => ({
+      const innerClickEvents = computed(() => ({
         UserClickedAFilter: props.filter,
         ...props.clickEvents
       }));
 
-      /** Emit events to the bus. */
-      const emitEvents = () => {
-        Object.entries(events.value).forEach(([event, payload]) => {
+      /** Emit filter click events to the bus. */
+      function emitClickEvents() {
+        Object.entries(innerClickEvents.value).forEach(([event, payload]) => {
           xBus.emit(event as XEvent, payload);
         });
-      };
+      }
 
       return () =>
         slots.default?.({
           filter: props.filter,
-          clickFilter: emitEvents,
-          cssClasses: cssClasses.value,
+          clickFilter: emitClickEvents,
+          cssClasses: innerCssClasses.value,
           isDisabled: isDisabled.value
         }) ?? h();
     }

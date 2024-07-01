@@ -119,15 +119,10 @@ function render({
 }
 
 describe('testing `HierarchicalFilter` component', () => {
-  it('is an x-component', () => {
+  it('is an XComponent that belongs to the facets', () => {
     const { hierarchicalFilterWrapper } = render();
 
-    expect(isXComponent(hierarchicalFilterWrapper.vm)).toEqual(true);
-  });
-
-  it('belongs to the `facets` x-module', () => {
-    const { hierarchicalFilterWrapper } = render();
-
+    expect(isXComponent(hierarchicalFilterWrapper.vm)).toBeTruthy();
     expect(getXComponentXModuleName(hierarchicalFilterWrapper.vm)).toEqual('facets');
   });
 
@@ -180,8 +175,7 @@ describe('testing `HierarchicalFilter` component', () => {
             >
             {{ filter.label }}
           </label>
-        </HierarchicalFilter>
-      `
+        </HierarchicalFilter>`
     });
 
     const filter = getRootFilter();
@@ -205,8 +199,7 @@ describe('testing `HierarchicalFilter` component', () => {
           <template #label :filter="filter">
             <span data-test="custom-label">{{ filter.label }}</span>
           </template>
-        </HierarchicalFilter>
-      `
+        </HierarchicalFilter>`
     });
 
     const defaultButton = getFilterWrapper().find(getDataTestSelector('filter'));
@@ -306,7 +299,6 @@ describe('testing `HierarchicalFilter` component', () => {
       );
     });
 
-    // eslint-disable-next-line max-len
     it('emits `UserClickedAFilter` and `UserClickedAHierarchicalFilter` events when a child is clicked', () => {
       const { getFiltersWrappers, emitSpy } = render();
       expect(getFiltersWrappers().wrappers.length).toBeGreaterThan(1);
@@ -377,8 +369,7 @@ describe('testing `HierarchicalFilter` component', () => {
                >
                  {{ filter.label }}
                </button>
-           </HierarchicalFilter>
-     `
+           </HierarchicalFilter>`
       });
 
       const grandChild0Wrapper = getFilterWrapperByText('grand-child-0')!;
