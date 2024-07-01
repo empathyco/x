@@ -24,7 +24,7 @@
           :id="`base-tabs-panel-${tab}`"
           class="x-tabs-panel__list-item x-tabs-panel__button x-button"
           :class="tabIsSelected(tab) ? activeTabClass : tabClass"
-          :aria-selected="tabIsSelected(tab)"
+          :aria-selected="tabIsSelected(tab).toString()"
           data-test="base-tabs-panel-button"
           role="tab"
         >
