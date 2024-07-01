@@ -5,9 +5,7 @@
       <template #header-content="{ open }">
         <p>Header, open: {{ open ? 'close' : 'open' }}</p>
       </template>
-      <template>
-        <p>Default content</p>
-      </template>
+      <p>Default content</p>
     </BaseHeaderTogglePanel>
 
     <h2>Base id toggle panel, Base id toggle panel button and Base Toggle panel</h2>
@@ -21,11 +19,9 @@
       <template #summer>
         <div>Summer Top Sales</div>
       </template>
-
       <template #fall>
         <div>Fall Top Sales</div>
       </template>
-
       <template #outlet>
         <div>Outlet Top Sales</div>
       </template>

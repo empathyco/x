@@ -4,7 +4,6 @@
     <BaseEventsModal
       :animation="Fade"
       :focusOnOpen="true"
-      v-bind="$attrs"
       contentClass="content"
       overlayClass="overlay"
     >
@@ -19,10 +18,9 @@
   import BaseEventsModal from '../../../../x-components/src/components/modals/base-events-modal.vue';
   import Fade from '../../../../x-components/src/components/animations/fade.vue';
   import { use$x } from '../../../../x-components/src/composables/use-$x';
+
   const _$x = use$x();
-
   const openModal = () => _$x.emit('UserClickedOpenEventsModal');
-
   const closeModal = () => _$x.emit('UserClickedCloseEventsModal');
 </script>
 

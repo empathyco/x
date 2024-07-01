@@ -52,11 +52,11 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   $transition-opacity-duration: 0.2s;
   $transition-transform-duration: 0.3s;
 
-  .x-fade-and-slide::v-deep .x-fade-and-slide {
+  .x-fade-and-slide {
     &--move,
     &--enter-active,
     &--leave-active {

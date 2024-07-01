@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <button @click="shouldRender = !shouldRender">Toggle</button>
-    <Fade>
-      <p v-if="shouldRender">León is southern Spain</p>
-    </Fade>
-  </div>
+  <button @click="shouldRender = !shouldRender">Toggle</button>
+  <Fade>
+    <p v-if="shouldRender">León is southern Spain</p>
+  </Fade>
 </template>
 
 <script setup lang="ts">
