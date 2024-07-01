@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.57](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.56...@empathyco/x-components@5.0.0-alpha.57) (2024-07-01)
+
+
+### Features
+
+* **facets:** migrate AllFilter component to Composition API (#1535) ([0b00671](https://github.com/empathyco/x/commit/0b006711297f6fb3721622082fe63b87ce4bcbf7))
+
+
+### Bug Fixes
+
+* **vue3:** fix minor Vue3 warnings about migration (#1533) ([8b65ea7](https://github.com/empathyco/x/commit/8b65ea796c7e02c973ba9566bd6bae17fc879c3e))
+
+
+
 ## [5.0.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.55...@empathyco/x-components@5.0.0-alpha.56) (2024-07-01)
 
 
