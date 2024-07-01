@@ -5,6 +5,7 @@ import { getRelatedTagsStub } from '../../x-components/src/__stubs__/related-tag
 import { getQuerySuggestionsStub } from '../../x-components/src/__stubs__/query-suggestions-stubs.factory';
 import {
   createResultStub,
+  createRedirectionStub,
   getBannersStub,
   getNextQueriesStub,
   getPromotedsStub,
@@ -75,7 +76,8 @@ const adapter = {
         results: getResultsStub(10),
         totalResults: 50,
         promoteds: getPromotedsStub(),
-        banners: getBannersStub()
+        banners: getBannersStub(),
+        redirections: [createRedirectionStub('redirection')]
       });
     }),
   identifierResults: () =>

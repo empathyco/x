@@ -1,17 +1,16 @@
 <template>
-  <div v-if="redirection && $scopedSlots.default" class="x-redirection" data-test="redirection">
+  <div v-if="redirection && slots.default" class="x-redirection" data-test="redirection">
     <slot v-bind="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }" />
   </div>
 </template>
 
 <script lang="ts">
   import { Redirection as RedirectionModel } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { XOn } from '../../../components/decorators/bus.decorators';
-  import { State } from '../../../components/decorators/store.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { computed, defineComponent, PropType, Ref, ref, watch } from 'vue';
   import { searchXModule } from '../x-module';
+  import { use$x } from '../../../composables/use-$x';
+  import { useState } from '../../../composables/use-state';
+  import { XEvent } from '../../../wiring/events.types';
 
   /**
    * A redirection is a component that sends the user to a link in the website. It is helpful when
@@ -20,103 +19,128 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(searchXModule)]
-  })
-  export default class Redirection extends Vue {
-    @State('search', 'redirections')
-    public redirections!: RedirectionModel[];
-
-    /**
-     * The redirection mode. Auto for auto redirection and manual for an user interaction.
-     *
-     * @public
-     */
-    @Prop({ default: 'auto' })
-    public mode!: 'auto' | 'manual';
-
-    /**
-     * The waiting time in seconds until the redirection is made.
-     *
-     * @remarks this delay only works in auto mode.
-     *
-     * @public
-     */
-    @Prop({ default: 0 })
-    public delayInSeconds!: number;
-
-    /**
-     * The timeout id, used to cancel the redirection.
-     *
-     * @internal
-     */
-    protected timeoutId?: number;
-
-    /**
-     * Boolean flag which indicates if the redirection is running.
-     *
-     * @public
-     */
-    protected isRedirecting = true;
-
-    /**
-     * Computed property which returns the first recommendation of the state, if any returns null.
-     *
-     * @returns The first redirection of the state.
-     *
-     * @internal
-     */
-    protected get redirection(): RedirectionModel | null {
-      return this.redirections?.[0] ?? null;
-    }
-
-    /**
-     * Watcher function which adds a setTimeout to the redirect method is the component
-     * is in auto mode and there are redirections.
-     *
-     * @internal
-     */
-    @Watch('redirections', { immediate: true })
-    protected redirectWithDelay(): void {
-      this.isRedirecting = true;
-      if (this.mode === 'auto' && this.redirection) {
-        // eslint-disable-next-line @typescript-eslint/unbound-method
-        this.timeoutId = window.setTimeout(this.redirect, this.delayInSeconds * 1000);
+  export default defineComponent({
+    name: 'Redirection',
+    xModule: searchXModule.name,
+    props: {
+      /**
+       * The redirection mode. Auto for auto redirection and manual for an user interaction.
+       *
+       * @public
+       */
+      mode: {
+        type: String as PropType<'auto' | 'manual'>,
+        default: 'auto'
+      },
+      /**
+       * The waiting time in seconds until the redirection is made.
+       *
+       * @remarks this delay only works in auto mode.
+       *
+       * @public
+       */
+      delayInSeconds: {
+        type: Number,
+        default: 0
       }
-    }
+    },
+    setup(props, { slots }) {
+      const $x = use$x();
 
-    /**
-     * Dispatches the redirection, updating the url.
-     *
-     * @public
-     */
-    protected redirect(): void {
-      clearTimeout(this.timeoutId);
-      this.$x.emit('UserClickedARedirection', this.redirection!);
-      window.location.replace(this.redirection!.url);
-    }
+      const { redirections } = useState('search', ['redirections']);
 
-    /**
-     * Stops the redirection, emitting `UserClickedAbortARedirection` event.
-     *
-     * @public
-     */
-    protected abortRedirect(): void {
-      this.cancelRedirect();
-      this.$x.emit('UserClickedAbortARedirection');
-    }
+      /**
+       * List of events to stop the animation.
+       */
+      const eventsToStopAnimation: XEvent[] = [
+        'UserAcceptedAQuery',
+        'UserClearedQuery',
+        'UserSelectedARelatedTag'
+      ];
 
-    /**
-     * Stops the animation if the user search another query.
-     *
-     * @internal
-     */
-    @XOn(['UserAcceptedAQuery', 'UserClearedQuery', 'UserSelectedARelatedTag'])
-    cancelRedirect(): void {
-      clearTimeout(this.timeoutId);
-      this.isRedirecting = false;
+      /**
+       * The timeout id, used to cancel the redirection.
+       *
+       * @internal
+       */
+      const timeoutId: Ref<number> = ref(0);
+
+      /**
+       * Boolean flag which indicates if the redirection is running.
+       *
+       * @public
+       */
+      const isRedirecting = ref(true);
+
+      /**
+       * Computed property which returns the first recommendation of the state, if any returns null.
+       *
+       * @returns The first redirection of the state.
+       *
+       * @internal
+       */
+      const redirection = computed((): RedirectionModel | null => redirections?.value[0] ?? null);
+
+      /**
+       * Stops the animation if the user search another query.
+       *
+       * @internal
+       */
+      const cancelRedirect = () => {
+        clearTimeout(timeoutId.value);
+        isRedirecting.value = false;
+      };
+
+      eventsToStopAnimation.forEach(event => $x.on(event, false).subscribe(cancelRedirect));
+
+      /**
+       * Dispatches the redirection, updating the url.
+       *
+       * @public
+       */
+      const redirect = () => {
+        clearTimeout(timeoutId.value);
+        $x.emit('UserClickedARedirection', redirection.value!);
+        window.location.replace(redirection.value!.url);
+      };
+
+      /**
+       * Stops the redirection, emitting `UserClickedAbortARedirection` event.
+       *
+       * @public
+       */
+      const abortRedirect = () => {
+        cancelRedirect();
+        $x.emit('UserClickedAbortARedirection');
+      };
+
+      /**
+       * Watcher function which adds a setTimeout to the redirect method is the component
+       * is in auto mode and there are redirections.
+       *
+       * @internal
+       */
+      watch(
+        redirections,
+        () => {
+          isRedirecting.value = true;
+          if (props.mode === 'auto' && redirection.value) {
+            // eslint-disable-next-line @typescript-eslint/unbound-method
+            timeoutId.value = window.setTimeout(redirect, props.delayInSeconds * 1000);
+          }
+        },
+        { immediate: true }
+      );
+
+      return {
+        redirection,
+        redirect,
+        abortRedirect,
+        isRedirecting,
+        slots
+      };
     }
-  }
+  });
 </script>
 
 <style lang="scss"></style>

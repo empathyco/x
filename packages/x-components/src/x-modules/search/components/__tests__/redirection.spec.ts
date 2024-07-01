@@ -1,11 +1,11 @@
 import { DeepPartial } from '@empathyco/x-utils';
 import Vuex, { Store } from 'vuex';
 import { Redirection as RedirectionModel } from '@empathyco/x-types';
-import { createLocalVue, Wrapper, mount } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
 import { createRedirectionStub } from '../../../../__stubs__/redirections-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins';
+import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { WirePayload } from '../../../../wiring/wiring.types';
 import Redirection from '../redirection.vue';
@@ -27,13 +27,12 @@ function renderRedirection({
   redirections = stubRedirections,
   mode = 'auto',
   delayInSeconds = 1
-}: RenderRedirectionOptions = {}): RenderRedirectionAPI {
+} = {}) {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
   installNewXPlugin({ store }, localVue);
 
-  XPlugin.resetInstance();
   resetXSearchStateWith(store, { redirections });
   const wrapper = mount(
     {
@@ -54,6 +53,12 @@ function renderRedirection({
     }
   );
 
+  const onUserAbortedARedirection = jest.fn();
+  XPlugin.bus.on('UserClickedAbortARedirection', true).subscribe(onUserAbortedARedirection);
+
+  const onUserClickedARedirection = jest.fn();
+  XPlugin.bus.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
+
   return {
     wrapper: wrapper.findComponent(Redirection),
     acceptRedirection() {
@@ -61,7 +66,9 @@ function renderRedirection({
     },
     abortRedirection() {
       wrapper.find(getDataTestSelector('redirection-abort')).element.click();
-    }
+    },
+    onUserClickedARedirection,
+    onUserAbortedARedirection
   };
 }
 
@@ -116,10 +123,9 @@ describe('testing Redirection component', () => {
 
   //eslint-disable-next-line max-len
   it('redirects and emits the `UserClickedARedirection` event in manual mode when the user click the button', () => {
-    const { wrapper, acceptRedirection } = renderRedirection({ mode: 'manual' });
-    const onUserClickedARedirection = jest.fn();
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    const { onUserClickedARedirection, acceptRedirection } = renderRedirection({ mode: 'manual' });
 
-    wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
     acceptRedirection();
 
     expect(onUserClickedARedirection).toHaveBeenCalledTimes(1);
@@ -127,7 +133,7 @@ describe('testing Redirection component', () => {
       eventPayload: stubRedirections[0],
       metadata: {
         moduleName: 'search',
-        location: undefined,
+        location: 'none',
         replaceable: true
       }
     });
@@ -137,10 +143,7 @@ describe('testing Redirection component', () => {
 
   //eslint-disable-next-line max-len
   it("doesn't redirect and doesn't emit the event `UserClickedARedirection` in manual when the user doesn't click the button", () => {
-    const { wrapper } = renderRedirection({ mode: 'manual' });
-    const onUserClickedARedirection = jest.fn();
-
-    wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
+    const { onUserClickedARedirection } = renderRedirection({ mode: 'manual' });
 
     jest.runAllTicks();
 
@@ -150,10 +153,8 @@ describe('testing Redirection component', () => {
 
   //eslint-disable-next-line max-len
   it('redirects and emits the `UserClickedARedirection` event in auto mode and 0 seconds of delay', () => {
-    const { wrapper } = renderRedirection({ delayInSeconds: 0 });
-    const onUserClickedARedirection = jest.fn();
+    const { onUserClickedARedirection } = renderRedirection({ delayInSeconds: 0 });
 
-    wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
     // The delay 0 runs so fast the we need to force the test to simulate a wait.
     jest.advanceTimersByTime(1);
 
@@ -162,7 +163,7 @@ describe('testing Redirection component', () => {
       eventPayload: stubRedirections[0],
       metadata: {
         moduleName: 'search',
-        location: undefined,
+        location: 'none',
         replaceable: true
       }
     });
@@ -171,12 +172,10 @@ describe('testing Redirection component', () => {
   });
 
   it('emits the redirection event `UserClickedAbortARedirection`', () => {
-    const { wrapper, abortRedirection } = renderRedirection();
-    const onUserClickedARedirection = jest.fn();
-    const onUserAbortedARedirection = jest.fn();
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    const { onUserClickedARedirection, onUserAbortedARedirection, abortRedirection } =
+      renderRedirection();
 
-    wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
-    wrapper.vm.$x.on('UserClickedAbortARedirection', true).subscribe(onUserAbortedARedirection);
     abortRedirection();
     jest.runAllTicks();
 
@@ -187,11 +186,8 @@ describe('testing Redirection component', () => {
 
   //eslint-disable-next-line max-len
   it("doesn't redirect and doesn't emit the `UserClickedARedirection` event if there is a new query accepted", () => {
-    const { wrapper } = renderRedirection();
-    const onUserClickedARedirection = jest.fn();
-
-    wrapper.vm.$x.on('UserClickedARedirection', true).subscribe(onUserClickedARedirection);
-    wrapper.vm.$x.emit('UserAcceptedAQuery', 'lego');
+    const { onUserClickedARedirection } = renderRedirection();
+    XPlugin.bus.emit('UserAcceptedAQuery', 'lego');
 
     jest.runAllTicks();
 
@@ -199,23 +195,3 @@ describe('testing Redirection component', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 });
-
-interface RenderRedirectionOptions {
-  /** The redirection mode. */
-  mode?: 'auto' | 'manual';
-  /** The redirection delay in seconds. */
-  delayInSeconds?: number;
-  /** The template to be rendered. */
-  template?: string;
-  /** List of redirections to be rendered. */
-  redirections?: RedirectionModel[];
-}
-
-interface RenderRedirectionAPI {
-  /** The wrapper of the container element.*/
-  wrapper: Wrapper<Vue>;
-  /** Helper method to accept a redirection. */
-  acceptRedirection: () => void;
-  /** Helper method to abort a redirection. */
-  abortRedirection: () => void;
-}
