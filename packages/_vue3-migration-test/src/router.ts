@@ -12,6 +12,7 @@ import {
   TestFacets,
   TestFilters,
   TestFade,
+  TestFadeAndSlide,
   TestScroll,
   TestSortDropdown,
   TestSortList,
@@ -37,7 +38,12 @@ import {
   TestSpellcheck,
   TestQuerySuggestions,
   TestSemanticQueries,
-  TestRecommendations
+  TestRecommendations,
+  TestPopularSearches,
+  TestNextQueries,
+  TestIdentifierResults,
+  TestRedirection,
+  TestExtraParams
 } from './';
 
 const routes = [
@@ -70,6 +76,11 @@ const routes = [
     path: '/base-modal',
     name: 'BaseModal',
     component: TestBaseModal
+  },
+  {
+    path: '/fade-and-slide',
+    name: 'FadeAndSlide',
+    component: TestFadeAndSlide
   },
   {
     path: '/base-dropdown',
@@ -230,6 +241,31 @@ const routes = [
     path: '/recommendations',
     name: 'Recommendations',
     component: TestRecommendations
+  },
+  {
+    path: '/popular-searches',
+    name: 'PopularSearches',
+    component: TestPopularSearches
+  },
+  {
+    path: '/next-queries',
+    name: 'NextQueries',
+    component: TestNextQueries
+  },
+  {
+    path: '/identifier-results',
+    name: 'IdentifierResults',
+    component: TestIdentifierResults
+  },
+  {
+    path: '/redirection',
+    name: 'Redirection',
+    component: TestRedirection
+  },
+  {
+    path: '/snippet-config-extraparams',
+    name: 'SnippetConfigExtraparams',
+    component: TestExtraParams
   }
 ];
 

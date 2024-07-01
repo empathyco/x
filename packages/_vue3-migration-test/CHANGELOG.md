@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.36](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.35...vue3-migration-test@1.0.0-alpha.36) (2024-07-01)
+
+
+### Features
+
+* migrate `Redirection` component to composition api (#1532) ([93c0809](https://github.com/empathyco/x/commit/93c08094a33f9828631ad4e4bbb9ac7831db5963))
+
+
+
+## [1.0.0-alpha.35](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.34...vue3-migration-test@1.0.0-alpha.35) (2024-06-24)
+
+
+### Features
+
+* replace DisableAnimationMixin by useDisableAnimation composable (#1469) ([f498d3f](https://github.com/empathyco/x/commit/f498d3fba5d294391dcfca47f9724558e98f50f0))
+
+
+
+## [1.0.0-alpha.34](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.33...vue3-migration-test@1.0.0-alpha.34) (2024-06-24)
+
+
+### Features
+
+* **extra-params:** migrate extra params and snippet config extra params (#1531) ([d869f18](https://github.com/empathyco/x/commit/d869f1886c11f74af8a6350033d7567385ad629d))
+
+
+
+## [1.0.0-alpha.33](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.32...vue3-migration-test@1.0.0-alpha.33) (2024-06-19)
+
+
+### Features
+
+* migrate popular-searches x-module (#1524) ([f79456d](https://github.com/empathyco/x/commit/f79456d4589b3f9dee5fd86fad9625b853dde267))
+
+
+
+## [1.0.0-alpha.32](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.31...vue3-migration-test@1.0.0-alpha.32) (2024-06-18)
+
+
+### Features
+
+* add next-queries to the playground ([74efb22](https://github.com/empathyco/x/commit/74efb221aa34c5d52dfa808559933dac12a906cd))
+
+
+
+## [1.0.0-alpha.31](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.30...vue3-migration-test@1.0.0-alpha.31) (2024-06-18)
+
+
+### Features
+
+* migrate `identifier-results` x-module to composition API (#1521) ([81b18d0](https://github.com/empathyco/x/commit/81b18d03b3ae2ba9df05f5c288a7eab0e0e7966c))
+
+
+
 ## [1.0.0-alpha.30](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.29...vue3-migration-test@1.0.0-alpha.30) (2024-06-14)
 
 

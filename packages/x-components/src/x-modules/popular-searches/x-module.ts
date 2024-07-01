@@ -1,4 +1,5 @@
 import { XModule } from '../x-modules.types';
+import { XPlugin } from '../../plugins/x-plugin';
 import { popularSearchesEmitters } from './store/emitters';
 import { popularSearchesXStoreModule } from './store/module';
 import { PopularSearchesXStoreModule } from './store/types';
@@ -23,3 +24,5 @@ export const popularSearchesXModule: PopularSearchesXModule = {
   storeEmitters: popularSearchesEmitters,
   wiring: popularSearchesWiring
 };
+
+XPlugin.registerXModule(popularSearchesXModule);

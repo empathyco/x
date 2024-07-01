@@ -1,4 +1,5 @@
 import { XModule } from '../x-modules.types';
+import { XPlugin } from '../../plugins/index';
 import { extraParamsEmitters } from './store/emitters';
 import { extraParamsXStoreModule } from './store/module';
 import { ExtraParamsXStoreModule } from './store/types';
@@ -23,3 +24,5 @@ export const extraParamsXModule: ExtraParamsXModule = {
   storeEmitters: extraParamsEmitters,
   wiring: extraParamsWiring
 };
+
+XPlugin.registerXModule(extraParamsXModule);

@@ -3,6 +3,91 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.55...@empathyco/x-components@5.0.0-alpha.56) (2024-07-01)
+
+
+### Features
+
+* migrate `Redirection` component to composition api (#1532) ([93c0809](https://github.com/empathyco/x/commit/93c08094a33f9828631ad4e4bbb9ac7831db5963))
+
+
+
+## [5.0.0-alpha.55](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.54...@empathyco/x-components@5.0.0-alpha.55) (2024-06-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **use-register-x-module:** get rid of useRegisterXModule composable. Use XPlugin.registerXModule(xModule) or InstallXOptions.initialXModules instead
+
+### Code Refactoring
+
+* **use-register-x-module:** get rid of register x-module composable and deprecated the mixin for the same (#1534) ([4dabc84](https://github.com/empathyco/x/commit/4dabc84c67720e4bfca739b685f3fed5d100f693))
+
+
+
+## [5.0.0-alpha.54](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.53...@empathyco/x-components@5.0.0-alpha.54) (2024-06-24)
+
+
+### Features
+
+* replace DisableAnimationMixin by useDisableAnimation composable (#1469) ([f498d3f](https://github.com/empathyco/x/commit/f498d3fba5d294391dcfca47f9724558e98f50f0))
+
+
+
+## [5.0.0-alpha.53](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.52...@empathyco/x-components@5.0.0-alpha.53) (2024-06-24)
+
+
+### Features
+
+* **extra-params:** migrate extra params and snippet config extra params (#1531) ([d869f18](https://github.com/empathyco/x/commit/d869f1886c11f74af8a6350033d7567385ad629d))
+
+
+
+## [5.0.0-alpha.52](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.51...@empathyco/x-components@5.0.0-alpha.52) (2024-06-20)
+
+
+### Features
+
+* migrate `QueryPreviewButton` component to composition API (#1525) ([3eff0c7](https://github.com/empathyco/x/commit/3eff0c7c9479abbebbda59e8cc538af6f55375e1))
+
+
+
+## [5.0.0-alpha.51](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.50...@empathyco/x-components@5.0.0-alpha.51) (2024-06-19)
+
+
+### Features
+
+* migrate popular-searches x-module (#1524) ([f79456d](https://github.com/empathyco/x/commit/f79456d4589b3f9dee5fd86fad9625b853dde267))
+
+
+
+## [5.0.0-alpha.50](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.49...@empathyco/x-components@5.0.0-alpha.50) (2024-06-19)
+
+
+### Features
+
+* migrate `facets provider` component to use Composition API (#1523) ([eff7b8d](https://github.com/empathyco/x/commit/eff7b8d92c54aece07061c2d8ce58507a56e7d01))
+
+
+
+## [5.0.0-alpha.49](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.48...@empathyco/x-components@5.0.0-alpha.49) (2024-06-18)
+
+
+### Features
+
+* migrate `next-queries` module to composition API ([324d5d8](https://github.com/empathyco/x/commit/324d5d866167352b9ad5e1b2858853ce197fe7fe))
+
+
+
+## [5.0.0-alpha.48](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.47...@empathyco/x-components@5.0.0-alpha.48) (2024-06-18)
+
+
+### Features
+
+* migrate `identifier-results` x-module to composition API (#1521) ([81b18d0](https://github.com/empathyco/x/commit/81b18d03b3ae2ba9df05f5c288a7eab0e0e7966c))
+
+
+
 ## [5.0.0-alpha.47](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.46...@empathyco/x-components@5.0.0-alpha.47) (2024-06-17)
 
 

@@ -21,10 +21,8 @@
 
 <script lang="ts">
   import { NextQuery as NextQueryModel } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType } from 'vue';
   import BaseSuggestion from '../../../components/suggestions/base-suggestion.vue';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { XEventsTypes } from '../../../wiring/events.types';
   import { nextQueriesXModule } from '../x-module';
 
@@ -35,50 +33,58 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'NextQuery',
+    xModule: nextQueriesXModule.name,
     components: { BaseSuggestion },
-    mixins: [xComponentMixin(nextQueriesXModule)]
-  })
-  export default class NextQuery extends Vue {
-    /**
-     * The suggestion to render and use in the default slot.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    protected suggestion!: NextQueryModel;
+    props: {
+      /**
+       * The suggestion to render and use in the default slot.
+       *
+       * @public
+       */
+      suggestion: {
+        type: Object as PropType<NextQueryModel>,
+        required: true
+      },
+      /**
+       * Indicates if the curated next query should be highlighted.
+       *
+       * @public
+       */
+      highlightCurated: {
+        type: Boolean,
+        default: false
+      }
+    },
+    setup(props) {
+      /**
+       * Events list which are going to be emitted when a next query is selected.
+       *
+       * @returns The {@link XEvent} to emit.
+       * @public
+       */
+      const events = computed(
+        (): Partial<XEventsTypes> => ({ UserSelectedANextQuery: props.suggestion })
+      );
 
-    /**
-     * Indicates if the curated next query should be highlighted.
-     *
-     * @public
-     */
-    @Prop({ default: false, type: Boolean })
-    protected highlightCurated!: boolean;
+      /**
+       * Checks if the next query is curated and if it should be highlighted.
+       *
+       * @returns True if the next query is curated and should be highlighted.
+       *
+       * @internal
+       */
+      const shouldHighlightCurated = computed(
+        () => props.highlightCurated && (props.suggestion.isCurated ?? false)
+      );
 
-    /**
-     * Events list which are going to be emitted when a next query is selected.
-     *
-     * @returns The {@link XEvent} to emit.
-     * @public
-     */
-    protected get events(): Partial<XEventsTypes> {
       return {
-        UserSelectedANextQuery: this.suggestion
+        events,
+        shouldHighlightCurated
       };
     }
-
-    /**
-     * Checks if the next query is curated and if it should be highlighted.
-     *
-     * @returns True if the next query is curated and should be highlighted.
-     *
-     * @internal
-     */
-    protected get shouldHighlightCurated(): boolean {
-      return this.highlightCurated && (this.suggestion.isCurated ?? false);
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">

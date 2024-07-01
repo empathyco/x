@@ -1,11 +1,12 @@
 <template>
+  <!-- eslint-disable vue/attributes-order -->
   <transition
+    v-bind="$attrs"
     v-on="$listeners"
     @enter="expand"
     @after-enter="cleanUpAnimationStyles"
     @leave="collapse"
     name="x-collapse-height-"
-    v-bind="$attrs"
     :appear="appear"
   >
     <!-- @slot (Required) to add content to the transition -->

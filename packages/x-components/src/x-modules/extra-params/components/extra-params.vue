@@ -1,9 +1,9 @@
 <script lang="ts">
   import { Dictionary } from '@empathyco/x-utils';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { State, xComponentMixin, XEmit } from '../../../components';
+  import { defineComponent, PropType, watch } from 'vue';
   import { extraParamsXModule } from '../x-module';
+  import { use$x } from '../../../composables/use-$x';
+  import { useState } from '../../../composables/use-state';
 
   /**
    * It emits a {@link ExtraParamsXEvents.ExtraParamsProvided} with the values
@@ -11,40 +11,34 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(extraParamsXModule)]
-  })
-  export default class ExtraParams extends Vue {
-    /**
-     * Emits the initial extra params, overriding with the state extra params, just in case, those
-     * values were already set by XComponents initialization (url, plugin config, etc.).
-     */
-    created(): void {
-      this.$x.emit('ExtraParamsInitialized', { ...this.values });
-      this.$x.emit('ExtraParamsProvided', { ...this.values, ...this.storeExtraParams });
+
+  export default defineComponent({
+    name: 'ExtraParams',
+    xModule: extraParamsXModule.name,
+    props: {
+      values: {
+        type: Object as PropType<Dictionary<unknown>>,
+        required: true
+      }
+    },
+    setup(props) {
+      const { params } = useState('extraParams', ['params']);
+      const $x = use$x();
+
+      $x.emit('ExtraParamsInitialized', { ...props.values });
+      $x.emit('ExtraParamsProvided', { ...props.values, ...params.value });
+
+      watch(
+        () => props.values,
+        values => {
+          $x.emit('ExtraParamsProvided', { ...values });
+        },
+        { deep: true }
+      );
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      return () => {};
     }
-
-    /**
-     * (Required) A Dictionary where the keys are the extra param names and its values.
-     *
-     * @remarks Emits the {@link ExtraParamsXEvents.ExtraParamsProvided} when the
-     * component is rendered or the values changed.
-     *
-     * @public
-     */
-    @XEmit('ExtraParamsProvided', { immediate: false, deep: true })
-    @Prop({ required: true })
-    public values!: Dictionary<unknown>;
-
-    /**
-     * State extra params. Used to override the initial extra params.
-     */
-    @State('extraParams', 'params')
-    public storeExtraParams!: Dictionary<unknown>;
-
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    render(): void {}
-  }
+  });
 </script>
 
 <docs lang="mdx">

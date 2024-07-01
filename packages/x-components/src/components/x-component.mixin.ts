@@ -11,6 +11,8 @@ import { AnyXModule } from '../x-modules/x-modules.types';
  * @param module - The module associated to the X-Component using this mixin.
  * @returns Mixin for the module.
  * @public
+ * @deprecated Use `XPlugin.registerXModule(xModule)` or `initialXModules` in
+ * {@link InstallXOptions | x-installer} instead.
  */
 export function xComponentMixin(module: AnyXModule): ComponentOptions<Vue> {
   XPlugin.registerXModule(module);

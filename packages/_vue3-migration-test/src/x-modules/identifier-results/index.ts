@@ -1,2 +1,2 @@
-export * from './x-module';
 export * from './components';
+export * from './x-module';
