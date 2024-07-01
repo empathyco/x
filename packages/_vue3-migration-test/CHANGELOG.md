@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.36](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.35...vue3-migration-test@1.0.0-alpha.36) (2024-07-01)
+
+
+### Features
+
+* migrate `Redirection` component to composition api (#1532) ([93c0809](https://github.com/empathyco/x/commit/93c08094a33f9828631ad4e4bbb9ac7831db5963))
+
+
+
 ## [1.0.0-alpha.35](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.34...vue3-migration-test@1.0.0-alpha.35) (2024-06-24)
 
 

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.56](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.55...@empathyco/x-components@5.0.0-alpha.56) (2024-07-01)
+
+
+### Features
+
+* migrate `Redirection` component to composition api (#1532) ([93c0809](https://github.com/empathyco/x/commit/93c08094a33f9828631ad4e4bbb9ac7831db5963))
+
+
+
 ## [5.0.0-alpha.55](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.54...@empathyco/x-components@5.0.0-alpha.55) (2024-06-26)
 
 
