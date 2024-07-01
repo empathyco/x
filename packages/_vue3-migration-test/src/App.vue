@@ -12,7 +12,16 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { provide } from 'vue';
+  import { baseSnippetConfig } from '../../x-components/src/views/base-config';
+
+  /**
+   * TODO: remove when x-instaler is migrated and used in this Playground.
+   * X-instaler's `createApp` fn should provide the snippet config.
+   */
+  provide('snippetConfig', baseSnippetConfig);
+</script>
 
 <style lang="scss" scoped>
   #app {

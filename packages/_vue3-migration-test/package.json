@@ -9,6 +9,7 @@
     "build": "vue-tsc && vite build"
   },
   "dependencies": {
+    "@empathyco/x-adapter-platform": "^1.1.0-alpha.3",
     "@empathyco/x-bus": "^1.0.3-alpha.1",
     "@empathyco/x-types": "^10.1.0-alpha.3",
     "@empathyco/x-utils": "^1.0.3-alpha.1",
