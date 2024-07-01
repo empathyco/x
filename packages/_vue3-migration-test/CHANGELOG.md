@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.38](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.37...vue3-migration-test@1.0.0-alpha.38) (2024-07-01)
+
+
+### Features
+
+* build a Vue3 test search component (#1540) ([0356202](https://github.com/empathyco/x/commit/0356202b416f973d7aeab62e69baca7292e040a5))
+
+
+
 ## [1.0.0-alpha.37](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.36...vue3-migration-test@1.0.0-alpha.37) (2024-07-01)
 
 
