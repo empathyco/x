@@ -5,11 +5,10 @@
 </template>
 
 <script lang="ts">
-  import { Dictionary } from '@empathyco/x-utils';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { NoElement, State, xComponentMixin } from '../../../components';
+  import { computed, defineComponent } from 'vue';
+  import { NoElement } from '../../../components/no-element';
   import { extraParamsXModule } from '../x-module';
+  import { useState, useXBus } from '../../../composables';
 
   /**
    * It emits a {@link ExtraParamsXEvents.UserChangedExtraParams} when the `updateValue`
@@ -17,51 +16,52 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(extraParamsXModule)],
+  export default defineComponent({
+    name: 'RenderlessExtraParam',
+    xModule: extraParamsXModule.name,
     components: {
       NoElement
-    }
-  })
-  export default class RenderlessExtraParam extends Vue {
-    /**
-     * The extra param's name.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public name!: string;
+    },
+    props: {
+      name: {
+        type: String,
+        required: true
+      }
+    },
+    setup(props) {
+      const xBus = useXBus();
+      /**
+       * A dictionary with the extra params in the store state.
+       *
+       * @public
+       */
+      const stateParams = useState('extraParams', ['params']).params;
 
-    /**
-     * A dictionary with the extra params in the store state.
-     *
-     * @public
-     */
-    @State('extraParams', 'params')
-    public stateParams!: Dictionary<unknown>;
+      /**
+       * It returns the value of the extra param from the store.
+       *
+       * @returns - The value from the store.
+       *
+       * @internal
+       */
+      const value = computed(() => {
+        return stateParams.value[props.name];
+      });
 
-    /**
-     * It returns the value of the extra param from the store.
-     *
-     * @returns - The value from the store.
-     *
-     * @internal
-     */
-    protected get value(): unknown {
-      return this.stateParams[this.name];
-    }
+      /**
+       * It sets the new value to the store.
+       *
+       * @param newValue - The new value of the extra param.
+       *
+       * @internal
+       */
+      function updateValue(newValue: unknown) {
+        xBus.emit('UserChangedExtraParams', { [props.name]: newValue });
+      }
 
-    /**
-     * It sets the new value to the store.
-     *
-     * @param newValue - The new value of the extra param.
-     *
-     * @internal
-     */
-    protected updateValue(newValue: unknown): void {
-      this.$x.emit('UserChangedExtraParams', { [this.name]: newValue });
+      return { value, updateValue };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
