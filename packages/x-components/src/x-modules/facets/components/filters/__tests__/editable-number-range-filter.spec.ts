@@ -1,7 +1,7 @@
 import { EditableNumberRangeFilter, RangeValue } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import Vue, { Ref, ref } from 'vue';
 import Vuex, { Store } from 'vuex';
 // eslint-disable-next-line max-len
 import { createEditableNumberRangeFilter } from '../../../../../__stubs__/filters-stubs.factory';
@@ -34,13 +34,12 @@ function renderEditableNumberRangeFilter({
     />
   `,
   range,
-  filter = createEditableNumberRangeFilter('age', range),
+  filter = ref(createEditableNumberRangeFilter('age', range)),
   isInstant = false,
   hasClearButton = true,
   buttonsClass,
   inputsClass
 }: EditableNumberRangeFilterOptions = {}): EditableNumberRangeFilterAPI {
-  Vue.observable(filter);
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
@@ -343,7 +342,7 @@ interface EditableNumberRangeFilterOptions {
    * The {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter} object
    * to be passed to the component.
    */
-  filter?: EditableNumberRangeFilter;
+  filter?: Ref<EditableNumberRangeFilter>;
   /** `hasClearButton` property to init the component. */
   hasClearButton?: boolean;
   /** `isInstant` property to init the component. */
@@ -364,7 +363,7 @@ interface EditableNumberRangeFilterAPI {
   /** Clear button wrapper. */
   clearButtonWrapper: Wrapper<Vue>;
   /** The filter passed to the component. */
-  filter: EditableNumberRangeFilter;
+  filter: Ref<EditableNumberRangeFilter>;
   /** Filter component wrapper. */
   filterWrapper: Wrapper<Vue>;
   /** Max input element wrapper. */
