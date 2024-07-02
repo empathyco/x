@@ -2,8 +2,8 @@
   <div class="x-hierarchical-filter-container" data-test="hierarchical-filter-container">
     <RenderlessFilter
       v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
-      :class="cssClasses"
-      :clickEvents="_clickEvents"
+      :class="innerCssClasses"
+      :clickEvents="innerClickEvents"
       :filter="filter"
       class="x-hierarchical-filter"
     >
@@ -64,15 +64,12 @@
     HierarchicalFilter as HierarchicalFilterModel,
     isHierarchicalFilter
   } from '@empathyco/x-types';
-  import { isObject } from '@empathyco/x-utils';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { dynamicPropsMixin } from '../../../../components/dynamic-props.mixin';
-  import { xComponentMixin } from '../../../../components/x-component.mixin';
-  import { VueCSSClasses } from '../../../../utils/types';
+  import { Dictionary, isObject } from '@empathyco/x-utils';
+  import { computed, defineComponent, PropType } from 'vue';
   import { XEventsTypes } from '../../../../wiring/events.types';
   import { facetsXModule } from '../../x-module';
   import FiltersList from '../lists/filters-list.vue';
+  import { AnimationProp } from '../../../../types';
   import RenderlessFilter from './renderless-filter.vue';
 
   /**
@@ -80,115 +77,118 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
     name: 'HierarchicalFilter',
+    xModule: facetsXModule.name,
     components: { FiltersList, RenderlessFilter },
-    mixins: [
-      xComponentMixin(facetsXModule),
-      dynamicPropsMixin(['childrenFiltersClass', 'filterItemClass'])
-    ]
-  })
-  export default class HierarchicalFilter extends Vue {
-    /** The filter data to render. */
-    @Prop({ required: true })
-    public filter!: HierarchicalFilterModel;
+    props: {
+      /** The filter data to render. */
+      filter: {
+        type: Object as PropType<HierarchicalFilterModel>,
+        required: true
+      },
+      /** The animation component to use for the children filters. */
+      childrenAnimation: AnimationProp,
+      /**
+       * Additional events, with their payload, to emit when the filter is clicked.
+       *
+       * @public
+       */
+      clickEvents: Object as PropType<Partial<XEventsTypes>>,
+      /** Inheritance CSS classes. */
+      cssClasses: {
+        type: Array as PropType<(string | Dictionary<boolean>)[]>,
+        default: () => []
+      },
+      /** Class inherited by content element. */
+      childrenFiltersClass: String,
+      /** Class inherited by content element. */
+      filterItemClass: String
+    },
+    setup: function (props) {
+      /**
+       * The {@link XEventsTypes} to emit.
+       *
+       * @returns The events to emit when clicked.
+       * @internal
+       */
+      const innerClickEvents = computed(() => ({
+        UserClickedAHierarchicalFilter: props.filter,
+        ...props.clickEvents
+      }));
 
-    /** The animation component to use for the children filters. */
-    @Prop()
-    public childrenAnimation?: Vue | string;
+      const isFilterPartiallySelected = (filter: HierarchicalFilterModel) => {
+        const selectedChildren = filter.children?.filter(filter => filter.selected);
+        const filterChildrenLength = filter.children?.length ?? 0;
+        return (
+          !!selectedChildren &&
+          ((selectedChildren.length > 0 && selectedChildren.length < filterChildrenLength) ||
+            // eslint-disable-next-line @typescript-eslint/unbound-method
+            selectedChildren.some(isFilterPartiallySelected))
+        );
+      };
 
-    /**
-     * Additional events, with their payload, to emit when the filter is clicked.
-     *
-     * @public
-     */
-    @Prop()
-    public clickEvents!: Partial<XEventsTypes>;
+      /**
+       * Returns if the filter is partially selected, which means having more than one child filter
+       * selected, but not every of them, or having at least one child filter partially selected.
+       *
+       * @returns True if the filter is partially selected. False otherwise.
+       * @internal
+       */
+      const isPartiallySelected = computed(() => isFilterPartiallySelected(props.filter));
 
-    /**
-     * The {@link XEventsTypes} to emit.
-     *
-     * @returns The events to emit when clicked.
-     * @internal
-     */
-    protected get _clickEvents(): Partial<XEventsTypes> {
+      /**
+       * Dynamic CSS classes to apply to the component.
+       *
+       * @returns The dynamic CSS classes to apply to the component.
+       * @internal
+       */
+      const innerCssClasses = computed(() => [
+        { 'x-hierarchical-filter--is-partially-selected': isPartiallySelected.value },
+        { 'x-hierarchical-filter--is-selected': props.filter.selected },
+        { 'x-facet-filter--is-partially-selected': isPartiallySelected.value },
+        ...props.cssClasses
+      ]);
+
+      /**
+       * Gets the child filter click events, converting the payload of the events that have a
+       * {@link HierarchicalFilter} as payload to the corresponding child filter.
+       *
+       * @param childFilter - The child filter.
+       * @returns The events to emit when clicking a child.
+       * @internal
+       */
+      const getChildFilterClickEvents = (childFilter: HierarchicalFilterModel) => {
+        return Object.entries(innerClickEvents.value).reduce((clickEvents, [event, payload]) => {
+          return {
+            ...clickEvents,
+            [event]:
+              isObject(payload) &&
+              isHierarchicalFilter(payload as unknown as Filter) &&
+              childFilter !== (payload as unknown as HierarchicalFilterModel)
+                ? childFilter
+                : payload
+          };
+        }, {} as Partial<XEventsTypes>);
+      };
+
+      /**
+       * List of filters to render, in case that the children's array
+       * is empty it will return an empty array instead of inject the ones from the parent.
+       *
+       * @returns A list of filters.
+       * @internal
+       */
+      const renderedChildrenFilters = computed(() => props.filter.children ?? []);
+
       return {
-        UserClickedAHierarchicalFilter: this.filter,
-        ...this.clickEvents
+        innerClickEvents,
+        innerCssClasses,
+        renderedChildrenFilters,
+        getChildFilterClickEvents
       };
     }
-
-    /**
-     * Dynamic CSS classes to apply to the component.
-     *
-     * @returns The dynamic CSS classes to apply to the component.
-     * @internal
-     */
-    protected get cssClasses(): VueCSSClasses {
-      return {
-        'x-hierarchical-filter--is-partially-selected': this.isPartiallySelected,
-        'x-hierarchical-filter--is-selected': this.filter.selected,
-        'x-facet-filter--is-partially-selected': this.isPartiallySelected
-      };
-    }
-
-    /**
-     * Gets the child filter click events, converting the payload of the events that have a
-     * {@link HierarchicalFilter} as payload to the corresponding child filter.
-     *
-     * @param childFilter - The child filter.
-     * @returns The events to emit when clicking a child.
-     * @internal
-     */
-    protected getChildFilterClickEvents(
-      childFilter: HierarchicalFilterModel
-    ): Partial<XEventsTypes> {
-      return Object.entries(this._clickEvents).reduce((clickEvents, [event, payload]) => {
-        return {
-          ...clickEvents,
-          [event]:
-            isObject(payload) &&
-            isHierarchicalFilter(payload as unknown as Filter) &&
-            childFilter !== (payload as unknown as HierarchicalFilterModel)
-              ? childFilter
-              : payload
-        };
-      }, {} as Partial<XEventsTypes>);
-    }
-
-    /**
-     * Returns if the filter is partially selected, which means having more than one child filter
-     * selected, but not every of them, or having at least one child filter partially selected.
-     *
-     * @returns True if the filter is partially selected. False otherwise.
-     * @internal
-     */
-    protected get isPartiallySelected(): boolean {
-      return this.isFilterPartiallySelected(this.filter);
-    }
-
-    /**
-     * List of filters to render, in case that the children's array
-     * is empty it will return an empty array instead of inject the ones from the parent.
-     *
-     * @returns A list of filters.
-     * @internal
-     */
-    protected get renderedChildrenFilters(): Filter[] {
-      return this.filter.children ?? [];
-    }
-
-    protected isFilterPartiallySelected(filter: HierarchicalFilterModel): boolean {
-      const selectedChildren = filter.children?.filter(filter => filter.selected);
-      const filterChildrenLength = filter.children?.length ?? 0;
-      return (
-        !!selectedChildren &&
-        ((selectedChildren.length > 0 && selectedChildren.length < filterChildrenLength) ||
-          // eslint-disable-next-line @typescript-eslint/unbound-method
-          selectedChildren.some(this.isFilterPartiallySelected))
-      );
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">

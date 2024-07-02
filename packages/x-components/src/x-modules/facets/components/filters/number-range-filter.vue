@@ -1,8 +1,8 @@
 <template>
   <RenderlessFilter
     v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
-    :class="cssClasses"
-    :clickEvents="_clickEvents"
+    :class="innerCssClasses"
+    :clickEvents="innerClickEvents"
     :filter="filter"
     class="x-number-range-filter"
   >
@@ -42,11 +42,9 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { computed, defineComponent, PropType } from 'vue';
   import { NumberRangeFilter as NumberRangeFilterModel } from '@empathyco/x-types';
-  import { xComponentMixin } from '../../../../components';
-  import { VueCSSClasses } from '../../../../utils/types';
+  import { Dictionary } from '@empathyco/x-utils';
   import { XEventsTypes } from '../../../../wiring/events.types';
   import { facetsXModule } from '../../x-module';
   import RenderlessFilter from './renderless-filter.vue';
@@ -56,48 +54,57 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'NumberRangeFilter',
+    xModule: facetsXModule.name,
     components: { RenderlessFilter },
-    mixins: [xComponentMixin(facetsXModule)]
-  })
-  export default class NumberRangeFilter extends Vue {
-    /** The filter data to render. */
-    @Prop({ required: true })
-    public filter!: NumberRangeFilterModel;
+    props: {
+      /** The filter data to render. */
+      filter: {
+        type: Object as PropType<NumberRangeFilterModel>,
+        required: true
+      },
+      /**
+       * Additional events, with their payload, to emit when the filter is clicked.
+       *
+       * @public
+       */
+      clickEvents: Object as PropType<Partial<XEventsTypes>>,
+      /** Inheritance CSS classes. */
+      cssClasses: {
+        type: Array as PropType<(string | Dictionary<boolean>)[]>,
+        default: () => []
+      }
+    },
+    setup: function (props: any) {
+      /**
+       * The {@link XEventsTypes} to emit.
+       *
+       * @returns The events to emit when clicked.
+       * @internal
+       */
+      const innerClickEvents = computed(() => ({
+        UserClickedANumberRangeFilter: props.filter,
+        ...props.clickEvents
+      }));
 
-    /**
-     * Additional events, with their payload, to emit when the filter is clicked.
-     *
-     * @public
-     */
-    @Prop()
-    public clickEvents?: Partial<XEventsTypes>;
+      /**
+       * Dynamic CSS classes to apply to the component.
+       *
+       * @returns The dynamic CSS classes to apply to the component.
+       * @internal
+       */
+      const innerCssClasses = computed(() => [
+        { 'x-number-range-filter--is-selected': props.filter.selected },
+        ...props.cssClasses
+      ]);
 
-    /**
-     * The {@link XEventsTypes} to emit.
-     *
-     * @returns The events to emit when clicked.
-     * @internal
-     */
-    protected get _clickEvents(): Partial<XEventsTypes> {
       return {
-        UserClickedANumberRangeFilter: this.filter,
-        ...this.clickEvents
+        innerClickEvents,
+        innerCssClasses
       };
     }
-
-    /**
-     * Dynamic CSS classes to apply to the component.
-     *
-     * @returns The dynamic CSS classes to apply to the component.
-     * @internal
-     */
-    protected get cssClasses(): VueCSSClasses {
-      return {
-        'x-number-range-filter--is-selected': this.filter.selected
-      };
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">
