@@ -1,19 +1,24 @@
-import { NumberRangeFilter as NumberRangeFilterModel } from '@empathyco/x-types';
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
+import { nextTick, ref } from 'vue';
 import { createNumberRangeFilter } from '../../../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
-import { XEventsTypes } from '../../../../../wiring/index';
 import NumberRangeFilter from '../number-range-filter.vue';
+import { XPlugin } from '../../../../../plugins/index';
 
-function renderNumberRangeFilter({
+const metadata = {
+  moduleName: 'facets',
+  location: 'none',
+  replaceable: true
+};
+
+function render({
   template = '<NumberRangeFilter :filter="filter" :clickEvents="clickEvents" />',
-  filter = createNumberRangeFilter('price', { min: 0, max: 20 }),
-  clickEvents
-}: NumberRangeFilterWrapperData = {}): NumberRangeFilterAPI {
-  Vue.observable(filter);
-  const emit = jest.fn();
+  filter = ref(createNumberRangeFilter('price', { min: 0, max: 20 })),
+  clickEvents = {}
+} = {}) {
+  installNewXPlugin();
+
   const wrapper = mount(
     {
       components: { NumberRangeFilter },
@@ -24,11 +29,6 @@ function renderNumberRangeFilter({
       propsData: {
         filter,
         clickEvents
-      },
-      mocks: {
-        $x: {
-          emit
-        }
       }
     }
   );
@@ -36,81 +36,70 @@ function renderNumberRangeFilter({
   const filterWrapper = wrapper.findComponent(NumberRangeFilter);
 
   return {
-    wrapper,
-    filterWrapper,
-    emit,
+    wrapper: filterWrapper,
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     filter,
-    clickFilter() {
-      wrapper.trigger('click');
-    },
-    selectFilter() {
-      filter.selected = true;
-      return Vue.nextTick();
+    clickFilter: () => wrapper.trigger('click'),
+    selectFilter: () => {
+      filter.value.selected = true;
+      return nextTick();
     }
   };
 }
 
 describe('testing NumberRangeFilter component', () => {
-  it('is an x-component', () => {
-    const { filterWrapper } = renderNumberRangeFilter();
+  it('is an XComponent that belongs to the facets', () => {
+    const { wrapper } = render();
 
-    expect(isXComponent(filterWrapper.vm)).toEqual(true);
-  });
-
-  it('belongs to the `facets` x-module', () => {
-    const { filterWrapper } = renderNumberRangeFilter();
-
-    expect(getXComponentXModuleName(filterWrapper.vm)).toEqual('facets');
+    expect(isXComponent(wrapper.vm)).toBeTruthy();
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('facets');
   });
 
   it('renders the provided filter by default', () => {
-    const { wrapper, filter } = renderNumberRangeFilter();
+    const { wrapper, filter } = render();
 
-    expect(wrapper.text()).toEqual(filter.label);
+    expect(wrapper.text()).toEqual(filter.value.label);
   });
 
-  it('emits `UserClickedAFilter` & `UserClickedANumberRangeFilter` events when clicked', () => {
-    const { wrapper, clickFilter, emit, filter } = renderNumberRangeFilter();
+  it('emits `UserClickedAFilter` & `UserClickedANumberRangeFilter` events when clicked', async () => {
+    const { clickFilter, emitSpy, filter } = render();
 
-    clickFilter();
+    await clickFilter();
 
-    expect(emit).toHaveBeenCalledTimes(2);
+    expect(emitSpy).toHaveBeenCalledTimes(2);
     ['UserClickedAFilter', 'UserClickedANumberRangeFilter'].forEach(event => {
-      expect(emit).toHaveBeenCalledWith(event, filter, { target: wrapper.element });
+      expect(emitSpy).toHaveBeenCalledWith(event, filter.value, metadata);
     });
   });
 
-  it('emits configured events when clicked', () => {
-    const { wrapper, clickFilter, emit, filter } = renderNumberRangeFilter({
+  it('emits configured events when clicked', async () => {
+    const { clickFilter, emitSpy, filter } = render({
       clickEvents: { UserAcceptedAQuery: 'potato' }
     });
 
-    clickFilter();
+    await clickFilter();
 
-    expect(emit).toHaveBeenCalledTimes(3);
+    expect(emitSpy).toHaveBeenCalledTimes(3);
     ['UserClickedAFilter', 'UserClickedANumberRangeFilter'].forEach(event => {
-      expect(emit).toHaveBeenCalledWith(event, filter, { target: wrapper.element });
+      expect(emitSpy).toHaveBeenCalledWith(event, filter.value, metadata);
     });
-    expect(emit).toHaveBeenNthCalledWith(3, 'UserAcceptedAQuery', 'potato', {
-      target: wrapper.element
-    });
+    expect(emitSpy).toHaveBeenNthCalledWith(3, 'UserAcceptedAQuery', 'potato', metadata);
   });
 
   it('allows customizing the rendered content with an slot', () => {
-    const { wrapper, filter } = renderNumberRangeFilter({
+    const { wrapper, filter } = render({
       template: `
-      <NumberRangeFilter :filter="filter" :clickEvents="clickEvents" v-slot="{ filter }">
-        <span data-test="custom-label">{{ filter.label }}</span>
-      </NumberRangeFilter>
-      `
+        <NumberRangeFilter :filter="filter" :clickEvents="clickEvents" v-slot="{ filter }">
+          <span data-test="custom-label">{{ filter.label }}</span>
+        </NumberRangeFilter>`
     });
 
     const customLabel = wrapper.find(getDataTestSelector('custom-label'));
-    expect(customLabel.text()).toEqual(filter.label);
+    expect(customLabel.text()).toEqual(filter.value.label);
   });
 
   it('adds selected classes to the rendered element when the filter is selected', async () => {
-    const { wrapper, selectFilter } = renderNumberRangeFilter();
+    const { wrapper, selectFilter } = render();
 
     expect(wrapper.classes()).not.toContain('x-selected');
     expect(wrapper.classes()).not.toContain('x-number-range-filter--is-selected');
@@ -121,18 +110,3 @@ describe('testing NumberRangeFilter component', () => {
     expect(wrapper.classes()).toContain('x-number-range-filter--is-selected');
   });
 });
-
-interface NumberRangeFilterWrapperData {
-  clickEvents?: Partial<XEventsTypes>;
-  filter?: NumberRangeFilterModel;
-  template?: string;
-}
-
-interface NumberRangeFilterAPI {
-  clickFilter: () => void;
-  emit: jest.Mock;
-  filter: NumberRangeFilterModel;
-  filterWrapper: Wrapper<Vue>;
-  selectFilter: () => Promise<void>;
-  wrapper: Wrapper<Vue>;
-}

@@ -10,6 +10,7 @@ import {
   TestCrossFade,
   TestElementsList,
   TestFacets,
+  TestFilters,
   TestFade,
   TestFadeAndSlide,
   TestScroll,
@@ -116,6 +117,11 @@ const routes = [
     path: '/facets',
     name: 'Facets',
     component: TestFacets
+  },
+  {
+    path: '/filters',
+    name: 'Filters',
+    component: TestFilters
   },
   {
     path: '/scroll',

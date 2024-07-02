@@ -1,26 +1,25 @@
 <template>
   <RenderlessFilter
-    v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
-    :class="cssClasses"
-    :clickEvents="_clickEvents"
+    v-slot="{ filter, clickFilter, isDisabled, cssClasses }"
     :filter="filter"
-    class="x-simple-filter"
+    :clickEvents="innerClickEvents"
+    :cssClasses="innerCssClasses"
   >
     <!--
       @slot The control element to render
       @binding {Filter} filter - The filter data
       @binding {() => void} clickFilter - Method that will invoke the needed actions after the user
       clicks the filter.
-      @binding {Object} cssClasses - Object containing CSS classes to add to the button
       @binding {Boolean} isDisabled - True if the filter shouldn't be able to be selected by the
       user
+      @binding {Object} cssClasses - Object containing CSS classes to add to the button
     -->
     <slot
       v-bind="{
         filter,
         clickFilter,
-        cssClasses,
-        isDisabled
+        isDisabled,
+        cssClasses
       }"
     >
       <button
@@ -43,10 +42,8 @@
 
 <script lang="ts">
   import { SimpleFilter as SimpleFilterModel } from '@empathyco/x-types';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { xComponentMixin } from '../../../../components';
-  import { VueCSSClasses } from '../../../../utils/types';
+  import { Dictionary } from '@empathyco/x-utils';
+  import { computed, defineComponent, PropType } from 'vue';
   import { XEventsTypes } from '../../../../wiring/events.types';
   import { facetsXModule } from '../../x-module';
   import RenderlessFilter from './renderless-filter.vue';
@@ -56,48 +53,44 @@
    *
    * @public
    */
-  @Component({
+  export default defineComponent({
+    name: 'SimpleFilter',
+    xModule: facetsXModule.name,
     components: { RenderlessFilter },
-    mixins: [xComponentMixin(facetsXModule)]
-  })
-  export default class SimpleFilter extends Vue {
-    /** The filter data to render. */
-    @Prop({ required: true })
-    public filter!: SimpleFilterModel;
+    props: {
+      /** The filter data to render. */
+      filter: {
+        type: Object as PropType<SimpleFilterModel>,
+        required: true
+      },
+      /** Additional events, with their payload, to emit when the filter is clicked. */
+      clickEvents: Object as PropType<Partial<XEventsTypes>>,
+      /** Inheritance CSS classes. */
+      cssClasses: {
+        type: Array as PropType<(string | Dictionary<boolean>)[]>,
+        default: () => []
+      }
+    },
+    setup(props) {
+      /** The {@link XEventsTypes} to emit. */
+      const innerClickEvents = computed(() => ({
+        UserClickedASimpleFilter: props.filter,
+        ...props.clickEvents
+      }));
 
-    /**
-     * Additional events, with their payload, to emit when the filter is clicked.
-     *
-     * @public
-     */
-    @Prop()
-    public clickEvents?: Partial<XEventsTypes>;
+      /** CSS classes to apply to the element. */
+      const innerCssClasses = computed(() => [
+        'x-simple-filter',
+        { 'x-simple-filter--is-selected': props.filter.selected },
+        ...props.cssClasses
+      ]);
 
-    /**
-     * The {@link XEventsTypes} to emit.
-     *
-     * @returns The events to emit when clicked.
-     * @internal
-     */
-    protected get _clickEvents(): Partial<XEventsTypes> {
       return {
-        UserClickedASimpleFilter: this.filter,
-        ...this.clickEvents
+        innerClickEvents,
+        innerCssClasses
       };
     }
-
-    /**
-     * Dynamic CSS classes to apply to the component.
-     *
-     * @returns The dynamic CSS classes to apply to the component.
-     * @internal
-     */
-    protected get cssClasses(): VueCSSClasses {
-      return {
-        'x-simple-filter--is-selected': this.filter.selected
-      };
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">

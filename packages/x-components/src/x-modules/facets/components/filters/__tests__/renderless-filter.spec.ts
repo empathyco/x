@@ -1,36 +1,34 @@
-import { BooleanFilter } from '@empathyco/x-types';
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
+import { nextTick, ref } from 'vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
-import { XEventsTypes } from '../../../../../wiring/events.types';
 import {
   createSimpleFilter,
   getSimpleFilterStub
 } from '../../../../../__stubs__/filters-stubs.factory';
-import { getDataTestSelector } from '../../../../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils';
 import RenderlessFilter from '../renderless-filter.vue';
+import { XPlugin } from '../../../../../plugins/x-plugin';
 
-function renderComponent({
-  filter = createSimpleFilter('category', 'food'),
-  clickEvents,
+function render({
+  filter = ref(createSimpleFilter('category', 'food')),
+  clickEvents = {},
   template = `
-        <RenderlessFilter
-        :filter="filter"
-        :clickEvents="clickEvents"
-        v-slot="{ filter, clickFilter, cssClasses, isDisabled }">
-          <button
-            @click="clickFilter"
-            :class="cssClasses"
-            :disabled="isDisabled"
-            data-test="custom-label"
-          >
-            {{ filter.label }}
-          </button>
-        </RenderlessFilter>
-      `
-}: RenderOptions = {}): RenderAPI {
-  Vue.observable(filter);
-  const emit = jest.fn();
+    <RenderlessFilter
+      :filter="filter"
+      :clickEvents="clickEvents"
+      v-slot="{ filter, clickFilter, cssClasses, isDisabled }">
+        <button
+          @click="clickFilter"
+          :class="cssClasses"
+          :disabled="isDisabled"
+          data-test="custom-label"
+        >
+          {{ filter.label }}
+        </button>
+    </RenderlessFilter>`
+} = {}) {
+  installNewXPlugin();
+
   const wrapper = mount(
     {
       components: { RenderlessFilter },
@@ -38,15 +36,7 @@ function renderComponent({
       template
     },
     {
-      propsData: {
-        filter,
-        clickEvents
-      },
-      mocks: {
-        $x: {
-          emit
-        }
-      }
+      propsData: { filter, clickEvents }
     }
   );
 
@@ -54,60 +44,52 @@ function renderComponent({
 
   return {
     wrapper: renderlessFilterWrapper,
-    emit,
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     filter,
-    clickFilter() {
-      renderlessFilterWrapper.trigger('click');
-    },
-    async selectFilter() {
-      filter.selected = true;
-      await Vue.nextTick();
+    clickFilter: () => renderlessFilterWrapper.trigger('click'),
+    selectFilter: async () => {
+      filter.value.selected = true;
+      await nextTick();
     }
   };
 }
 
 describe('testing Renderless Filter component', () => {
-  it('is an x-component', () => {
-    const { wrapper } = renderComponent();
+  it('is an XComponent that belongs to the facets', () => {
+    const { wrapper } = render();
 
-    expect(isXComponent(wrapper.vm)).toEqual(true);
-  });
-
-  it('belongs to the `facets` x-module', () => {
-    const { wrapper } = renderComponent();
-
+    expect(isXComponent(wrapper.vm)).toBeTruthy();
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('facets');
   });
 
-  it('emits UserClickedAFilter and other custom events when clicked', () => {
-    const filter = getSimpleFilterStub();
-    const { wrapper, clickFilter, emit } = renderComponent({
+  it('emits UserClickedAFilter and other custom events when clicked', async () => {
+    const filter = ref(getSimpleFilterStub());
+    const { clickFilter, emitSpy } = render({
       filter,
-      clickEvents: {
-        UserClickedASimpleFilter: filter
-      }
+      clickEvents: { UserClickedASimpleFilter: filter.value }
     });
+    const metadata = {
+      moduleName: 'facets',
+      location: 'none',
+      replaceable: true
+    };
 
-    clickFilter();
+    await clickFilter();
 
-    expect(emit).toHaveBeenCalledTimes(2);
-    expect(emit).toHaveBeenCalledWith('UserClickedAFilter', filter, {
-      target: wrapper.element
-    });
-    expect(emit).toHaveBeenCalledWith('UserClickedASimpleFilter', filter, {
-      target: wrapper.element
-    });
+    expect(emitSpy).toHaveBeenCalledTimes(2);
+    expect(emitSpy).toHaveBeenCalledWith('UserClickedAFilter', filter.value, metadata);
+    expect(emitSpy).toHaveBeenCalledWith('UserClickedASimpleFilter', filter.value, metadata);
   });
 
   it('allows customizing the rendered content with an slot', () => {
-    const { wrapper, filter } = renderComponent();
+    const { wrapper, filter } = render();
 
     const customLabel = wrapper.find(getDataTestSelector('custom-label'));
-    expect(customLabel.text()).toEqual(filter.label);
+    expect(customLabel.text()).toEqual(filter.value.label);
   });
 
   it('adds selected classes to the rendered element when the filter is selected', async () => {
-    const { wrapper, selectFilter } = renderComponent();
+    const { wrapper, selectFilter } = render();
 
     expect(wrapper.classes()).not.toContain('x-selected');
 
@@ -117,39 +99,14 @@ describe('testing Renderless Filter component', () => {
   });
 
   it('disables the filter when it has no results', async () => {
-    const filter = createSimpleFilter('category', 'men', false);
-    const { wrapper } = renderComponent({ filter });
+    const filter = ref(createSimpleFilter('category', 'men', false));
+    const { wrapper } = render({ filter });
 
     expect(wrapper.attributes('disabled')).toBeUndefined();
 
-    filter.totalResults = 0;
-    await wrapper.vm.$nextTick();
+    filter.value.totalResults = 0;
+    await nextTick();
 
-    expect(wrapper.attributes('disabled')).toBe('disabled');
+    expect(wrapper.attributes('disabled')).toEqual('disabled');
   });
 });
-
-interface RenderOptions {
-  /** The template containing the {@link RenderlessFilter} component to render. */
-  template?: string;
-  /** The filter data. Passed as prop to the {@link RenderlessFilter} component. */
-  filter?: BooleanFilter;
-  /**
-   * Additional events to emit when the filter is clicked.
-   * Passed as prop to the {@link RenderlessFilter} component.
-   */
-  clickEvents?: Partial<XEventsTypes>;
-}
-
-interface RenderAPI {
-  /** Wrapper of the {@link RenderlessFilter} component. */
-  wrapper: Wrapper<Vue>;
-  /** Mock of the {@link XBus.emit} function. */
-  emit: jest.Mock;
-  /** The rendered filter data. */
-  filter: BooleanFilter;
-  /** Fakes a click on the filter component. */
-  clickFilter: () => void;
-  /** Sets the {@link RenderAPI.filter} `selected` property to `true`. */
-  selectFilter: () => Promise<void>;
-}
