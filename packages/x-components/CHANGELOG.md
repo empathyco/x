@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.58](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.57...@empathyco/x-components@5.0.0-alpha.58) (2024-07-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* **simple-filter:** use cssClasses prop to pass classes through the component in Vue 3 instead of class or :class when using RenderlessFilter or SimpleFilter components
+
+### Features
+
+* **simple-filter:** migrate RenderlessFilter and SimpleFilter to composition API(#1529) ([8d3a2f2](https://github.com/empathyco/x/commit/8d3a2f23748eec700be10f83cad909b6fdf2aa9b))
+
+
+
 ## [5.0.0-alpha.57](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.56...@empathyco/x-components@5.0.0-alpha.57) (2024-07-01)
 
 
