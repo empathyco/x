@@ -1,6 +1,6 @@
 import { DeepPartial } from '@empathyco/x-utils';
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import Vue, { nextTick } from 'vue';
 import Vuex, { Store } from 'vuex';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -27,9 +27,9 @@ async function renderDeviceDetector({
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-
   XPlugin.resetInstance();
+
+  installNewXPlugin({ store }, localVue);
   XPlugin.registerXModule(deviceXModule);
 
   Object.assign(window, { innerWidth: initialWidth });
@@ -43,7 +43,7 @@ async function renderDeviceDetector({
     }
   });
 
-  await localVue.nextTick();
+  await nextTick();
 
   return {
     wrapper,
@@ -53,10 +53,10 @@ async function renderDeviceDetector({
     },
     waitForThrottle() {
       jest.advanceTimersByTime(throttleMs);
-      return localVue.nextTick();
+      return nextTick();
     },
     getDevice() {
-      return wrapper.vm.$x.device;
+      return XPlugin.store.state.x.device.name;
     }
   };
 }

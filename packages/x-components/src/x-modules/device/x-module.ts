@@ -1,4 +1,5 @@
 import { XModule } from '../x-modules.types';
+import { XPlugin } from '../../plugins/x-plugin';
 import { deviceEmitters } from './store/emitters';
 import { deviceXStoreModule } from './store/module';
 import { DeviceXStoreModule } from './store/types';
@@ -23,3 +24,5 @@ export const deviceXModule: DeviceXModule = {
   storeEmitters: deviceEmitters,
   wiring: deviceWiring
 };
+
+XPlugin.registerXModule(deviceXModule);

@@ -3,13 +3,11 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
+  import { computed, defineComponent, onMounted, PropType, Ref, ref, watch } from 'vue';
   import GlobalEvents from 'vue-global-events';
-  import { Component, Prop, Watch } from 'vue-property-decorator';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
-  import { XEmit } from '../../../components/decorators/bus.decorators';
   import { throttle } from '../../../utils/throttle';
   import { deviceXModule } from '../x-module';
+  import { useXBus } from '../../../composables/use-x-bus';
 
   /** Alias just to improve code readiness. */
   type Device = string;
@@ -23,121 +21,137 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(deviceXModule)],
-    components: {
-      GlobalEvents
-    }
-  })
-  export default class DeviceDetector extends Vue {
-    /**
-     * Record of the device name, that can be whatever you want `xs`, `mobile`, `big`... And
-     * the max width in pixels for that device.
-     *
-     * @public
-     */
-    @Prop({ default: () => ({}) })
-    public readonly breakpoints!: Record<Device, MaxWidth>;
+  export default defineComponent({
+    name: 'DeviceDetector',
+    xModule: deviceXModule.name,
+    components: { GlobalEvents },
+    props: {
+      /**
+       * Record of the device name, that can be whatever you want `xs`, `mobile`, `big`... And
+       * the max width in pixels for that device.
+       *
+       * @public
+       */
+      breakpoints: {
+        type: Object as PropType<Record<Device, MaxWidth>>,
+        default: () => ({})
+      },
+      /**
+       * Forces a device, ignoring the breakpoints prop.
+       *
+       * @public
+       */
+      force: String as PropType<Device>,
 
-    /**
-     * Forces a device, ignoring the {@link DeviceDetector.breakpoints} prop.
-     *
-     * @public
-     */
-    @Prop()
-    public readonly force?: Device;
-
-    /**
-     * Time in milliseconds to throttle the resize events used to detect the device.
-     *
-     * @public
-     */
-    @Prop({ default: 100 })
-    public readonly throttleMs!: number;
-
-    /**
-     * The width in pixels of the window where the app is being rendered.
-     *
-     * @internal
-     */
-    protected windowWidthPx: number | null = null;
-
-    /**
-     * Throttled version of {@link DeviceDetector.storeWindowWidth} function.
-     *
-     * @internal
-     */
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    protected throttledStoreWindowWidth = this.storeWindowWidth;
-
-    /**
-     * List of each of the entries of the breakpoints sorted from the smallest to the biggest
-     * max width.
-     *
-     * @returns A list of the breakpoints sorted by its max width in ascending order.
-     *
-     * @internal
-     */
-    protected get sortedBreakpoints(): [Device, MaxWidth][] {
-      return Object.entries(this.breakpoints).sort(([, aWidth], [, bWidth]) => aWidth - bWidth);
-    }
-
-    /**
-     * The device detected by this component, or the value provided in {@link DeviceDetector.force}
-     * prop.
-     *
-     * @returns The detected device, or the value provided in {@link DeviceDetector.force}
-     * prop.
-     *
-     * @internal
-     */
-    @XEmit('DeviceProvided')
-    public get detectedDevice(): string | null {
-      if (this.force) {
-        return this.force;
-      } else if (this.windowWidthPx === null) {
-        return null;
-      } else {
-        return (
-          this.sortedBreakpoints.find(([, width]) => this.windowWidthPx! <= width)?.[0] ?? null
-        );
+      /**
+       * Time in milliseconds to throttle the resize events used to detect the device.
+       *
+       * @public
+       */
+      throttleMs: {
+        type: Number,
+        default: 100
       }
-    }
+    },
+    setup(props) {
+      const xBus = useXBus();
 
-    /**
-     * Stores the window width in {@link DeviceDetector.windowWidthPx}.
-     *
-     * @internal
-     */
-    protected storeWindowWidth(): void {
-      this.windowWidthPx = window.innerWidth;
-    }
+      /**
+       * The width in pixels of the window where the app is being rendered.
+       *
+       * @internal
+       */
+      const windowWidthPx: Ref<number | null> = ref(null);
 
-    /**
-     * Updates {@link DeviceDetector.throttledStoreWindowWidth} with the throttle time at
-     * {@link DeviceDetector.throttleMs}.
-     *
-     * @param throttleMs - The new duration in milliseconds for the throttle.
-     *
-     * @internal
-     */
-    @Watch('throttleMs', { immediate: true })
-    protected updateThrottledStoreWindowWidth(throttleMs: number): void {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      this.throttledStoreWindowWidth = throttle(this.storeWindowWidth, throttleMs);
-    }
+      /**
+       * Stores the window width in {@link DeviceDetector.windowWidthPx}.
+       *
+       * @internal
+       */
+      const storeWindowWidth = (): void => {
+        windowWidthPx.value = window.innerWidth;
+      };
 
-    /**
-     * Initialises the store window width.
-     *
-     * @remarks This is done this way to ensure SSR compatibility.
-     *
-     * @internal
-     */
-    mounted(): void {
-      this.storeWindowWidth();
+      /**
+       * Throttled version of {@link DeviceDetector.storeWindowWidth} function.
+       *
+       * @internal
+       */
+      let throttledStoreWindowWidth = storeWindowWidth;
+
+      /**
+       * List of each of the entries of the breakpoints sorted from the smallest to the biggest
+       * max width.
+       *
+       * @returns A list of the breakpoints sorted by its max width in ascending order.
+       *
+       * @internal
+       */
+      const sortedBreakpoints = computed((): [Device, MaxWidth][] =>
+        Object.entries(props.breakpoints).sort(([, aWidth], [, bWidth]) => aWidth - bWidth)
+      );
+
+      /**
+       * The device detected by this component, or the value provided in {@link DeviceDetector.force}
+       * prop.
+       *
+       * @returns The detected device, or the value provided in {@link DeviceDetector.force}
+       * prop.
+       *
+       * @internal
+       */
+      const detectedDevice = computed((): string | null => {
+        if (props.force) {
+          return props.force;
+        } else if (windowWidthPx.value === null) {
+          return null;
+        } else {
+          return (
+            sortedBreakpoints.value.find(([, width]) => windowWidthPx.value! <= width)?.[0] ?? null
+          );
+        }
+      });
+
+      watch(
+        detectedDevice,
+        device => {
+          xBus.emit('DeviceProvided', device);
+        },
+        { immediate: true }
+      );
+
+      /**
+       * Updates {@link DeviceDetector.throttledStoreWindowWidth} with the throttle time at
+       * {@link DeviceDetector.throttleMs}.
+       *
+       * @param throttleMs - The new duration in milliseconds for the throttle.
+       *
+       * @internal
+       */
+      watch(
+        () => props.throttleMs,
+        throttleMs => {
+          throttledStoreWindowWidth = throttle(storeWindowWidth, throttleMs);
+        },
+        { immediate: true }
+      );
+
+      /**
+       * Initialises the store window width.
+       *
+       * @remarks This is done this way to ensure SSR compatibility.
+       *
+       * @internal
+       */
+      onMounted(() => {
+        storeWindowWidth();
+      });
+
+      return {
+        throttledStoreWindowWidth
+      };
     }
-  }
+  });
 </script>
 
 <docs lang="mdx">
