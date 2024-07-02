@@ -44,7 +44,8 @@ import {
   TestIdentifierResults,
   TestRedirection,
   TestExtraParams,
-  TestSearch
+  TestSearch,
+  TestRenderlessExtraParam
 } from './';
 
 const routes = [
@@ -272,6 +273,11 @@ const routes = [
     path: '/snippet-config-extraparams',
     name: 'SnippetConfigExtraparams',
     component: TestExtraParams
+  },
+  {
+    path: '/renderless-extra-param',
+    name: 'RenderlessExtraParam',
+    component: TestRenderlessExtraParam
   }
 ];
 
