@@ -22,7 +22,8 @@ import {
   scrollXModule,
   searchXModule,
   semanticQueriesXModule,
-  identifierResultsXModule
+  identifierResultsXModule,
+  experienceControlsXModule
 } from './';
 
 // Warnings that cannot be solved in Vue 2 (a.k.a. breaking  changes) are suppressed
@@ -97,6 +98,7 @@ new XInstaller({
     semanticQueries: semanticQueriesXModule,
     recommendations: recommendationsXModule,
     identifierResults: identifierResultsXModule,
-    popularSearches: popularSearchesXModule
+    popularSearches: popularSearchesXModule,
+    experienceControls: experienceControlsXModule
   }
 }).init();

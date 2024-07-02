@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { defineComponent, h } from 'vue';
+  import { defineComponent } from 'vue';
   import { XEvent, XEventsTypes } from '../../../wiring/events.types';
   import { experienceControlsXModule } from '../x-module';
   import { useXBus } from '../../../composables/use-x-bus';
@@ -29,9 +29,8 @@
 
       xBus.on('ExperienceControlsEventsChanged', false).subscribe(event => onEventsChanged(event));
 
-      return () => {
-        return h();
-      };
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      return () => {};
     }
   });
 </script>
