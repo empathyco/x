@@ -1,10 +1,8 @@
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
-  import { XOn } from '../../../components/decorators/bus.decorators';
+  import { defineComponent } from 'vue';
   import { XEvent, XEventsTypes } from '../../../wiring/events.types';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
   import { experienceControlsXModule } from '../x-module';
+  import { useXBus } from '../../../composables/use-x-bus';
 
   /**
    * This component subscribes to changes in the ExperienceControls module to fire the events that
@@ -12,25 +10,29 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(experienceControlsXModule)]
-  })
-  export default class ExperienceControls extends Vue {
-    /**.
-     * Iterates the list of XEvents received and emits them
-     *
-     * @param events - events to be emitted
-     */
-    @XOn('ExperienceControlsEventsChanged')
-    onEventsChanged(events: Partial<XEventsTypes>): void {
-      Object.entries(events).forEach(([eventName, eventPayload]) => {
-        this.$x.emit(eventName as XEvent, eventPayload);
-      });
-    }
+  export default defineComponent({
+    name: 'ExperienceControls',
+    xModule: experienceControlsXModule.name,
+    setup() {
+      const xBus = useXBus();
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    render(): void {}
-  }
+      /**
+       * Iterates the list of XEvents received and emits them.
+       *
+       * @param events - Events to be emitted.
+       */
+      function onEventsChanged(events: Partial<XEventsTypes>): void {
+        Object.entries(events).forEach(([eventName, eventPayload]) => {
+          xBus.emit(eventName as XEvent, eventPayload);
+        });
+      }
+
+      xBus.on('ExperienceControlsEventsChanged', false).subscribe(event => onEventsChanged(event));
+
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      return () => {};
+    }
+  });
 </script>
 
 <docs lang="mdx">
