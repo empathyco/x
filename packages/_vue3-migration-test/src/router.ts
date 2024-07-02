@@ -45,7 +45,8 @@ import {
   TestRedirection,
   TestExtraParams,
   TestSearch,
-  TestTagging
+  TestTagging,
+  TestRenderlessExtraParam
 } from './';
 
 const routes = [
@@ -278,6 +279,11 @@ const routes = [
     path: '/tagging',
     name: 'Tagging',
     component: TestTagging
+  },
+  {
+    path: '/renderless-extra-param',
+    name: 'RenderlessExtraParam',
+    component: TestRenderlessExtraParam
   }
 ];
 
