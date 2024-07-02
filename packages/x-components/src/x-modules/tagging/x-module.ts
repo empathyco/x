@@ -1,4 +1,5 @@
 import { XModule } from '../x-modules.types';
+import { XPlugin } from '../../plugins/x-plugin';
 import { taggingEmitters } from './store/emitters';
 import { taggingXStoreModule } from './store/module';
 import { TaggingXStoreModule } from './store/types';
@@ -23,3 +24,5 @@ export const taggingXModule: TaggingXModule = {
   storeEmitters: taggingEmitters,
   wiring: taggingWiring
 };
+
+XPlugin.registerXModule(taggingXModule);

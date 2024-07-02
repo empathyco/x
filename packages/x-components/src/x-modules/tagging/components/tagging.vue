@@ -1,12 +1,9 @@
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Inject, Prop } from 'vue-property-decorator';
-  import { XEmit } from '../../../components/decorators/bus.decorators';
-  import { xComponentMixin } from '../../../components/x-component.mixin';
+  import { computed, defineComponent, inject, onMounted, watch } from 'vue';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { taggingXModule } from '../x-module';
   import { TaggingConfig } from '../config.types';
-  /* eslint-disable max-len */
+  import { useXBus } from '../../../composables/use-x-bus';
   /**
    * This component enables and manages the sending of information to the
    * [Empathy Tagging API](https://docs.empathy.co/develop-empathy-platform/api-reference/tagging-api.html).
@@ -14,105 +11,97 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(taggingXModule)]
-  })
-  export default class Tagging extends Vue {
-    /**
-     * The TTL in milliseconds for storing the clicked result info.
-     *
-     * @public
-     */
-    @Prop({ default: 30000 })
-    public clickedResultStorageTTLMs!: number;
+  export default defineComponent({
+    name: 'Tagging',
+    xModule: taggingXModule.name,
+    props: {
+      /**
+       * The TTL in milliseconds for storing the clicked result info.
+       */
+      clickedResultStorageTTLMs: {
+        type: Number,
+        default: 30000
+      },
+      /**
+       * The Object key of the {@link @empathyco/x-types#Result} clicked by the user
+       * that will be used as id for the storage. By default, the Result url will be used.
+       */
+      clickedResultStorageKey: {
+        type: String,
+        default: 'url'
+      },
+      /**
+       * The session TTL in milliseconds.
+       */
+      sessionTTLMs: Number,
+      /**
+       * The debounce time in milliseconds to track the query.
+       */
+      queryTaggingDebounceMs: Number,
+      /**
+       * The consent to be emitted.
+       */
+      consent: Boolean
+    },
+    setup(props) {
+      const xBus = useXBus();
 
-    /**
-     * The Object key of the {@link @empathyco/x-types#Result} clicked by the user
-     * that will be used as id for the storage. By default, the Result url will be used.
-     *
-     * @public
-     */
-    @Prop({ default: 'url' })
-    public clickedResultStorageKey!: string;
+      /**
+       * It injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
+       */
+      const snippetConfig = inject<SnippetConfig | undefined>('snippetConfig');
 
-    /**
-     * It injects {@link SnippetConfig} provided by an ancestor as snippetConfig.
-     *
-     * @internal
-     */
-    @Inject('snippetConfig')
-    protected snippetConfig?: SnippetConfig;
+      /**
+       * The active consent, selected from the `consent` prop and the `snippetConfig.consent`
+       * property. False by default.
+       *
+       * @remarks If the consent is undefined in the prop and in the snippetConfig, it will return
+       * false.
+       *
+       * @returns A boolean that represents if the consent is accepted or not.
+       */
+      const activeConsent = computed(() => props.consent ?? snippetConfig?.consent ?? false);
 
-    /**
-     * The session TTL in milliseconds.
-     *
-     * @internal
-     */
-    @Prop()
-    public sessionTTLMs: number | undefined;
+      /**
+       * The tagging config to be emitted.
+       */
+      const taggingConfig = computed<TaggingConfig>(() => {
+        return {
+          queryTaggingDebounceMs: props.queryTaggingDebounceMs as number,
+          sessionTTLMs: props.sessionTTLMs as number,
+          clickedResultStorageTTLMs: props.clickedResultStorageTTLMs,
+          clickedResultStorageKey: props.clickedResultStorageKey
+        };
+      });
 
-    /**
-     * The debounce time in milliseconds to track the query.
-     *
-     * @internal
-     */
-    @Prop()
-    public queryTaggingDebounceMs: number | undefined;
+      /**
+       * Emits the {@link TaggingXEvents.PDPIsLoaded} XEvent if the snippet config contains
+       * a product id.
+       */
+      onMounted(() => {
+        if (snippetConfig?.productId) {
+          xBus.emit('PDPIsLoaded', snippetConfig.productId);
+        }
+      });
 
-    /**
-     * The consent to be emitted.
-     *
-     * @public
-     */
-    @Prop()
-    protected consent?: boolean;
+      /**
+       * Emmits the consent when it changes.
+       */
+      watch(activeConsent, () => xBus.emit('ConsentProvided', activeConsent.value), {
+        immediate: true
+      });
 
-    /**
-     * The active consent, selected from the `consent` prop and the `snippetConfig.consent`
-     * property. False by default.
-     *
-     * @remarks If the consent is undefined in the prop and in the snippetConfig, it will return
-     * false.
-     *
-     * @returns A boolean that represents if the consent is accepted or not.
-     */
-    @XEmit('ConsentProvided')
-    public get activeConsent(): boolean {
-      return this.consent ?? this.snippetConfig?.consent ?? false;
+      /**
+       * Emmits the tagging config when it changes.
+       */
+      watch(taggingConfig, () => xBus.emit('TaggingConfigProvided', taggingConfig.value), {
+        immediate: true
+      });
+
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      return () => {};
     }
-
-    @XEmit('TaggingConfigProvided')
-    public get config(): TaggingConfig {
-      return {
-        queryTaggingDebounceMs: this.queryTaggingDebounceMs as number,
-        sessionTTLMs: this.sessionTTLMs as number,
-        clickedResultStorageTTLMs: this.clickedResultStorageTTLMs,
-        clickedResultStorageKey: this.clickedResultStorageKey
-      };
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    render(): void {}
-
-    /**
-     * To emit the event that PDP is loaded  just when the snippet config includes a product id.
-     */
-    created(): void {
-      this.emitEvents();
-    }
-
-    /**
-     * Emits the {@link TaggingXEvents.PDPIsLoaded} XEvent if the snippet config contains
-     * a product id.
-     *
-     * @internal
-     */
-    protected emitEvents(): void {
-      if (this.snippetConfig?.productId) {
-        this.$x.emit('PDPIsLoaded', this.snippetConfig.productId);
-      }
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">
