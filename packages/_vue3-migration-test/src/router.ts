@@ -13,6 +13,7 @@ import {
   TestFilters,
   TestFade,
   TestFadeAndSlide,
+  TestStaggeredFadeAndSlide,
   TestScroll,
   TestSortDropdown,
   TestSortList,
@@ -87,6 +88,11 @@ const routes = [
     path: '/fade-and-slide',
     name: 'FadeAndSlide',
     component: TestFadeAndSlide
+  },
+  {
+    path: '/staggered-fade-and-slide',
+    name: 'StaggeredFadeAndSlide',
+    component: TestStaggeredFadeAndSlide
   },
   {
     path: '/base-dropdown',

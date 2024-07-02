@@ -19,6 +19,7 @@
       style="--x-size-min-width-grid-item: 150px"
       class="x-gap-12"
       :columns="4"
+      :animation="Vue3StaggeredFadeAndSlide"
     >
       <template #result="{ item: result }">
         <BaseResultLink :result="result">
@@ -38,6 +39,7 @@
   import ClearSearchInput from '../../../x-components/src/x-modules/search-box/components/clear-search-input.vue';
   import SearchButton from '../../../x-components/src/x-modules/search-box/components/search-button.vue';
   import { use$x } from '../../../x-components/src/composables/use-$x';
+  import Vue3StaggeredFadeAndSlide from '../../../x-components/src/components/animations/vue3-staggered-fade-and-slide.vue';
   // TODO `$x` name cannot be used while XPlugin defines its own `this.$x` in the mixin
   const _$x = use$x();
 </script>
