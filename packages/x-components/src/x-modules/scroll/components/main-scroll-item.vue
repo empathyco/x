@@ -107,6 +107,10 @@
         {
           if (rootRef.value !== null) {
             const htmlElement = isElementRef(rootRef.value) ? rootRef.value.$el : rootRef.value;
+            // eslint-disable-next-line no-console
+            console.log(isElementRef(rootRef.value));
+            // eslint-disable-next-line no-console
+            console.log(rootRef.value);
 
             oldObserver?.unobserve(htmlElement);
             newObserver?.observe(htmlElement);

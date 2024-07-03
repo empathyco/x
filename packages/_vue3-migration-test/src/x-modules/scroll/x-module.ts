@@ -4,7 +4,7 @@ import { ScrollXModule } from '../../../../x-components/src/x-modules/scroll/x-m
 export const scrollXModule: PrivateXModuleOptions<ScrollXModule> = {
   storeModule: {
     state: {
-      pendingScrollTo: 'item-10'
+      pendingScrollTo: 'item-15'
     }
   }
 };

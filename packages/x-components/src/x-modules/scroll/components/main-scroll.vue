@@ -1,16 +1,19 @@
-<template>
-  <NoElement ref="rootRef" :class="dynamicClasses">
-    <slot />
-  </NoElement>
-</template>
 <script lang="ts">
-  import { computed, defineComponent, onBeforeUnmount, onMounted, provide, ref, watch } from 'vue';
-  import { VueCSSClasses } from '../../../utils/types';
+  import {
+    computed,
+    defineComponent,
+    getCurrentInstance,
+    h,
+    onBeforeUnmount,
+    onMounted,
+    provide,
+    ref,
+    watch
+  } from 'vue';
   import { scrollXModule } from '../x-module';
   import { DISABLE_ANIMATIONS_KEY } from '../../../components/decorators/injection.consts';
   import { useState } from '../../../composables/use-state';
   import { useXBus } from '../../../composables/use-x-bus';
-  import { NoElement } from '../../../components/no-element';
   import { ScrollObserverKey } from './scroll.const';
   import { ScrollVisibilityObserver } from './scroll.types';
 
@@ -26,14 +29,11 @@
   export default defineComponent({
     name: 'MainScroll',
     xModule: scrollXModule.name,
-    components: { NoElement },
     props: {
       /**
        * If `true`, sets this scroll instance to the main of the application. Being the main
        * scroll implies that features like restoring the scroll when the query changes, or storing
        * the scroll position in the URL will be enabled for this container.
-       *
-       * @public
        */
       useWindow: {
         type: Boolean,
@@ -42,70 +42,40 @@
       /**
        * Timeout in milliseconds to abort trying to restore the scroll position to the target
        * element.
-       *
-       * @public
        */
       restoreScrollTimeoutMs: {
         type: Number,
         default: 5000
       },
-      /**
-       * Intersection percentage to consider an element visible.
-       *
-       * @public
-       */
+      /** Intersection percentage to consider an element visible. */
       threshold: {
         type: Number,
         default: 0.3
       },
-      /**
-       * Adjusts the size of the scroll container bounds.
-       *
-       * @public
-       */
+      /** Adjusts the size of the scroll container bounds. */
       margin: {
         type: String,
         default: '0px'
       }
     },
-    setup(props) {
+    setup(props, { slots }) {
       const xBus = useXBus();
 
-      /**
-       * The elements that are currently considered visible.
-       *
-       * @internal
-       */
+      /** The reference to the container element of the component. */
+      const containerRef = ref<Element>();
+      /** The elements that are currently considered visible. */
       const intersectingElements = ref<HTMLElement[]>([]);
-      /**
-       * The reference to the root element of the component.
-       *
-       * @internal
-       */
-      const rootRef = ref<typeof NoElement | null>(null);
 
-      /**
-       * Intersection observer to determine visibility of the elements.
-       *
-       * @returns An intersection observer to detect elements visibility.
-       * @internal
-       */
+      /** Intersection observer to determine visibility of the elements. */
       let intersectionObserver = ref<IntersectionObserver | null>(null);
 
       /**
        * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem} item
        * `id` property, this component should be scrolled into view.
-       *
-       * @internal
        */
       const { pendingScrollTo } = useState('scroll', ['pendingScrollTo']);
 
-      /**
-       * Disables the animations.
-       *
-       * @returns A boolean to disable the animations.
-       * @internal
-       */
+      /** Disables the animations. */
       const disableAnimations = computed((): boolean => !!pendingScrollTo.value);
       provide(DISABLE_ANIMATIONS_KEY as string, disableAnimations);
 
@@ -113,9 +83,8 @@
        * Removes an element from the {@link MainScroll.intersectingElements} list.
        *
        * @param element - The element to remove from the visible elements.
-       * @internal
        */
-      const removeVisibleElement = (element: HTMLElement): void => {
+      const removeVisibleElement = (element: HTMLElement) => {
         const index = intersectingElements.value.indexOf(element);
         if (index !== -1) {
           intersectingElements.value.splice(index, 1);
@@ -127,7 +96,6 @@
        * component should register themselves if they want to be observed.
        *
        * @returns The intersection observer.
-       * @public
        */
       const visibleElementsObserver = computed((): ScrollVisibilityObserver | null => {
         const observer = intersectionObserver.value;
@@ -147,9 +115,8 @@
        * Updates the visible elements given a list of intersection observer entries.
        *
        * @param entries - The entries from whom update the visibility.
-       * @internal
        */
-      const updateVisibleElements = (entries: IntersectionObserverEntry[]): void => {
+      const updateVisibleElements = (entries: IntersectionObserverEntry[]) => {
         entries.forEach(entry => {
           const target = entry.target as HTMLElement;
           if (entry.isIntersecting) {
@@ -160,55 +127,36 @@
         });
       };
 
-      /**
-       * Initialise the observer after mounting the component.
-       */
+      /** Initialise the observer after mounting the component. */
       onMounted(() => {
-        if (rootRef.value?.$el) {
+        containerRef.value = getCurrentInstance()?.proxy?.$el;
+        // eslint-disable-next-line no-console
+        console.log(containerRef.value);
+        if (containerRef.value) {
           intersectionObserver.value = new IntersectionObserver(updateVisibleElements, {
-            root: props.useWindow ? document : rootRef.value.$el,
+            root: props.useWindow ? document : containerRef.value,
             threshold: props.threshold,
             rootMargin: props.margin
           });
         }
       });
 
-      /**
-       * Disconnects the intersection observer.
-       *
-       * @internal
-       */
+      /** Disconnects the intersection observer. */
       onBeforeUnmount(() => {
         intersectionObserver.value?.disconnect();
         xBus.emit('UserScrolledToElement', '');
       });
 
-      /**
-       * Disconnects the previous observer.
-       *
-       * @param _new - The new `IntersectionObserver`.
-       * @param old - The new `IntersectionObserver`.
-       * @internal
-       */
-      watch(
-        intersectionObserver,
-        (_new: IntersectionObserver | null, old: IntersectionObserver | null) => {
-          old?.disconnect();
-        }
-      );
+      /** Disconnects the previous observer. */
+      watch(intersectionObserver, (_new, old) => old?.disconnect());
 
-      /**
-       * Stores the identifier of the timeout that will consider the scroll failed to restore.
-       *
-       * @internal
-       */
+      /** Stores the identifier of the timeout that will consider the scroll failed to restore. */
       let restoreScrollFailTimeoutId: number;
 
       /**
        * If there is a pending scroll, starts a countdown to stop trying to restore the scroll.
        *
        * @param pendingScrollTo - The position the scroll should be restored to.
-       * @internal
        */
       watch(pendingScrollTo, () => {
         // TODO Move this logic to the wiring. A cancelable delay operator is needed
@@ -221,25 +169,11 @@
       });
 
       /**
-       * Adds the dynamic css classes to the component.
-       *
-       * @returns The class to be added to the component.
-       *
-       * @internal
-       */
-      const dynamicClasses = computed((): VueCSSClasses => {
-        return {
-          'x-main-scroll--no-transition': !!pendingScrollTo.value
-        };
-      });
-
-      /**
        * The first visible element contained in this component.
        *
        * @returns The first visible element in this component.
-       * @internal
        */
-      const firstVisibleElement = computed((): string | '' => {
+      const firstVisibleElement = computed(() => {
         if (intersectingElements.value.length === 0) {
           return '';
         }
@@ -254,25 +188,22 @@
               : firstVisibleElement;
           }
         );
-        return firstVisibleElement ===
-          (rootRef.value?.$el as HTMLElement).querySelector('[data-scroll]')
+        return firstVisibleElement === containerRef.value?.querySelector('[data-scroll]')
           ? ''
           : firstVisibleElement.dataset.scroll!;
       });
+
       watch(
         firstVisibleElement,
-        () => {
-          xBus.emit('UserScrolledToElement', firstVisibleElement.value);
-        },
+        () => xBus.emit('UserScrolledToElement', firstVisibleElement.value),
         { immediate: true }
       );
 
-      return {
-        rootRef,
-        dynamicClasses,
-        firstVisibleElement,
-        visibleElementsObserver,
-        intersectingElements
+      return () => {
+        const a = slots.default?.()[0];
+        // eslint-disable-next-line no-console
+        console.log(a);
+        return a ?? h();
       };
     }
   });
