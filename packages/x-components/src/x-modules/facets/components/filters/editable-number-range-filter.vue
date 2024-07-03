@@ -246,9 +246,7 @@
        *
        * @internal
        */
-      const parseRangeValue = (value: number) => {
-        return isNaN(value) ? null : value;
-      };
+      const parseRangeValue = (value: number) => (isNaN(value) ? null : value);
 
       /**
        * `min` setter.
