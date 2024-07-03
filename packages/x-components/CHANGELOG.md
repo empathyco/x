@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.59...@empathyco/x-components@5.0.0-alpha.60) (2024-07-03)
+
+
+### Features
+
+* migrate device-detector component (#1544) ([4083571](https://github.com/empathyco/x/commit/4083571bd2fdfc268b529c4ea5a02acb81eecc32))
+
+
+
 ## [5.0.0-alpha.59](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.58...@empathyco/x-components@5.0.0-alpha.59) (2024-07-03)
 
 
