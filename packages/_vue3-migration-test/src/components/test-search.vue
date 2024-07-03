@@ -3,6 +3,7 @@
   <SearchInput />
   <ClearSearchInput />
   <SearchButton />
+  <FallbackDisclaimer #default="{ query }">No result for {{ query }}</FallbackDisclaimer>
   <!--  No Results Message  -->
   <div
     v-if="_$x.noResults && !_$x.fromNoResultsWithFilters"
@@ -37,6 +38,7 @@
   import BaseVariableColumnGrid from '../../../x-components/src/components/base-variable-column-grid.vue';
   import ClearSearchInput from '../../../x-components/src/x-modules/search-box/components/clear-search-input.vue';
   import SearchButton from '../../../x-components/src/x-modules/search-box/components/search-button.vue';
+  import FallbackDisclaimer from '../../../x-components/src/x-modules/search/components/fallback-disclaimer.vue';
   import { use$x } from '../../../x-components/src/composables/use-$x';
   // TODO `$x` name cannot be used while XPlugin defines its own `this.$x` in the mixin
   const _$x = use$x();
