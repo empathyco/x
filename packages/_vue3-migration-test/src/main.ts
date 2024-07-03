@@ -22,8 +22,7 @@ import {
   scrollXModule,
   searchXModule,
   semanticQueriesXModule,
-  identifierResultsXModule,
-  experienceControlsXModule
+  identifierResultsXModule
 } from './';
 
 // Warnings that cannot be solved in Vue 2 (a.k.a. breaking  changes) are suppressed
@@ -74,7 +73,25 @@ const adapter = {
   identifierResults: () =>
     new Promise(resolve =>
       resolve({ results: ['123A', '123B', '123C', '123D'].map(id => createResultStub(id)) })
-    )
+    ),
+  experienceControls: () => {
+    return new Promise(resolve =>
+      resolve({
+        controls: {
+          semanticQueries: {
+            numberOfCarousels: 2,
+            resultsPerCarousels: 2
+          }
+        },
+        events: {
+          SemanticQueriesConfigProvided: {
+            maxItemsToRequest: 'controls.semanticQueries.numberOfCarousels',
+            resultsPerCarousel: 'controls.semanticQueries.resultsPerCarousels'
+          }
+        }
+      })
+    );
+  }
 } as unknown as XComponentsAdapter;
 
 const store = createStore({});
@@ -98,7 +115,6 @@ new XInstaller({
     semanticQueries: semanticQueriesXModule,
     recommendations: recommendationsXModule,
     identifierResults: identifierResultsXModule,
-    popularSearches: popularSearchesXModule,
-    experienceControls: experienceControlsXModule
+    popularSearches: popularSearchesXModule
   }
 }).init();
