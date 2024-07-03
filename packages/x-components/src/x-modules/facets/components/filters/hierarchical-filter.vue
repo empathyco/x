@@ -2,10 +2,9 @@
   <div class="x-hierarchical-filter-container" data-test="hierarchical-filter-container">
     <RenderlessFilter
       v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
-      :class="innerCssClasses"
+      :cssClasses="innerCssClasses"
       :clickEvents="innerClickEvents"
       :filter="filter"
-      class="x-hierarchical-filter"
     >
       <!--
         @slot The content to render inside the button.
@@ -144,6 +143,7 @@
        * @internal
        */
       const innerCssClasses = computed(() => [
+        'x-hierarchical-filter',
         { 'x-hierarchical-filter--is-partially-selected': isPartiallySelected.value },
         { 'x-hierarchical-filter--is-selected': props.filter.selected },
         { 'x-facet-filter--is-partially-selected': isPartiallySelected.value },

@@ -1,10 +1,9 @@
 <template>
   <RenderlessFilter
     v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
-    :class="innerCssClasses"
+    :cssClasses="innerCssClasses"
     :clickEvents="innerClickEvents"
     :filter="filter"
-    class="x-number-range-filter"
   >
     <!--
       @slot The control element to render
@@ -95,6 +94,7 @@
        * @internal
        */
       const innerCssClasses = computed(() => [
+        'x-number-range-filter',
         { 'x-number-range-filter--is-selected': props.filter.selected },
         ...props.cssClasses
       ]);
