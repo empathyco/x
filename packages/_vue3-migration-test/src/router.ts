@@ -47,7 +47,8 @@ import {
   TestSearch,
   TestExperienceControls,
   TestTagging,
-  TestRenderlessExtraParam
+  TestRenderlessExtraParam,
+  TestIcons
 } from './';
 
 const routes = [
@@ -290,6 +291,11 @@ const routes = [
     path: '/renderless-extra-param',
     name: 'RenderlessExtraParam',
     component: TestRenderlessExtraParam
+  },
+  {
+    path: '/icons',
+    name: 'Icons',
+    component: TestIcons
   }
 ];
 

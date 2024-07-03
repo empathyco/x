@@ -1,10 +1,5 @@
-<template functional>
-  <svg
-    :class="['x-icon'].concat(data.staticClass, data.class)"
-    viewBox="0 0 8 8"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+<template>
+  <svg class="x-icon" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M4.729 4.87842L5.8543 5.99999L6.99995 4.87842"
       stroke="currentColor"
@@ -42,7 +37,3 @@
     />
   </svg>
 </template>
-
-<script lang="ts">
-  export default {};
-</script>
