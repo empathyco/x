@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.40](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.39...vue3-migration-test@1.0.0-alpha.40) (2024-07-03)
+
+
+### Features
+
+* **tagging:** migrate to composition API (#1543) ([f06e35d](https://github.com/empathyco/x/commit/f06e35d25fb561bca1b53f579ed7ace8674b9085))
+
+
+
 ## [1.0.0-alpha.39](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.38...vue3-migration-test@1.0.0-alpha.39) (2024-07-02)
 
 
