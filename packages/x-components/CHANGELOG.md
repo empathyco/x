@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.61](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.60...@empathyco/x-components@5.0.0-alpha.61) (2024-07-03)
+
+
+### Features
+
+* **fallback-disclaimer:** migration to composition api (#1545) ([6af6737](https://github.com/empathyco/x/commit/6af6737e854616567822e6ea5a09f093a7368960))
+
+
+
+## [5.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.59...@empathyco/x-components@5.0.0-alpha.60) (2024-07-03)
+
+
+### Features
+
+* migrate device-detector component (#1544) ([4083571](https://github.com/empathyco/x/commit/4083571bd2fdfc268b529c4ea5a02acb81eecc32))
+
+
+
+## [5.0.0-alpha.59](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.58...@empathyco/x-components@5.0.0-alpha.59) (2024-07-03)
+
+
+### Features
+
+* **tagging:** migrate to composition API (#1543) ([f06e35d](https://github.com/empathyco/x/commit/f06e35d25fb561bca1b53f579ed7ace8674b9085))
+
+
+
 ## [5.0.0-alpha.58](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.57...@empathyco/x-components@5.0.0-alpha.58) (2024-07-02)
 
 
