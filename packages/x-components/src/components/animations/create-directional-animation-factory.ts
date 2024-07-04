@@ -1,4 +1,14 @@
-import { DefineComponent, defineComponent, h } from 'vue';
+import { defineComponent, h } from 'vue';
+
+type AnimationOrigin =
+  | 'top'
+  | 'bottom'
+  | 'top-to-bottom'
+  | 'bottom-to-top'
+  | 'left'
+  | 'right'
+  | 'left-to-right'
+  | 'right-to-left';
 
 /**
  * Abstract Factory to create animations Factory. The returned animation factory uses the
@@ -6,20 +16,16 @@ import { DefineComponent, defineComponent, h } from 'vue';
  *
  * @param animationName - The name to use in the Transition Component of animation.
  * @returns The animation factory configured.
- *
- * @internal
  */
-export function createDirectionalAnimationFactory(
-  animationName: string
-): (animationOrigin?: AnimationOrigin) => DefineComponent<any> {
-  return (animationOrigin = 'top') =>
+export function createDirectionalAnimationFactory(animationName: string) {
+  return (animationOrigin: AnimationOrigin = 'top') =>
     defineComponent({
       name: `transition-${animationName}-${animationOrigin}`,
       inheritAttrs: false,
       setup(_, { attrs, listeners, slots }) {
         return () =>
           h(
-            'Transition',
+            'transition',
             {
               props: {
                 name: `x-${animationName}--${animationOrigin} x-${animationName}-`,
@@ -32,13 +38,3 @@ export function createDirectionalAnimationFactory(
       }
     });
 }
-
-export type AnimationOrigin =
-  | 'top'
-  | 'bottom'
-  | 'top-to-bottom'
-  | 'bottom-to-top'
-  | 'left'
-  | 'right'
-  | 'left-to-right'
-  | 'right-to-left';
