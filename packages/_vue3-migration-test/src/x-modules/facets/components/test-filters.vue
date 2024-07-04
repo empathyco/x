@@ -143,7 +143,8 @@
 </script>
 
 <style lang="scss">
-  .MOT-CUSTOM--SELECTED {
+  .MOT-CUSTOM--SELECTED,
+  .x-selected {
     background-color: greenyellow;
   }
 </style>

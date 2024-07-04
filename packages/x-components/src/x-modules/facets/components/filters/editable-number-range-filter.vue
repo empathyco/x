@@ -313,7 +313,7 @@
        * @internal
        */
       watch(
-        () => range.value,
+        range,
         () => {
           if (props.isInstant) {
             emitUserModifiedFilter();
