@@ -16,6 +16,8 @@ type AnimationOrigin =
  *
  * @param animationName - The name to use in the Transition Component of animation.
  * @returns The animation factory configured.
+ *
+ * @internal
  */
 export function createDirectionalAnimationFactory(animationName: string) {
   return (animationOrigin: AnimationOrigin = 'top') =>
