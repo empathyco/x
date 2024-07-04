@@ -1,5 +1,5 @@
 <template>
-  <MainScroll class="CLASS-TEST" data-custom="DATA-TEST">
+  <MainScroll class="CUSTOM-CLASS" data-custom="CUSTOM-DATA-ATTR">
     <ul class="list" data-test="scroll">
       <MainScrollItem v-for="item in items" :key="item.id" class="item" tag="article" :item="item">
         {{ item.id }}
@@ -21,14 +21,15 @@
   import MainScroll from '../../../../x-components/src/x-modules/scroll/components/main-scroll.vue';
   import MainScrollItem from '../../../../x-components/src/x-modules/scroll/components/main-scroll-item.vue';
 
-  const items = Array.from({ length: 24 }, (_, index) => ({ id: `item-${index}` }));
-
   const xBus = useXBus();
+
+  const items = Array.from({ length: 24 }, (_, index) => ({ id: `item-${index}` }));
   const events: XEvent[] = [
     'UserScrolledToElement',
     'ScrollRestoreSucceeded',
     'ScrollRestoreFailed'
   ];
+
   events.forEach(event => {
     // eslint-disable-next-line no-console
     xBus.on(event, true).subscribe(args => console.log(`${event} event ->`, args));

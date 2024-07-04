@@ -61,8 +61,8 @@
     setup(props, { slots }) {
       const xBus = useXBus();
 
-      /** The reference to the container element of the component. */
-      const containerRef = ref<Element>();
+      /** The reference to the root element of the component. */
+      const rootRef = ref<Element>();
       /** The elements that are currently considered visible. */
       const intersectingElements = ref<HTMLElement[]>([]);
 
@@ -127,14 +127,12 @@
         });
       };
 
-      /** Initialise the observer after mounting the component. */
+      /** Stores the root element and initialise the observer after mounting the component. */
       onMounted(() => {
-        containerRef.value = getCurrentInstance()?.proxy?.$el;
-        // eslint-disable-next-line no-console
-        console.log(containerRef.value);
-        if (containerRef.value) {
+        rootRef.value = getCurrentInstance()?.proxy?.$el;
+        if (rootRef.value) {
           intersectionObserver.value = new IntersectionObserver(updateVisibleElements, {
-            root: props.useWindow ? document : containerRef.value,
+            root: props.useWindow ? document : rootRef.value,
             threshold: props.threshold,
             rootMargin: props.margin
           });
@@ -188,7 +186,7 @@
               : firstVisibleElement;
           }
         );
-        return firstVisibleElement === containerRef.value?.querySelector('[data-scroll]')
+        return firstVisibleElement === rootRef.value?.querySelector('[data-scroll]')
           ? ''
           : firstVisibleElement.dataset.scroll!;
       });
@@ -199,12 +197,13 @@
         { immediate: true }
       );
 
-      return () => {
-        const a = slots.default?.()[0];
-        // eslint-disable-next-line no-console
-        console.log(a);
-        return a ?? h();
-      };
+      /*
+       * Obtains the vNodes array of the default slot and renders only the first one.
+       * It avoids to render a `Fragment` with the vNodes in Vue3 and the same behaviour in Vue2
+       * because Vue2 only allows a single root node. Then, `getCurrentInstance()?.proxy?.$el` to
+       * retrieve the HTML element in both versions.
+       */
+      return () => slots.default?.()[0] ?? h();
     }
   });
 </script>
