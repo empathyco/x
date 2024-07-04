@@ -1,4 +1,4 @@
-import Vue, { VueConstructor } from 'vue';
+import { DefineComponent, defineComponent, h } from 'vue';
 
 /**
  * Abstract Factory to create animations Factory. The returned animation factory uses the
@@ -11,26 +11,26 @@ import Vue, { VueConstructor } from 'vue';
  */
 export function createDirectionalAnimationFactory(
   animationName: string
-): (animationOrigin?: AnimationOrigin) => VueConstructor {
-  return (animationOrigin = 'top') => {
-    return Vue.extend({
+): (animationOrigin?: AnimationOrigin) => DefineComponent<any> {
+  return (animationOrigin = 'top') =>
+    defineComponent({
       name: `transition-${animationName}-${animationOrigin}`,
       inheritAttrs: false,
-      render(h) {
-        return h(
-          'transition',
-          {
-            props: {
-              name: `x-${animationName}--${animationOrigin} x-${animationName}-`,
-              ...this.$attrs
+      setup(_, { attrs, listeners, slots }) {
+        return () =>
+          h(
+            'Transition',
+            {
+              props: {
+                name: `x-${animationName}--${animationOrigin} x-${animationName}-`,
+                ...attrs
+              },
+              on: listeners
             },
-            on: this.$listeners
-          },
-          this.$slots.default
-        );
+            slots.default?.() ?? []
+          );
       }
     });
-  };
 }
 
 export type AnimationOrigin =

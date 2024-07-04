@@ -45,7 +45,8 @@ import {
   TestRedirection,
   TestExtraParams,
   TestSearch,
-  TestTagging
+  TestTagging,
+  TestAnimateClipPath
 } from './';
 
 const routes = [
@@ -278,6 +279,11 @@ const routes = [
     path: '/tagging',
     name: 'Tagging',
     component: TestTagging
+  },
+  {
+    path: '/animation-factory',
+    name: 'Animation Factory',
+    component: TestAnimateClipPath
   }
 ];
 
