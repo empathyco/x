@@ -1,115 +1,86 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue, { ref, nextTick, Ref } from 'vue';
-import { TaggingRequest } from '@empathyco/x-types';
+import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import { useEmitDisplayEvent } from '../../composables/use-on-display';
 import DisplayEmitter from '../display-emitter.vue';
 import { getDataTestSelector } from '../../__tests__/utils';
+import { getXComponentXModuleName, isXComponent } from '../x-component.utils';
 
 jest.mock('../../composables/use-on-display', () => ({
   useEmitDisplayEvent: jest.fn()
 }));
-
-let emitDisplayEventElementSpy: Ref<Vue | null> = ref(null);
-let emitDisplayEventPayloadSpy: TaggingRequest = { url: '', params: {} };
 const unwatchDisplaySpy = jest.fn();
-const refElementVisibility = ref(false);
-(useEmitDisplayEvent as jest.Mock).mockImplementation(({ element, taggingRequest }) => {
-  // jest doesn't handle well evaluation of dynamic references with `toHaveBeenCalledWith`
-  // so we need a spy
-  emitDisplayEventElementSpy = element;
-  emitDisplayEventPayloadSpy = taggingRequest;
+(useEmitDisplayEvent as jest.Mock).mockReturnValue({ unwatchDisplay: unwatchDisplaySpy });
+
+function render({
+  payload = { url: 'tagging/url', params: { test: 'param' } },
+  eventMetadata = { test: 'param' }
+} = {}) {
+  const wrapper = mount({
+    components: { DisplayEmitter },
+    template: `
+      <DisplayEmitter :payload="payload" :eventMetadata="eventMetadata">
+        <div data-test="child" />
+      </DisplayEmitter>`,
+    data: () => ({ payload, eventMetadata })
+  });
 
   return {
-    isElementVisible: refElementVisibility,
-    unwatchDisplay: unwatchDisplaySpy
-  };
-});
-
-/**
- * Renders the {@link DisplayEmitter} component, exposing a basic API for testing.
- *
- * @param options - The options to render the component with.
- *
- * @returns The API for testing the `DisplayEmitter` component.
- */
-function renderDisplayEmitter(
-  { payload }: RenderDisplayEmitterOptions = { payload: { url: '', params: {} } }
-): RenderDisplayEmitterAPI {
-  const wrapper = mount(
-    {
-      components: {
-        DisplayEmitter
-      },
-      template: `
-        <DisplayEmitter :payload="payload">
-          <div data-test="child" />
-        </DisplayEmitter>`,
-      props: ['payload']
-    },
-    {
-      propsData: {
-        payload
-      }
-    }
-  );
-
-  return {
-    wrapper
+    wrapper: wrapper.findComponent(DisplayEmitter),
+    element: wrapper.find(getDataTestSelector('child')).element,
+    payload,
+    eventMetadata
   };
 }
 
 describe('testing DisplayEmitter component', () => {
   beforeEach(() => {
-    refElementVisibility.value = false;
+    (useEmitDisplayEvent as jest.Mock).mockClear();
+    unwatchDisplaySpy.mockClear();
+  });
+
+  it('is an XComponent which has an XModule', () => {
+    const { wrapper } = render();
+
+    expect(isXComponent(wrapper.vm)).toBeTruthy();
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('tagging');
   });
 
   it('renders everything passed to its default slot', () => {
-    const { wrapper } = renderDisplayEmitter();
+    const { wrapper } = render();
 
-    expect(wrapper.find(getDataTestSelector('child')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('child')).exists()).toBeTruthy();
   });
 
-  it('uses `useEmitDisplayEvent` underneath', () => {
-    renderDisplayEmitter();
+  it('executes `useEmitDisplayEvent` composable underneath', () => {
+    render();
 
     expect(useEmitDisplayEvent).toHaveBeenCalled();
   });
 
   it('provides `useEmitDisplayEvent` with the element in the slot to watch', async () => {
-    renderDisplayEmitter();
+    const { element } = render();
 
     await nextTick();
 
-    expect(emitDisplayEventElementSpy.value).not.toBe(null);
-    expect(emitDisplayEventElementSpy.value?.$el.getAttribute('data-test')).toBe('child');
+    expect(useEmitDisplayEvent).toHaveBeenCalledWith(expect.objectContaining({ element }));
   });
 
-  // eslint-disable-next-line max-len
-  it('provides `useEmitDisplayEvent` with the payload to emit with the display event', () => {
-    const payload = { url: 'test-url', params: { test: 'param' } };
-    renderDisplayEmitter({
-      payload
-    });
+  it('provides `useEmitDisplayEvent` with the payload and metadata to emit with the display event', async () => {
+    const { payload, eventMetadata } = render();
 
-    expect(useEmitDisplayEvent).toHaveBeenCalled();
-    expect(emitDisplayEventPayloadSpy).toBe(payload);
+    await nextTick();
+
+    expect(useEmitDisplayEvent).toHaveBeenCalledWith(
+      expect.objectContaining({ taggingRequest: payload, eventMetadata })
+    );
   });
 
   it('removes the watcher on unmount', async () => {
-    const { wrapper } = renderDisplayEmitter();
+    const { wrapper } = render();
 
     wrapper.destroy();
     await nextTick();
+
     expect(unwatchDisplaySpy).toHaveBeenCalled();
   });
 });
-
-interface RenderDisplayEmitterOptions {
-  /** The payload to provide. */
-  payload?: TaggingRequest;
-}
-
-interface RenderDisplayEmitterAPI {
-  /** The wrapper testing component instance. */
-  wrapper: Wrapper<Vue>;
-}

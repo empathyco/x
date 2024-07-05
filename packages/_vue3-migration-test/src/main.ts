@@ -73,7 +73,8 @@ const adapter = {
   identifierResults: () =>
     new Promise(resolve =>
       resolve({ results: ['123A', '123B', '123C', '123D'].map(id => createResultStub(id)) })
-    )
+    ),
+  tagging: () => new Promise(resolve => resolve())
 } as unknown as XComponentsAdapter;
 
 const store = createStore({});
