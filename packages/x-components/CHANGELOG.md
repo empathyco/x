@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.63](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.62...@empathyco/x-components@5.0.0-alpha.63) (2024-07-08)
+
+
+### Features
+
+* migrate filters components to Composition API (#1550) ([dd6a2d7](https://github.com/empathyco/x/commit/dd6a2d728632e81c25cc918c1cac1aa10daab590))
+
+
+
 ## [5.0.0-alpha.62](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.61...@empathyco/x-components@5.0.0-alpha.62) (2024-07-08)
 
 

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.43](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.42...vue3-migration-test@1.0.0-alpha.43) (2024-07-08)
+
+
+### Features
+
+* migrate filters components to Composition API (#1550) ([dd6a2d7](https://github.com/empathyco/x/commit/dd6a2d728632e81c25cc918c1cac1aa10daab590))
+
+
+
 ## [1.0.0-alpha.42](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.41...vue3-migration-test@1.0.0-alpha.42) (2024-07-08)
 
 
