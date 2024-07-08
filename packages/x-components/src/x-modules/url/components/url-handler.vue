@@ -169,15 +169,16 @@
         historyMethod: History['pushState'] | History['replaceState']
       ): void => {
         if (urlLoaded.value) {
-          const url = new URL(window.location.href);
-          deleteUrlParameters(url);
-          setUrlParameters(url, newUrlParams);
+          const newUrl = new URL(window.location.href);
+          deleteUrlParameters(newUrl);
+          setUrlParameters(newUrl, newUrlParams);
 
-          url.href = url.href.replace(/\+/g, '%20');
+          newUrl.href = newUrl.href.replace(/\+/g, '%20');
 
-          if (url.href !== window.location.href) {
-            historyMethod({ ...window.history.state }, document.title, url.href);
+          if (newUrl.href !== window.location.href) {
+            historyMethod({ ...window.history.state }, document.title, newUrl.href);
           }
+          url.value = newUrl;
         }
       };
 
