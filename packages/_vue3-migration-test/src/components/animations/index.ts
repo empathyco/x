@@ -4,4 +4,4 @@ export { default as TestCollapseWidth } from './test-collapse-width.vue';
 export { default as TestCrossFade } from './test-cross-fade.vue';
 export { default as TestFade } from './test-fade.vue';
 export { default as TestFadeAndSlide } from './test-fade-and-slide.vue';
-export { default as TestAnimateClipPath } from './test-animate-clip-path.vue';
+export { default as TestAnimationFactory } from './test-animation-factory.vue';
