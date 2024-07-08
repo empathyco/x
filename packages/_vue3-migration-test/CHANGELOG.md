@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.42](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.41...vue3-migration-test@1.0.0-alpha.42) (2024-07-08)
+
+
+### Features
+
+* **renderless-extra-param:** migrate to composition API (#1546) ([3f111f9](https://github.com/empathyco/x/commit/3f111f98fdf0a4175dce0a5d8711bb8d4e4729df))
+
+
+
 ## [1.0.0-alpha.41](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.40...vue3-migration-test@1.0.0-alpha.41) (2024-07-03)
 
 
