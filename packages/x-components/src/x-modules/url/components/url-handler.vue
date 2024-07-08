@@ -286,32 +286,22 @@
        * @internal
        */
       const isNavigatingFromPdp = (): boolean => {
-        //const isPagePersisted = isPagePersisted.value;
+        const isPagePersistedValue = isPagePersisted.value;
         const navigationEntries = window.performance.getEntriesByType('navigation');
         const navigationType = (navigationEntries[0] as PerformanceNavigationTiming)?.type;
         const useFallbackStrategy =
-          window.performance.navigation &&
+          !navigationEntries.length &&
           (isArrayEmpty(navigationEntries) || navigationType === 'reload');
 
         // Reset internal isPagePersisted property value
         isPagePersisted.value = false;
 
         if (useFallbackStrategy) {
-          const {
-            type: fallbackNavigationType,
-            TYPE_BACK_FORWARD,
-            TYPE_NAVIGATE
-          } = window.performance.navigation;
-          const isNavigatingInSpa =
-            !!snippetConfig?.isSpa && fallbackNavigationType === TYPE_NAVIGATE;
-          return (
-            fallbackNavigationType === TYPE_BACK_FORWARD ||
-            isNavigatingInSpa ||
-            isPagePersisted.value
-          );
+          const isNavigatingInSpa = !!snippetConfig?.isSpa && navigationType === 'navigate';
+          return navigationType === 'back_forward' || isNavigatingInSpa || isPagePersistedValue;
         } else {
           const isNavigatingInSpa = !!snippetConfig?.isSpa && navigationType === 'navigate';
-          return navigationType === 'back_forward' || isNavigatingInSpa || isPagePersisted.value;
+          return navigationType === 'back_forward' || isNavigatingInSpa || isPagePersistedValue;
         }
       };
 
