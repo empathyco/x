@@ -38,6 +38,7 @@ Feature: Url component
 
   Scenario Outline: 4. Extra params are properly restored when navigating
     Given a URL with query parameter "lego"
+    And   a tracking API with a known response
     Then  search request contains extra parameter "store" with value "<defaultStore>"
     And   url doesn't contain parameter "store" with value "<defaultStore>"
     When  selecting store "<store2>"
