@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.64](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.63...@empathyco/x-components@5.0.0-alpha.64) (2024-07-09)
+
+
+### Bug Fixes
+
+* **main-scroll:** obtain observed container element reliably to work with any Vue version (#1552) ([0b4e415](https://github.com/empathyco/x/commit/0b4e41504409dd35a3da0fcf35fa471ea8350f6f))
+
+
+
 ## [5.0.0-alpha.63](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.62...@empathyco/x-components@5.0.0-alpha.63) (2024-07-08)
 
 
