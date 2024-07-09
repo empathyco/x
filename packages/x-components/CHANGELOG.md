@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.64](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.63...@empathyco/x-components@5.0.0-alpha.64) (2024-07-09)
+
+
+### Bug Fixes
+
+* **main-scroll:** obtain observed container element reliably to work with any Vue version (#1552) ([0b4e415](https://github.com/empathyco/x/commit/0b4e41504409dd35a3da0fcf35fa471ea8350f6f))
+
+
+
+## [5.0.0-alpha.63](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.62...@empathyco/x-components@5.0.0-alpha.63) (2024-07-08)
+
+
+### Features
+
+* migrate filters components to Composition API (#1550) ([dd6a2d7](https://github.com/empathyco/x/commit/dd6a2d728632e81c25cc918c1cac1aa10daab590))
+
+
+
+## [5.0.0-alpha.62](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.61...@empathyco/x-components@5.0.0-alpha.62) (2024-07-08)
+
+
+### Features
+
+* **renderless-extra-param:** migrate to composition API (#1546) ([3f111f9](https://github.com/empathyco/x/commit/3f111f98fdf0a4175dce0a5d8711bb8d4e4729df))
+
+
+
+## [5.0.0-alpha.61](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.60...@empathyco/x-components@5.0.0-alpha.61) (2024-07-03)
+
+
+### Features
+
+* **fallback-disclaimer:** migration to composition api (#1545) ([6af6737](https://github.com/empathyco/x/commit/6af6737e854616567822e6ea5a09f093a7368960))
+
+
+
+## [5.0.0-alpha.60](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.59...@empathyco/x-components@5.0.0-alpha.60) (2024-07-03)
+
+
+### Features
+
+* migrate device-detector component (#1544) ([4083571](https://github.com/empathyco/x/commit/4083571bd2fdfc268b529c4ea5a02acb81eecc32))
+
+
+
+## [5.0.0-alpha.59](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.58...@empathyco/x-components@5.0.0-alpha.59) (2024-07-03)
+
+
+### Features
+
+* **tagging:** migrate to composition API (#1543) ([f06e35d](https://github.com/empathyco/x/commit/f06e35d25fb561bca1b53f579ed7ace8674b9085))
+
+
+
 ## [5.0.0-alpha.58](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.57...@empathyco/x-components@5.0.0-alpha.58) (2024-07-02)
 
 

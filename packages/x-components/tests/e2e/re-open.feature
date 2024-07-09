@@ -2,6 +2,7 @@ Feature: Re-open search modal
 
   Scenario Outline:  1. Opens X Components modal after close it the first time
     Given a results API
+    And   a tracking API with a known response
     And   no special config for layout view
     And   start button is clicked
     When  "<query>" is searched

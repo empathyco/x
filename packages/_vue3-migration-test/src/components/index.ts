@@ -16,3 +16,5 @@ export { default as TestBaseEventsModal } from './modals/test-base-events-modal.
 export { default as TestBaseIdModal } from './modals/test-base-id-modal.vue';
 export { default as TestExtraParams } from './extra-params/test-extra-params.vue';
 export { default as TestSearch } from './test-search.vue';
+export { default as TestTagging } from './tagging/test-tagging.vue';
+export { default as TestRenderlessExtraParam } from './extra-params/test-renderless-extra-param.vue';
