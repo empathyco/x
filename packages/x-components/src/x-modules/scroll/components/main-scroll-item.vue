@@ -33,67 +33,35 @@
     name: 'MainScrollItem',
     xModule: scrollXModule.name,
     props: {
-      /**
-       * The item data. Used to set the scroll identifier.
-       *
-       * @public
-       */
+      /** The item data. Used to set the scroll identifier. */
       item: {
         type: Object as PropType<Identifiable>,
         required: true
       },
-      /**
-       * The tag to render.
-       *
-       * @public
-       */
+      /** The tag to render. */
       tag: {
         type: [String, Object] as PropType<string | typeof Vue>,
         default: 'div'
       }
     },
     setup(props) {
-      type ElementRef = {
-        $el: HTMLElement;
-      };
-
       const xBus = useXBus();
 
-      /**
-       * Rendered HTML node.
-       *
-       * @public
-       */
-      const rootRef = ref<ElementRef | HTMLElement | null>(null);
+      /** Rendered HTML node. */
+      const rootRef = ref<HTMLElement>();
 
       /**
        * Pending identifier scroll position to restore. If it matches the {@link MainScrollItem} item
        * `id` property, this component should be scrolled into view.
-       *
-       * @internal
        */
       const { pendingScrollTo } = useState('scroll', ['pendingScrollTo']);
 
-      /**
-       * Observer to detect the first visible element.
-       *
-       * @internal
-       */
+      /** Observer to detect the first visible element. */
       const firstVisibleItemObserver = inject<Ref<ScrollVisibilityObserver> | null>(
         ScrollObserverKey as string,
         null
       );
-      /**
-       * Checks if a given value is an `ElementRef` object.
-       *
-       * @param value - The value to check.
-       * @returns `true` if the value is an `ElementRef` object, `false` otherwise.
-       *
-       * @internal
-       */
-      const isElementRef = (value: any): value is ElementRef => {
-        return value && value.$el instanceof HTMLElement;
-      };
+
       /**
        * Initialises the element visibility observation, stopping the previous one if it has.
        *
@@ -105,14 +73,12 @@
         oldObserver: ScrollVisibilityObserver | null
       ): void => {
         {
-          if (rootRef.value !== null) {
-            const htmlElement = isElementRef(rootRef.value) ? rootRef.value.$el : rootRef.value;
-
-            oldObserver?.unobserve(htmlElement);
-            newObserver?.observe(htmlElement);
+          if (rootRef.value) {
+            oldObserver?.unobserve(rootRef.value);
+            newObserver?.observe(rootRef.value);
             if (pendingScrollTo.value === props.item.id) {
               Vue.nextTick(() => {
-                htmlElement.scrollIntoView({
+                rootRef.value!.scrollIntoView({
                   block: 'center'
                 });
               });
@@ -122,15 +88,10 @@
         }
       };
 
-      /**
-       * Detaches the observer from the rendered element to prevent memory leaks.
-       *
-       * @internal
-       */
+      /** Detaches the observer from the rendered element to prevent memory leaks. */
       onBeforeUnmount(() => {
-        if (rootRef.value !== null) {
-          const htmlElement = isElementRef(rootRef.value) ? rootRef.value.$el : rootRef.value;
-          firstVisibleItemObserver?.value.unobserve(htmlElement);
+        if (rootRef.value) {
+          firstVisibleItemObserver?.value.unobserve(rootRef.value);
         }
       });
 
@@ -139,8 +100,6 @@
        * - Observes the rendered element to detect if it is the first visible item.
        * - If the rendered element matches the {@link MainScrollItem.pendingScrollTo}, scrolls the
        * element into the first position of the view.
-       *
-       * @internal
        */
       onMounted(() => {
         nextTick(() => {
@@ -151,7 +110,7 @@
         });
       });
 
-      return { rootRef, firstVisibleItemObserver, observeItem, isElementRef };
+      return { rootRef };
     }
   });
 </script>

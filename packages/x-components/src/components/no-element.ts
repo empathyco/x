@@ -8,7 +8,8 @@ import { useNoElementRender } from '../composables/use-no-element-render';
  * @internal
  */
 export const NoElement = defineComponent({
-  setup(props, { slots }) {
+  name: 'NoElement',
+  setup(_, { slots }) {
     return () => useNoElementRender(slots);
   }
 });
