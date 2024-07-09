@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.65](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.64...@empathyco/x-components@5.0.0-alpha.65) (2024-07-09)
+
+
+### Features
+
+* migrate experience controls (#1530) ([91ee6d0](https://github.com/empathyco/x/commit/91ee6d0f171b870c42e6dcc95229a6be66b7067e))
+
+
+
 ## [5.0.0-alpha.64](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.63...@empathyco/x-components@5.0.0-alpha.64) (2024-07-09)
 
 
