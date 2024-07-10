@@ -45,9 +45,11 @@ import {
   TestRedirection,
   TestExtraParams,
   TestSearch,
+  TestExperienceControls,
   TestTagging,
   TestRenderlessExtraParam,
-  TestAnimationFactory
+  TestAnimationFactory,
+  TestIcons
 } from './';
 
 const routes = [
@@ -277,6 +279,11 @@ const routes = [
     component: TestExtraParams
   },
   {
+    path: '/experience-controls',
+    name: 'ExperienceControls',
+    component: TestExperienceControls
+  },
+  {
     path: '/tagging',
     name: 'Tagging',
     component: TestTagging
@@ -290,6 +297,11 @@ const routes = [
     path: '/animation-factory',
     name: 'AnimationFactory',
     component: TestAnimationFactory
+  },
+  {
+    path: '/icons',
+    name: 'Icons',
+    component: TestIcons
   }
 ];
 
