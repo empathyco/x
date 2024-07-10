@@ -28,8 +28,7 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import { animateScale } from '../../components/animations/animate-scale/animate-scale.factory';
   import BaseKeyboardNavigation from '../../components/base-keyboard-navigation.vue';
   import CrossTinyIcon from '../../components/icons/cross-tiny.vue';
@@ -45,8 +44,8 @@
   import NextQueries from '../../x-modules/next-queries/components/next-queries.vue';
   import PopularSearches from '../../x-modules/popular-searches/components/popular-searches.vue';
   import QuerySuggestions from '../../x-modules/query-suggestions/components/query-suggestions.vue';
-
-  @Component({
+  export default defineComponent({
+    name: 'PredictiveLayer',
     components: {
       BaseKeyboardNavigation,
       BaseResultLink,
@@ -59,12 +58,18 @@
       NextQueries,
       PopularSearches,
       QuerySuggestions
+    },
+    props: {
+      controls: {
+        type: Object,
+        required: true
+      }
+    },
+    setup() {
+      const empathizeAnimation = animateScale();
+      return {
+        empathizeAnimation
+      };
     }
-  })
-  export default class PredictiveLayer extends Vue {
-    @Prop()
-    protected controls!: any;
-
-    protected empathizeAnimation = animateScale();
-  }
+  });
 </script>

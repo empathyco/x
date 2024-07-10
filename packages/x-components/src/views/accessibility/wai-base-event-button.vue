@@ -74,8 +74,7 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import BaseEventsModal from '../../components/modals/base-events-modal.vue';
   import BaseEventsModalClose from '../../components/modals/base-events-modal-close.vue';
   import BaseEventsModalOpen from '../../components/modals/base-events-modal-open.vue';
@@ -97,17 +96,16 @@
   import Facets from '../../x-modules/facets/components/facets/facets.vue';
   import Scroll from '../../x-modules/scroll/components/scroll.vue';
 
-  @Component({
+  export default defineComponent({
+    name: 'AccessibilityCheck',
     components: {
-      FacetsProvider,
-      AllFilter,
-      BaseColumnPickerList,
       BaseEventsModal,
       BaseEventsModalClose,
       BaseEventsModalOpen,
       BaseIdTogglePanel,
       BaseIdTogglePanelButton,
       BaseResultAddToCart,
+      BaseColumnPickerList,
       ClearFilters,
       ClearHistoryQueries,
       Facets,
@@ -116,13 +114,17 @@
       ScrollToTop,
       Scroll,
       SearchInput,
-      SimpleFilter
+      SimpleFilter,
+      FacetsProvider,
+      AllFilter
+    },
+    setup() {
+      return {
+        facet: getSimpleFacetStub(),
+        panelId: 'aside-panel'
+      };
     }
-  })
-  export default class AccessibilityCheck extends Vue {
-    protected facet = getSimpleFacetStub();
-    protected panelId = 'aside-panel';
-  }
+  });
 </script>
 
 <style lang="scss" scoped>

@@ -35,8 +35,7 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import { Result } from '@empathyco/x-types';
   import BaseResultAddToCart from '../../components/result/base-result-add-to-cart.vue';
   import BaseResultImage from '../../components/result/base-result-image.vue';
@@ -44,20 +43,26 @@
   import BaseResultRating from '../../components/result/base-result-rating.vue';
   import CrossFade from '../../components/animations/cross-fade.vue';
 
-  @Component({
+  export default defineComponent({
+    name: 'Result',
     components: {
       BaseResultAddToCart,
       BaseResultLink,
       BaseResultRating,
       BaseResultImage
+    },
+    props: {
+      result: {
+        type: Object as () => Result,
+        required: true
+      }
+    },
+    data() {
+      return {
+        crossFade: CrossFade
+      };
     }
-  })
-  export default class ResultComponent extends Vue {
-    @Prop()
-    protected result!: Result;
-
-    protected crossFade = CrossFade;
-  }
+  });
 </script>
 
 <style scoped lang="scss"></style>
