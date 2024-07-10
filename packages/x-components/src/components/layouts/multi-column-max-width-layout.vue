@@ -92,7 +92,8 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  import Vue, { defineComponent } from 'vue';
   import Scroll from '../../x-modules/scroll/components/scroll.vue';
   import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
   import AnimateWidth from '../animations/animate-width.vue';
