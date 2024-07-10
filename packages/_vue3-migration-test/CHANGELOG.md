@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.46](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.45...vue3-migration-test@1.0.0-alpha.46) (2024-07-10)
+
+
+### Features
+
+* **icons:** migrate icons to composition API (#1551) ([243419f](https://github.com/empathyco/x/commit/243419f15b504cea6f8db3ef53899915a174a031))
+
+
+
 ## [1.0.0-alpha.45](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.44...vue3-migration-test@1.0.0-alpha.45) (2024-07-09)
 
 

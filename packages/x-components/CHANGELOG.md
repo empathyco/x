@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.66](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.65...@empathyco/x-components@5.0.0-alpha.66) (2024-07-10)
+
+
+### Features
+
+* **icons:** migrate icons to composition API (#1551) ([243419f](https://github.com/empathyco/x/commit/243419f15b504cea6f8db3ef53899915a174a031))
+
+
+
 ## [5.0.0-alpha.65](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.64...@empathyco/x-components@5.0.0-alpha.65) (2024-07-09)
 
 
