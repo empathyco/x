@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.47](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.46...vue3-migration-test@1.0.0-alpha.47) (2024-07-10)
+
+
+### Features
+
+* **create-animation:** migrate to composition API (#1553) ([1097c0d](https://github.com/empathyco/x/commit/1097c0d1b9dd63f9573812b9ddb41b790725b46e))
+
+
+
 ## [1.0.0-alpha.46](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.45...vue3-migration-test@1.0.0-alpha.46) (2024-07-10)
 
 

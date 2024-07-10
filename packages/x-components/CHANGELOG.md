@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.68](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.67...@empathyco/x-components@5.0.0-alpha.68) (2024-07-10)
+
+
+### Features
+
+* **create-animation:** migrate to composition API (#1553) ([1097c0d](https://github.com/empathyco/x/commit/1097c0d1b9dd63f9573812b9ddb41b790725b46e))
+
+
+
 ## [5.0.0-alpha.67](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.66...@empathyco/x-components@5.0.0-alpha.67) (2024-07-10)
 
 
