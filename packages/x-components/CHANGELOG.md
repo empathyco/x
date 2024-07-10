@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.67](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.66...@empathyco/x-components@5.0.0-alpha.67) (2024-07-10)
+
+
+### Features
+
+* migrate url-handler x-module (#1556) ([9445758](https://github.com/empathyco/x/commit/94457580884be4b03ec72fa18231350bdf3f115a))
+
+
+
 ## [5.0.0-alpha.66](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.65...@empathyco/x-components@5.0.0-alpha.66) (2024-07-10)
 
 
