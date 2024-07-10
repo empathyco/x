@@ -64,7 +64,12 @@
        * @returns A new {@link WireMetadata} object.
        */
       const createEventMetadata = (): Partial<WireMetadata> => {
-        return { target: scrollRef.value as HTMLElement, id: props.id };
+        return {
+          target: isElementRef(scrollRef.value)
+            ? scrollRef.value.$el
+            : (scrollRef.value as HTMLElement),
+          id: props.id
+        };
       };
 
       /**

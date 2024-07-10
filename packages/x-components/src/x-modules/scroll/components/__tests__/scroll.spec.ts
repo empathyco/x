@@ -1,4 +1,5 @@
 import { mount, Wrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { scrollXModule } from '../../x-module';
@@ -41,7 +42,7 @@ async function renderScroll({
 
   /* Because the scroll mixins uses a $nextTick in the mounted hook, we have to add a wait here
   so it has really finish mounting */
-  await wrapper.vm.$nextTick();
+  await nextTick();
 
   return {
     wrapper,
@@ -50,7 +51,7 @@ async function renderScroll({
       scrollElement.scrollTop = to;
       wrapper.trigger('scroll');
       jest.advanceTimersByTime(durationMs);
-      await wrapper.vm.$nextTick();
+      await nextTick();
     }
   };
 }
