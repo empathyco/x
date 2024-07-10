@@ -38,7 +38,7 @@
     setup: function (props, { attrs }) {
       const $x = use$x();
 
-      const initialExtraParams: Dictionary<unknown> = useState('url', ['initialExtraParams']);
+      const initialExtraParams = useState('url', ['initialExtraParams']).initialExtraParams;
 
       /**
        * The {@link SnippetConfig} provided by an ancestor.
@@ -268,7 +268,7 @@
             }
             return params;
           },
-          { all: { ...initialUrlState }, extra: { ...initialExtraParams } }
+          { all: { ...initialUrlState }, extra: { ...initialExtraParams.value } }
         );
       };
 
