@@ -17,7 +17,7 @@ import {
   TestSortDropdown,
   TestSortList,
   TestSortPickerList,
-  TestBaseScroll,
+  TestMainScroll,
   TestBaseModal,
   TestSearchBox,
   TestBaseVariableColumnGrid,
@@ -131,9 +131,9 @@ const routes = [
     component: TestScroll
   },
   {
-    path: '/base-scroll',
-    name: 'BaseScroll',
-    component: TestBaseScroll
+    path: '/main-scroll',
+    name: 'MainScroll',
+    component: TestMainScroll
   },
   {
     path: '/sort-dropdown',
