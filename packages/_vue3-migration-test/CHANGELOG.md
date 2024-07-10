@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.45](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.44...vue3-migration-test@1.0.0-alpha.45) (2024-07-09)
+
+
+### Features
+
+* migrate experience controls (#1530) ([91ee6d0](https://github.com/empathyco/x/commit/91ee6d0f171b870c42e6dcc95229a6be66b7067e))
+
+
+
+## [1.0.0-alpha.44](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.43...vue3-migration-test@1.0.0-alpha.44) (2024-07-09)
+
+
+### Bug Fixes
+
+* **main-scroll:** obtain observed container element reliably to work with any Vue version (#1552) ([0b4e415](https://github.com/empathyco/x/commit/0b4e41504409dd35a3da0fcf35fa471ea8350f6f))
+
+
+
 ## [1.0.0-alpha.43](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.42...vue3-migration-test@1.0.0-alpha.43) (2024-07-08)
 
 
