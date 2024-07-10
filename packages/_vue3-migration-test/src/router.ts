@@ -45,7 +45,10 @@ import {
   TestRedirection,
   TestExtraParams,
   TestSearch,
+  TestExperienceControls,
   TestTagging,
+  TestRenderlessExtraParam,
+  TestIcons,
   TestDisplayEmitter
 } from './';
 
@@ -276,9 +279,24 @@ const routes = [
     component: TestExtraParams
   },
   {
+    path: '/experience-controls',
+    name: 'ExperienceControls',
+    component: TestExperienceControls
+  },
+  {
     path: '/tagging',
     name: 'Tagging',
     component: TestTagging
+  },
+  {
+    path: '/renderless-extra-param',
+    name: 'RenderlessExtraParam',
+    component: TestRenderlessExtraParam
+  },
+  {
+    path: '/icons',
+    name: 'Icons',
+    component: TestIcons
   },
   {
     path: '/display-emitter',

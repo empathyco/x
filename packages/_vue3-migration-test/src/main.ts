@@ -74,6 +74,24 @@ const adapter = {
     new Promise(resolve =>
       resolve({ results: ['123A', '123B', '123C', '123D'].map(id => createResultStub(id)) })
     ),
+  experienceControls: () => {
+    return new Promise(resolve =>
+      resolve({
+        controls: {
+          semanticQueries: {
+            numberOfCarousels: 2,
+            resultsPerCarousels: 2
+          }
+        },
+        events: {
+          SemanticQueriesConfigProvided: {
+            maxItemsToRequest: 'controls.semanticQueries.numberOfCarousels',
+            resultsPerCarousel: 'controls.semanticQueries.resultsPerCarousels'
+          }
+        }
+      })
+    );
+  },
   tagging: () => new Promise(resolve => resolve())
 } as unknown as XComponentsAdapter;
 

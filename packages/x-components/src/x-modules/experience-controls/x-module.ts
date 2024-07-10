@@ -1,4 +1,5 @@
 import { XModule } from '../x-modules.types';
+import { XPlugin } from '../../plugins/index';
 import { experienceControlsEmitters } from './store/emitters';
 import { experienceControlsXStoreModule } from './store/module';
 import { ExperienceControlsXStoreModule } from './store/types';
@@ -23,3 +24,5 @@ export const experienceControlsXModule: ExperienceControlsXModule = {
   storeEmitters: experienceControlsEmitters,
   wiring: experienceControlsWiring
 };
+
+XPlugin.registerXModule(experienceControlsXModule);

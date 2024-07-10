@@ -3,6 +3,51 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.46](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.45...vue3-migration-test@1.0.0-alpha.46) (2024-07-10)
+
+
+### Features
+
+* **icons:** migrate icons to composition API (#1551) ([243419f](https://github.com/empathyco/x/commit/243419f15b504cea6f8db3ef53899915a174a031))
+
+
+
+## [1.0.0-alpha.45](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.44...vue3-migration-test@1.0.0-alpha.45) (2024-07-09)
+
+
+### Features
+
+* migrate experience controls (#1530) ([91ee6d0](https://github.com/empathyco/x/commit/91ee6d0f171b870c42e6dcc95229a6be66b7067e))
+
+
+
+## [1.0.0-alpha.44](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.43...vue3-migration-test@1.0.0-alpha.44) (2024-07-09)
+
+
+### Bug Fixes
+
+* **main-scroll:** obtain observed container element reliably to work with any Vue version (#1552) ([0b4e415](https://github.com/empathyco/x/commit/0b4e41504409dd35a3da0fcf35fa471ea8350f6f))
+
+
+
+## [1.0.0-alpha.43](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.42...vue3-migration-test@1.0.0-alpha.43) (2024-07-08)
+
+
+### Features
+
+* migrate filters components to Composition API (#1550) ([dd6a2d7](https://github.com/empathyco/x/commit/dd6a2d728632e81c25cc918c1cac1aa10daab590))
+
+
+
+## [1.0.0-alpha.42](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.41...vue3-migration-test@1.0.0-alpha.42) (2024-07-08)
+
+
+### Features
+
+* **renderless-extra-param:** migrate to composition API (#1546) ([3f111f9](https://github.com/empathyco/x/commit/3f111f98fdf0a4175dce0a5d8711bb8d4e4729df))
+
+
+
 ## [1.0.0-alpha.41](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.40...vue3-migration-test@1.0.0-alpha.41) (2024-07-03)
 
 

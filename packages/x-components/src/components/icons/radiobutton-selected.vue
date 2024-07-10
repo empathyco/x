@@ -1,10 +1,5 @@
-<template functional>
-  <svg
-    :class="['x-icon'].concat(data.staticClass, data.class)"
-    viewBox="0 0 8 8"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+<template>
+  <svg class="x-icon" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_478_269)">
       <circle cx="4" cy="4" r="3" stroke="currentColor" stroke-width="0.4" />
       <circle cx="4.00005" cy="4.00005" r="2.2" fill="currentColor" />
@@ -16,7 +11,3 @@
     </defs>
   </svg>
 </template>
-
-<script lang="ts">
-  export default {};
-</script>
