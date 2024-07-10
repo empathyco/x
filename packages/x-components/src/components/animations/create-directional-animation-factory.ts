@@ -1,6 +1,6 @@
 import { defineComponent, h } from 'vue';
 
-type AnimationOrigin =
+export type AnimationOrigin =
   | 'top'
   | 'bottom'
   | 'top-to-bottom'

@@ -21,6 +21,15 @@
         https://v3-migration.vuejs.org/breaking-changes/transition.html
       </a>
     </p>
+    <p>
+      BREAKING Vue3: VNodes now have a flat props structure.
+      <br />
+      <a
+        href="https://v3-migration.vuejs.org/breaking-changes/render-function-api.html#vnode-props-format"
+      >
+        https://v3-migration.vuejs.org/breaking-changes/render-function-api.html#vnode-props-format
+      </a>
+    </p>
     <button @click="openWithClipPath">Open modal with CLIP PATH animation</button>
     <button @click="openWithScale">Open modal with SCALE animation</button>
     <button @click="openWithTranslate">Open modal with TRANSLATE animation</button>
