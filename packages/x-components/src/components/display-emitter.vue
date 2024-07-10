@@ -11,12 +11,10 @@
   import { TaggingRequest } from '@empathyco/x-types';
   import { useEmitDisplayEvent } from '../composables/use-on-display';
   import { WireMetadata } from '../wiring';
-  import { taggingXModule } from '../x-modules/tagging/x-module';
 
   /** A component that emits a display event when it first appears in the viewport. */
   export default defineComponent({
     name: 'DisplayEmitter',
-    xModule: taggingXModule.name,
     props: {
       /** The payload for the display event emit. */
       payload: {
