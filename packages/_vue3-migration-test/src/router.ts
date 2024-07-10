@@ -48,6 +48,7 @@ import {
   TestExperienceControls,
   TestTagging,
   TestRenderlessExtraParam,
+  TestAnimationFactory,
   TestIcons
 } from './';
 
@@ -291,6 +292,11 @@ const routes = [
     path: '/renderless-extra-param',
     name: 'RenderlessExtraParam',
     component: TestRenderlessExtraParam
+  },
+  {
+    path: '/animation-factory',
+    name: 'AnimationFactory',
+    component: TestAnimationFactory
   },
   {
     path: '/icons',
