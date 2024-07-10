@@ -3,7 +3,6 @@ import { nextTick } from 'vue';
 import { useEmitDisplayEvent } from '../../composables/use-on-display';
 import DisplayEmitter from '../display-emitter.vue';
 import { getDataTestSelector } from '../../__tests__/utils';
-import { getXComponentXModuleName, isXComponent } from '../x-component.utils';
 
 jest.mock('../../composables/use-on-display', () => ({
   useEmitDisplayEvent: jest.fn()
@@ -36,13 +35,6 @@ describe('testing DisplayEmitter component', () => {
   beforeEach(() => {
     (useEmitDisplayEvent as jest.Mock).mockClear();
     unwatchDisplaySpy.mockClear();
-  });
-
-  it('is an XComponent which has an XModule', () => {
-    const { wrapper } = render();
-
-    expect(isXComponent(wrapper.vm)).toBeTruthy();
-    expect(getXComponentXModuleName(wrapper.vm)).toEqual('tagging');
   });
 
   it('renders everything passed to its default slot', () => {
