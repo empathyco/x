@@ -3,6 +3,7 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { scrollXModule } from '../../x-module';
 import Scroll from '../scroll.vue';
+import { XPlugin } from '../../../../plugins/index';
 
 async function renderScroll({
   template = '<Scroll :throttleMs="throttleMs" :id="id"/>',
@@ -74,13 +75,13 @@ describe('testing Scroll Component', () => {
   });
 
   it('throttles the scroll event', async () => {
-    const { wrapper, scroll, scrollElement } = await renderScroll({
+    const { scroll, scrollElement } = await renderScroll({
       throttleMs: 200,
       id: 'main-scroll'
     });
 
     const listenerScrolled = jest.fn();
-    wrapper.vm.$x.on('UserScrolled', true).subscribe(listenerScrolled);
+    XPlugin.bus.on('UserScrolled', true).subscribe(listenerScrolled);
     expect(listenerScrolled).not.toHaveBeenCalled();
 
     await scroll({
@@ -112,13 +113,13 @@ describe('testing Scroll Component', () => {
 
   // eslint-disable-next-line max-len
   it('emits the `UserChangedScrollDirection` event when the user changes scrolling direction', async () => {
-    const { wrapper, scroll, scrollElement } = await renderScroll({
+    const { scroll, scrollElement } = await renderScroll({
       throttleMs: 200,
       id: 'main-scroll'
     });
 
     const listenerChangeDirection = jest.fn();
-    wrapper.vm.$x.on('UserChangedScrollDirection', true).subscribe(listenerChangeDirection);
+    XPlugin.bus.on('UserChangedScrollDirection', true).subscribe(listenerChangeDirection);
     expect(listenerChangeDirection).toHaveBeenCalledTimes(0);
 
     await scroll({
@@ -161,13 +162,13 @@ describe('testing Scroll Component', () => {
   });
 
   it('emits the `UserReachedScrollStart` event when the user scrolls back to the top', async () => {
-    const { wrapper, scroll, scrollElement } = await renderScroll({
+    const { scroll, scrollElement } = await renderScroll({
       throttleMs: 200,
       id: 'main-scroll'
     });
 
     const listenerScrollStart = jest.fn();
-    wrapper.vm.$x.on('UserReachedScrollStart', true).subscribe(listenerScrollStart);
+    XPlugin.bus.on('UserReachedScrollStart', true).subscribe(listenerScrollStart);
     expect(listenerScrollStart).toHaveBeenCalledTimes(0);
 
     await scroll({
@@ -201,7 +202,7 @@ describe('testing Scroll Component', () => {
 
   // eslint-disable-next-line max-len
   it('emits `UserAlmostReachedScrollEnd` and`UserReachedScrollEnd` when the user scrolls to the bottom', async () => {
-    const { wrapper, scroll, scrollElement } = await renderScroll({
+    const { scroll, scrollElement } = await renderScroll({
       throttleMs: 200,
       id: 'main-scroll',
       scrollHeight: 800,
@@ -210,9 +211,9 @@ describe('testing Scroll Component', () => {
     });
 
     const listenerAlmostReachedScrollEnd = jest.fn();
-    wrapper.vm.$x.on('UserAlmostReachedScrollEnd', true).subscribe(listenerAlmostReachedScrollEnd);
+    XPlugin.bus.on('UserAlmostReachedScrollEnd', true).subscribe(listenerAlmostReachedScrollEnd);
     const listenerReachedScrollEnd = jest.fn();
-    wrapper.vm.$x.on('UserReachedScrollEnd', true).subscribe(listenerReachedScrollEnd);
+    XPlugin.bus.on('UserReachedScrollEnd', true).subscribe(listenerReachedScrollEnd);
 
     await scroll({
       to: 501,
