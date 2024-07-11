@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.70](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.69...@empathyco/x-components@5.0.0-alpha.70) (2024-07-11)
+
+
+### Features
+
+* migrate internal view components (#1563) ([df0d026](https://github.com/empathyco/x/commit/df0d02634d1193f35918a5c8fd6913faa65c9ab7))
+
+
+
 ## [5.0.0-alpha.69](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.68...@empathyco/x-components@5.0.0-alpha.69) (2024-07-11)
 
 
