@@ -27,7 +27,7 @@
       }
     },
     setup(props, { slots }) {
-      let unwatchDisplay: WatchStopHandle;
+      let unwatchDisplay: WatchStopHandle | undefined;
 
       onMounted(() => {
         const element = getCurrentInstance()?.proxy.$el as HTMLElement | undefined;
@@ -41,7 +41,7 @@
       });
 
       onUnmounted(() => {
-        unwatchDisplay();
+        unwatchDisplay?.();
       });
 
       /*
