@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
+  import { ComponentPublicInstance, defineComponent, ref } from 'vue';
   import { WireMetadata } from '../../../wiring/wiring.types';
   import BaseScroll from '../../../components/scroll/base-scroll.vue';
   import { ScrollDirection } from '../../../components/scroll/scroll.types';
@@ -45,17 +45,9 @@
       }
     },
     setup(props) {
-      type ElementRef = {
-        $el: HTMLElement;
-      };
-
       const $x = use$x();
 
-      const isElementRef = (value: any): value is ElementRef => {
-        return value && value.$el instanceof HTMLElement;
-      };
-
-      const scrollRef = ref<HTMLElement | ElementRef>();
+      const scrollRef = ref<ComponentPublicInstance>();
 
       /**
        * Creates a {@link WireMetadata} metadata object for all the emitted events.
@@ -65,9 +57,7 @@
        */
       const createEventMetadata = (): Partial<WireMetadata> => {
         return {
-          target: isElementRef(scrollRef.value)
-            ? scrollRef.value.$el
-            : (scrollRef.value as HTMLElement),
+          target: scrollRef.value?.$el as HTMLElement,
           id: props.id
         };
       };
@@ -130,10 +120,7 @@
        */
       $x.on('UserClickedScrollToTop', false).subscribe((scrollId: string) => {
         if (scrollId === props.id && scrollRef.value) {
-          (isElementRef(scrollRef.value)
-            ? scrollRef.value.$el
-            : (scrollRef.value as Element)
-          ).scrollTo({ top: 0, behavior: 'smooth' });
+          scrollRef.value.$el.scrollTo({ top: 0, behavior: 'smooth' });
         }
       });
 
