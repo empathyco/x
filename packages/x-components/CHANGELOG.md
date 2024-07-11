@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.69](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.68...@empathyco/x-components@5.0.0-alpha.69) (2024-07-11)
+
+
+### Features
+
+* migrate Scroll and ScrolToTop componentes (#1562) ([c8182f4](https://github.com/empathyco/x/commit/c8182f4a4435e1e62e7eaee518fb6325fe01bf7e))
+
+
+
 ## [5.0.0-alpha.68](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.67...@empathyco/x-components@5.0.0-alpha.68) (2024-07-10)
 
 
