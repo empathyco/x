@@ -28,6 +28,7 @@
   import BaseResultPreviousPrice from '../../components/result/base-result-previous-price.vue';
 
   export default defineComponent({
+    name: 'AccessibilityCheck',
     components: {
       BaseResultCurrentPrice,
       BaseResultPreviousPrice,

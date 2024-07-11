@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, PropType } from 'vue';
   import { Result } from '@empathyco/x-types';
   import BaseResultAddToCart from '../../components/result/base-result-add-to-cart.vue';
   import BaseResultImage from '../../components/result/base-result-image.vue';
@@ -53,7 +53,7 @@
     },
     props: {
       result: {
-        type: Object as () => Result,
+        type: Object as PropType<Result>,
         required: true
       }
     },
