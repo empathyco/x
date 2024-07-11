@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import vue from '@vitejs/plugin-vue2';
+import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
 import Inspector from 'vite-plugin-vue-inspector';
 
@@ -11,17 +11,10 @@ export const vueDocsPlugin = {
 };
 
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueDocsPlugin,
-    Inspector({
-      vue: 2
-    })
-  ],
+  plugins: [vue(), vueDocsPlugin, Inspector()],
   resolve: {
     alias: {
-      vue: resolve(__dirname, 'node_modules/vue'),
-      'vue-runtime-helpers': 'node_modules/vue-runtime-helpers'
+      vue: resolve(__dirname, 'node_modules/vue')
     }
   },
   server: {

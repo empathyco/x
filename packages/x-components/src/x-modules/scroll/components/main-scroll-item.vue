@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
   import { Identifiable } from '@empathyco/x-types';
-  import Vue, {
+  import {
     defineComponent,
     inject,
     nextTick,
@@ -15,7 +15,7 @@
     ref,
     watch,
     Ref,
-    WatchCallback
+    WatchCallback,
   } from 'vue';
   import { scrollXModule } from '../x-module';
   import { useState } from '../../../composables/use-state';
@@ -77,7 +77,7 @@
             oldObserver?.unobserve(rootRef.value);
             newObserver?.observe(rootRef.value);
             if (pendingScrollTo.value === props.item.id) {
-              Vue.nextTick(() => {
+              nextTick(() => {
                 rootRef.value!.scrollIntoView({
                   block: 'center'
                 });

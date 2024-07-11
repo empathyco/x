@@ -1,9 +1,7 @@
-import Vue from 'vue';
-import VueRouter, { RouteConfig } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
-Vue.use(VueRouter);
 
-const routes: RouteConfig[] = [
+const routes = [
   {
     path: '/',
     name: 'Home',
@@ -18,11 +16,11 @@ const routes: RouteConfig[] = [
 
 if (process.env.NODE_ENV !== 'production') {
   routes.push(
-    {
-      path: '/xds',
-      name: 'XDS',
-      component: () => import('@empathyco/x-tailwindcss/showcase').then(m => m.XdsShowcase)
-    },
+  //   {
+  //     path: '/xds',
+  //     name: 'XDS',
+  //     component: () => import('@empathyco/x-tailwindcss/showcase').then(m => m.XdsShowcase)
+  //   },
     {
       path: '/result-app',
       name: 'result-app',
@@ -53,8 +51,8 @@ if (process.env.NODE_ENV !== 'production') {
   );
 }
 
-const router = new VueRouter({
-  mode: 'history',
+const router = createRouter({
+  history: createWebHistory(),
   routes
 });
 

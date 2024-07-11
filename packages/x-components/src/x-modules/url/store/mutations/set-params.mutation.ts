@@ -1,5 +1,4 @@
 import { forEach } from '@empathyco/x-utils';
-import Vue from 'vue';
 import { UrlXStoreModule } from '../types';
 
 /**
@@ -14,6 +13,6 @@ import { UrlXStoreModule } from '../types';
  */
 export const setParams: UrlXStoreModule['mutations']['setParams'] = (state, params) => {
   forEach(params, (key, value) => {
-    Vue.set(state, key, value);
+    state[key] = value;
   });
 };

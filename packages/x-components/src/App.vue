@@ -2,16 +2,18 @@
   <div class="app">
     <nav>
       <!-- Intentionally using an `a` element instead of `router-link` to perform a full refresh -->
-      <a v-for="route in $router.options.routes" :key="route.name" class="link" :href="route.path">
+      <a v-for="route in $router?.options.routes" :key="route.name" class="link" :href="route.path">
         {{ route.name }}
       </a>
     </nav>
-    <router-view />
+    <RouterView />
   </div>
 </template>
 
-<script>
-  export default {};
+<script setup>
+  import { useRouter } from 'vue-router';
+  const $router = useRouter();
+  console.log($router);
 </script>
 
 <style lang="scss">

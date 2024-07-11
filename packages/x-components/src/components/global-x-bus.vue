@@ -13,14 +13,16 @@
    */
   export default defineComponent({
     name: 'GlobalXBus',
-    setup(_, { listeners, slots }) {
+    inheritAttrs: false,
+    setup(_, { attrs, slots }) {
       const xBus = useXBus();
 
       /**
        * Handles a subscription to all the events provided in the listeners with the function that
        * will execute the callback.
        */
-      Object.entries(listeners as XEventListeners).forEach(([eventName, callback]) => {
+      console.log(attrs);
+      Object.entries(attrs.listeners as XEventListeners).forEach(([eventName, callback]) => {
         xBus.on(eventName as XEvent, true).subscribe(({ eventPayload, metadata }) => {
           callback(eventPayload as never, metadata);
         });

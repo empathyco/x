@@ -1,8 +1,9 @@
-import { ComponentOptions, PluginObject, VueConstructor } from 'vue';
+import { ComponentOptions, Plugin, VueConstructor } from 'vue';
 import { XBus } from '@empathyco/x-bus';
 import { XPluginOptions } from '../../plugins/x-plugin.types';
 import { NormalisedSnippetConfig, XAPI } from '../api/api.types';
 import { WireMetadata, XEventsTypes } from '../../wiring/index';
+
 
 /**
  * Interface for the parameter of the constructor of {@link XInstaller} function. It is an extended
@@ -35,7 +36,7 @@ export interface InstallXOptions<API extends XAPI = XAPI> extends XPluginOptions
    * The XPlugin which will be installed. If not passed, an instance of {@link XPlugin} will be
    * installed.
    */
-  plugin?: PluginObject<XPluginOptions>;
+  plugin?: Plugin<XPluginOptions>;
   /**
    * The Vue instance used to install the plugin and to create the Application. If not
    * passed the default Vue instance is used. This can be useful to use the `localVue`
@@ -114,5 +115,5 @@ export interface InitWrapper {
   /** The {@link @empathyco/x-bus#XBus} used in the {@link XPlugin}. */
   bus: XBus<XEventsTypes, WireMetadata>;
   /** The installed {@link XPlugin} instance. */
-  plugin: PluginObject<XPluginOptions>;
+  plugin: Plugin<XPluginOptions>;
 }

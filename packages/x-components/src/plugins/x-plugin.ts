@@ -1,7 +1,7 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { forEach, Dictionary } from '@empathyco/x-utils';
 import { PluginObject, VueConstructor } from 'vue';
-import Vuex, { Module, Store } from 'vuex';
+import Vuex, { createStore, Module, Store } from 'vuex';
 import { XComponentsAdapter } from '@empathyco/x-types';
 import { EventPayload, SubjectPayload, XBus } from '@empathyco/x-bus';
 import { Observable } from 'rxjs';
@@ -360,12 +360,12 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     // will simply ignore it
     this.store =
       this.options.store ??
-      new Store({
+      createStore({
         strict: process.env.NODE_ENV !== 'production'
       });
-    if (!this.options.store) {
-      this.vue.prototype.$store = this.store;
-    }
+    // if (!this.options.store) {
+    //   this.vue.prototype.$store = this.store;
+    // }
     this.store.registerModule('x', RootXStoreModule);
   }
 

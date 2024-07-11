@@ -9,7 +9,7 @@ import { SingleSelectModifier } from './x-modules/facets/entities/single-select.
 import { StickyModifier } from './x-modules/facets/entities/sticky.modifier';
 import './tailwind/index.css';
 
-Vue.config.productionTip = false;
+// Vue.config.productionTip = false;
 FilterEntityFactory.instance.registerModifierByFacetId('age_facet', SingleSelectModifier);
 FilterEntityFactory.instance.registerModifierByFacetId(
   'brand_facet',
@@ -35,7 +35,9 @@ const installer = new XInstaller({
 if (window.initX) {
   installer.init();
 } else {
-  installer.init(baseSnippetConfig);
+  installer.init(baseSnippetConfig).then(({ app }) => {
+    app.use(router);
+  });
 }
 
 /**
@@ -43,7 +45,7 @@ if (window.initX) {
  *
  * @param app - The root Vue instance of the application.
  */
-function initDevtools(app: Vue): void {
+function initDevtools(app: any): void {
   if (process.env.NODE_ENV !== 'production') {
     setupDevtools(app);
   }
