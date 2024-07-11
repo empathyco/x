@@ -18,18 +18,12 @@
     name: 'ExcludeFiltersWithNoResults',
     xModule: facetsXModule.name,
     props: {
-      /**
-       * The list of filters to be rendered as slots.
-       *
-       * @public
-       */
+      /** The list of filters to be rendered as slots. */
       filters: Array as PropType<Filter[]>,
 
       /**
        * This prop is used in the `HierarchicalFilter` component and only in that case. It is necessary
        * to make the `renderedFilters` to return only the filters of each level of the hierarchy.
-       *
-       * @public
        */
       parentId: {
         type: String as PropType<Filter['id']>
@@ -42,16 +36,15 @@
        * Removes the filters that have exactly 0 results associated.
        *
        * @returns A sublist of the filters prop, excluding the ones with no results.
-       * @internal
        */
-      const filtersWithResults = computed((): Filter[] => {
-        return renderedFilters.value.filter(
+      const filtersWithResults = computed(() =>
+        renderedFilters.value.filter(
           filter => !isBooleanFilter(filter) || filter.totalResults !== 0
-        );
-      });
+        )
+      );
       provide('filters', filtersWithResults);
 
-      return () => (slots.default ? slots.default({ filters: filtersWithResults.value }) : h());
+      return () => slots.default?.({ filters: filtersWithResults.value }) ?? h();
     }
   });
 </script>

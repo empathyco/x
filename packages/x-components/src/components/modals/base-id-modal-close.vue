@@ -21,7 +21,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { NoElement } from '../no-element';
-  import { use$x } from '../../composables/index';
+  import { use$x } from '../../composables/use-$x';
 
   /**
    * Component that allows to close a modal by emitting

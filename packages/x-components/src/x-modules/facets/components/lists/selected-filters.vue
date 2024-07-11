@@ -1,12 +1,6 @@
-<template>
-  <NoElement v-if="isVisible" class="x-selected-filters">
-    <slot v-bind="{ selectedFilters }">{{ selectedFilters.length }}</slot>
-  </NoElement>
-</template>
-
 <script lang="ts">
   import { Facet } from '@empathyco/x-types';
-  import { defineComponent, PropType } from 'vue';
+  import { defineComponent, h, PropType } from 'vue';
   import { NoElement } from '../../../../components/no-element';
   import { useFacets } from '../../composables/use-facets';
   import { facetsXModule } from '../../x-module';
@@ -30,13 +24,14 @@
       /** Flag to render the component even if there are no filters selected. */
       alwaysVisible: Boolean
     },
-    setup: function (props) {
+    setup: function (props, { slots }) {
       const { selectedFilters, isVisible } = useFacets(props);
 
-      return {
-        selectedFilters,
-        isVisible
-      };
+      return () =>
+        isVisible.value
+          ? slots.default?.({ selectedFilters: selectedFilters.value })[0] ??
+            h('span', `${selectedFilters.value.length}`)
+          : h();
     }
   });
 </script>
