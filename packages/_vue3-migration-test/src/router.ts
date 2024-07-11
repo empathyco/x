@@ -17,7 +17,7 @@ import {
   TestSortDropdown,
   TestSortList,
   TestSortPickerList,
-  TestBaseScroll,
+  TestMainScroll,
   TestBaseModal,
   TestSearchBox,
   TestBaseVariableColumnGrid,
@@ -48,6 +48,7 @@ import {
   TestExperienceControls,
   TestTagging,
   TestRenderlessExtraParam,
+  TestAnimationFactory,
   TestIcons,
   TestDisplayEmitter
 } from './';
@@ -134,9 +135,9 @@ const routes = [
     component: TestScroll
   },
   {
-    path: '/base-scroll',
-    name: 'BaseScroll',
-    component: TestBaseScroll
+    path: '/main-scroll',
+    name: 'MainScroll',
+    component: TestMainScroll
   },
   {
     path: '/sort-dropdown',
@@ -292,6 +293,11 @@ const routes = [
     path: '/renderless-extra-param',
     name: 'RenderlessExtraParam',
     component: TestRenderlessExtraParam
+  },
+  {
+    path: '/animation-factory',
+    name: 'AnimationFactory',
+    component: TestAnimationFactory
   },
   {
     path: '/icons',

@@ -1,4 +1,5 @@
 import { XModule } from '../x-modules.types';
+import { XPlugin } from '../../plugins/index';
 import { urlEmitters, urlXStoreModule, UrlXStoreModule } from './store';
 import { urlWiring } from './wiring';
 
@@ -21,3 +22,5 @@ export const urlXModule: UrlXModule = {
   storeEmitters: urlEmitters,
   wiring: urlWiring
 };
+
+XPlugin.registerXModule(urlXModule);

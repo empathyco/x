@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.69](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.68...@empathyco/x-components@5.0.0-alpha.69) (2024-07-11)
+
+
+### Features
+
+* migrate Scroll and ScrolToTop componentes (#1562) ([c8182f4](https://github.com/empathyco/x/commit/c8182f4a4435e1e62e7eaee518fb6325fe01bf7e))
+
+
+
+## [5.0.0-alpha.68](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.67...@empathyco/x-components@5.0.0-alpha.68) (2024-07-10)
+
+
+### Features
+
+* **create-animation:** migrate to composition API (#1553) ([1097c0d](https://github.com/empathyco/x/commit/1097c0d1b9dd63f9573812b9ddb41b790725b46e))
+
+
+
+## [5.0.0-alpha.67](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.66...@empathyco/x-components@5.0.0-alpha.67) (2024-07-10)
+
+
+### Features
+
+* migrate url-handler x-module (#1556) ([9445758](https://github.com/empathyco/x/commit/94457580884be4b03ec72fa18231350bdf3f115a))
+
+
+
 ## [5.0.0-alpha.66](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.65...@empathyco/x-components@5.0.0-alpha.66) (2024-07-10)
 
 
