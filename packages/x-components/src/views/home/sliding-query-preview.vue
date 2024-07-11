@@ -17,23 +17,23 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop } from 'vue-property-decorator';
-  import Vue from 'vue';
+  import { defineComponent } from 'vue';
   import QueryPreview from '../../x-modules/queries-preview/components/query-preview.vue';
   import SlidingPanel from '../../components/sliding-panel.vue';
   import Result from './result.vue';
 
-  @Component({
+  export default defineComponent({
+    name: 'SlidingQueryPreview',
     components: {
       QueryPreview,
       Result,
       SlidingPanel
+    },
+    props: {
+      query: {
+        type: String,
+        required: true
+      }
     }
-  })
-  export default class SlidingQueryPreview extends Vue {
-    @Prop({
-      required: true
-    })
-    public query!: string;
-  }
+  });
 </script>

@@ -57,8 +57,7 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import { getResultsStub } from '../__stubs__/results-stubs.factory';
   import { getSearchResponseStub } from '../__stubs__/search-response-stubs.factory';
   import { BaseResultImage } from '../components';
@@ -67,27 +66,36 @@
   import BaseVariableColumnGrid from '../components/base-variable-column-grid.vue';
   import BaseColumnPickerList from '../components/column-picker/base-column-picker-list.vue';
 
-  @Component({
+  export default defineComponent({
     components: {
       BaseColumnPickerList,
       BaseRating,
       BaseResultImage,
       BaseVariableColumnGrid
+    },
+    setup() {
+      const resultsStub = getResultsStub();
+      const searchResponse = getSearchResponseStub();
+      const searchResponseStub = [
+        ...searchResponse.banners!,
+        ...searchResponse.promoteds!,
+        ...searchResponse.results
+      ];
+      const resultWithImages = resultsStub[0];
+      const resultWithFailImages = resultsStub[1];
+      const resultWithFailImagesAndOkImages = resultsStub[2];
+
+      return {
+        resultsStub,
+        searchResponse,
+        searchResponseStub,
+        resultWithImages,
+        resultWithFailImages,
+        resultWithFailImagesAndOkImages,
+        fade: StaggeredFadeAndSlide
+      };
     }
-  })
-  export default class App extends Vue {
-    private resultsStub = getResultsStub();
-    private searchResponse = getSearchResponseStub();
-    protected searchResponseStub = [
-      ...this.searchResponse.banners!,
-      ...this.searchResponse.promoteds!,
-      ...this.searchResponse.results
-    ];
-    protected resultWithImages = this.resultsStub[0];
-    protected resultWithFailImages = this.resultsStub[1];
-    protected resultWithFailImagesAndOkImages = this.resultsStub[2];
-    protected fade = StaggeredFadeAndSlide;
-  }
+  });
 </script>
 
 <style lang="scss">

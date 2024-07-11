@@ -23,26 +23,26 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop } from 'vue-property-decorator';
-  import Vue from 'vue';
+  import { defineComponent, PropType } from 'vue';
   import { NextQuery as NextQueryModel } from '@empathyco/x-types';
   import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue';
   import NextQuery from '../../x-modules/next-queries/components/next-query.vue';
   import SlidingPanel from '../../components/sliding-panel.vue';
   import Result from './result.vue';
 
-  @Component({
+  export default defineComponent({
+    name: 'SlidingNextQueryPreview',
     components: {
       NextQueryPreview,
       NextQuery,
       SlidingPanel,
       Result
+    },
+    props: {
+      suggestion: {
+        type: Object as PropType<NextQueryModel>,
+        required: true
+      }
     }
-  })
-  export default class SlidingNextQueryPreview extends Vue {
-    @Prop({
-      required: true
-    })
-    public suggestion!: NextQueryModel;
-  }
+  });
 </script>

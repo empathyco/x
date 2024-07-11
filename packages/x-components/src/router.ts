@@ -29,16 +29,6 @@ if (process.env.NODE_ENV !== 'production') {
       component: () => import('./views/ResultApp.vue')
     },
     {
-      path: '/search',
-      name: 'search',
-      component: () => import('./views/Search.vue')
-    },
-    {
-      path: '/infinite-scroll-container',
-      name: 'Infinite Scroll Container',
-      component: () => import('./views/infinite-scroll.vue')
-    },
-    {
       path: '/accessibility-check',
       name: 'Accessibility Check',
       component: () => import('./views/accessibility/accessibility-check.vue'),

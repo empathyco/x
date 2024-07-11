@@ -451,8 +451,7 @@
 
 <script lang="ts">
   /* eslint-disable max-len */
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { computed, ComputedRef, defineComponent, provide } from 'vue';
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
   import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
@@ -460,24 +459,17 @@
   import BaseGrid from '../../components/base-grid.vue';
   import BaseVariableColumnGrid from '../../components/base-variable-column-grid.vue';
   import BaseColumnPickerList from '../../components/column-picker/base-column-picker-list.vue';
-  import ArrowRight from '../../components/icons/arrow-right.vue';
-  import CheckTiny from '../../components/icons/check-tiny.vue';
   import ChevronLeft from '../../components/icons/chevron-left.vue';
   import ChevronRight from '../../components/icons/chevron-right.vue';
-  import ChevronTinyDown from '../../components/icons/chevron-tiny-down.vue';
-  import ChevronTinyLeft from '../../components/icons/chevron-tiny-left.vue';
-  import ChevronTinyRight from '../../components/icons/chevron-tiny-right.vue';
   import ChevronUp from '../../components/icons/chevron-up.vue';
   import CrossIcon from '../../components/icons/cross.vue';
   import ExperienceControls from '../../x-modules/experience-controls/components/experience-controls.vue';
   import Grid2Col from '../../components/icons/grid-2-col.vue';
   import Grid4Col from '../../components/icons/grid-4-col.vue';
-  import LightBulbOn from '../../components/icons/light-bulb-on.vue';
   import SearchIcon from '../../components/icons/search.vue';
   import MultiColumnMaxWidthLayout from '../../components/layouts/multi-column-max-width-layout.vue';
   import LocationProvider from '../../components/location-provider.vue';
   import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
-  import BaseIdTogglePanel from '../../components/panels/base-id-toggle-panel.vue';
   import PreselectedFilters from '../../x-modules/facets/components/preselected-filters.vue';
   import SlidingPanel from '../../components/sliding-panel.vue';
   import SnippetCallbacks from '../../components/snippet-callbacks.vue';
@@ -485,7 +477,6 @@
   import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue';
   import SnippetConfigExtraParams from '../../x-modules/extra-params/components/snippet-config-extra-params.vue';
   import NextQueriesList from '../../x-modules/next-queries/components/next-queries-list.vue';
-  import NextQueries from '../../x-modules/next-queries/components/next-queries.vue';
   import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue';
   import QueryPreviewList from '../../x-modules/queries-preview/components/query-preview-list.vue';
   import Recommendations from '../../x-modules/recommendations/components/recommendations.vue';
@@ -512,7 +503,6 @@
   import MainModal from '../../components/modals/main-modal.vue';
   import OpenMainModal from '../../components/modals/open-main-modal.vue';
   import CloseMainModal from '../../components/modals/close-main-modal.vue';
-  import { XProvide } from '../../components/decorators/injection.decorators';
   import { adapterConfig } from '../adapter';
   import NextQuery from '../../x-modules/next-queries/components/next-query.vue';
   import FallbackDisclaimer from '../../x-modules/search/components/fallback-disclaimer.vue';
@@ -528,7 +518,7 @@
   import { HomeControls } from './types';
   import DisplayResultProvider from './display-result-provider.vue';
 
-  @Component({
+  export default defineComponent({
     directives: {
       infiniteScroll
     },
@@ -538,7 +528,6 @@
       DisplayResultProvider,
       FallbackDisclaimer,
       QueryPreviewList,
-      ArrowRight,
       Aside,
       AutoProgressBar,
       Banner,
@@ -546,15 +535,10 @@
       BaseColumnPickerList,
       BaseDropdown,
       BaseGrid,
-      BaseIdTogglePanel,
       BaseIdTogglePanelButton,
       BaseVariableColumnGrid,
-      CheckTiny,
       ChevronLeft,
       ChevronRight,
-      ChevronTinyDown,
-      ChevronTinyLeft,
-      ChevronTinyRight,
       ChevronUp,
       ClearSearchInput,
       CloseMainModal,
@@ -562,11 +546,9 @@
       ExperienceControls,
       Grid2Col,
       Grid4Col,
-      LightBulbOn,
       LocationProvider,
       MainScrollItem,
       MultiColumnMaxWidthLayout,
-      NextQueries,
       NextQueriesList,
       NextQueryPreview,
       NextQuery,
@@ -599,81 +581,96 @@
       Tagging,
       UrlHandler,
       MainModal
+    },
+    setup() {
+      const stores = ['Spain', 'Portugal', 'Italy'];
+      const initialExtraParams = { store: 'Portugal' };
+      const searchInputPlaceholderMessages = [
+        'Find shirts',
+        'Find shoes',
+        'Find watches',
+        'Find handbags',
+        'Find sunglasses'
+      ];
+      const columnPickerValues = [0, 2, 4];
+      const resultsAnimation = StaggeredFadeAndSlide;
+      const modalAnimation = animateClipPath();
+      const selectedColumns = 4;
+      const sortValues = ['', 'price asc', 'price desc'];
+      const isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview;
+
+      const controls: ComputedRef<HomeControls> = computed(() => {
+        return {
+          searchInput: {
+            instant: true,
+            instantDebounceInMs: 500 // default
+          },
+          popularSearches: {
+            maxItemsToRender: 10
+          },
+          slicedFilters: {
+            max: 4
+          },
+          historyQueries: {
+            maxItemsToRender: 5
+          },
+          nextQueriesPreview: {
+            maxItemsToRender: 10
+          },
+          nextQueriesList: {
+            showOnlyAfterOffset: true
+          },
+          adapter: {
+            useE2EAdapter: false
+          }
+        };
+      });
+
+      provide('controls', controls);
+
+      const queriesPreviewInfo: QueryPreviewInfo[] = [
+        {
+          query: 'cortina',
+          extraParams: { store: 'Gijón' },
+          filters: ['categoryIds:66dd06d9f']
+        },
+        {
+          query: 'summer dress',
+          filters: ['categoryIds:5b612edb5', 'brand:marni']
+        },
+        {
+          query: 'woven hat'
+        },
+        {
+          query: 'jeans',
+          extraParams: { store: 'Gijón' }
+        },
+        {
+          query: 't-shirt'
+        }
+      ];
+
+      const queries = computed(() => queriesPreviewInfo.map(item => item.query));
+      const toggleE2EAdapter = () => {
+        adapterConfig.e2e = !adapterConfig.e2e;
+      };
+      return {
+        resultsAnimation,
+        modalAnimation,
+        queriesPreviewInfo,
+        stores,
+        initialExtraParams,
+        searchInputPlaceholderMessages,
+        columnPickerValues,
+        selectedColumns,
+        sortValues,
+        isAnyQueryLoadedInPreview,
+        queries,
+        toggleE2EAdapter,
+        controls
+      };
     }
-  })
-  export default class App extends Vue {
-    protected stores = ['Spain', 'Portugal', 'Italy'];
-    protected initialExtraParams = { store: 'Portugal' };
-    protected searchInputPlaceholderMessages = [
-      'Find shirts',
-      'Find shoes',
-      'Find watches',
-      'Find handbags',
-      'Find sunglasses'
-    ];
-    protected columnPickerValues = [0, 2, 4];
-    protected resultsAnimation = StaggeredFadeAndSlide;
-    protected modalAnimation = animateClipPath();
-    protected selectedColumns = 4;
-    protected sortValues = ['', 'price asc', 'price desc'];
-    public isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview;
-
-    @XProvide('controls')
-    public controls: HomeControls = {
-      searchInput: {
-        instant: true,
-        instantDebounceInMs: 500 // default
-      },
-      popularSearches: {
-        maxItemsToRender: 10
-      },
-      slicedFilters: {
-        max: 4
-      },
-      historyQueries: {
-        maxItemsToRender: 5
-      },
-      nextQueriesPreview: {
-        maxItemsToRender: 10
-      },
-      nextQueriesList: {
-        showOnlyAfterOffset: true
-      },
-      adapter: {
-        useE2EAdapter: false
-      }
-    };
-
-    protected queriesPreviewInfo: QueryPreviewInfo[] = [
-      {
-        query: 'cortina',
-        extraParams: { store: 'Gijón' },
-        filters: ['categoryIds:66dd06d9f']
-      },
-      {
-        query: 'summer dress',
-        filters: ['categoryIds:5b612edb5', 'brand:marni']
-      },
-      {
-        query: 'woven hat'
-      },
-      {
-        query: 'jeans',
-        extraParams: { store: 'Gijón' }
-      },
-      {
-        query: 't-shirt'
-      }
-    ];
-
-    protected get queries(): string[] {
-      return this.queriesPreviewInfo.map(item => item.query);
-    }
-
-    toggleE2EAdapter(): void {
-      adapterConfig.e2e = !adapterConfig.e2e;
-    }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>
