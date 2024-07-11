@@ -15,15 +15,13 @@
 </template>
 
 <script lang="ts">
-  import { Dictionary } from '@empathyco/x-utils';
-  import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator';
-  import { State, xComponentMixin } from '../../../components';
+  import { computed, defineComponent } from 'vue';
   import BaseEventButton from '../../../components/base-event-button.vue';
   import { NoElement } from '../../../components/no-element';
   import { XEventsTypes } from '../../../wiring';
-  import { ScrollComponentState } from '../store';
   import { scrollXModule } from '../x-module';
+  import { AnimationProp } from '../../../types/animation-prop';
+  import { useState } from '../../../composables/use-state';
   import { MainScrollId } from './scroll.const';
 
   /**
@@ -32,113 +30,118 @@
    *
    * @public
    */
-  @Component({
-    mixins: [xComponentMixin(scrollXModule)],
-    components: { BaseEventButton }
-  })
-  export default class ScrollToTop extends Vue {
-    /**
-     * Animation to use for showing/hiding the button.
-     *
-     * @public
-     */
-    @Prop({ default: () => NoElement })
-    public animation!: Vue | string;
+  export default defineComponent({
+    name: 'ScrollToTop',
+    xModule: scrollXModule.name,
+    components: { BaseEventButton },
+    props: {
+      /**
+       * Animation to use for showing/hiding the button.
+       *
+       * @public
+       */
+      animation: {
+        type: AnimationProp,
+        default: () => NoElement
+      },
+      /**
+       * Threshold in pixels from the top to show the button.
+       *
+       * @public
+       */
+      thresholdPx: Number,
+      /**
+       * Id of the target scroll component.
+       *
+       * @public
+       */
+      scrollId: {
+        type: String,
+        default: MainScrollId
+      }
+    },
+    setup(props) {
+      /**
+       * State of all the scroll components in this module.
+       *
+       * @internal
+       */
+      // TODO: Directly retrieve the needed data in this computed property
+      const { data } = useState('scroll', ['data']);
 
-    /**
-     * Threshold in pixels from the top to show the button.
-     *
-     * @public
-     */
-    @Prop()
-    public thresholdPx?: number;
+      /**
+       * The scroll data retrieved for this component.
+       *
+       * @returns The scroll data for this component if a valid {@link ScrollToTop.scrollId} has been
+       * passed. Otherwise it returns `null`.
+       * @internal
+       */
+      const scrollData = computed(() => {
+        return props.scrollId && data.value[props.scrollId]
+          ? data.value[props.scrollId]
+          : {
+              position: 0,
+              direction: 'UP',
+              hasReachedStart: false,
+              hasAlmostReachedEnd: false,
+              hasReachedEnd: false
+            };
+      });
 
-    /**
-     * Id of the target scroll component.
-     *
-     * @public
-     */
-    @Prop({ default: MainScrollId })
-    public scrollId!: string;
+      /**
+       * Event that will be emitted when the scroll to top is clicked.
+       *
+       * @returns The event to be emitted when the scroll to top is clicked. The id as a payload.
+       * @internal
+       */
+      const events = computed(
+        (): Partial<XEventsTypes> => ({ UserClickedScrollToTop: props.scrollId })
+      );
 
-    /**
-     * State of all the scroll components in this module.
-     *
-     * @internal
-     */
-    // TODO: Directly retrieve the needed data in this computed property
-    @State('scroll', 'data')
-    public scrollPositionsMap!: Dictionary<ScrollComponentState>;
+      /**
+       * Checks if the thresholdPx prop has been provided and if it is a number.
+       *
+       * @returns If the thresholdPx is a number or not.
+       * @internal
+       */
+      const useThresholdStrategy = computed(() => typeof props.thresholdPx === 'number');
 
-    /**
-     * The scroll data retrieved for this component.
-     *
-     * @returns The scroll data for this component if a valid {@link ScrollToTop.scrollId} has been
-     * passed. Otherwise it returns `null`.
-     * @internal
-     */
-    protected get scrollData(): ScrollComponentState {
-      return this.scrollId && this.scrollPositionsMap[this.scrollId]
-        ? this.scrollPositionsMap[this.scrollId]
-        : {
-            position: 0,
-            direction: 'UP',
-            hasReachedStart: false,
-            hasAlmostReachedEnd: false,
-            hasReachedEnd: false
-          };
+      /**
+       * Checks if the threshold has been reached in case the threshold strategy is in use.
+       *
+       * @returns If the scrollTop is bigger than the thresholdPx.
+       * @internal
+       */
+      const isThresholdReached = computed(
+        () => useThresholdStrategy.value && scrollData.value.position > props.thresholdPx!
+      );
+
+      /**
+       * Returns if the scroll has almost reached its end or not.
+       *
+       * @returns True if the scroll has almost reached the end and the user is still scrolling down.
+       * @internal
+       */
+      const hasAlmostReachedScrollEnd = computed(
+        () => scrollData.value.hasAlmostReachedEnd && scrollData.value.direction === 'DOWN'
+      );
+
+      /**
+       * Whether if the button is visible or not depending on the strategy being used.
+       *
+       * @returns If the button should be visible or not.
+       * @internal
+       */
+      const isVisible = computed(() =>
+        useThresholdStrategy.value ? isThresholdReached.value : hasAlmostReachedScrollEnd.value
+      );
+
+      return {
+        events,
+        isVisible
+      };
     }
-
-    /**
-     * Event that will be emitted when the scroll to top is clicked.
-     *
-     * @returns The event to be emitted when the scroll to top is clicked. The id as a payload.
-     * @internal
-     */
-    protected get events(): Partial<XEventsTypes> {
-      return { UserClickedScrollToTop: this.scrollId };
-    }
-
-    /**
-     * Checks if the thresholdPx prop has been provided and if it is a number.
-     *
-     * @returns If the thresholdPx is a number or not.
-     * @internal
-     */
-    protected get useThresholdStrategy(): boolean {
-      return typeof this.thresholdPx === 'number';
-    }
-
-    /**
-     * Checks if the threshold has been reached in case the threshold strategy is in use.
-     *
-     * @returns If the scrollTop is bigger than the thresholdPx.
-     * @internal
-     */
-    protected get isThresholdReached(): boolean {
-      return this.useThresholdStrategy && this.scrollData.position > this.thresholdPx!;
-    }
-
-    /**
-     * Whether if the button is visible or not depending on the strategy being used.
-     *
-     * @returns If the button should be visible or not.
-     * @internal
-     */
-    protected get isVisible(): boolean {
-      return this.useThresholdStrategy ? this.isThresholdReached : this.hasAlmostReachedScrollEnd;
-    }
-
-    /**
-     * Returns if the scroll has almost reached its end or not.
-     *
-     * @returns True if the scroll has almost reached the end and the user is still scrolling down.
-     * @internal
-     */
-    protected get hasAlmostReachedScrollEnd(): boolean {
-      return this.scrollData.hasAlmostReachedEnd && this.scrollData.direction === 'DOWN';
-    }
-  }
+  });
 </script>
 
 <docs lang="mdx">
