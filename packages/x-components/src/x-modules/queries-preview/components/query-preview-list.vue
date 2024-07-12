@@ -157,7 +157,11 @@
         queries,
         (newQueries: string[], oldQueries: string[] | undefined) => {
           if (newQueries.toString() !== oldQueries?.toString()) {
-            queriesStatus.value = {};
+            for (const key of Object.keys(queriesStatus.value)) {
+              if (!newQueries.includes(key)) {
+                delete queriesStatus.value[key];
+              }
+            }
             loadNext();
           }
         },
