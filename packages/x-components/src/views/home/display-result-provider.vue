@@ -16,7 +16,7 @@
         }
       });
 
-      return slots.default?.()[0] ?? h();
+      return () => slots.default?.()[0] ?? h();
     }
   });
 </script>
