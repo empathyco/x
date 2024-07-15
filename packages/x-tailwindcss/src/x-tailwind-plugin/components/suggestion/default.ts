@@ -16,7 +16,7 @@ export function suggestionDefault(helpers: TailwindHelpers) {
 
     display: 'grid',
     gridAutoFlow: 'column',
-    alignItems: 'baseline',
+    alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'flex-start',
     boxSizing: 'border-box',

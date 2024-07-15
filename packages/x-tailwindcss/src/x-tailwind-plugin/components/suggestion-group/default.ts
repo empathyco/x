@@ -22,7 +22,7 @@ export function suggestionGroupDefault(helpers: TailwindHelpers) {
     gridTemplateColumns: 'auto [last-col]',
     gridAutoColumns: '1fr',
     justifyContent: 'flex-start',
-    alignItems: 'baseline',
+    alignItems: 'center',
     alignContent: 'center',
 
     paddingInlineStart: 0,
