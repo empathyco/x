@@ -1,21 +1,19 @@
 <template>
-  <NoElement>
-    <!--
+  <!--
       @slot closing-element. It's the element that will trigger the modal closing. It's a
       button by default.
         @binding {Function} closeModal - The function to close the modal.
     -->
-    <slot :closeModal="emitCloseModalEvent" name="closing-element">
-      <button
-        @click="emitCloseModalEvent"
-        class="x-events-modal-id-close-button x-button"
-        data-test="close-modal-id"
-      >
-        <!-- @slot (Required) Button content with a text, an icon or both -->
-        <slot />
-      </button>
-    </slot>
-  </NoElement>
+  <slot :closeModal="emitCloseModalEvent" name="closing-element">
+    <button
+      @click="emitCloseModalEvent"
+      class="x-events-modal-id-close-button x-button"
+      data-test="close-modal-id"
+    >
+      <!-- @slot (Required) Button content with a text, an icon or both -->
+      <slot />
+    </button>
+  </slot>
 </template>
 
 <script lang="ts">

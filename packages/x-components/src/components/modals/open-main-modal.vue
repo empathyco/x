@@ -1,6 +1,6 @@
 <template>
   <BaseEventsModalOpen
-    v-on="$listeners"
+    v-bind="$attrs"
     class="x-open-main-modal"
     data-test="open-main-modal"
     :openingEvent="openingEvent"
@@ -20,6 +20,7 @@
    * @public
    */
   export default defineComponent({
+    inheritAttrs: false,
     components: {
       BaseEventsModalOpen
     },

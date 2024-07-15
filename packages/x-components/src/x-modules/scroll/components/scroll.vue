@@ -6,7 +6,6 @@
     @scroll:at-start="emitScrollAtStart"
     @scroll:almost-at-end="emitScrollAlmostAtEnd"
     @scroll:at-end="emitScrollAtEnd"
-    v-on="$listeners"
     v-bind="$attrs"
     :id="id"
   >
@@ -30,6 +29,7 @@
    * @public
    */
   export default defineComponent({
+    inheritAttrs: false,
     name: 'Scroll',
     xModule: scrollXModule.name,
     components: { BaseScroll },

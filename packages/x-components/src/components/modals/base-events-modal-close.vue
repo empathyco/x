@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    v-on="$listeners"
+    v-bind="$attrs"
     :events="events"
     class="x-events-modal-close-button x-button"
     data-test="close-modal"
@@ -24,6 +24,7 @@
    * @public
    */
   export default defineComponent({
+    inheritAttrs: false,
     components: {
       BaseEventButton
     },

@@ -1,21 +1,19 @@
 <template>
-  <NoElement>
-    <!--
+  <!--
       @slot opening-element. It's the element that will trigger the modal opening. It's a
       button by default.
         @binding {Function} openModal - The function to open the modal.
     -->
-    <slot :openModal="emitOpenModalEvent" name="opening-element">
-      <button
-        @click="emitOpenModalEvent"
-        class="x-events-modal-id-open-button x-button"
-        data-test="open-modal-id"
-      >
-        <!-- @slot (Required) Button content with a text, an icon or both -->
-        <slot />
-      </button>
-    </slot>
-  </NoElement>
+  <slot :openModal="emitOpenModalEvent" name="opening-element">
+    <button
+      @click="emitOpenModalEvent"
+      class="x-events-modal-id-open-button x-button"
+      data-test="open-modal-id"
+    >
+      <!-- @slot (Required) Button content with a text, an icon or both -->
+      <slot />
+    </button>
+  </slot>
 </template>
 
 <script lang="ts">

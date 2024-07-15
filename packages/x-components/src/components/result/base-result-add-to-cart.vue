@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    v-on="$listeners"
+    v-bind="$attrs"
     :events="events"
     class="x-result-add-to-cart x-button"
     data-test="result-add-to-cart"
@@ -23,6 +23,7 @@
    * @public
    */
   export default defineComponent({
+    inheritAttrs: false,
     components: { BaseEventButton },
     props: {
       /**

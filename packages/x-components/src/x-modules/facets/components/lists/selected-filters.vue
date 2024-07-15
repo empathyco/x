@@ -1,7 +1,9 @@
 <template>
-  <NoElement v-if="isVisible" class="x-selected-filters">
-    <slot v-bind="{ selectedFilters }">{{ selectedFilters.length }}</slot>
-  </NoElement>
+  <!--  <NoElement v-if="isVisible" class="x-selected-filters">-->
+  <slot v-if="isVisible" v-bind="{ selectedFilters, class: 'x-selected-filters' }">
+    {{ selectedFilters.length }}
+  </slot>
+  <!--  </NoElement>-->
 </template>
 
 <script lang="ts">

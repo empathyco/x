@@ -1,6 +1,6 @@
 <template>
   <!-- eslint-disable-next-line vue/attributes-order -->
-  <transition v-bind="$attrs" v-on="$listeners" name="x-animate-width-">
+  <transition v-bind="$attrs" name="x-animate-width-">
     <!-- @slot (Required) Transition content -->
     <slot />
   </transition>

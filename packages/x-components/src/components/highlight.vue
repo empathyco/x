@@ -1,36 +1,33 @@
 <template>
-  <NoElement>
-    <slot v-bind="{ text, hasMatch, ...matchParts }">
-      <span class="x-highlight" :class="dynamicCSSClasses">
-        <span
-          v-if="matchParts.start"
-          v-text="matchParts.start"
-          class="x-highlight__text"
-          data-test="highlight-start"
-        />
-        <span
-          v-if="hasMatch"
-          v-text="matchParts.match"
-          class="x-highlight__text x-highlight-text-match"
-          :class="matchingPartClass"
-          data-test="matching-part"
-        />
-        <span
-          v-if="matchParts.end"
-          v-text="matchParts.end"
-          class="x-highlight__text"
-          data-test="highlight-end"
-        />
-      </span>
-    </slot>
-  </NoElement>
+  <slot v-bind="{ text, hasMatch, ...matchParts, ...$attrs }" >
+    <span class="x-highlight" :class="dynamicCSSClasses">
+      <span
+        v-if="matchParts.start"
+        v-text="matchParts.start"
+        class="x-highlight__text"
+        data-test="highlight-start"
+      />
+      <span
+        v-if="hasMatch"
+        v-text="matchParts.match"
+        class="x-highlight__text x-highlight-text-match"
+        :class="matchingPartClass"
+        data-test="matching-part"
+      />
+      <span
+        v-if="matchParts.end"
+        v-text="matchParts.end"
+        class="x-highlight__text"
+        data-test="highlight-end"
+      />
+    </span>
+  </slot>
 </template>
 
 <script lang="ts">
   import { computed, defineComponent } from 'vue';
   import { normalizeString } from '../utils/normalize';
   import { VueCSSClasses } from '../utils/types';
-  import { NoElement } from './no-element';
 
   /**
    * Highlights the given part of the text. The component is smart enough to do matches
@@ -39,8 +36,8 @@
    * @public
    */
   export default defineComponent({
+    inheritAttrs: false,
     name: 'Highlight',
-    components: { NoElement },
     props: {
       /**
        * The text to highlight some part of it.

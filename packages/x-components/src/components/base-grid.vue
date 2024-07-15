@@ -229,11 +229,14 @@
        *
        * @internal
        */
-      const resizeObserver = useResizeObserver(
-        gridEl as MaybeComputedElementRef,
-        updateRenderedColumnsNumber
-      );
-      onBeforeUnmount(() => resizeObserver.stop());
+      let resizeObserver: any;
+      if (gridEl.value) {
+        resizeObserver = useResizeObserver(
+          gridEl as MaybeComputedElementRef,
+          updateRenderedColumnsNumber
+        );
+      }
+      onBeforeUnmount(() => resizeObserver?.stop());
 
       return {
         gridItems,

@@ -1,7 +1,5 @@
 <template>
-  <NoElement>
-    <slot v-bind="{ value, updateValue }"></slot>
-  </NoElement>
+  <slot v-bind="{ value, updateValue }"></slot>
 </template>
 
 <script lang="ts">

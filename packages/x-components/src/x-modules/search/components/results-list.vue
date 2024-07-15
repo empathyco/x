@@ -1,5 +1,4 @@
 <template>
-  <NoElement>
     <!--
       @slot Customize ResultsList.
         @binding {Result[]} items - Results to render.
@@ -12,7 +11,6 @@
         </template>
       </ItemsList>
     </slot>
-  </NoElement>
 </template>
 
 <script lang="ts">

@@ -1,18 +1,16 @@
 <template>
-  <NoElement>
-    <!--
+  <!--
       @slot Customized Promoteds List layout.
         @binding {Promoted[]} items - Promoteds plus the injected list items to render.
         @binding {Vue | string} animation - Animation to animate the elements.
     -->
-    <slot v-bind="{ items, animation }">
-      <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in slots" v-slot:[slotName]="{ item }">
-          <slot :name="slotName" :item="item" />
-        </template>
-      </ItemsList>
-    </slot>
-  </NoElement>
+  <slot v-bind="{ items, animation }">
+    <ItemsList :animation="animation" :items="items">
+      <template v-for="(_, slotName) in slots" v-slot:[slotName]="{ item }">
+        <slot :name="slotName" :item="item" />
+      </template>
+    </ItemsList>
+  </slot>
 </template>
 
 <script lang="ts">

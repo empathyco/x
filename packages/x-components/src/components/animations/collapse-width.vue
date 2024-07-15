@@ -2,7 +2,6 @@
   <!-- eslint-disable vue/attributes-order -->
   <transition
     v-bind="$attrs"
-    v-on="$listeners"
     @enter="expand"
     @after-enter="cleanUpAnimationStyles"
     @leave="collapse"

@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    v-on="$listeners"
+    v-bind="$attrs"
     :events="events"
     class="x-query-preview-button x-button"
     data-test="query-preview-button"
@@ -30,6 +30,7 @@
    * @public
    */
   export default defineComponent({
+    inheritAttrs: false,
     name: 'QueryPreviewButton',
     xModule: queriesPreviewXModule.name,
     components: { BaseEventButton },

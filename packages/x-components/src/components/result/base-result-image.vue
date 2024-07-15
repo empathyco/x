@@ -41,7 +41,16 @@
 
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
-  import { computed, DefineComponent, defineComponent, PropType, Ref, ref, watch } from 'vue';
+  import {
+    computed,
+    DefineComponent,
+    defineComponent,
+    markRaw,
+    PropType,
+    Ref,
+    ref,
+    watch
+  } from 'vue';
   import { NoElement } from '../no-element';
   import { animationProp } from '../../utils/options-api';
 

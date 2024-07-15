@@ -1,5 +1,4 @@
 <template>
-  <NoElement>
     <!--
       @slot Customized BannersList layout.
         @binding {Banner[]} items - Banners plus the injected list items to render.
@@ -12,7 +11,6 @@
         </template>
       </ItemsList>
     </slot>
-  </NoElement>
 </template>
 
 <script lang="ts">

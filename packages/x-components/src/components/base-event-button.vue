@@ -1,5 +1,5 @@
 <template>
-  <button ref="rootRef" v-on="$listeners" @click="emitEvents" data-test="event-button">
+  <button ref="rootRef" v-bind="$attrs" @click="emitEvents" data-test="event-button">
     <!-- @slot (Required) Button content with a text, an icon or both -->
     <slot />
   </button>
@@ -20,6 +20,7 @@
    * @public
    */
   export default defineComponent({
+    inheritAttrs: false,
     name: 'BaseEventButton',
     props: {
       /** An object where the keys are the {@link XEvent} and the values are the payload. */

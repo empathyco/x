@@ -1,51 +1,54 @@
 <template>
-  <NoElement v-if="result && variants">
-    <!--
+  <!--
       @slot Variants list
         @binding {ResultVariant[]} variants - Array containing the available variants
         @binding {ResultVariant | undefined} selectedVariant - The selected variant
         @binding {(variant: ResultVariant) => void} selectVariant - Callback to select a variant
     -->
-    <slot :variants="variants" :selectedVariant="selectedVariant" :selectVariant="selectVariant">
-      <ul class="x-result-variant-selector__list" data-test="variants-list">
-        <li
-          v-for="(variant, index) in variants"
-          :key="index"
-          class="x-result-variant-selector__item"
-          :class="{ 'x-result-variant-selector__item--is-selected': variantIsSelected(variant) }"
-          data-test="variant-item"
-        >
-          <!--
+  <slot
+    v-if="result && variants"
+    :variants="variants"
+    :selectedVariant="selectedVariant"
+    :selectVariant="selectVariant"
+  >
+    <ul class="x-result-variant-selector__list" data-test="variants-list">
+      <li
+        v-for="(variant, index) in variants"
+        :key="index"
+        class="x-result-variant-selector__item"
+        :class="{ 'x-result-variant-selector__item--is-selected': variantIsSelected(variant) }"
+        data-test="variant-item"
+      >
+        <!--
             @slot Variant item
               @binding {ResultVariant} variant - The variant item
               @binding {boolean} isSelected - Indicates if the variant is selected
               @binding {() => void} selectVariant - Callback to select the variant
           -->
-          <slot
-            name="variant"
-            :variant="variant"
-            :isSelected="variantIsSelected(variant)"
-            :selectVariant="() => selectVariant(variant)"
-          >
-            <button @click="selectVariant(variant)" data-test="variant-button" class="x-button">
-              <!--
+        <slot
+          name="variant"
+          :variant="variant"
+          :isSelected="variantIsSelected(variant)"
+          :selectVariant="() => selectVariant(variant)"
+        >
+          <button @click="selectVariant(variant)" data-test="variant-button" class="x-button">
+            <!--
                 @slot Variant content
                   @binding {ResultVariant} variant - The variant item
                   @binding {boolean} isSelected - Indicates if the variant is selected
               -->
-              <slot
-                name="variant-content"
-                :variant="variant"
-                :isSelected="variantIsSelected(variant)"
-              >
-                {{ variant }}
-              </slot>
-            </button>
-          </slot>
-        </li>
-      </ul>
-    </slot>
-  </NoElement>
+            <slot
+              name="variant-content"
+              :variant="variant"
+              :isSelected="variantIsSelected(variant)"
+            >
+              {{ variant }}
+            </slot>
+          </button>
+        </slot>
+      </li>
+    </ul>
+  </slot>
 </template>
 
 <script lang="ts">

@@ -1,27 +1,25 @@
 <template>
-  <NoElement v-if="recommendations.length">
-    <!--
+  <!--
       @slot Customized Recommendations layout.
           @binding {Result[]} recommendations - Recommendations to render.
           @binding {Vue} animation - Animation to animate the elements.
     -->
-    <slot name="layout" v-bind="{ animation, recommendations }">
-      <component :is="animation" tag="ul" data-test="recommendations" class="x-recommendations">
-        <li
-          v-for="recommendation in recommendations"
-          :key="recommendation.id"
-          class="x-recommendations__item"
-          data-test="recommendation-item"
-        >
-          <!--
+  <slot v-if="recommendations.length" name="layout" v-bind="{ animation, recommendations }">
+    <component :is="animation" tag="ul" data-test="recommendations" class="x-recommendations">
+      <li
+        v-for="recommendation in recommendations"
+        :key="recommendation.id"
+        class="x-recommendations__item"
+        data-test="recommendation-item"
+      >
+        <!--
             @slot (Required) Recommendation content.
             @binding {recommendation} recommendation - Recommendation data.
           -->
-          <slot :recommendation="recommendation" />
-        </li>
-      </component>
-    </slot>
-  </NoElement>
+        <slot :recommendation="recommendation" />
+      </li>
+    </component>
+  </slot>
 </template>
 
 <script lang="ts">

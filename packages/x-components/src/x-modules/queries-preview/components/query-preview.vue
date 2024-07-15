@@ -1,5 +1,5 @@
 <template>
-  <NoElement v-if="queryPreviewResults && queryPreviewResults.totalResults > 0">
+<!--  <NoElement v-if="queryPreviewResults && queryPreviewResults.totalResults > 0">-->
     <!--
       @slot Query Preview default slot.
           @binding {QueryPreviewInfo} queryPreviewInfo - The information about the request of the
@@ -8,6 +8,7 @@
           @binding {number} totalResults - The total results of the search request
     -->
     <slot
+      v-if="queryPreviewResults && queryPreviewResults.totalResults > 0"
       :queryPreviewInfo="queryPreviewInfo"
       :results="queryPreviewResults.results"
       :totalResults="queryPreviewResults.totalResults"
@@ -31,7 +32,7 @@
         </li>
       </ul>
     </slot>
-  </NoElement>
+<!--  </NoElement>-->
 </template>
 
 <script lang="ts">

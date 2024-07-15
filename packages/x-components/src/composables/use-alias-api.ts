@@ -47,7 +47,7 @@ export function useAliasApi(): UseAliasAPI {
   const query = queryModules.reduce((acc, moduleName) => {
     return Object.defineProperty(acc, moduleName, {
       get(): string {
-        return store.state.x[moduleName]?.query ?? '';
+        return store?.state.x[moduleName]?.query ?? '';
       },
       enumerable: true
     });
@@ -66,91 +66,91 @@ export function useAliasApi(): UseAliasAPI {
     query,
     status,
     get device() {
-      return store.state.x.device?.name ?? null;
+      return store?.state.x.device?.name ?? null;
     },
     get facets() {
-      return store.getters[getGetterPath('facets', 'facets')] ?? {};
+      return store?.getters[getGetterPath('facets', 'facets')] ?? {};
     },
     get historyQueries() {
-      return store.getters[getGetterPath('historyQueries', 'historyQueries')] ?? [];
+      return store?.getters[getGetterPath('historyQueries', 'historyQueries')] ?? [];
     },
     get historyQueriesWithResults() {
-      return store.getters[getGetterPath('historyQueries', 'historyQueriesWithResults')] ?? [];
+      return store?.getters[getGetterPath('historyQueries', 'historyQueriesWithResults')] ?? [];
     },
     get fullHistoryQueries() {
-      return store.state.x.historyQueries?.historyQueries ?? [];
+      return store?.state.x.historyQueries?.historyQueries ?? [];
     },
     get isHistoryQueriesEnabled() {
-      return store.state.x.historyQueries?.isEnabled ?? false;
+      return store?.state.x.historyQueries?.isEnabled ?? false;
     },
     get fromNoResultsWithFilters() {
-      return store.state.x.search?.fromNoResultsWithFilters ?? false;
+      return store?.state.x.search?.fromNoResultsWithFilters ?? false;
     },
     get identifierResults() {
-      return store.state.x.identifierResults?.identifierResults ?? [];
+      return store?.state.x.identifierResults?.identifierResults ?? [];
     },
     get searchBoxStatus() {
-      return store.state.x.searchBox?.inputStatus ?? undefined;
+      return store?.state.x.searchBox?.inputStatus ?? undefined;
     },
     get isEmpathizeOpen() {
-      return store.state.x.empathize?.isOpen ?? false;
+      return store?.state.x.empathize?.isOpen ?? false;
     },
     get nextQueries() {
-      return store.getters[getGetterPath('nextQueries', 'nextQueries')] ?? [];
+      return store?.getters[getGetterPath('nextQueries', 'nextQueries')] ?? [];
     },
     get noResults() {
-      return store.state.x.search?.isNoResults ?? false;
+      return store?.state.x.search?.isNoResults ?? false;
     },
     get partialResults() {
-      return store.state.x.search?.partialResults ?? [];
+      return store?.state.x.search?.partialResults ?? [];
     },
     get popularSearches() {
-      return store.state.x.popularSearches?.popularSearches ?? [];
+      return store?.state.x.popularSearches?.popularSearches ?? [];
     },
     get querySuggestions() {
-      return store.getters[getGetterPath('querySuggestions', 'querySuggestions')] ?? [];
+      return store?.getters[getGetterPath('querySuggestions', 'querySuggestions')] ?? [];
     },
     get fullQuerySuggestions() {
-      return store.state.x.querySuggestions?.suggestions ?? [];
+      return store?.state.x.querySuggestions?.suggestions ?? [];
     },
     get recommendations() {
-      return store.state.x.recommendations?.recommendations ?? [];
+      return store?.state.x.recommendations?.recommendations ?? [];
     },
     get redirections() {
-      return store.state.x.search?.redirections ?? [];
+      return store?.state.x.search?.redirections ?? [];
     },
     get relatedTags() {
-      return store.getters[getGetterPath('relatedTags', 'relatedTags')] ?? [];
+      return store?.getters[getGetterPath('relatedTags', 'relatedTags')] ?? [];
     },
     get results() {
-      return store.state.x.search?.results ?? [];
+      return store?.state.x.search?.results ?? [];
     },
     get scroll() {
-      return store.state.x.scroll?.data ?? {};
+      return store?.state.x.scroll?.data ?? {};
     },
     get selectedFilters() {
-      return store.getters[getGetterPath('facets', 'selectedFilters')] ?? [];
+      return store?.getters[getGetterPath('facets', 'selectedFilters')] ?? [];
     },
     get selectedRelatedTags() {
-      return store.state.x.relatedTags?.selectedRelatedTags ?? [];
+      return store?.state.x.relatedTags?.selectedRelatedTags ?? [];
     },
     get semanticQueries() {
-      return store.state.x.semanticQueries?.semanticQueries ?? [];
+      return store?.state.x.semanticQueries?.semanticQueries ?? [];
     },
     get spellcheckedQuery() {
-      return store.state.x.search?.spellcheckedQuery ?? null;
+      return store?.state.x.search?.spellcheckedQuery ?? null;
     },
     get totalResults() {
-      return store.state.x.search?.totalResults ?? 0;
+      return store?.state.x.search?.totalResults ?? 0;
     },
     get selectedSort() {
-      return store.state.x.search?.sort ?? '';
+      return store?.state.x.search?.sort ?? '';
     }
   };
 }
 
 /**
- * Alias to facilitate retrieving values from the store.
+ * Alias to facilitate retrieving values from the store?.
  *
  * @public
  */

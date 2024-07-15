@@ -2,7 +2,6 @@
   <!-- eslint-disable vue/attributes-order -->
   <StaggeringTransitionGroup
     v-bind="$attrs"
-    v-on="$listeners"
     class="x-staggered-fade-and-slide"
     :name="name"
     :appear="appear"

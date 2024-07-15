@@ -10,7 +10,7 @@
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
     @beforeinput="preventSpecialKey"
-    v-on="$listeners"
+    v-bind="$attrs"
     :maxlength="maxLength"
     :value="query"
     autocomplete="off"
@@ -41,6 +41,7 @@
    * @public
    */
   export default defineComponent({
+    inheritAttrs: false,
     name: 'SearchInput',
     xModule: searchBoxXModule.name,
     props: {

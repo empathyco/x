@@ -1,5 +1,5 @@
 <template>
-  <button ref="el" @click="emitEvents" v-on="$listeners" :class="dynamicCSSClasses">
+  <button ref="el" @click="emitEvents" v-bind="$attrs" :class="dynamicCSSClasses">
     <!--
       @slot Button content
           @binding {Suggestion} suggestion - Suggestion data
@@ -33,6 +33,7 @@
    * @public
    */
   export default defineComponent({
+    inheritAttrs: false,
     components: { Highlight },
     props: {
       /**

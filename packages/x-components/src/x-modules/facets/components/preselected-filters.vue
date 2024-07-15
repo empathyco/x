@@ -70,7 +70,7 @@
        */
       watch(preselectedFilters, emitPreselectedFilters, { immediate: true });
 
-      return () => useNoElementRender(slots);
+      return () => {};
     }
   });
 </script>

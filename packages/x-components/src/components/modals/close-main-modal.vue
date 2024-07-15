@@ -1,6 +1,6 @@
 <template>
   <BaseEventsModalClose
-    v-on="$listeners"
+    v-bind="$attrs"
     class="x-close-main-modal"
     data-test="close-main-modal"
     :closingEvent="closingEvent"
@@ -20,6 +20,7 @@
    * @public
    */
   export default defineComponent({
+    inheritAttrs: false,
     components: {
       BaseEventsModalClose
     },

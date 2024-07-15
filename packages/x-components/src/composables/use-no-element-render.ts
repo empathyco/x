@@ -14,5 +14,5 @@ export function useNoElementRender(
 ): VNode | VNode[] {
   const defaultSlotContent = typeof slots.default === 'function' ? slots.default() : slots.default;
 
-  return defaultSlotContent ?? h();
+  return defaultSlotContent ?? h([]);
 }

@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
+import {defineComponent, markRaw, PropType} from 'vue';
   import { Result } from '@empathyco/x-types';
   import BaseResultAddToCart from '../../components/result/base-result-add-to-cart.vue';
   import BaseResultImage from '../../components/result/base-result-image.vue';
@@ -59,7 +59,7 @@
     },
     data() {
       return {
-        crossFade: CrossFade
+        crossFade: markRaw(CrossFade)
       };
     }
   });

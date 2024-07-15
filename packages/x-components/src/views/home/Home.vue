@@ -99,7 +99,7 @@
         </label>
       </li>
     </ul>
-    <MainModal :animation="modalAnimation">
+    <MainModal>
       <MultiColumnMaxWidthLayout class="x-bg-neutral-0">
         <template #header-middle>
           <div class="x-flex x-flex-col x-gap-16 x-items-stretch x-flex-auto">
@@ -131,7 +131,7 @@
               </template>
             </Spellcheck>
 
-            <SlidingPanel v-if="$x.relatedTags.length">
+            <SlidingPanel v-if="aliasApi.relatedTags.length">
               <template #sliding-panel-left-button>
                 <ChevronLeft />
               </template>
@@ -155,7 +155,7 @@
 
         <template #toolbar-aside>
           <BaseIdTogglePanelButton
-            v-if="$x.totalResults > 0"
+            v-if="aliasApi.totalResults > 0"
             class="x-button--ghost x-button"
             panelId="aside-panel"
           >
@@ -164,8 +164,8 @@
         </template>
 
         <template #toolbar-body>
-          <div v-if="$x.totalResults > 0" class="x-flex x-items-center x-gap-12">
-            <span class="x-text1">{{ $x.totalResults }} Results</span>
+          <div v-if="aliasApi.totalResults > 0" class="x-flex x-items-center x-gap-12">
+            <span class="x-text1">{{ aliasApi.totalResults }} Results</span>
             <BaseColumnPickerList
               @update:modelValue="col => (selectedColumns = col)"
               :modelValue="selectedColumns"
@@ -204,7 +204,7 @@
         </template>
 
         <template #main-aside>
-          <Aside v-if="$x.totalResults > 0" />
+          <Aside v-if="aliasApi.totalResults > 0" />
         </template>
 
         <template #main-body>
@@ -229,23 +229,23 @@
             <AutoProgressBar :isLoading="isRedirecting" :durationInSeconds="delayInSeconds" />
           </Redirection>
 
-          <template v-if="!$x.redirections.length">
+          <template v-if="!aliasApi.redirections.length">
             <FallbackDisclaimer class="x-message" />
 
             <!--  No Results Message  -->
             <div
-              v-if="$x.noResults && !$x.fromNoResultsWithFilters"
+              v-if="aliasApi.noResults && !aliasApi.fromNoResultsWithFilters"
               class="x-p-28 x-flex x-flex-col x-gap-8 x-items-center x-bg-lead-25 x-my-8"
               data-test="no-results-message"
             >
               <p>
                 There are no results for
-                <span class="x-font-bold">{{ $x.query.search }}</span>
+                <span class="x-font-bold">{{ aliasApi.query.search }}</span>
               </p>
               <p>You may be interested in these:</p>
             </div>
 
-            <template v-if="!$x.query.searchBox">
+            <template v-if="!aliasApi.query.searchBox">
               <h1 class="x-mb-16 x-title1">Brand Recommendations</h1>
               <LocationProvider location="no_results">
                 <QueryPreviewList
@@ -262,38 +262,38 @@
                   data-test="brand-recommendations-list"
                   :persistInCache="true"
                 >
-                  <DisplayEmitter
-                    :payload="displayTagging"
-                    :eventMetadata="{ feature: 'customer' }"
-                  >
-                    <div class="x-flex x-flex-col x-gap-8 x-mb-16">
-                      <QueryPreviewButton
-                        class="x-w-fit x-button-xl x-button-ghost"
-                        :queryPreviewInfo="queryPreviewInfo"
-                      >
-                        {{ `${queryPreviewInfo.query} (${totalResults})` }}
-                      </QueryPreviewButton>
-                      <DisplayResultProvider :queryTagging="queryTagging">
-                        <SlidingPanel :resetOnContentChange="false">
-                          <div class="x-flex x-gap-8">
-                            <Result
-                              v-for="result in results"
-                              :key="result.id"
-                              :result="result"
-                              style="max-width: 180px"
-                            />
-                          </div>
-                        </SlidingPanel>
-                      </DisplayResultProvider>
-                    </div>
-                  </DisplayEmitter>
+                  <!--                  <DisplayEmitter-->
+                  <!--                    :payload="displayTagging"-->
+                  <!--                    :eventMetadata="{ feature: 'customer' }"-->
+                  <!--                  >-->
+                  <div class="x-flex x-flex-col x-gap-8 x-mb-16">
+                    <QueryPreviewButton
+                      class="x-w-fit x-button-xl x-button-ghost"
+                      :queryPreviewInfo="queryPreviewInfo"
+                    >
+                      {{ `${queryPreviewInfo.query} (${totalResults})` }}
+                    </QueryPreviewButton>
+                    <DisplayResultProvider :queryTagging="queryTagging">
+                      <SlidingPanel :resetOnContentChange="false">
+                        <div class="x-flex x-gap-8">
+                          <Result
+                            v-for="result in results"
+                            :key="result.id"
+                            :result="result"
+                            style="max-width: 180px"
+                          />
+                        </div>
+                      </SlidingPanel>
+                    </DisplayResultProvider>
+                  </div>
+                  <!--                  </DisplayEmitter>-->
                 </QueryPreviewList>
               </LocationProvider>
             </template>
 
             <!-- Results -->
             <LocationProvider location="results">
-              <ResultsList v-infinite-scroll:main-scroll>
+              <ResultsList>
                 <PromotedsList>
                   <BannersList>
                     <NextQueriesList
@@ -302,8 +302,7 @@
                       <BaseVariableColumnGrid
                         style="--x-size-min-width-grid-item: 150px"
                         class="x-gap-12"
-                        :animation="resultsAnimation"
-                        :columns="$x.device === 'mobile' ? 2 : 4"
+                        :columns="aliasApi.device === 'mobile' ? 2 : 4"
                       >
                         <template #result="{ item: result }">
                           <MainScrollItem :item="result">
@@ -368,7 +367,7 @@
                 <h1 v-if="isAnyQueryLoadedInPreview(queries)" class="x-title1">
                   Similar Semantic Queries
                 </h1>
-                <LocationProvider :location="$x.noResults ? 'no_results' : 'low_results'">
+                <LocationProvider :location="aliasApi.noResults ? 'no_results' : 'low_results'">
                   <QueryPreviewList
                     :queries-preview-info="queries.map(q => ({ query: q }))"
                     #default="{ queryPreviewInfo: { query }, results, queryTagging }"
@@ -407,17 +406,14 @@
 
             <!-- Partials -->
             <PartialResultsList
-              v-if="!$x.fromNoResultsWithFilters && ($x.totalResults <= 4 || $x.noResults)"
-              :animation="resultsAnimation"
+              v-if="
+                !aliasApi.fromNoResultsWithFilters &&
+                (aliasApi.totalResults <= 4 || aliasApi.noResults)
+              "
             >
               <template #default="{ partialResult }">
                 <span data-test="partial-query">{{ partialResult.query }}</span>
-                <BaseGrid
-                  #result="{ item }"
-                  :animation="resultsAnimation"
-                  :columns="4"
-                  :items="partialResult.results"
-                >
+                <BaseGrid #result="{ item }" :columns="4" :items="partialResult.results">
                   <Result :result="item" data-test="partial-result-item" />
                 </BaseGrid>
                 <PartialQueryButton :query="partialResult.query">
@@ -427,12 +423,11 @@
             </PartialResultsList>
 
             <!-- Recommendations -->
-            <Recommendations v-if="!$x.query.search || $x.noResults" #layout="{ recommendations }">
-              <BaseVariableColumnGrid
-                #default="{ item: result }"
-                :animation="resultsAnimation"
-                :items="recommendations"
-              >
+            <Recommendations
+              v-if="!aliasApi.query.search || aliasApi.noResults"
+              #layout="{ recommendations }"
+            >
+              <BaseVariableColumnGrid #default="{ item: result }" :items="recommendations">
                 <Result :result="result" data-test="recommendation-item" />
               </BaseVariableColumnGrid>
             </Recommendations>
@@ -452,8 +447,6 @@
 <script lang="ts">
   /* eslint-disable max-len */
   import { computed, ComputedRef, defineComponent, provide } from 'vue';
-  import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
-  import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
   import BaseDropdown from '../../components/base-dropdown.vue';
   import BaseGrid from '../../components/base-grid.vue';
@@ -517,6 +510,7 @@
   import Result from './result.vue';
   import { HomeControls } from './types';
   import DisplayResultProvider from './display-result-provider.vue';
+  import { use$x } from '../../composables';
 
   export default defineComponent({
     directives: {
@@ -583,6 +577,7 @@
       MainModal
     },
     setup() {
+      const aliasApi = use$x();
       const stores = ['Spain', 'Portugal', 'Italy'];
       const initialExtraParams = { store: 'Portugal' };
       const searchInputPlaceholderMessages = [
@@ -593,8 +588,8 @@
         'Find sunglasses'
       ];
       const columnPickerValues = [0, 2, 4];
-      const resultsAnimation = StaggeredFadeAndSlide;
-      const modalAnimation = animateClipPath();
+      // const resultsAnimation = StaggeredFadeAndSlide;
+      // const modalAnimation = animateClipPath();
       const selectedColumns = 4;
       const sortValues = ['', 'price asc', 'price desc'];
       const isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview;
@@ -654,9 +649,9 @@
       const toggleE2EAdapter = () => {
         adapterConfig.e2e = !adapterConfig.e2e;
       };
+
       return {
-        resultsAnimation,
-        modalAnimation,
+        aliasApi,
         queriesPreviewInfo,
         stores,
         initialExtraParams,

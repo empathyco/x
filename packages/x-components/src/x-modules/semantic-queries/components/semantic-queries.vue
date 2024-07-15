@@ -1,43 +1,42 @@
 <template>
-  <NoElement v-if="suggestions.length">
-    <!-- eslint-disable max-len -->
-    <!--
+  <!-- eslint-disable max-len -->
+  <!--
       @slot Semantic Query content
         @binding {string[]} queries - SemanticQueries mapped to strings
         @binding {SemanticQuery[]} suggestions - The SemanticQueries
         @binding {(query: string) => SemanticQuery} findSemanticQuery - Method to find a semantic query given a query
     -->
-    <!-- eslint-enable max-len -->
-    <slot name="default" v-bind="{ queries, suggestions, findSemanticQuery }">
-      <BaseSuggestions
-        v-bind="$attrs"
-        class="x-semantic-queries"
-        :suggestions="suggestions"
-        #default="baseSuggestionsScope"
-      >
-        <!-- eslint-disable max-len -->
-        <!--
+  <!-- eslint-enable max-len -->
+  <slot
+    v-if="suggestions.length"
+    name="default"
+    v-bind="{ queries, suggestions, findSemanticQuery }"
+  >
+    <BaseSuggestions
+      v-bind="$attrs"
+      class="x-semantic-queries"
+      :suggestions="suggestions"
+      #default="baseSuggestionsScope"
+    >
+      <!-- eslint-disable max-len -->
+      <!--
           @slot Semantic Query content
               @binding {{suggestion: object - Suggestion data, index: number - Suggestion index}} v-bind BaseSuggestion bindings
         -->
-        <!-- eslint-enable max-len -->
-        <slot name="suggestion" v-bind="baseSuggestionsScope">
-          <SemanticQuery
-            :suggestion="baseSuggestionsScope.suggestion"
-            #default="baseSuggestionScope"
-          >
-            <!-- eslint-disable max-len -->
-            <!--
+      <!-- eslint-enable max-len -->
+      <slot name="suggestion" v-bind="baseSuggestionsScope">
+        <SemanticQuery :suggestion="baseSuggestionsScope.suggestion" #default="baseSuggestionScope">
+          <!-- eslint-disable max-len -->
+          <!--
               @slot Semantic Query content
                   @binding {{suggestion: object - Suggestion data, query: string - The query that the suggestion belongs to}} v-bind SemanticQuery bindings
             -->
-            <!-- eslint-enable max-len -->
-            <slot name="suggestion-content" v-bind="baseSuggestionScope" />
-          </SemanticQuery>
-        </slot>
-      </BaseSuggestions>
-    </slot>
-  </NoElement>
+          <!-- eslint-enable max-len -->
+          <slot name="suggestion-content" v-bind="baseSuggestionScope" />
+        </SemanticQuery>
+      </slot>
+    </BaseSuggestions>
+  </slot>
 </template>
 
 <script lang="ts">

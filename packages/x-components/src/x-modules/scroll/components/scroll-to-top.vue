@@ -2,7 +2,7 @@
   <component :is="animation">
     <BaseEventButton
       v-if="isVisible"
-      v-on="$listeners"
+      v-bind="$attrs"
       class="x-scroll-to-top x-button"
       data-test="scroll-to-top"
       aria-label="Scroll to top"
@@ -31,6 +31,7 @@
    * @public
    */
   export default defineComponent({
+    inheritAttrs: false,
     name: 'ScrollToTop',
     xModule: scrollXModule.name,
     components: { BaseEventButton },

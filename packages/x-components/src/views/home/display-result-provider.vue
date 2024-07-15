@@ -1,7 +1,5 @@
 <template>
-  <NoElement>
-    <slot />
-  </NoElement>
+  <slot />
 </template>
 
 <script lang="ts">

@@ -2,24 +2,24 @@
   <div
     class="x-layout x-layout--columns"
     :class="{ 'dev-mode': devMode }"
-    :style="{ height: hasContent('main-body') ? '100%' : 'auto' }"
+    :style="{ height: '100%' }"
   >
     <header class="x-layout__header">
-      <div v-if="hasContent('header-start')" class="x-list x-layout__header-start">
+      <div class="x-list x-layout__header-start">
         <!-- @slot Slot that can be used to insert content into the left part of the header. -->
         <slot name="header-start">
           <span v-if="devMode" class="slot-helper">HEADER START</span>
         </slot>
       </div>
 
-      <div v-if="hasContent('header-middle')" class="x-list x-layout__header-middle">
+      <div class="x-list x-layout__header-middle">
         <!-- @slot Slot that can be used to insert content into the center part of the header. -->
         <slot name="header-middle">
           <span v-if="devMode" class="slot-helper">HEADER MIDDLE</span>
         </slot>
       </div>
 
-      <div v-if="hasContent('header-end')" class="x-list x-layout__header-end">
+      <div class="x-list x-layout__header-end">
         <!-- @slot Slot that can be used to insert content into the right part of the header. -->
         <slot name="header-end">
           <span v-if="devMode" class="slot-helper">HEADER END</span>
@@ -27,7 +27,7 @@
       </div>
     </header>
 
-    <div v-if="hasContent('sub-header')" class="x-layout__sub-header">
+    <div class="x-layout__sub-header">
       <div class="x-layout__sub-header-content">
         <!-- @slot Slot that can be used to insert content into below the header. -->
         <slot name="sub-header">
@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <section v-if="hasContent('toolbar-aside', 'toolbar-body')" class="x-layout__toolbar">
+    <section class="x-layout__toolbar">
       <aside class="x-list x-layout__toolbar-aside">
         <slot name="toolbar-aside">
           <!-- @slot Slot that can be used to insert content above the left aside. -->
@@ -54,7 +54,6 @@
 
     <main class="x-layout__main">
       <BaseIdTogglePanel
-        v-if="hasContent('main-aside')"
         panelId="aside-panel"
         :animation="asideAnimation"
         class="x-layout__collapse-aside"
@@ -70,7 +69,7 @@
       </BaseIdTogglePanel>
 
       <MainScroll class="x-flex x-flex-auto">
-        <Scroll v-if="hasContent('main-body')" id="main-scroll" class="x-layout__body-scroll">
+        <Scroll id="main-scroll" class="x-layout__body-scroll">
           <section class="x-layout__main-body x-list x-list--vertical">
             <!-- @slot Slot that can be used to insert the body content. -->
             <slot name="main-body">
@@ -81,7 +80,7 @@
       </MainScroll>
     </main>
 
-    <div v-if="hasContent('scroll-to-top')" class="x-layout__scroll-to-top">
+    <div class="x-layout__scroll-to-top">
       <div class="x-layout__scroll-to-top-content">
         <slot name="scroll-to-top">
           <span v-if="devMode" class="slot-helper" style="height: 50px">SCROLL TO TOP</span>

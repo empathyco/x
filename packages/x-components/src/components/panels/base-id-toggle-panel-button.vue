@@ -1,6 +1,6 @@
 <template>
   <BaseEventButton
-    v-on="$listeners"
+    v-bind="$attrs"
     :events="events"
     class="x-base-id-toggle-panel-button x-button"
     data-test="base-id-toggle-button"
@@ -28,6 +28,7 @@
    * @public
    */
   export default defineComponent({
+    inheritAttrs: false,
     name: 'BaseIdTogglePanelButton',
     components: { BaseEventButton },
     props: {

@@ -1,6 +1,6 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { forEach, Dictionary } from '@empathyco/x-utils';
-import { PluginObject, VueConstructor } from 'vue';
+import { App, PluginObject, VueConstructor } from 'vue';
 import Vuex, { createStore, Module, Store } from 'vuex';
 import { XComponentsAdapter } from '@empathyco/x-types';
 import { EventPayload, SubjectPayload, XBus } from '@empathyco/x-bus';
@@ -207,7 +207,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    *
    * @internal
    */
-  install(vue: VueConstructor, options?: XPluginOptions): void {
+  install(vue: App, options?: XPluginOptions): void {
     if (this.isInstalled) {
       throw new Error('XPlugin has already been installed');
     }
@@ -356,7 +356,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @internal
    */
   protected registerStore(): void {
-    this.vue.use(Vuex); // We can safely install Vuex because if it is already installed Vue
+    // this.vue.use(Vuex); // We can safely install Vuex because if it is already installed Vue
     // will simply ignore it
     this.store =
       this.options.store ??
@@ -366,6 +366,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     // if (!this.options.store) {
     //   this.vue.prototype.$store = this.store;
     // }
+    this.vue.use(this.store);
     this.store.registerModule('x', RootXStoreModule);
   }
 
@@ -375,7 +376,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @internal
    */
   protected applyMixins(): void {
-    this.vue.mixin(createXComponentAPIMixin(this.bus));
+    // this.vue.mixin(createXComponentAPIMixin(this.bus));
   }
 
   /**
