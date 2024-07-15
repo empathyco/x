@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.2...@empathyco/x-tailwindcss@1.2.0-alpha.3) (2024-07-15)
+
+
+### Bug Fixes
+
+* **design-system:** suggestion alignment in firefox (#1565) ([30e0186](https://github.com/empathyco/x/commit/30e0186ddc77ee6043799010576dee4a8e1f93f9))
+
+
+
 ## [1.2.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.1...@empathyco/x-tailwindcss@1.2.0-alpha.2) (2024-02-05)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss
