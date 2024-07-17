@@ -28,3 +28,24 @@ export function isElementEqualOrContained(a: Element, b: Element): boolean {
 export function getTargetElement(event: Event): Element {
   return event.composedPath()[0] as Element;
 }
+
+/**
+ * Retrieves the currently active element from the specified document or shadow root.
+ * This function is recursive to handle nested shadow DOMs, ensuring the actual active
+ * element is returned even if it resides deep within multiple shadow DOM layers.
+ *
+ * @param root - The root document or shadow root from which to retrieve the active element.
+ * Defaults to the global document if not specified.
+ * @returns The active element if one exists, or null if no active element can be found.
+ * In the context of shadow DOM, this will return the deepest active element
+ * within nested shadow roots.
+ *
+ * @public
+ */
+export function getActiveElement(root: Document | ShadowRoot = document): Element | null {
+  let current = root.activeElement;
+  while (current?.shadowRoot) {
+    current = current.shadowRoot.activeElement;
+  }
+  return current;
+}

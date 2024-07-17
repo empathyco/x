@@ -1,5 +1,6 @@
 import { FOCUSABLE_SELECTORS } from '../utils/focus';
 import { ArrowKey } from '../utils/types';
+import { getActiveElement } from '../utils/html';
 import {
   AbsoluteDistances,
   Intersection,
@@ -121,9 +122,11 @@ export class DirectionalFocusNavigationService implements SpatialNavigation {
    * SHIFT+TAB keys.
    */
   private updateOrigin(): void {
-    const newOrigin = document.activeElement as HTMLElement;
-    this.origin = newOrigin;
-    this.originRect = newOrigin.getBoundingClientRect();
+    const newOrigin = getActiveElement();
+    if (newOrigin) {
+      this.origin = newOrigin as HTMLElement;
+      this.originRect = newOrigin.getBoundingClientRect();
+    }
   }
 
   /**
