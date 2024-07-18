@@ -23,6 +23,7 @@
   import { AnimationProp } from '../../../types';
   import { XEvent } from '../../../wiring';
   import { empathizeXModule } from '../x-module';
+  import { getActiveElement } from '../../../utils/html';
 
   /**
    * Component containing the empathize. It has a required slot to define its content and two props
@@ -97,7 +98,8 @@
        * element.
        */
       function close() {
-        if (!empathizeRef.value?.contains(document.activeElement)) {
+        const activeElement = getActiveElement();
+        if (!empathizeRef.value?.contains(activeElement)) {
           changeOpen(false);
         }
       }
