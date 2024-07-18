@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.72](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.71...@empathyco/x-components@5.0.0-alpha.72) (2024-07-18)
+
+
+### Bug Fixes
+
+* **queryPreviewList:** repeated query loading issue (#1566) ([60aa0c0](https://github.com/empathyco/x/commit/60aa0c0975eabc3a282cfece4ab64fd29c02a3cb))
+
+
+
 ## [5.0.0-alpha.71](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.70...@empathyco/x-components@5.0.0-alpha.71) (2024-07-15)
 
 **Note:** Version bump only for package @empathyco/x-components
