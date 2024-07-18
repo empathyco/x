@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.73](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.72...@empathyco/x-components@5.0.0-alpha.73) (2024-07-18)
+
+
+### Bug Fixes
+
+* keyboard navigation within shadow dom (#1571) ([1784c4c](https://github.com/empathyco/x/commit/1784c4cb6f130947a2454f5adbabcaf4821f8ab2))
+
+
+
 ## [5.0.0-alpha.72](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.71...@empathyco/x-components@5.0.0-alpha.72) (2024-07-18)
 
 
