@@ -36,7 +36,19 @@ export const RootXStoreModule: Module<XModuleState, any> = {
     semanticQueries: null,
     tagging: null,
     url: null,
-    experienceControls: null
+    experienceControls: null,
+    test: {}
   }),
+  mutations: {
+    increment(state) {
+      const t0 = performance.now();
+      Array.from(Array(210).keys()).forEach(key => {
+        console.log(key);
+        (state as any).test[key] = { a: key };
+      });
+      const t1 = performance.now();
+      console.log(`Loop of 210 with assignation took ${(t1 - t0) / 1000} seconds.`);
+    }
+  },
   namespaced: true
 };

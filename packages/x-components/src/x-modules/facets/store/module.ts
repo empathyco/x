@@ -1,5 +1,4 @@
 import { Facet } from '@empathyco/x-types';
-import Vue from 'vue';
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 import { setQuery } from '../../../store/utils/query.utils';
 import { facets } from './getters/facets.getter';
@@ -37,7 +36,19 @@ export const facetsXStoreModule: FacetsXStoreModule = {
       state.filters[newFilter.id] = newFilter;
     },
     setFilters(state, filters) {
-      filters.forEach(filter => (state.filters[filter.id] = filter));
+      console.log('filters.length', filters.length);
+      const t0 = performance.now();
+      const a = filters.reduce((acc, current) => {
+        acc[current.id] = current;
+        return acc;
+      }, {} as Record<string, any>);
+      state.filters = {
+        ...state.filters,
+        ...a
+      };
+      // filters.forEach(filter => (state.filters[filter.id] = filter));
+      const t1 = performance.now();
+      console.log(`Loop of FILTERS with assignation took ${(t1 - t0) / 1000} seconds.`);
     },
     setPreselectedFilters(state, filters) {
       state.preselectedFilters = filters;
@@ -46,7 +57,11 @@ export const facetsXStoreModule: FacetsXStoreModule = {
       delete state.filters[id];
     },
     removeFilters(state, filters) {
-      filters.forEach(({ id }) => delete state.filters[id]);
+      const copy = { ...state.filters };
+      filters.forEach(({ id }) => delete copy[id]);
+
+      state.filters = copy;
+      // filters.forEach(({ id }) => delete state.filters[id]);
     },
     setFacetGroup(state, { facetId, groupId }: FacetGroupEntry) {
       state.groups[facetId] = groupId;

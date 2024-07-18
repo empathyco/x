@@ -33,7 +33,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     },
     status: 'initial',
     isNoResults: false,
-    fromNoResultsWithFilters: false
+    fromNoResultsWithFilters: false,
+    test: {}
   }),
   getters: {
     request,
@@ -53,6 +54,13 @@ export const searchXStoreModule: SearchXStoreModule = {
     setQuery,
     setResults(state, results) {
       state.results = results;
+      const t0 = performance.now();
+      Array.from(Array(210).keys()).forEach(key => {
+        console.log(key);
+        state.test[key] = { a: key };
+      });
+      const t1 = performance.now();
+      console.log(`Loop of 210 with assignation took ${(t1 - t0) / 1000} seconds.`);
     },
     setPartialResults(state, partialResults) {
       state.partialResults = partialResults;

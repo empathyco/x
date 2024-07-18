@@ -4,7 +4,7 @@
 
 <script lang="ts">
   import { computed, defineComponent, onMounted, PropType, Ref, ref, watch } from 'vue';
-  import GlobalEvents from 'vue-global-events';
+  import { GlobalEvents } from 'vue-global-events';
   import { throttle } from '../../../utils/throttle';
   import { deviceXModule } from '../x-module';
   import { useXBus } from '../../../composables/use-x-bus';
