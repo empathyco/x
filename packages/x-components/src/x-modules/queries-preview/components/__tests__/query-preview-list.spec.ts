@@ -162,6 +162,26 @@ describe('testing QueryPreviewList', () => {
     expect(queryPreviews.wrappers).toHaveLength(1);
     expect(queryPreviews.at(0).text()).toEqual('shoes - Crazy shoes');
   });
+
+  it('load next batch when it contains duplicates', async () => {
+    const { getQueryPreviewItemWrappers, reRender, wrapper } = renderQueryPreviewList({
+      queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }],
+      results: {
+        shirt: [createResultStub('Cool shirt')],
+        jeans: [createResultStub('Sick jeans')],
+        dress: [createResultStub('cool dress ')]
+      }
+    });
+    await reRender();
+    let queryPreviews = getQueryPreviewItemWrappers();
+    expect(queryPreviews.wrappers).toHaveLength(2);
+    wrapper.setProps({
+      queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }, { query: 'dress' }]
+    });
+    await reRender();
+    queryPreviews = getQueryPreviewItemWrappers();
+    expect(queryPreviews.wrappers).toHaveLength(3);
+  });
 });
 
 interface RenderQueryPreviewListOptions {
