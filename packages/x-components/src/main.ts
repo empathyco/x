@@ -1,13 +1,51 @@
-import { platformAdapter } from '@empathyco/x-adapter-platform';
+import App from './App.vue';
+import { setupDevtools } from './plugins/devtools/devtools.plugin';
+import router from './router';
 import { baseInstallXOptions, baseSnippetConfig } from './views/base-config';
-import Vue3 from './vue3.vue';
 import { XInstaller } from './x-installer/x-installer/x-installer';
+import { FilterEntityFactory } from './x-modules/facets/entities/filter-entity.factory';
+import { SingleSelectModifier } from './x-modules/facets/entities/single-select.modifier';
+import { StickyModifier } from './x-modules/facets/entities/sticky.modifier';
+import './tailwind/index.css';
 
-window.initX = baseSnippetConfig;
+// Vue.config.productionTip = false;
+FilterEntityFactory.instance.registerModifierByFacetId('age_facet', SingleSelectModifier);
+FilterEntityFactory.instance.registerModifierByFacetId(
+  'brand_facet',
+  StickyModifier,
+  SingleSelectModifier
+);
+FilterEntityFactory.instance.registerModifierByFacetId('price', SingleSelectModifier);
+FilterEntityFactory.instance.registerModifierByFilterModelName(
+  'HierarchicalFilter',
+  SingleSelectModifier
+);
 
-new XInstaller({
+const installer = new XInstaller({
   ...baseInstallXOptions,
-  adapter: platformAdapter,
-  app: Vue3,
-  domElement: '#app'
-}).init();
+  app: App,
+  vueOptions: {
+    router
+  },
+  domElement: '#app',
+  onCreateApp: initDevtools
+});
+
+if (window.initX) {
+  installer.init();
+} else {
+  installer.init(baseSnippetConfig).then(({ app }) => {
+    app.use(router);
+  });
+}
+
+/**
+ * If an app is provided, initialise the devtools.
+ *
+ * @param app - The root Vue instance of the application.
+ */
+function initDevtools(app: any): void {
+  if (process.env.NODE_ENV !== 'production') {
+    setupDevtools(app);
+  }
+}

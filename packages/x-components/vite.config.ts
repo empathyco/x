@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
+import Inspector from 'vite-plugin-vue-inspector';
 
 export const vueDocsPlugin = {
   name: 'vue-docs',
@@ -10,7 +11,7 @@ export const vueDocsPlugin = {
 };
 
 export default defineConfig({
-  plugins: [vue(), vueDocsPlugin],
+  plugins: [vue(), vueDocsPlugin, Inspector()],
   resolve: {
     alias: {
       vue: resolve(__dirname, 'node_modules/vue')

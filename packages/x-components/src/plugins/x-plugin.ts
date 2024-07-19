@@ -5,28 +5,11 @@ import { createStore, Module, Store } from 'vuex';
 import { XComponentsAdapter } from '@empathyco/x-types';
 import { EventPayload, SubjectPayload, XBus } from '@empathyco/x-bus';
 import { Observable } from 'rxjs';
+import { cleanGettersProxyCache } from '../store/utils/getters-proxy.utils';
+import { RootXStoreModule } from '../store/x.module';
 import { AnyXStoreModule, RootXStoreState } from '../store/store.types';
 import { XEvent, XEventsTypes } from '../wiring/events.types';
 import { AnyWire, WireMetadata } from '../wiring/wiring.types';
-import { deviceXStoreModule } from '../x-modules/device/store/module';
-import { empathizeXStoreModule } from '../x-modules/empathize/store/module';
-import { experienceControlsXStoreModule } from '../x-modules/experience-controls/store/module';
-import { extraParamsXStoreModule } from '../x-modules/extra-params/store/module';
-import { facetsXStoreModule } from '../x-modules/facets/store/module';
-import { historyQueriesXStoreModule } from '../x-modules/history-queries/store/module';
-import { identifierResultsXStoreModule } from '../x-modules/identifier-results/store/module';
-import { nextQueriesXStoreModule } from '../x-modules/next-queries/store/module';
-import { popularSearchesXStoreModule } from '../x-modules/popular-searches/store/module';
-import { queriesPreviewXStoreModule } from '../x-modules/queries-preview/store/module';
-import { querySuggestionsXStoreModule } from '../x-modules/query-suggestions/store/module';
-import { recommendationsXStoreModule } from '../x-modules/recommendations/store/module';
-import { relatedTagsXStoreModule } from '../x-modules/related-tags/store/module';
-import { scrollXStoreModule } from '../x-modules/scroll/store/module';
-import { searchBoxXStoreModule } from '../x-modules/search-box/store/module';
-import { searchXStoreModule } from '../x-modules/search/store/module';
-import { semanticQueriesXStoreModule } from '../x-modules/semantic-queries/store/module';
-import { taggingXStoreModule } from '../x-modules/tagging/store/module';
-import { urlXStoreModule } from '../x-modules/url/store/module';
 import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
 import { sendWiringToDevtools } from './devtools/wiring.devtools';
 import { bus } from './x-bus';
@@ -198,6 +181,7 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @internal
    */
   static resetInstance(): void {
+    cleanGettersProxyCache();
     this.instance = undefined;
   }
 
@@ -247,8 +231,8 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    */
   protected registerXModule(xModule: AnyXModule): void {
     if (!this.installedXModules.has(xModule.name)) {
-      // const customizedXModule = this.customizeXModule(xModule);
-      // this.registerStoreModule(customizedXModule);
+      const customizedXModule = this.customizeXModule(xModule);
+      this.registerStoreModule(customizedXModule);
       this.registerStoreEmitters(xModule);
       this.registerWiring(xModule);
       // The wiring must be registered after the store emitters
@@ -376,51 +360,15 @@ export class XPlugin implements PluginObject<XPluginOptions> {
     this.store =
       this.options.store ??
       createStore({
-        strict: process.env.NODE_ENV !== 'production',
-        modules: {
-          x: {
-            namespaced: true,
-            state: () => ({ test: {} }),
-            mutations: {
-              increment(state: any) {
-                const t0 = performance.now();
-                Array.from(Array(210).keys()).forEach(key => {
-                  console.log(key);
-                  state.test[key] = { a: key };
-                });
-                const t1 = performance.now();
-                console.log(`Loop of 210 with assignation took ${(t1 - t0) / 1000} seconds.`);
-              }
-            },
-            modules: {
-              device: { namespaced: true, ...deviceXStoreModule },
-              empathize: { namespaced: true, ...empathizeXStoreModule },
-              extraParams: { namespaced: true, ...extraParamsXStoreModule },
-              facets: { namespaced: true, ...facetsXStoreModule },
-              historyQueries: { namespaced: true, ...historyQueriesXStoreModule },
-              identifierResults: { namespaced: true, ...identifierResultsXStoreModule },
-              nextQueries: { namespaced: true, ...nextQueriesXStoreModule },
-              popularSearches: { namespaced: true, ...popularSearchesXStoreModule },
-              queriesPreview: { namespaced: true, ...queriesPreviewXStoreModule },
-              querySuggestions: { namespaced: true, ...querySuggestionsXStoreModule },
-              recommendations: { namespaced: true, ...recommendationsXStoreModule },
-              relatedTags: { namespaced: true, ...relatedTagsXStoreModule },
-              scroll: { namespaced: true, ...scrollXStoreModule },
-              search: { namespaced: true, ...searchXStoreModule },
-              searchBox: { namespaced: true, ...searchBoxXStoreModule },
-              semanticQueries: { namespaced: true, ...semanticQueriesXStoreModule },
-              tagging: { namespaced: true, ...taggingXStoreModule },
-              url: { namespaced: true, ...urlXStoreModule },
-              experienceControls: { namespaced: true, ...experienceControlsXStoreModule }
-            }
-          }
-        } as any
+        /* strict mode causes slow down app significantly with vuex4 and
+           registering modules dynamically */
+        // strict: process.env.NODE_ENV !== 'production'
       });
     // if (!this.options.store) {
     //   this.vue.prototype.$store = this.store;
     // }
     this.vue.use(this.store);
-    // this.store.registerModule('x', RootXStoreModule);
+    this.store.registerModule('x', RootXStoreModule);
   }
 
   /**
