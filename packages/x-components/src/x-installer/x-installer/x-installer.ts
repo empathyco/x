@@ -1,5 +1,5 @@
 import { forEach, isFunction } from '@empathyco/x-utils';
-import Vue, { PluginObject, VueConstructor } from 'vue';
+import { App, createApp, reactive, Plugin } from 'vue';
 import { XBus } from '@empathyco/x-bus';
 import { XPlugin } from '../../plugins/x-plugin';
 import { XPluginOptions } from '../../plugins/x-plugin.types';
@@ -88,6 +88,7 @@ declare global {
  * @public
  */
 export class XInstaller {
+  private app!: App;
   private api?: XAPI;
 
   /**
@@ -154,7 +155,7 @@ export class XInstaller {
    *
    * @returns If {@link SnippetConfig | snippet config} is passed or configured in window.initX,
    * returns an object with the {@link XAPI}, the {@link @empathyco/x-bus#XBus}, the {@link XPlugin}
-   * and the Vue App used in the application. Else, a rejected promise is returned.
+   * and the Vue application instance. Else, a rejected promise is returned.
    *
    * @public
    */
@@ -162,17 +163,18 @@ export class XInstaller {
   init(): Promise<InitWrapper | void>;
   async init(snippetConfig = this.retrieveSnippetConfig()): Promise<InitWrapper | void> {
     if (snippetConfig) {
-      this.snippetConfig = this.normaliseSnippetConfig(snippetConfig);
+      this.snippetConfig = reactive(this.normaliseSnippetConfig(snippetConfig));
+      this.createApp({});
       const bus = this.createBus();
       const pluginOptions = this.getPluginOptions();
       const plugin = this.installPlugin(pluginOptions, bus);
-      const extraPlugins = await this.installExtraPlugins(bus);
-      const app = this.createApp(extraPlugins);
+      await this.installExtraPlugins(bus);
       this.api?.setBus(bus);
+      this.getApp().mount(this.getMountingTarget(this.options.domElement));
 
       return {
         api: this.api,
-        app,
+        app: this.getApp(),
         bus,
         plugin
       };
@@ -213,19 +215,19 @@ export class XInstaller {
   }
 
   /**
-   * This method returns the VueConstructor to use to create the App instance.
-   * It returns the `vue` parameter in the {@link InstallXOptions} or if not provided, then
-   * returns the default Vue.
+   * This method returns the Vue app instance.
+   * It returns the `app` parameter in the {@link InstallXOptions} or if not provided, then
+   * returns a newly created instance.
    *
    * @remarks The purpose of this option is mainly the testing. In a test we can use this option
    * to pass the local vue instance created by `createLocalVue` method.
    *
-   * @returns VueConstructor - The vue constructor to create the App instance.
+   * @returns App - A Vue app instance.
    *
    * @internal
    */
-  protected getVue(): VueConstructor {
-    return this.options.vue ?? Vue;
+  protected getApp(): App {
+    return this.options.app ?? this.app;
   }
 
   /**
@@ -237,59 +239,51 @@ export class XInstaller {
    * of the plugin.
    * @param bus - The {@link @empathyco/x-bus#XBus} to be used to create the XPlugin.
    *
-   * @returns PluginObject<XPluginOption> - The plugin instance.
+   * @returns Plugin<XPluginOption> - The plugin instance.
    * @internal
    */
   protected installPlugin(
     pluginOptions: XPluginOptions,
     bus: XBus<XEventsTypes, WireMetadata>
-  ): PluginObject<XPluginOptions> {
+  ): Plugin<XPluginOptions> {
     const plugin = this.options.plugin ?? new XPlugin(bus);
-    const vue = this.getVue();
-    vue.use(plugin, pluginOptions);
+    this.getApp().use(plugin, pluginOptions);
     return plugin;
   }
 
   /**
-   * Install more plugins to Vue defined by the user.
+   * Runs the installExtraPlugins callback defined in the {@link InstallXOptions}
+   * to allow the user to install more plugins to the App.
    *
    * @param bus - The events bus used in the application.
-   * @returns The arguments from the plugins installation to be used in Vue's constructor.
+   * @returns An empty promise.
    * @internal
    */
-  protected installExtraPlugins(
-    bus: XBus<XEventsTypes, WireMetadata>
-  ): Promise<VueConstructorPartialArgument> {
-    const vue = this.getVue();
+  protected installExtraPlugins(bus: XBus<XEventsTypes, WireMetadata>): Promise<void> {
     return Promise.resolve(
-      this.options.installExtraPlugins?.({ vue, snippet: this.snippetConfig!, bus })
+      this.options.installExtraPlugins?.({ app: this.getApp(), snippet: this.snippetConfig!, bus })
     );
   }
 
   /**
-   * In the case that the `app` parameter is present in the {@link InstallXOptions}, then a new Vue
-   * application is created using that app.
+   * In the case that the `rootComponent` parameter is present in the {@link InstallXOptions}, then a new Vue
+   * application is created using that component as root.
    *
    * @param extraPlugins - Vue plugins initialisation data.
-   * @returns The Created Vue application or undefined if not created.
    *
    * @internal
    */
-  protected createApp(extraPlugins: VueConstructorPartialArgument): Vue | undefined {
-    if (this.options.app !== undefined) {
-      const vue = this.getVue();
-      const app = new vue({
+  protected createApp(extraPlugins: VueConstructorPartialArgument): void {
+    if (!this.options.app && this.options.rootComponent !== undefined) {
+      this.app = createApp(this.options.rootComponent, {
         ...extraPlugins,
         ...this.options.vueOptions,
         provide: {
-          snippetConfig: (this.snippetConfig = vue.observable(this.snippetConfig))
+          snippetConfig: this.snippetConfig
         },
-        store: this.options.store,
-        el: this.getMountingTarget(this.options.domElement),
-        render: h => h(this.options.app)
+        store: this.options.store
       });
-      this.options.onCreateApp?.(app);
-      return app;
+      this.options.onCreateApp?.(this.app);
     }
   }
 
@@ -353,7 +347,7 @@ export class XInstaller {
       return;
     }
     forEach(this.normaliseSnippetConfig(newSnippetConfig), (name, value) => {
-      this.getVue().set(this.snippetConfig!, name, value);
+      this.snippetConfig![name] = value;
     });
   }
 

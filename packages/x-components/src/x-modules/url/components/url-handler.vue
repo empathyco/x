@@ -5,7 +5,7 @@
 <script lang="ts">
   import { Dictionary, objectFilter } from '@empathyco/x-utils';
   import { computed, defineComponent, inject, onMounted, ref } from 'vue';
-  import GlobalEvents from 'vue-global-events';
+  import { GlobalEvents } from 'vue-global-events';
   import { FeatureLocation } from '../../../types/origin';
   import { UrlParams } from '../../../types/url-params';
   import { isArrayEmpty } from '../../../utils/array';

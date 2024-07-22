@@ -1,5 +1,4 @@
 import { setupDevtoolsPlugin, App } from '@vue/devtools-api';
-import Vue from 'vue';
 import { setupTimelinePlugin } from './timeline.devtools';
 import { setupWiringDevtools } from './wiring.devtools';
 
@@ -9,10 +8,10 @@ import { setupWiringDevtools } from './wiring.devtools';
  * inspected.
  * - Wiring inspector. Events and its wires can be viewed and disabled.
  *
- * @param app - The Vue application the devtools should track.
+ * @param app - The Vue application instance the devtools should track.
  * @beta
  */
-export function setupDevtools(app: Vue): void {
+export function setupDevtools(app: App): void {
   setupDevtoolsPlugin(
     {
       id: 'x-components-devtools-plugin',
@@ -20,7 +19,7 @@ export function setupDevtools(app: Vue): void {
       packageName: '@empathyco/x-components',
       homepage: 'https://empathy.co',
       enableEarlyProxy: true,
-      app: app as App // FIXME: Infinite loop with types when inferred as a Vue2 app.
+      app
     },
     api => {
       if (api) {

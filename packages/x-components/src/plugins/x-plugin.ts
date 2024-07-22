@@ -1,7 +1,7 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { forEach, Dictionary } from '@empathyco/x-utils';
-import { PluginObject, VueConstructor } from 'vue';
-import Vuex, { Module, Store } from 'vuex';
+import { App } from 'vue';
+import { createStore, Module, Store } from 'vuex';
 import { XComponentsAdapter } from '@empathyco/x-types';
 import { EventPayload, SubjectPayload, XBus } from '@empathyco/x-bus';
 import { Observable } from 'rxjs';
@@ -24,7 +24,7 @@ import { assertXPluginOptionsAreValid } from './x-plugin.utils';
  *
  * @public
  */
-export class XPlugin implements PluginObject<XPluginOptions> {
+export class XPlugin {
   /**
    * {@link @empathyco/x-typesm#XComponentsAdapter | XComponentsAdapter} Is the middleware
    * between the components and our API where data can be mapped to client needs.
@@ -139,13 +139,13 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    */
   protected store!: Store<any>;
   /**
-   * The global Vue, passed by the installation method. Used to apply the global mixin
+   * The Vue application instance, passed by the installation method.
    * {@link createXComponentAPIMixin}, and install the {@link https://vuex.vuejs.org/ | Vuex}
    * plugin.
    *
    * @internal
    */
-  protected vue!: VueConstructor;
+  protected app!: App;
 
   /**
    * Creates a new instance of the XPlugin with the given bus passed as parameter.
@@ -201,23 +201,22 @@ export class XPlugin implements PluginObject<XPluginOptions> {
   /**
    * Installs the plugin into the Vue instance.
    *
-   * @param vue - The GlobalVue object.
+   * @param app - The Vue application instance.
    * @param options - The options to install this plugin with.
    * @throws If the XPlugin has already been installed, or the options are not valid.
    *
    * @internal
    */
-  install(vue: VueConstructor, options?: XPluginOptions): void {
+  install(app: App, options?: XPluginOptions): void {
     if (this.isInstalled) {
       throw new Error('XPlugin has already been installed');
     }
     assertXPluginOptionsAreValid(options);
     XPlugin.instance = this;
-    this.vue = vue;
+    this.app = app;
     this.options = options;
     this.adapter = options.adapter;
     this.registerStore();
-    this.applyMixins();
     this.registerInitialModules();
     this.registerPendingXModules();
     this.isInstalled = true;
@@ -356,28 +355,10 @@ export class XPlugin implements PluginObject<XPluginOptions> {
    * @internal
    */
   protected registerStore(): void {
-    this.vue.use(Vuex); // We can safely install Vuex because if it is already installed Vue
-    // will simply ignore it
-    this.store =
-      this.options.store ??
-      new Store({
-        strict: process.env.NODE_ENV !== 'production'
-      });
-    if (!this.options.store) {
-      this.vue.prototype.$store = this.store;
-    }
+    this.store = this.options.store ?? createStore({});
+    this.app.use(this.store);
     this.store.registerModule('x', RootXStoreModule);
   }
-
-  /**
-   * Applies the {@link createXComponentAPIMixin} mixin in the global Vue.
-   *
-   * @internal
-   */
-  protected applyMixins(): void {
-    this.vue.mixin(createXComponentAPIMixin(this.bus));
-  }
-
   /**
    * Registers the initial {@link XModule | XModules} during the {@link XPlugin} installation.
    *

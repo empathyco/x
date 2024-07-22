@@ -14,6 +14,6 @@ import { UrlXStoreModule } from '../types';
  */
 export const setParams: UrlXStoreModule['mutations']['setParams'] = (state, params) => {
   forEach(params, (key, value) => {
-    Vue.set(state, key, value);
+    state[key] = value;
   });
 };

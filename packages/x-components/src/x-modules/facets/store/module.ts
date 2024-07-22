@@ -34,39 +34,39 @@ export const facetsXStoreModule: FacetsXStoreModule = {
   mutations: {
     mutateFilter(state, { filter, newFilterState }) {
       const newFilter = Object.assign(filter, newFilterState);
-      Vue.set(state.filters, newFilter.id, newFilter);
+      state.filters[newFilter.id] = newFilter;
     },
     setFilters(state, filters) {
-      filters.forEach(filter => Vue.set(state.filters, filter.id, filter));
+      filters.forEach(filter => (state.filters[filter.id] = filter));
     },
     setPreselectedFilters(state, filters) {
       state.preselectedFilters = filters;
     },
     removeFilter(state, { id }) {
-      Vue.delete(state.filters, id);
+      delete state.filters[id];
     },
     removeFilters(state, filters) {
-      filters.forEach(({ id }) => Vue.delete(state.filters, id));
+      filters.forEach(({ id }) => delete state.filters[id]);
     },
     setFacetGroup(state, { facetId, groupId }: FacetGroupEntry) {
-      Vue.set(state.groups, facetId, groupId);
+      state.groups[facetId] = groupId;
     },
     removeFacet(state, { id }) {
-      Vue.delete(state.facets, id);
+      delete state.facets[id];
     },
     setFacet(state, facet: Facet) {
-      Vue.set(state.facets, facet.id, facet);
+      state.facets[facet.id] = facet;
     },
     setConfig,
     mergeConfig,
     setQuery,
     setStickyFilter(state, filter) {
       if (!state.stickyFilters[filter.id]) {
-        Vue.set(state.stickyFilters, filter.id, filter);
+        state.stickyFilters[filter.id] = filter;
       }
     },
     removeStickyFilter(state, filter) {
-      Vue.delete(state.stickyFilters, filter.id);
+      delete state.stickyFilters[filter.id];
     },
     clearStickyFilters(state) {
       state.stickyFilters = {};

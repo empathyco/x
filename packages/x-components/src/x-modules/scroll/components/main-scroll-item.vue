@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
   import { Identifiable } from '@empathyco/x-types';
-  import Vue, {
+  import {
     defineComponent,
     inject,
     nextTick,
@@ -15,7 +15,8 @@
     ref,
     watch,
     Ref,
-    WatchCallback
+    WatchCallback,
+    Component
   } from 'vue';
   import { scrollXModule } from '../x-module';
   import { useState } from '../../../composables/use-state';
@@ -40,7 +41,7 @@
       },
       /** The tag to render. */
       tag: {
-        type: [String, Object] as PropType<string | typeof Vue>,
+        type: [String, Object] as PropType<string | Component>,
         default: 'div'
       }
     },
@@ -77,7 +78,7 @@
             oldObserver?.unobserve(rootRef.value);
             newObserver?.observe(rootRef.value);
             if (pendingScrollTo.value === props.item.id) {
-              Vue.nextTick(() => {
+              nextTick(() => {
                 rootRef.value!.scrollIntoView({
                   block: 'center'
                 });

@@ -141,8 +141,7 @@
       const loadNext = (): void => {
         const queryToLoad = queries.value.find(query => !(query in queriesStatus.value));
         if (queryToLoad) {
-          //TODO - change this logic when we migrate to vue@3. It won't be necessary. Check this link https://v2.vuejs.org/v2/guide/migration-vue-2-7#Behavior-Differences-from-Vue-3
-          Vue.set(queriesStatus.value, queryToLoad, 'loading');
+          queriesStatus.value[queryToLoad] = 'loading';
         }
       };
 
