@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, PropType } from 'vue';
   import { XEventListeners } from '../x-installer/api/api.types';
   import { XEvent } from '../wiring/events.types';
-  import { useNoElementRender } from '../composables/use-no-element-render';
   import { useXBus } from '../composables/use-x-bus';
 
   /**
@@ -13,20 +12,26 @@
    */
   export default defineComponent({
     name: 'GlobalXBus',
-    setup(_, { listeners, slots }) {
+    props: {
+      listeners: {
+        type: Object as PropType<XEventListeners>,
+        required: true
+      }
+    },
+    setup(props) {
       const xBus = useXBus();
 
       /**
        * Handles a subscription to all the events provided in the listeners with the function that
        * will execute the callback.
        */
-      Object.entries(listeners as XEventListeners).forEach(([eventName, callback]) => {
+      Object.entries(props.listeners as XEventListeners).forEach(([eventName, callback]) => {
         xBus.on(eventName as XEvent, true).subscribe(({ eventPayload, metadata }) => {
           callback(eventPayload as never, metadata);
         });
       });
 
-      return () => useNoElementRender(slots);
+      return {};
     }
   });
 </script>
@@ -39,11 +44,11 @@ This component emits no own events, but you can subscribe to any X Event using V
 ## See it in action
 
 This component does not render anything. Its only responsibility is to facilitate listening to any X
-Event by using Vue component listeners.
+Event by using the prop `listeners`
 
 ```vue
 <template>
-  <GlobalXBus @UserAcceptedAQuery="printQuery" />
+  <GlobalXBus :listeners="{ UserAcceptedAQuery: printQuery }" />
 </template>
 
 <script>
