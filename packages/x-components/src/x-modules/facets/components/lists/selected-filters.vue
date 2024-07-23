@@ -1,7 +1,6 @@
 <script lang="ts">
   import { Facet } from '@empathyco/x-types';
   import { defineComponent, h, PropType } from 'vue';
-  import { NoElement } from '../../../../components/no-element';
   import { useFacets } from '../../composables/use-facets';
   import { facetsXModule } from '../../x-module';
 
@@ -17,7 +16,6 @@
   export default defineComponent({
     name: 'SelectedFilters',
     xModule: facetsXModule.name,
-    components: { NoElement },
     props: {
       /** Array of facets ids used to get the selected filters for those facets. */
       facetsIds: Array as PropType<Array<Facet['id']>>,
