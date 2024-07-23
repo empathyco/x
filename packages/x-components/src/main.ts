@@ -26,7 +26,7 @@ const installer = new XInstaller({
   rootComponent: AppComponent,
   domElement: '#app',
   onCreateApp: initDevtools,
-  async installExtraPlugins({ app }) {
+  installExtraPlugins({ app }) {
     app.use(router);
   }
 });

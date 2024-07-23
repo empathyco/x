@@ -14,7 +14,6 @@ import { AnyXModule, XModuleName } from '../x-modules/x-modules.types';
 import { sendWiringToDevtools } from './devtools/wiring.devtools';
 import { bus } from './x-bus';
 import { registerStoreEmitters } from './x-emitters';
-import { createXComponentAPIMixin } from './x-plugin.mixin';
 import { AnyXStoreModuleOption, XModuleOptions, XPluginOptions } from './x-plugin.types';
 import { assertXPluginOptionsAreValid } from './x-plugin.utils';
 
@@ -138,10 +137,9 @@ export class XPlugin {
    * @internal
    */
   protected store!: Store<any>;
+
   /**
    * The Vue application instance, passed by the installation method.
-   * {@link createXComponentAPIMixin}, and install the {@link https://vuex.vuejs.org/ | Vuex}
-   * plugin.
    *
    * @internal
    */

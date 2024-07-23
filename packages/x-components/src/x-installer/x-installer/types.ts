@@ -17,10 +17,6 @@ export interface InstallXOptions<API extends XAPI = XAPI> extends XPluginOptions
    */
   rootComponent?: Component;
   /**
-   * The Vue application instance. If it is not passed, a new Vue application is created.
-   */
-  app?: App;
-  /**
    * The API to expose globally. If is not passed the default {@link BaseXAPI} will be used. If
    * a `false` value is passed then the API is not created.
    */
@@ -40,7 +36,6 @@ export interface InstallXOptions<API extends XAPI = XAPI> extends XPluginOptions
    * installed.
    */
   plugin?: Plugin<XPluginOptions>;
-
   /**
    * Callback to invoke after instantiating the app.
    *
@@ -64,7 +59,6 @@ export interface InstallXOptions<API extends XAPI = XAPI> extends XPluginOptions
  */
 export interface ExtraPluginsOptions {
   /** The Vue application instance that is being used. */
-
   app: App;
   /** The events bus instance used to communicate different part of the x-components. */
   bus: XBus<XEventsTypes, WireMetadata>;

@@ -31,5 +31,4 @@ export { default as PageLoaderButton } from './page-loader-button.vue';
 
 // Utils
 export * from './decorators/injection.consts';
-export * from './x-component.mixin';
 export * from './x-component.utils';

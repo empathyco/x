@@ -7,7 +7,7 @@ import { ListItem } from '../../utils/types';
  *
  * @example
  * `const myKey: XInjectKey<Filter> = 'myFilter';`
- * `@XInject(myKey)`
+ * `inject(myKey)`
  *
  * @public
  */

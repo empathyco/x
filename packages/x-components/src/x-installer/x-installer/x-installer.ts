@@ -170,11 +170,11 @@ export class XInstaller {
       const plugin = this.installPlugin(pluginOptions, bus);
       await this.installExtraPlugins(bus);
       this.api?.setBus(bus);
-      this.getApp().mount(this.getMountingTarget(this.options.domElement));
+      this.app.mount(this.getMountingTarget(this.options.domElement));
 
       return {
         api: this.api,
-        app: this.getApp(),
+        app: this.app,
         bus,
         plugin
       };
@@ -215,22 +215,6 @@ export class XInstaller {
   }
 
   /**
-   * This method returns the Vue app instance.
-   * It returns the `app` parameter in the {@link InstallXOptions} or if not provided, then
-   * returns a newly created instance.
-   *
-   * @remarks The purpose of this option is mainly the testing. In a test we can use this option
-   * to pass the local vue instance created by `createLocalVue` method.
-   *
-   * @returns App - A Vue app instance.
-   *
-   * @internal
-   */
-  protected getApp(): App {
-    return this.options.app ?? this.app;
-  }
-
-  /**
    * Creates and install the Vue Plugin. If `plugin` parameter is passed in the
    * {@link InstallXOptions}, then it is used. If not, then a new instance of {@link XPlugin} is
    * created and installed.
@@ -247,7 +231,7 @@ export class XInstaller {
     bus: XBus<XEventsTypes, WireMetadata>
   ): Plugin<XPluginOptions> {
     const plugin = this.options.plugin ?? new XPlugin(bus);
-    this.getApp().use(plugin, pluginOptions);
+    this.app.use(plugin, pluginOptions);
     return plugin;
   }
 
@@ -261,18 +245,18 @@ export class XInstaller {
    */
   protected installExtraPlugins(bus: XBus<XEventsTypes, WireMetadata>): Promise<void> {
     return Promise.resolve(
-      this.options.installExtraPlugins?.({ app: this.getApp(), snippet: this.snippetConfig!, bus })
+      this.options.installExtraPlugins?.({ app: this.app, snippet: this.snippetConfig!, bus })
     );
   }
 
   /**
-   * In the case that the `rootComponent` parameter is present in the {@link InstallXOptions}, then a new Vue
-   * application is created using that component as root.
+   * In the case that the `rootComponent` parameter is present in the {@link InstallXOptions},
+   * then a new Vue application is created using that component as root.
    *
    * @internal
    */
   protected createApp(): void {
-    if (!this.options.app && this.options.rootComponent !== undefined) {
+    if (this.options.rootComponent !== undefined) {
       this.app = createApp(this.options.rootComponent);
       this.app.provide('snippetConfig', this.snippetConfig);
       this.options.onCreateApp?.(this.app);
