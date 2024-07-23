@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.49](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.48...vue3-migration-test@1.0.0-alpha.49) (2024-07-23)
+
+
+### Features
+
+* **display-emitter:** support Vue3 to the component (#1555) ([21bcd52](https://github.com/empathyco/x/commit/21bcd5228bf2cc3e8f31d49fe55683788438e089))
+
+
+
 ## [1.0.0-alpha.48](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.47...vue3-migration-test@1.0.0-alpha.48) (2024-07-11)
 
 
