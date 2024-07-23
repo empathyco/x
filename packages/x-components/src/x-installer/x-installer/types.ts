@@ -40,21 +40,6 @@ export interface InstallXOptions<API extends XAPI = XAPI> extends XPluginOptions
    * installed.
    */
   plugin?: Plugin<XPluginOptions>;
-  /**
-   * This object can contain any option to pass to Vue instance at the moment of creating the App
-   * instance.
-   *
-   * @example
-   * ```typescript
-   * {
-   *   vueOptions:{
-   *     i18n,
-   *     router
-   *   }
-   * }
-   * ```
-   */
-  vueOptions?: VueConstructorPartialArgument;
 
   /**
    * Callback to invoke after instantiating the app.
@@ -89,13 +74,6 @@ export interface ExtraPluginsOptions {
    */
   snippet: NormalisedSnippetConfig;
 }
-
-/**
- * First parameter of the Vue constructor.
- *
- * @public
- */
-export type VueConstructorPartialArgument = Partial<Record<string, unknown>>;
 
 /**
  * Interface for the returned type of the {@link XInstaller.(init:1)} function.

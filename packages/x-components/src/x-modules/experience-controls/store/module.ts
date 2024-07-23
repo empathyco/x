@@ -26,10 +26,10 @@ export const experienceControlsXStoreModule: ExperienceControlsXStoreModule = {
   },
   mutations: {
     setControls(state, controls) {
-      state['controls'] = controls;
+      state.controls = controls;
     },
     setEvents(state, events) {
-      state['events'] = events;
+      state.events = events;
     },
     setParams(state, params) {
       state.params = params;

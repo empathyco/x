@@ -1,6 +1,18 @@
 import { Result, ResultVariant } from '@empathyco/x-types';
 import { ListItem } from '../../utils/types';
-import { XInjectKey } from './injection.decorators';
+
+/**
+ * Type of the key passed to {@link XProvide} and {@link XInject} to be type-safe. With this type
+ * you can declare the type of the injected value directly in the injection key.
+ *
+ * @example
+ * `const myKey: XInjectKey<Filter> = 'myFilter';`
+ * `@XInject(myKey)`
+ *
+ * @public
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export interface XInjectKey<Type> extends String {}
 
 /**
  * It's used to identify the provided and injected `disable-animations`.

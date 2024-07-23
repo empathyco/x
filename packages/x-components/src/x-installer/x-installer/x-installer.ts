@@ -7,7 +7,7 @@ import { NormalisedSnippetConfig, SnippetConfig, XAPI } from '../api/api.types';
 import { BaseXAPI } from '../api/base-api';
 import { WireMetadata, XEventsTypes } from '../../wiring/index';
 import { bus } from '../../plugins/x-bus';
-import { InitWrapper, InstallXOptions, VueConstructorPartialArgument } from './types';
+import { InitWrapper, InstallXOptions } from './types';
 
 declare global {
   interface Window {
@@ -164,7 +164,7 @@ export class XInstaller {
   async init(snippetConfig = this.retrieveSnippetConfig()): Promise<InitWrapper | void> {
     if (snippetConfig) {
       this.snippetConfig = reactive(this.normaliseSnippetConfig(snippetConfig));
-      this.createApp({});
+      this.createApp();
       const bus = this.createBus();
       const pluginOptions = this.getPluginOptions();
       const plugin = this.installPlugin(pluginOptions, bus);
@@ -269,20 +269,12 @@ export class XInstaller {
    * In the case that the `rootComponent` parameter is present in the {@link InstallXOptions}, then a new Vue
    * application is created using that component as root.
    *
-   * @param extraPlugins - Vue plugins initialisation data.
-   *
    * @internal
    */
-  protected createApp(extraPlugins: VueConstructorPartialArgument): void {
+  protected createApp(): void {
     if (!this.options.app && this.options.rootComponent !== undefined) {
-      this.app = createApp(this.options.rootComponent, {
-        ...extraPlugins,
-        ...this.options.vueOptions,
-        provide: {
-          snippetConfig: this.snippetConfig
-        },
-        store: this.options.store
-      });
+      this.app = createApp(this.options.rootComponent);
+      this.app.provide('snippetConfig', this.snippetConfig);
       this.options.onCreateApp?.(this.app);
     }
   }
