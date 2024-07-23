@@ -1,4 +1,4 @@
-import { XInjectKey } from '../../../components/decorators/injection.decorators';
+import { XInjectKey } from '../../../components/decorators/injection.consts';
 import { ScrollVisibilityObserver } from './scroll.types';
 
 /**

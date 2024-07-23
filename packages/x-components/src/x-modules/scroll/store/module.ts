@@ -15,13 +15,13 @@ export const scrollXStoreModule: ScrollXStoreModule = {
   mutations: {
     setScrollComponentState(state, { id, newState }) {
       if (!state.data[id]) {
-        Vue.set<ScrollComponentState>(state.data, id, {
+        state.data[id] = {
           hasReachedStart: false,
           hasAlmostReachedEnd: false,
           hasReachedEnd: false,
           position: 0,
           direction: 'UP'
-        });
+        };
       }
       Object.assign(state.data[id], newState);
     },

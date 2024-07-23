@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import App from './App.vue';
+import type { App } from 'vue';
+import { default as AppComponent } from './App.vue';
 import { setupDevtools } from './plugins/devtools/devtools.plugin';
 import router from './router';
 import { baseInstallXOptions, baseSnippetConfig } from './views/base-config';
@@ -9,7 +9,6 @@ import { SingleSelectModifier } from './x-modules/facets/entities/single-select.
 import { StickyModifier } from './x-modules/facets/entities/sticky.modifier';
 import './tailwind/index.css';
 
-Vue.config.productionTip = false;
 FilterEntityFactory.instance.registerModifierByFacetId('age_facet', SingleSelectModifier);
 FilterEntityFactory.instance.registerModifierByFacetId(
   'brand_facet',
@@ -24,12 +23,12 @@ FilterEntityFactory.instance.registerModifierByFilterModelName(
 
 const installer = new XInstaller({
   ...baseInstallXOptions,
-  app: App,
-  vueOptions: {
-    router
-  },
+  rootComponent: AppComponent,
   domElement: '#app',
-  onCreateApp: initDevtools
+  onCreateApp: initDevtools,
+  installExtraPlugins({ app }) {
+    app.use(router);
+  }
 });
 
 if (window.initX) {
@@ -41,9 +40,9 @@ if (window.initX) {
 /**
  * If an app is provided, initialise the devtools.
  *
- * @param app - The root Vue instance of the application.
+ * @param app - The Vue application instance of the application.
  */
-function initDevtools(app: Vue): void {
+function initDevtools(app: App): void {
   if (process.env.NODE_ENV !== 'production') {
     setupDevtools(app);
   }

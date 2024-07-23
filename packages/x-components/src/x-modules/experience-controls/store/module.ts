@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import Vue from 'vue';
 import { setStatus } from '../../../store/utils/status-store.utils';
 import {
   cancelFetchAndSaveControls,
@@ -27,10 +26,10 @@ export const experienceControlsXStoreModule: ExperienceControlsXStoreModule = {
   },
   mutations: {
     setControls(state, controls) {
-      Vue.set(state, 'controls', controls);
+      state.controls = controls;
     },
     setEvents(state, events) {
-      Vue.set(state, 'events', events);
+      state.events = events;
     },
     setParams(state, params) {
       state.params = params;
