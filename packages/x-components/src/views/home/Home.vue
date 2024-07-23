@@ -99,11 +99,11 @@
         </label>
       </li>
     </ul>
-    <MainModal :animation="modalAnimation">
-      <MultiColumnMaxWidthLayout class="x-bg-neutral-0">
-        <template #header-middle>
-          <div class="x-flex x-flex-col x-gap-16 x-items-stretch x-flex-auto">
-            <div class="x-input-group x-input-group-lead x-rounded-sm">
+    <MainModal>
+      <div class="x-layout-container x-layout-max-width-md x-layout-min-margin-48 x-bg-neutral-0">
+        <div id="header-middle" class="x-layout-item x-py-8">
+          <div class="x-flex x-gap-16 x-justify-between x-flex-auto">
+            <div class="x-input-group x-input-group-lead x-rounded-sm x-flex-auto">
               <div class="x-input x-search-input-placeholder-container x-flex">
                 <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
                 <SearchInput
@@ -122,329 +122,326 @@
                 <SearchIcon />
               </SearchButton>
             </div>
-
-            <!-- Spellcheck -->
-            <Spellcheck>
-              <template #default="{ query }">
-                No results found for '{{ query }}'. We show you results for
-                <SpellcheckButton />
-              </template>
-            </Spellcheck>
-
-            <SlidingPanel v-if="$x.relatedTags.length">
-              <template #sliding-panel-left-button>
-                <ChevronLeft />
-              </template>
-              <RelatedTags class="x-gap-8" itemClass="x-tag-outlined" />
-              <template #sliding-panel-right-button>
-                <ChevronRight />
-              </template>
-            </SlidingPanel>
+            <div id="header-end">
+              <CloseMainModal class="x-button--ghost x-button">
+                <CrossIcon />
+              </CloseMainModal>
+            </div>
           </div>
-        </template>
+        </div>
 
-        <template #header-end>
-          <CloseMainModal class="x-button--ghost x-button">
-            <CrossIcon />
-          </CloseMainModal>
-        </template>
-
-        <template #sub-header>
+        <div id="sub-header" class="x-layout-item x-py-8">
           <PredictiveLayer :controls="controls" />
-        </template>
-
-        <template #toolbar-aside>
-          <BaseIdTogglePanelButton
-            v-if="$x.totalResults > 0"
-            class="x-button--ghost x-button"
-            panelId="aside-panel"
-          >
-            Toggle Aside
-          </BaseIdTogglePanelButton>
-        </template>
-
-        <template #toolbar-body>
-          <div v-if="$x.totalResults > 0" class="x-flex x-items-center x-gap-12">
-            <span class="x-text1">{{ $x.totalResults }} Results</span>
-            <BaseColumnPickerList
-              @update:modelValue="col => (selectedColumns = col)"
-              :modelValue="selectedColumns"
-              class="x-gap-4"
-              :columns="columnPickerValues"
-            >
-              <template #default="{ column }">
-                <span v-if="column === 0">Auto</span>
-                <Grid2Col v-else-if="column === 2" />
-                <Grid4Col v-else-if="column === 4" />
-              </template>
-
-              <template #divider>
-                <span class="x-button-group-divider"></span>
-              </template>
-            </BaseColumnPickerList>
-            <SortPickerList
-              :items="sortValues"
-              class="x-button-group"
-              buttonClass="x-button x-button-outlined"
-              #default="{ item }"
-            >
-              {{ item || 'default' }}
-            </SortPickerList>
-
-            <RenderlessExtraParams #default="{ value, updateValue }" name="store">
-              <BaseDropdown
-                @update:modelValue="updateValue"
-                :modelValue="value"
-                :items="stores"
-                class="x-dropdown x-dropdown--round x-dropdown--right x-dropdown--l"
-                data-test="store-selector"
-              />
-            </RenderlessExtraParams>
-          </div>
-        </template>
-
-        <template #main-aside>
-          <Aside v-if="$x.totalResults > 0" />
-        </template>
-
-        <template #main-body>
-          <!--  Redirection  -->
-          <Redirection
-            #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
-            class="x-p-28 x-flex x-flex-col x-gap-8 x-items-center x-bg-lead-25 x-my-8"
-            :delayInSeconds="5"
-          >
-            <p>Your search matches a special place in our website. You are being redirected to:</p>
-            <a @click="redirect" :href="redirection.url" data-test="redirection-link">
-              {{ redirection.url }}
-            </a>
-            <div class="x-flex x-gap-32">
-              <button @click="abortRedirect" class="x-button--ghost x-button x-text-neutral-25">
-                No, I'll stay here
-              </button>
-              <button @click="redirect" class="x-button--ghost x-button x-text-neutral-90">
-                Yes, redirect me
-              </button>
-            </div>
-            <AutoProgressBar :isLoading="isRedirecting" :durationInSeconds="delayInSeconds" />
-          </Redirection>
-
-          <template v-if="!$x.redirections.length">
-            <FallbackDisclaimer class="x-message" />
-
-            <!--  No Results Message  -->
-            <div
-              v-if="$x.noResults && !$x.fromNoResultsWithFilters"
-              class="x-p-28 x-flex x-flex-col x-gap-8 x-items-center x-bg-lead-25 x-my-8"
-              data-test="no-results-message"
-            >
-              <p>
-                There are no results for
-                <span class="x-font-bold">{{ $x.query.search }}</span>
-              </p>
-              <p>You may be interested in these:</p>
-            </div>
-
-            <template v-if="!$x.query.searchBox">
-              <h1 class="x-mb-16 x-title1">Brand Recommendations</h1>
-              <LocationProvider location="no_results">
-                <QueryPreviewList
-                  :debounceTimeMs="250"
-                  :queriesPreviewInfo="queriesPreviewInfo"
-                  data-wysiwyg="query-preview-list"
-                  #default="{
-                    queryPreviewInfo,
-                    totalResults,
-                    results,
-                    displayTagging,
-                    queryTagging
-                  }"
-                  data-test="brand-recommendations-list"
-                  :persistInCache="true"
-                >
-                  <DisplayEmitter
-                    :payload="displayTagging"
-                    :eventMetadata="{ feature: 'customer' }"
-                  >
-                    <div class="x-flex x-flex-col x-gap-8 x-mb-16">
-                      <QueryPreviewButton
-                        class="x-w-fit x-button-xl x-button-ghost"
-                        :queryPreviewInfo="queryPreviewInfo"
-                      >
-                        {{ `${queryPreviewInfo.query} (${totalResults})` }}
-                      </QueryPreviewButton>
-                      <DisplayResultProvider :queryTagging="queryTagging">
-                        <SlidingPanel :resetOnContentChange="false">
-                          <div class="x-flex x-gap-8">
-                            <Result
-                              v-for="result in results"
-                              :key="result.id"
-                              :result="result"
-                              style="max-width: 180px"
-                            />
-                          </div>
-                        </SlidingPanel>
-                      </DisplayResultProvider>
-                    </div>
-                  </DisplayEmitter>
-                </QueryPreviewList>
-              </LocationProvider>
+          <!-- Spellcheck -->
+          <Spellcheck>
+            <template #default="{ query }">
+              No results found for '{{ query }}'. We show you results for
+              <SpellcheckButton />
             </template>
+          </Spellcheck>
 
-            <!-- Results -->
-            <LocationProvider location="results">
-              <ResultsList v-infinite-scroll:main-scroll>
-                <PromotedsList>
-                  <BannersList>
-                    <NextQueriesList
-                      :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
+          <SlidingPanel v-if="x.relatedTags.length">
+            <template #sliding-panel-left-button>
+              <ChevronLeft />
+            </template>
+            <RelatedTags class="x-gap-8" itemClass="x-tag-outlined" />
+            <template #sliding-panel-right-button>
+              <ChevronRight />
+            </template>
+          </SlidingPanel>
+          <div id="toolbar-body">
+            <div v-if="x.totalResults > 0" class="x-flex x-items-center x-gap-12">
+              <span class="x-text1">{{ x.totalResults }} Results</span>
+              <BaseColumnPickerList
+                @update:modelValue="col => (selectedColumns = col)"
+                :modelValue="selectedColumns"
+                class="x-gap-4"
+                :columns="columnPickerValues"
+              >
+                <template #default="{ column }">
+                  <span v-if="column === 0">Auto</span>
+                  <Grid2Col v-else-if="column === 2" />
+                  <Grid4Col v-else-if="column === 4" />
+                </template>
+
+                <template #divider>
+                  <span class="x-button-group-divider"></span>
+                </template>
+              </BaseColumnPickerList>
+              <SortPickerList
+                :items="sortValues"
+                class="x-button-group"
+                buttonClass="x-button x-button-outlined"
+                #default="{ item }"
+              >
+                {{ item || 'default' }}
+              </SortPickerList>
+
+              <RenderlessExtraParams #default="{ value, updateValue }" name="store">
+                <BaseDropdown
+                  @update:modelValue="updateValue"
+                  :modelValue="value"
+                  :items="stores"
+                  class="x-dropdown x-dropdown--round x-dropdown--right x-dropdown--l"
+                  data-test="store-selector"
+                />
+              </RenderlessExtraParams>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="main-body"
+          class="x-layout-item x-layout-no-margin-right x-layout-expand x-mt-16 x-mb-16"
+        >
+          <div class="x-flex x-layout-expand x-gap-24">
+            <div id="main-aside" class="x-scroll x-w-320">
+              <Aside v-if="x.totalResults > 0" />
+            </div>
+            <!--  Redirection  -->
+            <div class="x-scroll x-layout-expand">
+              <div class="x-layout-item x-layout-no-margin-left">
+                <Redirection
+                  #default="{ redirection, redirect, abortRedirect, isRedirecting, delayInSeconds }"
+                  class="x-p-28 x-flex x-flex-col x-gap-8 x-items-center x-bg-lead-25 x-my-8"
+                  :delayInSeconds="5"
+                >
+                  <p>
+                    Your search matches a special place in our website. You are being redirected to:
+                  </p>
+                  <a @click="redirect" :href="redirection.url" data-test="redirection-link">
+                    {{ redirection.url }}
+                  </a>
+                  <div class="x-flex x-gap-32">
+                    <button
+                      @click="abortRedirect"
+                      class="x-button--ghost x-button x-text-neutral-25"
                     >
-                      <BaseVariableColumnGrid
-                        style="--x-size-min-width-grid-item: 150px"
-                        class="x-gap-12"
-                        :animation="resultsAnimation"
-                        :columns="$x.device === 'mobile' ? 2 : 4"
+                      No, I'll stay here
+                    </button>
+                    <button @click="redirect" class="x-button--ghost x-button x-text-neutral-90">
+                      Yes, redirect me
+                    </button>
+                  </div>
+                  <AutoProgressBar :isLoading="isRedirecting" :durationInSeconds="delayInSeconds" />
+                </Redirection>
+
+                <template v-if="!x.redirections.length">
+                  <FallbackDisclaimer class="x-message" />
+
+                  <!--  No Results Message  -->
+                  <div
+                    v-if="x.noResults && !x.fromNoResultsWithFilters"
+                    class="x-p-28 x-flex x-flex-col x-gap-8 x-items-center x-bg-lead-25 x-my-8"
+                    data-test="no-results-message"
+                  >
+                    <p>
+                      There are no results for
+                      <span class="x-font-bold">{{ x.query.search }}</span>
+                    </p>
+                    <p>You may be interested in these:</p>
+                  </div>
+
+                  <template v-if="!x.query.searchBox">
+                    <h1 class="x-mb-16 x-title1">Brand Recommendations</h1>
+                    <LocationProvider location="no_results">
+                      <QueryPreviewList
+                        :debounceTimeMs="250"
+                        :queriesPreviewInfo="queriesPreviewInfo"
+                        data-wysiwyg="query-preview-list"
+                        #default="{
+                          queryPreviewInfo,
+                          totalResults,
+                          results,
+                          displayTagging,
+                          queryTagging
+                        }"
+                        data-test="brand-recommendations-list"
+                        :persistInCache="true"
                       >
-                        <template #result="{ item: result }">
-                          <MainScrollItem :item="result">
-                            <Result :result="result" data-test="search-result" />
-                          </MainScrollItem>
-                        </template>
-
-                        <template #banner="{ item: banner }">
-                          <Banner :banner="banner" />
-                        </template>
-
-                        <template #promoted="{ item: promoted }">
-                          <Promoted :promoted="promoted" />
-                        </template>
-
-                        <template #next-queries-group="{ item: { nextQueries } }">
-                          <NextQueryPreview
-                            :suggestion="nextQueries[0]"
-                            :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
-                            #default="{ results }"
-                            class="x-pt-24"
-                          >
-                            <h1 class="x-title2">Others clients have searched</h1>
-                            <NextQuery
-                              class="x-suggestion x-text1 x-text1-lg"
-                              :suggestion="nextQueries[0]"
-                              data-test="next-query-preview-name"
+                        <DisplayEmitter
+                          :payload="displayTagging"
+                          :eventMetadata="{ feature: 'customer' }"
+                        >
+                          <div class="x-flex x-flex-col x-gap-8 x-mb-16">
+                            <QueryPreviewButton
+                              class="x-w-fit x-button-xl x-button-ghost"
+                              :queryPreviewInfo="queryPreviewInfo"
                             >
-                              <span class="x-font-bold">{{ nextQueries[0].query }}</span>
-                            </NextQuery>
-                            <div class="x-mb-24">
+                              {{ `${queryPreviewInfo.query} (${totalResults})` }}
+                            </QueryPreviewButton>
+                            <DisplayResultProvider :queryTagging="queryTagging">
                               <SlidingPanel :resetOnContentChange="false">
-                                <div class="x-flex x-flex-row x-gap-8">
+                                <div class="x-flex x-gap-8">
                                   <Result
                                     v-for="result in results"
                                     :key="result.id"
                                     :result="result"
                                     style="max-width: 180px"
-                                    data-test="next-query-preview-result"
                                   />
                                 </div>
                               </SlidingPanel>
-                            </div>
-                            <NextQuery
-                              :suggestion="nextQueries[0]"
-                              data-test="view-all-results"
-                              class="x-button x-button-outlined x-rounded-full x-mx-auto x-mt-8 x-mb-24"
-                            >
-                              {{ 'View all results' }}
-                            </NextQuery>
-                          </NextQueryPreview>
-                        </template>
-                      </BaseVariableColumnGrid>
-                    </NextQueriesList>
-                  </BannersList>
-                </PromotedsList>
-              </ResultsList>
-            </LocationProvider>
-
-            <SemanticQueries #default="{ queries, findSemanticQuery }">
-              <section class="x-mt-28">
-                <h1 v-if="isAnyQueryLoadedInPreview(queries)" class="x-title1">
-                  Similar Semantic Queries
-                </h1>
-                <LocationProvider :location="$x.noResults ? 'no_results' : 'low_results'">
-                  <QueryPreviewList
-                    :queries-preview-info="queries.map(q => ({ query: q }))"
-                    #default="{ queryPreviewInfo: { query }, results, queryTagging }"
-                    queryFeature="semantics"
-                  >
-                    <div
-                      class="x-flex x-flex-col x-gap-8 x-mb-16"
-                      data-test="semantic-query-preview"
-                      :data-query="query"
-                    >
-                      <SemanticQuery
-                        class="x-suggestion x-title2 x-title2-md"
-                        :suggestion="findSemanticQuery(query)"
-                        #default="{ suggestion: { query } }"
-                      >
-                        <span data-test="semantic-queries-query">{{ query }}</span>
-                      </SemanticQuery>
-                      <DisplayResultProvider :queryTagging="queryTagging">
-                        <SlidingPanel :resetOnContentChange="false">
-                          <div class="x-flex x-gap-8">
-                            <Result
-                              v-for="result in results"
-                              :key="result.id"
-                              :result="result"
-                              style="max-width: 180px"
-                              data-test="semantic-query-result"
-                            />
+                            </DisplayResultProvider>
                           </div>
-                        </SlidingPanel>
-                      </DisplayResultProvider>
-                    </div>
-                  </QueryPreviewList>
-                </LocationProvider>
-              </section>
-            </SemanticQueries>
+                        </DisplayEmitter>
+                      </QueryPreviewList>
+                    </LocationProvider>
+                  </template>
 
-            <!-- Partials -->
-            <PartialResultsList
-              v-if="!$x.fromNoResultsWithFilters && ($x.totalResults <= 4 || $x.noResults)"
-              :animation="resultsAnimation"
+                  <!-- Results -->
+                  <LocationProvider location="results">
+                    <ResultsList v-infinite-scroll:main-scroll>
+                      <PromotedsList>
+                        <BannersList>
+                          <NextQueriesList
+                            :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
+                          >
+                            <BaseVariableColumnGrid
+                              style="--x-size-min-width-grid-item: 150px"
+                              class="x-gap-12"
+                              :columns="x.device === 'mobile' ? 2 : 4"
+                            >
+                              <template #result="{ item: result }">
+                                <MainScrollItem :item="result">
+                                  <Result :result="result" data-test="search-result" />
+                                </MainScrollItem>
+                              </template>
+
+                              <template #banner="{ item: banner }">
+                                <Banner :banner="banner" />
+                              </template>
+
+                              <template #promoted="{ item: promoted }">
+                                <Promoted :promoted="promoted" />
+                              </template>
+
+                              <template #next-queries-group="{ item: { nextQueries } }">
+                                <NextQueryPreview
+                                  :suggestion="nextQueries[0]"
+                                  :max-items-to-render="
+                                    controls.nextQueriesPreview.maxItemsToRender
+                                  "
+                                  #default="{ results }"
+                                  class="x-pt-24"
+                                >
+                                  <h1 class="x-title2">Others clients have searched</h1>
+                                  <NextQuery
+                                    class="x-suggestion x-text1 x-text1-lg"
+                                    :suggestion="nextQueries[0]"
+                                    data-test="next-query-preview-name"
+                                  >
+                                    <span class="x-font-bold">{{ nextQueries[0].query }}</span>
+                                  </NextQuery>
+                                  <div class="x-mb-24">
+                                    <SlidingPanel :resetOnContentChange="false">
+                                      <div class="x-flex x-flex-row x-gap-8">
+                                        <Result
+                                          v-for="result in results"
+                                          :key="result.id"
+                                          :result="result"
+                                          style="max-width: 180px"
+                                          data-test="next-query-preview-result"
+                                        />
+                                      </div>
+                                    </SlidingPanel>
+                                  </div>
+                                  <NextQuery
+                                    :suggestion="nextQueries[0]"
+                                    data-test="view-all-results"
+                                    class="x-button x-button-outlined x-rounded-full x-mx-auto x-mt-8 x-mb-24"
+                                  >
+                                    {{ 'View all results' }}
+                                  </NextQuery>
+                                </NextQueryPreview>
+                              </template>
+                            </BaseVariableColumnGrid>
+                          </NextQueriesList>
+                        </BannersList>
+                      </PromotedsList>
+                    </ResultsList>
+                  </LocationProvider>
+
+                  <SemanticQueries #default="{ queries, findSemanticQuery }">
+                    <section class="x-mt-28">
+                      <h1 v-if="isAnyQueryLoadedInPreview(queries)" class="x-title1">
+                        Similar Semantic Queries
+                      </h1>
+                      <LocationProvider :location="x.noResults ? 'no_results' : 'low_results'">
+                        <QueryPreviewList
+                          :queries-preview-info="queries.map(q => ({ query: q }))"
+                          #default="{ queryPreviewInfo: { query }, results, queryTagging }"
+                          queryFeature="semantics"
+                        >
+                          <div
+                            class="x-flex x-flex-col x-gap-8 x-mb-16"
+                            data-test="semantic-query-preview"
+                            :data-query="query"
+                          >
+                            <SemanticQuery
+                              class="x-suggestion x-title2 x-title2-md"
+                              :suggestion="findSemanticQuery(query)"
+                              #default="{ suggestion: { query } }"
+                            >
+                              <span data-test="semantic-queries-query">{{ query }}</span>
+                            </SemanticQuery>
+                            <DisplayResultProvider :queryTagging="queryTagging">
+                              <SlidingPanel :resetOnContentChange="false">
+                                <div class="x-flex x-gap-8">
+                                  <Result
+                                    v-for="result in results"
+                                    :key="result.id"
+                                    :result="result"
+                                    style="max-width: 180px"
+                                    data-test="semantic-query-result"
+                                  />
+                                </div>
+                              </SlidingPanel>
+                            </DisplayResultProvider>
+                          </div>
+                        </QueryPreviewList>
+                      </LocationProvider>
+                    </section>
+                  </SemanticQueries>
+
+                  <!-- Partials -->
+                  <PartialResultsList
+                    v-if="!x.fromNoResultsWithFilters && (x.totalResults <= 4 || x.noResults)"
+                  >
+                    <template #default="{ partialResult }">
+                      <span data-test="partial-query">{{ partialResult.query }}</span>
+                      <BaseGrid #result="{ item }" :columns="4" :items="partialResult.results">
+                        <Result :result="item" data-test="partial-result-item" />
+                      </BaseGrid>
+                      <PartialQueryButton :query="partialResult.query">
+                        <template #default="{ query }">Ver todos {{ query }}</template>
+                      </PartialQueryButton>
+                    </template>
+                  </PartialResultsList>
+
+                  <!-- Recommendations -->
+                  <Recommendations
+                    v-if="!x.query.search || x.noResults"
+                    #layout="{ recommendations }"
+                  >
+                    <BaseVariableColumnGrid #default="{ item: result }" :items="recommendations">
+                      <Result :result="result" data-test="recommendation-item" />
+                    </BaseVariableColumnGrid>
+                  </Recommendations>
+                </template>
+              </div>
+            </div>
+          </div>
+          <div id="scroll-to-top" class="x-layout-item x-layout-overlap">
+            <ScrollToTop
+              :threshold-px="500"
+              class="x-button--round x-layout-on-margin-right"
+              scroll-id="main-scroll"
             >
-              <template #default="{ partialResult }">
-                <span data-test="partial-query">{{ partialResult.query }}</span>
-                <BaseGrid
-                  #result="{ item }"
-                  :animation="resultsAnimation"
-                  :columns="4"
-                  :items="partialResult.results"
-                >
-                  <Result :result="item" data-test="partial-result-item" />
-                </BaseGrid>
-                <PartialQueryButton :query="partialResult.query">
-                  <template #default="{ query }">Ver todos {{ query }}</template>
-                </PartialQueryButton>
-              </template>
-            </PartialResultsList>
-
-            <!-- Recommendations -->
-            <Recommendations v-if="!$x.query.search || $x.noResults" #layout="{ recommendations }">
-              <BaseVariableColumnGrid
-                #default="{ item: result }"
-                :animation="resultsAnimation"
-                :items="recommendations"
-              >
-                <Result :result="result" data-test="recommendation-item" />
-              </BaseVariableColumnGrid>
-            </Recommendations>
-          </template>
-        </template>
-
-        <template #scroll-to-top>
-          <ScrollToTop :threshold-px="500" class="x-button--round" scroll-id="main-scroll">
-            <ChevronUp />
-          </ScrollToTop>
-        </template>
-      </MultiColumnMaxWidthLayout>
+              <ChevronUp />
+            </ScrollToTop>
+          </div>
+        </div>
+      </div>
     </MainModal>
   </div>
 </template>
@@ -467,9 +464,7 @@
   import Grid2Col from '../../components/icons/grid-2-col.vue';
   import Grid4Col from '../../components/icons/grid-4-col.vue';
   import SearchIcon from '../../components/icons/search.vue';
-  import MultiColumnMaxWidthLayout from '../../components/layouts/multi-column-max-width-layout.vue';
   import LocationProvider from '../../components/location-provider.vue';
-  import BaseIdTogglePanelButton from '../../components/panels/base-id-toggle-panel-button.vue';
   import PreselectedFilters from '../../x-modules/facets/components/preselected-filters.vue';
   import SlidingPanel from '../../components/sliding-panel.vue';
   import SnippetCallbacks from '../../components/snippet-callbacks.vue';
@@ -512,6 +507,7 @@
   import { QueryPreviewInfo } from '../../x-modules/queries-preview/store/types';
   import QueryPreviewButton from '../../x-modules/queries-preview/components/query-preview-button.vue';
   import DisplayEmitter from '../../components/display-emitter.vue';
+  import { use$x } from '../../composables/use-$x';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -535,7 +531,6 @@
       BaseColumnPickerList,
       BaseDropdown,
       BaseGrid,
-      BaseIdTogglePanelButton,
       BaseVariableColumnGrid,
       ChevronLeft,
       ChevronRight,
@@ -548,7 +543,6 @@
       Grid4Col,
       LocationProvider,
       MainScrollItem,
-      MultiColumnMaxWidthLayout,
       NextQueriesList,
       NextQueryPreview,
       NextQuery,
@@ -583,6 +577,7 @@
       MainModal
     },
     setup() {
+      const x = use$x();
       const stores = ['Spain', 'Portugal', 'Italy'];
       const initialExtraParams = { store: 'Portugal' };
       const searchInputPlaceholderMessages = [
@@ -667,7 +662,8 @@
         isAnyQueryLoadedInPreview,
         queries,
         toggleE2EAdapter,
-        controls
+        controls,
+        x
       };
     }
   });
