@@ -91,7 +91,8 @@ const adapter = {
         }
       })
     );
-  }
+  },
+  tagging: () => new Promise(resolve => resolve())
 } as unknown as XComponentsAdapter;
 
 const store = createStore({});

@@ -49,7 +49,8 @@ import {
   TestTagging,
   TestRenderlessExtraParam,
   TestAnimationFactory,
-  TestIcons
+  TestIcons,
+  TestDisplayEmitter
 } from './';
 
 const routes = [
@@ -302,6 +303,11 @@ const routes = [
     path: '/icons',
     name: 'Icons',
     component: TestIcons
+  },
+  {
+    path: '/display-emitter',
+    name: 'DisplayEmitter',
+    component: TestDisplayEmitter
   }
 ];
 

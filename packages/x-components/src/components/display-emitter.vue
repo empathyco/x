@@ -1,55 +1,56 @@
-<template>
-  <NoElement ref="root">
-    <slot />
-  </NoElement>
-</template>
-
 <script lang="ts">
-  import { defineComponent, onUnmounted, PropType, Ref, ref } from 'vue';
+  import {
+    defineComponent,
+    getCurrentInstance,
+    h,
+    onMounted,
+    onUnmounted,
+    PropType,
+    WatchStopHandle
+  } from 'vue';
   import { TaggingRequest } from '@empathyco/x-types';
   import { useEmitDisplayEvent } from '../composables/use-on-display';
   import { WireMetadata } from '../wiring';
-  import { NoElement } from './no-element';
 
-  /**
-   * A component that emits a display event when it first appears in the viewport.
-   */
+  /** A component that emits a display event when it first appears in the viewport. */
   export default defineComponent({
-    components: {
-      NoElement
-    },
+    name: 'DisplayEmitter',
     props: {
-      /**
-       * The payload for the display event emit.
-       *
-       * @public
-       */
+      /** The payload for the display event emit. */
       payload: {
         type: Object as PropType<TaggingRequest>,
         required: true
       },
-      /**
-       * Optional event metadata.
-       *
-       * @public
-       */
+      /** Optional event metadata. */
       eventMetadata: {
         type: Object as PropType<Omit<WireMetadata, 'moduleName' | 'origin' | 'location'>>
       }
     },
-    setup(props) {
-      const root = ref(null);
-      const { unwatchDisplay } = useEmitDisplayEvent({
-        element: root as Ref<HTMLElement | null>,
-        taggingRequest: props.payload,
-        ...(props.eventMetadata && { eventMetadata: props.eventMetadata })
+    setup(props, { slots }) {
+      let unwatchDisplay: WatchStopHandle | undefined;
+
+      onMounted(() => {
+        const element = getCurrentInstance()?.proxy.$el as HTMLElement | undefined;
+        if (element) {
+          unwatchDisplay = useEmitDisplayEvent({
+            element,
+            taggingRequest: props.payload,
+            ...(props.eventMetadata && { eventMetadata: props.eventMetadata })
+          }).unwatchDisplay;
+        }
       });
 
-      onUnmounted(unwatchDisplay);
+      onUnmounted(() => {
+        unwatchDisplay?.();
+      });
 
-      return {
-        root
-      };
+      /*
+       * Obtains the vNodes array of the default slot and renders only the first one.
+       * It avoids to render a `Fragment` with the vNodes in Vue3 and the same behaviour in Vue2
+       * because Vue2 only allows a single root node. Then, `getCurrentInstance()?.proxy?.$el` to
+       * retrieve the HTML element in both versions.
+       */
+      return () => slots.default?.()[0] ?? h();
     }
   });
 </script>

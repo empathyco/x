@@ -19,3 +19,4 @@ export { default as TestSearch } from './test-search.vue';
 export { default as TestTagging } from './tagging/test-tagging.vue';
 export { default as TestRenderlessExtraParam } from './extra-params/test-renderless-extra-param.vue';
 export { default as TestIcons } from './icons/test-icons.vue';
+export { default as TestDisplayEmitter } from './test-display-emitter.vue';
