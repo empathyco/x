@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.50](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.49...vue3-migration-test@1.0.0-alpha.50) (2024-07-23)
+
+
+### Code Refactoring
+
+* **no-element:** towards getting rid of no-element component (#1564) ([12bb73d](https://github.com/empathyco/x/commit/12bb73dbe7ff6cf761cc2e6581b56e78c9c3359a))
+
+
+
 ## [1.0.0-alpha.49](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.48...vue3-migration-test@1.0.0-alpha.49) (2024-07-23)
 
 

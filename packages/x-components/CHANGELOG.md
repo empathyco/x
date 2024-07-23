@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.75](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.74...@empathyco/x-components@5.0.0-alpha.75) (2024-07-23)
+
+
+### Code Refactoring
+
+* **no-element:** towards getting rid of no-element component (#1564) ([12bb73d](https://github.com/empathyco/x/commit/12bb73dbe7ff6cf761cc2e6581b56e78c9c3359a))
+
+
+
 ## [5.0.0-alpha.74](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.73...@empathyco/x-components@5.0.0-alpha.74) (2024-07-23)
 
 
