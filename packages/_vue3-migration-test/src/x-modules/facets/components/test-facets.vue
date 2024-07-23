@@ -37,10 +37,12 @@
       </template>
     </Facets>
     <h2>SelectedFilters</h2>
-    <SelectedFilters :facetsIds="facetsIds" alwaysVisible>
-      <template #default="{ selectedFilters }">
-        Selected filters: {{ selectedFilters.length }}
-      </template>
+    <SelectedFilters
+      class="it-is-a-inheritance-class"
+      :facetsIds="facetsIds"
+      #default="{ selectedFilters }"
+    >
+      <span>Selected filters: {{ selectedFilters.length }}</span>
     </SelectedFilters>
     <h2>SelectedFiltersList</h2>
     <SelectedFiltersList :facetsIds="facetsIds" alwaysVisible>

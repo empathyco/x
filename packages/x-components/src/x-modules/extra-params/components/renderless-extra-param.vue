@@ -1,14 +1,8 @@
-<template>
-  <NoElement>
-    <slot v-bind="{ value, updateValue }"></slot>
-  </NoElement>
-</template>
-
 <script lang="ts">
-  import { computed, defineComponent } from 'vue';
-  import { NoElement } from '../../../components/no-element';
+  import { computed, defineComponent, h } from 'vue';
   import { extraParamsXModule } from '../x-module';
-  import { useState, useXBus } from '../../../composables';
+  import { useState } from '../../../composables/use-state';
+  import { useXBus } from '../../../composables/use-x-bus';
 
   /**
    * It emits a {@link ExtraParamsXEvents.UserChangedExtraParams} when the `updateValue`
@@ -19,47 +13,31 @@
   export default defineComponent({
     name: 'RenderlessExtraParam',
     xModule: extraParamsXModule.name,
-    components: {
-      NoElement
-    },
     props: {
       name: {
         type: String,
         required: true
       }
     },
-    setup(props) {
+    setup(props, { slots }) {
       const xBus = useXBus();
-      /**
-       * A dictionary with the extra params in the store state.
-       *
-       * @public
-       */
+
+      /** A dictionary with the extra params in the store state. */
       const stateParams = useState('extraParams', ['params']).params;
 
-      /**
-       * It returns the value of the extra param from the store.
-       *
-       * @returns - The value from the store.
-       *
-       * @internal
-       */
-      const value = computed(() => {
-        return stateParams.value[props.name];
-      });
+      /** It returns the value of the extra param from the store. */
+      const value = computed(() => stateParams.value[props.name]);
 
       /**
        * It sets the new value to the store.
        *
        * @param newValue - The new value of the extra param.
-       *
-       * @internal
        */
       function updateValue(newValue: unknown) {
         xBus.emit('UserChangedExtraParams', { [props.name]: newValue });
       }
 
-      return { value, updateValue };
+      return () => slots.default?.({ value, updateValue })[0] ?? h();
     }
   });
 </script>

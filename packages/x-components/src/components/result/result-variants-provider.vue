@@ -1,15 +1,5 @@
 <script lang="ts">
-  import {
-    defineComponent,
-    ref,
-    computed,
-    watch,
-    provide,
-    Ref,
-    CreateElement,
-    VNode,
-    PropType
-  } from 'vue';
+  import { defineComponent, ref, computed, watch, provide, Ref, PropType, h } from 'vue';
   import { Result, ResultVariant } from '@empathyco/x-types';
   import {
     RESULT_WITH_VARIANTS_KEY,
@@ -31,11 +21,7 @@
   export default defineComponent({
     name: 'ResultVariantsProvider',
     props: {
-      /**
-       * The original result containing the variants.
-       *
-       * @public
-       */
+      /** The original result containing the variants. */
       result: {
         type: Object as PropType<Result>,
         required: true
@@ -52,13 +38,12 @@
         default: Number.POSITIVE_INFINITY
       }
     },
-    setup(props) {
+    setup(props, { slots }) {
       const xBus = useXBus();
 
       /**
-       * The original result containing the variants as a computed ref object to enable watching prop changes.
-       *
-       * @public
+       * The original result containing the variants as a computed ref object to enable watching
+       * prop changes.
        */
       const result = computed(() => props.result);
 
@@ -67,8 +52,6 @@
        * Each position of the array is a nest level in the variants' hierarchy, so,
        * the second position will contain a variant that is present inside the variant of the first
        * position, and so on.
-       *
-       * @public
        */
       const selectedVariants = ref<ResultVariant[]>([]);
 
@@ -79,33 +62,33 @@
        *
        * @param variant - The variant to set.
        * @param level - The nest level where the variant is placed inside the result.
-       * @public
        */
-      const selectResultVariant = (variant: ResultVariant, level = 0): void => {
+      function selectResultVariant(variant: ResultVariant, level = 0) {
         if (selectedVariants.value[level] === variant) {
           return;
         }
         selectedVariants.value.splice(level, Number.POSITIVE_INFINITY, variant);
         xBus.emit('UserSelectedAResultVariant', { variant, level, result: result.value });
-      };
+      }
 
       /**
        * Merges the original result with the selected variant.
        * The merge is done with all the selected variants of the array.
        *
        * @returns - The result with the selected variant merged.
-       * @public
        */
-      const resultToProvide = computed<Result>(() => {
+      const resultToProvide = computed(() => {
         if (!selectedVariants.value.length) {
           return result.value;
         }
+
         const mergedResult = selectedVariants.value.reduce<Result>((result, variant) => {
           return {
             ...result,
             ...variant
           };
         }, result.value);
+
         mergedResult.variants = result.value.variants;
         return mergedResult;
       });
@@ -115,32 +98,20 @@
        *
        * @param variant - Variant to add to the array.
        */
-      const selectFirstVariants = (variant?: ResultVariant): void => {
+      function selectFirstVariants(variant?: ResultVariant) {
         if (!!variant && selectedVariants.value.length <= props.autoSelectDepth - 1) {
           selectedVariants.value.push(variant);
           selectFirstVariants(variant.variants?.[0]);
         }
-      };
+      }
 
-      /**
-       * Provides the original result passed as a prop.
-       *
-       * @public
-       */
+      /** Provides the original result passed as a prop. */
       provide<Ref<Result>>(RESULT_WITH_VARIANTS_KEY as string, result);
 
-      /**
-       * The selected variants of the result.
-       *
-       * @public
-       */
+      /** The selected variants of the result. */
       provide<Ref<ResultVariant[]>>(SELECTED_VARIANTS_KEY as string, selectedVariants);
 
-      /**
-       * The result variant key that will be selected.
-       *
-       * @public
-       */
+      /** The result variant key that will be selected. */
       provide(SELECT_RESULT_VARIANT_KEY as string, selectResultVariant);
 
       /**
@@ -157,27 +128,7 @@
         { immediate: true }
       );
 
-      return {
-        props,
-        selectedVariants,
-        selectResultVariant,
-        resultToProvide
-      };
-    },
-    /**
-     * Render function of the provider.
-     * It exposes the result with the selected variant merged.
-     *
-     * @param createElement - Vue createElement method.
-     * @returns - The VNode of the first element passed in the slot.
-     * @public
-     */
-    render(createElement: CreateElement): VNode {
-      return (
-        this.$scopedSlots.default?.({
-          result: this.resultToProvide
-        })?.[0] ?? createElement()
-      );
+      return () => slots.default?.({ result: resultToProvide.value })[0] ?? h();
     }
   });
 </script>

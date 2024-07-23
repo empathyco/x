@@ -1,25 +1,13 @@
-<template>
-  <NoElement>
-    <slot />
-  </NoElement>
-</template>
-
 <script lang="ts">
-  import { defineComponent, PropType, provide } from 'vue';
+  import { defineComponent, h, PropType, provide } from 'vue';
   import { TaggingRequest } from '@empathyco/x-types';
-  import { NoElement } from '../../components/no-element';
 
   export default defineComponent({
-    components: {
-      NoElement
-    },
+    name: 'DisplayResultProvider',
     props: {
-      queryTagging: {
-        type: Object as PropType<TaggingRequest>,
-        required: false
-      }
+      queryTagging: Object as PropType<TaggingRequest>
     },
-    setup(props) {
+    setup(props, { slots }) {
       provide('resultClickExtraEvents', ['UserClickedADisplayResult']);
 
       provide('resultLinkMetadataPerEvent', {
@@ -27,6 +15,8 @@
           queryTagging: props.queryTagging
         }
       });
+
+      return () => slots.default?.()[0] ?? h();
     }
   });
 </script>
