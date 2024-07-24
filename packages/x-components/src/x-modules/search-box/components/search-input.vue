@@ -10,7 +10,6 @@
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
     @beforeinput="preventSpecialKey"
-    v-on="$listeners"
     :maxlength="maxLength"
     :value="query"
     autocomplete="off"

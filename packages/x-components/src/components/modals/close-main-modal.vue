@@ -1,6 +1,5 @@
 <template>
   <BaseEventsModalClose
-    v-on="$listeners"
     class="x-close-main-modal"
     data-test="close-main-modal"
     :closingEvent="closingEvent"
