@@ -66,7 +66,7 @@
           clickFilter: emitClickEvents,
           cssClasses: innerCssClasses.value,
           isDisabled: isDisabled.value
-        }) ?? h();
+        })[0] ?? '';
     }
   });
 </script>
