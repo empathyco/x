@@ -36,12 +36,17 @@
     defineComponent,
     inject,
     onBeforeUnmount,
+    onMounted,
     PropType,
     Ref,
     ref,
     watch
   } from 'vue';
-  import { MaybeComputedElementRef, useResizeObserver } from '@vueuse/core';
+  import {
+    MaybeComputedElementRef,
+    useResizeObserver,
+    UseResizeObserverReturn
+  } from '@vueuse/core';
   import { toKebabCase } from '../utils/string';
   import { ListItem, VueCSSClasses } from '../utils/types';
   import { AnimationProp } from '../types/animation-prop';
@@ -229,11 +234,14 @@
        *
        * @internal
        */
-      const resizeObserver = useResizeObserver(
-        gridEl as MaybeComputedElementRef,
-        updateRenderedColumnsNumber
-      );
-      onBeforeUnmount(() => resizeObserver.stop());
+      let resizeObserver: UseResizeObserverReturn;
+      onMounted(() => {
+        resizeObserver = useResizeObserver(
+          gridEl as MaybeComputedElementRef,
+          updateRenderedColumnsNumber
+        );
+      });
+      onBeforeUnmount(() => resizeObserver?.stop());
 
       return {
         gridItems,
