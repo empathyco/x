@@ -110,9 +110,7 @@
         { immediate: true }
       );
 
-      return () => {
-        return h();
-      };
+      return () => '';
     }
   });
 </script>
