@@ -20,6 +20,7 @@
   export default defineComponent({
     name: 'RenderlessFilter',
     xModule: facetsXModule.name,
+    inheritAttrs: false,
     props: {
       /** The filter data to render. */
       filter: {

@@ -67,7 +67,7 @@
                   </span>
                 </SelectedFilters>
                 <FiltersList v-slot="{ filter }">
-                  <SimpleFilter #label :filter="filter">
+                  <SimpleFilter #label :filter="filter" :data-test="`${facet.label}-filter`">
                     <BasePriceFilterLabel
                       v-if="facet.id === 'price'"
                       :filter="filter"
@@ -107,7 +107,11 @@
                       filter
                     }"
                   >
-                    <SimpleFilter #label="{ filter }" :filter="filter">
+                    <SimpleFilter
+                      #label="{ filter }"
+                      :filter="filter"
+                      :data-test="`${facet.label}-filter`"
+                    >
                       {{ filter.label }}
                       <span :data-test="`${facet.label}-filter-total-results`">
                         {{ filter.totalResults }}
