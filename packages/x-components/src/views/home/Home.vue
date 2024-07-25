@@ -131,7 +131,7 @@
               </template>
             </Spellcheck>
 
-            <SlidingPanel v-if="$x.relatedTags.length">
+            <SlidingPanel v-if="x.relatedTags.length">
               <template #sliding-panel-left-button>
                 <ChevronLeft />
               </template>
@@ -155,7 +155,7 @@
 
         <template #toolbar-aside>
           <BaseIdTogglePanelButton
-            v-if="$x.totalResults > 0"
+            v-if="x.totalResults > 0"
             class="x-button--ghost x-button"
             panelId="aside-panel"
           >
@@ -164,8 +164,8 @@
         </template>
 
         <template #toolbar-body>
-          <div v-if="$x.totalResults > 0" class="x-flex x-items-center x-gap-12">
-            <span class="x-text1">{{ $x.totalResults }} Results</span>
+          <div v-if="x.totalResults > 0" class="x-flex x-items-center x-gap-12">
+            <span class="x-text1">{{ x.totalResults }} Results</span>
             <BaseColumnPickerList
               @update:modelValue="col => (selectedColumns = col)"
               :modelValue="selectedColumns"
@@ -204,7 +204,7 @@
         </template>
 
         <template #main-aside>
-          <Aside v-if="$x.totalResults > 0" />
+          <Aside v-if="x.totalResults > 0" />
         </template>
 
         <template #main-body>
@@ -229,23 +229,23 @@
             <AutoProgressBar :isLoading="isRedirecting" :durationInSeconds="delayInSeconds" />
           </Redirection>
 
-          <template v-if="!$x.redirections.length">
+          <template v-if="!x.redirections.length">
             <FallbackDisclaimer class="x-message" />
 
             <!--  No Results Message  -->
             <div
-              v-if="$x.noResults && !$x.fromNoResultsWithFilters"
+              v-if="x.noResults && !x.fromNoResultsWithFilters"
               class="x-p-28 x-flex x-flex-col x-gap-8 x-items-center x-bg-lead-25 x-my-8"
               data-test="no-results-message"
             >
               <p>
                 There are no results for
-                <span class="x-font-bold">{{ $x.query.search }}</span>
+                <span class="x-font-bold">{{ x.query.search }}</span>
               </p>
               <p>You may be interested in these:</p>
             </div>
 
-            <template v-if="!$x.query.searchBox">
+            <template v-if="!x.query.searchBox">
               <h1 class="x-mb-16 x-title1">Brand Recommendations</h1>
               <LocationProvider location="no_results">
                 <QueryPreviewList
@@ -293,17 +293,23 @@
 
             <!-- Results -->
             <LocationProvider location="results">
-              <ResultsList v-infinite-scroll:main-scroll>
-                <PromotedsList>
-                  <BannersList>
+              <ResultsList
+                v-infinite-scroll:main-scroll="{ margin: 600 }"
+                class="x-mot-results-list"
+                data-test="results-list"
+                data-wysiwyg="results"
+              >
+                <PromotedsList class="x-mot-promoteds-list">
+                  <BannersList class="x-mot-banners-list">
                     <NextQueriesList
                       :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
+                      class="x-mot-next-queries-list"
                     >
                       <BaseVariableColumnGrid
                         style="--x-size-min-width-grid-item: 150px"
                         class="x-gap-12"
                         :animation="resultsAnimation"
-                        :columns="$x.device === 'mobile' ? 2 : 4"
+                        :columns="x.device === 'mobile' ? 2 : 4"
                       >
                         <template #result="{ item: result }">
                           <MainScrollItem :item="result">
@@ -368,7 +374,7 @@
                 <h1 v-if="isAnyQueryLoadedInPreview(queries)" class="x-title1">
                   Similar Semantic Queries
                 </h1>
-                <LocationProvider :location="$x.noResults ? 'no_results' : 'low_results'">
+                <LocationProvider :location="x.noResults ? 'no_results' : 'low_results'">
                   <QueryPreviewList
                     :queries-preview-info="queries.map(q => ({ query: q }))"
                     #default="{ queryPreviewInfo: { query }, results, queryTagging }"
@@ -407,7 +413,7 @@
 
             <!-- Partials -->
             <PartialResultsList
-              v-if="!$x.fromNoResultsWithFilters && ($x.totalResults <= 4 || $x.noResults)"
+              v-if="!x.fromNoResultsWithFilters && (x.totalResults <= 4 || x.noResults)"
               :animation="resultsAnimation"
             >
               <template #default="{ partialResult }">
@@ -427,7 +433,7 @@
             </PartialResultsList>
 
             <!-- Recommendations -->
-            <Recommendations v-if="!$x.query.search || $x.noResults" #layout="{ recommendations }">
+            <Recommendations v-if="!x.query.search || x.noResults" #layout="{ recommendations }">
               <BaseVariableColumnGrid
                 #default="{ item: result }"
                 :animation="resultsAnimation"
@@ -452,8 +458,8 @@
 <script lang="ts">
   /* eslint-disable max-len */
   import { computed, ComputedRef, defineComponent, provide } from 'vue';
-  import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
-  import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
+  // import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
+  // import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
   import BaseDropdown from '../../components/base-dropdown.vue';
   import BaseGrid from '../../components/base-grid.vue';
@@ -463,6 +469,8 @@
   import ChevronRight from '../../components/icons/chevron-right.vue';
   import ChevronUp from '../../components/icons/chevron-up.vue';
   import CrossIcon from '../../components/icons/cross.vue';
+  import { use$x } from '../../composables/use-$x';
+  import { infiniteScroll } from '../../directives/infinite-scroll';
   import ExperienceControls from '../../x-modules/experience-controls/components/experience-controls.vue';
   import Grid2Col from '../../components/icons/grid-2-col.vue';
   import Grid4Col from '../../components/icons/grid-4-col.vue';
@@ -473,7 +481,6 @@
   import PreselectedFilters from '../../x-modules/facets/components/preselected-filters.vue';
   import SlidingPanel from '../../components/sliding-panel.vue';
   import SnippetCallbacks from '../../components/snippet-callbacks.vue';
-  import { infiniteScroll } from '../../directives/infinite-scroll/infinite-scroll';
   import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue';
   import SnippetConfigExtraParams from '../../x-modules/extra-params/components/snippet-config-extra-params.vue';
   import NextQueriesList from '../../x-modules/next-queries/components/next-queries-list.vue';
@@ -523,11 +530,6 @@
       infiniteScroll
     },
     components: {
-      DisplayEmitter,
-      QueryPreviewButton,
-      DisplayResultProvider,
-      FallbackDisclaimer,
-      QueryPreviewList,
       Aside,
       AutoProgressBar,
       Banner,
@@ -543,15 +545,19 @@
       ClearSearchInput,
       CloseMainModal,
       CrossIcon,
+      DisplayEmitter,
+      DisplayResultProvider,
       ExperienceControls,
+      FallbackDisclaimer,
       Grid2Col,
       Grid4Col,
       LocationProvider,
+      MainModal,
       MainScrollItem,
       MultiColumnMaxWidthLayout,
       NextQueriesList,
-      NextQueryPreview,
       NextQuery,
+      NextQueryPreview,
       OpenMainModal,
       PartialQueryButton,
       PartialResultsList,
@@ -559,6 +565,8 @@
       PreselectedFilters,
       Promoted,
       PromotedsList,
+      QueryPreviewButton,
+      QueryPreviewList,
       Recommendations,
       Redirection,
       RelatedTags,
@@ -579,8 +587,7 @@
       Spellcheck,
       SpellcheckButton,
       Tagging,
-      UrlHandler,
-      MainModal
+      UrlHandler
     },
     setup() {
       const stores = ['Spain', 'Portugal', 'Italy'];
@@ -593,8 +600,8 @@
         'Find sunglasses'
       ];
       const columnPickerValues = [0, 2, 4];
-      const resultsAnimation = StaggeredFadeAndSlide;
-      const modalAnimation = animateClipPath();
+      // const resultsAnimation = StaggeredFadeAndSlide;
+      // const modalAnimation = animateClipPath();
       const selectedColumns = 4;
       const sortValues = ['', 'price asc', 'price desc'];
       const isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview;
@@ -655,8 +662,8 @@
         adapterConfig.e2e = !adapterConfig.e2e;
       };
       return {
-        resultsAnimation,
-        modalAnimation,
+        resultsAnimation: undefined,
+        modalAnimation: undefined,
         queriesPreviewInfo,
         stores,
         initialExtraParams,
@@ -667,7 +674,8 @@
         isAnyQueryLoadedInPreview,
         queries,
         toggleE2EAdapter,
-        controls
+        controls,
+        x: use$x()
       };
     }
   });

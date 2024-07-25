@@ -14,7 +14,7 @@
         :queryFeature="queryFeature"
         :queryPreviewInfo="queryPreview"
       >
-        <template v-for="(_, slotName) in renderSlots" v-slot:[slotName]="scope">
+        <template v-for="(_, slotName) in $slots" v-slot:[slotName]="scope">
           <slot :name="slotName" v-bind="scope" />
         </template>
       </QueryPreview>
@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-  import Vue, { computed, defineComponent, PropType, ref, watch } from 'vue';
+  import { computed, defineComponent, PropType, ref, watch } from 'vue';
   import { RequestStatus } from '../../../store';
   import { queriesPreviewXModule } from '../x-module';
   import { QueryPreviewInfo } from '../store/types';
@@ -99,9 +99,7 @@
         default: 'ul'
       }
     },
-    setup(props, { slots }) {
-      const renderSlots = slots;
-
+    setup(props) {
       /**
        * Contains the status of the preview requests, indexed by query.
        */
@@ -192,8 +190,7 @@
       return {
         renderedQueryPreviews,
         flagAsFailed,
-        flagAsLoaded,
-        renderSlots
+        flagAsLoaded
       };
     }
   });

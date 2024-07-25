@@ -1,23 +1,6 @@
-<template>
-  <NoElement>
-    <!--
-      @slot Customized Promoteds List layout.
-        @binding {Promoted[]} items - Promoteds plus the injected list items to render.
-        @binding {Vue | string} animation - Animation to animate the elements.
-    -->
-    <slot v-bind="{ items, animation }">
-      <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in slots" v-slot:[slotName]="{ item }">
-          <slot :name="slotName" :item="item" />
-        </template>
-      </ItemsList>
-    </slot>
-  </NoElement>
-</template>
-
 <script lang="ts">
   import { Promoted } from '@empathyco/x-types';
-  import { computed, ComputedRef, defineComponent, inject, provide, Ref } from 'vue';
+  import { computed, ComputedRef, defineComponent, h, inject, provide, Ref } from 'vue';
   import ItemsList from '../../../components/items-list.vue';
   import { ListItem } from '../../../utils/types';
   import { searchXModule } from '../x-module';
@@ -25,55 +8,39 @@
   import { use$x } from '../../../composables/use-$x';
   import { useState } from '../../../composables/use-state';
   import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
-  import { NoElement } from '../../../components/no-element';
 
   /**
-   * It renders a {@link ItemsList} of promoteds from {@link SearchState.promoteds} by default
-   * using the `ItemsInjectionMixin`.
+   * It renders a {@link ItemsList} of promoteds from {@link SearchState.promoteds}.
    *
    * The component provides a default slot which wraps the whole component with the `promoteds`
-   * plus the `searchInjectedItems` which also contains the injected list items from
+   * plus the `injectedListItems` which also contains the injected list items from
    * the ancestor.
    *
    * It also provides the parent slots to customize the items.
    *
    * @public
    */
-
   export default defineComponent({
     name: 'PromotedsList',
-    components: {
-      ItemsList,
-      NoElement
-    },
     xModule: searchXModule.name,
     props: {
-      /**
-       * Animation component that will be used to animate the promoteds.
-       *
-       * @public
-       */
+      /** Animation component that will be used to animate the promoteds. */
       animation: {
         type: AnimationProp,
         default: 'ul'
       }
     },
-    setup(_, { slots }) {
+    setup(props, { slots }) {
       const $x = use$x();
 
-      /**
-       * The promoteds to render from the state.
-       *
-       * @public
-       */
+      /** The promoteds to render from the state. */
       const stateItems: ComputedRef<Promoted[]> = useState('search', ['promoteds']).promoteds;
 
-      /**
-       * It injects {@link ListItem} provided by an ancestor as injectedListItems.
-       *
-       * @internal
-       */
-      const injectedListItems = inject<Ref<ListItem[] | undefined>>(LIST_ITEMS_KEY as string);
+      /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
+      const injectedListItems = inject<Ref<ListItem[]> | undefined>(
+        LIST_ITEMS_KEY as string,
+        undefined
+      );
 
       /**
        * The `stateItems` concatenated with the `injectedListItems` if there are.
@@ -82,10 +49,8 @@
        * `injectedListItems`.
        *
        * @returns List of {@link ListItem}.
-       *
-       * @internal
        */
-      const items = computed((): ListItem[] => {
+      const items = computed(() => {
         if (!injectedListItems?.value!.length) {
           return stateItems.value;
         }
@@ -112,13 +77,12 @@
        * @remarks It should be overridden in the component that uses the mixin and it's intended to be
        * filled with items from the state. Vue doesn't allow mixins as abstract classes.
        * @returns An empty array as fallback in case it is not overridden.
-       * @internal
        */
       provide(LIST_ITEMS_KEY as string, items);
 
-      return {
-        items,
-        slots
+      return () => {
+        const innerProps = { items: items.value, animation: props.animation };
+        return slots.default?.(innerProps)[0] ?? h(ItemsList, innerProps);
       };
     }
   });

@@ -1,23 +1,6 @@
-<template>
-  <NoElement>
-    <!--
-      @slot Customized BannersList layout.
-        @binding {Banner[]} items - Banners plus the injected list items to render.
-        @binding {Vue | string} animation - Animation to animate the elements.
-    -->
-    <slot v-bind="{ items, animation }">
-      <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in slots" v-slot:[slotName]="{ item }">
-          <slot :name="slotName" :item="item" />
-        </template>
-      </ItemsList>
-    </slot>
-  </NoElement>
-</template>
-
 <script lang="ts">
   import { Banner } from '@empathyco/x-types';
-  import { computed, ComputedRef, defineComponent, inject, isRef, provide, ref, Ref } from 'vue';
+  import { computed, ComputedRef, defineComponent, h, inject, isRef, provide, ref, Ref } from 'vue';
   import ItemsList from '../../../components/items-list.vue';
   import { FeatureLocation } from '../../../types/origin';
   import { ListItem } from '../../../utils/types';
@@ -26,14 +9,12 @@
   import { use$x } from '../../../composables/use-$x';
   import { useState } from '../../../composables/use-state';
   import { LIST_ITEMS_KEY } from '../../../components/decorators/injection.consts';
-  import { NoElement } from '../../../components/no-element';
 
   /**
-   * It renders a {@link ItemsList} list of banners from {@link SearchState.banners} by
-   * default using the `ItemsInjectionMixin`.
+   * It renders a {@link ItemsList} list of banners from {@link SearchState.banners}.
    *
    * The component provides a default slot which wraps the whole component with the `banners`
-   * plus the `searchInjectedItems` which also contains the injected list items from
+   * plus the `injectedListItems` which also contains the injected list items from
    * the ancestor.
    *
    * It also provides the parent slots to customize the items.
@@ -42,48 +23,28 @@
    */
   export default defineComponent({
     name: 'BannersList',
-    components: {
-      ItemsList,
-      NoElement
-    },
     xModule: searchXModule.name,
     props: {
-      /**
-       * Animation component that will be used to animate the banners.
-       *
-       * @public
-       */
+      /** Animation component that will be used to animate the banners. */
       animation: {
         type: AnimationProp,
         default: 'ul'
       }
     },
-    setup(_, { slots }) {
+    setup(props, { slots }) {
       const $x = use$x();
 
-      /**
-       * The banners to render from the state.
-       *
-       * @public
-       */
+      /** The banners to render from the state. */
       const stateItems: ComputedRef<Banner[]> = useState('search', ['banners']).banners;
 
-      /**
-       * The provided {@link FeatureLocation} for the component.
-       *
-       * @internal
-       */
+      /** The provided {@link FeatureLocation} for the component. */
       const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation | undefined>(
         'location',
         undefined
       );
       const location = isRef(injectedLocation) ? injectedLocation.value : injectedLocation;
 
-      /**
-       * Number of columns the grid is being divided into.
-       *
-       * @internal
-       */
+      /** Number of columns the grid is being divided into. */
       let columnsNumber = ref(0);
 
       /**
@@ -91,8 +52,6 @@
        *
        * @param newColumnsNumber - The new columns value.
        * @param metadata - The {@link @empathyco/x-bus#SubjectPayload.metadata}.
-       *
-       * @internal
        */
       $x.on('RenderedColumnsNumberChanged', true).subscribe(({ eventPayload, metadata }) => {
         if (metadata.location === location) {
@@ -100,12 +59,11 @@
         }
       });
 
-      /**
-       * It injects {@link ListItem} provided by an ancestor as injectedListItems.
-       *
-       * @internal
-       */
-      const injectedListItems = inject<Ref<ListItem[] | undefined>>(LIST_ITEMS_KEY as string);
+      /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
+      const injectedListItems = inject<Ref<ListItem[]> | undefined>(
+        LIST_ITEMS_KEY as string,
+        undefined
+      );
 
       /**
        * The `stateItems` concatenated with the `injectedListItems` if there are.
@@ -114,10 +72,8 @@
        * `injectedListItems`.
        *
        * @returns List of {@link ListItem}.
-       *
-       * @internal
        */
-      const items = computed((): ListItem[] => {
+      const items = computed(() => {
         if (!injectedListItems?.value!.length) {
           return stateItems.value;
         }
@@ -152,13 +108,12 @@
        * @remarks It should be overridden in the component that uses the mixin and it's intended to be
        * filled with items from the state. Vue doesn't allow mixins as abstract classes.
        * @returns An empty array as fallback in case it is not overridden.
-       * @internal
        */
       provide(LIST_ITEMS_KEY as string, items);
 
-      return {
-        items,
-        slots
+      return () => {
+        const innerProps = { items: items.value, animation: props.animation };
+        return slots.default?.(innerProps)[0] ?? h(ItemsList, innerProps);
       };
     }
   });
