@@ -5,8 +5,8 @@
     <SimpleFilter
       :filter="filter"
       :cssClasses="innerCssClasses"
-      class="this-is-not-inherited-in-vue3-and-will-throw-a-warning--use-cssClasses-prop-instead"
-      data-custom="this-is-not-inherited-in-vue3-and-will-throw-a-warning"
+      class="this-is-not-inherited-in-vue3-use-cssClasses-prop-instead"
+      data-custom="this-is-not-inherited-in-vue3"
     />
   </div>
   <div>
