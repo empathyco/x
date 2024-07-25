@@ -4,7 +4,7 @@
     <ClearFilters />
     <SelectedFiltersList>
       <template #default="{ filter }">
-        <SimpleFilter :filter="filter" class="x-facet-filter-success">
+        <SimpleFilter :filter="filter" :cssClasses="['x-facet-filter-success']">
           <template #label>{{ filter.label ?? filter.id }}</template>
         </SimpleFilter>
       </template>
@@ -67,7 +67,7 @@
                   </span>
                 </SelectedFilters>
                 <FiltersList v-slot="{ filter }">
-                  <SimpleFilter #label :filter="filter" :data-test="`${facet.label}-filter`">
+                  <SimpleFilter #label :filter="filter">
                     <BasePriceFilterLabel
                       v-if="facet.id === 'price'"
                       :filter="filter"
@@ -107,11 +107,7 @@
                       filter
                     }"
                   >
-                    <SimpleFilter
-                      #label="{ filter }"
-                      :filter="filter"
-                      :data-test="`${facet.label}-filter`"
-                    >
+                    <SimpleFilter #label="{ filter }" :filter="filter">
                       {{ filter.label }}
                       <span :data-test="`${facet.label}-filter-total-results`">
                         {{ filter.totalResults }}
