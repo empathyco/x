@@ -1,5 +1,5 @@
 <template>
-  <button ref="el" @click="emitEvents" v-on="$listeners" :class="dynamicCSSClasses">
+  <button ref="el" @click="emitEvents" :class="dynamicCSSClasses">
     <!--
       @slot Button content
           @binding {Suggestion} suggestion - Suggestion data

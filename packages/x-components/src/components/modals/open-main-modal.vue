@@ -1,6 +1,5 @@
 <template>
   <BaseEventsModalOpen
-    v-on="$listeners"
     class="x-open-main-modal"
     data-test="open-main-modal"
     :openingEvent="openingEvent"

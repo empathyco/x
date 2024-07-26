@@ -1,6 +1,5 @@
 <template>
   <BaseEventButton
-    v-on="$listeners"
     :events="events"
     class="x-events-modal-close-button x-button"
     data-test="close-modal"
