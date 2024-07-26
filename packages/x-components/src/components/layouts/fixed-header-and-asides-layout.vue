@@ -13,7 +13,7 @@
       />
 
       <header
-        v-if="hasContent('header')"
+        v-if="devMode || $slots['header']"
         key="header"
         class="x-layout__header x-list x-list--horizontal"
       >
@@ -23,7 +23,7 @@
         </slot>
       </header>
 
-      <div v-if="hasContent('sub-header')" key="sub-header" class="x-layout__sub-header">
+      <div v-if="devMode || $slots['sub-header']" key="sub-header" class="x-layout__sub-header">
         <div class="x-layout__sub-header-content">
           <!-- @slot Slot that can be used to insert content into below the header. -->
           <slot name="sub-header">
@@ -32,14 +32,18 @@
         </div>
       </div>
 
-      <section v-if="hasContent('toolbar')" key="toolbar" class="x-layout__toolbar">
+      <section v-if="devMode || $slots['toolbar']" key="toolbar" class="x-layout__toolbar">
         <slot name="toolbar">
           <!-- @slot Slot that can be used to insert content above the main. -->
           <span v-if="devMode" class="slot-helper">TOOLBAR</span>
         </slot>
       </section>
 
-      <main v-if="hasContent('main')" key="main" class="x-layout__main x-list x-list--vertical">
+      <main
+        v-if="devMode || $slots['main']"
+        key="main"
+        class="x-layout__main x-list x-list--vertical"
+      >
         <!-- @slot Slot that is be used for insert content into the Main. -->
         <slot name="main">
           <span v-if="devMode" class="slot-helper">MAIN</span>
@@ -47,7 +51,7 @@
       </main>
 
       <BaseIdModal
-        v-if="hasContent('left-aside')"
+        v-if="devMode || $slots['left-aside']"
         key="left-aside"
         :animation="leftAsideAnimation"
         modalId="left-aside"
@@ -60,7 +64,7 @@
       </BaseIdModal>
 
       <BaseIdModal
-        v-if="hasContent('right-aside')"
+        v-if="devMode || $slots['right-aside']"
         key="right-aside"
         :animation="rightAsideAnimation"
         modalId="right-aside"
@@ -76,7 +80,11 @@
         <span v-if="devMode" class="slot-helper">EXTRA ASIDE</span>
       </slot>
 
-      <div v-if="hasContent('scroll-to-top')" key="scroll-to-top" class="x-layout__scroll-to-top">
+      <div
+        v-if="devMode || $slots['scroll-to-top']"
+        key="scroll-to-top"
+        class="x-layout__scroll-to-top"
+      >
         <slot name="scroll-to-top">
           <span v-if="devMode" class="slot-helper">SCROLL TO TOP</span>
         </slot>
@@ -86,13 +94,11 @@
 </template>
 
 <script lang="ts">
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  import Vue, { computed, defineComponent, ref } from 'vue';
+  import { computed, defineComponent, ref } from 'vue';
   import { animateTranslate } from '../animations/animate-translate/animate-translate.factory';
   import Scroll from '../../x-modules/scroll/components/scroll.vue';
   import BaseIdModal from '../modals/base-id-modal.vue';
   import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
-  import { useLayouts } from './use-layouts';
 
   /**
    * Component for use as Layout to be filled with the rest of the components.
@@ -103,37 +109,23 @@
    */
   export default defineComponent({
     name: 'FixedHeaderAndAsidesLayout',
-    components: {
-      BaseIdModal,
-      MainScroll,
-      Scroll
-    },
+    components: { BaseIdModal, MainScroll, Scroll },
     props: {
-      /**
-       * Enables the devMode, which shows the available slots to use with its names.
-       *
-       * @public
-       */
-      devMode: {
-        type: Boolean,
-        default: false
-      }
+      /** Enables the devMode, which shows the available slots to use with its names. */
+      devMode: Boolean
     },
-    setup: function (props, { slots }) {
-      const { hasContent } = useLayouts(props.devMode, slots);
-
+    setup() {
       const scrollPosition = ref(0);
 
       const rightAsideAnimation = animateTranslate('right');
       const leftAsideAnimation = animateTranslate('left');
 
-      const setPosition = (position: number): void => {
+      const setPosition = (position: number) => {
         scrollPosition.value = position;
       };
       const isBackdropVisible = computed(() => scrollPosition.value > 0);
 
       return {
-        hasContent,
         rightAsideAnimation,
         leftAsideAnimation,
         setPosition,

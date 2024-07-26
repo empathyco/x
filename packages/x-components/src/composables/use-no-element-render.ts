@@ -1,5 +1,4 @@
-import { h, SetupContext } from 'vue';
-import { VNode } from 'vue/types/vnode';
+import { h, SetupContext, VNode } from 'vue';
 
 /**
  * Returns a render function that returns the default slot or nothing if it's not defined.

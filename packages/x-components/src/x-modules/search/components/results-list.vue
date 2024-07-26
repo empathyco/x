@@ -1,22 +1,5 @@
-<template>
-  <NoElement>
-    <!--
-      @slot Customize ResultsList.
-        @binding {Result[]} items - Results to render.
-        @binding {Vue | string} animation - Animation to animate the elements.
-    -->
-    <slot v-bind="{ items, animation }">
-      <ItemsList :animation="animation" :items="items">
-        <template v-for="(_, slotName) in slots" v-slot:[slotName]="{ item }">
-          <slot :name="slotName" :item="item" />
-        </template>
-      </ItemsList>
-    </slot>
-  </NoElement>
-</template>
-
 <script lang="ts">
-  import { computed, ComputedRef, defineComponent, provide, Ref, ref, watch } from 'vue';
+  import { computed, ComputedRef, defineComponent, h, provide, Ref, ref, watch } from 'vue';
   import { Result } from '@empathyco/x-types';
   import {
     HAS_MORE_ITEMS_KEY,
@@ -25,12 +8,9 @@
   } from '../../../components/decorators/injection.consts';
   import ItemsList from '../../../components/items-list.vue';
   import { RequestStatus } from '../../../store/utils/status-store.utils';
-  import { infiniteScroll } from '../../../directives';
   import { animationProp } from '../../../utils/options-api';
   import { useState } from '../../../composables/use-state';
   import { searchXModule } from '../x-module';
-  import { useXBus } from '../../../composables/use-x-bus';
-  import { NoElement } from '../../../components/no-element';
 
   /**
    * It renders a {@link ItemsList} list with the results from {@link SearchState.results} by
@@ -45,71 +25,41 @@
    */
   export default defineComponent({
     name: 'ResultsList',
-    components: {
-      ItemsList,
-      NoElement
-    },
     xModule: searchXModule.name,
-    directives: { 'infinite-scroll': infiniteScroll },
     props: {
-      /**
-       * Animation component that will be used to animate the results.
-       *
-       * @public
-       */
+      /** Animation component that will be used to animate the results. */
       animation: {
         type: animationProp,
         default: 'ul'
       }
     },
     emits: ['UserReachedResultsListEnd'],
-
-    setup(_, { slots }) {
-      const xBus = useXBus();
-
+    setup(props, { slots }) {
       /**
        * The results to render from the state.
        *
        * @remarks The results list are provided with `items` key. It can be
        * concatenated with list items from components such as `BannersList`, `PromotedsList`,
        * `BaseGrid` or any component that injects the list.
-       *
-       * @public
        */
       const items: ComputedRef<Result[]> = useState('search', ['results']).results;
       provide<ComputedRef<Result[]>>(LIST_ITEMS_KEY as string, items);
 
-      /**
-       * The total number of results, taken from the state.
-       */
+      /** The total number of results, taken from the state. */
       const totalResults: ComputedRef<number> = useState('search', ['totalResults']).totalResults;
 
-      /**
-       * It provides the search query.
-       * This query is updated only when the search request has succeeded.
-       */
+      /** This query is updated only when the search request has succeeded. */
       let providedQuery = ref('');
       provide<Ref<string>>(QUERY_KEY as string, providedQuery);
 
-      /**
-       * Indicates if there are more available results that have not been injected.
-       *
-       * @returns Boolean.
-       * @public
-       */
-      const hasMoreItems = computed(() => {
-        return items.value.length < totalResults.value;
-      });
+      /** Indicates if there are more available results that have not been injected. */
+      const hasMoreItems = computed(() => items.value.length < totalResults.value);
       provide<ComputedRef<boolean>>(HAS_MORE_ITEMS_KEY as string, hasMoreItems);
 
-      /**
-       * The status of the search request, taken from the state.
-       */
-      const searchStatus: Ref<RequestStatus> = useState('search', ['status']).status;
+      /** The status of the search request, taken from the state. */
+      const searchStatus: ComputedRef<RequestStatus> = useState('search', ['status']).status;
 
-      /**
-       * The query of the search request, taken from the state.
-       */
+      /** The query of the search request, taken from the state. */
       const searchQuery: ComputedRef<string> = useState('search', ['query']).query;
 
       /**
@@ -118,11 +68,11 @@
        *
        * @param status - The status of the search request.
        */
-      const updateQuery = (status: RequestStatus): void => {
+      function updateQuery(status: RequestStatus) {
         if (status === 'success') {
           providedQuery.value = searchQuery.value;
         }
-      };
+      }
 
       /**
        * Watches the searchStatus and triggers updateQuery as callback
@@ -132,22 +82,9 @@
        */
       watch(searchStatus, () => updateQuery(searchStatus.value), { immediate: true });
 
-      /**
-       * It emits an {@link SearchXEvents.UserReachedResultsListEnd} event.
-       *
-       * @remarks This function is going to be executed when the observer
-       * is fired in {@link infiniteScroll}.
-       *
-       * @internal
-       */
-      const onInfiniteScrollEnd = (): void => {
-        xBus.emit('UserReachedResultsListEnd');
-      };
-
-      return {
-        items,
-        onInfiniteScrollEnd,
-        slots
+      return () => {
+        const innerProps = { items: items.value, animation: props.animation };
+        return slots.default?.(innerProps)[0] ?? h(ItemsList, innerProps);
       };
     }
   });

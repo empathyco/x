@@ -22,7 +22,6 @@ import {
   TestSearchBox,
   TestBaseVariableColumnGrid,
   TestEmpathize,
-  TestUseLayouts,
   TestSlidingPanel,
   TestBaseSuggestions,
   TestHighlight,
@@ -173,11 +172,6 @@ const routes = [
     path: '/base-variable-column-grid',
     name: 'BaseVariableColumnGrid',
     component: TestBaseVariableColumnGrid
-  },
-  {
-    path: '/test-use-layouts',
-    name: 'UseLayouts',
-    component: TestUseLayouts
   },
   {
     path: '/base-suggestions',
