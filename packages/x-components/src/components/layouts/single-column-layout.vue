@@ -179,7 +179,7 @@
       grid-row: footer;
     }
 
-    ::v-deep .x-layout__aside {
+    :deep(.x-layout__aside) {
       grid-row: page;
       z-index: 3;
 
@@ -190,9 +190,9 @@
       }
     }
 
-    &__predictive ::v-deep,
-    &__floating ::v-deep,
-    .slot-helper ::v-deep {
+    &__predictive :deep(),
+    &__floating :deep(),
+    :deep(.slot-helper) {
       pointer-events: none;
 
       > * {

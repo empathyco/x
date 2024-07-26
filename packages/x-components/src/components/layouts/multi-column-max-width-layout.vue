@@ -437,7 +437,7 @@
       padding-block-end: var(--x-size-margin-bottom-layout-columns-scroll-to-top, 10px);
       padding-inline-start: var(--x-size-margin-left-layout-columns-scroll-to-top, 10px);
 
-      ::v-deep > * {
+      :deep(> *) {
         pointer-events: all;
       }
     }
