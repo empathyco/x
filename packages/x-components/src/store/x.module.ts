@@ -16,7 +16,7 @@ export type XModuleState = { [Key in keyof RootXStoreState['x']]: null };
  *
  * @internal
  */
-export const RootXStoreModule: Module<XModuleState, any> = {
-  state: () => ({} as XModuleState),
+export const RootXStoreModule: Module<any, any> = {
+  state: () => ({}),
   namespaced: true
 };

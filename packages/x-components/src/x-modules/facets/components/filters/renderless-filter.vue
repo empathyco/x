@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Dictionary } from '@empathyco/x-utils';
-  import { computed, defineComponent, h, PropType } from 'vue';
+  import { computed, defineComponent, PropType } from 'vue';
   import { BooleanFilter } from '@empathyco/x-types';
   import { useXBus } from '../../../../composables/use-x-bus';
   import { XEvent, XEventsTypes } from '../../../../wiring/events.types';

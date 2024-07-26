@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Facet, Filter, isHierarchicalFacet } from '@empathyco/x-types';
-  import { computed, defineComponent, h, PropType, Ref, ref, watch } from 'vue';
+  import { computed, defineComponent, PropType, Ref, ref, watch } from 'vue';
   import { clone } from '../../../../utils';
   import { areFiltersDifferent } from '../../../../utils/filters';
   import { GroupId } from '../../store/types';
