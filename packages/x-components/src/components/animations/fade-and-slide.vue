@@ -1,13 +1,5 @@
 <template>
-  <!-- eslint-disable vue/attributes-order -->
-  <transition-group
-    v-bind="$attrs"
-    v-on="$listeners"
-    class="x-fade-and-slide"
-    :name="name"
-    :tag="tag"
-    :appear="appear"
-  >
+  <transition-group class="x-fade-and-slide" :name="name" :tag="tag" :appear="appear">
     <!-- @slot (Required) Transition-group content -->
     <slot />
   </transition-group>
@@ -25,7 +17,6 @@
    */
   export default defineComponent({
     name: 'FadeAndSlide',
-    inheritAttrs: false,
     props: {
       /**
        * HTML Element that the transition-group children will be wrapped in.

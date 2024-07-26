@@ -57,7 +57,7 @@
         required: true
       }
     },
-    data() {
+    setup() {
       return {
         crossFade: CrossFade
       };

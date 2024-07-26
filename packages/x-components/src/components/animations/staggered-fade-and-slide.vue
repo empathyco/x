@@ -1,12 +1,5 @@
 <template>
-  <!-- eslint-disable vue/attributes-order -->
-  <StaggeringTransitionGroup
-    v-bind="$attrs"
-    v-on="$listeners"
-    class="x-staggered-fade-and-slide"
-    :name="name"
-    :appear="appear"
-  >
+  <StaggeringTransitionGroup class="x-staggered-fade-and-slide" :name="name" :appear="appear">
     <!-- @slot (Required) Transition-group content -->
     <slot />
   </StaggeringTransitionGroup>
@@ -26,7 +19,6 @@
   export default defineComponent({
     name: 'StaggeredFadeAndSlide',
     components: { StaggeringTransitionGroup },
-    inheritAttrs: false,
     props: {
       /**
        * Indicates if the transition must be applied on the initial render of the node.

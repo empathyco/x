@@ -6,8 +6,6 @@
     @scroll:at-start="emitScrollAtStart"
     @scroll:almost-at-end="emitScrollAlmostAtEnd"
     @scroll:at-end="emitScrollAtEnd"
-    v-on="$listeners"
-    v-bind="$attrs"
     :id="id"
   >
     <slot />

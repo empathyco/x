@@ -1,8 +1,5 @@
 <template>
-  <!-- eslint-disable vue/attributes-order -->
   <transition
-    v-bind="$attrs"
-    v-on="$listeners"
     @enter="expand"
     @after-enter="cleanUpAnimationStyles"
     @leave="collapse"
@@ -26,7 +23,6 @@
    */
   export default defineComponent({
     name: 'CollapseWidth',
-    inheritAttrs: false,
     props: {
       /**
        * Indicates if the transition must be applied on the initial render of the node.

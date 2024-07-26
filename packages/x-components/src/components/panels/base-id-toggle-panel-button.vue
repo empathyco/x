@@ -1,6 +1,5 @@
 <template>
   <BaseEventButton
-    v-on="$listeners"
     :events="events"
     class="x-base-id-toggle-panel-button x-button"
     data-test="base-id-toggle-button"

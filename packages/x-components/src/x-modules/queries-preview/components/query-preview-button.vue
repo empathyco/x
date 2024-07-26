@@ -1,6 +1,5 @@
 <template>
   <BaseEventButton
-    v-on="$listeners"
     :events="events"
     class="x-query-preview-button x-button"
     data-test="query-preview-button"

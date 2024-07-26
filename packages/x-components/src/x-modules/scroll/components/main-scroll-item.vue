@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" ref="rootRef" v-on="$listeners" :data-scroll="item.id">
+  <component :is="tag" ref="rootRef" :data-scroll="item.id">
     <slot />
   </component>
 </template>
