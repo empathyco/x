@@ -65,13 +65,10 @@
       ]).nextQueries;
 
       /** Injected query, updated when the related request(s) have succeeded. */
-      const injectedQuery = inject<Ref<string> | undefined>(QUERY_KEY as string, undefined);
+      const injectedQuery = inject<Ref<string>>(QUERY_KEY as string);
 
       /** Indicates if there are more available results than the injected. */
-      const hasMoreItems = inject<Ref<boolean> | undefined>(
-        HAS_MORE_ITEMS_KEY as string,
-        undefined
-      );
+      const hasMoreItems = inject<Ref<boolean>>(HAS_MORE_ITEMS_KEY as string);
 
       /**
        * The grouped next queries based on the given config.
@@ -93,10 +90,7 @@
       );
 
       /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
-      const injectedListItems = inject<Ref<ListItem[]> | undefined>(
-        LIST_ITEMS_KEY as string,
-        undefined
-      );
+      const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
 
       /**
        * Checks if the next queries are outdated taking into account the injected query.

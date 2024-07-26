@@ -38,10 +38,7 @@
       const stateItems: ComputedRef<Banner[]> = useState('search', ['banners']).banners;
 
       /** The provided {@link FeatureLocation} for the component. */
-      const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation | undefined>(
-        'location',
-        undefined
-      );
+      const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location');
       const location = isRef(injectedLocation) ? injectedLocation.value : injectedLocation;
 
       /** Number of columns the grid is being divided into. */
@@ -60,10 +57,7 @@
       });
 
       /** It injects {@link ListItem} provided by an ancestor as injectedListItems. */
-      const injectedListItems = inject<Ref<ListItem[]> | undefined>(
-        LIST_ITEMS_KEY as string,
-        undefined
-      );
+      const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
 
       /**
        * The `stateItems` concatenated with the `injectedListItems` if there are.
