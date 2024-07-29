@@ -463,7 +463,7 @@
   /* eslint-disable max-len */
   import { computed, ComputedRef, defineComponent, provide } from 'vue';
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
-  // import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
+  import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
   import BaseDropdown from '../../components/base-dropdown.vue';
   import BaseGrid from '../../components/base-grid.vue';
@@ -590,6 +590,7 @@
       SortPickerList,
       Spellcheck,
       SpellcheckButton,
+      StaggeredFadeAndSlide,
       Tagging,
       UrlHandler
     },
@@ -604,7 +605,7 @@
         'Find sunglasses'
       ];
       const columnPickerValues = [0, 2, 4];
-      // const resultsAnimation = StaggeredFadeAndSlide;
+      const resultsAnimation = StaggeredFadeAndSlide;
       const modalAnimation = animateClipPath();
       const selectedColumns = 4;
       const sortValues = ['', 'price asc', 'price desc'];
@@ -666,7 +667,7 @@
         adapterConfig.e2e = !adapterConfig.e2e;
       };
       return {
-        resultsAnimation: undefined,
+        resultsAnimation,
         modalAnimation,
         queriesPreviewInfo,
         stores,
