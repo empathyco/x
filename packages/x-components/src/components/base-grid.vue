@@ -1,7 +1,6 @@
 <template>
   <component
     :is="animation"
-    ref="gridEl"
     :style="style"
     class="x-base-grid"
     :class="cssClasses"
@@ -34,6 +33,7 @@
   import {
     computed,
     defineComponent,
+    getCurrentInstance,
     inject,
     onBeforeUnmount,
     onMounted,
@@ -42,11 +42,7 @@
     ref,
     watch
   } from 'vue';
-  import {
-    MaybeComputedElementRef,
-    useResizeObserver,
-    UseResizeObserverReturn
-  } from '@vueuse/core';
+  import { MaybeComputedElementRef, useResizeObserver } from '@vueuse/core';
   import { toKebabCase } from '../utils/string';
   import { ListItem, VueCSSClasses } from '../utils/types';
   import { AnimationProp } from '../types/animation-prop';
@@ -109,11 +105,21 @@
       }
     },
     setup(props, { slots }) {
-      type ElementRef = {
-        $el: HTMLElement;
-      };
-
       const xBus = useXBus();
+
+      /**
+       * Number of columns rendered inside the grid.
+       */
+      const renderedColumnsNumber = ref(0);
+      /**
+       * Reference to the root element of the grid.
+       */
+      const rootEl = ref<HTMLElement | undefined>();
+      /**
+       * ResizeObserver instance to keep track of the number of columns rendered inside the grid.
+       */
+      let resizeObserver: { stop: () => void };
+
       /**
        * It injects {@link ListItem} provided by an ancestor.
        *
@@ -124,9 +130,6 @@
         undefined
       );
 
-      const gridEl = ref<ElementRef | HTMLElement | null>(null);
-
-      let renderedColumnsNumber = ref(0);
       /**
        * Emits the {@link XEventsTypes.RenderedColumnsNumberChanged}
        * event whenever the number of columns rendered inside the grid changes.
@@ -136,9 +139,7 @@
       watch(
         renderedColumnsNumber,
         () => xBus.emit('RenderedColumnsNumberChanged', renderedColumnsNumber.value),
-        {
-          immediate: false
-        }
+        { immediate: false }
       );
 
       /**
@@ -206,48 +207,37 @@
       );
 
       /**
-       * Checks if a given value is an `ElementRef` object.
-       *
-       * @param value - The value to check.
-       * @returns `true` if the value is an `ElementRef` object, `false` otherwise.
-       *
-       * @internal
-       */
-      const isElementRef = (value: any): value is ElementRef => {
-        return value && value.$el instanceof HTMLElement;
-      };
-
-      /**
        * Updates the number of columns rendered inside the grid.
-       *
-       * @internal
        */
       const updateRenderedColumnsNumber = (): void => {
-        const { gridTemplateColumns } = getComputedStyle(
-          isElementRef(gridEl.value) ? gridEl.value.$el : (gridEl.value as Element)
-        );
-        renderedColumnsNumber.value = gridTemplateColumns.split(' ').length;
+        if (rootEl.value) {
+          const { gridTemplateColumns } = getComputedStyle(rootEl.value);
+          renderedColumnsNumber.value = gridTemplateColumns.split(' ').length;
+        }
       };
 
       /**
        * Initialises the rendered columns number and sets a ResizeObserver to keep it updated.
-       *
-       * @internal
        */
-      let resizeObserver: UseResizeObserverReturn;
       onMounted(() => {
-        resizeObserver = useResizeObserver(
-          gridEl as MaybeComputedElementRef,
-          updateRenderedColumnsNumber
-        );
+        rootEl.value = getCurrentInstance()?.proxy?.$el as HTMLElement | undefined;
+        if (rootEl.value) {
+          resizeObserver = useResizeObserver(
+            rootEl as MaybeComputedElementRef,
+            updateRenderedColumnsNumber
+          );
+        }
       });
+
+      /**
+       * Stops the ResizeObserver when the component is unmounted.
+       */
       onBeforeUnmount(() => resizeObserver?.stop());
 
       return {
         gridItems,
         cssClasses,
         style,
-        gridEl,
         slots
       };
     }
