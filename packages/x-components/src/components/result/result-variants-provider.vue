@@ -128,7 +128,7 @@
         { immediate: true }
       );
 
-      return () => slots.default?.({ result: resultToProvide.value })[0] ?? h();
+      return () => slots.default?.({ result: resultToProvide.value })[0] ?? '';
     }
   });
 </script>

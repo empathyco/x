@@ -10,8 +10,8 @@ import { h, SetupContext, VNode } from 'vue';
  */
 export function useNoElementRender(
   slots: { [key: string]: VNode[] | undefined } | SetupContext['slots']
-): VNode | VNode[] {
+): VNode | VNode[] | string {
   const defaultSlotContent = typeof slots.default === 'function' ? slots.default() : slots.default;
 
-  return defaultSlotContent ?? h();
+  return defaultSlotContent ?? '';
 }

@@ -52,7 +52,7 @@
       });
       provide('filters', sortedFilters);
 
-      return () => slots.default?.({ filters: sortedFilters.value }) ?? h();
+      return () => slots.default?.({ filters: sortedFilters.value }) ?? '';
     }
   });
 </script>
