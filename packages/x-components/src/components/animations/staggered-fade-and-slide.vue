@@ -41,13 +41,13 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   $transition-duration: 0.25s;
 
   .x-staggered-fade-and-slide {
     z-index: 0;
 
-    &::v-deep .x-staggered-fade-and-slide {
+    &.x-staggered-fade-and-slide {
       &--enter-active,
       &--leave-active {
         transition: $transition-duration ease-out;

@@ -218,21 +218,23 @@
       grid-column: max-width;
     }
 
-    ::v-deep .x-layout__aside {
-      &.x-modal {
-        // layout
-        z-index: 3;
-        flex-flow: row nowrap;
-      }
+    // layout
+    :deep(.x-layout__aside.x-modal) {
+      z-index: 3;
+      flex-flow: row nowrap;
+    }
 
-      // others
+    // layout
+    :deep(.x-layout__aside--right.x-modal) {
+      justify-content: flex-end;
+    }
+
+    // others
+    :deep(.x-layout__aside) {
       pointer-events: none;
+
       > *:not(.slot-helper) {
         pointer-events: all;
-      }
-
-      &--right.x-modal {
-        justify-content: flex-end;
       }
     }
 
@@ -271,7 +273,7 @@
     }
   }
 
-  ::v-deep .x-layout__aside {
+  :deep(.x-layout__aside) {
     .x-modal__content {
       background-color: transparent;
       height: 100%;
