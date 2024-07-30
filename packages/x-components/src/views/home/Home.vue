@@ -458,7 +458,7 @@
 <script lang="ts">
   /* eslint-disable max-len */
   import { computed, ComputedRef, defineComponent, provide } from 'vue';
-  // import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
+  import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
   // import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
   import BaseDropdown from '../../components/base-dropdown.vue';
@@ -601,7 +601,7 @@
       ];
       const columnPickerValues = [0, 2, 4];
       // const resultsAnimation = StaggeredFadeAndSlide;
-      // const modalAnimation = animateClipPath();
+      const modalAnimation = animateClipPath();
       const selectedColumns = 4;
       const sortValues = ['', 'price asc', 'price desc'];
       const isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview;
@@ -663,7 +663,7 @@
       };
       return {
         resultsAnimation: undefined,
-        modalAnimation: undefined,
+        modalAnimation,
         queriesPreviewInfo,
         stores,
         initialExtraParams,
