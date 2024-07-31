@@ -103,6 +103,7 @@
     "@types/testing-library__jest-dom": "~5.14.5",
     "@vitejs/plugin-vue": "~5.0.5",
     "@vue/test-utils": "~2.4.6",
+    "@vue/vue3-jest": "~27.0.0",
     "autoprefixer": "~10.4.4",
     "convert-source-map": "~2.0.0",
     "cypress": "~13.6.0",
