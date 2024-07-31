@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, shallowRef } from 'vue';
+  import { nextTick, ref, shallowRef } from 'vue';
   import BaseModal from '../../../../x-components/src/components/modals/base-modal.vue';
   import { animateClipPath } from '../../../../x-components/src/components/animations/animate-clip-path/animate-clip-path.factory';
   import { animateScale } from '../../../../x-components/src/components/animations/animate-scale/animate-scale.factory';
@@ -29,24 +29,27 @@
   const scaleAnimation = animateScale('bottom');
   const translateAnimation = animateTranslate('right');
 
-  const currentAnimation = shallowRef(clipPathAnimation);
+  const currentAnimation = shallowRef(scaleAnimation);
   const open = ref(false);
 
   /** Open modal with ClipPath animation. */
-  function openWithClipPath() {
+  async function openWithClipPath() {
     currentAnimation.value = clipPathAnimation;
+    await nextTick();
     open.value = true;
   }
 
   /** Open modal with Scale animation. */
-  function openWithScale() {
+  async function openWithScale() {
     currentAnimation.value = scaleAnimation;
+    await nextTick();
     open.value = true;
   }
 
   /** Open modal with Translate animation. */
-  function openWithTranslate() {
+  async function openWithTranslate() {
     currentAnimation.value = translateAnimation;
+    await nextTick();
     open.value = true;
   }
 </script>
