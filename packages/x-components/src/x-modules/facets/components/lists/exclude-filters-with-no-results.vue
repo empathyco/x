@@ -44,7 +44,7 @@
       );
       provide('filters', filtersWithResults);
 
-      return () => slots.default?.({ filters: filtersWithResults.value }) ?? h();
+      return () => slots.default?.({ filters: filtersWithResults.value }) ?? '';
     }
   });
 </script>
