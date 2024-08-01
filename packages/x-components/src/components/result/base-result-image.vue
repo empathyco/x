@@ -42,8 +42,8 @@
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
   import { computed, DefineComponent, defineComponent, PropType, Ref, ref, watch } from 'vue';
-  import { NoElement } from '../no-element';
   import { animationProp } from '../../utils/options-api';
+  import { NoAnimation } from '../animations';
 
   /**
    * Component to be reused that renders an `<img>`.
@@ -51,40 +51,26 @@
    * @public
    */
   export default defineComponent({
-    components: {
-      NoElement
-    },
+    name: 'BaseResultImage',
     props: {
-      /**
-       * (Required) The {@link @empathyco/x-types#Result} information.
-       *
-       * @public
-       */
+      /** (Required) The {@link @empathyco/x-types#Result} information. */
       result: {
         type: Object as PropType<Result>,
         required: true
       },
-
       /**
        * Animation to use when switching between the placeholder, the loaded image, or the failed
        * image fallback.
-       *
-       * @public
        */
       loadAnimation: {
         type: animationProp,
-        default: () => NoElement
+        default: () => NoAnimation
       },
-
-      /**
-       * Animation to use when switching between the loaded image and the hover image.
-       *
-       * @public
-       */
+      /** Animation to use when switching between the loaded image and the hover image. */
       hoverAnimation: {
-        type: animationProp
+        type: animationProp,
+        default: () => NoAnimation
       },
-
       /**
        * Indicates if the next valid image should be displayed on hover.
        *
@@ -95,7 +81,6 @@
         default: false
       }
     },
-
     setup(props) {
       /**
        * Copy of the images of the result.

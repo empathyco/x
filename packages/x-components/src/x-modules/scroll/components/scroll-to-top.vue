@@ -2,7 +2,6 @@
   <component :is="animation">
     <BaseEventButton
       v-if="isVisible"
-      v-on="$listeners"
       class="x-scroll-to-top x-button"
       data-test="scroll-to-top"
       aria-label="Scroll to top"
@@ -16,12 +15,11 @@
 
 <script lang="ts">
   import { computed, defineComponent } from 'vue';
-  import BaseEventButton from '../../../components/base-event-button.vue';
-  import { NoElement } from '../../../components/no-element';
+  import { NoAnimation, BaseEventButton } from '../../../components';
   import { XEventsTypes } from '../../../wiring';
   import { scrollXModule } from '../x-module';
-  import { AnimationProp } from '../../../types/animation-prop';
-  import { useState } from '../../../composables/use-state';
+  import { AnimationProp } from '../../../types';
+  import { useState } from '../../../composables';
   import { MainScrollId } from './scroll.const';
 
   /**
@@ -42,7 +40,7 @@
        */
       animation: {
         type: AnimationProp,
-        default: () => NoElement
+        default: () => NoAnimation
       },
       /**
        * Threshold in pixels from the top to show the button.

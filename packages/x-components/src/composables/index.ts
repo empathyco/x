@@ -3,7 +3,6 @@ export * from './use-$x';
 export * from './use-alias-api';
 export * from './use-debounce';
 export * from './use-getter';
-export * from './use-no-element-render';
 export * from './use-on-display';
 export * from './use-state';
 export * from './use-store';

@@ -23,8 +23,8 @@
 
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
-  import { AnimationProp } from '../../types/animation-prop';
-  import { NoElement } from '../no-element';
+  import { AnimationProp } from '../../types';
+  import { NoAnimation } from '../animations';
   import BaseTogglePanel from './base-toggle-panel.vue';
 
   /**
@@ -37,18 +37,13 @@
     name: 'BaseHeaderTogglePanel',
     components: { BaseTogglePanel },
     props: {
-      /**
-       * Animation component that will be used to animate the base-toggle-panel.
-       *
-       * @public
-       */
-      animation: { type: AnimationProp, default: () => NoElement },
-      /**
-       * Handles if the panel is open by default.
-       *
-       * @public
-       */
-      startCollapsed: { type: Boolean, default: false },
+      /** Animation component that will be used to animate the base-toggle-panel. */
+      animation: {
+        type: AnimationProp,
+        default: () => NoAnimation
+      },
+      /** Handles if the panel is open by default. */
+      startCollapsed: Boolean,
       /** Class inherited by content element. */
       headerClass: String
     },

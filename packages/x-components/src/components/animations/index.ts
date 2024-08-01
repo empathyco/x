@@ -4,6 +4,7 @@ export { default as CollapseWidth } from './collapse-width.vue';
 export { default as CrossFade } from './cross-fade.vue';
 export { default as Fade } from './fade.vue';
 export { default as FadeAndSlide } from './fade-and-slide.vue';
+export { default as NoAnimation } from './no-animation.vue';
 export { default as StaggeredFadeAndSlide } from './staggered-fade-and-slide.vue';
 export { default as StaggeringTransitionGroup } from './staggering-transition-group.vue';
 export { createDirectionalAnimationFactory } from './create-directional-animation-factory';
