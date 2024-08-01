@@ -1,6 +1,5 @@
 <template>
   <BaseSuggestions
-    v-bind="$attrs"
     :suggestions="suggestions"
     class="x-query-suggestions"
     data-test="query-suggestions"
@@ -49,7 +48,6 @@
     name: 'QuerySuggestions',
     xModule: querySuggestionsXModule.name,
     components: { BaseSuggestions, QuerySuggestion },
-    inheritAttrs: false,
     setup() {
       /** The module's list of suggestions. */
       const { querySuggestions } = useGetter('querySuggestions', ['querySuggestions']);

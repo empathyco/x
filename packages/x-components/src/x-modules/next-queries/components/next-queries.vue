@@ -1,6 +1,5 @@
 <template>
   <BaseSuggestions
-    v-bind="$attrs"
     :suggestions="renderedNextQueries"
     data-test="next-queries"
     class="x-next-queries"
@@ -58,7 +57,6 @@
       NextQuery,
       BaseSuggestions
     },
-    inheritAttrs: false,
     props: {
       /**
        * Flag to indicate if the curated next queries should be displayed different.

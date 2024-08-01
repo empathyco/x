@@ -131,6 +131,7 @@
               </template>
             </Spellcheck>
 
+            <!-- Related Tags -->
             <SlidingPanel v-if="x.relatedTags.length">
               <template #sliding-panel-left-button>
                 <ChevronLeft />
@@ -246,6 +247,7 @@
             </div>
 
             <template v-if="!x.query.searchBox">
+              <!-- Brand Recommendations -->
               <h1 class="x-mb-16 x-title1">Brand Recommendations</h1>
               <LocationProvider location="no_results">
                 <QueryPreviewList
@@ -369,6 +371,7 @@
               </ResultsList>
             </LocationProvider>
 
+            <!-- Semantic Queries -->
             <SemanticQueries #default="{ queries, findSemanticQuery }">
               <section class="x-mt-28">
                 <h1 v-if="isAnyQueryLoadedInPreview(queries)" class="x-title1">

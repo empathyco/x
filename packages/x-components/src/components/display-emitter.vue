@@ -2,7 +2,6 @@
   import {
     defineComponent,
     getCurrentInstance,
-    h,
     onMounted,
     onUnmounted,
     PropType,
@@ -30,7 +29,7 @@
       let unwatchDisplay: WatchStopHandle | undefined;
 
       onMounted(() => {
-        const element = getCurrentInstance()?.proxy.$el as HTMLElement | undefined;
+        const element = getCurrentInstance()?.proxy?.$el as HTMLElement | undefined;
         if (element) {
           unwatchDisplay = useEmitDisplayEvent({
             element,
