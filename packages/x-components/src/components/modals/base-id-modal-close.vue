@@ -1,27 +1,17 @@
 <template>
-  <NoElement>
-    <!--
-      @slot closing-element. It's the element that will trigger the modal closing. It's a
-      button by default.
-        @binding {Function} closeModal - The function to close the modal.
-    -->
-    <slot :closeModal="emitCloseModalEvent" name="closing-element">
-      <button
-        @click="emitCloseModalEvent"
-        class="x-events-modal-id-close-button x-button"
-        data-test="close-modal-id"
-      >
-        <!-- @slot (Required) Button content with a text, an icon or both -->
-        <slot />
-      </button>
-    </slot>
-  </NoElement>
+  <button
+    @click="closeModal"
+    class="x-events-modal-id-close-button x-button"
+    data-test="close-modal-id"
+  >
+    <!-- @slot (Required) Button content with a text, an icon or both -->
+    <slot />
+  </button>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { NoElement } from '../no-element';
-  import { use$x } from '../../composables/use-$x';
+  import { use$x } from '../../composables';
 
   /**
    * Component that allows to close a modal by emitting
@@ -32,36 +22,32 @@
    * @public
    */
   export default defineComponent({
-    components: {
-      NoElement
-    },
+    name: 'BaseIdModalClose',
     props: {
-      /**
-       * The modalId of the modal that will be closed.
-       *
-       * @public
-       */
+      /** The modalId of the modal that will be closed. */
       modalId: {
         type: String,
         required: true
       }
     },
-    setup(props) {
+    setup(props, { slots }) {
       const $x = use$x();
 
       /**
        * Emits the {@link XEventsTypes.UserClickedCloseModal} event with the modalId as payload.
        *
        * @param event - The event triggering the function.
-       * @public
        */
-      const emitCloseModalEvent = ({ target }: Event): void => {
+      function closeModal({ target }: Event) {
         $x.emit('UserClickedCloseModal', props.modalId, { target: target as HTMLElement });
-      };
+      }
 
-      return {
-        emitCloseModalEvent
-      };
+      /* Hack to render through a render-function, the `closingElement` slot or, in its absence,
+       the component itself. It is the alternative for the NoElement antipattern. */
+      const innerProps = { closeModal };
+      return (
+        slots.closingElement ? () => slots.closingElement?.(innerProps)[0] : innerProps
+      ) as typeof innerProps;
     }
   });
 </script>
