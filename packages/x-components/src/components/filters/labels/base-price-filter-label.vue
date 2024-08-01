@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { computed, defineComponent, h, PropType, VNode, VNodeChildren } from 'vue';
+  import { computed, defineComponent, h, PropType, VNode } from 'vue';
   import { RangeValue } from '@empathyco/x-types';
   import BaseCurrency from '../../currency/base-currency.vue';
 
@@ -67,7 +67,7 @@
       const render = (): VNode => {
         const labelParts = label.value.split(/({min}|{max})/);
 
-        const children: VNodeChildren = labelParts.map(partMessage => {
+        const children = labelParts.map(partMessage => {
           if (partMessage === '{min}') {
             return h('BaseCurrency', {
               props: {
