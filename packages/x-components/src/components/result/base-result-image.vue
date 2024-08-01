@@ -68,8 +68,7 @@
       },
       /** Animation to use when switching between the loaded image and the hover image. */
       hoverAnimation: {
-        type: animationProp,
-        default: () => NoAnimation
+        type: animationProp
       },
       /**
        * Indicates if the next valid image should be displayed on hover.

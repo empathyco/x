@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { computed, defineComponent, h } from 'vue';
+  import { computed, defineComponent } from 'vue';
   import { extraParamsXModule } from '../x-module';
   import { useState } from '../../../composables/use-state';
   import { useXBus } from '../../../composables/use-x-bus';
