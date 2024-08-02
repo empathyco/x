@@ -37,7 +37,7 @@
         xBus.emit('UserChangedExtraParams', { [props.name]: newValue });
       }
 
-      return () => slots.default?.({ value, updateValue })[0] ?? '';
+      return () => slots.default?.({ value: value.value, updateValue })[0] ?? '';
     }
   });
 </script>

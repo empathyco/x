@@ -3,7 +3,6 @@
     computed,
     defineComponent,
     getCurrentInstance,
-    h,
     onBeforeUnmount,
     onMounted,
     provide,
