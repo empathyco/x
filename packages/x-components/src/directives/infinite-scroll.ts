@@ -1,5 +1,5 @@
 import { Directive } from 'vue';
-import { useXBus } from '../composables/use-x-bus';
+import { XPlugin } from '../plugins';
 
 const VIEWPORT_ID = 'viewport';
 
@@ -82,7 +82,7 @@ export const infiniteScroll: Directive<HTMLElement, { margin: number }> = {
      */
     const rootMargin = `1000000% 0px ${margin}px 0px`;
     const root = getRoot(element, id);
-    const xBus = useXBus();
+    const xBus = XPlugin.bus;
 
     state[id] = new IntersectionObserver(
       ([entry]) => {
