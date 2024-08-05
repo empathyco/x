@@ -26,7 +26,7 @@
       overflow-x: hidden;
     }
 
-    &--enter,
+    &--enter-from,
     &--leave-to {
       width: 0 !important;
     }
