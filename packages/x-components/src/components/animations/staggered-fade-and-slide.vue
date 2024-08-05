@@ -2,7 +2,6 @@
   <TransitionGroup
     @enter="enter"
     @after-enter="afterEnter"
-    v-bind="$attrs"
     :appear="appear"
     :name="name"
     :tag="tag"
@@ -22,7 +21,6 @@
    */
   export default defineComponent({
     name: 'StaggeredFadeAndSlide',
-    inheritAttrs: false,
     props: {
       /**
        * Indicates if the transition must be applied on the initial render of the node.
