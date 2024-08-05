@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { defineComponent, h, Comment } from 'vue';
+  import { defineComponent } from 'vue';
 
   /**
    * Component to be used as `default` for animation props together with dynamic components
@@ -8,8 +8,7 @@
   export default defineComponent({
     name: 'NoAnimation',
     setup(_, { slots }) {
-      return () =>
-        slots.default?.()[0] ?? h(Comment, 'NoAnimation component - Without default slot');
+      return () => slots.default?.()[0] ?? '';
     }
   });
 </script>

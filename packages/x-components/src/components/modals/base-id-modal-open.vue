@@ -41,11 +41,11 @@
         $x.emit('UserClickedOpenModal', props.modalId, { target: target as HTMLElement });
       }
 
-      /* Hack to render through a render-function, the `openingElement` slot or, in its absence,
+      /* Hack to render through a render-function, the `opening-element` slot or, in its absence,
        the component itself. It is the alternative for the NoElement antipattern. */
       const innerProps = { openModal };
       return (
-        slots.openingElement ? () => slots.openingElement?.(innerProps)[0] : innerProps
+        slots['opening-element'] ? () => slots['opening-element']?.(innerProps)[0] : innerProps
       ) as typeof innerProps;
     }
   });

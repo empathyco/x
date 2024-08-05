@@ -42,11 +42,11 @@
         $x.emit('UserClickedCloseModal', props.modalId, { target: target as HTMLElement });
       }
 
-      /* Hack to render through a render-function, the `closingElement` slot or, in its absence,
+      /* Hack to render through a render-function, the `closing-element` slot or, in its absence,
        the component itself. It is the alternative for the NoElement antipattern. */
       const innerProps = { closeModal };
       return (
-        slots.closingElement ? () => slots.closingElement?.(innerProps)[0] : innerProps
+        slots['closing-element'] ? () => slots['closing-element']?.(innerProps)[0] : innerProps
       ) as typeof innerProps;
     }
   });

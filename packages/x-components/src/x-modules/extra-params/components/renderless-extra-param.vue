@@ -26,7 +26,7 @@
       const stateParams = useState('extraParams', ['params']).params;
 
       /** It returns the value of the extra param from the store. */
-      const value = computed(() => stateParams.value[props.name]);
+      const extraParam = computed(() => stateParams.value[props.name]);
 
       /**
        * It sets the new value to the store.
@@ -37,7 +37,7 @@
         xBus.emit('UserChangedExtraParams', { [props.name]: newValue });
       }
 
-      return () => slots.default?.({ value: value.value, updateValue })[0] ?? '';
+      return () => slots.default?.({ value: extraParam.value, updateValue })[0] ?? '';
     }
   });
 </script>
