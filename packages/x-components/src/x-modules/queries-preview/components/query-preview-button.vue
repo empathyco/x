@@ -2,6 +2,7 @@
   <BaseEventButton
     v-on="$listeners"
     :events="events"
+    :queryFeature="queryFeature"
     class="x-query-preview-button x-button"
     data-test="query-preview-button"
   >
@@ -19,6 +20,7 @@
   import { BaseEventButton } from '../../../components';
   import { queriesPreviewXModule } from '../x-module';
   import { useState } from '../../../composables/use-state';
+  import { QueryFeature } from '../../../types/origin';
 
   /**
    * Component containing an event button that emits
@@ -42,6 +44,14 @@
       queryPreviewInfo: {
         type: Object as PropType<QueryPreviewInfo>,
         required: true
+      },
+      /**
+       * The origin property for the request on each query preview.
+       *
+       * @public
+       */
+      queryFeature: {
+        type: String as PropType<QueryFeature>
       }
     },
     setup(props) {

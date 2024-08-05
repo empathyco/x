@@ -270,6 +270,7 @@
                       <QueryPreviewButton
                         class="x-w-fit x-button-xl x-button-ghost"
                         :queryPreviewInfo="queryPreviewInfo"
+                        :queryFeature="'customer'"
                       >
                         {{ `${queryPreviewInfo.query} (${totalResults})` }}
                       </QueryPreviewButton>
