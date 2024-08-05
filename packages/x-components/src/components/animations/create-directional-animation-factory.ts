@@ -1,4 +1,4 @@
-import { defineComponent, h, Transition } from 'vue';
+import { DefineComponent, defineComponent, h, Transition } from 'vue';
 
 export type AnimationOrigin =
   | 'top'
@@ -21,18 +21,16 @@ export type AnimationOrigin =
  */
 export function createDirectionalAnimationFactory(
   animationName: string
-): ReturnType<typeof defineComponent> {
-  return (animationOrigin: AnimationOrigin = 'top') =>
+): (animationOrigin?: AnimationOrigin) => DefineComponent {
+  return (animationOrigin = 'top') =>
     defineComponent({
       name: `transition-${animationName}-${animationOrigin}`,
-      inheritAttrs: false,
-      setup(_, { attrs, slots }) {
+      setup(_, { slots }) {
         return () =>
           h(
             Transition,
             {
-              name: `x-${animationName}--${animationOrigin} x-${animationName}-`,
-              ...attrs
+              name: `x-${animationName}--${animationOrigin} x-${animationName}-`
             },
             // Vue recommends using function for better performance.
             () => slots.default?.() ?? ''
