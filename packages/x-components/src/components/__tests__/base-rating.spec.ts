@@ -1,4 +1,4 @@
-import { mount, WrapperArray } from '@vue/test-utils';
+import { mount, DOMWrapper } from '@vue/test-utils';
 import { getDataTestSelector } from '../../__tests__/utils';
 import BaseRating from '../base-rating.vue';
 
@@ -6,9 +6,9 @@ function renderBaseRating({ template }: RenderBaseRatingOptions): RenderBaseRati
   const wrapper = mount({ template }, { components: { BaseRating } });
 
   return {
-    getFilledIcons: (): WrapperArray<Vue> =>
+    getFilledIcons: (): DOMWrapper<Element>[] =>
       wrapper.find(getDataTestSelector('rating-filled')).findAll(':scope > *'),
-    getEmptyIcons: (): WrapperArray<Vue> =>
+    getEmptyIcons: (): DOMWrapper<Element>[] =>
       wrapper.find(getDataTestSelector('rating-empty')).findAll(':scope > *')
   };
 }
@@ -39,6 +39,6 @@ interface RenderBaseRatingOptions {
 }
 
 interface RenderBaseRatingApi {
-  getFilledIcons: () => WrapperArray<Vue>;
-  getEmptyIcons: () => WrapperArray<Vue>;
+  getFilledIcons: () => DOMWrapper<Element>[];
+  getEmptyIcons: () => DOMWrapper<Element>[];
 }

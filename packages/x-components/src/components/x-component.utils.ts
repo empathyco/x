@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { ComponentPublicInstance } from 'vue';
 import { XModuleName } from '../x-modules/x-modules.types';
 
 /**
@@ -9,7 +9,9 @@ import { XModuleName } from '../x-modules/x-modules.types';
  * x-component.
  * @internal
  */
-export function getXComponentXModuleName(component: Vue | undefined): XModuleName | null {
+export function getXComponentXModuleName(
+  component: ComponentPublicInstance | undefined
+): XModuleName | null {
   return component?.$options.xModule ?? null;
 }
 
@@ -21,7 +23,7 @@ export function getXComponentXModuleName(component: Vue | undefined): XModuleNam
  * @returns A boolean which flags if a component is a X-Component.
  * @public
  */
-export function isXComponent(component: Vue): boolean {
+export function isXComponent(component: ComponentPublicInstance): boolean {
   return !!getXComponentXModuleName(component);
 }
 
@@ -32,9 +34,11 @@ export function isXComponent(component: Vue): boolean {
  * @returns The root XComponent or undefined if it has not.
  * @public
  */
-export function getRootXComponent(component: Vue | null): Vue | undefined {
-  let xComponent: Vue | undefined;
-  let currentComponent: Vue | null = component;
+export function getRootXComponent(
+  component: ComponentPublicInstance | null
+): ComponentPublicInstance | undefined {
+  let xComponent: ComponentPublicInstance | undefined;
+  let currentComponent = component;
   while (currentComponent != null) {
     if (isXComponent(currentComponent)) {
       xComponent = currentComponent;

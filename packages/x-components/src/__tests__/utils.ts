@@ -193,17 +193,15 @@ function mergeStates<State extends Dictionary>(
  */
 export function installNewXPlugin(
   options: Partial<XPluginOptions> = {},
-  localVue = undefined,
   bus = new XDummyBus()
-): [XPlugin, undefined] {
+): [XPlugin, XPluginOptions] {
   XPlugin.resetInstance();
   const xPlugin = new XPlugin(bus);
-  // const installOptions: XPluginOptions = {
-  //   adapter: XComponentsAdapterDummy,
-  //   ...options
-  // };
-  // localVue.use(xPlugin, installOptions);
-  return [xPlugin, localVue];
+  const installOptions: XPluginOptions = {
+    adapter: XComponentsAdapterDummy,
+    ...options
+  };
+  return [xPlugin, installOptions];
 }
 
 /**
