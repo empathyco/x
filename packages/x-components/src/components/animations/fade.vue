@@ -34,7 +34,7 @@
     }
 
     &--leave-to,
-    &--enter {
+    &--enter-from {
       opacity: 0 !important;
     }
   }

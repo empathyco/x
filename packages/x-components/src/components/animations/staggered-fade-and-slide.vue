@@ -58,7 +58,7 @@
         transition: transform $transition-duration ease-out;
       }
 
-      &--enter,
+      &--enter-from,
       &--leave-to {
         transform: translate3d(0, 50%, 0);
         opacity: 0;
