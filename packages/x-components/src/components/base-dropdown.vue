@@ -80,11 +80,8 @@
   import { Identifiable } from '@empathyco/x-types';
   import { computed, defineComponent, nextTick, onBeforeUnmount, PropType, ref, watch } from 'vue';
   import { AnimationProp } from '../types';
-  import { getTargetElement } from '../utils/html';
-  import { normalizeString } from '../utils/normalize';
-  import { isInRange } from '../utils/number';
-  import { debounce as debounceFunction } from '../utils/debounce';
-  import { NoElement } from './no-element';
+  import { debounceFunction, normalizeString, getTargetElement, isInRange } from '../utils';
+  import { NoAnimation } from './animations';
 
   type DropdownItem = string | number | Identifiable;
   let dropdownCount = 0;
@@ -95,7 +92,6 @@
    */
   export default defineComponent({
     name: 'BaseDropdown',
-    components: { NoElement },
     props: {
       /** List of items to display.*/
       items: {
@@ -117,7 +113,7 @@
        */
       animation: {
         type: AnimationProp,
-        default: () => NoElement
+        default: () => NoAnimation
       },
       /** Time to wait without receiving any keystroke before resetting the items search query. */
       searchTimeoutMs: {

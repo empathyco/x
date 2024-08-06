@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Filter, isBooleanFilter } from '@empathyco/x-types';
-  import { computed, defineComponent, PropType, provide, h } from 'vue';
+  import { computed, defineComponent, PropType, provide } from 'vue';
   import { facetsXModule } from '../../x-module';
   import { useFiltersInjection } from '../../composables/use-filters-injection';
 
@@ -44,7 +44,7 @@
       );
       provide('filters', filtersWithResults);
 
-      return () => slots.default?.({ filters: filtersWithResults.value }) ?? '';
+      return () => slots.default?.({ filters: filtersWithResults.value })[0] ?? '';
     }
   });
 </script>

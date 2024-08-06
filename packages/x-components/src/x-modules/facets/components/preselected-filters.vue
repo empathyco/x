@@ -4,7 +4,6 @@
   import { isArrayEmpty } from '../../../utils/array';
   import { SnippetConfig } from '../../../x-installer/api/api.types';
   import { useXBus } from '../../../composables/use-x-bus';
-  import { useNoElementRender } from '../../../composables';
   import { facetsXModule } from '../x-module';
 
   /**
@@ -70,7 +69,7 @@
        */
       watch(preselectedFilters, emitPreselectedFilters, { immediate: true });
 
-      return () => useNoElementRender(slots);
+      return () => slots.default?.()[0] ?? '';
     }
   });
 </script>

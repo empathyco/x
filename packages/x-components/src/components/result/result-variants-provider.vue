@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { defineComponent, ref, computed, watch, provide, Ref, PropType, h } from 'vue';
+  import { defineComponent, ref, computed, watch, provide, Ref, PropType } from 'vue';
   import { Result, ResultVariant } from '@empathyco/x-types';
   import {
     RESULT_WITH_VARIANTS_KEY,

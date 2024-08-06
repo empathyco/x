@@ -17,9 +17,8 @@
 
 <script lang="ts">
   import { defineComponent, PropType, ref } from 'vue';
-  import { NoElement } from '../../../components/no-element';
-  import { useDebounce } from '../../../composables/use-debounce';
-  import { use$x } from '../../../composables/use-$x';
+  import { NoAnimation } from '../../../components';
+  import { use$x, useDebounce } from '../../../composables';
   import { AnimationProp } from '../../../types';
   import { XEvent } from '../../../wiring';
   import { empathizeXModule } from '../x-module';
@@ -34,7 +33,6 @@
   export default defineComponent({
     name: 'Empathize',
     xModule: empathizeXModule.name,
-    components: { NoElement },
     props: {
       /** Array of {@link XEvent} to open the empathize. */
       eventsToOpenEmpathize: {
@@ -54,7 +52,7 @@
       /** Animation component that will be used to animate the empathize. */
       animation: {
         type: AnimationProp,
-        default: () => NoElement
+        default: () => NoAnimation
       }
     },
     setup(props) {

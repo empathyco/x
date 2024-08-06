@@ -1,6 +1,5 @@
 <template>
   <BaseSuggestions
-    v-bind="$attrs"
     :suggestions="popularSearches"
     class="x-popular-searches"
     data-test="popular-searches"
@@ -53,7 +52,6 @@
       PopularSearch,
       BaseSuggestions
     },
-    inheritAttrs: false,
     setup() {
       /**
        * The list of popular searches.

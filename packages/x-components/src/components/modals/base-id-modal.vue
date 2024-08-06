@@ -1,6 +1,5 @@
 <template>
   <BaseModal
-    v-bind="$attrs"
     :ref="el"
     @click:overlay="emitClickOutOfModal"
     @focusin:body="emitClickOutOfModal"
