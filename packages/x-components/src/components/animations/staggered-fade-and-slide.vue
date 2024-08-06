@@ -110,28 +110,29 @@
 
 <style lang="scss">
   $transition-duration: 0.25s;
+  /* 1. Declare transitions */
+  .x-staggered-fade-and-slide-enter-active,
+  .x-staggered-fade-and-slide-leave-active {
+    transition: $transition-duration ease-out;
+    transition-property: opacity, transform;
+  }
 
-  .x-staggered-fade-and-slide {
-    z-index: 0;
+  .x-staggered-fade-and-slide-move {
+    transition: transform $transition-duration ease-out;
+  }
 
-    &.x-staggered-fade-and-slide {
-      &--enter-active,
-      &--leave-active {
-        transition: $transition-duration ease-out;
-        transition-property: opacity, transform;
-      }
+  /* 2. declare enter from and leave to state */
+  .x-staggered-fade-and-slide-enter,
+  .x-staggered-fade-and-slide-enter-from,
+  .x-staggered-fade-and-slide-leave-to {
+    opacity: 0;
+    transform: translate3d(0, 50%, 0);
+  }
 
-      &--move {
-        transition: transform $transition-duration ease-out;
-      }
-
-      &--enter-from,
-      &--leave-to {
-        transform: translate3d(0, 50%, 0);
-        opacity: 0;
-        z-index: -1;
-      }
-    }
+  /* 3. ensure leaving items are taken out of layout flow so that moving
+      animations can be calculated correctly. */
+  .x-staggered-fade-and-slide-leave-active {
+    position: absolute;
   }
 </style>
 
