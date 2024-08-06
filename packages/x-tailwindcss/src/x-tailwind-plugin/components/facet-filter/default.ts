@@ -14,7 +14,7 @@ export function facetFilterDefault(helpers: TailwindHelpers) {
   return {
     display: 'grid',
     gridAutoFlow: 'column',
-    alignItems: 'baseline',
+    alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'start',
     boxSizing: 'border-box',
