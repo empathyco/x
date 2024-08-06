@@ -1,7 +1,7 @@
 <template>
   <button
     @click="toggle"
-    :aria-checked="value.toString()"
+    :aria-checked="currentValue || undefined"
     :class="cssClasses"
     class="x-switch"
     role="switch"
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
+  import { defineComponent, ref, computed } from 'vue';
   import { VueCSSClasses } from '../utils/types';
 
   /**
@@ -32,11 +32,17 @@
     props: {
       value: {
         type: Boolean,
-        required: true
+        default: false
+      },
+      modelValue: {
+        type: Boolean,
+        default: false
       }
     },
-    emits: ['change', 'input'],
+    emits: ['change', 'update:modelValue'],
     setup(props, { emit }) {
+      const currentValue = computed(() => props.modelValue || props.value);
+
       /**
        * Dynamic CSS classes to add to the switch component
        * depending on its internal state.
@@ -45,7 +51,7 @@
        * @internal
        */
       const cssClasses = ref<VueCSSClasses>({
-        'x-switch--is-selected x-selected': props.value
+        'x-switch--is-selected x-selected': currentValue.value
       });
 
       /**
@@ -54,17 +60,18 @@
        * @internal
        */
       const toggle = (): void => {
-        const newValue = !props.value;
+        const newValue = !currentValue.value;
         cssClasses.value = {
           'x-switch--is-selected': newValue,
           'x-selected': newValue
         };
 
-        emit('input', newValue);
+        emit('update:modelValue', newValue);
         emit('change', newValue);
       };
 
       return {
+        currentValue,
         cssClasses,
         toggle
       };
