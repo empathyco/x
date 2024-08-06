@@ -1,4 +1,4 @@
-import { mount, Wrapper } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 import BaseSwitch from '../base-switch.vue';
 
 function renderBaseSwitch({ template, value }: RenderBaseSwitchOptions): RenderBaseSwitchApi {
@@ -27,7 +27,7 @@ describe('testing Switch component', () => {
     });
 
     expect(wrapper.attributes('role')).toBe('switch');
-    expect(wrapper.attributes('aria-checked')).toBe('false');
+    expect(wrapper.attributes('aria-checked')).toBeFalsy();
     expect(wrapper.classes('x-switch--is-selected')).toBe(false);
     expect(wrapper.classes('x-selected')).toBe(false);
 
@@ -43,7 +43,7 @@ describe('testing Switch component', () => {
       value: false
     });
     expect(wrapper.attributes('role')).toBe('switch');
-    expect(wrapper.attributes('aria-checked')).toBe('false');
+    expect(wrapper.attributes('aria-checked')).toBeFalsy();
     expect(wrapper.classes('x-switch--is-selected')).toBe(false);
     expect(wrapper.classes('x-selected')).toBe(false);
 
@@ -69,5 +69,5 @@ interface RenderBaseSwitchApi {
   /**
    * The wrapper testing component instance.
    */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
 }

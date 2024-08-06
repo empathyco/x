@@ -49,7 +49,8 @@ import {
   TestRenderlessExtraParam,
   TestAnimationFactory,
   TestIcons,
-  TestDisplayEmitter
+  TestDisplayEmitter,
+  TestBaseSwitch
 } from './';
 
 const routes = [
@@ -302,6 +303,11 @@ const routes = [
     path: '/display-emitter',
     name: 'DisplayEmitter',
     component: TestDisplayEmitter
+  },
+  {
+    path: '/base-switch',
+    name: 'BaseSwitch',
+    component: TestBaseSwitch
   }
 ];
 
