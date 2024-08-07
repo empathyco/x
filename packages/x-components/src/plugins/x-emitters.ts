@@ -55,9 +55,7 @@ export function registerStoreEmitters(
  *
  * @internal
  */
-function normalizeStateSelector(
-  stateSelector: AnySimpleStateSelector | AnyStateSelector
-): Required<AnyStateSelector> {
+function normalizeStateSelector(stateSelector: AnySimpleStateSelector | AnyStateSelector) {
   const selectorOptions = isSimpleSelector(stateSelector)
     ? { selector: stateSelector }
     : stateSelector;

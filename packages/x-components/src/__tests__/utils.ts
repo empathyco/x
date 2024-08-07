@@ -1,7 +1,6 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
-import { createLocalVue, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue from 'vue';
+import { VueWrapper } from '@vue/test-utils';
 import { Store } from 'vuex';
 import {
   XComponentsAdapter,
@@ -69,7 +68,7 @@ export function getDataTestSelector(dataTest: string): string {
  *
  * @returns The wrappers matching the searched test data id.
  */
-export function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
+export function findTestDataById(wrapper: VueWrapper, testDataId: string) {
   return wrapper.findAll(getDataTestSelector(testDataId));
 }
 
@@ -194,16 +193,16 @@ function mergeStates<State extends Dictionary>(
  */
 export function installNewXPlugin(
   options: Partial<XPluginOptions> = {},
-  localVue: typeof Vue = createLocalVue(),
+  localVue = undefined,
   bus = new XDummyBus()
-): [XPlugin, typeof Vue] {
+): [XPlugin, undefined] {
   XPlugin.resetInstance();
   const xPlugin = new XPlugin(bus);
-  const installOptions: XPluginOptions = {
-    adapter: XComponentsAdapterDummy,
-    ...options
-  };
-  localVue.use(xPlugin, installOptions);
+  // const installOptions: XPluginOptions = {
+  //   adapter: XComponentsAdapterDummy,
+  //   ...options
+  // };
+  // localVue.use(xPlugin, installOptions);
   return [xPlugin, localVue];
 }
 
