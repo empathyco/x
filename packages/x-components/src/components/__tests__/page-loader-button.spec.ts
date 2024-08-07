@@ -3,7 +3,7 @@ import { Result } from '@empathyco/x-types';
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
 import PageLoaderButton from '../page-loader-button.vue';
 import { getResultsStub } from '../../__stubs__/index';
-import { bus } from '../../plugins/index';
+import { XPlugin } from '../../plugins/index';
 
 function renderPageLoaderButton({
   query = 'dress',
@@ -29,7 +29,7 @@ function renderPageLoaderButton({
 
   return {
     wrapper,
-    emitSpy: jest.spyOn(bus, 'emit')
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit')
   };
 }
 
@@ -75,9 +75,7 @@ describe('testing PageLoaderButton component', () => {
     expect(wrapper.find('.x-rounded-full').exists()).toBe(true);
   });
 
-  // TODO: Enable test when BaseEventButton component is migrated
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('emits the event UserReachedResultsListEnd when the button is clicked', () => {
+  it('emits the event UserReachedResultsListEnd when the button is clicked', () => {
     const { wrapper, emitSpy } = renderPageLoaderButton();
     const baseEventButton = wrapper.find(getDataTestSelector('load-content'));
 
@@ -92,9 +90,7 @@ describe('testing PageLoaderButton component', () => {
     });
   });
 
-  // TODO: Enable test when BaseEventButton component is migrated
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('emits an event passed via prop', async () => {
+  it('emits an event passed via prop', async () => {
     const { wrapper, emitSpy } = renderPageLoaderButton();
     const baseEventButton = wrapper.find(getDataTestSelector('load-content'));
 

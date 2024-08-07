@@ -65,7 +65,6 @@ describe('testing BaseVariableColumnGrid component', () => {
 
     const wrapper2 = mountComponent();
 
-    console.log(wrapper2.classes());
     await nextTick();
 
     expect(wrapper2.classes('x-base-grid--cols-6')).toBe(true);
