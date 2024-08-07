@@ -6,7 +6,6 @@ import { AnySimpleStateSelector, AnyStateSelector } from '../store/utils/store-e
 import { XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
 import { AnyXModule } from '../x-modules/x-modules.types';
-import { WatchOptionsBase } from 'vue';
 
 /**
  * Registers the store emitters, making them emit the event when the part of the state selected
@@ -64,7 +63,6 @@ function normalizeStateSelector(stateSelector: AnySimpleStateSelector | AnyState
   return {
     deep: false,
     immediate: false,
-    once: false,
     filter: () => true,
     metadata: {
       replaceable: true
