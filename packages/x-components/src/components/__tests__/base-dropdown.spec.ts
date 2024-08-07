@@ -25,7 +25,7 @@ function renderDropdown({
       data: () => ({ value: initialValue })
     },
     {
-      propsData: { items }
+      props: { items }
     }
   );
 

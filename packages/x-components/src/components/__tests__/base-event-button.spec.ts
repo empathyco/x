@@ -12,9 +12,7 @@ function render(options: ComponentMountingOptions<typeof BaseEventButton> = {}) 
   const wrapper = mount(BaseEventButton, {
     props: { events: {} },
     slots: { default: stubSlot },
-    global: {
-      plugins: [installNewXPlugin()]
-    },
+    global: { plugins: [installNewXPlugin()] },
     ...options
   });
 

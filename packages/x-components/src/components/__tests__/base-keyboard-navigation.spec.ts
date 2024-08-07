@@ -13,7 +13,7 @@ describe('testing keyboard navigation component', () => {
     );
     mount(BaseKeyboardNavigation, {
       global: { plugins: [installNewXPlugin()] },
-      propsData: {
+      props: {
         navigationHijacker: [
           {
             xEvent: 'UserPressedArrowKey',
@@ -40,7 +40,7 @@ describe('testing keyboard navigation component', () => {
       .mockReturnValue(undefined);
     const keyboardNavigation = mount(BaseKeyboardNavigation, {
       global: { plugins: [installNewXPlugin()] },
-      propsData: {
+      props: {
         eventsForDirectionLimit: {
           ArrowUp: 'UserReachedEmpathizeTop'
         }
