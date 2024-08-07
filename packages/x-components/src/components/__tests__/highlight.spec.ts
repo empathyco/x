@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils';
 import Highlight from '../highlight.vue';
 import { getDataTestSelector } from '../../__tests__/utils';
-import { nextTick } from 'vue';
 
 function renderHighlight({
   slots = {},
@@ -105,14 +104,14 @@ describe('testing Highlight component', () => {
     expect(getEndPart().exists()).toBe(false);
   });
 
-  it('allows to add classes when the text matches', async () => {
+  it('allows to add classes when the text matches', () => {
     const { getMatchingPart, wrapper } = renderHighlight({
       text: 'salchichón',
       highlight: 'sal',
       matchClass: 'custom-match-class',
       matchingPartClass: 'custom-matching-part-class'
     });
-    await nextTick();
+
     expect(wrapper.classes('custom-match-class')).toBe(true);
     expect(getMatchingPart().classes('custom-matching-part-class')).toBe(true);
   });
