@@ -4,6 +4,7 @@ import { getSearchResponseStub } from '../../__stubs__/search-response-stubs.fac
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
 import BaseVariableColumnGrid from '../base-variable-column-grid.vue';
 import { XPlugin } from '../../plugins/x-plugin';
+import { XDummyBus } from '../../__tests__/bus.dummy';
 
 const searchResponse = getSearchResponseStub();
 const itemsStub = [
@@ -12,10 +13,12 @@ const itemsStub = [
   ...searchResponse.results
 ];
 
+const sharedBus = new XDummyBus();
+
 function renderComponent({ items = itemsStub } = {}) {
   function mountComponent() {
     return mount(BaseVariableColumnGrid, {
-      global: { plugins: [installNewXPlugin()] },
+      global: { plugins: [installNewXPlugin({}, sharedBus)] },
       props: {
         items
       },
