@@ -22,7 +22,7 @@ function renderBaseSwitch({ template, value }: RenderBaseSwitchOptions): RenderB
 describe('testing Switch component', () => {
   it('allows toggling the state', async () => {
     const { wrapper } = renderBaseSwitch({
-      template: `<BaseSwitch :value="value" @change="value = !value" />`,
+      template: `<BaseSwitch :modelValue="value" @change="value = !value" />`,
       value: false
     });
 

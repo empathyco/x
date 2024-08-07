@@ -1,6 +1,6 @@
 <template>
   <p>Using props and events:</p>
-  <BaseSwitch @change="value = !value" :value="value" />
+  <BaseSwitch @change="value = !value" :modelValue="value" />
   {{ value }}
   <br />
   <p>Using the `v-model` directive:</p>
