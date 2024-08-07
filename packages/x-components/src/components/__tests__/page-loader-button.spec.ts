@@ -1,5 +1,4 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue, { ComponentOptions } from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { Result } from '@empathyco/x-types';
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
 import PageLoaderButton from '../page-loader-button.vue';
@@ -10,17 +9,15 @@ function renderPageLoaderButton({
   query = 'dress',
   results = getResultsStub(48),
   totalResults = 100,
-  scopedSlots
+  slots
 }: RenderPageLoaderButtonOptions = {}): RenderPageLoaderButtonAPI {
-  const [, localVue] = installNewXPlugin();
-
-  const wrapper = mount(PageLoaderButton as ComponentOptions<Vue>, {
-    propsData: {
+  const wrapper = mount(PageLoaderButton, {
+    props: {
       buttonClasses: '',
       buttonEvents: {}
     },
-    localVue,
-    scopedSlots,
+    global: { plugins: [installNewXPlugin()] },
+    slots,
     data() {
       return {
         query,
@@ -56,7 +53,7 @@ describe('testing PageLoaderButton component', () => {
 
   it('allows customizing its slots', () => {
     const { wrapper } = renderPageLoaderButton({
-      scopedSlots: {
+      slots: {
         textContent: `<p data-test="replaced-slot">Click to see more results</p>`,
         buttonContent: `<span>Load More</span>`
       }
@@ -134,7 +131,7 @@ interface RenderPageLoaderButtonOptions {
   /** The total number of results. */
   totalResults?: number;
   /** Scoped slots to be passed to the mount function. */
-  scopedSlots?: Record<string, string>;
+  slots?: Record<string, string>;
 }
 
 /**
@@ -142,7 +139,7 @@ interface RenderPageLoaderButtonOptions {
  */
 interface RenderPageLoaderButtonAPI {
   /** The wrapper for the page loader button component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /* A jest spy of the X emit method. */
   emitSpy: ReturnType<typeof jest.spyOn>;
 }

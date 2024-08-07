@@ -1,15 +1,13 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { defineComponent, h } from 'vue';
 import { XModuleName } from '../../x-modules/x-modules.types';
 import { getXComponentXModuleName, isXComponent, getRootXComponent } from '../x-component.utils';
 
 describe('testing the x-component utils', () => {
-  function renderComponent(xModule?: XModuleName): Wrapper<Vue> {
+  function renderComponent(xModule?: XModuleName): VueWrapper {
     return mount({
       xModule,
-      render(h) {
-        return h();
-      }
+      render: () => ''
     });
   }
 
@@ -48,15 +46,13 @@ describe('testing the x-component utils', () => {
     });
 
     it('returns the first root x component ancestor of a non x component', () => {
-      const nonXComponent = Vue.extend({
+      const nonXComponent = defineComponent({
         template: '<div>This is the child component</div>'
       });
 
       const ancestorXComponent = mount({
         xModule: 'searchBox',
-        render(h) {
-          return h(nonXComponent);
-        }
+        render: () => h(nonXComponent)
       });
 
       const nonXComponentVm = ancestorXComponent.findComponent(nonXComponent).vm;
