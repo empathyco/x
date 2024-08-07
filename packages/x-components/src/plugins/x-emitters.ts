@@ -33,7 +33,7 @@ export function registerStoreEmitters(
       newValue: XEventPayload<typeof event>,
       oldValue?: XEventPayload<typeof event>
     ) => void = (newValue, oldValue) => {
-      if (filter!(newValue, oldValue, store.state.x[name])) {
+      if (filter(newValue, oldValue, store.state.x[name])) {
         bus.emit(event, newValue, { ...metadata, moduleName: name, oldValue });
       }
     };
@@ -55,9 +55,7 @@ export function registerStoreEmitters(
  *
  * @internal
  */
-function normalizeStateSelector(
-  stateSelector: AnySimpleStateSelector | AnyStateSelector
-): AnyStateSelector {
+function normalizeStateSelector(stateSelector: AnySimpleStateSelector | AnyStateSelector) {
   const selectorOptions = isSimpleSelector(stateSelector)
     ? { selector: stateSelector }
     : stateSelector;
