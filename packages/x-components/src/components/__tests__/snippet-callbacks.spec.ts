@@ -12,8 +12,10 @@ function renderSnippetCallbacks({
   callbacks = {}
 }: RenderSnippetCallbacksOptions = {}): RenderSnippetCallbacksAPI {
   const wrapper = mount(SnippetCallbacks, {
-    provide: {
-      snippetConfig: { ...baseSnippetConfig, callbacks }
+    global: {
+      provide: {
+        snippetConfig: { ...baseSnippetConfig, callbacks }
+      }
     }
   });
 
