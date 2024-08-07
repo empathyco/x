@@ -9,7 +9,7 @@
   import { defineComponent, PropType, ref } from 'vue';
   import { use$x } from '../composables/use-$x';
   import { XEvent, XEventsTypes } from '../wiring/events.types';
-  import { QueryFeature } from '../types/origin';
+  import { WireMetadata } from '../wiring/index';
 
   /**
    * Component to be reused that renders a `<button>` with the logic of emitting events to the bus
@@ -29,12 +29,12 @@
         required: true
       },
       /**
-       * The origin property for the request on each query preview.
+       * The metadata property for the request on each query preview.
        *
        * @public
        */
-      queryFeature: {
-        type: String as PropType<QueryFeature>
+      metadata: {
+        type: Object as PropType<Omit<WireMetadata, 'moduleName'>>
       }
     },
     setup(props) {
@@ -47,7 +47,7 @@
        */
       function emitEvents() {
         Object.entries(props.events).forEach(([event, payload]) =>
-          $x.emit(event as XEvent, payload, { target: rootRef.value, feature: props.queryFeature })
+          $x.emit(event as XEvent, payload, { target: rootRef.value, ...props.metadata })
         );
       }
 

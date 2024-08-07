@@ -2,7 +2,7 @@
   <BaseEventButton
     v-on="$listeners"
     :events="events"
-    :queryFeature="queryFeature"
+    :metadata="metadata"
     class="x-query-preview-button x-button"
     data-test="query-preview-button"
   >
@@ -20,7 +20,7 @@
   import { BaseEventButton } from '../../../components';
   import { queriesPreviewXModule } from '../x-module';
   import { useState } from '../../../composables/use-state';
-  import { QueryFeature } from '../../../types/origin';
+  import { WireMetadata } from '../../../wiring/index';
 
   /**
    * Component containing an event button that emits
@@ -46,12 +46,12 @@
         required: true
       },
       /**
-       * The origin property for the request on each query preview.
+       * The metadata property for the request on each query preview.
        *
        * @public
        */
-      queryFeature: {
-        type: String as PropType<QueryFeature>
+      metadata: {
+        type: Object as PropType<Omit<WireMetadata, 'moduleName'>>
       }
     },
     setup(props) {
