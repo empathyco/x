@@ -1,6 +1,7 @@
 <template>
   <component
     :is="animation"
+    ref="gridEl"
     :style="style"
     class="x-base-grid"
     :class="cssClasses"
@@ -8,8 +9,9 @@
     data-test="grid"
   >
     <li
-      v-for="{ slotName, item, cssClass } in gridItems"
+      v-for="({ item, cssClass, slotName }, index) in gridItems"
       :key="item.id"
+      :data-index="index"
       :class="cssClass"
       class="x-base-grid__item"
     >
@@ -33,7 +35,6 @@
   import {
     computed,
     defineComponent,
-    getCurrentInstance,
     inject,
     onBeforeUnmount,
     onMounted,
@@ -42,7 +43,11 @@
     ref,
     watch
   } from 'vue';
-  import { MaybeComputedElementRef, useResizeObserver } from '@vueuse/core';
+  import {
+    MaybeComputedElementRef,
+    useResizeObserver,
+    UseResizeObserverReturn
+  } from '@vueuse/core';
   import { toKebabCase } from '../utils/string';
   import { ListItem, VueCSSClasses } from '../utils/types';
   import { AnimationProp } from '../types/animation-prop';
@@ -52,8 +57,6 @@
   /**
    * The type returned by the gridItems function. Basically it's a list of items with its CSS
    * classes and a slotName.
-   *
-   * @internal
    */
   interface GridItem {
     slotName: string;
@@ -74,11 +77,7 @@
   export default defineComponent({
     name: 'BaseGrid',
     props: {
-      /**
-       * Animation component that will be used to animate the base grid.
-       *
-       * @public
-       */
+      /** Animation component that will be used to animate the base grid. */
       animation: {
         type: AnimationProp,
         default: 'ul'
@@ -86,8 +85,6 @@
       /**
        * Number of columns the grid is divided into. By default, its value is 0, setting the grid
        * columns mode to auto-fill.
-       *
-       * @public
        */
       columns: {
         type: Number,
@@ -96,45 +93,27 @@
       /**
        * The list of items to be rendered.
        *
-       * @remarks The items must have an id property.
-       *
-       * @public
+       * @remarks The items must have an ID property.
        */
       items: {
         type: Array as PropType<ListItem[]>
       }
     },
     setup(props, { slots }) {
+      type ElementRef = {
+        $el: HTMLElement;
+      };
+
       const xBus = useXBus();
 
-      /**
-       * Number of columns rendered inside the grid.
-       */
-      const renderedColumnsNumber = ref(0);
-      /**
-       * Reference to the root element of the grid.
-       */
-      const rootEl = ref<HTMLElement | undefined>();
-      /**
-       * ResizeObserver instance to keep track of the number of columns rendered inside the grid.
-       */
-      let resizeObserver: { stop: () => void };
-
-      /**
-       * It injects {@link ListItem} provided by an ancestor.
-       *
-       * @internal
-       */
-      const injectedListItems = inject<Ref<ListItem[]> | undefined>(
-        LIST_ITEMS_KEY as string,
-        undefined
-      );
+      /** It injects {@link ListItem} provided by an ancestor. */
+      const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
+      const gridEl = ref<ElementRef | HTMLElement>();
+      let renderedColumnsNumber = ref(0);
 
       /**
        * Emits the {@link XEventsTypes.RenderedColumnsNumberChanged}
        * event whenever the number of columns rendered inside the grid changes.
-       *
-       * @internal
        */
       watch(
         renderedColumnsNumber,
@@ -146,10 +125,8 @@
        * It returns the items passed as props or the injected ones.
        *
        * @returns List of grid items.
-       *
-       * @public
        */
-      const computedItems = computed((): ListItem[] | void => {
+      const computedItems = computed<ListItem[] | void>(() => {
         return (
           props.items ??
           injectedListItems?.value ??
@@ -164,38 +141,27 @@
        * amount of columns or rows based on how many columns the grid is divided into.
        *
        * @returns CSS class with the column property value.
-       *
-       * @internal
        */
-      const cssClasses = computed(
-        (): VueCSSClasses =>
-          props.columns ? `x-base-grid--cols-${props.columns}` : 'x-base-grid--cols-auto'
-      );
+      const cssClasses = computed(() => `x-base-grid--cols-${props.columns || 'auto'}`);
 
       /**
        * CSSStyleDeclaration object specifying the number of columns the grid is divided into based on
        * the column property value.
        *
        * @returns A CSSStyleDeclaration to use as the style attribute.
-       *
-       * @internal
        */
-      const style = computed((): Partial<CSSStyleDeclaration> => {
-        return {
-          gridTemplateColumns: props.columns
-            ? `repeat(${props.columns}, minmax(0, 1fr))`
-            : 'repeat(auto-fill, minmax(var(--x-size-min-width-grid-item, 150px), 1fr))'
-        };
-      });
+      const style = computed<Partial<CSSStyleDeclaration>>(() => ({
+        gridTemplateColumns: props.columns
+          ? `repeat(${props.columns}, minmax(0, 1fr))`
+          : 'repeat(auto-fill, minmax(var(--x-size-min-width-grid-item, 150px), 1fr))'
+      }));
 
       /**
        * Maps the item to an object containing: the `item`, its `CSS class` and its slot name.
        *
        * @returns An array of objects containing the item and its CSS class.
-       *
-       * @internal
        */
-      const gridItems = computed((): GridItem[] =>
+      const gridItems = computed<GridItem[]>(() =>
         (computedItems.value as ListItem[]).map(item => {
           const slotName = toKebabCase(item.modelName);
           return {
@@ -207,37 +173,38 @@
       );
 
       /**
-       * Updates the number of columns rendered inside the grid.
+       * Checks if a given value is an `ElementRef` object.
+       *
+       * @param value - The value to check.
+       * @returns `true` if the value is an `ElementRef` object, `false` otherwise.
        */
-      const updateRenderedColumnsNumber = (): void => {
-        if (rootEl.value) {
-          const { gridTemplateColumns } = getComputedStyle(rootEl.value);
-          renderedColumnsNumber.value = gridTemplateColumns.split(' ').length;
-        }
+      const isElementRef = (value: any): value is ElementRef => {
+        return value && value.$el instanceof HTMLElement;
       };
 
-      /**
-       * Initialises the rendered columns number and sets a ResizeObserver to keep it updated.
-       */
-      onMounted(() => {
-        rootEl.value = getCurrentInstance()?.proxy?.$el as HTMLElement | undefined;
-        if (rootEl.value) {
-          resizeObserver = useResizeObserver(
-            rootEl as MaybeComputedElementRef,
-            updateRenderedColumnsNumber
-          );
-        }
-      });
+      /** Updates the number of columns rendered inside the grid. */
+      function updateRenderedColumnsNumber() {
+        const { gridTemplateColumns } = getComputedStyle(
+          isElementRef(gridEl.value) ? gridEl.value.$el : (gridEl.value as Element)
+        );
+        renderedColumnsNumber.value = gridTemplateColumns.split(' ').length;
+      }
 
-      /**
-       * Stops the ResizeObserver when the component is unmounted.
-       */
+      /** Initialises the rendered columns number and sets a ResizeObserver to keep it updated. */
+      let resizeObserver: UseResizeObserverReturn;
+      onMounted(() => {
+        resizeObserver = useResizeObserver(
+          gridEl as MaybeComputedElementRef,
+          updateRenderedColumnsNumber
+        );
+      });
       onBeforeUnmount(() => resizeObserver?.stop());
 
       return {
         gridItems,
         cssClasses,
         style,
+        gridEl,
         slots
       };
     }
