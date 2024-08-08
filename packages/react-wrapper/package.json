@@ -50,7 +50,7 @@
     "@types/react": "~16.9.0",
     "@types/react-dom": "~16.9.0",
     "cypress": "~13.6.0",
-    "eslint-plugin-react": "~7.32.1",
+    "eslint-plugin-react": "~7.35.0",
     "jest": "~27.5.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
