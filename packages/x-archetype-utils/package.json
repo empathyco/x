@@ -46,7 +46,7 @@
     "@types/node": "~18.19.0",
     "@vue/test-utils": "~1.0.3",
     "jest": "~27.5.0",
-    "rimraf": "~3.0.2",
+    "rimraf": "~6.0.0",
     "rollup": "~4.9.1",
     "rollup-plugin-copy": "~3.5.0",
     "rollup-plugin-delete": "~2.0.0",
