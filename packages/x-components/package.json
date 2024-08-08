@@ -112,7 +112,7 @@
     "convert-source-map": "~2.0.0",
     "cypress": "~13.6.0",
     "esbuild": "0.20.0",
-    "glob": "~10.3.0",
+    "glob": "~11.0.0",
     "jest": "~27.5.0",
     "jest-scss-transform": "~1.0.1",
     "postcss": "~8.4.12",
