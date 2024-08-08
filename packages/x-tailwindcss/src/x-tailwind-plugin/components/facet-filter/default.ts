@@ -12,9 +12,9 @@ export function facetFilterDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
 
   return {
-    display: 'grid',
-    gridAutoFlow: 'column',
-    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'baseline',
     alignContent: 'center',
     justifyContent: 'start',
     boxSizing: 'border-box',
