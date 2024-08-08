@@ -590,7 +590,6 @@
       SortPickerList,
       Spellcheck,
       SpellcheckButton,
-      StaggeredFadeAndSlide,
       Tagging,
       UrlHandler
     },
