@@ -24,7 +24,8 @@ function render({
   });
 
   return {
-    wrapper: wrapper.findComponent(DisplayEmitter),
+    wrapper,
+    displayEmiter: wrapper.findComponent(DisplayEmitter),
     element: wrapper.find(getDataTestSelector('child')).element,
     payload,
     eventMetadata
@@ -38,9 +39,9 @@ describe('testing DisplayEmitter component', () => {
   });
 
   it('renders everything passed to its default slot', () => {
-    const { wrapper } = render();
+    const { displayEmiter } = render();
 
-    expect(wrapper.find(getDataTestSelector('child')).exists()).toBeTruthy();
+    expect(displayEmiter.find(getDataTestSelector('child')).exists()).toBeTruthy();
   });
 
   it('executes `useEmitDisplayEvent` composable underneath', () => {
@@ -70,7 +71,7 @@ describe('testing DisplayEmitter component', () => {
   it('removes the watcher on unmount', async () => {
     const { wrapper } = render();
 
-    wrapper.destroy();
+    wrapper.unmount();
     await nextTick();
 
     expect(unwatchDisplaySpy).toHaveBeenCalled();

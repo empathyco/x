@@ -1,5 +1,12 @@
 import { Subscription } from 'rxjs';
-import Vue, { getCurrentInstance, inject, isRef, onBeforeUnmount, Ref } from 'vue';
+import {
+  ComponentPublicInstance,
+  getCurrentInstance,
+  inject,
+  isRef,
+  onBeforeUnmount,
+  Ref
+} from 'vue';
 import { EventPayload, SubjectPayload, XBus } from '@empathyco/x-bus';
 import { XEvent, XEventPayload, XEventsTypes } from '../wiring/events.types';
 import { WireMetadata } from '../wiring/wiring.types';
@@ -8,8 +15,8 @@ import { FeatureLocation } from '../types/origin';
 import { XPlugin } from '../plugins/x-plugin';
 import { bus as xBus } from '../plugins/x-bus';
 
-interface PrivateExtendedVueComponent extends Vue {
-  xComponent?: Vue;
+interface PrivateExtendedVueComponent extends ComponentPublicInstance {
+  xComponent?: ComponentPublicInstance;
 }
 
 /**
@@ -26,10 +33,10 @@ interface PrivateExtendedVueComponent extends Vue {
 export function useXBus() {
   const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location', 'none');
 
-  const component = getCurrentInstance()?.proxy;
+  const component = getCurrentInstance()?.proxy as PrivateExtendedVueComponent;
   const xComponent = getRootXComponent(component ?? null);
   if (component && xComponent) {
-    (component as PrivateExtendedVueComponent).xComponent = xComponent;
+    component.xComponent = xComponent;
   }
 
   let bus: XBus<XEventsTypes, WireMetadata>;

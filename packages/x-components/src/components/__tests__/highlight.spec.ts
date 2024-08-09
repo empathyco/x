@@ -1,33 +1,25 @@
-import { mount, Wrapper } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Highlight from '../highlight.vue';
 import { getDataTestSelector } from '../../__tests__/utils';
 
 function renderHighlight({
-  template = '<Highlight v-bind="$attrs"/>',
-  text,
-  highlight,
-  noMatchClass,
-  matchingPartClass,
-  matchClass
-}: RenderHighlightOptions): RenderHighlightAPI {
-  const wrapper = mount(
-    {
-      inheritAttrs: false,
-      components: {
-        Highlight
-      },
-      template
+  slots = {},
+  text = '',
+  highlight = '',
+  noMatchClass = '',
+  matchingPartClass = '',
+  matchClass = ''
+} = {}) {
+  const wrapper = mount(Highlight, {
+    props: {
+      text,
+      highlight,
+      noMatchClass,
+      matchingPartClass,
+      matchClass
     },
-    {
-      propsData: {
-        text,
-        highlight,
-        noMatchClass,
-        matchingPartClass,
-        matchClass
-      }
-    }
-  );
+    slots: { ...slots }
+  });
   return {
     wrapper,
     getStartPart() {
@@ -39,7 +31,7 @@ function renderHighlight({
     getEndPart() {
       return wrapper.find(getDataTestSelector('highlight-end'));
     },
-    async setHighlight(highlight) {
+    async setHighlight(highlight: string) {
       return await wrapper.setProps({ highlight });
     }
   };
@@ -119,6 +111,7 @@ describe('testing Highlight component', () => {
       matchClass: 'custom-match-class',
       matchingPartClass: 'custom-matching-part-class'
     });
+
     expect(wrapper.classes('custom-match-class')).toBe(true);
     expect(getMatchingPart().classes('custom-matching-part-class')).toBe(true);
   });
@@ -133,14 +126,13 @@ describe('testing Highlight component', () => {
   });
 
   it('allows customising the HTML', async () => {
+    const customHtml = `
+        <span v-if="hasMatch" class="match-custom-layout">
+          <strong>{{ start }}</strong>{{ match }}<strong>{{ end }}</strong>
+        </span>
+        <span v-else class="no-match-custom">{{ text }}</span>`;
     const { wrapper, setHighlight } = renderHighlight({
-      template: `
-        <Highlight v-bind="$attrs" #default="{ hasMatch, start, match, end, text }">
-          <span v-if="hasMatch" class="match-custom-layout">
-            <strong>{{ start }}</strong>{{ match }}<strong>{{ end }}</strong>
-          </span>
-          <span v-else class="no-match-custom">{{ text }}</span>
-        </Highlight>`,
+      slots: { default: customHtml },
       text: 'churrasco',
       highlight: 'chur'
     });
@@ -154,31 +146,3 @@ describe('testing Highlight component', () => {
     );
   });
 });
-
-interface RenderHighlightOptions {
-  /** The template to render. */
-  template?: string;
-  /** The text to be highlighted. */
-  text: string;
-  /** The part of the text to highlight. */
-  highlight: string;
-  /** Class to add to the root node when the given text doesn't contain the part to highlight. */
-  noMatchClass?: string;
-  /** Class to add to the node wrapping the matching text. */
-  matchingPartClass?: string;
-  /** Class to add to the root node when the given text contains the part to highlight. */
-  matchClass?: string;
-}
-
-interface RenderHighlightAPI {
-  /** Testing wrapper component. */
-  wrapper: Wrapper<Vue>;
-  /** Only the start node wrapper. */
-  getStartPart: () => Wrapper<Vue>;
-  /** Only the matching node wrapper. */
-  getMatchingPart: () => Wrapper<Vue>;
-  /** Only the end node wrapper. */
-  getEndPart: () => Wrapper<Vue>;
-  /** Sets the part of the text to highlight. */
-  setHighlight: (highlight: string) => Promise<void>;
-}

@@ -7,6 +7,7 @@ import { FeatureLocation, QueryFeature, ResultFeature } from '../types/origin';
 import { FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils/types';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload, XEventsTypes } from './events.types';
+import { Component } from 'vue';
 
 /**
  * A Wire is a function that receives an observable, the store and the on function of the bus it
@@ -45,7 +46,7 @@ export interface WireMetadata {
   /** The DOM element that triggered the event emission. */
   target?: HTMLElement;
   /** The component instance that triggered the event emission. */
-  component?: Vue;
+  component?: Component;
   /** The event priority to use when sorting the bus queue for event batching. */
   priority?: Priority;
   /**

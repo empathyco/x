@@ -1,5 +1,4 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { ListItem } from '../../utils/types';
 import { getDataTestSelector } from '../../__tests__/utils';
 import { getBannersStub } from '../../__stubs__/banners-stubs.factory';
@@ -13,20 +12,13 @@ import { getPromotedsStub } from '../../__stubs__/promoteds-stubs.factory';
  * @param options - The options to render the component with.
  * @returns The API for testing the `BannersList` component.
  */
-function renderItemsList({
-  items = [],
-  scopedSlots
-}: RenderItemsListOptions = {}): RendersItemsListAPI {
+function renderItemsList({ items = [], slots }: RenderItemsListOptions = {}): RendersItemsListAPI {
   const wrapper = mount(ItemsList, {
-    propsData: {
-      items
-    },
-    scopedSlots
+    props: { items },
+    slots
   });
 
-  return {
-    wrapper
-  };
+  return { wrapper };
 }
 
 describe('testing ItemsList component', () => {
@@ -50,7 +42,7 @@ describe('testing ItemsList component', () => {
     const itemsWrapperArray = wrapper.findAll('.x-items-list__item');
     expect(itemsWrapperArray).toHaveLength(resultsStub.length);
     resultsStub.forEach((result, index: number) => {
-      expect(itemsWrapperArray.at(index).text()).toBe(result.id);
+      expect(itemsWrapperArray.at(index)?.text()).toBe(result.id);
     });
   });
 
@@ -74,7 +66,7 @@ describe('testing ItemsList component', () => {
 
   it('allows to customize each item using the slot', () => {
     const { wrapper } = renderItemsList({
-      scopedSlots: {
+      slots: {
         result: `<template #result="{ item }">Result: {{ item.name }}</template>`,
         banner: `<template #banner="{ item }">Banner: {{ item.id }}</template>`,
         promoted: `<template #promoted="{ item }">Promoted: {{ item.title }}</template>`
@@ -100,10 +92,10 @@ interface RenderItemsListOptions {
   /** Items to be passed to the component. */
   items?: ListItem[];
   /** Scoped slots to be passed to the mount function. */
-  scopedSlots?: Record<string, string>;
+  slots?: Record<string, string>;
 }
 
 interface RendersItemsListAPI {
   /** The `wrapper` wrapper component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
 }

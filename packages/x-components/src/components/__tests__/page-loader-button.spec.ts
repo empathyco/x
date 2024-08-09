@@ -1,26 +1,23 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue, { ComponentOptions } from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { Result } from '@empathyco/x-types';
 import { getDataTestSelector, installNewXPlugin } from '../../__tests__/utils';
 import PageLoaderButton from '../page-loader-button.vue';
 import { getResultsStub } from '../../__stubs__/index';
-import { bus } from '../../plugins/index';
+import { XPlugin } from '../../plugins/index';
 
 function renderPageLoaderButton({
   query = 'dress',
   results = getResultsStub(48),
   totalResults = 100,
-  scopedSlots
+  slots
 }: RenderPageLoaderButtonOptions = {}): RenderPageLoaderButtonAPI {
-  const [, localVue] = installNewXPlugin();
-
-  const wrapper = mount(PageLoaderButton as ComponentOptions<Vue>, {
-    propsData: {
+  const wrapper = mount(PageLoaderButton, {
+    props: {
       buttonClasses: '',
       buttonEvents: {}
     },
-    localVue,
-    scopedSlots,
+    global: { plugins: [installNewXPlugin()] },
+    slots,
     data() {
       return {
         query,
@@ -32,7 +29,7 @@ function renderPageLoaderButton({
 
   return {
     wrapper,
-    emitSpy: jest.spyOn(bus, 'emit')
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit')
   };
 }
 
@@ -56,7 +53,7 @@ describe('testing PageLoaderButton component', () => {
 
   it('allows customizing its slots', () => {
     const { wrapper } = renderPageLoaderButton({
-      scopedSlots: {
+      slots: {
         textContent: `<p data-test="replaced-slot">Click to see more results</p>`,
         buttonContent: `<span>Load More</span>`
       }
@@ -78,9 +75,7 @@ describe('testing PageLoaderButton component', () => {
     expect(wrapper.find('.x-rounded-full').exists()).toBe(true);
   });
 
-  // TODO: Enable test when BaseEventButton component is migrated
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('emits the event UserReachedResultsListEnd when the button is clicked', () => {
+  it('emits the event UserReachedResultsListEnd when the button is clicked', () => {
     const { wrapper, emitSpy } = renderPageLoaderButton();
     const baseEventButton = wrapper.find(getDataTestSelector('load-content'));
 
@@ -95,9 +90,7 @@ describe('testing PageLoaderButton component', () => {
     });
   });
 
-  // TODO: Enable test when BaseEventButton component is migrated
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('emits an event passed via prop', async () => {
+  it('emits an event passed via prop', async () => {
     const { wrapper, emitSpy } = renderPageLoaderButton();
     const baseEventButton = wrapper.find(getDataTestSelector('load-content'));
 
@@ -134,7 +127,7 @@ interface RenderPageLoaderButtonOptions {
   /** The total number of results. */
   totalResults?: number;
   /** Scoped slots to be passed to the mount function. */
-  scopedSlots?: Record<string, string>;
+  slots?: Record<string, string>;
 }
 
 /**
@@ -142,7 +135,7 @@ interface RenderPageLoaderButtonOptions {
  */
 interface RenderPageLoaderButtonAPI {
   /** The wrapper for the page loader button component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /* A jest spy of the X emit method. */
   emitSpy: ReturnType<typeof jest.spyOn>;
 }

@@ -1,4 +1,4 @@
-import { mount, Wrapper } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { baseSnippetConfig } from '../../views/base-config';
 import { XEventListeners } from '../../x-installer/api/api.types';
 import SnippetCallbacks from '../snippet-callbacks.vue';
@@ -12,8 +12,10 @@ function renderSnippetCallbacks({
   callbacks = {}
 }: RenderSnippetCallbacksOptions = {}): RenderSnippetCallbacksAPI {
   const wrapper = mount(SnippetCallbacks, {
-    provide: {
-      snippetConfig: { ...baseSnippetConfig, callbacks }
+    global: {
+      provide: {
+        snippetConfig: { ...baseSnippetConfig, callbacks }
+      }
     }
   });
 
@@ -54,7 +56,7 @@ describe('testing SnippetCallbacks component', () => {
     expect(clickedColumnPickerCallback).toHaveBeenCalledWith(1, expect.any(Object));
 
     // Force unsubscribing
-    wrapper.destroy();
+    wrapper.unmount();
   });
 
   it('emits a SnippetCallbackExecuted event when a callback is executed', () => {
@@ -107,5 +109,5 @@ interface RenderSnippetCallbacksOptions {
  */
 interface RenderSnippetCallbacksAPI {
   /** The wrapper of the container element. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
 }
