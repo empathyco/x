@@ -1,7 +1,7 @@
 <template>
   <button
     @click="toggle"
-    :aria-checked="currentValue || undefined"
+    :aria-checked="modelValue || undefined"
     :class="cssClasses"
     class="x-switch"
     role="switch"
@@ -30,10 +30,6 @@
      * @public
      */
     props: {
-      value: {
-        type: Boolean,
-        default: false
-      },
       modelValue: {
         type: Boolean,
         default: false
@@ -41,8 +37,6 @@
     },
     emits: ['change', 'update:modelValue'],
     setup(props, { emit }) {
-      const currentValue = computed(() => props.modelValue || props.value);
-
       /**
        * Dynamic CSS classes to add to the switch component
        * depending on its internal state.
@@ -51,7 +45,7 @@
        * @internal
        */
       const cssClasses = ref<VueCSSClasses>({
-        'x-switch--is-selected x-selected': currentValue.value
+        'x-switch--is-selected x-selected': props.modelValue
       });
 
       /**
@@ -60,7 +54,7 @@
        * @internal
        */
       const toggle = (): void => {
-        const newValue = !currentValue.value;
+        const newValue = !props.modelValue;
         cssClasses.value = {
           'x-switch--is-selected': newValue,
           'x-selected': newValue
@@ -71,7 +65,6 @@
       };
 
       return {
-        currentValue,
         cssClasses,
         toggle
       };
@@ -133,7 +126,7 @@ _Try clicking it to see how it changes its state_
 
 ```vue live
 <template>
-  <BaseSwitch @change="value = !value" :value="value" />
+  <BaseSwitch @change="value = !value" :modelValue="value" />
 </template>
 
 <script>
