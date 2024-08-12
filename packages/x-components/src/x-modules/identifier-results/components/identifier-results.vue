@@ -1,8 +1,9 @@
 <template>
   <component :is="animation" v-if="identifierResults.length" tag="ul" class="x-identifier-results">
     <li
-      v-for="identifierResult in identifierResultsToRender"
+      v-for="(identifierResult, index) in identifierResultsToRender"
       :key="identifierResult.id"
+      :data-index="index"
       class="x-identifier-results__item"
       data-test="identifier-results-item"
     >

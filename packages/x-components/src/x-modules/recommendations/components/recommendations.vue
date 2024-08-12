@@ -7,8 +7,9 @@
     class="x-recommendations"
   >
     <li
-      v-for="recommendation in recommendations"
+      v-for="(recommendation, index) in recommendations"
       :key="recommendation.id"
+      :data-index="index"
       class="x-recommendations__item"
       data-test="recommendation-item"
     >

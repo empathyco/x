@@ -11,8 +11,9 @@
       tag="ul"
     >
       <li
-        v-for="{ slotName, selectedFilter } in mapSlot(selectedFilters)"
+        v-for="({ slotName, selectedFilter }, index) in mapSlot(selectedFilters)"
         :key="selectedFilter.id"
+        :data-index="index"
         class="x-selected-filters-list__item"
         data-test="selected-filters-list-item"
       >

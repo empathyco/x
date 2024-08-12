@@ -7,8 +7,9 @@
     role="list"
   >
     <BaseEventButton
-      v-for="{ item, cssClasses, event } in listItems"
+      v-for="({ item, cssClasses, event }, index) in listItems"
       :key="item"
+      :data-index="index"
       :class="[cssClasses, buttonClass]"
       data-test="sort-picker-button"
       :events="event"

@@ -44,7 +44,12 @@
         role="listbox"
         tabindex="-1"
       >
-        <li v-for="(item, index) in items" :key="item.id || item" class="x-dropdown__list-item">
+        <li
+          v-for="(item, index) in items"
+          :key="item.id || item"
+          :data-index="index"
+          class="x-dropdown__list-item"
+        >
           <button
             :ref="el => (itemsButtonRefs[index] = el)"
             @click="emitSelectedItemChanged(item)"

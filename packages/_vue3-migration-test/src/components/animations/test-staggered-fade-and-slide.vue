@@ -4,7 +4,7 @@
   <button @click="reset">Reset</button>
 
   <StaggeredFadeAndSlide :stagger="500">
-    <li v-for="item in items" :key="item.id">
+    <li v-for="(item, index) in items" :key="item.id" :data-index="index">
       {{ item.id }} - {{ item.name }}
       <button @click="remove(item)">x</button>
     </li>
@@ -21,9 +21,9 @@
   <br />
   <h1>Static content:</h1>
   <StaggeredFadeAndSlide :stagger="50">
-    <li key="1">Element to animate</li>
-    <li key="2">Element to animate</li>
-    <li key="3">Element to animate</li>
+    <li key="1" data-index="0">Element to animate</li>
+    <li key="2" data-index="1">Element to animate</li>
+    <li key="3" data-index="2">Element to animate</li>
   </StaggeredFadeAndSlide>
 </template>
 

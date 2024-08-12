@@ -1,8 +1,9 @@
 <template>
   <component :is="animation" tag="ul" class="x-option-list x-sort-list" data-test="sort-list">
     <li
-      v-for="{ item, cssClasses, event } in listItems"
+      v-for="({ item, cssClasses, event }, index) in listItems"
       :key="item"
+      :data-index="index"
       :class="cssClasses"
       class="x-option-list__item x-sort-list__item"
     >

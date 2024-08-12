@@ -7,8 +7,9 @@
     data-test="items-list"
   >
     <li
-      v-for="item in computedItems"
+      v-for="(item, index) in computedItems"
       :key="item.id"
+      :data-index="index"
       class="x-items-list__item"
       :class="item.class"
       :data-test="item.dataTest"

@@ -3,6 +3,7 @@
     <li
       v-for="(queryPreview, index) in renderedQueryPreviews"
       :key="index"
+      :data-index="index"
       data-test="query-preview-item"
     >
       <QueryPreview
