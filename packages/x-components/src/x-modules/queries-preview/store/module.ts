@@ -56,6 +56,14 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
           Vue.delete(state.queriesPreview, queryPreviewHash);
         }
       }
+    },
+    updateAQueryPreviewResult(state, { result, queryPreviewHash }) {
+      const queryPreviewResult = state.queriesPreview[queryPreviewHash.value].results.find(
+        resultPreview => resultPreview.id === result.id
+      );
+      if (queryPreviewResult) {
+        Object.assign(queryPreviewResult, result);
+      }
     }
   },
   actions: {
