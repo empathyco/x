@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.78](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.77...@empathyco/x-components@5.0.0-alpha.78) (2024-08-13)
+
+
+### Features
+
+* **main-modal:** make events configurable via props (#1590) ([60d630c](https://github.com/empathyco/x/commit/60d630ca2a181d2919b9f1019abbf1eee5dd2c30))
+
+
+
 ## [5.0.0-alpha.77](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.76...@empathyco/x-components@5.0.0-alpha.77) (2024-08-13)
 
 **Note:** Version bump only for package @empathyco/x-components
