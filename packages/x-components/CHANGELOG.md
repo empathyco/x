@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.76](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.75...@empathyco/x-components@5.0.0-alpha.76) (2024-08-08)
+
+
+### Bug Fixes
+
+* send origin in query tagging (#1585) ([92efdf7](https://github.com/empathyco/x/commit/92efdf71a4f794d58b9f68cf68783ca0489eb7ee))
+
+
+
 ## [5.0.0-alpha.75](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.74...@empathyco/x-components@5.0.0-alpha.75) (2024-07-23)
 
 
