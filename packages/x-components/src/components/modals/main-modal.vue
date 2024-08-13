@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, PropType } from 'vue';
   import { AnimationProp } from '../../types/animation-prop';
   import { XEvent } from '../../wiring/events.types';
   import BaseEventsModal from './base-events-modal.vue';
@@ -38,41 +38,34 @@
         type: AnimationProp
       },
       /**
+       * Events to listen for closing the main modal.
+       */
+      closeEvents: {
+        type: Array as PropType<XEvent[]>,
+        default: () => ['UserClickedCloseX', 'UserClickedOutOfMainModal']
+      },
+      /**
        * Determines if the focused element changes to one inside the modal when it opens. Either the
        * first element with a positive tabindex or just the first focusable element.
        */
       focusOnOpen: {
         type: Boolean,
         default: false
-      }
-    },
-    setup() {
+      },
       /**
        * Events to listen for opening the main modal.
-       *
-       * @internal
        */
-      const openEvents: XEvent[] = ['UserClickedOpenX', 'UserOpenXProgrammatically'];
-
-      /**
-       * Events to listen for closing the main modal.
-       *
-       * @internal
-       */
-      const closeEvents: XEvent[] = ['UserClickedCloseX', 'UserClickedOutOfMainModal'];
-
+      openEvents: {
+        type: Array as PropType<XEvent[]>,
+        default: () => ['UserClickedOpenX', 'UserOpenXProgrammatically']
+      },
       /**
        * Event to be emitted by the modal when clicked out of its content.
-       *
-       * @internal
        */
-      const outOfModalClickEvent: XEvent = 'UserClickedOutOfMainModal';
-
-      return {
-        openEvents,
-        closeEvents,
-        outOfModalClickEvent
-      };
+      outOfModalClickEvent: {
+        type: (String as PropType<XEvent>) || null,
+        default: 'UserClickedOutOfMainModal'
+      }
     }
   });
 </script>
@@ -121,6 +114,45 @@ The `contentClass` prop can be used to add classes to the modal content.
   <div>
     <OpenMainModal>Open X</OpenMainModal>
     <MainModal contentClass="x-bg-neutral-75">
+      <CloseMainModal>Close X</CloseMainModal>
+    </MainModal>
+  </div>
+</template>
+
+<script>
+  import { MainModal, CloseMainModal, OpenMainModal } from '@empathyco/x-components';
+
+  export default {
+    name: 'MainModalDemo',
+    components: {
+      MainModal,
+      CloseMainModal,
+      OpenMainModal
+    }
+  };
+</script>
+```
+
+### Customizing the modal events
+
+The modal events can be customized by changing its props values:
+
+- To add or subtract events to open or close the modal,
+- To modify or remove the default
+  [`UserClickedOutOfMainModal`](https://github.com/empathyco/x/blob/main/packages/x-components/src/wiring/events.types.ts)
+  that the modal emits.
+
+In this example, we are changing the `openEvents` prop to add another event, and removing the event
+that the modal would emit when the user clicks out of the modal.
+
+```vue live
+<template>
+  <div>
+    <OpenMainModal>Open X</OpenMainModal>
+    <MainModal
+      :openEvents="['UserClickedOpenX', 'UserOpenXProgrammatically', 'MyCustomXEvent']"
+      :outOfModalClickEvent="null"
+    >
       <CloseMainModal>Close X</CloseMainModal>
     </MainModal>
   </div>
