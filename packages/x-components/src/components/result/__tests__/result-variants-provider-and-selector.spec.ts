@@ -165,7 +165,7 @@ describe('results with variants', () => {
     expect(emitSpy).toHaveBeenCalledTimes(1);
     expect(emitSpy).toHaveBeenCalledWith(
       'UserSelectedAResultVariant',
-      { result, variant: variants[0], level: 0 },
+      { result, variant: variants[0], level: 0, queryPreviewHash: null },
       expect.anything()
     );
   });
