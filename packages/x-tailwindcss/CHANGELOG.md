@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.3...@empathyco/x-tailwindcss@1.2.0-alpha.4) (2024-08-13)
+
+
+### Bug Fixes
+
+* **design-system:** facet alignment in firefox (#1587) ([13b29d0](https://github.com/empathyco/x/commit/13b29d0a0fecbf0dd985d04dce4ab6299ce86d9c))
+
+
+
 ## [1.2.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.2...@empathyco/x-tailwindcss@1.2.0-alpha.3) (2024-07-15)
 
 
