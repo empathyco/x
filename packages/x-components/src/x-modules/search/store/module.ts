@@ -41,7 +41,7 @@ export const searchXStoreModule: SearchXStoreModule = {
   },
   mutations: {
     appendResults(state, results) {
-      state.results.push(...results);
+      state.results = [...state.results, ...results];
     },
     resetState(state) {
       Object.assign(state, resettableState());
