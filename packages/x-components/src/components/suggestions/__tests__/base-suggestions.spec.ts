@@ -195,9 +195,9 @@ interface BaseSuggestionsOptions {
  */
 interface BaseSuggestionsAPI {
   /** The wrapper for base suggestions component. */
-  wrapper: VueWrapper<any>;
+  wrapper: VueWrapper;
   /** The wrapper container for the mounted component. */
-  wrapperContainer: VueWrapper<any>;
+  wrapperContainer: VueWrapper;
   /** The rendered suggestions. */
   suggestions: Suggestion[];
   /** The wrappers of the rendered suggestions. */
