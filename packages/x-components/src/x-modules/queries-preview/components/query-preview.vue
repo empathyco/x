@@ -159,6 +159,8 @@
         return getHashFromQueryPreviewInfo(props.queryPreviewInfo);
       });
 
+      provide('queryPreviewHash', queryPreviewHash);
+
       /**
        * Gets from the state the results preview of the query preview.
        *
