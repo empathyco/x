@@ -33,7 +33,8 @@ const result = createResultStub('jacket', { variants });
 const render = ({
   template = '<ResultVariantSelector/>',
   result = {},
-  autoSelectDepth = Number.POSITIVE_INFINITY
+  autoSelectDepth = Number.POSITIVE_INFINITY,
+  queryPreviewHash = null as string | null
 } = {}) => {
   installNewXPlugin();
   const emitSpy = jest.spyOn(XPlugin.bus, 'emit');
@@ -49,6 +50,9 @@ const render = ({
     components: {
       ResultVariantsProvider,
       ResultVariantSelector
+    },
+    provide: {
+      queryPreviewHash
     },
     data: () => ({
       result,
@@ -166,6 +170,25 @@ describe('results with variants', () => {
     expect(emitSpy).toHaveBeenCalledWith(
       'UserSelectedAResultVariant',
       { result, variant: variants[0], level: 0, queryPreviewHash: null },
+      expect.anything()
+    );
+  });
+
+  it('emits UserSelectedAResultVariant event when a variant from a query preview is selected', async () => {
+    const { wrapper, emitSpy } = render({
+      result,
+      autoSelectDepth: 0,
+      queryPreviewHash: 'abcd'
+    });
+
+    const button = wrapper.find(getDataTestSelector('variant-button'));
+
+    await button.trigger('click');
+
+    expect(emitSpy).toHaveBeenCalledTimes(1);
+    expect(emitSpy).toHaveBeenCalledWith(
+      'UserSelectedAResultVariant',
+      { result, variant: variants[0], level: 0, queryPreviewHash: 'abcd' },
       expect.anything()
     );
   });
