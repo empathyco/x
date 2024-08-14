@@ -1,11 +1,12 @@
 import { Result } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
-import { mount, Wrapper } from '@vue/test-utils';
+import { mount, VueWrapper, DOMWrapper } from '@vue/test-utils';
 import { XBus } from '@empathyco/x-bus';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseResultAddToCart from '../base-result-add-to-cart.vue';
 import { WireMetadata, XEventsTypes } from '../../../wiring/index';
+import { XPlugin } from '../../../plugins/index';
 
 describe('testing BaseResultAddToCart component', () => {
   function renderAddToCart({
@@ -13,12 +14,11 @@ describe('testing BaseResultAddToCart component', () => {
     template = '<BaseResultAddToCart :result="result"/>',
     methods = {}
   }: RenderAddToCartOptions): RenderAddToCartApi {
-    const [, localVue] = installNewXPlugin();
     const wrapper = mount(
       { template, data: () => ({ result }), methods },
       {
         components: { BaseResultAddToCart },
-        localVue
+        global: { plugins: [installNewXPlugin()] }
       }
     );
     return {
@@ -27,16 +27,15 @@ describe('testing BaseResultAddToCart component', () => {
           .find(getDataTestSelector('result-add-to-cart'))
           .trigger('click') as Promise<void>;
       },
-      on: wrapper.vm.$x.on,
       addToCartWrapper: wrapper.find(getDataTestSelector('result-add-to-cart'))
     };
   }
 
   it('emits UserClickedResultAddToCart when the user click on the component', () => {
     const testResult = createResultStub('My Result');
-    const { clickAddToCart, on } = renderAddToCart({ result: testResult });
+    const { clickAddToCart } = renderAddToCart({ result: testResult });
     const listener = jest.fn();
-    on('UserClickedResultAddToCart').subscribe(listener);
+    XPlugin.bus.on('UserClickedResultAddToCart').subscribe(listener);
     clickAddToCart();
     expect(listener).toHaveBeenCalledWith(testResult);
   });
@@ -90,8 +89,6 @@ interface RenderAddToCartOptions {
 interface RenderAddToCartApi {
   /** Triggers the click on the `BaseResultAddToCart`. */
   clickAddToCart: () => Promise<void>;
-  /** The `XBus.on` method to subscribe to any `XEvent`. */
-  on: XBus<XEventsTypes, WireMetadata>['on'];
   /** The `BaseResultAddToCart` wrapper to use it for testing. */
-  addToCartWrapper: Wrapper<Vue>;
+  addToCartWrapper: DOMWrapper<Element>;
 }
