@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { Result } from '@empathyco/x-types';
-import { nextTick } from 'vue';
+import { defineComponent, nextTick } from 'vue';
 import { createResultStub } from '../../../__stubs__/index';
 import { findTestDataById, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import ResultVariantsProvider from '../result-variants-provider.vue';
@@ -35,23 +35,28 @@ const render = ({
   result = {},
   autoSelectDepth = Number.POSITIVE_INFINITY
 } = {}) => {
-  const wrapper = mount({
-    global: { plugins: [installNewXPlugin()] },
+  const resultComponent = defineComponent({
+    components: {
+      ResultVariantsProvider,
+      ResultVariantSelector
+    },
+    data() {
+      return {
+        result,
+        autoSelectDepth
+      };
+    },
     template: `
       <ResultVariantsProvider
         :result="result"
         :autoSelectDepth="autoSelectDepth"
         #default="{ result: newResult }">
         ${template}
-      </ResultVariantsProvider>`,
-    components: {
-      ResultVariantsProvider,
-      ResultVariantSelector
-    },
-    data: () => ({
-      result,
-      autoSelectDepth
-    })
+      </ResultVariantsProvider>`
+  });
+
+  const wrapper = mount(resultComponent, {
+    global: { plugins: [installNewXPlugin()] }
   });
 
   return {
