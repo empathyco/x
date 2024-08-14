@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.79](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.78...@empathyco/x-components@5.0.0-alpha.79) (2024-08-14)
+
+
+### Features
+
+* update result information in the QPs (#1591) ([3e99d0c](https://github.com/empathyco/x/commit/3e99d0cdcb25366af2adff977e25d58d45f7421f))
+
+
+
 ## [5.0.0-alpha.78](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.77...@empathyco/x-components@5.0.0-alpha.78) (2024-08-13)
 
 
