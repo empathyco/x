@@ -5,25 +5,25 @@ import { XPlugin } from '../../plugins';
 import { ExtractState } from '../../x-modules/x-modules.types';
 import { useState } from '../use-state';
 import { searchBoxXModule } from '../../x-modules/search-box/x-module';
-import { useStore } from '../use-store';
-
-jest.mock('../use-store');
 
 function render(modulePaths: (keyof ExtractState<'searchBox'> & string)[]) {
-  installNewXPlugin();
-  (useStore as jest.Mock).mockReturnValue(XPlugin.store);
-
   const component = defineComponent({
-    xModule: 'searchBox',
+    xModule: searchBoxXModule.name,
     setup: () => {
-      XPlugin.registerXModule(searchBoxXModule);
       const searchBoxUseState = useState('searchBox', modulePaths);
       return { searchBoxUseState };
     },
     template: `<div/>`
   });
 
-  const wrapper = mount(component);
+  const wrapper = mount(component, {
+    global: {
+      plugins: [installNewXPlugin()],
+      mocks: {
+        $store: {}
+      }
+    }
+  });
 
   return (wrapper as any).vm.searchBoxUseState;
 }
