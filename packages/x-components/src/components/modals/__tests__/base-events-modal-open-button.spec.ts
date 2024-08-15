@@ -1,9 +1,9 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { defineComponent, nextTick } from 'vue';
 import { installNewXPlugin } from '../../../__tests__/utils';
 import { XEvent } from '../../../wiring/events.types';
 import BaseEventsModalOpen from '../base-events-modal-open.vue';
-
+import { XPlugin } from '../../../plugins/index';
 /**
  * Renders the {@link BaseEventsModalOpen} with the provided options.
  *
@@ -11,36 +11,39 @@ import BaseEventsModalOpen from '../base-events-modal-open.vue';
  * @returns An small API to test the component.
  */
 function renderBaseEventsModalOpen({
-  template = '<BaseEventsModalOpen v-bind="$attrs"/>',
+  template = '<BaseEventsModalOpen :openingEvent="openingEvent"/>',
   openingEvent
 }: RenderBaseEventsModalOpenOptions = {}): RenderBaseEventsModalOpenAPI {
-  const [, localVue] = installNewXPlugin();
-  const containerWrapper = mount(
-    {
-      components: {
-        BaseEventsModalOpen
-      },
-      template
+  const containerWrapper = defineComponent({
+    components: {
+      BaseEventsModalOpen
     },
-    { propsData: { openingEvent }, localVue }
-  );
-
-  const wrapper = containerWrapper.findComponent(BaseEventsModalOpen);
+    props: {
+      openingEvent: {
+        type: String
+      }
+    },
+    template
+  });
+  const wrapper = mount(containerWrapper, {
+    global: { plugins: [installNewXPlugin()] },
+    props: { openingEvent }
+  });
 
   return {
-    wrapper,
+    wrapper: wrapper.findComponent(BaseEventsModalOpen),
     async click() {
       wrapper.trigger('click');
-      await localVue.nextTick();
+      await nextTick();
     }
   };
 }
 
 describe('testing Open Button component', () => {
   it('emits UserClickedOpenX by default when clicked', async () => {
-    const { wrapper, click } = renderBaseEventsModalOpen();
+    const { click } = renderBaseEventsModalOpen();
     const listener = jest.fn();
-    wrapper.vm.$x.on('UserClickedOpenEventsModal').subscribe(listener);
+    XPlugin.bus.on('UserClickedOpenEventsModal').subscribe(listener);
 
     await click();
 
@@ -48,11 +51,11 @@ describe('testing Open Button component', () => {
   });
 
   it('emits the defined openingEvent when clicked', async () => {
-    const { wrapper, click } = renderBaseEventsModalOpen({
+    const { click } = renderBaseEventsModalOpen({
       openingEvent: 'UserClickedAFilter'
     });
     const listener = jest.fn();
-    wrapper.vm.$x.on('UserClickedAFilter').subscribe(listener);
+    XPlugin.bus.on('UserClickedAFilter').subscribe(listener);
 
     await click();
 
@@ -61,7 +64,7 @@ describe('testing Open Button component', () => {
 
   it('renders the default slot contents', () => {
     const { wrapper } = renderBaseEventsModalOpen({
-      template: '<BaseEventsModalOpen v-bind="$attrs">Open</BaseEventsModalOpen>'
+      template: '<BaseEventsModalOpen :openingEvent="openingEvent">Open</BaseEventsModalOpen>'
     });
 
     expect(wrapper.text()).toEqual('Open');
@@ -77,7 +80,7 @@ interface RenderBaseEventsModalOpenOptions {
 
 interface RenderBaseEventsModalOpenAPI {
   /** The wrapper for the modal component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** Clicks the button. */
   click: () => Promise<void>;
 }

@@ -1,8 +1,9 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
+import Vue, { nextTick } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import { XEvent } from '../../../wiring/events.types';
 import BaseIdModal from '../base-id-modal.vue';
+import { XPlugin } from '../../../plugins/index';
 
 /**
  * Mounts a {@link BaseIdModal} component with the provided options and offers an API to easily
@@ -16,25 +17,24 @@ function mountBaseIdModal({
   defaultSlot = `<span data-test="default-slot">Modal: ${modalId}</span>`,
   contentClass
 }: MountBaseIdModalOptions = {}): MountBaseIdModalAPI {
-  const [, localVue] = installNewXPlugin();
   const parent = document.createElement('div');
   document.body.appendChild(parent);
 
   const wrapper = mount(BaseIdModal, {
     attachTo: parent,
-    localVue,
-    propsData: { modalId, contentClass },
+    props: { modalId, contentClass },
     slots: {
       default: defaultSlot
-    }
+    },
+    global: { plugins: [installNewXPlugin()] }
   });
 
   return {
     wrapper,
     modalId,
     async emit(event: XEvent) {
-      wrapper.vm.$x.emit(event, modalId);
-      await localVue.nextTick();
+      XPlugin.bus.emit(event, modalId);
+      await nextTick();
     },
     async click(string) {
       await wrapper.get(getDataTestSelector(string))?.trigger('click');
@@ -45,7 +45,7 @@ function mountBaseIdModal({
     async fakeFocusIn() {
       jest.runAllTimers();
       document.body.dispatchEvent(new FocusEvent('focusin'));
-      await localVue.nextTick();
+      await nextTick();
     }
   };
 }
@@ -140,7 +140,7 @@ interface MountBaseIdModalOptions {
 
 interface MountBaseIdModalAPI {
   /** The wrapper for the modal component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** The modal id. */
   modalId: string;
   /** Emits the provided event. */
@@ -150,5 +150,5 @@ interface MountBaseIdModalAPI {
   /** Fakes a focusin event in another HTMLElement of the body. */
   fakeFocusIn: () => Promise<void>;
   /** Retrieves the modal content. */
-  getModalContent: () => Wrapper<Vue>;
+  getModalContent: () => DOMWrapper<Element>;
 }

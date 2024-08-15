@@ -1,8 +1,9 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
+import Vue, { defineComponent } from 'vue';
 import { AnyFunction } from '@empathyco/x-utils';
 import { installNewXPlugin } from '../../../__tests__/utils';
 import OpenMainModal from '../open-main-modal.vue';
+import { XPlugin } from '../../../plugins/index';
 
 /**
  * Renders the {@link OpenMainModal} with the provided options.
@@ -14,22 +15,20 @@ function renderOpenMainModal({
   template = '<OpenMainModal />',
   methods
 }: RenderOpenMainModalOptions = {}): RenderOpenMainModalAPI {
-  const [, localVue] = installNewXPlugin();
-  const containerWrapper = mount(
-    {
-      components: {
-        OpenMainModal
-      },
-      template,
-      methods
+  const containerWrapper = defineComponent({
+    components: {
+      OpenMainModal
     },
-    { localVue }
-  );
+    template,
+    methods
+  });
 
-  const wrapper = containerWrapper.findComponent(OpenMainModal);
+  const wrapper = mount(containerWrapper, {
+    global: { plugins: [installNewXPlugin()] }
+  });
 
   return {
-    wrapper,
+    wrapper: wrapper.findComponent(OpenMainModal),
     async click() {
       await wrapper.trigger('click');
     }
@@ -40,7 +39,7 @@ describe('testing Open Main Modal button component', () => {
   it('emits UserClickedOpenX by default when clicked', async () => {
     const { wrapper, click } = renderOpenMainModal();
     const onUserClickedOpenX = jest.fn();
-    wrapper.vm.$x.on('UserClickedOpenX').subscribe(onUserClickedOpenX);
+    XPlugin.bus.on('UserClickedOpenX').subscribe(onUserClickedOpenX);
 
     await click();
 
@@ -77,7 +76,7 @@ interface RenderOpenMainModalOptions {
 
 interface RenderOpenMainModalAPI {
   /** The wrapper for the modal component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** Clicks the button. */
   click: () => Promise<void>;
 }
