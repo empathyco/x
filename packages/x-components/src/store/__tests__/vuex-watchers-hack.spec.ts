@@ -1,13 +1,6 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Module, Store } from 'vuex';
+import { createStore, Module, Store } from 'vuex';
+import { nextTick } from 'vue';
 
-/**
- * When dynamically registering modules, Vuex re-executes watchers, if the watcher is over a
- * primitive value, it is stopped due to a simple === comparison, but when it is over a complex
- * object or array, the comparison fails, and it emits that the value has changed. Looks like
- * this behavior is intended. Vuex store is reset when registering a new module.
- * {@link https://github.com/vuejs/vuex/issues/524#issuecomment-267715183}.
- */
 interface StoreRootState {
   first: FirstState;
   second: SecondState;
@@ -56,10 +49,8 @@ const secondModule: Module<SecondState, StoreRootState> = {
     count: 0
   }
 };
-
-const localVue = createLocalVue();
-localVue.use(Vuex);
 let store: Store<StoreRootState>;
+store = createStore<StoreRootState>({});
 const watchCallback = jest.fn();
 
 describe('testing Vuex watcher hacks', () => {
@@ -69,7 +60,7 @@ describe('testing Vuex watcher hacks', () => {
 
   describe('vuex watchers standard behavior', () => {
     beforeEach(() => {
-      store = new Store({});
+      store = createStore<StoreRootState>({});
     });
 
     it('does not trigger simple state watchers when registering modules', simpleValuesWatchers);
@@ -86,30 +77,30 @@ describe('testing Vuex watcher hacks', () => {
       doesNotEagerExecuteGettersWatchers
     );
 
-    it('triggers object state watchers when registering modules', async () => {
+    it('does not trigger object state watchers when registering other modules', async () => {
       expect.assertions(1);
       store.registerModule('first', firstModule);
       store.watch(state => state.first.object, watchCallback);
       store.registerModule('second', secondModule);
 
-      await localVue.nextTick();
-      expect(watchCallback).toHaveBeenCalledTimes(1); // But it should not be called
+      await nextTick();
+      expect(watchCallback).toHaveBeenCalledTimes(0);
     });
 
-    it('triggers object getter watchers when registering modules', async () => {
+    it('does not trigger object getter watchers when registering new modules', async () => {
       expect.assertions(1);
       store.registerModule('first', firstModule);
       store.watch((_, getters) => getters['first/objectCopy'], watchCallback);
       store.registerModule('second', secondModule);
 
-      await localVue.nextTick();
-      expect(watchCallback).toHaveBeenCalledTimes(1); // But it should not be called
+      await nextTick();
+      expect(watchCallback).toHaveBeenCalledTimes(0);
     });
   });
 
   describe('vuex watchers hack', () => {
     beforeEach(() => {
-      store = new Store({
+      store = createStore({
         state: {
           first: null as any, // `any` to prevent TS from complaining
           second: null as any
@@ -137,7 +128,7 @@ describe('testing Vuex watcher hacks', () => {
       store.watch(state => state.first.object, watchCallback);
       store.registerModule('second', secondModule);
 
-      await localVue.nextTick();
+      await nextTick();
       expect(watchCallback).not.toHaveBeenCalled();
     });
 
@@ -147,7 +138,7 @@ describe('testing Vuex watcher hacks', () => {
       store.watch((_, getters) => getters['first/objectCopy'], watchCallback);
       store.registerModule('second', secondModule);
 
-      await localVue.nextTick();
+      await nextTick();
       expect(watchCallback).not.toHaveBeenCalled();
     });
   });
@@ -158,7 +149,7 @@ describe('testing Vuex watcher hacks', () => {
     store.watch(state => state.first.flag, watchCallback);
     store.registerModule('second', secondModule);
 
-    await localVue.nextTick();
+    await nextTick();
     expect(watchCallback).not.toHaveBeenCalled();
   }
 
@@ -168,7 +159,7 @@ describe('testing Vuex watcher hacks', () => {
     store.watch((_, getters) => getters['first/notFlag'], watchCallback);
     store.registerModule('second', secondModule);
 
-    await localVue.nextTick();
+    await nextTick();
     expect(watchCallback).not.toHaveBeenCalled();
   }
 
@@ -177,7 +168,7 @@ describe('testing Vuex watcher hacks', () => {
     store.registerModule('first', firstModule);
     store.watch(state => state.first.object, watchCallback);
 
-    await localVue.nextTick();
+    await nextTick();
     expect(watchCallback).not.toHaveBeenCalled();
   }
 
@@ -186,7 +177,7 @@ describe('testing Vuex watcher hacks', () => {
     store.registerModule('first', firstModule);
     store.watch((_, getters) => getters['first/objectCopy'], watchCallback);
 
-    await localVue.nextTick();
+    await nextTick();
     expect(watchCallback).not.toHaveBeenCalled();
   }
 });
