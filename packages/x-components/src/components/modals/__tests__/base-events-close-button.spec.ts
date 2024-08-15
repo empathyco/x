@@ -1,9 +1,9 @@
 import { mount, VueWrapper } from '@vue/test-utils';
+import { defineComponent, nextTick } from 'vue';
 import { installNewXPlugin } from '../../../__tests__/utils';
 import { XEvent } from '../../../wiring/events.types';
 import BaseEventsModalClose from '../base-events-modal-close.vue';
 import { XPlugin } from '../../../plugins/index';
-import { defineComponent, nextTick } from 'vue';
 
 /**
  * Renders the {@link BaseEventsModalClose} with the provided options.
@@ -12,7 +12,7 @@ import { defineComponent, nextTick } from 'vue';
  * @returns An small API to test the component.
  */
 function renderBaseEventsModalClose({
-  template = '<BaseEventsModalClose v-bind="$attrs"/>',
+  template = '<BaseEventsModalClose :closingEvent="closingEvent"/>',
   closingEvent
 }: RenderBaseEventsModalCloseOptions = {}): RenderBaseEventsModalCloseAPI {
   const modalComponent = defineComponent({
@@ -24,7 +24,6 @@ function renderBaseEventsModalClose({
         type: String
       }
     },
-
     template
   });
 
@@ -35,7 +34,7 @@ function renderBaseEventsModalClose({
   return {
     wrapper: wrapper.findComponent(BaseEventsModalClose),
     async click() {
-      wrapper.trigger('click');
+      await wrapper.trigger('click');
       await nextTick();
     }
   };
