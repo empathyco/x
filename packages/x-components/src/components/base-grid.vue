@@ -9,9 +9,8 @@
     data-test="grid"
   >
     <li
-      v-for="({ item, cssClass, slotName }, index) in gridItems"
+      v-for="{ item, cssClass, slotName } in gridItems"
       :key="item.id"
-      :data-index="index"
       :class="cssClass"
       class="x-base-grid__item"
     >
