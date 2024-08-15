@@ -2,7 +2,6 @@
   <TransitionGroup
     @enter="onEnter"
     @afterEnter="onAfterEnter"
-    @leave="onLeave"
     :appear="appear"
     :name="name"
     :tag="tag"
@@ -44,8 +43,6 @@
       /** The duration of the transition in ms. */
       const transitionDuration = 250;
 
-      /** The counter to keep track of the staggered delay. */
-      const staggerCounter = ref(0);
       /** The name of the animation. */
       const { name } = useDisableAnimation('x-staggered-fade-and-slide');
 
@@ -57,43 +54,44 @@
        * @param el - Element inserted.
        * @param done - Callback to indicate the transition end.
        */
-      function onEnter(el: Element, done: () => void) {
-        const elIndex = +((el as HTMLElement).dataset.index ?? 0);
-        const staggerIndex = elIndex - staggerCounter.value;
-        const staggerDelay = staggerIndex * props.stagger;
+      function onEnter(el: HTMLElement, done: () => void) {
+        const elIndex = findAnimationIndex(el);
+        const staggerDelay = elIndex > 0 ? elIndex * props.stagger : 0;
 
-        (el as HTMLElement).style.transitionDelay = `${staggerDelay}ms`;
+        el.style.transitionDelay = `${staggerDelay}ms`;
         setTimeout(done, transitionDuration + staggerDelay);
       }
 
       /**
-       * Listener called when the enter transition has finished.
-       * This resets the `transitionDelay` and add one to the stagger counter.
+       * Finds the index of the element in the parent children subset of new elements entering the DOM.
+       * This is achived by filtering out the elements that are already animated,
+       * which are those marked with the `data-animated` attribute.
        *
-       * @param el - Element inserted.
+       * @param el - Element to find.
+       * @returns The index of the element in the parent children subset of new elements.
        */
-      function onAfterEnter(el: Element) {
-        (el as HTMLElement).style.transitionDelay = '0ms';
-        staggerCounter.value++;
+      function findAnimationIndex(el: HTMLElement) {
+        return [...el.parentElement!.children]
+          .filter(c => (c as HTMLElement).dataset.animated !== 'true')
+          .indexOf(el);
       }
 
       /**
-       * Listener called when the leave transition starts.
-       * This resets the stagger counter to 0 to init the staggered animation.
+       * Listener called when the enter transition has finished.
+       * This resets the `transitionDelay` and add mark the element as animated,
+       * setting the `data-animated` attribute to `true`.
        *
-       * @param _ - Element inserted.
-       * @param done - Callback to indicate the transition end.
+       * @param el - Element inserted.
        */
-      function onLeave(_: Element, done: () => void) {
-        staggerCounter.value = 0;
-        done();
+      function onAfterEnter(el: HTMLElement) {
+        el.style.transitionDelay = '0ms';
+        el.dataset.animated = 'true';
       }
 
       return {
         name,
         onEnter,
-        onAfterEnter,
-        onLeave
+        onAfterEnter
       };
     }
   });
