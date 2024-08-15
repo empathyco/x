@@ -1,13 +1,12 @@
-import { createLocalVue } from '@vue/test-utils';
-import { default as Vue, VueConstructor } from 'vue';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
+import { createStore, Store } from 'vuex';
 import { setQuery } from '../../store/utils/query.utils';
 import { createWireFromFunction } from '../../wiring/wires.factory';
 import { XComponentsAdapterDummy } from '../../__tests__/adapter.dummy';
-import { createXModule } from '../../__tests__/utils';
+import { createXModule, installNewXPlugin } from '../../__tests__/utils';
 import { XPlugin } from '../x-plugin';
 import { XPluginOptions } from '../x-plugin.types';
-import { XDummyBus } from '../../__tests__/bus.dummy';
 
 const wireInstance = jest.fn();
 const usedClearedWireInstance = jest.fn();
@@ -41,8 +40,6 @@ const xModule = createXModule({
   }
 });
 
-let plugin: XPlugin;
-let localVue: VueConstructor<Vue>;
 let store: Store<any>; // Any to handle creation of new properties
 
 describe('testing X Plugin emitters', () => {
@@ -55,11 +52,9 @@ describe('testing X Plugin emitters', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    plugin = new XPlugin(new XDummyBus());
     XPlugin.resetInstance();
-    localVue = createLocalVue();
-    localVue.use(Vuex);
-    store = new Store({});
+    store = createStore({});
+    mount({}, { global: { plugins: [store] } });
   });
 
   describe('install XPlugin overriding store emitters', () => {
@@ -79,13 +74,13 @@ describe('testing X Plugin emitters', () => {
 
     it('overrides before installing plugin', () => {
       XPlugin.registerXModule(xModule);
-      localVue.use(plugin, pluginOptions);
+      mount({}, { global: { plugins: [installNewXPlugin(pluginOptions)] } });
 
       expectModuleToHaveBeenReplaced();
     });
 
     it('overrides after installing plugin', () => {
-      localVue.use(plugin, pluginOptions);
+      mount({}, { global: { plugins: [installNewXPlugin(pluginOptions)] } });
       XPlugin.registerXModule(xModule);
 
       expectModuleToHaveBeenReplaced();
@@ -116,20 +111,29 @@ describe('testing X Plugin emitters', () => {
     const expectedQuery = 'lego';
     beforeEach(() => {
       XPlugin.registerXModule(xModule);
-      localVue.use(plugin, {
-        adapter: XComponentsAdapterDummy,
-        __PRIVATE__xModules: {
-          searchBox: {
-            storeEmitters: {
-              UserClearedQuery: {
-                selector: state => state.query,
-                filter: newValue => newValue === expectedQuery
-              }
-            }
+      mount(
+        {},
+        {
+          global: {
+            plugins: [
+              installNewXPlugin({
+                adapter: XComponentsAdapterDummy,
+                __PRIVATE__xModules: {
+                  searchBox: {
+                    storeEmitters: {
+                      UserClearedQuery: {
+                        selector: state => state.query,
+                        filter: newValue => newValue === expectedQuery
+                      }
+                    }
+                  }
+                },
+                store
+              })
+            ]
           }
-        },
-        store
-      });
+        }
+      );
     });
 
     // eslint-disable-next-line max-len
@@ -175,7 +179,7 @@ describe('testing X Plugin emitters', () => {
       };
 
       XPlugin.registerXModule(xModule);
-      localVue.use(plugin, pluginOptions);
+      mount({}, { global: { plugins: [installNewXPlugin(pluginOptions)] } });
 
       /* Emitters relies on Vue watcher that are async. We need to wait a cycle before testing if
          they have emitted or not. */
@@ -205,7 +209,7 @@ describe('testing X Plugin emitters', () => {
         store
       };
 
-      localVue.use(plugin, pluginOptions);
+      mount({}, { global: { plugins: [installNewXPlugin(pluginOptions)] } });
       XPlugin.registerXModule(xModule);
 
       /* Emitters relies on Vue watcher that are async. We need to wait a cycle before testing if
@@ -246,7 +250,7 @@ describe('testing X Plugin emitters', () => {
       };
 
       XPlugin.registerXModule(xModule);
-      localVue.use(plugin, pluginOptions);
+      mount({}, { global: { plugins: [installNewXPlugin(pluginOptions)] } });
 
       store.commit('x/searchBox/setQuery', 'wheat');
       await waitNextTick();
@@ -289,6 +293,6 @@ describe('testing X Plugin emitters', () => {
  * have been run.
  */
 async function waitNextTick(): Promise<void> {
-  await localVue.nextTick();
+  await nextTick();
   jest.runAllTimers();
 }
