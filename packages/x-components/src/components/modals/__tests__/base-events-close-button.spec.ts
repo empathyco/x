@@ -1,8 +1,9 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { installNewXPlugin } from '../../../__tests__/utils';
 import { XEvent } from '../../../wiring/events.types';
 import BaseEventsModalClose from '../base-events-modal-close.vue';
+import { XPlugin } from '../../../plugins/index';
+import { defineComponent, nextTick } from 'vue';
 
 /**
  * Renders the {@link BaseEventsModalClose} with the provided options.
@@ -14,33 +15,37 @@ function renderBaseEventsModalClose({
   template = '<BaseEventsModalClose v-bind="$attrs"/>',
   closingEvent
 }: RenderBaseEventsModalCloseOptions = {}): RenderBaseEventsModalCloseAPI {
-  const [, localVue] = installNewXPlugin();
-  const containerWrapper = mount(
-    {
-      components: {
-        BaseEventsModalClose
-      },
-      template
+  const modalComponent = defineComponent({
+    components: {
+      BaseEventsModalClose
     },
-    { propsData: { closingEvent }, localVue }
-  );
+    props: {
+      closingEvent: {
+        type: String
+      }
+    },
 
-  const wrapper = containerWrapper.findComponent(BaseEventsModalClose);
+    template
+  });
 
+  const wrapper = mount(modalComponent, {
+    global: { plugins: [installNewXPlugin()] },
+    props: { closingEvent }
+  });
   return {
-    wrapper,
+    wrapper: wrapper.findComponent(BaseEventsModalClose),
     async click() {
       wrapper.trigger('click');
-      await localVue.nextTick();
+      await nextTick();
     }
   };
 }
 
 describe('testing Close Button component', () => {
   it('emits UserClickedCloseEventsModal by default when clicked', async () => {
-    const { wrapper, click } = renderBaseEventsModalClose();
+    const { click } = renderBaseEventsModalClose();
     const listener = jest.fn();
-    wrapper.vm.$x.on('UserClickedCloseEventsModal').subscribe(listener);
+    XPlugin.bus.on('UserClickedCloseEventsModal').subscribe(listener);
 
     await click();
 
@@ -48,11 +53,11 @@ describe('testing Close Button component', () => {
   });
 
   it('emits the defined closingEvent when clicked', async () => {
-    const { wrapper, click } = renderBaseEventsModalClose({
+    const { click } = renderBaseEventsModalClose({
       closingEvent: 'UserClickedAFilter'
     });
     const listener = jest.fn();
-    wrapper.vm.$x.on('UserClickedAFilter').subscribe(listener);
+    XPlugin.bus.on('UserClickedAFilter').subscribe(listener);
 
     await click();
 
@@ -77,7 +82,7 @@ interface RenderBaseEventsModalCloseOptions {
 
 interface RenderBaseEventsModalCloseAPI {
   /** The wrapper for the modal component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** Clicks the button. */
   click: () => Promise<void>;
 }
