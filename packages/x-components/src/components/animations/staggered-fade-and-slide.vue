@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
+  import { defineComponent } from 'vue';
   import { useDisableAnimation } from './use-disable-animation';
 
   /**
