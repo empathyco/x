@@ -1,6 +1,6 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { createStore, Store } from 'vuex';
 import { EventPayload, SubjectPayload, XBus } from '@empathyco/x-bus';
 import { Observable } from 'rxjs';
 import { RootXStoreState } from '../../store/index';
@@ -19,16 +19,15 @@ export function createWire<SomeEvent extends XEvent = 'UserIsTypingAQuery'>({
   event = 'UserIsTypingAQuery' as SomeEvent,
   state
 }: CreateWireOptions<SomeEvent> = {}): CreateWireAPI<XEventPayload<SomeEvent>> {
-  const vue = createLocalVue();
-  vue.use(Vuex);
+  const store = createStore({
+    state: { x: state }
+  }) as Store<RootXStoreState>;
+  mount({}, { global: { plugins: [store] } });
   const bus = new XDummyBus();
   const callback = jest.fn();
   const wire = createWireFromFunction<XEventPayload<SomeEvent>>(({ eventPayload }) => {
     callback(eventPayload);
   });
-  const store = new Store<DeepPartial<RootXStoreState>>({
-    state: { x: state }
-  }) as Store<RootXStoreState>;
 
   return {
     store,
