@@ -1,9 +1,8 @@
 <template>
   <component :is="animation" v-if="hasFacets" class="x-facets-list" data-test="facets" tag="ul">
     <li
-      v-for="({ facet, slotNameById, slotNameByModelName }, facetId, index) in mappedFacets"
+      v-for="({ facet, slotNameById, slotNameByModelName }, facetId) in mappedFacets"
       :key="facetId"
-      :data-index="index"
       class="x-facets-list__item"
       data-test="facets-facet"
     >

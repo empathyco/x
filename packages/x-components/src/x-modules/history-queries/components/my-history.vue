@@ -1,9 +1,8 @@
 <template>
   <component :is="animation" v-if="hasHistoryQueries" class="x-my-history" tag="ul">
     <li
-      v-for="(historyQueries, date, index) in groupByDate"
+      v-for="(historyQueries, date) in groupByDate"
       :key="date"
-      :data-index="index"
       class="x-my-history-item"
       data-test="my-history-item"
     >

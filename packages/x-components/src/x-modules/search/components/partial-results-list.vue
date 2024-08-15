@@ -9,7 +9,6 @@
     <li
       v-for="(partialResult, index) in partialResults"
       :key="`${partialResult.query}-${index}`"
-      :data-index="index"
       class="x-partial-result"
       data-test="partial-result"
     >

@@ -8,9 +8,8 @@
     data-test="base-filters"
   >
     <li
-      v-for="(filter, index) in renderedFilters"
+      v-for="filter in renderedFilters"
       :key="filter.id"
-      :data-index="index"
       class="x-filters__item"
       data-test="base-filters-item"
     >

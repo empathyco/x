@@ -145,9 +145,9 @@ or the `stagger` props:
 
 ```vue
 <StaggeredFadeAndSlide tag="ul" :stagger="50">
-  <li key="1" data-index="0">Element to animate</li>
-  <li key="2" data-index="1">Element to animate</li>
-  <li key="3" data-index="2">Element to animate</li>
+  <li key="1">Element to animate</li>
+  <li key="2">Element to animate</li>
+  <li key="3">Element to animate</li>
 </StaggeredFadeAndSlide>
 ```
 </docs>
