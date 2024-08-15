@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { nextTick } from 'vue';
+import { defineComponent, nextTick } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import { XPlugin } from '../../../plugins/x-plugin';
 import BaseColumnPickerDropdown from '../base-column-picker-dropdown.vue';
@@ -20,21 +20,26 @@ function render({
       </template>
     </BaseColumnPickerDropdown>`
 }: { selectedColumns?: number; columns?: number[]; template?: string } = {}) {
-  const [, localVue] = installNewXPlugin();
-
   const mountComponent = (options: { selectedColumns?: number } = {}) =>
     mount(
-      {
-        components: { BaseColumnPickerDropdown },
+      defineComponent({
+        components: {
+          BaseColumnPickerDropdown
+        },
         template,
         data: () => ({
           columns,
           selectedColumns: options.selectedColumns ?? selectedColumns
-        })
-      },
+        }),
+        props: {
+          columns: {
+            type: Array<number>
+          }
+        }
+      }),
       {
-        propsData: { columns },
-        localVue
+        global: { plugins: [installNewXPlugin()] },
+        props: { columns }
       }
     );
 
@@ -53,12 +58,12 @@ function render({
     },
     toggleDropdown,
     setWrapperSelectedColumns: async (column: number) => {
-      await wrapper.setData({ selectedColumns: column });
+      wrapper.vm.selectedColumns = column;
       await nextTick();
     },
     clickNthItem: async (nth: number) => {
       await toggleDropdown();
-      await wrapper.findAll(getDataTestSelector('dropdown-item')).at(nth).trigger('click');
+      await wrapper.findAll(getDataTestSelector('dropdown-item')).at(nth)?.trigger('click');
       await nextTick();
     }
   } as const;
@@ -163,9 +168,9 @@ describe('testing BaseColumnPickerDropdown component', () => {
 
     const itemWrapperArray = wrapper.findAll(getDataTestSelector('dropdown-item'));
 
-    expect(itemWrapperArray.at(0).text()).toEqual('🟢 ✅ 2');
-    expect(itemWrapperArray.at(1).text()).toEqual('4');
-    expect(itemWrapperArray.at(2).text()).toEqual('6');
+    expect(itemWrapperArray.at(0)?.text()).toEqual('🟢✅2');
+    expect(itemWrapperArray.at(1)?.text()).toEqual('4');
+    expect(itemWrapperArray.at(2)?.text()).toEqual('6');
   });
 
   it('renders the item slot as toggle when its slot is not defined', () => {
