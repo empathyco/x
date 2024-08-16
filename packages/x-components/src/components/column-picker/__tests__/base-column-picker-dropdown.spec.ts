@@ -1,17 +1,19 @@
-import { mount } from '@vue/test-utils';
-import { defineComponent, nextTick } from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import { XPlugin } from '../../../plugins/x-plugin';
 import BaseColumnPickerDropdown from '../base-column-picker-dropdown.vue';
+import { XDummyBus } from '../../../__tests__/bus.dummy';
+const bus = new XDummyBus();
 
 function render({
   selectedColumns,
   columns = [2, 4, 6],
   template = `
     <BaseColumnPickerDropdown
+      @update:modelValue="col => selectedColumns = col"
       :columns="columns"
       :modelValue="selectedColumns"
-      @update:modelValue="col => selectedColumns = col"
     >
       <template #item="{ item, isSelected, isHighlighted }">
         <span v-if="isHighlighted">🟢</span>
@@ -20,31 +22,28 @@ function render({
       </template>
     </BaseColumnPickerDropdown>`
 }: { selectedColumns?: number; columns?: number[]; template?: string } = {}) {
-  const mountComponent = (options: { selectedColumns?: number } = {}) =>
-    mount(
-      defineComponent({
+  const mountComponent = (options: { selectedColumns?: number } = {}): VueWrapper => {
+    return mount(
+      {
         components: {
           BaseColumnPickerDropdown
         },
-        template,
-        data: () => ({
-          columns,
-          selectedColumns: options.selectedColumns ?? selectedColumns
-        }),
-        props: {
-          columns: {
-            type: Array<number>
-          }
-        }
-      }),
+        data() {
+          return {
+            columns,
+            selectedColumns: options.selectedColumns ?? selectedColumns
+          };
+        },
+        template
+      },
       {
-        global: { plugins: [installNewXPlugin()] },
-        props: { columns }
+        global: { plugins: [installNewXPlugin({}, bus)] }
       }
     );
+  };
 
   const columnPickerDropdownWrapper = mountComponent();
-  const wrapper = columnPickerDropdownWrapper.findComponent(BaseColumnPickerDropdown);
+  const wrapper: VueWrapper = columnPickerDropdownWrapper.findComponent(BaseColumnPickerDropdown);
   const toggleWrapper = wrapper.find(getDataTestSelector('dropdown-toggle'));
   const toggleDropdown = async () => await toggleWrapper.trigger('click');
 
@@ -58,7 +57,7 @@ function render({
     },
     toggleDropdown,
     setWrapperSelectedColumns: async (column: number) => {
-      wrapper.vm.selectedColumns = column;
+      await columnPickerDropdownWrapper.setData({ selectedColumns: column });
       await nextTick();
     },
     clickNthItem: async (nth: number) => {
