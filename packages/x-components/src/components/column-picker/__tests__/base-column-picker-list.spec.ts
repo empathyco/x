@@ -1,9 +1,10 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue, { nextTick } from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import { XPlugin } from '../../../plugins/x-plugin';
 import BaseColumnPickerList from '../base-column-picker-list.vue';
-
+import { XDummyBus } from '../../../__tests__/bus.dummy';
+let bus = new XDummyBus();
 function render({
   selectedColumns,
   columns,
@@ -22,8 +23,6 @@ function render({
       ${customItemSlot ?? ''}
    </BaseColumnPickerList>`
 }: BaseColumnPickerListRenderOptions = {}) {
-  const [, localVue] = installNewXPlugin();
-
   function mountComponent(options: { selectedColumns?: number } = {}) {
     return mount(
       {
@@ -36,8 +35,8 @@ function render({
         })
       },
       {
-        propsData: { columns, buttonClass },
-        localVue
+        props: { columns, buttonClass },
+        global: { plugins: [installNewXPlugin({}, bus)] }
       }
     );
   }
@@ -57,7 +56,7 @@ function render({
       await nextTick();
     },
     clickNthItem: async (nth: number) => {
-      await wrapper.findAll(getDataTestSelector('column-picker-button')).at(nth).trigger('click');
+      await wrapper.findAll(getDataTestSelector('column-picker-button')).at(nth)?.trigger('click');
       await nextTick();
     },
     getSelectedItem: () => wrapper.find('[aria-pressed=true]')
@@ -65,6 +64,9 @@ function render({
 }
 
 describe('testing BaseColumnPickerList component', () => {
+  beforeEach(() => {
+    bus = new XDummyBus();
+  });
   it('emits ColumnsNumberProvided event with the column number on init', () => {
     render({ columns: [1, 3, 6] });
 
@@ -100,7 +102,7 @@ describe('testing BaseColumnPickerList component', () => {
       eventPayload: columns[index],
       metadata: {
         moduleName: null, // no module registered for this base component
-        target: wrapper.findAll(getDataTestSelector('column-picker-button')).at(index).element,
+        target: wrapper.findAll(getDataTestSelector('column-picker-button')).at(index)?.element,
         location: 'none',
         replaceable: true
       }
@@ -114,7 +116,7 @@ describe('testing BaseColumnPickerList component', () => {
       eventPayload: columns[index],
       metadata: {
         moduleName: null, // no module registered for this base component
-        target: wrapper.findAll(getDataTestSelector('column-picker-button')).at(index).element,
+        target: wrapper.findAll(getDataTestSelector('column-picker-button')).at(index)?.element,
         location: 'none',
         replaceable: true
       }
@@ -127,7 +129,7 @@ describe('testing BaseColumnPickerList component', () => {
     const columnPickerListWrapper = wrapper.findAll(getDataTestSelector('column-picker-button'));
 
     columns.forEach((column, index) => {
-      expect(columnPickerListWrapper.at(index).classes()).toContain(
+      expect(columnPickerListWrapper.at(index)?.classes()).toContain(
         `x-column-picker-list__button--${column}-cols`
       );
     });
@@ -144,7 +146,7 @@ describe('testing BaseColumnPickerList component', () => {
 
     expect(columnsSlots).toHaveLength(columns.length);
     columns.forEach((column, index) => {
-      expect(columnsSlots.at(index).text()).toEqual(column.toString());
+      expect(columnsSlots.at(index)?.text()).toEqual(column.toString());
     });
   });
 
@@ -173,7 +175,7 @@ describe('testing BaseColumnPickerList component', () => {
   });
 
   it('updates selected value on fresh mounts correctly', async () => {
-    const getSelectedItem = (wrapper: Wrapper<Vue>): string =>
+    const getSelectedItem = (wrapper: VueWrapper): string =>
       wrapper.get('[aria-pressed=true]').text();
     const { wrapper, mountComponent, clickNthItem, setWrapperSelectedColumns } = render({
       columns: [4, 6, 0]
@@ -210,7 +212,7 @@ describe('testing BaseColumnPickerList component', () => {
       buttonClass: 'custom-class'
     });
 
-    wrapper.findAll('button').wrappers.forEach(button => {
+    wrapper.findAll('button').forEach(button => {
       expect(button.classes()).toContain('custom-class');
     });
   });
