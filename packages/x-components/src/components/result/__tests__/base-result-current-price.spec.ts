@@ -1,6 +1,5 @@
 import { Result } from '@empathyco/x-types';
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue, { ComponentOptions } from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseCurrency from '../../currency/base-currency.vue';
 import BaseResultCurrentPrice from '../base-result-current-price.vue';
@@ -19,7 +18,7 @@ function renderBaseCurrentPrice({
   template = `<BaseResultCurrentPrice :result="result" :format="format" />`,
   result = mockedResult
 }: RenderBaseCurrentPriceOptions = {}): RenderBaseCurrentPriceAPI {
-  const wrapperComponent: ComponentOptions<Vue> = {
+  const wrapperComponent = {
     template,
     components: {
       BaseResultCurrentPrice
@@ -110,5 +109,5 @@ interface RenderBaseCurrentPriceOptions {
 
 interface RenderBaseCurrentPriceAPI {
   /** The Vue testing utils wrapper for the {@link BaseResultCurrentPrice}. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
 }

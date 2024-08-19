@@ -1,8 +1,8 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue, { defineComponent, provide, ref } from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { defineComponent, provide, ref } from 'vue';
 import BaseCurrency from '../base-currency.vue';
 
-function renderBaseCurrency({ value, format }: RenderBaseCurrencyOptions): Wrapper<Vue> {
+function renderBaseCurrency({ value, format }: RenderBaseCurrencyOptions): VueWrapper {
   return mount(
     {
       components: { BaseCurrency },
@@ -10,7 +10,7 @@ function renderBaseCurrency({ value, format }: RenderBaseCurrencyOptions): Wrapp
       props: ['value', 'format']
     },
     {
-      propsData: {
+      props: {
         value,
         format
       }
@@ -18,7 +18,7 @@ function renderBaseCurrency({ value, format }: RenderBaseCurrencyOptions): Wrapp
   );
 }
 
-function renderInjectedBaseCurrency({ value, format }: RenderBaseCurrencyOptions): Wrapper<Vue> {
+function renderInjectedBaseCurrency({ value, format }: RenderBaseCurrencyOptions): VueWrapper {
   const Provider = defineComponent({
     setup() {
       const providedFormat = ref('$i,iii.ddd');

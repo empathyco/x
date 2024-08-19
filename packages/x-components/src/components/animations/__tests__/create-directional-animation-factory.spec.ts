@@ -1,5 +1,4 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { DOMWrapper, mount } from '@vue/test-utils';
 import { getDataTestSelector } from '../../../__tests__/utils';
 import { createDirectionalAnimationFactory } from '../create-directional-animation-factory';
 
@@ -26,7 +25,7 @@ describe('testing animation abstract factory', () => {
       open(): void | Promise<void> {
         return wrapper.setProps({ open: true });
       },
-      getContentWrapper(): Wrapper<Vue> {
+      getContentWrapper(): DOMWrapper<Element> {
         return wrapper.find(getDataTestSelector('animation-content'));
       }
     };
@@ -43,5 +42,5 @@ describe('testing animation abstract factory', () => {
 
 interface RenderApi {
   open: () => void | Promise<void>;
-  getContentWrapper: () => Wrapper<Vue>;
+  getContentWrapper: () => DOMWrapper<Element>;
 }

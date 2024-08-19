@@ -1,5 +1,4 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { Result } from '@empathyco/x-types';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
@@ -14,11 +13,9 @@ describe('testing BaseResultLink component', () => {
   const result = createResultStub('Product 001', {
     images: ['https://picsum.photos/seed/1/200/300', 'https://picsum.photos/seed/2/200/300']
   });
-  let localVue: typeof Vue;
-  let resultLinkWrapper: Wrapper<Vue>;
+  let resultLinkWrapper: VueWrapper;
   const template = '<BaseResultLink :result="result"/>';
   beforeEach(() => {
-    [, localVue] = installNewXPlugin();
     resultLinkWrapper = mount(
       {
         components: { BaseResultLink },
@@ -26,8 +23,8 @@ describe('testing BaseResultLink component', () => {
         template
       },
       {
-        localVue,
-        propsData: { result }
+        global: { plugins: [installNewXPlugin()] },
+        props: { result }
       }
     );
   });
@@ -61,8 +58,7 @@ describe('testing BaseResultLink component', () => {
           resultClickExtraEvents: <XEvent[]>['UserClickedResultAddToCart'],
           location: <FeatureLocation>'no_query'
         },
-        localVue,
-        propsData: { result }
+        props: { result }
       }
     );
 
@@ -105,8 +101,8 @@ describe('testing BaseResultLink component', () => {
           resultClickExtraEvents: <XEvent[]>['UserClickedResultAddToCart'],
           resultLinkMetadataPerEvent: injectedResultLinkMetadataPerEvent
         },
-        localVue,
-        propsData: { result }
+
+        props: { result }
       }
     );
 
@@ -162,8 +158,7 @@ describe('testing BaseResultLink component', () => {
     };
 
     const customResultLinkWrapper = mount(wrapperComponent, {
-      localVue,
-      propsData: { result }
+      props: { result }
     });
     expect(customResultLinkWrapper.find(getDataTestSelector('result-link')).element).toBeDefined();
     expect(

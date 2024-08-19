@@ -1,8 +1,8 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseIdModalClose from '../base-id-modal-close.vue';
 import { XPlugin } from '../../../plugins/index';
+import { defineComponent } from 'vue';
 
 /**
  * Renders the {@link BaseIdModalClose} with the provided options.
@@ -12,25 +12,28 @@ import { XPlugin } from '../../../plugins/index';
  */
 function renderBaseIdModalClose({
   id = 'random',
-  template = `<BaseIdModalClose modalId="${id}" v-bind="$attrs"/>`
+  template = `<BaseIdModalClose modalId="${id}" :modalId="modalId"/>`
 }: RenderBaseIdModalCloseOptions = {}): RenderBaseIdModalCloseAPI {
-  const [, localVue] = installNewXPlugin();
-  const containerWrapper = mount(
-    {
-      components: {
-        BaseIdModalClose
-      },
-      template
+  const containerWrapper = defineComponent({
+    components: {
+      BaseIdModalClose
     },
-    { propsData: { modalId: id }, localVue }
-  );
+    props: {
+      modalId: {
+        type: String
+      }
+    },
+    template
+  });
 
-  const wrapper = containerWrapper.findComponent(BaseIdModalClose);
-  const modalId = wrapper.props('modalId');
+  const wrapper = mount(containerWrapper, {
+    global: { plugins: [installNewXPlugin()] },
+    props: { modalId: id }
+  });
 
   return {
-    wrapper,
-    modalId,
+    wrapper: wrapper.findComponent(BaseIdModalClose),
+    modalId: id,
     async click() {
       await wrapper.trigger('click');
     }
@@ -51,7 +54,7 @@ describe('testing Close Button component', () => {
 
   it('renders the default slot contents', () => {
     const { wrapper } = renderBaseIdModalClose({
-      template: '<BaseIdModalClose modalId="modal" v-bind="$attrs">Close</BaseIdModalClose>'
+      template: '<BaseIdModalClose modalId="modal" >Close</BaseIdModalClose>'
     });
 
     expect(wrapper.text()).toEqual('Close');
@@ -60,7 +63,7 @@ describe('testing Close Button component', () => {
   // eslint-disable-next-line max-len
   it('renders custom content replacing the default exposing the function that closes the modal', async () => {
     const { wrapper, click, modalId } = renderBaseIdModalClose({
-      template: `<BaseIdModalClose modalId="modal" v-bind="$attrs">
+      template: `<BaseIdModalClose :modalId="modalId">
                     <template #closing-element="{ closeModal }">
                       <div>
                         Close <span data-test="custom-close-modal" @click="closeModal">HERE</span>
@@ -92,7 +95,7 @@ interface RenderBaseIdModalCloseOptions {
 
 interface RenderBaseIdModalCloseAPI {
   /** The wrapper for the modal component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** The modal id. */
   modalId: string;
   /** Clicks the button. */

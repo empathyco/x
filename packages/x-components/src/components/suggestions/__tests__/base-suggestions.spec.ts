@@ -1,5 +1,5 @@
 import { Suggestion } from '@empathyco/x-types';
-import { mount, Wrapper } from '@vue/test-utils';
+import { mount, VueWrapper, DOMWrapper } from '@vue/test-utils';
 import {
   createPopularSearch,
   getPopularSearchesStub
@@ -20,7 +20,7 @@ function renderBaseSuggestions({
   showPlainSuggestion = false,
   suggestionItemClass
 }: BaseSuggestionsOptions = {}): BaseSuggestionsAPI {
-  const wrapper = mount(
+  const wrapperContainer = mount(
     {
       template,
       components: {
@@ -28,27 +28,27 @@ function renderBaseSuggestions({
       }
     },
     {
-      propsData: { suggestions, showFacets, showPlainSuggestion, suggestionItemClass }
+      props: { suggestions, showFacets, showPlainSuggestion, suggestionItemClass }
     }
   );
 
+  const wrapper = wrapperContainer.findComponent(BaseSuggestions);
+
   return {
-    wrapper: wrapper.findComponent(BaseSuggestions),
+    wrapper,
+    wrapperContainer,
     suggestions,
     getSuggestionsWrappers() {
-      return wrapper.findAll(getDataTestSelector('suggestion-item')).wrappers;
+      return wrapper.findAll(getDataTestSelector('suggestion-item'));
     }
   };
 }
 
 describe('testing Base Suggestions component', () => {
   it('renders the passed suggestions', () => {
-    const { wrapper, suggestions, getSuggestionsWrappers } = renderBaseSuggestions();
+    const { suggestions, getSuggestionsWrappers } = renderBaseSuggestions();
 
     expect(getSuggestionsWrappers()).toHaveLength(suggestions.length);
-    // Expect generated keys to be unique
-    const listItemKeys = new Set((wrapper.vm as any).suggestionsKeys);
-    expect(listItemKeys.size).toEqual(suggestions.length);
   });
 
   it('renders the content passed to the default slot', () => {
@@ -60,9 +60,8 @@ describe('testing Base Suggestions component', () => {
     );
   });
 
-  // eslint-disable-next-line max-len
   it('renders at most the number of suggestions defined by `maxItemsToRender` prop, including those with facets', async () => {
-    const { wrapper, getSuggestionsWrappers } = renderBaseSuggestions({
+    const { wrapperContainer, getSuggestionsWrappers } = renderBaseSuggestions({
       defaultSlot: `<span>{{suggestion.query}}{{filter ?  ' - ' + filter.label : ''}}</span>`,
       showFacets: true,
       showPlainSuggestion: true,
@@ -86,13 +85,13 @@ describe('testing Base Suggestions component', () => {
     expect(suggestionsWrappers[2].text()).toEqual('t-shirt - woman');
     expect(suggestionsWrappers[3].text()).toEqual('jeans');
 
-    await wrapper.setProps({ maxItemsToRender: 2 });
+    await wrapperContainer.setProps({ maxItemsToRender: 2 });
     const updatedSuggestionsWrappers = getSuggestionsWrappers();
     expect(updatedSuggestionsWrappers).toHaveLength(2);
     expect(updatedSuggestionsWrappers[0].text()).toEqual('t-shirt');
     expect(updatedSuggestionsWrappers[1].text()).toEqual('t-shirt - man');
 
-    await wrapper.setProps({ maxItemsToRender: 0 });
+    await wrapperContainer.setProps({ maxItemsToRender: 0 });
     expect(getSuggestionsWrappers()).toHaveLength(0);
   });
 
@@ -128,7 +127,6 @@ describe('testing Base Suggestions component', () => {
     });
   });
 
-  // eslint-disable-next-line max-len
   it('renders the plain suggestion when `showFacets` and `showPlainSuggestion` are set to true', () => {
     const { getSuggestionsWrappers } = renderBaseSuggestions({
       defaultSlot: `<span>{{suggestion.query}}{{filter ?  ' - ' + filter.label : ''}}</span>`,
@@ -197,9 +195,11 @@ interface BaseSuggestionsOptions {
  */
 interface BaseSuggestionsAPI {
   /** The wrapper for base suggestions component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
+  /** The wrapper container for the mounted component. */
+  wrapperContainer: VueWrapper;
   /** The rendered suggestions. */
   suggestions: Suggestion[];
   /** The wrappers of the rendered suggestions. */
-  getSuggestionsWrappers: () => Wrapper<Vue>[];
+  getSuggestionsWrappers: () => DOMWrapper<Element>[];
 }

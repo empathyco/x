@@ -1,7 +1,9 @@
-import { mount, Wrapper } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import { XEvent } from '../../../wiring/events.types';
 import BaseScroll from '../base-scroll.vue';
+import { nextTick } from 'vue';
+import { XPlugin } from '../../../plugins/index';
 
 /**
  * {@link HTMLElement} `scrollTo` is not implemented in JSDOM. This function sets the `scrollTop`
@@ -22,8 +24,6 @@ async function renderBaseScroll({
   resetOnChange,
   resetOn
 }: RenderBaseScrollOptions = {}): Promise<RenderBaseScrollAPI> {
-  const [, localVue] = installNewXPlugin();
-
   const wrapperContainer = mount(
     {
       components: {
@@ -33,24 +33,23 @@ async function renderBaseScroll({
       inheritAttrs: false
     },
     {
-      propsData: {
+      global: { plugins: [installNewXPlugin()] },
+      props: {
         throttleMs,
         distanceToBottom,
         resetOnChange,
         resetOn
-      },
-      localVue
+      }
     }
   );
 
   const wrapper = wrapperContainer.findComponent(BaseScroll);
-  const scrollElement: HTMLElement = wrapperContainer.find(
-    getDataTestSelector('base-scroll')
-  ).element;
+  const scrollElement: HTMLElement = wrapperContainer.find(getDataTestSelector('base-scroll'))
+    .element as HTMLElement;
   jest.spyOn(scrollElement, 'clientHeight', 'get').mockImplementation(() => clientHeight);
   jest.spyOn(scrollElement, 'scrollHeight', 'get').mockImplementation(() => scrollHeight);
 
-  await localVue.nextTick();
+  await nextTick();
 
   return {
     wrapper,
@@ -58,7 +57,7 @@ async function renderBaseScroll({
       scrollElement.scrollTop = to;
       wrapper.trigger('scroll');
       jest.advanceTimersByTime(durationMs);
-      await localVue.nextTick();
+      await nextTick();
     }
   };
 }
@@ -207,7 +206,7 @@ describe('testing Base Scroll Component', () => {
     });
     expect(wrapper.element.scrollTop).toEqual(300);
 
-    wrapper.vm.$x.emit('UserAcceptedAQuery', 'milk');
+    XPlugin.bus.emit('UserAcceptedAQuery', 'milk');
     await wrapper.vm.$nextTick();
     expect(wrapper.element.scrollTop).toEqual(0);
   });
@@ -224,7 +223,7 @@ describe('testing Base Scroll Component', () => {
     });
     expect(wrapper.element.scrollTop).toEqual(300);
 
-    wrapper.vm.$x.emit('UserAcceptedAQuery', 'milk');
+    XPlugin.bus.emit('UserAcceptedAQuery', 'milk');
     await wrapper.vm.$nextTick();
     expect(wrapper.element.scrollTop).toEqual(300);
   });
@@ -250,7 +249,7 @@ interface RenderBaseScrollOptions {
 
 interface RenderBaseScrollAPI {
   /** The wrapper for the base scroll component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** Function that launch the trigger scroll. */
   scroll: (options: { to: number; durationMs: number }) => Promise<void>;
 }

@@ -1,7 +1,7 @@
 import { Dictionary } from '@empathyco/x-utils';
-import { createLocalVue, shallowMount, Wrapper } from '@vue/test-utils';
-import { default as Vue, VueConstructor } from 'vue';
-import Vuex, { Store } from 'vuex';
+import { mount, shallowMount } from '@vue/test-utils';
+import { createStore, Store } from 'vuex';
+import { nextTick } from 'vue';
 import { createStoreEmitters, XStoreModule } from '../../store';
 import { createWireFromFunction, wireCommit } from '../../wiring/wires.factory';
 import { AnyWire } from '../../wiring/wiring.types';
@@ -73,44 +73,57 @@ const xModule: AnyXModule = {
   }
 };
 
-let localVue: VueConstructor;
 let store: Store<any>; // Any to handle creation of new properties
 
 describe('testing X Plugin', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     XPlugin.resetInstance();
-    localVue = createLocalVue();
-    localVue.use(Vuex);
-    store = new Store({});
+    store = createStore({});
+    mount({}, { global: { plugins: [store] } });
   });
 
   describe('install XPlugin without overriding options', () => {
     it('throws an error if no options are passed', () => {
       const plugin = new XPlugin(new XDummyBus());
-      expect(() => localVue.use(plugin)).toThrow();
+      expect(() => mount({}, { global: { plugins: [plugin] } })).toThrow();
     });
 
     it('allows registering a x-module before installing', () => {
       XPlugin.registerXModule(xModule);
       expectDefaultModuleToBeNotRegistered();
 
-      installNewXPlugin({ store, adapter: XComponentsAdapterDummy });
+      mount(
+        {},
+        { global: { plugins: [installNewXPlugin({ store, adapter: XComponentsAdapterDummy })] } }
+      );
       expectDefaultModuleToBeRegisteredOnce();
     });
 
     it('allows registering a initial x-module when installing', () => {
-      installNewXPlugin({
-        store,
-        adapter: XComponentsAdapterDummy,
-        initialXModules: [xModule]
-      });
+      mount(
+        {},
+        {
+          global: {
+            plugins: [
+              installNewXPlugin({
+                store,
+                adapter: XComponentsAdapterDummy,
+                initialXModules: [xModule]
+              })
+            ]
+          }
+        }
+      );
 
       expectDefaultModuleToBeRegisteredOnce();
     });
 
     it('allows registering a x-module after installing', () => {
-      installNewXPlugin({ store, adapter: XComponentsAdapterDummy });
+      mount(
+        {},
+        { global: { plugins: [installNewXPlugin({ store, adapter: XComponentsAdapterDummy })] } }
+      );
       XPlugin.registerXModule(xModule);
 
       expectDefaultModuleToBeRegisteredOnce();
@@ -118,7 +131,10 @@ describe('testing X Plugin', () => {
 
     it('does not re-register a module', () => {
       XPlugin.registerXModule(xModule);
-      installNewXPlugin({ store, adapter: XComponentsAdapterDummy });
+      mount(
+        {},
+        { global: { plugins: [installNewXPlugin({ store, adapter: XComponentsAdapterDummy })] } }
+      );
       XPlugin.registerXModule(xModule);
 
       expectDefaultModuleToBeRegisteredOnce();
@@ -256,12 +272,21 @@ describe('testing X Plugin', () => {
     describe('override before installing plugin', () => {
       beforeEach(() => {
         XPlugin.registerXModule(xModule);
-        installNewXPlugin({
-          __PRIVATE__xModules: privateXModulesOptions,
-          xModules: xModulesOptions,
-          store,
-          adapter: XComponentsAdapterDummy
-        });
+        mount(
+          {},
+          {
+            global: {
+              plugins: [
+                installNewXPlugin({
+                  __PRIVATE__xModules: privateXModulesOptions,
+                  xModules: xModulesOptions,
+                  store,
+                  adapter: XComponentsAdapterDummy
+                })
+              ]
+            }
+          }
+        );
       });
 
       it('overrides state', () => expectStoreStateToBeModified());
@@ -272,12 +297,22 @@ describe('testing X Plugin', () => {
 
     describe('override after installing plugin', () => {
       beforeEach(() => {
-        installNewXPlugin({
-          __PRIVATE__xModules: privateXModulesOptions,
-          xModules: xModulesOptions,
-          store,
-          adapter: XComponentsAdapterDummy
-        });
+        mount(
+          {},
+          {
+            global: {
+              plugins: [
+                installNewXPlugin({
+                  __PRIVATE__xModules: privateXModulesOptions,
+                  xModules: xModulesOptions,
+                  store,
+                  adapter: XComponentsAdapterDummy
+                })
+              ]
+            }
+          }
+        );
+
         XPlugin.registerXModule(xModule);
       });
 
@@ -299,7 +334,16 @@ describe('testing X Plugin', () => {
           mutations: {}
         }
       };
-      installNewXPlugin({ store, adapter: XComponentsAdapterDummy });
+
+      mount(
+        {},
+        {
+          global: {
+            plugins: [installNewXPlugin({ store, adapter: XComponentsAdapterDummy })]
+          }
+        }
+      );
+
       XPlugin.registerXModule(xModuleWithoutConfig);
 
       expect(store.state.x.searchBox.config).not.toBeDefined();
@@ -329,12 +373,26 @@ describe('testing X Plugin', () => {
 
     it('overrides before installing plugin', () => {
       XPlugin.registerXModule(xModule);
-      installNewXPlugin(pluginOptions);
+      mount(
+        {},
+        {
+          global: {
+            plugins: [installNewXPlugin(pluginOptions)]
+          }
+        }
+      );
 
       expectModuleToHaveBeenReplaced();
     });
     it('overrides after installing plugin', () => {
-      installNewXPlugin(pluginOptions);
+      mount(
+        {},
+        {
+          global: {
+            plugins: [installNewXPlugin(pluginOptions)]
+          }
+        }
+      );
       XPlugin.registerXModule(xModule);
 
       expectModuleToHaveBeenReplaced();
@@ -350,7 +408,6 @@ describe('testing X Plugin', () => {
   });
 
   describe('x-Modules system', () => {
-    let component: Wrapper<Vue>;
     const searchBoxQueryChangedSubscriber = jest.fn();
     const storeModule: XStoreModule<
       { query: string },
@@ -396,22 +453,21 @@ describe('testing X Plugin', () => {
         wiring,
         storeEmitters
       });
-      installNewXPlugin({ store, adapter: XComponentsAdapterDummy }, localVue);
-      component = shallowMount(
+      shallowMount(
+        {},
         {
-          render(h) {
-            return h();
+          global: {
+            plugins: [installNewXPlugin({ store, adapter: XComponentsAdapterDummy })]
           }
-        },
-        { store, localVue }
+        }
       );
     });
 
     it('store-emitters emit a changed event when the observed store state changes', async () => {
-      component.vm.$x.emit('UserIsTypingAQuery', 'New York strip steak');
+      XPlugin.bus.emit('UserIsTypingAQuery', 'New York strip steak');
 
-      await localVue.nextTick(); // Needed so Vue has updated the reactive dependencies.
-      jest.runAllTimers(); // Needed for the debounce of the emitters.
+      await nextTick(); // Needed so Vue has updated the reactive dependencies.
+      jest.runAllTimers(); // Needed for debounce of the emitters.
 
       expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledTimes(1);
       expect(searchBoxQueryChangedSubscriber).toHaveBeenCalledWith({
@@ -427,9 +483,9 @@ describe('testing X Plugin', () => {
       "store-emitters don't emit multiple events if the events that are modifying the observed" +
         ' value are emitted synchronously',
       async () => {
-        component.vm.$x.emit('UserIsTypingAQuery', 'New York strip steak');
-        component.vm.$x.emit('UserIsTypingAQuery', 'Prime rib');
-        component.vm.$x.emit('UserIsTypingAQuery', 'Tomahawk steak');
+        XPlugin.bus.emit('UserIsTypingAQuery', 'New York strip steak');
+        XPlugin.bus.emit('UserIsTypingAQuery', 'Prime rib');
+        XPlugin.bus.emit('UserIsTypingAQuery', 'Tomahawk steak');
 
         await waitNextTick();
 
@@ -448,9 +504,9 @@ describe('testing X Plugin', () => {
       "store-emitters don't emit multiple events if the events that are modifying the observed" +
         ' value are emitted asynchronously but consecutively',
       async () => {
-        component.vm.$x.emit('UserIsTypingAQuery', 'New York strip steak');
-        component.vm.$x.emit('UserIsTypingAQuery', 'Prime rib');
-        component.vm.$x.emit('UserIsTypingAQuery', 'Tomahawk steak');
+        XPlugin.bus.emit('UserIsTypingAQuery', 'New York strip steak');
+        XPlugin.bus.emit('UserIsTypingAQuery', 'Prime rib');
+        XPlugin.bus.emit('UserIsTypingAQuery', 'Tomahawk steak');
 
         await waitNextTick();
 
@@ -467,8 +523,8 @@ describe('testing X Plugin', () => {
     );
 
     it("store-emitters don't emit an event if value is reset synchronously", async () => {
-      component.vm.$x.emit('UserIsTypingAQuery', 'chinchulines');
-      component.vm.$x.emit('UserIsTypingAQuery', '');
+      XPlugin.bus.emit('UserIsTypingAQuery', 'chinchulines');
+      XPlugin.bus.emit('UserIsTypingAQuery', '');
 
       await waitNextTick();
 
@@ -485,6 +541,6 @@ describe('testing X Plugin', () => {
  * have been run.
  */
 async function waitNextTick(): Promise<void> {
-  await localVue.nextTick();
+  await nextTick();
   jest.runAllTimers();
 }

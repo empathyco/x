@@ -1,5 +1,4 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseIdModalOpen from '../base-id-modal-open.vue';
 import { bus } from '../../../plugins/x-bus';
@@ -19,7 +18,6 @@ function renderBaseIdModalOpen({
   // Making bus not repeat subjects
   jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any);
 
-  const [, localVue] = installNewXPlugin();
   const containerWrapper = mount(
     {
       components: {
@@ -28,8 +26,8 @@ function renderBaseIdModalOpen({
       template
     },
     {
-      propsData: { modalId: id },
-      localVue
+      props: { modalId: id },
+      global: { plugins: [installNewXPlugin()] }
     }
   );
 
@@ -100,7 +98,7 @@ interface RenderBaseIdModalOpenOptions {
 
 interface RenderBaseIdModalOpenAPI {
   /** The wrapper for the modal component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** The modal id. */
   modalId: string;
   /** Clicks the button. */

@@ -1,6 +1,6 @@
-import { createLocalVue } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { Subject } from 'rxjs';
-import Vuex, { Store } from 'vuex';
+import { createStore, Store } from 'vuex';
 import { RootXStoreState } from '../../store/store.types';
 import { XModuleName } from '../../x-modules/x-modules.types';
 import { WireParams, WirePayload } from '../wiring.types';
@@ -13,9 +13,7 @@ import { WireParams, WirePayload } from '../wiring.types';
  * @internal
  */
 export function createQuerySuggestionsStoreMock(): Store<any> {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-  const store = new Store<any>({
+  const store = createStore<any>({
     state: () => ({
       x: {
         querySuggestions: {
@@ -31,6 +29,7 @@ export function createQuerySuggestionsStoreMock(): Store<any> {
         state.x.querySuggestions.query.trim()
     }
   });
+  mount({}, { global: { plugins: [store] } });
   store.commit = jest.fn();
   store.dispatch = jest.fn();
   return store;

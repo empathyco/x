@@ -1,10 +1,10 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseEventsModal from '../base-events-modal.vue';
 import { PropsWithType } from '../../../utils/types';
 import { XEventsTypes, XEvent } from '../../../wiring/events.types';
-
+import { XPlugin } from '../../../plugins/index';
+import { nextTick } from 'vue';
 /**
  * Mounts a {@link BaseEventsModal} component with the provided options and offers an API to easily
  * test it.
@@ -19,17 +19,16 @@ function mountBaseEventsModal({
   eventsToOpenModal,
   contentClass
 }: MountBaseEventsModalOptions = {}): MountBaseEventsModalAPI {
-  const [, localVue] = installNewXPlugin();
   const parent = document.createElement('div');
   document.body.appendChild(parent);
 
   const wrapper = mount(BaseEventsModal, {
     attachTo: parent,
-    localVue,
-    propsData: { bodyClickEvent, eventsToCloseModal, eventsToOpenModal, contentClass },
+    props: { bodyClickEvent, eventsToCloseModal, eventsToOpenModal, contentClass },
     slots: {
       default: defaultSlot
-    }
+    },
+    global: { plugins: [installNewXPlugin()] }
   });
 
   return {
@@ -38,8 +37,8 @@ function mountBaseEventsModal({
       await wrapper.find(getDataTestSelector('modal-overlay'))?.trigger('click');
     },
     async emit(event) {
-      wrapper.vm.$x.emit(event);
-      await localVue.nextTick();
+      XPlugin.bus.emit(event);
+      await nextTick();
     },
     getModalContent() {
       return wrapper.find(getDataTestSelector('modal-content'));
@@ -47,7 +46,7 @@ function mountBaseEventsModal({
     async fakeFocusIn() {
       jest.runAllTimers();
       document.body.dispatchEvent(new FocusEvent('focusin'));
-      await localVue.nextTick();
+      await nextTick();
     }
   };
 }
@@ -115,9 +114,9 @@ describe('testing Base Events Modal  component', () => {
     });
 
     const openListener = jest.fn();
-    wrapper.vm.$x.on(eventToOpen).subscribe(openListener);
+    XPlugin.bus.on(eventToOpen).subscribe(openListener);
     const closeListener = jest.fn();
-    wrapper.vm.$x.on(eventToClose).subscribe(closeListener);
+    XPlugin.bus.on(eventToClose).subscribe(closeListener);
 
     await emit(eventToOpen);
     expect(getModalContent().exists()).toBe(true);
@@ -135,7 +134,7 @@ describe('testing Base Events Modal  component', () => {
       eventsToCloseModal: [bodyClickEvent]
     });
     const listener = jest.fn();
-    wrapper.vm.$x.on(bodyClickEvent).subscribe(listener);
+    XPlugin.bus.on(bodyClickEvent).subscribe(listener);
 
     await emit('UserClickedOpenEventsModal');
     expect(getModalContent().exists()).toBe(true);
@@ -170,7 +169,7 @@ interface MountBaseEventsModalOptions {
 
 interface MountBaseEventsModalAPI {
   /** The wrapper for the modal component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** Fakes a click on the modal overlay. */
   clickModalOverlay: () => Promise<void>;
   /** Emits the provided event. */
@@ -178,5 +177,5 @@ interface MountBaseEventsModalAPI {
   /** Fakes a focusin event in another HTMLElement of the body. */
   fakeFocusIn: () => Promise<void>;
   /** Retrieves the modal content. */
-  getModalContent: () => Wrapper<Vue>;
+  getModalContent: () => DOMWrapper<Element>;
 }

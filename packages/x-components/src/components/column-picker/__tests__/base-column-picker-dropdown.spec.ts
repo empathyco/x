@@ -1,17 +1,19 @@
-import { mount } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import { XPlugin } from '../../../plugins/x-plugin';
 import BaseColumnPickerDropdown from '../base-column-picker-dropdown.vue';
+import { XDummyBus } from '../../../__tests__/bus.dummy';
+let bus = new XDummyBus();
 
 function render({
   selectedColumns,
   columns = [2, 4, 6],
   template = `
     <BaseColumnPickerDropdown
+      @update:modelValue="col => selectedColumns = col"
       :columns="columns"
       :modelValue="selectedColumns"
-      @update:modelValue="col => selectedColumns = col"
     >
       <template #item="{ item, isSelected, isHighlighted }">
         <span v-if="isHighlighted">🟢</span>
@@ -20,26 +22,28 @@ function render({
       </template>
     </BaseColumnPickerDropdown>`
 }: { selectedColumns?: number; columns?: number[]; template?: string } = {}) {
-  const [, localVue] = installNewXPlugin();
-
-  const mountComponent = (options: { selectedColumns?: number } = {}) =>
-    mount(
+  const mountComponent = (options: { selectedColumns?: number } = {}): VueWrapper => {
+    return mount(
       {
-        components: { BaseColumnPickerDropdown },
-        template,
-        data: () => ({
-          columns,
-          selectedColumns: options.selectedColumns ?? selectedColumns
-        })
+        components: {
+          BaseColumnPickerDropdown
+        },
+        data() {
+          return {
+            columns,
+            selectedColumns: options.selectedColumns ?? selectedColumns
+          };
+        },
+        template
       },
       {
-        propsData: { columns },
-        localVue
+        global: { plugins: [installNewXPlugin({}, bus)] }
       }
     );
+  };
 
   const columnPickerDropdownWrapper = mountComponent();
-  const wrapper = columnPickerDropdownWrapper.findComponent(BaseColumnPickerDropdown);
+  const wrapper: VueWrapper = columnPickerDropdownWrapper.findComponent(BaseColumnPickerDropdown);
   const toggleWrapper = wrapper.find(getDataTestSelector('dropdown-toggle'));
   const toggleDropdown = async () => await toggleWrapper.trigger('click');
 
@@ -53,18 +57,22 @@ function render({
     },
     toggleDropdown,
     setWrapperSelectedColumns: async (column: number) => {
-      await wrapper.setData({ selectedColumns: column });
+      await columnPickerDropdownWrapper.setData({ selectedColumns: column });
       await nextTick();
     },
     clickNthItem: async (nth: number) => {
       await toggleDropdown();
-      await wrapper.findAll(getDataTestSelector('dropdown-item')).at(nth).trigger('click');
+      await wrapper.findAll(getDataTestSelector('dropdown-item')).at(nth)?.trigger('click');
       await nextTick();
     }
   } as const;
 }
 
 describe('testing BaseColumnPickerDropdown component', () => {
+  beforeEach(() => {
+    bus = new XDummyBus();
+  });
+
   it('emits ColumnsNumberProvided event with the column number on init', () => {
     render();
 
@@ -163,9 +171,9 @@ describe('testing BaseColumnPickerDropdown component', () => {
 
     const itemWrapperArray = wrapper.findAll(getDataTestSelector('dropdown-item'));
 
-    expect(itemWrapperArray.at(0).text()).toEqual('🟢 ✅ 2');
-    expect(itemWrapperArray.at(1).text()).toEqual('4');
-    expect(itemWrapperArray.at(2).text()).toEqual('6');
+    expect(itemWrapperArray.at(0)?.text()).toEqual('🟢✅2');
+    expect(itemWrapperArray.at(1)?.text()).toEqual('4');
+    expect(itemWrapperArray.at(2)?.text()).toEqual('6');
   });
 
   it('renders the item slot as toggle when its slot is not defined', () => {

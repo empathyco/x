@@ -1,6 +1,5 @@
 import { Suggestion } from '@empathyco/x-types';
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
 import { createQuerySuggestion } from '../../../__stubs__/index';
 import { normalizeString } from '../../../utils/normalize';
 import { XEventsTypes } from '../../../wiring/events.types';
@@ -15,9 +14,7 @@ function renderBaseSuggestion({
   query = 'bebe',
   suggestion = createPopularSearch('bebe lloron'),
   suggestionSelectedEvents = {}
-}: BaseSuggestionOptions = {}): BaseSuggestionAPI {
-  const [, localVue] = installNewXPlugin();
-  const emit = jest.spyOn(XPlugin.bus, 'emit');
+}: BaseSuggestionOptions = {}) {
   const wrapper = mount(
     {
       components: { BaseSuggestion },
@@ -27,14 +24,16 @@ function renderBaseSuggestion({
         ':suggestion-selected-events="suggestionSelectedEvents" />'
     },
     {
-      localVue,
-      propsData: {
+      global: { plugins: [installNewXPlugin()] },
+      props: {
         query,
         suggestion,
         suggestionSelectedEvents
       }
     }
   );
+
+  const emit = jest.spyOn(XPlugin.bus, 'emit');
 
   const wireMetadata = expect.objectContaining<Partial<WireMetadata>>({
     target: wrapper.element
@@ -170,24 +169,4 @@ interface BaseSuggestionOptions {
   suggestionSelectedEvents?: Partial<XEventsTypes>;
 
   template?: string;
-}
-
-/**
- * Test API for the {@link BaseSuggestion} component.
- */
-interface BaseSuggestionAPI {
-  /** The wrapper for base suggestion component. */
-  wrapper: Wrapper<Vue>;
-  /** The rendered suggestion. */
-  suggestion: Suggestion;
-  /** The query introduced to find the suggestion. */
-  query: string;
-  /** Metadata used to keep track of the events fired to the bus. */
-  wireMetadata: Partial<WireMetadata>;
-  /** Mock for the `$x.emit` function. Can be used to check the emitted events. */
-  emit: jest.SpyInstance;
-  /** Retrieves the last non-matching part. */
-  getEndingPart: () => Wrapper<Vue>;
-  /** When there is a query matching, retrieves the matching part of the text. */
-  getMatchingPart: () => Wrapper<Vue>;
 }

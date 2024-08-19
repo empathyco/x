@@ -1,6 +1,6 @@
-import Vue, { defineComponent } from 'vue';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { defineComponent } from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { AnyXStoreModule } from '../../store/index';
 import { UseAliasAPI, useAliasApi, UseAliasQueryAPI, UseAliasStatusAPI } from '../use-alias-api';
 import { searchBoxXStoreModule } from '../../x-modules/search-box/index';
@@ -13,6 +13,7 @@ import { identifierResultsXStoreModule } from '../../x-modules/identifier-result
 import { popularSearchesXStoreModule } from '../../x-modules/popular-searches/index';
 import { recommendationsXStoreModule } from '../../x-modules/recommendations/index';
 import { historyQueriesXStoreModule } from '../../x-modules/history-queries/index';
+import { installNewXPlugin } from '../../__tests__/utils';
 
 const renderUseAliasApiTest = (registerXModules = true): renderUseAliasApiTestAPI => {
   const testComponent = defineComponent({
@@ -28,9 +29,6 @@ const renderUseAliasApiTest = (registerXModules = true): renderUseAliasApiTestAP
     },
     template: '<div></div>'
   });
-
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
 
   const store = new Store({
     modules: {
@@ -70,8 +68,7 @@ const renderUseAliasApiTest = (registerXModules = true): renderUseAliasApiTestAP
   });
 
   const wrapper = mount(testComponent, {
-    localVue,
-    store
+    global: { plugins: [installNewXPlugin(), store] }
   });
 
   return {
@@ -223,7 +220,7 @@ describe('testing useAliasApi composable', () => {
 
 type renderUseAliasApiTestAPI = {
   store: Store<any>;
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   query: UseAliasQueryAPI;
   status: UseAliasStatusAPI;
   xAliasAPI: UseAliasAPI;
