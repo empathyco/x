@@ -489,7 +489,7 @@ importers:
         specifier: ~2.0.1
         version: 2.0.1(cypress@13.6.0)(vue@2.7.14)
       '@empathyco/x-tailwindcss':
-        specifier: ^1.2.0-alpha.4
+        specifier: ^1.2.0-alpha.5
         version: link:../x-tailwindcss
       '@microsoft/api-documenter':
         specifier: ~7.23.0
