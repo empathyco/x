@@ -50,7 +50,8 @@ import {
   TestAnimationFactory,
   TestIcons,
   TestDisplayEmitter,
-  TestBaseSwitch
+  TestBaseSwitch,
+  TestStaggeredFadeAndSlide
 } from './';
 
 const routes = [
@@ -308,6 +309,11 @@ const routes = [
     path: '/base-switch',
     name: 'BaseSwitch',
     component: TestBaseSwitch
+  },
+  {
+    path: '/staggered-fade-and-slide',
+    name: 'StaggeredFadeAndSlide',
+    component: TestStaggeredFadeAndSlide
   }
 ];
 

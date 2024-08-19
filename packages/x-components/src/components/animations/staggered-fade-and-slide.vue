@@ -1,13 +1,17 @@
 <template>
-  <StaggeringTransitionGroup class="x-staggered-fade-and-slide" :name="name" :appear="appear">
-    <!-- @slot (Required) Transition-group content -->
+  <TransitionGroup
+    @enter="onEnter"
+    @afterEnter="onAfterEnter"
+    :appear="appear"
+    :name="name"
+    :tag="tag"
+  >
     <slot />
-  </StaggeringTransitionGroup>
+  </TransitionGroup>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import StaggeringTransitionGroup from './staggering-transition-group.vue';
+  import { defineComponent, onUpdated } from 'vue';
   import { useDisableAnimation } from './use-disable-animation';
 
   /**
@@ -18,53 +22,123 @@
    */
   export default defineComponent({
     name: 'StaggeredFadeAndSlide',
-    components: { StaggeringTransitionGroup },
     props: {
-      /**
-       * Indicates if the transition must be applied on the initial render of the node.
-       */
+      /** Indicates if the transition must be applied on the initial render of the node. */
       appear: {
         type: Boolean,
         default: true
+      },
+      /** The tag of the node to render to the DOM. */
+      tag: {
+        type: String,
+        default: 'div'
+      },
+      /** The time in ms to stagger each item. */
+      stagger: {
+        type: Number,
+        default: 25
       }
     },
-    setup: function () {
+    setup(props) {
+      /** The duration of the transition in ms. */
+      const transitionDuration = 250;
+      /** Indicates if there are new elements to animate. */
+      let isNewSet = true;
+      /** The new elements to animate. */
+      let elementsToAnimate: Element[] = [];
+      /** The name of the animation. */
+      const { name } = useDisableAnimation('x-staggered-fade-and-slide');
+
       /**
-       * The name of the animation.
+       * When the component is updated, we are considering that
+       * a new set of elements is being inserted, so we need
+       * to refresh the elements to animate.
        */
-      const animationName = 'x-staggered-fade-and-slide-';
+      onUpdated(() => {
+        isNewSet = true;
+      });
 
-      const { name } = useDisableAnimation(animationName);
+      /**
+       * Listener called when one frame the element is inserted.
+       * This calculates the stagger delay to be used as `transitionDelay` and finally resolve
+       * the transition end after the CSS transition duration plus stagger delay.
+       *
+       * @param el - Element inserted.
+       * @param done - Callback to indicate the transition end.
+       */
+      function onEnter(el: Element, done: () => void) {
+        if (isNewSet) {
+          refreshElementsToAnimate(el);
+        }
 
-      return { name };
+        const elIndex = elementsToAnimate.indexOf(el);
+        const staggerDelay = elIndex > 0 ? elIndex * props.stagger : 0;
+
+        (el as HTMLElement).style.transitionDelay = `${staggerDelay}ms`;
+        setTimeout(done, transitionDuration + staggerDelay);
+      }
+
+      /**
+       * Finds he parent's children subset of new elements entering the DOM.
+       * This is achieved by filtering out the elements that are already animated.
+       * Those with 'transition-delay' equal to '0ms' are considered already animated.
+       *
+       * Also marks isNewSet as false as the elements are already updated.
+       *
+       * @param el - Current element.
+       */
+      function refreshElementsToAnimate(el: Element) {
+        elementsToAnimate = [...el.parentElement!.children].filter(
+          c => (c as HTMLElement).style.transitionDelay !== '0ms'
+        );
+        isNewSet = false;
+      }
+
+      /**
+       * Listener called when the enter transition has finished.
+       * This resets the `transitionDelay`.
+       *
+       * @param el - Element inserted.
+       */
+      function onAfterEnter(el: Element) {
+        (el as HTMLElement).style.transitionDelay = '0ms';
+      }
+
+      return {
+        name,
+        onEnter,
+        onAfterEnter
+      };
     }
   });
 </script>
 
 <style lang="scss">
-  $transition-duration: 0.25s;
+  $transition-duration: 250ms;
 
-  .x-staggered-fade-and-slide {
-    z-index: 0;
+  /* 1. Declare transitions */
+  .x-staggered-fade-and-slide-enter-active,
+  .x-staggered-fade-and-slide-leave-active {
+    transition: $transition-duration ease-out;
+    transition-property: opacity, transform;
+  }
 
-    &.x-staggered-fade-and-slide {
-      &--enter-active,
-      &--leave-active {
-        transition: $transition-duration ease-out;
-        transition-property: opacity, transform;
-      }
+  .x-staggered-fade-and-slide-move {
+    transition: transform $transition-duration ease-out;
+  }
 
-      &--move {
-        transition: transform $transition-duration ease-out;
-      }
+  /* 2. Declare enter, from and leave to state */
+  .x-staggered-fade-and-slide-enter,
+  .x-staggered-fade-and-slide-enter-from,
+  .x-staggered-fade-and-slide-leave-to {
+    opacity: 0;
+    transform: translate3d(0, 50%, 0);
+  }
 
-      &--enter-from,
-      &--leave-to {
-        transform: translate3d(0, 50%, 0);
-        opacity: 0;
-        z-index: -1;
-      }
-    }
+  /* 3. Ensure leaving items are taken out of layout flow so that moving animations can be
+        calculated correctly. */
+  .x-staggered-fade-and-slide-leave-active {
+    position: absolute;
   }
 </style>
 
