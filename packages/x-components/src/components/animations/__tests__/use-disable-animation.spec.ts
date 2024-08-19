@@ -1,23 +1,18 @@
 import { mount } from '@vue/test-utils';
-import { defineComponent, provide, ref } from 'vue';
+import { defineComponent, provide, ref, h, Transition } from 'vue';
 import { DISABLE_ANIMATIONS_KEY } from '../../decorators/injection.consts';
 import { useDisableAnimation } from '../use-disable-animation';
-
+import { TransitionGroup } from 'vue';
 const Provider = defineComponent({
   props: {
     disableAnimation: Boolean
   },
-  setup(props) {
+  setup(props, { slots }) {
     provide(DISABLE_ANIMATIONS_KEY as string, ref(props.disableAnimation));
-  },
-  render(h) {
-    return this.$slots.default?.[0] ?? h();
+    return () => (slots.default ? slots.default() : h('div'));
   }
 });
 
-/**
- * Animation component.
- */
 const Animation = defineComponent({
   setup() {
     return useDisableAnimation('x-animation');
@@ -29,12 +24,6 @@ const Animation = defineComponent({
   `
 });
 
-/**
- * Function that returns an Animation wrapper.
- *
- * @param disableAnimation - Flag to disable the animation.
- * @returns Animation wrapper.
- */
 function renderDisableAnimation({ disableAnimation = true }: DisableAnimationOptions = {}) {
   const wrapper = mount({
     template: `
@@ -51,25 +40,25 @@ function renderDisableAnimation({ disableAnimation = true }: DisableAnimationOpt
   });
 
   return {
-    wrapper
+    wrapper,
+    transitionGroup: wrapper.findComponent(TransitionGroup)
   };
 }
 
 describe('testing disable animation', () => {
   it('should disable the animations', () => {
-    const { wrapper } = renderDisableAnimation();
+    const { transitionGroup } = renderDisableAnimation();
 
-    expect(wrapper.attributes('name')).toBe('__no-animation__');
+    expect(transitionGroup.attributes('name')).toBe('__no-animation__');
   });
 
   it('should enable the animations', () => {
-    const { wrapper } = renderDisableAnimation({ disableAnimation: false });
+    const { transitionGroup } = renderDisableAnimation({ disableAnimation: false });
 
-    expect(wrapper.attributes('name')).toBe('x-animation');
+    expect(transitionGroup.attributes('name')).toBe('x-animation');
   });
 });
 
 interface DisableAnimationOptions {
-  /** Flag to disable the animation. */
   disableAnimation?: boolean;
 }
