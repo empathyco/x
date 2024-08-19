@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, onUpdated } from 'vue';
   import { useDisableAnimation } from './use-disable-animation';
 
   /**
@@ -42,9 +42,21 @@
     setup(props) {
       /** The duration of the transition in ms. */
       const transitionDuration = 250;
-
+      /** Indicates if there are new elements to animate. */
+      let isNewSet = true;
+      /** The new elements to animate. */
+      let elementsToAnimate: Element[] = [];
       /** The name of the animation. */
       const { name } = useDisableAnimation('x-staggered-fade-and-slide');
+
+      /**
+       * When the component is updated, we are considering that
+       * a new set of elements is being inserted, so we need
+       * to refresh the elements to animate.
+       */
+      onUpdated(() => {
+        isNewSet = true;
+      });
 
       /**
        * Listener called when one frame the element is inserted.
@@ -54,26 +66,32 @@
        * @param el - Element inserted.
        * @param done - Callback to indicate the transition end.
        */
-      function onEnter(el: HTMLElement, done: () => void) {
-        const elIndex = findAnimationIndex(el);
+      function onEnter(el: Element, done: () => void) {
+        if (isNewSet) {
+          refreshElementsToAnimate(el);
+        }
+
+        const elIndex = elementsToAnimate.indexOf(el);
         const staggerDelay = elIndex > 0 ? elIndex * props.stagger : 0;
 
-        el.style.transitionDelay = `${staggerDelay}ms`;
+        (el as HTMLElement).style.transitionDelay = `${staggerDelay}ms`;
         setTimeout(done, transitionDuration + staggerDelay);
       }
 
       /**
-       * Finds the index of the element in the parent children subset of new elements entering the DOM.
-       * This is achived by filtering out the elements that are already animated,
-       * which are those marked with the `data-animated` attribute.
+       * Finds he parent children subset of new elements entering the DOM.
+       * This is achieved by filtering out the elements that are already animated.
+       * Those with 'transition-delay' equal to '0ms' are considered already animated.
        *
-       * @param el - Element to find.
-       * @returns The index of the element in the parent children subset of new elements.
+       * Also marks isNewSet as false as the elements are already updated.
+       *
+       * @param el - Current element.
        */
-      function findAnimationIndex(el: HTMLElement) {
-        return [...el.parentElement!.children]
-          .filter(c => (c as HTMLElement).dataset.animated !== 'true')
-          .indexOf(el);
+      function refreshElementsToAnimate(el: Element) {
+        elementsToAnimate = [...el.parentElement!.children].filter(
+          c => (c as HTMLElement).style.transitionDelay !== '0ms'
+        );
+        isNewSet = false;
       }
 
       /**
@@ -83,9 +101,8 @@
        *
        * @param el - Element inserted.
        */
-      function onAfterEnter(el: HTMLElement) {
-        el.style.transitionDelay = '0ms';
-        el.dataset.animated = 'true';
+      function onAfterEnter(el: Element) {
+        (el as HTMLElement).style.transitionDelay = '0ms';
       }
 
       return {

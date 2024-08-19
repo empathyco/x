@@ -75,25 +75,17 @@ describe('testing StaggeredFadeAndSlide component', () => {
     expect(elements[1].element.style.transitionDelay).not.toBe('0ms');
     expect(elements[2].element.style.transitionDelay).not.toBe('0ms');
 
-    expect(elements[0].element.dataset.animated).toBe('true');
-    expect(elements[1].element.dataset.animated).toBeUndefined();
-    expect(elements[2].element.dataset.animated).toBeUndefined();
-
     // Once the previous transition is finished wait for the stagger delay
     jest.advanceTimersByTime(stagger);
 
     expect(elements[1].element.style.transitionDelay).toBe('0ms');
     expect(elements[2].element.style.transitionDelay).not.toBe('0ms');
 
-    expect(elements[1].element.dataset.animated).toBe('true');
-    expect(elements[2].element.dataset.animated).toBeUndefined();
-
     // Once the previous transition is finished wait for the stagger delay
     jest.advanceTimersByTime(stagger);
 
     for (const el of elements) {
       expect(el.element.style.transitionDelay).toBe('0ms');
-      expect(el.element.dataset.animated).toBe('true');
     }
   });
 });
