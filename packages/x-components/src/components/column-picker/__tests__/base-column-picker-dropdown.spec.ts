@@ -4,7 +4,7 @@ import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils
 import { XPlugin } from '../../../plugins/x-plugin';
 import BaseColumnPickerDropdown from '../base-column-picker-dropdown.vue';
 import { XDummyBus } from '../../../__tests__/bus.dummy';
-const bus = new XDummyBus();
+let bus = new XDummyBus();
 
 function render({
   selectedColumns,
@@ -69,6 +69,10 @@ function render({
 }
 
 describe('testing BaseColumnPickerDropdown component', () => {
+  beforeEach(() => {
+    bus = new XDummyBus();
+  });
+
   it('emits ColumnsNumberProvided event with the column number on init', () => {
     render();
 
