@@ -79,7 +79,7 @@
       }
 
       /**
-       * Finds he parent children subset of new elements entering the DOM.
+       * Finds he parent's children subset of new elements entering the DOM.
        * This is achieved by filtering out the elements that are already animated.
        * Those with 'transition-delay' equal to '0ms' are considered already animated.
        *
@@ -96,8 +96,7 @@
 
       /**
        * Listener called when the enter transition has finished.
-       * This resets the `transitionDelay` and add mark the element as animated,
-       * setting the `data-animated` attribute to `true`.
+       * This resets the `transitionDelay`.
        *
        * @param el - Element inserted.
        */
