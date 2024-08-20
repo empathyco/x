@@ -70,6 +70,13 @@ export const setQuerySuggestionsExtraParamsFromPreview = wireCommit(
 export const setQuerySuggestionsExtraParams = wireCommit('setParams');
 
 /**
+ * Sets the query suggestions state `searchedQueries` with the list of history queries.
+ *
+ * @public
+ */
+export const setSearchedQueriesInSuggestions = wireCommit('setSearchedQueries');
+
+/**
  * Clears the query-suggestions module query.
  *
  * @public
@@ -145,5 +152,8 @@ export const querySuggestionsWiring = createWiring({
   },
   QueryPreviewUnselected: {
     setQuerySuggestionsExtraParams
+  },
+  SessionHistoryQueriesChanged: {
+    setSearchedQueriesInSuggestions
   }
 });
