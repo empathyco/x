@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.81](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.80...@empathyco/x-components@5.0.0-alpha.81) (2024-08-20)
+
+
+### Features
+
+* **querySuggestions:** hide suggestions that match with any session query (#1600) ([2f51375](https://github.com/empathyco/x/commit/2f51375e04d46e2aba77f08332797285829ebde7))
+
+
+
 ## [5.0.0-alpha.80](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.79...@empathyco/x-components@5.0.0-alpha.80) (2024-08-19)
 
 **Note:** Version bump only for package @empathyco/x-components
