@@ -33,4 +33,26 @@ export interface QuerySuggestionsConfig {
    * ```
    */
   hideIfEqualsQuery: boolean;
+  /**
+   * Hides the query suggestions if it has been already searched during the session.
+   *
+   * @example
+   * When set to true:
+   * ```
+   * query = 'shorts';
+   * query = 'trousers';
+   * suggestions = ['t-shirt', 'shorts', 'dress']
+   * // Suggests ['t-shirt', 'dress']
+   * ```
+   *
+   * @example
+   * When set to false:
+   * ```
+   * query = 'shorts';
+   * query = 'trousers';
+   * suggestions = ['t-shirt', 'shorts', 'dress']
+   * // Suggests ['t-shirt', 'shorts', 'dress']
+   * ```
+   */
+  hideSessionQueries: boolean;
 }

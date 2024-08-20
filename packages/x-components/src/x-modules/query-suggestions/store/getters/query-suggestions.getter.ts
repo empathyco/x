@@ -1,4 +1,4 @@
-import { Suggestion } from '@empathyco/x-types';
+import { HistoryQuery, Suggestion } from '@empathyco/x-types';
 import { GettersClass } from '../../../../store/getters.types';
 import { normalizeString } from '../../../../utils/normalize';
 import { QuerySuggestionsState, QuerySuggestionsXStoreModule } from '../types';
@@ -16,11 +16,24 @@ export class QuerySuggestionsGetter implements GettersClass<QuerySuggestionsXSto
    * suggestions module.
    * @returns The filtered subset of queries, matching with the current query.
    */
-  querySuggestions({ query, suggestions, config }: QuerySuggestionsState): Suggestion[] {
+  querySuggestions({
+    query,
+    suggestions,
+    config,
+    searchedQueries
+  }: QuerySuggestionsState): Suggestion[] {
+    const queriesToFilter = searchedQueries.map((historyQuery: HistoryQuery) => historyQuery.query);
     if (!query || !config.hideIfEqualsQuery) {
-      return suggestions;
+      return config.hideSessionQueries
+        ? suggestions.filter(({ query }) => !queriesToFilter.includes(query))
+        : suggestions;
     }
-    return suggestions.filter(this.isInQuerySuggestions(normalizeString(query)));
+    const filteredSuggestions = suggestions.filter(
+      this.isInQuerySuggestions(normalizeString(query))
+    );
+    return config.hideSessionQueries
+      ? filteredSuggestions.filter(({ query }) => !queriesToFilter.includes(query))
+      : filteredSuggestions;
   }
 
   /**
@@ -46,7 +59,7 @@ export class QuerySuggestionsGetter implements GettersClass<QuerySuggestionsXSto
 const querySuggestionsGetter = new QuerySuggestionsGetter();
 
 // eslint-disable-next-line jsdoc/require-description-complete-sentence
-/**
+/**.
  * {@inheritDoc QuerySuggestionsGetter.querySuggestions}
  *
  * @public
