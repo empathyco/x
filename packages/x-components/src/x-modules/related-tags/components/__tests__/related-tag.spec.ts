@@ -1,10 +1,9 @@
 import { RelatedTag } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
+import { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { XComponentAPI } from '../../../../plugins/x-plugin.types';
 import { RootXStoreState } from '../../../../store/store.types';
 import { getRelatedTagsStub } from '../../../../__stubs__/related-tags-stubs.factory';
@@ -12,16 +11,15 @@ import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/ut
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { relatedTagsXModule } from '../../x-module';
 import RelatedTagComponent from '../related-tag.vue';
+import { XPlugin } from '../../../../plugins/x-plugin';
 
 describe('testing related tag item component', () => {
   function renderRelatedTag({
     relatedTag = getRelatedTagsStub()[0],
     template = '<RelatedTag :relatedTag="relatedTag" />'
   }: RenderRelatedTagOptions = {}): RenderRelatedTagsAPI {
-    const localVue = createLocalVue();
-    localVue.use(Vuex);
     const store = new Store<DeepPartial<RootXStoreState>>({});
-    installNewXPlugin({ store }, localVue);
+    installNewXPlugin({ store });
     // Manually re-installing the xModule
     XPlugin.registerXModule(relatedTagsXModule);
 
@@ -34,21 +32,20 @@ describe('testing related tag item component', () => {
         template
       },
       {
-        localVue,
         store,
-        propsData: { relatedTag }
+        global: { plugins: [installNewXPlugin()] },
+        props: { relatedTag }
       }
     );
     const wrapper = wrapperTemplate.findComponent(RelatedTagComponent);
-    const $x = wrapperTemplate.vm.$x;
 
     return {
       wrapper,
-      $x,
+      wrapperTemplate,
       relatedTag,
       async clickRelatedTag() {
         wrapper.trigger('click');
-        await localVue.nextTick();
+        await nextTick();
       }
     };
   }
@@ -66,7 +63,7 @@ describe('testing related tag item component', () => {
   });
 
   it('allows changing the rendered content with a slot', async () => {
-    const { wrapper, clickRelatedTag, relatedTag } = renderRelatedTag({
+    const { wrapperTemplate, wrapper, clickRelatedTag, relatedTag } = renderRelatedTag({
       template: `
         <RelatedTag :relatedTag="relatedTag">
           <template #default="{ relatedTag, isSelected, shouldHighlightCurated }">
@@ -76,7 +73,7 @@ describe('testing related tag item component', () => {
               v-if="shouldHighlightCurated"
             />
             <span data-test="related-tag-label">{{ relatedTag.tag }}</span>
-            <img data-test="related-tag-cross" src="./cross-icon.svg" v-if="isSelected"/>
+            <img class="x-related-tag-cross" data-test="related-tag-cross" src="./cross-icon.svg" v-if="isSelected"/>
           </template>
         </RelatedTag>`
     });
@@ -85,20 +82,24 @@ describe('testing related tag item component', () => {
     let relatedTagChevronWrapper = wrapper.find(getDataTestSelector('related-tag-chevron'));
     const relatedTagLabelWrapper = wrapper.find(getDataTestSelector('related-tag-label'));
     let relatedTagCrossWrapper = wrapper.find(getDataTestSelector('related-tag-cross'));
-    expect(relatedTagWrapper.exists()).toEqual(true);
-    expect(relatedTagLabelWrapper.exists()).toEqual(true);
-    expect(relatedTagChevronWrapper.exists()).toEqual(false);
-    expect(relatedTagLabelWrapper.text()).toEqual(relatedTag.tag);
-    expect(relatedTagCrossWrapper.exists()).toEqual(false);
+
+    expect(relatedTagWrapper.exists()).toBe(true);
+    expect(relatedTagLabelWrapper.exists()).toBe(true);
+    expect(relatedTagChevronWrapper.exists()).toBe(false);
+    expect(relatedTagLabelWrapper.text()).toBe(relatedTag.tag);
+    expect(relatedTagCrossWrapper.exists()).toBe(false);
 
     await clickRelatedTag();
-    relatedTagCrossWrapper = wrapper.find(getDataTestSelector('related-tag-cross'));
-    expect(relatedTagCrossWrapper.exists()).toEqual(true);
 
-    relatedTag.isCurated = true;
-    await wrapper.setProps({ highlightCurated: true });
-    relatedTagChevronWrapper = wrapper.find(getDataTestSelector('related-tag-chevron'));
-    expect(relatedTagChevronWrapper.exists()).toEqual(true);
+    relatedTagCrossWrapper = wrapper.find(getDataTestSelector('related-tag-cross'));
+    expect(relatedTagCrossWrapper.exists()).toBe(true);
+
+    await wrapperTemplate.setProps({ highlightCurated: true });
+    await nextTick();
+
+    relatedTagChevronWrapper = wrapperTemplate.find('.x-related-tag-cross');
+
+    expect(relatedTagChevronWrapper.exists()).toBe(true);
   });
 
   // eslint-disable-next-line max-len
@@ -106,14 +107,14 @@ describe('testing related tag item component', () => {
     const userPickedARelatedTagMock = jest.fn();
     const selectRelatedTagMock = jest.fn();
     const deselectRelatedTagMock = jest.fn();
-    const { $x, clickRelatedTag, relatedTag, wrapper } = renderRelatedTag();
+    const { clickRelatedTag, relatedTag, wrapper } = renderRelatedTag();
     const expectedMetadata: Partial<WireMetadata> = {
       target: wrapper.element,
       feature: 'related_tag'
     };
-    $x.on('UserPickedARelatedTag', true).subscribe(userPickedARelatedTagMock);
-    $x.on('UserSelectedARelatedTag', true).subscribe(selectRelatedTagMock);
-    $x.on('UserDeselectedARelatedTag', true).subscribe(deselectRelatedTagMock);
+    XPlugin.bus.on('UserPickedARelatedTag', true).subscribe(userPickedARelatedTagMock);
+    XPlugin.bus.on('UserSelectedARelatedTag', true).subscribe(selectRelatedTagMock);
+    XPlugin.bus.on('UserDeselectedARelatedTag', true).subscribe(deselectRelatedTagMock);
 
     await clickRelatedTag();
 
@@ -153,11 +154,10 @@ interface RenderRelatedTagOptions {
 
 interface RenderRelatedTagsAPI {
   /** The Vue testing utils wrapper for the {@link RelatedTagComponent}. */
-  wrapper: Wrapper<Vue>;
-  /** The {@link XComponentAPI} used by the rendered {@link RelatedTagComponent}. */
-  $x: XComponentAPI;
+  wrapper: VueWrapper;
   /** The rendered related tag data. */
   relatedTag: RelatedTag;
   /** Clicks the related tag and waits for the view to update. */
   clickRelatedTag: () => Promise<void>;
+  wrapperTemplate: VueWrapper;
 }
