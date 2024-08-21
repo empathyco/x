@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.81](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.80...@empathyco/x-components@5.0.0-alpha.81) (2024-08-20)
+
+
+### Features
+
+* **querySuggestions:** hide suggestions that match with any session query (#1600) ([2f51375](https://github.com/empathyco/x/commit/2f51375e04d46e2aba77f08332797285829ebde7))
+
+
+
+## [5.0.0-alpha.80](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.79...@empathyco/x-components@5.0.0-alpha.80) (2024-08-19)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [5.0.0-alpha.79](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.78...@empathyco/x-components@5.0.0-alpha.79) (2024-08-14)
+
+
+### Features
+
+* update result information in the QPs (#1591) ([3e99d0c](https://github.com/empathyco/x/commit/3e99d0cdcb25366af2adff977e25d58d45f7421f))
+
+
+
+## [5.0.0-alpha.78](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.77...@empathyco/x-components@5.0.0-alpha.78) (2024-08-13)
+
+
+### Features
+
+* **main-modal:** make events configurable via props (#1590) ([60d630c](https://github.com/empathyco/x/commit/60d630ca2a181d2919b9f1019abbf1eee5dd2c30))
+
+
+
+## [5.0.0-alpha.77](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.76...@empathyco/x-components@5.0.0-alpha.77) (2024-08-13)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
 ## [5.0.0-alpha.76](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.75...@empathyco/x-components@5.0.0-alpha.76) (2024-08-08)
 
 

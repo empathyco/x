@@ -1,4 +1,5 @@
 import { Result, ResultVariant, Suggestion } from '@empathyco/x-types';
+import { ComputedRef } from 'vue';
 import { ExtractPayload } from '../store/store.types';
 import { ArrowKey, PropsWithType } from '../utils';
 import { DeviceXEvents } from '../x-modules/device';
@@ -200,10 +201,15 @@ export interface XEventsTypes
   UserReachedEmpathizeTop: void;
   /**
    * The user selected a result variant.
-   * Payload: And object containing the result, the selected variant and the level of the selected
-   * variant.
+   * Payload: And object containing the result, the selected variant, the level of the selected
+   * variant and the query preview hash.
    */
-  UserSelectedAResultVariant: { result: Result; variant: ResultVariant; level: number };
+  UserSelectedAResultVariant: {
+    result: Result;
+    variant: ResultVariant;
+    level: number;
+    queryPreviewHash: ComputedRef<string> | null;
+  };
   /**
    * User selected any kind of suggestion (query-suggestion, popular-search...)
    * Payload: The {@link @empathyco/x-types#Suggestion | suggestion} that the user selected.

@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 import { getHashFromQueryPreviewItem } from '../utils/get-hash-from-query-preview';
 import { QueriesPreviewXStoreModule } from './types';
@@ -55,6 +54,14 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
         if (!cache && state.queriesPreview[queryPreviewHash].instances === 0) {
           delete state.queriesPreview[queryPreviewHash];
         }
+      }
+    },
+    updateAQueryPreviewResult(state, { result, queryPreviewHash }) {
+      const queryPreviewResult = state.queriesPreview[queryPreviewHash.value]?.results.find(
+        resultPreview => resultPreview.id === result.id
+      );
+      if (queryPreviewResult) {
+        Object.assign(queryPreviewResult, result);
       }
     }
   },

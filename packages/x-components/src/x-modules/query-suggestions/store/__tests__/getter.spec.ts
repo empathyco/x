@@ -1,15 +1,14 @@
 import { QuerySuggestionsRequest, Suggestion } from '@empathyco/x-types';
 import { map } from '@empathyco/x-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import { normalizeString } from '../../../../utils';
 import { getQuerySuggestionsStub } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { querySuggestionsXStoreModule } from '../module';
 import { QuerySuggestionsState } from '../types';
+import { createHistoryQuery } from '../../../../__stubs__/history-queries-stubs.factory';
 import { resetQuerySuggestionsStateWith } from './utils';
 
 describe('testing query suggestions module getters', () => {
-  Vue.use(Vuex);
   const getters = map(querySuggestionsXStoreModule.getters, getter => getter);
   const store: Store<QuerySuggestionsState> = new Store(querySuggestionsXStoreModule as any);
   beforeEach(() => {
@@ -113,5 +112,42 @@ describe('testing query suggestions module getters', () => {
         expect(gettersQuerySuggestions).toHaveLength(suggestionsStub.length);
       }
     );
+
+    it('should hide queries that are equal to any history query and hideSessionQueries is true', () => {
+      const querySearch = 'dress';
+      const suggestionsStub = getQuerySuggestionsStub(querySearch);
+      const historyQueriesStub = createHistoryQuery({ query: 'dress suggestion 1' });
+      resetQuerySuggestionsStateWith(store, {
+        config: { hideSessionQueries: true },
+        suggestions: suggestionsStub,
+        searchedQueries: [historyQueriesStub],
+        query: querySearch
+      });
+
+      const gettersQuerySuggestions: Suggestion[] = store.getters[getters.querySuggestions];
+
+      const queriesSuggested = gettersQuerySuggestions.map(
+        (suggestion: Suggestion) => suggestion.query
+      );
+
+      expect(gettersQuerySuggestions).toHaveLength(suggestionsStub.length - 1);
+      expect(queriesSuggested).toEqual(['dress suggestion 0', 'dress suggestion 2']);
+    });
+
+    it('should show all suggestions when hideSessionQueries is false', () => {
+      const querySearch = 'dress';
+      const suggestionsStub = getQuerySuggestionsStub(querySearch);
+      const historyQueriesStub = createHistoryQuery({ query: 'dress suggestion 1' });
+      resetQuerySuggestionsStateWith(store, {
+        config: { hideSessionQueries: false },
+        suggestions: suggestionsStub,
+        searchedQueries: [historyQueriesStub],
+        query: querySearch
+      });
+
+      const gettersQuerySuggestions: Suggestion[] = store.getters[getters.querySuggestions];
+
+      expect(gettersQuerySuggestions).toHaveLength(suggestionsStub.length);
+    });
   });
 });

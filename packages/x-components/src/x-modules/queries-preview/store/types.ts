@@ -1,5 +1,6 @@
 import { Result, SearchRequest, SearchResponse, TaggingRequest } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
+import { ComputedRef } from 'vue';
 import { XActionContext } from '../../../store/actions.types';
 import { XStoreModule } from '../../../store/store.types';
 import { RequestStatus, StatusState } from '../../../store/utils/status-store.utils';
@@ -133,6 +134,20 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
   }: {
     queryPreviewHash: string;
     cache: boolean;
+  }): void;
+  /**
+   * Updates a result with new fields.
+   *
+   * @param QueryPreviewResultPayload - Information needed to update a query preview result.
+   * result is an object that contains at least an id, and the properties to modify.
+   * queryPreviewHash is the query preview key to find the QueryPreview saved in the state.
+   */
+  updateAQueryPreviewResult({
+    result,
+    queryPreviewHash
+  }: {
+    result: Result;
+    queryPreviewHash: ComputedRef<string>;
   }): void;
 }
 

@@ -1,5 +1,15 @@
 <script lang="ts">
-  import { defineComponent, ref, computed, watch, provide, Ref, PropType } from 'vue';
+  import {
+    defineComponent,
+    ref,
+    computed,
+    watch,
+    provide,
+    Ref,
+    PropType,
+    inject,
+    ComputedRef
+  } from 'vue';
   import { Result, ResultVariant } from '@empathyco/x-types';
   import {
     RESULT_WITH_VARIANTS_KEY,
@@ -56,6 +66,13 @@
       const selectedVariants = ref<ResultVariant[]>([]);
 
       /**
+       * It injects the queryPreviewHash provided by a query-preview.
+       *
+       * @internal
+       */
+      const queryPreviewHash = inject<ComputedRef<string> | null>('queryPreviewHash', null);
+
+      /**
        * Selects a variant of the result.
        * When called, it slices the array of selected variants to remove the selected child variants.
        * Emits the {@link XEventsTypes.UserSelectedAResultVariant} when called.
@@ -68,7 +85,12 @@
           return;
         }
         selectedVariants.value.splice(level, Number.POSITIVE_INFINITY, variant);
-        xBus.emit('UserSelectedAResultVariant', { variant, level, result: result.value });
+        xBus.emit('UserSelectedAResultVariant', {
+          variant,
+          level,
+          result: result.value,
+          queryPreviewHash
+        });
       }
 
       /**

@@ -1,4 +1,4 @@
-import { QuerySuggestionsRequest, Suggestion } from '@empathyco/x-types';
+import { HistoryQuery, QuerySuggestionsRequest, Suggestion } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { XActionContext, XStoreModule } from '../../../store';
 import { QueryMutations, QueryState } from '../../../store/utils/query.utils';
@@ -15,6 +15,8 @@ import { ConfigMutations } from '../../../store/utils/config-store.utils';
 export interface QuerySuggestionsState extends StatusState, QueryState {
   /** The suggestions for the query of the state. */
   suggestions: Suggestion[];
+  /** The list of the searched queries, related to the `query` property of the state. */
+  searchedQueries: HistoryQuery[];
   /** The configuration of the query suggestions module. */
   config: QuerySuggestionsConfig;
   /** The extra params property of the state. */
@@ -59,6 +61,12 @@ export interface QuerySuggestionsMutations
    * @param params - The new extra params.
    */
   setParams(params: Dictionary<unknown>): void;
+  /**
+   * Sets the searched queries of the module.
+   *
+   * @param searchedQueries - The searched queries to save to the state.
+   */
+  setSearchedQueries(searchedQueries: HistoryQuery[]): void;
 }
 
 /**

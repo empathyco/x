@@ -33,12 +33,16 @@ const result = createResultStub('jacket', { variants });
 const render = ({
   template = '<ResultVariantSelector/>',
   result = {},
-  autoSelectDepth = Number.POSITIVE_INFINITY
+  autoSelectDepth = Number.POSITIVE_INFINITY,
+  queryPreviewHash = null as string | null
 } = {}) => {
   const resultComponent = defineComponent({
     components: {
       ResultVariantsProvider,
       ResultVariantSelector
+    },
+    provide: {
+      queryPreviewHash
     },
     data() {
       return {
@@ -168,7 +172,26 @@ describe('results with variants', () => {
     expect(emitSpy).toHaveBeenCalledTimes(1);
     expect(emitSpy).toHaveBeenCalledWith(
       'UserSelectedAResultVariant',
-      { result, variant: variants[0], level: 0 },
+      { result, variant: variants[0], level: 0, queryPreviewHash: null },
+      expect.anything()
+    );
+  });
+
+  it('emits UserSelectedAResultVariant event when a variant from a query preview is selected', async () => {
+    const { wrapper, emitSpy } = render({
+      result,
+      autoSelectDepth: 0,
+      queryPreviewHash: 'abcd'
+    });
+
+    const button = wrapper.find(getDataTestSelector('variant-button'));
+
+    await button.trigger('click');
+
+    expect(emitSpy).toHaveBeenCalledTimes(1);
+    expect(emitSpy).toHaveBeenCalledWith(
+      'UserSelectedAResultVariant',
+      { result, variant: variants[0], level: 0, queryPreviewHash: 'abcd' },
       expect.anything()
     );
   });
@@ -289,26 +312,26 @@ describe('results with variants', () => {
 
       const firstLevelVariantButtons = findSelectorButtonByLevel(0);
 
-      expect(firstLevelVariantButtons)?.toHaveLength(2);
-      expect(firstLevelVariantButtons?.at(0)?.text()).toEqual('red jacket');
-      expect(firstLevelVariantButtons?.at(1)?.text()).toEqual('blue jacket');
+      expect(firstLevelVariantButtons).toHaveLength(2);
+      expect(firstLevelVariantButtons.at(0).text()).toEqual('red jacket');
+      expect(firstLevelVariantButtons.at(1).text()).toEqual('blue jacket');
 
-      await firstLevelVariantButtons?.at(1)?.trigger('click');
+      await firstLevelVariantButtons.at(1).trigger('click');
 
       const secondLevelVariantButtons = findSelectorButtonByLevel(1);
 
       expect(secondLevelVariantButtons).toHaveLength(2);
-      expect(secondLevelVariantButtons?.at(0)?.text()).toEqual('blue jacket L');
-      expect(secondLevelVariantButtons?.at(1)?.text()).toEqual('blue jacket S');
+      expect(secondLevelVariantButtons.at(0).text()).toEqual('blue jacket L');
+      expect(secondLevelVariantButtons.at(1).text()).toEqual('blue jacket S');
 
-      await secondLevelVariantButtons?.at(0)?.trigger('click');
+      await secondLevelVariantButtons.at(0).trigger('click');
 
       const thirdLevelVariantButtons = findSelectorButtonByLevel(2);
 
       expect(thirdLevelVariantButtons).toHaveLength(3);
-      expect(thirdLevelVariantButtons?.at(0)?.text()).toEqual('blue jacket L1');
-      expect(thirdLevelVariantButtons?.at(1)?.text()).toEqual('blue jacket L2');
-      expect(thirdLevelVariantButtons?.at(1)?.text()).toEqual('blue jacket L2');
+      expect(thirdLevelVariantButtons.at(0).text()).toEqual('blue jacket L1');
+      expect(thirdLevelVariantButtons.at(1).text()).toEqual('blue jacket L2');
+      expect(thirdLevelVariantButtons.at(1).text()).toEqual('blue jacket L2');
     });
 
     it('wont render if no result is injected', () => {
@@ -352,12 +375,12 @@ describe('results with variants', () => {
 
       expect(variants).toHaveLength(2);
 
-      expect(variants.at(0)?.text()).toEqual('red jacket');
-      expect(variants.at(1)?.text()).toEqual('blue jacket');
+      expect(variants.at(0).text()).toEqual('red jacket');
+      expect(variants.at(1).text()).toEqual('blue jacket');
 
-      await variants.at(0)?.trigger('click');
+      await variants.at(0).trigger('click');
 
-      expect(variants.at(0)?.element).toHaveClass('isSelected');
+      expect(variants.at(0).element).toHaveClass('isSelected');
     });
 
     it('exposes variant, isSelected and selectVariant in the variant slot', async () => {
@@ -378,11 +401,11 @@ describe('results with variants', () => {
 
       expect(variants).toHaveLength(2);
 
-      expect(variants.at(0)?.text()).toEqual('red jacket');
-      expect(variants.at(1)?.text()).toEqual('blue jacket');
+      expect(variants.at(0).text()).toEqual('red jacket');
+      expect(variants.at(1).text()).toEqual('blue jacket');
 
-      await variants.at(1)?.trigger('click');
-      expect(variants.at(1)?.element).toHaveClass('isSelected');
+      await variants.at(1).trigger('click');
+      expect(variants.at(1).element).toHaveClass('isSelected');
     });
 
     it('exposes variant and isSelected in the variant-content slot', async () => {
@@ -398,10 +421,10 @@ describe('results with variants', () => {
 
       expect(variants).toHaveLength(2);
 
-      await variants.at(0)?.trigger('click');
+      await variants.at(0).trigger('click');
 
-      expect(variants.at(0)?.text()).toContain('red jacket SELECTED!');
-      expect(variants.at(1)?.text()).toEqual('blue jacket');
+      expect(variants.at(0).text()).toContain('red jacket SELECTED!');
+      expect(variants.at(1).text()).toEqual('blue jacket');
     });
   });
 });
