@@ -1,21 +1,18 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { createStore, Store } from 'vuex';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import SpellcheckButton from '../spellcheck-button.vue';
+import { XPlugin } from '../../../../plugins/x-plugin';
 import { resetXSearchStateWith } from './utils';
 
 function renderSpellcheckButton({
   template = `<SpellcheckButton />`,
   spellcheckedQuery
 }: RenderSpellcheckButtonOptions = {}): RenderSpellcheckButtonAPI {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-  const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
+  const store = createStore<DeepPartial<RootXStoreState>>({});
 
   resetXSearchStateWith(store, { query: 'coce', spellcheckedQuery });
 
@@ -27,11 +24,11 @@ function renderSpellcheckButton({
       template
     },
     {
-      localVue,
-      store
+      global: {
+        plugins: [store, installNewXPlugin({ store })]
+      }
     }
   );
-
   return {
     wrapper,
     async click() {
@@ -76,10 +73,9 @@ describe('testing SpellcheckButton component', () => {
     const userAcceptSpellcheck = jest.fn();
     const spellcheckedQuery = 'coche';
     const { wrapper, click } = renderSpellcheckButton({ spellcheckedQuery });
-    const $x = wrapper.vm.$x;
 
-    $x.on('UserAcceptedAQuery', true).subscribe(userAcceptedAQuery);
-    $x.on('UserAcceptedSpellcheckQuery', true).subscribe(userAcceptSpellcheck);
+    XPlugin.bus.on('UserAcceptedAQuery', true).subscribe(userAcceptedAQuery);
+    XPlugin.bus.on('UserAcceptedSpellcheckQuery', true).subscribe(userAcceptSpellcheck);
 
     click();
 
@@ -109,7 +105,7 @@ interface RenderSpellcheckButtonOptions {
 
 interface RenderSpellcheckButtonAPI {
   /** The wrapper of the container element.*/
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** Clicks the button and waits for the view to update. */
   click: () => Promise<void>;
 }

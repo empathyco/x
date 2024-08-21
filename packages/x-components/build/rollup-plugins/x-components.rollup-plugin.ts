@@ -45,8 +45,8 @@ export function generateEntryFiles(options: GenerateEntryFilesOptions): Plugin {
      */
     writeBundle() {
       generateEntryPoints(options.buildPath, options.jsOutputDirectory, 'js');
-      generateEntryPoints(options.buildPath, options.typesOutputDirectory, 'd.ts');
-      copyIndexSourcemap(options.buildPath, options.jsOutputDirectory);
+      // generateEntryPoints(options.buildPath, options.typesOutputDirectory, 'd.ts');
+      // copyIndexSourcemap(options.buildPath, options.jsOutputDirectory);
     }
   };
 }

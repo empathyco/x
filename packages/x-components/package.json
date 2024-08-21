@@ -46,6 +46,7 @@
     "serve": "vite",
     "preview": "vite build && vite preview",
     "build": "ts-node --project ./build/tsconfig.json ./build/build.ts",
+    "build:vite": "vite build --config ./build/vite.build.config.ts",
     "build:website": "vite build",
     "postbuild": "pnpm pack --pack-destination ..",
     "gen:docs": "rimraf ./docs && pnpm run gen:typescript-docs && pnpm run gen:component-docs",

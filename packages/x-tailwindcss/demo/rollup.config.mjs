@@ -20,7 +20,7 @@ export default {
     typescript({
       tsconfig: resolve(__dirname, 'tsconfig.json'),
       tsconfigOverride: {
-        exclude: ['vite.config.ts', 'tailwindcss-nesting.d.ts', 'src/main.ts']
+        exclude: ['vite.config.ts','vite.build.config.ts', 'tailwindcss-nesting.d.ts', 'src/main.ts']
       }
     }),
     vue()
