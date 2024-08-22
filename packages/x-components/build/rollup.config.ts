@@ -1,5 +1,4 @@
 import path from 'path';
-import commonjs from '@rollup/plugin-commonjs';
 import { sync as glob } from 'glob';
 import { RollupOptions, Plugin } from 'rollup';
 import copy from 'rollup-plugin-copy';
@@ -8,6 +7,7 @@ import styles from 'rollup-plugin-styles';
 import typescript from 'rollup-plugin-typescript2';
 import vue3 from '@vitejs/plugin-vue';
 import { dependencies as pkgDeps, peerDependencies as pkgPeerDeps } from '../package.json';
+import { apiDocumentation } from './docgen/documentation.rollup-plugin';
 import { importTokens, omitJsFiles } from './rollup-plugins/design-system.rollup-plugin';
 import { generateEntryFiles } from './rollup-plugins/x-components.rollup-plugin';
 
@@ -97,9 +97,8 @@ export const rollupConfig: RollupOptions = {
       ]
     }),
     vueDocs,
-    commonjs(),
     generateEntryFiles({ buildPath, jsOutputDir, typesOutputDir }),
-    // apiDocumentation({ buildPath }),
+    apiDocumentation({ buildPath }),
     copy({
       targets: [
         { src: ['build/tools'], dest: buildPath },

@@ -478,17 +478,14 @@ importers:
         specifier: ~2.2.0
         version: 2.2.0(esbuild@0.20.0)
       '@empathyco/x-tailwindcss':
-        specifier: ^1.2.0-alpha.3
-        version: 1.2.0-alpha.5(vue@3.4.31)
+        specifier: ^1.2.0-alpha.5
+        version: link:../x-tailwindcss
       '@microsoft/api-documenter':
         specifier: ~7.23.0
         version: 7.23.0(@types/node@18.19.0)
       '@microsoft/api-extractor':
         specifier: ~7.39.0
         version: 7.39.0(@types/node@18.19.0)
-      '@rollup/plugin-commonjs':
-        specifier: ~25.0.7
-        version: 25.0.7(rollup@4.9.1)
       '@testing-library/jest-dom':
         specifier: ~5.17.0
         version: 5.17.0
@@ -1654,14 +1651,6 @@ packages:
       - supports-color
     dev: true
 
-  /@empathyco/x-deep-merge@2.0.3-alpha.1:
-    resolution: {integrity: sha512-aj68ryEn50lQuA1hKeRZGlnwM+AXRo7DIlaGavCVw2lDQoYklQ1EBPoHmhCdkfIXzdCI6PkRgTYt0+qB190I9w==}
-    engines: {node: '>=18'}
-    dependencies:
-      '@empathyco/x-utils': 1.0.3-alpha.1
-      tslib: 2.6.3
-    dev: true
-
   /@empathyco/x-jest-utils@1.4.0-alpha.11:
     resolution: {integrity: sha512-yl68CngEeXGfHXZAzqypIeRTnaHkuoLLBNJt13chvl1d9VgYixN8CXBlzfghMHeWGNyQNqGjqwlJ8f+P4xxV9g==}
     engines: {node: '>=16'}
@@ -1672,43 +1661,7 @@ packages:
     engines: {node: '>=16'}
     dependencies:
       tslib: 2.5.3
-
-  /@empathyco/x-storage-service@2.0.3-alpha.0:
-    resolution: {integrity: sha512-6YUwprKF9d8Uwq7M40iBxgWoaXiFowcKP42egoqDIjNKMrTevu3WBPSEFbR3/bYjUGBZh/TirQRUHncZyllimA==}
-    engines: {node: '>=18'}
-    dependencies:
-      '@empathyco/x-logger': 1.2.0-alpha.11
-      tslib: 2.6.3
-    dev: true
-
-  /@empathyco/x-tailwindcss@1.2.0-alpha.5(vue@3.4.31):
-    resolution: {integrity: sha512-j8Lav3esVxhdzAqMlY3CEen/tR5h3WsMNo/UZglJOiO9iXZsJKaMcRKuMKN8Kt0cB9mrEeoUbwtu/TdlhXW+rw==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      vue: ^2.7.0
-      vue-class-component: ^7.1.0
-      vue-property-decorator: ^8.3.0
-    peerDependenciesMeta:
-      vue:
-        optional: true
-      vue-class-component:
-        optional: true
-      vue-property-decorator:
-        optional: true
-    dependencies:
-      '@empathyco/x-deep-merge': 2.0.3-alpha.1
-      '@empathyco/x-utils': 1.0.3-alpha.1
-      tslib: 2.6.3
-      vue: 3.4.31(typescript@4.9.4)
-    dev: true
-
-  /@empathyco/x-utils@1.0.3-alpha.1:
-    resolution: {integrity: sha512-mWUGRPMNYcWT1W4p1VuhzfwLTd3AluD2tcMIjBZLznGFCCQ+7dOerTfxTvXbpKs7jNRRNORGJWVurmQFm8dqpw==}
-    engines: {node: '>=18'}
-    dependencies:
-      '@empathyco/x-storage-service': 2.0.3-alpha.0
-      tslib: 2.6.3
-    dev: true
+    dev: false
 
   /@es-joy/jsdoccomment@0.36.1:
     resolution: {integrity: sha512-922xqFsTpHs6D0BUiG4toiyPOMc8/jafnWKxz1KWgS4XzKPy2qXf1Pe6UFuNSCQqt6tOuhAWXBNuuyUhJmw9Vg==}
@@ -14945,6 +14898,7 @@ packages:
 
   /tslib@2.5.3:
     resolution: {integrity: sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==}
+    dev: false
 
   /tslib@2.6.0:
     resolution: {integrity: sha512-7At1WUettjcSRHXCyYtTselblcHl9PJFFVKiCAy/bY97+BPZXSQ2wbq0P9s8tK2G7dFQfNnlJnPAiArVBVBsfA==}
