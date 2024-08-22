@@ -2,24 +2,24 @@ import fs from 'fs';
 import path from 'path';
 
 /**
+ * Asserts a directory exist recursively, creating it if it does not.
+ *
+ * @param directoryPath - The full directory path, that may or may not exist.
+ */
+export function ensureDirectoryPathExists(directoryPath: string) {
+  if (!fs.existsSync(directoryPath)) {
+    fs.mkdirSync(directoryPath, { recursive: true });
+  }
+}
+
+/**
  * Asserts a file path directory exists recursively, creating it if it does not.
  *
  * @param filePath - The full path to the file, that may or may not exist.
  */
-export function ensureFilePathExists(filePath: string): void {
+export function ensureFilePathExists(filePath: string) {
   const dirName = path.dirname(filePath);
   ensureDirectoryPathExists(dirName);
-}
-
-/**
- * Asserts a directory exist recursively, creating it if it does not.
- *
- * @param directoryPath - The full directory path, that may or may not exists.
- */
-export function ensureDirectoryPathExists(directoryPath: string): void {
-  if (!fs.existsSync(directoryPath)) {
-    fs.mkdirSync(directoryPath, { recursive: true });
-  }
 }
 
 /**
@@ -28,7 +28,7 @@ export function ensureDirectoryPathExists(directoryPath: string): void {
  * @param sourceFolder - Source folder to be copied.
  * @param targetFolder - Target folder.
  */
-export function copyFolderSync(sourceFolder: string, targetFolder: string): void {
+export function copyFolderSync(sourceFolder: string, targetFolder: string) {
   if (!fs.existsSync(targetFolder)) {
     fs.mkdirSync(targetFolder);
   }
@@ -49,6 +49,6 @@ export function copyFolderSync(sourceFolder: string, targetFolder: string): void
  * @param path - The path to normalize.
  * @returns A normalized path.
  */
-export function normalizePath(path: string): string {
+export function normalizePath(path: string) {
   return path.replace(/\\/g, '/');
 }

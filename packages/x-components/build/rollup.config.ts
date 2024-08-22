@@ -1,32 +1,34 @@
 import path from 'path';
 import commonjs from '@rollup/plugin-commonjs';
 import { sync as glob } from 'glob';
-import { RollupOptions } from 'rollup';
+import { RollupOptions, Plugin } from 'rollup';
 import copy from 'rollup-plugin-copy';
 import del from 'rollup-plugin-delete';
 import styles from 'rollup-plugin-styles';
 import typescript from 'rollup-plugin-typescript2';
-import vue, { VuePluginOptions } from 'rollup-plugin-vue';
-import packageJSON from '../package.json';
-import { normalizePath } from './build.utils';
-import { apiDocumentation } from './docgen/documentation.rollup-plugin';
+import vue3 from '@vitejs/plugin-vue';
+import { dependencies as pkgDeps, peerDependencies as pkgPeerDeps } from '../package.json';
 import { importTokens, omitJsFiles } from './rollup-plugins/design-system.rollup-plugin';
 import { generateEntryFiles } from './rollup-plugins/x-components.rollup-plugin';
 
 const rootDir = path.resolve(__dirname, '../');
 const buildPath = path.join(rootDir, 'dist');
 
-const dependencies = new Set(
-  Object.keys(packageJSON.dependencies).concat(Object.keys(packageJSON.peerDependencies))
-);
-const jsOutputDirectory = path.join(buildPath, 'js');
-const typesOutputDirectory = path.join(buildPath, 'types');
-const cssOutputDirectory = path.join(buildPath, 'design-system');
+const jsOutputDir = path.join(buildPath, 'js');
+const typesOutputDir = path.join(buildPath, 'types');
 
-export const rollupConfig = createRollupOptions({
+const dependencies = new Set(Object.keys(pkgDeps).concat(Object.keys(pkgPeerDeps)));
+
+const vueDocs = {
+  name: 'vue-docs',
+  transform: (_code: unknown, id: string) =>
+    !/vue&type=docs/.test(id) ? undefined : `export default ''`
+};
+
+export const rollupConfig: RollupOptions = {
   input: path.join(rootDir, 'src/index.ts'),
   output: {
-    dir: jsOutputDirectory,
+    dir: jsOutputDir,
     format: 'esm',
     sourcemap: true,
     preserveModules: true
@@ -36,7 +38,7 @@ export const rollupConfig = createRollupOptions({
      * Because of that, when rollup detects a circular dependency (it emits a warning), we stop
      * the build with an error */
     if (warning.code === 'CIRCULAR_DEPENDENCY') {
-      throw Error(`Circular dependency found: ${warning.ids?.join(' ') as string}`);
+      throw Error(`Circular dependency found: ${warning.ids?.join(' ') ?? ''}`);
     }
   },
   external(id) {
@@ -44,26 +46,22 @@ export const rollupConfig = createRollupOptions({
      Rollup treats by default all node_modules dependencies as external, but will launch a
      warning if you don't manually specify them. In our case apart from the package.json ones,
      we also need to add any dependency that starts with rxjs (due to rxjs having multiple
-     entry points), and the vue-runtime-helpers, which is a dependency added by the SFC compiler
+     entry points)
      */
     return (
       dependencies.has(id) || // Package.json dependencies
       /* As rxjs has multiple entry points, it needs to be declared this way */
-      id.startsWith('rxjs') ||
-      /* Vue SFC dependency. Needs to be here because rollup generates a relative import to the
-       node_modules folder */
-      id.includes('vue-runtime-helpers')
+      id.startsWith('rxjs')
     );
   },
   plugins: [
     del({ targets: [`${buildPath}/*`, `${path.join(rootDir, 'docs')}/*`] }),
-    commonjs(),
     typescript({
       useTsconfigDeclarationDir: true,
       tsconfig: path.resolve(rootDir, 'tsconfig.json'),
       tsconfigOverride: {
         compilerOptions: {
-          declarationDir: typesOutputDirectory,
+          declarationDir: typesOutputDir,
           target: 'es2020'
         },
         exclude: [
@@ -75,91 +73,50 @@ export const rollupConfig = createRollupOptions({
         ]
       }
     }),
-    vue({
-      css: false,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore Undocumented option to disable vue sourcemap generation because it breaks if
-      // lang is set to ts:
-      // https://github.com/vuejs/rollup-plugin-vue/issues/272#issuecomment-491721842
-      needMap: false,
+    vue3({
       template: {
         compilerOptions: {
           whitespace: 'condense'
         }
-      } as VuePluginOptions['template'],
-      style: {
-        postcssCleanOptions: { disabled: true }
       }
-    }),
+    }) as Plugin,
     styles({
       mode: [
         'inject',
-        (varname: string, id: string) =>
-          `import { createInjector, createInjectorSSR } from 'vue-runtime-helpers';
-           const isBrowser = /*#__PURE__*/ (function () {
-             return (
-                Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) !==
-                '[object process]'
-             );
-           })();
-           const useBrowserInjector =
-             (typeof STRIP_SSR_INJECTOR !== 'undefined' && STRIP_SSR_INJECTOR) || isBrowser;
-           const injector = useBrowserInjector ? createInjector({}) : createInjectorSSR({});
-           injector('${normalizePath(id)}',{source:${varname}});`
+        varname => {
+          const pathInjector = path.resolve('./tools/inject-css.js');
+          return `import injectCss from '${pathInjector}';injectCss(${varname});`;
+        }
       ]
     }),
-    generateEntryFiles({
-      buildPath,
-      jsOutputDirectory,
-      typesOutputDirectory
-    }),
-    apiDocumentation({
-      buildPath
-    }),
+    vueDocs,
+    commonjs(),
+    generateEntryFiles({ buildPath, jsOutputDir, typesOutputDir }),
+    // apiDocumentation({ buildPath }),
     copy({
       targets: [
-        {
-          src: ['CHANGELOG.md', 'package.json', 'README.md', 'docs'],
-          dest: buildPath
-        }
+        { src: ['build/tools'], dest: buildPath },
+        { src: ['CHANGELOG.md', 'package.json', 'README.md', 'docs'], dest: buildPath }
       ],
       hook: 'writeBundle'
     })
   ]
-});
+};
 
 // Design System CSS generation
+const cssOutputDir = path.join(buildPath, 'design-system');
 
-/**
- * Common options for all CSS Rollup configs.
- */
-const commonCssOptions = createRollupOptions({
+/** The config to generate one `.css` file with all the deprecated styles. */
+export const cssDeprecatedRollupConfig: RollupOptions = {
+  input: glob('src/design-system-deprecated/**/*.scss'),
   output: {
-    dir: cssOutputDirectory,
+    dir: cssOutputDir,
     assetFileNames: '[name][extname]',
     preserveModules: true
-  }
-});
-
-/**
- * The config to generate one `.css` file with all the deprecated styles.
- */
-export const cssDeprecatedComponentsRollupConfig = createRollupOptions({
-  ...commonCssOptions,
-  input: glob('src/design-system-deprecated/**/*.scss'),
+  },
   plugins: [
     importTokens(),
     styles({ mode: ['extract', 'deprecated-full-theme.css'] }),
     omitJsFiles()
   ]
-});
-
-/**
- * Util function to create type-safe Rollup options.
- *
- * @param options - The Rollup options to create.
- * @returns Type-safe Rollup options.
- */
-export function createRollupOptions<T extends RollupOptions>(options: T): T {
-  return options;
-}
+};
