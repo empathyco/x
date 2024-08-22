@@ -26,17 +26,15 @@
   });
 </script>
 
-<style lang="scss" scoped>
-  .x-fade {
-    &--enter-active,
-    &--leave-active {
-      transition: opacity 0.25s ease-in-out;
-    }
+<style lang="css">
+  .x-fade--enter-active,
+  .x-fade--leave-active {
+    transition: opacity 0.25s ease-in-out;
+  }
 
-    &--leave-to,
-    &--enter-from {
-      opacity: 0 !important;
-    }
+  .x-fade--leave-to,
+  .x-fade--enter-from {
+    opacity: 0 !important;
   }
 </style>
 

@@ -218,16 +218,16 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-result-picture {
     position: relative;
     min-width: 1px;
     min-height: 1px;
+  }
 
-    &-image {
-      max-width: 100%;
-      max-height: 100%;
-    }
+  .x-result-picture-image {
+    max-width: 100%;
+    max-height: 100%;
   }
 </style>
 

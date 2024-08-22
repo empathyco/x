@@ -135,16 +135,16 @@
   });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   @import '../../design-system-deprecated/utilities/dev-mode';
 
   .x-layout {
-    // custom properties
+    /* custom properties */
     display: grid;
     align-content: stretch;
     min-height: 100%;
 
-    // layout
+    /* layout */
     max-height: 100%;
     --x-size-margin-max-width: calc((100vw - var(--x-size-max-width-layout, 1440px)) / 2);
     --x-size-margin-layout: max(
@@ -173,7 +173,7 @@
       [page-end];
 
     &__header {
-      // layout
+      /* layout */
       position: sticky;
       top: -0.5px;
       z-index: 2;
@@ -182,54 +182,54 @@
       max-height: var(--x-size-max-height-layout-header, auto);
       padding: 0 var(--x-size-margin-layout);
 
-      //color
+      /* color */
       background: var(--x-color-background-layout-header, transparent);
       border-color: var(--x-size-border-color-layout-header, transparent);
 
-      // border
+      /* border */
       border-width: var(--x-size-border-width-layout-header, 0);
       border-style: solid;
     }
 
     &__sub-header {
-      // layout
+      /* layout */
       grid-row: sub-header;
       grid-column: page;
       padding: 0 var(--x-size-margin-layout);
 
-      //color
+      /* color */
       background: var(--x-color-background-layout-sub-header, transparent);
       border-color: var(--x-size-border-color-layout-sub-header, transparent);
 
-      // border
+      /* border */
       border-width: var(--x-size-border-width-layout-sub-header, 0);
       border-style: solid;
     }
 
     &__toolbar {
-      // layout
+      /* layout */
       grid-row: toolbar;
       grid-column: max-width;
     }
 
     &__main {
-      // layout
+      /* layout */
       grid-row: main;
       grid-column: max-width;
     }
 
-    // layout
+    /* layout */
     :deep(.x-layout__aside.x-modal) {
       z-index: 3;
       flex-flow: row nowrap;
     }
 
-    // layout
+    /* layout */
     :deep(.x-layout__aside--right.x-modal) {
       justify-content: flex-end;
     }
 
-    // others
+    /* others */
     :deep(.x-layout__aside) {
       pointer-events: none;
 
@@ -246,7 +246,7 @@
     }
 
     &__header-backdrop {
-      // layout
+      /* layout */
       grid-row: page;
       grid-column: page;
       position: sticky;
@@ -256,14 +256,14 @@
       width: 100%;
       pointer-events: none;
 
-      // color
+      /* color */
       background-color: var(
         --x-color-background-layout-header-backdrop,
         var(--x-color-base-neutral-100, white)
       );
       mask: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
 
-      // transition
+      /* transition */
       opacity: 0;
       transition: opacity 0.2s ease-out;
 

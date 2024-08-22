@@ -39,13 +39,11 @@
   });
 </script>
 
-<style lang="scss" scoped>
-  .x-collapse-width {
-    &--enter-active,
-    &--leave-active {
-      transition: width 0.3s ease-out;
-      overflow: hidden;
-    }
+<style lang="css">
+  .x-collapse-width--enter-active,
+  .x-collapse-width--leave-active {
+    transition: width 0.3s ease-out;
+    overflow: hidden;
   }
 </style>
 

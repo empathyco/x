@@ -18,18 +18,16 @@
   });
 </script>
 
-<style lang="scss" scoped>
-  .x-animate-width {
-    &--enter-active,
-    &--leave-active {
-      transition: width 0.3s ease-out;
-      overflow-x: hidden;
-    }
+<style lang="css">
+  .x-animate-width--enter-active,
+  .x-animate-width--leave-active {
+    transition: width 0.3s ease-out;
+    overflow-x: hidden;
+  }
 
-    &--enter-from,
-    &--leave-to {
-      width: 0 !important;
-    }
+  .x-animate-width--enter-from,
+  .x-animate-width--leave-to {
+    width: 0 !important;
   }
 </style>
 

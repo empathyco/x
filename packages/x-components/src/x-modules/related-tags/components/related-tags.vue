@@ -112,7 +112,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-related-tags {
     display: flex;
     flex-flow: row nowrap;

@@ -88,7 +88,7 @@
     setup(props, context) {
       const baseScrollEl = ref<HTMLElement>();
 
-      const { throttledStoreScrollData } = useScroll(props, context, baseScrollEl);
+      const { throttledStoreScrollData } = useScroll(props, context as any, baseScrollEl);
 
       return {
         throttledStoreScrollData,

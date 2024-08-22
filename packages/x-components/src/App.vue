@@ -10,7 +10,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="css">
   html,
   body {
     margin: 0;
@@ -18,7 +18,7 @@
   }
 </style>
 
-<style scoped lang="scss">
+<style lang="css" scoped>
   .app {
     min-height: 100%;
     display: flex;

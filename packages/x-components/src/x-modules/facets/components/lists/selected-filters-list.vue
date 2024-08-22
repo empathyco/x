@@ -39,7 +39,8 @@
 
 <script lang="ts">
   import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
-  import Vue, { defineComponent, PropType } from 'vue';
+  import { defineComponent, PropType } from 'vue';
+  import { animationProp } from '../../../../utils/options-api';
   import { toKebabCase } from '../../../../utils/string';
   import { useFacets } from '../../composables/use-facets';
   import { facetsXModule } from '../../x-module';
@@ -77,7 +78,7 @@
       alwaysVisible: Boolean,
       /** Animation component that will be used to animate the selected filters list. */
       animation: {
-        type: [String, Object] as PropType<string | Vue>,
+        type: animationProp,
         default: 'ul'
       }
     },

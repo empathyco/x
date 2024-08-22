@@ -689,7 +689,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css">
   .x-modal :deep(.x-modal__content) {
     overflow: hidden;
     // Following is needed for closing the modal in base-events-modal.feature

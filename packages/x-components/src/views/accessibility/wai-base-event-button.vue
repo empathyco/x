@@ -127,7 +127,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-scroll {
     height: 600px;
   }

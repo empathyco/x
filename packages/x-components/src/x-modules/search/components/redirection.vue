@@ -143,8 +143,6 @@
   });
 </script>
 
-<style lang="scss"></style>
-
 <docs lang="mdx">
 ## Events
 

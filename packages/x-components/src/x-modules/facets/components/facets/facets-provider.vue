@@ -115,7 +115,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-facets-list {
     list-style-type: none;
   }

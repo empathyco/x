@@ -99,7 +99,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-recommendations {
     display: flex;
     list-style-type: none;

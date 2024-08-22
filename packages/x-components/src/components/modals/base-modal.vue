@@ -238,7 +238,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-modal {
     position: fixed;
     top: 0;
@@ -249,20 +249,20 @@
     width: 100%;
     height: 100%;
     z-index: 1;
+  }
 
-    &__content {
-      display: flex;
-      flex-flow: column nowrap;
-      z-index: 1;
-    }
+  .x-modal__content {
+    display: flex;
+    flex-flow: column nowrap;
+    z-index: 1;
+  }
 
-    &__overlay {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      background-color: rgb(0, 0, 0);
-      opacity: 0.3;
-    }
+  .x-modal__overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgb(0, 0, 0);
+    opacity: 0.3;
   }
 </style>
 

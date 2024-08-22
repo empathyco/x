@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, computed } from 'vue';
+  import { defineComponent, ref } from 'vue';
   import { VueCSSClasses } from '../utils/types';
 
   /**
@@ -72,7 +72,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-switch {
     --x-switch-height: 16px;
     --x-switch-width: calc(2 * (var(--x-switch-height)) + 2 * var(--x-switch-padding));
@@ -88,28 +88,28 @@
     border: none;
     transition: 0.25s ease-out background-color;
     cursor: pointer;
+  }
 
-    &__handle {
-      background: #ffffff;
-      border-radius: 50%;
-      height: var(--x-switch-handle-size);
-      width: var(--x-switch-handle-size);
-      transition: 0.25s ease-out transform;
-      transform: translateX(var(--x-switch-translate-x, 0%));
-    }
+  .x-switch__handle {
+    background: #ffffff;
+    border-radius: 50%;
+    height: var(--x-switch-handle-size);
+    width: var(--x-switch-handle-size);
+    transition: 0.25s ease-out transform;
+    transform: translateX(var(--x-switch-translate-x, 0%));
+  }
 
-    &--is-selected {
-      --x-switch-translate-x: calc(var(--x-switch-padding) + var(--x-switch-width) / 2);
-      --x-switch-background: #1a1a1a;
-    }
+  .x-switch--is-selected {
+    --x-switch-translate-x: calc(var(--x-switch-padding) + var(--x-switch-width) / 2);
+    --x-switch-background: #1a1a1a;
+  }
 
-    &--sm {
-      --x-switch-height: 12px;
-    }
+  .x-switch--sm {
+    --x-switch-height: 12px;
+  }
 
-    &--lg {
-      --x-switch-height: 24px;
-    }
+  .x-switch--lg {
+    --x-switch-height: 24px;
   }
 </style>
 

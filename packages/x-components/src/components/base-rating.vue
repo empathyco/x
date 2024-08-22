@@ -89,38 +89,38 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-rating {
     position: relative;
     display: inline-block;
     max-width: fit-content;
+  }
 
-    &--empty {
-      overflow: hidden;
-      display: flex;
-      flex-flow: row nowrap;
-      white-space: nowrap;
-    }
+  .x-rating--empty {
+    overflow: hidden;
+    display: flex;
+    flex-flow: row nowrap;
+    white-space: nowrap;
+  }
 
-    &--filled {
-      display: flex;
-      flex-flow: row nowrap;
-      white-space: nowrap;
-      position: absolute;
-      overflow: hidden;
-      top: 0;
-      left: 0;
-      height: 100%;
-    }
+  .x-rating--filled {
+    display: flex;
+    flex-flow: row nowrap;
+    white-space: nowrap;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
 
-    &__default-icon {
-      fill: currentColor;
-      stroke: currentColor;
+  .x-rating__default-icon {
+    fill: currentColor;
+    stroke: currentColor;
+  }
 
-      &--empty {
-        fill: none;
-      }
-    }
+  .x-rating__default-icon--empty {
+    fill: none;
   }
 </style>
 
