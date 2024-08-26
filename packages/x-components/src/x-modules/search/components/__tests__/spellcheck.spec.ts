@@ -1,7 +1,7 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
+import { nextTick } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store';
 import Spellcheck from '../spellcheck.vue';
@@ -10,16 +10,8 @@ import { resetXSearchStateWith } from './utils';
 function renderSpellcheck({
   template = `<Spellcheck/>`,
   spellcheckedQuery
-}: RenderSpellcheckOptions = {}): RenderSpellcheckAPI {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
+}: RenderSpellcheckOptions = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-
-  resetXSearchStateWith(store, {
-    query: 'coce',
-    spellcheckedQuery
-  });
 
   const wrapper = mount(
     {
@@ -29,29 +21,35 @@ function renderSpellcheck({
       template
     },
     {
-      localVue,
-      store
+      global: {
+        plugins: [installNewXPlugin({ store })]
+      }
     }
   );
 
+  resetXSearchStateWith(store, {
+    query: 'coce',
+    spellcheckedQuery
+  });
+
   return {
-    wrapper
+    wrapper: wrapper.findComponent(Spellcheck)
   };
 }
 
 describe('testing Spellcheck component', () => {
   it('does not render any content when there is not spellcheckedQuery', () => {
     const { wrapper } = renderSpellcheck();
-    expect(wrapper.find(getDataTestSelector('spellcheck')).element).not.toBeDefined();
+    expect(wrapper.find('.x-spellcheck').exists()).toBe(false);
   });
 
-  it('renders the default spellcheck message', () => {
+  it('renders the default spellcheck message', async () => {
     const { wrapper } = renderSpellcheck({ spellcheckedQuery: 'coche' });
-
-    expect(wrapper.find(getDataTestSelector('spellcheck')).text()).toBe('coce - coche');
+    await nextTick();
+    expect(wrapper.find('.x-spellcheck').text()).toBe('coce - coche');
   });
 
-  it('renders a custom spellcheck message', () => {
+  it('renders a custom spellcheck message', async () => {
     const { wrapper } = renderSpellcheck({
       template: `
       <Spellcheck>
@@ -62,6 +60,7 @@ describe('testing Spellcheck component', () => {
       `,
       spellcheckedQuery: 'coche'
     });
+    await nextTick();
     expect(wrapper.find(getDataTestSelector('spellcheck')).text()).toBe(
       "No results found for 'coce'. We show you results for 'coche'"
     );
@@ -73,9 +72,4 @@ interface RenderSpellcheckOptions {
   template?: string;
   /** The spellcheckedQuery for the state. */
   spellcheckedQuery?: string;
-}
-
-interface RenderSpellcheckAPI {
-  /** The wrapper of the container element.*/
-  wrapper: Wrapper<Vue>;
 }

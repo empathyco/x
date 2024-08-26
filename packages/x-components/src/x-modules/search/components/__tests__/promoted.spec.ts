@@ -1,6 +1,5 @@
 import { Promoted as PromotedModel } from '@empathyco/x-types';
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
 import { createPromotedStub } from '../../../../__stubs__/promoteds-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -10,9 +9,7 @@ function renderPromoted({
   template = `<Promoted v-bind="$attrs"/>`,
   promoted = createPromotedStub('default-promoted'),
   titleClass
-}: RenderPromotedOptions = {}): RenderPromotedAPI {
-  const [, localVue] = installNewXPlugin();
-
+}: RenderPromotedOptions = {}) {
   const wrapper = mount(
     {
       components: {
@@ -21,11 +18,13 @@ function renderPromoted({
       template
     },
     {
-      propsData: {
+      props: {
         promoted,
         titleClass
       },
-      localVue
+      global: {
+        plugins: [installNewXPlugin()]
+      }
     }
   );
 
@@ -80,9 +79,4 @@ interface RenderPromotedOptions {
   template?: string;
   /** Class to customize the title element. */
   titleClass?: string;
-}
-
-interface RenderPromotedAPI {
-  /** The wrapper of the container element.*/
-  wrapper: Wrapper<Vue>;
 }

@@ -1,14 +1,14 @@
 import { PartialResult } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
+import { nextTick } from 'vue';
 import { getPartialResultsStub } from '../../../../__stubs__/partials-results-stubs.factory';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import PartialResultsList from '../partial-results-list.vue';
+import { searchXModule } from '../../x-module';
 import { resetXSearchStateWith } from './utils';
 
 /**
@@ -20,15 +20,8 @@ import { resetXSearchStateWith } from './utils';
 function renderPartialResultsList({
   template = '<PartialResultsList />',
   partialResults = getPartialResultsStub()
-}: RenderPartialResultsListOptions = {}): RenderPartialResultsListAPI {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
+}: RenderPartialResultsListOptions = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-
-  XPlugin.resetInstance();
-
-  resetXSearchStateWith(store, { partialResults });
 
   const wrapper = mount(
     {
@@ -38,10 +31,14 @@ function renderPartialResultsList({
       template
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] })]
+      },
       store
     }
   );
+
+  resetXSearchStateWith(store, { partialResults });
 
   const partialResultsListWrapper = wrapper.findComponent(PartialResultsList);
 
@@ -63,8 +60,9 @@ describe('testing Partial results list component', () => {
     expect(getXComponentXModuleName(partialResultsListWrapper.vm)).toEqual('search');
   });
 
-  it('renders the partial results in the state', () => {
+  it('renders the partial results in the state', async () => {
     const { partialResultsListWrapper, getPartialResults } = renderPartialResultsList();
+    await nextTick();
     const partialResultsItems = partialResultsListWrapper.findAll(
       getDataTestSelector('partial-result')
     );
@@ -78,7 +76,7 @@ describe('testing Partial results list component', () => {
     );
   });
 
-  it('allows customizing the default slot', () => {
+  it('allows customizing the default slot', async () => {
     const { partialResultsListWrapper } = renderPartialResultsList({
       template: `
         <PartialResultsList>
@@ -87,6 +85,8 @@ describe('testing Partial results list component', () => {
           </template>
         </PartialResultsList>`
     });
+
+    await nextTick();
 
     expect(partialResultsListWrapper.find(getDataTestSelector('partial-results')).exists()).toBe(
       true
@@ -102,11 +102,4 @@ interface RenderPartialResultsListOptions {
   template?: string;
   /** The `partialResults` to be rendered. */
   partialResults?: PartialResult[];
-}
-
-interface RenderPartialResultsListAPI {
-  /** The `partialResultsList` wrapper component. */
-  partialResultsListWrapper: Wrapper<Vue>;
-  /** Helper method with the `partialResults` to be rendered. */
-  getPartialResults: () => PartialResult[];
 }

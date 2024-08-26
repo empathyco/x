@@ -1,15 +1,17 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import SortPickerList from '../sort-picker-list.vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { searchXModule } from '../../x-module';
+import { XDummyBus } from '../../../../__tests__/bus.dummy';
 import { resetXSearchStateWith } from './utils';
 
+const bus = new XDummyBus();
 function renderSortPickerList({
   template = `
    <SortPickerList :items="items" :buttonClass="buttonClass">
@@ -21,18 +23,7 @@ function renderSortPickerList({
   selectedSort = items[0],
   buttonClass
 }: Partial<{ template?: string; items?: any[]; selectedSort?: any; buttonClass?: string }> = {}) {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-
-  installNewXPlugin({ store }, localVue);
-  XPlugin.registerXModule(searchXModule);
-  resetXSearchStateWith(store, { sort: selectedSort });
-
-  const onSelectedSortProvided = jest.fn();
-  XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided);
-  const onUserClickedASort = jest.fn();
-  XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort);
 
   const wrapper = mount(
     {
@@ -41,14 +32,22 @@ function renderSortPickerList({
       props: ['items', 'buttonClass']
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] }, bus)]
+      },
       store,
-      propsData: {
+      props: {
         items,
         buttonClass
       }
     }
   );
+  resetXSearchStateWith(store, { sort: selectedSort });
+
+  const onSelectedSortProvided = jest.fn();
+  XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided);
+  const onUserClickedASort = jest.fn();
+  XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort);
 
   const sortPickerList = wrapper.findComponent(SortPickerList);
 
@@ -62,7 +61,7 @@ function renderSortPickerList({
       await sortPickerList
         .findAll(getDataTestSelector('sort-picker-button'))
         .at(index)
-        .trigger('click');
+        ?.trigger('click');
       await nextTick();
     }
   };
@@ -99,10 +98,11 @@ describe('testing SortPickerList component', () => {
     expect(getSelectedItem().text()).toEqual('offer');
   });
 
-  it('emits the first element of the `items` prop as the provided sort', () => {
+  it('emits the first element of the `items` prop as the provided sort', async () => {
     const { onSelectedSortProvided } = renderSortPickerList();
 
     expect(onSelectedSortProvided).toHaveBeenCalledTimes(1);
+    await nextTick();
     expect(onSelectedSortProvided).toHaveBeenCalledWith({
       eventPayload: 'default',
       // This event gets emitted immediately, before the component has been mounted
@@ -115,7 +115,7 @@ describe('testing SortPickerList component', () => {
     const buttons = wrapper.findAll(getDataTestSelector('sort-picker-button'));
 
     expect(buttons.length).toBeTruthy();
-    buttons.wrappers.forEach(button => {
+    buttons.forEach(button => {
       expect(button.classes('custom-class')).toBeTruthy();
     });
   });
@@ -125,7 +125,7 @@ describe('testing SortPickerList component', () => {
 
     await clickNthItem(1);
 
-    const buttons = wrapper.findAll(getDataTestSelector('sort-picker-button')).wrappers;
+    const buttons = wrapper.findAll(getDataTestSelector('sort-picker-button'));
     expect(buttons[0].element).not.toHaveAttribute('aria-pressed');
     expect(buttons[1].element).toHaveAttribute('aria-pressed', 'true');
   });
@@ -135,13 +135,13 @@ describe('testing SortPickerList component', () => {
 
     await clickNthItem(1);
 
-    const buttons = wrapper.findAll(getDataTestSelector('sort-picker-button')).wrappers;
+    const buttons = wrapper.findAll(getDataTestSelector('sort-picker-button'));
     expect(buttons[0].classes('x-selected')).toBeFalsy();
     expect(buttons[1].classes('x-selected')).toBeTruthy();
   });
 
   describe('slots', () => {
-    it('allows to customize each item using the default slot', () => {
+    it('allows to customize each item using the default slot', async () => {
       const { getSelectedItem } = renderSortPickerList({
         items: ['', 'Price low to high', 'Price high to low'],
         template: `
@@ -152,6 +152,7 @@ describe('testing SortPickerList component', () => {
           </SortPickerList>`
       });
 
+      await nextTick();
       expect(getSelectedItem().text()).toContain('true');
     });
   });
