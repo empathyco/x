@@ -1,7 +1,6 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { HistoryQuery } from '@empathyco/x-types';
 import { RootXStoreState } from '../../../../store/store.types';
 import { installNewXPlugin } from '../../../../__tests__/utils';
@@ -9,23 +8,23 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/x
 import { historyQueriesXModule } from '../../x-module';
 import HistoryQueriesSwitch from '../history-queries-switch.vue';
 import { createHistoryQueries } from '../../../../__stubs__/index';
+import { XPlugin } from '../../../../plugins/x-plugin';
 import { resetXHistoryQueriesStateWith } from './utils';
 
 function renderHistoryQueriesSwitch({
   historyQueries = createHistoryQueries('jacket', 'tshirt'),
   isEnabled = false
 }: HistoryQueriesSwitchOptions = {}): HistoryQueriesSwitchAPI {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store, initialXModules: [historyQueriesXModule] }, localVue);
-  resetXHistoryQueriesStateWith(store, { isEnabled, historyQueries });
 
   const wrapper = mount(HistoryQueriesSwitch, {
-    localVue,
+    global: {
+      plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })]
+    },
     store
   });
+
+  resetXHistoryQueriesStateWith(store, { isEnabled, historyQueries });
 
   return {
     wrapper
@@ -45,13 +44,13 @@ describe('testing HistoryQueriesSwitch component', () => {
     const enableListener = jest.fn();
     const disableListener = jest.fn();
 
-    wrapper.vm.$x.on('UserClickedEnableHistoryQueries').subscribe(enableListener);
-    wrapper.vm.$x.on('UserClickedDisableHistoryQueries').subscribe(disableListener);
+    XPlugin.bus.on('UserClickedEnableHistoryQueries').subscribe(enableListener);
+    XPlugin.bus.on('UserClickedDisableHistoryQueries').subscribe(disableListener);
 
     wrapper.trigger('click');
 
     expect(enableListener).toHaveBeenCalledTimes(1);
-    expect(wrapper.vm.$store.state.x.historyQueries.isEnabled).toBe(true);
+    expect(XPlugin.store.state.x.historyQueries.isEnabled).toBe(true);
 
     wrapper.trigger('click');
 
@@ -64,14 +63,14 @@ describe('testing HistoryQueriesSwitch component', () => {
       isEnabled: true
     });
     const listener = jest.fn();
-    wrapper.vm.$x.on('UserClickedConfirmDisableHistoryQueries').subscribe(listener);
+    XPlugin.bus.on('UserClickedConfirmDisableHistoryQueries').subscribe(listener);
 
     wrapper.trigger('click');
 
     await new Promise(resolve => setTimeout(resolve));
 
     expect(listener).toHaveBeenCalledTimes(1);
-    expect(wrapper.vm.$store.state.x.historyQueries.isEnabled).toBe(false);
+    expect(XPlugin.store.state.x.historyQueries.isEnabled).toBe(false);
   });
 });
 
@@ -90,5 +89,5 @@ interface HistoryQueriesSwitchOptions {
  */
 interface HistoryQueriesSwitchAPI {
   /** The wrapper for HistoryQueriesSwitch component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
 }

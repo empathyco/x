@@ -1,8 +1,8 @@
 import { HistoryQuery as HistoryQueryModel } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
-import { ComponentOptions } from 'vue';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
+import { nextTick } from 'vue';
 import { createHistoryQuery } from '../../../../__stubs__/history-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -20,12 +20,8 @@ function renderHistoryQuery({
   removeButtonClass,
   suggestionClass,
   wrapperComponentOptions
-}: RenderHistoryQueryOptions = {}): RenderHistoryQueryApi {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
+}: RenderHistoryQueryOptions = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store, initialXModules: [historyQueriesXModule] }, localVue);
-  resetXHistoryQueriesStateWith(store, { query });
 
   const wrapper = mount(
     {
@@ -37,11 +33,15 @@ function renderHistoryQuery({
       ...wrapperComponentOptions
     },
     {
-      localVue,
-      propsData: { suggestion, removeButtonClass, suggestionClass },
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })]
+      },
+      props: { suggestion, removeButtonClass, suggestionClass },
       store
     }
   );
+
+  resetXHistoryQueriesStateWith(store, { query });
 
   return {
     wrapper: wrapper.findComponent(HistoryQuery),
@@ -71,32 +71,36 @@ describe('testing history-query component', () => {
   });
 
   it('renders the suggestion received as prop', () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { getSuggestionWrapper } = renderHistoryQuery({
       suggestion: createHistoryQuery({ query: 'milk' })
     });
     expect(getSuggestionWrapper().text()).toEqual('milk');
   });
 
-  it('highlights the suggestion matching parts with the state query', () => {
+  it('highlights the suggestion matching parts with the state query', async () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { getSuggestionWrapper, getMatchingPart } = renderHistoryQuery({
       suggestion: createHistoryQuery({ query: 'baileys' }),
       query: 'Bá'
     });
+
+    await nextTick();
 
     expect(getMatchingPart().text()).toEqual('ba');
     expect(getSuggestionWrapper().text()).toEqual('baileys');
   });
 
   it('emits appropriate events on click', () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { emitSpy, getSuggestionWrapper, suggestion } = renderHistoryQuery({
       suggestion: createHistoryQuery({ query: 'milk' })
     });
 
     getSuggestionWrapper().trigger('click');
-
     const expectedMetadata = expect.objectContaining<Partial<WireMetadata>>({
       moduleName: 'historyQueries',
-      target: getSuggestionWrapper().element,
+      target: getSuggestionWrapper().element as HTMLElement,
       feature: 'history_query'
     });
     expect(emitSpy).toHaveBeenCalledWith('UserAcceptedAQuery', suggestion.query, expectedMetadata);
@@ -105,6 +109,7 @@ describe('testing history-query component', () => {
   });
 
   it('allows to customise the rendered content', () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { getSuggestionWrapper } = renderHistoryQuery({
       suggestion: createHistoryQuery({ query: 'baileys' }),
       template: `
@@ -115,12 +120,13 @@ describe('testing history-query component', () => {
       `
     });
 
-    expect(getSuggestionWrapper().text()).toEqual('🔍 baileys');
+    expect(getSuggestionWrapper().text()).toEqual('🔍baileys');
   });
 
   // TODO: Enable test when BaseEventButton component is migrated
   // eslint-disable-next-line jest/no-disabled-tests,max-len
   it.skip('emits `UserPressedRemoveHistoryQuery` when `RemoveHistoryQuery` button is clicked', () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { emitSpy, suggestion, getRemoveWrapper } = renderHistoryQuery({
       suggestion: createHistoryQuery({ query: 'milk' })
     });
@@ -133,12 +139,13 @@ describe('testing history-query component', () => {
       suggestion,
       expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'historyQueries',
-        target: getRemoveWrapper().element
+        target: getRemoveWrapper().element as HTMLElement
       })
     );
   });
 
   it('allows to customize `RemoveHistoryQuery` button content', () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { getRemoveWrapper } = renderHistoryQuery({
       suggestion: createHistoryQuery({ query: 'cruzcampo' }),
       template: `
@@ -152,6 +159,7 @@ describe('testing history-query component', () => {
   });
 
   it('allows to add classes to the `RemoveHistoryQuery` button', () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { getRemoveWrapper } = renderHistoryQuery({
       suggestion: createHistoryQuery({ query: 'baileys' }),
       query: 'Bá',
@@ -161,6 +169,7 @@ describe('testing history-query component', () => {
   });
 
   it('allows to add classes to the `HistoryQuerySuggestion` button', () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { getSuggestionWrapper } = renderHistoryQuery({
       suggestion: createHistoryQuery({ query: 'baileys' }),
       query: 'Bá',
@@ -193,7 +202,7 @@ describe('testing history-query component', () => {
 
 interface RenderHistoryQueryOptions {
   /** Options to pass to the wrapper component. */
-  wrapperComponentOptions?: ComponentOptions<Vue>;
+  wrapperComponentOptions?: any;
   /** The suggestion data to render. */
   suggestion?: HistoryQueryModel;
   /** The query that the suggestions belong to. */
@@ -204,19 +213,4 @@ interface RenderHistoryQueryOptions {
   removeButtonClass?: string;
   /** Class to add to the node wrapping the history query suggestion button. */
   suggestionClass?: string;
-}
-
-interface RenderHistoryQueryApi {
-  /** Testing wrapper of the {@link HistoryQuery} component. */
-  wrapper: Wrapper<Vue>;
-  /** Retrieves the suggestion wrapper of the {@link HistoryQuery} component. */
-  getSuggestionWrapper: () => Wrapper<Vue>;
-  /** Retrieves the remove wrapper of the {@link HistoryQuery} component. */
-  getRemoveWrapper: () => Wrapper<Vue>;
-  /** Retrieves the wrapper that matches the query in the {@link HistoryQuery} component. */
-  getMatchingPart: () => Wrapper<Vue>;
-  /** The {@link XBus.emit} spy. */
-  emitSpy: jest.SpyInstance;
-  /** Rendered {@link HistoryQueryModel} model data. */
-  suggestion: HistoryQueryModel;
 }
