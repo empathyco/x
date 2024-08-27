@@ -130,25 +130,25 @@
 
 <style lang="scss">
   :root {
-    //layout
+    /* layout */
     --x-size-min-margin-layout-columns: var(--x-size-base-06);
     --x-size-column-gap-layout-columns: var(--x-size-base-06);
 
-    //spacing
+    /* spacing */
 
-    // size - header
+    /* size - header */
     --x-size-padding-top-layout-columns-header: var(--x-size-base-07);
     --x-size-padding-bottom-layout-columns-header: var(--x-size-base-05);
 
-    // size - toolbar
+    /* size - toolbar */
     --x-size-padding-top-layout-columns-toolbar: var(--x-size-base-05);
     --x-size-padding-bottom-layout-columns-toolbar: var(--x-size-base-03);
 
-    // size- scroll-to-top
+    /* size- scroll-to-top */
     --x-size-margin-bottom-layout-columns-scroll-to-top: var(--x-size-base-03);
     --x-size-margin-left-layout-columns-scroll-to-top: var(--x-size-base-03);
 
-    // color
+    /* color */
     --x-color-background-layout-columns: var(--x-color-base-neutral-100);
     --x-color-border-layout-columns: var(--x-color-base-neutral-70);
     --x-color-border-layout-columns-header: var(--x-color-border-layout-columns);
@@ -158,17 +158,17 @@
     --x-color-border-layout-columns-main-aside: var(--x-color-border-layout-columns);
     --x-color-border-layout-columns-main-body: var(--x-color-border-layout-columns);
 
-    // border
+    /* border */
     --x-size-border-width-layout-columns-header: 0;
     --x-size-border-width-layout-columns-toolbar: 1px 0 0;
   }
 </style>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '../../design-system-deprecated/utilities/dev-mode';
 
   .x-layout {
-    // custom properties
+    /* custom properties */
     --x-size-gap-default: var(--x-size-column-gap-layout-columns, 20px);
     --x-size-margin-max-width: calc((100vw - var(--x-size-max-width-layout-columns, 1440px)) / 2);
     --x-size-margin-layout-columns: max(
@@ -179,7 +179,7 @@
     --x-number-columns-sub-header-content: var(--x-number-columns-header-middle);
     --x-number-columns-toolbar-body: calc(var(--x-number-columns-layout-columns, 5) - 1);
 
-    // layout
+    /* layout */
     display: grid;
     align-content: stretch;
     max-height: 100%;
@@ -205,7 +205,7 @@
       [main-end scroll-to-top-end page-end];
 
     &__header {
-      // layout
+      /* layout */
       grid-column: page;
       grid-row: header;
       display: grid;
@@ -224,27 +224,27 @@
         var(--x-size-margin-layout-columns)
         [header-end];
 
-      // size
+      /* size */
       padding-block-start: var(--x-size-padding-top-layout-columns-header, 0);
       padding-block-end: var(--x-size-padding-bottom-layout-columns-header, 0);
       margin-block-start: var(--x-size-margin-top-layout-columns-header, 0);
       margin-block-end: var(--x-size-margin-bottom-layout-columns-header, 0);
 
-      // color
+      /* color */
       background-color: var(--x-color-background-layout-columns-header, transparent);
       border-color: var(--x-color-border-layout-columns-header, transparent);
 
-      // border
+      /* border */
       border-style: solid;
       border-width: var(--x-size-border-width-layout-columns-header, 0);
     }
 
     &__header-start {
-      // layout
+      /* layout */
       grid-column: start-content;
 
       &.x-list {
-        // space
+        /* space */
         flex-flow: var(--x-flow-layout-columns-header-start, row nowrap);
         justify-content: var(--x-size-justify-layout-columns-header-start, flex start);
         align-items: var(--x-size-align-layout-columns-header-start, flex start);
@@ -252,11 +252,11 @@
     }
 
     &__header-middle {
-      // layout
+      /* layout */
       grid-column: middle-content;
 
       &.x-list {
-        // space
+        /* space */
         flex-flow: var(--x-flow-layout-columns-header-middle, row nowrap);
         justify-content: var(--x-size-justify-layout-columns-header-middle, center);
         align-items: var(--x-size-align-layout-columns-header-middle, flex start);
@@ -264,7 +264,7 @@
     }
 
     &__header-end {
-      // layout
+      /* layout */
       grid-column: end-content;
 
       &.x-list {
@@ -275,7 +275,7 @@
     }
 
     &__sub-header {
-      // layout
+      /* layout */
       grid-column: page;
       grid-row: sub-header;
       display: grid;
@@ -292,23 +292,23 @@
         var(--x-size-margin-layout-columns)
         [sub-header-end];
 
-      // size
+      /* size */
       padding-block-start: var(--x-size-padding-top-layout-columns-sub-header, 0);
       padding-block-end: var(--x-size-padding-bottom-layout-columns-sub-header), 0;
       margin-block-start: var(--x-size-margin-top-layout-columns-sub-header, 0);
       margin-block-end: var(--x-size-margin-bottom-layout-columns-sub-header, 0);
 
-      // color
+      /* color */
       background-color: var(--x-color-background-layout-columns-sub-header, transparent);
       border-color: var(--x-color-border-layout-columns-sub-header, transparent);
 
-      // border
+      /* border */
       border-style: solid;
       border-width: var(--x-size-border-width-layout-columns-sub-header, 0);
     }
 
     &__sub-header-content {
-      // layout
+      /* layout */
       grid-column: sub-header-content;
 
       &.x-list {
@@ -319,7 +319,7 @@
     }
 
     &__toolbar {
-      // layout
+      /* layout */
       grid-column: page;
       grid-row: toolbar;
       display: grid;
@@ -336,23 +336,23 @@
         var(--x-size-margin-layout-columns)
         [toolbar-end];
 
-      // size
+      /* size */
       padding-block-start: var(--x-size-padding-top-layout-columns-toolbar, 0);
       padding-block-end: var(--x-size-padding-bottom-layout-columns-toolbar, 0);
       margin-block-start: var(--x-size-margin-top-layout-columns-toolbar, 0);
       margin-block-end: var(--x-size-margin-bottom-layout-columns-toolbar, 0);
 
-      // color
+      /* color */
       background-color: var(--x-color-background-layout-columns-toolbar, transparent);
       border-color: var(--x-color-border-layout-columns-toolbar, transparent);
 
-      // border
+      /* border */
       border-style: solid;
       border-width: var(--x-size-border-width-layout-columns-toolbar, 0);
     }
 
     &__toolbar-aside {
-      // layout
+      /* layout */
       grid-column: toolbar-aside;
 
       &.x-list {
@@ -363,7 +363,7 @@
     }
 
     &__toolbar-body {
-      // layout
+      /* layout */
       grid-column: toolbar-body;
 
       &.x-list {
@@ -374,7 +374,7 @@
     }
 
     &__main {
-      // layout
+      /* layout */
       grid-column: page;
       grid-row: main;
       min-height: 0;
@@ -383,17 +383,17 @@
       justify-content: stretch;
       padding-left: calc(var(--x-size-margin-layout-columns) + var(--x-size-gap-default));
 
-      // size
+      /* size */
       padding-block-start: var(--x-size-padding-top-layout-columns-main, 0);
       padding-block-end: var(--x-size-padding-bottom-layout-columns-main, 0);
       margin-block-start: var(--x-size-margin-top-layout-columns-main, 0);
       margin-block-end: var(--x-size-margin-bottom-layout-columns-main, 0);
 
-      // color
+      /* color */
       background-color: var(--x-color-background-layout-columns-main, transparent);
       border-color: var(--x-color-border-layout-columns-main, transparent);
 
-      // border
+      /* border */
       border-style: solid;
       border-width: var(--x-size-border-width-layout-columns-main, 0);
     }
@@ -423,7 +423,7 @@
     }
 
     &__scroll-to-top {
-      //layout
+      /* layout */
       grid-area: scroll-to-top;
       justify-content: flex-end;
       width: 100%;

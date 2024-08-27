@@ -177,7 +177,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-tabs-panel__items-list {
     display: flex;
   }

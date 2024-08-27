@@ -110,7 +110,7 @@
   });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   @import '../../design-system-deprecated/utilities/dev-mode';
 
   .x-layout {

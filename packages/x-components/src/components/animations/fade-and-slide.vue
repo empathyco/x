@@ -43,27 +43,21 @@
   });
 </script>
 
-<style lang="scss">
-  $transition-opacity-duration: 0.2s;
-  $transition-transform-duration: 0.3s;
+<style lang="css">
+  .x-fade-and-slide--move,
+  .x-fade-and-slide--enter-active,
+  .x-fade-and-slide--leave-active {
+    transition: opacity 0.2s ease-out, transform 0.3s ease-out;
+  }
 
-  .x-fade-and-slide {
-    &--move,
-    &--enter-active,
-    &--leave-active {
-      transition: opacity $transition-opacity-duration ease-out,
-        transform $transition-transform-duration ease-out;
-    }
+  .x-fade-and-slide--enter-from,
+  .x-fade-and-slide--leave-to {
+    transform: translate(-20%, 0);
+    opacity: 0;
+  }
 
-    &--enter-from,
-    &--leave-to {
-      transform: translate(-20%, 0);
-      opacity: 0;
-    }
-
-    &--leave-active {
-      position: absolute;
-    }
+  .x-fade-and-slide--leave-active {
+    position: absolute;
   }
 </style>
 

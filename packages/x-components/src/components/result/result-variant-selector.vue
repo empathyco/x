@@ -143,7 +143,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-result-variant-selector__list {
     display: flex;
   }

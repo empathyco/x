@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from 'vue';
+  import { computed, defineComponent, StyleValue } from 'vue';
 
   /**
    * The auto progress bar component is useful for displaying a visual indicator of numerical data
@@ -14,6 +14,7 @@
    * @public
    */
   export default defineComponent({
+    name: 'AutoProgressBar',
     props: {
       /**
        * A boolean flag indicating if the bar is loading.
@@ -42,7 +43,7 @@
        *
        * @internal
        */
-      const cssStyles = computed<Partial<CSSStyleDeclaration>>(() => ({
+      const cssStyles = computed<StyleValue>(() => ({
         animationDuration: `${props.durationInSeconds}s`
       }));
 
@@ -53,20 +54,21 @@
   });
 </script>
 
-<style lang="scss">
+<style lang="css">
   .x-progress-bar {
     display: inline-block;
     overflow: hidden;
     background-color: #dbe2e5;
     border-radius: 4px;
-
-    &-fill {
-      height: 4px;
-      background-color: #283034;
-      animation: slide linear;
-      transform-origin: left;
-    }
   }
+
+  .x-progress-bar-fill {
+    height: 4px;
+    background-color: #283034;
+    animation: slide linear;
+    transform-origin: left;
+  }
+
   @keyframes slide {
     0% {
       transform: translateX(-100%);

@@ -87,7 +87,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-identifier-results {
     display: flex;
     flex-flow: column nowrap;

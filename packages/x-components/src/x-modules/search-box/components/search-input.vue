@@ -280,7 +280,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-search-input::-webkit-search-decoration,
   .x-search-input::-webkit-search-cancel-button,
   .x-search-input::-webkit-search-results-button,

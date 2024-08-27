@@ -164,15 +164,15 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-suggestions {
     list-style-type: none;
+  }
 
-    &,
-    &__item {
-      display: flex;
-      flex-flow: column nowrap;
-    }
+  .x-suggestions,
+  .x-suggestions__item {
+    display: flex;
+    flex-flow: column nowrap;
   }
 </style>
 

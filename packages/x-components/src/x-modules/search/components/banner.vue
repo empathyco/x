@@ -96,16 +96,16 @@
   });
 </script>
 
-<style lang="scss">
+<style lang="css" scoped>
   .x-banner {
     display: flex;
     flex-flow: column nowrap;
     text-decoration: none;
+  }
 
-    &__image {
-      width: 100%;
-      object-fit: contain;
-    }
+  .x-banner__image {
+    width: 100%;
+    object-fit: contain;
   }
 </style>
 

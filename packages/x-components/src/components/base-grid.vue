@@ -210,32 +210,31 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-base-grid {
     display: grid;
     grid-auto-flow: dense;
     list-style: none;
     align-items: stretch;
+  }
 
-    &__banner,
-    &__next-queries-group {
-      grid-column-start: 1;
-      grid-column-end: -1;
-    }
+  .x-base-grid__banner,
+  .x-base-grid__next-queries-group {
+    grid-column-start: 1;
+    grid-column-end: -1;
+  }
 
-    &__item {
-      display: flex;
-      flex-flow: column nowrap;
+  .x-base-grid__item {
+    display: flex;
+    flex-flow: column nowrap;
+  }
 
-      > * {
-        flex-grow: 1;
-      }
-    }
+  .x-base-grid__item > * {
+    flex-grow: 1;
+  }
 
-    &--cols-auto .x-base-grid__item {
-      // layout
-      min-width: var(--x-size-min-width-grid-item);
-    }
+  .x-base-grid--cols-auto .x-base-grid__item {
+    min-width: var(--x-size-min-width-grid-item);
   }
 </style>
 

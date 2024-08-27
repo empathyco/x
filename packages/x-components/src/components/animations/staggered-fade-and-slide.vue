@@ -113,18 +113,16 @@
   });
 </script>
 
-<style lang="scss">
-  $transition-duration: 250ms;
-
+<style lang="css">
   /* 1. Declare transitions */
   .x-staggered-fade-and-slide-enter-active,
   .x-staggered-fade-and-slide-leave-active {
-    transition: $transition-duration ease-out;
+    transition: 250ms ease-out;
     transition-property: opacity, transform;
   }
 
   .x-staggered-fade-and-slide-move {
-    transition: transform $transition-duration ease-out;
+    transition: transform 250ms ease-out;
   }
 
   /* 2. Declare enter, from and leave to state */

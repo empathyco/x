@@ -396,18 +396,18 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-dropdown {
     position: relative;
+  }
 
-    &__items-list {
-      z-index: 1;
-      list-style: none;
-      position: absolute;
-      padding: 0;
-      margin: 0;
-      top: calc(100% + var(--x-size-gap-dropdown-default, 0));
-    }
+  .x-dropdown__items-list {
+    z-index: 1;
+    list-style: none;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    top: calc(100% + var(--x-size-gap-dropdown-default, 0));
   }
 </style>
 

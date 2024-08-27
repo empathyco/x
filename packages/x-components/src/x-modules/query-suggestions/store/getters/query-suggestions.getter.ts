@@ -58,9 +58,8 @@ export class QuerySuggestionsGetter implements GettersClass<QuerySuggestionsXSto
 
 const querySuggestionsGetter = new QuerySuggestionsGetter();
 
-// eslint-disable-next-line jsdoc/require-description-complete-sentence
-/**.
- * {@inheritDoc QuerySuggestionsGetter.querySuggestions}
+/**
+ * Query Suggestions getter.
  *
  * @public
  */
