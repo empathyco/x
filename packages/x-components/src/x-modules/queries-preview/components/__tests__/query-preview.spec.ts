@@ -1,6 +1,7 @@
-import { mount, Wrapper, createLocalVue, WrapperArray } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { DeepPartial } from '@empathyco/x-utils';
+import { nextTick } from 'vue';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import {
   findTestDataById,
@@ -36,11 +37,7 @@ function renderQueryPreview({
     totalResults: 100
   }
 }: RenderQueryPreviewOptions = {}): RenderQueryPreviewAPI {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
   XPlugin.registerXModule(queriesPreviewXModule);
 
   const queryPreviewRequestUpdatedSpy = jest.fn();
@@ -57,18 +54,20 @@ function renderQueryPreview({
     });
   }
 
-  const wrapper = mount(
+  const wrapper: VueWrapper = mount(
     {
       components: { QueryPreview },
-      template,
-      provide: {
-        location
-      }
+      template
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [queriesPreviewXModule] })],
+        provide: {
+          location
+        }
+      },
       store,
-      propsData: {
+      props: {
         maxItemsToRender,
         queryPreviewInfo,
         queryFeature,
@@ -84,13 +83,11 @@ function renderQueryPreview({
     queryPreviewUnmounted,
     queryPreviewInfo,
     queryPreviewInState,
-    findTestDataById: findTestDataById.bind(undefined, wrapper),
     updateExtraParams: async params => {
       store.commit('x/queriesPreview/setParams', params);
-      await localVue.nextTick();
+      await nextTick();
     },
-    reRender: () => new Promise(resolve => setTimeout(resolve)),
-    localVue
+    reRender: () => new Promise(resolve => setTimeout(resolve))
   };
 }
 
@@ -128,7 +125,7 @@ describe('query preview', () => {
     expect(wrapper.emitted('load')?.[0]).toEqual([query]);
   });
 
-  it('emits `QueryPreviewUnmounted` when the component is being destroyed', () => {
+  it('emits `QueryPreviewUnmounted` when the component is being unmounted', () => {
     const { queryPreviewUnmounted, wrapper } = renderQueryPreview({
       persistInCache: false,
       queryPreviewInfo: {
@@ -139,7 +136,7 @@ describe('query preview', () => {
     });
 
     jest.advanceTimersByTime(0); // Wait for first emission
-    wrapper.destroy();
+    wrapper.unmount();
     expect(queryPreviewUnmounted).toHaveBeenCalledTimes(1);
 
     const { queryPreviewUnmounted: unmountedEvent, wrapper: newWrapper } = renderQueryPreview({
@@ -152,7 +149,7 @@ describe('query preview', () => {
     });
 
     jest.advanceTimersByTime(0); // Wait for first emission
-    newWrapper.destroy();
+    newWrapper.unmount();
     expect(unmountedEvent).toHaveBeenCalledTimes(1);
   });
 
@@ -251,22 +248,22 @@ describe('query preview', () => {
   });
 
   it('renders the results names in the default slot', () => {
-    const { queryPreviewInState, findTestDataById } = renderQueryPreview();
+    const { queryPreviewInState, wrapper } = renderQueryPreview();
 
-    const wrappers = findTestDataById('result-name');
+    const wrappers: DOMWrapper<Element>[] = findTestDataById(wrapper, 'result-name');
 
     queryPreviewInState!.results.forEach((result, index) => {
-      expect(wrappers.at(index).element).toHaveTextContent(result.name!);
+      expect(wrappers.at(index)?.element).toHaveTextContent(result.name!);
     });
   });
 
   it('renders the specified number of results', () => {
     const maxItemsToRender = 2;
-    const { findTestDataById } = renderQueryPreview({
+    const { wrapper } = renderQueryPreview({
       maxItemsToRender
     });
 
-    expect(findTestDataById('result-name')).toHaveLength(maxItemsToRender);
+    expect(findTestDataById(wrapper, 'result-name')).toHaveLength(maxItemsToRender);
   });
 
   it('exposes the query, the results and the totalResults in the default slot', () => {
@@ -283,11 +280,9 @@ describe('query preview', () => {
         </div>
       </QueryPreview>`;
 
-    const { queryPreviewInfo, wrapper, queryPreviewInState, findTestDataById } = renderQueryPreview(
-      {
-        template
-      }
-    );
+    const { queryPreviewInfo, wrapper, queryPreviewInState } = renderQueryPreview({
+      template
+    });
 
     expect(wrapper.find(getDataTestSelector('query-preview-query')).element).toHaveTextContent(
       queryPreviewInfo.query
@@ -296,10 +291,10 @@ describe('query preview', () => {
       queryPreviewInState!.totalResults.toString()
     );
 
-    const resultsWrappers = findTestDataById('result-name');
+    const resultsWrappers = findTestDataById(wrapper, 'result-name');
 
     queryPreviewInState!.results.forEach((result, index) => {
-      expect(resultsWrappers.at(index).element).toHaveTextContent(result.name!);
+      expect(resultsWrappers.at(index)?.element).toHaveTextContent(result.name!);
     });
   });
 
@@ -309,12 +304,12 @@ describe('query preview', () => {
         <span data-test="result-content">{{result.id}} - {{result.name}}</span>
       </QueryPreview>
     `;
-    const { findTestDataById, queryPreviewInState } = renderQueryPreview({ template });
+    const { wrapper, queryPreviewInState } = renderQueryPreview({ template });
 
-    const resultsWrapper = findTestDataById('result-content');
+    const resultsWrapper = findTestDataById(wrapper, 'result-content');
 
     queryPreviewInState!.results.forEach((result, index) => {
-      expect(resultsWrapper.at(index).element).toHaveTextContent(`${result.id} - ${result.name!}`);
+      expect(resultsWrapper.at(index)?.element).toHaveTextContent(`${result.id} - ${result.name!}`);
     });
   });
 
@@ -472,7 +467,7 @@ describe('query preview', () => {
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0);
     });
 
-    it('cancels pending requests when the component is destroyed', () => {
+    it('cancels pending requests when the component is unmounted', () => {
       const { wrapper, queryPreviewRequestUpdatedSpy } = renderQueryPreview({
         debounceTimeMs: 250,
         queryPreviewInfo: { query: 'bull' }
@@ -480,7 +475,7 @@ describe('query preview', () => {
       jest.advanceTimersByTime(249);
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0);
 
-      wrapper.destroy();
+      wrapper.unmount();
       jest.advanceTimersByTime(1);
       expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0);
     });
@@ -511,7 +506,7 @@ interface RenderQueryPreviewOptions {
 
 interface RenderQueryPreviewAPI {
   /** The Vue testing utils wrapper for the {@link QueryPreview} component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** A Jest spy set in the {@link XPlugin} `on` function. */
   queryPreviewRequestUpdatedSpy?: jest.Mock;
   /** A Jest spy set in the {@link XPlugin} `on` function. */
@@ -520,12 +515,8 @@ interface RenderQueryPreviewAPI {
   queryPreviewInfo: QueryPreviewInfo;
   /** The results preview for the passed query. */
   queryPreviewInState: QueryPreviewItem | null;
-  /** Find test data in the wrapper for the {@link QueryPreview} component. */
-  findTestDataById: (testDataId: string) => WrapperArray<Vue>;
   /** Updates the extra params in the module state. */
   updateExtraParams: (params: any) => Promise<void>;
   /** Flushes all pending promises to cause the component to be in its final state. */
   reRender: () => Promise<void>;
-  /** A local copy of Vue created by createLocalVue to use when mounting the component. */
-  localVue: any;
 }
