@@ -1,7 +1,7 @@
 import { Suggestion } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { createPopularSearch } from '../../../../__stubs__/popular-searches-stubs.factory';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -15,10 +15,7 @@ function renderPopularSearch({
   suggestion = createPopularSearch('baileys'),
   template = '<PopularSearch v-bind="$attrs"/>'
 }: RenderPopularSearchOptions = {}): RenderPopularSearchApi {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store, initialXModules: [popularSearchesXModule] }, localVue);
 
   const wrapper = mount(
     {
@@ -29,8 +26,10 @@ function renderPopularSearch({
       }
     },
     {
-      localVue,
-      propsData: { suggestion },
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [popularSearchesXModule] })]
+      },
+      props: { suggestion },
       store
     }
   );
@@ -88,7 +87,7 @@ describe('testing popular-search component', () => {
       `
     });
 
-    expect(wrapper.text()).toEqual('🔍 baileys');
+    expect(wrapper.text()).toEqual('🔍baileys');
   });
 });
 
@@ -101,7 +100,7 @@ interface RenderPopularSearchOptions {
 
 interface RenderPopularSearchApi {
   /** Testing wrapper of the {@link PopularSearch} component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** The {@link XBus.emit} spy. */
   emitSpy: jest.SpyInstance;
   /** Rendered {@link Suggestion} model data. */
