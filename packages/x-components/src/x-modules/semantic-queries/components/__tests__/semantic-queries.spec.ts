@@ -7,7 +7,6 @@ import SemanticQueries from '../semantic-queries.vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { createSemanticQuery } from '../../../../__stubs__/semantic-queries-stubs.factory';
-import { semanticQueriesXModule } from '../../x-module';
 import { resetSemanticQueriesStateWith } from './utils';
 function renderSemanticQueriesList({
   template = `<SemanticQueries v-bind="$attrs"/>`,
@@ -19,6 +18,7 @@ function renderSemanticQueriesList({
   maxItemsToRender = 5
 } = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
+  resetSemanticQueriesStateWith(store, { semanticQueries });
   const wrapper = mount(
     {
       template,
@@ -29,7 +29,6 @@ function renderSemanticQueriesList({
         plugins: [
           installNewXPlugin({
             store,
-            initialXModules: [semanticQueriesXModule],
             xModules: {
               semanticQueries: { config: { threshold } }
             }
