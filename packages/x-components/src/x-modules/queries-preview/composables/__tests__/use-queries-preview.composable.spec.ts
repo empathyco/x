@@ -1,6 +1,7 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import { DeepPartial } from '@empathyco/x-utils';
+import { defineComponent } from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { useQueriesPreview } from '../use-queries-preview.composable';
 import { XPlugin } from '../../../../plugins';
@@ -9,20 +10,34 @@ import { resetXQueriesPreviewStateWith } from '../../components/__tests__/utils'
 import { queriesPreviewXModule } from '../../x-module';
 import { createQueryPreviewItem } from '../../../../__stubs__/queries-preview-stubs.factory';
 
-describe('queries preview composables', () => {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
+const store = new Store<DeepPartial<RootXStoreState>>({});
 
-  const store = new Store<DeepPartial<RootXStoreState>>({});
+const renderUseQueriesPreview = (): renderUseQueriesPreview => {
+  const component = defineComponent({
+    xModule: queriesPreviewXModule.name,
+    template: '<div></div>'
+  });
 
-  installNewXPlugin({ store }, localVue);
+  const wrapper = mount(component, {
+    global: { plugins: [installNewXPlugin({ store }), store] }
+  });
+
   XPlugin.registerXModule(queriesPreviewXModule);
+  resetXQueriesPreviewStateWith(store);
 
+  return {
+    store,
+    wrapper
+  };
+};
+
+describe('queries preview composables', () => {
   beforeEach(() => {
     resetXQueriesPreviewStateWith(store);
   });
 
   describe('isAnyQueryLoadedInPreview', () => {
+    const { store } = renderUseQueriesPreview();
     const { isAnyQueryLoadedInPreview } = useQueriesPreview();
 
     it('returns true if any query has results', () => {
@@ -64,3 +79,8 @@ describe('queries preview composables', () => {
     });
   });
 });
+
+type renderUseQueriesPreview = {
+  store: Store<DeepPartial<RootXStoreState>>;
+  wrapper: VueWrapper;
+};
