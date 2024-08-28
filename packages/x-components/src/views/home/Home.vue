@@ -136,11 +136,7 @@
               <template #sliding-panel-left-button>
                 <ChevronLeft />
               </template>
-              <RelatedTags
-                :animation="resultsAnimation"
-                class="x-gap-8"
-                itemClass="x-tag-outlined"
-              />
+              <RelatedTags class="x-gap-8" itemClass="x-tag-outlined" />
               <template #sliding-panel-right-button>
                 <ChevronRight />
               </template>
