@@ -1,8 +1,8 @@
 import { HistoryQuery } from '@empathyco/x-types';
 import { DeepPartial, forEach } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
+import { Store } from 'vuex';
+import { nextTick } from 'vue';
 import {
   createHistoryQueries,
   createHistoryQuery
@@ -15,6 +15,7 @@ import { SnippetConfig } from '../../../../x-installer/api/api.types';
 import { historyQueriesXModule } from '../../x-module';
 import MyHistory from '../my-history.vue';
 import HistoryQueryComponent from '../history-query.vue';
+import { XPlugin } from '../../../../plugins/x-plugin';
 import { resetXHistoryQueriesStateWith } from './utils';
 
 const historyQueries: HistoryQuery[] = [
@@ -47,13 +48,7 @@ function renderMyHistory({
   snippetConfig,
   queriesListClass
 }: MyHistoryOptions = {}): MyHistoryAPI {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store, initialXModules: [historyQueriesXModule] }, localVue);
-  resetXHistoryQueriesStateWith(store, { historyQueries });
-
   const wrapper = mount(
     {
       template,
@@ -67,25 +62,29 @@ function renderMyHistory({
       props: ['locale', 'queriesListClass']
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })]
+      },
       store,
-      propsData: {
+      props: {
         locale,
         queriesListClass
       }
     }
   );
+
+  resetXHistoryQueriesStateWith(store, { historyQueries });
   return {
     wrapper: wrapper.findComponent(MyHistory),
     search(query) {
-      wrapper.vm.$x.emit('UserAcceptedAQuery', query);
-      return wrapper.vm.$nextTick();
+      XPlugin.bus.emit('UserAcceptedAQuery', query);
+      return nextTick();
     },
     getListItems() {
       return wrapper.findAll(getDataTestSelector('suggestion-item'));
     },
     findAllInWrapper(selector) {
-      return wrapper.findAll(getDataTestSelector(selector)).wrappers;
+      return wrapper.findAll(getDataTestSelector(selector));
     }
   };
 }
@@ -99,10 +98,10 @@ describe('testing MyHistory component', () => {
 
   it('does not render the component if history is empty', () => {
     const { wrapper } = renderMyHistory();
-    expect(wrapper.html()).toEqual('');
+    expect(wrapper.find('x-my-history').exists()).toBe(false);
   });
 
-  it('renders the list of searched queries group by date', () => {
+  it('renders the list of searched queries group by date', async () => {
     const historyQueriesGroupedByDate = {
       'Monday, April 18, 2022': [historyQueries[0], historyQueries[1]],
       'Wednesday, April 6, 2022': [historyQueries[2], historyQueries[3]]
@@ -112,10 +111,11 @@ describe('testing MyHistory component', () => {
       snippetConfig: { ...baseSnippetConfig, lang: 'en' }
     });
 
+    await nextTick();
     expectValidHistoryContent(historyQueriesGroupedByDate, findAllInWrapper, 'en');
   });
 
-  it('renders the date using the locale prop when there is no snippetConfig', () => {
+  it('renders the date using the locale prop when there is no snippetConfig', async () => {
     const historyQueriesGroupedByDate = {
       'lunes, 18 de abril de 2022': [historyQueries[0], historyQueries[1]],
       'miércoles, 6 de abril de 2022': [historyQueries[2], historyQueries[3]]
@@ -125,10 +125,12 @@ describe('testing MyHistory component', () => {
       historyQueries: historyQueries,
       locale
     });
+
+    await nextTick();
     expectValidHistoryContent(historyQueriesGroupedByDate, findAllInWrapper, locale);
   });
 
-  it('allows changing history query content and render the list of history queries', () => {
+  it('allows changing history query content and render the list of history queries', async () => {
     const historyQueries = createHistoryQueries(
       'moura',
       'calamares',
@@ -157,6 +159,8 @@ describe('testing MyHistory component', () => {
       historyQueries
     });
 
+    await nextTick();
+
     const suggestionIconWrappers = findAllInWrapper('suggestion-history-icon');
     const suggestionRemoveIconWrappers = findAllInWrapper('suggestion-remove-icon');
     const suggestionContentWrappers = findAllInWrapper('suggestion-content-slot');
@@ -170,7 +174,7 @@ describe('testing MyHistory component', () => {
     });
   });
 
-  it('allows changing the history query', () => {
+  it('allows changing the history query', async () => {
     const historyQuery = createHistoryQuery({
       query: 'testQuery',
       timestamp: Date.parse('2023-01-23T09:40:00')
@@ -190,17 +194,20 @@ describe('testing MyHistory component', () => {
       historyQueries: [historyQuery]
     });
 
+    await nextTick();
+
     expect(wrapper.get(getDataTestSelector('suggestion-query')).text()).toBe('testQuery');
     expect(wrapper.get(getDataTestSelector('suggestion-date')).text().replace(/\s/g, '')).toEqual(
       '09:40AM'
     );
   });
 
-  it('allows to add classes to the queries list', () => {
+  it('allows to add classes to the queries list', async () => {
     const { wrapper } = renderMyHistory({
       historyQueries,
       queriesListClass: 'custom-class'
     });
+    await nextTick();
     expect(wrapper.find(getDataTestSelector('my-history-queries')).classes('custom-class')).toBe(
       true
     );
@@ -221,8 +228,8 @@ describe('testing MyHistory component', () => {
           hour: '2-digit',
           minute: '2-digit'
         });
-        expect(historyItemWrappers?.at(historyQueryIndex).text()).toMatch(
-          `${historyQuery.query} - ${hour} ✕`
+        expect(historyItemWrappers?.at(historyQueryIndex)?.text()).toMatch(
+          `${historyQuery.query} - ${hour}✕`
         );
       });
     });
@@ -250,14 +257,14 @@ interface MyHistoryOptions {
  */
 interface MyHistoryAPI {
   /** The wrapper for my history component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** Helper method to search a query. */
   search: (query: string) => Promise<void>;
   /**
    * Retrieves the wrapper for the items of the list rendered by the {@link MyHistory}
    * component.
    */
-  getListItems: () => WrapperArray<Vue>;
+  getListItems: () => any[];
   /** Retrieves the wrapper for the items that matches with the selector. */
-  findAllInWrapper: (selector: string) => Wrapper<Vue>[];
+  findAllInWrapper: (selector: string) => DOMWrapper<Element>[];
 }
