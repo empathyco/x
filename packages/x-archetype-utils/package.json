@@ -56,8 +56,8 @@
     "vue": "~3.4.31"
   },
   "peerDependencies": {
-    "vue": "^2.7.0",
-    "vue-i18n": "^8.0.0"
+    "vue": "^3.4.31",
+    "vue-i18n": "^9.14.0"
   },
   "publishConfig": {
     "access": "public"
