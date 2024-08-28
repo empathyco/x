@@ -23,6 +23,7 @@ const renderUseQueriesPreview = (): renderUseQueriesPreview => {
   });
 
   XPlugin.registerXModule(queriesPreviewXModule);
+  resetXQueriesPreviewStateWith(store);
 
   return {
     store,
