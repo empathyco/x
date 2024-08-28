@@ -1,7 +1,7 @@
-import Vuex, { Store } from 'vuex';
-import { mount, createLocalVue, Wrapper, WrapperArray } from '@vue/test-utils';
+import { Store } from 'vuex';
+import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
-import Vue from 'vue';
+import { nextTick } from 'vue';
 import { RootXStoreState } from '../../../../store/index';
 import { findTestDataById, installNewXPlugin } from '../../../../__tests__/utils';
 import { XPlugin } from '../../../../plugins/index';
@@ -18,15 +18,7 @@ function renderQueryPreviewButton({
   },
   template = `<QueryPreviewButton v-bind="$attrs" />`
 }: RenderQueryPreviewButtonOptions = {}): RenderQueryPreviewButtonAPI {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-  XPlugin.registerXModule(queriesPreviewXModule);
-
-  const queryPreviewButtonEmitSpy = jest.fn();
-  XPlugin.bus.on('UserAcceptedAQueryPreview').subscribe(queryPreviewButtonEmitSpy);
 
   const wrapper = mount(
     {
@@ -34,26 +26,29 @@ function renderQueryPreviewButton({
       template
     },
     {
-      localVue,
-      store,
-      propsData: {
+      global: {
+        plugins: [store, installNewXPlugin({ store })]
+      },
+      props: {
         queryPreviewInfo
       }
     }
-  ).findComponent(QueryPreviewButton);
+  );
 
+  XPlugin.registerXModule(queriesPreviewXModule);
   const findTestDataByIdInButton = findTestDataById.bind(undefined, wrapper);
 
+  const queryPreviewButtonEmitSpy = jest.fn();
+  XPlugin.bus.on('UserAcceptedAQueryPreview').subscribe(queryPreviewButtonEmitSpy);
+
   return {
-    wrapper,
+    wrapper: wrapper.findComponent(QueryPreviewButton),
     queryPreviewButtonEmitSpy,
     queryPreviewInfo,
     findTestDataById: findTestDataByIdInButton,
-    clickQueryPreviewButton: () =>
-      findTestDataByIdInButton('query-preview-button').trigger('click'),
     updateExtraParams: async params => {
       store.commit('x/queriesPreview/setParams', params);
-      await localVue.nextTick();
+      await nextTick();
     }
   };
 }
@@ -93,10 +88,10 @@ describe('query preview button', () => {
   });
 
   it('sends the `UserAcceptedAQueryPreview` event when the button is clicked', async () => {
-    const { clickQueryPreviewButton, queryPreviewButtonEmitSpy, updateExtraParams } =
-      renderQueryPreviewButton();
+    const { queryPreviewButtonEmitSpy, updateExtraParams, wrapper } = renderQueryPreviewButton();
+    const queryPreviewButton = wrapper.find('[data-test="query-preview-button"]');
 
-    clickQueryPreviewButton();
+    await queryPreviewButton.trigger('click');
     expect(queryPreviewButtonEmitSpy).toHaveBeenCalledTimes(1);
     expect(queryPreviewButtonEmitSpy).toHaveBeenCalledWith({
       query: 'milk',
@@ -108,7 +103,7 @@ describe('query preview button', () => {
 
     await updateExtraParams({ warehouse: 42 });
 
-    clickQueryPreviewButton();
+    await queryPreviewButton.trigger('click');
     expect(queryPreviewButtonEmitSpy).toHaveBeenCalledTimes(2);
     expect(queryPreviewButtonEmitSpy).toHaveBeenCalledWith({
       query: 'milk',
@@ -130,15 +125,13 @@ interface RenderQueryPreviewButtonOptions {
 
 interface RenderQueryPreviewButtonAPI {
   /** The wrapper of the rendered component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** The spy to check if the event was emitted. */
   queryPreviewButtonEmitSpy: jest.Mock;
   /** The query preview info to be used in the component. */
   queryPreviewInfo: QueryPreviewInfo;
-  /** The function to find a data-test by its id. */
-  findTestDataById: (id: string) => WrapperArray<Vue>;
-  /** Clicks the query preview button. */
-  clickQueryPreviewButton: () => void;
   /** Updates the extra params of the query preview module. */
   updateExtraParams: (params: Dictionary<unknown>) => Promise<void>;
+  /** The function to find a data-test by its id. */
+  findTestDataById: (id: string) => DOMWrapper<Element>[];
 }
