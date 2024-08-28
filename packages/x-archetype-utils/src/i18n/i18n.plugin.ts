@@ -1,6 +1,6 @@
 import { isObject } from '@empathyco/x-utils';
-import { VueConstructor } from 'vue';
-import VueI18n, { LocaleMessageObject, LocaleMessage } from 'vue-i18n';
+import { App } from 'vue';
+import { createI18n, LocaleMessageObject, I18n as VueI18n } from 'vue-i18n';
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { AnyMessages, Device, I18nOptions, LoadLazyMessagesByDevice, Locale } from './i18n.types';
 
@@ -49,19 +49,20 @@ export class I18n<SomeMessages> {
    *
    * @param vue - The Vue instance.
    */
-  install(vue: VueConstructor): void {
-    vue.use(VueI18n);
-    this.vueI18n = new VueI18n({
+  install(vue: App): void {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    this.vueI18n = createI18n({
       locale: this.locale,
-      messages: this.currentMessages ? { [this.locale]: this.currentMessages } : {},
       silentFallbackWarn: true,
-      missing: (locale, key) => {
+      missing: (locale, key: string) => {
         return (
           this.getMessageWithDotsInKey(key) ??
-          `[i18n] Key '${key}' is missing for locale: '${locale}'`
+          `[i18n] Key '${key}' is missing for locale: '${this.locale}'`
         );
       }
     });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    vue.use(this.vueI18n);
   }
 
   /**
@@ -76,7 +77,7 @@ export class I18n<SomeMessages> {
     // TO-DO Support function or array messages
     const message = path
       .split('.')
-      .reduce<LocaleMessage>(
+      .reduce<any>(
         (messages, key, index, pathParts) =>
           isObject(messages)
             ? messages[key] ?? messages[pathParts.slice(index).join('.')]
@@ -98,7 +99,7 @@ export class I18n<SomeMessages> {
       this.locale = newLocale;
 
       await this.changeMessages();
-      this.vueI18n.locale = this.locale;
+      this.vueI18n.global.locale = this.locale;
     }
   }
 
@@ -123,7 +124,8 @@ export class I18n<SomeMessages> {
   protected async changeMessages(): Promise<void> {
     this.currentMessages = await this.getCurrentMessages();
 
-    this.vueI18n.setLocaleMessage(this.locale, this.currentMessages);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    this.vueI18n.global.setLocaleMessage(this.locale, this.currentMessages);
   }
 
   /**

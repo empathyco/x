@@ -1,5 +1,5 @@
-import VueI18n from 'vue-i18n';
 import { DeepPartial } from '@empathyco/x-utils';
+import { type I18n } from 'vue-i18n';
 
 /** Supported locales. */
 export type Locale = string;
@@ -46,7 +46,7 @@ export interface I18nOptions<SomeMessages> {
  */
 export interface I18nAPI {
   /** The Vue I18n instance that should be passed to the root Vue component. */
-  readonly vueI18n: Readonly<VueI18n>;
+  readonly vueI18n: Readonly<I18n>;
   /**
    * Sets the new locale.
    *
