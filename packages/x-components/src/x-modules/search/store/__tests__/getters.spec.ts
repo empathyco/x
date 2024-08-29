@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import { createRelatedTagStub } from '../../../../__stubs__/index';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { InternalSearchRequest } from '../../types';
@@ -8,7 +7,6 @@ import { SearchActions, SearchGetters, SearchMutations, SearchState } from '../t
 import { resetSearchStateWith } from './utils';
 
 describe('testing search module getters', () => {
-  Vue.use(Vuex);
   const store: SafeStore<SearchState, SearchGetters, SearchMutations, SearchActions> = new Store(
     searchXStoreModule as any
   );

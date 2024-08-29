@@ -1,7 +1,6 @@
 import { Filter, HistoryQuery, Result } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import {
   createHistoryQueries,
   createHistoryQuery
@@ -20,7 +19,6 @@ import { InternalSearchResponse } from '../../../search/index';
 import { resetHistoryQueriesStateWith } from './utils';
 
 describe('testing history queries module actions', () => {
-  Vue.use(Vuex);
   const store: SafeStore<
     HistoryQueriesState,
     HistoryQueriesGetters,

@@ -1,6 +1,5 @@
 import { map } from '@empathyco/x-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import {
   createHistoryQueries,
   createHistoryQuery
@@ -10,7 +9,6 @@ import { HistoryQueriesState } from '../types';
 import { resetHistoryQueriesStateWith } from './utils';
 
 describe('testing history queries module gettters', () => {
-  Vue.use(Vuex);
   const gettersKeys = map(historyQueriesXStoreModule.getters, getter => getter);
   const store: Store<HistoryQueriesState> = new Store(historyQueriesXStoreModule as any);
 

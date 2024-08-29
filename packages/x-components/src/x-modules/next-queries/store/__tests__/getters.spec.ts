@@ -1,7 +1,6 @@
 import { NextQueriesRequest } from '@empathyco/x-types';
 import { map } from '@empathyco/x-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import {
   createHistoryQueries,
   createRelatedTagStub,
@@ -12,7 +11,6 @@ import { NextQueriesState } from '../types';
 import { resetNextQueriesStateWith } from './utils';
 
 describe('testing next queries module getters', () => {
-  Vue.use(Vuex);
   const gettersKeys = map(nextQueriesXStoreModule.getters, getter => getter);
   const store: Store<NextQueriesState> = new Store(nextQueriesXStoreModule as any);
 
