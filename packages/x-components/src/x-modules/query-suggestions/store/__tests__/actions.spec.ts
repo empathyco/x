@@ -1,5 +1,5 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { getQuerySuggestionsStub } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
@@ -19,17 +19,20 @@ describe('testing query suggestions module actions', () => {
     querySuggestions: { suggestions: mockedSuggestions }
   });
 
-  const localVue = createLocalVue();
-  localVue.config.productionTip = false; // Silent production console messages.
-  localVue.use(Vuex);
-
   const store: SafeStore<
     QuerySuggestionsState,
     QuerySuggestionsGetters,
     QuerySuggestionsMutations,
     QuerySuggestionsActions
   > = new Store(querySuggestionsXStoreModule as any);
-  installNewXPlugin({ adapter, store }, localVue);
+  mount(
+    {},
+    {
+      global: {
+        plugins: [installNewXPlugin({ adapter, store })]
+      }
+    }
+  );
 
   beforeEach(() => {
     resetQuerySuggestionsStateWith(store, { query: '' });

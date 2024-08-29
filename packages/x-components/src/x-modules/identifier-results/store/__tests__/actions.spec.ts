@@ -1,5 +1,5 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
@@ -18,17 +18,20 @@ describe('testing identifier results module actions', () => {
     identifierResults: { results: mockedResults }
   });
 
-  const localVue = createLocalVue();
-  localVue.config.productionTip = false; // Silent production console messages.
-  localVue.use(Vuex);
-
   const store: SafeStore<
     IdentifierResultsState,
     IdentifierResultsGetters,
     IdentifierResultsMutations,
     IdentifierResultsActions
   > = new Store(identifierResultsXStoreModule as any);
-  installNewXPlugin({ adapter, store }, localVue);
+  mount(
+    {},
+    {
+      global: {
+        plugins: [installNewXPlugin({ adapter, store })]
+      }
+    }
+  );
 
   beforeEach(() => {
     resetIdentifierResultsStateWith(store);

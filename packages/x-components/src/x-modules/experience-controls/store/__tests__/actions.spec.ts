@@ -1,5 +1,4 @@
-import Vuex from 'vuex';
-import { createLocalVue } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { getExperienceControlsStub } from '../../../../__stubs__/experience-controls-stubs.factory';
 import { createExperienceControlsStore, resetExperienceControlsStateWith } from './utils';
@@ -11,11 +10,15 @@ describe('testing experience controls module actions', () => {
     experienceControls: mockedResponse
   });
 
-  const localVue = createLocalVue();
-  localVue.config.productionTip = false; // Silent production console messages.
-  localVue.use(Vuex);
   const store = createExperienceControlsStore();
-  installNewXPlugin({ adapter, store }, localVue);
+  mount(
+    {},
+    {
+      global: {
+        plugins: [installNewXPlugin({ adapter, store })]
+      }
+    }
+  );
 
   beforeEach(() => {
     resetExperienceControlsStateWith(store);
