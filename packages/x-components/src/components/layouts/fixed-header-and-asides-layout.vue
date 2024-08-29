@@ -135,8 +135,8 @@
   });
 </script>
 
-<style lang="scss">
-  @import '../../design-system-deprecated/utilities/dev-mode';
+<style lang="css" scoped>
+  @import url('../../design-system-deprecated/utilities/dev-mode.css');
 
   .x-layout {
     /* custom properties */
@@ -171,114 +171,110 @@
       [max-width-end]
       var(--x-size-margin-layout)
       [page-end];
-
-    &__header {
-      /* layout */
-      position: sticky;
-      top: -0.5px;
-      z-index: 2;
-      grid-row: header;
-      grid-column: page;
-      max-height: var(--x-size-max-height-layout-header, auto);
-      padding: 0 var(--x-size-margin-layout);
-
-      /* color */
-      background: var(--x-color-background-layout-header, transparent);
-      border-color: var(--x-size-border-color-layout-header, transparent);
-
-      /* border */
-      border-width: var(--x-size-border-width-layout-header, 0);
-      border-style: solid;
-    }
-
-    &__sub-header {
-      /* layout */
-      grid-row: sub-header;
-      grid-column: page;
-      padding: 0 var(--x-size-margin-layout);
-
-      /* color */
-      background: var(--x-color-background-layout-sub-header, transparent);
-      border-color: var(--x-size-border-color-layout-sub-header, transparent);
-
-      /* border */
-      border-width: var(--x-size-border-width-layout-sub-header, 0);
-      border-style: solid;
-    }
-
-    &__toolbar {
-      /* layout */
-      grid-row: toolbar;
-      grid-column: max-width;
-    }
-
-    &__main {
-      /* layout */
-      grid-row: main;
-      grid-column: max-width;
-    }
-
-    /* layout */
-    :deep(.x-layout__aside.x-modal) {
-      z-index: 3;
-      flex-flow: row nowrap;
-    }
-
-    /* layout */
-    :deep(.x-layout__aside--right.x-modal) {
-      justify-content: flex-end;
-    }
-
-    /* others */
-    :deep(.x-layout__aside) {
-      pointer-events: none;
-
-      > *:not(.slot-helper) {
-        pointer-events: all;
-      }
-    }
-
-    &__scroll-to-top {
-      position: fixed;
-      z-index: 1;
-      bottom: var(--x-size-margin-bottom-layout-scroll-to-top, 16px);
-      right: var(--x-size-margin-right-layout-scroll-to-top, 16px);
-    }
-
-    &__header-backdrop {
-      /* layout */
-      grid-row: page;
-      grid-column: page;
-      position: sticky;
-      top: -0.5px;
-      z-index: 1;
-      height: var(--x-size-height-layout-backdrop, 40vh);
-      width: 100%;
-      pointer-events: none;
-
-      /* color */
-      background-color: var(
-        --x-color-background-layout-header-backdrop,
-        var(--x-color-base-neutral-100, white)
-      );
-      mask: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-
-      /* transition */
-      opacity: 0;
-      transition: opacity 0.2s ease-out;
-
-      &--is-visible {
-        opacity: 1;
-      }
-    }
   }
 
-  :deep(.x-layout__aside) {
-    .x-modal__content {
-      background-color: transparent;
-      height: 100%;
-      width: var(--x-size-width-layout-aside, 300px);
-    }
+  .x-layout__header {
+    /* layout */
+    position: sticky;
+    top: -0.5px;
+    z-index: 2;
+    grid-row: header;
+    grid-column: page;
+    max-height: var(--x-size-max-height-layout-header, auto);
+    padding: 0 var(--x-size-margin-layout);
+
+    /* color */
+    background: var(--x-color-background-layout-header, transparent);
+    border-color: var(--x-size-border-color-layout-header, transparent);
+
+    /* border */
+    border-width: var(--x-size-border-width-layout-header, 0);
+    border-style: solid;
+  }
+
+  .x-layout__sub-header {
+    /* layout */
+    grid-row: sub-header;
+    grid-column: page;
+    padding: 0 var(--x-size-margin-layout);
+
+    /* color */
+    background: var(--x-color-background-layout-sub-header, transparent);
+    border-color: var(--x-size-border-color-layout-sub-header, transparent);
+
+    /* border */
+    border-width: var(--x-size-border-width-layout-sub-header, 0);
+    border-style: solid;
+  }
+
+  .x-layout__toolbar {
+    /* layout */
+    grid-row: toolbar;
+    grid-column: max-width;
+  }
+
+  .x-layout__main {
+    /* layout */
+    grid-row: main;
+    grid-column: max-width;
+  }
+
+  /* layout */
+  .x-layout :deep(.x-layout__aside.x-modal) {
+    z-index: 3;
+    flex-flow: row nowrap;
+  }
+
+  /* layout */
+  .x-layout :deep(.x-layout__aside--right.x-modal) {
+    justify-content: flex-end;
+  }
+
+  /* others */
+  .x-layout :deep(.x-layout__aside) {
+    pointer-events: none;
+  }
+  .x-layout :deep(.x-layout__aside > *:not(.slot-helper)) {
+    pointer-events: all;
+  }
+
+  .x-layout__scroll-to-top {
+    position: fixed;
+    z-index: 1;
+    bottom: var(--x-size-margin-bottom-layout-scroll-to-top, 16px);
+    right: var(--x-size-margin-right-layout-scroll-to-top, 16px);
+  }
+
+  .x-layout__header-backdrop {
+    /* layout */
+    grid-row: page;
+    grid-column: page;
+    position: sticky;
+    top: -0.5px;
+    z-index: 1;
+    height: var(--x-size-height-layout-backdrop, 40vh);
+    width: 100%;
+    pointer-events: none;
+
+    /* color */
+    background-color: var(
+      --x-color-background-layout-header-backdrop,
+      var(--x-color-base-neutral-100, white)
+    );
+    mask: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+
+    /* transition */
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+  }
+  .x-layout__header-backdrop--is-visible {
+    opacity: 1;
+  }
+
+  .x-layout :deep(.x-layout__aside .x-modal__content) {
+    background-color: transparent;
+    height: 100%;
+    width: var(--x-size-width-layout-aside, 300px);
   }
 </style>
 
