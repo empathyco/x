@@ -1,6 +1,5 @@
 import { Result, XComponentsAdapter } from '@empathyco/x-types';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import {
   createResultStub,
   getEmptySearchResponseStub,
@@ -26,7 +25,6 @@ function renderQueryPreviewList({
   queryFeature = 'search_box',
   maxItemsToRender = 4
 }: RenderQueryPreviewListOptions): RenderQueryPreviewListAPI {
-  const localVue = createLocalVue();
   const adapter: XComponentsAdapter = {
     ...XComponentsAdapterDummy,
     search: jest.fn(({ query }) => {
@@ -38,7 +36,7 @@ function renderQueryPreviewList({
       });
     })
   };
-  installNewXPlugin({ initialXModules: [queriesPreviewXModule], adapter }, localVue);
+
   const wrapper = mount(
     {
       template,
@@ -48,8 +46,10 @@ function renderQueryPreviewList({
       }
     },
     {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [installNewXPlugin({ initialXModules: [queriesPreviewXModule], adapter })]
+      },
+      props: {
         queriesPreviewInfo,
         debounceTimeMs,
         persistInCache,
@@ -60,7 +60,8 @@ function renderQueryPreviewList({
   );
   return {
     adapter,
-    wrapper: wrapper.findComponent(QueryPreviewList),
+    wrapper,
+    queryPreviewListWrapper: wrapper.findComponent(QueryPreviewList),
     getQueryPreviewItemWrappers() {
       return wrapper.findAllComponents(QueryPreview);
     },
@@ -80,21 +81,21 @@ describe('testing QueryPreviewList', () => {
 
     // Shirt query preview
     let queryPreviews = getQueryPreviewItemWrappers();
-    expect(queryPreviews.wrappers).toHaveLength(1);
-    expect(queryPreviews.at(0).text()).toEqual(''); // Query preview still is loading
+    expect(queryPreviews).toHaveLength(1);
+    expect(queryPreviews.at(0)?.text()).toEqual(''); // Query preview still is loading
 
     // Shirt, Jeans query previews
     await reRender();
     queryPreviews = getQueryPreviewItemWrappers();
-    expect(queryPreviews.wrappers).toHaveLength(2);
-    expect(queryPreviews.at(0).text()).toEqual('shirt - Cool shirt');
-    expect(queryPreviews.at(1).text()).toEqual('');
+    expect(queryPreviews).toHaveLength(2);
+    expect(queryPreviews.at(0)?.text()).toEqual('shirt - Cool shirt');
+    expect(queryPreviews.at(1)?.text()).toEqual('');
 
     await reRender();
     queryPreviews = getQueryPreviewItemWrappers();
-    expect(queryPreviews.wrappers).toHaveLength(2);
-    expect(queryPreviews.at(0).text()).toEqual('shirt - Cool shirt');
-    expect(queryPreviews.at(1).text()).toEqual('jeans - Sick jeans');
+    expect(queryPreviews).toHaveLength(2);
+    expect(queryPreviews.at(0)?.text()).toEqual('shirt - Cool shirt');
+    expect(queryPreviews.at(1)?.text()).toEqual('jeans - Sick jeans');
   });
 
   it('should propagate global props from the list to each item', async () => {
@@ -114,11 +115,13 @@ describe('testing QueryPreviewList', () => {
     // Shirt, Jeans query previews
     await reRender();
     const queryPreviews = getQueryPreviewItemWrappers();
-    queryPreviews.wrappers.forEach(queryPreview => {
-      expect(queryPreview.props().debounceTimeMs).toEqual(debounceTimeMsStub);
-      expect(queryPreview.props().persistInCache).toEqual(persistInCacheStub);
-      expect(queryPreview.props().queryFeature).toEqual(queryFeatureStub);
-      expect(queryPreview.props().maxItemsToRender).toEqual(maxItemsToRenderStub);
+
+    queryPreviews.forEach(queryPreview => {
+      const queryPreviewProps = queryPreview.props() as typeof QueryPreview;
+      expect(queryPreviewProps.debounceTimeMs).toEqual(debounceTimeMsStub);
+      expect(queryPreviewProps.persistInCache).toEqual(persistInCacheStub);
+      expect(queryPreviewProps.queryFeature).toEqual(queryFeatureStub);
+      expect(queryPreviewProps.maxItemsToRender).toEqual(maxItemsToRenderStub);
     });
   });
 
@@ -131,13 +134,13 @@ describe('testing QueryPreviewList', () => {
     // noResults query preview
     await reRender();
     let queryPreviews = getQueryPreviewItemWrappers();
-    expect(queryPreviews.wrappers).toHaveLength(1);
-    expect(queryPreviews.at(0).text()).toEqual('');
+    expect(queryPreviews).toHaveLength(1);
+    expect(queryPreviews.at(0)?.text()).toEqual('');
 
     await reRender();
     queryPreviews = getQueryPreviewItemWrappers();
-    expect(queryPreviews.wrappers).toHaveLength(1);
-    expect(queryPreviews.at(0).text()).toEqual('shoes - Crazy shoes');
+    expect(queryPreviews).toHaveLength(1);
+    expect(queryPreviews.at(0)?.text()).toEqual('shoes - Crazy shoes');
   });
 
   it('hides queries that failed', async () => {
@@ -154,13 +157,13 @@ describe('testing QueryPreviewList', () => {
     // First query will fail
     await reRender();
     let queryPreviews = getQueryPreviewItemWrappers();
-    expect(queryPreviews.wrappers).toHaveLength(1);
-    expect(queryPreviews.at(0).text()).toEqual(''); // Query preview still is loading
+    expect(queryPreviews).toHaveLength(1);
+    expect(queryPreviews.at(0)?.text()).toEqual(''); // Query preview still is loading
 
     await reRender();
     queryPreviews = getQueryPreviewItemWrappers();
-    expect(queryPreviews.wrappers).toHaveLength(1);
-    expect(queryPreviews.at(0).text()).toEqual('shoes - Crazy shoes');
+    expect(queryPreviews).toHaveLength(1);
+    expect(queryPreviews.at(0)?.text()).toEqual('shoes - Crazy shoes');
   });
 
   it('load next batch when it contains duplicates', async () => {
@@ -174,13 +177,14 @@ describe('testing QueryPreviewList', () => {
     });
     await reRender();
     let queryPreviews = getQueryPreviewItemWrappers();
-    expect(queryPreviews.wrappers).toHaveLength(2);
-    wrapper.setProps({
+
+    expect(queryPreviews).toHaveLength(2);
+    await wrapper.setProps({
       queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }, { query: 'dress' }]
     });
     await reRender();
     queryPreviews = getQueryPreviewItemWrappers();
-    expect(queryPreviews.wrappers).toHaveLength(3);
+    expect(queryPreviews).toHaveLength(3);
   });
 });
 
@@ -201,9 +205,11 @@ interface RenderQueryPreviewListAPI {
   /** The {@link XComponentsAdapter} passed to the {@link XPlugin}. */
   adapter: XComponentsAdapter;
   /** The Vue testing utils wrapper for the {@link QueryPreviewList} component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
+  /** Returns an array with the {@link QueryPreviewList} wrapper. */
+  queryPreviewListWrapper: VueWrapper;
   /** Returns an array with the {@link QueryPreview} items wrappers. */
-  getQueryPreviewItemWrappers: () => WrapperArray<Vue>;
+  getQueryPreviewItemWrappers: () => VueWrapper[];
   /** Flushes all pending promises to cause the component to be in its final state. */
   reRender: () => Promise<void>;
 }
