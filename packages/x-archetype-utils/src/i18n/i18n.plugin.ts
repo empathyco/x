@@ -54,7 +54,7 @@ export class I18n<SomeMessages> {
     this.vueI18n = createI18n({
       locale: this.locale,
       silentFallbackWarn: true,
-      missing: (locale, key: string) => {
+      missing: (_, key: string) => {
         return (
           this.getMessageWithDotsInKey(key) ??
           `[i18n] Key '${key}' is missing for locale: '${this.locale}'`
