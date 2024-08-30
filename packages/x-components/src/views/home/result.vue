@@ -1,11 +1,7 @@
 <template>
   <article class="x-result" style="max-width: 300px; overflow: hidden">
     <BaseResultLink :result="result">
-      <BaseResultImage
-        :result="result"
-        class="x-result__picture x-picture-zoom"
-        :loadAnimation="crossFade"
-      >
+      <BaseResultImage :result="result" :loadAnimation="crossFade">
         <template #placeholder>
           <div style="padding-top: 100%; background-color: lightgray"></div>
         </template>

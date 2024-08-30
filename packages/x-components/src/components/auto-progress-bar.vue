@@ -54,7 +54,7 @@
   });
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
   .x-progress-bar {
     display: inline-block;
     overflow: hidden;

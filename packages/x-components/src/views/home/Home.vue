@@ -690,9 +690,9 @@
 </script>
 
 <style lang="css">
-  .x-modal :deep(.x-modal__content) {
+  .x-modal .x-modal__content {
     overflow: hidden;
-    // Following is needed for closing the modal in base-events-modal.feature
+    /* Following is needed for closing the modal in base-events-modal.feature */
     width: calc(100% - 20px);
     height: calc(100% - 20px);
     margin: 10px;

@@ -41,7 +41,7 @@
 
   .x-cross-fade--leave-to,
   .x-cross-fade--enter-from {
-    opacity: 0;
+    opacity: 0 !important;
   }
 </style>
 

@@ -110,8 +110,8 @@
   });
 </script>
 
-<style lang="scss">
-  @import '../../design-system-deprecated/utilities/dev-mode';
+<style lang="css" scoped>
+  @import url('../../design-system-deprecated/utilities/dev-mode.css');
 
   .x-layout {
     display: grid;
@@ -135,77 +135,63 @@
       [footer-end page-end];
 
     grid-template-columns: 1fr;
+  }
 
-    > * {
-      grid-column: 1/-1;
-      min-width: 0;
-      min-height: 0;
-      display: flex;
-    }
+  .x-layout > * {
+    grid-column: 1/-1;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+  }
 
-    &__header {
-      grid-row: header;
-      z-index: 1;
-    }
+  .x-layout__header {
+    grid-row: header;
+    z-index: 1;
+  }
 
-    &__sub-header {
-      grid-row: sub-header;
-      z-index: 1;
-    }
+  .x-layout__sub-header {
+    grid-row: sub-header;
+    z-index: 1;
+  }
 
-    &__toolbar {
-      grid-row: toolbar;
-      z-index: 1;
-    }
+  .x-layout__toolbar {
+    grid-row: toolbar;
+    z-index: 1;
+  }
 
-    &__predictive {
-      grid-row-start: header-end;
-      grid-row-end: page-end;
-      flex-flow: column nowrap;
-      z-index: 2;
-    }
+  .x-layout__predictive {
+    grid-row-start: header-end;
+    grid-row-end: page-end;
+    flex-flow: column nowrap;
+    z-index: 2;
+  }
 
-    &__main {
-      grid-row: main;
-      flex-flow: column nowrap;
-    }
+  .x-layout__main {
+    grid-row: main;
+    flex-flow: column nowrap;
+  }
 
-    &__floating {
-      grid-row: floating;
-      z-index: 1;
-    }
+  .x-layout__floating {
+    grid-row: floating;
+    z-index: 1;
+  }
 
-    &__footer {
-      grid-row: footer;
-    }
+  .x-layout__footer {
+    grid-row: footer;
+  }
 
-    :deep(.x-layout__aside) {
-      grid-row: page;
-      z-index: 3;
+  .x-layout__aside {
+    grid-row: page;
+    z-index: 3;
+  }
 
-      .x-modal__content {
-        width: 100%;
-        height: 100%;
-        margin-inline-start: var(--x-size-margin-left-layout-single-column, 0);
-      }
-    }
+  .x-layout :deep(.x-layout__aside .x-modal__content) {
+    width: 100%;
+    height: 100%;
+    margin-inline-start: var(--x-size-margin-left-layout-single-column, 0);
+  }
 
-    &__predictive :deep(),
-    &__floating :deep(),
-    :deep(.slot-helper) {
-      pointer-events: none;
-
-      > * {
-        pointer-events: all;
-      }
-
-      > .x-list {
-        pointer-events: none;
-
-        > * {
-          pointer-events: all;
-        }
-      }
-    }
+  .x-layout :deep(.x-layout__aside > *:not(.slot-helper)) {
+    pointer-events: all;
   }
 </style>

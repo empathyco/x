@@ -98,7 +98,7 @@
   });
 </script>
 
-<style lang="scss">
+<style lang="css">
   .x-components-images {
     position: absolute;
     top: 1500px;
@@ -109,29 +109,29 @@
   .x-base-grid {
     column-gap: 10px;
     row-gap: 10px;
+  }
 
-    &__item {
-      border: 1px solid black;
-      padding: 20px;
-      text-align: center;
-    }
+  .x-base-grid__item {
+    border: 1px solid black;
+    padding: 20px;
+    text-align: center;
+  }
 
-    &__next-queries {
-      border-color: red;
-      border-radius: 50px;
-    }
+  .x-base-grid__next-queries {
+    border-color: red;
+    border-radius: 50px;
+  }
 
-    &__x-result {
-      border-color: deepskyblue;
-    }
+  .x-base-grid__result {
+    border-color: deepskyblue;
+  }
 
-    &__banner {
-      border-color: blueviolet;
-      grid-column: -1/1;
-    }
+  .x-base-grid__banner {
+    border-color: blueviolet;
+    grid-column: -1/1;
+  }
 
-    &__promoted {
-      border-color: orange;
-    }
+  .x-base-grid__promoted {
+    border-color: orange;
   }
 </style>

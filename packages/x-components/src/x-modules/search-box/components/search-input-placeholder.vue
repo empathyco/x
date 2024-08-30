@@ -229,6 +229,12 @@
   });
 </script>
 
+<style lang="css">
+  .x-search-input-placeholder-container {
+    position: relative;
+  }
+</style>
+
 <style lang="css" scoped>
   .x-search-input-placeholder {
     position: absolute;
@@ -236,10 +242,6 @@
     display: flex;
     align-items: center;
     pointer-events: none;
-  }
-
-  .x-search-input-placeholder-container {
-    position: relative;
   }
 </style>
 

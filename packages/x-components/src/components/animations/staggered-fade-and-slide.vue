@@ -107,7 +107,8 @@
       return {
         name,
         onEnter,
-        onAfterEnter
+        onAfterEnter,
+        transitionDurationInMs: `${transitionDuration}ms`
       };
     }
   });
@@ -117,12 +118,12 @@
   /* 1. Declare transitions */
   .x-staggered-fade-and-slide-enter-active,
   .x-staggered-fade-and-slide-leave-active {
-    transition: 250ms ease-out;
+    transition: v-bind(transitionDurationInMs) ease-out;
     transition-property: opacity, transform;
   }
 
   .x-staggered-fade-and-slide-move {
-    transition: transform 250ms ease-out;
+    transition: transform v-bind(transitionDurationInMs) ease-out;
   }
 
   /* 2. Declare enter, from and leave to state */
