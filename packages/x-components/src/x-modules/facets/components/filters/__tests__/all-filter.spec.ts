@@ -1,4 +1,5 @@
-import { mount } from '@vue/test-utils';
+import { Facet } from '@empathyco/x-types';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { Store } from 'vuex';
 import { nextTick } from 'vue';
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
@@ -16,7 +17,9 @@ import { XPlugin } from '../../../../../plugins/index';
  * @param options - The options to render the component with.
  * @returns The API for testing the `AllFilter` component.
  */
-function renderAllFilter({ template = `<AllFilter :facet="facet"></AllFilter>` } = {}) {
+function renderAllFilter({
+  template = `<AllFilter :facet="facet"></AllFilter>`
+}: RenderAllFilterOptions = {}): RenderAllFilterAPI {
   const facet = createSimpleFacetStub('category', createFilter => [
     createFilter('men'),
     createFilter('women')
@@ -116,8 +119,27 @@ describe('testing AllFilter component', () => {
       template: `
         <AllFilter v-slot="{ facet }" :facet="facet" >
           Select all {{ facet.label }}
-        </AllFilter>`
+        </AllFilter>
+      `
     });
     expect(allFilterWrapper.text()).toBe(`Select all ${facet.label}`);
   });
 });
+
+interface RenderAllFilterOptions {
+  /** The template to be rendered. */
+  template?: string;
+}
+
+interface RenderAllFilterAPI {
+  /** The `AllFilter` wrapper component. */
+  allFilterWrapper: VueWrapper;
+  /** Function that clicks all filter button. */
+  clickAllFilter: () => Promise<void>;
+  /** Current facet passed as prop to the AllFilter component. */
+  facet: Facet;
+  /** Function that toggles first filter selected property. */
+  toggleFirstFilter: () => Promise<void>;
+  /** The wrapper of the container element.*/
+  wrapper: VueWrapper;
+}
