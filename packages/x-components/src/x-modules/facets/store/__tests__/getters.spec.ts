@@ -1,6 +1,5 @@
 import { Facet, Filter } from '@empathyco/x-types';
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import {
   createEditableNumberRangeFacetStub,
   createHierarchicalFacetStub,
@@ -28,8 +27,6 @@ describe('testing facets module getters', () => {
     facets: Omit<Facet, 'filters'>[] = [],
     stickyFilters: Filter[] = []
   ): SafeStore<FacetsState, FacetsGetters, FacetsMutations, FacetsActions> {
-    const localVue = createLocalVue();
-    localVue.use(Vuex);
     const store = new Store<FacetsState>(facetsXStoreModule as any);
     resetFacetsStateWith(store, {
       filters: arrayToObject(filters, 'id'),
