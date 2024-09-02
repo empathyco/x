@@ -1,5 +1,5 @@
 import { Filter } from '@empathyco/x-types';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
@@ -16,8 +16,6 @@ function renderFilters({
   filters = [],
   template = '<Filters :filters="filters"></Filters>'
 }: RenderFiltersOptions = {}): RenderFiltersAPI {
-  const localVue = createLocalVue();
-
   const wrapperTemplate = mount(
     {
       props: ['filters'],
@@ -27,8 +25,7 @@ function renderFilters({
       template
     },
     {
-      localVue,
-      propsData: { filters }
+      props: { filters }
     }
   );
 
@@ -75,7 +72,7 @@ describe('testing Filters component', () => {
 
     const liWrappers = wrapper.findAll(getDataTestSelector('base-filters-item'));
     filters.forEach((filter, index) => {
-      expect(liWrappers.at(index).text()).toContain(filter.label);
+      expect(liWrappers.at(index)?.text()).toContain(filter.label);
     });
   });
 });
@@ -92,5 +89,5 @@ interface RenderFiltersAPI {
   /** The rendered filters data. */
   filters: Filter[];
   /** The Vue testing utils wrapper for the {@link FiltersComponent}. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
 }

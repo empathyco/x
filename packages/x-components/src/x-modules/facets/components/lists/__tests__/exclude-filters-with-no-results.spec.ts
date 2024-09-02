@@ -1,5 +1,5 @@
 import { Filter } from '@empathyco/x-types';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
+import { mount, VueWrapper, DOMWrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
@@ -22,8 +22,6 @@ function renderExcludeFiltersWithNoResults({
       </div>
     </ExcludeFiltersWithNoResults>`
 }: RenderExcludeFiltersWithNoResultsOptions = {}): RenderExcludeFiltersWithNoResultsAPI {
-  const localVue = createLocalVue();
-
   const templateWrapper = mount(
     {
       props: ['filters'],
@@ -33,8 +31,7 @@ function renderExcludeFiltersWithNoResults({
       template
     },
     {
-      localVue,
-      propsData: { filters }
+      props: { filters }
     }
   );
 
@@ -70,7 +67,7 @@ describe('testing Filters component', () => {
     });
     const renderedFilters = getRenderedFilters();
     expect(renderedFilters).toHaveLength(2);
-    expect(renderedFilters.wrappers.map(wrapper => wrapper.text())).toEqual(['Women', 'Kids']);
+    expect(renderedFilters.map(wrapper => wrapper.text())).toEqual(['Women', 'Kids']);
   });
 });
 
@@ -84,7 +81,7 @@ interface RenderExcludeFiltersWithNoResultsOptions {
 
 interface RenderExcludeFiltersWithNoResultsAPI {
   /** Retrieves the testing wrappers of the filters. */
-  getRenderedFilters: () => WrapperArray<Vue>;
+  getRenderedFilters: () => DOMWrapper<Element>[];
   /** The Vue testing utils wrapper for the {@link ExcludeFiltersWithNoResults} component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
 }
