@@ -1,6 +1,6 @@
 import { BooleanFilter, Filter } from '@empathyco/x-types';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper, DOMWrapper } from '@vue/test-utils';
+import { nextTick, reactive } from 'vue';
 import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import SortedFilters from '../sorted-filters.vue';
@@ -21,8 +21,7 @@ function getFiltersMock(): Filter[] {
 }
 
 function renderBaseSortedFilters(filters: Filter[]): BaseSortedFiltersAPI {
-  const localVue = createLocalVue();
-  Vue.observable(filters);
+  filters = reactive(filters);
 
   const wrapper = mount(
     {
@@ -45,8 +44,7 @@ function renderBaseSortedFilters(filters: Filter[]): BaseSortedFiltersAPI {
         </SortedFilters>`
     },
     {
-      localVue,
-      propsData: {
+      props: {
         filters
       }
     }
@@ -57,7 +55,7 @@ function renderBaseSortedFilters(filters: Filter[]): BaseSortedFiltersAPI {
     getSortedFiltersWrapper: () => wrapper.findComponent(SortedFilters),
     selectFilter: index => {
       (filters[index] as BooleanFilter).selected = true;
-      return Vue.nextTick();
+      return nextTick();
     }
   };
 }
@@ -90,22 +88,22 @@ describe('testing SortedFilters', () => {
     const expectedLabel = 'Lego CITY 2';
 
     const filterToSelect = getFiltersWrapperArray().at(1);
-    expect(filterToSelect.text()).toEqual(expectedLabel);
-    expect(filterToSelect.attributes()).toHaveProperty('aria-checked', 'false');
+    expect(filterToSelect?.text()).toEqual(expectedLabel);
+    expect(filterToSelect?.attributes()).toHaveProperty('aria-checked', 'false');
 
     await selectFilter(1);
 
     const selectedFilter = getFiltersWrapperArray().at(0);
-    expect(selectedFilter.text()).toEqual(expectedLabel);
-    expect(selectedFilter.attributes()).toHaveProperty('aria-checked', 'true');
+    expect(selectedFilter?.text()).toEqual(expectedLabel);
+    expect(selectedFilter?.attributes()).toHaveProperty('aria-checked', 'true');
   });
 });
 
 interface BaseSortedFiltersAPI {
   /** The filters of the wrapper element. */
-  getFiltersWrapperArray: () => WrapperArray<Vue>;
+  getFiltersWrapperArray: () => DOMWrapper<Element>[];
   /** The wrapper of the component. */
-  getSortedFiltersWrapper: () => Wrapper<Vue>;
+  getSortedFiltersWrapper: () => VueWrapper;
   /** Sets the index filter selected property to true. */
   selectFilter: (index: number) => Promise<void>;
 }
