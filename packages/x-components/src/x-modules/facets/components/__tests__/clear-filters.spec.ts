@@ -1,8 +1,8 @@
 import { Facet } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
+import { Store } from 'vuex';
 import {
   createHierarchicalFacetStub,
   createSimpleFacetStub
@@ -43,13 +43,7 @@ function renderClearFilters({
     ])
   };
 
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
   const store: Store<DeepPartial<RootXStoreState>> = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-  XPlugin.registerXModule(facetsXModule);
-
-  resetXFacetsStateWith(store, facets);
   const wrapper = mount(
     {
       components: {
@@ -59,10 +53,15 @@ function renderClearFilters({
       props: ['facetsIds']
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [facetsXModule] })]
+      },
       store
     }
   );
+
+  XPlugin.registerXModule(facetsXModule);
+  resetXFacetsStateWith(store, facets);
 
   const clearFiltersWrapper = wrapper.findComponent(ClearFilters);
 
@@ -71,11 +70,11 @@ function renderClearFilters({
     clearFiltersWrapper,
     setCategoryFacetFiltersAsSelected() {
       facets.category.filters.forEach(filter => DefaultFacetsService.instance.select(filter));
-      return localVue.nextTick();
+      return nextTick();
     },
     setFacetsIds(facetsIds) {
       wrapper.setProps({ facetsIds });
-      return localVue.nextTick();
+      return nextTick();
     }
   };
 }
@@ -154,7 +153,7 @@ describe('testing ClearFilters component', () => {
     const listenerClearFilterFacets = jest.fn();
     const facetsIds = ['category'];
     const { wrapper, setCategoryFacetFiltersAsSelected, setFacetsIds } = renderClearFilters();
-    wrapper.vm.$x.on('UserClickedClearAllFilters', true).subscribe(listenerClearFilterFacets);
+    XPlugin.bus.on('UserClickedClearAllFilters', true).subscribe(listenerClearFilterFacets);
 
     await setCategoryFacetFiltersAsSelected();
     await setFacetsIds(facetsIds);
@@ -176,7 +175,7 @@ describe('testing ClearFilters component', () => {
   it('emits UserClickedClearAllFilters event', async () => {
     const listenerClearFilter = jest.fn();
     const { wrapper, setCategoryFacetFiltersAsSelected } = renderClearFilters();
-    wrapper.vm.$x.on('UserClickedClearAllFilters', true).subscribe(listenerClearFilter);
+    XPlugin.bus.on('UserClickedClearAllFilters', true).subscribe(listenerClearFilter);
 
     await setCategoryFacetFiltersAsSelected();
     wrapper.trigger('click');
@@ -202,7 +201,7 @@ interface RenderFiltersOptions {
 
 interface RenderFiltersAPI {
   /** The `clearFilters` wrapper component. */
-  clearFiltersWrapper: Wrapper<Vue>;
+  clearFiltersWrapper: VueWrapper;
   /**
    * Change value property "selected" of some specifics filters.
    *
@@ -216,5 +215,5 @@ interface RenderFiltersAPI {
    */
   setFacetsIds: (facetsIds: Array<Facet['id']>) => Promise<void>;
   /** The wrapper of the container element.*/
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
 }
