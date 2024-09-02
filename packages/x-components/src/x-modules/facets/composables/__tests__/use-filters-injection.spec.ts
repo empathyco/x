@@ -1,6 +1,6 @@
-import Vue, { ComponentOptions, defineComponent, PropType, provide, ref } from 'vue';
+import { ComponentOptions, defineComponent, PropType, provide, ref } from 'vue';
 import { Filter } from '@empathyco/x-types';
-import { mount, Wrapper } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 import {
   createHierarchicalFilter,
   createSimpleFilter
@@ -25,7 +25,7 @@ const Provider = defineComponent({
   `
 });
 
-const Filters: ComponentOptions<Vue> = {
+const Filters: ComponentOptions = {
   props: {
     filters: Array as PropType<Filter[]>,
     parentId: {
@@ -77,7 +77,8 @@ describe('test filters injection composable', () => {
     return {
       wrapper,
       getRenderedFilterIds(): string[] {
-        return wrapper.findAll('li').wrappers.map(element => element.text());
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        return wrapper.findAll('li').map(element => element.text());
       },
       async setPropFilters(propFilters: Filter[]) {
         await wrapper.setData({ propFilters });
@@ -195,7 +196,7 @@ describe('test filters injection composable', () => {
  */
 type TestFilterInjectionAPI = {
   /** The wrapper of the mounted component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** It returns an array with the filter ids rendered in the mounted component. */
   getRenderedFilterIds: () => string[];
   /** Changes the propFilters of the mounted component. */
