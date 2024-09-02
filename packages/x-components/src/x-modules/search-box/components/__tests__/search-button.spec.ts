@@ -1,83 +1,85 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
+import { nextTick } from 'vue';
 import { isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import SearchButton from '../search-button.vue';
+import { XPlugin } from '../../../../plugins/index';
+import { searchBoxXModule } from '../../x-module';
 import { resetXSearchBoxStateWith } from './utils';
 
-describe('testing search button component', () => {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
+function renderSearchButton(slotContent: string) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
 
-  const searchButtonWrapper = mount(SearchButton, {
-    localVue,
-    store,
-    slots: { default: 'Search!' }
+  const wrapper = mount(SearchButton, {
+    slots: { default: slotContent },
+    global: {
+      plugins: [store, installNewXPlugin({ initialXModules: [searchBoxXModule], store })]
+    }
   });
 
+  XPlugin.registerXModule(searchBoxXModule);
+  const mockedObserver = jest.fn();
+  XPlugin.bus.on('UserAcceptedAQuery', true).subscribe(mockedObserver);
+  XPlugin.bus.on('UserPressedSearchButton', true).subscribe(mockedObserver);
+
+  return {
+    wrapper,
+    store,
+    mockedObserver
+  };
+}
+
+describe('testing search button component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('is an XComponent', () => {
-    expect(isXComponent(searchButtonWrapper.vm)).toEqual(true);
+    const { wrapper } = renderSearchButton('Search!');
+    expect(isXComponent(wrapper.vm)).toEqual(true);
   });
 
   it('renders search button with inner text', () => {
-    expect(searchButtonWrapper.text()).toEqual('Search!');
+    const { wrapper } = renderSearchButton('Search!');
+    expect(wrapper.text()).toEqual('Search!');
   });
 
   it('renders search button with inner svg icon', () => {
-    const htmlIcon =
-      '<svg height="10" width="10"><circle cx="5" cy="5" r="4" stroke="black"></circle></svg>';
-
-    const searchIconButtonWrapper = mount(SearchButton, {
-      localVue,
-      store,
-      slots: { default: htmlIcon }
-    });
-
-    const renderedHtmlIcon = searchIconButtonWrapper.element.innerHTML;
-    expect(renderedHtmlIcon).toEqual(htmlIcon);
+    const htmlIcon = `<svg height="10" width="10"><circle cx="5" cy="5" r="4" stroke="black"></circle></svg>`;
+    const { wrapper } = renderSearchButton(htmlIcon);
+    const renderedHtmlIcon = wrapper.element.innerHTML;
+    expect(renderedHtmlIcon).toContain(htmlIcon);
   });
 
   it("doesn't emit events if the query is empty", async () => {
-    const mockedObserver = jest.fn();
-    searchButtonWrapper.vm.$x.on('UserAcceptedAQuery').subscribe(mockedObserver);
-    searchButtonWrapper.vm.$x.on('UserPressedSearchButton').subscribe(mockedObserver);
-
+    const { mockedObserver, store, wrapper } = renderSearchButton('Search!');
     resetXSearchBoxStateWith(store, { query: '' });
-
-    await localVue.nextTick();
-
-    searchButtonWrapper.trigger('click');
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    await nextTick();
+    await wrapper.trigger('click');
 
     expect(mockedObserver).not.toHaveBeenCalled();
   });
 
   it('emits events if the query is not empty', async () => {
+    const { mockedObserver, store, wrapper } = renderSearchButton('Search!');
     const query = 'honda crf';
-    const mockedObserver = jest.fn();
     const mockedObserverCalledWith = {
       eventPayload: query,
       metadata: expect.objectContaining<Partial<WireMetadata>>({
         moduleName: 'searchBox',
-        target: searchButtonWrapper.element,
+        target: wrapper.element,
         feature: 'search_box'
       })
     };
-    searchButtonWrapper.vm.$x.on('UserAcceptedAQuery', true).subscribe(mockedObserver);
-    searchButtonWrapper.vm.$x.on('UserPressedSearchButton', true).subscribe(mockedObserver);
-
     resetXSearchBoxStateWith(store, { query });
-    await localVue.nextTick();
-
-    await searchButtonWrapper.trigger('click');
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    await nextTick();
+    await wrapper.trigger('click');
 
     expect(mockedObserver).toHaveBeenCalledTimes(2);
     expect(mockedObserver).toHaveBeenNthCalledWith(1, mockedObserverCalledWith);
