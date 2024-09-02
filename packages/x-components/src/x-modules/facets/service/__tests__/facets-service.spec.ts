@@ -1,4 +1,5 @@
 import { EditableNumberRangeFilter, Filter, Facet } from '@empathyco/x-types';
+import { mount } from '@vue/test-utils';
 import {
   createEditableNumberRangeFacetStub,
   createHierarchicalFacetStub,
@@ -40,8 +41,10 @@ function prepareFacetsService(
   filterEntityFactory: FilterEntityFactory = new FilterEntityFactory()
 ): FacetsServiceTestAPI {
   XPlugin.resetInstance();
-  installNewXPlugin();
   XPlugin.registerXModule(facetsXModule);
+  const plugin = installNewXPlugin();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  mount({}, { global: { plugins: [plugin] } });
 
   return {
     service: new DefaultFacetsService(filterEntityFactory),
@@ -736,6 +739,7 @@ interface FacetsServiceTestAPI {
 /**
  * Excludes the filters property from the given facet.
  *
+ * @param filters - The filters available for the facet.
  * @param facet - The full facet from whom exclude its filter property.
  * @returns The given facet without the `filters` property.
  */
