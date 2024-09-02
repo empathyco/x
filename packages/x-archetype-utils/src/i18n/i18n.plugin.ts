@@ -50,10 +50,10 @@ export class I18n<SomeMessages> {
    * @param vue - The Vue instance.
    */
   install(vue: App): void {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     this.vueI18n = createI18n({
       locale: this.locale,
       silentFallbackWarn: true,
+      messages: this.currentMessages ? ({ [this.locale]: this.currentMessages } as any) : {},
       missing: (_, key: string) => {
         return (
           this.getMessageWithDotsInKey(key) ??
