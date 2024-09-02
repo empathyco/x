@@ -118,7 +118,7 @@
        */
       $x.on('UserClickedScrollToTop', false).subscribe((scrollId: string) => {
         if (scrollId === props.id && scrollRef.value) {
-          scrollRef.value.$el.scrollTo({ top: 0, behavior: 'smooth' });
+          (scrollRef.value.$el as HTMLElement).scrollTo({ top: 0, behavior: 'smooth' });
         }
       });
 

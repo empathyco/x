@@ -2,12 +2,12 @@ import { Priority, SubjectPayload, XPriorityBus } from '@empathyco/x-bus';
 import { Dictionary } from '@empathyco/x-utils';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from 'vuex';
+import { Component } from 'vue';
 import { RootStoreStateAndGetters, RootXStoreState } from '../store/store.types';
 import { FeatureLocation, QueryFeature, ResultFeature } from '../types/origin';
 import { FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils/types';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { XEvent, XEventPayload, XEventsTypes } from './events.types';
-import { Component } from 'vue';
 
 /**
  * A Wire is a function that receives an observable, the store and the on function of the bus it

@@ -1,14 +1,15 @@
 import { Suggestion } from '@empathyco/x-types';
 import { mount } from '@vue/test-utils';
-import { createQuerySuggestion } from '../../../__stubs__/index';
-import { normalizeString } from '../../../utils/normalize';
-import { XEventsTypes } from '../../../wiring/events.types';
-import { WireMetadata } from '../../../wiring/wiring.types';
+import { normalizeString } from '../../../utils';
+import { XEventsTypes, WireMetadata } from '../../../wiring';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseSuggestion from '../base-suggestion.vue';
-import { createSimpleFacetStub } from '../../../__stubs__/facets-stubs.factory';
-import { createPopularSearch } from '../../../__stubs__/popular-searches-stubs.factory';
-import { XPlugin } from '../../../plugins/index';
+import {
+  createQuerySuggestion,
+  createPopularSearch,
+  createSimpleFacetStub
+} from '../../../__stubs__';
+import { XPlugin } from '../../../plugins';
 
 function renderBaseSuggestion({
   query = 'bebe',
@@ -45,12 +46,8 @@ function renderBaseSuggestion({
     query,
     wireMetadata,
     emit,
-    getEndingPart() {
-      return wrapper.get(getDataTestSelector('highlight-end'));
-    },
-    getMatchingPart() {
-      return wrapper.get(getDataTestSelector('matching-part'));
-    }
+    getEndingPart: () => wrapper.get(getDataTestSelector('highlight-end')),
+    getMatchingPart: () => wrapper.get(getDataTestSelector('matching-part'))
   };
 }
 

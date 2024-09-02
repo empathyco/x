@@ -1,5 +1,5 @@
 import { mount, VueWrapper } from '@vue/test-utils';
-import Vue, { defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import { AnyFunction } from '@empathyco/x-utils';
 import { installNewXPlugin } from '../../../__tests__/utils';
 import CloseMainModal from '../close-main-modal.vue';
@@ -19,9 +19,8 @@ function renderCloseMainModal({
     components: {
       CloseMainModal
     },
-
-    template,
-    methods
+    methods,
+    template
   });
   const wrapper = mount(containerWrapper, {
     global: { plugins: [installNewXPlugin()] }
@@ -29,15 +28,13 @@ function renderCloseMainModal({
 
   return {
     wrapper: wrapper.findComponent(CloseMainModal),
-    async click() {
-      await wrapper.trigger('click');
-    }
+    click: async () => await wrapper.trigger('click')
   };
 }
 
 describe('testing Close Main Modal button component', () => {
   it('emits UserClickedCloseX by default when clicked', async () => {
-    const { wrapper, click } = renderCloseMainModal();
+    const { click } = renderCloseMainModal();
     const onUserClickedCloseX = jest.fn();
     XPlugin.bus.on('UserClickedCloseX').subscribe(onUserClickedCloseX);
 

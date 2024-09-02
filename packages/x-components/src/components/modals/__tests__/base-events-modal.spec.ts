@@ -1,10 +1,11 @@
 import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseEventsModal from '../base-events-modal.vue';
 import { PropsWithType } from '../../../utils/types';
 import { XEventsTypes, XEvent } from '../../../wiring/events.types';
-import { XPlugin } from '../../../plugins/index';
-import { nextTick } from 'vue';
+import { XPlugin } from '../../../plugins';
+
 /**
  * Mounts a {@link BaseEventsModal} component with the provided options and offers an API to easily
  * test it.
@@ -108,7 +109,7 @@ describe('testing Base Events Modal  component', () => {
   it('allows to customize the events listened for opening & closing', async () => {
     const eventToOpen = 'UserFocusedSearchBox';
     const eventToClose = 'UserPressedClearSearchBoxButton';
-    const { emit, getModalContent, wrapper } = mountBaseEventsModal({
+    const { emit, getModalContent } = mountBaseEventsModal({
       eventsToOpenModal: [eventToOpen],
       eventsToCloseModal: [eventToClose]
     });
@@ -129,7 +130,7 @@ describe('testing Base Events Modal  component', () => {
 
   it('allows to customize the event emitted when clicking out of the modal', async () => {
     const bodyClickEvent = 'UserClickedASimpleFilter';
-    const { wrapper, clickModalOverlay, emit, getModalContent } = mountBaseEventsModal({
+    const { clickModalOverlay, emit, getModalContent } = mountBaseEventsModal({
       bodyClickEvent,
       eventsToCloseModal: [bodyClickEvent]
     });

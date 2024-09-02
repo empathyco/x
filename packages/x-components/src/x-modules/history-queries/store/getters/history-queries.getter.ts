@@ -50,9 +50,8 @@ export class HistoryQueriesGetter implements GettersClass<HistoryQueriesXStoreMo
 
 const historyQueriesGetter = new HistoryQueriesGetter();
 
-// eslint-disable-next-line jsdoc/require-description-complete-sentence
 /**
- * {@inheritDoc HistoryQueriesGetter.historyQueries}
+ * History Queries getter.
  *
  * @public
  */

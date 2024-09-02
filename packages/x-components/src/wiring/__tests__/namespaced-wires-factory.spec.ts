@@ -1,3 +1,5 @@
+import { Store } from 'vuex';
+import { RootXStoreState } from '../../store/index';
 import {
   namespacedWireCommit,
   namespacedWireCommitWithoutPayload,
@@ -9,7 +11,7 @@ import { createQuerySuggestionsStoreMock, SubjectHandler } from './utils';
 
 describe('testing namespaced wires factory', () => {
   const moduleName = 'querySuggestions';
-  const storeMock = createQuerySuggestionsStoreMock();
+  const storeMock = createQuerySuggestionsStoreMock() as Store<RootXStoreState>;
   const busMock = new XDummyBus();
   const busOnMock = busMock.on.bind(busMock);
 

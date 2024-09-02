@@ -1,8 +1,7 @@
-import { mount, VueWrapper } from '@vue/test-utils';
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
-import { XEvent } from '../../../wiring/events.types';
-import BaseScroll from '../base-scroll.vue';
+import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
+import BaseScroll from '../base-scroll.vue';
 import { XPlugin } from '../../../plugins/index';
 
 /**
@@ -21,9 +20,9 @@ async function renderBaseScroll({
   scrollHeight = 800,
   clientHeight = 200,
   distanceToBottom = 100,
-  resetOnChange,
-  resetOn
-}: RenderBaseScrollOptions = {}): Promise<RenderBaseScrollAPI> {
+  resetOnChange = true,
+  resetOn = ['UserAcceptedAQuery']
+} = {}) {
   const wrapperContainer = mount(
     {
       components: {
@@ -53,9 +52,9 @@ async function renderBaseScroll({
 
   return {
     wrapper,
-    async scroll({ to, durationMs }) {
+    scroll: async ({ to = 0, durationMs = 0 }) => {
       scrollElement.scrollTop = to;
-      wrapper.trigger('scroll');
+      await wrapper.trigger('scroll');
       jest.advanceTimersByTime(durationMs);
       await nextTick();
     }
@@ -103,7 +102,6 @@ describe('testing Base Scroll Component', () => {
     expect(wrapper.emitted('scroll')).toEqual([[150]]);
   });
 
-  // eslint-disable-next-line max-len
   it('emits the `scroll:direction-change` event when the user changes scrolling direction', async () => {
     const { wrapper, scroll } = await renderBaseScroll({
       throttleMs: 200
@@ -160,7 +158,6 @@ describe('testing Base Scroll Component', () => {
     expect(wrapper.emitted('scroll:direction-change')).toEqual([['DOWN'], ['UP']]);
   });
 
-  // eslint-disable-next-line max-len
   it('emits `scroll:almost-at-end` and `scroll:at-end` when the user scrolls to the bottom', async () => {
     const { wrapper, scroll } = await renderBaseScroll({
       throttleMs: 200,
@@ -228,28 +225,3 @@ describe('testing Base Scroll Component', () => {
     expect(wrapper.element.scrollTop).toEqual(300);
   });
 });
-
-interface RenderBaseScrollOptions {
-  /** The template to be rendered. */
-  template?: string;
-  /** Number for throttle of scroll. */
-  throttleMs?: number;
-  /** Number of scroll height of scroll. */
-  scrollHeight?: number;
-  /** Number of client height of scroll. */
-  clientHeight?: number;
-  /** Distance to the end of the scroll. */
-  distanceToBottom?: number;
-  /** Flag to enable or disable resetting the scroll when the events at {@link BaseScroll.resetOn}
-   * are emitted. */
-  resetOnChange?: boolean;
-  /** List of events to reset the scroll when they are emitted. */
-  resetOn?: XEvent[];
-}
-
-interface RenderBaseScrollAPI {
-  /** The wrapper for the base scroll component. */
-  wrapper: VueWrapper;
-  /** Function that launch the trigger scroll. */
-  scroll: (options: { to: number; durationMs: number }) => Promise<void>;
-}
