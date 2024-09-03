@@ -1,10 +1,11 @@
 import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
+import { defineComponent, nextTick } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import MainModal from '../main-modal.vue';
 import { PropsWithType } from '../../../utils/types';
-import { XEventsTypes } from '../../../wiring/events.types';
-import { XPlugin } from '../../../plugins/index';
-import { defineComponent, nextTick } from 'vue';
+import { XEventsTypes } from '../../../wiring';
+import { XPlugin } from '../../../plugins';
+
 /**
  * Renders a {@link MainModal} component with the provided options and offers an API to easily
  * test it.
@@ -24,7 +25,6 @@ function renderMainModal({
 
     template,
     global: { plugins: [installNewXPlugin()] },
-
     attachTo: parent // necessary to make the focus on body event to work in some environments.
   });
   const wrapper = mount(containerWrapper, {
@@ -37,7 +37,7 @@ function renderMainModal({
       await wrapper.find(getDataTestSelector('modal-overlay'))?.trigger('click');
     },
     async emit(event) {
-      XPlugin.bus.emit(event);
+      await XPlugin.bus.emit(event);
       await nextTick();
     },
     getModalContent() {

@@ -1,5 +1,4 @@
 import { Facet } from '@empathyco/x-types';
-import Vue from 'vue';
 import { mergeConfig, setConfig } from '../../../store/utils/config-store.utils';
 import { setQuery } from '../../../store/utils/query.utils';
 import { facets } from './getters/facets.getter';
@@ -9,7 +8,7 @@ import { FacetGroupEntry, FacetsXStoreModule } from './types';
 import { selectedFiltersForRequest } from './getters/selected-filters-for-request.getter';
 
 /**
- * {@link XStoreModule} For the facets module.
+ * {@link XStoreModule} For the facets' module.
  *
  * @internal
  */

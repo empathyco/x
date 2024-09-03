@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, ref } from 'vue';
+  import { defineComponent, PropType, ref, SetupContext } from 'vue';
   import { XEvent } from '../../wiring/events.types';
   import { useScroll } from './use-scroll';
 
@@ -88,7 +88,11 @@
     setup(props, context) {
       const baseScrollEl = ref<HTMLElement>();
 
-      const { throttledStoreScrollData } = useScroll(props, context as any, baseScrollEl);
+      const { throttledStoreScrollData } = useScroll(
+        props,
+        context as SetupContext<any>,
+        baseScrollEl
+      );
 
       return {
         throttledStoreScrollData,

@@ -1,16 +1,14 @@
-import { mount, VueWrapper } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { baseSnippetConfig } from '../../views/base-config';
-import { XEventListeners } from '../../x-installer/api/api.types';
 import SnippetCallbacks from '../snippet-callbacks.vue';
 import { bus } from '../../plugins/x-bus';
 import { dummyCreateEmitter } from '../../__tests__/bus.dummy';
 
 // Making bus not repeat subjects
+// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any);
 
-function renderSnippetCallbacks({
-  callbacks = {}
-}: RenderSnippetCallbacksOptions = {}): RenderSnippetCallbacksAPI {
+function renderSnippetCallbacks({ callbacks = {} } = {}) {
   const wrapper = mount(SnippetCallbacks, {
     global: {
       provide: {
@@ -95,19 +93,3 @@ describe('testing SnippetCallbacks component', () => {
     });
   });
 });
-
-/**
- * Options to configure how the snippet callbacks component should be rendered.
- */
-interface RenderSnippetCallbacksOptions {
-  /** The callbacks value to be provided. */
-  callbacks?: XEventListeners;
-}
-
-/**
- * Tools to test how the snippet callbacks component behaves.
- */
-interface RenderSnippetCallbacksAPI {
-  /** The wrapper of the container element. */
-  wrapper: VueWrapper;
-}

@@ -1,5 +1,4 @@
 import { forEach } from '@empathyco/x-utils';
-import Vue from 'vue';
 import { UrlXStoreModule } from '../types';
 
 /**

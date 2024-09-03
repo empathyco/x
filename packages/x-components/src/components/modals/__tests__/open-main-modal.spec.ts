@@ -1,5 +1,5 @@
 import { mount, VueWrapper } from '@vue/test-utils';
-import Vue, { defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import { AnyFunction } from '@empathyco/x-utils';
 import { installNewXPlugin } from '../../../__tests__/utils';
 import OpenMainModal from '../open-main-modal.vue';
@@ -19,8 +19,8 @@ function renderOpenMainModal({
     components: {
       OpenMainModal
     },
-    template,
-    methods
+    methods,
+    template
   });
 
   const wrapper = mount(containerWrapper, {
@@ -37,7 +37,7 @@ function renderOpenMainModal({
 
 describe('testing Open Main Modal button component', () => {
   it('emits UserClickedOpenX by default when clicked', async () => {
-    const { wrapper, click } = renderOpenMainModal();
+    const { click } = renderOpenMainModal();
     const onUserClickedOpenX = jest.fn();
     XPlugin.bus.on('UserClickedOpenX').subscribe(onUserClickedOpenX);
 
