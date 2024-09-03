@@ -1,15 +1,12 @@
-import { mount, VueWrapper } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { defineComponent, inject } from 'vue';
 import { FeatureLocation } from '../../types';
 import LocationProvider from '../location-provider.vue';
 
 const Child = defineComponent({
-  name: 'Child',
-  template: `{{ injectedLocation }}`,
-  setup() {
-    const injectedLocation = inject<FeatureLocation>('location');
-    return { injectedLocation };
-  }
+  name: 'ChildItem',
+  setup: () => ({ injectedLocation: inject<FeatureLocation>('location') }),
+  template: `{{ injectedLocation }}`
 });
 
 /**

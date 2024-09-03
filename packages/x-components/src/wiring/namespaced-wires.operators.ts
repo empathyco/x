@@ -1,3 +1,4 @@
+import { Dictionary } from '@empathyco/x-utils';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { NamespacedTimeWireOperator } from './namespaced-wiring.types';
 import { debounce, throttle } from './wires.operators';
@@ -55,7 +56,7 @@ function createNamespacedTimeWireOperator<ModuleName extends XModuleName>(
     timingOperator(
       wire,
       ({ state, getters }) =>
-        timeSelector(getStateAndGettersFromModule(state, getters, moduleName)),
+        timeSelector(getStateAndGettersFromModule(state, getters as Dictionary, moduleName)),
       options
     );
 }

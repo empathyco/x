@@ -1,8 +1,8 @@
 import { mount, VueWrapper } from '@vue/test-utils';
+import { defineComponent } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseIdModalClose from '../base-id-modal-close.vue';
 import { XPlugin } from '../../../plugins/index';
-import { defineComponent } from 'vue';
 
 /**
  * Renders the {@link BaseIdModalClose} with the provided options.

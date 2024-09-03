@@ -1,3 +1,4 @@
+import { Dictionary } from '@empathyco/x-utils';
 import { Store } from 'vuex';
 import {
   AnyXModule,
@@ -28,7 +29,9 @@ export interface RootXStoreState {
  *
  * @public
  */
-export type RootStoreStateAndGetters = Pick<Store<RootXStoreState>, 'state' | 'getters'>;
+export type RootStoreStateAndGetters = Pick<Store<RootXStoreState>, 'state'> & {
+  getters: Dictionary;
+};
 
 /**
  * Type safe which allows the access to the State and the Getters of a {@link XStoreModule}.

@@ -1,7 +1,7 @@
 import { mount, VueWrapper, DOMWrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseTabsPanel from '../base-tabs-panel.vue';
-import { nextTick } from 'vue';
 
 /**
  * Function that returns a BaseTabsPanel wrapper. The animation prop is not

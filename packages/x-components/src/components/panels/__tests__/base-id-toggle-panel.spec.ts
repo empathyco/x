@@ -1,3 +1,10 @@
+import { mount, VueWrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
+import { XEvent } from '../../../wiring';
+import BaseIdTogglePanel from '../base-id-toggle-panel.vue';
+import { XPlugin } from '../../../plugins/index';
+
 /**
  * Mounts a {@link BaseIdTogglePanel} component with the provided options and offers an API to
  * easily test it.
@@ -5,13 +12,6 @@
  * @param options - The options to render the component with.
  * @returns An API to test the component.
  */
-import { mount, VueWrapper } from '@vue/test-utils';
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
-import { XEvent } from '../../../wiring';
-import BaseIdTogglePanel from '../base-id-toggle-panel.vue';
-import { nextTick } from 'vue';
-import { XPlugin } from '../../../plugins/index';
-
 function mountBaseIdTogglePanel({
   panelId = 'myToggle',
   defaultSlot = `<span data-test="default-slot">Panel: ${panelId}</span>`,

@@ -1,5 +1,4 @@
 import { reduce, Dictionary } from '@empathyco/x-utils';
-import { Store } from 'vuex';
 import { ExtractGetters, XModuleName } from '../../x-modules/x-modules.types';
 import { AnyXStoreModule } from '../store.types';
 
@@ -24,7 +23,7 @@ let cache: Getters = {};
  *
  */
 export function getGettersProxyFromModule<ModuleName extends XModuleName>(
-  getters: Pick<Store<any>, 'getters'>,
+  getters: Dictionary,
   moduleName: ModuleName,
   storeModule: AnyXStoreModule
 ): ExtractGetters<ModuleName> {
@@ -57,7 +56,7 @@ export function getGettersProxyFromModule<ModuleName extends XModuleName>(
  * that will return the payload to commit the mutation.
  */
 export function getGettersProxy<ModuleName extends XModuleName>(
-  getters: Pick<Store<any>, 'getters'>,
+  getters: Dictionary,
   moduleName: ModuleName
 ): ExtractGetters<ModuleName> {
   /* TODO: Review why TS is not able to exclude undefined types from the Getters cache */
@@ -103,10 +102,11 @@ function defineGetterProxy<ModuleName extends XModuleName>(
   });
 }
 
-/** Clean the cache (This is for testing purpose).
+/**
+ * Clean the cache (This is for testing purpose).
  *
  * @internal
- * */
+ */
 export function cleanGettersProxyCache(): void {
   cache = {};
 }
