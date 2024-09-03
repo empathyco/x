@@ -340,13 +340,9 @@
   });
 </script>
 
-<style lang="scss">
-  .x-editable-number-range-filter {
-    &--error {
-      .x-editable-number-range-filter__input {
-        border-color: red;
-      }
-    }
+<style lang="css" scoped>
+  .x-editable-number-range-filter--error .x-editable-number-range-filter__input {
+    border-color: red;
   }
 </style>
 

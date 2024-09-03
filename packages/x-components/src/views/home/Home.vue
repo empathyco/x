@@ -422,13 +422,10 @@
             >
               <template #default="{ partialResult }">
                 <span data-test="partial-query">{{ partialResult.query }}</span>
-                <BaseGrid
-                  #result="{ item }"
-                  :animation="resultsAnimation"
-                  :columns="4"
-                  :items="partialResult.results"
-                >
-                  <Result :result="item" data-test="partial-result-item" />
+                <BaseGrid :animation="resultsAnimation" :columns="4" :items="partialResult.results">
+                  <template #result="{ item }">
+                    <Result :result="item" data-test="partial-result-item" />
+                  </template>
                 </BaseGrid>
                 <PartialQueryButton :query="partialResult.query">
                   <template #default="{ query }">Ver todos {{ query }}</template>
@@ -437,14 +434,16 @@
             </PartialResultsList>
 
             <!-- Recommendations -->
-            <Recommendations v-if="!x.query.search || x.noResults" #layout="{ recommendations }">
-              <BaseVariableColumnGrid
-                #default="{ item: result }"
-                :animation="resultsAnimation"
-                :items="recommendations"
-              >
-                <Result :result="result" data-test="recommendation-item" />
-              </BaseVariableColumnGrid>
+            <Recommendations v-if="!x.query.search || x.noResults">
+              <template #layout="{ recommendations }">
+                <BaseVariableColumnGrid
+                  #default="{ item: result }"
+                  :animation="resultsAnimation"
+                  :items="recommendations"
+                >
+                  <Result :result="result" data-test="recommendation-item" />
+                </BaseVariableColumnGrid>
+              </template>
             </Recommendations>
           </template>
         </template>
@@ -685,10 +684,10 @@
   });
 </script>
 
-<style lang="scss" scoped>
-  .x-modal :deep(.x-modal__content) {
+<style lang="css">
+  .x-modal .x-modal__content {
     overflow: hidden;
-    // Following is needed for closing the modal in base-events-modal.feature
+    /* Following is needed for closing the modal in base-events-modal.feature */
     width: calc(100% - 20px);
     height: calc(100% - 20px);
     margin: 10px;

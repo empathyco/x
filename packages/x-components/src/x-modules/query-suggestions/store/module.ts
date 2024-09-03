@@ -21,11 +21,13 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
   state: () => ({
     query: '',
     suggestions: [],
+    searchedQueries: [],
     status: 'initial',
     config: {
       debounceInMs: 200,
       maxItemsToRequest: 10,
-      hideIfEqualsQuery: true
+      hideIfEqualsQuery: true,
+      hideSessionQueries: true
     },
     params: {}
   }),
@@ -38,6 +40,9 @@ export const querySuggestionsXStoreModule: QuerySuggestionsXStoreModule = {
     setQuery,
     setSuggestions(state, suggestions) {
       state.suggestions = suggestions;
+    },
+    setSearchedQueries(state, searchedQueries) {
+      state.searchedQueries = searchedQueries;
     },
     setStatus,
     setParams(state, params) {

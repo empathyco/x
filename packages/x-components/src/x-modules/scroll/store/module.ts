@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import { ScrollComponentState, ScrollXStoreModule } from './types';
+import { ScrollXStoreModule } from './types';
 
 /**
  * {@link XStoreModule} For the scroll module.

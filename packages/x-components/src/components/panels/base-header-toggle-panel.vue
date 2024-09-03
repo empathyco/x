@@ -82,7 +82,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-header-toggle-panel__header {
     cursor: pointer;
   }

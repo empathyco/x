@@ -90,7 +90,7 @@
   });
 </script>
 
-<style scoped lang="scss">
+<style lang="css" scoped>
   .x-result-rating {
     color: inherit;
     text-decoration: none;

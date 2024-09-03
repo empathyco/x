@@ -142,31 +142,29 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-filters-search {
     display: flex;
     flex-flow: column nowrap;
+  }
 
-    &__input {
-      &::-ms-clear {
-        display: none;
-        width: 0;
-        height: 0;
-      }
+  .x-filters-search__input::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+  }
 
-      &::-ms-reveal {
-        display: none;
-        width: 0;
-        height: 0;
-      }
+  .x-filters-search__input::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+  }
 
-      &::-webkit-search-decoration,
-      &::-webkit-search-cancel-button,
-      &::-webkit-search-results-button,
-      &::-webkit-search-results-decoration {
-        display: none;
-      }
-    }
+  .x-filters-search__input::-webkit-search-decoration,
+  .x-filters-search__input::-webkit-search-cancel-button,
+  .x-filters-search__input::-webkit-search-results-button,
+  .x-filters-search__input::-webkit-search-results-decoration {
+    display: none;
   }
 </style>
 

@@ -67,15 +67,17 @@
                   </span>
                 </SelectedFilters>
                 <FiltersList v-slot="{ filter }">
-                  <SimpleFilter #label :filter="filter" :data-test="`${facet.label}-filter`">
-                    <BasePriceFilterLabel
-                      v-if="facet.id === 'price'"
-                      :filter="filter"
-                      format="ii.dd €"
-                      lessThan="Less than {max}"
-                      fromTo="From {min} to {max}"
-                      from="More than {min}"
-                    />
+                  <SimpleFilter :filter="filter" :data-test="`${facet.label}-filter`">
+                    <template #label>
+                      <BasePriceFilterLabel
+                        v-if="facet.id === 'price'"
+                        :filter="filter"
+                        format="ii.dd €"
+                        lessThan="Less than {max}"
+                        fromTo="From {min} to {max}"
+                        from="More than {min}"
+                      />
+                    </template>
                   </SimpleFilter>
                 </FiltersList>
               </SlicedFilters>
@@ -107,15 +109,13 @@
                       filter
                     }"
                   >
-                    <SimpleFilter
-                      #label="{ filter }"
-                      :filter="filter"
-                      :data-test="`${facet.label}-filter`"
-                    >
-                      {{ filter.label }}
-                      <span :data-test="`${facet.label}-filter-total-results`">
-                        {{ filter.totalResults }}
-                      </span>
+                    <SimpleFilter :filter="filter" :data-test="`${facet.label}-filter`">
+                      <template #label="{ filter }">
+                        {{ filter.label }}
+                        <span :data-test="`${facet.label}-filter-total-results`">
+                          {{ filter.totalResults }}
+                        </span>
+                      </template>
                     </SimpleFilter>
                   </FiltersList>
                 </SlicedFilters>
@@ -215,5 +215,3 @@
     }
   });
 </script>
-
-<style scoped lang="scss"></style>

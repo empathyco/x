@@ -174,7 +174,7 @@ importers:
         version: 27.5.0
       jest:
         specifier: ~27.5.0
-        version: 27.5.0(ts-node@10.9.1)
+        version: 27.5.0(ts-node@10.9.2)
       ts-jest:
         specifier: ~27.1.0
         version: 27.1.0(@babel/core@7.25.2)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
@@ -193,7 +193,7 @@ importers:
         version: 27.5.0
       jest:
         specifier: ~27.5.0
-        version: 27.5.0(ts-node@10.9.1)
+        version: 27.5.0(ts-node@10.9.2)
       ts-jest:
         specifier: ~27.1.0
         version: 27.1.0(@babel/core@7.25.2)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
@@ -224,7 +224,7 @@ importers:
         version: 7.32.1(eslint@8.33.0)
       jest:
         specifier: ~27.5.0
-        version: 27.5.0(ts-node@10.9.1)
+        version: 27.5.0(ts-node@10.9.2)
       react:
         specifier: ~16.9.0
         version: 16.9.0
@@ -261,7 +261,7 @@ importers:
         version: 27.5.0
       jest:
         specifier: ~27.5.0
-        version: 27.5.0(ts-node@10.9.1)
+        version: 27.5.0(ts-node@10.9.2)
       ts-jest:
         specifier: ~27.1.0
         version: 27.1.0(@babel/core@7.25.2)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
@@ -289,7 +289,7 @@ importers:
         version: 8.2.0
       jest:
         specifier: ~27.5.0
-        version: 27.5.0(ts-node@10.9.1)
+        version: 27.5.0(ts-node@10.9.2)
       rimraf:
         specifier: ~3.0.2
         version: 3.0.2
@@ -329,7 +329,7 @@ importers:
         version: 8.2.0
       jest:
         specifier: ~27.5.0
-        version: 27.5.0(ts-node@10.9.1)
+        version: 27.5.0(ts-node@10.9.2)
       rimraf:
         specifier: ~3.0.2
         version: 3.0.2
@@ -366,7 +366,7 @@ importers:
         version: 1.0.3(vue-template-compiler@2.7.16)(vue@2.7.14)
       jest:
         specifier: ~27.5.0
-        version: 27.5.0(ts-node@10.9.1)
+        version: 27.5.0(ts-node@10.9.2)
       rimraf:
         specifier: ~3.0.2
         version: 3.0.2
@@ -415,7 +415,7 @@ importers:
         version: 8.2.0
       jest:
         specifier: ~27.5.0
-        version: 27.5.0(ts-node@10.9.1)
+        version: 27.5.0(ts-node@10.9.2)
       rimraf:
         specifier: ~3.0.2
         version: 3.0.2
@@ -459,7 +459,7 @@ importers:
         specifier: ~10.7.1
         version: 10.7.1(vue@3.4.31)
       js-md5:
-        specifier: ^0.8.3
+        specifier: ~0.8.3
         version: 0.8.3
       rxjs:
         specifier: ~7.8.0
@@ -478,7 +478,7 @@ importers:
         specifier: ~2.2.0
         version: 2.2.0(esbuild@0.20.0)
       '@empathyco/x-tailwindcss':
-        specifier: ^1.2.0-alpha.3
+        specifier: ^1.2.0-alpha.5
         version: link:../x-tailwindcss
       '@microsoft/api-documenter':
         specifier: ~7.23.0
@@ -486,9 +486,6 @@ importers:
       '@microsoft/api-extractor':
         specifier: ~7.39.0
         version: 7.39.0(@types/node@18.19.0)
-      '@rollup/plugin-commonjs':
-        specifier: ~25.0.7
-        version: 25.0.7(rollup@4.9.1)
       '@testing-library/jest-dom':
         specifier: ~5.17.0
         version: 5.17.0
@@ -496,7 +493,7 @@ importers:
         specifier: ~10.2.0
         version: 10.2.0(postcss@8.4.12)
       '@types/glob':
-        specifier: ^8.0.1
+        specifier: ~8.0.1
         version: 8.0.1
       '@types/jest':
         specifier: ~27.5.0
@@ -508,8 +505,8 @@ importers:
         specifier: ~5.14.5
         version: 5.14.5
       '@vitejs/plugin-vue':
-        specifier: ~5.0.5
-        version: 5.0.5(vite@4.5.0)(vue@3.4.31)
+        specifier: ~5.1.2
+        version: 5.1.2(vite@4.5.0)(vue@3.4.31)
       '@vue/test-utils':
         specifier: ~2.4.6
         version: 2.4.6
@@ -533,7 +530,7 @@ importers:
         version: 10.3.0
       jest:
         specifier: ~27.5.0
-        version: 27.5.0(ts-node@10.9.1)
+        version: 27.5.0(ts-node@10.9.2)
       jest-scss-transform:
         specifier: ~1.0.1
         version: 1.0.1
@@ -575,18 +572,18 @@ importers:
         version: 2.0.0
       tailwindcss:
         specifier: ~3.4.0
-        version: 3.4.0(ts-node@10.9.1)
+        version: 3.4.0(ts-node@10.9.2)
       ts-jest:
         specifier: ~27.1.0
         version: 27.1.0(@babel/core@7.25.2)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
       ts-node:
-        specifier: ~10.9.1
-        version: 10.9.1(@types/node@18.19.0)(typescript@4.9.4)
+        specifier: ~10.9.2
+        version: 10.9.2(@types/node@18.19.0)(typescript@4.9.4)
       typescript:
         specifier: ~4.9.4
         version: 4.9.4
       vite:
-        specifier: ^4.5.0
+        specifier: ~4.5.0
         version: 4.5.0(@types/node@18.19.0)(sass@1.70.0)
       vite-plugin-vue-inspector:
         specifier: ~5.1.2
@@ -622,7 +619,7 @@ importers:
         version: 8.2.0
       jest:
         specifier: ~27.5.0
-        version: 27.5.0(ts-node@10.9.1)
+        version: 27.5.0(ts-node@10.9.2)
       rimraf:
         specifier: ~3.0.2
         version: 3.0.2
@@ -643,7 +640,7 @@ importers:
         version: 18.19.0
       jest:
         specifier: ~27.5.0
-        version: 27.5.0(ts-node@10.9.1)
+        version: 27.5.0(ts-node@10.9.2)
       rimraf:
         specifier: ~3.0.2
         version: 3.0.2
@@ -692,7 +689,7 @@ importers:
         version: 5.1.9(postcss@8.4.12)(vue-template-compiler@2.7.16)
       tailwindcss:
         specifier: ~3.4.0
-        version: 3.4.0(ts-node@10.9.1)
+        version: 3.4.0(ts-node@10.9.2)
       typescript:
         specifier: ~4.9.4
         version: 4.9.4
@@ -701,19 +698,19 @@ importers:
         version: 4.5.0(@types/node@18.19.0)(sass@1.70.0)
       vite-plugin-vue2:
         specifier: ~2.0.2
-        version: 2.0.2(vite@4.5.0)(vue-template-compiler@2.7.16)(vue@2.7.14)
+        version: 2.0.2(vite@4.5.0)(vue-template-compiler@2.7.16)(vue@2.7.16)
       vue:
-        specifier: ~2.7.14
-        version: 2.7.14
+        specifier: ~2.7.16
+        version: 2.7.16
       vue-class-component:
         specifier: ~7.2.6
-        version: 7.2.6(vue@2.7.14)
+        version: 7.2.6(vue@2.7.16)
       vue-property-decorator:
         specifier: ~8.5.0
-        version: 8.5.0(vue-class-component@7.2.6)(vue@2.7.14)
+        version: 8.5.0(vue-class-component@7.2.6)(vue@2.7.16)
       vue-template-compiler:
-        specifier: ~2.7.14
-        version: 2.7.16(vue@2.7.14)
+        specifier: ~2.7.16
+        version: 2.7.16(vue@2.7.16)
 
   packages/x-translations:
     dependencies:
@@ -729,7 +726,7 @@ importers:
         version: 18.19.0
       jest:
         specifier: ~27.5.0
-        version: 27.5.0(ts-node@10.9.1)
+        version: 27.5.0(ts-node@10.9.2)
       ts-jest:
         specifier: ~27.1.0
         version: 27.1.0(@babel/core@7.25.2)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
@@ -763,7 +760,7 @@ importers:
         version: 27.5.0
       jest:
         specifier: ~27.5.0
-        version: 27.5.0(ts-node@10.9.1)
+        version: 27.5.0(ts-node@10.9.2)
       rollup:
         specifier: ~4.9.1
         version: 4.9.1
@@ -791,7 +788,7 @@ importers:
         version: 27.5.0
       jest:
         specifier: ~27.5.0
-        version: 27.5.0(ts-node@10.9.1)
+        version: 27.5.0(ts-node@10.9.2)
       rimraf:
         specifier: ~3.0.2
         version: 3.0.2
@@ -2435,6 +2432,51 @@ packages:
       graceful-fs: 4.2.11
       jest-changed-files: 27.5.1
       jest-config: 27.5.1(ts-node@10.9.1)
+      jest-haste-map: 27.5.1
+      jest-message-util: 27.5.1
+      jest-regex-util: 27.5.1
+      jest-resolve: 27.5.1
+      jest-resolve-dependencies: 27.5.1
+      jest-runner: 27.5.1
+      jest-runtime: 27.5.1
+      jest-snapshot: 27.5.1
+      jest-util: 27.5.1
+      jest-validate: 27.5.1
+      jest-watcher: 27.5.1
+      micromatch: 4.0.7
+      rimraf: 3.0.2
+      slash: 3.0.0
+      strip-ansi: 6.0.1
+    transitivePeerDependencies:
+      - bufferutil
+      - canvas
+      - supports-color
+      - ts-node
+      - utf-8-validate
+    dev: true
+
+  /@jest/core@27.5.1(ts-node@10.9.2):
+    resolution: {integrity: sha512-AK6/UTrvQD0Cd24NSqmIA6rKsu0tKIxfiCducZvqxYdmMisOYAsdItspT+fQDQYARPf8XgjAFZi0ogW2agH5nQ==}
+    engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
+    peerDependencies:
+      node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
+    peerDependenciesMeta:
+      node-notifier:
+        optional: true
+    dependencies:
+      '@jest/console': 27.5.1
+      '@jest/reporters': 27.5.1
+      '@jest/test-result': 27.5.1
+      '@jest/transform': 27.5.1
+      '@jest/types': 27.5.1
+      '@types/node': 18.19.0
+      ansi-escapes: 4.3.2
+      chalk: 4.1.2
+      emittery: 0.8.1
+      exit: 0.1.2
+      graceful-fs: 4.2.11
+      jest-changed-files: 27.5.1
+      jest-config: 27.5.1(ts-node@10.9.2)
       jest-haste-map: 27.5.1
       jest-message-util: 27.5.1
       jest-regex-util: 27.5.1
@@ -4170,6 +4212,17 @@ packages:
       vue: 3.4.31(typescript@4.9.4)
     dev: true
 
+  /@vitejs/plugin-vue@5.1.2(vite@4.5.0)(vue@3.4.31):
+    resolution: {integrity: sha512-nY9IwH12qeiJqumTCLJLE7IiNx7HZ39cbHaysEUd+Myvbz9KAqd2yq+U01Kab1R/H1BmiyM2ShTYlNH32Fzo3A==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      vite: ^5.0.0
+      vue: ^3.2.25
+    dependencies:
+      vite: 4.5.0(@types/node@18.19.0)(sass@1.70.0)
+      vue: 3.4.31(typescript@4.9.4)
+    dev: true
+
   /@volar/language-core@2.2.0-alpha.8:
     resolution: {integrity: sha512-Ew1Iw7/RIRNuDLn60fWJdOLApAlfTVPxbPiSLzc434PReC9kleYtaa//Wo2WlN1oiRqneW0pWQQV0CwYqaimLQ==}
     dependencies:
@@ -4250,7 +4303,7 @@ packages:
       - supports-color
     dev: true
 
-  /@vue/babel-preset-jsx@1.4.0(@babel/core@7.25.2)(vue@2.7.14):
+  /@vue/babel-preset-jsx@1.4.0(@babel/core@7.25.2)(vue@2.7.16):
     resolution: {integrity: sha512-QmfRpssBOPZWL5xw7fOuHNifCQcNQC1PrOo/4fu6xlhlKJJKSA3HqX92Nvgyx8fqHZTUGMPHmFA+IDqwXlqkSA==}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -4268,7 +4321,7 @@ packages:
       '@vue/babel-sugar-inject-h': 1.4.0(@babel/core@7.25.2)
       '@vue/babel-sugar-v-model': 1.4.0(@babel/core@7.25.2)
       '@vue/babel-sugar-v-on': 1.4.0(@babel/core@7.25.2)
-      vue: 2.7.14
+      vue: 2.7.16
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4387,6 +4440,16 @@ packages:
       '@babel/parser': 7.25.3
       postcss: 8.4.40
       source-map: 0.6.1
+
+  /@vue/compiler-sfc@2.7.16:
+    resolution: {integrity: sha512-KWhJ9k5nXuNtygPU7+t1rX6baZeqOYLEforUPjgNDBnLicfHCoi48H87Q8XyLZOrNNsmhuwKqtpDQWjEFe6Ekg==}
+    dependencies:
+      '@babel/parser': 7.25.3
+      postcss: 8.4.40
+      source-map: 0.6.1
+    optionalDependencies:
+      prettier: 2.8.8
+    dev: true
 
   /@vue/compiler-sfc@3.4.31:
     resolution: {integrity: sha512-einJxqEw8IIJxzmnxmJBuK2usI+lJonl53foq+9etB2HAzlPjAS/wa7r0uUpXw5ByX3/0uswVSrjNb17vJm1kQ==}
@@ -4509,7 +4572,7 @@ packages:
       postcss: 8.4.12
       postcss-modules-sync: 1.0.0
       source-map: 0.6.1
-      vue-template-compiler: 2.7.16(vue@2.7.14)
+      vue-template-compiler: 2.7.16(vue@2.7.16)
     optionalDependencies:
       less: 3.13.1
       pug: 3.0.3
@@ -4763,7 +4826,7 @@ packages:
       chalk: 2.4.2
       convert-source-map: 1.9.0
       css-tree: 2.3.1
-      jest: 27.5.0(ts-node@10.9.1)
+      jest: 27.5.0(ts-node@10.9.2)
       source-map: 0.5.6
       ts-jest: 27.1.0(@babel/core@7.25.2)(@types/jest@27.5.0)(jest@27.5.0)(typescript@4.9.4)
       tsconfig: 7.0.0
@@ -5174,6 +5237,7 @@ packages:
     resolution: {integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==}
     engines: {node: '>= 4.5.0'}
     hasBin: true
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -6443,6 +6507,7 @@ packages:
 
   /copy-anything@2.0.6:
     resolution: {integrity: sha512-1j20GZTsvKNkc4BY3NpMOM8tt///wY3FpIzozTOFO2ffuZcV61nojHXVKIy3WM+7ADCy5FVhdZYHYDdgTU0yJw==}
+    requiresBuild: true
     dependencies:
       is-what: 3.14.1
     dev: true
@@ -6530,6 +6595,7 @@ packages:
 
   /css-parse@2.0.0:
     resolution: {integrity: sha512-UNIFik2RgSbiTwIW1IsFwXWn6vs+bYdq83LKTSOsx7NJR7WII9dxewkHLltfTLVppoUApHV0118a4RZRI9FLwA==}
+    requiresBuild: true
     dependencies:
       css: 2.2.4
     dev: true
@@ -6579,6 +6645,7 @@ packages:
 
   /css@2.2.4:
     resolution: {integrity: sha512-oUnjmWpy0niI3x/mPL8dVEI1l7MnG3+HHyRPHf+YFSbK+svOhXpmSOcDURUh2aOCgl2grzrOPt1nHLuCVFULLw==}
+    requiresBuild: true
     dependencies:
       inherits: 2.0.4
       source-map: 0.6.1
@@ -6797,6 +6864,7 @@ packages:
 
   /debug@3.1.0:
     resolution: {integrity: sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==}
+    requiresBuild: true
     peerDependencies:
       supports-color: '*'
     peerDependenciesMeta:
@@ -9222,6 +9290,7 @@ packages:
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dependencies:
       safer-buffer: 2.1.2
     dev: true
@@ -9672,6 +9741,7 @@ packages:
 
   /is-what@3.14.1:
     resolution: {integrity: sha512-sNxgpk9793nzSs7bA6JQJGeIuRBQhAaNGG77kzYQgMkrID+lS6SlK07K5LaptscDlSaIgH+GPFzf+d75FVxozA==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -9846,6 +9916,36 @@ packages:
       - utf-8-validate
     dev: true
 
+  /jest-cli@27.5.1(ts-node@10.9.2):
+    resolution: {integrity: sha512-Hc6HOOwYq4/74/c62dEE3r5elx8wjYqxY0r0G/nFrLDPMFRu6RA/u8qINOIkvhxG7mMQ5EJsOGfRpI8L6eFUVw==}
+    engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
+    hasBin: true
+    peerDependencies:
+      node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
+    peerDependenciesMeta:
+      node-notifier:
+        optional: true
+    dependencies:
+      '@jest/core': 27.5.1(ts-node@10.9.2)
+      '@jest/test-result': 27.5.1
+      '@jest/types': 27.5.1
+      chalk: 4.1.2
+      exit: 0.1.2
+      graceful-fs: 4.2.11
+      import-local: 3.2.0
+      jest-config: 27.5.1(ts-node@10.9.2)
+      jest-util: 27.5.1
+      jest-validate: 27.5.1
+      prompts: 2.4.2
+      yargs: 16.2.0
+    transitivePeerDependencies:
+      - bufferutil
+      - canvas
+      - supports-color
+      - ts-node
+      - utf-8-validate
+    dev: true
+
   /jest-config@27.5.1(ts-node@10.9.1):
     resolution: {integrity: sha512-5sAsjm6tGdsVbW9ahcChPAFCk4IlkQUknH5AvKjuLTSlcO/wCZKyFdn7Rg0EkC+OGgWODEy2hDpWB1PgzH0JNA==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
@@ -9880,6 +9980,47 @@ packages:
       slash: 3.0.0
       strip-json-comments: 3.1.1
       ts-node: 10.9.1(@types/node@18.19.0)(typescript@4.9.4)
+    transitivePeerDependencies:
+      - bufferutil
+      - canvas
+      - supports-color
+      - utf-8-validate
+    dev: true
+
+  /jest-config@27.5.1(ts-node@10.9.2):
+    resolution: {integrity: sha512-5sAsjm6tGdsVbW9ahcChPAFCk4IlkQUknH5AvKjuLTSlcO/wCZKyFdn7Rg0EkC+OGgWODEy2hDpWB1PgzH0JNA==}
+    engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
+    peerDependencies:
+      ts-node: '>=9.0.0'
+    peerDependenciesMeta:
+      ts-node:
+        optional: true
+    dependencies:
+      '@babel/core': 7.25.2
+      '@jest/test-sequencer': 27.5.1
+      '@jest/types': 27.5.1
+      babel-jest: 27.5.1(@babel/core@7.25.2)
+      chalk: 4.1.2
+      ci-info: 3.9.0
+      deepmerge: 4.3.1
+      glob: 7.2.3
+      graceful-fs: 4.2.11
+      jest-circus: 27.5.1
+      jest-environment-jsdom: 27.5.1
+      jest-environment-node: 27.5.1
+      jest-get-type: 27.5.1
+      jest-jasmine2: 27.5.1
+      jest-regex-util: 27.5.1
+      jest-resolve: 27.5.1
+      jest-runner: 27.5.1
+      jest-util: 27.5.1
+      jest-validate: 27.5.1
+      micromatch: 4.0.7
+      parse-json: 5.2.0
+      pretty-format: 27.5.1
+      slash: 3.0.0
+      strip-json-comments: 3.1.1
+      ts-node: 10.9.2(@types/node@18.19.0)(typescript@4.9.4)
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -10245,6 +10386,27 @@ packages:
       '@jest/core': 27.5.1(ts-node@10.9.1)
       import-local: 3.2.0
       jest-cli: 27.5.1(ts-node@10.9.1)
+    transitivePeerDependencies:
+      - bufferutil
+      - canvas
+      - supports-color
+      - ts-node
+      - utf-8-validate
+    dev: true
+
+  /jest@27.5.0(ts-node@10.9.2):
+    resolution: {integrity: sha512-sCMZhL9zy0fiFc4H0cKlXq7BcghMSxm5ZnEyaPWTteArU5ix6JjOKyOXSUBGLTQCmt5kuX9zEvQ9BSshHOPB3A==}
+    engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
+    hasBin: true
+    peerDependencies:
+      node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
+    peerDependenciesMeta:
+      node-notifier:
+        optional: true
+    dependencies:
+      '@jest/core': 27.5.1(ts-node@10.9.2)
+      import-local: 3.2.0
+      jest-cli: 27.5.1(ts-node@10.9.2)
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -11342,6 +11504,7 @@ packages:
 
   /ms@2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -12384,7 +12547,7 @@ packages:
       postcss: 8.4.40
     dev: true
 
-  /postcss-load-config@4.0.2(postcss@8.4.40)(ts-node@10.9.1):
+  /postcss-load-config@4.0.2(postcss@8.4.40)(ts-node@10.9.2):
     resolution: {integrity: sha512-bSVhyJGL00wMVoPUzAVAnbEoWyqRxkjv64tUl427SKnPrENtq6hJwUojroMz2VB+Q1edmi4IfrAPpami5VVgMQ==}
     engines: {node: '>= 14'}
     peerDependencies:
@@ -12398,7 +12561,7 @@ packages:
     dependencies:
       lilconfig: 3.1.2
       postcss: 8.4.40
-      ts-node: 10.9.1(@types/node@18.19.0)(typescript@4.9.4)
+      ts-node: 10.9.2(@types/node@18.19.0)(typescript@4.9.4)
       yaml: 2.5.0
     dev: true
 
@@ -12958,6 +13121,7 @@ packages:
 
   /prr@1.0.1:
     resolution: {integrity: sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -13392,6 +13556,7 @@ packages:
   /resolve-url@0.2.1:
     resolution: {integrity: sha512-ZuF55hVUQaaczgOIwqWzkEcEidmlD/xl44x1UZnhOXcYuFN2S6+rcxpG+C1N3So0wvNI3DmJICUFfu2SxhBmvg==}
     deprecated: https://github.com/lydell/resolve-url#deprecated
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -13533,7 +13698,7 @@ packages:
       rollup-pluginutils: 2.8.2
       source-map: 0.7.3
       vue-runtime-helpers: 1.1.2
-      vue-template-compiler: 2.7.16(vue@2.7.14)
+      vue-template-compiler: 2.7.16(vue@2.7.16)
     transitivePeerDependencies:
       - arc-templates
       - atpl
@@ -13711,6 +13876,7 @@ packages:
 
   /sax@1.2.4:
     resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -13933,6 +14099,7 @@ packages:
   /source-map-resolve@0.5.3:
     resolution: {integrity: sha512-Htz+RnsXWk5+P2slx5Jh3Q66vhQj1Cllm0zvnaY98+NFx+Dv2CF/f5O/t8x+KaNdrdIAsruNzoh/KpialbqAnw==}
     deprecated: See https://github.com/lydell/source-map-resolve#deprecated
+    requiresBuild: true
     dependencies:
       atob: 2.1.2
       decode-uri-component: 0.2.2
@@ -13952,6 +14119,7 @@ packages:
   /source-map-url@0.4.1:
     resolution: {integrity: sha512-cPiFOTLUKvJFIg4SKVScy4ilPPW6rFgMgfuZJPNoDuMs3nC1HbMUycBoJw77xFIp6z1UJQJOfx6C9GMH80DiTw==}
     deprecated: See https://github.com/lydell/source-map-url#deprecated
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -14381,7 +14549,7 @@ packages:
       '@pkgr/core': 0.1.1
       tslib: 2.6.3
 
-  /tailwindcss@3.4.0(ts-node@10.9.1):
+  /tailwindcss@3.4.0(ts-node@10.9.2):
     resolution: {integrity: sha512-VigzymniH77knD1dryXbyxR+ePHihHociZbXnLZHUyzf2MMs2ZVqlUrZ3FvpXP8pno9JzmILt1sZPD19M3IxtA==}
     engines: {node: '>=14.0.0'}
     hasBin: true
@@ -14403,7 +14571,7 @@ packages:
       postcss: 8.4.40
       postcss-import: 15.1.0(postcss@8.4.40)
       postcss-js: 4.0.1(postcss@8.4.40)
-      postcss-load-config: 4.0.2(postcss@8.4.40)(ts-node@10.9.1)
+      postcss-load-config: 4.0.2(postcss@8.4.40)(ts-node@10.9.2)
       postcss-nested: 6.2.0(postcss@8.4.40)
       postcss-selector-parser: 6.1.1
       resolve: 1.22.8
@@ -14649,6 +14817,37 @@ packages:
 
   /ts-node@10.9.1(@types/node@18.19.0)(typescript@4.9.4):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
+    hasBin: true
+    peerDependencies:
+      '@swc/core': '>=1.2.50'
+      '@swc/wasm': '>=1.2.50'
+      '@types/node': '*'
+      typescript: '>=2.7'
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      '@swc/wasm':
+        optional: true
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.11
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 18.19.0
+      acorn: 8.12.1
+      acorn-walk: 8.3.3
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 4.9.4
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    dev: true
+
+  /ts-node@10.9.2(@types/node@18.19.0)(typescript@4.9.4):
+    resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
     hasBin: true
     peerDependencies:
       '@swc/core': '>=1.2.50'
@@ -14982,6 +15181,7 @@ packages:
   /urix@0.1.0:
     resolution: {integrity: sha512-Am1ousAhSLBeB9cG/7k7r2R0zj50uDRlZHPGbazid5s9rlF1F/QKYObEKSIunSjIOkJZqwRRLpvewjEkM7pSqg==}
     deprecated: Please see https://github.com/lydell/urix#deprecated
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -15089,7 +15289,7 @@ packages:
       - supports-color
     dev: true
 
-  /vite-plugin-vue2@2.0.2(vite@4.5.0)(vue-template-compiler@2.7.16)(vue@2.7.14):
+  /vite-plugin-vue2@2.0.2(vite@4.5.0)(vue-template-compiler@2.7.16)(vue@2.7.16):
     resolution: {integrity: sha512-Oo1iwc5Zo376s3MYXqS7j+KXs26EjiyWV8/dmI23SoorO3zaAgnBefR45Zme+QtM407tJ2MVq0mqfI10qA5+LQ==}
     peerDependencies:
       vite: ^2.0.0 || ^3.0.0
@@ -15111,7 +15311,7 @@ packages:
       '@babel/plugin-transform-typescript': 7.25.2(@babel/core@7.25.2)
       '@rollup/pluginutils': 4.2.1
       '@vue/babel-helper-vue-jsx-merge-props': 1.4.0
-      '@vue/babel-preset-jsx': 1.4.0(@babel/core@7.25.2)(vue@2.7.14)
+      '@vue/babel-preset-jsx': 1.4.0(@babel/core@7.25.2)(vue@2.7.16)
       '@vue/component-compiler-utils': 3.3.0(pug@3.0.3)
       consolidate: 0.16.0
       debug: 4.3.6(supports-color@8.1.1)
@@ -15125,7 +15325,7 @@ packages:
       source-map: 0.7.4
       vite: 4.5.0(@types/node@18.19.0)(sass@1.70.0)
       vue-template-babel-compiler: 1.2.0(vue-template-compiler@2.7.16)
-      vue-template-compiler: 2.7.16(vue@2.7.14)
+      vue-template-compiler: 2.7.16(vue@2.7.16)
     transitivePeerDependencies:
       - arc-templates
       - atpl
@@ -15226,12 +15426,12 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /vue-class-component@7.2.6(vue@2.7.14):
+  /vue-class-component@7.2.6(vue@2.7.16):
     resolution: {integrity: sha512-+eaQXVrAm/LldalI272PpDe3+i4mPis0ORiMYxF6Ae4hyuCh15W8Idet7wPUEs4N4YptgFHGys4UrgNQOMyO6w==}
     peerDependencies:
       vue: ^2.0.0
     dependencies:
-      vue: 2.7.14
+      vue: 2.7.16
     dev: true
 
   /vue-component-type-helpers@2.0.29:
@@ -15386,14 +15586,14 @@ packages:
       vue: 3.4.31(typescript@4.9.4)
     dev: true
 
-  /vue-property-decorator@8.5.0(vue-class-component@7.2.6)(vue@2.7.14):
+  /vue-property-decorator@8.5.0(vue-class-component@7.2.6)(vue@2.7.16):
     resolution: {integrity: sha512-0RueJN/shPWf5gM8GLUD6bYiXr+q7bu+S1tgr7XwgBSng10H5DLQjVYfJ5XHAOPFo7fBfY1nxljBQ95qryAiWg==}
     peerDependencies:
       vue: '*'
       vue-class-component: '*'
     dependencies:
-      vue: 2.7.14
-      vue-class-component: 7.2.6(vue@2.7.14)
+      vue: 2.7.16
+      vue-class-component: 7.2.6(vue@2.7.16)
     dev: true
 
   /vue-router@4.4.0(vue@3.4.31):
@@ -15426,7 +15626,7 @@ packages:
       '@babel/plugin-transform-spread': 7.24.7(@babel/core@7.25.2)
       '@babel/types': 7.25.2
       deepmerge: 4.3.1
-      vue-template-compiler: 2.7.16(vue@2.7.14)
+      vue-template-compiler: 2.7.16(vue@2.7.16)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -15439,6 +15639,16 @@ packages:
       de-indent: 1.0.2
       he: 1.2.0
       vue: 2.7.14
+    dev: true
+
+  /vue-template-compiler@2.7.16(vue@2.7.16):
+    resolution: {integrity: sha512-AYbUWAJHLGGQM7+cNTELw+KsOG9nl2CnSv467WobS5Cv9uk3wFcnr1Etsz2sEIHEZvw1U+o9mRlEO6QbZvUPGQ==}
+    peerDependencies:
+      vue: ~2.7.14
+    dependencies:
+      de-indent: 1.0.2
+      he: 1.2.0
+      vue: 2.7.16
     dev: true
 
   /vue-template-compiler@2.7.16(vue@3.4.31):
@@ -15475,6 +15685,14 @@ packages:
     dependencies:
       '@vue/compiler-sfc': 2.7.14
       csstype: 3.1.3
+
+  /vue@2.7.16:
+    resolution: {integrity: sha512-4gCtFXaAA3zYZdTp5s4Hl2sozuySsgz4jy1EnpBHNfpMa9dK1ZCG7viqBPCwXtmgc8nHqUsAu3G4gtmXkkY3Sw==}
+    deprecated: Vue 2 has reached EOL and is no longer actively maintained. See https://v2.vuejs.org/eol/ for more details.
+    dependencies:
+      '@vue/compiler-sfc': 2.7.16
+      csstype: 3.1.3
+    dev: true
 
   /vue@3.4.31(typescript@4.9.4):
     resolution: {integrity: sha512-njqRrOy7W3YLAlVqSKpBebtZpDVg21FPoaq1I7f/+qqBThK9ChAIjkRWgeP6Eat+8C+iia4P3OYqpATP21BCoQ==}

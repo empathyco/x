@@ -56,8 +56,9 @@
 <script lang="ts">
   import { Facet } from '@empathyco/x-types';
   import { Dictionary, map, objectFilter } from '@empathyco/x-utils';
-  import Vue, { computed, ComputedRef, defineComponent, PropType } from 'vue';
+  import { computed, ComputedRef, defineComponent, PropType } from 'vue';
   import { useGetter } from '../../../../composables/use-getter';
+  import { animationProp } from '../../../../utils/options-api';
   import { toKebabCase } from '../../../../utils/string';
   import { useFacets } from '../../composables/use-facets';
   import { facetsXModule } from '../../x-module';
@@ -92,7 +93,7 @@
       alwaysVisible: Boolean,
       /** Animation component that will be used to animate the facets. */
       animation: {
-        type: [String, Object] as PropType<string | Vue>,
+        type: animationProp,
         default: 'ul'
       },
       /**
@@ -211,7 +212,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-facets-list {
     display: flex;
     flex-flow: column nowrap;

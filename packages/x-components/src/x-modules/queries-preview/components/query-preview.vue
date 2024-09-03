@@ -36,8 +36,12 @@
   import { QueryPreviewInfo, QueryPreviewItem } from '../store/types';
   import { QueriesPreviewConfig } from '../config.types';
   import { queriesPreviewXModule } from '../x-module';
-  import { DebouncedFunction, debounceFunction, createOrigin } from '../../../utils';
-  import { createRawFilter } from '../../../__stubs__/filters-stubs.factory';
+  import {
+    DebouncedFunction,
+    debounceFunction,
+    createOrigin,
+    createRawFilters
+  } from '../../../utils';
   import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview';
   import { useXBus, useState } from '../../../composables';
 
@@ -119,6 +123,8 @@
        */
       const queryPreviewHash = computed(() => getHashFromQueryPreviewInfo(props.queryPreviewInfo));
 
+      provide('queryPreviewHash', queryPreviewHash);
+
       /**
        * Gets from the state the results preview of the query preview.
        *
@@ -169,7 +175,7 @@
         });
         const filters = props.queryPreviewInfo.filters?.reduce((filtersList, filterId) => {
           const facetId = filterId.split(':')[0];
-          const rawFilter = createRawFilter(filterId);
+          const rawFilter = createRawFilters([filterId])[0];
           filtersList[facetId] = filtersList[facetId]
             ? filtersList[facetId].concat(rawFilter)
             : [rawFilter];

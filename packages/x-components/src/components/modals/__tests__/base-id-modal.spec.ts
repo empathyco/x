@@ -1,5 +1,5 @@
 import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
-import Vue, { nextTick } from 'vue';
+import { nextTick } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import { XEvent } from '../../../wiring/events.types';
 import BaseIdModal from '../base-id-modal.vue';

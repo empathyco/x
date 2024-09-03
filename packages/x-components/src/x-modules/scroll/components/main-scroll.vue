@@ -241,7 +241,7 @@ it injects the needed utilities to determine the first visible item.
   };
 </script>
 
-<style scoped>
+<style lang="css" scoped>
   ul {
     overflow: auto;
     max-height: 200px;

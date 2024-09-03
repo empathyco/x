@@ -57,16 +57,16 @@
   });
 </script>
 
-<style lang="scss">
+<style lang="css" scoped>
   .x-promoted {
     display: flex;
     flex-flow: column nowrap;
     text-decoration: none;
+  }
 
-    &__image {
-      width: 100%;
-      object-fit: contain;
-    }
+  .x-promoted__image {
+    width: 100%;
+    object-fit: contain;
   }
 </style>
 

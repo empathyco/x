@@ -62,6 +62,7 @@ export function useXBus() {
             payload: Metadata extends true ? SubjectPayload<Payload, WireMetadata> : Payload
           ) => void
           // Cast to any because bus.on doesn't infer conditional type referencing `withMetadata`
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         ) => subscription.add(observable.subscribe(callback as any))
       };
     },

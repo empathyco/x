@@ -1,3 +1,5 @@
+import { Store } from 'vuex';
+import { RootXStoreState } from '../../store/index';
 import { noOp } from '../../utils/function';
 import {
   createWireFromFunction,
@@ -12,7 +14,7 @@ import { XDummyBus } from '../../__tests__/bus.dummy';
 import { createQuerySuggestionsStoreMock, getExpectedWirePayload, SubjectHandler } from './utils';
 
 describe('testing wires factory', () => {
-  const storeMock = createQuerySuggestionsStoreMock();
+  const storeMock = createQuerySuggestionsStoreMock() as Store<RootXStoreState>;
   const subjectHandler = new SubjectHandler();
   const busMock = new XDummyBus();
   const busOnMock = busMock.on.bind(busMock);

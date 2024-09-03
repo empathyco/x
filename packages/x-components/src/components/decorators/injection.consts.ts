@@ -2,7 +2,7 @@ import { Result, ResultVariant } from '@empathyco/x-types';
 import { ListItem } from '../../utils/types';
 
 /**
- * Type of the key passed to {@link XProvide} and {@link XInject} to be type-safe. With this type
+ * Type of the key passed to `provide` and `inject` to be type-safe. With this type
  * you can declare the type of the injected value directly in the injection key.
  *
  * @example

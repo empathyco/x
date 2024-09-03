@@ -1,5 +1,6 @@
 import { Result, SearchRequest, SearchResponse, TaggingRequest } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
+import { ComputedRef } from 'vue';
 import { XActionContext } from '../../../store/actions.types';
 import { XStoreModule } from '../../../store/store.types';
 import { RequestStatus, StatusState } from '../../../store/utils/status-store.utils';
@@ -123,9 +124,9 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
    * Decreases in 1 the instance counter and removes the query preview if the counter is 0
    * and cache is false.
    *
-   * @param QueryPreviewCacheInfo - Information needed to change QueryPreview state.
-   * queryPreviewHash is the query preview key to find the QueryPreview saved in the state.
-   * cache is a boolean to know if we should remove the QueryPreview or not.
+   * @param QueryPreviewCacheInfo - Information to change QueryPreview state. QueryPreviewHash is
+   * the query preview key to find the QueryPreview saved in the state. Cache is a boolean to know
+   * if we should remove the QueryPreview or not.
    */
   removeQueryPreviewInstance({
     queryPreviewHash,
@@ -133,6 +134,20 @@ export interface QueriesPreviewMutations extends ConfigMutations<QueriesPreviewS
   }: {
     queryPreviewHash: string;
     cache: boolean;
+  }): void;
+  /**
+   * Updates a result with new fields.
+   *
+   * @param QueryPreviewResultPayload - Information needed to update a query preview result. Result
+   * is an object that contains at least an id, and the properties to modify. QueryPreviewHash is
+   * the query preview key to find the QueryPreview saved in the state.
+   */
+  updateAQueryPreviewResult({
+    result,
+    queryPreviewHash
+  }: {
+    result: Result;
+    queryPreviewHash: ComputedRef<string>;
   }): void;
 }
 

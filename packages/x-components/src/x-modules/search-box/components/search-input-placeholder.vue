@@ -229,13 +229,13 @@
   });
 </script>
 
-<style lang="scss">
+<style lang="css">
   .x-search-input-placeholder-container {
     position: relative;
   }
 </style>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-search-input-placeholder {
     position: absolute;
     inset: 0;
