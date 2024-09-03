@@ -1,11 +1,9 @@
-import Vuex, { Store } from 'vuex';
-import Vue from 'vue';
+import { Store } from 'vuex';
 import { SemanticQueriesState } from '../types';
 import { semanticQueriesXStoreModule } from '../module';
 import { resetSemanticQueriesStateWith } from './utils';
 
 describe('semantic queries getters tests', () => {
-  Vue.use(Vuex);
   const store: Store<SemanticQueriesState> = new Store(semanticQueriesXStoreModule as any);
 
   describe('request getter', () => {
