@@ -24,7 +24,13 @@ export default {
     }),
     typescript({
       clean: true,
-      useTsconfigDeclarationDir: true
+      useTsconfigDeclarationDir: true,
+      tsconfigOverride: {
+        exclude: [
+          'node_modules',
+          '**/__tests__/**',
+        ]
+      }
     })
   ]
 };

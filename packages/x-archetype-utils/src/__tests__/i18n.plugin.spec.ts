@@ -1,6 +1,5 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import Vue from 'vue';
-import { mount, createLocalVue, Wrapper } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { I18n } from '../i18n/i18n.plugin';
 import { Device, I18nOptions, Locale } from '../i18n/i18n.types';
 
@@ -24,10 +23,6 @@ describe('Test custom i18n plugin for several use cases', () => {
     i18nOptions: Partial<I18nOptions<DeepPartial<Messages>>> = {},
     key = 'testComponent.title'
   ): Promise<RenderComponentAPI> {
-    const TestComponent = Vue.component('testComponent', {
-      template: `<div>{{ $t("${key}") }}</div>`
-    });
-    const localVue = createLocalVue();
     const i18n = await I18n.create({
       locale: 'en',
       messages: {
@@ -43,11 +38,19 @@ describe('Test custom i18n plugin for several use cases', () => {
       fallbackLocale: 'en',
       ...i18nOptions
     });
-    localVue.use(i18n);
     const setLocale = i18n.setLocale.bind(i18n);
     const setLocaleDevice = i18n.setDevice.bind(i18n);
 
-    const wrapper = mount(TestComponent, { localVue, i18n: i18n.vueI18n });
+    const wrapper = mount(
+      {
+        template: `<div>{{ $t("${key}") }}</div>`
+      },
+      {
+        global: {
+          plugins: [i18n]
+        }
+      }
+    );
     return { wrapper, setLocale, setLocaleDevice };
   }
 
@@ -158,7 +161,7 @@ describe('Test custom i18n plugin for several use cases', () => {
 });
 
 interface RenderComponentAPI {
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   setLocale: (newLocale: Locale) => Promise<void>;
   setLocaleDevice: (newDevice: Device) => Promise<void>;
 }

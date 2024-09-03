@@ -1,5 +1,5 @@
-import VueI18n from 'vue-i18n';
 import { DeepPartial } from '@empathyco/x-utils';
+import { I18n as VueI18n } from 'vue-i18n';
 
 /** Supported locales. */
 export type Locale = string;
