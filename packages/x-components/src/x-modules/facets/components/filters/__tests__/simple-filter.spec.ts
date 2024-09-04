@@ -17,26 +17,26 @@ function render({
   filter = ref(createSimpleFilter('category', 'women')),
   clickEvents = {}
 } = {}) {
-  installNewXPlugin();
-
   const wrapper = mount(
     {
       components: { SimpleFilter },
-      props: ['filter', 'clickEvents'],
       template
     },
     {
-      propsData: { filter, clickEvents }
+      data: () => ({ filter, clickEvents }),
+      global: { plugins: [installNewXPlugin()] }
     }
   );
 
   const filterWrapper = wrapper.findComponent(SimpleFilter);
+  const buttonWrapper = filterWrapper.find(getDataTestSelector('filter'));
 
   return {
     wrapper: filterWrapper,
     emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     filter,
-    clickFilter: () => wrapper.trigger('click'),
+    buttonWrapper,
+    clickFilter: () => buttonWrapper.trigger('click'),
     selectFilter: () => {
       filter.value.selected = true;
       return nextTick();
@@ -169,14 +169,14 @@ describe('testing SimpleFilter component', () => {
   });
 
   it('adds selected classes to the rendered element when the filter is selected', async () => {
-    const { wrapper, selectFilter } = render();
+    const { buttonWrapper, selectFilter } = render();
 
-    expect(wrapper.classes()).not.toContain('x-selected');
-    expect(wrapper.classes()).not.toContain('x-simple-filter--is-selected');
+    expect(buttonWrapper.classes()).not.toContain('x-selected');
+    expect(buttonWrapper.classes()).not.toContain('x-simple-filter--is-selected');
 
     await selectFilter();
 
-    expect(wrapper.classes()).toContain('x-selected');
-    expect(wrapper.classes()).toContain('x-simple-filter--is-selected');
+    expect(buttonWrapper.classes()).toContain('x-selected');
+    expect(buttonWrapper.classes()).toContain('x-simple-filter--is-selected');
   });
 });
