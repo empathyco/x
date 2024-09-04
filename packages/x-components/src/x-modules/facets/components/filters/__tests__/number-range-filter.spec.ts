@@ -1,12 +1,10 @@
 import { mount } from '@vue/test-utils';
-import { nextTick } from 'vue';
+import { nextTick, ref } from 'vue';
 import { createNumberRangeFilter } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import NumberRangeFilter from '../number-range-filter.vue';
-import { XPlugin } from '../../../../../plugins/index';
-import { facetsXModule } from '../../../x-module';
-import { XDummyBus } from '../../../../../__tests__/bus.dummy';
+import { XPlugin } from '../../../../../plugins';
 
 const metadata = {
   moduleName: 'facets',
@@ -14,47 +12,39 @@ const metadata = {
   replaceable: true
 };
 
-let bus = new XDummyBus();
 function render({
   template = '<NumberRangeFilter :filter="filter" :clickEvents="clickEvents" />',
-  filter = createNumberRangeFilter('price', { min: 0, max: 20 }),
+  filter = ref(createNumberRangeFilter('price', { min: 0, max: 20 })),
   clickEvents = {}
 } = {}) {
   const wrapper = mount(
     {
       components: { NumberRangeFilter },
-      props: ['filter', 'clickEvents'],
       template
     },
     {
-      props: {
-        filter,
-        clickEvents
-      },
-      global: {
-        plugins: [installNewXPlugin({ initialXModules: [facetsXModule] }, bus)]
-      }
+      data: () => ({ filter, clickEvents }),
+      global: { plugins: [installNewXPlugin()] }
     }
   );
 
   const filterWrapper = wrapper.findComponent(NumberRangeFilter);
+  const buttonWrapper = filterWrapper.find(getDataTestSelector('filter'));
 
   return {
     wrapper: filterWrapper,
     emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     filter,
-    clickFilter: () => wrapper.trigger('click'),
+    buttonWrapper,
+    clickFilter: () => buttonWrapper.trigger('click'),
     selectFilter: () => {
-      filter.selected = true;
+      filter.value.selected = true;
       return nextTick();
     }
   };
 }
 
 describe('testing NumberRangeFilter component', () => {
-  beforeEach(() => {
-    bus = new XDummyBus();
-  });
   it('is an XComponent that belongs to the facets', () => {
     const { wrapper } = render();
 
@@ -65,7 +55,7 @@ describe('testing NumberRangeFilter component', () => {
   it('renders the provided filter by default', () => {
     const { wrapper, filter } = render();
 
-    expect(wrapper.text()).toEqual(filter.label);
+    expect(wrapper.text()).toEqual(filter.value.label);
   });
 
   it('emits `UserClickedAFilter` & `UserClickedANumberRangeFilter` events when clicked', async () => {
@@ -75,7 +65,7 @@ describe('testing NumberRangeFilter component', () => {
 
     expect(emitSpy).toHaveBeenCalledTimes(2);
     ['UserClickedAFilter', 'UserClickedANumberRangeFilter'].forEach(event => {
-      expect(emitSpy).toHaveBeenCalledWith(event, filter, metadata);
+      expect(emitSpy).toHaveBeenCalledWith(event, filter.value, metadata);
     });
   });
 
@@ -88,7 +78,7 @@ describe('testing NumberRangeFilter component', () => {
 
     expect(emitSpy).toHaveBeenCalledTimes(3);
     ['UserClickedAFilter', 'UserClickedANumberRangeFilter'].forEach(event => {
-      expect(emitSpy).toHaveBeenCalledWith(event, filter, metadata);
+      expect(emitSpy).toHaveBeenCalledWith(event, filter.value, metadata);
     });
     expect(emitSpy).toHaveBeenNthCalledWith(3, 'UserAcceptedAQuery', 'potato', metadata);
   });
@@ -102,19 +92,18 @@ describe('testing NumberRangeFilter component', () => {
     });
 
     const customLabel = wrapper.find(getDataTestSelector('custom-label'));
-    expect(customLabel.text()).toEqual(filter.label);
+    expect(customLabel.text()).toEqual(filter.value.label);
   });
 
   it('adds selected classes to the rendered element when the filter is selected', async () => {
-    const { wrapper, selectFilter } = render();
+    const { buttonWrapper, selectFilter } = render();
 
-    expect(wrapper.classes()).not.toContain('x-selected');
-    expect(wrapper.classes()).not.toContain('x-number-range-filter--is-selected');
+    expect(buttonWrapper.classes()).not.toContain('x-selected');
+    expect(buttonWrapper.classes()).not.toContain('x-number-range-filter--is-selected');
 
     await selectFilter();
-    await nextTick();
 
-    expect(wrapper.classes()).toContain('x-selected');
-    expect(wrapper.classes()).toContain('x-number-range-filter--is-selected');
+    expect(buttonWrapper.classes()).toContain('x-selected');
+    expect(buttonWrapper.classes()).toContain('x-number-range-filter--is-selected');
   });
 });

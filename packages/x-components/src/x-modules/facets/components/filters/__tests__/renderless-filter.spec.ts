@@ -5,10 +5,9 @@ import {
   createSimpleFilter,
   getSimpleFilterStub
 } from '../../../../../__stubs__/filters-stubs.factory';
-import { installNewXPlugin } from '../../../../../__tests__/utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils';
 import RenderlessFilter from '../renderless-filter.vue';
-import { XPlugin } from '../../../../../plugins/x-plugin';
-import { facetsXModule } from '../../../x-module';
+import { XPlugin } from '../../../../../plugins';
 
 function render({
   filter = ref(createSimpleFilter('category', 'food')),
@@ -34,24 +33,20 @@ function render({
       template
     },
     {
-      props: { filter, clickEvents },
-      global: {
-        plugins: [installNewXPlugin()]
-      }
+      data: () => ({ filter, clickEvents }),
+      global: { plugins: [installNewXPlugin()] }
     }
   );
 
-  XPlugin.registerXModule(facetsXModule);
-
-  const renderlessFilterButton = wrapper.find('[data-test="custom-label"]');
+  const renderlessFilterWrapper = wrapper.findComponent(RenderlessFilter);
+  const buttonWrapper = renderlessFilterWrapper.find(getDataTestSelector('custom-label'));
 
   return {
-    rootWrapper: wrapper,
-    wrapper: wrapper.findComponent(RenderlessFilter),
-    renderlessFilterButton,
+    wrapper: renderlessFilterWrapper,
     emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     filter,
-    clickFilter: async () => await renderlessFilterButton.trigger('click'),
+    buttonWrapper,
+    clickFilter: () => buttonWrapper.trigger('click'),
     selectFilter: async () => {
       filter.value.selected = true;
       await nextTick();
@@ -69,7 +64,7 @@ describe('testing Renderless Filter component', () => {
 
   it('emits UserClickedAFilter and other custom events when clicked', async () => {
     const filter = ref(getSimpleFilterStub());
-    const { renderlessFilterButton, emitSpy } = render({
+    const { clickFilter, emitSpy } = render({
       filter,
       clickEvents: { UserClickedASimpleFilter: filter.value }
     });
@@ -79,40 +74,39 @@ describe('testing Renderless Filter component', () => {
       replaceable: true
     };
 
-    await renderlessFilterButton.trigger('click');
+    await clickFilter();
 
     expect(emitSpy).toHaveBeenCalledTimes(2);
-    expect(emitSpy).toHaveBeenCalledWith('UserClickedAFilter', filter, metadata);
+    expect(emitSpy).toHaveBeenCalledWith('UserClickedAFilter', filter.value, metadata);
     expect(emitSpy).toHaveBeenCalledWith('UserClickedASimpleFilter', filter.value, metadata);
   });
 
   it('allows customizing the rendered content with an slot', () => {
-    const { renderlessFilterButton, rootWrapper, filter } = render();
-    //console.log(rootWrapper);
-    console.log(renderlessFilterButton.html());
-    //expect(rootWrapper.text()).toEqual(filter.value.label);
-    //expect(renderlessFilterButton.text()).toEqual(filter.value.label);
+    const { wrapper, filter } = render();
+
+    const customLabel = wrapper.find(getDataTestSelector('custom-label'));
+    expect(customLabel.text()).toEqual(filter.value.label);
   });
 
-  // it('adds selected classes to the rendered element when the filter is selected', async () => {
-  //   const { wrapper, selectFilter } = render();
-  //
-  //   expect(wrapper.classes()).not.toContain('x-selected');
-  //
-  //   await selectFilter();
-  //
-  //   expect(wrapper.classes()).toContain('x-selected');
-  // });
+  it('adds selected classes to the rendered element when the filter is selected', async () => {
+    const { buttonWrapper, selectFilter } = render();
 
-  // it('disables the filter when it has no results', async () => {
-  //   const filter = ref(createSimpleFilter('category', 'men', false));
-  //   const { wrapper } = render({ filter });
-  //
-  //   expect(wrapper.attributes('disabled')).toBeUndefined();
-  //
-  //   filter.value.totalResults = 0;
-  //   await nextTick();
-  //
-  //   expect(wrapper.attributes('disabled')).toEqual('disabled');
-  // });
+    expect(buttonWrapper.classes()).not.toContain('x-selected');
+
+    await selectFilter();
+
+    expect(buttonWrapper.classes()).toContain('x-selected');
+  });
+
+  it('disables the filter when it has no results', async () => {
+    const filter = ref(createSimpleFilter('category', 'men', false));
+    const { buttonWrapper } = render({ filter });
+
+    expect(buttonWrapper.attributes()).not.toHaveProperty('disabled');
+
+    filter.value.totalResults = 0;
+    await nextTick();
+
+    expect(buttonWrapper.attributes()).toHaveProperty('disabled');
+  });
 });

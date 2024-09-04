@@ -1,20 +1,14 @@
-import { EditableNumberRangeFilter, RangeValue } from '@empathyco/x-types';
-import { DeepPartial } from '@empathyco/x-utils';
-import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
-import { nextTick } from 'vue';
-import { Store } from 'vuex';
-// eslint-disable-next-line max-len
+import { RangeValue } from '@empathyco/x-types';
+import { mount } from '@vue/test-utils';
+import { ref } from 'vue';
 import { createEditableNumberRangeFilter } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils';
 import {
   getXComponentXModuleName,
   isXComponent
 } from '../../../../../components/x-component.utils';
-import { RootXStoreState } from '../../../../../store/store.types';
-import { facetsXModule } from '../../../x-module';
-import { resetXFacetsStateWith } from '../../__tests__/utils';
+import { XPlugin } from '../../../../../plugins';
 import EditableNumberRangeFilterComponent from '../editable-number-range-filter.vue';
-import { XPlugin } from '../../../../../plugins/index';
 
 Object.defineProperty(HTMLInputElement.prototype, 'valueAsNumber', {
   get() {
@@ -34,35 +28,30 @@ function renderEditableNumberRangeFilter({
       :inputsClass="inputsClass"
     />
   `,
-  range,
-  filter = createEditableNumberRangeFilter('age', range),
+  range = { min: null, max: null } as RangeValue,
   isInstant = false,
   hasClearButton = true,
-  buttonsClass,
-  inputsClass
-}: EditableNumberRangeFilterOptions = {}): EditableNumberRangeFilterAPI {
-  const store = new Store<DeepPartial<RootXStoreState>>({});
+  buttonsClass = '',
+  inputsClass = ''
+} = {}) {
+  const filter = ref(createEditableNumberRangeFilter('age', range));
 
   const wrapper = mount(
     {
       components: { EditableNumberRangeFilterComponent },
-      props: ['filter', 'isInstant', 'hasClearButton', 'buttonsClass', 'inputsClass'],
       template
     },
     {
-      props: {
+      data: () => ({
         filter,
         isInstant,
         hasClearButton,
         buttonsClass,
         inputsClass
-      },
-      global: {
-        plugins: [installNewXPlugin({ store, initialXModules: [facetsXModule] })]
-      }
+      }),
+      global: { plugins: [installNewXPlugin()] }
     }
   );
-  resetXFacetsStateWith(store, {});
 
   const filterWrapper = wrapper.findComponent(EditableNumberRangeFilterComponent);
   const minInputWrapper = filterWrapper.find(getDataTestSelector('range-min'));
@@ -77,15 +66,13 @@ function renderEditableNumberRangeFilter({
     applyButtonWrapper,
     clearButtonWrapper,
     filter,
-    typeMin: value => {
-      minInputWrapper.setValue(value);
-      minInputWrapper.trigger('change');
-      return nextTick();
+    typeMin: async (value: any) => {
+      await minInputWrapper.setValue(value);
+      await minInputWrapper.trigger('change');
     },
-    typeMax: value => {
-      maxInputWrapper.setValue(value);
-      maxInputWrapper.trigger('change');
-      return nextTick();
+    typeMax: async (value: any) => {
+      await maxInputWrapper.setValue(value);
+      await maxInputWrapper.trigger('change');
     }
   };
 }
@@ -223,9 +210,10 @@ describe('testing BaseNumberRangeFilter component', () => {
   describe('slots testing', () => {
     it('allows to customize apply-content slot', () => {
       const { applyButtonWrapper } = renderEditableNumberRangeFilter({
-        template: `<EditableNumberRangeFilterComponent :filter="filter">
-                     <template slot="apply-content">Apply</template>
-                   </EditableNumberRangeFilterComponent>`,
+        template: `
+          <EditableNumberRangeFilterComponent :filter="filter">
+            <template #apply-content>Apply</template>
+          </EditableNumberRangeFilterComponent>`,
         range: { min: 1, max: 5 }
       });
 
@@ -234,9 +222,10 @@ describe('testing BaseNumberRangeFilter component', () => {
 
     it('allows to customize clear-content slot', () => {
       const { clearButtonWrapper } = renderEditableNumberRangeFilter({
-        template: `<EditableNumberRangeFilterComponent :filter="filter">
-                     <template slot="clear-content">Clear</template>
-                   </EditableNumberRangeFilterComponent>`,
+        template: `
+          <EditableNumberRangeFilterComponent :filter="filter">
+            <template #clear-content>Clear</template>
+          </EditableNumberRangeFilterComponent>`,
         range: { min: 1, max: 5 }
       });
 
@@ -266,35 +255,35 @@ describe('testing BaseNumberRangeFilter component', () => {
       const { filterWrapper, applyButtonWrapper, clearButtonWrapper, typeMin, typeMax } =
         renderEditableNumberRangeFilter({
           template: `
-                    <EditableNumberRangeFilterComponent
-                      :filter="filter"
-                      #default="{
-                        min,
-                        max,
-                        setMin,
-                        setMax,
-                        emitUserModifiedFilter,
-                        clearValues,
-                        hasError
-                      }"
-                    >
-                      <button @click="emitUserModifiedFilter" data-test="range-apply">
-                        ✅ Apply!
-                      </button>
-                      <button @click="clearValues" data-test="range-clear">🗑 Clear!</button>
-                      <input
-                        :value="min"
-                        @change="setMin($event.target.valueAsNumber)"
-                        data-test="range-min"
-                      />
-                      <input
-                        :value="max"
-                        @change="setMax($event.target.valueAsNumber)"
-                        data-test="range-max"
-                      />
-                      <div data-test="has-error" v-if="hasError">⚠️ Invalid range values</div>
-                    </EditableNumberRangeFilterComponent>
-                  `,
+            <EditableNumberRangeFilterComponent
+              :filter="filter"
+              #default="{
+                min,
+                max,
+                setMin,
+                setMax,
+                emitUserModifiedFilter,
+                clearValues,
+                hasError
+              }"
+            >
+              <button @click="emitUserModifiedFilter" data-test="range-apply">
+                ✅ Apply!
+              </button>
+              <button @click="clearValues" data-test="range-clear">🗑 Clear!</button>
+              <input
+                :value="min"
+                @change="setMin($event.target.valueAsNumber)"
+                data-test="range-min"
+              />
+              <input
+                :value="max"
+                @change="setMax($event.target.valueAsNumber)"
+                data-test="range-max"
+              />
+              <div data-test="has-error" v-if="hasError">⚠️ Invalid range values</div>
+            </EditableNumberRangeFilterComponent>
+          `,
           range: { min: 7, max: 4 }
         });
 
@@ -337,42 +326,3 @@ describe('testing BaseNumberRangeFilter component', () => {
     });
   });
 });
-
-interface EditableNumberRangeFilterOptions {
-  /**
-   * The {@link @empathyco/x-types#EditableNumberRangeFilter | EditableNumberRangeFilter} object
-   * to be passed to the component.
-   */
-  filter?: EditableNumberRangeFilter;
-  /** `hasClearButton` property to init the component. */
-  hasClearButton?: boolean;
-  /** `isInstant` property to init the component. */
-  isInstant?: boolean;
-  /** The {@link @empathyco/x-types#RangeValue | RangeValue} object to init the filter. */
-  range?: RangeValue;
-  /** The class to be applied to the buttons. */
-  buttonsClass?: string;
-  /** The class to be applied to the inputs. */
-  inputsClass?: string;
-  /** The template to be rendered. */
-  template?: string;
-}
-
-interface EditableNumberRangeFilterAPI {
-  /** Apply button wrapper. */
-  applyButtonWrapper: DOMWrapper<Element>;
-  /** Clear button wrapper. */
-  clearButtonWrapper: DOMWrapper<Element>;
-  /** The filter passed to the component. */
-  filter: EditableNumberRangeFilter;
-  /** Filter component wrapper. */
-  filterWrapper: VueWrapper;
-  /** Max input element wrapper. */
-  maxInputWrapper: DOMWrapper<Element>;
-  /** Min input element wrapper. */
-  minInputWrapper: DOMWrapper<Element>;
-  /** It sets max value and triggers change event in the wrapper. */
-  typeMax: (value: number) => Promise<any>;
-  /** It sets min value and triggers change event in the wrapper. */
-  typeMin: (value: number) => Promise<any>;
-}
