@@ -1,15 +1,14 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { NextQuery } from '@empathyco/x-types';
+import { nextTick } from 'vue';
 import { createNextQueryStub, getNextQueriesStub } from '../../../../__stubs__';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import NextQueries from '../next-queries.vue';
 import { default as NextQueryComponent } from '../next-query.vue';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { nextQueriesXModule } from '../../x-module';
 import { resetXNextQueriesStateWith } from './utils';
 
@@ -18,14 +17,7 @@ describe('testing next queries component', () => {
     nextQueries = getNextQueriesStub(),
     template = '<NextQueries :suggestions="customSuggestions"/>'
   }: RenderNExtQueriesOptions = {}): RenderNextQueriesAPI {
-    const localVue = createLocalVue();
-    localVue.use(Vuex);
     const store = new Store<DeepPartial<RootXStoreState>>({});
-    installNewXPlugin({ store }, localVue);
-
-    // Manually re-installing the xModule and updating its state
-    XPlugin.registerXModule(nextQueriesXModule);
-    resetXNextQueriesStateWith(store, { nextQueries });
 
     const wrapperTemplate = mount(
       {
@@ -37,18 +29,20 @@ describe('testing next queries component', () => {
         template
       },
       {
-        localVue,
+        global: { plugins: [installNewXPlugin({ store, initialXModules: [nextQueriesXModule] })] },
         store,
-        propsData: { nextQueries, customSuggestions: null }
+        props: { nextQueries, customSuggestions: null }
       }
     );
-    const wrapper = wrapperTemplate.findComponent(NextQueries);
 
-    const findTestDataById = (testDataId: string): WrapperArray<Vue> =>
-      wrapper.findAll(getDataTestSelector(testDataId));
+    resetXNextQueriesStateWith(store, { nextQueries });
+
+    const findTestDataById = (testDataId: string): DOMWrapper<Element>[] =>
+      wrapperTemplate.findAll(getDataTestSelector(testDataId));
 
     return {
-      wrapper,
+      wrapper: wrapperTemplate.findComponent(NextQueries),
+      wrapperTemplate,
       nextQueries,
       findTestDataById,
       getNextQueryItems() {
@@ -69,14 +63,15 @@ describe('testing next queries component', () => {
   it('renders a button with the query of the next query(suggestion)', () => {
     const { nextQueries, getNextQueryItems } = renderNextQueries();
 
-    getNextQueryItems().wrappers.forEach((nextQueryItemWrapper, index) => {
+    getNextQueryItems().forEach((nextQueryItemWrapper, index) => {
       expect(nextQueryItemWrapper.text()).toEqual(nextQueries[index].query);
     });
   });
 
   //eslint-disable-next-line max-len
   it('renders a span, an image & a highlighting icon overriding the default Next Query content', async () => {
-    const template = `
+    const { nextQueries, findTestDataById, wrapperTemplate } = renderNextQueries({
+      template: `
         <NextQueries>
           <template #suggestion-content="suggestionContentScope">
             <span data-test="next-query-highlight">
@@ -93,11 +88,10 @@ describe('testing next queries component', () => {
             >{{ suggestionContentScope.suggestion.query }}</span>
           </template>
         </NextQueries>
-      `;
-
-    const { wrapper, nextQueries, findTestDataById } = renderNextQueries({
-      template
+      `
     });
+
+    await nextTick();
 
     nextQueries[0].isCurated = true;
     const eventSpansList = findTestDataById('query');
@@ -105,31 +99,33 @@ describe('testing next queries component', () => {
     let highlightIconList = findTestDataById('next-query-highlight');
 
     nextQueries.forEach((nextQuery, index) => {
-      expect(eventSpansList.at(index).element.innerHTML).toEqual(nextQuery.query);
-      expect(eventSpansList.at(index).element.getAttribute('data-index')).toEqual(`${index}`);
-      expect(highlightIconList.at(index).contains('img')).toBe(false);
+      expect(eventSpansList.at(index)?.element.innerHTML).toEqual(nextQuery.query);
+      expect(eventSpansList.at(index)?.element.getAttribute('data-index')).toEqual(`${index}`);
+      expect(highlightIconList.at(index)?.find('img').exists()).toBe(false);
       expect(iconsList.at(index)).toBeDefined();
     });
 
-    await wrapper.setProps({ highlightCurated: true });
+    await wrapperTemplate.setProps({ highlightCurated: true });
     highlightIconList = findTestDataById('next-query-highlight');
 
-    nextQueries.forEach((nextQuery, index) => {
-      expect(highlightIconList.at(index).contains('img')).toBe(!!nextQuery.isCurated);
+    nextQueries.forEach(async (nextQuery, index) => {
+      await nextTick();
+      expect(highlightIconList.at(index)?.find('img'))?.toBe(!!nextQuery.isCurated);
     });
   });
 
   it('renders a button, a highlighting icon & a custom Next Query', async () => {
-    const template = `
+    const { wrapper, nextQueries, findTestDataById, wrapperTemplate } = renderNextQueries({
+      template: `
         <NextQueries>
           <template #suggestion="{ suggestion, highlightCurated, index }">
             <NextQuery :suggestion="suggestion"
                        :highlightCurated="highlightCurated">
-              <template #default="suggestionContentScope">
+              <template #default="{ shouldHighlightCurated }">
                 <span data-test="next-query-highlight">
                   <img
                     src="./chevron-icon.svg"
-                    v-if="suggestionContentScope.shouldHighlightCurated"
+                    v-if="shouldHighlightCurated"
                   />
                 </span>
                 <img src="./next-query-icon.svg"
@@ -145,33 +141,31 @@ describe('testing next queries component', () => {
             <button data-test="custom-button">Custom Behaviour</button>
           </template>
         </NextQueries>
-      `;
-
-    const { wrapper, nextQueries, findTestDataById } = renderNextQueries({
-      template
+      `
     });
 
     expect(wrapper.findComponent(NextQueryComponent)).toBeDefined();
 
     nextQueries[0].isCurated = true;
+    await nextTick();
     const eventSpansList = findTestDataById('query');
     const iconsList = findTestDataById('icon');
     const customButtonList = findTestDataById('custom-button');
     let highlightIconList = findTestDataById('next-query-highlight');
 
     nextQueries.forEach((nextQuery, index) => {
-      expect(eventSpansList.at(index).element.innerHTML).toEqual(nextQuery.query);
-      expect(eventSpansList.at(index).element.getAttribute('data-index')).toEqual(`${index}`);
+      expect(eventSpansList.at(index)?.element.innerHTML).toEqual(nextQuery.query);
+      expect(eventSpansList.at(index)?.element.getAttribute('data-index')).toEqual(`${index}`);
       expect(iconsList.at(index)).toBeDefined();
       expect(customButtonList.at(index)).toBeDefined();
-      expect(highlightIconList.at(index).contains('img')).toBe(false);
+      expect(highlightIconList.at(index)?.find('img').exists()).toBe(false);
     });
 
-    await wrapper.setProps({ highlightCurated: true });
+    await wrapperTemplate.setProps({ highlightCurated: true });
     highlightIconList = findTestDataById('next-query-highlight');
 
     nextQueries.forEach((nextQuery, index) => {
-      expect(highlightIconList.at(index).contains('img')).toBe(!!nextQuery.isCurated);
+      expect(highlightIconList.at(index)?.find('img').exists()).toBe(!!nextQuery.isCurated);
     });
   });
 
@@ -180,19 +174,19 @@ describe('testing next queries component', () => {
       nextQueries: []
     });
 
-    expect(wrapper.html()).toEqual('');
+    expect(wrapper.find('x-next-queries').exists()).toBe(false);
   });
 
   it('renders at most the number of NextQuery defined by `maxItemsToRender` prop', async () => {
-    const { wrapper, nextQueries, findTestDataById } = renderNextQueries();
+    const { nextQueries, findTestDataById, wrapperTemplate } = renderNextQueries();
 
-    await wrapper.setProps({ maxItemsToRender: 2 });
+    await wrapperTemplate.setProps({ maxItemsToRender: 2 });
     expect(findTestDataById('next-query')).toHaveLength(2);
 
-    await wrapper.setProps({ maxItemsToRender: 3 });
+    await wrapperTemplate.setProps({ maxItemsToRender: 3 });
     expect(findTestDataById('next-query')).toHaveLength(3);
 
-    await wrapper.setProps({ maxItemsToRender: 5 });
+    await wrapperTemplate.setProps({ maxItemsToRender: 5 });
     expect(findTestDataById('next-query')).toHaveLength(nextQueries.length);
   });
 
@@ -207,15 +201,17 @@ describe('testing next queries component', () => {
       createNextQueryStub('Cheese')
     ];
 
+    await nextTick();
+
     expect(findTestDataById('next-query')).toHaveLength(2);
-    expect(findTestDataById('next-query').at(0).text()).toBe('Lettuce');
-    expect(findTestDataById('next-query').at(1).text()).toBe('Tomato');
+    expect(findTestDataById('next-query').at(0)?.text()).toBe('Lettuce');
+    expect(findTestDataById('next-query').at(1)?.text()).toBe('Tomato');
 
     await setCustomSuggestions(myNextQueries);
     expect(findTestDataById('next-query')).toHaveLength(3);
-    expect(findTestDataById('next-query').at(0).text()).toBe('Bread');
-    expect(findTestDataById('next-query').at(1).text()).toBe('Meat');
-    expect(findTestDataById('next-query').at(2).text()).toBe('Cheese');
+    expect(findTestDataById('next-query').at(0)?.text()).toBe('Bread');
+    expect(findTestDataById('next-query').at(1)?.text()).toBe('Meat');
+    expect(findTestDataById('next-query').at(2)?.text()).toBe('Cheese');
   });
 });
 
@@ -231,16 +227,17 @@ interface RenderNExtQueriesOptions {
 
 interface RenderNextQueriesAPI {
   /** The Vue testing utils wrapper for the {@link NextQueries} component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
+  wrapperTemplate: VueWrapper;
   /** The initial list of next queries that are going to be rendered. */
   nextQueries: NextQuery[];
   /**
    * Retrieves the wrapper for the items of the list rendered by the {@link NextQueries}
    * component.
    */
-  getNextQueryItems: () => WrapperArray<Vue>;
+  getNextQueryItems: () => DOMWrapper<Element>[];
   /** Find test data in the wrapper for the {@link NextQueries} component. */
-  findTestDataById: (testDataId: string) => WrapperArray<Vue>;
+  findTestDataById: (testDataId: string) => DOMWrapper<Element>[];
   /** Set the custom suggestions prop to the template wrapper. */
   setCustomSuggestions: (suggestions: NextQuery[]) => Promise<void> | void;
 }

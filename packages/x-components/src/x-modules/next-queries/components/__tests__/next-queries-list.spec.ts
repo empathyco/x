@@ -1,16 +1,8 @@
 import { NextQuery } from '@empathyco/x-types';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue, {
-  ComponentOptions,
-  computed,
-  defineComponent,
-  inject,
-  provide,
-  Ref,
-  VueConstructor
-} from 'vue';
-import Vuex, { Store } from 'vuex';
+import { DOMWrapper, mount } from '@vue/test-utils';
+import { computed, defineComponent, inject, nextTick, provide, Ref } from 'vue';
+import { Store } from 'vuex';
 import { createNextQueryStub } from '../../../../__stubs__/next-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -49,7 +41,7 @@ function renderNextQueriesList({
   components,
   extraItems,
   ...props
-}: RenderNextQueriesListOptions = {}): RenderNextQueriesListAPI {
+}: RenderNextQueriesListOptions = {}) {
   const ProviderWrapper = defineComponent({
     name: 'ProviderWrapper',
     setup() {
@@ -60,12 +52,7 @@ function renderNextQueriesList({
       <div><slot /></div>
     `
   });
-
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store, initialXModules: [nextQueriesXModule] }, localVue);
-  resetXNextQueriesStateWith(store, { nextQueries, query, status });
 
   const wrapper = mount(
     {
@@ -81,15 +68,19 @@ function renderNextQueriesList({
       }
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [nextQueriesXModule] })]
+      },
       store,
-      propsData: props
+      props: props
     }
   );
 
+  resetXNextQueriesStateWith(store, { nextQueries, query, status });
+
   const nextQueriesListWrapper = wrapper.findComponent(NextQueriesList);
 
-  function getSearchItemWrappers(): WrapperArray<Vue> {
+  function getSearchItemWrappers(): DOMWrapper<Element>[] {
     return nextQueriesListWrapper.findAll(
       `${getDataTestSelector('next-queries-groups-list-item')}, ${getDataTestSelector(
         'extra-items-list-item'
@@ -107,7 +98,7 @@ function renderNextQueriesList({
       return root.findAll('.next-query');
     },
     getItemsRenderedText() {
-      return getSearchItemWrappers().wrappers.map(wrapper => wrapper.text());
+      return getSearchItemWrappers().map(wrapper => wrapper.text());
     }
   };
 }
@@ -158,7 +149,7 @@ describe('testing NextQueriesList component', () => {
     expect(getNextQueryGroupWrappers()).toHaveLength(0);
   });
 
-  it('inserts next queries groups in the appropriate order', () => {
+  it('inserts next queries groups in the appropriate order', async () => {
     const nextQueries = createNextQueries(
       'steak',
       'tomahawk',
@@ -179,27 +170,29 @@ describe('testing NextQueriesList component', () => {
       offset: 4
     });
 
+    await nextTick();
+
     // 11 extra items + 4 groups of NQs at index 4, 7, 10, 13
     expect(getItemsRenderedText()).toEqual([
       extraItems[0].id,
       extraItems[1].id,
       extraItems[2].id,
       extraItems[3].id,
-      ['steak', 'tomahawk'].join(''),
+      ['steak', 'tomahawk'].join(','),
       extraItems[4].id,
       extraItems[5].id,
-      ['t-bone', 'porterhouse'].join(''),
+      ['t-bone', 'porterhouse'].join(','),
       extraItems[6].id,
       extraItems[7].id,
-      ['rib-eye', 'ribs'].join(''),
+      ['rib-eye', 'ribs'].join(','),
       extraItems[8].id,
       extraItems[9].id,
-      ['picanha', 'short-ribs'].join(''),
+      ['picanha', 'short-ribs'].join(','),
       extraItems[10].id
     ]);
   });
 
-  it('does not render more than the specified groups', () => {
+  it('does not render more than the specified groups', async () => {
     const nextQueries = createNextQueries(
       'tequila',
       'mezcal',
@@ -218,16 +211,18 @@ describe('testing NextQueriesList component', () => {
       maxGroups: 2
     });
 
+    await nextTick();
+
     // 10 extra items + 2 groups of NQs at index 4, 7
     expect(getItemsRenderedText()).toEqual([
       extraItems[0].id,
       extraItems[1].id,
       extraItems[2].id,
       extraItems[3].id,
-      ['tequila', 'mezcal'].join(''),
+      ['tequila', 'mezcal'].join(','),
       extraItems[4].id,
       extraItems[5].id,
-      ['absinthe', 'vodka'].join(''),
+      ['absinthe', 'vodka'].join(','),
       extraItems[6].id,
       extraItems[7].id,
       extraItems[8].id,
@@ -235,7 +230,7 @@ describe('testing NextQueriesList component', () => {
     ]);
   });
 
-  it('renders a group even if it has not enough next queries', () => {
+  it('renders a group even if it has not enough next queries', async () => {
     const nextQueries = createNextQueries('piña colada');
     const extraItems = createExtraItems(4);
     const { getItemsRenderedText } = renderNextQueriesList({
@@ -244,6 +239,8 @@ describe('testing NextQueriesList component', () => {
       maxNextQueriesPerGroup: 4,
       offset: 2
     });
+
+    await nextTick();
 
     // 4 extra items + 1 groups of NQs at index 2
     expect(getItemsRenderedText()).toEqual([
@@ -255,7 +252,7 @@ describe('testing NextQueriesList component', () => {
     ]);
   });
 
-  it('provides the modified list of list items', () => {
+  it('provides the modified list of list items', async () => {
     const CustomList = defineComponent({
       name: 'CustomList',
       setup() {
@@ -285,9 +282,9 @@ describe('testing NextQueriesList component', () => {
       offset: 2
     });
 
-    const customItemsRenderedText = wrapper
-      .findAll('.search-item')
-      .wrappers.map(wrapper => wrapper.text());
+    await nextTick();
+
+    const customItemsRenderedText = wrapper.findAll('.search-item').map(wrapper => wrapper.text());
 
     expect(customItemsRenderedText).toEqual([
       extraItems[0].id,
@@ -331,9 +328,9 @@ describe('testing NextQueriesList component', () => {
     });
 
     // eslint-disable-next-line max-len
-    it('renders next queries and extra items if the status is success and the search query and the query are equal', () => {
+    it('renders next queries and extra items if the status is success and the search query and the query are equal', async () => {
       const query = 'jacket';
-      const { getItemsRenderedText } = renderNextQueriesList({
+      const { getItemsRenderedText, wrapper } = renderNextQueriesList({
         nextQueries,
         extraItems,
         query,
@@ -343,6 +340,8 @@ describe('testing NextQueriesList component', () => {
         offset: 0,
         status: 'success'
       });
+
+      await nextTick();
       expect(getItemsRenderedText()).toEqual([
         ...nextQueries.map(nextQuery => nextQuery.query),
         ...extraItems.map(item => item.id)
@@ -351,7 +350,7 @@ describe('testing NextQueriesList component', () => {
   });
 
   describe('when the offset is lower than the number of items', () => {
-    it('inserts next queries groups by default', () => {
+    it('inserts next queries groups by default', async () => {
       const nextQueries = createNextQueries(
         'steak',
         'tomahawk' // This one should be ignored as there is no room for it.
@@ -365,6 +364,7 @@ describe('testing NextQueriesList component', () => {
         offset: 24
       });
 
+      await nextTick();
       // 5 extra items + 1 group of NQs at index 5
       expect(getItemsRenderedText()).toEqual([
         extraItems[0].id,
@@ -407,7 +407,7 @@ interface RenderNextQueriesListOptions {
    */
   showOnlyAfterOffset?: boolean;
   /** Extra components to be registered and rendered. */
-  components?: Dictionary<VueConstructor | ComponentOptions<Vue>>;
+  components?: Dictionary<any>;
   /** Extra items to be rendered. */
   extraItems?: ListItem[];
   /** Indicates the cycle size to insert next queries group at. */
@@ -428,17 +428,4 @@ interface RenderNextQueriesListOptions {
   searchQuery?: string;
   /** The next queries request status. */
   status?: RequestStatus;
-}
-
-interface RenderNextQueriesListAPI {
-  /** Retrieves the wrappers of the next queries group. */
-  getNextQueryGroupWrappers: () => WrapperArray<Vue>;
-  /** Retrieves the wrappers of the individual next queries. */
-  getNextQueryWrappers: (root?: Wrapper<Vue>) => WrapperArray<Vue>;
-  /** Retrieves the wrappers of the list items. */
-  getSearchItemWrappers: () => WrapperArray<Vue>;
-  /** Retrieves rendered text for each DOM list item. */
-  getItemsRenderedText: () => string[];
-  /** The `wrapper` wrapper component. */
-  wrapper: Wrapper<Vue>;
 }

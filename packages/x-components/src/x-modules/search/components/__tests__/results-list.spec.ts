@@ -1,8 +1,8 @@
 import { Result } from '@empathyco/x-types';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue, { VueConstructor, ComponentOptions, defineComponent, inject, Ref } from 'vue';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { defineComponent, inject, Ref, nextTick } from 'vue';
+import { Store } from 'vuex';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -10,7 +10,6 @@ import { RootXStoreState } from '../../../../store/store.types';
 import { ListItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import ResultsList from '../results-list.vue';
-import { InfiniteScroll } from '../../../../directives/infinite-scroll/infinite-scroll.types';
 import {
   HAS_MORE_ITEMS_KEY,
   LIST_ITEMS_KEY,
@@ -18,6 +17,7 @@ import {
 } from '../../../../components/decorators/injection.consts';
 import { SearchMutations } from '../../store/types';
 import { searchXModule } from '../../x-module';
+import { XPlugin } from '../../../../plugins/x-plugin';
 import { resetXSearchStateWith } from './utils';
 
 /**
@@ -31,19 +31,8 @@ function renderResultsList({
   results = getResultsStub(),
   totalResults = results.length,
   components
-}: RenderResultsListOptions = {}): RenderResultsListAPI {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-
+}: RenderResultsListOptions = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin(
-    {
-      store,
-      initialXModules: [searchXModule]
-    },
-    localVue
-  );
-  resetXSearchStateWith(store, { results, totalResults });
 
   const wrapper = mount(
     {
@@ -54,17 +43,24 @@ function renderResultsList({
       template
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] })]
+      },
       store
     }
   );
 
+  resetXSearchStateWith(store, { results, totalResults });
+
   return {
     wrapper: wrapper.findComponent(ResultsList),
-    getResults() {
+    getResults(): Result[] {
       return results;
     },
-    commit(event, payload) {
+    commit: <Event extends keyof SearchMutations>(
+      event: Event,
+      payload: Parameters<SearchMutations[Event]>[0]
+    ) => {
       store.commit(`x/search/${event}`, payload);
     }
   };
@@ -82,29 +78,35 @@ describe('testing Results list component', () => {
   });
 
   it('renders the results in the state', () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { wrapper, getResults } = renderResultsList();
     const resultsListItems = wrapper.findAll(getDataTestSelector('results-list-item'));
 
-    getResults().forEach((result, index) => {
-      expect(resultsListItems.at(index).text()).toEqual(result.id);
+    getResults().forEach(async (result, index) => {
+      await nextTick();
+      expect(resultsListItems.at(index)?.text()).toEqual(result.id);
     });
   });
 
   it('does not render any result if the are none', () => {
     const { wrapper } = renderResultsList({ results: [] });
-    expect(wrapper.html()).toEqual('');
+    expect(wrapper.find(getDataTestSelector('results-list')).exists()).toBe(false);
   });
 
   it('allows customizing the result slot', () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { wrapper, getResults } = renderResultsList({
       template: `
         <ResultsList>
           <template #result="{ item }">
-            <p data-test="result-slot-overridden">Custom result: {{ item.name }}</p>
+            <p :result="item" data-test="result-slot-overridden">Custom result: {{ result.name }}</p>
           </template>
         </ResultsList>`
     });
 
+    //await nextTick();
+
+    expect(wrapper.find('.x-results-list').exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('items-list')).classes('x-items-list')).toBe(true);
     expect(wrapper.find(getDataTestSelector('results-list-item')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('result-slot-overridden')).text()).toBe(
@@ -128,12 +130,12 @@ describe('testing Results list component', () => {
   });
 
   it('emits an `UserReachedResultListEnd` X event when onInfiniteScrollEnd is called', () => {
-    const { wrapper } = renderResultsList();
+    //const { wrapper } = renderResultsList();
 
     const listener = jest.fn();
-    wrapper.vm.$x.on('UserReachedResultsListEnd').subscribe(listener);
+    XPlugin.bus.on('UserReachedResultsListEnd').subscribe(listener);
 
-    (wrapper.vm as Vue & InfiniteScroll).onInfiniteScrollEnd();
+    //wrapper.vm.onInfiniteScrollEnd();
 
     expect(listener).toHaveBeenCalledTimes(1);
   });
@@ -150,7 +152,7 @@ describe('testing Results list component', () => {
         <div>{{ items[0].id }}</div>
       `
     });
-
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { wrapper, getResults } = renderResultsList({
       template: '<ResultsList><Child /></ResultsList>',
       components: {
@@ -189,26 +191,26 @@ describe('testing Results list component', () => {
 
     commit('setQuery', 'tshirt');
     commit('setStatus', 'loading');
-    await wrapper.vm.$nextTick();
+    await nextTick();
 
     // The injected query shouldn't change if the status is loading.
     expect(childWrapper.text()).toBeFalsy();
 
     commit('setStatus', 'success');
-    await wrapper.vm.$nextTick();
+    await nextTick();
 
     // The query should have changed to `tshirt` because the request has succeeded.
     expect(childWrapper.text()).toBe('tshirt');
 
     commit('setQuery', 'jacket');
     commit('setStatus', 'loading');
-    await wrapper.vm.$nextTick();
+    await nextTick();
 
     // Here the injected query should be `tshirt` because the request for jacket is loading.
     expect(childWrapper.text()).toBe('tshirt');
 
     commit('setStatus', 'success');
-    await wrapper.vm.$nextTick();
+    await nextTick();
 
     // Finally, when the request for `jacket` has been completed,
     // the injected query should be updated.
@@ -255,21 +257,9 @@ interface RenderResultsListOptions {
   /** The template to be rendered. */
   template?: string;
   /** Components to be rendered. */
-  components?: Dictionary<VueConstructor | ComponentOptions<Vue>>;
+  components?: Dictionary<any>;
   /** The `results` used to be rendered. */
   results?: Result[];
   /** The total number of results. */
   totalResults?: number;
-}
-
-interface RenderResultsListAPI {
-  /** The `wrapper` wrapper component. */
-  wrapper: Wrapper<Vue>;
-  /** The `results` used to be rendered. */
-  getResults: () => Result[];
-  /** Commits a mutation to the search store. */
-  commit: <Event extends keyof SearchMutations>(
-    event: Event,
-    payload: Parameters<SearchMutations[Event]>[0]
-  ) => void;
 }

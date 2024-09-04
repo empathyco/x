@@ -1,17 +1,16 @@
-import { mount, Wrapper } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { NextQuery } from '@empathyco/x-types';
+import { nextTick } from 'vue';
 import { createNextQueryStub } from '../../../../__stubs__/next-queries-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import { default as NextQueryComponent } from '../next-query.vue';
 import { XPlugin } from '../../../../plugins/index';
-
 function renderNextQuery({
   suggestion = createNextQueryStub('milk'),
   template = '<NextQuery :suggestion="suggestion" />'
-}: RenderNextQueryOptions = {}): RenderNextQueryAPI {
-  const [, localVue] = installNewXPlugin();
+}: RenderNextQueryOptions = {}) {
   const wrapperTemplate = mount(
     {
       props: ['suggestion', 'highlightCurated'],
@@ -21,21 +20,24 @@ function renderNextQuery({
       template
     },
     {
-      localVue,
-      propsData: { suggestion }
+      global: {
+        plugins: [installNewXPlugin()]
+      },
+      props: { suggestion }
     }
   );
   const wrapper = wrapperTemplate.findComponent(NextQueryComponent);
 
   return {
     wrapper,
+    wrapperTemplate,
     suggestion,
-    async clickNextQuery() {
+    async clickNextQuery(): Promise<void> {
       wrapper.trigger('click');
-      await localVue.nextTick();
+      await nextTick();
     },
-    hasIsCuratedClass() {
-      return wrapper
+    hasIsCuratedClass(): boolean {
+      return wrapperTemplate
         .find(getDataTestSelector('next-query'))
         .element.classList.contains('x-next-query--is-curated');
     }
@@ -95,14 +97,15 @@ describe('testing next query item component', () => {
   });
 
   it('highlights NQ if curated and indicated via prop', async () => {
-    const { wrapper, suggestion, hasIsCuratedClass } = renderNextQuery();
+    const { wrapperTemplate, suggestion, hasIsCuratedClass } = renderNextQuery();
 
     expect(hasIsCuratedClass()).toBe(false);
 
     suggestion.isCurated = true;
     expect(hasIsCuratedClass()).toBe(false);
 
-    await wrapper.setProps({ highlightCurated: true });
+    await wrapperTemplate.setProps({ highlightCurated: true });
+    await nextTick();
     expect(hasIsCuratedClass()).toBe(true);
   });
 });
@@ -115,15 +118,4 @@ interface RenderNextQueryOptions {
    * {@link NextQueryComponent} as `NextQuery`.
    */
   template?: string;
-}
-
-interface RenderNextQueryAPI {
-  /** The Vue testing utils wrapper for the {@link NextQueryComponent}. */
-  wrapper: Wrapper<Vue>;
-  /** The {@link XComponentAPI} used by the rendered {@link NextQueryComponent}. */
-  suggestion: NextQuery;
-  /** Clicks the next query and waits for the view to update. */
-  clickNextQuery: () => Promise<void>;
-  /** Checks if the next query element is being highlighted as curated with CSS class. */
-  hasIsCuratedClass: () => boolean;
 }

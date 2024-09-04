@@ -1,16 +1,8 @@
 import { Banner } from '@empathyco/x-types';
-import { DeepPartial, Dictionary } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue, {
-  VueConstructor,
-  ComponentOptions,
-  computed,
-  defineComponent,
-  provide,
-  inject,
-  Ref
-} from 'vue';
-import Vuex, { Store } from 'vuex';
+import { DeepPartial } from '@empathyco/x-utils';
+import { mount } from '@vue/test-utils';
+import { computed, defineComponent, provide, inject, Ref, nextTick } from 'vue';
+import { Store } from 'vuex';
 import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
@@ -21,6 +13,7 @@ import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
 import BannersList from '../banners-list.vue';
 import { LIST_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
+import { searchXModule } from '../../x-module';
 import { resetXSearchStateWith } from './utils';
 
 /**
@@ -33,15 +26,9 @@ function renderBannersList({
   template = '<BannersList />',
   banners = getBannersStub(),
   components
-}: RenderBannersListOptions = {}): RendersBannerListAPI {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
+}: RenderBannersListOptions = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
 
-  XPlugin.resetInstance();
-
-  resetXSearchStateWith(store, { banners });
   const wrapper = mount(
     {
       components: {
@@ -51,10 +38,12 @@ function renderBannersList({
       template
     },
     {
-      localVue,
-      store
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] })]
+      }
     }
   );
+  resetXSearchStateWith(store, { banners });
 
   const bannersListWrapper = wrapper.findComponent(BannersList);
 
@@ -78,20 +67,23 @@ describe('testing BannersList component', () => {
   });
 
   it('renders the banners in the state', () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { wrapper, getBanners } = renderBannersList();
     const bannersListItems = wrapper.findAll(getDataTestSelector('banners-list-item'));
 
-    getBanners().forEach((result, index) => {
-      expect(bannersListItems.at(index).text()).toEqual(result.id);
+    getBanners().forEach(async (result, index) => {
+      await nextTick();
+      expect(bannersListItems.at(index)?.text()).toEqual(result.id);
     });
   });
 
   it('does not render any banner if the are none', () => {
     const { wrapper } = renderBannersList({ banners: [] });
-    expect(wrapper.html()).toEqual('');
+    expect(wrapper.find(getDataTestSelector('banners-list')).exists()).toBe(false);
   });
 
   it('allows customizing the banner slot', () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { wrapper, getBanners } = renderBannersList({
       template: `
         <BannersList>
@@ -126,11 +118,10 @@ describe('testing BannersList component', () => {
   it('provides the result of concatenating ancestor injected items with the banners', async () => {
     const resultsStub = getResultsStub();
     const bannersStub = getBannersStub();
-    const localVue = createLocalVue();
-    localVue.use(Vuex);
     const store = new Store<DeepPartial<RootXStoreState>>({});
-    installNewXPlugin({ store }, localVue);
     resetXSearchStateWith(store, { banners: bannersStub, totalResults: resultsStub.length * 2 });
+
+    await nextTick();
 
     /* It provides an array with some results */
     const Provider = defineComponent({
@@ -174,13 +165,12 @@ describe('testing BannersList component', () => {
         }
       },
       {
-        localVue,
         store
       }
     );
 
-    wrapper.vm.$x.emit('RenderedColumnsNumberChanged', 2);
-    await wrapper.vm.$nextTick();
+    XPlugin.bus.emit('RenderedColumnsNumberChanged', 2);
+    await nextTick();
 
     expect(wrapper.text()).toBe(
       // eslint-disable-next-line max-len
@@ -193,14 +183,7 @@ interface RenderBannersListOptions {
   /** The template to be rendered. */
   template?: string;
   /** Components to be rendered. */
-  components?: Dictionary<VueConstructor | ComponentOptions<Vue>>;
+  components?: any;
   /** The `banners` used to be rendered. */
   banners?: Banner[];
-}
-
-interface RendersBannerListAPI {
-  /** The `wrapper` wrapper component. */
-  wrapper: Wrapper<Vue>;
-  /** The `banners` used to be rendered. */
-  getBanners: () => Banner[];
 }

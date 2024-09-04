@@ -1,10 +1,12 @@
 import { mount } from '@vue/test-utils';
-import { nextTick, ref } from 'vue';
+import { nextTick } from 'vue';
 import { createSimpleFilter } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import SimpleFilter from '../simple-filter.vue';
 import { XPlugin } from '../../../../../plugins/index';
+import { facetsXModule } from '../../../x-module';
+import { XDummyBus } from '../../../../../__tests__/bus.dummy';
 
 const metadata = {
   moduleName: 'facets',
@@ -12,39 +14,48 @@ const metadata = {
   replaceable: true
 };
 
+let bus = new XDummyBus();
+
 function render({
   template = '<SimpleFilter :filter="filter" :clickEvents="clickEvents" />',
-  filter = ref(createSimpleFilter('category', 'women')),
+  filter = createSimpleFilter('category', 'women'),
   clickEvents = {}
 } = {}) {
   const wrapper = mount(
     {
       components: { SimpleFilter },
+      props: ['filter', 'clickEvents'],
       template
     },
     {
-      data: () => ({ filter, clickEvents }),
-      global: { plugins: [installNewXPlugin()] }
+      props: { filter, clickEvents },
+      global: {
+        plugins: [installNewXPlugin({ initialXModules: [facetsXModule] }, bus)]
+      }
     }
   );
 
   const filterWrapper = wrapper.findComponent(SimpleFilter);
-  const buttonWrapper = filterWrapper.find(getDataTestSelector('filter'));
 
   return {
     wrapper: filterWrapper,
     emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     filter,
-    buttonWrapper,
-    clickFilter: () => buttonWrapper.trigger('click'),
+    clickFilter: () => {
+      filterWrapper.trigger('click');
+      return nextTick();
+    },
     selectFilter: () => {
-      filter.value.selected = true;
+      filter.selected = true;
       return nextTick();
     }
   };
 }
 
 describe('testing SimpleFilter component', () => {
+  beforeEach(() => {
+    bus = new XDummyBus();
+  });
   it('is an XComponent that belongs to the facets', () => {
     const { wrapper } = render();
 
@@ -55,7 +66,7 @@ describe('testing SimpleFilter component', () => {
   it('renders the provided filter by default', () => {
     const { wrapper, filter } = render();
 
-    expect(wrapper.text()).toEqual(filter.value.label);
+    expect(wrapper.text()).toEqual(filter.label);
   });
 
   it('emits `UserClickedAFilter` & `UserClickedASimpleFilter` events when clicked', async () => {
@@ -65,7 +76,7 @@ describe('testing SimpleFilter component', () => {
 
     expect(emitSpy).toHaveBeenCalledTimes(2);
     ['UserClickedAFilter', 'UserClickedASimpleFilter'].forEach(event => {
-      expect(emitSpy).toHaveBeenCalledWith(event, filter.value, metadata);
+      expect(emitSpy).toHaveBeenCalledWith(event, filter, metadata);
     });
   });
 
@@ -78,7 +89,7 @@ describe('testing SimpleFilter component', () => {
 
     expect(emitSpy).toHaveBeenCalledTimes(3);
     ['UserClickedAFilter', 'UserClickedASimpleFilter'].forEach(event => {
-      expect(emitSpy).toHaveBeenCalledWith(event, filter.value, metadata);
+      expect(emitSpy).toHaveBeenCalledWith(event, filter, metadata);
     });
     expect(emitSpy).toHaveBeenNthCalledWith(3, 'UserAcceptedAQuery', 'potato', metadata);
   });
@@ -94,7 +105,7 @@ describe('testing SimpleFilter component', () => {
     });
 
     const customLabel = wrapper.find(getDataTestSelector('custom-label'));
-    expect(customLabel.text()).toEqual(filter.value.label);
+    expect(customLabel.text()).toEqual(filter.label);
   });
 
   it('allows replacing the root element of the component', () => {
@@ -113,12 +124,12 @@ describe('testing SimpleFilter component', () => {
     const labelWrapper = wrapper.get(getDataTestSelector('label'));
     const inputWrapper = wrapper.get(getDataTestSelector('input'));
 
-    expect(labelWrapper.text()).toEqual(filter.value.label);
+    expect(labelWrapper.text()).toEqual(filter.label);
 
     inputWrapper.trigger('change');
     expect(emitSpy).toHaveBeenCalledTimes(2);
     ['UserClickedAFilter', 'UserClickedASimpleFilter'].forEach(event => {
-      expect(emitSpy).toHaveBeenCalledWith(event, filter.value, metadata);
+      expect(emitSpy).toHaveBeenCalledWith(event, filter, metadata);
     });
   });
 
@@ -159,24 +170,24 @@ describe('testing SimpleFilter component', () => {
       ])
     );
 
-    filter.value.totalResults = 0;
+    filter.totalResults = 0;
     await nextTick();
     expect(buttonWrapper.element).toHaveProperty('disabled', true);
 
-    filter.value.totalResults = undefined;
+    filter.totalResults = undefined;
     await nextTick();
     expect(buttonWrapper.element).toHaveProperty('disabled', false);
   });
 
   it('adds selected classes to the rendered element when the filter is selected', async () => {
-    const { buttonWrapper, selectFilter } = render();
+    const { wrapper, selectFilter } = render();
 
-    expect(buttonWrapper.classes()).not.toContain('x-selected');
-    expect(buttonWrapper.classes()).not.toContain('x-simple-filter--is-selected');
+    expect(wrapper.classes()).not.toContain('x-selected');
+    expect(wrapper.classes()).not.toContain('x-simple-filter--is-selected');
 
     await selectFilter();
 
-    expect(buttonWrapper.classes()).toContain('x-selected');
-    expect(buttonWrapper.classes()).toContain('x-simple-filter--is-selected');
+    expect(wrapper.classes()).toContain('x-selected');
+    expect(wrapper.classes()).toContain('x-simple-filter--is-selected');
   });
 });

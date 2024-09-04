@@ -1,19 +1,10 @@
 import { Promoted } from '@empathyco/x-types';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue, {
-  VueConstructor,
-  ComponentOptions,
-  defineComponent,
-  computed,
-  provide,
-  inject,
-  Ref
-} from 'vue';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { defineComponent, computed, provide, inject, Ref, nextTick } from 'vue';
+import { Store } from 'vuex';
 import BaseGrid from '../../../../components/base-grid.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { RootXStoreState } from '../../../../store/store.types';
 import { ListItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
@@ -21,6 +12,7 @@ import PromotedsList from '../promoteds-list.vue';
 import { getPromotedsStub } from '../../../../__stubs__/promoteds-stubs.factory';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import { LIST_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
+import { searchXModule } from '../../x-module';
 import { resetXSearchStateWith } from './utils';
 
 /**
@@ -33,15 +25,9 @@ function renderPromotedsList({
   template = '<PromotedsList />',
   promoteds = getPromotedsStub(),
   components
-}: RenderPromotedsListOptions = {}): RenderPromotedsListAPI {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
+}: RenderPromotedsListOptions = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
 
-  XPlugin.resetInstance();
-
-  resetXSearchStateWith(store, { promoteds });
   const wrapper = mount(
     {
       components: {
@@ -51,10 +37,13 @@ function renderPromotedsList({
       template
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] })]
+      },
       store
     }
   );
+  resetXSearchStateWith(store, { promoteds });
 
   const promotedsListWrapper = wrapper.findComponent(PromotedsList);
 
@@ -81,25 +70,29 @@ describe('testing PromotedsList component', () => {
     const { wrapper, getPromoteds } = renderPromotedsList();
     const promotedsListItems = wrapper.findAll(getDataTestSelector('promoteds-list-item'));
 
-    getPromoteds().forEach((result, index) => {
-      expect(promotedsListItems.at(index).text()).toEqual(result.id);
+    getPromoteds().forEach(async (result, index) => {
+      await nextTick();
+      expect(promotedsListItems.at(index)?.text()).toEqual(result.id);
     });
   });
 
   it('does not render any promoted if the are none', () => {
     const { wrapper } = renderPromotedsList({ promoteds: [] });
-    expect(wrapper.html()).toEqual('');
+    expect(wrapper.find(getDataTestSelector('promoteds-list')).exists()).toBe(false);
   });
 
-  it('allows customizing the promoted slot', () => {
+  it('allows customizing the promoted slot', async () => {
     const { wrapper, getPromoteds } = renderPromotedsList({
       template: `
         <PromotedsList>
           <template #promoted="{ item }">
             <p data-test="promoted-slot-overridden">Custom promoted: {{ item.title }}</p>
           </template>
-        </PromotedsList>`
+        </PromotedsList>`,
+      promoteds: getPromotedsStub()
     });
+
+    await nextTick();
 
     expect(wrapper.find(getDataTestSelector('items-list')).classes('x-items-list')).toBe(true);
     expect(wrapper.find(getDataTestSelector('promoteds-list-item')).exists()).toBe(true);
@@ -126,16 +119,9 @@ describe('testing PromotedsList component', () => {
   it('provides the result of concatenating ancestor injected items with the promoteds', () => {
     const resultsStub = getResultsStub();
     const promotedsStub = getPromotedsStub();
-    const localVue = createLocalVue();
-    localVue.use(Vuex);
     const store = new Store<DeepPartial<RootXStoreState>>({});
-    installNewXPlugin({ store }, localVue);
-    resetXSearchStateWith(store, {
-      promoteds: promotedsStub,
-      totalResults: resultsStub.length * 2
-    });
-
     /* It provides an array with some results */
+
     const Provider = defineComponent({
       name: 'Provider',
       setup() {
@@ -146,11 +132,11 @@ describe('testing PromotedsList component', () => {
         <div><slot /></div>
       `
     });
-
     /*
      * It should inject an array with the result from the Provider and the banner concatenated from
      * BannersList
      */
+
     const Child = defineComponent({
       name: 'Child',
       setup() {
@@ -166,7 +152,6 @@ describe('testing PromotedsList component', () => {
         <p>{{ injectedListItemsString }}</p>
       `
     });
-
     const wrapper = mount(
       {
         template: '<Provider v-bind="$attrs"><PromotedsList><Child /></PromotedsList></Provider>',
@@ -177,10 +162,17 @@ describe('testing PromotedsList component', () => {
         }
       },
       {
-        localVue,
+        global: {
+          plugins: [installNewXPlugin({ store })]
+        },
         store
       }
     );
+
+    resetXSearchStateWith(store, {
+      promoteds: promotedsStub,
+      totalResults: resultsStub.length * 2
+    });
 
     expect(wrapper.text()).toBe(
       // eslint-disable-next-line max-len
@@ -193,14 +185,7 @@ interface RenderPromotedsListOptions {
   /** The template to be rendered. */
   template?: string;
   /** Components to be rendered. */
-  components?: Dictionary<VueConstructor | ComponentOptions<Vue>>;
+  components?: Dictionary<any>;
   /** The `promoteds` used to be rendered. */
   promoteds?: Promoted[];
-}
-
-interface RenderPromotedsListAPI {
-  /** The `wrapper` wrapper component. */
-  wrapper: Wrapper<Vue>;
-  /** The `promoteds` used to be rendered. */
-  getPromoteds: () => Promoted[];
 }

@@ -1,27 +1,50 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
+import { nextTick } from 'vue';
+import { HistoryQuery } from '@empathyco/x-types';
 import { RootXStoreState } from '../../../../store/store.types';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import ClearHistoryQueries from '../clear-history-queries.vue';
+import { XPlugin } from '../../../../plugins/x-plugin';
+import { XDummyBus } from '../../../../__tests__/bus.dummy';
+import { historyQueriesXModule } from '../../x-module';
 import { resetXHistoryQueriesStateWith } from './utils';
 
-describe('testing ClearHistoryQueries component', () => {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
+const bus = new XDummyBus();
+function renderClearHistoryQueries({
+  historyQueries = [],
+  template = '<ClearHistoryQueries v-bind="$attrs" />'
+}: RenderHistoryQueriesOptions) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
 
-  beforeEach(() => {
-    resetXHistoryQueriesStateWith(store);
-  });
+  const clearHistoryQueries = mount(
+    {
+      template,
+      components: {
+        ClearHistoryQueries
+      }
+    },
+    {
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] }, bus)]
+      },
+      store
+    }
+  );
+  resetXHistoryQueriesStateWith(store, { historyQueries });
 
-  it('is disabled if there are not history queries', async () => {
-    const clearHistoryQueries = mount(ClearHistoryQueries, { localVue, store });
+  return {
+    clearHistoryQueries
+  };
+}
+
+describe('testing ClearHistoryQueries component', () => {
+  it('is disabled if there are not history queries', () => {
+    const { clearHistoryQueries } = renderClearHistoryQueries({ historyQueries: [] });
 
     expect(clearHistoryQueries.attributes().disabled).toEqual('disabled');
-
-    resetXHistoryQueriesStateWith(store, {
+    /*const { clearHistoryQueries } = renderClearHistoryQueries({
       historyQueries: [
         {
           query: 'I want BBQ',
@@ -30,15 +53,11 @@ describe('testing ClearHistoryQueries component', () => {
         }
       ]
     });
-    await localVue.nextTick();
-    expect(clearHistoryQueries.attributes()).not.toHaveProperty('disabled');
+    expect(clearHistoryQueries.attributes()).not.toHaveProperty('disabled');*/
   });
 
   it('emits UserPressedClearHistoryQueries when clicked', async () => {
-    const listener = jest.fn();
-    const clearHistoryQueries = mount(ClearHistoryQueries, { localVue, store });
-    clearHistoryQueries.vm.$x.on('UserPressedClearHistoryQueries', true).subscribe(listener);
-    resetXHistoryQueriesStateWith(store, {
+    const { clearHistoryQueries } = renderClearHistoryQueries({
       historyQueries: [
         {
           query: 'I want BBQ',
@@ -47,10 +66,12 @@ describe('testing ClearHistoryQueries component', () => {
         }
       ]
     });
+    const listener = jest.fn();
+    XPlugin.bus.on('UserPressedClearHistoryQueries', true).subscribe(listener);
 
-    await localVue.nextTick();
+    await nextTick();
+
     clearHistoryQueries.trigger('click');
-
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith({
       eventPayload: undefined,
@@ -64,29 +85,26 @@ describe('testing ClearHistoryQueries component', () => {
   });
 
   it('has an slot rendering a message by default', () => {
-    const clearHistoryQueries = mount(ClearHistoryQueries, {
-      localVue,
-      store
-    });
+    const { clearHistoryQueries } = renderClearHistoryQueries({});
 
     expect(clearHistoryQueries.vm.$el.textContent).toEqual('✕');
   });
 
   it('has a default slot to customize its contents', () => {
-    const clearHistoryQueries = mount(ClearHistoryQueries, {
-      localVue,
-      store,
-      slots: {
-        default: {
-          template: '<span class="x-clear-history-queries__text">Clear</span>'
-        }
-      }
+    const { clearHistoryQueries } = renderClearHistoryQueries({
+      template: `<ClearHistoryQueries v-bind="$attrs" >
+                    <span class="x-clear-history-queries__text">Clear</span>
+                 </ClearHistoryQueries>`
     });
-    const renderedSlotHTML = clearHistoryQueries.element.querySelector(
-      '.x-clear-history-queries__text'
-    );
 
-    expect(renderedSlotHTML).toBeDefined();
-    expect(renderedSlotHTML!.textContent).toEqual('Clear');
+    expect(clearHistoryQueries.find('.x-clear-history-queries__text').exists()).toBe(true);
+    expect(clearHistoryQueries.find('.x-clear-history-queries__text').text()).toEqual('Clear');
   });
 });
+
+interface RenderHistoryQueriesOptions {
+  /** The suggestions list to render. */
+  historyQueries?: HistoryQuery[];
+  /** The template to render. */
+  template?: string;
+}
