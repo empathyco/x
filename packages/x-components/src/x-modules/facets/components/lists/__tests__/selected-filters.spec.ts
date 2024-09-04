@@ -5,13 +5,12 @@ import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.fac
 import { installNewXPlugin } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import { useStore } from '../../../../../composables/use-store';
-import { XPlugin } from '../../../../../plugins';
 import { resetFacetsService } from '../../../__tests__/utils';
 import { DefaultFacetsService } from '../../../service/facets.service';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import SelectedFilters from '../selected-filters.vue';
-
+import { XPlugin } from '../../../../../plugins/x-plugin';
 jest.mock('../../../../../composables/use-store');
 
 const facets: Record<Facet['id'], Facet> = {
@@ -32,15 +31,21 @@ const facets: Record<Facet['id'], Facet> = {
 function render({ template = '<SelectedFilters />', facetsIds = [] as string[] } = {}) {
   resetFacetsService();
 
+  const wrapper = mount(
+    {
+      components: { SelectedFilters },
+      template,
+
+      data: () => ({ facetsIds })
+    },
+    {
+      global: { plugins: [installNewXPlugin({ initialXModules: [facetsXModule] })] }
+    }
+  );
+
   installNewXPlugin({ initialXModules: [facetsXModule] });
   resetXFacetsStateWith(XPlugin.store, facets);
   (useStore as jest.Mock).mockReturnValue(XPlugin.store);
-
-  const wrapper = mount({
-    components: { SelectedFilters },
-    template,
-    data: () => ({ facetsIds })
-  });
 
   const selectedFiltersWrapper = wrapper.findComponent(SelectedFilters);
 
