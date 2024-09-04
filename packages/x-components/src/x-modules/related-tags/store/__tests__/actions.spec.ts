@@ -1,6 +1,6 @@
 import { RelatedTag } from '@empathyco/x-types';
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
 import { getRelatedTagsStub } from '../../../../__stubs__/related-tags-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
@@ -12,15 +12,13 @@ import {
   RelatedTagsMutations,
   RelatedTagsState
 } from '../types';
+import { relatedTagsXModule } from '../../x-module';
 import { resetRelatedTagsStateWith } from './utils';
+import { XPlugin } from '../../../../plugins/index';
 
 describe('testing related tags module actions', () => {
   const mockedRelatedTags = getRelatedTagsStub();
   const adapter = getMockedAdapter({ relatedTags: { relatedTags: mockedRelatedTags } });
-
-  const localVue = createLocalVue();
-  localVue.config.productionTip = false; // Silent production console messages.
-  localVue.use(Vuex);
 
   const store: SafeStore<
     RelatedTagsState,
@@ -28,7 +26,20 @@ describe('testing related tags module actions', () => {
     RelatedTagsMutations,
     RelatedTagsActions
   > = new Store(relatedTagsXStoreModule as any);
-  installNewXPlugin({ adapter, store }, localVue);
+
+  mount(
+    {},
+    {
+      global: {
+        plugins: [
+          store,
+          installNewXPlugin({ adapter, store, initialXModules: [relatedTagsXModule] })
+        ]
+      }
+    }
+  );
+
+  XPlugin.registerXModule(relatedTagsXModule);
 
   beforeEach(() => {
     resetRelatedTagsStateWith(store);
@@ -124,6 +135,7 @@ describe('testing related tags module actions', () => {
       }
     );
 
+    // FAILING TEST BELOW
     it(
       'should remove the related tag if it already exist in the selected related tags and add' +
         ' it again to the related tags',

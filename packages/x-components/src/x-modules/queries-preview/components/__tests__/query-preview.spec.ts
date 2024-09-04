@@ -38,13 +38,6 @@ function renderQueryPreview({
   }
 }: RenderQueryPreviewOptions = {}): RenderQueryPreviewAPI {
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  XPlugin.registerXModule(queriesPreviewXModule);
-
-  const queryPreviewRequestUpdatedSpy = jest.fn();
-  XPlugin.bus.on('QueryPreviewRequestUpdated').subscribe(queryPreviewRequestUpdatedSpy);
-
-  const queryPreviewUnmounted = jest.fn();
-  XPlugin.bus.on('QueryPreviewUnmounted').subscribe(queryPreviewUnmounted);
 
   if (queryPreviewInState) {
     resetXQueriesPreviewStateWith(store, {
@@ -54,19 +47,18 @@ function renderQueryPreview({
     });
   }
 
-  const wrapper: VueWrapper = mount(
+  const wrapper = mount(
     {
       components: { QueryPreview },
       template
     },
     {
       global: {
-        plugins: [installNewXPlugin({ store, initialXModules: [queriesPreviewXModule] })],
+        plugins: [installNewXPlugin({ store, initialXModules: [queriesPreviewXModule] }), store],
         provide: {
           location
         }
       },
-      store,
       props: {
         maxItemsToRender,
         queryPreviewInfo,
@@ -75,10 +67,20 @@ function renderQueryPreview({
         persistInCache
       }
     }
-  ).findComponent(QueryPreview);
+  );
+
+  XPlugin.registerXModule(queriesPreviewXModule);
+
+  const queryPreviewRequestUpdatedSpy = jest.fn();
+  XPlugin.bus.on('QueryPreviewRequestUpdated').subscribe(queryPreviewRequestUpdatedSpy);
+
+  const queryPreviewUnmounted = jest.fn();
+  XPlugin.bus.on('QueryPreviewUnmounted').subscribe(queryPreviewUnmounted);
 
   return {
     wrapper,
+    componentWrapper: wrapper.findComponent(QueryPreview),
+    getQueryPreviewItemWrappers: () => wrapper.findAll(getDataTestSelector('query-preview-item')),
     queryPreviewRequestUpdatedSpy,
     queryPreviewUnmounted,
     queryPreviewInfo,
@@ -102,27 +104,28 @@ describe('query preview', () => {
   });
 
   it('is an XComponent which has an XModule', () => {
-    const { wrapper } = renderQueryPreview();
-    expect(isXComponent(wrapper.vm)).toEqual(true);
-    expect(getXComponentXModuleName(wrapper.vm)).toBe('queriesPreview');
+    const { componentWrapper } = renderQueryPreview();
+    expect(isXComponent(componentWrapper.vm)).toEqual(true);
+    expect(getXComponentXModuleName(componentWrapper.vm)).toBe('queriesPreview');
   });
 
   // eslint-disable-next-line max-len
   it('does not send the `QueryPreviewRequestUpdated` event if persistInCache is true, but emits load', () => {
-    const { queryPreviewRequestUpdatedSpy, wrapper, queryPreviewInfo } = renderQueryPreview({
-      persistInCache: true,
-      queryPreviewInfo: {
-        query: 'shoes',
-        extraParams: { directory: 'Magrathea' },
-        filters: ['fit:regular']
-      }
-    });
+    const { queryPreviewRequestUpdatedSpy, componentWrapper, queryPreviewInfo } =
+      renderQueryPreview({
+        persistInCache: true,
+        queryPreviewInfo: {
+          query: 'shoes',
+          extraParams: { directory: 'Magrathea' },
+          filters: ['fit:regular']
+        }
+      });
     const query = getHashFromQueryPreviewInfo(queryPreviewInfo);
 
-    jest.advanceTimersByTime(0); // Wait for first emission.
+    jest.advanceTimersByTime(1); // Wait for first emission.
     expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(0);
-    expect(wrapper.emitted('load')?.length).toBe(1);
-    expect(wrapper.emitted('load')?.[0]).toEqual([query]);
+    expect(componentWrapper.emitted('load')?.length).toBe(1);
+    expect(componentWrapper.emitted('load')?.[0]).toEqual([query]);
   });
 
   it('emits `QueryPreviewUnmounted` when the component is being unmounted', () => {
@@ -248,22 +251,24 @@ describe('query preview', () => {
   });
 
   it('renders the results names in the default slot', () => {
-    const { queryPreviewInState, wrapper } = renderQueryPreview();
+    const { getQueryPreviewItemWrappers, queryPreviewInState, wrapper, componentWrapper } =
+      renderQueryPreview();
+    //const wrappers: DOMWrapper<Element>[] = findTestDataById(componentWrapper, 'result-name');
 
-    const wrappers: DOMWrapper<Element>[] = findTestDataById(wrapper, 'result-name');
-
+    // console.log('ROOT WRAPPER', { html: wrapper.html(), programatic: wrapper.vm });
+    // console.log('COMPONENT WRAPPER', { html: componentWrapper.html(), programatic: componentWrapper.vm });   // in programatic
+    // console.log('RESULT WRAPPERS', wrappers);
     queryPreviewInState!.results.forEach((result, index) => {
-      expect(wrappers.at(index)?.element).toHaveTextContent(result.name!);
+      expect(getQueryPreviewItemWrappers().at(index)?.element).toHaveTextContent(result.name!);
     });
   });
 
   it('renders the specified number of results', () => {
     const maxItemsToRender = 2;
-    const { wrapper } = renderQueryPreview({
+    const { componentWrapper } = renderQueryPreview({
       maxItemsToRender
     });
-
-    expect(findTestDataById(wrapper, 'result-name')).toHaveLength(maxItemsToRender);
+    expect(findTestDataById(componentWrapper, 'result-name')).toHaveLength(maxItemsToRender);
   });
 
   it('exposes the query, the results and the totalResults in the default slot', () => {
@@ -280,18 +285,18 @@ describe('query preview', () => {
         </div>
       </QueryPreview>`;
 
-    const { queryPreviewInfo, wrapper, queryPreviewInState } = renderQueryPreview({
+    const { queryPreviewInfo, componentWrapper, queryPreviewInState } = renderQueryPreview({
       template
     });
 
-    expect(wrapper.find(getDataTestSelector('query-preview-query')).element).toHaveTextContent(
-      queryPreviewInfo.query
-    );
-    expect(wrapper.find(getDataTestSelector('total-results')).element).toHaveTextContent(
+    expect(
+      componentWrapper.find(getDataTestSelector('query-preview-query')).element
+    ).toHaveTextContent(queryPreviewInfo.query);
+    expect(componentWrapper.find(getDataTestSelector('total-results')).element).toHaveTextContent(
       queryPreviewInState!.totalResults.toString()
     );
 
-    const resultsWrappers = findTestDataById(wrapper, 'result-name');
+    const resultsWrappers = findTestDataById(componentWrapper, 'result-name');
 
     queryPreviewInState!.results.forEach((result, index) => {
       expect(resultsWrappers.at(index)?.element).toHaveTextContent(result.name!);
@@ -304,9 +309,9 @@ describe('query preview', () => {
         <span data-test="result-content">{{result.id}} - {{result.name}}</span>
       </QueryPreview>
     `;
-    const { wrapper, queryPreviewInState } = renderQueryPreview({ template });
+    const { componentWrapper, queryPreviewInState } = renderQueryPreview({ template });
 
-    const resultsWrapper = findTestDataById(wrapper, 'result-content');
+    const resultsWrapper = findTestDataById(componentWrapper, 'result-content');
 
     queryPreviewInState!.results.forEach((result, index) => {
       expect(resultsWrapper.at(index)?.element).toHaveTextContent(`${result.id} - ${result.name!}`);
@@ -314,7 +319,7 @@ describe('query preview', () => {
   });
 
   it('wont render if there are no results', () => {
-    const { wrapper } = renderQueryPreview({
+    const { componentWrapper } = renderQueryPreview({
       queryPreviewInState: {
         request: {
           query: 'milk'
@@ -326,13 +331,13 @@ describe('query preview', () => {
       }
     });
 
-    expect(wrapper.html()).toEqual('');
+    expect(componentWrapper.text()).toEqual('');
   });
 
   it('emits load event on success', async () => {
     jest.useRealTimers();
 
-    const { wrapper, reRender, queryPreviewInfo } = renderQueryPreview();
+    const { componentWrapper, reRender, queryPreviewInfo } = renderQueryPreview();
 
     (XComponentsAdapterDummy.search as jest.Mock).mockResolvedValueOnce({
       ...getEmptySearchResponseStub(),
@@ -344,16 +349,16 @@ describe('query preview', () => {
 
     await reRender();
 
-    expect(wrapper.emitted('load')?.length).toBe(1);
-    expect(wrapper.emitted('load')?.[0]).toEqual([query]);
-    expect(wrapper.emitted('error')).toBeUndefined();
+    expect(componentWrapper.emitted('load')?.length).toBe(1);
+    expect(componentWrapper.emitted('load')?.[0]).toEqual([query]);
+    expect(componentWrapper.emitted('error')).toBeUndefined();
 
     jest.useFakeTimers();
   });
 
   it('emits error event on success if results are empty', async () => {
     jest.useRealTimers();
-    const { wrapper, reRender, queryPreviewInfo } = renderQueryPreview({
+    const { componentWrapper, reRender, queryPreviewInfo } = renderQueryPreview({
       queryPreviewInState: {
         request: {
           query: 'milk'
@@ -369,9 +374,9 @@ describe('query preview', () => {
 
     await reRender();
 
-    expect(wrapper.emitted('error')?.length).toBe(1);
-    expect(wrapper.emitted('error')?.[0]).toEqual([query]);
-    expect(wrapper.emitted('load')).toBeUndefined();
+    expect(componentWrapper.emitted('error')?.length).toBe(1);
+    expect(componentWrapper.emitted('error')?.[0]).toEqual([query]);
+    expect(componentWrapper.emitted('load')).toBeUndefined();
 
     jest.useFakeTimers();
   });
@@ -380,7 +385,7 @@ describe('query preview', () => {
     jest.useRealTimers();
     (XComponentsAdapterDummy.search as jest.Mock).mockRejectedValueOnce('Some error');
 
-    const { wrapper, reRender } = renderQueryPreview({
+    const { componentWrapper, reRender } = renderQueryPreview({
       queryPreviewInState: null
     });
 
@@ -388,9 +393,9 @@ describe('query preview', () => {
 
     await reRender();
 
-    expect(wrapper.emitted('error')?.length).toBe(1);
-    expect(wrapper.emitted('error')?.[0]).toEqual([query]);
-    expect(wrapper.emitted('load')).toBeUndefined();
+    expect(componentWrapper.emitted('error')?.length).toBe(1);
+    expect(componentWrapper.emitted('error')?.[0]).toEqual([query]);
+    expect(componentWrapper.emitted('load')).toBeUndefined();
     jest.useFakeTimers();
   });
 
@@ -507,6 +512,8 @@ interface RenderQueryPreviewOptions {
 interface RenderQueryPreviewAPI {
   /** The Vue testing utils wrapper for the {@link QueryPreview} component. */
   wrapper: VueWrapper;
+  componentWrapper: VueWrapper;
+  getQueryPreviewItemWrappers: () => DOMWrapper<Element>[];
   /** A Jest spy set in the {@link XPlugin} `on` function. */
   queryPreviewRequestUpdatedSpy?: jest.Mock;
   /** A Jest spy set in the {@link XPlugin} `on` function. */

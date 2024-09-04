@@ -1,7 +1,7 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
+import { nextTick, Slots, VNode } from 'vue';
+import { Store } from 'vuex';
 import { BaseResultLink } from '../../../../components/index';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
@@ -14,15 +14,21 @@ import { resetStoreIdentifierResultState } from './utils';
 describe('testing IdentifierResult component', () => {
   const identifierResults = getResultsStub();
 
-  let identifierResultsWrapper: Wrapper<IdentifierResults>;
+  let identifierResultsWrapper: VueWrapper;
 
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
 
   beforeEach(() => {
-    identifierResultsWrapper = mount(IdentifierResults, { localVue, store });
+    identifierResultsWrapper = mount(
+      {
+        components: { IdentifierResults }
+      },
+      {
+        global: {
+          plugins: [installNewXPlugin({ store }), store]
+        }
+      }
+    );
     resetStoreIdentifierResultState(store, { query: 'A02232', identifierResults });
   });
 
@@ -52,7 +58,6 @@ describe('testing IdentifierResult component', () => {
     };
 
     identifierResultsWrapper = mount(wrapperComponent, {
-      localVue,
       store
     });
 
@@ -61,43 +66,39 @@ describe('testing IdentifierResult component', () => {
     const spanList = findAllByTestDataId(identifierResultsWrapper, 'identifier-result');
 
     identifierResults.forEach((result, index) => {
-      expect(spanList.at(index).text()).toEqual(result.identifier!.value);
+      expect(spanList.at(index)?.text()).toEqual(result.identifier!.value);
     });
   });
 
   it('does not render any IdentifierResult if the are none', async () => {
     resetStoreIdentifierResultState(store);
 
-    await localVue.nextTick();
+    await nextTick();
 
     expect(identifierResultsWrapper.html()).toEqual('');
   });
 
   it('allows changing the animation with a transition group', async () => {
-    const animation = Vue.extend({
-      render(h) {
-        return h(
-          'transition-group',
-          {
-            attrs: {
-              ...this.$attrs,
-              ['data-test']: 'test-animation'
-            }
-          },
-          this.$slots.default
-        );
-      }
-    });
+    const animation = {
+      render(this: { $slots: Slots }): VNode[] | null {
+        return this.$slots.default ? this.$slots.default() : null;
+      },
+      template: `
+        <transition-group data-test="test-animation">
+          <slot></slot>
+        </transition-group>
+      `
+    };
 
     await identifierResultsWrapper.setProps({ animation });
 
     expect(identifierResultsWrapper.findComponent(animation).exists()).toBeTruthy();
-    expect(identifierResultsWrapper.find('test-animation')).toBeTruthy();
+    expect(identifierResultsWrapper.find('[data-test="test-animation"]').exists()).toBeTruthy();
   });
 
   // eslint-disable-next-line max-len
   it('renders at most the number of identifier results defined by `maxItemsToRender` prop', async () => {
-    const renderedResults = (): WrapperArray<Vue> =>
+    const renderedResults = (): DOMWrapper<Element>[] =>
       findAllByTestDataId(identifierResultsWrapper, 'identifier-results-item');
 
     expect(renderedResults()).toHaveLength(identifierResults.length);
@@ -112,7 +113,7 @@ describe('testing IdentifierResult component', () => {
     expect(renderedResults()).toHaveLength(identifierResults.length);
   });
 
-  function findAllByTestDataId(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
+  function findAllByTestDataId(wrapper: VueWrapper, testDataId: string): DOMWrapper<Element>[] {
     return wrapper.findAll(getDataTestSelector(testDataId));
   }
 });
