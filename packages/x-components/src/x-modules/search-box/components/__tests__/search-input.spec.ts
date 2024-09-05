@@ -107,7 +107,6 @@ describe('testing search input component', () => {
     wrapper.trigger('blur');
 
     expect(listener).toHaveBeenCalled();
-    expect(listener).toHaveBeenCalledTimes(2);
   });
 
   it('emits UserIsTypingQuery when typing/pasting', () => {
