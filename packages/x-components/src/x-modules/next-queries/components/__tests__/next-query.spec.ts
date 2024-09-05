@@ -9,7 +9,7 @@ import { default as NextQueryComponent } from '../next-query.vue';
 import { XPlugin } from '../../../../plugins/index';
 function renderNextQuery({
   suggestion = createNextQueryStub('milk'),
-  template = '<NextQuery :suggestion="suggestion" />'
+  template = '<NextQuery :suggestion="suggestion" :highlightCurated="highlightCurated" />'
 }: RenderNextQueryOptions = {}) {
   const wrapperTemplate = mount(
     {
