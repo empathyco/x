@@ -1,13 +1,11 @@
-import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue, { nextTick } from 'vue';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
+import { XDummyBus } from '../../../../__tests__/bus.dummy';
 import { installNewXPlugin } from '../../../../__tests__/utils';
-import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
-import { RootXStoreState } from '../../../../store/store.types';
-import { deviceXModule } from '../../x-module';
+import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import DeviceDetector from '../device-detector.vue';
+
+const metadata = { location: 'none', moduleName: 'device', replaceable: true };
 
 /**
  * Renders the {@link DeviceDetector} component, exposing a basic API for testing.
@@ -16,47 +14,40 @@ import DeviceDetector from '../device-detector.vue';
  * @returns The API for testing the {@link DeviceDetector} component.
  */
 async function renderDeviceDetector({
-  force,
+  force = '',
   throttleMs = 30,
   initialWidth = 1024,
   breakpoints = {
     mobile: 600,
+    tablet: 1000,
     desktop: Number.POSITIVE_INFINITY
   }
-}: RenderDeviceDetectorOptions = {}): Promise<RenderDeviceDetectorAPI> {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-  const store = new Store<DeepPartial<RootXStoreState>>({});
-  XPlugin.resetInstance();
-
-  installNewXPlugin({ store }, localVue);
-  XPlugin.registerXModule(deviceXModule);
-
+} = {}) {
   Object.assign(window, { innerWidth: initialWidth });
+  const xBus = new XDummyBus();
+  let emitSpy = jest.spyOn(xBus, 'emit');
+
   const wrapper = mount(DeviceDetector, {
-    store,
-    localVue,
-    propsData: {
+    props: {
       breakpoints,
       throttleMs,
       force
-    }
+    },
+    global: { plugins: [installNewXPlugin({}, xBus)] }
   });
 
   await nextTick();
 
   return {
     wrapper,
-    resize(width) {
+    emitSpy,
+    resize: (width: any) => {
       Object.assign(window, { innerWidth: width });
       window.dispatchEvent(new UIEvent('resize'));
     },
     waitForThrottle() {
       jest.advanceTimersByTime(throttleMs);
       return nextTick();
-    },
-    getDevice() {
-      return XPlugin.store.state.x.device.name;
     }
   };
 }
@@ -71,7 +62,9 @@ describe('testing DeviceDetector component', () => {
 
   it('is an x-component', async () => {
     const { wrapper } = await renderDeviceDetector();
+
     expect(isXComponent(wrapper.vm)).toEqual(true);
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('device');
   });
 
   it('belongs to the `device` x-module', async () => {
@@ -81,7 +74,7 @@ describe('testing DeviceDetector component', () => {
   });
 
   it('detects the device with the provided breakpoints', async () => {
-    const { resize, getDevice, waitForThrottle } = await renderDeviceDetector({
+    const { resize, emitSpy, waitForThrottle } = await renderDeviceDetector({
       initialWidth: 600,
       breakpoints: {
         // Intentionally unordered breakpoints
@@ -91,21 +84,21 @@ describe('testing DeviceDetector component', () => {
       }
     });
 
-    expect(getDevice()).toBe('mobile');
+    expect(emitSpy).toHaveBeenLastCalledWith('DeviceProvided', 'mobile', metadata);
 
     resize(601);
     // The resize should be throttled, so no change should happen yet
-    expect(getDevice()).toBe('mobile');
+    expect(emitSpy).toHaveBeenLastCalledWith('DeviceProvided', 'mobile', metadata);
     await waitForThrottle();
-    expect(getDevice()).toBe('tablet');
+    expect(emitSpy).toHaveBeenLastCalledWith('DeviceProvided', 'tablet', metadata);
 
     resize(1001);
     await waitForThrottle();
-    expect(getDevice()).toBe('desktop');
+    expect(emitSpy).toHaveBeenLastCalledWith('DeviceProvided', 'desktop', metadata);
   });
 
   it('allows to force a device', async () => {
-    const { resize, getDevice, waitForThrottle } = await renderDeviceDetector({
+    const { resize, emitSpy, waitForThrottle } = await renderDeviceDetector({
       force: 'not-standard-device',
       initialWidth: 600,
       breakpoints: {
@@ -115,40 +108,10 @@ describe('testing DeviceDetector component', () => {
       }
     });
 
-    expect(getDevice()).toBe('not-standard-device');
+    expect(emitSpy).toHaveBeenLastCalledWith('DeviceProvided', 'not-standard-device', metadata);
 
     resize(1001);
     await waitForThrottle();
-    expect(getDevice()).toBe('not-standard-device');
+    expect(emitSpy).toHaveBeenLastCalledWith('DeviceProvided', 'not-standard-device', metadata);
   });
 });
-
-interface RenderDeviceDetectorOptions {
-  /** The {@link DeviceDetector.force } prop. */
-  force?: string;
-  /** The {@link DeviceDetector.throttleMs } prop. */
-  throttleMs?: number;
-  /** The {@link DeviceDetector.breakpoints } prop. */
-  breakpoints?: Record<string, number>;
-  /** The initial width of the window. */
-  initialWidth?: number;
-}
-
-interface RenderDeviceDetectorAPI {
-  /** Test wrapper of the {@link DeviceDetector} instance. */
-  wrapper: Wrapper<Vue>;
-  /** Retrieves the detected device. */
-  getDevice: () => string | null;
-  /**
-   * Resizes the window to the provided width.
-   *
-   * @param width - The new window width.
-   */
-  resize: (width: number) => void;
-  /**
-   * Waits for the throttle time to complete.
-   *
-   * @returns A promise that resolves after the throttle has completed.
-   */
-  waitForThrottle: () => Promise<void>;
-}
