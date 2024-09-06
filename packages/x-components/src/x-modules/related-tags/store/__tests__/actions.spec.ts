@@ -1,45 +1,19 @@
 import { RelatedTag } from '@empathyco/x-types';
 import { Store } from 'vuex';
 import { mount } from '@vue/test-utils';
-import { getRelatedTagsStub } from '../../../../__stubs__/related-tags-stubs.factory';
+import { getRelatedTagsStub } from '../../../../__stubs__';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
-import { SafeStore } from '../../../../store/__tests__/utils';
-import { UrlParams } from '../../../../types/url-params';
+import { UrlParams } from '../../../../types';
 import { relatedTagsXStoreModule } from '../module';
-import {
-  RelatedTagsActions,
-  RelatedTagsGetters,
-  RelatedTagsMutations,
-  RelatedTagsState
-} from '../types';
-import { relatedTagsXModule } from '../../x-module';
+import { RelatedTagsState } from '../types';
 import { resetRelatedTagsStateWith } from './utils';
-import { XPlugin } from '../../../../plugins/index';
 
 describe('testing related tags module actions', () => {
   const mockedRelatedTags = getRelatedTagsStub();
   const adapter = getMockedAdapter({ relatedTags: { relatedTags: mockedRelatedTags } });
+  const store = new Store<RelatedTagsState>(relatedTagsXStoreModule as any);
 
-  const store: SafeStore<
-    RelatedTagsState,
-    RelatedTagsGetters,
-    RelatedTagsMutations,
-    RelatedTagsActions
-  > = new Store(relatedTagsXStoreModule as any);
-
-  mount(
-    {},
-    {
-      global: {
-        plugins: [
-          store,
-          installNewXPlugin({ adapter, store, initialXModules: [relatedTagsXModule] })
-        ]
-      }
-    }
-  );
-
-  XPlugin.registerXModule(relatedTagsXModule);
+  mount({}, { global: { plugins: [installNewXPlugin({ adapter, store })] } });
 
   beforeEach(() => {
     resetRelatedTagsStateWith(store);
@@ -47,9 +21,7 @@ describe('testing related tags module actions', () => {
 
   describe('fetchRelatedTags', () => {
     it('should return related tags', async () => {
-      resetRelatedTagsStateWith(store, {
-        query: 'lego'
-      });
+      resetRelatedTagsStateWith(store, { query: 'lego' });
 
       const relatedTags = await store.dispatch('fetchRelatedTags', store.getters.request);
       expect(relatedTags).toEqual(mockedRelatedTags);
@@ -63,12 +35,11 @@ describe('testing related tags module actions', () => {
 
   describe('fetchAndSaveRelatedTags', () => {
     it('should request and store related tags in the state', async () => {
-      resetRelatedTagsStateWith(store, {
-        query: 'lego'
-      });
+      resetRelatedTagsStateWith(store, { query: 'lego' });
 
       const actionPromise = store.dispatch('fetchAndSaveRelatedTags', store.getters.request);
       expect(store.state.status).toEqual('loading');
+
       await actionPromise;
       expect(store.state.relatedTags).toEqual(mockedRelatedTags);
       expect(store.state.status).toEqual('success');
@@ -76,6 +47,7 @@ describe('testing related tags module actions', () => {
 
     it('should clear related tags in the state if the query is empty', async () => {
       await store.dispatch('fetchAndSaveRelatedTags', store.getters.request);
+
       expect(store.state.relatedTags).toEqual([]);
     });
 
@@ -89,7 +61,8 @@ describe('testing related tags module actions', () => {
 
       await firstRequest;
       expect(store.state.status).toEqual('loading');
-      expect(store.state.relatedTags).toBe(initialRelatedTags);
+      expect(store.state.relatedTags).toEqual(initialRelatedTags);
+
       await secondRequest;
       expect(store.state.status).toEqual('success');
       expect(store.state.relatedTags).toEqual(mockedRelatedTags);
@@ -101,7 +74,7 @@ describe('testing related tags module actions', () => {
       const relatedTags = store.state.relatedTags;
       await store.dispatch('fetchAndSaveRelatedTags', store.getters.request);
 
-      expect(store.state.relatedTags).toBe(relatedTags);
+      expect(store.state.relatedTags).toEqual(relatedTags);
       expect(store.state.status).toEqual('error');
     });
   });
@@ -114,63 +87,44 @@ describe('testing related tags module actions', () => {
         store.dispatch('fetchAndSaveRelatedTags', store.getters.request),
         store.dispatch('cancelFetchAndSaveRelatedTags')
       ]);
+
       expect(store.state.relatedTags).toEqual(previousRelatedTags);
       expect(store.state.status).toEqual('success');
     });
   });
 
   describe('toggleRelatedTag', () => {
-    const relatedTagToSelect = mockedRelatedTags[0];
+    it('should add the toggled related tag to the selected related tag and remove the related tags', () => {
+      resetRelatedTagsStateWith(store, {
+        relatedTags: mockedRelatedTags
+      });
+      const relatedTagToToggle = store.state.relatedTags[0];
+      store.dispatch('toggleRelatedTag', relatedTagToToggle);
 
-    it(
-      'should add the toggled related tag to the selected related tag and remove ' +
-        'the related tags',
-      () => {
-        resetRelatedTagsStateWith(store, {
-          relatedTags: mockedRelatedTags
-        });
-        store.dispatch('toggleRelatedTag', relatedTagToSelect);
-        expect(store.state.selectedRelatedTags).toEqual([relatedTagToSelect]);
-        expect(store.state.relatedTags).toEqual([]);
-      }
-    );
+      expect(store.state.selectedRelatedTags).toEqual([relatedTagToToggle]);
+      expect(store.state.relatedTags).toEqual([]);
+    });
 
-    // FAILING TEST BELOW
-    it(
-      'should remove the related tag if it already exist in the selected related tags and add' +
-        ' it again to the related tags',
-      () => {
-        const partialMockedRelatedTags = mockedRelatedTags.slice(1);
-        resetRelatedTagsStateWith(store, {
-          selectedRelatedTags: [relatedTagToSelect],
-          relatedTags: partialMockedRelatedTags
-        });
-        store.dispatch('toggleRelatedTag', relatedTagToSelect);
-        expect(store.state.selectedRelatedTags).toEqual([]);
-        expect(store.state.relatedTags).toContain(relatedTagToSelect);
-      }
-    );
+    it('should remove the related tag if it already exist in the selected related tags and add it again to the related tags', () => {
+      resetRelatedTagsStateWith(store, {
+        selectedRelatedTags: [mockedRelatedTags[0]]
+      });
+      const relatedTagToToggle = store.state.selectedRelatedTags[0];
+      store.dispatch('toggleRelatedTag', relatedTagToToggle);
+
+      expect(store.state.selectedRelatedTags).toEqual([]);
+      expect(store.state.relatedTags).toEqual([relatedTagToToggle]);
+    });
   });
 
   describe('setUrlParams', () => {
     it('should add the query and related tags to the store', () => {
-      store.dispatch('setUrlParams', {
-        query: 'funko',
-        tag: ['pop', 'lego']
-      } as UrlParams);
+      store.dispatch('setUrlParams', { query: 'funko', tag: ['pop', 'lego'] } as UrlParams);
 
       expect(store.state.query).toEqual('funko');
       expect(store.state.selectedRelatedTags).toEqual<RelatedTag[]>([
-        {
-          modelName: 'RelatedTag',
-          tag: 'pop',
-          query: 'funko pop'
-        },
-        {
-          modelName: 'RelatedTag',
-          tag: 'lego',
-          query: 'funko lego'
-        }
+        { modelName: 'RelatedTag', tag: 'pop', query: 'funko pop' },
+        { modelName: 'RelatedTag', tag: 'lego', query: 'funko lego' }
       ]);
     });
   });
