@@ -122,9 +122,7 @@ describe('testing BannersList component', () => {
         const injectedListItemsString = computed(
           () => injectedListItems?.value.map(item => item.id).join(',') ?? ''
         );
-        return {
-          injectedListItemsString
-        };
+        return { injectedListItemsString };
       },
       template: `<p>{{ injectedListItemsString }}</p>`
     });
@@ -149,8 +147,8 @@ describe('testing BannersList component', () => {
     await nextTick();
 
     expect(wrapper.text()).toEqual(
-      `${bannersStub[0].id},${resultsStub[0].id},${resultsStub[1].id},${bannersStub[1].id},\n
-      ${bannersStub[2].id},${bannersStub[3].id},${resultsStub[2].id},${resultsStub[3].id},\n
+      `${bannersStub[0].id},${resultsStub[0].id},${resultsStub[1].id},${bannersStub[1].id},
+      ${bannersStub[2].id},${bannersStub[3].id},${resultsStub[2].id},${resultsStub[3].id},
       ${bannersStub[4].id}`.replace(/\s/g, '')
     );
   });
