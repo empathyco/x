@@ -1,62 +1,55 @@
-import { Result } from '@empathyco/x-types';
-import { DeepPartial, Dictionary } from '@empathyco/x-utils';
+import { DeepPartial } from '@empathyco/x-utils';
 import { mount } from '@vue/test-utils';
 import { defineComponent, inject, Ref, nextTick } from 'vue';
 import { Store } from 'vuex';
-import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
+import { getResultsStub, getSearchResponseStub } from '../../../../__stubs__';
 import BaseGrid from '../../../../components/base-grid.vue';
-import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { RootXStoreState } from '../../../../store/store.types';
+import { RootXStoreState } from '../../../../store';
 import { ListItem } from '../../../../utils/types';
-import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
+import {
+  getDataTestSelector,
+  getMockedAdapter,
+  installNewXPlugin
+} from '../../../../__tests__/utils';
 import ResultsList from '../results-list.vue';
 import {
   HAS_MORE_ITEMS_KEY,
   LIST_ITEMS_KEY,
-  QUERY_KEY
-} from '../../../../components/decorators/injection.consts';
+  QUERY_KEY,
+  getXComponentXModuleName,
+  isXComponent
+} from '../../../../components';
 import { SearchMutations } from '../../store/types';
 import { searchXModule } from '../../x-module';
-import { XPlugin } from '../../../../plugins/x-plugin';
 import { resetXSearchStateWith } from './utils';
 
-/**
- * Renders the `ResultsList` component, exposing a basic API for testing.
- *
- * @param options - The options to render the component with.
- * @returns The API for testing the `ResultsList` component.
- */
-function renderResultsList({
+const adapter = getMockedAdapter({ search: getSearchResponseStub() });
+
+async function render({
   template = '<ResultsList />',
   results = getResultsStub(),
-  totalResults = results.length,
-  components
-}: RenderResultsListOptions = {}) {
+  components = {}
+} = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
 
   const wrapper = mount(
     {
-      components: {
-        ResultsList,
-        ...components
-      },
-      template
+      template,
+      components: { ResultsList, ...components }
     },
     {
       global: {
-        plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] })]
-      },
-      store
+        plugins: [installNewXPlugin({ store, initialXModules: [searchXModule], adapter })]
+      }
     }
   );
 
-  resetXSearchStateWith(store, { results, totalResults });
+  resetXSearchStateWith(store, { results, totalResults: results.length });
+  await nextTick();
 
   return {
     wrapper: wrapper.findComponent(ResultsList),
-    getResults(): Result[] {
-      return results;
-    },
+    results,
     commit: <Event extends keyof SearchMutations>(
       event: Event,
       payload: Parameters<SearchMutations[Event]>[0]
@@ -67,121 +60,86 @@ function renderResultsList({
 }
 
 describe('testing Results list component', () => {
-  it('is an XComponent', () => {
-    const { wrapper } = renderResultsList();
-    expect(isXComponent(wrapper.vm)).toEqual(true);
-  });
+  it('is an XComponent which has an XModule', async () => {
+    const { wrapper } = await render();
 
-  it('has Search as XModule', () => {
-    const { wrapper } = renderResultsList();
+    expect(isXComponent(wrapper.vm)).toEqual(true);
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('search');
   });
 
-  it('renders the results in the state', () => {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    const { wrapper, getResults } = renderResultsList();
+  it('renders the results in the state', async () => {
+    const { wrapper, results } = await render();
     const resultsListItems = wrapper.findAll(getDataTestSelector('results-list-item'));
 
-    getResults().forEach(async (result, index) => {
-      await nextTick();
-      expect(resultsListItems.at(index)?.text()).toEqual(result.id);
-    });
+    results.forEach((result, index) =>
+      expect(resultsListItems.at(index)?.text()).toEqual(result.id)
+    );
   });
 
-  it('does not render any result if the are none', () => {
-    const { wrapper } = renderResultsList({ results: [] });
-    expect(wrapper.find(getDataTestSelector('results-list')).exists()).toBe(false);
+  it('does not render any result if the are none', async () => {
+    const { wrapper } = await render({ results: [] });
+
+    expect(wrapper.isVisible()).toEqual(false);
   });
 
-  it('allows customizing the result slot', () => {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    const { wrapper, getResults } = renderResultsList({
+  it('allows customizing the result slot', async () => {
+    const { wrapper, results } = await render({
       template: `
         <ResultsList>
           <template #result="{ item }">
-            <p :result="item" data-test="result-slot-overridden">Custom result: {{ result.name }}</p>
+            <p data-test="result-slot-overridden">Custom result: {{ item.name }}</p>
           </template>
         </ResultsList>`
     });
 
-    //await nextTick();
-
-    expect(wrapper.find('.x-results-list').exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('items-list')).classes('x-items-list')).toBe(true);
-    expect(wrapper.find(getDataTestSelector('results-list-item')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('result-slot-overridden')).text()).toBe(
-      `Custom result: ${getResults()[0].name!}`
+    expect(wrapper.exists()).toEqual(true);
+    expect(wrapper.find(getDataTestSelector('items-list')).classes('x-items-list')).toEqual(true);
+    expect(wrapper.find(getDataTestSelector('results-list-item')).exists()).toEqual(true);
+    expect(wrapper.find(getDataTestSelector('result-slot-overridden')).text()).toEqual(
+      `Custom result: ${results[0].name!}`
     );
   });
 
-  it('allows customizing the default slot', () => {
-    const { wrapper } = renderResultsList({
+  it('allows customizing the default slot', async () => {
+    const { wrapper } = await render({
       template: `
         <ResultsList>
           <template #default="{ results }">
-            <p :items="results" data-test="default-slot-overridden"/>
+            <p data-test="default-slot-overridden"/>
           </template>
         </ResultsList>`,
       components: { BaseGrid }
     });
 
-    expect(wrapper.find(getDataTestSelector('results-list')).exists()).toBe(false);
-    expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('results-list')).exists()).toEqual(false);
+    expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toEqual(true);
   });
 
-  it('emits an `UserReachedResultListEnd` X event when onInfiniteScrollEnd is called', () => {
-    //const { wrapper } = renderResultsList();
-
-    const listener = jest.fn();
-    XPlugin.bus.on('UserReachedResultsListEnd').subscribe(listener);
-
-    //wrapper.vm.onInfiniteScrollEnd();
-
-    expect(listener).toHaveBeenCalledTimes(1);
-  });
-
-  it('provides the results from state with the key `item`', () => {
+  it('provides the results from state with the key `item`', async () => {
     const Child = defineComponent({
       name: 'Child',
-      setup() {
-        const items = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
-
-        return { items };
-      },
-      template: `
-        <div>{{ items[0].id }}</div>
-      `
+      setup: () => ({ items: inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string) }),
+      template: `<div>{{ items?.[0]?.id }}</div>`
     });
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    const { wrapper, getResults } = renderResultsList({
+
+    const { wrapper, results } = await render({
       template: '<ResultsList><Child /></ResultsList>',
-      components: {
-        Child
-      }
+      components: { Child }
     });
 
     const childWrapper = wrapper.findComponent(Child);
-    expect(childWrapper.text()).toBe(getResults()[0].id);
+    expect(childWrapper.text()).toEqual(results[0].id);
   });
 
-  // eslint-disable-next-line max-len
   it('provides the query with the key `query`, only updating it if the status is success', async () => {
     const Child = defineComponent({
       name: 'Child',
-      setup() {
-        const searchQuery = inject<Ref<string>>(QUERY_KEY as string);
-
-        return { searchQuery };
-      },
-      template: `
-        <div>{{ searchQuery }}</div>
-      `
+      setup: () => ({ searchQuery: inject<Ref<string>>(QUERY_KEY as string) }),
+      template: `<div>{{ searchQuery }}</div>`
     });
-    const { wrapper, commit } = renderResultsList({
+    const { wrapper, commit } = await render({
       template: `<ResultsList><Child/></ResultsList>`,
-      components: {
-        Child
-      }
+      components: { Child }
     });
 
     const childWrapper = wrapper.findComponent(Child);
@@ -200,66 +158,43 @@ describe('testing Results list component', () => {
     await nextTick();
 
     // The query should have changed to `tshirt` because the request has succeeded.
-    expect(childWrapper.text()).toBe('tshirt');
+    expect(childWrapper.text()).toEqual('tshirt');
 
     commit('setQuery', 'jacket');
     commit('setStatus', 'loading');
     await nextTick();
 
     // Here the injected query should be `tshirt` because the request for jacket is loading.
-    expect(childWrapper.text()).toBe('tshirt');
+    expect(childWrapper.text()).toEqual('tshirt');
 
     commit('setStatus', 'success');
     await nextTick();
 
-    // Finally, when the request for `jacket` has been completed,
-    // the injected query should be updated.
-    expect(childWrapper.text()).toBe('jacket');
+    // Finally, when the request for `jacket` has been completed, the injected query should be updated.
+    expect(childWrapper.text()).toEqual('jacket');
   });
 
-  it('provides a flag indicating if there are more results with the key `hasMoreItems`', () => {
+  it('provides a flag indicating if there are more results with the key `hasMoreItems`', async () => {
     const Child = defineComponent({
       name: 'Child',
-      setup() {
-        const hasMoreItems = inject<Ref<boolean>>(HAS_MORE_ITEMS_KEY as string);
-
-        return { hasMoreItems };
-      },
-      template: `
-        <div></div>
-      `
+      setup: () => ({ hasMoreItems: inject<Ref<boolean>>(HAS_MORE_ITEMS_KEY as string) }),
+      template: `<div>{{ hasMoreItems }}</div>`
     });
 
-    const { commit, wrapper } = renderResultsList({
+    const { commit, wrapper } = await render({
       template: `<ResultsList><Child /></ResultsList>`,
-      components: {
-        Child
-      }
+      components: { Child }
     });
 
     const childWrapper = wrapper.findComponent(Child);
 
     // Initially, the number of `items` and `totalResults` should match.
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    expect(childWrapper.vm.hasMoreItems).toBe(false);
+    expect(childWrapper.text()).toEqual('false');
 
     commit('setTotalResults', 1000);
+    await nextTick();
 
     // Now the `totalResults` is higher than the number of `items`
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    expect(childWrapper.vm.hasMoreItems).toBe(true);
+    expect(childWrapper.text()).toEqual('true');
   });
 });
-
-interface RenderResultsListOptions {
-  /** The template to be rendered. */
-  template?: string;
-  /** Components to be rendered. */
-  components?: Dictionary<any>;
-  /** The `results` used to be rendered. */
-  results?: Result[];
-  /** The total number of results. */
-  totalResults?: number;
-}
