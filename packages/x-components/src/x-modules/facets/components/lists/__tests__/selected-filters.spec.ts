@@ -1,61 +1,61 @@
-import { Facet, Filter } from '@empathyco/x-types';
+import { Facet } from '@empathyco/x-types';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
 import { installNewXPlugin } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
-import { useStore } from '../../../../../composables/use-store';
-import { resetFacetsService } from '../../../__tests__/utils';
-import { DefaultFacetsService } from '../../../service/facets.service';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import SelectedFilters from '../selected-filters.vue';
-import { XPlugin } from '../../../../../plugins/x-plugin';
-jest.mock('../../../../../composables/use-store');
-
-const facets: Record<Facet['id'], Facet> = {
-  gender: createSimpleFacetStub('gender', createFilter => [
-    createFilter('Men', false),
-    createFilter('Women', false)
-  ]),
-  brand: createSimpleFacetStub('brand', createFilter => [
-    createFilter('Audi', false),
-    createFilter('BMW', false)
-  ]),
-  color: createSimpleFacetStub('color', createFilter => [
-    createFilter('red', false),
-    createFilter('blue', false)
-  ])
-};
+import { resetFacetsService } from '../../../__tests__/utils';
+import { Store } from 'vuex';
+import { DeepPartial } from '@empathyco/x-utils';
+import { RootXStoreState } from '../../../../../store/index';
 
 function render({ template = '<SelectedFilters />', facetsIds = [] as string[] } = {}) {
   resetFacetsService();
 
+  const facets: Record<Facet['id'], Facet> = {
+    gender: createSimpleFacetStub('gender', createFilter => [
+      createFilter('Men', false),
+      createFilter('Women', false)
+    ]),
+    brand: createSimpleFacetStub('brand', createFilter => [
+      createFilter('Audi', false),
+      createFilter('BMW', false)
+    ]),
+    color: createSimpleFacetStub('color', createFilter => [
+      createFilter('red', false),
+      createFilter('blue', false)
+    ])
+  };
+
+  const store = new Store<DeepPartial<RootXStoreState>>({});
   const wrapper = mount(
     {
       components: { SelectedFilters },
-      template,
-
-      data: () => ({ facetsIds })
+      template
     },
     {
-      global: { plugins: [installNewXPlugin({ initialXModules: [facetsXModule] })] }
+      store,
+      global: { plugins: [installNewXPlugin({ store, initialXModules: [facetsXModule] })] },
+      data: () => {
+        return { facetsIds };
+      }
     }
   );
-
-  installNewXPlugin({ initialXModules: [facetsXModule] });
-  resetXFacetsStateWith(XPlugin.store, facets);
-  (useStore as jest.Mock).mockReturnValue(XPlugin.store);
+  resetXFacetsStateWith(store, facets);
+  nextTick();
 
   const selectedFiltersWrapper = wrapper.findComponent(SelectedFilters);
 
   return {
     wrapper,
     selectedFiltersWrapper,
-    toggleFacetNthFilter: (facetId: string, nth: number) => {
-      const filter: Filter = XPlugin.store.getters['x/facets/facets'][facetId].filters[nth];
-      DefaultFacetsService.instance.toggle(filter);
-      return nextTick();
+    toggleFacetNthFilter: async (facetId: string, nth: number) => {
+      const filter = store.getters['x/facets/facets'][facetId].filters[nth];
+      filter.selected = !filter.selected;
+      return await nextTick();
     }
   };
 }
