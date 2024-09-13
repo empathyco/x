@@ -29,7 +29,6 @@
         :disabled="isDisabled"
         data-test="filter"
         role="checkbox"
-        v-bind="$attrs"
       >
         <!--
           @slot The content to render inside the button
