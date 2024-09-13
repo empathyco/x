@@ -64,61 +64,61 @@ describe('testing search input component', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('searchBox');
   });
 
-  it('emits UserHoveredInSearchBox when it is hovered in', () => {
+  it('emits UserHoveredInSearchBox when it is hovered in', async () => {
     const { wrapper, listener } = renderSearchInput();
     XPlugin.bus.on('UserHoveredInSearchBox').subscribe(listener);
-    wrapper.trigger('mouseenter');
+    await wrapper.trigger('mouseenter');
     expect(listener).toHaveBeenCalled();
   });
 
-  it('emits UserHoveredOutSearchBox when it is hovered out', () => {
+  it('emits UserHoveredOutSearchBox when it is hovered out', async () => {
     const { wrapper, listener } = renderSearchInput();
     XPlugin.bus.on('UserHoveredOutSearchBox').subscribe(listener);
-    wrapper.trigger('mouseenter');
-    wrapper.trigger('mouseleave');
+    await wrapper.trigger('mouseenter');
+    await wrapper.trigger('mouseleave');
     expect(listener).toHaveBeenCalled();
   });
 
-  it('emits UserFocusedSearchBox if input autofocus true', () => {
+  it('emits UserFocusedSearchBox if input autofocus true', async () => {
     const { listener } = renderSearchInput({ autofocus: true });
     XPlugin.bus.on('UserFocusedSearchBox').subscribe(listener);
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith(undefined);
   });
 
-  it('does not emit UserFocusedSearchBox when mounting if autofocus is false', () => {
+  it('does not emit UserFocusedSearchBox when mounting if autofocus is false', async () => {
     const { listener } = renderSearchInput({ autofocus: false });
     XPlugin.bus.on('UserFocusedSearchBox').subscribe(listener);
     expect(listener).not.toHaveBeenCalled();
   });
 
-  it('emits UserFocusedSearchBox when it gains the focus', () => {
+  it('emits UserFocusedSearchBox when it gains the focus', async () => {
     const { listener, wrapper } = renderSearchInput();
     XPlugin.bus.on('UserFocusedSearchBox').subscribe(listener);
-    wrapper.trigger('focus');
+    await wrapper.trigger('focus');
     expect(listener).toHaveBeenCalled();
   });
 
-  it('emits UserBlurredSearchBox when it loses the focus', () => {
+  it('emits UserBlurredSearchBox when it loses the focus', async () => {
     const { listener, wrapper } = renderSearchInput();
     XPlugin.bus.on('UserBlurredSearchBox').subscribe(listener);
 
-    wrapper.trigger('focus');
-    wrapper.trigger('blur');
+    await wrapper.trigger('focus');
+    await wrapper.trigger('blur');
 
     expect(listener).toHaveBeenCalled();
   });
 
-  it('emits UserIsTypingQuery when typing/pasting', () => {
+  it('emits UserIsTypingQuery when typing/pasting', async () => {
     const { input, listener, wrapper } = renderSearchInput();
     const queries = ['a', 'ab', 'abc'];
     XPlugin.bus.on('UserIsTypingAQuery').subscribe(listener);
 
-    queries.forEach(query => {
+    for (const query of queries) {
       input.value = query;
-      wrapper.trigger('input');
+      await wrapper.trigger('input');
       expect(listener).toHaveBeenCalledWith(query);
-    });
+    }
 
     expect(listener).toHaveBeenCalledTimes(3);
   });
@@ -134,7 +134,7 @@ describe('testing search input component', () => {
       await wrapper.setProps({ instant: true, instantDebounceInMs: 100 });
 
       input.value = query;
-      wrapper.trigger('input');
+      await wrapper.trigger('input');
       expect(listener).not.toHaveBeenCalledWith(query);
 
       jest.advanceTimersByTime(100);
@@ -150,7 +150,7 @@ describe('testing search input component', () => {
       await wrapper.setProps({ instant: true, instantDebounceInMs: 100 });
 
       input.value = 'Antananarivo';
-      wrapper.trigger('input');
+      await wrapper.trigger('input');
 
       jest.advanceTimersByTime(50);
       input.value = '';
@@ -166,7 +166,7 @@ describe('testing search input component', () => {
   it(
     'emits UserPressedEnterKey and UserAcceptedAQuery events when the query length is ' +
       'greater than zero and the user pressed the enter key',
-    () => {
+    async () => {
       const { input, wrapper } = renderSearchInput();
       const enterListener = jest.fn();
       const acceptedQueryListener = jest.fn();
@@ -175,12 +175,12 @@ describe('testing search input component', () => {
       XPlugin.bus.on('UserPressedEnterKey', true).subscribe(enterListener);
       XPlugin.bus.on('UserAcceptedAQuery', true).subscribe(acceptedQueryListener);
 
-      wrapper.trigger('keydown.enter');
+      await wrapper.trigger('keydown.enter');
       expect(enterListener).not.toHaveBeenCalled();
       expect(acceptedQueryListener).not.toHaveBeenCalled();
 
       input.value = query;
-      wrapper.trigger('keydown.enter');
+      await wrapper.trigger('keydown.enter');
 
       expect(enterListener).toHaveBeenCalledWith({
         eventPayload: query,
@@ -197,7 +197,7 @@ describe('testing search input component', () => {
     }
   );
 
-  it('focus the input when UserPressedClearSearchBoxButton event is emitted', () => {
+  it('focus the input when UserPressedClearSearchBoxButton event is emitted', async () => {
     const { input } = renderSearchInput();
     input.blur();
     expect(input).not.toBe(document.activeElement);
