@@ -1,5 +1,5 @@
 import { Filter } from '@empathyco/x-types';
-import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
+import { mount, VueWrapper, DOMWrapper } from '@vue/test-utils';
 import Vue from 'vue';
 import { createSimpleFilter } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
@@ -44,7 +44,7 @@ function renderBaseShowMoreFilters({
         `
     },
     {
-      propsData: {
+      props: {
         filters: filtersMock,
         max,
         buttonClass
@@ -144,13 +144,13 @@ interface BaseShowMoreFiltersOptions {
 
 interface BaseShowMoreFiltersAPI {
   /** The wrapper of the container element. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** The wrapper of the container element. */
-  filterWrapper: Wrapper<Vue>;
+  filterWrapper: VueWrapper;
   /** The filters of the wrapper element. */
-  getFiltersWrapper: () => WrapperArray<Vue>;
+  getFiltersWrapper: () => DOMWrapper<Element>[];
   /** The show more button of the wrapper element. */
-  getShowMoreButton: () => Wrapper<Vue>;
+  getShowMoreButton: () => DOMWrapper<Element>;
   /** The show less button of the wrapper element. */
-  getShowLessButton: () => Wrapper<Vue>;
+  getShowLessButton: () => DOMWrapper<Element>;
 }

@@ -1,7 +1,13 @@
-import Vuex, { Store } from 'vuex';
-import { createLocalVue } from '@vue/test-utils';
+import { Store } from 'vuex';
+import { defineComponent, nextTick } from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { SearchResponse } from '@empathyco/x-types';
 import { getSearchResponseStub } from '../../../../__stubs__/search-response-stubs.factory';
-import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
+import {
+  getMockedAdapter,
+  installNewXPlugin,
+  MockedXComponentsAdapter
+} from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
 import { queriesPreviewXStoreModule } from '../module';
 import {
@@ -14,33 +20,51 @@ import {
 } from '../types';
 import { getQueryPreviewRequest } from '../../../../__stubs__/queries-preview-stubs.factory';
 import { getHashFromQueryPreviewInfo } from '../../utils/get-hash-from-query-preview';
-import { resetQueriesPreviewStateWith } from './utils';
+import { queriesPreviewXModule } from '../../x-module';
+import { XPlugin } from '../../../../plugins/index';
 
-describe('testing queries preview module actions', () => {
+const store: SafeStore<
+  QueriesPreviewState,
+  QueriesPreviewGetters,
+  QueriesPreviewMutations,
+  QueriesPreviewActions
+> = new Store(queriesPreviewXStoreModule as any);
+
+const renderQueryPreviewActions = (): RenderQueryPreviewActions => {
+  const component = defineComponent({
+    xModule: queriesPreviewXModule.name,
+    template: '<div></div>'
+  });
+
   const mockedSearchResponse = getSearchResponseStub();
 
   const adapter = getMockedAdapter({
     search: mockedSearchResponse
   });
 
-  const localVue = createLocalVue();
-  localVue.config.productionTip = false; // Silent production console messages.
-  localVue.use(Vuex);
-
-  const store: SafeStore<
-    QueriesPreviewState,
-    QueriesPreviewGetters,
-    QueriesPreviewMutations,
-    QueriesPreviewActions
-  > = new Store(queriesPreviewXStoreModule as any);
-  installNewXPlugin({ adapter, store }, localVue);
-
-  beforeEach(() => {
-    resetQueriesPreviewStateWith(store);
+  const wrapper = mount(component, {
+    global: {
+      plugins: [
+        installNewXPlugin({ initialXModules: [queriesPreviewXModule], store, adapter }),
+        store
+      ]
+    }
   });
 
+  XPlugin.registerXModule(queriesPreviewXModule);
+
+  return {
+    adapter,
+    mockedSearchResponse,
+    store,
+    wrapper
+  };
+};
+
+describe('testing queries preview module actions', () => {
   describe('fetchQueryPreview', () => {
     it('should make a search request with a unique id', async () => {
+      const { adapter, mockedSearchResponse } = renderQueryPreviewActions();
       const request = getQueryPreviewRequest('sandals');
       const results = await store.dispatch('fetchQueryPreview', request);
 
@@ -59,8 +83,10 @@ describe('testing queries preview module actions', () => {
 
   describe('fetchAndSaveQueryPreview', () => {
     it('should request and store query preview results in the state', async () => {
+      const { mockedSearchResponse, store } = renderQueryPreviewActions();
       const queryPreview: QueryPreviewInfo = { query: 'tshirt' };
       const request = getQueryPreviewRequest(queryPreview.query);
+      await nextTick();
       const stateResults = store.state.queriesPreview;
       const queryId = getHashFromQueryPreviewInfo(queryPreview);
       const expectedResults: QueryPreviewItem = {
@@ -103,6 +129,7 @@ describe('testing queries preview module actions', () => {
     });
 
     it('should set the status to error when it fails', async () => {
+      const { adapter } = renderQueryPreviewActions();
       adapter.search.mockRejectedValueOnce('Generic error');
       const queryPreview: QueryPreviewInfo = { query: 'sandals' };
       const request = getQueryPreviewRequest(queryPreview.query);
@@ -113,6 +140,7 @@ describe('testing queries preview module actions', () => {
     });
 
     it('should send multiple requests if the queries are different', async () => {
+      const { store } = renderQueryPreviewActions();
       const firstQuery = getHashFromQueryPreviewInfo({ query: 'milk' });
       const secondQuery = getHashFromQueryPreviewInfo({ query: 'cookies' });
       const firstRequest = store.dispatch(
@@ -131,3 +159,15 @@ describe('testing queries preview module actions', () => {
     });
   });
 });
+
+type RenderQueryPreviewActions = {
+  adapter: MockedXComponentsAdapter;
+  mockedSearchResponse: SearchResponse;
+  store: SafeStore<
+    QueriesPreviewState,
+    QueriesPreviewGetters,
+    QueriesPreviewMutations,
+    QueriesPreviewActions
+  >;
+  wrapper: VueWrapper;
+};

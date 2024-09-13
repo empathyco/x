@@ -1,6 +1,7 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
+import { nextTick } from 'vue';
 import { createQuerySuggestion } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -16,12 +17,7 @@ function renderQuerySuggestion({
   query = '',
   template = '<QuerySuggestion :suggestion="suggestion"/>'
 } = {}) {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-
-  installNewXPlugin({ store, initialXModules: [querySuggestionsXModule] }, localVue);
-  resetXQuerySuggestionsStateWith(store, { query });
 
   const wrapper = mount(
     {
@@ -30,11 +26,15 @@ function renderQuerySuggestion({
       props: ['suggestion']
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [querySuggestionsXModule] })]
+      },
       store,
-      propsData: { suggestion }
+      props: { suggestion }
     }
   );
+
+  resetXQuerySuggestionsStateWith(store, { query });
 
   return {
     wrapper: wrapper.findComponent(QuerySuggestion),
@@ -60,12 +60,12 @@ describe('testing query-suggestion component', () => {
     expect(wrapper.text()).toEqual('milk');
   });
 
-  it('highlights the suggestion matching parts with the state query', () => {
+  it('highlights the suggestion matching parts with the state query', async () => {
     const { wrapper, getMatchingPart } = renderQuerySuggestion({
       suggestion: createQuerySuggestion('baileys'),
       query: 'Bá'
     });
-
+    await nextTick();
     expect(getMatchingPart().text()).toEqual('ba');
     expect(wrapper.text()).toEqual('baileys');
   });
@@ -101,6 +101,6 @@ describe('testing query-suggestion component', () => {
       </QuerySuggestion>`
     });
 
-    expect(wrapper.text()).toEqual('🔍 baileys');
+    expect(wrapper.text()).toEqual('🔍baileys');
   });
 });

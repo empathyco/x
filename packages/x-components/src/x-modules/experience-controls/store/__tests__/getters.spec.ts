@@ -1,12 +1,7 @@
-import Vuex from 'vuex';
 import { ExperienceControlsRequest } from '@empathyco/x-types';
-import { createLocalVue } from '@vue/test-utils';
 import { createExperienceControlsStore, resetExperienceControlsStateWith } from './utils';
 
 describe('testing experience controls module getters', () => {
-  const localVue = createLocalVue();
-  localVue.config.productionTip = false;
-  localVue.use(Vuex);
   const store = createExperienceControlsStore();
 
   beforeEach(() => {

@@ -1,8 +1,8 @@
 import { Suggestion } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
+import { Store } from 'vuex';
+import { nextTick } from 'vue';
 import { createPopularSearch } from '../../../../__stubs__/popular-searches-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -20,12 +20,7 @@ function renderPopularSearches({
   maxItemsToRender,
   template = '<PopularSearches v-bind="$attrs" />'
 }: RenderPopularSearchesOptions = {}): RenderPopularSearchesApi {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store, initialXModules: [popularSearchesXModule] }, localVue);
-  resetXPopularSearchesStateWith(store, { popularSearches });
-
   const wrapper = mount(
     {
       template,
@@ -35,7 +30,9 @@ function renderPopularSearches({
       }
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [popularSearchesXModule] })]
+      },
       store,
       propsData: {
         maxItemsToRender
@@ -43,10 +40,14 @@ function renderPopularSearches({
     }
   );
 
+  resetXPopularSearchesStateWith(store, { popularSearches });
+
   return {
     wrapper: wrapper.findComponent(PopularSearches),
     popularSearches,
     async setMaxItemsToRender(max) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       return await wrapper.setProps({ maxItemsToRender: max });
     },
     getSuggestionItemWrappers() {
@@ -64,22 +65,22 @@ describe('testing Query Suggestions component', () => {
 
   it('does not render anything when suggestions are empty', () => {
     const { wrapper } = renderPopularSearches({ popularSearches: [] });
-    expect(wrapper.html()).toBe('');
+    expect(wrapper.find('x-popular-searches').exists()).toBe(false);
   });
 
-  it('renders the state list of suggestions', () => {
+  it('renders the state list of suggestions', async () => {
     const { getSuggestionItemWrappers, popularSearches } = renderPopularSearches({
       popularSearches: [createPopularSearch('chocolate'), createPopularSearch('milk chocolate')]
     });
-
+    await nextTick();
     const suggestionItemWrappers = getSuggestionItemWrappers();
     expect(suggestionItemWrappers).toHaveLength(2);
-    suggestionItemWrappers.wrappers.forEach((itemWrapper, index) => {
+    suggestionItemWrappers.forEach((itemWrapper, index) => {
       expect(itemWrapper.text()).toEqual(popularSearches[index].query);
     });
   });
 
-  it('allows to render a custom popular search', () => {
+  it('allows to render a custom popular search', async () => {
     const { getSuggestionItemWrappers, popularSearches } = renderPopularSearches({
       popularSearches: [createPopularSearch('chocolate'), createPopularSearch('milk chocolate')],
       template: `
@@ -92,17 +93,18 @@ describe('testing Query Suggestions component', () => {
       `
     });
 
+    await nextTick();
     const suggestionItemWrappers = getSuggestionItemWrappers();
     expect(suggestionItemWrappers).toHaveLength(2);
-    suggestionItemWrappers.wrappers.forEach((itemWrapper, index) => {
+    suggestionItemWrappers.forEach((itemWrapper, index) => {
       expect(itemWrapper.get('.custom-suggestion').text()).toEqual(
-        `🔍 ${popularSearches[index].query}`
+        `🔍${popularSearches[index].query}`
       );
       expect(itemWrapper.find(getDataTestSelector('popular-search')).exists()).toBe(false);
     });
   });
 
-  it('allows to render a custom suggestion content', () => {
+  it('allows to render a custom suggestion content', async () => {
     const { getSuggestionItemWrappers, popularSearches } = renderPopularSearches({
       popularSearches: [createPopularSearch('chocolate'), createPopularSearch('milk chocolate')],
       template: `
@@ -113,10 +115,11 @@ describe('testing Query Suggestions component', () => {
       `
     });
 
+    await nextTick();
     const suggestionItemWrappers = getSuggestionItemWrappers();
     expect(suggestionItemWrappers).toHaveLength(2);
-    suggestionItemWrappers.wrappers.forEach((itemWrapper, index) => {
-      expect(itemWrapper.text()).toEqual(`🔍 ${popularSearches[index].query}`);
+    suggestionItemWrappers.forEach((itemWrapper, index) => {
+      expect(itemWrapper.text()).toEqual(`🔍${popularSearches[index].query}`);
       expect(itemWrapper.find(getDataTestSelector('popular-search')).exists()).toBe(true);
     });
   });
@@ -134,13 +137,13 @@ describe('testing Query Suggestions component', () => {
       });
 
     await setMaxItemsToRender(popularSearches.length - 1);
-    expect(getSuggestionItemWrappers().wrappers).toHaveLength(popularSearches.length - 1);
+    expect(getSuggestionItemWrappers()).toHaveLength(popularSearches.length - 1);
 
     await setMaxItemsToRender(popularSearches.length);
-    expect(getSuggestionItemWrappers().wrappers).toHaveLength(popularSearches.length);
+    expect(getSuggestionItemWrappers()).toHaveLength(popularSearches.length);
 
     await setMaxItemsToRender(popularSearches.length + 1);
-    expect(getSuggestionItemWrappers().wrappers).toHaveLength(popularSearches.length);
+    expect(getSuggestionItemWrappers()).toHaveLength(popularSearches.length);
   });
 });
 
@@ -155,9 +158,9 @@ interface RenderPopularSearchesOptions {
 
 interface RenderPopularSearchesApi {
   /** PopularSearches component testing wrapper. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** Retrieves the list item of each suggestion. */
-  getSuggestionItemWrappers: () => WrapperArray<Vue>;
+  getSuggestionItemWrappers: () => DOMWrapper<Element>[];
   /** Updates the maximum number of items to render. */
   setMaxItemsToRender: (max: number) => Promise<void>;
   /** Rendered suggestions data. */

@@ -1,5 +1,5 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
@@ -16,16 +16,21 @@ describe('testing recommendations module actions', () => {
 
   const adapter = getMockedAdapter({ recommendations: { results: mockedResults } });
 
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-
   const store: SafeStore<
     RecommendationsState,
     RecommendationsGetters,
     RecommendationsMutations,
     RecommendationsActions
   > = new Store(recommendationsXStoreModule as any);
-  installNewXPlugin({ store, adapter }, localVue);
+
+  mount(
+    {},
+    {
+      global: {
+        plugins: [installNewXPlugin({ adapter, store })]
+      }
+    }
+  );
 
   describe('fetchRecommendations', () => {
     it('should return recommendations', async () => {

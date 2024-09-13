@@ -1,6 +1,5 @@
 import { map } from '@empathyco/x-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import { RecommendationsRequest } from '@empathyco/x-types';
 import { RECOMMENDATIONS_ORIGIN } from '../constants';
 import { recommendationsXStoreModule } from '../module';
@@ -8,7 +7,6 @@ import { RecommendationsState } from '../types';
 import { resetRecommendationsStateWith } from './utils';
 
 describe('testing recommendations module getters', () => {
-  Vue.use(Vuex);
   const gettersKeys = map(recommendationsXStoreModule.getters, getter => getter);
   const store: Store<RecommendationsState> = new Store(recommendationsXStoreModule as any);
 

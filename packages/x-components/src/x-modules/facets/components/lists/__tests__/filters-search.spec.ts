@@ -1,7 +1,7 @@
 import { Filter } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
-import { mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper, DOMWrapper } from '@vue/test-utils';
+import Vue, { nextTick } from 'vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
@@ -49,7 +49,7 @@ function renderFiltersSearch(
         `
     },
     {
-      propsData: {
+      props: {
         filters: filtersMock
       }
     }
@@ -109,13 +109,13 @@ describe('testing FiltersSearch', () => {
       expect(filtersSearch.wrapper.classes()).not.toContain('x-filters-search--is-sifted');
 
       jest.advanceTimersByTime(1800);
-      await Vue.nextTick();
+      await nextTick();
       expect(filtersSearch.getFiltersWrapper()).toHaveLength(occurrences);
       expect(filtersSearch.wrapper.classes()).toContain('x-filters-search--is-sifted');
 
       await filtersSearch.inputWrapper.setValue('');
       jest.advanceTimersByTime(2000);
-      await Vue.nextTick();
+      await nextTick();
       expect(filtersSearch.getFiltersWrapper()).toHaveLength(filtersMock.length);
     }
   });
@@ -161,15 +161,15 @@ async function expectFiltersSearch(
   await inputWrapper.setValue(query);
   expect((inputWrapper.element as HTMLInputElement).value).toEqual(query);
   jest.advanceTimersByTime(200);
-  await Vue.nextTick();
+  await nextTick();
   expect((inputWrapper.element as HTMLInputElement).value).toEqual(query);
   expect(getFiltersWrapper()).toHaveLength(occurrences);
 }
 
 interface FiltersSearchAPI {
-  wrapper: Wrapper<Vue>;
-  filterWrapper: Wrapper<Vue>;
-  componentWrapper: Wrapper<Vue>;
-  inputWrapper: Wrapper<Vue>;
-  getFiltersWrapper: () => WrapperArray<Vue>;
+  wrapper: VueWrapper;
+  filterWrapper: VueWrapper;
+  componentWrapper: DOMWrapper<Element>;
+  inputWrapper: DOMWrapper<Element>;
+  getFiltersWrapper: () => DOMWrapper<Element>[];
 }

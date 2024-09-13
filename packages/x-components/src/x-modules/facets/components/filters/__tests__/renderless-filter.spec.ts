@@ -7,7 +7,7 @@ import {
 } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils';
 import RenderlessFilter from '../renderless-filter.vue';
-import { XPlugin } from '../../../../../plugins/x-plugin';
+import { XPlugin } from '../../../../../plugins';
 
 function render({
   filter = ref(createSimpleFilter('category', 'food')),
@@ -27,26 +27,26 @@ function render({
         </button>
     </RenderlessFilter>`
 } = {}) {
-  installNewXPlugin();
-
   const wrapper = mount(
     {
       components: { RenderlessFilter },
-      props: ['filter', 'clickEvents'],
       template
     },
     {
-      propsData: { filter, clickEvents }
+      data: () => ({ filter, clickEvents }),
+      global: { plugins: [installNewXPlugin()] }
     }
   );
 
   const renderlessFilterWrapper = wrapper.findComponent(RenderlessFilter);
+  const buttonWrapper = renderlessFilterWrapper.find(getDataTestSelector('custom-label'));
 
   return {
     wrapper: renderlessFilterWrapper,
     emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     filter,
-    clickFilter: () => renderlessFilterWrapper.trigger('click'),
+    buttonWrapper,
+    clickFilter: () => buttonWrapper.trigger('click'),
     selectFilter: async () => {
       filter.value.selected = true;
       await nextTick();
@@ -89,24 +89,24 @@ describe('testing Renderless Filter component', () => {
   });
 
   it('adds selected classes to the rendered element when the filter is selected', async () => {
-    const { wrapper, selectFilter } = render();
+    const { buttonWrapper, selectFilter } = render();
 
-    expect(wrapper.classes()).not.toContain('x-selected');
+    expect(buttonWrapper.classes()).not.toContain('x-selected');
 
     await selectFilter();
 
-    expect(wrapper.classes()).toContain('x-selected');
+    expect(buttonWrapper.classes()).toContain('x-selected');
   });
 
   it('disables the filter when it has no results', async () => {
     const filter = ref(createSimpleFilter('category', 'men', false));
-    const { wrapper } = render({ filter });
+    const { buttonWrapper } = render({ filter });
 
-    expect(wrapper.attributes('disabled')).toBeUndefined();
+    expect(buttonWrapper.attributes()).not.toHaveProperty('disabled');
 
     filter.value.totalResults = 0;
     await nextTick();
 
-    expect(wrapper.attributes('disabled')).toEqual('disabled');
+    expect(buttonWrapper.attributes()).toHaveProperty('disabled');
   });
 });

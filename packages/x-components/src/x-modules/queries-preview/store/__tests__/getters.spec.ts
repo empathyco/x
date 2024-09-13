@@ -1,5 +1,4 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import {
   QueriesPreviewActions,
   QueriesPreviewGetters,
@@ -15,9 +14,6 @@ import { getQueryPreviewRequest } from '../../../../__stubs__/queries-preview-st
 import { resetQueriesPreviewStateWith } from './utils';
 
 describe('queries preview module getters', () => {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-
   const store: SafeStore<
     QueriesPreviewState,
     QueriesPreviewGetters,
@@ -25,7 +21,7 @@ describe('queries preview module getters', () => {
     QueriesPreviewActions
   > = new Store(queriesPreviewXStoreModule as any);
 
-  installNewXPlugin({ store }, localVue);
+  installNewXPlugin({ store });
 
   beforeEach(() => {
     resetQueriesPreviewStateWith(store);

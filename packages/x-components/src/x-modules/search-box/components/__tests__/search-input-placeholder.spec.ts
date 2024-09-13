@@ -1,5 +1,5 @@
-import { mount, Wrapper } from '@vue/test-utils';
-
+import { mount, VueWrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { XPlugin } from '../../../../plugins';
@@ -8,15 +8,12 @@ import { searchBoxXModule } from '../../x-module';
 import SearchInput from '../search-input.vue';
 import SearchInputPlaceholder from '../search-input-placeholder.vue';
 
-async function mountTestComponent({
+async function renderSearchInputPlaceholder({
   messages = ['Find shirts', 'Find shoes', 'Find watches', 'Find handbags', 'Find sunglasses'],
   animationIntervalMs,
   animateOnlyOnHover,
   autofocus = false
-}: MountTestComponentOptions = {}): Promise<MountTestComponentAPI> {
-  const [, localVue] = installNewXPlugin();
-  XPlugin.registerXModule(searchBoxXModule);
-
+}: RenderSearchInputPlaceholder = {}): Promise<SearchInputPlaceholderAPI> {
   const parent = document.createElement('div');
   document.body.appendChild(parent);
 
@@ -39,21 +36,23 @@ async function mountTestComponent({
       }
     },
     {
-      localVue,
       /*
        * In order to make the autofocus test work after the jest 27 update, now is mandatory to
        * attach the element to some parent in the DOM, to emit the focus event.
        */
       attachTo: parent,
-      propsData: {
+      props: {
         messages,
         animationIntervalMs,
         animateOnlyOnHover,
         autofocus
+      },
+      global: {
+        plugins: [installNewXPlugin()]
       }
     }
   );
-  await wrapper.vm.$nextTick();
+  await nextTick();
 
   function getPlaceholderText(): string {
     return wrapper.find(getDataTestSelector('search-input-placeholder')).text();
@@ -73,9 +72,11 @@ async function mountTestComponent({
   }
 
   async function emit(event: XEvent, payload: any): Promise<void> {
-    wrapper.vm.$x.emit(event, payload);
-    await localVue.nextTick();
+    await XPlugin.bus.emit(event, payload);
+    await nextTick();
   }
+
+  XPlugin.registerXModule(searchBoxXModule);
 
   return {
     messages,
@@ -95,7 +96,7 @@ describe('testing search input placeholder component', () => {
   afterEach(jest.clearAllTimers);
 
   it('is an XComponent part of the SearchBox XModule', async () => {
-    const { wrapper } = await mountTestComponent();
+    const { wrapper } = await renderSearchInputPlaceholder();
     const placeholderWrapper = wrapper.findComponent(SearchInputPlaceholder);
 
     expect(isXComponent(placeholderWrapper.vm)).toEqual(true);
@@ -103,7 +104,7 @@ describe('testing search input placeholder component', () => {
   });
 
   it('animates the rendered text always', async () => {
-    const { messages, wrapper, getPlaceholderText } = await mountTestComponent();
+    const { messages, wrapper, getPlaceholderText } = await renderSearchInputPlaceholder();
 
     for (const message of messages) {
       expect(getPlaceholderText()).toEqual(message);
@@ -114,7 +115,7 @@ describe('testing search input placeholder component', () => {
   });
 
   it('animates the rendered text only on hover if configured to do so', async () => {
-    const { messages, wrapper, getPlaceholderText, hoverInput } = await mountTestComponent({
+    const { messages, getPlaceholderText, hoverInput } = await renderSearchInputPlaceholder({
       animateOnlyOnHover: true
     });
 
@@ -123,11 +124,11 @@ describe('testing search input placeholder component', () => {
     for (const message of messages.slice(1)) {
       expect(getPlaceholderText()).toEqual(message);
       jest.runOnlyPendingTimers();
-      await wrapper.vm.$nextTick();
+      await nextTick();
     }
     expect(getPlaceholderText()).toEqual(messages[0]);
     jest.runOnlyPendingTimers();
-    await wrapper.vm.$nextTick();
+    await nextTick();
     expect(getPlaceholderText()).toEqual(messages[1]);
     await hoverInput('out');
     expect(getPlaceholderText()).toEqual(messages[0]);
@@ -138,7 +139,8 @@ describe('testing search input placeholder component', () => {
   });
 
   it('is not visible when there is a query set', async () => {
-    const { messages, getPlaceholderText, isPlaceholderVisible, emit } = await mountTestComponent();
+    const { messages, getPlaceholderText, isPlaceholderVisible, emit } =
+      await renderSearchInputPlaceholder();
 
     expect(getPlaceholderText()).toEqual(messages[0]);
     await emit('UserAcceptedAQuery', 'testing');
@@ -149,7 +151,7 @@ describe('testing search input placeholder component', () => {
   });
 
   it('is not visible when the search input is focused', async () => {
-    const { wrapper, isPlaceholderVisible } = await mountTestComponent({
+    const { wrapper, isPlaceholderVisible } = await renderSearchInputPlaceholder({
       autofocus: true
     });
 
@@ -162,7 +164,7 @@ describe('testing search input placeholder component', () => {
   });
 });
 
-interface MountTestComponentOptions {
+interface RenderSearchInputPlaceholder {
   /** The list of messages to animate on the placeholder. */
   messages?: Array<string>;
   /** The time in milliseconds during which each message is visible on the placeholder. */
@@ -173,11 +175,11 @@ interface MountTestComponentOptions {
   autofocus?: boolean;
 }
 
-interface MountTestComponentAPI {
+interface SearchInputPlaceholderAPI {
   /** The list of messages applied to animate on the placeholder. */
   messages: Array<string>;
   /** The Vue testing utils wrapper for the {@link SearchInputPlaceholder} component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** Gets the {@link SearchInputPlaceholder} rendered message. */
   getPlaceholderText: () => string;
   /** Gets the {@link SearchInputPlaceholder} visibility state. */

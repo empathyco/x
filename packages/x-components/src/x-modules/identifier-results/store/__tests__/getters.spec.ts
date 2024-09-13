@@ -1,12 +1,10 @@
 import { map } from '@empathyco/x-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import { identifierResultsXStoreModule } from '../module';
 import { IdentifierResultsState } from '../types';
 import { resetIdentifierResultsStateWith } from './utils';
 
 describe('testing identifier results module getters', () => {
-  Vue.use(Vuex);
   const gettersKeys = map(identifierResultsXStoreModule.getters, getter => getter);
   const store: Store<IdentifierResultsState> = new Store(identifierResultsXStoreModule as any);
 

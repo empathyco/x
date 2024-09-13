@@ -1,5 +1,5 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { getPopularSearchesStub } from '../../../../__stubs__/popular-searches-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { SafeStore } from '../../../../store/__tests__/utils';
@@ -15,17 +15,20 @@ describe('testing popular searches module actions', () => {
   const mockedSuggestions = getPopularSearchesStub();
   const adapter = getMockedAdapter({ popularSearches: { suggestions: mockedSuggestions } });
 
-  const localVue = createLocalVue();
-  localVue.config.productionTip = false; // Silent production console messages.
-  localVue.use(Vuex);
-
   const store: SafeStore<
     PopularSearchesState,
     PopularSearchesGetters,
     PopularSearchesMutations,
     PopularSearchesActions
   > = new Store(popularSearchesXStoreModule as any);
-  installNewXPlugin({ store, adapter }, localVue);
+  mount(
+    {},
+    {
+      global: {
+        plugins: [installNewXPlugin({ adapter, store })]
+      }
+    }
+  );
 
   describe('fetchSuggestions', () => {
     it('should return suggestions', async () => {

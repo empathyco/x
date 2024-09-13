@@ -1,6 +1,6 @@
 import { SemanticQueriesRequest } from '@empathyco/x-types';
-import Vuex, { Store } from 'vuex';
-import { createLocalVue } from '@vue/test-utils';
+import { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
 import { getSemanticQueriesStub } from '../../../../__stubs__/semantic-queries-stubs.factory';
 import { SafeStore } from '../../../../store/__tests__/utils';
@@ -20,9 +20,6 @@ describe('semantic queries actions tests', () => {
     semanticQueries: semanticQueriesStub
   });
 
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-
   const store: SafeStore<
     SemanticQueriesState,
     SemanticQueriesGetters,
@@ -30,7 +27,14 @@ describe('semantic queries actions tests', () => {
     SemanticQueriesActions
   > = new Store(semanticQueriesXStoreModule as any);
 
-  installNewXPlugin({ adapter, store }, localVue);
+  mount(
+    {},
+    {
+      global: {
+        plugins: [installNewXPlugin({ adapter, store })]
+      }
+    }
+  );
 
   beforeEach(() => {
     resetSemanticQueriesStateWith(store);

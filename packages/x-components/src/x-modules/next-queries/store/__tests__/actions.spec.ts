@@ -1,6 +1,6 @@
 import { HistoryQuery, SearchRequest } from '@empathyco/x-types';
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
 import {
   createHistoryQueries,
   getNextQueriesStub,
@@ -26,17 +26,20 @@ describe('testing next queries module actions', () => {
     search: mockedSearchResponse
   });
 
-  const localVue = createLocalVue();
-  localVue.config.productionTip = false; // Silent production console messages.
-  localVue.use(Vuex);
-
   const store: SafeStore<
     NextQueriesState,
     NextQueriesGetters,
     NextQueriesMutations,
     NextQueriesActions
   > = new Store(nextQueriesXStoreModule as any);
-  installNewXPlugin({ adapter, store }, localVue);
+  mount(
+    {},
+    {
+      global: {
+        plugins: [installNewXPlugin({ adapter, store })]
+      }
+    }
+  );
 
   beforeEach(() => {
     resetNextQueriesStateWith(store);

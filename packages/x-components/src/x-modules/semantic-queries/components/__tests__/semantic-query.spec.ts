@@ -1,6 +1,7 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { DeepPartial } from '@empathyco/x-utils';
+import { nextTick } from 'vue';
 import SemanticQuery from '../semantic-query.vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/index';
 import { createSemanticQuery } from '../../../../__stubs__/index';
@@ -15,12 +16,7 @@ function renderSemanticQuery({
   suggestion = createSemanticQuery({ query: 'jeans' }),
   query = ''
 } = {}) {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-
-  installNewXPlugin({ store, initialXModules: [semanticQueriesXModule] }, localVue);
-  resetSemanticQueriesStateWith(store, { query });
 
   const wrapper = mount(
     {
@@ -28,11 +24,13 @@ function renderSemanticQuery({
       components: { SemanticQuery }
     },
     {
-      localVue,
-      store,
+      global: {
+        plugins: [store, installNewXPlugin({ store, initialXModules: [semanticQueriesXModule] })]
+      },
       data: () => ({ suggestion })
     }
   );
+  resetSemanticQueriesStateWith(store, { query });
 
   return {
     wrapper: wrapper.findComponent(SemanticQuery),
@@ -59,7 +57,7 @@ describe('semantic queries component', () => {
     );
   });
 
-  it('allows overriding its content with a slot', () => {
+  it('allows overriding its content with a slot', async () => {
     const { wrapper } = renderSemanticQuery({
       template: `
         <SemanticQuery :suggestion="suggestion" #default="{ suggestion, query }">
@@ -69,7 +67,7 @@ describe('semantic queries component', () => {
       suggestion: createSemanticQuery({ query: 'blazer' }),
       query: 'jacket'
     });
-
+    await nextTick();
     expect(wrapper.get(getDataTestSelector('state-query')).text()).toEqual('jacket');
     expect(wrapper.get(getDataTestSelector('semantic-query-content')).text()).toEqual('blazer');
   });

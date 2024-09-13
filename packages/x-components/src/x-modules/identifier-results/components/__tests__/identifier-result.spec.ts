@@ -1,29 +1,27 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { createStore } from 'vuex';
+import { nextTick } from 'vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { createResultStub } from '../../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { IdentifierResult } from '../index';
+import { XDummyBus } from '../../../../__tests__/bus.dummy';
 import { resetStoreIdentifierResultState } from './utils';
 
 describe('testing IdentifierResult component', () => {
   const result = createResultStub('a022/3234');
 
-  let identifierResultWrapper: Wrapper<IdentifierResult>;
-
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-  const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-
-  beforeEach(() => {
-    identifierResultWrapper = mount(IdentifierResult, {
-      localVue,
-      store,
-      propsData: { result }
-    });
+  const store = createStore<DeepPartial<RootXStoreState>>({});
+  const bus = new XDummyBus();
+  const identifierResultWrapper = mount(IdentifierResult, {
+    global: {
+      plugins: [installNewXPlugin({ store }, bus)]
+    },
+    props: {
+      result
+    }
   });
 
   it('is an XComponent and has an XModule', () => {
@@ -33,7 +31,7 @@ describe('testing IdentifierResult component', () => {
 
   it('highlights the part of the identifier that matches the query', async () => {
     resetStoreIdentifierResultState(store, { query: 'A02232' });
-    await localVue.nextTick();
+    await nextTick();
 
     expect(getIdentifierResultSpanHtml()).toEqual(
       '<span class="x-identifier-result__matching-part">a022/32</span>34'
@@ -42,7 +40,7 @@ describe('testing IdentifierResult component', () => {
 
   it('highlights the part of the identifier that matches the query in different case', async () => {
     resetStoreIdentifierResultState(store, { query: 'a02232' });
-    await localVue.nextTick();
+    await nextTick();
 
     expect(getIdentifierResultSpanHtml()).toEqual(
       '<span class="x-identifier-result__matching-part">a022/32</span>34'
@@ -51,15 +49,15 @@ describe('testing IdentifierResult component', () => {
 
   it("doesn't render the identifier when there's no query", async () => {
     resetStoreIdentifierResultState(store, { query: '' });
-    await localVue.nextTick();
+    await nextTick();
 
-    expect(identifierResultWrapper.html()).toEqual('');
+    expect(identifierResultWrapper.text()).toEqual('');
   });
 
   // eslint-disable-next-line max-len
   it('highlights the part of the identifier  that matches the query with optional character', async () => {
     resetStoreIdentifierResultState(store, { query: 'a022/32' });
-    await localVue.nextTick();
+    await nextTick();
 
     expect(getIdentifierResultSpanHtml()).toEqual(
       '<span class="x-identifier-result__matching-part">a022/32</span>34'
@@ -69,7 +67,7 @@ describe('testing IdentifierResult component', () => {
   // eslint-disable-next-line max-len
   it('highlights the part of the identifier that matches the query ignoring whitespaces', async () => {
     resetStoreIdentifierResultState(store, { query: 'A 0 22 /3 2' });
-    await localVue.nextTick();
+    await nextTick();
 
     expect(getIdentifierResultSpanHtml()).toEqual(
       '<span class="x-identifier-result__matching-part">a022/32</span>34'
@@ -79,7 +77,7 @@ describe('testing IdentifierResult component', () => {
   // eslint-disable-next-line max-len
   it('highlights the part of the identifier that matches the query ignoring extra separators', async () => {
     resetStoreIdentifierResultState(store, { query: 'A/0/22/32' });
-    await localVue.nextTick();
+    await nextTick();
 
     expect(getIdentifierResultSpanHtml()).toEqual(
       '<span class="x-identifier-result__matching-part">a022/32</span>34'
@@ -88,7 +86,7 @@ describe('testing IdentifierResult component', () => {
 
   it("doesn't highlight if there is no match with the input query", async () => {
     resetStoreIdentifierResultState(store, { query: 'B022/32' });
-    await localVue.nextTick();
+    await nextTick();
 
     expect(getIdentifierResultSpanHtml()).toEqual('a022/3234');
   });

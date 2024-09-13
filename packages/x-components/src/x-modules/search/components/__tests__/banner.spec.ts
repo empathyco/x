@@ -1,18 +1,16 @@
 import { Banner as BannerModel } from '@empathyco/x-types';
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
 import { createBannerStub } from '../../../../__stubs__/banners-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import Banner from '../banner.vue';
+import { XPlugin } from '../../../../plugins/index';
 
 function renderBanner({
   template = `<Banner v-bind="$attrs" />`,
   banner = createBannerStub('default-banner'),
   titleClass
-}: RenderBannerOptions = {}): RenderBannerAPI {
-  const [, localVue] = installNewXPlugin();
-
+}: RenderBannerOptions = {}) {
   const wrapper = mount(
     {
       components: {
@@ -21,11 +19,13 @@ function renderBanner({
       template
     },
     {
-      propsData: {
+      props: {
         banner,
         titleClass
       },
-      localVue
+      global: {
+        plugins: [installNewXPlugin()]
+      }
     }
   );
 
@@ -66,7 +66,7 @@ describe('testing Banner component', () => {
     const listener = jest.fn();
     const banner = createBannerStub('banner', { url: 'https://empathy.co' });
     const { wrapper } = renderBanner({ banner });
-    wrapper.vm.$x.on('UserClickedABanner').subscribe(listener);
+    XPlugin.bus.on('UserClickedABanner').subscribe(listener);
 
     wrapper.trigger('click');
     expect(listener).toHaveBeenNthCalledWith(1, banner);
@@ -85,7 +85,7 @@ describe('testing Banner component', () => {
     const { wrapper } = renderBanner({
       banner: createBannerStub('banner', { title: 'Search UIs' })
     });
-    wrapper.vm.$x.on('UserClickedABanner').subscribe(listener);
+    XPlugin.bus.on('UserClickedABanner').subscribe(listener);
 
     wrapper.trigger('click');
     expect(listener).not.toHaveBeenCalled();
@@ -117,9 +117,4 @@ interface RenderBannerOptions {
   template?: string;
   /** Class to customize the title element. */
   titleClass?: string;
-}
-
-interface RenderBannerAPI {
-  /** The wrapper of the container element.*/
-  wrapper: Wrapper<Vue>;
 }

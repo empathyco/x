@@ -15,8 +15,6 @@ function render({
       </template>
     </Empathize>`
 } = {}) {
-  installNewXPlugin();
-
   const parent = document.createElement('div');
   document.body.appendChild(parent);
 
@@ -27,9 +25,12 @@ function render({
     },
     {
       attachTo: parent,
-      propsData: {
+      props: {
         eventsToOpenEmpathize,
         eventsToCloseEmpathize
+      },
+      global: {
+        plugins: [installNewXPlugin()]
       }
     }
   );

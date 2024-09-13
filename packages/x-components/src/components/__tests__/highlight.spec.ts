@@ -32,7 +32,7 @@ function renderHighlight({
       return wrapper.find(getDataTestSelector('highlight-end'));
     },
     async setHighlight(highlight: string) {
-      return await wrapper.setProps({ highlight });
+      return await wrapper.setProps({ highlight } as any);
     }
   };
 }

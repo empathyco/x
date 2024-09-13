@@ -1,8 +1,8 @@
 import { Facet, Filter } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
+import { Store } from 'vuex';
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
 import { installNewXPlugin } from '../../../../../__tests__/utils';
 import {
@@ -56,7 +56,7 @@ describe('testing Facets component', () => {
     expect(getStateFacets()).toEqual(stateFacets);
   });
 
-  it('renders the provided facets keeping the state facets', () => {
+  it('renders the provided facets keeping the state facets', async () => {
     const stateFacets = {
       color_facet: createSimpleFacetStub('color', createSimpleFilter => [
         createSimpleFilter('Red', false),
@@ -77,10 +77,11 @@ describe('testing Facets component', () => {
         createSimpleFilter('with stock', false)
       ])
     ];
-    const { getStateFacets } = renderFacetsProviderComponent({
-      stateFacets,
-      providedFacets
+    const { getStateFacets, facetWrapper } = renderFacetsProviderComponent({
+      stateFacets
     });
+
+    await facetWrapper.setProps({ facets: providedFacets });
 
     expect(getStateFacets()).toEqual(
       Object.assign(stateFacets, arrayToObject(providedFacets, 'id'))
@@ -88,7 +89,8 @@ describe('testing Facets component', () => {
   });
 
   it('emits the `UserChangedSelectedFilters` event when a filter is changed', async () => {
-    const { wrapper, deselectFilters, selectFilters } = renderFacetsProviderComponent();
+    const { wrapper, facetWrapper, deselectFilters, selectFilters } =
+      renderFacetsProviderComponent();
 
     const colorFacet = createSimpleFacetStub('color', createSimpleFilter => [
       createSimpleFilter('Red', false),
@@ -102,18 +104,18 @@ describe('testing Facets component', () => {
     const [bigFilter, smallFilter] = sizeFacet.filters;
 
     // Setting facets with selected filters does not trigger UserChangedSelectedFilters
-    await wrapper.setProps({ facets: [colorFacet, sizeFacet] });
+    await facetWrapper.setProps({ facets: [colorFacet, sizeFacet] });
     expect(wrapper.emitted('UserChangedSelectedFilters')).toBeUndefined();
 
     // Selecting a filter triggers UserChangedSelectedFilters
     await selectFilters([redFilter, bigFilter]);
     let emittedEvents = wrapper.emitted('UserChangedSelectedFilters');
     expect(emittedEvents).toHaveLength(1);
-    let emittedFilters: Filter[] = emittedEvents?.[0][0];
+    let emittedFilters = emittedEvents?.[0][0] as Filter[];
     expect(areFiltersDifferent(emittedFilters, [redFilter, bigFilter, smallFilter])).toBe(false);
 
     // Modifying the prop again with selected filters does not trigger UserChangedSelectedFilters
-    await wrapper.setProps({ facets: [colorFacet, sizeFacet] });
+    await facetWrapper.setProps({ facets: [colorFacet, sizeFacet] });
     expect(wrapper.emitted('UserChangedSelectedFilters')).toHaveLength(1);
 
     await selectFilters([smallFilter]);
@@ -122,7 +124,7 @@ describe('testing Facets component', () => {
     await deselectFilters([smallFilter]);
     emittedEvents = wrapper.emitted('UserChangedSelectedFilters');
     expect(emittedEvents).toHaveLength(2);
-    emittedFilters = emittedEvents?.[1][0];
+    emittedFilters = emittedEvents?.[1][0] as Filter[];
     expect(areFiltersDifferent(emittedFilters, [])).toBe(false);
   });
 });
@@ -133,13 +135,7 @@ function renderFacetsProviderComponent({
 }: FacetsRenderOptions = {}): FacetsComponentAPI {
   resetFacetsService();
 
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
   const store = new Store<RootXStoreState>({});
-  installNewXPlugin({ store }, localVue);
-  XPlugin.registerXModule(facetsXModule);
-  resetXFacetsStateWith(store, stateFacets);
-
   const facetWrapper = mount(
     {
       template: '<FacetsProvider :facets="providedFacets" />',
@@ -149,17 +145,23 @@ function renderFacetsProviderComponent({
       props: ['providedFacets']
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store })]
+      },
       store,
-      propsData: {
+      props: {
         providedFacets
       }
     }
   );
+
+  XPlugin.registerXModule(facetsXModule);
+  resetXFacetsStateWith(store, stateFacets);
   const wrapper = facetWrapper.findComponent(FacetsProvider);
 
   return {
     wrapper,
+    facetWrapper,
     getStateFacets(): Record<Facet['id'], Facet> {
       return store.getters['x/facets/facets'];
     },
@@ -168,7 +170,7 @@ function renderFacetsProviderComponent({
         // The provided filters should not be mutated. That's why we search for them in the state.
         DefaultFacetsService.instance.select(getStoreFilter(store, filter.id));
       });
-      await localVue.nextTick();
+      await nextTick();
       jest.runAllTimers();
     },
     async deselectFilters(filters: Filter[]): Promise<void> {
@@ -176,7 +178,7 @@ function renderFacetsProviderComponent({
         // The provided filters should not be mutated. That's why we search for them in the state.
         DefaultFacetsService.instance.deselect(getStoreFilter(store, filter.id))
       );
-      await localVue.nextTick();
+      await nextTick();
       jest.runAllTimers();
     }
   };
@@ -219,5 +221,6 @@ interface FacetsComponentAPI {
   /**
    * The testing wrapper of the {@link FacetsProvider} component.
    */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
+  facetWrapper: VueWrapper;
 }

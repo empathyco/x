@@ -1,13 +1,14 @@
-import { mount, createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { DeepPartial } from '@empathyco/x-utils/src/types/utils.types';
+import { nextTick } from 'vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import SemanticQueries from '../semantic-queries.vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { createSemanticQuery } from '../../../../__stubs__/semantic-queries-stubs.factory';
+import { semanticQueriesXModule } from '../../x-module';
 import { resetSemanticQueriesStateWith } from './utils';
-
 function renderSemanticQueriesList({
   template = `<SemanticQueries v-bind="$attrs"/>`,
   semanticQueries = [
@@ -17,33 +18,31 @@ function renderSemanticQueriesList({
   threshold = 5,
   maxItemsToRender = 5
 } = {}) {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-
-  installNewXPlugin(
-    {
-      store,
-      xModules: {
-        semanticQueries: { config: { threshold } }
-      }
-    },
-    localVue
-  );
-  resetSemanticQueriesStateWith(store, { semanticQueries });
-
   const wrapper = mount(
     {
       template,
       components: { SemanticQueries }
     },
     {
-      localVue,
-      store,
-      propsData: { maxItemsToRender }
+      global: {
+        plugins: [
+          installNewXPlugin({
+            store,
+            initialXModules: [semanticQueriesXModule],
+            xModules: {
+              semanticQueries: { config: { threshold } }
+            }
+          }),
+          store
+        ]
+      },
+      props: {
+        maxItemsToRender
+      }
     }
   );
-
+  resetSemanticQueriesStateWith(store, { semanticQueries });
   return { wrapper: wrapper.findComponent(SemanticQueries) } as const;
 }
 
@@ -55,30 +54,30 @@ describe('testing SemanticQueries', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('semanticQueries');
   });
 
-  it('wont render if there are no semantic queries', () => {
+  it('wont render if there are no semantic queries', async () => {
     const { wrapper } = renderSemanticQueriesList({
       semanticQueries: []
     });
-
-    expect(wrapper.html()).toEqual('');
+    await nextTick();
+    expect(wrapper.text()).toEqual('');
   });
 
-  it('renders a list with the semantic queries from the state', () => {
+  it('renders a list with the semantic queries from the state', async () => {
     const { wrapper } = renderSemanticQueriesList({
       semanticQueries: [
         createSemanticQuery({ query: 'test 1' }),
         createSemanticQuery({ query: 'test 2' })
       ]
     });
-
-    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query')).wrappers;
+    await nextTick();
+    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query'));
 
     expect(wrappers).toHaveLength(2);
     expect(wrappers.at(0)?.text()).toEqual('test 1');
     expect(wrappers.at(1)?.text()).toEqual('test 2');
   });
 
-  it('renders up to the maxItemsToRender prop', () => {
+  it('renders up to the maxItemsToRender prop', async () => {
     const { wrapper } = renderSemanticQueriesList({
       semanticQueries: [
         createSemanticQuery({ query: 'test 1' }),
@@ -87,15 +86,15 @@ describe('testing SemanticQueries', () => {
       ],
       maxItemsToRender: 2
     });
-
-    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query')).wrappers;
+    await nextTick();
+    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query'));
 
     expect(wrappers).toHaveLength(2);
     expect(wrappers.at(0)?.text()).toEqual('test 1');
     expect(wrappers.at(1)?.text()).toEqual('test 2');
   });
 
-  it('exposes a slot to overwrite the whole list', () => {
+  it('exposes a slot to overwrite the whole list', async () => {
     const { wrapper } = renderSemanticQueriesList({
       template: `
         <SemanticQueries #default="{ suggestions }">
@@ -113,15 +112,15 @@ describe('testing SemanticQueries', () => {
         createSemanticQuery({ query: 'test 2', distance: 1 })
       ]
     });
-
-    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query')).wrappers;
+    await nextTick();
+    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query'));
 
     expect(wrappers).toHaveLength(2);
     expect(wrappers.at(0)?.text()).toEqual('test 1 - 1');
     expect(wrappers.at(1)?.text()).toEqual('test 2 - 1');
   });
 
-  it('exposes an array of queries and a method to find the semantic query in its default slot', () => {
+  it('exposes an array of queries and a method to find the semantic query in its default slot', async () => {
     const { wrapper } = renderSemanticQueriesList({
       template: `
         <SemanticQueries #default="{ queries, findSemanticQuery }">
@@ -133,12 +132,12 @@ describe('testing SemanticQueries', () => {
       `,
       semanticQueries: [createSemanticQuery({ query: 'test', distance: 2 })]
     });
-
+    await nextTick();
     expect(wrapper.find(getDataTestSelector('string-query')).text()).toEqual('test');
     expect(wrapper.find(getDataTestSelector('model-query')).text()).toEqual('SemanticQuery');
   });
 
-  it('exposes a slot to overwrite the suggestion', () => {
+  it('exposes a slot to overwrite the suggestion', async () => {
     const { wrapper } = renderSemanticQueriesList({
       template: `
         <SemanticQueries #suggestion="{ suggestion }">
@@ -151,15 +150,15 @@ describe('testing SemanticQueries', () => {
         createSemanticQuery({ query: 'test 2', distance: 2 })
       ]
     });
-
-    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query-item-content')).wrappers;
+    await nextTick();
+    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query-item-content'));
 
     expect(wrappers).toHaveLength(2);
     expect(wrappers.at(0)?.text()).toEqual('test 1 - 1');
     expect(wrappers.at(1)?.text()).toEqual('test 2 - 2');
   });
 
-  it('exposes a slot to overwrite the suggestion content', () => {
+  it('exposes a slot to overwrite the suggestion content', async () => {
     const { wrapper } = renderSemanticQueriesList({
       template: `
         <SemanticQueries #suggestion-content="{ suggestion }">
@@ -172,8 +171,8 @@ describe('testing SemanticQueries', () => {
         createSemanticQuery({ query: 'test 2', distance: 2 })
       ]
     });
-
-    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query-item-content')).wrappers;
+    await nextTick();
+    const wrappers = wrapper.findAll(getDataTestSelector('semantic-query-item-content'));
 
     expect(wrappers).toHaveLength(2);
     expect(wrappers.at(0)?.text()).toEqual('test 1 - 1');

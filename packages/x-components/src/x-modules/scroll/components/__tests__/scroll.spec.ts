@@ -1,4 +1,4 @@
-import { mount, Wrapper } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { WireMetadata } from '../../../../wiring/wiring.types';
@@ -14,7 +14,6 @@ async function renderScroll({
   clientHeight = 200,
   distanceToBottom = 100
 }: RenderScrollOptions = {}): Promise<RenderScrollAPI> {
-  const [, localVue] = installNewXPlugin({ initialXModules: [scrollXModule] });
   const wrapperContainer = mount(
     {
       components: {
@@ -24,19 +23,18 @@ async function renderScroll({
       template
     },
     {
-      propsData: {
+      props: {
         throttleMs,
         id,
         distanceToBottom
       },
-      localVue
+      global: { plugins: [installNewXPlugin({ initialXModules: [scrollXModule] })] }
     }
   );
 
   const wrapper = wrapperContainer.findComponent(Scroll);
-  const scrollElement: HTMLElement = wrapperContainer.find(
-    getDataTestSelector('base-scroll')
-  ).element;
+  const scrollElement: HTMLElement = wrapperContainer.find(getDataTestSelector('base-scroll'))
+    .element as HTMLElement;
   jest.spyOn(scrollElement, 'clientHeight', 'get').mockImplementation(() => clientHeight);
   jest.spyOn(scrollElement, 'scrollHeight', 'get').mockImplementation(() => scrollHeight);
 
@@ -323,7 +321,7 @@ interface RenderScrollOptions {
 
 interface RenderScrollAPI {
   /** The wrapper for the base scroll component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** The scroll element. */
   scrollElement: HTMLElement;
   /** Function that launch the trigger scroll. */

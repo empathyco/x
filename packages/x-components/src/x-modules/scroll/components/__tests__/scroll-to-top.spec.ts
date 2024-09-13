@@ -1,9 +1,10 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { XEvent, XEventPayload } from '../../../../wiring/events.types';
 import { scrollXModule } from '../../x-module';
 import ScrollToTop from '../scroll-to-top.vue';
+import { nextTick } from 'vue';
+import { XPlugin } from '../../../../plugins';
 
 /**
  * Renders the {@link ScrollToTop} with the provided options.
@@ -16,11 +17,10 @@ function renderScrollToTop({
   scrollId = 'scrollId',
   thresholdPx
 }: RenderScrollToTopOptions = {}): RenderScrollToTopAPI {
-  const [, localVue] = installNewXPlugin({ initialXModules: [scrollXModule] });
   const wrapper = mount(ScrollToTop, {
     propsData: { scrollId, thresholdPx },
-    localVue,
-    scopedSlots: {
+    global: { plugins: [installNewXPlugin({ initialXModules: [scrollXModule] })] },
+    slots: {
       default: defaultSlot
     }
   });
@@ -33,8 +33,8 @@ function renderScrollToTop({
       await scrollToTopWrapper.trigger('click');
     },
     emitXEvent(event, payload) {
-      scrollToTopWrapper.vm.$x.emit(event, payload, { id: 'scrollId' });
-      return localVue.nextTick();
+      XPlugin.bus.emit(event, payload, { id: 'scrollId', moduleName: null });
+      return nextTick();
     }
   };
 }
@@ -49,7 +49,7 @@ describe('testing Scroll To Top component', () => {
 
   it('shows if a scroll is almost reaching the end and there is no threshold', async () => {
     const { scrollToTopWrapper, emitXEvent } = renderScrollToTop();
-    expect(scrollToTopWrapper.html()).toBe('');
+    expect(scrollToTopWrapper.find('.x-scroll-to-top').exists()).toBe(false);
     await emitXEvent('UserAlmostReachedScrollEnd', true);
     await emitXEvent('UserChangedScrollDirection', 'DOWN');
     expect(scrollToTopWrapper.html()).not.toBe('');
@@ -57,7 +57,7 @@ describe('testing Scroll To Top component', () => {
 
   it('shows if the scroll is over the threshold and user scrolls up', async () => {
     const { scrollToTopWrapper, emitXEvent } = renderScrollToTop({ thresholdPx: 200 });
-    expect(scrollToTopWrapper.html()).toBe('');
+    expect(scrollToTopWrapper.find('.x-scroll-to-top').exists()).toBe(false);
 
     await emitXEvent('UserScrolled', 250);
     await emitXEvent('UserChangedScrollDirection', 'UP');
@@ -68,7 +68,7 @@ describe('testing Scroll To Top component', () => {
   it("emits event with the component's id as payload when clicked", async () => {
     const { scrollToTopWrapper, emitXEvent, click } = renderScrollToTop();
     const listener = jest.fn();
-    scrollToTopWrapper.vm.$x.on('UserClickedScrollToTop').subscribe(listener);
+    XPlugin.bus.on('UserClickedScrollToTop').subscribe(listener);
 
     await emitXEvent('UserAlmostReachedScrollEnd', true);
     await emitXEvent('UserChangedScrollDirection', 'DOWN');
@@ -87,7 +87,7 @@ describe('testing Scroll To Top component', () => {
     expect(scrollToTopWrapper.html()).not.toBe('');
 
     await emitXEvent('UserChangedScrollDirection', 'UP');
-    expect(scrollToTopWrapper.html()).toBe('');
+    expect(scrollToTopWrapper.find('.x-scroll-to-top').exists()).toBe(false);
   });
 
   it('hides when the scroll gets lesser than the threshold', async () => {
@@ -98,7 +98,7 @@ describe('testing Scroll To Top component', () => {
     expect(scrollToTopWrapper.html()).not.toBe('');
 
     await emitXEvent('UserScrolled', 900);
-    expect(scrollToTopWrapper.html()).toBe('');
+    expect(scrollToTopWrapper.find('.x-scroll-to-top').exists()).toBe(false);
   });
 });
 
@@ -113,7 +113,7 @@ interface RenderScrollToTopOptions {
 
 interface RenderScrollToTopAPI {
   /** The wrapper for the base scroll to top component. */
-  scrollToTopWrapper: Wrapper<Vue>;
+  scrollToTopWrapper: VueWrapper;
   /** Clicks the button. */
   click: () => Promise<void>;
   /** Emits an XEvent with the id in metadata. */

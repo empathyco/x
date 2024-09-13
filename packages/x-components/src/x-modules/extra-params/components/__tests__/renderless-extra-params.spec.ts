@@ -6,23 +6,22 @@ import { XPlugin } from '../../../../plugins';
 import { WirePayload } from '../../../../wiring';
 import { extraParamsXModule } from '../../x-module';
 import RenderlessExtraParam from '../renderless-extra-param.vue';
-import { resetXExtraParamStateWith } from './utils';
 
-function render({
-  template = `<RenderlessExtraParam :name="name" />`,
-  name = 'warehouse',
-  params = {}
-} = {}) {
-  installNewXPlugin({ initialXModules: [extraParamsXModule] });
-  resetXExtraParamStateWith(XPlugin.store, { params });
-
-  const wrapper = mount({
-    template,
-    components: {
-      RenderlessExtraParam
+function render({ template = `<RenderlessExtraParam :name="name" />`, name = 'warehouse' } = {}) {
+  const wrapper = mount(
+    {
+      template,
+      components: {
+        RenderlessExtraParam
+      },
+      data: () => ({ name })
     },
-    data: () => ({ name })
-  });
+    {
+      global: {
+        plugins: [installNewXPlugin({ initialXModules: [extraParamsXModule] })]
+      }
+    }
+  );
 
   return {
     wrapper: wrapper.findComponent(RenderlessExtraParam)
@@ -58,8 +57,7 @@ describe('testing RenderlessExtraParam component', () => {
     XPlugin.bus.on('UserChangedExtraParams', true).subscribe(userChangedExtraParamsCallback);
 
     expect(userChangedExtraParamsCallback).toHaveBeenCalledTimes(0);
-
-    wrapper.find(getDataTestSelector('custom-slot')).element.click();
+    wrapper.find(getDataTestSelector('custom-slot')).trigger('click');
 
     expect(userChangedExtraParamsCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>(
       {

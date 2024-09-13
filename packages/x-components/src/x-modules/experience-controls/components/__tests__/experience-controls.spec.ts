@@ -1,5 +1,4 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { XPlugin } from '../../../../plugins/index';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { experienceControlsXModule } from '../../x-module';
@@ -7,11 +6,10 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components/i
 import ExperienceControls from '../experience-controls.vue';
 
 function renderExperienceControls(): RenderExperienceControlsApi {
-  const [, localVue] = installNewXPlugin();
   XPlugin.registerXModule(experienceControlsXModule);
 
   const wrapper = mount(ExperienceControls, {
-    localVue
+    global: { plugins: [installNewXPlugin()] }
   });
 
   return {
@@ -38,12 +36,12 @@ describe('testing experience controls component', () => {
     };
 
     const extraParamsProvidedListener = jest.fn();
-    wrapper.vm.$x.on('ExtraParamsProvided').subscribe(extraParamsProvidedListener);
+    XPlugin.bus.on('ExtraParamsProvided').subscribe(extraParamsProvidedListener);
 
     const sortChangedListener = jest.fn();
-    wrapper.vm.$x.on('SortChanged').subscribe(sortChangedListener);
+    XPlugin.bus.on('SortChanged').subscribe(sortChangedListener);
 
-    wrapper.vm.$x.emit('ExperienceControlsEventsChanged', eventsFromExperienceControls);
+    XPlugin.bus.emit('ExperienceControlsEventsChanged', eventsFromExperienceControls);
 
     expect(extraParamsProvidedListener).toHaveBeenCalledTimes(1);
     expect(extraParamsProvidedListener).toHaveBeenCalledWith({
@@ -57,5 +55,5 @@ describe('testing experience controls component', () => {
 
 interface RenderExperienceControlsApi {
   /** The wrapper for the experience controls component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
 }

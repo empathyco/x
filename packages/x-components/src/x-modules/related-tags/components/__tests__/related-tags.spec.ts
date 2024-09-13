@@ -1,7 +1,6 @@
 import { RelatedTag } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { XPlugin } from '../../../../plugins/x-plugin';
@@ -52,7 +51,7 @@ describe('testing related tags component', () => {
       },
       async clickNthRelatedTag(nth) {
         const relatedTagWrappers = wrapper.findAllComponents(RelatedTagComponent);
-        const targetRelatedTagWrapper = relatedTagWrappers.wrappers[nth];
+        const targetRelatedTagWrapper = relatedTagWrappers[nth];
         targetRelatedTagWrapper.trigger('click');
         await localVue.nextTick();
       }
@@ -75,7 +74,7 @@ describe('testing related tags component', () => {
   it('renders a list of the related tags', () => {
     const { relatedTags, getRelatedTagItems } = renderRelatedTags();
 
-    getRelatedTagItems().wrappers.forEach((relatedTagItemWrapper, index) => {
+    getRelatedTagItems().forEach((relatedTagItemWrapper, index) => {
       expect(relatedTagItemWrapper.text()).toEqual(relatedTags[index].tag);
     });
   });
@@ -84,7 +83,7 @@ describe('testing related tags component', () => {
     const { wrapper } = renderRelatedTags({ itemClass: 'custom-class' });
     const relatedTagWrappers = wrapper.findAllComponents(RelatedTagComponent);
 
-    relatedTagWrappers.wrappers.forEach(relatedTagItemWrapper => {
+    relatedTagWrappers.forEach(relatedTagItemWrapper => {
       expect(relatedTagItemWrapper.classes('custom-class')).toBe(true);
     });
   });
@@ -105,10 +104,7 @@ describe('testing related tags component', () => {
         </RelatedTags>`
     });
 
-    function expectToHaveOverriddenContent(
-      relatedTagItemWrapper: Wrapper<Vue>,
-      index: number
-    ): void {
+    function expectToHaveOverriddenContent(relatedTagItemWrapper: any, index: number): void {
       const labelWrapper = relatedTagItemWrapper.find(getDataTestSelector('related-tag-label'));
       const crossWrapper = relatedTagItemWrapper.find(getDataTestSelector('related-tag-cross'));
       const chevronWrapper = relatedTagItemWrapper.find(getDataTestSelector('related-tag-chevron'));
@@ -153,7 +149,7 @@ describe('testing related tags component', () => {
 
     const relatedTagsWrappers = getRelatedTagItems();
 
-    relatedTagsWrappers.wrappers.forEach(relatedTagItemWrapper => {
+    relatedTagsWrappers.forEach(relatedTagItemWrapper => {
       const customRelatedTagWrapper = relatedTagItemWrapper.find(
         getDataTestSelector('custom-related-tag')
       );
@@ -162,7 +158,7 @@ describe('testing related tags component', () => {
 
     await wrapper.setProps({ highlightCurated: true });
 
-    relatedTagsWrappers.wrappers.forEach((relatedTagItemWrapper, index) => {
+    relatedTagsWrappers.forEach((relatedTagItemWrapper, index) => {
       const customRelatedTagWrapper = relatedTagItemWrapper.find(
         getDataTestSelector('custom-related-tag')
       );
@@ -182,29 +178,3 @@ describe('testing related tags component', () => {
     expect(relatedTagsWrappers).toHaveLength(maxItemsToRender);
   });
 });
-
-interface RenderRelatedTagsOptions {
-  /** The initial related tags to render. */
-  relatedTags?: RelatedTag[];
-  /**
-   * The template to render. Receives the `relatedTags` via prop, and has registered the
-   * {@link RelatedTags} component.
-   */
-  template?: string;
-  /** Class to add to the related tags. */
-  itemClass?: string;
-}
-
-interface RenderRelatedTagsAPI {
-  /** The Vue testing utils wrapper for the  {@link RelatedTags} component. */
-  wrapper: Wrapper<Vue>;
-  /** The initial list of related tags that are going to be rendered. */
-  relatedTags: RelatedTag[];
-  /**
-   * Retrieves the wrapper for the items of the list rendered by the {@link RelatedTags}
-   * component.
-   */
-  getRelatedTagItems: () => WrapperArray<Vue>;
-  /** Clicks the nth {@link RelatedTagComponent} component and waits for the view to update. */
-  clickNthRelatedTag: (nth: number) => Promise<void>;
-}

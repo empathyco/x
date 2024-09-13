@@ -1,6 +1,5 @@
 import { Dictionary } from '@empathyco/x-utils';
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { XPlugin } from '../../../../plugins';
@@ -11,14 +10,15 @@ import ExtraParams from '../extra-params.vue';
 describe('testing extra params component', () => {
   function renderExtraParams(values: Dictionary<unknown>): RenderExtraParamsApi {
     XPlugin.resetInstance();
-    const [, localVue] = installNewXPlugin();
     XPlugin.registerXModule(extraParamsXModule);
 
     const wrapper = mount(ExtraParams, {
-      propsData: {
+      props: {
         values
       },
-      localVue
+      global: {
+        plugins: [installNewXPlugin()]
+      }
     });
 
     return {
@@ -36,7 +36,7 @@ describe('testing extra params component', () => {
     const { wrapper } = renderExtraParams({ warehouse: 1234 });
     const extraParamsProvidedCallback = jest.fn();
 
-    wrapper.vm.$x.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
+    XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
 
     expect(extraParamsProvidedCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>({
       eventPayload: { warehouse: 1234 },
@@ -56,5 +56,5 @@ describe('testing extra params component', () => {
 
 interface RenderExtraParamsApi {
   /** The wrapper for the extra params component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
 }

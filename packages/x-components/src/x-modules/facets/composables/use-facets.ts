@@ -40,7 +40,9 @@ export function useFacets(props: {
       return (props.facetsIds as string[]).reduce(
         (selectedFilters, facetId) => [
           ...selectedFilters,
-          ...selectedFiltersByFacet.value[facetId]
+          ...(Array.isArray(selectedFiltersByFacet.value[facetId])
+            ? selectedFiltersByFacet.value[facetId]
+            : [])
         ],
         [] as Filter[]
       );

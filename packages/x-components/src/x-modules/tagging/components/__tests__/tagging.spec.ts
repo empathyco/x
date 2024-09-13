@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import Vue from 'vue';
+import { reactive, nextTick } from 'vue';
 import { Dictionary } from '@empathyco/x-utils';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
@@ -25,8 +25,7 @@ function renderTagging({
   clickedResultStorageKey,
   productId
 }: RenderTaggingOptions = {}) {
-  const [, localVue] = installNewXPlugin();
-  const snippetConfig = Vue.observable({
+  const snippetConfig = reactive({
     ...baseSnippetConfig,
     consent: snippetConsent,
     productId
@@ -48,18 +47,18 @@ function renderTagging({
       template
     },
     {
+      global: { plugins: [installNewXPlugin()] },
       provide: {
         snippetConfig
       },
-      propsData: {
+      props: {
         consent,
         queryTaggingDebounceMs,
         sessionTTLMs,
         snippetConfig,
         clickedResultStorageTTLMs,
         clickedResultStorageKey
-      },
-      localVue
+      }
     }
   );
 
@@ -74,7 +73,7 @@ function renderTagging({
 
   function setSnippetConfig(newValue: Dictionary<unknown>): Promise<void> {
     Object.assign(snippetConfig, newValue);
-    return localVue.nextTick();
+    return nextTick();
   }
 
   return {

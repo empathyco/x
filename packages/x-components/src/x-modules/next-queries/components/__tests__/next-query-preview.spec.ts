@@ -1,7 +1,8 @@
-import { mount, Wrapper, createLocalVue, WrapperArray } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { DeepPartial } from '@empathyco/x-utils';
 import { NextQuery, PreviewResults } from '@empathyco/x-types';
+import { nextTick } from 'vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import NextQueryPreview from '../next-query-preview.vue';
 import { RootXStoreState } from '../../../../store/store.types';
@@ -27,13 +28,26 @@ describe('next query preview', () => {
       totalResults: 100
     },
     eventToSpy
-  }: RenderNextQueryPreviewOptions = {}): RenderNextQueryPreviewAPI {
-    const localVue = createLocalVue();
-    localVue.use(Vuex);
-
+  }: RenderNextQueryPreviewOptions = {}) {
     const store = new Store<DeepPartial<RootXStoreState>>({});
-    installNewXPlugin({ store }, localVue);
-    XPlugin.registerXModule(nextQueriesXModule);
+
+    const wrapper = mount(
+      {
+        props: ['maxItemsToRender', 'suggestion'],
+        components: { NextQueryPreview },
+        template
+      },
+      {
+        global: {
+          plugins: [installNewXPlugin({ store, initialXModules: [nextQueriesXModule] })]
+        },
+        store,
+        props: {
+          maxItemsToRender,
+          suggestion
+        }
+      }
+    );
 
     if (resultsPreview) {
       resetXNextQueriesStateWith(store, {
@@ -49,24 +63,8 @@ describe('next query preview', () => {
       XPlugin.bus.on(eventToSpy).subscribe(eventSpy);
     }
 
-    const wrapper = mount(
-      {
-        props: ['maxItemsToRender', 'suggestion'],
-        components: { NextQueryPreview },
-        template
-      },
-      {
-        localVue,
-        store,
-        propsData: {
-          maxItemsToRender,
-          suggestion
-        }
-      }
-    ).findComponent(NextQueryPreview);
-
     return {
-      wrapper,
+      wrapper: wrapper.findComponent(NextQueryPreview),
       eventSpy,
       suggestion,
       resultsPreview,
@@ -88,26 +86,27 @@ describe('next query preview', () => {
     expect(eventSpy).toHaveBeenCalledWith(suggestion.query);
   });
 
-  it('renders the results names in the default slot', () => {
+  it('renders the results names in the default slot', async () => {
     const { resultsPreview, findTestDataById } = renderNextQueryPreview();
-
+    await nextTick();
     const wrappers = findTestDataById('result-name');
 
     resultsPreview!.items.forEach((result, index) => {
-      expect(wrappers.at(index).element).toHaveTextContent(result.name!);
+      expect(wrappers.at(index)?.element).toHaveTextContent(result.name!);
     });
   });
 
-  it('renders the specified number of items', () => {
+  it('renders the specified number of items', async () => {
     const maxItemsToRender = 2;
     const { findTestDataById } = renderNextQueryPreview({
       maxItemsToRender
     });
 
+    await nextTick();
     expect(findTestDataById('result-name')).toHaveLength(maxItemsToRender);
   });
 
-  it('exposes the suggestion, the results and the totalResults in the default slot', () => {
+  it('exposes the suggestion, the results and the totalResults in the default slot', async () => {
     const template = `
       <NextQueryPreview
           :suggestion="suggestion"
@@ -123,6 +122,8 @@ describe('next query preview', () => {
       template
     });
 
+    await nextTick();
+
     expect(wrapper.find(getDataTestSelector('next-query-query')).element).toHaveTextContent(
       suggestion.query
     );
@@ -133,11 +134,11 @@ describe('next query preview', () => {
     const resultsWrappers = findTestDataById('result-name');
 
     resultsPreview!.items.forEach((result, index) => {
-      expect(resultsWrappers.at(index).element).toHaveTextContent(result.name!);
+      expect(resultsWrappers.at(index)?.element).toHaveTextContent(result.name!);
     });
   });
 
-  it('allows changing the result content', () => {
+  it('allows changing the result content', async () => {
     const template = `
       <NextQueryPreview :suggestion="suggestion" #result="{ result }">
         <span data-test="result-content">{{result.id}} - {{result.name}}</span>
@@ -145,10 +146,12 @@ describe('next query preview', () => {
     `;
     const { findTestDataById, resultsPreview } = renderNextQueryPreview({ template });
 
+    await nextTick();
+
     const resultsWrapper = findTestDataById('result-content');
 
     resultsPreview!.items.forEach((result, index) => {
-      expect(resultsWrapper.at(index).element).toHaveTextContent(`${result.id} - ${result.name!}`);
+      expect(resultsWrapper.at(index)?.element).toHaveTextContent(`${result.id} - ${result.name!}`);
     });
   });
 
@@ -156,8 +159,7 @@ describe('next query preview', () => {
     const { wrapper } = renderNextQueryPreview({
       resultsPreview: null
     });
-
-    expect(wrapper.find(getDataTestSelector('next-query-preview')).element).toBeFalsy();
+    expect(wrapper.find(getDataTestSelector('next-query-preview')).exists()).toBe(false);
   });
 });
 
@@ -178,17 +180,4 @@ interface RenderNextQueryPreviewOptions {
    * {@link NextQueryPreview} component.
    */
   template?: string;
-}
-
-interface RenderNextQueryPreviewAPI {
-  /** The Vue testing utils wrapper for the {@link NextQueryPreview} component. */
-  wrapper: Wrapper<Vue>;
-  /** A Jest spy set in the {@link XPlugin} `on` function. */
-  eventSpy?: jest.Mock<any, any>;
-  /** The rendered next query. */
-  suggestion: NextQuery;
-  /** The results preview of the next query search request. */
-  resultsPreview: PreviewResults | null;
-  /** Find test data in the wrapper for the {@link NextQueryPreview} component. */
-  findTestDataById: (testDataId: string) => WrapperArray<Vue>;
 }

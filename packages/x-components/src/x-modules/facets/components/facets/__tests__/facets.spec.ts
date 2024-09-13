@@ -1,8 +1,8 @@
 import { Facet } from '@empathyco/x-types';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { DOMWrapper, mount } from '@vue/test-utils';
+import Vue, { nextTick } from 'vue';
+import { Store } from 'vuex';
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils';
 import {
@@ -32,7 +32,8 @@ describe('testing Facets component', () => {
     expect(wrapper.find('facets').exists()).toBe(false);
   });
 
-  it('renders the state facets', () => {
+  it('renders the state facets', async () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { getDefaultFacets, getStateFacets, getDefaultSelectedFilters } = renderFacetsComponent({
       facets: {
         color_facet: createSimpleFacetStub('color_facet', createSimpleFilter => [
@@ -45,23 +46,25 @@ describe('testing Facets component', () => {
         ])
       }
     });
+    await nextTick();
     const facetWrappers = getDefaultFacets();
     const stateFacets = getStateFacets();
     const facetLabels = stateFacets.map(facet => facet.label);
     const selectedFiltersWrappers = getDefaultSelectedFilters();
 
-    expect(facetWrappers.wrappers).toHaveLength(stateFacets.length);
-    facetWrappers.wrappers.forEach((facetWrapper: Wrapper<Vue>) => {
+    expect(facetWrappers).toHaveLength(stateFacets.length);
+    facetWrappers.forEach(facetWrapper => {
       expect(facetLabels).toContain(facetWrapper.element.innerHTML);
     });
 
-    expect(selectedFiltersWrappers.wrappers).toHaveLength(1);
-    expect(selectedFiltersWrappers.wrappers[0].text()).toEqual('Blue');
+    expect(selectedFiltersWrappers).toHaveLength(1);
+    expect(selectedFiltersWrappers[0].text()).toEqual('Blue');
   });
 
-  it('allows customizing a facet using a slot named with the facet.id', () => {
+  it('allows customizing a facet using a slot named with the facet.id', async () => {
     const customFacetId = 'color_facet';
 
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { wrapper, getDefaultFacets } = renderFacetsComponent({
       customFacetSlot: `
           <template #${toKebabCase(customFacetId)}="{ facet, selectedFilters }">
@@ -81,14 +84,17 @@ describe('testing Facets component', () => {
         ])
       }
     });
-    const customFacetWrapper = wrapper.get(getDataTestSelector('custom-facet'));
+    await nextTick();
+    const customFacetWrapper = wrapper.get(
+      getDataTestSelector('custom-facet')
+    ) as DOMWrapper<Element>;
     const customSelectedFiltersWrapper = wrapper.get(
       getDataTestSelector('custom-facet-selected-filters')
     );
 
     expect(customFacetWrapper.exists()).toBe(true);
     expect(customFacetWrapper.text()).toBe(customFacetId);
-    getDefaultFacets().wrappers.forEach(facet => {
+    getDefaultFacets().forEach(facet => {
       expect(facet.text()).not.toBe(customFacetId);
     });
     expect(customSelectedFiltersWrapper.text()).toEqual('RedBlue');
@@ -97,7 +103,7 @@ describe('testing Facets component', () => {
   it(
     'allows customizing a facet using a slot named with the facet.modelName together with' +
       'the slots with the facet.id',
-    () => {
+    async () => {
       const color_facet = createSimpleFacetStub('color_facet', createSimpleFilter => [
         createSimpleFilter('Red', true),
         createSimpleFilter('Blue', false)
@@ -123,11 +129,16 @@ describe('testing Facets component', () => {
           </template>`,
         facets: { brand_facet, color_facet }
       });
-      const facetByModelNameWrapper = wrapper.get(getDataTestSelector('facet-by-model-name'));
+      await nextTick();
+      const facetByModelNameWrapper = wrapper.get(
+        getDataTestSelector('facet-by-model-name')
+      ) as DOMWrapper<Element>;
       const selectedFiltersByModelNameWrapper = wrapper.get(
         getDataTestSelector('selected-filters-by-model-name')
       );
-      const facetByIdWrapper = wrapper.get(getDataTestSelector('facet-by-id'));
+      const facetByIdWrapper = wrapper.get(
+        getDataTestSelector('facet-by-id')
+      ) as DOMWrapper<Element>;
       const selectedFiltersByIdWrapper = wrapper.get(getDataTestSelector('selected-filters-by-id'));
 
       expect(facetByModelNameWrapper.exists()).toBe(true);
@@ -141,7 +152,8 @@ describe('testing Facets component', () => {
   );
 
   describe('filters facets based on renderableFacets prop', () => {
-    it('renders all facets when its value is omitted', () => {
+    it('renders all facets when its value is omitted', async () => {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       const { getDefaultFacets } = renderFacetsComponent({
         facets: {
           color: createSimpleFacetStub('color', createSimpleFilter => [
@@ -154,15 +166,17 @@ describe('testing Facets component', () => {
           ])
         }
       });
+      await nextTick();
 
       const facetWrappers = getDefaultFacets();
       expect(facetWrappers).toHaveLength(2);
-      getDefaultFacets().wrappers.forEach(facetWrapper => {
+      getDefaultFacets().forEach(facetWrapper => {
         expect(['color', 'size']).toContain(facetWrapper.text());
       });
     });
 
-    it('renders only included facets', () => {
+    it('renders only included facets', async () => {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       const { getDefaultFacets } = renderFacetsComponent({
         facets: {
           color_facet: createSimpleFacetStub('color_facet', createSimpleFilter => [
@@ -180,15 +194,16 @@ describe('testing Facets component', () => {
         },
         renderableFacets: 'color_facet'
       });
-
+      await nextTick();
       const facetWrappers = getDefaultFacets();
       expect(facetWrappers).toHaveLength(1);
-      getDefaultFacets().wrappers.forEach(facetWrapper => {
+      getDefaultFacets().forEach(facetWrapper => {
         expect(['color_facet']).toContain(facetWrapper.text());
       });
     });
 
-    it('does not render excluded facets', () => {
+    it('does not render excluded facets', async () => {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       const { getDefaultFacets } = renderFacetsComponent({
         facets: {
           color: createSimpleFacetStub('color', createSimpleFilter => [
@@ -206,15 +221,16 @@ describe('testing Facets component', () => {
         },
         renderableFacets: '!color'
       });
-
+      await nextTick();
       const facetWrappers = getDefaultFacets();
       expect(facetWrappers).toHaveLength(2);
-      getDefaultFacets().wrappers.forEach(facetWrapper => {
+      getDefaultFacets().forEach(facetWrapper => {
         expect(['size', 'price']).toContain(facetWrapper.text());
       });
     });
 
-    it('renders only included facets when combining with excluded ones', () => {
+    it('renders only included facets when combining with excluded ones', async () => {
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       const { getDefaultFacets } = renderFacetsComponent({
         facets: {
           color: createSimpleFacetStub('color', createSimpleFilter => [
@@ -232,10 +248,10 @@ describe('testing Facets component', () => {
         },
         renderableFacets: 'color,!price'
       });
-
+      await nextTick();
       const facetWrappers = getDefaultFacets();
       expect(facetWrappers).toHaveLength(1);
-      getDefaultFacets().wrappers.forEach(facetWrapper => {
+      getDefaultFacets().forEach(facetWrapper => {
         expect(['color']).toContain(facetWrapper.text());
       });
     });
@@ -261,13 +277,8 @@ function renderFacetsComponent({
             </div>
           </template>
        </Facets>`
-}: FacetsRenderOptions = {}): FacetsComponentAPI {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
+}: FacetsRenderOptions = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-  XPlugin.registerXModule(facetsXModule);
-  resetXFacetsStateWith(store, facets);
 
   const facetWrapper = mount(
     {
@@ -279,17 +290,23 @@ function renderFacetsComponent({
       template
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [facetsXModule] })]
+      },
       store,
-      propsData: {
+      props: {
         renderableFacets
       }
     }
   );
+
+  XPlugin.registerXModule(facetsXModule);
+  resetXFacetsStateWith(store, facets);
   const wrapper = facetWrapper.findComponent(Facets);
 
   return {
     wrapper,
+    facetWrapper,
     getStateFacets() {
       return Object.values(facets);
     },
@@ -308,11 +325,4 @@ interface FacetsRenderOptions {
   facets?: Dictionary<Facet>;
   renderableFacets?: string;
   template?: string;
-}
-
-interface FacetsComponentAPI {
-  getDefaultFacets: () => WrapperArray<Vue>;
-  getDefaultSelectedFilters: () => WrapperArray<Vue>;
-  getStateFacets: () => Facet[];
-  wrapper: Wrapper<Vue>;
 }
