@@ -72,16 +72,16 @@ describe('testing default X API', () => {
       lang: 'es'
     };
     const rootComponent = defineComponent({
-      template: `<div>
-        <h1 class="lang-test">{{ lang }}</h1>
-        <h1 class="store-test">{{ store }}</h1>
-      </div>`,
       setup: () => {
         const snippetConfig = inject<SnippetConfig>('snippetConfig');
         const lang = computed(() => snippetConfig?.lang ?? '');
         const store = computed(() => snippetConfig?.store ?? '');
         return { lang, store };
-      }
+      },
+      template: `<div>
+        <h1 class="lang-test">{{ lang }}</h1>
+        <h1 class="store-test">{{ store }}</h1>
+      </div>`
     });
 
     const { api } = await new XInstaller({

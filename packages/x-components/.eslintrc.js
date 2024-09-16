@@ -1,13 +1,6 @@
 module.exports = {
   extends: ['plugin:@empathyco/x/all'],
-  // TODO - Reactivate linter for unit and e2e tests once they pass.
-  ignorePatterns: [
-    'cypress.config.ts',
-    '**/__tests__/**/*.spec.ts',
-    '**/tests/**/*.spec.ts',
-    '**/__tests__/**/utils.ts',
-    '**/tests/**/utils.ts'
-  ],
+  ignorePatterns: ['cypress.config.ts'],
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: 'tsconfig.eslint.json'
@@ -43,7 +36,9 @@ module.exports = {
     {
       files: ['*.spec.ts'],
       rules: {
-        'max-len': 'off'
+        'max-len': 'off',
+        '@typescript-eslint/no-unsafe-argument': 'off',
+        'vue/one-component-per-file': 'off'
       }
     }
   ]

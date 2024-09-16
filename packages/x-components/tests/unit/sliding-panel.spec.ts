@@ -1,5 +1,4 @@
 import { mount } from 'cypress/vue2';
-import Vue from 'vue';
 import SlidingPanel from '../../src/components/sliding-panel.vue';
 import { XPlugin } from '../../src/plugins/x-plugin';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
@@ -67,7 +66,6 @@ function renderSlidingPanel({
       }
     },
     {
-      vue: Vue.extend({}),
       plugins: [[new XPlugin(new XDummyBus()), { adapter: e2eAdapter }]],
       propsData: {
         scrollFactor,

@@ -8,11 +8,7 @@ import { extraParamsXModule } from '../../x-module';
 import RenderlessExtraParam from '../renderless-extra-param.vue';
 import { resetXExtraParamStateWith } from './utils';
 
-function render({
-  template = `<RenderlessExtraParam :name="name" />`,
-  name = 'warehouse',
-  params = {}
-} = {}) {
+function render({ template = `<RenderlessExtraParam :name="name" />`, name = 'warehouse' } = {}) {
   const wrapper = mount(
     {
       template,

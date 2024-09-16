@@ -42,9 +42,9 @@ describe('testing ClearSearchInput component', () => {
         }
       }
     });
-    const renderedSlotHTML = clearSearchInput.element.querySelector('.x-clear-search-input__text');
+    const renderedSlot = clearSearchInput.find('.x-clear-search-input__text');
 
-    expect(renderedSlotHTML).toBeDefined();
-    expect(renderedSlotHTML!.textContent).toEqual('Clear');
+    expect(renderedSlot).toBeDefined();
+    expect(renderedSlot.text()).toEqual('Clear');
   });
 });

@@ -22,18 +22,10 @@ function renderHighlight({
   });
   return {
     wrapper,
-    getStartPart() {
-      return wrapper.find(getDataTestSelector('highlight-start'));
-    },
-    getMatchingPart() {
-      return wrapper.find(getDataTestSelector('matching-part'));
-    },
-    getEndPart() {
-      return wrapper.find(getDataTestSelector('highlight-end'));
-    },
-    async setHighlight(highlight: string) {
-      return await wrapper.setProps({ highlight } as any);
-    }
+    getStartPart: () => wrapper.find(getDataTestSelector('highlight-start')),
+    getMatchingPart: () => wrapper.find(getDataTestSelector('matching-part')),
+    getEndPart: () => wrapper.find(getDataTestSelector('highlight-end')),
+    setHighlight: (highlight: string) => wrapper.setProps({ highlight } as any)
   };
 }
 

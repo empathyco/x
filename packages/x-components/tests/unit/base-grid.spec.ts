@@ -1,5 +1,4 @@
 import { mount } from 'cypress/vue2';
-import Vue from 'vue';
 import { getNextQueriesStub, getSearchResponseStub } from '../../src/__stubs__';
 import BaseGrid from '../../src/components/base-grid.vue';
 import { XPlugin } from '../../src/plugins/x-plugin';
@@ -64,7 +63,6 @@ function renderBaseGrid({
       }
     },
     {
-      vue: Vue.extend({}),
       plugins: [[new XPlugin(new XDummyBus()), { adapter: e2eAdapter }]],
       propsData: {
         items: items ?? defaultItems,

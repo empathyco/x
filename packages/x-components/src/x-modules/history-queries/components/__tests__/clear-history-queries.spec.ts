@@ -88,9 +88,9 @@ describe('testing ClearHistoryQueries component', () => {
         }
       }
     });
-    const renderedSlotHTML = wrapper.element.querySelector('.x-clear-history-queries__text');
+    const renderedSlot = wrapper.find('.x-clear-history-queries__text');
 
-    expect(renderedSlotHTML).toBeDefined();
-    expect(renderedSlotHTML!.textContent).toEqual('Clear');
+    expect(renderedSlot).toBeDefined();
+    expect(renderedSlot.text()).toEqual('Clear');
   });
 });

@@ -1,5 +1,4 @@
 import { mount } from 'cypress/vue2';
-import Vue from 'vue';
 import StaggeredFadeAndSlide from '../../src/components/animations/staggered-fade-and-slide.vue';
 import { XPlugin } from '../../src/plugins/x-plugin';
 import { UrlParams } from '../../src/types/url-params';
@@ -95,7 +94,6 @@ function renderMainScroll({
       }
     },
     {
-      vue: Vue.extend({}),
       plugins: [
         [new XPlugin(new XDummyBus()), { adapter: e2eAdapter, initialXModules: [scrollXModule] }]
       ]
