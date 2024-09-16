@@ -1,34 +1,34 @@
 import { Result, XComponentsAdapter } from '@empathyco/x-types';
-import { mount, VueWrapper } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import {
   createResultStub,
   getEmptySearchResponseStub,
   getResultsStub
-} from '../../../../__stubs__/index';
+} from '../../../../__stubs__';
 import { XComponentsAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { queriesPreviewXModule } from '../../x-module';
 import QueryPreviewList from '../query-preview-list.vue';
 import { QueryPreviewInfo } from '../../store/types';
 import { QueryFeature } from '../../../../types';
-import { QueryPreview } from '../index';
+import QueryPreview from '../query-preview.vue';
 
 function renderQueryPreviewList({
   template = `
-        <QueryPreviewList v-bind="$attrs" #default="{ queryPreviewInfo, results }">
-          {{ queryPreviewInfo.query }} - {{results[0].name}}
-        </QueryPreviewList>`,
-  queriesPreviewInfo = [{ query: 'milk' }],
-  results = { milk: getResultsStub(1) },
+    <QueryPreviewList #default="{ queryPreviewInfo, results }">
+      {{ queryPreviewInfo.query }} - {{results[0].name}}
+    </QueryPreviewList>`,
+  queriesPreviewInfo = [{ query: 'milk' }] as QueryPreviewInfo[],
+  results = { milk: getResultsStub(1) } as Record<string, Result[]>,
   debounceTimeMs = 0,
   persistInCache = true,
   queryFeature = 'search_box',
   maxItemsToRender = 4
-}: RenderQueryPreviewListOptions): RenderQueryPreviewListAPI {
+}) {
   const adapter: XComponentsAdapter = {
     ...XComponentsAdapterDummy,
     search: jest.fn(({ query }) => {
-      const fakeResults = results[query];
+      const fakeResults = results[query] ?? [];
       return Promise.resolve({
         ...getEmptySearchResponseStub(),
         results: fakeResults,
@@ -40,10 +40,7 @@ function renderQueryPreviewList({
   const wrapper = mount(
     {
       template,
-      components: {
-        QueryPreviewList,
-        QueryPreview
-      }
+      components: { QueryPreviewList, QueryPreview }
     },
     {
       global: {
@@ -62,13 +59,9 @@ function renderQueryPreviewList({
     adapter,
     wrapper,
     queryPreviewListWrapper: wrapper.findComponent(QueryPreviewList),
-    getQueryPreviewItemWrappers() {
-      return wrapper.findAllComponents(QueryPreview);
-    },
-    reRender() {
-      // A timeout with no time should resolve after all reactivity + promises involved
-      return new Promise(resolve => setTimeout(resolve));
-    }
+    getQueryPreviewItemWrappers: () => wrapper.findAllComponents(QueryPreview),
+    // A timeout with no time should resolve after all reactivity + promises involved
+    reRender: () => new Promise(resolve => setTimeout(resolve))
   };
 }
 
@@ -181,35 +174,9 @@ describe('testing QueryPreviewList', () => {
     expect(queryPreviews).toHaveLength(2);
     await wrapper.setProps({
       queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }, { query: 'dress' }]
-    });
+    } as any);
     await reRender();
     queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(3);
   });
 });
-
-interface RenderQueryPreviewListOptions {
-  /** The template to render the {@link QueryPreviewList} component. */
-  template?: string;
-  /** The queries for which preview its results. */
-  queriesPreviewInfo?: QueryPreviewInfo[];
-  /** The results to return from the mocked search endpoint adapter. */
-  results?: Record<string, Result[]>;
-  persistInCache?: boolean;
-  debounceTimeMs?: number;
-  queryFeature?: QueryFeature;
-  maxItemsToRender?: number;
-}
-
-interface RenderQueryPreviewListAPI {
-  /** The {@link XComponentsAdapter} passed to the {@link XPlugin}. */
-  adapter: XComponentsAdapter;
-  /** The Vue testing utils wrapper for the {@link QueryPreviewList} component. */
-  wrapper: VueWrapper;
-  /** Returns an array with the {@link QueryPreviewList} wrapper. */
-  queryPreviewListWrapper: VueWrapper;
-  /** Returns an array with the {@link QueryPreview} items wrappers. */
-  getQueryPreviewItemWrappers: () => VueWrapper[];
-  /** Flushes all pending promises to cause the component to be in its final state. */
-  reRender: () => Promise<void>;
-}
