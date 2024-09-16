@@ -32,8 +32,8 @@
       "enabled": false
     },
     {
-      "matchPackagePatterns": ["^@types/react*"],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": ["/^@types/react*/"]
     },
     {
       "matchPackageNames": ["prettier-plugin-tailwindcss"],
