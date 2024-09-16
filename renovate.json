@@ -1,12 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", "group:allNonMajor", "group:linters"],
-  "timezone": "Europe/Madrid",
-  "rebaseWhen": "behind-base-branch",
-  "dependencyDashboard": true,
-  "labels": ["dependencies"],
-  "schedule": ["after 5pm on tuesday"],
-  "stabilityDays": 3,
+  "extends": ["github>empathyco/.github:frontend"],
   "packageRules": [
     {
       "matchPackageNames": ["@vue/test-utils"],
