@@ -38,7 +38,7 @@
   "dependencies": {
     "@empathyco/x-deep-merge": "^2.0.3-alpha.1",
     "@empathyco/x-utils": "workspace:^1.0.3-alpha.1",
-    "tslib": "~2.6.0",
+    "tslib": "~2.7.0",
     "vue-i18n": "~8.28.2"
   },
   "devDependencies": {
@@ -47,17 +47,17 @@
     "@vue/test-utils": "~1.0.3",
     "jest": "~27.5.0",
     "rimraf": "~3.0.2",
-    "rollup": "~4.9.1",
+    "rollup": "~4.21.0",
     "rollup-plugin-copy": "~3.5.0",
-    "rollup-plugin-delete": "~2.0.0",
+    "rollup-plugin-delete": "~2.1.0",
     "rollup-plugin-typescript2": "~0.36.0",
     "ts-jest": "~27.1.0",
-    "typescript": "~4.9.4",
-    "vue": "~2.7.14"
+    "typescript": "~4.9.0",
+    "vue": "~2.7.0"
   },
   "peerDependencies": {
-    "vue": "^2.7.0",
-    "vue-i18n": "^8.0.0"
+    "vue": "^2.7.16",
+    "vue-i18n": "^8.28.2"
   },
   "publishConfig": {
     "access": "public"

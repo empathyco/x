@@ -44,17 +44,17 @@
     "@empathyco/x-adapter": "^8.1.0-alpha.0",
     "@empathyco/x-types": "^10.1.0-alpha.3",
     "@empathyco/x-utils": "^1.0.3-alpha.1",
-    "tslib": "~2.6.0"
+    "tslib": "~2.7.0"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "~7.23.0",
-    "@microsoft/api-extractor": "~7.39.0",
+    "@microsoft/api-documenter": "~7.25.0",
+    "@microsoft/api-extractor": "~7.47.0",
     "@types/jest": "~27.5.0",
     "concurrently": "~8.2.0",
     "jest": "~27.5.0",
     "rimraf": "~3.0.2",
     "ts-jest": "~27.1.0",
-    "typescript": "~4.9.4"
+    "typescript": "~4.9.0"
   },
   "publishConfig": {
     "access": "public"
