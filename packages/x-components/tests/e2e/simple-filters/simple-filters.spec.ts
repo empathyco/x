@@ -22,7 +22,7 @@ When(
     cy.getByDataTest(`${facetName}-filter`)
       .eq(parentFilterIndex)
       .getByDataTest('children-filters')
-      .getByDataTest(`${facetName}-filter`)
+      .getByDataTest('filter')
       .eq(childFilterIndex)
       .click()
       .invoke('text')

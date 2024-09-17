@@ -23,7 +23,9 @@ function clickFacetNthFilter(facetName: string, nthFilter: number): void {
  * @returns HTMLElement - The filter's element.
  */
 function getElementBy(facetName: string): Cypress.Chainable<JQuery<HTMLElement>> {
-  return cy.getByDataTest(`${facetName}-filter`);
+  return facetName === 'hierarchical_category'
+    ? cy.getByDataTest(`${facetName}-filter`).getByDataTest('filter')
+    : cy.getByDataTest(`${facetName}-filter`);
 }
 
 // Init
