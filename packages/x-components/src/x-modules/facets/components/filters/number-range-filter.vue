@@ -29,6 +29,7 @@
         :disabled="isDisabled"
         data-test="filter"
         role="checkbox"
+        v-bind="$attrs"
       >
         <!--
           @slot The content to render inside the button
@@ -57,6 +58,7 @@
     name: 'NumberRangeFilter',
     xModule: facetsXModule.name,
     components: { RenderlessFilter },
+    inheritAttrs: false,
     props: {
       /** The filter data to render. */
       filter: {
