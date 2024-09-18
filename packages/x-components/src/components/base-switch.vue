@@ -35,7 +35,7 @@
         default: false
       }
     },
-    emits: ['change', 'update:modelValue'],
+    emits: ['update:modelValue'],
     setup(props, { emit }) {
       /**
        * Dynamic CSS classes to add to the switch component
@@ -49,7 +49,7 @@
       });
 
       /**
-       * Emits a change and input event with the desired value of the switch.
+       * Emits an event with the new value of the switch.
        *
        * @internal
        */
@@ -61,7 +61,6 @@
         };
 
         emit('update:modelValue', newValue);
-        emit('change', newValue);
       };
 
       return {
@@ -126,7 +125,7 @@ _Try clicking it to see how it changes its state_
 
 ```vue live
 <template>
-  <BaseSwitch @change="value = !value" :modelValue="value" />
+  <BaseSwitch @update:modelValue="value = !value" :modelValue="value" />
 </template>
 
 <script>
