@@ -35,6 +35,27 @@ jobs:
         timeout-minutes: 15
         uses: ./.github/actions/run-e2e-tests
 
+      - name: Load Motive Shared Actions
+        uses: daspn/private-actions-checkout@v2
+        with:
+          app_id: ${{ secrets.MOTIVE_PRIVATE_ACTIONS_APP_ID }}
+          app_private_key: ${{ secrets.MOTIVE_PRIVATE_ACTIONS_APP_PRIVATE_KEY }}
+          configure_git: true
+          actions_list: '[ "empathyco/platform-motive-ci-library@v5" ]'
+          checkout_base_path: ./.loaded_actions/actions
+
+      - name: Sonar scanner
+        uses: ./.loaded_actions/actions/platform-motive-ci-library/node/sonarqube
+        env:
+          BROWSERSLIST_IGNORE_OLD_DATA: 'true'
+        with:
+          IS_PR: 'true'
+          BRANCH_NAME: main
+          CHANGE_BRANCH: ${{ github.event.pull_request.head.ref }}
+          CHANGE_TARGET: ${{ github.event.pull_request.base.ref }}
+          CHANGE_ID: ${{ github.event.number }}
+          REPO_NAME: ${{ github.event.repository.name }}
+
       - name: release
         if:
           ${{ github.ref_name == 'main' && github.actor != 'support-empathy' &&
