@@ -51,11 +51,11 @@ function renderAllFilter({ template = `<AllFilter :facet="facet"></AllFilter>` }
     wrapper,
     allFilterWrapper,
     facet,
-    toggleFirstFilter() {
+    toggleFirstFilter: () => {
       XPlugin.bus.emit('UserClickedAFilter', store.state.x.facets.filters[facet.filters[0].id]);
       return nextTick();
     },
-    clickAllFilter() {
+    clickAllFilter: () => {
       allFilterWrapper.trigger('click');
       return nextTick();
     }

@@ -1,44 +1,32 @@
-import { mount } from 'cypress/vue2';
+import { h, Ref } from 'vue';
 import { createUseDevice } from '../../src/composables/create-use-device';
 
-/**
- * Mounts a test component displaying all the values of the composable created with
- * `createUseDevice`.
- *
- * @param devices - The configuration of the devices breakpoints.
- * @returns An API to test the component.
- */
-function mountTestComponent<Device extends string>(
-  devices: Record<Device, number>
-): MountTestComponentAPI {
-  const useDevice = createUseDevice(devices);
-  mount({
-    setup() {
-      return {
-        devices: useDevice()
-      };
-    },
-    template: `
-        <div>
-          <div v-for="(value, device) in devices" :key="device">
-            {{ device }}:
-            <span :data-test="device">{{ value.value }}</span>
-          </div>
-        </div>
-      `
+function render() {
+  const useDevice = createUseDevice({ mobile: 0, tablet: 744, desktop: 1200 });
+
+  cy.mount({
+    setup: () => {
+      const devices = useDevice() as Record<string, Ref<boolean>>;
+
+      return () =>
+        Object.entries(devices).map(([device, value]) =>
+          h('div', { key: device }, [
+            h('span', device),
+            h('span', ' - '),
+            h('span', { 'data-test': device }, value.value)
+          ])
+        );
+    }
   });
 
   return {
-    getDeviceValue(key: string) {
-      return cy.getByDataTest(key);
-    }
+    getDeviceValue: (key: string) => cy.getByDataTest(key)
   };
 }
 
-const defaultDevices = { mobile: 0, tablet: 744, desktop: 1200 };
 describe('testing createUseDevice composable factory', () => {
   it('detects the right device', () => {
-    const { getDeviceValue } = mountTestComponent(defaultDevices);
+    const { getDeviceValue } = render();
 
     cy.viewport(1300, 800);
 
@@ -89,7 +77,3 @@ describe('testing createUseDevice composable factory', () => {
     getDeviceValue('deviceName').should('contain.text', 'mobile');
   });
 });
-
-interface MountTestComponentAPI {
-  getDeviceValue: (key: string) => Cypress.Chainable<JQuery>;
-}

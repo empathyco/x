@@ -31,9 +31,7 @@ function renderPartialQueryButton({
 
   return {
     partialQueryButtonWrapper,
-    async click() {
-      await wrapper.trigger('click');
-    }
+    click: async () => await wrapper.trigger('click')
   };
 }
 

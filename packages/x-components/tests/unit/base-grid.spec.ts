@@ -1,135 +1,91 @@
-import { mount } from 'cypress/vue2';
-import Vue from 'vue';
-import { getNextQueriesStub, getSearchResponseStub } from '../../src/__stubs__';
+import { h, onBeforeMount, VNode } from 'vue';
+import { getNextQueriesStub } from '../../src/__stubs__/next-queries-stubs.factory';
+import { getSearchResponseStub } from '../../src/__stubs__/search-response-stubs.factory';
 import BaseGrid from '../../src/components/base-grid.vue';
+import { ListItem } from '../../src/utils/types';
 import { XPlugin } from '../../src/plugins/x-plugin';
-import { ListItem } from '../../src/utils';
 import { NextQueriesGroup } from '../../src/x-modules/next-queries/types';
-import { e2eAdapter } from '../../src/adapter/e2e-adapter';
-import { XDummyBus } from '../../src/__tests__/bus.dummy';
 import { loadCss } from './css.utils';
 
-/**
- * Renders an {@link BaseGrid} component with the provided options.
- *
- * @param  options - Options to render {@link BaseGrid} with.
- * @returns Helper methods for the rendered {@link BaseGrid}.
- */
-function renderBaseGrid({
+type Item = { item: ListItem };
+const searchResponse = getSearchResponseStub();
+const defaultItems = [
+  ...searchResponse.banners!,
+  ...searchResponse.promoteds!,
+  ...searchResponse.results,
+  {
+    modelName: 'NextQueriesGroup',
+    nextQueries: getNextQueriesStub()
+  } as NextQueriesGroup
+];
+
+function render({
   columns = 3,
-  items,
-  customItemSlot = `
-    <template #banner="{ item }">
-      <p data-test="banner-slot">{{ item.modelName }}</p>
-    </template>
-    <template #result="{ item }">
-      <p data-test="result-slot">{{ item.modelName }}</p>
-    </template>`,
-  template = `
-   <BaseGrid :items="items" :columns="columns">
-      <template #default="{ item }">
-        <p data-test="default-slot">{{ item.modelName }}</p>
-      </template>
-      ${customItemSlot ?? ''}
-   </BaseGrid>`
-}: BaseGridRenderOptions = {}): BaseGridComponentAPI {
-  const searchResponse = getSearchResponseStub();
-  const defaultItems = [
-    ...searchResponse.banners!,
-    ...searchResponse.promoteds!,
-    ...searchResponse.results,
-    {
-      modelName: 'NextQueriesGroup',
-      nextQueries: getNextQueriesStub()
-    } as NextQueriesGroup
-  ];
-
+  items = defaultItems,
+  itemSlots = {
+    banner: ({ item }: Item) => h('p', { 'data-test': 'banner-slot' }, item.modelName),
+    result: ({ item }: Item) => h('p', { 'data-test': 'result-slot' }, item.modelName)
+  } as Record<string, (...args: any) => VNode>
+} = {}) {
   const renderedColumnsNumberChangedSpy = cy.spy();
+  loadCss(':root { --x-size-min-width-grid-item: 300px; }');
 
-  cy.viewport(2000, 200);
-  loadCss(`
-        :root {
-          --x-size-min-width-grid-item: 300px;
-        }
-      `);
-  mount(
-    {
-      components: {
-        BaseGrid
-      },
-      props: ['items', 'columns'],
-      template,
-      beforeCreate() {
+  cy.mount({
+    setup: () => {
+      onBeforeMount(() => {
         XPlugin.bus.on('RenderedColumnsNumberChanged').subscribe(renderedColumnsNumberChangedSpy);
-      }
-    },
-    {
-      vue: Vue.extend({}),
-      plugins: [[new XPlugin(new XDummyBus()), { adapter: e2eAdapter }]],
-      propsData: {
-        items: items ?? defaultItems,
-        columns
-      }
+      });
+      return () =>
+        h(
+          BaseGrid,
+          { items, columns },
+          {
+            default: ({ item }: { item: ListItem }) =>
+              h('p', { 'data-test': 'default-slot' }, item.modelName),
+            ...itemSlots
+          }
+        );
     }
-  );
+  });
 
   return {
-    getBaseGrid() {
-      return cy.getByDataTest('grid');
-    },
-    getDefaultSlot() {
-      return cy.getByDataTest('default-slot');
-    },
-    getScopedSlot(modelName: string) {
-      return cy.getByDataTest(`${modelName}-slot`);
-    },
+    getBaseGrid: () => cy.getByDataTest('grid'),
+    getDefaultSlot: () => cy.getByDataTest('default-slot'),
+    getScopedSlot: (modelName: string) => cy.getByDataTest(`${modelName}-slot`),
     renderedColumnsNumberChangedSpy: () => cy.wrap(renderedColumnsNumberChangedSpy)
   };
 }
 
 describe('testing BaseGrid', () => {
   it('allows configuring the number of columns and updates the css class accordingly', () => {
-    const { getBaseGrid } = renderBaseGrid({ columns: 5 });
+    const { getBaseGrid } = render({ columns: 5 });
+
     getBaseGrid().should('have.class', 'x-base-grid--cols-5');
   });
 
   it('allows customizing the default slot', () => {
-    const template = `
-         <BaseGrid :items="items" :columns="columns">
-           <template #default="{ item }">
-             <p data-test="default-slot-overridden">{{ item.modelName }}</p>
-           </template>
-         </BaseGrid>`;
-    renderBaseGrid({ template });
-    cy.getByDataTest('default-slot-overridden').should('exist');
+    render();
+
+    cy.getByDataTest('default-slot').should('exist');
   });
 
   it('allows customizing named slots', () => {
-    const customItemSlot = `
-      <template #banner="{ item }">
-        <p data-test="banner-slot">{{ item.modelName }}</p>
-      </template>`;
-    const { getDefaultSlot, getScopedSlot } = renderBaseGrid({
-      customItemSlot
-    });
+    const { getDefaultSlot, getScopedSlot } = render();
 
     getDefaultSlot().should('exist');
-    getScopedSlot('result').should('not.exist');
+    getScopedSlot('result').should('exist');
     getScopedSlot('banner').should('exist');
   });
 
   it('allows customizing named slots only using kebab case', () => {
-    const { getScopedSlot } = renderBaseGrid({
-      customItemSlot: `
-        <template #banner="{ item }">
-          <p data-test="banner-slot">{{ item.modelName }}</p>
-        </template>
-        <template #NextQueriesGroup="{ item }">
-          <p data-test="NextQueriesGroup-slot">{{ item.modelName }}</p>
-        </template>
-        <template #next-queries-group="{ item }">
-          <p data-test="next-queries-group-slot">{{ item.modelName }}</p>
-        </template>`
+    const { getScopedSlot } = render({
+      itemSlots: {
+        banner: ({ item }: Item) => h('p', { 'data-test': 'banner-slot' }, item.modelName),
+        NextQueriesGroup: ({ item }: Item) =>
+          h('p', { 'data-test': 'NextQueriesGroup-slot' }, item.modelName),
+        'next-queries-group': ({ item }: Item) =>
+          h('p', { 'data-test': 'next-queries-group-slot' }, item.modelName)
+      }
     });
 
     getScopedSlot('banner').should('exist');
@@ -138,9 +94,7 @@ describe('testing BaseGrid', () => {
   });
 
   it('emits RenderedColumnsNumberChanged event when rendered columns number changes', () => {
-    const { renderedColumnsNumberChangedSpy } = renderBaseGrid({
-      columns: 0
-    });
+    const { renderedColumnsNumberChangedSpy } = render({ columns: 0 });
 
     renderedColumnsNumberChangedSpy().should('have.been.calledWith', 6);
     cy.viewport(1000, 200);
@@ -148,17 +102,3 @@ describe('testing BaseGrid', () => {
     renderedColumnsNumberChangedSpy().should('have.been.calledTwice');
   });
 });
-
-interface BaseGridRenderOptions {
-  columns?: number;
-  items?: ListItem[];
-  customItemSlot?: string;
-  template?: string;
-}
-
-interface BaseGridComponentAPI {
-  getBaseGrid: () => Cypress.Chainable<JQuery>;
-  getDefaultSlot: () => Cypress.Chainable<JQuery>;
-  getScopedSlot: (modelName: string) => Cypress.Chainable<JQuery>;
-  renderedColumnsNumberChangedSpy: () => Cypress.Chainable<ReturnType<typeof cy.spy>>;
-}

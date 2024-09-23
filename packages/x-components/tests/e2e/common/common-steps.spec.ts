@@ -154,12 +154,9 @@ Then('related tags are displayed', () => {
 
 // Related Tags
 When('related tag number {int} is clicked', (relatedTagItem: number) => {
-  cy.getByDataTest('related-tag')
-    .should('have.length.gt', relatedTagItem)
-    .eq(relatedTagItem)
-    .click()
-    .invoke('text')
-    .as('clickedRelatedTag');
+  cy.getByDataTest('related-tag').should('have.length.gt', relatedTagItem);
+
+  cy.getByDataTest('related-tag').eq(relatedTagItem).click().invoke('text').as('clickedRelatedTag');
 });
 
 // Results
@@ -191,7 +188,11 @@ Then('related results have changed', () => {
 
 // Scroll
 When('scrolling down to result {string}', (resultId: string) => {
-  cy.get(`[data-scroll=${resultId}]`).scrollIntoView({ easing: 'swing', duration: 1000 });
+  cy.get(`[data-scroll=${resultId}]`).scrollIntoView({
+    offset: { top: 500, left: 0 },
+    easing: 'swing',
+    duration: 1000
+  });
 });
 
 // Search Box

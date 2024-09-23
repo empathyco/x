@@ -1,119 +1,81 @@
-import { mount } from 'cypress/vue2';
-import Vue from 'vue';
+import { computed, h, ref } from 'vue';
 import SlidingPanel from '../../src/components/sliding-panel.vue';
-import { XPlugin } from '../../src/plugins/x-plugin';
-import { e2eAdapter } from '../../src/adapter/e2e-adapter';
-import { XDummyBus } from '../../src/__tests__/bus.dummy';
 import { loadCss } from './css.utils';
 
-/**
- * Renders an {@link SlidingPanel} component with the provided options.
- *
- * @param  options - Options to render {@link SlidingPanel} with.
- * @returns Helper methods for the rendered {@link SlidingPanel}.
- */
-function renderSlidingPanel({
-  items = 8,
-  scrollFactor,
-  resetOnContentChange,
-  showButtons,
-  buttonClass,
+function render({
+  scrollFactor = 0.7,
+  showButtons = true,
+  resetOnContentChange = true,
+  buttonClass = '',
+  itemsCount = ref(10),
   slidingPanelWidthPx = 400,
-  itemWidthPx = 100,
-  template = `
-      <div class="wrapper">
-        <div><input v-model.number="items" data-test="items-count" /></div>
-        <SlidingPanel v-bind="$attrs">
-          <ul class="container">
-            <li class="item" v-for="item in items" :key="item">Item {{ item }}</li>
-          </ul>
-        </SlidingPanel>
-      </div>
-  `
-}: RenderSlidingPanelOptions = {}): RenderSlidingPanelAPI {
-  XPlugin.resetInstance();
+  itemWidthPx = 100
+} = {}) {
   loadCss(`
-        .wrapper {
-          display: inline-flex;
-          flex-flow: column nowrap;
-        }
-        .x-sliding-panel__scroll {
-          flex: 0 0 auto !important;
-          width: ${slidingPanelWidthPx}px;
-        }
-
-        .container {
-          display: flex;
-          flex-flow: row nowrap;
-          padding: 0;
-          list-style: none;
-        }
-
-        .item {
-          flex: 0 0 auto;
-          width: ${itemWidthPx}px;
-        }`);
-  mount(
-    {
-      components: {
-        SlidingPanel
-      },
-      inheritAttrs: false,
-      template,
-      data() {
-        return {
-          items
-        };
-      }
-    },
-    {
-      vue: Vue.extend({}),
-      plugins: [[new XPlugin(new XDummyBus()), { adapter: e2eAdapter }]],
-      propsData: {
-        scrollFactor,
-        resetOnContentChange,
-        showButtons,
-        buttonClass
-      }
+    .wrapper {
+      display: inline-flex;
+      flex-flow: column nowrap;
     }
+    .x-sliding-panel__scroll {
+      flex: 0 0 auto !important;
+      width: ${slidingPanelWidthPx}px;
+    }
+    .container {
+      display: flex;
+      flex-flow: row nowrap;
+      padding: 0;
+      list-style: none;
+    }
+    .item {
+      flex: 0 0 auto;
+      width: ${itemWidthPx}px;
+    }`);
+
+  const items = computed(() =>
+    Array.from({ length: itemsCount.value }, (_, index) => ({ id: `item-${index}` }))
+  );
+
+  cy.mount(() =>
+    h('div', { class: 'wrapper' }, [
+      h('input', {
+        'data-test': 'items-count',
+        value: itemsCount.value,
+        onInput: event => (itemsCount.value = +(event.target as HTMLInputElement).value)
+      }),
+      h(
+        SlidingPanel,
+        { scrollFactor, showButtons, resetOnContentChange, buttonClass },
+        h(
+          'ul',
+          { class: 'container' },
+          items.value.map(item => h('li', { class: 'item', key: item.id }, item.id))
+        )
+      )
+    ])
   );
 
   return {
-    getSlidingPanel() {
-      return cy.getByDataTest('sliding-panel');
-    },
-    getLeftButton() {
-      return cy.getByDataTest('sliding-panel-left-button');
-    },
-    getRightButton() {
-      return cy.getByDataTest('sliding-panel-right-button');
-    },
-    getScrollPosition() {
-      return cy.getByDataTest('sliding-panel-scroll').invoke('scrollLeft');
-    },
-    scrollTo(position) {
+    getSlidingPanel: () => cy.getByDataTest('sliding-panel'),
+    getLeftButton: () => cy.getByDataTest('sliding-panel-left-button'),
+    getRightButton: () => cy.getByDataTest('sliding-panel-right-button'),
+    getScrollPosition: () => cy.getByDataTest('sliding-panel-scroll').invoke('scrollLeft'),
+    scrollTo: (position: number) =>
       cy.getByDataTest('sliding-panel-scroll').scrollTo(position, 0, {
         easing: 'linear',
         duration: 500
-      });
-    },
-    setScrollWidth(widthPx) {
+      }),
+    setScrollWidth: (widthPx: number) =>
       cy.getByDataTest('sliding-panel-scroll').then($scroll => {
         $scroll.css('width', `${widthPx}px`);
-      });
-    },
-    setItemsCount(itemsCountCount) {
-      cy.getByDataTest('items-count').type(`${itemsCountCount}`);
-    }
+      }),
+    setItemsCount: (itemsCountCount: number) =>
+      cy.getByDataTest('items-count').type(`${itemsCountCount}`)
   };
 }
 
 describe('Testing sliding panel', () => {
   it('shows the scroll buttons only when needed', () => {
-    const { getLeftButton, getRightButton, getScrollPosition, scrollTo } = renderSlidingPanel({
-      items: 10,
-      itemWidthPx: 100,
-      slidingPanelWidthPx: 400,
+    const { getLeftButton, getRightButton, getScrollPosition, scrollTo } = render({
       scrollFactor: 1
     });
 
@@ -141,7 +103,9 @@ describe('Testing sliding panel', () => {
   });
 
   it('allows hiding the scroll buttons', () => {
-    const { getLeftButton, getRightButton, scrollTo } = renderSlidingPanel({ showButtons: false });
+    const { getLeftButton, getRightButton, scrollTo } = render({
+      showButtons: false
+    });
 
     scrollTo(1);
     getLeftButton().should('not.exist');
@@ -149,10 +113,8 @@ describe('Testing sliding panel', () => {
   });
 
   it('adds scroll position classes properly', () => {
-    const { scrollTo, getSlidingPanel } = renderSlidingPanel({
-      slidingPanelWidthPx: 500,
-      items: 10,
-      itemWidthPx: 100
+    const { scrollTo, getSlidingPanel } = render({
+      slidingPanelWidthPx: 500
     });
 
     getSlidingPanel()
@@ -171,11 +133,9 @@ describe('Testing sliding panel', () => {
   });
 
   it('allows to configure the scroll amount for each button', () => {
-    const { getLeftButton, getRightButton, getScrollPosition } = renderSlidingPanel({
-      items: 10,
+    const { getLeftButton, getRightButton, getScrollPosition } = render({
       scrollFactor: 0.5,
-      slidingPanelWidthPx: 500,
-      itemWidthPx: 100
+      slidingPanelWidthPx: 500
     });
 
     getRightButton().click();
@@ -192,25 +152,20 @@ describe('Testing sliding panel', () => {
   });
 
   it('allows to configure scroll buttons content', () => {
-    const { getLeftButton, getRightButton } = renderSlidingPanel({
-      template: `
-        <SlidingPanel>
-          <template #sliding-panel-left-button>Left</template>
-          <div class="width: 1000px;">Sample Content</div>
-          <template #sliding-panel-right-button>Right</template>
-        </SlidingPanel>`
-    });
+    cy.mount(() =>
+      h(SlidingPanel, null, {
+        default: () => 'Sample content',
+        'sliding-panel-left-button': () => 'Left',
+        'sliding-panel-right-button': () => 'Right'
+      })
+    );
 
-    getLeftButton().should('have.text', 'Left');
-    getRightButton().should('have.text', 'Right');
+    cy.getByDataTest('sliding-panel-left-button').should('have.text', 'Left');
+    cy.getByDataTest('sliding-panel-right-button').should('have.text', 'Right');
   });
 
   it('updates scroll buttons visibility when resized', () => {
-    const { getLeftButton, getRightButton, scrollTo, setScrollWidth } = renderSlidingPanel({
-      items: 10,
-      itemWidthPx: 100,
-      slidingPanelWidthPx: 400
-    });
+    const { getLeftButton, getRightButton, scrollTo, setScrollWidth } = render();
 
     getLeftButton().should('not.be.visible');
     getRightButton().should('be.visible');
@@ -229,8 +184,7 @@ describe('Testing sliding panel', () => {
   });
 
   it('resets the scroll when content changes', () => {
-    const { getLeftButton, getRightButton, scrollTo, getScrollPosition, setItemsCount } =
-      renderSlidingPanel();
+    const { getLeftButton, getRightButton, scrollTo, getScrollPosition, setItemsCount } = render();
 
     scrollTo(100);
     getRightButton().should('be.visible');
@@ -243,10 +197,9 @@ describe('Testing sliding panel', () => {
   });
 
   it('allows disabling resetting the scroll when content changes', () => {
-    const { getLeftButton, getRightButton, getScrollPosition, setItemsCount, scrollTo } =
-      renderSlidingPanel({
-        resetOnContentChange: false
-      });
+    const { getLeftButton, getRightButton, getScrollPosition, setItemsCount, scrollTo } = render({
+      resetOnContentChange: false
+    });
 
     scrollTo(100);
     getRightButton().should('be.visible');
@@ -259,7 +212,7 @@ describe('Testing sliding panel', () => {
   });
 
   it('allows adding CSS classes to the buttons', () => {
-    const { getLeftButton, getRightButton, scrollTo } = renderSlidingPanel({
+    const { getLeftButton, getRightButton, scrollTo } = render({
       buttonClass: 'test-x-button--round'
     });
 
@@ -268,51 +221,3 @@ describe('Testing sliding panel', () => {
     getLeftButton().should('be.visible').should('have.class', 'test-x-button--round');
   });
 });
-
-interface RenderSlidingPanelOptions {
-  /** The amount of items to render. */
-  items?: number;
-  /** The width of each item. */
-  itemWidthPx?: number;
-  /** The width of the scroll of the sliding panel. */
-  slidingPanelWidthPx?: number;
-  /** The template to render. */
-  template?: string;
-  /** The {@link SlidingPanel.scrollFactor} prop. */
-  scrollFactor?: number;
-  /** The {@link SlidingPanel.resetOnContentChange} prop. */
-  resetOnContentChange?: boolean;
-  /** The {@link SlidingPanel.showButtons} prop. */
-  showButtons?: boolean;
-  /** The {@link SlidingPanel.buttonClass} prop. */
-  buttonClass?: string;
-}
-
-interface RenderSlidingPanelAPI {
-  /** Retrieves the sliding panel. */
-  getSlidingPanel: () => Cypress.Chainable<JQuery>;
-  /** Retrieves the left button of the sliding panel. */
-  getLeftButton: () => Cypress.Chainable<JQuery>;
-  /** Retrieves the right button of the sliding panel. */
-  getRightButton: () => Cypress.Chainable<JQuery>;
-  /** Retrieves the scrolled distance of the sliding panel. */
-  getScrollPosition: () => Cypress.Chainable<number>;
-  /**
-   * Manually scrolls to the desired position.
-   *
-   * @param position - The distance that should be scrolled.
-   */
-  scrollTo: (position: number) => void;
-  /**
-   * Updates the sliding panel scroll container width.
-   *
-   * @param widthPx - The width in pixels for the scrollable container.
-   */
-  setScrollWidth: (widthPx: number) => void;
-  /**
-   * Updates the amount of items rendered in the sliding panel.
-   *
-   * @param itemsCount - The amount of items render.
-   */
-  setItemsCount: (itemsCount: number) => void;
-}

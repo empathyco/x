@@ -26,6 +26,7 @@ export function resetUrlStateWith(store: Store<UrlState>, state?: DeepPartial<Ur
  * @internal
  */
 export function createUrlStore(state?: Partial<UrlState>): Store<UrlState> {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const store = new Store<UrlState>(urlXStoreModule as any);
   resetUrlStateWith(store, state);
   return store;

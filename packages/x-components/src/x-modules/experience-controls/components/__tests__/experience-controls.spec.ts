@@ -24,9 +24,8 @@ describe('testing experience controls component', () => {
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('experienceControls');
   });
 
-  // eslint-disable-next-line max-len
   it('listens to the event ExperienceControlsEventsChanged and emits the events on the payload', () => {
-    const { wrapper } = renderExperienceControls();
+    renderExperienceControls();
 
     const eventsFromExperienceControls = {
       ExtraParamsProvided: {

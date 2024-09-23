@@ -84,7 +84,8 @@
 
       return () => {
         const innerProps = { items: items.value, animation: props.animation };
-        return slots.default?.(innerProps)[0] ?? h(ItemsList, innerProps);
+        // https://vue-land.github.io/faq/forwarding-slots#passing-all-slots
+        return slots.default?.(innerProps)[0] ?? h(ItemsList, innerProps, slots);
       };
     }
   });

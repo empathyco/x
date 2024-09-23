@@ -147,11 +147,11 @@ describe('testing Preselected filters component', () => {
 
     // Create a test component to check the injected provide value
     const TestComponent = defineComponent({
-      template: '<div id="provide-test">{{ snippetConfig.filters.join(\',\') }}</div>',
       setup() {
         const snippetConfig = inject('snippetConfig');
         return { snippetConfig };
-      }
+      },
+      template: '<div id="provide-test">{{ snippetConfig.filters.join(\',\') }}</div>'
     });
 
     // Mount the original component with TestComponent inside the slot to test provide

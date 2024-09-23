@@ -4,6 +4,9 @@ module.exports = {
     '^.+\\.vue$': '@vue/vue3-jest',
     '^.+\\.scss$': 'jest-scss-transform'
   },
+  moduleNameMapper: {
+    'vue-global-events': '<rootDir>/node_modules/vue-global-events/dist/index.cjs'
+  },
   testMatch: ['<rootDir>/src/**/*.spec.ts'],
   setupFilesAfterEnv: ['./jest.setup.ts'],
   // jest 27 changes the default environment to node instead of jsdom

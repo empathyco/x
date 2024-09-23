@@ -2,6 +2,7 @@
   import { computed, ComputedRef, defineComponent, h, inject, provide, Ref } from 'vue';
   import { NextQuery } from '@empathyco/x-types';
   import ItemsList from '../../../components/items-list.vue';
+  import { useState } from '../../../composables/use-state';
   import { groupItemsBy } from '../../../utils/array';
   import { ListItem } from '../../../utils/types';
   import { NextQueriesGroup } from '../types';
@@ -12,7 +13,6 @@
     QUERY_KEY
   } from '../../../components/decorators/injection.consts';
   import { AnimationProp } from '../../../types/animation-prop';
-  import { use$x } from '../../../composables/use-$x';
   import { useGetter } from '../../../composables/use-getter';
 
   /**
@@ -57,7 +57,7 @@
       }
     },
     setup(props, { slots }) {
-      const $x = use$x();
+      const { query, status } = useState('nextQueries', ['query', 'status']);
 
       /** The state next queries. */
       const nextQueries: ComputedRef<NextQuery[]> = useGetter('nextQueries', [
@@ -100,7 +100,7 @@
       const nextQueriesAreOutdated = computed(
         () =>
           !!injectedQuery?.value &&
-          ($x.query.nextQueries !== injectedQuery.value || $x.status.nextQueries !== 'success')
+          (query.value !== injectedQuery.value || status.value !== 'success')
       );
 
       /**
@@ -156,7 +156,8 @@
 
       return () => {
         const innerProps = { items: items.value, animation: props.animation };
-        return slots.default?.(innerProps)[0] ?? h(ItemsList, innerProps);
+        // https://vue-land.github.io/faq/forwarding-slots#passing-all-slots
+        return slots.default?.(innerProps)[0] ?? h(ItemsList, innerProps, slots);
       };
     }
   });
