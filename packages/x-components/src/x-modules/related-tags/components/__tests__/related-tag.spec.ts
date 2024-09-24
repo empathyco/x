@@ -23,11 +23,10 @@ describe('testing related tag item component', () => {
         props: { relatedTag, highlightCurated: false }
       }
     );
-    const wrapperRelatedTag = wrapper.findComponent(RelatedTag);
 
     return {
       wrapper,
-      wrapperRelatedTag,
+      wrapperRelatedTag: wrapper.findComponent(RelatedTag),
       relatedTag,
       clickRelatedTag: async () => {
         await wrapper.trigger('click');

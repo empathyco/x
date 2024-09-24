@@ -1,5 +1,5 @@
 import { Result, XComponentsAdapter } from '@empathyco/x-types';
-import { mount } from '@vue/test-utils';
+import { flushPromises, mount } from '@vue/test-utils';
 import {
   createResultStub,
   getEmptySearchResponseStub,
@@ -59,15 +59,13 @@ function renderQueryPreviewList({
     adapter,
     wrapper,
     queryPreviewListWrapper: wrapper.findComponent(QueryPreviewList),
-    getQueryPreviewItemWrappers: () => wrapper.findAllComponents(QueryPreview),
-    // A timeout with no time should resolve after all reactivity + promises involved
-    reRender: () => new Promise(resolve => setTimeout(resolve))
+    getQueryPreviewItemWrappers: () => wrapper.findAllComponents(QueryPreview)
   };
 }
 
 describe('testing QueryPreviewList', () => {
   it('renders a list of queries one by one', async () => {
-    const { getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
+    const { getQueryPreviewItemWrappers } = renderQueryPreviewList({
       queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }],
       results: { shirt: [createResultStub('Cool shirt')], jeans: [createResultStub('Sick jeans')] }
     });
@@ -78,13 +76,13 @@ describe('testing QueryPreviewList', () => {
     expect(queryPreviews.at(0)?.text()).toEqual(''); // Query preview still is loading
 
     // Shirt, Jeans query previews
-    await reRender();
+    await flushPromises();
     queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(2);
     expect(queryPreviews.at(0)?.text()).toEqual('shirt - Cool shirt');
     expect(queryPreviews.at(1)?.text()).toEqual('');
 
-    await reRender();
+    await flushPromises();
     queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(2);
     expect(queryPreviews.at(0)?.text()).toEqual('shirt - Cool shirt');
@@ -96,7 +94,7 @@ describe('testing QueryPreviewList', () => {
     const persistInCacheStub = false;
     const queryFeatureStub: QueryFeature = 'history_query';
     const maxItemsToRenderStub = 2;
-    const { getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
+    const { getQueryPreviewItemWrappers } = renderQueryPreviewList({
       queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }],
       results: { shirt: [createResultStub('Cool shirt')], jeans: [createResultStub('Sick jeans')] },
       debounceTimeMs: debounceTimeMsStub,
@@ -106,7 +104,7 @@ describe('testing QueryPreviewList', () => {
     });
 
     // Shirt, Jeans query previews
-    await reRender();
+    await flushPromises();
     const queryPreviews = getQueryPreviewItemWrappers();
 
     queryPreviews.forEach(queryPreview => {
@@ -119,25 +117,25 @@ describe('testing QueryPreviewList', () => {
   });
 
   it('hides queries with no results', async () => {
-    const { getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
+    const { getQueryPreviewItemWrappers } = renderQueryPreviewList({
       queriesPreviewInfo: [{ query: 'noResults' }, { query: 'shoes' }],
       results: { noResults: [], shoes: [createResultStub('Crazy shoes')] }
     });
 
     // noResults query preview
-    await reRender();
+    await flushPromises();
     let queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(1);
     expect(queryPreviews.at(0)?.text()).toEqual('');
 
-    await reRender();
+    await flushPromises();
     queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(1);
     expect(queryPreviews.at(0)?.text()).toEqual('shoes - Crazy shoes');
   });
 
   it('hides queries that failed', async () => {
-    const { adapter, getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
+    const { adapter, getQueryPreviewItemWrappers } = renderQueryPreviewList({
       queriesPreviewInfo: [{ query: 'willFail' }, { query: 'shoes' }],
       results: {
         willFail: [createResultStub('Will fail')],
@@ -148,19 +146,19 @@ describe('testing QueryPreviewList', () => {
     (adapter.search as jest.Mock).mockRejectedValueOnce('Some error');
 
     // First query will fail
-    await reRender();
+    await flushPromises();
     let queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(1);
     expect(queryPreviews.at(0)?.text()).toEqual(''); // Query preview still is loading
 
-    await reRender();
+    await flushPromises();
     queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(1);
     expect(queryPreviews.at(0)?.text()).toEqual('shoes - Crazy shoes');
   });
 
   it('load next batch when it contains duplicates', async () => {
-    const { getQueryPreviewItemWrappers, reRender, wrapper } = renderQueryPreviewList({
+    const { getQueryPreviewItemWrappers, wrapper } = renderQueryPreviewList({
       queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }],
       results: {
         shirt: [createResultStub('Cool shirt')],
@@ -168,14 +166,16 @@ describe('testing QueryPreviewList', () => {
         dress: [createResultStub('cool dress ')]
       }
     });
-    await reRender();
+    await flushPromises();
     let queryPreviews = getQueryPreviewItemWrappers();
 
     expect(queryPreviews).toHaveLength(2);
+
     await wrapper.setProps({
       queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }, { query: 'dress' }]
     } as any);
-    await reRender();
+    await flushPromises();
+
     queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(3);
   });

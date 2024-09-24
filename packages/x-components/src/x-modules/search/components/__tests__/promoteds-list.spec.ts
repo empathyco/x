@@ -33,10 +33,8 @@ async function render({
   resetXSearchStateWith(store, { promoteds });
   await nextTick();
 
-  const promotedsListWrapper = wrapper.findComponent(PromotedsList);
-
   return {
-    wrapper: promotedsListWrapper,
+    wrapper: wrapper.findComponent(PromotedsList),
     promoteds
   };
 }

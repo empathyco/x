@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { flushPromises, mount } from '@vue/test-utils';
 import { Store } from 'vuex';
 import { DeepPartial } from '@empathyco/x-utils';
 import { nextTick } from 'vue';
@@ -33,7 +33,7 @@ async function render({
     status: 'success',
     instances: 1,
     totalResults: 100
-  } as QueryPreviewItem | null
+  } as QueryPreviewItem
 } = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
 
@@ -64,15 +64,12 @@ async function render({
     }
   );
 
-  if (queryPreviewInState) {
-    const queryPreviewInfoHash = getHashFromQueryPreviewInfo(queryPreviewInfo);
-    queryPreviewInState.request = { query: queryPreviewInfo.query };
-
-    resetXQueriesPreviewStateWith(store, {
-      queriesPreview: { [queryPreviewInfoHash]: queryPreviewInState }
-    });
-    await nextTick();
-  }
+  const queryPreviewInfoHash = getHashFromQueryPreviewInfo(queryPreviewInfo);
+  queryPreviewInState.request = { query: queryPreviewInfo.query };
+  resetXQueriesPreviewStateWith(store, {
+    queriesPreview: { [queryPreviewInfoHash]: queryPreviewInState }
+  });
+  await nextTick();
 
   const queryPreviewRequestUpdatedSpy = jest.fn();
   XPlugin.bus.on('QueryPreviewRequestUpdated').subscribe(queryPreviewRequestUpdatedSpy);
@@ -91,8 +88,7 @@ async function render({
     updateExtraParams: async (params: Partial<UrlParams>) => {
       store.commit('x/queriesPreview/setParams', params);
       await nextTick();
-    },
-    reRender: () => new Promise(resolve => setTimeout(resolve))
+    }
   };
 }
 
@@ -313,12 +309,18 @@ describe('query preview', () => {
       results: getResultsStub(1),
       totalResults: 1
     });
-    const { queryPreviewWrapper, reRender, queryPreviewInfo } = await render({
-      queryPreviewInState: null
+    const { queryPreviewWrapper, queryPreviewInfo } = await render({
+      queryPreviewInState: {
+        request: { query: 'milk' },
+        results: getResultsStub(4),
+        status: 'initial',
+        instances: 1,
+        totalResults: 100
+      }
     });
     const query = getHashFromQueryPreviewInfo(queryPreviewInfo);
 
-    await reRender();
+    await flushPromises();
 
     expect(queryPreviewWrapper.emitted('load')?.length).toEqual(1);
     expect(queryPreviewWrapper.emitted('load')?.[0]).toEqual([query]);
@@ -329,7 +331,7 @@ describe('query preview', () => {
 
   it('emits error event on success if results are empty', async () => {
     jest.useRealTimers();
-    const { queryPreviewWrapper, reRender, queryPreviewInfo } = await render({
+    const { queryPreviewWrapper, queryPreviewInfo } = await render({
       queryPreviewInState: {
         request: { query: 'milk' },
         results: [],
@@ -340,7 +342,7 @@ describe('query preview', () => {
     });
     const query = getHashFromQueryPreviewInfo(queryPreviewInfo);
 
-    await reRender();
+    await flushPromises();
 
     expect(queryPreviewWrapper.emitted('error')?.length).toEqual(1);
     expect(queryPreviewWrapper.emitted('error')?.[0]).toEqual([query]);
@@ -352,10 +354,18 @@ describe('query preview', () => {
   it('emits error event on error', async () => {
     jest.useRealTimers();
     (XComponentsAdapterDummy.search as jest.Mock).mockRejectedValueOnce('Some error');
-    const { queryPreviewWrapper, reRender } = await render({ queryPreviewInState: null });
+    const { queryPreviewWrapper } = await render({
+      queryPreviewInState: {
+        request: { query: 'milk' },
+        results: getResultsStub(4),
+        status: 'initial',
+        instances: 1,
+        totalResults: 100
+      }
+    });
     const query = getHashFromQueryPreviewInfo({ query: 'milk' });
 
-    await reRender();
+    await flushPromises();
 
     expect(queryPreviewWrapper.emitted('error')?.length).toEqual(1);
     expect(queryPreviewWrapper.emitted('error')?.[0]).toEqual([query]);
