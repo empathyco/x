@@ -1,93 +1,35 @@
-import { mount } from 'cypress/vue2';
-// eslint-disable-next-line max-len
+import { h } from 'vue';
 import BaseColumnPickerDropdown from '../../src/components/column-picker/base-column-picker-dropdown.vue';
 import BaseColumnPickerList from '../../src/components/column-picker/base-column-picker-list.vue';
-import { XPlugin } from '../../src/plugins/x-plugin';
-import { e2eAdapter } from '../../src/adapter/e2e-adapter';
-import { XDummyBus } from '../../src/__tests__/bus.dummy';
 
-/**
- * Mounts a {@link BaseColumnPickerList} and {@link BaseColumnPickerDropdown} component with the
- * provided options and offers an API to easily test it.
- *
- * @param options - The options to render the component with.
- * @returns An API to test the component.
- */
-function mountBaseColumnPickerComponents({
-  columns = [2, 4, 6],
-  selectedColumns = 4
-}: BaseColumnPickerRenderOptions = {}): BaseColumnPickerComponentAPI {
-  cy.viewport(1920, 200);
-  mount(
-    {
-      components: {
-        BaseColumnPickerList,
-        BaseColumnPickerDropdown
-      },
-      template: `
-        <div>
-          <BaseColumnPickerList
-            @update:modelValue="col => selectedColumns = col"
-            :modelValue="selectedColumns"
-            :columns="columns"
-            #default="{ column, isSelected }"
-          >
-            <span>{{ column }} {{ isSelected ? '🟢' : '' }}</span>
-          </BaseColumnPickerList>
-          <BaseColumnPickerDropdown
-            @update:modelValue="col => selectedColumns = col"
-            :modelValue="selectedColumns"
-            :columns="columns"
-          >
-            <template #toggle="{ item, isOpen }">
-              Selected: {{ item }} {{ isOpen ? '🔼' : '🔽' }}
-              ️</template>
-            <template #item="{ item, isSelected, isHighlighted }">
-              <span v-if="isHighlighted">🟢</span>
-              <span v-if="isSelected">✅</span>
-              <span data-test="column-picker-dropdown-columns">{{ item }}</span>
-            </template>
-          </BaseColumnPickerDropdown>
-        </div>
-      `,
-      data() {
-        return { columns, selectedColumns };
-      }
-    },
-    {
-      plugins: [[new XPlugin(new XDummyBus()), { adapter: e2eAdapter }]],
-      propsData: { columns, selectedColumns }
-    }
-  );
+function render(columns = [2, 4, 6], selectedColumns = 4) {
+  cy.mount(() => [
+    h(BaseColumnPickerList, { columns, modelValue: selectedColumns }),
+    h(BaseColumnPickerDropdown, { columns, modelValue: selectedColumns })
+  ]);
+
+  const getListNthItem = (columns: number) =>
+    cy
+      .getByDataTest('column-picker-list')
+      .children(`.x-column-picker-list__button--${columns}-cols`);
+
+  const getDropdownNthItem = (index: number) => {
+    cy.getByDataTest('dropdown-toggle').click();
+    return cy.getByDataTest('dropdown-item').eq(index);
+  };
 
   return {
-    clickListNthItem(columns: number) {
-      cy.getByDataTest('column-picker-list')
-        .children(`.x-column-picker-list__button--${columns}-cols`)
-        .click();
-    },
-    getListNthItem(columns: number) {
-      return cy
-        .getByDataTest('column-picker-list')
-        .children(`.x-column-picker-list__button--${columns}-cols`);
-    },
-    clickDropdownNthItem(index: number) {
-      cy.getByDataTest('dropdown-toggle').click();
-      cy.getByDataTest('dropdown-item').eq(index).click();
-    },
-    getDropdownNthItem(index: number) {
-      cy.getByDataTest('dropdown-toggle').click();
-      return cy.getByDataTest('dropdown-item').eq(index);
-    },
-    closeDropdown() {
-      cy.get(`.x-dropdown--is-open`).getByDataTest('dropdown-toggle').click();
-    }
+    getListNthItem,
+    clickListNthItem: (columns: number) => getListNthItem(columns).click(),
+    getDropdownNthItem,
+    clickDropdownNthItem: (index: number) => getDropdownNthItem(index).click(),
+    closeDropdown: () => cy.get(`.x-dropdown--is-open`).getByDataTest('dropdown-toggle').click()
   };
 }
 
 describe('testing Base Column Picker List and Dropdown', () => {
-  it('Selects  different options from the column picker list', () => {
-    const { clickListNthItem, getListNthItem } = mountBaseColumnPickerComponents();
+  it('Selects different options from the column picker list', () => {
+    const { clickListNthItem, getListNthItem } = render();
     getListNthItem(4).should('have.attr', 'aria-pressed', 'true');
 
     clickListNthItem(2);
@@ -100,8 +42,7 @@ describe('testing Base Column Picker List and Dropdown', () => {
   });
 
   it('Selects different options from the column picker dropdown', () => {
-    const { clickDropdownNthItem, getDropdownNthItem, closeDropdown } =
-      mountBaseColumnPickerComponents();
+    const { clickDropdownNthItem, getDropdownNthItem, closeDropdown } = render();
     getDropdownNthItem(1).should('have.attr', 'aria-selected', 'true');
     closeDropdown();
 
@@ -113,23 +54,3 @@ describe('testing Base Column Picker List and Dropdown', () => {
     getDropdownNthItem(0).should('have.attr', 'aria-selected', 'true');
   });
 });
-
-interface BaseColumnPickerRenderOptions {
-  /** The number of columns to be rendered. */
-  columns?: number[];
-  /** The initial selected column value. */
-  selectedColumns?: number;
-}
-
-interface BaseColumnPickerComponentAPI {
-  /** Clicks the event button in the column picker list and waits for the view to update. */
-  clickListNthItem: (index: number) => void;
-  /** Gets the selected item in the column picker list. */
-  getListNthItem: (index: number) => Cypress.Chainable<JQuery>;
-  /** Clicks the event button in the column picker dropdown and waits for the view to update. */
-  clickDropdownNthItem: (index: number) => void;
-  /** Gets the selected item in the column picker dropdown. */
-  getDropdownNthItem: (index: number) => Cypress.Chainable<JQuery>;
-  /** Closes the dropdown menu. */
-  closeDropdown: () => void;
-}

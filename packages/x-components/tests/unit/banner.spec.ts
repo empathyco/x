@@ -1,55 +1,28 @@
-import { mount } from 'cypress/vue2';
 import { Banner as BannerModel } from '@empathyco/x-types';
+import { createBannerStub } from '../../src/__stubs__/banners-stubs.factory';
 import Banner from '../../src/x-modules/search/components/banner.vue';
-import { createBannerStub } from '../../src/__stubs__/index';
 
-/**
- * Mounts a {@link Banner} component with the provided options.
- *
- * @param options - The options to render the component with.
- * @returns An API to test the component.
- */
-function mountBanner({
-  banner,
-  template = `
-        <div>
-          <Banner :banner="banner"/>
-        </div>
-      `
-}: MountBannerOptions): MountBannerAPI {
-  cy.viewport(1920, 200);
-  mount({
-    components: {
-      Banner
-    },
-    data() {
-      return {
-        banner
-      };
-    },
-    template
-  });
+function render(banner = {} as BannerModel) {
+  cy.mount(Banner, { props: { banner } });
 
   return {
-    getBanner() {
-      return cy.getByDataTest('banner');
-    },
-    getBannerImage() {
-      return cy.getByDataTest('banner-image');
-    }
+    getBanner: () => cy.getByDataTest('banner'),
+    getBannerImage: () => cy.getByDataTest('banner-image')
   };
 }
 
 describe('testing Banner component', () => {
+  const bannerBase: Partial<BannerModel> = {
+    title: 'Search UIs',
+    url: 'https://empathy.co',
+    position: 1
+  };
+
   it('banner renders if the image loads', () => {
-    const { getBanner, getBannerImage } = mountBanner({
-      banner: createBannerStub('banner', {
-        title: 'Search UIs',
-        url: 'https://empathy.co',
-        position: 1,
-        image: '/img/test-image-1.jpeg'
-      })
-    });
+    const { getBanner, getBannerImage } = render(
+      createBannerStub('banner', { ...bannerBase, image: '/img/test-image-1.jpeg' })
+    );
+
     // Loading
     getBanner().should('exist');
     getBannerImage().should('exist');
@@ -60,13 +33,8 @@ describe('testing Banner component', () => {
   });
 
   it('banner is not rendered if image load fails', () => {
-    const { getBanner, getBannerImage } = mountBanner({
-      banner: createBannerStub('banner', {
-        title: 'Search UIs',
-        url: 'https://empathy.co',
-        position: 1
-      })
-    });
+    const { getBanner, getBannerImage } = render(createBannerStub('banner', bannerBase));
+
     // Loading
     getBanner().should('exist');
     getBannerImage().should('exist');
@@ -75,15 +43,3 @@ describe('testing Banner component', () => {
     getBanner().should('not.exist');
   });
 });
-
-interface MountBannerOptions {
-  /** The banner data. */
-  banner?: BannerModel;
-  /** The template to be rendered. */
-  template?: string;
-}
-
-interface MountBannerAPI {
-  getBanner: () => Cypress.Chainable<JQuery>;
-  getBannerImage: () => Cypress.Chainable<JQuery>;
-}
