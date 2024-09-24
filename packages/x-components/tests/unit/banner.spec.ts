@@ -2,8 +2,17 @@ import { Banner as BannerModel } from '@empathyco/x-types';
 import { createBannerStub } from '../../src/__stubs__/banners-stubs.factory';
 import Banner from '../../src/x-modules/search/components/banner.vue';
 
-function render(banner = {} as BannerModel) {
-  cy.mount(Banner, { props: { banner } });
+function render(
+  imageSrc = '',
+  banner = {
+    title: 'Search UIs',
+    url: 'https://empathy.co',
+    position: 1
+  } as Partial<BannerModel>
+) {
+  cy.mount(Banner, {
+    props: { banner: createBannerStub('banner', { ...banner, image: imageSrc }) }
+  });
 
   return {
     getBanner: () => cy.getByDataTest('banner'),
@@ -12,16 +21,8 @@ function render(banner = {} as BannerModel) {
 }
 
 describe('testing Banner component', () => {
-  const bannerBase: Partial<BannerModel> = {
-    title: 'Search UIs',
-    url: 'https://empathy.co',
-    position: 1
-  };
-
   it('banner renders if the image loads', () => {
-    const { getBanner, getBannerImage } = render(
-      createBannerStub('banner', { ...bannerBase, image: '/img/test-image-1.jpeg' })
-    );
+    const { getBanner, getBannerImage } = render('/img/test-image-1.jpeg');
 
     // Loading
     getBanner().should('exist');
@@ -33,7 +34,7 @@ describe('testing Banner component', () => {
   });
 
   it('banner is not rendered if image load fails', () => {
-    const { getBanner, getBannerImage } = render(createBannerStub('banner', bannerBase));
+    const { getBanner, getBannerImage } = render();
 
     // Loading
     getBanner().should('exist');
