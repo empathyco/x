@@ -1,98 +1,70 @@
-import { Banner } from '@empathyco/x-types';
-import { DeepPartial, Dictionary } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue, {
-  VueConstructor,
-  ComponentOptions,
-  computed,
-  defineComponent,
-  provide,
-  inject,
-  Ref
-} from 'vue';
-import Vuex, { Store } from 'vuex';
+import { DeepPartial } from '@empathyco/x-utils';
+import { mount } from '@vue/test-utils';
+import { computed, defineComponent, provide, inject, Ref, nextTick } from 'vue';
+import { Store } from 'vuex';
 import BaseGrid from '../../../../components/base-grid.vue';
-import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { XPlugin } from '../../../../plugins/x-plugin';
-import { RootXStoreState } from '../../../../store/store.types';
+import { LIST_ITEMS_KEY, getXComponentXModuleName, isXComponent } from '../../../../components';
+import { XPlugin } from '../../../../plugins';
+import { RootXStoreState } from '../../../../store';
 import { ListItem } from '../../../../utils/types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
-import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
+import { getBannersStub, getResultsStub } from '../../../../__stubs__';
 import BannersList from '../banners-list.vue';
-import { LIST_ITEMS_KEY } from '../../../../components/decorators/injection.consts';
-import { getResultsStub } from '../../../../__stubs__/results-stubs.factory';
+import { searchXModule } from '../../x-module';
 import { resetXSearchStateWith } from './utils';
 
-/**
- * Renders the `BannersList` component, exposing a basic API for testing.
- *
- * @param options - The options to render the component with.
- * @returns The API for testing the `BannersList` component.
- */
-function renderBannersList({
+async function render({
   template = '<BannersList />',
   banners = getBannersStub(),
-  components
-}: RenderBannersListOptions = {}): RendersBannerListAPI {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
+  components = {}
+} = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
 
-  XPlugin.resetInstance();
-
-  resetXSearchStateWith(store, { banners });
   const wrapper = mount(
     {
-      components: {
-        BannersList,
-        ...components
-      },
+      components: { BannersList, ...components },
       template
     },
     {
-      localVue,
-      store
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] })]
+      }
     }
   );
-
-  const bannersListWrapper = wrapper.findComponent(BannersList);
+  resetXSearchStateWith(store, { banners });
+  await nextTick();
 
   return {
-    wrapper: bannersListWrapper,
-    getBanners() {
-      return banners;
-    }
+    wrapper: wrapper.findComponent(BannersList),
+    banners
   };
 }
 
 describe('testing BannersList component', () => {
-  it('is an XComponent', () => {
-    const { wrapper } = renderBannersList();
-    expect(isXComponent(wrapper.vm)).toEqual(true);
-  });
+  it('is an XComponent which has an XModule', async () => {
+    const { wrapper } = await render();
 
-  it('has Search as XModule', () => {
-    const { wrapper } = renderBannersList();
+    expect(isXComponent(wrapper.vm)).toEqual(true);
     expect(getXComponentXModuleName(wrapper.vm)).toEqual('search');
   });
 
-  it('renders the banners in the state', () => {
-    const { wrapper, getBanners } = renderBannersList();
+  it('renders the banners in the state', async () => {
+    const { wrapper, banners } = await render();
     const bannersListItems = wrapper.findAll(getDataTestSelector('banners-list-item'));
 
-    getBanners().forEach((result, index) => {
-      expect(bannersListItems.at(index).text()).toEqual(result.id);
-    });
+    banners.forEach((result, index) =>
+      expect(bannersListItems.at(index)?.text()).toEqual(result.id)
+    );
   });
 
-  it('does not render any banner if the are none', () => {
-    const { wrapper } = renderBannersList({ banners: [] });
-    expect(wrapper.html()).toEqual('');
+  it('does not render any banner if the are none', async () => {
+    const { wrapper } = await render({ banners: [] });
+
+    expect(wrapper.isVisible()).toEqual(false);
   });
 
-  it('allows customizing the banner slot', () => {
-    const { wrapper, getBanners } = renderBannersList({
+  it('allows customizing the banner slot', async () => {
+    const { wrapper, banners } = await render({
       template: `
         <BannersList>
           <template #banner="{ item }">
@@ -101,15 +73,15 @@ describe('testing BannersList component', () => {
         </BannersList>`
     });
 
-    expect(wrapper.find(getDataTestSelector('items-list')).classes('x-items-list')).toBe(true);
-    expect(wrapper.find(getDataTestSelector('banners-list-item')).exists()).toBe(true);
-    expect(wrapper.find(getDataTestSelector('banner-slot-overridden')).text()).toBe(
-      `Custom banner: ${getBanners()[0].id}`
+    expect(wrapper.find(getDataTestSelector('items-list')).classes('x-items-list')).toEqual(true);
+    expect(wrapper.find(getDataTestSelector('banners-list-item')).exists()).toEqual(true);
+    expect(wrapper.find(getDataTestSelector('banner-slot-overridden')).text()).toEqual(
+      `Custom banner: ${banners[0].id}`
     );
   });
 
-  it('allows customizing the default slot', () => {
-    const { wrapper } = renderBannersList({
+  it('allows customizing the default slot', async () => {
+    const { wrapper } = await render({
       template: `
         <BannersList>
           <template #default="{ items }">
@@ -119,18 +91,13 @@ describe('testing BannersList component', () => {
       components: { BaseGrid }
     });
 
-    expect(wrapper.find(getDataTestSelector('banners-list')).exists()).toBe(false);
-    expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toBe(true);
+    expect(wrapper.find(getDataTestSelector('banners-list')).exists()).toEqual(false);
+    expect(wrapper.find(getDataTestSelector('default-slot-overridden')).exists()).toEqual(true);
   });
 
   it('provides the result of concatenating ancestor injected items with the banners', async () => {
     const resultsStub = getResultsStub();
     const bannersStub = getBannersStub();
-    const localVue = createLocalVue();
-    localVue.use(Vuex);
-    const store = new Store<DeepPartial<RootXStoreState>>({});
-    installNewXPlugin({ store }, localVue);
-    resetXSearchStateWith(store, { banners: bannersStub, totalResults: resultsStub.length * 2 });
 
     /* It provides an array with some results */
     const Provider = defineComponent({
@@ -139,9 +106,7 @@ describe('testing BannersList component', () => {
         const providedStub = computed((): ListItem[] => resultsStub);
         provide(LIST_ITEMS_KEY as string, providedStub);
       },
-      template: `
-        <div><slot /></div>
-      `
+      template: `<div><slot /></div>`
     });
 
     /*
@@ -153,54 +118,36 @@ describe('testing BannersList component', () => {
       setup() {
         const injectedListItems = inject<Ref<ListItem[]>>(LIST_ITEMS_KEY as string);
         const injectedListItemsString = computed(
-          (): string => injectedListItems?.value.map(item => item.id).join(',') ?? ''
+          () => injectedListItems?.value.map(item => item.id).join(',') ?? ''
         );
-        return {
-          injectedListItemsString
-        };
+        return { injectedListItemsString };
       },
-      template: `
-        <p>{{ injectedListItemsString }}</p>
-      `
+      template: `<p>{{ injectedListItemsString }}</p>`
     });
 
+    const store = new Store<DeepPartial<RootXStoreState>>({});
     const wrapper = mount(
       {
-        template: '<Provider v-bind="$attrs"><BannersList><Child /></BannersList></Provider>',
-        components: {
-          Provider,
-          Child,
-          BannersList
-        }
+        template: '<Provider><BannersList><Child /></BannersList></Provider>',
+        components: { Provider, Child, BannersList }
       },
       {
-        localVue,
-        store
+        global: {
+          plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] })]
+        }
       }
     );
 
-    wrapper.vm.$x.emit('RenderedColumnsNumberChanged', 2);
-    await wrapper.vm.$nextTick();
+    resetXSearchStateWith(store, { banners: bannersStub, totalResults: resultsStub.length * 2 });
+    await nextTick();
 
-    expect(wrapper.text()).toBe(
-      // eslint-disable-next-line max-len
-      `${bannersStub[0].id},${resultsStub[0].id},${resultsStub[1].id},${bannersStub[1].id},${bannersStub[2].id},${bannersStub[3].id},${resultsStub[2].id},${resultsStub[3].id},${bannersStub[4].id}`
+    await XPlugin.bus.emit('RenderedColumnsNumberChanged', 2);
+    await nextTick();
+
+    expect(wrapper.text()).toEqual(
+      `${bannersStub[0].id},${resultsStub[0].id},${resultsStub[1].id},${bannersStub[1].id},
+      ${bannersStub[2].id},${bannersStub[3].id},${resultsStub[2].id},${resultsStub[3].id},
+      ${bannersStub[4].id}`.replace(/\s/g, '')
     );
   });
 });
-
-interface RenderBannersListOptions {
-  /** The template to be rendered. */
-  template?: string;
-  /** Components to be rendered. */
-  components?: Dictionary<VueConstructor | ComponentOptions<Vue>>;
-  /** The `banners` used to be rendered. */
-  banners?: Banner[];
-}
-
-interface RendersBannerListAPI {
-  /** The `wrapper` wrapper component. */
-  wrapper: Wrapper<Vue>;
-  /** The `banners` used to be rendered. */
-  getBanners: () => Banner[];
-}

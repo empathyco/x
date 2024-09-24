@@ -1,75 +1,70 @@
-import { Facet, Filter } from '@empathyco/x-types';
+import { Facet } from '@empathyco/x-types';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
 import { installNewXPlugin } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
-import { useStore } from '../../../../../composables/use-store';
-import { XPlugin } from '../../../../../plugins';
-import { resetFacetsService } from '../../../__tests__/utils';
-import { DefaultFacetsService } from '../../../service/facets.service';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import SelectedFilters from '../selected-filters.vue';
+import { resetFacetsService } from '../../../__tests__/utils';
+import { Store } from 'vuex';
+import { DeepPartial } from '@empathyco/x-utils';
+import { RootXStoreState } from '../../../../../store/index';
 
-jest.mock('../../../../../composables/use-store');
-
-const facets: Record<Facet['id'], Facet> = {
-  gender: createSimpleFacetStub('gender', createFilter => [
-    createFilter('Men', false),
-    createFilter('Women', false)
-  ]),
-  brand: createSimpleFacetStub('brand', createFilter => [
-    createFilter('Audi', false),
-    createFilter('BMW', false)
-  ]),
-  color: createSimpleFacetStub('color', createFilter => [
-    createFilter('red', false),
-    createFilter('blue', false)
-  ])
-};
-
-function render({ template = '<SelectedFilters />', facetsIds = [] as string[] } = {}) {
+async function render({ template = '<SelectedFilters />', facetsIds = [] as string[] } = {}) {
   resetFacetsService();
 
-  installNewXPlugin({ initialXModules: [facetsXModule] });
-  resetXFacetsStateWith(XPlugin.store, facets);
-  (useStore as jest.Mock).mockReturnValue(XPlugin.store);
+  const facets: Record<Facet['id'], Facet> = {
+    gender: createSimpleFacetStub('gender', createFilter => [
+      createFilter('Men', false),
+      createFilter('Women', false)
+    ]),
+    brand: createSimpleFacetStub('brand', createFilter => [
+      createFilter('Audi', false),
+      createFilter('BMW', false)
+    ]),
+    color: createSimpleFacetStub('color', createFilter => [
+      createFilter('red', false),
+      createFilter('blue', false)
+    ])
+  };
 
-  const wrapper = mount({
-    components: { SelectedFilters },
-    template,
-    data: () => ({ facetsIds })
-  });
-
-  const selectedFiltersWrapper = wrapper.findComponent(SelectedFilters);
+  const store = new Store<DeepPartial<RootXStoreState>>({});
+  const wrapper = mount(
+    {
+      components: { SelectedFilters },
+      template
+    },
+    {
+      global: { plugins: [installNewXPlugin({ store, initialXModules: [facetsXModule] })] },
+      data: () => ({ facetsIds })
+    }
+  );
+  resetXFacetsStateWith(store, facets);
+  await nextTick();
 
   return {
     wrapper,
-    selectedFiltersWrapper,
-    toggleFacetNthFilter: (facetId: string, nth: number) => {
-      const filter: Filter = XPlugin.store.getters['x/facets/facets'][facetId].filters[nth];
-      DefaultFacetsService.instance.toggle(filter);
-      return nextTick();
+    selectedFiltersWrapper: wrapper.findComponent(SelectedFilters),
+    toggleFacetNthFilter: async (facetId: string, nth: number) => {
+      const filter = store.getters['x/facets/facets'][facetId].filters[nth];
+      filter.selected = !filter.selected;
+      return await nextTick();
     }
   };
 }
 
 describe('testing SelectedFilters component', () => {
-  it('is an x-component', () => {
-    const { selectedFiltersWrapper } = render();
+  it('is an x-component as belongs to the `facets` x-module', async () => {
+    const { selectedFiltersWrapper } = await render();
 
-    expect(isXComponent(selectedFiltersWrapper.vm)).toBeTruthy();
-  });
-
-  it('belongs to the `facets` x-module', () => {
-    const { selectedFiltersWrapper } = render();
-
+    expect(isXComponent(selectedFiltersWrapper.vm)).toEqual(true);
     expect(getXComponentXModuleName(selectedFiltersWrapper.vm)).toEqual('facets');
   });
 
   it('renders "nth" by default', async () => {
-    const { selectedFiltersWrapper, toggleFacetNthFilter } = render({
+    const { selectedFiltersWrapper, toggleFacetNthFilter } = await render({
       template: '<SelectedFilters :alwaysVisible="true" />'
     });
 
@@ -86,7 +81,7 @@ describe('testing SelectedFilters component', () => {
   });
 
   it('renders "nth selected" in its customized slot', async () => {
-    const { selectedFiltersWrapper, toggleFacetNthFilter } = render({
+    const { selectedFiltersWrapper, toggleFacetNthFilter } = await render({
       template: `
         <SelectedFilters :alwaysVisible="true" #default="{ selectedFilters }">
           {{ selectedFilters.length }} selected
@@ -106,7 +101,7 @@ describe('testing SelectedFilters component', () => {
   });
 
   it('renders "nth" by default of the facet ids provided', async () => {
-    const { selectedFiltersWrapper, toggleFacetNthFilter } = render({
+    const { selectedFiltersWrapper, toggleFacetNthFilter } = await render({
       template: '<SelectedFilters :facetsIds="facetsIds" :alwaysVisible="true" />',
       facetsIds: ['brand', 'gender']
     });
@@ -127,7 +122,7 @@ describe('testing SelectedFilters component', () => {
   });
 
   it('renders "nth selected" in its customized slot of the facet id provided', async () => {
-    const { selectedFiltersWrapper, toggleFacetNthFilter } = render({
+    const { selectedFiltersWrapper, toggleFacetNthFilter } = await render({
       template: `
         <SelectedFilters :facetsIds="facetsIds" :alwaysVisible="true" #default="{ selectedFilters }">
           {{ selectedFilters.length }} selected
@@ -148,7 +143,7 @@ describe('testing SelectedFilters component', () => {
   });
 
   it('always renders the component if alwaysVisible is true without selected filters', async () => {
-    const { selectedFiltersWrapper, toggleFacetNthFilter } = render({
+    const { selectedFiltersWrapper, toggleFacetNthFilter } = await render({
       template: '<SelectedFilters :alwaysVisible="true" />'
     });
 
@@ -159,7 +154,7 @@ describe('testing SelectedFilters component', () => {
   });
 
   it("doesn't render the component if alwaysVisible is false and no selected filters", async () => {
-    const { selectedFiltersWrapper, toggleFacetNthFilter } = render();
+    const { selectedFiltersWrapper, toggleFacetNthFilter } = await render();
 
     expect(selectedFiltersWrapper.html()).toEqual('');
 

@@ -1,25 +1,31 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
-import { RootXStoreState } from '../../../../store/store.types';
+import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
+import { Store } from 'vuex';
+import { XPlugin } from '../../../../plugins';
+import { RootXStoreState } from '../../../../store';
 import { installNewXPlugin } from '../../../../__tests__/utils';
+import { historyQueriesXModule } from '../../x-module';
 import ClearHistoryQueries from '../clear-history-queries.vue';
 import { resetXHistoryQueriesStateWith } from './utils';
 
-describe('testing ClearHistoryQueries component', () => {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
+function render() {
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-
-  beforeEach(() => {
-    resetXHistoryQueriesStateWith(store);
+  const wrapper = mount(ClearHistoryQueries, {
+    global: { plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })] }
   });
 
-  it('is disabled if there are not history queries', async () => {
-    const clearHistoryQueries = mount(ClearHistoryQueries, { localVue, store });
+  return {
+    store,
+    wrapper
+  };
+}
 
-    expect(clearHistoryQueries.attributes().disabled).toEqual('disabled');
+describe('testing ClearHistoryQueries component', () => {
+  it('is disabled if there are not history queries', async () => {
+    const { wrapper, store } = render();
+
+    expect(wrapper.attributes()).toHaveProperty('disabled');
 
     resetXHistoryQueriesStateWith(store, {
       historyQueries: [
@@ -30,14 +36,16 @@ describe('testing ClearHistoryQueries component', () => {
         }
       ]
     });
-    await localVue.nextTick();
-    expect(clearHistoryQueries.attributes()).not.toHaveProperty('disabled');
+    await nextTick();
+
+    expect(wrapper.attributes()).not.toHaveProperty('disabled');
   });
 
   it('emits UserPressedClearHistoryQueries when clicked', async () => {
+    const { wrapper, store } = render();
     const listener = jest.fn();
-    const clearHistoryQueries = mount(ClearHistoryQueries, { localVue, store });
-    clearHistoryQueries.vm.$x.on('UserPressedClearHistoryQueries', true).subscribe(listener);
+    XPlugin.bus.on('UserPressedClearHistoryQueries', true).subscribe(listener);
+
     resetXHistoryQueriesStateWith(store, {
       historyQueries: [
         {
@@ -48,15 +56,15 @@ describe('testing ClearHistoryQueries component', () => {
       ]
     });
 
-    await localVue.nextTick();
-    clearHistoryQueries.trigger('click');
+    await nextTick();
+    await wrapper.trigger('click');
 
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith({
       eventPayload: undefined,
       metadata: {
         moduleName: 'historyQueries',
-        target: clearHistoryQueries.element,
+        target: wrapper.element,
         location: 'none',
         replaceable: true
       }
@@ -64,27 +72,23 @@ describe('testing ClearHistoryQueries component', () => {
   });
 
   it('has an slot rendering a message by default', () => {
-    const clearHistoryQueries = mount(ClearHistoryQueries, {
-      localVue,
-      store
-    });
+    const { wrapper } = render();
 
-    expect(clearHistoryQueries.vm.$el.textContent).toEqual('✕');
+    expect(wrapper.element.textContent).toEqual('✕');
   });
 
   it('has a default slot to customize its contents', () => {
-    const clearHistoryQueries = mount(ClearHistoryQueries, {
-      localVue,
-      store,
+    const store = new Store<DeepPartial<RootXStoreState>>({});
+
+    const wrapper = mount(ClearHistoryQueries, {
+      global: { plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })] },
       slots: {
         default: {
           template: '<span class="x-clear-history-queries__text">Clear</span>'
         }
       }
     });
-    const renderedSlotHTML = clearHistoryQueries.element.querySelector(
-      '.x-clear-history-queries__text'
-    );
+    const renderedSlotHTML = wrapper.element.querySelector('.x-clear-history-queries__text');
 
     expect(renderedSlotHTML).toBeDefined();
     expect(renderedSlotHTML!.textContent).toEqual('Clear');

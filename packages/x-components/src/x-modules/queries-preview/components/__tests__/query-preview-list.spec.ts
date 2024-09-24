@@ -1,34 +1,34 @@
 import { Result, XComponentsAdapter } from '@empathyco/x-types';
-import { mount, VueWrapper } from '@vue/test-utils';
+import { flushPromises, mount } from '@vue/test-utils';
 import {
   createResultStub,
   getEmptySearchResponseStub,
   getResultsStub
-} from '../../../../__stubs__/index';
+} from '../../../../__stubs__';
 import { XComponentsAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { queriesPreviewXModule } from '../../x-module';
 import QueryPreviewList from '../query-preview-list.vue';
 import { QueryPreviewInfo } from '../../store/types';
 import { QueryFeature } from '../../../../types';
-import { QueryPreview } from '../index';
+import QueryPreview from '../query-preview.vue';
 
 function renderQueryPreviewList({
   template = `
-        <QueryPreviewList v-bind="$attrs" #default="{ queryPreviewInfo, results }">
-          {{ queryPreviewInfo.query }} - {{results[0].name}}
-        </QueryPreviewList>`,
-  queriesPreviewInfo = [{ query: 'milk' }],
-  results = { milk: getResultsStub(1) },
+    <QueryPreviewList #default="{ queryPreviewInfo, results }">
+      {{ queryPreviewInfo.query }} - {{results[0].name}}
+    </QueryPreviewList>`,
+  queriesPreviewInfo = [{ query: 'milk' }] as QueryPreviewInfo[],
+  results = { milk: getResultsStub(1) } as Record<string, Result[]>,
   debounceTimeMs = 0,
   persistInCache = true,
   queryFeature = 'search_box',
   maxItemsToRender = 4
-}: RenderQueryPreviewListOptions): RenderQueryPreviewListAPI {
+}) {
   const adapter: XComponentsAdapter = {
     ...XComponentsAdapterDummy,
     search: jest.fn(({ query }) => {
-      const fakeResults = results[query];
+      const fakeResults = results[query] ?? [];
       return Promise.resolve({
         ...getEmptySearchResponseStub(),
         results: fakeResults,
@@ -40,10 +40,7 @@ function renderQueryPreviewList({
   const wrapper = mount(
     {
       template,
-      components: {
-        QueryPreviewList,
-        QueryPreview
-      }
+      components: { QueryPreviewList, QueryPreview }
     },
     {
       global: {
@@ -62,19 +59,13 @@ function renderQueryPreviewList({
     adapter,
     wrapper,
     queryPreviewListWrapper: wrapper.findComponent(QueryPreviewList),
-    getQueryPreviewItemWrappers() {
-      return wrapper.findAllComponents(QueryPreview);
-    },
-    reRender() {
-      // A timeout with no time should resolve after all reactivity + promises involved
-      return new Promise(resolve => setTimeout(resolve));
-    }
+    getQueryPreviewItemWrappers: () => wrapper.findAllComponents(QueryPreview)
   };
 }
 
 describe('testing QueryPreviewList', () => {
   it('renders a list of queries one by one', async () => {
-    const { getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
+    const { getQueryPreviewItemWrappers } = renderQueryPreviewList({
       queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }],
       results: { shirt: [createResultStub('Cool shirt')], jeans: [createResultStub('Sick jeans')] }
     });
@@ -85,13 +76,13 @@ describe('testing QueryPreviewList', () => {
     expect(queryPreviews.at(0)?.text()).toEqual(''); // Query preview still is loading
 
     // Shirt, Jeans query previews
-    await reRender();
+    await flushPromises();
     queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(2);
     expect(queryPreviews.at(0)?.text()).toEqual('shirt - Cool shirt');
     expect(queryPreviews.at(1)?.text()).toEqual('');
 
-    await reRender();
+    await flushPromises();
     queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(2);
     expect(queryPreviews.at(0)?.text()).toEqual('shirt - Cool shirt');
@@ -103,7 +94,7 @@ describe('testing QueryPreviewList', () => {
     const persistInCacheStub = false;
     const queryFeatureStub: QueryFeature = 'history_query';
     const maxItemsToRenderStub = 2;
-    const { getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
+    const { getQueryPreviewItemWrappers } = renderQueryPreviewList({
       queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }],
       results: { shirt: [createResultStub('Cool shirt')], jeans: [createResultStub('Sick jeans')] },
       debounceTimeMs: debounceTimeMsStub,
@@ -113,7 +104,7 @@ describe('testing QueryPreviewList', () => {
     });
 
     // Shirt, Jeans query previews
-    await reRender();
+    await flushPromises();
     const queryPreviews = getQueryPreviewItemWrappers();
 
     queryPreviews.forEach(queryPreview => {
@@ -126,25 +117,25 @@ describe('testing QueryPreviewList', () => {
   });
 
   it('hides queries with no results', async () => {
-    const { getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
+    const { getQueryPreviewItemWrappers } = renderQueryPreviewList({
       queriesPreviewInfo: [{ query: 'noResults' }, { query: 'shoes' }],
       results: { noResults: [], shoes: [createResultStub('Crazy shoes')] }
     });
 
     // noResults query preview
-    await reRender();
+    await flushPromises();
     let queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(1);
     expect(queryPreviews.at(0)?.text()).toEqual('');
 
-    await reRender();
+    await flushPromises();
     queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(1);
     expect(queryPreviews.at(0)?.text()).toEqual('shoes - Crazy shoes');
   });
 
   it('hides queries that failed', async () => {
-    const { adapter, getQueryPreviewItemWrappers, reRender } = renderQueryPreviewList({
+    const { adapter, getQueryPreviewItemWrappers } = renderQueryPreviewList({
       queriesPreviewInfo: [{ query: 'willFail' }, { query: 'shoes' }],
       results: {
         willFail: [createResultStub('Will fail')],
@@ -155,19 +146,19 @@ describe('testing QueryPreviewList', () => {
     (adapter.search as jest.Mock).mockRejectedValueOnce('Some error');
 
     // First query will fail
-    await reRender();
+    await flushPromises();
     let queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(1);
     expect(queryPreviews.at(0)?.text()).toEqual(''); // Query preview still is loading
 
-    await reRender();
+    await flushPromises();
     queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(1);
     expect(queryPreviews.at(0)?.text()).toEqual('shoes - Crazy shoes');
   });
 
   it('load next batch when it contains duplicates', async () => {
-    const { getQueryPreviewItemWrappers, reRender, wrapper } = renderQueryPreviewList({
+    const { getQueryPreviewItemWrappers, wrapper } = renderQueryPreviewList({
       queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }],
       results: {
         shirt: [createResultStub('Cool shirt')],
@@ -175,41 +166,17 @@ describe('testing QueryPreviewList', () => {
         dress: [createResultStub('cool dress ')]
       }
     });
-    await reRender();
+    await flushPromises();
     let queryPreviews = getQueryPreviewItemWrappers();
 
     expect(queryPreviews).toHaveLength(2);
+
     await wrapper.setProps({
       queriesPreviewInfo: [{ query: 'shirt' }, { query: 'jeans' }, { query: 'dress' }]
-    });
-    await reRender();
+    } as any);
+    await flushPromises();
+
     queryPreviews = getQueryPreviewItemWrappers();
     expect(queryPreviews).toHaveLength(3);
   });
 });
-
-interface RenderQueryPreviewListOptions {
-  /** The template to render the {@link QueryPreviewList} component. */
-  template?: string;
-  /** The queries for which preview its results. */
-  queriesPreviewInfo?: QueryPreviewInfo[];
-  /** The results to return from the mocked search endpoint adapter. */
-  results?: Record<string, Result[]>;
-  persistInCache?: boolean;
-  debounceTimeMs?: number;
-  queryFeature?: QueryFeature;
-  maxItemsToRender?: number;
-}
-
-interface RenderQueryPreviewListAPI {
-  /** The {@link XComponentsAdapter} passed to the {@link XPlugin}. */
-  adapter: XComponentsAdapter;
-  /** The Vue testing utils wrapper for the {@link QueryPreviewList} component. */
-  wrapper: VueWrapper;
-  /** Returns an array with the {@link QueryPreviewList} wrapper. */
-  queryPreviewListWrapper: VueWrapper;
-  /** Returns an array with the {@link QueryPreview} items wrappers. */
-  getQueryPreviewItemWrappers: () => VueWrapper[];
-  /** Flushes all pending promises to cause the component to be in its final state. */
-  reRender: () => Promise<void>;
-}

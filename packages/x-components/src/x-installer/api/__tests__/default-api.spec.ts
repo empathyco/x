@@ -1,6 +1,6 @@
-import { createLocalVue } from '@vue/test-utils';
+import { computed, defineComponent, inject, nextTick } from 'vue';
 import { XComponentsAdapterDummy } from '../../../__tests__/adapter.dummy';
-import { XInstaller } from '../../x-installer/x-installer';
+import { XInstaller } from '../../x-installer';
 import { NormalisedSnippetConfig, SnippetConfig } from '../api.types';
 import { BaseXAPI } from '../base-api';
 import { XDummyBus } from '../../../__tests__/bus.dummy';
@@ -66,43 +66,42 @@ describe('testing default X API', () => {
   });
 
   it('changes the `SnippetConfig` when calling the `setSnippetConfig` function', async () => {
-    const vue = createLocalVue();
     const snippetConfig: SnippetConfig = {
       instance: 'test',
       scope: 'test',
       lang: 'es'
     };
-    const installerApp = vue.extend({
-      inject: ['snippetConfig'],
-      render(h) {
-        // Vue does not provide type safety for inject
-        const lang = (this as any).snippetConfig.lang;
-        const store = (this as any).snippetConfig.store;
-        return h('div', [
-          h('h1', { class: 'lang-test' }, [lang]),
-          h('h1', { class: 'store-test' }, [store])
-        ]);
+    const rootComponent = defineComponent({
+      template: `<div>
+        <h1 class="lang-test">{{ lang }}</h1>
+        <h1 class="store-test">{{ store }}</h1>
+      </div>`,
+      setup: () => {
+        const snippetConfig = inject<SnippetConfig>('snippetConfig');
+        const lang = computed(() => snippetConfig?.lang ?? '');
+        const store = computed(() => snippetConfig?.store ?? '');
+        return { lang, store };
       }
     });
 
-    const { api, app } = await new XInstaller({
+    const { api } = await new XInstaller({
+      rootComponent,
       adapter: XComponentsAdapterDummy,
-      api: defaultXAPI,
-      app: installerApp
+      api: defaultXAPI
     }).init(snippetConfig);
 
-    const langElement = app?.$el.getElementsByClassName('lang-test')[0];
-    const storeElement = app?.$el.getElementsByClassName('store-test')[0];
+    const langElement = document.querySelector('.lang-test');
+    const storeElement = document.querySelector('.store-test');
 
-    expect(langElement).toHaveTextContent(snippetConfig.lang);
+    expect(langElement?.textContent).toEqual(snippetConfig.lang);
     api?.setSnippetConfig({ lang: 'en' });
-    await vue.nextTick();
-    expect(langElement).toHaveTextContent('en');
+    await nextTick();
+    expect(langElement?.textContent).toEqual('en');
 
-    expect(storeElement).toHaveTextContent('');
+    expect(storeElement?.textContent).toEqual('');
     api?.setSnippetConfig({ store: 'Portugal' });
-    await vue.nextTick();
-    expect(storeElement).toHaveTextContent('Portugal');
+    await nextTick();
+    expect(storeElement?.textContent).toEqual('Portugal');
   });
 
   it('should allow set the snippetConfig getter', () => {

@@ -6,8 +6,13 @@ import { XPlugin } from '../../../../plugins';
 import { WirePayload } from '../../../../wiring';
 import { extraParamsXModule } from '../../x-module';
 import RenderlessExtraParam from '../renderless-extra-param.vue';
+import { resetXExtraParamStateWith } from './utils';
 
-function render({ template = `<RenderlessExtraParam :name="name" />`, name = 'warehouse' } = {}) {
+function render({
+  template = `<RenderlessExtraParam :name="name" />`,
+  name = 'warehouse',
+  params = {}
+} = {}) {
   const wrapper = mount(
     {
       template,
@@ -38,10 +43,10 @@ describe('testing RenderlessExtraParam component', () => {
 
   it("doesn't emit ExtraParamsProvided event when the component receives a default value if it's in the store", () => {
     const extraParamsProvidedCallback = jest.fn();
-    render({ params: { warehouse: 1234 } });
-
+    render();
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
 
+    resetXExtraParamStateWith(XPlugin.store, { params: { warehouse: 1234 } });
     expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(0);
   });
 
