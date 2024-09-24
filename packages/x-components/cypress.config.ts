@@ -1,4 +1,7 @@
 import { defineConfig } from 'cypress';
+import createBundler from '@bahmutov/cypress-esbuild-preprocessor';
+import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-preprocessor';
+import { createEsbuildPlugin } from '@badeball/cypress-cucumber-preprocessor/esbuild';
 
 export default defineConfig({
   e2e: {
@@ -18,19 +21,14 @@ export default defineConfig({
       openMode: 0,
       runMode: 1
     },
+    // https://github.com/badeball/cypress-cucumber-preprocessor/blob/master/docs/quick-start.md
     async setupNodeEvents(on, config) {
-      const { createEsbuildPlugin } = require('@badeball/cypress-cucumber-preprocessor/esbuild');
-      const createBundler = require('@bahmutov/cypress-esbuild-preprocessor');
-
-      // await here
-      await require('@badeball/cypress-cucumber-preprocessor').addCucumberPreprocessorPlugin(
-        on,
-        config
-      );
+      // This is required for the preprocessor to be able to generate JSON reports after each run, and more.
+      await addCucumberPreprocessorPlugin(on, config);
 
       on('file:preprocessor', createBundler({ plugins: [createEsbuildPlugin(config)] }));
 
-      // return any mods to Cypress
+      // Make sure to return the config object as it might have been modified by the plugin.
       return config;
     }
   },
