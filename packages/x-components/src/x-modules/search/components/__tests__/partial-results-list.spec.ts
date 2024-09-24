@@ -1,11 +1,10 @@
-import { PartialResult } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
 import { mount } from '@vue/test-utils';
 import { Store } from 'vuex';
 import { nextTick } from 'vue';
-import { getPartialResultsStub } from '../../../../__stubs__/partials-results-stubs.factory';
-import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
-import { RootXStoreState } from '../../../../store/store.types';
+import { getPartialResultsStub } from '../../../../__stubs__';
+import { getXComponentXModuleName, isXComponent } from '../../../../components';
+import { RootXStoreState } from '../../../../store';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import PartialResultsList from '../partial-results-list.vue';
 import { searchXModule } from '../../x-module';
@@ -20,7 +19,7 @@ import { resetXSearchStateWith } from './utils';
 function renderPartialResultsList({
   template = '<PartialResultsList />',
   partialResults = getPartialResultsStub()
-}: RenderPartialResultsListOptions = {}) {
+} = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
 
   const wrapper = mount(
@@ -44,9 +43,7 @@ function renderPartialResultsList({
 
   return {
     partialResultsListWrapper,
-    getPartialResults() {
-      return partialResults;
-    }
+    getPartialResults: () => partialResults
   };
 }
 describe('testing Partial results list component', () => {
@@ -88,18 +85,11 @@ describe('testing Partial results list component', () => {
 
     await nextTick();
 
-    expect(partialResultsListWrapper.find(getDataTestSelector('partial-results')).exists()).toBe(
+    expect(partialResultsListWrapper.find(getDataTestSelector('partial-results')).exists()).toEqual(
       true
     );
     expect(
       partialResultsListWrapper.find(getDataTestSelector('partial-slot-overridden')).exists()
-    ).toBe(true);
+    ).toEqual(true);
   });
 });
-
-interface RenderPartialResultsListOptions {
-  /** The template to be rendered. */
-  template?: string;
-  /** The `partialResults` to be rendered. */
-  partialResults?: PartialResult[];
-}

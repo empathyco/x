@@ -39,7 +39,7 @@ describe('testing useXBus', () => {
     onColumnsNumberProvidedMock.mockReset();
   });
 
-  it('should emit and on subscription in the bus for registered events', async () => {
+  it('should emit and on subscription in the bus for registered events', () => {
     const { emitSpy, onSpy } = render();
     const metadata = {
       customMetadata: 'custom',

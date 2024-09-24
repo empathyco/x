@@ -1,12 +1,10 @@
 import { ComponentMountingOptions, mount } from '@vue/test-utils';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { XPlugin } from '../../plugins';
-import { WireMetadata } from '../../wiring/wiring.types';
+import { WireMetadata, XEventsTypes } from '../../wiring';
 import BaseEventButton from '../base-event-button.vue';
-import { XEventsTypes } from 'src/wiring';
 
-const stubSlot = `<span class="test-msg">button text</span>
-        <i class="test-icon"></i>`;
+const stubSlot = `<span class="test-msg">button text</span><i class="test-icon"></i>`;
 
 function render(options: ComponentMountingOptions<typeof BaseEventButton> = {}) {
   const wrapper = mount(BaseEventButton, {

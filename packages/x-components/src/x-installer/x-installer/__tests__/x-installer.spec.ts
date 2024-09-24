@@ -23,9 +23,11 @@ const getMinimumSnippetConfig = (): SnippetConfig => ({
 });
 
 const component = defineComponent({
-  template: '<h1/>',
-  setup: () => {},
-  mounted: jest.fn()
+  setup: () => {
+    // empty setup
+  },
+  mounted: jest.fn(),
+  template: '<h1/>'
 });
 
 /**
@@ -36,12 +38,12 @@ const component = defineComponent({
  */
 function createSnippetConfigComponent(snippetProperty: keyof SnippetConfig = 'instance') {
   return defineComponent({
-    template: '<h1 id="snippet-config-value">{{ snippetConfigValue }}</h1>',
     setup: () => {
       const snippetConfig = inject<SnippetConfig>('snippetConfig');
       const snippetConfigValue = computed(() => snippetConfig?.[snippetProperty] ?? '');
       return { snippetConfigValue };
-    }
+    },
+    template: '<h1 id="snippet-config-value">{{ snippetConfigValue }}</h1>'
   });
 }
 
@@ -98,6 +100,7 @@ describe('testing `XInstaller` utility', () => {
       getMinimumSnippetConfig()
     );
 
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(component?.mounted).toHaveBeenCalledTimes(1);
   });
 
@@ -229,8 +232,10 @@ describe('testing `XInstaller` utility', () => {
      */
 
     const componentApp = defineComponent({
-      template: '<section class="root-element" />',
-      setup: () => {}
+      setup: () => {
+        // emtpy setup
+      },
+      template: '<section class="root-element" />'
     });
 
     function installX(

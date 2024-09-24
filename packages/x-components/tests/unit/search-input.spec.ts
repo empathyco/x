@@ -1,5 +1,4 @@
 import { mount } from 'cypress/vue2';
-import Vue from 'vue';
 import { XPlugin } from '../../src/plugins/x-plugin';
 import { e2eAdapter } from '../../src/adapter/e2e-adapter';
 import SearchInput from '../../src/x-modules/search-box/components/search-input.vue';
@@ -23,7 +22,6 @@ function mountSearchInput(): MountSearchInputAPI {
       `
     },
     {
-      vue: Vue.extend({}),
       plugins: [
         [new XPlugin(new XDummyBus()), { adapter: e2eAdapter, initialXModules: [searchBoxXModule] }]
       ]

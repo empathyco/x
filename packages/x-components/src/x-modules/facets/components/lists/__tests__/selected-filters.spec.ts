@@ -1,6 +1,8 @@
 import { Facet } from '@empathyco/x-types';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
+import { Store } from 'vuex';
+import { DeepPartial } from '@empathyco/x-utils';
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
 import { installNewXPlugin } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
@@ -8,8 +10,6 @@ import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import SelectedFilters from '../selected-filters.vue';
 import { resetFacetsService } from '../../../__tests__/utils';
-import { Store } from 'vuex';
-import { DeepPartial } from '@empathyco/x-utils';
 import { RootXStoreState } from '../../../../../store/index';
 
 async function render({ template = '<SelectedFilters />', facetsIds = [] as string[] } = {}) {

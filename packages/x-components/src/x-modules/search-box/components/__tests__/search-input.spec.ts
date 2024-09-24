@@ -79,14 +79,14 @@ describe('testing search input component', () => {
     expect(listener).toHaveBeenCalled();
   });
 
-  it('emits UserFocusedSearchBox if input autofocus true', async () => {
+  it('emits UserFocusedSearchBox if input autofocus true', () => {
     const { listener } = renderSearchInput({ autofocus: true });
     XPlugin.bus.on('UserFocusedSearchBox').subscribe(listener);
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith(undefined);
   });
 
-  it('does not emit UserFocusedSearchBox when mounting if autofocus is false', async () => {
+  it('does not emit UserFocusedSearchBox when mounting if autofocus is false', () => {
     const { listener } = renderSearchInput({ autofocus: false });
     XPlugin.bus.on('UserFocusedSearchBox').subscribe(listener);
     expect(listener).not.toHaveBeenCalled();
@@ -197,7 +197,7 @@ describe('testing search input component', () => {
     }
   );
 
-  it('focus the input when UserPressedClearSearchBoxButton event is emitted', async () => {
+  it('focus the input when UserPressedClearSearchBoxButton event is emitted', () => {
     const { input } = renderSearchInput();
     input.blur();
     expect(input).not.toBe(document.activeElement);
