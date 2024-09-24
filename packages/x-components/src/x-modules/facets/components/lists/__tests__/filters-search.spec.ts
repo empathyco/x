@@ -1,7 +1,7 @@
 import { Filter } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
 import { mount, VueWrapper, DOMWrapper } from '@vue/test-utils';
-import Vue, { nextTick } from 'vue';
+import { nextTick } from 'vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../../__tests__/utils';

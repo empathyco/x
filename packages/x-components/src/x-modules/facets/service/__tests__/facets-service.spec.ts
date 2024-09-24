@@ -739,10 +739,10 @@ interface FacetsServiceTestAPI {
 /**
  * Excludes the filters property from the given facet.
  *
- * @param filters - The filters available for the facet.
- * @param facet - The full facet from whom exclude its filter property.
+ * @param facet - The full facet.
  * @returns The given facet without the `filters` property.
  */
-function omitFiltersProperty({ filters, ...facet }: Facet): Omit<Facet, 'filters'> {
-  return facet;
+function omitFiltersProperty(facet: Facet): Omit<Facet, 'filters'> {
+  const { filters, ...rest } = facet;
+  return rest;
 }

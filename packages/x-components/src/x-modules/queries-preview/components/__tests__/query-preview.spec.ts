@@ -233,7 +233,7 @@ describe('query preview', () => {
   it('renders the results names in the default slot', async () => {
     const { getQueryPreviewItemWrappers, queryPreviewInState } = await render();
 
-    queryPreviewInState!.results.forEach((result, index) => {
+    queryPreviewInState.results.forEach((result, index) => {
       expect(getQueryPreviewItemWrappers().at(index)?.element).toHaveTextContent(result.name!);
     });
   });
@@ -264,11 +264,11 @@ describe('query preview', () => {
     ).toHaveTextContent(queryPreviewInfo.query);
     expect(
       queryPreviewWrapper.find(getDataTestSelector('total-results')).element
-    ).toHaveTextContent(queryPreviewInState!.totalResults.toString());
+    ).toHaveTextContent(queryPreviewInState.totalResults.toString());
 
     const resultsWrappers = findTestDataById(queryPreviewWrapper, 'result-name');
 
-    queryPreviewInState!.results.forEach((result, index) => {
+    queryPreviewInState.results.forEach((result, index) => {
       expect(resultsWrappers.at(index)?.element).toHaveTextContent(result.name!);
     });
   });
@@ -283,7 +283,7 @@ describe('query preview', () => {
 
     const resultsWrapper = findTestDataById(queryPreviewWrapper, 'result-content');
 
-    queryPreviewInState!.results.forEach((result, index) => {
+    queryPreviewInState.results.forEach((result, index) => {
       expect(resultsWrapper.at(index)?.element).toHaveTextContent(`${result.id} - ${result.name!}`);
     });
   });

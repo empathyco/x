@@ -1,5 +1,5 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { mount } from '@vue/test-utils';
+import { DOMWrapper, mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components';
@@ -49,7 +49,7 @@ describe('testing related tags component', () => {
   it('is an XComponent', async () => {
     const { relatedTagsWrapper } = await renderRelatedTags();
 
-    expect(isXComponent(relatedTagsWrapper.vm)).toBeTruthy();
+    expect(isXComponent(relatedTagsWrapper.vm)).toEqual(true);
     expect(getXComponentXModuleName(relatedTagsWrapper.vm)).toEqual('relatedTags');
   });
 
@@ -84,16 +84,19 @@ describe('testing related tags component', () => {
             <template #related-tag-content="{relatedTag, isSelected, shouldHighlightCurated }">
               <img
                 data-test="related-tag-chevron"
-                src="./chevron-icon.svg"
+                src="#"
                 v-if="shouldHighlightCurated"
-               alt=""/>
+                alt="" />
               <span data-test="related-tag-label">{{ relatedTag.tag }}</span>
-              <img data-test="related-tag-cross" src="./cross-icon.svg" v-if="isSelected" alt=""/>
+              <img data-test="related-tag-cross" src="#" v-if="isSelected" alt=""/>
             </template>
           </RelatedTags>`
       });
 
-    function expectToHaveOverriddenContent(relatedTagItemWrapper: any, index: number): void {
+    function expectToHaveOverriddenContent(
+      relatedTagItemWrapper: DOMWrapper<Element>,
+      index: number
+    ): void {
       const labelWrapper = relatedTagItemWrapper.find(getDataTestSelector('related-tag-label'));
       const crossWrapper = relatedTagItemWrapper.find(getDataTestSelector('related-tag-cross'));
       const chevronWrapper = relatedTagItemWrapper.find(getDataTestSelector('related-tag-chevron'));
@@ -119,7 +122,7 @@ describe('testing related tags component', () => {
     await wrapper.setProps({ highlightCurated: true } as any);
     relatedTagsWrappers = getRelatedTagItems();
     const chevron = relatedTagsWrappers[0].find(getDataTestSelector('related-tag-chevron'));
-    expect(chevron.exists()).toBeTruthy();
+    expect(chevron.exists()).toEqual(true);
   });
 
   it('allows changing the whole component for each related tag', async () => {

@@ -25,7 +25,7 @@ async function renderDeviceDetector({
 } = {}) {
   Object.assign(window, { innerWidth: initialWidth });
   const xBus = new XDummyBus();
-  let emitSpy = jest.spyOn(xBus, 'emit');
+  const emitSpy = jest.spyOn(xBus, 'emit');
 
   const wrapper = mount(DeviceDetector, {
     props: {
@@ -45,7 +45,7 @@ async function renderDeviceDetector({
       Object.assign(window, { innerWidth: width });
       window.dispatchEvent(new UIEvent('resize'));
     },
-    waitForThrottle() {
+    waitForThrottle: () => {
       jest.advanceTimersByTime(throttleMs);
       return nextTick();
     }

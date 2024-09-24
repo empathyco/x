@@ -333,13 +333,12 @@ describe('testing `HierarchicalFilter` component', () => {
 
       getFiltersWrappers().forEach((filterWrapper, index) => {
         const filter = getFilters()[index];
+        const classes = ['x-facet-filter', 'x-hierarchical-filter'];
         if (partiallySelectedIds.includes(filter.id)) {
-          expect(filterWrapper.classes()).toContain('x-hierarchical-filter--is-partially-selected');
-        } else {
-          expect(filterWrapper.classes()).not.toContain(
-            'x-hierarchical-filter--is-partially-selected'
-          );
+          classes.push('x-hierarchical-filter--is-partially-selected');
+          classes.push('x-facet-filter--is-partially-selected');
         }
+        expect(filterWrapper.classes()).toEqual(expect.arrayContaining(classes));
       });
     });
 
