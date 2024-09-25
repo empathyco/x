@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.1...@empathyco/x-components@6.0.0-alpha.2) (2024-09-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **history-queries-switch:** remove `change` event emission in favour of `update:modelValue` in `BaseSwitch` component. 
+
+### Bug Fixes
+
+* **history-queries-switch:** migrate value to modelValue (#1618) ([82a6e27](https://github.com/empathyco/x/commit/82a6e27b9a78388b6c0b42c57ce7ff6e63293686))
+
+
+### Testing
+
+* active and fix linter for tests (#1616) ([0f35e7c](https://github.com/empathyco/x/commit/0f35e7caf529e7a06252abe0ea64b119c1206566))
+* adjust test to vue3 (#1608) ([0f4bb97](https://github.com/empathyco/x/commit/0f4bb97dcba50b21c98575d51bda944bfe532b1f))
+* **e2e-components:** rewrite all e2e sheet components to accomplish vue3  (#1619) ([5a419b2](https://github.com/empathyco/x/commit/5a419b2d882c151f81d9921d591140e5471f5b05))
+* **e2e:** fix e2e tests (#1617) ([f81add6](https://github.com/empathyco/x/commit/f81add665e5b2f36ecedf25d14eb5f6573f0e0fb))
+
+
+
 ## [6.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.81...@empathyco/x-components@6.0.0-alpha.1) (2024-09-05)
 
 
