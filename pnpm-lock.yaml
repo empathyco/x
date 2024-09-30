@@ -490,7 +490,7 @@ importers:
         version: 2.0.1(cypress@13.6.0)(vue@2.7.14)
       '@empathyco/x-tailwindcss':
         specifier: ^1.2.0-alpha.5
-        version: link:../x-tailwindcss
+        version: 1.2.0-alpha.6(vue-class-component@7.2.6)(vue-property-decorator@8.5.0)(vue@2.7.14)
       '@microsoft/api-documenter':
         specifier: ~7.23.0
         version: 7.23.12(@types/node@18.19.3)
@@ -2426,6 +2426,17 @@ packages:
       - supports-color
     dev: true
 
+  /@empathyco/x-deep-merge@2.0.3-alpha.1:
+    resolution:
+      {
+        integrity: sha512-aj68ryEn50lQuA1hKeRZGlnwM+AXRo7DIlaGavCVw2lDQoYklQ1EBPoHmhCdkfIXzdCI6PkRgTYt0+qB190I9w==
+      }
+    engines: { node: '>=18' }
+    dependencies:
+      '@empathyco/x-utils': 1.0.3-alpha.1
+      tslib: 2.6.2
+    dev: true
+
   /@empathyco/x-jest-utils@1.4.0-alpha.11:
     resolution:
       {
@@ -2442,7 +2453,54 @@ packages:
     engines: { node: '>=16' }
     dependencies:
       tslib: 2.5.0
-    dev: false
+
+  /@empathyco/x-storage-service@2.0.3-alpha.0:
+    resolution:
+      {
+        integrity: sha512-6YUwprKF9d8Uwq7M40iBxgWoaXiFowcKP42egoqDIjNKMrTevu3WBPSEFbR3/bYjUGBZh/TirQRUHncZyllimA==
+      }
+    engines: { node: '>=18' }
+    dependencies:
+      '@empathyco/x-logger': 1.2.0-alpha.11
+      tslib: 2.6.2
+    dev: true
+
+  /@empathyco/x-tailwindcss@1.2.0-alpha.6(vue-class-component@7.2.6)(vue-property-decorator@8.5.0)(vue@2.7.14):
+    resolution:
+      {
+        integrity: sha512-X1buXrO/YXtTw7qjf2Jid4Rmzrl/ciiLtVg7bU7rMRW/Zy8GPiK+R1JSjbUZoYib//yrubKXxHYoCpx2CQPJbg==
+      }
+    engines: { node: '>=18' }
+    peerDependencies:
+      vue: ^2.7.0
+      vue-class-component: ^7.1.0
+      vue-property-decorator: ^8.3.0
+    peerDependenciesMeta:
+      vue:
+        optional: true
+      vue-class-component:
+        optional: true
+      vue-property-decorator:
+        optional: true
+    dependencies:
+      '@empathyco/x-deep-merge': 2.0.3-alpha.1
+      '@empathyco/x-utils': 1.0.3-alpha.1
+      tslib: 2.6.2
+      vue: 2.7.14
+      vue-class-component: 7.2.6(vue@2.7.14)
+      vue-property-decorator: 8.5.0(vue-class-component@7.2.6)(vue@2.7.14)
+    dev: true
+
+  /@empathyco/x-utils@1.0.3-alpha.1:
+    resolution:
+      {
+        integrity: sha512-mWUGRPMNYcWT1W4p1VuhzfwLTd3AluD2tcMIjBZLznGFCCQ+7dOerTfxTvXbpKs7jNRRNORGJWVurmQFm8dqpw==
+      }
+    engines: { node: '>=18' }
+    dependencies:
+      '@empathyco/x-storage-service': 2.0.3-alpha.0
+      tslib: 2.6.2
+    dev: true
 
   /@es-joy/jsdoccomment@0.36.1:
     resolution:
@@ -20108,7 +20166,6 @@ packages:
       {
         integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==
       }
-    dev: false
 
   /tslib@2.6.0:
     resolution:

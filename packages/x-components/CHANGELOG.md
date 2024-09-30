@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.82](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.81...@empathyco/x-components@5.0.0-alpha.82) (2024-09-30)
+
+
+### Bug Fixes
+
+* **tagging:** query tagging and send session param (#1627) ([69dd690](https://github.com/empathyco/x/commit/69dd690c1adf9195782f4747ba5d255251f5ac3c))
+
+
+
 ## [5.0.0-alpha.81](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.80...@empathyco/x-components@5.0.0-alpha.81) (2024-08-20)
 
 
