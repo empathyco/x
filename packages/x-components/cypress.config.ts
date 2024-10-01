@@ -14,6 +14,7 @@ export default defineConfig({
     supportFile: 'tests/support/index.ts',
     fixturesFolder: 'tests/e2e/fixtures',
     screenshotsFolder: 'tests/e2e/screenshots',
+    downloadsFolder: 'tests/e2e/downloads',
     experimentalRunAllSpecs: true,
     screenshotOnRunFailure: false,
     video: false,

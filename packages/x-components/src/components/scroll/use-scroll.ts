@@ -113,9 +113,9 @@ export function useScroll(
    */
   const storeScrollData = () => {
     if (scrollEl.value) {
-      currentPosition.value = scrollEl.value.scrollTop;
       scrollHeight.value = scrollEl.value.scrollHeight;
       clientHeight.value = scrollEl.value.clientHeight;
+      currentPosition.value = scrollEl.value.scrollTop;
     }
   };
 
