@@ -35,25 +35,16 @@
     },
     setup(props) {
       const snippetConfig = inject('snippetConfig') as SnippetConfig;
-      const extraParams = ref<Record<string, unknown>>({});
-      const initialExtraParams = ref<Record<string, unknown>>({});
+      const extraParams = ref<Record<string, any>>({});
 
       watch(
         [() => snippetConfig, () => props.values],
         () => {
-          const newExtraParams: Record<string, unknown> = {};
-
           forEach({ ...props.values, ...snippetConfig }, (name, value) => {
-            if (!props.excludedExtraParams.includes(name)) {
-              newExtraParams[name] = value;
+            if (!props.excludedExtraParams.includes(name) && extraParams.value[name] !== value) {
+              extraParams.value = { ...extraParams.value, [name]: value };
             }
           });
-
-          // Check if extraParams are really changing to avoid event emission if they don't
-          if (JSON.stringify(newExtraParams) !== JSON.stringify(initialExtraParams.value)) {
-            extraParams.value = newExtraParams;
-            initialExtraParams.value = newExtraParams;
-          }
         },
         {
           deep: true,
