@@ -102,7 +102,10 @@
     <MainModal :animation="modalAnimation">
       <MultiColumnMaxWidthLayout class="x-bg-neutral-0">
         <template #header-middle>
-          <div class="x-flex x-flex-col x-gap-16 x-items-stretch x-flex-auto">
+          <div
+            class="x-flex x-flex-col x-gap-16 x-items-stretch x-flex-auto"
+            :data-test="`main-scroll-${mainScrollDirection}`"
+          >
             <div class="x-input-group x-input-group-lead x-rounded-sm">
               <div class="x-input x-search-input-placeholder-container x-flex">
                 <SearchInputPlaceholder :messages="searchInputPlaceholderMessages" />
@@ -477,6 +480,7 @@
   import ChevronUp from '../../components/icons/chevron-up.vue';
   import CrossIcon from '../../components/icons/cross.vue';
   import { use$x } from '../../composables/use-$x';
+  import { useState } from '../../composables/use-state';
   import { infiniteScroll } from '../../directives/infinite-scroll';
   import ExperienceControls from '../../x-modules/experience-controls/components/experience-controls.vue';
   import Grid2Col from '../../components/icons/grid-2-col.vue';
@@ -613,6 +617,9 @@
       const sortValues = ['', 'price asc', 'price desc'];
       const isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview;
 
+      const scrollData = useState('scroll', ['data']).data;
+      const mainScrollDirection = computed(() => scrollData.value['main-scroll']?.direction);
+
       const controls: ComputedRef<HomeControls> = computed(() => {
         return {
           searchInput: {
@@ -682,7 +689,8 @@
         queries,
         toggleE2EAdapter,
         controls,
-        x: use$x()
+        x: use$x(),
+        mainScrollDirection
       };
     }
   });
