@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.83](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.82...@empathyco/x-components@5.0.0-alpha.83) (2024-10-03)
+
+
+### Bug Fixes
+
+* snippet config extra params reactivity (#1628) ([c87788a](https://github.com/empathyco/x/commit/c87788a6f194e6b8f59b520f05e9ed617c98bae6))
+
+
+
 ## [5.0.0-alpha.82](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.81...@empathyco/x-components@5.0.0-alpha.82) (2024-09-30)
 
 
