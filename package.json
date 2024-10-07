@@ -50,6 +50,11 @@
         "peerDependencies": {
           "vue": "~3.4.31"
         }
+      },
+      "cypress": {
+        "peerDependencies": {
+          "vue": "~3.4.31"
+        }
       }
     }
   }
