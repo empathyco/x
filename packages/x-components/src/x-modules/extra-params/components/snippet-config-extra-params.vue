@@ -35,13 +35,13 @@
     },
     setup(props) {
       const snippetConfig = inject('snippetConfig') as SnippetConfig;
-      const extraParams = ref({});
+      const extraParams = ref<Record<string, any>>({});
 
       watch(
         [() => snippetConfig, () => props.values],
         () => {
           forEach({ ...props.values, ...snippetConfig }, (name, value) => {
-            if (!props.excludedExtraParams.includes(name)) {
+            if (!props.excludedExtraParams.includes(name) && extraParams.value[name] !== value) {
               extraParams.value = { ...extraParams.value, [name]: value };
             }
           });

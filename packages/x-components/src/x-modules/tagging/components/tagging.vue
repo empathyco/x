@@ -37,11 +37,17 @@
       /**
        * The debounce time in milliseconds to track the query.
        */
-      queryTaggingDebounceMs: Number,
+      queryTaggingDebounceMs: {
+        type: Number,
+        default: 2000
+      },
       /**
        * The consent to be emitted.
        */
-      consent: Boolean
+      consent: {
+        type: Boolean,
+        default: null
+      }
     },
     setup(props) {
       const xBus = useXBus();
@@ -67,7 +73,7 @@
        */
       const taggingConfig = computed<TaggingConfig>(() => {
         return {
-          queryTaggingDebounceMs: props.queryTaggingDebounceMs as number,
+          queryTaggingDebounceMs: props.queryTaggingDebounceMs,
           sessionTTLMs: props.sessionTTLMs as number,
           clickedResultStorageTTLMs: props.clickedResultStorageTTLMs,
           clickedResultStorageKey: props.clickedResultStorageKey

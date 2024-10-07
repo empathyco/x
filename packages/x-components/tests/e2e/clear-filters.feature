@@ -41,6 +41,8 @@ Feature: Clear selected filters
     Then  related results are displayed
     And   filters "<filter>, <filter2>, <filter3>" are shown in the selected filters list
     When  clear search button is pressed
+    When  "<query>" is searched
+    Then  related results are displayed
     Then  no filters are selected
 
     Examples:

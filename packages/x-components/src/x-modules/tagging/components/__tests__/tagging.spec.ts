@@ -87,7 +87,8 @@ function renderTagging({
 
 const defaultTaggingConfig: Partial<TaggingConfig> = {
   clickedResultStorageTTLMs: 30000,
-  clickedResultStorageKey: 'url'
+  clickedResultStorageKey: 'url',
+  queryTaggingDebounceMs: 2000
 };
 
 const stubTagginMetadata: WireMetadata = {

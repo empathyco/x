@@ -7,14 +7,12 @@ import { XPlugin } from '../../../../plugins';
 import { WirePayload } from '../../../../wiring';
 import SnippetConfigExtraParams from '../snippet-config-extra-params.vue';
 import { SnippetConfig } from '../../../../x-installer/api/api.types';
-
 describe('testing snippet config extra params component', () => {
   function renderSnippetConfigExtraParams({
     values,
     excludedExtraParams
   }: RenderSnippetConfigExtraParamsOptions = {}): RenderSnippetConfigExtraParamsApi {
     const snippetConfig = reactive({ warehouse: 1234, callbacks: {} });
-
     const wrapper = mount(
       {
         template: `
@@ -40,50 +38,40 @@ describe('testing snippet config extra params component', () => {
         }
       }
     );
-
     function setSnippetConfig(newValue: Dictionary<unknown>): Promise<void> {
       Object.assign(snippetConfig, newValue);
       return nextTick();
     }
-
     return {
       wrapper,
       setSnippetConfig
     };
   }
-
   it('is an XComponent which has an XModule', () => {
     const { wrapper } = renderSnippetConfigExtraParams();
     const component = wrapper.findComponent(SnippetConfigExtraParams);
     expect(isXComponent(component.vm)).toEqual(true);
     expect(getXComponentXModuleName(component.vm)).toEqual('extraParams');
   });
-
   // eslint-disable-next-line max-len
   it('emits the ExtraParamsProvided event when the component is loaded, when the values prop changes, and when the snippet config changes', async () => {
     const { wrapper, setSnippetConfig } = renderSnippetConfigExtraParams();
     const extraParamsProvidedCallback = jest.fn();
-
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
-
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       1,
       expect.objectContaining({
         eventPayload: { warehouse: 1234 }
       })
     );
-
     await wrapper.setProps({ values: { store: 'myStore' } });
-
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       2,
       expect.objectContaining({
         eventPayload: { warehouse: 1234, store: 'myStore' }
       })
     );
-
     await setSnippetConfig({ warehouse: 45679 });
-
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       3,
       expect.objectContaining({
@@ -91,15 +79,11 @@ describe('testing snippet config extra params component', () => {
       })
     );
   });
-
   // eslint-disable-next-line max-len
   it('emits the ExtraParamsProvided event with the values from the snippet config and the extra params', () => {
     renderSnippetConfigExtraParams({ values: { scope: 'mobile' } });
-
     const extraParamsProvidedCallback = jest.fn();
-
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
-
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       1,
       expect.objectContaining({
@@ -107,45 +91,38 @@ describe('testing snippet config extra params component', () => {
       })
     );
   });
-
   // eslint-disable-next-line max-len
   it('does not emit ExtraParamsProvided when any no extra params in the snippet config changes', async () => {
     const { setSnippetConfig } = renderSnippetConfigExtraParams();
     const extraParamsProvidedCallback = jest.fn();
-
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
-
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       1,
       expect.objectContaining({
         eventPayload: { warehouse: 1234 }
       })
     );
-
     await setSnippetConfig({ warehouse: 1234 });
 
     expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
 
-    await setSnippetConfig({ uiLang: 'es' });
+    await setSnippetConfig({ uiLang: 'es' }); // Set an excluded extra param
 
-    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(2);
+    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
 
     await setSnippetConfig({ warehouse: 45678 });
 
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
-      3,
+      2,
       expect.objectContaining({
         eventPayload: { warehouse: 45678 }
       })
     );
   });
-
   it('not includes the callback configuration as extra params', () => {
     renderSnippetConfigExtraParams();
     const extraParamsProvidedCallback = jest.fn();
-
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
-
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       1,
       expect.not.objectContaining({
@@ -153,7 +130,6 @@ describe('testing snippet config extra params component', () => {
       })
     );
   });
-
   it('allows to configure excluded params', () => {
     renderSnippetConfigExtraParams({
       values: {
@@ -162,10 +138,8 @@ describe('testing snippet config extra params component', () => {
       },
       excludedExtraParams: ['currency', 'warehouse', 'callbacks']
     });
-
     const extraParamsProvidedCallback = jest.fn();
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
-
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
       1,
       expect.objectContaining({
@@ -176,7 +150,6 @@ describe('testing snippet config extra params component', () => {
     );
   });
 });
-
 interface RenderSnippetConfigExtraParamsOptions {
   /**
    * Extra values to use as extra params, apart from the ones extracted from the
@@ -188,7 +161,6 @@ interface RenderSnippetConfigExtraParamsOptions {
    */
   excludedExtraParams?: Array<keyof SnippetConfig>;
 }
-
 interface RenderSnippetConfigExtraParamsApi {
   /** The wrapper for the snippet config component. */
   wrapper: VueWrapper;

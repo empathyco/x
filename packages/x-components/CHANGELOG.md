@@ -17,7 +17,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### ⚠ BREAKING CHANGES
 
-* **history-queries-switch:** remove `change` event emission in favour of `update:modelValue` in `BaseSwitch` component. 
+* **history-queries-switch:** remove `change` event emission in favour of `update:modelValue` in `BaseSwitch` component.
 
 ### Bug Fixes
 
@@ -84,6 +84,24 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Continuous Integration
 
 * **linter:** fix linter issues to pass the CI (#1606) ([aff3151](https://github.com/empathyco/x/commit/aff3151818c64885d7c28e69f511d33ae41b38f5))
+
+
+
+## [5.0.0-alpha.83](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.82...@empathyco/x-components@5.0.0-alpha.83) (2024-10-03)
+
+
+### Bug Fixes
+
+* snippet config extra params reactivity (#1628) ([c87788a](https://github.com/empathyco/x/commit/c87788a6f194e6b8f59b520f05e9ed617c98bae6))
+
+
+
+## [5.0.0-alpha.82](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.81...@empathyco/x-components@5.0.0-alpha.82) (2024-09-30)
+
+
+### Bug Fixes
+
+* **tagging:** query tagging and send session param (#1627) ([69dd690](https://github.com/empathyco/x/commit/69dd690c1adf9195782f4747ba5d255251f5ac3c))
 
 
 
