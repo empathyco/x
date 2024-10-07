@@ -126,14 +126,14 @@ describe('testing snippet config extra params component', () => {
 
     expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
 
-    await setSnippetConfig({ uiLang: 'es' });
+    await setSnippetConfig({ uiLang: 'es' }); // Set an excluded extra param
 
-    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(2);
+    expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(1);
 
     await setSnippetConfig({ warehouse: 45678 });
 
     expect(extraParamsProvidedCallback).toHaveBeenNthCalledWith<[WirePayload<Dictionary<unknown>>]>(
-      3,
+      2,
       expect.objectContaining({
         eventPayload: { warehouse: 45678 }
       })
