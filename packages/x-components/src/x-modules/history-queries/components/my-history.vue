@@ -130,7 +130,7 @@
        * @returns The locale to be used.
        * @internal
        */
-      const usedLocale = computed(() => snippetConfig?.lang ?? props.locale);
+      const usedLocale = computed(() => snippetConfig?.uiLang ?? props.locale);
 
       /**
        * Returns a record of history queries grouped by date.
