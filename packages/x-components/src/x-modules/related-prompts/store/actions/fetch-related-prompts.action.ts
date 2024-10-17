@@ -9,7 +9,6 @@ import { RelatedPromptsXStoreModule } from '../types';
  * @param request - The related prompts request to make.
  * @returns The related prompts response.
  */
-// eslint-disable-next-line max-len
 export const fetchRelatedPrompts: RelatedPromptsXStoreModule['actions']['fetchRelatedPrompts'] = (
   _,
   request

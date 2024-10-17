@@ -6,8 +6,6 @@ import { PlatformRelatedTagsRequest } from '../../types/requests/related-tags-re
 
 /**
  * Default implementation for the RelatedTagsRequestMapper.
- *
- * @public
  */
 export const relatedTagsRequestMapper = schemaMapperFactory<
   RelatedTagsRequest,

@@ -7,16 +7,12 @@ import { relatedPromptsWiring } from './wiring';
 
 /**
  * RelatedPrompts {@link XModule} alias.
- *
- * @public
  */
 export type RelatedPromptsXModule = XModule<RelatedPromptsXStoreModule>;
 
 /**
  * Related Prompts {@link XModule} implementation. This module is auto-registered as soon as you
  * import any component from the `related-prompts` entry point.
- *
- * @public
  */
 export const relatedPromptsXModule: RelatedPromptsXModule = {
   name: 'relatedPrompts',

@@ -3,8 +3,6 @@ import { RelatedPromptsRequest } from '@empathyco/x-types';
 
 /**
  * Default implementation for the RelatedPromptsRequestMapper.
- *
- * @public
  */
 export const relatedPromptsRequestMapper = schemaMapperFactory<RelatedPromptsRequest, any>({
   // randomize: () => true,

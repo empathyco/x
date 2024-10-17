@@ -5,8 +5,6 @@ import { relatedPromptsResponseMapper } from '../mappers/responses/related-promp
 
 /**
  * This endpoint does not support pagination in the request.
- *
- * @public
  */
 export const relatedPromptsEndpointAdapter = endpointAdapterFactory<
   RelatedPromptsRequest,
