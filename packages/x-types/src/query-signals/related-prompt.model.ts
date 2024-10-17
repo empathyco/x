@@ -2,13 +2,13 @@ import { NamedModel } from '../named-model.model';
 import { Previewable } from '../previewable.model';
 
 /**
- * A next query is a suggestion of a new query that the user may be interested after searching
- * for an specific term.
- *
- * @public
+ * Represents a related prompt.
  */
 export interface RelatedPrompt extends NamedModel<'RelatedPrompt'>, Required<Previewable> {
+  /** The next queries related to the prompt. */
   nextQueries: Array<string>;
+  /** The prompt. */
   suggestionText: string;
+  /** The type of the prompt. */
   type: string;
 }
