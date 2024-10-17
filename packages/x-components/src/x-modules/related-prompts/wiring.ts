@@ -57,13 +57,13 @@ const resetRelatedPromptsStateWire = wireCommitWithoutPayload('resetRelatedPromp
 /**
  * Fetches and saves the related prompts response.
  */
-const fetchAndSaveRelatedPromptsResponseWire = wireDispatch('fetchAndSaveRelatedPromptsResponse');
+const fetchAndSaveRelatedPromptsResponseWire = wireDispatch('fetchAndSaveRelatedPrompts');
 
 /**
  * Cancels the fetch and save related prompts response.
  */
 const cancelFetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
-  'cancelFetchAndSaveRelatedPromptsResponse'
+  'cancelFetchAndSaveRelatedPrompts'
 );
 
 /**

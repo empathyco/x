@@ -2,10 +2,10 @@ import { setStatus } from '../../../store/utils/status-store.utils';
 import { setQuery } from '../../../store/utils/query.utils';
 import { RelatedPromptsXStoreModule } from './types';
 import {
-  cancelFetchAndSaveRelatedPromptsResponse,
-  fetchAndSaveRelatedPromptsResponse
-} from './actions/fetch-and-save-related-prompts-response.action';
-import { fetchRelatedPromptsResponse } from './actions/fetch-related-prompts-response.action';
+  cancelFetchAndSaveRelatedPrompts,
+  fetchAndSaveRelatedPrompts
+} from './actions/fetch-and-save-related-prompts.action';
+import { fetchRelatedPrompts } from './actions/fetch-related-prompts.action';
 import { request } from './getters/request.getter';
 
 export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
@@ -28,8 +28,8 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     }
   },
   actions: {
-    fetchAndSaveRelatedPromptsResponse,
-    fetchRelatedPromptsResponse,
-    cancelFetchAndSaveRelatedPromptsResponse
+    fetchRelatedPrompts,
+    fetchAndSaveRelatedPrompts,
+    cancelFetchAndSaveRelatedPrompts
   }
 };

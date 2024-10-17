@@ -43,24 +43,27 @@ export interface RelatedPromptsMutations extends StatusMutations, QueryMutations
  */
 export interface RelatedPromptsActions {
   /**
-   * Fetches the related prompts response.
+   * Requests a new set of related prompts for the module query, and returns them.
    *
    * @param request - The related prompts request.
    */
-  fetchRelatedPromptsResponse(request: RelatedPromptsRequest | null): any;
+  fetchRelatedPrompts(request: RelatedPromptsRequest | null): RelatedPrompt[] | null;
   /**
-   * Fetches the fetch and save related prompts response.
+   * Requests a new set of related prompts and stores them in the module.
    *
    * @param request - The related prompts request.
    */
-  fetchAndSaveRelatedPromptsResponse(request: RelatedPromptsRequest | null): void;
+  fetchAndSaveRelatedPrompts(request: RelatedPromptsRequest | null): void;
   /**
-   * Cancels / interrupt {@link RelatedPromptsActions.fetchAndSaveRelatedPromptsResponse}
+   * Cancels / interrupt {@link RelatedPromptsActions.fetchAndSaveRelatedPrompts}
    * synchronous promise.
    */
-  cancelFetchAndSaveRelatedPromptsResponse(): void;
+  cancelFetchAndSaveRelatedPrompts(): void;
 }
 
+/**
+ * Related prompts store module.
+ */
 export type RelatedPromptsXStoreModule = XStoreModule<
   RelatedPromptsState,
   RelatedPromptsGetters,
@@ -68,6 +71,9 @@ export type RelatedPromptsXStoreModule = XStoreModule<
   RelatedPromptsActions
 >;
 
+/**
+ * Alias type for actions context of the {@link RelatedPromptsXStoreModule}.
+ */
 export type RelatedPromptsActionContext = XActionContext<
   RelatedPromptsState,
   RelatedPromptsGetters,
