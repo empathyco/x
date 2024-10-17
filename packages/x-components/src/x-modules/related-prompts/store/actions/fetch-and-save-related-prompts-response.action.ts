@@ -15,5 +15,14 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   }
 });
 
+/**
+ * Default implementation for
+ * {@link RelatedPromptsActions.fetchAndSaveRelatedPromptsResponse} action.
+ */
 export const fetchAndSaveRelatedPromptsResponse = fetchAndSave;
+
+/**
+ * Default implementation for
+ * {@link RelatedPromptsActions.cancelFetchAndSaveRelatedPromptsResponse} action.
+ */
 export const cancelFetchAndSaveRelatedPromptsResponse = cancelPrevious;

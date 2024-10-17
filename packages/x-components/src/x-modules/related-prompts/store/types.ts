@@ -8,7 +8,7 @@ import { XActionContext, XStoreModule } from '../../../store';
  */
 export interface RelatedPromptsState extends StatusState, QueryState {
   /** The list of the related-prompts, related to the `query` property of the state. */
-  related_prompts_products: RelatedPrompt[];
+  relatedPrompts: RelatedPrompt[];
 }
 
 /**
@@ -16,7 +16,7 @@ export interface RelatedPromptsState extends StatusState, QueryState {
  */
 export interface RelatedPromptsGetters {
   /**
-   * Request object to retrieve the next queries using the search adapter, or null if there is
+   * Request object to retrieve the related prompts using the search adapter, or null if there is
    * no valid data to conform a valid request.
    */
   request: RelatedPromptsRequest | null;
@@ -31,7 +31,7 @@ export interface RelatedPromptsMutations extends StatusMutations, QueryMutations
    *
    * @param relatedPrompts - The new related prompts to save to the state.
    */
-  setRelatedPromptsProducts(products: any[]): void;
+  setRelatedPromptsProducts(products: RelatedPrompt[]): void;
   /**
    * Resets the related prompts state.
    */

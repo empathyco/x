@@ -11,7 +11,7 @@ import { request } from './getters/request.getter';
 export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
   state: () => ({
     query: '',
-    related_prompts_products: [],
+    relatedPrompts: [],
     status: 'initial'
   }),
   getters: {
@@ -21,11 +21,10 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     setStatus,
     setQuery,
     setRelatedPromptsProducts(state, products) {
-      state.related_prompts_products = products;
+      state.relatedPrompts = products;
     },
     resetRelatedPromptsState(state) {
-      state.query = '';
-      state.related_prompts_products = [];
+      state.relatedPrompts = [];
     }
   },
   actions: {

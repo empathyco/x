@@ -78,7 +78,8 @@ export const relatedPromptsWiring = createWiring({
   },
   UserClearedQuery: {
     cancelFetchAndSaveSearchResponseWire,
-    resetRelatedPromptsStateWire
+    resetRelatedPromptsStateWire,
+    setRelatedPromptsQuery
   },
   RelatedPromptsRequestUpdated: {
     fetchAndSaveRelatedPromptsResponseWire

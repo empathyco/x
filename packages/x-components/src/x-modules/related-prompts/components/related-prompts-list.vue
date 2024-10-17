@@ -69,14 +69,14 @@
       }
     },
     setup(props, { slots }) {
-      const { query, status } = useState('nextQueries', ['query', 'status']);
+      const { query, status } = useState('relatedPrompts', ['query', 'status']);
 
       /**
        * The state related prompts.
        */
       const relatedPrompts: ComputedRef<RelatedPrompt[]> = useState('relatedPrompts', [
-        'related_prompts_products'
-      ]).related_prompts_products;
+        'relatedPrompts'
+      ]).relatedPrompts;
 
       /**
        * Injected query, updated when the related request(s) have succeeded.
