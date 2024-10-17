@@ -311,7 +311,7 @@
               >
                 <PromotedsList class="x-mot-promoteds-list">
                   <BannersList class="x-mot-banners-list">
-                    <NextQueriesList
+                    <RelatedPromptsList
                       :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
                       class="x-mot-next-queries-list"
                     >
@@ -334,46 +334,11 @@
                         <template #promoted="{ item: promoted }">
                           <Promoted :promoted="promoted" />
                         </template>
-
-                        <template #next-queries-group="{ item: { nextQueries } }">
-                          <NextQueryPreview
-                            :suggestion="nextQueries[0]"
-                            :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
-                            #default="{ results }"
-                            class="x-pt-24"
-                          >
-                            <h1 class="x-title2">Others clients have searched</h1>
-                            <NextQuery
-                              class="x-suggestion x-text1 x-text1-lg"
-                              :suggestion="nextQueries[0]"
-                              data-test="next-query-preview-name"
-                            >
-                              <span class="x-font-bold">{{ nextQueries[0].query }}</span>
-                            </NextQuery>
-                            <div class="x-mb-24">
-                              <SlidingPanel :resetOnContentChange="false">
-                                <div class="x-flex x-flex-row x-gap-8">
-                                  <Result
-                                    v-for="result in results"
-                                    :key="result.id"
-                                    :result="result"
-                                    style="max-width: 180px"
-                                    data-test="next-query-preview-result"
-                                  />
-                                </div>
-                              </SlidingPanel>
-                            </div>
-                            <NextQuery
-                              :suggestion="nextQueries[0]"
-                              data-test="view-all-results"
-                              class="x-button x-button-outlined x-rounded-full x-mx-auto x-mt-8 x-mb-24"
-                            >
-                              {{ 'View all results' }}
-                            </NextQuery>
-                          </NextQueryPreview>
+                        <template #related-prompts-group="{ item: { relatedPrompts } }">
+                          <pre>{{ relatedPrompts }}</pre>
                         </template>
                       </BaseVariableColumnGrid>
-                    </NextQueriesList>
+                    </RelatedPromptsList>
                   </BannersList>
                 </PromotedsList>
               </ResultsList>
@@ -494,8 +459,8 @@
   import SnippetCallbacks from '../../components/snippet-callbacks.vue';
   import RenderlessExtraParams from '../../x-modules/extra-params/components/renderless-extra-param.vue';
   import SnippetConfigExtraParams from '../../x-modules/extra-params/components/snippet-config-extra-params.vue';
-  import NextQueriesList from '../../x-modules/next-queries/components/next-queries-list.vue';
-  import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue';
+  // import NextQueriesList from '../../x-modules/next-queries/components/next-queries-list.vue';
+  // import NextQueryPreview from '../../x-modules/next-queries/components/next-query-preview.vue';
   import QueryPreviewList from '../../x-modules/queries-preview/components/query-preview-list.vue';
   import Recommendations from '../../x-modules/recommendations/components/recommendations.vue';
   import RelatedTags from '../../x-modules/related-tags/components/related-tags.vue';
@@ -522,7 +487,7 @@
   import OpenMainModal from '../../components/modals/open-main-modal.vue';
   import CloseMainModal from '../../components/modals/close-main-modal.vue';
   import { adapterConfig } from '../adapter';
-  import NextQuery from '../../x-modules/next-queries/components/next-query.vue';
+  // import NextQuery from '../../x-modules/next-queries/components/next-query.vue';
   import FallbackDisclaimer from '../../x-modules/search/components/fallback-disclaimer.vue';
   import SemanticQueries from '../../x-modules/semantic-queries/components/semantic-queries.vue';
   import SemanticQuery from '../../x-modules/semantic-queries/components/semantic-query.vue';
@@ -530,6 +495,7 @@
   import { QueryPreviewInfo } from '../../x-modules/queries-preview/store/types';
   import QueryPreviewButton from '../../x-modules/queries-preview/components/query-preview-button.vue';
   import DisplayEmitter from '../../components/display-emitter.vue';
+  import RelatedPromptsList from '../../x-modules/related-prompts/components/related-prompts-list.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -566,9 +532,10 @@
       MainModal,
       MainScrollItem,
       MultiColumnMaxWidthLayout,
-      NextQueriesList,
-      NextQuery,
-      NextQueryPreview,
+      // NextQueriesList,
+      // NextQuery,
+      // NextQueryPreview,
+      RelatedPromptsList,
       OpenMainModal,
       PartialQueryButton,
       PartialResultsList,

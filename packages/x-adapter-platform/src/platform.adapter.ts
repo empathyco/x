@@ -4,6 +4,7 @@ import { PlatformAdapter } from './types/platform-adapter.types';
 import { popularSearchesEndpointAdapter } from './endpoint-adapters/popular-searches.endpoint-adapter';
 import { recommendationsEndpointAdapter } from './endpoint-adapters/recommendations.endpoint-adapter';
 import { nextQueriesEndpointAdapter } from './endpoint-adapters/next-queries.endpoint-adapter';
+import { relatedPromptsEndpointAdapter } from './endpoint-adapters/related-prompts.endpoint-adapter';
 import { relatedTagsEndpointAdapter } from './endpoint-adapters/related-tags.endpoint-adapter';
 import { identifierResultsEndpointAdapter } from './endpoint-adapters/identifier-results.endpoint-adapter';
 import { taggingEndpointAdapter } from './endpoint-adapters/tagging.endpoint-adapter';
@@ -23,6 +24,7 @@ export const platformAdapter: PlatformAdapter = {
   recommendations: recommendationsEndpointAdapter,
   nextQueries: nextQueriesEndpointAdapter,
   querySuggestions: querySuggestionsEndpointAdapter,
+  relatedPrompts: relatedPromptsEndpointAdapter,
   relatedTags: relatedTagsEndpointAdapter,
   identifierResults: identifierResultsEndpointAdapter,
   tagging: taggingEndpointAdapter,
