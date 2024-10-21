@@ -33,6 +33,7 @@ export interface PlatformAdapter extends XComponentsAdapter {
   nextQueries: ExtendableEndpointAdapter<NextQueriesRequest, NextQueriesResponse>;
   recommendations: ExtendableEndpointAdapter<RecommendationsRequest, RecommendationsResponse>;
   querySuggestions: ExtendableEndpointAdapter<QuerySuggestionsRequest, QuerySuggestionsResponse>;
+  relatedPrompts: any;
   relatedTags: ExtendableEndpointAdapter<RelatedTagsRequest, RelatedTagsResponse>;
   identifierResults: ExtendableEndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
   semanticQueries: ExtendableEndpointAdapter<SemanticQueriesRequest, SemanticQueriesResponse>;
