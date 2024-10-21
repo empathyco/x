@@ -2,6 +2,7 @@ export * from './banner.schema';
 export * from './facet.schema';
 export * from './filters';
 export * from './next-query.schema';
+export * from './related-prompt.schema';
 export * from './related-tag.schema';
 export * from './partial-results.schema';
 export * from './promoted.schema';

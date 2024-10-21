@@ -10,6 +10,7 @@ import { taggingEndpointAdapter } from './endpoint-adapters/tagging.endpoint-ada
 import { querySuggestionsEndpointAdapter } from './endpoint-adapters/query-suggestions.endpoint-adapter';
 import { semanticQueriesEndpointAdapter } from './endpoint-adapters/semantic-queries.endpoint-adapter';
 import { experienceControlsEndpointAdapter } from './endpoint-adapters/experience-controls.endpoint-adapter';
+import { relatedPromptsEndpointAdapter } from './endpoint-adapters/related-prompts.endpoint-adapter';
 /* eslint-enable max-len */
 
 /**
@@ -23,7 +24,7 @@ export const platformAdapter: PlatformAdapter = {
   recommendations: recommendationsEndpointAdapter,
   nextQueries: nextQueriesEndpointAdapter,
   querySuggestions: querySuggestionsEndpointAdapter,
-  relatedPrompts: undefined,
+  relatedPrompts: relatedPromptsEndpointAdapter,
   relatedTags: relatedTagsEndpointAdapter,
   identifierResults: identifierResultsEndpointAdapter,
   tagging: taggingEndpointAdapter,
