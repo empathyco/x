@@ -26,6 +26,7 @@ export * from './x-modules/popular-searches';
 export * from './x-modules/queries-preview';
 export * from './x-modules/query-suggestions';
 export * from './x-modules/recommendations';
+export * from './x-modules/related-prompts';
 export * from './x-modules/related-tags';
 export * from './x-modules/scroll';
 export * from './x-modules/search';

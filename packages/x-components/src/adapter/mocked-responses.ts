@@ -10,7 +10,8 @@ import {
   createSimpleFacetStub,
   getFacetsStub,
   getRelatedTagsStub,
-  getResultsStub
+  getResultsStub,
+  getRelatedPromptsStub
 } from '../__stubs__/index';
 
 export const mockedApiUrl = 'https://api.empathy.co';
@@ -198,6 +199,9 @@ export const mockedResponses = {
   },
   'related-tags': {
     relatedTags: getRelatedTagsStub()
+  },
+  'related-prompts': {
+    relatedPrompts: getRelatedPromptsStub()
   }
 };
 
