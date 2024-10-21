@@ -12,7 +12,8 @@ import {
   RelatedTagsResponse,
   SearchResponse,
   SemanticQueriesResponse,
-  ExperienceControlsResponse
+  ExperienceControlsResponse,
+  RelatedPromptsResponse
 } from '@empathyco/x-types';
 import { XPluginOptions } from '../plugins';
 import { XPlugin } from '../plugins/x-plugin';
@@ -41,6 +42,7 @@ interface MockedAdapterFeatures {
   popularSearches: PopularSearchesResponse;
   querySuggestions: QuerySuggestionsResponse;
   recommendations: RecommendationsResponse;
+  relatedPrompts: RelatedPromptsResponse;
   relatedTags: RelatedTagsResponse;
   search: SearchResponse;
   semanticQueries: SemanticQueriesResponse;
@@ -156,6 +158,7 @@ export function getMockedAdapter(
     popularSearches: getMockedAdapterFunction(responseFeatures?.popularSearches!),
     querySuggestions: getMockedAdapterFunction(responseFeatures?.querySuggestions!),
     recommendations: getMockedAdapterFunction(responseFeatures?.recommendations!),
+    relatedPrompts: getMockedAdapterFunction(responseFeatures?.relatedPrompts!),
     relatedTags: getMockedAdapterFunction(responseFeatures?.relatedTags!),
     search: getMockedAdapterFunction(responseFeatures?.search!),
     semanticQueries: getMockedAdapterFunction(responseFeatures?.semanticQueries!),
