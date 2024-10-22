@@ -76,13 +76,24 @@
         </label>
       </li>
       <li class="x-test-controls__item">
-        <label for="nextQueriesPreview.maxItemsToRender">
+        <label for="nextQueriesList.showOnlyAfterOffset">
           next-queries-list - showOnlyAfterOffset
           <input
             v-model="controls.nextQueriesList.showOnlyAfterOffset"
             id="nextQueriesList.showOnlyAfterOffset"
             type="checkbox"
             data-test="nq-preview-show-after-offset"
+          />
+        </label>
+      </li>
+      <li class="x-test-controls__item">
+        <label for="relatedPromptsList.showOnlyAfterOffset">
+          related-prompts-list - showOnlyAfterOffset
+          <input
+            v-model="controls.relatedPromptsList.showOnlyAfterOffset"
+            id="relatedPromptsList.showOnlyAfterOffset"
+            type="checkbox"
+            data-test="rp-preview-show-after-offset"
           />
         </label>
       </li>
@@ -315,64 +326,110 @@
                       :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
                       class="x-mot-next-queries-list"
                     >
-                      <BaseVariableColumnGrid
-                        style="--x-size-min-width-grid-item: 150px"
-                        class="x-gap-12"
-                        :animation="resultsAnimation"
-                        :columns="x.device === 'mobile' ? 2 : 4"
+                      <RelatedPromptsList
+                        :show-only-after-offset="controls.relatedPromptsList.showOnlyAfterOffset"
+                        class="x-mot-related-prompt-list"
                       >
-                        <template #result="{ item: result }">
-                          <MainScrollItem :item="result">
-                            <Result :result="result" data-test="search-result" />
-                          </MainScrollItem>
-                        </template>
+                        <BaseVariableColumnGrid
+                          style="--x-size-min-width-grid-item: 150px"
+                          class="x-gap-12"
+                          :animation="resultsAnimation"
+                          :columns="x.device === 'mobile' ? 2 : 4"
+                        >
+                          <template #result="{ item: result }">
+                            <MainScrollItem :item="result">
+                              <Result :result="result" data-test="search-result" />
+                            </MainScrollItem>
+                          </template>
 
-                        <template #banner="{ item: banner }">
-                          <Banner :banner="banner" />
-                        </template>
+                          <template #banner="{ item: banner }">
+                            <Banner :banner="banner" />
+                          </template>
 
-                        <template #promoted="{ item: promoted }">
-                          <Promoted :promoted="promoted" />
-                        </template>
+                          <template #promoted="{ item: promoted }">
+                            <Promoted :promoted="promoted" />
+                          </template>
 
-                        <template #next-queries-group="{ item: { nextQueries } }">
-                          <NextQueryPreview
-                            :suggestion="nextQueries[0]"
-                            :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
-                            #default="{ results }"
-                            class="x-pt-24"
-                          >
-                            <h1 class="x-title2">Others clients have searched</h1>
-                            <NextQuery
-                              class="x-suggestion x-text1 x-text1-lg"
+                          <template #next-queries-group="{ item: { nextQueries } }">
+                            <NextQueryPreview
                               :suggestion="nextQueries[0]"
-                              data-test="next-query-preview-name"
+                              :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
+                              #default="{ results }"
+                              class="x-pt-24"
                             >
-                              <span class="x-font-bold">{{ nextQueries[0].query }}</span>
-                            </NextQuery>
-                            <div class="x-mb-24">
-                              <SlidingPanel :resetOnContentChange="false">
-                                <div class="x-flex x-flex-row x-gap-8">
-                                  <Result
-                                    v-for="result in results"
-                                    :key="result.id"
-                                    :result="result"
-                                    style="max-width: 180px"
-                                    data-test="next-query-preview-result"
-                                  />
-                                </div>
-                              </SlidingPanel>
-                            </div>
-                            <NextQuery
-                              :suggestion="nextQueries[0]"
-                              data-test="view-all-results"
-                              class="x-button x-button-outlined x-rounded-full x-mx-auto x-mt-8 x-mb-24"
+                              <h1 class="x-title2">Others clients have searched</h1>
+                              <NextQuery
+                                class="x-suggestion x-text1 x-text1-lg"
+                                :suggestion="nextQueries[0]"
+                                data-test="next-query-preview-name"
+                              >
+                                <span class="x-font-bold">{{ nextQueries[0].query }}</span>
+                              </NextQuery>
+                              <div class="x-mb-24">
+                                <SlidingPanel :resetOnContentChange="false">
+                                  <div class="x-flex x-flex-row x-gap-8">
+                                    <Result
+                                      v-for="result in results"
+                                      :key="result.id"
+                                      :result="result"
+                                      style="max-width: 180px"
+                                      data-test="next-query-preview-result"
+                                    />
+                                  </div>
+                                </SlidingPanel>
+                              </div>
+                              <NextQuery
+                                :suggestion="nextQueries[0]"
+                                data-test="view-all-results"
+                                class="x-button x-button-outlined x-rounded-full x-mx-auto x-mt-8 x-mb-24"
+                              >
+                                {{ 'View all results' }}
+                              </NextQuery>
+                            </NextQueryPreview>
+                          </template>
+
+                          <template #related-prompts-group="{ item: { relatedPrompts } }">
+                            <RelatedPrompt
+                              class="x-flex x-flex-col x-pt-24"
+                              :relatedPrompt="relatedPrompts[0]"
                             >
-                              {{ 'View all results' }}
-                            </NextQuery>
-                          </NextQueryPreview>
-                        </template>
-                      </BaseVariableColumnGrid>
+                              <template #header="{ suggestionText }">
+                                <h2 class="x-title2">{{ suggestionText }}</h2>
+                              </template>
+                              <template #selected-query="{ selectedQuery }">
+                                <QueryPreview
+                                  :queryPreviewInfo="{ query: selectedQuery }"
+                                  #default="{ totalResults, results }"
+                                >
+                                  <SlidingPanel>
+                                    <template #header>
+                                      <QueryPreviewButton
+                                        :queryPreviewInfo="{ query: selectedQuery }"
+                                        class="x-button x-button-lead x-button-tight x-title3 x-title3-sm desktop:x-title3-md"
+                                      >
+                                        {{ selectedQuery }}
+                                        ({{ totalResults }})
+                                        <ArrowRightIcon class="x-icon-lg" />
+                                      </QueryPreviewButton>
+                                    </template>
+
+                                    <div
+                                      class="x-transform-style-3d x-flex x-gap-16 x-pr-8 x-pt-8 desktop:x-pt-16"
+                                    >
+                                      <Result
+                                        v-for="result in results"
+                                        :key="result.id"
+                                        :result="result"
+                                        class="x-w-[calc(38vw-16px)] x-min-w-[142px] desktop:x-w-[216px]"
+                                      />
+                                    </div>
+                                  </SlidingPanel>
+                                </QueryPreview>
+                              </template>
+                            </RelatedPrompt>
+                          </template>
+                        </BaseVariableColumnGrid>
+                      </RelatedPromptsList>
                     </NextQueriesList>
                   </BannersList>
                 </PromotedsList>
@@ -530,6 +587,9 @@
   import { QueryPreviewInfo } from '../../x-modules/queries-preview/store/types';
   import QueryPreviewButton from '../../x-modules/queries-preview/components/query-preview-button.vue';
   import DisplayEmitter from '../../components/display-emitter.vue';
+  import RelatedPromptsList from '../../x-modules/related-prompts/components/related-prompts-list.vue';
+  import RelatedPrompt from '../../x-modules/related-prompts/components/related-prompt.vue';
+  import QueryPreview from '../../x-modules/queries-preview/components/query-preview.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -569,6 +629,8 @@
       NextQueriesList,
       NextQuery,
       NextQueryPreview,
+      RelatedPromptsList,
+      RelatedPrompt,
       OpenMainModal,
       PartialQueryButton,
       PartialResultsList,
@@ -576,6 +638,7 @@
       PreselectedFilters,
       Promoted,
       PromotedsList,
+      QueryPreview,
       QueryPreviewButton,
       QueryPreviewList,
       Recommendations,
@@ -639,6 +702,9 @@
             maxItemsToRender: 10
           },
           nextQueriesList: {
+            showOnlyAfterOffset: true
+          },
+          relatedPromptsList: {
             showOnlyAfterOffset: true
           },
           adapter: {

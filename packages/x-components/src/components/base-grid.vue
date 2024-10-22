@@ -219,7 +219,8 @@
   }
 
   .x-base-grid__banner,
-  .x-base-grid__next-queries-group {
+  .x-base-grid__next-queries-group,
+  .x-base-grid__related-prompts-group {
     grid-column-start: 1;
     grid-column-end: -1;
   }
