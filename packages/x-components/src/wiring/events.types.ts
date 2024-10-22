@@ -52,7 +52,7 @@ import { WireMetadata } from './wiring.types';
  * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/search/events.types.ts | SearchXEvents}
  * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/tagging/events.types.ts | TaggingXEvents}
  * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/url/events.types.ts | UrlXEvents}
- * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/related-prompts/events.types.ts | UrlXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/related-prompts/events.types.ts | RelatedPromptsXEvents}
  *
  * @public
  */
