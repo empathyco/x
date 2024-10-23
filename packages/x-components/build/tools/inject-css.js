@@ -5,9 +5,11 @@
  * @params css - CSS code.
  */
 function injectCss(css) {
-  const el = document.createElement('style');
-  el.textContent = css;
-  document.head.appendChild(el);
+  if (document) {
+    const el = document.createElement('style');
+    el.textContent = css;
+    document.head.appendChild(el);
+  }
 }
 
 export default injectCss;
