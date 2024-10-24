@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.83...@empathyco/x-components@6.0.0-alpha.4) (2024-10-24)
+
+
+### Features
+
+* update x-components and related packages to vue 3 (#1644) ([d590842](https://github.com/empathyco/x/commit/d5908427544b9a65bbc16a860ea6f73270ee7c26))
+
+
+
 ## [6.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.2...@empathyco/x-components@6.0.0-alpha.3) (2024-10-04)
 
 
