@@ -5,10 +5,10 @@ import { createOrigin } from '../../../../utils/origin';
 /**
  * Default implementation for the {@link NextQueriesActions.fetchNextQueryPreview}.
  *
- * @param state - The state of the store, used to retrieve the rows and the extraParams to be sent
- * in the request.
- * @param query - The next query to send in the request.
- * @param location - The {@link FeatureLocation} to send in the request.
+ * @param context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
+ * provided by Vuex.
+ * @param payload - The next query and the {@link FeatureLocation | location} to send in the
+ * request.
  * @returns A Promise of a SearchResponse when it fetches the results, `null` if the request was
  * not made.
  */

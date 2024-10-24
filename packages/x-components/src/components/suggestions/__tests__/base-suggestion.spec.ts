@@ -1,23 +1,21 @@
 import { Suggestion } from '@empathyco/x-types';
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import { createQuerySuggestion } from '../../../__stubs__/index';
-import { normalizeString } from '../../../utils/normalize';
-import { XEventsTypes } from '../../../wiring/events.types';
-import { WireMetadata } from '../../../wiring/wiring.types';
+import { mount } from '@vue/test-utils';
+import { normalizeString } from '../../../utils';
+import { XEventsTypes, WireMetadata } from '../../../wiring';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseSuggestion from '../base-suggestion.vue';
-import { createSimpleFacetStub } from '../../../__stubs__/facets-stubs.factory';
-import { createPopularSearch } from '../../../__stubs__/popular-searches-stubs.factory';
-import { XPlugin } from '../../../plugins/index';
+import {
+  createQuerySuggestion,
+  createPopularSearch,
+  createSimpleFacetStub
+} from '../../../__stubs__';
+import { XPlugin } from '../../../plugins';
 
 function renderBaseSuggestion({
   query = 'bebe',
   suggestion = createPopularSearch('bebe lloron'),
   suggestionSelectedEvents = {}
-}: BaseSuggestionOptions = {}): BaseSuggestionAPI {
-  const [, localVue] = installNewXPlugin();
-  const emit = jest.spyOn(XPlugin.bus, 'emit');
+}: BaseSuggestionOptions = {}) {
   const wrapper = mount(
     {
       components: { BaseSuggestion },
@@ -27,14 +25,16 @@ function renderBaseSuggestion({
         ':suggestion-selected-events="suggestionSelectedEvents" />'
     },
     {
-      localVue,
-      propsData: {
+      global: { plugins: [installNewXPlugin()] },
+      props: {
         query,
         suggestion,
         suggestionSelectedEvents
       }
     }
   );
+
+  const emit = jest.spyOn(XPlugin.bus, 'emit');
 
   const wireMetadata = expect.objectContaining<Partial<WireMetadata>>({
     target: wrapper.element
@@ -46,12 +46,8 @@ function renderBaseSuggestion({
     query,
     wireMetadata,
     emit,
-    getEndingPart() {
-      return wrapper.get(getDataTestSelector('highlight-end'));
-    },
-    getMatchingPart() {
-      return wrapper.get(getDataTestSelector('matching-part'));
-    }
+    getEndingPart: () => wrapper.get(getDataTestSelector('highlight-end')),
+    getMatchingPart: () => wrapper.get(getDataTestSelector('matching-part'))
   };
 }
 
@@ -170,24 +166,4 @@ interface BaseSuggestionOptions {
   suggestionSelectedEvents?: Partial<XEventsTypes>;
 
   template?: string;
-}
-
-/**
- * Test API for the {@link BaseSuggestion} component.
- */
-interface BaseSuggestionAPI {
-  /** The wrapper for base suggestion component. */
-  wrapper: Wrapper<Vue>;
-  /** The rendered suggestion. */
-  suggestion: Suggestion;
-  /** The query introduced to find the suggestion. */
-  query: string;
-  /** Metadata used to keep track of the events fired to the bus. */
-  wireMetadata: Partial<WireMetadata>;
-  /** Mock for the `$x.emit` function. Can be used to check the emitted events. */
-  emit: jest.SpyInstance;
-  /** Retrieves the last non-matching part. */
-  getEndingPart: () => Wrapper<Vue>;
-  /** When there is a query matching, retrieves the matching part of the text. */
-  getMatchingPart: () => Wrapper<Vue>;
 }

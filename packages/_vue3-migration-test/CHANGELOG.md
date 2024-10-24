@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.51](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.50...vue3-migration-test@1.0.0-alpha.51) (2024-09-05)
+
+
+### Bug Fixes
+
+* **list-components:** fix list components, migrate infinite-scroll directive and deprecated layouts (#1576) ([4b57f19](https://github.com/empathyco/x/commit/4b57f19be601220a4dc6874dc1d5efa8fdbcf991))
+
+
+### Code Refactoring
+
+* **animation-factory:** fix Vue3 breaking changes (#1579) ([f915731](https://github.com/empathyco/x/commit/f915731cc8ea662a2066fee054f47885ee2154a9))
+* **base-switch:** decommission of value prop (#1589) ([35968eb](https://github.com/empathyco/x/commit/35968ebb69634984e867b03221d373efe4af96c8))
+* **base-switch:** migrate component to vue3 (#1588) ([875a6e2](https://github.com/empathyco/x/commit/875a6e2638885498396db362753550857ec8d7e2))
+* **staggered-fade-and-slide:** use Vue native staggered transition (#1578) ([79e136f](https://github.com/empathyco/x/commit/79e136f04b0b75ddea77c464b8f5ea0ed6602eb1))
+
+
+
 ## [1.0.0-alpha.50](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.49...vue3-migration-test@1.0.0-alpha.50) (2024-07-23)
 
 

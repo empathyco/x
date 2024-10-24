@@ -1,6 +1,5 @@
 <template>
-  <!-- eslint-disable-next-line vue/attributes-order -->
-  <transition v-bind="$attrs" v-on="$listeners" name="x-animate-width-">
+  <transition name="x-animate-width-">
     <!-- @slot (Required) Transition content -->
     <slot />
   </transition>
@@ -15,23 +14,20 @@
    * @public
    */
   export default defineComponent({
-    name: 'AnimateWidth',
-    inheritAttrs: false
+    name: 'AnimateWidth'
   });
 </script>
 
-<style lang="scss" scoped>
-  .x-animate-width {
-    &--enter-active,
-    &--leave-active {
-      transition: width 0.3s ease-out;
-      overflow-x: hidden;
-    }
+<style lang="css">
+  .x-animate-width--enter-active,
+  .x-animate-width--leave-active {
+    transition: width 0.3s ease-out;
+    overflow-x: hidden;
+  }
 
-    &--enter,
-    &--leave-to {
-      width: 0 !important;
-    }
+  .x-animate-width--enter-from,
+  .x-animate-width--leave-to {
+    width: 0 !important;
   }
 </style>
 

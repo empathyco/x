@@ -3,7 +3,6 @@
     computed,
     defineComponent,
     getCurrentInstance,
-    h,
     onBeforeUnmount,
     onMounted,
     provide,
@@ -203,7 +202,7 @@
        * because Vue2 only allows a single root node. Then, `getCurrentInstance()?.proxy?.$el` to
        * retrieve the HTML element in both versions.
        */
-      return () => slots.default?.()[0] ?? h();
+      return () => slots.default?.()[0] ?? '';
     }
   });
 </script>
@@ -242,7 +241,7 @@ it injects the needed utilities to determine the first visible item.
   };
 </script>
 
-<style scoped>
+<style lang="css" scoped>
   ul {
     overflow: auto;
     max-height: 200px;

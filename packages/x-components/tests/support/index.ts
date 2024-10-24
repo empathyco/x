@@ -1,9 +1,15 @@
 import { AnyFunction } from '@empathyco/x-utils';
+import { mount } from 'cypress/vue';
+import { XDummyBus } from '../../src/__tests__/bus.dummy';
+import { e2eAdapter } from '../../src/adapter/e2e-adapter';
+import { XPlugin } from '../../src/plugins/x-plugin';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
-    interface Chainable extends CustomCommands, CustomDualCommands {}
+    interface Chainable extends CustomCommands, CustomDualCommands {
+      mount: typeof mount;
+    }
   }
 }
 
@@ -220,3 +226,11 @@ const customDualCommands: AddPreviousParam<CustomDualCommands> = {
 
 Cypress.Commands.addAll(customCommands);
 Cypress.Commands.addAll({ prevSubject: 'optional' }, customDualCommands);
+
+Cypress.Commands.add('mount', (component, options = {}) => {
+  options.global = options.global ?? {};
+  options.global.plugins = options.global.plugins ?? [];
+  options.global.plugins.push([new XPlugin(new XDummyBus()), { adapter: e2eAdapter }]);
+
+  return mount(component, options);
+});

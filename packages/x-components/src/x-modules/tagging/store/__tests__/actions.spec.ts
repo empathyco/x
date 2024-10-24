@@ -1,6 +1,6 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import { TaggingRequest } from '@empathyco/x-types';
+import { mount } from '@vue/test-utils';
 import { getTaggingResponseStub } from '../../../../__stubs__/tagging-response-stubs.factory';
 import { XComponentsAdapterDummy } from '../../../../__tests__/adapter.dummy';
 import { installNewXPlugin } from '../../../../__tests__/utils';
@@ -12,9 +12,6 @@ import { resetTaggingStateWith } from './utils';
 describe('testing tagging module actions', () => {
   const queryTagging = getTaggingResponseStub();
   const adapter = XComponentsAdapterDummy;
-  const localVue = createLocalVue();
-  localVue.config.productionTip = false; // Silent production console messages.
-  localVue.use(Vuex);
 
   const selfSpy = jest.spyOn(self, 'self', 'get') as jest.SpyInstance<{
     crypto: { randomUUID: () => string };
@@ -28,7 +25,9 @@ describe('testing tagging module actions', () => {
 
   const store: SafeStore<TaggingState, TaggingGetters, TaggingMutations, TaggingActions> =
     new Store(taggingXStoreModule as any);
-  installNewXPlugin({ adapter, store }, localVue);
+  const plugin = installNewXPlugin({ adapter, store });
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  mount({}, { global: { plugins: [plugin] } });
 
   beforeEach(() => {
     resetTaggingStateWith(store);

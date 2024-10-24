@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { computed, defineComponent, h, PropType, VNode, VNodeChildren } from 'vue';
+  import { computed, defineComponent, h, PropType } from 'vue';
   import { RangeValue } from '@empathyco/x-types';
   import BaseCurrency from '../../currency/base-currency.vue';
 
@@ -64,23 +64,19 @@
           : props.fromTo;
       });
 
-      const render = (): VNode => {
+      return () => {
         const labelParts = label.value.split(/({min}|{max})/);
 
-        const children: VNodeChildren = labelParts.map(partMessage => {
+        const children = labelParts.map(partMessage => {
           if (partMessage === '{min}') {
-            return h('BaseCurrency', {
-              props: {
-                value: props.filter.range.min,
-                format: props.format
-              }
+            return h(BaseCurrency, {
+              value: props.filter.range.min as number,
+              format: props.format
             });
           } else if (partMessage === '{max}') {
-            return h('BaseCurrency', {
-              props: {
-                value: props.filter.range.max,
-                format: props.format
-              }
+            return h(BaseCurrency, {
+              value: props.filter.range.max as number,
+              format: props.format
             });
           }
           return partMessage;
@@ -88,8 +84,6 @@
 
         return h('span', { class: 'x-price-filter-label' }, children);
       };
-
-      return render;
     }
   });
 </script>

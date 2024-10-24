@@ -68,7 +68,7 @@ describe('testing useDebounce composable', () => {
 
     await runDebouncedFnMock();
     jest.advanceTimersByTime(100);
-    wrapper.destroy();
+    wrapper.unmount();
     jest.advanceTimersByTime(500);
     expect(fnMock).toHaveBeenCalledTimes(0);
   });

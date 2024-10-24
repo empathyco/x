@@ -1,8 +1,7 @@
 import { PopularSearchesRequest } from '@empathyco/x-types';
 import { map } from '@empathyco/x-utils';
-import { createLocalVue } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { createHistoryQueries } from '../../../../__stubs__/history-queries-stubs.factory';
 import { getPopularSearchesStub } from '../../../../__stubs__/popular-searches-stubs.factory';
 import { getMockedAdapter, installNewXPlugin } from '../../../../__tests__/utils';
@@ -11,7 +10,6 @@ import { PopularSearchesState } from '../types';
 import { resetPopularSearchesStateWith } from './utils';
 
 describe('testing popular searches module getters', () => {
-  Vue.use(Vuex);
   const gettersKeys = map(popularSearchesXStoreModule.getters, getter => getter);
   const store: Store<PopularSearchesState> = new Store(popularSearchesXStoreModule as any);
 
@@ -40,10 +38,14 @@ describe('testing popular searches module getters', () => {
     const adapter = getMockedAdapter({
       popularSearches: { suggestions: mockedPopularSearches }
     });
-    const localVue = createLocalVue();
-    localVue.config.productionTip = false; // Silent production console messages.
-    localVue.use(Vuex);
-    installNewXPlugin({ store, adapter }, localVue);
+    mount(
+      {},
+      {
+        global: {
+          plugins: [installNewXPlugin({ adapter, store })]
+        }
+      }
+    );
 
     it('should return the popular searches without the previously searched queries', () => {
       resetPopularSearchesStateWith(store, {

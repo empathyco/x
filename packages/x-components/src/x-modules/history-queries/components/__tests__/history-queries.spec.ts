@@ -1,7 +1,8 @@
 import { HistoryQuery } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
+import { nextTick } from 'vue';
 import {
   createHistoryQueries,
   createHistoryQuery
@@ -17,13 +18,8 @@ function renderHistoryQueries({
   historyQueries = createHistoryQueries('chocolate', 'milk chocolate', 'chocolate milk'),
   maxItemsToRender,
   template = '<HistoryQueries v-bind="$attrs" />'
-}: RenderHistoryQueriesOptions = {}): RenderHistoryQueriesApi {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
+}: RenderHistoryQueriesOptions = {}) {
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store, initialXModules: [historyQueriesXModule] }, localVue);
-  resetXHistoryQueriesStateWith(store, { historyQueries });
-
   const wrapper = mount(
     {
       template,
@@ -33,18 +29,24 @@ function renderHistoryQueries({
       }
     },
     {
-      localVue,
-      store,
-      propsData: {
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [historyQueriesXModule] })]
+      },
+      props: {
         maxItemsToRender
-      }
+      },
+      store
     }
   );
+
+  resetXHistoryQueriesStateWith(store, { historyQueries });
 
   return {
     wrapper: wrapper.findComponent(HistoryQueries),
     historyQueries,
-    async setMaxItemsToRender(max) {
+    async setMaxItemsToRender(max: number) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       return await wrapper.setProps({ maxItemsToRender: max });
     },
     getSuggestionItemWrappers() {
@@ -62,22 +64,26 @@ describe('testing Query Suggestions component', () => {
 
   it('does not render anything when suggestions are empty', () => {
     const { wrapper } = renderHistoryQueries({ historyQueries: [] });
-    expect(wrapper.html()).toBe('');
+    expect(wrapper.find('x-history-queries').exists()).toBe(false);
   });
 
-  it('renders the state list of suggestions', () => {
+  it('renders the state list of suggestions', async () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { getSuggestionItemWrappers, historyQueries } = renderHistoryQueries({
       historyQueries: createHistoryQueries('chocolate', 'milk chocolate')
     });
 
+    await nextTick();
+
     const suggestionItemWrappers = getSuggestionItemWrappers();
     expect(suggestionItemWrappers).toHaveLength(2);
-    suggestionItemWrappers.wrappers.forEach((itemWrapper, index) => {
+    suggestionItemWrappers.forEach((itemWrapper, index) => {
       expect(itemWrapper.text()).toEqual(`${historyQueries[index].query}✕`);
     });
   });
 
-  it('allows to render a custom query suggestion', () => {
+  it('allows to render a custom query suggestion', async () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { getSuggestionItemWrappers, historyQueries } = renderHistoryQueries({
       historyQueries: createHistoryQueries('chocolate', 'milk chocolate'),
       template: `
@@ -90,17 +96,20 @@ describe('testing Query Suggestions component', () => {
       `
     });
 
+    await nextTick();
+
     const suggestionItemWrappers = getSuggestionItemWrappers();
     expect(suggestionItemWrappers).toHaveLength(2);
-    suggestionItemWrappers.wrappers.forEach((itemWrapper, index) => {
+    suggestionItemWrappers.forEach((itemWrapper, index) => {
       expect(itemWrapper.get('.custom-suggestion').text()).toEqual(
-        `🔍 ${historyQueries[index].query}`
+        `🔍${historyQueries[index].query}`
       );
       expect(itemWrapper.find(getDataTestSelector('history-query')).exists()).toBe(false);
     });
   });
 
-  it('allows to render a custom suggestion content', () => {
+  it('allows to render a custom suggestion content', async () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { getSuggestionItemWrappers, historyQueries } = renderHistoryQueries({
       historyQueries: createHistoryQueries('chocolate', 'milk chocolate'),
       template: `
@@ -111,15 +120,18 @@ describe('testing Query Suggestions component', () => {
       `
     });
 
+    await nextTick();
+
     const suggestionItemWrappers = getSuggestionItemWrappers();
     expect(suggestionItemWrappers).toHaveLength(2);
-    suggestionItemWrappers.wrappers.forEach((itemWrapper, index) => {
-      expect(itemWrapper.text()).toEqual(`🔍 ${historyQueries[index].query}✕`);
+    suggestionItemWrappers.forEach((itemWrapper, index) => {
+      expect(itemWrapper.text()).toEqual(`🔍${historyQueries[index].query}✕`);
       expect(itemWrapper.find(getDataTestSelector('history-query')).exists()).toBe(true);
     });
   });
 
-  it('allows to render a custom remove suggestion content', () => {
+  it('allows to render a custom remove suggestion content', async () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { getSuggestionItemWrappers, historyQueries } = renderHistoryQueries({
       historyQueries: createHistoryQueries('chocolate', 'milk chocolate'),
       template: `
@@ -130,17 +142,20 @@ describe('testing Query Suggestions component', () => {
       `
     });
 
+    await nextTick();
+
     const suggestionItemWrappers = getSuggestionItemWrappers();
     expect(suggestionItemWrappers).toHaveLength(2);
-    suggestionItemWrappers.wrappers.forEach((itemWrapper, index) => {
+    suggestionItemWrappers.forEach((itemWrapper, index) => {
       const query = historyQueries[index].query;
-      expect(itemWrapper.text()).toEqual(`${query}❌ ${query}`);
+      expect(itemWrapper.text()).toEqual(`${query}❌${query}`);
       expect(itemWrapper.find(getDataTestSelector('history-query')).exists()).toBe(true);
     });
   });
 
   // eslint-disable-next-line max-len
   it('renders at most the number of HistoryQuery defined by `maxItemsToRender` prop', async () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { getSuggestionItemWrappers, setMaxItemsToRender, historyQueries } = renderHistoryQueries(
       {
         historyQueries: createHistoryQueries('shirt', 'jeans', 'tshirt', 'jumper')
@@ -148,16 +163,17 @@ describe('testing Query Suggestions component', () => {
     );
 
     await setMaxItemsToRender(historyQueries.length - 1);
-    expect(getSuggestionItemWrappers().wrappers).toHaveLength(historyQueries.length - 1);
+    expect(getSuggestionItemWrappers()).toHaveLength(historyQueries.length - 1);
 
     await setMaxItemsToRender(historyQueries.length);
-    expect(getSuggestionItemWrappers().wrappers).toHaveLength(historyQueries.length);
+    expect(getSuggestionItemWrappers()).toHaveLength(historyQueries.length);
 
     await setMaxItemsToRender(historyQueries.length + 1);
-    expect(getSuggestionItemWrappers().wrappers).toHaveLength(historyQueries.length);
+    expect(getSuggestionItemWrappers()).toHaveLength(historyQueries.length);
   });
 
-  it('renders only history queries with results', () => {
+  it('renders only history queries with results', async () => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const { getSuggestionItemWrappers } = renderHistoryQueries({
       historyQueries: [
         createHistoryQuery({ query: 'cachelos' }),
@@ -165,9 +181,11 @@ describe('testing Query Suggestions component', () => {
         createHistoryQuery({ query: 'licor cafe', totalResults: 20 })
       ]
     });
+
+    await nextTick();
     expect(getSuggestionItemWrappers()).toHaveLength(2);
-    expect(getSuggestionItemWrappers().at(0).text()).toEqual('cachelos✕');
-    expect(getSuggestionItemWrappers().at(1).text()).toEqual('licor cafe✕');
+    expect(getSuggestionItemWrappers().at(0)?.text()).toEqual('cachelos✕');
+    expect(getSuggestionItemWrappers().at(1)?.text()).toEqual('licor cafe✕');
   });
 });
 
@@ -175,18 +193,7 @@ interface RenderHistoryQueriesOptions {
   /** The suggestions list to render. */
   historyQueries?: HistoryQuery[];
   /** The maximum number of items to render. */
-  maxItemsToRender?: string;
+  maxItemsToRender?: number;
   /** The template to render. */
   template?: string;
-}
-
-interface RenderHistoryQueriesApi {
-  /** HistoryQueries component testing wrapper. */
-  wrapper: Wrapper<Vue>;
-  /** Retrieves the list item of each suggestion. */
-  getSuggestionItemWrappers: () => WrapperArray<Vue>;
-  /** Updates the maximum number of items to render. */
-  setMaxItemsToRender: (max: number) => Promise<void>;
-  /** Rendered suggestions data. */
-  historyQueries: HistoryQuery[];
 }

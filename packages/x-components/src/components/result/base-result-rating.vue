@@ -46,6 +46,7 @@
     components: {
       BaseRating
     },
+    inheritAttrs: false,
     props: {
       /**
        * The {@link @empathyco/x-types#Result} to render its rating.
@@ -89,7 +90,7 @@
   });
 </script>
 
-<style scoped lang="scss">
+<style lang="css" scoped>
   .x-result-rating {
     color: inherit;
     text-decoration: none;

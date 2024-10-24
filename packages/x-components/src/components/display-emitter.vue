@@ -2,7 +2,6 @@
   import {
     defineComponent,
     getCurrentInstance,
-    h,
     onMounted,
     onUnmounted,
     PropType,
@@ -30,7 +29,7 @@
       let unwatchDisplay: WatchStopHandle | undefined;
 
       onMounted(() => {
-        const element = getCurrentInstance()?.proxy.$el as HTMLElement | undefined;
+        const element = getCurrentInstance()?.proxy?.$el as HTMLElement | undefined;
         if (element) {
           unwatchDisplay = useEmitDisplayEvent({
             element,
@@ -50,7 +49,7 @@
        * because Vue2 only allows a single root node. Then, `getCurrentInstance()?.proxy?.$el` to
        * retrieve the HTML element in both versions.
        */
-      return () => slots.default?.()[0] ?? h();
+      return () => slots.default?.()[0] ?? '';
     }
   });
 </script>

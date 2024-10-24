@@ -17,9 +17,9 @@ export interface GenerateEntryFilesOptions {
   /** The path where the build will go. */
   buildPath: string;
   /** The path to the directory where generated js files are stored. */
-  jsOutputDirectory: string;
+  jsOutputDir: string;
   /** The path to the directory where generated .d.ts files are stored. */
-  typesOutputDirectory: string;
+  typesOutputDir: string;
 }
 
 /**
@@ -44,9 +44,9 @@ export function generateEntryFiles(options: GenerateEntryFilesOptions): Plugin {
      * - 1 Typings file per entry point.
      */
     writeBundle() {
-      generateEntryPoints(options.buildPath, options.jsOutputDirectory, 'js');
-      generateEntryPoints(options.buildPath, options.typesOutputDirectory, 'd.ts');
-      copyIndexSourcemap(options.buildPath, options.jsOutputDirectory);
+      generateEntryPoints(options.buildPath, options.jsOutputDir, 'js');
+      generateEntryPoints(options.buildPath, options.typesOutputDir, 'd.ts');
+      copyIndexSourcemap(options.buildPath, options.jsOutputDir);
     }
   };
 }

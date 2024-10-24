@@ -7,7 +7,6 @@
     :bodyClickEvent="outOfModalClickEvent"
     :animation="animation"
     :focusOnOpen="focusOnOpen"
-    v-bind="$attrs"
   >
     <slot />
   </BaseEventsModal>

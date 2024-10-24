@@ -7,21 +7,21 @@
   }
 
   &--top {
-    &#{$p}--enter,
+    &#{$p}--enter-from,
     &#{$p}--leave-to {
       transform: translateY(-100%);
     }
   }
 
   &--bottom {
-    &#{$p}--enter,
+    &#{$p}--enter-from,
     &#{$p}--leave-to {
       transform: translateY(100%);
     }
   }
 
   &--top-to-bottom {
-    &#{$p}--enter {
+    &#{$p}--enter-from {
       transform: translateY(-100%);
     }
     &#{$p}--leave-to {
@@ -30,7 +30,7 @@
   }
 
   &--bottom-to-top {
-    &#{$p}--enter {
+    &#{$p}--enter-from {
       transform: translateY(100%);
     }
     &#{$p}--leave-to {
@@ -39,21 +39,21 @@
   }
 
   &--left {
-    &#{$p}--enter,
+    &#{$p}--enter-from,
     &#{$p}--leave-to {
       transform: translateX(-100%);
     }
   }
 
   &--right {
-    &#{$p}--enter,
+    &#{$p}--enter-from,
     &#{$p}--leave-to {
       transform: translateX(100%);
     }
   }
 
   &--left-to-right {
-    &#{$p}--enter {
+    &#{$p}--enter-from {
       transform: translateX(-100%);
     }
     &#{$p}--leave-to {
@@ -62,7 +62,7 @@
   }
 
   &--right-to-left {
-    &#{$p}--enter {
+    &#{$p}--enter-from {
       transform: translateX(100%);
     }
     &#{$p}--leave-to {

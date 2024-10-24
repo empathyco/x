@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { defineComponent, h, PropType, provide } from 'vue';
+  import { defineComponent, PropType, provide } from 'vue';
   import { TaggingRequest } from '@empathyco/x-types';
 
   export default defineComponent({
@@ -16,7 +16,7 @@
         }
       });
 
-      return () => slots.default?.()[0] ?? h();
+      return () => slots.default?.()[0] ?? '';
     }
   });
 </script>

@@ -1,7 +1,6 @@
 import { Result } from '@empathyco/x-types';
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue, { ComponentOptions } from 'vue';
-import { getDataTestSelector } from '../../../__tests__/utils';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseCurrency from '../../currency/base-currency.vue';
 import BaseResultPreviousPrice from '../base-result-previous-price.vue';
 
@@ -21,12 +20,13 @@ function renderBasePreviousPrice({
       :format="format" />`,
   result = mockedResult
 }: RenderBasePreviousPriceOptions = {}): RenderBasePreviousPriceAPI {
-  const wrapperComponent: ComponentOptions<Vue> = {
+  const wrapperComponent = {
     template,
     components: {
       BaseResultPreviousPrice
     },
-    props: ['format', 'result']
+    props: ['format', 'result'],
+    global: { plugins: [installNewXPlugin()] }
   };
 
   const wrapper = mount(wrapperComponent, {
@@ -75,7 +75,7 @@ describe('testing BaseResultPreviousPrice component', () => {
       }
     });
 
-    expect(wrapper.html()).toBe('');
+    expect(wrapper.find('.x-result-previous-price').exists()).toBe(false);
   });
 
   it('renders custom content when overriding the default slot', () => {
@@ -105,5 +105,5 @@ interface RenderBasePreviousPriceOptions {
 
 interface RenderBasePreviousPriceAPI {
   /** The Vue testing utils wrapper for the {@link BaseResultPreviousPrice}. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
 }

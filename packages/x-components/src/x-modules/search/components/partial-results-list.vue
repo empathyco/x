@@ -84,7 +84,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-partial-results-list {
     display: flex;
     flex-flow: column nowrap;

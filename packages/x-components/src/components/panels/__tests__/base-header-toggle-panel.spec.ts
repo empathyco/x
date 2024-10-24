@@ -1,5 +1,4 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseHeaderTogglePanel from '../base-header-toggle-panel.vue';
 
@@ -131,7 +130,7 @@ interface RenderBaseTogglePanelOptions {
 
 interface RenderBaseHeaderTogglePanelAPI {
   /** The Vue testing utils wrapper for the {@link BaseHeaderTogglePanelComponent}. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** Function that toggles panel visibility. */
   toggleOpen: () => Promise<void>;
 }

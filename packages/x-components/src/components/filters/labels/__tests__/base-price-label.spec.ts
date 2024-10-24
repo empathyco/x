@@ -1,5 +1,4 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { NumberRangeFilter } from '@empathyco/x-types';
 import { getNumberRangeFilterStub } from '../../../../__stubs__/filters-stubs.factory';
 import BasePriceFilterLabel from '../base-price-filter-label.vue';
@@ -10,7 +9,7 @@ function renderBasePriceLabel({
   lessThan = 'Less than {max}',
   from = 'More than {min}',
   fromTo = 'From {min} to {max}'
-}: RenderBasePriceLabelOptions): Wrapper<Vue> {
+}: RenderBasePriceLabelOptions): VueWrapper {
   return mount(
     {
       components: { BasePriceFilterLabel },

@@ -206,7 +206,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-my-history {
     display: flex;
     flex-flow: column nowrap;

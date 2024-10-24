@@ -1,5 +1,5 @@
 <template>
-  <GlobalXBus v-on="eventListeners" />
+  <GlobalXBus :listeners="eventListeners" />
 </template>
 
 <script lang="ts">

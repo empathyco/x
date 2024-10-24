@@ -1,5 +1,5 @@
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseTogglePanelComponent from '../base-toggle-panel.vue';
 
@@ -15,8 +15,6 @@ function renderBaseTogglePanel({
   open = true,
   template = '<BaseTogglePanel :open="openTogglePanel"></BaseTogglePanel>'
 }: RenderBaseTogglePanelOptions = {}): RenderBaseTogglePanelAPI {
-  const localVue = createLocalVue();
-
   const wrapperContainer = mount(
     {
       components: {
@@ -25,7 +23,6 @@ function renderBaseTogglePanel({
       template
     },
     {
-      localVue,
       data() {
         return { openTogglePanel: open };
       }
@@ -37,8 +34,10 @@ function renderBaseTogglePanel({
   return {
     wrapper,
     toggleOpen() {
-      wrapperContainer.setData({ openTogglePanel: !wrapperContainer.vm.$data.openTogglePanel });
-      return Vue.nextTick();
+      (wrapperContainer.vm as unknown as TogglePanelState).openTogglePanel = !(
+        wrapperContainer.vm as unknown as TogglePanelState
+      ).openTogglePanel;
+      return nextTick();
     }
   };
 }
@@ -84,7 +83,10 @@ interface RenderBaseTogglePanelOptions {
 
 interface RenderBaseTogglePanelAPI {
   /** The Vue testing utils wrapper for the {@link BaseTogglePanelComponent}. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** Function that toggles panel visibility. */
   toggleOpen: () => Promise<void>;
+}
+interface TogglePanelState {
+  openTogglePanel: boolean;
 }

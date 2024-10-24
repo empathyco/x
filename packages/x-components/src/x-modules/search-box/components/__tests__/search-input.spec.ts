@@ -1,19 +1,23 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { Store } from 'vuex';
+import { nextTick } from 'vue';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import SearchInput from '../search-input.vue';
+import { XPlugin } from '../../../../plugins/index';
+import { searchBoxXModule } from '../../x-module';
 import { resetXSearchBoxStateWith } from './utils';
 
-function mountNewSearchInput(overrideProps: Partial<SearchInputProps> = {}): TestSearchInputAPI {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
+function renderSearchInput({
+  maxLength,
+  instant,
+  instantDebounceInMs,
+  autofocus
+}: Partial<RenderSearchInputOptions> = {}): RenderSearchInputAPI {
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-  resetXSearchBoxStateWith(store);
 
   const parent = document.createElement('div');
   document.body.appendChild(parent);
@@ -25,116 +29,114 @@ function mountNewSearchInput(overrideProps: Partial<SearchInputProps> = {}): Tes
      */
     attachTo: parent,
     store,
-    localVue,
-    propsData: overrideProps
+    props: { maxLength, instant, instantDebounceInMs, autofocus },
+    global: {
+      plugins: [store, installNewXPlugin({ store })]
+    }
   });
-  const input = wrapper.find(getDataTestSelector('search-input')).element as HTMLInputElement;
+
+  resetXSearchBoxStateWith(store);
+
+  XPlugin.registerXModule(searchBoxXModule);
+  const listener = jest.fn();
 
   return {
     wrapper,
-    input
+    input: wrapper.find(getDataTestSelector('search-input')).element as HTMLInputElement,
+    listener
   };
 }
 
-interface SearchInputProps {
-  maxLength: number;
-  autofocus: boolean;
-  instant: boolean;
-  instantDebounceInMs: number;
-  autocompleteKeyboardKeys: string[];
-  autocompleteSuggestionsEvent: string[];
-}
-
-interface TestSearchInputAPI {
-  wrapper: Wrapper<SearchInput>;
-  input: HTMLInputElement;
-}
-
 describe('testing search input component', () => {
-  let mockedSearchInput: Wrapper<SearchInput>;
-  let input: HTMLInputElement;
-  const listener = jest.fn();
-
   beforeAll(jest.useFakeTimers);
   afterEach(jest.clearAllTimers);
   beforeEach(() => {
-    const searchInput = mountNewSearchInput();
-    mockedSearchInput = searchInput.wrapper;
-    input = searchInput.input;
-
     jest.clearAllMocks();
   });
 
   it('is an XComponent', () => {
-    expect(isXComponent(mockedSearchInput.vm)).toEqual(true);
+    const { wrapper } = renderSearchInput();
+    expect(isXComponent(wrapper.vm)).toEqual(true);
   });
 
   it('has SearchBox as XModule', () => {
-    expect(getXComponentXModuleName(mockedSearchInput.vm)).toEqual('searchBox');
+    const { wrapper } = renderSearchInput();
+    expect(getXComponentXModuleName(wrapper.vm)).toEqual('searchBox');
   });
 
-  it('emits UserHoveredInSearchBox when it is hovered in', () => {
-    mockedSearchInput.vm.$x.on('UserHoveredInSearchBox').subscribe(listener);
-    mockedSearchInput.trigger('mouseenter');
+  it('emits UserHoveredInSearchBox when it is hovered in', async () => {
+    const { wrapper, listener } = renderSearchInput();
+    XPlugin.bus.on('UserHoveredInSearchBox').subscribe(listener);
+    await wrapper.trigger('mouseenter');
     expect(listener).toHaveBeenCalled();
   });
 
-  it('emits UserHoveredOutSearchBox when it is hovered out', () => {
-    mockedSearchInput.vm.$x.on('UserHoveredOutSearchBox').subscribe(listener);
-    mockedSearchInput.trigger('mouseenter');
-    mockedSearchInput.trigger('mouseleave');
+  it('emits UserHoveredOutSearchBox when it is hovered out', async () => {
+    const { wrapper, listener } = renderSearchInput();
+    XPlugin.bus.on('UserHoveredOutSearchBox').subscribe(listener);
+    await wrapper.trigger('mouseenter');
+    await wrapper.trigger('mouseleave');
     expect(listener).toHaveBeenCalled();
   });
 
   it('emits UserFocusedSearchBox if input autofocus true', () => {
-    const { wrapper } = mountNewSearchInput({ autofocus: true });
-    wrapper.vm.$x.on('UserFocusedSearchBox').subscribe(listener);
+    const { listener } = renderSearchInput({ autofocus: true });
+    XPlugin.bus.on('UserFocusedSearchBox').subscribe(listener);
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith(undefined);
   });
 
   it('does not emit UserFocusedSearchBox when mounting if autofocus is false', () => {
-    const { wrapper } = mountNewSearchInput({ autofocus: false });
-    wrapper.vm.$x.on('UserFocusedSearchBox').subscribe(listener);
+    const { listener } = renderSearchInput({ autofocus: false });
+    XPlugin.bus.on('UserFocusedSearchBox').subscribe(listener);
     expect(listener).not.toHaveBeenCalled();
   });
 
-  it('emits UserFocusedSearchBox when it gains the focus', () => {
-    mockedSearchInput.vm.$x.on('UserFocusedSearchBox').subscribe(listener);
-    mockedSearchInput.trigger('focus');
+  it('emits UserFocusedSearchBox when it gains the focus', async () => {
+    const { listener, wrapper } = renderSearchInput();
+    XPlugin.bus.on('UserFocusedSearchBox').subscribe(listener);
+    await wrapper.trigger('focus');
     expect(listener).toHaveBeenCalled();
   });
 
-  it('emits UserBlurredSearchBox when it loses the focus', () => {
-    mockedSearchInput.vm.$x.on('UserBlurredSearchBox').subscribe(listener);
-    mockedSearchInput.trigger('focus');
-    mockedSearchInput.trigger('blur');
+  it('emits UserBlurredSearchBox when it loses the focus', async () => {
+    const { listener, wrapper } = renderSearchInput();
+    XPlugin.bus.on('UserBlurredSearchBox').subscribe(listener);
+
+    await wrapper.trigger('focus');
+    await wrapper.trigger('blur');
+
     expect(listener).toHaveBeenCalled();
   });
 
-  it('emits UserIsTypingQuery when typing/pasting', () => {
+  it('emits UserIsTypingQuery when typing/pasting', async () => {
+    const { input, listener, wrapper } = renderSearchInput();
     const queries = ['a', 'ab', 'abc'];
-    mockedSearchInput.vm.$x.on('UserIsTypingAQuery').subscribe(listener);
+    XPlugin.bus.on('UserIsTypingAQuery').subscribe(listener);
 
-    queries.forEach(query => {
+    for (const query of queries) {
       input.value = query;
-      mockedSearchInput.trigger('input');
+      await wrapper.trigger('input');
       expect(listener).toHaveBeenCalledWith(query);
-    });
+    }
+
+    expect(listener).toHaveBeenCalledTimes(3);
   });
 
   it(
     'emits UserAcceptedAQuery event when typing/pasting if config.instant is true and ' +
       'after the config.instantDebounceInMs timeout',
-    () => {
-      mockedSearchInput.setProps({ instant: true, instantDebounceInMs: 100 });
-
+    async () => {
+      const { input, listener, wrapper } = renderSearchInput();
       const query = 'pulpo';
-      mockedSearchInput.vm.$x.on('UserAcceptedAQuery').subscribe(listener);
+      XPlugin.bus.on('UserAcceptedAQuery').subscribe(listener);
+
+      await wrapper.setProps({ instant: true, instantDebounceInMs: 100 });
 
       input.value = query;
-      mockedSearchInput.trigger('input');
+      await wrapper.trigger('input');
       expect(listener).not.toHaveBeenCalledWith(query);
+
       jest.advanceTimersByTime(100);
       expect(listener).toHaveBeenCalledWith(query);
     }
@@ -144,16 +146,19 @@ describe('testing search input component', () => {
     'keeps the query empty after clearing it when config.instant is enabled and after the' +
       'config.instantDebounceInMs timeout',
     async () => {
-      mockedSearchInput.setProps({ instant: true, instantDebounceInMs: 100 });
+      const { input, wrapper } = renderSearchInput();
+      await wrapper.setProps({ instant: true, instantDebounceInMs: 100 });
 
       input.value = 'Antananarivo';
-      mockedSearchInput.trigger('input');
+      await wrapper.trigger('input');
+
       jest.advanceTimersByTime(50);
       input.value = '';
-      await mockedSearchInput.trigger('input');
+      await wrapper.trigger('input');
       expect(input.value).toEqual('');
+
       jest.advanceTimersByTime(50);
-      await mockedSearchInput.vm.$nextTick();
+      await nextTick();
       expect(input.value).toEqual('');
     }
   );
@@ -161,19 +166,22 @@ describe('testing search input component', () => {
   it(
     'emits UserPressedEnterKey and UserAcceptedAQuery events when the query length is ' +
       'greater than zero and the user pressed the enter key',
-    () => {
+    async () => {
+      const { input, wrapper } = renderSearchInput();
       const enterListener = jest.fn();
       const acceptedQueryListener = jest.fn();
       const query = 'water';
-      mockedSearchInput.vm.$x.on('UserPressedEnterKey', true).subscribe(enterListener);
-      mockedSearchInput.vm.$x.on('UserAcceptedAQuery', true).subscribe(acceptedQueryListener);
 
-      mockedSearchInput.trigger('keydown.enter');
+      XPlugin.bus.on('UserPressedEnterKey', true).subscribe(enterListener);
+      XPlugin.bus.on('UserAcceptedAQuery', true).subscribe(acceptedQueryListener);
+
+      await wrapper.trigger('keydown.enter');
       expect(enterListener).not.toHaveBeenCalled();
       expect(acceptedQueryListener).not.toHaveBeenCalled();
 
       input.value = query;
-      mockedSearchInput.trigger('keydown.enter');
+      await wrapper.trigger('keydown.enter');
+
       expect(enterListener).toHaveBeenCalledWith({
         eventPayload: query,
         metadata: expect.objectContaining<Partial<WireMetadata>>({
@@ -190,9 +198,30 @@ describe('testing search input component', () => {
   );
 
   it('focus the input when UserPressedClearSearchBoxButton event is emitted', () => {
+    const { input } = renderSearchInput();
     input.blur();
     expect(input).not.toBe(document.activeElement);
-    mockedSearchInput.vm.$x.emit('UserPressedClearSearchBoxButton');
+    XPlugin.bus.emit('UserPressedClearSearchBoxButton');
     expect(input).toBe(document.activeElement);
   });
 });
+
+interface RenderSearchInputOptions {
+  /** Maximum characters allowed in the input search. */
+  maxLength: number;
+  /** Prop to enable autofocus when the search field is rendered. */
+  autofocus: boolean;
+  /** Prop to enable the auto-accept query after debounce. */
+  instant: boolean;
+  /** Debounce time for the instant prop.*/
+  instantDebounceInMs: number;
+}
+
+interface RenderSearchInputAPI {
+  /** The wrapper of the rendered component. */
+  wrapper: VueWrapper;
+  /** The input html element. */
+  input: HTMLInputElement;
+  /** The mocked observed event. */
+  listener: jest.Mock;
+}

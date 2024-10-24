@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
+import { mount, VueWrapper, DOMWrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseTabsPanel from '../base-tabs-panel.vue';
 
@@ -21,11 +21,8 @@ function renderBaseTabsPanel({
   tabClass,
   tabsListClass
 }: RenderBaseTabsPanelOptions = {}): RenderBaseTabsPanelAPI {
-  const localVue = createLocalVue();
-
   const wrapper = mount(BaseTabsPanel, {
-    localVue,
-    propsData: {
+    props: {
       activeTabClass,
       allowTabDeselect,
       contentClass,
@@ -33,7 +30,7 @@ function renderBaseTabsPanel({
       tabClass,
       tabsListClass
     },
-    scopedSlots: {
+    slots: {
       ...slots,
       ...tabs
     }
@@ -42,8 +39,8 @@ function renderBaseTabsPanel({
   return {
     wrapper,
     clickNthTab: (nth: number) => {
-      wrapper.findAll(getDataTestSelector('base-tabs-panel-button')).at(nth).trigger('click');
-      return localVue.nextTick();
+      wrapper.findAll(getDataTestSelector('base-tabs-panel-button')).at(nth)?.trigger('click');
+      return nextTick();
     },
     getBaseTabsPanel: () => wrapper.find(getDataTestSelector('base-tabs-panel')),
     getTabPanel: () => wrapper.find(getDataTestSelector('base-tabs-panel-content')),
@@ -55,7 +52,6 @@ function renderBaseTabsPanel({
 describe('testing BaseTabsPanel', () => {
   it('does not render anything when no tabs are defined in the template', () => {
     const { getBaseTabsPanel } = renderBaseTabsPanel();
-
     expect(getBaseTabsPanel().exists()).toBe(false);
   });
 
@@ -140,7 +136,7 @@ describe('testing BaseTabsPanel', () => {
     });
 
     expect(getTabsButtons()).toHaveLength(1);
-    expect(getTabsButtons().at(0).text()).toBe('summer');
+    expect(getTabsButtons().at(0)?.text()).toBe('summer');
   });
 
   it('renders a custom `tab` slot properly', async () => {
@@ -158,11 +154,11 @@ describe('testing BaseTabsPanel', () => {
     });
 
     expect(getTabsButtons()).toHaveLength(1);
-    expect(getTabsButtons().at(0).text()).toBe('custom summer tab');
+    expect(getTabsButtons().at(0)?.text()).toBe('custom summer tab');
 
     // Select first tab
     await clickNthTab(0);
-    expect(getTabsButtons().at(0).text()).toBe('custom summer tab ✅');
+    expect(getTabsButtons().at(0)?.text()).toBe('custom summer tab ✅');
   });
 
   it('renders a custom `tab-content` slot properly', async () => {
@@ -178,11 +174,11 @@ describe('testing BaseTabsPanel', () => {
     });
 
     expect(getTabsButtons()).toHaveLength(1);
-    expect(getTabsButtons().at(0).text()).toBe('custom summer tab content');
+    expect(getTabsButtons().at(0)?.text()).toBe('custom summer tab content');
 
     // Select first tab
     await clickNthTab(0);
-    expect(getTabsButtons().at(0).text()).toBe('custom summer tab content ✅');
+    expect(getTabsButtons().at(0)?.text()).toBe('custom summer tab content ✅');
   });
 
   it('changes the selected tab on click', async () => {
@@ -197,13 +193,13 @@ describe('testing BaseTabsPanel', () => {
     });
 
     // First tab is selected initially
-    expect(getTabsButtons().at(0).element).toHaveClass('selected-tab');
-    expect(getTabsButtons().at(0).element).toHaveAttribute('aria-selected', 'true');
+    expect(getTabsButtons().at(0)?.element).toHaveClass('selected-tab');
+    expect(getTabsButtons().at(0)?.element).toHaveAttribute('aria-selected', 'true');
 
     // Select third tab
     await clickNthTab(2);
-    expect(getTabsButtons().at(2).element).toHaveClass('selected-tab');
-    expect(getTabsButtons().at(2).element).toHaveAttribute('aria-selected', 'true');
+    expect(getTabsButtons().at(2)?.element).toHaveClass('selected-tab');
+    expect(getTabsButtons().at(2)?.element).toHaveAttribute('aria-selected', 'true');
 
     // The third panel is the rendered one
     expect(getTabPanel().text()).toBe('Top Outlet sales');
@@ -221,13 +217,13 @@ describe('testing BaseTabsPanel', () => {
     });
 
     // First tab is selected initially
-    expect(getTabsButtons().at(0).element).toHaveClass('selected-tab');
-    expect(getTabsButtons().at(0).element).toHaveAttribute('aria-selected', 'true');
+    expect(getTabsButtons().at(0)?.element).toHaveClass('selected-tab');
+    expect(getTabsButtons().at(0)?.element).toHaveAttribute('aria-selected', 'true');
 
     // Select again first tab
     await clickNthTab(0);
-    expect(getTabsButtons().at(0).element).toHaveClass('selected-tab');
-    expect(getTabsButtons().at(0).element).toHaveAttribute('aria-selected', 'true');
+    expect(getTabsButtons().at(0)?.element).toHaveClass('selected-tab');
+    expect(getTabsButtons().at(0)?.element).toHaveAttribute('aria-selected', 'true');
 
     // The first panel is the rendered one
     expect(getTabPanel().text()).toBe('Top Summer sales');
@@ -246,13 +242,13 @@ describe('testing BaseTabsPanel', () => {
     });
 
     // First tab is selected initially
-    expect(getTabsButtons().at(0).element).toHaveClass('selected-tab');
-    expect(getTabsButtons().at(0).element).toHaveAttribute('aria-selected', 'true');
+    expect(getTabsButtons().at(0)?.element).toHaveClass('selected-tab');
+    expect(getTabsButtons().at(0)?.element).toHaveAttribute('aria-selected', 'true');
 
     // Select again first tab
     await clickNthTab(0);
-    expect(getTabsButtons().at(0).element).not.toHaveClass('selected-tab');
-    expect(getTabsButtons().at(0).element).not.toHaveAttribute('aria-selected', 'true');
+    expect(getTabsButtons().at(0)?.element).not.toHaveClass('selected-tab');
+    expect(getTabsButtons().at(0)?.element).not.toHaveAttribute('aria-selected', 'true');
 
     // The panel is not rendered
     expect(getTabPanel().exists()).toBe(false);
@@ -271,8 +267,8 @@ describe('testing BaseTabsPanel', () => {
       tabsListClass: 'tabs-list'
     });
 
-    expect(getTabsButtons().at(0).element).toHaveClass('selected-tab');
-    expect(getTabsButtons().at(1).element).toHaveClass('tab-button');
+    expect(getTabsButtons().at(0)?.element).toHaveClass('selected-tab');
+    expect(getTabsButtons().at(1)?.element).toHaveClass('tab-button');
     expect(getTabPanel().element).toHaveClass('tab-panel');
     expect(getTabsList().element).toHaveClass('tabs-list');
   });
@@ -299,15 +295,15 @@ interface RenderBaseTabsPanelOptions {
 
 interface RenderBaseTabsPanelAPI {
   /** The Vue testing utils wrapper for the {@link BaseTabsPanel}. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** Clicks the nth tab button and waits for the view to update. */
   clickNthTab: (nth: number) => Promise<void>;
   /** Returns the BaseTabsPanel. */
-  getBaseTabsPanel: () => Wrapper<Vue>;
+  getBaseTabsPanel: () => DOMWrapper<Element>;
   /** Returns the selected tab panel. */
-  getTabPanel: () => Wrapper<Vue>;
+  getTabPanel: () => DOMWrapper<Element>;
   /** Returns the tabs buttons. */
-  getTabsButtons: () => WrapperArray<Vue>;
+  getTabsButtons: () => DOMWrapper<Element>[];
   /** Returns the tabs list. */
-  getTabsList: () => Wrapper<Vue>;
+  getTabsList: () => DOMWrapper<Element>;
 }

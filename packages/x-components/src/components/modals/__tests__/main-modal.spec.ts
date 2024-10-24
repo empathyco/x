@@ -1,9 +1,10 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { DOMWrapper, mount, VueWrapper } from '@vue/test-utils';
+import { defineComponent, nextTick } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import MainModal from '../main-modal.vue';
 import { PropsWithType } from '../../../utils/types';
-import { XEventsTypes } from '../../../wiring/events.types';
+import { XEventsTypes } from '../../../wiring';
+import { XPlugin } from '../../../plugins';
 
 /**
  * Renders a {@link MainModal} component with the provided options and offers an API to easily
@@ -15,20 +16,20 @@ import { XEventsTypes } from '../../../wiring/events.types';
 function renderMainModal({
   template = '<MainModal/>'
 }: RenderMainModalOptions = {}): RenderMainModalAPI {
-  const [, localVue] = installNewXPlugin();
   const parent = document.createElement('div');
   document.body.appendChild(parent);
-
-  const wrapper = mount(
-    {
-      template,
-      components: { MainModal }
+  const containerWrapper = defineComponent({
+    components: {
+      MainModal
     },
-    {
-      attachTo: parent, // necessary to make the focus on body event to work in some environments.
-      localVue
-    }
-  );
+
+    template,
+    global: { plugins: [installNewXPlugin()] },
+    attachTo: parent // necessary to make the focus on body event to work in some environments.
+  });
+  const wrapper = mount(containerWrapper, {
+    global: { plugins: [installNewXPlugin()] }
+  });
 
   return {
     wrapper,
@@ -36,8 +37,8 @@ function renderMainModal({
       await wrapper.find(getDataTestSelector('modal-overlay'))?.trigger('click');
     },
     async emit(event) {
-      wrapper.vm.$x.emit(event);
-      await localVue.nextTick();
+      await XPlugin.bus.emit(event);
+      await nextTick();
     },
     getModalContent() {
       return wrapper.find(getDataTestSelector('modal-content'));
@@ -45,7 +46,7 @@ function renderMainModal({
     async focusOutOfModal() {
       jest.runAllTimers();
       document.body.dispatchEvent(new FocusEvent('focusin'));
-      await localVue.nextTick();
+      await nextTick();
     }
   };
 }
@@ -127,7 +128,7 @@ interface RenderMainModalOptions {
 
 interface RenderMainModalAPI {
   /** The wrapper for the modal component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** Fakes a click on the modal overlay. */
   clickModalOverlay: () => Promise<void>;
   /** Emits the provided event. */
@@ -135,5 +136,5 @@ interface RenderMainModalAPI {
   /** Fakes a focusin event in another HTMLElement of the body. */
   focusOutOfModal: () => Promise<void>;
   /** Retrieves the modal content. */
-  getModalContent: () => Wrapper<Vue>;
+  getModalContent: () => DOMWrapper<Element>;
 }

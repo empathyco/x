@@ -1,8 +1,5 @@
 <template>
-  <!-- eslint-disable vue/attributes-order -->
   <transition
-    v-bind="$attrs"
-    v-on="$listeners"
     @enter="expand"
     @after-enter="cleanUpAnimationStyles"
     @leave="collapse"
@@ -26,7 +23,6 @@
    */
   export default defineComponent({
     name: 'CollapseHeight',
-    inheritAttrs: false,
     props: {
       /**
        * Indicates if the transition must be applied on the initial render of the node.
@@ -43,13 +39,11 @@
   });
 </script>
 
-<style lang="scss" scoped>
-  .x-collapse-height {
-    &--enter-active,
-    &--leave-active {
-      transition: height 0.3s ease-out;
-      overflow: hidden;
-    }
+<style lang="css">
+  .x-collapse-height--enter-active,
+  .x-collapse-height--leave-active {
+    transition: height 0.3s ease-out;
+    overflow: hidden;
   }
 </style>
 

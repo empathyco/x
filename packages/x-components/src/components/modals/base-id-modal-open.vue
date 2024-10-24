@@ -1,27 +1,17 @@
 <template>
-  <NoElement>
-    <!--
-      @slot opening-element. It's the element that will trigger the modal opening. It's a
-      button by default.
-        @binding {Function} openModal - The function to open the modal.
-    -->
-    <slot :openModal="emitOpenModalEvent" name="opening-element">
-      <button
-        @click="emitOpenModalEvent"
-        class="x-events-modal-id-open-button x-button"
-        data-test="open-modal-id"
-      >
-        <!-- @slot (Required) Button content with a text, an icon or both -->
-        <slot />
-      </button>
-    </slot>
-  </NoElement>
+  <button
+    @click="openModal"
+    class="x-events-modal-id-open-button x-button"
+    data-test="open-modal-id"
+  >
+    <!-- @slot (Required) Button content with a text, an icon or both -->
+    <slot />
+  </button>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { NoElement } from '../no-element';
-  import { use$x } from '../../composables/index';
+  import { use$x } from '../../composables';
 
   /**
    * Component that allows to open a modal by emitting {@link XEventsTypes.UserClickedOpenModal}
@@ -31,34 +21,32 @@
    * @public
    */
   export default defineComponent({
-    components: { NoElement },
+    name: 'BaseIdModalOpen',
     props: {
-      /**
-       * The modalId of the modal that will be opened.
-       *
-       * @public
-       */
+      /** The modalId of the modal that will be opened. */
       modalId: {
         type: String,
         required: true
       }
     },
-    setup(props) {
+    setup(props, { slots }) {
       const $x = use$x();
 
       /**
        * Emits the {@link XEventsTypes.UserClickedOpenModal} event with the modalId as payload.
        *
        * @param event - The event triggering the function.
-       * @public
        */
-      const emitOpenModalEvent = ({ target }: Event): void => {
+      function openModal({ target }: Event) {
         $x.emit('UserClickedOpenModal', props.modalId, { target: target as HTMLElement });
-      };
+      }
 
-      return {
-        emitOpenModalEvent
-      };
+      /* Hack to render through a render-function, the `opening-element` slot or, in its absence,
+       the component itself. It is the alternative for the NoElement antipattern. */
+      const innerProps = { openModal };
+      return (
+        slots['opening-element'] ? () => slots['opening-element']?.(innerProps)[0] : innerProps
+      ) as typeof innerProps;
     }
   });
 </script>

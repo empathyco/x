@@ -1,5 +1,5 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store, StoreOptions } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store, StoreOptions } from 'vuex';
 import { getBannersStub } from '../../../../__stubs__/banners-stubs.factory';
 //eslint-disable-next-line max-len
 import { getEmptySearchResponseStub } from '../../../../__stubs__/empty-search-response-stubs.factory';
@@ -28,14 +28,17 @@ describe('testing search module actions', () => {
 
   const adapter = getMockedAdapter({ search: searchResponseStub });
 
-  const localVue = createLocalVue();
-  localVue.config.productionTip = false; // Silent production console messages.
-  localVue.use(Vuex);
-
   const store: SafeStore<SearchState, SearchGetters, SearchMutations, SearchActions> = new Store(
     searchXStoreModule as unknown as StoreOptions<SearchState>
   );
-  installNewXPlugin({ adapter, store }, localVue);
+  mount(
+    {},
+    {
+      global: {
+        plugins: [installNewXPlugin({ adapter, store })]
+      }
+    }
+  );
 
   beforeEach(() => {
     resetSearchStateWith(store);

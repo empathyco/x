@@ -1,14 +1,17 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import SortList from '../sort-list.vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { XPlugin } from '../../../../plugins/x-plugin';
 import { searchXModule } from '../../x-module';
+import { XDummyBus } from '../../../../__tests__/bus.dummy';
 import { resetXSearchStateWith } from './utils';
+
+const bus = new XDummyBus();
 
 function renderSortList({
   template = `
@@ -20,18 +23,7 @@ function renderSortList({
   items = ['default', 'Price low to high', 'Price high to low'],
   selectedSort = items[0]
 }: Partial<{ template?: string; items?: any[]; selectedSort?: any }> = {}) {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-
-  installNewXPlugin({ store }, localVue);
-  XPlugin.registerXModule(searchXModule);
-  resetXSearchStateWith(store, { sort: selectedSort });
-
-  const onSelectedSortProvided = jest.fn();
-  XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided);
-  const onUserClickedASort = jest.fn();
-  XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort);
 
   const wrapper = mount(
     {
@@ -40,11 +32,20 @@ function renderSortList({
       props: ['items']
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] }, bus)]
+      },
       store,
-      propsData: { items }
+      props: { items }
     }
   );
+
+  resetXSearchStateWith(store, { sort: selectedSort });
+
+  const onSelectedSortProvided = jest.fn();
+  XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided);
+  const onUserClickedASort = jest.fn();
+  XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort);
 
   const sortList = wrapper.findComponent(SortList);
 
@@ -55,7 +56,7 @@ function renderSortList({
     getButton: (index: number) => wrapper.vm.$el.children[index].children[0] as HTMLElement,
     getSelectedItem: () => sortList.get('.x-sort-list__item--is-selected'),
     clickNthItem: async (index: number) => {
-      await sortList.findAll(getDataTestSelector('x-sort-button')).at(index).trigger('click');
+      await sortList.findAll(getDataTestSelector('x-sort-button')).at(index)?.trigger('click');
       await nextTick();
     }
   };
@@ -92,10 +93,11 @@ describe('testing SortList component', () => {
     expect(getSelectedItem().text()).toEqual('offer');
   });
 
-  it('emits the first element of the `items` prop as the provided sort', () => {
+  it('emits the first element of the `items` prop as the provided sort', async () => {
     const { onSelectedSortProvided } = renderSortList();
 
     expect(onSelectedSortProvided).toHaveBeenCalledTimes(1);
+    await nextTick();
     expect(onSelectedSortProvided).toHaveBeenCalledWith({
       eventPayload: 'default',
       // This event gets emitted immediately, before the component has been mounted

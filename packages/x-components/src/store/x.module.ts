@@ -16,27 +16,7 @@ export type XModuleState = { [Key in keyof RootXStoreState['x']]: null };
  *
  * @internal
  */
-export const RootXStoreModule: Module<XModuleState, any> = {
-  state: () => ({
-    device: null,
-    empathize: null,
-    extraParams: null,
-    facets: null,
-    historyQueries: null,
-    identifierResults: null,
-    nextQueries: null,
-    popularSearches: null,
-    queriesPreview: null,
-    querySuggestions: null,
-    recommendations: null,
-    relatedTags: null,
-    scroll: null,
-    search: null,
-    searchBox: null,
-    semanticQueries: null,
-    tagging: null,
-    url: null,
-    experienceControls: null
-  }),
+export const RootXStoreModule: Module<any, any> = {
+  state: () => ({}),
   namespaced: true
 };

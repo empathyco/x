@@ -10,7 +10,6 @@
     @keydown.enter="emitUserPressedEnterKey"
     @keydown.up.down.prevent="emitUserPressedArrowKey"
     @beforeinput="preventSpecialKey"
-    v-on="$listeners"
     :maxlength="maxLength"
     :value="query"
     autocomplete="off"
@@ -281,7 +280,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-search-input::-webkit-search-decoration,
   .x-search-input::-webkit-search-cancel-button,
   .x-search-input::-webkit-search-results-button,

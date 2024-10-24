@@ -1,4 +1,4 @@
-import { Store } from 'vuex';
+import { Dictionary } from '@empathyco/x-utils';
 import { RootXStoreState, StoreModuleStateAndGetters } from '../store/store.types';
 import { getGettersProxy } from '../store/utils/getters-proxy.utils';
 import { ExtractState, XModuleName } from '../x-modules/x-modules.types';
@@ -31,7 +31,7 @@ export function createWiring<T extends Partial<Wiring>>(wiring: T): T {
  */
 export function getStateAndGettersFromModule<ModuleName extends XModuleName>(
   state: RootXStoreState,
-  getters: Pick<Store<any>, 'getters'>,
+  getters: Dictionary,
   moduleName: ModuleName
 ): StoreModuleStateAndGetters<ModuleName> {
   return {

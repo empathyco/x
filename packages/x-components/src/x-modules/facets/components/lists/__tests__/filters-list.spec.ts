@@ -1,23 +1,14 @@
-import { Filter } from '@empathyco/x-types';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
+import { SimpleFilter } from '@empathyco/x-types';
+import { mount } from '@vue/test-utils';
+import { createSimpleFacetStub } from '../../../../../__stubs__';
 import { getDataTestSelector } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import FiltersList from '../filters-list.vue';
 
-/**
- * Function that returns a Filters wrapper.
- *
- * @param filters - Filters filters props.
- * @returns FiltersList vue-test-utils wrapper.
- */
 function renderFilters({
-  filters = [],
+  filters = [] as SimpleFilter[],
   template = '<Filters :filters="filters"></Filters>'
-}: RenderFiltersOptions = {}): RenderFiltersAPI {
-  const localVue = createLocalVue();
-
+} = {}) {
   const wrapperTemplate = mount(
     {
       props: ['filters'],
@@ -27,8 +18,7 @@ function renderFilters({
       template
     },
     {
-      localVue,
-      propsData: { filters }
+      props: { filters }
     }
   );
 
@@ -68,29 +58,14 @@ describe('testing Filters component', () => {
       filters,
       template: `
         <Filters :filters="filters" #default="{ filter }">
-        <p>{{ filter.label }}</p>
+          <p>{{ filter.label }}</p>
         </Filters>
       `
     });
 
     const liWrappers = wrapper.findAll(getDataTestSelector('base-filters-item'));
     filters.forEach((filter, index) => {
-      expect(liWrappers.at(index).text()).toContain(filter.label);
+      expect(liWrappers.at(index)?.text()).toContain(filter.label);
     });
   });
 });
-
-interface RenderFiltersOptions {
-  /** The filters data to render. */
-  filters?: Filter[];
-  /** The template to render. Receives the `filters` via prop, and has registered the
-   * {@link FiltersComponent} as `Filters`. */
-  template?: string;
-}
-
-interface RenderFiltersAPI {
-  /** The rendered filters data. */
-  filters: Filter[];
-  /** The Vue testing utils wrapper for the {@link FiltersComponent}. */
-  wrapper: Wrapper<Vue>;
-}

@@ -66,8 +66,8 @@
 
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
-  import { NoElement } from '../no-element';
   import { AnimationProp } from '../../types';
+  import { NoAnimation } from '../animations';
 
   /**
    * Base Tabs Panel.
@@ -93,7 +93,7 @@
        */
       contentAnimation: {
         type: AnimationProp,
-        default: () => NoElement
+        default: () => NoAnimation
       },
       /**
        * The tab to be initially selected.
@@ -177,7 +177,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-tabs-panel__items-list {
     display: flex;
   }

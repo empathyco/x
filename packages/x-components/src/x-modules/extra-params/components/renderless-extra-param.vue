@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { computed, defineComponent, h } from 'vue';
+  import { computed, defineComponent } from 'vue';
   import { extraParamsXModule } from '../x-module';
   import { useState } from '../../../composables/use-state';
   import { useXBus } from '../../../composables/use-x-bus';
@@ -26,7 +26,7 @@
       const stateParams = useState('extraParams', ['params']).params;
 
       /** It returns the value of the extra param from the store. */
-      const value = computed(() => stateParams.value[props.name]);
+      const extraParam = computed(() => stateParams.value[props.name]);
 
       /**
        * It sets the new value to the store.
@@ -37,7 +37,7 @@
         xBus.emit('UserChangedExtraParams', { [props.name]: newValue });
       }
 
-      return () => slots.default?.({ value, updateValue })[0] ?? h();
+      return () => slots.default?.({ value: extraParam.value, updateValue })[0] ?? '';
     }
   });
 </script>

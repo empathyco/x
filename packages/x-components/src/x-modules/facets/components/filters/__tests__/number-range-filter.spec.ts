@@ -4,7 +4,7 @@ import { createNumberRangeFilter } from '../../../../../__stubs__/filters-stubs.
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import NumberRangeFilter from '../number-range-filter.vue';
-import { XPlugin } from '../../../../../plugins/index';
+import { XPlugin } from '../../../../../plugins';
 
 const metadata = {
   moduleName: 'facets',
@@ -17,29 +17,26 @@ function render({
   filter = ref(createNumberRangeFilter('price', { min: 0, max: 20 })),
   clickEvents = {}
 } = {}) {
-  installNewXPlugin();
-
   const wrapper = mount(
     {
       components: { NumberRangeFilter },
-      props: ['filter', 'clickEvents'],
       template
     },
     {
-      propsData: {
-        filter,
-        clickEvents
-      }
+      data: () => ({ filter, clickEvents }),
+      global: { plugins: [installNewXPlugin()] }
     }
   );
 
   const filterWrapper = wrapper.findComponent(NumberRangeFilter);
+  const buttonWrapper = filterWrapper.find(getDataTestSelector('filter'));
 
   return {
     wrapper: filterWrapper,
     emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     filter,
-    clickFilter: () => wrapper.trigger('click'),
+    buttonWrapper,
+    clickFilter: () => buttonWrapper.trigger('click'),
     selectFilter: () => {
       filter.value.selected = true;
       return nextTick();
@@ -99,14 +96,14 @@ describe('testing NumberRangeFilter component', () => {
   });
 
   it('adds selected classes to the rendered element when the filter is selected', async () => {
-    const { wrapper, selectFilter } = render();
+    const { buttonWrapper, selectFilter } = render();
 
-    expect(wrapper.classes()).not.toContain('x-selected');
-    expect(wrapper.classes()).not.toContain('x-number-range-filter--is-selected');
+    expect(buttonWrapper.classes()).not.toContain('x-selected');
+    expect(buttonWrapper.classes()).not.toContain('x-number-range-filter--is-selected');
 
     await selectFilter();
 
-    expect(wrapper.classes()).toContain('x-selected');
-    expect(wrapper.classes()).toContain('x-number-range-filter--is-selected');
+    expect(buttonWrapper.classes()).toContain('x-selected');
+    expect(buttonWrapper.classes()).toContain('x-number-range-filter--is-selected');
   });
 });

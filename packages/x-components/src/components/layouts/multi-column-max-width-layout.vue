@@ -2,24 +2,24 @@
   <div
     class="x-layout x-layout--columns"
     :class="{ 'dev-mode': devMode }"
-    :style="{ height: hasContent('main-body') ? '100%' : 'auto' }"
+    :style="{ height: devMode || $slots['main-body'] ? '100%' : 'auto' }"
   >
     <header class="x-layout__header">
-      <div v-if="hasContent('header-start')" class="x-list x-layout__header-start">
+      <div v-if="devMode || $slots['header-start']" class="x-list x-layout__header-start">
         <!-- @slot Slot that can be used to insert content into the left part of the header. -->
         <slot name="header-start">
           <span v-if="devMode" class="slot-helper">HEADER START</span>
         </slot>
       </div>
 
-      <div v-if="hasContent('header-middle')" class="x-list x-layout__header-middle">
+      <div v-if="devMode || $slots['header-middle']" class="x-list x-layout__header-middle">
         <!-- @slot Slot that can be used to insert content into the center part of the header. -->
         <slot name="header-middle">
           <span v-if="devMode" class="slot-helper">HEADER MIDDLE</span>
         </slot>
       </div>
 
-      <div v-if="hasContent('header-end')" class="x-list x-layout__header-end">
+      <div v-if="devMode || $slots['header-end']" class="x-list x-layout__header-end">
         <!-- @slot Slot that can be used to insert content into the right part of the header. -->
         <slot name="header-end">
           <span v-if="devMode" class="slot-helper">HEADER END</span>
@@ -27,7 +27,7 @@
       </div>
     </header>
 
-    <div v-if="hasContent('sub-header')" class="x-layout__sub-header">
+    <div v-if="devMode || $slots['sub-header']" class="x-layout__sub-header">
       <div class="x-layout__sub-header-content">
         <!-- @slot Slot that can be used to insert content into below the header. -->
         <slot name="sub-header">
@@ -36,7 +36,10 @@
       </div>
     </div>
 
-    <section v-if="hasContent('toolbar-aside', 'toolbar-body')" class="x-layout__toolbar">
+    <section
+      v-if="devMode || $slots['toolbar-aside'] || $slots['toolbar-body']"
+      class="x-layout__toolbar"
+    >
       <aside class="x-list x-layout__toolbar-aside">
         <slot name="toolbar-aside">
           <!-- @slot Slot that can be used to insert content above the left aside. -->
@@ -54,7 +57,7 @@
 
     <main class="x-layout__main">
       <BaseIdTogglePanel
-        v-if="hasContent('main-aside')"
+        v-if="devMode || $slots['main-aside']"
         panelId="aside-panel"
         :animation="asideAnimation"
         class="x-layout__collapse-aside"
@@ -70,7 +73,11 @@
       </BaseIdTogglePanel>
 
       <MainScroll class="x-flex x-flex-auto">
-        <Scroll v-if="hasContent('main-body')" id="main-scroll" class="x-layout__body-scroll">
+        <Scroll
+          v-if="devMode || $slots['main-body']"
+          id="main-scroll"
+          class="x-layout__body-scroll"
+        >
           <section class="x-layout__main-body x-list x-list--vertical">
             <!-- @slot Slot that can be used to insert the body content. -->
             <slot name="main-body">
@@ -81,7 +88,7 @@
       </MainScroll>
     </main>
 
-    <div v-if="hasContent('scroll-to-top')" class="x-layout__scroll-to-top">
+    <div v-if="devMode || $slots['scroll-to-top']" class="x-layout__scroll-to-top">
       <div class="x-layout__scroll-to-top-content">
         <slot name="scroll-to-top">
           <span v-if="devMode" class="slot-helper" style="height: 50px">SCROLL TO TOP</span>
@@ -92,14 +99,12 @@
 </template>
 
 <script lang="ts">
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  import Vue, { defineComponent } from 'vue';
+  import { defineComponent } from 'vue';
   import Scroll from '../../x-modules/scroll/components/scroll.vue';
   import MainScroll from '../../x-modules/scroll/components/main-scroll.vue';
   import AnimateWidth from '../animations/animate-width.vue';
   import BaseIdTogglePanel from '../panels/base-id-toggle-panel.vue';
   import { AnimationProp } from '../../types';
-  import { useLayouts } from './use-layouts';
 
   /**
    * Component for use as Layout to be filled with the rest of the Components.
@@ -112,54 +117,38 @@
     name: 'MultiColumnMaxWidthLayout',
     components: { BaseIdTogglePanel, MainScroll, Scroll },
     props: {
-      /**
-       * The animation used for the Main Aside.
-       *
-       * @public
-       */
+      /** The animation used for the Main Aside. */
       asideAnimation: {
         type: AnimationProp,
         default: () => AnimateWidth
       },
-      /**
-       * Enables the devMode, which shows the available slots to use with its names.
-       *
-       * @public
-       */
-      devMode: {
-        type: Boolean,
-        default: false
-      }
-    },
-    setup: function (props, { slots }) {
-      const { hasContent } = useLayouts(props.devMode, slots);
-
-      return { hasContent };
+      /** Enables the devMode, which shows the available slots to use with its names. */
+      devMode: Boolean
     }
   });
 </script>
 
-<style lang="scss">
+<style lang="css">
   :root {
-    //layout
+    /* layout */
     --x-size-min-margin-layout-columns: var(--x-size-base-06);
     --x-size-column-gap-layout-columns: var(--x-size-base-06);
 
-    //spacing
+    /* spacing */
 
-    // size - header
+    /* size - header */
     --x-size-padding-top-layout-columns-header: var(--x-size-base-07);
     --x-size-padding-bottom-layout-columns-header: var(--x-size-base-05);
 
-    // size - toolbar
+    /* size - toolbar */
     --x-size-padding-top-layout-columns-toolbar: var(--x-size-base-05);
     --x-size-padding-bottom-layout-columns-toolbar: var(--x-size-base-03);
 
-    // size- scroll-to-top
+    /* size- scroll-to-top */
     --x-size-margin-bottom-layout-columns-scroll-to-top: var(--x-size-base-03);
     --x-size-margin-left-layout-columns-scroll-to-top: var(--x-size-base-03);
 
-    // color
+    /* color */
     --x-color-background-layout-columns: var(--x-color-base-neutral-100);
     --x-color-border-layout-columns: var(--x-color-base-neutral-70);
     --x-color-border-layout-columns-header: var(--x-color-border-layout-columns);
@@ -169,17 +158,17 @@
     --x-color-border-layout-columns-main-aside: var(--x-color-border-layout-columns);
     --x-color-border-layout-columns-main-body: var(--x-color-border-layout-columns);
 
-    // border
+    /* border */
     --x-size-border-width-layout-columns-header: 0;
     --x-size-border-width-layout-columns-toolbar: 1px 0 0;
   }
 </style>
 
-<style lang="scss" scoped>
-  @import '../../design-system-deprecated/utilities/dev-mode';
+<style lang="css" scoped>
+  @import url('../../design-system-deprecated/utilities/dev-mode.css');
 
   .x-layout {
-    // custom properties
+    /* custom properties */
     --x-size-gap-default: var(--x-size-column-gap-layout-columns, 20px);
     --x-size-margin-max-width: calc((100vw - var(--x-size-max-width-layout-columns, 1440px)) / 2);
     --x-size-margin-layout-columns: max(
@@ -190,7 +179,7 @@
     --x-number-columns-sub-header-content: var(--x-number-columns-header-middle);
     --x-number-columns-toolbar-body: calc(var(--x-number-columns-layout-columns, 5) - 1);
 
-    // layout
+    /* layout */
     display: grid;
     align-content: stretch;
     max-height: 100%;
@@ -214,244 +203,235 @@
       [scroll-to-top-start]
       auto
       [main-end scroll-to-top-end page-end];
+  }
 
-    &__header {
-      // layout
-      grid-column: page;
-      grid-row: header;
-      display: grid;
-      column-gap: var(--x-size-gap-default);
+  .x-layout__header {
+    /* layout */
+    grid-column: page;
+    grid-row: header;
+    display: grid;
+    column-gap: var(--x-size-gap-default);
 
-      grid-template-columns:
-        [header-start]
-        var(--x-size-margin-layout-columns)
-        [start-content-start]
-        1fr
-        [start-content-end middle-content-start]
-        repeat(var(--x-number-columns-header-middle), 1fr)
-        [middle-content-end end-content-start]
-        1fr
-        [end-content-end]
-        var(--x-size-margin-layout-columns)
-        [header-end];
+    grid-template-columns:
+      [header-start]
+      var(--x-size-margin-layout-columns)
+      [start-content-start]
+      1fr
+      [start-content-end middle-content-start]
+      repeat(var(--x-number-columns-header-middle), 1fr)
+      [middle-content-end end-content-start]
+      1fr
+      [end-content-end]
+      var(--x-size-margin-layout-columns)
+      [header-end];
 
-      // size
-      padding-block-start: var(--x-size-padding-top-layout-columns-header, 0);
-      padding-block-end: var(--x-size-padding-bottom-layout-columns-header, 0);
-      margin-block-start: var(--x-size-margin-top-layout-columns-header, 0);
-      margin-block-end: var(--x-size-margin-bottom-layout-columns-header, 0);
+    /* size */
+    padding-block-start: var(--x-size-padding-top-layout-columns-header, 0);
+    padding-block-end: var(--x-size-padding-bottom-layout-columns-header, 0);
+    margin-block-start: var(--x-size-margin-top-layout-columns-header, 0);
+    margin-block-end: var(--x-size-margin-bottom-layout-columns-header, 0);
 
-      // color
-      background-color: var(--x-color-background-layout-columns-header, transparent);
-      border-color: var(--x-color-border-layout-columns-header, transparent);
+    /* color */
+    background-color: var(--x-color-background-layout-columns-header, transparent);
+    border-color: var(--x-color-border-layout-columns-header, transparent);
 
-      // border
-      border-style: solid;
-      border-width: var(--x-size-border-width-layout-columns-header, 0);
-    }
+    /* border */
+    border-style: solid;
+    border-width: var(--x-size-border-width-layout-columns-header, 0);
+  }
 
-    &__header-start {
-      // layout
-      grid-column: start-content;
+  .x-layout__header-start {
+    /* layout */
+    grid-column: start-content;
+  }
+  .x-layout__header-start.x-list {
+    /* space */
+    flex-flow: var(--x-flow-layout-columns-header-start, row nowrap);
+    justify-content: var(--x-size-justify-layout-columns-header-start, flex start);
+    align-items: var(--x-size-align-layout-columns-header-start, flex start);
+  }
 
-      &.x-list {
-        // space
-        flex-flow: var(--x-flow-layout-columns-header-start, row nowrap);
-        justify-content: var(--x-size-justify-layout-columns-header-start, flex start);
-        align-items: var(--x-size-align-layout-columns-header-start, flex start);
-      }
-    }
+  .x-layout__header-middle {
+    /* layout */
+    grid-column: middle-content;
+  }
+  .x-layout__header-middle.x-list {
+    /* space */
+    flex-flow: var(--x-flow-layout-columns-header-middle, row nowrap);
+    justify-content: var(--x-size-justify-layout-columns-header-middle, center);
+    align-items: var(--x-size-align-layout-columns-header-middle, flex start);
+  }
 
-    &__header-middle {
-      // layout
-      grid-column: middle-content;
+  .x-layout__header-end {
+    /* layout */
+    grid-column: end-content;
+  }
+  .x-layout__header-end.x-list {
+    flex-flow: var(--x-flow-layout-columns-header-end, row nowrap);
+    justify-content: var(--x-size-justify-layout-columns-header-end, flex-end);
+    align-items: var(--x-size-align-layout-columns-header-end, flex-start);
+  }
 
-      &.x-list {
-        // space
-        flex-flow: var(--x-flow-layout-columns-header-middle, row nowrap);
-        justify-content: var(--x-size-justify-layout-columns-header-middle, center);
-        align-items: var(--x-size-align-layout-columns-header-middle, flex start);
-      }
-    }
+  .x-layout__sub-header {
+    /* layout */
+    grid-column: page;
+    grid-row: sub-header;
+    display: grid;
+    column-gap: var(--x-size-gap-default);
 
-    &__header-end {
-      // layout
-      grid-column: end-content;
+    grid-template-columns:
+      [sub-header-start]
+      var(--x-size-margin-layout-columns)
+      1fr
+      [sub-header-content-start]
+      repeat(var(--x-number-columns-sub-header-content), 1fr)
+      [sub-header-content-end]
+      1fr
+      var(--x-size-margin-layout-columns)
+      [sub-header-end];
 
-      &.x-list {
-        flex-flow: var(--x-flow-layout-columns-header-end, row nowrap);
-        justify-content: var(--x-size-justify-layout-columns-header-end, flex-end);
-        align-items: var(--x-size-align-layout-columns-header-end, flex-start);
-      }
-    }
+    /* size */
+    padding-block-start: var(--x-size-padding-top-layout-columns-sub-header, 0);
+    padding-block-end: var(--x-size-padding-bottom-layout-columns-sub-header), 0;
+    margin-block-start: var(--x-size-margin-top-layout-columns-sub-header, 0);
+    margin-block-end: var(--x-size-margin-bottom-layout-columns-sub-header, 0);
 
-    &__sub-header {
-      // layout
-      grid-column: page;
-      grid-row: sub-header;
-      display: grid;
-      column-gap: var(--x-size-gap-default);
+    /* color */
+    background-color: var(--x-color-background-layout-columns-sub-header, transparent);
+    border-color: var(--x-color-border-layout-columns-sub-header, transparent);
 
-      grid-template-columns:
-        [sub-header-start]
-        var(--x-size-margin-layout-columns)
-        1fr
-        [sub-header-content-start]
-        repeat(var(--x-number-columns-sub-header-content), 1fr)
-        [sub-header-content-end]
-        1fr
-        var(--x-size-margin-layout-columns)
-        [sub-header-end];
+    /* border */
+    border-style: solid;
+    border-width: var(--x-size-border-width-layout-columns-sub-header, 0);
+  }
 
-      // size
-      padding-block-start: var(--x-size-padding-top-layout-columns-sub-header, 0);
-      padding-block-end: var(--x-size-padding-bottom-layout-columns-sub-header), 0;
-      margin-block-start: var(--x-size-margin-top-layout-columns-sub-header, 0);
-      margin-block-end: var(--x-size-margin-bottom-layout-columns-sub-header, 0);
+  .x-layout__sub-header-content {
+    /* layout */
+    grid-column: sub-header-content;
+  }
+  .x-layout__sub-header-content.x-list {
+    flex-flow: var(--x-flow-layout-columns-sub-header, row nowrap);
+    justify-content: var(--x-size-justify-layout-columns-sub-header, flex-start);
+    align-items: var(--x-size-align-layout-columns-sub-header, flex-start);
+  }
 
-      // color
-      background-color: var(--x-color-background-layout-columns-sub-header, transparent);
-      border-color: var(--x-color-border-layout-columns-sub-header, transparent);
+  .x-layout__toolbar {
+    /* layout */
+    grid-column: page;
+    grid-row: toolbar;
+    display: grid;
+    column-gap: var(--x-size-gap-default);
 
-      // border
-      border-style: solid;
-      border-width: var(--x-size-border-width-layout-columns-sub-header, 0);
-    }
+    grid-template-columns:
+      [toolbar-start]
+      var(--x-size-margin-layout-columns)
+      [toolbar-aside-start]
+      1fr
+      [toolbar-aside-end toolbar-body-start]
+      repeat(var(--x-number-columns-toolbar-body), 1fr)
+      [toolbar-body-end]
+      var(--x-size-margin-layout-columns)
+      [toolbar-end];
 
-    &__sub-header-content {
-      // layout
-      grid-column: sub-header-content;
+    /* size */
+    padding-block-start: var(--x-size-padding-top-layout-columns-toolbar, 0);
+    padding-block-end: var(--x-size-padding-bottom-layout-columns-toolbar, 0);
+    margin-block-start: var(--x-size-margin-top-layout-columns-toolbar, 0);
+    margin-block-end: var(--x-size-margin-bottom-layout-columns-toolbar, 0);
 
-      &.x-list {
-        flex-flow: var(--x-flow-layout-columns-sub-header, row nowrap);
-        justify-content: var(--x-size-justify-layout-columns-sub-header, flex-start);
-        align-items: var(--x-size-align-layout-columns-sub-header, flex-start);
-      }
-    }
+    /* color */
+    background-color: var(--x-color-background-layout-columns-toolbar, transparent);
+    border-color: var(--x-color-border-layout-columns-toolbar, transparent);
 
-    &__toolbar {
-      // layout
-      grid-column: page;
-      grid-row: toolbar;
-      display: grid;
-      column-gap: var(--x-size-gap-default);
+    /* border */
+    border-style: solid;
+    border-width: var(--x-size-border-width-layout-columns-toolbar, 0);
+  }
 
-      grid-template-columns:
-        [toolbar-start]
-        var(--x-size-margin-layout-columns)
-        [toolbar-aside-start]
-        1fr
-        [toolbar-aside-end toolbar-body-start]
-        repeat(var(--x-number-columns-toolbar-body), 1fr)
-        [toolbar-body-end]
-        var(--x-size-margin-layout-columns)
-        [toolbar-end];
+  .x-layout__toolbar-aside {
+    /* layout */
+    grid-column: toolbar-aside;
+  }
+  .x-layout__toolbar-aside.x-list {
+    flex-flow: var(--x-flow-layout-columns-toolbar-aside, row nowrap);
+    justify-content: var(--x-size-justify-layout-columns-toolbar-aside, flex-start);
+    align-items: var(--x-size-align-layout-columns-toolbar-aside, center);
+  }
 
-      // size
-      padding-block-start: var(--x-size-padding-top-layout-columns-toolbar, 0);
-      padding-block-end: var(--x-size-padding-bottom-layout-columns-toolbar, 0);
-      margin-block-start: var(--x-size-margin-top-layout-columns-toolbar, 0);
-      margin-block-end: var(--x-size-margin-bottom-layout-columns-toolbar, 0);
+  .x-layout__toolbar-body {
+    /* layout */
+    grid-column: toolbar-body;
+  }
+  .x-layout__toolbar-body.x-list {
+    flex-flow: var(--x-flow-layout-columns-toolbar-body, row nowrap);
+    justify-content: var(--x-size-justify-layout-columns-toolbar-body, flex-end);
+    align-items: var(--x-size-align-layout-columns-toolbar-body, center);
+  }
 
-      // color
-      background-color: var(--x-color-background-layout-columns-toolbar, transparent);
-      border-color: var(--x-color-border-layout-columns-toolbar, transparent);
+  .x-layout__main {
+    /* layout */
+    grid-column: page;
+    grid-row: main;
+    min-height: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: stretch;
+    padding-left: calc(var(--x-size-margin-layout-columns) + var(--x-size-gap-default));
 
-      // border
-      border-style: solid;
-      border-width: var(--x-size-border-width-layout-columns-toolbar, 0);
-    }
+    /* size */
+    padding-block-start: var(--x-size-padding-top-layout-columns-main, 0);
+    padding-block-end: var(--x-size-padding-bottom-layout-columns-main, 0);
+    margin-block-start: var(--x-size-margin-top-layout-columns-main, 0);
+    margin-block-end: var(--x-size-margin-bottom-layout-columns-main, 0);
 
-    &__toolbar-aside {
-      // layout
-      grid-column: toolbar-aside;
+    /* color */
+    background-color: var(--x-color-background-layout-columns-main, transparent);
+    border-color: var(--x-color-border-layout-columns-main, transparent);
 
-      &.x-list {
-        flex-flow: var(--x-flow-layout-columns-toolbar-aside, row nowrap);
-        justify-content: var(--x-size-justify-layout-columns-toolbar-aside, flex-start);
-        align-items: var(--x-size-align-layout-columns-toolbar-aside, center);
-      }
-    }
+    /* border */
+    border-style: solid;
+    border-width: var(--x-size-border-width-layout-columns-main, 0);
+  }
 
-    &__toolbar-body {
-      // layout
-      grid-column: toolbar-body;
+  .x-layout__collapse-aside {
+    width: calc(
+      (
+          100% - var(--x-size-gap-default) * (var(--x-number-columns-layout-columns, 5)) -
+            var(--x-size-margin-layout-columns)
+        ) / var(--x-number-columns-layout-columns, 5) + var(--x-size-gap-default)
+    );
+  }
 
-      &.x-list {
-        flex-flow: var(--x-flow-layout-columns-toolbar-body, row nowrap);
-        justify-content: var(--x-size-justify-layout-columns-toolbar-body, flex-end);
-        align-items: var(--x-size-align-layout-columns-toolbar-body, center);
-      }
-    }
+  .x-layout__aside-scroll {
+    height: 100%;
+    margin-right: var(--x-size-gap-default);
+  }
 
-    &__main {
-      // layout
-      grid-column: page;
-      grid-row: main;
-      min-height: 0;
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: stretch;
-      padding-left: calc(var(--x-size-margin-layout-columns) + var(--x-size-gap-default));
+  .x-layout__body-scroll {
+    flex: 1 1 auto;
+    width: 0;
+    padding-right: calc(var(--x-size-margin-layout-columns) + var(--x-size-gap-default) - 16px);
+  }
+  .x-layout__body-scroll.x-scroll {
+    overflow-y: scroll;
+  }
 
-      // size
-      padding-block-start: var(--x-size-padding-top-layout-columns-main, 0);
-      padding-block-end: var(--x-size-padding-bottom-layout-columns-main, 0);
-      margin-block-start: var(--x-size-margin-top-layout-columns-main, 0);
-      margin-block-end: var(--x-size-margin-bottom-layout-columns-main, 0);
-
-      // color
-      background-color: var(--x-color-background-layout-columns-main, transparent);
-      border-color: var(--x-color-border-layout-columns-main, transparent);
-
-      // border
-      border-style: solid;
-      border-width: var(--x-size-border-width-layout-columns-main, 0);
-    }
-
-    &__collapse-aside {
-      width: calc(
-        (
-            100% - var(--x-size-gap-default) * (var(--x-number-columns-layout-columns, 5)) -
-              var(--x-size-margin-layout-columns)
-          ) / var(--x-number-columns-layout-columns, 5) + var(--x-size-gap-default)
-      );
-    }
-
-    &__aside-scroll {
-      height: 100%;
-      margin-right: var(--x-size-gap-default);
-    }
-
-    &__body-scroll {
-      flex: 1 1 auto;
-      width: 0;
-      padding-right: calc(var(--x-size-margin-layout-columns) + var(--x-size-gap-default) - 16px);
-
-      &.x-scroll {
-        overflow-y: scroll;
-      }
-    }
-
-    &__scroll-to-top {
-      //layout
-      grid-area: scroll-to-top;
-      justify-content: flex-end;
-      width: 100%;
-      display: flex;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    &__scroll-to-top-content {
-      flex: 1 0 auto;
-      padding-block-end: var(--x-size-margin-bottom-layout-columns-scroll-to-top, 10px);
-      padding-inline-start: var(--x-size-margin-left-layout-columns-scroll-to-top, 10px);
-
-      ::v-deep > * {
-        pointer-events: all;
-      }
-    }
+  .x-layout__scroll-to-top {
+    /* layout */
+    grid-area: scroll-to-top;
+    justify-content: flex-end;
+    width: 100%;
+    display: flex;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .x-layout__scroll-to-top-content {
+    flex: 1 0 auto;
+    padding-block-end: var(--x-size-margin-bottom-layout-columns-scroll-to-top, 10px);
+    padding-inline-start: var(--x-size-margin-left-layout-columns-scroll-to-top, 10px);
+  }
+  .x-layout__scroll-to-top-content > * {
+    pointer-events: all;
   }
 </style>
 

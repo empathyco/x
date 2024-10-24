@@ -1,5 +1,5 @@
 import { XBus } from '@empathyco/x-bus';
-import { forEach } from '@empathyco/x-utils';
+import { Dictionary, forEach } from '@empathyco/x-utils';
 import { Store } from 'vuex';
 import { getGettersProxyFromModule } from '../store/utils/getters-proxy.utils';
 import { AnySimpleStateSelector, AnyStateSelector } from '../store/utils/store-emitters.utils';
@@ -22,7 +22,11 @@ export function registerStoreEmitters(
   bus: XBus<XEventsTypes, WireMetadata>,
   store: Store<any>
 ): void {
-  const safeGettersProxy = getGettersProxyFromModule(store.getters, name, storeModule);
+  const safeGettersProxy = getGettersProxyFromModule(
+    store.getters as Dictionary,
+    name,
+    storeModule
+  );
   forEach(storeEmitters, (event, stateSelector: AnySimpleStateSelector | AnyStateSelector) => {
     const { selector, immediate, filter, metadata, ...options } =
       normalizeStateSelector(stateSelector);
@@ -55,9 +59,7 @@ export function registerStoreEmitters(
  *
  * @internal
  */
-function normalizeStateSelector(
-  stateSelector: AnySimpleStateSelector | AnyStateSelector
-): Required<AnyStateSelector> {
+function normalizeStateSelector(stateSelector: AnySimpleStateSelector | AnyStateSelector) {
   const selectorOptions = isSimpleSelector(stateSelector)
     ? { selector: stateSelector }
     : stateSelector;

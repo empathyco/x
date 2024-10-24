@@ -1,6 +1,5 @@
 <template>
-  <!-- eslint-disable-next-line vue/attributes-order -->
-  <transition v-bind="$attrs" v-on="$listeners" name="x-fade-" :appear="appear">
+  <transition name="x-fade-" :appear="appear">
     <!-- @slot (Required) to add content to the transition -->
     <slot />
   </transition>
@@ -17,7 +16,6 @@
    */
   export default defineComponent({
     name: 'Fade',
-    inheritAttrs: false,
     props: {
       /** Indicates if the transition must be applied on the initial render of the node. */
       appear: {
@@ -28,17 +26,15 @@
   });
 </script>
 
-<style lang="scss" scoped>
-  .x-fade {
-    &--enter-active,
-    &--leave-active {
-      transition: opacity 0.25s ease-in-out;
-    }
+<style lang="css">
+  .x-fade--enter-active,
+  .x-fade--leave-active {
+    transition: opacity 0.25s ease-in-out;
+  }
 
-    &--leave-to,
-    &--enter {
-      opacity: 0 !important;
-    }
+  .x-fade--leave-to,
+  .x-fade--enter-from {
+    opacity: 0 !important;
   }
 </style>
 

@@ -1,6 +1,5 @@
 import { SimpleFilter } from '@empathyco/x-types';
-import Vue from 'vue';
-import { mount, Wrapper } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { getSimpleFilterStub } from '../../../../__stubs__/filters-stubs.factory';
 import { getDataTestSelector } from '../../../../__tests__/utils';
 import BaseRatingFilterLabel from '../base-rating-filter-label.vue';
@@ -8,7 +7,7 @@ import BaseRatingFilterLabel from '../base-rating-filter-label.vue';
 function renderBaseRatingLabel({
   template = '<BaseRatingFilterLabel :filter="filter"/>',
   filter = getSimpleFilterStub({ label: '3' })
-}: RenderBaseRatingLabelOptions = {}): Wrapper<Vue> {
+}: RenderBaseRatingLabelOptions = {}): VueWrapper {
   return mount(
     {
       components: { BaseRatingFilterLabel },
@@ -37,23 +36,27 @@ describe('testing Base Rating Filter Label component', () => {
     const widthFilledWrapper = `${(parseFloat(value) * 100) / max}%`;
     const wrapper = renderBaseRatingLabel({ filter });
 
-    expect(wrapper.find(getDataTestSelector('rating-filled')).element.style.width).toEqual(
-      widthFilledWrapper
-    );
+    expect(
+      (wrapper.find(getDataTestSelector('rating-filled')).element as HTMLElement).style.width
+    ).toEqual(widthFilledWrapper);
   });
 
   it('renders the default value 0 if the filter label is a negative number', () => {
     const filter = getSimpleFilterStub({ label: '-2' });
     const wrapper = renderBaseRatingLabel({ filter });
 
-    expect(wrapper.find(getDataTestSelector('rating-filled')).element.style.width).toEqual('0%');
+    expect(
+      (wrapper.find(getDataTestSelector('rating-filled')).element as HTMLElement).style.width
+    ).toEqual('0%');
   });
 
   it('renders the default value 0 if the filter label is a not valid number string', () => {
     const filter = getSimpleFilterStub({ label: 'abc' });
     const wrapper = renderBaseRatingLabel({ filter });
 
-    expect(wrapper.find(getDataTestSelector('rating-filled')).element.style.width).toEqual('0%');
+    expect(
+      (wrapper.find(getDataTestSelector('rating-filled')).element as HTMLElement).style.width
+    ).toEqual('0%');
   });
 
   it('renders the content overriding rating-icon-filled slot', () => {

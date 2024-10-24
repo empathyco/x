@@ -1,8 +1,11 @@
 module.exports = {
   preset: 'ts-jest',
   transform: {
-    '^.+\\.vue$': '@vue/vue2-jest',
+    '^.+\\.vue$': '@vue/vue3-jest',
     '^.+\\.scss$': 'jest-scss-transform'
+  },
+  moduleNameMapper: {
+    'vue-global-events': '<rootDir>/node_modules/vue-global-events/dist/index.cjs'
   },
   testMatch: ['<rootDir>/src/**/*.spec.ts'],
   setupFilesAfterEnv: ['./jest.setup.ts'],

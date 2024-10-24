@@ -1,18 +1,13 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import { Component, Inject } from 'vue-property-decorator';
+import { mount } from '@vue/test-utils';
+import { defineComponent, inject } from 'vue';
 import { FeatureLocation } from '../../types';
 import LocationProvider from '../location-provider.vue';
 
-@Component({
-  template: `
-    <button />
-  `
-})
-class Child extends Vue {
-  @Inject('location')
-  public location!: FeatureLocation;
-}
+const Child = defineComponent({
+  name: 'ChildItem',
+  setup: () => ({ injectedLocation: inject<FeatureLocation>('location') }),
+  template: `{{ injectedLocation }}`
+});
 
 /**
  * Renders the {@link LocationProvider} component, exposing a basic API for testing.
@@ -21,9 +16,7 @@ class Child extends Vue {
  *
  * @returns The API for testing the `LocationProvider` component.
  */
-function renderLocationProvider({
-  location
-}: RenderLocationProviderOptions): RenderLocationProviderAPI {
+function renderLocationProvider({ location = '' } = {}) {
   const wrapper = mount(
     {
       components: {
@@ -33,37 +26,22 @@ function renderLocationProvider({
       template: `
         <LocationProvider :location="location">
           <Child />
-        </LocationProvider>`,
-      props: ['location']
+        </LocationProvider>`
     },
     {
-      propsData: {
-        location
-      }
+      props: { location }
     }
   );
 
   return {
-    child: wrapper.findComponent<Child>(Child)
+    child: wrapper.findComponent(Child)
   };
 }
 
 describe('testing LocationProvider component', () => {
   it('provides a location to its child', () => {
-    const { child } = renderLocationProvider({
-      location: 'external'
-    });
+    const { child } = renderLocationProvider({ location: 'external' });
 
-    expect(child.vm.location).toBe('external');
+    expect(child.html()).toBe('external');
   });
 });
-
-interface RenderLocationProviderOptions {
-  /** The location to provide. */
-  location: FeatureLocation;
-}
-
-interface RenderLocationProviderAPI {
-  /** The wrapper for the child component inside the location provider. */
-  child: Wrapper<Child>;
-}

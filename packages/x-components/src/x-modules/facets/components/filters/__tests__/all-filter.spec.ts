@@ -1,7 +1,6 @@
-import { Facet } from '@empathyco/x-types';
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
+import { Store } from 'vuex';
+import { nextTick } from 'vue';
 import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
 import { installNewXPlugin } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
@@ -9,6 +8,7 @@ import { RootXStoreState } from '../../../../../store/store.types';
 import { facetsXModule } from '../../../x-module';
 import { resetXFacetsStateWith } from '../../__tests__/utils';
 import AllFilter from '../all-filter.vue';
+import { XPlugin } from '../../../../../plugins/index';
 
 /**
  * Renders the `AllFilter` component, exposing a basic API for testing.
@@ -16,19 +16,13 @@ import AllFilter from '../all-filter.vue';
  * @param options - The options to render the component with.
  * @returns The API for testing the `AllFilter` component.
  */
-function renderAllFilter({
-  template = `<AllFilter :facet="facet"></AllFilter>`
-}: RenderAllFilterOptions = {}): RenderAllFilterAPI {
+function renderAllFilter({ template = `<AllFilter :facet="facet"></AllFilter>` } = {}) {
   const facet = createSimpleFacetStub('category', createFilter => [
     createFilter('men'),
     createFilter('women')
   ]);
 
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
   const store = new Store<RootXStoreState>({});
-  installNewXPlugin({ store, initialXModules: [facetsXModule] }, localVue);
-  resetXFacetsStateWith(store, { category: facet });
 
   const wrapper = mount(
     {
@@ -40,12 +34,16 @@ function renderAllFilter({
     },
     {
       store,
-      localVue,
-      propsData: {
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [facetsXModule] })]
+      },
+      props: {
         facet
       }
     }
   );
+
+  resetXFacetsStateWith(store, { category: facet });
 
   const allFilterWrapper = wrapper.findComponent(AllFilter);
 
@@ -53,13 +51,13 @@ function renderAllFilter({
     wrapper,
     allFilterWrapper,
     facet,
-    toggleFirstFilter() {
-      wrapper.vm.$x.emit('UserClickedAFilter', store.state.x.facets.filters[facet.filters[0].id]);
-      return wrapper.vm.$nextTick();
+    toggleFirstFilter: () => {
+      XPlugin.bus.emit('UserClickedAFilter', store.state.x.facets.filters[facet.filters[0].id]);
+      return nextTick();
     },
-    clickAllFilter() {
+    clickAllFilter: () => {
       allFilterWrapper.trigger('click');
-      return wrapper.vm.$nextTick();
+      return nextTick();
     }
   };
 }
@@ -91,7 +89,7 @@ describe('testing AllFilter component', () => {
   it('emits `UserClickedAllFilter` event with the facet id as payload', async () => {
     const { wrapper, toggleFirstFilter, clickAllFilter, facet } = renderAllFilter();
     const listenerAllFilter = jest.fn();
-    wrapper.vm.$x.on('UserClickedAllFilter', true).subscribe(listenerAllFilter);
+    XPlugin.bus.on('UserClickedAllFilter', true).subscribe(listenerAllFilter);
     await toggleFirstFilter();
     expect(listenerAllFilter).toHaveBeenCalledTimes(0);
 
@@ -118,27 +116,8 @@ describe('testing AllFilter component', () => {
       template: `
         <AllFilter v-slot="{ facet }" :facet="facet" >
           Select all {{ facet.label }}
-        </AllFilter>
-      `
+        </AllFilter>`
     });
     expect(allFilterWrapper.text()).toBe(`Select all ${facet.label}`);
   });
 });
-
-interface RenderAllFilterOptions {
-  /** The template to be rendered. */
-  template?: string;
-}
-
-interface RenderAllFilterAPI {
-  /** The `AllFilter` wrapper component. */
-  allFilterWrapper: Wrapper<Vue>;
-  /** Function that clicks all filter button. */
-  clickAllFilter: () => Promise<void>;
-  /** Current facet passed as prop to the AllFilter component. */
-  facet: Facet;
-  /** Function that toggles first filter selected property. */
-  toggleFirstFilter: () => Promise<void>;
-  /** The wrapper of the container element.*/
-  wrapper: Wrapper<Vue>;
-}

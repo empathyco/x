@@ -1,3 +1,5 @@
+import { Store } from 'vuex';
+import { RootXStoreState } from '../../store/index';
 import { createWireFromFunction } from '../wires.factory';
 import {
   filter,
@@ -12,7 +14,7 @@ import { XDummyBus } from '../../__tests__/bus.dummy';
 import { createQuerySuggestionsStoreMock, getExpectedWirePayload, SubjectHandler } from './utils';
 
 describe('testing wires operators', () => {
-  const storeMock = createQuerySuggestionsStoreMock();
+  const storeMock = createQuerySuggestionsStoreMock() as Store<RootXStoreState>;
   const subjectHandler = new SubjectHandler();
   const executeFunction = jest.fn();
   const wire = createWireFromFunction(executeFunction);

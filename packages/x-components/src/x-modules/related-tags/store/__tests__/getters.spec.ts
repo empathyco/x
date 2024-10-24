@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import { RelatedTagsRequest } from '@empathyco/x-types';
 import {
   createRelatedTagStub,
@@ -16,7 +15,6 @@ import {
 import { resetRelatedTagsStateWith } from './utils';
 
 describe('testing related tags module getters', () => {
-  Vue.use(Vuex);
   const store: SafeStore<
     RelatedTagsState,
     RelatedTagsGetters,

@@ -2,9 +2,9 @@ import { HistoryQuery } from '@empathyco/x-types';
 import { mount } from '@vue/test-utils';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import RemoveHistoryQuery from '../remove-history-query.vue';
+import { XPlugin } from '../../../../plugins/index';
 
 describe('testing RemoveHistoryQuery component', () => {
-  const [, localVue] = installNewXPlugin();
   const historyQuery: HistoryQuery = {
     modelName: 'HistoryQuery',
     query: 'Saltiquinos',
@@ -15,12 +15,14 @@ describe('testing RemoveHistoryQuery component', () => {
     const listener = jest.fn();
 
     const removeHistoryQuery = mount(RemoveHistoryQuery, {
-      localVue,
-      propsData: {
+      props: {
         historyQuery
+      },
+      global: {
+        plugins: [installNewXPlugin()]
       }
     });
-    removeHistoryQuery.vm.$x.on('UserPressedRemoveHistoryQuery', true).subscribe(listener);
+    XPlugin.bus.on('UserPressedRemoveHistoryQuery', true).subscribe(listener);
 
     removeHistoryQuery.trigger('click');
 
@@ -38,9 +40,11 @@ describe('testing RemoveHistoryQuery component', () => {
 
   it('has a default slot with a default message', () => {
     const removeHistoryQuery = mount(RemoveHistoryQuery, {
-      localVue,
-      propsData: {
+      props: {
         historyQuery
+      },
+      global: {
+        plugins: [installNewXPlugin()]
       }
     });
 
@@ -50,21 +54,24 @@ describe('testing RemoveHistoryQuery component', () => {
   it('has a default slot to customize its contents', () => {
     const slotTemplate = '<span class="x-remove-history-query__text">Remove</span>';
     const removeHistoryQuery = mount(RemoveHistoryQuery, {
-      localVue,
       slots: {
         default: {
           template: slotTemplate
         }
       },
-      propsData: {
+      props: {
         historyQuery
+      },
+      global: {
+        plugins: [installNewXPlugin()]
       }
     });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const renderedSlotHTML = removeHistoryQuery.element.querySelector(
       '.x-remove-history-query__text'
     );
 
     expect(renderedSlotHTML).toBeDefined();
-    expect(renderedSlotHTML!.textContent).toEqual('Remove');
+    expect(renderedSlotHTML.textContent).toEqual('Remove');
   });
 });

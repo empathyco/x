@@ -3,6 +3,90 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.2...@empathyco/x-components@6.0.0-alpha.3) (2024-10-04)
+
+
+### Bug Fixes
+
+* **scroll:** scroll direction inconsistency (#1629) ([ad970ae](https://github.com/empathyco/x/commit/ad970ae8cd7898f23baa11d3a128d3251cd57cdb))
+
+
+
+## [6.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.1...@empathyco/x-components@6.0.0-alpha.2) (2024-09-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **history-queries-switch:** remove `change` event emission in favour of `update:modelValue` in `BaseSwitch` component.
+
+### Bug Fixes
+
+* **history-queries-switch:** migrate value to modelValue (#1618) ([82a6e27](https://github.com/empathyco/x/commit/82a6e27b9a78388b6c0b42c57ce7ff6e63293686))
+
+
+### Testing
+
+* active and fix linter for tests (#1616) ([0f35e7c](https://github.com/empathyco/x/commit/0f35e7caf529e7a06252abe0ea64b119c1206566))
+* adjust test to vue3 (#1608) ([0f4bb97](https://github.com/empathyco/x/commit/0f4bb97dcba50b21c98575d51bda944bfe532b1f))
+* **e2e-components:** rewrite all e2e sheet components to accomplish vue3  (#1619) ([5a419b2](https://github.com/empathyco/x/commit/5a419b2d882c151f81d9921d591140e5471f5b05))
+* **e2e:** fix e2e tests (#1617) ([f81add6](https://github.com/empathyco/x/commit/f81add665e5b2f36ecedf25d14eb5f6573f0e0fb))
+
+
+
+## [6.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.81...@empathyco/x-components@6.0.0-alpha.1) (2024-09-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* @empathyco/x-components v6 and @empathyco/x-archetype-utils v2 are only compatible with Vue 3 and if you are looking for the Vue 2 versions, take look at the main brach.
+* refactors the GlobalXBus to use a prop to receive the listeners instead of relying on attributes.
+
+### Features
+
+* bump packages versions (#1611) ([eb7d377](https://github.com/empathyco/x/commit/eb7d377f0da3d09b78bc964de90529326889eb62))
+* make internal demo app functional (#1574) ([a485dea](https://github.com/empathyco/x/commit/a485dea768918280e2fec46cae0d5a3f4932002f))
+* **x-installer:** update to vue3 and adapt x-installer (#1572) ([c6b28e5](https://github.com/empathyco/x/commit/c6b28e5e9a07832e992f27a40d7513dbec90d2f2))
+
+
+### Bug Fixes
+
+* adjust to new vue render function API (#1596) ([7ec2b97](https://github.com/empathyco/x/commit/7ec2b9719f18275e7843544f26f94c393fef7090))
+* **infinite-scroll:** getting xBus from XPlugin instead useXBus ([b936ae5](https://github.com/empathyco/x/commit/b936ae585b4ef5ae390515cfc2c3a0dfc782ad39))
+* **layout:** avoid shared CSS classes between layouts with scoped (#1605) ([b3cc3f5](https://github.com/empathyco/x/commit/b3cc3f528f71b0877a406c65cadfbecda7aca756))
+* **list-components:** fix list components, migrate infinite-scroll directive and deprecated layouts (#1576) ([4b57f19](https://github.com/empathyco/x/commit/4b57f19be601220a4dc6874dc1d5efa8fdbcf991))
+* **search:** replace results state to append new results instead of pushing them (#1597) ([e64e3cb](https://github.com/empathyco/x/commit/e64e3cb9f3c046d1c30249fb56b0b3ad32f97925))
+
+
+### Testing
+
+* **auto-progress-bar:** fix test after Vue3 update (#1582) ([335c370](https://github.com/empathyco/x/commit/335c37021f9a0f6fefaec01714cc31fb6bf66391))
+* **components:** fix tests after Vue3 update BATCH 1 ([5d4dec8](https://github.com/empathyco/x/commit/5d4dec81b5b9ee99f1cbfc1d88bbf58cd5188602))
+* **vue-jest:** update vue-jest dependency (#1581) ([46ff08b](https://github.com/empathyco/x/commit/46ff08bb5834d790b0c6414fc549141b9a64f1d1))
+
+
+### Code Refactoring
+
+* **animation-factory:** fix Vue3 breaking changes (#1579) ([f915731](https://github.com/empathyco/x/commit/f915731cc8ea662a2066fee054f47885ee2154a9))
+* **base-switch:** decommission of value prop (#1589) ([35968eb](https://github.com/empathyco/x/commit/35968ebb69634984e867b03221d373efe4af96c8))
+* **base-switch:** migrate component to vue3 (#1588) ([875a6e2](https://github.com/empathyco/x/commit/875a6e2638885498396db362753550857ec8d7e2))
+* **components:** remove warnings first batch (#1575) ([1877da6](https://github.com/empathyco/x/commit/1877da61c2eb5aff5742387dc2285b3db86afda5))
+* get rid of NoElement component and useNoElementRender composable (#1583) ([059eecc](https://github.com/empathyco/x/commit/059eecc0fd5aa1612c1fc7b4d5ec08cfe5fc5b84))
+* **render-function:** clear void calls (#1580) ([7875ff5](https://github.com/empathyco/x/commit/7875ff5b8420ea1ed03edd3fee28a822582b4641))
+* **staggered-fade-and-slide:** use Vue native staggered transition (#1578) ([79e136f](https://github.com/empathyco/x/commit/79e136f04b0b75ddea77c464b8f5ea0ed6602eb1))
+* **v-deep:** replace by :deep() (#1577) ([71c08db](https://github.com/empathyco/x/commit/71c08dbc175093bbfc56160e3b07b8774fcbc683))
+
+
+### Build System
+
+* adjust rollup production build for Vue3 (#1603) ([ed587b1](https://github.com/empathyco/x/commit/ed587b16a56b32734e9cf3ff05311954627f3820))
+
+
+### Continuous Integration
+
+* **linter:** fix linter issues to pass the CI (#1606) ([aff3151](https://github.com/empathyco/x/commit/aff3151818c64885d7c28e69f511d33ae41b38f5))
+
+
+
 ## [5.0.0-alpha.83](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.82...@empathyco/x-components@5.0.0-alpha.83) (2024-10-03)
 
 

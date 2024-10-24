@@ -1,38 +1,34 @@
 <template>
-  <NoElement v-if="recommendations.length">
-    <!--
-      @slot Customized Recommendations layout.
-          @binding {Result[]} recommendations - Recommendations to render.
-          @binding {Vue} animation - Animation to animate the elements.
-    -->
-    <slot name="layout" v-bind="{ animation, recommendations }">
-      <component :is="animation" tag="ul" data-test="recommendations" class="x-recommendations">
-        <li
-          v-for="recommendation in recommendations"
-          :key="recommendation.id"
-          class="x-recommendations__item"
-          data-test="recommendation-item"
-        >
-          <!--
-            @slot (Required) Recommendation content.
-            @binding {recommendation} recommendation - Recommendation data.
-          -->
-          <slot :recommendation="recommendation" />
-        </li>
-      </component>
-    </slot>
-  </NoElement>
+  <component
+    :is="animation"
+    v-if="recommendations.length"
+    tag="ul"
+    data-test="recommendations"
+    class="x-recommendations"
+  >
+    <li
+      v-for="recommendation in recommendations"
+      :key="recommendation.id"
+      class="x-recommendations__item"
+      data-test="recommendation-item"
+    >
+      <!--
+        @slot (Required) Recommendation content.
+        @binding {recommendation} recommendation - Recommendation data.
+      -->
+      <slot :recommendation="recommendation" />
+    </li>
+  </component>
 </template>
 
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
   import { computed, defineComponent, provide, ComputedRef } from 'vue';
-  import { NoElement } from '../../../components/no-element';
-  import { PropsWithType } from '../../../utils/types';
-  import { XEventsTypes } from '../../../wiring/events.types';
+  import { useState } from '../../../composables';
+  import { PropsWithType } from '../../../utils';
+  import { XEventsTypes } from '../../../wiring';
   import { recommendationsXModule } from '../x-module';
-  import { AnimationProp } from '../../../types/animation-prop';
-  import { useState } from '../../../composables/use-state';
+  import { AnimationProp } from '../../../types';
 
   /**
    * It renders a list of recommendations from the
@@ -47,41 +43,22 @@
   export default defineComponent({
     name: 'Recommendations',
     xModule: recommendationsXModule.name,
-    components: {
-      NoElement
-    },
     props: {
-      /**
-       * Animation component that will be used to animate the recommendations.
-       *
-       * @public
-       */
+      /** Animation component that will be used to animate the recommendations. */
       animation: {
         type: AnimationProp,
         default: 'ul'
       },
-      /**
-       * Number of recommendations to be rendered.
-       *
-       * @public
-       */
+      /** Number of recommendations to be rendered. */
       maxItemsToRender: Number
     },
-    setup(props) {
-      /**
-       * The module's list of recommendations.
-       *
-       * @public
-       */
+    setup(props, { slots }) {
+      /** The module's list of recommendations. */
       const storedRecommendations: ComputedRef<Result[]> = useState('recommendations', [
         'recommendations'
       ]).recommendations;
 
-      /**
-       * The additional events to be emitted by the mandatory {@link BaseResultLink} component.
-       *
-       * @public
-       */
+      /** The additional events to be emitted by the mandatory {@link BaseResultLink} component. */
       provide<PropsWithType<XEventsTypes, Result>[]>('resultClickExtraEvents', [
         'UserClickedARecommendation'
       ]);
@@ -90,21 +67,39 @@
        * Slices the recommendations from the state.
        *
        * @returns - The list of recommendations slice by the number of items to render.
-       *
-       * @internal
        */
-      const recommendations = computed(() =>
+      const recommendations = computed<Result[]>(() =>
         storedRecommendations.value.slice(0, props.maxItemsToRender)
       );
 
-      return {
-        recommendations
-      };
+      /**
+       * Render function to execute the `layout` slot, binding `slotsProps` and getting only the
+       * first `vNode` to avoid Fragments and Text root nodes.
+       * If there are no recommendations, nothing is rendered.
+       *
+       * @remarks `slotProps` must be values without Vue reactivity and located inside the
+       * render-function to update the binding data properly.
+       *
+       * @returns The root `vNode` of the `layout` slot or empty string if there are
+       * no recommendations.
+       */
+      function renderLayoutSlot() {
+        const slotProps = {
+          animation: props.animation,
+          recommendations: recommendations.value
+        };
+        return recommendations.value.length ? slots.layout?.(slotProps)[0] : '';
+      }
+
+      /* Hack to render through a render-function, the `layout` slot or, in its absence,
+       the component itself. It is the alternative for the NoElement antipattern. */
+      const componentProps = { recommendations };
+      return (slots.layout ? renderLayoutSlot : componentProps) as typeof componentProps;
     }
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-recommendations {
     display: flex;
     list-style-type: none;

@@ -2,6 +2,7 @@ import { Priority, SubjectPayload, XPriorityBus } from '@empathyco/x-bus';
 import { Dictionary } from '@empathyco/x-utils';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from 'vuex';
+import { Component } from 'vue';
 import { RootStoreStateAndGetters, RootXStoreState } from '../store/store.types';
 import { FeatureLocation, QueryFeature, ResultFeature } from '../types/origin';
 import { FirstParameter, MaybeArray, MonadicFunction, NiladicFunction } from '../utils/types';
@@ -45,7 +46,7 @@ export interface WireMetadata {
   /** The DOM element that triggered the event emission. */
   target?: HTMLElement;
   /** The component instance that triggered the event emission. */
-  component?: Vue;
+  component?: Component;
   /** The event priority to use when sorting the bus queue for event batching. */
   priority?: Priority;
   /**

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.1.0-alpha.2...@empathyco/x-archetype-utils@2.0.0-alpha.1) (2024-09-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* @empathyco/x-components v6 and @empathyco/x-archetype-utils v2 are only compatible with Vue 3 and if you are looking for the Vue 2 versions, take look at the main brach.
+* @empathyco/x-archetype-utils is only compatible with vue 3
+
+### Features
+
+* bump packages versions (#1611) ([eb7d377](https://github.com/empathyco/x/commit/eb7d377f0da3d09b78bc964de90529326889eb62))
+* bump vue18n version (#1604) ([9320c57](https://github.com/empathyco/x/commit/9320c57bd1aa2ff01fea8133238dc8fb809484c0))
+* **rollup:** update replace config to align CSS injector with Vue 3 (#1607) ([b98a31e](https://github.com/empathyco/x/commit/b98a31e488b788bab0a2fede87739e4cc9d1df57))
+
+
+
 ## [1.1.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.1.0-alpha.1...@empathyco/x-archetype-utils@1.1.0-alpha.2) (2024-02-08)
 
 

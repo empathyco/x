@@ -29,7 +29,7 @@
         isVisible.value
           ? slots.default?.({ selectedFilters: selectedFilters.value })[0] ??
             h('span', `${selectedFilters.value.length}`)
-          : h();
+          : '';
     }
   });
 </script>

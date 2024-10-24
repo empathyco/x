@@ -7,9 +7,9 @@
 
 <script lang="ts">
   import { defineComponent, ref, watch } from 'vue';
-  import { NoElement } from '../no-element';
   import { AnimationProp } from '../../types';
   import { use$x } from '../../composables';
+  import { NoAnimation } from '../animations';
   import BaseTogglePanel from './base-toggle-panel.vue';
 
   /**
@@ -26,27 +26,17 @@
    */
   export default defineComponent({
     name: 'BaseIdTogglePanel',
-    components: {
-      BaseTogglePanel
-    },
+    components: { BaseTogglePanel },
     props: {
-      /**
-       * Shows the panel open at the beginning or not, depending on its state.
-       *
-       * @public
-       */
+      /** Shows the panel open at the beginning or not, depending on its state. */
       startOpen: {
         type: Boolean,
         default: true
       },
-      /**
-       * Animation component that will be used to animate the panel content.
-       *
-       * @public
-       */
+      /** Animation component that will be used to animate the panel content. */
       animation: {
         type: AnimationProp,
-        default: () => NoElement
+        default: () => NoAnimation
       },
       /**
        * The id to link with the BaseIdTogglePanelButton.

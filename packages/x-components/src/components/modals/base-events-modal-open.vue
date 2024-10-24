@@ -1,6 +1,5 @@
 <template>
   <BaseEventButton
-    v-on="$listeners"
     :events="events"
     class="x-events-modal-open-button x-button"
     data-test="open-modal"

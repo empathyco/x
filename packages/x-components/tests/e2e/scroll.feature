@@ -6,8 +6,6 @@ Feature: Scroll component
     And   a tracking API
     And   no special config for layout view
 
-  # TODO: Enable test after reviewing it
-  @skip
   Scenario Outline: 1. Scroll is kept in the URL
     When  start button is clicked
     Then  empathize should be visible
@@ -103,3 +101,24 @@ Feature: Scroll component
     Examples:
       | query1 | resultId  | store |
       | lego   | result-12 | Italy |
+
+  Scenario Outline: 7. Scroll direction is updated properly
+    When  start button is clicked
+    Then  empathize should be visible
+    When  "<query1>" is searched
+    Then  related results are displayed
+    When  scrolling to bottom
+    Then  scroll direction is DOWN
+    When  scrolling to top
+    Then  scroll direction is UP
+    When  scrolling down to result "<resultId>"
+    And   the page is reloaded
+    Then  related results are displayed
+    When  scrolling to bottom
+    Then  scroll direction is DOWN
+    When  scrolling to top
+    Then  scroll direction is UP
+
+    Examples:
+      | query1 | resultId  |
+      | lego   | result-8 |

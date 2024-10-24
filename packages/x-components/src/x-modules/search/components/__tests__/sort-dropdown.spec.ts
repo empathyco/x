@@ -1,15 +1,17 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { searchXModule } from '../../x-module';
 import SortDropdown from '../sort-dropdown.vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { RootXStoreState } from '../../../../store/store.types';
 import { XPlugin } from '../../../../plugins/x-plugin';
+import { XDummyBus } from '../../../../__tests__/bus.dummy';
 import { resetXSearchStateWith } from './utils';
 
+const bus = new XDummyBus();
 function renderSortDropdown({
   template = `
    <SortDropdown :items="items">
@@ -23,18 +25,7 @@ function renderSortDropdown({
   items = ['default', 'Price low to high', 'Price high to low'],
   selectedSort = items[0]
 }: Partial<{ template?: string; items?: any[]; selectedSort?: any }> = {}) {
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-
-  installNewXPlugin({ store }, localVue);
-  XPlugin.registerXModule(searchXModule);
-  resetXSearchStateWith(store, { sort: selectedSort });
-
-  const onSelectedSortProvided = jest.fn();
-  XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided);
-  const onUserClickedASort = jest.fn();
-  XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort);
 
   const wrapper = mount(
     {
@@ -43,11 +34,20 @@ function renderSortDropdown({
       props: ['items']
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [searchXModule] }, bus)]
+      },
       store,
-      propsData: { items }
+      props: { items }
     }
   );
+
+  resetXSearchStateWith(store, { sort: selectedSort });
+
+  const onSelectedSortProvided = jest.fn();
+  XPlugin.bus.on('SelectedSortProvided', true).subscribe(onSelectedSortProvided);
+  const onUserClickedASort = jest.fn();
+  XPlugin.bus.on('UserClickedASort', true).subscribe(onUserClickedASort);
 
   const sortDropdown = wrapper.findComponent(SortDropdown);
   return {
@@ -59,7 +59,7 @@ function renderSortDropdown({
     clickToggleButton: async () =>
       await sortDropdown.find(getDataTestSelector('dropdown-toggle')).trigger('click'),
     clickNthItem: async (index: number) => {
-      await sortDropdown.findAll(getDataTestSelector('dropdown-item')).at(index).trigger('click');
+      await sortDropdown.findAll(getDataTestSelector('dropdown-item')).at(index)?.trigger('click');
     }
   } as const;
 }
@@ -106,10 +106,11 @@ describe('testing SortDropdown component', () => {
     expect(getSelectedItem().text()).toEqual('offer');
   });
 
-  it('returns the first item as default', () => {
+  it('returns the first item as default', async () => {
     const { onSelectedSortProvided } = renderSortDropdown();
 
     expect(onSelectedSortProvided).toHaveBeenCalledTimes(1);
+    await nextTick();
     // This event gets emitted immediately, before the component has been mounted
     expect(onSelectedSortProvided).toHaveBeenCalledWith({
       eventPayload: 'default',
@@ -131,7 +132,7 @@ describe('testing SortDropdown component', () => {
       });
 
       await clickToggleButton();
-      expect(getSelectedItem().text()).toEqual(`✅ 🟢 default`);
+      expect(getSelectedItem().text()).toEqual(`✅🟢default`);
     });
 
     it('allows to customize the toggle button', async () => {

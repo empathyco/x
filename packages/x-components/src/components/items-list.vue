@@ -37,58 +37,35 @@
   export default defineComponent({
     name: 'ItemsList',
     props: {
-      /**
-       * Animation component that will be used to animate the list.
-       *
-       * @public
-       */
+      /** Animation component that will be used to animate the list. */
       animation: {
         type: animationProp,
         default: 'ul'
       },
-
-      /**
-       * List of items.
-       *
-       * @public
-       */
+      /** List of items. */
       items: {
         type: Array as PropType<ListItem[]>,
         required: true
       },
-
-      /**
-       * Item's classes.
-       *
-       * @public
-       */
-      itemClass: {
-        type: String
-      }
+      /** Item's classes. */
+      itemClass: String
     },
     setup(props) {
       /**
        * The list of the items with additional properties.
        *
        * @returns A list of items with `dataTest`, `class` and the `slotName` for each item.
-       *
-       * @internal
        */
-      const computedItems = computed(
-        (): {
-          dataTest: string;
-          class: Array<string | undefined>;
-        }[] => {
-          return props.items.map(item => {
-            const modelName = toKebabCase(item.modelName);
-            return {
-              ...item,
-              dataTest: `${modelName}s-list-item`,
-              class: [`x-${modelName}s-list-item`, props.itemClass],
-              slotName: modelName
-            };
-          });
-        }
+      const computedItems = computed(() =>
+        props.items.map(item => {
+          const modelName = toKebabCase(item.modelName);
+          return {
+            ...item,
+            dataTest: `${modelName}s-list-item`,
+            class: [`x-${modelName}s-list-item`, props.itemClass],
+            slotName: modelName
+          };
+        })
       );
 
       return { computedItems };

@@ -24,16 +24,10 @@ export { default as GlobalXBus } from './global-x-bus.vue';
 export { default as Highlight } from './highlight.vue';
 export { default as ItemsList } from './items-list.vue';
 export { default as LocationProvider } from './location-provider.vue';
-export { NoElement } from './no-element';
 export { default as SlidingPanel } from './sliding-panel.vue';
 export { default as SnippetCallbacks } from './snippet-callbacks.vue';
 export { default as PageLoaderButton } from './page-loader-button.vue';
 
 // Utils
-export * from './decorators/bus.decorators';
-export * from './decorators/debounce.decorators';
 export * from './decorators/injection.consts';
-export * from './decorators/injection.decorators';
-export * from './decorators/store.decorators';
-export * from './x-component.mixin';
 export * from './x-component.utils';

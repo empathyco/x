@@ -1,74 +1,78 @@
-import { createLocalVue } from '@vue/test-utils';
-import { ComponentOptions, default as Vue, VueConstructor } from 'vue';
-import VueRouter from 'vue-router';
+import { computed, defineComponent, inject, nextTick } from 'vue';
+import { createRouter, createWebHistory } from 'vue-router';
 import { Store } from 'vuex';
-import { XPlugin } from '../../../plugins/x-plugin';
-import { PrivateXModulesOptions, XModulesOptions } from '../../../plugins/x-plugin.types';
+import { PrivateXModulesOptions, XModulesOptions, XPlugin } from '../../../plugins';
 import { XComponentsAdapterDummy } from '../../../__tests__/adapter.dummy';
 import { AnyXModule } from '../../../x-modules/x-modules.types';
 import { InitWrapper, InstallXOptions } from '../types';
 import { XInstaller } from '../x-installer';
 import { SnippetConfig } from '../../api/index';
 
-describe('testing `XInstaller` utility', () => {
-  const adapter = XComponentsAdapterDummy;
-  const xPluginMock = { install: jest.fn() };
-  const plugin = xPluginMock as unknown as XPlugin;
-  const store = {} as unknown as Store<any>;
-  const xModules = {} as unknown as XModulesOptions;
-  const __PRIVATE__xModules = {} as unknown as PrivateXModulesOptions;
-  const initialXModule = {} as unknown as AnyXModule;
+const adapter = XComponentsAdapterDummy;
+const xPluginMock = { install: jest.fn() };
+const plugin = xPluginMock as unknown as XPlugin;
+const store = {} as unknown as Store<any>;
+const xModules = {} as unknown as XModulesOptions;
+const __PRIVATE__xModules = {} as unknown as PrivateXModulesOptions;
+const initialXModule = {} as unknown as AnyXModule;
 
-  const component: ComponentOptions<Vue> = {
-    render(h) {
-      return h('div');
+const getMinimumSnippetConfig = (): SnippetConfig => ({
+  instance: 'test',
+  lang: 'test',
+  scope: 'test'
+});
+
+const component = defineComponent({
+  setup: () => {
+    // empty setup
+  },
+  mounted: jest.fn(),
+  template: '<h1/>'
+});
+
+/**
+ * Creates a Vue component injecting the snippet config.
+ *
+ * @param snippetProperty - Property of {@link SnippetConfig} to be rendered.
+ * @returns A Vue component with the injected snippet config.
+ */
+function createSnippetConfigComponent(snippetProperty: keyof SnippetConfig = 'instance') {
+  return defineComponent({
+    setup: () => {
+      const snippetConfig = inject<SnippetConfig>('snippetConfig');
+      const snippetConfigValue = computed(() => snippetConfig?.[snippetProperty] ?? '');
+      return { snippetConfigValue };
     },
-    mounted: jest.fn()
-  };
-
-  const getMinimumSnippetConfig = (): SnippetConfig => ({
-    instance: 'test',
-    lang: 'test',
-    scope: 'test'
+    template: '<h1 id="snippet-config-value">{{ snippetConfigValue }}</h1>'
   });
+}
 
-  /**
-   * Creates a Vue component injecting the snippet config.
-   *
-   * @param snippetProperty - Property of {@link SnippetConfig} to be rendered.
-   * @returns A Vue component with the injected snippet config.
-   *
-   * @internal
-   */
-  function createSnippetConfigComponent(
-    snippetProperty: keyof SnippetConfig = 'instance'
-  ): VueConstructor {
-    return Vue.extend({
-      inject: ['snippetConfig'],
-      render(h) {
-        return h('h1', [(this as any).snippetConfig[snippetProperty]]);
-      }
-    });
-  }
+function getSnippetConfigComponentTextContent() {
+  return document.querySelector('#snippet-config-value')?.textContent;
+}
 
+describe('testing `XInstaller` utility', () => {
   beforeEach(() => {
     delete window.initX;
+    delete window.InterfaceX;
     jest.clearAllMocks();
+    document.body.innerHTML = '';
   });
 
-  it('installs the XPlugin with all the passed plugin parameters', () => {
-    new XInstaller({
+  it('installs the XPlugin with all the passed plugin parameters', async () => {
+    await new XInstaller({
+      rootComponent: component,
       adapter,
       plugin,
       store,
       xModules,
       __PRIVATE__xModules,
-      initialXModules: [initialXModule],
-      vue: createLocalVue()
+      initialXModules: [initialXModule]
     }).init(getMinimumSnippetConfig());
-    const params = xPluginMock.install.mock.calls[0][1];
 
     expect(xPluginMock.install).toHaveBeenCalledTimes(1);
+
+    const params = xPluginMock.install.mock.calls[0][1];
     expect(params.adapter).toEqual(adapter);
     expect(params.store).toEqual(store);
     expect(params.xModules).toEqual(xModules);
@@ -78,125 +82,77 @@ describe('testing `XInstaller` utility', () => {
   });
 
   it('creates the public API in global scope by default', () => {
-    delete window.InterfaceX;
-    new XInstaller({ adapter, plugin, vue: createLocalVue() }).init(getMinimumSnippetConfig());
+    new XInstaller({ rootComponent: component, adapter, plugin }).init(getMinimumSnippetConfig());
 
     expect(window.InterfaceX).toBeDefined();
-    delete window.InterfaceX;
   });
 
   it('does not create the public API passing the api parameter to false', () => {
-    new XInstaller({ adapter, plugin, api: false, vue: createLocalVue() }).init(
+    new XInstaller({ rootComponent: component, adapter, plugin, api: false }).init(
       getMinimumSnippetConfig()
     );
 
     expect(window.InterfaceX).not.toBeDefined();
   });
 
-  it('installs the XPlugin using the passed vue', () => {
-    const localVue = createLocalVue();
-    new XInstaller({ adapter, plugin, vue: localVue }).init(getMinimumSnippetConfig());
-    const vueParam = xPluginMock.install.mock.calls[0][0];
-
-    expect(xPluginMock.install).toHaveBeenCalledTimes(1);
-    expect(vueParam).toBe(localVue);
-  });
-
   it('creates a Vue application using the component passed in the app option', async () => {
-    await new XInstaller({ adapter, plugin, app: component, vue: createLocalVue() }).init(
+    await new XInstaller({ rootComponent: component, adapter, plugin }).init(
       getMinimumSnippetConfig()
     );
 
-    // eslint-disable-next-line  @typescript-eslint/unbound-method
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(component?.mounted).toHaveBeenCalledTimes(1);
   });
 
-  it('creates a Vue application using the `vueOptions` passed', async () => {
-    const testMethod = jest.fn();
-    const vue = createLocalVue();
-    vue.use(VueRouter);
-    const vueOptions: InstallXOptions['vueOptions'] = {
-      router: new VueRouter({}),
-      methods: { testMethod }
-    };
-    const { app } = await new XInstaller({
-      adapter,
-      vue,
-      vueOptions,
-      app: component
-    }).init(getMinimumSnippetConfig());
-
-    expect(app).toHaveProperty('testMethod');
-    expect(app).toHaveProperty('$router');
-  });
-
   it('allows to install more plugins', async () => {
-    const vue = createLocalVue();
     const { app } = await new XInstaller({
+      rootComponent: component,
       adapter,
-      vue,
-      installExtraPlugins({ bus, vue, snippet }) {
-        vue.use(VueRouter);
-        return {
-          // Installing the Vue Router plugin
-          router: new VueRouter({}),
-          data() {
-            // Adding some data variables to check that we correctly receive them
-            return {
-              bus,
-              snippet
-            };
-          }
-        };
-      },
-      app: component
+      installExtraPlugins({ app }) {
+        const router = createRouter({ history: createWebHistory(), routes: [] });
+        app.use(router);
+      }
     }).init(getMinimumSnippetConfig());
 
-    expect(app).toHaveProperty('$router');
-    expect(app).toHaveProperty('bus');
-    expect(app).toHaveProperty('snippet', { ...getMinimumSnippetConfig(), uiLang: 'test' });
+    expect(app?.config.globalProperties).toHaveProperty('$router');
   });
 
   it('initializes the app with the provided snippet config', async () => {
-    const vue = createLocalVue();
-    const { app, api } = await new XInstaller({
-      adapter,
-      vue,
-      app: createSnippetConfigComponent()
+    const rootComponent = createSnippetConfigComponent();
+    const { api } = await new XInstaller({
+      rootComponent,
+      adapter
     }).init(getMinimumSnippetConfig());
 
-    expect(app?.$el).toHaveTextContent(getMinimumSnippetConfig().instance);
+    expect(getSnippetConfigComponentTextContent()).toEqual(getMinimumSnippetConfig().instance);
 
     api?.setSnippetConfig({ instance: 'test-2' });
-    await vue.nextTick();
-    expect(app?.$el).toHaveTextContent('test-2');
+    await nextTick();
+    expect(getSnippetConfigComponentTextContent()).toEqual('test-2');
   });
 
   it('initializes the app when window.initX has the snippet config object', async () => {
-    const vue = createLocalVue();
     window.initX = getMinimumSnippetConfig();
-    const { app, api } = (await new XInstaller({
-      adapter,
-      vue,
-      app: createSnippetConfigComponent()
+    const { api } = (await new XInstaller({
+      rootComponent: createSnippetConfigComponent(),
+      adapter
     }).init()) as InitWrapper;
 
-    expect(app?.$el).toHaveTextContent(getMinimumSnippetConfig().instance);
+    expect(getSnippetConfigComponentTextContent()).toEqual(getMinimumSnippetConfig().instance);
 
     api?.setSnippetConfig({ instance: 'test-2' });
-    await vue.nextTick();
-    expect(app?.$el).toHaveTextContent('test-2');
+    await nextTick();
+    expect(getSnippetConfigComponentTextContent()).toEqual('test-2');
   });
 
   it('should set the snippetConfig getter', async () => {
-    const vue = createLocalVue();
     window.initX = getMinimumSnippetConfig();
     await new XInstaller({
-      adapter,
-      vue,
-      app: createSnippetConfigComponent()
+      rootComponent: createSnippetConfigComponent(),
+      adapter
     }).init();
     const snippetConfig = window.InterfaceX?.getSnippetConfig();
+
     expect(snippetConfig).toEqual({
       instance: 'test',
       lang: 'test',
@@ -205,98 +161,95 @@ describe('testing `XInstaller` utility', () => {
     });
   });
 
-  // eslint-disable-next-line max-len
   it('initializes the app when window.initX is a function retrieving the snippet config', async () => {
-    const vue = createLocalVue();
     window.initX = () => getMinimumSnippetConfig();
-    const { app, api } = (await new XInstaller({
-      adapter,
-      vue,
-      app: createSnippetConfigComponent()
+    const { api } = (await new XInstaller({
+      rootComponent: createSnippetConfigComponent(),
+      adapter
     }).init()) as InitWrapper;
 
-    expect(app?.$el).toHaveTextContent(getMinimumSnippetConfig().instance);
+    expect(getSnippetConfigComponentTextContent()).toEqual(getMinimumSnippetConfig().instance);
 
     api?.setSnippetConfig({ instance: 'test-2' });
-    await vue.nextTick();
-    expect(app?.$el).toHaveTextContent('test-2');
+    await nextTick();
+    expect(getSnippetConfigComponentTextContent()).toEqual('test-2');
   });
 
-  // eslint-disable-next-line max-len
   it('does not initialize XComponents when no snippet config is passed and no window.initX is not defined', async () => {
-    expect(await new XInstaller({ adapter, plugin, vue: createLocalVue() }).init()).toBeUndefined();
+    expect(await new XInstaller({ adapter, plugin }).init()).toBeUndefined();
   });
 
   describe('`lang` & `uiLang`', () => {
     it('provides a `uiLang` by default', async () => {
-      const { app } = await new XInstaller({
+      await new XInstaller({
+        rootComponent: createSnippetConfigComponent('uiLang'),
         adapter,
-        plugin,
-        vue: createLocalVue(),
-        app: createSnippetConfigComponent('uiLang')
+        plugin
       }).init({ ...getMinimumSnippetConfig(), lang: 'en' });
 
-      expect(app?.$el).toHaveTextContent('en');
+      expect(getSnippetConfigComponentTextContent()).toEqual('en');
     });
 
     it('respects user `uiLang` value', async () => {
-      const { app } = await new XInstaller({
+      await new XInstaller({
+        rootComponent: createSnippetConfigComponent('uiLang'),
         adapter,
-        plugin,
-        vue: createLocalVue(),
-        app: createSnippetConfigComponent('uiLang')
+        plugin
       }).init({ ...getMinimumSnippetConfig(), lang: 'en', uiLang: 'it' });
-      expect(app?.$el).toHaveTextContent('it');
+
+      expect(getSnippetConfigComponentTextContent()).toEqual('it');
     });
 
     it('updates `uiLang` when `lang` is changed', async () => {
-      const vue = createLocalVue();
-      const { app, api } = await new XInstaller({
+      const { api } = await new XInstaller({
+        rootComponent: createSnippetConfigComponent('uiLang'),
         adapter,
-        plugin,
-        vue,
-        app: createSnippetConfigComponent('uiLang')
+        plugin
       }).init({ ...getMinimumSnippetConfig(), lang: 'en', uiLang: 'it' });
-      expect(app?.$el).toHaveTextContent('it');
+
+      expect(getSnippetConfigComponentTextContent()).toEqual('it');
 
       api!.setSnippetConfig({ lang: 'es' });
-      await vue.nextTick();
-      expect(app?.$el).toHaveTextContent('es');
+      await nextTick();
+      expect(getSnippetConfigComponentTextContent()).toEqual('es');
 
       api!.setSnippetConfig({ uiLang: 'en' });
-      await vue.nextTick();
-      expect(app?.$el).toHaveTextContent('en');
+      await nextTick();
+      expect(getSnippetConfigComponentTextContent()).toEqual('en');
 
       api!.setSnippetConfig({ lang: 'fr', uiLang: 'it' });
-      await vue.nextTick();
-      expect(app?.$el).toHaveTextContent('it');
+      await nextTick();
+      expect(getSnippetConfigComponentTextContent()).toEqual('it');
     });
   });
 
   describe('mounting target element', () => {
-    const componentApp: ComponentOptions<Vue> = {
-      render(h) {
-        return h('section', { class: 'root-element' });
-      }
-    };
+    /**
+     * In Vue 2.x, when mounting an application that has a template, the rendered content replaces
+     * the element we mount to.
+     * In Vue 3.x, the rendered application is appended as a child of such an element, replacing
+     * element's innerHTML.
+     */
+
+    const componentApp = defineComponent({
+      setup: () => {
+        // emtpy setup
+      },
+      template: '<section class="root-element" />'
+    });
 
     function installX(
       domElement?: InstallXOptions['domElement'],
       snippetConfig = getMinimumSnippetConfig()
     ): Promise<InitWrapper> {
-      const vue = createLocalVue();
-      return new XInstaller({ adapter, plugin, vue, domElement, app: componentApp }).init(
+      return new XInstaller({ rootComponent: componentApp, adapter, plugin, domElement }).init(
         snippetConfig
       );
     }
 
-    beforeEach(() => {
-      document.body.innerHTML = '';
-    });
-
     it('creates an element if there is no target element indicated', async () => {
       await installX();
-      expect(document.body.querySelector('div')).toBeNull();
+      expect(document.body.querySelector('div')).not.toBeNull();
       expect(document.body.querySelector('section')).not.toBeNull();
     });
 
@@ -306,7 +259,7 @@ describe('testing `XInstaller` utility', () => {
       document.body.appendChild(domElement);
 
       await installX(domElement);
-      expect(document.body.querySelector('.target-element')).toBeNull();
+      expect(document.body.querySelector('.target-element')).not.toBeNull();
       expect(document.body.querySelector('.root-element')).not.toBeNull();
     });
 
@@ -316,7 +269,7 @@ describe('testing `XInstaller` utility', () => {
       document.body.appendChild(domElement);
 
       await installX('.target-element');
-      expect(document.body.querySelector('.target-element')).toBeNull();
+      expect(document.body.querySelector('.target-element')).not.toBeNull();
       expect(document.body.querySelector('.root-element')).not.toBeNull();
     });
 
@@ -341,7 +294,7 @@ describe('testing `XInstaller` utility', () => {
       }
 
       await installX(domElement, snippetConfig);
-      expect(document.body.querySelector('.target-element')).toBeNull();
+      expect(document.body.querySelector('.target-element')).not.toBeNull();
       expect(document.body.querySelector('.container-element')).not.toBeNull();
       expect(document.body.querySelector('.root-element')).not.toBeNull();
     });

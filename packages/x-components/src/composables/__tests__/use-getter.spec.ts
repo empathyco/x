@@ -3,28 +3,27 @@ import { mount } from '@vue/test-utils';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { useGetter } from '../use-getter';
 import { ExtractGetters } from '../../x-modules/x-modules.types';
-import { useStore } from '../use-store';
 import { XPlugin } from '../../plugins';
 import { historyQueriesXModule } from '../../x-modules/history-queries/x-module';
 
-jest.mock('../use-store');
-
 function render(modulePaths: (keyof ExtractGetters<'historyQueries'>)[]) {
-  installNewXPlugin();
-  (useStore as jest.Mock).mockReturnValue(XPlugin.store);
-
   const component = defineComponent({
-    xModule: 'historyQueries',
+    xModule: historyQueriesXModule.name,
     setup: () => {
-      XPlugin.registerXModule(historyQueriesXModule);
       const historyQueriesGetter = useGetter('historyQueries', modulePaths);
       return { historyQueriesGetter };
     },
     template: `<div/>`
   });
 
-  const wrapper = mount(component);
-
+  const wrapper = mount(component, {
+    global: {
+      plugins: [installNewXPlugin()],
+      mocks: {
+        $store: {}
+      }
+    }
+  });
   return (wrapper as any).vm.historyQueriesGetter;
 }
 

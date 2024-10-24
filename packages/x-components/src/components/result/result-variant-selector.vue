@@ -1,57 +1,42 @@
 <template>
-  <NoElement v-if="result && variants">
-    <!--
-      @slot Variants list
-        @binding {ResultVariant[]} variants - Array containing the available variants
-        @binding {ResultVariant | undefined} selectedVariant - The selected variant
-        @binding {(variant: ResultVariant) => void} selectVariant - Callback to select a variant
-    -->
-    <slot :variants="variants" :selectedVariant="selectedVariant" :selectVariant="selectVariant">
-      <ul class="x-result-variant-selector__list" data-test="variants-list">
-        <li
-          v-for="(variant, index) in variants"
-          :key="index"
-          class="x-result-variant-selector__item"
-          :class="{ 'x-result-variant-selector__item--is-selected': variantIsSelected(variant) }"
-          data-test="variant-item"
-        >
+  <ul v-if="result && variants" class="x-result-variant-selector__list" data-test="variants-list">
+    <li
+      v-for="(variant, index) in variants"
+      :key="index"
+      class="x-result-variant-selector__item"
+      :class="{ 'x-result-variant-selector__item--is-selected': variantIsSelected(variant) }"
+      data-test="variant-item"
+    >
+      <!--
+        @slot Variant item
+        @binding {ResultVariant} variant - The variant item
+        @binding {boolean} isSelected - Indicates if the variant is selected
+        @binding {() => void} selectVariant - Callback to select the variant
+      -->
+      <slot
+        name="variant"
+        :variant="variant"
+        :isSelected="variantIsSelected(variant)"
+        :selectVariant="() => selectVariant(variant)"
+      >
+        <button @click="selectVariant(variant)" data-test="variant-button" class="x-button">
           <!--
-            @slot Variant item
-              @binding {ResultVariant} variant - The variant item
-              @binding {boolean} isSelected - Indicates if the variant is selected
-              @binding {() => void} selectVariant - Callback to select the variant
+            @slot Variant content
+            @binding {ResultVariant} variant - The variant item
+            @binding {boolean} isSelected - Indicates if the variant is selected
           -->
-          <slot
-            name="variant"
-            :variant="variant"
-            :isSelected="variantIsSelected(variant)"
-            :selectVariant="() => selectVariant(variant)"
-          >
-            <button @click="selectVariant(variant)" data-test="variant-button" class="x-button">
-              <!--
-                @slot Variant content
-                  @binding {ResultVariant} variant - The variant item
-                  @binding {boolean} isSelected - Indicates if the variant is selected
-              -->
-              <slot
-                name="variant-content"
-                :variant="variant"
-                :isSelected="variantIsSelected(variant)"
-              >
-                {{ variant }}
-              </slot>
-            </button>
+          <slot name="variant-content" :variant="variant" :isSelected="variantIsSelected(variant)">
+            {{ variant }}
           </slot>
-        </li>
-      </ul>
-    </slot>
-  </NoElement>
+        </button>
+      </slot>
+    </li>
+  </ul>
 </template>
 
 <script lang="ts">
   import { computed, defineComponent, inject, Ref } from 'vue';
   import { Result, ResultVariant } from '@empathyco/x-types';
-  import { NoElement } from '../no-element';
   import {
     RESULT_WITH_VARIANTS_KEY,
     SELECTED_VARIANTS_KEY,
@@ -66,19 +51,14 @@
    */
   export default defineComponent({
     name: 'ResultVariantSelector',
-    components: { NoElement },
     props: {
-      /**
-       * The nest level of the variants to be rendered.
-       *
-       * @public
-       */
+      /** The nest level of the variants to be rendered. */
       level: {
         type: Number,
         default: 0
       }
     },
-    setup(props) {
+    setup(props, { slots }) {
       /**
        * Callback to be called when a variant is selected.
        *
@@ -89,25 +69,16 @@
         SELECT_RESULT_VARIANT_KEY as string
       );
 
-      /**
-       * The original result, used to retrieve the available variants for the level.
-       *
-       * @public
-       */
+      /** The original result, used to retrieve the available variants for the level. */
       const result = inject<Ref<Result>>(RESULT_WITH_VARIANTS_KEY as string);
 
-      /**
-       * Array containing the selected variants.
-       *
-       * @public
-       */
+      /** Array containing the selected variants. */
       const selectedVariants = inject<Ref<ResultVariant[]>>(SELECTED_VARIANTS_KEY as string);
 
       /**
        * It retrieves the available variants from the result.
        *
        * @returns - The variants of the result for the current level.
-       * @internal
        */
       const variants = computed<ResultVariant[] | undefined>(() => {
         if (props.level === 0) {
@@ -120,19 +91,17 @@
        * Gets the selected variant of the current level.
        *
        * @returns - The selected variant.
-       * @internal
        */
-      const selectedVariant = computed<ResultVariant | undefined>(() => {
-        return variants.value?.find(variant => variant === selectedVariants!.value[props.level]);
-      });
+      const selectedVariant = computed<ResultVariant | undefined>(() =>
+        variants.value?.find(variant => variant === selectedVariants!.value[props.level])
+      );
 
       /**
        * Calls the provided method to select a variant.
        *
        * @param variant - Variant to select.
-       * @internal
        */
-      const selectVariant = (variant: ResultVariant): void => {
+      const selectVariant = (variant: ResultVariant) => {
         selectResultVariant!(variant, props.level);
       };
 
@@ -141,24 +110,40 @@
        *
        * @param variant - Variant to check.
        * @returns True if the variant is selected, false if not.
-       * @internal
        */
-      const variantIsSelected = (variant: ResultVariant): boolean => {
+      const variantIsSelected = (variant: ResultVariant) => {
         return selectedVariant.value === variant;
       };
 
-      return {
-        result,
-        selectedVariant,
-        selectVariant,
-        variantIsSelected,
-        variants
-      };
+      /**
+       * Render function to execute the `default` slot, binding `slotsProps` and getting only the
+       * first `vNode` to avoid Fragments and Text root nodes.
+       * If there are no result or variants, nothing is rendered.
+       *
+       * @remarks `slotProps` must be values without Vue reactivity and located inside the
+       * render-function to update the binding data properly.
+       *
+       * @returns The root `vNode` of the `default` slot or empty string if there are
+       * no result or variants.
+       */
+      function renderDefaultSlot() {
+        const slotProps = {
+          variants: variants.value,
+          selectedVariant: selectedVariant.value,
+          selectVariant
+        };
+        return result && variants.value ? slots.default?.(slotProps)[0] : '';
+      }
+
+      /* Hack to render through a render-function, the `default` slot or, in its absence,
+       the component itself. It is the alternative for the NoElement antipattern. */
+      const componentProps = { result, variants, variantIsSelected, selectVariant };
+      return (slots.default ? renderDefaultSlot : componentProps) as typeof componentProps;
     }
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-result-variant-selector__list {
     display: flex;
   }

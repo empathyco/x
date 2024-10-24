@@ -4,10 +4,11 @@ import { XPlugin } from '../../plugins/index';
 import GlobalXBus from '../global-x-bus.vue';
 
 function renderGlobalXBus({ listeners = {} } = {}) {
-  installNewXPlugin();
-
   return {
-    wrapper: mount(GlobalXBus, { listeners })
+    wrapper: mount(GlobalXBus, {
+      props: { listeners },
+      global: { plugins: [installNewXPlugin()] }
+    })
   } as const;
 }
 
@@ -41,7 +42,7 @@ describe('testing GlobalXBus component', () => {
     await XPlugin.bus.emit('UserClickedColumnPicker');
     expect(clickedColumnPickerCallback).toHaveBeenCalledTimes(1);
 
-    wrapper.destroy();
+    wrapper.unmount();
 
     await XPlugin.bus.emit('UserClickedColumnPicker');
     expect(clickedColumnPickerCallback).toHaveBeenCalledTimes(1);

@@ -1,26 +1,19 @@
 import { mount } from '@vue/test-utils';
-import Vue from 'vue';
 import { SearchInput } from '../../x-modules/search-box/components/index';
 import { installNewXPlugin } from '../../__tests__/utils';
 import BaseKeyboardNavigation from '../base-keyboard-navigation.vue';
 import { DirectionalFocusNavigationService } from '../../services/directional-focus-navigation.service';
+import { XPlugin } from '../../plugins/x-plugin';
 
 describe('testing keyboard navigation component', () => {
-  let localVue: typeof Vue;
-
-  beforeEach(() => {
-    [, localVue] = installNewXPlugin();
-  });
-
   it('takes control of the navigation when a defined condition is triggered', () => {
     const navigateToSpy = jest.spyOn(
       DirectionalFocusNavigationService.prototype as any,
       'navigateTo'
     );
-    const searchInput = mount(SearchInput, { localVue });
     mount(BaseKeyboardNavigation, {
-      localVue,
-      propsData: {
+      global: { plugins: [installNewXPlugin()] },
+      props: {
         navigationHijacker: [
           {
             xEvent: 'UserPressedArrowKey',
@@ -30,6 +23,8 @@ describe('testing keyboard navigation component', () => {
         ]
       }
     });
+
+    const searchInput = mount(SearchInput);
     searchInput.trigger('keydown', { key: 'ArrowUp' });
     expect(navigateToSpy).not.toHaveBeenCalled();
 
@@ -44,15 +39,14 @@ describe('testing keyboard navigation component', () => {
       .spyOn(DirectionalFocusNavigationService.prototype as any, 'navigateTo')
       .mockReturnValue(undefined);
     const keyboardNavigation = mount(BaseKeyboardNavigation, {
-      localVue,
-      propsData: {
-        takeNavigationControl: [],
+      global: { plugins: [installNewXPlugin()] },
+      props: {
         eventsForDirectionLimit: {
           ArrowUp: 'UserReachedEmpathizeTop'
         }
       }
     });
-    keyboardNavigation.vm.$x.on('UserReachedEmpathizeTop').subscribe(listener);
+    XPlugin.bus.on('UserReachedEmpathizeTop').subscribe(listener);
     keyboardNavigation.trigger('keydown', { key: 'ArrowUp' });
 
     expect(listener).toHaveBeenCalled();

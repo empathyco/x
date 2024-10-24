@@ -1,11 +1,11 @@
 import { mount } from '@vue/test-utils';
 import { Result } from '@empathyco/x-types';
-import { nextTick } from 'vue';
+import { defineComponent, nextTick } from 'vue';
 import { createResultStub } from '../../../__stubs__/index';
 import { findTestDataById, getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import ResultVariantsProvider from '../result-variants-provider.vue';
 import ResultVariantSelector from '../result-variant-selector.vue';
-import { XPlugin } from '../../../plugins/index';
+import { XPlugin } from '../../../plugins';
 
 const variants = [
   {
@@ -36,17 +36,7 @@ const render = ({
   autoSelectDepth = Number.POSITIVE_INFINITY,
   queryPreviewHash = null as string | null
 } = {}) => {
-  installNewXPlugin();
-  const emitSpy = jest.spyOn(XPlugin.bus, 'emit');
-
-  const wrapper = mount({
-    template: `
-      <ResultVariantsProvider
-        :result="result"
-        :autoSelectDepth="autoSelectDepth"
-        #default="{ result: newResult }">
-        ${template}
-      </ResultVariantsProvider>`,
+  const resultComponent = defineComponent({
     components: {
       ResultVariantsProvider,
       ResultVariantSelector
@@ -54,23 +44,36 @@ const render = ({
     provide: {
       queryPreviewHash
     },
-    data: () => ({
-      result,
-      autoSelectDepth
-    })
+    data() {
+      return {
+        result,
+        autoSelectDepth
+      };
+    },
+    template: `
+      <ResultVariantsProvider
+        :result="result"
+        :autoSelectDepth="autoSelectDepth"
+        #default="{ result: newResult }">
+        ${template}
+      </ResultVariantsProvider>`
+  });
+
+  const wrapper = mount(resultComponent, {
+    global: { plugins: [installNewXPlugin()] }
   });
 
   return {
     wrapper: wrapper.findComponent(ResultVariantsProvider),
-    emitSpy,
+    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
     findSelectorButtonByLevel: (level: number) =>
       findTestDataById(wrapper, 'variants-list')
         .at(level)
-        .findAll(getDataTestSelector('variant-button')),
+        ?.findAll(getDataTestSelector('variant-button')),
     findSelectorItemByLevel: (level: number) =>
       findTestDataById(wrapper, 'variants-list')
         .at(level)
-        .findAll(getDataTestSelector('variant-item')),
+        ?.findAll(getDataTestSelector('variant-item')),
     setResult: (result: Result) => {
       (wrapper.vm as any).result = result;
       return nextTick();
@@ -114,25 +117,25 @@ describe('results with variants', () => {
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toEqual('jacket');
     expect(wrapper.find(getDataTestSelector('result-image')).text()).toEqual('');
 
-    await firstLevelVariantButtons.at(0).trigger('click');
+    await firstLevelVariantButtons?.at(0)?.trigger('click');
 
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toEqual('red jacket');
     expect(wrapper.find(getDataTestSelector('result-image')).text()).toEqual('red-jacket-image');
 
     const secondLevelVariantButtons = findSelectorButtonByLevel(1);
 
-    await secondLevelVariantButtons.at(1).trigger('click');
+    await secondLevelVariantButtons?.at(1)?.trigger('click');
 
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toEqual('red jacket L');
     expect(wrapper.find(getDataTestSelector('result-image')).text()).toEqual('red-jacket-image');
 
     // It won't deselect the child variant if the parent is clicked.
 
-    await firstLevelVariantButtons.at(0).trigger('click');
+    await firstLevelVariantButtons?.at(0)?.trigger('click');
 
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toEqual('red jacket L');
 
-    await firstLevelVariantButtons.at(1).trigger('click');
+    await firstLevelVariantButtons?.at(1)?.trigger('click');
 
     expect(wrapper.find(getDataTestSelector('result-name')).text()).toEqual('blue jacket');
     expect(wrapper.find(getDataTestSelector('result-image')).text()).toEqual('');
@@ -203,11 +206,11 @@ describe('results with variants', () => {
       result
     });
 
-    const firstVariant = findSelectorItemByLevel(0).at(0);
-    const secondSelectorFirstVariant = findSelectorItemByLevel(1).at(0);
+    const firstVariant = findSelectorItemByLevel(0)?.at(0);
+    const secondSelectorFirstVariant = findSelectorItemByLevel(1)?.at(0);
 
-    expect(firstVariant.element.className).toContain('--is-selected');
-    expect(secondSelectorFirstVariant.element.className).toContain('--is-selected');
+    expect(firstVariant?.element.className).toContain('--is-selected');
+    expect(secondSelectorFirstVariant?.element.className).toContain('--is-selected');
   });
 
   it('selects variants on init up to the level set in the autoSelectDepth prop', () => {
@@ -221,11 +224,11 @@ describe('results with variants', () => {
       autoSelectDepth: 1
     });
 
-    const firstVariant = findSelectorItemByLevel(0).at(0);
-    const secondSelectorFirstVariant = findSelectorItemByLevel(1).at(0);
+    const firstVariant = findSelectorItemByLevel(0)?.at(0);
+    const secondSelectorFirstVariant = findSelectorItemByLevel(1)?.at(0);
 
-    expect(firstVariant.element.className).toContain('--is-selected');
-    expect(secondSelectorFirstVariant.element.className).not.toContain('--is-selected');
+    expect(firstVariant?.element.className).toContain('--is-selected');
+    expect(secondSelectorFirstVariant?.element.className).not.toContain('--is-selected');
   });
 
   it('wont select any variant by default if autoSelectDepth is 0', () => {
@@ -280,10 +283,10 @@ describe('results with variants', () => {
 
       await firstVariantButton.trigger('click');
 
-      expect(variantWrappers.at(0).element).toHaveClass(className);
-      variantWrappers.wrappers
-        .slice(1)
-        .forEach(wrapper => expect(wrapper.element).not.toHaveClass(className));
+      expect(variantWrappers.at(0)?.element).toHaveClass(className);
+      variantWrappers.slice(1).forEach(wrapper => {
+        expect(wrapper.element.classList.contains(className)).toBe(false);
+      });
     });
 
     it('renders all the variants of each level', async () => {
@@ -310,25 +313,25 @@ describe('results with variants', () => {
       const firstLevelVariantButtons = findSelectorButtonByLevel(0);
 
       expect(firstLevelVariantButtons).toHaveLength(2);
-      expect(firstLevelVariantButtons.at(0).text()).toEqual('red jacket');
-      expect(firstLevelVariantButtons.at(1).text()).toEqual('blue jacket');
+      expect(firstLevelVariantButtons?.at(0)?.text()).toEqual('red jacket');
+      expect(firstLevelVariantButtons?.at(1)?.text()).toEqual('blue jacket');
 
-      await firstLevelVariantButtons.at(1).trigger('click');
+      await firstLevelVariantButtons?.at(1)?.trigger('click');
 
       const secondLevelVariantButtons = findSelectorButtonByLevel(1);
 
       expect(secondLevelVariantButtons).toHaveLength(2);
-      expect(secondLevelVariantButtons.at(0).text()).toEqual('blue jacket L');
-      expect(secondLevelVariantButtons.at(1).text()).toEqual('blue jacket S');
+      expect(secondLevelVariantButtons?.at(0)?.text()).toEqual('blue jacket L');
+      expect(secondLevelVariantButtons?.at(1)?.text()).toEqual('blue jacket S');
 
-      await secondLevelVariantButtons.at(0).trigger('click');
+      await secondLevelVariantButtons?.at(0)?.trigger('click');
 
       const thirdLevelVariantButtons = findSelectorButtonByLevel(2);
 
       expect(thirdLevelVariantButtons).toHaveLength(3);
-      expect(thirdLevelVariantButtons.at(0).text()).toEqual('blue jacket L1');
-      expect(thirdLevelVariantButtons.at(1).text()).toEqual('blue jacket L2');
-      expect(thirdLevelVariantButtons.at(1).text()).toEqual('blue jacket L2');
+      expect(thirdLevelVariantButtons?.at(0)?.text()).toEqual('blue jacket L1');
+      expect(thirdLevelVariantButtons?.at(1)?.text()).toEqual('blue jacket L2');
+      expect(thirdLevelVariantButtons?.at(1)?.text()).toEqual('blue jacket L2');
     });
 
     it('wont render if no result is injected', () => {
@@ -372,12 +375,12 @@ describe('results with variants', () => {
 
       expect(variants).toHaveLength(2);
 
-      expect(variants.at(0).text()).toEqual('red jacket');
-      expect(variants.at(1).text()).toEqual('blue jacket');
+      expect(variants.at(0)?.text()).toEqual('red jacket');
+      expect(variants.at(1)?.text()).toEqual('blue jacket');
 
-      await variants.at(0).trigger('click');
+      await variants.at(0)?.trigger('click');
 
-      expect(variants.at(0).element).toHaveClass('isSelected');
+      expect(variants.at(0)?.element).toHaveClass('isSelected');
     });
 
     it('exposes variant, isSelected and selectVariant in the variant slot', async () => {
@@ -398,11 +401,11 @@ describe('results with variants', () => {
 
       expect(variants).toHaveLength(2);
 
-      expect(variants.at(0).text()).toEqual('red jacket');
-      expect(variants.at(1).text()).toEqual('blue jacket');
+      expect(variants.at(0)?.text()).toEqual('red jacket');
+      expect(variants.at(1)?.text()).toEqual('blue jacket');
 
-      await variants.at(1).trigger('click');
-      expect(variants.at(1).element).toHaveClass('isSelected');
+      await variants.at(1)?.trigger('click');
+      expect(variants.at(1)?.element).toHaveClass('isSelected');
     });
 
     it('exposes variant and isSelected in the variant-content slot', async () => {
@@ -418,10 +421,10 @@ describe('results with variants', () => {
 
       expect(variants).toHaveLength(2);
 
-      await variants.at(0).trigger('click');
+      await variants.at(0)?.trigger('click');
 
-      expect(variants.at(0).text()).toContain('red jacket SELECTED!');
-      expect(variants.at(1).text()).toEqual('blue jacket');
+      expect(variants.at(0)?.text()).toContain('red jacket SELECTED!');
+      expect(variants.at(1)?.text()).toEqual('blue jacket');
     });
   });
 });

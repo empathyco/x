@@ -1,6 +1,4 @@
-import { getCurrentInstance } from 'vue';
-import { Store } from 'vuex';
-
+import { useStore as useStoreVuex, Store } from 'vuex';
 /**
  * Function which returns the `$store` object from the current component instance.
  *
@@ -9,5 +7,5 @@ import { Store } from 'vuex';
  * @public
  */
 export function useStore(): Store<any> {
-  return (getCurrentInstance()?.proxy as { $store: Store<any> }).$store;
+  return useStoreVuex();
 }

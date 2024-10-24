@@ -42,5 +42,3 @@
     }
   });
 </script>
-
-<style scoped></style>

@@ -14,7 +14,7 @@
         :queryFeature="queryFeature"
         :queryPreviewInfo="queryPreview"
       >
-        <template v-for="(_, slotName) in renderSlots" v-slot:[slotName]="scope">
+        <template v-for="(_, slotName) in $slots" v-slot:[slotName]="scope">
           <slot :name="slotName" v-bind="scope" />
         </template>
       </QueryPreview>
@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-  import Vue, { computed, defineComponent, PropType, ref, watch } from 'vue';
+  import { computed, defineComponent, PropType, ref, watch } from 'vue';
   import { RequestStatus } from '../../../store';
   import { queriesPreviewXModule } from '../x-module';
   import { QueryPreviewInfo } from '../store/types';
@@ -99,9 +99,7 @@
         default: 'ul'
       }
     },
-    setup(props, { slots }) {
-      const renderSlots = slots;
-
+    setup(props) {
       /**
        * Contains the status of the preview requests, indexed by query.
        */
@@ -141,8 +139,7 @@
       const loadNext = (): void => {
         const queryToLoad = queries.value.find(query => !(query in queriesStatus.value));
         if (queryToLoad) {
-          //TODO - change this logic when we migrate to vue@3. It won't be necessary. Check this link https://v2.vuejs.org/v2/guide/migration-vue-2-7#Behavior-Differences-from-Vue-3
-          Vue.set(queriesStatus.value, queryToLoad, 'loading');
+          queriesStatus.value[queryToLoad] = 'loading';
         }
       };
 
@@ -193,8 +190,7 @@
       return {
         renderedQueryPreviews,
         flagAsFailed,
-        flagAsLoaded,
-        renderSlots
+        flagAsLoaded
       };
     }
   });

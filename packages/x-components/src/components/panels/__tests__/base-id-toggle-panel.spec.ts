@@ -1,3 +1,10 @@
+import { mount, VueWrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
+import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
+import { XEvent } from '../../../wiring';
+import BaseIdTogglePanel from '../base-id-toggle-panel.vue';
+import { XPlugin } from '../../../plugins/index';
+
 /**
  * Mounts a {@link BaseIdTogglePanel} component with the provided options and offers an API to
  * easily test it.
@@ -5,21 +12,14 @@
  * @param options - The options to render the component with.
  * @returns An API to test the component.
  */
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
-import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
-import { XEvent } from '../../../wiring';
-import BaseIdTogglePanel from '../base-id-toggle-panel.vue';
-
 function mountBaseIdTogglePanel({
   panelId = 'myToggle',
   defaultSlot = `<span data-test="default-slot">Panel: ${panelId}</span>`,
   startOpen = true
 }: MountBaseIdToggleOptions = {}): MountBaseIdTogglePanelAPI {
-  const [, localVue] = installNewXPlugin();
   const wrapper = mount(BaseIdTogglePanel, {
-    localVue,
-    propsData: { panelId, startOpen },
+    props: { panelId, startOpen },
+    global: { plugins: [installNewXPlugin()] },
     slots: {
       default: defaultSlot
     }
@@ -31,8 +31,8 @@ function mountBaseIdTogglePanel({
     panelId,
     baseTogglePanelWrapper,
     async emit(event: XEvent) {
-      wrapper.vm.$x.emit(event, panelId);
-      await localVue.nextTick();
+      XPlugin.bus.emit(event, panelId);
+      await nextTick();
     }
   };
 }
@@ -76,7 +76,7 @@ describe('testing BaseIdTogglePanel component', () => {
 
 interface MountBaseIdTogglePanelAPI {
   /** The wrapper for the panel toggle component. */
-  baseTogglePanelWrapper: Wrapper<Vue>;
+  baseTogglePanelWrapper: VueWrapper;
   /** Emits the provided event. */
   emit: (event: XEvent) => Promise<void>;
   /** The panel id. */

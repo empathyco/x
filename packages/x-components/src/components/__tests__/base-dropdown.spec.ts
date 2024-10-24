@@ -25,7 +25,7 @@ function renderDropdown({
       data: () => ({ value: initialValue })
     },
     {
-      propsData: { items }
+      props: { items }
     }
   );
 
@@ -42,7 +42,7 @@ function renderDropdown({
   }
 
   const clickToggleButton = () => getDropdownToggle().trigger('click');
-  const clickNthItem = (nth: number) => getListItems().at(nth).trigger('click');
+  const clickNthItem = (nth: number) => getListItems().at(nth)?.trigger('click');
   const pressKeyFromToggle = (key: Key) => getDropdownToggle().trigger(`keydown`, { key });
   const pressKeyFromFocusedItem = (key: Key) => getHighlightedItem().trigger(`keydown`, { key });
 
@@ -71,7 +71,7 @@ function renderDropdown({
   }
 
   function isListVisible() {
-    const element = dropdown.find(getDataTestSelector('dropdown-list')).element;
+    const element = dropdown.find(getDataTestSelector('dropdown-list')).element as HTMLElement;
     return element.style.display !== 'none';
   }
 
@@ -116,7 +116,7 @@ describe('testing Dropdown component', () => {
     const listItemWrappers = getListItems();
     expect(listItemWrappers).toHaveLength(4);
     items.forEach((item, index) => {
-      expect(listItemWrappers.at(index).text()).toBe(typeof item === 'string' ? item : item.id);
+      expect(listItemWrappers.at(index)?.text()).toBe(typeof item === 'string' ? item : item.id);
     });
   });
 
@@ -143,8 +143,8 @@ describe('testing Dropdown component', () => {
     const listItemWrappers = getListItems();
     expect(getDropdownToggle().text()).toBe('select something');
     expect(listItemWrappers.length).toBeGreaterThan(0);
-    expect(getHighlightedItem().text()).toBe(listItemWrappers.at(0).text());
-    expect(getSelectedItem().element).toBeUndefined();
+    expect(getHighlightedItem().text()).toBe(listItemWrappers.at(0)?.text());
+    expect(getSelectedItem().exists()).toBeFalsy();
   });
 
   it('allows to customize the toggle button', async () => {
@@ -177,7 +177,7 @@ describe('testing Dropdown component', () => {
       await pressKeyFromToggle('ArrowDown');
 
       const selectedElement = getListItems().at(selectedIndex);
-      expect(getHighlightedItem().text()).toBe(selectedElement.text());
+      expect(getHighlightedItem().text()).toBe(selectedElement?.text());
     });
 
     it('opens and focuses the selected element when the button has focus and arrow UP key is pressed', async () => {
@@ -189,7 +189,7 @@ describe('testing Dropdown component', () => {
       await pressKeyFromToggle('ArrowUp');
 
       const selectedElement = getListItems().at(selectedIndex);
-      expect(getHighlightedItem().text()).toBe(selectedElement.text());
+      expect(getHighlightedItem().text()).toBe(selectedElement?.text());
     });
   });
 
@@ -291,10 +291,10 @@ describe('testing Dropdown component', () => {
       const listItems = getListItems();
 
       await pressKeyFromFocusedItem('End');
-      expect(getHighlightedItem().text()).toBe(listItems.at(-1).text());
+      expect(getHighlightedItem().text()).toBe(listItems.at(-1)?.text());
 
       await pressKeyFromFocusedItem('Home');
-      expect(getHighlightedItem().text()).toBe(listItems.at(0).text());
+      expect(getHighlightedItem().text()).toBe(listItems.at(0)?.text());
     });
 
     it('focuses the first element starting to search from the focused one which its text starts with the typed characters', async () => {

@@ -8,21 +8,21 @@
   }
 
   &--top {
-    &#{$p}--enter,
+    &#{$p}--enter-from,
     &#{$p}--leave-to {
       clip-path: inset(0 0 100% 0 round var(--x-size-border-radius-animation-clip-path, 0));
     }
   }
 
   &--bottom {
-    &#{$p}--enter,
+    &#{$p}--enter-from,
     &#{$p}--leave-to {
       clip-path: inset(100% 0 0 0 round var(--x-size-border-radius-animation-clip-path, 0));
     }
   }
 
   &--top-to-bottom {
-    &#{$p}--enter {
+    &#{$p}--enter-from {
       clip-path: inset(0 0 100% 0 round var(--x-size-border-radius-animation-clip-path, 0));
     }
     &#{$p}--leave-to {
@@ -31,7 +31,7 @@
   }
 
   &--bottom-to-top {
-    &#{$p}--enter {
+    &#{$p}--enter-from {
       clip-path: inset(100% 0 0 0 round var(--x-size-border-radius-animation-clip-path, 0));
     }
     &#{$p}--leave-to {
@@ -40,21 +40,21 @@
   }
 
   &--left {
-    &#{$p}--enter,
+    &#{$p}--enter-from,
     &#{$p}--leave-to {
       clip-path: inset(0 100% 0 0 round var(--x-size-border-radius-animation-clip-path, 0));
     }
   }
 
   &--right {
-    &#{$p}--enter,
+    &#{$p}--enter-from,
     &#{$p}--leave-to {
       clip-path: inset(0 0 0 100% round var(--x-size-border-radius-animation-clip-path, 0));
     }
   }
 
   &--left-to-right {
-    &#{$p}--enter {
+    &#{$p}--enter-from {
       clip-path: inset(0 100% 0 0 round var(--x-size-border-radius-animation-clip-path, 0));
     }
     &#{$p}--leave-to {
@@ -63,7 +63,7 @@
   }
 
   &--right-to-left {
-    &#{$p}--enter {
+    &#{$p}--enter-from {
       clip-path: inset(0 0 0 100% round var(--x-size-border-radius-animation-clip-path, 0));
     }
     &#{$p}--leave-to {

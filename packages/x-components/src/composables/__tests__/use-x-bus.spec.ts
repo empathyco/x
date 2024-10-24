@@ -1,21 +1,16 @@
 import { mount } from '@vue/test-utils';
 import { defineComponent } from 'vue';
+import { XDummyBus } from '../../__tests__/bus.dummy';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { XPlugin } from '../../plugins';
 import { useXBus } from '../use-x-bus';
 
-function install() {
-  installNewXPlugin();
-
-  return {
-    emitSpy: jest.spyOn(XPlugin.bus, 'emit'),
-    onSpy: jest.spyOn(XPlugin.bus, 'on')
-  };
-}
-
-let onColumnsNumberProvidedMock = jest.fn();
+let dummyBus = new XDummyBus();
+const onColumnsNumberProvidedMock = jest.fn();
 
 function render(withMetadata = true) {
+  const emitSpy = jest.spyOn(dummyBus, 'emit');
+  const onSpy = jest.spyOn(dummyBus, 'on');
   const component = defineComponent({
     xModule: 'searchBox',
     setup: () => {
@@ -27,18 +22,25 @@ function render(withMetadata = true) {
   });
 
   return {
-    wrapper: mount(component, { provide: { location: 'Magrathea' } })
+    wrapper: mount(component, {
+      global: {
+        plugins: [installNewXPlugin({}, dummyBus)],
+        provide: { location: 'Magrathea' }
+      }
+    }),
+    emitSpy,
+    onSpy
   };
 }
 
 describe('testing useXBus', () => {
   beforeEach(() => {
-    onColumnsNumberProvidedMock = jest.fn();
+    dummyBus = new XDummyBus();
+    onColumnsNumberProvidedMock.mockReset();
   });
 
   it('should emit and on subscription in the bus for registered events', () => {
-    const { onSpy, emitSpy } = install();
-    render();
+    const { emitSpy, onSpy } = render();
     const metadata = {
       customMetadata: 'custom',
       moduleName: 'searchBox',
@@ -50,25 +52,24 @@ describe('testing useXBus', () => {
     expect(emitSpy).toHaveBeenCalledWith('ColumnsNumberProvided', 10, metadata);
     expect(onSpy).toHaveBeenCalledTimes(1);
     expect(onSpy).toHaveBeenCalledWith('ColumnsNumberProvided', true);
+    expect(onColumnsNumberProvidedMock).toHaveBeenCalledTimes(1);
     expect(onColumnsNumberProvidedMock).toHaveBeenCalledWith({ eventPayload: 10, metadata });
   });
 
   it('should not emit metadata if it was not configured for', () => {
-    install();
     render(false);
 
+    expect(onColumnsNumberProvidedMock).toHaveBeenCalledTimes(1);
     expect(onColumnsNumberProvidedMock).toHaveBeenCalledWith(10);
   });
 
   it('should emit events natively in Vue', () => {
-    install();
     const { wrapper } = render();
 
     expect(wrapper.emitted()).toEqual({ ColumnsNumberProvided: [[10]] });
   });
 
   it('should unsubscribe from events when component is unmounted', async () => {
-    install();
     const { wrapper } = render();
     const payloadGenerator = (eventPayload: number) => expect.objectContaining({ eventPayload });
 
@@ -78,7 +79,7 @@ describe('testing useXBus', () => {
     expect(onColumnsNumberProvidedMock).toHaveBeenCalledTimes(2); // Bus emission
     expect(onColumnsNumberProvidedMock).toHaveBeenNthCalledWith(2, payloadGenerator(50));
 
-    wrapper.destroy();
+    wrapper.unmount();
 
     await XPlugin.bus.emit('ColumnsNumberProvided', 60);
     expect(onColumnsNumberProvidedMock).toHaveBeenCalledTimes(2); // No listener on unmounted

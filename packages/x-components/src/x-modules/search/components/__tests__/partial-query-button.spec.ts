@@ -1,16 +1,14 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
 import { getDataTestSelector, installNewXPlugin } from '../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../components/x-component.utils';
 import { WireMetadata } from '../../../../wiring/wiring.types';
 import PartialQueryButton from '../partial-query-button.vue';
+import { XPlugin } from '../../../../plugins/index';
 
 function renderPartialQueryButton({
   template = `<PartialQueryButton :query="query" />`,
   query = ''
-}: RenderPartialQueryButtonOptions = {}): RenderPartialQueryButtonAPI {
-  const [, localVue] = installNewXPlugin();
-
+}: RenderPartialQueryButtonOptions = {}) {
   const wrapper = mount(
     {
       components: {
@@ -20,9 +18,11 @@ function renderPartialQueryButton({
       template
     },
     {
-      localVue,
-      propsData: {
+      props: {
         query
+      },
+      global: {
+        plugins: [installNewXPlugin()]
       }
     }
   );
@@ -31,9 +31,7 @@ function renderPartialQueryButton({
 
   return {
     partialQueryButtonWrapper,
-    async click() {
-      await wrapper.trigger('click');
-    }
+    click: async () => await wrapper.trigger('click')
   };
 }
 
@@ -80,10 +78,9 @@ describe('testing PartialQueryButton component', () => {
     const { partialQueryButtonWrapper, click } = renderPartialQueryButton({
       query
     });
-    const $x = partialQueryButtonWrapper.vm.$x;
 
-    $x.on('UserAcceptedAQuery', true).subscribe(userAcceptedAQuery);
-    $x.on('UserClickedPartialQuery', true).subscribe(UserClickedPartialQuery);
+    XPlugin.bus.on('UserAcceptedAQuery', true).subscribe(userAcceptedAQuery);
+    XPlugin.bus.on('UserClickedPartialQuery', true).subscribe(UserClickedPartialQuery);
 
     click();
 
@@ -109,11 +106,4 @@ interface RenderPartialQueryButtonOptions {
   template?: string;
   /** The query property. */
   query?: string;
-}
-
-interface RenderPartialQueryButtonAPI {
-  /** The wrapper of the button element.*/
-  partialQueryButtonWrapper: Wrapper<Vue>;
-  /** Clicks the button and waits for the view to update. */
-  click: () => Promise<void>;
 }

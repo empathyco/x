@@ -1,29 +1,18 @@
-import { Filter } from '@empathyco/x-types';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue from 'vue';
-import { getSimpleFilterStub } from '../../../../../__stubs__/filters-stubs.factory';
+import { SimpleFilter } from '@empathyco/x-types';
+import { mount } from '@vue/test-utils';
+import { getSimpleFilterStub } from '../../../../../__stubs__';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import ExcludeFiltersWithNoResults from '../exclude-filters-with-no-results.vue';
 
-/**
- * Renders a {@link ExcludeFiltersWithNoResults} component with the provided options, and returns
- * a small API to test it.
- *
- * @param options - Options to test the {@link ExcludeFiltersWithNoResults} component with.
- * @returns A {@link RenderExcludeFiltersWithNoResultsAPI} object to test the
- * {@link ExcludeFiltersWithNoResults}.
- */
 function renderExcludeFiltersWithNoResults({
-  filters = [],
+  filters = [] as SimpleFilter[],
   template = `
     <ExcludeFiltersWithNoResults :filters="filters" v-slot="{ filters }">
       <div>
         <span class="filter" v-for="filter in filters">{{ filter.label }}</span>
       </div>
     </ExcludeFiltersWithNoResults>`
-}: RenderExcludeFiltersWithNoResultsOptions = {}): RenderExcludeFiltersWithNoResultsAPI {
-  const localVue = createLocalVue();
-
+} = {}) {
   const templateWrapper = mount(
     {
       props: ['filters'],
@@ -33,17 +22,14 @@ function renderExcludeFiltersWithNoResults({
       template
     },
     {
-      localVue,
-      propsData: { filters }
+      props: { filters }
     }
   );
 
   const wrapper = templateWrapper.findComponent(ExcludeFiltersWithNoResults);
   return {
     wrapper,
-    getRenderedFilters() {
-      return templateWrapper.findAll('.filter');
-    }
+    getRenderedFilters: () => templateWrapper.findAll('.filter')
   };
 }
 
@@ -70,21 +56,6 @@ describe('testing Filters component', () => {
     });
     const renderedFilters = getRenderedFilters();
     expect(renderedFilters).toHaveLength(2);
-    expect(renderedFilters.wrappers.map(wrapper => wrapper.text())).toEqual(['Women', 'Kids']);
+    expect(renderedFilters.map(wrapper => wrapper.text())).toEqual(['Women', 'Kids']);
   });
 });
-
-interface RenderExcludeFiltersWithNoResultsOptions {
-  /** The filters data to render. */
-  filters?: Filter[];
-  /** The template to render. Receives the `filters` via prop, and has registered the
-   * {@link ExcludeFiltersWithNoResults} component. */
-  template?: string;
-}
-
-interface RenderExcludeFiltersWithNoResultsAPI {
-  /** Retrieves the testing wrappers of the filters. */
-  getRenderedFilters: () => WrapperArray<Vue>;
-  /** The Vue testing utils wrapper for the {@link ExcludeFiltersWithNoResults} component. */
-  wrapper: Wrapper<Vue>;
-}

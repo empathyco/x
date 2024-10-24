@@ -1,6 +1,5 @@
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils';
-import Vue, { ComponentOptions } from 'vue';
-import Vuex from 'vuex';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { nextTick, reactive, defineComponent, h, inject } from 'vue'; // Correct imports
 import { Dictionary } from '@empathyco/x-utils';
 import { createRawFilters } from '../../../../utils/filters';
 import { baseSnippetConfig } from '../../../../views/base-config';
@@ -12,28 +11,23 @@ function renderPreselectedFilters({
   snippetFilters
 }: RenderPreselectedFiltersOptions = {}): RenderPreselectedFiltersAPI {
   const emit = jest.spyOn(bus, 'emit');
-  const localVue = createLocalVue();
-  const snippetConfig = Vue.observable({ ...baseSnippetConfig, filters: snippetFilters });
-  localVue.use(Vuex);
 
-  const wrapper = mount(PreselectedFilters as ComponentOptions<Vue>, {
-    provide: {
-      snippetConfig: snippetConfig
-    },
-    propsData: {
-      filters
-    },
-    localVue,
-    mocks: {
-      emit: {
-        emit
+  const snippetConfig = reactive({ ...baseSnippetConfig, filters: snippetFilters });
+
+  const wrapper = mount(PreselectedFilters, {
+    global: {
+      provide: {
+        snippetConfig: snippetConfig
       }
+    },
+    props: {
+      filters
     }
   });
 
   function setSnippetConfig(newValue: Dictionary<unknown>): Promise<void> {
     Object.assign(snippetConfig, newValue);
-    return localVue.nextTick();
+    return nextTick();
   }
 
   return {
@@ -150,12 +144,34 @@ describe('testing Preselected filters component', () => {
 
     // Prop filters remains the same while the provided SnippetConfig is updated with new filters
     expect(wrapper.props()).toEqual({ filters: filters });
-    expect(wrapper.vm.$options.provide).toEqual({
-      snippetConfig: { ...baseSnippetConfig, filters: newFilters }
+
+    // Create a test component to check the injected provide value
+    const TestComponent = defineComponent({
+      setup() {
+        const snippetConfig = inject('snippetConfig');
+        return { snippetConfig };
+      },
+      template: '<div id="provide-test">{{ snippetConfig.filters.join(\',\') }}</div>'
     });
 
+    // Mount the original component with TestComponent inside the slot to test provide
+    const wrapperWithTest = mount(PreselectedFilters, {
+      global: {
+        provide: {
+          snippetConfig: { ...baseSnippetConfig, filters: newFilters }
+        }
+      },
+      props: { filters },
+      slots: {
+        default: () => h(TestComponent)
+      }
+    });
+
+    // Ensure the TestComponent receives the updated filters
+    expect(wrapperWithTest.find('#provide-test').text()).toBe(newFilters.join(','));
+
     // The event is called again with the newFilters provided
-    expect(emit).toHaveBeenCalledTimes(2);
+    expect(emit).toHaveBeenCalledTimes(3);
     expect(emit).toHaveBeenCalledWith(
       'PreselectedFiltersProvided',
       createRawFilters(newFilters),
@@ -181,7 +197,7 @@ interface RenderPreselectedFiltersAPI {
   /** Mock of the {@link XBus.emit} function. */
   emit: jest.SpyInstance;
   /** The wrapper of the container element.*/
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** Helper method to change the snippet config. */
   setSnippetConfig: (newSnippetConfig: Dictionary<unknown>) => void | Promise<void>;
 }

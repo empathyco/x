@@ -6,8 +6,6 @@
     @scroll:at-start="emitScrollAtStart"
     @scroll:almost-at-end="emitScrollAlmostAtEnd"
     @scroll:at-end="emitScrollAtEnd"
-    v-on="$listeners"
-    v-bind="$attrs"
     :id="id"
   >
     <slot />
@@ -120,7 +118,7 @@
        */
       $x.on('UserClickedScrollToTop', false).subscribe((scrollId: string) => {
         if (scrollId === props.id && scrollRef.value) {
-          scrollRef.value.$el.scrollTo({ top: 0, behavior: 'smooth' });
+          (scrollRef.value.$el as HTMLElement).scrollTo({ top: 0, behavior: 'smooth' });
         }
       });
 

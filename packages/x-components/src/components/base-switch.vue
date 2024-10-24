@@ -1,7 +1,7 @@
 <template>
   <button
     @click="toggle"
-    :aria-checked="value.toString()"
+    :aria-checked="modelValue || undefined"
     :class="cssClasses"
     class="x-switch"
     role="switch"
@@ -30,12 +30,12 @@
      * @public
      */
     props: {
-      value: {
+      modelValue: {
         type: Boolean,
-        required: true
+        default: false
       }
     },
-    emits: ['change', 'input'],
+    emits: ['update:modelValue'],
     setup(props, { emit }) {
       /**
        * Dynamic CSS classes to add to the switch component
@@ -45,23 +45,22 @@
        * @internal
        */
       const cssClasses = ref<VueCSSClasses>({
-        'x-switch--is-selected x-selected': props.value
+        'x-switch--is-selected x-selected': props.modelValue
       });
 
       /**
-       * Emits a change and input event with the desired value of the switch.
+       * Emits an event with the new value of the switch.
        *
        * @internal
        */
       const toggle = (): void => {
-        const newValue = !props.value;
+        const newValue = !props.modelValue;
         cssClasses.value = {
           'x-switch--is-selected': newValue,
           'x-selected': newValue
         };
 
-        emit('input', newValue);
-        emit('change', newValue);
+        emit('update:modelValue', newValue);
       };
 
       return {
@@ -72,7 +71,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-switch {
     --x-switch-height: 16px;
     --x-switch-width: calc(2 * (var(--x-switch-height)) + 2 * var(--x-switch-padding));
@@ -88,28 +87,28 @@
     border: none;
     transition: 0.25s ease-out background-color;
     cursor: pointer;
+  }
 
-    &__handle {
-      background: #ffffff;
-      border-radius: 50%;
-      height: var(--x-switch-handle-size);
-      width: var(--x-switch-handle-size);
-      transition: 0.25s ease-out transform;
-      transform: translateX(var(--x-switch-translate-x, 0%));
-    }
+  .x-switch__handle {
+    background: #ffffff;
+    border-radius: 50%;
+    height: var(--x-switch-handle-size);
+    width: var(--x-switch-handle-size);
+    transition: 0.25s ease-out transform;
+    transform: translateX(var(--x-switch-translate-x, 0%));
+  }
 
-    &--is-selected {
-      --x-switch-translate-x: calc(var(--x-switch-padding) + var(--x-switch-width) / 2);
-      --x-switch-background: #1a1a1a;
-    }
+  .x-switch--is-selected {
+    --x-switch-translate-x: calc(var(--x-switch-padding) + var(--x-switch-width) / 2);
+    --x-switch-background: #1a1a1a;
+  }
 
-    &--sm {
-      --x-switch-height: 12px;
-    }
+  .x-switch--sm {
+    --x-switch-height: 12px;
+  }
 
-    &--lg {
-      --x-switch-height: 24px;
-    }
+  .x-switch--lg {
+    --x-switch-height: 24px;
   }
 </style>
 
@@ -126,7 +125,7 @@ _Try clicking it to see how it changes its state_
 
 ```vue live
 <template>
-  <BaseSwitch @change="value = !value" :value="value" />
+  <BaseSwitch @update:modelValue="value = !value" :modelValue="value" />
 </template>
 
 <script>

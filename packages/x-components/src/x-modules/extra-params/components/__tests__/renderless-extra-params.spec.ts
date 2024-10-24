@@ -8,21 +8,21 @@ import { extraParamsXModule } from '../../x-module';
 import RenderlessExtraParam from '../renderless-extra-param.vue';
 import { resetXExtraParamStateWith } from './utils';
 
-function render({
-  template = `<RenderlessExtraParam :name="name" />`,
-  name = 'warehouse',
-  params = {}
-} = {}) {
-  installNewXPlugin({ initialXModules: [extraParamsXModule] });
-  resetXExtraParamStateWith(XPlugin.store, { params });
-
-  const wrapper = mount({
-    template,
-    components: {
-      RenderlessExtraParam
+function render({ template = `<RenderlessExtraParam :name="name" />`, name = 'warehouse' } = {}) {
+  const wrapper = mount(
+    {
+      template,
+      components: {
+        RenderlessExtraParam
+      },
+      data: () => ({ name })
     },
-    data: () => ({ name })
-  });
+    {
+      global: {
+        plugins: [installNewXPlugin({ initialXModules: [extraParamsXModule] })]
+      }
+    }
+  );
 
   return {
     wrapper: wrapper.findComponent(RenderlessExtraParam)
@@ -39,10 +39,10 @@ describe('testing RenderlessExtraParam component', () => {
 
   it("doesn't emit ExtraParamsProvided event when the component receives a default value if it's in the store", () => {
     const extraParamsProvidedCallback = jest.fn();
-    render({ params: { warehouse: 1234 } });
-
+    render();
     XPlugin.bus.on('ExtraParamsProvided', true).subscribe(extraParamsProvidedCallback);
 
+    resetXExtraParamStateWith(XPlugin.store, { params: { warehouse: 1234 } });
     expect(extraParamsProvidedCallback).toHaveBeenCalledTimes(0);
   });
 
@@ -58,8 +58,7 @@ describe('testing RenderlessExtraParam component', () => {
     XPlugin.bus.on('UserChangedExtraParams', true).subscribe(userChangedExtraParamsCallback);
 
     expect(userChangedExtraParamsCallback).toHaveBeenCalledTimes(0);
-
-    wrapper.find(getDataTestSelector('custom-slot')).element.click();
+    wrapper.find(getDataTestSelector('custom-slot')).trigger('click');
 
     expect(userChangedExtraParamsCallback).toHaveBeenCalledWith<[WirePayload<Dictionary<unknown>>]>(
       {

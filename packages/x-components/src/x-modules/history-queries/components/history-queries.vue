@@ -1,6 +1,5 @@
 <template>
   <BaseSuggestions
-    v-bind="$attrs"
     :suggestions="historyQueriesWithResults"
     class="x-history-queries"
     data-test="history-queries"
@@ -67,7 +66,6 @@
       BaseSuggestions,
       HistoryQuery
     },
-    inheritAttrs: false,
     setup() {
       /**
        * The filtered list of history queries.

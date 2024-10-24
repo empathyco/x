@@ -1,5 +1,4 @@
 import fs from 'fs';
-import path from 'path';
 import { Plugin } from 'rollup';
 import { normalizePath } from '../build.utils';
 
@@ -12,26 +11,11 @@ import { normalizePath } from '../build.utils';
  * returns `src/design-system/button/default.tokens.scss` if exists.
  * @internal
  */
-function getTokensFilePath(file: string): string | null {
+function getTokensFilePath(file: string) {
   const fileParts = file.split('.');
   const fileExtension = fileParts.pop() ?? '';
   const tokensFile = `${fileParts.join('.')}.tokens.${fileExtension}`;
   return fs.existsSync(tokensFile) ? normalizePath(tokensFile) : null;
-}
-
-/**
- * This function returns the name for the CSS file using the component name and the variant.
- * The component name is extracted from the folder name, and the variant name is extracted from
- * the file name.
- *
- * @param file - The path of the file processed.
- * @returns The name for the CSS file with the component and the variant.
- * @example For `src/style/components/button/pill.scss` file this function returns `button-pill`.
- * @internal
- */
-export function renameComponentCssFile(file: string): string {
-  const parentFolder = path.dirname(file).split(path.sep)?.pop() ?? '';
-  return `${parentFolder}-${path.basename(file).replace('.scss', '')}`;
 }
 
 /**

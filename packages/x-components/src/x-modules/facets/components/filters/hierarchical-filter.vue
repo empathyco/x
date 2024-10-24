@@ -2,9 +2,9 @@
   <div class="x-hierarchical-filter-container" data-test="hierarchical-filter-container">
     <RenderlessFilter
       v-slot="{ filter, clickFilter, cssClasses, isDisabled }"
-      :cssClasses="innerCssClasses"
-      :clickEvents="innerClickEvents"
       :filter="filter"
+      :clickEvents="innerClickEvents"
+      :cssClasses="innerCssClasses"
     >
       <!--
         @slot The content to render inside the button.

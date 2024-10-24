@@ -1,6 +1,5 @@
 <template>
-  <!-- eslint-disable-next-line vue/attributes-order -->
-  <transition v-bind="$attrs" v-on="$listeners" name="x-cross-fade-" :appear="appear">
+  <transition name="x-cross-fade-" :appear="appear">
     <!-- @slot (Required) to add content to the transition -->
     <slot />
   </transition>
@@ -17,7 +16,6 @@
    */
   export default defineComponent({
     name: 'CrossFade',
-    inheritAttrs: false,
     props: {
       /**
        * Indicates if the transition must be applied on the initial render of the node.
@@ -30,22 +28,20 @@
   });
 </script>
 
-<style lang="scss" scoped>
-  .x-cross-fade {
-    &--enter-active,
-    &--leave-active {
-      transition: opacity 0.25s ease-in-out;
-      mix-blend-mode: multiply;
-    }
+<style lang="css">
+  .x-cross-fade--enter-active,
+  .x-cross-fade--leave-active {
+    transition: opacity 0.25s ease-in-out;
+    mix-blend-mode: multiply;
+  }
 
-    &--leave-active {
-      position: absolute;
-    }
+  .x-cross-fade--leave-active {
+    position: absolute;
+  }
 
-    &--leave-to,
-    &--enter {
-      opacity: 0;
-    }
+  .x-cross-fade--leave-to,
+  .x-cross-fade--enter-from {
+    opacity: 0 !important;
   }
 </style>
 

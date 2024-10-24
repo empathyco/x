@@ -1,5 +1,4 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import { AnyXStoreModule, RootXStoreState } from '../../store.types';
 import { getGettersProxy, getGettersProxyFromModule } from '../getters-proxy.utils';
 
@@ -24,8 +23,6 @@ const storeModuleTest: AnyXStoreModule = {
   namespaced: true
 } as any;
 
-const localVue = createLocalVue();
-localVue.use(Vuex);
 const storeMock = new Store<RootXStoreState>({
   modules: {
     x: {

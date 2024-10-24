@@ -191,60 +191,57 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-sliding-panel {
     align-items: center;
     display: flex;
     flex-flow: row nowrap;
     position: relative;
+  }
 
-    &__button {
-      opacity: 0;
-      pointer-events: none;
-      position: absolute;
-      transition: all ease-out 0.2s;
-      z-index: 2; /* To overlay the design system gradient with z-index:1 */
-    }
-    .x-sliding-panel-button-left {
-      left: 0;
-    }
+  .x-sliding-panel__button {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: all ease-out 0.2s;
+    z-index: 2; /* To overlay the design system gradient with z-index:1 */
+  }
+  .x-sliding-panel-button-left {
+    left: 0;
+  }
+  .x-sliding-panel-button-right {
+    right: 0;
+  }
 
-    .x-sliding-panel-button-right {
-      right: 0;
-    }
+  .x-sliding-panel__scroll {
+    display: flex;
+    flex: 100%;
+    flex-flow: row nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+  }
 
-    &__scroll {
-      display: flex;
-      flex: 100%;
-      flex-flow: row nowrap;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scrollbar-width: none; // Firefox
-      -ms-overflow-style: none; // IE
+  /* Chrome, Edge & Safari */
+  .x-sliding-panel__scroll::-webkit-scrollbar {
+    display: none;
+  }
 
-      // Chrome, Edge & Safari
-      &::-webkit-scrollbar {
-        display: none;
-      }
+  .x-sliding-panel__scroll > * {
+    flex: 0 0 auto;
+  }
 
-      > * {
-        flex: 0 0 auto;
-      }
-    }
+  /* prettier-ignore */
+  .x-sliding-panel:not(.x-sliding-panel-show-buttons-on-hover):not(.x-sliding-panel-at-start) .x-sliding-panel-button-left {
+    opacity: 1;
+    pointer-events: all;
+  }
 
-    &:not(.x-sliding-panel-show-buttons-on-hover):not(.x-sliding-panel-at-start) {
-      .x-sliding-panel-button-left {
-        opacity: 1;
-        pointer-events: all;
-      }
-    }
-
-    &:not(.x-sliding-panel-show-buttons-on-hover):not(.x-sliding-panel-at-end) {
-      .x-sliding-panel-button-right {
-        opacity: 1;
-        pointer-events: all;
-      }
-    }
+  /* prettier-ignore */
+  .x-sliding-panel:not(.x-sliding-panel-show-buttons-on-hover):not(.x-sliding-panel-at-end) .x-sliding-panel-button-right {
+    opacity: 1;
+    pointer-events: all;
   }
 </style>
 

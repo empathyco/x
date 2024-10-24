@@ -1,5 +1,6 @@
 import { InMemoryStorageService } from '@empathyco/x-storage-service';
 import { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
 import { DefaultPDPAddToCartService } from '../pdp-add-to-cart.service';
 import { XPlugin } from '../../../../plugins/index';
 import { installNewXPlugin } from '../../../../__tests__/utils';
@@ -17,8 +18,10 @@ interface PDPAddToCartServiceTestAPI {
 
 function preparePDPAddToCartService(): PDPAddToCartServiceTestAPI {
   XPlugin.resetInstance();
-  installNewXPlugin();
   XPlugin.registerXModule(taggingXModule);
+  const plugin = installNewXPlugin();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  mount({}, { global: { plugins: [plugin] } });
 
   const store = XPlugin.store;
   const localStorageService = new InMemoryStorageService();

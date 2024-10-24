@@ -27,7 +27,7 @@
 
       <div>
         <h1>BaseResultAddToCart</h1>
-        <BaseResultAddToCart result="">
+        <BaseResultAddToCart :result="{ id: 1, modelName: 'Result' }">
           <img src="https://picsum.photos/seed/200/50/50" alt="Add to cart" />
         </BaseResultAddToCart>
       </div>
@@ -127,7 +127,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-scroll {
     height: 600px;
   }

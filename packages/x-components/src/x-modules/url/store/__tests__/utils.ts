@@ -1,6 +1,5 @@
 import { DeepPartial } from '@empathyco/x-utils';
-import Vuex, { Store } from 'vuex';
-import { createLocalVue } from '@vue/test-utils';
+import { Store } from 'vuex';
 import { resetStoreModuleState } from '../../../../__tests__/utils';
 import { urlXStoreModule } from '../module';
 import { UrlState } from '../types';
@@ -27,13 +26,8 @@ export function resetUrlStateWith(store: Store<UrlState>, state?: DeepPartial<Ur
  * @internal
  */
 export function createUrlStore(state?: Partial<UrlState>): Store<UrlState> {
-  const localVue = createLocalVue();
-  localVue.config.productionTip = false; // Silent production console messages.
-  localVue.use(Vuex);
-
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const store = new Store<UrlState>(urlXStoreModule as any);
-
   resetUrlStateWith(store, state);
-
   return store;
 }

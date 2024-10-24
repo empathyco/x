@@ -1,7 +1,6 @@
 import { deepMerge } from '@empathyco/x-deep-merge';
 import { DeepPartial, Dictionary } from '@empathyco/x-utils';
-import { createLocalVue, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue from 'vue';
+import { VueWrapper } from '@vue/test-utils';
 import { Store } from 'vuex';
 import {
   XComponentsAdapter,
@@ -69,7 +68,7 @@ export function getDataTestSelector(dataTest: string): string {
  *
  * @returns The wrappers matching the searched test data id.
  */
-export function findTestDataById(wrapper: Wrapper<Vue>, testDataId: string): WrapperArray<Vue> {
+export function findTestDataById(wrapper: VueWrapper, testDataId: string) {
   return wrapper.findAll(getDataTestSelector(testDataId));
 }
 
@@ -182,29 +181,26 @@ function mergeStates<State extends Dictionary>(
 }
 
 /**
- * Makes a clean installation of the {@link XPlugin} into the passed Vue object.
- * This also resets the bus, and all the hardcoded dependencies of the XPlugin.
+ * Creates a new instance of the {@link XPlugin}. This also resets the bus.
  *
  * @param options - The options for installing the {@link XPlugin}. The
  * {@link XComponentsAdapterDummy}  is added by default.
- * @param localVue - A clone of the Vue constructor to isolate tests.
  * @param bus - The event bus to use.
  * If not provided, one will be created.
- * @returns An array containing the `xPlugin` singleton and the `localVue` and objects.
+ * @returns An array containing the `xPlugin` singleton and an object with
+ * the plugin install options.
  */
 export function installNewXPlugin(
   options: Partial<XPluginOptions> = {},
-  localVue: typeof Vue = createLocalVue(),
   bus = new XDummyBus()
-): [XPlugin, typeof Vue] {
+): [XPlugin, XPluginOptions] {
   XPlugin.resetInstance();
   const xPlugin = new XPlugin(bus);
   const installOptions: XPluginOptions = {
     adapter: XComponentsAdapterDummy,
     ...options
   };
-  localVue.use(xPlugin, installOptions);
-  return [xPlugin, localVue];
+  return [xPlugin, installOptions];
 }
 
 /**

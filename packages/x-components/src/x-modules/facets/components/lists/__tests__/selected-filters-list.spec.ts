@@ -1,9 +1,9 @@
 import { BooleanFilter, Facet } from '@empathyco/x-types';
 import { DeepPartial } from '@empathyco/x-utils';
-import { createLocalVue, mount, Wrapper, WrapperArray } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
-import { createSimpleFacetStub } from '../../../../../__stubs__/facets-stubs.factory';
+import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
+import { Store } from 'vuex';
+import { createSimpleFacetStub } from '../../../../../__stubs__';
 import { getDataTestSelector, installNewXPlugin } from '../../../../../__tests__/utils';
 import { getXComponentXModuleName, isXComponent } from '../../../../../components';
 import { XPlugin } from '../../../../../plugins';
@@ -20,8 +20,8 @@ import SelectedFiltersList from '../../lists/selected-filters-list.vue';
  */
 function renderSelectedFiltersList({
   template = '<SelectedFiltersList :facetsIds="facetsIds" />',
-  facetsIds = undefined
-}: RenderSelectedFiltersListOptions = {}): RenderSelectedFiltersAPI {
+  facetsIds = undefined as undefined | string[]
+} = {}) {
   const facets: Record<Facet['id'], Facet> = {
     gender: createSimpleFacetStub('gender', createFilter => [
       createFilter('Men', false),
@@ -37,12 +37,7 @@ function renderSelectedFiltersList({
     ])
   };
 
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
   const store = new Store<DeepPartial<RootXStoreState>>({});
-  installNewXPlugin({ store }, localVue);
-  XPlugin.registerXModule(facetsXModule);
-  resetXFacetsStateWith(store, facets);
 
   const wrapper = mount(
     {
@@ -57,27 +52,30 @@ function renderSelectedFiltersList({
       }
     },
     {
-      localVue,
+      global: {
+        plugins: [installNewXPlugin({ store, initialXModules: [facetsXModule] })]
+      },
       store,
-      propsData: {
+      props: {
         facetsIds
       }
     }
   );
-
+  installNewXPlugin({ store });
+  XPlugin.registerXModule(facetsXModule);
+  resetXFacetsStateWith(store, facets);
   const selectedFiltersListWrapper = wrapper.findComponent(SelectedFiltersList);
 
   return {
     wrapper,
     selectedFiltersListWrapper,
-    toggleFacetNthFilter(facetId, nth) {
+    toggleFacetNthFilter: (facetId: string, nth: number) => {
       const filter = (store.getters['x/facets/facets']![facetId].filters as BooleanFilter[])[nth];
       filter.selected = !filter.selected;
-      return localVue.nextTick();
+      return nextTick();
     },
-    selectedFiltersItems() {
-      return selectedFiltersListWrapper.findAll(getDataTestSelector('selected-filters-list-item'));
-    }
+    selectedFiltersItems: () =>
+      selectedFiltersListWrapper.findAll(getDataTestSelector('selected-filters-list-item'))
   };
 }
 
@@ -106,8 +104,8 @@ describe('testing SelectedFiltersList component', () => {
       getDataTestSelector('selected-filters-list-item')
     );
 
-    expect(selectedFiltersItems.at(0).text()).toBe('Men');
-    expect(selectedFiltersItems.at(1).text()).toBe('BMW');
+    expect(selectedFiltersItems.at(0)?.text()).toEqual('Men');
+    expect(selectedFiltersItems.at(1)?.text()).toEqual('BMW');
   });
 
   it('renders custom default slot and custom facetId slot', async () => {
@@ -129,9 +127,9 @@ describe('testing SelectedFiltersList component', () => {
       getDataTestSelector('selected-filters-list-item')
     );
 
-    expect(selectedFiltersItems.at(0).text()).toBe('Men selected!');
-    expect(selectedFiltersItems.at(1).text()).toBe('Which one? BMW');
-    expect(selectedFiltersItems.at(2).text()).toBe('Much better: Meat');
+    expect(selectedFiltersItems.at(0)?.text()).toEqual('Men selected!');
+    expect(selectedFiltersItems.at(1)?.text()).toEqual('Which one? BMW');
+    expect(selectedFiltersItems.at(2)?.text()).toEqual('Much better: Meat');
     expect(selectedFiltersItems).toHaveLength(3);
   });
 
@@ -141,15 +139,15 @@ describe('testing SelectedFiltersList component', () => {
         facetsIds: ['brand', 'gender']
       });
 
-    expect(selectedFiltersListWrapper.text()).toBe('');
+    expect(selectedFiltersListWrapper.text()).toEqual('');
 
     await toggleFacetNthFilter('brand', 0);
     await toggleFacetNthFilter('rootCategories', 1);
     await toggleFacetNthFilter('gender', 1);
 
     expect(selectedFiltersItems()).toHaveLength(2);
-    expect(selectedFiltersItems().at(0).text()).toBe('Audi');
-    expect(selectedFiltersItems().at(1).text()).toBe('Women');
+    expect(selectedFiltersItems().at(0)?.text()).toEqual('Audi');
+    expect(selectedFiltersItems().at(1)?.text()).toEqual('Women');
   });
 
   it('renders the component if alwaysVisible is true and no selected filters', () => {
@@ -167,22 +165,3 @@ describe('testing SelectedFiltersList component', () => {
     expect(selectedFiltersListWrapper.html()).toBe('');
   });
 });
-
-interface RenderSelectedFiltersListOptions {
-  /** The template to be rendered. */
-  template?: string;
-  /** Array of facets ids. */
-  facetsIds?: Array<Facet['id']>;
-}
-
-interface RenderSelectedFiltersAPI {
-  /** The wrapper of the container element. */
-  wrapper: Wrapper<Vue>;
-  /** The `selectedFilters` wrapper component. */
-  selectedFiltersListWrapper: Wrapper<Vue>;
-  /** Toggle nth filter of the facet provided. */
-  toggleFacetNthFilter: (facetId: string, nth: number) => Promise<void>;
-  /** Retrieves the wrapper for the items of the list rendered by the {@link SelectedFiltersList}
-   * component. */
-  selectedFiltersItems: () => WrapperArray<Vue>;
-}

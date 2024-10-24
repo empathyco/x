@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-archetype-utils",
-  "version": "1.1.0-alpha.2",
+  "version": "2.0.0-alpha.1",
   "description": "Utilities for x-archetype",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -39,12 +39,12 @@
     "@empathyco/x-deep-merge": "^2.0.3-alpha.1",
     "@empathyco/x-utils": "workspace:^1.0.3-alpha.1",
     "tslib": "~2.6.0",
-    "vue-i18n": "~8.28.2"
+    "vue-i18n": "~9.14.0"
   },
   "devDependencies": {
     "@types/jest": "~27.5.0",
     "@types/node": "~18.19.0",
-    "@vue/test-utils": "~1.0.3",
+    "@vue/test-utils": "~2.4.6",
     "jest": "~27.5.0",
     "rimraf": "~3.0.2",
     "rollup": "~4.9.1",
@@ -53,11 +53,11 @@
     "rollup-plugin-typescript2": "~0.36.0",
     "ts-jest": "~27.1.0",
     "typescript": "~4.9.4",
-    "vue": "~2.7.14"
+    "vue": "~3.4.31"
   },
   "peerDependencies": {
-    "vue": "^2.7.0",
-    "vue-i18n": "^8.0.0"
+    "vue": "^3.4.31",
+    "vue-i18n": "^9.14.0"
   },
   "publishConfig": {
     "access": "public"

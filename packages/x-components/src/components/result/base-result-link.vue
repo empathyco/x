@@ -103,7 +103,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-result-link {
     text-decoration: none;
   }

@@ -1,5 +1,5 @@
 import { Result } from '@empathyco/x-types';
-import { mount, WrapperArray } from '@vue/test-utils';
+import { mount, DOMWrapper, VueWrapper } from '@vue/test-utils';
 import { createResultStub } from '../../../__stubs__/results-stubs.factory';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseResultRating from '../base-result-rating.vue';
@@ -15,13 +15,11 @@ function renderBaseResultRating({
   template,
   result
 }: RenderBaseResultRatingOptions): RenderBaseResultRatingApi {
-  const [, localVue] = installNewXPlugin();
-
   const wrapper = mount(
     { template },
     {
-      localVue,
       components: { BaseResultRating },
+      global: { plugins: [installNewXPlugin()] },
       data() {
         return {
           result
@@ -31,10 +29,11 @@ function renderBaseResultRating({
   );
 
   return {
+    wrapper,
     getHtml: (): string => wrapper.html(),
-    getFilledIcons: (): WrapperArray<Vue> =>
+    getFilledIcons: (): DOMWrapper<Element>[] =>
       wrapper.find(getDataTestSelector('rating-filled')).findAll(':scope > *'),
-    getEmptyIcons: (): WrapperArray<Vue> =>
+    getEmptyIcons: (): DOMWrapper<Element>[] =>
       wrapper.find(getDataTestSelector('rating-empty')).findAll(':scope > *'),
     clickRating: async () => {
       await wrapper.findComponent(BaseResultRating).trigger('click');
@@ -67,11 +66,12 @@ describe('testing BaserResultRating component', () => {
   it('does not render anything if result has no rating', () => {
     const resultWithNoRating = createResultStub('No Rating Result', { rating: undefined });
 
-    const { getHtml } = renderBaseResultRating({
+    const { wrapper } = renderBaseResultRating({
       template: `<BaseResultRating :result="result" :max="10" />`,
       result: resultWithNoRating
     });
-    expect(getHtml()).toEqual('');
+
+    expect(wrapper.find('.x-result-rating').exists()).toBe(false);
   });
 
   it('emits event when clicked with the result as payload', async () => {
@@ -98,9 +98,11 @@ interface RenderBaseResultRatingApi {
   /** Retrieves the wrapper with the main html content. */
   getHtml: () => string;
   /** Retrieves the wrapper that matches the rating filled icons. */
-  getFilledIcons: () => WrapperArray<Vue>;
+  getFilledIcons: () => DOMWrapper<Element>[];
   /** Retrieves the wrapper that matches the rating empty icons. */
-  getEmptyIcons: () => WrapperArray<Vue>;
+  getEmptyIcons: () => DOMWrapper<Element>[];
   /** Clicks the rating icons and waits for the view to update. */
   clickRating: () => Promise<void>;
+  /** The Vue testing utils wrapper for the {@link BaseResultRating}. */
+  wrapper: VueWrapper;
 }

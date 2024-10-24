@@ -1,7 +1,6 @@
 <script lang="ts">
   import { defineComponent, PropType, provide, toRef } from 'vue';
   import { FeatureLocation } from '../types';
-  import { useNoElementRender } from '../composables/use-no-element-render';
 
   /**
    * Location Provider component.
@@ -26,7 +25,7 @@
       const featureLocation = toRef(props, 'location');
       provide('location', featureLocation);
 
-      return () => useNoElementRender(slots);
+      return () => slots.default?.()[0] ?? '';
     }
   });
 </script>

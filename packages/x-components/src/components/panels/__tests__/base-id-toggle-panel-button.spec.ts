@@ -1,8 +1,10 @@
 import { AnyFunction } from '@empathyco/x-utils';
-import { mount, Wrapper } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import { XEvent } from '../../../wiring';
 import BaseIdTogglePanelButton from '../base-id-toggle-panel-button.vue';
+import { XPlugin } from '../../../plugins/index';
 
 /**
  * Renders the {@link BaseIdTogglePanelButton} with the provided options.
@@ -12,15 +14,14 @@ import BaseIdTogglePanelButton from '../base-id-toggle-panel-button.vue';
  */
 function renderBaseIdToggleButton({
   panelId = 'myToggle',
-  scopedSlots = {
+  slots = {
     default: `<span data-test="default-slot">Panel: ${panelId}</span>`
   }
 }: RenderBaseIdToggleButtonOptions = {}): RenderBaseIdToggleButtonAPI {
-  const [, localVue] = installNewXPlugin();
   const containerWrapper = mount(BaseIdTogglePanelButton, {
-    localVue,
-    propsData: { panelId },
-    scopedSlots
+    props: { panelId },
+    global: { plugins: [installNewXPlugin()] },
+    slots
   });
 
   const wrapper = containerWrapper.findComponent(BaseIdTogglePanelButton);
@@ -32,17 +33,17 @@ function renderBaseIdToggleButton({
       await wrapper.trigger('click');
     },
     async emit(event: XEvent) {
-      wrapper.vm.$x.emit(event, true, { id: panelId });
-      await localVue.nextTick();
+      XPlugin.bus.emit(event, true, { id: panelId, moduleName: null });
+      await nextTick();
     }
   };
 }
 
 describe('testing BaseIdTogglePanelButton component', () => {
   it('emits UserClickedPanelToggleButton with the panel id as payload', async () => {
-    const { wrapper, panelId, click } = renderBaseIdToggleButton();
+    const { panelId, click } = renderBaseIdToggleButton();
     const listener = jest.fn();
-    wrapper.vm.$x.on('UserClickedPanelToggleButton').subscribe(listener);
+    XPlugin.bus.on('UserClickedPanelToggleButton').subscribe(listener);
 
     await click();
 
@@ -52,7 +53,7 @@ describe('testing BaseIdTogglePanelButton component', () => {
 
   it('renders a custom slot content', () => {
     const { wrapper } = renderBaseIdToggleButton({
-      scopedSlots: { default: `<span data-test="custom-slot">Custom slot</span>` }
+      slots: { default: `<span data-test="custom-slot">Custom slot</span>` }
     });
 
     expect(wrapper.find(getDataTestSelector('custom-slot')).text()).toEqual('Custom slot');
@@ -60,7 +61,7 @@ describe('testing BaseIdTogglePanelButton component', () => {
 
   it('renders a custom slot using the isPanelOpen property', async () => {
     const { wrapper, emit } = renderBaseIdToggleButton({
-      scopedSlots: {
+      slots: {
         default: `
           <template #default="{ isPanelOpen }">
             <span data-test="custom-slot" v-if="isPanelOpen">Close aside</span>
@@ -82,12 +83,12 @@ interface RenderBaseIdToggleButtonOptions {
   /** Id of the panel to toggle. */
   panelId?: string;
   /** The scoped slots to render. */
-  scopedSlots?: Record<string, string | AnyFunction>;
+  slots?: Record<string, string | AnyFunction>;
 }
 
 interface RenderBaseIdToggleButtonAPI {
   /** The wrapper for the toggle button component. */
-  wrapper: Wrapper<Vue>;
+  wrapper: VueWrapper;
   /** The panel id. */
   panelId: string;
   /** Emits the provided event. */

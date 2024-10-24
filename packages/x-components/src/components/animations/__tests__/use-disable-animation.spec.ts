@@ -1,75 +1,58 @@
 import { mount } from '@vue/test-utils';
-import { defineComponent, provide, ref } from 'vue';
+import { defineComponent, provide, ref, h, TransitionGroup } from 'vue';
 import { DISABLE_ANIMATIONS_KEY } from '../../decorators/injection.consts';
 import { useDisableAnimation } from '../use-disable-animation';
 
+// eslint-disable-next-line vue/one-component-per-file
 const Provider = defineComponent({
   props: {
     disableAnimation: Boolean
   },
-  setup(props) {
+  setup(props, { slots }) {
     provide(DISABLE_ANIMATIONS_KEY as string, ref(props.disableAnimation));
-  },
-  render(h) {
-    return this.$slots.default?.[0] ?? h();
+    return () => (slots.default ? slots.default() : h('div'));
   }
 });
 
-/**
- * Animation component.
- */
+// eslint-disable-next-line vue/one-component-per-file
 const Animation = defineComponent({
   setup() {
     return useDisableAnimation('x-animation');
   },
   template: `
-    <transition-group :name="name">
+    <TransitionGroup :name="name">
      <p>Animation</p>
-    </transition-group>
+    </TransitionGroup>
   `
 });
 
-/**
- * Function that returns an Animation wrapper.
- *
- * @param disableAnimation - Flag to disable the animation.
- * @returns Animation wrapper.
- */
-function renderDisableAnimation({ disableAnimation = true }: DisableAnimationOptions = {}) {
+function renderDisableAnimation({ disableAnimation = true } = {}) {
   const wrapper = mount({
     template: `
-        <Provider :disableAnimation="disableAnimation">
-          <Animation/>
-        </Provider>
-      `,
+      <Provider :disableAnimation="disableAnimation">
+        <Animation/>
+      </Provider>
+    `,
     components: { Provider, Animation },
-    data() {
-      return {
-        disableAnimation
-      };
-    }
+    data: () => ({ disableAnimation })
   });
 
   return {
-    wrapper
+    wrapper,
+    transitionGroup: wrapper.findComponent(TransitionGroup)
   };
 }
 
 describe('testing disable animation', () => {
   it('should disable the animations', () => {
-    const { wrapper } = renderDisableAnimation();
+    const { transitionGroup } = renderDisableAnimation();
 
-    expect(wrapper.attributes('name')).toBe('__no-animation__');
+    expect(transitionGroup.attributes('name')).toBe('__no-animation__');
   });
 
   it('should enable the animations', () => {
-    const { wrapper } = renderDisableAnimation({ disableAnimation: false });
+    const { transitionGroup } = renderDisableAnimation({ disableAnimation: false });
 
-    expect(wrapper.attributes('name')).toBe('x-animation');
+    expect(transitionGroup.attributes('name')).toBe('x-animation');
   });
 });
-
-interface DisableAnimationOptions {
-  /** Flag to disable the animation. */
-  disableAnimation?: boolean;
-}

@@ -1,5 +1,4 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
 import { getDataTestSelector, installNewXPlugin } from '../../../__tests__/utils';
 import BaseIdModalOpen from '../base-id-modal-open.vue';
 import { bus } from '../../../plugins/x-bus';
@@ -13,35 +12,31 @@ import { XPlugin } from '../../../plugins/index';
  * @returns An small API to test the component.
  */
 function renderBaseIdModalOpen({
-  id = 'myModal',
-  template = `<BaseIdModalOpen modalId="${id}" v-bind="$attrs"/>`
-}: RenderBaseIdModalOpenOptions = {}): RenderBaseIdModalOpenAPI {
+  template = `<BaseIdModalOpen :modalId="modalId" v-bind="$attrs"/>`
+} = {}) {
   // Making bus not repeat subjects
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   jest.spyOn(bus, 'createEmitter' as any).mockImplementation(dummyCreateEmitter.bind(bus) as any);
 
-  const [, localVue] = installNewXPlugin();
+  const modalId = 'myModal';
+
   const containerWrapper = mount(
     {
-      components: {
-        BaseIdModalOpen
-      },
+      components: { BaseIdModalOpen },
       template
     },
     {
-      propsData: { modalId: id },
-      localVue
+      props: { modalId },
+      global: { plugins: [installNewXPlugin()] }
     }
   );
 
   const wrapper = containerWrapper.findComponent(BaseIdModalOpen);
-  const modalId = wrapper.props('modalId');
 
   return {
     wrapper,
     modalId,
-    async click() {
-      await wrapper.trigger('click');
-    }
+    click: async () => await wrapper.trigger('click')
   };
 }
 
@@ -65,16 +60,16 @@ describe('testing Open Button component', () => {
     expect(wrapper.text()).toEqual('Open');
   });
 
-  // eslint-disable-next-line max-len
   it('renders custom content replacing the default exposing the function that opens the modal', async () => {
     const { wrapper, click, modalId } = renderBaseIdModalOpen({
-      template: `<BaseIdModalOpen modalId="modal" v-bind="$attrs">
-                    <template #opening-element="{ openModal }">
-                      <div>
-                        Open <span data-test="custom-open-modal" @click="openModal">HERE</span>
-                      </div>
-                    </template>
-                  </BaseIdModalOpen>`
+      template: `
+        <BaseIdModalOpen modalId="modal" v-bind="$attrs">
+          <template #opening-element="{ openModal }">
+            <div>
+              Open <span data-test="custom-open-modal" @click="openModal">HERE</span>
+            </div>
+          </template>
+        </BaseIdModalOpen>`
     });
 
     const listener = jest.fn();
@@ -84,25 +79,9 @@ describe('testing Open Button component', () => {
 
     expect(listener).toHaveBeenCalledTimes(0);
 
-    wrapper.find(getDataTestSelector('custom-open-modal')).trigger('click');
+    await wrapper.find(getDataTestSelector('custom-open-modal')).trigger('click');
 
     expect(listener).toHaveBeenCalledTimes(1);
     expect(listener).toHaveBeenCalledWith(modalId);
   });
 });
-
-interface RenderBaseIdModalOpenOptions {
-  /** The id of the modal to open. */
-  id?: string;
-  /** The template to render. */
-  template?: string;
-}
-
-interface RenderBaseIdModalOpenAPI {
-  /** The wrapper for the modal component. */
-  wrapper: Wrapper<Vue>;
-  /** The modal id. */
-  modalId: string;
-  /** Clicks the button. */
-  click: () => Promise<void>;
-}

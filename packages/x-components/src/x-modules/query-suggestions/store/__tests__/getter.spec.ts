@@ -1,7 +1,6 @@
 import { QuerySuggestionsRequest, Suggestion } from '@empathyco/x-types';
 import { map } from '@empathyco/x-utils';
-import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
 import { normalizeString } from '../../../../utils';
 import { getQuerySuggestionsStub } from '../../../../__stubs__/query-suggestions-stubs.factory';
 import { querySuggestionsXStoreModule } from '../module';
@@ -10,7 +9,6 @@ import { createHistoryQuery } from '../../../../__stubs__/history-queries-stubs.
 import { resetQuerySuggestionsStateWith } from './utils';
 
 describe('testing query suggestions module getters', () => {
-  Vue.use(Vuex);
   const getters = map(querySuggestionsXStoreModule.getters, getter => getter);
   const store: Store<QuerySuggestionsState> = new Store(querySuggestionsXStoreModule as any);
   beforeEach(() => {

@@ -22,7 +22,6 @@ import {
   TestSearchBox,
   TestBaseVariableColumnGrid,
   TestEmpathize,
-  TestUseLayouts,
   TestSlidingPanel,
   TestBaseSuggestions,
   TestHighlight,
@@ -50,7 +49,9 @@ import {
   TestRenderlessExtraParam,
   TestAnimationFactory,
   TestIcons,
-  TestDisplayEmitter
+  TestDisplayEmitter,
+  TestBaseSwitch,
+  TestStaggeredFadeAndSlide
 } from './';
 
 const routes = [
@@ -173,11 +174,6 @@ const routes = [
     path: '/base-variable-column-grid',
     name: 'BaseVariableColumnGrid',
     component: TestBaseVariableColumnGrid
-  },
-  {
-    path: '/test-use-layouts',
-    name: 'UseLayouts',
-    component: TestUseLayouts
   },
   {
     path: '/base-suggestions',
@@ -308,6 +304,16 @@ const routes = [
     path: '/display-emitter',
     name: 'DisplayEmitter',
     component: TestDisplayEmitter
+  },
+  {
+    path: '/base-switch',
+    name: 'BaseSwitch',
+    component: TestBaseSwitch
+  },
+  {
+    path: '/staggered-fade-and-slide',
+    name: 'StaggeredFadeAndSlide',
+    component: TestStaggeredFadeAndSlide
   }
 ];
 

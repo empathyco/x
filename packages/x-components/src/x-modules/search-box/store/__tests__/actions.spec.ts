@@ -1,5 +1,5 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import { Store } from 'vuex';
+import { mount } from '@vue/test-utils';
 import { installNewXPlugin } from '../../../../__tests__/utils';
 import { searchBoxXStoreModule } from '../module';
 import { SafeStore } from '../../../../store/__tests__/utils';
@@ -8,15 +8,10 @@ import { UrlParams } from '../../../../types/url-params';
 import { resetSearchBoxStateWith } from './utils';
 
 describe('testing search box module actions', () => {
-  const localVue = createLocalVue();
-
-  localVue.config.productionTip = false; // Silent production console messages.
-  localVue.use(Vuex);
-
   const store: SafeStore<SearchBoxState, SearchBoxGetters, SearchBoxMutations, SearchBoxActions> =
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     new Store(searchBoxXStoreModule as any);
-
-  installNewXPlugin({ store }, localVue);
+  mount({}, { global: { plugins: [store, installNewXPlugin({ store })] } });
 
   beforeEach(() => {
     resetSearchBoxStateWith(store);

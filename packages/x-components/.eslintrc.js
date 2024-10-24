@@ -8,8 +8,10 @@ module.exports = {
   rules: {
     'no-dupe-class-members': 'off',
     '@typescript-eslint/no-unused-vars-experimental': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
     'vue/require-default-prop': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off'
+    'vue/multi-word-component-names': 'off',
+    'vue/no-v-for-template-key': 'off'
   },
   overrides: [
     {
@@ -34,7 +36,9 @@ module.exports = {
     {
       files: ['*.spec.ts'],
       rules: {
-        'max-len': 'off'
+        'max-len': 'off',
+        '@typescript-eslint/no-unsafe-argument': 'off',
+        'vue/one-component-per-file': 'off'
       }
     }
   ]

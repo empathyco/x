@@ -1,25 +1,18 @@
-import { mount } from '@vue/test-utils';
+import { ComponentMountingOptions, mount } from '@vue/test-utils';
 import { installNewXPlugin } from '../../__tests__/utils';
 import { XPlugin } from '../../plugins';
-import { WireMetadata } from '../../wiring/wiring.types';
+import { WireMetadata, XEventsTypes } from '../../wiring';
 import BaseEventButton from '../base-event-button.vue';
 
-function render() {
-  installNewXPlugin();
+const stubSlot = `<span class="test-msg">button text</span><i class="test-icon"></i>`;
 
-  const wrapper = mount(
-    {
-      template: `<BaseEventButton :events="events">
-        <span class="test-msg">button text</span>
-        <i class="test-icon"></i>
-      </BaseEventButton>`,
-      components: { BaseEventButton },
-      props: ['events']
-    },
-    {
-      propsData: { events: {} }
-    }
-  );
+function render(options: ComponentMountingOptions<typeof BaseEventButton> = {}) {
+  const wrapper = mount(BaseEventButton, {
+    props: { events: {} },
+    slots: { default: stubSlot },
+    global: { plugins: [installNewXPlugin()] },
+    ...options
+  });
 
   return {
     wrapper,
@@ -44,7 +37,9 @@ describe('testing Base Event Button Component', () => {
   it('emits an event with a payload', async () => {
     const { wrapper, emitSpy, expectedMetadata } = render();
 
-    await wrapper.setProps({ events: { testEvent: 'test-payload' } });
+    await wrapper.setProps({
+      events: { testEvent: 'test-payload' } as Partial<XEventsTypes>
+    } as any);
     await wrapper.trigger('click');
 
     expect(emitSpy).toHaveBeenCalledTimes(1);
@@ -54,7 +49,7 @@ describe('testing Base Event Button Component', () => {
   it('emits an event with no payload', async () => {
     const { wrapper, emitSpy, expectedMetadata } = render();
 
-    await wrapper.setProps({ events: { testEvent: undefined } });
+    await wrapper.setProps({ events: { testEvent: undefined } as Partial<XEventsTypes> } as any);
     await wrapper.trigger('click');
 
     expect(emitSpy).toHaveBeenCalledTimes(1);
@@ -68,8 +63,8 @@ describe('testing Base Event Button Component', () => {
       testEvent1: 'test-payload-1',
       testEvent2: 'test-payload-2',
       testEvent3: undefined
-    };
-    await wrapper.setProps({ events });
+    } as Partial<XEventsTypes>;
+    await wrapper.setProps({ events } as any);
     await wrapper.trigger('click');
 
     expect(emitSpy).toHaveBeenCalledTimes(3);

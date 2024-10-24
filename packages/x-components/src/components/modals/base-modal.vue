@@ -31,14 +31,11 @@
 </template>
 
 <script lang="ts">
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  import Vue, { defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-  import { useDebounce } from '../../composables/use-debounce';
+  import { defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+  import { useDebounce } from '../../composables';
   import { AnimationProp } from '../../types';
-  import { getTargetElement } from '../../utils/html';
-  import Fade from '../animations/fade.vue';
-  import { NoElement } from '../no-element';
-  import { FOCUSABLE_SELECTORS } from '../../utils/focus';
+  import { getTargetElement, FOCUSABLE_SELECTORS } from '../../utils';
+  import { Fade, NoAnimation } from '../animations';
 
   /**
    * Base component with no XPlugin dependencies that serves as a utility for constructing more
@@ -48,7 +45,6 @@
    */
   export default defineComponent({
     name: 'BaseModal',
-    components: { NoElement },
     props: {
       /** Determines if the modal is open or not. */
       open: {
@@ -72,7 +68,7 @@
       /** Animation to use for opening/closing the modal.This animation only affects the content. */
       animation: {
         type: AnimationProp,
-        default: () => NoElement
+        default: () => NoAnimation
       },
       /**
        * Animation to use for the overlay (backdrop) part of the modal. By default, it uses
@@ -121,7 +117,7 @@
        *
        * @param event - The click event.
        */
-      function emitOverlayClicked(event: MouseEvent) {
+      function emitOverlayClicked(event: Event) {
         emit('click:overlay', event);
       }
 
@@ -242,7 +238,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .x-modal {
     position: fixed;
     top: 0;
@@ -253,20 +249,20 @@
     width: 100%;
     height: 100%;
     z-index: 1;
+  }
 
-    &__content {
-      display: flex;
-      flex-flow: column nowrap;
-      z-index: 1;
-    }
+  .x-modal__content {
+    display: flex;
+    flex-flow: column nowrap;
+    z-index: 1;
+  }
 
-    &__overlay {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      background-color: rgb(0, 0, 0);
-      opacity: 0.3;
-    }
+  .x-modal__overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgb(0, 0, 0);
+    opacity: 0.3;
   }
 </style>
 
