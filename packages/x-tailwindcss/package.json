@@ -57,22 +57,22 @@
     }
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "~25.0.7",
-    "autoprefixer": "~10.4.4",
-    "postcss": "~8.4.12",
-    "postcss-import": "~16.0.0",
-    "rimraf": "~3.0.2",
-    "rollup": "~4.9.1",
-    "rollup-plugin-typescript2": "~0.36.0",
-    "rollup-plugin-vue": "~5.1.9",
-    "tailwindcss": "~3.4.0",
-    "typescript": "~4.9.4",
-    "vite": "~4.5.0",
-    "vite-plugin-vue2": "~2.0.2",
-    "vue": "~2.7.16",
-    "vue-class-component": "~7.2.6",
-    "vue-property-decorator": "~8.5.0",
-    "vue-template-compiler": "~2.7.16"
+    "@rollup/plugin-commonjs": "25.0.7",
+    "autoprefixer": "10.4.4",
+    "postcss": "8.4.12",
+    "postcss-import": "16.0.0",
+    "rimraf": "3.0.2",
+    "rollup": "4.9.1",
+    "rollup-plugin-typescript2": "0.36.0",
+    "rollup-plugin-vue": "5.1.9",
+    "tailwindcss": "3.4.0",
+    "typescript": "4.9.4",
+    "vite": "4.5.0",
+    "vite-plugin-vue2": "2.0.2",
+    "vue": "2.7.16",
+    "vue-class-component": "7.2.6",
+    "vue-property-decorator": "8.5.0",
+    "vue-template-compiler": "2.7.16"
   },
   "publishConfig": {
     "access": "public"
