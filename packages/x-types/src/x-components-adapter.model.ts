@@ -6,6 +6,7 @@ import {
   PopularSearchesRequest,
   QuerySuggestionsRequest,
   RecommendationsRequest,
+  RelatedPromptsRequest,
   RelatedTagsRequest,
   SearchRequest,
   SemanticQueriesRequest,
@@ -20,7 +21,8 @@ import {
   RelatedTagsResponse,
   SearchResponse,
   SemanticQueriesResponse,
-  ExperienceControlsResponse
+  ExperienceControlsResponse,
+  RelatedPromptsResponse
 } from './response';
 
 export interface XComponentsAdapter {
@@ -29,6 +31,7 @@ export interface XComponentsAdapter {
   nextQueries: EndpointAdapter<NextQueriesRequest, NextQueriesResponse>;
   recommendations: EndpointAdapter<RecommendationsRequest, RecommendationsResponse>;
   querySuggestions: EndpointAdapter<QuerySuggestionsRequest, QuerySuggestionsResponse>;
+  relatedPrompts: EndpointAdapter<RelatedPromptsRequest, RelatedPromptsResponse>;
   relatedTags: EndpointAdapter<RelatedTagsRequest, RelatedTagsResponse>;
   identifierResults: EndpointAdapter<IdentifierResultsRequest, IdentifierResultsResponse>;
   tagging: EndpointAdapter<TaggingRequest, void>;

@@ -23,6 +23,7 @@ export const platformAdapter: PlatformAdapter = {
   recommendations: recommendationsEndpointAdapter,
   nextQueries: nextQueriesEndpointAdapter,
   querySuggestions: querySuggestionsEndpointAdapter,
+  relatedPrompts: undefined,
   relatedTags: relatedTagsEndpointAdapter,
   identifierResults: identifierResultsEndpointAdapter,
   tagging: taggingEndpointAdapter,
