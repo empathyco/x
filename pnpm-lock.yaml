@@ -477,7 +477,7 @@ importers:
         specifier: ~2.2.0
         version: 2.2.0(esbuild@0.20.0)
       '@empathyco/x-tailwindcss':
-        specifier: ^1.2.0-alpha.6
+        specifier: ^1.2.0-alpha.7
         version: link:../x-tailwindcss
       '@microsoft/api-documenter':
         specifier: ~7.23.0
