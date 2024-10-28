@@ -8,6 +8,7 @@ import { partialResultsSchema } from '../models/partial-results.schema';
 import { promotedSchema } from '../models/promoted.schema';
 import { redirectionSchema } from '../models/redirection.schema';
 import { resultSchema } from '../models/result.schema';
+import { statsSchema } from '../models/stats.schema';
 
 /**
  * Default implementation for the SearchResponseSchema.
@@ -40,6 +41,10 @@ export const searchResponseSchema = createMutableSchema<PlatformSearchResponse, 
   partialResults: {
     $path: 'catalog.partials',
     $subSchema: partialResultsSchema
+  },
+  stats: {
+    $path: 'catalog.stats',
+    $subSchema: statsSchema
   },
   queryTagging: ({ catalog }) => getTaggingInfoFromUrl(catalog?.tagging?.query),
   displayTagging: ({ catalog }) => getDisplayTaggingInfoFromUrl(catalog?.tagging?.display)
