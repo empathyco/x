@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-components",
-  "version": "6.0.0-alpha.4",
+  "version": "6.0.0-alpha.5",
   "description": "Empathy X Components",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -85,7 +85,7 @@
     "vue-global-events": "~3.0.1"
   },
   "peerDependencies": {
-    "vue": "~3.4.31",
+    "vue": "^3.5.12",
     "vuex": "4.0.2"
   },
   "devDependencies": {

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.4...@empathyco/x-components@6.0.0-alpha.5) (2024-10-28)
+
+
+### Build System
+
+* use vue latest version as peer dependency (#1651) ([1618993](https://github.com/empathyco/x/commit/161899326d325db46f39eead4ca7b57984b58b39))
+
+
+
 ## [6.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.83...@empathyco/x-components@6.0.0-alpha.4) (2024-10-24)
 
 
