@@ -183,3 +183,180 @@
     }
   });
 </script>
+
+<docs lang="mdx">
+## Events
+
+This component emits no events.
+
+## See it in action
+
+  <!-- prettier-ignore-start -->
+
+:::warning Backend microservice required To use this component, the <b>QuerySignals</b> microservice
+must be implemented. :::
+
+  <!-- prettier-ignore-end -->
+
+Usually, this component is going to be used together with the `ResultsList` one. Related prompts
+groups will be inserted between the results, guiding users to discover new searches directly from
+the results list.
+
+```vue live
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList>
+      <RelatedPromptsList />
+    </ResultsList>
+  </div>
+</template>
+
+<script>
+  import { RelatedPromptsList } from '@empathyco/x-components/related-prompts';
+  import { ResultsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+
+  export default {
+    name: 'RelatedPromptsListDemo',
+    components: {
+      RelatedPromptsList,
+      ResultsList,
+      SearchInput
+    }
+  };
+</script>
+```
+
+### Play with the index that related prompts groups are inserted at
+
+The component allows to customise where are the related prompts groups inserted. In the following
+example, the first group of related prompts will be inserted at the index `48` (`offset`), and then
+a second group will be inserted at index `120` because of the `frequency` prop configured to `72`.
+Finally, a third group will be inserted at index `192`. Because `maxGroups` is configured to `3`, no
+more groups will be inserted. Each one of this groups will have up to `6` related prompts
+(`maxRelatedPromptsPerGroup`).
+
+```vue live
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList>
+      <RelatedPromptsList
+        :offset="48"
+        :frequency="72"
+        :maxRelatedPromptsPerGroup="6"
+        :maxGroups="3"
+      />
+    </ResultsList>
+  </div>
+</template>
+
+<script>
+  import { RelatedPromptsList } from '@empathyco/x-components/related-prompts';
+  import { ResultsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+
+  export default {
+    name: 'RelatedPromptsListDemo',
+    components: {
+      RelatedPromptsList,
+      ResultsList,
+      SearchInput
+    }
+  };
+</script>
+```
+
+### Showing/hiding first related prompts group when no more items
+
+By default, the first related prompts group will be inserted when the total number of results is
+smaller than the offset, but this behavior can be deactivated by setting the `showOnlyAfterOffset`
+to `true`.
+
+```vue live
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList>
+      <RelatedPromptsList
+        :offset="48"
+        :frequency="72"
+        :maxRelatedPromptsPerGroup="1"
+        :showOnlyAfterOffset="true"
+      />
+    </ResultsList>
+  </div>
+</template>
+
+<script>
+  import { RelatedPromptsList } from '@empathyco/x-components/related-prompts';
+  import { ResultsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+
+  export default {
+    name: 'RelatedPromptsListDemo',
+    components: {
+      RelatedPromptsList,
+      ResultsList,
+      SearchInput
+    }
+  };
+</script>
+```
+
+### Customise the layout of the component
+
+This component will render by default the `id` of each search item, both the injected, and for the
+groups of related prompts generated, but the common case is to integrate it with another layout
+component, for example the `BaseGrid`. To do so, you can use the `default` slot
+
+```vue
+<template>
+  <div>
+    <SearchInput />
+    <ResultsList>
+      <RelatedPromptsList
+        :offset="48"
+        :frequency="72"
+        :maxRelatedPromptsPerGroup="6"
+        :maxGroups="3"
+        #default="{ items }"
+      >
+        <BaseGrid :items="items" :animation="animation">
+          <template #related-prompts-group="{ item }">
+            <span v-for="const prompt of items.relatedPrompts">
+              RelatedPromptsGroup:
+              <pre>{{ prompt }}</pre>
+            </span>
+          </template>
+          <template #result="{ item }">
+            <span>Result: {{ item.name }}</span>
+          </template>
+          <template #default="{ item }">
+            <span>Default: {{ item }}</span>
+          </template>
+        </BaseGrid>
+      </RelatedPromptsList>
+    </ResultsList>
+  </div>
+</template>
+
+<script>
+  import { RelatedPromptsList } from '@empathyco/x-components/related-prompts';
+  import { ResultsList } from '@empathyco/x-components/search';
+  import { SearchInput } from '@empathyco/x-components/search-box';
+  import { BaseGrid } from '@empathyco/x-components';
+
+  export default {
+    name: 'RelatedPromptsListDemo',
+    components: {
+      RelatedPromptsLis,
+      ResultsList,
+      BaseGrid,
+      SearchInput
+    }
+  };
+</script>
+```
+</docs>
