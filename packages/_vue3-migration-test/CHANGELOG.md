@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.52](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.50...vue3-migration-test@1.0.0-alpha.52) (2024-10-24)
+
+
+### Features
+
+* update x-components and related packages to vue 3 (#1644) ([d590842](https://github.com/empathyco/x/commit/d5908427544b9a65bbc16a860ea6f73270ee7c26))
+
+
+
 ## [1.0.0-alpha.51](https://github.com/empathyco/x/compare/vue3-migration-test@1.0.0-alpha.50...vue3-migration-test@1.0.0-alpha.51) (2024-09-05)
 
 
