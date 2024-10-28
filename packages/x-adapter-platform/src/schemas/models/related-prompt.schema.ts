@@ -7,7 +7,7 @@ import { PlatformRelatedPrompt } from '../../types/models/related-prompt.model';
  */
 export const relatedPromptSchema = createMutableSchema<PlatformRelatedPrompt, RelatedPrompt>({
   modelName: () => 'RelatedPrompt',
-  nextQueries: () => [],
+  nextQueries: 'nextQueries',
   suggestionText: 'suggestionText',
-  type: () => 'SYNTHETIC'
+  type: 'type'
 });
