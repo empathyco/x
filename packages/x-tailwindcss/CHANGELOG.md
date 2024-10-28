@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.5...@empathyco/x-tailwindcss@1.2.0-alpha.7) (2024-10-24)
+
+
+### Features
+
+* update x-components and related packages to vue 3 (#1644) ([d590842](https://github.com/empathyco/x/commit/d5908427544b9a65bbc16a860ea6f73270ee7c26))
+
+
+
 ## [1.2.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.5...@empathyco/x-tailwindcss@1.2.0-alpha.6) (2024-09-05)
 
 **Note:** Version bump only for package @empathyco/x-tailwindcss

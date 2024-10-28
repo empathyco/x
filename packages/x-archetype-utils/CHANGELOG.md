@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.1.0-alpha.2...@empathyco/x-archetype-utils@2.0.0-alpha.2) (2024-10-24)
+
+
+### Features
+
+* update x-components and related packages to vue 3 (#1644) ([d590842](https://github.com/empathyco/x/commit/d5908427544b9a65bbc16a860ea6f73270ee7c26))
+
+
+
 ## [2.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.1.0-alpha.2...@empathyco/x-archetype-utils@2.0.0-alpha.1) (2024-09-05)
 
 
