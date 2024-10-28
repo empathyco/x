@@ -80,6 +80,20 @@
         }
       );
 
+      watch([() => props.modelValue.min, () => props.modelValue.max], ([min, max]) => {
+        if (min === minSelected.value && max === maxSelected.value) {
+          return;
+        }
+
+        const minValidated = min < props.threshold.min ? props.threshold.min : min;
+        const maxValidated = max > props.threshold.max ? props.threshold.max : max;
+        sliderInstance.set([minValidated, maxValidated]);
+
+        if (minValidated !== min || maxValidated !== max) {
+          emit('update:modelValue', { min: minValidated, max: maxValidated });
+        }
+      });
+
       return {
         slider,
         rangeSelected
