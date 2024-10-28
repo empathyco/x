@@ -12,6 +12,7 @@ export * from './previewable.model';
 export * from './promoted.model';
 export * from './redirection.model';
 export * from './sort.model';
+export * from './stats.model';
 export * from './suggestion.model';
 export * from './tagging.model';
 export * from './user-info.model';
