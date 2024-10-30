@@ -147,7 +147,7 @@ export function useAliasApi(): UseAliasAPI {
       return store.state.x.search?.sort ?? '';
     },
     get priceStats() {
-      return store.state.x.search?.stats.price;
+      return store.state.x.search?.stats?.price ?? {};
     }
   };
 }
