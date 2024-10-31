@@ -149,7 +149,7 @@
   /** Customize nouislider styles: https://refreshless.com/nouislider/examples/#section-styling */
 
   .x-base-slider {
-    gap: 15px;
+    gap: 16px;
   }
 
   .x-base-slider,
@@ -163,7 +163,7 @@
 
   .x-base-slider__selected {
     display: inline-flex;
-    gap: 5px;
+    gap: 4px;
   }
 
   .x-base-slider__selected-min,
