@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [10.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.4...@empathyco/x-types@10.1.0-alpha.5) (2024-10-31)
+
+
+### Features
+
+* add stats to search response (#1648) ([0fdf5b4](https://github.com/empathyco/x/commit/0fdf5b4030a90da6ec7b4d30d667c08afeb5a80d))
+
+
+
 ## [10.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-types@10.1.0-alpha.3...@empathyco/x-types@10.1.0-alpha.4) (2024-10-28)
 
 
