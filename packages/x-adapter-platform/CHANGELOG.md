@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.7...@empathyco/x-adapter-platform@1.1.0-alpha.8) (2024-10-31)
+
+
+### Features
+
+* add stats to search adapter (#1649) ([14b94ec](https://github.com/empathyco/x/commit/14b94ecf4c4a1f642232c74c22a50f4110976519))
+
+
+
 ## [1.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.6...@empathyco/x-adapter-platform@1.1.0-alpha.7) (2024-10-31)
 
 **Note:** Version bump only for package @empathyco/x-adapter-platform
