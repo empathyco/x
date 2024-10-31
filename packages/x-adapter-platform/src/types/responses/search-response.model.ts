@@ -24,6 +24,12 @@ export interface PlatformSearchResponse {
       query: string;
       display: string;
     };
+    stats: {
+      price: {
+        min: number;
+        max: number;
+      };
+    };
   };
   direct: {
     content: PlatformRedirection[];
