@@ -42,6 +42,7 @@ export const e2eAdapter: XComponentsAdapter = {
   popularSearches: mockEndpointAdapter('popular-searches'),
   querySuggestions: mockEndpointAdapter('query-suggestions'),
   recommendations: mockEndpointAdapter('recommendations'),
+  relatedPrompts: mockEndpointAdapter('related-prompts'),
   relatedTags: mockEndpointAdapter('related-tags'),
   search: mockEndpointAdapter('search'),
   semanticQueries: mockEndpointAdapter('semantic-queries'),

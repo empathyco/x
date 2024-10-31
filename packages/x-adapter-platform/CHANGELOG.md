@@ -3,6 +3,50 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.7...@empathyco/x-adapter-platform@1.1.0-alpha.8) (2024-10-31)
+
+
+### Features
+
+* add stats to search adapter (#1649) ([14b94ec](https://github.com/empathyco/x/commit/14b94ecf4c4a1f642232c74c22a50f4110976519))
+
+
+
+## [1.1.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.6...@empathyco/x-adapter-platform@1.1.0-alpha.7) (2024-10-31)
+
+**Note:** Version bump only for package @empathyco/x-adapter-platform
+
+
+
+
+
+## [1.1.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.5...@empathyco/x-adapter-platform@1.1.0-alpha.6) (2024-10-31)
+
+
+### Bug Fixes
+
+* change related prompts endpoint (#1652) ([61468cd](https://github.com/empathyco/x/commit/61468cd6b7fae02bb37f765490b8680e583de113))
+
+
+
+## [1.1.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.4...@empathyco/x-adapter-platform@1.1.0-alpha.5) (2024-10-28)
+
+
+### Features
+
+* add adapter for related prompts (#1641) ([8066983](https://github.com/empathyco/x/commit/80669835142a5e8d3823d42d599adb51ffc5849a))
+
+
+
+## [1.1.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.3...@empathyco/x-adapter-platform@1.1.0-alpha.4) (2024-10-28)
+
+
+### Features
+
+* add types for related prompts (#1640) ([9822c28](https://github.com/empathyco/x/commit/9822c285410f6d308a8a0e43f47e951b052592a2))
+
+
+
 ## [1.1.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-adapter-platform@1.1.0-alpha.2...@empathyco/x-adapter-platform@1.1.0-alpha.3) (2024-05-21)
 
 
