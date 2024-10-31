@@ -5,6 +5,7 @@ import { Promoted } from '../promoted.model';
 import { TaggingRequest } from '../request/tagging-request.model';
 import { Redirection } from '../redirection.model';
 import { Result } from '../result/result.model';
+import { Stats } from '../stats.model';
 
 /**
  * Response for the search endpoint.
@@ -21,5 +22,6 @@ export interface SearchResponse {
   redirections?: Redirection[];
   results: Result[];
   spellcheck?: string;
+  stats?: Stats;
   totalResults: number;
 }
