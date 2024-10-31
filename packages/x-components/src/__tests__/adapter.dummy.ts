@@ -6,6 +6,7 @@ export const XComponentsAdapterDummy: XComponentsAdapter = {
   popularSearches: jest.fn(),
   querySuggestions: jest.fn(),
   recommendations: jest.fn(),
+  relatedPrompts: jest.fn(),
   relatedTags: jest.fn(),
   search: jest.fn(),
   semanticQueries: jest.fn(),

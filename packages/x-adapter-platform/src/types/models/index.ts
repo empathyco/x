@@ -4,6 +4,7 @@ export * from './next-query.model';
 export * from './partials.model';
 export * from './promoted.model';
 export * from './redirection.model';
+export * from './related-prompt.model';
 export * from './related-tag.model';
 export * from './result.model';
 export * from './semantic-query.model';

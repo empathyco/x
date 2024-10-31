@@ -1,5 +1,7 @@
 /**
- * The stats model.
+ * Statistics for the current search results.
+ *
+ * Price - interval of the prices of the results.
  *
  * @public
  */

@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.7...@empathyco/x-components@6.0.0-alpha.8) (2024-10-31)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.6...@empathyco/x-components@6.0.0-alpha.7) (2024-10-28)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.5...@empathyco/x-components@6.0.0-alpha.6) (2024-10-28)
+
+
+### Features
+
+* add types for related prompts (#1640) ([9822c28](https://github.com/empathyco/x/commit/9822c285410f6d308a8a0e43f47e951b052592a2))
+
+
+
+## [6.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.4...@empathyco/x-components@6.0.0-alpha.5) (2024-10-28)
+
+
+### Build System
+
+* use vue latest version as peer dependency (#1651) ([1618993](https://github.com/empathyco/x/commit/161899326d325db46f39eead4ca7b57984b58b39))
+
+
+
 ## [6.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.83...@empathyco/x-components@6.0.0-alpha.4) (2024-10-24)
 
 
