@@ -40,7 +40,7 @@ importers:
   packages/_vue3-migration-test:
     dependencies:
       '@empathyco/x-adapter-platform':
-        specifier: ^1.1.0-alpha.4
+        specifier: ^1.1.0-alpha.5
         version: link:../x-adapter-platform
       '@empathyco/x-bus':
         specifier: ^1.0.3-alpha.1
@@ -431,7 +431,7 @@ importers:
         specifier: ^8.1.0-alpha.0
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
-        specifier: ^1.1.0-alpha.4
+        specifier: ^1.1.0-alpha.5
         version: link:../x-adapter-platform
       '@empathyco/x-bus':
         specifier: ^1.0.3-alpha.1
