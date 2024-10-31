@@ -392,7 +392,7 @@
                             <RelatedPrompt
                               class="x-bg-neutral-10 x-flex x-flex-col x-gap-16 x-pt-24"
                               :relatedPrompt="relatedPrompts[0]"
-                              nextQueryButtonClass="x-button x-button-lead x-button-sm x-button-outlined"
+                              nextQueryButtonClass="x-button-lead x-button-sm x-button-outlined"
                             >
                               <template #header="{ suggestionText }">
                                 <h2 class="x-title2">{{ suggestionText }}</h2>
