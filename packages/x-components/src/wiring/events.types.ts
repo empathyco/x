@@ -22,6 +22,7 @@ import { UrlXEvents } from '../x-modules/url/events.types';
 import { XModuleName } from '../x-modules/x-modules.types';
 import { SemanticQueriesXEvents } from '../x-modules/semantic-queries/events.types';
 import { ExperienceControlsXEvents } from '../x-modules/experience-controls/events.types';
+import { RelatedPromptsXEvents } from '../x-modules/related-prompts/events.types';
 import { WireMetadata } from './wiring.types';
 /* eslint-disable max-len */
 /**.
@@ -51,6 +52,7 @@ import { WireMetadata } from './wiring.types';
  * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/search/events.types.ts | SearchXEvents}
  * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/tagging/events.types.ts | TaggingXEvents}
  * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/url/events.types.ts | UrlXEvents}
+ * {@link https://github.com/empathyco/x/blob/main/packages/x-components/src/x-modules/related-prompts/events.types.ts | RelatedPromptsXEvents}
  *
  * @public
  */
@@ -73,7 +75,8 @@ export interface XEventsTypes
     SemanticQueriesXEvents,
     TaggingXEvents,
     ExperienceControlsXEvents,
-    UrlXEvents {
+    UrlXEvents,
+    RelatedPromptsXEvents {
   /**
    * The provided number of columns of a grid has changed.
    * Payload: the columns number.
