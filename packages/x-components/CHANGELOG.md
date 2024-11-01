@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.10...@empathyco/x-components@6.0.0-alpha.11) (2024-11-01)
+
+
+### Features
+
+* create related prompts module (#1642) ([36cdcc6](https://github.com/empathyco/x/commit/36cdcc681d4b049815b99a42d48c22d30c49fafa))
+
+
+
 ## [6.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.9...@empathyco/x-components@6.0.0-alpha.10) (2024-10-31)
 
 **Note:** Version bump only for package @empathyco/x-components
