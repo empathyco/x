@@ -1,3 +1,4 @@
+import { Stats } from '@empathyco/x-types';
 import { SearchXStoreModule } from '../types';
 
 /**
@@ -21,7 +22,8 @@ export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchRespon
     spellcheck,
     redirections,
     queryTagging,
-    displayTagging
+    displayTagging,
+    stats
   }
 ) => {
   if (totalResults === 0) {
@@ -58,4 +60,5 @@ export const saveSearchResponse: SearchXStoreModule['actions']['saveSearchRespon
 
   commit('setTotalResults', totalResults);
   commit('setSpellcheck', spellcheck ?? '');
+  commit('setStats', stats as Stats);
 };

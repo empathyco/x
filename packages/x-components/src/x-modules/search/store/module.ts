@@ -1,4 +1,4 @@
-import { isFacetFilter } from '@empathyco/x-types';
+import { isFacetFilter, Stats } from '@empathyco/x-types';
 import { setQuery } from '../../../store/utils/query.utils';
 import { setStatus } from '../../../store';
 import { groupItemsBy } from '../../../utils/array';
@@ -118,6 +118,9 @@ export const searchXStoreModule: SearchXStoreModule = {
       if (stateResult) {
         Object.assign(stateResult, result);
       }
+    },
+    setStats(state, stats) {
+      state.stats = stats;
     }
   },
   actions: {
@@ -163,6 +166,7 @@ export function resettableState() {
     displayTagging: {
       url: '',
       params: {}
-    }
+    },
+    stats: {} as Stats
   };
 }
