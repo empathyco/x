@@ -156,20 +156,21 @@
   .x-base-slider__selected-min,
   .x-base-slider__selected-max {
     display: flex;
-    justify-content: stretch;
-    align-items: stretch;
     flex-flow: column nowrap;
   }
 
   .x-base-slider__selected {
     display: inline-flex;
-    gap: 4px;
   }
 
   .x-base-slider__selected-min,
   .x-base-slider__selected-max {
     flex: 50%;
-    gap: 8px;
+  }
+
+  .x-base-slider__nouislider {
+    margin: 16px 0;
+    padding: 0 16px;
   }
 
   .x-base-slider__nouislider .noUi-handle:before,
