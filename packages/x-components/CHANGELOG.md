@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.11...@empathyco/x-components@6.0.0-alpha.12) (2024-11-04)
+
+
+### Features
+
+* new base-slider component (#1650) ([a3b1a0a](https://github.com/empathyco/x/commit/a3b1a0ad1c53d2ae39ae3e9d4229518825a040af))
+
+
+
 ## [6.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.10...@empathyco/x-components@6.0.0-alpha.11) (2024-11-01)
 
 
