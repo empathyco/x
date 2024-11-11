@@ -45,7 +45,8 @@ export const fetchAndSaveQueryPreview: QueriesPreviewXStoreModule['actions']['fe
       .catch(error => {
         // eslint-disable-next-line no-console
         console.error(error);
-        const queryPreviewHash = getHashFromQueryPreviewItem(queryPreviewItem);
+        const lang = request.extraParams ? request.extraParams.lang : '';
+        const queryPreviewHash = getHashFromQueryPreviewItem(queryPreviewItem, lang as string);
         commit('setStatus', { queryPreviewHash, status: 'error' });
       });
   };
