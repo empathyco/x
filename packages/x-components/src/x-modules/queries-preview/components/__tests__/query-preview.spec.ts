@@ -215,6 +215,18 @@ describe('query preview', () => {
     });
   });
 
+  it('sends the `QueryPreviewRequestUpdated` event when the application language changes', async () => {
+    const { queryPreviewRequestUpdatedSpy, updateExtraParams } = await render({
+      queryPreviewInfo: { query: 'shoes' },
+      location: 'predictive_layer'
+    });
+
+    await updateExtraParams({ lang: 'es' });
+    jest.advanceTimersToNextTimer();
+
+    expect(queryPreviewRequestUpdatedSpy).toHaveBeenCalledTimes(1);
+  });
+
   it('sends the `QueryPreviewRequestUpdated` event with the correct location provided', async () => {
     const { queryPreviewRequestUpdatedSpy, wrapper } = await render({
       queryPreviewInfo: { query: 'shoes' },
