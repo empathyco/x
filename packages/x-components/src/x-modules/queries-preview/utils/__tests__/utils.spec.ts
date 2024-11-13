@@ -70,10 +70,13 @@ describe('testing queries preview module utils', () => {
             }
           ]
         },
-        rows: 3
+        rows: 3,
+        extraParams: {
+          lang: 'en'
+        }
       }
     };
-    const queryHash = getHashFromQueryPreviewItem(queryPreviewItem);
+    const queryHash = getHashFromQueryPreviewItem(queryPreviewItem, 'en');
 
     await store.dispatch('fetchAndSaveQueryPreview', queryPreviewItem.request);
 
@@ -83,9 +86,9 @@ describe('testing queries preview module utils', () => {
   it('should check if a query hash from a QueryPreviewInfo is created correctly', () => {
     const queryPreviewInfo: QueryPreviewInfo = { query: 'tshirt', filters: ['fit:regular'] };
 
-    const queryPreviewHash = getHashFromQueryPreviewInfo(queryPreviewInfo);
+    const queryPreviewHash = getHashFromQueryPreviewInfo(queryPreviewInfo, 'en');
 
-    expect(queryPreviewHash).toBe('ba83786514cc76ebfd00da880b8068b2');
+    expect(queryPreviewHash).toBe('3ed535c606cfe71ff84ebd2c4271fb9c');
   });
 
   // eslint-disable-next-line max-len
@@ -110,10 +113,10 @@ describe('testing queries preview module utils', () => {
         rows: 3
       }
     };
-    const queryPreviewItemHash = getHashFromQueryPreviewItem(queryPreviewItem);
+    const queryPreviewItemHash = getHashFromQueryPreviewItem(queryPreviewItem, 'en');
 
     const queryPreviewInfo: QueryPreviewInfo = { query: 'tshirt', filters: ['fit:regular'] };
-    const queryPreviewInfoHash = getHashFromQueryPreviewInfo(queryPreviewInfo);
+    const queryPreviewInfoHash = getHashFromQueryPreviewInfo(queryPreviewInfo, 'en');
 
     expect(queryPreviewItemHash).toBe(queryPreviewInfoHash);
   });

@@ -6,9 +6,13 @@ import { QueryPreviewInfo, QueryPreviewItem } from '../store/index';
  * with different filters can be saved more than once in the state.
  *
  * @param queryPreview - The {@link QueryPreviewItem | QueryPreviewItem} used in the request.
+ * @param lang - The language used in the request.
  * @returns A unique id that will be used as a key to store the QueryPreviewItem in the state.
  */
-export const getHashFromQueryPreviewItem = (queryPreview: QueryPreviewItem): string => {
+export const getHashFromQueryPreviewItem = (
+  queryPreview: QueryPreviewItem,
+  lang: string
+): string => {
   const queryPreviewFilters = queryPreview.request.filters
     ? Object.values(queryPreview.request.filters)
         .flat()
@@ -16,17 +20,21 @@ export const getHashFromQueryPreviewItem = (queryPreview: QueryPreviewItem): str
         .join('-')
     : '';
 
-  return md5(queryPreview.request.query.concat(queryPreviewFilters));
+  return md5(queryPreview.request.query.concat(queryPreviewFilters).concat(lang));
 };
 
 /**
  * Creates a query hash to check if a QueryPreview has already been saved in the state.
  *
  * @param queryPreviewInfo - The {@link QueryPreviewInfo | QueryPreviewInfo} of a QueryPreview.
+ * @param lang - The language used in the request.
  * @returns A unique id that will be used as a key to check the QueryPreview in the state.
  */
-export const getHashFromQueryPreviewInfo = (queryPreviewInfo: QueryPreviewInfo): string => {
+export const getHashFromQueryPreviewInfo = (
+  queryPreviewInfo: QueryPreviewInfo,
+  lang: string
+): string => {
   const queryPreviewFilters = queryPreviewInfo.filters ? queryPreviewInfo.filters.join('-') : '';
 
-  return md5(queryPreviewInfo.query.concat(queryPreviewFilters));
+  return md5(queryPreviewInfo.query.concat(queryPreviewFilters).concat(lang));
 };

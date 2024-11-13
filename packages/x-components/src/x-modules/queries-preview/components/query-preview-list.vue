@@ -29,6 +29,7 @@
   import { QueryPreviewInfo } from '../store/types';
   import { getHashFromQueryPreviewInfo } from '../utils/get-hash-from-query-preview';
   import { AnimationProp, QueryFeature } from '../../../types';
+  import { useState } from '../../../composables/index';
   import QueryPreview from './query-preview.vue';
 
   interface QueryPreviewStatusRecord {
@@ -100,6 +101,8 @@
       }
     },
     setup(props) {
+      const { params } = useState('queriesPreview', ['params']);
+
       /**
        * Contains the status of the preview requests, indexed by query.
        */
@@ -112,7 +115,9 @@
        * @internal
        */
       const queries = computed((): string[] =>
-        props.queriesPreviewInfo.map(item => getHashFromQueryPreviewInfo(item))
+        props.queriesPreviewInfo.map(item =>
+          getHashFromQueryPreviewInfo(item, params.value.lang as string)
+        )
       );
 
       /**
@@ -123,7 +128,7 @@
        */
       const renderedQueryPreviews = computed((): QueryPreviewInfo[] => {
         return props.queriesPreviewInfo.filter(item => {
-          const queryPreviewHash = getHashFromQueryPreviewInfo(item);
+          const queryPreviewHash = getHashFromQueryPreviewInfo(item, params.value.lang as string);
           return (
             queriesStatus.value[queryPreviewHash] === 'success' ||
             queriesStatus.value[queryPreviewHash] === 'loading'

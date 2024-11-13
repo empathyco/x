@@ -32,7 +32,9 @@ export const queriesPreviewXStoreModule: QueriesPreviewXStoreModule = {
       state.params = params;
     },
     setQueryPreviewCached(state, queryPreview) {
-      state.queriesPreview[getHashFromQueryPreviewItem(queryPreview)] = queryPreview;
+      state.queriesPreview[
+        getHashFromQueryPreviewItem(queryPreview, queryPreview.request.extraParams?.lang as string)
+      ] = queryPreview;
     },
     setStatus(state, { queryPreviewHash, status }) {
       state.queriesPreview[queryPreviewHash].status = status;

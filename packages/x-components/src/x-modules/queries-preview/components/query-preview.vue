@@ -121,7 +121,9 @@
        *
        * @returns The query hash.
        */
-      const queryPreviewHash = computed(() => getHashFromQueryPreviewInfo(props.queryPreviewInfo));
+      const queryPreviewHash = computed(() =>
+        getHashFromQueryPreviewInfo(props.queryPreviewInfo, params.value.lang as string)
+      );
 
       provide('queryPreviewHash', queryPreviewHash);
 
