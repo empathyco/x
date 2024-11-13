@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.12...@empathyco/x-components@6.0.0-alpha.13) (2024-11-13)
+
+
+### Features
+
+* add lang parameter to the queriesPreview hash (#1653) ([b41e6c6](https://github.com/empathyco/x/commit/b41e6c6dfe629270a7919cf7f5c528b839c7c831))
+
+
+
 ## [6.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.11...@empathyco/x-components@6.0.0-alpha.12) (2024-11-04)
 
 
