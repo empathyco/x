@@ -7,6 +7,7 @@ import { QueryPreviewInfo, QueryPreviewItem } from '../store/index';
  *
  * @param queryPreview - The {@link QueryPreviewItem | QueryPreviewItem} used in the request.
  * @returns A unique id that will be used as a key to store the QueryPreviewItem in the state.
+ * @public
  */
 export const getHashFromQueryPreviewItem = (queryPreview: QueryPreviewItem): string => {
   const queryPreviewFilters = queryPreview.request.filters
@@ -24,6 +25,7 @@ export const getHashFromQueryPreviewItem = (queryPreview: QueryPreviewItem): str
  *
  * @param queryPreviewInfo - The {@link QueryPreviewInfo | QueryPreviewInfo} of a QueryPreview.
  * @returns A unique id that will be used as a key to check the QueryPreview in the state.
+ * @public
  */
 export const getHashFromQueryPreviewInfo = (queryPreviewInfo: QueryPreviewInfo): string => {
   const queryPreviewFilters = queryPreviewInfo.filters ? queryPreviewInfo.filters.join('-') : '';
