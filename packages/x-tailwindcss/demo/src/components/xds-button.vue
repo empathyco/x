@@ -59,24 +59,24 @@
         default: () => ['x-button-circle', 'x-button-square']
       },
       outline: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-button-outlined']
+        type: String,
+        default: 'x-button-outlined'
       },
       ghost: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-button-ghost']
+        type: String,
+        default: 'x-button-ghost'
       },
       tight: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-button-tight']
+        type: String,
+        default: 'x-button-tight'
       },
       link: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-button-link']
+        type: String,
+        default: 'x-button-link'
       },
       selected: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-selected']
+        type: String,
+        default: 'x-selected'
       },
       combinations: {
         type: Array as PropType<string[]>,

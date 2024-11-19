@@ -90,8 +90,8 @@
         ]
       },
       line: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-input-group-line']
+        type: String,
+        default: 'x-input-group-line'
       },
       combinations: {
         type: Array as PropType<string[]>,

@@ -146,9 +146,3 @@
     }
   });
 </script>
-
-<style lang="scss" scoped>
-  :deep(h2) {
-    align-self: flex-start;
-  }
-</style>

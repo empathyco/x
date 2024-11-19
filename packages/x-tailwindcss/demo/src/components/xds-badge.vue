@@ -30,11 +30,11 @@
 </template>
 
 <script lang="ts">
-  import { ShowcaseSectionsClasses, ShowcaseSections } from '../types/types';
+  import { computed, defineComponent, PropType } from 'vue';
+  import { ShowcaseSectionsClasses } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
   import CuratedIcon from './icons/curated.vue';
-  import { computed, defineComponent } from 'vue';
 
   type Sections =
     | 'Default'
@@ -58,7 +58,7 @@
         default: () => 'x-badge'
       },
       sizes: {
-        type: Array,
+        type: Array as PropType<string[]>,
         default: () => ['x-badge-sm', 'x-badge-md']
       },
       circle: {
@@ -66,7 +66,7 @@
         default: () => 'x-badge-circle'
       },
       colors: {
-        type: Array,
+        type: Array as PropType<string[]>,
         default: () => [
           '',
           'x-badge-neutral',
@@ -92,7 +92,7 @@
         default: () => 'x-badge-bright'
       },
       attachTo: {
-        type: Array,
+        type: Array as PropType<string[]>,
         default: () => [
           'x-attach-to-top-left',
           'x-attach-to-top-right',
@@ -101,11 +101,11 @@
         ]
       },
       withIcon: {
-        type: Array,
+        type: Array as PropType<string[]>,
         default: () => ['x-badge-sm', '', 'x-badge-circle x-badge-sm', 'x-badge-circle']
       },
       combinations: {
-        type: Array,
+        type: Array as PropType<string[]>,
         default: () => [
           'x-badge-error x-badge-sm x-badge-outlined',
           'x-badge-light x-badge-lead x-badge-circle',

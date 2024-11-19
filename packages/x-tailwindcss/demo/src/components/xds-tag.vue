@@ -53,24 +53,24 @@
         ]
       },
       selected: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-selected']
+        type: String,
+        default: 'x-selected'
       },
       outlined: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-tag-outlined']
+        type: String,
+        default: 'x-tag-outlined'
       },
       solid: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-tag-solid']
+        type: String,
+        default: 'x-tag-solid'
       },
       ghost: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-tag-ghost']
+        type: String,
+        default: 'x-tag-ghost'
       },
       tight: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-tag-tight']
+        type: String,
+        default: 'x-tag-tight'
       },
       combinations: {
         type: Array as PropType<string[]>,

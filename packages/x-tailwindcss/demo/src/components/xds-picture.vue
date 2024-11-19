@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
+  import { defineComponent } from 'vue';
   import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
@@ -62,9 +62,3 @@
     }
   });
 </script>
-
-<style lang="scss" scoped>
-  :deep(h2) {
-    align-self: flex-start;
-  }
-</style>

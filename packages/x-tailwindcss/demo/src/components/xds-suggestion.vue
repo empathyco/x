@@ -56,12 +56,12 @@
         ]
       },
       outlined: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-suggestion-outlined']
+        type: String,
+        default: 'x-suggestion-outlined'
       },
       ghost: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-suggestion-ghost']
+        type: String,
+        default: 'x-suggestion-ghost'
       },
       combinations: {
         type: Array as PropType<string[]>,

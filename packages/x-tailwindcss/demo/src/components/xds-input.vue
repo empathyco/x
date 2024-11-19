@@ -48,8 +48,8 @@
         ]
       },
       line: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-input-line']
+        type: String,
+        default: 'x-input-line'
       },
       combinations: {
         type: Array as PropType<string[]>,
