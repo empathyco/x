@@ -37,71 +37,81 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, PropType } from 'vue';
   import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import CuratedIcon from './icons/curated.vue';
   import CrossIcon from './icons/cross.vue';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
-  @Component({
+  export default defineComponent({
     components: {
       CuratedIcon,
       CrossIcon,
       XdsBaseShowcase
+    },
+    props: {
+      base: {
+        type: String,
+        default: 'x-suggestion-group'
+      },
+      sizes: {
+        type: Array as PropType<string[]>,
+        default: () => ['x-suggestion-group-sm', 'x-suggestion-group-md', 'x-suggestion-group-lg']
+      },
+      colors: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          '',
+          'x-suggestion-group-neutral',
+          'x-suggestion-group-lead',
+          'x-suggestion-group-auxiliary',
+          'x-suggestion-group-accent',
+          'x-suggestion-group-highlight',
+          'x-suggestion-group-success',
+          'x-suggestion-group-warning',
+          'x-suggestion-group-error'
+        ]
+      },
+      outlined: {
+        type: Array as PropType<string[]>,
+        default: () => ['x-suggestion-group-outlined']
+      },
+      ghost: {
+        type: Array as PropType<string[]>,
+        default: () => ['x-suggestion-group-ghost']
+      },
+      combinations: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          'x-suggestion-group-success x-suggestion-group-sm',
+          'x-suggestion-group-outlined x-suggestion-group-auxiliary x-suggestion-group-md ',
+          'x-suggestion-group-ghost x-suggestion-group-lg'
+        ]
+      }
+    },
+    computed: {
+      sections(): ShowcaseSections {
+        return {
+          Default: [this.base],
+          Colors: this.colors.map(addParentClasses(this.base)),
+          Sizes: this.sizes.map(addParentClasses(this.base)),
+          Outlined: this.colors.map(addParentClasses(this.base, this.outlined)),
+          'Outlined Sizes': this.sizes.map(addParentClasses(this.base, this.outlined)),
+          Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
+          'Ghost Sizes': this.sizes.map(addParentClasses(this.base, this.ghost)),
+          Combinations: this.combinations.map(addParentClasses(this.base)),
+          'Combinations layer': this.combinations.map(addParentClasses(this.base))
+        };
+      }
+    },
+    methods: {
+      copyCssClassesToClipboard(event: MouseEvent): void {
+        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
+      },
+      removeClassPrefix(cssClasses: string, prefix: string): string {
+        return cssClasses.replace(new RegExp(`${prefix}-?`, 'g'), '');
+      }
     }
-  })
-  export default class XdsSuggestionGroup extends Vue {
-    @Prop({ default: () => 'x-suggestion-group' })
-    public base!: string;
-
-    @Prop({
-      default: () => ['x-suggestion-group-sm', 'x-suggestion-group-md', 'x-suggestion-group-lg']
-    })
-    public sizes!: string[];
-
-    @Prop({
-      default: () => [
-        '',
-        'x-suggestion-group-neutral',
-        'x-suggestion-group-lead',
-        'x-suggestion-group-auxiliary',
-        'x-suggestion-group-accent',
-        'x-suggestion-group-highlight',
-        'x-suggestion-group-success',
-        'x-suggestion-group-warning',
-        'x-suggestion-group-error'
-      ]
-    })
-    public colors!: string[];
-
-    @Prop({ default: () => ['x-suggestion-group-outlined'] })
-    public outlined!: string;
-
-    @Prop({ default: () => ['x-suggestion-group-ghost'] })
-    public ghost!: string;
-
-    @Prop({
-      default: () => [
-        'x-suggestion-group-success x-suggestion-group-sm',
-        'x-suggestion-group-outlined x-suggestion-group-auxiliary x-suggestion-group-md ',
-        'x-suggestion-group-ghost x-suggestion-group-lg'
-      ]
-    })
-    public combinations!: string[];
-
-    protected get sections(): ShowcaseSections {
-      return {
-        Default: [this.base],
-        Colors: this.colors.map(addParentClasses(this.base)),
-        Sizes: this.sizes.map(addParentClasses(this.base)),
-        Outlined: this.colors.map(addParentClasses(this.base, this.outlined)),
-        'Outlined Sizes': this.sizes.map(addParentClasses(this.base, this.outlined)),
-        Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
-        'Ghost Sizes': this.sizes.map(addParentClasses(this.base, this.ghost)),
-        Combinations: this.combinations.map(addParentClasses(this.base)),
-        'Combinations layer': this.combinations.map(addParentClasses(this.base))
-      };
-    }
-  }
+  });
 </script>

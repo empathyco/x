@@ -21,68 +21,78 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, PropType } from 'vue';
   import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import CuratedIcon from './icons/curated.vue';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
-  @Component({
+  export default defineComponent({
     components: {
       CuratedIcon,
       XdsBaseShowcase
+    },
+    props: {
+      base: {
+        type: String,
+        default: 'x-suggestion'
+      },
+      sizes: {
+        type: Array as PropType<string[]>,
+        default: () => ['x-suggestion-sm', 'x-suggestion-md', 'x-suggestion-lg']
+      },
+      colors: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          '',
+          'x-suggestion-neutral',
+          'x-suggestion-lead',
+          'x-suggestion-auxiliary',
+          'x-suggestion-accent',
+          'x-suggestion-highlight',
+          'x-suggestion-success',
+          'x-suggestion-warning',
+          'x-suggestion-error'
+        ]
+      },
+      outlined: {
+        type: Array as PropType<string[]>,
+        default: () => ['x-suggestion-outlined']
+      },
+      ghost: {
+        type: Array as PropType<string[]>,
+        default: () => ['x-suggestion-ghost']
+      },
+      combinations: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          'x-suggestion x-suggestion-success x-suggestion-md',
+          'x-suggestion x-suggestion-auxiliary x-suggestion-md',
+          'x-suggestion-tag x-suggestion-error-50 x-suggestion-lg'
+        ]
+      }
+    },
+    computed: {
+      sections(): ShowcaseSections {
+        return {
+          Default: [this.base],
+          Colors: this.colors.map(addParentClasses(this.base)),
+          Sizes: this.sizes.map(addParentClasses(this.base)),
+          Outlined: this.colors.map(addParentClasses(this.base, this.outlined)),
+          'Outlined Sizes': this.sizes.map(addParentClasses(this.base, this.outlined)),
+          Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
+          'Ghost Sizes': this.sizes.map(addParentClasses(this.base, this.ghost)),
+          Combinations: this.combinations.map(addParentClasses(this.base))
+        };
+      }
+    },
+    methods: {
+      copyCssClassesToClipboard(event: MouseEvent): void {
+        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
+      },
+      removeClassPrefix(cssClasses: string, prefix: string): string {
+        return cssClasses.replace(new RegExp(`${prefix}-?`, 'g'), '');
+      }
     }
-  })
-  export default class XdsSuggestion extends Vue {
-    @Prop({ default: () => 'x-suggestion' })
-    public base!: string;
-
-    @Prop({
-      default: () => ['x-suggestion-sm', 'x-suggestion-md', 'x-suggestion-lg']
-    })
-    public sizes!: string[];
-
-    @Prop({
-      default: () => [
-        '',
-        'x-suggestion-neutral',
-        'x-suggestion-lead',
-        'x-suggestion-auxiliary',
-        'x-suggestion-accent',
-        'x-suggestion-highlight',
-        'x-suggestion-success',
-        'x-suggestion-warning',
-        'x-suggestion-error'
-      ]
-    })
-    public colors!: string[];
-
-    @Prop({ default: () => ['x-suggestion-outlined'] })
-    public outlined!: string;
-
-    @Prop({ default: () => ['x-suggestion-ghost'] })
-    public ghost!: string;
-
-    @Prop({
-      default: () => [
-        'x-suggestion x-suggestion-success x-suggestion-md',
-        'x-suggestion x-suggestion-auxiliary x-suggestion-md',
-        'x-suggestion-tag x-suggestion-error-50 x-suggestion-lg'
-      ]
-    })
-    public combinations!: string[];
-
-    protected get sections(): ShowcaseSections {
-      return {
-        Default: [this.base],
-        Colors: this.colors.map(addParentClasses(this.base)),
-        Sizes: this.sizes.map(addParentClasses(this.base)),
-        Outlined: this.colors.map(addParentClasses(this.base, this.outlined)),
-        'Outlined Sizes': this.sizes.map(addParentClasses(this.base, this.outlined)),
-        Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
-        'Ghost Sizes': this.sizes.map(addParentClasses(this.base, this.ghost)),
-        Combinations: this.combinations.map(addParentClasses(this.base))
-      };
-    }
-  }
+  });
 </script>

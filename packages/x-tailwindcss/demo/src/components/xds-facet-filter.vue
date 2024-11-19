@@ -36,86 +36,93 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, PropType } from 'vue';
   import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
   import CheckIcon from './icons/check.vue';
   import UncheckIcon from './icons/uncheck.vue';
 
-  @Component({
-    components: { CheckIcon, XdsBaseShowcase, UncheckIcon }
-  })
-  export default class XdsFacetFilterShowcase extends Vue {
-    @Prop({ default: () => 'x-facet-filter' })
-    public base!: string;
-
-    @Prop({ default: () => ['x-facet-filter-sm', 'x-facet-filter-md', 'x-facet-filter-lg'] })
-    public sizes!: string[];
-
-    @Prop({ default: () => 'x-selected' })
-    public selected!: string;
-
-    @Prop({ default: () => 'x-facet-filter-underline' })
-    public underline!: string;
-
-    @Prop({ default: () => 'x-facet-filter-ghost' })
-    public ghost!: string;
-
-    @Prop({ default: () => 'x-facet-filter-simple' })
-    public simple!: string;
-
-    @Prop({
-      default: () => [
-        '',
-        'x-facet-filter-neutral',
-        'x-facet-filter-lead',
-        'x-facet-filter-auxiliary',
-        'x-facet-filter-accent',
-        'x-facet-filter-highlight',
-        'x-facet-filter-success',
-        'x-facet-filter-warning',
-        'x-facet-filter-error'
-      ]
-    })
-    public colors!: string[];
-
-    @Prop({
-      default: () => [
-        'x-facet-filter-ghost x-facet-filter-lg x-facet-filter-warning x-selected',
-        'x-facet-filter-ghost x-facet-filter-success x-facet-filter-underline x-selected',
-        // eslint-disable-next-line max-len
-        'x-facet-filter-simple x-facet-filter-lg x-facet-filter-success x-facet-filter-underline x-selected'
-      ]
-    })
-    public combinations!: string[];
-
-    protected get sections(): ShowcaseSections {
-      return {
-        Default: [this.base],
-        Colors: this.colors.map(addParentClasses(this.base)),
-        Sizes: this.sizes.map(addParentClasses(this.base)),
-        Selected: this.colors.map(addParentClasses(this.base, this.selected)),
-        Underline: this.colors.map(addParentClasses(this.base, this.underline)),
-        'Selected Underline': this.colors.map(
-          addParentClasses(this.base, this.underline, this.selected)
-        ),
-        Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
-        'Selected Ghost': this.colors.map(addParentClasses(this.base, this.ghost, this.selected)),
-        Simple: this.colors.map(addParentClasses(this.base, this.simple)),
-        'Selected Simple': this.colors.map(addParentClasses(this.base, this.simple, this.selected)),
-        Disabled: [
-          this.base,
-          addParentClasses(this.base)(this.selected),
-          addParentClasses(this.base)(this.ghost),
-          addParentClasses(this.base, this.selected)(this.ghost),
-          addParentClasses(this.base)(this.simple),
-          addParentClasses(this.base, this.selected)(this.simple),
-          addParentClasses(this.base)(this.underline),
-          addParentClasses(this.base, this.selected)(this.underline)
-        ],
-        Combinations: this.combinations.map(addParentClasses(this.base))
-      };
+  export default defineComponent({
+    components: { CheckIcon, XdsBaseShowcase, UncheckIcon },
+    props: {
+      base: {
+        type: String,
+        default: 'x-facet-filter'
+      },
+      sizes: {
+        type: Array as PropType<string[]>,
+        default: () => ['x-facet-filter-sm', 'x-facet-filter-md', 'x-facet-filter-lg']
+      },
+      selected: {
+        type: String,
+        default: 'x-selected'
+      },
+      underline: {
+        type: String,
+        default: 'x-facet-filter-underline'
+      },
+      ghost: {
+        type: String,
+        default: 'x-facet-filter-ghost'
+      },
+      simple: {
+        type: String,
+        default: 'x-facet-filter-simple'
+      },
+      colors: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          '',
+          'x-facet-filter-neutral',
+          'x-facet-filter-lead',
+          'x-facet-filter-auxiliary',
+          'x-facet-filter-accent',
+          'x-facet-filter-highlight',
+          'x-facet-filter-success',
+          'x-facet-filter-warning',
+          'x-facet-filter-error'
+        ]
+      },
+      combinations: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          'x-facet-filter-ghost x-facet-filter-lg x-facet-filter-warning x-selected',
+          'x-facet-filter-ghost x-facet-filter-success x-facet-filter-underline x-selected',
+          'x-facet-filter-simple x-facet-filter-lg x-facet-filter-success x-facet-filter-underline x-selected'
+        ]
+      }
+    },
+    computed: {
+      sections(): ShowcaseSections {
+        return {
+          Default: [this.base],
+          Colors: this.colors.map(addParentClasses(this.base)),
+          Sizes: this.sizes.map(addParentClasses(this.base)),
+          Selected: this.colors.map(addParentClasses(this.base, this.selected)),
+          Underline: this.colors.map(addParentClasses(this.base, this.underline)),
+          'Selected Underline': this.colors.map(
+            addParentClasses(this.base, this.underline, this.selected)
+          ),
+          Ghost: this.colors.map(addParentClasses(this.base, this.ghost)),
+          'Selected Ghost': this.colors.map(addParentClasses(this.base, this.ghost, this.selected)),
+          Simple: this.colors.map(addParentClasses(this.base, this.simple)),
+          'Selected Simple': this.colors.map(
+            addParentClasses(this.base, this.simple, this.selected)
+          ),
+          Disabled: [
+            this.base,
+            addParentClasses(this.base)(this.selected),
+            addParentClasses(this.base)(this.ghost),
+            addParentClasses(this.base, this.selected)(this.ghost),
+            addParentClasses(this.base)(this.simple),
+            addParentClasses(this.base, this.selected)(this.simple),
+            addParentClasses(this.base)(this.underline),
+            addParentClasses(this.base, this.selected)(this.underline)
+          ],
+          Combinations: this.combinations.map(addParentClasses(this.base))
+        };
+      }
     }
-  }
+  });
 </script>

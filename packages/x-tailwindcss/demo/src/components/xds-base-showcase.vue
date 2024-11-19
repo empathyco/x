@@ -27,72 +27,65 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
   import { ShowcaseSectionsClasses, ShowcaseSections } from '../types/types';
+  import { defineComponent, PropType, ref } from 'vue';
 
-  @Component
-  export default class XdsBaseShowcase extends Vue {
-    /**
-     * The sections to display with the list of classes for each element.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public sections!: ShowcaseSections;
+  export default defineComponent({
+    props: {
+      sections: {
+        type: Object as PropType<ShowcaseSections>,
+        required: true
+      },
+      sectionsClasses: {
+        type: Object as PropType<ShowcaseSectionsClasses>,
+        default: () => ({})
+      },
+      title: {
+        type: String,
+        required: true
+      }
+    },
+    setup() {
+      const isMessageVisible = ref(false);
 
-    /**
-     * The classes to apply to the sections content.
-     *
-     * @public
-     */
-    @Prop({
-      default: () => ({})
-    })
-    public sectionsClasses!: ShowcaseSectionsClasses;
+      /**
+       * Copies the classList of an HTML Element to the clipboard.
+       *
+       * @param event - The MouseEvent to get the HTML Element from.
+       *
+       * @internal
+       */
+      function copyCssClassesToClipboard(event: MouseEvent): void {
+        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
+        showMessage();
+      }
 
-    /**
-     * The title to display at the beginning of the component.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public title!: string;
-
-    protected isMessageVisible = false;
-
-    /**
-     * Copies the classList of an HTML Element to the clipboard.
-     *
-     * @param event - The MouseEvent to get the HTML Element from.
-     *
-     * @internal
-     */
-    protected copyCssClassesToClipboard(event: MouseEvent): void {
-      navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
-      this.showMessage();
+      /**
+       * Shows the message of copied classes to clipboard for 2 seconds.
+       *
+       * @internal
+       */
+      function showMessage(): void {
+        isMessageVisible.value = true;
+        setTimeout(() => (isMessageVisible.value = false), 2000);
+      }
+      /**
+       * Removes the prefix from a CSS class list. If the prefix is full class name, is removed too.
+       *
+       * @param cssClasses - The class list to remove the prefix from.
+       * @param prefix - The prefix to be removed.
+       * @returns The CSS classes with the prefix removed.
+       *
+       * @internal
+       */
+      function removeClassPrefix(cssClasses: string, prefix: string): string {
+        return cssClasses.replace(new RegExp(`${prefix}-?`, 'g'), '');
+      }
+      return {
+        copyCssClassesToClipboard,
+        removeClassPrefix,
+        isMessageVisible
+      };
     }
-
-    /**
-     * Removes the prefix from a CSS class list. If the prefix is full class name, is removed too.
-     *
-     * @param cssClasses - The class list to remove the prefix from.
-     * @param prefix - The prefix to be removed.
-     * @returns The CSS classes with the prefix removed.
-     *
-     * @internal
-     */
-    protected removeClassPrefix(cssClasses: string, prefix: string): string {
-      return cssClasses.replace(new RegExp(`${prefix}-?`, 'g'), '');
-    }
-
-    /**
-     * Shows the message of copied classes to clipboard for 2 seconds.
-     *
-     * @internal
-     */
-    protected showMessage(): void {
-      this.isMessageVisible = true;
-      setTimeout(() => (this.isMessageVisible = false), 2000);
-    }
-  }
+  });
 </script>
