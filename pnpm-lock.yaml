@@ -705,9 +705,6 @@ importers:
       vue:
         specifier: ~3.5.13
         version: 3.5.13(typescript@4.9.4)
-      vue-property-decorator:
-        specifier: ~8.5.0
-        version: 8.5.0(vue-class-component@7.2.6)(vue@3.5.13)
 
   packages/x-translations:
     dependencies:
@@ -4213,7 +4210,7 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.49.0
       '@typescript-eslint/visitor-keys': 5.49.0
-      debug: 4.3.6(supports-color@8.1.1)
+      debug: 4.3.7(supports-color@8.1.1)
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.6.3
@@ -15373,14 +15370,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /vue-class-component@7.2.6(vue@3.5.13):
-    resolution: {integrity: sha512-+eaQXVrAm/LldalI272PpDe3+i4mPis0ORiMYxF6Ae4hyuCh15W8Idet7wPUEs4N4YptgFHGys4UrgNQOMyO6w==}
-    peerDependencies:
-      vue: ^2.0.0
-    dependencies:
-      vue: 3.5.13(typescript@4.9.4)
-    dev: true
-
   /vue-component-type-helpers@2.0.29:
     resolution: {integrity: sha512-58i+ZhUAUpwQ+9h5Hck0D+jr1qbYl4voRt5KffBx8qzELViQ4XdT/Tuo+mzq8u63teAG8K0lLaOiL5ofqW38rg==}
     dev: true
@@ -15535,16 +15524,6 @@ packages:
       vue: '>=2'
     dependencies:
       vue: 3.4.31(typescript@4.9.4)
-    dev: true
-
-  /vue-property-decorator@8.5.0(vue-class-component@7.2.6)(vue@3.5.13):
-    resolution: {integrity: sha512-0RueJN/shPWf5gM8GLUD6bYiXr+q7bu+S1tgr7XwgBSng10H5DLQjVYfJ5XHAOPFo7fBfY1nxljBQ95qryAiWg==}
-    peerDependencies:
-      vue: '*'
-      vue-class-component: '*'
-    dependencies:
-      vue: 3.5.13(typescript@4.9.4)
-      vue-class-component: 7.2.6(vue@3.5.13)
     dev: true
 
   /vue-router@4.4.0(vue@3.4.31):
