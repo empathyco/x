@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.14...@empathyco/x-components@6.0.0-alpha.15) (2024-11-20)
+
+
+### Bug Fixes
+
+* **define-component:** relax definecomponent type to avoid type collisions (#1657) ([2ff1b67](https://github.com/empathyco/x/commit/2ff1b67bf38f6b59425131e55354ebfe681a3b66))
+
+
+
 ## [6.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.13...@empathyco/x-components@6.0.0-alpha.14) (2024-11-20)
 
 **Note:** Version bump only for package @empathyco/x-components
