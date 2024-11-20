@@ -27,8 +27,8 @@
 </template>
 
 <script lang="ts">
-  import { ShowcaseSectionsClasses, ShowcaseSections } from '../types/types';
   import { defineComponent, PropType, ref } from 'vue';
+  import { ShowcaseSectionsClasses, ShowcaseSections } from '../types/types';
 
   export default defineComponent({
     props: {

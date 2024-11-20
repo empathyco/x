@@ -88,7 +88,9 @@
         combinations: [
           'x-sliding-panel-buttons-center x-sliding-panel-show-buttons-on-hover',
           'x-sliding-panel-buttons-outside x-sliding-panel-show-buttons-on-hover',
+          // eslint-disable-next-line max-len
           'x-sliding-panel-buttons-outside x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
+          // eslint-disable-next-line max-len
           'x-sliding-panel-buttons-center x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end'
         ]
       };

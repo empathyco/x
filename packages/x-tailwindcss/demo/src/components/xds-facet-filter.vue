@@ -89,6 +89,7 @@
         default: () => [
           'x-facet-filter-ghost x-facet-filter-lg x-facet-filter-warning x-selected',
           'x-facet-filter-ghost x-facet-filter-success x-facet-filter-underline x-selected',
+          // eslint-disable-next-line max-len
           'x-facet-filter-simple x-facet-filter-lg x-facet-filter-success x-facet-filter-underline x-selected'
         ]
       }

@@ -13,7 +13,7 @@ export { default as XdsLayoutUtils } from './components/xds-layout-utils.vue';
 export { default as XdsPicture } from './components/xds-picture.vue';
 export { default as XdsProgressBar } from './components/xds-progress-bar.vue';
 export { default as XdsScroll } from './components/xds-scroll.vue';
-// export { default as XdsShowcase } from './components/xds-showcase.vue';
+export { default as XdsShowcase } from './components/xds-showcase.vue';
 export { default as XdsSlidingPanel } from './components/xds-sliding-panel.vue';
 export { default as XdsSuggestion } from './components/xds-suggestion.vue';
 export { default as XdsSuggestionGroup } from './components/xds-suggestion-group.vue';
