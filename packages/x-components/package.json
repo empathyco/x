@@ -90,7 +90,7 @@
     "vuex": "4.0.2"
   },
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "~20.0.0",
+    "@badeball/cypress-cucumber-preprocessor": "~21.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "~2.2.0",
     "@empathyco/x-tailwindcss": "^1.2.0-alpha.7",
     "@microsoft/api-documenter": "~7.23.0",
