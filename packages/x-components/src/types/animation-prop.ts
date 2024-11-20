@@ -5,4 +5,7 @@ import { DefineComponent, PropType } from 'vue';
  *
  * @public
  */
-export const AnimationProp = [String, Object, Function] as PropType<DefineComponent | string>;
+export const AnimationProp = [String, Object, Function] as PropType<
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  DefineComponent<{}, {}, any> | string
+>;
