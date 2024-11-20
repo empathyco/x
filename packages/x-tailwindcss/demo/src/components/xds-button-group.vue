@@ -118,31 +118,31 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { defineComponent, PropType } from 'vue';
   import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
   import PlusIcon from './icons/plus.vue';
 
-  @Component({
-    components: { XdsBaseShowcase, PlusIcon }
-  })
-  export default class XdsButtonGroup extends Vue {
-    @Prop({
-      default: () => 'x-button-group'
-    })
-    public base!: string;
-
-    @Prop({
-      default: () => ['x-rounded-md']
-    })
-    public rounded!: string[];
-
-    protected get sections(): ShowcaseSections {
-      return {
-        Default: [this.base],
-        Rounded: this.rounded.map(addParentClasses(this.base))
-      };
+  export default defineComponent({
+    components: { XdsBaseShowcase, PlusIcon },
+    props: {
+      base: {
+        type: String,
+        default: 'x-button-group'
+      },
+      rounded: {
+        type: Array as PropType<string[]>,
+        default: () => ['x-rounded-md']
+      }
+    },
+    computed: {
+      sections(): ShowcaseSections {
+        return {
+          Default: [this.base],
+          Rounded: this.rounded.map(addParentClasses(this.base))
+        };
+      }
     }
-  }
+  });
 </script>

@@ -62,7 +62,15 @@
         Combinations: props.combinations.map(addParentClasses(props.base))
       }));
 
-      return { sections };
+      const copyCssClassesToClipboard = (event: MouseEvent | KeyboardEvent): void => {
+        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
+      };
+
+      const removeClassPrefix = (cssClasses: string, prefix: string): string => {
+        return cssClasses.replace(new RegExp(`${prefix}-?`, 'g'), '');
+      };
+
+      return { sections, copyCssClassesToClipboard, removeClassPrefix };
     }
   });
 </script>

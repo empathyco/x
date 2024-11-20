@@ -61,29 +61,26 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import { ShowcaseSections } from '../types/types';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
-  @Component({
+  export default defineComponent({
     components: {
       XdsBaseShowcase
+    },
+    props: {
+      base: {
+        type: String,
+        default: 'x-layout-container x-layout-max-width-md'
+      }
+    },
+    computed: {
+      sections(): ShowcaseSections {
+        return {
+          '': [this.base]
+        };
+      }
     }
-  })
-  export default class XdsLayoutTwoColumnsShowcase extends Vue {
-    @Prop({ default: 'x-layout-container x-layout-max-width-md' })
-    public base!: string;
-
-    protected get sections(): ShowcaseSections {
-      return {
-        '': [this.base]
-      };
-    }
-  }
+  });
 </script>
-
-<style lang="scss" scoped>
-  code {
-    text-decoration: underline;
-  }
-</style>

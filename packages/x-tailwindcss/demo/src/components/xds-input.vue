@@ -16,59 +16,72 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, PropType } from 'vue';
   import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
-  @Component({
+  export default defineComponent({
     components: {
       XdsBaseShowcase
+    },
+    props: {
+      base: {
+        type: String,
+        default: 'x-input'
+      },
+      sizes: {
+        type: Array as PropType<string[]>,
+        default: () => ['x-input-sm', 'x-input-md', 'x-input-lg']
+      },
+      colors: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          'x-input-neutral',
+          'x-input-lead',
+          'x-input-auxiliary',
+          'x-input-accent',
+          'x-input-highlight',
+          'x-input-success',
+          'x-input-warning',
+          'x-input-error'
+        ]
+      },
+      line: {
+        type: String,
+        default: 'x-input-line'
+      },
+      combinations: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          'x-input-lead x-input-sm',
+          'x-input-auxiliary x-input-line x-input-sm',
+          'x-input-accent x-input-lg',
+          'x-input-warning x-input-line x-input-lg'
+        ]
+      }
+    },
+    computed: {
+      sections(): ShowcaseSections {
+        return {
+          Default: [this.base],
+          Sizes: this.sizes.map(addParentClasses(this.base)),
+          Colors: this.colors.map(addParentClasses(this.base)),
+          Line: [addParentClasses(this.base)(this.line)],
+          'Line Sizes': this.sizes.map(addParentClasses(this.base, this.line)),
+          'Line Colors': this.colors.map(addParentClasses(this.base, this.line)),
+          Disabled: [this.base, addParentClasses(this.base)(this.line)],
+          Combinations: this.combinations.map(addParentClasses(this.base))
+        };
+      }
+    },
+    methods: {
+      copyCssClassesToClipboard(event: MouseEvent): void {
+        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
+      },
+      removeClassPrefix(cssClasses: string, prefix: string): string {
+        return cssClasses.replace(new RegExp(`${prefix}-?`, 'g'), '');
+      }
     }
-  })
-  export default class XdsInputShowcase extends Vue {
-    @Prop({ default: () => 'x-input' })
-    public base!: string;
-    @Prop({ default: () => ['x-input-sm', 'x-input-md', 'x-input-lg'] })
-    public sizes!: string[];
-    @Prop({
-      default: () => [
-        'x-input-neutral',
-        'x-input-lead',
-        'x-input-auxiliary',
-        'x-input-accent',
-        'x-input-highlight',
-        'x-input-success',
-        'x-input-warning',
-        'x-input-error'
-      ]
-    })
-    public colors!: string[];
-
-    @Prop({ default: () => ['x-input-line'] })
-    public line!: string;
-
-    @Prop({
-      default: () => [
-        'x-input-lead x-input-sm',
-        'x-input-auxiliary x-input-line x-input-sm',
-        'x-input-accent x-input-lg ',
-        'x-input-warning x-input-line x-input-lg'
-      ]
-    })
-    public combinations!: string[];
-
-    protected get sections(): ShowcaseSections {
-      return {
-        Default: [this.base],
-        Sizes: this.sizes.map(addParentClasses(this.base)),
-        Colors: this.colors.map(addParentClasses(this.base)),
-        Line: [addParentClasses(this.base)(this.line)],
-        'Line Sizes': this.sizes.map(addParentClasses(this.base, this.line)),
-        'Line Colors': this.colors.map(addParentClasses(this.base, this.line)),
-        Disabled: [this.base, addParentClasses(this.base)(this.line)],
-        Combinations: this.combinations.map(addParentClasses(this.base))
-      };
-    }
-  }
+  });
 </script>

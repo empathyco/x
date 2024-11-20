@@ -35,75 +35,83 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, PropType } from 'vue';
   import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
-  @Component({
+
+  export default defineComponent({
     components: {
       XdsBaseShowcase
-    }
-  })
-  export default class XdsSlidingPanel extends Vue {
-    public items = [
-      'Baghdad',
-      'Nairobi',
-      'Ankara',
-      'Thais',
-      'Edron',
-      'Venore',
-      'Carlin',
-      'Belgrado',
-      'Zagreb',
-      'Sarajevo'
-    ];
-
-    @Prop({ default: () => 'x-sliding-panel' })
-    public base!: string;
-
-    @Prop({
-      default: () => ['', 'x-sliding-panel-buttons-center', 'x-sliding-panel-buttons-outside']
-    })
-    public buttonsPositionVariants!: string[];
-
-    @Prop({
-      default: () => [
-        'x-sliding-panel-show-buttons-on-hover',
-        'x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
-        'x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end'
-      ]
-    })
-    public showButtonsOnHover!: string[];
-
-    @Prop({
-      default: () => [
-        '',
-        'x-sliding-panel-at-start',
-        'x-sliding-panel-at-end',
-        'x-sliding-panel-at-start x-sliding-panel-at-end'
-      ]
-    })
-    public fadeSizes!: string[];
-
-    public combinations = [
-      'x-sliding-panel-buttons-center x-sliding-panel-show-buttons-on-hover',
-      'x-sliding-panel-buttons-outside x-sliding-panel-show-buttons-on-hover',
-      // eslint-disable-next-line max-len
-      'x-sliding-panel-buttons-outside x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
-      // eslint-disable-next-line max-len
-      'x-sliding-panel-buttons-center x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end'
-    ];
-
-    protected get sections(): ShowcaseSections {
+    },
+    props: {
+      base: {
+        type: String,
+        default: 'x-sliding-panel'
+      },
+      buttonsPositionVariants: {
+        type: Array as PropType<string[]>,
+        default: () => ['', 'x-sliding-panel-buttons-center', 'x-sliding-panel-buttons-outside']
+      },
+      showButtonsOnHover: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          'x-sliding-panel-show-buttons-on-hover',
+          'x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
+          'x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end'
+        ]
+      },
+      fadeSizes: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          '',
+          'x-sliding-panel-at-start',
+          'x-sliding-panel-at-end',
+          'x-sliding-panel-at-start x-sliding-panel-at-end'
+        ]
+      }
+    },
+    data() {
       return {
-        Default: [this.base],
-        Buttons: this.buttonsPositionVariants.map(addParentClasses(this.base)),
-        Hover: this.showButtonsOnHover.map(addParentClasses(this.base)),
-        Fade: this.fadeSizes.map(addParentClasses(this.base)),
-        Combinations: this.combinations.map(addParentClasses(this.base))
+        items: [
+          'Baghdad',
+          'Nairobi',
+          'Ankara',
+          'Thais',
+          'Edron',
+          'Venore',
+          'Carlin',
+          'Belgrado',
+          'Zagreb',
+          'Sarajevo'
+        ],
+        combinations: [
+          'x-sliding-panel-buttons-center x-sliding-panel-show-buttons-on-hover',
+          'x-sliding-panel-buttons-outside x-sliding-panel-show-buttons-on-hover',
+          // eslint-disable-next-line max-len
+          'x-sliding-panel-buttons-outside x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-start',
+          // eslint-disable-next-line max-len
+          'x-sliding-panel-buttons-center x-sliding-panel-show-buttons-on-hover x-sliding-panel-at-end'
+        ]
       };
+    },
+    computed: {
+      sections(): ShowcaseSections {
+        return {
+          Default: [this.base],
+          Buttons: this.buttonsPositionVariants.map(addParentClasses(this.base)),
+          Hover: this.showButtonsOnHover.map(addParentClasses(this.base)),
+          Fade: this.fadeSizes.map(addParentClasses(this.base)),
+          Combinations: this.combinations.map(addParentClasses(this.base))
+        };
+      }
+    },
+    methods: {
+      copyCssClassesToClipboard(event: MouseEvent): void {
+        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
+      }
     }
-  }
+  });
 </script>
 
 <style scoped></style>

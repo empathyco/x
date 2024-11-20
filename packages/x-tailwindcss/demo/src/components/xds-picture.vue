@@ -24,37 +24,41 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
-  @Component({
+  export default defineComponent({
     components: {
       XdsBaseShowcase
+    },
+    props: {
+      base: {
+        type: String,
+        default: 'x-picture'
+      },
+      zoom: {
+        type: String,
+        default: 'x-picture-zoom'
+      },
+      overlay: {
+        type: String,
+        default: 'x-picture-overlay'
+      }
+    },
+    computed: {
+      sections(): ShowcaseSections {
+        return {
+          Default: [addParentClasses(this.base)(this.zoom)],
+          Overlay: [addParentClasses(this.base)(this.overlay)]
+        };
+      }
+    },
+    methods: {
+      copyCssClassesToClipboard(event: MouseEvent): void {
+        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
+      }
     }
-  })
-  export default class XdsPictureShowcase extends Vue {
-    @Prop({ default: 'x-picture' })
-    public base!: string;
-
-    @Prop({ default: 'x-picture-zoom' })
-    public zoom!: string;
-
-    @Prop({ default: 'x-picture-overlay' })
-    public overlay!: string;
-
-    protected get sections(): ShowcaseSections {
-      return {
-        Default: [addParentClasses(this.base)(this.zoom)],
-        Overlay: [addParentClasses(this.base)(this.overlay)]
-      };
-    }
-  }
+  });
 </script>
-
-<style lang="scss" scoped>
-  ::v-deep h2 {
-    align-self: flex-start;
-  }
-</style>

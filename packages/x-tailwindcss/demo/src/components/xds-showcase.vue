@@ -24,8 +24,7 @@
   </div>
 </template>
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import XdsBadge from './xds-badge.vue';
   import XdsButton from './xds-button.vue';
   import XdsButtonGroup from './xds-button-group.vue';
@@ -48,7 +47,7 @@
   import XdsTag from './xds-tag.vue';
   import XdsProgressBar from './xds-progress-bar.vue';
 
-  @Component({
+  export default defineComponent({
     components: {
       XdsBadge,
       XdsInputGroup,
@@ -72,8 +71,7 @@
       XdsFacetFilter,
       XdsProgressBar
     }
-  })
-  export default class XdsShowcase extends Vue {}
+  });
 </script>
 <style lang="scss">
   .modal {
