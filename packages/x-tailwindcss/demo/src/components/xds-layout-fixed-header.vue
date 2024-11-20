@@ -5,43 +5,41 @@
 
     <div class="modal x-bg-neutral-0">
       <div :class="[cssClass, 'x-layout-min-margin-48 x-bg-neutral-10']">
-        <div class="x-scroll x-flex x-flex-col">
-          <div
-            class="x-layout-item x-sticky x-top-0 x-bg-neutral-0 x-border-b-1 x-border-neutral-25"
-          >
-            <div class="x-flex x-justify-between x-items-center x-py-8">
+        <div class="x-scroll flex flex-col">
+          <div class="x-layout-item bg-neutral-0 border-b-1 border-neutral-25 sticky top-0">
+            <div class="flex items-center justify-between py-2">
               <span class="x-title3">FIXED HEADER LAYOUT</span>
-              <label for="layout-fixed-header-modal" class="x-button x-button-ghost x-ml-auto">
+              <label for="layout-fixed-header-modal" class="x-button x-button-ghost ml-auto">
                 Close
               </label>
             </div>
 
-            <div class="x-flex x-justify-between x-items-center x-py-16">
+            <div class="flex items-center justify-between py-4">
               <div class="x-title3">HEADER START</div>
               <div class="x-title2">HEADER MIDDLE</div>
               <div class="x-title3">HEADER END</div>
             </div>
           </div>
 
-          <div class="x-layout-item x-border-b-1 x-border-neutral-25">
-            <div class="x-flex x-justify-center x-p-16 x-title3">SUBHEADER</div>
+          <div class="x-layout-item border-b-1 x-border-neutral-25">
+            <div class="x-title3 flex justify-center p-4">SUBHEADER</div>
           </div>
 
           <div class="x-layout-item">
-            <div class="x-flex x-justify-center x-p-16 x-title3 x-bg-neutral-10">TOOLBAR</div>
+            <div class="x-title3 x-bg-neutral-10 flex justify-center p-4">TOOLBAR</div>
           </div>
 
           <div class="x-layout-item x-layout-expand">
-            <div class="x-flex x-flex-col x-justify-between x-h-[2000px] x-p-12 x-bg-neutral-25">
+            <div class="x-bg-neutral-25 flex h-[2000px] flex-col justify-between p-3">
               <section>MAIN</section>
-              <span class="x-place-self-end">MAIN BOTTOM</span>
+              <span class="place-self-end">MAIN BOTTOM</span>
             </div>
           </div>
         </div>
 
         <div class="x-layout-item x-layout-overlap">
           <button
-            class="x-layout-on-margin-right x-justify-self-start x-self-end x-button x-button-sm x-button-circle x-mb-16"
+            class="x-layout-on-margin-right x-button x-button-sm x-button-circle mb-4 self-end justify-self-start"
           >
             ▲
           </button>

@@ -8,9 +8,9 @@
       @keydown="copyCssClassesToClipboard"
       @click="copyCssClassesToClipboard"
       :class="cssClass"
-      class="x-h-[200px] x-w-[200px] x-bg-warning-25"
+      class="x-bg-warning-25 h-[200px] w-[200px]"
     >
-      <div :key="cssClass" class="x-h-[1000px]"></div>
+      <div :key="cssClass" class="h-[1000px]"></div>
     </div>
   </XdsBaseShowcase>
 </template>

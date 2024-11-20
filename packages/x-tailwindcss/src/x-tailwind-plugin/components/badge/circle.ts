@@ -14,7 +14,7 @@ export function badgeCircle({ theme }: TailwindHelpers) {
       overflow: 'hidden',
       whiteSpace: 'nowrap',
       padding: '0',
-      width: theme('spacing.24'),
+      width: theme('x.spacing.24'),
 
       '&.badge-sm': {
         width: theme('spacing.20')

@@ -21,30 +21,30 @@ export function facetFilterDefault(helpers: TailwindHelpers) {
 
     cursor: 'pointer',
 
-    fontFamily: theme('fontFamily.main'),
-    fontWeight: theme('fontWeight.regular'),
+    fontFamily: theme('x.fontFamily.main'),
+    fontWeight: theme('x.fontWeight.regular'),
     textAlign: 'start',
 
-    borderWidth: `0 0 ${theme('spacing.1')} 0`,
+    borderWidth: `0 0 ${theme('x.spacing.1')} 0`,
     borderColor: 'transparent',
 
-    color: theme('colors.neutral.90'),
+    color: theme('x.colors.neutral.90'),
 
     ...facetFilterSizes(helpers).md,
     ...alignIconWithBaseline(),
 
     '&:hover': {
-      color: `var(--filter-color-50, ${theme('colors.neutral.50')})`
+      color: `var(--filter-color-50, ${theme('x.colors.neutral.50')})`
     },
 
     '&.selected': {
-      fontWeight: theme('fontWeight.bold'),
-      letterSpacing: theme('letterSpacing.xs'),
-      color: `var(--filter-color-50, ${theme('colors.neutral.90')})`
+      fontWeight: theme('x.fontWeight.bold'),
+      letterSpacing: theme('x.letterSpacing.xs'),
+      color: `var(--filter-color-50, ${theme('x.colors.neutral.90')})`
     },
 
     '&:disabled': {
-      color: theme('colors.neutral.25'),
+      color: theme('x.colors.neutral.25'),
       cursor: 'not-allowed'
     }
   };

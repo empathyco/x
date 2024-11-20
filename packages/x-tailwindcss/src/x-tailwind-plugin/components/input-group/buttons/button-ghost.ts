@@ -11,12 +11,12 @@ export function inputGroupButtonGhost(helpers: TailwindHelpers) {
   return {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
-    color: `var(--input-color-50,${theme('colors.neutral.90')})`,
+    color: `var(--input-color-50,${theme('x.colors.neutral.90')})`,
 
     '&:hover,&:focus,&:active': {
-      backgroundColor: theme('colors.neutral.10'),
-      borderColor: theme('colors.neutral.10'),
-      color: `var(--input-color-75,${theme('colors.neutral.90')})`
+      backgroundColor: theme('x.colors.neutral.10'),
+      borderColor: theme('x.colors.neutral.10'),
+      color: `var(--input-color-75,${theme('x.colors.neutral.90')})`
     }
   };
 }

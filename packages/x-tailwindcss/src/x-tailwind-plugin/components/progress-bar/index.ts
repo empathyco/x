@@ -13,7 +13,7 @@ import { progressBarColors } from './colors';
  */
 export function progressBar(helpers: TailwindHelpers) {
   return {
-    '.progress-bar': deepMerge(
+    '.x-progress-bar': deepMerge(
       progressBarDefault(helpers),
       rename(
         {

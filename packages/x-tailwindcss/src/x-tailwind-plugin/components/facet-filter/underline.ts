@@ -19,8 +19,8 @@ export function facetFilterUnderline(helpers: TailwindHelpers) {
         }
       },
       '&.selected': {
-        fontWeight: theme('fontWeight.regular'),
-        letterSpacing: theme('letterSpacing.md')
+        fontWeight: theme('x.fontWeight.regular'),
+        letterSpacing: theme('x.letterSpacing.md')
       }
     }
   };

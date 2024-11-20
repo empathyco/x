@@ -10,9 +10,9 @@ import { TailwindHelpers } from '../../../types';
 export function highlightDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    fontWeight: theme('fontWeight.bold'),
+    fontWeight: theme('x.fontWeight.bold'),
     '&-match': {
-      fontWeight: theme('fontWeight.regular')
+      fontWeight: theme('x.fontWeight.regular')
     }
   };
 }

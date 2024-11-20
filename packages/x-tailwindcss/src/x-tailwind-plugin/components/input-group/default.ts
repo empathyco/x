@@ -17,15 +17,15 @@ export function inputGroupDefault(helpers: TailwindHelpers) {
     alignContent: 'center',
     paddingInlineStart: 0,
     paddingInlineEnd: 0,
-    gap: theme('spacing.8'),
+    gap: theme('x.spacing.8'),
     overflow: 'hidden', // necessary to not show the buttons border over the input-group border.
 
     // padding is simulated with margin to remove it on button primary
     '> :first-child': {
-      marginInlineStart: theme('spacing.16')
+      marginInlineStart: theme('x.spacing.16')
     },
     '> :last-child': {
-      marginInlineEnd: theme('spacing.16')
+      marginInlineEnd: theme('x.spacing.16')
     },
 
     '.input, input': {

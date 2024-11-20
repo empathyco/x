@@ -13,31 +13,31 @@ export function tagTight(helpers: TailwindHelpers) {
   const disabledStyles = {
     '&:disabled': {
       borderColor: 'transparent',
-      color: theme('colors.neutral.25'),
-      fontWeight: theme('fontWeight.regular')
+      color: theme('x.colors.neutral.25'),
+      fontWeight: theme('x.fontWeight.regular')
     }
   };
   const hoverStyles = {
     '&:hover,&:focus,&:active': {
       borderColor: 'transparent',
-      color: `var(--tag-color-50, ${theme('colors.neutral.50')})`
+      color: `var(--tag-color-50, ${theme('x.colors.neutral.50')})`
     }
   };
 
   return {
     tight: {
       borderColor: 'transparent',
-      color: `var(--tag-color-75, ${theme('colors.neutral.90')})`,
-      paddingInlineStart: theme('spacing.0'),
-      paddingInlineEnd: theme('spacing.0'),
+      color: `var(--tag-color-75, ${theme('x.colors.neutral.90')})`,
+      paddingInlineStart: theme('x.spacing.0'),
+      paddingInlineEnd: theme('x.spacing.0'),
 
       ...hoverStyles,
       ...disabledStyles,
 
       '&.selected': {
         borderColor: 'transparent',
-        color: `var(--tag-color-75, ${theme('colors.neutral.90')})`,
-        fontWeight: theme('fontWeight.bold'),
+        color: `var(--tag-color-75, ${theme('x.colors.neutral.90')})`,
+        fontWeight: theme('x.fontWeight.bold'),
 
         ...hoverStyles,
         ...disabledStyles

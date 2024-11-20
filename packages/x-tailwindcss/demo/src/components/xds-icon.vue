@@ -6,7 +6,7 @@
   >
     <h3 class="x-text-xxs">{{ removeClassPrefix(cssClass, base) }}</h3>
     <slot v-bind="{ cssClass, section, copyCssClassesToClipboard }">
-      <div class="x-flex">
+      <div class="flex">
         <CheckIcon @click="copyCssClassesToClipboard" :class="cssClass" />
         <CheckFillIcon @click="copyCssClassesToClipboard" :class="cssClass" />
         <CuratedIcon @click="copyCssClassesToClipboard" :class="cssClass" />

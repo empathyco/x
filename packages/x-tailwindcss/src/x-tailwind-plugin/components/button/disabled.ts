@@ -13,9 +13,9 @@ export function buttonDisabled(helpers: TailwindHelpers) {
 
   // Disabled common styles
   const disabledStyles = {
-    borderColor: `var(--button-disabled-border-color,${theme('colors.neutral.10')})`,
-    backgroundColor: `var(--button-disabled-background-color,${theme('colors.neutral.10')})`,
-    color: theme('colors.neutral.25')
+    borderColor: `var(--button-disabled-border-color,${theme('x.colors.neutral.10')})`,
+    backgroundColor: `var(--button-disabled-background-color,${theme('x.colors.neutral.10')})`,
+    color: theme('x.colors.neutral.25')
   };
 
   return {

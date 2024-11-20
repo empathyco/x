@@ -10,18 +10,18 @@ export function paddingBySize(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     sm: {
-      paddingInlineStart: theme('spacing.8'),
-      paddingInlineEnd: theme('spacing.8')
+      paddingInlineStart: theme('x.spacing.8'),
+      paddingInlineEnd: theme('x.spacing.8')
     },
 
     md: {
-      paddingInlineStart: theme('spacing.8'),
-      paddingInlineEnd: theme('spacing.8')
+      paddingInlineStart: theme('x.spacing.8'),
+      paddingInlineEnd: theme('x.spacing.8')
     },
 
     lg: {
-      paddingInlineStart: theme('spacing.12'),
-      paddingInlineEnd: theme('spacing.12')
+      paddingInlineStart: theme('x.spacing.12'),
+      paddingInlineEnd: theme('x.spacing.12')
     }
   };
 }

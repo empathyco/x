@@ -1,5 +1,5 @@
 <template>
-  <div class="x-flex x-flex-col x-gap-40 x-p-20">
+  <div class="flex flex-col gap-10 p-5">
     <XdsButton />
     <XdsButtonGroup />
     <XdsIcon />

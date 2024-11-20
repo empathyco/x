@@ -16,30 +16,30 @@ export function dynamicLayoutContainer(helpers: TailwindHelpers) {
         ...rename(
           {
             mx: (value: any) => ({
-              '& > .layout-item': {
+              '& > .x-layout-item': {
                 '--x-margin-left': value,
                 '--x-margin-right': value
               }
             }),
             ml: (value: any) => ({
-              '& > .layout-item': {
+              '& > .x-layout-item': {
                 '--x-margin-left': value
               }
             }),
             mr: (value: any) => ({
-              '& > .layout-item': {
+              '& > .x-layout-item': {
                 '--x-margin-right': value
               }
             })
           },
-          { prefix: 'layout-container-' }
+          { prefix: 'x-layout-container-' }
         )
       },
       (name, styles) => {
         return {
           styles,
           values: {
-            ...theme('spacing')
+            ...theme('x.spacing')
           }
         };
       }

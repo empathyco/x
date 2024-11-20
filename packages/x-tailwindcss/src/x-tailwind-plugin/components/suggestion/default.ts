@@ -11,8 +11,8 @@ import { suggestionSizes } from './sizes';
 export function suggestionDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    fontFamily: theme('fontFamily.main'),
-    fontWeight: theme('fontWeight.regular'),
+    fontFamily: theme('x.fontFamily.main'),
+    fontWeight: theme('x.fontWeight.regular'),
 
     display: 'grid',
     gridAutoFlow: 'column',
@@ -25,7 +25,7 @@ export function suggestionDefault(helpers: TailwindHelpers) {
 
     ...suggestionSizes(helpers).md,
 
-    color: theme('colors.neutral.90'),
+    color: theme('x.colors.neutral.90'),
 
     '&:hover': {
       textDecoration: 'underline'

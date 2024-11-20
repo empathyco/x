@@ -14,7 +14,7 @@ import { inputLine } from './line';
  */
 export function input(helpers: TailwindHelpers) {
   return {
-    '.input': deepMerge(
+    '.x-input': deepMerge(
       inputDefault(helpers),
       rename(
         {

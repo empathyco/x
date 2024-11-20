@@ -15,7 +15,7 @@ export default function dynamicUtilities({ theme }: TailwindHelpers) {
       styles: (value: any) => ({
         fontSize: value
       }),
-      values: theme('spacing')
+      values: theme('x.spacing')
     }
   };
 }

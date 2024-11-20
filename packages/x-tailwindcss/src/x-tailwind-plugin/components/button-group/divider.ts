@@ -12,7 +12,7 @@ export function buttonGroupDivider(helpers: TailwindHelpers) {
   return {
     divider: {
       borderLeft: '1px solid currentColor',
-      margin: `${theme('spacing.8')} 0`,
+      margin: `${theme('x.spacing.8')} 0`,
       alignSelf: 'stretch'
     }
   };

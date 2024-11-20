@@ -10,17 +10,17 @@ export function suggestionGroupSizes(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     sm: {
-      minHeight: theme('spacing.24'),
-      fontSize: theme('fontSize.sm')
+      minHeight: theme('x.spacing.24'),
+      fontSize: theme('x.fontSize.sm')
     },
     md: {
-      minHeight: theme('spacing.32'),
-      fontSize: theme('fontSize.sm')
+      minHeight: theme('x.spacing.32'),
+      fontSize: theme('x.fontSize.sm')
     },
     lg: {
-      minHeight: theme('spacing.48'),
-      fontSize: theme('fontSize.md'),
-      gap: theme('spacing.24')
+      minHeight: theme('x.spacing.48'),
+      fontSize: theme('x.fontSize.md'),
+      gap: theme('x.spacing.24')
     }
   };
 }

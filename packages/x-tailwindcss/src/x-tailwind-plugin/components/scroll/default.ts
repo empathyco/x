@@ -12,8 +12,8 @@ export function scrollDefault(helpers: TailwindHelpers) {
     minHeight: 0,
 
     '@media (hover: hover) and (pointer: fine)': {
-      '--x-color-thumb-scroll-bar': theme('colors.neutral.25'),
-      '--x-color-thumb-scroll-bar-hover': theme('colors.neutral.50'),
+      '--x-color-thumb-scroll-bar': theme('x.colors.neutral.25'),
+      '--x-color-thumb-scroll-bar-hover': theme('x.colors.neutral.50'),
       '--x-color-background-scroll-bar': 'transparent',
 
       // Styles for Firefox
@@ -27,8 +27,8 @@ export function scrollDefault(helpers: TailwindHelpers) {
         backgroundClip: 'content-box',
         backgroundColor: 'var(--x-color-thumb-scroll-bar)',
         borderColor: 'transparent',
-        borderWidth: theme('spacing.4'),
-        borderRadius: theme('spacing.24'),
+        borderWidth: theme('x.spacing.4'),
+        borderRadius: theme('x.spacing.24'),
         borderStyle: 'solid'
       },
       '&::-webkit-scrollbar-track': {

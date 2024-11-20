@@ -14,7 +14,7 @@ import { suggestionGroupGhost } from './ghost';
  */
 export function suggestionGroup(helpers: TailwindHelpers) {
   return {
-    '.suggestion-group': {
+    '.x-suggestion-group': {
       ...suggestionGroupDefault(helpers),
       ...rename(
         {

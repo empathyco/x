@@ -12,12 +12,12 @@ export function suggestionGroupLighterColors(helpers: TailwindHelpers) {
     mapColors(
       color => ({
         '--suggestion-group-button-color-50': color['50'],
-        '.suggestion-group-button-lighter:hover': {
+        '.x-suggestion-group-button-lighter:hover': {
           color: 'var(--suggestion-group-button-color-50)'
         }
       }),
       helpers
     ),
-    { prefix: '.suggestion-group-' }
+    { prefix: '.x-suggestion-group-' }
   );
 }

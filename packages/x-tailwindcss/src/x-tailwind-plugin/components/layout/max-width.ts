@@ -11,7 +11,7 @@ export function maxWidth(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     'max-width': rename(
-      map(theme('layoutMaxWidth'), (maxWidthName, maxWidthValue) => ({
+      map(theme('x.layoutMaxWidth'), (maxWidthName, maxWidthValue) => ({
         '--x-layout-max-width': maxWidthValue
       })),
       { prefix: '&-' }

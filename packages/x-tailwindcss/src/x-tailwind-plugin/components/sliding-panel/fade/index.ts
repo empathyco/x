@@ -13,7 +13,7 @@ export function slidingPanelFade(helpers: TailwindHelpers) {
   const startSizes = fadeStartSizes(helpers);
   const endSizes = fadeEndSizes(helpers);
   return {
-    '.sliding-panel-fade': {
+    '.x-sliding-panel-fade': {
       ...defaultSizes.md,
       ...rename(
         {
@@ -24,8 +24,8 @@ export function slidingPanelFade(helpers: TailwindHelpers) {
         }
       )
     },
-    '&.sliding-panel-at-start': {
-      '.sliding-panel-fade': {
+    '&.x-sliding-panel-at-start': {
+      '.x-sliding-panel-fade': {
         ...startSizes.md,
         ...rename(
           {
@@ -37,8 +37,8 @@ export function slidingPanelFade(helpers: TailwindHelpers) {
         )
       }
     },
-    '&.sliding-panel-at-end': {
-      '.sliding-panel-fade': {
+    '&.x-sliding-panel-at-end': {
+      '.x-sliding-panel-fade': {
         ...endSizes.md,
         ...rename(
           {
@@ -50,8 +50,8 @@ export function slidingPanelFade(helpers: TailwindHelpers) {
         )
       }
     },
-    '&.sliding-panel-at-start.sliding-panel-at-end': {
-      '.sliding-panel-fade': {
+    '&.x-sliding-panel-at-start.x-sliding-panel-at-end': {
+      '.x-sliding-panel-fade': {
         mask: 'none'
       }
     }

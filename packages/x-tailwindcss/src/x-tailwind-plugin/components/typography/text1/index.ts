@@ -11,7 +11,7 @@ import { textSizes } from './sizes';
  */
 export function text1(helpers: TailwindHelpers) {
   return {
-    '.text1': {
+    '.x-text1': {
       ...textDefault(helpers),
       ...rename(
         {

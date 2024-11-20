@@ -9,10 +9,10 @@ import { TailwindHelpers } from '../../../types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function attach(helpers: TailwindHelpers) {
   return {
-    '.attach-container': {
+    '.x-attach-container': {
       position: 'relative'
     },
-    '.attach-to': {
+    '.x-attach-to': {
       '&-top-left': {
         position: 'absolute',
         top: 0,

@@ -12,39 +12,39 @@ export function inputDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return deepMerge(
     {
-      paddingInlineStart: theme('spacing.16'),
-      paddingInlineEnd: theme('spacing.16'),
-      borderWidth: theme('borderWidth.1'),
-      fontWeight: theme('fontWeight.regular'),
+      paddingInlineStart: theme('x.x.spacing.16'),
+      paddingInlineEnd: theme('x.x.spacing.16'),
+      borderWidth: theme('x.borderWidth.1'),
+      fontWeight: theme('x.fontWeight.regular'),
       textOverflow: 'ellipsis',
-      fontFamily: theme('fontFamily.main'),
-      borderColor: theme('colors.neutral.90'),
-      backgroundColor: theme('colors.neutral.0'),
-      color: theme('colors.neutral.90'),
+      fontFamily: theme('x.fontFamily.main'),
+      borderColor: theme('x.colors.neutral.90'),
+      backgroundColor: theme('x.colors.neutral.0'),
+      color: theme('x.colors.neutral.90'),
       cursor: 'text',
 
       '&:hover': {
-        borderColor: `var(--input-color-75,${theme('colors.neutral.50')})`
+        borderColor: `var(--input-color-75,${theme('x.colors.neutral.50')})`
       },
 
       '&:focus,&:focus-within': {
-        borderColor: `var(--input-color-75,${theme('colors.neutral.50')})`,
-        outlineColor: `var(--input-color-25,${theme('colors.neutral.25')})`,
-        outlineWidth: theme('borderWidth.2'),
+        borderColor: `var(--input-color-75,${theme('x.colors.neutral.50')})`,
+        outlineColor: `var(--input-color-25,${theme('x.colors.neutral.25')})`,
+        outlineWidth: theme('x.borderWidth.2'),
         outlineStyle: 'solid'
       },
 
       '&:disabled,&[disabled]': {
         cursor: 'not-allowed',
-        borderColor: theme('colors.neutral.25'),
-        backgroundColor: theme('colors.neutral.10'),
-        color: theme('colors.neutral.50')
+        borderColor: theme('x.colors.neutral.25'),
+        backgroundColor: theme('x.colors.neutral.10'),
+        color: theme('x.colors.neutral.50')
       },
 
       '&::placeholder,& .input-placeholder': {
-        color: theme('colors.neutral.50'),
-        fontFamily: theme('fontFamily.main'),
-        fontWeight: theme('fontWeight.regular')
+        color: theme('x.colors.neutral.50'),
+        fontFamily: theme('x.fontFamily.main'),
+        fontWeight: theme('x.fontWeight.regular')
       }
     },
     inputSizes(helpers).md

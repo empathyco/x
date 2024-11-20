@@ -11,7 +11,7 @@ export function minMargin(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     'min-margin': rename(
-      map(theme('spacing'), (spacingName, spacingValue) => ({
+      map(theme('x.spacing'), (spacingName, spacingValue) => ({
         '--x-layout-min-margin': spacingValue
       })),
       { prefix: '&-' }

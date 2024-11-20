@@ -9,22 +9,22 @@ import { TailwindHelpers } from '../../../types';
 export function tagSizes({ theme }: TailwindHelpers) {
   return {
     sm: {
-      minHeight: theme('spacing.24'),
-      fontSize: theme('fontSize.sm'),
-      paddingInlineStart: theme('spacing.8'),
-      paddingInlineEnd: theme('spacing.8')
+      minHeight: theme('x.spacing.24'),
+      fontSize: theme('x.fontSize.sm'),
+      paddingInlineStart: theme('x.spacing.8'),
+      paddingInlineEnd: theme('x.spacing.8')
     },
     md: {
-      minHeight: theme('spacing.32'),
-      fontSize: theme('fontSize.sm'),
-      paddingInlineStart: theme('spacing.12'),
-      paddingInlineEnd: theme('spacing.12')
+      minHeight: theme('x.spacing.32'),
+      fontSize: theme('x.fontSize.sm'),
+      paddingInlineStart: theme('x.spacing.12'),
+      paddingInlineEnd: theme('x.spacing.12')
     },
     lg: {
-      minHeight: theme('spacing.40'),
-      fontSize: theme('fontSize.md'),
-      paddingInlineStart: theme('spacing.16'),
-      paddingInlineEnd: theme('spacing.16')
+      minHeight: theme('x.spacing.40'),
+      fontSize: theme('x.fontSize.md'),
+      paddingInlineStart: theme('x.spacing.16'),
+      paddingInlineEnd: theme('x.spacing.16')
     }
   };
 }

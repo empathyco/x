@@ -11,18 +11,18 @@ export function badgeSizes(helpers: TailwindHelpers) {
 
   return {
     sm: {
-      '--attach-horizontal-offset': theme('spacing.8'),
+      '--attach-horizontal-offset': theme('x.spacing.8'),
 
-      height: theme('spacing.20'),
-      paddingInlineStart: theme('spacing.8'),
-      paddingInlineEnd: theme('spacing.8')
+      height: theme('x.spacing.20'),
+      paddingInlineStart: theme('x.spacing.8'),
+      paddingInlineEnd: theme('x.spacing.8')
     },
     md: {
-      '--attach-horizontal-offset': theme('spacing.12'),
+      '--attach-horizontal-offset': theme('x.spacing.12'),
 
-      height: theme('spacing.24'),
-      paddingInlineStart: theme('spacing.12'),
-      paddingInlineEnd: theme('spacing.12')
+      height: theme('x.spacing.24'),
+      paddingInlineStart: theme('x.spacing.12'),
+      paddingInlineEnd: theme('x.spacing.12')
     }
   };
 }

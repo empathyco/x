@@ -15,7 +15,7 @@ import { iconStrokeWidths } from './stroke-widths';
  */
 export function icon(helpers: TailwindHelpers) {
   return {
-    '.icon': Object.assign(
+    '.x-icon': Object.assign(
       iconDefault(helpers),
       rename(
         {
