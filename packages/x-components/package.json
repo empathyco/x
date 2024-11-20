@@ -73,7 +73,7 @@
     "@empathyco/x-adapter-platform": "^1.1.0-alpha.8",
     "@empathyco/x-bus": "^1.0.3-alpha.1",
     "@empathyco/x-deep-merge": "^2.0.3-alpha.1",
-    "@empathyco/x-logger": "^1.2.0-alpha.11",
+    "@empathyco/x-logger": "^2.0.2",
     "@empathyco/x-storage-service": "^2.0.3-alpha.0",
     "@empathyco/x-types": "^10.1.0-alpha.5",
     "@empathyco/x-utils": "^1.0.3-alpha.1",
