@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.7...@empathyco/x-tailwindcss@2.0.0-alpha.0) (2024-11-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* The showcase is no longer exported as Vue components but as web application.
+
+### Features
+
+* update x-tailwindcss package to vue 3 (#1656) ([ee2f06f](https://github.com/empathyco/x/commit/ee2f06fa6af09cbce3d78be1438111819c7e4535))
+
+
+
 ## [1.2.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.5...@empathyco/x-tailwindcss@1.2.0-alpha.7) (2024-10-24)
 
 
