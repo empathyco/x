@@ -40,10 +40,10 @@
 <script lang="ts">
   import { Facet, Filter, isFacetFilter } from '@empathyco/x-types';
   import { defineComponent, PropType } from 'vue';
-  import { animationProp } from '../../../../utils/options-api';
   import { toKebabCase } from '../../../../utils/string';
   import { useFacets } from '../../composables/use-facets';
   import { facetsXModule } from '../../x-module';
+  import { AnimationProp } from '../../../../types';
   import SelectedFilters from './selected-filters.vue';
 
   /**
@@ -78,7 +78,7 @@
       alwaysVisible: Boolean,
       /** Animation component that will be used to animate the selected filters list. */
       animation: {
-        type: animationProp,
+        type: AnimationProp,
         default: 'ul'
       }
     },

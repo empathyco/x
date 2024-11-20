@@ -8,9 +8,9 @@
   } from '../../../components/decorators/injection.consts';
   import ItemsList from '../../../components/items-list.vue';
   import { RequestStatus } from '../../../store/utils/status-store.utils';
-  import { animationProp } from '../../../utils/options-api';
   import { useState } from '../../../composables/use-state';
   import { searchXModule } from '../x-module';
+  import { AnimationProp } from '../../../types';
 
   /**
    * It renders a {@link ItemsList} list with the results from {@link SearchState.results} by
@@ -29,7 +29,7 @@
     props: {
       /** Animation component that will be used to animate the results. */
       animation: {
-        type: animationProp,
+        type: AnimationProp,
         default: 'ul'
       }
     },
