@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0-alpha.84](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.83...@empathyco/x-components@5.0.0-alpha.84) (2024-11-20)
+
+
+### Features
+
+* export get-hash-from-query-preview functionality (#1655) ([dc1158e](https://github.com/empathyco/x/commit/dc1158e3c974d15d5db8a3127a3b3679ad1033cf))
+
+
+
 ## [5.0.0-alpha.83](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.82...@empathyco/x-components@5.0.0-alpha.83) (2024-10-03)
 
 

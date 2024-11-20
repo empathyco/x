@@ -41,13 +41,13 @@ importers:
     dependencies:
       '@empathyco/x-adapter-platform':
         specifier: ^1.1.0-alpha.3
-        version: link:../x-adapter-platform
+        version: 1.1.0-alpha.8
       '@empathyco/x-bus':
         specifier: ^1.0.3-alpha.1
         version: link:../x-bus
       '@empathyco/x-types':
         specifier: ^10.1.0-alpha.3
-        version: link:../x-types
+        version: 10.1.0-alpha.5
       '@empathyco/x-utils':
         specifier: ^1.0.3-alpha.1
         version: link:../x-utils
@@ -306,7 +306,7 @@ importers:
         version: link:../x-adapter
       '@empathyco/x-types':
         specifier: ^10.1.0-alpha.3
-        version: link:../x-types
+        version: 10.1.0-alpha.5
       '@empathyco/x-utils':
         specifier: ^1.0.3-alpha.1
         version: link:../x-utils
@@ -432,7 +432,7 @@ importers:
         version: link:../x-adapter
       '@empathyco/x-adapter-platform':
         specifier: ^1.1.0-alpha.3
-        version: link:../x-adapter-platform
+        version: 1.1.0-alpha.8
       '@empathyco/x-bus':
         specifier: ^1.0.3-alpha.1
         version: link:../x-bus
@@ -447,7 +447,7 @@ importers:
         version: link:../storage-service
       '@empathyco/x-types':
         specifier: ^10.1.0-alpha.3
-        version: link:../x-types
+        version: 10.1.0-alpha.5
       '@empathyco/x-utils':
         specifier: ^1.0.3-alpha.1
         version: link:../x-utils
@@ -2426,6 +2426,31 @@ packages:
       - supports-color
     dev: true
 
+  /@empathyco/x-adapter-platform@1.1.0-alpha.8:
+    resolution:
+      {
+        integrity: sha512-mhgrEdoYkhudpklnQ+9kJr7NyY79c4cdpqbCc51ZbAF0Lbo+lqyqGK9yRwWIXrbeduR5EFuiWTXgIo1gvyfFwA==
+      }
+    engines: { node: '>=18' }
+    dependencies:
+      '@empathyco/x-adapter': 8.1.0-alpha.0
+      '@empathyco/x-types': 10.1.0-alpha.5
+      '@empathyco/x-utils': 1.0.3-alpha.1
+      tslib: 2.6.2
+    dev: false
+
+  /@empathyco/x-adapter@8.1.0-alpha.0:
+    resolution:
+      {
+        integrity: sha512-RLvOv1YiJ77gpaTkBULH9yepDCzOG9SfIUJeGMbQBk1+5vEHSOF9/T60fD6WsRudTU63PlykBSKY37lGSWaU1g==
+      }
+    engines: { node: '>=18' }
+    dependencies:
+      '@empathyco/x-deep-merge': 2.0.3-alpha.1
+      '@empathyco/x-utils': 1.0.3-alpha.1
+      tslib: 2.6.2
+    dev: false
+
   /@empathyco/x-deep-merge@2.0.3-alpha.1:
     resolution:
       {
@@ -2435,7 +2460,6 @@ packages:
     dependencies:
       '@empathyco/x-utils': 1.0.3-alpha.1
       tslib: 2.6.2
-    dev: true
 
   /@empathyco/x-jest-utils@1.4.0-alpha.11:
     resolution:
@@ -2463,7 +2487,6 @@ packages:
     dependencies:
       '@empathyco/x-logger': 1.2.0-alpha.11
       tslib: 2.6.2
-    dev: true
 
   /@empathyco/x-tailwindcss@1.2.0-alpha.6(vue-class-component@7.2.6)(vue-property-decorator@8.5.0)(vue@2.7.14):
     resolution:
@@ -2491,6 +2514,18 @@ packages:
       vue-property-decorator: 8.5.0(vue-class-component@7.2.6)(vue@2.7.14)
     dev: true
 
+  /@empathyco/x-types@10.1.0-alpha.5:
+    resolution:
+      {
+        integrity: sha512-1Uc4ZD+67X8G2STv44xrhp85ujaoPQk7ikHDHdwVhJBe57Jo2hcuAHOthVdR+KyAT6+L//sQ/Psv2KANPZBmKg==
+      }
+    engines: { node: '>=18' }
+    dependencies:
+      '@empathyco/x-adapter': 8.1.0-alpha.0
+      '@empathyco/x-utils': 1.0.3-alpha.1
+      tslib: 2.6.2
+    dev: false
+
   /@empathyco/x-utils@1.0.3-alpha.1:
     resolution:
       {
@@ -2500,7 +2535,6 @@ packages:
     dependencies:
       '@empathyco/x-storage-service': 2.0.3-alpha.0
       tslib: 2.6.2
-    dev: true
 
   /@es-joy/jsdoccomment@0.36.1:
     resolution:
