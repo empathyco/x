@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.15...@empathyco/x-components@6.0.0-alpha.16) (2024-11-21)
+
+
+### Bug Fixes
+
+* **next-queries:** export types from module(#1661) ([ef0f71e](https://github.com/empathyco/x/commit/ef0f71eb08494699b4c017d077dc9fc8fbe97ce0))
+
+
+
 ## [6.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.14...@empathyco/x-components@6.0.0-alpha.15) (2024-11-20)
 
 
