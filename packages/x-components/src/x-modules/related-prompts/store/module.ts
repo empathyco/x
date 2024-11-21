@@ -17,6 +17,8 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
   state: () => ({
     query: '',
     relatedPrompts: [],
+    selectedPrompt: -1,
+    selectedQuery: -1,
     status: 'initial',
     params: {}
   }),
@@ -32,7 +34,15 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     setRelatedPromptsProducts(state, products) {
       state.relatedPrompts = products;
     },
+    setSelectedPrompt(state, selectedPrompt) {
+      state.selectedPrompt = selectedPrompt;
+    },
+    setSelectedQuery(state, selectedQuery) {
+      state.selectedQuery = selectedQuery;
+    },
     resetRelatedPromptsState(state) {
+      state.selectedQuery = -1;
+      state.selectedPrompt = -1;
       state.relatedPrompts = [];
     }
   },

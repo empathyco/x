@@ -12,6 +12,10 @@ import { XActionContext, XStoreModule } from '../../../store';
 export interface RelatedPromptsState extends StatusState, QueryState {
   /** The list of the related-prompts, related to the `query` property of the state. */
   relatedPrompts: RelatedPrompt[];
+  /** The index of the selected related-prompt. */
+  selectedPrompt: number;
+  /** The index of the selected next query. */
+  selectedQuery: number;
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
 }
@@ -47,6 +51,18 @@ export interface RelatedPromptsMutations extends StatusMutations, QueryMutations
    * @param relatedPrompts - The new related prompts to save to the state.
    */
   setRelatedPromptsProducts(products: RelatedPrompt[]): void;
+  /**
+   * Sets the selected related prompt.
+   *
+   * @param index - The new selected related prompt.
+   */
+  setSelectedPrompt(index: number): void;
+  /**
+   * Sets the selected next query.
+   *
+   * @param index - The new selected next query.
+   */
+  setSelectedQuery(index: number): void;
   /**
    * Resets the related prompts state.
    */
