@@ -41,9 +41,9 @@
 
 <script lang="ts">
   import { Result } from '@empathyco/x-types';
-  import { computed, DefineComponent, defineComponent, PropType, Ref, ref, watch } from 'vue';
-  import { animationProp } from '../../utils/options-api';
+  import { computed, defineComponent, PropType, Ref, ref, watch } from 'vue';
   import { NoAnimation } from '../animations';
+  import { AnimationProp } from '../../types';
 
   /**
    * Component to be reused that renders an `<img>`.
@@ -63,12 +63,12 @@
        * image fallback.
        */
       loadAnimation: {
-        type: animationProp,
+        type: AnimationProp,
         default: () => NoAnimation
       },
       /** Animation to use when switching between the loaded image and the hover image. */
       hoverAnimation: {
-        type: animationProp
+        type: AnimationProp
       },
       /**
        * Indicates if the next valid image should be displayed on hover.
@@ -150,7 +150,7 @@
        *
        * @internal
        */
-      const animation = computed<DefineComponent | string>(() => {
+      const animation = computed(() => {
         return userHasHoveredImage
           ? props.hoverAnimation ?? props.loadAnimation
           : props.loadAnimation;
@@ -163,7 +163,7 @@
        *
        * @internal
        */
-      const imageSrc = computed<string>(() => {
+      const imageSrc = computed(() => {
         return loadedImages.value[
           !props.showNextImageOnHover || !isHovering.value ? 0 : loadedImages.value.length - 1
         ];
@@ -176,7 +176,7 @@
        *
        * @internal
        */
-      const shouldLoadNextImage = computed<boolean>(() => {
+      const shouldLoadNextImage = computed(() => {
         const numImagesToLoad = props.showNextImageOnHover && userHasHoveredImage ? 2 : 1;
         return !!pendingImages.value.length && loadedImages.value.length < numImagesToLoad;
       });
@@ -186,7 +186,7 @@
        *
        * @internal
        */
-      const flagImageAsFailed = (): void => {
+      const flagImageAsFailed = () => {
         pendingImages.value.shift();
       };
 
@@ -195,7 +195,7 @@
        *
        * @internal
        */
-      const flagImageLoaded = (): void => {
+      const flagImageLoaded = () => {
         const image = pendingImages.value.shift();
         if (image) {
           loadedImages.value.push(image);
