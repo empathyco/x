@@ -42,6 +42,16 @@ const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleNa
 const setRelatedPromptsQuery = wireCommit('setQuery');
 
 /**
+ * Sets the related prompts state `selectedPrompt`.
+ */
+const setSelectedPromptWire = wireCommit('setSelectedPrompt');
+
+/**
+ * Sets the related prompts state `selectedQuery`.
+ */
+const setSelectedQueryWire = wireCommit('setSelectedQuery');
+
+/**
  * Sets the related prompts state `query` from url params.
  */
 const setRelatedPromptsQueryFromUrl = wireCommit(
@@ -93,5 +103,11 @@ export const relatedPromptsWiring = createWiring({
   },
   ExtraParamsChanged: {
     setRelatedPromptsExtraParams
+  },
+  UserSelectedARelatedPrompt: {
+    setSelectedPromptWire
+  },
+  UserSelectedARelatedPromptQuery: {
+    setSelectedQueryWire
   }
 });

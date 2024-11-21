@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.16...@empathyco/x-components@6.0.0-alpha.17) (2024-11-21)
+
+
+### Features
+
+* add selection state to related prompts module (#1659) ([220c449](https://github.com/empathyco/x/commit/220c44926709378ebee87a21e06c6f188c5d3cd1))
+
+
+### Bug Fixes
+
+* **animation-prop:** decommission old animation-prop.ts and generalize the new one (#1660) ([493b6bd](https://github.com/empathyco/x/commit/493b6bd1e8a9de2731b582bb60fac6e29a1a0a47))
+
+
+
 ## [6.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.15...@empathyco/x-components@6.0.0-alpha.16) (2024-11-21)
 
 
