@@ -1,6 +1,6 @@
 <template>
   <div class="x-base-slider">
-    <div ref="slider" class="x-base-slider__nouislider" :class="contentClass" />
+    <div ref="slider" :class="['x-base-slider__nouislider', contentClass]" />
     <div class="x-base-slider__selected">
       <!--
         @slot Default selected range rendering. This slot will be used by default for rendering
@@ -52,7 +52,7 @@
       },
       /** Class to be able to customize slider styles. */
       contentClass: {
-        type: String || Array || Record<string, any>,
+        type: String,
         default: ''
       }
     },
