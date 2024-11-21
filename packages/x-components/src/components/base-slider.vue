@@ -178,6 +178,10 @@
     padding: 0 16px;
   }
 
+  .x-base-slider__nouislider .noUi-handle {
+    box-shadow: none;
+  }
+
   .x-base-slider__nouislider .noUi-handle:before,
   .x-base-slider__nouislider .noUi-handle:after {
     content: none;
