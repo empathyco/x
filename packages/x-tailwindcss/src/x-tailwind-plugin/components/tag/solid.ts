@@ -25,21 +25,21 @@ export function tagSolid(helpers: TailwindHelpers) {
       color: theme('x.colors.neutral.75'),
 
       '&:hover,&:focus,&:active': {
-        backgroundColor: `var(--tag-color-25, ${theme('colors.neutral.25')})`,
-        borderColor: `var(--tag-color-25, ${theme('colors.neutral.25')})`,
-        color: `var(--tag-color-75, ${theme('colors.neutral.75')})`
+        backgroundColor: `var(--tag-color-25, ${theme('x.colors.neutral.25')})`,
+        borderColor: `var(--tag-color-25, ${theme('x.colors.neutral.25')})`,
+        color: `var(--tag-color-75, ${theme('x.colors.neutral.75')})`
       },
 
       ...disabledStyles,
 
       '&.selected': {
-        backgroundColor: `var(--tag-color-75, ${theme('colors.neutral.90')})`,
-        borderColor: `var(--tag-color-75, ${theme('colors.neutral.90')})`,
-        color: theme('colors.neutral.0'),
+        backgroundColor: `var(--tag-color-75, ${theme('x.colors.neutral.90')})`,
+        borderColor: `var(--tag-color-75, ${theme('x.colors.neutral.90')})`,
+        color: theme('x.colors.neutral.0'),
 
         '&:hover,&:focus,&:active': {
-          backgroundColor: `var(--tag-color-50, ${theme('colors.neutral.50')})`,
-          borderColor: `var(--tag-color-50, ${theme('colors.neutral.50')})`
+          backgroundColor: `var(--tag-color-50, ${theme('x.colors.neutral.50')})`,
+          borderColor: `var(--tag-color-50, ${theme('x.colors.neutral.50')})`
         },
 
         ...disabledStyles

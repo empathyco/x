@@ -10,7 +10,7 @@ export function badgeLight({ theme }: TailwindHelpers) {
   return {
     light: {
       backgroundColor: `var(--badge-color-25, ${theme('x.colors.neutral.0')})`,
-      color: theme('colors.neutral.90')
+      color: theme('x.colors.neutral.90')
     }
   };
 }

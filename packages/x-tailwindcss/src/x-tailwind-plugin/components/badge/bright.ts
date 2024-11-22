@@ -14,7 +14,7 @@ export function badgeBright(helpers: TailwindHelpers) {
       backgroundColor: 'transparent',
 
       borderWidth: theme('x.spacing.1'),
-      borderColor: `var(--badge-color-25, ${theme('colors.neutral.0')})`
+      borderColor: `var(--badge-color-25, ${theme('x.colors.neutral.0')})`
     }
   };
 }

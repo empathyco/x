@@ -63,7 +63,7 @@ type CssPseudoSelector = `:${string}`;
  *   '.btn': {
  *     '&--lead': {
  *       color: 'var(--color-lead)',
- *       gap: theme('spacing.2')
+ *       gap: theme('x.spacing.2')
  *     }
  *   }
  * }

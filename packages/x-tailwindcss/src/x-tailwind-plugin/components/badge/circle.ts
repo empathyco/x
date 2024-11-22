@@ -17,10 +17,10 @@ export function badgeCircle({ theme }: TailwindHelpers) {
       width: theme('x.spacing.24'),
 
       '&.badge-sm': {
-        width: theme('spacing.20')
+        width: theme('x.spacing.20')
       },
       '&.badge-md': {
-        width: theme('spacing.24')
+        width: theme('x.spacing.24')
       }
     }
   };
