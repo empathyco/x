@@ -9,7 +9,7 @@ import { PlatformStats } from '../../types/models/stats.model';
  */
 export const statsSchema = createMutableSchema<PlatformStats, Stats>({
   price: {
-    min: ({ price }) => Number(price.min),
-    max: ({ price }) => Number(price.max)
+    min: ({ price }) => (price?.min ? Number(price.min) : undefined),
+    max: ({ price }) => (price?.max ? Number(price.max) : undefined)
   }
 });
