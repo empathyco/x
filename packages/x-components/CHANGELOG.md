@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.17...@empathyco/x-components@6.0.0-alpha.18) (2024-11-22)
+
+
+### Features
+
+* add related prompts selection events (#1663) ([8cdf6db](https://github.com/empathyco/x/commit/8cdf6dbaff4a5e111fbc77a898a502ce133e1afe))
+
+
+
 ## [6.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.16...@empathyco/x-components@6.0.0-alpha.17) (2024-11-21)
 
 
