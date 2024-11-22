@@ -3,7 +3,7 @@
     <label for="layout-modal" class="x-button">See layouts</label>
     <input id="layout-modal" type="checkbox" class="modal-toggle" />
 
-    <div class="modal x-bg-neutral-0">
+    <div class="modal bg-white">
       <div class="flex p-4">
         <div class="x-title2">Layouts</div>
         <label for="layout-modal" class="x-button x-button-link ml-auto">Close</label>
@@ -12,11 +12,11 @@
       <div v-for="(sectionClasses, sectionName) in modalContent" :key="sectionName">
         <div class="x-title3 mt-8 px-4 pb-2">{{ sectionName }}</div>
         <div v-for="cssClass in sectionClasses" :key="cssClass" class="flex flex-col pb-3">
-          <div v-if="cssClass.includes('x-layout-min-margin-12')" class="x-text-md mb-4 px-4">
+          <div v-if="cssClass.includes('x-layout-min-margin-12')" class="mb-4 px-4 text-xl">
             There are as many classes as spacing variables declared in the Tailwind theme:
             <code>x-layout-min-margin-[spacing-value]</code>
           </div>
-          <div v-if="cssClass.includes('x-layout-container-mx-128')" class="x-text-md mb-4 px-4">
+          <div v-if="cssClass.includes('x-layout-container-mx-128')" class="mb-4 px-4 text-xl">
             Custom alignment is available with Tailwind spacing classes or arbitrary values:
           </div>
           <code class="px-4 py-2">{{ cssClass }}</code>
@@ -25,9 +25,9 @@
             @keydown="copyCssClassesToClipboard"
             :class="cssClass"
             title="Click me to copy CSS classes"
-            class="x-bg-neutral-25 w-full"
+            class="w-full bg-gray-300"
           >
-            <div class="x-layout-item"><span class="x-bg-lead-25 p-2">item</span></div>
+            <div class="x-layout-item"><span class="bg-gray-400 p-2">item</span></div>
           </div>
         </div>
       </div>

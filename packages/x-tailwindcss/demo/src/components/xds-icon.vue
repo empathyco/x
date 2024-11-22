@@ -4,7 +4,7 @@
     title="Icon"
     :sections="sections"
   >
-    <h3 class="x-text-xxs">{{ removeClassPrefix(cssClass, base) }}</h3>
+    <h3 class="text-xs">{{ removeClassPrefix(cssClass, base) }}</h3>
     <slot v-bind="{ cssClass, section, copyCssClassesToClipboard }">
       <div class="flex">
         <CheckIcon @click="copyCssClassesToClipboard" :class="cssClass" />

@@ -3,8 +3,8 @@
     <label for="layout-fixed-header-modal" class="x-button">Open layout example</label>
     <input id="layout-fixed-header-modal" type="checkbox" class="modal-toggle" />
 
-    <div class="modal x-bg-neutral-0">
-      <div :class="[cssClass, 'x-layout-min-margin-48 x-bg-neutral-10']">
+    <div class="modal bg-white">
+      <div :class="[cssClass, 'x-layout-min-margin-48 bg-gray-100']">
         <div class="x-scroll flex flex-col">
           <div class="x-layout-item bg-neutral-0 border-b-1 border-neutral-25 sticky top-0">
             <div class="flex items-center justify-between py-2">
@@ -26,11 +26,11 @@
           </div>
 
           <div class="x-layout-item">
-            <div class="x-title3 x-bg-neutral-10 flex justify-center p-4">TOOLBAR</div>
+            <div class="x-title3 flex justify-center bg-gray-100 p-4">TOOLBAR</div>
           </div>
 
           <div class="x-layout-item x-layout-expand">
-            <div class="x-bg-neutral-25 flex h-[2000px] flex-col justify-between p-3">
+            <div class="flex h-[2000px] flex-col justify-between bg-gray-200 p-3">
               <section>MAIN</section>
               <span class="place-self-end">MAIN BOTTOM</span>
             </div>

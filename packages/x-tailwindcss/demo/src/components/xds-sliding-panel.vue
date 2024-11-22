@@ -24,7 +24,7 @@
         <div
           v-for="(item, index) of items"
           :key="index"
-          class="x-bg-lead-25 flex min-h-[100px] min-w-[100px] items-center justify-center"
+          class="flex min-h-[100px] min-w-[100px] items-center justify-center bg-gray-300"
         >
           <span>{{ item }}</span>
         </div>

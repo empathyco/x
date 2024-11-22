@@ -3,9 +3,9 @@
     <label for="layout-single-column-modal" class="x-button">Open layout example</label>
     <input id="layout-single-column-modal" type="checkbox" class="modal-toggle" />
 
-    <div class="modal x-bg-neutral-10">
+    <div class="modal bg-white">
       <div :class="[cssClass, 'x-layout-min-margin-48']">
-        <div class="x-layout-item x-bg-neutral-0 border-b-1 x-border-neutral-25">
+        <div class="x-layout-item border-b border-gray-400 bg-white">
           <div class="flex items-center justify-between py-2">
             <span class="x-title3">SINGLE COLUMN LAYOUT</span>
             <label for="layout-single-column-modal" class="x-button x-button-ghost ml-auto">
@@ -14,7 +14,7 @@
           </div>
         </div>
 
-        <div class="x-layout-item border-b-1 x-border-neutral-25">
+        <div class="x-layout-item border-b border-gray-400">
           <div class="flex items-center justify-between py-4">
             <div class="x-title3">HEADER START</div>
             <div class="x-title2">HEADER MIDDLE</div>
@@ -22,13 +22,13 @@
           </div>
         </div>
 
-        <div class="x-layout-item border-b-1 x-border-neutral-25">
+        <div class="x-layout-item border-b border-gray-400">
           <div class="x-title3 flex justify-center p-4">SUB HEADER</div>
         </div>
 
         <div class="x-scroll">
           <div class="x-layout-item x-layout-expand">
-            <div class="x-bg-neutral-25 flex h-[2000px] flex-col justify-between p-3">
+            <div class="flex h-[2000px] flex-col justify-between bg-gray-200 p-3">
               <section>MAIN</section>
               <span class="place-self-end">MAIN BOTTOM</span>
             </div>

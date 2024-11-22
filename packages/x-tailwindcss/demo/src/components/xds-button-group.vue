@@ -66,7 +66,7 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
         :class="cssClass"
-        class="x-text-accent-50"
+        class="text-red-500"
       >
         <button class="x-button x-button-ghost">BUTTON 1</button>
         <span class="x-button-group-divider" />
@@ -79,7 +79,7 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
         :class="cssClass"
-        class="x-text-accent-50 gap-2"
+        class="gap-2 text-red-500"
       >
         <button class="x-button x-button-tight">BUTTON 1</button>
         <button class="x-button x-button-tight">BUTTON 2</button>
@@ -90,7 +90,7 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
         :class="cssClass"
-        class="x-text-accent-50"
+        class="text-red-500"
       >
         <button class="x-button x-button-highlight x-button-circle">
           <PlusIcon class="x-icon" />
@@ -104,7 +104,7 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
         :class="cssClass"
-        class="x-text-accent-50"
+        class="text-red-500"
       >
         <button class="x-button x-button-highlight x-button-square">
           <PlusIcon class="x-icon" />

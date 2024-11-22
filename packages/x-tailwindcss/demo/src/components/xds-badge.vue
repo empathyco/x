@@ -118,7 +118,7 @@
     },
     setup(props) {
       const sectionClasses: ShowcaseSectionsClasses<Sections> = {
-        Bright: 'x-bg-neutral-90 x-p-8'
+        Bright: 'bg-gray-700 p-8'
       };
       const sections = computed(() => {
         return {
