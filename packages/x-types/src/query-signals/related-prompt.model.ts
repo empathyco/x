@@ -2,6 +2,8 @@ import { NamedModel } from '../named-model.model';
 
 /**
  * Represents a related prompt.
+ *
+ * @public
  */
 export interface RelatedPrompt extends NamedModel<'RelatedPrompt'> {
   /** The next queries related to the prompt. */
