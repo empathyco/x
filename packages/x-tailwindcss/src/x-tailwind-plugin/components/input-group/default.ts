@@ -28,7 +28,7 @@ export function inputGroupDefault(helpers: TailwindHelpers) {
       marginInlineEnd: theme('x.spacing.16')
     },
 
-    '.input, input': {
+    '.x-input, input': {
       flex: '1 1 auto',
       minWidth: '0',
       padding: '0',

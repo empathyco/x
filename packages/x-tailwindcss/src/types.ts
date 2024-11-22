@@ -24,7 +24,7 @@ type CssVariable = `--${string}`;
  *
  * @example
  * ```typescript
- * const btnClass: CssClassSelector = '.btn';
+ * const btnClass: CssClassSelector = '.x-btn';
  * ```
  *
  * @internal
@@ -60,7 +60,7 @@ type CssPseudoSelector = `:${string}`;
  * ```typescript
  * const cssOptions: CssStyleOptions = {
  *   '--color-lead': 'blue',
- *   '.btn': {
+ *   '.x-btn': {
  *     '&--lead': {
  *       color: 'var(--color-lead)',
  *       gap: theme('x.spacing.2')
