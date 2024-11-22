@@ -6,6 +6,8 @@ import { relatedPromptSchema } from '../models/related-prompt.schema';
 
 /**
  * Default implementation for the RelatedPromptsResponseSchema.
+ *
+ * @public
  */
 export const relatedPromptsResponseSchema = createMutableSchema<
   PlatformRelatedPromptsResponse,

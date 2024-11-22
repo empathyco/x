@@ -7,6 +7,8 @@ import { relatedPromptsResponseSchema } from '../../schemas/responses/related-pr
 
 /**
  * Default implementation for the RelatedPromptsResponseMapper.
+ *
+ * @public
  */
 export const relatedPromptsResponseMapper = schemaMapperFactory<
   PlatformRelatedPromptsResponse,

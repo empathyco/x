@@ -4,6 +4,8 @@ import { PlatformRelatedPrompt } from '../../types/models/related-prompt.model';
 
 /**
  * Default implementation for the RelatedPromptSchema.
+ *
+ * @public
  */
 export const relatedPromptSchema = createMutableSchema<PlatformRelatedPrompt, RelatedPrompt>({
   modelName: () => 'RelatedPrompt',
