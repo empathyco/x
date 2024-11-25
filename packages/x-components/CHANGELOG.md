@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.18...@empathyco/x-components@6.0.0-alpha.19) (2024-11-25)
+
+
+### Features
+
+* Add content class in base slider to ease customisation (#1662) ([63d7b99](https://github.com/empathyco/x/commit/63d7b9983ec37fb979115ec35a32d2ec2dfc1eca))
+
+
+
 ## [6.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.17...@empathyco/x-components@6.0.0-alpha.18) (2024-11-22)
 
 
