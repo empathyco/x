@@ -12,7 +12,7 @@
     >
       <button class="x-button x-sliding-panel-button-left">ᐸ</button>
       <div
-        class="x-gap-12 x-flex x-flex-row"
+        class="flex gap-3"
         :class="{
           'x-sliding-panel-fade': section === 'Fade',
           'x-sliding-panel-fade-sm':
@@ -24,7 +24,7 @@
         <div
           v-for="(item, index) of items"
           :key="index"
-          class="x-min-h-[100px] x-min-w-[100px] x-flex x-justify-center x-items-center x-bg-lead-25"
+          class="flex min-h-[100px] min-w-[100px] items-center justify-center bg-gray-300"
         >
           <span>{{ item }}</span>
         </div>

@@ -9,14 +9,14 @@ import { TailwindHelpers } from '../../../../types';
 export function titleSizes({ theme }: TailwindHelpers) {
   return {
     sm: {
-      fontSize: theme('fontSize.sm')
+      fontSize: theme('x.fontSize.sm')
     },
     md: {
-      fontSize: theme('fontSize.md'),
-      lineHeight: theme('lineHeight.md')
+      fontSize: theme('x.fontSize.md'),
+      lineHeight: theme('x.lineHeight.md')
     },
     lg: {
-      fontSize: theme('fontSize.xl')
+      fontSize: theme('x.fontSize.xl')
     }
   };
 }

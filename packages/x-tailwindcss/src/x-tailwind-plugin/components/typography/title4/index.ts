@@ -12,7 +12,7 @@ import { titleSizes } from './sizes';
 // eslint-disable-next-line  @typescript-eslint/explicit-function-return-type
 export function title4(helpers: TailwindHelpers) {
   return {
-    '.title4': {
+    '.x-title4': {
       ...titleDefault(helpers),
       ...rename(
         {

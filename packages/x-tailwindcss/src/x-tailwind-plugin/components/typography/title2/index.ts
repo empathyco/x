@@ -11,7 +11,7 @@ import { titleSizes } from './sizes';
  */
 export function title2(helpers: TailwindHelpers) {
   return {
-    '.title2': {
+    '.x-title2': {
       ...titleDefault(helpers),
       ...rename(
         {

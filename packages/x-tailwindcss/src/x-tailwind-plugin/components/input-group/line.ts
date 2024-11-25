@@ -13,12 +13,12 @@ export function inputGroupLine(helpers: TailwindHelpers) {
   return deepMerge(inputLine(helpers), {
     line: {
       // fixed size buttons in this line variant
-      '--input-group-button-height': theme('spacing.32'),
+      '--input-group-button-height': theme('x.spacing.32'),
 
       // To avoid the buttons to be "touching" the bottom line in sm size variant.
       '&.input-group-sm': {
-        '--input-group-button-height': theme('spacing.28'),
-        paddingBottom: theme('spacing.4')
+        '--input-group-button-height': theme('x.spacing.28'),
+        paddingBottom: theme('x.spacing.4')
       },
 
       // Default input-group is "hiding" the border, so here is restored.

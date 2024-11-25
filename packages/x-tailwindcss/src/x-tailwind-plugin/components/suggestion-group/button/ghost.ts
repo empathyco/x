@@ -11,7 +11,7 @@ export function suggestionGroupButtonGhost(helpers: TailwindHelpers) {
   return {
     ghost: {
       '&:hover': {
-        backgroundColor: theme('colors.neutral.25'),
+        backgroundColor: theme('x.colors.neutral.25'),
         transform: 'none'
       }
     }

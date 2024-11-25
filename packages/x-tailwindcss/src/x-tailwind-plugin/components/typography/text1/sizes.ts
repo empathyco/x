@@ -9,15 +9,15 @@ import { TailwindHelpers } from '../../../../types';
 export function textSizes({ theme }: TailwindHelpers) {
   return {
     sm: {
-      fontSize: theme('fontSize.xs'),
-      lineHeight: theme('lineHeight.lg')
+      fontSize: theme('x.fontSize.xs'),
+      lineHeight: theme('x.lineHeight.lg')
     },
     md: {
-      fontSize: theme('fontSize.sm'),
-      lineHeight: theme('lineHeight.md')
+      fontSize: theme('x.fontSize.sm'),
+      lineHeight: theme('x.lineHeight.md')
     },
     lg: {
-      fontSize: theme('fontSize.md')
+      fontSize: theme('x.fontSize.md')
     }
   };
 }

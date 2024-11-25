@@ -11,26 +11,26 @@ export function buttonOutlined(helpers: TailwindHelpers) {
   return {
     outlined: {
       // Disabled style
-      '--button-disabled-border-color': theme('colors.neutral.25'),
+      '--button-disabled-border-color': theme('x.colors.neutral.25'),
 
-      borderColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
-      backgroundColor: theme('colors.neutral.0'),
-      color: `var(--button-color-50,${theme('colors.neutral.90')})`,
+      borderColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
+      backgroundColor: theme('x.colors.neutral.0'),
+      color: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
 
       '&:hover,&:active': {
-        borderColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
-        backgroundColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
-        color: theme('colors.neutral.0')
+        borderColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
+        backgroundColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
+        color: theme('x.colors.neutral.0')
       },
 
       '&.selected': {
-        borderColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
-        backgroundColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
-        color: theme('colors.neutral.0'),
+        borderColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
+        backgroundColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
+        color: theme('x.colors.neutral.0'),
 
         '&:hover,&:active': {
-          backgroundColor: theme('colors.neutral.0'),
-          color: `var(--button-color-50,${theme('colors.neutral.90')})`
+          backgroundColor: theme('x.colors.neutral.0'),
+          color: `var(--button-color-50,${theme('x.colors.neutral.90')})`
         }
       }
     }

@@ -10,10 +10,10 @@ export function pictureDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     display: 'block',
-    aspectRatio: theme('aspectRatio.default'),
+    aspectRatio: theme('x.aspectRatio.default'),
     overflow: 'hidden',
     '&-image': {
-      aspectRatio: theme('aspectRatio.default'),
+      aspectRatio: theme('x.aspectRatio.default'),
       objectFit: 'contain',
       width: '100%',
       height: '100%'

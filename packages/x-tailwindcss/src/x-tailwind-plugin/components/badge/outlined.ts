@@ -11,11 +11,11 @@ export function badgeOutlined(helpers: TailwindHelpers) {
 
   return {
     outlined: {
-      color: theme('colors.neutral.90'),
+      color: theme('x.colors.neutral.90'),
       backgroundColor: 'transparent',
 
-      borderWidth: theme('spacing.1'),
-      borderColor: `var(--badge-color-50, ${theme('colors.neutral.90')})`
+      borderWidth: theme('x.spacing.1'),
+      borderColor: `var(--badge-color-50, ${theme('x.colors.neutral.90')})`
     }
   };
 }

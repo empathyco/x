@@ -12,23 +12,23 @@ export function facetFilterSimple(helpers: TailwindHelpers) {
   return {
     simple: {
       '&:hover': {
-        color: theme('colors.neutral.90'),
+        color: theme('x.colors.neutral.90'),
         opacity: '.6'
       },
       '&.selected': {
-        fontWeight: theme('fontWeight.regular'),
-        letterSpacing: theme('letterSpacing.md'),
+        fontWeight: theme('x.fontWeight.regular'),
+        letterSpacing: theme('x.letterSpacing.md'),
 
         '&:hover': {
-          color: `var(--filter-color-50, ${theme('colors.neutral.50')})`
+          color: `var(--filter-color-50, ${theme('x.colors.neutral.50')})`
         },
 
         '&:disabled': {
-          color: theme('colors.neutral.25')
+          color: theme('x.colors.neutral.25')
         }
       },
       '&:disabled': {
-        color: theme('colors.neutral.25'),
+        color: theme('x.colors.neutral.25'),
         opacity: '1'
       }
     }

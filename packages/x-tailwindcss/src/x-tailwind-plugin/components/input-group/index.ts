@@ -15,7 +15,7 @@ import { inputGroupSizes } from './sizes';
  */
 export function inputGroup(helpers: TailwindHelpers) {
   return {
-    '.input-group': deepMerge(
+    '.x-input-group': deepMerge(
       inputGroupDefault(helpers),
       rename(
         {

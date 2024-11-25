@@ -9,7 +9,7 @@ import { slidingPanelButtonsHover } from './hover';
  */
 export function slidingPanelButtons() {
   return {
-    '.sliding-panel-button': {
+    '.x-sliding-panel-button': {
       '&-left': {
         ...slidingPanelButtonsDefault(),
         left: 0

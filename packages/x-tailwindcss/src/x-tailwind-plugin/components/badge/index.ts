@@ -16,7 +16,7 @@ import { badgeBright } from './bright';
  */
 export function badge(helpers: TailwindHelpers) {
   return {
-    '.badge': {
+    '.x-badge': {
       ...badgeDefault(helpers),
       ...rename(
         {

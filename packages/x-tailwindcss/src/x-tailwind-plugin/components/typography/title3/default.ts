@@ -10,8 +10,8 @@ import { titleSizes } from './sizes';
 export function titleDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    fontFamily: theme('fontFamily.main'),
-    fontWeight: theme('fontWeight.bold'),
+    fontFamily: theme('x.fontFamily.main'),
+    fontWeight: theme('x.fontWeight.bold'),
 
     ...titleSizes(helpers).md
   };

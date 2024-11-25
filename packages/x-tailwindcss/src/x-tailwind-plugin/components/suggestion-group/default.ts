@@ -11,11 +11,11 @@ import { suggestionGroupSizes } from './sizes';
 export function suggestionGroupDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    gap: theme('spacing.16'),
+    gap: theme('x.spacing.16'),
     ...suggestionGroupSizes(helpers).md,
 
-    fontFamily: theme('fontFamily.main'),
-    fontWeight: theme('fontWeight.regular'),
+    fontFamily: theme('x.fontFamily.main'),
+    fontWeight: theme('x.fontWeight.regular'),
 
     display: 'grid',
     gridAutoFlow: 'column',
@@ -28,14 +28,14 @@ export function suggestionGroupDefault(helpers: TailwindHelpers) {
     paddingInlineStart: 0,
     paddingInlineEnd: 0,
 
-    color: theme('colors.neutral.90'),
+    color: theme('x.colors.neutral.90'),
     ...alignIconWithBaseline(),
 
     '&:hover': {
       textDecoration: 'underline'
     },
 
-    '.suggestion': {
+    '.x-suggestion': {
       color: 'currentColor',
       minHeight: 'inherit',
       fontSize: 'inherit',

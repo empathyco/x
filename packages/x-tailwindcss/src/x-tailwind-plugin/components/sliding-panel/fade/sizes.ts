@@ -10,27 +10,27 @@ export function fadeDefaultSizes({ theme }: TailwindHelpers) {
   return {
     sm: {
       mask: `linear-gradient(to right,
-            transparent calc(0.43 * ${theme('spacing.40')}),
-            rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('spacing.40')}),
-            black ${theme('spacing.40')},
-            rgba(0, 0, 0, 0.8) calc(100% - 0.67 * ${theme('spacing.40')}),
-            transparent calc(100% - 0.43 * ${theme('spacing.40')}))`
+            transparent calc(0.43 * ${theme('x.spacing.40')}),
+            rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('x.spacing.40')}),
+            black ${theme('x.spacing.40')},
+            rgba(0, 0, 0, 0.8) calc(100% - 0.67 * ${theme('x.spacing.40')}),
+            transparent calc(100% - 0.43 * ${theme('x.spacing.40')}))`
     },
     md: {
       mask: `linear-gradient(to right,
-            transparent calc(0.43 * ${theme('spacing.80')}),
-            rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('spacing.80')}),
-            black ${theme('spacing.80')},
-            rgba(0, 0, 0, 0.8) calc(100% - 0.67 * ${theme('spacing.80')}),
-            transparent calc(100% - 0.43 * ${theme('spacing.80')}))`
+            transparent calc(0.43 * ${theme('x.spacing.80')}),
+            rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('x.spacing.80')}),
+            black ${theme('x.spacing.80')},
+            rgba(0, 0, 0, 0.8) calc(100% - 0.67 * ${theme('x.spacing.80')}),
+            transparent calc(100% - 0.43 * ${theme('x.spacing.80')}))`
     },
     lg: {
       mask: `linear-gradient(to right,
-            transparent calc(0.43 * ${theme('spacing.160')}),
-            rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('spacing.160')}),
-            black ${theme('spacing.160')},
-            rgba(0, 0, 0, 0.8) calc(100% - 0.67 * ${theme('spacing.160')}),
-            transparent calc(100% - 0.43 * ${theme('spacing.160')}))`
+            transparent calc(0.43 * ${theme('x.spacing.160')}),
+            rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('x.spacing.160')}),
+            black ${theme('x.spacing.160')},
+            rgba(0, 0, 0, 0.8) calc(100% - 0.67 * ${theme('x.spacing.160')}),
+            transparent calc(100% - 0.43 * ${theme('x.spacing.160')}))`
     }
   };
 }
@@ -45,21 +45,21 @@ export function fadeStartSizes({ theme }: TailwindHelpers) {
   return {
     sm: {
       mask: `linear-gradient(to left,
-              transparent calc(0.43 * ${theme('spacing.40')}),
-              rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('spacing.40')}),
-              black ${theme('spacing.40')});`
+              transparent calc(0.43 * ${theme('x.spacing.40')}),
+              rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('x.spacing.40')}),
+              black ${theme('x.spacing.40')});`
     },
     md: {
       mask: `linear-gradient(to left,
-              transparent calc(0.43 * ${theme('spacing.80')}),
-              rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('spacing.80')}),
-              black ${theme('spacing.80')});`
+              transparent calc(0.43 * ${theme('x.spacing.80')}),
+              rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('x.spacing.80')}),
+              black ${theme('x.spacing.80')});`
     },
     lg: {
       mask: `linear-gradient(to left,
-              transparent calc(0.43 * ${theme('spacing.160')}),
-              rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('spacing.160')}),
-              black ${theme('spacing.160')});`
+              transparent calc(0.43 * ${theme('x.spacing.160')}),
+              rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('x.spacing.160')}),
+              black ${theme('x.spacing.160')});`
     }
   };
 }
@@ -74,21 +74,21 @@ export function fadeEndSizes({ theme }: TailwindHelpers) {
   return {
     sm: {
       mask: `linear-gradient(to right,
-              transparent calc(0.43 * ${theme('spacing.40')}),
-              rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('spacing.40')}),
-              black ${theme('spacing.40')});`
+              transparent calc(0.43 * ${theme('x.spacing.40')}),
+              rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('x.spacing.40')}),
+              black ${theme('x.spacing.40')});`
     },
     md: {
       mask: `linear-gradient(to right,
-              transparent calc(0.43 * ${theme('spacing.80')}),
-              rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('spacing.80')}),
-              black ${theme('spacing.80')});`
+              transparent calc(0.43 * ${theme('x.spacing.80')}),
+              rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('x.spacing.80')}),
+              black ${theme('x.spacing.80')});`
     },
     lg: {
       mask: `linear-gradient(to right,
-              transparent calc(0.43 * ${theme('spacing.160')}),
-              rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('spacing.160')}),
-              black ${theme('spacing.160')});`
+              transparent calc(0.43 * ${theme('x.spacing.160')}),
+              rgba(0, 0, 0, 0.8) calc(0.67 * ${theme('x.spacing.160')}),
+              black ${theme('x.spacing.160')});`
     }
   };
 }

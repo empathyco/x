@@ -11,14 +11,14 @@ export function progressBarDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
 
   return {
-    borderRadius: theme('borderRadius.sm'),
+    borderRadius: theme('x.borderRadius.sm'),
     display: 'inline-block',
-    backgroundColor: theme('colors.neutral.25'),
+    backgroundColor: theme('x.colors.neutral.25'),
     overflow: 'hidden',
 
     '& > &-fill': {
       height: '100%',
-      backgroundColor: `var(--progress-bar-color-50, ${theme('colors.neutral.90')})`
+      backgroundColor: `var(--progress-bar-color-50, ${theme('x.colors.neutral.90')})`
     },
 
     ...progressBarSizes(helpers).md

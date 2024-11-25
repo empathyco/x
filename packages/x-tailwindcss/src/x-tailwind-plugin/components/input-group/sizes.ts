@@ -12,19 +12,19 @@ export function inputGroupSizes(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return deepMerge(inputSizes(helpers), {
     sm: {
-      '--input-group-button-font-size': theme('fontSize.xs'),
-      '--input-group-button-primary-font-size': theme('fontSize.sm'),
-      '--input-group-button-rectangle-padding': theme('spacing.12')
+      '--input-group-button-font-size': theme('x.fontSize.xs'),
+      '--input-group-button-primary-font-size': theme('x.fontSize.sm'),
+      '--input-group-button-rectangle-padding': theme('x.spacing.12')
     },
     md: {
-      '--input-group-button-font-size': theme('fontSize.sm'),
-      '--input-group-button-primary-font-size': theme('fontSize.sm'),
-      '--input-group-button-rectangle-padding': theme('spacing.16')
+      '--input-group-button-font-size': theme('x.fontSize.sm'),
+      '--input-group-button-primary-font-size': theme('x.fontSize.sm'),
+      '--input-group-button-rectangle-padding': theme('x.spacing.16')
     },
     lg: {
-      '--input-group-button-font-size': theme('fontSize.sm'),
-      '--input-group-button-primary-font-size': theme('fontSize.md'),
-      '--input-group-button-rectangle-padding': theme('spacing.20')
+      '--input-group-button-font-size': theme('x.fontSize.sm'),
+      '--input-group-button-primary-font-size': theme('x.fontSize.md'),
+      '--input-group-button-rectangle-padding': theme('x.spacing.20')
     }
   });
 }

@@ -10,8 +10,8 @@ export function backgroundOnHover(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     '&:hover': {
-      borderColor: theme('colors.neutral.10'),
-      backgroundColor: theme('colors.neutral.10')
+      borderColor: theme('x.colors.neutral.10'),
+      backgroundColor: theme('x.colors.neutral.10')
     }
   };
 }

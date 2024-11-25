@@ -38,35 +38,35 @@ export default plugin(function ({ addBase, theme }: TailwindHelpers) {
     ':root': {
       // COLOR
       ...mapPrefix('--x-color-base-', {
-        lead: theme('colors.lead.50'),
-        auxiliary: theme('colors.auxiliary.25'),
-        'neutral-10': theme('colors.neutral.90'),
-        'neutral-35': theme('colors.neutral.75'),
-        'neutral-70': theme('colors.neutral.25'),
-        'neutral-95': theme('colors.neutral.10'),
-        'neutral-100': theme('colors.neutral.0'),
-        accent: theme('colors.auxiliary.50'),
-        enable: theme('colors.success.50'),
-        disable: theme('colors.error.50')
+        lead: theme('x.colors.lead.50'),
+        auxiliary: theme('x.colors.auxiliary.25'),
+        'neutral-10': theme('x.colors.neutral.90'),
+        'neutral-35': theme('x.colors.neutral.75'),
+        'neutral-70': theme('x.colors.neutral.25'),
+        'neutral-95': theme('x.colors.neutral.10'),
+        'neutral-100': theme('x.colors.neutral.0'),
+        accent: theme('x.colors.auxiliary.50'),
+        enable: theme('x.colors.success.50'),
+        disable: theme('x.colors.error.50')
       }),
 
       // SPACING
       ...mapPrefix('--x-size-base-', {
-        '01': theme('spacing.2'),
-        '02': theme('spacing.4'),
-        '03': theme('spacing.8'),
-        '04': theme('spacing.12'),
-        '05': theme('spacing.16'),
-        '06': theme('spacing.24'),
-        '07': theme('spacing.32'),
-        '08': theme('spacing.40'),
-        '09': theme('spacing.48'),
-        '10': theme('spacing.56'),
-        '11': theme('spacing.64'),
-        '12': theme('spacing.80'),
-        '13': theme('spacing.80'),
-        '14': theme('spacing.96'),
-        '15': theme('spacing.128'),
+        '01': theme('x.spacing.2'),
+        '02': theme('x.spacing.4'),
+        '03': theme('x.spacing.8'),
+        '04': theme('x.spacing.12'),
+        '05': theme('x.spacing.16'),
+        '06': theme('x.spacing.24'),
+        '07': theme('x.spacing.32'),
+        '08': theme('x.spacing.40'),
+        '09': theme('x.spacing.48'),
+        '10': theme('x.spacing.56'),
+        '11': theme('x.spacing.64'),
+        '12': theme('x.spacing.80'),
+        '13': theme('x.spacing.80'),
+        '14': theme('x.spacing.96'),
+        '15': theme('x.spacing.128'),
         '16': '152px',
         '17': '184px',
         '18': '216px',
@@ -76,51 +76,51 @@ export default plugin(function ({ addBase, theme }: TailwindHelpers) {
 
       // BORDER
       ...mapPrefix('--x-size-border-', {
-        'radius-base-pill': theme('borderRadius.round'),
-        'width-base': theme('borderWidth.1')
+        'radius-base-pill': theme('x.borderRadius.round'),
+        'width-base': theme('x.borderWidth.1')
       }),
 
       // FONT FAMILY
-      '--x-font-family-base': theme('fontFamily.main'),
+      '--x-font-family-base': theme('x.fontFamily.main'),
 
       // FONT SIZES
       ...mapPrefix('--x-size-font-', {
-        'base-xs': theme('fontSize.xs'),
-        'base-s': theme('fontSize.sm'),
-        'base-m': theme('fontSize.md'),
-        'base-l': theme('fontSize.lg'),
-        'base-xl': theme('fontSize.2xl')
+        'base-xs': theme('x.fontSize.xs'),
+        'base-s': theme('x.fontSize.sm'),
+        'base-m': theme('x.fontSize.md'),
+        'base-l': theme('x.fontSize.lg'),
+        'base-xl': theme('x.fontSize.2xl')
       }),
 
       // FONT WEIGHT
       ...mapPrefix('--x-number-font-weight-base-', {
-        light: theme('fontWeight.light'),
-        regular: theme('fontWeight.regular'),
-        bold: theme('fontWeight.bold')
+        light: theme('x.fontWeight.light'),
+        regular: theme('x.fontWeight.regular'),
+        bold: theme('x.fontWeight.bold')
       }),
 
       // LINE HEIGHT
       ...mapPrefix('--x-size-line-height-base-', {
-        s: theme('lineHeight.sm'),
-        m: theme('lineHeight.md'),
-        l: theme('lineHeight.lg')
+        s: theme('x.lineHeight.sm'),
+        m: theme('x.lineHeight.md'),
+        l: theme('x.lineHeight.lg')
       }),
 
       // TEXT
-      '--x-color-text-default': theme('colors.neutral.100'),
-      '--x-font-family-text': theme('fontFamily.main'),
-      '--x-size-font-text': theme('fontSize.sm'),
-      '--x-number-font-weight-text': theme('fontWeight.regular'),
-      '--x-size-line-height-text': theme('lineHeight.sm'),
+      '--x-color-text-default': theme('x.colors.neutral.100'),
+      '--x-font-family-text': theme('x.fontFamily.main'),
+      '--x-size-font-text': theme('x.fontSize.sm'),
+      '--x-number-font-weight-text': theme('x.fontWeight.regular'),
+      '--x-size-line-height-text': theme('x.lineHeight.sm'),
 
       // TITLE 3
-      '--x-font-family-title3': theme('fontFamily.main'),
-      '--x-size-font-title3': theme('fontSize.md'),
-      '--x-number-font-weight-title3': theme('fontWeight.regular'),
-      '--x-size-line-height-title3': theme('lineHeight.md'),
+      '--x-font-family-title3': theme('x.fontFamily.main'),
+      '--x-size-font-title3': theme('x.fontSize.md'),
+      '--x-number-font-weight-title3': theme('x.fontWeight.regular'),
+      '--x-size-line-height-title3': theme('x.lineHeight.md'),
 
       // IMAGE
-      '--x-number-aspect-ratio-picture': theme('aspectRatio.default')
+      '--x-number-aspect-ratio-picture': theme('x.aspectRatio.default')
     }
   });
 });

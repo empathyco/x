@@ -1,5 +1,6 @@
 import { TailwindHelpers } from '../../../types';
 import { scrollDefault } from './default';
+
 /**
  * Returns the component `scroll` CSS.
  *
@@ -8,7 +9,7 @@ import { scrollDefault } from './default';
  */
 export function scroll(helpers: TailwindHelpers) {
   return {
-    '.scroll': {
+    '.x-scroll': {
       ...scrollDefault(helpers)
     }
   };

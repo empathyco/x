@@ -3,45 +3,43 @@
     <label for="layout-two-columns-modal" class="x-button">Open layout example</label>
     <input id="layout-two-columns-modal" type="checkbox" class="modal-toggle" />
 
-    <div class="modal x-bg-neutral-10">
+    <div class="modal bg-gray-100">
       <div :class="[cssClass, 'x-layout-min-margin-48']">
-        <div class="x-layout-item x-bg-neutral-0 x-border-b-1 x-border-neutral-25">
-          <div class="x-flex x-justify-between x-items-center x-py-8">
+        <div class="x-layout-item border-b-1 border-gray-300 bg-white">
+          <div class="flex items-center justify-between py-2">
             <span class="x-title3">TWO COLUMNS LAYOUT</span>
-            <label for="layout-two-columns-modal" class="x-button x-button-ghost x-ml-auto">
+            <label for="layout-two-columns-modal" class="x-button x-button-ghost ml-auto">
               Close
             </label>
           </div>
         </div>
 
-        <div class="x-layout-item x-border-b-1 x-border-neutral-25">
-          <div class="x-flex x-justify-between x-items-center x-py-16">
+        <div class="x-layout-item border-b-1 border-gray-300">
+          <div class="flex items-center justify-between py-4">
             <div class="x-title3">HEADER START</div>
             <div class="x-title2">HEADER MIDDLE</div>
             <div class="x-title3">HEADER END</div>
           </div>
         </div>
 
-        <div class="x-layout-item x-border-b-1 x-border-neutral-25">
-          <div class="x-flex x-justify-center x-p-16 x-title3">SUB HEADER</div>
+        <div class="x-layout-item border-b-1 border-gray-300">
+          <div class="x-title3 flex justify-center p-4">SUB HEADER</div>
         </div>
 
-        <div class="x-layout-item x-layout-no-margin-right x-layout-expand x-mt-16 x-mb-16">
-          <div class="x-flex x-layout-expand x-gap-24">
-            <div class="x-scroll x-w-128">
-              <div class="x-flex x-flex-col x-justify-between x-h-[2000px] x-p-12 x-bg-neutral-25">
+        <div class="x-layout-item x-layout-no-margin-right x-layout-expand mb-4 mt-4">
+          <div class="x-layout-expand flex gap-6">
+            <div class="x-scroll w-[128px]">
+              <div class="flex h-[2000px] flex-col justify-between bg-gray-200 p-3">
                 <span>ASIDE</span>
-                <span class="x-place-self-end">ASIDE BOTTOM</span>
+                <span class="place-self-end">ASIDE BOTTOM</span>
               </div>
             </div>
 
             <div class="x-scroll x-layout-expand">
               <div class="x-layout-item x-layout-no-margin-left">
-                <div
-                  class="x-flex x-flex-col x-justify-between x-h-[2000px] x-p-12 x-bg-neutral-25"
-                >
+                <div class="flex h-[2000px] flex-col justify-between bg-gray-200 p-3">
                   <section>MAIN</section>
-                  <span class="x-place-self-end">MAIN BOTTOM</span>
+                  <span class="place-self-end">MAIN BOTTOM</span>
                 </div>
               </div>
             </div>
@@ -50,7 +48,7 @@
 
         <div class="x-layout-item x-layout-overlap">
           <button
-            class="x-layout-on-margin-right x-justify-self-start x-self-end x-button x-button-sm x-button-circle x-mb-16"
+            class="x-layout-on-margin-right x-button x-button-sm x-button-circle mb-4 self-end justify-self-start"
           >
             ▲
           </button>

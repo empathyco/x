@@ -11,19 +11,19 @@ export function facetFilterSizes(helpers: TailwindHelpers) {
 
   return {
     sm: {
-      minHeight: theme('spacing.24'),
-      gap: theme('spacing.2'),
-      fontSize: theme('fontSize.sm')
+      minHeight: theme('x.spacing.24'),
+      gap: theme('x.spacing.2'),
+      fontSize: theme('x.fontSize.sm')
     },
     md: {
-      minHeight: theme('spacing.32'),
-      gap: theme('spacing.4'),
-      fontSize: theme('fontSize.sm')
+      minHeight: theme('x.spacing.32'),
+      gap: theme('x.spacing.4'),
+      fontSize: theme('x.fontSize.sm')
     },
     lg: {
-      minHeight: theme('spacing.48'),
-      gap: theme('spacing.12'),
-      fontSize: theme('fontSize.md')
+      minHeight: theme('x.spacing.48'),
+      gap: theme('x.spacing.12'),
+      fontSize: theme('x.fontSize.md')
     }
   };
 }

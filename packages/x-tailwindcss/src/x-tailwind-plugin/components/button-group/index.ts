@@ -11,7 +11,7 @@ import { buttonGroupDivider } from './divider';
  */
 export function buttonGroup(helpers: TailwindHelpers) {
   return {
-    '.button-group': {
+    '.x-button-group': {
       ...buttonGroupDefault(helpers),
       ...rename(buttonGroupDivider(helpers), { prefix: '&-' })
     }

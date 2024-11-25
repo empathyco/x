@@ -8,8 +8,8 @@ import { TailwindHelpers } from '../../../../types';
  */
 export function inputGroupButtonRectangle({ theme }: TailwindHelpers) {
   return {
-    paddingInlineStart: `var(--input-group-button-rectangle-padding,${theme('spacing.16')})`,
-    paddingInlineEnd: `var(--input-group-button-rectangle-padding,${theme('spacing.16')})`,
+    paddingInlineStart: `var(--input-group-button-rectangle-padding,${theme('x.spacing.16')})`,
+    paddingInlineEnd: `var(--input-group-button-rectangle-padding,${theme('x.spacing.16')})`,
     aspectRatio: 'auto'
   };
 }

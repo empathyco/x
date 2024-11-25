@@ -49,7 +49,7 @@ export function mapColors<T extends CssStyleOptions>(
   mapperFn: (color: ThemeColor, colorName: string) => T,
   { theme }: TailwindHelpers
 ) {
-  const colors: ThemeColors = theme('colors');
+  const colors: Omit<ThemeColors, 'transparent' | 'current'> = theme('x.colors');
   return reduce(
     colors,
     (mappedColors, colorName, color) => {

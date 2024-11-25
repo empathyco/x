@@ -10,8 +10,8 @@ import { textSizes } from '../text2/sizes';
 export function textDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    fontFamily: theme('fontFamily.main'),
-    fontWeight: theme('fontWeight.regular'),
+    fontFamily: theme('x.fontFamily.main'),
+    fontWeight: theme('x.fontWeight.regular'),
 
     ...textSizes(helpers).md
   };

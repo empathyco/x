@@ -14,7 +14,7 @@ import { suggestionSizes } from './sizes';
  */
 export function suggestion(helpers: TailwindHelpers) {
   return {
-    '.suggestion': {
+    '.x-suggestion': {
       ...suggestionDefault(helpers),
       ...rename(
         {

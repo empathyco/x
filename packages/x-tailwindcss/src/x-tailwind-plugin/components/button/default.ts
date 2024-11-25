@@ -18,33 +18,33 @@ export function buttonDefault(helpers: TailwindHelpers) {
     boxSizing: 'border-box',
 
     borderStyle: 'solid',
-    borderWidth: theme('borderWidth.1'),
+    borderWidth: theme('x.borderWidth.1'),
 
-    fontFamily: theme('fontFamily.main'),
-    fontWeight: theme('fontWeight.bold'),
-    letterSpacing: theme('letterSpacing.md'),
-    lineHeight: theme('lineHeight.sm'),
+    fontFamily: theme('x.fontFamily.main'),
+    fontWeight: theme('x.fontWeight.bold'),
+    letterSpacing: theme('x.letterSpacing.md'),
+    lineHeight: theme('x.lineHeight.sm'),
 
     cursor: 'pointer',
 
-    backgroundColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
-    borderColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
-    color: theme('colors.neutral.0'),
+    backgroundColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
+    borderColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
+    color: theme('x.colors.neutral.0'),
 
     '&:hover,&:active': {
-      backgroundColor: `var(--button-color-75,${theme('colors.neutral.100')})`,
-      borderColor: `var(--button-color-75,${theme('colors.neutral.100')})`
+      backgroundColor: `var(--button-color-75,${theme('x.colors.neutral.100')})`,
+      borderColor: `var(--button-color-75,${theme('x.colors.neutral.100')})`
     },
 
     ...buttonSizes(helpers).md,
 
     '&.selected': {
-      backgroundColor: `var(--button-color-75,${theme('colors.neutral.100')})`,
-      borderColor: `var(--button-color-75,${theme('colors.neutral.100')})`,
+      backgroundColor: `var(--button-color-75,${theme('x.colors.neutral.100')})`,
+      borderColor: `var(--button-color-75,${theme('x.colors.neutral.100')})`,
 
       '&:hover,&:active': {
-        backgroundColor: `var(--button-color-50,${theme('colors.neutral.90')})`,
-        borderColor: `var(--button-color-50,${theme('colors.neutral.90')})`
+        backgroundColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`,
+        borderColor: `var(--button-color-50,${theme('x.colors.neutral.90')})`
       }
     }
   };

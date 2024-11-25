@@ -14,7 +14,7 @@ import { suggestionGroupButtonLighter } from './lighter';
  */
 export function suggestionGroupButton(helpers: TailwindHelpers) {
   return {
-    '.suggestion-group-button': {
+    '.x-suggestion-group-button': {
       ...suggestionGroupButtonDefault(),
       ...rename(
         {

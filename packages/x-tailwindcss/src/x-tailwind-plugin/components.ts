@@ -1,3 +1,4 @@
+import { CSSRuleObject } from 'tailwindcss/types/config';
 import { TailwindHelpers } from '../types';
 import { inputGroup } from './components/input-group';
 import { variables } from './components/variables';
@@ -51,12 +52,5 @@ export default function components(helpers: TailwindHelpers) {
     ...facetFilter(helpers),
     ...progressBar(helpers),
     ...attach(helpers)
-  };
+  } as unknown as CSSRuleObject;
 }
-
-/**
- * The return type of {@link components}.
- *
- * @public
- */
-export type ReturnOfComponents = ReturnType<typeof components>;
