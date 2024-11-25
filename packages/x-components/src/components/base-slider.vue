@@ -1,6 +1,6 @@
 <template>
   <div class="x-base-slider">
-    <div ref="slider" class="x-base-slider__nouislider" />
+    <div ref="slider" :class="['x-base-slider__nouislider'].concat(`${contentClass}`)" />
     <div class="x-base-slider__selected">
       <!--
         @slot Default selected range rendering. This slot will be used by default for rendering
@@ -49,6 +49,11 @@
       modelValue: {
         type: Object as PropType<{ min: number; max: number }>,
         required: true
+      },
+      /** Class to be able to customize slider styles. */
+      contentClass: {
+        type: String,
+        default: ''
       }
     },
     /**
@@ -171,6 +176,10 @@
   .x-base-slider__nouislider {
     margin: 16px 0;
     padding: 0 16px;
+  }
+
+  .x-base-slider__nouislider .noUi-handle {
+    box-shadow: none;
   }
 
   .x-base-slider__nouislider .noUi-handle:before,
