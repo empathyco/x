@@ -4,6 +4,8 @@ import { PlatformRelatedPromptsRequest } from '../../types/requests/related-prom
 
 /**
  * Default implementation for the RelatedPromptsRequestSchema.
+ *
+ * @public
  */
 export const relatedPromptsRequestSchema = createMutableSchema<
   RelatedPromptsRequest,

@@ -5,6 +5,8 @@ import { relatedPromptsRequestSchema } from '../../schemas/requests/related-prom
 
 /**
  * Default implementation for the RelatedPromptsRequestMapper.
+ *
+ * @public
  */
 export const relatedPromptsRequestMapper = schemaMapperFactory<
   RelatedPromptsRequest,

@@ -6,5 +6,8 @@
  * @public
  */
 export interface Stats {
-  price: { min: number; max: number };
+  price: {
+    min: number | undefined;
+    max: number | undefined;
+  };
 }
