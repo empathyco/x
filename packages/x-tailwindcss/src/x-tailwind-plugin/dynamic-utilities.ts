@@ -19,10 +19,3 @@ export default function dynamicUtilities({ theme }: TailwindHelpers) {
     }
   };
 }
-
-/**
- * The return type of {@link dynamicUtilities}.
- *
- * @public
- */
-export type ReturnOfDynamicUtilities = ReturnType<typeof dynamicUtilities>;

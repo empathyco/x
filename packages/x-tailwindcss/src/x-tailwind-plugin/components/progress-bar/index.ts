@@ -4,6 +4,7 @@ import { TailwindHelpers } from '../../../types';
 import { progressBarDefault } from './default';
 import { progressBarSizes } from './sizes';
 import { progressBarColors } from './colors';
+import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Returns the component `progress-bar` CSS.
@@ -11,7 +12,7 @@ import { progressBarColors } from './colors';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function progressBar(helpers: TailwindHelpers) {
+export function progressBar(helpers: TailwindHelpers): CSSRuleObject {
   return {
     '.x-progress-bar': deepMerge(
       progressBarDefault(helpers),

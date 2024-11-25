@@ -10,6 +10,7 @@ import { buttonLayouts } from './layouts';
 import { buttonLink } from './link';
 import { buttonOutlined } from './outlined';
 import { buttonSizes } from './sizes';
+import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Returns the component `button` CSS.
@@ -17,7 +18,7 @@ import { buttonSizes } from './sizes';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function button(helpers: TailwindHelpers) {
+export function button(helpers: TailwindHelpers): CSSRuleObject {
   return {
     '.x-button': deepMerge(
       buttonDefault(helpers),

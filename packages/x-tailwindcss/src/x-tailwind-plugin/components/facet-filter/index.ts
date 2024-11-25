@@ -7,6 +7,7 @@ import { facetFilterGhost } from './ghost';
 import { facetFilterSimple } from './simple';
 import { facetFilterSizes } from './sizes';
 import { facetFilterUnderline } from './underline';
+import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Returns the component `facet-filter` CSS.
@@ -14,7 +15,7 @@ import { facetFilterUnderline } from './underline';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function facetFilter(helpers: TailwindHelpers) {
+export function facetFilter(helpers: TailwindHelpers): CSSRuleObject {
   return {
     '.x-facet-filter': deepMerge(
       facetFilterDefault(helpers),

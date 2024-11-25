@@ -1,4 +1,5 @@
 import { TailwindHelpers } from '../types';
+import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Default utility styles.
@@ -8,7 +9,7 @@ import { TailwindHelpers } from '../types';
  *
  * @public
  */
-export default function utilities({ theme }: TailwindHelpers) {
+export default function utilities({ theme }: TailwindHelpers): CSSRuleObject {
   return {
     // TODO: replace this example styles with actual design styles
     '.x-border-large': {
@@ -22,10 +23,3 @@ export default function utilities({ theme }: TailwindHelpers) {
     }
   };
 }
-
-/**
- * The return type of {@link utilities}.
- *
- * @public
- */
-export type ReturnOfUtilities = ReturnType<typeof utilities>;

@@ -19,6 +19,7 @@ import { badge } from './components/badge';
 import { attach } from './components/attach';
 import { facetFilter } from './components/facet-filter';
 import { progressBar } from './components/progress-bar';
+import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Default component styles.
@@ -28,7 +29,7 @@ import { progressBar } from './components/progress-bar';
  *
  * @public
  */
-export default function components(helpers: TailwindHelpers) {
+export default function components(helpers: TailwindHelpers): CSSRuleObject {
   return {
     ...variables(helpers),
     ...button(helpers),
@@ -53,10 +54,3 @@ export default function components(helpers: TailwindHelpers) {
     ...attach(helpers)
   };
 }
-
-/**
- * The return type of {@link components}.
- *
- * @public
- */
-export type ReturnOfComponents = ReturnType<typeof components>;

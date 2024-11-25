@@ -1,4 +1,5 @@
 import { TailwindHelpers } from '../../../types';
+import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Returns the default styles for component `button-group`.
@@ -6,7 +7,7 @@ import { TailwindHelpers } from '../../../types';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function buttonGroupDefault(helpers: TailwindHelpers) {
+export function buttonGroupDefault(helpers: TailwindHelpers): CSSRuleObject {
   const { theme } = helpers;
 
   return {

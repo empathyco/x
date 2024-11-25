@@ -5,6 +5,7 @@ import { suggestionGroupColors } from './colors';
 import { suggestionGroupSizes } from './sizes';
 import { suggestionGroupOutlined } from './outlined';
 import { suggestionGroupGhost } from './ghost';
+import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Returns the component `suggestion group` CSS.
@@ -12,7 +13,7 @@ import { suggestionGroupGhost } from './ghost';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function suggestionGroup(helpers: TailwindHelpers) {
+export function suggestionGroup(helpers: TailwindHelpers): CSSRuleObject {
   return {
     '.x-suggestion-group': {
       ...suggestionGroupDefault(helpers),

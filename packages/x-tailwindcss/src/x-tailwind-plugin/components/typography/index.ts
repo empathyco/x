@@ -5,6 +5,7 @@ import { title1 } from './title1';
 import { title2 } from './title2';
 import { title3 } from './title3';
 import { title4 } from './title4';
+import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Returns all the typography components.
@@ -13,7 +14,7 @@ import { title4 } from './title4';
  * @returns The {@link CssStyleOptions} for the component.
  */
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function typography(helpers: TailwindHelpers) {
+export function typography(helpers: TailwindHelpers): CSSRuleObject {
   return {
     ...text1(helpers),
     ...text2(helpers),

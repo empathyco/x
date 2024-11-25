@@ -6,6 +6,7 @@ import { inputGroupColors } from './colors';
 import { inputGroupDefault } from './default';
 import { inputGroupLine } from './line';
 import { inputGroupSizes } from './sizes';
+import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Returns the component `input-group` CSS.
@@ -13,7 +14,7 @@ import { inputGroupSizes } from './sizes';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function inputGroup(helpers: TailwindHelpers) {
+export function inputGroup(helpers: TailwindHelpers): CSSRuleObject {
   return {
     '.x-input-group': deepMerge(
       inputGroupDefault(helpers),

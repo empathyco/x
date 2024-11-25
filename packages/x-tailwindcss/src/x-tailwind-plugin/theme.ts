@@ -18,6 +18,8 @@ export default {
     4: '4px'
   },
   colors: {
+    current: 'currentColor',
+    transparent: 'transparent',
     neutral: {
       0: '#FFFFFF',
       10: '#EEF1F2',

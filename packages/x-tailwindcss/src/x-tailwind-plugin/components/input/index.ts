@@ -5,6 +5,7 @@ import { inputDefault } from './default';
 import { inputColors } from './colors';
 import { inputSizes } from './sizes';
 import { inputLine } from './line';
+import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Returns the component `input` CSS.
@@ -12,7 +13,7 @@ import { inputLine } from './line';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function input(helpers: TailwindHelpers) {
+export function input(helpers: TailwindHelpers): CSSRuleObject {
   return {
     '.x-input': deepMerge(
       inputDefault(helpers),
