@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.0...@empathyco/x-tailwindcss@2.0.0-alpha.1) (2024-11-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **xds:** the x tailwincss plugin no longer admits an options configuration. The plugin theme is accessible through theme: extend: { x: {...}}  so now if you need to customize a value you can do it  via extending the general tailwind theme:
+
+module.exports = {
+  theme: {
+    extend: {
+      spacing: theme => theme('x.spacing'),
+      colors: theme => theme('x.colors'),
+      screens: theme => theme('x.screens'),
+      fontSize: theme => theme('x.fontSize'),
+      fontFamily: theme => theme('x.fontFamily'),
+      x: {
+        colors: {
+          neutral: {
+            5: '#56ac91'
+          }
+....
+
+To add new components you can do it via https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes
+
+### Features
+
+* **xds:** avoid overriding consumers theme by xds (#1658) ([bd3ed79](https://github.com/empathyco/x/commit/bd3ed79f654fc7e76939c7d0baa2a67e6b879ed8))
+
+
+
 ## [2.0.0-alpha.0](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@1.2.0-alpha.7...@empathyco/x-tailwindcss@2.0.0-alpha.0) (2024-11-20)
 
 
