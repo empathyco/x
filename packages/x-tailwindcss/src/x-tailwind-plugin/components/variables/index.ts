@@ -1,5 +1,4 @@
 import { TailwindHelpers } from '../../../types';
-import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Returns the CSS global variables to be used across the components.
@@ -23,7 +22,7 @@ import { CSSRuleObject } from 'tailwindcss/types/config';
  */
 // eslint-disable-next-line max-len
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type,@typescript-eslint/no-unused-vars
-export function variables(helpers: TailwindHelpers): CSSRuleObject {
+export function variables(helpers: TailwindHelpers) {
   return {
     ':root': {
       '--ON': 'initial',

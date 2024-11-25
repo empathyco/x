@@ -5,7 +5,7 @@
 
     <div class="modal bg-gray-100">
       <div :class="[cssClass, 'x-layout-min-margin-48']">
-        <div class="x-layout-item border-b-1 x-border-neutral-25 bg-white">
+        <div class="x-layout-item border-b-1 border-gray-300 bg-white">
           <div class="flex items-center justify-between py-2">
             <span class="x-title3">TWO COLUMNS LAYOUT</span>
             <label for="layout-two-columns-modal" class="x-button x-button-ghost ml-auto">
@@ -14,7 +14,7 @@
           </div>
         </div>
 
-        <div class="x-layout-item border-b-1 x-border-neutral-25">
+        <div class="x-layout-item border-b-1 border-gray-300">
           <div class="flex items-center justify-between py-4">
             <div class="x-title3">HEADER START</div>
             <div class="x-title2">HEADER MIDDLE</div>
@@ -22,7 +22,7 @@
           </div>
         </div>
 
-        <div class="x-layout-item border-b-1 x-border-neutral-25">
+        <div class="x-layout-item border-b-1 border-gray-300">
           <div class="x-title3 flex justify-center p-4">SUB HEADER</div>
         </div>
 

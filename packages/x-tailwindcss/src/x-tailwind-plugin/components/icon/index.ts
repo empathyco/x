@@ -6,7 +6,6 @@ import { iconBackgroundColors } from './background-colors';
 import { iconSharp } from './sharp';
 import { iconSizes } from './sizes';
 import { iconStrokeWidths } from './stroke-widths';
-import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Returns the component `icon` CSS.
@@ -14,7 +13,7 @@ import { CSSRuleObject } from 'tailwindcss/types/config';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function icon(helpers: TailwindHelpers): CSSRuleObject {
+export function icon(helpers: TailwindHelpers) {
   return {
     '.x-icon': Object.assign(
       iconDefault(helpers),

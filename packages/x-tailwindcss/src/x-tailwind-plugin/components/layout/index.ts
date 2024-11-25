@@ -6,7 +6,6 @@ import { minMargin } from './min-margin';
 import { item } from './item';
 import { maxWidth } from './max-width';
 import { utils } from './utils';
-import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Returns the component `layout` CSS.
@@ -14,7 +13,7 @@ import { CSSRuleObject } from 'tailwindcss/types/config';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function layout(helpers: TailwindHelpers): CSSRuleObject {
+export function layout(helpers: TailwindHelpers) {
   return {
     '.x-layout': rename(
       {

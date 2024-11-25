@@ -7,7 +7,6 @@ import { badgeLight } from './light';
 import { badgeOutlined } from './outlined';
 import { badgeCircle } from './circle';
 import { badgeBright } from './bright';
-import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Returns the component `badge` CSS.
@@ -15,7 +14,7 @@ import { CSSRuleObject } from 'tailwindcss/types/config';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function badge(helpers: TailwindHelpers): CSSRuleObject {
+export function badge(helpers: TailwindHelpers) {
   return {
     '.x-badge': {
       ...badgeDefault(helpers),

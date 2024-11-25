@@ -15,7 +15,7 @@ import utilities from './utilities';
  * @public
  */
 export default plugin.withOptions(
-  function (options = {}) {
+  function () {
     /**
      * Registers the generated CSS for the components and utilities of the plugin to the
      * respective Tailwind layer. It depends on the plugin's theme, affecting

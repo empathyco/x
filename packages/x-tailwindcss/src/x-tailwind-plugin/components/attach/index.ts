@@ -1,5 +1,4 @@
 import { TailwindHelpers } from '../../../types';
-import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Returns the component util `attach` CSS, used to place components on top of others.
@@ -8,7 +7,7 @@ import { CSSRuleObject } from 'tailwindcss/types/config';
  * @returns The {@link CssStyleOptions} for the component.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function attach(helpers: TailwindHelpers): CSSRuleObject {
+export function attach(helpers: TailwindHelpers) {
   return {
     '.x-attach-container': {
       position: 'relative'

@@ -1,3 +1,4 @@
+import { CSSRuleObject } from 'tailwindcss/types/config';
 import { TailwindHelpers } from '../types';
 import { inputGroup } from './components/input-group';
 import { variables } from './components/variables';
@@ -19,7 +20,6 @@ import { badge } from './components/badge';
 import { attach } from './components/attach';
 import { facetFilter } from './components/facet-filter';
 import { progressBar } from './components/progress-bar';
-import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Default component styles.
@@ -29,7 +29,7 @@ import { CSSRuleObject } from 'tailwindcss/types/config';
  *
  * @public
  */
-export default function components(helpers: TailwindHelpers): CSSRuleObject {
+export default function components(helpers: TailwindHelpers) {
   return {
     ...variables(helpers),
     ...button(helpers),
@@ -52,5 +52,5 @@ export default function components(helpers: TailwindHelpers): CSSRuleObject {
     ...facetFilter(helpers),
     ...progressBar(helpers),
     ...attach(helpers)
-  };
+  } as unknown as CSSRuleObject;
 }

@@ -7,7 +7,6 @@ import { tagOutlined } from './outlined';
 import { tagSolid } from './solid';
 import { tagGhost } from './ghost';
 import { tagTight } from './tight';
-import { CSSRuleObject } from 'tailwindcss/types/config';
 
 /**
  * Returns the component `tag` CSS.
@@ -15,7 +14,7 @@ import { CSSRuleObject } from 'tailwindcss/types/config';
  * @param helpers - The {@link TailwindHelpers} to generate CSS.
  * @returns The {@link CssStyleOptions} for the component.
  */
-export function tag(helpers: TailwindHelpers): CSSRuleObject {
+export function tag(helpers: TailwindHelpers) {
   return {
     '.x-tag': {
       ...tagDefault(helpers),

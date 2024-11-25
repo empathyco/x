@@ -1,5 +1,5 @@
-import { TailwindHelpers } from '../types';
 import { CSSRuleObject } from 'tailwindcss/types/config';
+import { TailwindHelpers } from '../types';
 
 /**
  * Default utility styles.
@@ -9,7 +9,7 @@ import { CSSRuleObject } from 'tailwindcss/types/config';
  *
  * @public
  */
-export default function utilities({ theme }: TailwindHelpers): CSSRuleObject {
+export default function utilities({ theme }: TailwindHelpers) {
   return {
     // TODO: replace this example styles with actual design styles
     '.x-border-large': {
@@ -21,5 +21,5 @@ export default function utilities({ theme }: TailwindHelpers): CSSRuleObject {
     '.x-disable-icon-offset *': {
       '--enableIconOffset': 'var(--OFF)'
     }
-  };
+  } as unknown as CSSRuleObject;
 }
