@@ -289,13 +289,13 @@ export class XInstaller {
    * returns an Element or element selector to use.
    * If it is not present, a new <div> Element is created and appended to the body.
    *
-   * @param domElement - {@link InstallXOptions.domElement | Element, string or function} Used
-   * to mount the Vue Application.
+   * @param domElement - {@link InstallXOptions.domElement} Element, ShadowRoot, string or function
+   * used to mount the Vue Application.
    *
-   * @returns The Element to use as mounting target for the Vue Application.
+   * @returns The Element or ShadowRoot to use as mounting target for the Vue Application.
    * @internal
    */
-  protected getMountingTarget(domElement?: InstallXOptions['domElement']): Element {
+  protected getMountingTarget(domElement?: InstallXOptions['domElement']): Element | ShadowRoot {
     if (isFunction(domElement)) {
       domElement = domElement(this.snippetConfig!);
     }
