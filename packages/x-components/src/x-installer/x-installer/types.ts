@@ -30,7 +30,11 @@ export interface InstallXOptions<API extends XAPI = XAPI> extends XPluginOptions
    * An Element | string | function to indicate the HTML element that will contain the Vue
    * application. If it isn't passed, the {@link XInstaller} will create the target element.
    */
-  domElement?: Element | string | ((snippetConfig: NormalisedSnippetConfig) => Element | string);
+  domElement?:
+    | Element
+    | ShadowRoot
+    | string
+    | ((snippetConfig: NormalisedSnippetConfig) => Element | ShadowRoot | string);
   /**
    * The XPlugin which will be installed. If not passed, an instance of {@link XPlugin} will be
    * installed.
