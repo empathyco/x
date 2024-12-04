@@ -80,7 +80,7 @@
   import { Identifiable } from '@empathyco/x-types';
   import { computed, defineComponent, nextTick, onBeforeUnmount, PropType, ref, watch } from 'vue';
   import { AnimationProp } from '../types';
-  import { debounceFunction, normalizeString, getTargetElement, isInRange } from '../utils';
+  import { debounceFunction, normalizeString, getTargetElement } from '../utils';
   import { NoAnimation } from './animations';
 
   type DropdownItem = string | number | Identifiable;
@@ -322,12 +322,7 @@
       watch(
         highlightedItemIndex,
         highlightedItemIndex => {
-          nextTick(() => {
-            if (itemsButtonRefs && isInRange(highlightedItemIndex, [0, props.items.length - 1])) {
-              const newItem = itemsButtonRefs?.value?.[highlightedItemIndex];
-              newItem?.focus();
-            }
-          });
+          nextTick(() => itemsButtonRefs.value[highlightedItemIndex]?.focus());
         },
         { immediate: true }
       );

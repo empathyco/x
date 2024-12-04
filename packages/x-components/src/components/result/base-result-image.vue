@@ -151,7 +151,7 @@
        * @internal
        */
       const animation = computed(() => {
-        return userHasHoveredImage
+        return userHasHoveredImage.value
           ? props.hoverAnimation ?? props.loadAnimation
           : props.loadAnimation;
       });
@@ -177,7 +177,7 @@
        * @internal
        */
       const shouldLoadNextImage = computed(() => {
-        const numImagesToLoad = props.showNextImageOnHover && userHasHoveredImage ? 2 : 1;
+        const numImagesToLoad = props.showNextImageOnHover && userHasHoveredImage.value ? 2 : 1;
         return !!pendingImages.value.length && loadedImages.value.length < numImagesToLoad;
       });
 
