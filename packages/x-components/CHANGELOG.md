@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.20...@empathyco/x-components@6.0.0-alpha.21) (2024-12-09)
+
+
+### Features
+
+* **x-installer:** extend domElement type to allow  ShadowRoot ([900eb9c](https://github.com/empathyco/x/commit/900eb9c0c9bce7b48897b86ca11e4f1ec82d783b))
+
+
+
 ## [6.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.19...@empathyco/x-components@6.0.0-alpha.20) (2024-11-25)
 
 
