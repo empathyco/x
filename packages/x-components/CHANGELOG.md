@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.22...@empathyco/x-components@6.0.0-alpha.23) (2024-12-12)
+
+
+### Bug Fixes
+
+* **components:** export missing store utils (#1677) ([a1f9cee](https://github.com/empathyco/x/commit/a1f9cee4b2006a71689fc2ce7f07f12816fbb574))
+
+
+
 ## [6.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.21...@empathyco/x-components@6.0.0-alpha.22) (2024-12-09)
 
 
