@@ -10,7 +10,13 @@ import { AnyMessages, Device, I18nOptions, LoadLazyMessagesByDevice, Locale } fr
  * @public
  */
 export class I18n<SomeMessages> {
-  public vueI18n!: VueI18n;
+  public vueI18n!: VueI18n<
+    Record<string, unknown>,
+    Record<string, unknown>,
+    Record<string, unknown>,
+    Locale,
+    false
+  >;
   protected locale!: Locale;
   protected device!: Device;
   protected messages!: Record<Locale, AnyMessages<SomeMessages>>;
@@ -51,6 +57,7 @@ export class I18n<SomeMessages> {
    */
   install(vue: App): void {
     this.vueI18n = createI18n({
+      legacy: false,
       locale: this.locale,
       silentFallbackWarn: true,
       messages: this.currentMessages ? ({ [this.locale]: this.currentMessages } as any) : {},
@@ -99,7 +106,7 @@ export class I18n<SomeMessages> {
       this.locale = newLocale;
 
       await this.changeMessages();
-      this.vueI18n.global.locale = this.locale;
+      this.vueI18n.global.locale.value = this.locale;
     }
   }
 
