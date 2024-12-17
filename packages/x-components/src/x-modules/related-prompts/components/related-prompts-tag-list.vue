@@ -41,7 +41,7 @@
               <RelatedPrompt
                 :related-prompt="suggestion"
                 :index="index"
-                :are-prompts-visible="arePromptsVisible"
+                :is-prompt-visible="arePromptsVisible"
                 :is-selected="isSelected(index)"
               />
             </slot>

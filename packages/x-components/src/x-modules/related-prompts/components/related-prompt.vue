@@ -9,7 +9,7 @@
       <div class="x-related-prompt__button-info">
         <span
           class="x-typewritter-initial"
-          :class="[{ 'x-typewritter-animation': arePromptsVisible }]"
+          :class="[{ 'x-typewritter-animation': isPromptVisible }]"
           :style="{
             animationDelay: `${index * 0.4 + 0.05}s`,
             '--suggestion-text-length': relatedPrompt.suggestionText.length
@@ -29,7 +29,7 @@
   import { relatedPromptsXModule } from '../x-module';
   import CrossTinyIcon from '../../../components/icons/cross-tiny.vue';
   import PlusIcon from '../../../components/icons/plus.vue';
-  import { use$x, useState } from '../../../composables/index';
+  import { use$x } from '../../../composables/index';
 
   /**
    * This component shows a suggested related prompt.
@@ -50,7 +50,7 @@
         type: Object as PropType<RelatedPrompt>,
         required: true
       },
-      arePromptsVisible: {
+      isPromptVisible: {
         type: Boolean,
         default: false
       },
@@ -65,14 +65,12 @@
     },
     setup() {
       const x = use$x();
-      const { selectedPrompt } = useState('relatedPrompts', ['selectedPrompt']);
 
       const toggleSuggestion = (index: number): void => {
         x.emit('UserSelectedARelatedPrompt', index);
       };
 
       return {
-        selectedPrompt,
         toggleSuggestion
       };
     }
