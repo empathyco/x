@@ -5,6 +5,7 @@
     </template>
     <SlidingPanel
       :reset-on-content-change="true"
+      :button-class="buttonClass"
       :scroll-container-class="
         selectedPrompt === -1 ? 'desktop:x-sliding-panel-fade desktop:x-sliding-panel-fade-sm' : ''
       "
@@ -13,50 +14,32 @@
         <slot name="sliding-panel-left-button" />
       </template>
 
-      <div
-        ref="slidingPanelContent"
-        class="x-related-prompt__sliding-panel-content"
-        :class="{ 'x-w-[calc(100%)]': selectedPrompt !== -1 }"
-      >
+      <slot name="sliding-panel-content">
         <div
-          v-for="(suggestion, index) in relatedPrompts"
-          :key="index"
-          :style="{
-            animationDelay: `${index * 0.4 + 0.05}s`
-          }"
-          class="x-related-prompt x-staggered-initial"
-          :class="[
-            { 'x-staggered-animation': isVisible },
-            { 'x-hidden': shouldHideButton(index) },
-            { 'x-related-prompt-selected': isSelected(index) }
-          ]"
-          data-test="related-prompt-item"
+          ref="slidingPanelContent"
+          class="x-related-prompt__sliding-panel-content"
+          :class="{ 'x-w-[calc(100%)]': selectedPrompt !== -1 }"
         >
-          <!-- Suggestion -->
-          <button
-            @click="toggleSuggestion(index)"
-            class="x-related-prompt__button"
-            :class="[{ 'x-related-prompt-selected__button': isSelected(index) }]"
+          <div
+            v-for="(suggestion, index) in relatedPrompts"
+            :key="index"
+            :style="{
+              animationDelay: `${index * 0.4 + 0.05}s`
+            }"
+            class="x-related-prompt x-staggered-initial"
+            :class="[
+              { 'x-staggered-animation': isVisible },
+              { 'x-hidden': shouldHideButton(index) },
+              { 'x-related-prompt-selected': isSelected(index) }
+            ]"
+            data-test="related-prompt-item"
           >
-            <slot name="related-prompt">
-              <div class="x-related-prompt__button-info">
-                <span
-                  class="x-typewritter-initial"
-                  :class="[{ 'x-typewritter-animation': isVisible }]"
-                  :style="{
-                    animationDelay: `${index * 0.4 + 0.05}s`,
-                    '--suggestion-text-length': suggestion.suggestionText.length
-                  }"
-                >
-                  {{ suggestion.suggestionText }}
-                </span>
-              </div>
-              <CrossTinyIcon v-if="isSelected(index)" class="x-icon-lg" />
-              <PlusIcon v-else class="x-icon-neutral-80 x-icon-lg" />
+            <slot name="related-prompt-button" v-bind="{ suggestion, index, isVisible }">
+              <RelatedPrompt :related-prompt="suggestion" :index="index" :is-visible="isVisible" />
             </slot>
-          </button>
+          </div>
         </div>
-      </div>
+      </slot>
 
       <template #sliding-panel-right-button>
         <slot name="sliding-panel-right-button" />
@@ -68,15 +51,17 @@
   import { defineComponent, onMounted, onUnmounted, ref } from 'vue';
   import SlidingPanel from '../../../components/sliding-panel.vue';
   import { relatedPromptsXModule } from '../x-module';
-  import { CrossTinyIcon, PlusIcon } from '../../../components/index';
-  import { use$x, useState } from '../../../composables/index';
+  import { useState } from '../../../composables/index';
+  import RelatedPrompt from './related-prompt.vue';
 
   export default defineComponent({
     name: 'RelatedPromptsTagList',
     xModule: relatedPromptsXModule.name,
-    components: { SlidingPanel, PlusIcon, CrossTinyIcon },
+    components: { RelatedPrompt, SlidingPanel },
+    props: {
+      buttonClass: String
+    },
     setup() {
-      const x = use$x();
       const { relatedPrompts, selectedPrompt } = useState('relatedPrompts', [
         'relatedPrompts',
         'selectedPrompt'
@@ -97,23 +82,18 @@
         observer.disconnect();
       });
 
-      const toggleSuggestion = (index: number): void => {
-        x.emit('UserSelectedARelatedPrompt', index);
-      };
-
       const isSelected = (index: number): boolean => selectedPrompt.value === index;
 
       const shouldHideButton = (index: number): boolean =>
         selectedPrompt.value !== -1 && selectedPrompt.value !== index;
 
       return {
-        isSelected,
         isVisible,
+        shouldHideButton,
+        isSelected,
         relatedPrompts,
         selectedPrompt,
-        shouldHideButton,
-        slidingPanelContent,
-        toggleSuggestion
+        slidingPanelContent
       };
     }
   });
