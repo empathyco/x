@@ -2,13 +2,13 @@
   <button
     @click="toggleSuggestion(index)"
     class="x-related-prompt__button"
-    :class="[{ 'x-related-prompt-selected__button': isSelected(index) }]"
+    :class="[{ 'x-related-prompt-selected__button': isSelected }]"
   >
     <slot name="related-prompt-button-info">
       <div class="x-related-prompt__button-info">
         <span
           class="x-typewritter-initial"
-          :class="[{ 'x-typewritter-animation': isVisible }]"
+          :class="[{ 'x-typewritter-animation': arePromptsVisible }]"
           :style="{
             animationDelay: `${index * 0.4 + 0.05}s`,
             '--suggestion-text-length': relatedPrompt.suggestionText.length
@@ -17,8 +17,8 @@
           {{ relatedPrompt.suggestionText }}
         </span>
       </div>
-      <CrossTinyIcon v-if="isSelected(index)" class="x-icon-lg" />
-      <PlusIcon v-else class="x-icon-neutral-80 x-icon-lg" />
+      <CrossTinyIcon v-if="isSelected" class="x-icon-lg" />
+      <PlusIcon v-else class="x-icon-lg" />
     </slot>
   </button>
 </template>
@@ -49,7 +49,11 @@
         type: Object as PropType<RelatedPrompt>,
         required: true
       },
-      isVisible: {
+      arePromptsVisible: {
+        type: Boolean,
+        default: false
+      },
+      isSelected: {
         type: Boolean,
         default: false
       },
@@ -66,14 +70,10 @@
         x.emit('UserSelectedARelatedPrompt', index);
       };
 
-      const isSelected = (index: number): boolean => selectedPrompt.value === index;
-
       return {
-        isSelected,
         selectedPrompt,
         toggleSuggestion
       };
     }
   });
 </script>
-<style lang="css"></style>

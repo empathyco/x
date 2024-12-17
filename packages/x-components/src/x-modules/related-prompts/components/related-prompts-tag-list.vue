@@ -28,14 +28,22 @@
             }"
             class="x-related-prompt x-staggered-initial"
             :class="[
-              { 'x-staggered-animation': isVisible },
-              { 'x-hidden': shouldHideButton(index) },
+              { 'x-staggered-animation': arePromptsVisible },
+              { 'x-hidden': hidePrompt(index) },
               { 'x-related-prompt-selected': isSelected(index) }
             ]"
             data-test="related-prompt-item"
           >
-            <slot name="related-prompt-button" v-bind="{ suggestion, index, isVisible }">
-              <RelatedPrompt :related-prompt="suggestion" :index="index" :is-visible="isVisible" />
+            <slot
+              name="related-prompt-button"
+              v-bind="{ suggestion, index, arePromptsVisible, isSelected }"
+            >
+              <RelatedPrompt
+                :related-prompt="suggestion"
+                :index="index"
+                :are-prompts-visible="arePromptsVisible"
+                :is-selected="isSelected(index)"
+              />
             </slot>
           </div>
         </div>
@@ -68,10 +76,10 @@
       ]);
 
       const slidingPanelContent = ref<Element>();
-      const isVisible = ref(false);
+      const arePromptsVisible = ref(false);
 
       const observer = new IntersectionObserver(([entry]) => {
-        isVisible.value = entry.isIntersecting;
+        arePromptsVisible.value = entry.isIntersecting;
       });
 
       onMounted(() => {
@@ -84,12 +92,12 @@
 
       const isSelected = (index: number): boolean => selectedPrompt.value === index;
 
-      const shouldHideButton = (index: number): boolean =>
+      const hidePrompt = (index: number): boolean =>
         selectedPrompt.value !== -1 && selectedPrompt.value !== index;
 
       return {
-        isVisible,
-        shouldHideButton,
+        arePromptsVisible,
+        hidePrompt,
         isSelected,
         relatedPrompts,
         selectedPrompt,
