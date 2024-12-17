@@ -1,6 +1,7 @@
 <template>
-  <button
+  <div
     @click="toggleSuggestion(index)"
+    @keydown="toggleSuggestion(index)"
     class="x-related-prompt__button"
     :class="[{ 'x-related-prompt-selected__button': isSelected }]"
   >
@@ -20,7 +21,7 @@
       <CrossTinyIcon v-if="isSelected" class="x-icon-lg" />
       <PlusIcon v-else class="x-icon-lg" />
     </slot>
-  </button>
+  </div>
 </template>
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
