@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.23...@empathyco/x-components@6.0.0-alpha.24) (2024-12-19)
+
+
+### Bug Fixes
+
+* **types:** update installExtraPlugins to support Promise return type ([99d0620](https://github.com/empathyco/x/commit/99d0620d7017167441d63805d29446778432d60b))
+
+
+
 ## [6.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.22...@empathyco/x-components@6.0.0-alpha.23) (2024-12-12)
 
 
