@@ -53,7 +53,7 @@ export interface InstallXOptions<API extends XAPI = XAPI> extends XPluginOptions
    * @param options - An object that contains utilities that might be helpful for installing Vue
    * plugins.
    */
-  installExtraPlugins?(options: ExtraPluginsOptions): void;
+  installExtraPlugins?(options: ExtraPluginsOptions): void | Promise<void>;
 }
 
 /**
