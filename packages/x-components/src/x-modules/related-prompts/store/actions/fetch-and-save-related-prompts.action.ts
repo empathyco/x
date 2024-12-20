@@ -1,8 +1,40 @@
-import { RelatedPrompt, RelatedPromptsRequest } from '@empathyco/x-types';
-import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
-import { RelatedPromptsActionContext } from '../types';
+import { RelatedPromptsXStoreModule } from '../types';
 
-const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
+/**
+ * Default implementation for the {@link RelatedPromptsActions.fetchAndSaveRelatedPrompts}.
+ *
+ * @param _context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
+ * provided by Vuex.
+ * @param request - The related prompts request to make.
+ * @returns A Promise of a RelatedPromptsResponse when it fetches the results.
+ *
+ * @public
+ */
+// eslint-disable-next-line max-len
+export const fetchAndSaveRelatedPrompts: RelatedPromptsXStoreModule['actions']['fetchAndSaveRelatedPrompts'] =
+  ({ dispatch, commit }, request) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const { query } = request;
+    if (!query) {
+      return;
+    }
+    return dispatch('fetchRelatedPrompts', request)
+      .then(response => {
+        commit('setRelatedPromptsProducts', {
+          products: response ?? [],
+          query
+        });
+        commit('setStatus', 'success');
+      })
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error(error);
+        commit('setStatus', 'error');
+      });
+  };
+
+/*const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
   RelatedPromptsActionContext,
   RelatedPromptsRequest | null,
   RelatedPrompt[] | null
@@ -15,7 +47,7 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
       commit('setRelatedPromptsProducts', relatedPrompts);
     }
   }
-});
+});*/
 
 /**
  * Default implementation for
@@ -23,7 +55,7 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
  *
  * @public
  */
-export const fetchAndSaveRelatedPrompts = fetchAndSave;
+//export const fetchAndSaveRelatedPrompts = fetchAndSave;
 
 /**
  * Default implementation for
@@ -31,4 +63,4 @@ export const fetchAndSaveRelatedPrompts = fetchAndSave;
  *
  * @public
  */
-export const cancelFetchAndSaveRelatedPrompts = cancelPrevious;
+//export const cancelFetchAndSaveRelatedPrompts = cancelPrevious;

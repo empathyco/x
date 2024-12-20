@@ -1,14 +1,10 @@
 import {
   namespacedWireCommit,
-  namespacedWireCommitWithoutPayload,
-  namespacedWireDispatch,
-  namespacedWireDispatchWithoutPayload
+  namespacedWireDispatch
 } from '../../wiring/namespaced-wires.factory';
-import {
-  NamespacedWireCommit,
-  NamespacedWireCommitWithoutPayload
-} from '../../wiring/namespaced-wiring.types';
+import { NamespacedWireCommit } from '../../wiring/namespaced-wiring.types';
 import { createWiring } from '../../wiring/wiring.utils';
+import { wireCommitWithoutPayload } from '../../wiring/index';
 
 /**
  * `relatedPrompts` {@link XModuleName | XModule name}.
@@ -23,8 +19,8 @@ const wireCommit: NamespacedWireCommit<typeof moduleName> = namespacedWireCommit
 /**
  * WireCommitWithoutPayload for {@link RelatedPromptsXModule}.
  */
-const wireCommitWithoutPayload: NamespacedWireCommitWithoutPayload<typeof moduleName> =
-  namespacedWireCommitWithoutPayload(moduleName);
+/*const wireCommitWithoutPayload: NamespacedWireCommitWithoutPayload<typeof moduleName> =
+  namespacedWireCommitWithoutPayload(moduleName);*/
 
 /**
  * WireDispatch for {@link RelatedPromptsXModule}.
@@ -34,12 +30,17 @@ const wireDispatch = namespacedWireDispatch(moduleName);
 /**
  * WireDispatchWithoutPayload for {@link RelatedPromptsXModule}.
  */
-const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
+//const wireDispatchWithoutPayload = namespacedWireDispatchWithoutPayload(moduleName);
 
 /**
  * Sets the related prompts state `query`.
  */
 const setRelatedPromptsQuery = wireCommit('setQuery');
+
+/**
+ * Resets the related prompts state `query`.
+ */
+const resetRelatedPromptsQueryWire = wireCommit('setQuery', '');
 
 /**
  * Sets the related prompts state `selectedPrompt`.
@@ -49,7 +50,7 @@ const setSelectedPromptWire = wireCommit('setSelectedPrompt');
 /**
  * Sets the related prompts state `selectedQuery`.
  */
-const setSelectedQueryWire = wireCommit('setSelectedQuery');
+//const setSelectedQueryWire = wireCommit('setSelectedQuery');
 
 /**
  * Sets the related prompts state `query` from url params.
@@ -72,7 +73,7 @@ const resetRelatedPromptsStateWire = wireCommitWithoutPayload('resetRelatedPromp
 /**
  * Resets the selected related prompt number.
  */
-const resetSelectedPromptWire = wireCommitWithoutPayload('resetSelectedPrompt');
+//const resetSelectedPromptWire = wireCommitWithoutPayload('resetSelectedPrompt');
 
 /**
  * Fetches and saves the related prompts response.
@@ -82,9 +83,9 @@ const fetchAndSaveRelatedPromptsResponseWire = wireDispatch('fetchAndSaveRelated
 /**
  * Cancels the fetch and save related prompts response.
  */
-const cancelFetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
+/*const cancelFetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
   'cancelFetchAndSaveRelatedPrompts'
-);
+);*/
 
 /**
  * Wiring configuration for the {@link RelatedPromptsXModule | related prompts module}.
@@ -99,9 +100,9 @@ export const relatedPromptsWiring = createWiring({
     setRelatedPromptsQuery
   },
   UserClearedQuery: {
-    cancelFetchAndSaveSearchResponseWire,
+    //cancelFetchAndSaveSearchResponseWire,
     resetRelatedPromptsStateWire,
-    setRelatedPromptsQuery
+    resetRelatedPromptsQueryWire
   },
   RelatedPromptsRequestUpdated: {
     fetchAndSaveRelatedPromptsResponseWire
@@ -111,8 +112,8 @@ export const relatedPromptsWiring = createWiring({
   },
   UserSelectedARelatedPrompt: {
     setSelectedPromptWire
-  },
-  UserSelectedARelatedPromptQuery: {
+  }
+  /*UserSelectedARelatedPromptQuery: {
     setSelectedQueryWire
   },
   UserAcceptedAQueryPreview: {
@@ -120,5 +121,5 @@ export const relatedPromptsWiring = createWiring({
   },
   SearchRequestChanged: {
     resetSelectedPromptWire
-  }
+  }*/
 });

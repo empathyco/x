@@ -61,13 +61,17 @@
       index: {
         type: Number,
         required: true
+      },
+      query: {
+        type: String,
+        required: true
       }
     },
-    setup() {
+    setup(props) {
       const x = use$x();
 
       const toggleSuggestion = (index: number): void => {
-        x.emit('UserSelectedARelatedPrompt', index);
+        x.emit('UserSelectedARelatedPrompt', { index, query: props.query });
       };
 
       return {

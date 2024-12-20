@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { computed, ComputedRef, defineComponent, h, inject, provide, Ref } from 'vue';
+  import { computed, ComputedRef, defineComponent, h, inject, provide, ref, Ref, watch } from 'vue';
   import { RelatedPrompt } from '@empathyco/x-types';
+  import { Dictionary } from '@empathyco/x-utils';
   import { AnimationProp } from '../../../types/animation-prop';
   import { groupItemsBy } from '../../../utils/array';
   import ItemsList from '../../../components/items-list.vue';
@@ -13,6 +14,7 @@
   import { relatedPromptsXModule } from '../x-module';
   import { useState } from '../../../composables/use-state';
   import { RelatedPromptsGroup } from '../types';
+  import { RelatedPromptsItems } from '../store/index';
 
   /**
    * Component that inserts groups of related prompts in different positions of the injected search
@@ -74,14 +76,27 @@
       /**
        * The state related prompts.
        */
-      const relatedPrompts: ComputedRef<RelatedPrompt[]> = useState('relatedPrompts', [
-        'relatedPrompts'
-      ]).relatedPrompts;
+      const relatedPrompts: ComputedRef<Dictionary<RelatedPromptsItems>> = useState(
+        'relatedPrompts',
+        ['relatedPrompts']
+      ).relatedPrompts;
 
       /**
        * Injected query, updated when the related request(s) have succeeded.
        */
       const injectedQuery = inject<Ref<string | undefined>>(QUERY_KEY as string);
+
+      const relatedPromptsProducts: Ref<RelatedPrompt[]> = ref([]);
+
+      watch(
+        relatedPrompts,
+        () => {
+          if (relatedPrompts.value[query.value]) {
+            relatedPromptsProducts.value = relatedPrompts.value[query.value].relatedPromptsProducts;
+          }
+        },
+        { deep: true }
+      );
 
       /**
        * Indicates if there are more available results than the injected.
@@ -93,9 +108,9 @@
        *
        * @returns A list of related prompts groups.
        */
-      const relatedPromptsGroups = computed<RelatedPromptsGroup[]>(() =>
-        Object.values(
-          groupItemsBy(relatedPrompts.value, (_, index) =>
+      const relatedPromptsGroups = computed<RelatedPromptsGroup[]>(() => {
+        return Object.values(
+          groupItemsBy(relatedPromptsProducts.value, (_, index) =>
             Math.floor(index / props.maxRelatedPromptsPerGroup)
           )
         )
@@ -104,8 +119,8 @@
             modelName: 'RelatedPromptsGroup' as const,
             id: `related-prompts-group-${index}`,
             relatedPrompts
-          }))
-      );
+          }));
+      });
 
       /**
        * It injects {@link ListItem} provided by an ancestor as injectedListItems.

@@ -388,46 +388,11 @@
                             </NextQueryPreview>
                           </template>
 
-                          <template #related-prompts-group="{ item: { relatedPrompts } }">
-                            <RelatedPrompt
-                              class="x-bg-neutral-10 x-flex x-flex-col x-gap-16 x-pt-24"
-                              :relatedPrompt="relatedPrompts[0]"
-                              nextQueryButtonClass="x-button-lead x-button-sm x-button-outlined"
-                            >
-                              <template #header="{ suggestionText }">
-                                <h2 class="x-title2">{{ suggestionText }}</h2>
-                              </template>
-                              <template #selected-query="{ selectedQuery }">
-                                <QueryPreview
-                                  :queryPreviewInfo="{ query: selectedQuery }"
-                                  #default="{ totalResults, results }"
-                                >
-                                  <SlidingPanel>
-                                    <template #header>
-                                      <QueryPreviewButton
-                                        :queryPreviewInfo="{ query: selectedQuery }"
-                                        class="x-button x-button-lead x-button-tight x-title3 x-title3-sm desktop:x-title3-md"
-                                      >
-                                        {{ selectedQuery }}
-                                        ({{ totalResults }})
-                                        <ArrowRightIcon class="x-icon-lg" />
-                                      </QueryPreviewButton>
-                                    </template>
-
-                                    <div
-                                      class="x-transform-style-3d x-flex x-gap-16 x-pr-8 x-pt-8 desktop:x-pt-16"
-                                    >
-                                      <Result
-                                        v-for="result in results"
-                                        :key="result.id"
-                                        :result="result"
-                                        class="x-w-[calc(38vw-16px)] x-min-w-[142px] desktop:x-w-[216px]"
-                                      />
-                                    </div>
-                                  </SlidingPanel>
-                                </QueryPreview>
-                              </template>
-                            </RelatedPrompt>
+                          <template #related-prompts-group>
+                            <RelatedPromptsTagList
+                              :button-class="'x-button-lead x-button-circle x-button-ghost x-p-0'"
+                              class="-x-mb-1 x-mt-24 desktop:x-mt-0 x-p-0"
+                            />
                           </template>
                         </BaseVariableColumnGrid>
                       </RelatedPromptsList>
@@ -589,8 +554,7 @@
   import QueryPreviewButton from '../../x-modules/queries-preview/components/query-preview-button.vue';
   import DisplayEmitter from '../../components/display-emitter.vue';
   import RelatedPromptsList from '../../x-modules/related-prompts/components/related-prompts-list.vue';
-  import RelatedPrompt from '../../x-modules/related-prompts/components/related-prompt.vue';
-  import QueryPreview from '../../x-modules/queries-preview/components/query-preview.vue';
+  import RelatedPromptsTagList from '../../x-modules/related-prompts/components/related-prompts-tag-list.vue';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -602,6 +566,7 @@
       infiniteScroll
     },
     components: {
+      RelatedPromptsTagList,
       Aside,
       AutoProgressBar,
       Banner,
@@ -631,7 +596,6 @@
       NextQuery,
       NextQueryPreview,
       RelatedPromptsList,
-      RelatedPrompt,
       OpenMainModal,
       PartialQueryButton,
       PartialResultsList,
@@ -639,7 +603,6 @@
       PreselectedFilters,
       Promoted,
       PromotedsList,
-      QueryPreview,
       QueryPreviewButton,
       QueryPreviewList,
       Recommendations,

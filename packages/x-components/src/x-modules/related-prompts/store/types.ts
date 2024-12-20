@@ -5,17 +5,26 @@ import { StatusMutations, StatusState } from '../../../store/utils/status-store.
 import { XActionContext, XStoreModule } from '../../../store';
 
 /**
+ * Related prompts of a specific query.
+ *
+ * @public
+ */
+export interface RelatedPromptsItems {
+  relatedPromptsProducts: RelatedPrompt[];
+  /** The index of the selected related-prompt. */
+  selectedPrompt: number;
+  /** The index of the selected next query. */
+  selectedQuery: number;
+}
+
+/**
  * Related prompts module state.
  *
  * @public
  */
 export interface RelatedPromptsState extends StatusState, QueryState {
   /** The list of the related-prompts, related to the `query` property of the state. */
-  relatedPrompts: RelatedPrompt[];
-  /** The index of the selected related-prompt. */
-  selectedPrompt: number;
-  /** The index of the selected next query. */
-  selectedQuery: number;
+  relatedPrompts: Dictionary<RelatedPromptsItems>;
   /** The extra params property of the state. */
   params: Dictionary<unknown>;
 }
@@ -48,21 +57,22 @@ export interface RelatedPromptsMutations extends StatusMutations, QueryMutations
   /**
    * Sets the related prompts of the module.
    *
-   * @param products - The new related prompts to save to the state.
+   * @param payload - An object with the new related prompts to save to the state
+   * and the query of the request.
    */
-  setRelatedPromptsProducts(products: RelatedPrompt[]): void;
+  setRelatedPromptsProducts(payload: { products: RelatedPrompt[]; query: string }): void;
   /**
    * Sets the selected related prompt.
    *
-   * @param index - The new selected related prompt.
+   * @param payload - The new selected related prompt.
    */
-  setSelectedPrompt(index: number): void;
+  setSelectedPrompt(payload: { index: number; query: string }): void;
   /**
    * Sets the selected next query.
    *
    * @param index - The new selected next query.
    */
-  setSelectedQuery(index: number): void;
+  // setSelectedQuery(index: number): void;
   /**
    * Resets the related prompts state.
    */
@@ -70,7 +80,7 @@ export interface RelatedPromptsMutations extends StatusMutations, QueryMutations
   /**
    * Resets the selected related prompt number.
    */
-  resetSelectedPrompt(): void;
+  //resetSelectedPrompt(): void;
 }
 
 /**
@@ -95,7 +105,7 @@ export interface RelatedPromptsActions {
    * Cancels / interrupt {@link RelatedPromptsActions.fetchAndSaveRelatedPrompts}
    * synchronous promise.
    */
-  cancelFetchAndSaveRelatedPrompts(): void;
+  //cancelFetchAndSaveRelatedPrompts(): void;
 }
 
 /**

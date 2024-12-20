@@ -36,13 +36,14 @@
           >
             <slot
               name="related-prompt-button"
-              v-bind="{ suggestion, index, arePromptsVisible, isSelected }"
+              v-bind="{ suggestion, index, arePromptsVisible, isSelected, relatedPromptQuery }"
             >
               <RelatedPrompt
                 :related-prompt="suggestion"
                 :index="index"
                 :is-prompt-visible="arePromptsVisible"
                 :is-selected="isSelected(index)"
+                :query="relatedPromptQuery"
               />
             </slot>
           </div>
@@ -56,10 +57,10 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, onMounted, onUnmounted, ref } from 'vue';
+  import { computed, defineComponent, onMounted, onUnmounted, ref } from 'vue';
   import SlidingPanel from '../../../components/sliding-panel.vue';
   import { relatedPromptsXModule } from '../x-module';
-  import { useState } from '../../../composables/index';
+  import { use$x, useState } from '../../../composables/index';
   import RelatedPrompt from './related-prompt.vue';
 
   export default defineComponent({
@@ -67,13 +68,23 @@
     xModule: relatedPromptsXModule.name,
     components: { RelatedPrompt, SlidingPanel },
     props: {
-      buttonClass: String
+      buttonClass: String,
+      query: String
     },
-    setup() {
-      const { relatedPrompts, selectedPrompt } = useState('relatedPrompts', [
-        'relatedPrompts',
-        'selectedPrompt'
-      ]);
+    setup(props) {
+      const x = use$x();
+
+      const relatedPromptQuery = computed(() => props.query ?? x.query.searchBox);
+
+      const queryRelatedPrompts = useState('relatedPrompts', ['relatedPrompts']).relatedPrompts;
+
+      const relatedPrompts = computed(
+        () => queryRelatedPrompts.value[relatedPromptQuery.value].relatedPromptsProducts
+      );
+
+      const selectedPrompt = computed(
+        () => queryRelatedPrompts.value[relatedPromptQuery.value].selectedPrompt
+      );
 
       const slidingPanelContent = ref<Element>();
       const arePromptsVisible = ref(false);
@@ -101,7 +112,8 @@
         isSelected,
         relatedPrompts,
         selectedPrompt,
-        slidingPanelContent
+        slidingPanelContent,
+        relatedPromptQuery
       };
     }
   });
