@@ -35,7 +35,11 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
       state.relatedPrompts = products;
     },
     setSelectedPrompt(state, selectedPrompt) {
-      state.selectedPrompt = selectedPrompt;
+      if (state.selectedPrompt === selectedPrompt) {
+        state.selectedPrompt = -1;
+      } else {
+        state.selectedPrompt = selectedPrompt;
+      }
     },
     setSelectedQuery(state, selectedQuery) {
       state.selectedQuery = selectedQuery;
@@ -44,6 +48,9 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
       state.selectedQuery = -1;
       state.selectedPrompt = -1;
       state.relatedPrompts = [];
+    },
+    resetSelectedPrompt(state) {
+      state.selectedPrompt = -1;
     }
   },
   actions: {
