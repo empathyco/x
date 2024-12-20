@@ -6,14 +6,14 @@ jobs:
     steps:
       # Use GitHub App token as a workaround to allow bypassing branch-protection rules
       # https://github.com/orgs/community/discussions/13836#discussioncomment-8535364
-      - uses: actions/create-github-app-token@v1
+      - uses: actions/create-github-app-token@c1a285145b9d317df6ced56c09f525b5c2b6f755 # v1
         id: app-token
         with:
           app-id: ${{ vars.GH_TOKENS_APP_ID }}
           private-key: ${{ secrets.GH_TOKENS_APP_PRIVATE_KEY }}
 
       - name: Checkout X mono-repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
@@ -23,7 +23,7 @@ jobs:
         with:
           path: packages/x-components
       - name: Get branch name
-        uses: nelonoel/branch-name@v1.0.1
+        uses: nelonoel/branch-name@1ea5c86cb559a8c4e623da7f188496208232e49f # v1.0.1
       - name: Trigger eDocs repository action
         run: |
           curl --request POST \
