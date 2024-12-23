@@ -82,7 +82,8 @@ export const rollupConfig: RollupOptions = {
     vue3({
       template: {
         compilerOptions: {
-          whitespace: 'condense'
+          whitespace: 'condense',
+          comments: false
         }
       }
     }) as Plugin,
