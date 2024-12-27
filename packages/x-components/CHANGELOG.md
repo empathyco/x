@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.23...@empathyco/x-components@6.0.0-alpha.24) (2024-12-19)
+
+
+### Bug Fixes
+
+* **types:** update installExtraPlugins to support Promise return type ([99d0620](https://github.com/empathyco/x/commit/99d0620d7017167441d63805d29446778432d60b))
+
+
+
+## [6.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.22...@empathyco/x-components@6.0.0-alpha.23) (2024-12-12)
+
+
+### Bug Fixes
+
+* **components:** export missing store utils (#1677) ([a1f9cee](https://github.com/empathyco/x/commit/a1f9cee4b2006a71689fc2ce7f07f12816fbb574))
+
+
+
+## [6.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.21...@empathyco/x-components@6.0.0-alpha.22) (2024-12-09)
+
+
+### Bug Fixes
+
+* fix ref usage ([12d5a05](https://github.com/empathyco/x/commit/12d5a053b55d8a4f09b6e396f16a9ce1877c0774))
+
+
+
+## [6.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.20...@empathyco/x-components@6.0.0-alpha.21) (2024-12-09)
+
+
+### Features
+
+* **x-installer:** extend domElement type to allow  ShadowRoot ([900eb9c](https://github.com/empathyco/x/commit/900eb9c0c9bce7b48897b86ca11e4f1ec82d783b))
+
+
+
 ## [6.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.19...@empathyco/x-components@6.0.0-alpha.20) (2024-11-25)
 
 
