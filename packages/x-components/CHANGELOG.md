@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.24...@empathyco/x-components@6.0.0-alpha.25) (2025-01-06)
+
+
+### Continuous Integration
+
+* remove template comments from build ([443d277](https://github.com/empathyco/x/commit/443d27761bc2c024931245d9e6a7b26766101ed7))
+
+
+
 ## [6.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.23...@empathyco/x-components@6.0.0-alpha.24) (2024-12-19)
 
 
