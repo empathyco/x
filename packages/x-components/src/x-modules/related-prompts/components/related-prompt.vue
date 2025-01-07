@@ -4,6 +4,9 @@
     @keydown="toggleSuggestion(index)"
     class="x-related-prompt__button"
     :class="[{ 'x-related-prompt-selected__button': isSelected }]"
+    role="button"
+    aria-pressed="true"
+    tabindex="0"
   >
     <slot name="related-prompt-button-info">
       <div class="x-related-prompt__button-info">
