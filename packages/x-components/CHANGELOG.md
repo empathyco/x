@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.25...@empathyco/x-components@6.0.0-alpha.26) (2025-01-07)
+
+
+### Code Refactoring
+
+* **store:** deprecate useStore in favor of vuex's useStore ([de4fecf](https://github.com/empathyco/x/commit/de4fecfa6dcfd9f0d408d34a60d4bdd00dffce99))
+
+
+
 ## [6.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.24...@empathyco/x-components@6.0.0-alpha.25) (2025-01-06)
 
 
