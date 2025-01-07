@@ -6,7 +6,7 @@
     :class="[{ 'x-related-prompt-selected__button': isSelected }]"
   >
     <slot name="related-prompt-button-info">
-      <div class="x-related-prompt__button-info">
+      <div class="x-related-prompt__button-info" role="button" aria-pressed="true">
         <span
           class="x-typewritter-initial"
           :class="[{ 'x-typewritter-animation': isPromptVisible }]"
