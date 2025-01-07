@@ -12,7 +12,7 @@ joyful search UI. Interface X is used within some of the most beautiful commerce
 out there, e.g. [Primor.eu](https://www.primor.eu/es_es/?query=brocha),
 [Carrefour.es](https://www.carrefour.es/?q=queso),
 [Tous.es](https://www.tous.com/es-es/?query=anillo), and
-[Toysrus.es](https://www.toysrus.es/LEGO/c/LEGO?filter=availability%3Atrue&query=juego%20de%20mesa).
+[Casadellibro.es](https://www.casadellibro.com/?query=novela).
 
 Interface X is a library of standalone, configurable building blocks (available as Vue.js based
 X&nbsp;Components) that allow you to quickly construct the search UI for your shop. You can create a
