@@ -1,7 +1,7 @@
 <template>
   <div
-    @click="toggleSuggestion(index)"
-    @keydown="toggleSuggestion(index)"
+    @click="toggleSuggestion(promptId)"
+    @keydown="toggleSuggestion(promptId)"
     class="x-related-prompt__button"
     :class="[{ 'x-related-prompt-selected__button': isSelected }]"
   >
@@ -24,12 +24,13 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
+  import { computed, defineComponent, PropType, inject, isRef, Ref } from 'vue';
   import { RelatedPrompt } from '@empathyco/x-types';
   import { relatedPromptsXModule } from '../x-module';
   import CrossTinyIcon from '../../../components/icons/cross-tiny.vue';
   import PlusIcon from '../../../components/icons/plus.vue';
-  import { use$x } from '../../../composables/index';
+  import { use$x, useState } from '../../../composables/index';
+  import { FeatureLocation } from '../../../types/index';
 
   /**
    * This component shows a suggested related prompt.
@@ -58,8 +59,8 @@
         type: Boolean,
         default: false
       },
-      index: {
-        type: Number,
+      promptId: {
+        type: String,
         required: true
       },
       query: {
@@ -70,12 +71,27 @@
     setup(props) {
       const x = use$x();
 
-      const toggleSuggestion = (index: number): void => {
-        x.emit('UserSelectedARelatedPrompt', { index, query: props.query });
+      const queryRelatedPrompts = useState('relatedPrompts', ['relatedPrompts']).relatedPrompts;
+
+      const relatedPrompts = computed(
+        (): RelatedPrompt[] => queryRelatedPrompts.value[props.query]?.relatedPromptsProducts
+      );
+
+      const index = relatedPrompts.value.findIndex(
+        relatedPrompt => relatedPrompt.id === props.promptId
+      );
+
+      const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location');
+      const location = isRef(injectedLocation) ? injectedLocation.value : injectedLocation;
+
+      const toggleSuggestion = (promptId: string): void => {
+        x.emit('UserSelectedARelatedPrompt', { promptId, query: props.query });
+        x.emit('RelatedPromptsLocation', { location, query: props.query });
       };
 
       return {
-        toggleSuggestion
+        toggleSuggestion,
+        index
       };
     }
   });

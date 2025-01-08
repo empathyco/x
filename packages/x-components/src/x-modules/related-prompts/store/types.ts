@@ -11,10 +11,10 @@ import { XActionContext, XStoreModule } from '../../../store';
  */
 export interface RelatedPromptsItems {
   relatedPromptsProducts: RelatedPrompt[];
-  /** The index of the selected related-prompt. */
-  selectedPrompt: number;
-  /** The index of the selected next query. */
-  selectedQuery: number;
+  /** The id of the selected related-prompt. */
+  selectedPrompt: string;
+  /** A flag to manage if related-prompts should replace the results grid. */
+  replaceGrid: boolean;
 }
 
 /**
@@ -34,13 +34,7 @@ export interface RelatedPromptsState extends StatusState, QueryState {
  *
  * @public
  */
-export interface RelatedPromptsGetters {
-  /**
-   * Request object to retrieve the related prompts using the search adapter, or null if there is
-   * no valid data to conform a valid request.
-   */
-  request: RelatedPromptsRequest | null;
-}
+export interface RelatedPromptsGetters {}
 
 /**
  * Related prompts module mutations.
@@ -66,21 +60,11 @@ export interface RelatedPromptsMutations extends StatusMutations, QueryMutations
    *
    * @param payload - The new selected related prompt.
    */
-  setSelectedPrompt(payload: { index: number; query: string }): void;
-  /**
-   * Sets the selected next query.
-   *
-   * @param index - The new selected next query.
-   */
-  // setSelectedQuery(index: number): void;
+  setSelectedPrompt(payload: { promptId: string; query: string }): void;
   /**
    * Resets the related prompts state.
    */
   resetRelatedPromptsState(): void;
-  /**
-   * Resets the selected related prompt number.
-   */
-  //resetSelectedPrompt(): void;
 }
 
 /**
@@ -98,14 +82,9 @@ export interface RelatedPromptsActions {
   /**
    * Requests a new set of related prompts and stores them in the module.
    *
-   * @param request - The related prompts request.
+   * @param query - The related prompts request.
    */
-  fetchAndSaveRelatedPrompts(request: RelatedPromptsRequest | null): void;
-  /**
-   * Cancels / interrupt {@link RelatedPromptsActions.fetchAndSaveRelatedPrompts}
-   * synchronous promise.
-   */
-  //cancelFetchAndSaveRelatedPrompts(): void;
+  fetchAndSaveRelatedPrompts(query: string): void;
 }
 
 /**

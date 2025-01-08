@@ -1,3 +1,4 @@
+import { RelatedPromptsRequest } from '@empathyco/x-types';
 import { RelatedPromptsXStoreModule } from '../types';
 
 /**
@@ -5,20 +6,25 @@ import { RelatedPromptsXStoreModule } from '../types';
  *
  * @param _context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
  * provided by Vuex.
- * @param request - The related prompts request to make.
+ * @param query - The query to add to the related prompts request to make.
  * @returns A Promise of a RelatedPromptsResponse when it fetches the results.
  *
  * @public
  */
 // eslint-disable-next-line max-len
 export const fetchAndSaveRelatedPrompts: RelatedPromptsXStoreModule['actions']['fetchAndSaveRelatedPrompts'] =
-  ({ dispatch, commit }, request) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const { query } = request;
+  ({ dispatch, commit, state }, query) => {
     if (!query) {
       return;
     }
+
+    const request: RelatedPromptsRequest = {
+      query,
+      extraParams: {
+        ...state.params
+      }
+    };
+
     return dispatch('fetchRelatedPrompts', request)
       .then(response => {
         commit('setRelatedPromptsProducts', {
@@ -33,34 +39,3 @@ export const fetchAndSaveRelatedPrompts: RelatedPromptsXStoreModule['actions']['
         commit('setStatus', 'error');
       });
   };
-
-/*const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
-  RelatedPromptsActionContext,
-  RelatedPromptsRequest | null,
-  RelatedPrompt[] | null
->({
-  fetch({ dispatch }, request) {
-    return dispatch('fetchRelatedPrompts', request);
-  },
-  onSuccess({ commit }, relatedPrompts) {
-    if (relatedPrompts) {
-      commit('setRelatedPromptsProducts', relatedPrompts);
-    }
-  }
-});*/
-
-/**
- * Default implementation for
- * {@link RelatedPromptsActions.fetchAndSaveRelatedPrompts} action.
- *
- * @public
- */
-//export const fetchAndSaveRelatedPrompts = fetchAndSave;
-
-/**
- * Default implementation for
- * {@link RelatedPromptsActions.cancelFetchAndSaveRelatedPrompts} action.
- *
- * @public
- */
-//export const cancelFetchAndSaveRelatedPrompts = cancelPrevious;

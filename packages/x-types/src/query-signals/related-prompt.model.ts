@@ -12,4 +12,6 @@ export interface RelatedPrompt extends NamedModel<'RelatedPrompt'> {
   suggestionText: string;
   /** The type of the prompt. */
   type: string;
+  /** The id of the prompt. */
+  id: string;
 }

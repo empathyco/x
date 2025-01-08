@@ -11,5 +11,6 @@ export const relatedPromptSchema = createMutableSchema<PlatformRelatedPrompt, Re
   modelName: () => 'RelatedPrompt',
   nextQueries: 'nextQueries',
   suggestionText: 'suggestionText',
-  type: 'type'
+  type: 'type',
+  id: 'uuid'
 });

@@ -7,7 +7,7 @@
       :reset-on-content-change="true"
       :button-class="buttonClass"
       :scroll-container-class="
-        selectedPrompt === -1 ? 'desktop:x-sliding-panel-fade desktop:x-sliding-panel-fade-sm' : ''
+        selectedPrompt === '' ? 'desktop:x-sliding-panel-fade desktop:x-sliding-panel-fade-sm' : ''
       "
     >
       <template #sliding-panel-left-button>
@@ -22,27 +22,27 @@
         >
           <div
             v-for="(suggestion, index) in relatedPrompts"
-            :key="index"
+            :key="suggestion.id"
             :style="{
               animationDelay: `${index * 0.4 + 0.05}s`
             }"
             class="x-related-prompt x-staggered-initial"
             :class="[
               { 'x-staggered-animation': arePromptsVisible },
-              { 'x-hidden': hidePrompt(index) },
-              { 'x-related-prompt-selected': isSelected(index) }
+              { 'x-hidden': hidePrompt(suggestion.id) },
+              { 'x-related-prompt-selected': isSelected(suggestion.id) }
             ]"
             data-test="related-prompt-item"
           >
             <slot
               name="related-prompt-button"
-              v-bind="{ suggestion, index, arePromptsVisible, isSelected, relatedPromptQuery }"
+              v-bind="{ suggestion, arePromptsVisible, isSelected, relatedPromptQuery }"
             >
               <RelatedPrompt
                 :related-prompt="suggestion"
-                :index="index"
+                :promptId="suggestion.id"
                 :is-prompt-visible="arePromptsVisible"
-                :is-selected="isSelected(index)"
+                :is-selected="isSelected(suggestion.id)"
                 :query="relatedPromptQuery"
               />
             </slot>
@@ -74,16 +74,16 @@
     setup(props) {
       const x = use$x();
 
-      const relatedPromptQuery = computed(() => props.query ?? x.query.searchBox);
+      const relatedPromptQuery = computed(() => props.query ?? x.query.search);
 
       const queryRelatedPrompts = useState('relatedPrompts', ['relatedPrompts']).relatedPrompts;
 
       const relatedPrompts = computed(
-        () => queryRelatedPrompts.value[relatedPromptQuery.value].relatedPromptsProducts
+        () => queryRelatedPrompts.value[relatedPromptQuery.value]?.relatedPromptsProducts
       );
 
       const selectedPrompt = computed(
-        () => queryRelatedPrompts.value[relatedPromptQuery.value].selectedPrompt
+        () => queryRelatedPrompts.value[relatedPromptQuery.value]?.selectedPrompt
       );
 
       const slidingPanelContent = ref<Element>();
@@ -101,10 +101,10 @@
         observer.disconnect();
       });
 
-      const isSelected = (index: number): boolean => selectedPrompt.value === index;
+      const isSelected = (id: string): boolean => selectedPrompt.value === id;
 
-      const hidePrompt = (index: number): boolean =>
-        selectedPrompt.value !== -1 && selectedPrompt.value !== index;
+      const hidePrompt = (id: string): boolean =>
+        selectedPrompt.value !== '' && selectedPrompt.value !== id;
 
       return {
         arePromptsVisible,

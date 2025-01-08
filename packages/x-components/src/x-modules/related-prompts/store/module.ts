@@ -3,7 +3,6 @@ import { setQuery } from '../../../store/utils/query.utils';
 import { RelatedPromptsXStoreModule } from './types';
 import { fetchAndSaveRelatedPrompts } from './actions/fetch-and-save-related-prompts.action';
 import { fetchRelatedPrompts } from './actions/fetch-related-prompts.action';
-import { request } from './getters/request.getter';
 
 /**
  * {@link XStoreModule} For the related prompt module.
@@ -17,9 +16,7 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     status: 'initial',
     params: {}
   }),
-  getters: {
-    request
-  },
+  getters: {},
   mutations: {
     setStatus,
     setQuery,
@@ -29,26 +26,20 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     setRelatedPromptsProducts(state, { products, query }) {
       state.relatedPrompts[query] = {
         relatedPromptsProducts: products,
-        selectedPrompt: -1,
-        selectedQuery: -1
+        selectedPrompt: '',
+        replaceGrid: false
       };
     },
-    setSelectedPrompt(state, { index, query }) {
-      if (state.relatedPrompts[query].selectedPrompt === index) {
-        state.relatedPrompts[query].selectedPrompt = -1;
+    setSelectedPrompt(state, { promptId, query }) {
+      if (state.relatedPrompts[query].selectedPrompt === promptId) {
+        state.relatedPrompts[query].selectedPrompt = '';
       } else {
-        state.relatedPrompts[query].selectedPrompt = index;
+        state.relatedPrompts[query].selectedPrompt = promptId;
       }
     },
-    /* setSelectedQuery(state, selectedQuery) {
-      state.selectedQuery = selectedQuery;
-    },*/
     resetRelatedPromptsState(state) {
       state.relatedPrompts = {};
-    } /*
-    resetSelectedPrompt(state) {
-      state.relatedPrompts = {};
-    }*/
+    }
   },
   actions: {
     fetchRelatedPrompts,

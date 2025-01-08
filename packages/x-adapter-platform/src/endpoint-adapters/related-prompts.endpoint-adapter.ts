@@ -20,6 +20,7 @@ export const relatedPromptsEndpointAdapter = endpointAdapterFactory<
   responseMapper: relatedPromptsResponseMapper,
   defaultRequestOptions: {
     id: 'related-prompts',
+    cancelable: false,
     parameters: {
       internal: true
     }

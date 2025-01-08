@@ -15,6 +15,7 @@
   import { useState } from '../../../composables/use-state';
   import { RelatedPromptsGroup } from '../types';
   import { RelatedPromptsItems } from '../store/index';
+  import { use$x } from '../../../composables/index';
 
   /**
    * Component that inserts groups of related prompts in different positions of the injected search
@@ -68,9 +69,11 @@
       showOnlyAfterOffset: {
         type: Boolean,
         default: false
-      }
+      },
+      customQuery: String
     },
     setup(props, { slots }) {
+      const x = use$x();
       const { query, status } = useState('relatedPrompts', ['query', 'status']);
 
       /**
@@ -89,10 +92,20 @@
       const relatedPromptsProducts: Ref<RelatedPrompt[]> = ref([]);
 
       watch(
+        () => props.customQuery,
+        () => {
+          if (props.customQuery || props.customQuery !== '') {
+            x.emit('RelatedPromptsCustomQueryProvider', props.customQuery);
+          }
+        }
+      );
+
+      watch(
         relatedPrompts,
         () => {
-          if (relatedPrompts.value[query.value]) {
-            relatedPromptsProducts.value = relatedPrompts.value[query.value].relatedPromptsProducts;
+          if (relatedPrompts.value[props.customQuery ?? query.value]) {
+            relatedPromptsProducts.value =
+              relatedPrompts.value[props.customQuery ?? query.value].relatedPromptsProducts;
           }
         },
         { deep: true }
@@ -133,9 +146,7 @@
        * @returns True if the related prompts are outdated, false if not.
        */
       const relatedPromptsAreOutdated = computed(
-        () =>
-          !!injectedQuery?.value &&
-          (query.value !== injectedQuery.value || status.value !== 'success')
+        () => !!injectedQuery?.value && status.value !== 'success'
       );
 
       /**
