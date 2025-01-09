@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.26...@empathyco/x-components@6.0.0-alpha.27) (2025-01-09)
+
+
+### Features
+
+* add related prompts list component (#1680) ([8011a96](https://github.com/empathyco/x/commit/8011a967528f6fa33af41aca45971cb9f30d6a8f))
+
+
+
 ## [6.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.25...@empathyco/x-components@6.0.0-alpha.26) (2025-01-07)
 
 
