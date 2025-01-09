@@ -596,7 +596,6 @@
       infiniteScroll
     },
     components: {
-      RelatedPromptsTagList,
       Aside,
       AutoProgressBar,
       ArrowRightIcon,

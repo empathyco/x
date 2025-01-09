@@ -59,11 +59,6 @@ const setRelatedPromptsExtraParams = wireCommit('setParams');
 const resetRelatedPromptsStateWire = wireCommitWithoutPayload('resetRelatedPromptsState');
 
 /**
- * Resets the selected related prompt number.
- */
-const resetSelectedPromptWire = wireCommitWithoutPayload('resetSelectedPrompt');
-
-/**
  * Fetches and saves the related prompts response.
  */
 const fetchAndSaveRelatedPromptsResponseWire = wireDispatch('fetchAndSaveRelatedPrompts');

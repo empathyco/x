@@ -63,10 +63,6 @@ export interface RelatedPromptsMutations extends StatusMutations, QueryMutations
    * Resets the related prompts state.
    */
   resetRelatedPromptsState(): void;
-  /**
-   * Resets the selected related prompt number.
-   */
-  resetSelectedPrompt(): void;
 }
 
 /**
