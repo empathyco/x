@@ -1,34 +1,39 @@
-import { RelatedPrompt, RelatedPromptsRequest } from '@empathyco/x-types';
-import { createFetchAndSaveActions } from '../../../../store/utils/fetch-and-save-action.utils';
-import { RelatedPromptsActionContext } from '../types';
-
-const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
-  RelatedPromptsActionContext,
-  RelatedPromptsRequest | null,
-  RelatedPrompt[] | null
->({
-  fetch({ dispatch }, request) {
-    return dispatch('fetchRelatedPrompts', request);
-  },
-  onSuccess({ commit }, relatedPrompts) {
-    if (relatedPrompts) {
-      commit('setRelatedPromptsProducts', relatedPrompts);
-    }
-  }
-});
+import { RelatedPromptsRequest } from '@empathyco/x-types';
+import { RelatedPromptsXStoreModule } from '../types';
 
 /**
- * Default implementation for
- * {@link RelatedPromptsActions.fetchAndSaveRelatedPrompts} action.
+ * Default implementation for the {@link RelatedPromptsActions.fetchAndSaveRelatedPrompts}.
+ *
+ * @param _context - The {@link https://vuex.vuejs.org/guide/actions.html | context} of the actions,
+ * provided by Vuex.
+ * @param query - The query to add to the related prompts request to make.
+ * @returns A Promise of a RelatedPromptsResponse when it fetches the results.
  *
  * @public
  */
-export const fetchAndSaveRelatedPrompts = fetchAndSave;
+// eslint-disable-next-line max-len
+export const fetchAndSaveRelatedPrompts: RelatedPromptsXStoreModule['actions']['fetchAndSaveRelatedPrompts'] =
+  ({ dispatch, commit, state }, query) => {
+    const request: RelatedPromptsRequest = {
+      query,
+      extraParams: {
+        ...state.params
+      }
+    };
 
-/**
- * Default implementation for
- * {@link RelatedPromptsActions.cancelFetchAndSaveRelatedPrompts} action.
- *
- * @public
- */
-export const cancelFetchAndSaveRelatedPrompts = cancelPrevious;
+    return dispatch('fetchRelatedPrompts', request)
+      .then(response => {
+        if (response) {
+          commit('setRelatedPromptsProducts', {
+            products: response ?? [],
+            query
+          });
+          commit('setStatus', 'success');
+        }
+      })
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error(error);
+        commit('setStatus', 'error');
+      });
+  };

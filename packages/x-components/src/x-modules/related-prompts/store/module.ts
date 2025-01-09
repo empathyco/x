@@ -1,12 +1,8 @@
 import { setStatus } from '../../../store/utils/status-store.utils';
 import { setQuery } from '../../../store/utils/query.utils';
 import { RelatedPromptsXStoreModule } from './types';
-import {
-  cancelFetchAndSaveRelatedPrompts,
-  fetchAndSaveRelatedPrompts
-} from './actions/fetch-and-save-related-prompts.action';
+import { fetchAndSaveRelatedPrompts } from './actions/fetch-and-save-related-prompts.action';
 import { fetchRelatedPrompts } from './actions/fetch-related-prompts.action';
-import { request } from './getters/request.getter';
 
 /**
  * {@link XStoreModule} For the related prompt module.
@@ -16,46 +12,36 @@ import { request } from './getters/request.getter';
 export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
   state: () => ({
     query: '',
-    relatedPrompts: [],
-    selectedPrompt: -1,
-    selectedQuery: -1,
+    relatedPrompts: {},
     status: 'initial',
     params: {}
   }),
-  getters: {
-    request
-  },
+  getters: {},
   mutations: {
     setStatus,
     setQuery,
     setParams(state, params) {
       state.params = params;
     },
-    setRelatedPromptsProducts(state, products) {
-      state.relatedPrompts = products;
+    setRelatedPromptsProducts(state, { products, query }) {
+      state.relatedPrompts[query] = {
+        relatedPromptsProducts: products,
+        selectedPrompt: ''
+      };
     },
-    setSelectedPrompt(state, selectedPrompt) {
-      if (state.selectedPrompt === selectedPrompt) {
-        state.selectedPrompt = -1;
+    setSelectedPrompt(state, { promptId, query }) {
+      if (state.relatedPrompts[query].selectedPrompt === promptId) {
+        state.relatedPrompts[query].selectedPrompt = '';
       } else {
-        state.selectedPrompt = selectedPrompt;
+        state.relatedPrompts[query].selectedPrompt = promptId;
       }
     },
-    setSelectedQuery(state, selectedQuery) {
-      state.selectedQuery = selectedQuery;
-    },
     resetRelatedPromptsState(state) {
-      state.selectedQuery = -1;
-      state.selectedPrompt = -1;
-      state.relatedPrompts = [];
-    },
-    resetSelectedPrompt(state) {
-      state.selectedPrompt = -1;
+      state.relatedPrompts = {};
     }
   },
   actions: {
     fetchRelatedPrompts,
-    fetchAndSaveRelatedPrompts,
-    cancelFetchAndSaveRelatedPrompts
+    fetchAndSaveRelatedPrompts
   }
 };

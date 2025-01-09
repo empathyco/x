@@ -2,8 +2,8 @@ import { XPlugin } from '../../plugins/x-plugin';
 import { XModule } from '../x-modules.types';
 import { RelatedPromptsXStoreModule } from './store/types';
 import { relatedPromptsXStoreModule } from './store/module';
-import { relatedPromptsStoreEmitters } from './store/emitters';
 import { relatedPromptsWiring } from './wiring';
+import { relatedPromptsStoreEmitters } from './store/index';
 
 /**
  * RelatedPrompts {@link XModule} alias.

@@ -7,4 +7,5 @@ export interface PlatformRelatedPrompt {
   nextQueries: string[];
   suggestionText: string;
   type: 'SYNTHETIC' | 'CURATED';
+  uuid: string;
 }

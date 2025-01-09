@@ -183,42 +183,51 @@
         </template>
 
         <template #toolbar-body>
-          <div v-if="x.totalResults > 0" class="x-flex x-items-center x-gap-12">
-            <span class="x-text1">{{ x.totalResults }} Results</span>
-            <BaseColumnPickerList
-              @update:modelValue="col => (selectedColumns = col)"
-              :modelValue="selectedColumns"
-              class="x-gap-4"
-              :columns="columnPickerValues"
-            >
-              <template #default="{ column }">
-                <span v-if="column === 0">Auto</span>
-                <Grid2Col v-else-if="column === 2" />
-                <Grid4Col v-else-if="column === 4" />
-              </template>
+          <div class="x-flex x-flex-col">
+            <div v-if="x.totalResults > 0" class="x-flex x-items-center x-gap-12">
+              <span class="x-text1">{{ x.totalResults }} Results</span>
+              <BaseColumnPickerList
+                @update:modelValue="col => (selectedColumns = col)"
+                :modelValue="selectedColumns"
+                class="x-gap-4"
+                :columns="columnPickerValues"
+              >
+                <template #default="{ column }">
+                  <span v-if="column === 0">Auto</span>
+                  <Grid2Col v-else-if="column === 2" />
+                  <Grid4Col v-else-if="column === 4" />
+                </template>
 
-              <template #divider>
-                <span class="x-button-group-divider"></span>
-              </template>
-            </BaseColumnPickerList>
-            <SortPickerList
-              :items="sortValues"
-              class="x-button-group"
-              buttonClass="x-button x-button-outlined"
-              #default="{ item }"
-            >
-              {{ item || 'default' }}
-            </SortPickerList>
+                <template #divider>
+                  <span class="x-button-group-divider"></span>
+                </template>
+              </BaseColumnPickerList>
+              <SortPickerList
+                :items="sortValues"
+                class="x-button-group"
+                buttonClass="x-button x-button-outlined"
+                #default="{ item }"
+              >
+                {{ item || 'default' }}
+              </SortPickerList>
 
-            <RenderlessExtraParams #default="{ value, updateValue }" name="store">
-              <BaseDropdown
-                @update:modelValue="updateValue"
-                :modelValue="value"
-                :items="stores"
-                class="x-dropdown x-dropdown--round x-dropdown--right x-dropdown--l"
-                data-test="store-selector"
+              <RenderlessExtraParams #default="{ value, updateValue }" name="store">
+                <BaseDropdown
+                  @update:modelValue="updateValue"
+                  :modelValue="value"
+                  :items="stores"
+                  class="x-dropdown x-dropdown--round x-dropdown--right x-dropdown--l"
+                  data-test="store-selector"
+                />
+              </RenderlessExtraParams>
+            </div>
+
+            <LocationProvider location="predictive_layer">
+              <RelatedPromptsTagList
+                :button-class="'x-button-lead x-button-circle x-button-ghost x-p-0'"
+                class="-x-mb-1 x-mt-8 desktop:x-mt-0 x-p-0"
               />
-            </RenderlessExtraParams>
+            </LocationProvider>
           </div>
         </template>
 
@@ -314,120 +323,156 @@
 
             <!-- Results -->
             <LocationProvider location="results">
-              <ResultsList
-                v-infinite-scroll:main-scroll="{ margin: 600 }"
-                class="x-mot-results-list"
-                data-test="results-list"
-                data-wysiwyg="results"
-              >
-                <PromotedsList class="x-mot-promoteds-list">
-                  <BannersList class="x-mot-banners-list">
-                    <NextQueriesList
-                      :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
-                      class="x-mot-next-queries-list"
+              <div>
+                <QueryPreviewList
+                  v-if="!showGrid"
+                  :queries-preview-info="relatedPromptsQueriesPreviewInfo"
+                  v-slot="{ queryPreviewInfo, totalResults, results }"
+                  queryFeature="related-prompts"
+                >
+                  <div class="x-flex x-flex-col x-gap-8 x-mb-16">
+                    <QueryPreviewButton
+                      :query-preview-info="queryPreviewInfo"
+                      class="x-button x-button-lead x-button-tight x-title3 x-title3-sm desktop:x-title3-md max-desktop:x-px-16 x-justify-start"
                     >
-                      <RelatedPromptsList
-                        :show-only-after-offset="controls.relatedPromptsList.showOnlyAfterOffset"
-                        class="x-mot-related-prompt-list"
+                      {{ queryPreviewInfo.query }}
+                      ({{ totalResults }})
+                      <ArrowRightIcon class="x-icon-lg" />
+                    </QueryPreviewButton>
+                    <SlidingPanel :resetOnContentChange="false">
+                      <div class="x-flex x-gap-8">
+                        <Result
+                          v-for="result in results"
+                          :key="result.id"
+                          :result="result"
+                          style="max-width: 180px"
+                          data-test="semantic-query-result"
+                        />
+                      </div>
+                    </SlidingPanel>
+                  </div>
+                </QueryPreviewList>
+
+                <ResultsList
+                  v-if="showGrid"
+                  v-infinite-scroll:main-scroll="{ margin: 600 }"
+                  class="x-mot-results-list"
+                  data-test="results-list"
+                  data-wysiwyg="results"
+                >
+                  <PromotedsList class="x-mot-promoteds-list">
+                    <BannersList class="x-mot-banners-list">
+                      <NextQueriesList
+                        :show-only-after-offset="controls.nextQueriesList.showOnlyAfterOffset"
+                        class="x-mot-next-queries-list"
                       >
-                        <BaseVariableColumnGrid
-                          style="--x-size-min-width-grid-item: 150px"
-                          class="x-gap-12"
-                          :animation="resultsAnimation"
-                          :columns="x.device === 'mobile' ? 2 : 4"
+                        <RelatedPromptsList
+                          :offset="24"
+                          :max-groups="1"
+                          :show-only-after-offset="x.totalResults < 50"
+                          class="x-mot-related-prompt-list"
+                          :custom-query="nextQuery"
                         >
-                          <template #result="{ item: result }">
-                            <MainScrollItem :item="result">
-                              <Result :result="result" data-test="search-result" />
-                            </MainScrollItem>
-                          </template>
+                          <BaseVariableColumnGrid
+                            style="--x-size-min-width-grid-item: 150px"
+                            class="x-gap-12"
+                            :animation="resultsAnimation"
+                            :columns="x.device === 'mobile' ? 2 : 4"
+                          >
+                            <template #result="{ item: result }">
+                              <MainScrollItem :item="result">
+                                <Result :result="result" data-test="search-result" />
+                              </MainScrollItem>
+                            </template>
 
-                          <template #banner="{ item: banner }">
-                            <Banner :banner="banner" />
-                          </template>
+                            <template #banner="{ item: banner }">
+                              <Banner :banner="banner" />
+                            </template>
 
-                          <template #promoted="{ item: promoted }">
-                            <Promoted :promoted="promoted" />
-                          </template>
+                            <template #promoted="{ item: promoted }">
+                              <Promoted :promoted="promoted" />
+                            </template>
 
-                          <template #next-queries-group="{ item: { nextQueries } }">
-                            <NextQueryPreview
-                              :suggestion="nextQueries[0]"
-                              :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
-                              #default="{ results }"
-                              class="x-pt-24"
-                            >
-                              <h1 class="x-title2">Others clients have searched</h1>
-                              <NextQuery
-                                class="x-suggestion x-text1 x-text1-lg"
+                            <template #next-queries-group="{ item: { nextQueries } }">
+                              <NextQueryPreview
                                 :suggestion="nextQueries[0]"
-                                data-test="next-query-preview-name"
+                                :max-items-to-render="controls.nextQueriesPreview.maxItemsToRender"
+                                #default="{ results }"
+                                class="x-pt-24"
                               >
-                                <span class="x-font-bold">{{ nextQueries[0].query }}</span>
-                              </NextQuery>
-                              <div class="x-mb-24">
-                                <SlidingPanel :resetOnContentChange="false">
-                                  <div class="x-flex x-flex-row x-gap-8">
-                                    <Result
-                                      v-for="result in results"
-                                      :key="result.id"
-                                      :result="result"
-                                      style="max-width: 180px"
-                                      data-test="next-query-preview-result"
-                                    />
-                                  </div>
-                                </SlidingPanel>
-                              </div>
-                              <NextQuery
-                                :suggestion="nextQueries[0]"
-                                data-test="view-all-results"
-                                class="x-button x-button-outlined x-rounded-full x-mx-auto x-mt-8 x-mb-24"
-                              >
-                                {{ 'View all results' }}
-                              </NextQuery>
-                            </NextQueryPreview>
-                          </template>
-
-                          <template #related-prompts-group>
-                            <RelatedPromptsTagList
-                              :button-class="'x-button-lead x-button-circle x-button-ghost x-p-0'"
-                              class="-x-mb-1 x-mt-24 desktop:x-mt-0 x-p-0"
-                            />
-                            <QueryPreviewList
-                              v-if="selectedPrompt !== ''"
-                              :queries-preview-info="relatedPromptsQueriesPreviewInfo"
-                              v-slot="{ queryPreviewInfo, totalResults, results }"
-                              queryFeature="related-prompts"
-                            >
-                              <div class="x-flex x-flex-col x-gap-8 x-mb-16">
-                                <QueryPreviewButton
-                                  :query-preview-info="queryPreviewInfo"
-                                  class="x-button x-button-lead x-button-tight x-title3 x-title3-sm desktop:x-title3-md max-desktop:x-px-16"
+                                <h1 class="x-title2">Others clients have searched</h1>
+                                <NextQuery
+                                  class="x-suggestion x-text1 x-text1-lg"
+                                  :suggestion="nextQueries[0]"
+                                  data-test="next-query-preview-name"
                                 >
-                                  {{ queryPreviewInfo.query }}
-                                  ({{ totalResults }})
-                                  <ArrowRightIcon class="x-icon-lg" />
-                                </QueryPreviewButton>
-                                <SlidingPanel :resetOnContentChange="false">
-                                  <div class="x-flex x-gap-8">
-                                    <Result
-                                      v-for="result in results"
-                                      :key="result.id"
-                                      :result="result"
-                                      style="max-width: 180px"
-                                      data-test="semantic-query-result"
-                                    />
-                                  </div>
-                                </SlidingPanel>
-                              </div>
-                            </QueryPreviewList>
-                          </template>
-                        </BaseVariableColumnGrid>
-                      </RelatedPromptsList>
-                    </NextQueriesList>
-                  </BannersList>
-                </PromotedsList>
-              </ResultsList>
+                                  <span class="x-font-bold">{{ nextQueries[0].query }}</span>
+                                </NextQuery>
+                                <div class="x-mb-24">
+                                  <SlidingPanel :resetOnContentChange="false">
+                                    <div class="x-flex x-flex-row x-gap-8">
+                                      <Result
+                                        v-for="result in results"
+                                        :key="result.id"
+                                        :result="result"
+                                        style="max-width: 180px"
+                                        data-test="next-query-preview-result"
+                                      />
+                                    </div>
+                                  </SlidingPanel>
+                                </div>
+                                <NextQuery
+                                  :suggestion="nextQueries[0]"
+                                  data-test="view-all-results"
+                                  class="x-button x-button-outlined x-rounded-full x-mx-auto x-mt-8 x-mb-24"
+                                >
+                                  {{ 'View all results' }}
+                                </NextQuery>
+                              </NextQueryPreview>
+                            </template>
+
+                            <template #related-prompts-group>
+                              <RelatedPromptsTagList
+                                :button-class="'x-button-lead x-button-circle x-button-ghost x-p-0'"
+                                class="-x-mb-1 x-mt-24 desktop:x-mt-0 x-p-0"
+                                :query="nextQuery"
+                              />
+                              <QueryPreviewList
+                                v-if="selectedPrompt !== ''"
+                                :queries-preview-info="relatedPromptsQueriesPreviewInfo"
+                                v-slot="{ queryPreviewInfo, totalResults, results }"
+                                queryFeature="related-prompts"
+                              >
+                                <div class="x-flex x-flex-col x-gap-8 x-mb-16">
+                                  <QueryPreviewButton
+                                    :query-preview-info="queryPreviewInfo"
+                                    class="x-button x-button-lead x-button-tight x-title3 x-title3-sm desktop:x-title3-md max-desktop:x-px-16 x-justify-start"
+                                  >
+                                    {{ queryPreviewInfo.query }}
+                                    ({{ totalResults }})
+                                    <ArrowRightIcon class="x-icon-lg" />
+                                  </QueryPreviewButton>
+                                  <SlidingPanel :resetOnContentChange="false">
+                                    <div class="x-flex x-gap-8">
+                                      <Result
+                                        v-for="result in results"
+                                        :key="result.id"
+                                        :result="result"
+                                        style="max-width: 180px"
+                                        data-test="semantic-query-result"
+                                      />
+                                    </div>
+                                  </SlidingPanel>
+                                </div>
+                              </QueryPreviewList>
+                            </template>
+                          </BaseVariableColumnGrid>
+                        </RelatedPromptsList>
+                      </NextQueriesList>
+                    </BannersList>
+                  </PromotedsList>
+                </ResultsList>
+              </div>
             </LocationProvider>
 
             <!-- Semantic Queries -->
@@ -518,8 +563,9 @@
 
 <script lang="ts">
   /* eslint-disable max-len */
-  import { computed, ComputedRef, defineComponent, provide } from 'vue';
+  import { computed, ComputedRef, defineComponent, provide, ref } from 'vue';
   import { RelatedPrompt } from '@empathyco/x-types';
+  import { Dictionary } from '@empathyco/x-utils';
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
   import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
   import AutoProgressBar from '../../components/auto-progress-bar.vue';
@@ -585,6 +631,7 @@
   import RelatedPromptsList from '../../x-modules/related-prompts/components/related-prompts-list.vue';
   import RelatedPromptsTagList from '../../x-modules/related-prompts/components/related-prompts-tag-list.vue';
   import ArrowRightIcon from '../../components/icons/arrow-right.vue';
+  import { RelatedPromptsItems } from '../../x-modules/related-prompts/index';
   import Aside from './aside.vue';
   import PredictiveLayer from './predictive-layer.vue';
   import Result from './result.vue';
@@ -711,23 +758,31 @@
 
       provide('controls', controls);
 
+      const { nextQueries } = useState('nextQueries', ['nextQueries']);
+
+      const nextQuery = computed(() => nextQueries.value[0]?.query);
+
       const { relatedPrompts } = useState('relatedPrompts', ['relatedPrompts']);
 
-      const relatedPromptsProducts = computed(
-        (): RelatedPrompt[] => relatedPrompts.value[x.query.search]?.relatedPromptsProducts
-      );
+      const selectedPrompt = computed(() => relatedPrompts.value[nextQuery.value]?.selectedPrompt);
 
-      const selectedPrompt = computed(() => relatedPrompts.value[x.query.search]?.selectedPrompt);
+      const relatedPromptsQueriesPreviewInfo = ref<{ query: string }[]>([]);
 
-      const relatedPromptsQueriesPreviewInfo = computed(() => {
-        if (relatedPromptsProducts.value) {
-          const relatedPromptQueries = relatedPromptsProducts.value.find(
+      const showGrid = ref(true);
+
+      x.on('RelatedPromptsLocation', false).subscribe(payload => {
+        if (payload.location === 'predictive_layer') {
+          showGrid.value = relatedPrompts.value[payload.query].selectedPrompt === '';
+        }
+        if (relatedPrompts.value[payload.query].selectedPrompt !== '') {
+          const relatedPromptQueries = (
+            relatedPrompts as ComputedRef<Dictionary<RelatedPromptsItems>>
+          ).value[payload.query].relatedPromptsProducts.find(
             (relatedPrompt: RelatedPrompt) => relatedPrompt.id === selectedPrompt.value
           );
           const queries = relatedPromptQueries?.nextQueries as string[];
-          return queries.map(query => ({ query }));
+          relatedPromptsQueriesPreviewInfo.value = queries.map(query => ({ query }));
         }
-        return [];
       });
 
       const queriesPreviewInfo: QueryPreviewInfo[] = [
@@ -773,7 +828,9 @@
         x,
         mainScrollDirection,
         relatedPromptsQueriesPreviewInfo,
-        selectedPrompt
+        selectedPrompt,
+        showGrid,
+        nextQuery
       };
     }
   });

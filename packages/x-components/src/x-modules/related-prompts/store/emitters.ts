@@ -6,6 +6,4 @@ import { relatedPromptsXStoreModule } from './module';
  *
  * @internal
  */
-export const relatedPromptsStoreEmitters = createStoreEmitters(relatedPromptsXStoreModule, {
-  RelatedPromptsRequestUpdated: (_, getters) => getters.request
-});
+export const relatedPromptsStoreEmitters = createStoreEmitters(relatedPromptsXStoreModule, {});
