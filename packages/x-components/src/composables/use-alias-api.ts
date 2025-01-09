@@ -145,6 +145,9 @@ export function useAliasApi(): UseAliasAPI {
     },
     get selectedSort() {
       return store.state.x.search?.sort ?? '';
+    },
+    get priceStats() {
+      return store.state.x.search?.stats?.price ?? {};
     }
   };
 }
@@ -213,6 +216,8 @@ export interface UseAliasAPI {
   readonly totalResults: number;
   /** The {@link SearchXModule} selected sort. */
   readonly selectedSort: string;
+  /** The {@link SearchXModule} price specific stats. */
+  readonly priceStats: { min: number; max: number };
 }
 
 /**

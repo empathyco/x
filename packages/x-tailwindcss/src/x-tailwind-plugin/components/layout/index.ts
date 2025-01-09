@@ -15,7 +15,7 @@ import { utils } from './utils';
  */
 export function layout(helpers: TailwindHelpers) {
   return {
-    '.layout': rename(
+    '.x-layout': rename(
       {
         ...container(helpers),
         ...maxWidth(helpers),

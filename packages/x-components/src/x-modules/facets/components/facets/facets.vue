@@ -62,6 +62,7 @@
   import { toKebabCase } from '../../../../utils/string';
   import { useFacets } from '../../composables/use-facets';
   import { facetsXModule } from '../../x-module';
+  import { AnimationProp } from '../../../../types';
 
   /**
    * Custom interface to provide a slot name to a Facet.
@@ -93,7 +94,7 @@
       alwaysVisible: Boolean,
       /** Animation component that will be used to animate the facets. */
       animation: {
-        type: animationProp,
+        type: AnimationProp,
         default: 'ul'
       },
       /**

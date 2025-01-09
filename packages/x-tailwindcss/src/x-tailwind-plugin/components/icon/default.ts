@@ -13,7 +13,7 @@ export function iconDefault(helpers: TailwindHelpers) {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontFamily: theme('fontFamily.icon'),
+    fontFamily: theme('x.fontFamily.icon'),
     width: 'auto',
     aspectRatio: '1/1',
     vectorEffect: 'non-scaling-stroke',

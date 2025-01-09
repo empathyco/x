@@ -8,37 +8,39 @@
       @keydown="copyCssClassesToClipboard"
       @click="copyCssClassesToClipboard"
       :class="cssClass"
-      class="x-h-[200px] x-w-[200px] x-bg-warning-25"
+      class="h-[200px] w-[200px] bg-amber-400"
     >
-      <div :key="cssClass" class="x-h-[1000px]"></div>
+      <div :key="cssClass" class="h-[1000px]"></div>
     </div>
   </XdsBaseShowcase>
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import { ShowcaseSections } from '../types/types';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
-  @Component({
+  export default defineComponent({
     components: {
       XdsBaseShowcase
+    },
+    props: {
+      base: {
+        type: String,
+        default: 'x-scroll'
+      }
+    },
+    computed: {
+      sections(): ShowcaseSections {
+        return {
+          Default: [this.base]
+        };
+      }
+    },
+    methods: {
+      copyCssClassesToClipboard(event: MouseEvent): void {
+        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
+      }
     }
-  })
-  export default class XdsScroll extends Vue {
-    @Prop({ default: () => 'x-scroll' })
-    public base!: string;
-
-    protected get sections(): ShowcaseSections {
-      return {
-        Default: [this.base]
-      };
-    }
-  }
+  });
 </script>
-
-<style lang="scss" scoped>
-  ::v-deep h2 {
-    align-self: flex-start;
-  }
-</style>

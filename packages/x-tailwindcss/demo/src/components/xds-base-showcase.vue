@@ -1,15 +1,15 @@
 <template>
-  <div class="x-flex x-flex-col x-gap-32">
-    <h1 class="x-text-lg">{{ title }}</h1>
+  <div class="flex flex-col gap-8">
+    <h1 class="text-lg">{{ title }}</h1>
     <div
       v-for="(classes, section) in sections"
       :key="section"
-      class="x-flex x-flex-row x-gap-16 x-items-baseline"
+      class="flex flex-row items-baseline gap-4"
     >
-      <h2 class="x-text-md x-w-128 x-text-right x-flex-none">{{ section }}</h2>
+      <h2 class="text-md w-[128px] flex-none text-right">{{ section }}</h2>
 
       <div
-        class="x-flex x-flex-row x-flex-wrap x-gap-16 x-items-baseline"
+        class="flex flex-row flex-wrap items-baseline gap-4"
         :class="sectionsClasses[section] || ''"
       >
         <div v-for="cssClass in classes" :key="cssClass">
@@ -18,8 +18,8 @@
       </div>
     </div>
     <div
-      class="x-fixed x-left-1/2 x-top-1/2 x-bg-neutral-25 x-p-8 x-transition-opacity x-duration-300 x-pointer-events-none -translate-x-1/2 -translate-y-1/2"
-      :class="isMessageVisible ? 'x-opacity-100' : 'x-opacity-0'"
+      class="pointer-events-none fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-300 p-8 transition-opacity duration-300"
+      :class="isMessageVisible ? 'opacity-100' : 'opacity-0'"
     >
       CSS classes copied to Clipboard!
     </div>
@@ -27,72 +27,65 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, PropType, ref } from 'vue';
   import { ShowcaseSectionsClasses, ShowcaseSections } from '../types/types';
 
-  @Component
-  export default class XdsBaseShowcase extends Vue {
-    /**
-     * The sections to display with the list of classes for each element.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public sections!: ShowcaseSections;
+  export default defineComponent({
+    props: {
+      sections: {
+        type: Object as PropType<ShowcaseSections>,
+        required: true
+      },
+      sectionsClasses: {
+        type: Object as PropType<ShowcaseSectionsClasses>,
+        default: () => ({})
+      },
+      title: {
+        type: String,
+        required: true
+      }
+    },
+    setup() {
+      const isMessageVisible = ref(false);
 
-    /**
-     * The classes to apply to the sections content.
-     *
-     * @public
-     */
-    @Prop({
-      default: () => ({})
-    })
-    public sectionsClasses!: ShowcaseSectionsClasses;
+      /**
+       * Copies the classList of an HTML Element to the clipboard.
+       *
+       * @param event - The MouseEvent to get the HTML Element from.
+       *
+       * @internal
+       */
+      function copyCssClassesToClipboard(event: MouseEvent): void {
+        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
+        showMessage();
+      }
 
-    /**
-     * The title to display at the beginning of the component.
-     *
-     * @public
-     */
-    @Prop({ required: true })
-    public title!: string;
-
-    protected isMessageVisible = false;
-
-    /**
-     * Copies the classList of an HTML Element to the clipboard.
-     *
-     * @param event - The MouseEvent to get the HTML Element from.
-     *
-     * @internal
-     */
-    protected copyCssClassesToClipboard(event: MouseEvent): void {
-      navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
-      this.showMessage();
+      /**
+       * Shows the message of copied classes to clipboard for 2 seconds.
+       *
+       * @internal
+       */
+      function showMessage(): void {
+        isMessageVisible.value = true;
+        setTimeout(() => (isMessageVisible.value = false), 2000);
+      }
+      /**
+       * Removes the prefix from a CSS class list. If the prefix is full class name, is removed too.
+       *
+       * @param cssClasses - The class list to remove the prefix from.
+       * @param prefix - The prefix to be removed.
+       * @returns The CSS classes with the prefix removed.
+       *
+       * @internal
+       */
+      function removeClassPrefix(cssClasses: string, prefix: string): string {
+        return cssClasses.replace(new RegExp(`${prefix}-?`, 'g'), '');
+      }
+      return {
+        copyCssClassesToClipboard,
+        removeClassPrefix,
+        isMessageVisible
+      };
     }
-
-    /**
-     * Removes the prefix from a CSS class list. If the prefix is full class name, is removed too.
-     *
-     * @param cssClasses - The class list to remove the prefix from.
-     * @param prefix - The prefix to be removed.
-     * @returns The CSS classes with the prefix removed.
-     *
-     * @internal
-     */
-    protected removeClassPrefix(cssClasses: string, prefix: string): string {
-      return cssClasses.replace(new RegExp(`${prefix}-?`, 'g'), '');
-    }
-
-    /**
-     * Shows the message of copied classes to clipboard for 2 seconds.
-     *
-     * @internal
-     */
-    protected showMessage(): void {
-      this.isMessageVisible = true;
-      setTimeout(() => (this.isMessageVisible = false), 2000);
-    }
-  }
+  });
 </script>

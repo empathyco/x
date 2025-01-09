@@ -11,8 +11,8 @@ export function suggestionOutlined(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     outlined: {
-      backgroundColor: theme('colors.neutral.0'),
-      borderWidth: theme('borderWidth.1'),
+      backgroundColor: theme('x.colors.neutral.0'),
+      borderWidth: theme('x.borderWidth.1'),
       borderColor: 'currentColor',
       ...commonGhostAndTagStyles(helpers)
     }

@@ -13,31 +13,31 @@ export function tagOutlined(helpers: TailwindHelpers) {
   const disabledStyles = {
     '&:disabled': {
       backgroundColor: 'transparent',
-      borderColor: theme('colors.neutral.25'),
-      color: theme('colors.neutral.25')
+      borderColor: theme('x.colors.neutral.25'),
+      color: theme('x.colors.neutral.25')
     }
   };
   const hoverStyles = {
     '&:hover,&:focus,&:active': {
-      borderColor: `var(--tag-color-75, ${theme('colors.neutral.75')})`,
-      color: `var(--tag-color-75, ${theme('colors.neutral.75')})`
+      borderColor: `var(--tag-color-75, ${theme('x.colors.neutral.75')})`,
+      color: `var(--tag-color-75, ${theme('x.colors.neutral.75')})`
     }
   };
 
   return {
     outlined: {
       backgroundColor: 'transparent',
-      borderColor: `var(--tag-color-50, ${theme('colors.neutral.50')})`,
-      color: `var(--tag-color-neutral-75, ${theme('colors.neutral.50')})`,
+      borderColor: `var(--tag-color-50, ${theme('x.colors.neutral.50')})`,
+      color: `var(--tag-color-neutral-75, ${theme('x.colors.neutral.50')})`,
 
       ...hoverStyles,
       ...disabledStyles,
 
       '&.selected': {
-        backgroundColor: `var(--tag-color-25, ${theme('colors.neutral.10')})`,
-        borderColor: `var(--tag-color-75, ${theme('colors.neutral.75')})`,
-        borderWidth: theme('spacing.1'),
-        color: theme('colors.neutral.90'),
+        backgroundColor: `var(--tag-color-25, ${theme('x.colors.neutral.10')})`,
+        borderColor: `var(--tag-color-75, ${theme('x.colors.neutral.75')})`,
+        borderWidth: theme('x.spacing.1'),
+        color: theme('x.colors.neutral.90'),
 
         ...hoverStyles,
         ...disabledStyles

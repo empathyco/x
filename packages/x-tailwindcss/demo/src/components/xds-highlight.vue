@@ -17,23 +17,31 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import { ShowcaseSections } from '../types/types';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
-  @Component({
+  export default defineComponent({
     components: {
       XdsBaseShowcase
+    },
+    props: {
+      base: {
+        type: String,
+        default: 'x-highlight-text'
+      }
+    },
+    computed: {
+      sections(): ShowcaseSections {
+        return {
+          Default: [this.base]
+        };
+      }
+    },
+    methods: {
+      copyCssClassesToClipboard(event: MouseEvent): void {
+        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
+      }
     }
-  })
-  export default class XdsHighlightShowcase extends Vue {
-    @Prop({ default: () => 'x-highlight-text' })
-    public base!: string;
-
-    protected get sections(): ShowcaseSections {
-      return {
-        Default: [this.base]
-      };
-    }
-  }
+  });
 </script>

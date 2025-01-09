@@ -10,17 +10,17 @@ import { badgeSizes } from './sizes';
 export function badgeDefault(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    fontFamily: theme('fontFamily.main'),
-    fontWeight: theme('fontWeight.regular'),
-    fontSize: theme('fontSize.xs'),
+    fontFamily: theme('x.fontFamily.main'),
+    fontWeight: theme('x.fontWeight.regular'),
+    fontSize: theme('x.fontSize.xs'),
 
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: theme('borderRadius.full'),
+    borderRadius: theme('x.borderRadius.full'),
 
-    color: theme('colors.neutral.0'),
-    backgroundColor: theme('colors.neutral.90'),
+    color: theme('x.colors.neutral.0'),
+    backgroundColor: theme('x.colors.neutral.90'),
 
     ...badgeSizes(helpers).md
   };

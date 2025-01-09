@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-tailwindcss",
-  "version": "1.2.0-alpha.6",
+  "version": "2.0.0-alpha.1",
   "description": "Empathy X Tailwind plugin",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -30,7 +30,7 @@
     "dev": "vite serve demo",
     "dev:build": "vite build demo",
     "prebuild": "rimraf ./dist ./showcase ./*.tgz",
-    "build": "rollup -c && rollup -c demo/rollup.config.mjs",
+    "build": "rollup -c && vite build demo",
     "postbuild": "pnpm pack",
     "lint": "eslint . --ext .ts,.vue",
     "prepublishOnly": "pnpm run build"
@@ -40,39 +40,19 @@
     "@empathyco/x-utils": "^1.0.3-alpha.1",
     "tslib": "~2.6.0"
   },
-  "peerDependencies": {
-    "vue": "^2.7.0",
-    "vue-class-component": "^7.1.0",
-    "vue-property-decorator": "^8.3.0"
-  },
-  "peerDependenciesMeta": {
-    "vue-class-component": {
-      "optional": true
-    },
-    "vue-property-decorator": {
-      "optional": true
-    },
-    "vue": {
-      "optional": true
-    }
-  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "~25.0.7",
+    "@vitejs/plugin-vue": "~5.2.0",
     "autoprefixer": "~10.4.4",
     "postcss": "~8.4.12",
     "postcss-import": "~16.0.0",
     "rimraf": "~3.0.2",
     "rollup": "~4.9.1",
     "rollup-plugin-typescript2": "~0.36.0",
-    "rollup-plugin-vue": "~5.1.9",
     "tailwindcss": "~3.4.0",
     "typescript": "~4.9.4",
     "vite": "~4.5.0",
-    "vite-plugin-vue2": "~2.0.2",
-    "vue": "~2.7.16",
-    "vue-class-component": "~7.2.6",
-    "vue-property-decorator": "~8.5.0",
-    "vue-template-compiler": "~2.7.16"
+    "vue": "~3.5.13"
   },
   "publishConfig": {
     "access": "public"

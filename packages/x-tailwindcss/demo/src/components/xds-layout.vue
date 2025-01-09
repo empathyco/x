@@ -3,34 +3,31 @@
     <label for="layout-modal" class="x-button">See layouts</label>
     <input id="layout-modal" type="checkbox" class="modal-toggle" />
 
-    <div class="modal x-bg-neutral-0">
-      <div class="x-flex x-p-16">
+    <div class="modal bg-white">
+      <div class="flex p-4">
         <div class="x-title2">Layouts</div>
-        <label for="layout-modal" class="x-button x-button-link x-ml-auto">Close</label>
+        <label for="layout-modal" class="x-button x-button-link ml-auto">Close</label>
       </div>
 
       <div v-for="(sectionClasses, sectionName) in modalContent" :key="sectionName">
-        <div class="x-title3 x-mt-32 x-pb-8 x-px-16">{{ sectionName }}</div>
-        <div v-for="cssClass in sectionClasses" :key="cssClass" class="x-flex x-flex-col x-pb-12">
-          <div v-if="cssClass.includes('x-layout-min-margin-12')" class="x-text-md x-mb-16 x-px-16">
+        <div class="x-title3 mt-8 px-4 pb-2">{{ sectionName }}</div>
+        <div v-for="cssClass in sectionClasses" :key="cssClass" class="flex flex-col pb-3">
+          <div v-if="cssClass.includes('x-layout-min-margin-12')" class="mb-4 px-4 text-xl">
             There are as many classes as spacing variables declared in the Tailwind theme:
             <code>x-layout-min-margin-[spacing-value]</code>
           </div>
-          <div
-            v-if="cssClass.includes('x-layout-container-mx-128')"
-            class="x-text-md x-mb-16 x-px-16"
-          >
+          <div v-if="cssClass.includes('x-layout-container-mx-128')" class="mb-4 px-4 text-xl">
             Custom alignment is available with Tailwind spacing classes or arbitrary values:
           </div>
-          <code class="x-py-8 x-px-16">{{ cssClass }}</code>
+          <code class="px-4 py-2">{{ cssClass }}</code>
           <div
             @click="copyCssClassesToClipboard"
             @keydown="copyCssClassesToClipboard"
             :class="cssClass"
             title="Click me to copy CSS classes"
-            class="x-bg-neutral-25 x-w-full"
+            class="w-full bg-gray-300"
           >
-            <div class="x-layout-item"><span class="x-bg-lead-25 x-p-8">item</span></div>
+            <div class="x-layout-item"><span class="bg-gray-400 p-2">item</span></div>
           </div>
         </div>
       </div>
@@ -39,56 +36,64 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { defineComponent, PropType } from 'vue';
   import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
-  @Component({
+  export default defineComponent({
     components: {
       XdsBaseShowcase
-    }
-  })
-  export default class XdsLayoutShowcase extends Vue {
-    @Prop({ default: 'x-layout-container' })
-    public base!: string;
-
-    @Prop({
-      default: () => ['x-layout-max-width-md', 'x-layout-max-width-lg', 'x-layout-max-width-full']
-    })
-    public maxWidth!: string[];
-
-    @Prop({
-      default: () => [
-        'x-layout-min-margin-12',
-        'x-layout-min-margin-20',
-        'x-layout-min-margin-32',
-        'x-layout-min-margin-48'
-      ]
-    })
-    public minMargin!: string[];
-
-    @Prop({
-      default: () => [
-        'x-layout-container-mx-128',
-        'x-layout-container-mr-128',
-        'x-layout-container-ml-128',
-        'x-layout-container-ml-[375px]'
-      ]
-    })
-    public customAlign!: string[];
-
-    public modalContent = {
-      Layout: [this.base],
-      'Max Width': this.maxWidth.map(addParentClasses(this.base)),
-      'Min Width': this.minMargin.map(addParentClasses(this.base)),
-      'Custom Alignment': this.customAlign.map(addParentClasses(this.base))
-    };
-
-    protected get sections(): ShowcaseSections {
+    },
+    props: {
+      base: {
+        type: String,
+        default: 'x-layout-container'
+      },
+      maxWidth: {
+        type: Array as PropType<string[]>,
+        default: () => ['x-layout-max-width-md', 'x-layout-max-width-lg', 'x-layout-max-width-full']
+      },
+      minMargin: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          'x-layout-min-margin-12',
+          'x-layout-min-margin-20',
+          'x-layout-min-margin-32',
+          'x-layout-min-margin-48'
+        ]
+      },
+      customAlign: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          'x-layout-container-mx-128',
+          'x-layout-container-mr-128',
+          'x-layout-container-ml-128',
+          'x-layout-container-ml-[375px]'
+        ]
+      }
+    },
+    data() {
       return {
-        '': [this.base]
+        modalContent: {
+          Layout: [this.base],
+          'Max Width': this.maxWidth.map(addParentClasses(this.base)),
+          'Min Width': this.minMargin.map(addParentClasses(this.base)),
+          'Custom Alignment': this.customAlign.map(addParentClasses(this.base))
+        }
       };
+    },
+    computed: {
+      sections(): ShowcaseSections {
+        return {
+          '': [this.base]
+        };
+      }
+    },
+    methods: {
+      copyCssClassesToClipboard(event: MouseEvent): void {
+        navigator.clipboard.writeText((event.currentTarget as HTMLElement).classList.value);
+      }
     }
-  }
+  });
 </script>

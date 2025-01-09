@@ -204,7 +204,7 @@ describe('testing Base Scroll Component', () => {
     expect(wrapper.element.scrollTop).toEqual(300);
 
     XPlugin.bus.emit('UserAcceptedAQuery', 'milk');
-    await wrapper.vm.$nextTick();
+    await nextTick();
     expect(wrapper.element.scrollTop).toEqual(0);
   });
 
@@ -221,7 +221,7 @@ describe('testing Base Scroll Component', () => {
     expect(wrapper.element.scrollTop).toEqual(300);
 
     XPlugin.bus.emit('UserAcceptedAQuery', 'milk');
-    await wrapper.vm.$nextTick();
+    await nextTick();
     expect(wrapper.element.scrollTop).toEqual(300);
   });
 });

@@ -3,45 +3,43 @@
     <label for="layout-fixed-header-modal" class="x-button">Open layout example</label>
     <input id="layout-fixed-header-modal" type="checkbox" class="modal-toggle" />
 
-    <div class="modal x-bg-neutral-0">
-      <div :class="[cssClass, 'x-layout-min-margin-48 x-bg-neutral-10']">
-        <div class="x-scroll x-flex x-flex-col">
-          <div
-            class="x-layout-item x-sticky x-top-0 x-bg-neutral-0 x-border-b-1 x-border-neutral-25"
-          >
-            <div class="x-flex x-justify-between x-items-center x-py-8">
+    <div class="modal bg-white">
+      <div :class="[cssClass, 'x-layout-min-margin-48 bg-gray-100']">
+        <div class="x-scroll flex flex-col">
+          <div class="x-layout-item border-b-1 sticky top-0 border-gray-300 bg-white">
+            <div class="flex items-center justify-between py-2">
               <span class="x-title3">FIXED HEADER LAYOUT</span>
-              <label for="layout-fixed-header-modal" class="x-button x-button-ghost x-ml-auto">
+              <label for="layout-fixed-header-modal" class="x-button x-button-ghost ml-auto">
                 Close
               </label>
             </div>
 
-            <div class="x-flex x-justify-between x-items-center x-py-16">
+            <div class="flex items-center justify-between py-4">
               <div class="x-title3">HEADER START</div>
               <div class="x-title2">HEADER MIDDLE</div>
               <div class="x-title3">HEADER END</div>
             </div>
           </div>
 
-          <div class="x-layout-item x-border-b-1 x-border-neutral-25">
-            <div class="x-flex x-justify-center x-p-16 x-title3">SUBHEADER</div>
+          <div class="x-layout-item border-b-1 border-gray-300">
+            <div class="x-title3 flex justify-center p-4">SUBHEADER</div>
           </div>
 
           <div class="x-layout-item">
-            <div class="x-flex x-justify-center x-p-16 x-title3 x-bg-neutral-10">TOOLBAR</div>
+            <div class="x-title3 flex justify-center bg-gray-100 p-4">TOOLBAR</div>
           </div>
 
           <div class="x-layout-item x-layout-expand">
-            <div class="x-flex x-flex-col x-justify-between x-h-[2000px] x-p-12 x-bg-neutral-25">
+            <div class="flex h-[2000px] flex-col justify-between bg-gray-200 p-3">
               <section>MAIN</section>
-              <span class="x-place-self-end">MAIN BOTTOM</span>
+              <span class="place-self-end">MAIN BOTTOM</span>
             </div>
           </div>
         </div>
 
         <div class="x-layout-item x-layout-overlap">
           <button
-            class="x-layout-on-margin-right x-justify-self-start x-self-end x-button x-button-sm x-button-circle x-mb-16"
+            class="x-layout-on-margin-right x-button x-button-sm x-button-circle mb-4 self-end justify-self-start"
           >
             ▲
           </button>
@@ -52,25 +50,28 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator';
+  import { defineComponent } from 'vue';
   import { ShowcaseSections } from '../types/types';
   import XdsBaseShowcase from './xds-base-showcase.vue';
 
-  @Component({
+  export default defineComponent({
     components: {
       XdsBaseShowcase
+    },
+    props: {
+      base: {
+        type: String,
+        default: 'x-layout-container x-layout-max-width-md'
+      }
+    },
+    computed: {
+      sections(): ShowcaseSections {
+        return {
+          '': [this.base]
+        };
+      }
     }
-  })
-  export default class XdsLayoutFixedHeaderShowcase extends Vue {
-    @Prop({ default: 'x-layout-container x-layout-max-width-md' })
-    public base!: string;
-
-    protected get sections(): ShowcaseSections {
-      return {
-        '': [this.base]
-      };
-    }
-  }
+  });
 </script>
 
 <style lang="scss" scoped>

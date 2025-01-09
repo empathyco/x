@@ -10,8 +10,8 @@ export function suggestionGroupButtonRectangle(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     rectangle: {
-      paddingInlineStart: theme('spacing.8'),
-      paddingInlineEnd: theme('spacing.8'),
+      paddingInlineStart: theme('x.spacing.8'),
+      paddingInlineEnd: theme('x.spacing.8'),
       aspectRatio: 'unset'
     }
   };

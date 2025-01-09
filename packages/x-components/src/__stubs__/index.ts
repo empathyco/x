@@ -15,3 +15,4 @@ export * from './results-stubs.factory';
 export * from './search-response-stubs.factory';
 export * from './semantic-queries-stubs.factory';
 export * from './tagging-response-stubs.factory';
+export * from './related-prompts-stubs.factory';

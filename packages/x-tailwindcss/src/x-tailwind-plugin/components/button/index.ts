@@ -19,7 +19,7 @@ import { buttonSizes } from './sizes';
  */
 export function button(helpers: TailwindHelpers) {
   return {
-    '.button': deepMerge(
+    '.x-button': deepMerge(
       buttonDefault(helpers),
       rename(
         {

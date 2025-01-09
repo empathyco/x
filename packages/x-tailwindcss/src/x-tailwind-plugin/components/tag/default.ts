@@ -14,9 +14,9 @@ export function tagDefault(helpers: TailwindHelpers) {
   const disabledStyles = {
     '&:disabled': {
       cursor: 'not-allowed',
-      borderColor: theme('colors.neutral.25'),
-      borderWidth: theme('spacing.1'),
-      color: theme('colors.neutral.25')
+      borderColor: theme('x.colors.neutral.25'),
+      borderWidth: theme('x.spacing.1'),
+      color: theme('x.colors.neutral.25')
     }
   };
 
@@ -28,24 +28,24 @@ export function tagDefault(helpers: TailwindHelpers) {
     flexFlow: 'row nowrap',
     boxSizing: 'border-box',
 
-    backgroundColor: theme('colors.neutral.0'),
-    borderColor: theme('colors.neutral.25'),
+    backgroundColor: theme('x.colors.neutral.0'),
+    borderColor: theme('x.colors.neutral.25'),
     borderStyle: 'solid',
-    borderWidth: theme('borderWidth.1'),
-    color: theme('colors.neutral.75'),
+    borderWidth: theme('x.borderWidth.1'),
+    color: theme('x.colors.neutral.75'),
 
-    gap: theme('spacing.8'),
+    gap: theme('x.spacing.8'),
 
-    fontFamily: theme('fontFamily.main'),
-    fontWeight: theme('fontWeight.regular'),
-    letterSpacing: theme('letterSpacing.lg'),
-    lineHeight: theme('lineHeight.sm'),
+    fontFamily: theme('x.fontFamily.main'),
+    fontWeight: theme('x.fontWeight.regular'),
+    letterSpacing: theme('x.letterSpacing.lg'),
+    lineHeight: theme('x.lineHeight.sm'),
 
     cursor: 'pointer',
 
     '&:hover,&:focus,&:active': {
-      borderColor: theme('colors.neutral.50'),
-      color: theme('colors.neutral.90')
+      borderColor: theme('x.colors.neutral.50'),
+      color: theme('x.colors.neutral.90')
     },
 
     paddingTop: 0,
@@ -54,12 +54,12 @@ export function tagDefault(helpers: TailwindHelpers) {
     ...disabledStyles,
 
     '&.selected': {
-      borderColor: `var(--tag-color-75, ${theme('colors.neutral.90')})`,
-      borderWidth: theme('spacing.2'),
-      color: theme('colors.neutral.90'),
+      borderColor: `var(--tag-color-75, ${theme('x.colors.neutral.90')})`,
+      borderWidth: theme('x.spacing.2'),
+      color: theme('x.colors.neutral.90'),
 
       '&:hover,&:focus,&:active': {
-        borderColor: `var(--tag-color-50, ${theme('colors.neutral.50')})`
+        borderColor: `var(--tag-color-50, ${theme('x.colors.neutral.50')})`
       },
 
       ...disabledStyles

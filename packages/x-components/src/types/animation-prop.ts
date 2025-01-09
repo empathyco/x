@@ -1,8 +1,11 @@
-import { DefineComponent, PropType } from 'vue';
-
 /**
  * Type for animations props.
  *
+ * @remarks
+ * String for 'ul'
+ * Object for `DefineComponent` type
+ * Function for `() => NoElement`
+ *
  * @public
  */
-export const AnimationProp = [String, Object, Function] as PropType<DefineComponent | string>;
+export const AnimationProp = [String, Object, Function];

@@ -1,9 +1,5 @@
 import './css/index.pcss';
-import Vue from 'vue';
-import XdsShowcase from './components/xds-showcase.vue';
+import { createApp } from 'vue';
+import xdsShowcase from './components/xds-showcase.vue';
 
-new Vue({
-  render(h) {
-    return h(XdsShowcase);
-  }
-}).$mount('#app');
+createApp(xdsShowcase).mount('#app');

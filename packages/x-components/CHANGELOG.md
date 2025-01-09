@@ -3,12 +3,258 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.26...@empathyco/x-components@6.0.0-alpha.27) (2025-01-09)
+
+
+### Features
+
+* add related prompts list component (#1680) ([8011a96](https://github.com/empathyco/x/commit/8011a967528f6fa33af41aca45971cb9f30d6a8f))
+
+
+
+## [6.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.25...@empathyco/x-components@6.0.0-alpha.26) (2025-01-07)
+
+
+### Code Refactoring
+
+* **store:** deprecate useStore in favor of vuex's useStore ([de4fecf](https://github.com/empathyco/x/commit/de4fecfa6dcfd9f0d408d34a60d4bdd00dffce99))
+
+
+
+## [6.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.24...@empathyco/x-components@6.0.0-alpha.25) (2025-01-06)
+
+
+### Continuous Integration
+
+* remove template comments from build ([443d277](https://github.com/empathyco/x/commit/443d27761bc2c024931245d9e6a7b26766101ed7))
+
+
+
+## [6.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.23...@empathyco/x-components@6.0.0-alpha.24) (2024-12-19)
+
+
+### Bug Fixes
+
+* **types:** update installExtraPlugins to support Promise return type ([99d0620](https://github.com/empathyco/x/commit/99d0620d7017167441d63805d29446778432d60b))
+
+
+
+## [6.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.22...@empathyco/x-components@6.0.0-alpha.23) (2024-12-12)
+
+
+### Bug Fixes
+
+* **components:** export missing store utils (#1677) ([a1f9cee](https://github.com/empathyco/x/commit/a1f9cee4b2006a71689fc2ce7f07f12816fbb574))
+
+
+
+## [6.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.21...@empathyco/x-components@6.0.0-alpha.22) (2024-12-09)
+
+
+### Bug Fixes
+
+* fix ref usage ([12d5a05](https://github.com/empathyco/x/commit/12d5a053b55d8a4f09b6e396f16a9ce1877c0774))
+
+
+
+## [6.0.0-alpha.21](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.20...@empathyco/x-components@6.0.0-alpha.21) (2024-12-09)
+
+
+### Features
+
+* **x-installer:** extend domElement type to allow  ShadowRoot ([900eb9c](https://github.com/empathyco/x/commit/900eb9c0c9bce7b48897b86ca11e4f1ec82d783b))
+
+
+
+## [6.0.0-alpha.20](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.19...@empathyco/x-components@6.0.0-alpha.20) (2024-11-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **xds:** the x tailwincss plugin no longer admits an options configuration. The plugin theme is accessible through theme: extend: { x: {...}}  so now if you need to customize a value you can do it  via extending the general tailwind theme:
+
+module.exports = {
+  theme: {
+    extend: {
+      spacing: theme => theme('x.spacing'),
+      colors: theme => theme('x.colors'),
+      screens: theme => theme('x.screens'),
+      fontSize: theme => theme('x.fontSize'),
+      fontFamily: theme => theme('x.fontFamily'),
+      x: {
+        colors: {
+          neutral: {
+            5: '#56ac91'
+          }
+....
+
+To add new components you can do it via https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes
+
+### Features
+
+* **xds:** avoid overriding consumers theme by xds (#1658) ([bd3ed79](https://github.com/empathyco/x/commit/bd3ed79f654fc7e76939c7d0baa2a67e6b879ed8))
+
+
+
+## [6.0.0-alpha.19](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.18...@empathyco/x-components@6.0.0-alpha.19) (2024-11-25)
+
+
+### Features
+
+* Add content class in base slider to ease customisation (#1662) ([63d7b99](https://github.com/empathyco/x/commit/63d7b9983ec37fb979115ec35a32d2ec2dfc1eca))
+
+
+
+## [6.0.0-alpha.18](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.17...@empathyco/x-components@6.0.0-alpha.18) (2024-11-22)
+
+
+### Features
+
+* add related prompts selection events (#1663) ([8cdf6db](https://github.com/empathyco/x/commit/8cdf6dbaff4a5e111fbc77a898a502ce133e1afe))
+
+
+
+## [6.0.0-alpha.17](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.16...@empathyco/x-components@6.0.0-alpha.17) (2024-11-21)
+
+
+### Features
+
+* add selection state to related prompts module (#1659) ([220c449](https://github.com/empathyco/x/commit/220c44926709378ebee87a21e06c6f188c5d3cd1))
+
+
+### Bug Fixes
+
+* **animation-prop:** decommission old animation-prop.ts and generalize the new one (#1660) ([493b6bd](https://github.com/empathyco/x/commit/493b6bd1e8a9de2731b582bb60fac6e29a1a0a47))
+
+
+
+## [6.0.0-alpha.16](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.15...@empathyco/x-components@6.0.0-alpha.16) (2024-11-21)
+
+
+### Bug Fixes
+
+* **next-queries:** export types from module(#1661) ([ef0f71e](https://github.com/empathyco/x/commit/ef0f71eb08494699b4c017d077dc9fc8fbe97ce0))
+
+
+
+## [6.0.0-alpha.15](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.14...@empathyco/x-components@6.0.0-alpha.15) (2024-11-20)
+
+
+### Bug Fixes
+
+* **define-component:** relax definecomponent type to avoid type collisions (#1657) ([2ff1b67](https://github.com/empathyco/x/commit/2ff1b67bf38f6b59425131e55354ebfe681a3b66))
+
+
+
+## [6.0.0-alpha.14](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.13...@empathyco/x-components@6.0.0-alpha.14) (2024-11-20)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.0.0-alpha.13](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.12...@empathyco/x-components@6.0.0-alpha.13) (2024-11-13)
+
+
+### Features
+
+* add lang parameter to the queriesPreview hash (#1653) ([b41e6c6](https://github.com/empathyco/x/commit/b41e6c6dfe629270a7919cf7f5c528b839c7c831))
+
+
+
+## [6.0.0-alpha.12](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.11...@empathyco/x-components@6.0.0-alpha.12) (2024-11-04)
+
+
+### Features
+
+* new base-slider component (#1650) ([a3b1a0a](https://github.com/empathyco/x/commit/a3b1a0ad1c53d2ae39ae3e9d4229518825a040af))
+
+
+
+## [6.0.0-alpha.11](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.10...@empathyco/x-components@6.0.0-alpha.11) (2024-11-01)
+
+
+### Features
+
+* create related prompts module (#1642) ([36cdcc6](https://github.com/empathyco/x/commit/36cdcc681d4b049815b99a42d48c22d30c49fafa))
+
+
+
+## [6.0.0-alpha.10](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.9...@empathyco/x-components@6.0.0-alpha.10) (2024-10-31)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.0.0-alpha.9](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.8...@empathyco/x-components@6.0.0-alpha.9) (2024-10-31)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.0.0-alpha.8](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.7...@empathyco/x-components@6.0.0-alpha.8) (2024-10-31)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.0.0-alpha.7](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.6...@empathyco/x-components@6.0.0-alpha.7) (2024-10-28)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.0.0-alpha.6](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.5...@empathyco/x-components@6.0.0-alpha.6) (2024-10-28)
+
+
+### Features
+
+* add types for related prompts (#1640) ([9822c28](https://github.com/empathyco/x/commit/9822c285410f6d308a8a0e43f47e951b052592a2))
+
+
+
+## [6.0.0-alpha.5](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.4...@empathyco/x-components@6.0.0-alpha.5) (2024-10-28)
+
+
+### Build System
+
+* use vue latest version as peer dependency (#1651) ([1618993](https://github.com/empathyco/x/commit/161899326d325db46f39eead4ca7b57984b58b39))
+
+
+
+## [6.0.0-alpha.4](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.83...@empathyco/x-components@6.0.0-alpha.4) (2024-10-24)
+
+
+### Features
+
+* update x-components and related packages to vue 3 (#1644) ([d590842](https://github.com/empathyco/x/commit/d5908427544b9a65bbc16a860ea6f73270ee7c26))
+
+
+
+## [6.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.2...@empathyco/x-components@6.0.0-alpha.3) (2024-10-04)
+
+
+### Bug Fixes
+
+* **scroll:** scroll direction inconsistency (#1629) ([ad970ae](https://github.com/empathyco/x/commit/ad970ae8cd7898f23baa11d3a128d3251cd57cdb))
+
+
+
 ## [6.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.1...@empathyco/x-components@6.0.0-alpha.2) (2024-09-25)
 
 
 ### ⚠ BREAKING CHANGES
 
-* **history-queries-switch:** remove `change` event emission in favour of `update:modelValue` in `BaseSwitch` component. 
+* **history-queries-switch:** remove `change` event emission in favour of `update:modelValue` in `BaseSwitch` component.
 
 ### Bug Fixes
 
@@ -75,6 +321,24 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Continuous Integration
 
 * **linter:** fix linter issues to pass the CI (#1606) ([aff3151](https://github.com/empathyco/x/commit/aff3151818c64885d7c28e69f511d33ae41b38f5))
+
+
+
+## [5.0.0-alpha.83](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.82...@empathyco/x-components@5.0.0-alpha.83) (2024-10-03)
+
+
+### Bug Fixes
+
+* snippet config extra params reactivity (#1628) ([c87788a](https://github.com/empathyco/x/commit/c87788a6f194e6b8f59b520f05e9ed617c98bae6))
+
+
+
+## [5.0.0-alpha.82](https://github.com/empathyco/x/compare/@empathyco/x-components@5.0.0-alpha.81...@empathyco/x-components@5.0.0-alpha.82) (2024-09-30)
+
+
+### Bug Fixes
+
+* **tagging:** query tagging and send session param (#1627) ([69dd690](https://github.com/empathyco/x/commit/69dd690c1adf9195782f4747ba5d255251f5ac3c))
 
 
 

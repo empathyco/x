@@ -9,7 +9,7 @@ import { TailwindHelpers } from '../../../types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function utils(helpers: TailwindHelpers) {
   return {
-    '.layout-stack': {
+    '.x-layout-stack': {
       display: 'grid',
       gridTemplateRows: '1fr',
       gridTemplateColumns: '1fr',
@@ -26,45 +26,45 @@ export function utils(helpers: TailwindHelpers) {
       }
     },
 
-    '.layout-expand': {
+    '.x-layout-expand': {
       height: '100%',
       flex: '1 1 0',
       minHeight: '0'
     },
 
-    '.layout-on-margin-left': {
+    '.x-layout-on-margin-left': {
       gridColumn: '1 / 2'
     },
-    '.layout-on-margin-right': {
+    '.x-layout-on-margin-right': {
       gridColumn: '-2 / -1'
     },
 
-    '.layout-overlap': {
+    '.x-layout-overlap': {
       height: '0',
       overflow: 'visible',
       alignContent: 'flex-end',
       zIndex: '1'
     },
-    '.layout-overlap-from-top': {
+    '.x-layout-overlap-from-top': {
       height: '0',
       overflow: 'visible',
       zIndex: '1',
       alignContent: 'flex-start'
     },
 
-    '.layout-no-margin-left': {
+    '.x-layout-no-margin-left': {
       '--x-margin-left': '0px'
     },
-    '.layout-no-margin-right': {
+    '.x-layout-no-margin-right': {
       '--x-margin-right': '0px'
     },
-    '.layout-no-margin': {
+    '.x-layout-no-margin': {
       '--x-margin-left': '0px',
       '--x-margin-right': '0px'
     },
 
     '@media (hover: hover) and (pointer: fine)': {
-      '.scroll > .layout-item:not(.layout-no-margin-right)': {
+      '.x-scroll > .x-layout-item:not(.x-layout-no-margin-right)': {
         '--x-layout-scroll-width': '17px'
       }
     }

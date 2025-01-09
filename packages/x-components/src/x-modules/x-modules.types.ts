@@ -20,6 +20,7 @@ import { SemanticQueriesXModule } from './semantic-queries/x-module';
 import { TaggingXModule } from './tagging';
 import { UrlXModule } from './url';
 import { ExperienceControlsXModule } from './experience-controls/x-module';
+import { RelatedPromptsXModule } from './related-prompts/x-module';
 
 /**
  * Gives each {@link XModule} a name, that can be used to retrieve then its value.
@@ -38,6 +39,7 @@ export interface XModulesTree {
   queriesPreview: QueriesPreviewXModule;
   querySuggestions: QuerySuggestionsXModule;
   recommendations: RecommendationsXModule;
+  relatedPrompts: RelatedPromptsXModule;
   relatedTags: RelatedTagsXModule;
   scroll: ScrollXModule;
   search: SearchXModule;

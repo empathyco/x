@@ -13,8 +13,8 @@ export function badgeBright(helpers: TailwindHelpers) {
     bright: {
       backgroundColor: 'transparent',
 
-      borderWidth: theme('spacing.1'),
-      borderColor: `var(--badge-color-25, ${theme('colors.neutral.0')})`
+      borderWidth: theme('x.spacing.1'),
+      borderColor: `var(--badge-color-25, ${theme('x.colors.neutral.0')})`
     }
   };
 }

@@ -11,9 +11,9 @@ export function suggestionGhost(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
     ghost: {
-      backgroundColor: theme('colors.neutral.0'),
-      borderColor: theme('colors.neutral.0'),
-      borderWidth: theme('borderWidth.1'),
+      backgroundColor: theme('x.colors.neutral.0'),
+      borderColor: theme('x.colors.neutral.0'),
+      borderWidth: theme('x.borderWidth.1'),
       ...commonGhostAndTagStyles(helpers)
     }
   };

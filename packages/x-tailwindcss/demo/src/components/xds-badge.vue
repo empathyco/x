@@ -30,8 +30,8 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
-  import { ShowcaseSectionsClasses, ShowcaseSections } from '../types/types';
+  import { computed, defineComponent, PropType } from 'vue';
+  import { ShowcaseSectionsClasses } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
   import CuratedIcon from './icons/curated.vue';
@@ -47,91 +47,98 @@
     | 'AttachTo'
     | 'WithIcon'
     | 'Combinations';
-
-  @Component({
+  export default defineComponent({
     components: {
       XdsBaseShowcase,
       CuratedIcon
-    }
-  })
-  export default class XdsBadgeShowcase extends Vue {
-    @Prop({ default: () => 'x-badge' })
-    public base!: string;
+    },
+    props: {
+      base: {
+        type: String,
+        default: () => 'x-badge'
+      },
+      sizes: {
+        type: Array as PropType<string[]>,
+        default: () => ['x-badge-sm', 'x-badge-md']
+      },
+      circle: {
+        type: String,
+        default: () => 'x-badge-circle'
+      },
+      colors: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          '',
+          'x-badge-neutral',
+          'x-badge-lead',
+          'x-badge-auxiliary',
+          'x-badge-accent',
+          'x-badge-highlight',
+          'x-badge-success',
+          'x-badge-warning',
+          'x-badge-error'
+        ]
+      },
+      light: {
+        type: String,
+        default: () => 'x-badge-light'
+      },
+      outlined: {
+        type: String,
+        default: () => 'x-badge-outlined'
+      },
+      bright: {
+        type: String,
+        default: () => 'x-badge-bright'
+      },
+      attachTo: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          'x-attach-to-top-left',
+          'x-attach-to-top-right',
+          'x-attach-to-bottom-left',
+          'x-attach-to-bottom-right'
+        ]
+      },
+      withIcon: {
+        type: Array as PropType<string[]>,
+        default: () => ['x-badge-sm', '', 'x-badge-circle x-badge-sm', 'x-badge-circle']
+      },
+      combinations: {
+        type: Array as PropType<string[]>,
+        default: () => [
+          'x-badge-error x-badge-sm x-badge-outlined',
+          'x-badge-light x-badge-lead x-badge-circle',
+          'x-badge-outlined x-badge-circle x-badge-warning x-badge-sm',
+          'x-badge-light x-badge-outlined x-badge-auxiliary',
+          'x-badge-circle x-badge-light x-badge-lead x-attach-to-top-right',
+          'x-badge-sm x-badge-highlight x-attach-to-top-right'
+        ]
+      }
+    },
+    setup(props) {
+      const sectionClasses: ShowcaseSectionsClasses<Sections> = {
+        Bright: 'bg-gray-700 p-8'
+      };
+      const sections = computed(() => {
+        return {
+          Default: [props.base],
+          Sizes: props.sizes.map(addParentClasses(props.base)),
+          Circle: props.sizes.map(addParentClasses(props.base, props.circle)),
+          Colors: props.colors.map(addParentClasses(props.base)),
+          Light: props.colors.map(addParentClasses(props.base, props.light)),
+          Outlined: props.colors.map(addParentClasses(props.base, props.outlined)),
+          Bright: props.colors.map(addParentClasses(props.base, props.bright)),
+          AttachTo: props.attachTo.map(addParentClasses(props.base)),
+          WithIcon: props.withIcon.map(addParentClasses(props.base)),
+          Combinations: props.combinations.map(addParentClasses(props.base))
+        };
+      });
 
-    @Prop({ default: () => ['x-badge-sm', 'x-badge-md'] })
-    public sizes!: string[];
-
-    @Prop({ default: () => 'x-badge-circle' })
-    public circle!: string;
-
-    @Prop({
-      default: () => [
-        '',
-        'x-badge-neutral',
-        'x-badge-lead',
-        'x-badge-auxiliary',
-        'x-badge-accent',
-        'x-badge-highlight',
-        'x-badge-success',
-        'x-badge-warning',
-        'x-badge-error'
-      ]
-    })
-    public colors!: string[];
-
-    @Prop({ default: () => 'x-badge-light' })
-    public light!: string;
-
-    @Prop({ default: () => 'x-badge-outlined' })
-    public outlined!: string;
-
-    @Prop({ default: () => 'x-badge-bright' })
-    public bright!: string;
-
-    @Prop({
-      default: () => [
-        'x-attach-to-top-left',
-        'x-attach-to-top-right',
-        'x-attach-to-bottom-left',
-        'x-attach-to-bottom-right'
-      ]
-    })
-    public attachTo!: string[];
-
-    @Prop({
-      default: () => ['x-badge-sm', '', 'x-badge-circle x-badge-sm', 'x-badge-circle']
-    })
-    public withIcon!: string[];
-
-    @Prop({
-      default: () => [
-        'x-badge-error x-badge-sm x-badge-outlined',
-        'x-badge-light x-badge-lead x-badge-circle',
-        'x-badge-outlined x-badge-circle x-badge-warning x-badge-sm',
-        'x-badge-light x-badge-outlined x-badge-auxiliary',
-        'x-badge-circle x-badge-light x-badge-lead x-attach-to-top-right',
-        'x-badge-sm x-badge-highlight x-attach-to-top-right'
-      ]
-    })
-    public combinations!: string[];
-
-    public sectionClasses: ShowcaseSectionsClasses<Sections> = {
-      Bright: 'x-bg-neutral-90 x-p-8'
-    };
-
-    protected get sections(): ShowcaseSections<Sections> {
       return {
-        Default: [this.base],
-        Sizes: this.sizes.map(addParentClasses(this.base)),
-        Circle: this.sizes.map(addParentClasses(this.base, this.circle)),
-        Colors: this.colors.map(addParentClasses(this.base)),
-        Light: this.colors.map(addParentClasses(this.base, this.light)),
-        Outlined: this.colors.map(addParentClasses(this.base, this.outlined)),
-        Bright: this.colors.map(addParentClasses(this.base, this.bright)),
-        AttachTo: this.attachTo.map(addParentClasses(this.base)),
-        WithIcon: this.withIcon.map(addParentClasses(this.base)),
-        Combinations: this.combinations.map(addParentClasses(this.base))
+        sectionClasses,
+        sections
       };
     }
-  }
+  });
 </script>

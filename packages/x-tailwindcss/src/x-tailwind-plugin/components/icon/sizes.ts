@@ -9,22 +9,22 @@ import { TailwindHelpers } from '../../../types';
 export function iconSizes({ theme }: TailwindHelpers) {
   return {
     sm: {
-      height: theme('spacing.8'),
+      height: theme('x.spacing.8'),
       '--fontSize': '7px'
     },
 
     md: {
-      height: theme('spacing.16'),
+      height: theme('x.spacing.16'),
       '--fontSize': '14px'
     },
 
     lg: {
-      height: theme('spacing.24'),
+      height: theme('x.spacing.24'),
       '--fontSize': '20px'
     },
 
     xl: {
-      height: theme('spacing.32'),
+      height: theme('x.spacing.32'),
       '--fontSize': '28px'
     }
   };

@@ -88,7 +88,10 @@ describe('testing queries preview module actions', () => {
       const request = getQueryPreviewRequest(queryPreview.query);
       await nextTick();
       const stateResults = store.state.queriesPreview;
-      const queryId = getHashFromQueryPreviewInfo(queryPreview);
+      const queryId = getHashFromQueryPreviewInfo(
+        queryPreview,
+        request.extraParams?.lang as string
+      );
       const expectedResults: QueryPreviewItem = {
         totalResults: mockedSearchResponse.totalResults,
         results: mockedSearchResponse.results,
@@ -133,7 +136,10 @@ describe('testing queries preview module actions', () => {
       adapter.search.mockRejectedValueOnce('Generic error');
       const queryPreview: QueryPreviewInfo = { query: 'sandals' };
       const request = getQueryPreviewRequest(queryPreview.query);
-      const queryId = getHashFromQueryPreviewInfo(queryPreview);
+      const queryId = getHashFromQueryPreviewInfo(
+        queryPreview,
+        request.extraParams?.lang as string
+      );
 
       await store.dispatch('fetchAndSaveQueryPreview', request);
       expect(store.state.queriesPreview[queryId].status).toEqual('error');
@@ -141,16 +147,24 @@ describe('testing queries preview module actions', () => {
 
     it('should send multiple requests if the queries are different', async () => {
       const { store } = renderQueryPreviewActions();
-      const firstQuery = getHashFromQueryPreviewInfo({ query: 'milk' });
-      const secondQuery = getHashFromQueryPreviewInfo({ query: 'cookies' });
-      const firstRequest = store.dispatch(
-        'fetchAndSaveQueryPreview',
-        getQueryPreviewRequest('milk')
-      );
-      const secondRequest = store.dispatch(
-        'fetchAndSaveQueryPreview',
-        getQueryPreviewRequest('cookies')
-      );
+      const firstQuery = getHashFromQueryPreviewInfo({ query: 'milk' }, 'en');
+      const secondQuery = getHashFromQueryPreviewInfo({ query: 'cookies' }, 'en');
+      const firstRequest = store.dispatch('fetchAndSaveQueryPreview', {
+        query: 'milk',
+        rows: 3,
+        extraParams: {
+          extraParam: 'extra param',
+          lang: 'en'
+        }
+      });
+      const secondRequest = store.dispatch('fetchAndSaveQueryPreview', {
+        query: 'cookies',
+        rows: 3,
+        extraParams: {
+          extraParam: 'extra param',
+          lang: 'en'
+        }
+      });
 
       await Promise.all([firstRequest, secondRequest]);
 

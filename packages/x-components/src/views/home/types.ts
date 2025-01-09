@@ -18,6 +18,9 @@ export interface HomeControls {
   nextQueriesList: {
     showOnlyAfterOffset: boolean;
   };
+  relatedPromptsList: {
+    showOnlyAfterOffset: boolean;
+  };
   adapter: {
     useE2EAdapter: boolean;
   };

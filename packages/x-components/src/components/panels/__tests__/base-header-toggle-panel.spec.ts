@@ -25,10 +25,7 @@ function renderBaseHeaderTogglePanel({
 
   return {
     wrapper,
-    toggleOpen() {
-      headerWrapper.trigger('click');
-      return wrapper.vm.$nextTick();
-    }
+    toggleOpen: async () => await headerWrapper.trigger('click')
   };
 }
 

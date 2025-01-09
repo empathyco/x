@@ -11,19 +11,19 @@ export function buttonGroupDefault(helpers: TailwindHelpers) {
 
   return {
     display: 'inline-flex',
-    color: theme('colors.neutral.50'),
+    color: theme('x.colors.neutral.50'),
 
     // We should only remove the left border if the button group doesn't have gap.
-    '&:not([class*="gap"]) > .button + .button': {
+    '&:not([class*="gap"]) > .x-button + .x-button': {
       borderLeft: 'unset'
     },
 
-    '& > :not(.button-circle):first-child': {
+    '& > :not(.x-button-circle):first-child': {
       borderTopLeftRadius: 'inherit',
       borderBottomLeftRadius: 'inherit'
     },
 
-    '& > :not(.button-circle):last-child': {
+    '& > :not(.x-button-circle):last-child': {
       borderTopRightRadius: 'inherit',
       borderBottomRightRadius: 'inherit'
     }

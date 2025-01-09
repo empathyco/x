@@ -15,14 +15,7 @@ export default function dynamicUtilities({ theme }: TailwindHelpers) {
       styles: (value: any) => ({
         fontSize: value
       }),
-      values: theme('spacing')
+      values: theme('x.spacing')
     }
   };
 }
-
-/**
- * The return type of {@link dynamicUtilities}.
- *
- * @public
- */
-export type ReturnOfDynamicUtilities = ReturnType<typeof dynamicUtilities>;

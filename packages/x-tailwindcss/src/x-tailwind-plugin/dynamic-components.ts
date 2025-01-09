@@ -14,10 +14,3 @@ export default function dynamicComponents(helpers: TailwindHelpers) {
     ...dynamicLayout(helpers)
   };
 }
-
-/**
- * The return type of {@link dynamicComponents}.
- *
- * @public
- */
-export type ReturnOfDynamicComponents = ReturnType<typeof dynamicComponents>;

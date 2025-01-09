@@ -26,7 +26,7 @@
   import { computed, defineComponent, PropType } from 'vue';
   import { ListItem } from '../utils/types';
   import { toKebabCase } from '../utils/string';
-  import { animationProp } from '../utils/options-api';
+  import { AnimationProp } from '../types';
 
   /**
    * It renders a list of {@link ListItem} providing a slot for each `slotName` which depends on
@@ -39,7 +39,7 @@
     props: {
       /** Animation component that will be used to animate the list. */
       animation: {
-        type: animationProp,
+        type: AnimationProp,
         default: 'ul'
       },
       /** List of items. */

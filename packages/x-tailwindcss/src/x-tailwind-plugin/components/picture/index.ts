@@ -12,7 +12,7 @@ import { zoom } from './zoom';
  */
 export function picture(helpers: TailwindHelpers) {
   return {
-    '.picture': {
+    '.x-picture': {
       ...pictureDefault(helpers),
       ...rename(
         {

@@ -18,7 +18,7 @@ export function buttonLayouts({ theme }: TailwindHelpers) {
       aspectRatio: '1/1',
       paddingInlineStart: 0,
       paddingInlineEnd: 0,
-      borderRadius: theme('borderRadius.full')
+      borderRadius: theme('x.borderRadius.full')
     }
   };
 }

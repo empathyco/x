@@ -13,7 +13,7 @@ export function commonGhostAndTagStyles(helpers: TailwindHelpers) {
   const padding = paddingBySize(helpers);
   return {
     '&:hover': {
-      backgroundColor: theme('colors.neutral.10'),
+      backgroundColor: theme('x.colors.neutral.10'),
       textDecoration: 'none'
     },
     ...padding.md,

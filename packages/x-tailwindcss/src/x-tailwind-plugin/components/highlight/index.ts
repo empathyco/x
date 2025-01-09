@@ -11,7 +11,7 @@ import { highlightDefault } from './default';
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function highlight(helpers: TailwindHelpers) {
   return {
-    '.highlight-text': {
+    '.x-highlight-text': {
       ...highlightDefault(helpers)
     }
   };

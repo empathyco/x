@@ -10,7 +10,7 @@ import { TailwindHelpers } from '../../../types';
 export function iconStrokeWidths({ theme }: TailwindHelpers) {
   return {
     'stroke-width': rename(
-      map(theme('strokeWidth'), (width, value) => ({
+      map(theme('x.strokeWidth'), (width, value) => ({
         '*': { strokeWidth: value }
       })),
       { prefix: '&-' }

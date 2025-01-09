@@ -9,14 +9,14 @@ import { TailwindHelpers } from '../../../../types';
 export function inputGroupButtonOutlined(helpers: TailwindHelpers) {
   const { theme } = helpers;
   return {
-    backgroundColor: theme('colors.neutral.0'),
-    borderColor: `var(--input-color-50,${theme('colors.neutral.90')})`,
-    color: `var(--input-color-50,${theme('colors.neutral.90')})`,
+    backgroundColor: theme('x.colors.neutral.0'),
+    borderColor: `var(--input-color-50,${theme('x.colors.neutral.90')})`,
+    color: `var(--input-color-50,${theme('x.colors.neutral.90')})`,
 
     '&:hover,&:focus,&:active': {
-      backgroundColor: `var(--input-color-50,${theme('colors.neutral.90')})`,
-      borderColor: `var(--input-color-50,${theme('colors.neutral.90')})`,
-      color: `theme('colors.neutral.0')`
+      backgroundColor: `var(--input-color-50,${theme('x.colors.neutral.90')})`,
+      borderColor: `var(--input-color-50,${theme('x.colors.neutral.90')})`,
+      color: `theme('x.colors.neutral.0')`
     }
   };
 }

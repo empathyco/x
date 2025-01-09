@@ -10,6 +10,7 @@ import {
   SearchRequest,
   SearchResponse,
   Sort,
+  Stats,
   TaggingRequest
 } from '@empathyco/x-types';
 import { Dictionary } from '@empathyco/x-utils';
@@ -67,6 +68,8 @@ export interface SearchState extends StatusState, QueryState {
   sort: Sort;
   /** The spellcheckedQuery property of the state. */
   spellcheckedQuery: string;
+  /** The stats of the results. */
+  stats: Stats;
   /** The total number of results, related to the `query` property of the state. */
   totalResults: number;
 }
@@ -219,6 +222,12 @@ export interface SearchMutations
    * @param spellcheckedQuery - The new spellcheck string to save to the state.
    */
   setSpellcheck(spellcheckedQuery: string): void;
+  /**
+   * Sets the stats of the module.
+   *
+   * @param stats - The new stats to save to the state.
+   */
+  setStats(stats: Stats): void;
   /**
    * Sets the total results of the module.
    *

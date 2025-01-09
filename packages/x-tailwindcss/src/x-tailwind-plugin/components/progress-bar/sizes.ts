@@ -9,10 +9,10 @@ import { TailwindHelpers } from '../../../types';
 export function progressBarSizes({ theme }: TailwindHelpers) {
   return {
     md: {
-      height: theme('spacing.4')
+      height: theme('x.spacing.4')
     },
     lg: {
-      height: theme('spacing.8')
+      height: theme('x.spacing.8')
     }
   };
 }

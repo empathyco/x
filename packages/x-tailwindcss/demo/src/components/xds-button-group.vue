@@ -4,7 +4,7 @@
     :sections="sections"
     #default="{ cssClass, copyCssClassesToClipboard }"
   >
-    <div class="x-flex x-gap-20 x-flex-wrap">
+    <div class="flex flex-wrap gap-5">
       <div
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
@@ -19,7 +19,7 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
         :class="cssClass"
-        class="x-gap-8"
+        class="gap-2"
       >
         <button class="x-button">BUTTON 1</button>
         <span class="x-button-group-divider" />
@@ -42,7 +42,7 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
         :class="cssClass"
-        class="x-gap-8"
+        class="gap-2"
       >
         <button class="x-button x-button-outlined">BUTTON 1</button>
         <button class="x-button x-button-outlined">BUTTON 2</button>
@@ -53,7 +53,7 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
         :class="cssClass"
-        class="x-gap-8"
+        class="gap-2"
       >
         <button class="x-button x-button-outlined">BUTTON 1</button>
         <span class="x-button-group-divider" />
@@ -66,7 +66,7 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
         :class="cssClass"
-        class="x-text-accent-50"
+        class="text-red-500"
       >
         <button class="x-button x-button-ghost">BUTTON 1</button>
         <span class="x-button-group-divider" />
@@ -79,7 +79,7 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
         :class="cssClass"
-        class="x-text-accent-50 x-gap-8"
+        class="gap-2 text-red-500"
       >
         <button class="x-button x-button-tight">BUTTON 1</button>
         <button class="x-button x-button-tight">BUTTON 2</button>
@@ -90,7 +90,7 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
         :class="cssClass"
-        class="x-text-accent-50"
+        class="text-red-500"
       >
         <button class="x-button x-button-highlight x-button-circle">
           <PlusIcon class="x-icon" />
@@ -104,7 +104,7 @@
         @click="copyCssClassesToClipboard"
         @keydown="copyCssClassesToClipboard"
         :class="cssClass"
-        class="x-text-accent-50"
+        class="text-red-500"
       >
         <button class="x-button x-button-highlight x-button-square">
           <PlusIcon class="x-icon" />
@@ -118,31 +118,31 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { defineComponent, PropType } from 'vue';
   import { ShowcaseSections } from '../types/types';
   import { addParentClasses } from '../utils';
   import XdsBaseShowcase from './xds-base-showcase.vue';
   import PlusIcon from './icons/plus.vue';
 
-  @Component({
-    components: { XdsBaseShowcase, PlusIcon }
-  })
-  export default class XdsButtonGroup extends Vue {
-    @Prop({
-      default: () => 'x-button-group'
-    })
-    public base!: string;
-
-    @Prop({
-      default: () => ['x-rounded-md']
-    })
-    public rounded!: string[];
-
-    protected get sections(): ShowcaseSections {
-      return {
-        Default: [this.base],
-        Rounded: this.rounded.map(addParentClasses(this.base))
-      };
+  export default defineComponent({
+    components: { XdsBaseShowcase, PlusIcon },
+    props: {
+      base: {
+        type: String,
+        default: 'x-button-group'
+      },
+      rounded: {
+        type: Array as PropType<string[]>,
+        default: () => ['x-rounded-md']
+      }
+    },
+    computed: {
+      sections(): ShowcaseSections {
+        return {
+          Default: [this.base],
+          Rounded: this.rounded.map(addParentClasses(this.base))
+        };
+      }
     }
-  }
+  });
 </script>

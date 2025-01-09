@@ -10,9 +10,9 @@ export function facetFilterGhost(helpers: TailwindHelpers) {
   const { theme } = helpers;
 
   const sizes = {
-    sm: { paddingInline: theme('spacing.4') },
-    md: { paddingInline: theme('spacing.8') },
-    lg: { paddingInline: theme('spacing.12') }
+    sm: { paddingInline: theme('x.spacing.4') },
+    md: { paddingInline: theme('x.spacing.8') },
+    lg: { paddingInline: theme('x.spacing.12') }
   };
 
   return {
@@ -21,17 +21,17 @@ export function facetFilterGhost(helpers: TailwindHelpers) {
       ...sizes,
 
       '&:hover': {
-        backgroundColor: theme('colors.neutral.10'),
-        color: theme('colors.neutral.90')
+        backgroundColor: theme('x.colors.neutral.10'),
+        color: theme('x.colors.neutral.90')
       },
       '&.selected': {
-        fontWeight: theme('fontWeight.regular'),
+        fontWeight: theme('x.fontWeight.regular'),
         color: `var(--filter-color-75)`,
-        letterSpacing: theme('letterSpacing.md')
+        letterSpacing: theme('x.letterSpacing.md')
       },
       '&:disabled': {
         backgroundColor: 'unset',
-        color: theme('colors.neutral.25')
+        color: theme('x.colors.neutral.25')
       }
     }
   };

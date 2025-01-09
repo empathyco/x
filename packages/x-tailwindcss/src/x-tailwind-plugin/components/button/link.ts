@@ -26,13 +26,13 @@ export function buttonLink(helpers: TailwindHelpers) {
       '&.selected': {
         borderColor: 'transparent',
         backgroundColor: 'transparent',
-        color: `var(--button-color-75,${theme('colors.neutral.100')})`,
-        fontWeight: theme('fontWeight.bold'),
+        color: `var(--button-color-75,${theme('x.colors.neutral.100')})`,
+        fontWeight: theme('x.fontWeight.bold'),
 
         '&:hover,&:active': {
           borderColor: 'transparent',
           backgroundColor: 'transparent',
-          color: `var(--button-color-50,${theme('colors.neutral.90')})`
+          color: `var(--button-color-50,${theme('x.colors.neutral.90')})`
         },
 
         '&:disabled': {
