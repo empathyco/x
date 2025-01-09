@@ -97,7 +97,7 @@
       /** Boolean to delay the leave animation until it has completed. */
       const isWaitingForLeave = ref(false);
       /** The reference element to use to find the modal's position. */
-      let referenceElement: HTMLElement;
+      let referenceElement: HTMLElement | undefined;
 
       /** Disables the scroll of both the body and the window. */
       function disableScroll() {
@@ -211,13 +211,24 @@
 
         resizeObserver = new ResizeObserver(debouncedUpdatePosition);
 
-        if (props.referenceSelector) {
-          const element = document.querySelector(props.referenceSelector) as HTMLElement;
-          if (element) {
-            referenceElement = element;
-            resizeObserver.observe(element);
-          }
-        }
+        watch(
+          () => props.referenceSelector,
+          () => {
+            resizeObserver.disconnect();
+
+            if (props.referenceSelector) {
+              const element = document.querySelector(props.referenceSelector) as HTMLElement;
+              if (element) {
+                referenceElement = element;
+                resizeObserver.observe(element);
+              }
+            } else {
+              referenceElement = undefined;
+              debouncedUpdatePosition();
+            }
+          },
+          { immediate: true }
+        );
       });
 
       onBeforeUnmount(() => {

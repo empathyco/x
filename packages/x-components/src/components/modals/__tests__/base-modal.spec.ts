@@ -2,6 +2,14 @@ import { mount } from '@vue/test-utils';
 import { getDataTestSelector } from '../../../__tests__/utils';
 import BaseModal from '../base-modal.vue';
 
+const MockResizeObserver: ResizeObserver = {
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn()
+};
+
+window.ResizeObserver = jest.fn().mockImplementation(() => MockResizeObserver);
+
 /**
  * Mounts a {@link BaseModal} component with the provided options and offers an API to easily
  * test it.
@@ -14,24 +22,27 @@ function mountBaseModal({
   open = false,
   focusOnOpen = true,
   contentClass = '',
-  overlayClass = ''
+  overlayClass = '',
+  referenceSelector = undefined
 } = {}) {
   const wrapper = mount(
     {
       template: `
+        <div id="test-panel"/>
         <BaseModal
           :open="open"
           :focusOnOpen="focusOnOpen"
           :contentClass="contentClass"
           :overlayClass="overlayClass"
+          :referenceSelector="referenceSelector"
         >
           <slot/>
         </BaseModal>`,
       components: { BaseModal },
-      props: ['open', 'focusOnOpen', 'contentClass', 'overlayClass']
+      props: ['open', 'focusOnOpen', 'contentClass', 'overlayClass', 'referenceSelector']
     },
     {
-      propsData: { open, focusOnOpen, contentClass, overlayClass },
+      propsData: { open, focusOnOpen, contentClass, overlayClass, referenceSelector },
       slots: { default: defaultSlot }
     }
   );
@@ -43,6 +54,8 @@ function mountBaseModal({
     wrapper: baseModalWrapper,
     getModalContent: () => baseModalWrapper.find(getDataTestSelector('modal-content')),
     setOpen: async (open: boolean) => await wrapper.setProps({ open }),
+    setReferenceSelector: async (referenceSelector: string) =>
+      await wrapper.setProps({ referenceSelector }),
     closeModal: async () =>
       await baseModalWrapper.find(getDataTestSelector('modal-overlay'))?.trigger('click'),
     appendToBody,
@@ -59,6 +72,7 @@ function mountBaseModal({
 describe('testing Base Modal  component', () => {
   beforeAll(() => jest.useFakeTimers());
   afterAll(() => jest.useRealTimers());
+  beforeEach(() => jest.clearAllMocks());
 
   it('renders only when the open prop is set to true', async () => {
     const { getModalContent, setOpen } = mountBaseModal();
@@ -170,5 +184,24 @@ describe('testing Base Modal  component', () => {
 
     const overlay = wrapper.find(getDataTestSelector('modal-overlay'));
     expect(overlay.classes('custom-class')).toBeTruthy();
+  });
+
+  it('allows update position when referenceSelector changes', async () => {
+    const observeSpy = jest.spyOn(MockResizeObserver, 'observe');
+    const disconnectSpy = jest.spyOn(MockResizeObserver, 'disconnect');
+
+    const { appendToBody, setReferenceSelector } = mountBaseModal({
+      open: true
+    });
+
+    appendToBody();
+
+    expect(disconnectSpy).toHaveBeenCalledTimes(1);
+    expect(observeSpy).not.toHaveBeenCalled();
+
+    await setReferenceSelector('#test-panel');
+
+    expect(disconnectSpy).toHaveBeenCalledTimes(2);
+    expect(observeSpy).toHaveBeenCalled();
   });
 });
