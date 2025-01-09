@@ -3,6 +3,51 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.27](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.26...@empathyco/x-components@6.0.0-alpha.27) (2025-01-09)
+
+
+### Features
+
+* add related prompts list component (#1680) ([8011a96](https://github.com/empathyco/x/commit/8011a967528f6fa33af41aca45971cb9f30d6a8f))
+
+
+
+## [6.0.0-alpha.26](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.25...@empathyco/x-components@6.0.0-alpha.26) (2025-01-07)
+
+
+### Code Refactoring
+
+* **store:** deprecate useStore in favor of vuex's useStore ([de4fecf](https://github.com/empathyco/x/commit/de4fecfa6dcfd9f0d408d34a60d4bdd00dffce99))
+
+
+
+## [6.0.0-alpha.25](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.24...@empathyco/x-components@6.0.0-alpha.25) (2025-01-06)
+
+
+### Continuous Integration
+
+* remove template comments from build ([443d277](https://github.com/empathyco/x/commit/443d27761bc2c024931245d9e6a7b26766101ed7))
+
+
+
+## [6.0.0-alpha.24](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.23...@empathyco/x-components@6.0.0-alpha.24) (2024-12-19)
+
+
+### Bug Fixes
+
+* **types:** update installExtraPlugins to support Promise return type ([99d0620](https://github.com/empathyco/x/commit/99d0620d7017167441d63805d29446778432d60b))
+
+
+
+## [6.0.0-alpha.23](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.22...@empathyco/x-components@6.0.0-alpha.23) (2024-12-12)
+
+
+### Bug Fixes
+
+* **components:** export missing store utils (#1677) ([a1f9cee](https://github.com/empathyco/x/commit/a1f9cee4b2006a71689fc2ce7f07f12816fbb574))
+
+
+
 ## [6.0.0-alpha.22](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.21...@empathyco/x-components@6.0.0-alpha.22) (2024-12-09)
 
 

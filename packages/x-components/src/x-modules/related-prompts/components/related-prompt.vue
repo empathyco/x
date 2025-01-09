@@ -4,9 +4,12 @@
     @keydown="toggleSuggestion(promptId)"
     class="x-related-prompt__button"
     :class="[{ 'x-related-prompt-selected__button': isSelected }]"
+    role="button"
+    aria-pressed="true"
+    tabindex="0"
   >
     <slot name="related-prompt-button-info">
-      <div class="x-related-prompt__button-info" role="button" aria-pressed="true">
+      <div class="x-related-prompt__button-info">
         <span
           class="x-typewritter-initial"
           :class="[{ 'x-typewritter-animation': isPromptVisible }]"
