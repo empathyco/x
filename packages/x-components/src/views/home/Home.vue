@@ -110,7 +110,7 @@
         </label>
       </li>
     </ul>
-    <MainModal :animation="modalAnimation">
+    <MainModal :animation="modalAnimation" :referenceSelector="referenceSelector">
       <MultiColumnMaxWidthLayout class="x-bg-neutral-0">
         <template #header-middle>
           <div
@@ -518,7 +518,7 @@
 
 <script lang="ts">
   /* eslint-disable max-len */
-  import { computed, ComputedRef, defineComponent, provide } from 'vue';
+  import { computed, ComputedRef, defineComponent, provide, ref } from 'vue';
   import { RelatedPrompt } from '@empathyco/x-types';
   import { animateClipPath } from '../../components/animations/animate-clip-path/animate-clip-path.factory';
   import StaggeredFadeAndSlide from '../../components/animations/staggered-fade-and-slide.vue';
@@ -675,6 +675,7 @@
       const selectedColumns = 4;
       const sortValues = ['', 'price asc', 'price desc'];
       const isAnyQueryLoadedInPreview = useQueriesPreview().isAnyQueryLoadedInPreview;
+      const referenceSelector = ref();
 
       const scrollData = useState('scroll', ['data']).data;
       const mainScrollDirection = computed(() => scrollData.value['main-scroll']?.direction);
@@ -773,7 +774,8 @@
         x,
         mainScrollDirection,
         relatedPromptsQueriesPreviewInfo,
-        selectedPrompt
+        selectedPrompt,
+        referenceSelector
       };
     }
   });
