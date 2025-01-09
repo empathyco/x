@@ -13,8 +13,6 @@ export interface RelatedPromptsItems {
   relatedPromptsProducts: RelatedPrompt[];
   /** The id of the selected related-prompt. */
   selectedPrompt: string;
-  /** A flag to manage if related-prompts should replace the results grid. */
-  replaceGrid: boolean;
 }
 
 /**

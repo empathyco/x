@@ -26,8 +26,7 @@ export const relatedPromptsXStoreModule: RelatedPromptsXStoreModule = {
     setRelatedPromptsProducts(state, { products, query }) {
       state.relatedPrompts[query] = {
         relatedPromptsProducts: products,
-        selectedPrompt: '',
-        replaceGrid: false
+        selectedPrompt: ''
       };
     },
     setSelectedPrompt(state, { promptId, query }) {

@@ -23,11 +23,13 @@ export const fetchAndSaveRelatedPrompts: RelatedPromptsXStoreModule['actions']['
 
     return dispatch('fetchRelatedPrompts', request)
       .then(response => {
-        commit('setRelatedPromptsProducts', {
-          products: response ?? [],
-          query
-        });
-        commit('setStatus', 'success');
+        if (response) {
+          commit('setRelatedPromptsProducts', {
+            products: response ?? [],
+            query
+          });
+          commit('setStatus', 'success');
+        }
       })
       .catch(error => {
         // eslint-disable-next-line no-console
