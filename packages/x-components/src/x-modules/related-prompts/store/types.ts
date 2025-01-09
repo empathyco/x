@@ -48,7 +48,7 @@ export interface RelatedPromptsMutations extends StatusMutations, QueryMutations
   /**
    * Sets the related prompts of the module.
    *
-   * @param relatedPrompts - The new related prompts to save to the state.
+   * @param products - The new related prompts to save to the state.
    */
   setRelatedPromptsProducts(products: RelatedPrompt[]): void;
   /**
@@ -67,6 +67,10 @@ export interface RelatedPromptsMutations extends StatusMutations, QueryMutations
    * Resets the related prompts state.
    */
   resetRelatedPromptsState(): void;
+  /**
+   * Resets the selected related prompt number.
+   */
+  resetSelectedPrompt(): void;
 }
 
 /**

@@ -1,60 +1,49 @@
 <template>
-  <div class="x-related-prompt" data-test="related-prompt">
-    <div class="x-related-prompt__info">
-      <slot name="header" :suggestionText="relatedPrompt.suggestionText">
-        {{ relatedPrompt.suggestionText }}
-      </slot>
-      <slot name="next-queries" :nextQueries="relatedPrompt.nextQueries">
-        <SlidingPanel :resetOnContentChange="false">
-          <div class="x-related-prompt__sliding-panel-content">
-            <button
-              v-for="(nextQuery, index) in relatedPrompt.nextQueries"
-              :key="index"
-              @click="onClick(nextQuery)"
-              :class="[
-                'x-button',
-                { 'x-selected': selectedNextQuery === nextQuery },
-                nextQueryButtonClass
-              ]"
-            >
-              <slot name="next-query" :nextQuery="nextQuery">
-                <span>{{ nextQuery }}</span>
-                <CrossTinyIcon v-if="selectedNextQuery === nextQuery" class="x-icon" />
-                <PlusIcon v-else class="x-icon" />
-              </slot>
-            </button>
-          </div>
-        </SlidingPanel>
-      </slot>
-    </div>
-    <div class="x-related-prompt__query-preview">
-      <slot name="selected-query" :selectedQuery="selectedNextQuery">
-        {{ selectedNextQuery }}
-      </slot>
-    </div>
+  <div
+    @click="toggleSuggestion(index)"
+    @keydown="toggleSuggestion(index)"
+    class="x-related-prompt__button"
+    :class="[{ 'x-related-prompt-selected__button': isSelected }]"
+    role="button"
+    aria-pressed="true"
+    tabindex="0"
+  >
+    <slot name="related-prompt-button-info">
+      <div class="x-related-prompt__button-info">
+        <span
+          class="x-typewritter-initial"
+          :class="[{ 'x-typewritter-animation': isPromptVisible }]"
+          :style="{
+            animationDelay: `${index * 0.4 + 0.05}s`,
+            '--suggestion-text-length': relatedPrompt.suggestionText.length
+          }"
+        >
+          {{ relatedPrompt.suggestionText }}
+        </span>
+      </div>
+      <CrossTinyIcon v-if="isSelected" class="x-icon-lg" />
+      <PlusIcon v-else class="x-icon-lg" />
+    </slot>
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, ref } from 'vue';
+  import { defineComponent, PropType } from 'vue';
   import { RelatedPrompt } from '@empathyco/x-types';
   import { relatedPromptsXModule } from '../x-module';
   import CrossTinyIcon from '../../../components/icons/cross-tiny.vue';
   import PlusIcon from '../../../components/icons/plus.vue';
-  import SlidingPanel from '../../../components/sliding-panel.vue';
+  import { use$x } from '../../../composables/index';
 
   /**
-   * This component shows a suggested related prompt with the associated next queries.
-   * It allows to select one of the next query and show it.
+   * This component shows a suggested related prompt.
    *
-   * It provide slots to customize the header, the next queries list,
-   * the individual next query inside the list and the selected query.
+   * It provides a slot to customize the related prompt button information.
    *
    * @public
    */
   export default defineComponent({
     name: 'RelatedPrompt',
     components: {
-      SlidingPanel,
       CrossTinyIcon,
       PlusIcon
     },
@@ -64,39 +53,29 @@
         type: Object as PropType<RelatedPrompt>,
         required: true
       },
-      nextQueryButtonClass: {
-        type: String,
-        default: 'x-button-outlined'
+      isPromptVisible: {
+        type: Boolean,
+        default: false
+      },
+      isSelected: {
+        type: Boolean,
+        default: false
+      },
+      index: {
+        type: Number,
+        required: true
       }
     },
-    setup(props) {
-      const selectedNextQuery = ref(props.relatedPrompt.nextQueries[0]);
+    setup() {
+      const x = use$x();
 
-      /**
-       * Handles the click event on a next query button.
-       *
-       * @param nextQuery - The clicked next query.
-       */
-      function onClick(nextQuery: string): void {
-        if (selectedNextQuery.value === nextQuery) {
-          selectedNextQuery.value = '';
-        } else {
-          selectedNextQuery.value = nextQuery;
-        }
-      }
+      const toggleSuggestion = (index: number): void => {
+        x.emit('UserSelectedARelatedPrompt', index);
+      };
 
-      return { selectedNextQuery, onClick };
+      return {
+        toggleSuggestion
+      };
     }
   });
 </script>
-<style lang="css" scoped>
-  .x-related-prompt__info {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .x-related-prompt__sliding-panel-content {
-    display: flex;
-    gap: 8px;
-  }
-</style>
