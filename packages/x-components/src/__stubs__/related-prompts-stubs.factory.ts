@@ -27,7 +27,8 @@ export function createRelatedPromptStub(suggestionText: string): RelatedPrompt {
     suggestionText,
     nextQueries: createNextQueriesArrayStub(10),
     modelName: 'RelatedPrompt',
-    type: Math.random() < 0.5 ? 'CURATED' : 'SYNTHETIC'
+    type: Math.random() < 0.5 ? 'CURATED' : 'SYNTHETIC',
+    id: 'abc-' + Math.random().toString()
   };
 }
 

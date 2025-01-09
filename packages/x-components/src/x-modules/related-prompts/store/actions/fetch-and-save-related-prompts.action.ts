@@ -14,10 +14,6 @@ import { RelatedPromptsXStoreModule } from '../types';
 // eslint-disable-next-line max-len
 export const fetchAndSaveRelatedPrompts: RelatedPromptsXStoreModule['actions']['fetchAndSaveRelatedPrompts'] =
   ({ dispatch, commit, state }, query) => {
-    if (!query) {
-      return;
-    }
-
     const request: RelatedPromptsRequest = {
       query,
       extraParams: {

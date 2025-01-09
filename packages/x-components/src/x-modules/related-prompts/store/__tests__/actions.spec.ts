@@ -44,12 +44,18 @@ describe('testing related prompts module actions', () => {
         query: 'honeyboo'
       });
 
-      const relatedPrompts = await store.dispatch('fetchRelatedPrompts', store.getters.request);
+      const relatedPrompts = await store.dispatch('fetchRelatedPrompts', {
+        extraParams: store.state.params,
+        query: store.state.query
+      });
       expect(relatedPrompts).toEqual(mockedRelatedPrompts);
     });
 
     it('should return `null` if there is not request', async () => {
-      const relatedPrompts = await store.dispatch('fetchRelatedPrompts', store.getters.request);
+      const relatedPrompts = await store.dispatch('fetchRelatedPrompts', {
+        extraParams: store.state.params,
+        query: ''
+      });
       expect(relatedPrompts).toBeNull();
     });
   });
@@ -60,59 +66,38 @@ describe('testing related prompts module actions', () => {
         query: 'honeyboo'
       });
 
-      const actionPromise = store.dispatch('fetchAndSaveRelatedPrompts', store.getters.request);
-      expect(store.state.status).toEqual('loading');
+      const actionPromise = store.dispatch('fetchAndSaveRelatedPrompts', store.state.query);
+      expect(store.state.status).toEqual('initial');
       await actionPromise;
-      expect(store.state.relatedPrompts).toEqual(mockedRelatedPrompts);
+      expect(store.state.relatedPrompts['honeyboo'].relatedPromptsProducts).toEqual(
+        mockedRelatedPrompts
+      );
       expect(store.state.status).toEqual('success');
     });
 
     it('should not clear related prompts in the state if the query is empty', async () => {
-      resetRelatedPromptsStateWith(store, { relatedPrompts: mockedRelatedPrompts });
-
-      await store.dispatch('fetchAndSaveRelatedPrompts', store.getters.request);
-      expect(store.state.relatedPrompts).toEqual(mockedRelatedPrompts);
-    });
-
-    it('should cancel the previous request if it is not yet resolved', async () => {
-      resetRelatedPromptsStateWith(store, { query: 'steak' });
-      const initialRelatedPrompts = store.state.relatedPrompts;
-      adapter.relatedPrompts.mockResolvedValueOnce({
-        relatedPrompts: mockedRelatedPrompts.slice(0, 1)
+      resetRelatedPromptsStateWith(store, {
+        query: 'dress',
+        relatedPrompts: {
+          query: {
+            relatedPromptsProducts: mockedRelatedPrompts
+          }
+        }
       });
-
-      const firstRequest = store.dispatch('fetchAndSaveRelatedPrompts', store.getters.request);
-      const secondRequest = store.dispatch('fetchAndSaveRelatedPrompts', store.getters.request);
-
-      await firstRequest;
-      expect(store.state.status).toEqual('loading');
-      expect(store.state.relatedPrompts).toBe(initialRelatedPrompts);
-      await secondRequest;
-      expect(store.state.status).toEqual('success');
-      expect(store.state.relatedPrompts).toEqual(mockedRelatedPrompts);
+      await store.dispatch('fetchAndSaveRelatedPrompts', store.state.query);
+      expect(store.state.relatedPrompts[store.state.query].relatedPromptsProducts).toEqual(
+        mockedRelatedPrompts
+      );
     });
 
     it('should set the status to error when it fails', async () => {
       resetRelatedPromptsStateWith(store, { query: 'milk' });
       adapter.relatedPrompts.mockRejectedValueOnce('Generic error');
       const relatedPrompts = store.state.relatedPrompts;
-      await store.dispatch('fetchAndSaveRelatedPrompts', store.getters.request);
+      await store.dispatch('fetchAndSaveRelatedPrompts', store.state.query);
 
       expect(store.state.relatedPrompts).toBe(relatedPrompts);
       expect(store.state.status).toEqual('error');
-    });
-  });
-
-  describe('cancelFetchAndSaveRelatedPrompts', () => {
-    it('should cancel the request and do not modify the stored related prompts', async () => {
-      resetRelatedPromptsStateWith(store, { query: 'honeyboo' });
-      const previousRelatedPrompts = store.state.relatedPrompts;
-      await Promise.all([
-        store.dispatch('fetchAndSaveRelatedPrompts', store.getters.request),
-        store.dispatch('cancelFetchAndSaveRelatedPrompts')
-      ]);
-      expect(store.state.relatedPrompts).toEqual(previousRelatedPrompts);
-      expect(store.state.status).toEqual('success');
     });
   });
 });

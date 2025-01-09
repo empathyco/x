@@ -15,7 +15,7 @@ export const fetchRelatedPrompts: RelatedPromptsXStoreModule['actions']['fetchRe
   _,
   request
 ) => {
-  return request
+  return request && request.query !== ''
     ? XPlugin.adapter.relatedPrompts(request).then(({ relatedPrompts }) => relatedPrompts)
     : null;
 };
