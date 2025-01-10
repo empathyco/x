@@ -371,7 +371,7 @@
                           :max-groups="1"
                           :show-only-after-offset="x.totalResults < 50"
                           class="x-mot-related-prompt-list"
-                          :custom-query="nextQuery"
+                          :query="nextQuery"
                         >
                           <BaseVariableColumnGrid
                             style="--x-size-min-width-grid-item: 150px"
@@ -760,7 +760,7 @@
 
       const { nextQueries } = useState('nextQueries', ['nextQueries']);
 
-      const nextQuery = computed(() => nextQueries.value[0]?.query);
+      const nextQuery = computed(() => nextQueries.value[0]?.query ?? '');
 
       const { relatedPrompts } = useState('relatedPrompts', ['relatedPrompts']);
 
@@ -770,15 +770,15 @@
 
       const showGrid = ref(true);
 
-      x.on('RelatedPromptsLocation', false).subscribe(payload => {
-        if (payload.location === 'predictive_layer') {
-          showGrid.value = relatedPrompts.value[payload.query].selectedPrompt === '';
+      x.on('UserSelectedARelatedPrompt', true).subscribe(event => {
+        if (event.metadata.location === 'predictive_layer') {
+          showGrid.value = relatedPrompts.value[event.eventPayload.query].selectedPrompt === '';
         }
-        if (relatedPrompts.value[payload.query].selectedPrompt !== '') {
+        if (relatedPrompts.value[event.eventPayload.query].selectedPrompt !== '') {
           const relatedPromptQueries = (
             relatedPrompts as ComputedRef<Dictionary<RelatedPromptsItems>>
-          ).value[payload.query].relatedPromptsProducts.find(
-            (relatedPrompt: RelatedPrompt) => relatedPrompt.id === selectedPrompt.value
+          ).value[event.eventPayload.query].relatedPromptsProducts.find(
+            (relatedPrompt: RelatedPrompt) => relatedPrompt.id === event.eventPayload.promptId
           );
           const queries = relatedPromptQueries?.nextQueries as string[];
           relatedPromptsQueriesPreviewInfo.value = queries.map(query => ({ query }));

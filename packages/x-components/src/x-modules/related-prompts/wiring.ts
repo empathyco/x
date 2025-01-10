@@ -79,7 +79,7 @@ export const relatedPromptsWiring = createWiring({
     resetRelatedPromptsStateWire,
     resetRelatedPromptsQueryWire
   },
-  RelatedPromptsCustomQueryProvider: {
+  RelatedPromptsQueryProvided: {
     fetchAndSaveRelatedPromptsResponseWire
   },
   ExtraParamsChanged: {

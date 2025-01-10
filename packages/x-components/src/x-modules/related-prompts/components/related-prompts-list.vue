@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { computed, ComputedRef, defineComponent, h, inject, provide, ref, Ref, watch } from 'vue';
+  import { computed, defineComponent, h, inject, provide, ref, Ref, watch } from 'vue';
   import { RelatedPrompt } from '@empathyco/x-types';
-  import { Dictionary } from '@empathyco/x-utils';
   import { AnimationProp } from '../../../types/animation-prop';
   import { groupItemsBy } from '../../../utils/array';
   import ItemsList from '../../../components/items-list.vue';
@@ -14,7 +13,6 @@
   import { relatedPromptsXModule } from '../x-module';
   import { useState } from '../../../composables/use-state';
   import { RelatedPromptsGroup } from '../types';
-  import { RelatedPromptsItems } from '../store/index';
   import { use$x } from '../../../composables/index';
 
   /**
@@ -70,19 +68,11 @@
         type: Boolean,
         default: false
       },
-      customQuery: String
+      query: String
     },
     setup(props, { slots }) {
       const x = use$x();
-      const { query, status } = useState('relatedPrompts', ['query', 'status']);
-
-      /**
-       * The state related prompts.
-       */
-      const relatedPrompts: ComputedRef<Dictionary<RelatedPromptsItems>> = useState(
-        'relatedPrompts',
-        ['relatedPrompts']
-      ).relatedPrompts;
+      const { status, relatedPrompts } = useState('relatedPrompts', ['status', 'relatedPrompts']);
 
       /**
        * Injected query, updated when the related request(s) have succeeded.
@@ -92,10 +82,10 @@
       const relatedPromptsProducts: Ref<RelatedPrompt[]> = ref([]);
 
       watch(
-        () => props.customQuery,
+        () => props.query,
         () => {
-          if (props.customQuery || props.customQuery !== '') {
-            x.emit('RelatedPromptsCustomQueryProvider', props.customQuery);
+          if (props.query || props.query !== '') {
+            x.emit('RelatedPromptsQueryProvided', props.query);
           }
         }
       );
@@ -103,9 +93,9 @@
       watch(
         relatedPrompts,
         () => {
-          if (relatedPrompts.value[props.customQuery ?? query.value]) {
+          if (relatedPrompts.value[props.query ?? x.query.search]) {
             relatedPromptsProducts.value =
-              relatedPrompts.value[props.customQuery ?? query.value].relatedPromptsProducts;
+              relatedPrompts.value[props.query ?? x.query.search].relatedPromptsProducts;
           }
         },
         { deep: true }

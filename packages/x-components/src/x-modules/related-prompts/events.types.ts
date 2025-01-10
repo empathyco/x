@@ -1,5 +1,4 @@
 import { RelatedPromptsRequest } from '@empathyco/x-types';
-import { FeatureLocation } from '../../types/index';
 
 /**
  * Dictionary of the events of RelatedPrompts XModule, where each key is the event name,
@@ -28,10 +27,5 @@ export interface RelatedPromptsXEvents {
    * A custom query to request has been provided.
    * Payload: The query to add to the request.
    */
-  RelatedPromptsCustomQueryProvider: string;
-  /**
-   * The current location of the related prompts.
-   * Payload: The query to request prompts and the location of the related-prompts.
-   */
-  RelatedPromptsLocation: { location: FeatureLocation | undefined; query: string };
+  RelatedPromptsQueryProvided: string;
 }

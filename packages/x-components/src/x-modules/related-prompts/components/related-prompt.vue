@@ -27,13 +27,12 @@
   </div>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, PropType, inject, isRef, Ref } from 'vue';
+  import { computed, defineComponent, PropType } from 'vue';
   import { RelatedPrompt } from '@empathyco/x-types';
   import { relatedPromptsXModule } from '../x-module';
   import CrossTinyIcon from '../../../components/icons/cross-tiny.vue';
   import PlusIcon from '../../../components/icons/plus.vue';
   import { use$x, useState } from '../../../composables/index';
-  import { FeatureLocation } from '../../../types/index';
 
   /**
    * This component shows a suggested related prompt.
@@ -83,13 +82,8 @@
       const index = relatedPrompts.value.findIndex(
         relatedPrompt => relatedPrompt.id === props.promptId
       );
-
-      const injectedLocation = inject<Ref<FeatureLocation> | FeatureLocation>('location');
-      const location = isRef(injectedLocation) ? injectedLocation.value : injectedLocation;
-
       const toggleSuggestion = (promptId: string): void => {
         x.emit('UserSelectedARelatedPrompt', { promptId, query: props.query });
-        x.emit('RelatedPromptsLocation', { location, query: props.query });
       };
 
       return {
