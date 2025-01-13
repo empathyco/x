@@ -306,5 +306,9 @@ export const searchWiring = createWiring({
   },
   UserSelectedAHistoryQuery: {
     setSearchSelectedFiltersFromHistoryQuery
+  },
+  UserSelectedAPage: {
+    setSearchPage,
+    resetAppending
   }
 });

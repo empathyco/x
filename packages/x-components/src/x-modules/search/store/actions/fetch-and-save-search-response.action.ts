@@ -33,16 +33,21 @@ const { fetchAndSave, cancelPrevious } = createFetchAndSaveActions<
 function enrichRequest(request: InternalSearchRequest, state: SearchState): SearchRequest {
   const { page, ...restRequest } = request;
   const {
-    config: { pageSize },
+    config: { pageSize, pageMode },
     origin,
     results
   } = state;
-  const start = page === 1 ? 0 : results.length;
+  const start =
+    pageMode === 'infinite_scroll'
+      ? page === 1
+        ? 0
+        : results.length
+      : state.config.pageSize * page;
 
   return {
     ...restRequest,
     ...(origin && { origin }),
-    start,
+    start: start,
     rows: pageSize * page - start
   };
 }

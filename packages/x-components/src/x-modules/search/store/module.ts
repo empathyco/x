@@ -29,7 +29,8 @@ export const searchXStoreModule: SearchXStoreModule = {
     selectedFilters: {},
     params: {},
     config: {
-      pageSize: 24
+      pageSize: 24,
+      pageMode: 'pagination'
     },
     status: 'initial',
     isNoResults: false,
