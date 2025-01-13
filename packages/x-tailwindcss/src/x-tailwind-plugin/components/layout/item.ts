@@ -27,7 +27,7 @@ export function item(helpers: TailwindHelpers) {
         minWidth: '0'
       },
 
-      '&:not(.layout-overlap):not(.layout-overlap-from-top) > *': {
+      '&:not(.x-layout-overlap):not(.x-layout-overlap-from-top) > *': {
         minHeight: '0'
       }
     }
