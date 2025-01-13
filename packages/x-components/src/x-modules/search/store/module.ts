@@ -30,7 +30,7 @@ export const searchXStoreModule: SearchXStoreModule = {
     params: {},
     config: {
       pageSize: 24,
-      pageMode: 'pagination'
+      pageMode: 'infinite_scroll'
     },
     status: 'initial',
     isNoResults: false,
