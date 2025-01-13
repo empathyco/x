@@ -37,6 +37,7 @@ function enrichRequest(request: InternalSearchRequest, state: SearchState): Sear
     origin,
     results
   } = state;
+
   const start =
     pageMode === 'infinite_scroll'
       ? page === 1
@@ -44,11 +45,13 @@ function enrichRequest(request: InternalSearchRequest, state: SearchState): Sear
         : results.length
       : state.config.pageSize * page;
 
+  const rows = pageMode === 'infinite_scroll' ? pageSize * page - start : pageSize;
+
   return {
     ...restRequest,
     ...(origin && { origin }),
     start: start,
-    rows: pageSize * page - start
+    rows: rows
   };
 }
 
