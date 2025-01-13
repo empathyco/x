@@ -36,6 +36,13 @@
   import { defineComponent, computed } from 'vue';
   import { useXBus } from '../composables';
 
+  /**
+   * Component that renders a pagination control with buttons for navigating
+   * between pages. It displays the current page, allows selecting other pages,
+   * and emits events when a page is selected.
+   *
+   * @public
+   */
   export default defineComponent({
     name: 'PageSelector',
     props: {
@@ -115,3 +122,95 @@
     }
   });
 </script>
+
+<docs lang="mdx">
+## Events
+
+This component emits the "UserSelectedAPage" and the UserClickedScrollToTop events by default.
+
+## See it in action
+
+Basic example of how the component is rendered.
+
+```vue live
+<template>
+  <PageSelector :current-page="page" :total-pages="totalPages" />
+</template>
+
+<script>
+  import { PageSelector } from '@empathyco/x-components';
+
+  export default {
+    name: 'PageSelectorDemo',
+    components: {
+      PageSelector
+    },
+    data() {
+      return {
+        page: 0,
+        totalPages: 10
+      };
+    }
+  };
+</script>
+```
+
+### Customize the slots
+
+This component allows to customise the buttons using slots.
+
+```vue live
+<template>
+  <template>
+    <PageSelector :current-page="page" :total-pages="totalPages">
+      <template #previous-page-button><<</template>
+      <template #current-page-button="{ page }"><h2>{page}</h2></template>
+      <template #next-page-button>>></template>
+    </PageSelector>
+  </template>
+</template>
+
+<script>
+  import { PageSelector } from '@empathyco/x-components';
+
+  export default {
+    name: 'PageSelectorDemo',
+    components: {
+      PageSelector
+    },
+    data() {
+      return {
+        page: 2,
+        totalPages: 10
+      };
+    }
+  };
+</script>
+```
+
+### Customize the number of pages to show before and after the current page by changing the range default value.
+
+```vue live
+<template>
+  <PageSelector :current-page="page" :total-pages="totalPages" :range="range" />
+</template>
+
+<script>
+  import { PageSelector } from '@empathyco/x-components';
+
+  export default {
+    name: 'PageSelectorDemo',
+    components: {
+      PageSelector
+    },
+    data() {
+      return {
+        page: 6,
+        totalPages: 100,
+        range: 4
+      };
+    }
+  };
+</script>
+```
+</docs>
