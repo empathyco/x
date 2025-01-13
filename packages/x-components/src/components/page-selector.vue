@@ -2,10 +2,10 @@
   <nav class="x-flex x-items-center x-justify-center x-gap-2" aria-label="Pagination">
     <button
       @click="selectPage(currentPage - 1)"
-      class="x-button x-button-neutral x-bg-neutral-50 x-text-auxiliary-75"
+      class="x-button x-button-lead"
       :disabled="currentPage === 1"
     >
-      Prev
+      <slot name="previous-page-button">Prev</slot>
     </button>
 
     <button
@@ -14,12 +14,12 @@
       @click="selectPage(page)"
       class="x-button"
       :class="{
-        'x-button-lead': page === currentPage,
+        'x-button-lead x-cursor-default': page === currentPage,
         'x-button-ghost': page !== currentPage,
         'x-cursor-not-allowed': page === '...'
       }"
     >
-      {{ page }}
+      <slot name="current-page-button">{{ page }}</slot>
     </button>
 
     <button
@@ -27,7 +27,7 @@
       class="x-button x-button-lead"
       :disabled="currentPage === totalPages"
     >
-      Next
+      <slot name="next-page-button">Next</slot>
     </button>
   </nav>
 </template>
@@ -39,27 +39,39 @@
   export default defineComponent({
     name: 'PageSelector',
     props: {
+      /**
+       * The total number of pages.
+       */
       totalPages: {
         type: Number,
         required: true
       },
+      /**
+       * The current page number.
+       */
       currentPage: {
         type: Number,
         required: true
+      },
+      /**
+       * The number of pages to show before and after the current page.
+       */
+      range: {
+        type: Number,
+        default: 2
       }
     },
     emits: ['update:currentPage'],
-    setup(props, { emit }) {
-      const xbus = useXBus();
-      const visiblePages = computed(() => {
-        const range = 2; // Number of pages to show before and after the current page
-        const start = Math.max(props.currentPage - range, 1);
-        const end = Math.min(props.currentPage + range, props.totalPages);
+    setup: function (props) {
+      const bus = useXBus();
 
-        const pages: number[] | string[] = [];
-        for (let i = start; i <= end; i++) {
-          pages.push(i);
-        }
+      const visiblePages = computed<(number | string)[]>(() => {
+        const start = Math.max(props.currentPage - props.range, 1);
+        const end = Math.min(props.currentPage + props.range, props.totalPages);
+        const pages: (number | string)[] = Array.from(
+          { length: end - start + 1 },
+          (_, i) => start + i
+        );
 
         // Ensure first and last pages are always visible when needed
         if (start > 1) {
@@ -78,14 +90,22 @@
         return pages;
       });
 
-      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-      const selectPage = page => {
+      /**
+       * Handles the selection of a page.
+       *
+       * @param page - The page to select. Can be a number representing the page number or a string '...' indicating an ellipsis.
+       */
+      const selectPage = (page: number | string): void => {
         if (page === '...') {
           return;
         }
-        if (page > 0 && page <= props.totalPages) {
-          emit('update:currentPage', page);
-          xbus.emit('UserSelectedAPage', page as number);
+        if (typeof page === 'number' && page > 0 && page <= props.totalPages) {
+          bus.emit('UserSelectedAPage', page);
+          /**
+           * Emits scroll to top to prevent keeping the position if there is more content
+           * after results, as for example Next Queries Preview.
+           */
+          bus.emit('UserClickedScrollToTop', 'main-scroll');
         }
       };
 
