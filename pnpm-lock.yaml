@@ -480,7 +480,7 @@ importers:
         specifier: ~2.2.0
         version: 2.2.0(esbuild@0.20.0)
       '@empathyco/x-tailwindcss':
-        specifier: ^2.0.0-alpha.1
+        specifier: ^2.0.0-alpha.2
         version: link:../x-tailwindcss
       '@microsoft/api-documenter':
         specifier: ~7.23.0

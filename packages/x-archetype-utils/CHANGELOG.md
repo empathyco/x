@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@2.0.0-alpha.2...@empathyco/x-archetype-utils@2.0.0-alpha.3) (2025-01-13)
+
+
+### Features
+
+* **i18n:** do not use legacy api (#1669) ([99b1004](https://github.com/empathyco/x/commit/99b10049fba2cd2cfc32038deef6823d4afac9dd))
+
+
+
 ## [2.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-archetype-utils@1.1.0-alpha.2...@empathyco/x-archetype-utils@2.0.0-alpha.2) (2024-10-24)
 
 

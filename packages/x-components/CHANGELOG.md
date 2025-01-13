@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.28...@empathyco/x-components@6.0.0-alpha.29) (2025-01-13)
+
+
+### Styling
+
+* **tailwind:** extend tailwind config to be used by the demo (#1668) ([f33992e](https://github.com/empathyco/x/commit/f33992ed8743367677e1e35fb7dd07e6dcce7424))
+
+
+
 ## [6.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.27...@empathyco/x-components@6.0.0-alpha.28) (2025-01-09)
 
 
