@@ -61,7 +61,6 @@
         default: 2
       }
     },
-    emits: ['update:currentPage'],
     setup: function (props) {
       const bus = useXBus();
 
