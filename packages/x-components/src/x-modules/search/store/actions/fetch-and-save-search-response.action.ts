@@ -38,12 +38,12 @@ function enrichRequest(request: InternalSearchRequest, state: SearchState): Sear
     results
   } = state;
 
-  const start =
-    pageMode === 'infinite_scroll'
-      ? page === 1
-        ? 0
-        : results.length
-      : state.config.pageSize * page;
+  let start;
+  if (pageMode === 'infinite_scroll') {
+    start = page === 1 ? 0 : results.length;
+  } else {
+    start = state.config.pageSize * page;
+  }
 
   const rows = pageMode === 'infinite_scroll' ? pageSize * page - start : pageSize;
 
