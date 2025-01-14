@@ -4,6 +4,7 @@
       @click="selectPage(currentPage - 1)"
       class="x-button x-button-lead"
       :disabled="currentPage === 1"
+      data-test="previous-page-button"
     >
       <slot name="previous-page-button">Prev</slot>
     </button>
@@ -18,14 +19,16 @@
         'x-button-ghost': page !== currentPage,
         'x-cursor-not-allowed': page === '...'
       }"
+      :data-test="`page-button-${page}`"
     >
-      <slot name="current-page-button">{{ page }}</slot>
+      <slot name="page-button">{{ page }}</slot>
     </button>
 
     <button
       @click="selectPage(currentPage + 1)"
       class="x-button x-button-lead"
       :disabled="currentPage === totalPages"
+      data-test="next-page-button"
     >
       <slot name="next-page-button">Next</slot>
     </button>
@@ -66,6 +69,13 @@
       range: {
         type: Number,
         default: 2
+      },
+      /**
+       * The class of the scroll container to scroll to top when a page is selected.
+       */
+      scrollTarget: {
+        type: String,
+        default: 'main-scroll'
       }
     },
     setup: function (props) {
@@ -111,7 +121,7 @@
            * Emits scroll to top to prevent keeping the position if there is more content
            * after results, as for example Next Queries Preview.
            */
-          bus.emit('UserClickedScrollToTop', 'main-scroll');
+          bus.emit('UserClickedScrollToTop', props.scrollTarget);
         }
       };
 
@@ -164,7 +174,7 @@ This component allows to customise the buttons using slots.
   <template>
     <PageSelector :current-page="page" :total-pages="totalPages">
       <template #previous-page-button><<</template>
-      <template #current-page-button="{ page }"><h2>{page}</h2></template>
+      <template #page-button="{ page }"><h2>{page}</h2></template>
       <template #next-page-button>>></template>
     </PageSelector>
   </template>
