@@ -60,6 +60,14 @@ const setRelatedPromptsQueryFromUrl = wireCommit(
 );
 
 /**
+ * Sets the related prompts state `query` from url params.
+ */
+const setRelatedPromptsQueryFromQueryPreview = wireCommit(
+  'setQuery',
+  ({ eventPayload: { query } }) => query
+);
+
+/**
  * Sets the related prompts state `params`.
  */
 const setRelatedPromptsExtraParams = wireCommit('setParams');
@@ -116,6 +124,7 @@ export const relatedPromptsWiring = createWiring({
     setSelectedQueryWire
   },
   UserAcceptedAQueryPreview: {
+    setRelatedPromptsQueryFromQueryPreview,
     resetSelectedPromptWire
   },
   SearchRequestChanged: {
