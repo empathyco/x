@@ -28,6 +28,7 @@ export { default as LocationProvider } from './location-provider.vue';
 export { default as SlidingPanel } from './sliding-panel.vue';
 export { default as SnippetCallbacks } from './snippet-callbacks.vue';
 export { default as PageLoaderButton } from './page-loader-button.vue';
+export { default as PageSelector } from './page-selector.vue';
 
 // Utils
 export * from './decorators/injection.consts';
