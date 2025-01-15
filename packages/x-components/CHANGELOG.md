@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.29...@empathyco/x-components@6.0.0-alpha.30) (2025-01-15)
+
+
+### Bug Fixes
+
+* replace `x-w-[calc(100%)]` with a custom one (#1690) ([ecff709](https://github.com/empathyco/x/commit/ecff709280ea8716414439107dc017b396ffc0b4))
+
+
+
 ## [6.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.28...@empathyco/x-components@6.0.0-alpha.29) (2025-01-13)
 
 
