@@ -19,13 +19,13 @@
   "devDependencies": {
     "@empathyco/eslint-plugin-x": "file:packages/eslint-plugin-x",
     "colors": "1.4.0",
-    "conventional-changelog-conventionalcommits": "~5.0.0",
-    "cross-env": "~7.0.3",
-    "eslint": "~8.33.0",
-    "husky": "~8.0.3",
-    "lerna": "~6.6.0",
-    "lint-staged": "~13.3.0",
-    "prettier": "~2.8.3"
+    "conventional-changelog-conventionalcommits": "5.0.0",
+    "cross-env": "7.0.3",
+    "eslint": "8.33.0",
+    "husky": "8.0.3",
+    "lerna": "6.6.0",
+    "lint-staged": "13.3.0",
+    "prettier": "2.8.3"
   },
   "engines": {
     "node": ">=18",
