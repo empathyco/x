@@ -72,8 +72,6 @@ evolves.
   manage requests and responses to Empathy Platform APIs
 - **[@empathyco/x-types](/packages/x-types)** - TypeScript types & guards for X models.
 - **[@empathyco/x-storage-service](/packages/storage-service)** - Storage service with TTL.
-- **[@empathyco/x-react-wrapper](/packages/react-wrapper)** - A proxy that transforms Vue components
-  into React components.
 - **[@empathyco/x-translations](/packages/x-translations)** - A project that allows you to import
   and export the translations.
 - **[@empathyco/x-utils](/packages/x-utils)** - provides utilities to ease the development.
