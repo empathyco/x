@@ -6,7 +6,7 @@ runs:
   steps:
     - uses: actions/setup-node@v4
       with:
-        node-version: 18
+        node-version: 22
 
     # Install pnpm because it is not included in our container image
     - name: install pnpm
