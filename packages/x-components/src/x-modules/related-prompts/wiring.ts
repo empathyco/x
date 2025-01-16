@@ -52,17 +52,9 @@ const setSelectedPromptWire = wireCommit('setSelectedPrompt');
 const setSelectedQueryWire = wireCommit('setSelectedQuery');
 
 /**
- * Sets the related prompts state `query` from url params.
+ * Sets the related prompts state `query` from the payload.
  */
-const setRelatedPromptsQueryFromUrl = wireCommit(
-  'setQuery',
-  ({ eventPayload: { query } }) => query
-);
-
-/**
- * Sets the related prompts state `query` from url params.
- */
-const setRelatedPromptsQueryFromQueryPreview = wireCommit(
+const setRelatedPromptsQueryFromPayload = wireCommit(
   'setQuery',
   ({ eventPayload: { query } }) => query
 );
@@ -101,7 +93,7 @@ const cancelFetchAndSaveSearchResponseWire = wireDispatchWithoutPayload(
  */
 export const relatedPromptsWiring = createWiring({
   ParamsLoadedFromUrl: {
-    setRelatedPromptsQueryFromUrl
+    setRelatedPromptsQueryFromPayload
   },
   UserAcceptedAQuery: {
     setRelatedPromptsQuery
@@ -124,7 +116,7 @@ export const relatedPromptsWiring = createWiring({
     setSelectedQueryWire
   },
   UserAcceptedAQueryPreview: {
-    setRelatedPromptsQueryFromQueryPreview,
+    setRelatedPromptsQueryFromPayload,
     resetSelectedPromptWire
   },
   SearchRequestChanged: {
