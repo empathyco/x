@@ -50,8 +50,8 @@ function enrichRequest(request: InternalSearchRequest, state: SearchState): Sear
   return {
     ...restRequest,
     ...(origin && { origin }),
-    start: start,
-    rows: rows
+    start,
+    rows
   };
 }
 
