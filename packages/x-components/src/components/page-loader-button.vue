@@ -1,5 +1,5 @@
 <template>
-  <div class="x-flex x-flex-col x-items-center x-py-32" data-test="page-loader">
+  <div class="x-page-loader" data-test="page-loader">
     <!--
       @slot default
           @binding {number} resultsLength - The search result's length
@@ -8,7 +8,7 @@
     <slot v-bind="{ resultsLength, totalResults }">
       <!-- @slot Rendered count with a text and the number of results displayed & remaining. -->
       <slot name="textContent" :resultsLength="resultsLength" :totalResults="totalResults">
-        <p class="x-text x-py-16" data-test="text-content">
+        <p class="x-page-loader__text-content" data-test="text-content">
           You are seeing {{ resultsLength }} of {{ totalResults }} results
         </p>
       </slot>
@@ -85,6 +85,19 @@
     }
   });
 </script>
+
+<style lang="scss" scoped>
+  .x-page-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 0;
+
+    &__text-content {
+      padding: 16px 0;
+    }
+  }
+</style>
 
 <docs lang="mdx">
 ## Events
