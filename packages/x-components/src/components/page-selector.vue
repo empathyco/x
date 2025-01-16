@@ -181,6 +181,7 @@
   .x-page-selector {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 2px;
 
     &__page {
