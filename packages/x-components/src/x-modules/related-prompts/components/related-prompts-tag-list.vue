@@ -18,7 +18,7 @@
         <div
           ref="slidingPanelContent"
           class="x-related-prompt__sliding-panel-content"
-          :class="{ 'x-w-[calc(100%)]': selectedPrompt !== -1 }"
+          :class="{ 'x-related-prompt__sliding-panel-content-selected': selectedPrompt !== -1 }"
         >
           <div
             v-for="(suggestion, index) in relatedPrompts"
@@ -111,6 +111,10 @@
   .x-related-prompt__sliding-panel-content {
     display: flex;
     gap: 8px;
+  }
+
+  .x-related-prompt__sliding-panel-content-selected {
+    width: calc(100%);
   }
 
   .x-related-prompt {

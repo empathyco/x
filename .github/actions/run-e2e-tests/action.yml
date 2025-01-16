@@ -21,11 +21,3 @@ runs:
         start: npm run serve
         working-directory: packages/x-components
         component: true
-
-    - name: Cypress run React Wrapper
-      uses: cypress-io/github-action@v5
-      with:
-        install: false
-        browser: chrome
-        start: npm run serve
-        working-directory: packages/react-wrapper

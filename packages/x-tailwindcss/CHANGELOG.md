@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.1...@empathyco/x-tailwindcss@2.0.0-alpha.2) (2025-01-13)
+
+
+### Bug Fixes
+
+* **x-tailwindcss:** use complete class name in css rule for layout items (#1665) ([4c0b811](https://github.com/empathyco/x/commit/4c0b81140d0ccb104f514f259dbc08bbc4136932))
+
+
+
 ## [2.0.0-alpha.1](https://github.com/empathyco/x/compare/@empathyco/x-tailwindcss@2.0.0-alpha.0...@empathyco/x-tailwindcss@2.0.0-alpha.1) (2024-11-25)
 
 

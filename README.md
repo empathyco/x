@@ -9,17 +9,16 @@
 Whether you use Empathy Search API endpoints, Elasticsearch, Solr or other search APIs, bring your
 commerce search and discovery experience to life with Interface X, an irresistible, expressive, and
 joyful search UI. Interface X is used within some of the most beautiful commerce search experiences
-out there, e.g. [Oysho.com](https://www.oysho.com/gb/?q=tshirt),
+out there, e.g. [Primor.eu](https://www.primor.eu/es_es/?query=brocha),
 [Carrefour.es](https://www.carrefour.es/?q=queso),
-[Bosch-Home.es](https://www.bosch-home.es/?contentType=products&query=horno), and
-[Kroger.com](https://www.kroger.com/search?query=bread&searchType=trending).
+[Tous.es](https://www.tous.com/es-es/?query=anillo),
+[Casadellibro.es](https://www.casadellibro.com/?query=novela) and
+[MotiveMarket.com](https://www.motivemarket.com/amagijon?query=queso).
 
 Interface X is a library of standalone, configurable building blocks (available as Vue.js based
 X&nbsp;Components) that allow you to quickly construct the search UI for your shop. You can create a
 smooth, personalized search and discovery experience, while significantly minimizing development
 time.
-
-![X Components](assets/x-components-demo.gif)
 
 Each component represents a graphical part of the UI, with its own unique view and behavior. They’ve
 been smartly designed to work together yet independently, so a single component adds real value to
@@ -167,13 +166,6 @@ Watch Ivan Tajes’
 We are building the Interface X ecosystem. If you are interested in helping us out and being part of
 the future of search experiences, please check our
 [contributing guidelines](./.github/CONTRIBUTING.md).
-
-## Core Team
-
-| <a href="https://github.com/tajespasarela"><img src="https://avatars.githubusercontent.com/u/5759712?v=4" width="100px;" alt=""/><br /><br /><b>Iván Tajes</b></a>  | <a href="https://github.com/javieri-empathy"><img src="https://avatars.githubusercontent.com/u/68222542?v=4" width="100px;" alt=""/><br /><br /><b>Javier Iglesias</b></a> | <a href="https://github.com/joseacabaneros"><img src="https://avatars.githubusercontent.com/u/10746604?v=4" width="100px;" alt=""/><br /><br /><b>Jose Antonio Cabañeros</b></a> | <a href="https://github.com/LuisMartinez15"><img src="https://avatars.githubusercontent.com/u/6247440?v=4" width="100px;" alt=""/><br /><br /><b>Luís Martínez</b></a> |      <a href="https://github.com/tiborux"><img src="https://avatars.githubusercontent.com/u/6597815?v=4" width="100px;" alt=""/><br /><br /><b>Beltrán García</b></a>      |
-| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| <a href="https://github.com/herrardo"><img src="https://avatars.githubusercontent.com/u/4663897?v=4" width="100px;" alt=""/><br /><br /><b>Gerardo Vázquez</b></a>  |  <a href="https://github.com/CachedaCodes"><img src="https://avatars.githubusercontent.com/u/7124620?v=4" width="100px;" alt=""/><br /><br /><b>Guillermo Cacheda</b></a>  |         <a href="https://github.com/mavmaf"><img src="https://avatars.githubusercontent.com/u/77147901?v=4" width="100px;" alt=""/><br /><br /><b>Mavi Fernández</b></a>         |    <a href="https://github.com/diegopf"><img src="https://avatars.githubusercontent.com/u/7504736?v=4" width="100px;" alt=""/><br /><br /><b>Diego Pascual</b></a>     | <a href="https://github.com/mnavarroespinosa"><img src="https://avatars.githubusercontent.com/u/77450928?v=4" width="100px;" alt=""/><br /><br /><b>Manuel Navarro</b></a> |
-| <a href="https://github.com/ajperezbau"><img src="https://avatars.githubusercontent.com/u/75546736?v=4" width="100px;" alt=""/><br /><br /><b>Abraham Pérez</b></a> |       <a href="https://github.com/annacv"><img src="https://avatars.githubusercontent.com/u/21217131?v=4" width="100px;" alt=""/><br /><br /><b>Anna Condal</b></a>        |         <a href="https://github.com/alvarodE"><img src="https://avatars.githubusercontent.com/u/72568818?v=4" width="100px;" alt=""/><br /><br /><b>Álvaro Díaz</b></a>          | <a href="https://github.com/lauramargar"><img src="https://avatars.githubusercontent.com/u/114984466?v=4" width="100px;" alt=""/><br /><br /><b>Laura Martínez</b></a> |
 
 ## Contributors
 

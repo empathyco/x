@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.31...@empathyco/x-components@6.0.0-alpha.32) (2025-01-16)
+
+
+### Bug Fixes
+
+* send related-prompts request when a query preview is accepted (#1692) ([ba336b3](https://github.com/empathyco/x/commit/ba336b37574d541b0f220e916ece77a07b6f05fc))
+
+
+
+## [6.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.30...@empathyco/x-components@6.0.0-alpha.31) (2025-01-15)
+
+**Note:** Version bump only for package @empathyco/x-components
+
+
+
+
+
+## [6.0.0-alpha.30](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.29...@empathyco/x-components@6.0.0-alpha.30) (2025-01-15)
+
+
+### Bug Fixes
+
+* replace `x-w-[calc(100%)]` with a custom one (#1690) ([ecff709](https://github.com/empathyco/x/commit/ecff709280ea8716414439107dc017b396ffc0b4))
+
+
+
+## [6.0.0-alpha.29](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.28...@empathyco/x-components@6.0.0-alpha.29) (2025-01-13)
+
+
+### Styling
+
+* **tailwind:** extend tailwind config to be used by the demo (#1668) ([f33992e](https://github.com/empathyco/x/commit/f33992ed8743367677e1e35fb7dd07e6dcce7424))
+
+
+
 ## [6.0.0-alpha.28](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.27...@empathyco/x-components@6.0.0-alpha.28) (2025-01-09)
 
 
