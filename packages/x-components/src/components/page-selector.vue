@@ -1,34 +1,46 @@
 <template>
-  <nav class="x-flex x-items-center x-justify-center x-gap-2" aria-label="Pagination">
+  <nav v-if="visiblePages?.length > 1" class="x-page-selector" aria-label="Pagination">
     <button
       @click="selectPage(currentPage - 1)"
-      class="x-button x-button-lead"
+      class="x-button"
+      :class="buttonClasses"
       :disabled="currentPage === 1"
       data-test="previous-page-button"
+      aria-label="Previous page"
+      :aria-disabled="currentPage === 1"
     >
       <slot name="previous-page-button">Prev</slot>
     </button>
 
     <button
       v-for="page in visiblePages"
-      :key="page"
-      @click="selectPage(page)"
-      class="x-button"
-      :class="{
-        'x-button-lead x-cursor-default': page === currentPage,
-        'x-button-ghost': page !== currentPage,
-        'x-cursor-not-allowed': page === '...'
-      }"
-      :data-test="`page-button-${page}`"
+      :key="page.value"
+      @click="selectPage(page.value)"
+      class="x-button x-page-selector__page"
+      :class="[
+        itemClasses(page.isSelected),
+        {
+          'x-page-selector__page--current': page.isSelected,
+          'x-page-selector__page--hidden': page.value === hiddenPage
+        }
+      ]"
+      :data-test="`page-button-${page.value}`"
+      :aria-label="`Page ${page.value}`"
+      :aria-current="page.isSelected ? 'page' : undefined"
     >
-      <slot name="page-button">{{ page }}</slot>
+      <slot name="page-button" :page="page.value" :is-selected="page.isSelected">
+        {{ page.value }}
+      </slot>
     </button>
 
     <button
       @click="selectPage(currentPage + 1)"
-      class="x-button x-button-lead"
+      class="x-button"
+      :class="buttonClasses"
       :disabled="currentPage === totalPages"
       data-test="next-page-button"
+      aria-label="Next page"
+      :aria-disabled="currentPage === totalPages"
     >
       <slot name="next-page-button">Next</slot>
     </button>
@@ -36,8 +48,14 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue';
+  import { defineComponent, computed, PropType } from 'vue';
+  import { Dictionary } from '@empathyco/x-utils';
   import { useXBus } from '../composables';
+
+  interface PageItem {
+    value: number | string;
+    isSelected: boolean;
+  }
 
   /**
    * Component that renders a pagination control with buttons for navigating
@@ -50,11 +68,11 @@
     name: 'PageSelector',
     props: {
       /**
-       * The total number of pages.
+       * CSS classes to customize the prev/next buttons.
        */
-      totalPages: {
-        type: Number,
-        required: true
+      buttonClasses: {
+        type: Array as PropType<(string | Dictionary<boolean>)[]>,
+        default: () => []
       },
       /**
        * The current page number.
@@ -62,6 +80,22 @@
       currentPage: {
         type: Number,
         required: true
+      },
+      /**
+       * The string content of the hidden pages.
+       */
+      hiddenPage: {
+        type: String,
+        default: '...'
+      },
+      /**
+       * CSS classes to customize the page items.
+       */
+      itemClasses: {
+        type: Function as PropType<
+          (isSelected: boolean) => string | Dictionary<boolean> | (string | Dictionary<boolean>)[]
+        >,
+        default: () => []
       },
       /**
        * The number of pages to show before and after the current page.
@@ -76,31 +110,41 @@
       scrollTarget: {
         type: String,
         default: 'main-scroll'
+      },
+      /**
+       * The total number of pages.
+       */
+      totalPages: {
+        type: Number,
+        required: true
       }
     },
-    setup: function (props) {
+    setup(props) {
       const bus = useXBus();
 
-      const visiblePages = computed<(number | string)[]>(() => {
+      const visiblePages = computed(() => {
         const start = Math.max(props.currentPage - props.range, 1);
         const end = Math.min(props.currentPage + props.range, props.totalPages);
-        const pages: (number | string)[] = Array.from(
-          { length: end - start + 1 },
-          (_, i) => start + i
-        );
+        const pages: PageItem[] = Array.from({ length: end - start + 1 }, (_, i) => {
+          const pageValue: string | number = start + i;
+          return { value: pageValue, isSelected: pageValue === props.currentPage };
+        });
 
         // Ensure first and last pages are always visible when needed
         if (start > 1) {
-          pages.unshift(1);
+          pages.unshift({ value: 1, isSelected: 1 === props.currentPage });
           if (start > 2) {
-            pages.splice(1, 0, '...');
+            pages.splice(1, 0, { value: props.hiddenPage, isSelected: false });
           }
         }
         if (end < props.totalPages) {
           if (end < props.totalPages - 1) {
-            pages.push('...');
+            pages.push({ value: props.hiddenPage, isSelected: false });
           }
-          pages.push(props.totalPages);
+          pages.push({
+            value: props.totalPages,
+            isSelected: props.totalPages === props.currentPage
+          });
         }
 
         return pages;
@@ -133,6 +177,21 @@
   });
 </script>
 
+<style lang="scss" scoped>
+  .x-page-selector {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+
+    &__page {
+      &--current,
+      &--hidden {
+        cursor: default;
+      }
+    }
+  }
+</style>
+
 <docs lang="mdx">
 ## Events
 
@@ -144,7 +203,7 @@ Basic example of how the component is rendered.
 
 ```vue live
 <template>
-  <PageSelector :current-page="page" :total-pages="totalPages" />
+  <PageSelector :current-page="currentPage" :total-pages="totalPages" />
 </template>
 
 <script>
@@ -160,6 +219,11 @@ Basic example of how the component is rendered.
         page: 0,
         totalPages: 10
       };
+    },
+    computed: {
+      currentPage() {
+        return this.page;
+      }
     }
   };
 </script>
@@ -167,17 +231,33 @@ Basic example of how the component is rendered.
 
 ### Customize the slots
 
-This component allows to customise the buttons using slots.
+This component allows to customise its content using slots.
 
 ```vue live
 <template>
-  <template>
-    <PageSelector :current-page="page" :total-pages="totalPages">
-      <template #previous-page-button><<</template>
-      <template #page-button="{ page }"><h2>{page}</h2></template>
-      <template #next-page-button>>></template>
-    </PageSelector>
-  </template>
+  <PageSelector
+    :total-pages="totalPages"
+    :currentPage="currentPage"
+    :item-classes="
+      (isSelected: boolean) =>
+        isSelected
+          ? 'x-button-lead x-text-neutral-10'
+          : 'x-text-neutral-90 x-button-outlined'
+    "
+    :buttonClasses="['x-rounded-md']"
+  >
+    <template #previous-page-button>
+      <span>Back</span>
+    </template>
+    <template #page-button="{ page, isSelected }">
+      <h2 :class="{ 'x-text1': !isSelected }">
+        {{ page }}
+      </h2>
+    </template>
+    <template #next-page-button>
+      <span>Forward</span>
+    </template>
+  </PageSelector>
 </template>
 
 <script>
@@ -193,6 +273,11 @@ This component allows to customise the buttons using slots.
         page: 2,
         totalPages: 10
       };
+    },
+    computed: {
+      currentPage() {
+        return this.page;
+      }
     }
   };
 </script>
@@ -202,7 +287,7 @@ This component allows to customise the buttons using slots.
 
 ```vue live
 <template>
-  <PageSelector :current-page="page" :total-pages="totalPages" :range="range" />
+  <PageSelector :current-page="currentPage" :total-pages="totalPages" :range="range" />
 </template>
 
 <script>
@@ -219,6 +304,11 @@ This component allows to customise the buttons using slots.
         totalPages: 100,
         range: 4
       };
+    },
+    computed: {
+      currentPage() {
+        return this.page;
+      }
     }
   };
 </script>
