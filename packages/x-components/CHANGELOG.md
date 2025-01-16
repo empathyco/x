@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.32](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.31...@empathyco/x-components@6.0.0-alpha.32) (2025-01-16)
+
+
+### Bug Fixes
+
+* send related-prompts request when a query preview is accepted (#1692) ([ba336b3](https://github.com/empathyco/x/commit/ba336b37574d541b0f220e916ece77a07b6f05fc))
+
+
+
 ## [6.0.0-alpha.31](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.30...@empathyco/x-components@6.0.0-alpha.31) (2025-01-15)
 
 **Note:** Version bump only for package @empathyco/x-components
