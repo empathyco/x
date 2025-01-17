@@ -86,16 +86,16 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .x-page-loader {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 32px 0;
+  }
 
-    &__text-content {
-      padding: 16px 0;
-    }
+  .x-page-loader__text-content {
+    padding: 16px 0;
   }
 </style>
 
