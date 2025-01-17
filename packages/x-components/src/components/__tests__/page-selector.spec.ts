@@ -5,6 +5,11 @@ import PageSelector from '../page-selector.vue';
 import { getResultsStub } from '../../__stubs__/index';
 import { XPlugin } from '../../plugins/index';
 
+interface PageItem {
+  value: number | string;
+  isSelected: boolean;
+}
+
 function renderPageSelector({
   query = 'dress',
   results = getResultsStub(240),
@@ -48,7 +53,7 @@ describe('testing PageSelector component', () => {
 
   it('renders a page selector component with default slots', () => {
     const { wrapper } = renderPageSelector();
-    const visiblePages = (wrapper.vm as any).visiblePages as (number | string)[];
+    const visiblePages = (wrapper.vm as any).visiblePages as PageItem[];
 
     expect(wrapper.find(getDataTestSelector('previous-page-button')).exists()).toBe(true);
     expect(wrapper.find(getDataTestSelector('previous-page-button')).text().trim()).toBe('Prev');
@@ -58,11 +63,12 @@ describe('testing PageSelector component', () => {
 
     // Check that each visible page button exists and displays the correct text
     visiblePages.forEach(page => {
-      const pageSelector = getDataTestSelector(`page-button-${page}`);
+      const pageItem = page.value;
+      const pageSelector = getDataTestSelector(`page-button-${pageItem}`);
       const pageButton = wrapper.find(pageSelector);
 
       expect(pageButton.exists()).toBe(true);
-      expect(pageButton.text().trim()).toBe(page.toString());
+      expect(pageButton.text().trim()).toBe(pageItem.toString());
     });
   });
 
@@ -98,11 +104,11 @@ describe('testing PageSelector component', () => {
     );
   });
 
-  it('sets the x-cursor-not-allowed class if the button is the currentPage', () => {
+  it('sets the x-page-selector__page--current class if the button is the currentPage', () => {
     const { wrapper } = renderPageSelector({ currentPage: 1 });
 
     const currentPageButton = wrapper.find(getDataTestSelector('page-button-1'));
-    expect(currentPageButton.classes()).toContain('x-cursor-default');
+    expect(currentPageButton.classes()).toContain('x-page-selector__page--current');
   });
 
   it('disables the previous-page-button if we are on the first page', () => {
