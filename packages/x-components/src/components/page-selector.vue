@@ -177,19 +177,17 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .x-page-selector {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 2px;
+  }
 
-    &__page {
-      &--current,
-      &--hidden {
-        cursor: default;
-      }
-    }
+  .x-page-selector__page--current,
+  .x-page-selector__page--hidden {
+    cursor: default;
   }
 </style>
 
