@@ -391,6 +391,12 @@
                           <template #related-prompts-group>
                             <RelatedPromptsTagList
                               :button-class="'x-button-lead x-button-circle x-button-ghost x-p-0'"
+                              :related-prompt-class="'x-p-20 x-rounded-xl x-w-[300px] x-gap-8'"
+                              :related-prompt-color-classes="[
+                                'x-bg-amber-300',
+                                'x-bg-amber-400',
+                                'x-bg-amber-500'
+                              ]"
                               class="-x-mb-1 x-mt-24 desktop:x-mt-0 x-p-0"
                             />
                             <QueryPreviewList

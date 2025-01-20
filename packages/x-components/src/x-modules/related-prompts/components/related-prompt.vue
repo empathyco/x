@@ -1,38 +1,21 @@
 <template>
-  <div
-    @click="toggleSuggestion(index)"
-    @keydown="toggleSuggestion(index)"
-    class="x-related-prompt__button"
-    :class="[{ 'x-related-prompt-selected__button': isSelected }]"
+  <button
+    class="x-flex x-items-center x-p-8 x-justify-between x-text-start"
     role="button"
     aria-pressed="true"
     tabindex="0"
   >
-    <slot name="related-prompt-button-info">
-      <div class="x-related-prompt__button-info">
-        <span
-          class="x-typewritter-initial"
-          :class="[{ 'x-typewritter-animation': isPromptVisible }]"
-          :style="{
-            animationDelay: `${index * 0.4 + 0.05}s`,
-            '--suggestion-text-length': relatedPrompt.suggestionText.length
-          }"
-        >
-          {{ relatedPrompt.suggestionText }}
-        </span>
-      </div>
-      <CrossTinyIcon v-if="isSelected" class="x-icon-lg" />
-      <PlusIcon v-else class="x-icon-lg" />
-    </slot>
-  </div>
+    <slot name="extra-content" />
+    <span v-typing="{ text: relatedPrompt.suggestionText, speed: 50 }"></span>
+    <component :is="selected ? 'CrossTinyIcon' : 'PlusIcon'" class="x-icon-lg x-self-start" />
+  </button>
 </template>
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
   import { RelatedPrompt } from '@empathyco/x-types';
-  import { relatedPromptsXModule } from '../x-module';
   import CrossTinyIcon from '../../../components/icons/cross-tiny.vue';
   import PlusIcon from '../../../components/icons/plus.vue';
-  import { use$x } from '../../../composables/index';
+  import vTyping from '../../../directives/typing';
 
   /**
    * This component shows a suggested related prompt.
@@ -43,39 +26,22 @@
    */
   export default defineComponent({
     name: 'RelatedPrompt',
+    directives: {
+      typing: vTyping
+    },
     components: {
       CrossTinyIcon,
       PlusIcon
     },
-    xModule: relatedPromptsXModule.name,
     props: {
       relatedPrompt: {
         type: Object as PropType<RelatedPrompt>,
         required: true
       },
-      isPromptVisible: {
+      selected: {
         type: Boolean,
         default: false
-      },
-      isSelected: {
-        type: Boolean,
-        default: false
-      },
-      index: {
-        type: Number,
-        required: true
       }
-    },
-    setup() {
-      const x = use$x();
-
-      const toggleSuggestion = (index: number): void => {
-        x.emit('UserSelectedARelatedPrompt', index);
-      };
-
-      return {
-        toggleSuggestion
-      };
     }
   });
 </script>
