@@ -112,4 +112,8 @@ export interface SearchXEvents {
    * The user has aborted a redirection.
    */
   UserClickedAbortARedirection: void;
+  /**
+   * The user has selected a page.
+   */
+  UserSelectedAPage: number;
 }
