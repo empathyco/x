@@ -4,20 +4,20 @@ jobs:
   release:
     runs-on: ubuntu-latest
     container:
-      image: cypress/browsers:node-18.16.0-chrome-112.0.5615.121-1-ff-112.0.1-edge-112.0.1722.48-1
+      image: cypress/browsers:node-18.16.0-chrome-112.0.5615.121-1-ff-112.0.1-edge-112.0.1722.48-1@sha256:78ca118a3ac93a551e43d6c6fe3e31e6f2f4bb034b56627be56005229bfc1790
       # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
       options: --user 1001
 
     steps:
       # Use GitHub App token as a workaround to allow bypassing branch-protection rules
       # https://github.com/orgs/community/discussions/13836#discussioncomment-8535364
-      - uses: actions/create-github-app-token@v1
+      - uses: actions/create-github-app-token@c1a285145b9d317df6ced56c09f525b5c2b6f755 # v1
         id: app-token
         with:
           app-id: ${{ vars.GH_TOKENS_APP_ID }}
           private-key: ${{ secrets.GH_TOKENS_APP_PRIVATE_KEY }}
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0

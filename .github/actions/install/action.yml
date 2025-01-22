@@ -4,7 +4,7 @@ description: Checkouts the repo and installs dependencies
 runs:
   using: 'composite'
   steps:
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
       with:
         node-version: 18
 
