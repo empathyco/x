@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.3-alpha.3](https://github.com/empathyco/x/compare/@empathyco/x-translations@2.0.3-alpha.2...@empathyco/x-translations@2.0.3-alpha.3) (2025-01-22)
+
+**Note:** Version bump only for package @empathyco/x-translations
+
+
+
+
+
 ## [2.0.3-alpha.2](https://github.com/empathyco/x/compare/@empathyco/x-translations@2.0.3-alpha.1...@empathyco/x-translations@2.0.3-alpha.2) (2024-02-05)
 
 **Note:** Version bump only for package @empathyco/x-translations
