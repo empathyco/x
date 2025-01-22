@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.34](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.33...@empathyco/x-components@6.0.0-alpha.34) (2025-01-22)
+
+
+### Bug Fixes
+
+* **page-selector:** request should start at 0 (#1697) ([5dbad85](https://github.com/empathyco/x/commit/5dbad85a6c844eeaf3b2f0df8d63b4e503ab2a9f))
+
+
+
 ## [6.0.0-alpha.33](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.32...@empathyco/x-components@6.0.0-alpha.33) (2025-01-21)
 
 
