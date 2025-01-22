@@ -42,7 +42,7 @@ function enrichRequest(request: InternalSearchRequest, state: SearchState): Sear
   if (pageMode === 'infinite_scroll') {
     start = page === 1 ? 0 : results.length;
   } else {
-    start = state.config.pageSize * page;
+    start = state.config.pageSize * (page - 1);
   }
 
   const rows = pageMode === 'infinite_scroll' ? pageSize * page - start : pageSize;

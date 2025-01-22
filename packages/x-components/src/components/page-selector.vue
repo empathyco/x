@@ -202,7 +202,7 @@ Basic example of how the component is rendered.
 
 ```vue live
 <template>
-  <PageSelector :current-page="currentPage" :total-pages="totalPages" />
+  <PageSelector :current-page="page" :total-pages="totalPages" />
 </template>
 
 <script>
@@ -218,11 +218,6 @@ Basic example of how the component is rendered.
         page: 0,
         totalPages: 10
       };
-    },
-    computed: {
-      currentPage() {
-        return this.page;
-      }
     }
   };
 </script>
@@ -236,7 +231,7 @@ This component allows to customise its content using slots.
 <template>
   <PageSelector
     :total-pages="totalPages"
-    :currentPage="currentPage"
+    :currentPage="page"
     :item-classes="
       (isSelected: boolean) =>
         isSelected
@@ -272,11 +267,6 @@ This component allows to customise its content using slots.
         page: 2,
         totalPages: 10
       };
-    },
-    computed: {
-      currentPage() {
-        return this.page;
-      }
     }
   };
 </script>
@@ -286,7 +276,7 @@ This component allows to customise its content using slots.
 
 ```vue live
 <template>
-  <PageSelector :current-page="currentPage" :total-pages="totalPages" :range="range" />
+  <PageSelector :current-page="page" :total-pages="totalPages" :range="range" />
 </template>
 
 <script>
@@ -303,11 +293,6 @@ This component allows to customise its content using slots.
         totalPages: 100,
         range: 4
       };
-    },
-    computed: {
-      currentPage() {
-        return this.page;
-      }
     }
   };
 </script>
