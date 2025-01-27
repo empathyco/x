@@ -1,12 +1,11 @@
 <template>
   <button
     class="x-flex x-items-center x-p-8 x-justify-between x-text-start"
-    role="button"
     aria-pressed="true"
     tabindex="0"
   >
     <slot name="extra-content" />
-    <span v-typing="{ text: relatedPrompt.suggestionText, speed: 50 }"></span>
+    <span v-typing="{ text: relatedPrompt.suggestionText, speed: 50 }" />
     <component :is="selected ? 'CrossTinyIcon' : 'PlusIcon'" class="x-icon-lg x-self-start" />
   </button>
 </template>
@@ -20,7 +19,7 @@
   /**
    * This component shows a suggested related prompt.
    *
-   * It provides a slot to customize the related prompt button information.
+   * It provides a slot to customize the extra related prompt button information.
    *
    * @public
    */

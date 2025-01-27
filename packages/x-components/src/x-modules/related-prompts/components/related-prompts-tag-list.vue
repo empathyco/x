@@ -1,34 +1,34 @@
 <template>
   <SlidingPanel
-    :reset-on-content-change="true"
+    :reset-on-content-change="false"
     :button-class="buttonClass"
-    :scroll-container-class="
+    :scroll-container-class="[
       selectedPromptIndex === -1
         ? 'desktop:x-sliding-panel-fade desktop:x-sliding-panel-fade-sm'
-        : ''
-    "
+        : '',
+      'x-h-full x-relative'
+    ]"
   >
     <template #sliding-panel-left-button>
       <slot name="sliding-panel-left-button" />
     </template>
     <transition-group
-      class="x-flex x-gap-16"
-      leave-to-class="x-opacity-0 -x-z-1"
-      enter-from-class="x-opacity-0"
-      @before-enter="applyStaggerEffect"
-      @before-leave="applyStaggerEffect"
+      @after-enter="onAfterEnter"
+      @before-leave="onBeforeLeave"
+      @before-enter="onBeforeEnter"
+      class="x-flex x-gap-16 x-min-w-full"
       tag="div"
     >
       <RelatedPrompt
-        v-for="({ colorClass, ...relatedPrompt }, index) in visibleRelatedPrompts"
+        v-for="{ colorClass, index, ...relatedPrompt } in visibleRelatedPrompts"
+        ref="relatedPromptElements"
         :key="relatedPrompt.suggestionText"
+        @click="onSelect(index)"
         :related-prompt="relatedPrompt"
-        :selected="isSelected(relatedPrompt.suggestionText)"
-        class="x-h-full x-transition-all x-duration-300"
+        :selected="isSelected(index)"
+        class="x-h-full"
         :class="[relatedPromptClass, colorClass]"
         :data-index="index"
-        @click="onSelect(relatedPrompt.suggestionText)"
-        @keydown="onSelect(relatedPrompt.suggestionText)"
       >
         <template #extra-content>
           <slot name="related-prompt-extra-content" v-bind="{ relatedPrompt }" />
@@ -40,8 +40,10 @@
     </template>
   </SlidingPanel>
 </template>
+
 <script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue';
+  import { RelatedPrompt as RelatedPromptModel } from '@empathyco/x-types';
+  import { computed, defineComponent, PropType, ref } from 'vue';
   import SlidingPanel from '../../../components/sliding-panel.vue';
   import { relatedPromptsXModule } from '../x-module';
   import { use$x, useState } from '../../../composables';
@@ -54,58 +56,174 @@
     props: {
       buttonClass: String,
       relatedPromptColorClasses: {
-        type: Array as PropType<String[]>,
+        type: Array as PropType<string[]>,
         default: () => ['x-bg-neutral-90', 'x-bg-neutral-75']
       },
-      relatedPromptClass: String
+      relatedPromptClass: String,
+      animationDurationInMs: {
+        type: Number,
+        default: 3000
+      }
     },
     setup(props) {
       const x = use$x();
-
       const { relatedPrompts, selectedPrompt: selectedPromptIndex } = useState('relatedPrompts', [
         'relatedPrompts',
         'selectedPrompt'
       ]);
 
+      const relatedPromptElements = ref<HTMLElement[]>([]);
+      const initialOffsetLefts: Record<number, number> = {};
+
+      const singleAnimationDurationInMs = computed(
+        () => props.animationDurationInMs / (relatedPrompts.value.length - 1)
+      );
+
+      const coloredRelatedPrompts = computed(() =>
+        (relatedPrompts.value as RelatedPromptModel[]).map(
+          (relatedPrompt: RelatedPromptModel, index: number) => ({
+            ...relatedPrompt,
+            colorClass:
+              props.relatedPromptColorClasses[index % props.relatedPromptColorClasses.length],
+            index
+          })
+        )
+      );
+
       const visibleRelatedPrompts = computed(() => {
-        const coloredRelatedPrompts = relatedPrompts.value.map((relatedPrompt, index) => ({
-          ...relatedPrompt,
-          colorClass:
-            props.relatedPromptColorClasses[index % props.relatedPromptColorClasses.length]
-        }));
-        console.log(
-          selectedPromptIndex.value !== -1
-            ? [coloredRelatedPrompts[selectedPromptIndex.value]]
-            : coloredRelatedPrompts
-        );
         return selectedPromptIndex.value !== -1
-          ? [coloredRelatedPrompts[selectedPromptIndex.value]]
-          : coloredRelatedPrompts;
+          ? [coloredRelatedPrompts.value[selectedPromptIndex.value]]
+          : coloredRelatedPrompts.value;
       });
 
-      const onSelect = (suggestionText: string): void => {
-        const index = relatedPrompts.value.findIndex(
-          relatedPrompt => relatedPrompt.suggestionText === suggestionText
-        );
-        x.emit('UserSelectedARelatedPrompt', index);
+      let timeOutId: number;
+      const resetRelatedPromptsStyle = () => {
+        if (timeOutId) {
+          clearTimeout(timeOutId);
+        }
+
+        timeOutId = setTimeout(() => {
+          console.log('reset', Date.now());
+
+          relatedPromptElements.value.forEach(relatedPromptElement => {
+            Object.keys((relatedPromptElement.$el as HTMLElement).style).forEach(property => {
+              (relatedPromptElement.$el as HTMLElement).style.removeProperty(property);
+            });
+          });
+        }, props.animationDurationInMs) as unknown as number;
       };
 
-      function applyStaggerEffect(el: Element) {
-        const index = Number.parseInt(el.getAttribute('data-index')!);
-        const delayInMs =
-          index === selectedPromptIndex.value ? relatedPrompts.value.length * 0.4 : index * 0.4;
-        (el as HTMLElement).style.transitionDelay = `${delayInMs * 1000}ms`;
-      }
+      const onSelect = (selectedIndex: number): void => {
+        resetRelatedPromptsStyle();
+        console.log('click', Date.now());
 
-      //TODO fix isSelected
+        const selectedRelatedPromptElement = relatedPromptElements.value.find(
+          relatedPromptElement =>
+            Number.parseInt((relatedPromptElement.$el as Element).getAttribute('data-index')!) ===
+            selectedIndex
+        );
+        // const { width: selectedRelatedPromptWidth, maxWidth: selectedRelatedPromptMaxWidth } =
+        //   getComputedStyle(selectedRelatedPromptElement!.$el as HTMLElement);
+
+        (selectedRelatedPromptElement!.$el as HTMLElement).style.transition = 'all';
+        (
+          selectedRelatedPromptElement!.$el as HTMLElement
+        ).style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
+
+        if (relatedPromptElements.value.length === relatedPrompts.value.length) {
+          relatedPromptElements.value.forEach(relatedPromptElement => {
+            const index = Number.parseInt(
+              (relatedPromptElement.$el as Element).getAttribute('data-index')!
+            );
+            const offsetLeft = relatedPromptElement.$el.offsetLeft as number;
+
+            initialOffsetLefts[index] = offsetLeft;
+            relatedPromptElement.$el.style.left = `${offsetLeft}px`;
+            relatedPromptElement.$el.style.top = '0px';
+            relatedPromptElement.$el.style.opacity = '1';
+          });
+
+          relatedPromptElements.value.forEach(relatedPromptElement => {
+            relatedPromptElement.$el.style.position = 'absolute';
+          });
+
+          selectedRelatedPromptElement!.$el.style.transitionDelay = `${
+            (relatedPrompts.value.length - 2) * singleAnimationDurationInMs.value
+          }ms`;
+
+          // selectedRelatedPromptElement!.$el.style.minWidth = selectedRelatedPromptWidth;
+
+          requestAnimationFrame(() => {
+            selectedRelatedPromptElement!.$el.style.left = '0px';
+            // if (selectedRelatedPromptMaxWidth) {
+            //   selectedRelatedPromptElement!.$el.style.minWidth = selectedRelatedPromptMaxWidth;
+            // }
+          });
+        } else {
+          // selectedRelatedPromptElement!.$el.style.maxWidth = selectedRelatedPromptWidth;
+          selectedRelatedPromptElement!.$el.style.position = 'absolute';
+          selectedRelatedPromptElement!.$el.style.left = '0px';
+          selectedRelatedPromptElement!.$el.style.top = '0px';
+
+          requestAnimationFrame(() => {
+            selectedRelatedPromptElement!.$el.style.left = `${initialOffsetLefts[selectedIndex]}px`;
+            // selectedRelatedPromptElement!.$el.style.maxWidth = selectedRelatedPromptWidth;
+          });
+        }
+
+        x.emit('UserSelectedARelatedPrompt', selectedIndex);
+      };
+
+      const onAfterEnter = (el: Element) => {
+        (el as HTMLElement).style.opacity = '1';
+        (el as HTMLElement).style.top = '0px';
+      };
+
+      const onBeforeLeave = (el: Element) => {
+        (el as HTMLElement).style.transitionDelay = `${
+          (relatedPrompts.value.length - relatedPromptElements.value.length - 1) *
+          singleAnimationDurationInMs.value
+        }ms`;
+        (el as HTMLElement).style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
+        (el as HTMLElement).style.opacity = '0';
+        (el as HTMLElement).style.top = '5px';
+      };
+
+      const onBeforeEnter = (el: Element) => {
+        const selectedIndex = Number.parseInt(
+          (relatedPromptElements.value[0].$el as Element).getAttribute('data-index')!
+        );
+        const index = Number.parseInt(el.getAttribute('data-index')!);
+
+        (el as HTMLElement).style.transition = 'all';
+        (el as HTMLElement).style.transitionDelay = `${
+          (index < selectedIndex ? index : index - 1) * singleAnimationDurationInMs.value
+        }ms`;
+        console.log(
+          'Delay',
+          index,
+          (index < selectedIndex ? index : index - 1) * singleAnimationDurationInMs.value,
+          Date.now()
+        );
+
+        (el as HTMLElement).style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
+        (el as HTMLElement).style.position = 'absolute';
+        (el as HTMLElement).style.left = `${initialOffsetLefts[index]}px`;
+        (el as HTMLElement).style.top = '5px';
+        (el as HTMLElement).style.opacity = '0';
+      };
+
       const isSelected = (index: number): boolean => selectedPromptIndex.value === index;
 
       return {
         isSelected,
         onSelect,
-        applyStaggerEffect,
+        onAfterEnter,
+        onBeforeLeave,
+        onBeforeEnter,
         selectedPromptIndex,
-        visibleRelatedPrompts
+        visibleRelatedPrompts,
+        relatedPromptElements
       };
     }
   });
