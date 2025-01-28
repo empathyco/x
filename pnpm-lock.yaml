@@ -1623,54 +1623,6 @@ packages:
       - supports-color
     dev: true
 
-  /@empathyco/x-adapter-platform@1.1.0-alpha.10:
-    resolution:
-      {
-        integrity: sha512-8sdHK5zz2iRryeUlcBVExasWDQ3MMWHyQV+LgJjrouV1ORur4IgJYxrhl14Xy+vw3Bqh82Ku6XuzYZBwxxZfwg==
-      }
-    engines: { node: '>=18' }
-    dependencies:
-      '@empathyco/x-adapter': 8.1.0-alpha.1
-      '@empathyco/x-types': 10.1.0-alpha.7
-      '@empathyco/x-utils': 1.0.3-alpha.2
-      tslib: 2.6.3
-    dev: false
-
-  /@empathyco/x-adapter@8.1.0-alpha.1:
-    resolution:
-      {
-        integrity: sha512-oaXUbBb0UhTCOX+Z+oRBZ5mv90DtFrnUy9V6CpB2EO9crZKgZdyVZbeCEGPQJ8gpGW9SxBjWzs6YoqPScmnMFg==
-      }
-    engines: { node: '>=18' }
-    dependencies:
-      '@empathyco/x-deep-merge': 2.0.3-alpha.2
-      '@empathyco/x-utils': 1.0.3-alpha.2
-      tslib: 2.6.3
-    dev: false
-
-  /@empathyco/x-bus@1.0.3-alpha.2:
-    resolution:
-      {
-        integrity: sha512-eSsC+AdWl1emGpnC2qJu8vgd7N9AvrpRK7lDulb9b1TELIy4y/mo3jLomaIDMfjN/R+9PIebwDp0CCoH0mFHMQ==
-      }
-    engines: { node: '>=18' }
-    dependencies:
-      '@empathyco/x-priority-queue': 1.0.3-alpha.2
-      '@empathyco/x-utils': 1.0.3-alpha.2
-      rxjs: 7.8.1
-      tslib: 2.6.3
-    dev: false
-
-  /@empathyco/x-deep-merge@2.0.3-alpha.2:
-    resolution:
-      {
-        integrity: sha512-Xs9YkIESA0A1t8zi/JQcjs/xoLwLIMEqeWYDmMF+TqJekXUlZSnasLuZCgb4WraWM5YeHbtxPId5L2/gQgv6Wg==
-      }
-    engines: { node: '>=18' }
-    dependencies:
-      '@empathyco/x-utils': 1.0.3-alpha.2
-      tslib: 2.6.3
-
   /@empathyco/x-jest-utils@1.4.0-alpha.11:
     resolution:
       {
@@ -1687,61 +1639,7 @@ packages:
     engines: { node: '>=16' }
     dependencies:
       tslib: 2.5.3
-
-  /@empathyco/x-priority-queue@1.0.3-alpha.2:
-    resolution:
-      {
-        integrity: sha512-cd6OLSdyncBO2JqF4YAJQ4i+PVA7KCusOKYU6llI03HJdAB2okKYd7UL70rbT/FrQYDqnpPI2VCIJqqAltAojg==
-      }
-    engines: { node: '>=18' }
-    dependencies:
-      '@empathyco/x-utils': 1.0.3-alpha.2
-      tslib: 2.6.3
     dev: false
-
-  /@empathyco/x-storage-service@2.0.3-alpha.1:
-    resolution:
-      {
-        integrity: sha512-OchioTvvFy2VL4ZU2KPCFa0FXTM96Y0v0TgWygLm5/S74ifZihp/mJUvzVZk4Ui6abVNCUq2OYC0+yxntjgXXA==
-      }
-    engines: { node: '>=18' }
-    dependencies:
-      '@empathyco/x-logger': 1.2.0-alpha.11
-      tslib: 2.6.3
-
-  /@empathyco/x-tailwindcss@2.0.0-alpha.3:
-    resolution:
-      {
-        integrity: sha512-2XYct6/4QGB931IlyfgQigDYD0Vh+o43JMWH1VT+alXJBhjyFULqX3NBULM+3dMd7KqDKHVzjXqGK6AaOJbHmA==
-      }
-    engines: { node: '>=18' }
-    dependencies:
-      '@empathyco/x-deep-merge': 2.0.3-alpha.2
-      '@empathyco/x-utils': 1.0.3-alpha.2
-      tslib: 2.6.3
-    dev: true
-
-  /@empathyco/x-types@10.1.0-alpha.7:
-    resolution:
-      {
-        integrity: sha512-qsmJXy47ZDy2Ftzufldio1PZmhVLQHFkd5pXuflibwL6rzqCIhQAdN2QcURqNCfD8lvRhv/4Q1BrIx1hQf9b6Q==
-      }
-    engines: { node: '>=18' }
-    dependencies:
-      '@empathyco/x-adapter': 8.1.0-alpha.1
-      '@empathyco/x-utils': 1.0.3-alpha.2
-      tslib: 2.6.3
-    dev: false
-
-  /@empathyco/x-utils@1.0.3-alpha.2:
-    resolution:
-      {
-        integrity: sha512-6J4ufUge2SyLgx2C97RdHN0Hp3SdHkNM8I2F7LhpCE3V0jKIxXujnsGslUvr904X1qmfp4JXnzHFSjxSNLkprw==
-      }
-    engines: { node: '>=18' }
-    dependencies:
-      '@empathyco/x-storage-service': 2.0.3-alpha.1
-      tslib: 2.6.3
 
   /@es-joy/jsdoccomment@0.36.1:
     resolution:
@@ -16853,6 +16751,7 @@ packages:
       }
     dependencies:
       tslib: 2.6.3
+    dev: true
 
   /safe-array-concat@1.1.2:
     resolution:
@@ -18240,6 +18139,7 @@ packages:
       {
         integrity: sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==
       }
+    dev: false
 
   /tslib@2.6.0:
     resolution:
