@@ -45,11 +45,11 @@
 <script lang="ts">
   import { RelatedPrompt as RelatedPromptModel } from '@empathyco/x-types';
   import { computed, defineComponent, PropType, ref } from 'vue';
+  import { Fn } from '@vueuse/core';
   import SlidingPanel from '../../../components/sliding-panel.vue';
   import { relatedPromptsXModule } from '../x-module';
   import { use$x, useState } from '../../../composables';
   import RelatedPrompt from './related-prompt.vue';
-  import { Fn } from '@vueuse/core';
 
   export default defineComponent({
     name: 'RelatedPromptsTagList',
@@ -64,7 +64,7 @@
       },
       animationDurationInMs: {
         type: Number,
-        default: 3000
+        default: 700
       }
     },
     setup(props) {
@@ -112,7 +112,9 @@
 
           relatedPromptElements.value.forEach(element => {
             Object.keys(element.style).forEach(property => {
-              element.style.removeProperty(property);
+              if (property !== 'width') {
+                element.style.removeProperty(property);
+              }
             });
           });
         }, props.animationDurationInMs);
@@ -145,8 +147,14 @@
           }ms`;
           requestAnimationFrame(() => {
             selected.style.left = '0px';
+            selected.style.setProperty(
+              'width',
+              `${getComputedStyle(selected).maxWidth}`,
+              'important'
+            );
           });
         } else {
+          selected.style.removeProperty('width');
           selected.style.position = 'absolute';
           selected.style.left = '0px';
           selected.style.top = '0px';

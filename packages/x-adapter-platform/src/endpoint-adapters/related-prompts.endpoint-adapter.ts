@@ -14,8 +14,8 @@ export const relatedPromptsEndpointAdapter = endpointAdapterFactory<
   RelatedPromptsRequest,
   RelatedPromptsResponse
 >({
-  endpoint:
-    'https://api.empathy.co/relatedprompts/mymotivemarketplace?store=Labstore+London&lang=en',
+  endpoint: from =>
+    interpolate(`${getBeaconServiceUrl(from)}/relatedprompts/{extraParams.instance}`, from),
   requestMapper: ({ query }) => ({ query }),
   responseMapper: relatedPromptsResponseMapper,
   defaultRequestOptions: {
