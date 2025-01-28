@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-alpha.36](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.35...@empathyco/x-components@6.0.0-alpha.36) (2025-01-28)
+
+
+### Features
+
+* remove tailwind class dependency from page-loader-button.vue  (#1693) ([26e7c05](https://github.com/empathyco/x/commit/26e7c05970a560be28aa5be55a2bcbfc5277642a))
+
+
+### Bug Fixes
+
+* **extra-params:** give more priority to values prop over params state in the ExtraParamsProvided payload (#1700) ([d924211](https://github.com/empathyco/x/commit/d9242110a4443cba3cf78ee7c7f9d7689e8fe3a9))
+
+
+
 ## [6.0.0-alpha.35](https://github.com/empathyco/x/compare/@empathyco/x-components@6.0.0-alpha.34...@empathyco/x-components@6.0.0-alpha.35) (2025-01-22)
 
 **Note:** Version bump only for package @empathyco/x-components
