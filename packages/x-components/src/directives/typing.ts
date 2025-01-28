@@ -8,7 +8,6 @@ export interface TypingOptions {
   /**
    * The typing speed in milliseconds per character.
    *
-   * @default 1
    */
   speed?: number;
   /**
@@ -44,7 +43,7 @@ const typingDirective: Directive<TypingHTMLElement, TypingOptions> = {
 /**
  * Execute a typing animation in an HTML element.
  *
- * @param el - The HTML element where the typing animation will be displayed
+ * @param el - The HTML element where the typing animation will be displayed.
  * @param options - Options for the behavior of the animation.
  */
 function execute(el: TypingHTMLElement, options: TypingOptions) {
