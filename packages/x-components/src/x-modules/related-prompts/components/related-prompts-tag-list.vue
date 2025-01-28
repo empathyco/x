@@ -21,7 +21,7 @@
     >
       <RelatedPrompt
         v-for="{ colorClass, index, ...relatedPrompt } in visibleRelatedPrompts"
-        ref="relatedPromptElements"
+        ref="relatedPromptComponents"
         :key="relatedPrompt.suggestionText"
         @click="onSelect(index)"
         :related-prompt="relatedPrompt"
@@ -55,11 +55,11 @@
     components: { RelatedPrompt, SlidingPanel },
     props: {
       buttonClass: String,
-      relatedPromptColorClasses: {
-        type: Array as PropType<string[]>,
-        default: () => ['x-bg-neutral-90', 'x-bg-neutral-75']
-      },
       relatedPromptClass: String,
+      tagColors: {
+        type: Array as PropType<string[]>,
+        default: () => ['x-bg-amber-100', 'x-bg-amber-200', 'x-bg-amber-300']
+      },
       animationDurationInMs: {
         type: Number,
         default: 3000
@@ -72,7 +72,10 @@
         'selectedPrompt'
       ]);
 
-      const relatedPromptElements = ref<HTMLElement[]>([]);
+      const relatedPromptComponents = ref<InstanceType<typeof RelatedPrompt>[]>([]);
+      const relatedPromptElements = computed(() =>
+        relatedPromptComponents.value.map(component => component.$el)
+      );
       const initialOffsetLefts: Record<number, number> = {};
 
       const singleAnimationDurationInMs = computed(
@@ -83,8 +86,7 @@
         (relatedPrompts.value as RelatedPromptModel[]).map(
           (relatedPrompt: RelatedPromptModel, index: number) => ({
             ...relatedPrompt,
-            colorClass:
-              props.relatedPromptColorClasses[index % props.relatedPromptColorClasses.length],
+            colorClass: props.tagColors[index % props.tagColors.length],
             index
           })
         )
@@ -102,72 +104,53 @@
           clearTimeout(timeOutId);
         }
 
-        timeOutId = setTimeout(() => {
+        timeOutId = +setTimeout(() => {
           console.log('reset', Date.now());
 
-          relatedPromptElements.value.forEach(relatedPromptElement => {
-            Object.keys((relatedPromptElement.$el as HTMLElement).style).forEach(property => {
-              (relatedPromptElement.$el as HTMLElement).style.removeProperty(property);
+          relatedPromptElements.value.forEach(element => {
+            Object.keys(element.style).forEach(property => {
+              element.style.removeProperty(property);
             });
           });
-        }, props.animationDurationInMs) as unknown as number;
+        }, props.animationDurationInMs);
       };
 
       const onSelect = (selectedIndex: number): void => {
         resetRelatedPromptsStyle();
         console.log('click', Date.now());
 
-        const selectedRelatedPromptElement = relatedPromptElements.value.find(
-          relatedPromptElement =>
-            Number.parseInt((relatedPromptElement.$el as Element).getAttribute('data-index')!) ===
-            selectedIndex
-        );
-        // const { width: selectedRelatedPromptWidth, maxWidth: selectedRelatedPromptMaxWidth } =
-        //   getComputedStyle(selectedRelatedPromptElement!.$el as HTMLElement);
-
-        (selectedRelatedPromptElement!.$el as HTMLElement).style.transition = 'all';
-        (
-          selectedRelatedPromptElement!.$el as HTMLElement
-        ).style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
+        const selected = relatedPromptElements.value.find(
+          element => Number.parseInt(element.getAttribute('data-index')!) === selectedIndex
+        )!;
+        selected.style.transition = 'all';
+        selected.style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
 
         if (relatedPromptElements.value.length === relatedPrompts.value.length) {
-          relatedPromptElements.value.forEach(relatedPromptElement => {
-            const index = Number.parseInt(
-              (relatedPromptElement.$el as Element).getAttribute('data-index')!
-            );
-            const offsetLeft = relatedPromptElement.$el.offsetLeft as number;
-
-            initialOffsetLefts[index] = offsetLeft;
-            relatedPromptElement.$el.style.left = `${offsetLeft}px`;
-            relatedPromptElement.$el.style.top = '0px';
-            relatedPromptElement.$el.style.opacity = '1';
+          relatedPromptElements.value.forEach(element => {
+            const index = Number.parseInt(element.getAttribute('data-index')!);
+            initialOffsetLefts[index] = element.offsetLeft;
+            element.style.left = `${element.offsetLeft}px`;
+            element.style.top = '0px';
+            element.style.opacity = '1';
           });
 
-          relatedPromptElements.value.forEach(relatedPromptElement => {
-            relatedPromptElement.$el.style.position = 'absolute';
+          relatedPromptElements.value.forEach(element => {
+            element.style.position = 'absolute';
           });
 
-          selectedRelatedPromptElement!.$el.style.transitionDelay = `${
+          selected.style.transitionDelay = `${
             (relatedPrompts.value.length - 2) * singleAnimationDurationInMs.value
           }ms`;
-
-          // selectedRelatedPromptElement!.$el.style.minWidth = selectedRelatedPromptWidth;
-
           requestAnimationFrame(() => {
-            selectedRelatedPromptElement!.$el.style.left = '0px';
-            // if (selectedRelatedPromptMaxWidth) {
-            //   selectedRelatedPromptElement!.$el.style.minWidth = selectedRelatedPromptMaxWidth;
-            // }
+            selected.style.left = '0px';
           });
         } else {
-          // selectedRelatedPromptElement!.$el.style.maxWidth = selectedRelatedPromptWidth;
-          selectedRelatedPromptElement!.$el.style.position = 'absolute';
-          selectedRelatedPromptElement!.$el.style.left = '0px';
-          selectedRelatedPromptElement!.$el.style.top = '0px';
+          selected.style.position = 'absolute';
+          selected.style.left = '0px';
+          selected.style.top = '0px';
 
           requestAnimationFrame(() => {
-            selectedRelatedPromptElement!.$el.style.left = `${initialOffsetLefts[selectedIndex]}px`;
-            // selectedRelatedPromptElement!.$el.style.maxWidth = selectedRelatedPromptWidth;
+            selected.style.left = `${initialOffsetLefts[selectedIndex]}px`;
           });
         }
 
@@ -175,28 +158,31 @@
       };
 
       const onAfterEnter = (el: Element) => {
-        (el as HTMLElement).style.opacity = '1';
-        (el as HTMLElement).style.top = '0px';
+        const element = el as HTMLElement;
+        element.style.opacity = '1';
+        element.style.top = '0px';
       };
 
       const onBeforeLeave = (el: Element) => {
-        (el as HTMLElement).style.transitionDelay = `${
-          (relatedPrompts.value.length - relatedPromptElements.value.length - 1) *
+        const element = el as HTMLElement;
+        element.style.transitionDelay = `${
+          (relatedPrompts.value.length - relatedPromptComponents.value.length - 1) *
           singleAnimationDurationInMs.value
         }ms`;
-        (el as HTMLElement).style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
-        (el as HTMLElement).style.opacity = '0';
-        (el as HTMLElement).style.top = '5px';
+        element.style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
+        element.style.opacity = '0';
+        element.style.top = '5px';
       };
 
       const onBeforeEnter = (el: Element) => {
+        const element = el as HTMLElement;
         const selectedIndex = Number.parseInt(
-          (relatedPromptElements.value[0].$el as Element).getAttribute('data-index')!
+          relatedPromptElements.value[0].getAttribute('data-index')!
         );
-        const index = Number.parseInt(el.getAttribute('data-index')!);
+        const index = Number.parseInt(element.getAttribute('data-index')!);
 
-        (el as HTMLElement).style.transition = 'all';
-        (el as HTMLElement).style.transitionDelay = `${
+        element.style.transition = 'all';
+        element.style.transitionDelay = `${
           (index < selectedIndex ? index : index - 1) * singleAnimationDurationInMs.value
         }ms`;
         console.log(
@@ -206,11 +192,11 @@
           Date.now()
         );
 
-        (el as HTMLElement).style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
-        (el as HTMLElement).style.position = 'absolute';
-        (el as HTMLElement).style.left = `${initialOffsetLefts[index]}px`;
-        (el as HTMLElement).style.top = '5px';
-        (el as HTMLElement).style.opacity = '0';
+        element.style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
+        element.style.position = 'absolute';
+        element.style.left = `${initialOffsetLefts[index]}px`;
+        element.style.top = '5px';
+        element.style.opacity = '0';
       };
 
       const isSelected = (index: number): boolean => selectedPromptIndex.value === index;
@@ -223,7 +209,7 @@
         onBeforeEnter,
         selectedPromptIndex,
         visibleRelatedPrompts,
-        relatedPromptElements
+        relatedPromptComponents
       };
     }
   });
