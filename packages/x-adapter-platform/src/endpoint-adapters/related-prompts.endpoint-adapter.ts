@@ -16,7 +16,7 @@ export const relatedPromptsEndpointAdapter = endpointAdapterFactory<
 >({
   endpoint: from =>
     interpolate(`${getBeaconServiceUrl(from)}/relatedprompts/{extraParams.instance}`, from),
-  requestMapper: ({ query }) => ({ query }),
+  requestMapper: relatedPromptsRequestMapper,
   responseMapper: relatedPromptsResponseMapper,
   defaultRequestOptions: {
     id: 'related-prompts',

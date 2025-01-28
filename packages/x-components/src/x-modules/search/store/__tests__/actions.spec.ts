@@ -71,9 +71,9 @@ describe('testing search module actions', () => {
       });
     });
 
-    it('should calculate correctly the start and rows properties', async () => {
+    it('should calculate correctly the start and rows properties when pageMode config is set to infinite_scroll', async () => {
       resetSearchStateWith(store, {
-        config: { pageSize: 48 },
+        config: { pageSize: 48, pageMode: 'infinite_scroll' },
         page: 2,
         query: 'lego',
         results: getResultsStub(48)
@@ -86,6 +86,24 @@ describe('testing search module actions', () => {
         ...restRequest,
         start: 48,
         rows: 48
+      });
+    });
+
+    it('should calculate correctly the start and rows properties when pageMode config is set to pagination', async () => {
+      resetSearchStateWith(store, {
+        config: { pageSize: 24, pageMode: 'pagination' },
+        page: 2,
+        query: 'lego',
+        results: getResultsStub(48)
+      });
+      const { page, ...restRequest } = store.getters.request!;
+      await store.dispatch('fetchAndSaveSearchResponse', store.getters.request);
+
+      expect(adapter.search).toHaveBeenCalledTimes(1);
+      expect(adapter.search).toHaveBeenCalledWith({
+        ...restRequest,
+        start: 24,
+        rows: 24
       });
     });
 

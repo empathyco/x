@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-jest-utils",
-  "version": "2.0.2",
+  "version": "2.0.3-alpha.0",
   "description": "Jest extensions for easier testing",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -30,10 +30,10 @@
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
-    "@types/jest": "~27.5.0",
-    "jest": "~27.5.0",
-    "ts-jest": "~27.1.0",
-    "typescript": "~4.9.4"
+    "@types/jest": "27.5.0",
+    "jest": "27.5.0",
+    "ts-jest": "27.1.0",
+    "typescript": "4.9.4"
   },
   "publishConfig": {
     "access": "public"

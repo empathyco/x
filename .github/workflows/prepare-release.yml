@@ -4,12 +4,12 @@ jobs:
   prepare-release:
     runs-on: ubuntu-latest
     container:
-      image: cypress/browsers:node-18.16.0-chrome-112.0.5615.121-1-ff-112.0.1-edge-112.0.1722.48-1
+      image: cypress/browsers:node-18.16.0-chrome-112.0.5615.121-1-ff-112.0.1-edge-112.0.1722.48-1@sha256:78ca118a3ac93a551e43d6c6fe3e31e6f2f4bb034b56627be56005229bfc1790
       # https://github.com/cypress-io/github-action#firefox Cypress FF image needs this user permissions to be able to install dependencies
       options: --user 1001
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 0
 
@@ -31,7 +31,7 @@ jobs:
         run: pnpm run prepare-release:stable
 
       - name: create Pull Request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6
         with:
           token: ${{ github.token }}
           commit-message: "chore(release): prepare stable release"

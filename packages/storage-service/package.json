@@ -1,6 +1,6 @@
 {
   "name": "@empathyco/x-storage-service",
-  "version": "2.0.3-alpha.0",
+  "version": "2.0.3-alpha.1",
   "description": "Storage service with TTL",
   "author": "Empathy Systems Corporation S.L.",
   "license": "Apache-2.0",
@@ -44,10 +44,10 @@
     "tslib": "~2.6.0"
   },
   "devDependencies": {
-    "@types/jest": "~27.5.0",
-    "jest": "~27.5.0",
-    "ts-jest": "~27.1.0",
-    "typescript": "~4.9.4"
+    "@types/jest": "27.5.0",
+    "jest": "27.5.0",
+    "ts-jest": "27.1.0",
+    "typescript": "4.9.4"
   },
   "publishConfig": {
     "access": "public"
