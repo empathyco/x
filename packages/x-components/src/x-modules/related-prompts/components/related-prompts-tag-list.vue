@@ -13,10 +13,10 @@
       <slot name="sliding-panel-left-button" />
     </template>
     <transition-group
-      @after-enter="onAfterEnter"
-      @before-leave="onBeforeLeave"
-      @before-enter="onBeforeEnter"
+      @enter="onEnter"
+      @leave="onLeave"
       class="x-flex x-gap-16 x-min-w-full"
+      :css="false"
       tag="div"
     >
       <RelatedPrompt
@@ -29,6 +29,7 @@
         class="x-h-full"
         :class="[relatedPromptClass, colorClass]"
         :data-index="index"
+        :disabled="isAnimating"
       >
         <template #extra-content>
           <slot name="related-prompt-extra-content" v-bind="{ relatedPrompt }" />
@@ -48,6 +49,7 @@
   import { relatedPromptsXModule } from '../x-module';
   import { use$x, useState } from '../../../composables';
   import RelatedPrompt from './related-prompt.vue';
+  import { Fn } from '@vueuse/core';
 
   export default defineComponent({
     name: 'RelatedPromptsTagList',
@@ -78,6 +80,7 @@
       );
       const initialOffsetLefts: Record<number, number> = {};
 
+      const isAnimating = ref(false);
       const singleAnimationDurationInMs = computed(
         () => props.animationDurationInMs / (relatedPrompts.value.length - 1)
       );
@@ -103,9 +106,9 @@
         if (timeOutId) {
           clearTimeout(timeOutId);
         }
-
+        isAnimating.value = true;
         timeOutId = +setTimeout(() => {
-          console.log('reset', Date.now());
+          isAnimating.value = false;
 
           relatedPromptElements.value.forEach(element => {
             Object.keys(element.style).forEach(property => {
@@ -117,7 +120,6 @@
 
       const onSelect = (selectedIndex: number): void => {
         resetRelatedPromptsStyle();
-        console.log('click', Date.now());
 
         const selected = relatedPromptElements.value.find(
           element => Number.parseInt(element.getAttribute('data-index')!) === selectedIndex
@@ -157,24 +159,7 @@
         x.emit('UserSelectedARelatedPrompt', selectedIndex);
       };
 
-      const onAfterEnter = (el: Element) => {
-        const element = el as HTMLElement;
-        element.style.opacity = '1';
-        element.style.top = '0px';
-      };
-
-      const onBeforeLeave = (el: Element) => {
-        const element = el as HTMLElement;
-        element.style.transitionDelay = `${
-          (relatedPrompts.value.length - relatedPromptComponents.value.length - 1) *
-          singleAnimationDurationInMs.value
-        }ms`;
-        element.style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
-        element.style.opacity = '0';
-        element.style.top = '5px';
-      };
-
-      const onBeforeEnter = (el: Element) => {
+      const onEnter = (el: Element, done: Fn) => {
         const element = el as HTMLElement;
         const selectedIndex = Number.parseInt(
           relatedPromptElements.value[0].getAttribute('data-index')!
@@ -188,15 +173,36 @@
         console.log(
           'Delay',
           index,
-          (index < selectedIndex ? index : index - 1) * singleAnimationDurationInMs.value,
-          Date.now()
+          (index < selectedIndex ? index : index - 1) * singleAnimationDurationInMs.value
         );
 
         element.style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
         element.style.position = 'absolute';
         element.style.left = `${initialOffsetLefts[index]}px`;
-        element.style.top = '5px';
         element.style.opacity = '0';
+        element.style.top = '5px';
+        requestAnimationFrame(() => {
+          element.style.opacity = '1';
+          element.style.top = '0px';
+          done();
+        });
+      };
+
+      const onLeave = (el: Element, done: Fn) => {
+        const element = el as HTMLElement;
+        element.style.transitionDelay = `${
+          (relatedPrompts.value.length - relatedPromptComponents.value.length - 1) *
+          singleAnimationDurationInMs.value
+        }ms`;
+        element.style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
+
+        requestAnimationFrame(() => {
+          element.style.opacity = '0';
+          element.style.top = '5px';
+        });
+        setTimeout(() => {
+          done();
+        }, props.animationDurationInMs);
       };
 
       const isSelected = (index: number): boolean => selectedPromptIndex.value === index;
@@ -204,12 +210,12 @@
       return {
         isSelected,
         onSelect,
-        onAfterEnter,
-        onBeforeLeave,
-        onBeforeEnter,
+        onEnter,
+        onLeave,
         selectedPromptIndex,
         visibleRelatedPrompts,
-        relatedPromptComponents
+        relatedPromptComponents,
+        isAnimating
       };
     }
   });
