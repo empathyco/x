@@ -1,5 +1,10 @@
 import type { Directive } from 'vue';
 
+/**
+ * TypingOptions interface.
+ *
+ * @public
+ */
 export interface TypingOptions {
   /**
    * The text (plain or html) that will be typed into the target element.
