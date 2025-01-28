@@ -6,7 +6,7 @@ import { getXComponentXModuleName, isXComponent } from '../../../../components';
 import { XPlugin } from '../../../../plugins';
 import { WirePayload } from '../../../../wiring';
 import ExtraParams from '../extra-params.vue';
-import { useState } from '../../../../composables/index';
+import { useState } from '../../../../composables';
 
 jest.mock('../../../../composables/use-state', () => ({
   useState: jest.fn().mockReturnValue({
