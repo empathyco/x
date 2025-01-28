@@ -26,7 +26,7 @@
       const $x = use$x();
 
       $x.emit('ExtraParamsInitialized', { ...props.values });
-      $x.emit('ExtraParamsProvided', { ...props.values, ...params.value });
+      $x.emit('ExtraParamsProvided', { ...params.value, ...props.values });
 
       watch(
         () => props.values,
