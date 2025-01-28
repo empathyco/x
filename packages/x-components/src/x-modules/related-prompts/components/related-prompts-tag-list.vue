@@ -45,7 +45,6 @@
 <script lang="ts">
   import { RelatedPrompt as RelatedPromptModel } from '@empathyco/x-types';
   import { computed, defineComponent, PropType, ref } from 'vue';
-  import { Fn } from '@vueuse/core';
   import SlidingPanel from '../../../components/sliding-panel.vue';
   import { relatedPromptsXModule } from '../x-module';
   import { use$x, useState } from '../../../composables';
@@ -167,7 +166,7 @@
         x.emit('UserSelectedARelatedPrompt', selectedIndex);
       };
 
-      const onEnter = (el: Element, done: Fn) => {
+      const onEnter = (el: Element, done: () => void) => {
         const element = el as HTMLElement;
         const selectedIndex = Number.parseInt(
           relatedPromptElements.value[0].getAttribute('data-index')!
@@ -196,7 +195,7 @@
         });
       };
 
-      const onLeave = (el: Element, done: Fn) => {
+      const onLeave = (el: Element, done: () => void) => {
         const element = el as HTMLElement;
         element.style.transitionDelay = `${
           (relatedPrompts.value.length - relatedPromptComponents.value.length - 1) *
