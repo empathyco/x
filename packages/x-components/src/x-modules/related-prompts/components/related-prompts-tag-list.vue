@@ -74,7 +74,7 @@
       ]);
 
       const relatedPromptComponents = ref<InstanceType<typeof RelatedPrompt>[]>([]);
-      const relatedPromptElements = computed(() =>
+      const relatedPromptElements = computed<HTMLElement[]>(() =>
         relatedPromptComponents.value.map(component => component.$el)
       );
       const initialOffsetLefts: Record<number, number> = {};
@@ -122,7 +122,7 @@
       const onSelect = (selectedIndex: number): void => {
         resetRelatedPromptsStyle();
 
-        const selected = relatedPromptElements.value.find(
+        const selected: HTMLElement = relatedPromptElements.value.find(
           element => Number.parseInt(element.getAttribute('data-index')!) === selectedIndex
         )!;
         selected.style.transition = 'all';
@@ -144,13 +144,15 @@
           selected.style.transitionDelay = `${
             (relatedPrompts.value.length - 2) * singleAnimationDurationInMs.value
           }ms`;
+
           requestAnimationFrame(() => {
-            selected.style.left = '0px';
+            const maxWidth = getComputedStyle(selected).maxWidth;
             selected.style.setProperty(
               'width',
-              `${getComputedStyle(selected).maxWidth}`,
+              `${maxWidth !== 'none' ? maxWidth : '100%'}`,
               'important'
             );
+            selected.style.left = '0px';
           });
         } else {
           selected.style.removeProperty('width');
@@ -177,12 +179,6 @@
         element.style.transitionDelay = `${
           (index < selectedIndex ? index : index - 1) * singleAnimationDurationInMs.value
         }ms`;
-        console.log(
-          'Delay',
-          index,
-          (index < selectedIndex ? index : index - 1) * singleAnimationDurationInMs.value
-        );
-
         element.style.transitionDuration = `${singleAnimationDurationInMs.value}ms`;
         element.style.position = 'absolute';
         element.style.left = `${initialOffsetLefts[index]}px`;

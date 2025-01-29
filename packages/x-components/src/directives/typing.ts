@@ -60,7 +60,6 @@ function execute(el: TypingHTMLElement, options: TypingOptions) {
   }
 
   let index = 0;
-  el.__timeoutId = el.__timeoutId || undefined;
 
   const updateContent = (value: string) => {
     if (targetAttr) {
