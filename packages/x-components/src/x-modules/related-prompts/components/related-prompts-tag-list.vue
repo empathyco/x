@@ -2,12 +2,7 @@
   <SlidingPanel
     :reset-on-content-change="false"
     :button-class="buttonClass"
-    :scroll-container-class="[
-      selectedPromptIndex === -1
-        ? 'desktop:x-sliding-panel-fade desktop:x-sliding-panel-fade-sm'
-        : '',
-      'x-h-full x-relative'
-    ]"
+    :scroll-container-class="'x-related-prompts-tag-list-scroll-container'"
   >
     <template #sliding-panel-left-button>
       <slot name="sliding-panel-left-button" />
@@ -15,7 +10,7 @@
     <transition-group
       @enter="onEnter"
       @leave="onLeave"
-      class="x-flex x-gap-16 x-min-w-full"
+      class="x-related-prompts-tag-list"
       :css="false"
       tag="div"
     >
@@ -26,7 +21,6 @@
         @click="onSelect(index)"
         :related-prompt="relatedPrompt"
         :selected="isSelected(index)"
-        class="x-h-full"
         :class="[relatedPromptClass, colorClass]"
         :data-index="index"
         :disabled="isAnimating"
@@ -223,3 +217,14 @@
     }
   });
 </script>
+<style lang="css">
+  .x-related-prompts-tag-list-scroll-container {
+    height: 100%;
+    position: relative;
+  }
+  .x-related-prompts-tag-list {
+    display: flex;
+    gap: 16px;
+    min-width: 100%;
+  }
+</style>

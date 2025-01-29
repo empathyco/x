@@ -1,12 +1,11 @@
 <template>
-  <button
-    class="x-flex x-items-center x-p-8 x-justify-between x-text-start"
-    aria-pressed="true"
-    tabindex="0"
-  >
+  <button class="x-related-prompt" aria-pressed="true" tabindex="0">
     <slot name="extra-content" />
     <span v-typing="{ text: relatedPrompt.suggestionText, speed: 50 }" />
-    <component :is="selected ? 'CrossTinyIcon' : 'PlusIcon'" class="x-icon-lg x-self-start" />
+    <component
+      :is="selected ? 'CrossTinyIcon' : 'PlusIcon'"
+      class="x-icon-lg x-related-prompt-icon"
+    />
   </button>
 </template>
 <script lang="ts">
@@ -44,3 +43,16 @@
     }
   });
 </script>
+<style lang="css">
+  .x-related-prompt {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: start;
+    padding: 8px;
+    height: 100%;
+  }
+  .x-related-prompt-icon {
+    align-self: start;
+  }
+</style>
